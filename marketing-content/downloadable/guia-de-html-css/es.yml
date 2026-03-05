@@ -99,12 +99,12 @@ sections:
       - 6
     alignment: center
     left:
-      heading: La guía de Javascript te ayudará a dar tus primeros pasos hacía la programación.
-      sub_heading: Desde los conceptos básicos hasta tener una idea más clara de como aprender Javascript
-      description: Empieza aprendiendo a incluir un script de JavaScript en HTML, luego continua con los conceptos básicos, variables, tipos de datos, funciones, eventos y muchos más con nuestra guía
+      heading: Domina los lenguajes básicos de la web. Descarga hoy la guía de HTML y CSS.
+      sub_heading: ¿Estás listo para dar tus primeros pasos en el emocionante mundo del desarrollo web?
+      description: HTML y CSS son los pilares fundamentales para crear páginas web que funcionen y se vean increíbles en cualquier dispositivo. Con esta guía completa, aprenderás los conceptos esenciales de estos lenguajes y estarás en camino de convertirte en un desarrollador web exitoso.
       button:
         text: Descargar la guía
-        url: "#cta_banner"
+        url: "#cta_banner-6"
         variant: primary
         icon: Rocket
     right:
