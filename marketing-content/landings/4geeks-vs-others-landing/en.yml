@@ -114,6 +114,21 @@ sections:
         text: GeekFORCE is designed to get you hired and keep advancing your career. From landing your first role to leveling up, you can access career coaching whenever you need it.
     footer: We've helped more than 7,000 graduates launch successful tech careers.
     image: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
+  - type: features_grid
+    version: "1.0"
+    variant: stats-cards
+    title: Graduate Success by the Numbers
+    subtitle: Our alumni are landing jobs, increasing salaries, and launching tech careers worldwide.
+    use_card: true
+    items:
+      - value: {{ global.global_job_placement_rate | 84 }}%
+        title: Job placement rate
+      - value: 3-6 months
+        title: Average time to get hired
+      - value: {{ global.global_salary_increase | 55 }}%
+        title: Salary increase after graduation
+    marginY:
+      desktop: md
   - type: comparison_table
     version: "1.0"
     title: Launching Successful Tech Careers in the AI Era
@@ -163,21 +178,6 @@ sections:
     marginY:
       desktop: none md
     paddingY:
-      desktop: md
-  - type: features_grid
-    version: "1.0"
-    variant: stats-cards
-    title: Graduate Success by the Numbers
-    subtitle: Our alumni are landing jobs, increasing salaries, and launching tech careers worldwide.
-    use_card: true
-    items:
-      - value: {{ global.global_job_placement_rate | 84 }}%
-        title: Job placement rate
-      - value: 3-6 months
-        title: Average time to get hired
-      - value: {{ global.global_salary_increase | 55 }}%
-        title: Salary increase after graduation
-    marginY:
       desktop: md
   - type: testimonials_slide
     title: Real Careers Start Here — Just Ask Our Students
