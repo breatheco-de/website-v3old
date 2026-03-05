@@ -157,7 +157,7 @@ sections:
   - type: why_learn_ai
     variant: laptop-edge
     title: JavaScript y Python
-    subtitle: Back your career outcome with a stronger commitment
+    subtitle: ""
     description: El Bootcamp abarca desde los fundamentos de programación en JavaScript hasta la creación de aplicaciones dinámicas con React.js. También incluye conceptos avanzados como Python, Flask, bases de datos y la publicación de sitios web. Prepárate para desarrollar proyectos web de forma efectiva y aplicar tus conocimientos en entornos profesionales, donde se valora altamente a profesionales bien preparados en esta área.
     cta:
       text: Get more info
