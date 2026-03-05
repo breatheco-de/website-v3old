@@ -287,24 +287,23 @@ sections:
     marginY:
       desktop: none md
   - type: two_column
-    version: v1.0
     proportions:
       - 6
       - 6
     alignment: center
-    gap: "8"
     left:
-      video: "-2ZvlgDnltc"
+      video: https://youtu.be/9Vm_xD49MaU
       justify: center
     right:
-      heading: See It In Action
-      sub_heading: Watch how our platform transforms careers
-      description: Our AI-powered learning platform adapts to your pace and style, providing personalized guidance every step of the way.
+      heading: "Diego Gómez González: cómo 4Geeks cambió su vida profesional"
+      sub_heading: La experiencia de un estudiante de nuestro bootcamp
+      description: Diego, uno de nuestros estudiantes, comparte su experiencia en 4Geeks Academy, donde cursó el bootcamp de desarrollo Full Stack. Con un grado superior en desarrollo multiplataforma, Diego ya contaba con conocimientos en programación, pero necesitaba reforzar su capacidad para conectar las distintas áreas del desarrollo.
       button:
-        text: Start Free Trial
-        url: /signup
+        text: Solicita tu plaza
+        url: /apply
         variant: primary
         icon: Rocket
+    gap: "8"
   - type: geeks_vs_others_comparison
     section_id: geeks_vs_others_comparison-bdczjl
     version: "1.0"
