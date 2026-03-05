@@ -334,13 +334,13 @@ sections:
     items:
       - icon: Briefcase
         value: {{ global.global_job_placement_rate | 84 }}%
-        title: Job placement rate
+        title: Tasa de inserción laboral
       - icon: Graduation
         value: 3-6 months
-        title: Average time to get hired
+        title: Tiempo medio para conseguir un empleo
       - icon: GrowthChart
         value: {{ global.global_salary_increase | 55 }}%
-        title: Average salary increase after graduation
+        title: Aumento salarial medio tras la graduación
     columns: 3
     icon_color: "#0097CD"
     background: hsl(var(--secondary))
