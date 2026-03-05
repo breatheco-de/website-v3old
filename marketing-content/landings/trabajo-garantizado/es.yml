@@ -274,17 +274,17 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
-    heading: Who's Eligible?
-    description: "You'll qualify for the Job Guarantee if you:"
+    heading: Quiénes califican?
+    description: Podrás optar a la garantía de empleo si
     cards:
       - icon: IconBriefcaseFilled
-        title: __TPL__
+        title: Completas todos los cursos y proyectos
       - icon: IconCircleDashedCheck
         title: Complete all coursework and projects
       - icon: IconBrain
-        title: Pass our logic test
+        title: Apruebas nuestra prueba de lógica.
       - icon: IconArrowGuideFilled
-        title: Follow our career development process
+        title: Sigues nuestro proceso de desarrollo profesional.
     background: hsl(var(--muted))
     section_id: features_quad-loz8eb
     marginY:
