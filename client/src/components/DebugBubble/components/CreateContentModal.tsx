@@ -298,6 +298,7 @@ export function CreateContentModal({
   const [step, setStep] = useState<1 | 2>(1);
   const [nonUniqueValues, setNonUniqueValues] = useState<Record<string, string>>({});
   const [showNonUnique, setShowNonUnique] = useState(false);
+  const [createError, setCreateError] = useState<string | null>(null);
   const [exampleOpen, setExampleOpen] = useState(false);
 
   const contentTypesMap = useContentTypes();
@@ -497,6 +498,7 @@ export function CreateContentModal({
     if (!slugsReady) return;
     if (!uniqueFieldsFilled) return;
 
+    setCreateError(null);
     setIsCreatingContent(true);
     try {
       const token = getDebugToken();
@@ -567,19 +569,11 @@ export function CreateContentModal({
 
         window.location.href = newUrl;
       } else {
-        toast({
-          title: "Failed to create content",
-          description: data.error || "An error occurred",
-          variant: "destructive",
-        });
+        setCreateError(data.error || "An error occurred");
       }
     } catch (error) {
       console.error("Error creating content:", error);
-      toast({
-        title: "Failed to create content",
-        description: "Network error occurred",
-        variant: "destructive",
-      });
+      setCreateError("Network error — please try again");
     } finally {
       setIsCreatingContent(false);
     }
@@ -1105,9 +1099,10 @@ export function CreateContentModal({
                     <input
                       type="text"
                       value={uniqueFieldValues[field] ?? ""}
-                      onChange={(e) =>
-                        setUniqueFieldValues((prev) => ({ ...prev, [field]: e.target.value }))
-                      }
+                      onChange={(e) => {
+                        setUniqueFieldValues((prev) => ({ ...prev, [field]: e.target.value }));
+                        setCreateError(null);
+                      }}
                       placeholder={exampleData?.fields?.[field] ?? humanizeField(field)}
                       className="flex-1 px-2 py-1 text-xs font-mono rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
                       data-testid={`input-field-${field}`}
@@ -1175,6 +1170,9 @@ export function CreateContentModal({
         )}
 
         <DialogFooter className="gap-2 sm:gap-0">
+          {createError && (
+            <p className="text-xs text-destructive flex-1 self-center" data-testid="text-create-error">{createError}</p>
+          )}
           {step === 1 && (
             <Button
               variant="outline"
