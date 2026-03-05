@@ -512,3 +512,4 @@ global.who_is_eligible_work_authorization:
     - query:
         region: "usa-canada"
       value: "Have U.S. work authorization"
+  default: "\"Have authorization to work in your country of residence\""
