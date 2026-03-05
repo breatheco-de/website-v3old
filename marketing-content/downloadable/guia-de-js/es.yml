@@ -39,7 +39,7 @@ sections:
       - 5
     alignment: center
     left:
-      image: https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop
+      image: https://storage.googleapis.com/4geeks-academy-website/media/image_1764687583588.png
       image_alt: Student coding on laptop
       justify: end
     right:
