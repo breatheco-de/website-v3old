@@ -272,7 +272,7 @@ sections:
       - icon: JobSearch
         text: Once approved, you'll receive your full tuition refund within 30 days.
         title: Full Refund
-    background: hsl(var(--secondary))
+    background: hsl(var(--sidebar-background))
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
