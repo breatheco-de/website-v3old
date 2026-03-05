@@ -13,8 +13,6 @@ sections:
       - text: Desarrolla habilidades de aprendizaje autodidacta
       - text: Accede a mentorías personalizadas ilimitadas y de por vida
       - text: Forma parte de una comunidad internacional de más de 5,000 personas
-    video_id: "-2ZvlgDnltc"
-    video_ratio: "9:12"
     form:
       variant: stacked
       conversion_name: student_application
@@ -92,8 +90,6 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
-    video:
-      url: https://youtu.be/QlJpTqXCAFw?is=CLYXW9MtMyxQZLJU
   - type: course_selector
     version: "1.0"
     variant: solid
