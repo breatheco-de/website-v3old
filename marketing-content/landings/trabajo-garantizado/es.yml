@@ -329,8 +329,8 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: highlight
-    title: Real Outcomes for Our Graduates
-    subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
+    title: Resultados reales para nuestros graduados
+    subtitle: Nuestros egresados en Estados Unidos, Latinoamérica y otros países inician sus carreras profesionales en ingeniería de IA, desarrollo de software, datos y ciberseguridad, consiguiendo puestos de trabajo y aumentando su potencial de ingresos.
     items:
       - icon: Briefcase
         value: {{ global.global_job_placement_rate | 84 }}%
