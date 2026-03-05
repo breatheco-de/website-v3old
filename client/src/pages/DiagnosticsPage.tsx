@@ -1148,7 +1148,7 @@ function PageAnalysisTab() {
                       <Badge
                         key={id}
                         variant={isMissing ? "destructive" : "secondary"}
-                        className="text-xs font-mono gap-1"
+                        className={`text-xs font-mono gap-1${isMissing ? " cursor-pointer" : " no-default-hover-elevate"}`}
                         data-testid={`badge-image-${id}`}
                       >
                         {isMissing ? <IconX className="h-3 w-3" /> : <IconCheck className="h-3 w-3" />}
