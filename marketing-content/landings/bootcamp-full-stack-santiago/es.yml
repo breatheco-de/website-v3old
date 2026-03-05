@@ -116,11 +116,10 @@ sections:
     reverse_on_mobile: true
     gap: "12"
   - type: why_learn_ai
-    version: "1.0"
     variant: laptop-edge
-    title: Why Should I Learn to Build and Code with AI?
-    subtitle: Software Development as You Know It Will Cease to Exist
-    description: Coding with AI will become a new standard, but it's a very different profession from traditional software development. The developers who embrace AI tools now will have a significant advantage in the job market.
+    title: JavaScript y Python
+    subtitle: ""
+    description: El Bootcamp abarca desde los fundamentos de programación en JavaScript hasta la creación de aplicaciones dinámicas con React.js. También incluye conceptos avanzados como Python, Flask, bases de datos y la publicación de sitios web. Prepárate para desarrollar proyectos web de forma efectiva y aplicar tus conocimientos en entornos profesionales, donde se valora altamente a profesionales bien preparados en esta área.
     cta:
       text: Join now!
       url: /signup
