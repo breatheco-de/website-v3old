@@ -37,7 +37,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { buildContentUrlFromPattern } from "@/lib/locale";
 import { useContentTypes, useContentTypesRaw } from "@/hooks/useContentTypes";
-import { getDebugToken } from "@/hooks/useDebugAuth";
+import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import type { ContentTypeValue, SlugCheckStatus, SitemapUrl } from "../types";
 
 export interface CreateContentModalProps {
@@ -500,6 +500,7 @@ export function CreateContentModal({
     setIsCreatingContent(true);
     try {
       const token = getDebugToken();
+      const author = await resolveAuthorName();
       const allFieldValues = { ...uniqueFieldValues, ...nonUniqueValues };
       const response = await fetch("/api/content/create", {
         method: "POST",
@@ -512,6 +513,7 @@ export function CreateContentModal({
           slugEn: excludedLocales.has(loc0) ? undefined : createContentSlugEn,
           slugEs: excludedLocales.has(loc1) ? undefined : createContentSlugEs,
           title: createContentTitle || createContentSlugEn,
+          ...(author ? { author } : {}),
           ...(duplicatingPage ? { sourceUrl: duplicatingPage.loc } : {}),
           ...(excludedLocales.size > 0 ? { skipLocales: Array.from(excludedLocales) } : {}),
           ...(isTypeChanged ? { changeContentType: true } : {}),
@@ -699,7 +701,7 @@ export function CreateContentModal({
                     .replace(/-+/g, "-")
                     .replace(/^-|-$/g, "");
                   setCreateContentSlugEn(slug);
-                  setCreateContentSlugEs(slug);
+                  if (!manualTitleLocales.has(loc1)) setCreateContentSlugEs(slug);
                   setLocaleTitles((prev) => {
                     const next = { ...prev };
                     for (const l of supportedLocales.map((s) => s.code).filter((c) => c !== loc0)) {
@@ -709,16 +711,18 @@ export function CreateContentModal({
                   });
                   if (slug) {
                     setCreateContentSlugEnStatus("checking");
-                    setCreateContentSlugEsStatus("checking");
                     checkSlug(createContentType, slug, loc0, setCreateContentSlugEnStatus, setSlugEnConflictReason);
-                    if (!excludedLocales.has(loc1)) {
+                    if (!manualTitleLocales.has(loc1) && !excludedLocales.has(loc1)) {
+                      setCreateContentSlugEsStatus("checking");
                       checkSlug(createContentType, slug, loc1, setCreateContentSlugEsStatus, setSlugEsConflictReason);
                     }
                   } else {
                     setCreateContentSlugEnStatus("idle");
-                    setCreateContentSlugEsStatus("idle");
                     setSlugEnConflictReason(null);
-                    setSlugEsConflictReason(null);
+                    if (!manualTitleLocales.has(loc1)) {
+                      setCreateContentSlugEsStatus("idle");
+                      setSlugEsConflictReason(null);
+                    }
                   }
                 }}
                 placeholder="e.g., Career Development Guide"
@@ -832,6 +836,7 @@ export function CreateContentModal({
                     <p className="text-xs font-medium text-muted-foreground">URLs that will be created:</p>
 
                     <div className={`flex items-center gap-2 transition-opacity ${loc0Excluded ? "opacity-40" : ""}`}>
+                      <span className="text-xs font-mono text-muted-foreground w-8 shrink-0 text-right">{loc0}</span>
                       {loc0Excluded ? (
                         <code className="flex-1 text-xs bg-background px-2 py-1 rounded line-through text-muted-foreground">
                           {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, createContentSlugEn, loc0)}
@@ -919,6 +924,7 @@ export function CreateContentModal({
                     )}
 
                     <div className={`flex items-center gap-2 transition-opacity ${loc1Excluded ? "opacity-40" : ""}`}>
+                      <span className="text-xs font-mono text-muted-foreground w-8 shrink-0 text-right">{loc1}</span>
                       {loc1Excluded ? (
                         <code className="flex-1 text-xs bg-background px-2 py-1 rounded line-through text-muted-foreground">
                           {buildContentUrlFromPattern(contentTypesMap?.[createContentType]?.url_pattern, createContentSlugEs || createContentSlugEn, loc1)}
