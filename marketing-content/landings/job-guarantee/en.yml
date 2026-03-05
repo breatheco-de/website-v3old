@@ -271,17 +271,13 @@ sections:
           visible: true
           required: true
           placeholder: First name
-        last_name:
-          visible: true
-          required: true
-          placeholder: Last name
         phone:
           visible: true
           required: true
           placeholder: Phone number
         program:
-          visible: false
-          default: ai-engineering
+          visible: true
+          required: true
       success:
         message: Thank you! We'll be in touch soon.
       consent:
