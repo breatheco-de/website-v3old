@@ -1,4 +1,4 @@
-slug: "bootcamp-full-stack-santiago"
+slug: bootcamp-full-stack-santiago
 title: Full Stack Developer
 meta:
   robots: index, follow
@@ -7,7 +7,6 @@ meta:
   change_frequency: weekly
   page_title: Full Stack Developer Career Program | 4Geeks
   description: Become a Full Stack Developer with unlimited 1:1 mentorship, career guidance, and hands-on projects. Launch a career with $65K+ starting salaries.
-
 context:
   when_to_use: For visitors interested in becoming web developers, learning both frontend and backend technologies, or transitioning into software development careers.
   target_audience: Career changers, recent graduates, and professionals looking to break into tech with comprehensive web development skills.
@@ -25,57 +24,76 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Full Stack Development with AI Program
-    title_highlight: Full Stack Developer with AI
-    subtitle: Train for high-demand software development roles with an AI-powered full stack curriculum, personalized mentorship, and proven career outcomes.
-    students_enrolled:
-      avatars:
-        - https://randomuser.me/api/portraits/women/1.jpg
-        - https://randomuser.me/api/portraits/men/2.jpg
-        - https://randomuser.me/api/portraits/women/3.jpg
-        - https://randomuser.me/api/portraits/men/4.jpg
-      count: 1,000+ students enrolled across LATAM and the U.S.
+    title: Conviértete en un Desarrollador Full Stack
+    title_highlight: Full Stack Developer con IA
+    subtitle: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
     bullet_points:
-      - Master modern frontend development with HTML, CSS, JavaScript, and React
-      - Build scalable backend systems with Python, APIs, and database architecture
-      - Integrate AI tools and workflows into real-world web applications
-      - Unlimited career support, 1:1 mentorship, and access to an optional Job Guarantee
-    tutors:
-      - name: Expert Instructor
-        role: Lead Instructor
-        image: https://randomuser.me/api/portraits/men/10.jpg
-      - name: Rigo
-        role: AI Learning Assistant
-        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: "Your instructors:"
-    description: Build modern, production-ready web applications with AI and position yourself for the next generation of AI-fluent full stack development roles.
+      - Aprende a programar desde cero hasta ser un profesional
+      - ¡Somos el único bootcamp que no finaliza cuando te gradúas! En 4Geeks dispones de mentorías ilimitadas y de por vida.
+      - Contamos con diferentes opciones de financiamiento puedes financiar el importe en 6, 9, 12 y 18 meses.
     signup_card:
-      title: Get the full program overview
-      description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
+      title: Completa el formulario para recibir información
+      description: Una vez completado el formulario en unos minutos recibirás información sobre la academia y nuestros planes de plagos en tu correo electrónico.
       cta_button:
-        text: Send me the details
+        text: Solicitar información
         url: "#apply-modal"
         variant: primary
-      login_link:
-        text: Already a student? Login here.
-        url: https://4geeks.com/login
       features:
         - icon: IconCalendar
-          text: 20-week track
-        - icon: IconCalendarBolt
-          text: 12-week accelerated morning track
+          text: Programa de {{ global.fullstack_week_duration | 20 }} semanas
         - icon: code
-          text: Interactive coding exercises
+          text: +100 ejercicios interactivos de programación
         - icon: robot
-          text: AI-powered deedback
+          text: Feedback con IA en tiempo real
         - icon: calendar
-          text: {{ global.global_teacher_student_ratio | 1:7 }} teacher student ratio
+          text: Ratio 1:7 estudiante–profesor
         - icon: users
-          text: 1:1 mentorship
+          text: Mentoría personalizada 1:1
     paddingY:
       desktop: md lg
     marginY:
       desktop: none
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Aplicar ahora
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Correo Electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        last_name:
+          visible: true
+          required: true
+          placeholder: Apellido
+        phone:
+          visible: true
+          required: true
+          default_country: MX
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
+      terms_url: /terminos-condiciones
+      privacy_url: /politica-privacidad
+      consent:
+        sms: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        sms_text: Acepto recibir SMS sobre talleres, eventos, cursos y materiales de marketing. Pueden aplicar cargos por mensaje y datos. Responde STOP para cancelar, HELP para ayuda. Puedes recibir 4–6 mensajes al mes. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        sms_usa_only: false
+      show_terms: true
+    cta_button:
+      text: Descargar programa
+      url: /programa/ai-engineering
+      variant: outline
+      icon: Download
   - type: modal
     version: "1.0"
     heading: Request Program Details
