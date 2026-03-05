@@ -3,7 +3,7 @@ template: default
 title: Blog
 
 meta:
-  page_title: "Blog | 4Geeks Academy"
+  page_title: "Blog - Recursos y Artículos | 4Geeks Academy"
   description: "Lee las últimas noticias, tutoriales y artículos sobre programación, tecnología y educación en 4Geeks Academy."
   robots: "index, follow"
   priority: 0.9

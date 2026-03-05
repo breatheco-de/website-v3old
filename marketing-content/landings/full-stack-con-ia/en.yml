@@ -6,7 +6,7 @@ meta:
   og_image: /images/landing-og.jpg
   priority: 0.9
   change_frequency: weekly
-  page_title: Example Landing Page | 4Geeks
+  page_title: Full Stack con IA - Programa Intensivo | 4Geeks Academy
   description: This is an example landing page demonstrating the various section types and layouts available.
 schema:
   include:

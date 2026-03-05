@@ -5,7 +5,7 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: learnpack | 4Geeks Academy
+  page_title: LearnPack - Interactive Learning Tool | 4Geeks Academy
   description: learnpack - Learn more about this topic at 4Geeks Academy.
   redirects:
     - /learnpack
