@@ -1,2 +1,186 @@
 navbar:
-  items: []
+  items:
+    - label: '[TRANSLATE] PROGRAMS'
+      href: /programs
+      component: Dropdown
+      dropdown:
+        type: cards
+        title: '[TRANSLATE] Programs'
+        description: '[TRANSLATE] From beginner to job-ready in record time. Train in today''s most in-demand tech fields and launch a lasting career.'
+        items:
+          - title: '[TRANSLATE] AI Engineering'
+            description: '[TRANSLATE] Transform an entire business case into a fully AI-native system, layer by layer. Integrate AI into real software, connecting intelligent models to users and data.'
+            cta: '[TRANSLATE] View program'
+            href: /en/career-programs/ai-engineering
+            icon: brain
+          - title: '[TRANSLATE] Data Science and Machine Learning with AI'
+            description: '[TRANSLATE] Master AI-powered data analysis with Python. Build intelligent models using cutting-edge Machine Learning and AI techniques to solve real-world problems.'
+            cta: '[TRANSLATE] View program'
+            href: /en/career-programs/data-science-ml
+            icon: chart
+          - title: '[TRANSLATE] Cybersecurity'
+            description: '[TRANSLATE] Become a cybersecurity specialist, equipped to identify and mitigate system vulnerabilities, aligned with ISO and other standards.'
+            cta: '[TRANSLATE] View program'
+            href: /en/career-programs/cybersecurity
+            icon: shield
+          - title: '[TRANSLATE] Full Stack with AI'
+            description: '[TRANSLATE] Become a Full Stack developer using AI tools like Cursor and Vercel v0. Master in-demand AI skills and land a job as a developer.'
+            cta: '[TRANSLATE] View program'
+            href: /en/career-programs/full-stack
+            icon: code
+        footer:
+          text: '[TRANSLATE] Unsure which program fits you best? See our program comparison'
+          linkText: '[TRANSLATE] here'
+          href: /en/program-comparison
+    - label: '[TRANSLATE] WHY 4GEEKS'
+      href: /why-4geeks
+      component: Dropdown
+      dropdown:
+        type: columns
+        title: '[TRANSLATE] Why 4Geeks Academy'
+        description: '[TRANSLATE] Launch your tech career with the unlimited support of expert mentors, AI-powered tools, and personalized career guidance. With strong outcomes and global recognition, we''ve helped thousands thrive in tech.'
+        icon: medal
+        columns:
+          - title: '[TRANSLATE] Support'
+            items:
+              - label: '[TRANSLATE] Mentors and teachers'
+                href: /en/geekpal-support
+              - label: '[TRANSLATE] Career Support'
+                href: /en/geekforce-career-support
+              - label: '[TRANSLATE] Online Platform'
+                href: /en/online-platform
+              - label: '[TRANSLATE] Rigobot'
+                href: /en/rigobot-ai-coding-mentor
+              - label: '[TRANSLATE] LearnPack'
+                href: /en/learnpack
+          - title: '[TRANSLATE] Validation'
+            items:
+              - label: '[TRANSLATE] Awards'
+                href: /en/awards
+              - label: '[TRANSLATE] Outcomes'
+                href: /en/outcomes
+              - label: '[TRANSLATE] 4Geeks Vs Others'
+                href: /en/geeks-vs-others
+          - title: '[TRANSLATE] Pricing'
+            items:
+              - label: '[TRANSLATE] Financing'
+                href: /en/financials
+              - label: '[TRANSLATE] Scholarships'
+                href: /en/scholarships
+              - label: '[TRANSLATE] Job Guarantee'
+                href: /en/job-guarantee
+          - title: '[TRANSLATE] Our Students'
+            items:
+              - label: '[TRANSLATE] Alumni & Projects'
+                href: /en/graduates-and-projects
+              - label: '[TRANSLATE] Testimonials'
+                href: /en/testimonials
+              - label: '[TRANSLATE] Talent'
+                href: https://www.notion.so/4geeksacademy/4Geeks-Talent-Hub-USA-ef91aba17f9c4964bf7972396d190bdf
+    - label: '[TRANSLATE] THE ACADEMY'
+      href: /the-academy
+      component: Dropdown
+      dropdown:
+        type: simple-list
+        title: '[TRANSLATE] The Academy'
+        description: '[TRANSLATE] Join a global learning community where tech, community, and innovation come together to accelerate careers.'
+        icon: graduation-cap
+        items:
+          - label: '[TRANSLATE] Hire our alumni'
+            href: https://www.notion.so/4geeksacademy/4Geeks-Talent-Hub-USA-ef91aba17f9c4964bf7972396d190bdf
+          - label: '[TRANSLATE] Partner with 4Geeks'
+            href: /en/partners
+          - label: '[TRANSLATE] Work with us'
+            href: /en/work-with-us
+          - label: '[TRANSLATE] Who we are'
+            href: /en/the-academy
+          - label: '[TRANSLATE] Press'
+            href: /en/press
+          - label: '[TRANSLATE] Blog'
+            href: /en/blog
+    - label: '[TRANSLATE] CAMPUS'
+      href: /campus
+      component: Dropdown
+      dropdown:
+        type: grouped-list
+        title: '[TRANSLATE] Our Campus'
+        description: '[TRANSLATE] Study in-person at one of our global campuses, or join remotely and access the same world-class training and community.'
+        icon: building
+        groups:
+          - title: '[TRANSLATE] US & CANADA'
+            items:
+              - label: '[TRANSLATE] Miami, USA'
+                href: /en/location/miami-usa
+              - label: '[TRANSLATE] New York, USA'
+                href: /en/location/newyork-usa
+              - label: '[TRANSLATE] Dallas, USA'
+                href: /en/location/dallas-usa
+              - label: '[TRANSLATE] Toronto, Canada'
+                href: /en/location/toronto-canada
+              - label: '[TRANSLATE] Atlanta, USA'
+                href: /en/location/atlanta-usa
+              - label: '[TRANSLATE] Austin, USA'
+                href: /en/location/austin-usa
+              - label: '[TRANSLATE] Chicago, USA'
+                href: /en/location/chicago-usa
+              - label: '[TRANSLATE] Houston, USA'
+                href: /en/location/houston-usa
+              - label: '[TRANSLATE] Los Angeles, USA'
+                href: /en/location/losangeles-usa
+              - label: '[TRANSLATE] Remote, USA'
+                href: /en/location/remote
+          - title: '[TRANSLATE] EUROPE'
+            items:
+              - label: '[TRANSLATE] Madrid, Spain'
+                href: /en/location/madrid-spain
+              - label: '[TRANSLATE] Barcelona, Spain'
+                href: /en/location/barcelona-spain
+              - label: '[TRANSLATE] Valencia, Spain'
+                href: /en/location/valencia-spain
+              - label: '[TRANSLATE] Malaga, Spain'
+                href: /en/location/malaga-spain
+              - label: '[TRANSLATE] Berlin, Germany'
+                href: /en/location/berlin-germany
+              - label: '[TRANSLATE] Lisbon, Portugal'
+                href: /en/location/lisbon-portugal
+              - label: '[TRANSLATE] Hamburg, Germany'
+                href: /en/location/hamburg-germany
+              - label: '[TRANSLATE] Munich, Germany'
+                href: /en/location/munich-germany
+              - label: '[TRANSLATE] Dublin, Ireland'
+                href: /en/location/dublin-ireland
+              - label: '[TRANSLATE] Milan, Italy'
+                href: /en/location/milan-italy
+              - label: '[TRANSLATE] Rome, Italy'
+                href: /en/location/rome-italy
+              - label: '[TRANSLATE] Rest of Europe'
+                href: /en/location/rest-of-europe
+          - title: '[TRANSLATE] LATAM'
+            items:
+              - label: '[TRANSLATE] Santiago, Chile'
+                href: /en/location/santiago-chile
+              - label: '[TRANSLATE] Bogota, Colombia'
+                href: /en/location/bogota-colombia
+              - label: '[TRANSLATE] Mexico City, Mexico'
+                href: /en/location/mexicocity-mexico
+              - label: '[TRANSLATE] Caracas, Venezuela'
+                href: /en/location/caracas-venezuela
+              - label: '[TRANSLATE] Buenos Aires, Argentina'
+                href: /en/location/buenosaires-argentina
+              - label: '[TRANSLATE] La Paz, Bolivia'
+                href: /en/location/lapaz-bolivia
+              - label: '[TRANSLATE] Costa Rica '
+                href: /en/location/costa-rica
+              - label: '[TRANSLATE] Quito, Ecuador'
+                href: /en/location/quito-ecuador
+              - label: '[TRANSLATE] Panama City, Panama'
+                href: /en/location/panamacity-panama
+              - label: '[TRANSLATE] Montevideo, Uruguay'
+                href: /en/location/montevideo-uruguay
+              - label: '[TRANSLATE] Lima, Peru'
+                href: /en/location/lima-peru
+              - label: '[TRANSLATE] Rest Of America'
+                href: /en/location/remote
+    - label: '[TRANSLATE] UPCOMING DATES'
+      href: /upcoming-dates
+      component: SimpleLink
