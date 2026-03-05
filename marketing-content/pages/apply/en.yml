@@ -6,7 +6,9 @@ meta:
   priority: 0.8
   change_frequency: monthly
   page_title: Apply Now - Start Your Tech Career | 4Geeks Academy
-  description: Apply to 4Geeks Academy and start your journey to becoming a tech professional. Fill out our simple application form and our admissions team will guide you through the next steps.
+  description: >-
+    Apply to 4Geeks Academy and start your journey to becoming a tech professional. Fill out our simple application form
+    and our admissions team will guide you through the next steps.
 schema:
   include:
     - organization
@@ -60,20 +62,25 @@ locations:
     name_es: Santiago, Chile
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Your Future in Tech Starts Here
-    subtitle: You’re one step closer to your new career in tech, congratulations! Fill out the form below, and our admissions team will walk you through the next steps.
+    subtitle: >-
+      You’re one step closer to your new career in tech, congratulations! Fill out the form below, and our admissions
+      team will walk you through the next steps.
     marginY:
       desktop: md none
     paddingY:
       mobile: sm none
       desktop: lg none
+    section_id: hero-zojvst
   - type: apply_form
-    version: "1.0"
+    version: '1.0'
     hero:
       title: Your Future in Tech Starts Here
-      subtitle: You're one step closer to your new career in tech — congratulations! Fill out the form below, and our admissions team will walk you through the next steps.
+      subtitle: >-
+        You're one step closer to your new career in tech — congratulations! Fill out the form below, and our admissions
+        team will walk you through the next steps.
       note: (And don't worry — you won't be committing to anything yet, just starting the conversation.)
     form:
       variant: stacked
@@ -111,7 +118,10 @@ sections:
       consent:
         sms: true
         marketing: true
-        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We will never share your contact information, and you can easily opt out at any moment.
+        marketing_text: >-
+          I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses,
+          and other marketing materials. We will never share your contact information, and you can easily opt out at any
+          moment.
         sms_usa_only: true
       show_terms: true
       turnstile:
@@ -124,7 +134,10 @@ sections:
         - title: Personal follow-up
           description: Our admissions team will reach out by text and phone to set up a quick call.
         - title: Ask us anything
-          description: Programs, schedules, financing, career support — we'll walk you through your options and share all the details.
+          description: >-
+            Programs, schedules, financing, career support — we'll walk you through your options and share all the
+            details.
         - title: Decide with confidence
           description: You'll have all the info you need to choose the path that's right for you. And we are here to help.
       closing: Now you're ready to make the best decision for your career!
+    section_id: apply_form-fw5ak2

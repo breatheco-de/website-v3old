@@ -7,7 +7,9 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Bootcamp de Ingeniería de IA en Chile | 4Geeks Academy
-  description: Aprende a desarrollar, integrar y desplegar soluciones de IA en 24 semanas con mentoría 1:1 ilimitada y una comunidad profesional que acompaña tu crecimiento profesional.
+  description: >-
+    Aprende a desarrollar, integrar y desplegar soluciones de IA en 24 semanas con mentoría 1:1 ilimitada y una
+    comunidad profesional que acompaña tu crecimiento profesional.
   redirects: []
 schema:
   include:
@@ -18,14 +20,16 @@ locations:
   - santiago-chile
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: ApplyFormProductShowcase
     title: Construye sistemas reales, listos para producción.
     brand_mark:
       prefix: Conviértete en
       highlight: Ingeniero de IA
       color: primary
-    description: Aprende a desarrollar, integrar y desplegar soluciones de IA en 24 semanas con mentoría 1:1 ilimitada y una comunidad profesional que acompaña tu crecimiento profesional.
+    description: >-
+      Aprende a desarrollar, integrar y desplegar soluciones de IA en 24 semanas con mentoría 1:1 ilimitada y una
+      comunidad profesional que acompaña tu crecimiento profesional.
     form:
       variant: stacked
       conversion_name: student_application
@@ -58,7 +62,9 @@ sections:
       consent:
         sms: false
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
     cta_button:
       text: Descargar programa
@@ -67,7 +73,7 @@ sections:
       icon: Download
     video:
       url: https://youtube.com/shorts/-SpU1PWNBF4?si=Hf6pIB-aSDUHFgj2
-      ratio: "9:16"
+      ratio: '9:16'
       muted: true
     paddingY:
       mobile: md none
@@ -76,8 +82,9 @@ sections:
       mobile: none
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
+    section_id: hero-0kivxy
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Postular ahora
     show_dismiss: false
@@ -111,11 +118,14 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
     showOn: mobile
+    section_id: sticky_cta-9tofjq
   - type: awards_marquee
-    version: "1.0"
+    version: '1.0'
     speed: 40
     gradient: true
     gradientWidth: 500
@@ -166,7 +176,8 @@ sections:
         logoHeight: h-10 md:h-14
       - id: logo-european-excellence-education
         alt: European Excellence Education
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/european-excellence-education-ealde_1_1770392145138.png
+        logo: >-
+          https://storage.googleapis.com/4geeks-academy-website/media/european-excellence-education-ealde_1_1770392145138.png
         logoHeight: h-10 md:h-14
       - id: logo-forbes-advisor-2025
         alt: Forbes Advisor Best of 2025 - Best for lifetime career support
@@ -182,15 +193,19 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
+    section_id: awards_marquee-jj4gc1
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     variant: stats-text-card
     title: ¿Por qué aprender ingeniería de IA ahora?
     subtitle: Porque el mercado laboral ya lo está exigiendo.
-    description: Los ingenieros de IA construyen sistemas inteligentes, automatizan procesos y diseñan productos impulsados por IA. Según McKinsey, el 87% de las empresas reportan que les falta talento en ingeniería de IA para transformar sus operaciones. Esta brecha es tu oportunidad. La demanda existe, el desafío es estar preparado.
+    description: >-
+      Los ingenieros de IA construyen sistemas inteligentes, automatizan procesos y diseñan productos impulsados por IA.
+      Según McKinsey, el 87% de las empresas reportan que les falta talento en ingeniería de IA para transformar sus
+      operaciones. Esta brecha es tu oportunidad. La demanda existe, el desafío es estar preparado.
     background: hsl(210 100% 50% / 0.05)
     items:
-      - value: "800.000"
+      - value: '800.000'
         title: Roles relacionados con IA previstos para 2027
       - value: ~30%
         title: Crecimiento interanual en ofertas de trabajo en IA
@@ -203,10 +218,13 @@ sections:
     paddingY:
       mobile: none md
       desktop: none md
+    section_id: features_grid-rkray9
   - type: syllabus
     variant: program-modules
     program_title: Lo que construirás en 24 semanas
-    program_description: Desde el primer día trabajarás en una empresa ficticia que evoluciona contigo. En cada hito desarrollarás soluciones de IA reales, aplicadas a problemas que hoy enfrentan las empresas.
+    program_description: >-
+      Desde el primer día trabajarás en una empresa ficticia que evoluciona contigo. En cada hito desarrollarás
+      soluciones de IA reales, aplicadas a problemas que hoy enfrentan las empresas.
     tech_logos:
       - name: OpenAI
         icon: openai
@@ -348,6 +366,7 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg sm
+    section_id: syllabus-v6mghi
   - type: award_badges
     version: v1.0
     variant: detailed
@@ -374,14 +393,17 @@ sections:
         linkText: Leer reviews
     paddingY:
       desktop: none
+    section_id: award_badges-3ehbmv
   - type: ai_learning
     badge: ¿Por qué 4Geeks?
     title: ¿Por qué aprender ingeniería de IA con 4Geeks?
-    description: Porque te formas aplicando IA como lo hacen las empresas líderes, con herramientas inteligentes y un método de aprendizaje hiperpersonalizado que acelera tu progreso.
+    description: >-
+      Porque te formas aplicando IA como lo hacen las empresas líderes, con herramientas inteligentes y un método de
+      aprendizaje hiperpersonalizado que acelera tu progreso.
     features:
       - icon: TrendingUp
         title: Destaca en tech con apoyo de carrera para la era de la IA
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Recibe coaching 1:1 personalizado
@@ -391,11 +413,11 @@ sections:
         video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
         cta:
           text: Empieza a aprender ahora
-          url: "#hero-form"
+          url: '#hero-form'
           variant: primary
       - icon: Robot
         title: Avanza más rápido con herramientas potenciadas por IA
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Obtén retroalimentación al instante con Rigobot, nuestro tutor de IA
@@ -405,11 +427,11 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
         cta:
           text: Empieza a aprender ahora
-          url: "#hero-form"
+          url: '#hero-form'
           variant: primary
       - icon: Headset
         title: Mentoría 1:1 ilimitada y una comunidad activa
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Acceso de por vida a sesiones de mentoría 1:1
@@ -420,14 +442,17 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
+    section_id: ai_learning-nmtryp
   - type: certificate
     title: Resultados de carrera
-    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
+    description: >-
+      Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de
+      Florida. Accede a roles bien pagados:
     benefits:
-      - text: "Ingeniero de software IA: CLP $15.6M-$30M"
-      - text: "Ingeniero full-stack (IA): CLP $18M-$33.6M"
-      - text: "Ingeniero de agentes: CLP $21.6M-$36M"
-      - text: "Ingeniero de automatización de flujos: CLP $24M-$42M"
+      - text: 'Ingeniero de software IA: CLP $15.6M-$30M'
+      - text: 'Ingeniero full-stack (IA): CLP $18M-$33.6M'
+      - text: 'Ingeniero de agentes: CLP $21.6M-$36M'
+      - text: 'Ingeniero de automatización de flujos: CLP $24M-$42M'
     card:
       title: Ingeniero de IA
       subtitle: Certificado 4Geeks Academy
@@ -442,22 +467,30 @@ sections:
           - text: Perfil profesional y estrategia de búsqueda optimizados
       - value: 3-6 meses
         label: Tiempo para conseguir empleo
-        description: La mayoría de los graduados consiguen su primer rol en 3–6 meses gracias a nuestro proceso de desarrollo profesional.
+        description: >-
+          La mayoría de los graduados consiguen su primer rol en 3–6 meses gracias a nuestro proceso de desarrollo
+          profesional.
         benefits:
-          - text: Optimiza tu currículum, portafolio y perfil profesional para atraer recruiters y superar filtros automatizados
+          - text: >-
+              Optimiza tu currículum, portafolio y perfil profesional para atraer recruiters y superar filtros
+              automatizados
           - text: Prepárate para entrevistas técnicas y de competencias con casos reales
           - text: Aplica una estrategia de búsqueda personalizada con acceso a redes de empresas contratantes
       - value: 55%
         label: Aumento salarial promedio
-        description: Nuestros graduados ven un aumento salarial promedio del 55% al pasar a roles de ingeniería de IA. La inversión se paga sola.
+        description: >-
+          Nuestros graduados ven un aumento salarial promedio del 55% al pasar a roles de ingeniería de IA. La inversión
+          se paga sola.
         benefits:
-          - text: "Ingeniero de software IA: CLP $15.6M-$30M"
-          - text: "Ingeniero full-stack (IA): CLP $18M-$33.6M"
-          - text: "Ingeniero de IA: CLP $21.6M-$36M"
-          - text: "Ingeniero de automatización de flujos (RAG, APIs, vector DBs): CLP $24M-$42M"
+          - text: 'Ingeniero de software IA: CLP $15.6M-$30M'
+          - text: 'Ingeniero full-stack (IA): CLP $18M-$33.6M'
+          - text: 'Ingeniero de IA: CLP $21.6M-$36M'
+          - text: 'Ingeniero de automatización de flujos (RAG, APIs, vector DBs): CLP $24M-$42M'
       - value: 5,000+
         label: Empresas que contratan nuestro talento
-        description: Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
+        description: >-
+          Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de
+          selección prioritarios.
         benefits:
           - text: Acceso exclusivo a bolsa de empleo
           - text: Recomendaciones directas a empresas colaboradoras
@@ -471,8 +504,9 @@ sections:
       mobile: lg
       desktop: lg
     background: hsl(var(--muted))
+    section_id: certificate-b2fmef
   - type: bullet_tabs_showcase
-    version: "1.0"
+    version: '1.0'
     heading: ¿Este programa es para ti?
     tabs:
       - label: Compromiso intensivo
@@ -497,6 +531,7 @@ sections:
     paddingY:
       mobile: none
       desktop: none
+    section_id: bullet_tabs_showcase-8lec87
   - type: whos_hiring
     variant: carousel
     title: Empresas líderes confían en nuestro talento
@@ -532,18 +567,21 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
+    section_id: whos_hiring-do0d76
   - type: testimonials
     title: Resultados reales de graduados reales
     subtitle: Únete a miles que han transformado sus carreras
     rating_summary:
-      average: "4.7"
+      average: '4.7'
       count: 1,294
     items:
       - name: Sara García
         role: Ingeniera de IA
         company: Google
         rating: 5
-        comment: Este curso transformó completamente mi carrera. Los instructores son increíblemente conocedores y el currículo es perfecto para aplicaciones de IA del mundo real.
+        comment: >-
+          Este curso transformó completamente mi carrera. Los instructores son increíblemente conocedores y el currículo
+          es perfecto para aplicaciones de IA del mundo real.
         outcome: +55% aumento salarial
       - name: Miguel Chen
         role: Ingeniero ML
@@ -557,11 +595,14 @@ sections:
         rating: 5
         comment: Excelente contenido y gran apoyo de mentores. Ahora trabajo en IA de vanguardia.
         outcome: +100% aumento salarial
+    section_id: testimonials-0y6u1p
   - type: numbered_steps
-    version: "1.0"
+    version: '1.0'
     variant: verticalCards
     title: Nuestro proceso de admisión
-    description: "Trabajamos con un proceso de admisión selectivo. La postulación no garantiza la inscripción: evaluamos cada aplicación para asegurar compromiso y alineación con el programa.."
+    description: >-
+      Trabajamos con un proceso de admisión selectivo. La postulación no garantiza la inscripción: evaluamos cada
+      aplicación para asegurar compromiso y alineación con el programa..
     description_link: null
     steps:
       - icon: ClipboardList
@@ -577,14 +618,17 @@ sections:
       - icon: ArrowRightCircle
         title: Selección y próximos pasos
         bullets:
-          - Si tu perfil encaja, te compartimos la información completa para avanzar, incluyendo fechas, inversión y expectativas
+          - >-
+            Si tu perfil encaja, te compartimos la información completa para avanzar, incluyendo fechas, inversión y
+            expectativas
           - Si no es el momento adecuado, te recomendamos alternativas alineadas a tu crecimiento profesional.
     background: bg-muted/30
     bullet_icon: Check
     bullet_icon_color: text-primary
     showOn: mobile
+    section_id: numbered_steps-t1g1af
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para convertirte en Ingeniero de IA?
     subtitle: Cupos limitados. Comienza tu transformación hoy.
     background: hsl(var(--primary))
@@ -620,7 +664,9 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary border-white
     form_background: hsl(var(--card))
@@ -631,11 +677,13 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
+    section_id: cta_banner-jgm9d5
   - type: footer
-    version: "1.0"
+    version: '1.0'
     copyright_text: 2024 4Geeks. Todos los derechos reservados.
     paddingY:
       mobile: none
       desktop: none
     marginY:
       desktop: sm none
+    section_id: footer-8na4wj

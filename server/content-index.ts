@@ -6,6 +6,7 @@ import type { ZodSchema } from "zod";
 import { escapeTemplateVars, unescapeObjectVars } from "../shared/templateVars";
 import { deepMerge } from "./utils/deepMerge";
 import { normalizeUrlPattern, getAllConfigs, getFieldMapping } from "./content-types";
+import { regenerateSectionIds } from "./utils/regenerateSectionIds";
 
 export const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
 
@@ -1308,6 +1309,9 @@ class ContentIndex {
 
     const sourceFiles = fs.readdirSync(absSourceDir).filter(f => f.endsWith(".yml") || f.endsWith(".yaml"));
 
+    // First pass: parse all files, strip IDs, apply slug/title — collect for regeneration
+    const parsedFiles: Array<{ file: string; parsed: Record<string, unknown> }> = [];
+
     for (const file of sourceFiles) {
       if (file === "_common.single.yml" || file.startsWith("single.")) continue;
 
@@ -1345,15 +1349,25 @@ class ContentIndex {
           parsed.title = localeTitles?.[fileLocale] ?? title;
         }
 
-        const absTargetDir = path.isAbsolute(targetDir) ? targetDir : path.join(process.cwd(), targetDir);
-        if (!fs.existsSync(absTargetDir)) {
-          fs.mkdirSync(absTargetDir, { recursive: true });
-        }
-        const outputPath = path.join(absTargetDir, file);
-        const yamlStr = yaml.dump(parsed, { lineWidth: 120, noRefs: true, sortKeys: false });
-        fs.writeFileSync(outputPath, yamlStr, "utf-8");
-        copiedFiles.push(file);
+        parsedFiles.push({ file, parsed });
       }
+    }
+
+    // Second pass: regenerate all section IDs together so cross-file references stay consistent
+    const allParsed = parsedFiles.map(f => f.parsed);
+    const { objs: regenerated } = regenerateSectionIds(allParsed);
+
+    // Write all files
+    const absTargetDir = path.isAbsolute(targetDir) ? targetDir : path.join(process.cwd(), targetDir);
+    if (!fs.existsSync(absTargetDir)) {
+      fs.mkdirSync(absTargetDir, { recursive: true });
+    }
+    for (let i = 0; i < parsedFiles.length; i++) {
+      const { file } = parsedFiles[i];
+      const outputPath = path.join(absTargetDir, file);
+      const yamlStr = yaml.dump(regenerated[i], { lineWidth: 120, noRefs: true, sortKeys: false });
+      fs.writeFileSync(outputPath, yamlStr, "utf-8");
+      copiedFiles.push(file);
     }
 
     return { copiedFiles, strippedFields, replacedVars };
@@ -1428,7 +1442,6 @@ class ContentIndex {
     if (Array.isArray(sections)) {
       for (const section of sections) {
         if (section && typeof section === "object") {
-          if ((section as Record<string, unknown>).type === "modal") continue;
           delete (section as Record<string, unknown>).section_id;
         }
       }

@@ -17,20 +17,22 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: productShowcase
     title: Thrive in Today’s d ssssTech and Shape Tomorrow’s.
     brand_mark:
       prefix: Become an
       highlight: AI Engineer
       color: primary
-    description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the professional companies can’t wait to hire.
+    description: >-
+      Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the
+      professional companies can’t wait to hire.
     bullets:
       - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
       - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
       - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
-    video_id: "-2ZvlgDnltc"
-    video_ratio: "9:12"
+    video_id: '-2ZvlgDnltc'
+    video_ratio: '9:12'
     form:
       variant: stacked
       conversion_name: student_application
@@ -62,8 +64,14 @@ sections:
       consent:
         sms: true
         marketing: true
-        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
-        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        marketing_text: >-
+          I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses,
+          and other marketing materials. We'll never share your contact information, and you can easily opt out at any
+          moment.
+        sms_text: >-
+          I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message
+          and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages
+          per month. We will never share your contact information, and you can easily opt out at any moment.
         sms_usa_only: true
       show_terms: true
     show_awards_marquee: true
@@ -102,15 +110,18 @@ sections:
           logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
           logoHeight: 64px
     video_title: GeekForce Career Support
+    section_id: hero-zpnvqs
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: productShowcase
     title: Thrive in Today’s Tech and Shape Tomorrow’s.
     brand_mark:
       prefix: Become an
       highlight: AI Engineer
       color: primary
-    description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the professional companies can’t wait to hire.
+    description: >-
+      Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the
+      professional companies can’t wait to hire.
     bullets:
       - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
       - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
@@ -146,8 +157,14 @@ sections:
       consent:
         sms: true
         marketing: true
-        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
-        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        marketing_text: >-
+          I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses,
+          and other marketing materials. We'll never share your contact information, and you can easily opt out at any
+          moment.
+        sms_text: >-
+          I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message
+          and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages
+          per month. We will never share your contact information, and you can easily opt out at any moment.
         sms_usa_only: true
       show_terms: true
     form_vertical_align: center
@@ -186,6 +203,7 @@ sections:
           alt: Excelencia Educativa - Calidad Institucional
           logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
           logoHeight: 55px
+    section_id: hero-85c04n
   - type: testimonials_grid
     version: v1.0
     title: What Our Students Say
@@ -202,18 +220,21 @@ sections:
       - data-science
     limit: 12
     background: hsl(var(--background))
+    section_id: testimonials_grid-0to7bo
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: productShowcase
     title: Thrive in Today’s Tech and Shape Tomorrow’s.
     brand_mark:
       prefix: Become an
       highlight: AI Engineer
       color: primary
-    description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the professional companies can’t wait to hire.
-    video_id: "-2ZvlgDnltc"
+    description: >-
+      Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the
+      professional companies can’t wait to hire.
+    video_id: '-2ZvlgDnltc'
     video_title: GeekForce Career Support
-    video_ratio: "9:12"
+    video_ratio: '9:12'
     bullets:
       - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
       - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
@@ -249,29 +270,42 @@ sections:
       consent:
         sms: true
         marketing: true
-        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
-        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        marketing_text: >-
+          I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses,
+          and other marketing materials. We'll never share your contact information, and you can easily opt out at any
+          moment.
+        sms_text: >-
+          I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message
+          and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages
+          per month. We will never share your contact information, and you can easily opt out at any moment.
         sms_usa_only: true
       show_terms: true
+    section_id: hero-pcwm4k
   - type: cards_deck
-    version: "1.0"
+    version: '1.0'
     cards:
       - title: Python for Data Science
-        description: A practical guide to using Python libraries like Pandas, NumPy, and Matplotlib for data analysis and visualization.
+        description: >-
+          A practical guide to using Python libraries like Pandas, NumPy, and Matplotlib for data analysis and
+          visualization.
     name: Default Cards Deck
     description: Three cards with videos, brand images, and author info
     background: hsl(var(--muted))
+    section_id: cards_deck-om0xcp
   - type: cards_deck
-    version: "1.0"
+    version: '1.0'
     cards:
       - title: Python for Data Science
-        description: A practical guide to using Python libraries like Pandas, NumPy, and Matplotlib for data analysis and visualization.
+        description: >-
+          A practical guide to using Python libraries like Pandas, NumPy, and Matplotlib for data analysis and
+          visualization.
         brand_image: https://storage.googleapis.com/4geeks-academy-website/media/community-support-2_1765406601448.webp
         alt: Community support image
         id: community-support
     background: hsl(var(--muted))
+    section_id: cards_deck-6ryku5
   - type: cards_deck
-    version: "1.0"
+    version: '1.0'
     cards:
       - video:
           url: d
@@ -279,20 +313,27 @@ sections:
         brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
         author_name: John Doe
         title: Advanced React Patterns
-        description: Exploresdasdsaddsadas advanced component patterns, hooks, and state management techniques for building scalable React applications.
+        description: >-
+          Exploresdasdsaddsadas advanced component patterns, hooks, and state management techniques for building
+          scalable React applications.
         alt: Original group illustration
         id: group-original
       - title: Python for Data Science
-        description: A practical guide to using Python libraries like Pandas, NumPy, and Matplotlib for data analysis and visualization.
+        description: >-
+          A practical guide to using Python libraries like Pandas, NumPy, and Matplotlib for data analysis and
+          visualization.
     name: Default Cards Deck
     description: Three cards with videos, brand images, and author info
     background: hsl(var(--muted))
+    section_id: cards_deck-o39oco
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: course
     title: Full Stack Development with AI Program
     title_highlight: Full Stack Developer with AI
-    subtitle: Train for high-demand software development roles with an AI-powered full stack curriculum, personalized mentorship, and proven career outcomes.
+    subtitle: >-
+      Train for high-demand software development roles with an AI-powered full stack curriculum, personalized
+      mentorship, and proven career outcomes.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -312,11 +353,15 @@ sections:
       - name: Rigo
         role: AI Learning Assistant
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: "Your instructors:"
-    description: Build modern, production-ready web applications with AI and position yourself for the next generation of AI-fluent full stack development roles.
+    tutors_label: 'Your instructors:'
+    description: >-
+      Build modern, production-ready web applications with AI and position yourself for the next generation of AI-fluent
+      full stack development roles.
     signup_card:
       title: Get the full program overview
-      description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
+      description: >-
+        Receive the complete syllabus, program structure, schedule options, tuition details, and career support
+        framework.
       form:
         variant: stacked
         submit_label: Send me the details
@@ -349,6 +394,7 @@ sections:
           text: 1:1 mentorship
     paddingY:
       desktop: xl none
+    section_id: hero-xtv0o0
   - type: hero
     variant: course
     title: Work not harder, apply AI at Work
@@ -373,8 +419,12 @@ sections:
       - name: Rigo
         role: AI Tutor
         image: https://randomuser.me/api/portraits/lego/1.jpg
-    tutors_label: "Your tutors:"
-    description: Unlock the power of Applied AI and Generative AI in your professional life—no coding required. This self-paced course teaches you how to master prompt engineering, automate workflows, and create content using advanced AI tools. Learn to compare open source and cloud-based solutions, generate documents and websites, build chatbots, and optimize your productivity with automation platforms.
+    tutors_label: 'Your tutors:'
+    description: >-
+      Unlock the power of Applied AI and Generative AI in your professional life—no coding required. This self-paced
+      course teaches you how to master prompt engineering, automate workflows, and create content using advanced AI
+      tools. Learn to compare open source and cloud-based solutions, generate documents and websites, build chatbots,
+      and optimize your productivity with automation platforms.
     media:
       type: video
       src: https://www.youtube.com/watch?v=dQw4w9WgXcQ
@@ -393,13 +443,13 @@ sections:
       features:
         - icon: book
           text: Readings and videos
-          count: "31"
+          count: '31'
         - icon: code
           text: Interactive Exercises
-          count: "2"
+          count: '2'
         - icon: IconHome
           text: Interactive Projects
-          count: "8"
+          count: '8'
         - icon: robot
           text: Real Time AI Feedback
         - icon: calendar
@@ -410,8 +460,9 @@ sections:
       desktop: none lg
     marginY:
       desktop: none md
+    section_id: hero-9gxbcx
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Ready to Start Your Tech Career?
     subtitle: Join thousands of graduates who have transformed their careers with 4Geeks Academy.
     background: bg-primary
@@ -423,13 +474,17 @@ sections:
       - text: Talk to an Advisor
         url: /en/job-guarantee
         variant: outline
+    section_id: cta_banner-q119hz
   - type: double_cta
     title: Take the Next Step in Your Tech Career
     subtitle: Join thousands of students who have transformed their careers with 4Geeks Academy.
     background: hsl(var(--muted))
     left:
       heading: Book a Free 15-Minute Consultation
-      description: Get personal sda dsadasasd sad asd ds a dsaads  dasdsaads ads ads ds aads ized gui adsdsadas ads ads dsa  adsd asdance from our admissions team. Discover the tech program that fits your goals and explore flexible financing options.
+      description: >-
+        Get personal sda dsadasasd sad asd ds a dsaads  dasdsaads ads ads ds aads ized gui adsdsadas ads ads dsa  adsd
+        asdance from our admissions team. Discover the tech program that fits your goals and explore flexible financing
+        options.
       bullets:
         - icon: IconMap
           text: Personalized career r saddsa d asdsa ads ads ads dsa dasdas d asads asd ds ads das ads ads das oadmap
@@ -442,7 +497,9 @@ sections:
       sub_text: Free 15-minute session - No commitment required
     right:
       heading: Start Your Journey Today
-      description: Fill out thes addsa dsadsadsa ds  sadd sad as form to get full program details and connect with our admissions team.
+      description: >-
+        Fill out thes addsa dsadsadsa ds  sadd sad as form to get full program details and connect with our admissions
+        team.
       bullets:
         - icon: IconTrendingUp
           text: Industry trends & job market insights
@@ -454,13 +511,16 @@ sections:
       cta_url: /en/apply
       cta_variant: secondary
       sub_text: Weekly updates - Unsubscribe anytime - No spam, ever
+    section_id: double_cta-h34dud
   - type: double_cta
     title: Choose Your Path Into Tech
     subtitle: Whether you're starting from scratch or leveling up, we have the right program for you.
     background: muted
     left:
       heading: Full-Stack Development
-      description: Master front-end and back-end technologies in our most popular program. Build real-world projects and graduate job-ready.
+      description: >-
+        Master front-end and back-end technologies in our most popular program. Build real-world projects and graduate
+        job-ready.
       bullets:
         - icon: IconCode
           text: JavaScript, dsa das dsadasasd asddas dsa dsad asds asad da  React, Python, Flask
@@ -492,6 +552,7 @@ sections:
       cta_url: /en/ai-engineering
       cta_variant: secondary
       sub_text: Scholarships available - Apply to learn more
+    section_id: double_cta-mzdj9z
   - type: profiles_carousel
     version: v1.0
     heading: What Our Partners Say
@@ -499,23 +560,32 @@ sections:
     profiles:
       - name: Vanessa Benavides
         role: Vice-President @ United Way Miami
-        description: Together with 4Geeks we have successfully launched the Miami Workforce Project for the benefit of Miami-Dade County residents and we have created a great and positive impact.
+        description: >-
+          Together with 4Geeks we have successfully launched the Miami Workforce Project for the benefit of Miami-Dade
+          County residents and we have created a great and positive impact.
         linkedin_url: https://www.linkedin.com/in/vanessa-benavides-2a78849/
       - image_id: dug_jones
         name: Dug Jones
         role: Program Director for Workforce Grants @ Clark University
-        description: We have a solid partnership focused on providing partial scholarships for students unemployed or underemployed, and we have exceeded by far the expectation we set at the beginning.
+        description: >-
+          We have a solid partnership focused on providing partial scholarships for students unemployed or
+          underemployed, and we have exceeded by far the expectation we set at the beginning.
         linkedin_url: https://www.linkedin.com/in/dugjones/
       - image_id: juancarlos_navarro
         name: Juan Carlos Navarro
         role: Principal Leader of Science and Technology @ IDB
-        description: 4Geeks has been awarded by the IDB as the Coding School designated to carry on the responsibility of providing top-quality coding programs in Costa Rica and Uruguay.
+        description: >-
+          4Geeks has been awarded by the IDB as the Coding School designated to carry on the responsibility of providing
+          top-quality coding programs in Costa Rica and Uruguay.
         linkedin_url: https://www.linkedin.com/in/juan-carlos-navarro-08948a8/
       - image_id: anahi_lacava
         name: Anahí Lacava
         role: Bootcamp Project Leader in Digital Skills @ UTEC
-        description: Since 2021 we have been working on full-stack software development programs and on the launch of the first Artificial Intelligence and Machine Learning program in all of Latin America.
+        description: >-
+          Since 2021 we have been working on full-stack software development programs and on the launch of the first
+          Artificial Intelligence and Machine Learning program in all of Latin America.
         linkedin_url: https://www.linkedin.com/in/anah%C3%AD-lacava-melgratti/
+    section_id: profiles_carousel-001a0t
   - type: profiles_carousel
     version: v1.0
     heading: Meet the Geeks
@@ -547,15 +617,18 @@ sections:
         role: Career Coach
         image_id: student_asian
         linkedin_url: https://linkedin.com/in/example
+    section_id: profiles_carousel-lk6im0
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: ApplyFormProductShowcase
     title: Thrive in Today’s Tech and Shape Tomorrow’s.
     brand_mark:
       prefix: Become an
       highlight: AI Engineer
       color: primary
-    description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the professional companies can’t wait to hire.
+    description: >-
+      Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the
+      professional companies can’t wait to hire.
     form:
       variant: stacked
       conversion_name: student_application
@@ -587,8 +660,14 @@ sections:
       consent:
         sms: true
         marketing: true
-        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
-        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        marketing_text: >-
+          I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses,
+          and other marketing materials. We'll never share your contact information, and you can easily opt out at any
+          moment.
+        sms_text: >-
+          I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message
+          and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages
+          per month. We will never share your contact information, and you can easily opt out at any moment.
         sms_usa_only: true
       show_terms: true
     cta_button:
@@ -603,6 +682,7 @@ sections:
       mobile: none
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
+    section_id: hero-k4dkgj
   - type: press_mentions
     version: v1.0
     title: Destacados en Prensa
@@ -611,7 +691,10 @@ sections:
     items:
       - logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
         title: El Futuro del Trabajo
-        excerpt: Los bootcamps de tecnología ofrecen una formación rápida y práctica, enfocada en habilidades específicas. Esto los convierte en una opción atractiva para trabajadores que quieren actualizar sus conocimientos o cambiar de carrera sin necesidad de invertir años en un título universitario.
+        excerpt: >-
+          Los bootcamps de tecnología ofrecen una formación rápida y práctica, enfocada en habilidades específicas. Esto
+          los convierte en una opción atractiva para trabajadores que quieren actualizar sus conocimientos o cambiar de
+          carrera sin necesidad de invertir años en un título universitario.
         link_text: Leer Artículo
         link_url: https://example.com/article-1
         box_color: hsl(var(--primary))
@@ -620,31 +703,42 @@ sections:
         link_color: hsl(var(--secondary))
       - logo: https://storage.googleapis.com/4geeks-academy-website/media/miami-herald-logo.png
         title: Becas para aprender a programar
-        excerpt: Después de mucho trabajo hemos logrado aliarnos con United Way para ofrecer 100 becas en poblaciones minorias para convertirse en desarrollador de software
+        excerpt: >-
+          Después de mucho trabajo hemos logrado aliarnos con United Way para ofrecer 100 becas en poblaciones minorias
+          para convertirse en desarrollador de software
         link_text: Leer Artículo
         link_url: https://example.com/article-2
       - logo: https://storage.googleapis.com/4geeks-academy-website/media/cnn-chile-logo.png
         title: Entrevista / 4Geeks Academy en CNN Chile
-        excerpt: Gracias a nuestros amigos de CNN Chile por haber estado presentes en nuestro evento y publicar tan buen material sobre el futuro en educación que ofrecemos a la comunidad de Santiago a través de nuestro programa de
+        excerpt: >-
+          Gracias a nuestros amigos de CNN Chile por haber estado presentes en nuestro evento y publicar tan buen
+          material sobre el futuro en educación que ofrecemos a la comunidad de Santiago a través de nuestro programa de
         link_text: Ver Entrevista
         link_url: https://example.com/interview
       - logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo.png
         title: Mejores Bootcamps de Ciencia de Datos en 2024
-        excerpt: Los profesionales actuales y futuros de la tecnología pueden completar un bootcamp de ciencia de datos para perfeccionar sus habilidades y avanzar en sus carreras.
+        excerpt: >-
+          Los profesionales actuales y futuros de la tecnología pueden completar un bootcamp de ciencia de datos para
+          perfeccionar sus habilidades y avanzar en sus carreras.
         link_text: Leer Artículo
         link_url: https://example.com/article-3
       - logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo.png
         title: Coding Bootcamps para aprender a programar
-        excerpt: En un estudio publicado por Forbes donde se especifica todas las maneras en las que puedes convertirte en un desarrollador web en los EEUU
+        excerpt: >-
+          En un estudio publicado por Forbes donde se especifica todas las maneras en las que puedes convertirte en un
+          desarrollador web en los EEUU
         link_text: Leer Artículo
         link_url: https://example.com/article-4
       - logo: https://storage.googleapis.com/4geeks-academy-website/media/eleconomistas-logo.png
         title: 4Geeks Academy lanza un millón en becas para la formación de futuros programadores
-        excerpt: La academia de programación 4Geeks Academy ha anunciado el lanzamiento de un millón de dólares en becas para la formación de futuros programadores.
+        excerpt: >-
+          La academia de programación 4Geeks Academy ha anunciado el lanzamiento de un millón de dólares en becas para
+          la formación de futuros programadores.
         link_text: Leer Artículo
         link_url: https://example.com/article-5
+    section_id: press_mentions-sc91i6
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     heading: Explore Our Programs
     subheading: Choose the career path that's right for you
     courses:
@@ -658,7 +752,9 @@ sections:
         tags:
           - icon: Plus
             text: Python for Automation
-        description: Connect AI tools to enterprise platforms and business data. Optimize existing solutions or build new ones. Eliminate resource bottlenecks. Become indispensable in any organization.
+        description: >-
+          Connect AI tools to enterprise platforms and business data. Optimize existing solutions or build new ones.
+          Eliminate resource bottlenecks. Become indispensable in any organization.
         price: $328
         original_price: $442
         price_info: with 4Geeks Installments
@@ -672,7 +768,9 @@ sections:
         badges:
           - icon: Brain
             text: LLMs & Generative AI training
-        description: Build systems that learn from data and improve over time without being explicitly programmed. Design, train, and deploy machine learning models to solve real-world problems.
+        description: >-
+          Build systems that learn from data and improve over time without being explicitly programmed. Design, train,
+          and deploy machine learning models to solve real-world problems.
         price: $439
         original_price: $588
         price_info: with 4Geeks Installments
@@ -689,7 +787,9 @@ sections:
         tags:
           - icon: Plus
             text: Python for BIA
-        description: Turn raw data into clear, helpful insights that guide important business decisions. Help companies understand what's working, what's not, and where to go next.
+        description: >-
+          Turn raw data into clear, helpful insights that guide important business decisions. Help companies understand
+          what's working, what's not, and where to go next.
         price: $328
         original_price: $442
         price_info: with 4Geeks Installments
@@ -705,12 +805,15 @@ sections:
         tags:
           - icon: Plus
             text: API Development
-        description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
+        description: >-
+          Master modern web development from frontend to backend. Build production-ready applications using
+          industry-standard tools and frameworks.
         price: $439
         original_price: $588
         cta_text: Discover program
         cta_url: /en/full-stack
         course_background: muted
+    section_id: course_selector-lhxium
   - type: partnership_carousel
     variant: split-card
     vertical_cards: true
@@ -723,7 +826,9 @@ sections:
         object_position: 100% 80%
         title: CRUSA Forte Scholarship
         subtitle: Empowering Costa Rican talent through tech education
-        description: United Wkforce Project=nd training to Miami-Dade County residents and is made possible by a multi-million gift from philanthropist Mackenzie Scott. Admitted students will receive coding training with no upfront costs.
+        description: >-
+          United Wkforce Project=nd training to Miami-Dade County residents and is made possible by a multi-million gift
+          from philanthropist Mackenzie Scott. Admitted students will receive coding training with no upfront costs.
         stats:
           - value: 200+
             label: Scholarships awarded
@@ -753,7 +858,11 @@ sections:
         object_position: 100% 80%
         title: CRUSA Forte Scholarship
         subtitle: Empowering Costa Rican talent through tech education
-        description: In colith hi In collaboration with Forte and Crusa, 4Geeks As, focusing on women from areas with hi In collaboration with Forte and Crusa, 4Geeks As, focusing on women from areas with hi from areas with hi on women from areas with high unemployment. Through the program, participants receive free training, enabling them to access better jobs in the 4.0 industry and contribute to the country's economic growth.
+        description: >-
+          In colith hi In collaboration with Forte and Crusa, 4Geeks As, focusing on women from areas with hi In
+          collaboration with Forte and Crusa, 4Geeks As, focusing on women from areas with hi from areas with hi on
+          women from areas with high unemployment. Through the program, participants receive free training, enabling
+          them to access better jobs in the 4.0 industry and contribute to the country's economic growth.
         stats:
           - value: 200+
             label: Scholarships awarded
@@ -784,9 +893,11 @@ sections:
         object_position: 10% 80%
         title: Uruguay Tech Initiative
         subtitle: Expanding coding education across Latin America
-        description: Our expansion to Uruguay brings world-class coding education to Montevideo, partnering with local institutions to develop a thriving tech ecosystem in the region.
+        description: >-
+          Our expansion to Uruguay brings world-class coding education to Montevideo, partnering with local institutions
+          to develop a thriving tech ecosystem in the region.
         stats:
-          - value: "3"
+          - value: '3'
             label: Campuses
           - value: 500+
             label: Graduates
@@ -802,12 +913,19 @@ sections:
           text: Explore Uruguay
           url: /en/uruguay
           variant: outline
+    section_id: partnership_carousel-6od61q
   - type: projects
     title: Learn by building **real-life projects**
-    subtitle: "When learning at your own pace, having access to video tutorials, code examples, and continuous, real-time feedback is crucial to succeed. The tasks you'll tackle will closely resemble those encountered in a real-world tech position. Here's a glimpse of what you'll be working on:"
+    subtitle: >-
+      When learning at your own pace, having access to video tutorials, code examples, and continuous, real-time
+      feedback is crucial to succeed. The tasks you'll tackle will closely resemble those encountered in a real-world
+      tech position. Here's a glimpse of what you'll be working on:
     items:
       - title: Machine Learning Final Project
-        description: "Learn to build your own end-to-end Machine Learning project: define a real-world problem, collect and process data, train and optimize a model, and deploy a web app to showcase it. Work collaboratively, apply your skills, and present your solution like a pro!"
+        description: >-
+          Learn to build your own end-to-end Machine Learning project: define a real-world problem, collect and process
+          data, train and optimize a model, and deploy a web app to showcase it. Work collaboratively, apply your
+          skills, and present your solution like a pro!
         image: ml-final-project
         tags:
           - HEROKU.COM
@@ -824,7 +942,15 @@ sections:
         difficulty: easy
         date: 16/1/2023
       - title: ML web app using Streamlit tutorial
-        description: Use Streaml ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indusit to build an interactive web application that integrates a machine learning model. This will allow users to input data, make predictions, and visualize results in a user-friendly interface.
+        description: >-
+          Use Streaml ed specifically for tech professionals. Connect with developers, share your projects, find
+          collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals.
+          Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech
+          indus ed specifically for tech professionals. Connect with developers, share your projects, find
+          collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals.
+          Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech
+          indusit to build an interactive web application that integrates a machine learning model. This will allow
+          users to input data, make predictions, and visualize results in a user-friendly interface.
         image: streamlit-render
         tags:
           - DATA SCIENCE
@@ -833,7 +959,10 @@ sections:
         difficulty: easy
         date: 16/1/2023
       - title: ML web app using Flask tutorial
-        description: Learn how to train and optimize a machine learning model, build a Flask web app to interact with it, and deploy the full application on Render. This hands-on project walks you through data exploration, model creation, app development, and cloud deployment step by step.
+        description: >-
+          Learn how to train and optimize a machine learning model, build a Flask web app to interact with it, and
+          deploy the full application on Render. This hands-on project walks you through data exploration, model
+          creation, app development, and cloud deployment step by step.
         image: flask-render
         tags:
           - DATA SCIENCE
@@ -845,10 +974,25 @@ sections:
         duration: 1 HOURS
         difficulty: easy
         date: 8/2/2023
+    section_id: projects-1q4nyo
   - type: project_showcase
-    version: "1.0"
+    version: '1.0'
     project_title: TechConnect
-    description: A social networking platform designed specifically fo ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indusr tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech industry.
+    description: >-
+      A social networking platform designed specifically fo ed specifically for tech professionals. Connect with
+      developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed
+      specifically for tech professionals. Connect with developers, share your projects, find collaborators, and
+      discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers,
+      share your projects, find collaborators, and discover job opportunities in the tech indus ed specifically for tech
+      professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in
+      the tech indus ed specifically for tech professionals. Connect with developers, share your projects, find
+      collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals. Connect
+      with developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed
+      specifically for tech professionals. Connect with developers, share your projects, find collaborators, and
+      discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers,
+      share your projects, find collaborators, and discover job opportunities in the tech indusr tech professionals.
+      Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech
+      industry.
     creators:
       - name: Maria Garcia
         github_url: https://github.com/mariagarcia
@@ -863,6 +1007,7 @@ sections:
         alt: TechConnect dashboard
     background: bg-muted
     media_position: right
+    section_id: project_showcase-6xib4m
   - type: career_support_explain
     version: v1.0
     heading: GeekForce Career Support
@@ -872,10 +1017,12 @@ sections:
       - tab_label: Job-Ready, Faster
         layout: three_columns
         col1_subtitle: Build a recruiter-ready profile, smarter.
-        col1_description: |-
+        col1_description: >-
           Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
 
-          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal impact.
+
+          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio,
+          and interview performance for optimal impact.
         col1_boxes:
           - icon: IconBrandLinkedin
             text: LinkedIn
@@ -901,6 +1048,7 @@ sections:
       - tab_label: Get noticed
       - tab_label: Build a portfolio
       - tab_label: Find your edge
+    section_id: career_support_explain-43sdg8
   - type: profiles_carousel
     version: v1.0
     heading: Meet the Geeks
@@ -916,7 +1064,9 @@ sections:
       - image_id: student_asian
         name: Marcelo Ricigliano
         role: Co-founder & CEO
-        description: asasasaasasasaasasasaasasasa asasasaasasasaasasasaasasasa asasasaasasasaasasasaasasasa asasasaasasasaasasasaasasasa asasasa asasasa
+        description: >-
+          asasasaasasasaasasasaasasasa asasasaasasasaasasasaasasasa asasasaasasasaasasasaasasasa
+          asasasaasasasaasasasaasasasa asasasa asasasa
         linkedin_url: https://linkedin.com/in/example
       - image_id: student_asian
         name: Alissa Landra
@@ -936,6 +1086,7 @@ sections:
         role: Head of Education
         description: Leading curriculum development for AI-driven programs.
         linkedin_url: https://linkedin.com/in/example
+    section_id: profiles_carousel-b6z2il
   - type: partnership_carousel
     version: v1.0
     heading: Our Global Partnerships
@@ -946,7 +1097,11 @@ sections:
         object_position: 100% 80%
         title: CRUSA Forte Scholarship
         subtitle: Empowering Costa Rican talent through tech education
-        description: In collaboration with Forte and Crusa, 4Geeks Academy has partnered with the FORTE model to boost talent development in Costa Rica. This program has trained over 35 students in high-demand digital technologies, focusing on women from areas with high unemployment. Through the program, participants receive free training, enabling them to access better jobs in the 4.0 industry and contribute to the country's economic growth.
+        description: >-
+          In collaboration with Forte and Crusa, 4Geeks Academy has partnered with the FORTE model to boost talent
+          development in Costa Rica. This program has trained over 35 students in high-demand digital technologies,
+          focusing on women from areas with high unemployment. Through the program, participants receive free training,
+          enabling them to access better jobs in the 4.0 industry and contribute to the country's economic growth.
         stats:
           - value: 200+
             label: Total cost
@@ -973,7 +1128,9 @@ sections:
       - image_id: united_way_event
         title: United Way Miami Partnership
         subtitle: Breaking barriers to tech careers in South Florida
-        description: Together with United Way Miami, we provide coding bootcamp scholarships to low-income residents, helping them transition into high-paying tech careers and strengthening the local workforce.
+        description: >-
+          Together with United Way Miami, we provide coding bootcamp scholarships to low-income residents, helping them
+          transition into high-paying tech careers and strengthening the local workforce.
         stats:
           - value: 150+
             label: Students trained
@@ -995,9 +1152,11 @@ sections:
       - image_id: uruguay_city
         title: Uruguay Tech Initiative
         subtitle: Expanding coding education across Latin America
-        description: Our expansion to Uruguay brings world-class coding education to Montevideo, partnering with local institutions to develop a thriving tech ecosystem in the region.
+        description: >-
+          Our expansion to Uruguay brings world-class coding education to Montevideo, partnering with local institutions
+          to develop a thriving tech ecosystem in the region.
         stats:
-          - value: "3"
+          - value: '3'
             label: Campuses
           - value: 500+
             label: Graduates
@@ -1005,10 +1164,13 @@ sections:
           text: Explore Uruguay
           url: /en/uruguay
           variant: outline
+    section_id: partnership_carousel-uqh5vh
   - type: profiles_carousel
     version: v1.0
     heading: Meet the Geeks
-    description: Our team is dedicated, highly skilled, and always ready to support you on your journey into tech. They provide all the guidance and encouragement you need to launch a successful new career.
+    description: >-
+      Our team is dedicated, highly skilled, and always ready to support you on your journey into tech. They provide all
+      the guidance and encouragement you need to launch a successful new career.
     image_round: false
     profiles:
       - image_id: alejandro_sanchez
@@ -1050,6 +1212,7 @@ sections:
       - name: Ariana Sánchez
         role: Culture & Talent Leader
         linkedin_url: https://www.linkedin.com/in/ariana-sánchez-7720aa78/
+    section_id: profiles_carousel-xmh5vt
   - type: profiles_carousel
     version: v1.0
     heading: Meet the Geeks
@@ -1081,12 +1244,15 @@ sections:
         name: Laura Méndez
         role: Career Coach
         linkedin_url: https://linkedin.com/in/example
+    section_id: profiles_carousel-2sohzw
   - type: human_and_ai_duo
-    version: "1.0"
-    heading: "Human + AI: The Perfect Support Duo"
-    description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll have access to unlimited 1:1 mentorship plus AI-guided feedback from Rigobot, so every step is tailored to your learning journey.
+    version: '1.0'
+    heading: 'Human + AI: The Perfect Support Duo'
+    description: >-
+      Learning works best when human expertise and AI support come together. At 4Geeks, you'll have access to unlimited
+      1:1 mentorship plus AI-guided feedback from Rigobot, so every step is tailored to your learning journey.
     bullet_groups:
-      - title: "Our Team of Expert Mentors:"
+      - title: 'Our Team of Expert Mentors:'
         image: https://randomuser.me/api/portraits/men/10.jpg
         bullets:
           - text: Provides personalized guidance on coding challenges and best practices
@@ -1097,7 +1263,7 @@ sections:
             icon: Settings
           - text: Shares industry insights, career advice, and learning strategies
             icon: Bulb
-      - title: "Rigobot + Learnpack:"
+      - title: 'Rigobot + Learnpack:'
         bullets:
           - text: Provides instant feedback and tutoring while you code
             icon: Message
@@ -1107,7 +1273,9 @@ sections:
             icon: Puzzle
           - text: Hundreds of hands-on coding exercises and structured practice on Learnpack
             icon: Code
-    footer_description: Together, human mentorship and AI-powered tools accelerate your learning, keep you engaged, and empower you to tackle challenges with confidence.
+    footer_description: >-
+      Together, human mentorship and AI-powered tools accelerate your learning, keep you engaged, and empower you to
+      tackle challenges with confidence.
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Asian student learning to code
@@ -1132,8 +1300,9 @@ sections:
     image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
     image_alt: Woman working on laptop in cafe
     background: bg-background
+    section_id: human_and_ai_duo-qa2zyz
   - type: bullet_tabs_showcase
-    version: "1.0"
+    version: '1.0'
     heading: Ideate and specify what to build next
     subheading: Transform your ideas into actionable tasks seamlessly
     tabs:
@@ -1151,6 +1320,7 @@ sections:
         image_id: logo_uber
         alt: Uber logo
     image_position: right
+    section_id: bullet_tabs_showcase-tg69do
   - type: features_grid
     variant: highlight
     title: Enroll with a Job Guarantee
@@ -1165,6 +1335,7 @@ sections:
     columns: 3
     background: hsl(var(--secondary))
     showOn: mobile
+    section_id: features_grid-56r6ui
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
@@ -1179,6 +1350,7 @@ sections:
     height: 20rem
     gap: lg
     rounded: true
+    section_id: image_row-86yw4k
   - type: features_grid
     variant: highlight
     title: Enroll with a Job Guarantee
@@ -1191,11 +1363,12 @@ sections:
       - icon: Award
         title: Get hired within 9 months of graduation – or your money back
     columns: 3
-    icon_color: "#0097CD"
+    icon_color: '#0097CD'
     background: hsl(var(--secondary))
     showOn: mobile
+    section_id: features_grid-a254mg
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     variant: highlight
     title: Key Features
     subtitle: Discover what makes us different
@@ -1210,15 +1383,16 @@ sections:
         value: 5★
         title: Average Rating
     columns: 3
-    icon_color: "#0097CD"
+    icon_color: '#0097CD'
     showOn: mobile
+    section_id: features_grid-ryqwjc
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     variant: highlight
     title: Key Features
     subtitle: Discover what makes us different
     columns: 3
-    icon_color: "#0097CD"
+    icon_color: '#0097CD'
     items:
       - icon: Star
         value: 100%
@@ -1229,8 +1403,9 @@ sections:
       - icon: Award
         value: 5★
         title: Average Rating
+    section_id: features_grid-h0en60
   - type: features_quad
-    version: "1.0"
+    version: '1.0'
     variant: default
     heading: Why Choose Our AI Engineering Program?
     description: Get the skills, support, and job placement assistance you need to launch your career in AI engineering.
@@ -1260,10 +1435,11 @@ sections:
         description: Get unlimited 1:1 mentorship and job placement assistance for life.
     footer_description: Join thousands of graduates who have launched successful tech careers.
     background: bg-background
+    section_id: features_quad-pz3u2r
   - type: two_column_accordion_card
-    version: "1.0"
+    version: '1.0'
     title: Why Choose Our Program?
-    description: "Learn what makes our bootcamp different:"
+    description: 'Learn what makes our bootcamp different:'
     bullets:
       - heading: Industry-Ready Skills
         text: Graduate with a portfolio of real-world projects that demonstrate your abilities to employers.
@@ -1277,6 +1453,7 @@ sections:
     image_object_position: center center
     reverse: true
     showOn: mobile
+    section_id: two_column_accordion_card-9ne9i3
   - type: value_proof_panel
     title: Recognized Globally for Excellence
     subtitle: We don't just say we deliver — recognition from trusted sources proves our worth.
@@ -1297,14 +1474,17 @@ sections:
       type: image
       src: https://storage.googleapis.com/4geeks-academy-website/media/feliz-empresario-laptop_1765406479465.png
       alt: 4Geeks Academy awards and recognitions
-      aspect_ratio: "4:3"
+      aspect_ratio: '4:3'
       style: rounded
     background: muted
+    section_id: value_proof_panel-ghhi80
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
     title: Why Learn with 4Geeks?
-    description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process. Test
+    description: >-
+      We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
+      Test
     features:
       - icon: Robot
         title: Learn with AI
@@ -1316,6 +1496,7 @@ sections:
         title: Learn with the community
         description: Learning alongside others is more fun and helps you progress faster. Join our active community.
     video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
+    section_id: ai_learning-03ckqf
   - type: two_column
     proportions:
       - 5
@@ -1341,11 +1522,14 @@ sections:
       bullet_icon: Check
       font_size: base
     reverse_on_mobile: true
-    gap: "12"
+    gap: '12'
+    section_id: two_column-8j5wg3
   - type: community_support
-    version: "1.0"
+    version: '1.0'
     heading: A Global Developer Community Supporting Your Growth
-    description: 4Geeks is more than a bootcamp — it's a supportive network of tech pros, mentors, and fellow geeks to keep you moving forward in your career.
+    description: >-
+      4Geeks is more than a bootcamp — it's a supportive network of tech pros, mentors, and fellow geeks to keep you
+      moving forward in your career.
     background: bg-primary/5
     image: https://storage.googleapis.com/4geeks-academy-website/media/Group-6606.webp
     image_alt: 4Geeks global developer community
@@ -1354,7 +1538,9 @@ sections:
         badge: 6,000+ Members
         icon: BrandSlack
         accent_color: primary
-        description: Get real-time help from mentors, alumni, and peers through our active, theme specific channels — from coding support, to job boards and career advice (and yes, there's coding humor too!).
+        description: >-
+          Get real-time help from mentors, alumni, and peers through our active, theme specific channels — from coding
+          support, to job boards and career advice (and yes, there's coding humor too!).
         button:
           text: Join Now
           url: https://4geeks.com/slack
@@ -1362,13 +1548,16 @@ sections:
       - title: 4Geeks.com
         icon: Rigobot
         accent_color: primary
-        description: Keep advancing your skills with further training resources, live events, and collaborative projects. Connect with people who've been where you are — and know how to help you get where you want to go.
+        description: >-
+          Keep advancing your skills with further training resources, live events, and collaborative projects. Connect
+          with people who've been where you are — and know how to help you get where you want to go.
         button:
           text: Visit Now
           url: https://4geeks.com
           variant: primary
+    section_id: community_support-2m29j3
   - type: ai_learning
-    version: "1.0"
+    version: '1.0'
     variant: feature-tabs
     badge: Why 4Geeks?
     title: Why Learn with 4Geeks?
@@ -1384,10 +1573,13 @@ sections:
       - icon: Users
         title: Learn with the community
         description: Learning alongside others is more fun and helps you progress faster. Join our active community.
+    section_id: ai_learning-z03tp8
   - type: certificate
     version: v1.0
     title: Certificate & Career Network
-    description: Graduate with a recognized certificate and join our global alumni network of over 5,000 developers working at top companies.
+    description: >-
+      Graduate with a recognized certificate and join our global alumni network of over 5,000 developers working at top
+      companies.
     benefits:
       - text: Internationally recognized certificate
       - text: Access to exclusive job board with 300+ partner companies
@@ -1395,6 +1587,7 @@ sections:
     card:
       title: Full Stack Developer
       subtitle: 4Geeks Academy Certificate
+    section_id: certificate-726gpk
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -1435,8 +1628,9 @@ sections:
         logoHeight: 56px
     paddingY:
       desktop: none lg
+    section_id: awards_marquee-81nxln
   - type: comparison_table
-    version: "1.0"
+    version: '1.0'
     title: How We Compare
     subtitle: See how our approach stacks up against typical alternatives
     columns:
@@ -1452,14 +1646,15 @@ sections:
         feature_description: Get personalized guidance whenever you need it
       - feature: Guarantee
         values:
-          - "Yes"
-          - "No"
+          - 'Yes'
+          - 'No'
         feature_description: Money back if not satisfied
       - feature: Pricing
         values:
           - Flexible
           - Fixed
-    footer_note: "* Based on industry research"
+    footer_note: '* Based on industry research'
+    section_id: comparison_table-uweop0
   - type: faq
     title: Frequently Asked Questionss
     items:
@@ -1471,8 +1666,9 @@ sections:
         answer: Yes, all students have access to mentors and a supportive community.
     paddingY:
       desktop: lg none
+    section_id: faq-q3549m
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: Ready to start your tech career?
     button_label: Apply Now
     form:
@@ -1497,6 +1693,7 @@ sections:
     showOn: mobile
     paddingY:
       desktop: none lg
+    section_id: sticky_cta-owp7ao
   - type: features_grid
     title: Why AI Engineering Now
     subtitle: The talent ashortage is your opportunity
@@ -1508,10 +1705,11 @@ sections:
       - value: $95K-$135K
         title: Average starting salary for AI Engineers
     variant: stats-text
+    section_id: features_grid-vyjhyo
   - type: two_column_accordion_card
-    version: "1.0"
+    version: '1.0'
     title: Why Choose Our Program?
-    description: "Learn what makes our bootcamp different:"
+    description: 'Learn what makes our bootcamp different:'
     bullets:
       - heading: Industry-Ready Skills
         text: Graduate with a portfolio of real-world projects that demonstrate your abilities to employers.
@@ -1522,20 +1720,21 @@ sections:
     image: https://example.com/course-benefits.png
     image_alt: Graduate celebrating success
     reverse: true
+    section_id: two_column_accordion_card-3q247p
   - type: pricing
-    version: "1.0"
+    version: '1.0'
     title: Get access to all of our learning database, courses, and services
     subtitle: Earn new skills every 30 min, never get stuck or lost again.
     monthly:
       discount_badge: 35% OFF
-      price: "38.99"
+      price: '38.99'
       period: mo
-      original_price: "59.99"
+      original_price: '59.99'
     yearly:
       discount_badge: 35% OFF
-      price: "311.99"
+      price: '311.99'
       period: yr
-      original_price: "479.99"
+      original_price: '479.99'
       savings_badge: Save 3 months
     tech_icons:
       - html
@@ -1566,9 +1765,12 @@ sections:
       variant: primary
     paddingY:
       desktop: lg none
+    section_id: pricing-f26l8l
   - type: features_grid
     title: Advance Faster, Never Lose Momentum
-    subtitle: "The #1 reason people quit when learning to code? Getting stuck. At 4Geeks, we've built a personalized support system where you'll always have someone to help."
+    subtitle: >-
+      The #1 reason people quit when learning to code? Getting stuck. At 4Geeks, we've built a personalized support
+      system where you'll always have someone to help.
     items:
       - icon: PeopleGroup
         title: 7:1 Student-Teacher Ratio
@@ -1582,11 +1784,12 @@ sections:
       - icon: HandsGroup
         title: Real Community Support
         description: Collaborate with mentors, alumni, and peers who’ve got your back.
-    icon_color: "#0097CD"
+    icon_color: '#0097CD'
     columns: 4
     variant: highlight
+    section_id: features_grid-fvu5vf
   - type: stats
-    version: "1.0"
+    version: '1.0'
     title: Join 50,000+ Learnerss
     items:
       - value: 50,000+
@@ -1595,8 +1798,9 @@ sections:
         label: Average Rating
       - value: 1,500+
         label: Success Stories
+    section_id: stats-hzi9ra
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Ready to Transform Your Learning?
     subtitle: Get started today. Limited spots available!
     buttons:
@@ -1606,6 +1810,8 @@ sections:
       - text: Ask a Question
         url: /contact
         variant: outline
+    section_id: cta_banner-0akngr
   - type: footer
-    version: "1.0"
+    version: '1.0'
     copyright_text: 2024 4Geeks. All rights reserved.
+    section_id: footer-ia8ld6

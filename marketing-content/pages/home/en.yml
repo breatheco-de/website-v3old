@@ -30,7 +30,7 @@ sections:
       trusted_text: Trusted by students worldwide
     cta_button:
       text: Explore our Programs
-      url: "#course_selector-6"
+      url: "#course_selector-ht6wh3"
       variant: primary
       icon: ""
     left_images:
@@ -257,6 +257,7 @@ sections:
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
   - type: course_selector
+    section_id: course_selector-ht6wh3
     version: "1.0"
     variant: solid
     heading: Explore Our Programs

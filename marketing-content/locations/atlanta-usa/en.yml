@@ -22,7 +22,7 @@ sections:
         url: /en/apply
         variant: primary
       - text: Get Program Details
-        url: "#cta_banner-14"
+        url: "#cta_banner-de3y0z"
         variant: outline
     marginY:
       desktop: none lg

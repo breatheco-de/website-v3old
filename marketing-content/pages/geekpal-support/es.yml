@@ -6,7 +6,9 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Soporte GeekPAL | 4Geeks Academy
-  description: Obtén mentoría ilimitada 1:1 en programación y acompañamiento con IA de Rigobot 24/7. Nunca programes solo, recibe retroalimentación instantánea y únete a una comunidad global de desarrolladores.
+  description: >-
+    Obtén mentoría ilimitada 1:1 en programación y acompañamiento con IA de Rigobot 24/7. Nunca programes solo, recibe
+    retroalimentación instantánea y únete a una comunidad global de desarrolladores.
   redirects:
     - /es/geekpal
 schema:
@@ -15,16 +17,18 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: productShowcase
     title: Mentoría en programación potenciada por IA
     welcome_text: Bienvenido a
     brand_mark:
       prefix: Geek
       highlight: PAL
-      suffix: ":"
+      suffix: ':'
       color: destructive
-    description: Accede a mentoría ilimitada en programación, soporte inteligente con IA disponible 24/7 y una comunidad global de desarrolladores para acelerar tu aprendizaje y avanzar en tu carrera en tecnología.
+    description: >-
+      Accede a mentoría ilimitada en programación, soporte inteligente con IA disponible 24/7 y una comunidad global de
+      desarrolladores para acelerar tu aprendizaje y avanzar en tu carrera en tecnología.
     bullets:
       - text: Mentoría ilimitada 1:1 en programación
       - text: Soporte personalizado con IA 24/7
@@ -32,15 +36,16 @@ sections:
       - text: Comunidad global de desarrolladores
     video:
       url: https://youtu.be/D5nUZNL52-Q
-      ratio: "3:4"
+      ratio: '3:4'
       muted: true
       autoplay: false
       loop: true
     paddingY:
       mobile: none lg
       desktop: md lg
+    section_id: hero-xfdlsj
   - type: banner
-    version: "1.0"
+    version: '1.0'
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - https://randomuser.me/api/portraits/women/1.jpg
@@ -48,21 +53,27 @@ sections:
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
     title: Avanza sin bloqueos. Aprende con confianza.
-    description: El mayor obstáculo al aprender tecnología no es la dificultad, sino quedarse sin apoyo en el momento clave. GeekPAL está siempre disponible para ti, ofreciéndote orientación inmediata cuando la necesitas, para que avances de forma constante y segura.
+    description: >-
+      El mayor obstáculo al aprender tecnología no es la dificultad, sino quedarse sin apoyo en el momento clave.
+      GeekPAL está siempre disponible para ti, ofreciéndote orientación inmediata cuando la necesitas, para que avances
+      de forma constante y segura.
     background: gradient
+    section_id: banner-02lyfn
   - type: human_and_ai_duo
-    version: "1.0"
-    heading: "Mentores expertos + IA: Acelera tu aprendizaje en programación"
-    description: El aprendizaje en programación es más efectivo cuando la experiencia humana y la IA trabajan en conjunto. En 4Geeks, avanzas con mentoría 1:1 ilimitada y el soporte inteligente de Rigobot, disponibles cuando los necesites.
+    version: '1.0'
+    heading: 'Mentores expertos + IA: Acelera tu aprendizaje en programación'
+    description: >-
+      El aprendizaje en programación es más efectivo cuando la experiencia humana y la IA trabajan en conjunto. En
+      4Geeks, avanzas con mentoría 1:1 ilimitada y el soporte inteligente de Rigobot, disponibles cuando los necesites.
     bullet_groups:
-      - title: "Nuestro Equipo de Mentores Expertos ofrece:"
+      - title: 'Nuestro Equipo de Mentores Expertos ofrece:'
         image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
         bullets:
           - text: Orientación personalizada
           - text: Resolución de problemas en vivo
           - text: Asistencia experta para corregir errores
           - text: Perspectiva de la industria y asesoría profesional
-      - title: "Rigobot + Learnpack:"
+      - title: 'Rigobot + Learnpack:'
         bullets:
           - text: Feedback y tutoría instantánea 24/7
           - text: Ajusta sus recomendaciones a tus habilidades y progreso
@@ -95,18 +106,25 @@ sections:
     paddingY:
       mobile: sm none
       desktop: md none
+    section_id: human_and_ai_duo-03osdk
   - type: community_support
-    version: "1.0"
+    version: '1.0'
     heading: Aprende acompañado por una comunidad global
-    description: 4Geeks es más que un programa; es una red activa de profesionales tech, mentores y geeks que te ayudan a seguir avanzando en tu carrera.
+    description: >-
+      4Geeks es más que un programa; es una red activa de profesionales tech, mentores y geeks que te ayudan a seguir
+      avanzando en tu carrera.
     bullet_groups:
       - title: Comunidad en Slack
-        description: Recibe ayuda en tiempo real de mentores, alumni y compañeros a través de nuestros canales activos y temáticos, desde soporte técnico, hasta bolsas de empleo y consejos de carrera (¡y sí, también hay humor geek!).
+        description: >-
+          Recibe ayuda en tiempo real de mentores, alumni y compañeros a través de nuestros canales activos y temáticos,
+          desde soporte técnico, hasta bolsas de empleo y consejos de carrera (¡y sí, también hay humor geek!).
         icon: BrandSlack
         badge: 6,000+ Miembros
         accent_color: primary
       - title: 4Geeks.com
-        description: Sigue desarrollando tus habilidades con recursos adicionales, eventos en vivo y proyectos colaborativos. Conecta con personas que ya estuvieron donde tú estás y saben cómo ayudarte a llegar a donde quieres ir.
+        description: >-
+          Sigue desarrollando tus habilidades con recursos adicionales, eventos en vivo y proyectos colaborativos.
+          Conecta con personas que ya estuvieron donde tú estás y saben cómo ayudarte a llegar a donde quieres ir.
         icon: Rigobot
         accent_color: primary
     image: https://storage.googleapis.com/4geeks-academy-website/media/Group-6606.webp
@@ -114,6 +132,7 @@ sections:
     background: bg-primary/5
     paddingY:
       desktop: none md
+    section_id: community_support-0mfcl1
   - type: two_column
     proportions:
       - 12
@@ -124,14 +143,17 @@ sections:
       video: https://www.youtube.com/watch?v=MBXqEnhodx0
       video_width: 900px
       heading: Escucha a nuestros graduados
-      description: Escucha a Joao hablar sobre su experiencia durante y después de nuestro bootcamp y cómo el acceso ilimitado a mentoría en programación marcó una gran diferencia en su carrera.
+      description: >-
+        Escucha a Joao hablar sobre su experiencia durante y después de nuestro bootcamp y cómo el acceso ilimitado a
+        mentoría en programación marcó una gran diferencia en su carrera.
       justify: center
       text_align: center
       font_size: lg
     heading_above_on_md: false
-    gap: "8"
+    gap: '8'
     paddingY:
       desktop: lg md
+    section_id: two_column-irqvgj
   - type: testimonials_slide
     title: Carreras reales que comenzaron aquí
     description: Descubre cómo nuestros estudiantes alcanzaron sus metas
@@ -139,6 +161,7 @@ sections:
       desktop: none
     paddingY:
       desktop: md none
+    section_id: testimonials_slide-mtjqwp
   - type: faq
     title: Preguntas frecuentes
     related_features:
@@ -175,10 +198,12 @@ sections:
       desktop: none
     paddingY:
       desktop: none md
+    section_id: faq-c63r2t
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
+    button_label:
+      '[object Object]': null
     show_dismiss: false
     form:
       variant: inline
@@ -207,8 +232,9 @@ sections:
           placeholder: Selecciona un programa
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+    section_id: sticky_cta-mgyr66
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Da el siguiente paso hacia tu carrera en tecnología
     subtitle: Recibe información personalizada del programa y los próximos pasos.
     variant: form
@@ -238,7 +264,9 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
     form_background: hsl(var(--card))

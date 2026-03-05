@@ -60,7 +60,7 @@ sections:
         url: /es/apply
         variant: primary
       - text: Solicitar Programa
-        url: "#cta_banner-14"
+        url: "#cta_banner-kunyoi"
         variant: outline
     marginY:
       desktop: none lg

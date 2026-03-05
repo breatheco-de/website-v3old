@@ -18,7 +18,10 @@ sections:
     version: '1.0'
     variant: singleColumn
     title: Building Tech Careers In the AI Era
-    subtitle: 4Geeks Academy is an international tech academy with campuses across the U.S., Latin America, and Europe. We deliver AI-native programs in AI Engineering, Data Science and Machine Learning, Software Development, and Cybersecurity designed to prepare professionals for high-demand roles in today’s AI-driven economy.
+    subtitle: >-
+      4Geeks Academy is an international tech academy with campuses across the U.S., Latin America, and Europe. We
+      deliver AI-native programs in AI Engineering, Data Science and Machine Learning, Software Development, and
+      Cybersecurity designed to prepare professionals for high-demand roles in today’s AI-driven economy.
     badge: 10+ Years of Career Outcomes in Tech
     image:
       src: https://storage.googleapis.com/4geeks-academy-website/media/the-academy-header_1770614327963.png
@@ -29,12 +32,17 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
+    section_id: hero-oli93f
   - type: split_cards
     variant: primary-left
     primary_width: narrow
     primary:
       heading: Our Mission & Approach
-      description: 'Since 2015, 4Geeks Academy has helped thousands of students transition into tech careers. Our model combines hands-on, project-based training with unlimited 1:1 mentorship, AI-powered learning tools, and structured career support. The goal is simple: give students the technical depth, practical experience, and job-search strategy needed to get hired, and keep growing.'
+      description: >-
+        Since 2015, 4Geeks Academy has helped thousands of students transition into tech careers. Our model combines
+        hands-on, project-based training with unlimited 1:1 mentorship, AI-powered learning tools, and structured career
+        support. The goal is simple: give students the technical depth, practical experience, and job-search strategy
+        needed to get hired, and keep growing.
       badge: Results-Backed Model
     secondary:
       benefits:
@@ -46,6 +54,7 @@ sections:
       image_object_position: 60% 100%
     marginY:
       desktop: lg none
+    section_id: split_cards-02qe84
   - type: features_quad
     version: '1.0'
     variant: laptopEdge
@@ -69,21 +78,25 @@ sections:
       desktop: lg none
     paddingY:
       desktop: none
+    section_id: features_quad-qczodt
   - type: stats
     version: '1.0'
     items:
       - value: +{{ global.global_total_alumni | 7000 }}
         label: Alumni
-      - value: {{ global.global_campuses | - value: "8" }}
+      - value:
+          '[object Object]': null
         label: Campuses
       - value: ~{{ global.global_job_placement_rate | 84 }}%
         label: Hiring rate
-      - value: {{ global.global_review_rating | 4.9 }}
+      - value:
+          '[object Object]': null
         label: Avg rating
     marginY:
       desktop: lg
     paddingY:
       desktop: none sm
+    section_id: stats-ibtzxw
   - type: two_column
     proportions:
       - 4
@@ -98,13 +111,20 @@ sections:
       justify: end
     right:
       heading: Shaping the Global Tech Ecosystem
-      description: At 4Geeks Academy, we believe collaboration drives real impact. We work with universities, nonprofits, workforce development initiatives, global organizations, and local tech communities to expand access to top tech education and strengthen career pathways. Together, we train and place diverse talent, close the digital skills gap, and build the tech workforce of the future. We’re also active in the community, partnering on hackathons, tech challenges, and industry events that connect talent with opportunity and showcase the skills of our students and graduates.
+      description: >-
+        At 4Geeks Academy, we believe collaboration drives real impact. We work with universities, nonprofits, workforce
+        development initiatives, global organizations, and local tech communities to expand access to top tech education
+        and strengthen career pathways. Together, we train and place diverse talent, close the digital skills gap, and
+        build the tech workforce of the future. We’re also active in the community, partnering on hackathons, tech
+        challenges, and industry events that connect talent with opportunity and showcase the skills of our students and
+        graduates.
       text_align: left
     gap: '12'
     marginY:
       desktop: md none
     paddingY:
       desktop: sm
+    section_id: two_column-mqon0h
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -149,12 +169,16 @@ sections:
         logoHeight: 56px
     paddingY:
       desktop: lg none
+    section_id: awards_marquee-9mpnha
   - type: whos_hiring
     variant: carousel
     title: Trusted by Hiring Teams
-    description: |-
-      4Geeks graduates are hired by leading tech companies across the U.S., Latin America, and Europe. Employers consistently highlight their technical depth, practical experience, and ability to contribute from day one.
-      'I’m continually impressed by the depth of knowledge possessed by 4Geeks students. One of my hires went on to become a team leader.' - CodeNinjas
+    description: >-
+      4Geeks graduates are hired by leading tech companies across the U.S., Latin America, and Europe. Employers
+      consistently highlight their technical depth, practical experience, and ability to contribute from day one.
+
+      'I’m continually impressed by the depth of knowledge possessed by 4Geeks students. One of my hires went on to
+      become a team leader.' - CodeNinjas
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
@@ -182,10 +206,13 @@ sections:
         alt: Jooble
     marginY:
       desktop: lg none
+    section_id: whos_hiring-l5yqh4
   - type: profiles_carousel
     version: v1.0
     heading: Meet the Geeks
-    description: Our team is dedicated, highly skilled, and always ready to support you on your journey into tech. They provide all the guidance and encouragement you need to launch a successful new career.
+    description: >-
+      Our team is dedicated, highly skilled, and always ready to support you on your journey into tech. They provide all
+      the guidance and encouragement you need to launch a successful new career.
     image_round: false
     profiles:
       - image_id: alejandro_sanchez
@@ -220,6 +247,7 @@ sections:
         name: Ariana Sánchez
         role: Culture & Talent Leader
         linkedin_url: https://www.linkedin.com/in/ariana-sánchez-7720aa78/
+    section_id: profiles_carousel-q267u5
   - type: cta_banner
     version: '1.0'
     title: Take the Next Step Toward Your Tech Career
@@ -259,6 +287,7 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+    section_id: cta_banner-yn8mw9
   - type: sticky_cta
     version: '1.0'
     heading: Ready to start your tech career?
@@ -289,3 +318,4 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
+    section_id: sticky_cta-r8gk2s

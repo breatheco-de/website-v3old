@@ -3,6 +3,7 @@ import path from "path";
 import yaml from "js-yaml";
 import { escapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import { markFileAsModified } from "./sync-state";
+import { generateSectionId } from "./utils/generateSectionId";
 import { contentIndex, MARKETING_CONTENT_PATH } from "./content-index";
 
 function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
@@ -60,10 +61,6 @@ function generateId(): string {
   return `bind_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
 }
 
-function generateSectionId(componentType: string): string {
-  const suffix = Math.random().toString(36).slice(2, 8);
-  return `${componentType}-${suffix}`;
-}
 
 class BindingManager {
   private data: BindingsData = { groups: [] };

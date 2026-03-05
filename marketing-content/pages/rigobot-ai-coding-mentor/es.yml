@@ -14,83 +14,147 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: simpleTwoColumn
     title: Rigobot, tu mentor de programación con IA que te acompaña en cada paso
-    subtitle: Conoce Rigobot, el mentor de programación con IA que sigue tu progreso y te ofrece retroalimentación en tiempo real para ayudarte a pensar como un desarrollador. Disponible 24/7 en los cursos de 4Geeks.
+    subtitle: >-
+      Conoce Rigobot, el mentor de programación con IA que sigue tu progreso y te ofrece retroalimentación en tiempo
+      real para ayudarte a pensar como un desarrollador. Disponible 24/7 en los cursos de 4Geeks.
     image:
       src: https://breathecode.herokuapp.com/v1/media/file/rigo-png
       alt: Estudiantes colaborando en un espacio tecnológico
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md
+    section_id: hero-v7sevy
   - type: article
-    content: |
+    content: >
       ## Por qué la mentoría con IA supera el método de prueba y error
 
-      En un mundo donde la IA puede escribir código, aprender a programar no se trata de memorizar sintaxis, sino de entender *cómo* pensar como desarrollador. [Rigobot, el mentor con IA](https://new.4geeks.com/en/blog/ai-powered-learning/rigobot-ai-mentor), creado por el equipo de 4Geeks Academy, no es solo otro chatbot. Te acompaña donde sea que estés aprendiendo (teléfono, laptop, entorno de programación, LearnPack), observa cada línea que escribes y te brinda retroalimentación personalizada en tiempo real que evoluciona contigo. Ya sea que estés depurando un script en Python o construyendo una app en React, Rigobot te respalda de día y de noche.
 
-      Imagina esto: estás trabajando en un ejercicio de JavaScript y tu loop no funciona como debería. En lugar de horas de frustración, Rigobot resalta la línea exacta, explica el error lógico y sugiere una forma más limpia de resolverlo. Es como hacer pair-programming con un profesional que nunca se cansa. ¿Lo mejor? Está integrado en cada curso de 4Geeks, así que comienzas a aprender con Rigobot desde el primer día.
+      En un mundo donde la IA puede escribir código, aprender a programar no se trata de memorizar sintaxis, sino de
+      entender *cómo* pensar como desarrollador. [Rigobot, el mentor con
+      IA](https://new.4geeks.com/en/blog/ai-powered-learning/rigobot-ai-mentor), creado por el equipo de 4Geeks Academy,
+      no es solo otro chatbot. Te acompaña donde sea que estés aprendiendo (teléfono, laptop, entorno de programación,
+      LearnPack), observa cada línea que escribes y te brinda retroalimentación personalizada en tiempo real que
+      evoluciona contigo. Ya sea que estés depurando un script en Python o construyendo una app en React, Rigobot te
+      respalda de día y de noche.
+
+
+      Imagina esto: estás trabajando en un ejercicio de JavaScript y tu loop no funciona como debería. En lugar de horas
+      de frustración, Rigobot resalta la línea exacta, explica el error lógico y sugiere una forma más limpia de
+      resolverlo. Es como hacer pair-programming con un profesional que nunca se cansa. ¿Lo mejor? Está integrado en
+      cada curso de 4Geeks, así que comienzas a aprender con Rigobot desde el primer día.
+
 
       ## Cómo funciona Rigobot – ejemplo paso a paso
 
-      1. **Lanza un ejercicio de [LearnPack](https://new.4geeks.com/es/learnpack)** con un solo clic (sin configuración).
+
+      1. **Lanza un ejercicio de [LearnPack](https://new.4geeks.com/es/learnpack)** con un solo clic (sin
+      configuración).
+
       2. **Programa como un profesional** en VS Code; Rigobot observa silenciosamente las pruebas y commits.
+
       3. **Pide ayuda** desde el panel *Get Feedback* o espera el aviso proactivo de Rigobot.
+
       4. **Explicación instantánea**: resalta el error, explica la lógica y sugiere una solución.
+
       5. **Aprendizaje adaptativo**: recuerda tus patrones y ajusta sus recomendaciones en cada sesión.
 
-      Permaneces dentro de un flujo de trabajo real de desarrollador desde el primer día, sin sandboxes en el navegador ni editores limitados.
+
+      Permaneces dentro de un flujo de trabajo real de desarrollador desde el primer día, sin sandboxes en el navegador
+      ni editores limitados.
+
 
       ## Tabla de funcionalidades
 
+
       | **Funcionalidad** | **Qué hace** | **Por qué te encantará** |
+
       | --- | --- | --- |
+
       | Disponibilidad 24/7 | Responde preguntas a cualquier hora | Mantén el ritmo, nunca esperes |
-      | Análisis en tiempo real | Analiza el código frente a unit tests mientras escribes | Detecta errores *antes* de que escalen |
+
+      | Análisis en tiempo real | Analiza el código frente a unit tests mientras escribes | Detecta errores *antes* de
+      que escalen |
+
       | Sugerencias personalizadas | Aprende tus fortalezas y brechas | Feedback que se siente hecho a tu medida |
-      | Coaching proactivo | Señala malos hábitos (nombres, complejidad) | Construye código limpio y listo para entrevistas |
+
+      | Coaching proactivo | Señala malos hábitos (nombres, complejidad) | Construye código limpio y listo para
+      entrevistas |
+
       | Seguimiento de habilidades | Registra tu progreso y muestra próximos objetivos | Ruta clara hacia el dominio |
-      | Integración profunda con VS Code | Funciona en VS Code local o Gitpod/Codespaces | Programa con la misma herramienta que los profesionales |
+
+      | Integración profunda con VS Code | Funciona en VS Code local o Gitpod/Codespaces | Programa con la misma
+      herramienta que los profesionales |
+
 
       ## Rigobot vs herramientas de IA genéricas
 
+
       |  | **Rigobot** | **IA Genérica (ej. Copilot)** |
+
       | --- | --- | --- |
+
       | Entiende el contexto del ejercicio | ✅ | ❌ |
+
       | Analiza unit tests y especificaciones | ✅ | ❌ |
+
       | Rastrea el progreso del estudiante | ✅ | ❌ |
+
       | Integrado en el currículo de 4Geeks | ✅ | ❌ |
+
       | Enfoque socrático de enseñanza | ✅ | ❌ |
+
       | Enfoque unificado dentro de 4Geeks | ✅ | ❌ |
+
 
       Rigobot *enseña*; la IA genérica solo te da la respuesta.
 
+
       ## Por qué Rigobot es tu arma secreta
 
-      Rigobot no está aquí para reemplazarte, sino para ayudarte a avanzar más rápido. En un mundo tech impulsado por IA, aprender a programar significa aprender a colaborar con herramientas como Rigobot. Te enseña a escribir código limpio y profesional, comprender lógica compleja y construir proyectos que destaquen ante empleadores.
 
-      Con más de 4,000 estudiantes en seis países ya programando con Rigobot y una tasa de colocación laboral del 84% en 140 días, es un camino comprobado hacia el éxito.
+      Rigobot no está aquí para reemplazarte, sino para ayudarte a avanzar más rápido. En un mundo tech impulsado por
+      IA, aprender a programar significa aprender a colaborar con herramientas como Rigobot. Te enseña a escribir código
+      limpio y profesional, comprender lógica compleja y construir proyectos que destaquen ante empleadores.
 
-      Además, está integrado en nuestra plataforma open-source LearnPack, utilizada por universidades y bootcamps en todo el mundo, por lo que aprendes con herramientas confiables para la comunidad tech global. Ya seas principiante o estés subiendo de nivel, Rigobot hace que programar se sienta menos solitario y más como una aventura colaborativa.
+
+      Con más de 4,000 estudiantes en seis países ya programando con Rigobot y una tasa de colocación laboral del 84% en
+      140 días, es un camino comprobado hacia el éxito.
+
+
+      Además, está integrado en nuestra plataforma open-source LearnPack, utilizada por universidades y bootcamps en
+      todo el mundo, por lo que aprendes con herramientas confiables para la comunidad tech global. Ya seas principiante
+      o estés subiendo de nivel, Rigobot hace que programar se sienta menos solitario y más como una aventura
+      colaborativa.
+
 
       ### La mentoría humana sigue siendo clave
 
-      Rigobot se encarga de las correcciones rápidas para que los humanos puedan ir **más profundo**: revisiones de system design, coaching de habilidades blandas y mock interviews. Agenda sesiones 1-a-1 ilimitadas, participa en workshops **Learn LIVE** y colabora en canales globales de Slack.
+
+      Rigobot se encarga de las correcciones rápidas para que los humanos puedan ir **más profundo**: revisiones de
+      system design, coaching de habilidades blandas y mock interviews. Agenda sesiones 1-a-1 ilimitadas, participa en
+      workshops **Learn LIVE** y colabora en canales globales de Slack.
+
 
       ### Recuerda, no se trata de programar más duro, sino de programar más inteligente :)
 
-      Rigobot es gratis dentro de cada curso de 4Geeks, desde Full Stack hasta Data Science. Deja que Rigobot convierta los bugs de medianoche en momentos de iluminación y tu esfuerzo en una carrera tech.
+
+      Rigobot es gratis dentro de cada curso de 4Geeks, desde Full Stack hasta Data Science. Deja que Rigobot convierta
+      los bugs de medianoche en momentos de iluminación y tu esfuerzo en una carrera tech.
     show_toc: true
     max_width: xl
+    section_id: article-bs3kd5
   - type: faq
     title: Preguntas frecuentes
     related_features:
       - rigobot
     marginY:
       desktop: none md
+    section_id: faq-ierxt4
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Da el siguiente paso hacia tu carrera en tecnología
     subtitle: Recibe información personalizada del programa y los próximos pasos.
     variant: form
@@ -120,7 +184,9 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
     form_background: hsl(var(--card))
@@ -132,9 +198,10 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-yjaogr
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
+    button_label:
+      '[object Object]': null
     show_dismiss: false
     form:
       variant: inline
@@ -163,3 +230,4 @@ sections:
           placeholder: Selecciona un programa
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+    section_id: sticky_cta-smv82h

@@ -27,7 +27,7 @@ sections:
       trusted_text: Miles de estudiantes confían en nosotros
     cta_button:
       text: Explora Nuestros Programas
-      url: "#course_selector-6"
+      url: "#course_selector-ew45w6"
       variant: primary
       icon: ""
     left_images:
@@ -252,6 +252,7 @@ sections:
             description: Melanie es una joven profesional que soñaba con lograr la vida que ahora tiene. Es una desarrolladora de software ingeniosa y comprometida trabajando en una empresa de software en su país natal.
             achievement: Logró un aumento salarial del 100%.
   - type: course_selector
+    section_id: course_selector-ew45w6
     version: "1.0"
     variant: solid
     heading: Explora nuestros programas

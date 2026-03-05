@@ -72,6 +72,7 @@ import { mediaGallery } from "./media-gallery";
 import { media } from "./media";
 import multer from "multer";
 import { contentIndex, type ContentType } from "./content-index";
+import { regenerateSectionIds } from "./utils/regenerateSectionIds";
 import { validateFieldSource, validateFieldMapping, extractByDotPath } from "../scripts/validation/shared/fieldMappingValidator";
 import {
   getFolder,
@@ -7492,8 +7493,12 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               return;
             }
 
-            // Same-type duplication: copy files directly
+            // Same-type duplication: parse all files first, regenerate section IDs, then write
             const sourceFiles = fs.readdirSync(foundSourceFolder);
+            const parsedDupFiles: Array<{ file: string; parsed: Record<string, unknown> }> = [];
+            const oldSlug = path.basename(foundSourceFolder);
+            const resolvedSourceSlug = resolved?.slug || oldSlug;
+
             for (const file of sourceFiles) {
               const fileLocale = file.replace(/\.yml$/, "");
               if (
@@ -7502,6 +7507,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               ) {
                 continue;
               }
+              if (!file.endsWith(".yml") && !file.endsWith(".yaml")) continue;
 
               let content = fs.readFileSync(
                 path.join(foundSourceFolder, file),
@@ -7513,8 +7519,6 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
                 "",
               );
 
-              const oldSlug = path.basename(foundSourceFolder);
-              const resolvedSourceSlug = resolved?.slug || oldSlug;
               const newSlug =
                 file === "es.yml"
                   ? esSlug || folderSlug!
@@ -7531,8 +7535,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               }
 
               if (file === "en.yml" || file === "es.yml") {
-                const fileLocale = file.replace(/\.yml$/, "");
-                const localeTitle = localeTitles[fileLocale] || title;
+                const fl = file.replace(/\.yml$/, "");
+                const localeTitle = localeTitles[fl] || title;
                 if (/^title:/m.test(content)) {
                   content = content.replace(/^title:\s*.*$/m, `title: "${localeTitle}"`);
                 } else {
@@ -7552,11 +7556,38 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
                 }
               }
 
+              // Parse YAML for section ID regeneration
+              try {
+                const yamlPkg = await import("js-yaml");
+                const parsed = yamlPkg.default.load(content) as Record<string, unknown>;
+                if (parsed && typeof parsed === "object") {
+                  parsedDupFiles.push({ file, parsed });
+                  continue;
+                }
+              } catch {
+                // fall through to raw write
+              }
+              // If parsing failed, write raw
               fs.writeFileSync(path.join(folderPath, file), content);
               markFileAsModified(
                 `marketing-content/${getFolder(type)}/${folderSlug}/${file}`,
                 createAuthorName,
               );
+            }
+
+            // Regenerate section IDs across all parsed files
+            if (parsedDupFiles.length > 0) {
+              const { objs: regenerated } = regenerateSectionIds(parsedDupFiles.map(f => f.parsed));
+              const yaml = await import("js-yaml");
+              for (let i = 0; i < parsedDupFiles.length; i++) {
+                const { file } = parsedDupFiles[i];
+                const yamlStr = yaml.default.dump(regenerated[i], { lineWidth: 120, noRefs: true, sortKeys: false });
+                fs.writeFileSync(path.join(folderPath, file), yamlStr);
+                markFileAsModified(
+                  `marketing-content/${getFolder(type)}/${folderSlug}/${file}`,
+                  createAuthorName,
+                );
+              }
             }
 
             clearSitemapCache();

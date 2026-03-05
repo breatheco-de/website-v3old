@@ -7,7 +7,9 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Programa Full Stack con IA en España | 4Geeks Academy
-  description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando — en solo 24 semanas.
+  description: >-
+    Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando — en solo 24
+    semanas.
 schema:
   include:
     - organization
@@ -15,14 +17,16 @@ schema:
     - courses:ai-engineering
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: ApplyFormProductShowcase
     title: Mentoría personalizada y resultados profesionales comprobados.
     brand_mark:
       prefix: Programa de Desarrollo
       highlight: Full Stack con IA
       color: primary
-    description: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA.
+    description: >-
+      Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por
+      IA.
     form:
       variant: stacked
       conversion_name: student_application
@@ -54,7 +58,9 @@ sections:
       privacy_url: /politica-privacidad
       consent:
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
     cta_button:
       text: Descargar programa
@@ -63,7 +69,7 @@ sections:
       icon: Download
     video:
       url: https://youtube.com/shorts/AMqLRJbNZ9I?si=LdQnvspydHMd9ckN
-      ratio: "9:16"
+      ratio: '9:16'
       muted: true
     bullets:
       - text: Domina el desarrollo frontend moderno con HTML, CSS, JavaScript y React.
@@ -76,8 +82,9 @@ sections:
       mobile: none
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
+    section_id: hero-83a7ov
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
     show_dismiss: false
@@ -111,11 +118,14 @@ sections:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
       consent:
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
     load: eager
+    section_id: sticky_cta-geg3ym
   - type: awards_marquee
-    version: "1.0"
+    version: '1.0'
     speed: 40
     gradient: true
     gradientWidth: 500
@@ -166,7 +176,8 @@ sections:
         logoHeight: 56px
       - id: logo-european-excellence-education
         alt: European Excellence Education
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/european-excellence-education-ealde_1_1770392145138.png
+        logo: >-
+          https://storage.googleapis.com/4geeks-academy-website/media/european-excellence-education-ealde_1_1770392145138.png
         logoHeight: 56px
       - id: logo-forbes-advisor-2025
         logo: https://storage.googleapis.com/4geeks-academy-website/media/Forbes-Advisor_1770392260031.png
@@ -182,13 +193,18 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
+    section_id: awards_marquee-66rh3f
   - type: syllabus
-    version: "1.0"
+    version: '1.0'
     title: Get Job-Ready with Our Syllabus!
-    subtitle: We've fine-tuned our course content with hundreds of job positions to prepare you for a successful entry into tech.
+    subtitle: >-
+      We've fine-tuned our course content with hundreds of job positions to prepare you for a successful entry into
+      tech.
     modules:
       - title: Introduction To HTML And CSS
-        description: Learn to create web structures with HTML and style them with CSS, essential for building visually appealing and functional websites.
+        description: >-
+          Learn to create web structures with HTML and style them with CSS, essential for building visually appealing
+          and functional websites.
       - title: JavaScript Fundamentals
         description: Master JavaScript programming concepts including variables, functions, DOM manipulation, and event handling.
       - title: React Development
@@ -199,10 +215,13 @@ sections:
         description: Design and implement databases using SQL, understanding relationships, queries, and data modeling.
       - title: API Development
         description: Build and consume RESTful APIs, implementing authentication, validation, and error handling.
+    section_id: syllabus-uav9v6
   - type: syllabus
     variant: program-modules
     program_title: Lo que construirás en 24 semanas
-    program_description: Desde el primer día trabajarás en una empresa ficticia que evoluciona contigo. En cada hito desarrollarás soluciones de IA reales, aplicadas a problemas que hoy enfrentan las empresas.
+    program_description: >-
+      Desde el primer día trabajarás en una empresa ficticia que evoluciona contigo. En cada hito desarrollarás
+      soluciones de IA reales, aplicadas a problemas que hoy enfrentan las empresas.
     tech_logos:
       - name: OpenAI
         icon: openai
@@ -344,6 +363,7 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg md
+    section_id: syllabus-2ly5ws
   - type: award_badges
     version: v1.0
     variant: detailed
@@ -368,14 +388,17 @@ sections:
         description: La escuela tecnológica mejor valorada, en base a reseñas verificadas de alumnos
         link: https://www.switchup.org
         linkText: Leer reviews
+    section_id: award_badges-vf18kn
   - type: ai_learning
     badge: ¿Por qué 4Geeks?
     title: ¿Por qué aprender Ingeniería de IA con 4Geeks?
-    description: Porque no solo aprendes IA. Aprendes a usarla como lo hacen las empresas. Nuestro enfoque está diseñado para que desarrolles habilidades reales, con acompañamiento constante y un camino claro hacia la empleabilidad.
+    description: >-
+      Porque no solo aprendes IA. Aprendes a usarla como lo hacen las empresas. Nuestro enfoque está diseñado para que
+      desarrolles habilidades reales, con acompañamiento constante y un camino claro hacia la empleabilidad.
     features:
       - icon: TrendingUp
         title: Destaca en tech con apoyo de carrera para la era de la IA
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Recibe coaching 1:1 personalizado
@@ -385,11 +408,11 @@ sections:
         video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
         cta:
           text: Empieza a aprender ahora
-          url: "#hero-form"
+          url: '#hero-form'
           variant: primary
       - icon: Robot
         title: Avanza más rápido con herramientas potenciadas por IA
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Obtén retroalimentación al instante con Rigobot, nuestro tutor de IA
@@ -399,11 +422,11 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
         cta:
           text: Empieza a aprender ahora
-          url: "#hero-form"
+          url: '#hero-form'
           variant: primary
       - icon: Headset
         title: Mentoría 1:1 ilimitada y una comunidad activa
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Acceso de por vida a sesiones de mentoría 1:1
@@ -414,14 +437,17 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
+    section_id: ai_learning-6kb9rp
   - type: certificate
     title: Impacto en tu carrera profesional
-    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
+    description: >-
+      Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de
+      Florida. Accede a roles bien pagados:
     benefits:
-      - text: "Ingeniero de software IA: $95K–$135K"
-      - text: "Ingeniero full-stack (IA): $100K–$145K"
-      - text: "Ingeniero de agentes: $105K–$155K"
-      - text: "Ingeniero de automatización de flujos: $85K–$120K"
+      - text: 'Ingeniero de software IA: $95K–$135K'
+      - text: 'Ingeniero full-stack (IA): $100K–$145K'
+      - text: 'Ingeniero de agentes: $105K–$155K'
+      - text: 'Ingeniero de automatización de flujos: $85K–$120K'
     card:
       title: Ingeniero de IA
       subtitle: Certificado 4Geeks Academy
@@ -437,22 +463,30 @@ sections:
           - text: Perfil profesional y estrategia de búsqueda optimizados
       - value: 3-6 meses
         label: Para encontrar empleo
-        description: La mayoría de nuestros graduados encuentra empleo en 3–6 meses gracias a nuestro proceso de desarrollo profesional.
+        description: >-
+          La mayoría de nuestros graduados encuentra empleo en 3–6 meses gracias a nuestro proceso de desarrollo
+          profesional.
         benefits:
-          - text: Optimiza tu currículum, portafolio y perfil profesional para atraer recruiters y superar filtros automatizados
+          - text: >-
+              Optimiza tu currículum, portafolio y perfil profesional para atraer recruiters y superar filtros
+              automatizados
           - text: Prepárate para entrevistas técnicas y de competencias con casos reales
           - text: Aplica una estrategia de búsqueda personalizada con acceso a redes de empresas contratantes
       - value: 30%
         label: Aumento salarial medio
-        description: Nuestros graduados ven un aumento salarial promedio del 30% al pasar a roles de ingeniería de IA. La inversión se paga sola.
+        description: >-
+          Nuestros graduados ven un aumento salarial promedio del 30% al pasar a roles de ingeniería de IA. La inversión
+          se paga sola.
         benefits:
-          - text: "AI Software Engineer: 30.000 € - 40.000 €"
-          - text: "AI Full-Stack Engineer: 35.000 € - 50.000 €"
-          - text: "Agent / Workflow Automation Engineer: 30.000 € - 45.000 €"
-          - text: "AI Integration Specialist (RAG, APIs, vector DBs): 40.000 € - 60.000 €"
+          - text: 'AI Software Engineer: 30.000 € - 40.000 €'
+          - text: 'AI Full-Stack Engineer: 35.000 € - 50.000 €'
+          - text: 'Agent / Workflow Automation Engineer: 30.000 € - 45.000 €'
+          - text: 'AI Integration Specialist (RAG, APIs, vector DBs): 40.000 € - 60.000 €'
       - value: 5,000+
         label: Empresas que contratan talento
-        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
+        description: >-
+          Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de
+          selección prioritarios.
         benefits:
           - text: Acceso exclusivo a nuestra bolsa de empleo
           - text: Recomendaciones directas a empresas colaboradoras
@@ -466,6 +500,7 @@ sections:
       mobile: lg
       desktop: lg
     background: hsl(var(--muted))
+    section_id: certificate-kocdaz
   - type: whos_hiring
     variant: carousel
     title: Empresas líderes confían en nuestro talento
@@ -501,8 +536,9 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
+    section_id: whos_hiring-8wyhut
   - type: bullet_tabs_showcase
-    version: "1.0"
+    version: '1.0'
     heading: ¿Este programa es para ti?
     tabs:
       - label: Compromiso real
@@ -532,18 +568,21 @@ sections:
     paddingY:
       mobile: none
       desktop: none
+    section_id: bullet_tabs_showcase-a1ucwe
   - type: testimonials
     title: Graduados que hoy trabajan en tecnología
     subtitle: Únete a miles que han transformado sus carreras
     rating_summary:
-      average: "4.9"
+      average: '4.9'
       count: 700+
     items:
       - name: Sara García
         role: Ingeniera de IA
         company: Google
         rating: 5
-        comment: Este curso transformó completamente mi carrera. Los instructores son increíblemente conocedores y el currículo es perfecto para aplicaciones de IA del mundo real.
+        comment: >-
+          Este curso transformó completamente mi carrera. Los instructores son increíblemente conocedores y el currículo
+          es perfecto para aplicaciones de IA del mundo real.
         outcome: +55% aumento salarial
       - name: Miguel Chen
         role: Ingeniero ML
@@ -557,11 +596,14 @@ sections:
         rating: 5
         comment: Excelente contenido y gran apoyo de mentores. Ahora trabajo en IA de vanguardia.
         outcome: +100% aumento salarial
+    section_id: testimonials-vx254t
   - type: numbered_steps
-    version: "1.0"
+    version: '1.0'
     variant: bubbleText
     title: Nuestro proceso de admisión
-    description: Postular no significa inscribirse automáticamente. Evaluamos cada perfil para asegurar que este programa sea el adecuado para ti.
+    description: >-
+      Postular no significa inscribirse automáticamente. Evaluamos cada perfil para asegurar que este programa sea el
+      adecuado para ti.
     steps:
       - icon: Application
         title: Aplicación al programa
@@ -574,7 +616,9 @@ sections:
         bullets:
           - Tendrás una conversación con nuestro equipo académico o de admisiones.
           - Evaluamos tu motivación, disponibilidad y encaje con el programa.
-          - No es un examen técnico, es una conversación para entender si encajas en el perfil que buscamos y si este es el momento adecuado para ti.
+          - >-
+            No es un examen técnico, es una conversación para entender si encajas en el perfil que buscamos y si este es
+            el momento adecuado para ti.
       - icon: Decision
         title: Selección y próximos pasos
         bullets:
@@ -582,8 +626,9 @@ sections:
           - Recibirás orientación clara sobre fechas, inversión y expectativas.
           - Si no es el mejor momento, te recomendamos alternativas para tu crecimiento profesional.
     background: bg-background
+    section_id: numbered_steps-d0xnne
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: ¿Listo para convertirte en Ingeniero de IA?
     subtitle: Cupos limitados. Comienza tu transformación hoy.
     background: hsl(var(--primary))
@@ -618,7 +663,9 @@ sections:
         message: ¡Gracias! Nos pondremos en contacto pronto.
       consent:
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary border-white
       terms_className: text-white/80
@@ -630,11 +677,13 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
+    section_id: cta_banner-1zvnel
   - type: footer
-    version: "1.0"
+    version: '1.0'
     copyright_text: 2024 4Geeks. Todos los derechos reservados.
     paddingY:
       mobile: none
       desktop: none
     marginY:
       desktop: sm none
+    section_id: footer-fm5ukr

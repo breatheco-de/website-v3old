@@ -3,7 +3,9 @@ template: default
 title: Outcomes
 meta:
   page_title: 4Geeks Academy Outcomes Report | Career Success Data
-  description: Discover the career outcomes of 4Geeks Academy graduates. See employment rates, salary increases, and success stories from our coding bootcamp alumni.
+  description: >-
+    Discover the career outcomes of 4Geeks Academy graduates. See employment rates, salary increases, and success
+    stories from our coding bootcamp alumni.
   robots: index, follow
 schema:
   include:
@@ -11,14 +13,16 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: simpleTwoColumn
     title: Real Career Outcomes, Backed by Data
-    subtitle: We measure success by real results. Our graduates get hired in AI engineering, data science, and cybersecurity; the outcomes are backed by verified data.
+    subtitle: >-
+      We measure success by real results. Our graduates get hired in AI engineering, data science, and cybersecurity;
+      the outcomes are backed by verified data.
     image: https://storage.googleapis.com/4geeks-academy-website/media/graduation_1766029503175.webp
     cta_buttons:
       - text: Download Outcomes Report
-        url: "#bottom"
+        url: '#bottom'
         variant: primary
         icon: IconRocket
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
@@ -26,19 +30,23 @@ sections:
       desktop: none
     paddingY:
       desktop: lg none
+    section_id: hero-p2bzil
   - type: vertical_bars_cards
-    version: "1.0"
+    version: '1.0'
     title: Hiring Results, Year after Year
     subtitle: How our graduates perform in the job market-based on verified outcomes from recent cohorts.
     metrics:
       - title: Job Placement Rate
         unit: Graduates hired within 6 months
-        description: Our job placement rate stays consistently above 80%, reflecting a hiring-focused program and hands-on career support. We track outcomes for up to nine months after graduation to keep the data accurate and comparable across cohorts.
+        description: >-
+          Our job placement rate stays consistently above 80%, reflecting a hiring-focused program and hands-on career
+          support. We track outcomes for up to nine months after graduation to keep the data accurate and comparable
+          across cohorts.
         years:
-          - year: "2023"
+          - year: '2023'
             value: 86
             displayValue: 86%
-          - year: "2024"
+          - year: '2024'
             value: 84
             displayValue: 84%
           - year: Mid 2025
@@ -46,12 +54,14 @@ sections:
             displayValue: 82%
       - title: Average Salary Increase
         unit: Compared to pre-bootcamp salary
-        description: Graduates earn significantly more after completing the program. This reflects both market demand for tech talent and the practical, job-ready skills students build during the bootcamp.
+        description: >-
+          Graduates earn significantly more after completing the program. This reflects both market demand for tech
+          talent and the practical, job-ready skills students build during the bootcamp.
         years:
-          - year: "2023"
+          - year: '2023'
             value: 12500
             displayValue: $12.5k
-          - year: "2024"
+          - year: '2024'
             value: 14200
             displayValue: $14.2k
           - year: Mid 2025
@@ -59,12 +69,14 @@ sections:
             displayValue: $15.8k
       - title: Days to First Job
         unit: Average time from graduation to offer
-        description: Graduates are landing roles faster each year. With personalized coaching and employer connections, we help students move from graduation to their first offer quickly.
+        description: >-
+          Graduates are landing roles faster each year. With personalized coaching and employer connections, we help
+          students move from graduation to their first offer quickly.
         years:
-          - year: "2023"
+          - year: '2023'
             value: 52
             displayValue: 52 days
-          - year: "2024"
+          - year: '2024'
             value: 48
             displayValue: 48 days
           - year: Mid 2025
@@ -97,19 +109,23 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+    section_id: vertical_bars_cards-4nogxn
   - type: vertical_bars_cards
-    version: "1.0"
+    version: '1.0'
     title: Hiring Results, Year after Year
     subtitle: How our graduates perform in the job market-based on verified outcomes from recent cohorts.
     metrics:
       - title: Job Placement Rate
         unit: Graduates hired within 6 months
-        description: Our job placement rate stays consistently above 80%, reflecting a hiring-focused program and hands-on career support. We track outcomes for up to nine months after graduation to keep the data accurate and comparable across cohorts.
+        description: >-
+          Our job placement rate stays consistently above 80%, reflecting a hiring-focused program and hands-on career
+          support. We track outcomes for up to nine months after graduation to keep the data accurate and comparable
+          across cohorts.
         years:
-          - year: "2023"
+          - year: '2023'
             value: 80
             displayValue: 80%
-          - year: "2024"
+          - year: '2024'
             value: 75
             displayValue: 75%
           - year: Mid 2025
@@ -117,12 +133,14 @@ sections:
             displayValue: 75%
       - title: Average Salary Increase
         unit: Compared to pre-bootcamp salary
-        description: Graduates earn significantly more after completing the program. This reflects both market demand for tech talent and the practical, job-ready skills students build during the bootcamp.
+        description: >-
+          Graduates earn significantly more after completing the program. This reflects both market demand for tech
+          talent and the practical, job-ready skills students build during the bootcamp.
         years:
-          - year: "2023"
+          - year: '2023'
             value: 22
             displayValue: 22%
-          - year: "2024"
+          - year: '2024'
             value: 18
             displayValue: 18%
           - year: Mid 2025
@@ -130,12 +148,14 @@ sections:
             displayValue: 33%
       - title: Days to First Job
         unit: Average time from graduation to offer
-        description: Graduates are landing roles faster each year. With personalized coaching and employer connections, we help students move from graduation to their first offer quickly.
+        description: >-
+          Graduates are landing roles faster each year. With personalized coaching and employer connections, we help
+          students move from graduation to their first offer quickly.
         years:
-          - year: "2023"
+          - year: '2023'
             value: 96
             displayValue: 96 days
-          - year: "2024"
+          - year: '2024'
             value: 128
             displayValue: 128 days
           - year: Mid 2025
@@ -157,8 +177,9 @@ sections:
       - milan-italy
       - rome-italy
       - valencia-spain
+    section_id: vertical_bars_cards-lv0dsv
   - type: stats
-    version: "1.0"
+    version: '1.0'
     title: Hiring Outcomes Across Regions
     subtitle: Our graduates get hired and increase their salaries in multiple job markets.
     background: hsl(210 100% 50% / 0.05)
@@ -177,8 +198,9 @@ sections:
       desktop: none md
     paddingY:
       desktop: lg
+    section_id: stats-v2ghyn
   - type: pie_charts
-    version: "1.0"
+    version: '1.0'
     title: Our Student Body at a Glance
     subtitle: A snapshot of who our students are by age, gender, and region.
     background: hsl(var(--background))
@@ -214,6 +236,7 @@ sections:
       desktop: none
     paddingY:
       desktop: sm none
+    section_id: pie_charts-ql2qkx
   - type: value_proof_panel
     title: Globally Recognized for Real Outcomes
     subtitle: Independent organizations recognize 4Geeks for graduate results, the quality of our programs and career support.
@@ -234,9 +257,10 @@ sections:
       type: image
       src: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
       alt: Students collaborating in classroom
-      aspect_ratio: "4:3"
+      aspect_ratio: '4:3'
       style: rounded
     stacked_header: true
+    section_id: value_proof_panel-thhky1
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -279,14 +303,17 @@ sections:
       desktop: none sm
     paddingY:
       desktop: md lg
+    section_id: awards_marquee-u63t4x
   - type: two_column_accordion_card
     variant: image_background
-    version: "1.0"
+    version: '1.0'
     title: Why our Graduates Consistently get Hired
     description: Strong outcomes come from how we teach, support, and place students into tech roles.
     bullets:
       - heading: GeekFORCE lifelong career support
-        text: Unlimited 1:1 career mentorship, interview prep, and resume and portfolio coaching, designed around today’s AI-driven hiring processes.
+        text: >-
+          Unlimited 1:1 career mentorship, interview prep, and resume and portfolio coaching, designed around today’s
+          AI-driven hiring processes.
       - heading: GeekPAL lifelong technical mentorship
         text: Unlimited access to human mentors who help students keep progressing and build real-world confidence.
       - heading: AI-Powered learning & feedback
@@ -299,13 +326,16 @@ sections:
     reverse: true
     marginY:
       desktop: none lg
+    section_id: two_column_accordion_card-gr6szh
   - type: testimonials
     version: v1.0
     title: Real Career Results
     subtitle: Alumni share how they landed roles, advanced their careers, and increased their earning power.
     rating_summary:
-      average: {{ global.global_review_rating | 4.9 }}
-      count: {{ global.global_review_count | 2,847 }}
+      average:
+        '[object Object]': null
+      count:
+        '[object Object]': null
     items:
       - name: Maria Rodriguez
         role: Software Engineer
@@ -346,6 +376,7 @@ sections:
     paddingY:
       desktop: none
     background: hsl(210 100% 50% / 0.05)
+    section_id: testimonials-lz1yjz
   - type: faq
     title: Frequently Asked Questions
     related_features:
@@ -354,8 +385,9 @@ sections:
       desktop: md
     paddingY:
       desktop: lg none
+    section_id: faq-tea0cz
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Take the Next Step Toward your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
@@ -393,8 +425,9 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+    section_id: cta_banner-khrszu
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -423,3 +456,4 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
+    section_id: sticky_cta-2nxchd

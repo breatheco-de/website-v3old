@@ -19,7 +19,7 @@ sections:
         url: /es/apply
         variant: primary
       - text: Descargar Programa
-        url: "#cta_banner-14"
+        url: "#cta_banner-x72tv2"
         variant: outline
     marginY:
       desktop: none lg
