@@ -1,0 +1,9 @@
+slug: ejemplo
+template: default
+title: ejemplo
+meta:
+  page_title: ejemplo | 4Geeks Academy
+  description: ejemplo - Learn more about this topic at 4Geeks Academy.
+  redirects:
+    - /ejemplo
+sections: []
