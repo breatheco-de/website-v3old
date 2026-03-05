@@ -293,6 +293,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
                 <Link
                   href="/private/settings"
                   className="text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
+                  onClick={() => onOpenChange(false)}
                   data-testid="link-manage-locales"
                 >
                   Manage locales
