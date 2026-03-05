@@ -292,6 +292,8 @@ export function CreateContentModal({
   const [excludedLocales, setExcludedLocales] = useState<Set<string>>(new Set());
   const [showTypeChangeDetails, setShowTypeChangeDetails] = useState(false);
   const [uniqueFieldValues, setUniqueFieldValues] = useState<Record<string, string>>({});
+  const [localeTitles, setLocaleTitles] = useState<Record<string, string>>({});
+  const [manualTitleLocales, setManualTitleLocales] = useState<Set<string>>(new Set());
 
   const [step, setStep] = useState<1 | 2>(1);
   const [nonUniqueValues, setNonUniqueValues] = useState<Record<string, string>>({});
@@ -463,6 +465,8 @@ export function CreateContentModal({
       setNonUniqueValues({});
       setShowNonUnique(false);
       setExampleOpen(false);
+      setLocaleTitles({});
+      setManualTitleLocales(new Set());
     }
   };
 
@@ -512,6 +516,14 @@ export function CreateContentModal({
           ...(excludedLocales.size > 0 ? { skipLocales: Array.from(excludedLocales) } : {}),
           ...(isTypeChanged ? { changeContentType: true } : {}),
           ...(Object.keys(allFieldValues).length > 0 ? { uniqueFieldValues: allFieldValues } : {}),
+          ...(() => {
+            const extra = Object.fromEntries(
+              Object.entries(localeTitles).filter(
+                ([loc, t]) => loc !== loc0 && t && t !== createContentTitle,
+              ),
+            );
+            return Object.keys(extra).length > 0 ? { localeTitles: extra } : {};
+          })(),
         }),
       });
 
@@ -540,6 +552,8 @@ export function CreateContentModal({
         setUniqueFieldValues({});
         setStep(1);
         setNonUniqueValues({});
+        setLocaleTitles({});
+        setManualTitleLocales(new Set());
 
         setSitemapLoading(true);
         const sitemapRes = await fetch("/api/debug/sitemap-urls");
@@ -686,6 +700,13 @@ export function CreateContentModal({
                     .replace(/^-|-$/g, "");
                   setCreateContentSlugEn(slug);
                   setCreateContentSlugEs(slug);
+                  setLocaleTitles((prev) => {
+                    const next = { ...prev };
+                    for (const l of supportedLocales.map((s) => s.code).filter((c) => c !== loc0)) {
+                      if (!manualTitleLocales.has(l)) next[l] = title;
+                    }
+                    return next;
+                  });
                   if (slug) {
                     setCreateContentSlugEnStatus("checking");
                     setCreateContentSlugEsStatus("checking");
@@ -706,7 +727,7 @@ export function CreateContentModal({
               />
             </div>
 
-            {duplicatingPage && (
+            {duplicatingPage && !isTypeChanged && (
               <div className="flex gap-2 p-3 rounded-md bg-muted/50 border text-xs text-muted-foreground">
                 <IconInfoCircle className="h-3.5 w-3.5 mt-0.5 shrink-0 text-muted-foreground" />
                 <div>
@@ -736,8 +757,54 @@ export function CreateContentModal({
               };
               const activeLocales = supportedLocales.map((l) => l.code).filter((l) => !excludedLocales.has(l));
 
+              const deriveSlug = (t: string) =>
+                t.toLowerCase().trim()
+                  .replace(/[^a-z0-9\s-]/g, "")
+                  .replace(/\s+/g, "-")
+                  .replace(/-+/g, "-")
+                  .replace(/^-|-$/g, "");
+
               return (
                 <div className="space-y-3 p-3 bg-muted/50 rounded-md">
+                  {activeLocales.length > 1 && (
+                    <div className="space-y-1.5">
+                      <p className="text-xs font-medium text-muted-foreground">Titles per locale:</p>
+                      {activeLocales.map((loc) => (
+                        <div key={loc} className="flex items-center gap-2">
+                          <span className="text-xs font-mono text-muted-foreground w-8 shrink-0 text-right">{loc}</span>
+                          {loc === loc0 ? (
+                            <span className="flex-1 text-xs bg-background px-2 py-1 rounded border text-foreground truncate">
+                              {createContentTitle || "—"}
+                            </span>
+                          ) : (
+                            <input
+                              type="text"
+                              value={localeTitles[loc] ?? ""}
+                              onChange={(e) => {
+                                const val = e.target.value;
+                                setLocaleTitles((prev) => ({ ...prev, [loc]: val }));
+                                setManualTitleLocales((prev) => new Set(prev).add(loc));
+                                const slug = deriveSlug(val);
+                                if (loc === loc1) {
+                                  setCreateContentSlugEs(slug);
+                                  if (slug) {
+                                    setCreateContentSlugEsStatus("checking");
+                                    checkSlug(createContentType, slug, loc, setCreateContentSlugEsStatus, setSlugEsConflictReason);
+                                  } else {
+                                    setCreateContentSlugEsStatus("idle");
+                                    setSlugEsConflictReason(null);
+                                  }
+                                }
+                              }}
+                              placeholder={createContentTitle || "Title"}
+                              className="flex-1 px-2 py-1 text-xs rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                              data-testid={`input-title-${loc}`}
+                            />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                   <div className="space-y-2">
                     <p className="text-xs font-medium text-muted-foreground">URLs that will be created:</p>
 
@@ -815,10 +882,10 @@ export function CreateContentModal({
                           {createContentSlugEnStatus === "checking" && (
                             <IconRefresh className="h-4 w-4 animate-spin text-muted-foreground" />
                           )}
-                          {createContentSlugEnStatus === "available" && (
+                          {createContentSlugEnStatus === "available" && !slugsConflict && (
                             <IconCheck className="h-4 w-4 text-green-600" />
                           )}
-                          {createContentSlugEnStatus === "taken" && (
+                          {(createContentSlugEnStatus === "taken" || (createContentSlugEnStatus === "available" && slugsConflict)) && (
                             <IconX className="h-4 w-4 text-red-600" />
                           )}
                         </div>
@@ -902,10 +969,10 @@ export function CreateContentModal({
                           {createContentSlugEsStatus === "checking" && (
                             <IconRefresh className="h-4 w-4 animate-spin text-muted-foreground" />
                           )}
-                          {createContentSlugEsStatus === "available" && (
+                          {createContentSlugEsStatus === "available" && !slugsConflict && (
                             <IconCheck className="h-4 w-4 text-green-600" />
                           )}
-                          {createContentSlugEsStatus === "taken" && (
+                          {(createContentSlugEsStatus === "taken" || (createContentSlugEsStatus === "available" && slugsConflict)) && (
                             <IconX className="h-4 w-4 text-red-600" />
                           )}
                         </div>

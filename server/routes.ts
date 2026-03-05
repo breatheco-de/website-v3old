@@ -7314,6 +7314,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         author: createAuthor,
         skipLocales: rawSkipLocales,
         uniqueFieldValues: rawUniqueFieldValues,
+        localeTitles: rawLocaleTitles,
       } = req.body;
       const createAuthorName =
         createAuthor && typeof createAuthor === "string"
@@ -7326,6 +7327,14 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         rawUniqueFieldValues && typeof rawUniqueFieldValues === "object"
           ? Object.fromEntries(
               Object.entries(rawUniqueFieldValues).filter(
+                ([, v]) => typeof v === "string",
+              ),
+            )
+          : {};
+      const localeTitles: Record<string, string> =
+        rawLocaleTitles && typeof rawLocaleTitles === "object"
+          ? Object.fromEntries(
+              Object.entries(rawLocaleTitles).filter(
                 ([, v]) => typeof v === "string",
               ),
             )
@@ -7498,7 +7507,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               }
 
               if (file === "en.yml" || file === "es.yml") {
-                content = content.replace(/title:\s*.*$/m, `title: ${title}`);
+                const fileLocale = file.replace(/\.yml$/, "");
+                const localeTitle = localeTitles[fileLocale] || title;
+                content = content.replace(/title:\s*.*$/m, `title: ${localeTitle}`);
               }
 
               // Replace unique mapped field values in _common.yml
@@ -7570,8 +7581,14 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const commonYml = commonLines.join("\n") + "\n";
 
       // Locale files: minimal starter — _common.single.yml provides meta/schema defaults
-      const enYml = `slug: ${enSlug || folderSlug}\nsections: []\n`;
-      const esYml = `slug: ${esSlug || folderSlug}\nsections: []\n`;
+      const makeLocaleYml = (slug: string, loc: string) => {
+        const localeTitle = localeTitles[loc];
+        return localeTitle
+          ? `slug: ${slug}\ntitle: "${localeTitle}"\nsections: []\n`
+          : `slug: ${slug}\nsections: []\n`;
+      };
+      const enYml = makeLocaleYml(enSlug || folderSlug!, "en");
+      const esYml = makeLocaleYml(esSlug || folderSlug!, "es");
 
       // Write only missing files (preserve existing content from partial creation)
       const createdFiles: string[] = [];
