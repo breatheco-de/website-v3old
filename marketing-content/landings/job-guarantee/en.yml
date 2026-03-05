@@ -242,7 +242,7 @@ sections:
         text: Master technical and behavioral interviews, practice coding exercises, and develop winning strategies for upcoming opportunities.
       - icon: Cash
         text: Follow a tailored job search plan, leverage AI-driven hiring tools, and connect with top hiring companies to land your role.
-    background: hsl(var(--secondary))
+    background: hsl(210 100% 50% / 0.05)
     bullet_icon: Check
     bullet_icon_color: text-green-600
   - type: whos_hiring
