@@ -1258,29 +1258,12 @@ function FieldValidationMessage({ result, fieldKey, source }: { result: FieldVal
   const displaySource = source || (fieldKey.startsWith("__") ? "" : fieldKey);
   if (!displaySource) return null;
   const allMissing = result.found === 0;
-  const shown = result.missing.slice(0, 3);
-  const remaining = result.missing.length - shown.length;
   return (
-    <div className="text-[11px] text-destructive space-y-1 mt-1" data-testid={`text-validation-error-${fieldKey}`}>
+    <div className="text-[11px] text-destructive mt-1" data-testid={`text-validation-error-${fieldKey}`}>
       <p>
         Source property "<span className="font-mono font-medium">{displaySource}</span>" was not found in {allMissing ? "any" : "some"} content {result.total === 1 ? "entry" : "entries"}.
-        {" "}{allMissing ? "None" : `Only ${result.found}`} of {result.total} {result.total === 1 ? "entry has" : "entries have"} this property.
+        {" "}{allMissing ? "None" : `Only ${result.found}`} of {result.total} {result.total === 1 ? "entry has" : "entries have"} this property, it must be in all entries to become a common mapped field.
       </p>
-      <p className="text-muted-foreground">Add it to one of these files per entry:</p>
-      <ul className="list-none space-y-0.5">
-        {shown.map((entry) => (
-          <li key={entry.slug}>
-            <span className="font-medium">{entry.slug}/</span>
-            {" "}
-            <span className="font-mono text-muted-foreground">
-              {entry.files.map((f) => f.replace(/^marketing-content\//, "")).join(" or ")}
-            </span>
-          </li>
-        ))}
-        {remaining > 0 && (
-          <li className="text-muted-foreground">+{remaining} more {remaining === 1 ? "entry" : "entries"}</li>
-        )}
-      </ul>
     </div>
   );
 }
