@@ -66,9 +66,9 @@ sections:
       ratio: "9:16"
       muted: true
     bullets:
-      - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
-      - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
-      - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
+      - text: Domina el desarrollo frontend moderno con HTML, CSS, JavaScript y React.
+      - text: Construye sistemas backend escalables con Python, APIs y arquitectura de bases de datos.
+      - text: Integra herramientas y flujos de trabajo con IA en aplicaciones web reales.
     paddingY:
       mobile: md none
       desktop: lg none
