@@ -442,32 +442,38 @@ sections:
       desktop: md
   - type: sticky_cta
     version: "1.0"
-    heading: Ready to start your tech career?
-    button_label: Apply Now
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline
       conversion_name: student_application
-      submit_label: Submit Application
+      submit_label: Enviar solicitud
       tags: website-lead
-      automations: strong
       fields:
         email:
           visible: true
           required: true
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
+          placeholder: Nombre
         last_name:
           visible: true
           required: false
         phone:
           visible: true
           required: true
+          placeholder: Número telefónico
         program:
           visible: false
-          required: false
-          default: {{ single.bc_slug | ai-engineering }}
+          default: full-stack
       success:
-        message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-et016q
+        message: ¡Gracias! Nos pondremos en contacto pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
+    load: eager
