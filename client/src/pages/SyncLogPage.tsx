@@ -7,6 +7,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
   Dialog,
   DialogContent,
   DialogHeader,
@@ -26,6 +32,8 @@ import {
   IconBrandGithub,
   IconTrash,
   IconLoader2,
+  IconChevronDown,
+  IconUser,
 } from "@tabler/icons-react";
 import { apiRequest } from "@/lib/queryClient";
 
@@ -37,6 +45,7 @@ const CATEGORIES = [
   "COMMIT",
   "CONFLICT",
   "ERROR",
+  "EDIT",
 ] as const;
 
 type Category = (typeof CATEGORIES)[number];
@@ -57,28 +66,34 @@ interface SyncInfo {
   recentLog: string[];
 }
 
+interface SyncLogEntry {
+  ts: string;
+  category: string;
+  message: string;
+  person?: string;
+  meta?: Record<string, unknown>;
+}
+
 interface ParsedEntry {
-  raw: string;
-  timestamp: string;
+  ts: string;
   timeOnly: string;
   dateOnly: string;
   category: string;
   message: string;
+  person?: string;
+  meta?: Record<string, unknown>;
 }
 
-function parseLogEntry(line: string): ParsedEntry | null {
-  const match = line.match(/^(\S+)\s+\[(\S+)\]\s+(.+)$/);
-  if (!match) return null;
-  const [, timestamp, category, message] = match;
-  const date = new Date(timestamp);
+function toParseEntry(entry: SyncLogEntry): ParsedEntry {
+  const date = new Date(entry.ts);
   const isValidDate = !isNaN(date.getTime());
   const timeOnly = isValidDate
     ? date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })
-    : timestamp;
+    : entry.ts;
   const dateOnly = isValidDate
     ? date.toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit' })
     : "";
-  return { raw: line, timestamp, timeOnly, dateOnly, category, message };
+  return { ts: entry.ts, timeOnly, dateOnly, category: entry.category, message: entry.message, person: entry.person, meta: entry.meta };
 }
 
 function renderMessageWithLinks(message: string, repoUrl: string | null | undefined) {
@@ -121,6 +136,8 @@ function getCategoryColor(cat: string): string {
       return "text-amber-600 dark:text-amber-400";
     case "ERROR":
       return "text-red-600 dark:text-red-400";
+    case "EDIT":
+      return "text-indigo-600 dark:text-indigo-400";
     default:
       return "text-muted-foreground";
   }
@@ -141,10 +158,11 @@ export default function SyncLogPage() {
   const [activeCategories, setActiveCategories] = useState<Set<Category>>(
     new Set([])
   );
+  const [activePersons, setActivePersons] = useState<Set<string>>(new Set([]));
   const qc = useQueryClient();
 
   const clearMutation = useMutation({
-    mutationFn: () => apiRequest("DELETE", "/api/github/sync-log"),
+    mutationFn: (mode: "all" | "2days") => apiRequest("DELETE", `/api/github/sync-log?mode=${mode}`),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["/api/github/sync-log"] });
       qc.invalidateQueries({ queryKey: ["/api/github/sync-info"] });
@@ -177,14 +195,14 @@ export default function SyncLogPage() {
   });
 
   const {
-    data: logText,
+    data: logData,
     isLoading: logLoading,
     refetch: refetchLog,
-  } = useQuery<string>({
+  } = useQuery<{ entries: SyncLogEntry[] }>({
     queryKey: ["/api/github/sync-log"],
     queryFn: async () => {
       const res = await fetch("/api/github/sync-log");
-      return res.text();
+      return res.json();
     },
     refetchInterval: 15000,
   });
@@ -195,28 +213,34 @@ export default function SyncLogPage() {
   });
 
   const entries = useMemo(() => {
-    if (!logText) return [];
-    return logText
-      .split("\n")
-      .filter(Boolean)
-      .map(parseLogEntry)
-      .filter((e): e is ParsedEntry => e !== null);
-  }, [logText]);
+    if (!logData?.entries) return [];
+    return logData.entries.map(toParseEntry);
+  }, [logData]);
+
+  const uniquePersons = useMemo(() => {
+    const persons = new Set<string>();
+    for (const e of entries) {
+      if (e.person) persons.add(e.person);
+    }
+    return Array.from(persons).sort();
+  }, [entries]);
 
   const filtered = useMemo(() => {
     return entries.filter((e) => {
       if (activeCategories.size > 0 && !activeCategories.has(e.category as Category)) return false;
+      if (activePersons.size > 0 && e.person && !activePersons.has(e.person)) return false;
       if (search) {
         const q = search.toLowerCase();
         return (
           e.message.toLowerCase().includes(q) ||
           e.category.toLowerCase().includes(q) ||
-          e.timestamp.toLowerCase().includes(q)
+          (e.person || "").toLowerCase().includes(q) ||
+          e.ts.toLowerCase().includes(q)
         );
       }
       return true;
     });
-  }, [entries, activeCategories, search]);
+  }, [entries, activeCategories, activePersons, search]);
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -323,16 +347,28 @@ export default function SyncLogPage() {
               <IconRefresh className={`h-3.5 w-3.5 mr-1.5 ${logLoading ? "animate-spin" : ""}`} />
               Refresh
             </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => clearMutation.mutate()}
-              disabled={clearMutation.isPending}
-              data-testid="button-clear-sync-log"
-            >
-              <IconTrash className="h-3.5 w-3.5 mr-1.5" />
-              Clear
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={clearMutation.isPending}
+                  data-testid="button-clear-sync-log"
+                >
+                  <IconTrash className="h-3.5 w-3.5 mr-1.5" />
+                  Clear
+                  <IconChevronDown className="h-3 w-3 ml-1" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => clearMutation.mutate("2days")} data-testid="button-clear-2days">
+                  Clear older than 2 days
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => clearMutation.mutate("all")} className="text-destructive" data-testid="button-clear-all">
+                  Clear all
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
 
@@ -368,6 +404,47 @@ export default function SyncLogPage() {
                 </button>
               )}
             </div>
+
+            {uniquePersons.length > 1 && (
+              <div className="flex items-center gap-2 flex-wrap">
+                <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                  <IconUser className="h-3.5 w-3.5" />
+                  <span>Person:</span>
+                </div>
+                {uniquePersons.map((person) => {
+                  const slug = person.toLowerCase().replace(/\s+/g, "-");
+                  const isActive = activePersons.has(person);
+                  return (
+                    <Badge
+                      key={person}
+                      variant={isActive ? "secondary" : "outline"}
+                      className={`cursor-pointer select-none ${!isActive ? "opacity-50" : ""}`}
+                      onClick={() => {
+                        setActivePersons((prev) => {
+                          const next = new Set(prev);
+                          if (next.has(person)) next.delete(person);
+                          else next.add(person);
+                          return next;
+                        });
+                      }}
+                      onDoubleClick={() => setActivePersons(new Set([person]))}
+                      data-testid={`badge-person-${slug}`}
+                    >
+                      {person}
+                    </Badge>
+                  );
+                })}
+                {activePersons.size > 0 && (
+                  <button
+                    onClick={() => setActivePersons(new Set([]))}
+                    className="text-xs text-muted-foreground hover:text-foreground transition-colors underline"
+                    data-testid="button-clear-person-filters"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+            )}
 
             <div className="relative">
               <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -419,7 +496,9 @@ export default function SyncLogPage() {
                             ? "bg-red-50/50 dark:bg-red-950/20"
                             : entry.category === "CONFLICT"
                               ? "bg-amber-50/50 dark:bg-amber-950/20"
-                              : ""
+                              : entry.category === "EDIT"
+                                ? "bg-indigo-50/30 dark:bg-indigo-950/10"
+                                : ""
                         }`}
                         data-testid={`log-entry-${i}`}
                       >
@@ -434,6 +513,12 @@ export default function SyncLogPage() {
                         >
                           [{entry.category}]
                         </span>
+                        {entry.person && (
+                          <span className="text-muted-foreground shrink-0 flex items-center gap-1">
+                            <IconUser className="h-3 w-3" />
+                            {entry.person}
+                          </span>
+                        )}
                         <span className="text-foreground break-all">
                           {renderMessageWithLinks(entry.message, syncInfo?.repoUrl)}
                         </span>

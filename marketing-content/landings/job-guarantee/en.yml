@@ -67,21 +67,79 @@ sections:
         - title: Ask us anything
           description: Programs, schedules, financing, career support — we'll walk you through your options and share all the details.
       closing: Now you're ready to make the best decision for your career!
+  - type: features_quad
+    version: "1.0"
+    variant: default
+    compact: true
+    heading: How Our Job Guarantee Works
+    cards:
+      - icon: Handshake
+        title: 1. Add the Job Guarantee When You Enroll
+      - icon: Contract
+        title: 2. Complete the Program and Build Your Portfolio
+      - icon: Briefcase
+        title: 3. Follow Our Proven Career Placement System
+      - icon: IconReportMoney
+        title: 4. Get Hired Within 9 Months — Or Get 100% of Your Tuition Back
+    background: bg-muted/30
+  - type: course_selector
+    version: "1.0"
+    variant: solid
+    heading: High-Growth Tech Careers, Backed by Our Job Guarantee
+    subheading: Choose your path
+    courses:
+      - name: AI Engineering
+        icon: Brain
+        duration: {{ global.ai_engineering_week_duration | 24 }} weeks
+        label: Updated in 2026
+        title: AI Engineering
+        badges:
+          - icon: DollarSign
+            text: APIs, automation, telemetry
+        description: Build production-ready AI systems and learn to design, deploy, and scale AI-driven products.
+        price_period: " "
+        cta_text: Program details
+        cta_url: /en/career-programs/ai-engineering
+        course_background: hsl(var(--accent))
+      - name: Data Science and Machine Learning
+        duration: {{ global.data_science_week_duration | 16 }} weeks
+        label: Updated in 2026
+        title: Data Science and Machine Learning
+        badges:
+          - icon: Brain
+            text: Python, TensorFlow, SQL
+        description: Analyze real-world data, build predictive models, and apply machine learning techniques used by modern teams.
+        price_period: " "
+        cta_text: Program details
+        cta_url: /en/career-programs/ai-machine-learning
+        course_background: hsl(var(--primary))
+      - name: Cybersecurity
+        duration: {{ global.cybersecurity_week_duration | 16 }} weeks
+        label: Updated in 2026
+        title: Cybersecurity
+        badges:
+          - icon: Code
+            text: Threat detection & system protection
+        description: Develop the skills to identify threats, secure systems, and support security operations in today’s digital economy.
+        price_period: " "
+        cta_text: Program details
+        cta_url: /en/career-programs/cybersecurity
+        course_background: hsl(var(--secondary-foreground))
   - type: features_grid
     version: "1.0"
     variant: cardHeader
-    heading: Why The Job Guarantee
-    description: The Job Guarantee is based on real outcomes and a hiring-focused model. Our programs, teaching approach, and career support are designed around how people actually get hired in today’s tech job market. Over the years, we’ve helped more than 3,500 graduates launch their tech careers across roles and industries.
+    heading: Real Outcomes Behind the Job Guarantee
+    description: The Job Guarantee is built on real results and a hiring-focused model. Our programs, teaching approach, and career support are structured around how people actually get hired. Over 6,000 graduates have launched succesful careers across tech roles and industries.
     image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
     image_alt: 4Geeks Academy community support
     background: bg-primary/5
     cards:
       - icon: BriefcaseFilled
-        text: Consistent hiring outcomes across our graduate community
+        text: Consistent hiring success across our graduates
       - icon: BrandStackshare
-        text: Strong and ongoing demand for skilled tech professionals
+        text: High demand for skilled tech talent
       - icon: ChalkboardTeacher
-        text: Structured training paired with hands-on, ongoing career support
+        text: Structured training + ongoing career mentorship
   - type: features_grid
     version: "1.0"
     variant: highlight
@@ -102,87 +160,6 @@ sections:
     background: hsl(var(--secondary))
     marginY:
       desktop: none md
-  - type: course_selector
-    version: "1.0"
-    variant: solid
-    heading: Career Programs with the Job Guarantee Option
-    subheading: Add the Job Guarantee for extra peace of mind as you launch your career. Eligibility requirements apply.
-    courses:
-      - name: AI Engineering
-        icon: Brain
-        duration: {{ global.ai_engineering_week_duration | 24 }} weeks
-        label: Updated in 2026
-        title: AI Engineering
-        badges:
-          - icon: DollarSign
-            text: APIS, automation, telemetry
-        description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
-        price_period: " "
-        cta_text: Program details
-        cta_url: /en/career-programs/ai-engineering
-        course_background: hsl(var(--accent))
-      - name: Full Stack Development with AI
-        duration: {{ global.fullstack_week_duration | 20 }} weeks
-        label: Updated in 2026
-        title: Full Stack Software Development
-        badges:
-          - icon: Code
-            text: React, Node.js & Python
-        tags:
-          - icon: Plus
-            text: API Development
-        description: Master modern web development from frontend to backend. Build production-ready applications using industry-standard tools and frameworks.
-        price_period: " "
-        cta_text: Program details
-        cta_url: /en/career-programs/full-stack
-        course_background: hsl(var(--destructive))
-      - name: Data Science and Machine Learning
-        duration: {{ global.data_science_week_duration | 16 }} weeks
-        label: Updated in 2026
-        title: Data Science and Machine Learning
-        badges:
-          - icon: Brain
-            text: Python, TensorFlow, SQL
-        description: Work with real datasets to analyze data, build predictive models, and apply machine learning techniques used by modern data teams.
-        price_period: " "
-        cta_text: Program details
-        cta_url: /en/career-programs/ai-machine-learning
-        course_background: hsl(var(--primary))
-      - name: Cybersecurity
-        duration: {{ global.cybersecurity_week_duration | 16 }} weeks
-        label: Updated in 2026
-        title: Cybersecurity
-        badges:
-          - icon: Code
-            text: Threat detection & system protection
-        description: Develop the skills to identify threats, secure systems, and support security operations aligned with industry standards.
-        price_period: " "
-        cta_text: Program details
-        cta_url: /en/career-programs/cybersecurity
-        course_background: hsl(var(--secondary-foreground))
-    showOnLocations:
-      - barcelona-spain
-      - berlin-germany
-      - dublin-ireland
-      - hamburg-germany
-      - lisbon-portugal
-      - madrid-spain
-      - malaga-spain
-      - milan-italy
-      - munich-germany
-      - rome-italy
-      - valencia-spain
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"

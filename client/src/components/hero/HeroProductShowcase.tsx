@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { IconStarFilled, IconArrowRight, IconCheck } from "@tabler/icons-react";
 import { resolveTemplateFallback } from "@/lib/variable-manager";
 import { LeadForm, type LeadFormData } from "@/components/LeadForm";
+import { AwardsMarquee } from "@/components/AwardsMarquee";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { Card } from "@/components/ui/card";
 
@@ -24,7 +25,10 @@ interface HeroProductShowcaseProps {
   landingLocations?: string[];
 }
 
-export function HeroProductShowcase({ data, landingLocations }: HeroProductShowcaseProps) {
+export function HeroProductShowcase({
+  data,
+  landingLocations,
+}: HeroProductShowcaseProps) {
   // Hide background image on screens smaller than 1280px for better mobile experience
   const [showBackground, setShowBackground] = useState(false);
 
@@ -42,24 +46,45 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
 
   // Cast to the full type to access optional properties
   const fullData = data as HeroProductShowcaseType;
-  
+
   // Safely access properties that may not exist on all variants
   const backgroundImage = fullData.background_image ?? null;
   const welcomeText = fullData.welcome_text ?? null;
   const subtitle = fullData.subtitle ?? null;
   const video = fullData.video ?? null;
   const rawImage = fullData.image ?? null;
-  const imageSrc = typeof rawImage === "string" ? rawImage : rawImage?.src ?? null;
-  const imageAlt = typeof rawImage === "string" ? (fullData.image_alt ?? "") : (rawImage?.alt ?? "");
-  const imageObjectFit = (fullData as any).image_object_fit as string | undefined;
-  const imageObjectPosition = (fullData as any).image_object_position as string | undefined;
+  const imageSrc =
+    typeof rawImage === "string" ? rawImage : (rawImage?.src ?? null);
+  const imageAlt =
+    typeof rawImage === "string"
+      ? (fullData.image_alt ?? "")
+      : (rawImage?.alt ?? "");
+  const imageObjectFit = (fullData as any).image_object_fit as
+    | string
+    | undefined;
+  const imageObjectPosition = (fullData as any).image_object_position as
+    | string
+    | undefined;
   const hasMedia = !!(video?.url || imageSrc);
-  const formVerticalAlign = (fullData as any).form_vertical_align as string | undefined;
+  const formVerticalAlign = (fullData as any).form_vertical_align as
+    | string
+    | undefined;
   const marquee = fullData.marquee ?? null;
   const bullets = fullData.bullets ?? null;
   const leftImages = fullData.left_images ?? null;
   const rightImages = fullData.right_images ?? null;
-  const hasDecorativeImages = (leftImages && leftImages.length > 0) || (rightImages && rightImages.length > 0);
+  const hasDecorativeImages =
+    (leftImages && leftImages.length > 0) ||
+    (rightImages && rightImages.length > 0);
+  const showAwardsMarquee = (fullData as any).show_awards_marquee === true;
+  const awardsMarquee = (fullData as any).awards_marquee as
+    | {
+        items?: any[];
+        speed?: number;
+        gradient?: boolean;
+        gradientWidth?: number;
+      }
+    | undefined;
 
   const shouldShowBackground = backgroundImage && showBackground;
 
@@ -97,8 +122,8 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
               <div
                 key={index}
                 className={`absolute w-44 transform transition-transform duration-brand ease-brand hover:rotate-0 hover:scale-[1.02] pointer-events-auto ${
-                  index === 0 
-                    ? "top-[80px] left-4 -rotate-6" 
+                  index === 0
+                    ? "top-[80px] left-4 -rotate-6"
                     : "top-[240px] left-12 rotate-3"
                 }`}
                 style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.15)" }}
@@ -124,8 +149,8 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
               <div
                 key={index}
                 className={`absolute w-44 transform transition-transform duration-brand ease-brand hover:rotate-0 hover:scale-[1.02] pointer-events-auto ${
-                  index === 0 
-                    ? "top-[80px] right-4 rotate-6" 
+                  index === 0
+                    ? "top-[80px] right-4 rotate-6"
                     : "top-[240px] right-12 -rotate-3"
                 }`}
                 style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.15)" }}
@@ -148,9 +173,7 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
           <div className="md:col-span-3 flex flex-col items-center md:items-start justify-start min-w-0">
             <div className="text-center md:text-left relative w-full min-w-0 pl-[0px] pr-[0px] mt-[24px] mb-[24px]">
               {welcomeText && (
-                <p className="text-4xl text-muted-foreground">
-                  {welcomeText}
-                </p>
+                <p className="text-4xl text-muted-foreground">{welcomeText}</p>
               )}
 
               {data.brand_mark && (
@@ -175,7 +198,7 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                   )}
                 </h1>
               )}
-              <h2 
+              <h2
                 className="text-4xl lg:text-5xl font-medium text-foreground"
                 data-testid="text-hero-title"
               >
@@ -201,15 +224,20 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
 
               {bullets && bullets.length > 0 && (
                 <div className="flex justify-center md:block">
-                  <ul className="mt-4 md:mb-6 space-y-2 max-w-xl" data-testid="hero-bullets">
+                  <ul
+                    className="mt-4 md:mb-6 space-y-2 max-w-xl"
+                    data-testid="hero-bullets"
+                  >
                     {bullets.map((bullet, index) => (
-                      <li 
-                        key={index} 
+                      <li
+                        key={index}
                         className="flex items-start gap-3 text-foreground"
                         data-testid={`hero-bullet-${index}`}
                       >
                         <IconCheck className="h-5 w-5 mt-0.5 text-primary flex-shrink-0" />
-                        <span className="text-body leading-relaxed text-left">{bullet.text}</span>
+                        <span className="text-body leading-relaxed text-left">
+                          {bullet.text}
+                        </span>
                       </li>
                     ))}
                   </ul>
@@ -217,7 +245,10 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
               )}
 
               {marquee && marquee.items && marquee.items.length > 0 && (
-                <div className="w-full max-w-xl mt-6 md:mb-8 overflow-hidden" data-testid="hero-embedded-marquee">
+                <div
+                  className="w-full max-w-xl mt-6 md:mb-8 overflow-hidden"
+                  data-testid="hero-embedded-marquee"
+                >
                   <Marquee
                     speed={marquee.speed || 40}
                     pauseOnHover={false}
@@ -227,16 +258,18 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                     autoFill={true}
                   >
                     {marquee.items.map((item, index) => (
-                      <div 
+                      <div
                         key={item.id}
                         className="flex items-center justify-center mx-4 transition-opacity duration-brand ease-brand hover:opacity-80"
                         data-testid={`hero-marquee-item-${index}`}
                       >
                         {item.logo ? (
-                          <img 
-                            src={item.logo} 
+                          <img
+                            src={item.logo}
                             alt={item.alt}
-                            style={{ height: parseLogoHeight(item.logoHeight) || 48 }}
+                            style={{
+                              height: parseLogoHeight(item.logoHeight) || 48,
+                            }}
                             className="w-auto object-contain"
                             loading="lazy"
                           />
@@ -302,7 +335,9 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                           <div className="flex">
                             {[1, 2, 3, 4, 5].map((star) => {
                               const rating = parseFloat(
-                                resolveTemplateFallback(data.trust_bar!.rating || "0"),
+                                resolveTemplateFallback(
+                                  data.trust_bar!.rating || "0",
+                                ),
                               );
                               const fullStars = Math.floor(rating);
                               const hasHalf = rating % 1 >= 0.5;
@@ -376,7 +411,9 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
             </div>
           </div>
 
-          <div className={`md:col-span-2 w-full md:w-auto flex justify-center md:justify-start ${!hasMedia && formVerticalAlign === "center" ? "items-center h-full" : !hasMedia && formVerticalAlign === "bottom" ? "items-end h-full" : "items-start"}`}>
+          <div
+            className={`md:col-span-2 w-full md:w-auto min-w-0 flex justify-center md:justify-start ${!hasMedia && formVerticalAlign === "center" ? "items-center h-full" : !hasMedia && formVerticalAlign === "bottom" ? "items-end h-full" : "items-start"}`}
+          >
             {video && video.url ? (
               <UniversalVideo
                 url={video.url}
@@ -390,31 +427,72 @@ export function HeroProductShowcase({ data, landingLocations }: HeroProductShowc
                 className="w-[280px] md:w-full md:max-w-[400px]"
               />
             ) : imageSrc ? (
-              <UniversalImage
-                id={imageSrc}
-                alt={imageAlt}
-                className="w-full max-w-[500px] rounded-card shadow-card"
-                style={{
-                  ...(imageObjectFit ? { objectFit: imageObjectFit as any } : {}),
-                  ...(imageObjectPosition ? { objectPosition: imageObjectPosition } : {}),
-                }}
-                data-testid="img-hero-product"
-              />
-            ) : data.form ? (
-              <Card className="hidden md:block w-full mt-[24px] bg-background p-4 rounded-lg" data-testid="hero-form-right">
-                <LeadForm
-                  data={
-                    {
-                      ...data.form,
-                      variant: data.form.variant || "stacked",
-                      consent: data.form.consent,
-                      show_terms: data.form.show_terms ?? false,
-                      className: "w-full",
-                    } as LeadFormData
-                  }
-                  landingLocations={landingLocations}
+              <div className="min-w-0">
+                <UniversalImage
+                  id={imageSrc}
+                  alt={imageAlt}
+                  className="w-full max-w-[500px] rounded-card shadow-card"
+                  style={{
+                    ...(imageObjectFit
+                      ? { objectFit: imageObjectFit as any }
+                      : {}),
+                    ...(imageObjectPosition
+                      ? { objectPosition: imageObjectPosition }
+                      : {}),
+                  }}
+                  data-testid="img-hero-product"
                 />
-              </Card>
+                {showAwardsMarquee &&
+                  awardsMarquee?.items &&
+                  awardsMarquee.items.length > 0 && (
+                    <div
+                      className="mt-8 w-full"
+                      data-testid="hero-awards-marquee"
+                    >
+                      <AwardsMarquee
+                        items={awardsMarquee.items}
+                        speed={awardsMarquee.speed}
+                        gradient={awardsMarquee.gradient}
+                        gradientWidth={awardsMarquee.gradientWidth}
+                      />
+                    </div>
+                  )}
+              </div>
+            ) : data.form ? (
+              <div className="w-full">
+                <Card
+                  className="hidden md:block w-full mt-[24px] bg-background p-4 rounded-lg"
+                  data-testid="hero-form-right"
+                >
+                  <LeadForm
+                    data={
+                      {
+                        ...data.form,
+                        variant: data.form.variant || "stacked",
+                        consent: data.form.consent,
+                        show_terms: data.form.show_terms ?? false,
+                        className: "w-full",
+                      } as LeadFormData
+                    }
+                    landingLocations={landingLocations}
+                  />
+                </Card>
+                {showAwardsMarquee &&
+                  awardsMarquee?.items &&
+                  awardsMarquee.items.length > 0 && (
+                    <div
+                      className="mt-8 w-full"
+                      data-testid="hero-awards-marquee"
+                    >
+                      <AwardsMarquee
+                        items={awardsMarquee.items}
+                        speed={awardsMarquee.speed}
+                        gradient={awardsMarquee.gradient}
+                        gradientWidth={awardsMarquee.gradientWidth}
+                      />
+                    </div>
+                  )}
+              </div>
             ) : null}
           </div>
 

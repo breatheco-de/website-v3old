@@ -1,0 +1,11 @@
+sections:
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: ¡Desde Cero Hasta Tu Primer Empleo!
+    subtitle: Aprende a Programar y Abre las Puertas a un Mundo de Oportunidades
+    description: Descubre una oportunidad única para transformar tu carrera y adentrarte en el mundo de la programación. En solo 18 semanas, te guiaremos desde cero hasta conseguir tu primer trabajo como programador.
+    cta:
+      text: Obtener más información
+      url: /signup
+      variant: primary
+    background: hsl(var(--secondary))

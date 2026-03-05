@@ -263,18 +263,18 @@ async function commitBatch(config: GitHubConfig, author: string, files: string[]
     updateSyncStateAfterCommit(result.commitSha, files);
     console.log(`[AutoCommit] Committed ${files.length} file(s) by ${author}: ${result.commitSha.substring(0, 7)}`);
     const { logSync, refreshGithubCommit } = await import("./sync-log");
-    logSync('COMMIT', `Auto-commit ${result.commitSha.substring(0, 7)} by ${author}: ${fileNames}`);
+    logSync('COMMIT', `Auto-commit ${result.commitSha.substring(0, 7)} by ${author}: ${fileNames}`, author);
     refreshGithubCommit();
   } else if (result.error?.includes('422') || result.error?.includes('conflict') || result.error?.includes('Update is not a fast forward')) {
     console.warn(`[AutoCommit] Conflict detected for batch by ${author}, retrying individual files...`);
     const { logSync } = await import("./sync-log");
-    logSync('CONFLICT', `Auto-commit conflict by ${author}, retrying individually: ${fileNames}`);
+    logSync('CONFLICT', `Auto-commit conflict by ${author}, retrying individually: ${fileNames}`, author);
     await retryIndividualFiles(config, author, existingFiles, deletedFiles);
   } else {
     lastError = result.error || 'Unknown commit error';
     console.error(`[AutoCommit] Batch commit failed: ${lastError}`);
     const { logSync } = await import("./sync-log");
-    logSync('ERROR', `Auto-commit failed by ${author}: ${lastError}`);
+    logSync('ERROR', `Auto-commit failed by ${author}: ${lastError}`, author);
     for (const filePath of files) {
       pendingChanges.set(filePath, {
         filePath,

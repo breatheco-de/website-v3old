@@ -16,6 +16,92 @@ schema:
     - organization
     - website
 sections:
+  - type: hero
+    version: "1.0"
+    variant: productShowcase
+    title: Thrive in Today’s Tech and Shape Tomorrow’s.
+    brand_mark:
+      prefix: Become an
+      highlight: AI Engineer
+      color: primary
+    description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the professional companies can’t wait to hire.
+    bullets:
+      - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
+      - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
+      - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
+    video_id: "-2ZvlgDnltc"
+    video_ratio: "9:12"
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Apply now
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Email
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        last_name:
+          visible: true
+          required: true
+          placeholder: Last name
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: Check your inbox! Your syllabus is on the way.
+      terms_url: /terms-and-conditions
+      privacy_url: /privacy-policy
+      consent:
+        sms: true
+        marketing: true
+        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
+        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        sms_usa_only: true
+      show_terms: true
+    show_awards_marquee: true
+    awards_marquee:
+      items:
+        - id: switchup-2025
+          alt: SwitchUp - Mejores Bootcamps de Código 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+          logoHeight: 64px
+        - id: course-report-2024
+          alt: Course Report - Mejor Bootcamp de Código 2024
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+          logoHeight: 64px
+        - id: tech-hub
+          alt: South Florida Tech Hub
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+          logoHeight: 64px
+        - id: ebootcamp
+          alt: eBootcamp Top
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+          logoHeight: 64px
+        - id: premios-tecnologia
+          alt: Premios Tecnología Siglo XXI
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+          logoHeight: 64px
+        - id: newsweek
+          alt: Newsweek
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+          logoHeight: 64px
+        - id: reviews-coursereport
+          alt: 4.9 en Reseñas de Course Report
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+          logoHeight: 64px
+        - id: excelencia-educativa
+          alt: Excelencia Educativa - Calidad Institucional
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+          logoHeight: 64px
+    video_title: GeekForce Career Support
   - type: testimonials_grid
     version: v1.0
     title: What Our Students Say
@@ -32,6 +118,91 @@ sections:
       - data-science
     limit: 12
     background: hsl(var(--background))
+  - type: hero
+    version: "1.0"
+    variant: productShowcase
+    title: Thrive in Today’s Tech and Shape Tomorrow’s.
+    brand_mark:
+      prefix: Become an
+      highlight: AI Engineer
+      color: primary
+    description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the professional companies can’t wait to hire.
+    video_id: "-2ZvlgDnltc"
+    video_title: GeekForce Career Support
+    video_ratio: "9:12"
+    bullets:
+      - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
+      - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
+      - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Apply now
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Email
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        last_name:
+          visible: true
+          required: true
+          placeholder: Last name
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: Check your inbox! Your syllabus is on the way.
+      terms_url: /terms-and-conditions
+      privacy_url: /privacy-policy
+      consent:
+        sms: true
+        marketing: true
+        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
+        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        sms_usa_only: true
+      show_terms: true
+  - type: cards_deck
+    version: "1.0"
+    cards:
+      - title: Python for Data Science
+        description: A practical guide to using Python libraries like Pandas, NumPy, and Matplotlib for data analysis and visualization.
+    name: Default Cards Deck
+    description: Three cards with videos, brand images, and author info
+    background: hsl(var(--muted))
+  - type: cards_deck
+    version: "1.0"
+    cards:
+      - title: Python for Data Science
+        description: A practical guide to using Python libraries like Pandas, NumPy, and Matplotlib for data analysis and visualization.
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/community-support-2_1765406601448.webp
+        alt: Community support image
+        id: community-support
+    background: hsl(var(--muted))
+  - type: cards_deck
+    version: "1.0"
+    cards:
+      - video:
+          url: d
+        image: https://storage.googleapis.com/4geeks-academy-website/media/Group-original_1765419144159.webp
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: John Doe
+        title: Advanced React Patterns
+        description: Exploresdasdsaddsadas advanced component patterns, hooks, and state management techniques for building scalable React applications.
+        alt: Original group illustration
+        id: group-original
+      - title: Python for Data Science
+        description: A practical guide to using Python libraries like Pandas, NumPy, and Matplotlib for data analysis and visualization.
+    name: Default Cards Deck
+    description: Three cards with videos, brand images, and author info
+    background: hsl(var(--muted))
   - type: hero
     version: "1.0"
     variant: course
@@ -92,6 +263,8 @@ sections:
           text: 1:7 teacher student ratio
         - icon: users
           text: 1:1 mentorship
+    paddingY:
+      desktop: xl none
   - type: hero
     variant: course
     title: Work not harder, apply AI at Work
@@ -240,33 +413,23 @@ sections:
     heading: What Our Partners Say
     image_round: true
     profiles:
-      - name: Enrique Infanzon
-        role: Dean Continuing Education @ Miami Dade College
-        image_id: enrique_infanzon
-        description: 4Geeks has been a great partner of us for the last 7 years. We have launched full-stack, web development, and AI programs successfully and we have helped more than 400 students already.
-        linkedin_url: https://www.linkedin.com/in/enriqueinfanzon
-      - name: Antonio Delgado
-        role: VP of Innovation and Technology @ Miami Dade College
-        image_id: antonio_delgado
-        description: We have recently launched the Miami Tech Coalition and 4Geeks is again showing up with a program and dedication that allows everyone involved to rely on their experience and program quality.
-        linkedin_url: https://www.linkedin.com/in/antoniodelgadofornaguera
       - name: Vanessa Benavides
         role: Vice-President @ United Way Miami
         description: Together with 4Geeks we have successfully launched the Miami Workforce Project for the benefit of Miami-Dade County residents and we have created a great and positive impact.
         linkedin_url: https://www.linkedin.com/in/vanessa-benavides-2a78849/
-      - name: Dug Jones
+      - image_id: dug_jones
+        name: Dug Jones
         role: Program Director for Workforce Grants @ Clark University
-        image_id: dug_jones
         description: We have a solid partnership focused on providing partial scholarships for students unemployed or underemployed, and we have exceeded by far the expectation we set at the beginning.
         linkedin_url: https://www.linkedin.com/in/dugjones/
-      - name: Juan Carlos Navarro
+      - image_id: juancarlos_navarro
+        name: Juan Carlos Navarro
         role: Principal Leader of Science and Technology @ IDB
-        image_id: juancarlos_navarro
         description: 4Geeks has been awarded by the IDB as the Coding School designated to carry on the responsibility of providing top-quality coding programs in Costa Rica and Uruguay.
         linkedin_url: https://www.linkedin.com/in/juan-carlos-navarro-08948a8/
-      - name: Anahí Lacava
+      - image_id: anahi_lacava
+        name: Anahí Lacava
         role: Bootcamp Project Leader in Digital Skills @ UTEC
-        image_id: anahi_lacava
         description: Since 2021 we have been working on full-stack software development programs and on the launch of the first Artificial Intelligence and Machine Learning program in all of Latin America.
         linkedin_url: https://www.linkedin.com/in/anah%C3%AD-lacava-melgratti/
   - type: profiles_carousel
@@ -300,64 +463,62 @@ sections:
         role: Career Coach
         image_id: student_asian
         linkedin_url: https://linkedin.com/in/example
-  - type: testimonials_grid
-    version: v1.0
-    title: What Our Students Say
-    subtitle: Real stories from graduates who transformed their careers
-    default_box_color: hsl(var(--muted))
-    columns: 3
-    items:
-      - name: James Dugarddd
-        role: Full Stack Developerr
-        company: LinkedIn
-        comment: Thanks to 4Geeks Academy's bootcamp and fefefetheir job guarantee program, I was able to change careers and enter the tech industry without a college degree. The mentorship and ongoing support were key, and after graduating they helped me find my first job in tech.
-        rating: 4
-        avatar: https://storage.googleapis.com/4geeks-academy-website/media/1614626903622_1_(1)_1767038293575.png
-        linkedin_url: https://www.linkedin.com/in/luis-miguel-del-valle-149a1a224/
-        box_color: hsl(var(--primary))
-        name_color: hsl(var(--secondary))
-        role_color: hsl(var(--secondary))
-        comment_color: hsl(var(--secondary))
-        star_color: hsl(var(--accent))
-        media:
-          url: https://www.youtube.com/watch?v=G6FuWd4wNd8&list=RDG6FuWd4wNd8&start_radio=1
-          type: video
-          ratio: "16:9"
-      - name: Joshua Bravo
-        role: Full Stack Developer
-        company: Regcheq
-        comment: I used to be a kitchen assistant and accountant, but now I'm a full stack developer at a startup thanks to 4Geeks.
-        rating: 5
-        linkedin_url: https://linkedin.com/in/example
-        box_color: hsl(var(--destructive))
-      - name: Ana Romero
-        role: Full Stack Developer
-        comment: I wasted no time after graduating from high school and enrolled in 4Geeks Academy. It has been an excellent experience so far. I love their close-knit community that is always there to lend a helping hand.
-        rating: 5
-      - name: Alan Gaston Sosa
-        role: Junior JavaScript Developer
-        comment: Before joining the academy, I always liked graphic design and photography. While working as a delivery driver, I realized how much I liked technology and the flexibility of these areas, whether remote or on schedule. I recommend and have recommended 4Geeks Academy.
-        rating: 5
-        linkedin_url: https://linkedin.com/in/example
-        box_color: hsl(var(--primary))
-      - name: Olson Dimache
-        role: Senior Software Engineer II
-        company: Domino Data Labs
-        comment: Just give it a try, you'll learn because the 4Geeks system nudges you in that direction. 4Geeks is the best choice for a career change and learning how to program.
-        rating: 5
-        linkedin_url: https://linkedin.com/in/example
-        media:
-          url: https://example.com/photo.jpg
-          type: image
-      - name: James Dugard
-        role: Full Stack Developer
-        comment: Thanks to 4Geeks Academy's bootcamp and their job guarantee program, I was able to change careers and enter the tech industry without a college degree. The mentorship and ongoing support were key, and after graduating they helped me find my first job in tech.
-        rating: 5
-        box_color: hsl(var(--accent))
-        media:
-          url: https://www.youtube.com/watch?v=example
-          type: video
-          ratio: "16:9"
+  - type: hero
+    version: "1.0"
+    variant: ApplyFormProductShowcase
+    title: Thrive in Today’s Tech and Shape Tomorrow’s.
+    brand_mark:
+      prefix: Become an
+      highlight: AI Engineer
+      color: primary
+    description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the professional companies can’t wait to hire.
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Apply now
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Email
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        last_name:
+          visible: true
+          required: true
+          placeholder: Last name
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: Check your inbox! Your syllabus is on the way.
+      terms_url: /terms-and-conditions
+      privacy_url: /privacy-policy
+      consent:
+        sms: true
+        marketing: true
+        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
+        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        sms_usa_only: true
+      show_terms: true
+    cta_button:
+      text: Download Syllabus
+      url: /syllabus/ai-engineering
+      variant: outline
+      icon: Download
+    paddingY:
+      mobile: md none
+      desktop: lg none
+    marginY:
+      mobile: none
+      desktop: none
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
   - type: press_mentions
     version: v1.0
     title: Destacados en Prensa

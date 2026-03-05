@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef, lazy, Suspense, useMemo } from "react";
-import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye, IconLink, IconLinkOff, IconSpacingHorizontal, IconDotsVertical } from "@tabler/icons-react";
+import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye, IconLink, IconLinkOff, IconSpacingHorizontal, IconDotsVertical, IconClockHour3, IconHistory } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import type { Section, SectionLayout, ShowOn, ResponsiveSpacing } from "@shared/schema";
 import { Label } from "@/components/ui/label";
@@ -330,6 +330,16 @@ export function EditableSection({ children, section, index, sectionType, content
   const [showReviewCodeModal, setShowReviewCodeModal] = useState(false);
   const [reviewCodeYaml, setReviewCodeYaml] = useState("");
   const [reviewCodeError, setReviewCodeError] = useState<string | null>(null);
+
+  // Section history (time-travel) state
+  const [historyOpen, setHistoryOpen] = useState(false);
+  const [historyEntries, setHistoryEntries] = useState<{ sha: string; date: string; author: string; subject: string }[]>([]);
+  const [historyLoading, setHistoryLoading] = useState(false);
+  const [historyPreviewSha, setHistoryPreviewSha] = useState<string | null>(null);
+  const [historyPreviewSection, setHistoryPreviewSection] = useState<Section | null>(null);
+  const [historyPreviewDate, setHistoryPreviewDate] = useState<string | null>(null);
+  const [historyPreviewAuthor, setHistoryPreviewAuthor] = useState<string | null>(null);
+  const [historyPreviewLoading, setHistoryPreviewLoading] = useState(false);
 
   const { data: bindingData, refetch: refetchBindingData } = useQuery<{ group: { id: string; members: unknown[] } | null }>({
     queryKey: ["/api/bindings/section", contentType, slug, index, locale],
@@ -1093,6 +1103,145 @@ export function EditableSection({ children, section, index, sectionType, content
             </div>
           </PopoverContent>
         </Popover>
+        {contentType && slug && locale && (
+          <Popover open={historyOpen} onOpenChange={(open) => {
+            setHistoryOpen(open);
+            if (open && historyEntries.length === 0) {
+              setHistoryLoading(true);
+              const dir = contentType;
+              const filePath = `marketing-content/${dir}/${slug}/${locale}.yml`;
+              fetch(`/api/git/file-history?file=${encodeURIComponent(filePath)}&limit=20`)
+                .then(r => r.json())
+                .then(data => { setHistoryEntries(data.entries || []); })
+                .catch(() => { setHistoryEntries([]); })
+                .finally(() => setHistoryLoading(false));
+            }
+            if (!open) {
+              setHistoryPreviewSha(null);
+              setHistoryPreviewSection(null);
+              setHistoryPreviewDate(null);
+              setHistoryPreviewAuthor(null);
+            }
+          }}>
+            <PopoverTrigger asChild>
+              <button
+                className="p-2 bg-muted text-muted-foreground rounded-md shadow-lg hover-elevate"
+                title="Section history"
+                data-testid={`button-history-section-${index}`}
+              >
+                <IconClockHour3 className="h-4 w-4" />
+              </button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto min-w-[380px] max-w-[500px] p-2" onClick={(e) => e.stopPropagation()}>
+              {historyLoading ? (
+                <div className="flex items-center justify-center py-3 px-4">
+                  <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground mr-2" />
+                  <span className="text-xs text-muted-foreground">Loading history...</span>
+                </div>
+              ) : historyEntries.length === 0 ? (
+                <p className="text-xs text-muted-foreground px-2 py-2">No git history found for this file.</p>
+              ) : (
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between px-2 pb-1 border-b">
+                    <span className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
+                      <IconHistory className="h-3.5 w-3.5" />
+                      File history — select a version to preview
+                    </span>
+                    {historyPreviewSha && (
+                      <div className="flex items-center gap-1">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="h-6 px-2 text-xs"
+                          onClick={() => {
+                            setHistoryPreviewSha(null);
+                            setHistoryPreviewSection(null);
+                            setHistoryPreviewDate(null);
+                            setHistoryPreviewAuthor(null);
+                          }}
+                          data-testid={`button-history-cancel-${index}`}
+                        >
+                          <IconX className="h-3 w-3 mr-1" />
+                          Cancel
+                        </Button>
+                        <Button
+                          size="sm"
+                          className="h-6 px-2 text-xs"
+                          onClick={() => {
+                            if (historyPreviewSection) {
+                              handleUpdate(historyPreviewSection);
+                              setHistoryOpen(false);
+                              setHistoryPreviewSha(null);
+                              setHistoryPreviewSection(null);
+                            }
+                          }}
+                          disabled={!historyPreviewSection}
+                          data-testid={`button-history-restore-${index}`}
+                        >
+                          <IconCheck className="h-3 w-3 mr-1" />
+                          Restore
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                  <div className="max-h-[260px] overflow-y-auto space-y-0.5">
+                    {historyEntries.map((entry) => {
+                      const isSelected = entry.sha === historyPreviewSha;
+                      const isLoading = historyPreviewLoading && isSelected;
+                      const d = new Date(entry.date);
+                      const dateStr = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+                      const timeStr = d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false });
+                      return (
+                        <button
+                          key={entry.sha}
+                          className={`w-full text-left px-2 py-1.5 rounded text-xs flex items-start gap-2 hover-elevate ${isSelected ? 'bg-primary/10 ring-1 ring-primary/30' : ''}`}
+                          onClick={async () => {
+                            if (isSelected) return;
+                            setHistoryPreviewSha(entry.sha);
+                            setHistoryPreviewDate(entry.date);
+                            setHistoryPreviewAuthor(entry.author);
+                            setHistoryPreviewSection(null);
+                            setHistoryPreviewLoading(true);
+                            try {
+                              const dir = contentType;
+                              const filePath = `marketing-content/${dir}/${slug}/${locale}.yml`;
+                              const res = await fetch(`/api/git/file-at?file=${encodeURIComponent(filePath)}&sha=${entry.sha}`);
+                              if (!res.ok) throw new Error("not found");
+                              const text = await res.text();
+                              const parsed = yaml.load(text) as Record<string, unknown>;
+                              const sections = (parsed?.sections as unknown[]) || [];
+                              const historicalSection = sections[index] as Section | undefined;
+                              if (historicalSection) {
+                                setHistoryPreviewSection(historicalSection);
+                              } else {
+                                setHistoryPreviewSection(null);
+                              }
+                            } catch {
+                              setHistoryPreviewSection(null);
+                            } finally {
+                              setHistoryPreviewLoading(false);
+                            }
+                          }}
+                          data-testid={`button-history-entry-${entry.sha.slice(0, 7)}-${index}`}
+                        >
+                          {isLoading ? (
+                            <IconLoader2 className="h-3.5 w-3.5 animate-spin text-muted-foreground shrink-0 mt-0.5" />
+                          ) : (
+                            <code className="text-[10px] text-muted-foreground shrink-0 mt-0.5">{entry.sha.slice(0, 7)}</code>
+                          )}
+                          <div className="min-w-0 flex-1">
+                            <div className="truncate font-medium text-foreground">{entry.subject}</div>
+                            <div className="text-muted-foreground">{dateStr} {timeStr} · {entry.author}</div>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </PopoverContent>
+          </Popover>
+        )}
         <Popover open={swapPopoverOpen} onOpenChange={setSwapPopoverOpen}>
           <PopoverTrigger asChild>
             <button 
@@ -1299,7 +1448,47 @@ export function EditableSection({ children, section, index, sectionType, content
       
       {/* Content with pointer events enabled - show preview section when cycling variants */}
       <div className="relative">
-        {swapPopoverOpen ? (
+        {historyOpen && historyPreviewSha ? (
+          <>
+            {/* History preview indicator banner */}
+            <div className="absolute top-0 left-0 right-0 z-30 text-xs px-3 py-1.5 bg-amber-600 text-amber-50">
+              <span className="font-medium flex items-center gap-2">
+                {historyPreviewLoading ? (
+                  <>
+                    <IconLoader2 className="h-3 w-3 animate-spin" />
+                    Loading historical version...
+                  </>
+                ) : historyPreviewSection ? (
+                  <>
+                    <IconClockHour3 className="h-3 w-3" />
+                    {historyPreviewDate
+                      ? `Version from ${new Date(historyPreviewDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}${historyPreviewAuthor ? ` by ${historyPreviewAuthor}` : ''} — read only`
+                      : "Historical version — read only"}
+                  </>
+                ) : (
+                  <>
+                    <IconX className="h-3 w-3" />
+                    Section did not exist at this point in history
+                  </>
+                )}
+              </span>
+            </div>
+            <div className="pt-8 relative">
+              {historyPreviewSection ? (
+                renderSection(historyPreviewSection, index)
+              ) : historyPreviewLoading ? (
+                <>
+                  {renderedContent}
+                  <div className="absolute inset-0 bg-background/50 flex items-center justify-center">
+                    <IconLoader2 className="h-8 w-8 animate-spin text-primary" />
+                  </div>
+                </>
+              ) : (
+                renderedContent
+              )}
+            </div>
+          </>
+        ) : swapPopoverOpen ? (
           <>
             {/* Preview indicator banner */}
             <div className={`absolute top-0 left-0 right-0 z-30 text-xs px-3 py-1.5 ${hasAdapted ? 'bg-green-600' : 'bg-primary/90'} text-primary-foreground`}>
