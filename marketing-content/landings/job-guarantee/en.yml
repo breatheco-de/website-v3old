@@ -221,6 +221,9 @@ sections:
     bullet_icon_color: text-green-600
     paddingY:
       desktop: lg none
+  - type: testimonials_slide
+    title: The Stories Behind the Stats
+    description: We stand behind the results our graduates achieve. Meet some of the students who transformed their careers through our programs.
   - type: whos_hiring
     variant: carousel
     title: Where 4Geeks Graduates Work
@@ -251,9 +254,6 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
     background: hsl(var(--sidebar-background))
-  - type: testimonials_slide
-    title: The Stories Behind the Stats
-    description: We stand behind the results our graduates achieve. Meet some of the students who transformed their careers through our programs.
   - type: numbered_steps
     version: "1.0"
     variant: bubbleText
