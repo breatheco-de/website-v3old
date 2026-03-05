@@ -227,15 +227,6 @@ sections:
     variant: default
     heading: Why Choose Our AI Engineering Program?
     description: Get the skills, support, and job placement assistance you need to launch your career in AI engineering.
-    images:
-      - image_id: student-1
-        alt: Student 1
-      - image_id: student-2
-        alt: Student 2
-      - image_id: student-3
-        alt: Student 3
-      - image_id: student-4
-        alt: Student 4
     cards:
       - icon: Trophy
         title: Industry Recognition
