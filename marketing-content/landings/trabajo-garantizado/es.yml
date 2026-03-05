@@ -351,7 +351,7 @@ sections:
     description: Respaldamos los resultados que obtienen nuestros graduados. Conozca a algunos de los estudiantes que transformaron sus carreras gracias a nuestros programas.
   - type: whos_hiring
     variant: carousel
-    pretitle: Customer Stories
+    pretitle: null
     title: Nuestros graduados trabajan para empresas líderes
     subtitle: Descubre cómo 4Geeks ayuda a graduados de todos los ámbitos a acelerar su crecimiento profesional.
     logos:
