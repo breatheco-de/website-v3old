@@ -8735,6 +8735,7 @@ sections: []
       const missingFromRegistry: string[] = [];
       const missingFromDisk: string[] = [];
       imageIds.forEach((id) => {
+        if (id.startsWith("http://") || id.startsWith("https://")) return;
         if (!registryImages[id]) {
           missingFromRegistry.push(id);
         } else if (registryImages[id].src) {
