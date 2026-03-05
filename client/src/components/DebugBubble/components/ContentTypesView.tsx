@@ -211,7 +211,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
               {([
                 { value: "non-localized" as const, label: "No locale prefix" },
                 { value: "shorthand" as const, label: "Same path all languages" },
-                { value: "per-locale" as const, label: "Custom per language" },
+                { value: "per-locale" as const, label: "Customized" },
               ]).map((opt) => (
                 <button
                   key={opt.value}
