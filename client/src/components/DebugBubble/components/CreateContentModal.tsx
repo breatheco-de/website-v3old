@@ -352,6 +352,13 @@ export function CreateContentModal({
 
   const hasStep2 = extraUniqueFields.length > 0;
 
+  const { data: typeConfig } = useQuery<ContentTypeConfig>({
+    queryKey: ["/api/content-types", createContentType, "config"],
+    queryFn: () => fetch(`/api/content-types/${createContentType}/config`).then((r) => r.json()),
+    enabled: open && hasStep2,
+    staleTime: 60000,
+  });
+
   const { editableNonUniqueFields, computedFields } = useMemo(() => {
     const fm = typeConfig?.field_mapping ?? {};
     const uniqueSet = new Set(selectedTypeData?.unique_fields ?? ["slug"]);
@@ -385,13 +392,6 @@ export function CreateContentModal({
     }
     return undefined;
   }, [duplicatingPage, supportedLocales]);
-
-  const { data: typeConfig } = useQuery<ContentTypeConfig>({
-    queryKey: ["/api/content-types", createContentType, "config"],
-    queryFn: () => fetch(`/api/content-types/${createContentType}/config`).then((r) => r.json()),
-    enabled: open && hasStep2,
-    staleTime: 60000,
-  });
 
   const { data: exampleData, isLoading: exampleLoading } = useQuery<EntryFieldsResponse>({
     queryKey: ["/api/content-types", createContentType, "entry-fields"],
