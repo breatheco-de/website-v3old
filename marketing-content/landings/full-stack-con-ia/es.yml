@@ -451,49 +451,50 @@ sections:
     paddingY:
       desktop: none
   - type: testimonials
-    version: v1.0
-    title: What Our Students Say
-    subtitle: Real stories from graduates who transformed their careers
+    title: Éxito profesional comprobado
+    subtitle: Más de {{ global.global_total_alumni | 5,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.
     rating_summary:
-      average: "4.9"
-      count: 2,847
+      average: {{ global.global_review_rating | 4.8 }}
+      count: 1,294
     items:
-      - name: Maria Rodriguez
-        role: Software Engineer
+      - name: Sarah Johnson
+        role: AI Engineer
         company: Google
         rating: 5
-        comment: This program changed my life. I went from zero coding experience to landing my dream job in 6 months.
-        outcome: Hired in 4 months
-      - name: James Chen
-        role: Full Stack Developer
-        company: Spotify
-        rating: 5
-        comment: The mentorship was incredible. Having unlimited access to senior developers made all the difference.
-        outcome: 3x salary increase
-      - name: Sarah Williams
-        role: Frontend Developer
+        comment: Este curso transformó completamente mi carrera. Los instructores son increíblemente conocedores y el currículo está perfectamente estructurado para aplicaciones de IA del mundo real.
+        outcome: +55% aumento salarial
+      - name: Michael Chen
+        role: ML Engineer
         company: Meta
         rating: 5
-        comment: The AI-powered learning tools helped me understand complex concepts faster than any other course I've tried.
-        outcome: Career change at 35
-      - name: Carlos Mendez
-        role: Backend Engineer
+        comment: La mejor inversión que he hecho. ¡Recibí una oferta de trabajo antes de terminar el programa! La mentoría y el apoyo profesional fueron invaluables.
+        outcome: Contratado en 4 meses
+      - name: Emily Rodriguez
+        role: AI Engineer
         company: Amazon
-        rating: 4
-        comment: Practical projects and real-world scenarios prepared me better than my computer science degree.
-        outcome: Remote work achieved
-      - name: Emily Thompson
-        role: DevOps Engineer
-        company: Netflix
         rating: 5
-        comment: The career support team helped me negotiate a 50% higher salary than I expected.
-        outcome: 50% salary boost
+        comment: Excelente contenido y gran apoyo de los mentores. Los proyectos fueron desafiantes pero gratificantes, y ahora trabajo en IA de vanguardia.
+        outcome: +100% aumento salarial
       - name: David Kim
-        role: Tech Lead
-        company: Uber
+        role: AI Developer
+        company: Startup
         rating: 5
-        comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
-        outcome: Promoted in 1 year
+        comment: De cero conocimiento en IA a conseguir mi trabajo soñado en 5 meses. El currículo estructurado y los proyectos prácticos marcaron la diferencia.
+        outcome: Cambio de carrera exitoso
+      - name: Jessica Martinez
+        role: AI Engineer
+        company: Spotify
+        rating: 4
+        comment: Excelente curso con proyectos prácticos del mundo real. La comunidad es solidaria y los instructores siempre están disponibles para ayudar.
+        outcome: +45% aumento salarial
+      - name: Ryan Thompson
+        role: ML Engineer
+        company: Tech Startup
+        rating: 5
+        comment: La mejor experiencia de aprendizaje en línea que he tenido. Explicaciones claras, ejercicios prácticos y excelente orientación profesional en todo momento.
+        outcome: Primer trabajo en tech
+    paddingY:
+      desktop: md
   - type: cta_banner
     version: "1.0"
     title: Rellena el formulario y obtén más información
