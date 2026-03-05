@@ -155,19 +155,16 @@ sections:
     marginY:
       desktop: none md
   - type: two_column
-    version: v1.0
     proportions:
       - 5
       - 7
     background: bg-muted/30
     alignment: center
-    gap: "12"
-    reverse_on_mobile: true
-    left:
+    rigth:
       image: https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop
       image_alt: Team collaborating on a project
       justify: center
-    right:
+    left:
       heading: Why Choose Us
       description: We provide comprehensive support for your learning journey from day one to career success.
       bullets:
@@ -177,6 +174,8 @@ sections:
         - text: Career support that lasts a lifetime
       bullet_icon: Check
       font_size: base
+    reverse_on_mobile: true
+    gap: "12"
   - type: why_learn_ai
     variant: laptop-edge
     title: JavaScript y Python
