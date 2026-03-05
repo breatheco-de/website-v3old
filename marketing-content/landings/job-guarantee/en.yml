@@ -2,71 +2,16 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: Get Into Tech With Our Job Guarantee*
-    subtitle: "&nbsp;Built to give you extra confidence as you invest in your career. Get hired within 9 months of graduation, or we'll refund 100% of your tuition.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span><span>*Not available in all regions.&nbsp;<a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span><span><span><span>Terms and conditions apply.</span></span></span></span></a></span></span></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"font-size: 1rem;\"><span><span style=\"font-size: 0.875rem;\"><span></span></span></span></span></a></div>"
+    title: Launch a High-Growth Tech Career With Extra Confidence
+    subtitle: "<span style=\"font-size: 1.25rem;\">Build the skills companies are hiring for and add the Job Guarantee* for extra confidence.<br></span><br> <ul style=\"margin-top:8px;\"> <li>84% of graduates land a tech job</li> <li>Get hired within 9 months or receive a full refund</li> <li>1:1 career coaching and employer network access</li> </ul> <div style=\"margin-top:10px;\">Join 6000+ students who have already completed our programs.</div><div style=\"margin-top:10px;\"><br></div> <div style=\"font-size:0.75rem;margin-top:10px;\">*Not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></div>"
     image:
       src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Students collaborating in a tech workspace
-    cta_buttons:
-      - text: Get more info
-        url: "#bottom"
-        variant: primary
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: lg none
     marginY:
       desktop: none md
-  - type: apply_form
-    version: "1.0"
-    hero:
-      title: Your Future in Tech Starts Here
-      subtitle: You're one step closer to your new career in tech — congratulations! Fill out the form below, and our admissions team will walk you through the next steps.
-      note: (And don't worry — you won't be committing to anything yet, just starting the conversation.)
-    form:
-      variant: stacked
-      conversion_name: student_application
-      submit_label: Aplicar ahora
-      tags: website-lead
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Correo Electrónico
-        first_name:
-          visible: true
-          required: true
-          placeholder: Nombre
-        last_name:
-          visible: true
-          required: true
-          placeholder: Apellido
-        phone:
-          visible: true
-          required: true
-        program:
-          visible: false
-          default: ai-engineering
-      success:
-        message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
-      terms_url: /terminos-condiciones
-      privacy_url: /politica-privacidad
-      consent:
-        sms: true
-        marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        sms_text: Acepto recibir SMS sobre talleres, eventos, cursos y materiales de marketing. Pueden aplicar cargos por mensaje y datos. Responde STOP para cancelar, HELP para ayuda. Puedes recibir 4–6 mensajes al mes. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        sms_usa_only: false
-      show_terms: true
-    next_steps:
-      title: What Happens Next?
-      items:
-        - title: Instant confirmation
-          description: We'll send you the syllabus by email right away.
-        - title: Personal follow-up
-          description: Our admissions team will reach out by text and phone to set up a quick call.
-        - title: Ask us anything
-          description: Programs, schedules, financing, career support — we'll walk you through your options and share all the details.
-      closing: Now you're ready to make the best decision for your career!
   - type: features_quad
     version: "1.0"
     variant: default
@@ -214,33 +159,6 @@ sections:
   - type: testimonials_slide
     title: The Stories Behind the Stats
     description: We stand behind the results our graduates achieve. Meet some of the students who transformed their careers through our programs.
-  - type: cta_banner
-    version: "1.0"
-    variant: form
-    background: bg-primary
-    title: Start Your AI Career Today
-    subtitle: Join thousands of graduates who have transformed their careers with 4Geeks Academy.
-    form:
-      variant: stacked
-      submit_label: Get Started
-      button_className: bg-white text-primary hover:bg-white/90 border-white
-      terms_className: text-white/80
-      show_terms: true
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Your email address
-        first_name:
-          visible: true
-          required: true
-          placeholder: First name
-        last_name:
-          visible: true
-          required: true
-          placeholder: Last name
-      success:
-        message: Thank you! We'll be in touch soon.
   - type: numbered_steps
     version: "1.0"
     variant: bubbleText
@@ -259,6 +177,7 @@ sections:
       - icon: JobSearch
         text: Once approved, you'll receive your full tuition refund within 30 days.
         title: Full Refund
+    background: hsl(var(--secondary))
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
@@ -278,3 +197,45 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
+  - type: cta_banner
+    version: "1.0"
+    title: Start Your Tech Career with the Confidence of a Job Guarantee
+    subtitle: Apply to a career-focused program and choose the Job Guarantee option at enrollment.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Apply Now
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Your email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        phone:
+          visible: true
+          required: true
+          placeholder: Phone number
+        program:
+          visible: true
+          required: true
+      success:
+        message: Thank you! We'll be in touch soon.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: I agree to receive information about courses and promotions
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      mobile: md none
+      desktop: md none
+    paddingY:
+      mobile: lg
+      desktop: lg
