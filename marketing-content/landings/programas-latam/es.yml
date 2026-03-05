@@ -51,7 +51,7 @@ sections:
         sms_usa_only: true
       show_terms: true
     form_vertical_align: center
-    show_awards_marquee: true
+    show_awards_marquee: false
     awards_marquee:
       items:
         - id: switchup-2025
