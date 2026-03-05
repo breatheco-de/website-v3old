@@ -182,9 +182,83 @@ sections:
       desktop: none lg
     paddingY:
       desktop: none
+  - type: whos_hiring
+    variant: carousel
+    title: Where 4Geeks Graduates Work
+    subtitle: Our alumni have joined leading companies across tech, media, and startups worldwide.
+    logos:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
+        alt: Microsoft
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
+        alt: Google Developers
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
+        alt: Boats Group
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
+        alt: Meta
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
+        alt: eBay
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
+        alt: National Geographic
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
+        alt: Evernote
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
+        alt: Telefonica
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
+        alt: Twilio
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
+        alt: Uber
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
+        alt: Neo9
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
+        alt: Jooble
   - type: testimonials_slide
     title: The Stories Behind the Stats
-    description: Discover how our graduates transformed their careers
+    description: We stand behind the results our graduates achieve. Meet some of the students who transformed their careers through our programs.
+  - type: cta_banner
+    version: "1.0"
+    variant: form
+    background: bg-primary
+    title: Start Your AI Career Today
+    subtitle: Join thousands of graduates who have transformed their careers with 4Geeks Academy.
+    form:
+      variant: stacked
+      submit_label: Get Started
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+      show_terms: true
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Your email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        last_name:
+          visible: true
+          required: true
+          placeholder: Last name
+      success:
+        message: Thank you! We'll be in touch soon.
+  - type: numbered_steps
+    version: "1.0"
+    variant: bubbleText
+    title: What Happens If You Don’t Get Hired
+    description: If you complete the program and meet the Job Guarantee requirements but don't land a qualifying tech role within 9 months of graduation, 4Geeks will refund 100% of your tuition.
+    description_link:
+      text: Terms and conditions apply.
+      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
+    steps:
+      - icon: Optimization
+        text: Let us know if you haven’t been hired into a qualifying role within 9 months after graduation.
+        title: Notify Us
+      - icon: Interview
+        text: Our team verifies that all Job Guarantee requirements were completed during the program and job search period.
+        title: Requirement Review
+      - icon: JobSearch
+        text: Once approved, you'll receive your full tuition refund within 30 days.
+        title: Full Refund
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
