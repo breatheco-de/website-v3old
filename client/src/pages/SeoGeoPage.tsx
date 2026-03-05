@@ -257,9 +257,9 @@ function SeoTab({ data }: { data: SeoOverview }) {
               <ScrollArea className="max-h-64">
                 <div className="space-y-1.5" data-testid="orphan-pages-list">
                   {data.orphanPages.map((p, i) => (
-                    <div key={`${p.slug}-${i}`} className="flex items-center justify-between gap-2 py-1 border-b border-border last:border-0" data-testid={`orphan-${p.slug}`}>
-                      <span className="text-xs font-mono text-foreground truncate">{p.slug}</span>
-                      <div className="flex items-center gap-1 shrink-0">
+                    <div key={`${p.slug}-${i}`} className="py-1.5 border-b border-border last:border-0" data-testid={`orphan-${p.slug}`}>
+                      <span className="text-xs font-mono text-foreground block truncate">{p.slug}</span>
+                      <div className="flex items-center gap-1 mt-1">
                         <Badge variant="outline" className="text-xs capitalize">{p.contentType}</Badge>
                         <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-xs ${INTENT_COLORS[p.intent] || INTENT_COLORS.unknown}`}>
                           {INTENT_LABELS[p.intent] || p.intent}
