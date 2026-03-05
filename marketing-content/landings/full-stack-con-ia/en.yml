@@ -15,7 +15,7 @@ schema:
 sections:
   - type: hero
     variant: ApplyFormProductShowcase
-    title: Para programadores que quieren construir con IA.
+    title: Construye código con IA
     brand_mark:
       prefix: Programa de Desarrollo
       highlight: Full Stack con IA
