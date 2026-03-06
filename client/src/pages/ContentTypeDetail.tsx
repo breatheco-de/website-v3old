@@ -59,6 +59,12 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
     : (requestLocale || (i18n.language as string) || "en");
 
   useEffect(() => {
+    if (effectiveLocale && i18n.language !== effectiveLocale) {
+      i18n.changeLanguage(effectiveLocale);
+    }
+  }, [effectiveLocale, i18n]);
+
+  useEffect(() => {
     if (data?.slug && data.slug !== slug && urlPattern) {
       const pattern = urlPattern[effectiveLocale] || urlPattern["default"] || urlPattern["en"];
       if (pattern) {
