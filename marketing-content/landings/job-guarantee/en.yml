@@ -198,9 +198,9 @@ sections:
       - icon: ChalkboardTeacher
         text: Structured, Personalized Learning Method
     paddingY:
-      desktop: none
-    marginY:
       desktop: md none
+    marginY:
+      desktop: none
   - type: two_column_accordion_card
     section_id: two_column_accordion_card-s6gzio
     variant: image_background
