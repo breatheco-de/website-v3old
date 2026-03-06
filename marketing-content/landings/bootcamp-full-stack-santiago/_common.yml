@@ -14,6 +14,7 @@ meta:
     - /es/landing/bootcamp-full-stack-santiago-meta
     - /es/landing/bootcamp-full-stack-santiago-fb
     - /es/landing/clases-de-programacion-santiago-chile
+    - /es/landing/curso-de-programacion-santiago
 context:
   when_to_use: For visitors interested in becoming web developers, learning both frontend and backend technologies, or transitioning into software development careers.
   target_audience: Career changers, recent graduates, and professionals looking to break into tech with comprehensive web development skills.
