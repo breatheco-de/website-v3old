@@ -34,6 +34,7 @@ sections:
         phone:
           visible: true
           required: true
+          default_country: VE
         program:
           visible: false
           default: full-stack
@@ -86,88 +87,37 @@ sections:
           logoHeight: 55px
     video_title: GeekForce Career Support
     marginY:
-      desktop: none sm
+      desktop: none md
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
-      desktop: md sm
+      desktop: md none
     section_id: hero-u2i0eb
-  - type: awards_marquee
+  - type: trust_cards
     version: v1.0
-    speed: 40
-    gradient: true
-    gradientWidth: 100
+    title: Con la confianza de estudiantes en todo el mundo
     items:
-      - id: switchup-2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        alt: SwitchUp - Best Coding Bootcamps 2025
-        logoHeight: 56px
-      - id: course-report-2024
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
-        alt: Course Report - Best Coding Bootcamp 2024
-        logoHeight: 56px
-      - id: tech-hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
-        alt: South Florida Tech Hub
-        logoHeight: 56px
-      - id: ebootcamp
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
-        alt: eBootcamp Top
-        logoHeight: 56px
-      - id: premios-tecnologia
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-        alt: Premios Tecnologia Siglo XXI
-        logoHeight: 56px
-      - id: newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
-        alt: Newsweek
-        logoHeight: 56px
-      - id: reviews-coursereport
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-        alt: 4.9 on Course Report Reviews
-        logoHeight: 56px
-      - id: excelencia-educativa
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
-        alt: Excelencia Educativa - Institutional Quality
-        logoHeight: 56px
+      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+        rating: 4.9
+        trusted_text: Reseñas verificadas
+      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        rating: 4.8
+        review_count: +700 reviews
+        trusted_text: Programa mejor valorado
+      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        rating: 4.9
+        review_count: +700 reviews
+        trusted_text: Reseñas verificadas
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: +700 reviews
+        trusted_text: Reseñas verificadas
+    name: Default Trust Cards
+    description: Four review platform cards with ratings
+    section_id: trust_cards-ig991a
     marginY:
       desktop: none lg
     paddingY:
       desktop: none
-    section_id: awards_marquee-ib4yb0
-  - type: why_learn_ai
-    variant: laptop-edge
-    title: Tu futuro profesional, con garantía*
-    subtitle: Respaldamos tu resultado profesional con un compromiso real
-    description: "Nuestra garantía de empleo opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso total de tu matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican</a></span></div>"
-    cta:
-      text: Empieza a aprender ahora
-      url: "#hero-form"
-      variant: primary
-    marginY:
-      desktop: lg sm
-    paddingY:
-      desktop: none
-    background: hsl(var(--secondary))
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-    section_id: why_learn_ai-8sksqo
   - type: syllabus
     variant: program-modules
     program_title: Lo que aprenderás en el programa Full Stack
@@ -241,7 +191,7 @@ sections:
         orientation: vertical
         icon: IconUsers
     paddingY:
-      desktop: md
+      desktop: none md
     section_id: syllabus-azlm90
   - type: projects
     title: Aprende construyendo proyectos reales
@@ -317,6 +267,8 @@ sections:
     paddingY:
       desktop: md none
     section_id: ai_learning-9g2eb8
+    marginY:
+      desktop: none sm
   - type: certificate
     title: Resultados profesionales
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
@@ -491,10 +443,10 @@ sections:
       button_className: bg-primary border-white
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
+    section_id: cta_banner-amy7gf
     marginY:
       mobile: md none
       desktop: md none
     paddingY:
       mobile: lg
       desktop: lg
-    section_id: cta_banner-amy7gf
