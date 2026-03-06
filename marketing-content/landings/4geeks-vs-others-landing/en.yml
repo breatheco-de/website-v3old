@@ -138,9 +138,6 @@ sections:
     description: |
       Our 3-step Career Acceleration System combines proven strategies, personalized guidance, 
       and direct access to hiring companies to help you land a tech role quickly.
-    description_link:
-      text: See terms
-      url: /terms-and-conditions
     steps:
       - icon: School
         text: |
