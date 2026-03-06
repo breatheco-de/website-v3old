@@ -114,7 +114,7 @@ sections:
     description: Four review platform cards with ratings
     section_id: trust_cards-ig991a
     marginY:
-      desktop: none md
+      desktop: none lg
     paddingY:
       desktop: none
   - type: syllabus
