@@ -282,7 +282,7 @@ sections:
     variant: carousel
     pretitle: Job Placement
     title: Our Alumni Work at Top Global Companies
-    subtitle: 4Geeks graduates are thriving worldwide with our network of hiring partners.
+    subtitle: From startups to global tech companies, our graduates are building careers across the industry.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
@@ -308,9 +308,9 @@ sections:
         alt: Neo9
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
+    section_id: whos_hiring-vyd58o
     paddingY:
       desktop: none md
-    section_id: whos_hiring-vyd58o
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward a High-Growth Tech Career
