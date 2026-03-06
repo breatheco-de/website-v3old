@@ -402,7 +402,6 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
-    section_id: sticky_cta-jtdfr0
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: {{ global.call_to_action_apply | Aplicar ahora }}
@@ -428,6 +427,7 @@ sections:
           visible: true
           required: true
           placeholder: Número telefónico
+          default_country: CL
         program:
           visible: false
           default: full-stack
@@ -438,4 +438,5 @@ sections:
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
+    section_id: sticky_cta-jtdfr0
     load: eager
