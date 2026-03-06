@@ -41,7 +41,7 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Check your inbox! Your syllabus is on the way.
+        message: Check your inbox! The information is on the way.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
