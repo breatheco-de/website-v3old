@@ -3,3 +3,5 @@ title: 4Geeks vs others landing
 meta:
   priority: 0.9
   change_frequency: weekly
+  redirects:
+    - /us/landing/4geeks-vs-others
