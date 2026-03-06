@@ -16,6 +16,7 @@ meta:
     - /es/landing/bootcamp-colombia-jg
     - /es/landing/curso-de-programacion-panama
     - /es/landing/aprende-a-programar-ecuador-quito
+    - /es/landing/curso-de-programacion-ecuador-quito
 schema:
   include:
     - organization
