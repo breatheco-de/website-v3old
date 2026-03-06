@@ -10,6 +10,7 @@ meta:
   change_frequency: weekly
   redirects:
     - /es/landing/espana-programas
+    - /es/landing/programas-espana
 schema:
   include:
     - organization
