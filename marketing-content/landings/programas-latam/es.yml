@@ -233,7 +233,7 @@ sections:
     marginY:
       desktop: none xl
     paddingY:
-      desktop: md none
+      desktop: none
   - type: features_grid
     section_id: features_grid-hxb5k3
     version: "1.0"
