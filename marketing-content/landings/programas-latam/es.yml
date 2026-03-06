@@ -1,6 +1,5 @@
 sections:
   - type: hero
-    section_id: hero-u2i0eb
     version: "1.0"
     variant: productShowcase
     title: en 4Geeks Academy
@@ -36,8 +35,8 @@ sections:
           visible: true
           required: true
         program:
-          visible: false
-          default: ai-engineering
+          visible: true
+          mandatory: true
       success:
         message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
       terms_url: /terms-and-conditions
@@ -85,6 +84,7 @@ sections:
           alt: Excelencia Educativa - Calidad Institucional
           logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
           logoHeight: 55px
+    section_id: hero-u2i0eb
     video_title: GeekForce Career Support
     marginY:
       desktop: none
