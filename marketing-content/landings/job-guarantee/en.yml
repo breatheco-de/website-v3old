@@ -177,6 +177,8 @@ sections:
     icon_color: "#0097CD"
     background: hsl(var(--secondary))
     marginY:
+      desktop: none
+    paddingY:
       desktop: none md
   - type: features_grid
     section_id: features_grid-h4gehz
