@@ -134,6 +134,8 @@ sections:
     footer: Join 7,000+ graduates who’ve launched successful tech careers.
     image: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
     section_id: two_column_accordion_card-7wppr4
+    marginY:
+      desktop: md none
   - type: course_selector
     version: "1.0"
     variant: solid
