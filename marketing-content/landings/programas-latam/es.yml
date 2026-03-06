@@ -2,12 +2,12 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: en 4Geeks Academy
+    title: Más Información
     brand_mark:
       prefix: Saca el máximo de tu
       highlight: potencial
       color: primary
-    description: Programas para convertirte en un experto en programación y complementar tu perfil profesional.
+    description: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
     bullets:
       - text: Aprende a resolver problemas de manera efectiva
       - text: Desarrolla habilidades de aprendizaje autodidacta
