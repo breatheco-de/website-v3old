@@ -130,7 +130,7 @@ sections:
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
     marginY:
-      desktop: none md
+      desktop: none lg
     paddingY:
       desktop: none
     section_id: awards_marquee-ib4yb0
@@ -144,7 +144,7 @@ sections:
       url: "#hero-form"
       variant: primary
     marginY:
-      desktop: md sm
+      desktop: lg sm
     paddingY:
       desktop: none
     background: hsl(var(--secondary))
