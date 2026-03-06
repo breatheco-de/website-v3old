@@ -11,6 +11,7 @@ meta:
   redirects:
     - /es/landing/mejores-bootcamps-de-programacion-mexico
     - /es/landing/aprende-a-programar-mexico
+    - /es/landing/mexico-bootcamps
 schema:
   include:
     - organization
