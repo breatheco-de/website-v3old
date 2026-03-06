@@ -182,6 +182,8 @@ sections:
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-pbg2nf
+    paddingY:
+      desktop: md none
   - type: comparison_table
     version: "1.0"
     title: Why 4Geeks Stands Apart
