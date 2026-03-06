@@ -119,6 +119,16 @@ sections:
     marginX:
       desktop: none
     section_id: hero-56bog6
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: ¡Desde Cero Hasta Tu Primer Empleo!
+    subtitle: ""
+    description: <p>Descubre una oportunidad única para transformar tu carrera y adentrarte en el mundo de la programación. En solo 20 semanas, te guiaremos desde cero hasta conseguir tu primer trabajo como programador.</p><br><ul><li>No se requiere experiencia previa</li><li>Horario part-time adaptable a tu vida actual</li><li>Mentorías y career support de por vida</li></ul>
+    section_id: why_learn_ai-zc96ad
+    paddingY:
+      desktop: none
+    marginY:
+      desktop: none md
   - type: trust_cards
     version: v1.0
     title: Lee acerca de nosotros
@@ -142,16 +152,6 @@ sections:
     name: Default Trust Cards
     description: Four review platform cards with ratings
     section_id: trust_cards-zc20ld
-  - type: why_learn_ai
-    variant: laptop-edge
-    title: ¡Desde Cero Hasta Tu Primer Empleo!
-    subtitle: ""
-    description: <p>Descubre una oportunidad única para transformar tu carrera y adentrarte en el mundo de la programación. En solo 20 semanas, te guiaremos desde cero hasta conseguir tu primer trabajo como programador.</p><br><ul><li>No se requiere experiencia previa</li><li>Horario part-time adaptable a tu vida actual</li><li>Mentorías y career support de por vida</li></ul>
-    section_id: why_learn_ai-zc96ad
-    paddingY:
-      desktop: none
-    marginY:
-      desktop: none md
   - type: syllabus
     section_id: syllabus-vr2u4r
     variant: program-modules
