@@ -160,7 +160,7 @@ sections:
     variant: laptop-edge
     title: ¡Desde Cero Hasta Tu Primer Empleo!
     subtitle: ""
-    description: <p>Descubre una oportunidad única para transformar tu carrera y adentrarte en el mundo de la programación. En solo 20 semanas, te guiaremos desde cero hasta conseguir tu primer trabajo como programador.</p><ul><li>No se requiere experiencia previa</li><li>Horario part-time adaptable a tu vida actual</li><li>Mentorías y career support de por vida</li></ul>
+    description: <p>Descubre una oportunidad única para transformar tu carrera y adentrarte en el mundo de la programación. En solo 20 semanas, te guiaremos desde cero hasta conseguir tu primer trabajo como programador.</p><br><ul><li>No se requiere experiencia previa</li><li>Horario part-time adaptable a tu vida actual</li><li>Mentorías y career support de por vida</li></ul>
     section_id: why_learn_ai-zc96ad
   - type: syllabus
     section_id: syllabus-vr2u4r
