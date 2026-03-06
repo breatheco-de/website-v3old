@@ -110,7 +110,7 @@ sections:
         title: 4. Get Hired Within 9 Months — Or 100% of Your Tuition Back
     background: hsl(210 100% 50% / 0.05)
     paddingY:
-      desktop: sm none
+      desktop: none
   - type: course_selector
     section_id: course_selector-x9c6qg
     version: "1.0"
