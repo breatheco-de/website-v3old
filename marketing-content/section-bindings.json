@@ -1555,6 +1555,135 @@
         }
       ],
       "createdAt": "2026-03-05T15:48:49.276Z"
+    },
+    {
+      "id": "bind_mmf5oo60_a5stn9",
+      "component": "sticky_cta",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "page",
+          "slug": "upcoming-dates",
+          "sectionId": "sticky_cta-j9v0lz"
+        },
+        {
+          "contentType": "landing",
+          "slug": "4geeks-vs-others-landing",
+          "sectionId": "sticky_cta-qk9epo"
+        },
+        {
+          "contentType": "page",
+          "slug": "awards",
+          "sectionId": "sticky_cta-fsumpq"
+        },
+        {
+          "contentType": "page",
+          "slug": "contact-us",
+          "sectionId": "sticky_cta-4pmi55"
+        },
+        {
+          "contentType": "page",
+          "slug": "cookies",
+          "sectionId": "sticky_cta-voehmb"
+        },
+        {
+          "contentType": "page",
+          "slug": "faq",
+          "sectionId": "sticky_cta-6xvswn"
+        },
+        {
+          "contentType": "page",
+          "slug": "financials",
+          "sectionId": "sticky_cta-txqjir"
+        },
+        {
+          "contentType": "page",
+          "slug": "geekforce-career-support",
+          "sectionId": "sticky_cta-30tesi"
+        },
+        {
+          "contentType": "page",
+          "slug": "geekpal-support",
+          "sectionId": "sticky_cta-mgyr66"
+        },
+        {
+          "contentType": "page",
+          "slug": "geeks-vs-others",
+          "sectionId": "sticky_cta-v1d4aq"
+        },
+        {
+          "contentType": "page",
+          "slug": "graduates-and-projects",
+          "sectionId": "sticky_cta-32l479"
+        },
+        {
+          "contentType": "page",
+          "slug": "job-guarantee",
+          "sectionId": "sticky_cta-gh9mvi"
+        },
+        {
+          "contentType": "page",
+          "slug": "learnpack",
+          "sectionId": "sticky_cta-k83jhk"
+        },
+        {
+          "contentType": "page",
+          "slug": "online-platform",
+          "sectionId": "sticky_cta-q9qyqt"
+        },
+        {
+          "contentType": "page",
+          "slug": "outcomes",
+          "sectionId": "sticky_cta-kpmomo"
+        },
+        {
+          "contentType": "page",
+          "slug": "press",
+          "sectionId": "sticky_cta-uh331m"
+        },
+        {
+          "contentType": "page",
+          "slug": "privacy-policy",
+          "sectionId": "sticky_cta-2lps8w"
+        },
+        {
+          "contentType": "page",
+          "slug": "program-comparison",
+          "sectionId": "sticky_cta-kjqv4c"
+        },
+        {
+          "contentType": "page",
+          "slug": "rigobot-ai-coding-mentor",
+          "sectionId": "sticky_cta-smv82h"
+        },
+        {
+          "contentType": "page",
+          "slug": "scholarships",
+          "sectionId": "sticky_cta-d7oziw"
+        },
+        {
+          "contentType": "page",
+          "slug": "terms-conditions",
+          "sectionId": "sticky_cta-j7oxg1"
+        },
+        {
+          "contentType": "page",
+          "slug": "testimonials",
+          "sectionId": "sticky_cta-csl419"
+        },
+        {
+          "contentType": "page",
+          "slug": "the-academy",
+          "sectionId": "sticky_cta-9wup64"
+        },
+        {
+          "contentType": "page",
+          "slug": "upcoming-dates",
+          "sectionId": "sticky_cta-j9v0lz"
+        }
+      ],
+      "createdAt": "2026-03-06T17:16:03.288Z",
+      "name": "sticky_cta_other_pages"
     }
   ]
 }
