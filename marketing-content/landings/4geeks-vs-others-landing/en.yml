@@ -203,7 +203,7 @@ sections:
   - type: comparison_table
     version: "1.0"
     title: Why 4Geeks Stands Apart
-    subtitle: AI-ready skills and lifelong support, how 4Geeks delivers results.
+    subtitle: When choosing a tech program, the details matter. Here’s how 4Geeks compares where it counts.
     columns:
       - name: Feature
       - name: 4Geeks Academy
@@ -246,11 +246,11 @@ sections:
         values:
           - No experience required
           - Usually required
+    section_id: comparison_table-on1k8s
     marginY:
       desktop: none md
     paddingY:
       desktop: md
-    section_id: comparison_table-on1k8s
   - type: why_learn_ai
     variant: laptop-edge
     title: Optional Job Guarantee* for Extra Confidence
