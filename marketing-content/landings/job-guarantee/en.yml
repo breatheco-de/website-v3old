@@ -90,7 +90,7 @@ sections:
     section_id: hero-ckjuxp
     video_title: GeekForce Career Support
     paddingY:
-      desktop: md none
+      desktop: md
   - type: features_quad
     section_id: features_quad-ge4f63
     version: "1.0"
@@ -108,7 +108,7 @@ sections:
         title: 4. Get Hired Within 9 Months — Or 100% of Your Tuition Back
     background: hsl(210 100% 50% / 0.05)
     paddingY:
-      desktop: md none
+      desktop: sm none
   - type: course_selector
     section_id: course_selector-x9c6qg
     version: "1.0"
