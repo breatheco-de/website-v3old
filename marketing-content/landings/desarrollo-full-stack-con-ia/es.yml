@@ -4,8 +4,8 @@ sections:
     variant: productShowcase
     title: en 4Geeks Academy
     brand_mark:
-      prefix: Conviértete en un
-      highlight: Desarrollador Full Stack con IA
+      prefix: Aprende a ser un Desarrollador
+      highlight: Full Stack con IA
       color: primary
     description: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
     bullets:
