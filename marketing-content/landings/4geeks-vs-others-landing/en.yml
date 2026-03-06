@@ -357,7 +357,6 @@ sections:
   - type: faq
     title: Frequently Asked Questions
     related_features:
-      - online-platform
       - certification
       - career-support
     item_overrides:
@@ -385,9 +384,9 @@ sections:
           - panamacity-panama
           - quito-ecuador
           - santiago-chile
+    section_id: faq-7buf5u
     paddingY:
       desktop: md
-    section_id: faq-7buf5u
   - type: cta_banner
     version: "1.0"
     title: Ready to Get Started?
