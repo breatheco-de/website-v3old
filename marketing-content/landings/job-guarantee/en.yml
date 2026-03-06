@@ -315,7 +315,7 @@ sections:
         title: Follow our career plan
     section_id: features_quad-ms7uox
     marginY:
-      desktop: none md
+      desktop: none
     paddingY:
       desktop: none
     background: hsl(var(--muted))
