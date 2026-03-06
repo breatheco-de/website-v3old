@@ -8,6 +8,8 @@ meta:
   robots: index, follow
   priority: 0.9
   change_frequency: weekly
+  redirects:
+    - /es/landing/aprende-a-programar
 schema:
   include:
     - organization
