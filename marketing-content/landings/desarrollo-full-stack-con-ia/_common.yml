@@ -10,6 +10,7 @@ meta:
   change_frequency: weekly
   redirects:
     - /es/landing/aprende-a-programar-colombia
+    - /es/landing/bootcamp-colombia
 schema:
   include:
     - organization
