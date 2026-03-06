@@ -49,7 +49,7 @@ interface TrustCardsProps {
 
 export function TrustCards({ data }: TrustCardsProps) {
   return (
-    <div data-testid="section-trust-cards">
+    <section data-testid="section-trust-cards" className="max-w-6xl mx-auto px-4">
       {(data.title || data.subtitle) && (
         <div className="text-center mb-8">
           {data.title && (
@@ -75,10 +75,10 @@ export function TrustCards({ data }: TrustCardsProps) {
         {data.items.map((item, index) => (
           <Card
             key={index}
-            className="flex flex-col items-center gap-3 p-4"
+            className="flex flex-col items-center justify-between gap-3 p-4"
             data-testid={`card-trust-${index}`}
           >
-            <div className="h-12 flex items-center justify-center">
+            <div className="max-h-[50px] flex items-center justify-center mx-8">
               <img
                 src={item.image}
                 alt={item.trusted_text || `Review platform ${index + 1}`}
@@ -97,19 +97,19 @@ export function TrustCards({ data }: TrustCardsProps) {
                   {item.review_count}
                 </span>
               )}
+              {item.trusted_text && (
+                <span
+                  className="text-xs font-medium text-muted-foreground"
+                  data-testid={`text-trusted-${index}`}
+                >
+                  {item.trusted_text}
+                </span>
+              )}
             </div>
 
-            {item.trusted_text && (
-              <span
-                className="text-xs font-medium text-muted-foreground"
-                data-testid={`text-trusted-${index}`}
-              >
-                {item.trusted_text}
-              </span>
-            )}
           </Card>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
