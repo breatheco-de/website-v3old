@@ -89,6 +89,10 @@ sections:
           logoHeight: 55px
     section_id: hero-ckjuxp
     video_title: GeekForce Career Support
+    paddingY:
+      desktop: md
+    marginY:
+      desktop: none md
   - type: features_quad
     section_id: features_quad-ge4f63
     version: "1.0"
@@ -105,6 +109,8 @@ sections:
       - icon: Briefcase
         title: 4. Get Hired Within 9 Months — Or 100% of Your Tuition Back
     background: hsl(210 100% 50% / 0.05)
+    paddingY:
+      desktop: none
   - type: course_selector
     section_id: course_selector-x9c6qg
     version: "1.0"
@@ -149,8 +155,9 @@ sections:
         cta_text: Program details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
+    marginY:
+      desktop: md
   - type: features_grid
-    section_id: features_grid-mchky5
     version: "1.0"
     variant: highlight
     title: Real Outcomes for Our Graduates
@@ -167,8 +174,10 @@ sections:
         title: Average salary increase after graduation
     columns: 3
     icon_color: "#0097CD"
-    background: hsl(var(--secondary))
+    section_id: features_grid-mchky5
     marginY:
+      desktop: none
+    paddingY:
       desktop: none md
   - type: features_grid
     section_id: features_grid-h4gehz
@@ -187,6 +196,10 @@ sections:
         text: AI-Native Training Employers Are Hiring For
       - icon: ChalkboardTeacher
         text: Structured, Personalized Learning Method
+    paddingY:
+      desktop: sm none
+    marginY:
+      desktop: none
   - type: two_column_accordion_card
     section_id: two_column_accordion_card-s6gzio
     variant: image_background
@@ -228,7 +241,9 @@ sections:
     bullet_icon: Check
     bullet_icon_color: text-green-600
     paddingY:
-      desktop: lg none
+      desktop: lg md
+    marginY:
+      desktop: none md
   - type: testimonials_slide
     section_id: testimonials_slide-1gorsq
     title: The Stories Behind the Stats
@@ -265,7 +280,6 @@ sections:
         alt: Jooble
     background: hsl(var(--sidebar-background))
   - type: numbered_steps
-    section_id: numbered_steps-sgeuhk
     version: "1.0"
     variant: bubbleText
     title: What Happens If You Don’t Get Hired
@@ -284,8 +298,8 @@ sections:
         text: Once approved, you'll receive your full tuition refund within 30 days.
         title: Full Refund
     background: hsl(var(--sidebar-background))
+    section_id: numbered_steps-sgeuhk
   - type: features_quad
-    section_id: features_quad-ms7uox
     version: "1.0"
     variant: laptopEdge
     heading: Who Can Add the Job Guarantee?
@@ -299,11 +313,12 @@ sections:
         title: Pass our logic test
       - icon: IconArrowGuideFilled
         title: Follow our career plan
-    background: hsl(var(--muted))
+    section_id: features_quad-ms7uox
     marginY:
-      desktop: none md
+      desktop: none
     paddingY:
       desktop: none
+    background: hsl(var(--muted))
   - type: cta_banner
     section_id: cta_banner-deasu1
     version: "1.0"
@@ -343,7 +358,7 @@ sections:
       terms_className: text-white/80
     marginY:
       mobile: md none
-      desktop: md none
+      desktop: none
     paddingY:
       mobile: lg
       desktop: lg

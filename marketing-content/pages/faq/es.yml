@@ -7,7 +7,6 @@ meta:
   redirects:
     - /es/faqs
     - /es/preguntas-frecuentes
-
 sections:
   - type: faq_editor
     section_id: faq_editor-3jww68
@@ -15,7 +14,6 @@ sections:
     title: Preguntas Frecuentes
     subtitle: Edita y administra todas las preguntas frecuentes desde esta ubicación centralizada
   - type: sticky_cta
-    section_id: sticky_cta-6xvswn
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
@@ -30,17 +28,22 @@ sections:
         email:
           visible: true
           required: true
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
+          placeholder: Nombre
         last_name:
           visible: true
-          required: false
+          required: true
+          placeholder: Apellido
         phone:
           visible: true
-          required: false
+          required: true
         program:
-          visible: false
-          default: ai-engineering
+          visible: true
+          required: true
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+    load: eager
+    section_id: sticky_cta-6xvswn

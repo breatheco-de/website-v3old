@@ -363,10 +363,9 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: sticky_cta
-    section_id: sticky_cta-kjqv4c
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
+    button_label: Aplicar ahora
     show_dismiss: false
     form:
       variant: inline
@@ -385,21 +384,18 @@ sections:
           placeholder: Nombre
         last_name:
           visible: true
-          required: false
+          required: true
+          placeholder: Apellido
         phone:
           visible: true
           required: true
-          placeholder: Número telefónico
         program:
-          visible: false
-          default: ai-engineering
+          visible: true
+          required: true
       success:
-        message: ¡Gracias! Nos pondremos en contacto pronto.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-      show_terms: true
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+    load: eager
+    section_id: sticky_cta-kjqv4c
   - type: course_selector
     section_id: course_selector-9hlwf6
     version: "1.0"
