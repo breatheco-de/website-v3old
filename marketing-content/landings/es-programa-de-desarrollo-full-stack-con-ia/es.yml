@@ -15,7 +15,6 @@ schema:
     - courses:ai-engineering
 sections:
   - type: hero
-    section_id: hero-83a7ov
     version: "1.0"
     variant: ApplyFormProductShowcase
     title: Mentoría personalizada y resultados profesionales comprobados.
@@ -63,9 +62,10 @@ sections:
       variant: outline
       icon: Download
     video:
-      url: https://youtube.com/shorts/AMqLRJbNZ9I?si=LdQnvspydHMd9ckN
+      url: https://www.youtube.com/shorts/fpEreznybs8
       ratio: "9:16"
       muted: true
+    section_id: hero-83a7ov
     bullets:
       - text: Domina el desarrollo frontend moderno con HTML, CSS, JavaScript y React.
       - text: Construye sistemas backend escalables con Python, APIs y arquitectura de bases de datos.
@@ -116,238 +116,81 @@ sections:
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
     load: eager
-  - type: awards_marquee
-    version: "1.0"
-    speed: 40
-    gradient: true
-    gradientWidth: 500
-    items:
-      - id: logo-switchup-best-bootcamps-2025
-        alt: SwitchUp Best Bootcamps 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
-        logoHeight: 64px
-      - id: excelencia-educativa
-        alt: Excelencia Educativa - Calidad Institucional en Educación Online
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
-        logoHeight: 64px
-      - id: course-report-badge
-        alt: Course Report Badge 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-        logoHeight: 64px
-      - id: tech-hub
-        alt: South Florida Tech Hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
-        logoHeight: 64px
-      - id: logo-ebootcamp-top-2025
-        alt: ebootcamp Top Bootcamp Programación 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1_1770392737758.png
-        logoHeight: 64px
-      - id: premios-tecnologia
-        alt: Premios Tecnologia Siglo XXI
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-        logoHeight: 80px
-      - id: newsweek
-        alt: Newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
-        logoHeight: 64px
-      - id: reviews-coursereport
-        alt: 4.9 en reseñas de Course Report
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-        logoHeight: 64px
-      - id: forbes-1
-        alt: Forbes - Top Coding Bootcamp
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
-        logoHeight: 64px
-      - id: fortune-1
-        alt: Fortune - Mejor Empresa de Educación
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/fortune-logo_1764709618095.webp
-        logoHeight: 64px
-      - id: logo-coursereport-best-bootcamp-2025
-        alt: CourseReport Best European Bootcamp 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/CourseReport-best-bootcamp_-2025_1770392145137.png
-        logoHeight: 56px
-      - id: logo-european-excellence-education
-        alt: European Excellence Education
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/european-excellence-education-ealde_1_1770392145138.png
-        logoHeight: 56px
-      - id: logo-forbes-advisor-2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/Forbes-Advisor_1770392260031.png
-        alt: Forbes Advisor Best of 2025 - Best for lifetime career support
-        logoHeight: 56px
-      - id: logo-premios-excelencia-educativa
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios-excelencia-educativa-17_1770392145139.png
-        alt: 17 Premios Excelencia Educativa
-        logoHeight: 56px
-    marginY:
-      mobile: md none
-      desktop: md none
-    paddingY:
-      mobile: none lg
-      desktop: none lg
   - type: syllabus
-    section_id: awards_marquee-66rh3f
-    version: "1.0"
-    title: Get Job-Ready with Our Syllabus!
-    subtitle: We've fine-tuned our course content with hundreds of job positions to prepare you for a successful entry into tech.
-    modules:
-      - title: Introduction To HTML And CSS
-        description: Learn to create web structures with HTML and style them with CSS, essential for building visually appealing and functional websites.
-      - title: JavaScript Fundamentals
-        description: Master JavaScript programming concepts including variables, functions, DOM manipulation, and event handling.
-      - title: React Development
-        description: Build modern user interfaces with React, learning component architecture, state management, and hooks.
-      - title: Backend with Python
-        description: Create server-side applications using Python and Flask, handling routing, databases, and REST APIs.
-      - title: Databases & SQL
-        description: Design and implement databases using SQL, understanding relationships, queries, and data modeling.
-      - title: API Development
-        description: Build and consume RESTful APIs, implementing authentication, validation, and error handling.
-  - type: syllabus
-    section_id: syllabus-uav9v6
     variant: program-modules
-    program_title: Lo que construirás en 24 semanas
-    program_description: Desde el primer día trabajarás en una empresa ficticia que evoluciona contigo. En cada hito desarrollarás soluciones de IA reales, aplicadas a problemas que hoy enfrentan las empresas.
+    program_title: Lo que aprenderás en el programa Full Stack
+    program_description: Domina el stack completo de desarrollo web, desde el frontend hasta el backend. Construye aplicaciones listas para producción usando las tecnologías más demandadas que los empleadores buscan.
     tech_logos:
-      - name: OpenAI
-        icon: openai
-      - name: Claude
-        icon: claude
-      - name: Python
-        icon: python
-      - name: Pandas
-        icon: pandas
-      - name: NumPy
-        icon: numpy
-      - name: Scikit-learn
-        icon: scikitlearn
-      - name: PyTorch
-        icon: pytorch
-      - name: Matplotlib
-        icon: matplotlib
+      - name: HTML5
+        icon: html
+      - name: CSS3
+        icon: css
+      - name: JavaScript
+        icon: javascript
       - name: React
         icon: react
-      - name: Next.js
-        icon: nextjs
-      - name: Tailwind CSS
-        icon: tailwindcss
-      - name: Node.js
-        icon: nodejs
-      - name: Vercel
-        icon: vercel
-      - name: Supabase
-        icon: supabase
+      - name: Python
+        icon: python
       - name: Git
         icon: git
-      - name: GitHub
-        icon: github
-      - name: Postman
-        icon: postman
-      - name: n8n
-        icon: n8n
     module_cards:
-      - title: Prework con enfoque en IA
-        duration: Hito 0
+      - title: Introducción a HTML y CSS
+        duration: Semanas 1-2
         objectives:
-          - Fundamentos YAML/JSON
-          - Control de versiones con Git
-          - Bases de JavaScript
-          - Fundamentos de internet
-          - Agentes de código
-        icon: IconRocket
-      - title: Fundamentos web
-        duration: Hito 1
-        objectives:
-          - HTML, CSS, Tailwind
-          - Mejores prácticas de accesibilidad
-          - Técnicas de maquetado
-        projects: Construye la primera página web de la empresa
-        icon: IconWorld
-      - title: Fundamentos de programación
-        duration: Hito 2
-        objectives:
-          - Algoritmos y estructuras de datos
-          - Stateflow vs controlflow
-          - Dominio de JavaScript
-        projects: Implementa pequeñas funcionalidades para la empresa
+          - Crear estructuras web con HTML semántico
+          - Estilizar páginas con técnicas modernas de CSS
+          - Construir sitios web visualmente atractivos y accesibles
+        projects: Construye páginas de aterrizaje responsivas desde cero
+        orientation: vertical
         icon: IconCode
-      - title: UI con IA
-        duration: Hito 3
+      - title: JavaScript
+        duration: Semanas 3-5
         objectives:
-          - Prompting de visión a especificación
-          - Generación de componentes con IA
-        projects: Reconstruye la UI de la empresa con IA
-        icon: IconSparkles
-      - title: Fundamentos de React
-        duration: Hito 4
+          - Dominar variables, funciones y bucles
+          - Manipulación del DOM para páginas interactivas
+          - Características modernas de ES6+ y programación asíncrona
+        projects: Crea aplicaciones web dinámicas e interactivas
+        orientation: vertical
+        icon: IconBrandJavascript
+      - title: React
+        duration: Semanas 6-9
         objectives:
-          - Arquitectura SPA
-          - Props, state y effects
-          - Técnicas de depuración
-        projects: Construye el frontend interactivo de la empresa
+          - Construir interfaces de usuario basadas en componentes
+          - Gestión de estado con hooks
+          - Enrutamiento y mejores prácticas para apps escalables
+        projects: Construye aplicaciones modernas de página única
+        orientation: vertical
         icon: IconBrandReact
-      - title: Backend para frontends con IA
-        duration: Hito 5
+      - title: Python
+        duration: Semanas 10-12
         objectives:
-          - APIs y bases de datos
-          - Serialización y autenticación
-          - Funciones serverless
-        projects: Crea el backend de la empresa
-        icon: IconServer
-      - title: Telemetría y pipelines de datos
-        duration: Hito 6
+          - Conceptos fundamentales de programación y estructuras de datos
+          - Principios de programación orientada a objetos
+          - Desarrollo web y habilidades de automatización
+        projects: Crea servicios backend y scripts de automatización
+        orientation: vertical
+        icon: IconBrandPython
+      - title: Creación de APIs
+        duration: Semanas 13-15
         objectives:
-          - Recopilar, transformar, agregar y reportar
-        projects: Construye la telemetría de la empresa
-        icon: IconChartLine
-      - title: RAG y memoria
-        duration: Hito 7
+          - Diseñar y construir APIs RESTful
+          - Autenticación e integración de bases de datos
+          - Documentación de APIs y mejores prácticas
+        projects: Construye una API REST completa con Flask/Express
+        orientation: vertical
+        icon: IconApi
+      - title: Metodologías Ágiles
+        duration: Semana 16
         objectives:
-          - Chunking y embeddings
-          - Búsqueda vectorial
-        projects: Añade la capa de conocimiento de la empresa
-        icon: IconBrain
-      - title: Ingeniería de agentes
-        duration: Hito 8
-        objectives:
-          - Reglas y memoria
-          - Llamadas a herramientas
-          - Planificación multi-agente
-        projects: Construye los agentes de la empresa
-        icon: IconRobot
-      - title: Generación de flujos agenticos
-        duration: Hito 9
-        objectives:
-          - Usar LLMs para analizar el caso de la empresa
-          - Generar y validar flujos internos
-          - Implementar pipelines de automatización
-        projects: Serverless, colas, cronjobs o n8n
-        icon: IconSitemap
-      - title: Sistemas en tiempo real
-        duration: Hito 10
-        objectives:
-          - Streaming y sockets
-          - Patrones pub/sub
-        projects: Habilita interacciones en tiempo real para datos, clientes, IA o empleados
-        icon: IconBolt
-      - title: Empresa transformada por IA
-        duration: Capstone
-        objectives:
-          - Frontend generado por IA
-          - API y autenticación
-          - Pipeline de telemetría y reportes
-          - Automatización de flujos (generada por agentes)
-          - Capa de conocimiento RAG
-          - Agentes con llamadas a herramientas
-          - Capa de comunicación en tiempo real
-        projects: Entrega la transformación completa de la empresa que elegiste
-        orientation: horizontal
-        icon: IconTrophy
-    marginY:
-      mobile: none
-      desktop: none
+          - Scrum, Kanban y frameworks ágiles
+          - Planificación de sprints y reuniones diarias
+          - Colaboración efectiva en equipos de desarrollo
+        projects: Trabaja en equipos ágiles en proyectos grupales
+        orientation: vertical
+        icon: IconUsers
+    section_id: syllabus-6o6f1p
     paddingY:
-      mobile: lg none
-      desktop: lg md
+      desktop: md
   - type: award_badges
     section_id: syllabus-2ly5ws
     version: v1.0
@@ -421,58 +264,56 @@ sections:
       mobile: lg none
       desktop: lg none
   - type: certificate
-    section_id: ai_learning-6kb9rp
-    title: Impacto en tu carrera profesional
-    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
+    title: Resultados profesionales
+    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
     benefits:
-      - text: "Ingeniero de software IA: $95K–$135K"
-      - text: "Ingeniero full-stack (IA): $100K–$145K"
-      - text: "Ingeniero de agentes: $105K–$155K"
-      - text: "Ingeniero de automatización de flujos: $85K–$120K"
+      - text: "AI Software Engineer: {{ global.average_salary_ai_fluent_software_developer | $20K–$30K }}"
+      - text: "Full-Stack Engineer (AI-Fluent): {{ global.average_salary_ai_engineer | $20K–$35K }}"
+      - text: "Agent Engineer: {{ global.average_salary_agent_engineer | $25K–$40K }}"
+      - text: {{ global.average_salary_workflow_automation_engineer | $25K–$40K }}
     card:
-      title: Ingeniero de IA
+      title: AI Engineer
       subtitle: Certificado 4Geeks Academy
-      program_name: Ingeniería de IA
+      program_name: AI Engineering
     stats:
-      - value: 75%
-        label: Tasa de empleabilidad
-        description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores buscan.
+      - value: {{ global.global_job_placement_rate | 84 }}%
+        label: Tasa de contratación
+        description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores están buscando activamente.
         benefits:
           - text: Certificado reconocido por el Departamento de Educación de Florida
-          - text: Empresa completa con IA en tu portafolio
-          - text: Experiencia demostrada con agentes, flujos y sistemas de IA
-          - text: Perfil profesional y estrategia de búsqueda optimizados
+          - text: Empresa de ingeniería de IA de principio a fin en tu portafolio
+          - text: Experiencia demostrada con agentes, flujos de trabajo y sistemas de IA
+          - text: Perfil profesional optimizado y estrategia de búsqueda de empleo
       - value: 3-6 meses
-        label: Para encontrar empleo
-        description: La mayoría de nuestros graduados encuentra empleo en 3–6 meses gracias a nuestro proceso de desarrollo profesional.
+        label: Tiempo para ser contratado
+        description: Consigue tu primer rol en 3 a 6 meses después de graduarte. Con nuestro proceso estructurado de desarrollo profesional en 3 pasos, tus habilidades se convierten en ofertas de trabajo rápidamente.
         benefits:
-          - text: Optimiza tu currículum, portafolio y perfil profesional para atraer recruiters y superar filtros automatizados
-          - text: Prepárate para entrevistas técnicas y de competencias con casos reales
-          - text: Aplica una estrategia de búsqueda personalizada con acceso a redes de empresas contratantes
-      - value: 30%
-        label: Aumento salarial medio
-        description: Nuestros graduados ven un aumento salarial promedio del 30% al pasar a roles de ingeniería de IA. La inversión se paga sola.
+          - text: Optimiza tu currículum, portafolio y perfiles en línea para atraer reclutadores y pasar filtros basados en IA
+          - text: Practica para entrevistas técnicas y conductuales
+          - text: Ejecuta una estrategia personalizada de búsqueda de empleo con acceso a redes de contratación relevantes
+      - value: {{ global.global_salary_increase | 55 }}%
+        label: Aumento Salarial Promedio
+        description: Domina las habilidades de IA que las empresas tienen dificultad para encontrar. A medida que los negocios se orientan hacia la automatización, estarás listo para asumir roles de alta prioridad que ofrecen crecimiento inmediato y estabilidad a largo plazo.
         benefits:
-          - text: "AI Software Engineer: 30.000 € - 40.000 €"
-          - text: "AI Full-Stack Engineer: 35.000 € - 50.000 €"
-          - text: "Agent / Workflow Automation Engineer: 30.000 € - 45.000 €"
-          - text: "AI Integration Specialist (RAG, APIs, vector DBs): 40.000 € - 60.000 €"
-      - value: 5,000+
-        label: Empresas que contratan talento
-        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
+          - text: "Full Stack Engineer: {{ global.average_salary_fullstack | $95K–$150K }}+"
+          - text: "AI-fluent Software Developer: {{ global.average_salary_ai_fluent_software_developer }}"
+          - text: "Web Applications Engineer: {{ global.average_salary_web_aplications_engineer | $95K–$140K }}"
+          - text: "Backend Services Developer: {{ global.average_salary_backend_services_developer | $100K–$150K }} "
+      - value: 500+
+        label: Empresas que contratan nuestro talento
+        description: Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
         benefits:
-          - text: Acceso exclusivo a nuestra bolsa de empleo
+          - text: Acceso exclusivo a bolsa de de empleo
           - text: Recomendaciones directas a empresas colaboradoras
           - text: Eventos de networking con recruiters y responsables de selección
     certificate_position: right
     useSolidCard: true
     marginY:
       mobile: none
-      desktop: none
+      desktop: none md
     paddingY:
       mobile: lg
-      desktop: lg
-    background: hsl(var(--muted))
+      desktop: md
   - type: whos_hiring
     section_id: certificate-kocdaz
     variant: carousel

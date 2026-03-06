@@ -24,6 +24,7 @@ import {
 } from "./sitemap";
 import { markFileAsModified } from "./sync-state";
 import { deepMerge } from "./utils/deepMerge";
+import { regenerateSectionIds } from "./utils/regenerateSectionIds";
 import { databaseManager } from "./database";
 import {
   redirectMiddleware,
@@ -143,6 +144,24 @@ function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
   const { escaped, map } = escapeObjectVars(obj);
   const dumped = yaml.dump(escaped, opts);
   return unescapeYamlDump(dumped, map);
+}
+
+function coerceToOriginalType(newValue: string, originalValue: unknown): unknown {
+  if (typeof originalValue === "number") {
+    const n = Number(newValue);
+    return Number.isNaN(n) ? newValue : n;
+  }
+  if (typeof originalValue === "boolean") {
+    return newValue === "true";
+  }
+  return newValue;
+}
+
+function coerceStringValue(value: string): unknown {
+  if (/^-?\d+(\.\d+)?$/.test(value)) return Number(value);
+  if (value === "true") return true;
+  if (value === "false") return false;
+  return value;
 }
 
 // Schema for career-programs listing page (custom page type)
@@ -1271,9 +1290,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       ? parseInt(req.query.force_version as string, 10)
       : undefined;
 
-    // Get locale from _common.yml
+    // Get locale from query param, _common.yml, or default — then verify it exists
+    const queryLocale = req.query.locale as string | undefined;
+    const supported = getSupportedLocales();
+    const validQueryLocale = queryLocale && supported.includes(queryLocale) ? queryLocale : undefined;
     const commonData = contentIndex.loadCommonData("landing", slug);
-    const locale = (commonData?.locale as string) || getDefaultLocale();
+    let locale = validQueryLocale || (commonData?.locale as string) || getDefaultLocale();
+    const availableLocales = contentIndex.getAvailableLocalesOrVariants("landing" as ContentType, slug);
+    if (availableLocales.length > 0 && !availableLocales.includes(locale)) {
+      locale = availableLocales[0];
+    }
 
     let landing: LandingPage | null = null;
     let experimentInfo: {
@@ -4405,7 +4431,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
     const isFooterMenu = data?.footer && !data?.navbar;
 
-    if (isFooterMenu && !isEnglish) {
+    if (isFooterMenu && !isDefaultLocale) {
       dataToSave = data;
     } else {
       try {
@@ -4437,7 +4463,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         name,
         locale,
         endpoint: "translations",
-        message: isEnglish
+        message: isDefaultLocale
           ? "English text updated"
           : `${locale} translations updated`,
       });
@@ -7552,9 +7578,6 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
             // Same-type duplication: parse all files first, regenerate section IDs, then write
             const sourceFiles = fs.readdirSync(foundSourceFolder);
             const parsedDupFiles: Array<{ file: string; parsed: Record<string, unknown> }> = [];
-            const oldSlug = path.basename(foundSourceFolder);
-            const resolvedSourceSlug = resolved?.slug || oldSlug;
-
             for (const file of sourceFiles) {
               const fileLocale = file.replace(/\.yml$/, "");
               if (
@@ -7565,65 +7588,50 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               }
               if (!file.endsWith(".yml") && !file.endsWith(".yaml")) continue;
 
-              let content = fs.readFileSync(
+              const raw = fs.readFileSync(
                 path.join(foundSourceFolder, file),
                 "utf8",
               );
 
-              content = content.replace(
-                /^(\s*)redirects:.*$(\n\1\s+-.*$)*/gm,
-                "",
-              );
+              const parsed = safeYamlLoad(raw) as Record<string, unknown> | null;
+              if (!parsed) {
+                fs.writeFileSync(path.join(folderPath, file), raw);
+                markFileAsModified(
+                  `marketing-content/${getFolder(type)}/${folderSlug}/${file}`,
+                  createAuthorName,
+                );
+                continue;
+              }
+
+              delete parsed.redirects;
+              if (parsed.meta && typeof parsed.meta === "object") {
+                delete (parsed.meta as Record<string, unknown>).redirects;
+              }
 
               const newSlug =
                 file === "es.yml"
                   ? esSlug || folderSlug!
                   : enSlug || folderSlug!;
-              content = content.replace(
-                new RegExp(`slug:\\s*["']?${oldSlug}["']?`, "g"),
-                `slug: ${newSlug}`,
-              );
-              if (resolvedSourceSlug !== oldSlug) {
-                content = content.replace(
-                  new RegExp(`slug:\\s*["']?${resolvedSourceSlug}["']?`, "g"),
-                  `slug: ${newSlug}`,
-                );
-              }
+              parsed.slug = newSlug;
 
-              if (file === "en.yml" || file === "es.yml") {
-                const fl = file.replace(/\.yml$/, "");
-                const localeTitle = localeTitles[fl] || title;
-                if (/^title:/m.test(content)) {
-                  content = content.replace(/^title:\s*.*$/m, `title: "${localeTitle}"`);
-                } else {
-                  content = content.replace(/^(slug:.*$)/m, `$1\ntitle: "${localeTitle}"`);
-                }
-              }
-
-              // Replace unique mapped field values in _common.yml
               if (file === "_common.yml") {
-                content = content.replace(/^title:\s*.*$/m, `title: "${title}"`);
+                parsed.title = title;
                 for (const [fieldName, newValue] of Object.entries(uniqueFieldValues)) {
                   if (fieldName === "slug" || fieldName === "title") continue;
-                  content = content.replace(
-                    new RegExp(`^(${fieldName}:\\s*)["']?[^\\n"']*["']?`, "m"),
-                    `$1${newValue}`,
-                  );
+                  parsed[fieldName] = coerceToOriginalType(newValue, parsed[fieldName]);
                 }
+              } else if (file === "en.yml" || file === "es.yml") {
+                parsed.title = localeTitles[fileLocale] || title;
               }
 
-              // Parse YAML for section ID regeneration
-              try {
-                const yamlPkg = await import("js-yaml");
-                const parsed = yamlPkg.default.load(content) as Record<string, unknown>;
-                if (parsed && typeof parsed === "object") {
-                  parsedDupFiles.push({ file, parsed });
-                  continue;
-                }
-              } catch {
-                // fall through to raw write
-              }
-              // If parsing failed, write raw
+              parsedDupFiles.push({ file, parsed });
+            }
+
+            const allParsedDup = parsedDupFiles.map(f => f.parsed);
+            const { objs: regeneratedDup } = regenerateSectionIds(allParsedDup);
+            for (let i = 0; i < parsedDupFiles.length; i++) {
+              const { file } = parsedDupFiles[i];
+              const content = safeYamlDump(regeneratedDup[i], { lineWidth: 120, noRefs: true, sortKeys: false });
               fs.writeFileSync(path.join(folderPath, file), content);
               markFileAsModified(
                 `marketing-content/${getFolder(type)}/${folderSlug}/${file}`,
@@ -7631,20 +7639,6 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               );
             }
 
-            // Regenerate section IDs across all parsed files
-            if (parsedDupFiles.length > 0) {
-              const { objs: regenerated } = regenerateSectionIds(parsedDupFiles.map(f => f.parsed));
-              const yaml = await import("js-yaml");
-              for (let i = 0; i < parsedDupFiles.length; i++) {
-                const { file } = parsedDupFiles[i];
-                const yamlStr = yaml.default.dump(regenerated[i], { lineWidth: 120, noRefs: true, sortKeys: false });
-                fs.writeFileSync(path.join(folderPath, file), yamlStr);
-                markFileAsModified(
-                  `marketing-content/${getFolder(type)}/${folderSlug}/${file}`,
-                  createAuthorName,
-                );
-              }
-            }
 
             clearSitemapCache();
             contentIndex.refresh();
@@ -7688,34 +7682,32 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         getSupportedLocales().find((l) => !skipLocales.includes(l)) ??
         getDefaultLocale();
 
-      // _common.yml: one line per mapped field, user-supplied unique values take priority
-      const commonLines: string[] = [
-        `# Common properties for ${type}: ${title}`,
-      ];
+      // _common.yml: build object from field_mapping, then serialize
+      const commonObj: Record<string, unknown> = {};
       for (const key of fieldKeys) {
         if (key === "slug") {
-          commonLines.push(`slug: ${folderSlug}`);
+          commonObj.slug = folderSlug;
         } else if (key === "title") {
-          commonLines.push(`title: "${title}"`);
+          commonObj.title = title;
         } else if (key === "locale") {
-          commonLines.push(`locale: "${activeLocale}"`);
+          commonObj.locale = activeLocale;
         } else if (uniqueFieldValues[key] !== undefined) {
-          commonLines.push(`${key}: "${uniqueFieldValues[key]}"`);
+          commonObj[key] = coerceStringValue(uniqueFieldValues[key]);
         } else {
-          commonLines.push(`${key}: ""`);
+          commonObj[key] = "";
         }
       }
-      const commonYml = commonLines.join("\n") + "\n";
+      const commonYml = yaml.dump(commonObj, { lineWidth: 120, noRefs: true, sortKeys: false });
 
       // Locale files: minimal starter — _common.single.yml provides meta/schema defaults
-      const makeLocaleYml = (slug: string, loc: string) => {
+      const makeLocaleObj = (slug: string, loc: string) => {
+        const obj: Record<string, unknown> = { slug, sections: [] };
         const localeTitle = localeTitles[loc];
-        return localeTitle
-          ? `slug: ${slug}\ntitle: "${localeTitle}"\nsections: []\n`
-          : `slug: ${slug}\nsections: []\n`;
+        if (localeTitle) obj.title = localeTitle;
+        return obj;
       };
-      const enYml = makeLocaleYml(enSlug || folderSlug!, "en");
-      const esYml = makeLocaleYml(esSlug || folderSlug!, "es");
+      const enYml = yaml.dump(makeLocaleObj(enSlug || folderSlug!, "en"), { lineWidth: 120, noRefs: true, sortKeys: false });
+      const esYml = yaml.dump(makeLocaleObj(esSlug || folderSlug!, "es"), { lineWidth: 120, noRefs: true, sortKeys: false });
 
       // Write only missing files (preserve existing content from partial creation)
       const createdFiles: string[] = [];

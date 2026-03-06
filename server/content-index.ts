@@ -3,8 +3,9 @@ import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
 import type { ZodSchema } from "zod";
-import { escapeTemplateVars, unescapeObjectVars } from "../shared/templateVars";
+import { escapeTemplateVars, unescapeObjectVars, escapeObjectVars, unescapeYamlDump } from "../shared/templateVars";
 import { deepMerge } from "./utils/deepMerge";
+import { regenerateSectionIds } from "./utils/regenerateSectionIds";
 import { normalizeUrlPattern, getAllConfigs, getFieldMapping } from "./content-types";
 import { regenerateSectionIds } from "./utils/regenerateSectionIds";
 
@@ -1299,6 +1300,7 @@ class ContentIndex {
     }
 
     const copiedFiles: string[] = [];
+    const parsedFiles: Array<{ file: string; parsed: Record<string, unknown> }> = [];
     const strippedFields: string[] = [...keysToStrip];
     let replacedVars = 0;
 
@@ -1342,8 +1344,16 @@ class ContentIndex {
         this.stripSectionIds(parsed);
 
         if (fileLocale === "_common") {
-          if (newSlugs.en) parsed.slug = newSlugs.en;
+          parsed.slug = Object.values(newSlugs).find(Boolean) || path.basename(targetDir);
           parsed.title = title;
+          for (const targetKey of Object.keys(targetFieldMapping)) {
+            if (!parsed[targetKey] && !sourceKeys.includes(targetKey)) {
+              if (targetKey === "locale") {
+                const activeLocales = locales.filter(l => !skipLocales.includes(l));
+                parsed.locale = activeLocales[0] || "en";
+              }
+            }
+          }
         } else if (newSlugs[fileLocale as keyof typeof newSlugs]) {
           parsed.slug = newSlugs[fileLocale as keyof typeof newSlugs];
           parsed.title = localeTitles?.[fileLocale] ?? title;
@@ -1353,11 +1363,9 @@ class ContentIndex {
       }
     }
 
-    // Second pass: regenerate all section IDs together so cross-file references stay consistent
     const allParsed = parsedFiles.map(f => f.parsed);
     const { objs: regenerated } = regenerateSectionIds(allParsed);
 
-    // Write all files
     const absTargetDir = path.isAbsolute(targetDir) ? targetDir : path.join(process.cwd(), targetDir);
     if (!fs.existsSync(absTargetDir)) {
       fs.mkdirSync(absTargetDir, { recursive: true });
@@ -1365,7 +1373,9 @@ class ContentIndex {
     for (let i = 0; i < parsedFiles.length; i++) {
       const { file } = parsedFiles[i];
       const outputPath = path.join(absTargetDir, file);
-      const yamlStr = yaml.dump(regenerated[i], { lineWidth: 120, noRefs: true, sortKeys: false });
+      const { escaped, map } = escapeObjectVars(regenerated[i]);
+      const dumped = yaml.dump(escaped, { lineWidth: 120, noRefs: true, sortKeys: false });
+      const yamlStr = unescapeYamlDump(dumped, map);
       fs.writeFileSync(outputPath, yamlStr, "utf-8");
       copiedFiles.push(file);
     }

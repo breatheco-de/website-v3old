@@ -210,8 +210,8 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
             <div className="flex rounded-md border overflow-visible" data-testid="segmented-url-pattern-mode">
               {([
                 { value: "non-localized" as const, label: "No locale prefix" },
-                { value: "shorthand" as const, label: "Same path all languages" },
-                { value: "per-locale" as const, label: "Custom per language" },
+                { value: "shorthand" as const, label: "Use locale prefix" },
+                { value: "per-locale" as const, label: "Customized" },
               ]).map((opt) => (
                 <button
                   key={opt.value}
@@ -293,6 +293,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
                 <Link
                   href="/private/settings"
                   className="text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
+                  onClick={() => onOpenChange(false)}
                   data-testid="link-manage-locales"
                 >
                   Manage locales
@@ -323,7 +324,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
                   data-testid="input-content-type-directory"
                 />
                 <p className="text-xs text-muted-foreground">
-                  Folder inside marketing-content/ for YAML files.
+                  Your new content type will be located at: <span className="font-mono">marketing-content/{directory || name || "folder_name"}</span>, you will find all content and YAML files inside.
                 </p>
               </div>
             )}

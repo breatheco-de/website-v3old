@@ -22,7 +22,6 @@ schema:
     - courses:full-stack
 sections:
   - type: hero
-    section_id: hero-2v82a9
     version: "1.0"
     variant: productShowcase
     title: en 4Geeks Academy
@@ -106,6 +105,7 @@ sections:
           alt: Excelencia Educativa - Calidad Institucional
           logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
           logoHeight: 55px
+    section_id: hero-2v82a9
     video_title: GeekForce Career Support
     marginY:
       desktop: none

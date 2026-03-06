@@ -54,6 +54,7 @@ import {
   IconCode,
   IconTransform,
   IconAlertTriangle,
+  IconPlus,
 } from "@tabler/icons-react";
 import { Textarea } from "@/components/ui/textarea";
 import { apiRequest } from "@/lib/queryClient";
@@ -1258,29 +1259,12 @@ function FieldValidationMessage({ result, fieldKey, source }: { result: FieldVal
   const displaySource = source || (fieldKey.startsWith("__") ? "" : fieldKey);
   if (!displaySource) return null;
   const allMissing = result.found === 0;
-  const shown = result.missing.slice(0, 3);
-  const remaining = result.missing.length - shown.length;
   return (
-    <div className="text-[11px] text-destructive space-y-1 mt-1" data-testid={`text-validation-error-${fieldKey}`}>
+    <div className="text-[11px] text-destructive mt-1" data-testid={`text-validation-error-${fieldKey}`}>
       <p>
         Source property "<span className="font-mono font-medium">{displaySource}</span>" was not found in {allMissing ? "any" : "some"} content {result.total === 1 ? "entry" : "entries"}.
-        {" "}{allMissing ? "None" : `Only ${result.found}`} of {result.total} {result.total === 1 ? "entry has" : "entries have"} this property.
+        {" "}{allMissing ? "None" : `Only ${result.found}`} of {result.total} {result.total === 1 ? "entry has" : "entries have"} this property, it must be in all entries to become a common mapped field.
       </p>
-      <p className="text-muted-foreground">Add it to one of these files per entry:</p>
-      <ul className="list-none space-y-0.5">
-        {shown.map((entry) => (
-          <li key={entry.slug}>
-            <span className="font-medium">{entry.slug}/</span>
-            {" "}
-            <span className="font-mono text-muted-foreground">
-              {entry.files.map((f) => f.replace(/^marketing-content\//, "")).join(" or ")}
-            </span>
-          </li>
-        ))}
-        {remaining > 0 && (
-          <li className="text-muted-foreground">+{remaining} more {remaining === 1 ? "entry" : "entries"}</li>
-        )}
-      </ul>
     </div>
   );
 }
@@ -1312,6 +1296,8 @@ function FieldMappingDialog({
   const [newKey, setNewKey] = useState("");
   const [newValue, setNewValue] = useState("");
   const [sourceDropdownOpen, setSourceDropdownOpen] = useState(false);
+  const [showAddField, setShowAddField] = useState(false);
+  const [pendingDeleteKey, setPendingDeleteKey] = useState<string | null>(null);
   const [transformerModes, setTransformerModes] = useState<Record<string, boolean>>({});
   const [validation, setValidation] = useState<ValidationState>({});
   const [newValueValidation, setNewValueValidation] = useState<FieldValidationResult | "loading" | null>(null);
@@ -1347,6 +1333,8 @@ function FieldMappingDialog({
     setIndexedFields(config.indexes || []);
     setUniqueFields(config.unique_fields ?? ["slug"]);
     setValidation({});
+    setShowAddField(false);
+    setPendingDeleteKey(null);
     requestCounters.current = {};
   }, [config]);
 
@@ -1459,6 +1447,7 @@ function FieldMappingDialog({
     setNewValue("");
     setNewValueValidation(null);
     setSourceDropdownOpen(false);
+    setShowAddField(false);
   };
 
   const handleSave = async () => {
@@ -1625,31 +1614,57 @@ function FieldMappingDialog({
                             variant="ghost"
                             size="icon"
                             className="flex-shrink-0"
-                            onClick={() => {
-                              setMappings((prev) => {
-                                const next = { ...prev };
-                                delete next[key];
-                                return next;
-                              });
-                              setTransformerModes((prev) => {
-                                const next = { ...prev };
-                                delete next[key];
-                                return next;
-                              });
-                              setValidation((prev) => {
-                                const next = { ...prev };
-                                delete next[key];
-                                return next;
-                              });
-                              setIndexedFields((prev) => prev.filter((f) => f !== key));
-                              setUniqueFields((prev) => prev.filter((f) => f !== key));
-                            }}
+                            onClick={() => setPendingDeleteKey(key)}
                             data-testid={`button-delete-mapping-${key}`}
                           >
                             <IconTrashX className="h-3.5 w-3.5" />
                           </Button>
                         </div>
-                        {!isFn && !isDbBacked && <FieldValidationMessage result={vResult} fieldKey={key} source={mappings[key]} />}
+                        {pendingDeleteKey === key && (
+                          <div className="flex items-center gap-2 ml-[7.5rem] text-[11px] mt-1" data-testid={`confirm-delete-${key}`}>
+                            <span className="text-muted-foreground">
+                              Remove "<span className="font-mono font-medium">{key}</span>" mapping? Values in your YML files will not be affected.
+                            </span>
+                            <Button
+                              variant="destructive"
+                              size="sm"
+                              className="text-[11px]"
+                              onClick={() => {
+                                setMappings((prev) => {
+                                  const next = { ...prev };
+                                  delete next[key];
+                                  return next;
+                                });
+                                setTransformerModes((prev) => {
+                                  const next = { ...prev };
+                                  delete next[key];
+                                  return next;
+                                });
+                                setValidation((prev) => {
+                                  const next = { ...prev };
+                                  delete next[key];
+                                  return next;
+                                });
+                                setIndexedFields((prev) => prev.filter((f) => f !== key));
+                                setUniqueFields((prev) => prev.filter((f) => f !== key));
+                                setPendingDeleteKey(null);
+                              }}
+                              data-testid={`button-confirm-delete-${key}`}
+                            >
+                              Remove
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="text-[11px]"
+                              onClick={() => setPendingDeleteKey(null)}
+                              data-testid={`button-cancel-delete-${key}`}
+                            >
+                              Cancel
+                            </Button>
+                          </div>
+                        )}
+                        {!isFn && !isDbBacked && pendingDeleteKey !== key && <FieldValidationMessage result={vResult} fieldKey={key} source={mappings[key]} />}
                       </div>
                     );
                   })}
@@ -1658,80 +1673,103 @@ function FieldMappingDialog({
                 <p className="text-xs text-muted-foreground py-2">No field mappings defined yet.</p>
               )}
 
-              <div className="space-y-1 pt-1">
-                <div className="flex items-center gap-2">
-                  <Input
-                    value={newKey}
-                    onChange={(e) => setNewKey(e.target.value)}
-                    placeholder="Field name"
-                    className="text-xs font-mono flex-1"
-                    onKeyDown={(e) => { if (e.key === "Enter") handleAddField(); }}
-                    data-testid="input-new-mapping-key"
-                  />
-                  <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
-                  <div className="relative flex-1">
-                    <Input
-                      value={newValue}
-                      onChange={(e) => { handleNewValueChange(e.target.value); setSourceDropdownOpen(true); }}
-                      onFocus={() => setSourceDropdownOpen(true)}
-                      onBlur={() => setTimeout(() => setSourceDropdownOpen(false), 150)}
-                      placeholder="Source (default: same)"
-                      className="text-xs font-mono"
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") handleAddField();
-                        if (e.key === "Escape") setSourceDropdownOpen(false);
-                      }}
-                      data-testid="input-new-mapping-value"
-                    />
-                    {sourceDropdownOpen && availableProps && (filteredAvailableProps.common.length > 0 || filteredAvailableProps.partial.length > 0) && (
-                      <div className="absolute top-full left-0 right-0 z-50 mt-0.5 border rounded-md bg-popover shadow-md max-h-[180px] overflow-y-auto" data-testid="source-dropdown">
-                        {filteredAvailableProps.common.map((k) => (
-                          <button
-                            key={k}
-                            type="button"
-                            className="w-full text-left px-2 py-1.5 flex items-center gap-2 text-xs hover-elevate border-b last:border-b-0"
-                            onClick={() => {
-                              handleNewValueChange(k);
-                              setSourceDropdownOpen(false);
-                              if (!newKey.trim()) {
-                                setNewKey(k.split(".").pop() || k);
-                              }
-                            }}
-                            data-testid={`source-option-${k}`}
-                          >
-                            <IconCheck className="w-3 h-3 text-green-600 flex-shrink-0" />
-                            <span className="font-mono">{k}</span>
-                            <span className="text-[10px] text-muted-foreground ml-auto">all entries</span>
-                          </button>
-                        ))}
-                        {filteredAvailableProps.partial.map((p) => (
-                          <button
-                            key={p.key}
-                            type="button"
-                            disabled
-                            className="w-full text-left px-2 py-1.5 flex items-center gap-2 text-xs opacity-50 cursor-not-allowed border-b last:border-b-0"
-                            data-testid={`source-option-${p.key}`}
-                          >
-                            <IconAlertTriangle className="w-3 h-3 text-amber-500 flex-shrink-0" />
-                            <span className="font-mono">{p.key}</span>
-                            <span className="text-[10px] text-muted-foreground ml-auto">{p.count}/{p.total}</span>
-                          </button>
-                        ))}
+              <div className="pt-1">
+                {showAddField ? (
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <Input
+                        value={newKey}
+                        onChange={(e) => setNewKey(e.target.value)}
+                        placeholder="Field name"
+                        className="text-xs font-mono flex-1"
+                        onKeyDown={(e) => { if (e.key === "Enter") handleAddField(); }}
+                        autoFocus
+                        data-testid="input-new-mapping-key"
+                      />
+                      <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                      <div className="relative flex-1">
+                        <Input
+                          value={newValue}
+                          onChange={(e) => { handleNewValueChange(e.target.value); setSourceDropdownOpen(true); }}
+                          onFocus={() => setSourceDropdownOpen(true)}
+                          onBlur={() => setTimeout(() => setSourceDropdownOpen(false), 150)}
+                          placeholder="Source (default: same)"
+                          className="text-xs font-mono"
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") handleAddField();
+                            if (e.key === "Escape") setSourceDropdownOpen(false);
+                          }}
+                          data-testid="input-new-mapping-value"
+                        />
+                        {sourceDropdownOpen && availableProps && (filteredAvailableProps.common.length > 0 || filteredAvailableProps.partial.length > 0) && (
+                          <div className="absolute top-full left-0 right-0 z-50 mt-0.5 border rounded-md bg-popover shadow-md max-h-[180px] overflow-y-auto" data-testid="source-dropdown">
+                            {filteredAvailableProps.common.map((k) => (
+                              <button
+                                key={k}
+                                type="button"
+                                className="w-full text-left px-2 py-1.5 flex items-center gap-2 text-xs hover-elevate border-b last:border-b-0"
+                                onClick={() => {
+                                  handleNewValueChange(k);
+                                  setSourceDropdownOpen(false);
+                                  if (!newKey.trim()) {
+                                    setNewKey(k.split(".").pop() || k);
+                                  }
+                                }}
+                                data-testid={`source-option-${k}`}
+                              >
+                                <IconCheck className="w-3 h-3 text-green-600 flex-shrink-0" />
+                                <span className="font-mono">{k}</span>
+                                <span className="text-[10px] text-muted-foreground ml-auto">all entries</span>
+                              </button>
+                            ))}
+                            {filteredAvailableProps.partial.map((p) => (
+                              <button
+                                key={p.key}
+                                type="button"
+                                disabled
+                                className="w-full text-left px-2 py-1.5 flex items-center gap-2 text-xs opacity-50 cursor-not-allowed border-b last:border-b-0"
+                                data-testid={`source-option-${p.key}`}
+                              >
+                                <IconAlertTriangle className="w-3 h-3 text-amber-500 flex-shrink-0" />
+                                <span className="font-mono">{p.key}</span>
+                                <span className="text-[10px] text-muted-foreground ml-auto">{p.count}/{p.total}</span>
+                              </button>
+                            ))}
+                          </div>
+                        )}
                       </div>
-                    )}
+                      {!isDbBacked && (newValue.trim() || newKey.trim()) && <FieldValidationIndicator result={newValueValidation} />}
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={handleAddField}
+                        disabled={!newKey.trim() || newKey.trim() in mappings}
+                        data-testid="button-add-mapping"
+                      >
+                        <IconCheck className="h-3.5 w-3.5" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => { setShowAddField(false); setNewKey(""); setNewValue(""); setNewValueValidation(null); }}
+                        data-testid="button-cancel-add-field"
+                      >
+                        <IconX className="h-3.5 w-3.5" />
+                      </Button>
+                    </div>
+                    {!isDbBacked && <FieldValidationMessage result={newValueValidation} fieldKey="__new" source={newValue.trim() || newKey.trim()} />}
                   </div>
-                  {!isDbBacked && (newValue.trim() || newKey.trim()) && <FieldValidationIndicator result={newValueValidation} />}
+                ) : (
                   <Button
                     variant="outline"
-                    size="icon"
-                    onClick={handleAddField}
-                    disabled={!newKey.trim() || newKey.trim() in mappings}
-                    data-testid="button-add-mapping"
+                    size="sm"
+                    onClick={() => setShowAddField(true)}
+                    data-testid="button-show-add-field"
                   >
-                    <IconCheck className="h-3.5 w-3.5" />
+                    <IconPlus className="h-3.5 w-3.5 mr-1.5" />
+                    Add new field
                   </Button>
-                </div>
-                {!isDbBacked && <FieldValidationMessage result={newValueValidation} fieldKey="__new" source={newValue.trim() || newKey.trim()} />}
+                )}
               </div>
             </div>
 
@@ -1769,7 +1807,7 @@ function FieldMappingDialog({
             <div className="space-y-2" data-testid="section-unique-toggles">
               <Label className="text-xs text-muted-foreground font-medium">Unique Fields</Label>
               <p className="text-[11px] text-muted-foreground">
-                Unique fields must get a new value when this content is duplicated. The creation modal will prompt for each.
+                Unique fields must have a distinct value across entries. When duplicating, the creation modal will prompt for new values. The same value can appear across different locales of the same entry.
               </p>
               <div className="flex items-center gap-2 flex-wrap">
                 <Badge

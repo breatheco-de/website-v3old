@@ -4,10 +4,10 @@ title: ejemplo
 meta:
   page_title: ejemplo | 4Geeks Academy
   description: ejemplo - Learn more about this topic at 4Geeks Academy.
-  redirects:
-    - /ejemplo
+  redirects: []
 sections:
   - type: banner
+    version: '1.0'
     section_id: banner-h85ywz
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
@@ -20,6 +20,6 @@ sections:
     description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
     cta:
       text: Learn More
-      url: "#"
+      url: '#'
       variant: primary
     background: gradient
