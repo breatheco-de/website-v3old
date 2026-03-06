@@ -277,7 +277,7 @@ sections:
       - toronto-canada
   - type: testimonials_slide
     title: Real Careers Start Here
-    description: "Our graduates prove it: 84% hired within six months, stepping into roles at top tech companies, boosting salaries, and thriving in AI-powered careers."
+    description: Meet graduates who transformed their skills into real tech careers at companies around the world."
     section_id: testimonials_slide-dc7isf
   - type: whos_hiring
     variant: carousel
