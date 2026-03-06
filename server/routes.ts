@@ -7851,8 +7851,10 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         type,
         slug,
         confirmSlug,
+        author: rawAuthor,
         localesToDelete: rawLocalesToDelete,
       } = req.body;
+      const author = typeof rawAuthor === "string" ? rawAuthor : undefined;
       const localesToDelete: string[] = Array.isArray(rawLocalesToDelete)
         ? rawLocalesToDelete.filter((l: unknown) => typeof l === "string")
         : [];
@@ -7916,6 +7918,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           if (fs.existsSync(localeFile)) {
             fs.unlinkSync(localeFile);
             deletedFiles.push(`${locale}.yml`);
+            markFileAsModified(`marketing-content/${typeFolder}/${resolvedSlug}/${locale}.yml`, author);
           }
         }
 
@@ -7929,6 +7932,10 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           );
 
         if (remainingFiles.length === 0) {
+          const allFiles = fs.existsSync(folderPath) ? fs.readdirSync(folderPath) : [];
+          for (const file of allFiles) {
+            markFileAsModified(`marketing-content/${typeFolder}/${resolvedSlug}/${file}`, author);
+          }
           fs.rmSync(folderPath, { recursive: true, force: true });
           console.log(
             `[Content] Deleted ${type}/${slug} (all locales removed, folder cleaned up)`,
@@ -7952,6 +7959,10 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           folderRemoved: remainingFiles.length === 0,
         });
       } else {
+        const allFiles = fs.readdirSync(folderPath);
+        for (const file of allFiles) {
+          markFileAsModified(`marketing-content/${typeFolder}/${resolvedSlug}/${file}`, author);
+        }
         fs.rmSync(folderPath, { recursive: true, force: true });
 
         console.log(`[Content] Deleted ${type}/${slug}`);
