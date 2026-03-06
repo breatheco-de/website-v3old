@@ -132,24 +132,34 @@ sections:
     footer: Join 7,000+ graduates who’ve launched successful tech careers.
     image: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
     section_id: two_column_accordion_card-7wppr4
-  - type: ai_learning
-    version: "1.0"
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: Why Learn with 4Geeks?
-    description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
-    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
-    features:
-      - icon: Robot
-        title: Learn with AI
-        description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
-      - icon: Headset
-        title: Unlimited 1:1 mentoring sessions
-        description: Access unlimited mentorship sessions with our experts whenever you need guidance.
-      - icon: Users
-        title: Learn with the community
-        description: Learning alongside others is more fun and helps you progress faster. Join our active community.
-    section_id: ai_learning-b6j1jb
+  - type: numbered_steps
+    variant: default
+    title: Get Hired Faster With GeekForce
+    description: |
+      Our 3-step Career Acceleration System combines proven strategies, personalized guidance, 
+      and direct access to hiring companies to help you land a tech role quickly.
+    description_link:
+      text: See terms
+      url: /terms-and-conditions
+    steps:
+      - icon: School
+        text: |
+          Optimize your LinkedIn, GitHub, and portfolio, craft an ATS-ready resume, 
+          and graduate with a recruiter-ready portfolio.
+      - icon: Briefcase
+        text: |
+          Master technical and behavioral interviews, practice coding exercises, 
+          and develop winning strategies for upcoming opportunities.
+      - icon: Cash
+        text: |
+          Follow a tailored job search plan, leverage AI-driven hiring tools, 
+          and connect with top hiring companies to land your role.
+    background: hsl(var(--secondary))
+    bullet_icon: Check
+    bullet_icon_color: text-green-600
+    section_id: numbered_steps-646rz5
+    paddingY:
+      desktop: lg none
   - type: course_selector
     version: "1.0"
     variant: solid
