@@ -400,6 +400,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                         const urlLocale = pathSegments[0];
                         const hasPathLocale = /^[a-z]{2}$/.test(urlLocale);
                         const resolvedLocale = hasPathLocale ? normalizeLocale(urlLocale) : (props.contentLocale || normalizeLocale(i18n.language));
+                        console.log('resolvedLocale', resolvedLocale);
                         const previewUrl = `/private/preview/${props.contentInfo.type}/${props.contentInfo.slug}?locale=${resolvedLocale}`;
                         props.navigate(previewUrl);
                       }

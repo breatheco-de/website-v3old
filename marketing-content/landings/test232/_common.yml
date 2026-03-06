@@ -1,4 +1,6 @@
-title: test-landing-double-es
+slug: test232
+title: test23
+locale: es
 meta:
   og_image: /images/programs/ai-engineering-og.jpg
 schema:
@@ -7,4 +9,7 @@ schema:
     - website
     - courses:ai-engineering
 locations:
-  - mexicocity-mexico
+  - santiago-chile
+layout:
+  menu:
+    top: main-footer
