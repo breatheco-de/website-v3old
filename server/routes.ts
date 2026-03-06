@@ -7545,7 +7545,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               clearSitemapCache();
               contentIndex.refresh();
 
-              const localesToValidate1 = getSupportedLocales().filter(l => !skipLocales.includes(l));
+              const localesToValidate1 = getSupportedLocales().filter(l => !skipLocales.includes(l) && fs.existsSync(path.join(folderPath, `${l}.yml`)));
               for (const locale of localesToValidate1) {
                 const { error: validationError } = contentIndex.loadMergedContent(type, folderSlug!, locale);
                 if (validationError) {
@@ -7643,7 +7643,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
             clearSitemapCache();
             contentIndex.refresh();
 
-            const localesToValidate2 = getSupportedLocales().filter(l => !skipLocales.includes(l));
+            const localesToValidate2 = getSupportedLocales().filter(l => !skipLocales.includes(l) && fs.existsSync(path.join(folderPath, `${l}.yml`)));
             for (const locale of localesToValidate2) {
               const { error: validationError } = contentIndex.loadMergedContent(type, folderSlug!, locale);
               if (validationError) {
