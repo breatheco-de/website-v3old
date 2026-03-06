@@ -1430,6 +1430,7 @@ export function DebugBubble() {
     setIsDeletingPage(true);
     try {
       const token = getDebugToken();
+      const author = await resolveAuthorName();
       const headers: Record<string, string> = { "Content-Type": "application/json" };
       if (token) headers["Authorization"] = `Token ${token}`;
       const response = await fetch("/api/content/delete", {
@@ -1439,6 +1440,7 @@ export function DebugBubble() {
           type: deletingPage.contentType,
           slug: deletingPage.slug,
           confirmSlug: deleteConfirmInput,
+          author,
           ...(localesToDelete.length > 0 ? { localesToDelete } : {}),
         }),
       });

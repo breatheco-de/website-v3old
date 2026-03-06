@@ -245,7 +245,9 @@ sections:
     footer_description: Con nuestra colaboración especial con Carné Joven, puedes acceder a una formación de alta calidad a un precio accesible.
     background: hsl(var(--secondary))
     marginY:
-      desktop: none md
+      desktop: none xl
+    paddingY:
+      desktop: none
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -285,7 +287,7 @@ sections:
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
     marginY:
-      desktop: none lg
+      desktop: none xl
   - type: two_column
     proportions:
       - 6
@@ -305,7 +307,7 @@ sections:
         icon: Rocket
     gap: "8"
     marginY:
-      desktop: none lg
+      desktop: none xl
   - type: geeks_vs_others_comparison
     section_id: geeks_vs_others_comparison-bdczjl
     version: "1.0"

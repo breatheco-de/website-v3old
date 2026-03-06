@@ -33,6 +33,7 @@ import {
   IconHandClick,
   IconColumns,
   IconSearch,
+  IconStarFilled,
 } from "@tabler/icons-react";
 import {
   Dialog,
@@ -146,6 +147,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   dynamic_table: IconTable,
   modal: IconHandClick,
   cards_deck: IconLayoutColumns,
+  trust_cards: IconStarFilled,
 };
 
 const variantLabels: Record<string, string> = {

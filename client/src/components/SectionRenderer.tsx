@@ -246,6 +246,7 @@ import { WhyLearnAISection } from "./why-learn-ai/WhyLearnAI";
 import { PricingSection } from "./PricingSection";
 import { FAQSection } from "./FAQSection";
 import { TestimonialsSection } from "./TestimonialsSection";
+import { TrustCards } from "./trust-cards";
 import { WhosHiring } from "@/components/whos-hiring/WhosHiring";
 import { FooterSection } from "./FooterSection";
 import { TwoColumn } from "@/components/TwoColumn";
@@ -556,6 +557,8 @@ export function renderSection(section: Section, index: number, landingLocations?
           gradient={marqueeSection.gradient}
           gradientWidth={marqueeSection.gradientWidth}
           bottom_title={marqueeSection.bottom_title}
+          title={marqueeSection.title}
+          title_above_carousel={marqueeSection.title_above_carousel}
         />
       );
     }
@@ -575,6 +578,8 @@ export function renderSection(section: Section, index: number, landingLocations?
       return <FAQSection data={section as Parameters<typeof FAQSection>[0]["data"]} programSlug={programSlug} />;
     case "testimonials":
       return <TestimonialsSection data={section as Parameters<typeof TestimonialsSection>[0]["data"]} />;
+    case "trust_cards":
+      return <TrustCards data={section as Parameters<typeof TrustCards>[0]["data"]} />;
     case "whos_hiring":
       return <WhosHiring data={section as Parameters<typeof WhosHiring>[0]["data"]} />;
     case "footer":

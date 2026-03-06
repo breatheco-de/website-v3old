@@ -89,6 +89,31 @@ export function HeroProductShowcase({
 
   const shouldShowBackground = backgroundImage && showBackground;
 
+  const formCardBackground = (fullData as any).form_card_background as string | undefined;
+  const formCardTextColor = (fullData as any).form_card_text_color as string | undefined;
+  const formCardTitle = (fullData as any).form_card_title as string | undefined;
+  const formCardSubtitle = (fullData as any).form_card_subtitle as string | undefined;
+  const rawFormCardImage = (fullData as any).form_card_image;
+  const formCardImageSrc = typeof rawFormCardImage === "string"
+    ? rawFormCardImage
+    : (rawFormCardImage?.src ?? null);
+  const formCardImageAlt = (fullData as any).form_card_image_alt as string | undefined
+    || (typeof rawFormCardImage === "object" && rawFormCardImage?.alt) || "";
+  const formCardImageObjectFit = (fullData as any).form_card_image_object_fit as string | undefined;
+  const formCardImageObjectPosition = (fullData as any).form_card_image_object_position as string | undefined;
+  const formCardImageWidth = (fullData as any).form_card_image_width as string | undefined;
+  const formCardImageHeight = (fullData as any).form_card_image_height as string | undefined;
+  const formCardImageOpacity = (fullData as any).form_card_image_opacity as number | undefined;
+  const formCardImageBorderRadius = (fullData as any).form_card_image_border_radius as string | undefined;
+
+  const formCardBgStyle: React.CSSProperties = {};
+  if (formCardBackground) {
+    if (formCardBackground.startsWith("linear-gradient") || formCardBackground.startsWith("radial-gradient")) {
+      formCardBgStyle.backgroundImage = formCardBackground;
+    } else {
+      formCardBgStyle.backgroundColor = formCardBackground;
+    }
+  }
   const colorMap: Record<string, string> = {
     primary: "hsl(var(--primary))",
     accent: "hsl(var(--accent))",
@@ -315,6 +340,7 @@ export function HeroProductShowcase({
                       } as LeadFormData
                     }
                     landingLocations={landingLocations}
+                    termsStyle={data.form_terms_color ? { color: data.form_terms_color } : undefined}
                   />
                 </div>
               )}
@@ -472,23 +498,71 @@ export function HeroProductShowcase({
                   )}
               </div>
             ) : data.form ? (
-              <div className="w-full">
+              <div 
+                className={`relative w-full ${formCardImageSrc ? "mt-16" : ""}`} 
+
+              >
+                <div className="">
+                  {formCardImageSrc && (
+                    <div
+                      className="absolute flex items-center top-0 right-0 pointer-events-none z-0  z-[1001]"
+                      style={{ transform: "translate(40%, -40%)",
+                            }}
+
+                      data-testid="img-form-card-image"
+                    >
+                      <UniversalImage
+                        id={formCardImageSrc}
+                        alt={formCardImageAlt}
+                        style={{
+                          objectFit: (formCardImageObjectFit as React.CSSProperties["objectFit"]) || "contain",
+                          objectPosition: formCardImageObjectPosition || "top right",
+                          width: formCardImageWidth || "140px",
+                          height: formCardImageHeight || "140px",
+                          opacity: formCardImageOpacity ?? 1,
+                          borderRadius: formCardImageBorderRadius || undefined,
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
                 <Card
-                  className="hidden md:block w-full mt-[24px] bg-background p-4 rounded-lg"
+                  className={`hidden md:block w-full overflow-hidden p-4 rounded-lg ${formCardBackground ? '' : 'bg-background'}`}
+                  style={formCardBgStyle}
                   data-testid="hero-form-right"
                 >
-                  <LeadForm
-                    data={
-                      {
-                        ...data.form,
-                        variant: data.form.variant || "stacked",
-                        consent: data.form.consent,
-                        show_terms: data.form.show_terms ?? false,
-                        className: "w-full",
-                      } as LeadFormData
-                    }
-                    landingLocations={landingLocations}
-                  />
+                  <div className="relative z-[1]">
+                    {(formCardTitle || formCardSubtitle) && (
+                      <div className="mb-3" style={formCardTextColor ? { color: formCardTextColor } : undefined}>
+                        {formCardTitle && (
+                          <h3
+                            className="text-3xl mb-2 font-semibold"
+                            data-testid="text-form-card-title"
+                          >
+                            {formCardTitle}
+                          </h3>
+                        )}
+                        {formCardSubtitle && (
+                          <p style={{ opacity: 0.8 }}>
+                            {formCardSubtitle}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                    <LeadForm
+                      data={
+                        {
+                          ...data.form,
+                          variant: data.form.variant || "stacked",
+                          consent: data.form.consent,
+                          show_terms: data.form.show_terms ?? false,
+                          className: "w-full",
+                        } as LeadFormData
+                      }
+                      landingLocations={landingLocations}
+                      termsStyle={data.form_terms_color ? { color: data.form_terms_color } : undefined}
+                    />
+                  </div>
                 </Card>
                 {showAwardsMarquee &&
                   awardsMarquee?.items &&
@@ -522,6 +596,7 @@ export function HeroProductShowcase({
                   } as LeadFormData
                 }
                 landingLocations={landingLocations}
+                termsStyle={data.form_terms_color ? { color: data.form_terms_color } : undefined}
               />
             </div>
           )}

@@ -291,6 +291,18 @@ export function markFileAsModified(filePath: string, author?: string): void {
     if (autoCommitCallback) {
       autoCommitCallback(relativePath, author);
     }
+  } else if (state.files[relativePath]) {
+    state.files[relativePath] = {
+      ...state.files[relativePath],
+      author: author || state.files[relativePath].author,
+      modifiedAt: new Date().toISOString(),
+    };
+    
+    saveSyncState(state);
+
+    if (autoCommitCallback) {
+      autoCommitCallback(relativePath, author);
+    }
   }
 }
 
@@ -411,6 +423,8 @@ export function detectPendingChanges(): PendingChange[] {
         slug,
         localSha: '',
         remoteSha: info.remoteSha,
+        author: info.author,
+        date: info.modifiedAt,
       });
     }
   }

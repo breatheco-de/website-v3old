@@ -1290,13 +1290,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
       ? parseInt(req.query.force_version as string, 10)
       : undefined;
 
+    // Resolve the folder slug first — the URL slug may be locale-specific
+    // (e.g. "4geeks-vs-otros-landing" → folder "4geeks-vs-others-landing")
+    const baseSlug = contentIndex.resolveBaseSlug(slug, "landing");
+
     // Get locale from query param, _common.yml, or default — then verify it exists
     const queryLocale = req.query.locale as string | undefined;
     const supported = getSupportedLocales();
     const validQueryLocale = queryLocale && supported.includes(queryLocale) ? queryLocale : undefined;
-    const commonData = contentIndex.loadCommonData("landing", slug);
+    const commonData = contentIndex.loadCommonData("landing", baseSlug);
     let locale = validQueryLocale || (commonData?.locale as string) || getDefaultLocale();
-    const availableLocales = contentIndex.getAvailableLocalesOrVariants("landing" as ContentType, slug);
+    const availableLocales = contentIndex.getAvailableLocalesOrVariants("landing" as ContentType, baseSlug);
     if (availableLocales.length > 0 && !availableLocales.includes(locale)) {
       locale = availableLocales[0];
     }
@@ -7847,8 +7851,10 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         type,
         slug,
         confirmSlug,
+        author: rawAuthor,
         localesToDelete: rawLocalesToDelete,
       } = req.body;
+      const author = typeof rawAuthor === "string" ? rawAuthor : undefined;
       const localesToDelete: string[] = Array.isArray(rawLocalesToDelete)
         ? rawLocalesToDelete.filter((l: unknown) => typeof l === "string")
         : [];
@@ -7912,6 +7918,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           if (fs.existsSync(localeFile)) {
             fs.unlinkSync(localeFile);
             deletedFiles.push(`${locale}.yml`);
+            markFileAsModified(`marketing-content/${typeFolder}/${resolvedSlug}/${locale}.yml`, author);
           }
         }
 
@@ -7925,6 +7932,10 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           );
 
         if (remainingFiles.length === 0) {
+          const allFiles = fs.existsSync(folderPath) ? fs.readdirSync(folderPath) : [];
+          for (const file of allFiles) {
+            markFileAsModified(`marketing-content/${typeFolder}/${resolvedSlug}/${file}`, author);
+          }
           fs.rmSync(folderPath, { recursive: true, force: true });
           console.log(
             `[Content] Deleted ${type}/${slug} (all locales removed, folder cleaned up)`,
@@ -7948,6 +7959,10 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           folderRemoved: remainingFiles.length === 0,
         });
       } else {
+        const allFiles = fs.readdirSync(folderPath);
+        for (const file of allFiles) {
+          markFileAsModified(`marketing-content/${typeFolder}/${resolvedSlug}/${file}`, author);
+        }
         fs.rmSync(folderPath, { recursive: true, force: true });
 
         console.log(`[Content] Deleted ${type}/${slug}`);

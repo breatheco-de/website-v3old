@@ -623,31 +623,36 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-bqklnj
   - type: sticky_cta
-    section_id: sticky_cta-txqjir
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
+    button_label: Aplicar ahora
     show_dismiss: false
     form:
       variant: inline
       conversion_name: student_application
       submit_label: Enviar solicitud
       tags: website-lead
+      automations: strong
       fields:
         email:
           visible: true
           required: true
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
+          placeholder: Nombre
         last_name:
           visible: true
-          required: false
+          required: true
+          placeholder: Apellido
         phone:
           visible: true
           required: true
         program:
           visible: true
-          default: auto
+          required: true
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+    load: eager
+    section_id: sticky_cta-txqjir

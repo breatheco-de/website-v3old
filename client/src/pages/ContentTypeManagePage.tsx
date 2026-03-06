@@ -59,7 +59,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { getDebugToken } from "@/hooks/useDebugAuth";
+import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { DeletePageModal } from "@/components/DebugBubble/components/DeletePageModal";
 
 interface ItemsResponse {
@@ -2166,6 +2166,7 @@ export default function ContentTypeManagePage() {
     setIsDeletingEntry(true);
     try {
       const token = getDebugToken();
+      const author = await resolveAuthorName();
       const headers: Record<string, string> = { "Content-Type": "application/json" };
       if (token) headers["Authorization"] = `Token ${token}`;
       const response = await fetch("/api/content/delete", {
@@ -2175,6 +2176,7 @@ export default function ContentTypeManagePage() {
           type: contentType,
           slug: deletingEntry.slug,
           confirmSlug: deleteConfirmInput,
+          author,
           ...(localesToDelete.length > 0 ? { localesToDelete } : {}),
         }),
       });

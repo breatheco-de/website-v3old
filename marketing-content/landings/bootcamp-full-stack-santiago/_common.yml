@@ -8,7 +8,11 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Full Stack Developer
-  description: "Conviértete en Desarrollador Full Stack con mentoría ilimitada 1:1, orientación profesional y proyectos prácticos. "
+  description: 'Conviértete en Desarrollador Full Stack con mentoría ilimitada 1:1, orientación profesional y proyectos prácticos. '
+  redirects:
+    - /es/landing/bootcamp-full-stack-santiago-go
+    - /es/landing/bootcamp-full-stack-santiago-meta
+    - /es/landing/bootcamp-full-stack-santiago-fb
 context:
   when_to_use: For visitors interested in becoming web developers, learning both frontend and backend technologies, or transitioning into software development careers.
   target_audience: Career changers, recent graduates, and professionals looking to break into tech with comprehensive web development skills.

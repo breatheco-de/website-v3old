@@ -738,6 +738,9 @@ export { doubleCTASectionSchema, type DoubleCTASection, type DoubleCTABox, type 
 import { contactUsInfoSectionSchema, type ContactUsInfoSection, type ContactLocation } from "../marketing-content/component-registry/contact_us_info/v1.0/schema";
 export { contactUsInfoSectionSchema, type ContactUsInfoSection, type ContactLocation };
 
+import { trustCardsSectionSchema, type TrustCardsSection, type TrustCardItem } from "../marketing-content/component-registry/trust_cards/v1.0/schema";
+export { trustCardsSectionSchema, type TrustCardsSection, type TrustCardItem };
+
 // Responsive spacing schema - separate values for mobile and desktop
 // When only one breakpoint is specified, the other inherits its value
 export const responsiveSpacingSchema = z.object({
@@ -1005,6 +1008,7 @@ const baseSectionSchema = z.union([
   modalSectionSchema,
   contactUsInfoSectionSchema,
   cardsDeckSectionSchema,
+  trustCardsSectionSchema,
 ]);
 
 // Combined section schema with layout fields

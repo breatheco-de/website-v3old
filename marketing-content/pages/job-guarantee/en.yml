@@ -229,16 +229,6 @@ sections:
         text: Strong and ongoing demand for skilled tech professionals
       - icon: ChalkboardTeacher
         text: Structured training paired with hands-on, ongoing career support
-  - type: faq
-    section_id: faq-1o208y
-    version: "1.0"
-    title: Frequently Asked Questions about the Job Guarantee
-    related_features:
-      - job-guarantee
-    paddingY:
-      desktop: none
-    marginY:
-      desktop: lg none
   - type: cta_banner
     section_id: cta_banner-63cdpc
     version: "1.0"

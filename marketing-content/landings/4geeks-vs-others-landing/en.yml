@@ -6,32 +6,28 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: 4Geeks vs Other Bootcamps | 4Geeks Academy
-  description: >-
-    Compare 4Geeks Academy with other coding bootcamps. See why our unlimited mentorship, career support, and proven
-    outcomes set us apart.
+  description: Compare 4Geeks Academy with other coding bootcamps. See why our unlimited mentorship, career support, and proven outcomes set us apart.
 schema:
   include:
     - organization
     - website
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: productShowcase
     title: Stands Out
     brand_mark:
       prefix: Why
       highlight: 4Geeks
       color: primary
-    description: >-
-      Build AI-ready skills, get hyper-personalized support, and access lifelong mentorship that helps you launch your
-      tech career faster and smarter than other programs.
+    description: Build AI-ready skills, get hyper-personalized support, and access lifelong mentorship that helps you launch your tech career faster than other programs.
     bullets:
-      - text: AI-Ready Skills – Learn what companies hire for
-      - text: Hyper-Personalized Support – AI + human mentorship
-      - text: Lifetime Mentorship & Career Coaching – continues after graduation
-      - text: Proven Career Results – 84% hired within 6 months
-    video_id: '-2ZvlgDnltc'
-    video_ratio: '9:12'
+      - text: AI-Ready Skills – Learn what companies are hiring for
+      - text: Personalized Learning System – AI guidance + human mentorship
+      - text: Lifetime Mentorship & Career Support – continues after graduation
+      - text: Proven Career Outcomes – 84% hired within 6 months
+    video_id: "-2ZvlgDnltc"
+    video_ratio: "9:12"
     form:
       variant: stacked
       conversion_name: student_application
@@ -63,14 +59,8 @@ sections:
       consent:
         sms: true
         marketing: true
-        marketing_text: >-
-          I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses,
-          and other marketing materials. We'll never share your contact information, and you can easily opt out at any
-          moment.
-        sms_text: >-
-          I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message
-          and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages
-          per month. We will never share your contact information, and you can easily opt out at any moment.
+        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
+        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
         sms_usa_only: true
       show_terms: true
     form_vertical_align: center
@@ -111,8 +101,10 @@ sections:
           logoHeight: 55px
     video_title: GeekForce Career Support
     section_id: hero-i6d82d
+    paddingY:
+      desktop: lg none
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-cards
     title: Real Outcomes, Proven Results
     subtitle: Our alumni land jobs fast, boost their salaries, and launch tech careers that last.
@@ -127,32 +119,29 @@ sections:
     marginY:
       desktop: md
     section_id: features_grid-d7piim
+    paddingY:
+      desktop: md none
   - type: two_column_accordion_card
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Hyperpersonalized Learning & Support That Lasts a Lifetime
-    description: >-
-      Learn AI-native, in-demand skills with expert guidance that doesn’t stop at graduation. Most programs leave you on
-      your own — we stick with you for the long term.
+    description: Learn AI-native, in-demand skills with expert guidance that doesn’t stop at graduation. Most programs leave you on your own — we stick with you for the long term.
     bullets:
       - heading: Unlimited 1:1 Mentorship
-        text: >-
-          Get guidance whenever you need it. From debugging code to preparing for senior roles, mentors support your
-          learning and career growth at every stage.
+        text: Get guidance whenever you need it. From debugging code to preparing for senior roles, mentors support your learning and career growth at every stage.
       - heading: AI-Powered Learning & Feedback
-        text: >-
-          Rigobot + LearnPack tailor your learning, give instant feedback, guide you to solve problems efficiently, and
-          track your skill development.
+        text: Rigobot + LearnPack tailor your learning, give instant feedback, guide you to solve problems efficiently, and track your skill development.
       - heading: Lifelong Career Support
-        text: >-
-          GeekFORCE helps you land your first role and keep advancing. Career coaching, job search strategies, and
-          employer connections are always accessible.
+        text: GeekFORCE helps you land your first role and keep advancing. Career coaching, job search strategies, and employer connections are always accessible.
     footer: Join 7,000+ graduates who’ve launched successful tech careers.
-    image: >-
-      https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
+    image: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
     section_id: two_column_accordion_card-7wppr4
+    marginY:
+      desktop: md none
+    paddingY:
+      desktop: md none
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: solid
     heading: Launch Your Tech Career With 4Geeks
     subheading: Learn with programs designed to launch careers
@@ -166,7 +155,7 @@ sections:
           - icon: DollarSign
             text: APIs, automation, telemetry
         description: Build production-ready AI systems and learn to design, deploy, and scale AI-driven products.
-        price_period: ' '
+        price_period: " "
         cta_text: Program details
         cta_url: /en/career-programs/ai-engineering
         course_background: hsl(var(--accent))
@@ -178,7 +167,7 @@ sections:
           - icon: Brain
             text: Python, TensorFlow, SQL
         description: Analyze real-world data, build predictive models, and apply machine learning techniques used by modern teams.
-        price_period: ' '
+        price_period: " "
         cta_text: Program details
         cta_url: /en/career-programs/ai-machine-learning
         course_background: hsl(var(--primary))
@@ -189,18 +178,18 @@ sections:
         badges:
           - icon: Code
             text: Threat detection & system protection
-        description: >-
-          Develop the skills to identify threats, secure systems, and support security operations in today’s digital
-          economy.
-        price_period: ' '
+        description: Develop the skills to identify threats, secure systems, and support security operations in today’s digital economy.
+        price_period: " "
         cta_text: Program details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-pbg2nf
+    paddingY:
+      desktop: md none
   - type: comparison_table
-    version: '1.0'
+    version: "1.0"
     title: Why 4Geeks Stands Apart
-    subtitle: AI-ready skills and lifelong support, how 4Geeks delivers results.
+    subtitle: When choosing a tech program, the details matter. Here’s how 4Geeks compares where it counts.
     columns:
       - name: Feature
       - name: 4Geeks Academy
@@ -243,26 +232,43 @@ sections:
         values:
           - No experience required
           - Usually required
+    section_id: comparison_table-on1k8s
     marginY:
-      desktop: none md
+      desktop: md lg
     paddingY:
       desktop: md
-    section_id: comparison_table-on1k8s
+  - type: numbered_steps
+    variant: default
+    title: Get Hired Faster With GeekForce
+    description: |
+      Learning the skills is only the first step. GeekForce is our structured career acceleration system designed to help you turn those skills into your first tech role faster.
+    steps:
+      - icon: School
+        text: |
+          Optimize your LinkedIn, GitHub, and portfolio, craft an ATS-ready resume, 
+          and graduate with a recruiter-ready portfolio.
+      - icon: Briefcase
+        text: |
+          Master technical and behavioral interviews, practice coding exercises, 
+          and develop winning strategies for upcoming opportunities.
+      - icon: Cash
+        text: |
+          Follow a tailored job search plan, leverage AI-driven hiring tools, 
+          and connect with top hiring companies to land your role.
+    background: hsl(var(--secondary))
+    bullet_icon: Check
+    bullet_icon_color: text-green-600
+    section_id: numbered_steps-646rz5
+    paddingY:
+      desktop: lg
+    marginY:
+      desktop: none lg
   - type: why_learn_ai
     variant: laptop-edge
     title: Optional Job Guarantee* for Extra Confidence
     subtitle: Confidently step into your next tech role
-    description: >-
-      <span style="font-size: 1.125rem;">The Job Guarantee shows how much we stand behind our students: if you don’t
-      land a qualifying tech role within 9 months of graduation, you’ll receive a full tuition refund. It reflects the
-      confidence 4Geeks has in our hands-on projects, AI-powered guidance, and unlimited mentorship — going further than
-      most programs, which stop at basic support.<div><span style="font-size: 0.875rem;">*Not available in all regions.
-      <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"
-      style="color: hsl(var(--primary));">Terms and conditions apply.</a></span></div></span>
-    cta:
-      text: Get More Info
-      url: /en/job-guarantee
-      variant: primary
+    description: "<span style=\"font-size: 1.125rem;\">The Job Guarantee shows how much we stand behind our students: if you don’t land a qualifying tech role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;</span><div><span style=\"font-size: 1.125rem;\">We offer the guarantee because we trust the effectiveness of our hands-on projects, AI-powered guidance, and unlimited mentorship — going further than most programs, which stop at basic support.</span></div><div><span style=\"font-size: 18px;\"><br></span><span style=\"font-size: 1.125rem;\"><div><span style=\"font-size: 0.875rem;\">*Not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"color: hsl(var(--primary));\">Terms and conditions apply.</a></span></div></span></div>"
+    section_id: why_learn_ai-wxbuh3
     marginY:
       desktop: none md
     paddingY:
@@ -280,111 +286,15 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
-    section_id: why_learn_ai-wxbuh3
   - type: testimonials_slide
     title: Real Careers Start Here
-    description: >-
-      Our graduates prove it: 84% hired within six months, stepping into roles at top tech companies, boosting salaries,
-      and thriving in AI-powered careers.
+    description: Meet graduates who transformed their skills into real tech careers at companies around the world."
     section_id: testimonials_slide-dc7isf
-  - type: value_proof_panel
-    title: Global Recognition You Can Trust
-    subtitle: Awards, media praise, and alumni success back our results.
-    evidence_items:
-      - icon: Trophy
-        title: Top 5 Coding Bootcamps
-        source: Newsweek, Forbes, SwitchUp, Course Report
-      - icon: Award
-        title: Best Value & Student Support
-        source: Course Report, SwitchUp
-      - icon: Users
-        title: 35,000+ Graduates Worldwide
-        description: Thriving tech alumni community
-      - icon: Certificate
-        title: Industry-Recognized Certificates
-        description: Credentials employers trust
-    media:
-      type: image
-      src: https://old.4geeksacademy.com/static/0e206e6ab1ae7f4ca09668b2d287baa7/56f2e/alejandrosanchez.webp
-      alt: Students collaborating in classroom
-      aspect_ratio: '4:3'
-      style: rounded
-    background: bg-muted/30
-    stacked_header: true
-    marginY:
-      desktop: none xl
-    section_id: value_proof_panel-jlm1pj
-  - type: features_quad
-    version: '1.0'
-    variant: default
-    heading: Making Tech Careers Accessible
-    description: >-
-      Tech careers can transform lives and finances should never stand in the way. That’s why we offer some of the most
-      flexible, student-friendly payment and scholarship options in the industry.
-    cards:
-      - icon: CurrencyDollar
-        title: Affordable tuition
-        description: Among the most affordable tuition of any top-ranked program (recognized by Forbes).
-      - icon: CreditCard
-        title: Flexible financing
-        description: Financing options start from {{ global.lowest_monthly_financing_option | $299 }}/month, so you can learn without financial stress.
-      - icon: Coin
-        title: Income-based payment
-        description: Start learning now and only pay once you’re earning in tech.
-      - icon: School
-        title: Scholarships available
-        description: Partial scholarships are available for eligible students.
-    background: hsl(var(--secondary))
-    marginY:
-      desktop: none xl
-    section_id: features_quad-uwkc2u
-  - type: split_cards
-    variant: primary-left
-    primary:
-      heading: Your Career, Guaranteed
-      description: >-
-        The strongest proof that we believe in our model? We back it with an optional Job Guarantee*. Most schools
-        promise "career support." At 4Geeks, we promise results: get hired within 9 months, or we refund your tuition in
-        full.&nbsp;<div><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all
-        regions.&nbsp;&nbsp;<a
-        href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"
-        style="font-size: 0.875rem;"><span><span><span>Terms and conditions apply.</span></span></span></a></span><a
-        href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"
-        style="font-size: 0.875rem;"><span style="font-size: 1rem;"><span style="font-size: 0.875rem;"><span
-        style="font-size: 0.875rem;"></span></span></span></a></div>
-      badge: Results-backed promise
-    secondary:
-      benefits:
-        - text: Our curriculum is industry-aligned and AI-ready
-        - text: Our mentorship is unlimited and personalized
-        - text: Our career support never expires
-    background: muted
-    marginY:
-      desktop: none xl
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - costa-rica
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-    section_id: split_cards-mr1z0v
   - type: whos_hiring
     variant: carousel
     pretitle: Job Placement
     title: Our Alumni Work at Top Global Companies
-    subtitle: 4Geeks graduates are thriving worldwide with our network of hiring partners.
+    subtitle: From startups to global tech companies, our graduates are building careers across the industry.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
@@ -410,19 +320,19 @@ sections:
         alt: Neo9
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
+    section_id: whos_hiring-vyd58o
     paddingY:
       desktop: none md
-    section_id: whos_hiring-vyd58o
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Take the Next Step Toward a High-Growth Tech Career
-    subtitle: Apply now to a program designed to give you AI-ready skills, hands-on experience, and lifelong support.
+    subtitle: Apply to a program built to deliver real outcomes with AI-ready skills, personalized mentorship, and lifelong career support.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Apply Now
+      submit_label: Get Started
       tags: website-lead
       fields:
         email:
@@ -449,90 +359,15 @@ sections:
       show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
+    section_id: cta_banner-a80141
     marginY:
       mobile: md none
       desktop: md none
     paddingY:
       mobile: lg
       desktop: lg
-    section_id: cta_banner-a80141
-  - type: faq
-    title: Frequently Asked Questions
-    related_features:
-      - online-platform
-      - certification
-      - career-support
-    item_overrides:
-      do-i-get-a-job-after-completing-the-program:
-        hideOnLocations:
-          - barcelona-spain
-          - berlin-germany
-          - dublin-ireland
-          - hamburg-germany
-          - lisbon-portugal
-          - madrid-spain
-          - milan-italy
-          - malaga-spain
-          - munich-germany
-          - rome-italy
-          - valencia-spain
-          - bogota-colombia
-          - buenosaires-argentina
-          - caracas-venezuela
-          - costa-rica
-          - lapaz-bolivia
-          - lima-peru
-          - montevideo-uruguay
-          - mexicocity-mexico
-          - panamacity-panama
-          - quito-ecuador
-          - santiago-chile
-    paddingY:
-      desktop: md
-    section_id: faq-7buf5u
-  - type: cta_banner
-    version: '1.0'
-    title: Ready to Get Started?
-    subtitle: Limited spots available. Start your transformation today.
-    background: hsl(var(--primary))
-    variant: form
-    form:
-      variant: stacked
-      submit_label: Apply now
-      tags: website-lead
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Your email address
-        first_name:
-          visible: true
-          required: true
-          placeholder: First name
-        phone:
-          visible: true
-          required: true
-          placeholder: Phone number
-        program:
-          visible: true
-          required: true
-          default: auto
-      success:
-        message: Thank you! We'll be in touch soon.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: I agree to receive information about courses and promotions
-      show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
-      terms_className: text-white/80
-    marginY:
-      desktop: lg none
-    paddingY:
-      desktop: md
-    section_id: cta_banner-vfjpf6
   - type: sticky_cta
-    version: '1.0'
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
