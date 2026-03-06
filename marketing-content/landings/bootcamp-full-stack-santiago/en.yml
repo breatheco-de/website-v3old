@@ -181,12 +181,8 @@ sections:
   - type: why_learn_ai
     variant: laptop-edge
     title: ¡Desde Cero Hasta Tu Primer Empleo!
-    subtitle: Software Development as You Know It Will Cease to Exist
+    subtitle: ""
     description: Descubre una oportunidad única para transformar tu carrera y adentrarte en el mundo de la programación. En solo 20 semanas, te guiaremos desde cero hasta conseguir tu primer trabajo como programador.
-    bullets:
-      - text: No se requiere experiencia previa
-      - text: Horario part-time adaptable a tu vida actual
-      - text: Mentorías y career support de por vida
     section_id: why_learn_ai-zc96ad
   - type: syllabus
     section_id: syllabus-vr2u4r
