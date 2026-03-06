@@ -265,7 +265,7 @@ sections:
         title: Best Value & Student Support
         source: Course Report, SwitchUp
       - icon: Users
-        title: 35,000+ Graduates Worldwide
+        title: 6,500+ Graduates
         description: Thriving tech alumni community
       - icon: Certificate
         title: Industry-Recognized Certificates
@@ -278,9 +278,9 @@ sections:
       style: rounded
     background: bg-muted/30
     stacked_header: true
+    section_id: value_proof_panel-jlm1pj
     marginY:
       desktop: none xl
-    section_id: value_proof_panel-jlm1pj
   - type: features_quad
     version: "1.0"
     variant: default
