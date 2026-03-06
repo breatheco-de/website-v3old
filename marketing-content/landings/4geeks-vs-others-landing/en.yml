@@ -232,7 +232,7 @@ sections:
           - Usually required
     section_id: comparison_table-on1k8s
     marginY:
-      desktop: none md
+      desktop: md
     paddingY:
       desktop: md
   - type: numbered_steps
