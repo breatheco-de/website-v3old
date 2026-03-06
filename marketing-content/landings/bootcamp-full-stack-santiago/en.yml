@@ -268,7 +268,7 @@ sections:
         description: Jonathan comparte cómo el programa le ayudó a ganar confianza y crear proyectos desde cero.
         alt: Geekpal
     marginY:
-      desktop: none md
+      desktop: none lg
   - type: whos_hiring
     section_id: whos_hiring-buw0mf
     variant: carousel
