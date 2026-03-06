@@ -13,7 +13,7 @@ export const trustCardsSectionSchema = z.object({
   title: z.string().optional(),
   subtitle: z.string().optional(),
   items: z.array(trustCardItemSchema),
-});
+}).passthrough();
 
 export type TrustCardItem = z.infer<typeof trustCardItemSchema>;
 export type TrustCardsSection = z.infer<typeof trustCardsSectionSchema>;

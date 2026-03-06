@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { IconStarFilled } from "@tabler/icons-react";
-import type { TrustCardsSection } from "../../../../marketing-content/component-registry/trust_cards/v1.0/schema";
+import type { TrustCardsSection } from "@shared/schema";
 
 function StarRating({ rating }: { rating: number }) {
   const fullStars = Math.floor(rating);
