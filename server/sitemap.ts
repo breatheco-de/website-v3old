@@ -427,10 +427,11 @@ function entriesToXml(entries: CanonicalSitemapEntry[]): string {
 
 function entriesToHumanReadable(
   entries: CanonicalSitemapEntry[],
-): Array<{ loc: string; label: string }> {
+): Array<{ loc: string; label: string; locale?: string }> {
   return entries.map((entry) => ({
     loc: entry.loc,
     label: entry.label,
+    ...(entry.locale ? { locale: entry.locale } : {}),
   }));
 }
 
@@ -468,7 +469,7 @@ export function getSitemap(): string {
   return entriesToXml(entries);
 }
 
-export function getSitemapUrls(): Array<{ loc: string; label: string }> {
+export function getSitemapUrls(): Array<{ loc: string; label: string; locale?: string }> {
   const entries = getCanonicalEntries();
   return entriesToHumanReadable(entries);
 }

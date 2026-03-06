@@ -7,6 +7,7 @@ export const STORAGE_KEY = "debug-bubble-menu-view";
 export interface SitemapUrl {
   loc: string;
   label: string;
+  locale?: string;
 }
 
 export interface RedirectItem {

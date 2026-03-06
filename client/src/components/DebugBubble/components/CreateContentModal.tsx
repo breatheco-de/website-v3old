@@ -43,7 +43,7 @@ import type { ContentTypeValue, SlugCheckStatus, SitemapUrl } from "../types";
 export interface CreateContentModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  duplicatingPage: { loc: string; label: string; contentType: string } | null;
+  duplicatingPage: { loc: string; label: string; contentType: string; locale?: string } | null;
   createContentType: ContentTypeValue;
   setCreateContentType: (v: ContentTypeValue) => void;
   createContentTitle: string;
@@ -323,11 +323,13 @@ export function CreateContentModal({
       const isAgnostic = !!urlPattern?.["default"] && !urlPattern?.[loc0] && !urlPattern?.[loc1];
 
       if (isAgnostic) {
-        let sourceLocale: string | null = null;
-        for (const loc of supportedLocales) {
-          if (duplicatingPage.loc.includes(`/${loc.code}/`)) {
-            sourceLocale = loc.code;
-            break;
+        let sourceLocale: string | null = duplicatingPage.locale ?? null;
+        if (!sourceLocale) {
+          for (const loc of supportedLocales) {
+            if (duplicatingPage.loc.includes(`/${loc.code}/`)) {
+              sourceLocale = loc.code;
+              break;
+            }
           }
         }
         if (sourceLocale) {
@@ -398,6 +400,7 @@ export function CreateContentModal({
 
   const sourceLocale = useMemo(() => {
     if (!duplicatingPage) return undefined;
+    if (duplicatingPage.locale) return duplicatingPage.locale;
     for (const loc of supportedLocales) {
       if (duplicatingPage.loc.includes(`/${loc.code}/`)) return loc.code;
     }

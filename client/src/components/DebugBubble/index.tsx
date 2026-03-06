@@ -249,7 +249,7 @@ export function DebugBubble() {
   const [isCreatingContent, setIsCreatingContent] = useState(false);
   
   // Duplicate page state
-  const [duplicatingPage, setDuplicatingPage] = useState<{ loc: string; label: string; contentType: string } | null>(null);
+  const [duplicatingPage, setDuplicatingPage] = useState<{ loc: string; label: string; contentType: string; locale?: string } | null>(null);
   
   // Delete page state
   const [deletePageModalOpen, setDeletePageModalOpen] = useState(false);
@@ -1341,7 +1341,7 @@ export function DebugBubble() {
     const path = new URL(url.loc).pathname;
     const info = detectContentInfo(path, contentTypesMap);
     if (info.type && info.slug) {
-      setDuplicatingPage({ loc: url.loc, label: url.label, contentType: info.type });
+      setDuplicatingPage({ loc: url.loc, label: url.label, contentType: info.type, locale: url.locale });
       setCreateContentType(info.type);
       setCreateContentTitle("");
       setCreateContentSlugEn("");
