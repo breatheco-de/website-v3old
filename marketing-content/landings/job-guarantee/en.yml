@@ -1,6 +1,5 @@
 sections:
   - type: hero
-    section_id: hero-ckjuxp
     version: "1.0"
     variant: productShowcase
     title: Tech Career with Extra Confidence.
@@ -8,7 +7,7 @@ sections:
       prefix: Launch a
       highlight: High-Growth
       color: primary
-    description: Build the skills companies are hiring for and add the Job Guarantee* for extra confidence. *Not available in all regions. Terms and conditions apply.
+    description: Build the skills companies are hiring for and add the Job Guarantee* for extra confidence.&nbsp;
     bullets:
       - text: 84% of graduates land a tech job
       - text: Get hired within 9 months or receive a full refund
@@ -87,7 +86,9 @@ sections:
           alt: Excelencia Educativa - Calidad Institucional
           logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
           logoHeight: 55px
+    section_id: hero-ckjuxp
     video_title: GeekForce Career Support
+    footer: "*Not available in all regions. Terms and conditions apply."
   - type: features_quad
     section_id: features_quad-ge4f63
     version: "1.0"
