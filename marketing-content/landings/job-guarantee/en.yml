@@ -111,10 +111,9 @@ sections:
     paddingY:
       desktop: none
   - type: course_selector
-    section_id: course_selector-x9c6qg
     version: "1.0"
     variant: solid
-    heading: High-Growth Tech Careers, Backed by Our Job Guarantee
+    heading: Choose the Tech Career You Want to Launch
     subheading: Choose your path
     courses:
       - name: AI Engineering
@@ -154,6 +153,7 @@ sections:
         cta_text: Program details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
+    section_id: course_selector-x9c6qg
     marginY:
       desktop: md
   - type: features_grid
