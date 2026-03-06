@@ -259,6 +259,8 @@ sections:
     section_id: numbered_steps-646rz5
     paddingY:
       desktop: lg
+    marginY:
+      desktop: none lg
   - type: why_learn_ai
     variant: laptop-edge
     title: Optional Job Guarantee* for Extra Confidence
