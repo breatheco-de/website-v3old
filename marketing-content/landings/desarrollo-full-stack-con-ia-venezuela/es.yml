@@ -438,7 +438,7 @@ sections:
           placeholder: Teléfono
         program:
           visible: false
-          default: ai-engineering
+          default: full-stack
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
       consent:
