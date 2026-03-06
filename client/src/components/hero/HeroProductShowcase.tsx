@@ -244,7 +244,7 @@ export function HeroProductShowcase({
                 <div className="relative">
                   <RichTextContent
                     html={data.description}
-                    className="text-body text-foreground mt-2 mb-0 md:mb-8 max-w-xl leading-relaxed [&_p]:mb-0"
+                    className="text-body text-foreground mt-2 mb-0 md:mb-8 md:max-w-xl leading-relaxed [&_p]:mb-0"
                     data-testid="text-hero-description"
                   />
                 </div>
@@ -505,7 +505,7 @@ export function HeroProductShowcase({
                 <div className="">
                   {formCardImageSrc && (
                     <div
-                      className="absolute flex items-center top-0 right-0 pointer-events-none z-0  z-[1001]"
+                      className="absolute flex items-center md:top-0 right-9 sm:right-16 md:right-7 lg:right-8 xl:right-0 pointer-events-none z-0  z-[1001]"
                       style={{ transform: "translate(40%, -40%)",
                             }}
 
