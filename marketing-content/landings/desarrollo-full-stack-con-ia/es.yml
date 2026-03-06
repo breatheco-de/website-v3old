@@ -113,6 +113,10 @@ sections:
     name: Default Trust Cards
     description: Four review platform cards with ratings
     section_id: trust_cards-ig991a
+    marginY:
+      desktop: none lg
+    paddingY:
+      desktop: none lg
   - type: syllabus
     variant: program-modules
     program_title: Lo que aprenderás en el programa Full Stack
@@ -186,7 +190,7 @@ sections:
         orientation: vertical
         icon: IconUsers
     paddingY:
-      desktop: md
+      desktop: none md
     section_id: syllabus-azlm90
   - type: projects
     title: Aprende construyendo proyectos reales
