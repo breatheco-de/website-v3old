@@ -1290,13 +1290,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
       ? parseInt(req.query.force_version as string, 10)
       : undefined;
 
+    // Resolve the folder slug first — the URL slug may be locale-specific
+    // (e.g. "4geeks-vs-otros-landing" → folder "4geeks-vs-others-landing")
+    const baseSlug = contentIndex.resolveBaseSlug(slug, "landing");
+
     // Get locale from query param, _common.yml, or default — then verify it exists
     const queryLocale = req.query.locale as string | undefined;
     const supported = getSupportedLocales();
     const validQueryLocale = queryLocale && supported.includes(queryLocale) ? queryLocale : undefined;
-    const commonData = contentIndex.loadCommonData("landing", slug);
+    const commonData = contentIndex.loadCommonData("landing", baseSlug);
     let locale = validQueryLocale || (commonData?.locale as string) || getDefaultLocale();
-    const availableLocales = contentIndex.getAvailableLocalesOrVariants("landing" as ContentType, slug);
+    const availableLocales = contentIndex.getAvailableLocalesOrVariants("landing" as ContentType, baseSlug);
     if (availableLocales.length > 0 && !availableLocales.includes(locale)) {
       locale = availableLocales[0];
     }
