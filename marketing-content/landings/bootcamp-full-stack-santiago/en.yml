@@ -125,7 +125,7 @@ sections:
     items:
       - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
         rating: 4.9
-        review_count: +900 reviews
+        review_count: +700 reviews
         trusted_text: Reseñas verificadas
       - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
         rating: 4.8
@@ -137,7 +137,7 @@ sections:
         trusted_text: Reseñas verificadas
       - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
         rating: 4.9
-        review_count: +800 reviews
+        review_count: +700 reviews
         trusted_text: Reseñas verificadas
     name: Default Trust Cards
     description: Four review platform cards with ratings
