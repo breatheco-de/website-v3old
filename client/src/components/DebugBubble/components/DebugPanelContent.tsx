@@ -210,7 +210,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
           </div>
           <div className="flex-1">
             <h3 className="font-semibold text-sm mb-1">No token detected</h3>
-            <p className="text-xs text-muted-foreground mb-3">
+            <p className="text-xs text-muted-foreground mb-1">
               Enter your token below or add <code className="bg-muted px-1 rounded">?token=xxx</code> to URL, or{" "}
               <a
                 href={`https://breathecode.herokuapp.com/v1/auth/view/login?url=${encodeURIComponent(window.location.href)}`}
@@ -219,6 +219,9 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               >
                 click here to login
               </a>
+            </p>
+            <p className="text-xs text-muted-foreground mb-3">
+              Only users with <code className="bg-muted px-1 rounded">website</code> capability will be able to edit the website.
             </p>
             <div className="flex gap-2">
               <input
