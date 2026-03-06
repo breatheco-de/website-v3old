@@ -50,6 +50,7 @@ sections:
         sms_usa_only: true
       show_terms: true
     form_vertical_align: bottom
+    form_card_background: hsl(210 100% 50% / 0.05)
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Más Información
     form_card_subtitle: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
@@ -64,7 +65,6 @@ sections:
     marginX:
       desktop: none
     section_id: hero-3ht3gd
-    form_card_background: hsl(var(--secondary))
   - type: course_selector
     version: "1.0"
     variant: solid
