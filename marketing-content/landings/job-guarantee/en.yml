@@ -242,7 +242,7 @@ sections:
     bullet_icon: Check
     bullet_icon_color: text-green-600
     paddingY:
-      desktop: lg none
+      desktop: lg sm
   - type: testimonials_slide
     section_id: testimonials_slide-1gorsq
     title: The Stories Behind the Stats
