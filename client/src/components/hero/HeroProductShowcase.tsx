@@ -90,11 +90,21 @@ export function HeroProductShowcase({
   const shouldShowBackground = backgroundImage && showBackground;
 
   const formCardBackground = (fullData as any).form_card_background as string | undefined;
+  const formCardTextColor = (fullData as any).form_card_text_color as string | undefined;
   const formCardTitle = (fullData as any).form_card_title as string | undefined;
   const formCardSubtitle = (fullData as any).form_card_subtitle as string | undefined;
-  const formCardImage = (fullData as any).form_card_image as
-    | { src: string; alt?: string; object_fit?: string; object_position?: string; width?: string; height?: string; opacity?: number; border_radius?: string }
-    | undefined;
+  const rawFormCardImage = (fullData as any).form_card_image;
+  const formCardImageSrc = typeof rawFormCardImage === "string"
+    ? rawFormCardImage
+    : (rawFormCardImage?.src ?? null);
+  const formCardImageAlt = (fullData as any).form_card_image_alt as string | undefined
+    || (typeof rawFormCardImage === "object" && rawFormCardImage?.alt) || "";
+  const formCardImageObjectFit = (fullData as any).form_card_image_object_fit as string | undefined;
+  const formCardImageObjectPosition = (fullData as any).form_card_image_object_position as string | undefined;
+  const formCardImageWidth = (fullData as any).form_card_image_width as string | undefined;
+  const formCardImageHeight = (fullData as any).form_card_image_height as string | undefined;
+  const formCardImageOpacity = (fullData as any).form_card_image_opacity as number | undefined;
+  const formCardImageBorderRadius = (fullData as any).form_card_image_border_radius as string | undefined;
 
   const formCardBgStyle: React.CSSProperties = {};
   if (formCardBackground) {
@@ -494,42 +504,40 @@ export function HeroProductShowcase({
                   style={formCardBgStyle}
                   data-testid="hero-form-right"
                 >
-                  {formCardImage && (
+                  {formCardImageSrc && (
                     <div
                       className="absolute top-0 right-0 pointer-events-none z-0"
                       data-testid="img-form-card-image"
                     >
                       <UniversalImage
-                        src={formCardImage.src}
-                        alt={formCardImage.alt || ""}
+                        src={formCardImageSrc}
+                        alt={formCardImageAlt}
                         style={{
-                          objectFit: (formCardImage.object_fit as React.CSSProperties["objectFit"]) || "contain",
-                          objectPosition: formCardImage.object_position || "top right",
-                          width: formCardImage.width || "auto",
-                          height: formCardImage.height || "auto",
-                          opacity: formCardImage.opacity ?? 1,
-                          borderRadius: formCardImage.border_radius || undefined,
+                          objectFit: (formCardImageObjectFit as React.CSSProperties["objectFit"]) || "contain",
+                          objectPosition: formCardImageObjectPosition || "top right",
+                          width: formCardImageWidth || "auto",
+                          height: formCardImageHeight || "auto",
+                          opacity: formCardImageOpacity ?? 1,
+                          borderRadius: formCardImageBorderRadius || undefined,
                         }}
                       />
                     </div>
                   )}
                   <div className="relative z-[1]">
                     {(formCardTitle || formCardSubtitle) && (
-                      <div className="mb-3 space-y-1">
+                      <div className="mb-3" style={formCardTextColor ? { color: formCardTextColor } : undefined}>
                         {formCardTitle && (
                           <h3
-                            className="text-lg font-semibold text-foreground"
+                            className="text-3xl mb-2 font-semibold"
                             data-testid="text-form-card-title"
                           >
                             {formCardTitle}
                           </h3>
                         )}
                         {formCardSubtitle && (
-                          <RichTextContent
-                            html={formCardSubtitle}
-                            className="text-sm text-muted-foreground"
-                            data-testid="text-form-card-subtitle"
-                          />
+                          <p style={{ opacity: 0.8 }}>
+                            {formCardSubtitle}
+                          </p>
                         )}
                       </div>
                     )}
