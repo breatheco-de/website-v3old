@@ -158,7 +158,6 @@ sections:
     marginY:
       desktop: md
   - type: features_grid
-    section_id: features_grid-mchky5
     version: "1.0"
     variant: highlight
     title: Real Outcomes for Our Graduates
@@ -175,7 +174,7 @@ sections:
         title: Average salary increase after graduation
     columns: 3
     icon_color: "#0097CD"
-    background: hsl(var(--secondary))
+    section_id: features_grid-mchky5
     marginY:
       desktop: none
     paddingY:
