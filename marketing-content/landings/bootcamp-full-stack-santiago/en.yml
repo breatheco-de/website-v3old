@@ -236,7 +236,9 @@ sections:
         orientation: vertical
         icon: IconUsers
     paddingY:
-      desktop: md
+      desktop: md none
+    marginY:
+      desktop: none md
   - type: cards_deck
     section_id: cards_deck-lbla4e
     version: "1.0"
