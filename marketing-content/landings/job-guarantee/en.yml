@@ -91,6 +91,8 @@ sections:
     video_title: GeekForce Career Support
     paddingY:
       desktop: md
+    marginY:
+      desktop: none sm
   - type: features_quad
     section_id: features_quad-ge4f63
     version: "1.0"
