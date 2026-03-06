@@ -197,6 +197,8 @@ sections:
         text: AI-Native Training Employers Are Hiring For
       - icon: ChalkboardTeacher
         text: Structured, Personalized Learning Method
+    paddingY:
+      desktop: md none
   - type: two_column_accordion_card
     section_id: two_column_accordion_card-s6gzio
     variant: image_background
