@@ -12,6 +12,7 @@ meta:
     - /es/landing/aprende-a-programar-colombia
     - /es/landing/bootcamp-colombia
     - /es/landing/curso-de-programacion-colombia
+    - /es/landing/conding-bootcamp-colombia
 schema:
   include:
     - organization
