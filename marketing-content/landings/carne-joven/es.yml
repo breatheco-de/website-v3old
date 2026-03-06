@@ -12,25 +12,26 @@ sections:
       - text: Obtén un 50% de descuento en el bootcamp de programación de 4Geeks Academy
       - text: Disfruta de tutorías personalizadas y acceso a una comunidad de más de 6,000 profesionales
       - text: Aprende a programar y adquiere competencias esenciales para tu carrera
+    image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
       submit_label: Solicita tu plaza
       tags: website-lead
       fields:
-        first_name:
-          visible: true
-          required: true
-          placeholder: Nombre completo
         email:
           visible: true
           required: true
           placeholder: Correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre completo
+        last_name:
+          visible: false
         phone:
           visible: true
           required: true
-        last_name:
-          visible: false
         program:
           visible: false
           default: ai-engineering
@@ -45,7 +46,11 @@ sections:
         sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
         sms_usa_only: true
       show_terms: true
-    form_vertical_align: center
+    form_vertical_align: bottom
+    form_card_text_color: hsl(var(--foreground))
+    form_card_title: Get Full Program Details
+    form_card_subtitle: Apply below to receive the program overview by e-mail and choose how you'd like our admissions team to contact you.
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: false
     awards_marquee:
       items:
@@ -81,13 +86,15 @@ sections:
           alt: Excelencia Educativa - Calidad Institucional
           logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
           logoHeight: 55px
-    section_id: hero-u2i0eb
     video_title: GeekForce Career Support
     marginY:
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
+    marginX:
+      desktop: none
+    section_id: hero-9foq6t
   - type: hero
     version: "1.0"
     variant: productShowcase
