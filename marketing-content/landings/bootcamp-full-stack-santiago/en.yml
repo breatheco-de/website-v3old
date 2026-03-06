@@ -112,13 +112,12 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
-    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
   - type: awards_marquee
+    section_id: awards_marquee-abgn6z
     version: v1.0
     speed: 40
     gradient: true
     gradientWidth: 400
-    title: sddasdsa
     items:
       - id: switchup-2025
         alt: SwitchUp - Best Coding Bootcamps 2025
@@ -152,9 +151,6 @@ sections:
         alt: Excelencia Educativa - Institutional Quality
         logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
         logoHeight: 64px
-    section_id: awards_marquee-abgn6z
-    marginY:
-      desktop: none md
     paddingY:
       mobile: md
       desktop: none md
