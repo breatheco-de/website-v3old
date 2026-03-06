@@ -7578,6 +7578,12 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
             // Same-type duplication: parse all files first, regenerate section IDs, then write
             const sourceFiles = fs.readdirSync(foundSourceFolder);
             const parsedDupFiles: Array<{ file: string; parsed: Record<string, unknown> }> = [];
+
+            // Track which locale files are present in the source
+            const sourceLocaleFiles = new Set(
+              sourceFiles.filter(f => f.endsWith(".yml") || f.endsWith(".yaml")).map(f => f.replace(/\.ya?ml$/, ""))
+            );
+
             for (const file of sourceFiles) {
               const fileLocale = file.replace(/\.yml$/, "");
               if (
@@ -7625,6 +7631,31 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               }
 
               parsedDupFiles.push({ file, parsed });
+            }
+
+            // For any requested locale not present in the source, synthesize from an existing locale file
+            const supportedLocs = getSupportedLocales();
+            const existingSourceLocale = supportedLocs.find(l => sourceLocaleFiles.has(l));
+            if (existingSourceLocale) {
+              for (const loc of supportedLocs) {
+                if (skipLocales.includes(loc)) continue;
+                if (sourceLocaleFiles.has(loc)) continue; // already handled above
+                // Clone from existing source locale file
+                const srcRaw = fs.readFileSync(
+                  path.join(foundSourceFolder, `${existingSourceLocale}.yml`),
+                  "utf8",
+                );
+                const cloned = safeYamlLoad(srcRaw) as Record<string, unknown> | null;
+                if (!cloned) continue;
+                delete cloned.redirects;
+                if (cloned.meta && typeof cloned.meta === "object") {
+                  delete (cloned.meta as Record<string, unknown>).redirects;
+                }
+                cloned.slug = loc === "es" ? (esSlug || folderSlug!) : (enSlug || folderSlug!);
+                cloned.locale = loc;
+                cloned.title = localeTitles[loc] || title;
+                parsedDupFiles.push({ file: `${loc}.yml`, parsed: cloned });
+              }
             }
 
             const allParsedDup = parsedDupFiles.map(f => f.parsed);
