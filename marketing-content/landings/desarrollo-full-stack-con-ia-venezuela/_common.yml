@@ -11,6 +11,7 @@ meta:
   redirects:
     - /es/landing/aprende-a-programar-ve
     - /es/landing/curso-de-programacion-ve
+    - /landing/bootcamp-de-programacion-ve
 schema:
   include:
     - organization
