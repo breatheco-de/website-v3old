@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { IconStarFilled } from "@tabler/icons-react";
+import { UniversalImage } from "@/components/UniversalImage";
 import type { TrustCardsSection } from "@shared/schema";
 
 function StarRating({ rating }: { rating: number }) {
@@ -79,11 +80,11 @@ export function TrustCards({ data }: TrustCardsProps) {
             data-testid={`card-trust-${index}`}
           >
             <div className="max-h-[50px] flex items-center justify-center mx-8">
-              <img
-                src={item.image}
+              <UniversalImage
+                id={item.image}
                 alt={item.trusted_text || `Review platform ${index + 1}`}
                 className="h-full object-contain"
-                data-testid={`img-trust-logo-${index}`}
+                style={{ objectFit: "contain" }}
               />
             </div>
 
