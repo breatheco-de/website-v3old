@@ -252,7 +252,7 @@ sections:
     footer_description: Con nuestra colaboración especial con Carné Joven, puedes acceder a una formación de alta calidad a un precio accesible.
     background: hsl(var(--secondary))
     marginY:
-      desktop: none xl
+      desktop: none lg
     paddingY:
       desktop: none
   - type: trust_cards
