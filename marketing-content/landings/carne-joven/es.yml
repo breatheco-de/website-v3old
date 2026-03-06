@@ -246,6 +246,8 @@ sections:
     background: hsl(var(--secondary))
     marginY:
       desktop: none xl
+    paddingY:
+      desktop: none md
   - type: awards_marquee
     version: v1.0
     speed: 40
