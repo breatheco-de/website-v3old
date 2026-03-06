@@ -12,7 +12,7 @@ sections:
       - text: 84% of graduates land a tech job
       - text: Get hired within 9 months or receive a full refund
       - text: 1:1 career coaching and priority acess to employer network
-    footer: "<span style=\"font-size: 1.25rem;\"><span></span></span><span style=\"color: hsl(var(--foreground));\"><span style=\"font-size: 1.25rem;\"><span>Trusted by 6,500+ graduates • Top-rated by Course Report, SwitchUp</span></span><div><span style=\"font-size: 1.25rem;\"><span>&nbsp;&amp; Forbes</span></span></div></span><div><span style=\"font-size: 1.25rem;\"><span></span></span><div><br></div><div>*&nbsp;<a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></div></div>"
+    footer: "<div><span style=\"color: hsl(var(--foreground));\"><span style=\"font-size: 1.25rem;\"><span><br></span></span></span></div><span style=\"font-size: 1.25rem;\"><span></span></span><span style=\"color: hsl(var(--foreground));\"><span style=\"font-size: 1.25rem;\"><span>Trusted by 6,500+ graduates • Top-rated by Course Report, SwitchUp</span></span><div><span style=\"font-size: 1.25rem;\"><span>&nbsp;&amp; Forbes</span></span></div></span><div><span style=\"font-size: 1.25rem;\"><span></span></span><div><br></div><div>*&nbsp;<a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></div></div>"
     video_id: "-2ZvlgDnltc"
     video_ratio: "9:12"
     form:
