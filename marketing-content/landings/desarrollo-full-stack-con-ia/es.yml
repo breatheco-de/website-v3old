@@ -4,15 +4,15 @@ sections:
     variant: productShowcase
     title: en 4Geeks Academy
     brand_mark:
-      prefix: Desarrollo
-      highlight: Full Stack con IA
+      prefix: Conviértete en un
+      highlight: Desarrollador Full Stack
       color: primary
-    description: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA, mentoría personalizada y resultados profesionales comprobados.
+    description: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
     bullets:
-      - text: Domina frontend moderno con HTML, CSS, JavaScript y React
-      - text: Construye sistemas backend escalable con Python, APIs y bases de datos
-      - text: Integra herramientas y flujos de trabajo con IA en aplicaciones web reales
-      - text: Accede a soporte profesional ilimitado y mentoría 1:1
+      - text: Aprende a programar desde cero hasta ser un profesional
+      - text: ¡Somos el único bootcamp que no finaliza cuando te gradúas! En 4Geeks dispones de mentorías ilimitadas y de por vida
+      - text: Contamos con diferentes opciones de financiamiento puedes financiar el importe en 6, 9, 12 y 18 meses
+    image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
@@ -26,7 +26,7 @@ sections:
         first_name:
           visible: true
           required: true
-          placeholder: Nombre completo
+          placeholder: Nombre
         last_name:
           visible: true
           required: true
@@ -34,7 +34,6 @@ sections:
         phone:
           visible: true
           required: true
-          default_country: VE
         program:
           visible: false
           default: full-stack
@@ -49,7 +48,11 @@ sections:
         sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
         sms_usa_only: true
       show_terms: true
-    form_vertical_align: center
+    form_vertical_align: bottom
+    form_card_text_color: hsl(var(--foreground))
+    form_card_title: Completa el formulario para recibir información
+    form_card_subtitle: Una vez completado el formulario en unos minutos recibirás información sobre la academia y nuestros planes de pagos en tu correo electrónico.
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: false
     awards_marquee:
       items:
@@ -87,11 +90,13 @@ sections:
           logoHeight: 55px
     video_title: GeekForce Career Support
     marginY:
-      desktop: none md
+      desktop: none lg
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
-    section_id: hero-u2i0eb
+    marginX:
+      desktop: none
+    section_id: hero-56bog6
   - type: trust_cards
     version: v1.0
     title: Con la confianza de estudiantes en todo el mundo
