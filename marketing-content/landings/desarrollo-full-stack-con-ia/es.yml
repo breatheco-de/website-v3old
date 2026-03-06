@@ -266,6 +266,8 @@ sections:
     paddingY:
       desktop: md none
     section_id: ai_learning-9g2eb8
+    marginY:
+      desktop: none sm
   - type: certificate
     title: Resultados profesionales
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
@@ -314,7 +316,7 @@ sections:
     section_id: certificate-3exfs1
     marginY:
       mobile: none
-      desktop: none xl
+      desktop: sm xl
     paddingY:
       mobile: lg
       desktop: none
