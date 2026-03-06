@@ -136,6 +136,8 @@ sections:
     section_id: two_column_accordion_card-7wppr4
     marginY:
       desktop: md none
+    paddingY:
+      desktop: md none
   - type: course_selector
     version: "1.0"
     variant: solid
