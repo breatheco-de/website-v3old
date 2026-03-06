@@ -127,26 +127,18 @@ sections:
         rating: 4.9
         review_count: 2,847 reviews
         trusted_text: Verified Reviews
-        alt: Course Report Badge 2025
-        id: course-report-badge
       - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
         rating: 4.8
         review_count: 1,523 reviews
         trusted_text: Top Rated Program
-        alt: SwitchUp Best Bootcamps 2025
-        id: logo-switchup-best-bootcamps-2025
       - image: https://storage.googleapis.com/4geeks-academy-website/media/Forbes-Advisor_1770392260031.png
         rating: 4.9
         review_count: 987 reviews
         trusted_text: Verified Reviews
-        alt: Forbes Advisor Best of 2025 - Best for lifetime career support
-        id: logo-forbes-advisor-2025
       - image: https://storage.googleapis.com/4geeks-academy-website/media/premios-excelencia-educativa-17_1770392145139.png
         rating: 4.9
         review_count: 987 reviews
         trusted_text: Verified Reviews
-        alt: 17 Premios Excelencia Educativa
-        id: logo-premios-excelencia-educativa
     name: Default Trust Cards
     description: Four review platform cards with ratings
     section_id: trust_cards-zc20ld
