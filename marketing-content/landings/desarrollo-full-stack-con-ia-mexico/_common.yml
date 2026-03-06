@@ -1,6 +1,6 @@
-slug: desarrollo-full-stack-con-ia
+slug: desarrollo-full-stack-con-ia-mexico
 locale: es
-title: Desarrollo-Full-Stack-Con-IA
+title: desarrollo-full-stack-con-ia-mexico
 meta:
   page_title: Desarrollo de Full Stack con IA | 4Geeks Academy
   description: Desarrollo de Full Stack con IA.  Únete a 4Geeks Academy.
@@ -8,12 +8,6 @@ meta:
   og_image: /images/landing-og.jpg
   priority: 0.9
   change_frequency: weekly
-  redirects:
-    - /es/landing/aprende-a-programar-colombia
-    - /es/landing/bootcamp-colombia
-    - /es/landing/curso-de-programacion-colombia
-    - /es/landing/conding-bootcamp-colombia
-    - /es/landing/bootcamp-colombia-jg
 schema:
   include:
     - organization
