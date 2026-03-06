@@ -173,7 +173,7 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-nyglwg
     marginY:
-      desktop: none sm
+      desktop: none lg
     paddingY:
       desktop: none
   - type: trust_cards
