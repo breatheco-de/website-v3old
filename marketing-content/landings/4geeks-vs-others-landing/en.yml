@@ -117,6 +117,8 @@ sections:
     marginY:
       desktop: md
     section_id: features_grid-d7piim
+    paddingY:
+      desktop: md none
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
