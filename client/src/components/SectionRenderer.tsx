@@ -558,6 +558,7 @@ export function renderSection(section: Section, index: number, landingLocations?
           gradientWidth={marqueeSection.gradientWidth}
           bottom_title={marqueeSection.bottom_title}
           title={marqueeSection.title}
+          title_above={marqueeSection.title_above}
         />
       );
     }

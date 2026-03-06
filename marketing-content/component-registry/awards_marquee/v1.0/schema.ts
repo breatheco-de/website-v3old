@@ -21,6 +21,7 @@ export const awardsMarqueeSectionSchema = z.object({
   gradientColor: z.string().optional(),
   gradientWidth: z.number().optional(),
   title: z.string().optional(),
+  title_above: z.boolean().optional(),
   items: z.array(awardsMarqueeItemSchema),
 });
 

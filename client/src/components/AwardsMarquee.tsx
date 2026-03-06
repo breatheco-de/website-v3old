@@ -26,6 +26,7 @@ interface AwardsMarqueeProps {
   bottom_title?: string;
   className?: string;
   title?: string;
+  title_above?: boolean;
 }
 
 export function AwardsMarquee({ 
@@ -37,6 +38,7 @@ export function AwardsMarquee({
   bottom_title,
   className = "",
   title,
+  title_above = false,
 }: AwardsMarqueeProps) {
   const [isDesktop, setIsDesktop] = useState(false);
   
@@ -52,8 +54,15 @@ export function AwardsMarquee({
   
   if (!items || items.length === 0) return null;
 
+  const titleBlock = title ? (
+    <div className="max-w-6xl mx-auto px-4 py-4">
+      <p className="text-body text-muted-foreground max-w-3xl mx-auto text-center" dangerouslySetInnerHTML={{ __html: title }} />
+    </div>
+  ) : null;
+
   return (
     <section className="max-w-6xl mx-auto px-4">
+      {title_above && titleBlock}
       <div className={`${className}`} data-testid="awards-marquee">
         <Marquee
           speed={speed}
@@ -91,11 +100,7 @@ export function AwardsMarquee({
           ))}
         </Marquee>
       </div>
-      {title && (
-        <div className="max-w-6xl mx-auto px-4 pt-8">
-          <p className="text-body text-muted-foreground max-w-3xl mx-auto text-center" dangerouslySetInnerHTML={{ __html: title }} />
-        </div>
-      )}
+      {!title_above && titleBlock}
     </section>
   );
 }
