@@ -232,10 +232,7 @@ sections:
     title: Optional Job Guarantee* for Extra Confidence
     subtitle: Confidently step into your next tech role
     description: "<span style=\"font-size: 1.125rem;\">The Job Guarantee shows how much we stand behind our students: if you don’t land a qualifying tech role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;</span><div><span style=\"font-size: 1.125rem;\">The guarantee reflects the confidence we have in our hands-on projects, AI-powered guidance, and unlimited mentorship — going further than most programs, which stop at basic support.<div><span style=\"font-size: 0.875rem;\">*Not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"color: hsl(var(--primary));\">Terms and conditions apply.</a></span></div></span></div>"
-    cta:
-      text: Get More Info
-      url: /en/job-guarantee
-      variant: primary
+    section_id: why_learn_ai-wxbuh3
     marginY:
       desktop: none md
     paddingY:
@@ -253,7 +250,6 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
-    section_id: why_learn_ai-wxbuh3
   - type: testimonials_slide
     title: Real Careers Start Here
     description: "Our graduates prove it: 84% hired within six months, stepping into roles at top tech companies, boosting salaries, and thriving in AI-powered careers."
