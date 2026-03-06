@@ -11,6 +11,7 @@ meta:
   redirects:
     - /es/landing/espana-programas
     - /es/landing/programas-espana
+    - /es/landing/europa-programas
 schema:
   include:
     - organization
