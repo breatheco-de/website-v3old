@@ -720,6 +720,19 @@ class ContentIndex {
     return this.localeSlugMap.get(`${slug}:${normalized}`) || slug;
   }
 
+  resolveLocaleFromUrlSlug(urlSlug: string, contentType: string): string | undefined {
+    this.ensureInitialized();
+    const folderSlug = this.resolveBaseSlug(urlSlug, contentType);
+    if (folderSlug === urlSlug) return undefined;
+    const available = this.getAvailableLocalesOrVariants(contentType as ContentType, folderSlug);
+    for (const loc of available) {
+      if (this.getLocaleSlug(folderSlug, contentType, loc) === urlSlug) {
+        return loc;
+      }
+    }
+    return undefined;
+  }
+
   getLocaleSlug(baseSlug: string, contentType: string, locale: string): string {
     this.ensureInitialized();
     try {

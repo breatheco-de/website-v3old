@@ -1300,6 +1300,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (availableLocales.length > 0 && !availableLocales.includes(locale)) {
       locale = availableLocales[0];
     }
+    // If the URL slug is locale-specific (e.g. the ES slug of a bilingual page),
+    // detect which locale it belongs to and override the default locale detection
+    if (!validQueryLocale) {
+      const detectedLocale = contentIndex.resolveLocaleFromUrlSlug(slug, "landing");
+      if (detectedLocale && availableLocales.includes(detectedLocale)) {
+        locale = detectedLocale;
+      }
+    }
 
     let landing: LandingPage | null = null;
     let experimentInfo: {
