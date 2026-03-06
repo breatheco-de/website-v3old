@@ -155,6 +155,8 @@ sections:
         cta_text: Program details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
+    marginY:
+      desktop: md none
   - type: features_grid
     section_id: features_grid-mchky5
     version: "1.0"
