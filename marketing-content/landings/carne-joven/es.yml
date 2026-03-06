@@ -255,46 +255,30 @@ sections:
       desktop: none xl
     paddingY:
       desktop: none
-  - type: awards_marquee
+  - type: trust_cards
     version: v1.0
-    speed: 40
-    gradient: true
-    gradientWidth: 100
+    title: ¡Los mejor valorados en todos los sitios de reseñas!
     items:
-      - id: switchup-2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        alt: SwitchUp - Best Coding Bootcamps 2025
-        logoHeight: 56px
-      - id: course-report-2024
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
-        alt: Course Report - Best Coding Bootcamp 2024
-        logoHeight: 56px
-      - id: tech-hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
-        alt: South Florida Tech Hub
-        logoHeight: 56px
-      - id: ebootcamp
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
-        alt: eBootcamp Top
-        logoHeight: 56px
-      - id: premios-tecnologia
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-        alt: Premios Tecnologia Siglo XXI
-        logoHeight: 56px
-      - id: newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
-        alt: Newsweek
-        logoHeight: 56px
-      - id: reviews-coursereport
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-        alt: 4.9 on Course Report Reviews
-        logoHeight: 56px
-      - id: excelencia-educativa
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
-        alt: Excelencia Educativa - Institutional Quality
-        logoHeight: 56px
+      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+        rating: 4.9
+        review_count: 4.84 en reseñas
+      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        rating: 4.8
+        review_count: 4.5 en reseñas
+      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        rating: 4.9
+        review_count: 4.89 en reseñas
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 4.91 en reseñas
+    name: Default Trust Cards
+    description: Four review platform cards with ratings
+    section_id: trust_cards-eslgbu
+    paddingY:
+      desktop: md lg
     marginY:
       desktop: none xl
+    background: hsl(210 100% 50% / 0.05)
   - type: two_column
     proportions:
       - 6
