@@ -1,5 +1,6 @@
 sections:
   - type: hero
+    section_id: hero-anod8p
     version: "1.0"
     variant: productShowcase
     title: en 4Geeks Academy
@@ -202,6 +203,7 @@ sections:
     marginY:
       desktop: none lg
   - type: geeks_vs_others_comparison
+    section_id: awards_marquee-ajxc0f
     version: "1.0"
     title: ¿Qué diferencia a nuestro bootcamp de programación de los demás?
     columns:
@@ -235,6 +237,7 @@ sections:
     paddingY:
       desktop: none
   - type: features_grid
+    section_id: geeks_vs_others_comparison-29kx29
     version: "1.0"
     variant: detailed
     title: Objetivos de nuestra academia
@@ -292,6 +295,7 @@ sections:
         description: Jonathan comparte cómo el programa le ayudó a ganar confianza y crear proyectos desde cero.
         alt: Geekpal
   - type: testimonials
+    section_id: features_grid-43nga4
     version: v1.0
     title: Testimonios de Nuestros Graduados
     subtitle: Experiencias que respaldan nuestros resultados.
@@ -338,6 +342,7 @@ sections:
     marginY:
       desktop: lg
   - type: whos_hiring
+    section_id: cards_deck-abivir
     version: v1.0
     variant: carousel
     pretitle: Customer Stories
@@ -371,6 +376,7 @@ sections:
     marginY:
       desktop: none lg
   - type: cta_banner
+    section_id: testimonials-brg1ac
     version: "1.0"
     title: Rellena el formulario y obtén más información
     subtitle: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.

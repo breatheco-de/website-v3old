@@ -50,6 +50,7 @@ meta:
     - /us/coding-campus/coding-bootcamp-costa-rica
 sections:
   - type: hero
+    section_id: hero-pgqafz
     version: "1.0"
     variant: singleColumn
     title: Launch an AI-Ready Tech Career in Costa Rica
@@ -68,6 +69,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: awards_marquee
+    section_id: awards_marquee-rxl74t
     version: v1.0
     speed: 40
     gradient: true
@@ -108,6 +110,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
+    section_id: banner-4n64f6
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
@@ -121,6 +124,7 @@ sections:
     marginY:
       desktop: lg none
   - type: two_column
+    section_id: two_column-5vn1bk
     proportions:
       - 6
       - 6
@@ -208,6 +212,7 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-dzxl68
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-f2gdll
     variant: image_background
     version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
@@ -227,6 +232,7 @@ sections:
     paddingY:
       desktop: md none
   - type: testimonials_slide
+    section_id: testimonials_slide-lcbefq
     title: Proven Paths to Tech Careers
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
     background: bg-sidebar
@@ -248,11 +254,13 @@ sections:
     background: hsl(var(--secondary))
     section_id: split_cards-h7p73e
   - type: why_learn_ai
+    section_id: why_learn_ai-unydig
     variant: laptop-edge
     title: Why Costa Rica Is a Smart Place to Launch Your Tech Career
     subtitle: Central America's leading tech ecosystem with strong nearshore demand
     description: "Costa Rica offers a supportive environment for startups and entrepreneurs, with a well-educated workforce and strong demand for technical talent. It's a market with real opportunities for developers.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Leading nearshore hub for US companies, with high demand for software, AI, and data skills</span></li><li>Incubators, accelerators, and co-working spaces provide support and networking for tech professionals</li><li>Universities and coding bootcamps nurture programming skills to bridge the tech talent gap</li></ul></div><div>From our Costa Rica campus, we connect you with local employers, regional opportunities, and a thriving ecosystem of startups and tech events—so you build relationships that support your entry and long-term growth in tech.</div></div>"
   - type: mentorship
+    section_id: mentorship-671fas
     version: v1.0
     title: Mentorship & Support
     subtitle: You're never alone in your learning journey
@@ -267,6 +275,7 @@ sections:
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
   - type: mentorship
+    section_id: mentorship-gdintf
     version: v1.0
     title: Mentorship & Support
     subtitle: You're never alone in your learning journey
@@ -281,12 +290,14 @@ sections:
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
   - type: testimonials
+    section_id: testimonials-ssquyg
     version: "1.0"
     title: Costa Rica Graduate Success Stories
     filter_by_location: costa-rica
     marginY:
       desktop: none lg
   - type: testimonials
+    section_id: testimonials-u27uzt
     version: v1.0
     title: What Our Students Say
     subtitle: Hear directly from graduates who transformed their careers
@@ -331,6 +342,7 @@ sections:
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
   - type: faq
+    section_id: faq-lvpfpq
     title: Frequently Asked Questions
     related_features:
       - certification

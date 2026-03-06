@@ -60,6 +60,7 @@ locations:
     name_es: Santiago, Chile
 sections:
   - type: hero
+    section_id: hero-zojvst
     version: "1.0"
     variant: singleColumn
     title: Your Future in Tech Starts Here
@@ -70,6 +71,7 @@ sections:
       mobile: sm none
       desktop: lg none
   - type: apply_form
+    section_id: apply_form-fw5ak2
     version: "1.0"
     hero:
       title: Your Future in Tech Starts Here

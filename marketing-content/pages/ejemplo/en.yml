@@ -8,6 +8,8 @@ meta:
 sections:
   - type: banner
     version: '1.0'
+    section_id: banner-h85ywz
+    version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - avatar-woman-1

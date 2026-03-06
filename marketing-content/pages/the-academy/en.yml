@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-oli93f
     version: '1.0'
     variant: singleColumn
     title: Building Tech Careers In the AI Era
@@ -30,6 +31,7 @@ sections:
     paddingY:
       desktop: md none
   - type: split_cards
+    section_id: split_cards-02qe84
     variant: primary-left
     primary_width: narrow
     primary:
@@ -47,6 +49,7 @@ sections:
     marginY:
       desktop: lg none
   - type: features_quad
+    section_id: features_quad-qczodt
     version: '1.0'
     variant: laptopEdge
     heading: What Makes Us Different
@@ -70,6 +73,7 @@ sections:
     paddingY:
       desktop: none
   - type: stats
+    section_id: stats-ibtzxw
     version: '1.0'
     items:
       - value: +{{ global.global_total_alumni | 7000 }}
@@ -85,6 +89,7 @@ sections:
     paddingY:
       desktop: none sm
   - type: two_column
+    section_id: two_column-mqon0h
     proportions:
       - 4
       - 8
@@ -106,6 +111,7 @@ sections:
     paddingY:
       desktop: sm
   - type: awards_marquee
+    section_id: awards_marquee-9mpnha
     version: v1.0
     speed: 40
     gradient: true
@@ -150,6 +156,7 @@ sections:
     paddingY:
       desktop: lg none
   - type: whos_hiring
+    section_id: whos_hiring-l5yqh4
     variant: carousel
     title: Trusted by Hiring Teams
     description: |-
@@ -183,6 +190,7 @@ sections:
     marginY:
       desktop: lg none
   - type: profiles_carousel
+    section_id: profiles_carousel-q267u5
     version: v1.0
     heading: Meet the Geeks
     description: Our team is dedicated, highly skilled, and always ready to support you on your journey into tech. They provide all the guidance and encouragement you need to launch a successful new career.
@@ -221,6 +229,7 @@ sections:
         role: Culture & Talent Leader
         linkedin_url: https://www.linkedin.com/in/ariana-sánchez-7720aa78/
   - type: cta_banner
+    section_id: cta_banner-yn8mw9
     version: '1.0'
     title: Take the Next Step Toward Your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
@@ -260,6 +269,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
+    section_id: sticky_cta-r8gk2s
     version: '1.0'
     heading: Ready to start your tech career?
     button_label: Apply Now

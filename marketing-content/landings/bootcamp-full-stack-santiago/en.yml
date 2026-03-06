@@ -23,31 +23,31 @@ schema:
 sections:
   - type: hero
     version: "1.0"
-    variant: course
-    title: Conviértete en un Desarrollador Full Stack
-    title_highlight: Full Stack Developer con IA
-    subtitle: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
-    bullet_points:
-      - Aprende a programar desde cero hasta ser un profesional
-      - ¡Somos el único bootcamp que no finaliza cuando te gradúas! En 4Geeks dispones de mentorías ilimitadas y de por vida.
-      - Contamos con diferentes opciones de financiamiento puedes financiar el importe en 6, 9, 12 y 18 meses.
-    signup_card:
-      title: Completa el formulario para recibir información
-      description: Una vez completado el formulario en unos minutos recibirás información sobre la academia y nuestros planes de plagos en tu correo electrónico.
-      form: null
+    variant: productShowcase
+    title: en 4Geeks Academy
+    brand_mark:
+      prefix: Conviértete en un
+      highlight: Desarrollador Full Stack
+      color: primary
+    description: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
+    bullets:
+      - text: Aprende a programar desde cero hasta ser un profesional
+      - text: ¡Somos el único bootcamp que no finaliza cuando te gradúas! En 4Geeks dispones de mentorías ilimitadas y de por vida
+      - text: Contamos con diferentes opciones de financiamiento puedes financiar el importe en 6, 9, 12 y 18 meses
+    form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Aplicar ahora
+      submit_label: Solicita más información
       tags: website-lead
       fields:
         email:
           visible: true
           required: true
-          placeholder: Correo Electrónico
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
-          placeholder: Nombre
+          placeholder: Nombre completo
         last_name:
           visible: true
           required: true
@@ -55,63 +55,65 @@ sections:
         phone:
           visible: true
           required: true
-          default_country: MX
         program:
           visible: false
           default: ai-engineering
       success:
-        message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
-      terms_url: /terminos-condiciones
-      privacy_url: /politica-privacidad
+        message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
+      terms_url: /terms-and-conditions
+      privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        sms_text: Acepto recibir SMS sobre talleres, eventos, cursos y materiales de marketing. Pueden aplicar cargos por mensaje y datos. Responde STOP para cancelar, HELP para ayuda. Puedes recibir 4–6 mensajes al mes. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        sms_usa_only: false
+        marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
+        sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
+        sms_usa_only: true
       show_terms: true
-    cta_button:
-      text: Descargar programa
-      url: /programa/ai-engineering
-      variant: outline
-      icon: Download
-      cta_button:
-        text: Solicitar información
-        url: "#apply-modal"
-        variant: primary
-    paddingY:
-      desktop: md lg
+    form_vertical_align: center
+    show_awards_marquee: false
+    awards_marquee:
+      items:
+        - id: switchup-2025
+          alt: SwitchUp - Mejores Bootcamps de Código 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+          logoHeight: 55px
+        - id: course-report-2024
+          alt: Course Report - Mejor Bootcamp de Código 2024
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+          logoHeight: 55px
+        - id: tech-hub
+          alt: South Florida Tech Hub
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+          logoHeight: 55px
+        - id: ebootcamp
+          alt: eBootcamp Top
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+          logoHeight: 55px
+        - id: premios-tecnologia
+          alt: Premios Tecnología Siglo XXI
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+          logoHeight: 55px
+        - id: newsweek
+          alt: Newsweek
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+          logoHeight: 55px
+        - id: reviews-coursereport
+          alt: 4.9 en Reseñas de Course Report
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+          logoHeight: 55px
+        - id: excelencia-educativa
+          alt: Excelencia Educativa - Calidad Institucional
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+          logoHeight: 55px
+    section_id: hero-2v82a9
+    video_title: GeekForce Career Support
     marginY:
       desktop: none
-  - type: modal
-    version: "1.0"
-    heading: Request Program Details
-    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
-    show_close: true
-    size: md
-    form:
-      variant: stacked
-      submit_label: Get the Full Overview
-      tags: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        phone:
-          visible: true
-          required: true
-        program:
-          visible: false
-          required: true
-          default: {{ single.bc_slug | ai-engineering }}
-      success:
-        message: Thank you. A program advisor will reach out with the details within 24 hours.
-    section_id: apply-modal
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    paddingY:
+      desktop: md none
   - type: awards_marquee
+    section_id: awards_marquee-abgn6z
     version: v1.0
     speed: 40
     gradient: true
@@ -154,43 +156,33 @@ sections:
       desktop: none md
     marginY:
       desktop: none md
-  - type: why_learn_ai
-    variant: laptop-edge
-    title: Enroll with a Job Guarantee* for Extra Confidence
-    subtitle: Back your career outcome with a stronger commitment
-    description: Our optional job guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a href="/en/job-guarantee">Terms and conditions apply.</a></div>
-    cta:
-      text: Get more info
-      url: /en/job-guarantee
-      variant: primary
-    marginY:
-      desktop: md
-    paddingY:
-      desktop: none sm
-    background: hsl(var(--secondary))
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
+  - type: two_column
+    section_id: two_column-wdarhv
+    proportions:
+      - 5
+      - 7
+    background: bg-muted/30
+    alignment: center
+    left:
+      heading: ¡Desde Cero Hasta Tu Primer Empleo!
+      description: Descubre una oportunidad única para transformar tu carrera y adentrarte en el mundo de la programación. En solo 20 semanas, te guiaremos desde cero hasta conseguir tu primer trabajo como programador.
+      bullets:
+        - text: No se requiere experiencia previa
+        - text: Horario part-time adaptable a tu vida actual
+        - text: Mentorías y career support de por vida
+      bullet_icon: Check
+      font_size: base
+    right:
+      image: https://storage.googleapis.com/4geeks-academy-website/media/hombre-joven-con-laptop_1764691956393.webp
+      image_alt: Team collaborating on a project
+      justify: center
+    reverse_on_mobile: true
+    gap: "12"
   - type: syllabus
+    section_id: syllabus-vr2u4r
     variant: program-modules
-    program_title: Full Stack with AI Program Overview
-    program_description: Learn to build modern, production-ready web applications by mastering frontend and backend development alongside AI. Work with APIs, databases, and intelligent tools to design, develop, and ship real-world software.
+    program_title: Lo que aprenderás en el programa Full Stack
+    program_description: Domina el stack completo de desarrollo web, desde el frontend hasta el backend. Construye aplicaciones listas para producción usando las tecnologías más demandadas que los empleadores buscan.
     tech_logos:
       - name: HTML5
         icon: html
@@ -205,296 +197,97 @@ sections:
       - name: Git
         icon: git
     module_cards:
-      - title: Introduction To HTML And CSS
-        duration: Weeks 1-2
+      - title: Introducción a HTML y CSS
+        duration: Semanas 1-2
         objectives:
-          - Create web structures with semantic HTML
-          - Style pages with modern CSS techniques
-          - Build visually appealing and accessible websites
-        projects: Build responsive landing pages from scratch
+          - Crear estructuras web con HTML semántico
+          - Estilizar páginas con técnicas modernas de CSS
+          - Construir sitios web visualmente atractivos y accesibles
+        projects: Construye páginas de aterrizaje responsivas desde cero
         orientation: vertical
         icon: IconCode
       - title: JavaScript
-        duration: Weeks 3-5
+        duration: Semanas 3-5
         objectives:
-          - Master variables, functions, and loops
-          - DOM manipulation for interactive pages
-          - Modern ES6+ features and async programming
-        projects: Create dynamic, interactive web applications
+          - Dominar variables, funciones y bucles
+          - Manipulación del DOM para páginas interactivas
+          - Características modernas de ES6+ y programación asíncrona
+        projects: Crea aplicaciones web dinámicas e interactivas
         orientation: vertical
         icon: IconBrandJavascript
       - title: React
-        duration: Weeks 6-9
+        duration: Semanas 6-9
         objectives:
-          - Build component-based user interfaces
-          - State management with hooks
-          - Routing and best practices for scalable apps
-        projects: Build modern single-page applications
+          - Construir interfaces de usuario basadas en componentes
+          - Gestión de estado con hooks
+          - Enrutamiento y mejores prácticas para apps escalables
+        projects: Construye aplicaciones modernas de página única
         orientation: vertical
         icon: IconBrandReact
       - title: Python
-        duration: Weeks 10-12
+        duration: Semanas 10-12
         objectives:
-          - Core programming concepts and data structures
-          - Object-oriented programming principles
-          - Web development and automation skills
-        projects: Create backend services and automation scripts
+          - Conceptos fundamentales de programación y estructuras de datos
+          - Principios de programación orientada a objetos
+          - Desarrollo web y habilidades de automatización
+        projects: Crea servicios backend y scripts de automatización
         orientation: vertical
         icon: IconBrandPython
-      - title: Creating APIs
-        duration: Weeks 13-15
+      - title: Creación de APIs
+        duration: Semanas 13-15
         objectives:
-          - Design and build RESTful APIs
-          - Authentication and database integration
-          - API documentation and best practices
-        projects: Build a full REST API with Flask/Express
+          - Diseñar y construir APIs RESTful
+          - Autenticación e integración de bases de datos
+          - Documentación de APIs y mejores prácticas
+        projects: Construye una API REST completa con Flask/Express
         orientation: vertical
         icon: IconApi
-      - title: Agile Methodologies
-        duration: Week 16
+      - title: Metodologías Ágiles
+        duration: Semana 16
         objectives:
-          - Scrum, Kanban, and agile frameworks
-          - Sprint planning and daily standups
-          - Effective collaboration in dev teams
-        projects: Work in agile teams on group projects
+          - Scrum, Kanban y frameworks ágiles
+          - Planificación de sprints y reuniones diarias
+          - Colaboración efectiva en equipos de desarrollo
+        projects: Trabaja en equipos ágiles en proyectos grupales
         orientation: vertical
         icon: IconUsers
     paddingY:
       desktop: md
-  - type: projects
-    title: Learn by Building Real-Life Projects
-    subtitle: Build production-ready full stack applications that mirror real software engineering roles and industry workflows.
-    items:
-      - title: Build a StarWars REST API
-        description: The StarWars Blog API will let you practice building a REST API using lightweight API frameworks like Express (for node) or Flask (for python) using SQLAlchemy ORM and Python language, while building a fun blog. Ideal for juniors looking to practice API development in python.
-        image: star-wars
-        tags:
-          - REST
-        duration: 8 HOURS
-        difficulty: easy
-        date: 15/11/2022
-      - title: Authentication System with JWT
-        description: Create a complete authentication system with JWT tokens, React frontend, and Python backend. Learn security best practices and session management patterns used in production applications.
-        image: authentication
-        tags:
-          - Security
-          - JWT
-        duration: 6 HOURS
-        difficulty: medium
-        date: 20/01/2023
-      - title: Full-Stack Final Project
-        description: Design and build your own full-stack application from scratch. Demonstrate your skills with React, Flask, SQLAlchemy, and third-party API integrations. This capstone project showcases everything you've learned.
-        image: final-project
-        tags:
-          - Full-Stack
-          - Capstone
-        duration: 40 HOURS
-        difficulty: hard
-        date: 01/03/2023
-    paddingY:
-      desktop: md sm
-  - type: ai_learning
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: How You’ll Learn at 4Geeks
-    description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.
-    features:
-      - icon: Robot
-        title: Progress faster with AI-powered tools
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Instant feedback from Rigobot, our custom AI tutor
-          - text: Advice adjusted to your skill level and progress
-          - text: 24/7 help with debugging and problem-solving
-          - text: Hundreds of interactive coding exercises and tests
-        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-      - icon: TrendingUp
-        title: Thrive in tech with career support for the AI-Era
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Personalized 1:1 coaching
-          - text: AI-ready resumes and portfolios
-          - text: Interview prep and salary negotiation
-          - text: Lifelong access to support your growth
-        video_url: https://youtu.be/-2ZvlgDnltc
-      - icon: Headset
-        title: Unlimited 1:1 mentorship and an active community
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Lifelong access to 1:1 mentorship sessions
-          - text: 7:1 student–teacher ratio for personalized guidance
-          - text: Peer collaboration through Slack channels and weekly check-ins
-          - text: Dedicated Slack channels for coding support, job boards, and career advice
-        image_id: mentoring_zoom_call
-    marginY:
-      desktop: md none
-    paddingY:
-      desktop: md none
-  - type: certificate
-    title: Career Outcomes
-    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
-    benefits:
-      - text: "AI Software Engineer: {{ global.average_salary_fullstack | $95K–$135K }}"
-      - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-      - text: "Agent Engineer: $105K–$150K"
-      - text: "Workflow Automation Engineer: $85K–$120K"
-    card:
-      title: AI Engineer
-      subtitle: 4Geeks Academy Certificate
-      program_name: AI Engineering
-    stats:
-      - value: {{ global.global_job_placement_rate | 84 }}%
-        label: Hiring rate
-        description: Graduate with the skills, credentials, and professional profile employers are actively hiring for.
-        benefits:
-          - text: Certificate recognized by the Florida Department of Education
-          - text: Career focused portfolio
-          - text: Demonstrated experience with AI workflows
-          - text: Optimized professional profile and job-search strategy
-      - value: 3-6 months
-        label: Time to get hired
-        description: Land your first role within 3–6 months of graduation. With our structured 3-step career development process, your skills turn into job offers fast.
-        benefits:
-          - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
-          - text: Practice for technical and behavioral interviews
-          - text: Execute a personalized job-search strategy with access to relevant hiring networks
-      - value: {{ global.global_salary_increase | 55 }}%
-        label: Average salary increase
-        description: Stand out with full stack and AI skills companies are actively seeking, enabling significant salary growth as you enter the field.
-        benefits:
-          - text: "Full Stack Engineer: {{ global.average_salary_fullstack | $95K–$150K }}+"
-          - text: "AI-fluent Software Developer: {{ global.average_salary_ai_fluent_software_developer }}"
-          - text: "Web Applications Engineer: {{ global.average_salary_web_aplications_engineer | $95K–$140K }}"
-          - text: "Backend Services Developer: {{ global.average_salary_backend_services_developer | $100K–$150K }} "
-      - value: 400+
-        label: Hiring partners
-        description: Access our network of 400+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
-        benefits:
-          - text: Exclusive job board access
-          - text: Priority referrals to partner companies
-          - text: Networking events with hiring managers
-          - text: Companies include Google, Meta, Amazon, startups
-    certificate_position: right
-    useSolidCard: true
-    marginY:
-      mobile: none
-      desktop: none lg
-    paddingY:
-      mobile: lg
-      desktop: lg
-    background: hsl(var(--muted))
-  - type: pricing
+  - type: cards_deck
+    section_id: cards_deck-lbla4e
     version: "1.0"
-    variant: product
-    title: Tuition & Financing Options
-    subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: "Full payment discount: Save 10% with upfront payment."
-    financing_text: "Credit-based financing: starting below"
-    financing_amount: {{ global.price_fullstack | $299 }}
-    tech_icons:
-      - openai
-      - python
-      - react
-      - nodejs
-      - api
-      - brain
-      - robot
-      - settings
-    features_title: Choose the option that fits you best.
-    features:
-      - icon: IconCheck
-        text: Standard tuition is {{ global.price_full_fullstack | $10,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
-      - icon: IconCheck
-        text: Enroll with a job guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
-      - icon: IconCheck
-        text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
-        use_rigobot_icon: true
-      - icon: IconCheck
-        text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
-    cta:
-      text: Get more info
-      url: "#apply-modal"
-      variant: primary
-    marginY:
-      desktop: none md
-    paddingY:
-      desktop: none md
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
-  - type: pricing
-    version: "1.0"
-    variant: product
-    title: Tuition and Financing Options
-    subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: "Full payment discount: Save 10% with early payment."
-    financing_text: Installment financing starting from
-    financing_amount: {{ global.price_fullstack | $299 }}
-    tech_icons:
-      - openai
-      - python
-      - react
-      - nodejs
-      - api
-      - brain
-      - robot
-      - settings
-    static_icons: true
-    features_title: Choose the option that fits you best.
-    features:
-      - icon: IconCheck
-        text: Pay upfront to get a better price with an additional discount, or split your payments into 6 to 24 installments through our partners.
-      - icon: IconCheck
-        text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
-      - icon: IconCheck
-        text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
-    cta:
-      text: Get More Information
-      url: /es/apply
-      variant: primary
-    marginY:
-      desktop: none md
-    paddingY:
-      desktop: lg md
-    showOnLocations:
-      - barcelona-spain
-      - madrid-spain
-      - malaga-spain
-      - valencia-spain
-      - berlin-germany
-      - dublin-ireland
-      - hamburg-germany
-      - lisbon-portugal
-      - milan-italy
-      - munich-germany
-      - rome-italy
+    heading: Historias reales de cambios de carrera
+    subtitle: Miles de graduados han utilizado nuestros programas para entrar en el mundo de la tecnología. Estas son solo algunas de sus historias, desde aumentos salariales hasta reinvenciones completas de carrera.
+    cards:
+      - video:
+          url: https://youtu.be/ln3bQsV1BaQ
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
+        author_name: Hernán García
+        title: "\"Recibí ofertas de empresas que no esperaba\""
+        description: Hernán consiguió un trabajo en tecnología dentro de un mes de comenzar su búsqueda laboral.
+        alt: Geekforce
+      - video:
+          url: https://youtu.be/MBXqEnhodx0
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: Joao Henrique
+        title: "\"Siempre tendrás el apoyo de la academia\""
+        description: Joao comparte su experiencia recibiendo mentoría de programación como estudiante, después de graduarse y en su trabajo actual.
+        alt: Geekpal
+      - video:
+          url: https://youtu.be/oeX_ocy6zv4
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: Jonathan Ferragut
+        title: "\"Tomar un curso como este nos beneficia de muchas maneras\""
+        description: Jonathan comparte cómo el programa le ayudó a ganar confianza y crear proyectos desde cero.
+        alt: Geekpal
   - type: whos_hiring
+    section_id: whos_hiring-buw0mf
     variant: carousel
-    title: Top Companies Hiring our Graduates
-    subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
+    title: Empresas que contratan a nuestros estudiantes
+    subtitle: Nuestros graduados trabajan en compañías líderes a nivel global
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
@@ -520,133 +313,134 @@ sections:
         alt: Neo9
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
+    marginY:
+      desktop: none md
     paddingY:
       desktop: none
   - type: testimonials
-    title: Real Students. Real Careers.
-    subtitle: {{ global.global_total_alumni | 4,000 }}+ graduates and {{ global.global_verified_reviews_count | 1,000 }}+ verified reviews prove our programs deliver life-changing results.
+    section_id: testimonials-ylax4y
+    title: Éxito profesional comprobado
+    subtitle: Más de {{ global.global_total_alumni | 5,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.
     rating_summary:
       average: {{ global.global_review_rating | 4.8 }}
-      count: {{ global.global_review_count | 1,294 }}
+      count: 700+
     items:
       - name: Sarah Johnson
         role: AI Engineer
         company: Google
         rating: 5
-        comment: This course completely transformed my career. The instructors are incredibly knowledgeable and the curriculum is perfectly structured for real-world AI applications.
-        outcome: +55% salary increase
+        comment: Este curso transformó completamente mi carrera. Los instructores son increíblemente conocedores y el currículo está perfectamente estructurado para aplicaciones de IA del mundo real.
+        outcome: +55% aumento salarial
       - name: Michael Chen
         role: ML Engineer
         company: Meta
         rating: 5
-        comment: Best investment I ever made. Got a job offer before even finishing the program! The mentorship and career support were invaluable.
-        outcome: Hired in 4 months
+        comment: La mejor inversión que he hecho. ¡Recibí una oferta de trabajo antes de terminar el programa! La mentoría y el apoyo profesional fueron invaluables.
+        outcome: Contratado en 4 meses
       - name: Emily Rodriguez
         role: AI Engineer
         company: Amazon
         rating: 5
-        comment: Excellent content and great support from mentors. The projects were challenging but rewarding, and now I'm working on cutting-edge AI.
-        outcome: +100% salary increase
+        comment: Excelente contenido y gran apoyo de los mentores. Los proyectos fueron desafiantes pero gratificantes, y ahora trabajo en IA de vanguardia.
+        outcome: +100% aumento salarial
       - name: David Kim
         role: AI Developer
         company: Startup
         rating: 5
-        comment: From zero AI knowledge to landing my dream job in 5 months. The structured curriculum and hands-on projects made all the difference.
-        outcome: Career change success
+        comment: De cero conocimiento en IA a conseguir mi trabajo soñado en 5 meses. El currículo estructurado y los proyectos prácticos marcaron la diferencia.
+        outcome: Cambio de carrera exitoso
       - name: Jessica Martinez
         role: AI Engineer
         company: Spotify
         rating: 4
-        comment: Great course with practical, real-world projects. The community is supportive and the instructors are always available to help.
-        outcome: +45% salary increase
+        comment: Excelente curso con proyectos prácticos del mundo real. La comunidad es solidaria y los instructores siempre están disponibles para ayudar.
+        outcome: +45% aumento salarial
       - name: Ryan Thompson
         role: ML Engineer
         company: Tech Startup
         rating: 5
-        comment: The best online learning experience I've had. Clear explanations, practical exercises, and excellent career guidance throughout.
-        outcome: Landed first tech job
+        comment: La mejor experiencia de aprendizaje en línea que he tenido. Explicaciones claras, ejercicios prácticos y excelente orientación profesional en todo momento.
+        outcome: Primer trabajo en tech
     paddingY:
       desktop: md
-  - type: faq
-    title: Frequently Asked Questions
-    related_features:
-      - full-stack
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: md
-    background: hsl(var(--muted))
   - type: cta_banner
+    section_id: cta_banner-k7jp41
     version: "1.0"
-    title: Ready to Become an {{ single.job_role | AI Engineer }}?
-    subtitle: Limited spots available. Start your transformation today.
+    title: ¿Listo para convertirte en Desarrollador Full Stack?
+    subtitle: Cupos limitados disponibles. Comienza tu transformación hoy.
+    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply now
+      submit_label: {{ global.call_to_action_apply | Aplicar ahora }}
       tags: website-lead
       fields:
         email:
           visible: true
           required: true
-          placeholder: Your email address
+          placeholder: Tu correo electrónico
         first_name:
           visible: true
           required: true
-          placeholder: First name
+          placeholder: Nombre Completo
         phone:
           visible: true
-          required: true
-          placeholder: Phone number
+          required: false
+          placeholder: Número de teléfono
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | unknown }}
+          default: full-stack
       success:
-        message: Thank you! We'll be in touch soon.
+        message: ¡Gracias! Nos pondremos en contacto pronto.
       consent:
         email: true
         marketing: true
-        marketing_text: I agree to receive information about courses and promotions
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
-    paddingY:
-      desktop: md
     marginY:
       desktop: lg none
-    background: hsl(var(--primary))
-    section_id: cta_banner-yno9xp
+    paddingY:
+      desktop: md
   - type: sticky_cta
+    section_id: sticky_cta-jtdfr0
     version: "1.0"
-    heading: Ready to start your tech career?
-    button_label: Apply Now
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline
       conversion_name: student_application
-      submit_label: Submit Application
+      submit_label: Enviar solicitud
       tags: website-lead
-      automations: strong
       fields:
         email:
           visible: true
           required: true
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
+          placeholder: Nombre
         last_name:
           visible: true
           required: false
         phone:
           visible: true
           required: true
+          placeholder: Número telefónico
         program:
           visible: false
-          required: false
-          default: {{ single.bc_slug | ai-engineering }}
+          default: full-stack
       success:
-        message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-et016q
+        message: ¡Gracias! Nos pondremos en contacto pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
+    load: eager

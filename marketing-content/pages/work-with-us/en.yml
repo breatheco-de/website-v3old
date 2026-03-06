@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-9s8pqz
     version: "1.0"
     variant: singleColumn
     title: Careers at 4Geeks
@@ -27,6 +28,7 @@ sections:
     marginY:
       desktop: none xl
   - type: two_column
+    section_id: two_column-r3vh2m
     proportions:
       - 5
       - 7
@@ -51,6 +53,7 @@ sections:
     paddingY:
       desktop: lg
   - type: faq
+    section_id: faq-pxkb2c
     title: Frequently Asked Questions
     related_features:
       - mentors-and-teachers
@@ -59,6 +62,7 @@ sections:
     paddingY:
       desktop: lg none
   - type: cta_banner
+    section_id: cta_banner-tni4bz
     version: "1.0"
     title: Contact Us
     subtitle: Fill out the form to find out about our open positions.
@@ -96,6 +100,7 @@ sections:
     paddingY:
       desktop: lg
   - type: sticky_cta
+    section_id: sticky_cta-nkaeq8
     version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now

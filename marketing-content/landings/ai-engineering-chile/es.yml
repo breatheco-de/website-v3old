@@ -18,6 +18,7 @@ locations:
   - santiago-chile
 sections:
   - type: hero
+    section_id: hero-0kivxy
     version: "1.0"
     variant: ApplyFormProductShowcase
     title: Construye sistemas reales, listos para producción.
@@ -77,6 +78,7 @@ sections:
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
   - type: sticky_cta
+    section_id: sticky_cta-9tofjq
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Postular ahora
@@ -115,6 +117,7 @@ sections:
       show_terms: true
     showOn: mobile
   - type: awards_marquee
+    section_id: awards_marquee-jj4gc1
     version: "1.0"
     speed: 40
     gradient: true
@@ -183,6 +186,7 @@ sections:
       mobile: none lg
       desktop: none lg
   - type: features_grid
+    section_id: features_grid-rkray9
     version: "1.0"
     variant: stats-text-card
     title: ¿Por qué aprender ingeniería de IA ahora?
@@ -204,6 +208,7 @@ sections:
       mobile: none md
       desktop: none md
   - type: syllabus
+    section_id: syllabus-v6mghi
     variant: program-modules
     program_title: Lo que construirás en 24 semanas
     program_description: Desde el primer día trabajarás en una empresa ficticia que evoluciona contigo. En cada hito desarrollarás soluciones de IA reales, aplicadas a problemas que hoy enfrentan las empresas.
@@ -349,6 +354,7 @@ sections:
       mobile: lg none
       desktop: lg sm
   - type: award_badges
+    section_id: award_badges-3ehbmv
     version: v1.0
     variant: detailed
     showBorder: false
@@ -375,6 +381,7 @@ sections:
     paddingY:
       desktop: none
   - type: ai_learning
+    section_id: ai_learning-nmtryp
     badge: ¿Por qué 4Geeks?
     title: ¿Por qué aprender ingeniería de IA con 4Geeks?
     description: Porque te formas aplicando IA como lo hacen las empresas líderes, con herramientas inteligentes y un método de aprendizaje hiperpersonalizado que acelera tu progreso.
@@ -421,6 +428,7 @@ sections:
       mobile: lg none
       desktop: lg none
   - type: certificate
+    section_id: certificate-b2fmef
     title: Resultados de carrera
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
     benefits:
@@ -472,6 +480,7 @@ sections:
       desktop: lg
     background: hsl(var(--muted))
   - type: bullet_tabs_showcase
+    section_id: bullet_tabs_showcase-8lec87
     version: "1.0"
     heading: ¿Este programa es para ti?
     tabs:
@@ -498,6 +507,7 @@ sections:
       mobile: none
       desktop: none
   - type: whos_hiring
+    section_id: whos_hiring-do0d76
     variant: carousel
     title: Empresas líderes confían en nuestro talento
     subtitle: Nuestros graduados trabajan en empresas líderes de tecnología.
@@ -533,6 +543,7 @@ sections:
       mobile: lg none
       desktop: lg none
   - type: testimonials
+    section_id: testimonials-0y6u1p
     title: Resultados reales de graduados reales
     subtitle: Únete a miles que han transformado sus carreras
     rating_summary:
@@ -558,6 +569,7 @@ sections:
         comment: Excelente contenido y gran apoyo de mentores. Ahora trabajo en IA de vanguardia.
         outcome: +100% aumento salarial
   - type: numbered_steps
+    section_id: numbered_steps-t1g1af
     version: "1.0"
     variant: verticalCards
     title: Nuestro proceso de admisión
@@ -584,6 +596,7 @@ sections:
     bullet_icon_color: text-primary
     showOn: mobile
   - type: cta_banner
+    section_id: cta_banner-jgm9d5
     version: "1.0"
     title: ¿Listo para convertirte en Ingeniero de IA?
     subtitle: Cupos limitados. Comienza tu transformación hoy.
@@ -632,6 +645,7 @@ sections:
       mobile: lg
       desktop: lg
   - type: footer
+    section_id: footer-8na4wj
     version: "1.0"
     copyright_text: 2024 4Geeks. Todos los derechos reservados.
     paddingY:

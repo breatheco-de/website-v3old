@@ -18,6 +18,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-g3y8zf
     variant: showcase
     title: Aquí se construyen las carreras del futuro en IA
     subtitle: La Inteligencia Artificial ya está transformando el empleo. Prepárate para liderar el cambio con formación práctica en AI Engineering, Data Science, Desarrollo de Software y Ciberseguridad.
@@ -47,6 +48,7 @@ sections:
     paddingY:
       desktop: sm none
   - type: award_badges
+    section_id: award_badges-22yzwf
     version: v1.0
     variant: detailed
     showBorder: false
@@ -73,6 +75,7 @@ sections:
     marginY:
       desktop: none md
   - type: image_row
+    section_id: image_row-9qzvi8
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Estudiante aprendiendo a programar
@@ -96,6 +99,7 @@ sections:
     paddingY:
       desktop: md none
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-jahs43
     variant: image_background
     version: "1.0"
     title: Donde el aprendizaje con IA se une a la mentoría de por vida
@@ -115,6 +119,7 @@ sections:
     marginY:
       desktop: none lg
   - type: features_grid
+    section_id: features_grid-ur984i
     version: "1.0"
     variant: highlight
     title: Resultados reales para nuestros graduados
@@ -135,6 +140,7 @@ sections:
     marginY:
       desktop: none md
   - type: career_support_explain
+    section_id: career_support_explain-9d2kbi
     version: v1.0
     heading: Consigue empleo. Con apoyo profesional para la era de la IA
     description: Nuestro programa de apoyo profesional está diseñado para ayudarte a conseguir tu primer empleo en tecnología
@@ -252,6 +258,7 @@ sections:
             description: Melanie es una joven profesional que soñaba con lograr la vida que ahora tiene. Es una desarrolladora de software ingeniosa y comprometida trabajando en una empresa de software en su país natal.
             achievement: Logró un aumento salarial del 100%.
   - type: course_selector
+    section_id: course_selector-ew45w6
     version: "1.0"
     variant: solid
     heading: Explora nuestros programas
@@ -322,6 +329,7 @@ sections:
     paddingY:
       desktop: md lg
   - type: why_learn_ai
+    section_id: why_learn_ai-bko3ey
     variant: laptop-edge
     title: Garantía de Empleo* opcional
     subtitle: Respalda tu resultado profesional con un compromiso más fuerte
@@ -354,6 +362,7 @@ sections:
       - montevideo-uruguay
       - panamacity-panama
   - type: testimonials_slide
+    section_id: testimonials_slide-mduh8o
     title: Historias reales de nuestros graduados
     description: Descubre cómo nuestros graduados transformaron sus carreras con aprendizaje personalizado y nuestro apoyo profesional.
     background: hsl(var(--card))
@@ -362,6 +371,7 @@ sections:
     paddingY:
       desktop: none
   - type: faq
+    section_id: faq-ba1oga
     title: Preguntas frecuentes
     related_features:
       - online-platform
@@ -372,6 +382,7 @@ sections:
     paddingY:
       desktop: md none
   - type: cta_banner
+    section_id: cta_banner-j1hfg4
     version: "1.0"
     title: Da el siguiente paso hacia tu carrera en tecnología
     subtitle: Recibe información personalizada del programa y los próximos pasos.

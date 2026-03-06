@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: dynamic_table
+    section_id: dynamic_table-ljwe3h
     version: "1.0"
     variant: comparison
     endpoint: https://breathecode.herokuapp.com/v1/admissions/cohort/all?upcoming=true&never_ends=false&sort=kickoff_date&limit=50
@@ -41,6 +42,7 @@ sections:
       label: {{ call_to_action_apply | Aplica }}
       href: /en/apply
   - type: sticky_cta
+    section_id: sticky_cta-j9v0lz
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora

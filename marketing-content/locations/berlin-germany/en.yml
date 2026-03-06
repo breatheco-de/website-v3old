@@ -9,6 +9,7 @@ meta:
     - /us/coding-campus/coding-bootcamp-berlin-germany
 sections:
   - type: hero
+    section_id: hero-r7kot4
     version: "1.0"
     variant: singleColumn
     title: Launch an AI-Ready Tech Career in Berlin
@@ -27,6 +28,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: awards_marquee
+    section_id: awards_marquee-c4oij2
     version: v1.0
     speed: 40
     gradient: true
@@ -67,6 +69,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
+    section_id: banner-fur99t
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
@@ -80,6 +83,7 @@ sections:
     marginY:
       desktop: lg none
   - type: two_column
+    section_id: two_column-vlzkzg
     proportions:
       - 6
       - 6
@@ -167,6 +171,7 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-ibnftx
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-hya2h0
     variant: image_background
     version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
@@ -186,6 +191,7 @@ sections:
     paddingY:
       desktop: md none
   - type: testimonials_slide
+    section_id: testimonials_slide-ouiul5
     title: Proven Paths to Tech Careers
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
     background: bg-sidebar
@@ -207,11 +213,13 @@ sections:
     background: hsl(var(--secondary))
     section_id: split_cards-p2pgjk
   - type: why_learn_ai
+    section_id: why_learn_ai-34vtz4
     variant: laptop-edge
     title: Why Berlin Is a Smart Place to Launch Your Tech Career
     subtitle: Europe's leading startup hub with real hiring momentum
     description: "Berlin's tech ecosystem has undergone rapid transformation, establishing the city as a hotbed for groundbreaking startups. The coding and programming community in Berlin has experienced remarkable expansion, largely influenced by the growing demand for coding bootcamps.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Coding bootcamps nurturing a diverse pool of talented developers</span></li><li>Rapid transformation and expansion of the tech ecosystem</li><li>Growing demand for coding proficiency across sectors</li></ul></div><div>From our Berlin campus, we connect you with local employers, tech events, and a thriving ecosystem so you build relationships that support your entry and long-term growth in tech.</div></div>"
   - type: mentorship
+    section_id: mentorship-4g7mqb
     version: v1.0
     title: Mentorship & Support
     subtitle: You're never alone in your learning journey
@@ -226,6 +234,7 @@ sections:
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
   - type: mentorship
+    section_id: mentorship-49ekur
     version: v1.0
     title: Mentorship & Support
     subtitle: You're never alone in your learning journey
@@ -240,12 +249,14 @@ sections:
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
   - type: testimonials
+    section_id: testimonials-1d2qji
     version: "1.0"
     title: Berlin Graduate Success Stories
     filter_by_location: berlin-germany
     marginY:
       desktop: none lg
   - type: testimonials
+    section_id: testimonials-lt98ca
     version: v1.0
     title: What Our Students Say
     subtitle: Hear directly from graduates who transformed their careers
@@ -290,6 +301,7 @@ sections:
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
   - type: faq
+    section_id: faq-etdx29
     title: Frequently Asked Questions
     related_features:
       - certification

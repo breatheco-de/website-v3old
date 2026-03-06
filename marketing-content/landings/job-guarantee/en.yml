@@ -1,5 +1,6 @@
 sections:
   - type: hero
+    section_id: hero-ckjuxp
     version: "1.0"
     variant: productShowcase
     title: Tech Career with Extra Confidence.
@@ -88,6 +89,7 @@ sections:
           logoHeight: 55px
     video_title: GeekForce Career Support
   - type: features_quad
+    section_id: features_quad-ge4f63
     version: "1.0"
     variant: default
     compact: true
@@ -103,6 +105,7 @@ sections:
         title: 4. Get Hired Within 9 Months — Or 100% of Your Tuition Back
     background: hsl(210 100% 50% / 0.05)
   - type: course_selector
+    section_id: course_selector-x9c6qg
     version: "1.0"
     variant: solid
     heading: High-Growth Tech Careers, Backed by Our Job Guarantee
@@ -146,6 +149,7 @@ sections:
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
   - type: features_grid
+    section_id: features_grid-mchky5
     version: "1.0"
     variant: highlight
     title: Real Outcomes for Our Graduates
@@ -166,6 +170,7 @@ sections:
     marginY:
       desktop: none md
   - type: features_grid
+    section_id: features_grid-h4gehz
     version: "1.0"
     variant: cardHeader
     heading: Confidence You Can Rely On
@@ -182,6 +187,7 @@ sections:
       - icon: ChalkboardTeacher
         text: Structured, Personalized Learning Method
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-s6gzio
     variant: image_background
     version: "1.0"
     title: AI-Powered Learning. Expert Mentorship. Real Career Support.
@@ -203,6 +209,7 @@ sections:
     paddingY:
       desktop: none md
   - type: numbered_steps
+    section_id: numbered_steps-646rz5
     variant: default
     title: Get Hired Faster With GeekForce
     description: Our 3-step Career Acceleration System combines proven strategies, personalized guidance, and direct access to hiring companies to help you land a tech role quickly.
@@ -222,9 +229,11 @@ sections:
     paddingY:
       desktop: lg none
   - type: testimonials_slide
+    section_id: testimonials_slide-1gorsq
     title: The Stories Behind the Stats
     description: We stand behind the results our graduates achieve. Meet some of the students who transformed their careers through our programs.
   - type: whos_hiring
+    section_id: whos_hiring-mj9qyi
     variant: carousel
     title: Where 4Geeks Graduates Work
     subtitle: Our alumni have joined leading companies across tech, media, and startups worldwide.
@@ -255,6 +264,7 @@ sections:
         alt: Jooble
     background: hsl(var(--sidebar-background))
   - type: numbered_steps
+    section_id: numbered_steps-sgeuhk
     version: "1.0"
     variant: bubbleText
     title: What Happens If You Don’t Get Hired
@@ -274,6 +284,7 @@ sections:
         title: Full Refund
     background: hsl(var(--sidebar-background))
   - type: features_quad
+    section_id: features_quad-ms7uox
     version: "1.0"
     variant: laptopEdge
     heading: Who Can Add the Job Guarantee?
@@ -293,6 +304,7 @@ sections:
     paddingY:
       desktop: none
   - type: cta_banner
+    section_id: cta_banner-deasu1
     version: "1.0"
     title: Start Your Tech Career with the Confidence of a Job Guarantee
     subtitle: Apply to a career-focused program and choose the Job Guarantee option at enrollment.

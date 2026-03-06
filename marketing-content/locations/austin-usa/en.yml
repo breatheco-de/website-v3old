@@ -10,6 +10,7 @@ meta:
     - /us/coding-campus/coding-bootcamp-austin
 sections:
   - type: hero
+    section_id: hero-jwxtm8
     version: "1.0"
     variant: singleColumn
     title: Launch an AI-Ready Tech Career in Austin
@@ -28,6 +29,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: awards_marquee
+    section_id: awards_marquee-z05tq3
     version: v1.0
     speed: 40
     gradient: true
@@ -68,6 +70,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
+    section_id: banner-k5f5yp
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
@@ -164,6 +167,7 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-ikfusn
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-fca7ic
     variant: image_background
     version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
@@ -183,10 +187,12 @@ sections:
     paddingY:
       desktop: md none
   - type: testimonials_slide
+    section_id: testimonials_slide-nf0epg
     title: Proven Paths to Tech Careers
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
     background: bg-sidebar
   - type: split_cards
+    section_id: split_cards-9x0vze
     variant: primary-left
     primary:
       heading: The Confidence of a Job Guarantee*
@@ -203,11 +209,13 @@ sections:
       desktop: none xl
     background: hsl(var(--secondary))
   - type: why_learn_ai
+    section_id: why_learn_ai-nholex
     variant: laptop-edge
     title: Why Austin Is a Smart Place to Launch Your Tech Career
     subtitle: Texas's most innovative city with a thriving tech community
     description: "Austin has witnessed substantial growth in the demand for coding proficiency as technology becomes increasingly integrated into diverse sectors. It's a market with real opportunities for developers.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Substantial growth in demand for coding proficiency across fintech, logistics, and enterprise sectors</span></li><li>Coding bootcamps have emerged as key contributors, offering accessible and comprehensive training for Austin's expanding tech community</li><li>Strong demand for software, AI, and data skills with companies like IBM, Indeed, and local startups actively hiring</li></ul></div><div>From our Austin campus, we connect you with local employers, tech events, and a thriving innovation community—helping you build relationships that support your entry and long-term growth in tech.</div></div>"
   - type: mentorship
+    section_id: mentorship-2aaivl
     version: v1.0
     title: Mentorship & Support
     subtitle: You're never alone in your learning journey
@@ -222,6 +230,7 @@ sections:
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
   - type: mentorship
+    section_id: mentorship-dk2r04
     version: v1.0
     title: Mentorship & Support
     subtitle: You're never alone in your learning journey
@@ -236,12 +245,14 @@ sections:
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
   - type: testimonials
+    section_id: testimonials-gn6z2a
     version: "1.0"
     title: Austin Graduate Success Stories
     filter_by_location: austin-usa
     marginY:
       desktop: none lg
   - type: testimonials
+    section_id: testimonials-ikik3o
     version: v1.0
     title: What Our Students Say
     subtitle: Hear directly from graduates who transformed their careers
@@ -286,6 +297,7 @@ sections:
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
   - type: faq
+    section_id: faq-jlhkq5
     title: Frequently Asked Questions
     related_features:
       - certification

@@ -22,6 +22,7 @@ schema:
     - courses:ai-engineering
 sections:
   - type: hero
+    section_id: hero-gckpm4
     version: "1.3"
     variant: course
     title: Ingeniería de Inteligencia Artificial
@@ -91,6 +92,7 @@ sections:
       - tampa-usa
       - toronto-canada
   - type: hero
+    section_id: hero-fd5q96
     version: "1.3"
     variant: course
     title: Ingeniería de Inteligencia Artificial
@@ -194,6 +196,7 @@ sections:
       success:
         message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
   - type: awards_marquee
+    section_id: awards_marquee-qmu9oy
     version: v1.0
     speed: 40
     gradient: true
@@ -236,6 +239,7 @@ sections:
     marginY:
       desktop: md lg
   - type: features_grid
+    section_id: features_grid-k2kav6
     version: "1.2"
     variant: stats-text
     title: Por qué estudiar Ingeniería de IA ahora
@@ -253,6 +257,7 @@ sections:
         value: {{ global.average_salary_ai_engineer | $95K–$135K }}
         title: Rango salarial para Ingenieros de IA
   - type: syllabus
+    section_id: syllabus-voteq8
     variant: program-modules
     program_title: Plan de estudios en Ingeniería de IA
     program_description: "Aprende aplicando nuestra Metodología de Caso de Empresa: desarrolla un sistema completo de IA a lo largo de 10 hitos, desde el planteamiento inicial hasta su despliegue en producción. En 24 semanas, construye una solución funcional que refleja los estándares y flujos de trabajo de equipos de ingeniería modernos."
@@ -389,6 +394,7 @@ sections:
     paddingY:
       desktop: md
   - type: ai_learning
+    section_id: ai_learning-31ea7c
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
     title: El Modelo de aprendizaje 4Geeks
@@ -437,6 +443,7 @@ sections:
     paddingY:
       desktop: md none
   - type: certificate
+    section_id: certificate-hmh8cc
     title: Empleabilidad y salarios reales en Ingeniería de IA
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
     benefits:
@@ -489,6 +496,7 @@ sections:
       desktop: lg md
     background: hsl(var(--muted))
   - type: pricing
+    section_id: pricing-dbj56r
     version: "1.0"
     variant: product
     title: Matrícula y opciones de financiamiento
@@ -548,6 +556,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: pricing
+    section_id: pricing-wfbzh7
     version: "1.0"
     variant: product
     title: Matrícula y opciones de financiamiento
@@ -594,6 +603,7 @@ sections:
       - munich-germany
       - rome-italy
   - type: whos_hiring
+    section_id: whos_hiring-750hsj
     variant: carousel
     title: Empresas que contratan a nuestros graduados
     subtitle: Nuestros ingenieros de IA trabajan en compañías líderes a nivel global
@@ -627,6 +637,7 @@ sections:
     paddingY:
       desktop: none
   - type: testimonials
+    section_id: testimonials-cu66oj
     title: Éxito profesional comprobado
     subtitle: “Más de {{ global.global_total_alumni | 4,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras de Ingeniería de IA.”
     rating_summary:
@@ -672,6 +683,7 @@ sections:
     paddingY:
       desktop: md
   - type: faq
+    section_id: faq-36q8sv
     title: Preguntas frecuentes
     items:
       - question: ¿Qué requisitos previos necesito para Ingeniería de IA?
@@ -724,6 +736,7 @@ sections:
       desktop: md
     background: hsl(var(--muted))
   - type: cta_banner
+    section_id: cta_banner-85f972
     version: "1.0"
     title: ¿Listo para convertirte en Ingeniero de IA?
     subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
@@ -766,6 +779,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
+    section_id: sticky_cta-xuvhfr
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: {{ global.call_to_action_apply | Aplicar ahora }}

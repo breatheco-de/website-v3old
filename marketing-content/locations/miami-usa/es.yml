@@ -54,6 +54,7 @@ meta:
     - /es/coding-campus/bootcamp-programacion-miami
 sections:
   - type: hero
+    section_id: hero-jxq9gx
     version: "1.0"
     variant: singleColumn
     title: Construye tu carrera en tecnología en Miami
@@ -72,6 +73,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: awards_marquee
+    section_id: awards_marquee-6g3u8f
     version: v1.0
     speed: 40
     gradient: true
@@ -112,6 +114,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
+    section_id: banner-80fzy3
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
@@ -125,6 +128,7 @@ sections:
     marginY:
       desktop: lg none
   - type: two_column
+    section_id: two_column-p79gwg
     proportions:
       - 6
       - 6
@@ -217,6 +221,7 @@ sections:
     background: hsl(var(--muted))
     section_id: course_selector-nyglwg
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-tbipjz
     variant: image_background
     version: "1.0"
     title: Todo lo que necesitas para crecer en la industria tech de hoy
@@ -239,10 +244,12 @@ sections:
       desktop: md lg
     background: hsl(var(--muted))
   - type: testimonials_slide
+    section_id: testimonials_slide-qhlyoy
     title: Historias reales de crecimiento profesional en tech
     description: Las experiencias de nuestros graduados muestran cómo la mentoría estructurada, el aprendizaje potenciado por IA y el acompañamiento profesional se traducen en crecimiento y posicionamiento profesional.
     background: bg-sidebar
   - type: split_cards
+    section_id: split_cards-pz6c50
     variant: primary-left
     primary:
       heading: La Confianza de una Garantía de Empleo*
@@ -259,11 +266,13 @@ sections:
     marginY:
       desktop: none xl
   - type: why_learn_ai
+    section_id: why_learn_ai-wggj5a
     variant: laptop-edge
     title: Por Qué Miami es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Un ecosistema tech de rápido crecimiento con momentum real de contratación
     description: "Miami es uno de los hubs tech de más rápido crecimiento en EE.UU., con empresas contratando activamente en software, IA y roles de datos. Es un mercado con demanda real de talento técnico.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Miami ocupa el puesto 4 en EE.UU. en crecimiento de empleos tech, señalando una demanda fuerte y sostenida&nbsp;&nbsp;</span></li><li>Reconocido entre los top 30 ecosistemas de startups globales, con rápido crecimiento en capital de riesgo y relocalización de empresas&nbsp;&nbsp;</li><li>Fuerte demanda de habilidades en software, IA y datos en sectores como fintech, healthcare, logística y tech emergente&nbsp;&nbsp;</li></ul></div><div>Ubicado en Brickell, nuestro campus en Miami te conecta con empleadores locales, socios de contratación y eventos tech, para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"
   - type: mentorship
+    section_id: mentorship-y95926
     version: v1.0
     title: Mentoría y Soporte
     subtitle: Nunca estás solo en tu camino de aprendizaje
@@ -278,6 +287,7 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: mentorship
+    section_id: mentorship-is2tr8
     version: v1.0
     title: Mentoría y Soporte
     subtitle: Nunca estás solo en tu camino de aprendizaje
@@ -292,6 +302,7 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
+    section_id: testimonials-56pdz6
     version: v1.0
     title: Testimonios de Nuestros Graduados
     subtitle: Experiencias que respaldan nuestros resultados.
@@ -338,6 +349,7 @@ sections:
     marginY:
       desktop: none lg
   - type: testimonials
+    section_id: testimonials-yzwhi6
     version: v1.0
     title: Testimonios de Nuestros Graduados
     subtitle: Experiencias que respaldan nuestros resultados.
@@ -382,6 +394,7 @@ sections:
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
   - type: faq
+    section_id: faq-zs20ex
     title: Preguntas Frecuentes
     related_features:
       - certification

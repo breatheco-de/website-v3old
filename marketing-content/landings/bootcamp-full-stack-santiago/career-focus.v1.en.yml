@@ -9,6 +9,7 @@ meta:
 
 sections:
   - type: hero
+    section_id: hero-3yygjn
     variant: singleColumn
     version: "1.0"
     background: "linear-gradient(to bottom, hsl(var(--primary) / 0.05), hsl(var(--background)))"
@@ -29,6 +30,7 @@ sections:
         variant: "outline"
         icon: "Users"
   - type: award_badges
+    section_id: award_badges-gk23up
     version: "1.0"
     variant: simple
     showBorder: true
@@ -55,6 +57,7 @@ sections:
         year: "2025"
 
   - type: syllabus
+    section_id: syllabus-iz36vk
     title: "Skills That Get You Hired"
     subtitle: "Our curriculum is designed with hiring managers to ensure you learn exactly what employers are looking for."
     modules:
@@ -72,6 +75,7 @@ sections:
         description: "Understand Scrum, Kanban, and other agile frameworks used by development teams worldwide."
 
   - type: projects
+    section_id: projects-wjhkev
     title: "Build a Portfolio That Gets Interviews"
     subtitle: "Graduate with 10+ real projects that demonstrate your skills to employers. Our projects are designed to match real job requirements."
     items:
@@ -98,6 +102,7 @@ sections:
         difficulty: "hard"
 
   - type: ai_learning
+    section_id: ai_learning-r1b21c
     version: "1.0"
     variant: feature-tabs
     badge: "Career Support"

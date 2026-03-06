@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-2jeslk
     variant: productShowcase
     title: Career Development
     subtitle: for the AI Era
@@ -70,6 +71,7 @@ sections:
     marginY:
       desktop: none sm
   - type: career_support_explain
+    section_id: career_support_explain-0c1gr4
     version: v1.0
     heading: GeekForce Career Support
     description: Our career support program is designed to help you land your first job in tech
@@ -187,6 +189,7 @@ sections:
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
   - type: graduates_stats
+    section_id: graduates_stats-cnxqbb
     heading: Career Outcomes
     subheading: We turn your education into employment. See the real-world impact of our coaching.
     stats:
@@ -210,6 +213,7 @@ sections:
         col_span: 6
         row_span: 2
   - type: numbered_steps
+    section_id: numbered_steps-2brbw1
     version: "1.0"
     variant: bubbleText
     title: Get Hired with our 3-Step Career Development Process
@@ -237,6 +241,7 @@ sections:
     paddingY:
       desktop: none
   - type: whos_hiring
+    section_id: whos_hiring-9qd159
     variant: carousel
     title: Top Tech Companies Hiring 4Geeks Graduates
     description: 4Geeks alumni are hired by leading tech companies and innovative teams across AI engineering, software development, data science, and cybersecurity.
@@ -270,6 +275,7 @@ sections:
     marginY:
       desktop: none lg
   - type: why_learn_ai
+    section_id: why_learn_ai-8djag6
     variant: laptop-edge
     title: Optional Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
@@ -296,9 +302,11 @@ sections:
       - tampa-usa
       - toronto-canada
   - type: testimonials_slide
+    section_id: testimonials_slide-7jjh6e
     title: The Stories Behind the Stats
     description: Discover how our graduates transformed their careers
   - type: faq
+    section_id: faq-kf5oiw
     title: Frequently Asked Questions
     related_features:
       - career-support
@@ -354,6 +362,7 @@ sections:
     marginY:
       desktop: none
   - type: cta_banner
+    section_id: cta_banner-22d9ft
     version: "1.0"
     title: Take the Next Step Toward your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
@@ -393,6 +402,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
+    section_id: sticky_cta-0hqt25
     version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now

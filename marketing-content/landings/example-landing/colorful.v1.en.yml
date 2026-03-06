@@ -6,6 +6,7 @@ meta:
     - /demo/colorful-landing
 sections:
   - type: hero
+    section_id: hero-w2h9qs
     variant: singleColumn
     version: "1.0"
     background: "linear-gradient(to bottom, hsl(var(--primary) / 0.05), hsl(var(--background)))"
@@ -24,6 +25,7 @@ sections:
         variant: outline
         icon: Player
   - type: features_grid
+    section_id: features_grid-nc3s6n
     version: "1.0"
     title: What You'll Learn
     subtitle: Discover the tools that make learning faster and easier
@@ -38,6 +40,7 @@ sections:
         title: Live Demo
         description: Watch a live demonstration of our AI coding assistant in action
   - type: stats
+    section_id: stats-uzjmy4
     version: "1.0"
     title: Join 50,000+ Learners
     items:
@@ -48,6 +51,7 @@ sections:
       - value: 1,500+
         label: Success Stories
   - type: faq
+    section_id: faq-exxhx9
     version: "1.0"
     background: "muted"
     title: Frequently Asked Questions
@@ -59,6 +63,7 @@ sections:
       - question: Will there be support available?
         answer: Yes, all students have access to mentors and a supportive community.
   - type: cta_banner
+    section_id: cta_banner-q7gr3l
     version: "1.0"
     title: Ready to Transform Your Learning?
     subtitle: Get started today. Limited spots available!
@@ -70,6 +75,7 @@ sections:
         url: /contact
         variant: outline
   - type: footer
+    section_id: footer-0gx73m
     version: "1.0"
     copyright_text: 2024 4Geeks. All rights reserved.
 title: colorful

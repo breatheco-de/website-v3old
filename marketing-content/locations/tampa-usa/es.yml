@@ -12,6 +12,7 @@ meta:
     - /es/coding-campus/bootcamp-programacion-tampa
 sections:
   - type: hero
+    section_id: hero-uwbqbp
     version: "1.0"
     variant: singleColumn
     title: Lanza una Carrera Tech Lista para IA en Tampa
@@ -30,6 +31,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: awards_marquee
+    section_id: awards_marquee-w7zytq
     version: v1.0
     speed: 40
     gradient: true
@@ -70,6 +72,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
+    section_id: banner-zaqsmy
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
@@ -83,6 +86,7 @@ sections:
     marginY:
       desktop: lg none
   - type: two_column
+    section_id: two_column-m57ot8
     proportions:
       - 6
       - 6
@@ -170,6 +174,7 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-lnhqtu
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-cgmomh
     variant: image_background
     version: "1.0"
     title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
@@ -189,10 +194,12 @@ sections:
     paddingY:
       desktop: md none
   - type: testimonials_slide
+    section_id: testimonials_slide-f3jl90
     title: Caminos Probados hacia Carreras Tech
     description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
     background: bg-sidebar
   - type: split_cards
+    section_id: split_cards-jbvlqa
     variant: primary-left
     primary:
       heading: La Confianza de una Garantía de Empleo*
@@ -209,11 +216,13 @@ sections:
       desktop: none xl
     background: hsl(var(--secondary))
   - type: why_learn_ai
+    section_id: why_learn_ai-ap12qt
     variant: laptop-edge
     title: Por Qué Tampa es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Un ecosistema tech en auge con momentum real de contratación
     description: "La ciudad ha presenciado un crecimiento sustancial de la demanda de conocimientos en programación, a medida que la tecnología se integra cada vez más en diversos sectores. Los bootcamps de programación han surgido como contribuyentes clave a esta tendencia.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Tampa-Fort Worth alberga numerosas empresas Fortune 500 y un sector tech en rápida expansión</span></li><li>Fuerte demanda de contratación en diversas industrias, desde energía y salud hasta startups</li><li>Demanda creciente de habilidades en software, IA y datos en toda la región</li></ul></div><div>Desde nuestro campus en Tampa, te conectamos con empleadores locales, eventos tech y un ecosistema vibrante para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"
   - type: mentorship
+    section_id: mentorship-ycpn6c
     version: v1.0
     title: Mentoría y Soporte
     subtitle: Nunca estás solo en tu camino de aprendizaje
@@ -228,6 +237,7 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: mentorship
+    section_id: mentorship-9agrw6
     version: v1.0
     title: Mentoría y Soporte
     subtitle: Nunca estás solo en tu camino de aprendizaje
@@ -242,6 +252,7 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
+    section_id: testimonials-e2fg85
     version: v1.0
     title: Testimonios de Nuestros Graduados
     subtitle: Experiencias que respaldan nuestros resultados.
@@ -288,6 +299,7 @@ sections:
     marginY:
       desktop: none lg
   - type: testimonials
+    section_id: testimonials-6ryvmt
     version: v1.0
     title: Testimonios de Nuestros Graduados
     subtitle: Experiencias que respaldan nuestros resultados.
@@ -332,6 +344,7 @@ sections:
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
   - type: faq
+    section_id: faq-alv60b
     title: Preguntas Frecuentes
     related_features:
       - certification

@@ -1438,12 +1438,12 @@ export function EditableSection({ children, section, index, sectionType, content
               className="px-2 py-1 bg-muted/90 backdrop-blur-sm rounded text-xs text-muted-foreground hover-elevate cursor-pointer"
               data-testid={`badge-section-anchor-${index}`}
             >
-              #{sectionType}-{index}
+              #{(currentSection as { section_id?: string }).section_id ?? `${sectionType}-${index}`}
             </button>
           </PopoverTrigger>
           <PopoverContent className="w-auto max-w-xs p-3 text-xs" side="bottom" align="start" onClick={(e) => e.stopPropagation()}>
             <p className="text-muted-foreground">
-              Include <span className="font-mono font-medium text-foreground">#{sectionType}-{index}</span> on the website URL to take the user to this section scroll position directly.
+              Include <span className="font-mono font-medium text-foreground">#{(currentSection as { section_id?: string }).section_id ?? `${sectionType}-${index}`}</span> on the website URL to take the user to this section scroll position directly.
             </p>
           </PopoverContent>
         </Popover>

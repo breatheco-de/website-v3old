@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: article
+    section_id: article-li4dl3
     content: |
       # Política de Cookies. 4Geeks Academy
 
@@ -30,6 +31,7 @@ sections:
     show_toc: true
     max_width: xl
   - type: sticky_cta
+    section_id: sticky_cta-voehmb
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora

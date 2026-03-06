@@ -16,6 +16,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-htlkzb
     version: "1.0"
     variant: singleColumn
     title: Mira lo que construyen nuestros estudiantes
@@ -69,6 +70,7 @@ sections:
       success:
         message: Thanks! We'll be in touch within 24 hours.
   - type: projects_showcase
+    section_id: projects_showcase-whj7u0
     version: "1.0"
     items:
       - project_title: Raspberry Sky
@@ -144,6 +146,7 @@ sections:
             src: cKcZD0_1IKk
     background: hsl(210 100% 50% / 0.05)
   - type: about
+    section_id: about-bvkaqq
     version: "1.0"
     height: 420px
     title: Más Sobre 4Geeks Academy
@@ -156,6 +159,7 @@ sections:
       desktop: none lg
     background: hsl(210 100% 50% / 0.05)
   - type: faq
+    section_id: faq-ipauts
     title: Preguntas frecuentes
     related_features:
       - content-and-syllabus
@@ -204,6 +208,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-13z48a
   - type: sticky_cta
+    section_id: sticky_cta-32l479
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora

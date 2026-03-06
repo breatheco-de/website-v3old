@@ -19,6 +19,7 @@ schema:
     - courses:cybersecurity
 sections:
   - type: hero
+    section_id: hero-2gmtq7
     version: "1.0"
     variant: course
     title: Become a Cybersecurity Specialist
@@ -101,6 +102,7 @@ sections:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
     section_id: apply-modal
   - type: awards_marquee
+    section_id: awards_marquee-bx0vuy
     version: v1.0
     speed: 40
     gradient: true
@@ -143,6 +145,7 @@ sections:
     marginY:
       desktop: none lg
   - type: features_grid
+    section_id: features_grid-dxwtvz
     version: "1.0"
     variant: stats-text
     title: Cybersecurity Talent Is in High Demand
@@ -160,6 +163,7 @@ sections:
         value: {{ global.global_spending_cybersecurity | $520B }}
         title: Global spending on cybersecurity this year
   - type: syllabus
+    section_id: syllabus-925r5b
     variant: program-modules
     program_title: Cybersecurity Program Overview
     program_description: Master the complete cybersecurity stack from network security to penetration testing. Build real-world defensive and offensive skills using the industry-standard tools employers are looking for.
@@ -234,6 +238,7 @@ sections:
     paddingY:
       desktop: md
   - type: projects
+    section_id: projects-jwvly8
     title: Learn by Defending Real Systems
     subtitle: Gain hands-on experience with practical exercises that simulate real-world cybersecurity scenarios. Build a portfolio of security projects that demonstrate your defensive and offensive capabilities.
     items:
@@ -267,6 +272,7 @@ sections:
     paddingY:
       desktop: md
   - type: ai_learning
+    section_id: ai_learning-x6w1fi
     variant: feature-tabs
     badge: Why 4Geeks?
     title: How You'll Learn at 4Geeks
@@ -305,6 +311,7 @@ sections:
     paddingY:
       desktop: md none
   - type: certificate
+    section_id: certificate-10xpo6
     title: Industry Certifications and Career Outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Our program prepares you for:"
     benefits:
@@ -353,6 +360,7 @@ sections:
     paddingY:
       desktop: none md
   - type: why_learn_ai
+    section_id: why_learn_ai-1zysrw
     variant: laptop-edge
     title: Enroll with a Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
@@ -386,6 +394,7 @@ sections:
       - montevideo-uruguay
       - panamacity-panama
   - type: pricing
+    section_id: pricing-nmicxv
     version: "1.0"
     variant: product
     title: Tuition & Financing Options
@@ -446,6 +455,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: pricing
+    section_id: pricing-d1cwvc
     version: "1.0"
     variant: product
     title: Tuition and Financing Options
@@ -492,6 +502,7 @@ sections:
       - munich-germany
       - rome-italy
   - type: whos_hiring
+    section_id: whos_hiring-4bo24l
     variant: carousel
     title: Top Companies Hiring Our Graduates
     subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
@@ -523,6 +534,7 @@ sections:
     paddingY:
       desktop: none
   - type: testimonials
+    section_id: testimonials-6umllb
     title: Real Students. Real Careers.
     subtitle: {{ global.global_total_alumni | 6,500 }}+ graduates and {{ global.global_verified_reviews_count | 700 }} verified reviews prove our programs deliver life-changing results.
     rating_summary:
@@ -568,6 +580,7 @@ sections:
     paddingY:
       desktop: md
   - type: faq
+    section_id: faq-am87zr
     title: Frequently Asked Questions
     related_features:
       - cybersecurity

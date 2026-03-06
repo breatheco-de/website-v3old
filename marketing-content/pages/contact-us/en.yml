@@ -16,6 +16,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-t12r78
     version: '1.0'
     variant: singleColumn
     title: Contact Us
@@ -26,6 +27,7 @@ sections:
     paddingY:
       desktop: md sm
   - type: contact_us_info
+    section_id: contact_us_info-tflvss
     version: '1.0'
     title: Tell us about you
     background: hsl(var(--muted))
@@ -80,6 +82,7 @@ sections:
     paddingY:
       desktop: sm
   - type: sticky_cta
+    section_id: sticky_cta-nb2b12
     version: '1.0'
     heading: Ready to start your tech career?
     button_label: Apply Now

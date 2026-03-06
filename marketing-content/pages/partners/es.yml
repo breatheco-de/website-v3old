@@ -14,6 +14,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-jm0vbs
     version: "1.0"
     variant: simpleTwoColumn
     title: Construyendo el futuro de la tecnología, juntos
@@ -60,6 +61,7 @@ sections:
       success:
         message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
   - type: features_quad
+    section_id: features_quad-gfp76k
     version: "1.0"
     variant: default
     heading: ¿Por qué asociarse con 4Geeks?
@@ -81,6 +83,7 @@ sections:
     marginY:
       desktop: none lg
   - type: features_grid
+    section_id: features_grid-gta6gr
     version: "1.0"
     variant: stats-text
     title: Impacto en números
@@ -99,6 +102,7 @@ sections:
     paddingY:
       desktop: none
   - type: partnership_carousel
+    section_id: partnership_carousel-cz1tz4
     variant: split-card
     vertical_cards: true
     version: v1.0
@@ -257,6 +261,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: partnership_carousel
+    section_id: partnership_carousel-oesyof
     variant: split-card
     vertical_cards: true
     version: v1.0
@@ -427,6 +432,7 @@ sections:
       - rome-italy
       - valencia-spain
   - type: two_column
+    section_id: two_column-1cn0ow
     proportions:
       - 5
       - 7
@@ -453,6 +459,7 @@ sections:
     marginY:
       desktop: none md
   - type: profiles_carousel
+    section_id: profiles_carousel-az38p3
     version: v1.0
     heading: Lo que dicen nuestros socios sobre el impacto de 4Geeks
     image_round: true
@@ -487,6 +494,7 @@ sections:
         description: Desde 2021 hemos estado trabajando en programas de desarrollo de software full-stack y en el lanzamiento del primer programa de Inteligencia Artificial y Aprendizaje Automático en toda América Latina.
         linkedin_url: https://www.linkedin.com/in/anah%C3%AD-lacava-melgratti/
   - type: faq
+    section_id: faq-ecqzkn
     title: Preguntas frecuentes
     related_features:
       - outcomes
@@ -495,6 +503,7 @@ sections:
     paddingY:
       desktop: md none
   - type: cta_banner
+    section_id: cta_banner-u9yy8o
     version: "1.0"
     title: ¿Listo para ser un aliado?
     subtitle: Construyamos juntos rutas escalables hacia carreras tech de alto crecimiento.
@@ -537,6 +546,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
+    section_id: sticky_cta-mmb5po
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora

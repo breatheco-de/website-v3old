@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-v0luhj
     version: "1.0"
     variant: simpleTwoColumn
     title: Building the Future of Tech, Together
@@ -55,6 +56,7 @@ sections:
       success:
         message: Thanks! We'll be in touch within 24 hours.
   - type: features_quad
+    section_id: features_quad-3xz42k
     version: "1.0"
     variant: default
     heading: Why Partner with 4Geeks?
@@ -76,6 +78,7 @@ sections:
     marginY:
       desktop: none md
   - type: features_grid
+    section_id: features_grid-e2gon2
     version: "1.0"
     variant: stats-text
     title: Impact in Numbers
@@ -94,6 +97,7 @@ sections:
     paddingY:
       desktop: none
   - type: partnership_carousel
+    section_id: partnership_carousel-6rsg7m
     variant: split-card
     vertical_cards: true
     version: v1.0
@@ -249,6 +253,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: partnership_carousel
+    section_id: partnership_carousel-b1gy7q
     variant: split-card
     vertical_cards: true
     version: v1.0
@@ -416,6 +421,7 @@ sections:
       - rome-italy
       - valencia-spain
   - type: two_column
+    section_id: two_column-zzexug
     proportions:
       - 5
       - 7
@@ -443,6 +449,7 @@ sections:
     marginY:
       desktop: none md
   - type: profiles_carousel
+    section_id: profiles_carousel-a02sxf
     version: v1.0
     heading: What Our Partners Say About 4Geeks’ Impact
     image_round: true
@@ -477,6 +484,7 @@ sections:
         description: Since 2021 we have been working on full-stack software development programs and on the launch of the first Artificial Intelligence and Machine Learning program in all of Latin America.
         linkedin_url: https://www.linkedin.com/in/anah%C3%AD-lacava-melgratti/
   - type: faq
+    section_id: faq-fg81m3
     title: Frequently Asked Questions
     related_features:
       - outcomes
@@ -485,6 +493,7 @@ sections:
     paddingY:
       desktop: md none
   - type: cta_banner
+    section_id: cta_banner-mfg8td
     version: "1.0"
     title: Ready to become a Partner?
     subtitle: Let’s build scalable pathways to high-growth tech careers together.
@@ -526,6 +535,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
+    section_id: sticky_cta-lvc7ra
     version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now

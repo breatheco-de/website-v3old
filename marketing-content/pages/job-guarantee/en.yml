@@ -24,6 +24,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-e69bee
     version: "1.0"
     variant: simpleTwoColumn
     title: Get Into Tech With Our Job Guarantee*
@@ -41,6 +42,7 @@ sections:
     marginY:
       desktop: none md
   - type: graduates_stats
+    section_id: graduates_stats-rdqav1
     version: v1.0
     variant: fullBleed
     heading: Results That Back Our Job Guarantee
@@ -91,6 +93,7 @@ sections:
     paddingY:
       desktop: none
   - type: course_selector
+    section_id: course_selector-92t02r
     version: "1.0"
     variant: solid
     heading: Career Programs with the Job Guarantee Option
@@ -172,6 +175,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: features_quad
+    section_id: features_quad-loz8eb
     version: "1.0"
     variant: laptopEdge
     heading: Who's Eligible?
@@ -191,6 +195,7 @@ sections:
     paddingY:
       desktop: none
   - type: numbered_steps
+    section_id: numbered_steps-2ramas
     version: "1.0"
     variant: bubbleText
     title: How the Refund Works
@@ -209,6 +214,7 @@ sections:
         text: You will receive your full refund within 30 days from the date your request is approved.
         title: Full Refund
   - type: features_grid
+    section_id: features_grid-aay8s3
     version: "1.0"
     variant: cardHeader
     heading: Why The Job Guarantee
@@ -224,6 +230,7 @@ sections:
       - icon: ChalkboardTeacher
         text: Structured training paired with hands-on, ongoing career support
   - type: faq
+    section_id: faq-1o208y
     version: "1.0"
     title: Frequently Asked Questions about the Job Guarantee
     related_features:
@@ -233,6 +240,7 @@ sections:
     marginY:
       desktop: lg none
   - type: cta_banner
+    section_id: cta_banner-63cdpc
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
@@ -272,6 +280,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
+    section_id: sticky_cta-6wt8wr
     version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now

@@ -4,7 +4,7 @@ import { storage } from "./storage";
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
-import { execSync as _execSync } from "child_process";
+import { execSync as _execSync, execFile } from "child_process";
 import {
   careerProgramSchema,
   landingPageSchema,
@@ -73,6 +73,7 @@ import { mediaGallery } from "./media-gallery";
 import { media } from "./media";
 import multer from "multer";
 import { contentIndex, type ContentType } from "./content-index";
+import { regenerateSectionIds } from "./utils/regenerateSectionIds";
 import { validateFieldSource, validateFieldMapping, extractByDotPath } from "../scripts/validation/shared/fieldMappingValidator";
 import {
   getFolder,
@@ -1953,6 +1954,62 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (err: any) {
       res.status(400).json({ error: err.message || String(err) });
     }
+  });
+
+  app.get("/api/migrations", (_req, res) => {
+    try {
+      const migrationsDir = path.join(process.cwd(), "scripts", "migrations");
+      if (!fs.existsSync(migrationsDir)) {
+        res.json([]);
+        return;
+      }
+      const files = fs.readdirSync(migrationsDir)
+        .filter(f => /^\d{3}_[\w]+\.ts$/.test(f))
+        .sort();
+      const result = files.map(filename => {
+        const fullPath = path.join(migrationsDir, filename);
+        const content = fs.readFileSync(fullPath, "utf-8");
+        const nameMatch = content.match(/@migration\s+([^\n*]+)/);
+        const descMatch = content.match(/@description\s+([^\n*]+(?:\n\s*\*\s+[^\n*@]+)*)/);
+        const name = nameMatch ? nameMatch[1].trim() : filename.replace(/\.ts$/, "");
+        const description = descMatch
+          ? descMatch[1].replace(/\n\s*\*\s*/g, " ").trim()
+          : "No description provided.";
+        return { filename, name, description };
+      });
+      res.json(result);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message || String(err) });
+    }
+  });
+
+  app.post("/api/migrations/run", (req, res) => {
+    const { filename } = req.body || {};
+    if (!filename || !/^\d{3}_[\w]+\.ts$/.test(filename)) {
+      res.status(400).json({ error: "Invalid migration filename." });
+      return;
+    }
+    const migrationsDir = path.join(process.cwd(), "scripts", "migrations");
+    const fullPath = path.join(migrationsDir, filename);
+    if (!fs.existsSync(fullPath)) {
+      res.status(404).json({ error: "Migration script not found." });
+      return;
+    }
+    execFile(
+      "npx",
+      ["tsx", fullPath],
+      { cwd: process.cwd(), timeout: 120000 },
+      (err, stdout, stderr) => {
+        const output = [stdout, stderr].filter(Boolean).join("\n").trim();
+        if (err && err.killed) {
+          res.json({ success: false, output: `Timed out after 120s.\n${output}` });
+        } else if (err && err.code !== 0) {
+          res.json({ success: false, output: output || err.message });
+        } else {
+          res.json({ success: true, output });
+        }
+      },
+    );
   });
 
   app.get("/api/content-types/:type/config", (req, res) => {
@@ -4374,7 +4431,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
     const isFooterMenu = data?.footer && !data?.navbar;
 
-    if (isFooterMenu && !isEnglish) {
+    if (isFooterMenu && !isDefaultLocale) {
       dataToSave = data;
     } else {
       try {
@@ -4406,7 +4463,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         name,
         locale,
         endpoint: "translations",
-        message: isEnglish
+        message: isDefaultLocale
           ? "English text updated"
           : `${locale} translations updated`,
       });
@@ -7529,6 +7586,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               ) {
                 continue;
               }
+              if (!file.endsWith(".yml") && !file.endsWith(".yaml")) continue;
 
               const raw = fs.readFileSync(
                 path.join(foundSourceFolder, file),
@@ -7580,6 +7638,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
                 createAuthorName,
               );
             }
+
 
             clearSitemapCache();
             contentIndex.refresh();

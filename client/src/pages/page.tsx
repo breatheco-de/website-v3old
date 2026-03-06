@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { SectionRenderer } from "@/components/SectionRenderer";
 import { apiFetch } from "@/lib/queryClient";
 import type { TemplatePage } from "@shared/schema";
-import { IconLoader2 } from "@tabler/icons-react";
+import { IconCode, IconLoader2 } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
@@ -14,6 +14,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LazyRender from "@/components/LazyRender";
 import MenuSlotPlaceholder from "@/components/editing/MenuSlotPlaceholder";
+import { Button } from "@/components/ui/button";
+
+const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditorPanel"));
 
 export default function Page() {
   const [location, setLocation] = useLocation();
@@ -22,6 +25,8 @@ export default function Page() {
   const params = useParams<{ slug: string }>();
   const slugFromPath = location.split("?")[0].replace(/^\/(?:en|es)\//, "").split("/")[0] || "";
   const slug = params.slug || slugFromPath || "home";
+
+  const [showRawEditor, setShowRawEditor] = useState(false);
 
   useEffect(() => {
     if (i18n.language !== locale) {
@@ -39,6 +44,17 @@ export default function Page() {
       return response.json();
     },
     enabled: !!slug,
+  });
+
+  const { data: rawFileCheck } = useQuery<{ exists: boolean }>({
+    queryKey: ["/api/content/raw-file", "page", slug, locale],
+    queryFn: async () => {
+      const res = await fetch(`/api/content/raw-file?contentType=page&slug=${slug}&locale=${locale}`);
+      if (!res.ok) return { exists: false };
+      const data = await res.json();
+      return { exists: !!data.exists };
+    },
+    enabled: !!slug && !!error,
   });
 
   useEffect(() => {
@@ -75,21 +91,43 @@ export default function Page() {
 
   if (error || !page) {
     return (
-      <div 
-        className="min-h-screen flex items-center justify-center"
-        data-testid="error-page"
-      >
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-foreground mb-2">
-            {locale === "es" ? "Página no encontrada" : "Page not found"}
-          </h1>
-          <p className="text-muted-foreground">
-            {locale === "es" 
-              ? "La página que buscas no existe." 
-              : "The page you're looking for doesn't exist."}
-          </p>
+      <>
+        <div 
+          className="min-h-screen flex items-center justify-center"
+          data-testid="error-page"
+        >
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-foreground mb-2">
+              {locale === "es" ? "Página no encontrada" : "Page not found"}
+            </h1>
+            <p className="text-muted-foreground mb-4">
+              {locale === "es" 
+                ? "La página que buscas no existe." 
+                : "The page you're looking for doesn't exist."}
+            </p>
+            {rawFileCheck?.exists && (
+              <Button variant="outline" onClick={() => setShowRawEditor(true)} data-testid="button-edit-yaml">
+                <IconCode className="w-4 h-4 mr-2" />
+                Edit YAML
+              </Button>
+            )}
+          </div>
         </div>
-      </div>
+        {showRawEditor && (
+          <Suspense fallback={null}>
+            <RawFileEditorPanel
+              contentType="page"
+              slug={slug}
+              locale={locale}
+              onClose={() => setShowRawEditor(false)}
+              onSaved={() => {
+                setShowRawEditor(false);
+                refetch();
+              }}
+            />
+          </Suspense>
+        )}
+      </>
     );
   }
 

@@ -52,6 +52,7 @@ meta:
     - /es/coding-campus/bootcamp-programacion-barcelona-espana
 sections:
   - type: hero
+    section_id: hero-iqhwwh
     version: "1.0"
     variant: singleColumn
     title: Lanza una Carrera Tech Lista para IA en Barcelona
@@ -70,6 +71,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: awards_marquee
+    section_id: awards_marquee-1nbg79
     version: v1.0
     speed: 40
     gradient: true
@@ -110,6 +112,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
+    section_id: banner-02fua0
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
@@ -123,6 +126,7 @@ sections:
     marginY:
       desktop: lg none
   - type: two_column
+    section_id: two_column-94evwr
     proportions:
       - 6
       - 6
@@ -210,6 +214,7 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-7lbz78
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-pdrxol
     variant: image_background
     version: "1.0"
     title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
@@ -229,6 +234,7 @@ sections:
     paddingY:
       desktop: md none
   - type: testimonials_slide
+    section_id: testimonials_slide-snncu8
     title: Caminos Probados hacia Carreras Tech
     description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
     background: bg-sidebar
@@ -262,11 +268,13 @@ sections:
     background: hsl(var(--secondary))
     section_id: split_cards-qyl8t7
   - type: why_learn_ai
+    section_id: why_learn_ai-5f9dhj
     variant: laptop-edge
     title: Por Qué Barcelona es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Un ecosistema tech dinámico y hub líder para startups
     description: "Barcelona tiene un ecosistema tecnológico dinámico y es un centro líder para las startups. La ciudad ha presenciado un rápido crecimiento de la necesidad de conocimientos en programación a medida que la tecnología desempeña un papel cada vez más integral en diversas industrias. Es un mercado con demanda real de talento técnico.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Los bootcamps de programación han surgido como una fuerza impulsora detrás de la promoción del talento en Barcelona</span></li><li>Educación en programación inmersiva y práctica para personas ansiosas por aprender a programar y dejar su huella en el próspero panorama tecnológico de la ciudad</li><li>Fuerte demanda de habilidades en software, IA y datos en sectores como fintech, edtech y tech sostenible</li></ul></div><div>Desde nuestro campus en Barcelona, te conectamos con empleadores locales, eventos tech y el próspero panorama tecnológico de la ciudad—para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"
   - type: mentorship
+    section_id: mentorship-oxs4l1
     version: v1.0
     title: Mentoría y Soporte
     subtitle: Nunca estás solo en tu camino de aprendizaje
@@ -281,6 +289,7 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: mentorship
+    section_id: mentorship-e2bhho
     version: v1.0
     title: Mentoría y Soporte
     subtitle: Nunca estás solo en tu camino de aprendizaje
@@ -295,12 +304,14 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
+    section_id: testimonials-1e9o1u
     version: "1.0"
     title: Historias de Éxito de Graduados de Barcelona
     filter_by_location: barcelona-spain
     marginY:
       desktop: none lg
   - type: testimonials
+    section_id: testimonials-vyjehj
     version: v1.0
     title: Lo que Dicen Nuestros Estudiantes
     subtitle: Escucha directamente de graduados que transformaron sus carreras
@@ -345,6 +356,7 @@ sections:
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
   - type: faq
+    section_id: faq-jwxdu0
     title: Preguntas Frecuentes
     related_features:
       - certification

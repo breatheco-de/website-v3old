@@ -14,6 +14,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-u9x8y8
     version: "1.0"
     variant: singleColumn
     title: Nuestra Historia, en las noticias
@@ -32,6 +33,7 @@ sections:
     paddingY:
       desktop: md none
   - type: press_mentions
+    section_id: press_mentions-b266eb
     version: v1.0
     title: Destacados en prensa
     columns: 3
@@ -74,6 +76,7 @@ sections:
     paddingY:
       desktop: none md
   - type: value_proof_panel
+    section_id: value_proof_panel-z4hasv
     title: Reconocidos globalmente por la excelencia
     subtitle: No solo decimos que cumplimos, el reconocimiento de fuentes confiables lo demuestra.
     evidence_items:
@@ -99,6 +102,7 @@ sections:
     paddingY:
       desktop: md
   - type: awards_marquee
+    section_id: awards_marquee-fbu2lq
     version: v1.0
     speed: 40
     gradient: true
@@ -139,6 +143,7 @@ sections:
     marginY:
       desktop: none lg
   - type: faq
+    section_id: faq-fb7ppw
     title: Preguntas frecuentes
     related_features:
       - outcomes
@@ -146,6 +151,7 @@ sections:
     marginY:
       desktop: none md
   - type: cta_banner
+    section_id: cta_banner-otp2ha
     version: "1.0"
     title: Da el siguiente paso hacia tu carrera en tecnología
     subtitle: Recibe información personalizada del programa y los próximos pasos.
@@ -187,6 +193,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
+    section_id: sticky_cta-uh331m
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora

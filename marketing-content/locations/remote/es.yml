@@ -10,6 +10,7 @@ meta:
     - /es/coding-campus/online-bootcamp-programacion
 sections:
   - type: hero
+    section_id: hero-xsh8l8
     version: "1.0"
     variant: singleColumn
     title: Aprende a programar desde casa
@@ -28,6 +29,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: banner
+    section_id: banner-ughvd7
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
@@ -41,6 +43,7 @@ sections:
     marginY:
       desktop: lg none
   - type: two_column
+    section_id: two_column-83uder
     proportions:
       - 6
       - 6
@@ -128,6 +131,7 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-rgbtgl
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-y3ybck
     variant: image_background
     version: "1.0"
     title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
@@ -147,6 +151,7 @@ sections:
     paddingY:
       desktop: md none
   - type: testimonials_slide
+    section_id: testimonials_slide-id7v6g
     title: Caminos Probados hacia Carreras Tech
     description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
     background: bg-sidebar
@@ -180,11 +185,13 @@ sections:
     background: hsl(var(--secondary))
     section_id: split_cards-ui14iy
   - type: why_learn_ai
+    section_id: why_learn_ai-ay1sn4
     variant: laptop-edge
     title: Por Qué Aprender a Programar con 4Geeks desde Cualquier Lugar
     subtitle: Mentoría ilimitada, comunidad global, resultados reales
     description: Aprende online de verdad—no te decimos 'mira el video y resuélvelo'. En 4Geeks Academy tendrás mentoría 1:1 ilimitada, soporte por chat en vivo 12 horas al día, cientos de ejercicios y videos interactivos, clases en streaming en tiempo real y acceso a nuestra red global de graduados. Cuando aprendes con nosotros en remoto, tienes acceso a nuestra plataforma completa y a cualquiera de nuestras ubicaciones a nivel mundial.
   - type: mentorship
+    section_id: mentorship-8p4k3f
     version: v1.0
     title: Mentoría y Soporte
     subtitle: Nunca estás solo en tu camino de aprendizaje
@@ -199,6 +206,7 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
+    section_id: testimonials-2zauxa
     version: v1.0
     title: Testimonios de Nuestros Graduados
     subtitle: Experiencias que respaldan nuestros resultados.
@@ -245,6 +253,7 @@ sections:
     marginY:
       desktop: none lg
   - type: testimonials
+    section_id: testimonials-z1h8i4
     version: v1.0
     title: Testimonios de Nuestros Graduados
     subtitle: Experiencias que respaldan nuestros resultados.
@@ -289,6 +298,7 @@ sections:
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
   - type: faq
+    section_id: faq-zzyer1
     title: Preguntas Frecuentes
     related_features:
       - certification

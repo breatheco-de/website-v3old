@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: article
+    section_id: article-ksd57j
     content: |
       # Privacy Policy, 4Geeks Academy 
 
@@ -92,6 +93,7 @@ sections:
     show_toc: true
     max_width: xl
   - type: sticky_cta
+    section_id: sticky_cta-1bijgm
     version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now

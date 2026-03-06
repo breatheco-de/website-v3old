@@ -22,6 +22,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-legdp4
     version: "1.0"
     variant: simpleTwoColumn
     title: Ingresa al mundo tech con nuestra Garantía de Empleo*
@@ -39,6 +40,7 @@ sections:
     marginY:
       desktop: none md
   - type: graduates_stats
+    section_id: graduates_stats-u8w8rn
     version: v1.0
     variant: fullBleed
     heading: Resultados que respaldan nuestra Garantía
@@ -90,6 +92,7 @@ sections:
     paddingY:
       desktop: none
   - type: course_selector
+    section_id: course_selector-s6z6iy
     version: "1.0"
     variant: solid
     heading: Programas de carrera con Garantía de Empleo
@@ -168,6 +171,7 @@ sections:
       - tampa-usa
       - toronto-canada
   - type: course_selector
+    section_id: course_selector-tz75gb
     version: "1.0"
     variant: solid
     heading: Programas de carrera con Garantía de Empleo
@@ -245,6 +249,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: features_quad
+    section_id: features_quad-abmlon
     version: "1.0"
     variant: laptopEdge
     heading: ¿Quién es elegible?
@@ -264,6 +269,7 @@ sections:
     paddingY:
       desktop: none
   - type: numbered_steps
+    section_id: numbered_steps-680ulk
     version: "1.0"
     variant: bubbleText
     title: Cómo funciona el reembolso
@@ -282,6 +288,7 @@ sections:
         text: Recibirás tu reembolso completo dentro de los 30 días siguientes a la aprobación de tu solicitud.
         title: Reembolso completo
   - type: features_grid
+    section_id: features_grid-7lporc
     version: "1.0"
     variant: cardHeader
     heading: Garantía de Empleo basada en resultados reales
@@ -297,6 +304,7 @@ sections:
       - icon: ChalkboardTeacher
         text: Formación estructurada con acompañamiento práctico y continuo
   - type: faq
+    section_id: faq-5lon20
     version: "1.0"
     title: Preguntas frecuentes sobre la Garantía de Empleo
     related_features:
@@ -348,6 +356,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-qcdk0z
   - type: sticky_cta
+    section_id: sticky_cta-gh9mvi
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora

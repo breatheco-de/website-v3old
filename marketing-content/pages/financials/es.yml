@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-vu8543
     version: "1.0"
     variant: productShowcase
     title: en Tech, a tu manera
@@ -48,6 +49,7 @@ sections:
     marginY:
       desktop: none md
   - type: features_grid
+    section_id: features_grid-x1e4zc
     version: "1.0"
     variant: stats-text
     title: Resultados profesionales comprobados
@@ -66,6 +68,7 @@ sections:
     paddingY:
       desktop: none
   - type: syllabus
+    section_id: syllabus-9r7g8a
     title: Financia tu carrera tech
     subtitle: Explora caminos de financiación flexibles, desde ahorros upfront hasta planes basados en ingresos, y elige la opción que mejor se adapte a ti.
     modules:
@@ -99,6 +102,7 @@ sections:
       - rome-italy
       - valencia-spain
   - type: syllabus
+    section_id: syllabus-0kd0wb
     title: Financia tu carrera en tecnología
     subtitle: Explora opciones de financiamiento flexibles, desde pago anticipado con descuento hasta planes basados en ingresos, y elige la alternativa que mejor funcione para ti.
     modules:
@@ -132,6 +136,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: syllabus
+    section_id: syllabus-v8nhv0
     title: Financia Tu Carrera en Tecnología
     subtitle: Explora opciones de financiamiento flexibles, desde pago anticipado con descuento hasta planes basados en ingresos, y elige la alternativa que mejor funcione para ti.
     modules:
@@ -165,6 +170,7 @@ sections:
       - tampa-usa
       - toronto-canada
   - type: comparison_table
+    section_id: comparison_table-lm8kfb
     version: "1.0"
     title: BENEFICIOS Y REQUISITOS DE FINANCIAMIENTO EN UN VISTAZO
     subtitle: Entiende los beneficios clave y requisitos de cada camino para elegir con confianza.
@@ -210,6 +216,7 @@ sections:
     paddingY:
       desktop: md none
   - type: course_selector
+    section_id: course_selector-g1u7op
     version: "1.0"
     variant: solid
     heading: Inversión del Programa
@@ -299,6 +306,7 @@ sections:
       - newyork-usa
       - toronto-canada
   - type: course_selector
+    section_id: course_selector-nw28tv
     version: "1.0"
     variant: solid
     heading: Inversión del programa
@@ -388,6 +396,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: course_selector
+    section_id: course_selector-i9wpjy
     version: "1.0"
     variant: solid
     heading: Inversión del programa
@@ -477,6 +486,7 @@ sections:
       - berlin-germany
       - barcelona-spain
   - type: why_learn_ai
+    section_id: why_learn_ai-on6rj7
     variant: laptop-edge
     title: Garantía de Empleo opcional*
     subtitle: Respalda tu resultado profesional con un compromiso más fuerte
@@ -502,6 +512,7 @@ sections:
       - tampa-usa
       - toronto-canada
   - type: testimonials
+    section_id: testimonials-88htt7
     version: v1.0
     title: Lo que dicen nuestros estudiantes
     subtitle: Historias reales de graduados que transformaron sus carreras
@@ -546,6 +557,7 @@ sections:
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
   - type: faq
+    section_id: faq-4oa4x8
     title: Preguntas frecuentes
     related_features:
       - certification
@@ -611,6 +623,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-bqklnj
   - type: sticky_cta
+    section_id: sticky_cta-txqjir
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: {{ global.call_to_action_apply | Aplicar ahora }}

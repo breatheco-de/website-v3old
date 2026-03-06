@@ -51,6 +51,7 @@ meta:
     - /es/coding-campus/bootcamp-programacion-berlin-alemania
 sections:
   - type: hero
+    section_id: hero-x692ox
     version: "1.0"
     variant: singleColumn
     title: Lanza una Carrera Tech Lista para IA en Berlín
@@ -69,6 +70,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: awards_marquee
+    section_id: awards_marquee-n6n3g6
     version: v1.0
     speed: 40
     gradient: true
@@ -109,6 +111,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
+    section_id: banner-bo3iw4
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
@@ -122,6 +125,7 @@ sections:
     marginY:
       desktop: lg none
   - type: two_column
+    section_id: two_column-fdrdkh
     proportions:
       - 6
       - 6
@@ -209,6 +213,7 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-ef10qt
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-t1g9r6
     variant: image_background
     version: "1.0"
     title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
@@ -228,6 +233,7 @@ sections:
     paddingY:
       desktop: md none
   - type: testimonials_slide
+    section_id: testimonials_slide-ig8f5l
     title: Caminos Probados hacia Carreras Tech
     description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
     background: bg-sidebar
@@ -261,11 +267,13 @@ sections:
     background: hsl(var(--secondary))
     section_id: split_cards-fvz3l5
   - type: why_learn_ai
+    section_id: why_learn_ai-fvv0cq
     variant: laptop-edge
     title: Por Qué Berlín es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: El principal hub de startups de Europa con impulso de contratación real
     description: "El ecosistema tecnológico de Berlín ha experimentado una rápida transformación, convirtiendo a la ciudad en un semillero de startups innovadoras. La comunidad de programadores en Berlín ha experimentado una notable expansión, influenciada en gran medida por la creciente demanda de bootcamps de programación.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Bootcamps de programación fomentando una diversa cantera de desarrolladores talentosos</span></li><li>Rápida transformación y expansión del ecosistema tecnológico</li><li>Creciente demanda de conocimientos en programación en todos los sectores</li></ul></div><div>Desde nuestro campus en Berlín, te conectamos con empleadores locales, eventos tech y un ecosistema vibrante para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"
   - type: mentorship
+    section_id: mentorship-lvtd1y
     version: v1.0
     title: Mentoría y Soporte
     subtitle: Nunca estás solo en tu camino de aprendizaje
@@ -280,6 +288,7 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: mentorship
+    section_id: mentorship-my2rr8
     version: v1.0
     title: Mentoría y Soporte
     subtitle: Nunca estás solo en tu camino de aprendizaje
@@ -294,12 +303,14 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
+    section_id: testimonials-wbmgvi
     version: "1.0"
     title: Historias de Éxito de Graduados de Berlín
     filter_by_location: berlin-germany
     marginY:
       desktop: none lg
   - type: testimonials
+    section_id: testimonials-2d1rdv
     version: v1.0
     title: Lo que Dicen Nuestros Estudiantes
     subtitle: Escucha directamente de graduados que transformaron sus carreras
@@ -344,6 +355,7 @@ sections:
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
   - type: faq
+    section_id: faq-aglf11
     title: Preguntas Frecuentes
     related_features:
       - certification

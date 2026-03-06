@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-rr7927
     version: "1.0"
     variant: simpleTwoColumn
     title: Rigobot, your AI Coding Mentor that Feels Like a Friend
@@ -26,6 +27,7 @@ sections:
     paddingY:
       desktop: md
   - type: article
+    section_id: article-7p0tb3
     content: |
       ## Why AI Mentorship Beats Guess-and-Check Coding
 
@@ -85,12 +87,14 @@ sections:
     show_toc: true
     max_width: xl
   - type: faq
+    section_id: faq-7e6v7f
     title: Frequently Asked Questions
     related_features:
       - rigobot
     marginY:
       desktop: none md
   - type: cta_banner
+    section_id: cta_banner-hq2w84
     version: "1.0"
     title: Take the Next Step Toward your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
@@ -130,6 +134,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
+    section_id: sticky_cta-p9kvjx
     version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now

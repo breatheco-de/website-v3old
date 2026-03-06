@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-xfdlsj
     version: "1.0"
     variant: productShowcase
     title: Mentoría en programación potenciada por IA
@@ -40,6 +41,7 @@ sections:
       mobile: none lg
       desktop: md lg
   - type: banner
+    section_id: banner-02lyfn
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
@@ -51,6 +53,7 @@ sections:
     description: El mayor obstáculo al aprender tecnología no es la dificultad, sino quedarse sin apoyo en el momento clave. GeekPAL está siempre disponible para ti, ofreciéndote orientación inmediata cuando la necesitas, para que avances de forma constante y segura.
     background: gradient
   - type: human_and_ai_duo
+    section_id: human_and_ai_duo-03osdk
     version: "1.0"
     heading: "Mentores expertos + IA: Acelera tu aprendizaje en programación"
     description: El aprendizaje en programación es más efectivo cuando la experiencia humana y la IA trabajan en conjunto. En 4Geeks, avanzas con mentoría 1:1 ilimitada y el soporte inteligente de Rigobot, disponibles cuando los necesites.
@@ -96,6 +99,7 @@ sections:
       mobile: sm none
       desktop: md none
   - type: community_support
+    section_id: community_support-0mfcl1
     version: "1.0"
     heading: Aprende acompañado por una comunidad global
     description: 4Geeks es más que un programa; es una red activa de profesionales tech, mentores y geeks que te ayudan a seguir avanzando en tu carrera.
@@ -115,6 +119,7 @@ sections:
     paddingY:
       desktop: none md
   - type: two_column
+    section_id: two_column-irqvgj
     proportions:
       - 12
       - 0
@@ -133,6 +138,7 @@ sections:
     paddingY:
       desktop: lg md
   - type: testimonials_slide
+    section_id: testimonials_slide-mtjqwp
     title: Carreras reales que comenzaron aquí
     description: Descubre cómo nuestros estudiantes alcanzaron sus metas
     marginY:
@@ -140,6 +146,7 @@ sections:
     paddingY:
       desktop: md none
   - type: faq
+    section_id: faq-c63r2t
     title: Preguntas frecuentes
     related_features:
       - mentors-and-teachers
@@ -176,6 +183,7 @@ sections:
     paddingY:
       desktop: none md
   - type: sticky_cta
+    section_id: sticky_cta-mgyr66
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: {{ global.call_to_action_apply | Aplicar ahora }}

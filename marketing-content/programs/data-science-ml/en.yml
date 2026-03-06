@@ -20,6 +20,7 @@ schema:
     - courses:data-science
 sections:
   - type: hero
+    section_id: hero-5v636o
     version: "1.0"
     variant: course
     title: Data Science and Machine Learning
@@ -108,6 +109,7 @@ sections:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
     section_id: apply-modal
   - type: awards_marquee
+    section_id: awards_marquee-izbzaa
     version: v1.0
     speed: 40
     gradient: true
@@ -150,6 +152,7 @@ sections:
     paddingY:
       desktop: none
   - type: features_grid
+    section_id: features_grid-35e8wc
     version: "1.0"
     variant: stats-text
     title: Why Data Science Now?
@@ -164,6 +167,7 @@ sections:
         value: {{ global.salary_data_scientist | 22.000€ }}
         title: Average starting salary for data scientists
   - type: syllabus
+    section_id: syllabus-skzl68
     variant: program-modules
     program_title: Data Science and Machine Learning Program Overview
     program_description: Master the industry-standard toolkit used by modern data teams. Go beyond simple analysis to build production-ready systems—from engineering raw data to deploying the predictive models that companies use to drive innovation and scale.
@@ -240,6 +244,7 @@ sections:
     paddingY:
       desktop: md lg
   - type: ai_learning
+    section_id: ai_learning-gseumb
     variant: feature-tabs
     badge: Why 4Geeks?
     title: How You’ll Learn at 4Geeks
@@ -278,6 +283,7 @@ sections:
     paddingY:
       desktop: md none
   - type: certificate
+    section_id: certificate-nsji8x
     title: Career Outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
@@ -327,6 +333,7 @@ sections:
       mobile: lg
       desktop: none lg
   - type: features_grid
+    section_id: features_grid-s3hije
     variant: highlight
     title: Enroll with a Job Guarantee*
     subtitle: "Need extra peace of mind? Add our optional Job Guarantee for added security&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
@@ -360,6 +367,7 @@ sections:
       - montevideo-uruguay
       - panamacity-panama
   - type: pricing
+    section_id: pricing-sb335o
     version: "1.0"
     variant: product
     title: Tuition & Financing Options
@@ -420,6 +428,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: pricing
+    section_id: pricing-jkomcz
     version: "1.0"
     variant: product
     title: Tuition and Financing Options
@@ -466,6 +475,7 @@ sections:
       - munich-germany
       - rome-italy
   - type: whos_hiring
+    section_id: whos_hiring-hl63dc
     variant: carousel
     title: Top Companies Hiring our Graduates
     subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
@@ -497,6 +507,7 @@ sections:
     paddingY:
       desktop: none
   - type: testimonials
+    section_id: testimonials-50frx2
     title: Your New Career Starts Here
     subtitle: Our programs deliver life-changing results. More than {{ global.global_review_count | 700 }} verified reviews prove it
     rating_summary:
@@ -544,6 +555,7 @@ sections:
     paddingY:
       desktop: md none
   - type: faq
+    section_id: faq-qv66bg
     title: Frequently Asked Questions
     related_features:
       - data-science

@@ -14,6 +14,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-kt7i87
     version: "1.0"
     variant: singleColumn
     title: Mejores bootcamps de programación
@@ -27,6 +28,7 @@ sections:
     paddingY:
       desktop: lg none
   - type: press_mentions
+    section_id: press_mentions-xqo4gb
     version: v1.0
     title: Nuestros premios
     subtitle: Reconocidos globalmente por excelencia en educación tecnológica
@@ -200,6 +202,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-iisf7q
   - type: sticky_cta
+    section_id: sticky_cta-fsumpq
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora

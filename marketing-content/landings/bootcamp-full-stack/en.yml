@@ -22,6 +22,7 @@ schema:
     - courses:full-stack
 sections:
   - type: hero
+    section_id: hero-iyeqt5
     version: "1.0"
     variant: productShowcase
     title: en 4Geeks Academy
@@ -112,6 +113,7 @@ sections:
     paddingY:
       desktop: md none
   - type: syllabus
+    section_id: syllabus-zk9m5o
     variant: program-modules
     program_title: Full Stack with AI Program Overview
     program_description: Learn to build modern, production-ready web applications by mastering frontend and backend development alongside AI. Work with APIs, databases, and intelligent tools to design, develop, and ship real-world software.
@@ -186,6 +188,7 @@ sections:
     paddingY:
       desktop: md
   - type: projects
+    section_id: projects-41ar2f
     title: Learn by Building Real-Life Projects
     subtitle: Build production-ready full stack applications that mirror real software engineering roles and industry workflows.
     items:
@@ -218,6 +221,7 @@ sections:
     paddingY:
       desktop: md sm
   - type: ai_learning
+    section_id: ai_learning-0ccq18
     variant: feature-tabs
     badge: Why 4Geeks?
     title: How You’ll Learn at 4Geeks
@@ -258,6 +262,7 @@ sections:
     paddingY:
       desktop: md none
   - type: certificate
+    section_id: certificate-83yv0c
     title: Career Outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
@@ -311,6 +316,7 @@ sections:
       desktop: lg
     background: hsl(var(--muted))
   - type: pricing
+    section_id: pricing-q9vq4e
     version: "1.0"
     variant: product
     title: Tuition & Financing Options
@@ -370,6 +376,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: pricing
+    section_id: pricing-00v6d9
     version: "1.0"
     variant: product
     title: Tuition and Financing Options
@@ -416,6 +423,7 @@ sections:
       - munich-germany
       - rome-italy
   - type: whos_hiring
+    section_id: whos_hiring-p2och2
     variant: carousel
     title: Top Companies Hiring our Graduates
     subtitle: Our graduates work at global tech companies and high-growth startups worldwide.

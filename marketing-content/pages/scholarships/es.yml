@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-dqr4cb
     version: "1.0"
     variant: simpleTwoColumn
     title: Becas que abren puertas a carreras en tecnología
@@ -31,6 +32,7 @@ sections:
     marginY:
       desktop: md xl
   - type: features_grid
+    section_id: features_grid-1s4ycj
     version: "1.0"
     variant: cardHeader
     heading: Oportunidades de financiamiento disponibles
@@ -48,6 +50,7 @@ sections:
     marginY:
       desktop: none md
   - type: partnership_carousel
+    section_id: partnership_carousel-r4owe6
     variant: split-card
     vertical_cards: true
     version: v1.0
@@ -202,6 +205,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: partnership_carousel
+    section_id: partnership_carousel-l29cft
     variant: split-card
     vertical_cards: true
     version: v1.0
@@ -368,9 +372,11 @@ sections:
       - rome-italy
       - valencia-spain
   - type: testimonials_slide
+    section_id: testimonials_slide-rd1ozm
     title: Donde el apoyo se convierte en oportunidades reales
     description: Nuestros graduados lanzan carreras en roles tecnológicos de alto crecimiento, con más del {{ global.global_job_placement_rate | 84 }}% contratados en los primeros seis meses.
   - type: horizontal_bars
+    section_id: horizontal_bars-iz90ou
     version: "1.0"
     title: Aumento salarial por región
     subtitle: Descubre cómo nuestros graduados aumentan su poder adquisitivo.
@@ -384,6 +390,7 @@ sections:
     marginY:
       desktop: none md
   - type: whos_hiring
+    section_id: whos_hiring-qw04r6
     variant: carousel
     pretitle: Historias de éxito
     title: Empresas que contratan a nuestros graduados
@@ -414,6 +421,7 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
   - type: faq
+    section_id: faq-zy4zfm
     title: Preguntas frecuentes
     related_features:
       - scholarships
@@ -531,6 +539,7 @@ sections:
       - tampa-usa
       - toronto-canada
   - type: faq
+    section_id: faq-ba6kjh
     title: Preguntas frecuentes
     related_features:
       - online-platform
@@ -701,6 +710,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-41yc1l
   - type: sticky_cta
+    section_id: sticky_cta-d7oziw
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora

@@ -19,6 +19,7 @@ schema:
     - courses:data-science
 sections:
   - type: hero
+    section_id: hero-jlzfrx
     version: "1.0"
     variant: course
     title: Ciencia de Datos y Machine Learning
@@ -102,6 +103,7 @@ sections:
       success:
         message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
   - type: awards_marquee
+    section_id: awards_marquee-6oxolr
     version: v1.0
     speed: 40
     gradient: true
@@ -144,6 +146,7 @@ sections:
     paddingY:
       desktop: none
   - type: features_grid
+    section_id: features_grid-w5522p
     version: "1.0"
     variant: stats-text
     title: ¿Por qué Ciencia de Datos ahora?
@@ -158,6 +161,7 @@ sections:
         value: {{ global.salary_data_scientist | 22.000€ }}
         title: Salario inicial promedio para científicos de datos
   - type: syllabus
+    section_id: syllabus-wr3sk5
     variant: program-modules
     program_title: Lo que aprenderás en el programa de ciencia de Datos & Machine Learning
     program_description: Domina el conjunto de herramientas estándar de la industria utilizado por equipos de datos modernos. Ve más allá del análisis simple para construir sistemas listos para producción, desde la ingeniería de datos crudos hasta el despliegue de modelos predictivos que las empresas usan para impulsar la innovación y escalar.
@@ -234,6 +238,7 @@ sections:
     paddingY:
       desktop: md
   - type: ai_learning
+    section_id: ai_learning-kbf2uv
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
     title: El Modelo de aprendizaje 4Geeks
@@ -282,6 +287,7 @@ sections:
     paddingY:
       desktop: md none
   - type: certificate
+    section_id: certificate-x5e6qd
     title: Resultados profesionales
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
     benefits:
@@ -331,6 +337,7 @@ sections:
       mobile: lg
       desktop: none lg
   - type: features_grid
+    section_id: features_grid-1gd8mw
     variant: highlight
     title: Inscríbete con Garantía de Empleo*
     subtitle: "¿Necesitas mayor tranquilidad? Agrega nuestra Garantía de Empleo opcional para mayor seguridad.<div><span style=\"font-size: 0.75rem;\"><span>*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican</a>.</span></span></div>"
@@ -364,6 +371,7 @@ sections:
       - montevideo-uruguay
       - panamacity-panama
   - type: pricing
+    section_id: pricing-6r6wue
     version: "1.0"
     variant: product
     title: Matrícula y opciones de financiamiento
@@ -410,6 +418,7 @@ sections:
       - munich-germany
       - rome-italy
   - type: pricing
+    section_id: pricing-240zru
     version: "1.0"
     variant: product
     title: Matrícula y opciones de financiamiento
@@ -469,6 +478,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: whos_hiring
+    section_id: whos_hiring-7ts6hv
     variant: carousel
     title: Empresas que contratan a nuestros estudiantes
     subtitle: Nuestros graduados trabajan en compañías líderes a nivel global
@@ -500,6 +510,7 @@ sections:
     paddingY:
       desktop: none
   - type: testimonials
+    section_id: testimonials-q929xd
     title: Éxito profesional comprobado
     subtitle: “Más de {{ global.global_total_alumni | 5,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.”
     rating_summary:
@@ -547,6 +558,7 @@ sections:
     paddingY:
       desktop: md none
   - type: faq
+    section_id: faq-1fjtnp
     title: Preguntas frecuentes
     related_features:
       - data-science
@@ -570,6 +582,7 @@ sections:
       desktop: sm md
     background: hsl(var(--muted))
   - type: cta_banner
+    section_id: cta_banner-iahx6n
     version: "1.0"
     title: ¿Listo para iniciar tu carrera en Ciencia de Datos?
     subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
@@ -612,6 +625,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
+    section_id: sticky_cta-g1rrxu
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: {{ global.call_to_action_apply | Aplicar ahora }}

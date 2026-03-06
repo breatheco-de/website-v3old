@@ -14,6 +14,7 @@ schema:
     - website
 sections:
   - type: ai_learning
+    section_id: ai_learning-ad0xo9
     variant: feature-tabs
     badge: Why 4Geeks?
     title: Why Learn with 4Geeks? test test
@@ -30,6 +31,7 @@ sections:
         description: Learning alongside others is more fun and helps you progress faster. Join our active community.
     video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
   - type: dynamic_table
+    section_id: dynamic_table-6v1wka
     version: "1.0"
     endpoint: https://breathecode.herokuapp.com/v1/admissions/cohort/all?upcoming=true&never_ends=false&sort=kickoff_date&limit=50
     data_path: results

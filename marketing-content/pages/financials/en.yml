@@ -14,6 +14,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-7gs05d
     version: "1.0"
     variant: productShowcase
     title: In Tech, Your Way
@@ -51,6 +52,7 @@ sections:
     marginY:
       desktop: none
   - type: features_grid
+    section_id: features_grid-gl0rwp
     version: "1.0"
     variant: stats-text
     title: Proven Career Outcomes
@@ -69,6 +71,7 @@ sections:
     paddingY:
       desktop: none
   - type: syllabus
+    section_id: syllabus-kjl4u8
     title: Fund Your Tech Career
     subtitle: Explore flexible financing paths, from upfront savings to income-based plans, and choose the option that works for you.
     modules:
@@ -102,6 +105,7 @@ sections:
       - tampa-usa
       - toronto-canada
   - type: syllabus
+    section_id: syllabus-o3m29v
     title: Fund Your Tech Career
     subtitle: Explore flexible financing paths, from upfront savings to income-based plans, and choose the option that works for you.
     modules:
@@ -135,6 +139,7 @@ sections:
       - rome-italy
       - valencia-spain
   - type: syllabus
+    section_id: syllabus-acjtnm
     title: Fund Your Tech Career
     subtitle: Explore flexible financing options, from upfront discounted payments to income-based plans, and choose the alternative that works best for you.
     modules:
@@ -168,6 +173,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: comparison_table
+    section_id: comparison_table-08867b
     version: "1.0"
     title: Your Financing Options at a Glance
     subtitle: Understand the key benefits and requirements of each path so you can choose with confidence.
@@ -213,6 +219,7 @@ sections:
     paddingY:
       desktop: md none
   - type: course_selector
+    section_id: course_selector-tvtjvo
     version: "1.0"
     variant: solid
     heading: Program Tuition
@@ -302,6 +309,7 @@ sections:
       - tampa-usa
       - toronto-canada
   - type: course_selector
+    section_id: course_selector-yvk9q6
     version: "1.0"
     variant: solid
     heading: Program Tuition
@@ -391,6 +399,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: course_selector
+    section_id: course_selector-2ms4e5
     version: "1.0"
     variant: solid
     heading: Program Tuition
@@ -480,6 +489,7 @@ sections:
       - berlin-germany
       - barcelona-spain
   - type: why_learn_ai
+    section_id: why_learn_ai-63m5rp
     variant: laptop-edge
     title: Optional Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
@@ -506,6 +516,7 @@ sections:
       - orlando-usa
       - toronto-canada
   - type: testimonials
+    section_id: testimonials-pwxel6
     version: v1.0
     title: What Our Students Say
     subtitle: Real stories from graduates who transformed their careers
@@ -550,6 +561,7 @@ sections:
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
   - type: faq
+    section_id: faq-ffcm64
     title: Frequently Asked Questions
     related_features:
       - price
@@ -584,6 +596,7 @@ sections:
           - quito-ecuador
           - santiago-chile
   - type: cta_banner
+    section_id: cta_banner-sqmld4
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Receive personalized program information and next steps.
@@ -625,6 +638,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
+    section_id: sticky_cta-3e3otq
     version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now

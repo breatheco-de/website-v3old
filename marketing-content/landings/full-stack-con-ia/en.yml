@@ -14,6 +14,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-mltr3n
     variant: ApplyFormProductShowcase
     title: Construye código con IA
     brand_mark:
@@ -85,6 +86,7 @@ sections:
         role: Asistente de Aprendizaje con IA
         image: https://randomuser.me/api/portraits/lego/1.jpg
   - type: awards_marquee
+    section_id: awards_marquee-j1f2dl
     version: v1.0
     speed: 40
     gradient: true
@@ -128,6 +130,7 @@ sections:
       mobile: md
       desktop: none md
   - type: double_cta
+    section_id: double_cta-mqxqyw
     title: Take the Next Step in Your Tech Career
     subtitle: Join thousands of students who have transformed their careers with 4Geeks Academy.
     background: hsl(var(--muted))
@@ -159,6 +162,7 @@ sections:
       cta_variant: secondary
       sub_text: Weekly updates - Unsubscribe anytime - No spam, ever
   - type: double_cta
+    section_id: double_cta-rvsuns
     title: Choose Your Path Into Tech
     subtitle: Whether you're starting from scratch or leveling up, we have the right program for you.
     background: muted
@@ -197,6 +201,7 @@ sections:
       cta_variant: secondary
       sub_text: Scholarships available - Apply to learn more
   - type: profiles_carousel
+    section_id: profiles_carousel-whgyqz
     version: v1.0
     heading: What Our Partners Say
     image_round: true
@@ -231,6 +236,7 @@ sections:
         description: Since 2021 we have been working on full-stack software development programs and on the launch of the first Artificial Intelligence and Machine Learning program in all of Latin America.
         linkedin_url: https://www.linkedin.com/in/anah%C3%AD-lacava-melgratti/
   - type: profiles_carousel
+    section_id: profiles_carousel-aae8ar
     version: v1.0
     heading: Meet the Geeks
     description: Our team is dedicated, highly skilled, and always ready to support you on your journey into tech.
@@ -262,6 +268,7 @@ sections:
         image_id: student_asian
         linkedin_url: https://linkedin.com/in/example
   - type: testimonials_grid
+    section_id: testimonials_grid-ma2pnj
     version: v1.0
     title: What Our Students Say
     subtitle: Real stories from graduates who transformed their careers
@@ -320,6 +327,7 @@ sections:
           type: video
           ratio: "16:9"
   - type: press_mentions
+    section_id: press_mentions-qy02d0
     version: v1.0
     title: Destacados en Prensa
     title_color: hsl(var(--primary))
@@ -360,6 +368,7 @@ sections:
         link_text: Leer Artículo
         link_url: https://example.com/article-5
   - type: course_selector
+    section_id: course_selector-gv5m5x
     version: "1.0"
     heading: Explore Our Programs
     subheading: Choose the career path that's right for you
@@ -428,6 +437,7 @@ sections:
         cta_url: /en/full-stack
         course_background: muted
   - type: partnership_carousel
+    section_id: partnership_carousel-l8fw2w
     variant: split-card
     vertical_cards: true
     version: v1.0
@@ -519,6 +529,7 @@ sections:
           url: /en/uruguay
           variant: outline
   - type: projects
+    section_id: projects-y6zsle
     title: Learn by building **real-life projects**
     subtitle: "When learning at your own pace, having access to video tutorials, code examples, and continuous, real-time feedback is crucial to succeed. The tasks you'll tackle will closely resemble those encountered in a real-world tech position. Here's a glimpse of what you'll be working on:"
     items:
@@ -562,6 +573,7 @@ sections:
         difficulty: easy
         date: 8/2/2023
   - type: project_showcase
+    section_id: project_showcase-iufinp
     version: "1.0"
     project_title: TechConnect
     description: A social networking platform designed specifically fo ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indus ed specifically for tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech indusr tech professionals. Connect with developers, share your projects, find collaborators, and discover job opportunities in the tech industry.
@@ -580,6 +592,7 @@ sections:
     background: bg-muted
     media_position: right
   - type: career_support_explain
+    section_id: career_support_explain-vwfytx
     version: v1.0
     heading: GeekForce Career Support
     description: Our career support program is designed to help you land your first job in tech
@@ -618,6 +631,7 @@ sections:
       - tab_label: Build a portfolio
       - tab_label: Find your edge
   - type: profiles_carousel
+    section_id: profiles_carousel-a0g1wh
     version: v1.0
     heading: Meet the Geeks
     description: Our team is dedicated, highly skilled, and always ready to support you on your journey into tech.
@@ -653,6 +667,7 @@ sections:
         description: Leading curriculum development for AI-driven programs.
         linkedin_url: https://linkedin.com/in/example
   - type: partnership_carousel
+    section_id: partnership_carousel-gdvpt5
     version: v1.0
     heading: Our Global Partnerships
     subtitle: Collaborating with leading institutions to bring coding education worldwide
@@ -722,6 +737,7 @@ sections:
           url: /en/uruguay
           variant: outline
   - type: profiles_carousel
+    section_id: profiles_carousel-j7kv8x
     version: v1.0
     heading: Meet the Geeks
     description: Our team is dedicated, highly skilled, and always ready to support you on your journey into tech. They provide all the guidance and encouragement you need to launch a successful new career.
@@ -767,6 +783,7 @@ sections:
         role: Culture & Talent Leader
         linkedin_url: https://www.linkedin.com/in/ariana-sánchez-7720aa78/
   - type: profiles_carousel
+    section_id: profiles_carousel-p4ksia
     version: v1.0
     heading: Meet the Geeks
     description: Our team is dedicated, highly skilled, and always ready to support you on your journey into tech.
@@ -798,6 +815,7 @@ sections:
         role: Career Coach
         linkedin_url: https://linkedin.com/in/example
   - type: human_and_ai_duo
+    section_id: human_and_ai_duo-0n1gbs
     version: "1.0"
     heading: "Human + AI: The Perfect Support Duo"
     description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll have access to unlimited 1:1 mentorship plus AI-guided feedback from Rigobot, so every step is tailored to your learning journey.
@@ -849,6 +867,7 @@ sections:
     image_alt: Woman working on laptop in cafe
     background: bg-background
   - type: bullet_tabs_showcase
+    section_id: bullet_tabs_showcase-ke1vm5
     version: "1.0"
     heading: Ideate and specify what to build next
     subheading: Transform your ideas into actionable tasks seamlessly
@@ -868,6 +887,7 @@ sections:
         alt: Uber logo
     image_position: right
   - type: features_grid
+    section_id: features_grid-2wopx9
     variant: highlight
     title: Enroll with a Job Guarantee
     subtitle: Need extra peace of mind? Add our optional Job Guarantee for added security.
@@ -882,6 +902,7 @@ sections:
     background: hsl(var(--secondary))
     showOn: mobile
   - type: image_row
+    section_id: image_row-we3cdy
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Asian student learning to code
@@ -896,6 +917,7 @@ sections:
     gap: lg
     rounded: true
   - type: features_grid
+    section_id: features_grid-5quoxk
     variant: highlight
     title: Enroll with a Job Guarantee
     subtitle: Need extra peace of mind? Add our optional Job Guarantee for added security.
@@ -911,6 +933,7 @@ sections:
     background: hsl(var(--secondary))
     showOn: mobile
   - type: features_grid
+    section_id: features_grid-wfps45
     version: "1.0"
     variant: highlight
     title: Key Features
@@ -929,6 +952,7 @@ sections:
     icon_color: "#0097CD"
     showOn: mobile
   - type: features_grid
+    section_id: features_grid-nu0kgs
     version: "1.0"
     variant: highlight
     title: Key Features
@@ -946,6 +970,7 @@ sections:
         value: 5★
         title: Average Rating
   - type: features_quad
+    section_id: features_quad-w1a0ii
     version: "1.0"
     variant: default
     heading: Why Choose Our AI Engineering Program?
@@ -977,6 +1002,7 @@ sections:
     footer_description: Join thousands of graduates who have launched successful tech careers.
     background: bg-background
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-eh2tb5
     version: "1.0"
     title: Why Choose Our Program?
     description: "Learn what makes our bootcamp different:"
@@ -994,6 +1020,7 @@ sections:
     reverse: true
     showOn: mobile
   - type: value_proof_panel
+    section_id: value_proof_panel-9dvk8m
     title: Recognized Globally for Excellence
     subtitle: We don't just say we deliver — recognition from trusted sources proves our worth.
     evidence_items:
@@ -1017,6 +1044,7 @@ sections:
       style: rounded
     background: muted
   - type: ai_learning
+    section_id: ai_learning-47k7dw
     variant: feature-tabs
     badge: Why 4Geeks?
     title: Why Learn with 4Geeks?
@@ -1033,6 +1061,7 @@ sections:
         description: Learning alongside others is more fun and helps you progress faster. Join our active community.
     video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
   - type: two_column
+    section_id: two_column-4mjx5l
     proportions:
       - 5
       - 7
@@ -1059,6 +1088,7 @@ sections:
     reverse_on_mobile: true
     gap: "12"
   - type: community_support
+    section_id: community_support-a52740
     version: "1.0"
     heading: A Global Developer Community Supporting Your Growth
     description: 4Geeks is more than a bootcamp — it's a supportive network of tech pros, mentors, and fellow geeks to keep you moving forward in your career.
@@ -1084,6 +1114,7 @@ sections:
           url: https://4geeks.com
           variant: primary
   - type: ai_learning
+    section_id: ai_learning-tlsw9c
     version: "1.0"
     variant: feature-tabs
     badge: Why 4Geeks?
@@ -1101,6 +1132,7 @@ sections:
         title: Learn with the community
         description: Learning alongside others is more fun and helps you progress faster. Join our active community.
   - type: certificate
+    section_id: certificate-l0184m
     version: v1.0
     title: Certificate & Career Network
     description: Graduate with a recognized certificate and join our global alumni network of over 5,000 developers working at top companies.
@@ -1112,6 +1144,7 @@ sections:
       title: Full Stack Developer
       subtitle: 4Geeks Academy Certificate
   - type: awards_marquee
+    section_id: awards_marquee-spb2xa
     version: v1.0
     speed: 40
     gradient: true
@@ -1152,6 +1185,7 @@ sections:
     paddingY:
       desktop: none lg
   - type: comparison_table
+    section_id: comparison_table-p1q021
     version: "1.0"
     title: How We Compare
     subtitle: See how our approach stacks up against typical alternatives
@@ -1177,6 +1211,7 @@ sections:
           - Fixed
     footer_note: "* Based on industry research"
   - type: faq
+    section_id: faq-v1xnn7
     title: Frequently Asked Questionss
     items:
       - question: Is this program really free?
@@ -1188,6 +1223,7 @@ sections:
     paddingY:
       desktop: lg none
   - type: sticky_cta
+    section_id: sticky_cta-c0pzyv
     version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
@@ -1214,6 +1250,7 @@ sections:
     paddingY:
       desktop: none lg
   - type: features_grid
+    section_id: features_grid-1m1k58
     title: Why AI Engineering Now
     subtitle: The talent ashortage is your opportunity
     items:
@@ -1225,6 +1262,7 @@ sections:
         title: Average starting salary for AI Engineers
     variant: stats-text
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-7w0jms
     version: "1.0"
     title: Why Choose Our Program?
     description: "Learn what makes our bootcamp different:"
@@ -1239,6 +1277,7 @@ sections:
     image_alt: Graduate celebrating success
     reverse: true
   - type: pricing
+    section_id: pricing-r4r9jl
     version: "1.0"
     title: Get access to all of our learning database, courses, and services
     subtitle: Earn new skills every 30 min, never get stuck or lost again.
@@ -1283,6 +1322,7 @@ sections:
     paddingY:
       desktop: lg none
   - type: features_grid
+    section_id: features_grid-1soqcf
     title: Advance Faster, Never Lose Momentum
     subtitle: "The #1 reason people quit when learning to code? Getting stuck. At 4Geeks, we've built a personalized support system where you'll always have someone to help."
     items:
@@ -1302,6 +1342,7 @@ sections:
     columns: 4
     variant: highlight
   - type: stats
+    section_id: stats-w9o0vh
     version: "1.0"
     title: Join 50,000+ Learnerss
     items:
@@ -1312,6 +1353,7 @@ sections:
       - value: 1,500+
         label: Success Stories
   - type: cta_banner
+    section_id: cta_banner-3au2wk
     version: "1.0"
     title: Ready to Transform Your Learning?
     subtitle: Get started today. Limited spots available!
@@ -1323,5 +1365,6 @@ sections:
         url: /contact
         variant: outline
   - type: footer
+    section_id: footer-birmt0
     version: "1.0"
     copyright_text: 2024 4Geeks. All rights reserved.

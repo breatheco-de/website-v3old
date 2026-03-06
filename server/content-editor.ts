@@ -2,6 +2,7 @@ import fs from "fs";
 import yaml from "js-yaml";
 import { escapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import { z } from "zod";
+import { generateSectionId } from "./utils/generateSectionId";
 
 function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
   const { escaped, map } = escapeObjectVars(obj);
@@ -78,10 +79,19 @@ function applyOperation(content: Record<string, unknown>, operation: EditOperati
       const arr = getValueAtPath(content, operation.path) as unknown[];
       if (!Array.isArray(arr)) throw new Error(`Path ${operation.path} is not an array`);
       
+      let insertedIndex: number;
       if (operation.index !== undefined && operation.index >= 0 && operation.index <= arr.length) {
         arr.splice(operation.index, 0, operation.item);
+        insertedIndex = operation.index;
       } else {
         arr.push(operation.item);
+        insertedIndex = arr.length - 1;
+      }
+      if (operation.path === "sections") {
+        const inserted = arr[insertedIndex] as Record<string, unknown>;
+        if (inserted && typeof inserted === "object" && !inserted.section_id) {
+          inserted.section_id = generateSectionId((inserted.type as string) || "section");
+        }
       }
       break;
     }
@@ -105,7 +115,11 @@ function applyOperation(content: Record<string, unknown>, operation: EditOperati
         delete sectionToSave.items;
         delete sectionToSave._dynamic_meta;
       }
+      const existingId = (sections[operation.index] as Record<string, unknown>)?.section_id;
       sections[operation.index] = sectionToSave;
+      if (existingId && !sectionToSave.section_id) {
+        (sections[operation.index] as Record<string, unknown>).section_id = existingId;
+      }
       break;
     }
     
@@ -114,8 +128,10 @@ function applyOperation(content: Record<string, unknown>, operation: EditOperati
       content.sections = (operation.sections as Record<string, unknown>[]).map((sec) => {
         if (sec && typeof sec === "object" && sec.dynamic_entries) {
           const { items: _items, _dynamic_meta: _meta, ...authored } = sec;
+          if (!authored.section_id) authored.section_id = generateSectionId((authored.type as string) || "section");
           return authored;
         }
+        if (!sec.section_id) sec.section_id = generateSectionId((sec.type as string) || "section");
         return sec;
       });
       break;

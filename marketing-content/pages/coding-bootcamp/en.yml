@@ -8,6 +8,7 @@ meta:
     - /coding-bootcamp
 sections:
   - type: hero
+    section_id: hero-mipim9
     version: "1.0"
     variant: simpleTwoColumn
     title: AI-Native Career Programs for High-Demand Tech Roles
@@ -19,6 +20,7 @@ sections:
     paddingY:
       desktop: md
   - type: article
+    section_id: article-ogaixm
     content: |
       # What Is the 4Geeks Academy Coding Bootcamp?
 

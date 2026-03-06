@@ -49,6 +49,7 @@ meta:
     - /es/coding-campus/bootcamp-programacion-santiago
 sections:
   - type: hero
+    section_id: hero-bb2o04
     version: "1.0"
     variant: singleColumn
     title: Lanza tu carrera tech preparada para la era de la IA en Santiago
@@ -67,6 +68,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: awards_marquee
+    section_id: awards_marquee-ak4ra1
     version: v1.0
     speed: 40
     gradient: true
@@ -107,6 +109,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
+    section_id: banner-14t0nu
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
@@ -120,6 +123,7 @@ sections:
     marginY:
       desktop: lg none
   - type: two_column
+    section_id: two_column-lamz6l
     proportions:
       - 6
       - 6
@@ -207,6 +211,7 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-ggfjpb
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-fboieb
     variant: image_background
     version: "1.0"
     title: Todo lo que necesitas para triunfar en una industria impulsada por la IA
@@ -226,10 +231,12 @@ sections:
     paddingY:
       desktop: md none
   - type: testimonials_slide
+    section_id: testimonials_slide-ezy7z3
     title: Caminos Probados hacia Carreras Tech
     description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
     background: bg-sidebar
   - type: split_cards
+    section_id: split_cards-0ke9ey
     variant: primary-left
     primary:
       heading: Apoyo en la Búsqueda Laboral de Por Vida
@@ -245,11 +252,13 @@ sections:
     marginY:
       desktop: none xl
   - type: why_learn_ai
+    section_id: why_learn_ai-qhgno2
     variant: laptop-edge
     title: Por qué Santiago es un lugar estratégico para lanzar tu carrera tech
     subtitle: Un ecosistema tech en auge con momentum real de contratación
     description: Un ecosistema tecnológico en expansión, con oportunidades reales de contratación.<br><br>Santiago ha experimentado un crecimiento sostenido en la demanda de talento en programación y tecnología, impulsado por la digitalización de múltiples industrias. En este contexto, los bootcamps tech se han convertido en una vía efectiva para acelerar la inserción laboral en el sector.<br><div><div><ul><li>Creciente presencia de empresas tecnológicas y multinacionales con operaciones en Chile</li><li>Alta demanda de talento tech en industrias como fintech, retail, salud y startups</li><li>Necesidad creciente de habilidades en desarrollo de software, inteligencia artificial y análisis de datos en toda la región</li></ul></div><div>Desde nuestro campus en Santiago, te conectamos con empleadores locales, eventos de la comunidad tech y un ecosistema dinámico que te ayudará a construir redes profesionales y potenciar tu inserción y crecimiento a largo plazo en tecnología.</div></div>
   - type: mentorship
+    section_id: mentorship-2e7bqk
     version: v1.0
     title: Mentoría y Soporte
     subtitle: Nunca estás solo en tu camino de aprendizaje
@@ -264,6 +273,7 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: mentorship
+    section_id: mentorship-gy0rnh
     version: v1.0
     title: Mentoría y Soporte
     subtitle: Nunca estás solo en tu camino de aprendizaje
@@ -278,12 +288,14 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
+    section_id: testimonials-eiaq2h
     version: "1.0"
     title: Historias de Éxito de Graduados de Santiago
     filter_by_location: santiago-chile
     marginY:
       desktop: none lg
   - type: testimonials
+    section_id: testimonials-b3v25k
     version: v1.0
     title: Graduados que hoy trabajan en tecnología
     subtitle: Únete a miles que han transformado sus carreras
@@ -328,6 +340,7 @@ sections:
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
   - type: faq
+    section_id: faq-0jci42
     title: Preguntas Frecuentes
     related_features:
       - certification

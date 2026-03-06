@@ -4,6 +4,7 @@ meta:
   og_image: {{ single.image }}
 sections:
   - type: hero
+    section_id: hero-cweekr
     version: "1.0"
     variant: singleColumn
     badge: {{ single.category | Blog }}
@@ -13,6 +14,7 @@ sections:
       src: {{ single.image | https://storage.googleapis.com/4geeks-academy-website/media/Group-original_1765419144159.webp }}
     image_full_width: false
   - type: article
+    section_id: article-2i1h11
     show_toc: true
     toc_position: side
     max_width: lg

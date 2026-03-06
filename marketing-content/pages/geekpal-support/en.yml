@@ -16,6 +16,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-ivsy21
     version: "1.0"
     variant: productShowcase
     title: Lifetime Mentorship & AI-Powered Coding Support
@@ -38,6 +39,7 @@ sections:
       mobile: none lg
       desktop: md lg
   - type: banner
+    section_id: banner-7ct56k
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
@@ -49,6 +51,7 @@ sections:
     description: "The #1 reason people quit when learning to code? Getting stuck. GeekPal keeps you moving with support that shows up exactly when you need it."
     background: gradient
   - type: human_and_ai_duo
+    section_id: human_and_ai_duo-zg16oa
     version: "1.0"
     heading: "Human + AI: The Perfect Support Duo"
     description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll progress faster and smarter through unlimited 1:1 mentorship and AI-powered support from Rigobot.
@@ -94,6 +97,7 @@ sections:
       mobile: sm none
       desktop: md none
   - type: community_support
+    section_id: community_support-hnuq6q
     version: "1.0"
     heading: A Global Tech Community to Support your Growth
     description: 4Geeks is more than a program, it's an active network of tech pros, mentors, and fellow geeks that keeps you progressing in your career.
@@ -113,6 +117,7 @@ sections:
     paddingY:
       desktop: none md
   - type: two_column
+    section_id: two_column-wtzzue
     proportions:
       - 12
       - 0
@@ -131,6 +136,7 @@ sections:
     paddingY:
       desktop: lg md
   - type: testimonials_slide
+    section_id: testimonials_slide-rrnpaj
     title: Real Careers Start Here
     description: See how our alumni achieved their goals
     marginY:
@@ -138,6 +144,7 @@ sections:
     paddingY:
       desktop: md none
   - type: faq
+    section_id: faq-zr2zqa
     title: Frequently Asked Questions
     related_features:
       - mentors-and-teachers
@@ -218,6 +225,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-yh5dbf
   - type: sticky_cta
+    section_id: sticky_cta-ycj71c
     version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now

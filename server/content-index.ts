@@ -7,6 +7,7 @@ import { escapeTemplateVars, unescapeObjectVars, escapeObjectVars, unescapeYamlD
 import { deepMerge } from "./utils/deepMerge";
 import { regenerateSectionIds } from "./utils/regenerateSectionIds";
 import { normalizeUrlPattern, getAllConfigs, getFieldMapping } from "./content-types";
+import { regenerateSectionIds } from "./utils/regenerateSectionIds";
 
 export const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
 
@@ -1310,6 +1311,9 @@ class ContentIndex {
 
     const sourceFiles = fs.readdirSync(absSourceDir).filter(f => f.endsWith(".yml") || f.endsWith(".yaml"));
 
+    // First pass: parse all files, strip IDs, apply slug/title — collect for regeneration
+    const parsedFiles: Array<{ file: string; parsed: Record<string, unknown> }> = [];
+
     for (const file of sourceFiles) {
       if (file === "_common.single.yml" || file.startsWith("single.")) continue;
 
@@ -1448,7 +1452,6 @@ class ContentIndex {
     if (Array.isArray(sections)) {
       for (const section of sections) {
         if (section && typeof section === "object") {
-          if ((section as Record<string, unknown>).type === "modal") continue;
           delete (section as Record<string, unknown>).section_id;
         }
       }

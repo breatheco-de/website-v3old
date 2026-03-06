@@ -11,10 +11,12 @@ meta:
 
 sections:
   - type: faq_editor
+    section_id: faq_editor-dp86k5
     version: v1.0
     title: Frequently Asked Questions
     subtitle: Do you have any questions? We may have already answered it in this section.
   - type: sticky_cta
+    section_id: sticky_cta-ipgbbv
     version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now

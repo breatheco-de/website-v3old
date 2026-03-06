@@ -16,6 +16,7 @@ schema:
     - website
 sections:
   - type: dynamic_table
+    section_id: dynamic_table-544ddh
     version: "1.0"
     variant: comparison
     endpoint: https://breathecode.herokuapp.com/v1/admissions/cohort/all?upcoming=true&never_ends=false&sort=kickoff_date&limit=50
@@ -42,6 +43,7 @@ sections:
       label: Apply
       href: /en/apply
   - type: cta_banner
+    section_id: cta_banner-vntwmi
     version: "1.0"
     title: Ready to launch your tech career?
     subtitle: Limited spots available. Start your transformation today.
@@ -77,6 +79,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
+    section_id: sticky_cta-t0g0wj
     version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now

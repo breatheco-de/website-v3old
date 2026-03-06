@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-v9dqc2
     version: "1.0"
     variant: singleColumn
     title: Contact Us
@@ -26,6 +27,7 @@ sections:
       desktop: md sm
     background: hsl(var(--muted))
   - type: contact_us_info
+    section_id: contact_us_info-0hh78p
     version: "1.0"
     title: Cuéntanos sobre ti
     form:
@@ -79,6 +81,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
+    section_id: sticky_cta-4pmi55
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora

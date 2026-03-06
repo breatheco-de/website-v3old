@@ -14,6 +14,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-ygb37z
     version: "1.0"
     variant: simpleTwoColumn
     title: LearnPack Crea enseña aprende
@@ -25,6 +26,7 @@ sections:
     paddingY:
       desktop: md
   - type: article
+    section_id: article-66pvji
     content: |
       ## Por qué LearnPack es clave en 2026
 
@@ -106,6 +108,7 @@ sections:
     show_toc: true
     max_width: xl
   - type: faq
+    section_id: faq-o7ylnr
     title: Preguntas frecuentes
     related_features:
       - learnpack
@@ -154,6 +157,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-9hs26r
   - type: sticky_cta
+    section_id: sticky_cta-k83jhk
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: {{ global.call_to_action_apply | Aplicar ahora }}

@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: article
+    section_id: article-iyyyvk
     content: |
       # 4Geeks Academy Terms and Conditions
 
@@ -50,6 +51,7 @@ sections:
     show_toc: true
     max_width: xl
   - type: sticky_cta
+    section_id: sticky_cta-tuz71t
     version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now

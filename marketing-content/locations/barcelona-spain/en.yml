@@ -12,6 +12,7 @@ meta:
     - /us/coding-campus/coding-bootcamp-barcelona-spain
 sections:
   - type: hero
+    section_id: hero-6x5ch4
     version: "1.0"
     variant: singleColumn
     title: Launch an AI-Ready Tech Career in Barcelona
@@ -30,6 +31,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: awards_marquee
+    section_id: awards_marquee-kfg0nd
     version: v1.0
     speed: 40
     gradient: true
@@ -70,6 +72,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
+    section_id: banner-brcflu
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
@@ -83,6 +86,7 @@ sections:
     marginY:
       desktop: lg none
   - type: two_column
+    section_id: two_column-nfsggy
     proportions:
       - 6
       - 6
@@ -170,6 +174,7 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-1vvgfp
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-2xc0cf
     variant: image_background
     version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
@@ -189,6 +194,7 @@ sections:
     paddingY:
       desktop: md none
   - type: testimonials_slide
+    section_id: testimonials_slide-m5l6al
     title: Proven Paths to Tech Careers
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
     background: bg-sidebar
@@ -210,11 +216,13 @@ sections:
     background: hsl(var(--secondary))
     section_id: split_cards-t3gnli
   - type: why_learn_ai
+    section_id: why_learn_ai-kfolzl
     variant: laptop-edge
     title: Why Barcelona Is a Smart Place to Launch Your Tech Career
     subtitle: A dynamic tech ecosystem and leading startup hub
     description: "Barcelona has a dynamic tech ecosystem and is a leading hub for startups. The city has witnessed a swift rise in the need for coding expertise, as technology plays an increasingly integral role in diverse industries. It's a market with real demand for technical talent.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Coding bootcamps have emerged as a driving force behind talent cultivation in Barcelona</span></li><li>Immersive and hands-on coding education for individuals eager to learn programming and make their mark in the city's tech landscape</li><li>Strong demand for software, AI, and data skills across fintech, edtech, and sustainable tech sectors</li></ul></div><div>From our Barcelona campus, we connect you with local employers, tech events, and the city's flourishing tech landscape—helping you build relationships that support your entry and long-term growth in tech.</div></div>"
   - type: mentorship
+    section_id: mentorship-pufedm
     version: v1.0
     title: Mentorship & Support
     subtitle: You're never alone in your learning journey
@@ -229,6 +237,7 @@ sections:
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
   - type: mentorship
+    section_id: mentorship-ijkwcm
     version: v1.0
     title: Mentorship & Support
     subtitle: You're never alone in your learning journey
@@ -243,12 +252,14 @@ sections:
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
   - type: testimonials
+    section_id: testimonials-i850ft
     version: "1.0"
     title: Barcelona Graduate Success Stories
     filter_by_location: barcelona-spain
     marginY:
       desktop: none lg
   - type: testimonials
+    section_id: testimonials-nqwpdk
     version: v1.0
     title: What Our Students Say
     subtitle: Hear directly from graduates who transformed their careers
@@ -293,6 +304,7 @@ sections:
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
   - type: faq
+    section_id: faq-yuyddk
     title: Frequently Asked Questions
     related_features:
       - certification

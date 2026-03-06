@@ -1,5 +1,6 @@
 sections:
   - type: hero
+    section_id: hero-kygxz1
     version: "1.0"
     variant: ApplyFormProductShowcase
     title: Construye sistemas reales, listos para producción.

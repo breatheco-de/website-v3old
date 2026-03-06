@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-5m2y4d
     version: "1.0"
     variant: singleColumn
     title: Encuentra tu mejor camino en tecnología
@@ -33,6 +34,7 @@ sections:
     paddingY:
       desktop: md none
   - type: comparison_table
+    section_id: comparison_table-9ssv52
     version: "1.0"
     title: ¿Qué Camino Se Adapta Mejor a Ti?
     subtitle: Compara los programas para ver cuál se alinea con tus intereses, fortalezas y metas. Cada bootcamp de 4Geeks te brindará las habilidades, mentoría y apoyo profesional para prosperar en la carrera que elijas.
@@ -145,6 +147,7 @@ sections:
       - tampa-usa
       - toronto-canada
   - type: comparison_table
+    section_id: comparison_table-ww5wmv
     version: "1.0"
     title: ¿Qué camino se adapta mejor a ti?
     subtitle: Compara los programas para ver cuál se alinea con tus intereses, fortalezas y metas. Cada bootcamp de 4Geeks te brindará las habilidades, mentoría y apoyo profesional para prosperar en la carrera que elijas.
@@ -252,6 +255,7 @@ sections:
       - rome-italy
       - valencia-spain
   - type: comparison_table
+    section_id: comparison_table-f6o91l
     version: "1.0"
     title: ¿Qué Camino Se Adapta Mejor a Ti?
     subtitle: Compara los programas para ver cuál se alinea con tus intereses, fortalezas y metas. Cada bootcamp de 4Geeks te brindará las habilidades, mentoría y apoyo profesional para prosperar en la carrera que elijas.
@@ -359,6 +363,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: sticky_cta
+    section_id: sticky_cta-kjqv4c
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: {{ global.call_to_action_apply | Aplicar ahora }}
@@ -396,6 +401,7 @@ sections:
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
   - type: course_selector
+    section_id: course_selector-9hlwf6
     version: "1.0"
     variant: solid
     heading: Inversión del Programa
@@ -496,6 +502,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: course_selector
+    section_id: course_selector-2yos2e
     version: "1.0"
     variant: solid
     heading: Inversión del Programa

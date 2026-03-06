@@ -14,6 +14,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-1dzhwx
     version: '1.0'
     variant: singleColumn
     title: Construyendo carreras en la era de la IA
@@ -29,6 +30,7 @@ sections:
     paddingY:
       desktop: md none
   - type: split_cards
+    section_id: split_cards-4sew7d
     variant: primary-left
     primary_width: narrow
     primary:
@@ -46,6 +48,7 @@ sections:
     marginY:
       desktop: lg none
   - type: features_quad
+    section_id: features_quad-b7t650
     version: '1.0'
     variant: laptopEdge
     heading: Qué nos hace diferentes
@@ -69,6 +72,7 @@ sections:
     paddingY:
       desktop: none
   - type: stats
+    section_id: stats-r34w4a
     version: '1.0'
     items:
       - value: +{{ global.global_total_alumni | 7000 }}
@@ -84,6 +88,7 @@ sections:
     paddingY:
       desktop: none sm
   - type: two_column
+    section_id: two_column-4q8dyy
     proportions:
       - 4
       - 8
@@ -105,6 +110,7 @@ sections:
     paddingY:
       desktop: sm
   - type: awards_marquee
+    section_id: awards_marquee-di0a41
     version: v1.0
     speed: 40
     gradient: true
@@ -149,6 +155,7 @@ sections:
     paddingY:
       desktop: lg none
   - type: whos_hiring
+    section_id: whos_hiring-sfj8fr
     variant: carousel
     title: Empresas que confían en nuestros graduados
     description: |-
@@ -182,6 +189,7 @@ sections:
     marginY:
       desktop: lg none
   - type: profiles_carousel
+    section_id: profiles_carousel-o4egkg
     version: v1.0
     heading: Conoce a los Geeks
     description: Nuestro equipo es dedicado, altamente capacitado y siempre está listo para apoyarte en tu camino hacia la tecnología. Te brindan toda la orientación y motivación que necesitas para lanzar una nueva carrera exitosa.
@@ -220,6 +228,7 @@ sections:
         role: Culture & Talent Leader
         linkedin_url: https://www.linkedin.com/in/ariana-sánchez-7720aa78/
   - type: cta_banner
+    section_id: cta_banner-b9w150
     version: '1.0'
     title: Da el siguiente paso hacia tu carrera en tecnología
     subtitle: Recibe información personalizada del programa y los próximos pasos.
@@ -261,6 +270,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
+    section_id: sticky_cta-9wup64
     version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora

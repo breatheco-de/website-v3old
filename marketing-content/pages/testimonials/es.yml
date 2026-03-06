@@ -14,6 +14,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-21rn0v
     version: "1.0"
     variant: singleColumn
     title: Reseñas reales de graduados de 4Geeks Academy
@@ -35,6 +36,7 @@ sections:
     marginY:
       desktop: none md
   - type: awards_marquee
+    section_id: awards_marquee-qwcfyk
     version: v1.0
     speed: 40
     gradient: true
@@ -75,6 +77,7 @@ sections:
     marginY:
       desktop: md none
   - type: testimonials_grid
+    section_id: testimonials_grid-wocekd
     version: v1.0
     title: Lo que dicen nuestros estudiantes
     subtitle: Alumni de 4Geeks comparten sus experiencias, logros profesionales y cómo el programa les ayudó a entrar en la industria tecnológica.
@@ -88,6 +91,7 @@ sections:
     columns: 3
     background: hsl(var(--background))
   - type: faq
+    section_id: faq-cumj8r
     version: v1.0
     title: Preguntas frecuentes
     related_features:
@@ -137,6 +141,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-kxo25m
   - type: sticky_cta
+    section_id: sticky_cta-csl419
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora

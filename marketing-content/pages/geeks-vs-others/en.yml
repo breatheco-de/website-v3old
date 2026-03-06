@@ -6,7 +6,9 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: 4Geeks vs Other Bootcamps | 4Geeks Academy
-  description: Compare 4Geeks Academy with other coding bootcamps. See why our unlimited mentorship, career support, and proven outcomes set us apart.
+  description: >-
+    Compare 4Geeks Academy with other coding bootcamps. See why our unlimited mentorship, career support, and proven
+    outcomes set us apart.
   redirects:
     - /geeks-vs-others
     - /en/landing/4geeks-vs-others
@@ -16,10 +18,12 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: simpleTwoColumn
     title: 4Geeks Academy vs Other Programs
-    subtitle: See why our graduates succeed in tech. From AI-powered learning and hands-on projects to personalized mentorship and lifetime career support, everything we do is designed to help you launch a thriving career.
+    subtitle: >-
+      See why our graduates succeed in tech. From AI-powered learning and hands-on projects to personalized mentorship
+      and lifetime career support, everything we do is designed to help you launch a thriving career.
     badge: Why 4Geeks stands out
     image:
       src: https://storage.googleapis.com/4geeks-academy-website/media/unsplash_QckxruozjRg_1765395521123.png
@@ -29,10 +33,13 @@ sections:
       desktop: lg
     marginY:
       desktop: none md
+    section_id: hero-ang0zr
   - type: comparison_table
-    version: "1.0"
+    version: '1.0'
     title: Launching Successful Tech Careers in the AI Era
-    subtitle: "We're built to prepare you for success. From an industry-aligned, future-proof curriculum to lifelong mentorship and career support, here’s how 4Geeks stands out:"
+    subtitle: >-
+      We're built to prepare you for success. From an industry-aligned, future-proof curriculum to lifelong mentorship
+      and career support, here’s how 4Geeks stands out:
     columns:
       - name: Feature
       - name: 4Geeks Academy
@@ -79,22 +86,33 @@ sections:
       desktop: none md
     paddingY:
       desktop: md
+    section_id: comparison_table-6fbr0y
   - type: two_column_accordion_card
     variant: image_background
-    version: "1.0"
+    version: '1.0'
     title: Hyperpersonalized Learning & Support that Lasts a Lifetime
-    description: At 4Geeks, we built an entire support system around personalization. And unlike most other programs, it doesn’t end with your first job.
+    description: >-
+      At 4Geeks, we built an entire support system around personalization. And unlike most other programs, it doesn’t
+      end with your first job.
     bullets:
       - heading: Unlimited 1:1 Mentorship
-        text: Access personalized guidance whenever you need it. From debugging code to preparing for senior roles, our mentors support your learning and growth at every stage.
+        text: >-
+          Access personalized guidance whenever you need it. From debugging code to preparing for senior roles, our
+          mentors support your learning and growth at every stage.
       - heading: AI-Powered Learning & Feedback
-        text: Rigobot + LearnPack optimize your learning through personalization, providing instant feedback, guiding you to solve problems efficiently, and tracking your skill development.
+        text: >-
+          Rigobot + LearnPack optimize your learning through personalization, providing instant feedback, guiding you to
+          solve problems efficiently, and tracking your skill development.
       - heading: Lifelong Career Support
-        text: GeekFORCE is designed to get you hired and keep advancing your career. From landing your first role to leveling up, you can access career coaching whenever you need it.
+        text: >-
+          GeekFORCE is designed to get you hired and keep advancing your career. From landing your first role to
+          leveling up, you can access career coaching whenever you need it.
     footer: We've helped more than 7,000 graduates launch successful tech careers.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
+    image: >-
+      https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
+    section_id: two_column_accordion_card-zavu0d
   - type: features_grid
-    version: "1.0"
+    version: '1.0'
     variant: stats-cards
     title: Graduate Success by the Numbers
     subtitle: Our alumni are landing jobs, increasing salaries, and launching tech careers worldwide.
@@ -108,9 +126,13 @@ sections:
         title: Salary increase after graduation
     marginY:
       desktop: md
+    section_id: features_grid-gzqhq7
   - type: testimonials_slide
     title: Real Careers Start Here — Just Ask Our Students
-    description: With 84% of our graduates hired within six months, their stories show how hands-on learning, personalized mentorship, and career support launch careers in tech.
+    description: >-
+      With 84% of our graduates hired within six months, their stories show how hands-on learning, personalized
+      mentorship, and career support launch careers in tech.
+    section_id: testimonials_slide-i66btv
   - type: value_proof_panel
     title: Recognized Globally for Excellence
     subtitle: We don't just say we deliver — recognition from trusted sources proves our worth.
@@ -129,19 +151,22 @@ sections:
         description: Credentials that employers trust and value
     media:
       type: image
-      src: https://4geeksacademy.com/static/0e206e6ab1ae7f4ca09668b2d287baa7/56f2e/alejandrosanchez.webp
+      src: https://old.4geeksacademy.com/static/0e206e6ab1ae7f4ca09668b2d287baa7/56f2e/alejandrosanchez.webp
       alt: Students collaborating in classroom
-      aspect_ratio: "4:3"
+      aspect_ratio: '4:3'
       style: rounded
     background: bg-muted/30
     stacked_header: true
     marginY:
       desktop: none xl
+    section_id: value_proof_panel-1u80sh
   - type: features_quad
-    version: "1.0"
+    version: '1.0'
     variant: default
     heading: Making Tech Careers Accessible
-    description: Tech careers can transform lives and finances should never stand in the way. That’s why we offer some of the most flexible, student-friendly payment and scholarship options in the industry.
+    description: >-
+      Tech careers can transform lives and finances should never stand in the way. That’s why we offer some of the most
+      flexible, student-friendly payment and scholarship options in the industry.
     cards:
       - icon: CurrencyDollar
         title: Affordable tuition
@@ -158,11 +183,21 @@ sections:
     background: hsl(var(--secondary))
     marginY:
       desktop: none xl
+    section_id: features_quad-b9rpp3
   - type: split_cards
     variant: primary-left
     primary:
       heading: Your Career, Guaranteed
-      description: "The strongest proof that we believe in our model? We back it with an optional Job Guarantee*. Most schools promise \"career support.\" At 4Geeks, we promise results: get hired within 9 months, or we refund your tuition in full.&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.&nbsp;&nbsp;<a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem;\"><span><span><span>Terms and conditions apply.</span></span></span></a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 0.875rem;\"></span></span></span></a></div>"
+      description: >-
+        The strongest proof that we believe in our model? We back it with an optional Job Guarantee*. Most schools
+        promise "career support." At 4Geeks, we promise results: get hired within 9 months, or we refund your tuition in
+        full.&nbsp;<div><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all
+        regions.&nbsp;&nbsp;<a
+        href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"
+        style="font-size: 0.875rem;"><span><span><span>Terms and conditions apply.</span></span></span></a></span><a
+        href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"
+        style="font-size: 0.875rem;"><span style="font-size: 1rem;"><span style="font-size: 0.875rem;"><span
+        style="font-size: 0.875rem;"></span></span></span></a></div>
       badge: Results-backed promise
     secondary:
       benefits:
@@ -190,6 +225,7 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
+    section_id: split_cards-dosuzm
   - type: whos_hiring
     variant: carousel
     pretitle: Job Placement
@@ -222,6 +258,7 @@ sections:
         alt: Jooble
     paddingY:
       desktop: none md
+    section_id: whos_hiring-tzyhs7
   - type: faq
     title: Frequently Asked Questions
     related_features:
@@ -255,8 +292,9 @@ sections:
           - santiago-chile
     paddingY:
       desktop: md
+    section_id: faq-zzmei9
   - type: cta_banner
-    version: "1.0"
+    version: '1.0'
     title: Ready to Get Started?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
@@ -295,8 +333,9 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+    section_id: cta_banner-fznwja
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -325,3 +364,4 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
+    section_id: sticky_cta-8xm41u

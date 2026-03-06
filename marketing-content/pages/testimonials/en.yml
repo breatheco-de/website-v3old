@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-ch3r4v
     version: "1.0"
     variant: singleColumn
     title: Real Reviews from 4Geeks Academy Graduates
@@ -36,6 +37,7 @@ sections:
     marginY:
       desktop: none md
   - type: awards_marquee
+    section_id: awards_marquee-v4s6g5
     version: v1.0
     speed: 40
     gradient: true
@@ -76,6 +78,7 @@ sections:
     marginY:
       desktop: md none
   - type: testimonials_grid
+    section_id: testimonials_grid-fwe7od
     version: v1.0
     title: What Our Students Say
     subtitle: 4Geeks alumni share their experiences, career wins, and how the program helped them break into tech.
@@ -89,6 +92,7 @@ sections:
     columns: 3
     background: hsl(var(--background))
   - type: faq
+    section_id: faq-zkzeww
     version: v1.0
     title: Frequently Asked Questions
     related_features:
@@ -96,6 +100,7 @@ sections:
     marginY:
       desktop: none md
   - type: cta_banner
+    section_id: cta_banner-s3c8ka
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
@@ -135,6 +140,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
+    section_id: sticky_cta-790cj6
     version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now

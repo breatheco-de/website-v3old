@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-3iq24c
     version: "1.0"
     variant: singleColumn
     title: Carreras en 4Geeks
@@ -25,6 +26,7 @@ sections:
       alt: Estudiantes programando en computadoras en un aula
     image_full_width: false
   - type: two_column
+    section_id: two_column-id28c8
     proportions:
       - 5
       - 7
@@ -49,6 +51,7 @@ sections:
     paddingY:
       desktop: lg
   - type: faq
+    section_id: faq-rzoxg0
     title: Preguntas Frecuentes
     related_features:
       - mentors-and-teachers
@@ -57,6 +60,7 @@ sections:
     paddingY:
       desktop: lg none
   - type: cta_banner
+    section_id: cta_banner-a9ipci
     version: "1.0"
     title: Contáctanos
     subtitle: Completa el formulario para conocer nuestras posiciones abiertas.
@@ -94,6 +98,7 @@ sections:
     paddingY:
       desktop: lg
   - type: sticky_cta
+    section_id: sticky_cta-opewi9
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora

@@ -9,6 +9,7 @@ meta:
     - /us/coding-campus/online-coding-bootcamp
 sections:
   - type: hero
+    section_id: hero-oz83h7
     version: "1.0"
     variant: singleColumn
     title: Learn To Code Online
@@ -27,6 +28,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: awards_marquee
+    section_id: awards_marquee-4r8wrf
     version: v1.0
     speed: 40
     gradient: true
@@ -67,6 +69,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
+    section_id: banner-727cam
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
@@ -80,6 +83,7 @@ sections:
     marginY:
       desktop: lg none
   - type: two_column
+    section_id: two_column-ju3w80
     proportions:
       - 6
       - 6
@@ -167,6 +171,7 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-t8ms10
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-rwjt2o
     variant: image_background
     version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
@@ -186,6 +191,7 @@ sections:
     paddingY:
       desktop: md none
   - type: testimonials_slide
+    section_id: testimonials_slide-i5wgzg
     title: Proven Paths to Tech Careers
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
     background: bg-sidebar
@@ -207,11 +213,13 @@ sections:
     background: hsl(var(--secondary))
     section_id: split_cards-qtsk5v
   - type: why_learn_ai
+    section_id: why_learn_ai-z8o804
     variant: laptop-edge
     title: Why Learn to Code with 4Geeks from Anywhere
     subtitle: Unlimited mentorship, global community, real results
     description: Learn online the real way—not by being told to 'watch the video and figure it out.' At 4Geeks Academy, you'll get unlimited 1-on-1 mentoring, live chat support 12 hours a day, hundreds of interactive exercises and videos, real-time streaming classes, and access to our global graduate network. When you learn with us remotely, you get access to our full platform and any of our locations worldwide.
   - type: mentorship
+    section_id: mentorship-gavmv3
     version: v1.0
     title: Mentorship & Support
     subtitle: You're never alone in your learning journey
@@ -226,12 +234,14 @@ sections:
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
   - type: testimonials
+    section_id: testimonials-0nbh72
     version: "1.0"
     title: Remote Graduate Success Stories
     filter_by_location: remote
     marginY:
       desktop: none lg
   - type: testimonials
+    section_id: testimonials-2q217k
     version: v1.0
     title: What Our Students Say
     subtitle: Hear directly from graduates who transformed their careers
@@ -276,6 +286,7 @@ sections:
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
   - type: faq
+    section_id: faq-s1desh
     title: Frequently Asked Questions
     related_features:
       - certification

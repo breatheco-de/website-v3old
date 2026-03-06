@@ -21,6 +21,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-24ohep
     variant: showcase
     title: Where AI Careers Are Built.
     subtitle: AI-native programs in AI Engineering, Data Science, Software Development and Cybersecurity for high-demand roles in tech.
@@ -50,6 +51,7 @@ sections:
     paddingY:
       desktop: sm none
   - type: award_badges
+    section_id: award_badges-fxohnc
     version: v1.0
     variant: detailed
     showBorder: false
@@ -75,6 +77,7 @@ sections:
     marginY:
       desktop: none md
   - type: image_row
+    section_id: image_row-z97kqt
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Student learning to code
@@ -99,6 +102,7 @@ sections:
     paddingY:
       desktop: md xl
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-d26z2a
     variant: image_background
     version: "1.0"
     title: Where AI-Powered Learning Meets Lifelong Mentorship
@@ -120,6 +124,7 @@ sections:
     paddingY:
       desktop: none
   - type: features_grid
+    section_id: features_grid-95o7vf
     version: "1.0"
     variant: highlight
     title: Real Outcomes for Our Graduates
@@ -140,6 +145,7 @@ sections:
     marginY:
       desktop: none md
   - type: career_support_explain
+    section_id: career_support_explain-xpc3k2
     version: v1.0
     heading: Get Hired. With Career Support Built for the AI Era.
     description: Our career support program is designed to help you land your first job in tech
@@ -257,6 +263,7 @@ sections:
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
   - type: course_selector
+    section_id: course_selector-ht6wh3
     version: "1.0"
     variant: solid
     heading: Explore Our Programs
@@ -327,6 +334,7 @@ sections:
     paddingY:
       desktop: md lg
   - type: why_learn_ai
+    section_id: why_learn_ai-9pbrek
     variant: laptop-edge
     title: Optional Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
@@ -357,6 +365,7 @@ sections:
       - costa-rica
       - mexicocity-mexico
   - type: testimonials_slide
+    section_id: testimonials_slide-gdqa76
     title: Real Graduates, Real Career Results
     description: See how our graduates transformed their careers with personalized learning and career support.
     background: hsl(var(--card))
@@ -365,6 +374,7 @@ sections:
     paddingY:
       desktop: none
   - type: faq
+    section_id: faq-ra6e9m
     title: Frequently Asked Questions
     related_features:
       - online-platform
@@ -375,6 +385,7 @@ sections:
     paddingY:
       desktop: md none
   - type: cta_banner
+    section_id: cta_banner-y7nw0f
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.

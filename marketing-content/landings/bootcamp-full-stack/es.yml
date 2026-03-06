@@ -23,6 +23,7 @@ schema:
     - courses:full-stack
 sections:
   - type: hero
+    section_id: hero-z6w1i7
     version: "1.0"
     variant: course
     title: Programa de Desarrollo Full Stack con IA
@@ -103,6 +104,7 @@ sections:
       success:
         message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
   - type: awards_marquee
+    section_id: awards_marquee-jiv6ju
     version: v1.0
     speed: 40
     gradient: true
@@ -146,6 +148,7 @@ sections:
     marginY:
       desktop: none md
   - type: why_learn_ai
+    section_id: why_learn_ai-347vba
     variant: laptop-edge
     title: Tu futuro profesional, con garantía*
     subtitle: Respaldamos tu resultado profesional con un compromiso real
@@ -179,6 +182,7 @@ sections:
       - montevideo-uruguay
       - panamacity-panama
   - type: syllabus
+    section_id: syllabus-oklk2y
     variant: program-modules
     program_title: Lo que aprenderás en el programa Full Stack
     program_description: Domina el stack completo de desarrollo web, desde el frontend hasta el backend. Construye aplicaciones listas para producción usando las tecnologías más demandadas que los empleadores buscan.
@@ -253,6 +257,7 @@ sections:
     paddingY:
       desktop: md
   - type: projects
+    section_id: projects-eo7enm
     title: Aprende construyendo proyectos reales
     subtitle: "Las tareas que abordarás se asemejan a las que encontrarás en el mundo laboral real. Aquí tienes un vistazo de lo que trabajarás:"
     items:
@@ -287,6 +292,7 @@ sections:
     paddingY:
       desktop: md sm
   - type: ai_learning
+    section_id: ai_learning-tla7rr
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
     title: Todo lo que necesitas para lanzar tu carrera en tecnología
@@ -325,6 +331,7 @@ sections:
     paddingY:
       desktop: md none
   - type: certificate
+    section_id: certificate-jpmvjb
     title: Resultados profesionales
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
     benefits:
@@ -376,6 +383,7 @@ sections:
       mobile: lg
       desktop: md
   - type: pricing
+    section_id: pricing-ebqpir
     version: "1.0"
     variant: product
     title: Matrícula y opciones de financiamiento
@@ -422,6 +430,7 @@ sections:
       - munich-germany
       - rome-italy
   - type: whos_hiring
+    section_id: whos_hiring-tz4ftz
     variant: carousel
     title: Empresas que contratan a nuestros estudiantes
     subtitle: Nuestros graduados trabajan en compañías líderes a nivel global
@@ -455,6 +464,7 @@ sections:
     paddingY:
       desktop: none
   - type: testimonials
+    section_id: testimonials-d2m23b
     title: Éxito profesional comprobado
     subtitle: Más de {{ global.global_total_alumni | 5,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.
     rating_summary:
@@ -500,6 +510,7 @@ sections:
     paddingY:
       desktop: md
   - type: faq
+    section_id: faq-xkka9s
     title: Preguntas frecuentes
     related_features:
       - full-stack
@@ -523,6 +534,7 @@ sections:
       desktop: md
     background: hsl(var(--muted))
   - type: cta_banner
+    section_id: cta_banner-n01nsj
     version: "1.0"
     title: ¿Listo para convertirte en Desarrollador Full Stack?
     subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
@@ -565,6 +577,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
+    section_id: sticky_cta-a8wk8q
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: {{ global.call_to_action_apply | Aplicar ahora }}

@@ -5,6 +5,7 @@ meta:
 
 sections:
   - type: article
+    section_id: article-631g5w
     show_toc: true
     toc_position: side
     max_width: lg

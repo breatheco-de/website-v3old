@@ -4,6 +4,7 @@ meta:
   robots: index, follow
 sections:
   - type: hero
+    section_id: hero-eaz4qj
     version: "1.0"
     variant: singleColumn
     title: Tu futuro en tecnologia empieza ahora
@@ -14,6 +15,7 @@ sections:
       mobile: sm none
       desktop: lg md
   - type: apply_form
+    section_id: apply_form-s655dh
     version: "1.0"
     hero:
       title: Tu Futuro en Tech Comienza Aquí

@@ -12,6 +12,7 @@ meta:
 
 sections:
   - type: hero
+    section_id: hero-uzrcut
     variant: simpleTwoColumn
     version: "1.0"
     title: "Component Test Page"
@@ -19,6 +20,7 @@ sections:
     badge: "Development Only"
 
   - type: split_cards
+    section_id: split_cards-uwnovs
     variant: primary-left
     primary:
       badge: "AI-Powered Learning"
@@ -47,6 +49,7 @@ sections:
         - text: "Secure your career for the future"
 
   - type: split_cards
+    section_id: split_cards-8j8hqp
     variant: primary-right
     background: muted
     primary:
@@ -59,6 +62,7 @@ sections:
         - text: "Career support that never expires"
 
   - type: partnership_carousel
+    section_id: partnership_carousel-fomznl
     heading: "Our Global Partnerships"
     subtitle: "Collaborating with leading institutions to bring coding education worldwide"
     slides:
@@ -117,6 +121,7 @@ sections:
           variant: outline
 
   - type: career_support_explain
+    section_id: career_support_explain-fc3a20
     heading: "GeekForce Career Support"
     description: "Our career support program is designed to help you land your first job in tech"
     tabs:
@@ -149,6 +154,7 @@ sections:
       - tab_label: "Find your edge"
 
   - type: double_cta
+    section_id: double_cta-k870qe
     title: "Take the Next Step in Your Tech Career"
     subtitle: "Join thousands of students who have transformed their careers with 4Geeks Academy. Get personalized guidance and stay updated with the latest in tech."
     left:
@@ -180,6 +186,7 @@ sections:
       sub_text: "Weekly updates - Unsubscribe anytime - No spam, ever"
 
   - type: profiles_carousel
+    section_id: profiles_carousel-o4nu06
     heading: "Meet the Geeks"
     description: "Our team is dedicated, highly skilled, and always ready to support you on your journey into tech. They provide all the guidance and encouragement you need to launch a successful new career."
     image_round: false

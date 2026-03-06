@@ -9,6 +9,7 @@ meta:
     - /us/coding-campus/europe-online-coding-bootcamp
 sections:
   - type: hero
+    section_id: hero-mykuka
     version: "1.0"
     variant: singleColumn
     title: Learn To Code in Europe
@@ -27,6 +28,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: awards_marquee
+    section_id: awards_marquee-f1xw0i
     version: v1.0
     speed: 40
     gradient: true
@@ -67,6 +69,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
+    section_id: banner-6091oe
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
@@ -80,6 +83,7 @@ sections:
     marginY:
       desktop: lg none
   - type: two_column
+    section_id: two_column-f0kx0l
     proportions:
       - 6
       - 6
@@ -167,6 +171,7 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-i7pdmx
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-eecppy
     variant: image_background
     version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
@@ -186,6 +191,7 @@ sections:
     paddingY:
       desktop: md none
   - type: testimonials_slide
+    section_id: testimonials_slide-dzbu7t
     title: Proven Paths to Tech Careers
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
     background: bg-sidebar
@@ -207,11 +213,13 @@ sections:
     background: hsl(var(--secondary))
     section_id: split_cards-29s4xy
   - type: why_learn_ai
+    section_id: why_learn_ai-vbagri
     variant: laptop-edge
     title: Why Learn to Code with 4Geeks in Europe
     subtitle: All programs are taught online, hybrid, or in person
     description: Learning to code online is challenging—but not alone. Join our European community and get support to learn and to land a job for life. When you learn with 4Geeks online in Europe, you get access to our full platform and any of our locations worldwide.
   - type: mentorship
+    section_id: mentorship-izc4ar
     version: v1.0
     title: Mentorship & Support
     subtitle: You're never alone in your learning journey
@@ -226,12 +234,14 @@ sections:
         title: Tailor-Made Career Support
         description: Customized advice, guidance, and training based on each job opportunity and your unique profile.
   - type: testimonials
+    section_id: testimonials-kyhytz
     version: "1.0"
     title: Europe Graduate Success Stories
     filter_by_location: rest-of-europe
     marginY:
       desktop: none lg
   - type: testimonials
+    section_id: testimonials-7rry6o
     version: v1.0
     title: What Our Students Say
     subtitle: Hear directly from graduates who transformed their careers
@@ -276,6 +286,7 @@ sections:
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
   - type: faq
+    section_id: faq-wctzq1
     title: Frequently Asked Questions
     related_features:
       - certification

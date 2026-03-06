@@ -54,6 +54,7 @@ meta:
     - /us/coding-campus/coding-bootcamp-miami
 sections:
   - type: hero
+    section_id: hero-e7kqb0
     version: "1.0"
     variant: singleColumn
     title: Launch an AI-Ready Tech Career in Miami
@@ -72,6 +73,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: awards_marquee
+    section_id: awards_marquee-fqza2v
     version: v1.0
     speed: 40
     gradient: true
@@ -112,6 +114,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
+    section_id: banner-gu1brb
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
@@ -125,6 +128,7 @@ sections:
     marginY:
       desktop: lg none
   - type: two_column
+    section_id: two_column-cdb86q
     proportions:
       - 6
       - 6
@@ -217,6 +221,7 @@ sections:
     background: hsl(var(--muted))
     section_id: course_selector-0lgvpc
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-quibap
     variant: image_background
     version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
@@ -236,10 +241,12 @@ sections:
     paddingY:
       desktop: md none
   - type: testimonials_slide
+    section_id: testimonials_slide-3fijc0
     title: Proven Paths to Tech Careers
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
     background: bg-sidebar
   - type: split_cards
+    section_id: split_cards-k4v0l0
     variant: primary-left
     primary:
       heading: The Confidence of a Job Guarantee*
@@ -256,11 +263,13 @@ sections:
     marginY:
       desktop: none xl
   - type: why_learn_ai
+    section_id: why_learn_ai-itu7b0
     variant: laptop-edge
     title: Why Miami Is a Smart Place to Launch Your Tech Career
     subtitle: A fast-growing tech ecosystem with real hiring momentum
     description: "Miami is one of the fastest-growing tech hubs in the U.S., with companies actively hiring across software, AI, and data roles. It’s a market with real demand for technical talent.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Miami ranks 4th in the U.S. for tech job growth, signaling strong and sustained hiring demand&nbsp;&nbsp;</span></li><li>Recognized among the top 30 global startup ecosystems, with rapid growth in venture capital and company relocations&nbsp;&nbsp;</li><li>Strong demand for software, AI, and data skills across fintech, healthcare, logistics, and emerging tech sectors&nbsp;&nbsp;</li></ul></div><div>Located in Brickell, our Miami campus connects you with local employers, hiring partners, and tech events, so you build relationships that support your entry and&nbsp; long-term growth in tech.</div></div>"
   - type: mentorship
+    section_id: mentorship-gje87e
     version: v1.0
     title: Mentorship & Support
     subtitle: You're never alone in your learning journey
@@ -275,6 +284,7 @@ sections:
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
   - type: mentorship
+    section_id: mentorship-f65vnw
     version: v1.0
     title: Mentorship & Support
     subtitle: You're never alone in your learning journey
@@ -289,12 +299,14 @@ sections:
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
   - type: testimonials
+    section_id: testimonials-t4jjg5
     version: "1.0"
     title: Miami Graduate Success Stories
     filter_by_location: miami-usa
     marginY:
       desktop: none lg
   - type: testimonials
+    section_id: testimonials-cz4m7i
     version: v1.0
     title: What Our Students Say
     subtitle: Real stories from graduates who transformed their careers
@@ -339,6 +351,7 @@ sections:
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
   - type: faq
+    section_id: faq-etpl4v
     title: Frequently Asked Questions
     related_features:
       - certification

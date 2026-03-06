@@ -1,5 +1,6 @@
 sections:
   - type: hero
+    section_id: hero-nzp28x
     version: "1.0"
     variant: productShowcase
     title: en 4Geeks Academy.
@@ -162,6 +163,7 @@ sections:
     paddingY:
       desktop: none
   - type: awards_marquee
+    section_id: awards_marquee-kelzv8
     version: v1.0
     speed: 40
     gradient: true
@@ -202,6 +204,7 @@ sections:
     marginY:
       desktop: none lg
   - type: geeks_vs_others_comparison
+    section_id: geeks_vs_others_comparison-0w9570
     version: "1.0"
     title: ¿Qué diferencia a nuestro bootcamp de programación de los demás?
     columns:
@@ -235,6 +238,7 @@ sections:
     paddingY:
       desktop: none
   - type: features_grid
+    section_id: features_grid-rhx89j
     version: "1.0"
     variant: detailed
     title: Objetivos de nuestra academia
@@ -263,6 +267,7 @@ sections:
     marginY:
       desktop: none lg
   - type: cards_deck
+    section_id: cards_deck-8jlm80
     version: "1.0"
     heading: Historias reales de cambios de carrera
     subtitle: Miles de graduados han utilizado nuestros programas para entrar en el mundo de la tecnología. Estas son solo algunas de sus historias, desde aumentos salariales hasta reinvenciones completas de carrera.
@@ -292,6 +297,7 @@ sections:
         description: Jonathan comparte cómo el programa le ayudó a ganar confianza y crear proyectos desde cero.
         alt: Geekpal
   - type: testimonials
+    section_id: testimonials-tdlkrd
     version: v1.0
     title: Testimonios de Nuestros Graduados
     subtitle: Experiencias que respaldan nuestros resultados.
@@ -338,11 +344,9 @@ sections:
     marginY:
       desktop: lg
   - type: whos_hiring
-    version: v1.0
     variant: carousel
-    pretitle: Customer Stories
-    title: Trusted by the world's most innovative companies
-    subtitle: See how 4Geeks empowers graduates of all backgrounds to accelerate their career growth.
+    title: Empresas que contratan a nuestros estudiantes
+    subtitle: Nuestros graduados trabajan en compañías líderes a nivel global
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
@@ -368,8 +372,11 @@ sections:
         alt: Neo9
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
+    section_id: whos_hiring-ed05rj
     marginY:
-      desktop: none lg
+      desktop: none md
+    paddingY:
+      desktop: none
   - type: cta_banner
     version: "1.0"
     title: Rellena el formulario y obtén más información
@@ -397,7 +404,6 @@ sections:
         phone:
           visible: true
           required: true
-          default_country: VE
           placeholder: Teléfono
         program:
           visible: false
@@ -412,6 +418,7 @@ sections:
       button_className: bg-primary border-white
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
+    section_id: cta_banner-n4bqol
     marginY:
       mobile: md none
       desktop: md none

@@ -14,6 +14,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-v7sevy
     version: "1.0"
     variant: simpleTwoColumn
     title: Rigobot, tu mentor de programación con IA que te acompaña en cada paso
@@ -25,6 +26,7 @@ sections:
     paddingY:
       desktop: md
   - type: article
+    section_id: article-bs3kd5
     content: |
       ## Por qué la mentoría con IA supera el método de prueba y error
 
@@ -84,6 +86,7 @@ sections:
     show_toc: true
     max_width: xl
   - type: faq
+    section_id: faq-ierxt4
     title: Preguntas frecuentes
     related_features:
       - rigobot
@@ -132,6 +135,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-yjaogr
   - type: sticky_cta
+    section_id: sticky_cta-smv82h
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: {{ global.call_to_action_apply | Aplicar ahora }}

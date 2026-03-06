@@ -13,6 +13,7 @@ schema:
     - website
 sections:
   - type: listing_cards
+    section_id: listing_cards-nuobzr
     title: Blog
     sub_heading: Articles, tutorials and news about coding and technology
     layout:

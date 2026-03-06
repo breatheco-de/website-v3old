@@ -53,6 +53,7 @@ meta:
     - /es/coding-campus/bootcamp-programacion-madrid
 sections:
   - type: hero
+    section_id: hero-y4y0k6
     version: "1.0"
     variant: singleColumn
     title: Lanza una carrera Tech lista para IA en Madrid
@@ -71,6 +72,7 @@ sections:
       desktop: md none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: awards_marquee
+    section_id: awards_marquee-gjw3mg
     version: v1.0
     speed: 40
     gradient: true
@@ -107,6 +109,7 @@ sections:
     marginY:
       desktop: lg none
   - type: banner
+    section_id: banner-o4mfct
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
@@ -120,6 +123,7 @@ sections:
     marginY:
       desktop: lg none
   - type: two_column
+    section_id: two_column-3t8cjs
     proportions:
       - 6
       - 6
@@ -207,6 +211,7 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-0yz19z
   - type: two_column_accordion_card
+    section_id: two_column_accordion_card-2xah19
     variant: image_background
     version: "1.0"
     title: Todo lo que necesitas para triunfar en una industria impulsada por IA
@@ -226,6 +231,7 @@ sections:
     paddingY:
       desktop: md none
   - type: testimonials_slide
+    section_id: testimonials_slide-j4b9ms
     title: Caminos probados hacia carreras tech
     description: Estos journeys de estudiantes muestran cómo el aprendizaje estructurado, soporte impulsado por IA y coaching experto llevan a resultados reales.
     background: bg-sidebar
@@ -259,11 +265,13 @@ sections:
       - toronto-canada
     section_id: split_cards-cysz0z
   - type: why_learn_ai
+    section_id: why_learn_ai-bjamed
     variant: laptop-edge
     title: Por qué Madrid es el lugar para lanzar tu carrera tech
     subtitle: El ecosistema emergente de startups nº 1 de Europa
     description: "Madrid se ha consolidado como la capital tech indiscutible de España, superando a Barcelona por primera vez en número total de empresas tech, startups y scaleups. Con más de 2.100 startups tech y un ecosistema valorado en 44.000 millones de euros, la ciudad ofrece oportunidades únicas para desarrolladores que entran al mercado.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Madrid concentra el 47% de todos los empleos tech de España, con más de 25.000 plazas de desarrollador sin cubrir en todo el país&nbsp;&nbsp;</span></li><li>Ocupa el puesto nº 1 globalmente como ecosistema emergente de startups según Startup Genome, y nº 3 en Europa en densidad de talento de ingeniería&nbsp;&nbsp;</li><li>Fuerte demanda de habilidades en software, IA y datos en fintech, ciberseguridad, travel tech y software empresarial&nbsp;&nbsp;</li></ul></div><div>Ubicado en el corazón de la ciudad, nuestro campus de Madrid te conecta con empleadores locales, socios de contratación y eventos tech a través de South Summit, Google Campus Madrid y una red vibrante de aceleradoras y fondos de inversión.</div></div>"
   - type: mentorship
+    section_id: mentorship-fn5mxe
     version: v1.0
     title: Mentoría y Soporte
     subtitle: Nunca estás solo en tu camino de aprendizaje
@@ -278,12 +286,14 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
+    section_id: testimonials-78wcrv
     version: "1.0"
     title: Historias de Éxito de Graduados de Madrid
     filter_by_location: madrid-spain
     marginY:
       desktop: none lg
   - type: testimonials
+    section_id: testimonials-3stg1o
     version: v1.0
     title: Lo que Dicen Nuestros Estudiantes
     subtitle: Escucha directamente de graduados que transformaron sus carreras
@@ -328,6 +338,7 @@ sections:
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
   - type: faq
+    section_id: faq-9w7vzc
     title: Preguntas frecuentes
     related_features:
       - certification

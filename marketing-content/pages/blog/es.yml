@@ -16,6 +16,7 @@ schema:
 
 sections:
   - type: listing_cards
+    section_id: listing_cards-vj452p
     title: "Blog"
     sub_heading: "Artículos, tutoriales y noticias sobre programación y tecnología"
     layout:

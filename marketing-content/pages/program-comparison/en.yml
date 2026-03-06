@@ -9,12 +9,14 @@ meta:
   description: program comparison - Learn more about this topic at 4Geeks Academy.
   redirects:
     - /program-comparison
+    - /compare-programs
 schema:
   include:
     - organization
     - website
 sections:
   - type: comparison_table
+    section_id: comparison_table-7id0o1
     version: "1.0"
     title: Which Path Fits You Best?
     subtitle: Compare programs to see which one aligns with your interests, strengths, and goals. Every 4Geeks bootcamp will equip you with the skills, mentorship, and career support to thrive in the career of your choice.
@@ -129,6 +131,7 @@ sections:
       - tampa-usa
       - toronto-canada
   - type: hero
+    section_id: hero-fzh5wv
     version: "1.0"
     variant: singleColumn
     title: Find Your Best Path Into Tech
@@ -147,6 +150,7 @@ sections:
     paddingY:
       desktop: md none
   - type: comparison_table
+    section_id: comparison_table-yc3tsf
     version: "1.0"
     title: Which path fits you best?
     subtitle: Compare programs to see which one aligns with your interests, strengths, and goals. Every 4Geeks bootcamp will equip you with the skills, mentorship, and career support to thrive in the career of your choice.
@@ -256,6 +260,7 @@ sections:
       - rome-italy
       - valencia-spain
   - type: comparison_table
+    section_id: comparison_table-0yx5qx
     version: "1.0"
     title: Which Path Fits You Best?
     subtitle: Compare programs to see which one aligns with your interests, strengths, and goals. Every 4Geeks bootcamp will equip you with the skills, mentorship, and career support to thrive in the career of your choice.
@@ -323,7 +328,7 @@ sections:
           - Monthly plans, upfront discounts, and loans.
       - feature: Best For You If
         values:
-          - "You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs."
+          - 'You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs.'
           - You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break into AI or data-driven roles. A math or business background helps, but is not required.
           - You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or compliance work, or dream of working in IT security, law enforcement, or defense.
       - feature: Ready to start?
@@ -365,10 +370,11 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: course_selector
+    section_id: course_selector-w8db5w
     version: "1.0"
     variant: solid
     heading: Program Tuition
-    subheading: "<span style=\"font-size: 1.125rem;\">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
+    subheading: '<span style="font-size: 1.125rem;">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all regions.<span style="color: hsl(var(--primary));"> <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span><a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></span></div>'
     courses:
       - name: AI Engineering
         icon: Brain
@@ -465,6 +471,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: course_selector
+    section_id: course_selector-qbqdzx
     version: "1.0"
     variant: solid
     heading: Program tuition
@@ -554,6 +561,7 @@ sections:
       - rome-italy
       - valencia-spain
   - type: cta_banner
+    section_id: cta_banner-uhjj0i
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
@@ -593,6 +601,7 @@ sections:
     paddingY:
       desktop: md
   - type: sticky_cta
+    section_id: sticky_cta-c53354
     version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now

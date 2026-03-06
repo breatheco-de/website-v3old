@@ -15,6 +15,7 @@ schema:
     - website
 sections:
   - type: hero
+    section_id: hero-1eh0d4
     variant: productShowcase
     title: Career coaching ilimitado
     subtitle: para impulsar tu carrera en tecnología
@@ -69,6 +70,7 @@ sections:
     marginY:
       desktop: none sm
   - type: career_support_explain
+    section_id: career_support_explain-q2psrx
     version: v1.0
     heading: Consigue empleo. Con soporte de carrera para la era de la IA
     description: Nuestro programa de soporte de carrera está diseñado para ayudarte a conseguir tu primer empleo en tecnología
@@ -186,6 +188,7 @@ sections:
             description: Melanie es una joven profesional que soñaba con lograr la vida que ahora tiene. Es una desarrolladora de software ingeniosa y comprometida trabajando en una empresa de software en su país natal.
             achievement: Logró un aumento salarial del 100%.
   - type: graduates_stats
+    section_id: graduates_stats-w0h8h4
     heading: Colocación laboral
     subheading: Convertimos tu educación en empleo. Mira el impacto real de nuestro acompañamiento.
     stats:
@@ -209,6 +212,7 @@ sections:
         col_span: 6
         row_span: 2
   - type: numbered_steps
+    section_id: numbered_steps-8yabrw
     version: "1.0"
     variant: bubbleText
     title: Consigue empleo con nuestro proceso de desarrollo de carrera en 3 pasos
@@ -236,6 +240,7 @@ sections:
     paddingY:
       desktop: none
   - type: whos_hiring
+    section_id: whos_hiring-lbbdgs
     variant: carousel
     title: Principales empresas tecnológicas que contratan graduados de 4Geeks
     description: Los graduados de 4Geeks son contratados por compañías líderes en tecnología y equipos innovadores en ingeniería de IA, desarrollo de software, ciencia de datos y ciberseguridad.
@@ -267,6 +272,7 @@ sections:
     paddingY:
       desktop: sm none
   - type: why_learn_ai
+    section_id: why_learn_ai-8b0066
     variant: laptop-edge
     title: Tu futuro profesional, con garantía*
     subtitle: Respaldamos tu resultado profesional con un compromiso real
@@ -300,9 +306,11 @@ sections:
       - montevideo-uruguay
       - panamacity-panama
   - type: testimonials_slide
+    section_id: testimonials_slide-fckony
     title: Las historias detrás de las estadísticas
     description: Descubre cómo nuestros egresados transformaron sus carreras
   - type: faq
+    section_id: faq-vfz7r2
     title: Preguntas frecuentes
     related_features:
       - career-support
@@ -509,6 +517,7 @@ sections:
     background: hsl(var(--primary))
     section_id: cta_banner-jximhl
   - type: sticky_cta
+    section_id: sticky_cta-30tesi
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: {{ global.call_to_action_apply | Aplicar ahora }}

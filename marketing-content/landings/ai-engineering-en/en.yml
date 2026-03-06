@@ -9,6 +9,7 @@ meta:
     - /campaign/ai-engineer
 sections:
   - type: hero
+    section_id: hero-n55vo7
     version: "1.0"
     variant: ApplyFormProductShowcase
     title: Thrive in Today’s Tech and Shape Tomorrow’s.
@@ -69,6 +70,7 @@ sections:
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
   - type: sticky_cta
+    section_id: sticky_cta-x7fhrp
     version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
@@ -97,6 +99,7 @@ sections:
       success:
         message: Thanks! We'll be in touch within 24 hours.
   - type: awards_marquee
+    section_id: awards_marquee-mc1p9l
     version: "1.0"
     speed: 40
     gradient: true
@@ -150,6 +153,7 @@ sections:
       mobile: none lg
       desktop: none lg
   - type: features_grid
+    section_id: features_grid-o2kd1x
     version: "1.0"
     variant: stats-text-card
     title: Why AI Engineering Now
@@ -171,6 +175,7 @@ sections:
       desktop: none md
     background: hsl(210 100% 50% / 0.05)
   - type: syllabus
+    section_id: syllabus-4klheu
     variant: program-modules
     program_title: What You'll Build in 24 Weeks
     program_description: From day one, you'll choose one company. Yours, one you want to build, or one you want to reimagine. Over the course of 10 milestones, you'll transform it into a fully operational, AI-powered business.
@@ -316,6 +321,7 @@ sections:
       mobile: lg none
       desktop: lg none
   - type: ai_learning
+    section_id: ai_learning-96yuqs
     badge: Why 4Geeks?
     title: Why Learn AI Engineering with 4Geeks?
     description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.
@@ -362,6 +368,7 @@ sections:
       mobile: lg none
       desktop: lg none
   - type: certificate
+    section_id: certificate-codmci
     title: Career Outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
@@ -415,6 +422,7 @@ sections:
       desktop: lg
     background: hsl(var(--muted))
   - type: pricing
+    section_id: pricing-8pb379
     version: "1.0"
     variant: product
     title: Finance Your Investment
@@ -460,6 +468,7 @@ sections:
       mobile: lg none
       desktop: lg none
   - type: whos_hiring
+    section_id: whos_hiring-oz1gpy
     variant: carousel
     title: Trusted by Leading Innovators
     subtitle: Our graduates are hired by top employers.
@@ -495,6 +504,7 @@ sections:
       mobile: lg none
       desktop: lg none
   - type: bullet_tabs_showcase
+    section_id: bullet_tabs_showcase-7bd03u
     version: "1.0"
     heading: Is This Program Right for You?
     tabs:
@@ -521,6 +531,7 @@ sections:
       mobile: none
       desktop: none
   - type: testimonials
+    section_id: testimonials-404m72
     title: Real Results from Real Graduates
     subtitle: Join thousands who've transformed their careers
     rating_summary:
@@ -546,6 +557,7 @@ sections:
         comment: Excellent content and great mentor support. Now I'm working on cutting-edge AI.
         outcome: +100% salary increase
   - type: cta_banner
+    section_id: cta_banner-nw5mm6
     version: "1.0"
     title: Ready to Become an AI Engineer?
     subtitle: Limited spots available. Start your transformation today.
@@ -592,6 +604,7 @@ sections:
       mobile: lg
       desktop: lg
   - type: footer
+    section_id: footer-frz6kz
     version: "1.0"
     copyright_text: 2024 4Geeks. All rights reserved.
     paddingY:
