@@ -203,7 +203,7 @@ export function HeroProductShowcase({
               )}
 
               {data.brand_mark && (
-                <h1 className="font-heading text-h1 tracking-tight">
+                <h1 className="font-heading text-4xl md:text-h1 tracking-tight">
                   {data.brand_mark.prefix && (
                     <span className="text-foreground">
                       {data.brand_mark.prefix}{" "}
@@ -225,7 +225,7 @@ export function HeroProductShowcase({
                 </h1>
               )}
               <h2
-                className="text-4xl lg:text-5xl font-medium text-foreground"
+                className="text-4xl lg:text-5xl font-medium text-foreground mb-3 md:mb-0"
                 data-testid="text-hero-title"
               >
                 {data.title}
@@ -253,13 +253,13 @@ export function HeroProductShowcase({
               {bullets && bullets.length > 0 && (
                 <div className="flex justify-center md:block">
                   <ul
-                    className="mt-4 md:mb-4 space-y-2 max-w-xl"
+                    className="mt-3 md:mb-4 space-y-1 max-w-xl"
                     data-testid="hero-bullets"
                   >
                     {bullets.map((bullet, index) => (
                       <li
                         key={index}
-                        className="flex items-start gap-3 text-foreground"
+                        className="flex items-start gap-1 md:gap-3 text-foreground"
                         data-testid={`hero-bullet-${index}`}
                       >
                         <IconCheck className="h-5 w-5 mt-0.5 text-primary flex-shrink-0" />
@@ -499,13 +499,13 @@ export function HeroProductShowcase({
               </div>
             ) : data.form ? (
               <div 
-                className={`relative w-full ${formCardImageSrc ? "mt-16" : ""}`} 
+                className={`relative w-full ${formCardImageSrc ? "md:mt-16" : ""}`} 
 
               >
                 <div className="">
                   {formCardImageSrc && (
                     <div
-                      className="absolute flex items-center md:top-0 right-9 sm:right-16 md:right-7 lg:right-8 xl:right-0 pointer-events-none z-0  z-[1001]"
+                      className="hidden md:block absolute flex items-center md:top-0 right-9 sm:right-16 md:right-7 lg:right-8 xl:right-0 pointer-events-none z-0  z-[1001]"
                       style={{ transform: "translate(40%, -40%)",
                             }}
 
