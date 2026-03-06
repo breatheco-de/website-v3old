@@ -55,10 +55,9 @@ sections:
         phone:
           visible: true
           required: true
-          default_country: CL
         program:
           visible: false
-          default: full-stack
+          default: ai-engineering
       success:
         message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
       terms_url: /terms-and-conditions
@@ -359,7 +358,6 @@ sections:
     paddingY:
       desktop: md
   - type: cta_banner
-    section_id: cta_banner-k7jp41
     version: "1.0"
     title: ¿Listo para convertirte en Desarrollador Full Stack?
     subtitle: Cupos limitados disponibles. Comienza tu transformación hoy.
@@ -382,6 +380,7 @@ sections:
           visible: true
           required: false
           placeholder: Número de teléfono
+          default_country: CL
         program:
           visible: false
           required: true
@@ -397,6 +396,7 @@ sections:
       terms_className: text-white/80
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
+    section_id: cta_banner-k7jp41
     marginY:
       desktop: lg none
     paddingY:
