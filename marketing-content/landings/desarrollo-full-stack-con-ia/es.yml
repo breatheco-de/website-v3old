@@ -130,9 +130,9 @@ sections:
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
     marginY:
-      desktop: none sm
+      desktop: none md
     paddingY:
-      desktop: none sm
+      desktop: none
     section_id: awards_marquee-ib4yb0
   - type: why_learn_ai
     variant: laptop-edge
