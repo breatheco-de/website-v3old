@@ -34,6 +34,7 @@ sections:
         phone:
           visible: true
           required: true
+          default_country: VE
         program:
           visible: false
           default: full-stack
