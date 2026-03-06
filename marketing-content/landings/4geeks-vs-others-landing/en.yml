@@ -260,7 +260,7 @@ sections:
     evidence_items:
       - icon: Trophy
         title: Top 5 Coding Bootcamps
-        source: Newsweek, Forbes, SwitchUp, Course Report
+        source: Forbes, SwitchUp, Course Report, Career Karma
       - icon: Award
         title: Best Value & Student Support
         source: Forbes, Course Report, SwitchUp
