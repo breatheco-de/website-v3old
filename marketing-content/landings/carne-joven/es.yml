@@ -278,7 +278,6 @@ sections:
       desktop: md lg
     marginY:
       desktop: none xl
-    background: hsl(210 100% 50% / 0.05)
   - type: two_column
     proportions:
       - 6
