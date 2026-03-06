@@ -156,28 +156,6 @@ sections:
       desktop: none md
     marginY:
       desktop: none md
-  - type: two_column
-    section_id: two_column-wdarhv
-    proportions:
-      - 5
-      - 7
-    background: bg-muted/30
-    alignment: center
-    left:
-      heading: ¡Desde Cero Hasta Tu Primer Empleo!
-      description: Descubre una oportunidad única para transformar tu carrera y adentrarte en el mundo de la programación. En solo 20 semanas, te guiaremos desde cero hasta conseguir tu primer trabajo como programador.
-      bullets:
-        - text: No se requiere experiencia previa
-        - text: Horario part-time adaptable a tu vida actual
-        - text: Mentorías y career support de por vida
-      bullet_icon: Check
-      font_size: base
-    right:
-      image: https://storage.googleapis.com/4geeks-academy-website/media/hombre-joven-con-laptop_1764691956393.webp
-      image_alt: Team collaborating on a project
-      justify: center
-    reverse_on_mobile: true
-    gap: "12"
   - type: why_learn_ai
     variant: laptop-edge
     title: ¡Desde Cero Hasta Tu Primer Empleo!
