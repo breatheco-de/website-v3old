@@ -247,7 +247,7 @@ sections:
     marginY:
       desktop: none xl
     paddingY:
-      desktop: none md
+      desktop: none
   - type: awards_marquee
     version: v1.0
     speed: 40
