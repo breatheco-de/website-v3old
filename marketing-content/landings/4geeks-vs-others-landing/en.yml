@@ -399,47 +399,6 @@ sections:
     section_id: faq-7buf5u
     paddingY:
       desktop: md
-  - type: cta_banner
-    version: "1.0"
-    title: Ready to Get Started?
-    subtitle: Limited spots available. Start your transformation today.
-    background: hsl(var(--primary))
-    variant: form
-    form:
-      variant: stacked
-      submit_label: Apply now
-      tags: website-lead
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Your email address
-        first_name:
-          visible: true
-          required: true
-          placeholder: First name
-        phone:
-          visible: true
-          required: true
-          placeholder: Phone number
-        program:
-          visible: true
-          required: true
-          default: auto
-      success:
-        message: Thank you! We'll be in touch soon.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: I agree to receive information about courses and promotions
-      show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
-      terms_className: text-white/80
-    marginY:
-      desktop: lg none
-    paddingY:
-      desktop: md
-    section_id: cta_banner-vfjpf6
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?
