@@ -19,7 +19,7 @@ sections:
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Apply now
+      submit_label: Request more info
       tags: website-lead
       fields:
         email:
