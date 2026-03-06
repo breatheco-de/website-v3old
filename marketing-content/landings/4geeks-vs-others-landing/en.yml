@@ -176,30 +176,6 @@ sections:
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-pbg2nf
-  - type: numbered_steps
-    variant: default
-    title: Get Hired Faster With GeekForce
-    description: |
-      Learning the skills is only the first step. GeekForce is our structured career acceleration system designed to help you turn those skills into your first tech role faster.
-    steps:
-      - icon: School
-        text: |
-          Optimize your LinkedIn, GitHub, and portfolio, craft an ATS-ready resume, 
-          and graduate with a recruiter-ready portfolio.
-      - icon: Briefcase
-        text: |
-          Master technical and behavioral interviews, practice coding exercises, 
-          and develop winning strategies for upcoming opportunities.
-      - icon: Cash
-        text: |
-          Follow a tailored job search plan, leverage AI-driven hiring tools, 
-          and connect with top hiring companies to land your role.
-    background: hsl(var(--secondary))
-    bullet_icon: Check
-    bullet_icon_color: text-green-600
-    section_id: numbered_steps-646rz5
-    paddingY:
-      desktop: lg
   - type: comparison_table
     version: "1.0"
     title: Why 4Geeks Stands Apart
@@ -251,6 +227,30 @@ sections:
       desktop: none md
     paddingY:
       desktop: md
+  - type: numbered_steps
+    variant: default
+    title: Get Hired Faster With GeekForce
+    description: |
+      Learning the skills is only the first step. GeekForce is our structured career acceleration system designed to help you turn those skills into your first tech role faster.
+    steps:
+      - icon: School
+        text: |
+          Optimize your LinkedIn, GitHub, and portfolio, craft an ATS-ready resume, 
+          and graduate with a recruiter-ready portfolio.
+      - icon: Briefcase
+        text: |
+          Master technical and behavioral interviews, practice coding exercises, 
+          and develop winning strategies for upcoming opportunities.
+      - icon: Cash
+        text: |
+          Follow a tailored job search plan, leverage AI-driven hiring tools, 
+          and connect with top hiring companies to land your role.
+    background: hsl(var(--secondary))
+    bullet_icon: Check
+    bullet_icon_color: text-green-600
+    section_id: numbered_steps-646rz5
+    paddingY:
+      desktop: lg
   - type: why_learn_ai
     variant: laptop-edge
     title: Optional Job Guarantee* for Extra Confidence
