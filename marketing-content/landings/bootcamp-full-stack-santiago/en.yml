@@ -427,8 +427,8 @@ sections:
         phone:
           visible: true
           required: true
-          placeholder: Número telefónico
           default_country: CL
+          placeholder: Número telefónico
         program:
           visible: false
           default: full-stack
