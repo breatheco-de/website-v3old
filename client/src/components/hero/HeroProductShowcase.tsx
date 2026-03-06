@@ -585,54 +585,19 @@ export function HeroProductShowcase({
 
           {data.form && (
             <div className="md:hidden mt-4 flex justify-center w-full">
-              <Card
-                className={`w-full max-w-md overflow-hidden p-4 rounded-lg ${formCardBackground ? '' : 'bg-background'}`}
-                style={formCardBgStyle}
-                data-testid="hero-form-mobile"
-              >
-                {formCardImageSrc && (
-                  <div className="flex justify-center mb-4" data-testid="img-form-card-image-mobile">
-                    <UniversalImage
-                      id={formCardImageSrc}
-                      alt={formCardImageAlt}
-                      style={{
-                        objectFit: (formCardImageObjectFit as React.CSSProperties["objectFit"]) || "contain",
-                        width: formCardImageWidth || "140px",
-                        height: formCardImageHeight || "140px",
-                        opacity: formCardImageOpacity ?? 1,
-                        borderRadius: formCardImageBorderRadius || undefined,
-                      }}
-                    />
-                  </div>
-                )}
-                {(formCardTitle || formCardSubtitle) && (
-                  <div className="mb-3" style={formCardTextColor ? { color: formCardTextColor } : undefined}>
-                    {formCardTitle && (
-                      <h3 className="text-2xl mb-2 font-semibold text-center" data-testid="text-form-card-title-mobile">
-                        {formCardTitle}
-                      </h3>
-                    )}
-                    {formCardSubtitle && (
-                      <p className="text-center" style={{ opacity: 0.8 }}>
-                        {formCardSubtitle}
-                      </p>
-                    )}
-                  </div>
-                )}
-                <LeadForm
-                  data={
-                    {
-                      ...data.form,
-                      variant: data.form.variant || "stacked",
-                      consent: data.form.consent,
-                      show_terms: data.form.show_terms ?? false,
-                      className: "w-full",
-                    } as LeadFormData
-                  }
-                  landingLocations={landingLocations}
-                  termsStyle={data.form_terms_color ? { color: data.form_terms_color } : undefined}
-                />
-              </Card>
+              <LeadForm
+                data={
+                  {
+                    ...data.form,
+                    variant: data.form.variant || "inline",
+                    consent: data.form.consent,
+                    show_terms: data.form.show_terms ?? false,
+                    className: "w-full max-w-md",
+                  } as LeadFormData
+                }
+                landingLocations={landingLocations}
+                termsStyle={data.form_terms_color ? { color: data.form_terms_color } : undefined}
+              />
             </div>
           )}
         </div>
