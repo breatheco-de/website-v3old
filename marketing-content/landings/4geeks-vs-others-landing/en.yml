@@ -279,33 +279,6 @@ sections:
     title: Real Careers Start Here
     description: "Our graduates prove it: 84% hired within six months, stepping into roles at top tech companies, boosting salaries, and thriving in AI-powered careers."
     section_id: testimonials_slide-dc7isf
-  - type: value_proof_panel
-    title: Global Recognition You Can Trust
-    subtitle: Awards, media praise, and alumni success back our results.
-    evidence_items:
-      - icon: Trophy
-        title: Top 5 Coding Bootcamps
-        source: Forbes, SwitchUp, Course Report, Career Karma
-      - icon: Award
-        title: Best Value & Student Support
-        source: Forbes, Course Report, SwitchUp
-      - icon: Users
-        title: 6,500+ Graduates
-        description: Thriving tech alumni community
-      - icon: Certificate
-        title: Industry-Recognized Certificates
-        description: Credentials employers trust
-    media:
-      type: image
-      src: https://old.4geeksacademy.com/static/0e206e6ab1ae7f4ca09668b2d287baa7/56f2e/alejandrosanchez.webp
-      alt: Students collaborating in classroom
-      aspect_ratio: "4:3"
-      style: rounded
-    background: bg-muted/30
-    stacked_header: true
-    section_id: value_proof_panel-jlm1pj
-    marginY:
-      desktop: none xl
   - type: whos_hiring
     variant: carousel
     pretitle: Job Placement
