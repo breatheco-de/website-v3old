@@ -133,7 +133,7 @@ sections:
     background: hsl(var(--muted))
     section_id: course_selector-nyglwg
     marginY:
-      desktop: none md
+      desktop: none lg
     paddingY:
       desktop: none
   - type: awards_marquee
