@@ -10,6 +10,7 @@ meta:
   change_frequency: weekly
   redirects:
     - /es/landing/aprende-a-programar-ve
+    - /es/landing/curso-de-programacion-ve
 schema:
   include:
     - organization
