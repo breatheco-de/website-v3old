@@ -314,7 +314,7 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward a High-Growth Tech Career
-    subtitle: Apply now to a program designed to give you AI-ready skills, hands-on experience, and lifelong support.
+    subtitle: Apply to a program built to deliver real outcomes with AI-ready skills, personalized mentorship, and lifelong career support.
     background: hsl(var(--primary))
     variant: form
     form:
@@ -347,13 +347,13 @@ sections:
       show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
+    section_id: cta_banner-a80141
     marginY:
       mobile: md none
       desktop: md none
     paddingY:
       mobile: lg
       desktop: lg
-    section_id: cta_banner-a80141
   - type: faq
     title: Frequently Asked Questions
     related_features:
