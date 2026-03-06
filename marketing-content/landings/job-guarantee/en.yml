@@ -318,7 +318,7 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
-    background: hsl(var(--primary))
+    background: hsl(var(--muted))
   - type: cta_banner
     section_id: cta_banner-deasu1
     version: "1.0"
