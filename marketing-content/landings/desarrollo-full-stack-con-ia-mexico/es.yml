@@ -434,7 +434,7 @@ sections:
         phone:
           visible: true
           required: true
-          default_country: VE
+          default_country: MX
           placeholder: Teléfono
         program:
           visible: false
