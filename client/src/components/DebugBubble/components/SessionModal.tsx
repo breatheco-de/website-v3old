@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { IconCheck, IconCopy, IconX } from "@tabler/icons-react";
+import { IconCheck, IconCopy } from "@tabler/icons-react";
 
 interface SessionModalProps {
   open: boolean;
@@ -40,6 +40,18 @@ export function SessionModal(props: SessionModalProps) {
           <DialogTitle>Session Data{getDebugUserName() ? ` - ${getDebugUserName()}` : ''}</DialogTitle>
           <DialogDescription>
             Current session values captured from browser, geolocation, and URL parameters.
+            {hasToken && getDebugToken() && (
+              <>
+                {" "}
+                <button
+                  onClick={() => { clearToken(); onOpenChange(false); }}
+                  className="text-blue-600 dark:text-blue-400 underline hover:no-underline"
+                  data-testid="link-logout"
+                >
+                  logout
+                </button>
+              </>
+            )}
           </DialogDescription>
         </DialogHeader>
         
@@ -70,19 +82,6 @@ export function SessionModal(props: SessionModalProps) {
                   ) : (
                     <IconCopy className="h-4 w-4" />
                   )}
-                </Button>
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="h-8 w-8 flex-shrink-0"
-                  onClick={() => {
-                    clearToken();
-                    onOpenChange(false);
-                  }}
-                  data-testid="button-clear-session-token"
-                  title="Clear token"
-                >
-                  <IconX className="h-4 w-4" />
                 </Button>
               </div>
             </div>

@@ -34,6 +34,7 @@ sections:
       - text: Aprende a programar desde cero hasta ser un profesional
       - text: ¡Somos el único bootcamp que no finaliza cuando te gradúas! En 4Geeks dispones de mentorías ilimitadas y de por vida
       - text: Contamos con diferentes opciones de financiamiento puedes financiar el importe en 6, 9, 12 y 18 meses
+    image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
@@ -47,7 +48,7 @@ sections:
         first_name:
           visible: true
           required: true
-          placeholder: Nombre completo
+          placeholder: Nombre
         last_name:
           visible: true
           required: true
@@ -57,7 +58,7 @@ sections:
           required: true
         program:
           visible: false
-          default: ai-engineering
+          default: full-stack
       success:
         message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
       terms_url: /terms-and-conditions
@@ -69,7 +70,11 @@ sections:
         sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
         sms_usa_only: true
       show_terms: true
-    form_vertical_align: center
+    form_vertical_align: bottom
+    form_card_text_color: hsl(var(--foreground))
+    form_card_title: Completa el formulario para recibir información
+    form_card_subtitle: Una vez completado el formulario en unos minutos recibirás información sobre la academia y nuestros planes de pagos en tu correo electrónico.
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: false
     awards_marquee:
       items:
@@ -105,57 +110,40 @@ sections:
           alt: Excelencia Educativa - Calidad Institucional
           logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
           logoHeight: 55px
-    section_id: hero-2v82a9
     video_title: GeekForce Career Support
     marginY:
-      desktop: none sm
+      desktop: none lg
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
-  - type: awards_marquee
-    section_id: awards_marquee-abgn6z
+    marginX:
+      desktop: none
+    section_id: hero-56bog6
+  - type: trust_cards
     version: v1.0
-    speed: 40
-    gradient: true
-    gradientWidth: 400
+    title: Lee acerca de nosotros
     items:
-      - id: switchup-2025
-        alt: SwitchUp - Best Coding Bootcamps 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        logoHeight: 64px
-      - id: course-report-2024
-        alt: Course Report - Best Coding Bootcamp 2024
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
-        logoHeight: 64px
-      - id: tech-hub
-        alt: South Florida Tech Hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
-        logoHeight: 64px
-      - id: ebootcamp
-        alt: eBootcamp Top
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
-        logoHeight: 64px
-      - id: premios-tecnologia
-        alt: Premios Tecnologia Siglo XXI
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-        logoHeight: 64px
-      - id: newsweek
-        alt: Newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
-        logoHeight: 64px
-      - id: reviews-coursereport
-        alt: 4.9 on Course Report Reviews
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-        logoHeight: 64px
-      - id: excelencia-educativa
-        alt: Excelencia Educativa - Institutional Quality
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
-        logoHeight: 64px
-    paddingY:
-      mobile: md
-      desktop: none md
+      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+        rating: 4.9
+        review_count: 2,847 reviews
+        trusted_text: Verified Reviews
+      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        rating: 4.8
+        review_count: 1,523 reviews
+        trusted_text: Top Rated Program
+      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        rating: 4.9
+        review_count: 987 reviews
+        trusted_text: Verified Reviews
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 987 reviews
+        trusted_text: Verified Reviews
+    name: Default Trust Cards
+    description: Four review platform cards with ratings
+    section_id: trust_cards-zc20ld
     marginY:
-      desktop: md
+      desktop: none md
   - type: why_learn_ai
     variant: laptop-edge
     title: ¡Desde Cero Hasta Tu Primer Empleo!
@@ -165,7 +153,7 @@ sections:
     paddingY:
       desktop: none
     marginY:
-      desktop: none md
+      desktop: lg md
   - type: syllabus
     section_id: syllabus-vr2u4r
     variant: program-modules
@@ -358,7 +346,6 @@ sections:
     paddingY:
       desktop: md
   - type: cta_banner
-    section_id: cta_banner-k7jp41
     version: "1.0"
     title: ¿Listo para convertirte en Desarrollador Full Stack?
     subtitle: Cupos limitados disponibles. Comienza tu transformación hoy.
@@ -381,6 +368,7 @@ sections:
           visible: true
           required: false
           placeholder: Número de teléfono
+          default_country: CL
         program:
           visible: false
           required: true
@@ -396,12 +384,12 @@ sections:
       terms_className: text-white/80
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
+    section_id: cta_banner-k7jp41
     marginY:
       desktop: lg none
     paddingY:
       desktop: md
   - type: sticky_cta
-    section_id: sticky_cta-jtdfr0
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: {{ global.call_to_action_apply | Aplicar ahora }}
@@ -426,6 +414,7 @@ sections:
         phone:
           visible: true
           required: true
+          default_country: CL
           placeholder: Número telefónico
         program:
           visible: false
@@ -437,4 +426,5 @@ sections:
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
+    section_id: sticky_cta-jtdfr0
     load: eager
