@@ -18,6 +18,7 @@ meta:
     - /es/landing/aprende-a-programar-ecuador-quito
     - /es/landing/curso-de-programacion-ecuador-quito
     - /es/landing/bootcamp-uruguay
+    - /es/landing/bootcamp-de-programacion
 schema:
   include:
     - organization
