@@ -7,7 +7,7 @@ sections:
       prefix: Launch a
       highlight: High-Growth
       color: primary
-    description: "<div><br></div><span style=\"font-size: 1.125rem;\"><span>Build the skills companies are hiring for and add the Job Guarantee* for extra confidence.&nbsp;</span></span>"
+    description: "<div><span style=\"font-size: 1.125rem; color: rgb(0, 7, 26);\">Build the skills companies are hiring for and add the Job Guarantee* for extra confidence.&nbsp;</span></div>"
     bullets:
       - text: 84% of graduates land a tech job
       - text: Get hired within 9 months or receive a full refund
