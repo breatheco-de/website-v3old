@@ -1,0 +1,20 @@
+- type: trust_cards
+  name: Default Trust Cards
+  description: Four review platform cards with ratings
+  title: Trusted by Students Worldwide
+  items:
+    - image: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+      rating: 4.9
+      review_count: "2,847 reviews"
+      trusted_text: "Verified Reviews"
+    - image: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+      rating: 4.8
+      review_count: "1,523 reviews"
+      trusted_text: "Top Rated Program"
+    - image: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+      rating: 4.9
+      review_count: "987 reviews"
+    - image: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+      rating: 5.0
+      review_count: "412 reviews"
+      trusted_text: "Best Bootcamp 2025"
