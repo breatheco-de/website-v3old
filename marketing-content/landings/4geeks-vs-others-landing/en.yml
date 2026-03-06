@@ -136,8 +136,7 @@ sections:
     variant: default
     title: Get Hired Faster With GeekForce
     description: |
-      Our 3-step Career Acceleration System combines proven strategies, personalized guidance, 
-      and direct access to hiring companies to help you land a tech role quickly.
+      Learning the skills is only the first step. GeekForce is our structured career acceleration system designed to help you turn those skills into your first tech role faster.
     steps:
       - icon: School
         text: |
