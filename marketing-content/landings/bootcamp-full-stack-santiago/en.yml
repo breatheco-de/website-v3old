@@ -112,11 +112,13 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
   - type: awards_marquee
     version: v1.0
     speed: 40
     gradient: true
     gradientWidth: 400
+    title: sddasdsa
     items:
       - id: switchup-2025
         alt: SwitchUp - Best Coding Bootcamps 2025
@@ -156,7 +158,7 @@ sections:
     paddingY:
       mobile: md
       desktop: none md
-    title: sddasdsa
+    title_above: true
   - type: two_column
     section_id: two_column-wdarhv
     proportions:

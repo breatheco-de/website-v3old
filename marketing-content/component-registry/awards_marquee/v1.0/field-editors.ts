@@ -11,7 +11,7 @@ export type EditorType = string;
 
 export const fieldEditors: Record<string, EditorType> = {
   "title": "rich-text-editor",
-  "title_above": "boolean-toggle",
+  "title_above_carousel": "boolean-toggle",
   "items[].logo": "image-picker:logo",
   "items[].logoHeight": "text-input",
 };

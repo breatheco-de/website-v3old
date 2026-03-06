@@ -26,7 +26,7 @@ interface AwardsMarqueeProps {
   bottom_title?: string;
   className?: string;
   title?: string;
-  title_above?: boolean;
+  title_above_carousel?: boolean;
 }
 
 export function AwardsMarquee({ 
@@ -38,7 +38,7 @@ export function AwardsMarquee({
   bottom_title,
   className = "",
   title,
-  title_above = false,
+  title_above_carousel = false,
 }: AwardsMarqueeProps) {
   const [isDesktop, setIsDesktop] = useState(false);
   
@@ -62,7 +62,7 @@ export function AwardsMarquee({
 
   return (
     <section className="max-w-6xl mx-auto px-4">
-      {title_above && titleBlock}
+      {title_above_carousel && titleBlock}
       <div className={`${className}`} data-testid="awards-marquee">
         <Marquee
           speed={speed}
@@ -100,7 +100,7 @@ export function AwardsMarquee({
           ))}
         </Marquee>
       </div>
-      {!title_above && titleBlock}
+      {!title_above_carousel && titleBlock}
     </section>
   );
 }
