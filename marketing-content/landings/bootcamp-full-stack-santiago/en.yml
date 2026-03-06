@@ -271,6 +271,8 @@ sections:
         alt: Geekpal
     marginY:
       desktop: md lg
+    paddingY:
+      desktop: md none
   - type: whos_hiring
     section_id: whos_hiring-buw0mf
     variant: carousel
