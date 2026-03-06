@@ -1300,7 +1300,6 @@ class ContentIndex {
     }
 
     const copiedFiles: string[] = [];
-    const parsedFiles: Array<{ file: string; parsed: Record<string, unknown> }> = [];
     const strippedFields: string[] = [...keysToStrip];
     let replacedVars = 0;
 
