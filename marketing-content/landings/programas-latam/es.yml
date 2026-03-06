@@ -16,6 +16,31 @@ sections:
     image_object_fit: none
     form:
       variant: stacked
+      marquee: null
+      items:
+        - id: switchup-2025
+          alt: SwitchUp - Best Coding Bootcamps 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+          logoHeight: 48px
+        - id: course-report-2024
+          alt: Course Report - Best Coding Bootcamp 2024
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+          logoHeight: 48px
+        - id: newsweek
+          alt: Newsweek
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+          logoHeight: 48px
+        - id: forbes
+          alt: Forbes - Top Coding Bootcamp
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
+          logoHeight: 48px
+        - id: fortune
+          alt: Fortune - Best Education Company
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/fortune-logo_1764709618095.webp
+          logoHeight: 48px
+      speed: 40
+      gradient: true
+      gradientWidth: 50
       conversion_name: student_application
       submit_label: Solicita más información
       tags: website-lead
