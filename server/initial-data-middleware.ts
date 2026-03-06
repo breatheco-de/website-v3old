@@ -74,7 +74,8 @@ async function resolveInitialData(
     const resolved = contentIndex.resolveUrl(cleanUrl);
     if (!resolved) return null;
 
-    const { contentType, slug, fromDatabase } = resolved;
+    const { contentType, slug, fromDatabase, patternLocale } = resolved;
+    const isNonLocalized = patternLocale === "default";
 
     if (fromDatabase) {
       return null;
@@ -127,7 +128,7 @@ async function resolveInitialData(
       data.layout = layout;
 
       return {
-        queryKey: [apiPath, slug, locale],
+        queryKey: [apiPath, slug, isNonLocalized ? "auto" : locale],
         data,
       };
     }
@@ -159,7 +160,7 @@ async function resolveInitialData(
 
     const genericApiPath = `/api/content-pages/${contentType}`;
     return {
-      queryKey: [genericApiPath, slug, locale],
+      queryKey: [genericApiPath, slug, isNonLocalized ? "auto" : locale],
       data: genericData,
     };
   } catch {

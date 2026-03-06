@@ -37,13 +37,15 @@ interface ContentTypeDetailProps {
 export default function ContentTypeDetail({ type, slug, locale, urlPattern }: ContentTypeDetailProps) {
   const { i18n } = useTranslation();
   const [currentLocation, setLocation] = useLocation();
-  const effectiveLocale = (locale && locale !== "default") ? locale : (i18n.language as string) || "en";
+  const isNonLocalized = locale === "default";
+  const requestLocale = isNonLocalized ? undefined : ((locale || (i18n.language as string) || "en"));
   const apiPath = getApiPath(type);
 
   const { data, isLoading, error, refetch } = useQuery<Record<string, unknown>>({
-    queryKey: [apiPath, slug, effectiveLocale],
+    queryKey: [apiPath, slug, requestLocale ?? "auto"],
     queryFn: async () => {
-      const response = await fetch(`${apiPath}/${slug}?locale=${effectiveLocale}`);
+      const params = requestLocale ? `?locale=${requestLocale}` : "";
+      const response = await fetch(`${apiPath}/${slug}${params}`);
       if (!response.ok) {
         throw new Error(`${type} not found`);
       }
@@ -51,6 +53,10 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
     },
     enabled: !!slug,
   });
+
+  const effectiveLocale = (isNonLocalized && data?.locale)
+    ? String(data.locale)
+    : (requestLocale || (i18n.language as string) || "en");
 
   useEffect(() => {
     if (data?.slug && data.slug !== slug && urlPattern) {
