@@ -340,6 +340,7 @@ export function HeroProductShowcase({
                       } as LeadFormData
                     }
                     landingLocations={landingLocations}
+                    termsStyle={data.form_terms_color ? { color: data.form_terms_color } : undefined}
                   />
                 </div>
               )}
@@ -559,6 +560,7 @@ export function HeroProductShowcase({
                         } as LeadFormData
                       }
                       landingLocations={landingLocations}
+                      termsStyle={data.form_terms_color ? { color: data.form_terms_color } : undefined}
                     />
                   </div>
                 </Card>
@@ -594,6 +596,7 @@ export function HeroProductShowcase({
                   } as LeadFormData
                 }
                 landingLocations={landingLocations}
+                termsStyle={data.form_terms_color ? { color: data.form_terms_color } : undefined}
               />
             </div>
           )}
