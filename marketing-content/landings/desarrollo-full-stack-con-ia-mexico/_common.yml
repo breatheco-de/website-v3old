@@ -10,6 +10,7 @@ meta:
   change_frequency: weekly
   redirects:
     - /es/landing/mejores-bootcamps-de-programacion-mexico
+    - /es/landing/aprende-a-programar-mexico
 schema:
   include:
     - organization
