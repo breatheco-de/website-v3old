@@ -89,6 +89,22 @@ export function HeroProductShowcase({
 
   const shouldShowBackground = backgroundImage && showBackground;
 
+  const formCardBackground = (fullData as any).form_card_background as string | undefined;
+  const formCardTitle = (fullData as any).form_card_title as string | undefined;
+  const formCardSubtitle = (fullData as any).form_card_subtitle as string | undefined;
+  const formCardImage = (fullData as any).form_card_image as
+    | { src: string; alt?: string; object_fit?: string; object_position?: string; width?: string; height?: string; opacity?: number; border_radius?: string }
+    | undefined;
+
+  const formCardBgStyle: React.CSSProperties = {};
+  if (formCardBackground) {
+    if (formCardBackground.startsWith("linear-gradient") || formCardBackground.startsWith("radial-gradient")) {
+      formCardBgStyle.backgroundImage = formCardBackground;
+    } else {
+      formCardBgStyle.backgroundColor = formCardBackground;
+    }
+  }
+
   const colorMap: Record<string, string> = {
     primary: "hsl(var(--primary))",
     accent: "hsl(var(--accent))",
@@ -474,21 +490,62 @@ export function HeroProductShowcase({
             ) : data.form ? (
               <div className="w-full">
                 <Card
-                  className="hidden md:block w-full bg-background p-4 rounded-lg"
+                  className={`hidden md:block w-full relative overflow-hidden p-4 rounded-lg ${formCardBackground ? '' : 'bg-background'}`}
+                  style={formCardBgStyle}
                   data-testid="hero-form-right"
                 >
-                  <LeadForm
-                    data={
-                      {
-                        ...data.form,
-                        variant: data.form.variant || "stacked",
-                        consent: data.form.consent,
-                        show_terms: data.form.show_terms ?? false,
-                        className: "w-full",
-                      } as LeadFormData
-                    }
-                    landingLocations={landingLocations}
-                  />
+                  {formCardImage && (
+                    <div
+                      className="absolute top-0 right-0 pointer-events-none z-0"
+                      data-testid="img-form-card-image"
+                    >
+                      <UniversalImage
+                        src={formCardImage.src}
+                        alt={formCardImage.alt || ""}
+                        style={{
+                          objectFit: (formCardImage.object_fit as React.CSSProperties["objectFit"]) || "contain",
+                          objectPosition: formCardImage.object_position || "top right",
+                          width: formCardImage.width || "auto",
+                          height: formCardImage.height || "auto",
+                          opacity: formCardImage.opacity ?? 1,
+                          borderRadius: formCardImage.border_radius || undefined,
+                        }}
+                      />
+                    </div>
+                  )}
+                  <div className="relative z-[1]">
+                    {(formCardTitle || formCardSubtitle) && (
+                      <div className="mb-3 space-y-1">
+                        {formCardTitle && (
+                          <h3
+                            className="text-lg font-semibold text-foreground"
+                            data-testid="text-form-card-title"
+                          >
+                            {formCardTitle}
+                          </h3>
+                        )}
+                        {formCardSubtitle && (
+                          <RichTextContent
+                            html={formCardSubtitle}
+                            className="text-sm text-muted-foreground"
+                            data-testid="text-form-card-subtitle"
+                          />
+                        )}
+                      </div>
+                    )}
+                    <LeadForm
+                      data={
+                        {
+                          ...data.form,
+                          variant: data.form.variant || "stacked",
+                          consent: data.form.consent,
+                          show_terms: data.form.show_terms ?? false,
+                          className: "w-full",
+                        } as LeadFormData
+                      }
+                      landingLocations={landingLocations}
+                    />
+                  </div>
                 </Card>
                 {showAwardsMarquee &&
                   awardsMarquee?.items &&

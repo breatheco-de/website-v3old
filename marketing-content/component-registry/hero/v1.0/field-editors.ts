@@ -58,4 +58,10 @@ export const fieldEditors: Record<string, EditorType> = {
   "ApplyFormProductShowcase:show_awards_marquee": "boolean-toggle",
   "productShowcase:awards_marquee.items[].logo": "image-picker:logo",
   "ApplyFormProductShowcase:awards_marquee.items[].logo": "image-picker:logo",
+  "productShowcase:form_card_background": "color-picker",
+  "ApplyFormProductShowcase:form_card_background": "color-picker",
+  "productShowcase:form_card_image": "image-with-style-picker",
+  "ApplyFormProductShowcase:form_card_image": "image-with-style-picker",
+  "productShowcase:form_card_subtitle": "rich-text-editor",
+  "ApplyFormProductShowcase:form_card_subtitle": "rich-text-editor",
 };
