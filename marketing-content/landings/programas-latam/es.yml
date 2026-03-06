@@ -105,7 +105,7 @@ sections:
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
     marginY:
-      desktop: none lg
+      desktop: none sm
   - type: course_selector
     version: "1.0"
     variant: solid
