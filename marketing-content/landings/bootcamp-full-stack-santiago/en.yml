@@ -55,6 +55,7 @@ sections:
         phone:
           visible: true
           required: true
+          default_country: CL
         program:
           visible: false
           default: full-stack
