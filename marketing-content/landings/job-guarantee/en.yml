@@ -90,7 +90,7 @@ sections:
     section_id: hero-ckjuxp
     video_title: GeekForce Career Support
     paddingY:
-      desktop: lg none
+      desktop: md none
   - type: features_quad
     section_id: features_quad-ge4f63
     version: "1.0"
