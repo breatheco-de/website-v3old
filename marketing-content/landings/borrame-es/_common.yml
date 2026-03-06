@@ -1,9 +1,0 @@
-slug: borrame-es
-title: borrame es
-meta:
-  og_image: /images/programs/cybersecurity-og.jpg
-schema:
-  include:
-    - organization
-    - website
-    - courses:cybersecurity
