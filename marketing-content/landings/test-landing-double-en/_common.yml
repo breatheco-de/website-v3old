@@ -1,0 +1,12 @@
+slug: test-landing-double-en
+title: test-landing-double-es
+locale: es
+meta:
+  og_image: /images/programs/ai-engineering-og.jpg
+schema:
+  include:
+    - organization
+    - website
+    - courses:ai-engineering
+locations:
+  - mexicocity-mexico

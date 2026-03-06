@@ -37,13 +37,15 @@ interface ContentTypeDetailProps {
 export default function ContentTypeDetail({ type, slug, locale, urlPattern }: ContentTypeDetailProps) {
   const { i18n } = useTranslation();
   const [currentLocation, setLocation] = useLocation();
-  const effectiveLocale = (locale && locale !== "default") ? locale : (i18n.language as string) || "en";
+  const isDefaultLocale = !locale || locale === "default";
+  const apiLocale = isDefaultLocale ? null : locale;
   const apiPath = getApiPath(type);
 
   const { data, isLoading, error, refetch } = useQuery<Record<string, unknown>>({
-    queryKey: [apiPath, slug, effectiveLocale],
+    queryKey: [apiPath, slug, apiLocale ?? "auto"],
     queryFn: async () => {
-      const response = await fetch(`${apiPath}/${slug}?locale=${effectiveLocale}`);
+      const url = apiLocale ? `${apiPath}/${slug}?locale=${apiLocale}` : `${apiPath}/${slug}`;
+      const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`${type} not found`);
       }
@@ -51,6 +53,15 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
     },
     enabled: !!slug,
   });
+
+  const effectiveLocale = apiLocale || (data?.locale as string) || i18n.language || "en";
+
+  useEffect(() => {
+    const dataLocale = data?.locale as string | undefined;
+    if (dataLocale && dataLocale !== i18n.language) {
+      i18n.changeLanguage(dataLocale);
+    }
+  }, [data?.locale, i18n]);
 
   useEffect(() => {
     if (data?.slug && data.slug !== slug && urlPattern) {
