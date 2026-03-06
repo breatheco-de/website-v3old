@@ -100,7 +100,7 @@ export function TrustCards({ data }: TrustCardsProps) {
               )}
               {item.trusted_text && (
                 <span
-                  className="text-xs font-medium text-muted-foreground"
+                  className="text-sm font-medium text-muted-foreground"
                   data-testid={`text-trusted-${index}`}
                 >
                   {item.trusted_text}
