@@ -10,6 +10,7 @@ meta:
   change_frequency: weekly
   redirects:
     - /es/landing/latam-programas
+    - /es/landing/santiago-programas
 schema:
   include:
     - organization
