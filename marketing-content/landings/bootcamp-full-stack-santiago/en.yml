@@ -153,7 +153,7 @@ sections:
     paddingY:
       desktop: none
     marginY:
-      desktop: none md
+      desktop: lg md
   - type: syllabus
     section_id: syllabus-vr2u4r
     variant: program-modules
