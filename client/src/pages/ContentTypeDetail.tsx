@@ -59,10 +59,6 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
     : (requestLocale || (i18n.language as string) || "en");
 
   useEffect(() => {
-    console.log(isNonLocalized, requestLocale)
-    console.log(data?.locale)
-    console.log("Effect running with effectiveLocale:", effectiveLocale, "i18n.language:", i18n.language)
-    console.log(i18n.language)
     if (effectiveLocale && i18n.language !== effectiveLocale) {
       i18n.changeLanguage(effectiveLocale);
     }

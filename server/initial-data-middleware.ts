@@ -126,6 +126,7 @@ async function resolveInitialData(
       );
       const layout = resolveLayout(contentType, rawContent.data || {});
       data.layout = layout;
+      data.locale = locale;
 
       return {
         queryKey: [apiPath, slug, isNonLocalized ? "auto" : locale],
@@ -157,6 +158,7 @@ async function resolveInitialData(
     );
     const genericLayout = resolveLayout(contentType, genericRaw.data || {});
     genericData.layout = genericLayout;
+    genericData.locale = locale;
 
     const genericApiPath = `/api/content-pages/${contentType}`;
     return {
