@@ -199,6 +199,8 @@ sections:
     name: Default Trust Cards
     description: Four review platform cards with ratings
     section_id: trust_cards-eslgbu
+    paddingY:
+      desktop: none md
   - type: geeks_vs_others_comparison
     section_id: geeks_vs_others_comparison-bdczjl
     version: "1.0"
