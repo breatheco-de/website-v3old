@@ -320,7 +320,7 @@ sections:
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Apply Now
+      submit_label: Get Started
       tags: website-lead
       fields:
         email:
