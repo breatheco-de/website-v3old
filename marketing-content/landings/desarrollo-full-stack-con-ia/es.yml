@@ -316,7 +316,7 @@ sections:
     section_id: certificate-3exfs1
     marginY:
       mobile: none
-      desktop: sm xl
+      desktop: none xl
     paddingY:
       mobile: lg
       desktop: none
