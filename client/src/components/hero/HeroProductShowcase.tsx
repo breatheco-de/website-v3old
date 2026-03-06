@@ -474,7 +474,7 @@ export function HeroProductShowcase({
             ) : data.form ? (
               <div className="w-full">
                 <Card
-                  className="hidden md:block w-full mt-[24px] bg-background p-4 rounded-lg"
+                  className="hidden md:block w-full bg-background p-4 rounded-lg"
                   data-testid="hero-form-right"
                 >
                   <LeadForm
