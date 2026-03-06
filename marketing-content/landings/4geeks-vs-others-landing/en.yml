@@ -101,6 +101,8 @@ sections:
           logoHeight: 55px
     video_title: GeekForce Career Support
     section_id: hero-i6d82d
+    paddingY:
+      desktop: lg none
   - type: features_grid
     version: "1.0"
     variant: stats-cards
