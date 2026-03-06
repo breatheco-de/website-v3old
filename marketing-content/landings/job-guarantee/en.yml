@@ -300,7 +300,6 @@ sections:
     background: hsl(var(--sidebar-background))
     section_id: numbered_steps-sgeuhk
   - type: features_quad
-    section_id: features_quad-ms7uox
     version: "1.0"
     variant: laptopEdge
     heading: Who Can Add the Job Guarantee?
@@ -314,7 +313,7 @@ sections:
         title: Pass our logic test
       - icon: IconArrowGuideFilled
         title: Follow our career plan
-    background: hsl(var(--muted))
+    section_id: features_quad-ms7uox
     marginY:
       desktop: none md
     paddingY:
