@@ -64,6 +64,7 @@ sections:
     marginX:
       desktop: none
     section_id: hero-3ht3gd
+    form_card_background: hsl(var(--secondary))
   - type: course_selector
     version: "1.0"
     variant: solid
