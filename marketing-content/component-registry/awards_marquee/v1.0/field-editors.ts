@@ -10,6 +10,7 @@
 export type EditorType = string;
 
 export const fieldEditors: Record<string, EditorType> = {
+  "title": "rich-text-editor",
   "items[].logo": "image-picker:logo",
   "items[].logoHeight": "text-input",
 };
