@@ -22,7 +22,6 @@ schema:
     - courses:full-stack
 sections:
   - type: hero
-    section_id: hero-iyeqt5
     version: "1.0"
     variant: productShowcase
     title: en 4Geeks Academy
@@ -71,6 +70,7 @@ sections:
         sms_usa_only: true
       show_terms: true
     form_vertical_align: center
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
     show_awards_marquee: false
     awards_marquee:
       items:
@@ -106,12 +106,14 @@ sections:
           alt: Excelencia Educativa - Calidad Institucional
           logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
           logoHeight: 55px
+    section_id: hero-iyeqt5
     video_title: GeekForce Career Support
     marginY:
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
+    image_object_fit: none
   - type: syllabus
     section_id: syllabus-zk9m5o
     variant: program-modules
