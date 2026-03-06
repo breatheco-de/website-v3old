@@ -368,7 +368,7 @@ sections:
       desktop: none lg
     paddingY:
       mobile: lg
-      desktop: none md
+      desktop: none
   - type: whos_hiring
     variant: carousel
     title: Empresas que contratan a nuestros estudiantes
