@@ -87,10 +87,10 @@ sections:
           logoHeight: 55px
     video_title: GeekForce Career Support
     marginY:
-      desktop: none sm
+      desktop: none md
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
-      desktop: md sm
+      desktop: md none
     section_id: hero-u2i0eb
   - type: trust_cards
     version: v1.0
