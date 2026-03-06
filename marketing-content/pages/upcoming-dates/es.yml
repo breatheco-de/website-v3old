@@ -56,12 +56,15 @@ sections:
         email:
           visible: true
           required: true
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
+          placeholder: Nombre
         last_name:
           visible: true
-          required: false
+          required: true
+          placeholder: Apellido
         phone:
           visible: true
           required: true
