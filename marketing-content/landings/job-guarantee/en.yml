@@ -281,7 +281,6 @@ sections:
         alt: Jooble
     background: hsl(var(--sidebar-background))
   - type: numbered_steps
-    section_id: numbered_steps-sgeuhk
     version: "1.0"
     variant: bubbleText
     title: What Happens If You Don’t Get Hired
@@ -299,7 +298,11 @@ sections:
       - icon: JobSearch
         text: Once approved, you'll receive your full tuition refund within 30 days.
         title: Full Refund
+      - icon: JobSearch
+        text: Once approved, you'll receive your full tuition refund within 30 days.
+        title: Full Refund
     background: hsl(var(--sidebar-background))
+    section_id: numbered_steps-sgeuhk
   - type: features_quad
     section_id: features_quad-ms7uox
     version: "1.0"
