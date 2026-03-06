@@ -267,6 +267,8 @@ sections:
         title: "\"Tomar un curso como este nos beneficia de muchas maneras\""
         description: Jonathan comparte cómo el programa le ayudó a ganar confianza y crear proyectos desde cero.
         alt: Geekpal
+    marginY:
+      desktop: none md
   - type: whos_hiring
     section_id: whos_hiring-buw0mf
     variant: carousel
