@@ -13,6 +13,7 @@ meta:
     - /es/landing/bootcamp-colombia
     - /es/landing/curso-de-programacion-colombia
     - /es/landing/conding-bootcamp-colombia
+    - /es/landing/bootcamp-colombia-jg
 schema:
   include:
     - organization
