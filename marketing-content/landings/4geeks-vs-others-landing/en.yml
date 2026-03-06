@@ -159,7 +159,7 @@ sections:
     bullet_icon_color: text-green-600
     section_id: numbered_steps-646rz5
     paddingY:
-      desktop: lg none
+      desktop: lg md
   - type: course_selector
     version: "1.0"
     variant: solid
