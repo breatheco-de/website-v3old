@@ -199,6 +199,7 @@ sections:
       desktop: none
     marginY:
       desktop: none xl
+    background: hsl(var(--secondary))
   - type: geeks_vs_others_comparison
     section_id: geeks_vs_others_comparison-bdczjl
     version: "1.0"
