@@ -2,6 +2,7 @@ slug: bootcamp-full-stack-santiago
 bc_slug: bootcamp-full-stack-santiago
 title: bootcamp full stack santiago
 job_role: Full Stack Developer
+locale: es
 meta:
   og_image: /images/programs/full-stack-og.jpg
   robots: index, follow
@@ -28,7 +29,4 @@ schema:
     - organization
     - website
     - courses:full-stack
-layout:
-  menu:
-    top: main-navbar
 locations: null
