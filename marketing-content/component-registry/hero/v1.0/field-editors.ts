@@ -60,8 +60,8 @@ export const fieldEditors: Record<string, EditorType> = {
   "ApplyFormProductShowcase:awards_marquee.items[].logo": "image-picker:logo",
   "productShowcase:form_card_background": "color-picker",
   "ApplyFormProductShowcase:form_card_background": "color-picker",
-  "productShowcase:form_card_text_color": "color-picker",
-  "ApplyFormProductShowcase:form_card_text_color": "color-picker",
   "productShowcase:form_card_image": "image-with-style-picker",
   "ApplyFormProductShowcase:form_card_image": "image-with-style-picker",
+  "productShowcase:form_card_subtitle": "rich-text-editor",
+  "productShowcase:form_card_text_color": "color-picker:text",
 };

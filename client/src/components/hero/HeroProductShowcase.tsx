@@ -114,7 +114,6 @@ export function HeroProductShowcase({
       formCardBgStyle.backgroundColor = formCardBackground;
     }
   }
-
   const colorMap: Record<string, string> = {
     primary: "hsl(var(--primary))",
     accent: "hsl(var(--accent))",
@@ -498,31 +497,39 @@ export function HeroProductShowcase({
                   )}
               </div>
             ) : data.form ? (
-              <div className="w-full">
-                <Card
-                  className={`hidden md:block w-full relative overflow-hidden p-4 rounded-lg ${formCardBackground ? '' : 'bg-background'}`}
-                  style={formCardBgStyle}
-                  data-testid="hero-form-right"
-                >
+              <div 
+                className={`relative w-full ${formCardImageSrc ? "mt-16" : ""}`} 
+
+              >
+                <div className="">
                   {formCardImageSrc && (
                     <div
-                      className="absolute top-0 right-0 pointer-events-none z-0"
+                      className="absolute flex items-center top-0 right-0 pointer-events-none z-0  z-[1001]"
+                      style={{ transform: "translate(40%, -40%)",
+                            }}
+
                       data-testid="img-form-card-image"
                     >
                       <UniversalImage
-                        src={formCardImageSrc}
+                        id={formCardImageSrc}
                         alt={formCardImageAlt}
                         style={{
                           objectFit: (formCardImageObjectFit as React.CSSProperties["objectFit"]) || "contain",
                           objectPosition: formCardImageObjectPosition || "top right",
-                          width: formCardImageWidth || "auto",
-                          height: formCardImageHeight || "auto",
+                          width: formCardImageWidth || "140px",
+                          height: formCardImageHeight || "140px",
                           opacity: formCardImageOpacity ?? 1,
                           borderRadius: formCardImageBorderRadius || undefined,
                         }}
                       />
                     </div>
                   )}
+                </div>
+                <Card
+                  className={`hidden md:block w-full overflow-hidden p-4 rounded-lg ${formCardBackground ? '' : 'bg-background'}`}
+                  style={formCardBgStyle}
+                  data-testid="hero-form-right"
+                >
                   <div className="relative z-[1]">
                     {(formCardTitle || formCardSubtitle) && (
                       <div className="mb-3" style={formCardTextColor ? { color: formCardTextColor } : undefined}>
