@@ -175,7 +175,7 @@ sections:
     marginY:
       desktop: none
     paddingY:
-      desktop: none md
+      desktop: none lg
   - type: trust_cards
     version: v1.0
     title: ¡Los mejor valorados en todos los sitios de reseñas!
