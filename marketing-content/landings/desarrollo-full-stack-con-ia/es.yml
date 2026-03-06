@@ -449,30 +449,6 @@ sections:
     paddingY:
       desktop: md
     section_id: testimonials-gkilgo
-  - type: faq
-    title: Preguntas frecuentes
-    related_features:
-      - full-stack
-    item_overrides:
-      cunto-dura-el-programa-full-stack:
-        hideOnLocations:
-          - barcelona-spain
-          - berlin-germany
-          - dublin-ireland
-          - hamburg-germany
-          - lisbon-portugal
-          - madrid-spain
-          - malaga-spain
-          - milan-italy
-          - munich-germany
-          - rome-italy
-          - valencia-spain
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: md
-    background: hsl(var(--muted))
-    section_id: faq-p3zotp
   - type: cta_banner
     version: "1.0"
     title: Rellena el formulario y obtén más información
