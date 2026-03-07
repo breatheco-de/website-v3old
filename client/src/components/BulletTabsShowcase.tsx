@@ -55,7 +55,7 @@ export function BulletTabsShowcase({ data }: BulletTabsShowcaseProps) {
               >
                 {tab.description || tab.label}
               </p>
-              <span className="md:hidden flex-shrink-0 ml-2 text-muted-foreground">
+              <span className="flex-shrink-0 ml-2 text-muted-foreground">
                 {activeIndex === index
                   ? <ChevronDown className="h-4 w-4" />
                   : <ChevronRight className="h-4 w-4" />
