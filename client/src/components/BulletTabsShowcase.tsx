@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { UniversalImage } from "@/components/UniversalImage";
 import { Button } from "@/components/ui/button";
 import type { BulletTabsShowcaseSection } from "@shared/schema";
@@ -43,7 +44,7 @@ export function BulletTabsShowcase({ data }: BulletTabsShowcaseProps) {
             <Button
               variant="ghost"
               onClick={() => setActiveIndex(index)}
-              className={`flex-1 justify-start text-left whitespace-normal py-2 transition-opacity duration-300 ${
+              className={`flex-1 justify-between text-left whitespace-normal py-2 transition-opacity duration-300 ${
                 activeIndex === index ? "opacity-100" : "opacity-40"
               }`}
               data-testid={`button-bullet-tab-${index}`}
@@ -54,6 +55,12 @@ export function BulletTabsShowcase({ data }: BulletTabsShowcaseProps) {
               >
                 {tab.description || tab.label}
               </p>
+              <span className="md:hidden flex-shrink-0 ml-2 text-muted-foreground">
+                {activeIndex === index
+                  ? <ChevronDown className="h-4 w-4" />
+                  : <ChevronRight className="h-4 w-4" />
+                }
+              </span>
             </Button>
           </div>
         ))}
