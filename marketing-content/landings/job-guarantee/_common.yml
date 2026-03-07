@@ -1,16 +1,16 @@
-slug: "job-guarantee"
-locale: "en"
-title: "Job Guarantee"
-
+slug: job-guarantee
+locale: en
+title: Job Guarantee
 meta:
-  page_title: "Job Guarantee Landing | 4Geeks Academy"
-  description: "Job Guarantee - Learn more at 4Geeks Academy."
-  robots: "index, follow"
-  og_image: "/images/landing-og.jpg"
+  page_title: Job Guarantee Landing | 4Geeks Academy
+  description: Job Guarantee - Learn more at 4Geeks Academy.
+  robots: index, follow
+  og_image: /images/landing-og.jpg
   priority: 0.9
-  change_frequency: "weekly"
-
+  change_frequency: weekly
+  redirects:
+    - /us/landing/job-guarantee
 schema:
   include:
-    - "organization"
-    - "website"
+    - organization
+    - website

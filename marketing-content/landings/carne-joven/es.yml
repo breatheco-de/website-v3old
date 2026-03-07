@@ -12,25 +12,26 @@ sections:
       - text: Obtén un 50% de descuento en el bootcamp de programación de 4Geeks Academy
       - text: Disfruta de tutorías personalizadas y acceso a una comunidad de más de 6,000 profesionales
       - text: Aprende a programar y adquiere competencias esenciales para tu carrera
+    image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
       submit_label: Solicita tu plaza
       tags: website-lead
       fields:
-        first_name:
-          visible: true
-          required: true
-          placeholder: Nombre completo
         email:
           visible: true
           required: true
           placeholder: Correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre completo
+        last_name:
+          visible: false
         phone:
           visible: true
           required: true
-        last_name:
-          visible: false
         program:
           visible: false
           default: ai-engineering
@@ -45,7 +46,11 @@ sections:
         sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
         sms_usa_only: true
       show_terms: true
-    form_vertical_align: center
+    form_vertical_align: bottom
+    form_card_text_color: hsl(var(--foreground))
+    form_card_title: Get Full Program Details
+    form_card_subtitle: Apply below to receive the program overview by e-mail and choose how you'd like our admissions team to contact you.
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: false
     awards_marquee:
       items:
@@ -81,31 +86,15 @@ sections:
           alt: Excelencia Educativa - Calidad Institucional
           logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
           logoHeight: 55px
-    section_id: hero-u2i0eb
     video_title: GeekForce Career Support
     marginY:
-      desktop: none
+      desktop: none md
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
-  - type: two_column_accordion_card
-    variant: image_background
-    version: "1.0"
-    title: ¡Aprovecha un 50% de descuento con tu Carné Joven!
-    description: Si estás buscando una oportunidad para desarrollar tus habilidades como programador, 4Geeks Academy te ofrece la formación que necesitas con un 50% de descuento gracias a Carné Joven. Este bootcamp está diseñado para enseñarte a crear nuevas aplicaciones, manejar múltiples bases de datos y dominar lenguajes de programación muy demandados en la industria tecnológica actual.
-    bullets:
-      - heading: Plazas limitadas
-        text: 15 plazas disponibles. Aprovecha una de las 15 plazas con descuento antes de que se agoten.
-      - heading: Certificación reconocida internacionalmente
-        text: Obtén una certificación avalada a nivel internacional al completar el programa.
-      - heading: Alta demanda laboral
-        text: El salario promedio en España en 2024 para desarrolladores Full Stack es de €32,000 al año o €2,600 al mes.
-    footer: La Beca Carné Joven tiene un número limitado de plazas disponibles. Solicita tu plaza a tiempo para no perder esta oportunidad.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/Copia de Fav_DSC_1146.JPG
-    image_alt: Estudiante usando laptop con promoción Carné Joven 50% descuento
-    reverse: true
-    marginY:
-      desktop: none md
+    marginX:
+      desktop: none
+    section_id: hero-9foq6t
   - type: awards_marquee
     section_id: awards_marquee-cz908y
     version: v1.0
@@ -147,6 +136,24 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: none lg
+  - type: two_column_accordion_card
+    variant: image_background
+    version: "1.0"
+    title: ¡Aprovecha un 50% de descuento con tu Carné Joven!
+    description: Si estás buscando una oportunidad para desarrollar tus habilidades como programador, 4Geeks Academy te ofrece la formación que necesitas con un 50% de descuento gracias a Carné Joven. Este bootcamp está diseñado para enseñarte a crear nuevas aplicaciones, manejar múltiples bases de datos y dominar lenguajes de programación muy demandados en la industria tecnológica actual.
+    bullets:
+      - heading: Plazas limitadas
+        text: 15 plazas disponibles. Aprovecha una de las 15 plazas con descuento antes de que se agoten.
+      - heading: Certificación reconocida internacionalmente
+        text: Obtén una certificación avalada a nivel internacional al completar el programa.
+      - heading: Alta demanda laboral
+        text: El salario promedio en España en 2024 para desarrolladores Full Stack es de €32,000 al año o €2,600 al mes.
+    footer: La Beca Carné Joven tiene un número limitado de plazas disponibles. Solicita tu plaza a tiempo para no perder esta oportunidad.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Copia de Fav_DSC_1146.JPG
+    image_alt: Estudiante usando laptop con promoción Carné Joven 50% descuento
+    reverse: true
+    marginY:
+      desktop: none md
   - type: syllabus
     variant: program-modules
     program_title: Lo que aprenderás en el programa Full Stack
@@ -245,49 +252,32 @@ sections:
     footer_description: Con nuestra colaboración especial con Carné Joven, puedes acceder a una formación de alta calidad a un precio accesible.
     background: hsl(var(--secondary))
     marginY:
-      desktop: none xl
+      desktop: none lg
     paddingY:
       desktop: none
-  - type: awards_marquee
+  - type: trust_cards
     version: v1.0
-    speed: 40
-    gradient: true
-    gradientWidth: 100
+    title: ¡Los mejor valorados en todos los sitios de reseñas!
     items:
-      - id: switchup-2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        alt: SwitchUp - Best Coding Bootcamps 2025
-        logoHeight: 56px
-      - id: course-report-2024
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
-        alt: Course Report - Best Coding Bootcamp 2024
-        logoHeight: 56px
-      - id: tech-hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
-        alt: South Florida Tech Hub
-        logoHeight: 56px
-      - id: ebootcamp
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
-        alt: eBootcamp Top
-        logoHeight: 56px
-      - id: premios-tecnologia
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-        alt: Premios Tecnologia Siglo XXI
-        logoHeight: 56px
-      - id: newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
-        alt: Newsweek
-        logoHeight: 56px
-      - id: reviews-coursereport
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-        alt: 4.9 on Course Report Reviews
-        logoHeight: 56px
-      - id: excelencia-educativa
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
-        alt: Excelencia Educativa - Institutional Quality
-        logoHeight: 56px
+      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+        rating: 4.9
+        review_count: 4.84 en reseñas
+      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        rating: 4.8
+        review_count: 4.5 en reseñas
+      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        rating: 4.9
+        review_count: 4.89 en reseñas
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 4.91 en reseñas
+    name: Default Trust Cards
+    description: Four review platform cards with ratings
+    section_id: trust_cards-eslgbu
+    paddingY:
+      desktop: md lg
     marginY:
-      desktop: none xl
+      desktop: none md
   - type: two_column
     proportions:
       - 6

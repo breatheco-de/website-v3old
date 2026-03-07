@@ -1,13 +1,12 @@
-# Common properties for AI Engineering Landing (English)
-slug: "ai-engineering-coding-florida"
-title: "ai-engineering-coding-florida"
-locale: "en"
-
+slug: ai-engineering-coding-florida
+title: ai-engineering-coding-florida
+locale: en
 meta:
-  og_image: "/images/programs/ai-engineering-og.jpg"
-
+  og_image: /images/programs/ai-engineering-og.jpg
+  redirects:
+    - /us/landing/tech-career-4geeks
 schema:
   include:
-    - "organization"
-    - "website"
-    - "courses:ai-engineering"
+    - organization
+    - website
+    - courses:ai-engineering

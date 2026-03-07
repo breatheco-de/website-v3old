@@ -203,7 +203,7 @@ export function HeroProductShowcase({
               )}
 
               {data.brand_mark && (
-                <h1 className="font-heading text-h1 tracking-tight">
+                <h1 className="font-heading text-4xl md:text-h1 tracking-tight">
                   {data.brand_mark.prefix && (
                     <span className="text-foreground">
                       {data.brand_mark.prefix}{" "}
@@ -225,7 +225,7 @@ export function HeroProductShowcase({
                 </h1>
               )}
               <h2
-                className="text-4xl lg:text-5xl font-medium text-foreground"
+                className="text-4xl lg:text-5xl font-medium text-foreground mb-3 md:mb-0"
                 data-testid="text-hero-title"
               >
                 {data.title}
@@ -244,7 +244,7 @@ export function HeroProductShowcase({
                 <div className="relative">
                   <RichTextContent
                     html={data.description}
-                    className="text-body text-foreground mt-2 mb-0 md:mb-8 max-w-xl leading-relaxed [&_p]:mb-0"
+                    className="text-body text-foreground mt-2 mb-0 md:mb-8 md:max-w-xl leading-relaxed [&_p]:mb-0"
                     data-testid="text-hero-description"
                   />
                 </div>
@@ -253,13 +253,13 @@ export function HeroProductShowcase({
               {bullets && bullets.length > 0 && (
                 <div className="flex justify-center md:block">
                   <ul
-                    className="mt-4 md:mb-4 space-y-2 max-w-xl"
+                    className="mt-3 md:mb-4 space-y-1 max-w-xl"
                     data-testid="hero-bullets"
                   >
                     {bullets.map((bullet, index) => (
                       <li
                         key={index}
-                        className="flex items-start gap-3 text-foreground"
+                        className="flex items-start gap-1 md:gap-3 text-foreground"
                         data-testid={`hero-bullet-${index}`}
                       >
                         <IconCheck className="h-5 w-5 mt-0.5 text-primary flex-shrink-0" />
@@ -499,13 +499,13 @@ export function HeroProductShowcase({
               </div>
             ) : data.form ? (
               <div 
-                className={`relative w-full ${formCardImageSrc ? "mt-16" : ""}`} 
+                className={`relative w-full ${formCardImageSrc ? "md:mt-16" : ""}`} 
 
               >
                 <div className="">
                   {formCardImageSrc && (
                     <div
-                      className="absolute flex items-center top-0 right-0 pointer-events-none z-0  z-[1001]"
+                      className="hidden md:block absolute flex items-center md:top-0 right-9 sm:right-16 md:right-7 lg:right-8 xl:right-0 pointer-events-none z-0  z-[1001]"
                       style={{ transform: "translate(40%, -40%)",
                             }}
 
@@ -585,19 +585,54 @@ export function HeroProductShowcase({
 
           {data.form && (
             <div className="md:hidden mt-4 flex justify-center w-full">
-              <LeadForm
-                data={
-                  {
-                    ...data.form,
-                    variant: data.form.variant || "inline",
-                    consent: data.form.consent,
-                    show_terms: data.form.show_terms ?? false,
-                    className: "w-full max-w-md",
-                  } as LeadFormData
-                }
-                landingLocations={landingLocations}
-                termsStyle={data.form_terms_color ? { color: data.form_terms_color } : undefined}
-              />
+              <Card
+                className={`w-full max-w-md overflow-hidden p-4 rounded-lg ${formCardBackground ? '' : 'bg-background'}`}
+                style={formCardBgStyle}
+                data-testid="hero-form-mobile"
+              >
+                {formCardImageSrc && (
+                  <div className="flex justify-center mb-4" data-testid="img-form-card-image-mobile">
+                    <UniversalImage
+                      id={formCardImageSrc}
+                      alt={formCardImageAlt}
+                      style={{
+                        objectFit: (formCardImageObjectFit as React.CSSProperties["objectFit"]) || "contain",
+                        width: formCardImageWidth || "140px",
+                        height: formCardImageHeight || "140px",
+                        opacity: formCardImageOpacity ?? 1,
+                        borderRadius: formCardImageBorderRadius || undefined,
+                      }}
+                    />
+                  </div>
+                )}
+                {(formCardTitle || formCardSubtitle) && (
+                  <div className="mb-3" style={formCardTextColor ? { color: formCardTextColor } : undefined}>
+                    {formCardTitle && (
+                      <h3 className="text-2xl mb-2 font-semibold text-center" data-testid="text-form-card-title-mobile">
+                        {formCardTitle}
+                      </h3>
+                    )}
+                    {formCardSubtitle && (
+                      <p className="text-center" style={{ opacity: 0.8 }}>
+                        {formCardSubtitle}
+                      </p>
+                    )}
+                  </div>
+                )}
+                <LeadForm
+                  data={
+                    {
+                      ...data.form,
+                      variant: data.form.variant || "stacked",
+                      consent: data.form.consent,
+                      show_terms: data.form.show_terms ?? false,
+                      className: "w-full",
+                    } as LeadFormData
+                  }
+                  landingLocations={landingLocations}
+                  termsStyle={data.form_terms_color ? { color: data.form_terms_color } : undefined}
+                />
+              </Card>
             </div>
           )}
         </div>

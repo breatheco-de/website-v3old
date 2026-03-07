@@ -1,0 +1,30 @@
+slug: desarrollo-full-stack-con-ia-venezuela
+locale: es
+title: Desarrollo-Full-stack-con-ia-venezuela
+meta:
+  page_title: Desarrollo de Full Stack con IA | 4Geeks Academy
+  description: Desarrollo de Full Stack con IA.  Únete a 4Geeks Academy.
+  robots: index, follow
+  og_image: /images/landing-og.jpg
+  priority: 0.9
+  change_frequency: weekly
+  redirects:
+    - /es/landing/aprende-a-programar-ve
+    - /es/landing/curso-de-programacion-ve
+    - /landing/bootcamp-de-programacion-ve
+schema:
+  include:
+    - organization
+    - website
+locations:
+  - bogota-colombia
+  - buenosaires-argentina
+  - caracas-venezuela
+  - costa-rica
+  - lapaz-bolivia
+  - lima-peru
+  - ciudad-de-mexico
+  - montevideo-uruguay
+  - ciudad-de-panama
+  - quito-ecuador
+  - santiago-chile

@@ -8,6 +8,10 @@ meta:
   robots: index, follow
   priority: 0.9
   change_frequency: weekly
+  redirects:
+    - /es/landing/aprende-a-programar
+    - /es/landing/bootcamp-programacion-espana
+    - /es/landing/bootcamp-programacion
 schema:
   include:
     - organization

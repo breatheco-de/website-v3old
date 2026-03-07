@@ -34,6 +34,7 @@ sections:
         phone:
           visible: true
           required: true
+          default_country: MX
         program:
           visible: false
           default: full-stack
@@ -96,7 +97,7 @@ sections:
       desktop: md none
     marginX:
       desktop: none
-    section_id: hero-56bog6
+    section_id: hero-ahl4da
   - type: trust_cards
     version: v1.0
     title: Con la confianza de estudiantes en todo el mundo
@@ -118,7 +119,7 @@ sections:
         trusted_text: Reseñas verificadas
     name: Default Trust Cards
     description: Four review platform cards with ratings
-    section_id: trust_cards-ig991a
+    section_id: trust_cards-rd5h8e
     marginY:
       desktop: none lg
     paddingY:
@@ -197,7 +198,7 @@ sections:
         icon: IconUsers
     paddingY:
       desktop: none md
-    section_id: syllabus-azlm90
+    section_id: syllabus-t9lfc7
   - type: projects
     title: Aprende construyendo proyectos reales
     subtitle: "Las tareas que abordarás se asemejan a las que encontrarás en el mundo laboral real. Aquí tienes un vistazo de lo que trabajarás:"
@@ -232,7 +233,7 @@ sections:
       desktop: none md
     paddingY:
       desktop: md sm
-    section_id: projects-6nx1yx
+    section_id: projects-7js3hz
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
@@ -271,7 +272,7 @@ sections:
         image_id: mentoring_zoom_call
     paddingY:
       desktop: md none
-    section_id: ai_learning-9g2eb8
+    section_id: ai_learning-tfzo25
     marginY:
       desktop: none sm
   - type: certificate
@@ -319,7 +320,7 @@ sections:
           - text: Eventos de networking con recruiters y responsables de selección
     certificate_position: right
     useSolidCard: true
-    section_id: certificate-3exfs1
+    section_id: certificate-jafcjq
     marginY:
       mobile: none
       desktop: none xl
@@ -359,7 +360,7 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
-    section_id: whos_hiring-x0s0v7
+    section_id: whos_hiring-8p10n3
   - type: testimonials
     title: Éxito profesional comprobado
     subtitle: Más de {{ global.global_total_alumni | 5,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.
@@ -405,7 +406,7 @@ sections:
         outcome: Primer trabajo en tech
     paddingY:
       desktop: md
-    section_id: testimonials-gkilgo
+    section_id: testimonials-43ncr6
   - type: cta_banner
     version: "1.0"
     title: Rellena el formulario y obtén más información
@@ -433,7 +434,7 @@ sections:
         phone:
           visible: true
           required: true
-          default_country: VE
+          default_country: MX
           placeholder: Teléfono
         program:
           visible: false
@@ -448,10 +449,12 @@ sections:
       button_className: bg-primary border-white
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
-    section_id: cta_banner-amy7gf
+    section_id: cta_banner-xoyhdk
     marginY:
       mobile: md none
       desktop: md none
     paddingY:
       mobile: lg
       desktop: lg
+slug: desarrollo-full-stack-con-ia-mexico
+title: desarrollo-full-stack-con-ia-mexico

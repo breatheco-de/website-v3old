@@ -8,6 +8,10 @@ meta:
   og_image: /images/landing-og.jpg
   priority: 0.9
   change_frequency: weekly
+  redirects:
+    - /es/landing/espana-programas
+    - /es/landing/programas-espana
+    - /es/landing/europa-programas
 schema:
   include:
     - organization
