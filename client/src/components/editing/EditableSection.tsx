@@ -1105,6 +1105,29 @@ export function EditableSection({ children, section, index, sectionType, content
                 <IconSpacingHorizontal className="h-4 w-4" />
                 Horizontal spacing
               </button>
+              {contentType && slug && locale && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setMobileMoreOpen(false);
+                    setHistoryOpen(true);
+                    if (historyEntries.length === 0) {
+                      setHistoryLoading(true);
+                      const filePath = `marketing-content/${contentType}/${slug}/${locale}.yml`;
+                      fetch(`/api/git/file-history?file=${encodeURIComponent(filePath)}&limit=20`)
+                        .then(r => r.json())
+                        .then(data => { setHistoryEntries(data.entries || []); })
+                        .catch(() => { setHistoryEntries([]); })
+                        .finally(() => setHistoryLoading(false));
+                    }
+                  }}
+                  className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground rounded-md hover-elevate"
+                  data-testid={`button-time-machine-mobile-${index}`}
+                >
+                  <IconClockHour3 className="h-4 w-4" />
+                  Time Machine
+                </button>
+              )}
             </div>
           </PopoverContent>
         </Popover>
@@ -1130,7 +1153,7 @@ export function EditableSection({ children, section, index, sectionType, content
           }}>
             <PopoverTrigger asChild>
               <button
-                className="p-2 bg-muted text-muted-foreground rounded-md shadow-lg hover-elevate"
+                className="p-2 bg-muted text-muted-foreground rounded-md shadow-lg hover-elevate invisible md:visible"
                 title="Section history"
                 data-testid={`button-history-section-${index}`}
               >
