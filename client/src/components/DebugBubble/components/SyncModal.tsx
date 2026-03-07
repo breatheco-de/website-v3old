@@ -171,7 +171,7 @@ export function SyncModal({
   return (
     <>
     <Dialog open={open} onOpenChange={(v) => { if (!v) setSkipBulkPrompt(false); onOpenChange(v); }}>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="w-full max-w-full h-full max-h-full rounded-none overflow-y-auto sm:rounded-lg sm:max-w-lg sm:h-auto sm:max-h-[90vh]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <IconBrandGithub className="h-5 w-5" />
@@ -787,7 +787,7 @@ export function SyncModal({
     </Dialog>
 
     <Dialog open={!!bulkPullPromptFile} onOpenChange={(open) => { if (!open) setBulkPullPromptFile(null); }}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="w-full max-w-full rounded-none sm:rounded-lg sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <IconArrowDown className="h-5 w-5" />
@@ -836,7 +836,7 @@ export function SyncModal({
     </Dialog>
 
     <Dialog open={pushAllConfirmOpen} onOpenChange={(open) => { if (!open) setPushAllConfirmOpen(false); }}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="w-full max-w-full rounded-none sm:rounded-lg sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <IconArrowUp className="h-5 w-5" />
