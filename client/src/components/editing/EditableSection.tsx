@@ -1153,14 +1153,14 @@ export function EditableSection({ children, section, index, sectionType, content
           }}>
             <PopoverTrigger asChild>
               <button
-                className="p-2 bg-muted text-muted-foreground rounded-md shadow-lg hover-elevate invisible md:visible"
+                className="p-2 bg-muted text-muted-foreground rounded-md shadow-lg hover-elevate hidden md:block"
                 title="Section history"
                 data-testid={`button-history-section-${index}`}
               >
                 <IconClockHour3 className="h-4 w-4" />
               </button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto min-w-[380px] max-w-[500px] p-2" onClick={(e) => e.stopPropagation()}>
+            <PopoverContent className="w-[min(500px,calc(100vw-1rem))] p-2" onClick={(e) => e.stopPropagation()}>
               {historyLoading ? (
                 <div className="flex items-center justify-center py-3 px-4">
                   <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground mr-2" />
