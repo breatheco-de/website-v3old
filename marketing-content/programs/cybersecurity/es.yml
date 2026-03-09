@@ -46,10 +46,12 @@ sections:
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Tus tutores:"
     description: Nuestro programa intensivo combina laboratorios prácticos, mentorías 1:1 ilimitadas y desarrollo profesional para prepararte para roles de seguridad de alto impacto en cualquier industria.
+    video:
+      preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165452.png
     media:
       type: video
       src: https://youtu.be/13kzScGB-iQ?is=MDVrNnyxnO3iP1h2
-      thumbnail: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
+      thumbnail: ""
       alt: Cybersecurity program
     signup_card:
       title: Obtén el programa completo
@@ -79,8 +81,6 @@ sections:
       desktop: md
     marginY:
       desktop: none
-    video:
-      preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165452.png
   - type: modal
     version: "1.0"
     section_id: apply-modal
