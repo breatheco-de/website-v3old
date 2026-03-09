@@ -19,10 +19,10 @@ sections:
     variant: ApplyFormProductShowcase
     title: Top-Rated Online AI Engineer Program with Job Guarantee
     brand_mark:
-      prefix: From Data Science to
+      prefix: From Tech Professional to
       highlight: Certified AI Engineer
       color: primary
-    description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the professional companies can’t wait to hire.
+    description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. For Developers, Data Scientists & Tech Professionals
     form:
       variant: stacked
       conversion_name: student_application
