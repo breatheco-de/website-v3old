@@ -19,7 +19,6 @@ schema:
     - courses:data-science
 sections:
   - type: hero
-    section_id: hero-jlzfrx
     version: "1.0"
     variant: course
     title: Ciencia de Datos y Machine Learning
@@ -45,6 +44,9 @@ sections:
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Tus tutores:"
     description: Prepárate para roles de alta demanda en ciencia de datos y machine learning a través de proyectos prácticos, mentoría ilimitada y soporte de carrera diseñado para que consigas empleo.
+    video:
+      url: https://youtu.be/QlJpTqXCAFw?is=CLYXW9MtMyxQZLJU
+      preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-120742.png
     signup_card:
       title: Recibe el plan de estudios completo
       description: Accede al plan de estudios completo, horarios y todo lo que necesitas saber.
@@ -68,12 +70,11 @@ sections:
           text: Mentoría 1:1 ilimitada
         - icon: book
           text: Portafolio real de Data Science y ML
+    section_id: hero-jlzfrx
     paddingY:
       desktop: md
     marginY:
       desktop: none
-    video:
-      url: https://youtu.be/QlJpTqXCAFw?is=CLYXW9MtMyxQZLJU
   - type: modal
     version: "1.0"
     section_id: apply-modal
