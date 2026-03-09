@@ -96,7 +96,6 @@ sections:
       - tampa-usa
       - toronto-canada
   - type: hero
-    section_id: hero-wo18wj
     version: "1.0"
     variant: course
     title: Programa de Desarrollo Full Stack con IA
@@ -144,6 +143,7 @@ sections:
           text: Ratio 1:7 estudiante–profesor
         - icon: users
           text: Mentoría personalizada 1:1
+    section_id: hero-wo18wj
     paddingY:
       desktop: md lg
     marginY:
@@ -171,6 +171,9 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+    video:
+      url: https://youtu.be/nvnO5WTkx0M?is=O06EtJA_1us4AjQb
+      preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165808.png
   - type: modal
     version: "1.0"
     section_id: apply-modal
