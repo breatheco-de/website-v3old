@@ -79,6 +79,8 @@ sections:
       desktop: md
     marginY:
       desktop: none
+    video:
+      preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165452.png
   - type: modal
     version: "1.0"
     section_id: apply-modal
