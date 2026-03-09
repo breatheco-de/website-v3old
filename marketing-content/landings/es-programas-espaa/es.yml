@@ -223,7 +223,7 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-nyglwg
     marginY:
-      desktop: none md
+      desktop: none
     paddingY:
       desktop: none md
   - type: two_column
