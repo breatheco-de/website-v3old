@@ -17,10 +17,10 @@ sections:
   - type: hero
     version: "1.0"
     variant: ApplyFormProductShowcase
-    title: Learn with Top-Rated Online AI Engineer Program.
+    title: Top-Rated Online AI Engineer Program with Job Guarante
     brand_mark:
       prefix: From Developer to
-      highlight: Certified AI Engineer with Job Support
+      highlight: Certified AI Engineer
       color: primary
     description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the professional companies can’t wait to hire.
     form:
