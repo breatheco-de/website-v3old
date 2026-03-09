@@ -172,6 +172,8 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+    video:
+      url: https://youtube.com/shorts/bEXlW4IwDCE?is=XJgNhY0onw3iB63w
   - type: modal
     version: "1.0"
     section_id: apply-modal
