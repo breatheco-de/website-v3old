@@ -230,6 +230,7 @@ sections:
     proportions:
       - 6
       - 6
+    background: hsl(210 100% 50% / 0.05)
     alignment: center
     left:
       video: https://youtu.be/9Vm_xD49MaU
@@ -247,7 +248,6 @@ sections:
     section_id: ai_learning-gyglcr
     marginY:
       desktop: none xl
-    background: hsl(var(--secondary))
     paddingY:
       desktop: md
   - type: geeks_vs_others_comparison
