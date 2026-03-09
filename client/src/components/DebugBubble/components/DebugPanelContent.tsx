@@ -221,7 +221,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               </a>
             </p>
             <p className="text-xs text-muted-foreground mb-3">
-              Only users with <code className="bg-muted px-1 rounded">website</code> capability will be able to edit the website.
+              Only users with <code className="bg-muted px-1 rounded">webmaster</code> capability will be able to edit the website.
             </p>
             <div className="flex gap-2">
               <input
