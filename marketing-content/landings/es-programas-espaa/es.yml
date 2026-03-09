@@ -156,27 +156,6 @@ sections:
     image_alt: Estudiantes aprendiendo programación en 4Geeks Academy
     reverse: true
     section_id: two_column_accordion_card-srkrjj
-  - type: two_column
-    proportions:
-      - 6
-      - 6
-    alignment: center
-    left:
-      video: https://youtu.be/9Vm_xD49MaU
-      justify: center
-    right:
-      heading: "Diego Gómez González: cómo 4Geeks cambió su vida profesional"
-      sub_heading: La experiencia de un estudiante de nuestro bootcamp
-      description: Diego, uno de nuestros estudiantes, comparte su experiencia en 4Geeks Academy, donde cursó el bootcamp de desarrollo Full Stack. Con un grado superior en desarrollo multiplataforma, Diego ya contaba con conocimientos en programación, pero necesitaba reforzar su capacidad para conectar las distintas áreas del desarrollo.
-      button:
-        text: Solicita tu plaza
-        url: "#bottom"
-        variant: primary
-        icon: Rocket
-    gap: "8"
-    marginY:
-      desktop: none xl
-    section_id: ai_learning-gyglcr
   - type: course_selector
     version: "1.0"
     variant: solid
@@ -244,9 +223,33 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-nyglwg
     marginY:
-      desktop: none md
+      desktop: none
     paddingY:
       desktop: none
+  - type: two_column
+    proportions:
+      - 6
+      - 6
+    background: hsl(210 100% 50% / 0.05)
+    alignment: center
+    left:
+      video: https://youtu.be/9Vm_xD49MaU
+      justify: center
+    right:
+      heading: "Diego Gómez González: cómo 4Geeks cambió su vida profesional"
+      sub_heading: La experiencia de un estudiante de nuestro bootcamp
+      description: Diego, uno de nuestros estudiantes, comparte su experiencia en 4Geeks Academy, donde cursó el bootcamp de desarrollo Full Stack. Con un grado superior en desarrollo multiplataforma, Diego ya contaba con conocimientos en programación, pero necesitaba reforzar su capacidad para conectar las distintas áreas del desarrollo.
+      button:
+        text: Solicita tu plaza
+        url: "#bottom"
+        variant: primary
+        icon: Rocket
+    gap: "8"
+    section_id: ai_learning-gyglcr
+    marginY:
+      desktop: none xl
+    paddingY:
+      desktop: md
   - type: geeks_vs_others_comparison
     section_id: geeks_vs_others_comparison-0w9570
     version: "1.0"
