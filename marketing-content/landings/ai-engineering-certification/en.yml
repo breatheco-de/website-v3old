@@ -17,12 +17,12 @@ sections:
   - type: hero
     version: "1.0"
     variant: ApplyFormProductShowcase
-    title: Go from 0 to AI Engineer in 24 weeks.
+    title: Learn to build real AI systems and get job-ready in 24 weeks.
     brand_mark:
       prefix: Become a
       highlight: Certified AI Engineer
       color: primary
-    description: Hands-on and Unlimited 1:1 mentorship with personalized career guidance.
+    description: Hands-on projects, unlimited 1:1 mentorship, and career support.
     form:
       variant: stacked
       conversion_name: student_application
