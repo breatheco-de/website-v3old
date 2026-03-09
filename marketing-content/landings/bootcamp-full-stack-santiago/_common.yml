@@ -8,14 +8,27 @@ meta:
   robots: index, follow
   priority: 0.9
   change_frequency: weekly
-  page_title: Full Stack Developer
-  description: 'Conviértete en Desarrollador Full Stack con mentoría ilimitada 1:1, orientación profesional y proyectos prácticos. '
+  page_title: Programa de Carrera Desarrollador Full Stack | 4Geeks
+  description: Conviértete en Desarrollador Full Stack con mentoría ilimitada 1:1, orientación profesional y proyectos prácticos. Inicia una carrera con salarios iniciales de $65K+.
   redirects:
     - /es/landing/bootcamp-full-stack-santiago-go
     - /es/landing/bootcamp-full-stack-santiago-meta
     - /es/landing/bootcamp-full-stack-santiago-fb
     - /es/landing/clases-de-programacion-santiago-chile
     - /es/landing/curso-de-programacion-santiago
+  context: null
+  when_to_use: For visitors interested in becoming web developers, learning both frontend and backend technologies, or transitioning into software development careers.
+  target_audience: Career changers, recent graduates, and professionals looking to break into tech with comprehensive web development skills.
+  goals:
+    - Highlight the practical, project-based learning approach
+    - Emphasize job-ready skills and career outcomes
+    - Showcase the full-stack technology coverage (HTML, CSS, JavaScript, React, Python, SQL)
+    - Address concerns about learning curve and time commitment
+  schema:
+    include:
+      - organization
+      - website
+      - courses:full-stack
 context:
   when_to_use: For visitors interested in becoming web developers, learning both frontend and backend technologies, or transitioning into software development careers.
   target_audience: Career changers, recent graduates, and professionals looking to break into tech with comprehensive web development skills.
@@ -29,4 +42,5 @@ schema:
     - organization
     - website
     - courses:full-stack
-locations: null
+locations:
+  - santiago-chile
