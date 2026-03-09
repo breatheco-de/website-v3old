@@ -249,7 +249,7 @@ sections:
       desktop: none xl
     background: hsl(var(--secondary))
     paddingY:
-      desktop: md none
+      desktop: md
   - type: geeks_vs_others_comparison
     section_id: geeks_vs_others_comparison-0w9570
     version: "1.0"
