@@ -17,10 +17,10 @@ sections:
   - type: hero
     version: "1.0"
     variant: ApplyFormProductShowcase
-    title: Top-Rated Online AI Engineer Program with Job Guarantee
+    title: For Developers, Data Scientists & Tech Professionals
     brand_mark:
-      prefix: Become a Certified AI Engineer
-      highlight: For Developers, Data Scientists & Tech Professionals
+      prefix: Become a
+      highlight: Certified AI Engineer
       color: primary
     description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. For Developers, Data Scientists & Tech Professionals
     form:
