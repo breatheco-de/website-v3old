@@ -15,7 +15,6 @@ schema:
     - website
 sections:
   - type: hero
-    section_id: hero-xfdlsj
     version: "1.0"
     variant: productShowcase
     title: Mentoría en programación potenciada por IA
@@ -32,11 +31,12 @@ sections:
       - text: Acceso de por vida
       - text: Comunidad global de desarrolladores
     video:
-      url: https://youtu.be/D5nUZNL52-Q
+      url: https://youtu.be/4l2I0PYNKDU
       ratio: "3:4"
       muted: true
       autoplay: false
       loop: true
+    section_id: hero-xfdlsj
     paddingY:
       mobile: none lg
       desktop: md lg
