@@ -20,7 +20,6 @@ schema:
     - courses:cybersecurity
 sections:
   - type: hero
-    section_id: hero-3yzlho
     version: "1.0"
     variant: course
     title: Conviértete en Especialista en Ciberseguridad
@@ -47,6 +46,11 @@ sections:
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Tus tutores:"
     description: Nuestro programa intensivo combina laboratorios prácticos, mentorías 1:1 ilimitadas y desarrollo profesional para prepararte para roles de seguridad de alto impacto en cualquier industria.
+    media:
+      type: video
+      src: https://youtu.be/13kzScGB-iQ?is=MDVrNnyxnO3iP1h2
+      thumbnail: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
+      alt: Cybersecurity program
     signup_card:
       title: Obtén el programa completo
       description: Accede al detalle del programa, horarios y todo lo que necesitas saber sobre el programa.
@@ -70,6 +74,7 @@ sections:
           text: Mentoría 1:1 ilimitada
         - icon: book
           text: Portafolio con proyectos reales
+    section_id: hero-3yzlho
     paddingY:
       desktop: md
     marginY:
