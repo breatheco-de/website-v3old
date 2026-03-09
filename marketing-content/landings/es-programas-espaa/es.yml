@@ -1,19 +1,19 @@
 sections:
   - type: hero
-    section_id: hero-nzp28x
     version: "1.0"
     variant: productShowcase
-    title: en 4Geeks Academy.
+    title: en 4Geeks Academy
     brand_mark:
       prefix: Saca el máximo de tu
       highlight: potencial
       color: primary
-    description: Programas para convertirte en un experto en programación y complementar tu perfil profesional
+    description: Programas diseñados para convertirte en un profesional de la programación, desarrollar habilidades autodidactas y fortalecer tu perfil profesional en la industria tecnológica.
     bullets:
-      - text: Aprende a resolver problemas de manera efectiva
-      - text: Desarrolla habilidades de aprendizaje autodidacta
-      - text: Accede a mentorías personalizadas ilimitadas y de por vida
-      - text: Forma parte de una comunidad internacional de más de 5,000 personas
+      - text: Aprende a resolver problemas de manera efectiva mediante programación y pensamiento lógico
+      - text: Desarrolla habilidades de aprendizaje autodidacta para adaptarte a nuevas tecnologías
+      - text: Accede a mentorías personalizadas ilimitadas y de por vida incluso después de graduarte
+      - text: Forma parte de una comunidad internacional de más de 5,000 profesionales en tecnología
+    image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
@@ -27,7 +27,7 @@ sections:
         first_name:
           visible: true
           required: true
-          placeholder: Nombre completo
+          placeholder: Nombre
         last_name:
           visible: true
           required: true
@@ -36,7 +36,7 @@ sections:
           visible: true
           required: true
         program:
-          visible: true
+          visible: false
           default: ai-engineering
       success:
         message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
@@ -49,7 +49,11 @@ sections:
         sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
         sms_usa_only: true
       show_terms: true
-    form_vertical_align: center
+    form_vertical_align: bottom
+    form_card_text_color: hsl(var(--foreground))
+    form_card_title: Recibe todos los detalles del programa
+    form_card_subtitle: Completa el formulario para recibir el programa completo por correo electrónico y elegir cómo quieres que nuestro equipo de admisiones se ponga en contacto contigo.
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: false
     awards_marquee:
       items:
@@ -91,6 +95,9 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
+    marginX:
+      desktop: none
+    section_id: hero-l4c46u
   - type: hero
     version: "1.0"
     variant: productShowcase
