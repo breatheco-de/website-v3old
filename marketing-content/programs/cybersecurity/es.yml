@@ -47,13 +47,8 @@ sections:
     tutors_label: "Tus tutores:"
     description: Nuestro programa intensivo combina laboratorios prácticos, mentorías 1:1 ilimitadas y desarrollo profesional para prepararte para roles de seguridad de alto impacto en cualquier industria.
     video:
-      preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165452.png
       url: https://www.youtube.com/watch?v=13kzScGB-iQ
-    media:
-      type: video
-      src: https://youtu.be/13kzScGB-iQ?is=MDVrNnyxnO3iP1h2
-      thumbnail: ""
-      alt: Cybersecurity program
+      preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165452.png
     signup_card:
       title: Obtén el programa completo
       description: Accede al detalle del programa, horarios y todo lo que necesitas saber sobre el programa.
