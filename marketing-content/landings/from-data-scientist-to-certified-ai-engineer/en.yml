@@ -1,4 +1,4 @@
-slug: from-data-scientist-to-certified-ai-engineer
+slug: ai-engineering-certification
 title: From Data Scientist to Certified AI Engineer
 locale: en
 meta:
@@ -15,7 +15,7 @@ schema:
     - courses:ai-engineering
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: ApplyFormProductShowcase
     title: For Developers, Data Scientists & Tech Professionals
     brand_mark:
@@ -65,7 +65,7 @@ sections:
       icon: Download
     video:
       url: https://www.youtube.com/shorts/sSxJnelPJT8
-      ratio: "9:16"
+      ratio: '9:16'
       muted: true
     section_id: hero-yeqkw4
     paddingY:
@@ -77,7 +77,7 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
   - type: sticky_cta
     section_id: sticky_cta-gjavb4
-    version: "1.0"
+    version: '1.0'
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -106,7 +106,7 @@ sections:
         message: Thanks! We'll be in touch within 24 hours.
   - type: awards_marquee
     section_id: awards_marquee-7tc46h
-    version: "1.0"
+    version: '1.0'
     speed: 40
     gradient: true
     gradientWidth: 500
@@ -160,7 +160,7 @@ sections:
       desktop: none lg
   - type: features_grid
     section_id: features_grid-0jz08u
-    version: "1.0"
+    version: '1.0'
     variant: stats-text-card
     title: Why AI Engineering Now
     subtitle: The talent shortage is your opportunity
@@ -334,7 +334,7 @@ sections:
     features:
       - icon: TrendingUp
         title: Thrive in tech with career support for the AI-Era
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Get personalized 1:1 coaching
@@ -344,11 +344,11 @@ sections:
         video_url: https://youtu.be/-2ZvlgDnltc
         cta:
           text: Start learning now!
-          url: "#hero-form"
+          url: '#hero-form'
           variant: primary
       - icon: Robot
         title: Progress faster with AI-powered tools
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Get instant feedback from Rigobot, our custom AI tutor
@@ -358,11 +358,11 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
         cta:
           text: Start learning now!
-          url: "#hero-form"
+          url: '#hero-form'
           variant: primary
       - icon: Headset
         title: Unlimited 1:1 mentorship and an active community
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 mentorship sessions
@@ -376,12 +376,12 @@ sections:
   - type: certificate
     section_id: certificate-dygol2
     title: Career Outcomes
-    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
+    description: 'Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:'
     benefits:
-      - text: "AI Software Engineer: $95K–$135K"
-      - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-      - text: "Agent Engineer: $105K–$155K"
-      - text: "Workflow Automation Engineer: $85K–$120K"
+      - text: 'AI Software Engineer: $95K–$135K'
+      - text: 'Full-Stack Engineer (AI-Fluent): $100K–$145K'
+      - text: 'Agent Engineer: $105K–$155K'
+      - text: 'Workflow Automation Engineer: $85K–$120K'
     card:
       title: AI Engineer
       subtitle: 4Geeks Academy Certificate
@@ -406,10 +406,10 @@ sections:
         label: Average salary increase
         description: Our graduates see an average 55% salary increase after transitioning into AI engineering roles. The investment pays for itself.
         benefits:
-          - text: "AI Software Engineer: $95K–$135K"
-          - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-          - text: "Agent Engineer: $105K–$155K"
-          - text: "Workflow Automation Engineer: $85K–$120K"
+          - text: 'AI Software Engineer: $95K–$135K'
+          - text: 'Full-Stack Engineer (AI-Fluent): $100K–$145K'
+          - text: 'Agent Engineer: $105K–$155K'
+          - text: 'Workflow Automation Engineer: $85K–$120K'
       - value: 5,000+
         label: Hiring partners
         description: Access our network of 5,000+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
@@ -429,12 +429,12 @@ sections:
     background: hsl(var(--muted))
   - type: pricing
     section_id: pricing-gjb9r0
-    version: "1.0"
+    version: '1.0'
     variant: product
     title: Finance Your Investment
     subtitle: Your future in tech is within reach.
-    discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: "Credit-Based Financing: starting below"
+    discount_text: 'Full Payment Discount: Save 10% with upfront payment.'
+    financing_text: 'Credit-Based Financing: starting below'
     financing_amount: $349
     tech_icons:
       - openai
@@ -468,7 +468,7 @@ sections:
         text: Enroll with a Job Guarantee for added confidence. Get hired within 9 months of graduation or your money back.
     cta:
       text: Get more info
-      url: "#hero-form"
+      url: '#hero-form'
       variant: primary
     paddingY:
       mobile: lg none
@@ -511,7 +511,7 @@ sections:
       desktop: lg none
   - type: bullet_tabs_showcase
     section_id: bullet_tabs_showcase-fkvg7y
-    version: "1.0"
+    version: '1.0'
     heading: Is This Program Right for You?
     tabs:
       - label: Collaborative documents
@@ -542,7 +542,7 @@ sections:
     title: Testimonios de Nuestros Graduados
     subtitle: Experiencias que respaldan nuestros resultados.
     rating_summary:
-      average: "4.9"
+      average: '4.9'
       count: 2,847
     items:
       - name: Maria Rodriguez
@@ -583,7 +583,7 @@ sections:
         outcome: Promovido en 1 año
   - type: cta_banner
     section_id: cta_banner-07yn29
-    version: "1.0"
+    version: '1.0'
     title: Ready to Become an AI Engineer?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
@@ -630,7 +630,7 @@ sections:
       desktop: lg
   - type: footer
     section_id: footer-m9d55w
-    version: "1.0"
+    version: '1.0'
     copyright_text: 2024 4Geeks. All rights reserved.
     paddingY:
       mobile: none
