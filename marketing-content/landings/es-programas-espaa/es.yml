@@ -244,9 +244,10 @@ sections:
         variant: primary
         icon: Rocket
     gap: "8"
+    section_id: ai_learning-gyglcr
     marginY:
       desktop: none xl
-    section_id: ai_learning-gyglcr
+    background: hsl(var(--secondary))
   - type: geeks_vs_others_comparison
     section_id: geeks_vs_others_comparison-0w9570
     version: "1.0"
