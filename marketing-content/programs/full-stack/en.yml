@@ -333,7 +333,7 @@ sections:
           - text: 7:1 student–teacher ratio for personalized guidance
           - text: Peer collaboration through Slack channels and weekly check-ins
           - text: Dedicated Slack channels for coding support, job boards, and career advice
-        image_id: mentoring_zoom_call
+        image_id: community-support-cropped
     marginY:
       desktop: md none
     paddingY:

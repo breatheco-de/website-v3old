@@ -54,7 +54,6 @@ meta:
     - /us/coding-campus/coding-bootcamp-miami
 sections:
   - type: hero
-    section_id: hero-e7kqb0
     version: "1.0"
     variant: singleColumn
     title: Launch an AI-Ready Tech Career in Miami
@@ -65,8 +64,9 @@ sections:
         url: /en/apply
         variant: primary
       - text: Get Program Details
-        url: "#cta_banner-14"
+        url: "#cta_banner-7vc9sj"
         variant: outline
+    section_id: hero-e7kqb0
     marginY:
       desktop: none lg
     paddingY:

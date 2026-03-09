@@ -1,19 +1,19 @@
 sections:
   - type: hero
-    section_id: hero-nzp28x
     version: "1.0"
     variant: productShowcase
-    title: en 4Geeks Academy.
+    title: en 4Geeks Academy
     brand_mark:
       prefix: Saca el máximo de tu
       highlight: potencial
       color: primary
-    description: Programas para convertirte en un experto en programación y complementar tu perfil profesional
+    description: Programas diseñados para convertirte en un profesional de la programación, desarrollar habilidades autodidactas y fortalecer tu perfil profesional en la industria tecnológica.
     bullets:
-      - text: Aprende a resolver problemas de manera efectiva
-      - text: Desarrolla habilidades de aprendizaje autodidacta
-      - text: Accede a mentorías personalizadas ilimitadas y de por vida
-      - text: Forma parte de una comunidad internacional de más de 5,000 personas
+      - text: Aprende a resolver problemas de manera efectiva mediante programación y pensamiento lógico
+      - text: Desarrolla habilidades de aprendizaje autodidacta para adaptarte a nuevas tecnologías
+      - text: Accede a mentorías personalizadas ilimitadas y de por vida incluso después de graduarte
+      - text: Forma parte de una comunidad internacional de más de 5,000 profesionales en tecnología
+    image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
@@ -27,7 +27,7 @@ sections:
         first_name:
           visible: true
           required: true
-          placeholder: Nombre completo
+          placeholder: Nombre
         last_name:
           visible: true
           required: true
@@ -36,7 +36,7 @@ sections:
           visible: true
           required: true
         program:
-          visible: true
+          visible: false
           default: ai-engineering
       success:
         message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
@@ -49,7 +49,11 @@ sections:
         sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
         sms_usa_only: true
       show_terms: true
-    form_vertical_align: center
+    form_vertical_align: bottom
+    form_card_text_color: hsl(var(--foreground))
+    form_card_title: Recibe todos los detalles del programa
+    form_card_subtitle: Completa el formulario para recibir el programa completo por correo electrónico y elegir cómo quieres que nuestro equipo de admisiones se ponga en contacto contigo.
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: false
     awards_marquee:
       items:
@@ -87,10 +91,71 @@ sections:
           logoHeight: 55px
     video_title: GeekForce Career Support
     marginY:
-      desktop: none
+      desktop: none md
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
+    marginX:
+      desktop: none
+    section_id: hero-l4c46u
+  - type: awards_marquee
+    section_id: awards_marquee-kelzv8
+    version: v1.0
+    speed: 40
+    gradient: true
+    gradientWidth: 100
+    items:
+      - id: switchup-2025
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        alt: SwitchUp - Best Coding Bootcamps 2025
+        logoHeight: 56px
+      - id: course-report-2024
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+        alt: Course Report - Best Coding Bootcamp 2024
+        logoHeight: 56px
+      - id: tech-hub
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+        alt: South Florida Tech Hub
+        logoHeight: 56px
+      - id: ebootcamp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+        alt: eBootcamp Top
+        logoHeight: 56px
+      - id: premios-tecnologia
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+        alt: Premios Tecnologia Siglo XXI
+        logoHeight: 56px
+      - id: newsweek
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+        alt: Newsweek
+        logoHeight: 56px
+      - id: reviews-coursereport
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+        alt: 4.9 on Course Report Reviews
+        logoHeight: 56px
+      - id: excelencia-educativa
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+        alt: Excelencia Educativa - Institutional Quality
+        logoHeight: 56px
+    marginY:
+      desktop: none lg
+  - type: two_column_accordion_card
+    variant: image_background
+    version: "1.0"
+    title: ¿Por qué elegir 4Geeks Academy como uno de los mejores bootcamps de España?
+    description: "Las razones por las que somos uno de los mejores bootcamps de programación en España:"
+    bullets:
+      - heading: Enfoque en las necesidades del mercado
+        text: Nuestro programa se basa en las habilidades y tecnologías más demandadas por las empresas, lo que asegura una formación práctica, relevante y alineada con la industria.
+      - heading: Mentorías personalizadas e ilimitadas
+        text: Recibe el apoyo individual de mentores expertos en cada etapa de tu carrera, desde la elección de tu camino profesional hasta la preparación para encontrar empleo.
+      - heading: Inserción laboral
+        text: Alrededor del 90% de nuestros graduados encuentran trabajo en los primeros 6 meses después de finalizar el programa.
+    footer: Forma parte de una comunidad internacional de profesionales que ya han transformado su carrera con 4Geeks Academy.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Copia de Fav_DSC_1146.JPG
+    image_alt: Estudiantes aprendiendo programación en 4Geeks Academy
+    reverse: true
+    section_id: two_column_accordion_card-srkrjj
   - type: course_selector
     version: "1.0"
     variant: solid
@@ -156,53 +221,35 @@ sections:
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciberseguridad
         course_background: hsl(var(--secondary-foreground))
-    background: hsl(var(--muted))
     section_id: course_selector-nyglwg
     marginY:
-      desktop: none md
+      desktop: none
     paddingY:
       desktop: none
-  - type: awards_marquee
-    section_id: awards_marquee-kelzv8
-    version: v1.0
-    speed: 40
-    gradient: true
-    gradientWidth: 100
-    items:
-      - id: switchup-2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        alt: SwitchUp - Best Coding Bootcamps 2025
-        logoHeight: 56px
-      - id: course-report-2024
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
-        alt: Course Report - Best Coding Bootcamp 2024
-        logoHeight: 56px
-      - id: tech-hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
-        alt: South Florida Tech Hub
-        logoHeight: 56px
-      - id: ebootcamp
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
-        alt: eBootcamp Top
-        logoHeight: 56px
-      - id: premios-tecnologia
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-        alt: Premios Tecnologia Siglo XXI
-        logoHeight: 56px
-      - id: newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
-        alt: Newsweek
-        logoHeight: 56px
-      - id: reviews-coursereport
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-        alt: 4.9 on Course Report Reviews
-        logoHeight: 56px
-      - id: excelencia-educativa
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
-        alt: Excelencia Educativa - Institutional Quality
-        logoHeight: 56px
+  - type: two_column
+    proportions:
+      - 6
+      - 6
+    background: hsl(210 100% 50% / 0.05)
+    alignment: center
+    left:
+      video: https://youtu.be/9Vm_xD49MaU
+      justify: center
+    right:
+      heading: "Diego Gómez González: cómo 4Geeks cambió su vida profesional"
+      sub_heading: La experiencia de un estudiante de nuestro bootcamp
+      description: Diego, uno de nuestros estudiantes, comparte su experiencia en 4Geeks Academy, donde cursó el bootcamp de desarrollo Full Stack. Con un grado superior en desarrollo multiplataforma, Diego ya contaba con conocimientos en programación, pero necesitaba reforzar su capacidad para conectar las distintas áreas del desarrollo.
+      button:
+        text: Solicita tu plaza
+        url: "#bottom"
+        variant: primary
+        icon: Rocket
+    gap: "8"
+    section_id: ai_learning-gyglcr
     marginY:
-      desktop: none lg
+      desktop: none xl
+    paddingY:
+      desktop: md
   - type: geeks_vs_others_comparison
     section_id: geeks_vs_others_comparison-0w9570
     version: "1.0"
