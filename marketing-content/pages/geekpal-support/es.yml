@@ -32,7 +32,7 @@ sections:
       - text: Comunidad global de desarrolladores
     video:
       url: https://www.youtube.com/watch?v=Zoxxw5jP7xA
-      ratio: "3:4"
+      ratio: "4:3"
       muted: true
       autoplay: false
       loop: true
