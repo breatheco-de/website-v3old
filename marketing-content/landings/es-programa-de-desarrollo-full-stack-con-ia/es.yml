@@ -258,53 +258,40 @@ sections:
     marginY:
       desktop: none md
     background: hsl(210 100% 50% / 0.05)
-  - type: ai_learning
-    section_id: award_badges-vf18kn
-    badge: ¿Por qué 4Geeks?
-    title: ¿Por qué aprender Ingeniería de IA con 4Geeks?
-    description: Porque no solo aprendes IA. Aprendes a usarla como lo hacen las empresas. Nuestro enfoque está diseñado para que desarrolles habilidades reales, con acompañamiento constante y un camino claro hacia la empleabilidad.
-    features:
-      - icon: TrendingUp
-        title: Destaca en tech con apoyo de carrera para la era de la IA
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Recibe coaching 1:1 personalizado
-          - text: Construye tu currículum y portafolio listos para IA
-          - text: Prepárate para entrevistas y negociación salarial
-          - text: Sigue creciendo con acceso de por vida al apoyo de carrera
-        video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
-        cta:
-          text: Empieza a aprender ahora
-          url: "#hero-form"
-          variant: primary
-      - icon: Robot
-        title: Avanza más rápido con herramientas potenciadas por IA
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Obtén retroalimentación al instante con Rigobot, nuestro tutor de IA
-          - text: Recibe consejos adaptados a tu nivel y progreso
-          - text: Ayuda 24/7 con depuración y resolución de problemas
-          - text: Accede a cientos de ejercicios de código en Learnpack, nuestra plataforma educativa
-        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-        cta:
-          text: Empieza a aprender ahora
-          url: "#hero-form"
-          variant: primary
-      - icon: Headset
-        title: Mentoría 1:1 ilimitada y una comunidad activa
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Acceso de por vida a sesiones de mentoría 1:1
-          - text: Ratio 7:1 estudiantes–profesor para una guía personalizada
-          - text: Colaboración entre pares en canales de Slack y check-ins semanales
-          - text: Canales de Slack dedicados a soporte técnico, ofertas de empleo y carrera
-        image_id: community-support-cropped
+  - type: geeks_vs_others_comparison
+    version: "1.0"
+    title: ¿Qué diferencia a nuestro bootcamp de programación de los demás?
+    columns:
+      - name: Característica
+      - name: 4Geeks Academy
+        highlight: true
+      - name: Promedio de la industria / competidores
+    rows:
+      - feature: Apoyo profesional personalizado
+        values:
+          - Soporte de por vida hasta que consigas trabajo (y más allá)
+          - Limitado, a menudo expira después de meses
+      - feature: Proporción profesor:estudiante
+        values:
+          - "1:7"
+          - 1:10+
+      - feature: Retroalimentación con IA
+        values:
+          - Personalizada según tu progreso
+          - Genérica o inexistente
+      - feature: Mentoría 1 a 1
+        values:
+          - Ilimitada y continua
+          - Sesiones limitadas
+      - feature: Plan de estudios
+        values:
+          - Actualizado continuamente para coincidir con las necesidades de la industria
+          - Lento para adaptarse
+    section_id: geeks_vs_others_comparison-bdczjl
+    marginY:
+      desktop: none xl
     paddingY:
-      mobile: lg none
-      desktop: lg none
+      desktop: none
   - type: certificate
     title: Resultados profesionales
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
