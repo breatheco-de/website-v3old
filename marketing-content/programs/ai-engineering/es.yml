@@ -116,11 +116,6 @@ sections:
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Tus mentores:"
     description: Construye sistemas reales listos para producción en nuestro programa de Ingeniería en IA, con mentoría 1:1 ilimitada y orientación profesional enfocada en empleabilidad. Conviértete en el profesional que las empresas están buscando.
-    media:
-      type: video
-      src: https://www.youtube.com/watch?v=hUgwkBtYtUI
-      thumbnail: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
-      alt: AI Engineering program introduction
     signup_card:
       title: Recibe el plan de estudios completo
       description: Accede a la hoja de ruta de 10 hitos y descubre nuestra Metodología de Caso de Empresa.
