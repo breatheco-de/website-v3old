@@ -217,7 +217,7 @@ sections:
     paddingY:
       desktop: md lg
     marginY:
-      desktop: none xl
+      desktop: none
     background: hsl(210 100% 50% / 0.05)
   - type: ai_learning
     section_id: award_badges-vf18kn
