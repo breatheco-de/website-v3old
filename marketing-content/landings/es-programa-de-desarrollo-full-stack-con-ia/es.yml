@@ -193,6 +193,8 @@ sections:
     section_id: syllabus-6o6f1p
     paddingY:
       desktop: md
+    marginY:
+      desktop: none md
   - type: trust_cards
     version: v1.0
     title: ¡Los mejor valorados en todos los sitios de reseñas!
