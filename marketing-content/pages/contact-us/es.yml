@@ -27,7 +27,6 @@ sections:
       desktop: md sm
     background: hsl(var(--muted))
   - type: contact_us_info
-    section_id: contact_us_info-0hh78p
     version: "1.0"
     title: Cuéntanos sobre ti
     form:
@@ -52,14 +51,13 @@ sections:
           visible: true
           required: true
           placeholder: Escribe tu mensaje aquí
-          rows: 8
       success:
         message: Thank you! We'll be in touch soon.
       show_terms: true
     locations:
       - code: US
         name: USA
-        address: 1801 SW 3rd Av, Miami, FL 33129.
+        address: {{ global.address_miami | 1801 SW 3rd Av, Miami, FL 33129. }}
         phone: +1 (786) 416-6640
         email: info@4GeeksAcademy.com
       - code: ES
@@ -78,6 +76,7 @@ sections:
       - code: VE
         name: Venezuela
         email: venezuela@4GeeksAcademy.com
+    section_id: contact_us_info-0hh78p
     paddingY:
       desktop: md
   - type: sticky_cta
