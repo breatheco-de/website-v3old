@@ -256,7 +256,7 @@ sections:
     paddingY:
       desktop: md lg
     marginY:
-      desktop: none md
+      desktop: none xl
     background: hsl(210 100% 50% / 0.05)
   - type: geeks_vs_others_comparison
     version: "1.0"
