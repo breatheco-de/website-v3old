@@ -438,7 +438,6 @@ sections:
           - Si no es el mejor momento, te recomendamos alternativas para tu crecimiento profesional.
     background: bg-background
   - type: cta_banner
-    section_id: numbered_steps-d0xnne
     version: "1.0"
     title: ¿Listo para convertirte en Ingeniero de IA?
     subtitle: Cupos limitados. Comienza tu transformación hoy.
@@ -468,8 +467,8 @@ sections:
           default_country: ES
           placeholder: Teléfono
         program:
-          visible: false
-          default: ai-engineering
+          visible: true
+          default: full-stack
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
       consent:
@@ -480,6 +479,7 @@ sections:
       terms_className: text-white/80
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
+    section_id: numbered_steps-d0xnne
     marginY:
       mobile: md none
       desktop: md none
