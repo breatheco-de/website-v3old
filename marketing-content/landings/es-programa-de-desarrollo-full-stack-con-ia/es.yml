@@ -72,7 +72,7 @@ sections:
     show_awards_marquee: false
     video_title: Full Stack con IA en 4Geeks Academy
     marginY:
-      desktop: none
+      desktop: none md
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
     paddingY:
       desktop: md none
