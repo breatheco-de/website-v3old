@@ -375,7 +375,7 @@ sections:
         alt: Google Developers
     marginY:
       mobile: none xl
-      desktop: none xl
+      desktop: none lg
     paddingY:
       mobile: lg none
       desktop: lg none
