@@ -514,4 +514,4 @@ global.who_is_eligible_work_authorization:
       value: "Have U.S. work authorization"
   default: "Have authorization to work in your country of residence"
 global.address_miami:
-  default: "1801 SW 3rd Av, Miami, FL 33129."
+  default: "1111 Brickell Ave, Miami, FL 33129"
