@@ -409,6 +409,8 @@ sections:
         description: Jonathan shares how the program helped him build confidence and create projects from scratch.
         alt: Geekpal
     section_id: cards_deck-2xobza
+    marginY:
+      desktop: none md
   - type: numbered_steps
     section_id: testimonials-vx254t
     version: "1.0"
