@@ -316,7 +316,7 @@ sections:
       desktop: none md
     paddingY:
       mobile: lg
-      desktop: md
+      desktop: sm md
   - type: whos_hiring
     section_id: certificate-kocdaz
     variant: carousel
