@@ -118,7 +118,7 @@ sections:
     description: Construye sistemas reales listos para producción en nuestro programa de Ingeniería en IA, con mentoría 1:1 ilimitada y orientación profesional enfocada en empleabilidad. Conviértete en el profesional que las empresas están buscando.
     media:
       type: video
-      src: https://www.youtube.com/shorts/bEXlW4IwDCE
+      src: https://www.youtube.com/watch?v=hUgwkBtYtUI
       thumbnail: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
       alt: AI Engineering program introduction
     signup_card:
