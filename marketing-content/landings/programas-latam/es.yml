@@ -263,6 +263,35 @@ sections:
       desktop: md lg
     marginY:
       desktop: none lg
+  - type: features_grid
+    version: "1.0"
+    variant: detailed
+    title: Objetivos de nuestra academia
+    subtitle: ¿Qué nos hace diferentes?
+    items:
+      - id: aprendizaje-practico
+        icon: Flag
+        category: Objetivo
+        title: Aprendizaje práctico y orientado a la realidad
+        description: Nos enfocamos en las herramientas y tecnologías más demandadas por las empresas líderes del sector, lo que te permitirá estar preparado para cualquier trabajo una vez que te gradues.
+      - id: flexibilidad
+        icon: Clock
+        category: Objetivo
+        title: Horarios y métodos de pago flexibles
+        description: Ofrecemos un modelo de formación a medio tiempo, para que puedas conciliar tus estudios con otras actividades. Además, también contamos con múltiples formas de financiación para hacer más accesibles los costos de un curso de esta calidad.
+      - id: comunidad
+        icon: Users
+        category: Objetivo
+        title: Una comunidad apasionada por la tecnología
+        description: Desde un principio decidimos crear una comunidad de programadores de calidad con el propósito de que puedas encontrar apoyo, colaboración y oportunidades de networking que te ayudarán a alcanzar tus metas.
+    columns: 3
+    collapsible_mobile: true
+    background: hsl(var(--secondary))
+    section_id: features_grid-hxb5k3
+    marginY:
+      desktop: none lg
+    paddingY:
+      desktop: md lg
   - type: cards_deck
     section_id: cards_deck-q5vsak
     version: "1.0"
