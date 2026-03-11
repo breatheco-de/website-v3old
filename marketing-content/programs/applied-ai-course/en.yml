@@ -158,12 +158,12 @@ sections:
       - id: "1"
         value: 56%
         title: Average salary premium for professionals with AI skills
-      - id: "3"
-        value: 21%→40%
-        title: AI adoption in the workplace in just two years
       - id: "2"
         value: Top 5
         title: AI Engineers among the fastest-growing tech roles
+      - id: "3"
+        value: 21%→40%
+        title: AI adoption in the workplace in just two years
     section_id: features_grid-go2y2k
   - type: syllabus
     section_id: syllabus-9j2a7p
