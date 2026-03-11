@@ -332,65 +332,40 @@ sections:
       desktop: lg
     background: hsl(var(--muted))
   - type: pricing
-    section_id: pricing-5ihe9a
     version: "1.0"
     variant: product
-    title: Tuition & Financing Options
-    subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: "Credit-Based Financing: starting below"
-    financing_amount: {{ global.price_ai_engineering | $349 }}
+    title: Payment plans
+    subtitle: Select the location and payment option that suits you best.
+    discount_text: "Best Deal: Pay only €3,000 when you pay in full."
+    financing_text: Flexible weekly payments from
+    financing_amount: €550/week
     tech_icons:
       - openai
-      - python
-      - react
-      - nodejs
-      - api
       - brain
       - robot
       - settings
-    features_title: Choose the option that fits you best.
+      - api
+    features_title: Pick your flexible payment plan.
     features:
       - icon: IconCheck
-        text: Standard tuition is {{ global.price_full_ai_engineering | $14,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
+        text: Pay €550 a week for 6 weeks.
       - icon: IconCheck
-        text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
+        text: Pay upfront and save with a full payment option of €3,000.
       - icon: IconCheck
-        text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
-        use_rigobot_icon: true
+        text: Payment plans available with flexible installments.
       - icon: IconCheck
-        text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
+        text: Book a call with an advisor to find a payment option or special offer that works for you.
     cta:
-      text: Get more info
+      text: Request a Syllabus
       url: "#modal-o9bufw"
       variant: primary
+    section_id: pricing-5ihe9a
     marginY:
       desktop: lg md
     paddingY:
       desktop: none md
     showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - tampa-usa
-      - orlando-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
-      - mexicocity-mexico
+      - madrid-spain
   - type: faq
     section_id: faq-8vzhp4
     title: FAQ
