@@ -162,7 +162,7 @@ sections:
     title: Real Outcomes for Our Graduates
     subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
     items:
-      - icon: IconBrandShopee
+      - icon: Briefcase
         value: {{ global.global_job_placement_rate | 84 }}%
         title: Job placement rate
       - icon: Graduation
@@ -178,7 +178,6 @@ sections:
       desktop: none
     paddingY:
       desktop: none md
-    background: hsl(var(--muted))
   - type: features_grid
     section_id: features_grid-h4gehz
     version: "1.0"
