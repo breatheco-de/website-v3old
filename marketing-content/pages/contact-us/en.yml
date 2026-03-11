@@ -17,7 +17,7 @@ schema:
 sections:
   - type: hero
     section_id: hero-t12r78
-    version: '1.0'
+    version: "1.0"
     variant: singleColumn
     title: Contact Us
     subtitle: Do you have any questions? We will be happy to respond as soon as possible. We also invite you to review our <a href="/en/faq">Frequently Asked Questions page</a>.
@@ -27,8 +27,7 @@ sections:
     paddingY:
       desktop: md sm
   - type: contact_us_info
-    section_id: contact_us_info-tflvss
-    version: '1.0'
+    version: "1.0"
     title: Tell us about you
     background: hsl(var(--muted))
     form:
@@ -53,14 +52,13 @@ sections:
           visible: true
           required: true
           placeholder: Comments
-          rows: 8
       success:
         message: Thank you! We'll be in touch soon.
       show_terms: true
     locations:
       - code: US
         name: USA
-        address: 1801 SW 3rd Av, Miami, FL 33129.
+        address: {{ global.address_miami | 1111 Brickell Ave, Miami, FL 33129 }}
         phone: +1 (786) 416-6640
         email: info@4GeeksAcademy.com
       - code: ES
@@ -79,11 +77,12 @@ sections:
       - code: VE
         name: Venezuela
         email: venezuela@4GeeksAcademy.com
+    section_id: contact_us_info-tflvss
     paddingY:
       desktop: sm
   - type: sticky_cta
     section_id: sticky_cta-nb2b12
-    version: '1.0'
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false

@@ -453,7 +453,7 @@ sections:
           required: true
           placeholder: Teléfono
         program:
-          visible: false
+          visible: true
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.

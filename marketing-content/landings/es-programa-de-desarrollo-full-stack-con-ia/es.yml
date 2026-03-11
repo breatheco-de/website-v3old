@@ -16,13 +16,18 @@ schema:
 sections:
   - type: hero
     version: "1.0"
-    variant: ApplyFormProductShowcase
-    title: Mentoría personalizada y resultados profesionales comprobados.
+    variant: productShowcase
+    title: en 4Geeks Academy
     brand_mark:
       prefix: Programa de Desarrollo
       highlight: Full Stack con IA
       color: primary
-    description: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA.
+    description: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por inteligencia artificial.
+    bullets:
+      - text: Domina el desarrollo frontend moderno con HTML, CSS, JavaScript y React.
+      - text: Construye sistemas backend escalables con Python, APIs y arquitectura de bases de datos.
+      - text: Integra herramientas y flujos de trabajo con IA en aplicaciones web reales.
+    image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
@@ -53,30 +58,66 @@ sections:
       terms_url: /terminos-condiciones
       privacy_url: /politica-privacidad
       consent:
+        sms: true
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4–6 mensajes de texto por mes.
+        sms_usa_only: true
       show_terms: true
-    cta_button:
-      text: Descargar programa
-      url: /programa/ai-engineering
-      variant: outline
-      icon: Download
-    video:
-      url: https://www.youtube.com/shorts/fpEreznybs8
-      ratio: "9:16"
-      muted: true
-    section_id: hero-83a7ov
-    bullets:
-      - text: Domina el desarrollo frontend moderno con HTML, CSS, JavaScript y React.
-      - text: Construye sistemas backend escalables con Python, APIs y arquitectura de bases de datos.
-      - text: Integra herramientas y flujos de trabajo con IA en aplicaciones web reales.
-    paddingY:
-      mobile: md none
-      desktop: lg none
+    form_vertical_align: bottom
+    form_card_text_color: hsl(var(--foreground))
+    form_card_title: Descargar programa completo
+    form_card_subtitle: Completa el formulario para recibir el programa detallado y que nuestro equipo de admisiones se ponga en contacto contigo.
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+    show_awards_marquee: false
+    video_title: Full Stack con IA en 4Geeks Academy
     marginY:
-      mobile: none
-      desktop: none
+      desktop: none md
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
+    paddingY:
+      desktop: md none
+    marginX:
+      desktop: none
+    section_id: hero-mj0v0j
+  - type: awards_marquee
+    version: v1.0
+    speed: 40
+    gradient: true
+    gradientWidth: 100
+    items:
+      - id: switchup-2025
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        alt: SwitchUp - Best Coding Bootcamps 2025
+        logoHeight: 56px
+      - id: course-report-2024
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+        alt: Course Report - Best Coding Bootcamp 2024
+        logoHeight: 56px
+      - id: tech-hub
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+        alt: South Florida Tech Hub
+        logoHeight: 56px
+      - id: ebootcamp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+        alt: eBootcamp Top
+        logoHeight: 56px
+      - id: premios-tecnologia
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+        alt: Premios Tecnologia Siglo XXI
+        logoHeight: 56px
+      - id: newsweek
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+        alt: Newsweek
+        logoHeight: 56px
+      - id: reviews-coursereport
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+        alt: 4.9 on Course Report Reviews
+        logoHeight: 56px
+      - id: excelencia-educativa
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+        alt: Excelencia Educativa - Institutional Quality
+        logoHeight: 56px
+    section_id: awards_marquee-c9vhkk
   - type: sticky_cta
     section_id: sticky_cta-geg3ym
     version: "1.0"
@@ -116,6 +157,8 @@ sections:
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
     load: eager
+    marginY:
+      desktop: none lg
   - type: syllabus
     variant: program-modules
     program_title: Lo que aprenderás en el programa Full Stack
@@ -191,78 +234,66 @@ sections:
     section_id: syllabus-6o6f1p
     paddingY:
       desktop: md
-  - type: award_badges
-    section_id: syllabus-2ly5ws
+    marginY:
+      desktop: none lg
+  - type: trust_cards
     version: v1.0
-    variant: detailed
-    showBorder: false
+    title: ¡Los mejor valorados en todos los sitios de reseñas!
     items:
-      - id: coursereport-detailed
-        alt: Course Report Badge 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-        logoHeight: 64px
-        description: Reconocida como una de las mejores escuelas tecnológicas a nivel mundial
-        link: https://www.coursereport.com
-        linkText: Leer reviews
-      - id: logo-premios-excelencia-educativa
-        alt: 17 Premios Excelencia Educativa
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios-excelencia-educativa-17_1770392145139.png
-        logoHeight: 64px
-        description: La mejor inversión para quienes empiezan de cero o buscan un cambio de carrera
-      - id: logo-switchup-best-bootcamps-2025
-        alt: SwitchUp Best Bootcamps 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
-        logoHeight: 64px
-        description: La escuela tecnológica mejor valorada, en base a reseñas verificadas de alumnos
-        link: https://www.switchup.org
-        linkText: Leer reviews
-  - type: ai_learning
-    section_id: award_badges-vf18kn
-    badge: ¿Por qué 4Geeks?
-    title: ¿Por qué aprender Ingeniería de IA con 4Geeks?
-    description: Porque no solo aprendes IA. Aprendes a usarla como lo hacen las empresas. Nuestro enfoque está diseñado para que desarrolles habilidades reales, con acompañamiento constante y un camino claro hacia la empleabilidad.
-    features:
-      - icon: TrendingUp
-        title: Destaca en tech con apoyo de carrera para la era de la IA
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Recibe coaching 1:1 personalizado
-          - text: Construye tu currículum y portafolio listos para IA
-          - text: Prepárate para entrevistas y negociación salarial
-          - text: Sigue creciendo con acceso de por vida al apoyo de carrera
-        video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
-        cta:
-          text: Empieza a aprender ahora
-          url: "#hero-form"
-          variant: primary
-      - icon: Robot
-        title: Avanza más rápido con herramientas potenciadas por IA
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Obtén retroalimentación al instante con Rigobot, nuestro tutor de IA
-          - text: Recibe consejos adaptados a tu nivel y progreso
-          - text: Ayuda 24/7 con depuración y resolución de problemas
-          - text: Accede a cientos de ejercicios de código en Learnpack, nuestra plataforma educativa
-        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-        cta:
-          text: Empieza a aprender ahora
-          url: "#hero-form"
-          variant: primary
-      - icon: Headset
-        title: Mentoría 1:1 ilimitada y una comunidad activa
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Acceso de por vida a sesiones de mentoría 1:1
-          - text: Ratio 7:1 estudiantes–profesor para una guía personalizada
-          - text: Colaboración entre pares en canales de Slack y check-ins semanales
-          - text: Canales de Slack dedicados a soporte técnico, ofertas de empleo y carrera
-        image_id: community-support-cropped
+      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+        rating: 4.9
+        review_count: 4.84 en reseñas
+      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        rating: 4.8
+        review_count: 4.5 en reseñas
+      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        rating: 4.9
+        review_count: 4.89 en reseñas
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 4.91 en reseñas
+    name: Default Trust Cards
+    description: Four review platform cards with ratings
+    section_id: trust_cards-eslgbu
     paddingY:
-      mobile: lg none
-      desktop: lg none
+      desktop: md lg
+    marginY:
+      desktop: none xl
+    background: hsl(210 100% 50% / 0.05)
+  - type: geeks_vs_others_comparison
+    version: "1.0"
+    title: ¿Qué diferencia a nuestro bootcamp de programación de los demás?
+    columns:
+      - name: Característica
+      - name: 4Geeks Academy
+        highlight: true
+      - name: Promedio de la industria / competidores
+    rows:
+      - feature: Apoyo profesional personalizado
+        values:
+          - Soporte de por vida hasta que consigas trabajo (y más allá)
+          - Limitado, a menudo expira después de meses
+      - feature: Proporción profesor:estudiante
+        values:
+          - "1:7"
+          - 1:10+
+      - feature: Retroalimentación con IA
+        values:
+          - Personalizada según tu progreso
+          - Genérica o inexistente
+      - feature: Mentoría 1 a 1
+        values:
+          - Ilimitada y continua
+          - Sesiones limitadas
+      - feature: Plan de estudios
+        values:
+          - Actualizado continuamente para coincidir con las necesidades de la industria
+          - Lento para adaptarse
+    section_id: geeks_vs_others_comparison-bdczjl
+    marginY:
+      desktop: none xl
+    paddingY:
+      desktop: none
   - type: certificate
     title: Resultados profesionales
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
@@ -313,7 +344,7 @@ sections:
       desktop: none md
     paddingY:
       mobile: lg
-      desktop: md
+      desktop: sm md
   - type: whos_hiring
     section_id: certificate-kocdaz
     variant: carousel
@@ -346,68 +377,42 @@ sections:
         alt: Google Developers
     marginY:
       mobile: none xl
-      desktop: none xl
+      desktop: none lg
     paddingY:
       mobile: lg none
       desktop: lg none
-  - type: bullet_tabs_showcase
-    section_id: whos_hiring-8wyhut
+  - type: cards_deck
     version: "1.0"
-    heading: ¿Este programa es para ti?
-    tabs:
-      - label: Compromiso real
-        description: |-
-          Estás dispuesto a asumir un compromiso serio con tu formación:
-          dedicar entre 20 y 24 horas a la semana durante 24 semanas, combinando clases en vivo y trabajo práctico.
-        image_id: group_original
-      - label: Enfoque profesional
-        description: |-
-          Buscas resultados reales en tu carrera:
-          desarrollar habilidades en ingeniería de IA que te permitan acceder a roles bien pagados y con alta demanda.
-        image_id: students_group_collaboration
-        alt: Group of 4Geeks Academy students collaborating around laptops
-        id: students-group-collaboration
-      - label: Aprendizaje guiado
-        description: |-
-          Valoras una estructura clara:
-          prefieres avanzar con hitos definidos, mentores expertos y una cohorte que te impulse a seguir avanzando.
-        image_id: student_coding_laptop
-        image_object_fit: cover
-        alt: 4Geeks Academy student coding on laptop wearing branded t-shirt
-        id: student-coding-laptop
-    image_position: right
+    heading: Real Stories of Real Career Change
+    subtitle: Thousands of graduates have used our programs to break into tech. Here are just a few of their stories, from salary increases to total career reinventions.
+    cards:
+      - video:
+          url: https://youtu.be/ln3bQsV1BaQ
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
+        author_name: Hernán García
+        title: "\"I got offers from companies I wasn't expecting\""
+        description: Hernán landed a job in tech within one month of starting his job search.
+        alt: Geekforce
+      - video:
+          url: https://youtu.be/MBXqEnhodx0
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: Joao Henrique
+        title: "\"You'll always have support from the Academy\""
+        description: Joao shares his experience receiving coding mentorship as a student, after graduating, and in his current job.
+        alt: Geekpal
+      - video:
+          url: https://youtu.be/oeX_ocy6zv4
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: Jonathan Ferragut
+        title: "\"Taking a course like this benefits us in a lot of different ways\""
+        description: Jonathan shares how the program helped him build confidence and create projects from scratch.
+        alt: Geekpal
+    section_id: cards_deck-2xobza
     marginY:
-      mobile: xl lg
-      desktop: xl lg
-    paddingY:
-      mobile: none
-      desktop: none
-  - type: testimonials
-    section_id: bullet_tabs_showcase-a1ucwe
-    title: Graduados que hoy trabajan en tecnología
-    subtitle: Únete a miles que han transformado sus carreras
-    rating_summary:
-      average: "4.9"
-      count: 700+
-    items:
-      - name: Sara García
-        role: Ingeniera de IA
-        company: Google
-        rating: 5
-        comment: Este curso transformó completamente mi carrera. Los instructores son increíblemente conocedores y el currículo es perfecto para aplicaciones de IA del mundo real.
-        outcome: +55% aumento salarial
-      - name: Miguel Chen
-        role: Ingeniero ML
-        company: Meta
-        rating: 5
-        comment: La mejor inversión que he hecho. Recibí una oferta antes de terminar el programa.
-        outcome: Contratado en 4 meses
-      - name: Elena Rodríguez
-        role: Ingeniera de IA
-        company: Amazon
-        rating: 5
-        comment: Excelente contenido y gran apoyo de mentores. Ahora trabajo en IA de vanguardia.
-        outcome: +100% aumento salarial
+      desktop: none md
   - type: numbered_steps
     section_id: testimonials-vx254t
     version: "1.0"
@@ -435,7 +440,6 @@ sections:
           - Si no es el mejor momento, te recomendamos alternativas para tu crecimiento profesional.
     background: bg-background
   - type: cta_banner
-    section_id: numbered_steps-d0xnne
     version: "1.0"
     title: ¿Listo para convertirte en Ingeniero de IA?
     subtitle: Cupos limitados. Comienza tu transformación hoy.
@@ -465,8 +469,8 @@ sections:
           default_country: ES
           placeholder: Teléfono
         program:
-          visible: false
-          default: ai-engineering
+          visible: true
+          default: full-stack
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
       consent:
@@ -477,6 +481,7 @@ sections:
       terms_className: text-white/80
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
+    section_id: numbered_steps-d0xnne
     marginY:
       mobile: md none
       desktop: md none

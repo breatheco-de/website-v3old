@@ -26,6 +26,7 @@ sections:
       - text: Personalized Learning System – AI guidance + human mentorship
       - text: Lifetime Mentorship & Career Support – continues after graduation
       - text: Proven Career Outcomes – 84% hired within 6 months
+    image_object_fit: none
     video_id: "-2ZvlgDnltc"
     video_ratio: "9:12"
     form:
@@ -63,8 +64,12 @@ sections:
         sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
         sms_usa_only: true
       show_terms: true
-    form_vertical_align: center
-    show_awards_marquee: true
+    form_vertical_align: bottom
+    form_card_text_color: hsl(var(--foreground))
+    form_card_title: Get Full Program Details
+    form_card_subtitle: Apply below to receive the program overview by e-mail and choose how you'd like our admissions team to contact you.
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+    show_awards_marquee: false
     awards_marquee:
       items:
         - id: switchup-2025
@@ -100,9 +105,14 @@ sections:
           logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
           logoHeight: 55px
     video_title: GeekForce Career Support
-    section_id: hero-i6d82d
+    marginY:
+      desktop: none
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
-      desktop: lg none
+      desktop: md none
+    marginX:
+      desktop: none
+    section_id: hero-6ad8dh
   - type: features_grid
     version: "1.0"
     variant: stats-cards
@@ -273,7 +283,7 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--sidebar-background))
     showOnLocations:
       - atlanta-usa
       - austin-usa

@@ -1,0 +1,639 @@
+slug: ai-engineering-certification
+title: From Data Scientist to Certified AI Engineer
+locale: en
+meta:
+  robots: index, follow
+  og_image: /images/programs/ai-engineering-og.jpg
+  priority: 0.9
+  change_frequency: weekly
+  page_title: AI Engineering Bootcamp Florida | 4Geeks Academy
+  description: Launch your AI career with hands-on training, unlimited 1:1 mentorship, and job guarantee. Start earning $95K-$135K as an AI Engineer.
+schema:
+  include:
+    - organization
+    - website
+    - courses:ai-engineering
+sections:
+  - type: hero
+    version: '1.0'
+    variant: ApplyFormProductShowcase
+    title: For Developers, Data Scientists & Tech Professionals
+    brand_mark:
+      prefix: AI Engineering
+      highlight: Certification
+      color: primary
+    description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. For Developers, Data Scientists & Tech Professionals
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Apply now
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Email
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        last_name:
+          visible: true
+          required: true
+          placeholder: Last name
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: Check your inbox! Your syllabus is on the way.
+      terms_url: /terms-and-conditions
+      privacy_url: /privacy-policy
+      consent:
+        sms: true
+        marketing: true
+        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
+        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        sms_usa_only: true
+      show_terms: true
+    cta_button:
+      text: Download Syllabus
+      url: /syllabus/ai-engineering
+      variant: outline
+      icon: Download
+    video:
+      url: https://www.youtube.com/shorts/sSxJnelPJT8
+      ratio: '9:16'
+      muted: true
+    section_id: hero-yeqkw4
+    paddingY:
+      mobile: md none
+      desktop: lg none
+    marginY:
+      mobile: none
+      desktop: none
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
+  - type: sticky_cta
+    section_id: sticky_cta-gjavb4
+    version: '1.0'
+    heading: Ready to start your tech career?
+    button_label: Apply Now
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Submit Application
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: true
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: Thanks! We'll be in touch within 24 hours.
+  - type: awards_marquee
+    section_id: awards_marquee-7tc46h
+    version: '1.0'
+    speed: 40
+    gradient: true
+    gradientWidth: 500
+    bottom_title: Recognized, Top-Rated, and Recommended
+    items:
+      - id: switchup-2025
+        alt: SwitchUp - Best Coding Bootcamps 2025
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        logoHeight: 64px
+      - id: excelencia-educativa
+        alt: Excelencia Educativa - Institutional Quality Online Education
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+        logoHeight: 64px
+      - id: course-report-2024
+        alt: Course Report - Best Coding Bootcamp 2024
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+        logoHeight: 64px
+      - id: tech-hub
+        alt: South Florida Tech Hub
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+        logoHeight: 64px
+      - id: ebootcamp
+        alt: eBootcamp Top
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+        logoHeight: 64px
+      - id: premios-tecnologia
+        alt: Premios Tecnologia Siglo XXI
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+        logoHeight: 80px
+      - id: newsweek
+        alt: Newsweek
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+        logoHeight: 64px
+      - id: reviews-coursereport
+        alt: 4.9 on Course Report Reviews
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+        logoHeight: 64px
+      - id: forbes-1
+        alt: Forbes - Top Coding Bootcamp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
+        logoHeight: 64px
+      - id: fortune-1
+        alt: Fortune - Best Education Company
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/fortune-logo_1764709618095.webp
+        logoHeight: 64px
+    marginY:
+      mobile: md none
+      desktop: md none
+    paddingY:
+      mobile: none lg
+      desktop: none lg
+  - type: features_grid
+    section_id: features_grid-0jz08u
+    version: '1.0'
+    variant: stats-text-card
+    title: Why AI Engineering Now
+    subtitle: The talent shortage is your opportunity
+    description: AI Engineers build AI-powered systems, automate workflows, and create AI-integrated products. They are leading the changes companies need today. Yet, according to McKinsey, 87% of companies report they are lacking the AI engineering talent to transform their operations. This gap is your opportunity.
+    card_color: bg-background
+    items:
+      - value: 800,000
+        title: AI-related roles expected by 2027
+      - value: ~30%
+        title: Year-over-year growth in AI job openings
+      - value: $95K-$135K
+        title: Average starting salary for AI Engineers
+    marginY:
+      mobile: md none
+      desktop: md none
+    paddingY:
+      mobile: none md
+      desktop: none md
+    background: hsl(210 100% 50% / 0.05)
+  - type: syllabus
+    section_id: syllabus-8novey
+    variant: program-modules
+    program_title: What You'll Build in 24 Weeks
+    program_description: From day one, you'll choose one company. Yours, one you want to build, or one you want to reimagine. Over the course of 10 milestones, you'll transform it into a fully operational, AI-powered business.
+    tech_logos:
+      - name: OpenAI
+        icon: openai
+      - name: Claude
+        icon: claude
+      - name: Python
+        icon: python
+      - name: Pandas
+        icon: pandas
+      - name: NumPy
+        icon: numpy
+      - name: Scikit-learn
+        icon: scikitlearn
+      - name: PyTorch
+        icon: pytorch
+      - name: Matplotlib
+        icon: matplotlib
+      - name: React
+        icon: react
+      - name: Next.js
+        icon: nextjs
+      - name: Tailwind CSS
+        icon: tailwindcss
+      - name: Node.js
+        icon: nodejs
+      - name: Vercel
+        icon: vercel
+      - name: Supabase
+        icon: supabase
+      - name: Git
+        icon: git
+      - name: GitHub
+        icon: github
+      - name: Postman
+        icon: postman
+      - name: n8n
+        icon: n8n
+    module_cards:
+      - title: AI-First Prework
+        duration: Milestone 0
+        objectives:
+          - YAML/JSON fundamentals
+          - Git version control
+          - JS basics
+          - Internet fundamentals
+          - Coding agents
+        icon: IconRocket
+      - title: Web Foundations
+        duration: Milestone 1
+        objectives:
+          - HTML, CSS, Tailwind
+          - Accessibility best practices
+          - Layout techniques
+        projects: Build the company's first webpage
+        icon: IconWorld
+      - title: Programming Foundations
+        duration: Milestone 2
+        objectives:
+          - Algorithms and data structures
+          - Stateflow vs controlflow
+          - JavaScript mastery
+        projects: Implement small features for the company
+        icon: IconCode
+      - title: AI-Driven UI Engineering
+        duration: Milestone 3
+        objectives:
+          - Vision-to-Spec prompting
+          - Component generation with AI
+        projects: Rebuild the company's UI using AI
+        icon: IconSparkles
+      - title: React Fundamentals
+        duration: Milestone 4
+        objectives:
+          - SPA architecture
+          - Props, state, and effects
+          - Debugging techniques
+        projects: Build the company's interactive frontend
+        icon: IconBrandReact
+      - title: Backend for AI Frontends
+        duration: Milestone 5
+        objectives:
+          - APIs and DB basics
+          - Serialization and auth
+          - Serverless functions
+        projects: Create the company's backend
+        icon: IconServer
+      - title: Telemetry & Data Pipelines
+        duration: Milestone 6
+        objectives:
+          - Collect, transform, aggregate, report
+        projects: Build telemetry for the company
+        icon: IconChartLine
+      - title: RAG & Memory
+        duration: Milestone 7
+        objectives:
+          - Chunking and embeddings
+          - Vector search
+        projects: Add the company's knowledge layer
+        icon: IconBrain
+      - title: Agent Engineering
+        duration: Milestone 8
+        objectives:
+          - Rules and memory bank
+          - Tool calling
+          - Multi-agent planning
+        projects: Build the company's agents
+        icon: IconRobot
+      - title: Agentic Workflow Generation
+        duration: Milestone 9
+        objectives:
+          - Use LLMs to analyze company case
+          - Generate and validate internal workflows
+          - Implement automation pipelines
+        projects: Serverless, queues, cronjobs, or n8n
+        icon: IconSitemap
+      - title: Real-Time Systems
+        duration: Milestone 10
+        objectives:
+          - Streaming and sockets
+          - Pub/sub patterns
+        projects: Enable real-time interactions for data, customers, AI or employees
+        icon: IconBolt
+      - title: Full AI-Transformed Company
+        duration: Capstone
+        objectives:
+          - AI-generated frontend
+          - API + authentication
+          - Telemetry + reporting pipeline
+          - Workflow automation (agent-generated)
+          - RAG knowledge layer
+          - Agents with tool calling
+          - Real-time communication layer
+        projects: Deliver the complete transformation of your chosen company
+        orientation: horizontal
+        icon: IconTrophy
+    marginY:
+      mobile: none
+      desktop: none
+    paddingY:
+      mobile: lg none
+      desktop: lg none
+  - type: ai_learning
+    section_id: ai_learning-rmuw7i
+    badge: Why 4Geeks?
+    title: Why Learn AI Engineering with 4Geeks?
+    description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.
+    features:
+      - icon: TrendingUp
+        title: Thrive in tech with career support for the AI-Era
+        description: ''
+        show_rigobot_logo: true
+        bullets:
+          - text: Get personalized 1:1 coaching
+          - text: Build your AI-ready resume and portfolio
+          - text: Prepare for interviews and salary negotiation
+          - text: Keep growing with lifelong access to career support
+        video_url: https://youtu.be/-2ZvlgDnltc
+        cta:
+          text: Start learning now!
+          url: '#hero-form'
+          variant: primary
+      - icon: Robot
+        title: Progress faster with AI-powered tools
+        description: ''
+        show_rigobot_logo: true
+        bullets:
+          - text: Get instant feedback from Rigobot, our custom AI tutor
+          - text: Receive advice adjusted to your skill level and progress
+          - text: Get 24/7 help with debugging and problem-solving
+          - text: Access hundreds of interactive coding exercises on Learnpack, our educational platform
+        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
+        cta:
+          text: Start learning now!
+          url: '#hero-form'
+          variant: primary
+      - icon: Headset
+        title: Unlimited 1:1 mentorship and an active community
+        description: ''
+        show_rigobot_logo: true
+        bullets:
+          - text: Lifelong access to 1:1 mentorship sessions
+          - text: 7:1 student–teacher ratio for personalized guidance
+          - text: Peer collaboration through Slack channels and weekly check-ins
+          - text: Dedicated Slack channels for coding support, job boards, and career advice
+        image_id: community-support-cropped
+    paddingY:
+      mobile: lg none
+      desktop: lg none
+  - type: certificate
+    section_id: certificate-dygol2
+    title: Career Outcomes
+    description: 'Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:'
+    benefits:
+      - text: 'AI Software Engineer: $95K–$135K'
+      - text: 'Full-Stack Engineer (AI-Fluent): $100K–$145K'
+      - text: 'Agent Engineer: $105K–$155K'
+      - text: 'Workflow Automation Engineer: $85K–$120K'
+    card:
+      title: AI Engineer
+      subtitle: 4Geeks Academy Certificate
+      program_name: AI Engineering
+    stats:
+      - value: 84%
+        label: Hiring rate
+        description: Graduate with the skills, credentials, and professional profile employers are actively hiring for.
+        benefits:
+          - text: Certificate recognized by the Florida Department of Education
+          - text: End-to-end AI-engineered company in your portfolio
+          - text: Demonstrated experience with agents, workflows, and AI systems
+          - text: Optimized professional profile and job-search strategy
+      - value: 3-6 months
+        label: Time to get hired
+        description: Most graduates land their first role within 3–6 months of graduation. With our structured 3-step career development process, technical skills turn into job offers fast.
+        benefits:
+          - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
+          - text: Prepare through mock technical and behavioral interviews with real-world problem-solving practice
+          - text: Execute a personalized job-search strategy with access to relevant hiring networks
+      - value: 55%
+        label: Average salary increase
+        description: Our graduates see an average 55% salary increase after transitioning into AI engineering roles. The investment pays for itself.
+        benefits:
+          - text: 'AI Software Engineer: $95K–$135K'
+          - text: 'Full-Stack Engineer (AI-Fluent): $100K–$145K'
+          - text: 'Agent Engineer: $105K–$155K'
+          - text: 'Workflow Automation Engineer: $85K–$120K'
+      - value: 5,000+
+        label: Hiring partners
+        description: Access our network of 5,000+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
+        benefits:
+          - text: Exclusive job board access
+          - text: Priority referrals to partner companies
+          - text: Networking events with hiring managers
+          - text: Companies include Google, Meta, Amazon, startups
+    certificate_position: right
+    useSolidCard: true
+    marginY:
+      mobile: none
+      desktop: none
+    paddingY:
+      mobile: lg
+      desktop: lg
+    background: hsl(var(--muted))
+  - type: pricing
+    section_id: pricing-gjb9r0
+    version: '1.0'
+    variant: product
+    title: Finance Your Investment
+    subtitle: Your future in tech is within reach.
+    discount_text: 'Full Payment Discount: Save 10% with upfront payment.'
+    financing_text: 'Credit-Based Financing: starting below'
+    financing_amount: $349
+    tech_icons:
+      - openai
+      - claude
+      - python
+      - pandas
+      - numpy
+      - scikitlearn
+      - pytorch
+      - matplotlib
+      - react
+      - nextjs
+      - tailwindcss
+      - nodejs
+      - vercel
+      - supabase
+      - git
+      - github
+      - postman
+      - n8n
+    features_title: We offer multiple ways to fund your enrollment. Choose the option that fits you best.
+    features:
+      - icon: IconCheck
+        text: Regular tuition is $14,999. Pay upfront and get 10% discount, or spread payments interest-free over 6 months.
+      - icon: IconCheck
+        text: Finance your tuition through Climb, Fortify or Lumion. Choose among 24-36-48-60 month plans.
+      - icon: IconCheck
+        text: 2–3 partial scholarships available per cohort for highly qualified applicants.
+        use_rigobot_icon: true
+      - icon: IconCheck
+        text: Enroll with a Job Guarantee for added confidence. Get hired within 9 months of graduation or your money back.
+    cta:
+      text: Get more info
+      url: '#hero-form'
+      variant: primary
+    paddingY:
+      mobile: lg none
+      desktop: lg none
+  - type: whos_hiring
+    section_id: whos_hiring-z8ldq2
+    variant: carousel
+    title: Trusted by Leading Innovators
+    subtitle: Our graduates are hired by top employers.
+    logos:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
+        alt: Microsoft
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
+        alt: Google Developers
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/images-removebg-preview_1767642331872.png
+        alt: Boats Group
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
+        alt: Meta
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
+        alt: eBay
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
+        alt: National Geographic
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
+        alt: Evernote
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
+        alt: Telefonica
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
+        alt: Twilio
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
+        alt: Uber
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
+        alt: Neo9
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
+        alt: Jooble
+    marginY:
+      mobile: none xl
+      desktop: none xl
+    paddingY:
+      mobile: lg none
+      desktop: lg none
+  - type: bullet_tabs_showcase
+    section_id: bullet_tabs_showcase-fkvg7y
+    version: '1.0'
+    heading: Is This Program Right for You?
+    tabs:
+      - label: Collaborative documents
+        description: |-
+          Ready for an intensive commitment: 
+          20-24 hours/week for 24 weeks. (Live classes + ~12 hours of homework)
+        image_id: placeholder_career_guidance
+      - label: Inline comments
+        description: |-
+          Focused on career outcomes: 
+           Want AI-native skills that unlock in-demand, high-paying roles.
+        image_id: placeholder_mentorship
+      - label: Text-to-issue commands
+        description: |-
+          Motivated by structure: 
+           Prefer clear milestones, expert instructors, and a supportive cohort.
+        image_id: placeholder_strategies
+    image_position: right
+    marginY:
+      mobile: xl lg
+      desktop: xl lg
+    paddingY:
+      mobile: none
+      desktop: none
+  - type: testimonials
+    section_id: testimonials-fyvh38
+    version: v1.0
+    title: Testimonios de Nuestros Graduados
+    subtitle: Experiencias que respaldan nuestros resultados.
+    rating_summary:
+      average: '4.9'
+      count: 2,847
+    items:
+      - name: Maria Rodriguez
+        role: Ingeniera de Software
+        company: Google
+        rating: 5
+        comment: Este programa cambió mi vida. Pasé de cero experiencia en código a conseguir mi trabajo soñado en 6 meses.
+        outcome: Contratada en 4 meses
+      - name: James Chen
+        role: Desarrollador Full Stack
+        company: Spotify
+        rating: 5
+        comment: La mentoría fue increíble. Tener acceso ilimitado a desarrolladores senior marcó toda la diferencia.
+        outcome: Aumento salarial 3x
+      - name: Sarah Williams
+        role: Desarrolladora Frontend
+        company: Meta
+        rating: 5
+        comment: Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que cualquier otro curso que haya probado.
+        outcome: Cambio de carrera a los 35
+      - name: Carlos Mendez
+        role: Ingeniero Backend
+        company: Amazon
+        rating: 4
+        comment: Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la computación.
+        outcome: Trabajo remoto conseguido
+      - name: Emily Thompson
+        role: Ingeniera DevOps
+        company: Netflix
+        rating: 5
+        comment: El equipo de soporte profesional me ayudó a negociar un salario 50% más alto de lo que esperaba.
+        outcome: Aumento salarial del 50%
+      - name: David Kim
+        role: Tech Lead
+        company: Uber
+        rating: 5
+        comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
+        outcome: Promovido en 1 año
+  - type: cta_banner
+    section_id: cta_banner-07yn29
+    version: '1.0'
+    title: Ready to Become an AI Engineer?
+    subtitle: Limited spots available. Start your transformation today.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Apply Now
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Your email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        last_name:
+          visible: true
+          required: true
+          placeholder: Last name
+        phone:
+          visible: true
+          required: true
+          placeholder: Phone number
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: Thank you! We'll be in touch soon.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: I agree to receive information about courses and promotions
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      mobile: md none
+      desktop: md none
+    paddingY:
+      mobile: lg
+      desktop: lg
+  - type: footer
+    section_id: footer-m9d55w
+    version: '1.0'
+    copyright_text: 2024 4Geeks. All rights reserved.
+    paddingY:
+      mobile: none
+      desktop: none
+    marginY:
+      desktop: sm none

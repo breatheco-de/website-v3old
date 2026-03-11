@@ -513,3 +513,5 @@ global.who_is_eligible_work_authorization:
         region: "usa-canada"
       value: "Have U.S. work authorization"
   default: "Have authorization to work in your country of residence"
+global.address_miami:
+  default: "1111 Brickell Ave, Miami, FL 33129"

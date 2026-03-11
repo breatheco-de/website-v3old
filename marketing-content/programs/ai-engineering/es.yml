@@ -92,7 +92,6 @@ sections:
       - tampa-usa
       - toronto-canada
   - type: hero
-    section_id: hero-fd5q96
     version: "1.3"
     variant: course
     title: Ingeniería de Inteligencia Artificial
@@ -140,6 +139,7 @@ sections:
           text: Mentoría 1:1 ilimitada
         - icon: book
           text: Portafolio listo para producción
+    section_id: hero-fd5q96
     paddingY:
       desktop: md
     marginY:
@@ -167,6 +167,9 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+    video:
+      url: https://www.youtube.com/watch?v=hUgwkBtYtUI
+      preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-10-120305.png
   - type: modal
     version: "1.0"
     section_id: apply-modal

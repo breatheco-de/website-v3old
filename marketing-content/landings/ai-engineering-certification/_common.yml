@@ -1,0 +1,10 @@
+slug: ai-engineering-certification
+title: ai-engineering-certification
+locale: en
+meta:
+  og_image: /images/programs/ai-engineering-og.jpg
+schema:
+  include:
+    - organization
+    - website
+    - courses:ai-engineering
