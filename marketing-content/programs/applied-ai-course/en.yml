@@ -148,23 +148,26 @@ sections:
     marginY:
       desktop: md lg
   - type: features_grid
-    section_id: features_grid-go2y2k
     version: "1.0"
     variant: stats-text
     title: Why AI Engineering Now
     subtitle: The talent gap is your opportunity
-    description: According to LinkedIn’s Jobs on the Rise 2026, AI Engineers are among the fastest-growing roles in the U.S. Demand is accelerating, and companies are actively hiring for these skills now.
+    description: AI is no longer optional. Companies across every industry are adopting AI tools and systems faster than the talent market can supply skilled professionals. Engineers who understand how to design, integrate, and deploy AI systems are becoming some of the most valuable hires in tech.
     background: bg-muted/30
     items:
       - id: "1"
-        value: 800,000
-        title: AI-related roles expected by 2027
+        value: 56%
+        title: Average salary premium for professionals with AI skills
+        description: Workers with AI-related skills earn significantly higher wages globally, reflecting the growing value companies place on AI expertise.
       - id: "2"
-        value: ~30%
-        title: Year-over-year growth in AI job posts
+        value: 21% → 40%
+        title: AI adoption in the workplace in just two years
+        description: The percentage of employees using AI tools at work has nearly doubled, showing how quickly AI is becoming a core workplace skill.
       - id: "3"
-        value: {{ global.average_salary_ai_engineer | $95K-$135K }}
-        title: Average starting salary for AI Engineers
+        value: Top 5
+        title: AI Engineers among the fastest-growing tech roles
+        description: According to LinkedIn’s Jobs on the Rise report, AI Engineers rank among the fastest-growing jobs as companies race to build AI-powered products and systems.
+    section_id: features_grid-go2y2k
   - type: syllabus
     section_id: syllabus-9j2a7p
     variant: program-modules
