@@ -159,12 +159,11 @@ sections:
         value: 56%
         title: Average wage premium for professionals with AI skills
       - id: "2"
-        value: 21% → 40%
-        title: Growth in employees using AI tools at work
-      - id: "3"
         value: 40%
         title: Of U.S. employees already use AI at work
-        description: AI tools are rapidly becoming part of everyday workflows across industries, from marketing and finance to operations and software development.
+      - id: "3"
+        value: 21%→40%
+        title: Growth in employees using AI tools at work
     section_id: features_grid-go2y2k
   - type: syllabus
     section_id: syllabus-9j2a7p
