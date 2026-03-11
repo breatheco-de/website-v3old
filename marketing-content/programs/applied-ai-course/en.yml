@@ -166,138 +166,72 @@ sections:
         title: Growth in employees using AI tools at work
     section_id: features_grid-go2y2k
   - type: syllabus
-    section_id: syllabus-9j2a7p
     variant: program-modules
-    program_title: AI Engineering Program Overview
-    program_description: Learn by building and scaling a single AI-native business across 10 milestones. Graduate with a fully operational, AI-powered company that reflects the skills and workflows used by modern engineering teams. Choose between a 24-week evening schedule and a 15-week accelerated morning track.
+    program_title: Applied AI for Professionals
+    program_description: In just 6 weeks, learn how to leverage today’s leading AI tools to optimize your workflow, improve output quality, and stay ahead in your career. This program focuses on practical AI skills using tools like ChatGPT, Gemini, Claude, and modern image generation models applied directly to real-world professional tasks.
     tech_logos:
-      - name: React
-        icon: react
-      - name: Python
-        icon: python
-      - name: OpenAI
+      - name: ChatGPT
         icon: openai
-      - name: n8n
-        icon: n8n
-      - name: Git
-        icon: git
+      - name: Gemini
+        icon: google
+      - name: Claude
+        icon: anthropic
+      - name: Midjourney
+        icon: sparkles
+      - name: Stable Diffusion
+        icon: cpu
     module_cards:
-      - title: AI‑First Prework
-        duration: Milestone 0
+      - title: Introduction to AI
+        duration: Week 1
         objectives:
-          - Git, JavaScript basics
-          - Internet fundamentals
-          - Coding agents
-          - How to communicate with AI (Markdown/YAML/JSON)
-        projects: Understand AI and internet foundations.
-        orientation: vertical
-        icon: IconCode
-      - title: Web Foundations
-        duration: Milestone 1
-        objectives:
-          - HTML, CSS, Tailwind
-          - Accessibility
-          - Layouts
-          - SEO/GEO
-        projects: Build the company's first webpage.
-        orientation: vertical
-        icon: IconCode
-      - title: Programming Foundations
-        duration: Milestone 2
-        objectives:
-          - Algorithms
-          - Stateflow vs controlflow
-          - Typed JS mastery
-        projects: Implement small features for the company.
-        orientation: vertical
-        icon: IconServer
-      - title: AI‑Driven UI Engineering
-        duration: Milestone 3
-        objectives:
-          - Vision‑to‑Spec prompting
-          - Component generation
-        projects: Rebuild the company's UI using AI.
-        orientation: vertical
-        icon: IconChartBar
-      - title: Next.js Fundamentals (React)
-        duration: Milestone 4
-        objectives:
-          - SPA architecture
-          - Multi-page architecture
-          - Props/state/effects
-          - Debugging
-        projects: Build the company's interactive frontend.
-        orientation: vertical
-        icon: IconDatabase
-      - title: Backend for AI Frontends
-        duration: Milestone 5
-        objectives:
-          - APIs
-          - DB basics
-          - Serialization, authentication
-          - Serverless functions
-        projects: Create the company’s backend.
+          - Understanding how modern AI systems work
+          - Overview of generative AI models
+          - Key concepts behind LLMs and AI assistants
+          - Responsible and effective AI usage
+        projects: Apply AI tools to simple professional workflows.
         orientation: vertical
         icon: IconRobot
-      - title: Telemetry & Data Pipelines
-        duration: Milestone 6
+      - title: AI for Productivity
+        duration: Week 2
         objectives:
-          - Collect
-          - Transform
-          - Aggregate
-          - Report.
-        projects: Build telemetry for the company.
-        orientation: vertical
-        icon: IconLayoutKanban
-      - title: RAG & Memory
-        duration: Milestone 7
-        objectives:
-          - Data chunking
-          - Embeddings
-          - Vector search
-        projects: Add the company’s knowledge layer.
+          - Using AI to automate everyday work tasks
+          - Research acceleration with AI assistants
+          - Summarization and information processing
+          - AI workflows for productivity
+        projects: Build AI-assisted workflows for daily professional tasks.
         orientation: vertical
         icon: IconBolt
-      - title: Agent Engineering
-        duration: Milestone 8
+      - title: Text Generation & Communication
+        duration: Week 3
         objectives:
-          - Rules
-          - Memory banks
-          - Tool calling
-          - Multi-agent planning.
-        projects: Build the company’s agents.
+          - Prompt engineering fundamentals
+          - Writing, editing, and summarizing with AI
+          - AI for reports, emails, documentation, and marketing
+          - Structuring prompts for better outputs
+        projects: Create professional content using generative AI tools.
         orientation: vertical
-        icon: IconCode
-      - title: Agentic Workflow Generation
-        duration: Milestone 9
+        icon: IconFileText
+      - title: Image Generation & Visual AI
+        duration: Weeks 4–5
         objectives:
-          - Analyze the company case with LLMs
-          - Generate and validate internal workflows
-          - Implement automation pipelines (serverless, queues, cronjobs, n8n)
-        projects: Build the company's agentic workflows.
+          - Understanding image generation models
+          - Tools like Stable Diffusion, DALL-E, and Midjourney
+          - Prompt engineering for image generation
+          - Using AI visuals in professional contexts
+        projects: Design and optimize prompts to generate images for real use cases.
         orientation: vertical
-        icon: IconCode
-      - title: Real-Time Systems
-        duration: Milestone 10
+        icon: IconPhoto
+      - title: AI Tools & Future of Work
+        duration: Week 6
         objectives:
-          - Real-time systems streaming
-          - Sockets
-          - Pub/sub
-        projects: Enable real-time interactions for data, customers, employees and AI.
-        orientation: vertical
-        icon: IconCode
-      - title: Fully AI‑Transformed Company
-        duration: Capstone Project
-        objectives:
-          - AI-generated frontend, API + authentication
-          - Telemetry + reporting pipeline
-          - Workflow automation
-          - RAG knowledge layer
-          - Real-time communication layer
-          - Agents with tool calling
-        projects: Your fully operational AI-first business system deployed end‑to‑end.
+          - Overview of modern AI ecosystems
+          - Evaluating new AI tools and capabilities
+          - Understanding AI adoption across industries
+          - Integrating AI into long-term workflows
+        projects: Develop an AI strategy for your role or organization.
         orientation: horizontal
-        icon: IconCode
+        icon: IconSparkles
+    section_id: syllabus-9j2a7p
     marginY:
       desktop: md none
     paddingY:
