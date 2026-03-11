@@ -281,10 +281,10 @@ sections:
     title: Career Outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access AI-powered roles employers are actively hiring for:"
     benefits:
-      - text: "Prompt Engineer: $100K–$164K"
-      - text: "AI Prompt Engineer: $114K–$171K"
-      - text: "Artificial Intelligence Specialist: $104K average"
-      - text: "AI Automation Specialist: $76K average"
+      - text: "Prompt Engineer: $100K–$160K"
+      - text: "AI Automation Specialist: $75K–$120K"
+      - text: "AI Solutions Specialist: $85K–$130K"
+      - text: "Generative AI Specialist: $95K–$145K"
     card:
       title: Applied AI
       subtitle: 4Geeks Academy Certificate
@@ -307,12 +307,12 @@ sections:
           - text: Build a personalized job-search strategy for AI-related roles
       - value: {{ global.global_salary_increase | 55 }}%
         label: Average Salary Increase
-        description: Workers with AI skills command strong salary premiums as AI becomes a core workplace capability across industries. :contentReference[oaicite:1]{index=1}
+        description: Workers with AI skills command strong salary premiums as AI becomes a core workplace capability across industries.
         benefits:
-          - text: "Prompt Engineer: $127,765 average"
-          - text: "AI Prompt Engineer: $138,408 average"
-          - text: "Artificial Intelligence Specialist: $104,643 average"
-          - text: "AI Automation Specialist: $76,465 average"
+          - text: "Prompt Engineer: $100K–$160K"
+          - text: "AI Automation Specialist: $75K–$120K"
+          - text: "AI Solutions Specialist: $85K–$130K"
+          - text: "Generative AI Specialist: $95K–$145K"
       - value: 400+
         label: Hiring partners
         description: Access our network of hiring partners and career support resources to connect your new AI skills with real professional opportunities.
@@ -320,7 +320,7 @@ sections:
           - text: Exclusive job board access
           - text: Priority referrals to partner companies
           - text: Networking events with hiring managers
-          - text: Companies include Google, Meta, Amazon, and startups
+          - text: Companies include Google, Meta, Amazon, startups
     certificate_position: right
     useSolidCard: true
     section_id: certificate-z3vs8h
