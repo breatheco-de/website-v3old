@@ -150,20 +150,23 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
-    title: Why AI Engineering Now
-    subtitle: The talent gap is your opportunity
-    description: AI is no longer optional. Companies across every industry are adopting AI tools and systems faster than the talent market can supply skilled professionals. Engineers who understand how to design, integrate, and deploy AI systems are becoming some of the most valuable hires in tech.
-    background: hsl(210 100% 50% / 0.05)
+    title: Why AI Skills Matter Now
+    subtitle: AI is becoming a core workplace skill
+    description: AI is rapidly becoming part of everyday work across industries. Professionals who understand how to use AI tools and workflows are gaining a significant advantage in productivity, career growth, and earning potential.
+    background: bg-muted/30
     items:
       - id: "1"
         value: 56%
-        title: Average salary premium for professionals with AI skills
+        title: Average wage premium for professionals with AI skills
+        description: Workers with AI-related skills earn significantly higher wages globally as companies compete for talent who can apply AI in real business workflows.
       - id: "2"
-        value: Top 5
-        title: AI Engineers among the fastest-growing tech roles
+        value: 21% → 40%
+        title: Growth in employees using AI tools at work
+        description: In just two years, workplace AI adoption nearly doubled, showing how quickly AI is becoming part of daily professional tasks.
       - id: "3"
         value: 21%→40%
-        title: AI adoption in the workplace in just two years
+        title: Growth in employees using AI tools at work
+        description: In just two years, workplace AI adoption nearly doubled, showing how quickly AI is becoming part of daily professional tasks.
     section_id: features_grid-go2y2k
   - type: syllabus
     section_id: syllabus-9j2a7p
