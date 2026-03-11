@@ -336,9 +336,9 @@ sections:
     variant: product
     title: Payment plans
     subtitle: Select the location and payment option that suits you best.
-    discount_text: "Best Deal: Pay only €3,000 when you pay in full."
+    discount_text: "Best Deal: Pay only $3,000 when you pay in full."
     financing_text: Flexible weekly payments from
-    financing_amount: €550/week
+    financing_amount: $550/week
     tech_icons:
       - openai
       - brain
@@ -348,13 +348,13 @@ sections:
     features_title: Pick your flexible payment plan.
     features:
       - icon: IconCheck
-        text: Pay €550 a week for 6 weeks.
+        text: Pay $550 a week for 6 weeks while completing the program.
       - icon: IconCheck
-        text: Pay upfront and save with a full payment option of €3,000.
+        text: Pay upfront and save with a full payment option of $3,000.
       - icon: IconCheck
-        text: Payment plans available with flexible installments.
+        text: Flexible payment plans available so you can focus on learning, not finances.
       - icon: IconCheck
-        text: Book a call with an advisor to find a payment option or special offer that works for you.
+        text: Speak with an advisor to find the best payment option for your situation.
     cta:
       text: Request a Syllabus
       url: "#modal-o9bufw"
@@ -364,8 +364,6 @@ sections:
       desktop: lg md
     paddingY:
       desktop: none md
-    showOnLocations:
-      - madrid-spain
   - type: faq
     section_id: faq-8vzhp4
     title: FAQ
