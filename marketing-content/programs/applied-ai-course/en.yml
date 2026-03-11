@@ -153,7 +153,7 @@ sections:
     title: Why AI Skills Matter Now
     subtitle: AI is becoming a core workplace skill
     description: AI is rapidly becoming part of everyday work across industries. Professionals who understand how to use AI tools and workflows are gaining a significant advantage in productivity, career growth, and earning potential.
-    background: bg-muted/30
+    background: hsl(210 100% 50% / 0.05)
     items:
       - id: "1"
         value: 56%
