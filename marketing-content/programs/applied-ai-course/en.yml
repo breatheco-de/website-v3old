@@ -158,15 +158,12 @@ sections:
       - id: "1"
         value: 56%
         title: Average salary premium for professionals with AI skills
-        description: Workers with AI-related skills earn significantly higher wages globally, reflecting the growing value companies place on AI expertise.
       - id: "2"
-        value: 21% → 40%
+        value: 21%→40%
         title: AI adoption in the workplace in just two years
-        description: The percentage of employees using AI tools at work has nearly doubled, showing how quickly AI is becoming a core workplace skill.
       - id: "3"
         value: Top 5
         title: AI Engineers among the fastest-growing tech roles
-        description: According to LinkedIn’s Jobs on the Rise report, AI Engineers rank among the fastest-growing jobs as companies race to build AI-powered products and systems.
     section_id: features_grid-go2y2k
   - type: syllabus
     section_id: syllabus-9j2a7p
