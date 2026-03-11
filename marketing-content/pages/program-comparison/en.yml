@@ -16,64 +16,74 @@ schema:
     - website
 sections:
   - type: comparison_table
-    section_id: comparison_table-7id0o1
     version: "1.0"
-    title: Which Path Fits You Best?
-    subtitle: Compare programs to see which one aligns with your interests, strengths, and goals. Every 4Geeks bootcamp will equip you with the skills, mentorship, and career support to thrive in the career of your choice.
+    title: Choose Your Tech Career Path
+    subtitle: Compare our programs to see which skills, roles, and career opportunities align with your goals.
     columns:
       - name: Category
         highlight: true
+      - name: AI Engineering
       - name: Full Stack Development with AI
       - name: Data Science & Machine Learning with AI
       - name: Cybersecurity
     rows:
       - feature: What It Is
         values:
-          - Learn to build websites, apps, and software from scratch with front-end, back-end, and AI tools.
+          - Learn to design and orchestrate complete AI systems by developing a real AI-native business from architecture to deployment.
+          - Learn to build web applications and software from scratch using front-end, back-end, and AI-powered development tools.
           - Learn to gather, analyze, and model data using Python, machine learning, and AI.
           - Learn to protect systems, networks, and data from cyber threats.
       - feature: Why It Matters
         values:
-          - Companies need scalable digital solutions. Full Stack Developers power operations, marketing, and customer experiences. With AI, they automate processes and build smarter products.
+          - Companies are racing to integrate AI into real operations and services. AI engineers design the systems, agents, and workflows that power modern AI-driven businesses.
+          - Companies need scalable digital solutions. Full Stack Developers power operations, marketing, and customer experiences. With AI, they automate processes and build smarter software.
           - Businesses rely on data to drive decisions. Data Scientists turn raw data into insights, while machine learning automates predictions and personalizes experiences.
           - Every business faces cyber risks. Cybersecurity experts defend data, ensure compliance, and prevent costly attacks in today's digital-first world.
       - feature: What You'll Learn
         values:
+          - AI system architecture, LLM integrations, AI agents, workflow automation, APIs, databases, modern AI development tools, and AI-assisted engineering workflows.
           - HTML, CSS, JavaScript, Python, React, databases, APIs, GitHub workflows, and AI tools like OpenAI/GPT, Cursor, Vercel v0.
           - Python, SQL, statistics, data visualization, machine learning, AI tools, and real-world modeling techniques.
           - Network security, ethical hacking, risk assessment, threat analysis, incident response, and tools like Wireshark and Splunk.
       - feature: Ideal For
         values:
+          - Builders who want to design and implement real AI systems and architectures. Great for developers, technical problem-solvers, and career switchers aiming for advanced AI roles.
           - Creative problem-solvers who enjoy building and seeing results come to life.
           - Analytical thinkers who love numbers, trends, and solving patterns.
           - Detail-oriented people who enjoy puzzles, rules, and outsmarting threats.
       - feature: Day-to-Day Work
         values:
-          - Build and test websites and apps, integrate APIs, collaborate with designers, and launch features.
+          - Design AI-powered systems, orchestrate agent workflows, integrate models into operational pipelines, automate business processes, and deploy scalable AI infrastructure.
+          - Build and improve web applications, develop front-end interfaces, implement back-end logic, integrate APIs, and ship new product features.
           - Clean and analyze data, build models, create dashboards, and deliver insights.
           - Monitor networks, test defenses, respond to incidents, and develop security policies.
       - feature: Job Titles
         values:
+          - AI Engineer, AI Software Engineer, AI Systems Engineer, Automation Engineer.
           - Full Stack Developer, Front-End Developer, Back-End Developer, AI Software Engineer, Web Developer.
           - Data Analyst, Data Scientist, Machine Learning Engineer, BI Analyst.
           - Cybersecurity Analyst, SOC Analyst, Penetration Tester, Security Consultant.
       - feature: Average U.S. Salary
         values:
+          - $100K to $160K
           - $75K to $110K
           - $85K to $130K
           - $80K to $120K
       - feature: Bootcamp Schedule
         values:
+          - Part-Time (24 weeks).
           - Full-Time (12 weeks) or Part-Time (20 weeks).
           - Part-Time (16 weeks).
           - Part-Time (16 weeks).
       - feature: Course Delivery
         values:
+          - Online.
           - Online or In-Person (select cities).
           - Online.
           - Online.
       - feature: Cost
         values:
+          - $13,499 (discounts and scholarships available).
           - $10,999 (discounts and scholarships available).
           - $10,999 (discounts and scholarships available).
           - $9,999 (discounts and scholarships available).
@@ -82,18 +92,28 @@ sections:
           - Monthly plans, upfront discounts, loans, and income-based options.
           - Monthly plans, upfront discounts, loans, and income-based options.
           - Monthly plans, upfront discounts, loans, and income-based options.
+          - Monthly plans, upfront discounts, loans, and income-based options.
       - feature: Job Guarantee
         values:
+          - Available for additional $2,000.
           - Available for additional $2,000. Included in the full time course option at no extra cost.
           - Available for additional $2,000.
           - Available for additional $2,000.
       - feature: Best For You If
         values:
+          - You want to design and implement real AI systems that power modern businesses. Ideal for developers or ambitious career switchers aiming to work directly with modern AI technologies and automation.
           - "You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs."
           - You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break into AI or data-driven roles. A math or business background helps, but is not required.
           - You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or compliance work, or dream of working in IT security, law enforcement, or defense.
       - feature: Ready to start?
         values:
+          - cta:
+              - text: Apply Now
+                url: /en/apply
+                variant: primary
+              - text: Learn More
+                url: /en/career-programs/ai-engineering
+                variant: outline
           - cta:
               - text: Apply Now
                 url: /en/apply
@@ -116,6 +136,7 @@ sections:
                 url: /en/career-programs/cybersecurity
                 variant: outline
     footer_note: "* Program details subject to change"
+    section_id: comparison_table-7id0o1
     marginY:
       desktop: none
     showOnLocations:
@@ -328,7 +349,7 @@ sections:
           - Monthly plans, upfront discounts, and loans.
       - feature: Best For You If
         values:
-          - 'You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs.'
+          - "You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs."
           - You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break into AI or data-driven roles. A math or business background helps, but is not required.
           - You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or compliance work, or dream of working in IT security, law enforcement, or defense.
       - feature: Ready to start?
@@ -374,7 +395,7 @@ sections:
     version: "1.0"
     variant: solid
     heading: Program Tuition
-    subheading: '<span style="font-size: 1.125rem;">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all regions.<span style="color: hsl(var(--primary));"> <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span><a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></span></div>'
+    subheading: "<span style=\"font-size: 1.125rem;\">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
     courses:
       - name: AI Engineering
         icon: Brain
