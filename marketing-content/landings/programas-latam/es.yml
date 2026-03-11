@@ -284,6 +284,11 @@ sections:
         category: Objetivo
         title: Una comunidad apasionada por la tecnología
         description: Desde un principio decidimos crear una comunidad de programadores de calidad con el propósito de que puedas encontrar apoyo, colaboración y oportunidades de networking que te ayudarán a alcanzar tus metas.
+      - id: flexibilidad
+        icon: Clock
+        category: Objetivo
+        title: Horarios y métodos de pago flexibles
+        description: Ofrecemos un modelo de formación a medio tiempo, para que puedas conciliar tus estudios con otras actividades. Además, también contamos con múltiples formas de financiación para hacer más accesibles los costos de un curso de esta calidad.
     columns: 3
     collapsible_mobile: true
     background: hsl(var(--secondary))
