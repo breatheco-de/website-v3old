@@ -331,42 +331,6 @@ sections:
       mobile: lg
       desktop: lg
     background: hsl(var(--muted))
-  - type: features_grid
-    section_id: features_grid-hcndty
-    variant: highlight
-    title: Enroll with a Job Guarantee*
-    subtitle: "Need extra peace of mind? Add our optional Job Guarantee for added security&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
-    items:
-      - icon: Star
-        title: Add the job guarantee to your payment plan
-      - icon: Users
-        title: Complete the program and follow the GeekFORCE career process
-      - icon: Award
-        title: Get hired within 9 months of graduation – or your money back
-    columns: 3
-    icon_color: "#0097CD"
-    background: hsl(var(--secondary))
-    paddingY:
-      desktop: lg none
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
   - type: pricing
     section_id: pricing-5ihe9a
     version: "1.0"
