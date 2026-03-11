@@ -443,9 +443,9 @@ sections:
           required: true
           placeholder: Phone number
         program:
-          visible: false
+          visible: true
           required: true
-          default: {{ single.bc_slug | unknown }}
+          default: Applied AI
       success:
         message: Thank you! We'll be in touch soon.
       consent:
@@ -457,11 +457,11 @@ sections:
       terms_className: text-white/80
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
+    section_id: cta_banner-8dww61
     marginY:
       desktop: lg none
     paddingY:
       desktop: md
-    section_id: cta_banner-8dww61
   - type: sticky_cta
     section_id: sticky_cta-v968gv
     version: "1.0"
