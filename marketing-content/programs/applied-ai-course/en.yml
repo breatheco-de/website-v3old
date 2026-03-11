@@ -158,15 +158,13 @@ sections:
       - id: "1"
         value: 56%
         title: Average wage premium for professionals with AI skills
-        description: Workers with AI-related skills earn significantly higher wages globally as companies compete for talent who can apply AI in real business workflows.
       - id: "2"
         value: 21% → 40%
         title: Growth in employees using AI tools at work
-        description: In just two years, workplace AI adoption nearly doubled, showing how quickly AI is becoming part of daily professional tasks.
       - id: "3"
-        value: 21%→40%
-        title: Growth in employees using AI tools at work
-        description: In just two years, workplace AI adoption nearly doubled, showing how quickly AI is becoming part of daily professional tasks.
+        value: 40%
+        title: Of U.S. employees already use AI at work
+        description: AI tools are rapidly becoming part of everyday workflows across industries, from marketing and finance to operations and software development.
     section_id: features_grid-go2y2k
   - type: syllabus
     section_id: syllabus-9j2a7p
