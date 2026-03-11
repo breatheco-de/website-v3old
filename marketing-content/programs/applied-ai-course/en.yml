@@ -365,8 +365,9 @@ sections:
     paddingY:
       desktop: none md
   - type: faq
-    section_id: faq-8vzhp4
     title: FAQ
+    related_features:
+      - applied-ai
     items:
       - question: What prerequisites do I need for AI Engineering?
         answer: Basic programming knowledge is recommended but not required. Our program starts with foundational concepts and builds up to advanced AI engineering. If you're new to coding, we have preparatory materials to help you get started.
@@ -398,11 +399,6 @@ sections:
           - all
         related_features: []
         priority: 0
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: md
-    background: hsl(var(--muted))
     item_overrides:
       how-long-does-the-program-take:
         hideOnLocations:
@@ -417,6 +413,12 @@ sections:
           - munich-germany
           - rome-italy
           - valencia-spain
+    section_id: faq-8vzhp4
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: md
+    background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
     title: Ready to Become an {{ single.job_role | AI Engineer }}?
