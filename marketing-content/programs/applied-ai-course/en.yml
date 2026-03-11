@@ -36,9 +36,9 @@ sections:
       - Hyper-personalized learning with unlimited 1:1 mentorship and support that continues beyond the program.
       - Ideal for professionals looking to stay relevant in an AI-powered job market.
     tutors:
-      - name: 4Geeks Mentors
-        role: Career Mentors
-        image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+      - name: Marco Gonzalo
+        role: Main Instructor
+        image: https://avatars.githubusercontent.com/u/410890?v=4&w=256&q=100
       - name: Rigo
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
