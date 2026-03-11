@@ -357,7 +357,7 @@ sections:
         text: Speak with an advisor to find the best payment option for your situation.
     cta:
       text: Request a Syllabus
-      url: "#upper"
+      url: "#modal-o9bufw"
       variant: primary
     section_id: pricing-5ihe9a
     marginY:
