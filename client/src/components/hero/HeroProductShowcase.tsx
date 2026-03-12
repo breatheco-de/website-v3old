@@ -452,6 +452,7 @@ export function HeroProductShowcase({
               {showAwardsMarquee && awardsMarqueeAtLeft && awardsMarquee?.items && awardsMarquee.items.length > 0 && (
                 <div className="w-full max-w-xl mt-6 overflow-hidden" data-testid="hero-awards-marquee-left">
                   <AwardsMarquee
+                    className="!px-0"
                     items={awardsMarquee.items}
                     speed={awardsMarquee.speed}
                     gradient={awardsMarquee.gradient}
