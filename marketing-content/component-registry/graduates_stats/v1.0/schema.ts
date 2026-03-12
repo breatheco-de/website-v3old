@@ -43,6 +43,7 @@ export const graduatesStatsStandardSchema = z.object({
   stats: z.array(graduatesStatItemSchema),
   collage_images: z.array(graduatesCollageImageSchema),
   background: z.string().optional(),
+  value_size: z.string().optional(),
 });
 
 export const graduatesStatsFullBleedSchema = z.object({
@@ -56,6 +57,7 @@ export const graduatesStatsFullBleedSchema = z.object({
   featured_images: z.array(graduatesFeaturedImageSchema),
   background: z.string().optional(),
   image_bordered: z.boolean().optional().default(true),
+  value_size: z.string().optional(),
 });
 
 export const graduatesStatsAsymmetricSchema = z.object({
@@ -68,6 +70,7 @@ export const graduatesStatsAsymmetricSchema = z.object({
   tall_image: z.string().describe("Image ID for the tall portrait image on the left"),
   stacked_images: z.array(z.string()).describe("Array of 2 image IDs for the stacked landscape images"),
   background: z.string().optional(),
+  value_size: z.string().optional(),
 });
 
 // ============================================
