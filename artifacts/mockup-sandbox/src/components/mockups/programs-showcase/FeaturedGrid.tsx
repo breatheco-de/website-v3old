@@ -4,7 +4,7 @@ const FOREGROUND = "#00041A";
 const MUTED = "#737373";
 const CARD_BG = "#FFFFFF";
 const FEATURED_BG = "rgba(0, 132, 255, 0.05)";
-const FEATURED_BORDER = "rgba(0, 132, 255, 0.15)";
+const FEATURED_BORDER = "rgba(0, 132, 255, 0.20)";
 const PAGE_BG = "#FAFAFA";
 const BORDER = "#EBEBEB";
 
