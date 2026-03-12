@@ -59,7 +59,7 @@ sections:
     form_card_title: Get the Full AI Engineering Program Details
     form_card_subtitle: Submit below and our admissions team will send you the complete program overview — curriculum, pricing, and financing options — within minutes.
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-    show_awards_marquee: true
+    show_awards_marquee: false
     awards_marquee:
       items:
         - id: switchup-2025
