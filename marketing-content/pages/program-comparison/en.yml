@@ -218,7 +218,7 @@ sections:
           - Full Stack Developer, Front-End Developer, Back-End Developer, AI Software Engineer, Web Developer.
           - Data Analyst, Data Scientist, Machine Learning Engineer, BI Analyst.
           - Cybersecurity Analyst, SOC Analyst, Penetration Tester, Security Consultant.
-      - feature: Average U.S. Salary
+      - feature: Average Salary
         values:
           - $85K to $130K
           - $75K to $110K
