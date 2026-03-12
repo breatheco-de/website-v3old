@@ -202,6 +202,7 @@ sections:
           - Network security, ethical hacking, risk assessment, threat analysis, incident response, and tools like Wireshark and Splunk.
       - feature: Ideal For
         values:
+          - x
           - Creative problem-solvers who enjoy building and seeing results come to life.
           - Analytical thinkers who love numbers, trends, and solving patterns.
           - Detail-oriented people who enjoy puzzles, rules, and outsmarting threats.
