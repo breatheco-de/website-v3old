@@ -78,7 +78,7 @@ sections:
           text: Unlimited 1:1 Mentorship
         - icon: book
           text: Production-Grade Portfolio
-        - icon: IconUserCheck
+        - icon: IconPencilDollar
           text: Optional Job Guarantee
     section_id: hero-yml6d7
   - type: hero
