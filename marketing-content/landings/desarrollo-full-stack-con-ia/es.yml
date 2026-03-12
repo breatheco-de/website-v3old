@@ -97,6 +97,70 @@ sections:
     marginX:
       desktop: none
     section_id: hero-56bog6
+  - type: hero
+    version: "1.0"
+    variant: ApplyFormProductShowcase
+    title: Desarrolla aplicaciones web modernas integradas con IA
+    brand_mark:
+      prefix: Conviértete en Programador Full Stack con IA en
+      highlight: 4Geeks Academy
+      color: primary
+    description: Desarrolla aplicaciones web listas para producción e integradas con inteligencia artificial y posiciónate para la nueva generación de roles de desarrollo web impulsados por IA.
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Aplicar al programa
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        last_name:
+          visible: true
+          required: true
+          placeholder: Apellido
+        phone:
+          visible: true
+          required: true
+          default_country: ES
+        program:
+          visible: false
+          default: full-stack-ai
+      success:
+        message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
+      terms_url: /terminos-condiciones
+      privacy_url: /politica-privacidad
+      consent:
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
+    cta_button:
+      text: Descargar programa
+      url: /programa/full-stack-ai
+      variant: outline
+      icon: Download
+    video:
+      url: https://www.youtube.com/watch?v=jiyZVACiucs
+      ratio: "16:9"
+      muted: true
+    section_id: hero-fullstack-ai
+    bullets:
+      - text: Aprende a programar desde cero hasta convertirte en un profesional del desarrollo web.
+      - text: Accede a mentorías ilimitadas y de por vida incluso después de graduarte.
+      - text: Desarrolla proyectos reales integrados con inteligencia artificial.
+      - text: Disponemos de opciones de financiamiento en 6, 9, 12 y 18 meses.
+    paddingY:
+      mobile: md none
+      desktop: lg none
+    marginY:
+      mobile: none
+      desktop: none
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
   - type: trust_cards
     version: v1.0
     title: Con la confianza de estudiantes en todo el mundo
