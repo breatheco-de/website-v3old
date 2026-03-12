@@ -186,31 +186,32 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
-  - type: features_quad
-    version: "1.0"
-    variant: default
-    heading: Real Outcomes. Verified Data.
-    description: Our results are tracked, published annually, and independently reviewed. Here's what 4Geeks Academy graduates actually achieve.
-    cards:
-      - icon: TrendingUp
-        title: 86% Hiring Rate
-        description: US graduates land a tech role within 90 days of graduation, as reported in our 2025 Mid-Year Outcomes Report.
-      - icon: Clock
-        title: 3 Months to Hired
-        description: In 2025, the average US graduate is landing their first role in ~3 months — a 25% improvement over the prior year.
-      - icon: IconZoomMoney
-        title: 41% Average Salary Increase
-        description: 2024 US graduates reported a 41% median salary increase after completing the program. The median post-graduation salary was $56,000.
-      - icon: Users
-        title: 5,000+ Graduates Employed
-        description: Over 5,000 alumni working at companies like Microsoft, Meta, eBay, TikTok, Kaseya, and National Geographic worldwide.
-    footer_description: Results based on graduate employment surveys. Full methodology available in our annual Outcomes Report.
-    background: hsl(var(--muted))
-    section_id: ai_learning-1b3p06
-    marginY:
-      desktop: none lg
-    paddingY:
-      desktop: none
+  - type: graduates_stats
+    heading: Career Outcomes
+    subheading: Real results from 5,000+ graduates. Here's what happens after you complete the program.
+    stats:
+      - value: 86%
+        label: Hiring rate — US graduates placed within 90 days
+      - value: 55%
+        label: Average salary increase after graduation
+      - value: ~3 months
+        label: Average time to get hired in 2025
+      - value: 5,000+
+        label: Graduates employed worldwide
+    collage_images:
+      - image_id: graduates_team_1
+        col_span: 5
+        row_span: 2
+      - image_id: graduates_team_2
+        col_span: 7
+        row_span: 2
+      - image_id: graduates_coding
+        col_span: 6
+        row_span: 2
+      - image_id: graduates_friends
+        col_span: 6
+        row_span: 2
+    section_id: graduates_stats-cnxqbb
   - type: features_grid
     section_id: features_grid-pq7av7
     version: "1.0"
