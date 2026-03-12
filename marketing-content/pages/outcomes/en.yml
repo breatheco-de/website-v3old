@@ -287,7 +287,6 @@ sections:
     paddingY:
       desktop: md lg
   - type: two_column_accordion_card
-    section_id: two_column_accordion_card-gr6szh
     variant: image_background
     version: "1.0"
     title: Why our Graduates Consistently get Hired
@@ -302,9 +301,10 @@ sections:
       - heading: Global hiring partner network
         text: Hundreds of companies worldwide that actively recruit 4Geeks graduates.
     footer: Support built for long-term careers, not just first jobs.
-    image: https://4geeksacademy.com/static/197e7cf794b47d7a7f53770a4b55186f/56f2e/marceloricigliano.webp
+    image: https://storage.googleapis.com/4geeks-academy-website/media/miami-people_1770606916405.jpeg
     image_alt: Student working on AI project
     reverse: true
+    section_id: two_column_accordion_card-gr6szh
     marginY:
       desktop: none lg
   - type: testimonials
