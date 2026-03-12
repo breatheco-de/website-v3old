@@ -196,6 +196,7 @@ sections:
           - Every business faces cyber risks. Cybersecurity experts defend data, ensure compliance, and prevent costly attacks in today's digital-first world.
       - feature: What You'll Learn
         values:
+          - x
           - HTML, CSS, JavaScript, Python, React, databases, APIs, GitHub workflows, and AI tools like OpenAI/GPT, Cursor, Vercel v0.
           - Python, SQL, statistics, data visualization, machine learning, AI tools, and real-world modeling techniques.
           - Network security, ethical hacking, risk assessment, threat analysis, incident response, and tools like Wireshark and Splunk.
