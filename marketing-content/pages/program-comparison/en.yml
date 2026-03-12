@@ -220,6 +220,7 @@ sections:
           - Cybersecurity Analyst, SOC Analyst, Penetration Tester, Security Consultant.
       - feature: Average U.S. Salary
         values:
+          - x
           - $75K to $110K
           - $85K to $130K
           - $80K to $120K
