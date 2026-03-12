@@ -10,6 +10,7 @@ meta:
   redirects:
     - /program-comparison
     - /compare-programs
+    - /us/programs
 schema:
   include:
     - organization
@@ -17,7 +18,7 @@ schema:
 sections:
   - type: hero
     section_id: hero-fzh5wv
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Find Your Best Path Into Tech
     badge: Compare our programs
@@ -28,14 +29,14 @@ sections:
     award_badges:
       - name: Best Coding Bootcamp
         source: Forbes
-        year: "2024"
+        year: '2024'
       - name: Top Tech School
         source: Course Report
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
   - type: comparison_table
-    version: "1.0"
+    version: '1.0'
     title: Choose Your New Career
     subtitle: Compare our programs to see which skills, roles, and career opportunities align with your goals.
     columns:
@@ -121,7 +122,7 @@ sections:
       - feature: Best For You If
         values:
           - You want to design and implement real AI systems that power modern businesses. Ideal for developers or ambitious career switchers aiming to work directly with modern AI technologies and automation.
-          - "You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs."
+          - 'You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs.'
           - You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break into AI or data-driven roles. A math or business background helps, but is not required.
           - You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or compliance work, or dream of working in IT security, law enforcement, or defense.
       - feature: Ready to start?
@@ -154,7 +155,7 @@ sections:
               - text: Learn More
                 url: /en/career-programs/cybersecurity
                 variant: outline
-    footer_note: "* Program details subject to change"
+    footer_note: '* Program details subject to change'
     section_id: comparison_table-7id0o1
     marginY:
       desktop: xl lg
@@ -171,7 +172,7 @@ sections:
       - tampa-usa
       - toronto-canada
   - type: comparison_table
-    version: "1.0"
+    version: '1.0'
     title: Choose Your New Career
     subtitle: Compare our programs to see which skills, roles, and career opportunities align with your goals.
     columns:
@@ -251,7 +252,7 @@ sections:
       - feature: Best For You If
         values:
           - You want to design and implement real AI systems that power modern businesses. Ideal for developers or ambitious career switchers aiming to work directly with modern AI technologies and automation.
-          - "You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs."
+          - 'You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs.'
           - You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break into AI or data-driven roles. A math or business background helps, but is not required.
           - You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or compliance work, or dream of working in IT security, law enforcement, or defense.
       - feature: Ready to start?
@@ -277,7 +278,7 @@ sections:
               - text: Learn More
                 url: /en/career-programs/cybersecurity
                 variant: outline
-    footer_note: "* Program details subject to change"
+    footer_note: '* Program details subject to change'
     section_id: comparison_table-0yx5qx
     marginY:
       desktop: none lg
@@ -294,7 +295,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: comparison_table
-    version: "1.0"
+    version: '1.0'
     title: Choose Your New Career
     subtitle: Compare our programs to see which skills, roles, and career opportunities align with your goals.
     columns:
@@ -374,7 +375,7 @@ sections:
       - feature: Best For You If
         values:
           - You want to design and implement real AI systems that power modern businesses. Ideal for developers or ambitious career switchers aiming to work directly with modern AI technologies and automation.
-          - "You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs."
+          - 'You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs.'
           - You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break into AI or data-driven roles. A math or business background helps, but is not required.
           - You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or compliance work, or dream of working in IT security, law enforcement, or defense.
       - feature: Ready to start?
@@ -400,7 +401,7 @@ sections:
               - text: Learn More
                 url: /en/career-programs/cybersecurity
                 variant: outline
-    footer_note: "* Program details subject to change"
+    footer_note: '* Program details subject to change'
     section_id: comparison_table-0yx5qx
     marginY:
       desktop: none lg
@@ -417,10 +418,10 @@ sections:
       - rome-italy
       - valencia-spain
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Program Tuition
-    subheading: "<span style=\"font-size: 1.125rem;\">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
+    subheading: '<span style="font-size: 1.125rem;">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all regions.<span style="color: hsl(var(--primary));"> <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span><a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></span></div>'
     courses:
       - name: AI Engineering
         icon: Brain
@@ -449,9 +450,9 @@ sections:
           - icon: CheckCircle
             text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         tags:
-          - icon: ""
-            text: ""
-        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+          - icon: ''
+            text: ''
+        description: 'Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  '
         price: $299
         price_info: or less depending on your plan
         cta_text: View Program Details
@@ -508,10 +509,10 @@ sections:
       - toronto-canada
   - type: course_selector
     section_id: course_selector-w8db5w
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Program Tuition
-    subheading: "<span style=\"font-size: 1.125rem;\">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
+    subheading: '<span style="font-size: 1.125rem;">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all regions.<span style="color: hsl(var(--primary));"> <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span><a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></span></div>'
     courses:
       - name: AI Engineering
         icon: Brain
@@ -540,9 +541,9 @@ sections:
           - icon: CheckCircle
             text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
         tags:
-          - icon: ""
-            text: ""
-        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+          - icon: ''
+            text: ''
+        description: 'Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  '
         price: {{ global.price_fullstack | $299 }}
         price_info: or less depending on your plan
         cta_text: View Program Details
@@ -608,10 +609,10 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: course_selector
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Program Tuition
-    subheading: "<span style=\"font-size: 1.125rem;\">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
+    subheading: '<span style="font-size: 1.125rem;">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all regions.<span style="color: hsl(var(--primary));"> <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span><a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></span></div>'
     courses:
       - name: AI Engineering
         icon: Brain
@@ -640,9 +641,9 @@ sections:
           - icon: CheckCircle
             text: Explore available scholarships based on your profile and financing options that can help you take the next step.*
         tags:
-          - icon: ""
-            text: ""
-        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
+          - icon: ''
+            text: ''
+        description: 'Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  '
         price: {{ global.price_fullstack | $299 }}
         price_info: Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to lender approval.*
         cta_text: View Program Details
@@ -699,7 +700,7 @@ sections:
       - valencia-spain
   - type: cta_banner
     section_id: cta_banner-uhjj0i
-    version: "1.0"
+    version: '1.0'
     title: Take the Next Step Toward Your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
@@ -739,7 +740,7 @@ sections:
       desktop: md
   - type: sticky_cta
     section_id: sticky_cta-c53354
-    version: "1.0"
+    version: '1.0'
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
