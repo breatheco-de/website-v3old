@@ -102,7 +102,7 @@ sections:
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | ai-engineering }}
+          default: {{ single.bc_slug | applied-ai }}
       success:
         message: Gracias. Un asesor del programa se comunicará contigo con los detalles en las próximas 24 horas.
   - type: awards_marquee
@@ -456,7 +456,7 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para Convertirte en un Profesional de Inteligencia Artificial?
-    subtitle: Cupos limitados disponibles. Comienza tu transformación hoy.
+    subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
     background: hsl(var(--primary))
     variant: form
     form:
@@ -479,7 +479,7 @@ sections:
         program:
           visible: true
           required: true
-          default: applied-ai-course
+          default: applied-ai
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
       consent:

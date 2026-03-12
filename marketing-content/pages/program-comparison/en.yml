@@ -10,6 +10,7 @@ meta:
   redirects:
     - /program-comparison
     - /compare-programs
+    - /us/programs
 schema:
   include:
     - organization
