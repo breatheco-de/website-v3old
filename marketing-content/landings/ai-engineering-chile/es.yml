@@ -20,7 +20,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: ApplyFormProductShowcase
-    title: Construye sistemas reales, listos para producción.
+    title: y construye sistemas reales en producción
     brand_mark:
       prefix: Conviértete en
       highlight: Ingeniero de IA
