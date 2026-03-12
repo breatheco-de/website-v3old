@@ -18,7 +18,6 @@ schema:
     - website
 sections:
   - type: hero
-    section_id: hero-g3y8zf
     variant: showcase
     title: Aquí se construyen las carreras del futuro en IA
     subtitle: La Inteligencia Artificial ya está transformando el empleo. Prepárate para liderar el cambio con formación práctica en AI Engineering, Data Science, Desarrollo de Software y Ciberseguridad.
@@ -28,7 +27,7 @@ sections:
       trusted_text: Miles de estudiantes confían en nosotros
     cta_button:
       text: Explora Nuestros Programas
-      url: "#course_selector-6"
+      url: "#course_selector-ew45w6"
       variant: primary
       icon: ""
     left_images:
@@ -42,6 +41,7 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/feliz-empresario-laptop_1765406479465.png
         alt: Profesional feliz con laptop
     show_arrow: true
+    section_id: hero-g3y8zf
     marginY:
       desktop: sm none
     background: linear-gradient(to bottom right, hsl(var(--primary) / 0.05), transparent, hsl(var(--chart-2) / 0.05))
