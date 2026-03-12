@@ -37,7 +37,7 @@ sections:
           required: true
         program:
           visible: true
-          required: true
+          default: full-stack
       success:
         message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
       terms_url: /terms-and-conditions
@@ -52,7 +52,7 @@ sections:
     form_vertical_align: bottom
     form_card_background: hsl(210 100% 50% / 0.05)
     form_card_text_color: hsl(var(--foreground))
-    form_card_title: Rellena el formulario y obtén más información
+    form_card_title: Rellena el formulario y optén más información
     form_card_subtitle: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: false
@@ -403,7 +403,7 @@ sections:
           placeholder: Teléfono
         program:
           visible: true
-          required: true
+          default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
       consent:

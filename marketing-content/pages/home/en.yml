@@ -13,6 +13,7 @@ meta:
   redirects:
     - /home
     - /us/index
+    - /us/programs
     - /en/programs
 schema:
   include:
@@ -29,9 +30,9 @@ sections:
       trusted_text: Trusted by students worldwide
     cta_button:
       text: Explore our Programs
-      url: '#course_selector-ht6wh3'
+      url: "#course_selector-ht6wh3"
       variant: primary
-      icon: ''
+      icon: ""
     left_images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
         alt: Community illustration
@@ -87,8 +88,8 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Graduate celebrating success
     highlight:
-      heading: '<span style="font-size: 1.25rem;"><span style="font-size: 1.25rem;">Tech Careers Aren’t Built on One-Size-Fits-All.</span></span>'
-      text: '<span style="font-size: 1.125rem;"><span><span><span style="font-size: 1.25rem;">Our programs combine 1:1 mentorship with AI-powered learning that adapts to your strengths and learning needs. The result: faster readiness for high-growth tech roles.</span></span></span></span>'
+      heading: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.25rem;\">Tech Careers Aren’t Built on One-Size-Fits-All.</span></span>"
+      text: "<span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Our programs combine 1:1 mentorship with AI-powered learning that adapts to your strengths and learning needs. The result: faster readiness for high-growth tech roles.</span></span></span></span>"
       background: primary
       width: 2
     height: 31rem
@@ -103,7 +104,7 @@ sections:
   - type: two_column_accordion_card
     section_id: two_column_accordion_card-d26z2a
     variant: image_background
-    version: '1.0'
+    version: "1.0"
     title: Where AI-Powered Learning Meets Lifelong Mentorship
     description: AI-powered learning meets unlimited 1:1 mentorship to help you build skills, gain confidence, and advance in high-growth tech roles faster and smarter.
     bullets:
@@ -124,7 +125,7 @@ sections:
       desktop: none
   - type: features_grid
     section_id: features_grid-95o7vf
-    version: '1.0'
+    version: "1.0"
     variant: highlight
     title: Real Outcomes for Our Graduates
     subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
@@ -139,7 +140,7 @@ sections:
         value: {{ global.global_salary_increase | 55 }}%
         title: Average salary increase after graduation
     columns: 3
-    icon_color: '#0097CD'
+    icon_color: "#0097CD"
     background: hsl(var(--secondary))
     marginY:
       desktop: none md
@@ -263,7 +264,7 @@ sections:
             achievement: She achieved a 100% salary increase.
   - type: course_selector
     section_id: course_selector-ht6wh3
-    version: '1.0'
+    version: "1.0"
     variant: solid
     heading: Explore Our Programs
     subheading: Industry-aligned training designed to launch your career in tech
@@ -293,8 +294,8 @@ sections:
         tags:
           - icon: Plus
             text: API Development
-          - icon: ''
-            text: ''
+          - icon: ""
+            text: ""
         description: Build modern, production-ready web applications from frontend to backend, using the latest AI-powered tools and workflows.
         cta_text: View Program Details
         cta_url: /en/career-programs/full-stack
@@ -309,7 +310,7 @@ sections:
             text: Machine Learning & AI Models
           - icon: BarChart
             text: Data Analysis & Visualization
-        description: 'Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  '
+        description: "Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/data-science-ml
         course_background: hsl(var(--primary))
@@ -323,7 +324,7 @@ sections:
             text: Threat Detection & Network Security
           - icon: Server
             text: Cloud Security
-        description: 'Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  '
+        description: "Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.  "
         cta_text: View Program Details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
@@ -337,7 +338,7 @@ sections:
     variant: laptop-edge
     title: Optional Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
-    description: '<span style="font-size: 1.125rem;"><span><span>Add our optional Job Guarantee for additional peace of mind. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style="font-size: 0.875rem;">*The Job Guarantee is not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></span></span></span></div></span></span></span><div><span style="font-size: 0.875rem;"><span style="font-size: 1rem;"></span></span></div>'
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>Add our optional Job Guarantee for additional peace of mind. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
     cta:
       text: Get More Info
       url: /en/job-guarantee
@@ -385,7 +386,7 @@ sections:
       desktop: md none
   - type: cta_banner
     section_id: cta_banner-y7nw0f
-    version: '1.0'
+    version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))

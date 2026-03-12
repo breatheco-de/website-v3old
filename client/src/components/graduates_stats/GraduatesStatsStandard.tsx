@@ -1,5 +1,4 @@
 import { UniversalImage } from "@/components/UniversalImage";
-import { RichTextContent } from "@/components/ui/rich-text-content";
 import type { GraduatesStatsSection } from "@shared/schema";
 import { cn } from "@/lib/utils";
 
@@ -62,11 +61,11 @@ export function GraduatesStatsStandard({ data }: GraduatesStatsStandardProps) {
               )}
               data-testid={`stat-item-${index}`}
             >
-              <p
+              <p 
                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-2"
                 data-testid={`text-stat-value-${index}`}
               >
-                <RichTextContent html={stat.value} className="" />
+                {stat.value}
                 {stat.unit && <span className="text-2xl md:text-3xl font-semibold ml-1">{stat.unit}</span>}
               </p>
               <p 
