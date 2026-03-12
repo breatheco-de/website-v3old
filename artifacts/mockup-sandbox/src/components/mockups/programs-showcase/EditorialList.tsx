@@ -45,13 +45,18 @@ function EditorialItem({ program, isLast }: { program: typeof programs[0]; isLas
   const Icon = program.icon;
   return (
     <div
-      className="group"
+      className="group flex items-stretch"
       style={{
         borderBottom: isLast ? "none" : `1px solid ${BORDER}`,
       }}
     >
-      <div className="flex items-start gap-6 py-7">
-        <div className="flex items-center gap-5 shrink-0">
+      <div
+        className="w-1 shrink-0 rounded-full my-7"
+        style={{ backgroundColor: program.color }}
+      />
+
+      <div className="flex items-start gap-5 py-7 pl-6 flex-1">
+        <div className="flex items-center gap-4 shrink-0">
           <span
             className="text-2xl font-bold tabular-nums"
             style={{
