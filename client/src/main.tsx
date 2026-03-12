@@ -1,6 +1,5 @@
 import { hydrateRoot } from "react-dom/client";
 import App from "./App";
-import "./index.css";
 import { hydrateInitialData } from "./lib/initialData";
 
 hydrateInitialData();

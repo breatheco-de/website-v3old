@@ -1,8 +1,12 @@
 import { queryClient } from "./queryClient";
 
-interface InitialDataPayload {
+interface SingleQuery {
   queryKey: unknown[];
   data: unknown;
+}
+
+interface InitialDataPayload {
+  queries: SingleQuery[];
 }
 
 export function hydrateInitialData() {
@@ -11,8 +15,12 @@ export function hydrateInitialData() {
 
   try {
     const payload: InitialDataPayload = JSON.parse(script.textContent || "");
-    if (payload.queryKey && payload.data) {
-      queryClient.setQueryData(payload.queryKey, payload.data);
+    if (payload.queries && Array.isArray(payload.queries)) {
+      for (const { queryKey, data } of payload.queries) {
+        if (queryKey && data !== undefined) {
+          queryClient.setQueryData(queryKey, data);
+        }
+      }
     }
   } catch {
   }

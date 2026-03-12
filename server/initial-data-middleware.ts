@@ -9,10 +9,15 @@ import {
 import { resolveDynamicEntries } from "./dynamic-entries";
 import { resolveLayout } from "./content-types";
 import { applyComponentSectionDefaults } from "./component-registry";
+import { variableManager } from "./variable-manager";
 
-interface InitialDataPayload {
+interface SingleQuery {
   queryKey: unknown[];
   data: unknown;
+}
+
+export interface InitialDataPayload {
+  queries: SingleQuery[];
 }
 
 const API_PATH_MAP: Record<string, string> = {
@@ -29,9 +34,7 @@ const SCHEMA_MAP: Record<string, typeof templatePageSchema> = {
   location: locationPageSchema,
 };
 
-export async function resolveInitialData(
-  url: string,
-): Promise<InitialDataPayload | null> {
+async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
   const cleanUrl = url.split("?")[0].split("#")[0];
 
   if (
@@ -168,6 +171,23 @@ export async function resolveInitialData(
   } catch {
     return null;
   }
+}
+
+export async function resolveInitialData(
+  url: string,
+): Promise<InitialDataPayload | null> {
+  const pageQuery = await resolvePageQuery(url);
+
+  const variablesQuery: SingleQuery = {
+    queryKey: ["/api/variables"],
+    data: variableManager.getDefinitions(),
+  };
+
+  const queries: SingleQuery[] = [];
+  if (pageQuery) queries.push(pageQuery);
+  queries.push(variablesQuery);
+
+  return { queries };
 }
 
 export function initialDataMiddleware(

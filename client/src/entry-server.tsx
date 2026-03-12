@@ -3,9 +3,13 @@ import { QueryClient } from "@tanstack/react-query";
 import { Router } from "wouter";
 import App from "./App";
 
-interface InitialDataPayload {
+interface SingleQuery {
   queryKey: unknown[];
   data: unknown;
+}
+
+interface InitialDataPayload {
+  queries: SingleQuery[];
 }
 
 // Third-party libraries (Radix UI, etc.) emit useLayoutEffect SSR warnings that
@@ -41,11 +45,13 @@ export async function render(
     },
   });
 
-  if (initialDataPayload?.queryKey && initialDataPayload?.data) {
-    ssrQueryClient.setQueryData(
-      initialDataPayload.queryKey as Parameters<typeof ssrQueryClient.setQueryData>[0],
-      initialDataPayload.data,
-    );
+  if (initialDataPayload?.queries) {
+    for (const { queryKey, data } of initialDataPayload.queries) {
+      ssrQueryClient.setQueryData(
+        queryKey as Parameters<typeof ssrQueryClient.setQueryData>[0],
+        data,
+      );
+    }
   }
 
   const cleanUrl = url.split("?")[0].split("#")[0];
