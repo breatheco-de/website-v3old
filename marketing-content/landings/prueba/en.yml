@@ -186,23 +186,30 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
-  - type: ai_learning
+  - type: features_quad
     version: "1.0"
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: Why Learn with 4Geeks?
-    description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
-    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
-    features:
-      - icon: Robot
-        title: Learn with AI
-        description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
-      - icon: Headset
-        title: Unlimited 1:1 mentoring sessions
-        description: Access unlimited mentorship sessions with our experts whenever you need guidance.
+    variant: default
+    heading: Real Outcomes. Verified Data.
+    description: Our results are tracked, published annually, and independently reviewed. Here's what 4Geeks Academy graduates actually achieve.
+    cards:
+      - icon: TrendingUp
+        title: 86% Hiring Rate
+        description: 86% of US graduates land a tech role within 90 days of graduation — as reported in our 2025 Mid-Year Outcomes Report.
+      - icon: Clock
+        title: 3 Months to Hired
+        description: In 2025, the average US graduate is landing their first role in ~3 months — a 25% improvement over the prior year.
+      - icon: DollarSign
+        title: 41% Average Salary Increase
+        description: 2024 US graduates reported a 41% median salary increase after completing the program. The median post-graduation salary was $56,000.
       - icon: Users
-        title: Learn with the community
-        description: Learning alongside others is more fun and helps you progress faster. Join our active community.
+        title: 5,000+ Graduates Employed
+        description: Over 5,000 alumni working at companies like Microsoft, Meta, eBay, TikTok, Kaseya, and National Geographic worldwide.
+    footer_description: Results based on graduate employment surveys. Full methodology available in our annual Outcomes Report.
+    background: hsl(var(--secondary))
+    marginY:
+      desktop: none lg
+    paddingY:
+      desktop: none
     section_id: ai_learning-1b3p06
   - type: features_grid
     section_id: features_grid-pq7av7
