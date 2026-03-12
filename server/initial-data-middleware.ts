@@ -181,14 +181,24 @@ async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
 function resolveMenuQuery(menuId: string, locale: string): SingleQuery | null {
   try {
     const menusDir = path.join(process.cwd(), "marketing-content", "menus");
-    const fileBaseName =
-      locale && locale !== getDefaultLocale() ? `${menuId}.${locale}` : menuId;
+    let filePath: string | null = null;
 
-    let filePath = path.join(menusDir, `${fileBaseName}.yml`);
-    if (!fs.existsSync(filePath)) {
-      filePath = path.join(menusDir, `${fileBaseName}.yaml`);
+    if (locale && locale !== getDefaultLocale()) {
+      const localizedBase = `${menuId}.${locale}`;
+      const localizedYml = path.join(menusDir, `${localizedBase}.yml`);
+      const localizedYaml = path.join(menusDir, `${localizedBase}.yaml`);
+      if (fs.existsSync(localizedYml)) filePath = localizedYml;
+      else if (fs.existsSync(localizedYaml)) filePath = localizedYaml;
     }
-    if (!fs.existsSync(filePath)) return null;
+
+    if (!filePath) {
+      const baseYml = path.join(menusDir, `${menuId}.yml`);
+      const baseYaml = path.join(menusDir, `${menuId}.yaml`);
+      if (fs.existsSync(baseYml)) filePath = baseYml;
+      else if (fs.existsSync(baseYaml)) filePath = baseYaml;
+    }
+
+    if (!filePath) return null;
 
     const content = fs.readFileSync(filePath, "utf-8");
     const data = yaml.load(content);
@@ -223,8 +233,10 @@ export async function resolveInitialData(
     const layout = pageData?.layout as
       | { menu?: { top?: string | null; bottom?: string | null } }
       | undefined;
-    const cleanUrl = url.split("?")[0].split("#")[0];
-    const locale = cleanUrl.startsWith("/es") ? "es" : "en";
+    const locale =
+      (pageData?.locale as string) ||
+      (pageQuery.queryKey[2] as string) ||
+      getDefaultLocale();
 
     if (layout?.menu?.top) {
       const mq = resolveMenuQuery(layout.menu.top, locale);
