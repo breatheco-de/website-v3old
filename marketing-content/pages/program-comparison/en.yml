@@ -184,6 +184,7 @@ sections:
     rows:
       - feature: What It Is
         values:
+          - build
           - Learn to build websites, apps, and software from scratch with front-end, back-end, and AI tools.
           - Learn to gather, analyze, and model data using Python, machine learning, and AI.
           - Learn to protect systems, networks, and data from cyber threats.
