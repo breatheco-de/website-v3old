@@ -5,9 +5,9 @@ interface SingleQuery {
   data: unknown;
 }
 
-interface InitialDataPayload {
-  queries: SingleQuery[];
-}
+type InitialDataPayload =
+  | { queries: SingleQuery[]; queryKey?: never; data?: never }
+  | { queryKey: unknown[]; data: unknown; queries?: never };
 
 export function hydrateInitialData() {
   const script = document.getElementById("__INITIAL_DATA__");
@@ -15,12 +15,15 @@ export function hydrateInitialData() {
 
   try {
     const payload: InitialDataPayload = JSON.parse(script.textContent || "");
+
     if (payload.queries && Array.isArray(payload.queries)) {
       for (const { queryKey, data } of payload.queries) {
         if (queryKey && data !== undefined) {
           queryClient.setQueryData(queryKey, data);
         }
       }
+    } else if (payload.queryKey && payload.data !== undefined) {
+      queryClient.setQueryData(payload.queryKey, payload.data);
     }
   } catch {
   }

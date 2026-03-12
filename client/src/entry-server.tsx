@@ -8,9 +8,9 @@ interface SingleQuery {
   data: unknown;
 }
 
-interface InitialDataPayload {
-  queries: SingleQuery[];
-}
+type InitialDataPayload =
+  | { queries: SingleQuery[]; queryKey?: never; data?: never }
+  | { queryKey: unknown[]; data: unknown; queries?: never };
 
 // Third-party libraries (Radix UI, etc.) emit useLayoutEffect SSR warnings that
 // are harmless — suppress them so server logs stay readable.
@@ -32,6 +32,27 @@ function withSuppressedLayoutEffectWarning<T>(fn: () => T): T {
   }
 }
 
+function seedQueryClient(
+  client: QueryClient,
+  payload: InitialDataPayload | null,
+): void {
+  if (!payload) return;
+
+  if (payload.queries && Array.isArray(payload.queries)) {
+    for (const { queryKey, data } of payload.queries) {
+      client.setQueryData(
+        queryKey as Parameters<typeof client.setQueryData>[0],
+        data,
+      );
+    }
+  } else if (payload.queryKey && payload.data !== undefined) {
+    client.setQueryData(
+      payload.queryKey as Parameters<typeof client.setQueryData>[0],
+      payload.data,
+    );
+  }
+}
+
 export async function render(
   url: string,
   initialDataPayload: InitialDataPayload | null,
@@ -45,14 +66,7 @@ export async function render(
     },
   });
 
-  if (initialDataPayload?.queries) {
-    for (const { queryKey, data } of initialDataPayload.queries) {
-      ssrQueryClient.setQueryData(
-        queryKey as Parameters<typeof ssrQueryClient.setQueryData>[0],
-        data,
-      );
-    }
-  }
+  seedQueryClient(ssrQueryClient, initialDataPayload);
 
   const cleanUrl = url.split("?")[0].split("#")[0];
 
