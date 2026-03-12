@@ -1,3 +1,6 @@
+import * as fs from "fs";
+import * as path from "path";
+import * as yaml from "js-yaml";
 import type { Request, Response, NextFunction } from "express";
 import { contentIndex } from "./content-index";
 import {
@@ -10,6 +13,8 @@ import { resolveDynamicEntries } from "./dynamic-entries";
 import { resolveLayout } from "./content-types";
 import { applyComponentSectionDefaults } from "./component-registry";
 import { variableManager } from "./variable-manager";
+import { loadImageRegistry } from "./image-registry";
+import { getDefaultLocale } from "./settings";
 
 interface SingleQuery {
   queryKey: unknown[];
@@ -173,6 +178,32 @@ async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
   }
 }
 
+function resolveMenuQuery(menuId: string, locale: string): SingleQuery | null {
+  try {
+    const menusDir = path.join(process.cwd(), "marketing-content", "menus");
+    const fileBaseName =
+      locale && locale !== getDefaultLocale() ? `${menuId}.${locale}` : menuId;
+
+    let filePath = path.join(menusDir, `${fileBaseName}.yml`);
+    if (!fs.existsSync(filePath)) {
+      filePath = path.join(menusDir, `${fileBaseName}.yaml`);
+    }
+    if (!fs.existsSync(filePath)) return null;
+
+    const content = fs.readFileSync(filePath, "utf-8");
+    const data = yaml.load(content);
+    const context = { locale };
+    const { data: resolved } = variableManager.resolveDeep(data, context);
+
+    return {
+      queryKey: ["/api/menus", menuId, locale],
+      data: { name: menuId, locale, data: resolved },
+    };
+  } catch {
+    return null;
+  }
+}
+
 export async function resolveInitialData(
   url: string,
 ): Promise<InitialDataPayload | null> {
@@ -186,6 +217,32 @@ export async function resolveInitialData(
   const queries: SingleQuery[] = [];
   if (pageQuery) queries.push(pageQuery);
   queries.push(variablesQuery);
+
+  if (pageQuery) {
+    const pageData = pageQuery.data as Record<string, unknown>;
+    const layout = pageData?.layout as
+      | { menu?: { top?: string | null; bottom?: string | null } }
+      | undefined;
+    const cleanUrl = url.split("?")[0].split("#")[0];
+    const locale = cleanUrl.startsWith("/es") ? "es" : "en";
+
+    if (layout?.menu?.top) {
+      const mq = resolveMenuQuery(layout.menu.top, locale);
+      if (mq) queries.push(mq);
+    }
+    if (layout?.menu?.bottom) {
+      const mq = resolveMenuQuery(layout.menu.bottom, locale);
+      if (mq) queries.push(mq);
+    }
+  }
+
+  const registry = loadImageRegistry();
+  if (registry) {
+    queries.push({
+      queryKey: ["/api/image-registry"],
+      data: registry,
+    });
+  }
 
   return { queries };
 }

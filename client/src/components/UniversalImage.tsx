@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import type { ImageRef, ImageEntry, ImagePreset } from "@shared/schema";
 import SolidCard from "./SolidCard";
 
@@ -7,39 +8,13 @@ interface ImageRegistryData {
   images: Record<string, ImageEntry>;
 }
 
-let registryCache: ImageRegistryData | null = null;
-let registryPromise: Promise<ImageRegistryData> | null = null;
-
-async function loadRegistry(): Promise<ImageRegistryData> {
-  if (registryCache) return registryCache;
-  if (registryPromise) return registryPromise;
-
-  registryPromise = fetch("/api/image-registry")
-    .then((res) => res.json())
-    .then((data) => {
-      registryCache = data;
-      return data;
-    });
-
-  return registryPromise;
-}
-
 export function useImageRegistry() {
-  const [registry, setRegistry] = useState<ImageRegistryData | null>(
-    registryCache,
-  );
-  const [loading, setLoading] = useState(!registryCache);
+  const { data, isLoading } = useQuery<ImageRegistryData>({
+    queryKey: ["/api/image-registry"],
+    staleTime: Infinity,
+  });
 
-  useEffect(() => {
-    if (!registryCache) {
-      loadRegistry().then((data) => {
-        setRegistry(data);
-        setLoading(false);
-      });
-    }
-  }, []);
-
-  return { registry, loading };
+  return { registry: data ?? null, loading: isLoading };
 }
 
 interface UniversalImageProps extends ImageRef {
@@ -178,18 +153,6 @@ export function UniversalImage({
   }
 
   return imageContent;
-}
-
-export function getImageUrl(id: string): string | null {
-  if (!registryCache) return null;
-  const entry = registryCache.images[id];
-  return entry?.src || null;
-}
-
-export function getImageAlt(id: string): string | null {
-  if (!registryCache) return null;
-  const entry = registryCache.images[id];
-  return entry?.alt || null;
 }
 
 export default UniversalImage;
