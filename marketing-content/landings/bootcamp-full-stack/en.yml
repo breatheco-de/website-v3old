@@ -70,7 +70,7 @@ sections:
       icon: Download
     video:
       url: https://www.youtube.com/watch?v=jiyZVACiucs
-      ratio: "16:9"
+      ratio: "4:5"
       muted: true
     section_id: hero-fullstack-ai
     bullets:
