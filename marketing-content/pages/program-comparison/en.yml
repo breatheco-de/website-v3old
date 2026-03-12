@@ -208,6 +208,7 @@ sections:
           - Detail-oriented people who enjoy puzzles, rules, and outsmarting threats.
       - feature: Day-to-Day Work
         values:
+          - x
           - Build and test websites and apps, integrate APIs, collaborate with designers, and launch features.
           - Clean and analyze data, build models, create dashboards, and deliver insights.
           - Monitor networks, test defenses, respond to incidents, and develop security policies.
