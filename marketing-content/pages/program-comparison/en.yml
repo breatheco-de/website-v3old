@@ -36,7 +36,7 @@ sections:
       desktop: md none
   - type: comparison_table
     version: "1.0"
-    title: Choose Your Tech Career Path
+    title: Choose Your Career Path
     subtitle: Compare our programs to see which skills, roles, and career opportunities align with your goals.
     columns:
       - name: Category
