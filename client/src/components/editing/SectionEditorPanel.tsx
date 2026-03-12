@@ -1601,6 +1601,7 @@ export function SectionEditorPanel({
 
   const { data: themeConfig } = useQuery<{
     button_variants?: { id: string; label: string }[];
+    fontSizes?: { id: string; label: string; value: string; tailwind: string }[];
   }>({
     queryKey: ["/api/theme"],
   });
@@ -4643,6 +4644,45 @@ export function SectionEditorPanel({
                           {options.map((opt) => (
                             <SelectItem key={opt} value={opt}>
                               {opt}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  );
+                }
+
+                if (isSimpleField && editorType === "font-size-picker") {
+                  const fontSizes = themeConfig?.fontSizes ?? [];
+                  const getSimpleStringValue = () => {
+                    if (!parsedSection) return "";
+                    const pathParts = fieldPath.split(".");
+                    let current: unknown = parsedSection;
+                    for (const part of pathParts) {
+                      if (!current || typeof current !== "object") return "";
+                      current = (current as Record<string, unknown>)[part];
+                    }
+                    return typeof current === "string" ? current : "";
+                  };
+                  const currentValue = getSimpleStringValue();
+                  const fieldLabel = getFieldLabel(fieldPath);
+                  return (
+                    <div key={fieldPath} className="space-y-2">
+                      <Label className="text-sm font-medium">{fieldLabel}</Label>
+                      <Select
+                        value={currentValue || ""}
+                        onValueChange={(val) => updatePropertyWithValue(fieldPath, val)}
+                      >
+                        <SelectTrigger data-testid={`props-select-${fieldLabel}`}>
+                          <SelectValue placeholder="Default" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {fontSizes.map((size) => (
+                            <SelectItem key={size.id} value={size.tailwind}>
+                              <span className="flex items-center gap-2">
+                                <span style={{ fontSize: size.value }} className="leading-none">{size.label}</span>
+                                <span className="text-muted-foreground text-xs">{size.tailwind}</span>
+                              </span>
                             </SelectItem>
                           ))}
                         </SelectContent>

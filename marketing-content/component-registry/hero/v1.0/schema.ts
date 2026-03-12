@@ -162,6 +162,7 @@ export const heroProductShowcaseSchema = z.object({
   cta_button: ctaButtonSchema.nullish(),
   trust_bar: productShowcaseTrustBarSchema.nullish(),
   show_awards_marquee: z.boolean().optional(),
+  awards_marquee_at_left_column: z.boolean().optional(),
   awards_marquee: z.object({
     items: z.array(awardsMarqueeItemSchema),
     speed: z.number().optional(),

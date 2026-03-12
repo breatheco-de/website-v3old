@@ -909,19 +909,6 @@
       "usage_count": 2,
       "hash": "b9522f7f1ff7e93c56096eaf482d646497c1213296ccddcc1e1e243b0e7a8e95"
     },
-    "mentoring_zoom_call": {
-      "src": "https://storage.googleapis.com/4geeks-academy-website/media/1614626903622_1_(1)_1767038293575.png",
-      "alt": "4Geeks mentors and students in a live online session",
-      "focal_point": "center",
-      "tags": [
-        "mentoring",
-        "zoom",
-        "live",
-        "community"
-      ],
-      "usage_count": 11,
-      "hash": "4028a7f5a653d52202f5c8d746416b1ed26ab4cb16dc87d728cce7dfcec8ba17"
-    },
     "student_asian": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png",
       "alt": "Asian student learning to code",

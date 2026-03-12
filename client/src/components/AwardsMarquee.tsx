@@ -61,9 +61,9 @@ export function AwardsMarquee({
   ) : null;
 
   return (
-    <section className="max-w-6xl mx-auto px-4">
+    <section className="max-w-6xl mx-auto">
       {title_above_carousel && titleBlock}
-      <div className={`${className}`} data-testid="awards-marquee">
+      <div className={`${className} px-4`} data-testid="awards-marquee">
         <Marquee
           speed={speed}
           pauseOnHover={false}

@@ -18,15 +18,15 @@ locations:
   - santiago-chile
 sections:
   - type: hero
-    section_id: hero-0kivxy
     version: "1.0"
     variant: ApplyFormProductShowcase
-    title: Construye sistemas reales, listos para producción.
+    title: ""
     brand_mark:
       prefix: Conviértete en
       highlight: Ingeniero de IA
+      suffix: y construye sistemas reales en producción
       color: primary
-    description: Aprende a desarrollar, integrar y desplegar soluciones de IA en 24 semanas con mentoría 1:1 ilimitada y una comunidad profesional que acompaña tu crecimiento profesional.
+    description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando, en 24 semanas.
     form:
       variant: stacked
       conversion_name: student_application
@@ -70,6 +70,11 @@ sections:
       url: https://youtube.com/shorts/-SpU1PWNBF4?si=Hf6pIB-aSDUHFgj2
       ratio: "9:16"
       muted: true
+    section_id: hero-0kivxy
+    bullets:
+      - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
+      - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
+      - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
     paddingY:
       mobile: md none
       desktop: lg none
@@ -428,7 +433,6 @@ sections:
       mobile: lg none
       desktop: lg none
   - type: certificate
-    section_id: certificate-b2fmef
     title: Resultados de carrera
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
     benefits:
@@ -455,23 +459,24 @@ sections:
           - text: Optimiza tu currículum, portafolio y perfil profesional para atraer recruiters y superar filtros automatizados
           - text: Prepárate para entrevistas técnicas y de competencias con casos reales
           - text: Aplica una estrategia de búsqueda personalizada con acceso a redes de empresas contratantes
-      - value: 55%
+      - value: 40%
         label: Aumento salarial promedio
-        description: Nuestros graduados ven un aumento salarial promedio del 55% al pasar a roles de ingeniería de IA. La inversión se paga sola.
+        description: Nuestros graduados ven un aumento salarial promedio del 40% al pasar a roles de ingeniería de IA. La inversión se paga sola.
         benefits:
           - text: "Ingeniero de software IA: CLP $15.6M-$30M"
           - text: "Ingeniero full-stack (IA): CLP $18M-$33.6M"
           - text: "Ingeniero de IA: CLP $21.6M-$36M"
           - text: "Ingeniero de automatización de flujos (RAG, APIs, vector DBs): CLP $24M-$42M"
-      - value: 5,000+
+      - value: 400+
         label: Empresas que contratan nuestro talento
-        description: Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
+        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
         benefits:
           - text: Acceso exclusivo a bolsa de empleo
           - text: Recomendaciones directas a empresas colaboradoras
           - text: Eventos de networking con recruiters y responsables de selección
     certificate_position: right
     useSolidCard: true
+    section_id: certificate-b2fmef
     marginY:
       mobile: none
       desktop: none

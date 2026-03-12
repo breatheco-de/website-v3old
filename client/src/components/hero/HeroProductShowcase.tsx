@@ -78,6 +78,7 @@ export function HeroProductShowcase({
     (leftImages && leftImages.length > 0) ||
     (rightImages && rightImages.length > 0);
   const showAwardsMarquee = (fullData as any).show_awards_marquee === true;
+  const awardsMarqueeAtLeft = (fullData as any).awards_marquee_at_left_column === true;
   const awardsMarquee = (fullData as any).awards_marquee as
     | {
         items?: any[];
@@ -447,6 +448,18 @@ export function HeroProductShowcase({
                   </div>
                 </div>
               )}
+
+              {showAwardsMarquee && awardsMarqueeAtLeft && awardsMarquee?.items && awardsMarquee.items.length > 0 && (
+                <div className="w-full max-w-xl mt-6 overflow-hidden" data-testid="hero-awards-marquee-left">
+                  <AwardsMarquee
+                    className="!px-0"
+                    items={awardsMarquee.items}
+                    speed={awardsMarquee.speed}
+                    gradient={awardsMarquee.gradient}
+                    gradientWidth={awardsMarquee.gradientWidth}
+                  />
+                </div>
+              )}
             </div>
           </div>
 
@@ -481,7 +494,7 @@ export function HeroProductShowcase({
                   }}
                   data-testid="img-hero-product"
                 />
-                {showAwardsMarquee &&
+                {showAwardsMarquee && !awardsMarqueeAtLeft &&
                   awardsMarquee?.items &&
                   awardsMarquee.items.length > 0 && (
                     <div
@@ -564,7 +577,7 @@ export function HeroProductShowcase({
                     />
                   </div>
                 </Card>
-                {showAwardsMarquee &&
+                {showAwardsMarquee && !awardsMarqueeAtLeft &&
                   awardsMarquee?.items &&
                   awardsMarquee.items.length > 0 && (
                     <div

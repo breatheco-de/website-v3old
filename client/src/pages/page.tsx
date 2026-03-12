@@ -146,8 +146,8 @@ export default function Page() {
           locale={locale}
           onMenuChange={() => refetch()}
         />
-        {topMenuId && <Header menuId={topMenuId} />}
       </div>
+      {topMenuId && <Header menuId={topMenuId} />}
       <SectionRenderer 
         sections={page.sections} 
         settings={page.settings}

@@ -70,6 +70,7 @@ export const fieldEditors: Record<string, EditorType> = {
   "productShowcase:form_card_subtitle": "rich-text-editor",
   "productShowcase:form_card_text_color": "color-picker:text",
   "productShowcase:form_terms_color": "color-picker",
+  "productShowcase:awards_marquee_at_left_column": "boolean-toggle",
   "ApplyFormProductShowcase:form_terms_color": "color-picker",
   "ApplyFormProductShowcase:cta_button.text": "text-input",
   "ApplyFormProductShowcase:cta_button.url": "link-picker",

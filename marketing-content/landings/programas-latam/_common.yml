@@ -2,8 +2,8 @@ slug: programas-latam
 locale: es
 title: programas latam
 meta:
-  page_title: programas latam | 4Geeks Academy
-  description: programas latam - Learn more at 4Geeks Academy.
+  page_title: Programas | 4Geeks Academy
+  description: "Programas 4Geeks Academy "
   robots: index, follow
   og_image: /images/landing-og.jpg
   priority: 0.9
@@ -15,3 +15,4 @@ schema:
   include:
     - organization
     - website
+locations: null

@@ -44,6 +44,7 @@ export const pricingProductSchema = z.object({
   discount_text: z.string().optional(),
   financing_text: z.string().optional(),
   financing_amount: z.string().optional(),
+  financing_period: z.string().optional(),
   tech_icons: z.array(z.string()).optional(),
   static_icons: z.boolean().optional(),
   features_title: z.string().optional(),

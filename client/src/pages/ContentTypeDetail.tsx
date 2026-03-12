@@ -135,8 +135,8 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
           locale={effectiveLocale}
           onMenuChange={() => refetch()}
         />
-        {topMenuId && <Header menuId={topMenuId} />}
       </div>
+      {topMenuId && <Header menuId={topMenuId} />}
       <SectionRenderer
         sections={(data.sections as any[]) || []}
         settings={data.settings}

@@ -16,15 +16,15 @@ schema:
     - courses:ai-engineering
 sections:
   - type: hero
-    section_id: hero-lt4ge6
     version: "1.0"
     variant: ApplyFormProductShowcase
-    title: y construye sistemas reales en producción
+    title: ""
     brand_mark:
       prefix: Conviértete en
       highlight: Ingeniero de IA
+      suffix: y construye sistemas reales en producción
       color: primary
-    description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando — en solo 24 semanas.
+    description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando, en 24 semanas.
     form:
       variant: stacked
       conversion_name: student_application
@@ -67,6 +67,7 @@ sections:
       url: https://youtube.com/shorts/AMqLRJbNZ9I?si=LdQnvspydHMd9ckN
       ratio: "9:16"
       muted: true
+    section_id: hero-lt4ge6
     bullets:
       - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
       - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
