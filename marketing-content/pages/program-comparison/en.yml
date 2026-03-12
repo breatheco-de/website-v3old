@@ -293,6 +293,129 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+  - type: comparison_table
+    version: "1.0"
+    title: Choose Your New Career
+    subtitle: Compare our programs to see which skills, roles, and career opportunities align with your goals.
+    columns:
+      - name: Category
+        highlight: true
+      - name: AI Engineering
+      - name: Full Stack Development with AI
+      - name: Data Science & Machine Learning with AI
+      - name: Cybersecurity
+    rows:
+      - feature: What It Is
+        values:
+          - Learn to design and orchestrate complete AI systems by developing a real AI-native business from architecture to deployment.
+          - Learn to build websites, apps, and software from scratch with front-end, back-end, and AI tools.
+          - Learn to gather, analyze, and model data using Python, machine learning, and AI.
+          - Learn to protect systems, networks, and data from cyber threats.
+      - feature: Why It Matters
+        values:
+          - Companies are racing to integrate AI into real operations and services. AI engineers design the systems, agents, and workflows that power modern AI-driven businesses.
+          - Companies need scalable digital solutions. Full Stack Developers power operations, marketing, and customer experiences. With AI, they automate processes and build smarter products.
+          - Businesses rely on data to drive decisions. Data Scientists turn raw data into insights, while machine learning automates predictions and personalizes experiences.
+          - Every business faces cyber risks. Cybersecurity experts defend data, ensure compliance, and prevent costly attacks in today's digital-first world.
+      - feature: What You'll Learn
+        values:
+          - AI system architecture, LLM integrations, AI agents, workflow automation, APIs, databases, modern AI development tools, and AI-assisted engineering workflows.
+          - HTML, CSS, JavaScript, Python, React, databases, APIs, GitHub workflows, and AI tools like OpenAI/GPT, Cursor, Vercel v0.
+          - Python, SQL, statistics, data visualization, machine learning, AI tools, and real-world modeling techniques.
+          - Network security, ethical hacking, risk assessment, threat analysis, incident response, and tools like Wireshark and Splunk.
+      - feature: Ideal For
+        values:
+          - Builders who want to design and implement real AI systems and architectures. Great for developers, technical problem-solvers, and career switchers aiming for advanced AI roles.
+          - Creative problem-solvers who enjoy building and seeing results come to life.
+          - Analytical thinkers who love numbers, trends, and solving patterns.
+          - Detail-oriented people who enjoy puzzles, rules, and outsmarting threats.
+      - feature: Day-to-Day Work
+        values:
+          - Design AI-powered systems, orchestrate agent workflows, integrate models into operational pipelines, automate business processes, and deploy scalable AI infrastructure.
+          - Build and test websites and apps, integrate APIs, collaborate with designers, and launch features.
+          - Clean and analyze data, build models, create dashboards, and deliver insights.
+          - Monitor networks, test defenses, respond to incidents, and develop security policies.
+      - feature: Job Titles
+        values:
+          - AI Engineer, Forward-Deployed Engineer, AI Software Engineer, AI Systems Engineer, Automation Engineer.
+          - Full Stack Developer, Front-End Developer, Back-End Developer, AI Software Engineer, Web Developer.
+          - Data Analyst, Data Scientist, Machine Learning Engineer, BI Analyst.
+          - Cybersecurity Analyst, SOC Analyst, Penetration Tester, Security Consultant.
+      - feature: Average U.S. Salary
+        values:
+          - 25.000€ to 60.000€
+          - 22.000€ to 40.000€
+          - 30.000€ to 60.000€
+          - 25.000€ to 45.000€
+      - feature: Bootcamp Schedule
+        values:
+          - Part-Time (24 weeks).
+          - Part-Time (20 weeks).
+          - Part-Time (18 weeks).
+          - Part-Time (16 weeks).
+      - feature: Course Delivery
+        values:
+          - Online.
+          - Online.
+          - Online.
+          - Online.
+      - feature: Cost
+        values:
+          - 6.250€ Launch price (discounts and scholarships available).
+          - 6.800€ (discounts and scholarships available).
+          - 7.800€ (discounts and scholarships available).
+          - 7.800€ (discounts and scholarships available).
+      - feature: Payment Plans
+        values:
+          - Monthly plans, upfront discounts, and loans.
+          - Monthly plans, upfront discounts, and loans.
+          - Monthly plans, upfront discounts, and loans.
+          - Monthly plans, upfront discounts, and loans.
+      - feature: Best For You If
+        values:
+          - You want to design and implement real AI systems that power modern businesses. Ideal for developers or ambitious career switchers aiming to work directly with modern AI technologies and automation.
+          - "You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs."
+          - You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break into AI or data-driven roles. A math or business background helps, but is not required.
+          - You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or compliance work, or dream of working in IT security, law enforcement, or defense.
+      - feature: Ready to start?
+        values:
+          - cta:
+              - text: Apply Now
+                url: /en/apply
+                variant: primary
+              - text: Learn More
+                url: /en/career-programs/full-stack
+                variant: outline
+          - cta:
+              - text: Apply Now
+                url: /en/apply
+                variant: primary
+              - text: Learn More
+                url: /en/career-programs/data-science-ml
+                variant: outline
+          - cta:
+              - text: Apply Now
+                url: /en/apply
+                variant: primary
+              - text: Learn More
+                url: /en/career-programs/cybersecurity
+                variant: outline
+    footer_note: "* Program details subject to change"
+    section_id: comparison_table-0yx5qx
+    marginY:
+      desktop: none lg
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - hamburg-germany
+      - dublin-ireland
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
   - type: course_selector
     version: "1.0"
     variant: solid
