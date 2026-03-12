@@ -18,7 +18,6 @@ locations:
   - santiago-chile
 sections:
   - type: hero
-    section_id: hero-0kivxy
     version: "1.0"
     variant: ApplyFormProductShowcase
     title: Construye sistemas reales, listos para producción.
@@ -70,6 +69,11 @@ sections:
       url: https://youtube.com/shorts/-SpU1PWNBF4?si=Hf6pIB-aSDUHFgj2
       ratio: "9:16"
       muted: true
+    section_id: hero-0kivxy
+    bullets:
+      - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
+      - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
+      - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
     paddingY:
       mobile: md none
       desktop: lg none
