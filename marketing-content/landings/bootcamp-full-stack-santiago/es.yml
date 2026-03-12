@@ -7,19 +7,19 @@ meta:
   change_frequency: weekly
   page_title: Programa de Carrera Desarrollador Full Stack | 4Geeks
   description: Conviértete en Desarrollador Full Stack con mentoría ilimitada 1:1, orientación profesional y proyectos prácticos. Inicia una carrera con salarios iniciales de $65K+.
-  context:
+  context: null
   when_to_use: For visitors interested in becoming web developers, learning both frontend and backend technologies, or transitioning into software development careers.
   target_audience: Career changers, recent graduates, and professionals looking to break into tech with comprehensive web development skills.
   goals:
-     - Highlight the practical, project-based learning approach
-     - Emphasize job-ready skills and career outcomes
-     - Showcase the full-stack technology coverage (HTML, CSS, JavaScript, React, Python, SQL)
-     - Address concerns about learning curve and time commitment
+    - Highlight the practical, project-based learning approach
+    - Emphasize job-ready skills and career outcomes
+    - Showcase the full-stack technology coverage (HTML, CSS, JavaScript, React, Python, SQL)
+    - Address concerns about learning curve and time commitment
   schema:
-   include:
-     - organization
-     - website
-     - courses:full-stack
+    include:
+      - organization
+      - website
+      - courses:full-stack
 sections:
   - type: hero
     version: "1.0"
@@ -124,20 +124,20 @@ sections:
     title: Con la confianza de estudiantes en todo el mundo
     items:
       - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
-        rating: 4.9
-        review_count: 4.9 en reseñas
+        rating: 4.84
+        review_count: 4.84 en reseñas
         trusted_text: Reseñas verificadas
       - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
-        rating: 4.8
-        review_count: 4.8 en reseñas
+        rating: 4.5
+        review_count: 4.5 en reseñas
         trusted_text: Programa mejor valorado
       - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
-        rating: 4.9
-        review_count: 4.9 en reseñas
+        rating: 4.89
+        review_count: 4.89 en reseñas
         trusted_text: Reseñas verificadas
       - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        rating: 4.9
-        review_count: 4.9 en reseñas
+        rating: 4.91
+        review_count: 4.91 en reseñas
         trusted_text: Reseñas verificadas
     name: Default Trust Cards
     description: Four review platform cards with ratings
