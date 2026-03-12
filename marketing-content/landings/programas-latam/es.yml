@@ -403,7 +403,7 @@ sections:
           placeholder: Teléfono
         program:
           visible: true
-          default: ai-engineering
+          required: true
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
       consent:
