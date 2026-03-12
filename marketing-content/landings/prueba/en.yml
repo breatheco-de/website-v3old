@@ -69,66 +69,66 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: en 4Geeks Academy
+    title: at 4Geeks Academy
     brand_mark:
-      prefix: Conviértete en un
-      highlight: Desarrollador Full Stack
+      prefix: Your current job has a ceiling. Become an
+      highlight: AI Engineer
       color: primary
-    description: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
+    description: The AI talent gap is real — 800,000+ open roles, not enough qualified engineers to fill them. In 24 weeks, you'll build production-ready AI apps, master LLMs and machine learning, and position yourself for the highest-paying entry point in tech right now.
     bullets:
-      - text: Aprende a programar desde cero hasta ser un profesional
-      - text: ¡Somos el único bootcamp que no finaliza cuando te gradúas! En 4Geeks dispones de mentorías ilimitadas y de por vida
-      - text: Contamos con diferentes opciones de financiamiento puedes financiar el importe en 6, 9, 12 y 18 meses
+      - text: "No experience needed: we take you from zero to job-ready in 24 weeks"
+      - text: The only bootcamp that doesn't end at graduation — unlimited lifetime mentorship included
+      - text: "Flexible financing available: pay as low as $349/mo or $0 upfront with our Income Share Agreement"
     image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Solicita más información
+      submit_label: See If You Qualify — It's Free
       tags: website-lead
       fields:
         email:
           visible: true
           required: true
-          placeholder: Correo electrónico
+          placeholder: Email Address
         first_name:
           visible: true
           required: true
-          placeholder: Nombre
+          placeholder: First Name
         last_name:
           visible: true
           required: true
-          placeholder: Apellido
+          placeholder: Last Name
         phone:
           visible: true
           required: true
         program:
           visible: false
-          default: full-stack
+          default: ai-engineering
       success:
-        message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
+        message: You're in. Someone from our admissions team will reach out within a few minutes via email — check your inbox.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
-        sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
+        marketing_text: I agree to receive information via email, WhatsApp and/or other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe easily at any time.
+        sms_text: I agree to receive SMS/text messages about workshops, events, courses and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information.
         sms_usa_only: true
       show_terms: true
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
-    form_card_title: Get Full Program Details
-    form_card_subtitle: Apply below to receive the program overview by e-mail and choose how you'd like our admissions team to contact you.
+    form_card_title: Get the Full AI Engineering Program Details
+    form_card_subtitle: Submit below and our admissions team will send you the complete program overview — curriculum, pricing, and financing options — within minutes.
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-    show_awards_marquee: false
+    show_awards_marquee: true
     awards_marquee:
       items:
         - id: switchup-2025
-          alt: SwitchUp - Mejores Bootcamps de Código 2025
+          alt: SwitchUp - Best Coding Bootcamps 2025
           logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
           logoHeight: 55px
         - id: course-report-2024
-          alt: Course Report - Mejor Bootcamp de Código 2024
+          alt: Course Report - Best Coding Bootcamp 2024
           logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
           logoHeight: 55px
         - id: tech-hub
@@ -148,11 +148,11 @@ sections:
           logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
           logoHeight: 55px
         - id: reviews-coursereport
-          alt: 4.9 en Reseñas de Course Report
+          alt: 4.9 Stars on Course Report Reviews
           logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
           logoHeight: 55px
         - id: excelencia-educativa
-          alt: Excelencia Educativa - Calidad Institucional
+          alt: Educational Excellence - Institutional Quality
           logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
           logoHeight: 55px
     video_title: GeekForce Career Support
