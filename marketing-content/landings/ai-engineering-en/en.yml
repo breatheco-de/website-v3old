@@ -9,10 +9,9 @@ meta:
     - /campaign/ai-engineer
 sections:
   - type: hero
-    section_id: hero-n55vo7
     version: "1.0"
     variant: ApplyFormProductShowcase
-    title: Thrive in Today’s Tech and Shape Tomorrow’s.
+    title: Break Your Ceiling. Build with AI
     brand_mark:
       prefix: Become an
       highlight: AI Engineer
@@ -62,6 +61,7 @@ sections:
       url: https://www.youtube.com/shorts/sSxJnelPJT8
       ratio: "9:16"
       muted: true
+    section_id: hero-n55vo7
     paddingY:
       mobile: md none
       desktop: lg none
