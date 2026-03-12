@@ -18,7 +18,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: ApplyFormProductShowcase
-    title: y construye sistemas reales en producción
+    title: ""
     brand_mark:
       prefix: Conviértete en
       highlight: Ingeniero de IA
