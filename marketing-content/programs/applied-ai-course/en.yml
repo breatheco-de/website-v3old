@@ -395,6 +395,8 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
     section_id: whos_hiring-b1g5t9
+    marginY:
+      desktop: none md
   - type: faq
     title: FAQ
     items:
