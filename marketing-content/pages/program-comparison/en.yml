@@ -157,7 +157,7 @@ sections:
     footer_note: "* Program details subject to change"
     section_id: comparison_table-7id0o1
     marginY:
-      desktop: xl none
+      desktop: xl lg
     showOnLocations:
       - atlanta-usa
       - austin-usa
