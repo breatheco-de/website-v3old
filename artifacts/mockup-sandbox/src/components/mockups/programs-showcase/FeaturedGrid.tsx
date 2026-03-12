@@ -1,14 +1,14 @@
 import { ArrowRight, Clock, Code2, Brain, BarChart3, Shield } from "lucide-react";
 
-const PRIMARY = "#0084FF";       // --primary
-const PRIMARY_LIGHT = "rgba(0,132,255,0.08)"; // --primary at 8% opacity
-const ACCENT = "#FFB718";        // --accent
-const ACCENT_LIGHT = "rgba(255,183,24,0.1)";  // --accent at 10% opacity
-const FOREGROUND = "#00041A";    // --foreground
-const MUTED = "#737373";         // --muted-foreground
-const CARD_BG = "#FFFFFF";       // --card / --background
-const PAGE_BG = "#FAFAFA";       // --muted
-const BORDER = "#EBEBEB";        // --border
+const PRIMARY = "#0084FF";
+const PRIMARY_LIGHT = "rgba(0,132,255,0.08)";
+const ACCENT = "#FFB718";
+const ACCENT_LIGHT = "rgba(255,183,24,0.1)";
+const FOREGROUND = "#00041A";
+const MUTED = "#737373";
+const CARD_BG = "#FFFFFF";
+const PAGE_BG = "#FAFAFA";
+const BORDER = "#EBEBEB";
 
 const programs = [
   {
