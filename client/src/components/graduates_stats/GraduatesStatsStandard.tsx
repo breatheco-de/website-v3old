@@ -62,13 +62,13 @@ export function GraduatesStatsStandard({ data }: GraduatesStatsStandardProps) {
               )}
               data-testid={`stat-item-${index}`}
             >
-              <div
+              <p
                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-2"
                 data-testid={`text-stat-value-${index}`}
               >
-                <RichTextContent html={stat.value} className="[&_p]:mb-0 [&_*]:font-bold [&_*]:text-primary" />
+                <RichTextContent html={stat.value} className="" />
                 {stat.unit && <span className="text-2xl md:text-3xl font-semibold ml-1">{stat.unit}</span>}
-              </div>
+              </p>
               <p 
                 className="text-sm md:text-base text-muted-foreground max-w-[200px] mx-auto"
                 data-testid={`text-stat-label-${index}`}
