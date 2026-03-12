@@ -608,7 +608,6 @@ sections:
     bullet_icon_color: text-primary
     showOn: mobile
   - type: cta_banner
-    section_id: cta_banner-h5ak8w
     version: "1.0"
     title: ¿Listo para convertirte en Ingeniero de IA?
     subtitle: Cupos limitados. Comienza tu transformación hoy.
@@ -623,7 +622,7 @@ sections:
         email:
           visible: true
           required: true
-          placeholder: Tu email
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
@@ -650,6 +649,7 @@ sections:
       button_className: bg-primary border-white
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
+    section_id: cta_banner-h5ak8w
     marginY:
       mobile: md none
       desktop: md none
