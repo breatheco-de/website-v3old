@@ -405,17 +405,17 @@ sections:
     marginY:
       desktop: none lg
     showOnLocations:
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
+      - barcelona-spain
+      - berlin-germany
+      - hamburg-germany
+      - dublin-ireland
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
   - type: course_selector
     version: "1.0"
     variant: solid
