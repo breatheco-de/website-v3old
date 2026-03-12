@@ -214,6 +214,7 @@ sections:
           - Monitor networks, test defenses, respond to incidents, and develop security policies.
       - feature: Job Titles
         values:
+          - x
           - Full Stack Developer, Front-End Developer, Back-End Developer, AI Software Engineer, Web Developer.
           - Data Analyst, Data Scientist, Machine Learning Engineer, BI Analyst.
           - Cybersecurity Analyst, SOC Analyst, Penetration Tester, Security Consultant.
