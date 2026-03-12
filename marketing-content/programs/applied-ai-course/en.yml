@@ -361,7 +361,7 @@ sections:
       variant: primary
     section_id: pricing-5ihe9a
     marginY:
-      desktop: lg md
+      desktop: lg xl
     paddingY:
       desktop: none md
   - type: whos_hiring
