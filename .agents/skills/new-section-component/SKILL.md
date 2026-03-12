@@ -238,11 +238,84 @@ Use `shadow-card` for cards. Shadows are disabled in dark mode.
 
 ### Allowed Backgrounds
 
-Defined in `marketing-content/theme.json` under `backgrounds`:
-- `background`, `muted`, `card`, `accent`, `primary`, `secondary`, `sidebar`
-- `light-blue-5` — `hsl(210 100% 50% / 0.05)`
-- `light-blue-5-gradient` — gradient to transparent
-- `light-blue-diagonal-gradient` — diagonal gradient
+`marketing-content/theme.json` is the **single source of truth** for all allowed background colors. Never use a background color that is not in this file — not even a color that "looks like" a brand color.
+
+| ID | CSS Variable / Value | Hex equivalent (for mockup sandbox) |
+|---|---|---|
+| `background` | `--background` | `#FFFFFF` |
+| `muted` | `--muted` | `#FAFAFA` |
+| `card` | `--card` | `#FFFFFF` |
+| `secondary` | `--secondary` | `#F5F5F5` |
+| `accent` | `--accent` | `#FFB718` |
+| `primary` | `--primary` | `#0084FF` |
+| `sidebar` | `--sidebar-background` | matches sidebar token |
+| `light-blue-5` | `hsl(210 100% 50% / 0.05)` | ~`#F0F7FF` |
+| `light-blue-5-gradient` | gradient to transparent | — |
+| `light-blue-diagonal-gradient` | diagonal gradient | — |
+
+**Never use a text/foreground color as a background.** `--foreground` (`#00041A`) is a text token — it has no entry in the `backgrounds` list and must not be applied to `background-color` on any element.
+
+**Why this matters:** Using off-list backgrounds — even ones that look close — breaks consistency across pages and makes dark mode adaptation unpredictable. The approved list was chosen to always look correct in both light and dark mode.
+
+### Allowed Text Colors
+
+Text colors must also come from `theme.json` under `text`. Use solid values only — **never apply `opacity` or `rgba(...)` to text elements**.
+
+| ID | CSS Variable | Usage |
+|---|---|---|
+| `foreground` | `--foreground` | Default body text, headings |
+| `muted-foreground` | `--muted-foreground` | Secondary/supporting text |
+| `primary-foreground` | `--primary-foreground` | Text on primary blue backgrounds |
+| `secondary-foreground` | `--secondary-foreground` | Text on secondary backgrounds |
+| `primary` | `--primary` | Colored links, CTAs, accent labels |
+
+**Why no transparency on text:** Applying `opacity: 0.35` or `rgba(255,255,255,0.6)` to text produces colors that are not part of the design system. They can clash with different backgrounds, break in dark mode, and create visual inconsistency across components. If you need a softer text color, use `muted-foreground` — it exists exactly for that purpose.
+
+### Transparency on Backgrounds
+
+Transparency is acceptable **only on backgrounds**, and only using the predefined opacity levels already codified in `theme.json` under `courses`:
+
+| Pattern | Value | When to use |
+|---|---|---|
+| `primary/40` | `hsl(var(--primary) / 0.4)` | Stronger tinted bg |
+| `primary/30` | `hsl(var(--primary) / 0.3)` | Medium tinted bg |
+| `primary/20` | `hsl(var(--primary) / 0.2)` | Light tinted bg (icon wrappers when needed) |
+| `primary/5` | `hsl(210 100% 50% / 0.05)` | Very subtle section wash (`light-blue-5`) |
+
+Do not invent new rgba levels (e.g., `rgba(0,132,255,0.15)`, `rgba(0,0,0,0.06)`). Use the closest approved value.
+
+### Color Philosophy — Formal, Near-Monochromatic
+
+4Geeks components lean almost entirely on **blue and muted/neutral tones**. The goal is a professional, restrained design that reads as credible and serious — not colorful or consumer-facing.
+
+**Default approach:**
+- Backgrounds: `background`, `muted`, `card`, or `light-blue-5`
+- Text: `foreground` and `muted-foreground`
+- Accents: `primary` (blue) — used for interactive elements, links, icons, thin highlights
+- Visual elevation/differentiation: use `primary/5` (a very subtle blue wash) rather than bold or dark backgrounds
+
+**Accent yellow (`--accent` / `#FFB718`):** Use very sparingly — one deliberate use per component at most, such as a badge or a single highlight. Never use it as a repeating element across multiple items in a list or grid.
+
+**Why restraint matters:** Too many colors in UI elements signals consumer/casual design. Mono-chromatic blue + muted tones communicates professionalism and focus, which aligns with 4Geeks as a serious tech education brand. When in doubt, reach for `primary/5` before reaching for any other color.
+
+### Icon Usage in Components
+
+Icons are effective as visual differentiators for cards, list items, and bullet-like elements. Follow these rules:
+
+- **No background wrapper by default.** Don't wrap icons in a colored circle or square container. The icon itself, rendered in `text-primary` or `text-muted-foreground`, provides enough visual cue without adding visual noise.
+- **Max size: `w-8 h-8`.** Icons in cards and list items should not exceed 32px. Larger icons are reserved for hero/decorative use cases where the icon IS the main visual element.
+- **Exception — sparse content:** If a card or list item has very minimal content (e.g., just an icon and a single line of text, with no description or metadata), a subtle background on the icon (using `primary/20`) can prevent the card from feeling visually empty. This is the only case where an icon background is acceptable.
+
+**Why:** A background behind an icon in a rich card (one that already has a title, description, and CTA) adds unnecessary visual weight and makes the design feel busier. The icon's color alone is sufficient differentiation when the surrounding content provides enough structure.
+
+### Accent Separator Lines
+
+When using a colored vertical bar or horizontal line as a visual differentiator (e.g., a left-side accent stripe on a card or list item):
+
+- Keep it **thin**: `w-0.5` (2px) or `w-1` (4px) for vertical bars, `h-px` or `h-0.5` for horizontal dividers
+- Never use `w-3` (12px) or wider — this turns a subtle signal into a decorative block that competes with the content
+
+**Why:** A thin line is enough to guide the eye and signal differentiation. A thick bar draws too much attention, creates visual imbalance, and undermines the formal, restrained aesthetic.
 
 ### Button Variants
 
