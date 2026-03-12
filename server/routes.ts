@@ -3970,17 +3970,24 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     const locale = req.query.locale as string | undefined;
     const menusDir = path.join(process.cwd(), "marketing-content", "menus");
 
-    // Build filename based on locale (e.g., main-navbar.es.yml for Spanish)
-    const fileBaseName =
-      locale && locale !== getDefaultLocale() ? `${name}.${locale}` : name;
+    let filePath: string | null = null;
 
-    // Try both .yml and .yaml extensions
-    let filePath = path.join(menusDir, `${fileBaseName}.yml`);
-    if (!fs.existsSync(filePath)) {
-      filePath = path.join(menusDir, `${fileBaseName}.yaml`);
+    if (locale && locale !== getDefaultLocale()) {
+      const localizedBase = `${name}.${locale}`;
+      const localizedYml = path.join(menusDir, `${localizedBase}.yml`);
+      const localizedYaml = path.join(menusDir, `${localizedBase}.yaml`);
+      if (fs.existsSync(localizedYml)) filePath = localizedYml;
+      else if (fs.existsSync(localizedYaml)) filePath = localizedYaml;
     }
 
-    if (!fs.existsSync(filePath)) {
+    if (!filePath) {
+      const baseYml = path.join(menusDir, `${name}.yml`);
+      const baseYaml = path.join(menusDir, `${name}.yaml`);
+      if (fs.existsSync(baseYml)) filePath = baseYml;
+      else if (fs.existsSync(baseYaml)) filePath = baseYaml;
+    }
+
+    if (!filePath) {
       res.status(404).json({ error: "Menu not found" });
       return;
     }
