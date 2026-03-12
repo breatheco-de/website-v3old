@@ -330,7 +330,7 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-    background: hsl(var(--muted))
+    background: hsl(var(--secondary))
   - type: pricing
     version: "1.0"
     variant: product
