@@ -218,8 +218,9 @@ export default function PrivatePreview() {
           locale={locale}
           onMenuChange={() => refetch()}
         />
-        {topMenuId && <Header menuId={topMenuId} />}
+
       </div>
+      {topMenuId && <Header menuId={topMenuId} />}
       <SectionRenderer 
         sections={content.sections} 
         contentType={normalizedType}
