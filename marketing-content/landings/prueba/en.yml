@@ -74,10 +74,10 @@ sections:
       prefix: Your current job has a ceiling. Become an
       highlight: AI Engineer
       color: primary
-    description: The AI talent gap is real — 800,000+ open roles, not enough qualified engineers to fill them. In 24 weeks, you'll build production-ready AI apps, master LLMs and machine learning, and position yourself for the highest-paying entry point in tech right now.
+    description: The AI talent gap is real. 800,000+ open roles, not enough qualified engineers to fill them. In 24 weeks, you'll build production-ready AI apps, master LLMs and machine learning, and position yourself for the highest-paying entry point in tech right now.
     bullets:
       - text: "No experience needed: we take you from zero to job-ready in 24 weeks"
-      - text: The only bootcamp that doesn't end at graduation — unlimited lifetime mentorship included
+      - text: The only bootcamp that doesn't end at graduation, unlimited lifetime mentorship included
       - text: "Flexible financing available: pay as low as $349/mo or $0 upfront with our Income Share Agreement"
     image_object_fit: none
     form:
