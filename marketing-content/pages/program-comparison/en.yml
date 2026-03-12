@@ -395,10 +395,9 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: course_selector
-    section_id: course_selector-qbqdzx
     version: "1.0"
     variant: solid
-    heading: Program tuition
+    heading: Program Tuition
     subheading: "<span style=\"font-size: 1.125rem;\">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
     courses:
       - name: AI Engineering
@@ -468,6 +467,7 @@ sections:
         cta_text: Discover program
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
+    section_id: course_selector-qbqdzx
     marginY:
       desktop: none
     paddingY:
