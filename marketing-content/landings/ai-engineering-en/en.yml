@@ -11,10 +11,10 @@ sections:
   - type: hero
     version: "1.0"
     variant: ApplyFormProductShowcase
-    title: Break Your Ceiling. Build with AI
+    title: Build with AI
     brand_mark:
-      prefix: Become an
-      highlight: AI Engineer
+      prefix: Break Your
+      highlight: Ceiling
       color: primary
     description: Launch your AI-driven career in 24 weeks with unlimited 1:1 mentorship and personalized career guidance. Be the professional companies can’t wait to hire.
     form:
