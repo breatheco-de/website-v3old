@@ -330,7 +330,7 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-    background: hsl(var(--muted))
+    background: hsl(var(--secondary))
   - type: pricing
     version: "1.0"
     variant: product
@@ -361,14 +361,44 @@ sections:
       variant: primary
     section_id: pricing-5ihe9a
     marginY:
-      desktop: lg md
+      desktop: lg xl
     paddingY:
+      desktop: none md
+  - type: whos_hiring
+    variant: carousel
+    pretitle: Customer Stories
+    title: Who's Hiring Our Graduates?
+    subtitle: Top companies hire 4Geeks graduates, with 84% landing jobs within 6 months of graduation, thanks to their skills and our personalized career support. Our grads don’t just get hired—they launch successful careers and consistently earn recognition for their technical expertise and professionalism. "I’m continually impressed by the depth of knowledge possessed by 4Geeks students. One of my hires ended up becoming a team leader." - CodeNinjas.
+    logos:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
+        alt: Microsoft
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
+        alt: Google Developers
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
+        alt: Boats Group
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
+        alt: Meta
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
+        alt: eBay
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
+        alt: National Geographic
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
+        alt: Evernote
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
+        alt: Telefonica
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
+        alt: Twilio
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
+        alt: Uber
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
+        alt: Neo9
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
+        alt: Jooble
+    section_id: whos_hiring-b1g5t9
+    marginY:
       desktop: none md
   - type: faq
     title: FAQ
-    related_features:
-      - applied-ai
-      - mentors-and-teachers
     items:
       - question: What prerequisites do I need for AI Engineering?
         answer: Basic programming knowledge is recommended but not required. Our program starts with foundational concepts and builds up to advanced AI engineering. If you're new to coding, we have preparatory materials to help you get started.
@@ -400,6 +430,9 @@ sections:
           - all
         related_features: []
         priority: 0
+    related_features:
+      - applied-ai
+      - mentors-and-teachers
     item_overrides:
       how-long-does-the-program-take:
         hideOnLocations:
@@ -419,10 +452,9 @@ sections:
       desktop: none
     paddingY:
       desktop: md
-    background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
-    title: Ready to Become an {{ single.job_role | AI Engineer }}?
+    title: Ready to Become an Artificial Intelligence (AI) Professional?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
     variant: form
