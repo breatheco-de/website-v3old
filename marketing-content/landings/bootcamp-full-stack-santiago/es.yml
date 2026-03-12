@@ -142,6 +142,7 @@ sections:
     name: Default Trust Cards
     description: Four review platform cards with ratings
     section_id: trust_cards-ig991a
+    background: hsl(210 100% 50% / 0.05)
   - type: why_learn_ai
     variant: laptop-edge
     title: ¡Desde Cero Hasta Tu Primer Empleo!
