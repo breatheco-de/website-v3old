@@ -55,6 +55,10 @@ export function UniversalImage({
   useEffect(() => {
     setIsLoaded(false);
     setHasError(false);
+    const img = imgRef.current;
+    if (img && img.complete && img.naturalWidth > 0) {
+      setIsLoaded(true);
+    }
   }, [id]);
 
   const handleLoad = () => {
@@ -131,8 +135,10 @@ export function UniversalImage({
         loading={loading}
         onLoad={handleLoad}
         onError={handleError}
-        className={`w-full h-full transition-opacity duration-300 ${
-          isLoaded ? "opacity-100" : "opacity-0"
+        className={`w-full h-full ${
+          loading === "eager"
+            ? (isLoaded ? "opacity-100" : "opacity-0")
+            : `transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"}`
         }`}
         style={{
           objectFit: style?.objectFit || "cover",
