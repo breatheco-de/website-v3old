@@ -397,9 +397,6 @@ sections:
     section_id: whos_hiring-b1g5t9
   - type: faq
     title: FAQ
-    related_features:
-      - applied-ai
-      - mentors-and-teachers
     items:
       - question: What prerequisites do I need for AI Engineering?
         answer: Basic programming knowledge is recommended but not required. Our program starts with foundational concepts and builds up to advanced AI engineering. If you're new to coding, we have preparatory materials to help you get started.
@@ -431,6 +428,9 @@ sections:
           - all
         related_features: []
         priority: 0
+    related_features:
+      - applied-ai
+      - mentors-and-teachers
     item_overrides:
       how-long-does-the-program-take:
         hideOnLocations:
@@ -450,7 +450,6 @@ sections:
       desktop: none
     paddingY:
       desktop: md
-    background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
     title: Ready to Become an Artificial Intelligence (AI) Professional?
