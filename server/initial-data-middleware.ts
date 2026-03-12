@@ -29,7 +29,7 @@ const SCHEMA_MAP: Record<string, typeof templatePageSchema> = {
   location: locationPageSchema,
 };
 
-async function resolveInitialData(
+export async function resolveInitialData(
   url: string,
 ): Promise<InitialDataPayload | null> {
   const cleanUrl = url.split("?")[0].split("#")[0];
@@ -215,6 +215,10 @@ export function initialDataMiddleware(
             try {
               const html =
                 typeof chunk === "string" ? chunk : chunk.toString("utf-8");
+              if (html.includes('id="__INITIAL_DATA__"')) {
+                originalEnd.call(this, chunk, ...args);
+                return;
+              }
               const scriptTag = `<script id="__INITIAL_DATA__" type="application/json">${JSON.stringify(payload).replace(/</g, "\\u003c")}</script>`;
               const injected = html.replace("</body>", scriptTag + "</body>");
 

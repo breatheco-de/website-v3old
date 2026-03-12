@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
-export default defineConfig({
+export default defineConfig(async ({ isSsrBuild }) => ({
   plugins: [
     react(),
     runtimeErrorOverlay(),
@@ -28,8 +28,11 @@ export default defineConfig({
   },
   root: path.resolve(import.meta.dirname, "client"),
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    outDir: isSsrBuild
+      ? path.resolve(import.meta.dirname, "dist/server")
+      : path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    ssr: isSsrBuild ? "src/entry-server.tsx" : undefined,
   },
   server: {
     fs: {
@@ -37,4 +40,4 @@ export default defineConfig({
       deny: ["**/.*"],
     },
   },
-});
+}));

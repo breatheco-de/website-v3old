@@ -1,9 +1,9 @@
 import { Switch, Route } from "wouter";
-import { queryClient } from "./lib/queryClient";
-import { QueryClientProvider, useQuery } from "@tanstack/react-query";
+import { queryClient as defaultQueryClient } from "./lib/queryClient";
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { lazy, Suspense, useMemo } from "react";
+import { lazy, Suspense, useMemo, useState, useEffect } from "react";
 import NotFound from "@/pages/not-found";
 import { DebugBubble } from "@/components/DebugBubble";
 import { VariableModalHost } from "@/components/editing/VariableHighlight";
@@ -16,14 +16,13 @@ import "./i18n";
 
 import ContentTypeDetail from "@/pages/ContentTypeDetail";
 import TemplatePage from "@/pages/page";
-
+import DatabaseSinglePage from "@/pages/DatabaseSinglePage";
 
 const PreviewFrame = lazy(() => import("@/pages/PreviewFrame"));
 const PrivateRouter = lazy(() => import("@/pages/PrivateRouter"));
 const ApplyPage = lazy(() => import("@/pages/ApplyPage"));
 const TermsPage = lazy(() => import("@/pages/TermsPage"));
 const PrivacyPage = lazy(() => import("@/pages/PrivacyPage"));
-const DatabaseSinglePage = lazy(() => import("@/pages/DatabaseSinglePage"));
 
 function LoadingFallback() {
   return (
@@ -198,9 +197,21 @@ function PageTracker() {
   return null;
 }
 
-function App() {
+function ClientOnly({ children }: { children: React.ReactNode }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+  return <>{children}</>;
+}
+
+interface AppProps {
+  ssrQueryClient?: QueryClient;
+}
+
+function App({ ssrQueryClient }: AppProps = {}) {
+  const client = ssrQueryClient || defaultQueryClient;
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={client}>
       <SessionProvider>
         <DebugAuthProvider>
         <TooltipProvider>
@@ -208,8 +219,10 @@ function App() {
             <Toaster />
             <PageTracker />
             <Router />
-            <DebugBubble />
-            <VariableModalHost />
+            <ClientOnly>
+              <DebugBubble />
+              <VariableModalHost />
+            </ClientOnly>
           </EditModeWrapper>
         </TooltipProvider>
         </DebugAuthProvider>

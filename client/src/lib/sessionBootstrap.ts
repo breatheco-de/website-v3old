@@ -2,6 +2,7 @@ import type { Session } from '@shared/session';
 import { SESSION_STORAGE_KEY, SESSION_VERSION, defaultSession } from '@shared/session';
 
 export function getCachedSession(): Session | null {
+  if (typeof window === 'undefined') return null;
   try {
     const stored = localStorage.getItem(SESSION_STORAGE_KEY);
     if (!stored) return null;
@@ -20,6 +21,7 @@ export function getCachedSession(): Session | null {
 }
 
 export function saveSession(session: Session): void {
+  if (typeof window === 'undefined') return;
   try {
     localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(session));
   } catch {

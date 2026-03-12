@@ -4,8 +4,8 @@ import path from "path";
 import { createServer as createViteServer, createLogger } from "vite";
 import { type Server } from "http";
 import viteConfig from "../vite.config";
-import { nanoid } from "nanoid";
 import { contentIndex } from "./content-index";
+import { resolveInitialData } from "./initial-data-middleware";
 
 const viteLogger = createLogger();
 
@@ -56,14 +56,23 @@ export async function setupVite(app: Express, server: Server) {
     allowedHosts: true as const,
   };
 
+  // vite.config.ts exports an async factory (defineConfig with isSsrBuild flag).
+  // We must call it to get the resolved config object before spreading.
+  const resolvedViteConfig = typeof viteConfig === "function"
+    ? await (viteConfig as Function)({ mode: "development", command: "serve", isSsrBuild: false })
+    : viteConfig;
+
   const vite = await createViteServer({
-    ...viteConfig,
+    ...resolvedViteConfig,
     configFile: false,
     customLogger: {
       ...viteLogger,
       error: (msg, options) => {
         viteLogger.error(msg, options);
-        process.exit(1);
+        // Only crash on genuine build/plugin errors, not on SSR pre-transform misses
+        if (options?.error && !msg.includes("Pre-transform error")) {
+          process.exit(1);
+        }
       },
     },
     server: serverOptions,
@@ -82,20 +91,60 @@ export async function setupVite(app: Express, server: Server) {
         "index.html",
       );
 
-      // always reload the index.html file from disk incase it changes
-      let template = await fs.promises.readFile(clientTemplate, "utf-8");
-      template = template.replace(
-        `src="/src/main.tsx"`,
-        `src="/src/main.tsx?v=${nanoid()}"`,
-      );
+      const template = await fs.promises.readFile(clientTemplate, "utf-8");
       const page = await vite.transformIndexHtml(url, template);
+
+      const initialDataPayload = await resolveInitialData(url).catch(() => null);
+
+      let appHtml = "";
+      try {
+        const entryServerAbs = path.resolve(
+          import.meta.dirname,
+          "..",
+          "client",
+          "src",
+          "entry-server.tsx",
+        );
+        const { render } = await vite.ssrLoadModule(entryServerAbs);
+        appHtml = await render(url, initialDataPayload);
+      } catch (ssrErr) {
+        console.warn("[SSR] render failed, falling back to client-only:", (ssrErr as Error).message);
+      }
+
+      let html = appHtml
+        ? page.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`)
+        : page;
+
+      if (initialDataPayload) {
+        const scriptTag = `<script id="__INITIAL_DATA__" type="application/json">${JSON.stringify(initialDataPayload).replace(/</g, "\\u003c")}</script>`;
+        html = html.replace("</body>", scriptTag + "</body>");
+      }
+
       const status = isKnownRoute(url) ? 200 : 404;
-      res.status(status).set({ "Content-Type": "text/html" }).end(page);
+      res.status(status).set({ "Content-Type": "text/html" }).end(html);
     } catch (e) {
       vite.ssrFixStacktrace(e as Error);
       next(e);
     }
   });
+}
+
+let ssrRenderFn: ((url: string, payload: unknown) => Promise<string>) | null = null;
+let ssrModuleLoaded = false;
+
+async function getSsrRender() {
+  if (ssrModuleLoaded) return ssrRenderFn;
+  ssrModuleLoaded = true;
+  try {
+    const ssrBundlePath = path.resolve(import.meta.dirname, "..", "server", "entry-server.js");
+    if (fs.existsSync(ssrBundlePath)) {
+      const mod = await import(ssrBundlePath);
+      ssrRenderFn = mod.render;
+    }
+  } catch (e) {
+    console.warn("[SSR] Could not load SSR bundle:", (e as Error).message);
+  }
+  return ssrRenderFn;
 }
 
 export function serveStatic(app: Express) {
@@ -109,9 +158,36 @@ export function serveStatic(app: Express) {
 
   app.use(express.static(distPath));
 
-  // fall through to index.html if the file doesn't exist
-  app.use("*", (_req, res) => {
-    const status = isKnownRoute(_req.originalUrl) ? 200 : 404;
-    res.status(status).sendFile(path.resolve(distPath, "index.html"));
+  const indexHtmlPath = path.resolve(distPath, "index.html");
+
+  app.use("*", async (_req, res) => {
+    const url = _req.originalUrl;
+    const status = isKnownRoute(url) ? 200 : 404;
+
+    try {
+      const render = await getSsrRender();
+      if (render) {
+        const indexHtml = await fs.promises.readFile(indexHtmlPath, "utf-8");
+        const initialDataPayload = await resolveInitialData(url).catch(() => null);
+        const appHtml = await render(url, initialDataPayload);
+
+        let html = indexHtml.replace(
+          '<div id="root"></div>',
+          `<div id="root">${appHtml}</div>`,
+        );
+
+        if (initialDataPayload) {
+          const scriptTag = `<script id="__INITIAL_DATA__" type="application/json">${JSON.stringify(initialDataPayload).replace(/</g, "\\u003c")}</script>`;
+          html = html.replace("</body>", scriptTag + "</body>");
+        }
+
+        res.status(status).set({ "Content-Type": "text/html" }).send(html);
+        return;
+      }
+    } catch (e) {
+      console.warn("[SSR] Production render failed, falling back:", (e as Error).message);
+    }
+
+    res.status(status).sendFile(indexHtmlPath);
   });
 }

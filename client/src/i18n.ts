@@ -14,28 +14,37 @@ const resources = {
   }
 };
 
+const isBrowser = typeof window !== 'undefined';
+
+if (isBrowser) {
+  i18n.use(LanguageDetector);
+}
+
 i18n
-  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources,
     fallbackLng: 'en',
     debug: false,
-    
+
     interpolation: {
       escapeValue: false
     },
 
-    detection: {
-      order: ['localStorage', 'navigator'],
-      caches: ['localStorage']
-    }
+    ...(isBrowser ? {
+      detection: {
+        order: ['localStorage', 'navigator'],
+        caches: ['localStorage']
+      }
+    } : {}),
   });
 
-i18n.on('languageChanged', (lng) => {
-  document.documentElement.lang = lng;
-});
+if (isBrowser) {
+  i18n.on('languageChanged', (lng) => {
+    document.documentElement.lang = lng;
+  });
 
-document.documentElement.lang = i18n.language;
+  document.documentElement.lang = i18n.language;
+}
 
 export default i18n;

@@ -36,7 +36,9 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const urlParams = new URLSearchParams(window.location.search);
+  const urlParams = typeof window !== 'undefined'
+    ? new URLSearchParams(window.location.search)
+    : new URLSearchParams();
   if (urlParams.get('navbar') === 'false') {
     return null;
   }

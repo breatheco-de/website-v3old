@@ -18,6 +18,7 @@ const DEFAULT_CAPABILITIES: Capabilities = {
 };
 
 export function isDebugModeActive(): boolean {
+  if (typeof window === 'undefined') return false;
   const urlParams = new URLSearchParams(window.location.search);
   const debugParam = urlParams.get("debug");
   
@@ -48,6 +49,7 @@ export function isDebugModeActive(): boolean {
 }
 
 export function getDebugToken(): string | null {
+  if (typeof window === 'undefined') return null;
   const cachedToken = localStorage.getItem(DEBUG_TOKEN_KEY);
   const cachedExpiry = localStorage.getItem(DEBUG_SESSION_EXPIRY_KEY);
   
@@ -66,6 +68,7 @@ export function getDebugToken(): string | null {
 }
 
 export function getCachedCapabilities(): Capabilities {
+  if (typeof window === 'undefined') return DEFAULT_CAPABILITIES;
   try {
     const cached = localStorage.getItem(DEBUG_CAPABILITIES_KEY);
     if (cached) {
@@ -77,6 +80,7 @@ export function getCachedCapabilities(): Capabilities {
 }
 
 export function getDebugUserName(): string {
+  if (typeof window === 'undefined') return '';
   return localStorage.getItem(DEBUG_USERNAME_KEY) || "";
 }
 

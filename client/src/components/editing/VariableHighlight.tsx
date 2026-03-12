@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useRef, useLayoutEffect, useCallback, useState, useEffect } from "react";
+import { createContext, useContext, useMemo, useRef, useLayoutEffect as _useLayoutEffect, useCallback, useState, useEffect } from "react";
 import type { ReactNode, CSSProperties, MouseEvent as ReactMouseEvent } from "react";
 import { createPortal } from "react-dom";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
@@ -14,6 +14,9 @@ import { SingleVariablePickerModal } from "./SingleVariablePickerModal";
 import { SingleVariableDetailModal } from "./SingleVariableDetailModal";
 import { Button } from "@/components/ui/button";
 import { IconVariable } from "@tabler/icons-react";
+
+// On the server renderToString doesn't support useLayoutEffect — use useEffect instead
+const useLayoutEffect = typeof window !== "undefined" ? _useLayoutEffect : useEffect;
 
 interface VariableHighlightContextValue {
   definitions: Record<string, VariableDefinition>;
