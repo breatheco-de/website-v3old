@@ -28,13 +28,13 @@ locations:
   - bogota-colombia
 sections:
   - type: hero
-    section_id: hero-byj387
     version: "1.0"
     variant: ApplyFormProductShowcase
-    title: Construye sistemas reales, listos para producción.
+    title: ""
     brand_mark:
       prefix: Conviértete en
       highlight: Ingeniero de IA
+      suffix: y construye sistemas reales, listos para producción.
       color: primary
     description: Aprende a desarrollar, integrar y desplegar soluciones de IA en 24 semanas con mentoría 1:1 ilimitada y una comunidad profesional que acompaña tu crecimiento profesional.
     form:
@@ -82,6 +82,7 @@ sections:
       url: https://youtube.com/shorts/-SpU1PWNBF4?si=Hf6pIB-aSDUHFgj2
       ratio: "9:16"
       muted: true
+    section_id: hero-byj387
     paddingY:
       mobile: md none
       desktop: lg none
