@@ -298,6 +298,47 @@ Do not invent new rgba levels (e.g., `rgba(0,132,255,0.15)`, `rgba(0,0,0,0.06)`)
 
 **Why restraint matters:** Too many colors in UI elements signals consumer/casual design. Mono-chromatic blue + muted tones communicates professionalism and focus, which aligns with 4Geeks as a serious tech education brand. When in doubt, reach for `primary/5` before reaching for any other color.
 
+### Exception — Program / Course Color Identities
+
+When a component renders the 4 academy **programs or courses as distinct side-by-side items** that need visual differentiation, each program may be assigned one color identity from this fixed palette:
+
+| Program | Color | Token | Hex (sandbox) |
+|---|---|---|---|
+| Full Stack Development with AI | Blue | `--primary` | `#0084FF` |
+| AI Engineering | Gray | `--muted-foreground` | `#737373` |
+| Data Science & ML | Yellow | `--accent` | `#FFB718` |
+| Cybersecurity | Red | `--destructive` | `hsl(0 75% 45%)` ≈ `#C0311B` |
+
+These color identities are used for: icon color, thin accent bars/lines, CTA link text color. They are **not** used as full card background colors (use `card` or `light-blue-5` for card backgrounds). The assignment above is flexible — the important thing is that each program consistently uses one distinct color across all components that reference it.
+
+**Why:** When displaying all 4 programs simultaneously, pure mono-chrome makes them visually indistinguishable. Assigning one color per program lets users scan and remember which card is which — especially useful when the same programs appear in multiple components across a page. The 4-color system (blue, gray, yellow, red) stays within the brand palette without becoming decorative or consumer-feeling.
+
+### Featured / Highlight Card Backgrounds
+
+When a card is singled out as "featured" or "highlighted" within a grid (e.g., a larger card alongside smaller peer cards), use `primary/5` (`rgba(0, 132, 255, 0.05)` / `light-blue-5` ≈ `#F0F7FF`) as its background — not solid `primary` blue.
+
+- Text on a `primary/5` background: use `foreground` (#00041A) and `muted-foreground` (#737373) — normal dark text, not white
+- A solid `primary` background forces white text, which violates the no-transparent-text rule and is too heavy for a card context
+- `primary/5` creates just enough visual lift to signal "this one is different" without dominating the composition
+
+**Why:** Solid primary blue as a card background makes that card feel like a button or a CTA block, not an information card. The subtle blue wash (`primary/5`) communicates elevation and importance while keeping the content readable and the visual weight balanced with its surroundings.
+
+### Typography Sizing Hierarchy
+
+Use font sizes to convey information hierarchy. There are three levels:
+
+| Size | Tailwind | Usage |
+|---|---|---|
+| `text-base` (16px) | `text-base` | Main body / description text — any paragraph or tagline that carries real meaning. Do not downsize these to `text-sm` to save space. |
+| `text-sm` (14px) | `text-sm` | Supporting metadata — duration badges, secondary labels, pill text, captions that are visually subordinate. |
+| `text-xs` (12px) | `text-xs` | Fine-print labels — uppercase tracking-widest category tags, table column headers, "Avg. salary" type labels above a value. |
+
+**Common mistake to avoid:** Using `text-sm` for a program tagline or card description because the card is small. Description text carries meaning and needs to be readable at normal size. If the card feels too crowded with `text-base`, the fix is to reduce padding or shorten the copy — not to shrink the text.
+
+**Data values** (numbers, salary ranges, durations displayed as standalone facts) should be sized up, not down — they are the information the user came to read.
+
+**Why:** Consistent text sizing creates a predictable reading rhythm across components. When description text is randomly `text-sm` in some components and `text-base` in others, the page feels inconsistent even if the colors and spacing are correct.
+
 ### Icon Usage in Components
 
 Icons are effective as visual differentiators for cards, list items, and bullet-like elements. Follow these rules:

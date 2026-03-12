@@ -1,6 +1,5 @@
 import { ArrowRight, Clock, Code2, Brain, BarChart3, Shield } from "lucide-react";
 
-const PRIMARY = "#0084FF";
 const FOREGROUND = "#00041A";
 const MUTED = "#737373";
 const CARD_BG = "#FFFFFF";
@@ -13,6 +12,7 @@ const programs = [
     name: "Full Stack Development with AI",
     tagline: "Build modern web apps from frontend to backend, supercharged with AI tools.",
     duration: "16 weeks",
+    color: "#0084FF",
     number: "01",
   },
   {
@@ -20,6 +20,7 @@ const programs = [
     name: "AI Engineering",
     tagline: "Design, train and deploy AI models that solve real-world business problems.",
     duration: "20 weeks",
+    color: "#737373",
     number: "02",
   },
   {
@@ -27,6 +28,7 @@ const programs = [
     name: "Data Science & ML",
     tagline: "Turn raw data into actionable insight using Python, ML and visualization.",
     duration: "18 weeks",
+    color: "#FFB718",
     number: "03",
   },
   {
@@ -34,6 +36,7 @@ const programs = [
     name: "Cybersecurity",
     tagline: "Protect systems and networks against modern threats and vulnerabilities.",
     duration: "14 weeks",
+    color: "#C0311B",
     number: "04",
   },
 ];
@@ -52,7 +55,7 @@ function EditorialItem({ program, isLast }: { program: typeof programs[0]; isLas
           <span
             className="text-2xl font-bold tabular-nums"
             style={{
-              fontFamily: "'Inter', 'Lato', sans-serif",
+              fontFamily: "'Lato', sans-serif",
               color: MUTED,
               lineHeight: 1,
               letterSpacing: "-0.02em",
@@ -64,7 +67,7 @@ function EditorialItem({ program, isLast }: { program: typeof programs[0]; isLas
 
           <Icon
             className="w-7 h-7 shrink-0"
-            style={{ color: PRIMARY }}
+            style={{ color: program.color }}
             strokeWidth={1.5}
           />
         </div>
@@ -83,7 +86,7 @@ function EditorialItem({ program, isLast }: { program: typeof programs[0]; isLas
                 {program.name}
               </h3>
               <p
-                className="text-sm leading-relaxed mt-1.5 max-w-lg"
+                className="text-base leading-relaxed mt-1.5 max-w-lg"
                 style={{ color: MUTED, fontFamily: "'Archivo', sans-serif" }}
               >
                 {program.tagline}
@@ -92,7 +95,7 @@ function EditorialItem({ program, isLast }: { program: typeof programs[0]; isLas
 
             <div className="flex items-center gap-4 shrink-0 pt-1">
               <div
-                className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full"
+                className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full"
                 style={{
                   color: MUTED,
                   fontFamily: "'Archivo', sans-serif",
@@ -106,7 +109,7 @@ function EditorialItem({ program, isLast }: { program: typeof programs[0]; isLas
 
               <button
                 className="flex items-center gap-1.5 text-sm font-semibold transition-all duration-150 group-hover:gap-2.5"
-                style={{ color: PRIMARY, fontFamily: "'Archivo', sans-serif" }}
+                style={{ color: program.color, fontFamily: "'Archivo', sans-serif" }}
               >
                 Explore
                 <ArrowRight className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-0.5" />

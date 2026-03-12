@@ -1,6 +1,5 @@
 import { ArrowRight, Clock, Code2, Brain, BarChart3, Shield } from "lucide-react";
 
-const PRIMARY = "#0084FF";
 const FOREGROUND = "#00041A";
 const MUTED = "#737373";
 const CARD_BG = "#FFFFFF";
@@ -13,24 +12,28 @@ const programs = [
     name: "Full Stack Development with AI",
     tagline: "Build modern web apps from frontend to backend, supercharged with AI tools.",
     duration: "16 weeks",
+    color: "#0084FF",
   },
   {
     icon: Brain,
     name: "AI Engineering",
     tagline: "Design, train and deploy AI models that solve real-world business problems.",
     duration: "20 weeks",
+    color: "#737373",
   },
   {
     icon: BarChart3,
     name: "Data Science & ML",
     tagline: "Turn raw data into actionable insight using Python, ML and visualization.",
     duration: "18 weeks",
+    color: "#FFB718",
   },
   {
     icon: Shield,
     name: "Cybersecurity",
     tagline: "Protect systems and networks against modern threats and vulnerabilities.",
     duration: "14 weeks",
+    color: "#C0311B",
   },
 ];
 
@@ -48,12 +51,12 @@ function ProgramRow({ program }: { program: typeof programs[0] }) {
     >
       <div
         className="w-1 self-stretch shrink-0 rounded-full"
-        style={{ backgroundColor: PRIMARY }}
+        style={{ backgroundColor: program.color }}
       />
 
       <Icon
         className="w-7 h-7 shrink-0"
-        style={{ color: PRIMARY }}
+        style={{ color: program.color }}
         strokeWidth={1.5}
       />
 
@@ -77,7 +80,7 @@ function ProgramRow({ program }: { program: typeof programs[0] }) {
       </div>
 
       <div
-        className="flex items-center gap-1.5 text-xs font-medium shrink-0 px-3 py-1.5 rounded-full"
+        className="flex items-center gap-1.5 text-xs shrink-0 px-3 py-1.5 rounded-full"
         style={{
           color: MUTED,
           fontFamily: "'Archivo', sans-serif",
@@ -91,7 +94,7 @@ function ProgramRow({ program }: { program: typeof programs[0] }) {
 
       <button
         className="flex items-center gap-1.5 text-sm font-semibold shrink-0 transition-all duration-150 group-hover:gap-2.5"
-        style={{ color: PRIMARY, fontFamily: "'Archivo', sans-serif" }}
+        style={{ color: program.color, fontFamily: "'Archivo', sans-serif" }}
       >
         Explore
         <ArrowRight className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-0.5" />

@@ -1,10 +1,10 @@
 import { ArrowRight, Clock, Code2, Brain, BarChart3, Shield } from "lucide-react";
 
-const PRIMARY = "#0084FF";
-const PRIMARY_LIGHT = "rgba(0, 132, 255, 0.2)";
 const FOREGROUND = "#00041A";
 const MUTED = "#737373";
 const CARD_BG = "#FFFFFF";
+const FEATURED_BG = "rgba(0, 132, 255, 0.05)";
+const FEATURED_BORDER = "rgba(0, 132, 255, 0.15)";
 const PAGE_BG = "#FAFAFA";
 const BORDER = "#EBEBEB";
 
@@ -14,24 +14,28 @@ const programs = [
     name: "Full Stack Development with AI",
     tagline: "Build modern web apps from frontend to backend, supercharged with AI tools.",
     duration: "16 weeks",
+    color: "#0084FF",
   },
   {
     icon: Brain,
     name: "AI Engineering",
     tagline: "Design, train and deploy AI models that solve real-world business problems.",
     duration: "20 weeks",
+    color: "#737373",
   },
   {
     icon: BarChart3,
     name: "Data Science & ML",
     tagline: "Turn raw data into actionable insight using Python, ML and visualization.",
     duration: "18 weeks",
+    color: "#FFB718",
   },
   {
     icon: Shield,
     name: "Cybersecurity",
     tagline: "Protect systems and networks against modern threats and vulnerabilities.",
     duration: "14 weeks",
+    color: "#C0311B",
   },
 ];
 
@@ -41,21 +45,25 @@ function FeaturedCard({ program }: { program: typeof programs[0] }) {
     <div
       className="relative flex flex-col overflow-hidden group h-full"
       style={{
-        backgroundColor: PRIMARY,
+        backgroundColor: FEATURED_BG,
         borderRadius: "0.75rem",
+        border: `1px solid ${FEATURED_BORDER}`,
       }}
     >
+      <div
+        style={{ height: "3px", width: "100%", backgroundColor: program.color }}
+      />
       <div className="p-8 flex flex-col flex-1 gap-5">
         <Icon
           className="w-8 h-8"
-          style={{ color: "#FFFFFF" }}
+          style={{ color: program.color }}
           strokeWidth={1.5}
         />
 
         <div className="flex-1">
           <div
             className="text-xs font-semibold uppercase tracking-widest mb-3"
-            style={{ color: "#FFFFFF", fontFamily: "'Archivo', sans-serif" }}
+            style={{ color: MUTED, fontFamily: "'Archivo', sans-serif" }}
           >
             Featured Program
           </div>
@@ -63,15 +71,15 @@ function FeaturedCard({ program }: { program: typeof programs[0] }) {
             className="text-2xl font-bold leading-snug mb-3"
             style={{
               fontFamily: "'Lato', sans-serif",
-              color: "#FFFFFF",
+              color: FOREGROUND,
               letterSpacing: "-0.01em",
             }}
           >
             {program.name}
           </h3>
           <p
-            className="text-sm leading-relaxed"
-            style={{ color: "#FFFFFF", fontFamily: "'Archivo', sans-serif" }}
+            className="text-base leading-relaxed"
+            style={{ color: MUTED, fontFamily: "'Archivo', sans-serif" }}
           >
             {program.tagline}
           </p>
@@ -79,11 +87,11 @@ function FeaturedCard({ program }: { program: typeof programs[0] }) {
 
         <div
           className="flex items-center justify-between pt-4"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.25)" }}
+          style={{ borderTop: `1px solid ${BORDER}` }}
         >
           <div
-            className="flex items-center gap-1.5 text-xs font-medium"
-            style={{ color: "#FFFFFF", fontFamily: "'Archivo', sans-serif" }}
+            className="flex items-center gap-1.5 text-xs"
+            style={{ color: MUTED, fontFamily: "'Archivo', sans-serif" }}
           >
             <Clock className="w-3.5 h-3.5" />
             <span>{program.duration}</span>
@@ -91,8 +99,8 @@ function FeaturedCard({ program }: { program: typeof programs[0] }) {
           <button
             className="flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-md transition-all duration-150"
             style={{
-              backgroundColor: "#FFFFFF",
-              color: PRIMARY,
+              backgroundColor: program.color,
+              color: "#FFFFFF",
               fontFamily: "'Archivo', sans-serif",
             }}
           >
@@ -120,7 +128,7 @@ function SmallCard({ program }: { program: typeof programs[0] }) {
         <div className="flex items-start gap-3">
           <Icon
             className="w-6 h-6 shrink-0 mt-0.5"
-            style={{ color: PRIMARY }}
+            style={{ color: program.color }}
             strokeWidth={1.5}
           />
           <div className="flex-1 min-w-0">
@@ -135,7 +143,7 @@ function SmallCard({ program }: { program: typeof programs[0] }) {
               {program.name}
             </h3>
             <p
-              className="text-xs leading-relaxed mt-1"
+              className="text-sm leading-relaxed mt-1"
               style={{ color: MUTED, fontFamily: "'Archivo', sans-serif" }}
             >
               {program.tagline}
@@ -145,7 +153,7 @@ function SmallCard({ program }: { program: typeof programs[0] }) {
 
         <div className="flex items-center justify-between pt-3" style={{ borderTop: `1px solid ${BORDER}` }}>
           <div
-            className="flex items-center gap-1.5 text-xs font-medium"
+            className="flex items-center gap-1.5 text-xs"
             style={{ color: MUTED, fontFamily: "'Archivo', sans-serif" }}
           >
             <Clock className="w-3.5 h-3.5" />
@@ -153,7 +161,7 @@ function SmallCard({ program }: { program: typeof programs[0] }) {
           </div>
           <button
             className="flex items-center gap-1 text-sm font-semibold transition-all duration-150 group-hover:gap-2"
-            style={{ color: PRIMARY, fontFamily: "'Archivo', sans-serif" }}
+            style={{ color: program.color, fontFamily: "'Archivo', sans-serif" }}
           >
             Explore
             <ArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
