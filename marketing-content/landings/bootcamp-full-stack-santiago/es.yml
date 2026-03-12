@@ -144,7 +144,7 @@ sections:
     section_id: trust_cards-ig991a
     background: hsl(210 100% 50% / 0.05)
     marginY:
-      desktop: none lg
+      desktop: none
   - type: why_learn_ai
     variant: laptop-edge
     title: ¡Desde Cero Hasta Tu Primer Empleo!
