@@ -368,7 +368,7 @@ sections:
     variant: carousel
     pretitle: Customer Stories
     title: Who's Hiring Our Graduates?
-    subtitle: See how 4Geeks empowers graduates of all backgrounds to accelerate their career growth.
+    subtitle: Top companies hire 4Geeks graduates, with 84% landing jobs within 6 months of graduation, thanks to their skills and our personalized career support. Our grads don’t just get hired—they launch successful careers and consistently earn recognition for their technical expertise and professionalism. "I’m continually impressed by the depth of knowledge possessed by 4Geeks students. One of my hires ended up becoming a team leader." - CodeNinjas.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
