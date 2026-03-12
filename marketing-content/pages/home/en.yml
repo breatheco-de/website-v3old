@@ -124,7 +124,6 @@ sections:
     paddingY:
       desktop: none
   - type: features_grid
-    section_id: features_grid-95o7vf
     version: "1.0"
     variant: highlight
     title: Real Outcomes for Our Graduates
@@ -142,6 +141,7 @@ sections:
     columns: 3
     icon_color: "#0097CD"
     background: hsl(var(--secondary))
+    section_id: features_grid-95o7vf
     marginY:
       desktop: none md
   - type: career_support_explain
