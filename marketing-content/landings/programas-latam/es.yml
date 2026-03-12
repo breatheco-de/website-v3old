@@ -67,36 +67,68 @@ sections:
     section_id: hero-3ht3gd
   - type: hero
     version: "1.0"
-    variant: productShowcase
-    welcome_text: Welcome to
+    variant: ApplyFormProductShowcase
+    title: Programas para convertirte en un experto en programación
     brand_mark:
-      prefix: Geek
-      highlight: FORCE
-      suffix: ":"
-      color: chart-5
-    title: Career Development
-    subtitle: for the AI Era
-    description: Get unlimited 1:1 career support designed for your unique profile and goals—for life. From resume and portfolio building to interviews and AI-driven hiring platforms.
+      prefix: Saca el máximo de tu potencial en
+      highlight: 4Geeks Academy
+      color: primary
+    description: Desarrolla habilidades de programación que impulsarán tu perfil profesional y aprende a resolver problemas de manera efectiva con metodologías modernas.
     form:
-      placeholder: Enter your work email
-      button_text: Sign up free →
-      helper_text: Keep work and life separate by using your work email
-    trust_bar:
-      rating: "4.5"
-      review_count: Based on 5149+ reviews
-      review_logos:
-        - name: Google
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/google_1765590146414.webp
-        - name: Course Report
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
-        - name: SwitchUp
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Aplicar al programa
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        last_name:
+          visible: true
+          required: true
+          placeholder: Apellido
+        phone:
+          visible: true
+          required: true
+          default_country: ES
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
+      terms_url: /terminos-condiciones
+      privacy_url: /politica-privacidad
+      consent:
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
+    cta_button:
+      text: Descargar programa
+      url: /programa/ai-engineering
+      variant: outline
+      icon: Download
     video:
-      url: https://storage.googleapis.com/4geeks-academy-website/media/ai-engineering_1765593572918.mp4
+      url: https://youtube.com/shorts/AMqLRJbNZ9I?si=LdQnvspydHMd9ckN
       ratio: "9:16"
       muted: true
-      loop: true
-    section_id: hero-a5c3t1
+    section_id: hero-lt4ge6
+    bullets:
+      - text: Aprende a resolver problemas de manera efectiva con pensamiento computacional.
+      - text: Desarrolla habilidades de aprendizaje autodidacta para mantenerte actualizado en tecnología.
+      - text: Accede a mentorías personalizadas ilimitadas y de por vida.
+      - text: Forma parte de una comunidad internacional de más de 5,000 profesionales.
+    paddingY:
+      mobile: md none
+      desktop: lg none
+    marginY:
+      mobile: none
+      desktop: none
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
   - type: awards_marquee
     section_id: awards_marquee-cz908y
     version: v1.0
