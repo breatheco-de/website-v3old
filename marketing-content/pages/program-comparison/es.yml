@@ -9,6 +9,7 @@ meta:
   description: program comparison - Aprende más sobre este tema en 4Geeks Academy.
   redirects:
     - /comparar-programas
+    - /es/programas
 schema:
   include:
     - organization
@@ -16,7 +17,7 @@ schema:
 sections:
   - type: hero
     section_id: hero-5m2y4d
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Encuentra tu mejor camino en tecnología
     badge: Compara nuestros programas
@@ -27,7 +28,7 @@ sections:
     award_badges:
       - name: Mejor Bootcamp de Programación
         source: Forbes
-        year: "2024"
+        year: '2024'
       - name: Escuela Tecnológica Destacada
         source: Course Report
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
@@ -35,7 +36,7 @@ sections:
       desktop: md none
   - type: comparison_table
     section_id: comparison_table-9ssv52
-    version: "1.0"
+    version: '1.0'
     title: ¿Qué Camino Se Adapta Mejor a Ti?
     subtitle: Compara los programas para ver cuál se alinea con tus intereses, fortalezas y metas. Cada bootcamp de 4Geeks te brindará las habilidades, mentoría y apoyo profesional para prosperar en la carrera que elijas.
     columns:
@@ -107,7 +108,7 @@ sections:
           - Preguntar por disponibilidad. Condiciones Aplican.
       - feature: Es Ideal Para Ti Si
         values:
-          - "Te encanta crear desde cero: sitios web, aplicaciones o herramientas. Disfrutas resolver problemas y la ingeniería de software impulsada por IA. Ideal para quienes cambian de carrera, freelancers o quienes buscan trabajar en startups y empresas tecnológicas."
+          - 'Te encanta crear desde cero: sitios web, aplicaciones o herramientas. Disfrutas resolver problemas y la ingeniería de software impulsada por IA. Ideal para quienes cambian de carrera, freelancers o quienes buscan trabajar en startups y empresas tecnológicas.'
           - Disfrutas trabajar con datos, identificar patrones y resolver problemas reales. Ideal si quieres entrar en roles de IA o basados en datos. Un fondo en matemáticas o negocios ayuda, pero no es obligatorio.
           - Quieres una carrera preparada para el futuro protegiendo datos y sistemas. Perfecto si disfrutas la estrategia, los retos o el cumplimiento normativo, o sueñas con trabajar en seguridad informática, fuerzas del orden o defensa.
       - feature: ¿Listo para comenzar?
@@ -133,7 +134,7 @@ sections:
               - text: Más información
                 url: /es/programas-de-carrera/ciberseguridad
                 variant: outline
-    footer_note: "* Los detalles del programa están sujetos a cambios"
+    footer_note: '* Los detalles del programa están sujetos a cambios'
     showOnLocations:
       - atlanta-usa
       - austin-usa
@@ -148,7 +149,7 @@ sections:
       - toronto-canada
   - type: comparison_table
     section_id: comparison_table-ww5wmv
-    version: "1.0"
+    version: '1.0'
     title: ¿Qué camino se adapta mejor a ti?
     subtitle: Compara los programas para ver cuál se alinea con tus intereses, fortalezas y metas. Cada bootcamp de 4Geeks te brindará las habilidades, mentoría y apoyo profesional para prosperar en la carrera que elijas.
     columns:
@@ -215,7 +216,7 @@ sections:
           - Planes mensuales, descuentos por pago anticipado, préstamos y opciones basadas en ingresos.
       - feature: Es Ideal Para Ti Si
         values:
-          - "Te encanta crear desde cero: sitios web, aplicaciones o herramientas. Disfrutas resolver problemas y la ingeniería de software impulsada por IA. Ideal para quienes cambian de carrera, freelancers o quienes buscan trabajar en startups y empresas tecnológicas."
+          - 'Te encanta crear desde cero: sitios web, aplicaciones o herramientas. Disfrutas resolver problemas y la ingeniería de software impulsada por IA. Ideal para quienes cambian de carrera, freelancers o quienes buscan trabajar en startups y empresas tecnológicas.'
           - Disfrutas trabajar con datos, identificar patrones y resolver problemas reales. Ideal si quieres entrar en roles de IA o basados en datos. Un fondo en matemáticas o negocios ayuda, pero no es obligatorio.
           - Quieres una carrera preparada para el futuro protegiendo datos y sistemas. Perfecto si disfrutas la estrategia, los retos o el cumplimiento normativo, o sueñas con trabajar en seguridad informática, fuerzas del orden o defensa.
       - feature: ¿Listo para comenzar?
@@ -241,7 +242,7 @@ sections:
               - text: Más información
                 url: /es/programas-de-carrera/ciberseguridad
                 variant: outline
-    footer_note: "* Los detalles del programa están sujetos a cambios"
+    footer_note: '* Los detalles del programa están sujetos a cambios'
     showOnLocations:
       - barcelona-spain
       - berlin-germany
@@ -256,7 +257,7 @@ sections:
       - valencia-spain
   - type: comparison_table
     section_id: comparison_table-f6o91l
-    version: "1.0"
+    version: '1.0'
     title: ¿Qué Camino Se Adapta Mejor a Ti?
     subtitle: Compara los programas para ver cuál se alinea con tus intereses, fortalezas y metas. Cada bootcamp de 4Geeks te brindará las habilidades, mentoría y apoyo profesional para prosperar en la carrera que elijas.
     columns:
@@ -323,7 +324,7 @@ sections:
           - Planes mensuales, descuentos por pago anticipado y financiamientos.
       - feature: Es Ideal Para Ti Si
         values:
-          - "Te encanta crear desde cero: sitios web, aplicaciones o herramientas. Disfrutas resolver problemas y la ingeniería de software impulsada por IA. Ideal para quienes cambian de carrera, freelancers o quienes buscan trabajar en startups y empresas tecnológicas."
+          - 'Te encanta crear desde cero: sitios web, aplicaciones o herramientas. Disfrutas resolver problemas y la ingeniería de software impulsada por IA. Ideal para quienes cambian de carrera, freelancers o quienes buscan trabajar en startups y empresas tecnológicas.'
           - Disfrutas trabajar con datos, identificar patrones y resolver problemas reales. Ideal si quieres entrar en roles de IA o basados en datos. Un fondo en matemáticas o negocios ayuda, pero no es obligatorio.
           - Quieres una carrera preparada para el futuro protegiendo datos y sistemas. Perfecto si disfrutas la estrategia, los retos o el cumplimiento normativo, o sueñas con trabajar en seguridad informática, fuerzas del orden o defensa.
       - feature: ¿Listo para comenzar?
@@ -349,7 +350,7 @@ sections:
               - text: Más información
                 url: /es/programas-de-carrera/ciberseguridad
                 variant: outline
-    footer_note: "* Los detalles del programa están sujetos a cambios"
+    footer_note: '* Los detalles del programa están sujetos a cambios'
     showOnLocations:
       - bogota-colombia
       - buenosaires-argentina
@@ -363,7 +364,7 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
     show_dismiss: false
@@ -398,10 +399,10 @@ sections:
     section_id: sticky_cta-kjqv4c
   - type: course_selector
     section_id: course_selector-9hlwf6
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Inversión del Programa
-    subheading: "<span style=\"font-size: 1.125rem;\">Consulta la matrícula y las opciones de financiamiento para cada programa.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Aplican términos y condiciones.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
+    subheading: '<span style="font-size: 1.125rem;">Consulta la matrícula y las opciones de financiamiento para cada programa.&nbsp;<div></div></span><div><span style="font-size: 0.875rem;">*La Garantía de Empleo no está disponible en todas las regiones.<span style="color: hsl(var(--primary));"> <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Aplican términos y condiciones.</a></span><a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></span></div>'
     courses:
       - name: AI Engineering
         icon: Brain
@@ -430,9 +431,9 @@ sections:
           - icon: CheckCircle
             text: Califica para 10% de descuento por pago anticipado y cuotas sin interés.
         tags:
-          - icon: ""
-            text: ""
-        description: "Domina el desarrollo web moderno desde frontend hasta backend y crea aplicaciones listas para producción utilizando herramientas estándar de la industria.  "
+          - icon: ''
+            text: ''
+        description: 'Domina el desarrollo web moderno desde frontend hasta backend y crea aplicaciones listas para producción utilizando herramientas estándar de la industria.  '
         price: {{ global.price_fullstack | $299 }}
         price_info: o menos según tu plan
         cta_text: Ver detalles del programa
@@ -499,10 +500,10 @@ sections:
       - santiago-chile
   - type: course_selector
     section_id: course_selector-2yos2e
-    version: "1.0"
+    version: '1.0'
     variant: solid
     heading: Inversión del Programa
-    subheading: "<span style=\"font-size: 1.125rem;\">Consulta la matrícula y las opciones de financiamiento para cada programa.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en Europa.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Aplican términos y condiciones.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
+    subheading: '<span style="font-size: 1.125rem;">Consulta la matrícula y las opciones de financiamiento para cada programa.&nbsp;<div></div></span><div><span style="font-size: 0.875rem;">*La Garantía de Empleo no está disponible en Europa.<span style="color: hsl(var(--primary));"> <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Aplican términos y condiciones.</a></span><a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></span></div>'
     courses:
       - name: AI Engineering
         icon: Brain
@@ -531,9 +532,9 @@ sections:
           - icon: CheckCircle
             text: Descubre las becas disponibles según tu perfil y las opciones de financiación que pueden ayudarte a dar el paso.*
         tags:
-          - icon: ""
-            text: ""
-        description: "Domina el desarrollo web moderno desde frontend hasta backend y crea aplicaciones listas para producción utilizando herramientas estándar de la industria.  "
+          - icon: ''
+            text: ''
+        description: 'Domina el desarrollo web moderno desde frontend hasta backend y crea aplicaciones listas para producción utilizando herramientas estándar de la industria.  '
         price: {{ global.price_fullstack | $299 }}
         price_info: Cuota estimada desde 200 €/mes financiando con los partners de 4Geeks tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
         cta_text: Ver detalles del programa
