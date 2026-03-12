@@ -431,7 +431,6 @@ sections:
       mobile: lg none
       desktop: lg none
   - type: certificate
-    section_id: certificate-kjomox
     title: Resultados de carrera
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
     benefits:
@@ -459,23 +458,24 @@ sections:
           - text: Optimiza tu currículum, portafolio y perfil profesional para atraer recruiters y superar filtros automatizados
           - text: Prepárate para entrevistas técnicas y de competencias con casos reales
           - text: Aplica una estrategia de búsqueda personalizada con acceso a redes de empresas contratantes
-      - value: 55%
+      - value: 40%
         label: Aumento salarial promedio
-        description: Nuestros graduados ven un aumento salarial promedio del 55% al pasar a roles de ingeniería de IA. La inversión se paga sola.
+        description: Nuestros graduados ven un aumento salarial promedio del 40% al pasar a roles de ingeniería de IA. La inversión se paga sola.
         benefits:
           - text: "Ingeniero de software IA: $720K-$1.08M MXN"
           - text: "Ingeniero full-stack (IA): $840K-$1.32M MXN"
           - text: "Ingeniero de IA: $900K-$1.40M MXN"
           - text: "Ingeniero de automatización de flujos (RAG, APIs, vector DBs): $660K-$1.00M MXN"
-      - value: 5,000+
+      - value: 400+
         label: Empresas que contratan nuestro talento
-        description: Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
+        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
         benefits:
           - text: Acceso exclusivo a bolsa de empleo
           - text: Recomendaciones directas a empresas colaboradoras
           - text: Eventos de networking con recruiters y responsables de selección
     certificate_position: right
     useSolidCard: true
+    section_id: certificate-kjomox
     marginY:
       mobile: none
       desktop: none
