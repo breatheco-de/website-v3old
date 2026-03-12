@@ -205,12 +205,12 @@ sections:
         title: 5,000+ Graduates Employed
         description: Over 5,000 alumni working at companies like Microsoft, Meta, eBay, TikTok, Kaseya, and National Geographic worldwide.
     footer_description: Results based on graduate employment surveys. Full methodology available in our annual Outcomes Report.
-    background: hsl(var(--secondary))
+    background: hsl(var(--muted))
+    section_id: ai_learning-1b3p06
     marginY:
       desktop: none lg
     paddingY:
       desktop: none
-    section_id: ai_learning-1b3p06
   - type: features_grid
     section_id: features_grid-pq7av7
     version: "1.0"
