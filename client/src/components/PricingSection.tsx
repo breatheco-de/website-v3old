@@ -173,7 +173,7 @@ export function PricingSection({ data }: PricingSectionProps) {
                           >
                             {data.financing_amount}
                           </span>
-                          {data.financing_period && <span className="text-white text-sm font-normal">{data.financing_period}</span>}
+                          <span className="text-white text-sm font-normal">{data.financing_period ?? "/mo"}</span>
                         </div>
                       )}
                     </div>
