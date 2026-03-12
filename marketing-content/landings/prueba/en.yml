@@ -194,7 +194,7 @@ sections:
     cards:
       - icon: TrendingUp
         title: 86% Hiring Rate
-        description: 86% of US graduates land a tech role within 90 days of graduation — as reported in our 2025 Mid-Year Outcomes Report.
+        description: US graduates land a tech role within 90 days of graduation, as reported in our 2025 Mid-Year Outcomes Report.
       - icon: Clock
         title: 3 Months to Hired
         description: In 2025, the average US graduate is landing their first role in ~3 months — a 25% improvement over the prior year.
