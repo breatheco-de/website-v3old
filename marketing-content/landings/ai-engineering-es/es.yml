@@ -439,7 +439,6 @@ sections:
       mobile: lg none
       desktop: lg none
   - type: certificate
-    section_id: certificate-hhwnq2
     title: Resultados de carrera
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
     benefits:
@@ -475,15 +474,16 @@ sections:
           - text: "Ingeniero full-stack (IA): $25K–$40K"
           - text: "Ingeniero de  de IA: $25K–$50K"
           - text: "Ingeniero de automatización de flujos (RAG, APIs, vector DBs): $25K–$60K"
-      - value: 5,000+
+      - value: 400+
         label: Empresas que contratan nuestro talento
-        description: Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
+        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
         benefits:
           - text: Acceso exclusivo a bolsa de empleo
           - text: Recomendaciones directas a empresas colaboradoras
           - text: Eventos de networking con recruiters y responsables de selección
     certificate_position: right
     useSolidCard: true
+    section_id: certificate-hhwnq2
     marginY:
       mobile: none
       desktop: none
