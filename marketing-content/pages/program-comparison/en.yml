@@ -226,11 +226,13 @@ sections:
           - $80K to $120K
       - feature: Bootcamp Schedule
         values:
+          - x
           - Part-Time (20 weeks).
           - Part-Time (18 weeks).
           - Part-Time (16 weeks).
       - feature: Course Delivery
         values:
+          - x
           - Online.
           - Online.
           - Online.
