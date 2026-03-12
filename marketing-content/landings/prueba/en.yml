@@ -198,7 +198,7 @@ sections:
       - icon: Clock
         title: 3 Months to Hired
         description: In 2025, the average US graduate is landing their first role in ~3 months — a 25% improvement over the prior year.
-      - icon: DollarSign
+      - icon: IconZoomMoney
         title: 41% Average Salary Increase
         description: 2024 US graduates reported a 41% median salary increase after completing the program. The median post-graduation salary was $56,000.
       - icon: Users
