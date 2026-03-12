@@ -36,7 +36,7 @@ sections:
       highlight: Ingeniero de IA
       suffix: y construye sistemas reales, listos para producción.
       color: primary
-    description: Aprende a desarrollar, integrar y desplegar soluciones de IA en 24 semanas con mentoría 1:1 ilimitada y una comunidad profesional que acompaña tu crecimiento profesional.
+    description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando, en 24 semanas.
     form:
       variant: stacked
       conversion_name: student_application
@@ -83,6 +83,10 @@ sections:
       ratio: "9:16"
       muted: true
     section_id: hero-byj387
+    bullets:
+      - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
+      - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
+      - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
     paddingY:
       mobile: md none
       desktop: lg none
