@@ -329,7 +329,7 @@ sections:
       desktop: none
     paddingY:
       mobile: lg
-      desktop: md lg
+      desktop: lg
     background: hsl(var(--secondary))
   - type: pricing
     version: "1.0"
