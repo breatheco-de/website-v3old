@@ -171,13 +171,13 @@ sections:
       - tampa-usa
       - toronto-canada
   - type: comparison_table
-    section_id: comparison_table-0yx5qx
     version: "1.0"
     title: Which Path Fits You Best?
     subtitle: Compare programs to see which one aligns with your interests, strengths, and goals. Every 4Geeks bootcamp will equip you with the skills, mentorship, and career support to thrive in the career of your choice.
     columns:
       - name: Category
         highlight: true
+      - name: AI Engineering
       - name: Full Stack Development with AI
       - name: Data Science & Machine Learning with AI
       - name: Cybersecurity
@@ -266,6 +266,7 @@ sections:
                 url: /en/career-programs/cybersecurity
                 variant: outline
     footer_note: "* Program details subject to change"
+    section_id: comparison_table-0yx5qx
     marginY:
       desktop: none
     showOnLocations:
