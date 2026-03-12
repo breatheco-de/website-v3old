@@ -22,6 +22,7 @@ sections:
     brand_mark:
       prefix: Conviértete en
       highlight: Ingeniero de IA
+      suffix: y construye sistemas reales en producción
       color: primary
     description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando, en 24 semanas.
     form:
