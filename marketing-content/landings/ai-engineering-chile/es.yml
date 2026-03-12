@@ -433,7 +433,6 @@ sections:
       mobile: lg none
       desktop: lg none
   - type: certificate
-    section_id: certificate-b2fmef
     title: Resultados de carrera
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
     benefits:
@@ -460,9 +459,9 @@ sections:
           - text: Optimiza tu currículum, portafolio y perfil profesional para atraer recruiters y superar filtros automatizados
           - text: Prepárate para entrevistas técnicas y de competencias con casos reales
           - text: Aplica una estrategia de búsqueda personalizada con acceso a redes de empresas contratantes
-      - value: 55%
+      - value: 40%
         label: Aumento salarial promedio
-        description: Nuestros graduados ven un aumento salarial promedio del 55% al pasar a roles de ingeniería de IA. La inversión se paga sola.
+        description: Nuestros graduados ven un aumento salarial promedio del 40% al pasar a roles de ingeniería de IA. La inversión se paga sola.
         benefits:
           - text: "Ingeniero de software IA: CLP $15.6M-$30M"
           - text: "Ingeniero full-stack (IA): CLP $18M-$33.6M"
@@ -477,6 +476,7 @@ sections:
           - text: Eventos de networking con recruiters y responsables de selección
     certificate_position: right
     useSolidCard: true
+    section_id: certificate-b2fmef
     marginY:
       mobile: none
       desktop: none
