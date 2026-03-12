@@ -24,7 +24,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: ApplyFormProductShowcase
-    title: Desarrolla aplicaciones web modernas integradas con IA
+    title: ""
     brand_mark:
       prefix: Conviértete en Programador Full Stack con IA en
       highlight: 4Geeks Academy
