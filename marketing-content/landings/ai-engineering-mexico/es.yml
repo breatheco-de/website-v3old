@@ -74,6 +74,10 @@ sections:
       ratio: "9:16"
       muted: true
     section_id: hero-3gutfh
+    bullets:
+      - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
+      - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
+      - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
     paddingY:
       mobile: md none
       desktop: lg none
