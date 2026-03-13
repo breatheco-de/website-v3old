@@ -12,8 +12,13 @@ sections:
       - text: Aprende a resolver problemas de manera efectiva
       - text: Desarrolla habilidades de aprendizaje autodidacta
       - text: Accede a mentorías personalizadas ilimitadas y de por vida
-      - text: Forma parte de una comunidad internacional de más de 5,000 personas
-    image_object_fit: none
+    video:
+      url: https://www.youtube.com/shorts/ksGWXcccpc8
+      ratio: "9:15"
+      muted: true
+      autoplay: true
+      loop: true
+      preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-13-145607.png
     form:
       variant: stacked
       conversion_name: student_application
@@ -27,7 +32,7 @@ sections:
         first_name:
           visible: true
           required: true
-          placeholder: Nombre completo
+          placeholder: Nombre
         last_name:
           visible: true
           required: true
@@ -43,28 +48,20 @@ sections:
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
-        sms: true
         marketing: true
         marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
-        sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
-        sms_usa_only: true
       show_terms: true
-    form_vertical_align: bottom
     form_card_background: hsl(210 100% 50% / 0.05)
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Rellena el formulario y obtén más información
     form_card_subtitle: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-    show_awards_marquee: false
-    video_title: GeekForce Career Support
-    marginY:
-      desktop: none
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    section_id: hero-qcon9h
+    background: hsl(210 100% 50% / 0.05)
     paddingY:
-      desktop: md lg
-    marginX:
-      desktop: none
-    section_id: hero-3ht3gd
+      desktop: md none
+    marginY:
+      desktop: none lg
   - type: awards_marquee
     section_id: awards_marquee-cz908y
     version: v1.0
