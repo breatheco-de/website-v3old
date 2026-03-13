@@ -699,32 +699,6 @@ sections:
     paddingY:
       mobile: none
       desktop: none
-  - type: testimonials
-    section_id: testimonials-azphn1
-    title: Real Results from Real Graduates
-    subtitle: Join thousands who've transformed their careers
-    rating_summary:
-      average: "4.7"
-      count: 1,294
-    items:
-      - name: Sarah Johnson
-        role: AI Engineer
-        company: Google
-        rating: 5
-        comment: This course completely transformed my career. The instructors are incredibly knowledgeable and the curriculum is perfect for real-world AI applications.
-        outcome: +55% salary increase
-      - name: Michael Chen
-        role: ML Engineer
-        company: Meta
-        rating: 5
-        comment: Best investment I ever made. Got a job offer before even finishing the program!
-        outcome: Hired in 4 months
-      - name: Emily Rodriguez
-        role: AI Engineer
-        company: Amazon
-        rating: 5
-        comment: Excellent content and great mentor support. Now I'm working on cutting-edge AI.
-        outcome: +100% salary increase
   - type: cta_banner
     section_id: cta_banner-55y7oh
     version: "1.0"
