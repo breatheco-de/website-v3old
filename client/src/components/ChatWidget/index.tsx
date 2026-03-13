@@ -172,8 +172,8 @@ export function ChatWidget() {
     <>
       {isOpen && (
         <div
-          className="fixed bottom-20 right-4 w-[380px] max-w-[calc(100vw-2rem)] bg-background border border-border rounded-md shadow-lg flex flex-col overflow-hidden"
-          style={{ height: "500px", zIndex: 9998 }}
+          className="fixed right-4 w-[380px] max-w-[calc(100vw-2rem)] bg-background border border-border rounded-md shadow-lg flex flex-col overflow-hidden"
+          style={{ height: "500px", bottom: "80px", zIndex: 9998 }}
           data-testid="chat-widget-panel"
         >
           <div className="flex items-center justify-between gap-2 px-4 py-3 border-b bg-primary text-primary-foreground">
