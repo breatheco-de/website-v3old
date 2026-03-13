@@ -232,7 +232,7 @@ sections:
       desktop: none
     paddingY:
       mobile: none md
-      desktop: none md
+      desktop: none sm
   - type: syllabus
     variant: program-modules
     program_title: What You'll Build in 24 Weeks
@@ -384,7 +384,7 @@ sections:
       desktop: none
     paddingY:
       mobile: lg none
-      desktop: lg none
+      desktop: md none
   - type: ai_learning
     section_id: ai_learning-xiuj75
     badge: Why 4Geeks?
