@@ -495,7 +495,7 @@ sections:
   - type: bento_cards
     version: "1.0"
     title: Is This Program Right for You?
-    subtitle: Three signs this is your next move.
+    subtitle: If you're nodding at all four, you're ready.
     description: ""
     items:
       - icon: Clock
@@ -507,6 +507,9 @@ sections:
       - icon: Users
         title: You thrive with structure and support
         description: Clear milestones, expert instructors, and unlimited 1:1 mentorship every step of the way.
+      - icon: Sparkles
+        title: You want a future-proof career
+        description: You're ready to move into one of the fastest-growing, highest-paying fields of the next decade — and you want the skills to back it up.
     background: bg-background
     section_id: bento_cards-895utc
   - type: testimonials
