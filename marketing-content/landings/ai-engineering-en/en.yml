@@ -499,17 +499,17 @@ sections:
       - label: Collaborative documents
         description: |-
           You're ready to commit:
-          20–24 hours/week for 24 weeks of live classes, real projects, and hands-on work. You bring the commitment, we deliver the results.
+          20–24 hours/week for 24 weeks — live classes, real projects, real intensity.
         image_id: placeholder_career_guidance
       - label: Inline comments
         description: |-
           You want a career, not a certificate:
-          You're not here to learn about AI — you're here to build with it, land a high-paying role, and make a real career change.
+          You're here to build with AI, land a high-paying role, and make a real career change.
         image_id: placeholder_mentorship
       - label: Text-to-issue commands
         description: |-
           You thrive with structure and support:
-          Clear milestones, expert guidance, and people moving toward the same goal — unlimited 1:1 mentorship included.
+          Clear milestones, expert instructors, and unlimited 1:1 mentorship every step of the way.
         image_id: placeholder_strategies
     image_position: right
     section_id: bullet_tabs_showcase-7bd03u
