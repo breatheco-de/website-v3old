@@ -5,6 +5,14 @@
  * Used by both CLI and API.
  */
 
+export interface FixHint {
+  type: "api" | "script" | "llm" | "manual";
+  label: string;
+  fixerName?: string;
+  command?: string;
+  promptTemplate?: string;
+}
+
 export interface ValidationIssue {
   type: "error" | "warning";
   code: string;
@@ -12,6 +20,7 @@ export interface ValidationIssue {
   file?: string;
   line?: number;
   suggestion?: string;
+  fix?: FixHint;
 }
 
 export interface ValidatorResult {

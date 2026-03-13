@@ -6,11 +6,14 @@ import { escapeTemplateVars, unescapeObjectVars } from "../shared/templateVars";
 import type { ImageRegistry, ImageEntry } from "@shared/schema";
 import { media } from "./media";
 import { markFileAsModified } from "./sync-state";
+import { processImageBuffer } from "./image-optimizer";
+import type { Preset } from "./image-optimizer";
 
 const MARKETING_CONTENT_DIR = path.join(process.cwd(), "marketing-content");
 const MARKETING_IMAGES_DIR = path.join(MARKETING_CONTENT_DIR, "images");
 const REGISTRY_PATH = path.join(MARKETING_CONTENT_DIR, "image-registry.json");
 const IMAGE_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".webp", ".svg", ".avif", ".gif"]);
+const OPTIMIZABLE_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".webp", ".avif"]);
 const VIDEO_EXTENSIONS = new Set([".mp4", ".webm", ".mov", ".ogg", ".m4v"]);
 const MEDIA_EXTENSIONS = new Set([...IMAGE_EXTENSIONS, ...VIDEO_EXTENSIONS]);
 const SCREENSHOT_PATTERNS = [/^Screenshot_/i, /^Captura_/i, /^Capture_/i, /^Screen[\s_]?Shot/i];
@@ -154,9 +157,9 @@ class MediaGallery {
     return Object.entries(registry.presets).map(([name, preset]) => ({ name, ...preset }));
   }
 
-  getUsage(imageId: string, imageSrc?: string): string[] {
+  getUsage(imageId: string, imageSrc?: string, srcsetUrls?: string[]): string[] {
     if (!this.contentIndex) return [];
-    return this.contentIndex.getImageUsage(imageId, imageSrc);
+    return this.contentIndex.getImageUsage(imageId, imageSrc, srcsetUrls);
   }
 
   private async checkExists(src: string): Promise<boolean> {
@@ -507,14 +510,43 @@ class MediaGallery {
     this.saveRegistry(registry);
   }
 
-  unregister(id: string): { success: boolean; error?: string; usedIn?: string[] } {
+  private async deletePhysicalFiles(imageEntry: ImageEntry): Promise<string[]> {
+    const errors: string[] = [];
+    try {
+      await media.delete(imageEntry.src);
+    } catch (err) {
+      const msg = `Failed to delete primary file ${imageEntry.src}: ${err instanceof Error ? err.message : String(err)}`;
+      console.warn(`[MediaGallery] ${msg}`);
+      errors.push(msg);
+    }
+    if (imageEntry.srcset) {
+      for (const entry of imageEntry.srcset) {
+        try {
+          await media.delete(entry.url);
+        } catch (err) {
+          const msg = `Failed to delete srcset variant ${entry.url}: ${err instanceof Error ? err.message : String(err)}`;
+          console.warn(`[MediaGallery] ${msg}`);
+          errors.push(msg);
+        }
+      }
+    }
+    return errors;
+  }
+
+  private getSrcsetUrls(imageEntry: ImageEntry): string[] {
+    if (!imageEntry.srcset) return [];
+    return imageEntry.srcset.map(e => e.url);
+  }
+
+  async unregister(id: string): Promise<{ success: boolean; error?: string; usedIn?: string[]; cleanupErrors?: string[] }> {
     const registry = this.getRegistry();
     if (!registry) return { success: false, error: "Failed to load registry" };
 
     const imageEntry = registry.images[id];
     if (!imageEntry) return { success: false, error: `Image "${id}" not found in registry` };
 
-    const usedIn = this.getUsage(id, imageEntry.src);
+    const srcsetUrls = this.getSrcsetUrls(imageEntry);
+    const usedIn = this.getUsage(id, imageEntry.src, srcsetUrls);
     if (usedIn.length > 0) {
       return {
         success: false,
@@ -525,10 +557,12 @@ class MediaGallery {
 
     delete (registry.images as Record<string, any>)[id];
     this.saveRegistry(registry);
-    return { success: true };
+
+    const cleanupErrors = await this.deletePhysicalFiles(imageEntry);
+    return { success: true, ...(cleanupErrors.length > 0 ? { cleanupErrors } : {}) };
   }
 
-  bulkUnregister(ids: string[]): { results: Array<{ id: string; success: boolean; message: string }>; deletedCount: number } {
+  async bulkUnregister(ids: string[]): Promise<{ results: Array<{ id: string; success: boolean; message: string }>; deletedCount: number }> {
     const registry = this.getRegistry();
     if (!registry) {
       return {
@@ -537,19 +571,21 @@ class MediaGallery {
       };
     }
 
-    const results: Array<{ id: string; success: boolean; message: string }> = [];
+    const resultMap = new Map<string, { id: string; success: boolean; message: string }>();
     let deletedCount = 0;
+    const entriesToDelete: Array<{ id: string; entry: ImageEntry }> = [];
 
     for (const imageId of ids) {
       const imageEntry = registry.images[imageId];
       if (!imageEntry) {
-        results.push({ id: imageId, success: false, message: "Not found in registry" });
+        resultMap.set(imageId, { id: imageId, success: false, message: "Not found in registry" });
         continue;
       }
 
-      const usedIn = this.getUsage(imageId, imageEntry.src);
+      const srcsetUrls = this.getSrcsetUrls(imageEntry);
+      const usedIn = this.getUsage(imageId, imageEntry.src, srcsetUrls);
       if (usedIn.length > 0) {
-        results.push({
+        resultMap.set(imageId, {
           id: imageId,
           success: false,
           message: `Referenced in ${usedIn.length} file(s): ${usedIn.join(", ")}`,
@@ -557,15 +593,25 @@ class MediaGallery {
         continue;
       }
 
+      entriesToDelete.push({ id: imageId, entry: imageEntry });
       delete (registry.images as Record<string, any>)[imageId];
       deletedCount++;
-      results.push({ id: imageId, success: true, message: "Deleted" });
     }
 
     if (deletedCount > 0) {
       this.saveRegistry(registry);
     }
 
+    for (const { id: imageId, entry } of entriesToDelete) {
+      const cleanupErrors = await this.deletePhysicalFiles(entry);
+      if (cleanupErrors.length > 0) {
+        resultMap.set(imageId, { id: imageId, success: true, message: `Deleted (file cleanup issues: ${cleanupErrors.join("; ")})` });
+      } else {
+        resultMap.set(imageId, { id: imageId, success: true, message: "Deleted" });
+      }
+    }
+
+    const results = ids.map(id => resultMap.get(id)!);
     return { results, deletedCount };
   }
 
@@ -722,7 +768,53 @@ class MediaGallery {
 
     this.existenceCache.clear();
 
+    if (OPTIMIZABLE_EXTENSIONS.has(ext)) {
+      this.optimizeInBackground(uniqueId, data, src, opts?.tags || []);
+    }
+
     return { id: uniqueId, src, alt };
+  }
+
+  private optimizeInBackground(id: string, buffer: Buffer, src: string, tags: string[]): void {
+    const registry = this.getRegistry();
+    if (!registry) return;
+
+    const presets = registry.presets as Record<string, Preset>;
+
+    processImageBuffer(id, buffer, src, tags, presets)
+      .then((result) => {
+        if (!result) {
+          console.log(`[MediaGallery] Background optimization produced no variants for "${id}"`);
+          return;
+        }
+
+        const currentRegistry = this.getRegistry();
+        if (!currentRegistry) return;
+
+        const existing = currentRegistry.images[id];
+        if (!existing) {
+          console.log(`[MediaGallery] Image "${id}" no longer in registry, skipping optimization update`);
+          return;
+        }
+
+        (currentRegistry.images as Record<string, any>)[id] = {
+          ...existing,
+          width: result.width,
+          height: result.height,
+          preset: result.preset,
+          widths_generated: result.widths_generated,
+          format: result.format,
+          srcset: result.srcset,
+        };
+
+        this.saveRegistry(currentRegistry);
+        console.log(
+          `[MediaGallery] Optimized "${id}": ${result.width}x${result.height} → ${result.srcset.length} variant(s) [${result.preset.join(", ")}]`
+        );
+      })
+      .catch((err) => {
+        console.error(`[MediaGallery] Background optimization failed for "${id}":`, err);
+      });
   }
 
   removeDuplicates(duplicateGroups: DuplicateGroup[]): {
@@ -850,6 +942,13 @@ class MediaGallery {
     }
 
     return { resolved, errors };
+  }
+
+  persistRegistry(): void {
+    const registry = this.getRegistry();
+    if (registry) {
+      this.saveRegistry(registry);
+    }
   }
 
   private saveRegistry(registry: ImageRegistry): void {

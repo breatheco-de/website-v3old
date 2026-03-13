@@ -4,11 +4,13 @@ import {
   IconArrowLeft,
   IconArrowRight,
   IconBook,
+  IconBrain,
   IconBrandGithub,
   IconCheck,
   IconChevronRight,
   IconCloudDownload,
   IconComponents,
+  IconCookie,
   IconDatabase,
   IconDeviceDesktop,
   IconDeviceMobile,
@@ -17,6 +19,7 @@ import {
   IconMap,
   IconMapPin,
   IconMenu2,
+  IconMessageCircle,
   IconMoon,
   IconPencil,
   IconPhoto,
@@ -27,6 +30,8 @@ import {
   IconSun,
   IconX,
 } from "@tabler/icons-react";
+import { badgeVariants } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { normalizeLocale } from "@/lib/locale";
@@ -92,6 +97,8 @@ export interface DebugPanelContentProps {
   setSitemapExpanded: (v: boolean) => void;
   componentsExpanded: boolean;
   setComponentsExpanded: (v: boolean) => void;
+  aiAgentsExpanded: boolean;
+  setAiAgentsExpanded: (v: boolean) => void;
   cacheClearStatus: string;
   clearSitemapCache: () => void;
   redirectsList: Array<{ from: string; to: string }>;
@@ -557,6 +564,31 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               />
             </ExpandableMenuItem>
 
+            <ExpandableMenuItem
+              icon={IconBrain}
+              label="AI & Agents"
+              expanded={props.aiAgentsExpanded}
+              onToggle={() => {
+                props.setAiAgentsExpanded(!props.aiAgentsExpanded);
+              }}
+              testId="button-ai-agents-toggle"
+            >
+              <MenuItem
+                icon={IconPencil}
+                label="Knowledge Editor"
+                href="/private/ai-knowledge"
+                indicator="arrow"
+                testId="link-ai-knowledge"
+              />
+              <MenuItem
+                icon={IconMessageCircle}
+                label="Conversation Review"
+                href="/private/ai-conversations"
+                indicator="arrow"
+                testId="link-ai-conversations"
+              />
+            </ExpandableMenuItem>
+
             <MenuItem
               icon={IconPhoto}
               label="Media Gallery"
@@ -687,16 +719,47 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
           </div>
 
           <div className="border-t p-2 space-y-1">
-            <div className="space-y-0.5">
               <div className="flex items-center justify-between px-3 py-1.5">
                 <div className="flex items-center gap-2">
-                  <IconDatabase className="h-3.5 w-3.5 text-muted-foreground" />
+                  <IconCookie className="h-3.5 w-3.5 text-muted-foreground" />
                   <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Session</span>
                   {!props.hasToken && (
                     <span className="text-xs text-amber-600 dark:text-amber-400">(no auth)</span>
                   )}
                 </div>
                 <div className="flex items-center gap-1">
+                  <button
+                    className={cn(badgeVariants({ variant: "outline" }), "cursor-pointer text-xs gap-1 no-default-active-elevate")}
+                    onClick={() => {
+                      props.setSelectedLocationSlug(props.session.location?.slug || "");
+                      props.setLocationModalOpen(true);
+                    }}
+                    data-testid="button-location-override"
+                    title={props.currentLocationOverride ? `Location override: ${props.currentLocationOverride}` : 'Click to override location'}
+                  >
+                    <IconMapPin className="h-3 w-3" />
+                    <span className="max-w-[80px] truncate">{props.session.location?.name || 'Detecting...'}</span>
+                  </button>
+                  <button
+                    className={cn(badgeVariants({ variant: "outline" }), "cursor-pointer text-xs gap-1 no-default-active-elevate")}
+                    onClick={props.toggleLanguage}
+                    data-testid="button-toggle-language"
+                    title="Click to toggle language"
+                  >
+                    <IconLanguage className="h-3 w-3" />
+                    <span>{props.currentLang.toUpperCase()}</span>
+                  </button>
+                  <button
+                    className={cn(badgeVariants({ variant: "outline" }), "cursor-pointer text-xs gap-1 no-default-active-elevate")}
+                    onClick={props.toggleTheme}
+                    data-testid="button-toggle-theme"
+                    title="Click to toggle theme"
+                  >
+                    {props.theme === "light"
+                      ? <IconSun className="h-3 w-3" />
+                      : <IconMoon className="h-3 w-3" />}
+                    <span className="capitalize">{props.theme}</span>
+                  </button>
                   <button
                     onClick={props.handleCheckSession}
                     disabled={props.isCheckingSession}
@@ -716,57 +779,6 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   </button>
                 </div>
               </div>
-
-              <div className="pl-2 space-y-0.5">
-                <button
-                  onClick={() => {
-                    props.setSelectedLocationSlug(props.session.location?.slug || "");
-                    props.setLocationModalOpen(true);
-                  }}
-                  className="flex items-center justify-between w-full px-3 py-2 rounded-md text-sm hover-elevate"
-                  data-testid="button-location-override"
-                >
-                  <div className="flex items-center gap-3">
-                    <IconMapPin className="h-4 w-4 text-muted-foreground" />
-                    <span>Location</span>
-                    {props.currentLocationOverride && (
-                      <span className="text-xs text-muted-foreground">(override)</span>
-                    )}
-                  </div>
-                  <code className="text-xs bg-muted px-2 py-1 rounded max-w-[100px] truncate">
-                    {props.session.location?.name || 'Detecting...'}
-                  </code>
-                </button>
-
-                <button
-                  onClick={props.toggleLanguage}
-                  className="flex items-center justify-between w-full px-3 py-2 rounded-md text-sm hover-elevate"
-                  data-testid="button-toggle-language"
-                >
-                  <div className="flex items-center gap-3">
-                    <IconLanguage className="h-4 w-4 text-muted-foreground" />
-                    <span>Language</span>
-                  </div>
-                  <span className="text-xs font-medium bg-muted px-2 py-1 rounded">{props.currentLang}</span>
-                </button>
-              </div>
-            </div>
-
-            <button
-              onClick={props.toggleTheme}
-              className="flex items-center justify-between w-full px-3 py-2 rounded-md text-sm hover-elevate"
-              data-testid="button-toggle-theme"
-            >
-              <div className="flex items-center gap-3">
-                {props.theme === "light" ? (
-                  <IconSun className="h-4 w-4 text-muted-foreground" />
-                ) : (
-                  <IconMoon className="h-4 w-4 text-muted-foreground" />
-                )}
-                <span>Theme</span>
-              </div>
-              <span className="text-xs font-medium bg-muted px-2 py-1 rounded capitalize">{props.theme}</span>
-            </button>
           </div>
         </>
       ) : props.menuView === "components" ? (

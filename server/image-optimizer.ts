@@ -1,0 +1,235 @@
+import fs from "fs";
+import path from "path";
+import sharp from "sharp";
+import { gcs } from "./gcs";
+import type { ImageEntry, ImageRegistry } from "@shared/schema";
+
+export interface SrcsetEntry {
+  w: number;
+  url: string;
+}
+
+export interface Preset {
+  aspect_ratio: string | null;
+  widths: number[];
+  quality: number;
+  description: string;
+}
+
+const TAG_TO_PRESET: Record<string, string> = {
+  logo: "logo",
+  avatar: "avatar",
+  icon: "icon",
+  badge: "icon",
+  certification: "icon",
+  award: "icon",
+  hero: "hero-wide",
+};
+
+export function inferPresets(tags: string[], presets: Record<string, Preset>): string[] {
+  const matched = new Set<string>();
+  for (const tag of tags) {
+    const preset = TAG_TO_PRESET[tag];
+    if (preset && presets[preset]) {
+      matched.add(preset);
+    }
+  }
+  if (matched.size === 0) {
+    matched.add("full");
+  }
+  return Array.from(matched);
+}
+
+export function mergeWidths(presetNames: string[], presets: Record<string, Preset>): { widths: number[]; quality: number } {
+  const allWidths = new Set<number>();
+  let maxQuality = 80;
+  for (const name of presetNames) {
+    const p = presets[name];
+    if (p) {
+      for (const w of p.widths) allWidths.add(w);
+      if (p.quality > maxQuality) maxQuality = p.quality;
+    }
+  }
+  return {
+    widths: Array.from(allWidths).sort((a, b) => a - b),
+    quality: maxQuality,
+  };
+}
+
+export function srcExtension(src: string): string {
+  try {
+    const url = new URL(src);
+    return path.extname(url.pathname).toLowerCase();
+  } catch {
+    return path.extname(src).toLowerCase();
+  }
+}
+
+export function gcsKeyFromSrc(src: string): string | null {
+  if (!gcs.available) return null;
+  const prefix = `https://storage.googleapis.com/${gcs.getBucketName()}/`;
+  if (src.startsWith(prefix)) {
+    return src.slice(prefix.length);
+  }
+  return null;
+}
+
+export function variantKey(originalKey: string, width: number, ext: string): string {
+  const parsed = path.parse(originalKey);
+  const dir = parsed.dir ? `${parsed.dir}/` : "";
+  return `${dir}${parsed.name}-${width}w${ext}`;
+}
+
+export function outputFormat(originalExt: string): { sharpFormat: keyof sharp.FormatEnum; ext: string; registryFormat: "webp" | "avif" } {
+  if (originalExt === ".avif") {
+    return { sharpFormat: "avif", ext: ".avif", registryFormat: "avif" };
+  }
+  return { sharpFormat: "webp", ext: ".webp", registryFormat: "webp" };
+}
+
+export function contentTypeForExt(ext: string): string {
+  const map: Record<string, string> = {
+    ".webp": "image/webp",
+    ".avif": "image/avif",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+  };
+  return map[ext] || "application/octet-stream";
+}
+
+export async function downloadImage(src: string): Promise<Buffer | null> {
+  const key = gcsKeyFromSrc(src);
+  if (key) {
+    return gcs.download(key);
+  }
+  if (src.startsWith("/marketing-content/images/")) {
+    const localPath = path.resolve(process.cwd(), src.slice(1));
+    try {
+      return fs.readFileSync(localPath);
+    } catch {
+      return null;
+    }
+  }
+  try {
+    const resp = await fetch(src);
+    if (!resp.ok) return null;
+    return Buffer.from(await resp.arrayBuffer());
+  } catch {
+    return null;
+  }
+}
+
+export interface ProcessImageResult {
+  width: number;
+  height: number;
+  preset: string[];
+  widths_generated: number[];
+  format: "webp" | "avif";
+  srcset: SrcsetEntry[];
+}
+
+export async function processImageBuffer(
+  id: string,
+  buffer: Buffer,
+  src: string,
+  tags: string[],
+  presets: Record<string, Preset>,
+  dryRun: boolean = false,
+): Promise<ProcessImageResult | null> {
+  let metadata: sharp.Metadata;
+  try {
+    metadata = await sharp(buffer).metadata();
+  } catch (err) {
+    console.error(`[ImageOptimizer] ${id}: sharp metadata failed: ${(err as Error).message}`);
+    return null;
+  }
+
+  const intrinsicWidth = metadata.width || 0;
+  const intrinsicHeight = metadata.height || 0;
+
+  if (!intrinsicWidth || !intrinsicHeight) {
+    console.error(`[ImageOptimizer] ${id}: could not determine dimensions`);
+    return null;
+  }
+
+  const presetNames = inferPresets(tags, presets);
+  const { widths, quality } = mergeWidths(presetNames, presets);
+
+  const filteredWidths = widths.filter(w => w <= intrinsicWidth);
+  if (filteredWidths.length === 0) {
+    filteredWidths.push(intrinsicWidth);
+  }
+
+  const origExt = srcExtension(src);
+  const { sharpFormat, ext: outExt, registryFormat } = outputFormat(origExt);
+  const originalKey = gcsKeyFromSrc(src);
+
+  if (!originalKey && !dryRun) {
+    console.log(`[ImageOptimizer] ${id}: skipping optimization — local provider does not support variant generation (src: ${src})`);
+    return {
+      width: intrinsicWidth,
+      height: intrinsicHeight,
+      preset: presetNames,
+      widths_generated: [],
+      format: registryFormat,
+      srcset: [],
+    };
+  }
+
+  const srcset: SrcsetEntry[] = [];
+  const widthsGenerated: number[] = [];
+
+  for (const w of filteredWidths) {
+    const vKey = originalKey ? variantKey(originalKey, w, outExt) : `media/${id}-${w}w${outExt}`;
+
+    if (dryRun) {
+      const vUrl = gcs.getPublicUrl(vKey);
+      srcset.push({ w, url: vUrl });
+      widthsGenerated.push(w);
+      continue;
+    }
+
+    try {
+      const { data: resized, info } = await sharp(buffer)
+        .resize({ width: w, withoutEnlargement: true })
+        .toFormat(sharpFormat, { quality })
+        .toBuffer({ resolveWithObject: true });
+
+      const actualWidth = info.width;
+      const vUrl = await gcs.upload(vKey, resized, contentTypeForExt(outExt));
+      srcset.push({ w: actualWidth, url: vUrl });
+      widthsGenerated.push(actualWidth);
+    } catch (err) {
+      console.error(`[ImageOptimizer] ${id}: failed to process ${w}w: ${(err as Error).message}`);
+    }
+  }
+
+  if (srcset.length === 0) {
+    return null;
+  }
+
+  return {
+    width: intrinsicWidth,
+    height: intrinsicHeight,
+    preset: presetNames,
+    widths_generated: widthsGenerated,
+    format: registryFormat,
+    srcset,
+  };
+}
+
+export async function processImageFromSrc(
+  id: string,
+  entry: { src: string; tags?: string[] },
+  presets: Record<string, Preset>,
+  dryRun: boolean = false,
+): Promise<ProcessImageResult | null> {
+  const buffer = await downloadImage(entry.src);
+  if (!buffer) {
+    console.error(`[ImageOptimizer] ${id}: failed to download ${entry.src}`);
+    return null;
+  }
+
+  return processImageBuffer(id, buffer, entry.src, entry.tags || [], presets, dryRun);
+}

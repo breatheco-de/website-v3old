@@ -1,5 +1,21 @@
-import { media } from "../server/media";
-import { mediaGallery } from "../server/media-gallery";
+/**
+ * Admin script: migrate-to-cloud
+ *
+ * Migrates images between media providers (e.g. local → GCS or GCS → local).
+ *
+ * Usage:
+ *   npx tsx scripts/admin/migrate-to-cloud.ts <from> <to> [--dry-run] [--prefix=<path>]
+ *
+ * Examples:
+ *   npx tsx scripts/admin/migrate-to-cloud.ts local gcs --dry-run
+ *   npx tsx scripts/admin/migrate-to-cloud.ts local gcs --prefix=marketing-content/images
+ *   npx tsx scripts/admin/migrate-to-cloud.ts gcs local
+ *
+ * Available providers: local, gcs
+ */
+
+import { media } from "../../server/media";
+import { mediaGallery } from "../../server/media-gallery";
 
 const args = process.argv.slice(2);
 const flags = new Set(args.filter(a => a.startsWith("--")));
@@ -11,12 +27,12 @@ const dryRun = flags.has("--dry-run");
 const prefix = args.find(a => a.startsWith("--prefix="))?.split("=")[1];
 
 if (!positional[0] || !positional[1]) {
-  console.log("Usage: npx tsx scripts/migrate-to-cloud.ts <from> <to> [--dry-run] [--prefix=images]");
+  console.log("Usage: npx tsx scripts/admin/migrate-to-cloud.ts <from> <to> [--dry-run] [--prefix=images]");
   console.log("");
   console.log("Examples:");
-  console.log("  npx tsx scripts/migrate-to-cloud.ts local gcs --dry-run");
-  console.log("  npx tsx scripts/migrate-to-cloud.ts local gcs --prefix=marketing-content/images");
-  console.log("  npx tsx scripts/migrate-to-cloud.ts gcs local");
+  console.log("  npx tsx scripts/admin/migrate-to-cloud.ts local gcs --dry-run");
+  console.log("  npx tsx scripts/admin/migrate-to-cloud.ts local gcs --prefix=marketing-content/images");
+  console.log("  npx tsx scripts/admin/migrate-to-cloud.ts gcs local");
   console.log("");
   console.log("Available providers: local, gcs");
   process.exit(1);

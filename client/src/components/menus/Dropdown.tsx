@@ -1,6 +1,9 @@
-import { useState, useRef, useLayoutEffect, useCallback, useEffect } from "react";
+import { useState, useRef, useLayoutEffect as _useLayoutEffect, useCallback, useEffect } from "react";
 import { ChevronDown, ChevronRight, Code, BarChart3, Shield, Brain, Medal, GraduationCap, Building } from "lucide-react";
 import { useInternalNav } from "@/hooks/useInternalNav";
+
+// Falls back to useEffect during SSR to suppress the useLayoutEffect server warning
+const useLayoutEffect = typeof window !== "undefined" ? _useLayoutEffect : useEffect;
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   code: Code,

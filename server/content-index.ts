@@ -784,7 +784,7 @@ class ContentIndex {
     return urls;
   }
 
-  getImageUsage(imageId: string, imageSrc?: string): string[] {
+  getImageUsage(imageId: string, imageSrc?: string, srcsetUrls?: string[]): string[] {
     this.ensureInitialized();
     const files = new Set<string>();
     const byId = this.imageUsage.get(imageId);
@@ -795,6 +795,14 @@ class ContentIndex {
       const bySrc = this.imageUsage.get(imageSrc);
       if (bySrc) {
         bySrc.forEach(f => files.add(f));
+      }
+    }
+    if (srcsetUrls) {
+      for (const url of srcsetUrls) {
+        const bySrcset = this.imageUsage.get(url);
+        if (bySrcset) {
+          bySrcset.forEach(f => files.add(f));
+        }
       }
     }
     return Array.from(files);

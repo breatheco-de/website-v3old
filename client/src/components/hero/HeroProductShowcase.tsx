@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Marquee from "react-fast-marquee";
+import Marquee from "@/lib/marquee";
 import type {
   HeroProductShowcase as HeroProductShowcaseType,
   HeroApplyFormProductShowcase,

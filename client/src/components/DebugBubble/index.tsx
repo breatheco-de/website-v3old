@@ -342,6 +342,7 @@ export function DebugBubble() {
   const [menuView, setMenuViewState] = useState<MenuView>(getPersistedMenuView);
   const [sitemapExpanded, setSitemapExpanded] = useState(false);
   const [componentsExpanded, setComponentsExpanded] = useState(false);
+  const [aiAgentsExpanded, setAiAgentsExpanded] = useState(false);
 
   // Wrapper to persist menu view changes to sessionStorage
   const setMenuView = (view: MenuView) => {
@@ -1555,6 +1556,8 @@ export function DebugBubble() {
     setSitemapExpanded,
     componentsExpanded,
     setComponentsExpanded,
+    aiAgentsExpanded,
+    setAiAgentsExpanded,
     cacheClearStatus,
     clearSitemapCache,
     redirectsList,

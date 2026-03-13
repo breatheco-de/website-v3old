@@ -272,44 +272,46 @@ sections:
     paddingY:
       desktop: md
   - type: ai_learning
-    section_id: ai_learning-x6w1fi
     variant: feature-tabs
     badge: Why 4Geeks?
-    title: How You'll Learn at 4Geeks
-    description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.
+    title: The Most Personalized Path to a Cybersecurity Career
+    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support — every part of the experience is built around you, not a classroom of thirty.
     features:
       - icon: Robot
-        title: Progress faster with AI-powered tools
+        title: AI-powered feedback that never sleeps
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Get instant feedback from Rigobot, our custom AI tutor
-          - text: Gives advice adjusted to your skill level and progress
-          - text: Helps with debugging and problem-solving tasks
-          - text: Access hundreds of interactive security exercises on Learnpack
+          - text: Instant feedback from Rigobot, our custom AI tutor
+          - text: Advice adjusted to your skill level and progress
+          - text: 24/7 help with debugging and problem-solving
+          - text: Hundreds of interactive coding exercises and tests
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-      - icon: TrendingUp
-        title: Thrive in tech with career support for the AI-Era
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Personalized 1:1 coaching
-          - text: AI-ready resumes and portfolios
-          - text: Interview prep and salary negotiation
-          - text: Lifelong access to support your growth
-        video_url: https://youtu.be/-2ZvlgDnltc
       - icon: Headset
-        title: Unlimited 1:1 mentorship and an active community
+        title: Unlimited 1:1 mentorship, for life
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Lifelong access to 1:1 mentorship sessions
-          - text: 7:1 student–teacher ratio for personalized guidance
-          - text: Peer collaboration through Slack channels and weekly check-ins
-          - text: Dedicated Slack channels for coding support, job boards, and career advice
+          - text: Lifelong access to 1:1 technical mentorship
+          - text: {{ global.global_teacher_student_ratio | 7:1 }} student-to-instructor ratio
+          - text: Weekly check-ins and peer collaboration via Slack
+          - text: Dedicated channels for coding support, job boards, and career advice
         image_id: community-support-cropped
-    paddingY:
+      - icon: TrendingUp
+        title: Career support built for the AI job market
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Personalized 1:1 career coaching
+          - text: Resume and portfolio built to pass AI-based screening
+          - text: Interview prep and salary negotiation
+          - text: Lifelong access to career coaching and job support
+        video_url: https://youtu.be/-2ZvlgDnltc
+    section_id: ai_learning-0lvau9
+    marginY:
       desktop: md none
+    paddingY:
+      desktop: md
   - type: certificate
     section_id: certificate-10xpo6
     title: Industry Certifications and Career Outcomes
@@ -359,21 +361,23 @@ sections:
     useSolidCard: true
     paddingY:
       desktop: none md
-  - type: why_learn_ai
-    section_id: why_learn_ai-1zysrw
-    variant: laptop-edge
-    title: Enroll with a Job Guarantee* for Extra Confidence
-    subtitle: Back your career outcome with a stronger commitment
-    description: Our optional job guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a href="/en/job-guarantee">Terms and conditions apply.</a></div>
-    cta:
-      text: Get more info
-      url: /en/job-guarantee
-      variant: primary
-    marginY:
-      desktop: md
-    paddingY:
-      desktop: none sm
+  - type: features_grid
+    variant: highlight
+    title: Get Hired. Or Your Money Back.
+    subtitle: "Add our optional Job Guarantee* to your payment plan and graduate with total confidence. Complete the program, follow the GeekFORCE career process, and if you're not hired within 9 months — we refund you.&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
+    items:
+      - icon: Star
+        title: Add the Job Guarantee* to your payment plan
+      - icon: Users
+        title: Complete the program and follow the GeekFORCE career process
+      - icon: Award
+        title: Get hired within 9 months — or we refund you
+    columns: 3
+    icon_color: "#0097CD"
     background: hsl(var(--secondary))
+    section_id: features_grid-k6g3d6
+    paddingY:
+      desktop: lg none
     showOnLocations:
       - atlanta-usa
       - austin-usa
@@ -394,11 +398,10 @@ sections:
       - montevideo-uruguay
       - panamacity-panama
   - type: pricing
-    section_id: pricing-nmicxv
     version: "1.0"
     variant: product
     title: Tuition & Financing Options
-    subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
+    subtitle: Investing in a new career matters. We make it easier with multiple ways to fund your enrollment.
     discount_text: "Full payment discount: Save 10% with upfront payment."
     financing_text: "Credit-based financing: starting below"
     financing_amount: {{ global.price_cybersecurity | $299 }}
@@ -427,6 +430,7 @@ sections:
       text: Get more info
       url: "#apply-modal"
       variant: primary
+    section_id: pricing-nmicxv
     marginY:
       desktop: none md
     paddingY:
@@ -455,11 +459,10 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: pricing
-    section_id: pricing-d1cwvc
     version: "1.0"
     variant: product
     title: Tuition and Financing Options
-    subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
+    subtitle: Investing in a new career matters. We make it easier with multiple ways to finance your enrollment.
     discount_text: "Full payment discount: Save 10% with early payment."
     financing_text: Installment financing starting from
     financing_amount: {{ global.price_cybersecurity | 299€ }}
@@ -485,6 +488,7 @@ sections:
       text: Get more information
       url: /es/apply
       variant: primary
+    section_id: pricing-d1cwvc
     marginY:
       desktop: none md
     paddingY:

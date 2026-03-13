@@ -124,6 +124,11 @@ export const imagesValidator: Validator = {
           code: "IMAGE_ID_NOT_IN_REGISTRY",
           message: `Referenced image_id "${id}" not found in image registry`,
           suggestion: "Add this image to marketing-content/image-registry.json or fix the reference",
+          fix: {
+            type: "api",
+            label: "Sync image registry (scan for new images)",
+            fixerName: "image-registry-sync",
+          },
         });
       }
     });
@@ -142,6 +147,11 @@ export const imagesValidator: Validator = {
             message: `Image file not found on disk: ${entry.src}`,
             file: REGISTRY_PATH,
             suggestion: `Check that the file exists at ${srcPath} or update the registry entry for "${id}"`,
+            fix: {
+              type: "api",
+              label: "Sync image registry (detect updated paths)",
+              fixerName: "image-registry-sync",
+            },
           });
         }
       }

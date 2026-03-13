@@ -1,7 +1,17 @@
+/**
+ * @migration 002_migrate_locale_images_to_marketing_folder
+ * @description Copies images referenced as /attached_assets/* in the image registry
+ * and YAML content files to marketing-content/images/ and updates all paths.
+ * Idempotent — safe to re-run; files already at the destination are skipped.
+ *
+ * Usage:
+ *   npx tsx scripts/migrations/002_migrate_locale_images_to_marketing_folder.ts [--dry-run]
+ */
+
 import * as fs from "fs";
 import * as path from "path";
 
-const ROOT = path.resolve(__dirname, "..");
+const ROOT = path.resolve(__dirname, "../..");
 const ATTACHED_ASSETS_DIR = path.join(ROOT, "attached_assets");
 const MARKETING_IMAGES_DIR = path.join(ROOT, "marketing-content", "images");
 const REGISTRY_PATH = path.join(ROOT, "marketing-content", "image-registry.json");
@@ -130,17 +140,17 @@ function run(dryRun: boolean): MigrationResult {
 const dryRun = process.argv.includes("--dry-run");
 const mode = dryRun ? "DRY RUN" : "LIVE";
 
-console.log(`\n=== Image Migration (${mode}) ===\n`);
-console.log(`Source: attached_assets/`);
+console.log(`\n=== [Migration 002] Image Migration (${mode}) ===\n`);
+console.log(`Source:      attached_assets/`);
 console.log(`Destination: marketing-content/images/\n`);
 
 const result = run(dryRun);
 
-console.log(`Files copied:          ${result.copied.length}`);
-console.log(`Already in destination: ${result.alreadyExists.length}`);
-console.log(`Missing from source:   ${result.missing.length}`);
+console.log(`Files copied:             ${result.copied.length}`);
+console.log(`Already in destination:   ${result.alreadyExists.length}`);
+console.log(`Missing from source:      ${result.missing.length}`);
 console.log(`Registry entries updated: ${result.registryUpdated}`);
-console.log(`YAML files updated:      ${result.yamlUpdated}`);
+console.log(`YAML files updated:       ${result.yamlUpdated}`);
 
 if (result.missing.length > 0) {
   console.log(`\nMissing files (not found in either location):`);
@@ -150,9 +160,13 @@ if (result.missing.length > 0) {
 if (result.copied.length > 0 && dryRun) {
   console.log(`\nFiles that would be copied:`);
   result.copied.slice(0, 20).forEach((f) => console.log(`  - ${f}`));
-  if (result.copied.length > 20) {
-    console.log(`  ... and ${result.copied.length - 20} more`);
-  }
+  if (result.copied.length > 20) console.log(`  ... and ${result.copied.length - 20} more`);
+}
+
+if (result.alreadyExists.length > 0 && dryRun) {
+  console.log(`\nFiles already in destination (registry refs would be updated):`);
+  result.alreadyExists.slice(0, 20).forEach((f) => console.log(`  - ${f}`));
+  if (result.alreadyExists.length > 20) console.log(`  ... and ${result.alreadyExists.length - 20} more`);
 }
 
 if (dryRun) {

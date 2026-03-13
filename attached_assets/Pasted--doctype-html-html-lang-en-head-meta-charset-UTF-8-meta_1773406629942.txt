@@ -1,0 +1,113 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1"
+    />
+
+    <!-- Google Tag Manager - Initialize dataLayer before GTM loads -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+    </script>
+
+    <!-- Google Tag Manager - Replace GTM-XXXXXXX with your container ID -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-PGGRR6");
+    </script>
+
+    <title>
+      The AI Reskilling Platform - Learn Tech Skills with AI-Powered Guidance
+    </title>
+    <meta
+      name="description"
+      content="Transform your career with The AI Reskilling Platform. Learn coding, data science, and tech skills with AI tools, real-time feedback, and expert guidance. Join 2,500+ successful learners."
+    />
+
+    <link rel="canonical" href="https://ai-reskilling-platform.replit.app/" />
+
+    <meta
+      property="og:title"
+      content="The AI Reskilling Platform - Learn Tech Skills with AI-Powered Guidance"
+    />
+    <meta
+      property="og:description"
+      content="Transform your career with AI-powered learning. Master coding, data science, and tech skills with real-time feedback and expert guidance."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://ai-reskilling-platform.replit.app/"
+    />
+    <meta property="og:site_name" content="The AI Reskilling Platform" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="The AI Reskilling Platform - Learn Tech Skills with AI-Powered Guidance"
+    />
+    <meta
+      name="twitter:description"
+      content="Transform your career with AI-powered learning. Master coding, data science, and tech skills with real-time feedback and expert guidance."
+    />
+
+    <meta
+      name="keywords"
+      content="coding bootcamp, tech education, AI learning, reskilling, programming courses, career transformation, online learning platform"
+    />
+    <meta name="author" content="The AI Reskilling Platform" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link
+      rel="preload"
+      href="/fonts/lato-regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/lato-bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/tabler-flags.min.css" />
+    <script type="module" crossorigin src="/assets/index-C9zxmmDc.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DGGXUD_r.css">
+  <link rel="alternate" hreflang="en" href="https://4geeksacademy.com/en/outcomes" />
+<link rel="alternate" hreflang="es" href="https://4geeksacademy.com/es/resultados" />
+<link rel="alternate" hreflang="x-default" href="https://4geeksacademy.com/en/outcomes" />
+<script type="application/ld+json" data-ssr="true">{"@context":"https://schema.org","@type":"EducationalOrganization","name":"4Geeks Academy","url":"https://4geeks.com","logo":"https://4geeks.com/wp-content/uploads/2024/01/4geeks-logo.png","description":"4Geeks Academy is a coding bootcamp that helps people transition into tech careers with AI-powered learning tools, unlimited mentorship, and career support.","foundingDate":"2015","founder":[{"@type":"Person","name":"Alejandro Sanchez"},{"@type":"Person","name":"Marcelo Ricigliano"}],"sameAs":["https://twitter.com/4GeeksAcademy","https://www.linkedin.com/school/4geeksacademy/","https://www.facebook.com/4geeksacademy","https://www.instagram.com/4geeksacademy/","https://www.youtube.com/c/4GeeksAcademy","https://github.com/4GeeksAcademy"],"aggregateRating":{"@type":"AggregateRating","ratingValue":4.5,"reviewCount":2500,"bestRating":5,"worstRating":1},"contactPoint":{"@type":"ContactPoint","contactType":"customer service","email":"info@4geeks.com"},"address":{"@type":"PostalAddress","addressCountry":"US"}}</script>
+<script type="application/ld+json" data-ssr="true">{"@context":"https://schema.org","@type":"WebSite","name":"4Geeks Academy","url":"https://4geeks.com","description":"Learn to code with AI-powered tools, unlimited mentorship, and career support. Join thousands of graduates who have transformed their careers.","potentialAction":{"@type":"SearchAction","target":"https://4geeks.com/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json" data-ssr="true">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the certificate recognized by employers?","acceptedAnswer":{"@type":"Answer","text":"Yes! Our certificate is recognized by employers worldwide. We're licensed by the Florida Department of Education and have been featured by Forbes, Newsweek, and Course Report as one of the top coding bootcamps."}},{"@type":"Question","name":"Will I receive a certificate of completion, and what does it include?","acceptedAnswer":{"@type":"Answer","text":"Yes. After meeting graduation requirements, you receive a 4Geeks Academy certificate of completion that validates the program you finished and the core skills covered. You can add it to LinkedIn and include it in your resume alongside your portfolio projects."}},{"@type":"Question","name":"Where can I see outcomes and graduate results for my location?","acceptedAnswer":{"@type":"Answer","text":"You can review our outcomes and graduate results on the Outcomes page, including placement metrics and other performance indicators when available. Outcomes vary by location and market conditions, so use them as a benchmark and ask admissions for the most relevant context."}}]}</script>
+</head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-PGGRR6"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <div id="root"></div>
+  </body>
+</html>

@@ -1,4 +1,4 @@
-import type { Express } from "express";
+import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import * as fs from "fs";
@@ -3970,17 +3970,24 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     const locale = req.query.locale as string | undefined;
     const menusDir = path.join(process.cwd(), "marketing-content", "menus");
 
-    // Build filename based on locale (e.g., main-navbar.es.yml for Spanish)
-    const fileBaseName =
-      locale && locale !== getDefaultLocale() ? `${name}.${locale}` : name;
+    let filePath: string | null = null;
 
-    // Try both .yml and .yaml extensions
-    let filePath = path.join(menusDir, `${fileBaseName}.yml`);
-    if (!fs.existsSync(filePath)) {
-      filePath = path.join(menusDir, `${fileBaseName}.yaml`);
+    if (locale && locale !== getDefaultLocale()) {
+      const localizedBase = `${name}.${locale}`;
+      const localizedYml = path.join(menusDir, `${localizedBase}.yml`);
+      const localizedYaml = path.join(menusDir, `${localizedBase}.yaml`);
+      if (fs.existsSync(localizedYml)) filePath = localizedYml;
+      else if (fs.existsSync(localizedYaml)) filePath = localizedYaml;
     }
 
-    if (!fs.existsSync(filePath)) {
+    if (!filePath) {
+      const baseYml = path.join(menusDir, `${name}.yml`);
+      const baseYaml = path.join(menusDir, `${name}.yaml`);
+      if (fs.existsSync(baseYml)) filePath = baseYml;
+      else if (fs.existsSync(baseYaml)) filePath = baseYaml;
+    }
+
+    if (!filePath) {
       res.status(404).json({ error: "Menu not found" });
       return;
     }
@@ -8422,9 +8429,9 @@ sections: []
     res.json(registry);
   });
 
-  app.delete("/api/image-registry/:id", (req, res) => {
+  app.delete("/api/image-registry/:id", async (req, res) => {
     try {
-      const result = mediaGallery.unregister(req.params.id);
+      const result = await mediaGallery.unregister(req.params.id);
       if (!result.success) {
         const status = result.usedIn ? 409 : 404;
         res.status(status).json({
@@ -8437,20 +8444,21 @@ sections: []
       res.json({
         success: true,
         message: `Deleted "${req.params.id}" from registry`,
+        ...(result.cleanupErrors ? { cleanupErrors: result.cleanupErrors } : {}),
       });
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Delete failed" });
     }
   });
 
-  app.post("/api/image-registry/bulk-delete", (req, res) => {
+  app.post("/api/image-registry/bulk-delete", async (req, res) => {
     try {
       const { ids } = req.body as { ids?: string[] };
       if (!ids || !Array.isArray(ids) || ids.length === 0) {
         res.status(400).json({ error: "Missing or empty 'ids' array" });
         return;
       }
-      const { results, deletedCount } = mediaGallery.bulkUnregister(ids);
+      const { results, deletedCount } = await mediaGallery.bulkUnregister(ids);
       res.json({ results, deletedCount, totalRequested: ids.length });
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Bulk delete failed" });
@@ -8590,6 +8598,17 @@ sections: []
     }
   });
 
+  app.post("/api/image-registry/scripts/remove-unused", async (req, res) => {
+    try {
+      const { dryRun } = req.body as { dryRun?: boolean };
+      const { removeUnusedImages } = await import("../scripts/admin/remove-unused-images");
+      const result = await removeUnusedImages({ dryRun: dryRun ?? false });
+      res.json(result);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || "Remove unused images failed" });
+    }
+  });
+
   const mediaUpload = multer({
     storage: multer.memoryStorage(),
     limits: { fileSize: 100 * 1024 * 1024 },
@@ -8637,6 +8656,85 @@ sections: []
       }
     },
   );
+
+  app.post("/api/image-registry/optimize-batch", async (req, res) => {
+    try {
+      const { ids } = req.body as { ids?: string[] };
+      const registry = mediaGallery.getRegistry();
+      if (!registry) {
+        res.status(500).json({ error: "Failed to load image registry" });
+        return;
+      }
+
+      const { processImageFromSrc } = await import("./image-optimizer");
+      const presets = registry.presets as Record<string, import("./image-optimizer").Preset>;
+      const rasterExtensions = new Set([".png", ".jpg", ".jpeg", ".webp", ".avif"]);
+
+      const getExt = (src: string): string => {
+        try { return path.extname(new URL(src).pathname).toLowerCase(); }
+        catch { return path.extname(src).toLowerCase(); }
+      };
+
+      let targetIds: string[];
+      if (ids && Array.isArray(ids) && ids.length > 0) {
+        targetIds = ids.filter(id => {
+          const entry = registry.images[id];
+          if (!entry) return false;
+          return rasterExtensions.has(getExt(entry.src));
+        });
+      } else {
+        targetIds = Object.entries(registry.images)
+          .filter(([_id, entry]) => {
+            const ext = getExt(entry.src);
+            if (!rasterExtensions.has(ext)) return false;
+            const hasSrcset = Array.isArray(entry.srcset) && entry.srcset.length > 0;
+            return !hasSrcset;
+          })
+          .map(([id]) => id);
+      }
+
+      if (targetIds.length === 0) {
+        res.json({ queued: 0, message: "No images need optimization" });
+        return;
+      }
+
+      res.json({ queued: targetIds.length, message: `Queued ${targetIds.length} image(s) for background optimization` });
+
+      (async () => {
+        let processed = 0;
+        let failed = 0;
+        for (const id of targetIds) {
+          const entry = registry.images[id];
+          if (!entry) continue;
+          try {
+            const result = await processImageFromSrc(id, entry, presets);
+            if (result) {
+              entry.width = result.width;
+              entry.height = result.height;
+              entry.preset = result.preset;
+              entry.widths_generated = result.widths_generated;
+              entry.format = result.format;
+              entry.srcset = result.srcset;
+              processed++;
+              if (processed % 10 === 0) {
+                mediaGallery.persistRegistry();
+                console.log(`[OptimizeBatch] Progress: ${processed}/${targetIds.length} processed, ${failed} failed`);
+              }
+            } else {
+              failed++;
+            }
+          } catch (err) {
+            failed++;
+            console.error(`[OptimizeBatch] Error processing ${id}:`, err);
+          }
+        }
+        mediaGallery.persistRegistry();
+        console.log(`[OptimizeBatch] Complete: ${processed} processed, ${failed} failed out of ${targetIds.length} total`);
+      })().catch(err => console.error("[OptimizeBatch] Background processing error:", err));
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || "Batch optimize failed" });
+    }
+  });
 
   // ============================================
   // Validation API Endpoints
@@ -8725,6 +8823,51 @@ sections: []
       console.error("Validation prompt error:", error);
       res.status(500).json({
         error: "Validation prompt failed",
+        message: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
+  });
+
+  // Generate a focused LLM prompt scoped to a specific promptTemplate key
+  // Used when multiple validators share the same fix.promptTemplate and a combined prompt is more useful
+  app.post("/api/validation/fix-prompt", async (req, res) => {
+    try {
+      const { promptTemplate, validators: validatorNames } = req.body as {
+        promptTemplate?: string;
+        validators?: string[];
+      };
+      const { formatAsLlmPrompt } = await import("../scripts/validation/reporting/llm-prompt");
+      const service = getValidationService();
+      service.clearContext();
+      await service.buildContext();
+      const result = await service.runValidators({
+        validators: validatorNames,
+        includeArtifacts: false,
+      });
+      if (promptTemplate) {
+        for (const v of result.validators) {
+          v.errors = v.errors.filter((i: any) => i.fix?.promptTemplate === promptTemplate);
+          v.warnings = v.warnings.filter((i: any) => i.fix?.promptTemplate === promptTemplate);
+        }
+        result.validators = result.validators.filter(
+          (v) => v.errors.length > 0 || v.warnings.length > 0
+        );
+      }
+      const issueCount = result.validators.reduce(
+        (n, v) => n + v.errors.length + v.warnings.length,
+        0,
+      );
+      const prompt = formatAsLlmPrompt(result);
+      res.json({
+        prompt,
+        promptTemplate: promptTemplate ?? null,
+        validatorNames: result.validators.map((v) => v.name),
+        issueCount,
+      });
+    } catch (error) {
+      console.error("Fix-prompt error:", error);
+      res.status(500).json({
+        error: "Fix prompt failed",
         message: error instanceof Error ? error.message : "Unknown error",
       });
     }
@@ -8831,6 +8974,37 @@ sections: []
     const service = getValidationService();
     service.clearContext();
     res.json({ success: true, message: "Validation cache cleared" });
+  });
+
+  // Run a named fixer
+  app.post("/api/validation/fix/:fixerName", async (req, res) => {
+    try {
+      const { fixerName } = req.params;
+      const { getFixer } = await import("../scripts/validation/fixers/index");
+      const fixer = getFixer(fixerName);
+      if (!fixer) {
+        res.status(404).json({ error: `Fixer "${fixerName}" not found` });
+        return;
+      }
+      const result = await fixer.run(req.body || {});
+      res.json(result);
+    } catch (error) {
+      console.error("Fixer error:", error);
+      res.status(500).json({
+        error: "Fixer failed",
+        message: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
+  });
+
+  // List available fixers
+  app.get("/api/validation/fixers", async (_req, res) => {
+    try {
+      const { listFixers } = await import("../scripts/validation/fixers/index");
+      res.json(listFixers());
+    } catch (error) {
+      res.status(500).json({ error: "Failed to list fixers" });
+    }
   });
 
   // ============================================
@@ -9781,6 +9955,468 @@ sections: []
     }
   });
 
+  // ============================================
+  // AI Chat Widget Routes (public)
+  // ============================================
+
+  interface ParsedLLMConfig {
+    provider?: { api_key_env?: string; base_url_env?: string };
+    model?: string | { default: string; chat?: string };
+    temperature?: number;
+    max_tokens?: number;
+    question_tags?: string[];
+    agent_tools?: Array<{ name: string; description: string; enabled: boolean }>;
+    chat_bubble?: { enabled?: boolean; page_patterns?: string[]; content_types?: string[]; agent_name?: string; agent_icon?: string };
+    prompt_role?: string;
+    prompt_personality?: string;
+    prompt_instructions?: string;
+    prompt_fallback?: string;
+    empty_conversation_grace_minutes?: number;
+  }
+
+  function loadLLMConfig(): ParsedLLMConfig {
+    const llmPath = path.resolve("marketing-content/llm.yml");
+    if (!fs.existsSync(llmPath)) return {};
+    const raw = yaml.load(fs.readFileSync(llmPath, "utf-8"));
+    if (!raw || typeof raw !== "object") return {};
+    return raw as ParsedLLMConfig;
+  }
+
+  function loadFeatureTags(): string[] {
+    const settingsPath = path.resolve("marketing-content/settings.yml");
+    if (!fs.existsSync(settingsPath)) return [];
+    const raw = yaml.load(fs.readFileSync(settingsPath, "utf-8"));
+    if (!raw || typeof raw !== "object") return [];
+    const settings = raw as Record<string, unknown>;
+    return Array.isArray(settings.feature_tags) ? settings.feature_tags : [];
+  }
+
+  function deriveFeatureTags(
+    contentType: string | null,
+    pageUrl: string | null,
+    allTags: string[]
+  ): string[] {
+    const tags: string[] = [];
+    if (contentType && allTags.includes(contentType)) {
+      tags.push(contentType);
+    }
+    if (pageUrl) {
+      for (const tag of allTags) {
+        if (!tags.includes(tag) && pageUrl.toLowerCase().includes(tag.toLowerCase())) {
+          tags.push(tag);
+        }
+      }
+      if (pageUrl.match(/pricing|cost|tuition|financ/i)) {
+        if (allTags.includes("pricing") && !tags.includes("pricing")) tags.push("pricing");
+        if (allTags.includes("financial-aid") && !tags.includes("financial-aid")) tags.push("financial-aid");
+      }
+      if (pageUrl.match(/enroll|apply|admission/i)) {
+        if (allTags.includes("enrollment") && !tags.includes("enrollment")) tags.push("enrollment");
+        if (allTags.includes("admissions") && !tags.includes("admissions")) tags.push("admissions");
+      }
+      if (pageUrl.match(/career|job|employ/i)) {
+        if (allTags.includes("career-services") && !tags.includes("career-services")) tags.push("career-services");
+      }
+      if (pageUrl.match(/curriculum|syllabus|program/i)) {
+        if (allTags.includes("curriculum") && !tags.includes("curriculum")) tags.push("curriculum");
+      }
+    }
+    return tags;
+  }
+
+  async function requireAdminAuth(
+    req: Request,
+    res: Response
+  ): Promise<{ authorized: boolean; token?: string }> {
+    const authHeader = req.headers.authorization;
+    const token = typeof authHeader === "string" ? authHeader.replace("Token ", "") : undefined;
+
+    if (!token) {
+      res.status(401).json({ error: "Authorization required" });
+      return { authorized: false };
+    }
+
+    try {
+      const capResponse = await fetch(
+        `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
+        { method: "GET", headers: { Authorization: `Token ${token}`, Academy: "4" } }
+      );
+      if (capResponse.status !== 200) {
+        res.status(403).json({ error: "Webmaster capability required" });
+        return { authorized: false };
+      }
+    } catch (err) {
+      console.error("[AdminAuth] Capability check failed:", err);
+      res.status(500).json({ error: "Authentication service unavailable" });
+      return { authorized: false };
+    }
+
+    return { authorized: true, token };
+  }
+
+  app.get("/api/chat/config", (_req, res) => {
+    try {
+      const cfg = loadLLMConfig();
+      const bubble = cfg.chat_bubble || {};
+      res.json({
+        enabled: bubble.enabled !== false,
+        page_patterns: bubble.page_patterns || [],
+        content_types: bubble.content_types || [],
+        agent_name: bubble.agent_name || null,
+        agent_icon: bubble.agent_icon || null,
+      });
+    } catch (err) {
+      console.error("[Chat Config] Error:", err);
+      res.json({ enabled: false, page_patterns: [], content_types: [] });
+    }
+  });
+
+  app.post("/api/chat/start", async (req, res) => {
+    try {
+      const { conversationStore } = await import("./ai/ConversationStore");
+      const { page_url, content_type, content_slug, locale, visitor_id } = req.body || {};
+
+      const allFeatureTags = loadFeatureTags();
+      const derivedTags = deriveFeatureTags(content_type || null, page_url || null, allFeatureTags);
+
+      const conv = await conversationStore.createConversation({
+        page_url: page_url || null,
+        content_type: content_type || null,
+        content_slug: content_slug || null,
+        locale: locale || "en",
+        feature_tags: derivedTags,
+        visitor_id: visitor_id || null,
+      });
+
+      res.json({ conversation_id: conv.id });
+    } catch (err) {
+      console.error("[Chat Start] Error:", err);
+      res.status(500).json({ error: "Failed to start conversation" });
+    }
+  });
+
+  app.post("/api/chat/message", async (req, res) => {
+    try {
+      const { getAgentService } = await import("./ai/AgentService");
+      const { conversationStore } = await import("./ai/ConversationStore");
+
+      const { conversation_id, message, content_type, content_slug, locale } = req.body || {};
+
+      if (!conversation_id || !message) {
+        return res.status(400).json({ error: "conversation_id and message are required" });
+      }
+
+      await conversationStore.addMessage({
+        conversation_id,
+        role: "user",
+        content: message,
+      });
+
+      const { contentCompiler } = await import("./ai/ContentCompiler");
+      const agent = getAgentService();
+      const result = await agent.processMessage(
+        conversation_id,
+        message,
+        content_type || null,
+        content_slug || null,
+        locale || "en"
+      );
+
+      const assistantMsg = await conversationStore.addMessage({
+        conversation_id,
+        role: "assistant",
+        content: result.content,
+        question_tag: result.questionTag,
+      });
+
+      const compiled = contentCompiler.compile(content_type || null, content_slug || null, locale || "en");
+      conversationStore.saveContextSnapshot(conversation_id, {
+        pageContext: compiled.pageContext,
+        globalSummary: compiled.globalSummary,
+        contentType: content_type || null,
+        contentSlug: content_slug || null,
+        locale: locale || "en",
+      }).catch(() => {});
+
+      res.json({
+        id: assistantMsg.id,
+        content: result.content,
+        question_tag: result.questionTag,
+        trace: result.trace,
+      });
+    } catch (err) {
+      console.error("[Chat Message] Error:", err);
+      res.status(500).json({ error: "Failed to process message" });
+    }
+  });
+
+  app.get("/api/admin/ai/question-tags", async (req, res) => {
+    try {
+      const auth = await requireAdminAuth(req, res);
+      if (!auth.authorized) return;
+
+      const llmConfig = loadLLMConfig();
+      res.json({ question_tags: llmConfig.question_tags || [] });
+    } catch (err) {
+      console.error("[AI Question Tags] Error:", err);
+      res.status(500).json({ error: "Failed to load question tags" });
+    }
+  });
+
+  // ============================================
+  // AI Admin Routes (webmaster capability required)
+  // ============================================
+  app.get("/api/admin/ai/knowledge", async (req, res) => {
+    try {
+      const auth = await requireAdminAuth(req, res);
+      if (!auth.authorized) return;
+
+      const { conversationStore } = await import("./ai/ConversationStore");
+      const knowledge = await conversationStore.getAllKnowledge();
+
+      const llmConfig = loadLLMConfig();
+
+      const modelDefault = typeof llmConfig.model === "object" ? llmConfig.model?.default || "" : llmConfig.model || "";
+      const modelChat = typeof llmConfig.model === "object" ? llmConfig.model?.chat || "" : "";
+
+      res.json({
+        system_prompt: knowledge.system_prompt || null,
+        prompt_role: knowledge.prompt_role || llmConfig.prompt_role || "",
+        prompt_personality: knowledge.prompt_personality || llmConfig.prompt_personality || "",
+        prompt_instructions: knowledge.prompt_instructions || llmConfig.prompt_instructions || "",
+        prompt_fallback: knowledge.prompt_fallback || llmConfig.prompt_fallback || "",
+        custom_knowledge: knowledge.custom_knowledge || [],
+        pinned_qa: knowledge.pinned_qa || [],
+        agent_tools: llmConfig.agent_tools || [],
+        chat_bubble: llmConfig.chat_bubble || {},
+        question_tags: llmConfig.question_tags || [],
+        empty_conversation_grace_minutes: llmConfig.empty_conversation_grace_minutes ?? 15,
+        model_default: modelDefault,
+        model_chat: modelChat,
+      });
+    } catch (err) {
+      console.error("[AI Knowledge GET] Error:", err);
+      res.status(500).json({ error: "Failed to load knowledge" });
+    }
+  });
+
+  app.post("/api/admin/ai/knowledge", async (req, res) => {
+    try {
+      const auth = await requireAdminAuth(req, res);
+      if (!auth.authorized) return;
+
+      const { conversationStore } = await import("./ai/ConversationStore");
+      const { key, value, updated_by } = req.body || {};
+
+      if (!key || value === undefined) {
+        return res.status(400).json({ error: "key and value are required" });
+      }
+
+      await conversationStore.setKnowledge(key, value, updated_by);
+      res.json({ success: true });
+    } catch (err) {
+      console.error("[AI Knowledge POST] Error:", err);
+      res.status(500).json({ error: "Failed to save knowledge" });
+    }
+  });
+
+  app.patch("/api/admin/ai/knowledge", async (req, res) => {
+    try {
+      const auth = await requireAdminAuth(req, res);
+      if (!auth.authorized) return;
+
+      const { conversationStore } = await import("./ai/ConversationStore");
+      const updates = req.body || {};
+
+      for (const [key, value] of Object.entries(updates)) {
+        if (key === "updated_by" || key === "empty_conversation_grace_minutes" || key === "model_default" || key === "model_chat") continue;
+        await conversationStore.setKnowledge(key, value, updates.updated_by);
+      }
+
+      if (updates.empty_conversation_grace_minutes !== undefined) {
+        const raw = Number(updates.empty_conversation_grace_minutes);
+        if (!Number.isFinite(raw) || !Number.isInteger(raw) || raw < 1) {
+          return res.status(400).json({ error: "empty_conversation_grace_minutes must be a positive integer" });
+        }
+        updates.empty_conversation_grace_minutes = raw;
+      }
+
+      const hasLlmUpdates = updates.agent_tools || updates.chat_bubble || updates.empty_conversation_grace_minutes !== undefined || updates.model_default !== undefined || updates.model_chat !== undefined;
+      if (hasLlmUpdates) {
+        const llmPath = path.resolve("marketing-content/llm.yml");
+        if (fs.existsSync(llmPath)) {
+          const llmConfig = loadLLMConfig();
+          const mutableConfig: Record<string, unknown> = { ...llmConfig };
+          if (updates.agent_tools) mutableConfig.agent_tools = updates.agent_tools;
+          if (updates.chat_bubble) mutableConfig.chat_bubble = updates.chat_bubble;
+          if (updates.empty_conversation_grace_minutes !== undefined) mutableConfig.empty_conversation_grace_minutes = updates.empty_conversation_grace_minutes;
+          if (updates.model_default !== undefined || updates.model_chat !== undefined) {
+            const existing = typeof mutableConfig.model === "object" && mutableConfig.model !== null
+              ? mutableConfig.model as Record<string, string>
+              : { default: typeof mutableConfig.model === "string" ? mutableConfig.model : "" };
+            const modelObj: Record<string, string> = { ...existing };
+            if (updates.model_default !== undefined) modelObj.default = updates.model_default;
+            if (updates.model_chat !== undefined) modelObj.chat = updates.model_chat;
+            if (!modelObj.chat) delete modelObj.chat;
+            mutableConfig.model = modelObj;
+          }
+          fs.writeFileSync(llmPath, yaml.dump(mutableConfig, { lineWidth: -1 }), "utf-8");
+        }
+
+        const { getAgentService } = await import("./ai/AgentService");
+        getAgentService().reload();
+      }
+
+      res.json({ success: true });
+    } catch (err) {
+      console.error("[AI Knowledge PATCH] Error:", err);
+      res.status(500).json({ error: "Failed to update knowledge" });
+    }
+  });
+
+  app.get("/api/admin/ai/conversations", async (req, res) => {
+    try {
+      const auth = await requireAdminAuth(req, res);
+      if (!auth.authorized) return;
+
+      const { conversationStore } = await import("./ai/ConversationStore");
+      const filters = {
+        page: Number(req.query.page) || 1,
+        limit: Number(req.query.limit) || 20,
+        dateFrom: req.query.dateFrom as string | undefined,
+        dateTo: req.query.dateTo as string | undefined,
+        pageUrl: req.query.pageUrl as string | undefined,
+        featureTag: req.query.featureTag as string | undefined,
+        questionTag: req.query.questionTag as string | undefined,
+        rating: req.query.rating as string | undefined,
+      };
+
+      const result = await conversationStore.listConversations(filters);
+      res.json(result);
+    } catch (err) {
+      console.error("[AI Conversations GET] Error:", err);
+      res.status(500).json({ error: "Failed to load conversations" });
+    }
+  });
+
+  app.patch("/api/admin/ai/conversations/:id/messages/:msgId", async (req, res) => {
+    try {
+      const auth = await requireAdminAuth(req, res);
+      if (!auth.authorized) return;
+
+      let raterName = "admin";
+      if (auth.token) {
+        try {
+          const meResponse = await fetch(
+            `${BREATHECODE_HOST}/v1/auth/user/me`,
+            { method: "GET", headers: { Authorization: `Token ${auth.token}` } }
+          );
+          if (meResponse.ok) {
+            const meData = await meResponse.json() as Record<string, string>;
+            raterName = meData.first_name || meData.email || "admin";
+          }
+        } catch {}
+      }
+
+      const { conversationStore } = await import("./ai/ConversationStore");
+      const { rating, override_content } = req.body || {};
+
+      let msg = null;
+      if (rating) {
+        msg = await conversationStore.rateMessage(req.params.msgId, rating, raterName);
+      }
+      if (override_content !== undefined) {
+        msg = await conversationStore.overrideMessage(req.params.msgId, override_content, raterName);
+      }
+
+      if (!msg) {
+        return res.status(404).json({ error: "Message not found" });
+      }
+
+      res.json(msg);
+    } catch (err) {
+      console.error("[AI Message PATCH] Error:", err);
+      res.status(500).json({ error: "Failed to update message" });
+    }
+  });
+
+  app.post("/api/admin/ai/conversations/cluster", async (req, res) => {
+    try {
+      const auth = await requireAdminAuth(req, res);
+      if (!auth.authorized) return;
+
+      const { getAgentService } = await import("./ai/AgentService");
+      const { conversationStore } = await import("./ai/ConversationStore");
+
+      const recentMessages = await conversationStore.getRecentUserMessages(200);
+
+      const llmConfig = loadLLMConfig();
+      const tags = llmConfig.question_tags || [];
+
+      const agent = getAgentService();
+      const clusters = await agent.clusterQuestions(recentMessages, tags);
+
+      res.json({ clusters, total_questions: recentMessages.length });
+    } catch (err) {
+      console.error("[AI Cluster] Error:", err);
+      res.status(500).json({ error: "Failed to cluster questions" });
+    }
+  });
+
+  app.post("/api/admin/ai/knowledge/preview", async (req, res) => {
+    try {
+      const auth = await requireAdminAuth(req, res);
+      if (!auth.authorized) return;
+
+      const { getAgentService } = await import("./ai/AgentService");
+      const { contentCompiler } = await import("./ai/ContentCompiler");
+
+      const { question, url, content_type, content_slug, locale } = req.body || {};
+
+      if (!question) {
+        return res.status(400).json({ error: "question is required" });
+      }
+
+      let derivedContentType = content_type || null;
+      let derivedContentSlug = content_slug || null;
+      let derivedLocale = locale || "en";
+
+      if (url && !content_type && !content_slug) {
+        const programEnMatch = (url as string).match(/\/en\/career-programs\/([^/?#]+)/);
+        const programEsMatch = (url as string).match(/\/es\/programas-de-carrera\/([^/?#]+)/);
+        const locationEnMatch = (url as string).match(/\/en\/location\/([^/?#]+)/);
+        const locationEsMatch = (url as string).match(/\/es\/ubicacion\/([^/?#]+)/);
+        const localeMatch = (url as string).match(/\/(en|es)\//);
+
+        if (programEnMatch) { derivedContentType = "program"; derivedContentSlug = programEnMatch[1]; derivedLocale = "en"; }
+        else if (programEsMatch) { derivedContentType = "program"; derivedContentSlug = programEsMatch[1]; derivedLocale = "es"; }
+        else if (locationEnMatch) { derivedContentType = "location"; derivedContentSlug = locationEnMatch[1]; derivedLocale = "en"; }
+        else if (locationEsMatch) { derivedContentType = "location"; derivedContentSlug = locationEsMatch[1]; derivedLocale = "es"; }
+        else if (localeMatch) { derivedLocale = localeMatch[1]; }
+      }
+
+      const compiled = contentCompiler.compile(derivedContentType, derivedContentSlug, derivedLocale);
+
+      const agent = getAgentService();
+      const response = await agent.processMessage(
+        "preview-" + Date.now(),
+        question,
+        derivedContentType,
+        derivedContentSlug,
+        derivedLocale
+      );
+
+      res.json({
+        context: compiled,
+        response: response.content,
+        question_tag: response.questionTag,
+      });
+    } catch (err) {
+      console.error("[AI Preview] Error:", err);
+      res.status(500).json({ error: "Failed to generate preview" });
+    }
+  });
+
   app.use(async (req, res, next) => {
     const url = req.originalUrl || req.url;
     if (
@@ -9840,51 +10476,25 @@ sections: []
       return next();
     }
 
-    const isProduction = process.env.NODE_ENV === "production";
-    if (isProduction) {
-      const distPath = path.resolve(import.meta.dirname, "public");
-      const indexPath = path.resolve(distPath, "index.html");
-      try {
-        let html = fs.readFileSync(indexPath, "utf-8");
-        if (schemaHtml && html.includes("</head>")) {
-          html = html.replace("</head>", `${schemaHtml}\n</head>`);
-        }
-        res.status(200).set({ "Content-Type": "text/html" }).send(html);
-        return;
-      } catch {
-        return next();
-      }
+    if (schemaHtml) {
+      req.ssrSchemaHtml = schemaHtml;
     }
 
-    const originalEnd = res.end.bind(res);
-    res.end = function (chunk?: any, ...args: any[]) {
-      const contentType = res.getHeader("content-type");
-      if (
-        contentType &&
-        typeof contentType === "string" &&
-        contentType.includes("text/html") &&
-        chunk
-      ) {
-        if (isBlogRoute && res.statusCode === 404) {
+    if (isBlogRoute) {
+      const originalEnd = res.end.bind(res);
+      res.end = function (chunk?: any, ...args: any[]) {
+        const contentType = res.getHeader("content-type");
+        if (
+          contentType &&
+          typeof contentType === "string" &&
+          contentType.includes("text/html") &&
+          res.statusCode === 404
+        ) {
           res.statusCode = 200;
         }
-        let html =
-          typeof chunk === "string"
-            ? chunk
-            : Buffer.isBuffer(chunk)
-              ? chunk.toString("utf-8")
-              : chunk;
-        if (
-          typeof html === "string" &&
-          html.includes("</head>") &&
-          schemaHtml
-        ) {
-          html = html.replace("</head>", `${schemaHtml}\n</head>`);
-          return originalEnd(html, ...args);
-        }
-      }
-      return originalEnd(chunk, ...args);
-    } as typeof res.end;
+        return originalEnd(chunk, ...args);
+      } as typeof res.end;
+    }
 
     next();
   });

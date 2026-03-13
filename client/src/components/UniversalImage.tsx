@@ -1,45 +1,21 @@
 import { useState, useRef, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import type { ImageRef, ImageEntry, ImagePreset } from "@shared/schema";
 import SolidCard from "./SolidCard";
+import { useSectionPriority } from "@/contexts/SectionPriorityContext";
 
 interface ImageRegistryData {
   presets: Record<string, ImagePreset>;
   images: Record<string, ImageEntry>;
 }
 
-let registryCache: ImageRegistryData | null = null;
-let registryPromise: Promise<ImageRegistryData> | null = null;
-
-async function loadRegistry(): Promise<ImageRegistryData> {
-  if (registryCache) return registryCache;
-  if (registryPromise) return registryPromise;
-
-  registryPromise = fetch("/api/image-registry")
-    .then((res) => res.json())
-    .then((data) => {
-      registryCache = data;
-      return data;
-    });
-
-  return registryPromise;
-}
-
 export function useImageRegistry() {
-  const [registry, setRegistry] = useState<ImageRegistryData | null>(
-    registryCache,
-  );
-  const [loading, setLoading] = useState(!registryCache);
+  const { data, isLoading } = useQuery<ImageRegistryData>({
+    queryKey: ["/api/image-registry"],
+    staleTime: Infinity,
+  });
 
-  useEffect(() => {
-    if (!registryCache) {
-      loadRegistry().then((data) => {
-        setRegistry(data);
-        setLoading(false);
-      });
-    }
-  }, []);
-
-  return { registry, loading };
+  return { registry: data ?? null, loading: isLoading };
 }
 
 interface UniversalImageProps extends ImageRef {
@@ -60,12 +36,16 @@ const ASPECT_RATIOS: Record<string, number> = {
   "21:9": 21 / 9,
 };
 
+function buildSrcsetString(srcset: Array<{ w: number; url: string }>): string {
+  return srcset.map((s) => `${s.url} ${s.w}w`).join(", ");
+}
+
 export function UniversalImage({
   id,
   preset = "full",
   alt: altOverride,
   className = "",
-  loading = "lazy",
+  loading: loadingProp,
   onLoad,
   onError,
   useSolidCard = false,
@@ -76,10 +56,15 @@ export function UniversalImage({
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
+  const isPrioritySection = useSectionPriority();
 
   useEffect(() => {
     setIsLoaded(false);
     setHasError(false);
+    const img = imgRef.current;
+    if (img && img.complete && img.naturalWidth > 0) {
+      setIsLoaded(true);
+    }
   }, [id]);
 
   const handleLoad = () => {
@@ -125,6 +110,26 @@ export function UniversalImage({
   const finalAlt = altOverride || (imageEntry ? imageEntry.alt : id);
   const src = imageEntry ? imageEntry.src : id;
 
+  const resolvedLoading: "lazy" | "eager" =
+    loadingProp !== undefined
+      ? loadingProp
+      : isPrioritySection
+        ? "eager"
+        : "lazy";
+
+  const fetchPriority: "high" | "auto" = isPrioritySection ? "high" : "auto";
+  const decoding: "sync" | "async" = isPrioritySection ? "sync" : "async";
+
+  const srcsetString =
+    imageEntry?.srcset && imageEntry.srcset.length > 0
+      ? buildSrcsetString(imageEntry.srcset)
+      : undefined;
+
+  const sizesString = presetConfig?.sizes || undefined;
+
+  const intrinsicWidth = imageEntry?.width;
+  const intrinsicHeight = imageEntry?.height;
+
   const containerStyle: React.CSSProperties = aspectRatio
     ? { aspectRatio: aspectRatio.toString() }
     : {};
@@ -153,11 +158,19 @@ export function UniversalImage({
         ref={imgRef}
         src={src}
         alt={finalAlt}
-        loading={loading}
+        loading={resolvedLoading}
+        decoding={decoding}
+        {...{ fetchpriority: fetchPriority }}
+        {...(srcsetString ? { srcSet: srcsetString } : {})}
+        {...(sizesString ? { sizes: sizesString } : {})}
+        {...(intrinsicWidth ? { width: intrinsicWidth } : {})}
+        {...(intrinsicHeight ? { height: intrinsicHeight } : {})}
         onLoad={handleLoad}
         onError={handleError}
-        className={`w-full h-full transition-opacity duration-300 ${
-          isLoaded ? "opacity-100" : "opacity-0"
+        className={`w-full h-full ${
+          resolvedLoading === "eager"
+            ? (isLoaded ? "opacity-100" : "opacity-0")
+            : `transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"}`
         }`}
         style={{
           objectFit: style?.objectFit || "cover",
@@ -178,18 +191,6 @@ export function UniversalImage({
   }
 
   return imageContent;
-}
-
-export function getImageUrl(id: string): string | null {
-  if (!registryCache) return null;
-  const entry = registryCache.images[id];
-  return entry?.src || null;
-}
-
-export function getImageAlt(id: string): string | null {
-  if (!registryCache) return null;
-  const entry = registryCache.images[id];
-  return entry?.alt || null;
 }
 
 export default UniversalImage;

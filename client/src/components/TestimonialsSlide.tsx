@@ -1,5 +1,5 @@
 import { IconFlag } from "@tabler/icons-react";
-import Marquee from "react-fast-marquee";
+import Marquee from "@/lib/marquee";
 import { useState, useRef, useCallback, useEffect, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import { useLocation } from "wouter";

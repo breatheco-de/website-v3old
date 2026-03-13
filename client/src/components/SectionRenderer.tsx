@@ -5,6 +5,8 @@ import { useSession } from "@/contexts/SessionContext";
 import { VariableHighlightProvider } from "@/components/editing/VariableHighlight";
 import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
 import { resolveDeep } from "@/lib/variable-manager";
+import { SectionPriorityProvider } from "@/contexts/SectionPriorityContext";
+import { isSSRHydration } from "@/lib/initialData";
 
 // ============================================
 // Component Load Strategy Registry
@@ -356,11 +358,19 @@ function resolveLoadStrategy(
 }
 
 function DeferredSection({ children }: { children: React.ReactNode }) {
-  const [isVisible, setIsVisible] = useState(() => typeof IntersectionObserver === "undefined");
+  const [isVisible, setIsVisible] = useState(true);
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const wasSSRHydrated = useRef(isSSRHydration);
+
+  useEffect(() => {
+    if (wasSSRHydrated.current) return;
+    if (typeof IntersectionObserver === "undefined") return;
+    setIsVisible(false);
+  }, []);
 
   useEffect(() => {
     if (isVisible) return;
+    if (typeof IntersectionObserver === "undefined") return;
     const el = sentinelRef.current;
     if (!el) return;
 
@@ -1060,9 +1070,15 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
 
 
         const sectionId = (rawSection as SectionLayout).section_id || `${sectionType}-${index}`;
+        const isPriority = loadStrategy === "eager";
+        const priorityWrapped = (
+          <SectionPriorityProvider value={isPriority}>
+            {renderedContent}
+          </SectionPriorityProvider>
+        );
         const renderedSection = loadStrategy === "lazy"
-          ? <DeferredSection>{renderedContent}</DeferredSection>
-          : renderedContent;
+          ? <DeferredSection>{priorityWrapped}</DeferredSection>
+          : priorityWrapped;
 
         return (
           <div key={index} id={sectionId} data-section-type={sectionType} className={`section-wrapper${sectionType !== "modal" ? " scroll-mt-20" : ""}${visibilityClasses ? " " + visibilityClasses : ""}`.trim()} style={layoutStyles}>

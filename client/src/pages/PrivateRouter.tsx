@@ -16,6 +16,9 @@ const SyncLogPage = lazy(() => import("@/pages/SyncLogPage"));
 const PrivateDatabases = lazy(() => import("@/pages/PrivateDatabases"));
 const SettingsPage = lazy(() => import("@/pages/SettingsPage"));
 const SeoGeoPage = lazy(() => import("@/pages/SeoGeoPage"));
+const AIKnowledge = lazy(() => import("@/pages/AIKnowledge"));
+const AIConversations = lazy(() => import("@/pages/AIConversations"));
+const AIKnowledgeBlocks = lazy(() => import("@/pages/AIKnowledgeBlocks"));
 
 function LoadingFallback() {
   return (
@@ -52,6 +55,9 @@ export default function PrivateRouter() {
         <Route path="/private/menu-editor/:menuName" component={MenuEditor} />
         <Route path="/private/molecules-showcase" component={MoleculesShowcase} />
         <Route path="/private/preview/:contentType/:slug" component={PrivatePreview} />
+        <Route path="/private/ai-knowledge" component={AIKnowledge} />
+        <Route path="/private/ai-knowledge-blocks" component={AIKnowledgeBlocks} />
+        <Route path="/private/ai-conversations" component={AIConversations} />
         <Route path="/private/settings" component={SettingsPage} />
         <Route path="/private/sync-log" component={SyncLogPage} />
         <Route path="/private/:contentType/:contentSlug/experiment/:experimentSlug" component={ExperimentEditor} />

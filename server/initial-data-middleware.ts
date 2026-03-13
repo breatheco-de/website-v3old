@@ -1,3 +1,6 @@
+import * as fs from "fs";
+import * as path from "path";
+import * as yaml from "js-yaml";
 import type { Request, Response, NextFunction } from "express";
 import { contentIndex } from "./content-index";
 import {
@@ -7,12 +10,21 @@ import {
   locationPageSchema,
 } from "@shared/schema";
 import { resolveDynamicEntries } from "./dynamic-entries";
-import { resolveLayout } from "./content-types";
+import { resolveLayout, getLocaleKey } from "./content-types";
 import { applyComponentSectionDefaults } from "./component-registry";
+import { variableManager } from "./variable-manager";
+import { loadImageRegistry } from "./image-registry";
+import { getDefaultLocale, normalizeLocale } from "./settings";
+import { databaseManager } from "./database";
+import { fetchMarkdownContent } from "./markdown";
 
-interface InitialDataPayload {
+interface SingleQuery {
   queryKey: unknown[];
   data: unknown;
+}
+
+export interface InitialDataPayload {
+  queries: SingleQuery[];
 }
 
 const API_PATH_MAP: Record<string, string> = {
@@ -29,9 +41,7 @@ const SCHEMA_MAP: Record<string, typeof templatePageSchema> = {
   location: locationPageSchema,
 };
 
-async function resolveInitialData(
-  url: string,
-): Promise<InitialDataPayload | null> {
+async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
   const cleanUrl = url.split("?")[0].split("#")[0];
 
   if (
@@ -78,6 +88,40 @@ async function resolveInitialData(
     const isNonLocalized = patternLocale === "default";
 
     if (fromDatabase) {
+      try {
+        if (contentType === "blog") {
+          let locale = cleanUrl.match(/^\/(es)\b/) ? "es" : "en";
+          if (resolved.params?.locale) {
+            locale = resolved.params.locale;
+          }
+          const normalizedLocale = normalizeLocale(locale);
+          const posts = await databaseManager.fetchMappedItems("blog");
+          const localeKey = getLocaleKey("blog") || "lang";
+          const post = posts.find(
+            (p: Record<string, unknown>) =>
+              p.slug === slug && p[localeKey] === normalizedLocale,
+          ) || posts.find((p: Record<string, unknown>) => p.slug === slug);
+
+          if (!post) return null;
+
+          let content = typeof post.content === "string" ? post.content : "";
+          if (!content && typeof post.readme_url === "string") {
+            content = await fetchMarkdownContent(post.readme_url);
+          }
+
+          const mergedRaw = contentIndex.loadMergedContent("blog", slug, locale);
+          const layoutSource = mergedRaw.data || post;
+          const blogLayout = resolveLayout("blog", layoutSource as Record<string, unknown>);
+          const data = { ...post, content, layout: blogLayout };
+
+          return {
+            queryKey: ["/api/blog/posts", slug, normalizedLocale],
+            data,
+          };
+        }
+      } catch {
+        return null;
+      }
       return null;
     }
 
@@ -170,6 +214,194 @@ async function resolveInitialData(
   }
 }
 
+function resolveMenuQuery(menuId: string, locale: string): SingleQuery | null {
+  try {
+    const menusDir = path.join(process.cwd(), "marketing-content", "menus");
+    let filePath: string | null = null;
+
+    if (locale && locale !== getDefaultLocale()) {
+      const localizedBase = `${menuId}.${locale}`;
+      const localizedYml = path.join(menusDir, `${localizedBase}.yml`);
+      const localizedYaml = path.join(menusDir, `${localizedBase}.yaml`);
+      if (fs.existsSync(localizedYml)) filePath = localizedYml;
+      else if (fs.existsSync(localizedYaml)) filePath = localizedYaml;
+    }
+
+    if (!filePath) {
+      const baseYml = path.join(menusDir, `${menuId}.yml`);
+      const baseYaml = path.join(menusDir, `${menuId}.yaml`);
+      if (fs.existsSync(baseYml)) filePath = baseYml;
+      else if (fs.existsSync(baseYaml)) filePath = baseYaml;
+    }
+
+    if (!filePath) return null;
+
+    const content = fs.readFileSync(filePath, "utf-8");
+    const data = yaml.load(content);
+    const context = { locale };
+    const { data: resolved } = variableManager.resolveDeep(data, context);
+
+    return {
+      queryKey: ["/api/menus", menuId, locale],
+      data: { name: menuId, locale, data: resolved },
+    };
+  } catch {
+    return null;
+  }
+}
+
+const DEFAULT_EAGER_COUNT = 3;
+
+interface ImageRefs {
+  ids: Set<string>;
+  directUrls: Set<string>;
+}
+
+const IMAGE_URL_PATTERN = /\.(png|jpe?g|webp|avif|gif|svg)(\?|$)/i;
+
+const IMAGE_ID_KEY_PATTERN = /(?:^|_)image_id$/;
+
+function extractImageRefsFromValue(value: unknown, refs: ImageRefs, parentKey?: string): void {
+  if (!value || typeof value !== "object") return;
+  if (Array.isArray(value)) {
+    for (const item of value) extractImageRefsFromValue(item, refs, parentKey);
+    return;
+  }
+  const obj = value as Record<string, unknown>;
+
+  if (typeof obj.id === "string") {
+    const hasImageContext =
+      typeof obj.alt === "string" ||
+      typeof obj.preset === "string" ||
+      typeof obj.src === "string";
+    if (hasImageContext) {
+      refs.ids.add(obj.id);
+    }
+  }
+
+  if (typeof obj.image === "object" && obj.image !== null) {
+    const img = obj.image as Record<string, unknown>;
+    if (typeof img.id === "string") refs.ids.add(img.id);
+  }
+
+  if (typeof obj.src === "string" && obj.src.startsWith("http") && IMAGE_URL_PATTERN.test(obj.src)) {
+    refs.directUrls.add(obj.src);
+  }
+
+  for (const [key, v] of Object.entries(obj)) {
+    if (typeof v === "string" && IMAGE_ID_KEY_PATTERN.test(key)) {
+      refs.ids.add(v);
+    } else {
+      extractImageRefsFromValue(v, refs, key);
+    }
+  }
+}
+
+export function resolvePreloadHints(
+  payload: InitialDataPayload | null,
+): string[] {
+  if (!payload) return [];
+
+  let pageData: Record<string, unknown> | null = null;
+  let registryData: { images: Record<string, { src: string; srcset?: Array<{ w: number; url: string }> }> } | null = null;
+
+  for (const q of payload.queries) {
+    const key0 = q.queryKey[0];
+    if (
+      key0 === "/api/pages" ||
+      key0 === "/api/landings" ||
+      key0 === "/api/career-programs" ||
+      key0 === "/api/locations" ||
+      key0 === "/api/blog/posts" ||
+      (typeof key0 === "string" && key0.startsWith("/api/content-pages/"))
+    ) {
+      pageData = q.data as Record<string, unknown>;
+    }
+    if (key0 === "/api/image-registry") {
+      registryData = q.data as typeof registryData;
+    }
+  }
+
+  if (!pageData || !registryData) return [];
+
+  const sections = pageData.sections as unknown[] | undefined;
+  if (!Array.isArray(sections)) return [];
+
+  const settings = pageData.settings as { loading?: { eager_count?: number } } | undefined;
+  const eagerCount = settings?.loading?.eager_count ?? DEFAULT_EAGER_COUNT;
+
+  const refs: ImageRefs = { ids: new Set(), directUrls: new Set() };
+  const prioritySections = sections.slice(0, eagerCount);
+  for (const section of prioritySections) {
+    extractImageRefsFromValue(section, refs);
+  }
+
+  const preloadUrls: string[] = [];
+  const seen = new Set<string>();
+
+  for (const id of refs.ids) {
+    const entry = registryData.images[id];
+    if (entry?.src && !seen.has(entry.src)) {
+      seen.add(entry.src);
+      preloadUrls.push(entry.src);
+    }
+  }
+
+  for (const url of refs.directUrls) {
+    if (!seen.has(url)) {
+      seen.add(url);
+      preloadUrls.push(url);
+    }
+  }
+
+  return preloadUrls;
+}
+
+export async function resolveInitialData(
+  url: string,
+): Promise<InitialDataPayload | null> {
+  const pageQuery = await resolvePageQuery(url);
+
+  const variablesQuery: SingleQuery = {
+    queryKey: ["/api/variables"],
+    data: variableManager.getDefinitions(),
+  };
+
+  const queries: SingleQuery[] = [];
+  if (pageQuery) queries.push(pageQuery);
+  queries.push(variablesQuery);
+
+  if (pageQuery) {
+    const pageData = pageQuery.data as Record<string, unknown>;
+    const layout = pageData?.layout as
+      | { menu?: { top?: string | null; bottom?: string | null } }
+      | undefined;
+    const locale =
+      (pageData?.locale as string) ||
+      (pageQuery.queryKey[2] as string) ||
+      getDefaultLocale();
+
+    if (layout?.menu?.top) {
+      const mq = resolveMenuQuery(layout.menu.top, locale);
+      if (mq) queries.push(mq);
+    }
+    if (layout?.menu?.bottom) {
+      const mq = resolveMenuQuery(layout.menu.bottom, locale);
+      if (mq) queries.push(mq);
+    }
+  }
+
+  const registry = loadImageRegistry();
+  if (registry) {
+    queries.push({
+      queryKey: ["/api/image-registry"],
+      data: registry,
+    });
+  }
+
+  return { queries };
+}
+
 export function initialDataMiddleware(
   req: Request,
   res: Response,
@@ -215,6 +447,10 @@ export function initialDataMiddleware(
             try {
               const html =
                 typeof chunk === "string" ? chunk : chunk.toString("utf-8");
+              if (html.includes('id="__INITIAL_DATA__"')) {
+                originalEnd.call(this, chunk, ...args);
+                return;
+              }
               const scriptTag = `<script id="__INITIAL_DATA__" type="application/json">${JSON.stringify(payload).replace(/</g, "\\u003c")}</script>`;
               const injected = html.replace("</body>", scriptTag + "</body>");
 

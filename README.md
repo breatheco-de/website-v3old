@@ -87,6 +87,29 @@ curl -X POST http://localhost:5000/api/image-registry/migrate \
 
 The migration preserves directory structure, updates the image registry, and replaces all references in YAML content files automatically.
 
+### Image Optimization Backfill
+
+Generate optimized WebP/AVIF variants and populate `srcset`, `width`, `height`, and `format` metadata for all registry images:
+
+```bash
+# Authenticate with Google Cloud (if not using service account key)
+gcloud auth application-default login
+
+# Dry run (preview changes, no uploads)
+npx tsx scripts/backfill-images.ts --dry-run
+
+# Process all images
+npx tsx scripts/backfill-images.ts
+
+# Process a limited batch
+npx tsx scripts/backfill-images.ts --limit=50
+
+# Re-process already-processed entries
+npx tsx scripts/backfill-images.ts --force
+```
+
+Requires `GCS_BUCKET_NAME` and GCS credentials configured in the environment.
+
 ### Extensibility
 
 The storage provider system is designed for future expansion. Additional providers (AWS S3, Azure Blob, Cloudflare R2) can be added by implementing the `StorageProvider` interface in `server/media/types.ts`.

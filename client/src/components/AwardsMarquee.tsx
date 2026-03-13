@@ -1,4 +1,4 @@
-import Marquee from "react-fast-marquee";
+import Marquee from "@/lib/marquee";
 import { useState, useEffect } from "react";
 
 function parseLogoHeight(value?: string): number | undefined {

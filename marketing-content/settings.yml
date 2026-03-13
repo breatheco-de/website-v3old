@@ -5,3 +5,13 @@ i18n:
       label: English
     - code: es
       label: Spanish
+
+feature_tags:
+  - enrollment
+  - pricing
+  - curriculum
+  - career-services
+  - campus-life
+  - admissions
+  - financial-aid
+  - student-support
