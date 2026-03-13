@@ -64,29 +64,38 @@ sections:
       desktop: none lg
   - type: sticky_cta
     version: "1.0"
-    heading: Ready to start your tech career?
-    button_label: Apply Now
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Solicitar información
     show_dismiss: false
     form:
       variant: inline
-      submit_label: Submit Application
+      conversion_name: student_application
+      submit_label: Solicitar información
+      tags: website-lead
       fields:
         email:
           visible: true
           required: true
+          placeholder: Correo Electrónico
         first_name:
           visible: true
           required: true
+          placeholder: Nombre
+        last_name:
+          visible: true
+          required: true
+          placeholder: Apellido
         phone:
           visible: true
-          required: false
+          required: true
         program:
           visible: true
           required: true
-          default: auto
       success:
-        message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-zxj672
+        message: ¡Gracias! Nos pondremos en contacto en las siguentes 24 horas.
+    section_id: sticky_cta-pohzm9
+    showOn: mobile
+    load: eager
   - type: awards_marquee
     section_id: awards_marquee-7544ql
     version: v1.0
