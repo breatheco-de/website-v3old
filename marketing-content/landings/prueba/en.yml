@@ -425,7 +425,6 @@ sections:
       mobile: lg none
       desktop: lg none
   - type: certificate
-    section_id: certificate-mjr42e
     title: Career Outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
@@ -471,6 +470,7 @@ sections:
           - text: Companies include Google, Meta, Amazon, startups
     certificate_position: right
     useSolidCard: true
+    section_id: certificate-mjr42e
     marginY:
       mobile: none
       desktop: none
