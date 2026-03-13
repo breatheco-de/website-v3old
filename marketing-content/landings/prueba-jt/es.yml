@@ -59,6 +59,8 @@ sections:
     section_id: hero-qcon9h
     background: hsl(210 100% 50% / 0.05)
     paddingY:
+      desktop: none
+    marginY:
       desktop: none lg
   - type: awards_marquee
     section_id: awards_marquee-7544ql
