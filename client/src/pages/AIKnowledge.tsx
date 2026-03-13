@@ -347,7 +347,7 @@ export default function AIKnowledge() {
                 <button
                   key={img.handle}
                   onClick={() => { if (iconPickerForDraft) { setDraftAgentIcon(img.src); } else { setAgentIcon(img.src); } setIconPickerOpen(false); setIconSearch(""); }}
-                  className="aspect-square rounded-md overflow-hidden border hover-elevate focus:outline-none focus:ring-2 focus:ring-ring"
+                  className="aspect-square rounded-md overflow-hidden border focus:outline-none focus:ring-2 focus:ring-ring"
                   data-testid={`button-icon-${img.handle}`}
                 >
                   <img src={img.src} alt={img.alt || img.handle} className="w-full h-full object-cover" />
