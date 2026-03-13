@@ -223,28 +223,41 @@ interface ImageRefs {
 
 const IMAGE_URL_PATTERN = /\.(png|jpe?g|webp|avif|gif|svg)(\?|$)/i;
 
-function extractImageRefsFromValue(value: unknown, refs: ImageRefs): void {
+const IMAGE_ID_KEY_PATTERN = /(?:^|_)image_id$/;
+
+function extractImageRefsFromValue(value: unknown, refs: ImageRefs, parentKey?: string): void {
   if (!value || typeof value !== "object") return;
   if (Array.isArray(value)) {
-    for (const item of value) extractImageRefsFromValue(item, refs);
+    for (const item of value) extractImageRefsFromValue(item, refs, parentKey);
     return;
   }
   const obj = value as Record<string, unknown>;
-  if (typeof obj.id === "string" && typeof obj.alt === "string") {
-    refs.ids.add(obj.id);
+
+  if (typeof obj.id === "string") {
+    const hasImageContext =
+      typeof obj.alt === "string" ||
+      typeof obj.preset === "string" ||
+      typeof obj.src === "string";
+    if (hasImageContext) {
+      refs.ids.add(obj.id);
+    }
   }
-  if (typeof obj.image_id === "string") {
-    refs.ids.add(obj.image_id);
-  }
+
   if (typeof obj.image === "object" && obj.image !== null) {
     const img = obj.image as Record<string, unknown>;
     if (typeof img.id === "string") refs.ids.add(img.id);
   }
+
   if (typeof obj.src === "string" && obj.src.startsWith("http") && IMAGE_URL_PATTERN.test(obj.src)) {
     refs.directUrls.add(obj.src);
   }
-  for (const v of Object.values(obj)) {
-    extractImageRefsFromValue(v, refs);
+
+  for (const [key, v] of Object.entries(obj)) {
+    if (typeof v === "string" && IMAGE_ID_KEY_PATTERN.test(key)) {
+      refs.ids.add(v);
+    } else {
+      extractImageRefsFromValue(v, refs, key);
+    }
   }
 }
 
