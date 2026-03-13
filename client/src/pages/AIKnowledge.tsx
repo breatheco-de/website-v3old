@@ -21,7 +21,6 @@ interface KnowledgeData {
   prompt_instructions: string;
   prompt_fallback: string;
   custom_knowledge: Array<{ content: string; tag?: string }>;
-  pinned_qa: Array<{ question: string; answer: string; tag?: string }>;
   agent_tools: Array<{ name: string; description: string; enabled: boolean }>;
   chat_bubble: { enabled?: boolean; page_patterns?: string[]; content_types?: string[]; agent_name?: string; agent_icon?: string };
   question_tags: string[];
@@ -58,7 +57,6 @@ export default function AIKnowledge() {
   const [iconPickerOpen, setIconPickerOpen] = useState(false);
   const [iconSearch, setIconSearch] = useState("");
   const [customKnowledge, setCustomKnowledge] = useState<Array<{ content: string; tag: string }>>([]);
-  const [pinnedQA, setPinnedQA] = useState<Array<{ question: string; answer: string; tag: string }>>([]);
   const [agentTools, setAgentTools] = useState<Array<{ name: string; description: string; enabled: boolean }>>([]);
   const [pagePatterns, setPagePatterns] = useState<string[]>([]);
   const [contentTypes, setContentTypes] = useState<string[]>([]);
@@ -140,7 +138,6 @@ export default function AIKnowledge() {
       setPromptInstructions(data.prompt_instructions || "");
       setPromptFallback(data.prompt_fallback || "");
       setCustomKnowledge((data.custom_knowledge || []).map(k => ({ content: k.content, tag: k.tag || "" })));
-      setPinnedQA((data.pinned_qa || []).map(q => ({ question: q.question, answer: q.answer, tag: q.tag || "" })));
       setAgentTools(data.agent_tools || []);
       setPagePatterns(data.chat_bubble?.page_patterns || []);
       setContentTypes(data.chat_bubble?.content_types || []);
@@ -253,7 +250,6 @@ export default function AIKnowledge() {
           prompt_instructions: promptInstructions,
           prompt_fallback: promptFallback,
           custom_knowledge: customKnowledge,
-          pinned_qa: pinnedQA,
           agent_tools: agentTools,
           chat_bubble: { enabled: bubbleEnabled, page_patterns: pagePatterns, content_types: contentTypes, agent_name: agentName, agent_icon: agentIcon },
         }),
@@ -633,71 +629,6 @@ export default function AIKnowledge() {
                 className="text-sm min-h-[80px]"
                 placeholder="Knowledge content..."
                 data-testid={`textarea-knowledge-content-${i}`}
-              />
-            </div>
-          ))}
-        </Card>
-
-        <Card className="p-4 space-y-3">
-          <div className="flex items-center justify-between gap-2 flex-wrap">
-            <h2 className="font-semibold text-lg" data-testid="text-pinned-qa-heading">Pinned Q&A Pairs</h2>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setPinnedQA(prev => [...prev, { question: "", answer: "", tag: "" }])}
-              data-testid="button-add-qa"
-            >
-              <IconPlus className="h-4 w-4 mr-1" />
-              Add Pair
-            </Button>
-          </div>
-          <p className="text-sm text-muted-foreground">Exact question-and-answer pairs that take priority over the agent's general reasoning. Use these for FAQs or any information that must always be answered precisely and consistently.</p>
-          {pinnedQA.map((qa, i) => (
-            <div key={i} className="space-y-2 border-b pb-3">
-              <div className="flex items-center gap-2 flex-wrap">
-                <input
-                  type="text"
-                  value={qa.tag}
-                  onChange={e => {
-                    const updated = [...pinnedQA];
-                    updated[i] = { ...updated[i], tag: e.target.value };
-                    setPinnedQA(updated);
-                  }}
-                  placeholder="Question tag"
-                  className="px-2 py-1 text-sm border rounded-md bg-background"
-                  data-testid={`input-qa-tag-${i}`}
-                />
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  onClick={() => setPinnedQA(prev => prev.filter((_, j) => j !== i))}
-                  data-testid={`button-delete-qa-${i}`}
-                >
-                  <IconTrash className="h-4 w-4" />
-                </Button>
-              </div>
-              <input
-                type="text"
-                value={qa.question}
-                onChange={e => {
-                  const updated = [...pinnedQA];
-                  updated[i] = { ...updated[i], question: e.target.value };
-                  setPinnedQA(updated);
-                }}
-                placeholder="Question"
-                className="w-full px-3 py-2 text-sm border rounded-md bg-background"
-                data-testid={`input-qa-question-${i}`}
-              />
-              <Textarea
-                value={qa.answer}
-                onChange={e => {
-                  const updated = [...pinnedQA];
-                  updated[i] = { ...updated[i], answer: e.target.value };
-                  setPinnedQA(updated);
-                }}
-                className="text-sm min-h-[60px]"
-                placeholder="Answer"
-                data-testid={`textarea-qa-answer-${i}`}
               />
             </div>
           ))}
