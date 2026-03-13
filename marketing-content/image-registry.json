@@ -4474,6 +4474,33 @@
       "tags": [],
       "usage_count": 0,
       "hash": "925421ab7693c619b55744b50b579ac022b647ba1f78920e8dcaafef00d0d108"
+    },
+    "captura-de-pantalla-2026-03-13-145607": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-13-145607.png",
+      "alt": "Image: Captura de pantalla 2026-03-13 145607",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team",
+        "avatar"
+      ],
+      "usage_count": 0,
+      "hash": "ce3a7b58b5e46fed4a1cf9dcfce437cba23a5061441b6d48a6908e276b813c4e",
+      "width": 639,
+      "height": 639,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        639
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 639,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-13-145607-639w.webp"
+        }
+      ]
     }
   }
 }
