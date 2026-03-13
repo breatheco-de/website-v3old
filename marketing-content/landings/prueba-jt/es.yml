@@ -92,10 +92,10 @@ sections:
           visible: true
           required: true
       success:
-        message: ¡Gracias! Nos pondremos en contacto en las siguentes 24 horas.
+        message: ¡Gracias! Nos pondremos en contacto contigo a la brevedad posible.
     section_id: sticky_cta-pohzm9
-    showOn: mobile
     load: eager
+    showOn: mobile
   - type: awards_marquee
     section_id: awards_marquee-7544ql
     version: v1.0
