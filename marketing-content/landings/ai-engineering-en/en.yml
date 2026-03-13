@@ -510,7 +510,7 @@ sections:
       - icon: Sparkles
         title: You want a future-proof career
         description: You're ready to move into one of the fastest-growing, highest-paying fields of the next decade — and you want the skills to back it up.
-    background: bg-background
+    background: hsl(210 100% 50% / 0.05)
     section_id: bento_cards-895utc
   - type: testimonials
     section_id: testimonials-404m72
