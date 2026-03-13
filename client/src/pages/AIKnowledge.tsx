@@ -831,7 +831,7 @@ export default function AIKnowledge() {
             <DialogTitle data-testid="text-tools-dialog-title">Agent Tools</DialogTitle>
           </DialogHeader>
           <p className="text-sm text-muted-foreground -mt-1">External capabilities the agent can invoke while responding, such as live program lookups or location queries. Enable only the tools relevant to the conversations you want to support.</p>
-          <div className="space-y-1">
+          <div className="space-y-2">
             {draftAgentTools.map((tool, i) => {
               const def = toolDefinitions.find(d => d.name === tool.name);
               const params: [string, ToolParameterProperty][] = def?.parameters?.properties
@@ -840,25 +840,21 @@ export default function AIKnowledge() {
               const requiredList: string[] = def?.parameters?.required || [];
               const isExpanded = expandedTools.has(tool.name);
               return (
-                <div key={i} className="border-b last:border-b-0" data-testid={`tool-row-${tool.name}`}>
-                  <div className="flex items-center gap-3 py-2">
-                    <label className="flex items-center gap-2 cursor-pointer flex-1">
-                      <input
-                        type="checkbox"
-                        checked={tool.enabled}
-                        onChange={e => {
-                          const updated = [...draftAgentTools];
-                          updated[i] = { ...updated[i], enabled: e.target.checked };
-                          setDraftAgentTools(updated);
-                        }}
-                        className="rounded"
-                        data-testid={`checkbox-tool-${tool.name}`}
-                      />
-                      <div>
-                        <span className="text-sm font-medium">{tool.name}</span>
-                        <p className="text-xs text-muted-foreground">{tool.description}</p>
-                      </div>
-                    </label>
+                <Card key={i} className="p-3" data-testid={`tool-row-${tool.name}`}>
+                  <div className="flex items-center gap-3">
+                    <Switch
+                      checked={tool.enabled}
+                      onCheckedChange={(checked: boolean) => {
+                        const updated = [...draftAgentTools];
+                        updated[i] = { ...updated[i], enabled: checked };
+                        setDraftAgentTools(updated);
+                      }}
+                      data-testid={`switch-tool-${tool.name}`}
+                    />
+                    <div className="flex-1 min-w-0">
+                      <span className="text-sm font-medium">{tool.name}</span>
+                      <p className="text-xs text-muted-foreground">{tool.description}</p>
+                    </div>
                     {params.length > 0 && (
                       <button
                         type="button"
@@ -878,7 +874,7 @@ export default function AIKnowledge() {
                     )}
                   </div>
                   {isExpanded && params.length > 0 && (
-                    <div className="ml-8 mb-2" data-testid={`params-section-${tool.name}`}>
+                    <div className="mt-3 pt-3 border-t" data-testid={`params-section-${tool.name}`}>
                       <table className="w-full text-xs">
                         <thead>
                           <tr className="text-left text-muted-foreground border-b">
@@ -913,7 +909,7 @@ export default function AIKnowledge() {
                       </table>
                     </div>
                   )}
-                </div>
+                </Card>
               );
             })}
           </div>
