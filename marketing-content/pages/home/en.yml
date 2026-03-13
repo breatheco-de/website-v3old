@@ -146,7 +146,7 @@ sections:
   - type: career_support_explain
     version: v1.0
     heading: Get Hired. Career Support That Doesn't Stop at Graduation.
-    description: AI-optimized profiles, direct access to 250+ hiring partners, and hands-on support from first application to signed offer — and beyond.
+    description: AI-optimized profiles, direct access to 400+ hiring partners, and hands-on support from first application to signed offer — and beyond.
     background: hsl(var(--sidebar-background))
     tabs:
       - tab_label: Job-Ready, Faster
