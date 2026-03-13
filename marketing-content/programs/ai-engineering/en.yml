@@ -435,9 +435,8 @@ sections:
     paddingY:
       desktop: md
   - type: certificate
-    section_id: certificate-yvgz4h
     title: Career Outcomes
-    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
+    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Step into roles paying:"
     benefits:
       - text: "AI Software Engineer: $95K–$135K"
       - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
@@ -450,7 +449,7 @@ sections:
     stats:
       - value: {{ global.global_job_placement_rate | 84 }}%
         label: Hiring rate
-        description: Graduate with the skills, credentials, and professional profile employers are actively hiring for.
+        description: Graduate with the credentials, portfolio, and professional profile to get hired — not just qualified.
         benefits:
           - text: Certificate recognized by the Florida Department of Education
           - text: End-to-end AI-engineered company in your portfolio
@@ -458,14 +457,14 @@ sections:
           - text: Optimized professional profile and job-search strategy
       - value: 3-6 months
         label: Time to get hired
-        description: Land your first role within 3–6 months of graduation. With our structured 3-step career development process, your skills turn into job offers fast.
+        description: Most graduates land their first role within 3–6 months. A structured 3-step career process turns your skills into offers fast.
         benefits:
-          - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
-          - text: Practice for technical and behavioral interviews
-          - text: Execute a personalized job-search strategy with access to relevant hiring networks
+          - text: Resume, portfolio, and profiles optimized to attract recruiters and pass AI-based screening
+          - text: Technical and behavioral interview preparation
+          - text: Personalized job-search strategy with access to relevant hiring networks
       - value: {{ global.global_salary_increase | 55 }}%
-        label: Average Salary Increase
-        description: Master the AI skills that companies are struggling to find talent for. As businesses shift toward automation, you'll be ready to step into high-priority roles that offer immediate growth and long-term stability.
+        label: Average salary increase
+        description: AI skills are exactly what companies can't find enough of. Step into high-priority roles with immediate growth and long-term upside.
         benefits:
           - text: "AI Software Engineer: {{ global.average_salary_ai_engineer | $115K–$165K }}"
           - text: "Full-Stack AI Engineer: {{ global.average_salary_ai_fluent_software_developer | $125K–$185K }}"
@@ -473,7 +472,7 @@ sections:
           - text: "Workflow Automation Engineer: {{ global.average_salary_workflow_automation_engineer | $95K–$145K }}"
       - value: 400+
         label: Hiring partners
-        description: Access our network of 400+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
+        description: 400+ companies actively hiring our graduates. Get exclusive access, priority referrals, and direct connections to the people making hiring decisions.
         benefits:
           - text: Exclusive job board access
           - text: Priority referrals to partner companies
@@ -481,6 +480,7 @@ sections:
           - text: Companies include Google, Meta, Amazon, startups
     certificate_position: right
     useSolidCard: true
+    section_id: certificate-yvgz4h
     marginY:
       mobile: none
       desktop: none
