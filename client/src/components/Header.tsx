@@ -1,18 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
-import { useInternalNav } from "@/hooks/useInternalNav";
 import { useQuery } from "@tanstack/react-query";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { Navbar, MobileNav, type NavbarConfig } from "@/components/menus";
-import UniversalImage from "@/components/UniversalImage";
+import { Navbar, MobileNav, renderNavbarItem, type NavbarConfig } from "@/components/menus";
 
 interface HeaderProps {
   menuId?: string;
 }
 
 export default function Header({ menuId = "main-navbar" }: HeaderProps) {
-  const handleLinkClick = useInternalNav();
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const locale = i18n.language || 'en';
 
@@ -26,6 +22,9 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
   });
   
   const menuConfig = menuResponse?.data;
+
+  const logoItem = menuConfig?.navbar?.items?.find(item => item.component === "Logo");
+  const langItem = menuConfig?.navbar?.items?.find(item => item.component === "LanguageSwitcher");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,17 +44,8 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
   
   return (
     <header className={`sticky top-0 z-50 w-full bg-background transition-colors ${isScrolled ? 'border-b' : 'border-b border-background'}`}>
-      <div className="flex h-16 items-center justify-between gap-4 px-6">
-        <a 
-          href="/" 
-          onClick={handleLinkClick}
-          className="flex items-center hover-elevate rounded-md px-3 py-2" 
-          data-testid="link-home"
-        >
-          <UniversalImage id="4geeks-devs-logo-1763162063433" alt={t('nav.brand')} className="h-8" loading="eager" style={{ objectFit: "contain", width: "auto", height: "100%" }} />
-        </a>
-
-        <div className="hidden md:flex flex-1 justify-center">
+      <div className="flex h-16 items-center gap-4 px-6">
+        <div className="hidden md:flex flex-1">
           {isLoading ? (
             <div className="flex items-center gap-4">
               {[1, 2, 3, 4, 5].map((i) => (
@@ -67,9 +57,12 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
           ) : null}
         </div>
 
-        <div className="flex items-center gap-3">
-          <LanguageSwitcher />
-          {menuConfig && <MobileNav config={menuConfig} />}
+        <div className="flex md:hidden flex-1 items-center justify-between gap-3">
+          {logoItem && renderNavbarItem(logoItem)}
+          <div className="flex items-center gap-3">
+            {langItem && renderNavbarItem(langItem)}
+            {menuConfig && <MobileNav config={menuConfig} />}
+          </div>
         </div>
       </div>
     </header>
