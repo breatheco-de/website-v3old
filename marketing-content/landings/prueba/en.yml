@@ -673,16 +673,15 @@ sections:
       mobile: lg none
       desktop: lg none
   - type: cta_banner
-    section_id: cta_banner-55y7oh
     version: "1.0"
-    title: Ready to Become an AI Engineer?
-    subtitle: Limited spots available. Start your transformation today.
+    title: Your AI career won't start itself.
+    subtitle: Every week you wait is a week someone else gets hired first. Apply in 2 minutes — it's free.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Apply Now
+      submit_label: See If You Qualify
       tags: website-lead
       fields:
         email:
@@ -705,7 +704,7 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Thank you! We'll be in touch soon.
+        message: You're in. Someone from our admissions team will reach out within minutes — check your inbox.
       consent:
         email: true
         marketing: true
@@ -713,6 +712,7 @@ sections:
       show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
+    section_id: cta_banner-55y7oh
     marginY:
       mobile: md none
       desktop: md none
