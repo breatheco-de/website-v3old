@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+import { fileURLToPath } from "url";
 import * as yaml from "js-yaml";
 import { escapeTemplateVars, unescapeObjectVars } from "../../shared/templateVars";
 import { mediaGallery } from "../../server/media-gallery";
@@ -123,7 +124,8 @@ export async function removeUnusedImages(options: { dryRun?: boolean } = {}): Pr
   return { message, removedCount, skippedCount, results };
 }
 
-if (require.main === module) {
+const __filename = fileURLToPath(import.meta.url);
+if (process.argv[1] === __filename) {
   const args = process.argv.slice(2);
   const dryRun = args.includes("--dry-run");
 
