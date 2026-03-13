@@ -80,7 +80,7 @@ function ProgramCard({ program }: { program: typeof programs[0] }) {
 
         <div
           className="flex items-center justify-between pt-4"
-          style={{ borderTop: `1px solid ${BORDER}` }}
+          style={{ borderTop: `1px solid ${program.color}` }}
         >
           <div
             className="flex items-center gap-1.5 text-xs"

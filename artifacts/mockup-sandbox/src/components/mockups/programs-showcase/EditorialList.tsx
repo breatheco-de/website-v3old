@@ -13,7 +13,7 @@ const programs = [
     tagline: "Build modern web apps from frontend to backend, supercharged with AI tools.",
     duration: "16 weeks",
     color: "#0084FF",
-    number: "01",
+    colorRgb: "0, 132, 255",
   },
   {
     icon: Brain,
@@ -21,7 +21,7 @@ const programs = [
     tagline: "Design, train and deploy AI models that solve real-world business problems.",
     duration: "20 weeks",
     color: "#737373",
-    number: "02",
+    colorRgb: "115, 115, 115",
   },
   {
     icon: BarChart3,
@@ -29,7 +29,7 @@ const programs = [
     tagline: "Turn raw data into actionable insight using Python, ML and visualization.",
     duration: "18 weeks",
     color: "#FFB718",
-    number: "03",
+    colorRgb: "255, 183, 24",
   },
   {
     icon: Shield,
@@ -37,7 +37,7 @@ const programs = [
     tagline: "Protect systems and networks against modern threats and vulnerabilities.",
     duration: "14 weeks",
     color: "#C0311B",
-    number: "04",
+    colorRgb: "192, 49, 27",
   },
 ];
 
@@ -56,29 +56,14 @@ function EditorialItem({ program, isLast }: { program: typeof programs[0]; isLas
       />
 
       <div className="flex items-start gap-5 py-7 pl-6 flex-1">
-        <div className="flex items-center gap-4 shrink-0">
-          <span
-            className="text-2xl font-bold tabular-nums"
-            style={{
-              fontFamily: "'Lato', sans-serif",
-              color: MUTED,
-              lineHeight: 1,
-              letterSpacing: "-0.02em",
-              minWidth: "32px",
-            }}
-          >
-            {program.number}
-          </span>
+        <Icon
+          className="w-7 h-7 shrink-0 mt-0.5"
+          style={{ color: program.color }}
+          strokeWidth={1.5}
+        />
 
-          <Icon
-            className="w-7 h-7 shrink-0"
-            style={{ color: program.color }}
-            strokeWidth={1.5}
-          />
-        </div>
-
-        <div className="flex-1 min-w-0 pt-0.5">
-          <div className="flex items-start justify-between gap-4">
+        <div className="flex-1 min-w-0">
+          <div className="flex items-start justify-between gap-6">
             <div className="flex-1">
               <h3
                 className="text-xl font-bold leading-snug"
@@ -98,14 +83,14 @@ function EditorialItem({ program, isLast }: { program: typeof programs[0]; isLas
               </p>
             </div>
 
-            <div className="flex items-center gap-4 shrink-0 pt-1">
+            <div className="flex flex-col items-end gap-2 shrink-0 pt-1">
               <div
                 className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full"
                 style={{
-                  color: MUTED,
+                  color: program.color,
                   fontFamily: "'Archivo', sans-serif",
-                  backgroundColor: PAGE_BG,
-                  border: `1px solid ${BORDER}`,
+                  backgroundColor: `rgba(${program.colorRgb}, 0.10)`,
+                  fontWeight: 600,
                 }}
               >
                 <Clock className="w-3.5 h-3.5" />
