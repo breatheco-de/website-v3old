@@ -10,7 +10,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { IconArrowLeft, IconPlus, IconTrash, IconLoader2, IconCheck, IconEye, IconEyeOff, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown, IconBrain, IconUpload, IconTool, IconBooks, IconMessageCircle, IconSend } from "@tabler/icons-react";
+import { IconArrowLeft, IconPlus, IconTrash, IconLoader2, IconCheck, IconEye, IconEyeOff, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown, IconBrain, IconUpload, IconTool, IconBooks, IconSend } from "@tabler/icons-react";
 import { Link, useLocation } from "wouter";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 
@@ -340,75 +340,59 @@ export default function AIKnowledge() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto">
-        <div className="max-w-4xl mx-auto px-6 py-8">
-          <div className="flex flex-col items-center justify-center py-16 text-center">
-            <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
-              {agentIcon ? (
-                <img src={agentIcon} alt="Agent" className="w-full h-full object-cover rounded-full" />
-              ) : (
-                <IconMessageCircle className="h-8 w-8 text-muted-foreground" />
-              )}
-            </div>
-            <h2 className="text-xl font-semibold mb-2" data-testid="text-chat-welcome">
-              {agentName ? `${agentName} is ready` : "Your AI Agent is ready"}
-            </h2>
-            <p className="text-sm text-muted-foreground max-w-md">
-              Configure your agent's identity, visibility, tools, and knowledge blocks using the options below.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="max-w-4xl mx-auto px-6 py-4 w-full flex flex-col flex-1 min-h-0">
+          <div className="flex flex-row gap-2">
             <Button
               variant="outline"
-              className="flex flex-col items-center gap-2 h-auto py-5"
+              className="flex flex-col items-center gap-1 h-auto py-2 flex-1 min-w-0"
               onClick={() => setIdentityCoreOpen(true)}
               data-testid="button-open-identity-core"
             >
-              <IconBrain className="h-6 w-6" />
-              <span className="text-sm font-medium">Identity Core</span>
-              <span className="text-xs text-muted-foreground">{agentName || "Not configured"}</span>
+              <IconBrain className="h-4 w-4" />
+              <span className="text-xs font-medium">Identity Core</span>
+              <span className="text-[11px] text-muted-foreground">{agentName || "Not configured"}</span>
             </Button>
             <Button
               variant="outline"
-              className="flex flex-col items-center gap-2 h-auto py-5"
+              className="flex flex-col items-center gap-1 h-auto py-2 flex-1 min-w-0"
               onClick={() => setVisibilityOpen(true)}
               data-testid="button-open-visibility"
             >
-              <IconEye className="h-6 w-6" />
-              <span className="text-sm font-medium">Visibility</span>
-              <span className="text-xs text-muted-foreground">{bubbleEnabled ? "Visible" : "Hidden"}</span>
+              <IconEye className="h-4 w-4" />
+              <span className="text-xs font-medium">Visibility</span>
+              <span className="text-[11px] text-muted-foreground">{bubbleEnabled ? "Visible" : "Hidden"}</span>
             </Button>
             <Button
               variant="outline"
-              className="flex flex-col items-center gap-2 h-auto py-5"
+              className="flex flex-col items-center gap-1 h-auto py-2 flex-1 min-w-0"
               onClick={() => setToolsOpen(true)}
               data-testid="button-open-tools"
             >
-              <IconTool className="h-6 w-6" />
-              <span className="text-sm font-medium">Tools</span>
-              <span className="text-xs text-muted-foreground">{enabledToolCount} enabled</span>
+              <IconTool className="h-4 w-4" />
+              <span className="text-xs font-medium">Tools</span>
+              <span className="text-[11px] text-muted-foreground">{enabledToolCount} enabled</span>
             </Button>
             <Button
               variant="outline"
-              className="flex flex-col items-center gap-2 h-auto py-5"
+              className="flex flex-col items-center gap-1 h-auto py-2 flex-1 min-w-0"
               onClick={() => navigate("/private/ai-knowledge-blocks")}
               data-testid="button-open-knowledge-blocks"
             >
-              <IconBooks className="h-6 w-6" />
-              <span className="text-sm font-medium">Knowledge Blocks</span>
-              <span className="text-xs text-muted-foreground">{data?.custom_knowledge?.length || 0} blocks</span>
+              <IconBooks className="h-4 w-4" />
+              <span className="text-xs font-medium">Knowledge Blocks</span>
+              <span className="text-[11px] text-muted-foreground">{data?.custom_knowledge?.length || 0} blocks</span>
             </Button>
           </div>
 
-          <Card className="mt-6 flex flex-col" data-testid="card-test-chat">
+          <Card className="mt-4 flex flex-col flex-1 min-h-0" data-testid="card-test-chat">
             <div className="p-4 border-b">
               <h2 className="font-semibold text-sm" data-testid="text-test-chat-heading">Test Chat</h2>
               <p className="text-xs text-muted-foreground">Send messages to test your agent configuration.</p>
             </div>
             <div
               ref={chatScrollRef}
-              className="flex-1 overflow-y-auto p-4 space-y-3 min-h-[200px] max-h-[400px]"
+              className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0"
               data-testid="container-test-chat-messages"
             >
               {chatMessages.length === 0 && !chatSending && (
