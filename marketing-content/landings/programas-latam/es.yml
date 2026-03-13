@@ -155,7 +155,7 @@ sections:
             text: Sistemas de IA en Producción
         description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
         cta_text: Solicitar Detalles del Programa
-        cta_url: "#cta_banner-or97zl"
+        cta_url: "#cta_banner-amy7gf"
         course_background: hsl(var(--accent))
       - name: Desarrollo Full Stack con IA
         icon: Code
@@ -172,7 +172,7 @@ sections:
             text: ""
         description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
         cta_text: Solicitar Detalles del Programa
-        cta_url: "#cta_banner-or97zl"
+        cta_url: "#cta_banner-amy7gf"
         course_background: hsl(var(--destructive))
       - name: Ciencia de Datos y ML
         icon: ChartLine
@@ -186,7 +186,7 @@ sections:
             text: Análisis y Visualización de Datos
         description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
         cta_text: Solicitar Detalles del Programa
-        cta_url: "#cta_banner-or97zl"
+        cta_url: "#cta_banner-amy7gf"
         course_background: hsl(var(--primary))
       - name: Ciberseguridad
         icon: Shield
@@ -200,7 +200,7 @@ sections:
             text: Seguridad en la Nube
         description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
         cta_text: Solicitar Detalles del Programa
-        cta_url: "#cta_banner-or97zl"
+        cta_url: "#cta_banner-amy7gf"
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-wmev7d
     marginY:
