@@ -425,7 +425,7 @@ sections:
     section_id: ai_learning-xiuj75
     paddingY:
       mobile: lg none
-      desktop: lg none
+      desktop: lg md
     background: hsl(var(--secondary))
   - type: certificate
     title: Your Certificate. Your Salary Leverage.
