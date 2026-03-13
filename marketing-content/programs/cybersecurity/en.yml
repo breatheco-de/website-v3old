@@ -457,11 +457,10 @@ sections:
       - quito-ecuador
       - santiago-chile
   - type: pricing
-    section_id: pricing-d1cwvc
     version: "1.0"
     variant: product
     title: Tuition and Financing Options
-    subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
+    subtitle: Investing in a new career matters. We make it easier with multiple ways to finance your enrollment.
     discount_text: "Full payment discount: Save 10% with early payment."
     financing_text: Installment financing starting from
     financing_amount: {{ global.price_cybersecurity | 299€ }}
@@ -487,6 +486,7 @@ sections:
       text: Get more information
       url: /es/apply
       variant: primary
+    section_id: pricing-d1cwvc
     marginY:
       desktop: none md
     paddingY:
