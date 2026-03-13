@@ -8598,6 +8598,17 @@ sections: []
     }
   });
 
+  app.post("/api/image-registry/scripts/remove-unused", async (req, res) => {
+    try {
+      const { dryRun } = req.body as { dryRun?: boolean };
+      const { removeUnusedImages } = await import("../scripts/admin/remove-unused-images");
+      const result = await removeUnusedImages({ dryRun: dryRun ?? false });
+      res.json(result);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || "Remove unused images failed" });
+    }
+  });
+
   const mediaUpload = multer({
     storage: multer.memoryStorage(),
     limits: { fileSize: 100 * 1024 * 1024 },

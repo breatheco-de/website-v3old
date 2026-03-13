@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope, IconLink, IconLoader2 } from "@tabler/icons-react";
+import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope, IconLink, IconLoader2, IconTerminal } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -18,6 +18,14 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+  SheetFooter,
+} from "@/components/ui/sheet";
 import { Link } from "wouter";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -99,6 +107,15 @@ export default function MediaGallery() {
   const [redundantOpen, setRedundantOpen] = useState(false);
   const [redundantResult, setRedundantResult] = useState<{ resolved: number; errors: string[] } | null>(null);
   const [redundantVisible, setRedundantVisible] = useState(10);
+  const [scriptsOpen, setScriptsOpen] = useState(false);
+  const [scriptMigrateFrom, setScriptMigrateFrom] = useState("local");
+  const [scriptMigrateTo, setScriptMigrateTo] = useState("gcs");
+  const [scriptMigrateDryRun, setScriptMigrateDryRun] = useState(true);
+  const [scriptMigrateRunning, setScriptMigrateRunning] = useState(false);
+  const [scriptMigrateOutput, setScriptMigrateOutput] = useState<{ message: string; results: Array<{ id: string; oldSrc?: string; newSrc?: string; status: string }> } | null>(null);
+  const [scriptRemoveUnusedDryRun, setScriptRemoveUnusedDryRun] = useState(true);
+  const [scriptRemoveUnusedRunning, setScriptRemoveUnusedRunning] = useState(false);
+  const [scriptRemoveUnusedOutput, setScriptRemoveUnusedOutput] = useState<{ message: string; removedCount: number; skippedCount: number; results: Array<{ id: string; src: string; status: string }> } | null>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -352,6 +369,46 @@ export default function MediaGallery() {
     setVisibleCount(prev => Math.min(prev + PAGE_SIZE, filteredImages.length));
   }, [filteredImages.length]);
 
+  const handleRunMigrateScript = async () => {
+    setScriptMigrateRunning(true);
+    setScriptMigrateOutput(null);
+    try {
+      const res = await apiRequest("POST", "/api/image-registry/migrate", {
+        from: scriptMigrateFrom,
+        to: scriptMigrateTo,
+        dryRun: scriptMigrateDryRun,
+      });
+      const data = await res.json();
+      setScriptMigrateOutput({ message: data.message, results: data.results ?? [] });
+      if (!scriptMigrateDryRun) {
+        queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+      }
+    } catch (err: any) {
+      setScriptMigrateOutput({ message: `Error: ${err.message || "Migration failed"}`, results: [] });
+    } finally {
+      setScriptMigrateRunning(false);
+    }
+  };
+
+  const handleRunRemoveUnusedScript = async () => {
+    setScriptRemoveUnusedRunning(true);
+    setScriptRemoveUnusedOutput(null);
+    try {
+      const res = await apiRequest("POST", "/api/image-registry/scripts/remove-unused", {
+        dryRun: scriptRemoveUnusedDryRun,
+      });
+      const data = await res.json();
+      setScriptRemoveUnusedOutput(data);
+      if (!scriptRemoveUnusedDryRun && data.removedCount > 0) {
+        queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+      }
+    } catch (err: any) {
+      setScriptRemoveUnusedOutput({ message: `Error: ${err.message || "Failed"}`, removedCount: 0, skippedCount: 0, results: [] });
+    } finally {
+      setScriptRemoveUnusedRunning(false);
+    }
+  };
+
   useEffect(() => {
     const sentinel = sentinelRef.current;
     if (!sentinel) return;
@@ -439,6 +496,14 @@ export default function MediaGallery() {
                   data-testid="button-scan-registry"
                 >
                   {scanning ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconStethoscope className="h-4 w-4" />}
+                </Button>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => setScriptsOpen(true)}
+                  data-testid="button-admin-scripts"
+                >
+                  <IconTerminal className="h-4 w-4" />
                 </Button>
                 <Button
                   size="icon"
@@ -1368,6 +1433,142 @@ export default function MediaGallery() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <Sheet open={scriptsOpen} onOpenChange={(open) => { if (!open) setScriptsOpen(false); }}>
+        <SheetContent side="right" className="sm:max-w-lg overflow-y-auto">
+          <SheetHeader>
+            <SheetTitle className="flex items-center gap-2">
+              <IconTerminal className="h-5 w-5" />
+              Admin Scripts
+            </SheetTitle>
+            <SheetDescription>
+              Run admin scripts for image registry maintenance.
+            </SheetDescription>
+          </SheetHeader>
+
+          <div className="space-y-4 py-4">
+            <div className="rounded-md border p-4 space-y-3" data-testid="script-card-migrate">
+              <div>
+                <h4 className="text-sm font-semibold" data-testid="text-script-migrate-title">Migrate to Cloud</h4>
+                <p className="text-xs text-muted-foreground">Migrate images between providers (e.g. local to GCS or vice versa).</p>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-xs text-muted-foreground">From:</span>
+                  <select
+                    value={scriptMigrateFrom}
+                    onChange={(e) => setScriptMigrateFrom(e.target.value)}
+                    className="h-8 rounded-md border bg-background px-2 text-xs"
+                    data-testid="select-migrate-from"
+                  >
+                    <option value="local">local</option>
+                    <option value="gcs">gcs</option>
+                  </select>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-xs text-muted-foreground">To:</span>
+                  <select
+                    value={scriptMigrateTo}
+                    onChange={(e) => setScriptMigrateTo(e.target.value)}
+                    className="h-8 rounded-md border bg-background px-2 text-xs"
+                    data-testid="select-migrate-to"
+                  >
+                    <option value="local">local</option>
+                    <option value="gcs">gcs</option>
+                  </select>
+                </div>
+                <label className="flex items-center gap-1.5 cursor-pointer" data-testid="label-migrate-dryrun">
+                  <input
+                    type="checkbox"
+                    checked={scriptMigrateDryRun}
+                    onChange={(e) => setScriptMigrateDryRun(e.target.checked)}
+                    className="rounded"
+                  />
+                  <span className="text-xs">Dry run</span>
+                </label>
+                <Button
+                  size="sm"
+                  onClick={handleRunMigrateScript}
+                  disabled={scriptMigrateRunning || scriptMigrateFrom === scriptMigrateTo}
+                  data-testid="button-run-migrate"
+                >
+                  {scriptMigrateRunning ? <IconLoader2 className="h-3.5 w-3.5 animate-spin mr-1.5" /> : null}
+                  {scriptMigrateRunning ? "Running..." : "Run"}
+                </Button>
+              </div>
+              {scriptMigrateOutput && (
+                <div className="space-y-2" data-testid="output-migrate">
+                  <p className="text-xs font-medium">{scriptMigrateOutput.message}</p>
+                  {scriptMigrateOutput.results.length > 0 && (
+                    <ScrollArea className="max-h-48 rounded-md border bg-muted/30 p-2">
+                      <pre className="text-xs font-mono whitespace-pre-wrap">
+                        {scriptMigrateOutput.results.map(r =>
+                          `[${r.status}] ${r.id}: ${r.oldSrc || ""} → ${r.newSrc || ""}`
+                        ).join("\n")}
+                      </pre>
+                    </ScrollArea>
+                  )}
+                </div>
+              )}
+            </div>
+
+            <div className="rounded-md border p-4 space-y-3" data-testid="script-card-remove-unused">
+              <div>
+                <h4 className="text-sm font-semibold" data-testid="text-script-remove-unused-title">Remove Unused Images</h4>
+                <p className="text-xs text-muted-foreground">Scans all YAML files for image_id references and removes registry entries (and files) for images not referenced anywhere.</p>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <label className="flex items-center gap-1.5 cursor-pointer" data-testid="label-remove-unused-dryrun">
+                  <input
+                    type="checkbox"
+                    checked={scriptRemoveUnusedDryRun}
+                    onChange={(e) => setScriptRemoveUnusedDryRun(e.target.checked)}
+                    className="rounded"
+                  />
+                  <span className="text-xs">Dry run</span>
+                </label>
+                <Button
+                  size="sm"
+                  onClick={handleRunRemoveUnusedScript}
+                  disabled={scriptRemoveUnusedRunning}
+                  data-testid="button-run-remove-unused"
+                >
+                  {scriptRemoveUnusedRunning ? <IconLoader2 className="h-3.5 w-3.5 animate-spin mr-1.5" /> : null}
+                  {scriptRemoveUnusedRunning ? "Running..." : "Run"}
+                </Button>
+              </div>
+              {scriptRemoveUnusedOutput && (
+                <div className="space-y-2" data-testid="output-remove-unused">
+                  <p className="text-xs font-medium">{scriptRemoveUnusedOutput.message}</p>
+                  {scriptRemoveUnusedOutput.results.length > 0 && (
+                    <ScrollArea className="max-h-48 rounded-md border bg-muted/30 p-2">
+                      <pre className="text-xs font-mono whitespace-pre-wrap">
+                        {scriptRemoveUnusedOutput.results.map(r =>
+                          `[${r.status}] ${r.id}: ${r.src}`
+                        ).join("\n")}
+                      </pre>
+                    </ScrollArea>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+
+          <SheetFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setScriptsOpen(false);
+                setScriptMigrateOutput(null);
+                setScriptRemoveUnusedOutput(null);
+              }}
+              data-testid="button-close-scripts"
+            >
+              Close
+            </Button>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 }
