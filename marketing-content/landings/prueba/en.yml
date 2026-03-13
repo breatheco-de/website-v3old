@@ -213,13 +213,13 @@ sections:
         row_span: 2
     section_id: graduates_stats-cnxqbb
   - type: features_grid
-    section_id: features_grid-pq7av7
     version: "1.0"
     variant: stats-text-card
     title: Why AI Engineering Now
-    subtitle: The talent shortage is your opportunity
+    subtitle: 87% of companies can't find the engineers they need. You can be one of them.
     description: AI Engineers build AI-powered systems, automate workflows, and create AI-integrated products. They are leading the changes companies need today. Yet, according to McKinsey, 87% of companies report they are lacking the AI engineering talent to transform their operations. This gap is your opportunity.
     card_color: bg-background
+    background: hsl(210 100% 50% / 0.05)
     items:
       - value: 800,000
         title: AI-related roles expected by 2027
@@ -227,13 +227,13 @@ sections:
         title: Year-over-year growth in AI job openings
       - value: $95K-$135K
         title: Average starting salary for AI Engineers
+    section_id: features_grid-pq7av7
     marginY:
       mobile: md none
       desktop: md none
     paddingY:
       mobile: none md
       desktop: none md
-    background: hsl(210 100% 50% / 0.05)
   - type: syllabus
     variant: program-modules
     program_title: What You'll Build in 24 Weeks
