@@ -59,7 +59,7 @@ sections:
     section_id: hero-qcon9h
     background: hsl(210 100% 50% / 0.05)
     paddingY:
-      desktop: none sm
+      desktop: none
     marginY:
       desktop: none lg
   - type: awards_marquee
@@ -104,7 +104,7 @@ sections:
     marginY:
       desktop: none sm
     paddingY:
-      desktop: sm none
+      desktop: none
   - type: course_selector
     version: "1.0"
     variant: solid
