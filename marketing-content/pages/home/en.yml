@@ -22,7 +22,7 @@ sections:
   - type: hero
     variant: showcase
     title: Where AI Careers Are Built.
-    subtitle: AI has created 1.3 million new roles in two years — and demand is only accelerating. Land a high-growth tech job faster with unlimited 1:1 mentorship, AI-powered learning, and career support across AI Engineering, Data Science, and Cybersecurity..
+    subtitle: AI has created 1.3 million new roles in two years and demand is only accelerating. Land a high-growth tech job faster with unlimited 1:1 mentorship, AI-powered learning, and career support across AI Engineering, Data Science, and Cybersecurity..
     trust_bar:
       rating: {{ global.global_review_rating | 4.9 }}/5
       rating_count: 3,000+
