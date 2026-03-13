@@ -83,8 +83,6 @@ sections:
       desktop: md
     marginY:
       desktop: none
-    showOnLocations:
-      - atla
   - type: hero
     version: "1.0"
     variant: course
