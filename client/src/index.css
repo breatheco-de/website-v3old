@@ -774,3 +774,124 @@
   color: hsl(var(--muted-foreground));
   font-style: italic;
 }
+
+.chat-markdown > *:first-child {
+  margin-top: 0;
+}
+
+.chat-markdown > *:last-child {
+  margin-bottom: 0;
+}
+
+.chat-markdown p {
+  margin: 0.4em 0;
+  line-height: 1.5;
+}
+
+.chat-markdown strong {
+  font-weight: 700;
+}
+
+.chat-markdown em {
+  font-style: italic;
+}
+
+.chat-markdown h1,
+.chat-markdown h2,
+.chat-markdown h3,
+.chat-markdown h4 {
+  font-weight: 700;
+  margin: 0.6em 0 0.3em;
+  line-height: 1.3;
+}
+
+.chat-markdown h1 { font-size: 1.25em; }
+.chat-markdown h2 { font-size: 1.15em; }
+.chat-markdown h3 { font-size: 1.05em; }
+
+.chat-markdown ul,
+.chat-markdown ol {
+  margin: 0.4em 0;
+  padding-left: 1.5em;
+}
+
+.chat-markdown ul {
+  list-style-type: disc;
+}
+
+.chat-markdown ol {
+  list-style-type: decimal;
+}
+
+.chat-markdown li {
+  margin: 0.15em 0;
+}
+
+.chat-markdown li > ul,
+.chat-markdown li > ol {
+  margin: 0.1em 0;
+}
+
+.chat-markdown code {
+  background: hsl(var(--foreground) / 0.08);
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: monospace;
+}
+
+.chat-markdown pre {
+  background: hsl(var(--foreground) / 0.06);
+  border-radius: 6px;
+  padding: 0.6em 0.8em;
+  margin: 0.4em 0;
+  overflow-x: auto;
+}
+
+.chat-markdown pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.85em;
+}
+
+.chat-markdown blockquote {
+  border-left: 3px solid hsl(var(--foreground) / 0.2);
+  padding-left: 0.8em;
+  margin: 0.4em 0;
+  color: hsl(var(--muted-foreground));
+}
+
+.chat-markdown table {
+  border-collapse: collapse;
+  margin: 0.4em 0;
+  width: 100%;
+  font-size: 0.9em;
+}
+
+.chat-markdown th,
+.chat-markdown td {
+  border: 1px solid hsl(var(--border));
+  padding: 0.3em 0.6em;
+  text-align: left;
+}
+
+.chat-markdown th {
+  font-weight: 700;
+  background: hsl(var(--foreground) / 0.05);
+}
+
+.chat-markdown hr {
+  border: none;
+  border-top: 1px solid hsl(var(--border));
+  margin: 0.6em 0;
+}
+
+.chat-markdown a {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+}
+
+.chat-markdown a:hover {
+  opacity: 0.8;
+}
