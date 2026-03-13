@@ -16,9 +16,25 @@ interface LLMConfig {
   chat_bubble?: { enabled?: boolean; page_patterns?: string[]; content_types?: string[] };
 }
 
+interface AgentToolCallTrace {
+  name: string;
+  arguments: Record<string, string>;
+  result: string;
+}
+
+interface AgentTrace {
+  model: string;
+  totalTokens: number;
+  promptTokens: number;
+  completionTokens: number;
+  iterations: number;
+  toolCalls: AgentToolCallTrace[];
+}
+
 interface AgentResponse {
   content: string;
   questionTag: string | null;
+  trace: AgentTrace;
 }
 
 function loadConfig(): LLMConfig {
@@ -195,6 +211,24 @@ Respond with ONLY the category name, nothing else.`;
     const model = process.env.LLM_MODEL || this.config.model || "llama-3.3-70b-versatile";
     const tools = this.getEnabledTools();
 
+    const trace: AgentTrace = {
+      model,
+      totalTokens: 0,
+      promptTokens: 0,
+      completionTokens: 0,
+      iterations: 0,
+      toolCalls: [],
+    };
+
+    const accumulateUsage = (usage: { prompt_tokens?: number; completion_tokens?: number; total_tokens?: number } | undefined) => {
+      if (!usage) return;
+      const prompt = usage.prompt_tokens || 0;
+      const completion = usage.completion_tokens || 0;
+      trace.promptTokens += prompt;
+      trace.completionTokens += completion;
+      trace.totalTokens += usage.total_tokens || (prompt + completion);
+    };
+
     let response = await this.client.chat.completions.create({
       model,
       messages,
@@ -202,6 +236,8 @@ Respond with ONLY the category name, nothing else.`;
       max_tokens: this.config.max_tokens || 4000,
       tools: tools.length > 0 ? tools : undefined,
     });
+
+    accumulateUsage(response.usage);
 
     let assistantMessage = response.choices[0]?.message;
     let iterations = 0;
@@ -229,6 +265,12 @@ Respond with ONLY the category name, nothing else.`;
         }
         const result = executeToolCall(toolCall.function.name, args);
 
+        trace.toolCalls.push({
+          name: toolCall.function.name,
+          arguments: args,
+          result,
+        });
+
         messages.push({
           role: "tool" as const,
           tool_call_id: toolCall.id,
@@ -244,9 +286,13 @@ Respond with ONLY the category name, nothing else.`;
         tools: tools.length > 0 ? tools : undefined,
       });
 
+      accumulateUsage(response.usage);
+
       assistantMessage = response.choices[0]?.message;
       console.log(`[AgentService] After iteration ${iterations} — finish_reason: ${response.choices[0]?.finish_reason}, has_content: ${!!assistantMessage?.content}, tool_calls: ${assistantMessage?.tool_calls?.length || 0}`);
     }
+
+    trace.iterations = iterations;
 
     if (!assistantMessage?.content) {
       console.log(`[AgentService] No content after ${iterations} tool-call iteration(s) — making rescue call without tools`);
@@ -256,6 +302,7 @@ Respond with ONLY the category name, nothing else.`;
         temperature: this.config.temperature ?? 0.3,
         max_tokens: this.config.max_tokens || 4000,
       });
+      accumulateUsage(rescueResponse.usage);
       assistantMessage = rescueResponse.choices[0]?.message;
       console.log(`[AgentService] Rescue call — finish_reason: ${rescueResponse.choices[0]?.finish_reason}, has_content: ${!!assistantMessage?.content}`);
     }
@@ -265,6 +312,7 @@ Respond with ONLY the category name, nothing else.`;
     return {
       content: responseContent,
       questionTag,
+      trace,
     };
   }
 

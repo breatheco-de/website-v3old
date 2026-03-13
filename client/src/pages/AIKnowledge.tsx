@@ -10,7 +10,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { IconArrowLeft, IconPlus, IconTrash, IconLoader2, IconCheck, IconEye, IconEyeOff, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown, IconBrain, IconUpload, IconTool, IconBooks, IconSend } from "@tabler/icons-react";
+import { IconArrowLeft, IconPlus, IconTrash, IconLoader2, IconCheck, IconEye, IconEyeOff, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown, IconChevronRight, IconBrain, IconUpload, IconTool, IconBooks, IconSend } from "@tabler/icons-react";
 import { Link, useLocation } from "wouter";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 
@@ -24,6 +24,21 @@ interface KnowledgeData {
   agent_tools: Array<{ name: string; description: string; enabled: boolean }>;
   chat_bubble: { enabled?: boolean; page_patterns?: string[]; content_types?: string[]; agent_name?: string; agent_icon?: string };
   question_tags: string[];
+}
+
+interface AgentToolCallTrace {
+  name: string;
+  arguments: Record<string, string>;
+  result: string;
+}
+
+interface AgentTrace {
+  model: string;
+  totalTokens: number;
+  promptTokens: number;
+  completionTokens: number;
+  iterations: number;
+  toolCalls: AgentToolCallTrace[];
 }
 
 interface ImageEntry {
@@ -44,6 +59,72 @@ function compileSystemPrompt(name: string, role: string, personality: string, in
   if (instructions) parts.push(`\n## Key Instructions\n${instructions}`);
   if (fallback) parts.push(`\n## Fallback & Boundaries\n${fallback}`);
   return parts.join("\n").trim();
+}
+
+function TracePanel({ trace, index }: { trace: AgentTrace; index: number }) {
+  const [open, setOpen] = useState(false);
+  const [expandedTools, setExpandedTools] = useState<Set<number>>(new Set());
+
+  const toggleTool = (idx: number) => {
+    setExpandedTools(prev => {
+      const next = new Set(prev);
+      if (next.has(idx)) next.delete(idx);
+      else next.add(idx);
+      return next;
+    });
+  };
+
+  return (
+    <div className="max-w-[80%] mt-1" data-testid={`trace-panel-${index}`}>
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-1 text-[11px] text-muted-foreground hover-elevate rounded px-1.5 py-0.5"
+        data-testid={`button-toggle-trace-${index}`}
+      >
+        {open ? <IconChevronDown className="h-3 w-3" /> : <IconChevronRight className="h-3 w-3" />}
+        <span>Trace</span>
+        <span className="opacity-70">({trace.totalTokens} tokens)</span>
+      </button>
+      {open && (
+        <div className="mt-1 rounded-md border bg-muted/50 p-3 text-xs font-mono space-y-2" data-testid={`trace-details-${index}`}>
+          <div className="flex flex-wrap gap-x-4 gap-y-1">
+            <span><span className="text-muted-foreground">Model:</span> {trace.model}</span>
+            <span><span className="text-muted-foreground">Tokens:</span> {trace.totalTokens} <span className="text-muted-foreground">({trace.promptTokens}p + {trace.completionTokens}c)</span></span>
+            <span><span className="text-muted-foreground">Iterations:</span> {trace.iterations}</span>
+          </div>
+          {trace.toolCalls.length > 0 && (
+            <div className="space-y-1 pt-1 border-t border-border/50">
+              <span className="text-muted-foreground text-[11px]">Tool Calls ({trace.toolCalls.length})</span>
+              {trace.toolCalls.map((tc, tcIdx) => (
+                <div key={tcIdx} className="rounded border bg-background/50 overflow-hidden" data-testid={`trace-tool-call-${index}-${tcIdx}`}>
+                  <button
+                    onClick={() => toggleTool(tcIdx)}
+                    className="w-full flex items-center gap-1.5 px-2 py-1 text-left hover-elevate"
+                    data-testid={`button-toggle-tool-${index}-${tcIdx}`}
+                  >
+                    {expandedTools.has(tcIdx) ? <IconChevronDown className="h-3 w-3 shrink-0" /> : <IconChevronRight className="h-3 w-3 shrink-0" />}
+                    <span className="font-semibold">{tc.name}</span>
+                  </button>
+                  {expandedTools.has(tcIdx) && (
+                    <div className="px-2 pb-2 space-y-1">
+                      <div>
+                        <span className="text-muted-foreground">Args:</span>
+                        <pre className="mt-0.5 p-1.5 rounded bg-muted text-[11px] overflow-x-auto whitespace-pre-wrap break-all">{JSON.stringify(tc.arguments, null, 2)}</pre>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Result:</span>
+                        <pre className="mt-0.5 p-1.5 rounded bg-muted text-[11px] overflow-x-auto whitespace-pre-wrap break-all max-h-40 overflow-y-auto">{tc.result}</pre>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default function AIKnowledge() {
@@ -88,7 +169,7 @@ export default function AIKnowledge() {
   const [toolsOpen, setToolsOpen] = useState(false);
   const [draftAgentTools, setDraftAgentTools] = useState<Array<{ name: string; description: string; enabled: boolean }>>([]);
   const [savingTools, setSavingTools] = useState(false);
-  const [chatMessages, setChatMessages] = useState<Array<{ role: "user" | "assistant"; content: string }>>([]);
+  const [chatMessages, setChatMessages] = useState<Array<{ role: "user" | "assistant"; content: string; trace?: AgentTrace }>>([]);
   const [chatInput, setChatInput] = useState("");
   const [chatSessionId, setChatSessionId] = useState<string | null>(null);
   const [chatSending, setChatSending] = useState(false);
@@ -234,7 +315,7 @@ export default function AIKnowledge() {
       });
       if (!msgRes.ok) throw new Error("Failed to send message");
       const msgData = await msgRes.json();
-      setChatMessages(prev => [...prev, { role: "assistant", content: msgData.content || "No response" }]);
+      setChatMessages(prev => [...prev, { role: "assistant", content: msgData.content || "No response", trace: msgData.trace }]);
     } catch {
       setChatMessages(prev => [...prev, { role: "assistant", content: "Something went wrong. Please try again." }]);
     } finally {
@@ -403,7 +484,7 @@ export default function AIKnowledge() {
               {chatMessages.map((msg, i) => (
                 <div
                   key={i}
-                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                  className={`flex flex-col ${msg.role === "user" ? "items-end" : "items-start"}`}
                   data-testid={`chat-message-${msg.role}-${i}`}
                 >
                   <div
@@ -415,6 +496,9 @@ export default function AIKnowledge() {
                   >
                     {msg.content}
                   </div>
+                  {msg.role === "assistant" && msg.trace && (
+                    <TracePanel trace={msg.trace} index={i} />
+                  )}
                 </div>
               ))}
               {chatSending && (

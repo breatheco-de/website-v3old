@@ -10142,6 +10142,7 @@ sections: []
         id: assistantMsg.id,
         content: result.content,
         question_tag: result.questionTag,
+        trace: result.trace,
       });
     } catch (err) {
       console.error("[Chat Message] Error:", err);
