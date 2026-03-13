@@ -399,7 +399,7 @@ sections:
           - text: Resume and portfolio optimized to pass AI-based recruiter screening
           - text: Mock technical and behavioral interviews with real feedback
           - text: Lifelong career support, not just until graduation
-        video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
+        video_url: https://youtu.be/-2ZvlgDnltc
       - icon: Robot
         title: Learn faster with an AI tutor that knows where you're stuck
         description: ""
@@ -423,7 +423,7 @@ sections:
           - text: 7:1 student to mentor ratio so you're never just a ticket in a queue
           - text: Weekly check-ins keep you accountable and on track to finish
           - text: Active Slack community with dedicated channels for jobs, code help, and career advice
-        video_url: https://youtu.be/Zoxxw5jP7xA
+        video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
     section_id: ai_learning-xiuj75
     paddingY:
       mobile: lg none
