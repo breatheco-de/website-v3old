@@ -143,6 +143,7 @@ export default function AIKnowledge() {
 
         <Card className="p-4 space-y-3">
           <h2 className="font-semibold text-lg" data-testid="text-system-prompt-heading">System Prompt</h2>
+          <p className="text-sm text-muted-foreground">The foundational instructions that shape the agent's personality, tone, and behavior. This text is injected at the start of every conversation before any user message.</p>
           <Textarea
             value={systemPrompt}
             onChange={e => setSystemPrompt(e.target.value)}
@@ -165,6 +166,7 @@ export default function AIKnowledge() {
               Add Block
             </Button>
           </div>
+          <p className="text-sm text-muted-foreground">Freeform text the agent can reference when answering questions. Add an optional tag to each block so the AI can apply it selectively based on the topic or page context.</p>
           {customKnowledge.map((block, i) => (
             <div key={i} className="space-y-2 border-b pb-3">
               <div className="flex items-center gap-2 flex-wrap">
@@ -217,6 +219,7 @@ export default function AIKnowledge() {
               Add Pair
             </Button>
           </div>
+          <p className="text-sm text-muted-foreground">Exact question-and-answer pairs that take priority over the agent's general reasoning. Use these for FAQs or any information that must always be answered precisely and consistently.</p>
           {pinnedQA.map((qa, i) => (
             <div key={i} className="space-y-2 border-b pb-3">
               <div className="flex items-center gap-2 flex-wrap">
@@ -270,6 +273,7 @@ export default function AIKnowledge() {
 
         <Card className="p-4 space-y-3">
           <h2 className="font-semibold text-lg" data-testid="text-tools-heading">Agent Tools</h2>
+          <p className="text-sm text-muted-foreground">External capabilities the agent can invoke while responding, such as live program lookups or location queries. Enable only the tools relevant to the conversations you want to support.</p>
           {agentTools.map((tool, i) => (
             <div key={i} className="flex items-center gap-3 py-2 border-b last:border-b-0">
               <label className="flex items-center gap-2 cursor-pointer flex-1">
@@ -385,6 +389,7 @@ export default function AIKnowledge() {
 
         <Card className="p-4 space-y-3">
           <h2 className="font-semibold text-lg" data-testid="text-preview-heading">Live Preview</h2>
+          <p className="text-sm text-muted-foreground">Test how the agent responds to a specific question, simulating a given page URL. Useful for verifying your knowledge blocks and Q&A pairs before saving.</p>
           <div className="space-y-2">
             <input
               type="text"
