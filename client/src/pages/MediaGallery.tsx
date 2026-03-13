@@ -89,6 +89,7 @@ interface ValidationRunResult {
 export default function MediaGallery() {
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [activeTagFilter, setActiveTagFilter] = useState<string | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
@@ -326,6 +327,9 @@ export default function MediaGallery() {
 
   const filteredImages = registry?.images
     ? Object.entries(registry.images).filter(([id, img]) => {
+        if (activeTagFilter && !img.tags?.includes(activeTagFilter)) {
+          return false;
+        }
         const searchLower = search.toLowerCase();
         return (
           id.toLowerCase().includes(searchLower) ||
@@ -366,7 +370,7 @@ export default function MediaGallery() {
 
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
-  }, [search]);
+  }, [search, activeTagFilter]);
 
   const visibleImages = filteredImages.slice(0, visibleCount);
   const hasMore = visibleCount < filteredImages.length;
@@ -689,17 +693,17 @@ export default function MediaGallery() {
                   <IconSettings className="h-4 w-4" />
                 </Button>
               </div>
-              {registry && (
+              {registry?.tagDefinitions && (
                 <div className="flex flex-wrap gap-1.5 justify-end">
-                  {Object.keys(registry.presets).map((name) => (
+                  {Object.entries(registry.tagDefinitions).map(([key, tagDef]) => (
                     <Badge
-                      key={name}
-                      variant="outline"
+                      key={key}
+                      variant={activeTagFilter === key ? "default" : "outline"}
                       className="cursor-pointer text-xs"
-                      onClick={() => { setSearch(name); setSearchOpen(true); }}
-                      data-testid={`badge-preset-${name}`}
+                      onClick={() => setActiveTagFilter(activeTagFilter === key ? null : key)}
+                      data-testid={`badge-tag-${key}`}
                     >
-                      {name}
+                      {tagDef.label}
                     </Badge>
                   ))}
                 </div>
@@ -1090,9 +1094,9 @@ export default function MediaGallery() {
                           {img.tags.map((tag) => (
                             <Badge 
                               key={tag} 
-                              variant="secondary" 
+                              variant={activeTagFilter === tag ? "default" : "secondary"}
                               className="text-xs px-1.5 py-0 cursor-pointer"
-                              onClick={() => { setSearch(tag); setSearchOpen(true); }}
+                              onClick={() => setActiveTagFilter(activeTagFilter === tag ? null : tag)}
                             >
                               {tag}
                             </Badge>
