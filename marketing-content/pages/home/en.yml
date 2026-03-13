@@ -76,7 +76,6 @@ sections:
     marginY:
       desktop: none md
   - type: image_row
-    section_id: image_row-z97kqt
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Student learning to code
@@ -87,8 +86,8 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Graduate celebrating success
     highlight:
-      heading: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.25rem;\">Tech Careers Aren’t Built on One-Size-Fits-All.</span></span>"
-      text: "<span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Our programs combine 1:1 mentorship with AI-powered learning that adapts to your strengths and learning needs. The result: faster readiness for high-growth tech roles.</span></span></span></span>"
+      heading: Your Goals Are Unique. Your Program Should Be Too.
+      text: "Our programs combine unlimited 1:1 mentorship with AI-powered learning that adapts to you — your pace, your level, your goals. The result: the fastest, most direct path to landing a high-demand tech role."
       background: primary
       width: 2
     height: 31rem
@@ -96,6 +95,7 @@ sections:
     gap: md
     rounded: true
     background: hsl(var(--secondary))
+    section_id: image_row-z97kqt
     marginY:
       desktop: none
     paddingY:
