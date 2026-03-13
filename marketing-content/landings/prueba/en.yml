@@ -132,6 +132,8 @@ sections:
           default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
+    paddingY:
+      desktop: none sm
   - type: awards_marquee
     section_id: awards_marquee-7hit4b
     version: "1.0"
