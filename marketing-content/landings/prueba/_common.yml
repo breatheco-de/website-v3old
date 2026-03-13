@@ -1,0 +1,16 @@
+slug: prueba
+title: prueba
+locale: es
+meta:
+  og_image: /images/programs/ai-engineering-og.jpg
+  page_title: Bootcamp de Ingeniería de IA en España | 4Geeks Academy
+  description: >-
+    Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando — en solo 24
+    semanas.
+schema:
+  include:
+    - organization
+    - website
+    - courses:ai-engineering
+locations:
+  - madrid-spain
