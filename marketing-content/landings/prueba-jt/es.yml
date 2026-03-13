@@ -15,7 +15,7 @@ sections:
       - text: Forma parte de una comunidad internacional de más de 5,000 personas
     video:
       url: https://www.youtube.com/shorts/ksGWXcccpc8
-      ratio: "9:12"
+      ratio: "9:16"
       muted: true
       autoplay: true
       loop: true
