@@ -10,7 +10,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { IconArrowLeft, IconPlus, IconTrash, IconPlayerPlay, IconLoader2, IconCheck, IconEye, IconEyeOff, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown, IconBrain } from "@tabler/icons-react";
+import { IconArrowLeft, IconPlus, IconTrash, IconPlayerPlay, IconLoader2, IconCheck, IconEye, IconEyeOff, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown, IconBrain, IconUpload } from "@tabler/icons-react";
 import { Link } from "wouter";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 
@@ -91,6 +91,7 @@ export default function AIKnowledge() {
   const [instructionsSecOpen, setInstructionsSecOpen] = useState(false);
   const [fallbackSecOpen, setFallbackSecOpen] = useState(false);
   const [iconPickerForDraft, setIconPickerForDraft] = useState(false);
+  const [uploadingIcon, setUploadingIcon] = useState(false);
 
   const { data, isLoading } = useQuery<KnowledgeData>({
     queryKey: ["/api/admin/ai/knowledge"],
@@ -331,15 +332,62 @@ export default function AIKnowledge() {
             <DialogHeader>
               <DialogTitle>Select Agent Icon</DialogTitle>
             </DialogHeader>
-            <div className="flex items-center gap-2 border rounded-md px-3 py-2">
-              <IconSearch className="h-4 w-4 text-muted-foreground shrink-0" />
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 border rounded-md px-3 py-2 flex-1">
+                <IconSearch className="h-4 w-4 text-muted-foreground shrink-0" />
+                <input
+                  type="text"
+                  value={iconSearch}
+                  onChange={e => setIconSearch(e.target.value)}
+                  placeholder="Search images..."
+                  className="flex-1 bg-transparent text-sm outline-none"
+                  data-testid="input-icon-search"
+                />
+              </div>
+              <Button
+                size="sm"
+                variant="outline"
+                disabled={uploadingIcon}
+                onClick={() => document.getElementById("icon-upload-input")?.click()}
+                data-testid="button-upload-icon"
+              >
+                {uploadingIcon
+                  ? <IconLoader2 className="h-4 w-4 animate-spin mr-1" />
+                  : <IconUpload className="h-4 w-4 mr-1" />}
+                Upload
+              </Button>
               <input
-                type="text"
-                value={iconSearch}
-                onChange={e => setIconSearch(e.target.value)}
-                placeholder="Search images..."
-                className="flex-1 bg-transparent text-sm outline-none"
-                data-testid="input-icon-search"
+                id="icon-upload-input"
+                type="file"
+                accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml,image/avif"
+                className="hidden"
+                data-testid="input-icon-upload-file"
+                onChange={async e => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  setUploadingIcon(true);
+                  try {
+                    const form = new FormData();
+                    form.append("file", file);
+                    form.append("alt", file.name.replace(/\.[^.]+$/, ""));
+                    const res = await fetch("/api/image-registry/upload", { method: "POST", body: form });
+                    if (!res.ok) throw new Error("Upload failed");
+                    const result = await res.json();
+                    const src = result.src || result.url;
+                    if (src) {
+                      if (iconPickerForDraft) { setDraftAgentIcon(src); } else { setAgentIcon(src); }
+                      setIconPickerOpen(false);
+                      setIconSearch("");
+                      setIconPickerForDraft(false);
+                      queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+                    }
+                  } catch {
+                    // silent — user can retry
+                  } finally {
+                    setUploadingIcon(false);
+                    e.target.value = "";
+                  }
+                }}
               />
             </div>
             <div className="overflow-y-auto grid grid-cols-4 gap-2 mt-1">

@@ -35,5 +35,5 @@ chat_bubble:
   content_types:
     - program
     - location
-  agent_name: ''
-  agent_icon: ''
+  agent_name: Rigobot
+  agent_icon: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
