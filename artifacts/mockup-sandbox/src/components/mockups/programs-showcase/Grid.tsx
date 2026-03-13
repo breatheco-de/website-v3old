@@ -1,4 +1,4 @@
-import { ArrowRight, Clock, Code2, Brain, BarChart3, Shield } from "lucide-react";
+import { ArrowRight, Clock, Code2, Brain, BarChart3, Shield, TrendingUp } from "lucide-react";
 
 const FOREGROUND = "#00041A";
 const MUTED = "#737373";
@@ -9,31 +9,47 @@ const BORDER = "#EBEBEB";
 const programs = [
   {
     icon: Code2,
-    name: "Full Stack Development with AI",
+    label: "Become a",
+    name: "Full Stack Developer",
+    program: "Full Stack Development with AI",
     tagline: "Build modern web apps from frontend to backend, supercharged with AI tools.",
     duration: "16 weeks",
+    demand: "High demand",
     color: "#0084FF",
+    colorRgb: "0, 132, 255",
   },
   {
     icon: Brain,
-    name: "AI Engineering",
+    label: "Become an",
+    name: "AI Engineer",
+    program: "AI Engineering",
     tagline: "Design, train and deploy AI models that solve real-world business problems.",
     duration: "20 weeks",
+    demand: "Very high demand",
     color: "#737373",
+    colorRgb: "115, 115, 115",
   },
   {
     icon: BarChart3,
-    name: "Data Science & ML",
+    label: "Become a",
+    name: "Data Scientist",
+    program: "Data Science & ML",
     tagline: "Turn raw data into actionable insight using Python, ML and visualization.",
     duration: "18 weeks",
+    demand: "High demand",
     color: "#FFB718",
+    colorRgb: "255, 183, 24",
   },
   {
     icon: Shield,
-    name: "Cybersecurity",
+    label: "Become a",
+    name: "Security Analyst",
+    program: "Cybersecurity",
     tagline: "Protect systems and networks against modern threats and vulnerabilities.",
     duration: "14 weeks",
+    demand: "Critical demand",
     color: "#C0311B",
+    colorRgb: "192, 49, 27",
   },
 ];
 
@@ -53,15 +69,34 @@ function ProgramCard({ program }: { program: typeof programs[0] }) {
       />
 
       <div className="p-6 flex flex-col flex-1 gap-4">
-        <Icon
-          className="w-7 h-7"
-          style={{ color: program.color }}
-          strokeWidth={1.5}
-        />
+        <div className="flex items-start justify-between gap-3">
+          <Icon
+            className="w-7 h-7 shrink-0"
+            style={{ color: program.color }}
+            strokeWidth={1.5}
+          />
+          <div
+            className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0"
+            style={{
+              color: program.color,
+              backgroundColor: `rgba(${program.colorRgb}, 0.10)`,
+              fontFamily: "'Archivo', sans-serif",
+            }}
+          >
+            <TrendingUp className="w-3 h-3" />
+            {program.demand}
+          </div>
+        </div>
 
         <div className="flex-1">
+          <div
+            className="text-xs font-semibold uppercase tracking-widest mb-1"
+            style={{ color: MUTED, fontFamily: "'Archivo', sans-serif" }}
+          >
+            {program.label}
+          </div>
           <h3
-            className="text-lg font-bold leading-snug mb-2"
+            className="text-lg font-bold leading-snug mb-1"
             style={{
               fontFamily: "'Lato', sans-serif",
               color: FOREGROUND,
@@ -70,6 +105,12 @@ function ProgramCard({ program }: { program: typeof programs[0] }) {
           >
             {program.name}
           </h3>
+          <div
+            className="text-xs mb-2"
+            style={{ color: MUTED, fontFamily: "'Archivo', sans-serif" }}
+          >
+            {program.program}
+          </div>
           <p
             className="text-base leading-relaxed"
             style={{ color: MUTED, fontFamily: "'Archivo', sans-serif" }}
@@ -80,7 +121,7 @@ function ProgramCard({ program }: { program: typeof programs[0] }) {
 
         <div
           className="flex items-center justify-between pt-4"
-          style={{ borderTop: `1px solid ${program.color}` }}
+          style={{ borderTop: `1px solid ${BORDER}` }}
         >
           <div
             className="flex items-center gap-1.5 text-xs"
