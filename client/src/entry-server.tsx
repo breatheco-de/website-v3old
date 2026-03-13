@@ -1,6 +1,7 @@
-import { renderToString } from "react-dom/server";
+import { renderToPipeableStream } from "react-dom/server";
 import { QueryClient } from "@tanstack/react-query";
 import { Router } from "wouter";
+import { PassThrough } from "node:stream";
 import App from "./App";
 
 interface SingleQuery {
@@ -12,9 +13,7 @@ type InitialDataPayload =
   | { queries: SingleQuery[]; queryKey?: never; data?: never }
   | { queryKey: unknown[]; data: unknown; queries?: never };
 
-// Third-party libraries (Radix UI, etc.) emit useLayoutEffect SSR warnings that
-// are harmless — suppress them so server logs stay readable.
-function withSuppressedLayoutEffectWarning<T>(fn: () => T): T {
+function suppressLayoutEffectWarnings(): () => void {
   const original = console.error;
   console.error = (...args: unknown[]) => {
     if (
@@ -25,11 +24,9 @@ function withSuppressedLayoutEffectWarning<T>(fn: () => T): T {
     }
     original.apply(console, args);
   };
-  try {
-    return fn();
-  } finally {
+  return () => {
     console.error = original;
-  }
+  };
 }
 
 function seedQueryClient(
@@ -70,13 +67,36 @@ export async function render(
 
   const cleanUrl = url.split("?")[0].split("#")[0];
 
-  const html = withSuppressedLayoutEffectWarning(() =>
-    renderToString(
-      <Router ssrPath={cleanUrl}>
-        <App ssrQueryClient={ssrQueryClient} />
-      </Router>,
-    ),
-  );
+  const restore = suppressLayoutEffectWarnings();
 
-  return html;
+  try {
+    const html = await new Promise<string>((resolve, reject) => {
+      let chunks = "";
+      const passthrough = new PassThrough();
+      passthrough.setEncoding("utf-8");
+      passthrough.on("data", (chunk: string) => {
+        chunks += chunk;
+      });
+      passthrough.on("end", () => resolve(chunks));
+      passthrough.on("error", reject);
+
+      const { pipe } = renderToPipeableStream(
+        <Router ssrPath={cleanUrl}>
+          <App ssrQueryClient={ssrQueryClient} />
+        </Router>,
+        {
+          onAllReady() {
+            pipe(passthrough);
+          },
+          onError(error: unknown) {
+            reject(error);
+          },
+        },
+      );
+    });
+
+    return html;
+  } finally {
+    restore();
+  }
 }
