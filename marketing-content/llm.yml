@@ -52,6 +52,7 @@ prompt_fallback: >
   job placement, salary, or scholarships. Avoid discussing competitor
   bootcamps. Stay focused on 4Geeks Academy topics only.
 
+empty_conversation_grace_minutes: 15
 chat_bubble:
   enabled: false
   page_patterns: []

@@ -87,6 +87,20 @@ export default function AIConversations() {
     },
   });
 
+  const { data: knowledgeData } = useQuery<{ empty_conversation_grace_minutes: number }>({
+    queryKey: ["/api/admin/ai/knowledge"],
+    queryFn: async () => {
+      const token = getDebugToken();
+      const headers: Record<string, string> = {};
+      if (token) headers["Authorization"] = `Token ${token}`;
+      const res = await fetch("/api/admin/ai/knowledge", { headers });
+      if (!res.ok) throw new Error(`${res.status}: ${await res.text()}`);
+      return res.json();
+    },
+  });
+
+  const graceMinutes = knowledgeData?.empty_conversation_grace_minutes ?? 15;
+
   const toggleConversation = (id: string) => {
     setExpandedConvs(prev => {
       const next = new Set(prev);
@@ -256,6 +270,10 @@ export default function AIConversations() {
             </div>
           )}
         </Card>
+
+        <div className="flex items-center gap-2 px-3 py-2 rounded-md bg-muted text-sm text-muted-foreground" data-testid="text-empty-conv-notice">
+          Empty conversations older than {graceMinutes} minute{graceMinutes !== 1 ? "s" : ""} are automatically hidden from this list.
+        </div>
 
         {isLoading ? (
           <div className="flex justify-center py-12">

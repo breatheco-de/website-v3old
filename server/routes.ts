@@ -9960,6 +9960,7 @@ sections: []
     prompt_personality?: string;
     prompt_instructions?: string;
     prompt_fallback?: string;
+    empty_conversation_grace_minutes?: number;
   }
 
   function loadLLMConfig(): ParsedLLMConfig {
@@ -10174,6 +10175,7 @@ sections: []
         agent_tools: llmConfig.agent_tools || [],
         chat_bubble: llmConfig.chat_bubble || {},
         question_tags: llmConfig.question_tags || [],
+        empty_conversation_grace_minutes: llmConfig.empty_conversation_grace_minutes ?? 15,
       });
     } catch (err) {
       console.error("[AI Knowledge GET] Error:", err);
@@ -10210,17 +10212,26 @@ sections: []
       const updates = req.body || {};
 
       for (const [key, value] of Object.entries(updates)) {
-        if (key === "updated_by") continue;
+        if (key === "updated_by" || key === "empty_conversation_grace_minutes") continue;
         await conversationStore.setKnowledge(key, value, updates.updated_by);
       }
 
-      if (updates.agent_tools || updates.chat_bubble) {
+      if (updates.empty_conversation_grace_minutes !== undefined) {
+        const raw = Number(updates.empty_conversation_grace_minutes);
+        if (!Number.isFinite(raw) || !Number.isInteger(raw) || raw < 1) {
+          return res.status(400).json({ error: "empty_conversation_grace_minutes must be a positive integer" });
+        }
+        updates.empty_conversation_grace_minutes = raw;
+      }
+
+      if (updates.agent_tools || updates.chat_bubble || updates.empty_conversation_grace_minutes !== undefined) {
         const llmPath = path.resolve("marketing-content/llm.yml");
         if (fs.existsSync(llmPath)) {
           const llmConfig = loadLLMConfig();
           const mutableConfig: Record<string, unknown> = { ...llmConfig };
           if (updates.agent_tools) mutableConfig.agent_tools = updates.agent_tools;
           if (updates.chat_bubble) mutableConfig.chat_bubble = updates.chat_bubble;
+          if (updates.empty_conversation_grace_minutes !== undefined) mutableConfig.empty_conversation_grace_minutes = updates.empty_conversation_grace_minutes;
           fs.writeFileSync(llmPath, yaml.dump(mutableConfig, { lineWidth: -1 }), "utf-8");
         }
 

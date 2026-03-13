@@ -3,6 +3,9 @@ import { conversations, conversationMessages, aiKnowledge } from "@shared/schema
 import type { InsertConversation, InsertConversationMessage, Conversation, ConversationMessage } from "@shared/schema";
 import { eq, desc, and, gte, lte, like, sql, type SQL } from "drizzle-orm";
 import { gcs } from "../gcs";
+import * as fs from "fs";
+import * as path from "path";
+import * as yaml from "js-yaml";
 
 export class ConversationStore {
   async createConversation(data: InsertConversation): Promise<Conversation> {
@@ -96,6 +99,26 @@ export class ConversationStore {
         sql`EXISTS (SELECT 1 FROM ${conversationMessages} WHERE ${conversationMessages.conversation_id} = ${conversations.id} AND ${conversationMessages.rating} = ${filters.rating})`
       );
     }
+
+    let graceMinutes = 15;
+    try {
+      const llmPath = path.resolve("marketing-content/llm.yml");
+      if (fs.existsSync(llmPath)) {
+        const raw = yaml.load(fs.readFileSync(llmPath, "utf-8")) as Record<string, unknown>;
+        if (raw && typeof raw.empty_conversation_grace_minutes === "number") {
+          graceMinutes = raw.empty_conversation_grace_minutes;
+        }
+      }
+    } catch (err) {
+      console.warn("[ConversationStore] Failed to read empty_conversation_grace_minutes from llm.yml, using default:", err);
+    }
+    const cutoff = new Date(Date.now() - graceMinutes * 60 * 1000);
+    conditions.push(
+      sql`NOT (
+        (SELECT count(*) FROM ${conversationMessages} WHERE ${conversationMessages.conversation_id} = ${conversations.id}) = 0
+        AND ${conversations.started_at} < ${cutoff}
+      )`
+    );
 
     const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
 

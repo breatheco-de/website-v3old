@@ -24,6 +24,7 @@ interface KnowledgeData {
   agent_tools: Array<{ name: string; description: string; enabled: boolean }>;
   chat_bubble: { enabled?: boolean; page_patterns?: string[]; content_types?: string[]; agent_name?: string; agent_icon?: string };
   question_tags: string[];
+  empty_conversation_grace_minutes: number;
 }
 
 interface ImageEntry {
@@ -93,6 +94,8 @@ export default function AIKnowledge() {
   const [toolsOpen, setToolsOpen] = useState(false);
   const [draftAgentTools, setDraftAgentTools] = useState<Array<{ name: string; description: string; enabled: boolean }>>([]);
   const [savingTools, setSavingTools] = useState(false);
+  const [graceMinutes, setGraceMinutes] = useState(15);
+  const [savingGrace, setSavingGrace] = useState(false);
 
   const { data, isLoading } = useQuery<KnowledgeData>({
     queryKey: ["/api/admin/ai/knowledge"],
@@ -145,6 +148,7 @@ export default function AIKnowledge() {
       setPagePatterns(data.chat_bubble?.page_patterns || []);
       setContentTypes(data.chat_bubble?.content_types || []);
       setBubbleEnabled(data.chat_bubble?.enabled !== false);
+      setGraceMinutes(data.empty_conversation_grace_minutes ?? 15);
     }
   }, [data]);
 
@@ -200,6 +204,27 @@ export default function AIKnowledge() {
       toast({ title: "Error", description: "Failed to save agent tools.", variant: "destructive" });
     } finally {
       setSavingTools(false);
+    }
+  };
+
+  const handleGraceSave = async () => {
+    setSavingGrace(true);
+    try {
+      const token = getDebugToken();
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Token ${token}`;
+      const res = await fetch("/api/admin/ai/knowledge", {
+        method: "PATCH",
+        headers,
+        body: JSON.stringify({ empty_conversation_grace_minutes: graceMinutes }),
+      });
+      if (!res.ok) throw new Error(`Save failed: ${res.status}`);
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/knowledge"] });
+      toast({ title: "Grace period saved" });
+    } catch {
+      toast({ title: "Error", description: "Failed to save grace period.", variant: "destructive" });
+    } finally {
+      setSavingGrace(false);
     }
   };
 
@@ -890,6 +915,35 @@ export default function AIKnowledge() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
+
+        <Card className="p-4 space-y-3">
+          <div className="flex items-center justify-between gap-2 flex-wrap">
+            <div>
+              <h2 className="font-semibold text-lg" data-testid="text-grace-heading">Empty Conversation Grace Period</h2>
+              <p className="text-sm text-muted-foreground">Conversations with no messages older than this threshold are automatically hidden from the admin list.</p>
+            </div>
+            <Button
+              size="sm"
+              onClick={handleGraceSave}
+              disabled={savingGrace}
+              data-testid="button-save-grace"
+            >
+              {savingGrace ? <IconLoader2 className="h-4 w-4 animate-spin mr-1" /> : <IconCheck className="h-4 w-4 mr-1" />}
+              Save
+            </Button>
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              type="number"
+              min={1}
+              value={graceMinutes}
+              onChange={e => setGraceMinutes(Math.max(1, parseInt(e.target.value) || 1))}
+              className="w-24 px-3 py-2 text-sm border rounded-md bg-background"
+              data-testid="input-grace-minutes"
+            />
+            <span className="text-sm text-muted-foreground">minutes</span>
+          </div>
+        </Card>
 
         <Card className="p-4 space-y-3">
           <h2 className="font-semibold text-lg" data-testid="text-preview-heading">Live Preview</h2>
