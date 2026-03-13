@@ -378,6 +378,11 @@ export default function MediaGallery() {
         to: scriptMigrateTo,
         dryRun: scriptMigrateDryRun,
       });
+      const contentType = res.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) {
+        await res.text();
+        throw new Error("Server is restarting, please try again in a moment.");
+      }
       const data = await res.json();
       setScriptMigrateOutput({ message: data.message, results: data.results ?? [] });
       if (!scriptMigrateDryRun) {
@@ -397,6 +402,11 @@ export default function MediaGallery() {
       const res = await apiRequest("POST", "/api/image-registry/scripts/remove-unused", {
         dryRun: scriptRemoveUnusedDryRun,
       });
+      const contentType = res.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) {
+        await res.text();
+        throw new Error("Server is restarting, please try again in a moment.");
+      }
       const data = await res.json();
       setScriptRemoveUnusedOutput(data);
       if (!scriptRemoveUnusedDryRun && data.removedCount > 0) {
