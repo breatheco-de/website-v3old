@@ -413,13 +413,13 @@ sections:
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Aplicar ahora
+      submit_label: Solicitar más información
       tags: website-lead
       fields:
         email:
           visible: true
           required: true
-          placeholder: Tu email
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
@@ -440,12 +440,12 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
+        marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
       show_terms: true
       button_className: bg-primary border-white
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
-    section_id: cta_banner-amy7gf
+    section_id: cta_banner-or97zl
     marginY:
       mobile: md none
       desktop: md none
