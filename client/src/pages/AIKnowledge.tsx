@@ -30,6 +30,24 @@ interface KnowledgeData {
   model_chat?: string;
 }
 
+interface ToolParameterProperty {
+  type?: string;
+  description?: string;
+  default?: string;
+}
+
+interface ToolParameterSchema {
+  type: string;
+  properties?: Record<string, ToolParameterProperty>;
+  required?: string[];
+}
+
+interface ToolDefinition {
+  name: string;
+  description: string;
+  parameters: ToolParameterSchema;
+}
+
 interface AgentToolCallTrace {
   name: string;
   arguments: Record<string, string>;
@@ -173,6 +191,8 @@ export default function AIKnowledge() {
   const [toolsOpen, setToolsOpen] = useState(false);
   const [draftAgentTools, setDraftAgentTools] = useState<Array<{ name: string; description: string; enabled: boolean }>>([]);
   const [savingTools, setSavingTools] = useState(false);
+  const [expandedTools, setExpandedTools] = useState<Set<string>>(new Set());
+  const [toolDefinitions, setToolDefinitions] = useState<ToolDefinition[]>([]);
   const [modelDefault, setModelDefault] = useState("");
   const [modelChat, setModelChat] = useState("");
   const [modelsOpen, setModelsOpen] = useState(false);
@@ -266,6 +286,14 @@ export default function AIKnowledge() {
   useEffect(() => {
     if (toolsOpen) {
       setDraftAgentTools(agentTools.map(t => ({ ...t })));
+      setExpandedTools(new Set());
+      const token = getDebugToken();
+      const headers: Record<string, string> = {};
+      if (token) headers["Authorization"] = `Token ${token}`;
+      fetch("/api/admin/ai/tool-definitions", { headers })
+        .then(r => r.ok ? r.json() : null)
+        .then(data => { if (data?.tools) setToolDefinitions(data.tools); })
+        .catch(() => {});
     }
   }, [toolsOpen]);
 
@@ -292,7 +320,7 @@ export default function AIKnowledge() {
       if (!res.ok) throw new Error(`Save failed: ${res.status}`);
       setAgentTools(draftAgentTools.map(t => ({ ...t })));
       queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/knowledge"] });
-      toast({ title: "Agent Tools saved" });
+      toast({ title: "Agent Tools saved", description: "Changes are instantly applied — test the agent now." });
       setToolsOpen(false);
     } catch {
       toast({ title: "Error", description: "Failed to save agent tools.", variant: "destructive" });
@@ -319,7 +347,7 @@ export default function AIKnowledge() {
       setModelDefault(draftModelDefault);
       setModelChat(draftModelChat);
       queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/knowledge"] });
-      toast({ title: "Models saved" });
+      toast({ title: "Models saved", description: "Changes are instantly applied — test the agent now." });
       setModelsOpen(false);
     } catch {
       toast({ title: "Error", description: "Failed to save models.", variant: "destructive" });
@@ -389,7 +417,7 @@ export default function AIKnowledge() {
       setPromptInstructions(draftPromptInstructions);
       setPromptFallback(draftPromptFallback);
       queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/knowledge"] });
-      toast({ title: "Identity Core saved" });
+      toast({ title: "Identity Core saved", description: "Changes are instantly applied — test the agent now." });
       setIdentityCoreOpen(false);
     } catch {
       toast({ title: "Error", description: "Failed to save identity settings.", variant: "destructive" });
@@ -416,7 +444,7 @@ export default function AIKnowledge() {
       setPagePatterns(draftPagePatterns);
       setContentTypes(draftContentTypes);
       queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/knowledge"] });
-      toast({ title: "Page targeting saved" });
+      toast({ title: "Page targeting saved", description: "Changes are instantly applied — test the agent now." });
       setVisibilityOpen(false);
     } catch {
       toast({ title: "Error", description: "Failed to save targeting settings.", variant: "destructive" });
@@ -798,33 +826,92 @@ export default function AIKnowledge() {
 
       {/* Tools Dialog */}
       <Dialog open={toolsOpen} onOpenChange={setToolsOpen}>
-        <DialogContent className="max-w-lg" data-testid="dialog-agent-tools">
+        <DialogContent className="max-w-2xl" data-testid="dialog-agent-tools">
           <DialogHeader>
             <DialogTitle data-testid="text-tools-dialog-title">Agent Tools</DialogTitle>
           </DialogHeader>
           <p className="text-sm text-muted-foreground -mt-1">External capabilities the agent can invoke while responding, such as live program lookups or location queries. Enable only the tools relevant to the conversations you want to support.</p>
-          <div className="space-y-1">
-            {draftAgentTools.map((tool, i) => (
-              <div key={i} className="flex items-center gap-3 py-2 border-b last:border-b-0">
-                <label className="flex items-center gap-2 cursor-pointer flex-1">
-                  <input
-                    type="checkbox"
-                    checked={tool.enabled}
-                    onChange={e => {
-                      const updated = [...draftAgentTools];
-                      updated[i] = { ...updated[i], enabled: e.target.checked };
-                      setDraftAgentTools(updated);
-                    }}
-                    className="rounded"
-                    data-testid={`checkbox-tool-${tool.name}`}
-                  />
-                  <div>
-                    <span className="text-sm font-medium">{tool.name}</span>
-                    <p className="text-xs text-muted-foreground">{tool.description}</p>
+          <div className="space-y-2">
+            {draftAgentTools.map((tool, i) => {
+              const def = toolDefinitions.find(d => d.name === tool.name);
+              const params: [string, ToolParameterProperty][] = def?.parameters?.properties
+                ? Object.entries(def.parameters.properties)
+                : [];
+              const requiredList: string[] = def?.parameters?.required || [];
+              const isExpanded = expandedTools.has(tool.name);
+              return (
+                <Card key={i} className="p-3" data-testid={`tool-row-${tool.name}`}>
+                  <div className="flex items-center gap-3">
+                    <Switch
+                      checked={tool.enabled}
+                      onCheckedChange={(checked: boolean) => {
+                        const updated = [...draftAgentTools];
+                        updated[i] = { ...updated[i], enabled: checked };
+                        setDraftAgentTools(updated);
+                      }}
+                      data-testid={`switch-tool-${tool.name}`}
+                    />
+                    <div className="flex-1 min-w-0">
+                      <span className="text-sm font-medium">{tool.name}</span>
+                      <p className="text-xs text-muted-foreground">{tool.description}</p>
+                    </div>
+                    {params.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setExpandedTools(prev => {
+                            const next = new Set(prev);
+                            if (next.has(tool.name)) next.delete(tool.name);
+                            else next.add(tool.name);
+                            return next;
+                          });
+                        }}
+                        className="p-1 text-muted-foreground hover-elevate rounded-md"
+                        data-testid={`button-expand-tool-${tool.name}`}
+                      >
+                        {isExpanded ? <IconChevronDown className="h-4 w-4" /> : <IconChevronRight className="h-4 w-4" />}
+                      </button>
+                    )}
                   </div>
-                </label>
-              </div>
-            ))}
+                  {isExpanded && params.length > 0 && (
+                    <div className="mt-3 pt-3 border-t" data-testid={`params-section-${tool.name}`}>
+                      <table className="w-full text-xs">
+                        <thead>
+                          <tr className="text-left text-muted-foreground border-b">
+                            <th className="py-1 pr-2 font-medium">Name</th>
+                            <th className="py-1 pr-2 font-medium">Type</th>
+                            <th className="py-1 pr-2 font-medium">Required</th>
+                            <th className="py-1 pr-2 font-medium">Description</th>
+                            <th className="py-1 font-medium">Example</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {params.map(([pName, pSchema]) => {
+                            const exMatch = pSchema.description?.match(/\(e\.g\.\s*(.+?)\)/);
+                            const example = exMatch
+                              ? exMatch[1].split(",")[0].trim().replace(/^['"]|['"]$/g, "")
+                              : pSchema.default ?? "—";
+                            return (
+                              <tr key={pName} className="border-b last:border-b-0" data-testid={`param-row-${tool.name}-${pName}`}>
+                                <td className="py-1 pr-2 font-mono">{pName}</td>
+                                <td className="py-1 pr-2">{pSchema.type || "string"}</td>
+                                <td className="py-1 pr-2">
+                                  {requiredList.includes(pName)
+                                    ? <Badge variant="destructive" className="text-[10px] px-1 py-0">required</Badge>
+                                    : <span className="text-muted-foreground">optional</span>}
+                                </td>
+                                <td className="py-1 pr-2">{pSchema.description?.replace(/\s*\(e\.g\.\s*.+?\)/, "") || "—"}</td>
+                                <td className="py-1 font-mono text-muted-foreground">{example}</td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </Card>
+              );
+            })}
           </div>
           <DialogFooter className="gap-2">
             <Button variant="outline" onClick={() => setToolsOpen(false)} data-testid="button-tools-cancel">

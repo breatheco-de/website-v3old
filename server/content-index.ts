@@ -785,27 +785,8 @@ class ContentIndex {
   }
 
   getImageUsage(imageId: string, imageSrc?: string, srcsetUrls?: string[]): string[] {
-    this.ensureInitialized();
-    const files = new Set<string>();
-    const byId = this.imageUsage.get(imageId);
-    if (byId) {
-      byId.forEach(f => files.add(f));
-    }
-    if (imageSrc) {
-      const bySrc = this.imageUsage.get(imageSrc);
-      if (bySrc) {
-        bySrc.forEach(f => files.add(f));
-      }
-    }
-    if (srcsetUrls) {
-      for (const url of srcsetUrls) {
-        const bySrcset = this.imageUsage.get(url);
-        if (bySrcset) {
-          bySrcset.forEach(f => files.add(f));
-        }
-      }
-    }
-    return Array.from(files);
+    const { mediaGallery } = require("./media-gallery");
+    return mediaGallery.getUsage(imageId, imageSrc, srcsetUrls);
   }
 
   getVariableUsage(variableName: string): string[] {

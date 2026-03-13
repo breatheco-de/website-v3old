@@ -554,7 +554,6 @@ function detectLanguageFromRequest(req: Request): "en" | "es" {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   media.initFromEnv();
-  mediaGallery.setContentIndex(contentIndex);
 
   const { loadSyncLog, logSync, getInstanceId } = await import("./sync-log");
   const { loadSyncStateFromBucket } = await import("./sync-state");
@@ -8609,6 +8608,93 @@ sections: []
     }
   });
 
+  app.post("/api/image-registry/scripts/remove-unused/stream", async (req, res) => {
+    const BATCH_SIZE = 20;
+
+    try {
+      const registry = mediaGallery.getRegistry();
+      if (!registry) {
+        res.status(500).json({ error: "Failed to load image registry" });
+        return;
+      }
+
+      const { imageIds, srcValues } = mediaGallery.collectImageReferences();
+
+      const allImageIds = Object.keys(registry.images);
+      const unusedItems: Array<{ id: string; src: string }> = [];
+
+      for (const id of allImageIds) {
+        const entry = registry.images[id];
+        const src = entry?.src || "";
+        const referencedById = imageIds.has(id);
+        const normalizedSrc = src.startsWith("/") ? src : `/${src}`;
+        const normalizedSrcNoSlash = src.startsWith("/") ? src.slice(1) : src;
+        const referencedBySrc = srcValues.has(src) || srcValues.has(normalizedSrc) || srcValues.has(normalizedSrcNoSlash);
+        if (!referencedById && !referencedBySrc) {
+          unusedItems.push({ id, src });
+        }
+      }
+
+      const total = unusedItems.length;
+
+      if (total === 0) {
+        res.json({ done: true, processed: 0, total: 0, summary: { removed: 0, skipped: 0, failed: 0 } });
+        return;
+      }
+
+      res.writeHead(200, {
+        "Content-Type": "application/x-ndjson",
+        "Transfer-Encoding": "chunked",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+      });
+
+      let processed = 0;
+      let removed = 0;
+      let skipped = 0;
+      let failed = 0;
+
+      try {
+        for (let i = 0; i < total; i += BATCH_SIZE) {
+          const batchItems = unusedItems.slice(i, i + BATCH_SIZE);
+          const batchResults: Array<{ id: string; src: string; status: string; reason?: string }> = [];
+
+          for (const item of batchItems) {
+            try {
+              const result = await mediaGallery.unregister(item.id);
+              if (result.success) {
+                batchResults.push({ id: item.id, src: item.src, status: "removed" });
+                removed++;
+              } else {
+                batchResults.push({ id: item.id, src: item.src, status: "skipped", reason: result.error || "unknown" });
+                skipped++;
+              }
+            } catch (err: any) {
+              batchResults.push({ id: item.id, src: item.src, status: "error", reason: err.message || "unknown" });
+              failed++;
+            }
+          }
+
+          processed += batchItems.length;
+          const event = { total, processed, batch: batchResults };
+          res.write(JSON.stringify(event) + "\n");
+        }
+
+        const doneEvent = { done: true, processed, total, summary: { removed, skipped, failed } };
+        res.write(JSON.stringify(doneEvent) + "\n");
+        res.end();
+      } catch (fatalErr: any) {
+        const fatalEvent = { fatalError: true, message: fatalErr.message || "Unknown error", processed, total };
+        res.write(JSON.stringify(fatalEvent) + "\n");
+        res.end();
+      }
+    } catch (error: any) {
+      if (!res.headersSent) {
+        res.status(500).json({ error: error.message || "Remove unused images failed" });
+      }
+    }
+  });
+
   const mediaUpload = multer({
     storage: multer.memoryStorage(),
     limits: { fileSize: 100 * 1024 * 1024 },
@@ -8733,6 +8819,42 @@ sections: []
       })().catch(err => console.error("[OptimizeBatch] Background processing error:", err));
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Batch optimize failed" });
+    }
+  });
+
+  app.post("/api/media/classify/:imageId", async (req, res) => {
+    try {
+      const { imageId } = req.params;
+      const { context, persist } = req.body as {
+        context?: { tagFilter?: string };
+        persist?: boolean;
+      };
+
+      if (context && typeof context !== "object") {
+        res.status(400).json({ error: "context must be an object" });
+        return;
+      }
+      if (context?.tagFilter && typeof context.tagFilter !== "string") {
+        res.status(400).json({ error: "context.tagFilter must be a string" });
+        return;
+      }
+      if (context?.tagFilter && context.tagFilter.length > 100) {
+        res.status(400).json({ error: "context.tagFilter is too long" });
+        return;
+      }
+
+      const { classifyAndApply } = await import("./image-auto-tagger");
+      const shouldPersist = persist !== false;
+      const result = await classifyAndApply(imageId, context, shouldPersist);
+      res.json(result);
+    } catch (error: any) {
+      const message = error instanceof Error ? error.message : String(error);
+      if (message.includes("not found")) {
+        res.status(404).json({ error: message });
+      } else {
+        console.error("[Classify] Error:", error);
+        res.status(500).json({ error: "Classification failed", message });
+      }
     }
   });
 
@@ -10147,6 +10269,24 @@ sections: []
     } catch (err) {
       console.error("[Chat Message] Error:", err);
       res.status(500).json({ error: "Failed to process message" });
+    }
+  });
+
+  app.get("/api/admin/ai/tool-definitions", async (req, res) => {
+    try {
+      const auth = await requireAdminAuth(req, res);
+      if (!auth.authorized) return;
+
+      const { TOOL_DEFINITIONS } = await import("./ai/tools/index");
+      const definitions = TOOL_DEFINITIONS.map(t => ({
+        name: t.function.name,
+        description: t.function.description,
+        parameters: t.function.parameters,
+      }));
+      res.json({ tools: definitions });
+    } catch (err) {
+      console.error("[AI Tool Definitions] Error:", err);
+      res.status(500).json({ error: "Failed to load tool definitions" });
     }
   });
 

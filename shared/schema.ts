@@ -421,8 +421,25 @@ export const imageEntrySchema = z.object({
   srcset: z.array(imageSrcsetEntrySchema).optional(),
 });
 
+export const tagDefinitionSchema = z.object({
+  label: z.string(),
+  description: z.string(),
+  presets: z.array(z.string()),
+  srcset_widths: z.array(z.number()).optional(),
+  detection: z.object({
+    yaml_fields: z.array(z.string()).optional(),
+    component_keys: z.array(z.string()).optional(),
+    filename_patterns: z.array(z.string()).optional(),
+    aspect_ratio_range: z.object({
+      min: z.number(),
+      max: z.number(),
+    }).optional(),
+  }).optional(),
+});
+
 export const imageRegistrySchema = z.object({
   presets: z.record(z.string(), imagePresetSchema),
+  tagDefinitions: z.record(z.string(), tagDefinitionSchema).optional(),
   images: z.record(z.string(), imageEntrySchema),
 });
 
@@ -435,6 +452,7 @@ export const imageRefSchema = z.object({
 
 export type ImagePreset = z.infer<typeof imagePresetSchema>;
 export type ImageEntry = z.infer<typeof imageEntrySchema>;
+export type TagDefinition = z.infer<typeof tagDefinitionSchema>;
 export type ImageRegistry = z.infer<typeof imageRegistrySchema>;
 export type ImageRef = z.infer<typeof imageRefSchema>;
 

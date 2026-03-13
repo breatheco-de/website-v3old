@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope, IconLink, IconLoader2, IconTerminal } from "@tabler/icons-react";
+import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope, IconLink, IconLoader2, IconTerminal, IconEye, IconWand } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -18,6 +18,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Progress } from "@/components/ui/progress";
 import {
   Sheet,
   SheetContent,
@@ -31,6 +32,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";
 import type { ImageRegistry } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
+import { getSessionHeaders } from "@/lib/sessionHeaders";
 
 interface DuplicateGroup {
   hash: string;
@@ -87,6 +89,7 @@ interface ValidationRunResult {
 export default function MediaGallery() {
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [activeTagFilter, setActiveTagFilter] = useState<string | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
@@ -102,11 +105,13 @@ export default function MediaGallery() {
   const [validationResult, setValidationResult] = useState<ValidationRunResult | null>(null);
   const [optimizing, setOptimizing] = useState(false);
   const [migrating, setMigrating] = useState(false);
+  const [autoTagging, setAutoTagging] = useState(false);
   const [migrateConfirmOpen, setMigrateConfirmOpen] = useState(false);
   const [migrateResults, setMigrateResults] = useState<{ message: string; migratedCount: number; totalProcessed: number; results: Array<{ id: string; oldSrc: string; newSrc: string; status: string }> } | null>(null);
   const [redundantOpen, setRedundantOpen] = useState(false);
   const [redundantResult, setRedundantResult] = useState<{ resolved: number; errors: string[] } | null>(null);
   const [redundantVisible, setRedundantVisible] = useState(10);
+  const [detailImageId, setDetailImageId] = useState<string | null>(null);
   const [scriptsOpen, setScriptsOpen] = useState(false);
   const [scriptMigrateFrom, setScriptMigrateFrom] = useState("local");
   const [scriptMigrateTo, setScriptMigrateTo] = useState("gcs");
@@ -115,7 +120,9 @@ export default function MediaGallery() {
   const [scriptMigrateOutput, setScriptMigrateOutput] = useState<{ message: string; results: Array<{ id: string; oldSrc?: string; newSrc?: string; status: string }> } | null>(null);
   const [scriptRemoveUnusedDryRun, setScriptRemoveUnusedDryRun] = useState(true);
   const [scriptRemoveUnusedRunning, setScriptRemoveUnusedRunning] = useState(false);
-  const [scriptRemoveUnusedOutput, setScriptRemoveUnusedOutput] = useState<{ message: string; removedCount: number; skippedCount: number; results: Array<{ id: string; src: string; status: string }> } | null>(null);
+  const [scriptRemoveUnusedOutput, setScriptRemoveUnusedOutput] = useState<{ message: string; removedCount: number; skippedCount: number; results: Array<{ id: string; src: string; status: string; reason?: string }> } | null>(null);
+  const [scriptRemoveUnusedProgress, setScriptRemoveUnusedProgress] = useState<{ processed: number; total: number } | null>(null);
+  const [scriptRemoveUnusedStreamError, setScriptRemoveUnusedStreamError] = useState<string | null>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -320,6 +327,9 @@ export default function MediaGallery() {
 
   const filteredImages = registry?.images
     ? Object.entries(registry.images).filter(([id, img]) => {
+        if (activeTagFilter && !img.tags?.includes(activeTagFilter)) {
+          return false;
+        }
         const searchLower = search.toLowerCase();
         return (
           id.toLowerCase().includes(searchLower) ||
@@ -360,7 +370,7 @@ export default function MediaGallery() {
 
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
-  }, [search]);
+  }, [search, activeTagFilter]);
 
   const visibleImages = filteredImages.slice(0, visibleCount);
   const hasMore = visibleCount < filteredImages.length;
@@ -398,19 +408,154 @@ export default function MediaGallery() {
   const handleRunRemoveUnusedScript = async () => {
     setScriptRemoveUnusedRunning(true);
     setScriptRemoveUnusedOutput(null);
-    try {
-      const res = await apiRequest("POST", "/api/image-registry/scripts/remove-unused", {
-        dryRun: scriptRemoveUnusedDryRun,
-      });
-      const contentType = res.headers.get("content-type") || "";
-      if (!contentType.includes("application/json")) {
-        await res.text();
-        throw new Error("Server is restarting, please try again in a moment.");
+    setScriptRemoveUnusedProgress(null);
+    setScriptRemoveUnusedStreamError(null);
+
+    if (scriptRemoveUnusedDryRun) {
+      try {
+        const res = await apiRequest("POST", "/api/image-registry/scripts/remove-unused", {
+          dryRun: true,
+        });
+        const contentType = res.headers.get("content-type") || "";
+        if (!contentType.includes("application/json")) {
+          await res.text();
+          throw new Error("Server is restarting, please try again in a moment.");
+        }
+        const data = await res.json();
+        setScriptRemoveUnusedOutput(data);
+      } catch (err: any) {
+        setScriptRemoveUnusedOutput({ message: `Error: ${err.message || "Failed"}`, removedCount: 0, skippedCount: 0, results: [] });
+      } finally {
+        setScriptRemoveUnusedRunning(false);
       }
-      const data = await res.json();
-      setScriptRemoveUnusedOutput(data);
-      if (!scriptRemoveUnusedDryRun && data.removedCount > 0) {
-        queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/image-registry/scripts/remove-unused/stream", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...getSessionHeaders() },
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({ error: "Unknown error" }));
+        setScriptRemoveUnusedOutput({ message: `Error: ${errData.error || "Failed"}`, removedCount: 0, skippedCount: 0, results: [] });
+        setScriptRemoveUnusedRunning(false);
+        return;
+      }
+
+      const contentType = res.headers.get("content-type") || "";
+      if (contentType.includes("application/json")) {
+        const data = await res.json();
+        if (data.done) {
+          setScriptRemoveUnusedOutput({
+            message: `Removed ${data.summary.removed} unused image(s), skipped ${data.summary.skipped}, failed ${data.summary.failed}`,
+            removedCount: data.summary.removed,
+            skippedCount: data.summary.skipped,
+            results: [],
+          });
+        }
+        setScriptRemoveUnusedRunning(false);
+        return;
+      }
+
+      const reader = res.body?.getReader();
+      if (!reader) {
+        setScriptRemoveUnusedOutput({ message: "Error: No response body", removedCount: 0, skippedCount: 0, results: [] });
+        setScriptRemoveUnusedRunning(false);
+        return;
+      }
+
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let allResults: Array<{ id: string; src: string; status: string; reason?: string }> = [];
+      let receivedCompletion = false;
+      let hadRemovals = false;
+
+      const processLine = (trimmed: string) => {
+        if (!trimmed) return;
+        try {
+          const event = JSON.parse(trimmed);
+
+          if (event.fatalError) {
+            receivedCompletion = true;
+            setScriptRemoveUnusedStreamError(`Operation stopped at ${event.processed} / ${event.total} due to an error: ${event.message}`);
+            setScriptRemoveUnusedProgress({ processed: event.processed, total: event.total });
+            setScriptRemoveUnusedOutput((prev) => ({
+              message: `Operation failed after ${event.processed} / ${event.total} — partial results below`,
+              removedCount: prev?.removedCount || 0,
+              skippedCount: prev?.skippedCount || 0,
+              results: allResults,
+            }));
+            if (hadRemovals) {
+              queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+            }
+            return;
+          }
+
+          if (event.done) {
+            receivedCompletion = true;
+            setScriptRemoveUnusedProgress(null);
+            setScriptRemoveUnusedOutput({
+              message: `Removed ${event.summary.removed} unused image(s), skipped ${event.summary.skipped}, failed ${event.summary.failed} (${event.total} total unused)`,
+              removedCount: event.summary.removed,
+              skippedCount: event.summary.skipped,
+              results: allResults,
+            });
+            if (event.summary.removed > 0) {
+              queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+            }
+            return;
+          }
+
+          if (event.batch) {
+            allResults = [...allResults, ...event.batch];
+            if (event.batch.some((r: { status: string }) => r.status === "removed")) {
+              hadRemovals = true;
+            }
+            setScriptRemoveUnusedProgress({ processed: event.processed, total: event.total });
+            setScriptRemoveUnusedOutput((prev) => ({
+              message: prev?.message || "",
+              removedCount: prev?.removedCount || 0,
+              skippedCount: prev?.skippedCount || 0,
+              results: allResults,
+            }));
+          }
+        } catch (parseErr) {
+          console.warn("[RemoveUnused] Failed to parse stream event:", trimmed, parseErr);
+        }
+      };
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() || "";
+
+        for (const line of lines) {
+          processLine(line.trim());
+        }
+      }
+
+      const trailing = buffer.trim();
+      if (trailing) {
+        processLine(trailing);
+      }
+
+      if (!receivedCompletion) {
+        setScriptRemoveUnusedStreamError("Connection lost — results may be incomplete");
+        setScriptRemoveUnusedOutput((prev) => ({
+          message: prev?.results?.length ? "Connection lost — partial results below" : "Connection lost before any results were received",
+          removedCount: prev?.removedCount || 0,
+          skippedCount: prev?.skippedCount || 0,
+          results: prev?.results || allResults,
+        }));
+        if (hadRemovals) {
+          queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+        }
       }
     } catch (err: any) {
       setScriptRemoveUnusedOutput({ message: `Error: ${err.message || "Failed"}`, removedCount: 0, skippedCount: 0, results: [] });
@@ -510,6 +655,30 @@ export default function MediaGallery() {
                 <Button
                   size="icon"
                   variant="ghost"
+                  onClick={async () => {
+                    setAutoTagging(true);
+                    try {
+                      const res = await apiRequest("POST", "/api/validation/fix/image-auto-tags");
+                      const data = await res.json();
+                      toast({
+                        title: "Auto-tag complete",
+                        description: data.message,
+                      });
+                      queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+                    } catch {
+                      toast({ title: "Auto-tag failed", description: "Could not auto-tag images", variant: "destructive" });
+                    } finally {
+                      setAutoTagging(false);
+                    }
+                  }}
+                  disabled={autoTagging}
+                  data-testid="button-auto-tag"
+                >
+                  {autoTagging ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconWand className="h-4 w-4" />}
+                </Button>
+                <Button
+                  size="icon"
+                  variant="ghost"
                   onClick={() => setScriptsOpen(true)}
                   data-testid="button-admin-scripts"
                 >
@@ -524,17 +693,17 @@ export default function MediaGallery() {
                   <IconSettings className="h-4 w-4" />
                 </Button>
               </div>
-              {registry && (
+              {registry?.tagDefinitions && (
                 <div className="flex flex-wrap gap-1.5 justify-end">
-                  {Object.keys(registry.presets).map((name) => (
+                  {Object.entries(registry.tagDefinitions).map(([key, tagDef]) => (
                     <Badge
-                      key={name}
-                      variant="outline"
+                      key={key}
+                      variant={activeTagFilter === key ? "default" : "outline"}
                       className="cursor-pointer text-xs"
-                      onClick={() => { setSearch(name); setSearchOpen(true); }}
-                      data-testid={`badge-preset-${name}`}
+                      onClick={() => setActiveTagFilter(activeTagFilter === key ? null : key)}
+                      data-testid={`badge-tag-${key}`}
                     >
-                      {name}
+                      {tagDef.label}
                     </Badge>
                   ))}
                 </div>
@@ -872,6 +1041,13 @@ export default function MediaGallery() {
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">
                             <DropdownMenuItem
+                              onClick={() => setDetailImageId(id)}
+                              data-testid={`button-details-${id}`}
+                            >
+                              <IconEye className="h-4 w-4 mr-2" />
+                              Details
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
                               onClick={() => handleCopyId(id)}
                               data-testid={`button-copy-${id}`}
                             >
@@ -918,9 +1094,9 @@ export default function MediaGallery() {
                           {img.tags.map((tag) => (
                             <Badge 
                               key={tag} 
-                              variant="secondary" 
+                              variant={activeTagFilter === tag ? "default" : "secondary"}
                               className="text-xs px-1.5 py-0 cursor-pointer"
-                              onClick={() => { setSearch(tag); setSearchOpen(true); }}
+                              onClick={() => setActiveTagFilter(activeTagFilter === tag ? null : tag)}
                             >
                               {tag}
                             </Badge>
@@ -1444,6 +1620,73 @@ export default function MediaGallery() {
         </DialogContent>
       </Dialog>
 
+      <Sheet open={detailImageId !== null} onOpenChange={(open) => { if (!open) setDetailImageId(null); }}>
+        <SheetContent side="right" className="sm:max-w-md overflow-y-auto">
+          <SheetHeader>
+            <SheetTitle className="flex items-center gap-2">
+              <IconPhoto className="h-5 w-5" />
+              Image Details
+            </SheetTitle>
+            <SheetDescription>
+              {detailImageId || ""}
+            </SheetDescription>
+          </SheetHeader>
+          {detailImageId && registry?.images[detailImageId] && (() => {
+            const img = registry.images[detailImageId];
+            return (
+              <div className="space-y-4 py-4">
+                <div className="rounded-lg overflow-hidden border bg-muted">
+                  {failedImages.has(detailImageId) ? (
+                    <div className="aspect-video flex items-center justify-center">
+                      <IconPhoto className="h-12 w-12 text-muted-foreground" />
+                    </div>
+                  ) : (
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      className="w-full h-auto"
+                      onError={() => handleImageError(detailImageId)}
+                    />
+                  )}
+                </div>
+
+                <div className="space-y-3">
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-1">ID</p>
+                    <code className="text-sm font-mono" data-testid="text-detail-id">{detailImageId}</code>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-1">Alt Text</p>
+                    <p className="text-sm" data-testid="text-detail-alt">{img.alt}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-1">Source</p>
+                    <p className="text-xs font-mono break-all" data-testid="text-detail-src">{img.src}</p>
+                  </div>
+                  {img.tags && img.tags.length > 0 && (
+                    <div>
+                      <p className="text-xs text-muted-foreground mb-1">Tags</p>
+                      <div className="flex flex-wrap gap-1">
+                        {img.tags.map((tag) => (
+                          <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {img.width && img.height && (
+                    <div>
+                      <p className="text-xs text-muted-foreground mb-1">Dimensions</p>
+                      <p className="text-sm">{img.width} x {img.height}</p>
+                    </div>
+                  )}
+                </div>
+
+              </div>
+            );
+          })()}
+        </SheetContent>
+      </Sheet>
+
       <Sheet open={scriptsOpen} onOpenChange={(open) => { if (!open) setScriptsOpen(false); }}>
         <SheetContent side="right" className="sm:max-w-lg overflow-y-auto">
           <SheetHeader>
@@ -1543,22 +1786,58 @@ export default function MediaGallery() {
                   disabled={scriptRemoveUnusedRunning}
                   data-testid="button-run-remove-unused"
                 >
-                  {scriptRemoveUnusedRunning ? <IconLoader2 className="h-3.5 w-3.5 animate-spin mr-1.5" /> : null}
-                  {scriptRemoveUnusedRunning ? "Running..." : "Run"}
+                  {scriptRemoveUnusedRunning && !scriptRemoveUnusedProgress ? <IconLoader2 className="h-3.5 w-3.5 animate-spin mr-1.5" /> : null}
+                  {scriptRemoveUnusedRunning
+                    ? scriptRemoveUnusedProgress
+                      ? `${scriptRemoveUnusedProgress.processed} / ${scriptRemoveUnusedProgress.total} processed`
+                      : "Scanning..."
+                    : "Run"}
                 </Button>
               </div>
-              {scriptRemoveUnusedOutput && (
+              {scriptRemoveUnusedRunning && scriptRemoveUnusedProgress && (
+                <div className="space-y-1" data-testid="progress-remove-unused">
+                  <Progress
+                    value={(scriptRemoveUnusedProgress.processed / scriptRemoveUnusedProgress.total) * 100}
+                    className="h-2"
+                    data-testid="progressbar-remove-unused"
+                  />
+                  <p className="text-xs text-muted-foreground" data-testid="text-progress-remove-unused">
+                    {scriptRemoveUnusedProgress.processed} / {scriptRemoveUnusedProgress.total} processed
+                  </p>
+                </div>
+              )}
+              {scriptRemoveUnusedStreamError && (
+                <div className="rounded-md border border-destructive/50 bg-destructive/10 p-2" data-testid="error-banner-remove-unused">
+                  <p className="text-xs font-medium text-destructive">{scriptRemoveUnusedStreamError}</p>
+                </div>
+              )}
+              {scriptRemoveUnusedOutput && !scriptRemoveUnusedRunning && (
                 <div className="space-y-2" data-testid="output-remove-unused">
                   <p className="text-xs font-medium">{scriptRemoveUnusedOutput.message}</p>
                   {scriptRemoveUnusedOutput.results.length > 0 && (
                     <ScrollArea className="max-h-48 rounded-md border bg-muted/30 p-2">
-                      <pre className="text-xs font-mono whitespace-pre-wrap">
-                        {scriptRemoveUnusedOutput.results.map(r =>
-                          `[${r.status}] ${r.id}: ${r.src}`
-                        ).join("\n")}
-                      </pre>
+                      <div className="text-xs font-mono space-y-0.5">
+                        {scriptRemoveUnusedOutput.results.map((r, i) => (
+                          <div key={i} className={r.status === "error" ? "text-destructive" : ""} data-testid={`result-row-${i}`}>
+                            [{r.status}] {r.id}: {r.status === "error" ? (r.reason || r.src) : r.src}
+                          </div>
+                        ))}
+                      </div>
                     </ScrollArea>
                   )}
+                </div>
+              )}
+              {scriptRemoveUnusedRunning && scriptRemoveUnusedOutput && scriptRemoveUnusedOutput.results.length > 0 && (
+                <div className="space-y-2" data-testid="output-remove-unused-streaming">
+                  <ScrollArea className="max-h-48 rounded-md border bg-muted/30 p-2">
+                    <div className="text-xs font-mono space-y-0.5">
+                      {scriptRemoveUnusedOutput.results.map((r, i) => (
+                        <div key={i} className={r.status === "error" ? "text-destructive" : ""} data-testid={`result-row-streaming-${i}`}>
+                          [{r.status}] {r.id}: {r.status === "error" ? (r.reason || r.src) : r.src}
+                        </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
                 </div>
               )}
             </div>
@@ -1571,6 +1850,8 @@ export default function MediaGallery() {
                 setScriptsOpen(false);
                 setScriptMigrateOutput(null);
                 setScriptRemoveUnusedOutput(null);
+                setScriptRemoveUnusedProgress(null);
+                setScriptRemoveUnusedStreamError(null);
               }}
               data-testid="button-close-scripts"
             >

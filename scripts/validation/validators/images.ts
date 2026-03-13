@@ -1,14 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
-import * as yaml from "js-yaml";
 import type { Validator, ValidatorResult, ValidationContext, ValidationIssue } from "../shared/types";
-
-const CONTENT_DIRS = [
-  "marketing-content/landings",
-  "marketing-content/programs",
-  "marketing-content/locations",
-  "marketing-content/pages",
-];
+import { mediaGallery } from "../../../server/media-gallery";
 
 const REGISTRY_PATH = path.join(process.cwd(), "marketing-content", "image-registry.json");
 
@@ -23,58 +16,6 @@ interface ImageRegistryEntry {
 interface ImageRegistry {
   presets: Record<string, unknown>;
   images: Record<string, ImageRegistryEntry>;
-}
-
-function extractImageRefs(obj: unknown, refs: Set<string>): void {
-  if (!obj || typeof obj !== "object") return;
-
-  if (Array.isArray(obj)) {
-    for (const item of obj) {
-      extractImageRefs(item, refs);
-    }
-    return;
-  }
-
-  const record = obj as Record<string, unknown>;
-  for (const [key, value] of Object.entries(record)) {
-    if ((key === "image_id" || key === "image") && typeof value === "string" && value) {
-      refs.add(value);
-    } else if (typeof value === "object" && value !== null) {
-      extractImageRefs(value, refs);
-    }
-  }
-}
-
-function scanAllContentFiles(): Set<string> {
-  const refs = new Set<string>();
-
-  for (const dir of CONTENT_DIRS) {
-    const fullDir = path.join(process.cwd(), dir);
-    if (!fs.existsSync(fullDir)) continue;
-
-    const walkDir = (currentDir: string) => {
-      const entries = fs.readdirSync(currentDir, { withFileTypes: true });
-
-      for (const entry of entries) {
-        const fullPath = path.join(currentDir, entry.name);
-
-        if (entry.isDirectory()) {
-          walkDir(fullPath);
-        } else if (entry.name.endsWith(".yml") || entry.name.endsWith(".yaml")) {
-          try {
-            const content = fs.readFileSync(fullPath, "utf-8");
-            const parsed = yaml.load(content);
-            extractImageRefs(parsed, refs);
-          } catch {
-          }
-        }
-      }
-    };
-
-    walkDir(fullDir);
-  }
-
-  return refs;
 }
 
 export const imagesValidator: Validator = {
@@ -113,7 +54,7 @@ export const imagesValidator: Validator = {
     }
 
     const images = registry.images || {};
-    const referencedIds = scanAllContentFiles();
+    const { imageIds: referencedIds, srcValues } = mediaGallery.collectImageReferences();
 
     let missingFromRegistry = 0;
     referencedIds.forEach((id) => {
@@ -178,8 +119,14 @@ export const imagesValidator: Validator = {
     }
 
     let orphanedEntries = 0;
-    for (const id of Object.keys(images)) {
-      if (!referencedIds.has(id)) {
+    for (const [id, entry] of Object.entries(images)) {
+      const referencedById = referencedIds.has(id);
+      const src = entry.src || "";
+      const normalizedSrc = src.startsWith("/") ? src : `/${src}`;
+      const normalizedSrcNoSlash = src.startsWith("/") ? src.slice(1) : src;
+      const referencedBySrc = srcValues.has(src) || srcValues.has(normalizedSrc) || srcValues.has(normalizedSrcNoSlash);
+
+      if (!referencedById && !referencedBySrc) {
         orphanedEntries++;
         warnings.push({
           type: "warning",
