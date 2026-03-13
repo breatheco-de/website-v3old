@@ -65,29 +65,32 @@ sections:
   - type: modal
     version: "1.0"
     section_id: apply-modal
-    heading: Start Your Application
-    description: Fill out the form below and we'll get back to you within 24 hours.
+    heading: Solicitar Detalles del Programa
+    description: Completa el siguiente formulario y nos comunicaremos contigo a la brevedad posible.
     show_close: true
     size: md
     form:
       variant: stacked
-      submit_label: Submit Application
+      submit_label: Solicitar
+      tags: request_more_info
+      automations: soft
       fields:
         email:
           visible: true
           required: true
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
+          placeholder: Nombre Completo
         phone:
           visible: true
-          required: false
+          required: true
         program:
           visible: true
           required: true
-          default: auto
       success:
-        message: Thanks! We'll be in touch within 24 hours.
+        message: ¡Gracias! Nos comunicaremos contigo a la brevedad posible.
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
