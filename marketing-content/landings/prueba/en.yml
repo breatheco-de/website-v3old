@@ -386,49 +386,49 @@ sections:
       mobile: lg none
       desktop: md
   - type: ai_learning
-    section_id: ai_learning-xiuj75
     badge: Why 4Geeks?
-    title: Why Learn AI Engineering with 4Geeks?
-    description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.
+    title: The Bootcamp That Doesn't End When You Graduate
+    description: Most bootcamps disappear after demo day. 4Geeks stays with you — from your first line of code to your first offer letter and beyond.
     features:
       - icon: TrendingUp
-        title: Thrive in tech with career support for the AI-Era
+        title: Career support built for the AI job market
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Get personalized 1:1 coaching
-          - text: Build your AI-ready resume and portfolio
-          - text: Prepare for interviews and salary negotiation
-          - text: Keep growing with lifelong access to career support
+          - text: 1:1 coaching focused on landing AI engineering roles specifically
+          - text: Resume and portfolio optimized to pass AI-based recruiter screening
+          - text: Mock technical and behavioral interviews with real feedback
+          - text: Lifelong career support — not just until graduation
         video_url: https://youtu.be/-2ZvlgDnltc
         cta:
-          text: Start learning now!
+          text: See if you qualify
           url: "#hero-form"
           variant: primary
       - icon: Robot
-        title: Progress faster with AI-powered tools
+        title: Learn faster with an AI tutor that knows where you're stuck
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Get instant feedback from Rigobot, our custom AI tutor
-          - text: Receive advice adjusted to your skill level and progress
-          - text: Get 24/7 help with debugging and problem-solving
-          - text: Access hundreds of interactive coding exercises on Learnpack, our educational platform
+          - text: Rigobot gives instant feedback on your code — no waiting for a human to be available
+          - text: Adapts explanations to your exact skill level and learning pace
+          - text: "24/7 debugging help: unblock yourself at 2am without losing momentum"
+          - text: Hundreds of interactive exercises on Learnpack, our purpose-built learning platform
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
         cta:
-          text: Start learning now!
+          text: See if you qualify
           url: "#hero-form"
           variant: primary
       - icon: Headset
-        title: Unlimited 1:1 mentorship and an active community
+        title: Unlimited 1:1 mentorship — for life, not just while enrolled
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Lifelong access to 1:1 mentorship sessions
-          - text: 7:1 student–teacher ratio for personalized guidance
-          - text: Peer collaboration through Slack channels and weekly check-ins
-          - text: Dedicated Slack channels for coding support, job boards, and career advice
+          - text: Book unlimited 1:1 sessions with senior engineers — even after you graduate
+          - text: 7:1 student–mentor ratio so you're never just a ticket in a queue
+          - text: Weekly check-ins keep you accountable and on track to finish
+          - text: Active Slack community with dedicated channels for jobs, code help, and career advice
         image_id: community-support-cropped
+    section_id: ai_learning-xiuj75
     paddingY:
       mobile: lg none
       desktop: lg none
