@@ -152,7 +152,7 @@ async function getSsrRender() {
   if (ssrModuleLoaded) return ssrRenderFn;
   ssrModuleLoaded = true;
   try {
-    const ssrBundlePath = path.resolve(import.meta.dirname, "..", "server", "entry-server.js");
+    const ssrBundlePath = path.resolve(import.meta.dirname, "server", "entry-server.js");
     if (fs.existsSync(ssrBundlePath)) {
       const mod = await import(ssrBundlePath);
       ssrRenderFn = mod.render;
