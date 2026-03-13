@@ -8656,7 +8656,7 @@ sections: []
 
       const { processImageFromSrc } = await import("./image-optimizer");
       const presets = registry.presets as Record<string, import("./image-optimizer").Preset>;
-      const skipExtensions = new Set([".svg", ".gif"]);
+      const rasterExtensions = new Set([".png", ".jpg", ".jpeg", ".webp", ".avif"]);
 
       const getExt = (src: string): string => {
         try { return path.extname(new URL(src).pathname).toLowerCase(); }
@@ -8665,12 +8665,16 @@ sections: []
 
       let targetIds: string[];
       if (ids && Array.isArray(ids) && ids.length > 0) {
-        targetIds = ids.filter(id => registry.images[id]);
+        targetIds = ids.filter(id => {
+          const entry = registry.images[id];
+          if (!entry) return false;
+          return rasterExtensions.has(getExt(entry.src));
+        });
       } else {
         targetIds = Object.entries(registry.images)
           .filter(([_id, entry]) => {
             const ext = getExt(entry.src);
-            if (skipExtensions.has(ext)) return false;
+            if (!rasterExtensions.has(ext)) return false;
             const hasSrcset = Array.isArray(entry.srcset) && entry.srcset.length > 0;
             return !hasSrcset;
           })
