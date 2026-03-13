@@ -32,7 +32,7 @@ sections:
         first_name:
           visible: true
           required: true
-          placeholder: Nombre completo
+          placeholder: Nombre
         last_name:
           visible: true
           required: true
