@@ -248,8 +248,8 @@ Respond with ONLY the category name, nothing else.`;
       console.log(`[AgentService] After iteration ${iterations} — finish_reason: ${response.choices[0]?.finish_reason}, has_content: ${!!assistantMessage?.content}, tool_calls: ${assistantMessage?.tool_calls?.length || 0}`);
     }
 
-    if (!assistantMessage?.content && iterations > 0) {
-      console.log(`[AgentService] No content after ${iterations} tool-call iterations — making rescue call without tools`);
+    if (!assistantMessage?.content) {
+      console.log(`[AgentService] No content after ${iterations} tool-call iteration(s) — making rescue call without tools`);
       const rescueResponse = await this.client.chat.completions.create({
         model,
         messages,
