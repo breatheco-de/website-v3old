@@ -243,7 +243,7 @@ export const heroImageTagsValidator: Validator = {
           code: "HERO_IMAGE_MISSING_TAG",
           message: `Registry entry "${registryId}" is used in a hero section but missing the "hero" tag`,
           file: ref.file,
-          suggestion: 'Run `npx tsx scripts/audit-hero-image-tags.ts --fix` to auto-add the "hero" tag',
+          suggestion: 'Use the Diagnostics UI one-click fix, or call POST /api/validation/fix/hero-image-tags to auto-add the "hero" tag',
           fix: {
             type: "api",
             label: 'Add "hero" tag to all affected entries',
