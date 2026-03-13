@@ -220,7 +220,7 @@ export default function AIKnowledge() {
         const startRes = await fetch("/api/chat/start", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ page_url: "/private/ai-knowledge", content_type: "admin", locale: "en" }),
+          body: JSON.stringify({ page_url: "/private/ai-knowledge", locale: "en" }),
         });
         if (!startRes.ok) throw new Error("Failed to start chat session");
         const startData = await startRes.json();
@@ -230,7 +230,7 @@ export default function AIKnowledge() {
       const msgRes = await fetch("/api/chat/message", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ conversation_id: sessionId, message: text, content_type: "admin", locale: "en" }),
+        body: JSON.stringify({ conversation_id: sessionId, message: text, locale: "en" }),
       });
       if (!msgRes.ok) throw new Error("Failed to send message");
       const msgData = await msgRes.json();

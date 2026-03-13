@@ -207,8 +207,12 @@ Respond with ONLY the category name, nothing else.`;
     let iterations = 0;
     const maxIterations = 5;
 
+    console.log(`[AgentService] Initial response — finish_reason: ${response.choices[0]?.finish_reason}, tool_calls: ${assistantMessage?.tool_calls?.length || 0}`);
+
     while (assistantMessage?.tool_calls && assistantMessage.tool_calls.length > 0 && iterations < maxIterations) {
       iterations++;
+      const toolNames = assistantMessage.tool_calls.map(tc => tc.function.name);
+      console.log(`[AgentService] Tool-call iteration ${iterations}/${maxIterations} — tools: [${toolNames.join(", ")}]`);
 
       messages.push({
         role: "assistant" as const,
@@ -241,6 +245,19 @@ Respond with ONLY the category name, nothing else.`;
       });
 
       assistantMessage = response.choices[0]?.message;
+      console.log(`[AgentService] After iteration ${iterations} — finish_reason: ${response.choices[0]?.finish_reason}, has_content: ${!!assistantMessage?.content}, tool_calls: ${assistantMessage?.tool_calls?.length || 0}`);
+    }
+
+    if (!assistantMessage?.content && iterations > 0) {
+      console.log(`[AgentService] No content after ${iterations} tool-call iterations — making rescue call without tools`);
+      const rescueResponse = await this.client.chat.completions.create({
+        model,
+        messages,
+        temperature: this.config.temperature ?? 0.3,
+        max_tokens: this.config.max_tokens || 4000,
+      });
+      assistantMessage = rescueResponse.choices[0]?.message;
+      console.log(`[AgentService] Rescue call — finish_reason: ${rescueResponse.choices[0]?.finish_reason}, has_content: ${!!assistantMessage?.content}`);
     }
 
     const responseContent = assistantMessage?.content || "I'm sorry, I couldn't generate a response. Please try again.";
