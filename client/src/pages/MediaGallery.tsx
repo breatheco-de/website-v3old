@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope, IconLink, IconLoader2, IconTerminal, IconEye } from "@tabler/icons-react";
+import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope, IconLink, IconLoader2, IconTerminal, IconEye, IconWand } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -102,6 +102,7 @@ export default function MediaGallery() {
   const [validationResult, setValidationResult] = useState<ValidationRunResult | null>(null);
   const [optimizing, setOptimizing] = useState(false);
   const [migrating, setMigrating] = useState(false);
+  const [autoTagging, setAutoTagging] = useState(false);
   const [migrateConfirmOpen, setMigrateConfirmOpen] = useState(false);
   const [migrateResults, setMigrateResults] = useState<{ message: string; migratedCount: number; totalProcessed: number; results: Array<{ id: string; oldSrc: string; newSrc: string; status: string }> } | null>(null);
   const [redundantOpen, setRedundantOpen] = useState(false);
@@ -507,6 +508,30 @@ export default function MediaGallery() {
                   data-testid="button-scan-registry"
                 >
                   {scanning ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconStethoscope className="h-4 w-4" />}
+                </Button>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={async () => {
+                    setAutoTagging(true);
+                    try {
+                      const res = await apiRequest("POST", "/api/validation/fix/image-auto-tags");
+                      const data = await res.json();
+                      toast({
+                        title: "Auto-tag complete",
+                        description: data.message,
+                      });
+                      queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+                    } catch {
+                      toast({ title: "Auto-tag failed", description: "Could not auto-tag images", variant: "destructive" });
+                    } finally {
+                      setAutoTagging(false);
+                    }
+                  }}
+                  disabled={autoTagging}
+                  data-testid="button-auto-tag"
+                >
+                  {autoTagging ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconWand className="h-4 w-4" />}
                 </Button>
                 <Button
                   size="icon"

@@ -879,7 +879,29 @@ class MediaGallery {
       this.optimizeInBackground(uniqueId, data, src, opts?.tags || []);
     }
 
+    if (!opts?.tags || opts.tags.length === 0) {
+      this.classifyInBackground(uniqueId);
+    }
+
     return { id: uniqueId, src, alt };
+  }
+
+  private classifyInBackground(imageId: string): void {
+    import("./image-auto-tagger")
+      .then(({ classifyAndApply }) => classifyAndApply(imageId))
+      .then((result) => {
+        if (result.added.length > 0) {
+          console.log(
+            `[MediaGallery] Auto-tagged "${imageId}" with: ${result.added.join(", ")}`,
+          );
+        }
+      })
+      .catch((err) => {
+        console.warn(
+          `[MediaGallery] Auto-tag failed for "${imageId}":`,
+          err instanceof Error ? err.message : String(err),
+        );
+      });
   }
 
   private optimizeInBackground(id: string, buffer: Buffer, src: string, tags: string[]): void {

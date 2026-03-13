@@ -82,6 +82,445 @@
       "description": "Full-size images, preserves original aspect ratio"
     }
   },
+  "tagDefinitions": {
+    "hero": {
+      "label": "Hero",
+      "description": "Full-width hero or banner images used in page headers",
+      "presets": [
+        "hero-wide",
+        "hero-tall"
+      ],
+      "srcset_widths": [
+        640,
+        960,
+        1280,
+        1920
+      ],
+      "detection": {
+        "yaml_fields": [
+          "hero.image",
+          "hero.background_image",
+          "hero.media.src"
+        ],
+        "component_keys": [
+          "hero",
+          "hero_showcase",
+          "hero_singleColumn",
+          "hero_twoColumn",
+          "hero_productShowcase"
+        ],
+        "filename_patterns": [
+          "hero",
+          "banner",
+          "header-bg"
+        ],
+        "aspect_ratio_range": {
+          "min": 1.5,
+          "max": 3
+        }
+      }
+    },
+    "logo": {
+      "label": "Logo",
+      "description": "Company or partner logos, typically wide and short",
+      "presets": [
+        "logo"
+      ],
+      "srcset_widths": [
+        120,
+        240
+      ],
+      "detection": {
+        "yaml_fields": [
+          "logo",
+          "partner_logo",
+          "brand_logo"
+        ],
+        "component_keys": [
+          "partners",
+          "trust_badges"
+        ],
+        "filename_patterns": [
+          "logo",
+          "brand",
+          "company"
+        ],
+        "aspect_ratio_range": {
+          "min": 1,
+          "max": 6
+        }
+      }
+    },
+    "avatar": {
+      "label": "Avatar",
+      "description": "Profile pictures, headshots, or user avatars",
+      "presets": [
+        "avatar"
+      ],
+      "srcset_widths": [
+        64,
+        128,
+        256
+      ],
+      "detection": {
+        "yaml_fields": [
+          "avatar",
+          "profile_image",
+          "headshot",
+          "testimonial.image"
+        ],
+        "component_keys": [
+          "testimonials",
+          "team",
+          "staff"
+        ],
+        "filename_patterns": [
+          "avatar",
+          "headshot",
+          "profile",
+          "portrait"
+        ],
+        "aspect_ratio_range": {
+          "min": 0.8,
+          "max": 1.2
+        }
+      }
+    },
+    "card": {
+      "label": "Card",
+      "description": "Thumbnails used in card layouts and grids",
+      "presets": [
+        "card",
+        "card-wide"
+      ],
+      "srcset_widths": [
+        320,
+        480,
+        640
+      ],
+      "detection": {
+        "yaml_fields": [
+          "card.image",
+          "thumbnail"
+        ],
+        "component_keys": [
+          "cards",
+          "grid",
+          "features"
+        ],
+        "filename_patterns": [
+          "card",
+          "thumb",
+          "thumbnail"
+        ],
+        "aspect_ratio_range": {
+          "min": 0.75,
+          "max": 2
+        }
+      }
+    },
+    "icon": {
+      "label": "Icon",
+      "description": "Small icons, badges, or UI elements",
+      "presets": [
+        "icon"
+      ],
+      "srcset_widths": [
+        32,
+        64,
+        128
+      ],
+      "detection": {
+        "yaml_fields": [
+          "icon",
+          "badge_icon"
+        ],
+        "component_keys": [
+          "icons",
+          "features"
+        ],
+        "filename_patterns": [
+          "icon",
+          "ico",
+          "symbol"
+        ],
+        "aspect_ratio_range": {
+          "min": 0.8,
+          "max": 1.2
+        }
+      }
+    },
+    "photo": {
+      "label": "Photo",
+      "description": "General photographs of people, places, or events",
+      "presets": [
+        "full",
+        "card"
+      ],
+      "srcset_widths": [
+        640,
+        960,
+        1280,
+        1920
+      ],
+      "detection": {
+        "yaml_fields": [
+          "image",
+          "photo"
+        ],
+        "component_keys": [
+          "gallery",
+          "about"
+        ],
+        "filename_patterns": [
+          "photo",
+          "campus",
+          "classroom",
+          "event"
+        ],
+        "aspect_ratio_range": {
+          "min": 0.5,
+          "max": 2.5
+        }
+      }
+    },
+    "badge": {
+      "label": "Badge",
+      "description": "Award badges, certification marks, or trust seals",
+      "presets": [
+        "icon",
+        "logo"
+      ],
+      "srcset_widths": [
+        64,
+        128,
+        256
+      ],
+      "detection": {
+        "yaml_fields": [
+          "badge",
+          "certification",
+          "seal"
+        ],
+        "component_keys": [
+          "badges",
+          "awards",
+          "certifications"
+        ],
+        "filename_patterns": [
+          "badge",
+          "seal",
+          "certification",
+          "cert"
+        ],
+        "aspect_ratio_range": {
+          "min": 0.6,
+          "max": 1.6
+        }
+      }
+    },
+    "partner": {
+      "label": "Partner",
+      "description": "Partner organization logos and images",
+      "presets": [
+        "logo"
+      ],
+      "srcset_widths": [
+        120,
+        240
+      ],
+      "detection": {
+        "yaml_fields": [
+          "partner.logo",
+          "partner_image"
+        ],
+        "component_keys": [
+          "partners",
+          "collaborators"
+        ],
+        "filename_patterns": [
+          "partner",
+          "sponsor",
+          "university",
+          "college"
+        ],
+        "aspect_ratio_range": {
+          "min": 1,
+          "max": 5
+        }
+      }
+    },
+    "press": {
+      "label": "Press",
+      "description": "Press and media mentions, publication logos",
+      "presets": [
+        "logo"
+      ],
+      "srcset_widths": [
+        120,
+        240
+      ],
+      "detection": {
+        "yaml_fields": [
+          "press_logo",
+          "publication"
+        ],
+        "component_keys": [
+          "press",
+          "media_mentions"
+        ],
+        "filename_patterns": [
+          "press",
+          "media",
+          "news",
+          "forbes",
+          "newsweek",
+          "fortune"
+        ],
+        "aspect_ratio_range": {
+          "min": 1,
+          "max": 5
+        }
+      }
+    },
+    "illustration": {
+      "label": "Illustration",
+      "description": "Illustrations, diagrams, or infographics",
+      "presets": [
+        "full",
+        "card"
+      ],
+      "srcset_widths": [
+        320,
+        640,
+        960
+      ],
+      "detection": {
+        "yaml_fields": [
+          "illustration",
+          "diagram"
+        ],
+        "component_keys": [
+          "features",
+          "how_it_works"
+        ],
+        "filename_patterns": [
+          "illustration",
+          "diagram",
+          "infographic",
+          "graphic"
+        ],
+        "aspect_ratio_range": {
+          "min": 0.5,
+          "max": 2.5
+        }
+      }
+    },
+    "testimonial": {
+      "label": "Testimonial",
+      "description": "Images associated with student or alumni testimonials",
+      "presets": [
+        "avatar",
+        "card"
+      ],
+      "srcset_widths": [
+        64,
+        128,
+        256
+      ],
+      "detection": {
+        "yaml_fields": [
+          "testimonial.image",
+          "review.image"
+        ],
+        "component_keys": [
+          "testimonials",
+          "reviews",
+          "success_stories"
+        ],
+        "filename_patterns": [
+          "testimonial",
+          "review",
+          "success"
+        ],
+        "aspect_ratio_range": {
+          "min": 0.8,
+          "max": 1.5
+        }
+      }
+    },
+    "team": {
+      "label": "Team",
+      "description": "Staff, instructor, or team member photos",
+      "presets": [
+        "avatar",
+        "card"
+      ],
+      "srcset_widths": [
+        128,
+        256,
+        480
+      ],
+      "detection": {
+        "yaml_fields": [
+          "staff.image",
+          "instructor.image",
+          "team.image"
+        ],
+        "component_keys": [
+          "team",
+          "staff",
+          "instructors"
+        ],
+        "filename_patterns": [
+          "team",
+          "staff",
+          "instructor",
+          "teacher",
+          "mentor"
+        ],
+        "aspect_ratio_range": {
+          "min": 0.7,
+          "max": 1.5
+        }
+      }
+    },
+    "award": {
+      "label": "Award",
+      "description": "Award images, accolades, or recognition marks",
+      "presets": [
+        "icon",
+        "logo"
+      ],
+      "srcset_widths": [
+        64,
+        128,
+        256
+      ],
+      "detection": {
+        "yaml_fields": [
+          "award",
+          "accolade"
+        ],
+        "component_keys": [
+          "awards",
+          "recognition"
+        ],
+        "filename_patterns": [
+          "award",
+          "accolade",
+          "recognition",
+          "prize",
+          "course-report",
+          "switchup"
+        ],
+        "aspect_ratio_range": {
+          "min": 0.6,
+          "max": 1.6
+        }
+      }
+    }
+  },
   "images": {
     "clark_university": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png",

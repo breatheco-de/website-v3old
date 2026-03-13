@@ -21,6 +21,7 @@ import { slugConflictsValidator } from "./slug-conflicts";
 import { seoIntentValidator } from "./seo-intent";
 import { imageOptimizationValidator } from "./image-optimization";
 import { heroImageTagsValidator } from "./hero-image-tags";
+import { imageTagsValidator } from "./image-tags";
 
 export const validators: Validator[] = [
   redirectValidator,
@@ -39,6 +40,7 @@ export const validators: Validator[] = [
   seoIntentValidator,
   imageOptimizationValidator,
   heroImageTagsValidator,
+  imageTagsValidator,
 ];
 
 export const validatorMap = new Map<string, Validator>(
@@ -80,4 +82,5 @@ export {
   seoIntentValidator,
   imageOptimizationValidator,
   heroImageTagsValidator,
+  imageTagsValidator,
 };

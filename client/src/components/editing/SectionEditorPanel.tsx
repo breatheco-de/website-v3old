@@ -6625,7 +6625,6 @@ export function SectionEditorPanel({
                       nestedUpdateFn(imagePickerTarget.currentSrc);
                       setNestedUpdateFn(null);
                     } else if (imagePickerTarget.fieldPath) {
-                      // Simple field - update directly
                       updateProperty(
                         imagePickerTarget.fieldPath,
                         imagePickerTarget.currentSrc,
@@ -6652,6 +6651,36 @@ export function SectionEditorPanel({
                         imagePickerTarget.index,
                         updates,
                       );
+                    }
+
+                    if (imagePickerTarget.currentRegistryId) {
+                      const classifyId = imagePickerTarget.currentRegistryId;
+                      const classifyContext = imagePickerTarget.tagFilter
+                        ? { tagFilter: imagePickerTarget.tagFilter }
+                        : undefined;
+                      fetch(`/api/media/classify/${encodeURIComponent(classifyId)}`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ context: classifyContext }),
+                      })
+                        .then((r) => {
+                          if (!r.ok) {
+                            console.warn(`[ImageClassify] ${classifyId}: HTTP ${r.status}`);
+                            return null;
+                          }
+                          return r.json();
+                        })
+                        .then((data) => {
+                          if (data?.added && data.added.length > 0) {
+                            toast({
+                              title: "Tags added",
+                              description: `Added ${data.added.length} tag(s): ${data.added.join(", ")}`,
+                            });
+                          }
+                        })
+                        .catch((err) => {
+                          console.warn(`[ImageClassify] ${classifyId}:`, err);
+                        });
                     }
                   }
                   setImagePickerOpen(false);

@@ -178,6 +178,76 @@ export class LLMService implements ILLMClient {
     throw lastError || new Error("Failed after max retries");
   }
 
+  async completeWithVision(
+    textPrompt: string,
+    imageUrls: string[],
+    options?: LLMOptions,
+  ): Promise<string> {
+    const model = options?.model || this.defaultModel;
+    const temperature = options?.temperature ?? this.defaultTemperature;
+    const maxTokens = options?.maxTokens || this.defaultMaxTokens;
+
+    let lastError: Error | null = null;
+    let backoffMs = INITIAL_BACKOFF_MS;
+
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+      try {
+        const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [];
+
+        if (options?.systemPrompt) {
+          messages.push({ role: "system", content: options.systemPrompt });
+        }
+
+        const contentParts: OpenAI.Chat.ChatCompletionContentPart[] = [
+          { type: "text", text: textPrompt },
+        ];
+        for (const url of imageUrls) {
+          contentParts.push({
+            type: "image_url",
+            image_url: { url },
+          });
+        }
+        messages.push({ role: "user", content: contentParts });
+
+        const response = await this.client.chat.completions.create({
+          model,
+          messages,
+          temperature,
+          max_tokens: maxTokens,
+        });
+
+        const content = response.choices[0]?.message?.content;
+        if (!content) {
+          throw new Error("Empty response from LLM");
+        }
+
+        return content.trim();
+      } catch (error) {
+        lastError = error as Error;
+        const errorMessage = lastError.message || "";
+
+        if (
+          errorMessage.includes("rate_limit") ||
+          errorMessage.includes("429") ||
+          errorMessage.includes("timeout") ||
+          errorMessage.includes("network") ||
+          errorMessage.includes("ECONNRESET")
+        ) {
+          console.warn(
+            `LLM vision error (attempt ${attempt}/${MAX_RETRIES}), retrying in ${backoffMs}ms...`,
+          );
+          await this.sleep(backoffMs);
+          backoffMs *= 2;
+          continue;
+        }
+
+        throw error;
+      }
+    }
+
+    throw lastError || new Error("Failed after max retries");
+  }
+
   async adaptContent(
     systemPrompt: string,
     userPrompt: string,

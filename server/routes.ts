@@ -8735,6 +8735,42 @@ sections: []
     }
   });
 
+  app.post("/api/media/classify/:imageId", async (req, res) => {
+    try {
+      const { imageId } = req.params;
+      const { context, persist } = req.body as {
+        context?: { tagFilter?: string };
+        persist?: boolean;
+      };
+
+      if (context && typeof context !== "object") {
+        res.status(400).json({ error: "context must be an object" });
+        return;
+      }
+      if (context?.tagFilter && typeof context.tagFilter !== "string") {
+        res.status(400).json({ error: "context.tagFilter must be a string" });
+        return;
+      }
+      if (context?.tagFilter && context.tagFilter.length > 100) {
+        res.status(400).json({ error: "context.tagFilter is too long" });
+        return;
+      }
+
+      const { classifyAndApply } = await import("./image-auto-tagger");
+      const shouldPersist = persist !== false;
+      const result = await classifyAndApply(imageId, context, shouldPersist);
+      res.json(result);
+    } catch (error: any) {
+      const message = error instanceof Error ? error.message : String(error);
+      if (message.includes("not found")) {
+        res.status(404).json({ error: message });
+      } else {
+        console.error("[Classify] Error:", error);
+        res.status(500).json({ error: "Classification failed", message });
+      }
+    }
+  });
+
   // ============================================
   // Validation API Endpoints
   // ============================================
