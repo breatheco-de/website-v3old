@@ -95,15 +95,17 @@ function isScreenshot(filename: string): boolean {
   return SCREENSHOT_PATTERNS.some(pattern => pattern.test(filename));
 }
 
+export interface ImageReferenceScan {
+  imageIds: Set<string>;
+  srcValues: Set<string>;
+  byRef: Map<string, Set<string>>;
+}
+
 class MediaGallery {
   private registryCache: ImageRegistry | null = null;
   private lastModified: number = 0;
   private existenceCache: Map<string, ExistenceCache> = new Map();
-  private contentIndex: any = null;
-
-  setContentIndex(ci: any): void {
-    this.contentIndex = ci;
-  }
+  private imageRefCache: ImageReferenceScan | null = null;
 
   getRegistry(): ImageRegistry | null {
     try {
@@ -129,6 +131,98 @@ class MediaGallery {
   clearCache(): void {
     this.registryCache = null;
     this.lastModified = 0;
+    this.imageRefCache = null;
+  }
+
+  collectImageReferences(): ImageReferenceScan {
+    if (this.imageRefCache) return this.imageRefCache;
+
+    const imageIds = new Set<string>();
+    const srcValues = new Set<string>();
+    const byRef = new Map<string, Set<string>>();
+
+    const addRef = (ref: string, filePath: string) => {
+      if (!ref) return;
+      const existing = byRef.get(ref);
+      if (existing) {
+        existing.add(filePath);
+      } else {
+        byRef.set(ref, new Set([filePath]));
+      }
+    };
+
+    const URL_PATTERN = /(?:https?:\/\/[^\s"']+|\/attached_assets\/[^\s"']+|\/marketing-content\/images\/[^\s"']+)/g;
+
+    const extractRefs = (obj: unknown, keyPath: string, filePath: string): void => {
+      if (obj === null || obj === undefined) return;
+      if (typeof obj === "string") {
+        if (/image_id(?:\[\d+\])?$/.test(keyPath)) {
+          imageIds.add(obj);
+          addRef(obj, filePath);
+        }
+        srcValues.add(obj);
+        if (
+          obj.startsWith("/attached_assets/") || obj.startsWith("attached_assets/") ||
+          obj.startsWith("/marketing-content/images/") || obj.startsWith("marketing-content/images/") ||
+          obj.startsWith("https://storage.googleapis.com/") ||
+          obj.startsWith("http://") || obj.startsWith("https://")
+        ) {
+          addRef(obj, filePath);
+        }
+        if (obj.includes("\n")) {
+          try {
+            const nested = yaml.load(obj);
+            if (nested && typeof nested === "object") {
+              extractRefs(nested, keyPath, filePath);
+              return;
+            }
+          } catch {}
+          const urlMatches = obj.match(URL_PATTERN);
+          if (urlMatches) {
+            for (const url of urlMatches) {
+              srcValues.add(url);
+              addRef(url, filePath);
+            }
+          }
+        }
+        return;
+      }
+      if (Array.isArray(obj)) {
+        obj.forEach((item, i) => extractRefs(item, `${keyPath}[${i}]`, filePath));
+        return;
+      }
+      if (typeof obj === "object") {
+        for (const [key, val] of Object.entries(obj as Record<string, unknown>)) {
+          extractRefs(val, keyPath ? `${keyPath}.${key}` : key, filePath);
+        }
+      }
+    };
+
+    const walkDir = (dir: string) => {
+      if (!fs.existsSync(dir)) return;
+      const entries = fs.readdirSync(dir, { withFileTypes: true });
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+          walkDir(fullPath);
+        } else if (entry.name.endsWith(".yml") || entry.name.endsWith(".yaml")) {
+          try {
+            const content = fs.readFileSync(fullPath, "utf8");
+            const { escaped, map } = escapeTemplateVars(content);
+            const rawParsed = yaml.load(escaped);
+            const parsed = rawParsed ? unescapeObjectVars(rawParsed, map) : rawParsed;
+            if (parsed && typeof parsed === "object") {
+              const relPath = path.relative(process.cwd(), fullPath);
+              extractRefs(parsed, "", relPath);
+            }
+          } catch {}
+        }
+      }
+    };
+
+    walkDir(MARKETING_CONTENT_DIR);
+    this.imageRefCache = { imageIds, srcValues, byRef };
+    return this.imageRefCache;
   }
 
   getImage(id: string): { src: string; alt: string } | null {
@@ -158,8 +252,21 @@ class MediaGallery {
   }
 
   getUsage(imageId: string, imageSrc?: string, srcsetUrls?: string[]): string[] {
-    if (!this.contentIndex) return [];
-    return this.contentIndex.getImageUsage(imageId, imageSrc, srcsetUrls);
+    const refs = this.collectImageReferences();
+    const files = new Set<string>();
+    const byId = refs.byRef.get(imageId);
+    if (byId) byId.forEach(f => files.add(f));
+    if (imageSrc) {
+      const bySrc = refs.byRef.get(imageSrc);
+      if (bySrc) bySrc.forEach(f => files.add(f));
+    }
+    if (srcsetUrls) {
+      for (const url of srcsetUrls) {
+        const bySrcset = refs.byRef.get(url);
+        if (bySrcset) bySrcset.forEach(f => files.add(f));
+      }
+    }
+    return Array.from(files);
   }
 
   private async checkExists(src: string): Promise<boolean> {

@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope, IconLink, IconLoader2, IconTerminal } from "@tabler/icons-react";
+import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope, IconLink, IconLoader2, IconTerminal, IconEye } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -107,6 +107,7 @@ export default function MediaGallery() {
   const [redundantOpen, setRedundantOpen] = useState(false);
   const [redundantResult, setRedundantResult] = useState<{ resolved: number; errors: string[] } | null>(null);
   const [redundantVisible, setRedundantVisible] = useState(10);
+  const [detailImageId, setDetailImageId] = useState<string | null>(null);
   const [scriptsOpen, setScriptsOpen] = useState(false);
   const [scriptMigrateFrom, setScriptMigrateFrom] = useState("local");
   const [scriptMigrateTo, setScriptMigrateTo] = useState("gcs");
@@ -872,6 +873,13 @@ export default function MediaGallery() {
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">
                             <DropdownMenuItem
+                              onClick={() => setDetailImageId(id)}
+                              data-testid={`button-details-${id}`}
+                            >
+                              <IconEye className="h-4 w-4 mr-2" />
+                              Details
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
                               onClick={() => handleCopyId(id)}
                               data-testid={`button-copy-${id}`}
                             >
@@ -1443,6 +1451,73 @@ export default function MediaGallery() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <Sheet open={detailImageId !== null} onOpenChange={(open) => { if (!open) setDetailImageId(null); }}>
+        <SheetContent side="right" className="sm:max-w-md overflow-y-auto">
+          <SheetHeader>
+            <SheetTitle className="flex items-center gap-2">
+              <IconPhoto className="h-5 w-5" />
+              Image Details
+            </SheetTitle>
+            <SheetDescription>
+              {detailImageId || ""}
+            </SheetDescription>
+          </SheetHeader>
+          {detailImageId && registry?.images[detailImageId] && (() => {
+            const img = registry.images[detailImageId];
+            return (
+              <div className="space-y-4 py-4">
+                <div className="rounded-lg overflow-hidden border bg-muted">
+                  {failedImages.has(detailImageId) ? (
+                    <div className="aspect-video flex items-center justify-center">
+                      <IconPhoto className="h-12 w-12 text-muted-foreground" />
+                    </div>
+                  ) : (
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      className="w-full h-auto"
+                      onError={() => handleImageError(detailImageId)}
+                    />
+                  )}
+                </div>
+
+                <div className="space-y-3">
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-1">ID</p>
+                    <code className="text-sm font-mono" data-testid="text-detail-id">{detailImageId}</code>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-1">Alt Text</p>
+                    <p className="text-sm" data-testid="text-detail-alt">{img.alt}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-1">Source</p>
+                    <p className="text-xs font-mono break-all" data-testid="text-detail-src">{img.src}</p>
+                  </div>
+                  {img.tags && img.tags.length > 0 && (
+                    <div>
+                      <p className="text-xs text-muted-foreground mb-1">Tags</p>
+                      <div className="flex flex-wrap gap-1">
+                        {img.tags.map((tag) => (
+                          <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {img.width && img.height && (
+                    <div>
+                      <p className="text-xs text-muted-foreground mb-1">Dimensions</p>
+                      <p className="text-sm">{img.width} x {img.height}</p>
+                    </div>
+                  )}
+                </div>
+
+              </div>
+            );
+          })()}
+        </SheetContent>
+      </Sheet>
 
       <Sheet open={scriptsOpen} onOpenChange={(open) => { if (!open) setScriptsOpen(false); }}>
         <SheetContent side="right" className="sm:max-w-lg overflow-y-auto">

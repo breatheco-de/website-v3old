@@ -554,7 +554,6 @@ function detectLanguageFromRequest(req: Request): "en" | "es" {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   media.initFromEnv();
-  mediaGallery.setContentIndex(contentIndex);
 
   const { loadSyncLog, logSync, getInstanceId } = await import("./sync-log");
   const { loadSyncStateFromBucket } = await import("./sync-state");
