@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,7 @@ import { useToast } from "@/hooks/use-toast";
 import { IconArrowLeft, IconPlus, IconTrash, IconLoader2, IconCheck, IconEye, IconEyeOff, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown, IconChevronRight, IconBrain, IconUpload, IconTool, IconBooks, IconSend, IconCpu } from "@tabler/icons-react";
 import { Link, useLocation } from "wouter";
 import { getDebugToken } from "@/hooks/useDebugAuth";
+import { ChatPanel } from "@/components/ChatPanel";
 
 interface KnowledgeData {
   system_prompt: string | null;
@@ -182,13 +183,6 @@ export default function AIKnowledge() {
   const [chatInput, setChatInput] = useState("");
   const [chatSessionId, setChatSessionId] = useState<string | null>(null);
   const [chatSending, setChatSending] = useState(false);
-  const chatScrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (chatScrollRef.current) {
-      chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight;
-    }
-  }, [chatMessages, chatSending]);
 
   const { data, isLoading } = useQuery<KnowledgeData>({
     queryKey: ["/api/admin/ai/knowledge"],
@@ -526,69 +520,19 @@ export default function AIKnowledge() {
               <h2 className="font-semibold text-sm" data-testid="text-test-chat-heading">Test Chat</h2>
               <p className="text-xs text-muted-foreground">Send messages to test your agent configuration.</p>
             </div>
-            <div
-              ref={chatScrollRef}
-              className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0"
-              data-testid="container-test-chat-messages"
-            >
-              {chatMessages.length === 0 && !chatSending && (
-                <div className="text-center text-sm text-muted-foreground py-8" data-testid="text-test-chat-empty">
-                  Send a message to start testing your agent.
-                </div>
-              )}
-              {chatMessages.map((msg, i) => (
-                <div
-                  key={i}
-                  className={`flex flex-col ${msg.role === "user" ? "items-end" : "items-start"}`}
-                  data-testid={`chat-message-${msg.role}-${i}`}
-                >
-                  <div
-                    className={`max-w-[80%] rounded-md px-3 py-2 text-sm whitespace-pre-wrap ${
-                      msg.role === "user"
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-muted text-foreground"
-                    }`}
-                  >
-                    {msg.content}
-                  </div>
-                  {msg.role === "assistant" && msg.trace && (
-                    <TracePanel trace={msg.trace} index={i} />
-                  )}
-                </div>
-              ))}
-              {chatSending && (
-                <div className="flex justify-start" data-testid="chat-loading-indicator">
-                  <div className="bg-muted rounded-md px-3 py-2 flex items-center gap-2">
-                    <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">Thinking...</span>
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className="p-3 border-t flex items-center gap-2">
-              <Textarea
-                value={chatInput}
-                onChange={e => setChatInput(e.target.value)}
-                onKeyDown={e => {
-                  if (e.key === "Enter" && !e.shiftKey) {
-                    e.preventDefault();
-                    handleSendTestMessage();
-                  }
-                }}
-                placeholder="Type a test message..."
-                className="text-sm min-h-[40px] max-h-[100px] resize-none flex-1"
-                disabled={chatSending}
-                data-testid="input-test-chat"
-              />
-              <Button
-                size="icon"
-                onClick={handleSendTestMessage}
-                disabled={chatSending || !chatInput.trim()}
-                data-testid="button-send-test-chat"
-              >
-                <IconSend className="h-4 w-4" />
-              </Button>
-            </div>
+            <ChatPanel<{ role: "user" | "assistant"; content: string; trace?: AgentTrace }>
+              messages={chatMessages}
+              isLoading={chatSending}
+              input={chatInput}
+              onInputChange={setChatInput}
+              onSend={handleSendTestMessage}
+              agentName={agentName}
+              agentIcon={agentIcon}
+              renderAfterAssistant={(msg, i) => {
+                return msg.trace ? <TracePanel trace={msg.trace} index={i} /> : null;
+              }}
+              className="flex-1 min-h-0"
+            />
           </Card>
         </div>
       </div>

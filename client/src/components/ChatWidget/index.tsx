@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useLocation } from "wouter";
-import { IconMessageCircle, IconX, IconSend, IconLoader2 } from "@tabler/icons-react";
+import { IconMessageCircle, IconX } from "@tabler/icons-react";
+import { ChatPanel } from "@/components/ChatPanel";
 
 interface ChatConfig {
   enabled: boolean;
@@ -50,7 +51,6 @@ export function ChatWidget() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isStarting, setIsStarting] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -90,10 +90,6 @@ export function ChatWidget() {
 
     return matchesPattern || matchesContentType;
   }, [config, pathname]);
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
 
   const startConversation = async () => {
     if (conversationId || isStarting) return;
@@ -178,90 +174,19 @@ export function ChatWidget() {
           style={{ height: "500px", bottom: "80px", zIndex: 9998 }}
           data-testid="chat-widget-panel"
         >
-          <div className="flex items-center justify-between gap-2 px-4 py-3 border-b bg-primary text-primary-foreground">
-            <div className="flex items-center gap-2">
-              {config?.agent_icon ? (
-                <img src={config.agent_icon} alt={config.agent_name || "Agent"} className="h-6 w-6 rounded-full object-cover" />
-              ) : (
-                <IconMessageCircle className="h-5 w-5" />
-              )}
-              <span className="font-semibold text-sm">{config?.agent_name || "Chat with us"}</span>
-            </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="p-1 rounded-md hover:bg-primary-foreground/20 transition-colors"
-              data-testid="button-close-chat"
-            >
-              <IconX className="h-4 w-4" />
-            </button>
-          </div>
-
-          <div className="flex-1 overflow-y-auto p-4 space-y-3">
-            {messages.length === 0 && !isLoading && (
-              <div className="text-center text-muted-foreground text-sm py-8">
-                <p className="font-medium mb-1">Welcome!</p>
-                <p>Ask us anything about our programs, locations, or admissions process.</p>
-              </div>
-            )}
-
-            {messages.map((msg, i) => (
-              <div
-                key={i}
-                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-                data-testid={`chat-message-${msg.role}-${i}`}
-              >
-                <div
-                  className={`max-w-[85%] rounded-md px-3 py-2 text-sm whitespace-pre-wrap ${
-                    msg.role === "user"
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-foreground"
-                  }`}
-                >
-                  {msg.content}
-                </div>
-              </div>
-            ))}
-
-            {isLoading && (
-              <div className="flex justify-start" data-testid="chat-typing-indicator">
-                <div className="bg-muted rounded-md px-3 py-2 text-sm flex items-center gap-2 text-muted-foreground">
-                  <IconLoader2 className="h-4 w-4 animate-spin" />
-                  <span>Typing...</span>
-                </div>
-              </div>
-            )}
-
-            <div ref={messagesEndRef} />
-          </div>
-
-          <div className="border-t p-3">
-            <div className="flex items-center gap-2">
-              <input
-                ref={inputRef}
-                type="text"
-                value={input}
-                onChange={e => setInput(e.target.value)}
-                onKeyDown={e => {
-                  if (e.key === "Enter" && !e.shiftKey) {
-                    e.preventDefault();
-                    sendMessage();
-                  }
-                }}
-                placeholder="Type a message..."
-                className="flex-1 px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                disabled={isLoading || !conversationId}
-                data-testid="input-chat-message"
-              />
-              <button
-                onClick={sendMessage}
-                disabled={isLoading || !input.trim() || !conversationId}
-                className="p-2 rounded-md bg-primary text-primary-foreground disabled:opacity-50 transition-colors"
-                data-testid="button-send-chat"
-              >
-                <IconSend className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
+          <ChatPanel
+            messages={messages}
+            isLoading={isLoading}
+            input={input}
+            onInputChange={setInput}
+            onSend={sendMessage}
+            agentName={config?.agent_name}
+            agentIcon={config?.agent_icon}
+            onClose={() => setIsOpen(false)}
+            inputRef={inputRef}
+            inputDisabled={!conversationId}
+            className="flex-1"
+          />
         </div>
       )}
 
