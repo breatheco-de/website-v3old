@@ -47,6 +47,35 @@ interface BulkDeleteResult {
   message: string;
 }
 
+interface ValidationIssue {
+  type: "error" | "warning";
+  code: string;
+  message: string;
+  file?: string;
+  suggestion?: string;
+}
+
+interface ValidatorResult {
+  name: string;
+  description: string;
+  status: "passed" | "failed" | "warning";
+  errors: ValidationIssue[];
+  warnings: ValidationIssue[];
+  duration: number;
+  artifacts?: Record<string, unknown>;
+}
+
+interface ValidationRunResult {
+  summary: {
+    total: number;
+    passed: number;
+    failed: number;
+    warnings: number;
+    duration: number;
+  };
+  validators: ValidatorResult[];
+}
+
 export default function MediaGallery() {
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
@@ -62,6 +91,8 @@ export default function MediaGallery() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [settingsProviderView, setSettingsProviderView] = useState<string | null>(null);
   const [deduplicating, setDeduplicating] = useState(false);
+  const [validationResult, setValidationResult] = useState<ValidationRunResult | null>(null);
+  const [optimizing, setOptimizing] = useState(false);
   const [migrating, setMigrating] = useState(false);
   const [migrateConfirmOpen, setMigrateConfirmOpen] = useState(false);
   const [migrateResults, setMigrateResults] = useState<{ message: string; migratedCount: number; totalProcessed: number; results: Array<{ id: string; oldSrc: string; newSrc: string; status: string }> } | null>(null);
@@ -143,14 +174,39 @@ export default function MediaGallery() {
   const handleScan = async () => {
     setScanning(true);
     setScanResult(null);
+    setValidationResult(null);
     try {
-      const res = await apiRequest("POST", "/api/image-registry/scan");
-      const data: ScanResult = await res.json();
-      setScanResult(data);
+      const [scanRes, validationRes] = await Promise.all([
+        apiRequest("POST", "/api/image-registry/scan"),
+        apiRequest("POST", "/api/validation/run", {
+          validators: ["images", "hero-image-tags", "image-optimization"],
+          includeArtifacts: true,
+        }),
+      ]);
+      const scanData: ScanResult = await scanRes.json();
+      setScanResult(scanData);
+      const validationData: ValidationRunResult = await validationRes.json();
+      setValidationResult(validationData);
     } catch {
       toast({ title: "Scan failed", description: "Could not scan image registry", variant: "destructive" });
     } finally {
       setScanning(false);
+    }
+  };
+
+  const handleTriggerOptimization = async () => {
+    setOptimizing(true);
+    try {
+      const res = await apiRequest("POST", "/api/image-registry/optimize-batch", {});
+      const data = await res.json();
+      toast({
+        title: "Optimization started",
+        description: data.message || `Queued ${data.queued} image(s) for processing`,
+      });
+    } catch {
+      toast({ title: "Optimization failed", description: "Could not start batch optimization", variant: "destructive" });
+    } finally {
+      setOptimizing(false);
     }
   };
 
@@ -556,6 +612,105 @@ export default function MediaGallery() {
                 All image references are valid
               </div>
             )}
+          </div>
+        )}
+
+        {validationResult && validationResult.validators.length > 0 && (
+          <div className="mb-6 rounded-lg border p-4 space-y-4" data-testid="validation-results">
+            <div className="flex items-center justify-between">
+              <h3 className="font-semibold text-sm">Image Health Checks</h3>
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <span>{validationResult.summary.total} check(s) in {validationResult.summary.duration}ms</span>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setValidationResult(null)}
+                  data-testid="button-dismiss-validation"
+                >
+                  Dismiss
+                </Button>
+              </div>
+            </div>
+
+            {validationResult.validators.map((v) => {
+              const issueCount = v.errors.length + v.warnings.length;
+              const statusColor =
+                v.status === "passed"
+                  ? "text-green-600 dark:text-green-400"
+                  : v.status === "warning"
+                    ? "text-amber-600 dark:text-amber-400"
+                    : "text-destructive";
+
+              return (
+                <div key={v.name} className="space-y-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <span className={`text-sm font-medium ${statusColor}`}>
+                        {v.status === "passed" ? <IconCheck className="inline h-3.5 w-3.5 mr-1" /> : <IconAlertTriangle className="inline h-3.5 w-3.5 mr-1" />}
+                        {v.name}
+                      </span>
+                      <span className="text-xs text-muted-foreground">{v.description}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {v.name === "image-optimization" && issueCount > 0 && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={handleTriggerOptimization}
+                          disabled={optimizing || mediaStatus?.defaultProvider !== "gcs"}
+                          title={mediaStatus?.defaultProvider !== "gcs" ? "GCS provider required for optimization" : undefined}
+                          data-testid="button-trigger-optimization"
+                        >
+                          {optimizing ? (
+                            <>
+                              <IconLoader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />
+                              Starting...
+                            </>
+                          ) : (
+                            "Trigger optimization"
+                          )}
+                        </Button>
+                      )}
+                      <span className="text-xs text-muted-foreground">{v.duration}ms</span>
+                    </div>
+                  </div>
+
+                  {v.artifacts && (
+                    <div className="flex flex-wrap gap-3 text-xs text-muted-foreground pl-5">
+                      {Object.entries(v.artifacts).map(([key, value]) => (
+                        <span key={key}>
+                          {key.replace(/([A-Z])/g, " $1").replace(/^./, s => s.toUpperCase())}: <strong className="text-foreground">{String(value)}</strong>
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {issueCount > 0 && (
+                    <div className="max-h-40 overflow-y-auto space-y-1 pl-5">
+                      {[...v.errors, ...v.warnings].slice(0, 20).map((issue, i) => (
+                        <div key={i} className="text-xs">
+                          <span className={issue.type === "error" ? "text-destructive" : "text-amber-600 dark:text-amber-400"}>
+                            [{issue.code}]
+                          </span>
+                          <span className="text-muted-foreground ml-1.5">{issue.message}</span>
+                        </div>
+                      ))}
+                      {issueCount > 20 && (
+                        <div className="text-xs text-muted-foreground">
+                          ...and {issueCount - 20} more issue(s)
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {issueCount === 0 && (
+                    <div className="text-xs text-green-600 dark:text-green-400 pl-5">
+                      No issues found
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
 

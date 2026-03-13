@@ -901,6 +901,13 @@ class MediaGallery {
     return { resolved, errors };
   }
 
+  persistRegistry(): void {
+    const registry = this.getRegistry();
+    if (registry) {
+      this.saveRegistry(registry);
+    }
+  }
+
   private saveRegistry(registry: ImageRegistry): void {
     fs.writeFileSync(REGISTRY_PATH, JSON.stringify(registry, null, 2) + "\n", "utf8");
     markFileAsModified("marketing-content/image-registry.json");

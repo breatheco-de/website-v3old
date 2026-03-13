@@ -8645,6 +8645,81 @@ sections: []
     },
   );
 
+  app.post("/api/image-registry/optimize-batch", async (req, res) => {
+    try {
+      const { ids } = req.body as { ids?: string[] };
+      const registry = mediaGallery.getRegistry();
+      if (!registry) {
+        res.status(500).json({ error: "Failed to load image registry" });
+        return;
+      }
+
+      const { processImageFromSrc } = await import("./image-optimizer");
+      const presets = registry.presets as Record<string, import("./image-optimizer").Preset>;
+      const skipExtensions = new Set([".svg", ".gif"]);
+
+      const getExt = (src: string): string => {
+        try { return path.extname(new URL(src).pathname).toLowerCase(); }
+        catch { return path.extname(src).toLowerCase(); }
+      };
+
+      let targetIds: string[];
+      if (ids && Array.isArray(ids) && ids.length > 0) {
+        targetIds = ids.filter(id => registry.images[id]);
+      } else {
+        targetIds = Object.entries(registry.images)
+          .filter(([_id, entry]) => {
+            const ext = getExt(entry.src);
+            if (skipExtensions.has(ext)) return false;
+            const hasSrcset = Array.isArray(entry.srcset) && entry.srcset.length > 0;
+            return !hasSrcset;
+          })
+          .map(([id]) => id);
+      }
+
+      if (targetIds.length === 0) {
+        res.json({ queued: 0, message: "No images need optimization" });
+        return;
+      }
+
+      res.json({ queued: targetIds.length, message: `Queued ${targetIds.length} image(s) for background optimization` });
+
+      (async () => {
+        let processed = 0;
+        let failed = 0;
+        for (const id of targetIds) {
+          const entry = registry.images[id];
+          if (!entry) continue;
+          try {
+            const result = await processImageFromSrc(id, entry, presets);
+            if (result) {
+              entry.width = result.width;
+              entry.height = result.height;
+              entry.preset = result.preset;
+              (entry as any).widths_generated = result.widths_generated;
+              (entry as any).format = result.format;
+              entry.srcset = result.srcset;
+              processed++;
+              if (processed % 10 === 0) {
+                mediaGallery.persistRegistry();
+                console.log(`[OptimizeBatch] Progress: ${processed}/${targetIds.length} processed, ${failed} failed`);
+              }
+            } else {
+              failed++;
+            }
+          } catch (err) {
+            failed++;
+            console.error(`[OptimizeBatch] Error processing ${id}:`, err);
+          }
+        }
+        mediaGallery.persistRegistry();
+        console.log(`[OptimizeBatch] Complete: ${processed} processed, ${failed} failed out of ${targetIds.length} total`);
+      })().catch(err => console.error("[OptimizeBatch] Background processing error:", err));
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || "Batch optimize failed" });
+    }
+  });
+
   // ============================================
   // Validation API Endpoints
   // ============================================

@@ -19,6 +19,8 @@ import { contentQualityValidator } from "./content-quality";
 import { databaseSinglesValidator } from "./database-singles";
 import { slugConflictsValidator } from "./slug-conflicts";
 import { seoIntentValidator } from "./seo-intent";
+import { imageOptimizationValidator } from "./image-optimization";
+import { heroImageTagsValidator } from "./hero-image-tags";
 
 export const validators: Validator[] = [
   redirectValidator,
@@ -35,6 +37,8 @@ export const validators: Validator[] = [
   databaseSinglesValidator,
   slugConflictsValidator,
   seoIntentValidator,
+  imageOptimizationValidator,
+  heroImageTagsValidator,
 ];
 
 export const validatorMap = new Map<string, Validator>(
@@ -74,4 +78,6 @@ export {
   databaseSinglesValidator,
   slugConflictsValidator,
   seoIntentValidator,
+  imageOptimizationValidator,
+  heroImageTagsValidator,
 };
