@@ -10,11 +10,13 @@ import {
   locationPageSchema,
 } from "@shared/schema";
 import { resolveDynamicEntries } from "./dynamic-entries";
-import { resolveLayout } from "./content-types";
+import { resolveLayout, getLocaleKey } from "./content-types";
 import { applyComponentSectionDefaults } from "./component-registry";
 import { variableManager } from "./variable-manager";
 import { loadImageRegistry } from "./image-registry";
-import { getDefaultLocale } from "./settings";
+import { getDefaultLocale, normalizeLocale } from "./settings";
+import { databaseManager } from "./database";
+import { fetchMarkdownContent } from "./markdown";
 
 interface SingleQuery {
   queryKey: unknown[];
@@ -86,6 +88,40 @@ async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
     const isNonLocalized = patternLocale === "default";
 
     if (fromDatabase) {
+      try {
+        if (contentType === "blog") {
+          let locale = cleanUrl.match(/^\/(es)\b/) ? "es" : "en";
+          if (resolved.params?.locale) {
+            locale = resolved.params.locale;
+          }
+          const normalizedLocale = normalizeLocale(locale);
+          const posts = await databaseManager.fetchMappedItems("blog");
+          const localeKey = getLocaleKey("blog") || "lang";
+          const post = posts.find(
+            (p: Record<string, unknown>) =>
+              p.slug === slug && p[localeKey] === normalizedLocale,
+          ) || posts.find((p: Record<string, unknown>) => p.slug === slug);
+
+          if (!post) return null;
+
+          let content = typeof post.content === "string" ? post.content : "";
+          if (!content && typeof post.readme_url === "string") {
+            content = await fetchMarkdownContent(post.readme_url);
+          }
+
+          const mergedRaw = contentIndex.loadMergedContent("blog", slug, locale);
+          const layoutSource = mergedRaw.data || post;
+          const blogLayout = resolveLayout("blog", layoutSource as Record<string, unknown>);
+          const data = { ...post, content, layout: blogLayout };
+
+          return {
+            queryKey: ["/api/blog/posts", slug, normalizedLocale],
+            data,
+          };
+        }
+      } catch {
+        return null;
+      }
       return null;
     }
 
@@ -276,6 +312,7 @@ export function resolvePreloadHints(
       key0 === "/api/landings" ||
       key0 === "/api/career-programs" ||
       key0 === "/api/locations" ||
+      key0 === "/api/blog/posts" ||
       (typeof key0 === "string" && key0.startsWith("/api/content-pages/"))
     ) {
       pageData = q.data as Record<string, unknown>;
