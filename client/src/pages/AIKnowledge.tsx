@@ -23,8 +23,14 @@ interface KnowledgeData {
   question_tags: string[];
 }
 
+interface ImageEntry {
+  src: string;
+  alt?: string;
+  tags?: string[];
+}
+
 interface ImageRegistryData {
-  images: Array<{ handle: string; url: string; alt?: string; tags?: string[] }>;
+  images: Record<string, ImageEntry>;
 }
 
 function compileSystemPrompt(name: string, role: string, personality: string, instructions: string, fallback: string): string {
@@ -81,11 +87,13 @@ export default function AIKnowledge() {
     },
   });
 
-  const filteredIcons = (imageRegistry?.images || []).filter(img => {
-    if (!iconSearch) return true;
-    const q = iconSearch.toLowerCase();
-    return (img.handle || "").toLowerCase().includes(q) || (img.alt || "").toLowerCase().includes(q);
-  });
+  const filteredIcons = Object.entries(imageRegistry?.images || {})
+    .map(([handle, img]) => ({ handle, src: img.src, alt: img.alt, tags: img.tags }))
+    .filter(img => {
+      if (!iconSearch) return true;
+      const q = iconSearch.toLowerCase();
+      return img.handle.toLowerCase().includes(q) || (img.alt || "").toLowerCase().includes(q);
+    });
 
   useEffect(() => {
     if (data) {
@@ -212,11 +220,11 @@ export default function AIKnowledge() {
               {filteredIcons.slice(0, 60).map(img => (
                 <button
                   key={img.handle}
-                  onClick={() => { setAgentIcon(img.url); setIconPickerOpen(false); setIconSearch(""); }}
+                  onClick={() => { setAgentIcon(img.src); setIconPickerOpen(false); setIconSearch(""); }}
                   className="aspect-square rounded-md overflow-hidden border hover-elevate focus:outline-none focus:ring-2 focus:ring-ring"
                   data-testid={`button-icon-${img.handle}`}
                 >
-                  <img src={img.url} alt={img.alt || img.handle} className="w-full h-full object-cover" />
+                  <img src={img.src} alt={img.alt || img.handle} className="w-full h-full object-cover" />
                 </button>
               ))}
               {filteredIcons.length === 0 && (
