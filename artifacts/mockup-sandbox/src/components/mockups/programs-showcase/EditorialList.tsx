@@ -83,7 +83,7 @@ function EditorialItem({ program, isLast }: { program: typeof programs[0]; isLas
               </p>
             </div>
 
-            <div className="flex flex-col justify-between gap-2 shrink-0 pt-1">
+            <div className="flex flex-col justify-between items-center gap-2 shrink-0 pt-1">
               <div
                 className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full"
                 style={{
