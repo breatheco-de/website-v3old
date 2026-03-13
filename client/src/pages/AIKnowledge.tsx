@@ -4,7 +4,7 @@ import { queryClient } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { IconArrowLeft, IconPlus, IconTrash, IconPlayerPlay, IconLoader2, IconCheck, IconEye, IconPhoto, IconSearch, IconUser } from "@tabler/icons-react";
 import { Link } from "wouter";
@@ -65,6 +65,10 @@ export default function AIKnowledge() {
   const [previewLoading, setPreviewLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [visibilityOpen, setVisibilityOpen] = useState(false);
+  const [draftBubbleEnabled, setDraftBubbleEnabled] = useState(true);
+  const [draftPagePatterns, setDraftPagePatterns] = useState<string[]>([]);
+  const [draftContentTypes, setDraftContentTypes] = useState<string[]>([]);
+  const [savingVisibility, setSavingVisibility] = useState(false);
 
   const { data, isLoading } = useQuery<KnowledgeData>({
     queryKey: ["/api/admin/ai/knowledge"],
@@ -111,6 +115,41 @@ export default function AIKnowledge() {
       setBubbleEnabled(data.chat_bubble?.enabled !== false);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (visibilityOpen) {
+      setDraftBubbleEnabled(bubbleEnabled);
+      setDraftPagePatterns([...pagePatterns]);
+      setDraftContentTypes([...contentTypes]);
+    }
+  }, [visibilityOpen]);
+
+  const handleVisibilitySave = async () => {
+    setSavingVisibility(true);
+    try {
+      const token = getDebugToken();
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Token ${token}`;
+      const res = await fetch("/api/admin/ai/knowledge", {
+        method: "PATCH",
+        headers,
+        body: JSON.stringify({
+          chat_bubble: { enabled: draftBubbleEnabled, page_patterns: draftPagePatterns, content_types: draftContentTypes, agent_name: agentName, agent_icon: agentIcon },
+        }),
+      });
+      if (!res.ok) throw new Error(`Save failed: ${res.status}`);
+      setBubbleEnabled(draftBubbleEnabled);
+      setPagePatterns(draftPagePatterns);
+      setContentTypes(draftContentTypes);
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/knowledge"] });
+      toast({ title: "Page targeting saved" });
+      setVisibilityOpen(false);
+    } catch {
+      toast({ title: "Error", description: "Failed to save targeting settings.", variant: "destructive" });
+    } finally {
+      setSavingVisibility(false);
+    }
+  };
 
   const handleSave = async () => {
     setSaving(true);
@@ -489,23 +528,23 @@ export default function AIKnowledge() {
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
-                  checked={bubbleEnabled}
-                  onChange={e => setBubbleEnabled(e.target.checked)}
+                  checked={draftBubbleEnabled}
+                  onChange={e => setDraftBubbleEnabled(e.target.checked)}
                   className="rounded"
                   data-testid="checkbox-bubble-enabled"
                 />
                 <span className="text-sm">Enable chat bubble</span>
               </label>
               <div className="space-y-2">
-                {pagePatterns.map((pattern, i) => (
+                {draftPagePatterns.map((pattern, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <input
                       type="text"
                       value={pattern}
                       onChange={e => {
-                        const updated = [...pagePatterns];
+                        const updated = [...draftPagePatterns];
                         updated[i] = e.target.value;
-                        setPagePatterns(updated);
+                        setDraftPagePatterns(updated);
                       }}
                       className="flex-1 px-3 py-2 text-sm border rounded-md bg-background font-mono"
                       data-testid={`input-pattern-${i}`}
@@ -513,7 +552,7 @@ export default function AIKnowledge() {
                     <Button
                       size="icon"
                       variant="ghost"
-                      onClick={() => setPagePatterns(prev => prev.filter((_, j) => j !== i))}
+                      onClick={() => setDraftPagePatterns(prev => prev.filter((_, j) => j !== i))}
                       data-testid={`button-delete-pattern-${i}`}
                     >
                       <IconTrash className="h-4 w-4" />
@@ -523,7 +562,7 @@ export default function AIKnowledge() {
                 <Button
                   size="sm"
                   variant="outline"
-                  onClick={() => setPagePatterns(prev => [...prev, ""])}
+                  onClick={() => setDraftPagePatterns(prev => [...prev, ""])}
                   data-testid="button-add-pattern"
                 >
                   <IconPlus className="h-4 w-4 mr-1" />
@@ -533,15 +572,15 @@ export default function AIKnowledge() {
               <div className="pt-3 border-t space-y-2">
                 <h3 className="text-sm font-medium" data-testid="text-content-types-heading">Content Type Targeting</h3>
                 <p className="text-xs text-muted-foreground">Show the chat bubble on pages matching these content types (e.g. program, location)</p>
-                {contentTypes.map((ct, i) => (
+                {draftContentTypes.map((ct, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <input
                       type="text"
                       value={ct}
                       onChange={e => {
-                        const updated = [...contentTypes];
+                        const updated = [...draftContentTypes];
                         updated[i] = e.target.value;
-                        setContentTypes(updated);
+                        setDraftContentTypes(updated);
                       }}
                       className="flex-1 px-3 py-2 text-sm border rounded-md bg-background"
                       data-testid={`input-content-type-${i}`}
@@ -549,7 +588,7 @@ export default function AIKnowledge() {
                     <Button
                       size="icon"
                       variant="ghost"
-                      onClick={() => setContentTypes(prev => prev.filter((_, j) => j !== i))}
+                      onClick={() => setDraftContentTypes(prev => prev.filter((_, j) => j !== i))}
                       data-testid={`button-delete-content-type-${i}`}
                     >
                       <IconTrash className="h-4 w-4" />
@@ -559,7 +598,7 @@ export default function AIKnowledge() {
                 <Button
                   size="sm"
                   variant="outline"
-                  onClick={() => setContentTypes(prev => [...prev, ""])}
+                  onClick={() => setDraftContentTypes(prev => [...prev, ""])}
                   data-testid="button-add-content-type"
                 >
                   <IconPlus className="h-4 w-4 mr-1" />
@@ -567,6 +606,15 @@ export default function AIKnowledge() {
                 </Button>
               </div>
             </div>
+            <DialogFooter className="gap-2">
+              <Button variant="outline" onClick={() => setVisibilityOpen(false)} data-testid="button-visibility-cancel">
+                Cancel
+              </Button>
+              <Button onClick={handleVisibilitySave} disabled={savingVisibility} data-testid="button-visibility-save">
+                {savingVisibility ? <IconLoader2 className="h-4 w-4 animate-spin mr-1" /> : <IconCheck className="h-4 w-4 mr-1" />}
+                Save
+              </Button>
+            </DialogFooter>
           </DialogContent>
         </Dialog>
 
