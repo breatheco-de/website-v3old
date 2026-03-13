@@ -210,7 +210,7 @@ export const heroImageTagsValidator: Validator = {
     let missingHeroPreset = 0;
     let correctCount = 0;
 
-    for (const [src, ref] of uniqueSrcs) {
+    for (const [src, ref] of Array.from(uniqueSrcs.entries())) {
       let registryId: string | undefined;
       if (!isUrl(src) && registry.images[src]) {
         registryId = src;

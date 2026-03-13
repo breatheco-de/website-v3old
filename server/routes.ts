@@ -8696,8 +8696,8 @@ sections: []
               entry.width = result.width;
               entry.height = result.height;
               entry.preset = result.preset;
-              (entry as any).widths_generated = result.widths_generated;
-              (entry as any).format = result.format;
+              entry.widths_generated = result.widths_generated;
+              entry.format = result.format;
               entry.srcset = result.srcset;
               processed++;
               if (processed % 10 === 0) {
