@@ -45,9 +45,6 @@ sections:
         phone:
           visible: true
           required: true
-        program:
-          visible: true
-          required: true
       success:
         message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
       terms_url: /terminos-condiciones
