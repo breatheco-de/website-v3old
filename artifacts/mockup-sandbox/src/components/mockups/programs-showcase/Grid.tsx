@@ -101,12 +101,6 @@ function ProgramCard({ program }: { program: typeof programs[0] }) {
           >
             {program.name}
           </h3>
-          <div
-            className="text-xs mb-2"
-            style={{ color: MUTED, fontFamily: "'Archivo', sans-serif" }}
-          >
-            {program.program}
-          </div>
           <p
             className="text-base leading-relaxed"
             style={{ color: MUTED, fontFamily: "'Archivo', sans-serif" }}
