@@ -10,7 +10,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { IconArrowLeft, IconPlus, IconTrash, IconPlayerPlay, IconLoader2, IconCheck, IconEye, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown } from "@tabler/icons-react";
+import { IconArrowLeft, IconPlus, IconTrash, IconPlayerPlay, IconLoader2, IconCheck, IconEye, IconEyeOff, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown } from "@tabler/icons-react";
 import { Link } from "wouter";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 
@@ -542,10 +542,18 @@ export default function AIKnowledge() {
               <DialogTitle data-testid="text-visibility-dialog-title">Chat Agent Visibility</DialogTitle>
             </DialogHeader>
             <div className="space-y-3">
-              <div className="flex items-center justify-between rounded-lg border p-4">
-                <div>
-                  <p className="text-sm font-medium">Chat bubble</p>
-                  <p className="text-xs text-muted-foreground">{draftBubbleEnabled ? "Visible to visitors" : "Hidden from visitors"}</p>
+              <div className="flex items-center justify-between rounded-lg border p-4 gap-4">
+                <div className="flex items-center gap-4">
+                  <div className={`rounded-full p-3 ${draftBubbleEnabled ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"}`}>
+                    {draftBubbleEnabled
+                      ? <IconEye className="h-6 w-6" />
+                      : <IconEyeOff className="h-6 w-6" />
+                    }
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium">Chat bubble</p>
+                    <p className="text-xs text-muted-foreground">{draftBubbleEnabled ? "Visible to visitors" : "Hidden from visitors"}</p>
+                  </div>
                 </div>
                 <Switch
                   checked={draftBubbleEnabled}
