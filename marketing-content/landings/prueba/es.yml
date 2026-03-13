@@ -38,7 +38,7 @@ sections:
         description: Merit and need-based scholarships available for qualifying students.
     cta_button:
       text: Explore Financing Options
-      url: /financing
+      url: "#bullet_tabs_showcase-a27wa8"
       variant: primary
     section_id: two_column-buoxzv
   - type: hero
