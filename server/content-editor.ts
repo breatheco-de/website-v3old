@@ -177,8 +177,11 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
     // Note: GitHub commits are now handled manually via /api/github/commit endpoint
     // Changes are saved locally and users commit when ready
     
-    // Return updated sections for immediate UI update (from merged content for full view)
-    const updatedSections = (content.sections as unknown[]) || [];
+    const commonData = contentIndex.loadCommonData(contentType, slug);
+    const mergedContent = commonData
+      ? deepMerge(commonData, localeData)
+      : localeData;
+    const updatedSections = (mergedContent.sections as unknown[]) || [];
     return { success: true, updatedSections };
   } catch (error) {
     console.error("Content edit error:", error);

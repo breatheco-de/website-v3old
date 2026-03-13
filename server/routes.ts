@@ -9385,6 +9385,17 @@ sections: []
           });
         }
       }
+      for (const err of schemaValidation.errors) {
+        if (err.code === "MISSING_META") {
+          issues.push({
+            type: "warning",
+            code: err.code,
+            message: err.message,
+            category: "meta",
+            details: { path: err.path },
+          });
+        }
+      }
 
       const schemaData = rawData.schema as
         | { include?: string[]; overrides?: Record<string, unknown> }
