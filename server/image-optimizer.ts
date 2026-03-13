@@ -157,8 +157,15 @@ export async function processImageBuffer(
   const originalKey = gcsKeyFromSrc(src);
 
   if (!originalKey && !dryRun) {
-    console.error(`[ImageOptimizer] ${id}: non-GCS source, cannot derive upload key from ${src}`);
-    return null;
+    console.log(`[ImageOptimizer] ${id}: skipping optimization — local provider does not support variant generation (src: ${src})`);
+    return {
+      width: intrinsicWidth,
+      height: intrinsicHeight,
+      preset: presetNames,
+      widths_generated: [],
+      format: registryFormat,
+      srcset: [],
+    };
   }
 
   const srcset: SrcsetEntry[] = [];
