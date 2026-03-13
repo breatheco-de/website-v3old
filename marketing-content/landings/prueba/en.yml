@@ -426,6 +426,7 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
+    background: hsl(var(--secondary))
   - type: certificate
     title: Your Certificate. Your Salary Leverage.
     description: Graduate with an industry-recognized certificate from a Florida Department of Education accredited institution and the credentials to negotiate your first AI engineering salary from a position of strength.
