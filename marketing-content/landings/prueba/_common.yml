@@ -12,6 +12,5 @@ schema:
   include:
     - organization
     - website
-    - courses:ai-engineering
 locations:
   - madrid-spain
