@@ -411,6 +411,7 @@ export const imageEntrySchema = z.object({
   alt: z.string(),
   focal_point: z.enum(["center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left", "bottom-right"]).optional(),
   tags: z.array(z.string()).optional(),
+  protected: z.boolean().optional(),
   usage_count: z.number().optional(),
   hash: z.string().optional(),
   width: z.number().optional(),

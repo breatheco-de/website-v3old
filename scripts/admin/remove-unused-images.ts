@@ -29,6 +29,10 @@ export async function removeUnusedImages(options: { dryRun?: boolean } = {}): Pr
     const entry = registry.images[id];
     const src = entry?.src || "";
 
+    if (entry?.protected) {
+      continue;
+    }
+
     const referencedById = imageIds.has(id);
     const normalizedSrc = src.startsWith("/") ? src : `/${src}`;
     const normalizedSrcNoSlash = src.startsWith("/") ? src.slice(1) : src;

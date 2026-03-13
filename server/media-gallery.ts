@@ -156,7 +156,7 @@ class MediaGallery {
     const extractRefs = (obj: unknown, keyPath: string, filePath: string): void => {
       if (obj === null || obj === undefined) return;
       if (typeof obj === "string") {
-        if (/image_id(?:\[\d+\])?$/.test(keyPath)) {
+        if (/image_id(?:\[\d+\])?$/.test(keyPath) || /\.avatars\[\d+\]$/.test(keyPath) || /^avatars\[\d+\]$/.test(keyPath)) {
           imageIds.add(obj);
           addRef(obj, filePath);
         }
@@ -221,6 +221,34 @@ class MediaGallery {
     };
 
     walkDir(MARKETING_CONTENT_DIR);
+
+    const IMAGE_ID_PATTERN = /["']([a-z0-9]+-[a-z0-9-]+-[a-f0-9]{6,8})["']/g;
+    const scanSourceDir = (dir: string) => {
+      if (!fs.existsSync(dir)) return;
+      const entries = fs.readdirSync(dir, { withFileTypes: true });
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+          if (entry.name === "node_modules" || entry.name === ".git") continue;
+          scanSourceDir(fullPath);
+        } else if (entry.name.endsWith(".ts") || entry.name.endsWith(".tsx")) {
+          try {
+            const content = fs.readFileSync(fullPath, "utf8");
+            let match: RegExpExecArray | null;
+            while ((match = IMAGE_ID_PATTERN.exec(content)) !== null) {
+              const candidate = match[1];
+              imageIds.add(candidate);
+              const relPath = path.relative(process.cwd(), fullPath);
+              addRef(candidate, relPath);
+            }
+          } catch {}
+        }
+      }
+    };
+    scanSourceDir(path.join(process.cwd(), "client", "src"));
+    scanSourceDir(path.join(process.cwd(), "server"));
+    scanSourceDir(path.join(process.cwd(), "shared"));
+
     this.imageRefCache = { imageIds, srcValues, byRef };
     return this.imageRefCache;
   }
@@ -610,6 +638,7 @@ class MediaGallery {
       alt: entry.alt,
       focal_point: entry.focal_point || "center",
       tags: entry.tags || [],
+      ...(entry.protected ? { protected: true } : {}),
       usage_count: entry.usage_count || 0,
       ...(entry.hash ? { hash: entry.hash } : {}),
     };
@@ -651,6 +680,10 @@ class MediaGallery {
 
     const imageEntry = registry.images[id];
     if (!imageEntry) return { success: false, error: `Image "${id}" not found in registry` };
+
+    if (imageEntry.protected) {
+      return { success: false, error: `Cannot delete "${id}" because it is marked as protected` };
+    }
 
     const srcsetUrls = this.getSrcsetUrls(imageEntry);
     const usedIn = this.getUsage(id, imageEntry.src, srcsetUrls);

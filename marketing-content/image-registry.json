@@ -4474,6 +4474,54 @@
       "tags": [],
       "usage_count": 0,
       "hash": "925421ab7693c619b55744b50b579ac022b647ba1f78920e8dcaafef00d0d108"
+    },
+    "woman-profile-headshot-1-608aff01": {
+      "src": "/attached_assets/woman-profile-headshot-1.png",
+      "alt": "Professional woman headshot portrait",
+      "focal_point": "center",
+      "tags": [
+        "avatar",
+        "trust-bar"
+      ],
+      "protected": true,
+      "usage_count": 0,
+      "hash": "fc3123ff310dafe4db6841cf146f29e35c4f95beadc51499e9235143d3ae69f7"
+    },
+    "man-profile-headshot-1-0850c276": {
+      "src": "/attached_assets/man-profile-headshot-1.png",
+      "alt": "Professional man headshot portrait",
+      "focal_point": "center",
+      "tags": [
+        "avatar",
+        "trust-bar"
+      ],
+      "protected": true,
+      "usage_count": 0,
+      "hash": "932acc3c73745dc483e8b8cfe5a0a6263ee69ecdcdeb635c530b26ede176cc20"
+    },
+    "woman-profile-headshot-2-a0ea2c29": {
+      "src": "/attached_assets/woman-profile-headshot-2.png",
+      "alt": "Professional woman headshot portrait",
+      "focal_point": "center",
+      "tags": [
+        "avatar",
+        "trust-bar"
+      ],
+      "protected": true,
+      "usage_count": 0,
+      "hash": "df3b1c6ea7b700b35fd701df634e1c91ac1d0f734cc54ba9c71a947520c71aff"
+    },
+    "man-profile-headshot-2-516b72e4": {
+      "src": "/attached_assets/man-profile-headshot-2.png",
+      "alt": "Professional man headshot portrait",
+      "focal_point": "center",
+      "tags": [
+        "avatar",
+        "trust-bar"
+      ],
+      "protected": true,
+      "usage_count": 0,
+      "hash": "b3e5a44b83830ae0006c24cb5f45d1dfb4a80ab77ab571a2414914c9ef8581b6"
     }
   }
 }
