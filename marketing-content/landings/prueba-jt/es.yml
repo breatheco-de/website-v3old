@@ -59,7 +59,7 @@ sections:
     section_id: hero-qcon9h
     background: hsl(210 100% 50% / 0.05)
     paddingY:
-      desktop: none
+      desktop: md none
     marginY:
       desktop: none lg
   - type: sticky_cta
