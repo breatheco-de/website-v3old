@@ -539,7 +539,7 @@ export default function AIKnowledge() {
         <Dialog open={visibilityOpen} onOpenChange={setVisibilityOpen}>
           <DialogContent className="max-w-lg" data-testid="dialog-visibility">
             <DialogHeader>
-              <DialogTitle data-testid="text-visibility-dialog-title">Page Targeting</DialogTitle>
+              <DialogTitle data-testid="text-visibility-dialog-title">Chat Agent Visibility</DialogTitle>
             </DialogHeader>
             <div className="space-y-3">
               <div className="flex items-center justify-between rounded-lg border p-4">
