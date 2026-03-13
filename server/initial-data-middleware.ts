@@ -214,6 +214,99 @@ function resolveMenuQuery(menuId: string, locale: string): SingleQuery | null {
   }
 }
 
+const DEFAULT_EAGER_COUNT = 3;
+
+interface ImageRefs {
+  ids: Set<string>;
+  directUrls: Set<string>;
+}
+
+const IMAGE_URL_PATTERN = /\.(png|jpe?g|webp|avif|gif|svg)(\?|$)/i;
+
+function extractImageRefsFromValue(value: unknown, refs: ImageRefs): void {
+  if (!value || typeof value !== "object") return;
+  if (Array.isArray(value)) {
+    for (const item of value) extractImageRefsFromValue(item, refs);
+    return;
+  }
+  const obj = value as Record<string, unknown>;
+  if (typeof obj.id === "string" && typeof obj.alt === "string") {
+    refs.ids.add(obj.id);
+  }
+  if (typeof obj.image_id === "string") {
+    refs.ids.add(obj.image_id);
+  }
+  if (typeof obj.image === "object" && obj.image !== null) {
+    const img = obj.image as Record<string, unknown>;
+    if (typeof img.id === "string") refs.ids.add(img.id);
+  }
+  if (typeof obj.src === "string" && obj.src.startsWith("http") && IMAGE_URL_PATTERN.test(obj.src)) {
+    refs.directUrls.add(obj.src);
+  }
+  for (const v of Object.values(obj)) {
+    extractImageRefsFromValue(v, refs);
+  }
+}
+
+export function resolvePreloadHints(
+  payload: InitialDataPayload | null,
+): string[] {
+  if (!payload) return [];
+
+  let pageData: Record<string, unknown> | null = null;
+  let registryData: { images: Record<string, { src: string; srcset?: Array<{ w: number; url: string }> }> } | null = null;
+
+  for (const q of payload.queries) {
+    const key0 = q.queryKey[0];
+    if (
+      key0 === "/api/pages" ||
+      key0 === "/api/landings" ||
+      key0 === "/api/career-programs" ||
+      key0 === "/api/locations" ||
+      (typeof key0 === "string" && key0.startsWith("/api/content-pages/"))
+    ) {
+      pageData = q.data as Record<string, unknown>;
+    }
+    if (key0 === "/api/image-registry") {
+      registryData = q.data as typeof registryData;
+    }
+  }
+
+  if (!pageData || !registryData) return [];
+
+  const sections = pageData.sections as unknown[] | undefined;
+  if (!Array.isArray(sections)) return [];
+
+  const settings = pageData.settings as { loading?: { eager_count?: number } } | undefined;
+  const eagerCount = settings?.loading?.eager_count ?? DEFAULT_EAGER_COUNT;
+
+  const refs: ImageRefs = { ids: new Set(), directUrls: new Set() };
+  const prioritySections = sections.slice(0, eagerCount);
+  for (const section of prioritySections) {
+    extractImageRefsFromValue(section, refs);
+  }
+
+  const preloadUrls: string[] = [];
+  const seen = new Set<string>();
+
+  for (const id of refs.ids) {
+    const entry = registryData.images[id];
+    if (entry?.src && !seen.has(entry.src)) {
+      seen.add(entry.src);
+      preloadUrls.push(entry.src);
+    }
+  }
+
+  for (const url of refs.directUrls) {
+    if (!seen.has(url)) {
+      seen.add(url);
+      preloadUrls.push(url);
+    }
+  }
+
+  return preloadUrls;
+}
+
 export async function resolveInitialData(
   url: string,
 ): Promise<InitialDataPayload | null> {

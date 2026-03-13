@@ -5,6 +5,7 @@ import { useSession } from "@/contexts/SessionContext";
 import { VariableHighlightProvider } from "@/components/editing/VariableHighlight";
 import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
 import { resolveDeep } from "@/lib/variable-manager";
+import { SectionPriorityProvider } from "@/contexts/SectionPriorityContext";
 
 // ============================================
 // Component Load Strategy Registry
@@ -1057,9 +1058,15 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
 
 
         const sectionId = (rawSection as SectionLayout).section_id || `${sectionType}-${index}`;
+        const isPriority = loadStrategy === "eager";
+        const priorityWrapped = (
+          <SectionPriorityProvider value={isPriority}>
+            {renderedContent}
+          </SectionPriorityProvider>
+        );
         const renderedSection = loadStrategy === "lazy"
-          ? <DeferredSection>{renderedContent}</DeferredSection>
-          : renderedContent;
+          ? <DeferredSection>{priorityWrapped}</DeferredSection>
+          : priorityWrapped;
 
         return (
           <div key={index} id={sectionId} data-section-type={sectionType} className={`section-wrapper${sectionType !== "modal" ? " scroll-mt-20" : ""}${visibilityClasses ? " " + visibilityClasses : ""}`.trim()} style={layoutStyles}>

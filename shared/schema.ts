@@ -393,11 +393,17 @@ export {
 // ============================================
 // Image Registry Schemas (not in component registry)
 // ============================================
+export const imageSrcsetEntrySchema = z.object({
+  w: z.number(),
+  url: z.string(),
+});
+
 export const imagePresetSchema = z.object({
   aspect_ratio: z.string().nullable(),
   widths: z.array(z.number()),
   quality: z.number(),
   description: z.string(),
+  sizes: z.string().optional(),
 });
 
 export const imageEntrySchema = z.object({
@@ -407,6 +413,12 @@ export const imageEntrySchema = z.object({
   tags: z.array(z.string()).optional(),
   usage_count: z.number().optional(),
   hash: z.string().optional(),
+  width: z.number().optional(),
+  height: z.number().optional(),
+  preset: z.array(z.string()).optional(),
+  widths_generated: z.array(z.number()).optional(),
+  format: z.enum(["webp", "avif", "jpeg", "png"]).optional(),
+  srcset: z.array(imageSrcsetEntrySchema).optional(),
 });
 
 export const imageRegistrySchema = z.object({

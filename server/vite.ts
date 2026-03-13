@@ -5,7 +5,19 @@ import { createServer as createViteServer, createLogger } from "vite";
 import { type Server } from "http";
 import viteConfig from "../vite.config";
 import { contentIndex } from "./content-index";
-import { resolveInitialData } from "./initial-data-middleware";
+import { resolveInitialData, resolvePreloadHints } from "./initial-data-middleware";
+
+function buildPreloadTags(urls: string[]): string {
+  if (urls.length === 0) return "";
+  return urls
+    .map((url) => `<link rel="preload" as="image" fetchpriority="high" href="${url.replace(/"/g, "&quot;")}">`)
+    .join("\n");
+}
+
+function injectPreloadTags(html: string, preloadTags: string): string {
+  if (!preloadTags) return html;
+  return html.replace("</head>", preloadTags + "\n</head>");
+}
 
 const viteLogger = createLogger();
 
@@ -115,6 +127,10 @@ export async function setupVite(app: Express, server: Server) {
         ? page.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`)
         : page;
 
+      const preloadUrls = resolvePreloadHints(initialDataPayload);
+      const preloadTags = buildPreloadTags(preloadUrls);
+      html = injectPreloadTags(html, preloadTags);
+
       if (initialDataPayload) {
         const scriptTag = `<script id="__INITIAL_DATA__" type="application/json">${JSON.stringify(initialDataPayload).replace(/</g, "\\u003c")}</script>`;
         html = html.replace("</body>", scriptTag + "</body>");
@@ -175,6 +191,10 @@ export function serveStatic(app: Express) {
           '<div id="root"></div>',
           `<div id="root">${appHtml}</div>`,
         );
+
+        const preloadUrls = resolvePreloadHints(initialDataPayload);
+        const preloadTags = buildPreloadTags(preloadUrls);
+        html = injectPreloadTags(html, preloadTags);
 
         if (initialDataPayload) {
           const scriptTag = `<script id="__INITIAL_DATA__" type="application/json">${JSON.stringify(initialDataPayload).replace(/</g, "\\u003c")}</script>`;

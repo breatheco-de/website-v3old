@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { ImageRef, ImageEntry, ImagePreset } from "@shared/schema";
 import SolidCard from "./SolidCard";
+import { useSectionPriority } from "@/contexts/SectionPriorityContext";
 
 interface ImageRegistryData {
   presets: Record<string, ImagePreset>;
@@ -35,12 +36,16 @@ const ASPECT_RATIOS: Record<string, number> = {
   "21:9": 21 / 9,
 };
 
+function buildSrcsetString(srcset: Array<{ w: number; url: string }>): string {
+  return srcset.map((s) => `${s.url} ${s.w}w`).join(", ");
+}
+
 export function UniversalImage({
   id,
   preset = "full",
   alt: altOverride,
   className = "",
-  loading = "lazy",
+  loading: loadingProp,
   onLoad,
   onError,
   useSolidCard = false,
@@ -51,6 +56,7 @@ export function UniversalImage({
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
+  const isPrioritySection = useSectionPriority();
 
   useEffect(() => {
     setIsLoaded(false);
@@ -104,6 +110,26 @@ export function UniversalImage({
   const finalAlt = altOverride || (imageEntry ? imageEntry.alt : id);
   const src = imageEntry ? imageEntry.src : id;
 
+  const resolvedLoading: "lazy" | "eager" =
+    loadingProp !== undefined
+      ? loadingProp
+      : isPrioritySection
+        ? "eager"
+        : "lazy";
+
+  const fetchPriority: "high" | "auto" = isPrioritySection ? "high" : "auto";
+  const decoding: "sync" | "async" = isPrioritySection ? "sync" : "async";
+
+  const srcsetString =
+    imageEntry?.srcset && imageEntry.srcset.length > 0
+      ? buildSrcsetString(imageEntry.srcset)
+      : undefined;
+
+  const sizesString = presetConfig?.sizes || undefined;
+
+  const intrinsicWidth = imageEntry?.width;
+  const intrinsicHeight = imageEntry?.height;
+
   const containerStyle: React.CSSProperties = aspectRatio
     ? { aspectRatio: aspectRatio.toString() }
     : {};
@@ -132,11 +158,17 @@ export function UniversalImage({
         ref={imgRef}
         src={src}
         alt={finalAlt}
-        loading={loading}
+        loading={resolvedLoading}
+        decoding={decoding}
+        {...{ fetchpriority: fetchPriority }}
+        {...(srcsetString ? { srcSet: srcsetString } : {})}
+        {...(sizesString ? { sizes: sizesString } : {})}
+        {...(intrinsicWidth ? { width: intrinsicWidth } : {})}
+        {...(intrinsicHeight ? { height: intrinsicHeight } : {})}
         onLoad={handleLoad}
         onError={handleError}
         className={`w-full h-full ${
-          loading === "eager"
+          resolvedLoading === "eager"
             ? (isLoaded ? "opacity-100" : "opacity-0")
             : `transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"}`
         }`}
