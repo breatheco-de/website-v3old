@@ -91,6 +91,12 @@ sections:
           required: true
       success:
         message: ¡Gracias! Nos comunicaremos contigo a la brevedad posible.
+      terms_url: /terms-and-conditions
+      privacy_url: /privacy-policy
+      consent:
+        marketing: true
+        marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
+      show_terms: true
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
