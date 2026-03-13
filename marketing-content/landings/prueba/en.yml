@@ -235,10 +235,9 @@ sections:
       desktop: none md
     background: hsl(210 100% 50% / 0.05)
   - type: syllabus
-    section_id: syllabus-sj3ism
     variant: program-modules
     program_title: What You'll Build in 24 Weeks
-    program_description: From day one, you'll choose one company. Yours, one you want to build, or one you want to reimagine. Over the course of 10 milestones, you'll transform it into a fully operational, AI-powered business.
+    program_description: Every student picks one real company — their own, one they want to build, or one they want to transform. Across 10 milestones, you'll engineer it into a fully operational, AI-powered business. You graduate with a live product, not just a certificate.
     tech_logos:
       - name: OpenAI
         icon: openai
@@ -285,6 +284,7 @@ sections:
           - JS basics
           - Internet fundamentals
           - Coding agents
+        projects: Set up your dev environment and ship your first AI-assisted code
         icon: IconRocket
       - title: Web Foundations
         duration: Milestone 1
@@ -292,22 +292,23 @@ sections:
           - HTML, CSS, Tailwind
           - Accessibility best practices
           - Layout techniques
-        projects: Build the company's first webpage
+        projects: Build the company's first webpage — live on the internet
         icon: IconWorld
       - title: Programming Foundations
         duration: Milestone 2
         objectives:
           - Algorithms and data structures
-          - Stateflow vs controlflow
           - JavaScript mastery
-        projects: Implement small features for the company
+          - Logic and control flow
+        projects: Build real features for your chosen company using code you wrote
         icon: IconCode
       - title: AI-Driven UI Engineering
         duration: Milestone 3
         objectives:
           - Vision-to-Spec prompting
           - Component generation with AI
-        projects: Rebuild the company's UI using AI
+          - AI-assisted design workflows
+        projects: Rebuild the company's entire UI using AI tools — in a fraction of the time
         icon: IconSparkles
       - title: React Fundamentals
         duration: Milestone 4
@@ -315,51 +316,55 @@ sections:
           - SPA architecture
           - Props, state, and effects
           - Debugging techniques
-        projects: Build the company's interactive frontend
+        projects: Build the company's interactive frontend — dynamic, responsive, production-ready
         icon: IconBrandReact
       - title: Backend for AI Frontends
         duration: Milestone 5
         objectives:
-          - APIs and DB basics
-          - Serialization and auth
+          - APIs and database design
+          - Authentication and security
           - Serverless functions
-        projects: Create the company's backend
+        projects: Create the company's backend — the engine that powers everything
         icon: IconServer
       - title: Telemetry & Data Pipelines
         duration: Milestone 6
         objectives:
-          - Collect, transform, aggregate, report
-        projects: Build telemetry for the company
+          - Data collection and transformation
+          - Aggregation and reporting
+          - Pipeline architecture
+        projects: Build the company's data layer — know what's happening in your product in real time
         icon: IconChartLine
       - title: RAG & Memory
         duration: Milestone 7
         objectives:
-          - Chunking and embeddings
-          - Vector search
-        projects: Add the company's knowledge layer
+          - Embeddings and vector search
+          - Knowledge retrieval systems
+          - Long-term AI memory
+        projects: Give your company's AI a brain — it learns from your data, not just its training
         icon: IconBrain
       - title: Agent Engineering
         duration: Milestone 8
         objectives:
-          - Rules and memory bank
-          - Tool calling
-          - Multi-agent planning
-        projects: Build the company's agents
+          - Tool calling and planning
+          - Multi-agent coordination
+          - Rules and memory banks
+        projects: Build autonomous AI agents that work for your company 24/7
         icon: IconRobot
       - title: Agentic Workflow Generation
         duration: Milestone 9
         objectives:
-          - Use LLMs to analyze company case
-          - Generate and validate internal workflows
-          - Implement automation pipelines
-        projects: Serverless, queues, cronjobs, or n8n
+          - LLM-generated workflow analysis
+          - Automation pipeline implementation
+          - Serverless, queues, and cronjobs
+        projects: Automate the company's internal operations — agents that run the business
         icon: IconSitemap
       - title: Real-Time Systems
         duration: Milestone 10
         objectives:
-          - Streaming and sockets
+          - Streaming and websockets
           - Pub/sub patterns
-        projects: Enable real-time interactions for data, customers, AI or employees
+          - Live data architecture
+        projects: Enable real-time interactions — for customers, employees, and AI systems
         icon: IconBolt
       - title: Full AI-Transformed Company
         duration: Capstone
@@ -371,9 +376,10 @@ sections:
           - RAG knowledge layer
           - Agents with tool calling
           - Real-time communication layer
-        projects: Deliver the complete transformation of your chosen company
+        projects: "Deliver the complete transformation: a fully operational, AI-powered company — built entirely by you"
         orientation: horizontal
         icon: IconTrophy
+    section_id: syllabus-sj3ism
     marginY:
       mobile: none
       desktop: none
