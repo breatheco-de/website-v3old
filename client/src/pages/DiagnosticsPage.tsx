@@ -380,6 +380,9 @@ function ValidatorCard({
 }) {
   const [promptOpen, setPromptOpen] = useState(false);
   const [promptText, setPromptText] = useState<string | null>(null);
+  const [fixPending, setFixPending] = useState<Record<string, boolean>>({});
+  const [fixResult, setFixResult] = useState<Record<string, { ok: boolean; message: string } | null>>({});
+  const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
   const { toast } = useToast();
 
   const promptMutation = useMutation({
@@ -401,7 +404,73 @@ function ValidatorCard({
     },
   });
 
-  const hasIssues = v.errors.length + v.warnings.length > 0;
+  const allIssues = useMemo(() => [...v.errors, ...v.warnings], [v.errors, v.warnings]);
+  const hasIssues = allIssues.length > 0;
+
+  const apiFixes = useMemo(() => {
+    const map = new Map<string, { label: string; count: number }>();
+    for (const issue of allIssues) {
+      if (issue.fix?.type === "api" && issue.fix.fixerName) {
+        const existing = map.get(issue.fix.fixerName);
+        if (existing) { existing.count++; }
+        else { map.set(issue.fix.fixerName, { label: issue.fix.label, count: 1 }); }
+      }
+    }
+    return Array.from(map.entries()).map(([name, { label, count }]) => ({ name, label, count }));
+  }, [allIssues]);
+
+  const scriptFixes = useMemo(() => {
+    const map = new Map<string, { label: string; command: string; count: number }>();
+    for (const issue of allIssues) {
+      if (issue.fix?.type === "script" && issue.fix.command) {
+        const key = issue.fix.command;
+        const existing = map.get(key);
+        if (existing) { existing.count++; }
+        else { map.set(key, { label: issue.fix.label, command: key, count: 1 }); }
+      }
+    }
+    return Array.from(map.values());
+  }, [allIssues]);
+
+  const fixSummary = useMemo(() => {
+    let auto = 0, needPrompt = 0, script = 0, manual = 0;
+    for (const issue of allIssues) {
+      if (!issue.fix || issue.fix.type === "manual") manual++;
+      else if (issue.fix.type === "api") auto++;
+      else if (issue.fix.type === "llm") needPrompt++;
+      else if (issue.fix.type === "script") script++;
+    }
+    return { auto, needPrompt, script, manual };
+  }, [allIssues]);
+
+  const hasFixHints = allIssues.some((i) => i.fix && i.fix.type !== "manual");
+
+  async function handleApiFix(fixerName: string) {
+    setFixPending((p) => ({ ...p, [fixerName]: true }));
+    setFixResult((r) => ({ ...r, [fixerName]: null }));
+    try {
+      const res = await apiRequest("POST", `/api/validation/fix/${fixerName}`, {});
+      const data = await res.json() as { ok: boolean; message: string; details?: Record<string, unknown> };
+      setFixResult((r) => ({ ...r, [fixerName]: { ok: data.ok, message: data.message } }));
+      if (data.ok) {
+        setTimeout(() => runSingleMutation.mutate(v.name), 500);
+      }
+    } catch (err) {
+      setFixResult((r) => ({
+        ...r,
+        [fixerName]: { ok: false, message: err instanceof Error ? err.message : "Unknown error" },
+      }));
+    } finally {
+      setFixPending((p) => ({ ...p, [fixerName]: false }));
+    }
+  }
+
+  function handleCopyCmd(cmd: string) {
+    navigator.clipboard.writeText(cmd).then(() => {
+      setCopiedCmd(cmd);
+      setTimeout(() => setCopiedCmd(null), 2000);
+    });
+  }
 
   function handleOpenPrompt() {
     setPromptText(null);
@@ -436,6 +505,23 @@ function ValidatorCard({
             <span>{v.duration}ms</span>
           </div>
 
+          {hasIssues && hasFixHints && (
+            <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs" data-testid={`fix-summary-${v.name}`}>
+              {fixSummary.auto > 0 && (
+                <span className="text-chart-3 font-medium">{fixSummary.auto} auto-fixable</span>
+              )}
+              {fixSummary.script > 0 && (
+                <span className="text-muted-foreground">{fixSummary.script} script</span>
+              )}
+              {fixSummary.needPrompt > 0 && (
+                <span className="text-chart-2">{fixSummary.needPrompt} need prompt</span>
+              )}
+              {fixSummary.manual > 0 && (
+                <span className="text-muted-foreground">{fixSummary.manual} manual</span>
+              )}
+            </div>
+          )}
+
           {hasIssues && (
             <Accordion type="single" collapsible>
               <AccordionItem value="issues" className="border-0">
@@ -462,6 +548,73 @@ function ValidatorCard({
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
+          )}
+
+          {apiFixes.length > 0 && (
+            <div className="space-y-2" data-testid={`api-fixes-${v.name}`}>
+              {apiFixes.map(({ name, label, count }) => (
+                <div key={name} className="flex flex-wrap items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleApiFix(name)}
+                    disabled={fixPending[name] || runSingleMutation.isPending}
+                    data-testid={`button-fix-${name}`}
+                  >
+                    {fixPending[name] ? (
+                      <IconLoader2 className="h-3.5 w-3.5 animate-spin" />
+                    ) : (
+                      <IconTool className="h-3.5 w-3.5" />
+                    )}
+                    {label}
+                    <Badge variant="secondary" className="ml-1 text-xs">{count}</Badge>
+                  </Button>
+                  {fixResult[name] && (
+                    <span
+                      className={`text-xs ${fixResult[name]!.ok ? "text-chart-3" : "text-destructive"}`}
+                      data-testid={`fix-result-${name}`}
+                    >
+                      {fixResult[name]!.message}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {scriptFixes.length > 0 && (
+            <div className="space-y-2" data-testid={`script-fixes-${v.name}`}>
+              {scriptFixes.map(({ label, command, count }) => (
+                <details key={command} className="text-xs group">
+                  <summary
+                    className="cursor-pointer flex items-center gap-1 text-muted-foreground hover:text-foreground select-none"
+                    data-testid={`summary-script-${v.name}`}
+                  >
+                    <IconCode className="h-3.5 w-3.5" />
+                    {label}
+                    <Badge variant="secondary" className="ml-1">{count}</Badge>
+                  </summary>
+                  <div className="mt-2 flex items-start gap-2">
+                    <code className="flex-1 p-2 bg-muted rounded text-xs font-mono break-all leading-relaxed">
+                      {command}
+                    </code>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      onClick={() => handleCopyCmd(command)}
+                      data-testid={`button-copy-cmd-${v.name}`}
+                    >
+                      {copiedCmd === command ? (
+                        <IconCheck className="h-3.5 w-3.5 text-chart-3" />
+                      ) : (
+                        <IconClipboard className="h-3.5 w-3.5" />
+                      )}
+                    </Button>
+                  </div>
+                  <p className="mt-1 text-muted-foreground">Run this command from your terminal.</p>
+                </details>
+              ))}
+            </div>
           )}
 
           <div className="flex justify-end gap-2">

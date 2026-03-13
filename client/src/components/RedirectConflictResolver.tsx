@@ -20,12 +20,21 @@ export interface RedirectConflictInfo {
   code: string;
 }
 
+export interface FixHint {
+  type: "api" | "script" | "llm" | "manual";
+  label: string;
+  fixerName?: string;
+  command?: string;
+  promptTemplate?: string;
+}
+
 export interface ValidatorIssue {
   type: "error" | "warning";
   code: string;
   message: string;
   file?: string;
   suggestion?: string;
+  fix?: FixHint;
 }
 
 function normalizeFilePath(p: string): string {

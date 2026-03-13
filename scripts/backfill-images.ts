@@ -1,3 +1,12 @@
+/**
+ * @deprecated Use the validation framework instead:
+ *   - API: POST /api/validation/run with validator "image-optimization"
+ *   - Fix: POST /api/validation/fix/image-optimization
+ *   - Media Gallery UI: Admin → Media Gallery → Scan & Optimize
+ *
+ * This script is kept for reference but is no longer the primary entrypoint.
+ */
+
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";

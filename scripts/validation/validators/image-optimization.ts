@@ -89,6 +89,11 @@ export const imageOptimizationValidator: Validator = {
         message: `Image "${id}" is missing optimization data: ${missing.join(", ")}`,
         file: REGISTRY_PATH,
         suggestion: "Run the backfill script or trigger batch optimization to generate responsive variants",
+        fix: {
+          type: "api",
+          label: "Optimize all unoptimized images",
+          fixerName: "image-optimization",
+        },
       });
     }
 

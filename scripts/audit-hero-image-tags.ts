@@ -1,4 +1,12 @@
 #!/usr/bin/env tsx
+/**
+ * @deprecated Use the validation framework instead:
+ *   - API: POST /api/validation/run with validator "hero-image-tags"
+ *   - Fix: POST /api/validation/fix/hero-image-tags
+ *   - Media Gallery UI: Admin → Media Gallery → Scan
+ *
+ * This script is kept for reference but is no longer the primary entrypoint.
+ */
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";

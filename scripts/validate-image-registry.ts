@@ -1,3 +1,12 @@
+/**
+ * @deprecated Use the validation framework instead:
+ *   - API: POST /api/validation/run with validator "images"
+ *   - Fix: POST /api/validation/fix/image-registry-sync
+ *   - Canonical script: scripts/admin/ (see image-registry-sync fixer)
+ *
+ * This script is kept for reference but is no longer the primary entrypoint.
+ */
+
 import { scanImageRegistry } from "../server/image-registry-scanner";
 
 const RESET = "\x1b[0m";

@@ -8817,6 +8817,51 @@ sections: []
     }
   });
 
+  // Generate a focused LLM prompt scoped to a specific promptTemplate key
+  // Used when multiple validators share the same fix.promptTemplate and a combined prompt is more useful
+  app.post("/api/validation/fix-prompt", async (req, res) => {
+    try {
+      const { promptTemplate, validators: validatorNames } = req.body as {
+        promptTemplate?: string;
+        validators?: string[];
+      };
+      const { formatAsLlmPrompt } = await import("../scripts/validation/reporting/llm-prompt");
+      const service = getValidationService();
+      service.clearContext();
+      await service.buildContext();
+      const result = await service.runValidators({
+        validators: validatorNames,
+        includeArtifacts: false,
+      });
+      if (promptTemplate) {
+        for (const v of result.validators) {
+          v.errors = v.errors.filter((i: any) => i.fix?.promptTemplate === promptTemplate);
+          v.warnings = v.warnings.filter((i: any) => i.fix?.promptTemplate === promptTemplate);
+        }
+        result.validators = result.validators.filter(
+          (v) => v.errors.length > 0 || v.warnings.length > 0
+        );
+      }
+      const issueCount = result.validators.reduce(
+        (n, v) => n + v.errors.length + v.warnings.length,
+        0,
+      );
+      const prompt = formatAsLlmPrompt(result);
+      res.json({
+        prompt,
+        promptTemplate: promptTemplate ?? null,
+        validatorNames: result.validators.map((v) => v.name),
+        issueCount,
+      });
+    } catch (error) {
+      console.error("Fix-prompt error:", error);
+      res.status(500).json({
+        error: "Fix prompt failed",
+        message: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
+  });
+
   // Save a full JSON report to /tmp/validation-reports/
   app.post("/api/validation/save-report", async (_req, res) => {
     try {
@@ -8918,6 +8963,37 @@ sections: []
     const service = getValidationService();
     service.clearContext();
     res.json({ success: true, message: "Validation cache cleared" });
+  });
+
+  // Run a named fixer
+  app.post("/api/validation/fix/:fixerName", async (req, res) => {
+    try {
+      const { fixerName } = req.params;
+      const { getFixer } = await import("../scripts/validation/fixers/index");
+      const fixer = getFixer(fixerName);
+      if (!fixer) {
+        res.status(404).json({ error: `Fixer "${fixerName}" not found` });
+        return;
+      }
+      const result = await fixer.run(req.body || {});
+      res.json(result);
+    } catch (error) {
+      console.error("Fixer error:", error);
+      res.status(500).json({
+        error: "Fixer failed",
+        message: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
+  });
+
+  // List available fixers
+  app.get("/api/validation/fixers", async (_req, res) => {
+    try {
+      const { listFixers } = await import("../scripts/validation/fixers/index");
+      res.json(listFixers());
+    } catch (error) {
+      res.status(500).json({ error: "Failed to list fixers" });
+    }
   });
 
   // ============================================

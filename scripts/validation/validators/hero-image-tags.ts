@@ -244,6 +244,11 @@ export const heroImageTagsValidator: Validator = {
           message: `Registry entry "${registryId}" is used in a hero section but missing the "hero" tag`,
           file: ref.file,
           suggestion: 'Run `npx tsx scripts/audit-hero-image-tags.ts --fix` to auto-add the "hero" tag',
+          fix: {
+            type: "api",
+            label: 'Add "hero" tag to all affected entries',
+            fixerName: "hero-image-tags",
+          },
         });
       } else if (!hasHeroPreset) {
         missingHeroPreset++;
@@ -253,6 +258,11 @@ export const heroImageTagsValidator: Validator = {
           message: `Registry entry "${registryId}" has "hero" tag but missing "hero-wide" preset`,
           file: ref.file,
           suggestion: "Run the backfill script to generate hero-wide variants",
+          fix: {
+            type: "api",
+            label: "Optimize hero images (generate hero-wide variants)",
+            fixerName: "image-optimization",
+          },
         });
       } else {
         correctCount++;
