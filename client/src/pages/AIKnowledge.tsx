@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Switch } from "@/components/ui/switch";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
@@ -541,16 +542,17 @@ export default function AIKnowledge() {
               <DialogTitle data-testid="text-visibility-dialog-title">Page Targeting</DialogTitle>
             </DialogHeader>
             <div className="space-y-3">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
+              <div className="flex items-center justify-between rounded-lg border p-4">
+                <div>
+                  <p className="text-sm font-medium">Chat bubble</p>
+                  <p className="text-xs text-muted-foreground">{draftBubbleEnabled ? "Visible to visitors" : "Hidden from visitors"}</p>
+                </div>
+                <Switch
                   checked={draftBubbleEnabled}
-                  onChange={e => setDraftBubbleEnabled(e.target.checked)}
-                  className="rounded"
-                  data-testid="checkbox-bubble-enabled"
+                  onCheckedChange={setDraftBubbleEnabled}
+                  data-testid="switch-bubble-enabled"
                 />
-                <span className="text-sm">Enable chat bubble</span>
-              </label>
+              </div>
               {/* Specific URLs — collapsible */}
               <Collapsible open={urlPatternsOpen} onOpenChange={setUrlPatternsOpen}>
                 <CollapsibleTrigger asChild>
