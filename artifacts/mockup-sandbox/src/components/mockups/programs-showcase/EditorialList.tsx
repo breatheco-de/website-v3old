@@ -1,4 +1,4 @@
-import { Clock, Code2, Brain, BarChart3, Shield } from "lucide-react";
+import { ArrowRight, Clock, Code2, Brain, BarChart3, Shield } from "lucide-react";
 
 const FOREGROUND = "#00041A";
 const MUTED = "#737373";
@@ -45,25 +45,25 @@ function EditorialItem({ program, isLast }: { program: typeof programs[0]; isLas
   const Icon = program.icon;
   return (
     <div
-      className="group flex items-stretch transition-colors duration-150 hover:bg-gray-50"
+      className="group flex items-stretch"
       style={{
         borderBottom: isLast ? "none" : `1px solid ${BORDER}`,
       }}
     >
       <div
-        className="w-[2px] shrink-0 rounded-full my-7 ml-8"
+        className="w-[2px] shrink-0 rounded-full my-7"
         style={{ backgroundColor: program.color }}
       />
 
-      <div className="flex items-start gap-5 py-7 pl-6 pr-8 flex-1">
+      <div className="flex items-start gap-5 py-7 pl-6 flex-1">
         <Icon
-          className="w-7 h-7 shrink-0 mt-0.5 self-start"
+          className="w-7 h-7 shrink-0 mt-0.5"
           style={{ color: program.color }}
           strokeWidth={1.5}
         />
 
-        <div className="flex-1 min-w-0 flex">
-          <div className="flex flex-1 justify-between gap-6">
+        <div className="flex-1 min-w-0">
+          <div className="flex  justify-between gap-6 relative">
             <div className="flex-1">
               <h3
                 className="text-xl font-bold leading-snug"
@@ -83,7 +83,7 @@ function EditorialItem({ program, isLast }: { program: typeof programs[0]; isLas
               </p>
             </div>
 
-            <div className="flex flex-col items-end gap-2 shrink-0 pt-1">
+            <div className="flex flex-col justify-between gap-2 pt-1">
               <div
                 className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full"
                 style={{
@@ -98,10 +98,11 @@ function EditorialItem({ program, isLast }: { program: typeof programs[0]; isLas
               </div>
 
               <button
-                className="text-sm font-semibold hover:underline"
+                className="flex items-center gap-1.5 text-sm font-semibold transition-all duration-150 group-hover:gap-2.5"
                 style={{ color: program.color, fontFamily: "'Archivo', sans-serif" }}
               >
                 Explore
+                <ArrowRight className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-0.5" />
               </button>
             </div>
           </div>
@@ -143,7 +144,7 @@ export function EditorialList() {
             backgroundColor: CARD_BG,
             borderRadius: "0.75rem",
             border: `1px solid ${BORDER}`,
-            overflow: "hidden",
+            padding: "0 32px",
           }}
         >
           {programs.map((program, index) => (
