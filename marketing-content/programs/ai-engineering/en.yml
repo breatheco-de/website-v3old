@@ -438,9 +438,9 @@ sections:
     title: Career Outcomes
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Step into roles paying:"
     benefits:
-      - text: "AI Software Engineer: $95K–$135K"
+      - text: "AI Engineer: $95K–$135K"
+      - text: "Forward-Deployed Engineer: $105K–$155K"
       - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-      - text: "Agent Engineer: $105K–$155K"
       - text: "Workflow Automation Engineer: $85K–$120K"
     card:
       title: AI Engineer
