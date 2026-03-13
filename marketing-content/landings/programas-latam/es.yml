@@ -18,6 +18,7 @@ sections:
       muted: true
       autoplay: true
       loop: true
+      preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/marceloricigliano_1770843650728.webp
     form:
       variant: stacked
       conversion_name: student_application
