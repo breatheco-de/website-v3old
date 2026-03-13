@@ -1,3 +1,12 @@
 slug: prueba-lorena
-title: Prueba lorena
+title: prueba
 locale: en
+meta:
+  page_title: prueba
+  description: descirption de prueba
+  og_image: /images/programs/ai-engineering-og.jpg
+schema:
+  include:
+    - organization
+    - website
+    - courses:ai-engineering

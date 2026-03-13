@@ -7,18 +7,18 @@ sections:
       prefix: Saca el máximo de tu
       highlight: potencial
       color: primary
-    description: Fórmate en las áreas más demandadas de la tecnología y desarrolla las habilidades necesarias para impulsar tu carrera profesional.
+    description: Programas para convertirte en un experto en programación y complementar tu perfil profesional.
     bullets:
       - text: Aprende a resolver problemas de manera efectiva
       - text: Desarrolla habilidades de aprendizaje autodidacta
       - text: Accede a mentorías personalizadas ilimitadas y de por vida
     video:
       url: https://www.youtube.com/shorts/ksGWXcccpc8
-      ratio: "9:15"
+      ratio: "9:16"
       muted: true
       autoplay: true
       loop: true
-      preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/marceloricigliano_1770843650728.webp
+      preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-13-145607.png
     form:
       variant: stacked
       conversion_name: student_application
@@ -91,12 +91,6 @@ sections:
           required: true
       success:
         message: ¡Gracias! Nos comunicaremos contigo a la brevedad posible.
-      terms_url: /terms-and-conditions
-      privacy_url: /privacy-policy
-      consent:
-        marketing: true
-        marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
-      show_terms: true
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
@@ -132,7 +126,7 @@ sections:
     load: eager
     showOn: mobile
   - type: awards_marquee
-    section_id: awards_marquee-cz908y
+    section_id: awards_marquee-7544ql
     version: v1.0
     speed: 40
     gradient: true
@@ -172,11 +166,13 @@ sections:
         logoHeight: 56px
     marginY:
       desktop: none sm
+    paddingY:
+      desktop: none
   - type: course_selector
     version: "1.0"
     variant: solid
     heading: Descubre tu potencial en 4Geeks Academy
-    subheading: Explora nuestros programas en IA, Desarrollo Full Stack, Ciencia de Datos y Ciberseguridad.
+    subheading: Programas para convertirte en un experto en programación y complementar tu perfil profesional
     courses:
       - name: Ingeniería de IA
         icon: Brain
@@ -207,11 +203,11 @@ sections:
             text: ""
         description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
         cta_text: Solicitar Detalles del Programa
-        cta_url: "#apply-modal"
+        cta_url: "#cta_banner-or97zl"
         course_background: hsl(var(--destructive))
       - name: Ciencia de Datos y ML
         icon: ChartLine
-        duration: 18 semanas
+        duration: 16 semanas
         label: Actualizado en 2026
         title: Ciencia de Datos y Machine Learning con IA
         badges:
@@ -221,7 +217,7 @@ sections:
             text: Análisis y Visualización de Datos
         description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
         cta_text: Solicitar Detalles del Programa
-        cta_url: "#apply-modal"
+        cta_url: "#cta_banner-or97zl"
         course_background: hsl(var(--primary))
       - name: Ciberseguridad
         icon: Shield
@@ -235,7 +231,7 @@ sections:
             text: Seguridad en la Nube
         description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
         cta_text: Solicitar Detalles del Programa
-        cta_url: "#apply-modal"
+        cta_url: "#cta_banner-or97zl"
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-wmev7d
     marginY:
@@ -260,14 +256,14 @@ sections:
         review_count: 4.91 en reseñas
     name: Default Trust Cards
     description: Four review platform cards with ratings
-    section_id: trust_cards-eslgbu
+    section_id: trust_cards-ao8drn
     paddingY:
       desktop: md lg
     marginY:
       desktop: none xl
     background: hsl(210 100% 50% / 0.05)
   - type: geeks_vs_others_comparison
-    section_id: geeks_vs_others_comparison-bdczjl
+    section_id: geeks_vs_others_comparison-k9l1p9
     version: "1.0"
     title: ¿Qué diferencia a nuestro bootcamp de programación de los demás?
     columns:
@@ -301,7 +297,7 @@ sections:
     paddingY:
       desktop: none
   - type: features_grid
-    section_id: features_grid-hxb5k3
+    section_id: features_grid-t1seoc
     version: "1.0"
     variant: detailed
     title: Objetivos de nuestra academia
@@ -330,7 +326,7 @@ sections:
     marginY:
       desktop: none lg
   - type: cards_deck
-    section_id: cards_deck-q5vsak
+    section_id: cards_deck-kc19zx
     version: "1.0"
     heading: Historias reales de cambios de carrera
     subtitle: Miles de graduados han utilizado nuestros programas para entrar en el mundo de la tecnología. Estas son solo algunas de sus historias, desde aumentos salariales hasta reinvenciones completas de carrera.
@@ -360,7 +356,7 @@ sections:
         description: Jonathan comparte cómo el programa le ayudó a ganar confianza y crear proyectos desde cero.
         alt: Geekpal
   - type: testimonials
-    section_id: testimonials-5p8dkw
+    section_id: testimonials-2huut4
     version: v1.0
     title: Testimonios de Nuestros Graduados
     subtitle: Experiencias que respaldan nuestros resultados.
@@ -436,7 +432,7 @@ sections:
         alt: Neo9
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
-    section_id: whos_hiring-1trdnb
+    section_id: whos_hiring-p6a3rw
     marginY:
       desktop: none lg
   - type: cta_banner
@@ -487,3 +483,5 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
+slug: prueba-jt
+title: prueba jt
