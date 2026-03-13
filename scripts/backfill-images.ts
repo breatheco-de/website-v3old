@@ -102,7 +102,8 @@ function gcsKeyFromSrc(src: string): string | null {
 
 function variantKey(originalKey: string, width: number, ext: string): string {
   const parsed = path.parse(originalKey);
-  return `${parsed.dir}/${parsed.name}-${width}w${ext}`;
+  const dir = parsed.dir ? `${parsed.dir}/` : "";
+  return `${dir}${parsed.name}-${width}w${ext}`;
 }
 
 function outputFormat(originalExt: string): { sharpFormat: keyof sharp.FormatEnum; ext: string; registryFormat: "webp" | "avif" } {
