@@ -9,6 +9,8 @@ type InitialDataPayload =
   | { queries: SingleQuery[]; queryKey?: never; data?: never }
   | { queryKey: unknown[]; data: unknown; queries?: never };
 
+export let isSSRHydration = false;
+
 export function hydrateInitialData() {
   const script = document.getElementById("__INITIAL_DATA__");
   if (!script) return;
@@ -28,5 +30,7 @@ export function hydrateInitialData() {
   } catch {
   }
 
+  isSSRHydration = true;
   script.remove();
+  setTimeout(() => { isSSRHydration = false; }, 0);
 }
