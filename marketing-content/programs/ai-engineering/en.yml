@@ -585,11 +585,10 @@ sections:
       - santiago-chile
       - mexicocity-mexico
   - type: pricing
-    section_id: pricing-vcqjix
     version: "1.0"
     variant: product
     title: Tuition and Financing Options
-    subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
+    subtitle: Investing in a new career matters. We make it easier with multiple ways to finance your enrollment.
     discount_text: "Full payment discount: Save 10% with early payment."
     financing_text: Estimated installment of €140/month financing €5,750 over 48 months (7.75% APR), after a €500 deposit and subject to lender approval.*
     financing_amount: 140€
@@ -615,6 +614,7 @@ sections:
       text: Get more information
       url: /es/apply
       variant: primary
+    section_id: pricing-vcqjix
     marginY:
       desktop: none md
     paddingY:
