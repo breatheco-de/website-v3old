@@ -292,7 +292,7 @@ export default function AIKnowledge() {
       if (!res.ok) throw new Error(`Save failed: ${res.status}`);
       setAgentTools(draftAgentTools.map(t => ({ ...t })));
       queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/knowledge"] });
-      toast({ title: "Agent Tools saved" });
+      toast({ title: "Agent Tools saved", description: "Changes are instantly applied — test the agent now." });
       setToolsOpen(false);
     } catch {
       toast({ title: "Error", description: "Failed to save agent tools.", variant: "destructive" });
@@ -319,7 +319,7 @@ export default function AIKnowledge() {
       setModelDefault(draftModelDefault);
       setModelChat(draftModelChat);
       queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/knowledge"] });
-      toast({ title: "Models saved" });
+      toast({ title: "Models saved", description: "Changes are instantly applied — test the agent now." });
       setModelsOpen(false);
     } catch {
       toast({ title: "Error", description: "Failed to save models.", variant: "destructive" });
@@ -389,7 +389,7 @@ export default function AIKnowledge() {
       setPromptInstructions(draftPromptInstructions);
       setPromptFallback(draftPromptFallback);
       queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/knowledge"] });
-      toast({ title: "Identity Core saved" });
+      toast({ title: "Identity Core saved", description: "Changes are instantly applied — test the agent now." });
       setIdentityCoreOpen(false);
     } catch {
       toast({ title: "Error", description: "Failed to save identity settings.", variant: "destructive" });
@@ -416,7 +416,7 @@ export default function AIKnowledge() {
       setPagePatterns(draftPagePatterns);
       setContentTypes(draftContentTypes);
       queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/knowledge"] });
-      toast({ title: "Page targeting saved" });
+      toast({ title: "Page targeting saved", description: "Changes are instantly applied — test the agent now." });
       setVisibilityOpen(false);
     } catch {
       toast({ title: "Error", description: "Failed to save targeting settings.", variant: "destructive" });
