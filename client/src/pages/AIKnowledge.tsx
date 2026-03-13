@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
@@ -171,6 +172,12 @@ export default function AIKnowledge() {
   const [toolsOpen, setToolsOpen] = useState(false);
   const [draftAgentTools, setDraftAgentTools] = useState<Array<{ name: string; description: string; enabled: boolean }>>([]);
   const [savingTools, setSavingTools] = useState(false);
+  const [modelDefault, setModelDefault] = useState("");
+  const [modelChat, setModelChat] = useState("");
+  const [modelsOpen, setModelsOpen] = useState(false);
+  const [draftModelDefault, setDraftModelDefault] = useState("");
+  const [draftModelChat, setDraftModelChat] = useState("");
+  const [savingModels, setSavingModels] = useState(false);
   const [chatMessages, setChatMessages] = useState<Array<{ role: "user" | "assistant"; content: string; trace?: AgentTrace }>>([]);
   const [chatInput, setChatInput] = useState("");
   const [chatSessionId, setChatSessionId] = useState<string | null>(null);
@@ -233,6 +240,8 @@ export default function AIKnowledge() {
       setPagePatterns(data.chat_bubble?.page_patterns || []);
       setContentTypes(data.chat_bubble?.content_types || []);
       setBubbleEnabled(data.chat_bubble?.enabled !== false);
+      setModelDefault(data.model_default || "");
+      setModelChat(data.model_chat || "");
     }
   }, [data]);
 
@@ -266,6 +275,13 @@ export default function AIKnowledge() {
     }
   }, [toolsOpen]);
 
+  useEffect(() => {
+    if (modelsOpen) {
+      setDraftModelDefault(modelDefault);
+      setDraftModelChat(modelChat);
+    }
+  }, [modelsOpen]);
+
   const handleToolsSave = async () => {
     setSavingTools(true);
     try {
@@ -288,6 +304,33 @@ export default function AIKnowledge() {
       toast({ title: "Error", description: "Failed to save agent tools.", variant: "destructive" });
     } finally {
       setSavingTools(false);
+    }
+  };
+
+  const handleModelsSave = async () => {
+    setSavingModels(true);
+    try {
+      const token = getDebugToken();
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Token ${token}`;
+      const res = await fetch("/api/admin/ai/knowledge", {
+        method: "PATCH",
+        headers,
+        body: JSON.stringify({
+          model_default: draftModelDefault,
+          model_chat: draftModelChat,
+        }),
+      });
+      if (!res.ok) throw new Error(`Save failed: ${res.status}`);
+      setModelDefault(draftModelDefault);
+      setModelChat(draftModelChat);
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/knowledge"] });
+      toast({ title: "Models saved" });
+      setModelsOpen(false);
+    } catch {
+      toast({ title: "Error", description: "Failed to save models.", variant: "destructive" });
+    } finally {
+      setSavingModels(false);
     }
   };
 
@@ -465,6 +508,16 @@ export default function AIKnowledge() {
               <IconBooks className="h-4 w-4" />
               <span className="text-xs font-medium">Knowledge Blocks</span>
               <span className="text-[11px] text-muted-foreground">{data?.custom_knowledge?.length || 0} blocks</span>
+            </Button>
+            <Button
+              variant="outline"
+              className="flex flex-col items-center gap-1 h-auto py-2 flex-1 min-w-0"
+              onClick={() => setModelsOpen(true)}
+              data-testid="button-open-models"
+            >
+              <IconCpu className="h-4 w-4" />
+              <span className="text-xs font-medium">Models</span>
+              <span className="text-[11px] text-muted-foreground truncate max-w-full">{modelDefault || "Not set"}</span>
             </Button>
           </div>
 
@@ -835,6 +888,48 @@ export default function AIKnowledge() {
             </Button>
             <Button onClick={handleToolsSave} disabled={savingTools} data-testid="button-tools-save">
               {savingTools ? <IconLoader2 className="h-4 w-4 animate-spin mr-1" /> : <IconCheck className="h-4 w-4 mr-1" />}
+              Save
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={modelsOpen} onOpenChange={setModelsOpen}>
+        <DialogContent className="max-w-lg" data-testid="dialog-models">
+          <DialogHeader>
+            <DialogTitle data-testid="text-models-dialog-title">Model Configuration</DialogTitle>
+          </DialogHeader>
+          <p className="text-sm text-muted-foreground -mt-1">Configure which LLM models the agent uses. The default model handles background tasks (tagging, clustering). The chat model is used for live conversations — leave it blank to inherit the default.</p>
+          <div className="space-y-4">
+            <div className="space-y-1">
+              <label className="text-sm font-medium" htmlFor="model-default">Default Model</label>
+              <Input
+                id="model-default"
+                value={draftModelDefault}
+                onChange={e => setDraftModelDefault(e.target.value)}
+                placeholder="e.g. llama-3.3-70b-versatile"
+                data-testid="input-model-default"
+              />
+              <p className="text-xs text-muted-foreground">Used for auto-tagging and question clustering.</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium" htmlFor="model-chat">Chat Model</label>
+              <Input
+                id="model-chat"
+                value={draftModelChat}
+                onChange={e => setDraftModelChat(e.target.value)}
+                placeholder="Leave blank to use default model"
+                data-testid="input-model-chat"
+              />
+              <p className="text-xs text-muted-foreground">Used for live chat conversations. Falls back to the default model if empty.</p>
+            </div>
+          </div>
+          <DialogFooter className="gap-2">
+            <Button variant="outline" onClick={() => setModelsOpen(false)} data-testid="button-models-cancel">
+              Cancel
+            </Button>
+            <Button onClick={handleModelsSave} disabled={savingModels} data-testid="button-models-save">
+              {savingModels ? <IconLoader2 className="h-4 w-4 animate-spin mr-1" /> : <IconCheck className="h-4 w-4 mr-1" />}
               Save
             </Button>
           </DialogFooter>
