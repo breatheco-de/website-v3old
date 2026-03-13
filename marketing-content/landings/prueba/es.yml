@@ -46,7 +46,7 @@ sections:
           visible: true
           required: true
         program:
-          visible: false
+          visible: true
           default: ai-engineering
       success:
         message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
