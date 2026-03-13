@@ -49,3 +49,7 @@ integrations = ["javascript_openai_ai_integrations:1.0.0"]
 MEDIA_DEFAULT_PROVIDER = "gcs"
 EDIT_TOKEN = "61bb7963aa6a49d10b953c5e14fce3161688a6de"
 OPENAI_BASE_URL = "https://api.groq.com/openai/v1"
+
+[postMerge]
+path = "scripts/post-merge.sh"
+timeoutMs = 20000
