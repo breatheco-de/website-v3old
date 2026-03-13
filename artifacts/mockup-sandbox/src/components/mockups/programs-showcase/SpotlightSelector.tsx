@@ -1,0 +1,239 @@
+import { useState } from "react";
+import { ArrowRight, Clock, Code2, Brain, BarChart3, Shield, CheckCircle2 } from "lucide-react";
+
+const PRIMARY = "#0084FF";
+const FOREGROUND = "#00041A";
+const MUTED = "#737373";
+const CARD_BG = "#FFFFFF";
+const PAGE_BG = "#FAFAFA";
+const BORDER = "#EBEBEB";
+const PRIMARY_BG = "rgba(0, 132, 255, 0.06)";
+const PRIMARY_BORDER = "rgba(0, 132, 255, 0.25)";
+
+const programs = [
+  {
+    icon: Code2,
+    name: "Full Stack Dev with AI",
+    fullName: "Full Stack Development with AI",
+    tagline: "Build modern web apps from frontend to backend, supercharged with AI tools.",
+    duration: "16 weeks",
+    skills: [
+      "HTML, CSS, JavaScript & TypeScript",
+      "React and modern frontend frameworks",
+      "Node.js, REST APIs, databases",
+      "AI integration with LLMs & APIs",
+      "Deployment and DevOps basics",
+    ],
+    outcome: "Full Stack Developer",
+  },
+  {
+    icon: Brain,
+    name: "AI Engineering",
+    fullName: "AI Engineering",
+    tagline: "Design, train and deploy AI models that solve real-world business problems.",
+    duration: "20 weeks",
+    skills: [
+      "Python for ML and AI",
+      "Neural networks and deep learning",
+      "LLM fine-tuning and prompt engineering",
+      "Model deployment and MLOps",
+      "AI product development",
+    ],
+    outcome: "AI Engineer",
+  },
+  {
+    icon: BarChart3,
+    name: "Data Science & ML",
+    fullName: "Data Science & Machine Learning",
+    tagline: "Turn raw data into actionable insight using Python, ML and visualization.",
+    duration: "18 weeks",
+    skills: [
+      "Python, Pandas, NumPy",
+      "Data visualization and storytelling",
+      "Machine learning fundamentals",
+      "Statistical modeling",
+      "SQL and data pipelines",
+    ],
+    outcome: "Data Scientist",
+  },
+  {
+    icon: Shield,
+    name: "Cybersecurity",
+    fullName: "Cybersecurity",
+    tagline: "Protect systems and networks against modern threats and vulnerabilities.",
+    duration: "14 weeks",
+    skills: [
+      "Network security fundamentals",
+      "Ethical hacking and penetration testing",
+      "Incident response and forensics",
+      "Cloud security",
+      "Compliance and risk management",
+    ],
+    outcome: "Security Analyst",
+  },
+];
+
+export function SpotlightSelector() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const active = programs[activeIndex];
+  const ActiveIcon = active.icon;
+
+  return (
+    <div
+      className="min-h-screen flex items-center justify-center p-8"
+      style={{ backgroundColor: PAGE_BG }}
+    >
+      <div className="w-full max-w-5xl">
+        <div className="text-center mb-10">
+          <h2
+            className="text-4xl font-bold mb-3"
+            style={{
+              fontFamily: "'Lato', sans-serif",
+              color: FOREGROUND,
+              letterSpacing: "-0.02em",
+              lineHeight: 1.1,
+            }}
+          >
+            Choose Your Career Path
+          </h2>
+          <p
+            className="text-base max-w-xl mx-auto"
+            style={{ color: MUTED, fontFamily: "'Archivo', sans-serif", lineHeight: 1.6 }}
+          >
+            Four programs built around the skills companies are actively hiring for right now.
+          </p>
+        </div>
+
+        <div
+          className="flex gap-0"
+          style={{
+            backgroundColor: CARD_BG,
+            borderRadius: "0.75rem",
+            border: `1px solid ${BORDER}`,
+            overflow: "hidden",
+          }}
+        >
+          <div
+            className="flex flex-col"
+            style={{ width: "220px", borderRight: `1px solid ${BORDER}`, flexShrink: 0 }}
+          >
+            {programs.map((program, idx) => {
+              const Icon = program.icon;
+              const isActive = idx === activeIndex;
+              return (
+                <button
+                  key={program.name}
+                  onClick={() => setActiveIndex(idx)}
+                  className="flex items-center gap-3 text-left transition-all duration-150"
+                  style={{
+                    padding: "18px 20px",
+                    backgroundColor: isActive ? PRIMARY_BG : "transparent",
+                    borderLeft: isActive ? `2px solid ${PRIMARY}` : "2px solid transparent",
+                    borderBottom: idx < programs.length - 1 ? `1px solid ${BORDER}` : "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  <Icon
+                    className="w-5 h-5 shrink-0"
+                    style={{ color: isActive ? PRIMARY : MUTED }}
+                    strokeWidth={1.5}
+                  />
+                  <span
+                    style={{
+                      fontFamily: "'Lato', sans-serif",
+                      fontSize: "13px",
+                      fontWeight: isActive ? 700 : 500,
+                      color: isActive ? FOREGROUND : MUTED,
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {program.name}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="flex-1 p-8 flex flex-col gap-6">
+            <div className="flex items-start gap-4">
+              <ActiveIcon
+                className="w-8 h-8 shrink-0"
+                style={{ color: PRIMARY }}
+                strokeWidth={1.5}
+              />
+              <div>
+                <h3
+                  className="text-2xl font-bold leading-snug"
+                  style={{
+                    fontFamily: "'Lato', sans-serif",
+                    color: FOREGROUND,
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  {active.fullName}
+                </h3>
+                <p
+                  className="text-sm leading-relaxed mt-1.5"
+                  style={{ color: MUTED, fontFamily: "'Archivo', sans-serif" }}
+                >
+                  {active.tagline}
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <div
+                className="text-xs font-semibold uppercase tracking-widest mb-3"
+                style={{ color: MUTED, fontFamily: "'Archivo', sans-serif" }}
+              >
+                What you'll learn
+              </div>
+              <ul className="flex flex-col gap-2">
+                {active.skills.map((skill) => (
+                  <li
+                    key={skill}
+                    className="flex items-start gap-2.5 text-sm"
+                    style={{ color: FOREGROUND, fontFamily: "'Archivo', sans-serif" }}
+                  >
+                    <CheckCircle2
+                      className="w-4 h-4 shrink-0 mt-0.5"
+                      style={{ color: PRIMARY }}
+                      strokeWidth={1.5}
+                    />
+                    {skill}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div
+              className="flex items-center justify-between pt-5 mt-auto"
+              style={{ borderTop: `1px solid ${BORDER}` }}
+            >
+              <div
+                className="flex items-center gap-1.5 text-sm"
+                style={{ color: MUTED, fontFamily: "'Archivo', sans-serif" }}
+              >
+                <Clock className="w-4 h-4" />
+                <span>{active.duration}</span>
+                <span style={{ color: BORDER }}>·</span>
+                <span>Become a {active.outcome}</span>
+              </div>
+              <button
+                className="flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-md"
+                style={{
+                  backgroundColor: PRIMARY,
+                  color: "#FFFFFF",
+                  fontFamily: "'Archivo', sans-serif",
+                }}
+              >
+                Explore Program
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

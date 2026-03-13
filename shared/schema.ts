@@ -771,6 +771,9 @@ export { contactUsInfoSectionSchema, type ContactUsInfoSection, type ContactLoca
 import { trustCardsSectionSchema, type TrustCardsSection, type TrustCardItem } from "../marketing-content/component-registry/trust_cards/v1.0/schema";
 export { trustCardsSectionSchema, type TrustCardsSection, type TrustCardItem };
 
+import { programsShowcaseSectionSchema, type ProgramsShowcaseSection, type ProgramItem } from "../marketing-content/component-registry/programs_showcase/v1.0/schema";
+export { programsShowcaseSectionSchema, type ProgramsShowcaseSection, type ProgramItem };
+
 // Responsive spacing schema - separate values for mobile and desktop
 // When only one breakpoint is specified, the other inherits its value
 export const responsiveSpacingSchema = z.object({
@@ -1039,6 +1042,7 @@ const baseSectionSchema = z.union([
   contactUsInfoSectionSchema,
   cardsDeckSectionSchema,
   trustCardsSectionSchema,
+  programsShowcaseSectionSchema,
 ]);
 
 // Combined section schema with layout fields

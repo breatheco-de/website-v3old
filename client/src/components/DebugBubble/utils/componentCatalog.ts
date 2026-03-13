@@ -20,6 +20,7 @@ import {
   IconLayoutList,
   IconListDetails,
   IconMarquee,
+  IconLayoutGrid,
 } from "@tabler/icons-react";
 import type { ComponentItem } from "../types";
 
@@ -50,4 +51,5 @@ export const componentsList: ComponentItem[] = [
   { type: "two_column_accordion_card", label: "Two Column Accordion Card", icon: IconLayoutList, description: "Card with accordion content and image" },
   { type: "bullet_tabs_showcase", label: "Bullet Tabs Showcase", icon: IconListDetails, description: "Interactive tabs with vertical highlight bar and image" },
   { type: "graduates_stats", label: "Graduates Stats", icon: IconUsersGroup, description: "Image collage with statistics - standard and fullBleed variants" },
+  { type: "programs_showcase", label: "Programs Showcase", icon: IconLayoutGrid, description: "All programs side-by-side - grid, stacked list, or spotlight variants" },
 ];
