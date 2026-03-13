@@ -525,11 +525,10 @@ sections:
       - montevideo-uruguay
       - panamacity-panama
   - type: pricing
-    section_id: pricing-achib8
     version: "1.0"
     variant: product
     title: Tuition & Financing Options
-    subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
+    subtitle: Investing in a new career matters. We make it easier with multiple ways to fund your enrollment.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting below"
     financing_amount: {{ global.price_ai_engineering | $349 }}
@@ -557,6 +556,7 @@ sections:
       text: Get more info
       url: "#apply-modal"
       variant: primary
+    section_id: pricing-achib8
     marginY:
       desktop: lg md
     paddingY:
