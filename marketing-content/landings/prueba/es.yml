@@ -116,36 +116,6 @@ sections:
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
-  - type: hero
-    version: "1.0"
-    variant: productShowcase
-    title: Desarrollo de Carrera
-    subtitle: para la era de la IA
-    welcome_text: Bienvenido a
-    brand_mark:
-      prefix: Geek
-      highlight: FORCE
-      suffix: ":"
-      color: chart-5
-    description: Get unlimited 1:1 career support designed for your unique profile and goals—for life. From resume and portfolio building to interviews and AI-driven hiring platforms.
-    video:
-      ratio: "9:16"
-      muted: true
-      loop: true
-    image: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
-    form: {}
-    trust_bar:
-      rating: "4.5"
-      review_count: Based on 5149+ reviews
-      review_logos:
-        - name: Google
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/google_1765590146414.webp
-        - name: Course Report
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
-        - name: SwitchUp
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-    section_id: hero-n7wgbz
-    background: hsl(210 100% 50% / 0.05)
   - type: awards_marquee
     section_id: awards_marquee-uo8g2l
     version: "1.0"
