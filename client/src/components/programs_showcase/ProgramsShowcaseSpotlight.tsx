@@ -21,13 +21,13 @@ function FeaturedCard({
 
   return (
     <div
-      className="flex flex-col group h-full bg-[hsl(var(--primary)/0.05)] border border-[hsl(var(--primary)/0.2)] rounded-card"
+      className="flex flex-col group h-full border bg-background rounded-card"
       data-testid={`card-featured-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
     >
       <div className="p-7 flex flex-col gap-5 h-full">
         {Icon && (
           <Icon
-            className="w-8 h-8 text-primary"
+            className="w-7 h-7 text-primary"
           />
         )}
 
@@ -67,7 +67,7 @@ function FeaturedCard({
           ) : null}
           <a
             href={program.cta_url}
-            className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline transition-all duration-150 group-hover:gap-2.5 font-sans"
+            className="flex items-center gap-1.5 text-sm font-semibold font-semibold text-muted-foreground hover:underline transition-all duration-150 group-hover:gap-2.5 font-sans"
             data-testid={`link-cta-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
           >
             {program.cta_text}
@@ -93,7 +93,7 @@ function SmallCard({
   const Icon = program.icon ? getIcon(program.icon) : null;
 
   const bgClass = odd
-    ? "bg-[hsl(var(--primary)/0.05)] border-[hsl(var(--primary)/0.2)]"
+    ? "bg-[hsl(var(--primary)/0.05)] border-border"
     : "bg-card border-border";
   const footerBorderColor = odd
     ? "hsl(var(--primary) / 0.2)"
@@ -164,10 +164,10 @@ export function ProgramsShowcaseSpotlight({ data }: ProgramsShowcaseSpotlightPro
 
   return (
     <section
-      className="py-spacing-section"
+      className="max-w-6xl mx-auto px-4"
       data-testid="section-programs-showcase-spotlight"
     >
-      <div className="max-w-5xl mx-auto px-6">
+      <div>
         {(data.heading || data.subheading) && (
           <div className="text-center mb-10">
             {data.heading && (
@@ -189,7 +189,7 @@ export function ProgramsShowcaseSpotlight({ data }: ProgramsShowcaseSpotlightPro
           </div>
         )}
 
-        <div className="flex flex-col md:flex-row items-start gap-5">
+        <div className="flex flex-col md:flex-row gap-5">
           <div className="w-full md:w-[38%]">
             {featured && (
               <FeaturedCard

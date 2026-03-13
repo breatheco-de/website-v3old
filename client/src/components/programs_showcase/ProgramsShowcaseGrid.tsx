@@ -1,7 +1,7 @@
 import type { ProgramsShowcaseSection, ProgramItem } from "@shared/schema";
 import { getIcon } from "@/lib/icons";
 import { IconClock, IconTrendingUp, IconArrowRight } from "@tabler/icons-react";
-import { resolveColor, hsl } from "./shared";
+import { resolveColorVar, hslColor } from "./shared";
 
 interface ProgramsShowcaseGridProps {
   data: ProgramsShowcaseSection;
@@ -16,7 +16,7 @@ function ProgramCard({
   showSalary: boolean;
   salaryLabel?: string;
 }) {
-  const colorVar = resolveColor(program.color);
+  const resolved = resolveColorVar(program.color);
   const Icon = program.icon ? getIcon(program.icon) : null;
 
   return (
@@ -29,15 +29,15 @@ function ProgramCard({
           {Icon && (
             <Icon
               className="w-7 h-7 shrink-0"
-              style={{ color: hsl(colorVar) }}
+              style={{ color: hslColor(resolved) }}
             />
           )}
           {program.demand && (
             <div
               className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 font-sans"
               style={{
-                color: hsl(colorVar),
-                backgroundColor: hsl(colorVar, 0.1),
+                color: hslColor(resolved),
+                backgroundColor: hslColor(resolved, 0.1),
               }}
               data-testid={`badge-demand-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
             >
@@ -71,7 +71,7 @@ function ProgramCard({
 
         <div
           className="flex items-center justify-between gap-3 pt-4 flex-wrap"
-          style={{ borderTop: `1px solid ${hsl(colorVar)}` }}
+          style={{ borderTop: `1px solid ${hslColor(resolved)}` }}
         >
           {showSalary && program.avg_salary ? (
             <div className="flex flex-col">
@@ -89,7 +89,7 @@ function ProgramCard({
           <a
             href={program.cta_url}
             className="flex items-center gap-1 text-sm font-semibold hover:underline transition-all duration-150 group-hover:gap-2 font-sans"
-            style={{ color: hsl(colorVar) }}
+            style={{ color: hslColor(resolved) }}
             data-testid={`link-cta-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
           >
             {program.cta_text}
