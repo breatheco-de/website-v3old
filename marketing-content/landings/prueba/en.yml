@@ -479,7 +479,6 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-    background: hsl(var(--muted))
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
     description: From musicians, philosophers, and support specialists to software engineers and AI developers. Real people, real salary increases, real careers.
