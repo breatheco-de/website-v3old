@@ -55,15 +55,15 @@ function EditorialItem({ program, isLast }: { program: typeof programs[0]; isLas
         style={{ backgroundColor: program.color }}
       />
 
-      <div className="flex items-start gap-5 py-7 pl-6 flex-1">
+      <div className="flex gap-5 py-7 pl-6 flex-1">
         <Icon
-          className="w-7 h-7 shrink-0 mt-0.5"
+          className="w-7 h-7 shrink-0 mt-0.5 self-start"
           style={{ color: program.color }}
           strokeWidth={1.5}
         />
 
-        <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between gap-6">
+        <div className="flex-1 min-w-0 flex">
+          <div className="flex flex-1 justify-between gap-6">
             <div className="flex-1">
               <h3
                 className="text-xl font-bold leading-snug"
@@ -83,7 +83,7 @@ function EditorialItem({ program, isLast }: { program: typeof programs[0]; isLas
               </p>
             </div>
 
-            <div className="flex flex-col items-end gap-2 shrink-0 pt-1">
+            <div className="flex flex-col justify-between h-full gap-2 pt-1">
               <div
                 className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full"
                 style={{
