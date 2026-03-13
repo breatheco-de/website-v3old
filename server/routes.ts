@@ -8608,6 +8608,93 @@ sections: []
     }
   });
 
+  app.post("/api/image-registry/scripts/remove-unused/stream", async (req, res) => {
+    const BATCH_SIZE = 20;
+
+    try {
+      const registry = mediaGallery.getRegistry();
+      if (!registry) {
+        res.status(500).json({ error: "Failed to load image registry" });
+        return;
+      }
+
+      const { imageIds, srcValues } = mediaGallery.collectImageReferences();
+
+      const allImageIds = Object.keys(registry.images);
+      const unusedItems: Array<{ id: string; src: string }> = [];
+
+      for (const id of allImageIds) {
+        const entry = registry.images[id];
+        const src = entry?.src || "";
+        const referencedById = imageIds.has(id);
+        const normalizedSrc = src.startsWith("/") ? src : `/${src}`;
+        const normalizedSrcNoSlash = src.startsWith("/") ? src.slice(1) : src;
+        const referencedBySrc = srcValues.has(src) || srcValues.has(normalizedSrc) || srcValues.has(normalizedSrcNoSlash);
+        if (!referencedById && !referencedBySrc) {
+          unusedItems.push({ id, src });
+        }
+      }
+
+      const total = unusedItems.length;
+
+      if (total === 0) {
+        res.json({ done: true, processed: 0, total: 0, summary: { removed: 0, skipped: 0, failed: 0 } });
+        return;
+      }
+
+      res.writeHead(200, {
+        "Content-Type": "application/x-ndjson",
+        "Transfer-Encoding": "chunked",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+      });
+
+      let processed = 0;
+      let removed = 0;
+      let skipped = 0;
+      let failed = 0;
+
+      try {
+        for (let i = 0; i < total; i += BATCH_SIZE) {
+          const batchItems = unusedItems.slice(i, i + BATCH_SIZE);
+          const batchResults: Array<{ id: string; src: string; status: string; reason?: string }> = [];
+
+          for (const item of batchItems) {
+            try {
+              const result = await mediaGallery.unregister(item.id);
+              if (result.success) {
+                batchResults.push({ id: item.id, src: item.src, status: "removed" });
+                removed++;
+              } else {
+                batchResults.push({ id: item.id, src: item.src, status: "skipped", reason: result.error || "unknown" });
+                skipped++;
+              }
+            } catch (err: any) {
+              batchResults.push({ id: item.id, src: item.src, status: "error", reason: err.message || "unknown" });
+              failed++;
+            }
+          }
+
+          processed += batchItems.length;
+          const event = { total, processed, batch: batchResults };
+          res.write(JSON.stringify(event) + "\n");
+        }
+
+        const doneEvent = { done: true, processed, total, summary: { removed, skipped, failed } };
+        res.write(JSON.stringify(doneEvent) + "\n");
+        res.end();
+      } catch (fatalErr: any) {
+        const fatalEvent = { fatalError: true, message: fatalErr.message || "Unknown error", processed, total };
+        res.write(JSON.stringify(fatalEvent) + "\n");
+        res.end();
+      }
+    } catch (error: any) {
+      if (!res.headersSent) {
+        res.status(500).json({ error: error.message || "Remove unused images failed" });
+      }
+    }
+  });
+
   const mediaUpload = multer({
     storage: multer.memoryStorage(),
     limits: { fileSize: 100 * 1024 * 1024 },

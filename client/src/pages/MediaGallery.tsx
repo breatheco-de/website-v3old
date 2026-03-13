@@ -18,6 +18,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Progress } from "@/components/ui/progress";
 import {
   Sheet,
   SheetContent,
@@ -31,6 +32,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";
 import type { ImageRegistry } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
+import { getSessionHeaders } from "@/lib/sessionHeaders";
 
 interface DuplicateGroup {
   hash: string;
@@ -117,7 +119,9 @@ export default function MediaGallery() {
   const [scriptMigrateOutput, setScriptMigrateOutput] = useState<{ message: string; results: Array<{ id: string; oldSrc?: string; newSrc?: string; status: string }> } | null>(null);
   const [scriptRemoveUnusedDryRun, setScriptRemoveUnusedDryRun] = useState(true);
   const [scriptRemoveUnusedRunning, setScriptRemoveUnusedRunning] = useState(false);
-  const [scriptRemoveUnusedOutput, setScriptRemoveUnusedOutput] = useState<{ message: string; removedCount: number; skippedCount: number; results: Array<{ id: string; src: string; status: string }> } | null>(null);
+  const [scriptRemoveUnusedOutput, setScriptRemoveUnusedOutput] = useState<{ message: string; removedCount: number; skippedCount: number; results: Array<{ id: string; src: string; status: string; reason?: string }> } | null>(null);
+  const [scriptRemoveUnusedProgress, setScriptRemoveUnusedProgress] = useState<{ processed: number; total: number } | null>(null);
+  const [scriptRemoveUnusedStreamError, setScriptRemoveUnusedStreamError] = useState<string | null>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -400,19 +404,154 @@ export default function MediaGallery() {
   const handleRunRemoveUnusedScript = async () => {
     setScriptRemoveUnusedRunning(true);
     setScriptRemoveUnusedOutput(null);
-    try {
-      const res = await apiRequest("POST", "/api/image-registry/scripts/remove-unused", {
-        dryRun: scriptRemoveUnusedDryRun,
-      });
-      const contentType = res.headers.get("content-type") || "";
-      if (!contentType.includes("application/json")) {
-        await res.text();
-        throw new Error("Server is restarting, please try again in a moment.");
+    setScriptRemoveUnusedProgress(null);
+    setScriptRemoveUnusedStreamError(null);
+
+    if (scriptRemoveUnusedDryRun) {
+      try {
+        const res = await apiRequest("POST", "/api/image-registry/scripts/remove-unused", {
+          dryRun: true,
+        });
+        const contentType = res.headers.get("content-type") || "";
+        if (!contentType.includes("application/json")) {
+          await res.text();
+          throw new Error("Server is restarting, please try again in a moment.");
+        }
+        const data = await res.json();
+        setScriptRemoveUnusedOutput(data);
+      } catch (err: any) {
+        setScriptRemoveUnusedOutput({ message: `Error: ${err.message || "Failed"}`, removedCount: 0, skippedCount: 0, results: [] });
+      } finally {
+        setScriptRemoveUnusedRunning(false);
       }
-      const data = await res.json();
-      setScriptRemoveUnusedOutput(data);
-      if (!scriptRemoveUnusedDryRun && data.removedCount > 0) {
-        queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/image-registry/scripts/remove-unused/stream", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...getSessionHeaders() },
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({ error: "Unknown error" }));
+        setScriptRemoveUnusedOutput({ message: `Error: ${errData.error || "Failed"}`, removedCount: 0, skippedCount: 0, results: [] });
+        setScriptRemoveUnusedRunning(false);
+        return;
+      }
+
+      const contentType = res.headers.get("content-type") || "";
+      if (contentType.includes("application/json")) {
+        const data = await res.json();
+        if (data.done) {
+          setScriptRemoveUnusedOutput({
+            message: `Removed ${data.summary.removed} unused image(s), skipped ${data.summary.skipped}, failed ${data.summary.failed}`,
+            removedCount: data.summary.removed,
+            skippedCount: data.summary.skipped,
+            results: [],
+          });
+        }
+        setScriptRemoveUnusedRunning(false);
+        return;
+      }
+
+      const reader = res.body?.getReader();
+      if (!reader) {
+        setScriptRemoveUnusedOutput({ message: "Error: No response body", removedCount: 0, skippedCount: 0, results: [] });
+        setScriptRemoveUnusedRunning(false);
+        return;
+      }
+
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let allResults: Array<{ id: string; src: string; status: string; reason?: string }> = [];
+      let receivedCompletion = false;
+      let hadRemovals = false;
+
+      const processLine = (trimmed: string) => {
+        if (!trimmed) return;
+        try {
+          const event = JSON.parse(trimmed);
+
+          if (event.fatalError) {
+            receivedCompletion = true;
+            setScriptRemoveUnusedStreamError(`Operation stopped at ${event.processed} / ${event.total} due to an error: ${event.message}`);
+            setScriptRemoveUnusedProgress({ processed: event.processed, total: event.total });
+            setScriptRemoveUnusedOutput((prev) => ({
+              message: `Operation failed after ${event.processed} / ${event.total} — partial results below`,
+              removedCount: prev?.removedCount || 0,
+              skippedCount: prev?.skippedCount || 0,
+              results: allResults,
+            }));
+            if (hadRemovals) {
+              queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+            }
+            return;
+          }
+
+          if (event.done) {
+            receivedCompletion = true;
+            setScriptRemoveUnusedProgress(null);
+            setScriptRemoveUnusedOutput({
+              message: `Removed ${event.summary.removed} unused image(s), skipped ${event.summary.skipped}, failed ${event.summary.failed} (${event.total} total unused)`,
+              removedCount: event.summary.removed,
+              skippedCount: event.summary.skipped,
+              results: allResults,
+            });
+            if (event.summary.removed > 0) {
+              queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+            }
+            return;
+          }
+
+          if (event.batch) {
+            allResults = [...allResults, ...event.batch];
+            if (event.batch.some((r: { status: string }) => r.status === "removed")) {
+              hadRemovals = true;
+            }
+            setScriptRemoveUnusedProgress({ processed: event.processed, total: event.total });
+            setScriptRemoveUnusedOutput((prev) => ({
+              message: prev?.message || "",
+              removedCount: prev?.removedCount || 0,
+              skippedCount: prev?.skippedCount || 0,
+              results: allResults,
+            }));
+          }
+        } catch (parseErr) {
+          console.warn("[RemoveUnused] Failed to parse stream event:", trimmed, parseErr);
+        }
+      };
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() || "";
+
+        for (const line of lines) {
+          processLine(line.trim());
+        }
+      }
+
+      const trailing = buffer.trim();
+      if (trailing) {
+        processLine(trailing);
+      }
+
+      if (!receivedCompletion) {
+        setScriptRemoveUnusedStreamError("Connection lost — results may be incomplete");
+        setScriptRemoveUnusedOutput((prev) => ({
+          message: prev?.results?.length ? "Connection lost — partial results below" : "Connection lost before any results were received",
+          removedCount: prev?.removedCount || 0,
+          skippedCount: prev?.skippedCount || 0,
+          results: prev?.results || allResults,
+        }));
+        if (hadRemovals) {
+          queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+        }
       }
     } catch (err: any) {
       setScriptRemoveUnusedOutput({ message: `Error: ${err.message || "Failed"}`, removedCount: 0, skippedCount: 0, results: [] });
@@ -1643,22 +1782,58 @@ export default function MediaGallery() {
                   disabled={scriptRemoveUnusedRunning}
                   data-testid="button-run-remove-unused"
                 >
-                  {scriptRemoveUnusedRunning ? <IconLoader2 className="h-3.5 w-3.5 animate-spin mr-1.5" /> : null}
-                  {scriptRemoveUnusedRunning ? "Running..." : "Run"}
+                  {scriptRemoveUnusedRunning && !scriptRemoveUnusedProgress ? <IconLoader2 className="h-3.5 w-3.5 animate-spin mr-1.5" /> : null}
+                  {scriptRemoveUnusedRunning
+                    ? scriptRemoveUnusedProgress
+                      ? `${scriptRemoveUnusedProgress.processed} / ${scriptRemoveUnusedProgress.total} processed`
+                      : "Scanning..."
+                    : "Run"}
                 </Button>
               </div>
-              {scriptRemoveUnusedOutput && (
+              {scriptRemoveUnusedRunning && scriptRemoveUnusedProgress && (
+                <div className="space-y-1" data-testid="progress-remove-unused">
+                  <Progress
+                    value={(scriptRemoveUnusedProgress.processed / scriptRemoveUnusedProgress.total) * 100}
+                    className="h-2"
+                    data-testid="progressbar-remove-unused"
+                  />
+                  <p className="text-xs text-muted-foreground" data-testid="text-progress-remove-unused">
+                    {scriptRemoveUnusedProgress.processed} / {scriptRemoveUnusedProgress.total} processed
+                  </p>
+                </div>
+              )}
+              {scriptRemoveUnusedStreamError && (
+                <div className="rounded-md border border-destructive/50 bg-destructive/10 p-2" data-testid="error-banner-remove-unused">
+                  <p className="text-xs font-medium text-destructive">{scriptRemoveUnusedStreamError}</p>
+                </div>
+              )}
+              {scriptRemoveUnusedOutput && !scriptRemoveUnusedRunning && (
                 <div className="space-y-2" data-testid="output-remove-unused">
                   <p className="text-xs font-medium">{scriptRemoveUnusedOutput.message}</p>
                   {scriptRemoveUnusedOutput.results.length > 0 && (
                     <ScrollArea className="max-h-48 rounded-md border bg-muted/30 p-2">
-                      <pre className="text-xs font-mono whitespace-pre-wrap">
-                        {scriptRemoveUnusedOutput.results.map(r =>
-                          `[${r.status}] ${r.id}: ${r.src}`
-                        ).join("\n")}
-                      </pre>
+                      <div className="text-xs font-mono space-y-0.5">
+                        {scriptRemoveUnusedOutput.results.map((r, i) => (
+                          <div key={i} className={r.status === "error" ? "text-destructive" : ""} data-testid={`result-row-${i}`}>
+                            [{r.status}] {r.id}: {r.status === "error" ? (r.reason || r.src) : r.src}
+                          </div>
+                        ))}
+                      </div>
                     </ScrollArea>
                   )}
+                </div>
+              )}
+              {scriptRemoveUnusedRunning && scriptRemoveUnusedOutput && scriptRemoveUnusedOutput.results.length > 0 && (
+                <div className="space-y-2" data-testid="output-remove-unused-streaming">
+                  <ScrollArea className="max-h-48 rounded-md border bg-muted/30 p-2">
+                    <div className="text-xs font-mono space-y-0.5">
+                      {scriptRemoveUnusedOutput.results.map((r, i) => (
+                        <div key={i} className={r.status === "error" ? "text-destructive" : ""} data-testid={`result-row-streaming-${i}`}>
+                          [{r.status}] {r.id}: {r.status === "error" ? (r.reason || r.src) : r.src}
+                        </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
                 </div>
               )}
             </div>
@@ -1671,6 +1846,8 @@ export default function MediaGallery() {
                 setScriptsOpen(false);
                 setScriptMigrateOutput(null);
                 setScriptRemoveUnusedOutput(null);
+                setScriptRemoveUnusedProgress(null);
+                setScriptRemoveUnusedStreamError(null);
               }}
               data-testid="button-close-scripts"
             >
