@@ -219,7 +219,6 @@ sections:
     subtitle: 87% of companies can't find the engineers they need. You can be one of them.
     description: AI Engineers build AI-powered systems, automate workflows, and create AI-integrated products. They are leading the changes companies need today. Yet, according to McKinsey, 87% of companies report they are lacking the AI engineering talent to transform their operations. This gap is your opportunity.
     card_color: bg-background
-    background: hsl(210 100% 50% / 0.05)
     items:
       - value: 800,000
         title: AI-related roles expected by 2027
