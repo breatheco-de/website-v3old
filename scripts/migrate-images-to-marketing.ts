@@ -155,6 +155,14 @@ if (result.copied.length > 0 && dryRun) {
   }
 }
 
+if (result.alreadyExists.length > 0 && dryRun) {
+  console.log(`\nFiles already in destination (registry refs would be updated):`);
+  result.alreadyExists.slice(0, 20).forEach((f) => console.log(`  - ${f}`));
+  if (result.alreadyExists.length > 20) {
+    console.log(`  ... and ${result.alreadyExists.length - 20} more`);
+  }
+}
+
 if (dryRun) {
   console.log(`\nRun without --dry-run to apply changes.`);
 } else {

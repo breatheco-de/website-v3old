@@ -1,3 +1,4 @@
+import fs from "fs";
 import path from "path";
 import sharp from "sharp";
 import { gcs } from "./gcs";
@@ -101,6 +102,14 @@ export async function downloadImage(src: string): Promise<Buffer | null> {
   const key = gcsKeyFromSrc(src);
   if (key) {
     return gcs.download(key);
+  }
+  if (src.startsWith("/marketing-content/images/")) {
+    const localPath = path.resolve(process.cwd(), src.slice(1));
+    try {
+      return fs.readFileSync(localPath);
+    } catch {
+      return null;
+    }
   }
   try {
     const resp = await fetch(src);
