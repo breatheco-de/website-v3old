@@ -64,10 +64,10 @@ sections:
         text: Already a student? Login here.
         url: https://4geeks.com/login
       features:
-        - icon: IconShield
-          text: Optional Job Guarantee (available as add-on)
         - icon: calendar
           text: 24-Week or 15-Week Accelerated Morning Track
+        - icon: IconShield
+          text: Optional Job Guarantee (available as add-on)
         - icon: IconBriefcase
           text: Employment-First Curriculum
         - icon: IconRobot
