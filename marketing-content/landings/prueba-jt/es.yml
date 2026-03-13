@@ -2,19 +2,19 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    welcome_text: Welcome to
+    title: en 4Geeks Academy
+    subtitle: null
+    welcome_text: Saca el máximo de tu
     brand_mark:
-      prefix: Rigo
-      highlight: bot
+      prefix: null
+      highlight: potencial
       color: primary
-    title: Your AI Coding Mentor
-    subtitle: 24/7 Personalized Support
     description: Get unlimited 1:1 coding mentorship and AI-powered guidance from Rigobot 24/7. Never code alone, get instant feedback, and join a global developer community — all designed to help you learn faster, stay motivated, and thrive in tech for life.
     bullets:
-      - text: Provides personalized guidance on coding challenges and best practices
-      - text: Offers live troubleshooting and debugging support
-      - text: Expert bug fixing assistance
-      - text: Shares industry insights, career advice, and learning strategies
+      - text: Aprende a resolver problemas de manera efectiva
+      - text: Desarrolla habilidades de aprendizaje autodidacta
+      - text: Accede a mentorías personalizadas ilimitadas y de por vida
+      - text: Forma parte de una comunidad internacional de más de 5,000 personas
     video:
       url: https://www.youtube.com/watch?v=-2ZvlgDnltc
       ratio: "9:12"
@@ -24,13 +24,13 @@ sections:
     form:
       variant: inline
       submit_label: Start Learning →
-      show_terms: false
       tags: website-lead,rigobot
       fields:
         email:
           visible: true
-          placeholder: Enter your email
           helper_text: Join thousands of developers learning with Rigobot
+          placeholder: Enter your email
+      show_terms: false
     section_id: hero-qcon9h
   - type: hero
     version: "1.0"
