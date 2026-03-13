@@ -28,7 +28,6 @@ function FeaturedCard({
         {Icon && (
           <Icon
             className="w-8 h-8 text-primary"
-            strokeWidth={1.5}
           />
         )}
 
@@ -111,7 +110,6 @@ function SmallCard({
           {Icon && (
             <Icon
               className="w-6 h-6 shrink-0 mt-0.5 text-primary"
-              strokeWidth={1.5}
             />
           )}
           <div className="flex-1 min-w-0">

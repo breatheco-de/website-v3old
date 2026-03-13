@@ -30,7 +30,6 @@ function ProgramCard({
             <Icon
               className="w-7 h-7 shrink-0"
               style={{ color: hsl(colorVar) }}
-              strokeWidth={1.5}
             />
           )}
           {program.demand && (

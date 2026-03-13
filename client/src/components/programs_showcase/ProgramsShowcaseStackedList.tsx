@@ -39,7 +39,6 @@ function StackedListItem({
           <Icon
             className="w-7 h-7 shrink-0 mt-0.5 self-start"
             style={{ color: hsl(colorVar) }}
-            strokeWidth={1.5}
           />
         )}
 
