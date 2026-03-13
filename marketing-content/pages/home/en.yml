@@ -262,11 +262,10 @@ sections:
             achievement: She achieved a 100% salary increase.
     section_id: career_support_explain-xpc3k2
   - type: course_selector
-    section_id: course_selector-ht6wh3
     version: "1.0"
     variant: solid
     heading: Explore Our Programs
-    subheading: Industry-aligned training designed to launch your career in tech
+    subheading: Pick your path. Every program is built to get you hired fast, with the skills companies need most right now.
     courses:
       - name: AI Engineering
         icon: Brain
@@ -328,6 +327,7 @@ sections:
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
     background: hsl(var(--muted))
+    section_id: course_selector-ht6wh3
     marginY:
       desktop: lg
     paddingY:
