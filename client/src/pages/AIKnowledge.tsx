@@ -30,6 +30,24 @@ interface KnowledgeData {
   model_chat?: string;
 }
 
+interface ToolParameterProperty {
+  type?: string;
+  description?: string;
+  default?: string;
+}
+
+interface ToolParameterSchema {
+  type: string;
+  properties?: Record<string, ToolParameterProperty>;
+  required?: string[];
+}
+
+interface ToolDefinition {
+  name: string;
+  description: string;
+  parameters: ToolParameterSchema;
+}
+
 interface AgentToolCallTrace {
   name: string;
   arguments: Record<string, string>;
@@ -173,6 +191,8 @@ export default function AIKnowledge() {
   const [toolsOpen, setToolsOpen] = useState(false);
   const [draftAgentTools, setDraftAgentTools] = useState<Array<{ name: string; description: string; enabled: boolean }>>([]);
   const [savingTools, setSavingTools] = useState(false);
+  const [expandedTools, setExpandedTools] = useState<Set<string>>(new Set());
+  const [toolDefinitions, setToolDefinitions] = useState<ToolDefinition[]>([]);
   const [modelDefault, setModelDefault] = useState("");
   const [modelChat, setModelChat] = useState("");
   const [modelsOpen, setModelsOpen] = useState(false);
@@ -266,6 +286,14 @@ export default function AIKnowledge() {
   useEffect(() => {
     if (toolsOpen) {
       setDraftAgentTools(agentTools.map(t => ({ ...t })));
+      setExpandedTools(new Set());
+      const token = getDebugToken();
+      const headers: Record<string, string> = {};
+      if (token) headers["Authorization"] = `Token ${token}`;
+      fetch("/api/admin/ai/tool-definitions", { headers })
+        .then(r => r.ok ? r.json() : null)
+        .then(data => { if (data?.tools) setToolDefinitions(data.tools); })
+        .catch(() => {});
     }
   }, [toolsOpen]);
 
@@ -798,33 +826,96 @@ export default function AIKnowledge() {
 
       {/* Tools Dialog */}
       <Dialog open={toolsOpen} onOpenChange={setToolsOpen}>
-        <DialogContent className="max-w-lg" data-testid="dialog-agent-tools">
+        <DialogContent className="max-w-2xl" data-testid="dialog-agent-tools">
           <DialogHeader>
             <DialogTitle data-testid="text-tools-dialog-title">Agent Tools</DialogTitle>
           </DialogHeader>
           <p className="text-sm text-muted-foreground -mt-1">External capabilities the agent can invoke while responding, such as live program lookups or location queries. Enable only the tools relevant to the conversations you want to support.</p>
           <div className="space-y-1">
-            {draftAgentTools.map((tool, i) => (
-              <div key={i} className="flex items-center gap-3 py-2 border-b last:border-b-0">
-                <label className="flex items-center gap-2 cursor-pointer flex-1">
-                  <input
-                    type="checkbox"
-                    checked={tool.enabled}
-                    onChange={e => {
-                      const updated = [...draftAgentTools];
-                      updated[i] = { ...updated[i], enabled: e.target.checked };
-                      setDraftAgentTools(updated);
-                    }}
-                    className="rounded"
-                    data-testid={`checkbox-tool-${tool.name}`}
-                  />
-                  <div>
-                    <span className="text-sm font-medium">{tool.name}</span>
-                    <p className="text-xs text-muted-foreground">{tool.description}</p>
+            {draftAgentTools.map((tool, i) => {
+              const def = toolDefinitions.find(d => d.name === tool.name);
+              const params: [string, ToolParameterProperty][] = def?.parameters?.properties
+                ? Object.entries(def.parameters.properties)
+                : [];
+              const requiredList: string[] = def?.parameters?.required || [];
+              const isExpanded = expandedTools.has(tool.name);
+              return (
+                <div key={i} className="border-b last:border-b-0" data-testid={`tool-row-${tool.name}`}>
+                  <div className="flex items-center gap-3 py-2">
+                    <label className="flex items-center gap-2 cursor-pointer flex-1">
+                      <input
+                        type="checkbox"
+                        checked={tool.enabled}
+                        onChange={e => {
+                          const updated = [...draftAgentTools];
+                          updated[i] = { ...updated[i], enabled: e.target.checked };
+                          setDraftAgentTools(updated);
+                        }}
+                        className="rounded"
+                        data-testid={`checkbox-tool-${tool.name}`}
+                      />
+                      <div>
+                        <span className="text-sm font-medium">{tool.name}</span>
+                        <p className="text-xs text-muted-foreground">{tool.description}</p>
+                      </div>
+                    </label>
+                    {params.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setExpandedTools(prev => {
+                            const next = new Set(prev);
+                            if (next.has(tool.name)) next.delete(tool.name);
+                            else next.add(tool.name);
+                            return next;
+                          });
+                        }}
+                        className="p-1 text-muted-foreground hover-elevate rounded-md"
+                        data-testid={`button-expand-tool-${tool.name}`}
+                      >
+                        {isExpanded ? <IconChevronDown className="h-4 w-4" /> : <IconChevronRight className="h-4 w-4" />}
+                      </button>
+                    )}
                   </div>
-                </label>
-              </div>
-            ))}
+                  {isExpanded && params.length > 0 && (
+                    <div className="ml-8 mb-2" data-testid={`params-section-${tool.name}`}>
+                      <table className="w-full text-xs">
+                        <thead>
+                          <tr className="text-left text-muted-foreground border-b">
+                            <th className="py-1 pr-2 font-medium">Name</th>
+                            <th className="py-1 pr-2 font-medium">Type</th>
+                            <th className="py-1 pr-2 font-medium">Required</th>
+                            <th className="py-1 pr-2 font-medium">Description</th>
+                            <th className="py-1 font-medium">Example</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {params.map(([pName, pSchema]) => {
+                            const exMatch = pSchema.description?.match(/\(e\.g\.\s*(.+?)\)/);
+                            const example = exMatch
+                              ? exMatch[1].split(",")[0].trim().replace(/^['"]|['"]$/g, "")
+                              : pSchema.default ?? "—";
+                            return (
+                              <tr key={pName} className="border-b last:border-b-0" data-testid={`param-row-${tool.name}-${pName}`}>
+                                <td className="py-1 pr-2 font-mono">{pName}</td>
+                                <td className="py-1 pr-2">{pSchema.type || "string"}</td>
+                                <td className="py-1 pr-2">
+                                  {requiredList.includes(pName)
+                                    ? <Badge variant="destructive" className="text-[10px] px-1 py-0">required</Badge>
+                                    : <span className="text-muted-foreground">optional</span>}
+                                </td>
+                                <td className="py-1 pr-2">{pSchema.description?.replace(/\s*\(e\.g\.\s*.+?\)/, "") || "—"}</td>
+                                <td className="py-1 font-mono text-muted-foreground">{example}</td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
           <DialogFooter className="gap-2">
             <Button variant="outline" onClick={() => setToolsOpen(false)} data-testid="button-tools-cancel">

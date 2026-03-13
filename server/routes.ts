@@ -10150,6 +10150,24 @@ sections: []
     }
   });
 
+  app.get("/api/admin/ai/tool-definitions", async (req, res) => {
+    try {
+      const auth = await requireAdminAuth(req, res);
+      if (!auth.authorized) return;
+
+      const { TOOL_DEFINITIONS } = await import("./ai/tools/index");
+      const definitions = TOOL_DEFINITIONS.map(t => ({
+        name: t.function.name,
+        description: t.function.description,
+        parameters: t.function.parameters,
+      }));
+      res.json({ tools: definitions });
+    } catch (err) {
+      console.error("[AI Tool Definitions] Error:", err);
+      res.status(500).json({ error: "Failed to load tool definitions" });
+    }
+  });
+
   app.get("/api/admin/ai/question-tags", async (req, res) => {
     try {
       const auth = await requireAdminAuth(req, res);
