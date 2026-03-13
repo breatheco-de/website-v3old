@@ -27,10 +27,10 @@ sections:
       color: chart-5
     description: Get unlimited 1:1 career support designed for your unique profile and goals—for life. From resume and portfolio building to interviews and AI-driven hiring platforms.
     video:
-      url: https://www.youtube.com/watch?v=snI-n8Ruvxg
       ratio: "9:16"
       muted: true
       loop: true
+    image: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
     form: {}
     trust_bar:
       rating: "4.5"
@@ -44,7 +44,6 @@ sections:
           logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
     section_id: hero-n7wgbz
     background: hsl(210 100% 50% / 0.05)
-    image: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
   - type: hero
     version: "1.0"
     variant: ApplyFormProductShowcase
