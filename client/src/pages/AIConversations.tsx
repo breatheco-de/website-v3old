@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
@@ -100,6 +100,59 @@ export default function AIConversations() {
   });
 
   const graceMinutes = knowledgeData?.empty_conversation_grace_minutes ?? 15;
+  const [editingGrace, setEditingGrace] = useState(false);
+  const [graceInputValue, setGraceInputValue] = useState(String(graceMinutes));
+  const graceInputRef = useRef<HTMLInputElement>(null);
+  const graceSavingRef = useRef(false);
+
+  useEffect(() => {
+    setGraceInputValue(String(graceMinutes));
+  }, [graceMinutes]);
+
+  useEffect(() => {
+    if (editingGrace && graceInputRef.current) {
+      graceInputRef.current.focus();
+      graceInputRef.current.select();
+    }
+  }, [editingGrace]);
+
+  const saveGraceMinutes = async (value: string) => {
+    if (graceSavingRef.current) return;
+    setEditingGrace(false);
+    const parsed = parseInt(value, 10);
+    if (parsed === graceMinutes) {
+      setGraceInputValue(String(graceMinutes));
+      return;
+    }
+    if (isNaN(parsed) || parsed < 1) {
+      setGraceInputValue(String(graceMinutes));
+      toast({ title: "Please enter a positive number", variant: "destructive" });
+      return;
+    }
+    graceSavingRef.current = true;
+    try {
+      const token = getDebugToken();
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Token ${token}`;
+      const res = await fetch("/api/admin/ai/knowledge", {
+        method: "PATCH",
+        headers,
+        body: JSON.stringify({ empty_conversation_grace_minutes: parsed }),
+      });
+      if (!res.ok) throw new Error(`Failed: ${res.status}`);
+      queryClient.setQueryData<{ empty_conversation_grace_minutes: number }>(
+        ["/api/admin/ai/knowledge"],
+        (old) => ({ ...old, empty_conversation_grace_minutes: parsed }),
+      );
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/knowledge"] });
+      toast({ title: "Grace period updated" });
+    } catch {
+      setGraceInputValue(String(graceMinutes));
+      toast({ title: "Failed to update grace period", variant: "destructive" });
+    } finally {
+      graceSavingRef.current = false;
+    }
+  };
 
   const toggleConversation = (id: string) => {
     setExpandedConvs(prev => {
@@ -271,8 +324,37 @@ export default function AIConversations() {
           )}
         </Card>
 
-        <div className="flex items-center gap-2 px-3 py-2 rounded-md bg-muted text-sm text-muted-foreground" data-testid="text-empty-conv-notice">
-          Empty conversations older than {graceMinutes} minute{graceMinutes !== 1 ? "s" : ""} are automatically hidden from this list.
+        <div className="flex items-center gap-2 px-3 py-2 rounded-md bg-muted text-sm text-muted-foreground flex-wrap" data-testid="text-empty-conv-notice">
+          <span>Empty conversations older than</span>
+          {editingGrace ? (
+            <input
+              ref={graceInputRef}
+              type="number"
+              min={1}
+              step={1}
+              value={graceInputValue}
+              onChange={(e) => setGraceInputValue(e.target.value)}
+              onBlur={() => saveGraceMinutes(graceInputValue)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") saveGraceMinutes(graceInputValue);
+                if (e.key === "Escape") {
+                  setGraceInputValue(String(graceMinutes));
+                  setEditingGrace(false);
+                }
+              }}
+              className="w-16 h-7 px-2 text-center text-sm rounded-md border bg-background text-foreground"
+              data-testid="input-grace-minutes"
+            />
+          ) : (
+            <button
+              onClick={() => setEditingGrace(true)}
+              className="inline-flex items-center px-2 h-7 rounded-md border border-dashed cursor-pointer text-sm font-medium text-foreground hover-elevate"
+              data-testid="button-edit-grace-minutes"
+            >
+              {graceMinutes}
+            </button>
+          )}
+          <span>minute{graceMinutes !== 1 ? "s" : ""} are automatically hidden from this list.</span>
         </div>
 
         {isLoading ? (
