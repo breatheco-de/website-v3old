@@ -1,4 +1,4 @@
-import { ArrowRight, Clock, Code2, Brain, BarChart3, Shield } from "lucide-react";
+import { Clock, Code2, Brain, BarChart3, Shield } from "lucide-react";
 
 const PRIMARY = "#0084FF";
 const FOREGROUND = "#00041A";
@@ -91,11 +91,10 @@ function FeaturedCard({ program }: { program: typeof programs[0] }) {
             <span>{program.duration}</span>
           </div>
           <button
-            className="flex items-center gap-1.5 text-sm font-semibold transition-all duration-150 group-hover:gap-2.5"
+            className="text-sm font-semibold hover:underline"
             style={{ color: PRIMARY, fontFamily: "'Archivo', sans-serif" }}
           >
             Explore Program
-            <ArrowRight className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-0.5" />
           </button>
         </div>
       </div>
@@ -108,6 +107,7 @@ function SmallCard({ program, odd }: { program: typeof programs[0]; odd: boolean
   const bg = odd ? TINTED_BG : CARD_BG;
   const border = odd ? TINTED_BORDER : BORDER;
   const footerBorder = odd ? TINTED_BORDER : BORDER;
+  const ctaColor = odd ? PRIMARY : MUTED;
 
   return (
     <div
@@ -157,11 +157,10 @@ function SmallCard({ program, odd }: { program: typeof programs[0]; odd: boolean
             <span>{program.duration}</span>
           </div>
           <button
-            className="flex items-center gap-1 text-sm font-semibold transition-all duration-150 group-hover:gap-2"
-            style={{ color: PRIMARY, fontFamily: "'Archivo', sans-serif" }}
+            className="text-sm font-semibold hover:underline"
+            style={{ color: ctaColor, fontFamily: "'Archivo', sans-serif" }}
           >
             Explore
-            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
           </button>
         </div>
       </div>
