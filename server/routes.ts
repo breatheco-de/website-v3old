@@ -8429,9 +8429,9 @@ sections: []
     res.json(registry);
   });
 
-  app.delete("/api/image-registry/:id", (req, res) => {
+  app.delete("/api/image-registry/:id", async (req, res) => {
     try {
-      const result = mediaGallery.unregister(req.params.id);
+      const result = await mediaGallery.unregister(req.params.id);
       if (!result.success) {
         const status = result.usedIn ? 409 : 404;
         res.status(status).json({
@@ -8444,20 +8444,21 @@ sections: []
       res.json({
         success: true,
         message: `Deleted "${req.params.id}" from registry`,
+        ...(result.cleanupErrors ? { cleanupErrors: result.cleanupErrors } : {}),
       });
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Delete failed" });
     }
   });
 
-  app.post("/api/image-registry/bulk-delete", (req, res) => {
+  app.post("/api/image-registry/bulk-delete", async (req, res) => {
     try {
       const { ids } = req.body as { ids?: string[] };
       if (!ids || !Array.isArray(ids) || ids.length === 0) {
         res.status(400).json({ error: "Missing or empty 'ids' array" });
         return;
       }
-      const { results, deletedCount } = mediaGallery.bulkUnregister(ids);
+      const { results, deletedCount } = await mediaGallery.bulkUnregister(ids);
       res.json({ results, deletedCount, totalRequested: ids.length });
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Bulk delete failed" });
