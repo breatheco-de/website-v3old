@@ -4,8 +4,9 @@ import { queryClient } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { IconArrowLeft, IconPlus, IconTrash, IconPlayerPlay, IconLoader2, IconCheck } from "@tabler/icons-react";
+import { IconArrowLeft, IconPlus, IconTrash, IconPlayerPlay, IconLoader2, IconCheck, IconEye } from "@tabler/icons-react";
 import { Link } from "wouter";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 
@@ -32,6 +33,7 @@ export default function AIKnowledge() {
   const [previewResult, setPreviewResult] = useState<{ context: Record<string, unknown>; response: string; question_tag: string } | null>(null);
   const [previewLoading, setPreviewLoading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [visibilityOpen, setVisibilityOpen] = useState(false);
 
   const { data, isLoading } = useQuery<KnowledgeData>({
     queryKey: ["/api/admin/ai/knowledge"],
@@ -129,6 +131,10 @@ export default function AIKnowledge() {
             <h1 className="text-2xl font-bold" data-testid="text-knowledge-title">Knowledge Editor</h1>
             <p className="text-sm text-muted-foreground">Configure the AI chat agent's knowledge and behavior</p>
           </div>
+          <Button variant="outline" onClick={() => setVisibilityOpen(true)} data-testid="button-open-visibility">
+            <IconEye className="h-4 w-4 mr-2" />
+            Visibility
+          </Button>
           <Button onClick={handleSave} disabled={saving} data-testid="button-save-knowledge">
             {saving ? <IconLoader2 className="h-4 w-4 animate-spin mr-2" /> : <IconCheck className="h-4 w-4 mr-2" />}
             Save All
@@ -287,89 +293,95 @@ export default function AIKnowledge() {
           ))}
         </Card>
 
-        <Card className="p-4 space-y-3">
-          <h2 className="font-semibold text-lg" data-testid="text-targeting-heading">Page Targeting</h2>
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={bubbleEnabled}
-              onChange={e => setBubbleEnabled(e.target.checked)}
-              className="rounded"
-              data-testid="checkbox-bubble-enabled"
-            />
-            <span className="text-sm">Enable chat bubble</span>
-          </label>
-          <div className="space-y-2">
-            {pagePatterns.map((pattern, i) => (
-              <div key={i} className="flex items-center gap-2">
+        <Dialog open={visibilityOpen} onOpenChange={setVisibilityOpen}>
+          <DialogContent className="max-w-lg" data-testid="dialog-visibility">
+            <DialogHeader>
+              <DialogTitle data-testid="text-visibility-dialog-title">Page Targeting</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-3">
+              <label className="flex items-center gap-2 cursor-pointer">
                 <input
-                  type="text"
-                  value={pattern}
-                  onChange={e => {
-                    const updated = [...pagePatterns];
-                    updated[i] = e.target.value;
-                    setPagePatterns(updated);
-                  }}
-                  className="flex-1 px-3 py-2 text-sm border rounded-md bg-background font-mono"
-                  data-testid={`input-pattern-${i}`}
+                  type="checkbox"
+                  checked={bubbleEnabled}
+                  onChange={e => setBubbleEnabled(e.target.checked)}
+                  className="rounded"
+                  data-testid="checkbox-bubble-enabled"
                 />
+                <span className="text-sm">Enable chat bubble</span>
+              </label>
+              <div className="space-y-2">
+                {pagePatterns.map((pattern, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      value={pattern}
+                      onChange={e => {
+                        const updated = [...pagePatterns];
+                        updated[i] = e.target.value;
+                        setPagePatterns(updated);
+                      }}
+                      className="flex-1 px-3 py-2 text-sm border rounded-md bg-background font-mono"
+                      data-testid={`input-pattern-${i}`}
+                    />
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      onClick={() => setPagePatterns(prev => prev.filter((_, j) => j !== i))}
+                      data-testid={`button-delete-pattern-${i}`}
+                    >
+                      <IconTrash className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ))}
                 <Button
-                  size="icon"
-                  variant="ghost"
-                  onClick={() => setPagePatterns(prev => prev.filter((_, j) => j !== i))}
-                  data-testid={`button-delete-pattern-${i}`}
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setPagePatterns(prev => [...prev, ""])}
+                  data-testid="button-add-pattern"
                 >
-                  <IconTrash className="h-4 w-4" />
+                  <IconPlus className="h-4 w-4 mr-1" />
+                  Add Pattern
                 </Button>
               </div>
-            ))}
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setPagePatterns(prev => [...prev, ""])}
-              data-testid="button-add-pattern"
-            >
-              <IconPlus className="h-4 w-4 mr-1" />
-              Add Pattern
-            </Button>
-          </div>
-          <div className="pt-3 border-t space-y-2">
-            <h3 className="text-sm font-medium" data-testid="text-content-types-heading">Content Type Targeting</h3>
-            <p className="text-xs text-muted-foreground">Show the chat bubble on pages matching these content types (e.g. program, location)</p>
-            {contentTypes.map((ct, i) => (
-              <div key={i} className="flex items-center gap-2">
-                <input
-                  type="text"
-                  value={ct}
-                  onChange={e => {
-                    const updated = [...contentTypes];
-                    updated[i] = e.target.value;
-                    setContentTypes(updated);
-                  }}
-                  className="flex-1 px-3 py-2 text-sm border rounded-md bg-background"
-                  data-testid={`input-content-type-${i}`}
-                />
+              <div className="pt-3 border-t space-y-2">
+                <h3 className="text-sm font-medium" data-testid="text-content-types-heading">Content Type Targeting</h3>
+                <p className="text-xs text-muted-foreground">Show the chat bubble on pages matching these content types (e.g. program, location)</p>
+                {contentTypes.map((ct, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      value={ct}
+                      onChange={e => {
+                        const updated = [...contentTypes];
+                        updated[i] = e.target.value;
+                        setContentTypes(updated);
+                      }}
+                      className="flex-1 px-3 py-2 text-sm border rounded-md bg-background"
+                      data-testid={`input-content-type-${i}`}
+                    />
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      onClick={() => setContentTypes(prev => prev.filter((_, j) => j !== i))}
+                      data-testid={`button-delete-content-type-${i}`}
+                    >
+                      <IconTrash className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ))}
                 <Button
-                  size="icon"
-                  variant="ghost"
-                  onClick={() => setContentTypes(prev => prev.filter((_, j) => j !== i))}
-                  data-testid={`button-delete-content-type-${i}`}
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setContentTypes(prev => [...prev, ""])}
+                  data-testid="button-add-content-type"
                 >
-                  <IconTrash className="h-4 w-4" />
+                  <IconPlus className="h-4 w-4 mr-1" />
+                  Add Content Type
                 </Button>
               </div>
-            ))}
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setContentTypes(prev => [...prev, ""])}
-              data-testid="button-add-content-type"
-            >
-              <IconPlus className="h-4 w-4 mr-1" />
-              Add Content Type
-            </Button>
-          </div>
-        </Card>
+            </div>
+          </DialogContent>
+        </Dialog>
 
         <Card className="p-4 space-y-3">
           <h2 className="font-semibold text-lg" data-testid="text-preview-heading">Live Preview</h2>
