@@ -10,7 +10,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { IconArrowLeft, IconPlus, IconTrash, IconPlayerPlay, IconLoader2, IconCheck, IconEye, IconEyeOff, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown } from "@tabler/icons-react";
+import { IconArrowLeft, IconPlus, IconTrash, IconPlayerPlay, IconLoader2, IconCheck, IconEye, IconEyeOff, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown, IconBrain } from "@tabler/icons-react";
 import { Link } from "wouter";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 
@@ -77,6 +77,20 @@ export default function AIKnowledge() {
   const [editingPatternVal, setEditingPatternVal] = useState("");
   const [urlPatternsOpen, setUrlPatternsOpen] = useState(false);
   const [addCtSelectKey, setAddCtSelectKey] = useState(0);
+  const [identityCoreOpen, setIdentityCoreOpen] = useState(false);
+  const [savingIdentity, setSavingIdentity] = useState(false);
+  const [draftAgentName, setDraftAgentName] = useState("");
+  const [draftAgentIcon, setDraftAgentIcon] = useState("");
+  const [draftPromptRole, setDraftPromptRole] = useState("");
+  const [draftPromptPersonality, setDraftPromptPersonality] = useState("");
+  const [draftPromptInstructions, setDraftPromptInstructions] = useState("");
+  const [draftPromptFallback, setDraftPromptFallback] = useState("");
+  const [identitySecOpen, setIdentitySecOpen] = useState(false);
+  const [roleSecOpen, setRoleSecOpen] = useState(false);
+  const [personalitySecOpen, setPersonalitySecOpen] = useState(false);
+  const [instructionsSecOpen, setInstructionsSecOpen] = useState(false);
+  const [fallbackSecOpen, setFallbackSecOpen] = useState(false);
+  const [iconPickerForDraft, setIconPickerForDraft] = useState(false);
 
   const { data, isLoading } = useQuery<KnowledgeData>({
     queryKey: ["/api/admin/ai/knowledge"],
@@ -140,6 +154,58 @@ export default function AIKnowledge() {
       setDraftContentTypes([...contentTypes]);
     }
   }, [visibilityOpen]);
+
+  useEffect(() => {
+    if (identityCoreOpen) {
+      setDraftAgentName(agentName);
+      setDraftAgentIcon(agentIcon);
+      setDraftPromptRole(promptRole);
+      setDraftPromptPersonality(promptPersonality);
+      setDraftPromptInstructions(promptInstructions);
+      setDraftPromptFallback(promptFallback);
+      setIdentitySecOpen(false);
+      setRoleSecOpen(false);
+      setPersonalitySecOpen(false);
+      setInstructionsSecOpen(false);
+      setFallbackSecOpen(false);
+    }
+  }, [identityCoreOpen]);
+
+  const handleIdentityCoreSave = async () => {
+    setSavingIdentity(true);
+    try {
+      const token = getDebugToken();
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Token ${token}`;
+      const compiled = compileSystemPrompt(draftAgentName, draftPromptRole, draftPromptPersonality, draftPromptInstructions, draftPromptFallback);
+      const res = await fetch("/api/admin/ai/knowledge", {
+        method: "PATCH",
+        headers,
+        body: JSON.stringify({
+          system_prompt: compiled,
+          prompt_role: draftPromptRole,
+          prompt_personality: draftPromptPersonality,
+          prompt_instructions: draftPromptInstructions,
+          prompt_fallback: draftPromptFallback,
+          chat_bubble: { enabled: bubbleEnabled, page_patterns: pagePatterns, content_types: contentTypes, agent_name: draftAgentName, agent_icon: draftAgentIcon },
+        }),
+      });
+      if (!res.ok) throw new Error(`Save failed: ${res.status}`);
+      setAgentName(draftAgentName);
+      setAgentIcon(draftAgentIcon);
+      setPromptRole(draftPromptRole);
+      setPromptPersonality(draftPromptPersonality);
+      setPromptInstructions(draftPromptInstructions);
+      setPromptFallback(draftPromptFallback);
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/knowledge"] });
+      toast({ title: "Identity Core saved" });
+      setIdentityCoreOpen(false);
+    } catch {
+      toast({ title: "Error", description: "Failed to save identity settings.", variant: "destructive" });
+    } finally {
+      setSavingIdentity(false);
+    }
+  };
 
   const handleVisibilitySave = async () => {
     setSavingVisibility(true);
@@ -245,6 +311,10 @@ export default function AIKnowledge() {
             <h1 className="text-2xl font-bold" data-testid="text-knowledge-title">Knowledge Editor</h1>
             <p className="text-sm text-muted-foreground">Configure the AI chat agent's knowledge and behavior</p>
           </div>
+          <Button variant="outline" onClick={() => setIdentityCoreOpen(true)} data-testid="button-open-identity-core">
+            <IconBrain className="h-4 w-4 mr-2" />
+            Identity Core
+          </Button>
           <Button variant="outline" onClick={() => setVisibilityOpen(true)} data-testid="button-open-visibility">
             <IconEye className="h-4 w-4 mr-2" />
             Visibility
@@ -256,7 +326,7 @@ export default function AIKnowledge() {
         </div>
 
         {/* Icon picker dialog */}
-        <Dialog open={iconPickerOpen} onOpenChange={open => { setIconPickerOpen(open); if (!open) setIconSearch(""); }}>
+        <Dialog open={iconPickerOpen} onOpenChange={open => { setIconPickerOpen(open); if (!open) { setIconSearch(""); setIconPickerForDraft(false); } }}>
           <DialogContent className="max-w-2xl max-h-[80vh] flex flex-col" data-testid="dialog-icon-picker">
             <DialogHeader>
               <DialogTitle>Select Agent Icon</DialogTitle>
@@ -276,7 +346,7 @@ export default function AIKnowledge() {
               {filteredIcons.slice(0, 60).map(img => (
                 <button
                   key={img.handle}
-                  onClick={() => { setAgentIcon(img.src); setIconPickerOpen(false); setIconSearch(""); }}
+                  onClick={() => { if (iconPickerForDraft) { setDraftAgentIcon(img.src); } else { setAgentIcon(img.src); } setIconPickerOpen(false); setIconSearch(""); }}
                   className="aspect-square rounded-md overflow-hidden border hover-elevate focus:outline-none focus:ring-2 focus:ring-ring"
                   data-testid={`button-icon-${img.handle}`}
                 >
@@ -290,107 +360,182 @@ export default function AIKnowledge() {
           </DialogContent>
         </Dialog>
 
-        <Card className="p-4 space-y-5" data-testid="card-agent-config">
-          <div>
-            <h2 className="font-semibold text-lg" data-testid="text-system-prompt-heading">Agent Configuration</h2>
-            <p className="text-sm text-muted-foreground mt-0.5">Define who this agent is. Each section shapes a different aspect of its behavior — they're compiled into the AI system prompt automatically when you save.</p>
-          </div>
+        {/* Identity Core Dialog */}
+        <Dialog open={identityCoreOpen} onOpenChange={setIdentityCoreOpen}>
+          <DialogContent className="max-w-lg max-h-[85vh] flex flex-col overflow-hidden" data-testid="dialog-identity-core">
+            <DialogHeader>
+              <DialogTitle data-testid="text-identity-core-title">Identity Core</DialogTitle>
+            </DialogHeader>
+            <p className="text-sm text-muted-foreground -mt-1">Define who this agent is. Each section shapes a different aspect of its behavior.</p>
+            <div className="flex-1 overflow-y-auto space-y-3 pr-1">
 
-          {/* Identity */}
-          <div className="space-y-3 pt-1 border-t">
-            <div>
-              <h3 className="text-sm font-semibold" data-testid="text-identity-heading">Identity</h3>
-              <p className="text-xs text-muted-foreground">The agent's name and avatar shown in the chat bubble header.</p>
-            </div>
-            <div className="flex items-center gap-4">
-              <button
-                onClick={() => setIconPickerOpen(true)}
-                className="relative shrink-0 w-16 h-16 rounded-md border bg-muted flex items-center justify-center overflow-hidden focus:outline-none focus:ring-2 focus:ring-ring"
-                data-testid="button-change-icon"
-              >
-                {agentIcon ? (
-                  <img src={agentIcon} alt="Agent icon" className="w-full h-full object-cover" />
-                ) : (
-                  <IconUser className="h-7 w-7 text-muted-foreground" />
-                )}
-                <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <IconPhoto className="h-5 w-5 text-white" />
-                </div>
-              </button>
-              <div className="flex-1 space-y-1.5">
-                <label className="text-xs font-medium text-muted-foreground">Agent Name</label>
-                <input
-                  type="text"
-                  value={agentName}
-                  onChange={e => setAgentName(e.target.value)}
-                  placeholder="e.g. Alex, Aria, Support Bot"
-                  className="w-full px-3 py-2 text-sm border rounded-md bg-background"
-                  data-testid="input-agent-name"
-                />
-              </div>
-            </div>
-          </div>
+              {/* Identity section */}
+              <Card className="p-4">
+                <Collapsible open={identitySecOpen} onOpenChange={setIdentitySecOpen}>
+                  <CollapsibleTrigger asChild>
+                    <button className="flex items-center justify-between w-full text-left rounded-md hover-elevate px-1 py-0.5" data-testid="button-toggle-identity">
+                      <div className="flex-1 min-w-0 pr-2">
+                        <p className="text-sm font-semibold">Identity</p>
+                        {!identitySecOpen && (
+                          <p className="text-xs text-muted-foreground truncate">{draftAgentName || "No name set"}</p>
+                        )}
+                      </div>
+                      <IconPencil className="h-4 w-4 text-muted-foreground shrink-0" />
+                    </button>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="pt-3 space-y-3">
+                    <p className="text-xs text-muted-foreground">The agent's name and avatar shown in the chat bubble header.</p>
+                    <div className="flex items-center gap-4">
+                      <button
+                        onClick={() => { setIconPickerForDraft(true); setIconPickerOpen(true); }}
+                        className="relative shrink-0 w-16 h-16 rounded-md border bg-muted flex items-center justify-center overflow-hidden focus:outline-none focus:ring-2 focus:ring-ring"
+                        data-testid="button-change-icon-draft"
+                      >
+                        {draftAgentIcon ? (
+                          <img src={draftAgentIcon} alt="Agent icon" className="w-full h-full object-cover" />
+                        ) : (
+                          <IconUser className="h-7 w-7 text-muted-foreground" />
+                        )}
+                        <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                          <IconPhoto className="h-5 w-5 text-white" />
+                        </div>
+                      </button>
+                      <div className="flex-1 space-y-1.5">
+                        <label className="text-xs font-medium text-muted-foreground">Agent Name</label>
+                        <input
+                          type="text"
+                          value={draftAgentName}
+                          onChange={e => setDraftAgentName(e.target.value)}
+                          placeholder="e.g. Alex, Aria, Support Bot"
+                          className="w-full px-3 py-2 text-sm border rounded-md bg-background"
+                          data-testid="input-draft-agent-name"
+                        />
+                      </div>
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+              </Card>
 
-          {/* Role & Purpose */}
-          <div className="space-y-2 pt-1 border-t">
-            <div>
-              <h3 className="text-sm font-semibold" data-testid="text-role-heading">Role & Purpose</h3>
-              <p className="text-xs text-muted-foreground">What is this agent here to help with? Who does it serve and what topics does it cover?</p>
-            </div>
-            <Textarea
-              value={promptRole}
-              onChange={e => setPromptRole(e.target.value)}
-              className="text-sm min-h-[80px]"
-              placeholder="e.g. You help prospective students learn about 4Geeks Academy's programs, admissions process, and tuition options. You answer questions about our bootcamps, schedule, and career outcomes."
-              data-testid="textarea-prompt-role"
-            />
-          </div>
+              {/* Role & Purpose */}
+              <Card className="p-4">
+                <Collapsible open={roleSecOpen} onOpenChange={setRoleSecOpen}>
+                  <CollapsibleTrigger asChild>
+                    <button className="flex items-center justify-between w-full text-left rounded-md hover-elevate px-1 py-0.5" data-testid="button-toggle-role">
+                      <div className="flex-1 min-w-0 pr-2">
+                        <p className="text-sm font-semibold">Role & Purpose</p>
+                        {!roleSecOpen && (
+                          <p className="text-xs text-muted-foreground truncate">{draftPromptRole || "Not configured"}</p>
+                        )}
+                      </div>
+                      <IconPencil className="h-4 w-4 text-muted-foreground shrink-0" />
+                    </button>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="pt-3 space-y-2">
+                    <p className="text-xs text-muted-foreground">What is this agent here to help with? Who does it serve and what topics does it cover?</p>
+                    <Textarea
+                      value={draftPromptRole}
+                      onChange={e => setDraftPromptRole(e.target.value)}
+                      className="text-sm min-h-[80px]"
+                      placeholder="e.g. You help prospective students learn about 4Geeks Academy's programs, admissions process, and tuition options."
+                      data-testid="textarea-draft-prompt-role"
+                    />
+                  </CollapsibleContent>
+                </Collapsible>
+              </Card>
 
-          {/* Personality & Tone */}
-          <div className="space-y-2 pt-1 border-t">
-            <div>
-              <h3 className="text-sm font-semibold" data-testid="text-personality-heading">Personality & Tone</h3>
-              <p className="text-xs text-muted-foreground">How should the agent communicate? Describe the communication style, level of formality, and emotional character.</p>
-            </div>
-            <Textarea
-              value={promptPersonality}
-              onChange={e => setPromptPersonality(e.target.value)}
-              className="text-sm min-h-[80px]"
-              placeholder="e.g. Friendly and encouraging, but professional. Keep answers concise and clear. Use plain language — avoid jargon. Be empathetic when students are anxious about career changes."
-              data-testid="textarea-prompt-personality"
-            />
-          </div>
+              {/* Personality & Tone */}
+              <Card className="p-4">
+                <Collapsible open={personalitySecOpen} onOpenChange={setPersonalitySecOpen}>
+                  <CollapsibleTrigger asChild>
+                    <button className="flex items-center justify-between w-full text-left rounded-md hover-elevate px-1 py-0.5" data-testid="button-toggle-personality">
+                      <div className="flex-1 min-w-0 pr-2">
+                        <p className="text-sm font-semibold">Personality & Tone</p>
+                        {!personalitySecOpen && (
+                          <p className="text-xs text-muted-foreground truncate">{draftPromptPersonality || "Not configured"}</p>
+                        )}
+                      </div>
+                      <IconPencil className="h-4 w-4 text-muted-foreground shrink-0" />
+                    </button>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="pt-3 space-y-2">
+                    <p className="text-xs text-muted-foreground">How should the agent communicate? Describe the communication style, level of formality, and emotional character.</p>
+                    <Textarea
+                      value={draftPromptPersonality}
+                      onChange={e => setDraftPromptPersonality(e.target.value)}
+                      className="text-sm min-h-[80px]"
+                      placeholder="e.g. Friendly and encouraging, but professional. Keep answers concise and clear."
+                      data-testid="textarea-draft-prompt-personality"
+                    />
+                  </CollapsibleContent>
+                </Collapsible>
+              </Card>
 
-          {/* Key Instructions */}
-          <div className="space-y-2 pt-1 border-t">
-            <div>
-              <h3 className="text-sm font-semibold" data-testid="text-instructions-heading">Key Instructions</h3>
-              <p className="text-xs text-muted-foreground">Specific rules for the agent — what it should always do, recommend, or prioritize when answering.</p>
-            </div>
-            <Textarea
-              value={promptInstructions}
-              onChange={e => setPromptInstructions(e.target.value)}
-              className="text-sm min-h-[80px]"
-              placeholder="e.g. Always link to the relevant program page. When asked about pricing, mention financing options. Recommend booking a free consultation for detailed questions."
-              data-testid="textarea-prompt-instructions"
-            />
-          </div>
+              {/* Key Instructions */}
+              <Card className="p-4">
+                <Collapsible open={instructionsSecOpen} onOpenChange={setInstructionsSecOpen}>
+                  <CollapsibleTrigger asChild>
+                    <button className="flex items-center justify-between w-full text-left rounded-md hover-elevate px-1 py-0.5" data-testid="button-toggle-instructions">
+                      <div className="flex-1 min-w-0 pr-2">
+                        <p className="text-sm font-semibold">Key Instructions</p>
+                        {!instructionsSecOpen && (
+                          <p className="text-xs text-muted-foreground truncate">{draftPromptInstructions || "Not configured"}</p>
+                        )}
+                      </div>
+                      <IconPencil className="h-4 w-4 text-muted-foreground shrink-0" />
+                    </button>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="pt-3 space-y-2">
+                    <p className="text-xs text-muted-foreground">Specific rules for the agent — what it should always do, recommend, or prioritize when answering.</p>
+                    <Textarea
+                      value={draftPromptInstructions}
+                      onChange={e => setDraftPromptInstructions(e.target.value)}
+                      className="text-sm min-h-[80px]"
+                      placeholder="e.g. Always link to the relevant program page. Recommend booking a free consultation for detailed questions."
+                      data-testid="textarea-draft-prompt-instructions"
+                    />
+                  </CollapsibleContent>
+                </Collapsible>
+              </Card>
 
-          {/* Fallback & Boundaries */}
-          <div className="space-y-2 pt-1 border-t">
-            <div>
-              <h3 className="text-sm font-semibold" data-testid="text-fallback-heading">Fallback & Boundaries</h3>
-              <p className="text-xs text-muted-foreground">What should the agent do when it doesn't know the answer? What topics or promises should it avoid?</p>
+              {/* Fallback & Boundaries */}
+              <Card className="p-4">
+                <Collapsible open={fallbackSecOpen} onOpenChange={setFallbackSecOpen}>
+                  <CollapsibleTrigger asChild>
+                    <button className="flex items-center justify-between w-full text-left rounded-md hover-elevate px-1 py-0.5" data-testid="button-toggle-fallback">
+                      <div className="flex-1 min-w-0 pr-2">
+                        <p className="text-sm font-semibold">Fallback & Boundaries</p>
+                        {!fallbackSecOpen && (
+                          <p className="text-xs text-muted-foreground truncate">{draftPromptFallback || "Not configured"}</p>
+                        )}
+                      </div>
+                      <IconPencil className="h-4 w-4 text-muted-foreground shrink-0" />
+                    </button>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="pt-3 space-y-2">
+                    <p className="text-xs text-muted-foreground">What should the agent do when it doesn't know the answer? What topics or promises should it avoid?</p>
+                    <Textarea
+                      value={draftPromptFallback}
+                      onChange={e => setDraftPromptFallback(e.target.value)}
+                      className="text-sm min-h-[80px]"
+                      placeholder="e.g. If you're unsure, say so honestly and direct the student to our admissions team."
+                      data-testid="textarea-draft-prompt-fallback"
+                    />
+                  </CollapsibleContent>
+                </Collapsible>
+              </Card>
+
             </div>
-            <Textarea
-              value={promptFallback}
-              onChange={e => setPromptFallback(e.target.value)}
-              className="text-sm min-h-[80px]"
-              placeholder="e.g. If you're unsure, say so honestly and direct the student to our admissions team. Never guarantee job placement or specific salary outcomes. Don't discuss competitor schools."
-              data-testid="textarea-prompt-fallback"
-            />
-          </div>
-        </Card>
+            <DialogFooter className="gap-2 pt-2">
+              <Button variant="outline" onClick={() => setIdentityCoreOpen(false)} data-testid="button-identity-core-cancel">
+                Cancel
+              </Button>
+              <Button onClick={handleIdentityCoreSave} disabled={savingIdentity} data-testid="button-identity-core-save">
+                {savingIdentity ? <IconLoader2 className="h-4 w-4 animate-spin mr-1" /> : <IconCheck className="h-4 w-4 mr-1" />}
+                Save
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
         <Card className="p-4 space-y-3">
           <div className="flex items-center justify-between gap-2 flex-wrap">
