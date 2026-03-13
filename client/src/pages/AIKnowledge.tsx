@@ -561,91 +561,93 @@ export default function AIKnowledge() {
                   data-testid="switch-bubble-enabled"
                 />
               </div>
-              {/* Specific URLs — collapsible */}
-              <Collapsible open={urlPatternsOpen} onOpenChange={setUrlPatternsOpen}>
-                <CollapsibleTrigger asChild>
-                  <button
-                    className="flex items-center justify-between w-full text-left rounded-md hover-elevate px-1 py-0.5"
-                    data-testid="button-toggle-url-patterns"
-                  >
-                    <div>
-                      <p className="text-sm font-medium">Specific URLs</p>
-                      {!urlPatternsOpen && (
-                        <p className="text-xs text-muted-foreground">Show the chat agent only on specific groups of URLs</p>
-                      )}
-                    </div>
-                    <IconChevronDown className={`h-4 w-4 text-muted-foreground shrink-0 transition-transform duration-200 ${urlPatternsOpen ? "rotate-180" : ""}`} />
-                  </button>
-                </CollapsibleTrigger>
-                <CollapsibleContent className="pt-2 space-y-1">
-                  {draftPagePatterns.map((pattern, i) =>
-                    editingPatternIdx === i ? (
-                      <div key={i} className="flex items-center gap-1.5">
-                        <input
-                          autoFocus
-                          type="text"
-                          value={editingPatternVal}
-                          onChange={e => setEditingPatternVal(e.target.value)}
-                          onKeyDown={e => {
-                            if (e.key === "Enter") {
-                              const updated = [...draftPagePatterns];
-                              updated[i] = editingPatternVal;
-                              setDraftPagePatterns(updated);
-                              setEditingPatternIdx(null);
-                            } else if (e.key === "Escape") {
-                              if (!pattern) setDraftPagePatterns(prev => prev.filter((_, j) => j !== i));
-                              setEditingPatternIdx(null);
-                            }
-                          }}
-                          className="flex-1 px-2.5 py-1.5 text-sm border rounded-md bg-background font-mono"
-                          data-testid={`input-pattern-${i}`}
-                        />
-                        <Button size="icon" variant="ghost" onClick={() => {
-                          const updated = [...draftPagePatterns];
-                          updated[i] = editingPatternVal;
-                          setDraftPagePatterns(updated);
-                          setEditingPatternIdx(null);
-                        }} data-testid={`button-confirm-pattern-${i}`}>
-                          <IconCheck className="h-4 w-4" />
-                        </Button>
-                        <Button size="icon" variant="ghost" onClick={() => {
-                          if (!pattern) setDraftPagePatterns(prev => prev.filter((_, j) => j !== i));
-                          setEditingPatternIdx(null);
-                        }} data-testid={`button-cancel-pattern-${i}`}>
-                          <IconX className="h-4 w-4" />
-                        </Button>
+              {/* Specific URLs — collapsible card */}
+              <Card className="p-4">
+                <Collapsible open={urlPatternsOpen} onOpenChange={setUrlPatternsOpen}>
+                  <CollapsibleTrigger asChild>
+                    <button
+                      className="flex items-center justify-between w-full text-left rounded-md hover-elevate px-1 py-0.5"
+                      data-testid="button-toggle-url-patterns"
+                    >
+                      <div>
+                        <p className="text-sm font-medium">Specific URLs</p>
+                        {!urlPatternsOpen && (
+                          <p className="text-xs text-muted-foreground">Show the chat agent only on specific groups of URLs</p>
+                        )}
                       </div>
-                    ) : (
-                      <div key={i} className="flex items-center gap-1.5">
-                        <code className="flex-1 min-w-0 truncate text-xs bg-muted px-2.5 py-1.5 rounded-md font-mono" data-testid={`text-pattern-${i}`}>{pattern || <span className="text-muted-foreground italic">empty</span>}</code>
-                        <Button size="icon" variant="ghost" onClick={() => { setEditingPatternIdx(i); setEditingPatternVal(pattern); }} data-testid={`button-edit-pattern-${i}`}>
-                          <IconPencil className="h-4 w-4" />
-                        </Button>
-                        <Button size="icon" variant="ghost" onClick={() => setDraftPagePatterns(prev => prev.filter((_, j) => j !== i))} data-testid={`button-delete-pattern-${i}`}>
-                          <IconTrash className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    )
-                  )}
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => {
-                      const next = [...draftPagePatterns, ""];
-                      setDraftPagePatterns(next);
-                      setEditingPatternIdx(next.length - 1);
-                      setEditingPatternVal("");
-                    }}
-                    data-testid="button-add-pattern"
-                  >
-                    <IconPlus className="h-4 w-4 mr-1" />
-                    Add Pattern
-                  </Button>
-                </CollapsibleContent>
-              </Collapsible>
+                      <IconChevronDown className={`h-4 w-4 text-muted-foreground shrink-0 transition-transform duration-200 ${urlPatternsOpen ? "rotate-180" : ""}`} />
+                    </button>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="pt-3 space-y-1">
+                    {draftPagePatterns.map((pattern, i) =>
+                      editingPatternIdx === i ? (
+                        <div key={i} className="flex items-center gap-1.5">
+                          <input
+                            autoFocus
+                            type="text"
+                            value={editingPatternVal}
+                            onChange={e => setEditingPatternVal(e.target.value)}
+                            onKeyDown={e => {
+                              if (e.key === "Enter") {
+                                const updated = [...draftPagePatterns];
+                                updated[i] = editingPatternVal;
+                                setDraftPagePatterns(updated);
+                                setEditingPatternIdx(null);
+                              } else if (e.key === "Escape") {
+                                if (!pattern) setDraftPagePatterns(prev => prev.filter((_, j) => j !== i));
+                                setEditingPatternIdx(null);
+                              }
+                            }}
+                            className="flex-1 px-2.5 py-1.5 text-sm border rounded-md bg-background font-mono"
+                            data-testid={`input-pattern-${i}`}
+                          />
+                          <Button size="icon" variant="ghost" onClick={() => {
+                            const updated = [...draftPagePatterns];
+                            updated[i] = editingPatternVal;
+                            setDraftPagePatterns(updated);
+                            setEditingPatternIdx(null);
+                          }} data-testid={`button-confirm-pattern-${i}`}>
+                            <IconCheck className="h-4 w-4" />
+                          </Button>
+                          <Button size="icon" variant="ghost" onClick={() => {
+                            if (!pattern) setDraftPagePatterns(prev => prev.filter((_, j) => j !== i));
+                            setEditingPatternIdx(null);
+                          }} data-testid={`button-cancel-pattern-${i}`}>
+                            <IconX className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <div key={i} className="flex items-center gap-1.5">
+                          <code className="flex-1 min-w-0 truncate text-xs bg-muted px-2.5 py-1.5 rounded-md font-mono" data-testid={`text-pattern-${i}`}>{pattern || <span className="text-muted-foreground italic">empty</span>}</code>
+                          <Button size="icon" variant="ghost" onClick={() => { setEditingPatternIdx(i); setEditingPatternVal(pattern); }} data-testid={`button-edit-pattern-${i}`}>
+                            <IconPencil className="h-4 w-4" />
+                          </Button>
+                          <Button size="icon" variant="ghost" onClick={() => setDraftPagePatterns(prev => prev.filter((_, j) => j !== i))} data-testid={`button-delete-pattern-${i}`}>
+                            <IconTrash className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      )
+                    )}
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        const next = [...draftPagePatterns, ""];
+                        setDraftPagePatterns(next);
+                        setEditingPatternIdx(next.length - 1);
+                        setEditingPatternVal("");
+                      }}
+                      data-testid="button-add-pattern"
+                    >
+                      <IconPlus className="h-4 w-4 mr-1" />
+                      Add Pattern
+                    </Button>
+                  </CollapsibleContent>
+                </Collapsible>
+              </Card>
 
-              {/* Content Type Targeting — tag cloud */}
-              <div className="pt-3 border-t space-y-2">
+              {/* Content Type Targeting — tag cloud card */}
+              <Card className="p-4 space-y-3">
                 <div>
                   <h3 className="text-sm font-medium" data-testid="text-content-types-heading">Content Type Targeting</h3>
                   <p className="text-xs text-muted-foreground">Show the chat bubble on pages matching these content types</p>
@@ -692,7 +694,7 @@ export default function AIKnowledge() {
                     </Select>
                   )}
                 </div>
-              </div>
+              </Card>
             </div>
             <DialogFooter className="gap-2">
               <Button variant="outline" onClick={() => setVisibilityOpen(false)} data-testid="button-visibility-cancel">
