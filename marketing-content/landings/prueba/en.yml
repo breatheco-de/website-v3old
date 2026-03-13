@@ -637,10 +637,9 @@ sections:
       mobile: lg none
       desktop: lg none
   - type: whos_hiring
-    section_id: whos_hiring-dvkv7b
     variant: carousel
-    title: Trusted by Leading Innovators
-    subtitle: Our graduates are hired by top employers.
+    title: Where Our Graduates Work
+    subtitle: 5,000+ alumni placed at companies actively hiring AI and software engineering talent worldwide.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
@@ -666,6 +665,7 @@ sections:
         alt: Neo9
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
+    section_id: whos_hiring-dvkv7b
     marginY:
       mobile: none xl
       desktop: none xl
