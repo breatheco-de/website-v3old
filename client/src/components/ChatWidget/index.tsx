@@ -6,6 +6,8 @@ interface ChatConfig {
   enabled: boolean;
   page_patterns: string[];
   content_types: string[];
+  agent_name: string | null;
+  agent_icon: string | null;
 }
 
 interface Message {
@@ -178,8 +180,12 @@ export function ChatWidget() {
         >
           <div className="flex items-center justify-between gap-2 px-4 py-3 border-b bg-primary text-primary-foreground">
             <div className="flex items-center gap-2">
-              <IconMessageCircle className="h-5 w-5" />
-              <span className="font-semibold text-sm">Chat with us</span>
+              {config?.agent_icon ? (
+                <img src={config.agent_icon} alt={config.agent_name || "Agent"} className="h-6 w-6 rounded-full object-cover" />
+              ) : (
+                <IconMessageCircle className="h-5 w-5" />
+              )}
+              <span className="font-semibold text-sm">{config?.agent_name || "Chat with us"}</span>
             </div>
             <button
               onClick={() => setIsOpen(false)}

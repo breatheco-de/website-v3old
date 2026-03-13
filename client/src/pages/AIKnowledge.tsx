@@ -1,27 +1,52 @@
 import { useState, useEffect } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { IconArrowLeft, IconPlus, IconTrash, IconPlayerPlay, IconLoader2, IconCheck, IconEye } from "@tabler/icons-react";
+import { IconArrowLeft, IconPlus, IconTrash, IconPlayerPlay, IconLoader2, IconCheck, IconEye, IconPhoto, IconSearch, IconUser } from "@tabler/icons-react";
 import { Link } from "wouter";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 
 interface KnowledgeData {
   system_prompt: string | null;
+  prompt_role: string;
+  prompt_personality: string;
+  prompt_instructions: string;
+  prompt_fallback: string;
   custom_knowledge: Array<{ content: string; tag?: string }>;
   pinned_qa: Array<{ question: string; answer: string; tag?: string }>;
   agent_tools: Array<{ name: string; description: string; enabled: boolean }>;
-  chat_bubble: { enabled?: boolean; page_patterns?: string[]; content_types?: string[] };
+  chat_bubble: { enabled?: boolean; page_patterns?: string[]; content_types?: string[]; agent_name?: string; agent_icon?: string };
   question_tags: string[];
+}
+
+interface ImageRegistryData {
+  images: Array<{ handle: string; url: string; alt?: string; tags?: string[] }>;
+}
+
+function compileSystemPrompt(name: string, role: string, personality: string, instructions: string, fallback: string): string {
+  const parts: string[] = [];
+  if (name) parts.push(`You are ${name}, a helpful AI assistant.`);
+  if (role) parts.push(`\n## Role & Purpose\n${role}`);
+  if (personality) parts.push(`\n## Personality & Tone\n${personality}`);
+  if (instructions) parts.push(`\n## Key Instructions\n${instructions}`);
+  if (fallback) parts.push(`\n## Fallback & Boundaries\n${fallback}`);
+  return parts.join("\n").trim();
 }
 
 export default function AIKnowledge() {
   const { toast } = useToast();
-  const [systemPrompt, setSystemPrompt] = useState("");
+  const [agentName, setAgentName] = useState("");
+  const [agentIcon, setAgentIcon] = useState("");
+  const [promptRole, setPromptRole] = useState("");
+  const [promptPersonality, setPromptPersonality] = useState("");
+  const [promptInstructions, setPromptInstructions] = useState("");
+  const [promptFallback, setPromptFallback] = useState("");
+  const [iconPickerOpen, setIconPickerOpen] = useState(false);
+  const [iconSearch, setIconSearch] = useState("");
   const [customKnowledge, setCustomKnowledge] = useState<Array<{ content: string; tag: string }>>([]);
   const [pinnedQA, setPinnedQA] = useState<Array<{ question: string; answer: string; tag: string }>>([]);
   const [agentTools, setAgentTools] = useState<Array<{ name: string; description: string; enabled: boolean }>>([]);
@@ -47,9 +72,29 @@ export default function AIKnowledge() {
     },
   });
 
+  const { data: imageRegistry } = useQuery<ImageRegistryData>({
+    queryKey: ["/api/image-registry"],
+    queryFn: async () => {
+      const res = await fetch("/api/image-registry");
+      if (!res.ok) return { images: [] };
+      return res.json();
+    },
+  });
+
+  const filteredIcons = (imageRegistry?.images || []).filter(img => {
+    if (!iconSearch) return true;
+    const q = iconSearch.toLowerCase();
+    return (img.handle || "").toLowerCase().includes(q) || (img.alt || "").toLowerCase().includes(q);
+  });
+
   useEffect(() => {
     if (data) {
-      setSystemPrompt(data.system_prompt || "");
+      setAgentName(data.chat_bubble?.agent_name || "");
+      setAgentIcon(data.chat_bubble?.agent_icon || "");
+      setPromptRole(data.prompt_role || "");
+      setPromptPersonality(data.prompt_personality || "");
+      setPromptInstructions(data.prompt_instructions || "");
+      setPromptFallback(data.prompt_fallback || "");
       setCustomKnowledge((data.custom_knowledge || []).map(k => ({ content: k.content, tag: k.tag || "" })));
       setPinnedQA((data.pinned_qa || []).map(q => ({ question: q.question, answer: q.answer, tag: q.tag || "" })));
       setAgentTools(data.agent_tools || []);
@@ -66,15 +111,20 @@ export default function AIKnowledge() {
       const headers: Record<string, string> = { "Content-Type": "application/json" };
       if (token) headers["Authorization"] = `Token ${token}`;
 
+      const compiled = compileSystemPrompt(agentName, promptRole, promptPersonality, promptInstructions, promptFallback);
       const res = await fetch("/api/admin/ai/knowledge", {
         method: "PATCH",
         headers,
         body: JSON.stringify({
-          system_prompt: systemPrompt,
+          system_prompt: compiled,
+          prompt_role: promptRole,
+          prompt_personality: promptPersonality,
+          prompt_instructions: promptInstructions,
+          prompt_fallback: promptFallback,
           custom_knowledge: customKnowledge,
           pinned_qa: pinnedQA,
           agent_tools: agentTools,
-          chat_bubble: { enabled: bubbleEnabled, page_patterns: pagePatterns, content_types: contentTypes },
+          chat_bubble: { enabled: bubbleEnabled, page_patterns: pagePatterns, content_types: contentTypes, agent_name: agentName, agent_icon: agentIcon },
         }),
       });
       if (!res.ok) throw new Error(`Save failed: ${res.status}`);
@@ -141,16 +191,141 @@ export default function AIKnowledge() {
           </Button>
         </div>
 
-        <Card className="p-4 space-y-3">
-          <h2 className="font-semibold text-lg" data-testid="text-system-prompt-heading">System Prompt</h2>
-          <p className="text-sm text-muted-foreground">The foundational instructions that shape the agent's personality, tone, and behavior. This text is injected at the start of every conversation before any user message.</p>
-          <Textarea
-            value={systemPrompt}
-            onChange={e => setSystemPrompt(e.target.value)}
-            className="min-h-[150px] text-sm"
-            placeholder="Enter the system prompt for the chat agent..."
-            data-testid="textarea-system-prompt"
-          />
+        {/* Icon picker dialog */}
+        <Dialog open={iconPickerOpen} onOpenChange={open => { setIconPickerOpen(open); if (!open) setIconSearch(""); }}>
+          <DialogContent className="max-w-2xl max-h-[80vh] flex flex-col" data-testid="dialog-icon-picker">
+            <DialogHeader>
+              <DialogTitle>Select Agent Icon</DialogTitle>
+            </DialogHeader>
+            <div className="flex items-center gap-2 border rounded-md px-3 py-2">
+              <IconSearch className="h-4 w-4 text-muted-foreground shrink-0" />
+              <input
+                type="text"
+                value={iconSearch}
+                onChange={e => setIconSearch(e.target.value)}
+                placeholder="Search images..."
+                className="flex-1 bg-transparent text-sm outline-none"
+                data-testid="input-icon-search"
+              />
+            </div>
+            <div className="overflow-y-auto grid grid-cols-4 gap-2 mt-1">
+              {filteredIcons.slice(0, 60).map(img => (
+                <button
+                  key={img.handle}
+                  onClick={() => { setAgentIcon(img.url); setIconPickerOpen(false); setIconSearch(""); }}
+                  className="aspect-square rounded-md overflow-hidden border hover-elevate focus:outline-none focus:ring-2 focus:ring-ring"
+                  data-testid={`button-icon-${img.handle}`}
+                >
+                  <img src={img.url} alt={img.alt || img.handle} className="w-full h-full object-cover" />
+                </button>
+              ))}
+              {filteredIcons.length === 0 && (
+                <div className="col-span-4 py-12 text-center text-sm text-muted-foreground">No images found</div>
+              )}
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        <Card className="p-4 space-y-5" data-testid="card-agent-config">
+          <div>
+            <h2 className="font-semibold text-lg" data-testid="text-system-prompt-heading">Agent Configuration</h2>
+            <p className="text-sm text-muted-foreground mt-0.5">Define who this agent is. Each section shapes a different aspect of its behavior — they're compiled into the AI system prompt automatically when you save.</p>
+          </div>
+
+          {/* Identity */}
+          <div className="space-y-3 pt-1 border-t">
+            <div>
+              <h3 className="text-sm font-semibold" data-testid="text-identity-heading">Identity</h3>
+              <p className="text-xs text-muted-foreground">The agent's name and avatar shown in the chat bubble header.</p>
+            </div>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => setIconPickerOpen(true)}
+                className="relative shrink-0 w-16 h-16 rounded-md border bg-muted flex items-center justify-center overflow-hidden focus:outline-none focus:ring-2 focus:ring-ring"
+                data-testid="button-change-icon"
+              >
+                {agentIcon ? (
+                  <img src={agentIcon} alt="Agent icon" className="w-full h-full object-cover" />
+                ) : (
+                  <IconUser className="h-7 w-7 text-muted-foreground" />
+                )}
+                <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <IconPhoto className="h-5 w-5 text-white" />
+                </div>
+              </button>
+              <div className="flex-1 space-y-1.5">
+                <label className="text-xs font-medium text-muted-foreground">Agent Name</label>
+                <input
+                  type="text"
+                  value={agentName}
+                  onChange={e => setAgentName(e.target.value)}
+                  placeholder="e.g. Alex, Aria, Support Bot"
+                  className="w-full px-3 py-2 text-sm border rounded-md bg-background"
+                  data-testid="input-agent-name"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Role & Purpose */}
+          <div className="space-y-2 pt-1 border-t">
+            <div>
+              <h3 className="text-sm font-semibold" data-testid="text-role-heading">Role & Purpose</h3>
+              <p className="text-xs text-muted-foreground">What is this agent here to help with? Who does it serve and what topics does it cover?</p>
+            </div>
+            <Textarea
+              value={promptRole}
+              onChange={e => setPromptRole(e.target.value)}
+              className="text-sm min-h-[80px]"
+              placeholder="e.g. You help prospective students learn about 4Geeks Academy's programs, admissions process, and tuition options. You answer questions about our bootcamps, schedule, and career outcomes."
+              data-testid="textarea-prompt-role"
+            />
+          </div>
+
+          {/* Personality & Tone */}
+          <div className="space-y-2 pt-1 border-t">
+            <div>
+              <h3 className="text-sm font-semibold" data-testid="text-personality-heading">Personality & Tone</h3>
+              <p className="text-xs text-muted-foreground">How should the agent communicate? Describe the communication style, level of formality, and emotional character.</p>
+            </div>
+            <Textarea
+              value={promptPersonality}
+              onChange={e => setPromptPersonality(e.target.value)}
+              className="text-sm min-h-[80px]"
+              placeholder="e.g. Friendly and encouraging, but professional. Keep answers concise and clear. Use plain language — avoid jargon. Be empathetic when students are anxious about career changes."
+              data-testid="textarea-prompt-personality"
+            />
+          </div>
+
+          {/* Key Instructions */}
+          <div className="space-y-2 pt-1 border-t">
+            <div>
+              <h3 className="text-sm font-semibold" data-testid="text-instructions-heading">Key Instructions</h3>
+              <p className="text-xs text-muted-foreground">Specific rules for the agent — what it should always do, recommend, or prioritize when answering.</p>
+            </div>
+            <Textarea
+              value={promptInstructions}
+              onChange={e => setPromptInstructions(e.target.value)}
+              className="text-sm min-h-[80px]"
+              placeholder="e.g. Always link to the relevant program page. When asked about pricing, mention financing options. Recommend booking a free consultation for detailed questions."
+              data-testid="textarea-prompt-instructions"
+            />
+          </div>
+
+          {/* Fallback & Boundaries */}
+          <div className="space-y-2 pt-1 border-t">
+            <div>
+              <h3 className="text-sm font-semibold" data-testid="text-fallback-heading">Fallback & Boundaries</h3>
+              <p className="text-xs text-muted-foreground">What should the agent do when it doesn't know the answer? What topics or promises should it avoid?</p>
+            </div>
+            <Textarea
+              value={promptFallback}
+              onChange={e => setPromptFallback(e.target.value)}
+              className="text-sm min-h-[80px]"
+              placeholder="e.g. If you're unsure, say so honestly and direct the student to our admissions team. Never guarantee job placement or specific salary outcomes. Don't discuss competitor schools."
+              data-testid="textarea-prompt-fallback"
+            />
+          </div>
         </Card>
 
         <Card className="p-4 space-y-3">

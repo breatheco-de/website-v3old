@@ -9955,7 +9955,7 @@ sections: []
     max_tokens?: number;
     question_tags?: string[];
     agent_tools?: Array<{ name: string; description: string; enabled: boolean }>;
-    chat_bubble?: { enabled?: boolean; page_patterns?: string[]; content_types?: string[] };
+    chat_bubble?: { enabled?: boolean; page_patterns?: string[]; content_types?: string[]; agent_name?: string; agent_icon?: string };
   }
 
   function loadLLMConfig(): ParsedLLMConfig {
@@ -10046,6 +10046,8 @@ sections: []
         enabled: bubble.enabled !== false,
         page_patterns: bubble.page_patterns || [],
         content_types: bubble.content_types || [],
+        agent_name: bubble.agent_name || null,
+        agent_icon: bubble.agent_icon || null,
       });
     } catch (err) {
       console.error("[Chat Config] Error:", err);
@@ -10146,6 +10148,10 @@ sections: []
 
       res.json({
         system_prompt: knowledge.system_prompt || null,
+        prompt_role: knowledge.prompt_role || "",
+        prompt_personality: knowledge.prompt_personality || "",
+        prompt_instructions: knowledge.prompt_instructions || "",
+        prompt_fallback: knowledge.prompt_fallback || "",
         custom_knowledge: knowledge.custom_knowledge || [],
         pinned_qa: knowledge.pinned_qa || [],
         agent_tools: llmConfig.agent_tools || [],
