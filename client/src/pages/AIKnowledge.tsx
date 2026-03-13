@@ -10,7 +10,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { IconArrowLeft, IconPlus, IconTrash, IconPlayerPlay, IconLoader2, IconCheck, IconEye, IconEyeOff, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown, IconBrain, IconUpload } from "@tabler/icons-react";
+import { IconArrowLeft, IconPlus, IconTrash, IconPlayerPlay, IconLoader2, IconCheck, IconEye, IconEyeOff, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown, IconBrain, IconUpload, IconTool } from "@tabler/icons-react";
 import { Link } from "wouter";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 
@@ -65,7 +65,7 @@ export default function AIKnowledge() {
   const [previewUrl, setPreviewUrl] = useState("");
   const [previewResult, setPreviewResult] = useState<{ context: Record<string, unknown>; response: string; question_tag: string } | null>(null);
   const [previewLoading, setPreviewLoading] = useState(false);
-  const [saving, setSaving] = useState(false);
+  const [savingKnowledge, setSavingKnowledge] = useState(false);
   const [visibilityOpen, setVisibilityOpen] = useState(false);
   const [draftBubbleEnabled, setDraftBubbleEnabled] = useState(true);
   const [draftPagePatterns, setDraftPagePatterns] = useState<string[]>([]);
@@ -90,6 +90,9 @@ export default function AIKnowledge() {
   const [fallbackSecOpen, setFallbackSecOpen] = useState(false);
   const [iconPickerForDraft, setIconPickerForDraft] = useState(false);
   const [uploadingIcon, setUploadingIcon] = useState(false);
+  const [toolsOpen, setToolsOpen] = useState(false);
+  const [draftAgentTools, setDraftAgentTools] = useState<Array<{ name: string; description: string; enabled: boolean }>>([]);
+  const [savingTools, setSavingTools] = useState(false);
 
   const { data, isLoading } = useQuery<KnowledgeData>({
     queryKey: ["/api/admin/ai/knowledge"],
@@ -169,6 +172,60 @@ export default function AIKnowledge() {
     }
   }, [identityCoreOpen]);
 
+  useEffect(() => {
+    if (toolsOpen) {
+      setDraftAgentTools(agentTools.map(t => ({ ...t })));
+    }
+  }, [toolsOpen]);
+
+  const handleToolsSave = async () => {
+    setSavingTools(true);
+    try {
+      const token = getDebugToken();
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Token ${token}`;
+      const res = await fetch("/api/admin/ai/knowledge", {
+        method: "PATCH",
+        headers,
+        body: JSON.stringify({
+          agent_tools: draftAgentTools,
+        }),
+      });
+      if (!res.ok) throw new Error(`Save failed: ${res.status}`);
+      setAgentTools(draftAgentTools.map(t => ({ ...t })));
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/knowledge"] });
+      toast({ title: "Agent Tools saved" });
+      setToolsOpen(false);
+    } catch {
+      toast({ title: "Error", description: "Failed to save agent tools.", variant: "destructive" });
+    } finally {
+      setSavingTools(false);
+    }
+  };
+
+  const handleKnowledgeSave = async () => {
+    setSavingKnowledge(true);
+    try {
+      const token = getDebugToken();
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Token ${token}`;
+      const res = await fetch("/api/admin/ai/knowledge", {
+        method: "PATCH",
+        headers,
+        body: JSON.stringify({
+          custom_knowledge: customKnowledge,
+        }),
+      });
+      if (!res.ok) throw new Error(`Save failed: ${res.status}`);
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/knowledge"] });
+      toast({ title: "Knowledge saved", description: "Custom knowledge blocks saved successfully." });
+    } catch {
+      toast({ title: "Error", description: "Failed to save knowledge.", variant: "destructive" });
+    } finally {
+      setSavingKnowledge(false);
+    }
+  };
+
   const handleIdentityCoreSave = async () => {
     setSavingIdentity(true);
     try {
@@ -232,38 +289,6 @@ export default function AIKnowledge() {
     }
   };
 
-  const handleSave = async () => {
-    setSaving(true);
-    try {
-      const token = getDebugToken();
-      const headers: Record<string, string> = { "Content-Type": "application/json" };
-      if (token) headers["Authorization"] = `Token ${token}`;
-
-      const compiled = compileSystemPrompt(agentName, promptRole, promptPersonality, promptInstructions, promptFallback);
-      const res = await fetch("/api/admin/ai/knowledge", {
-        method: "PATCH",
-        headers,
-        body: JSON.stringify({
-          system_prompt: compiled,
-          prompt_role: promptRole,
-          prompt_personality: promptPersonality,
-          prompt_instructions: promptInstructions,
-          prompt_fallback: promptFallback,
-          custom_knowledge: customKnowledge,
-          agent_tools: agentTools,
-          chat_bubble: { enabled: bubbleEnabled, page_patterns: pagePatterns, content_types: contentTypes, agent_name: agentName, agent_icon: agentIcon },
-        }),
-      });
-      if (!res.ok) throw new Error(`Save failed: ${res.status}`);
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/knowledge"] });
-      toast({ title: "Knowledge saved", description: "Your changes have been saved successfully." });
-    } catch (err) {
-      toast({ title: "Error", description: "Failed to save knowledge.", variant: "destructive" });
-    } finally {
-      setSaving(false);
-    }
-  };
-
   const handlePreview = async () => {
     if (!previewQuestion.trim()) return;
     setPreviewLoading(true);
@@ -316,9 +341,9 @@ export default function AIKnowledge() {
             <IconEye className="h-4 w-4 mr-2" />
             Visibility
           </Button>
-          <Button onClick={handleSave} disabled={saving} data-testid="button-save-knowledge">
-            {saving ? <IconLoader2 className="h-4 w-4 animate-spin mr-2" /> : <IconCheck className="h-4 w-4 mr-2" />}
-            Save All
+          <Button variant="outline" onClick={() => setToolsOpen(true)} data-testid="button-open-tools">
+            <IconTool className="h-4 w-4 mr-2" />
+            Tools
           </Button>
         </div>
 
@@ -584,15 +609,26 @@ export default function AIKnowledge() {
         <Card className="p-4 space-y-3">
           <div className="flex items-center justify-between gap-2 flex-wrap">
             <h2 className="font-semibold text-lg" data-testid="text-knowledge-blocks-heading">Custom Knowledge Blocks</h2>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setCustomKnowledge(prev => [...prev, { content: "", tag: "" }])}
-              data-testid="button-add-knowledge-block"
-            >
-              <IconPlus className="h-4 w-4 mr-1" />
-              Add Block
-            </Button>
+            <div className="flex items-center gap-2 flex-wrap">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setCustomKnowledge(prev => [...prev, { content: "", tag: "" }])}
+                data-testid="button-add-knowledge-block"
+              >
+                <IconPlus className="h-4 w-4 mr-1" />
+                Add Block
+              </Button>
+              <Button
+                size="sm"
+                onClick={handleKnowledgeSave}
+                disabled={savingKnowledge}
+                data-testid="button-save-knowledge"
+              >
+                {savingKnowledge ? <IconLoader2 className="h-4 w-4 animate-spin mr-1" /> : <IconCheck className="h-4 w-4 mr-1" />}
+                Save
+              </Button>
+            </div>
           </div>
           <p className="text-sm text-muted-foreground">Freeform text the agent can reference when answering questions. Add an optional tag to each block so the AI can apply it selectively based on the topic or page context.</p>
           {customKnowledge.map((block, i) => (
@@ -634,31 +670,46 @@ export default function AIKnowledge() {
           ))}
         </Card>
 
-        <Card className="p-4 space-y-3">
-          <h2 className="font-semibold text-lg" data-testid="text-tools-heading">Agent Tools</h2>
-          <p className="text-sm text-muted-foreground">External capabilities the agent can invoke while responding, such as live program lookups or location queries. Enable only the tools relevant to the conversations you want to support.</p>
-          {agentTools.map((tool, i) => (
-            <div key={i} className="flex items-center gap-3 py-2 border-b last:border-b-0">
-              <label className="flex items-center gap-2 cursor-pointer flex-1">
-                <input
-                  type="checkbox"
-                  checked={tool.enabled}
-                  onChange={e => {
-                    const updated = [...agentTools];
-                    updated[i] = { ...updated[i], enabled: e.target.checked };
-                    setAgentTools(updated);
-                  }}
-                  className="rounded"
-                  data-testid={`checkbox-tool-${tool.name}`}
-                />
-                <div>
-                  <span className="text-sm font-medium">{tool.name}</span>
-                  <p className="text-xs text-muted-foreground">{tool.description}</p>
+        <Dialog open={toolsOpen} onOpenChange={setToolsOpen}>
+          <DialogContent className="max-w-lg" data-testid="dialog-agent-tools">
+            <DialogHeader>
+              <DialogTitle data-testid="text-tools-dialog-title">Agent Tools</DialogTitle>
+            </DialogHeader>
+            <p className="text-sm text-muted-foreground -mt-1">External capabilities the agent can invoke while responding, such as live program lookups or location queries. Enable only the tools relevant to the conversations you want to support.</p>
+            <div className="space-y-1">
+              {draftAgentTools.map((tool, i) => (
+                <div key={i} className="flex items-center gap-3 py-2 border-b last:border-b-0">
+                  <label className="flex items-center gap-2 cursor-pointer flex-1">
+                    <input
+                      type="checkbox"
+                      checked={tool.enabled}
+                      onChange={e => {
+                        const updated = [...draftAgentTools];
+                        updated[i] = { ...updated[i], enabled: e.target.checked };
+                        setDraftAgentTools(updated);
+                      }}
+                      className="rounded"
+                      data-testid={`checkbox-tool-${tool.name}`}
+                    />
+                    <div>
+                      <span className="text-sm font-medium">{tool.name}</span>
+                      <p className="text-xs text-muted-foreground">{tool.description}</p>
+                    </div>
+                  </label>
                 </div>
-              </label>
+              ))}
             </div>
-          ))}
-        </Card>
+            <DialogFooter className="gap-2">
+              <Button variant="outline" onClick={() => setToolsOpen(false)} data-testid="button-tools-cancel">
+                Cancel
+              </Button>
+              <Button onClick={handleToolsSave} disabled={savingTools} data-testid="button-tools-save">
+                {savingTools ? <IconLoader2 className="h-4 w-4 animate-spin mr-1" /> : <IconCheck className="h-4 w-4 mr-1" />}
+                Save
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
         <Dialog open={visibilityOpen} onOpenChange={setVisibilityOpen}>
           <DialogContent className="max-w-lg" data-testid="dialog-visibility">
