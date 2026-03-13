@@ -10,7 +10,7 @@ import {
   IconChevronRight,
   IconCloudDownload,
   IconComponents,
-  IconDatabase,
+  IconCookie,
   IconDeviceDesktop,
   IconDeviceMobile,
   IconFlask,
@@ -720,7 +720,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
           <div className="border-t p-2 space-y-1">
               <div className="flex items-center justify-between px-3 py-1.5">
                 <div className="flex items-center gap-2">
-                  <IconDatabase className="h-3.5 w-3.5 text-muted-foreground" />
+                  <IconCookie className="h-3.5 w-3.5 text-muted-foreground" />
                   <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Session</span>
                   {!props.hasToken && (
                     <span className="text-xs text-amber-600 dark:text-amber-400">(no auth)</span>
@@ -749,6 +749,17 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                     <span>{props.currentLang.toUpperCase()}</span>
                   </button>
                   <button
+                    className={cn(badgeVariants({ variant: "outline" }), "cursor-pointer text-xs gap-1 no-default-active-elevate")}
+                    onClick={props.toggleTheme}
+                    data-testid="button-toggle-theme"
+                    title="Click to toggle theme"
+                  >
+                    {props.theme === "light"
+                      ? <IconSun className="h-3 w-3" />
+                      : <IconMoon className="h-3 w-3" />}
+                    <span className="capitalize">{props.theme}</span>
+                  </button>
+                  <button
                     onClick={props.handleCheckSession}
                     disabled={props.isCheckingSession}
                     className="p-1 rounded hover-elevate"
@@ -767,22 +778,6 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   </button>
                 </div>
               </div>
-
-            <button
-              onClick={props.toggleTheme}
-              className="flex items-center justify-between w-full px-3 py-2 rounded-md text-sm hover-elevate"
-              data-testid="button-toggle-theme"
-            >
-              <div className="flex items-center gap-3">
-                {props.theme === "light" ? (
-                  <IconSun className="h-4 w-4 text-muted-foreground" />
-                ) : (
-                  <IconMoon className="h-4 w-4 text-muted-foreground" />
-                )}
-                <span>Theme</span>
-              </div>
-              <span className="text-xs font-medium bg-muted px-2 py-1 rounded capitalize">{props.theme}</span>
-            </button>
           </div>
         </>
       ) : props.menuView === "components" ? (
