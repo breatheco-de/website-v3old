@@ -3,12 +3,11 @@ sections:
     version: "1.0"
     variant: productShowcase
     title: en 4Geeks Academy
-    welcome_text: null
     brand_mark:
       prefix: Saca el máximo de tu
       highlight: potencial
       color: primary
-    description: Get unlimited 1:1 coding mentorship and AI-powered guidance from Rigobot 24/7. Never code alone, get instant feedback, and join a global developer community — all designed to help you learn faster, stay motivated, and thrive in tech for life.
+    description: Programas para convertirte en un experto en programación y complementar tu perfil profesional.
     bullets:
       - text: Aprende a resolver problemas de manera efectiva
       - text: Desarrolla habilidades de aprendizaje autodidacta
