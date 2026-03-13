@@ -72,7 +72,8 @@ export class AgentService {
 
   private async buildSystemPrompt(
     pageContext: string,
-    globalSummary: string
+    globalSummary: string,
+    questionTag: string | null = null
   ): Promise<string> {
     let systemPrompt = await conversationStore.getKnowledge("system_prompt") as string | null;
 
@@ -110,9 +111,14 @@ Always respond in the same language as the user's message.`;
 
     const knowledgeBlocks = await conversationStore.getKnowledge("custom_knowledge") as Array<{ content: string; tag?: string }> | null;
     if (knowledgeBlocks && knowledgeBlocks.length > 0) {
-      parts.push("\n--- Additional Knowledge ---");
-      for (const block of knowledgeBlocks) {
-        parts.push(block.content);
+      const filtered = questionTag
+        ? knowledgeBlocks.filter(block => !block.tag || block.tag === questionTag)
+        : knowledgeBlocks;
+      if (filtered.length > 0) {
+        parts.push("\n--- Additional Knowledge ---");
+        for (const block of filtered) {
+          parts.push(block.content);
+        }
       }
     }
 
@@ -167,7 +173,9 @@ Respond with ONLY the category name, nothing else.`;
   ): Promise<AgentResponse> {
     const { pageContext, globalSummary } = contentCompiler.compile(contentType, contentSlug, locale);
 
-    const systemPrompt = await this.buildSystemPrompt(pageContext, globalSummary);
+    const questionTag = await this.autoTagMessage(userMessage);
+
+    const systemPrompt = await this.buildSystemPrompt(pageContext, globalSummary, questionTag);
 
     const previousMessages = await conversationStore.getMessages(conversationId);
     const chatHistory: OpenAI.Chat.ChatCompletionMessageParam[] = previousMessages.map(m => ({
@@ -236,8 +244,6 @@ Respond with ONLY the category name, nothing else.`;
     }
 
     const responseContent = assistantMessage?.content || "I'm sorry, I couldn't generate a response. Please try again.";
-
-    const questionTag = await this.autoTagMessage(userMessage);
 
     return {
       content: responseContent,

@@ -10137,6 +10137,19 @@ sections: []
     }
   });
 
+  app.get("/api/admin/ai/question-tags", async (req, res) => {
+    try {
+      const auth = await requireAdminAuth(req, res);
+      if (!auth.authorized) return;
+
+      const llmConfig = loadLLMConfig();
+      res.json({ question_tags: llmConfig.question_tags || [] });
+    } catch (err) {
+      console.error("[AI Question Tags] Error:", err);
+      res.status(500).json({ error: "Failed to load question tags" });
+    }
+  });
+
   // ============================================
   // AI Admin Routes (webmaster capability required)
   // ============================================

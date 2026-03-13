@@ -630,22 +630,30 @@ export default function AIKnowledge() {
               </Button>
             </div>
           </div>
-          <p className="text-sm text-muted-foreground">Freeform text the agent can reference when answering questions. Add an optional tag to each block so the AI can apply it selectively based on the topic or page context.</p>
+          <p className="text-sm text-muted-foreground">Freeform text the agent can reference when answering questions. Tag each block to match it with a question category, or choose "Always include" to inject it into every conversation.</p>
           {customKnowledge.map((block, i) => (
             <div key={i} className="space-y-2 border-b pb-3">
               <div className="flex items-center gap-2 flex-wrap">
-                <input
-                  type="text"
-                  value={block.tag}
-                  onChange={e => {
+                <Select
+                  value={block.tag || "__always__"}
+                  onValueChange={val => {
                     const updated = [...customKnowledge];
-                    updated[i] = { ...updated[i], tag: e.target.value };
+                    updated[i] = { ...updated[i], tag: val === "__always__" ? "" : val };
                     setCustomKnowledge(updated);
                   }}
-                  placeholder="Tag (optional)"
-                  className="px-2 py-1 text-sm border rounded-md bg-background"
-                  data-testid={`input-knowledge-tag-${i}`}
-                />
+                >
+                  <SelectTrigger className="w-[200px]" data-testid={`select-knowledge-tag-${i}`}>
+                    <SelectValue placeholder="Always include" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="__always__" data-testid={`option-knowledge-tag-always-${i}`}>Always include</SelectItem>
+                    {(data?.question_tags || []).map(tag => (
+                      <SelectItem key={tag} value={tag} data-testid={`option-knowledge-tag-${tag}-${i}`}>
+                        {tag}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <Button
                   size="icon"
                   variant="ghost"
