@@ -19,6 +19,7 @@ sections:
       muted: true
       autoplay: true
       loop: true
+      preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-13-145607.png
     form:
       variant: inline
       submit_label: Start Learning →
