@@ -144,10 +144,9 @@ sections:
     marginY:
       desktop: none md
   - type: career_support_explain
-    section_id: career_support_explain-xpc3k2
     version: v1.0
-    heading: Get Hired. With Career Support Built for the AI Era.
-    description: Our career support program is designed to help you land your first job in tech
+    heading: Get Hired. Career Support That Doesn't Stop at Graduation.
+    description: From building a recruiter-ready profile to negotiating your offer — we stay with you until you land the role, and beyond.
     background: hsl(var(--sidebar-background))
     tabs:
       - tab_label: Job-Ready, Faster
@@ -261,6 +260,7 @@ sections:
               - image_id: bid_logo
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
+    section_id: career_support_explain-xpc3k2
   - type: course_selector
     section_id: course_selector-ht6wh3
     version: "1.0"
