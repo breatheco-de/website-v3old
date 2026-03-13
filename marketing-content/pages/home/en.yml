@@ -101,25 +101,25 @@ sections:
     paddingY:
       desktop: md xl
   - type: two_column_accordion_card
-    section_id: two_column_accordion_card-d26z2a
     variant: image_background
     version: "1.0"
-    title: Where AI-Powered Learning Meets Lifelong Mentorship
-    description: AI-powered learning meets unlimited 1:1 mentorship to help you build skills, gain confidence, and advance in high-growth tech roles faster and smarter.
+    title: The Most Personalized Path to a Tech Career.
+    description: Most programs teach everyone the same way. We don't. Unlimited 1:1 mentorship, AI-powered learning that adapts to your level, and career support that continues long after graduation — all designed to get you hired faster.
     bullets:
-      - heading: Personalized Learning at Every Level
-        text: Small student-to-teacher ratios, unlimited mentor access, and AI-guided feedback keep your learning fast, adaptive, and focused on what matters.
-      - heading: Lifelong Mentorship & Career Support
-        text: 1:1 guidance from expert mentors and career coaches to help you get hired, stay competitive, and grow as your career evolves.
-      - heading: AI-Integrated Curriculum and Learning Tools
-        text: Master the latest AI tools and workflows that employers are actively hiring for.
+      - heading: Hyper-Personalized Learning
+        text: Small student-to-teacher ratios, unlimited mentor access, and AI-guided feedback that adapts to your pace, level, and goals — not a fixed curriculum designed for the average student.
+      - heading: Lifelong Mentorship and Career Support
+        text: 1:1 guidance from expert mentors and career coaches that doesn't stop at graduation. Get hired, stay competitive, and keep growing as the market evolves.
+      - heading: AI-Native Curriculum Built for 2026 and Beyond
+        text: Learn the AI tools, workflows, and engineering skills that companies are actively hiring for right now — not what was relevant three years ago.
     image: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
     image_alt: Student learning with mentor support
-    reverse: true
-    marginY:
-      desktop: none lg
     video:
       url: https://storage.googleapis.com/4geeks-academy-website/media/loop-1.mp4
+    reverse: true
+    section_id: two_column_accordion_card-d26z2a
+    marginY:
+      desktop: none lg
     paddingY:
       desktop: none
   - type: features_grid
