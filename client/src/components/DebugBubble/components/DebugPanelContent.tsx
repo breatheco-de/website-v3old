@@ -29,6 +29,8 @@ import {
   IconSun,
   IconX,
 } from "@tabler/icons-react";
+import { badgeVariants } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { normalizeLocale } from "@/lib/locale";
@@ -716,7 +718,6 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
           </div>
 
           <div className="border-t p-2 space-y-1">
-            <div className="space-y-0.5">
               <div className="flex items-center justify-between px-3 py-1.5">
                 <div className="flex items-center gap-2">
                   <IconDatabase className="h-3.5 w-3.5 text-muted-foreground" />
@@ -726,6 +727,27 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   )}
                 </div>
                 <div className="flex items-center gap-1">
+                  <button
+                    className={cn(badgeVariants({ variant: "outline" }), "cursor-pointer text-xs gap-1 no-default-active-elevate")}
+                    onClick={() => {
+                      props.setSelectedLocationSlug(props.session.location?.slug || "");
+                      props.setLocationModalOpen(true);
+                    }}
+                    data-testid="button-location-override"
+                    title={props.currentLocationOverride ? `Location override: ${props.currentLocationOverride}` : 'Click to override location'}
+                  >
+                    <IconMapPin className="h-3 w-3" />
+                    <span className="max-w-[80px] truncate">{props.session.location?.name || 'Detecting...'}</span>
+                  </button>
+                  <button
+                    className={cn(badgeVariants({ variant: "outline" }), "cursor-pointer text-xs gap-1 no-default-active-elevate")}
+                    onClick={props.toggleLanguage}
+                    data-testid="button-toggle-language"
+                    title="Click to toggle language"
+                  >
+                    <IconLanguage className="h-3 w-3" />
+                    <span>{props.currentLang.toUpperCase()}</span>
+                  </button>
                   <button
                     onClick={props.handleCheckSession}
                     disabled={props.isCheckingSession}
@@ -745,41 +767,6 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   </button>
                 </div>
               </div>
-
-              <div className="pl-2 space-y-0.5">
-                <button
-                  onClick={() => {
-                    props.setSelectedLocationSlug(props.session.location?.slug || "");
-                    props.setLocationModalOpen(true);
-                  }}
-                  className="flex items-center justify-between w-full px-3 py-2 rounded-md text-sm hover-elevate"
-                  data-testid="button-location-override"
-                >
-                  <div className="flex items-center gap-3">
-                    <IconMapPin className="h-4 w-4 text-muted-foreground" />
-                    <span>Location</span>
-                    {props.currentLocationOverride && (
-                      <span className="text-xs text-muted-foreground">(override)</span>
-                    )}
-                  </div>
-                  <code className="text-xs bg-muted px-2 py-1 rounded max-w-[100px] truncate">
-                    {props.session.location?.name || 'Detecting...'}
-                  </code>
-                </button>
-
-                <button
-                  onClick={props.toggleLanguage}
-                  className="flex items-center justify-between w-full px-3 py-2 rounded-md text-sm hover-elevate"
-                  data-testid="button-toggle-language"
-                >
-                  <div className="flex items-center gap-3">
-                    <IconLanguage className="h-4 w-4 text-muted-foreground" />
-                    <span>Language</span>
-                  </div>
-                  <span className="text-xs font-medium bg-muted px-2 py-1 rounded">{props.currentLang}</span>
-                </button>
-              </div>
-            </div>
 
             <button
               onClick={props.toggleTheme}
