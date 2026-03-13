@@ -179,6 +179,7 @@ export function serveStatic(app: Express) {
   app.use("*", async (_req, res) => {
     const url = _req.originalUrl;
     const status = isKnownRoute(url) ? 200 : 404;
+    const ssrSchemaHtml = _req.ssrSchemaHtml;
 
     try {
       const render = await getSsrRender();
@@ -196,6 +197,10 @@ export function serveStatic(app: Express) {
         const preloadTags = buildPreloadTags(preloadUrls);
         html = injectPreloadTags(html, preloadTags);
 
+        if (ssrSchemaHtml && html.includes("</head>")) {
+          html = html.replace("</head>", `${ssrSchemaHtml}\n</head>`);
+        }
+
         if (initialDataPayload) {
           const scriptTag = `<script id="__INITIAL_DATA__" type="application/json">${JSON.stringify(initialDataPayload).replace(/</g, "\\u003c")}</script>`;
           html = html.replace("</body>", scriptTag + "</body>");
@@ -206,6 +211,19 @@ export function serveStatic(app: Express) {
       }
     } catch (e) {
       console.warn("[SSR] Production render failed, falling back:", (e as Error).stack ?? e);
+    }
+
+    if (ssrSchemaHtml) {
+      try {
+        let html = await fs.promises.readFile(indexHtmlPath, "utf-8");
+        if (html.includes("</head>")) {
+          html = html.replace("</head>", `${ssrSchemaHtml}\n</head>`);
+        }
+        res.status(status).set({ "Content-Type": "text/html" }).send(html);
+        return;
+      } catch {
+        // fall through to sendFile
+      }
     }
 
     res.status(status).sendFile(indexHtmlPath);

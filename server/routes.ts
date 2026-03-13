@@ -10476,51 +10476,25 @@ sections: []
       return next();
     }
 
-    const isProduction = process.env.NODE_ENV === "production";
-    if (isProduction) {
-      const distPath = path.resolve(import.meta.dirname, "public");
-      const indexPath = path.resolve(distPath, "index.html");
-      try {
-        let html = fs.readFileSync(indexPath, "utf-8");
-        if (schemaHtml && html.includes("</head>")) {
-          html = html.replace("</head>", `${schemaHtml}\n</head>`);
-        }
-        res.status(200).set({ "Content-Type": "text/html" }).send(html);
-        return;
-      } catch {
-        return next();
-      }
+    if (schemaHtml) {
+      req.ssrSchemaHtml = schemaHtml;
     }
 
-    const originalEnd = res.end.bind(res);
-    res.end = function (chunk?: any, ...args: any[]) {
-      const contentType = res.getHeader("content-type");
-      if (
-        contentType &&
-        typeof contentType === "string" &&
-        contentType.includes("text/html") &&
-        chunk
-      ) {
-        if (isBlogRoute && res.statusCode === 404) {
+    if (isBlogRoute) {
+      const originalEnd = res.end.bind(res);
+      res.end = function (chunk?: any, ...args: any[]) {
+        const contentType = res.getHeader("content-type");
+        if (
+          contentType &&
+          typeof contentType === "string" &&
+          contentType.includes("text/html") &&
+          res.statusCode === 404
+        ) {
           res.statusCode = 200;
         }
-        let html =
-          typeof chunk === "string"
-            ? chunk
-            : Buffer.isBuffer(chunk)
-              ? chunk.toString("utf-8")
-              : chunk;
-        if (
-          typeof html === "string" &&
-          html.includes("</head>") &&
-          schemaHtml
-        ) {
-          html = html.replace("</head>", `${schemaHtml}\n</head>`);
-          return originalEnd(html, ...args);
-        }
-      }
-      return originalEnd(chunk, ...args);
-    } as typeof res.end;
+        return originalEnd(chunk, ...args);
+      } as typeof res.end;
+    }
 
     next();
   });
