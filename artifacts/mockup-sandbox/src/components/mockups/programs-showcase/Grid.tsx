@@ -64,10 +64,6 @@ function ProgramCard({ program }: { program: typeof programs[0] }) {
         border: `1px solid ${BORDER}`,
       }}
     >
-      <div
-        style={{ height: "3px", width: "100%", backgroundColor: program.color }}
-      />
-
       <div className="p-6 flex flex-col flex-1 gap-4">
         <div className="flex items-start justify-between gap-3">
           <Icon
@@ -121,7 +117,7 @@ function ProgramCard({ program }: { program: typeof programs[0] }) {
 
         <div
           className="flex items-center justify-between pt-4"
-          style={{ borderTop: `1px solid ${BORDER}` }}
+          style={{ borderTop: `1px solid ${program.color}` }}
         >
           <div
             className="flex items-center gap-1.5 text-xs"
