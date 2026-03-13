@@ -8,12 +8,26 @@ import { TOOL_DEFINITIONS, executeToolCall } from "./tools/index";
 
 interface LLMConfig {
   provider?: { api_key_env?: string; base_url_env?: string };
-  model?: string;
+  model?: string | { default: string; chat?: string };
   temperature?: number;
   max_tokens?: number;
   question_tags?: string[];
   agent_tools?: Array<{ name: string; description: string; enabled: boolean }>;
   chat_bubble?: { enabled?: boolean; page_patterns?: string[]; content_types?: string[] };
+}
+
+function resolveModel(config: LLMConfig, mode: "default" | "chat"): string {
+  const fallback = "llama-3.3-70b-versatile";
+  if (typeof config.model === "string") {
+    if (mode === "chat") return process.env.LLM_CHAT_MODEL || config.model || fallback;
+    return process.env.LLM_MODEL || config.model || fallback;
+  }
+  if (typeof config.model === "object" && config.model !== null) {
+    if (mode === "chat") return process.env.LLM_CHAT_MODEL || config.model.chat || config.model.default || fallback;
+    return process.env.LLM_MODEL || config.model.default || fallback;
+  }
+  if (mode === "chat") return process.env.LLM_CHAT_MODEL || process.env.LLM_MODEL || fallback;
+  return process.env.LLM_MODEL || fallback;
 }
 
 interface AgentToolCallTrace {
@@ -166,7 +180,7 @@ Question: "${content}"
 Respond with ONLY the category name, nothing else.`;
 
       const response = await this.client.chat.completions.create({
-        model: process.env.LLM_MODEL || this.config.model || "llama-3.3-70b-versatile",
+        model: resolveModel(this.config, "default"),
         messages: [{ role: "user", content: tagPrompt }],
         temperature: 0,
         max_tokens: 50,
@@ -208,7 +222,7 @@ Respond with ONLY the category name, nothing else.`;
       messages.push({ role: "user", content: userMessage });
     }
 
-    const model = process.env.LLM_MODEL || this.config.model || "llama-3.3-70b-versatile";
+    const model = resolveModel(this.config, "chat");
     const tools = this.getEnabledTools();
 
     const trace: AgentTrace = {
@@ -330,7 +344,7 @@ Respond in JSON format:
 
 Only include categories that have at least one question. Limit examples to 3 per category.`;
 
-    const model = process.env.LLM_MODEL || this.config.model || "llama-3.3-70b-versatile";
+    const model = resolveModel(this.config, "default");
 
     const response = await this.client.chat.completions.create({
       model,

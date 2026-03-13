@@ -9961,7 +9961,7 @@ sections: []
 
   interface ParsedLLMConfig {
     provider?: { api_key_env?: string; base_url_env?: string };
-    model?: string;
+    model?: string | { default: string; chat?: string };
     temperature?: number;
     max_tokens?: number;
     question_tags?: string[];
@@ -10176,6 +10176,9 @@ sections: []
 
       const llmConfig = loadLLMConfig();
 
+      const modelDefault = typeof llmConfig.model === "object" ? llmConfig.model?.default || "" : llmConfig.model || "";
+      const modelChat = typeof llmConfig.model === "object" ? llmConfig.model?.chat || "" : "";
+
       res.json({
         system_prompt: knowledge.system_prompt || null,
         prompt_role: knowledge.prompt_role || llmConfig.prompt_role || "",
@@ -10188,6 +10191,8 @@ sections: []
         chat_bubble: llmConfig.chat_bubble || {},
         question_tags: llmConfig.question_tags || [],
         empty_conversation_grace_minutes: llmConfig.empty_conversation_grace_minutes ?? 15,
+        model_default: modelDefault,
+        model_chat: modelChat,
       });
     } catch (err) {
       console.error("[AI Knowledge GET] Error:", err);
@@ -10224,7 +10229,7 @@ sections: []
       const updates = req.body || {};
 
       for (const [key, value] of Object.entries(updates)) {
-        if (key === "updated_by" || key === "empty_conversation_grace_minutes") continue;
+        if (key === "updated_by" || key === "empty_conversation_grace_minutes" || key === "model_default" || key === "model_chat") continue;
         await conversationStore.setKnowledge(key, value, updates.updated_by);
       }
 
@@ -10236,7 +10241,8 @@ sections: []
         updates.empty_conversation_grace_minutes = raw;
       }
 
-      if (updates.agent_tools || updates.chat_bubble || updates.empty_conversation_grace_minutes !== undefined) {
+      const hasLlmUpdates = updates.agent_tools || updates.chat_bubble || updates.empty_conversation_grace_minutes !== undefined || updates.model_default !== undefined || updates.model_chat !== undefined;
+      if (hasLlmUpdates) {
         const llmPath = path.resolve("marketing-content/llm.yml");
         if (fs.existsSync(llmPath)) {
           const llmConfig = loadLLMConfig();
@@ -10244,6 +10250,16 @@ sections: []
           if (updates.agent_tools) mutableConfig.agent_tools = updates.agent_tools;
           if (updates.chat_bubble) mutableConfig.chat_bubble = updates.chat_bubble;
           if (updates.empty_conversation_grace_minutes !== undefined) mutableConfig.empty_conversation_grace_minutes = updates.empty_conversation_grace_minutes;
+          if (updates.model_default !== undefined || updates.model_chat !== undefined) {
+            const existing = typeof mutableConfig.model === "object" && mutableConfig.model !== null
+              ? mutableConfig.model as Record<string, string>
+              : { default: typeof mutableConfig.model === "string" ? mutableConfig.model : "" };
+            const modelObj: Record<string, string> = { ...existing };
+            if (updates.model_default !== undefined) modelObj.default = updates.model_default;
+            if (updates.model_chat !== undefined) modelObj.chat = updates.model_chat;
+            if (!modelObj.chat) delete modelObj.chat;
+            mutableConfig.model = modelObj;
+          }
           fs.writeFileSync(llmPath, yaml.dump(mutableConfig, { lineWidth: -1 }), "utf-8");
         }
 

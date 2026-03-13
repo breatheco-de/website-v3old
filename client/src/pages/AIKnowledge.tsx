@@ -10,7 +10,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { IconArrowLeft, IconPlus, IconTrash, IconLoader2, IconCheck, IconEye, IconEyeOff, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown, IconChevronRight, IconBrain, IconUpload, IconTool, IconBooks, IconSend } from "@tabler/icons-react";
+import { IconArrowLeft, IconPlus, IconTrash, IconLoader2, IconCheck, IconEye, IconEyeOff, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown, IconChevronRight, IconBrain, IconUpload, IconTool, IconBooks, IconSend, IconCpu } from "@tabler/icons-react";
 import { Link, useLocation } from "wouter";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 
@@ -24,6 +24,8 @@ interface KnowledgeData {
   agent_tools: Array<{ name: string; description: string; enabled: boolean }>;
   chat_bubble: { enabled?: boolean; page_patterns?: string[]; content_types?: string[]; agent_name?: string; agent_icon?: string };
   question_tags: string[];
+  model_default?: string;
+  model_chat?: string;
 }
 
 interface AgentToolCallTrace {
