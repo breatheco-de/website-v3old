@@ -497,19 +497,13 @@ sections:
     heading: Is This Program Right for You?
     tabs:
       - label: You're ready to commit
-        description: |-
-          20–24 hours/week for 24 weeks.
-          Live classes, real projects, real intensity.
+        description: This is an intensive program — 20–24 hours/week for 24 weeks of live classes, real projects, and hands-on work. You bring the commitment, we deliver the results.
         image_id: placeholder_career_guidance
       - label: You want a career, not a certificate
-        description: |-
-          You're not here to learn about AI.
-          You're here to build with it and land a high-paying role.
+        description: You're not here to learn about AI — you're here to build with it, land a high-paying role, and make a real career change. That's exactly what this program is built for.
         image_id: placeholder_mentorship
       - label: You thrive with structure and support
-        description: |-
-          Clear milestones, expert instructors,
-          and unlimited 1:1 mentorship every step of the way.
+        description: You do your best work with clear milestones, expert guidance, and people around you moving toward the same goal — unlimited 1:1 mentorship included.
         image_id: placeholder_strategies
     image_position: right
     section_id: bullet_tabs_showcase-7bd03u
