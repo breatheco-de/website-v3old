@@ -27,7 +27,7 @@ sections:
       color: chart-5
     description: Get unlimited 1:1 career support designed for your unique profile and goals—for life. From resume and portfolio building to interviews and AI-driven hiring platforms.
     video:
-      url: https://storage.googleapis.com/4geeks-academy-website/media/ai-engineering_1765593572918.mp4
+      url: https://www.youtube.com/watch?v=snI-n8Ruvxg
       ratio: "9:16"
       muted: true
       loop: true
