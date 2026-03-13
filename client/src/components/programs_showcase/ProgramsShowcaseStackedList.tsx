@@ -96,6 +96,7 @@ function StackedListItem({
 
 export function ProgramsShowcaseStackedList({ data }: ProgramsShowcaseStackedListProps) {
   const showSalary = data.show_salary ?? false;
+  const salaryLabel = data.salary_label ?? (showSalary ? "Avg. salary" : undefined);
 
   return (
     <section
@@ -131,7 +132,7 @@ export function ProgramsShowcaseStackedList({ data }: ProgramsShowcaseStackedLis
               program={program}
               isLast={index === data.programs.length - 1}
               showSalary={showSalary}
-              salaryLabel={data.salary_label}
+              salaryLabel={salaryLabel}
             />
           ))}
         </div>

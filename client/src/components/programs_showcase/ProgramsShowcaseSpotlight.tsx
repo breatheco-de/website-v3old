@@ -160,6 +160,7 @@ function SmallCard({
 
 export function ProgramsShowcaseSpotlight({ data }: ProgramsShowcaseSpotlightProps) {
   const showSalary = data.show_salary ?? false;
+  const salaryLabel = data.salary_label ?? (showSalary ? "Avg. salary" : undefined);
   const featured = data.programs[0];
   const rest = data.programs.slice(1);
 
@@ -197,7 +198,7 @@ export function ProgramsShowcaseSpotlight({ data }: ProgramsShowcaseSpotlightPro
                 program={featured}
                 featuredLabel={data.featured_label}
                 showSalary={showSalary}
-                salaryLabel={data.salary_label}
+                salaryLabel={salaryLabel}
               />
             )}
           </div>
@@ -209,7 +210,7 @@ export function ProgramsShowcaseSpotlight({ data }: ProgramsShowcaseSpotlightPro
                 program={program}
                 odd={index % 2 === 0}
                 showSalary={showSalary}
-                salaryLabel={data.salary_label}
+                salaryLabel={salaryLabel}
               />
             ))}
           </div>

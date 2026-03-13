@@ -104,6 +104,7 @@ function ProgramCard({
 
 export function ProgramsShowcaseGrid({ data }: ProgramsShowcaseGridProps) {
   const showSalary = data.show_salary ?? false;
+  const salaryLabel = data.salary_label ?? (showSalary ? "Avg. salary" : undefined);
 
   return (
     <section
@@ -138,7 +139,7 @@ export function ProgramsShowcaseGrid({ data }: ProgramsShowcaseGridProps) {
               key={program.name}
               program={program}
               showSalary={showSalary}
-              salaryLabel={data.salary_label}
+              salaryLabel={salaryLabel}
             />
           ))}
         </div>
