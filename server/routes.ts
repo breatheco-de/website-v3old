@@ -218,8 +218,11 @@ function applyMetaFallback(data: Record<string, unknown>): void {
     data.meta = {};
   }
   const meta = data.meta as Record<string, unknown>;
-  if (!meta.page_title && data.title) {
-    meta.page_title = String(data.title);
+  if (!meta.page_title) {
+    const fallbackTitle = data.title ?? data.name ?? data.slug;
+    if (fallbackTitle) {
+      meta.page_title = String(fallbackTitle);
+    }
   }
   if (!meta.description) {
     meta.description = "";
