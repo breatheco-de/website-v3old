@@ -47,7 +47,7 @@ sections:
           required: true
         program:
           visible: true
-          default: ai-engineering
+          required: true
       success:
         message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
       terms_url: /terminos-condiciones
