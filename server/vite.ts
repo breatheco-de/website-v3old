@@ -172,7 +172,7 @@ export function serveStatic(app: Express) {
     );
   }
 
-  app.use(express.static(distPath));
+  app.use(express.static(distPath, { index: false }));
 
   const indexHtmlPath = path.resolve(distPath, "index.html");
 

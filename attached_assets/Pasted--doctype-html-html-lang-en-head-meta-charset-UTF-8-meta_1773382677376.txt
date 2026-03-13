@@ -1,0 +1,107 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1"
+    />
+
+    <!-- Google Tag Manager - Initialize dataLayer before GTM loads -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+    </script>
+
+    <!-- Google Tag Manager - Replace GTM-XXXXXXX with your container ID -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-PGGRR6");
+    </script>
+
+    <title>
+      The AI Reskilling Platform - Learn Tech Skills with AI-Powered Guidance
+    </title>
+    <meta
+      name="description"
+      content="Transform your career with The AI Reskilling Platform. Learn coding, data science, and tech skills with AI tools, real-time feedback, and expert guidance. Join 2,500+ successful learners."
+    />
+
+    <link rel="canonical" href="https://ai-reskilling-platform.replit.app/" />
+
+    <meta
+      property="og:title"
+      content="The AI Reskilling Platform - Learn Tech Skills with AI-Powered Guidance"
+    />
+    <meta
+      property="og:description"
+      content="Transform your career with AI-powered learning. Master coding, data science, and tech skills with real-time feedback and expert guidance."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://ai-reskilling-platform.replit.app/"
+    />
+    <meta property="og:site_name" content="The AI Reskilling Platform" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="The AI Reskilling Platform - Learn Tech Skills with AI-Powered Guidance"
+    />
+    <meta
+      name="twitter:description"
+      content="Transform your career with AI-powered learning. Master coding, data science, and tech skills with real-time feedback and expert guidance."
+    />
+
+    <meta
+      name="keywords"
+      content="coding bootcamp, tech education, AI learning, reskilling, programming courses, career transformation, online learning platform"
+    />
+    <meta name="author" content="The AI Reskilling Platform" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link
+      rel="preload"
+      href="/fonts/lato-regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/lato-bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/tabler-flags.min.css" />
+    <script type="module" crossorigin src="/assets/index-DYNA8Rof.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Cmc77PyA.css">
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-PGGRR6"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <div id="root"></div>
+  </body>
+</html>
