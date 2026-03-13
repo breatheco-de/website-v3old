@@ -6,11 +6,14 @@ import { escapeTemplateVars, unescapeObjectVars } from "../shared/templateVars";
 import type { ImageRegistry, ImageEntry } from "@shared/schema";
 import { media } from "./media";
 import { markFileAsModified } from "./sync-state";
+import { processImageBuffer } from "./image-optimizer";
+import type { Preset } from "./image-optimizer";
 
 const MARKETING_CONTENT_DIR = path.join(process.cwd(), "marketing-content");
 const MARKETING_IMAGES_DIR = path.join(MARKETING_CONTENT_DIR, "images");
 const REGISTRY_PATH = path.join(MARKETING_CONTENT_DIR, "image-registry.json");
 const IMAGE_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".webp", ".svg", ".avif", ".gif"]);
+const OPTIMIZABLE_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".webp", ".avif"]);
 const VIDEO_EXTENSIONS = new Set([".mp4", ".webm", ".mov", ".ogg", ".m4v"]);
 const MEDIA_EXTENSIONS = new Set([...IMAGE_EXTENSIONS, ...VIDEO_EXTENSIONS]);
 const SCREENSHOT_PATTERNS = [/^Screenshot_/i, /^Captura_/i, /^Capture_/i, /^Screen[\s_]?Shot/i];
@@ -722,7 +725,53 @@ class MediaGallery {
 
     this.existenceCache.clear();
 
+    if (OPTIMIZABLE_EXTENSIONS.has(ext)) {
+      this.optimizeInBackground(uniqueId, data, src, opts?.tags || []);
+    }
+
     return { id: uniqueId, src, alt };
+  }
+
+  private optimizeInBackground(id: string, buffer: Buffer, src: string, tags: string[]): void {
+    const registry = this.getRegistry();
+    if (!registry) return;
+
+    const presets = registry.presets as Record<string, Preset>;
+
+    processImageBuffer(id, buffer, src, tags, presets)
+      .then((result) => {
+        if (!result) {
+          console.log(`[MediaGallery] Background optimization produced no variants for "${id}"`);
+          return;
+        }
+
+        const currentRegistry = this.getRegistry();
+        if (!currentRegistry) return;
+
+        const existing = currentRegistry.images[id];
+        if (!existing) {
+          console.log(`[MediaGallery] Image "${id}" no longer in registry, skipping optimization update`);
+          return;
+        }
+
+        (currentRegistry.images as Record<string, any>)[id] = {
+          ...existing,
+          width: result.width,
+          height: result.height,
+          preset: result.preset,
+          widths_generated: result.widths_generated,
+          format: result.format,
+          srcset: result.srcset,
+        };
+
+        this.saveRegistry(currentRegistry);
+        console.log(
+          `[MediaGallery] Optimized "${id}": ${result.width}x${result.height} → ${result.srcset.length} variant(s) [${result.preset.join(", ")}]`
+        );
+      })
+      .catch((err) => {
+        console.error(`[MediaGallery] Background optimization failed for "${id}":`, err);
+      });
   }
 
   removeDuplicates(duplicateGroups: DuplicateGroup[]): {
