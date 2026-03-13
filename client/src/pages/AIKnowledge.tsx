@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { IconArrowLeft, IconPlus, IconTrash, IconLoader2, IconCheck, IconEye, IconEyeOff, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown, IconBrain, IconUpload, IconTool, IconBooks, IconMessageCircle } from "@tabler/icons-react";
+import { IconArrowLeft, IconPlus, IconTrash, IconLoader2, IconCheck, IconEye, IconEyeOff, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown, IconBrain, IconUpload, IconTool, IconBooks, IconMessageCircle, IconSend } from "@tabler/icons-react";
 import { Link, useLocation } from "wouter";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 
@@ -24,7 +24,6 @@ interface KnowledgeData {
   agent_tools: Array<{ name: string; description: string; enabled: boolean }>;
   chat_bubble: { enabled?: boolean; page_patterns?: string[]; content_types?: string[]; agent_name?: string; agent_icon?: string };
   question_tags: string[];
-  empty_conversation_grace_minutes: number;
 }
 
 interface ImageEntry {
@@ -89,8 +88,17 @@ export default function AIKnowledge() {
   const [toolsOpen, setToolsOpen] = useState(false);
   const [draftAgentTools, setDraftAgentTools] = useState<Array<{ name: string; description: string; enabled: boolean }>>([]);
   const [savingTools, setSavingTools] = useState(false);
-  const [graceMinutes, setGraceMinutes] = useState(15);
-  const [savingGrace, setSavingGrace] = useState(false);
+  const [chatMessages, setChatMessages] = useState<Array<{ role: "user" | "assistant"; content: string }>>([]);
+  const [chatInput, setChatInput] = useState("");
+  const [chatSessionId, setChatSessionId] = useState<string | null>(null);
+  const [chatSending, setChatSending] = useState(false);
+  const chatScrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (chatScrollRef.current) {
+      chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight;
+    }
+  }, [chatMessages, chatSending]);
 
   const { data, isLoading } = useQuery<KnowledgeData>({
     queryKey: ["/api/admin/ai/knowledge"],
@@ -142,7 +150,6 @@ export default function AIKnowledge() {
       setPagePatterns(data.chat_bubble?.page_patterns || []);
       setContentTypes(data.chat_bubble?.content_types || []);
       setBubbleEnabled(data.chat_bubble?.enabled !== false);
-      setGraceMinutes(data.empty_conversation_grace_minutes ?? 15);
     }
   }, [data]);
 
@@ -201,24 +208,37 @@ export default function AIKnowledge() {
     }
   };
 
-  const handleGraceSave = async () => {
-    setSavingGrace(true);
+  const handleSendTestMessage = async () => {
+    const text = chatInput.trim();
+    if (!text || chatSending) return;
+    setChatInput("");
+    setChatMessages(prev => [...prev, { role: "user", content: text }]);
+    setChatSending(true);
     try {
-      const token = getDebugToken();
-      const headers: Record<string, string> = { "Content-Type": "application/json" };
-      if (token) headers["Authorization"] = `Token ${token}`;
-      const res = await fetch("/api/admin/ai/knowledge", {
-        method: "PATCH",
-        headers,
-        body: JSON.stringify({ empty_conversation_grace_minutes: graceMinutes }),
+      let sessionId = chatSessionId;
+      if (!sessionId) {
+        const startRes = await fetch("/api/chat/start", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ page_url: "/private/ai-knowledge", content_type: "admin", locale: "en" }),
+        });
+        if (!startRes.ok) throw new Error("Failed to start chat session");
+        const startData = await startRes.json();
+        sessionId = startData.conversation_id;
+        setChatSessionId(sessionId);
+      }
+      const msgRes = await fetch("/api/chat/message", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ conversation_id: sessionId, message: text, content_type: "admin", locale: "en" }),
       });
-      if (!res.ok) throw new Error(`Save failed: ${res.status}`);
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/knowledge"] });
-      toast({ title: "Grace period saved" });
+      if (!msgRes.ok) throw new Error("Failed to send message");
+      const msgData = await msgRes.json();
+      setChatMessages(prev => [...prev, { role: "assistant", content: msgData.content || "No response" }]);
     } catch {
-      toast({ title: "Error", description: "Failed to save grace period.", variant: "destructive" });
+      setChatMessages(prev => [...prev, { role: "assistant", content: "Something went wrong. Please try again." }]);
     } finally {
-      setSavingGrace(false);
+      setChatSending(false);
     }
   };
 
@@ -381,32 +401,70 @@ export default function AIKnowledge() {
             </Button>
           </div>
 
-          <Card className="p-4 space-y-3 mt-6">
-            <div className="flex items-center justify-between gap-2 flex-wrap">
-              <div>
-                <h2 className="font-semibold text-lg" data-testid="text-grace-heading">Empty Conversation Grace Period</h2>
-                <p className="text-sm text-muted-foreground">Conversations with no messages older than this threshold are automatically hidden from the admin list.</p>
-              </div>
-              <Button
-                size="sm"
-                onClick={handleGraceSave}
-                disabled={savingGrace}
-                data-testid="button-save-grace"
-              >
-                {savingGrace ? <IconLoader2 className="h-4 w-4 animate-spin mr-1" /> : <IconCheck className="h-4 w-4 mr-1" />}
-                Save
-              </Button>
+          <Card className="mt-6 flex flex-col" data-testid="card-test-chat">
+            <div className="p-4 border-b">
+              <h2 className="font-semibold text-sm" data-testid="text-test-chat-heading">Test Chat</h2>
+              <p className="text-xs text-muted-foreground">Send messages to test your agent configuration.</p>
             </div>
-            <div className="flex items-center gap-2">
-              <input
-                type="number"
-                min={1}
-                value={graceMinutes}
-                onChange={e => setGraceMinutes(Math.max(1, parseInt(e.target.value) || 1))}
-                className="w-24 px-3 py-2 text-sm border rounded-md bg-background"
-                data-testid="input-grace-minutes"
+            <div
+              ref={chatScrollRef}
+              className="flex-1 overflow-y-auto p-4 space-y-3 min-h-[200px] max-h-[400px]"
+              data-testid="container-test-chat-messages"
+            >
+              {chatMessages.length === 0 && !chatSending && (
+                <div className="text-center text-sm text-muted-foreground py-8" data-testid="text-test-chat-empty">
+                  Send a message to start testing your agent.
+                </div>
+              )}
+              {chatMessages.map((msg, i) => (
+                <div
+                  key={i}
+                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                  data-testid={`chat-message-${msg.role}-${i}`}
+                >
+                  <div
+                    className={`max-w-[80%] rounded-md px-3 py-2 text-sm whitespace-pre-wrap ${
+                      msg.role === "user"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-muted text-foreground"
+                    }`}
+                  >
+                    {msg.content}
+                  </div>
+                </div>
+              ))}
+              {chatSending && (
+                <div className="flex justify-start" data-testid="chat-loading-indicator">
+                  <div className="bg-muted rounded-md px-3 py-2 flex items-center gap-2">
+                    <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                    <span className="text-sm text-muted-foreground">Thinking...</span>
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="p-3 border-t flex items-center gap-2">
+              <Textarea
+                value={chatInput}
+                onChange={e => setChatInput(e.target.value)}
+                onKeyDown={e => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSendTestMessage();
+                  }
+                }}
+                placeholder="Type a test message..."
+                className="text-sm min-h-[40px] max-h-[100px] resize-none flex-1"
+                disabled={chatSending}
+                data-testid="input-test-chat"
               />
-              <span className="text-sm text-muted-foreground">minutes</span>
+              <Button
+                size="icon"
+                onClick={handleSendTestMessage}
+                disabled={chatSending || !chatInput.trim()}
+                data-testid="button-send-test-chat"
+              >
+                <IconSend className="h-4 w-4" />
+              </Button>
             </div>
           </Card>
         </div>
