@@ -5,8 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { IconArrowLeft, IconPlus, IconTrash, IconPlayerPlay, IconLoader2, IconCheck, IconEye, IconPhoto, IconSearch, IconUser, IconPencil, IconX } from "@tabler/icons-react";
+import { IconArrowLeft, IconPlus, IconTrash, IconPlayerPlay, IconLoader2, IconCheck, IconEye, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown } from "@tabler/icons-react";
 import { Link } from "wouter";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 
@@ -71,8 +74,8 @@ export default function AIKnowledge() {
   const [savingVisibility, setSavingVisibility] = useState(false);
   const [editingPatternIdx, setEditingPatternIdx] = useState<number | null>(null);
   const [editingPatternVal, setEditingPatternVal] = useState("");
-  const [editingCtIdx, setEditingCtIdx] = useState<number | null>(null);
-  const [editingCtVal, setEditingCtVal] = useState("");
+  const [urlPatternsOpen, setUrlPatternsOpen] = useState(false);
+  const [addCtSelectKey, setAddCtSelectKey] = useState(0);
 
   const { data, isLoading } = useQuery<KnowledgeData>({
     queryKey: ["/api/admin/ai/knowledge"],
@@ -91,6 +94,15 @@ export default function AIKnowledge() {
     queryFn: async () => {
       const res = await fetch("/api/image-registry");
       if (!res.ok) return { images: [] };
+      return res.json();
+    },
+  });
+
+  const { data: contentTypesData } = useQuery<Array<{ name: string; label: string }>>({
+    queryKey: ["/api/content-types"],
+    queryFn: async () => {
+      const res = await fetch("/api/content-types");
+      if (!res.ok) return [];
       return res.json();
     },
   });
@@ -539,137 +551,137 @@ export default function AIKnowledge() {
                 />
                 <span className="text-sm">Enable chat bubble</span>
               </label>
-              <div className="space-y-1">
-                {draftPagePatterns.map((pattern, i) =>
-                  editingPatternIdx === i ? (
-                    <div key={i} className="flex items-center gap-1.5">
-                      <input
-                        autoFocus
-                        type="text"
-                        value={editingPatternVal}
-                        onChange={e => setEditingPatternVal(e.target.value)}
-                        onKeyDown={e => {
-                          if (e.key === "Enter") {
-                            const updated = [...draftPagePatterns];
-                            updated[i] = editingPatternVal;
-                            setDraftPagePatterns(updated);
-                            setEditingPatternIdx(null);
-                          } else if (e.key === "Escape") {
-                            if (!pattern) setDraftPagePatterns(prev => prev.filter((_, j) => j !== i));
-                            setEditingPatternIdx(null);
-                          }
-                        }}
-                        className="flex-1 px-2.5 py-1.5 text-sm border rounded-md bg-background font-mono"
-                        data-testid={`input-pattern-${i}`}
-                      />
-                      <Button size="icon" variant="ghost" onClick={() => {
-                        const updated = [...draftPagePatterns];
-                        updated[i] = editingPatternVal;
-                        setDraftPagePatterns(updated);
-                        setEditingPatternIdx(null);
-                      }} data-testid={`button-confirm-pattern-${i}`}>
-                        <IconCheck className="h-4 w-4" />
-                      </Button>
-                      <Button size="icon" variant="ghost" onClick={() => {
-                        if (!pattern) setDraftPagePatterns(prev => prev.filter((_, j) => j !== i));
-                        setEditingPatternIdx(null);
-                      }} data-testid={`button-cancel-pattern-${i}`}>
-                        <IconX className="h-4 w-4" />
-                      </Button>
+              {/* Specific URLs — collapsible */}
+              <Collapsible open={urlPatternsOpen} onOpenChange={setUrlPatternsOpen}>
+                <CollapsibleTrigger asChild>
+                  <button
+                    className="flex items-center justify-between w-full text-left rounded-md hover-elevate px-1 py-0.5"
+                    data-testid="button-toggle-url-patterns"
+                  >
+                    <div>
+                      <p className="text-sm font-medium">Specific URLs</p>
+                      {!urlPatternsOpen && (
+                        <p className="text-xs text-muted-foreground">Show the chat agent only on specific groups of URLs</p>
+                      )}
                     </div>
-                  ) : (
-                    <div key={i} className="flex items-center gap-1.5 group">
-                      <code className="flex-1 min-w-0 truncate text-xs bg-muted px-2.5 py-1.5 rounded-md font-mono" data-testid={`text-pattern-${i}`}>{pattern || <span className="text-muted-foreground italic">empty</span>}</code>
-                      <Button size="icon" variant="ghost" onClick={() => { setEditingPatternIdx(i); setEditingPatternVal(pattern); }} data-testid={`button-edit-pattern-${i}`}>
-                        <IconPencil className="h-4 w-4" />
-                      </Button>
-                      <Button size="icon" variant="ghost" onClick={() => setDraftPagePatterns(prev => prev.filter((_, j) => j !== i))} data-testid={`button-delete-pattern-${i}`}>
-                        <IconTrash className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  )
-                )}
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => {
-                    const next = [...draftPagePatterns, ""];
-                    setDraftPagePatterns(next);
-                    setEditingPatternIdx(next.length - 1);
-                    setEditingPatternVal("");
-                  }}
-                  data-testid="button-add-pattern"
-                >
-                  <IconPlus className="h-4 w-4 mr-1" />
-                  Add Pattern
-                </Button>
-              </div>
-              <div className="pt-3 border-t space-y-1">
-                <h3 className="text-sm font-medium" data-testid="text-content-types-heading">Content Type Targeting</h3>
-                <p className="text-xs text-muted-foreground pb-1">Show the chat bubble on pages matching these content types (e.g. program, location)</p>
-                {draftContentTypes.map((ct, i) =>
-                  editingCtIdx === i ? (
-                    <div key={i} className="flex items-center gap-1.5">
-                      <input
-                        autoFocus
-                        type="text"
-                        value={editingCtVal}
-                        onChange={e => setEditingCtVal(e.target.value)}
-                        onKeyDown={e => {
-                          if (e.key === "Enter") {
-                            const updated = [...draftContentTypes];
-                            updated[i] = editingCtVal;
-                            setDraftContentTypes(updated);
-                            setEditingCtIdx(null);
-                          } else if (e.key === "Escape") {
-                            if (!ct) setDraftContentTypes(prev => prev.filter((_, j) => j !== i));
-                            setEditingCtIdx(null);
-                          }
-                        }}
-                        className="flex-1 px-2.5 py-1.5 text-sm border rounded-md bg-background"
-                        data-testid={`input-content-type-${i}`}
-                      />
-                      <Button size="icon" variant="ghost" onClick={() => {
-                        const updated = [...draftContentTypes];
-                        updated[i] = editingCtVal;
-                        setDraftContentTypes(updated);
-                        setEditingCtIdx(null);
-                      }} data-testid={`button-confirm-ct-${i}`}>
-                        <IconCheck className="h-4 w-4" />
-                      </Button>
-                      <Button size="icon" variant="ghost" onClick={() => {
-                        if (!ct) setDraftContentTypes(prev => prev.filter((_, j) => j !== i));
-                        setEditingCtIdx(null);
-                      }} data-testid={`button-cancel-ct-${i}`}>
-                        <IconX className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  ) : (
-                    <div key={i} className="flex items-center gap-1.5 group">
-                      <code className="flex-1 min-w-0 truncate text-xs bg-muted px-2.5 py-1.5 rounded-md" data-testid={`text-content-type-${i}`}>{ct || <span className="text-muted-foreground italic">empty</span>}</code>
-                      <Button size="icon" variant="ghost" onClick={() => { setEditingCtIdx(i); setEditingCtVal(ct); }} data-testid={`button-edit-ct-${i}`}>
-                        <IconPencil className="h-4 w-4" />
-                      </Button>
-                      <Button size="icon" variant="ghost" onClick={() => setDraftContentTypes(prev => prev.filter((_, j) => j !== i))} data-testid={`button-delete-content-type-${i}`}>
-                        <IconTrash className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  )
-                )}
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => {
-                    const next = [...draftContentTypes, ""];
-                    setDraftContentTypes(next);
-                    setEditingCtIdx(next.length - 1);
-                    setEditingCtVal("");
-                  }}
-                  data-testid="button-add-content-type"
-                >
-                  <IconPlus className="h-4 w-4 mr-1" />
-                  Add Content Type
-                </Button>
+                    <IconChevronDown className={`h-4 w-4 text-muted-foreground shrink-0 transition-transform duration-200 ${urlPatternsOpen ? "rotate-180" : ""}`} />
+                  </button>
+                </CollapsibleTrigger>
+                <CollapsibleContent className="pt-2 space-y-1">
+                  {draftPagePatterns.map((pattern, i) =>
+                    editingPatternIdx === i ? (
+                      <div key={i} className="flex items-center gap-1.5">
+                        <input
+                          autoFocus
+                          type="text"
+                          value={editingPatternVal}
+                          onChange={e => setEditingPatternVal(e.target.value)}
+                          onKeyDown={e => {
+                            if (e.key === "Enter") {
+                              const updated = [...draftPagePatterns];
+                              updated[i] = editingPatternVal;
+                              setDraftPagePatterns(updated);
+                              setEditingPatternIdx(null);
+                            } else if (e.key === "Escape") {
+                              if (!pattern) setDraftPagePatterns(prev => prev.filter((_, j) => j !== i));
+                              setEditingPatternIdx(null);
+                            }
+                          }}
+                          className="flex-1 px-2.5 py-1.5 text-sm border rounded-md bg-background font-mono"
+                          data-testid={`input-pattern-${i}`}
+                        />
+                        <Button size="icon" variant="ghost" onClick={() => {
+                          const updated = [...draftPagePatterns];
+                          updated[i] = editingPatternVal;
+                          setDraftPagePatterns(updated);
+                          setEditingPatternIdx(null);
+                        }} data-testid={`button-confirm-pattern-${i}`}>
+                          <IconCheck className="h-4 w-4" />
+                        </Button>
+                        <Button size="icon" variant="ghost" onClick={() => {
+                          if (!pattern) setDraftPagePatterns(prev => prev.filter((_, j) => j !== i));
+                          setEditingPatternIdx(null);
+                        }} data-testid={`button-cancel-pattern-${i}`}>
+                          <IconX className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    ) : (
+                      <div key={i} className="flex items-center gap-1.5">
+                        <code className="flex-1 min-w-0 truncate text-xs bg-muted px-2.5 py-1.5 rounded-md font-mono" data-testid={`text-pattern-${i}`}>{pattern || <span className="text-muted-foreground italic">empty</span>}</code>
+                        <Button size="icon" variant="ghost" onClick={() => { setEditingPatternIdx(i); setEditingPatternVal(pattern); }} data-testid={`button-edit-pattern-${i}`}>
+                          <IconPencil className="h-4 w-4" />
+                        </Button>
+                        <Button size="icon" variant="ghost" onClick={() => setDraftPagePatterns(prev => prev.filter((_, j) => j !== i))} data-testid={`button-delete-pattern-${i}`}>
+                          <IconTrash className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    )
+                  )}
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => {
+                      const next = [...draftPagePatterns, ""];
+                      setDraftPagePatterns(next);
+                      setEditingPatternIdx(next.length - 1);
+                      setEditingPatternVal("");
+                    }}
+                    data-testid="button-add-pattern"
+                  >
+                    <IconPlus className="h-4 w-4 mr-1" />
+                    Add Pattern
+                  </Button>
+                </CollapsibleContent>
+              </Collapsible>
+
+              {/* Content Type Targeting — tag cloud */}
+              <div className="pt-3 border-t space-y-2">
+                <div>
+                  <h3 className="text-sm font-medium" data-testid="text-content-types-heading">Content Type Targeting</h3>
+                  <p className="text-xs text-muted-foreground">Show the chat bubble on pages matching these content types</p>
+                </div>
+                <div className="flex flex-wrap gap-1.5" data-testid="tag-cloud-content-types">
+                  {draftContentTypes.map((ct, i) => {
+                    const label = (contentTypesData || []).find(c => c.name === ct)?.label || ct;
+                    return (
+                      <Badge key={ct} variant="secondary" className="gap-1 pl-2.5 pr-1.5 py-0.5" data-testid={`badge-content-type-${ct}`}>
+                        <span className="text-xs">{label}</span>
+                        <button
+                          onClick={() => setDraftContentTypes(prev => prev.filter((_, j) => j !== i))}
+                          className="ml-0.5 rounded-sm opacity-70 hover:opacity-100"
+                          data-testid={`button-delete-content-type-${i}`}
+                        >
+                          <IconX className="h-3 w-3" />
+                        </button>
+                      </Badge>
+                    );
+                  })}
+                  {(contentTypesData || []).filter(ct => !draftContentTypes.includes(ct.name)).length > 0 && (
+                    <Select
+                      key={addCtSelectKey}
+                      onValueChange={val => {
+                        if (!draftContentTypes.includes(val)) {
+                          setDraftContentTypes(prev => [...prev, val]);
+                        }
+                        setAddCtSelectKey(k => k + 1);
+                      }}
+                    >
+                      <SelectTrigger className="h-6 w-auto gap-1 px-2 text-xs border-dashed" data-testid="select-add-content-type">
+                        <IconPlus className="h-3 w-3" />
+                        <SelectValue placeholder="Add type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {(contentTypesData || [])
+                          .filter(ct => !draftContentTypes.includes(ct.name))
+                          .map(ct => (
+                            <SelectItem key={ct.name} value={ct.name} data-testid={`option-content-type-${ct.name}`}>
+                              {ct.label}
+                            </SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+                </div>
               </div>
             </div>
             <DialogFooter className="gap-2">

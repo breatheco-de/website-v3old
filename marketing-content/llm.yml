@@ -31,14 +31,9 @@ agent_tools:
     enabled: true
 chat_bubble:
   enabled: false
-  page_patterns:
-    - ^/en/career-programs/.*
-    - ^/es/programas-de-carrera/.*
-    - ^/en/location/.*
-    - ^/es/ubicacion/.*
-    - ^/en/$
-    - ^/es/$
-    - ^/$
+  page_patterns: []
   content_types:
     - program
     - location
+  agent_name: ''
+  agent_icon: ''
