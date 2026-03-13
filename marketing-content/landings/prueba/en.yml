@@ -191,7 +191,7 @@ sections:
     subheading: Real results from 5,000+ graduates. Here's what happens after you complete the program.
     stats:
       - value: 86%
-        label: Hiring rate — US graduates placed within 90 days
+        label: Hiring rate, US graduates placed within 90 days
       - value: 55%
         label: Average salary increase after graduation
       - value: ~3 months
