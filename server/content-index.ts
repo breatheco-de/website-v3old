@@ -37,7 +37,7 @@ export type ContentType = string;
 export interface LoadContentOptions<T> {
   contentType: ContentType;
   slug: string;
-  schema: ZodSchema<T>;
+  schema?: ZodSchema<T>;
   localeOrVariant: string;
   requireCommon?: boolean;
 }
@@ -1131,15 +1131,18 @@ class ContentIndex {
       const mergedData = deepMerge(baseData, contentData);
       const cleanedData = stripNullValues(mergedData);
 
-      const result = schema.safeParse(cleanedData);
-      if (!result.success) {
-        return {
-          success: false,
-          error: `Invalid YAML structure for ${contentType}/${slug}/${localeOrVariant}: ${result.error.message}`
-        };
+      if (schema) {
+        const result = schema.safeParse(cleanedData);
+        if (!result.success) {
+          return {
+            success: false,
+            error: `Invalid YAML structure for ${contentType}/${slug}/${localeOrVariant}: ${result.error.message}`
+          };
+        }
+        return { success: true, data: result.data };
       }
 
-      return { success: true, data: result.data };
+      return { success: true, data: cleanedData as T };
     } catch (error) {
       return {
         success: false,

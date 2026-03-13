@@ -1061,67 +1061,48 @@ export const schemaRefSchema = z.object({
 export type SchemaRef = z.infer<typeof schemaRefSchema>;
 
 // ============================================
-// Career Program Page Schema
+// Content Page Types (plain interfaces — no Zod validation)
 // ============================================
-export const careerProgramMetaSchema = z.object({
-  page_title: z.string(),
-  description: z.string(),
-  robots: z.string().default("index, follow"),
-  og_image: z.string().optional(),
-  canonical_url: z.string().optional(),
-  expiry_date: z.string().optional(),
-  priority: z.number().min(0).max(1).default(0.8),
-  change_frequency: z.enum(["always", "hourly", "daily", "weekly", "monthly", "yearly", "never"]).default("weekly"),
-  redirects: z.array(z.string()).optional(),
-});
+export interface ContentPageMeta {
+  page_title?: string;
+  description?: string;
+  robots?: string;
+  og_image?: string;
+  canonical_url?: string;
+  expiry_date?: string;
+  priority?: number;
+  change_frequency?: string;
+  redirects?: string[];
+}
 
-export const pageSettingsSchema = z.object({
-  loading: z.object({
-    eager_count: z.number().int().min(0).default(3),
-  }).optional(),
-}).optional();
+export interface PageSettings {
+  loading?: {
+    eager_count?: number;
+  };
+}
 
-export type PageSettings = z.infer<typeof pageSettingsSchema>;
+export type CareerProgramMeta = ContentPageMeta;
+export interface CareerProgram {
+  slug: string;
+  title: string;
+  meta?: ContentPageMeta;
+  schema?: SchemaRef;
+  settings?: PageSettings;
+  sections: Section[];
+  [key: string]: unknown;
+}
 
-export const careerProgramSchema = z.object({
-  slug: z.string(),
-  title: z.string(),
-  meta: careerProgramMetaSchema,
-  schema: schemaRefSchema.optional(),
-  settings: pageSettingsSchema,
-  sections: z.array(sectionSchema),
-}).passthrough();
-
-export type CareerProgramMeta = z.output<typeof careerProgramMetaSchema>;
-export type CareerProgram = z.output<typeof careerProgramSchema>;
-
-// ============================================
-// Landing Page Schema
-// ============================================
-export const landingPageMetaSchema = z.object({
-  page_title: z.string(),
-  description: z.string(),
-  robots: z.string().default("index, follow"),
-  og_image: z.string().optional(),
-  canonical_url: z.string().optional(),
-  expiry_date: z.string().optional(),
-  priority: z.number().min(0).max(1).default(0.8),
-  change_frequency: z.enum(["always", "hourly", "daily", "weekly", "monthly", "yearly", "never"]).default("weekly"),
-  redirects: z.array(z.string()).optional(),
-});
-
-export const landingPageSchema = z.object({
-  slug: z.string().optional(),
-  title: z.string().optional(),
-  meta: landingPageMetaSchema,
-  schema: schemaRefSchema.optional(),
-  settings: pageSettingsSchema,
-  sections: z.array(sectionSchema),
-  landing_locations: z.array(z.string()).optional(),
-}).passthrough();
-
-export type LandingPageMeta = z.infer<typeof landingPageMetaSchema>;
-export type LandingPage = z.infer<typeof landingPageSchema>;
+export type LandingPageMeta = ContentPageMeta;
+export interface LandingPage {
+  slug?: string;
+  title?: string;
+  meta?: ContentPageMeta;
+  schema?: SchemaRef;
+  settings?: PageSettings;
+  sections: Section[];
+  landing_locations?: string[];
+  [key: string]: unknown;
+}
 
 // ============================================
 // Editing Capabilities
@@ -1185,81 +1166,49 @@ export const editOperationSchema = z.discriminatedUnion("action", [
 
 export type EditOperation = z.infer<typeof editOperationSchema>;
 
-// ============================================
-// Location Page Schema
-// ============================================
-export const locationMetaSchema = z.object({
-  page_title: z.string(),
-  description: z.string(),
-  robots: z.string().default("index, follow"),
-  og_image: z.string().optional(),
-  priority: z.number().min(0).max(1).default(0.8),
-  change_frequency: z.enum(["always", "hourly", "daily", "weekly", "monthly", "yearly", "never"]).default("monthly"),
-  redirects: z.array(z.string()).optional(),
-});
+export type LocationMeta = ContentPageMeta;
+export interface LocationPage {
+  slug: string;
+  name: string;
+  city: string;
+  country: string;
+  country_code: string;
+  latitude: number;
+  longitude: number;
+  region: string;
+  default_language: string;
+  timezone: string;
+  visibility?: string;
+  phone?: string;
+  address?: string;
+  available_programs?: string[];
+  catalog?: {
+    admission_advisors?: Array<{
+      name: string;
+      email: string;
+      calendar_url?: string;
+      photo?: string;
+      languages?: string[];
+    }>;
+  };
+  meta?: ContentPageMeta;
+  schema?: SchemaRef;
+  settings?: PageSettings;
+  sections: Section[];
+  [key: string]: unknown;
+}
 
-export const admissionAdvisorSchema = z.object({
-  name: z.string(),
-  email: z.string(),
-  calendar_url: z.string().optional(),
-  photo: z.string().optional(),
-  languages: z.array(z.string()).optional(),
-});
-
-export const locationCatalogSchema = z.object({
-  admission_advisors: z.array(admissionAdvisorSchema).optional(),
-});
-
-export const locationPageSchema = z.object({
-  slug: z.string(),
-  name: z.string(),
-  city: z.string(),
-  country: z.string(),
-  country_code: z.string(),
-  latitude: z.number(),
-  longitude: z.number(),
-  region: z.enum(["usa-canada", "europe", "latam"]),
-  default_language: z.string(),
-  timezone: z.string(),
-  visibility: z.enum(["listed", "unlisted"]).optional().default("listed"),
-  phone: z.string().optional(),
-  address: z.string().optional(),
-  available_programs: z.array(z.string()).optional(),
-  catalog: locationCatalogSchema.optional(),
-  meta: locationMetaSchema,
-  schema: schemaRefSchema.optional(),
-  settings: pageSettingsSchema,
-  sections: z.array(sectionSchema),
-}).passthrough();
-
-export type LocationMeta = z.infer<typeof locationMetaSchema>;
-export type LocationPage = z.infer<typeof locationPageSchema>;
-
-// ============================================
-// Template Page Schema
-// ============================================
-export const templatePageMetaSchema = z.object({
-  page_title: z.string(),
-  description: z.string(),
-  robots: z.string().default("index, follow"),
-  og_image: z.string().optional(),
-  priority: z.number().min(0).max(1).default(0.8),
-  change_frequency: z.enum(["always", "hourly", "daily", "weekly", "monthly", "yearly", "never"]).default("weekly"),
-  redirects: z.array(z.string()).optional(),
-});
-
-export const templatePageSchema = z.object({
-  slug: z.string(),
-  title: z.string(),
-  meta: templatePageMetaSchema,
-  schema: schemaRefSchema.optional(),
-  settings: pageSettingsSchema,
-  sections: z.array(sectionSchema),
-  singleEntry: z.record(z.unknown()).optional(),
-}).passthrough();
-
-export type TemplatePageMeta = z.infer<typeof templatePageMetaSchema>;
-export type TemplatePage = z.infer<typeof templatePageSchema>;
+export type TemplatePageMeta = ContentPageMeta;
+export interface TemplatePage {
+  slug: string;
+  title: string;
+  meta?: ContentPageMeta;
+  schema?: SchemaRef;
+  settings?: PageSettings;
+  sections: Section[];
+  singleEntry?: Record<string, unknown>;
+  [key: string]: unknown;
+}
 
 // ============================================
 // A/B Testing / Experiments System

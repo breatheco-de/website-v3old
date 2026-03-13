@@ -1,7 +1,6 @@
 import fs from "fs";
 import yaml from "js-yaml";
 import { escapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
-import { z } from "zod";
 import { generateSectionId } from "./utils/generateSectionId";
 
 function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
@@ -10,10 +9,9 @@ function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
   return unescapeYamlDump(dumped, map);
 }
 import type { EditOperation } from "@shared/schema";
-import { landingPageSchema, careerProgramSchema, templatePageSchema, locationPageSchema } from "@shared/schema";
 import { normalizeLocale } from "./settings";
 import { markFileAsModified } from "./sync-state";
-import { contentIndex, stripNullValues } from "./content-index";
+import { contentIndex } from "./content-index";
 import { deepMerge } from "./utils/deepMerge";
 
 interface ContentEditRequest {
@@ -163,177 +161,6 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
       applyOperation(localeData, operation);
     }
 
-    // Merge _common.yml with the edited locale data for validation only
-    // (schema expects the full page structure including _common.yml fields like meta, seo, slug)
-    const commonData = contentIndex.loadCommonData(contentType, slug);
-    const content = commonData
-      ? deepMerge(commonData, localeData)
-      : localeData;
-    
-    // Validate content against the appropriate full schema
-    const validationErrors: string[] = [];
-    
-    // Get the appropriate schema based on content type
-    let schema: z.ZodTypeAny | null = null;
-    switch (contentType) {
-      case "landing":
-        schema = landingPageSchema;
-        break;
-      case "program":
-        schema = careerProgramSchema;
-        break;
-      case "page":
-        schema = templatePageSchema;
-        break;
-      case "location":
-        schema = locationPageSchema;
-        break;
-      default:
-        if (contentIndex.isDatabaseBacked(contentType)) {
-          schema = null;
-        } else {
-          schema = templatePageSchema;
-        }
-    }
-    
-    // Strip null values before validation (Zod .optional() expects undefined, not null)
-    const cleanedContent = stripNullValues(content);
-    
-    const result = schema ? schema.safeParse(cleanedContent) : { success: true as const };
-    
-    if (!result.success) {
-      // Parse the error to provide user-friendly messages
-      for (const issue of result.error.issues.slice(0, 5)) {
-        const pathStr = issue.path.join(".");
-        
-        // Check if this is a section validation error (union error)
-        if (issue.code === "invalid_union" && pathStr.startsWith("sections.")) {
-          const sectionIndex = parseInt(issue.path[1] as string, 10);
-          const sections = content.sections as Record<string, unknown>[] | undefined;
-          const sectionType = sections?.[sectionIndex]?.type || "unknown";
-          
-          // Check union errors for type mismatches
-          const unionErrors = (issue as { unionErrors?: z.ZodError[] }).unionErrors;
-          if (unionErrors && unionErrors.length > 0) {
-            // If all union branches fail on 'type', it's an unknown section type
-            const allTypeErrors = unionErrors.every(ue => 
-              ue.issues.some(i => i.path[0] === "type" && (i.code === "invalid_literal" || i.code === "invalid_enum_value"))
-            );
-            if (allTypeErrors) {
-              validationErrors.push(`Section ${sectionIndex + 1}: Unknown section type "${sectionType}". Check spelling or use a valid section type.`);
-              continue;
-            }
-            
-            // Find the matching schema branch by checking all discriminator fields
-            const sectionVariant = sections?.[sectionIndex]?.variant as string | undefined;
-            const sectionDataForMatch = sections?.[sectionIndex] as Record<string, unknown> | undefined;
-            const topDiscriminators = ["type", "variant", "style", "layout"];
-            const matchingBranch = unionErrors.find(ue => {
-              for (const disc of topDiscriminators) {
-                const dataVal = sectionDataForMatch?.[disc];
-                if (dataVal === undefined) continue;
-                const hasMismatch = ue.issues.some(i =>
-                  i.path[0] === disc && (i.code === "invalid_literal" || i.code === "invalid_enum_value")
-                );
-                if (hasMismatch) return false;
-              }
-              return true;
-            });
-            
-            if (matchingBranch && matchingBranch.issues.length > 0) {
-              const findBestNestedBranch = (unionErrors: z.ZodError[], sectionData: Record<string, unknown>): z.ZodError | undefined => {
-                const discriminators = ["type", "variant", "style", "layout"];
-                return unionErrors.find(ue => {
-                  for (const disc of discriminators) {
-                    const dataVal = sectionData?.[disc];
-                    if (dataVal === undefined) continue;
-                    const hasMismatch = ue.issues.some(i =>
-                      i.path[0] === disc && (i.code === "invalid_literal" || i.code === "invalid_enum_value")
-                    );
-                    if (hasMismatch) return false;
-                  }
-                  return true;
-                });
-              };
-
-              const extractFieldErrors = (issues: z.ZodIssue[], sectionData?: Record<string, unknown>): string[] => {
-                const errors: string[] = [];
-                const discriminators = new Set(["type", "variant", "style", "layout"]);
-                for (const i of issues) {
-                  if (i.code === "invalid_union") {
-                    const nestedUnionErrors = (i as { unionErrors?: z.ZodError[] }).unionErrors;
-                    if (nestedUnionErrors) {
-                      const bestBranch = sectionData
-                        ? findBestNestedBranch(nestedUnionErrors, sectionData)
-                        : undefined;
-                      if (bestBranch) {
-                        errors.push(...extractFieldErrors(bestBranch.issues, sectionData));
-                      } else {
-                        const nonDiscriminatorErrors: string[] = [];
-                        for (const nue of nestedUnionErrors) {
-                          for (const ni of nue.issues) {
-                            if (ni.path.length > 0 && !(
-                              (ni.code === "invalid_literal" || ni.code === "invalid_enum_value") &&
-                              discriminators.has(String(ni.path[0]))
-                            )) {
-                              if (ni.code === "invalid_type" && ni.message === "Required") {
-                                nonDiscriminatorErrors.push(`  - "${ni.path.join(".")}" is required`);
-                              } else {
-                                nonDiscriminatorErrors.push(`  - ${ni.path.join(".")}: ${ni.message}`);
-                              }
-                            }
-                          }
-                        }
-                        const unique = Array.from(new Set(nonDiscriminatorErrors));
-                        if (unique.length > 0) {
-                          errors.push(...unique.slice(0, 3));
-                        } else {
-                          errors.push(`  - Invalid section configuration`);
-                        }
-                      }
-                    }
-                  } else if (i.path.length > 0) {
-                    if ((i.code === "invalid_literal" || i.code === "invalid_enum_value") && discriminators.has(String(i.path[0]))) {
-                      continue;
-                    }
-                    const fieldPath = i.path.join(".");
-                    if (i.code === "invalid_type" && i.message === "Required") {
-                      errors.push(`  - "${fieldPath}" is required`);
-                    } else {
-                      errors.push(`  - ${fieldPath}: ${i.message}`);
-                    }
-                  } else if (i.message !== "Invalid input") {
-                    errors.push(`  - ${i.message}`);
-                  }
-                }
-                return errors;
-              };
-
-              const sectionData = sections?.[sectionIndex] as Record<string, unknown> | undefined;
-              const detailedErrors = Array.from(new Set(extractFieldErrors(matchingBranch.issues, sectionData))).slice(0, 5);
-              if (detailedErrors.length > 0) {
-                const variantInfo = sectionVariant ? `, variant: ${sectionVariant}` : "";
-                validationErrors.push(`Section ${sectionIndex + 1} (${sectionType}${variantInfo}):\n${detailedErrors.join("\n")}`);
-                continue;
-              }
-            }
-          }
-          validationErrors.push(`Section ${sectionIndex + 1} (${sectionType}): Invalid structure`);
-        } else if (issue.code === "invalid_type" && issue.message === "Required") {
-          validationErrors.push(`Missing required field: ${pathStr}`);
-        } else {
-          validationErrors.push(`${pathStr}: ${issue.message}`);
-        }
-      }
-    }
-    
-    if (validationErrors.length > 0) {
-      return { 
-        success: false, 
-        error: `Cannot save - validation failed:\n${validationErrors.join("\n")}` 
-      };
-    }
-    
     // Write locale data back to file (without _common.yml content)
     const updatedYaml = safeYamlDump(localeData, {
       lineWidth: -1, // Don't wrap lines

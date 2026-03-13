@@ -6,10 +6,6 @@ import * as path from "path";
 import * as yaml from "js-yaml";
 import { execSync as _execSync, execFile } from "child_process";
 import {
-  careerProgramSchema,
-  landingPageSchema,
-  locationPageSchema,
-  templatePageSchema,
   experimentUpdateSchema,
   type CareerProgram,
   type LandingPage,
@@ -217,11 +213,23 @@ function loadCareerProgramsListing(locale: string) {
   return result.data;
 }
 
+function applyMetaFallback(data: Record<string, unknown>): void {
+  if (!data.meta || typeof data.meta !== "object") {
+    data.meta = {};
+  }
+  const meta = data.meta as Record<string, unknown>;
+  if (!meta.page_title && data.title) {
+    meta.page_title = String(data.title);
+  }
+  if (!meta.description) {
+    meta.description = "";
+  }
+}
+
 function loadCareerProgram(slug: string, locale: string): CareerProgram | null {
-  const result = contentIndex.loadContent({
+  const result = contentIndex.loadContent<CareerProgram>({
     contentType: "program",
     slug,
-    schema: careerProgramSchema,
     localeOrVariant: locale,
   });
 
@@ -230,6 +238,7 @@ function loadCareerProgram(slug: string, locale: string): CareerProgram | null {
     return null;
   }
 
+  applyMetaFallback(result.data as Record<string, unknown>);
   if (result.data.sections) {
     applyComponentSectionDefaults(result.data.sections as unknown[]);
   }
@@ -260,10 +269,9 @@ function listCareerPrograms(
 
 function loadLandingPage(slug: string, locale?: string): LandingPage | null {
   const effectiveLocale = locale || ((contentIndex.loadCommonData("landing", slug)?.locale as string) || getDefaultLocale());
-  const result = contentIndex.loadContent({
+  const result = contentIndex.loadContent<LandingPage>({
     contentType: "landing",
     slug,
-    schema: landingPageSchema,
     localeOrVariant: effectiveLocale,
   });
 
@@ -272,6 +280,7 @@ function loadLandingPage(slug: string, locale?: string): LandingPage | null {
     return null;
   }
 
+  applyMetaFallback(result.data as Record<string, unknown>);
   if (result.data.sections) {
     applyComponentSectionDefaults(result.data.sections as unknown[]);
   }
@@ -303,10 +312,9 @@ function listLandingPages(): Array<{
 }
 
 function loadLocationPage(slug: string, locale: string): LocationPage | null {
-  const result = contentIndex.loadContent({
+  const result = contentIndex.loadContent<LocationPage>({
     contentType: "location",
     slug,
-    schema: locationPageSchema,
     localeOrVariant: locale,
   });
 
@@ -315,6 +323,7 @@ function loadLocationPage(slug: string, locale: string): LocationPage | null {
     return null;
   }
 
+  applyMetaFallback(result.data as Record<string, unknown>);
   if (result.data.sections) {
     applyComponentSectionDefaults(result.data.sections as unknown[]);
   }
@@ -355,10 +364,9 @@ function listLocationPages(locale: string): Array<{
 
 // Template Pages (marketing-content/pages/)
 function loadTemplatePage(slug: string, locale: string): TemplatePage | null {
-  const result = contentIndex.loadContent({
+  const result = contentIndex.loadContent<TemplatePage>({
     contentType: "page",
     slug,
-    schema: templatePageSchema,
     localeOrVariant: locale,
   });
 
@@ -367,6 +375,7 @@ function loadTemplatePage(slug: string, locale: string): TemplatePage | null {
     return null;
   }
 
+  applyMetaFallback(result.data as Record<string, unknown>);
   if (result.data.sections) {
     applyComponentSectionDefaults(result.data.sections as unknown[]);
   }
@@ -1569,7 +1578,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const result = contentIndex.loadContent({
       contentType,
       slug,
-      schema: templatePageSchema,
       localeOrVariant: locale,
     });
 
@@ -9230,64 +9238,41 @@ sections: []
         }>;
       } = { valid: true, errors: [] };
       try {
-        const typeToSchema: Record<string, any> = {
-          program: careerProgramSchema,
-          landing: landingPageSchema,
-          location: locationPageSchema,
-          page: templatePageSchema,
-        };
-        const zodSchema = typeToSchema[file.type];
-        if (zodSchema) {
+        const contentTypes = ["program", "landing", "location", "page"];
+        if (contentTypes.includes(file.type)) {
           let inferredLocale = file.locale;
           if (!inferredLocale || inferredLocale === "_common") {
             inferredLocale =
               urlLocale || (url.startsWith("/es/") ? "es" : "en");
           }
-          const localeOrVariant = inferredLocale;
           const folderSlug = path.basename(path.dirname(file.filePath));
           const result = contentIndex.loadContent({
             contentType: file.type,
             slug: folderSlug,
-            schema: zodSchema,
-            localeOrVariant,
+            localeOrVariant: inferredLocale,
           });
           if (!result.success) {
             schemaValidation.valid = false;
-            const zodErrorMatch = result.error.match(
-              /Invalid YAML structure[^:]*:\s*([\s\S]*)/,
-            );
-            if (zodErrorMatch) {
-              try {
-                const parsed = JSON.parse(zodErrorMatch[1]);
-                if (Array.isArray(parsed)) {
-                  for (const issue of parsed) {
-                    schemaValidation.errors.push({
-                      path: Array.isArray(issue.path)
-                        ? issue.path.join(".")
-                        : String(issue.path || ""),
-                      code: issue.code || "unknown",
-                      message: issue.message || "Validation failed",
-                      expected: issue.expected
-                        ? String(issue.expected)
-                        : undefined,
-                      received: issue.received
-                        ? String(issue.received)
-                        : undefined,
-                    });
-                  }
-                }
-              } catch {
-                schemaValidation.errors.push({
-                  path: "",
-                  code: "SCHEMA_VALIDATION_FAILED",
-                  message: zodErrorMatch[1] || result.error,
-                });
-              }
-            } else {
+            schemaValidation.errors.push({
+              path: "",
+              code: "CONTENT_LOAD_FAILED",
+              message: result.error,
+            });
+          } else {
+            const data = result.data as Record<string, unknown>;
+            const meta = data.meta as Record<string, unknown> | undefined;
+            if (!meta?.page_title) {
               schemaValidation.errors.push({
-                path: "",
-                code: "CONTENT_LOAD_FAILED",
-                message: result.error,
+                path: "meta.page_title",
+                code: "MISSING_META",
+                message: "Missing meta.page_title — a fallback will be used at render time",
+              });
+            }
+            if (!meta?.description) {
+              schemaValidation.errors.push({
+                path: "meta.description",
+                code: "MISSING_META",
+                message: "Missing meta.description — an empty string fallback will be used",
               });
             }
           }

@@ -3,12 +3,6 @@ import * as path from "path";
 import * as yaml from "js-yaml";
 import type { Request, Response, NextFunction } from "express";
 import { contentIndex } from "./content-index";
-import {
-  templatePageSchema,
-  landingPageSchema,
-  careerProgramSchema,
-  locationPageSchema,
-} from "@shared/schema";
 import { resolveDynamicEntries } from "./dynamic-entries";
 import { resolveLayout, getLocaleKey } from "./content-types";
 import { applyComponentSectionDefaults } from "./component-registry";
@@ -34,12 +28,7 @@ const API_PATH_MAP: Record<string, string> = {
   location: "/api/locations",
 };
 
-const SCHEMA_MAP: Record<string, typeof templatePageSchema> = {
-  page: templatePageSchema,
-  landing: landingPageSchema,
-  program: careerProgramSchema,
-  location: locationPageSchema,
-};
+const CONTENT_TYPES_WITH_PAGES = ["page", "landing", "program", "location"];
 
 async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
   const cleanUrl = url.split("?")[0].split("#")[0];
@@ -53,11 +42,9 @@ async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
   ) {
     const locale = cleanUrl.startsWith("/es") ? "es" : "en";
     const slug = "home";
-    const schema = SCHEMA_MAP["page"];
     const result = contentIndex.loadContent({
       contentType: "page",
       slug,
-      schema,
       localeOrVariant: locale,
     });
     if (result.success) {
@@ -126,7 +113,6 @@ async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
     }
 
     const apiPath = API_PATH_MAP[contentType];
-    const schema = SCHEMA_MAP[contentType];
     let locale = cleanUrl.match(/^\/(es)\b/) ? "es" : "en";
     if (resolved.params?.locale) {
       locale = resolved.params.locale;
@@ -137,13 +123,12 @@ async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
       }
     }
 
-    if (apiPath && schema) {
+    if (apiPath && CONTENT_TYPES_WITH_PAGES.includes(contentType)) {
       const localeOrVariant = locale;
 
       const result = contentIndex.loadContent({
         contentType,
         slug,
-        schema,
         localeOrVariant,
       });
 
@@ -181,7 +166,6 @@ async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
     const genericResult = contentIndex.loadContent({
       contentType,
       slug,
-      schema: templatePageSchema,
       localeOrVariant: locale,
     });
 
