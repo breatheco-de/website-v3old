@@ -538,6 +538,8 @@ sections:
         rating: 5
         comment: Excellent content and great mentor support. Now I'm working on cutting-edge AI.
         outcome: +100% salary increase
+    marginY:
+      desktop: md none
   - type: cta_banner
     section_id: cta_banner-nw5mm6
     version: "1.0"
