@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import Marquee from "react-fast-marquee";
+import Marquee from "@/lib/marquee";
 import type { WhosHiringSection as WhosHiringSectionType } from "@shared/schema";
 
 interface WhosHiringCarouselProps {

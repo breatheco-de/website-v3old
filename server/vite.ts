@@ -120,7 +120,7 @@ export async function setupVite(app: Express, server: Server) {
         const { render } = await vite.ssrLoadModule(entryServerAbs);
         appHtml = await render(url, initialDataPayload);
       } catch (ssrErr) {
-        console.warn("[SSR] render failed, falling back to client-only:", (ssrErr as Error).message);
+        console.warn("[SSR] render failed, falling back to client-only:", (ssrErr as Error).stack ?? ssrErr);
       }
 
       let html = appHtml
@@ -158,7 +158,7 @@ async function getSsrRender() {
       ssrRenderFn = mod.render;
     }
   } catch (e) {
-    console.warn("[SSR] Could not load SSR bundle:", (e as Error).message);
+    console.warn("[SSR] Could not load SSR bundle:", (e as Error).stack ?? e);
   }
   return ssrRenderFn;
 }
@@ -205,7 +205,7 @@ export function serveStatic(app: Express) {
         return;
       }
     } catch (e) {
-      console.warn("[SSR] Production render failed, falling back:", (e as Error).message);
+      console.warn("[SSR] Production render failed, falling back:", (e as Error).stack ?? e);
     }
 
     res.status(status).sendFile(indexHtmlPath);

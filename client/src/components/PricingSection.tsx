@@ -39,7 +39,7 @@ import {
 } from "react-icons/si";
 import type { PricingSection as PricingSectionType } from "@shared/schema";
 import Matplotlib from "@/components/custom-icons/Matplotlib";
-import Marquee from "react-fast-marquee";
+import Marquee from "@/lib/marquee";
 import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
 
