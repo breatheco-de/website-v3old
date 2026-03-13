@@ -15,7 +15,7 @@ sections:
       color: primary
     description: The AI talent gap is real. 800,000+ open roles, not enough qualified engineers to fill them. In 24 weeks, you'll build production-ready AI apps, master LLMs and machine learning, and position yourself for the highest-paying entry point in tech right now.
     bullets:
-      - text: "No experience needed: we take you from zero to job-ready in 24 weeks"
+      - text: "Career-focused from day one: get job-ready in 24 weeks and hired in 120 days"
       - text: The only bootcamp that doesn't end at graduation, unlimited lifetime mentorship included
       - text: "Flexible financing available: pay as low as $349/mo or $0 upfront with our Income Share Agreement"
     image_object_fit: none
@@ -57,7 +57,7 @@ sections:
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Get the Full AI Engineering Program Details
-    form_card_subtitle: "Submit below and our admissions team will send you the complete program overview: curriculum, pricing, and financing options, within minutes."
+    form_card_subtitle: Takes 2 minutes. Our admissions team will send you the complete program overview — curriculum, pricing, and financing options — within minutes of applying.
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: false
     awards_marquee:
