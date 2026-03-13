@@ -384,7 +384,7 @@ sections:
       desktop: none
     paddingY:
       mobile: lg none
-      desktop: md none
+      desktop: md
   - type: ai_learning
     section_id: ai_learning-xiuj75
     badge: Why 4Geeks?
