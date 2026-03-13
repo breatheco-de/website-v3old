@@ -232,7 +232,7 @@ sections:
       desktop: none
     paddingY:
       mobile: none md
-      desktop: none sm
+      desktop: none md
   - type: syllabus
     variant: program-modules
     program_title: What You'll Build in 24 Weeks
