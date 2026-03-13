@@ -75,7 +75,7 @@ props:
         description: Duration text (e.g., "16 weeks")
       avg_salary:
         type: string
-        required: false
+        required: true
         description: Average salary range (e.g., "$85,000 – $120,000")
       cta_text:
         type: string

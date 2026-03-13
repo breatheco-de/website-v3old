@@ -57,7 +57,7 @@ function StackedListItem({
           </div>
 
           <div className="flex flex-row md:flex-col justify-between md:justify-between items-center md:items-end gap-2 shrink-0 md:pt-1">
-            {showSalary && program.avg_salary ? (
+            {showSalary ? (
               <div className="flex flex-col items-end">
                 {salaryLabel && (
                   <span className="text-xs text-muted-foreground font-sans">{salaryLabel}</span>

@@ -53,7 +53,7 @@ function FeaturedCard({
           className="flex items-center justify-between gap-3 pt-4 flex-wrap"
           style={{ borderTop: "1px solid hsl(var(--primary) / 0.2)" }}
         >
-          {showSalary && program.avg_salary ? (
+          {showSalary ? (
             <div className="flex flex-col">
               {salaryLabel && (
                 <span className="text-xs text-muted-foreground font-sans">{salaryLabel}</span>
@@ -131,7 +131,7 @@ function SmallCard({
           className="flex items-center justify-between gap-3 pt-3 flex-wrap"
           style={{ borderTop: `1px solid ${footerBorderColor}` }}
         >
-          {showSalary && program.avg_salary ? (
+          {showSalary ? (
             <div className="flex flex-col">
               {salaryLabel && (
                 <span className="text-xs text-muted-foreground font-sans">{salaryLabel}</span>
