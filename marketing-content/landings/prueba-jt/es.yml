@@ -14,7 +14,7 @@ sections:
       - text: Accede a mentorías personalizadas ilimitadas y de por vida
     video:
       url: https://www.youtube.com/shorts/ksGWXcccpc8
-      ratio: "9:15"
+      ratio: "9:16"
       muted: true
       autoplay: true
       loop: true
