@@ -16,11 +16,7 @@ sections:
       prefix: Break Your Career
       highlight: Ceiling.
       color: primary
-    description: "<p style=\"margin-bottom: 0.25rem; padding: 0px; font-family: &quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif; font-size: 1.1rem; line-height: 1.75; max-width: 560px;\"><span style=\"margin: 0px; padding: 0px;\">Become an AI Engineer:</span>&nbsp;fastest-growing job of 2026. <b>1.3M</b> new roles. <b>42× growth</b>. In 24 weeks, that's you — landing roles paying&nbsp;<span style=\"margin: 0px; padding: 0px;\"><b>$95K–$135K+</b></span>.</p><p style=\"margin-bottom: 2rem; padding: 0px; font-family: &quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif; font-size: 11px;\">¹ LinkedIn Jobs on the Rise 2026 &amp; LinkedIn Labor Market Report</p>"
-    bullet_points:
-      - Real projects — build a complete AI-native system across 10 milestones
-      - Unlimited 1:1 mentorship and career support that doesn't stop at graduation
-      - Job Guarantee available — get hired within 9 months or get your tuition back
+    description: "<p style=\"margin-bottom: 0.25rem; padding: 0px; font-family: &quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif; font-size: 1.1rem; line-height: 1.75; max-width: 560px;\"><span style=\"margin: 0px; padding: 0px;\">Become an AI Engineer:</span>&nbsp;fastest-growing job of 2026. <b>1.3M</b> new roles. <b>42× growth</b>. In 24 weeks, that's you — landing roles paying&nbsp;<span style=\"margin: 0px; padding: 0px;\"><b>$95K–$135K+</b></span>. Real projects building a complete AI-native system across 10 milestones, unlimited 1:1 mentorship, and career support that doesn't stop at graduation. Job Guarantee available — get hired within 9 months or get your tuition back.</p><p style=\"margin-bottom: 2rem; padding: 0px; font-family: &quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif; font-size: 11px;\">¹ LinkedIn Jobs on the Rise 2026 &amp; LinkedIn Labor Market Report</p>"
     form:
       variant: stacked
       conversion_name: student_application
@@ -68,11 +64,6 @@ sections:
     section_id: hero-n55vo7
     paddingY:
       mobile: md none
-      desktop: lg none
-    marginY:
-      mobile: none
-      desktop: none
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
   - type: sticky_cta
     section_id: sticky_cta-x7fhrp
     version: "1.0"
