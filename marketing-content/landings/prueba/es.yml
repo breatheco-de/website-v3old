@@ -17,19 +17,21 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    welcome_text: Welcome to
+    title: Career Development
+    subtitle: for the AI Era
+    welcome_text: Bienvenido a
     brand_mark:
       prefix: Geek
       highlight: FORCE
       suffix: ":"
       color: chart-5
-    title: Career Development
-    subtitle: for the AI Era
     description: Get unlimited 1:1 career support designed for your unique profile and goals—for life. From resume and portfolio building to interviews and AI-driven hiring platforms.
-    form:
-      placeholder: Enter your work email
-      button_text: Sign up free →
-      helper_text: Keep work and life separate by using your work email
+    video:
+      url: https://storage.googleapis.com/4geeks-academy-website/media/ai-engineering_1765593572918.mp4
+      ratio: "9:16"
+      muted: true
+      loop: true
+    form: {}
     trust_bar:
       rating: "4.5"
       review_count: Based on 5149+ reviews
@@ -40,11 +42,6 @@ sections:
           logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
         - name: SwitchUp
           logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-    video:
-      url: https://storage.googleapis.com/4geeks-academy-website/media/ai-engineering_1765593572918.mp4
-      ratio: "9:16"
-      muted: true
-      loop: true
     section_id: hero-n7wgbz
   - type: hero
     version: "1.0"
