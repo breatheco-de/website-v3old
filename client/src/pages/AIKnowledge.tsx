@@ -520,7 +520,7 @@ export default function AIKnowledge() {
               <h2 className="font-semibold text-sm" data-testid="text-test-chat-heading">Test Chat</h2>
               <p className="text-xs text-muted-foreground">Send messages to test your agent configuration.</p>
             </div>
-            <ChatPanel<{ role: "user" | "assistant"; content: string; trace?: AgentTrace }>
+            <ChatPanel
               messages={chatMessages}
               isLoading={chatSending}
               input={chatInput}
