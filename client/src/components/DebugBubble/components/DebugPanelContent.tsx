@@ -11,6 +11,7 @@ import {
   IconCloudDownload,
   IconComponents,
   IconCookie,
+  IconDatabase,
   IconDeviceDesktop,
   IconDeviceMobile,
   IconFlask,
