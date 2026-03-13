@@ -288,6 +288,7 @@ import DoubleCTA from "@/components/double-cta/DoubleCTA";
 import { Modal } from "@/components/Modal";
 import { ContactUsInfo } from "@/components/contact-us-info/ContactUsInfo";
 import { CardsDeck } from "@/components/cards-deck/CardsDeck";
+import { ProgramsShowcase } from "@/components/programs_showcase";
 
 import { EditableSection } from "@/components/editing/EditableSection";
 import { AddSectionButton } from "@/components/editing/AddSectionButton";
@@ -663,6 +664,8 @@ export function renderSection(section: Section, index: number, landingLocations?
       return <ContactUsInfo data={section as Parameters<typeof ContactUsInfo>[0]["data"]} />;
     case "cards_deck":
       return <CardsDeck data={section as Parameters<typeof CardsDeck>[0]["data"]} />;
+    case "programs_showcase":
+      return <ProgramsShowcase data={section as Parameters<typeof ProgramsShowcase>[0]["data"]} />;
     default: {
       if (process.env.NODE_ENV === "development") {
         console.warn(`Unknown section type: ${sectionType}`);
