@@ -14,6 +14,7 @@ The AI Reskilling Platform is a minimalistic Learning Management System (LMS) we
 - Images: ALWAYS use the `UniversalImage` component (`client/src/components/UniversalImage.tsx`) for ALL image content. Reference images by ID from the centralized registry (`marketing-content/image-registry.json`). NEVER use hardcoded image paths in components. Exception: `HeroSingleColumn` uses `image: { src, alt }` object syntax (not `image_id`) — renders a direct `<img>` tag, with backward compatibility fallback to `UniversalImage` for legacy `image_id` data.
 - Image Storage: New images go in `marketing-content/images/` (served at `/marketing-content/images/`). Legacy images remain in `attached_assets/` (served at `/attached_assets/`). The `attached_assets/` folder also contains conversation screenshots which are excluded from the registry scanner and gitignored.
 - URL Routing: Use `/en/` prefix for English pages and `/es/` prefix for Spanish pages. NEVER use `/us/` - this is incorrect. Example: `/en/geekforce-career-support` (correct), `/us/geekforce-career-support` (wrong).
+- Agent Skills: All project-specific agent skills use the `internal-` prefix (e.g., `internal-image-gallery`). They live in `.agents/skills/` and are automatically loaded when working on related subsystems.
 
 ### System Architecture
 The platform utilizes React with TypeScript, Vite, Tailwind CSS, shadcn UI, wouter, and TanStack Query for the frontend, and Express for the backend.
