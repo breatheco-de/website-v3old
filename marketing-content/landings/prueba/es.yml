@@ -43,6 +43,7 @@ sections:
         - name: SwitchUp
           logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
     section_id: hero-n7wgbz
+    background: hsl(var(--accent))
   - type: hero
     version: "1.0"
     variant: ApplyFormProductShowcase
