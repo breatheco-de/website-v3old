@@ -333,15 +333,15 @@ sections:
     paddingY:
       desktop: md lg
   - type: why_learn_ai
-    section_id: why_learn_ai-9pbrek
     variant: laptop-edge
-    title: Optional Job Guarantee* for Extra Confidence
-    subtitle: Back your career outcome with a stronger commitment
-    description: "<span style=\"font-size: 1.125rem;\"><span><span>Add our optional Job Guarantee for additional peace of mind. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
+    title: Get Hired. Or Your Money Back.
+    subtitle: Add our optional Job Guarantee to your payment plan and graduate with total confidence.
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>Complete the program, follow the GeekFORCE career process, and if you're not hired within 9 months — we refund you.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></span></span></div></span></span></span>"
     cta:
       text: Get More Info
       url: /en/job-guarantee
       variant: primary
+    section_id: why_learn_ai-9pbrek
     marginY:
       desktop: md
     paddingY:
