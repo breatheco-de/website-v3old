@@ -4,6 +4,7 @@ import * as path from "path";
 import * as yaml from "js-yaml";
 import { contentCompiler } from "./ContentCompiler";
 import { conversationStore } from "./ConversationStore";
+import { TOOL_DEFINITIONS, executeToolCall } from "./tools/index";
 
 interface LLMConfig {
   provider?: { api_key_env?: string; base_url_env?: string };
@@ -50,137 +51,6 @@ function getOpenAIClient(config: LLMConfig): OpenAI {
   });
 }
 
-const TOOL_DEFINITIONS: OpenAI.Chat.ChatCompletionTool[] = [
-  {
-    type: "function",
-    function: {
-      name: "get_program_details",
-      description: "Fetch full details for a specific program by slug",
-      parameters: {
-        type: "object",
-        properties: {
-          slug: { type: "string", description: "The program slug (e.g. 'full-stack', 'data-science')" },
-          locale: { type: "string", description: "Language code (en or es)", default: "en" },
-        },
-        required: ["slug"],
-      },
-    },
-  },
-  {
-    type: "function",
-    function: {
-      name: "get_location_details",
-      description: "Fetch details for a specific campus location by slug",
-      parameters: {
-        type: "object",
-        properties: {
-          slug: { type: "string", description: "The location slug (e.g. 'miami', 'madrid')" },
-          locale: { type: "string", description: "Language code (en or es)", default: "en" },
-        },
-        required: ["slug"],
-      },
-    },
-  },
-  {
-    type: "function",
-    function: {
-      name: "get_upcoming_cohorts",
-      description: "Fetch upcoming cohort start dates for a program",
-      parameters: {
-        type: "object",
-        properties: {
-          program_slug: { type: "string", description: "The program slug" },
-        },
-        required: [],
-      },
-    },
-  },
-  {
-    type: "function",
-    function: {
-      name: "get_faqs",
-      description: "Fetch FAQ entries, optionally filtered by program",
-      parameters: {
-        type: "object",
-        properties: {
-          program_slug: { type: "string", description: "Optional program slug to filter FAQs" },
-          locale: { type: "string", description: "Language code", default: "en" },
-        },
-        required: [],
-      },
-    },
-  },
-  {
-    type: "function",
-    function: {
-      name: "get_pricing",
-      description: "Fetch pricing and financing information for a program",
-      parameters: {
-        type: "object",
-        properties: {
-          program_slug: { type: "string", description: "The program slug" },
-          locale: { type: "string", description: "Language code", default: "en" },
-        },
-        required: ["program_slug"],
-      },
-    },
-  },
-];
-
-function executeToolCall(name: string, args: Record<string, string>): string {
-  const locale = args.locale || "en";
-
-  switch (name) {
-    case "get_program_details": {
-      if (!args.slug) return "Error: slug is required";
-      return contentCompiler.compilePageContext("program", args.slug, locale);
-    }
-    case "get_location_details": {
-      if (!args.slug) return "Error: slug is required";
-      return contentCompiler.compilePageContext("location", args.slug, locale);
-    }
-    case "get_upcoming_cohorts": {
-      const programSlug = args.program_slug || args.slug;
-      if (programSlug) {
-        const ctx = contentCompiler.compilePageContext("program", programSlug, locale);
-        const cohortLines = ctx.split("\n").filter(l =>
-          l.toLowerCase().includes("cohort") ||
-          l.toLowerCase().includes("start date") ||
-          l.toLowerCase().includes("upcoming") ||
-          l.toLowerCase().includes("next batch") ||
-          l.toLowerCase().includes("schedule")
-        );
-        if (cohortLines.length > 0) return cohortLines.join("\n");
-      }
-      const globalCtx = contentCompiler.compile(null, null, locale);
-      const globalCohortLines = globalCtx.globalSummary.split("\n").filter(l =>
-        l.toLowerCase().includes("cohort") ||
-        l.toLowerCase().includes("start date") ||
-        l.toLowerCase().includes("upcoming")
-      );
-      if (globalCohortLines.length > 0) return globalCohortLines.join("\n");
-      return "For the most up-to-date cohort start dates, please visit the program page or contact admissions directly.";
-    }
-    case "get_faqs": {
-      return contentCompiler.compileFaqContext(args.program_slug, locale);
-    }
-    case "get_pricing": {
-      if (!args.program_slug) return "Error: program_slug is required";
-      const ctx = contentCompiler.compilePageContext("program", args.program_slug, locale);
-      const pricingLines = ctx.split("\n").filter(l =>
-        l.toLowerCase().includes("price") ||
-        l.toLowerCase().includes("pricing") ||
-        l.toLowerCase().includes("cost") ||
-        l.toLowerCase().includes("financ") ||
-        l.toLowerCase().includes("payment") ||
-        l.toLowerCase().includes("scholarship")
-      );
-      return pricingLines.length > 0 ? pricingLines.join("\n") : ctx;
-    }
-    default:
-      return `Unknown tool: ${name}`;
-  }
-}
 
 export class AgentService {
   private config: LLMConfig;
