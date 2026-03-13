@@ -246,6 +246,7 @@ function listCareerPrograms(
     const program = loadCareerProgram(slug, locale);
     if (program) {
       const commonData = contentIndex.loadCommonData("program", slug);
+      if (commonData?.valid_lead_form_option === false) continue;
       const bcSlug = (commonData?.bc_slug as string) || slug;
       programs.push({
         slug: program.slug,
@@ -2232,7 +2233,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
 
-      const fields: Record<string, string | null> = {};
+      const fields: Record<string, string | boolean | number | null> = {};
       const computed: string[] = [];
 
       for (const key of fieldKeys) {
@@ -2250,9 +2251,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
           fields[key] = fallback != null ? String(fallback) : null;
         } else if (typeof mappingValue === "string") {
           const value = extractByDotPath(data, mappingValue);
-          fields[key] = value != null ? String(value) : null;
+          if (value == null) {
+            fields[key] = null;
+          } else if (typeof value === "boolean" || typeof value === "number") {
+            fields[key] = value;
+          } else {
+            fields[key] = String(value);
+          }
         } else {
           fields[key] = null;
+        }
+      }
+
+      const nullFields = Object.entries(fields)
+        .filter(([k, v]) => v === null && !computed.includes(k))
+        .map(([k]) => k);
+      if (nullFields.length > 0) {
+        for (const otherSlug of slugs) {
+          if (nullFields.length === 0) break;
+          if (otherSlug === targetSlug) continue;
+          const otherLocales = contentIndex.getAvailableLocalesOrVariants(type as ContentType, otherSlug);
+          if (!otherLocales.length) continue;
+          const otherResult = contentIndex.loadMergedContent(type, otherSlug, otherLocales[0]);
+          if (!otherResult?.data) continue;
+          for (let i = nullFields.length - 1; i >= 0; i--) {
+            const fk = nullFields[i];
+            const mp = fieldMapping[fk];
+            const mv = typeof mp === "string" ? mp : typeof mp === "object" && mp !== null ? (mp as { source: string }).source : null;
+            if (typeof mv !== "string" || mv.startsWith("function:")) continue;
+            const v = extractByDotPath(otherResult.data, mv);
+            if (v != null) {
+              if (typeof v === "boolean" || typeof v === "number") {
+                fields[fk] = v;
+              } else {
+                fields[fk] = String(v);
+              }
+              nullFields.splice(i, 1);
+            }
+          }
         }
       }
 
@@ -7436,11 +7472,11 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const skipLocales: string[] = Array.isArray(rawSkipLocales)
         ? rawSkipLocales.filter((l: unknown) => typeof l === "string")
         : [];
-      const uniqueFieldValues: Record<string, string> =
+      const uniqueFieldValues: Record<string, string | boolean> =
         rawUniqueFieldValues && typeof rawUniqueFieldValues === "object"
           ? Object.fromEntries(
               Object.entries(rawUniqueFieldValues).filter(
-                ([, v]) => typeof v === "string",
+                ([, v]) => typeof v === "string" || typeof v === "boolean",
               ),
             )
           : {};
@@ -7741,7 +7777,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         } else if (key === "locale") {
           commonObj.locale = activeLocale;
         } else if (uniqueFieldValues[key] !== undefined) {
-          commonObj[key] = coerceStringValue(uniqueFieldValues[key]);
+          const ufv = uniqueFieldValues[key];
+          commonObj[key] = typeof ufv === "boolean" ? ufv : coerceStringValue(ufv);
         } else {
           commonObj[key] = "";
         }

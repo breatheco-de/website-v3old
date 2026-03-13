@@ -41,6 +41,7 @@ program:
     title: title
     bc_slug: bc_slug
     job_role: job_role
+    valid_lead_form_option: valid_lead_form_option
   url_pattern:
     en: /en/career-programs/:slug
     es: /es/programas-de-carrera/:slug

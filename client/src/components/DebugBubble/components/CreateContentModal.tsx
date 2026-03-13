@@ -85,7 +85,7 @@ interface LocaleSettingsResponse {
 interface EntryFieldsResponse {
   slug: string | null;
   title: string | null;
-  fields: Record<string, string | null>;
+  fields: Record<string, string | boolean | number | null>;
   computed: string[];
 }
 
@@ -297,7 +297,7 @@ export function CreateContentModal({
   const [manualTitleLocales, setManualTitleLocales] = useState<Set<string>>(new Set());
 
   const [step, setStep] = useState<1 | 2>(1);
-  const [nonUniqueValues, setNonUniqueValues] = useState<Record<string, string>>({});
+  const [nonUniqueValues, setNonUniqueValues] = useState<Record<string, string | boolean>>({});
   const [showNonUnique, setShowNonUnique] = useState(false);
   const [createError, setCreateError] = useState<string | null>(null);
   const [exampleOpen, setExampleOpen] = useState(false);
@@ -426,13 +426,33 @@ export function CreateContentModal({
 
   useEffect(() => {
     if (!sourceData?.fields) return;
-    const prefill: Record<string, string> = {};
+    const prefill: Record<string, string | boolean> = {};
     for (const key of editableNonUniqueFields) {
       const val = sourceData.fields[key];
-      if (val != null) prefill[key] = val;
+      if (val != null) {
+        if (typeof val === "boolean") {
+          prefill[key] = val;
+        } else {
+          prefill[key] = String(val);
+        }
+      }
     }
     setNonUniqueValues(prefill);
   }, [sourceData]);
+
+  useEffect(() => {
+    if (!exampleData?.fields) return;
+    setNonUniqueValues((prev) => {
+      const updated = { ...prev };
+      for (const key of editableNonUniqueFields) {
+        const val = exampleData.fields[key];
+        if (typeof val === "boolean" && updated[key] === undefined) {
+          updated[key] = true;
+        }
+      }
+      return updated;
+    });
+  }, [exampleData, editableNonUniqueFields]);
 
   const checkSlug = (type: string, slug: string, locale: string | null, onStatus: (s: SlugCheckStatus) => void, onReason: (r: string | null) => void) => {
     const url = locale
@@ -1179,26 +1199,55 @@ export function CreateContentModal({
 
                 {showNonUnique && (
                   <div className="space-y-1.5 pt-0.5">
-                    {editableNonUniqueFields.map((field) => (
-                      <div key={field} className="flex items-center gap-2">
-                        <span
-                          className="text-xs font-mono w-28 flex-shrink-0 text-right text-muted-foreground truncate"
-                          title={field}
-                        >
-                          {field}
-                        </span>
-                        <input
-                          type="text"
-                          value={nonUniqueValues[field] ?? ""}
-                          onChange={(e) =>
-                            setNonUniqueValues((prev) => ({ ...prev, [field]: e.target.value }))
-                          }
-                          placeholder={exampleData?.fields?.[field] ?? humanizeField(field)}
-                          className="flex-1 px-2 py-1 text-xs font-mono rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                          data-testid={`input-field-${field}`}
-                        />
-                      </div>
-                    ))}
+                    {editableNonUniqueFields.map((field) => {
+                      const exampleVal = exampleData?.fields?.[field];
+                      const isBooleanField = typeof exampleVal === "boolean" || typeof nonUniqueValues[field] === "boolean";
+                      if (isBooleanField) {
+                        const checked = nonUniqueValues[field] != null ? nonUniqueValues[field] === true : true;
+                        return (
+                          <div key={field} className="flex items-center gap-2">
+                            <span
+                              className="text-xs font-mono w-28 flex-shrink-0 text-right text-muted-foreground truncate"
+                              title={field}
+                            >
+                              {field}
+                            </span>
+                            <label className="flex items-center gap-1.5 cursor-pointer">
+                              <input
+                                type="checkbox"
+                                checked={checked as boolean}
+                                onChange={(e) =>
+                                  setNonUniqueValues((prev) => ({ ...prev, [field]: e.target.checked }))
+                                }
+                                className="h-4 w-4 rounded border accent-primary"
+                                data-testid={`input-field-${field}`}
+                              />
+                              <span className="text-xs text-muted-foreground">{checked ? "true" : "false"}</span>
+                            </label>
+                          </div>
+                        );
+                      }
+                      return (
+                        <div key={field} className="flex items-center gap-2">
+                          <span
+                            className="text-xs font-mono w-28 flex-shrink-0 text-right text-muted-foreground truncate"
+                            title={field}
+                          >
+                            {field}
+                          </span>
+                          <input
+                            type="text"
+                            value={(nonUniqueValues[field] as string) ?? ""}
+                            onChange={(e) =>
+                              setNonUniqueValues((prev) => ({ ...prev, [field]: e.target.value }))
+                            }
+                            placeholder={exampleVal != null ? String(exampleVal) : humanizeField(field)}
+                            className="flex-1 px-2 py-1 text-xs font-mono rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                            data-testid={`input-field-${field}`}
+                          />
+                        </div>
+                      );
+                    })}
                     {computedFields.map(({ key, rawCode }) => (
                       <div key={key} className="flex items-center gap-2">
                         <span
