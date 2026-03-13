@@ -186,7 +186,7 @@ sections:
             text: Sistemas de IA en Producción
         description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
         cta_text: Solicitar Detalles del Programa
-        cta_url: "#cta_banner-or97zl"
+        cta_url: "#apply-modal"
         course_background: hsl(var(--accent))
       - name: Desarrollo Full Stack con IA
         icon: Code
