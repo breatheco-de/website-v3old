@@ -9956,6 +9956,10 @@ sections: []
     question_tags?: string[];
     agent_tools?: Array<{ name: string; description: string; enabled: boolean }>;
     chat_bubble?: { enabled?: boolean; page_patterns?: string[]; content_types?: string[]; agent_name?: string; agent_icon?: string };
+    prompt_role?: string;
+    prompt_personality?: string;
+    prompt_instructions?: string;
+    prompt_fallback?: string;
   }
 
   function loadLLMConfig(): ParsedLLMConfig {
@@ -10148,10 +10152,10 @@ sections: []
 
       res.json({
         system_prompt: knowledge.system_prompt || null,
-        prompt_role: knowledge.prompt_role || "",
-        prompt_personality: knowledge.prompt_personality || "",
-        prompt_instructions: knowledge.prompt_instructions || "",
-        prompt_fallback: knowledge.prompt_fallback || "",
+        prompt_role: knowledge.prompt_role || llmConfig.prompt_role || "",
+        prompt_personality: knowledge.prompt_personality || llmConfig.prompt_personality || "",
+        prompt_instructions: knowledge.prompt_instructions || llmConfig.prompt_instructions || "",
+        prompt_fallback: knowledge.prompt_fallback || llmConfig.prompt_fallback || "",
         custom_knowledge: knowledge.custom_knowledge || [],
         pinned_qa: knowledge.pinned_qa || [],
         agent_tools: llmConfig.agent_tools || [],
