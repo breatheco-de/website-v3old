@@ -183,8 +183,8 @@ async function processImage(
   const { sharpFormat, ext: outExt, registryFormat } = outputFormat(origExt);
   const originalKey = gcsKeyFromSrc(entry.src);
 
-  if (!originalKey && !dryRun && !gcs.available) {
-    console.error(`${RED}  [ERR] ${id}: cannot derive GCS key from ${entry.src}${RESET}`);
+  if (!originalKey && !dryRun) {
+    console.error(`${RED}  [ERR] ${id}: non-GCS source, cannot derive upload key from ${entry.src}${RESET}`);
     return null;
   }
 
