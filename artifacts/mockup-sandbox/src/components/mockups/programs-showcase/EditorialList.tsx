@@ -1,4 +1,4 @@
-import { Clock, Code2, Brain, BarChart3, Shield } from "lucide-react";
+import { Clock, Code2, Brain, BarChart3, Shield, ArrowRight } from "lucide-react";
 
 const FOREGROUND = "#00041A";
 const MUTED = "#737373";
@@ -83,7 +83,7 @@ function EditorialItem({ program, isLast }: { program: typeof programs[0]; isLas
               </p>
             </div>
 
-            <div className="flex flex-col items-end gap-2 shrink-0 pt-1">
+            <div className="flex flex-col justify-between gap-2 shrink-0 pt-1">
               <div
                 className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full"
                 style={{
@@ -98,10 +98,11 @@ function EditorialItem({ program, isLast }: { program: typeof programs[0]; isLas
               </div>
 
               <button
-                className="text-sm font-semibold hover:underline"
+                className="flex items-center gap-1 text-sm font-semibold hover:underline transition-all duration-150 group-hover:gap-2"
                 style={{ color: program.color, fontFamily: "'Archivo', sans-serif" }}
               >
                 Explore
+                <ArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
               </button>
             </div>
           </div>

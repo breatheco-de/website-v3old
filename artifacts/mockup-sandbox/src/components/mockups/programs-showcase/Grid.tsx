@@ -1,4 +1,4 @@
-import { Clock, Code2, Brain, BarChart3, Shield, TrendingUp } from "lucide-react";
+import { Clock, Code2, Brain, BarChart3, Shield, TrendingUp, ArrowRight } from "lucide-react";
 
 const FOREGROUND = "#00041A";
 const MUTED = "#737373";
@@ -127,10 +127,11 @@ function ProgramCard({ program }: { program: typeof programs[0] }) {
             <span>{program.duration}</span>
           </div>
           <button
-            className="text-sm font-semibold hover:underline"
+            className="flex items-center gap-1 text-sm font-semibold hover:underline transition-all duration-150 group-hover:gap-2"
             style={{ color: program.color, fontFamily: "'Archivo', sans-serif" }}
           >
             Explore Program
+            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
           </button>
         </div>
       </div>

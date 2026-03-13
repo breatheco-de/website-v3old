@@ -1,4 +1,11 @@
-import { Clock, Code2, Brain, BarChart3, Shield } from "lucide-react";
+import {
+  ArrowRight,
+  Clock,
+  Code2,
+  Brain,
+  BarChart3,
+  Shield,
+} from "lucide-react";
 
 const PRIMARY = "#0084FF";
 const FOREGROUND = "#00041A";
@@ -13,41 +20,44 @@ const programs = [
   {
     icon: Code2,
     name: "Full Stack Development with AI",
-    tagline: "Build modern web apps from frontend to backend, supercharged with AI tools.",
+    tagline:
+      "Build modern web apps from frontend to backend, supercharged with AI tools.",
     duration: "16 weeks",
   },
   {
     icon: Brain,
     name: "AI Engineering",
-    tagline: "Design, train and deploy AI models that solve real-world business problems.",
+    tagline:
+      "Design, train and deploy AI models that solve real-world business problems.",
     duration: "20 weeks",
   },
   {
     icon: BarChart3,
     name: "Data Science & ML",
-    tagline: "Turn raw data into actionable insight using Python, ML and visualization.",
+    tagline:
+      "Turn raw data into actionable insight using Python, ML and visualization.",
     duration: "18 weeks",
   },
   {
     icon: Shield,
     name: "Cybersecurity",
-    tagline: "Protect systems and networks against modern threats and vulnerabilities.",
+    tagline:
+      "Protect systems and networks against modern threats and vulnerabilities.",
     duration: "14 weeks",
   },
 ];
 
-function FeaturedCard({ program }: { program: typeof programs[0] }) {
+function FeaturedCard({ program }: { program: (typeof programs)[0] }) {
   const Icon = program.icon;
   return (
-    <div
-      className="flex flex-col group"
-      style={{
-        backgroundColor: TINTED_BG,
-        borderRadius: "0.75rem",
-        border: `1px solid ${TINTED_BORDER}`,
-      }}
-    >
-      <div className="p-7 flex flex-col gap-5">
+    <div className="flex flex-col group h-full bg-background">
+      <div
+        className="p-7 flex flex-col gap-5 h-full  rounded-md"
+        style={{
+          borderRadius: "0.75rem",
+          border: `1px solid ${BORDER}`,
+        }}
+      >
         <Icon
           className="w-8 h-8"
           style={{ color: PRIMARY }}
@@ -81,7 +91,7 @@ function FeaturedCard({ program }: { program: typeof programs[0] }) {
 
         <div
           className="flex items-center justify-between pt-4"
-          style={{ borderTop: `1px solid ${TINTED_BORDER}` }}
+          style={{ borderTop: `1px solid ${BORDER}` }}
         >
           <div
             className="flex items-center gap-1.5 text-xs"
@@ -91,10 +101,11 @@ function FeaturedCard({ program }: { program: typeof programs[0] }) {
             <span>{program.duration}</span>
           </div>
           <button
-            className="text-sm font-semibold hover:underline"
+            className="flex items-center gap-1.5 text-sm font-semibold transition-all duration-150 group-hover:gap-2.5"
             style={{ color: PRIMARY, fontFamily: "'Archivo', sans-serif" }}
           >
             Explore Program
+            <ArrowRight className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-0.5" />
           </button>
         </div>
       </div>
@@ -102,7 +113,13 @@ function FeaturedCard({ program }: { program: typeof programs[0] }) {
   );
 }
 
-function SmallCard({ program, odd }: { program: typeof programs[0]; odd: boolean }) {
+function SmallCard({
+  program,
+  odd,
+}: {
+  program: (typeof programs)[0];
+  odd: boolean;
+}) {
   const Icon = program.icon;
   const bg = odd ? TINTED_BG : CARD_BG;
   const border = odd ? TINTED_BORDER : BORDER;
@@ -157,10 +174,11 @@ function SmallCard({ program, odd }: { program: typeof programs[0]; odd: boolean
             <span>{program.duration}</span>
           </div>
           <button
-            className="text-sm font-semibold hover:underline"
+            className="flex items-center gap-1 text-sm font-semibold hover:underline transition-all duration-150 group-hover:gap-2"
             style={{ color: ctaColor, fontFamily: "'Archivo', sans-serif" }}
           >
             Explore
+            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
           </button>
         </div>
       </div>
@@ -192,14 +210,19 @@ export function FeaturedGrid() {
           </h2>
           <p
             className="text-base max-w-xl mx-auto"
-            style={{ color: MUTED, fontFamily: "'Archivo', sans-serif", lineHeight: 1.6 }}
+            style={{
+              color: MUTED,
+              fontFamily: "'Archivo', sans-serif",
+              lineHeight: 1.6,
+            }}
           >
-            Four programs built around the skills companies are actively hiring for right now.
+            Four programs built around the skills companies are actively hiring
+            for right now.
           </p>
         </div>
 
-        <div className="flex items-start gap-5">
-          <div style={{ width: "38%" }}>
+        <div className="flex items-star gap-5">
+          <div style={{ width: "38%" }} className="">
             <FeaturedCard program={featured} />
           </div>
 
