@@ -36,9 +36,9 @@ sections:
         - https://randomuser.me/api/portraits/men/4.jpg
       count: +6000 graduates
     bullet_points:
-      - Transform an entire business case into a fully AI-native system, layer by layer.
-      - Integrate AI into real software, connecting intelligent models to users and data.
-      - Use modern AI tools and coding agents to build and ship software faster.
+      - Build a fully AI-native system end-to-end across 10 real-world milestones.
+      - Ship AI-integrated software that connects intelligent models to live users and data.
+      - Work with AI coding agents to build and deliver production-ready software faster.
     tutors:
       - name: Marco Gonzalo
         role: Main Instructor
@@ -78,9 +78,13 @@ sections:
           text: Unlimited 1:1 Mentorship
         - icon: book
           text: Production-Grade Portfolio
-        - icon: IconPencilDollar
-          text: Optional Job Guarantee
     section_id: hero-yml6d7
+    paddingY:
+      desktop: md
+    marginY:
+      desktop: none
+    showOnLocations:
+      - atla
   - type: hero
     section_id: hero-brq96d
     version: "1.0"
