@@ -21,15 +21,40 @@ sections:
       loop: true
       preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-13-145607.png
     form:
-      variant: inline
-      submit_label: Start Learning →
-      tags: website-lead,rigobot
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Solicita más información
+      tags: website-lead
       fields:
         email:
           visible: true
-          helper_text: Join thousands of developers learning with Rigobot
-          placeholder: Enter your email
-      show_terms: false
+          required: true
+          placeholder: Correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre completo
+        last_name:
+          visible: true
+          required: true
+          placeholder: Apellido
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: true
+          required: true
+      success:
+        message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
+      terms_url: /terms-and-conditions
+      privacy_url: /privacy-policy
+      consent:
+        sms: true
+        marketing: true
+        marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
+        sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
+        sms_usa_only: true
+      show_terms: true
     section_id: hero-qcon9h
   - type: hero
     version: "1.0"
