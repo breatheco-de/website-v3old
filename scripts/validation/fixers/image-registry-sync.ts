@@ -7,7 +7,7 @@
  */
 
 import type { Fixer, FixerContext, FixerResult } from "./types";
-import { mediaGallery } from "../../server/media-gallery";
+import { mediaGallery } from "../../../server/media-gallery";
 
 export const imageRegistrySyncFixer: Fixer = {
   name: "image-registry-sync",

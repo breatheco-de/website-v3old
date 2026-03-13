@@ -7,9 +7,9 @@
  */
 
 import type { Fixer, FixerContext, FixerResult } from "./types";
-import { mediaGallery } from "../../server/media-gallery";
-import { processImageFromSrc } from "../../server/image-optimizer";
-import type { Preset } from "../../server/image-optimizer";
+import { mediaGallery } from "../../../server/media-gallery";
+import { processImageFromSrc } from "../../../server/image-optimizer";
+import type { Preset } from "../../../server/image-optimizer";
 import * as path from "path";
 
 const RASTER_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".webp", ".avif"]);
