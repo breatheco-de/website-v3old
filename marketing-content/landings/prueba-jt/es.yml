@@ -421,7 +421,7 @@ sections:
         email:
           visible: true
           required: true
-          placeholder: Tu email
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
