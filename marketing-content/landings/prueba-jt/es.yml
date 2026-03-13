@@ -61,7 +61,7 @@ sections:
     paddingY:
       desktop: md none
     marginY:
-      desktop: none lg
+      desktop: none xl
   - type: sticky_cta
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
