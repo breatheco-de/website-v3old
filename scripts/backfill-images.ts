@@ -88,8 +88,12 @@ function mergeWidths(presetNames: string[], presets: Record<string, Preset>): { 
 }
 
 function srcExtension(src: string): string {
-  const url = new URL(src);
-  return path.extname(url.pathname).toLowerCase();
+  try {
+    const url = new URL(src);
+    return path.extname(url.pathname).toLowerCase();
+  } catch {
+    return path.extname(src).toLowerCase();
+  }
 }
 
 function gcsKeyFromSrc(src: string): string | null {
@@ -179,7 +183,7 @@ async function processImage(
   const { sharpFormat, ext: outExt, registryFormat } = outputFormat(origExt);
   const originalKey = gcsKeyFromSrc(entry.src);
 
-  if (!originalKey && !dryRun) {
+  if (!originalKey && !dryRun && !gcs.available) {
     console.error(`${RED}  [ERR] ${id}: cannot derive GCS key from ${entry.src}${RESET}`);
     return null;
   }
