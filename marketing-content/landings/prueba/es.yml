@@ -72,6 +72,7 @@ sections:
         phone:
           visible: true
           required: true
+          default_country: ES
       success:
         message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
       terms_url: /terminos-condiciones
