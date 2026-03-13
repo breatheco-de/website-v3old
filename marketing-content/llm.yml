@@ -52,8 +52,6 @@ empty_conversation_grace_minutes: 20
 chat_bubble:
   enabled: false
   page_patterns: []
-  content_types:
-    - program
-    - location
+  content_types: []
   agent_name: Rigobot
-  agent_icon: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+  agent_icon: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
