@@ -45,7 +45,7 @@ sections:
         phone:
           visible: true
           required: true
-          default_country: ES
+          default_country: VE
         program:
           visible: false
           default: ai-engineering
