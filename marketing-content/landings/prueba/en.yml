@@ -637,7 +637,7 @@ sections:
     section_id: pricing-0xok39
     paddingY:
       mobile: lg none
-      desktop: none
+      desktop: none md
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work
