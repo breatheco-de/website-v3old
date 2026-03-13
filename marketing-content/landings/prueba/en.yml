@@ -388,7 +388,7 @@ sections:
   - type: ai_learning
     badge: Why 4Geeks?
     title: The Bootcamp That Doesn't End When You Graduate
-    description: Most bootcamps disappear after demo day. 4Geeks stays with you — from your first line of code to your first offer letter and beyond.
+    description: Most bootcamps disappear after demo day. 4Geeks stays with you from your first line of code to your first offer letter and beyond.
     features:
       - icon: TrendingUp
         title: Career support built for the AI job market
@@ -398,7 +398,7 @@ sections:
           - text: 1:1 coaching focused on landing AI engineering roles specifically
           - text: Resume and portfolio optimized to pass AI-based recruiter screening
           - text: Mock technical and behavioral interviews with real feedback
-          - text: Lifelong career support — not just until graduation
+          - text: Lifelong career support, not just until graduation
         video_url: https://youtu.be/-2ZvlgDnltc
         cta:
           text: See if you qualify
@@ -409,9 +409,9 @@ sections:
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Rigobot gives instant feedback on your code — no waiting for a human to be available
+          - text: Rigobot gives instant feedback on your code with no waiting for a human to be available
           - text: Adapts explanations to your exact skill level and learning pace
-          - text: "24/7 debugging help: unblock yourself at 2am without losing momentum"
+          - text: Get unblocked at 2am without losing momentum
           - text: Hundreds of interactive exercises on Learnpack, our purpose-built learning platform
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
         cta:
@@ -419,12 +419,12 @@ sections:
           url: "#hero-form"
           variant: primary
       - icon: Headset
-        title: Unlimited 1:1 mentorship — for life, not just while enrolled
+        title: Unlimited 1:1 mentorship for life, not just while enrolled
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Book unlimited 1:1 sessions with senior engineers — even after you graduate
-          - text: 7:1 student–mentor ratio so you're never just a ticket in a queue
+          - text: Book unlimited 1:1 sessions with senior engineers even after you graduate
+          - text: 7:1 student to mentor ratio so you're never just a ticket in a queue
           - text: Weekly check-ins keep you accountable and on track to finish
           - text: Active Slack community with dedicated channels for jobs, code help, and career advice
         image_id: community-support-cropped
