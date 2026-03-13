@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, integer, timestamp, jsonb } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -1323,3 +1323,73 @@ export type VisitorContext = z.infer<typeof visitorContextSchema>;
 export type ExperimentAssignment = z.infer<typeof experimentAssignmentSchema>;
 export type ExperimentCookie = z.infer<typeof experimentCookieSchema>;
 export type ExperimentUpdate = z.infer<typeof experimentUpdateSchema>;
+
+// ============================================
+// AI Chat Conversations
+// ============================================
+export const conversations = pgTable("conversations", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  page_url: text("page_url"),
+  content_type: text("content_type"),
+  content_slug: text("content_slug"),
+  locale: text("locale").default("en"),
+  feature_tags: text("feature_tags").array().default(sql`'{}'::text[]`),
+  visitor_id: text("visitor_id"),
+  started_at: timestamp("started_at").defaultNow(),
+});
+
+export const insertConversationSchema = createInsertSchema(conversations).omit({
+  id: true,
+  started_at: true,
+});
+
+export type InsertConversation = z.infer<typeof insertConversationSchema>;
+export type Conversation = typeof conversations.$inferSelect;
+
+export const conversationMessages = pgTable("conversation_messages", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  conversation_id: varchar("conversation_id").notNull(),
+  role: text("role").notNull(),
+  content: text("content").notNull(),
+  question_tag: text("question_tag"),
+  rating: text("rating"),
+  rated_by: text("rated_by"),
+  rated_at: timestamp("rated_at"),
+  override_content: text("override_content"),
+  override_by: text("override_by"),
+  override_at: timestamp("override_at"),
+  created_at: timestamp("created_at").defaultNow(),
+});
+
+export const insertConversationMessageSchema = createInsertSchema(conversationMessages).omit({
+  id: true,
+  created_at: true,
+  rating: true,
+  rated_by: true,
+  rated_at: true,
+  override_content: true,
+  override_by: true,
+  override_at: true,
+});
+
+export type InsertConversationMessage = z.infer<typeof insertConversationMessageSchema>;
+export type ConversationMessage = typeof conversationMessages.$inferSelect;
+
+// ============================================
+// AI Knowledge (admin-managed)
+// ============================================
+export const aiKnowledge = pgTable("ai_knowledge", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  key: text("key").notNull().unique(),
+  value: jsonb("value").notNull(),
+  updated_at: timestamp("updated_at").defaultNow(),
+  updated_by: text("updated_by"),
+});
+
+export const insertAiKnowledgeSchema = createInsertSchema(aiKnowledge).omit({
+  id: true,
+  updated_at: true,
+});
+
+export type InsertAiKnowledge = z.infer<typeof insertAiKnowledgeSchema>;
+export type AiKnowledge = typeof aiKnowledge.$inferSelect;

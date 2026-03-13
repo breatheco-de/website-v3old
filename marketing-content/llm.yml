@@ -1,7 +1,7 @@
 # LLM Provider Configuration
 #
 # Controls which AI provider is used for content analysis features
-# (blog data source wizard, content adaptation, etc.)
+# (blog data source wizard, content adaptation, chat agent, etc.)
 #
 # Switching providers:
 #   Any OpenAI-compatible API works. Just change the env var names
@@ -32,9 +32,50 @@
 #   2. Replit AI Integrations (AI_INTEGRATIONS_OPENAI_*)
 
 provider:
-  api_key_env: OPENAI_API_KEY
-  base_url_env: OPENAI_BASE_URL
+  api_key_env: GROQ_API_KEY
+  base_url_env: GROQ_BASE_URL
 
-model: openai/gpt-oss-120b
+model: llama-3.3-70b-versatile
 temperature: 0.3
 max_tokens: 4000
+
+question_tags:
+  - program-info
+  - pricing-financing
+  - admissions-process
+  - schedule-format
+  - career-outcomes
+  - location-campus
+  - technical-curriculum
+  - general-inquiry
+
+agent_tools:
+  - name: get_program_details
+    description: Fetch full details for a specific program by slug
+    enabled: true
+  - name: get_location_details
+    description: Fetch details for a specific campus location by slug
+    enabled: true
+  - name: get_upcoming_cohorts
+    description: Fetch upcoming cohort start dates
+    enabled: true
+  - name: get_faqs
+    description: Fetch FAQ entries, optionally filtered by program or location
+    enabled: true
+  - name: get_pricing
+    description: Fetch pricing and financing information for a program
+    enabled: true
+
+chat_bubble:
+  enabled: true
+  page_patterns:
+    - "^/en/career-programs/.*"
+    - "^/es/programas-de-carrera/.*"
+    - "^/en/location/.*"
+    - "^/es/ubicacion/.*"
+    - "^/en/$"
+    - "^/es/$"
+    - "^/$"
+  content_types:
+    - program
+    - location

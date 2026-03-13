@@ -1,4 +1,4 @@
-import type { Express } from "express";
+import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import * as fs from "fs";
@@ -9865,6 +9865,417 @@ sections: []
     } catch (error) {
       console.error("Error saving FAQs:", error);
       res.status(500).json({ error: "Failed to save FAQs" });
+    }
+  });
+
+  // ============================================
+  // AI Chat Widget Routes (public)
+  // ============================================
+
+  interface ParsedLLMConfig {
+    provider?: { api_key_env?: string; base_url_env?: string };
+    model?: string;
+    temperature?: number;
+    max_tokens?: number;
+    question_tags?: string[];
+    agent_tools?: Array<{ name: string; description: string; enabled: boolean }>;
+    chat_bubble?: { enabled?: boolean; page_patterns?: string[]; content_types?: string[] };
+  }
+
+  function loadLLMConfig(): ParsedLLMConfig {
+    const llmPath = path.resolve("marketing-content/llm.yml");
+    if (!fs.existsSync(llmPath)) return {};
+    const raw = yaml.load(fs.readFileSync(llmPath, "utf-8"));
+    if (!raw || typeof raw !== "object") return {};
+    return raw as ParsedLLMConfig;
+  }
+
+  function loadFeatureTags(): string[] {
+    const settingsPath = path.resolve("marketing-content/settings.yml");
+    if (!fs.existsSync(settingsPath)) return [];
+    const raw = yaml.load(fs.readFileSync(settingsPath, "utf-8"));
+    if (!raw || typeof raw !== "object") return [];
+    const settings = raw as Record<string, unknown>;
+    return Array.isArray(settings.feature_tags) ? settings.feature_tags : [];
+  }
+
+  function deriveFeatureTags(
+    contentType: string | null,
+    pageUrl: string | null,
+    allTags: string[]
+  ): string[] {
+    const tags: string[] = [];
+    if (contentType && allTags.includes(contentType)) {
+      tags.push(contentType);
+    }
+    if (pageUrl) {
+      for (const tag of allTags) {
+        if (!tags.includes(tag) && pageUrl.toLowerCase().includes(tag.toLowerCase())) {
+          tags.push(tag);
+        }
+      }
+      if (pageUrl.match(/pricing|cost|tuition|financ/i)) {
+        if (allTags.includes("pricing") && !tags.includes("pricing")) tags.push("pricing");
+        if (allTags.includes("financial-aid") && !tags.includes("financial-aid")) tags.push("financial-aid");
+      }
+      if (pageUrl.match(/enroll|apply|admission/i)) {
+        if (allTags.includes("enrollment") && !tags.includes("enrollment")) tags.push("enrollment");
+        if (allTags.includes("admissions") && !tags.includes("admissions")) tags.push("admissions");
+      }
+      if (pageUrl.match(/career|job|employ/i)) {
+        if (allTags.includes("career-services") && !tags.includes("career-services")) tags.push("career-services");
+      }
+      if (pageUrl.match(/curriculum|syllabus|program/i)) {
+        if (allTags.includes("curriculum") && !tags.includes("curriculum")) tags.push("curriculum");
+      }
+    }
+    return tags;
+  }
+
+  async function requireAdminAuth(
+    req: Request,
+    res: Response
+  ): Promise<{ authorized: boolean; token?: string }> {
+    const authHeader = req.headers.authorization;
+    const token = typeof authHeader === "string" ? authHeader.replace("Token ", "") : undefined;
+
+    if (!token) {
+      res.status(401).json({ error: "Authorization required" });
+      return { authorized: false };
+    }
+
+    try {
+      const capResponse = await fetch(
+        `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
+        { method: "GET", headers: { Authorization: `Token ${token}`, Academy: "4" } }
+      );
+      if (capResponse.status !== 200) {
+        res.status(403).json({ error: "Webmaster capability required" });
+        return { authorized: false };
+      }
+    } catch (err) {
+      console.error("[AdminAuth] Capability check failed:", err);
+      res.status(500).json({ error: "Authentication service unavailable" });
+      return { authorized: false };
+    }
+
+    return { authorized: true, token };
+  }
+
+  app.get("/api/chat/config", (_req, res) => {
+    try {
+      const cfg = loadLLMConfig();
+      const bubble = cfg.chat_bubble || {};
+      res.json({
+        enabled: bubble.enabled !== false,
+        page_patterns: bubble.page_patterns || [],
+        content_types: bubble.content_types || [],
+      });
+    } catch (err) {
+      console.error("[Chat Config] Error:", err);
+      res.json({ enabled: false, page_patterns: [], content_types: [] });
+    }
+  });
+
+  app.post("/api/chat/start", async (req, res) => {
+    try {
+      const { conversationStore } = await import("./ai/ConversationStore");
+      const { page_url, content_type, content_slug, locale, visitor_id } = req.body || {};
+
+      const allFeatureTags = loadFeatureTags();
+      const derivedTags = deriveFeatureTags(content_type || null, page_url || null, allFeatureTags);
+
+      const conv = await conversationStore.createConversation({
+        page_url: page_url || null,
+        content_type: content_type || null,
+        content_slug: content_slug || null,
+        locale: locale || "en",
+        feature_tags: derivedTags,
+        visitor_id: visitor_id || null,
+      });
+
+      res.json({ conversation_id: conv.id });
+    } catch (err) {
+      console.error("[Chat Start] Error:", err);
+      res.status(500).json({ error: "Failed to start conversation" });
+    }
+  });
+
+  app.post("/api/chat/message", async (req, res) => {
+    try {
+      const { getAgentService } = await import("./ai/AgentService");
+      const { conversationStore } = await import("./ai/ConversationStore");
+
+      const { conversation_id, message, content_type, content_slug, locale } = req.body || {};
+
+      if (!conversation_id || !message) {
+        return res.status(400).json({ error: "conversation_id and message are required" });
+      }
+
+      await conversationStore.addMessage({
+        conversation_id,
+        role: "user",
+        content: message,
+      });
+
+      const { contentCompiler } = await import("./ai/ContentCompiler");
+      const agent = getAgentService();
+      const result = await agent.processMessage(
+        conversation_id,
+        message,
+        content_type || null,
+        content_slug || null,
+        locale || "en"
+      );
+
+      const assistantMsg = await conversationStore.addMessage({
+        conversation_id,
+        role: "assistant",
+        content: result.content,
+        question_tag: result.questionTag,
+      });
+
+      const compiled = contentCompiler.compile(content_type || null, content_slug || null, locale || "en");
+      conversationStore.saveContextSnapshot(conversation_id, {
+        pageContext: compiled.pageContext,
+        globalSummary: compiled.globalSummary,
+        contentType: content_type || null,
+        contentSlug: content_slug || null,
+        locale: locale || "en",
+      }).catch(() => {});
+
+      res.json({
+        id: assistantMsg.id,
+        content: result.content,
+        question_tag: result.questionTag,
+      });
+    } catch (err) {
+      console.error("[Chat Message] Error:", err);
+      res.status(500).json({ error: "Failed to process message" });
+    }
+  });
+
+  // ============================================
+  // AI Admin Routes (webmaster capability required)
+  // ============================================
+  app.get("/api/admin/ai/knowledge", async (req, res) => {
+    try {
+      const auth = await requireAdminAuth(req, res);
+      if (!auth.authorized) return;
+
+      const { conversationStore } = await import("./ai/ConversationStore");
+      const knowledge = await conversationStore.getAllKnowledge();
+
+      const llmConfig = loadLLMConfig();
+
+      res.json({
+        system_prompt: knowledge.system_prompt || null,
+        custom_knowledge: knowledge.custom_knowledge || [],
+        pinned_qa: knowledge.pinned_qa || [],
+        agent_tools: llmConfig.agent_tools || [],
+        chat_bubble: llmConfig.chat_bubble || {},
+        question_tags: llmConfig.question_tags || [],
+      });
+    } catch (err) {
+      console.error("[AI Knowledge GET] Error:", err);
+      res.status(500).json({ error: "Failed to load knowledge" });
+    }
+  });
+
+  app.post("/api/admin/ai/knowledge", async (req, res) => {
+    try {
+      const auth = await requireAdminAuth(req, res);
+      if (!auth.authorized) return;
+
+      const { conversationStore } = await import("./ai/ConversationStore");
+      const { key, value, updated_by } = req.body || {};
+
+      if (!key || value === undefined) {
+        return res.status(400).json({ error: "key and value are required" });
+      }
+
+      await conversationStore.setKnowledge(key, value, updated_by);
+      res.json({ success: true });
+    } catch (err) {
+      console.error("[AI Knowledge POST] Error:", err);
+      res.status(500).json({ error: "Failed to save knowledge" });
+    }
+  });
+
+  app.patch("/api/admin/ai/knowledge", async (req, res) => {
+    try {
+      const auth = await requireAdminAuth(req, res);
+      if (!auth.authorized) return;
+
+      const { conversationStore } = await import("./ai/ConversationStore");
+      const updates = req.body || {};
+
+      for (const [key, value] of Object.entries(updates)) {
+        if (key === "updated_by") continue;
+        await conversationStore.setKnowledge(key, value, updates.updated_by);
+      }
+
+      if (updates.agent_tools || updates.chat_bubble) {
+        const llmPath = path.resolve("marketing-content/llm.yml");
+        if (fs.existsSync(llmPath)) {
+          const llmConfig = loadLLMConfig();
+          const mutableConfig: Record<string, unknown> = { ...llmConfig };
+          if (updates.agent_tools) mutableConfig.agent_tools = updates.agent_tools;
+          if (updates.chat_bubble) mutableConfig.chat_bubble = updates.chat_bubble;
+          fs.writeFileSync(llmPath, yaml.dump(mutableConfig, { lineWidth: -1 }), "utf-8");
+        }
+
+        const { getAgentService } = await import("./ai/AgentService");
+        getAgentService().reload();
+      }
+
+      res.json({ success: true });
+    } catch (err) {
+      console.error("[AI Knowledge PATCH] Error:", err);
+      res.status(500).json({ error: "Failed to update knowledge" });
+    }
+  });
+
+  app.get("/api/admin/ai/conversations", async (req, res) => {
+    try {
+      const auth = await requireAdminAuth(req, res);
+      if (!auth.authorized) return;
+
+      const { conversationStore } = await import("./ai/ConversationStore");
+      const filters = {
+        page: Number(req.query.page) || 1,
+        limit: Number(req.query.limit) || 20,
+        dateFrom: req.query.dateFrom as string | undefined,
+        dateTo: req.query.dateTo as string | undefined,
+        pageUrl: req.query.pageUrl as string | undefined,
+        featureTag: req.query.featureTag as string | undefined,
+        questionTag: req.query.questionTag as string | undefined,
+        rating: req.query.rating as string | undefined,
+      };
+
+      const result = await conversationStore.listConversations(filters);
+      res.json(result);
+    } catch (err) {
+      console.error("[AI Conversations GET] Error:", err);
+      res.status(500).json({ error: "Failed to load conversations" });
+    }
+  });
+
+  app.patch("/api/admin/ai/conversations/:id/messages/:msgId", async (req, res) => {
+    try {
+      const auth = await requireAdminAuth(req, res);
+      if (!auth.authorized) return;
+
+      let raterName = "admin";
+      if (auth.token) {
+        try {
+          const meResponse = await fetch(
+            `${BREATHECODE_HOST}/v1/auth/user/me`,
+            { method: "GET", headers: { Authorization: `Token ${auth.token}` } }
+          );
+          if (meResponse.ok) {
+            const meData = await meResponse.json() as Record<string, string>;
+            raterName = meData.first_name || meData.email || "admin";
+          }
+        } catch {}
+      }
+
+      const { conversationStore } = await import("./ai/ConversationStore");
+      const { rating, override_content } = req.body || {};
+
+      let msg = null;
+      if (rating) {
+        msg = await conversationStore.rateMessage(req.params.msgId, rating, raterName);
+      }
+      if (override_content !== undefined) {
+        msg = await conversationStore.overrideMessage(req.params.msgId, override_content, raterName);
+      }
+
+      if (!msg) {
+        return res.status(404).json({ error: "Message not found" });
+      }
+
+      res.json(msg);
+    } catch (err) {
+      console.error("[AI Message PATCH] Error:", err);
+      res.status(500).json({ error: "Failed to update message" });
+    }
+  });
+
+  app.post("/api/admin/ai/conversations/cluster", async (req, res) => {
+    try {
+      const auth = await requireAdminAuth(req, res);
+      if (!auth.authorized) return;
+
+      const { getAgentService } = await import("./ai/AgentService");
+      const { conversationStore } = await import("./ai/ConversationStore");
+
+      const recentMessages = await conversationStore.getRecentUserMessages(200);
+
+      const llmConfig = loadLLMConfig();
+      const tags = llmConfig.question_tags || [];
+
+      const agent = getAgentService();
+      const clusters = await agent.clusterQuestions(recentMessages, tags);
+
+      res.json({ clusters, total_questions: recentMessages.length });
+    } catch (err) {
+      console.error("[AI Cluster] Error:", err);
+      res.status(500).json({ error: "Failed to cluster questions" });
+    }
+  });
+
+  app.post("/api/admin/ai/knowledge/preview", async (req, res) => {
+    try {
+      const auth = await requireAdminAuth(req, res);
+      if (!auth.authorized) return;
+
+      const { getAgentService } = await import("./ai/AgentService");
+      const { contentCompiler } = await import("./ai/ContentCompiler");
+
+      const { question, url, content_type, content_slug, locale } = req.body || {};
+
+      if (!question) {
+        return res.status(400).json({ error: "question is required" });
+      }
+
+      let derivedContentType = content_type || null;
+      let derivedContentSlug = content_slug || null;
+      let derivedLocale = locale || "en";
+
+      if (url && !content_type && !content_slug) {
+        const programEnMatch = (url as string).match(/\/en\/career-programs\/([^/?#]+)/);
+        const programEsMatch = (url as string).match(/\/es\/programas-de-carrera\/([^/?#]+)/);
+        const locationEnMatch = (url as string).match(/\/en\/location\/([^/?#]+)/);
+        const locationEsMatch = (url as string).match(/\/es\/ubicacion\/([^/?#]+)/);
+        const localeMatch = (url as string).match(/\/(en|es)\//);
+
+        if (programEnMatch) { derivedContentType = "program"; derivedContentSlug = programEnMatch[1]; derivedLocale = "en"; }
+        else if (programEsMatch) { derivedContentType = "program"; derivedContentSlug = programEsMatch[1]; derivedLocale = "es"; }
+        else if (locationEnMatch) { derivedContentType = "location"; derivedContentSlug = locationEnMatch[1]; derivedLocale = "en"; }
+        else if (locationEsMatch) { derivedContentType = "location"; derivedContentSlug = locationEsMatch[1]; derivedLocale = "es"; }
+        else if (localeMatch) { derivedLocale = localeMatch[1]; }
+      }
+
+      const compiled = contentCompiler.compile(derivedContentType, derivedContentSlug, derivedLocale);
+
+      const agent = getAgentService();
+      const response = await agent.processMessage(
+        "preview-" + Date.now(),
+        question,
+        derivedContentType,
+        derivedContentSlug,
+        derivedLocale
+      );
+
+      res.json({
+        context: compiled,
+        response: response.content,
+        question_tag: response.questionTag,
+      });
+    } catch (err) {
+      console.error("[AI Preview] Error:", err);
+      res.status(500).json({ error: "Failed to generate preview" });
     }
   });
 

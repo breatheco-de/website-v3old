@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { lazy, Suspense, useMemo, useState, useEffect } from "react";
 import NotFound from "@/pages/not-found";
 import { DebugBubble } from "@/components/DebugBubble";
+import { ChatWidget } from "@/components/ChatWidget";
 import { VariableModalHost } from "@/components/editing/VariableHighlight";
 import { SessionProvider } from "@/contexts/SessionContext";
 import { EditModeWrapper } from "@/components/editing/EditModeWrapper";
@@ -220,6 +221,7 @@ function App({ ssrQueryClient }: AppProps = {}) {
             <PageTracker />
             <Router />
             <ClientOnly>
+              <ChatWidget />
               <DebugBubble />
               <VariableModalHost />
             </ClientOnly>

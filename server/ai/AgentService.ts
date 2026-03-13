@@ -1,0 +1,419 @@
+import OpenAI from "openai";
+import * as fs from "fs";
+import * as path from "path";
+import * as yaml from "js-yaml";
+import { contentCompiler } from "./ContentCompiler";
+import { conversationStore } from "./ConversationStore";
+
+interface LLMConfig {
+  provider?: { api_key_env?: string; base_url_env?: string };
+  model?: string;
+  temperature?: number;
+  max_tokens?: number;
+  question_tags?: string[];
+  agent_tools?: Array<{ name: string; description: string; enabled: boolean }>;
+  chat_bubble?: { enabled?: boolean; page_patterns?: string[]; content_types?: string[] };
+}
+
+interface AgentResponse {
+  content: string;
+  questionTag: string | null;
+}
+
+function loadConfig(): LLMConfig {
+  try {
+    const configPath = path.resolve("marketing-content/llm.yml");
+    if (fs.existsSync(configPath)) {
+      const raw = fs.readFileSync(configPath, "utf-8");
+      return yaml.load(raw) as LLMConfig;
+    }
+  } catch (err) {
+    console.warn("[AgentService] Failed to load llm.yml:", err);
+  }
+  return {};
+}
+
+function getOpenAIClient(config: LLMConfig): OpenAI {
+  const apiKeyEnv = config.provider?.api_key_env || "OPENAI_API_KEY";
+  const baseUrlEnv = config.provider?.base_url_env || "OPENAI_BASE_URL";
+
+  const apiKey = process.env[apiKeyEnv] || process.env.OPENAI_API_KEY;
+  const baseURL = process.env[baseUrlEnv] || process.env.OPENAI_BASE_URL;
+
+  if (!apiKey) {
+    throw new Error(`API key not configured. Set ${apiKeyEnv} in environment.`);
+  }
+
+  return new OpenAI({
+    apiKey,
+    ...(baseURL ? { baseURL } : {}),
+  });
+}
+
+const TOOL_DEFINITIONS: OpenAI.Chat.ChatCompletionTool[] = [
+  {
+    type: "function",
+    function: {
+      name: "get_program_details",
+      description: "Fetch full details for a specific program by slug",
+      parameters: {
+        type: "object",
+        properties: {
+          slug: { type: "string", description: "The program slug (e.g. 'full-stack', 'data-science')" },
+          locale: { type: "string", description: "Language code (en or es)", default: "en" },
+        },
+        required: ["slug"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_location_details",
+      description: "Fetch details for a specific campus location by slug",
+      parameters: {
+        type: "object",
+        properties: {
+          slug: { type: "string", description: "The location slug (e.g. 'miami', 'madrid')" },
+          locale: { type: "string", description: "Language code (en or es)", default: "en" },
+        },
+        required: ["slug"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_upcoming_cohorts",
+      description: "Fetch upcoming cohort start dates for a program",
+      parameters: {
+        type: "object",
+        properties: {
+          program_slug: { type: "string", description: "The program slug" },
+        },
+        required: [],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_faqs",
+      description: "Fetch FAQ entries, optionally filtered by program",
+      parameters: {
+        type: "object",
+        properties: {
+          program_slug: { type: "string", description: "Optional program slug to filter FAQs" },
+          locale: { type: "string", description: "Language code", default: "en" },
+        },
+        required: [],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_pricing",
+      description: "Fetch pricing and financing information for a program",
+      parameters: {
+        type: "object",
+        properties: {
+          program_slug: { type: "string", description: "The program slug" },
+          locale: { type: "string", description: "Language code", default: "en" },
+        },
+        required: ["program_slug"],
+      },
+    },
+  },
+];
+
+function executeToolCall(name: string, args: Record<string, string>): string {
+  const locale = args.locale || "en";
+
+  switch (name) {
+    case "get_program_details": {
+      if (!args.slug) return "Error: slug is required";
+      return contentCompiler.compilePageContext("program", args.slug, locale);
+    }
+    case "get_location_details": {
+      if (!args.slug) return "Error: slug is required";
+      return contentCompiler.compilePageContext("location", args.slug, locale);
+    }
+    case "get_upcoming_cohorts": {
+      const programSlug = args.program_slug || args.slug;
+      if (programSlug) {
+        const ctx = contentCompiler.compilePageContext("program", programSlug, locale);
+        const cohortLines = ctx.split("\n").filter(l =>
+          l.toLowerCase().includes("cohort") ||
+          l.toLowerCase().includes("start date") ||
+          l.toLowerCase().includes("upcoming") ||
+          l.toLowerCase().includes("next batch") ||
+          l.toLowerCase().includes("schedule")
+        );
+        if (cohortLines.length > 0) return cohortLines.join("\n");
+      }
+      const globalCtx = contentCompiler.compile(null, null, locale);
+      const globalCohortLines = globalCtx.globalSummary.split("\n").filter(l =>
+        l.toLowerCase().includes("cohort") ||
+        l.toLowerCase().includes("start date") ||
+        l.toLowerCase().includes("upcoming")
+      );
+      if (globalCohortLines.length > 0) return globalCohortLines.join("\n");
+      return "For the most up-to-date cohort start dates, please visit the program page or contact admissions directly.";
+    }
+    case "get_faqs": {
+      return contentCompiler.compileFaqContext(args.program_slug, locale);
+    }
+    case "get_pricing": {
+      if (!args.program_slug) return "Error: program_slug is required";
+      const ctx = contentCompiler.compilePageContext("program", args.program_slug, locale);
+      const pricingLines = ctx.split("\n").filter(l =>
+        l.toLowerCase().includes("price") ||
+        l.toLowerCase().includes("pricing") ||
+        l.toLowerCase().includes("cost") ||
+        l.toLowerCase().includes("financ") ||
+        l.toLowerCase().includes("payment") ||
+        l.toLowerCase().includes("scholarship")
+      );
+      return pricingLines.length > 0 ? pricingLines.join("\n") : ctx;
+    }
+    default:
+      return `Unknown tool: ${name}`;
+  }
+}
+
+export class AgentService {
+  private config: LLMConfig;
+  private client: OpenAI;
+
+  constructor() {
+    this.config = loadConfig();
+    this.client = getOpenAIClient(this.config);
+  }
+
+  reload(): void {
+    this.config = loadConfig();
+    this.client = getOpenAIClient(this.config);
+  }
+
+  getConfig(): LLMConfig {
+    return this.config;
+  }
+
+  private async buildSystemPrompt(
+    pageContext: string,
+    globalSummary: string
+  ): Promise<string> {
+    let systemPrompt = await conversationStore.getKnowledge("system_prompt") as string | null;
+
+    if (!systemPrompt) {
+      systemPrompt = `You are a helpful admissions assistant for 4Geeks Academy, a coding bootcamp that offers career-changing programs in software development, data science, and AI/ML.
+
+Your role is to help prospective students by:
+- Answering questions about programs, pricing, locations, and the admissions process
+- Providing accurate information based on the content available
+- Being friendly, professional, and encouraging
+- Never making up information - if you don't know, say so and suggest they contact admissions
+
+Always respond in the same language as the user's message.`;
+    }
+
+    const parts: string[] = [systemPrompt];
+
+    if (pageContext) {
+      parts.push("\n--- Current Page Context ---");
+      parts.push(pageContext);
+    }
+
+    if (globalSummary) {
+      parts.push("\n--- Available Programs and Locations ---");
+      parts.push(globalSummary);
+    }
+
+    const pinnedQA = await conversationStore.getKnowledge("pinned_qa") as Array<{ question: string; answer: string; tag?: string }> | null;
+    if (pinnedQA && pinnedQA.length > 0) {
+      parts.push("\n--- Pinned Q&A (always use these exact answers) ---");
+      for (const qa of pinnedQA) {
+        parts.push(`Q: ${qa.question}\nA: ${qa.answer}`);
+      }
+    }
+
+    const knowledgeBlocks = await conversationStore.getKnowledge("custom_knowledge") as Array<{ content: string; tag?: string }> | null;
+    if (knowledgeBlocks && knowledgeBlocks.length > 0) {
+      parts.push("\n--- Additional Knowledge ---");
+      for (const block of knowledgeBlocks) {
+        parts.push(block.content);
+      }
+    }
+
+    return parts.join("\n");
+  }
+
+  private getEnabledTools(): OpenAI.Chat.ChatCompletionTool[] {
+    const agentTools = this.config.agent_tools;
+    if (!agentTools || agentTools.length === 0) return TOOL_DEFINITIONS;
+
+    const enabledToolNames = agentTools
+      .filter(t => t.enabled)
+      .map(t => t.name);
+
+    if (enabledToolNames.length === 0) return [];
+
+    return TOOL_DEFINITIONS.filter(t => enabledToolNames.includes(t.function.name));
+  }
+
+  private async autoTagMessage(content: string): Promise<string | null> {
+    const tags = this.config.question_tags;
+    if (!tags || tags.length === 0) return null;
+
+    try {
+      const tagPrompt = `Classify the following user question into exactly one of these categories: ${tags.join(", ")}
+
+Question: "${content}"
+
+Respond with ONLY the category name, nothing else.`;
+
+      const response = await this.client.chat.completions.create({
+        model: process.env.LLM_MODEL || this.config.model || "llama-3.3-70b-versatile",
+        messages: [{ role: "user", content: tagPrompt }],
+        temperature: 0,
+        max_tokens: 50,
+      });
+
+      const tag = response.choices[0]?.message?.content?.trim().toLowerCase();
+      if (tag && tags.includes(tag)) return tag;
+      return tags.find(t => tag?.includes(t)) || "general-inquiry";
+    } catch {
+      return "general-inquiry";
+    }
+  }
+
+  async processMessage(
+    conversationId: string,
+    userMessage: string,
+    contentType: string | null,
+    contentSlug: string | null,
+    locale: string
+  ): Promise<AgentResponse> {
+    const { pageContext, globalSummary } = contentCompiler.compile(contentType, contentSlug, locale);
+
+    const systemPrompt = await this.buildSystemPrompt(pageContext, globalSummary);
+
+    const previousMessages = await conversationStore.getMessages(conversationId);
+    const chatHistory: OpenAI.Chat.ChatCompletionMessageParam[] = previousMessages.map(m => ({
+      role: m.role as "user" | "assistant",
+      content: m.content,
+    }));
+
+    const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
+      { role: "system", content: systemPrompt },
+      ...chatHistory,
+    ];
+
+    if (!chatHistory.length || chatHistory[chatHistory.length - 1].content !== userMessage) {
+      messages.push({ role: "user", content: userMessage });
+    }
+
+    const model = process.env.LLM_MODEL || this.config.model || "llama-3.3-70b-versatile";
+    const tools = this.getEnabledTools();
+
+    let response = await this.client.chat.completions.create({
+      model,
+      messages,
+      temperature: this.config.temperature ?? 0.3,
+      max_tokens: this.config.max_tokens || 4000,
+      tools: tools.length > 0 ? tools : undefined,
+    });
+
+    let assistantMessage = response.choices[0]?.message;
+    let iterations = 0;
+    const maxIterations = 5;
+
+    while (assistantMessage?.tool_calls && assistantMessage.tool_calls.length > 0 && iterations < maxIterations) {
+      iterations++;
+
+      messages.push({
+        role: "assistant" as const,
+        content: assistantMessage.content || null,
+        tool_calls: assistantMessage.tool_calls,
+      });
+
+      for (const toolCall of assistantMessage.tool_calls) {
+        let args: Record<string, string> = {};
+        try {
+          args = JSON.parse(toolCall.function.arguments || "{}");
+        } catch {
+          args = {};
+        }
+        const result = executeToolCall(toolCall.function.name, args);
+
+        messages.push({
+          role: "tool" as const,
+          tool_call_id: toolCall.id,
+          content: result,
+        });
+      }
+
+      response = await this.client.chat.completions.create({
+        model,
+        messages,
+        temperature: this.config.temperature ?? 0.3,
+        max_tokens: this.config.max_tokens || 4000,
+        tools: tools.length > 0 ? tools : undefined,
+      });
+
+      assistantMessage = response.choices[0]?.message;
+    }
+
+    const responseContent = assistantMessage?.content || "I'm sorry, I couldn't generate a response. Please try again.";
+
+    const questionTag = await this.autoTagMessage(userMessage);
+
+    return {
+      content: responseContent,
+      questionTag,
+    };
+  }
+
+  async clusterQuestions(
+    questions: Array<{ content: string; question_tag: string | null }>,
+    tags: string[]
+  ): Promise<Array<{ tag: string; count: number; examples: string[] }>> {
+    const tagPrompt = `You are analyzing customer support questions. Group the following questions into these categories: ${tags.join(", ")}
+
+Questions:
+${questions.map((q, i) => `${i + 1}. ${q.content}`).join("\n")}
+
+Respond in JSON format:
+[{"tag": "category-name", "count": number, "examples": ["example question 1", "example question 2"]}]
+
+Only include categories that have at least one question. Limit examples to 3 per category.`;
+
+    const model = process.env.LLM_MODEL || this.config.model || "llama-3.3-70b-versatile";
+
+    const response = await this.client.chat.completions.create({
+      model,
+      messages: [{ role: "user", content: tagPrompt }],
+      temperature: 0,
+      max_tokens: 2000,
+    });
+
+    const content = response.choices[0]?.message?.content || "[]";
+    try {
+      const jsonMatch = content.match(/\[[\s\S]*\]/);
+      if (jsonMatch) {
+        return JSON.parse(jsonMatch[0]);
+      }
+    } catch {}
+    return [];
+  }
+}
+
+let agentServiceInstance: AgentService | null = null;
+
+export function getAgentService(): AgentService {
+  if (!agentServiceInstance) {
+    agentServiceInstance = new AgentService();
+  }
+  return agentServiceInstance;
+}

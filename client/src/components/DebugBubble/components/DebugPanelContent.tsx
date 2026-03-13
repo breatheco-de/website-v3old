@@ -4,6 +4,7 @@ import {
   IconArrowLeft,
   IconArrowRight,
   IconBook,
+  IconBrain,
   IconBrandGithub,
   IconCheck,
   IconChevronRight,
@@ -17,6 +18,7 @@ import {
   IconMap,
   IconMapPin,
   IconMenu2,
+  IconMessageCircle,
   IconMoon,
   IconPencil,
   IconPhoto,
@@ -92,6 +94,8 @@ export interface DebugPanelContentProps {
   setSitemapExpanded: (v: boolean) => void;
   componentsExpanded: boolean;
   setComponentsExpanded: (v: boolean) => void;
+  aiAgentsExpanded: boolean;
+  setAiAgentsExpanded: (v: boolean) => void;
   cacheClearStatus: string;
   clearSitemapCache: () => void;
   redirectsList: Array<{ from: string; to: string }>;
@@ -554,6 +558,31 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                 onClick={() => props.setMenuView("menus")}
                 indicator="chevron"
                 testId="button-menus-menu"
+              />
+            </ExpandableMenuItem>
+
+            <ExpandableMenuItem
+              icon={IconBrain}
+              label="AI & Agents"
+              expanded={props.aiAgentsExpanded}
+              onToggle={() => {
+                props.setAiAgentsExpanded(!props.aiAgentsExpanded);
+              }}
+              testId="button-ai-agents-toggle"
+            >
+              <MenuItem
+                icon={IconPencil}
+                label="Knowledge Editor"
+                href="/private/ai-knowledge"
+                indicator="arrow"
+                testId="link-ai-knowledge"
+              />
+              <MenuItem
+                icon={IconMessageCircle}
+                label="Conversation Review"
+                href="/private/ai-conversations"
+                indicator="arrow"
+                testId="link-ai-conversations"
               />
             </ExpandableMenuItem>
 
