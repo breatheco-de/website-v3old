@@ -171,7 +171,7 @@ async function processImage(
 
   const filteredWidths = widths.filter(w => w <= intrinsicWidth);
   if (filteredWidths.length === 0) {
-    filteredWidths.push(Math.min(...widths));
+    filteredWidths.push(intrinsicWidth);
   }
 
   const origExt = srcExtension(entry.src);
@@ -197,14 +197,15 @@ async function processImage(
     }
 
     try {
-      const resized = await sharp(buffer)
+      const { data: resized, info } = await sharp(buffer)
         .resize({ width: w, withoutEnlargement: true })
         .toFormat(sharpFormat, { quality })
-        .toBuffer();
+        .toBuffer({ resolveWithObject: true });
 
+      const actualWidth = info.width;
       const vUrl = await gcs.upload(vKey, resized, contentTypeForExt(outExt));
-      srcset.push({ w, url: vUrl });
-      widthsGenerated.push(w);
+      srcset.push({ w: actualWidth, url: vUrl });
+      widthsGenerated.push(actualWidth);
     } catch (err) {
       console.error(`${RED}  [ERR] ${id}: failed to process ${w}w: ${(err as Error).message}${RESET}`);
     }
