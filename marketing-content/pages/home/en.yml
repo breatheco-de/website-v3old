@@ -123,11 +123,10 @@ sections:
     paddingY:
       desktop: none
   - type: features_grid
-    section_id: features_grid-95o7vf
     version: "1.0"
     variant: highlight
     title: Real Outcomes for Our Graduates
-    subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
+    subtitle: Our graduates land jobs, earn more, and build careers that last — across the U.S., LATAM, and beyond.
     items:
       - icon: Briefcase
         value: {{ global.global_job_placement_rate | 84 }}%
@@ -141,6 +140,7 @@ sections:
     columns: 3
     icon_color: "#0097CD"
     background: hsl(var(--secondary))
+    section_id: features_grid-95o7vf
     marginY:
       desktop: none md
   - type: career_support_explain
