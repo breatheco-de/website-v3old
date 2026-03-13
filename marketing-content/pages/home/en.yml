@@ -336,7 +336,7 @@ sections:
     variant: laptop-edge
     title: Get Hired. Or Your Money Back.
     subtitle: Our optional Job Guarantee puts our commitment on the line — not just yours.
-    description: "<span style=\"font-size: 1.125rem;\"><span><span>Add the Job Guarantee to your payment plan, complete the program and the GeekFORCE career development process.<b> If you're not hired within 9 months of graduation, we refund you.&nbsp;</b><div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></span></span></div></span></span></span>"
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>Add the Job Guarantee to your payment plan, complete the program and the GeekFORCE career development process.<b> If you're not hired within 9 months of graduation, you'll get a full refund of your tuition.&nbsp;</b><div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></span></span></div></span></span></span>"
     cta:
       text: Get More Info
       url: /en/job-guarantee
