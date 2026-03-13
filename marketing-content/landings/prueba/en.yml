@@ -410,10 +410,6 @@ sections:
           - text: Get unblocked at 2am without losing momentum
           - text: Hundreds of interactive exercises on Learnpack, our purpose-built learning platform
         video_url: https://www.youtube.com/watch?v=NRuShbSLtg0
-        cta:
-          text: See if you qualify
-          url: "#hero-form"
-          variant: primary
       - icon: Headset
         title: Unlimited 1:1 mentorship for life, not just while enrolled
         description: ""
