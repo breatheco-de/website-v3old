@@ -467,7 +467,7 @@ sections:
         description: AI skills are exactly what companies can't find enough of. Step into high-priority roles with immediate growth and long-term upside.
         benefits:
           - text: "AI Software Engineer: {{ global.average_salary_ai_engineer | $115K–$165K }}"
-          - text: "Full-Stack AI Engineer: {{ global.average_salary_ai_fluent_software_developer | $125K–$185K }}"
+          - text: "Forward-Deployed Engineer: {{ global.average_salary_ai_fluent_software_developer | $125K–$185K }}"
           - text: "Agentic Systems Engineer: {{ global.average_salary_agent_engineer | $140K–$210K }}"
           - text: "Workflow Automation Engineer: {{ global.average_salary_workflow_automation_engineer | $95K–$145K }}"
       - value: 400+
