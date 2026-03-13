@@ -52,19 +52,19 @@ function FeaturedCard({
           className="flex items-center justify-between gap-3 pt-4 flex-wrap"
           style={{ borderTop: "1px solid hsl(var(--primary) / 0.2)" }}
         >
-          {showSalary ? (
+          {showSalary && program.avg_salary ? (
             <div className="flex flex-col">
               {salaryLabel && (
                 <span className="text-xs text-muted-foreground font-sans">{salaryLabel}</span>
               )}
               <span className="text-base text-foreground font-sans">{program.avg_salary}</span>
             </div>
-          ) : (
+          ) : program.duration ? (
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-sans">
               <IconClock className="w-3.5 h-3.5" />
               <span>{program.duration}</span>
             </div>
-          )}
+          ) : null}
           <a
             href={program.cta_url}
             className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline transition-all duration-150 group-hover:gap-2.5 font-sans"
@@ -129,19 +129,19 @@ function SmallCard({
           className="flex items-center justify-between gap-3 pt-3 flex-wrap"
           style={{ borderTop: `1px solid ${footerBorderColor}` }}
         >
-          {showSalary ? (
+          {showSalary && program.avg_salary ? (
             <div className="flex flex-col">
               {salaryLabel && (
                 <span className="text-xs text-muted-foreground font-sans">{salaryLabel}</span>
               )}
               <span className="text-base text-foreground font-sans">{program.avg_salary}</span>
             </div>
-          ) : (
+          ) : program.duration ? (
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-sans">
               <IconClock className="w-3.5 h-3.5" />
               <span>{program.duration}</span>
             </div>
-          )}
+          ) : null}
           <a
             href={program.cta_url}
             className={`flex items-center gap-1 text-sm font-semibold hover:underline transition-all duration-150 group-hover:gap-2 font-sans ${ctaColorClass}`}

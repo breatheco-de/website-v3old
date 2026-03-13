@@ -41,7 +41,7 @@ Create the following files inside a new versioned folder:
 | `schema.yml` | Human-readable component metadata: name, version, component name, file path, description, `when_to_use`, variants (if any), props with types/defaults/descriptions, and optional `section_defaults`. |
 | `schema.ts` | Zod validation schemas and TypeScript types. Export the unified section schema (use `z.union` for multi-variant components) plus all sub-schemas and types. |
 | `field-editors.ts` | Optional. Maps prop names to custom inline-editor types (e.g., `"font-size-picker"`). Export `fieldEditors: Record<string, EditorType>`. |
-| `examples/` | One or more `.yml` files with realistic YAML examples. Each file has `name`, `description`, and `yaml` (a YAML string showing the section in a `sections` array). |
+| `examples/` | One or more `.yml` files with realistic YAML examples. Each file has `name`, `description`, and `yaml` (a YAML string showing the section in a `sections` array). **Every variant must have at least one example.** Additionally, if a single prop can drastically change the component's approach or objective — such as switching the layout structure, surfacing a completely different metric, or toggling an entire sub-UI like a form — that warrants its own separate example file. Minor content differences (different background color, different copy) do not qualify. Rule of thumb: if the component looks and behaves fundamentally differently with the prop set one way vs another, make a separate example. |
 
 **schema.yml template:**
 
@@ -292,7 +292,7 @@ Do not invent new rgba levels (e.g., `rgba(0,132,255,0.15)`, `rgba(0,0,0,0.06)`)
 - Backgrounds: `background`, `muted`, `card`, or `light-blue-5`
 - Text: `foreground` and `muted-foreground`
 - Accents: `primary` (blue) — used for interactive elements, links, icons, thin highlights
-- Visual elevation/differentiation: use `primary/5` (a very subtle blue wash) rather than bold or dark backgrounds
+- Visual elevation/differentiation: use `primary/5` (a very subtle blue wash) rather than bold or dark backgrounds — this applies broadly, not just to "featured" cards. Use it whenever you want a section, card, or element to stand out slightly or to add background variety without making it feel like a highlighted call-to-action
 
 **Accent yellow (`--accent` / `#FFB718`):** Use very sparingly — one deliberate use per component at most, such as a badge or a single highlight. Never use it as a repeating element across multiple items in a list or grid.
 
@@ -312,16 +312,6 @@ When a component renders the 4 academy **programs or courses as distinct side-by
 These color identities are used for: icon color, thin accent bars/lines, CTA link text color. They are **not** used as full card background colors (use `card` or `light-blue-5` for card backgrounds). The assignment above is flexible — the important thing is that each program consistently uses one distinct color across all components that reference it.
 
 **Why:** When displaying all 4 programs simultaneously, pure mono-chrome makes them visually indistinguishable. Assigning one color per program lets users scan and remember which card is which — especially useful when the same programs appear in multiple components across a page. The 4-color system (blue, gray, yellow, red) stays within the brand palette without becoming decorative or consumer-feeling.
-
-### Featured / Highlight Card Backgrounds
-
-When a card is singled out as "featured" or "highlighted" within a grid (e.g., a larger card alongside smaller peer cards), use `primary/5` (`rgba(0, 132, 255, 0.05)` / `light-blue-5` ≈ `#F0F7FF`) as its background — not solid `primary` blue.
-
-- Text on a `primary/5` background: use `foreground` (#00041A) and `muted-foreground` (#737373) — normal dark text, not white
-- A solid `primary` background forces white text, which violates the no-transparent-text rule and is too heavy for a card context
-- `primary/5` creates just enough visual lift to signal "this one is different" without dominating the composition
-
-**Why:** Solid primary blue as a card background makes that card feel like a button or a CTA block, not an information card. The subtle blue wash (`primary/5`) communicates elevation and importance while keeping the content readable and the visual weight balanced with its surroundings.
 
 ### Typography Sizing Hierarchy
 
@@ -432,3 +422,31 @@ These are already implemented and available for use in `field-editors.ts`:
 | `"cta-picker"` | Edit a CTA button (text, url, variant) |
 | `"text-input"` | Simple text input |
 | `"string-picker:opt1,opt2,..."` | Pick from a custom list of string options |
+
+### Field Editor Key Path Convention
+
+The keys in `fieldEditors` follow a convention based on where the prop lives in the data tree. The editor panel parses these paths at runtime — using the wrong format will silently fail (the picker simply won't appear).
+
+| Prop location | Key format | Example |
+|---|---|---|
+| Top-level section prop | Bare key | `"layout"`, `"show_salary"` |
+| Child of an array | `"arrayName[].fieldName"` | `"programs[].color"`, `"courses[].icon"` |
+| Variant-scoped array child | `"variant:arrayName[].fieldName"` | `"solid:courses[].course_background"` |
+| Array-of-array grandchild | Not supported — omit | — |
+
+**Critical rule:** array children must use `[]` bracket notation, not dot-star (`programs.*.color`) or plain dots (`programs.color`). The editor panel matches paths with the regex `/^([\w.]+)\[\]\.(.+)$/` — anything that doesn't match this pattern is ignored silently.
+
+```ts
+// CORRECT
+export const fieldEditors = {
+  layout: "string-picker:grid,stacked_list",   // top-level
+  "programs[].color": "color-picker:courses",  // array child
+  "programs[].icon": "icon-picker",            // array child
+};
+
+// WRONG — silently ignored
+export const fieldEditors = {
+  "programs.*.color": "color-picker:courses",  // dot-star fails
+  "programs.color": "color-picker:courses",    // no brackets, fails
+};
+```

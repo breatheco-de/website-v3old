@@ -71,11 +71,11 @@ props:
         description: Short program tagline
       duration:
         type: string
-        required: true
+        required: false
         description: Duration text (e.g., "16 weeks")
       avg_salary:
         type: string
-        required: true
+        required: false
         description: Average salary range (e.g., "$85,000 – $120,000")
       cta_text:
         type: string

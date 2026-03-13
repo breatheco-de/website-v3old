@@ -23,21 +23,24 @@ function StackedListItem({
 
   return (
     <div
-      className="group flex items-stretch transition-colors duration-150 hover:bg-muted/50"
-      style={{
-        borderBottom: isLast ? "none" : "1px solid hsl(var(--border))",
-      }}
+
+      className="group flex items-stretch transition-colors duration-150 hover:bg-muted/50 relative"
       data-testid={`row-program-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
     >
       <div
-        className="w-0.5 shrink-0 rounded-full my-7 ml-6 md:ml-8"
-        style={{ backgroundColor: hsl(colorVar) }}
+        className="absolute h-full w-full ms-8 me-24 overflow-hidden"
+        style={{
+          borderBottom: isLast ? "none" : "1px solid hsl(var(--border))",
+        }}
       />
-
-      <div className="flex items-start gap-4 md:gap-5 py-7 pl-4 md:pl-6 pr-6 md:pr-8 flex-1">
+      <div className="flex items-start gap-4 md:gap-5 py-7 px-4 md:px-6 flex-1">
+        <div
+          className="w-0.5 rounded-full bg-primary h-full"
+          style={{ backgroundColor: hsl(colorVar) }}
+        />
         {Icon && (
           <Icon
-            className="w-7 h-7 shrink-0 mt-0.5 self-start"
+            className="w-6 h-6 shrink-0 mt-0.5 self-start"
             style={{ color: hsl(colorVar) }}
           />
         )}
@@ -56,14 +59,18 @@ function StackedListItem({
           </div>
 
           <div className="flex flex-row md:flex-col justify-between md:justify-between items-center md:items-end gap-2 shrink-0 md:pt-1">
-            {showSalary ? (
+            {showSalary && program.avg_salary ? (
               <div className="flex flex-col items-end">
                 {salaryLabel && (
-                  <span className="text-xs text-muted-foreground font-sans">{salaryLabel}</span>
+                  <span className="text-xs text-muted-foreground font-sans">
+                    {salaryLabel}
+                  </span>
                 )}
-                <span className="text-base text-foreground font-sans">{program.avg_salary}</span>
+                <span className="text-base text-foreground font-sans">
+                  {program.avg_salary}
+                </span>
               </div>
-            ) : (
+            ) : program.duration ? (
               <div
                 className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full font-sans"
                 style={{
@@ -75,7 +82,7 @@ function StackedListItem({
                 <IconClock className="w-3.5 h-3.5" />
                 <span>{program.duration}</span>
               </div>
-            )}
+            ) : null}
 
             <a
               href={program.cta_url}
@@ -93,16 +100,19 @@ function StackedListItem({
   );
 }
 
-export function ProgramsShowcaseStackedList({ data }: ProgramsShowcaseStackedListProps) {
+export function ProgramsShowcaseStackedList({
+  data,
+}: ProgramsShowcaseStackedListProps) {
   const showSalary = data.show_salary ?? false;
-  const salaryLabel = data.salary_label ?? (showSalary ? "Avg. salary" : undefined);
+  const salaryLabel =
+    data.salary_label ?? (showSalary ? "Avg. salary" : undefined);
 
   return (
     <section
-      className="py-spacing-section"
+      className="max-w-6xl mx-auto px-4"
       data-testid="section-programs-showcase-stacked-list"
     >
-      <div className="max-w-3xl mx-auto px-6">
+      <div>
         {(data.heading || data.subheading) && (
           <div className="text-center mb-10">
             {data.heading && (
