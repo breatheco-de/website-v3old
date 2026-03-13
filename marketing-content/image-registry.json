@@ -93,7 +93,27 @@
         "partner"
       ],
       "usage_count": 0,
-      "hash": "8fc6417085927b9e23549a513ec05c0200bf8be18441ba1bad243146e9e7252d"
+      "hash": "8fc6417085927b9e23549a513ec05c0200bf8be18441ba1bad243146e9e7252d",
+      "width": 500,
+      "height": 156,
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        120,
+        240
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336-240w.webp"
+        }
+      ]
     },
     "arp_logo_certification": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/arp-logo-certification_1765548854924.png",
@@ -105,7 +125,43 @@
         "award"
       ],
       "usage_count": 2,
-      "hash": "60001e34aa4655f7d6d8322f35b9a332efd28946ae3d3ccc1df527bad3fdc393"
+      "hash": "60001e34aa4655f7d6d8322f35b9a332efd28946ae3d3ccc1df527bad3fdc393",
+      "width": 500,
+      "height": 215,
+      "preset": [
+        "logo",
+        "icon"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128,
+        240
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/arp-logo-certification_1765548854924-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/arp-logo-certification_1765548854924-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/arp-logo-certification_1765548854924-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/arp-logo-certification_1765548854924-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/arp-logo-certification_1765548854924-240w.webp"
+        }
+      ]
     },
     "badges_new": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/badges-new.avif",
