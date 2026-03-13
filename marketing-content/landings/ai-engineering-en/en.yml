@@ -495,7 +495,7 @@ sections:
   - type: bento_cards
     version: "1.0"
     title: Is This Program Right for You?
-    subtitle: If you're nodding at all four, you're ready.
+    subtitle: If you're nodding at all four, this is for you.
     description: ""
     items:
       - icon: Clock
