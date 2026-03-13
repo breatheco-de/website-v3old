@@ -321,69 +321,62 @@ sections:
       mobile: lg none
       desktop: lg none
   - type: ai_learning
-    section_id: ai_learning-96yuqs
+    variant: feature-tabs
     badge: Why 4Geeks?
-    title: Why Learn AI Engineering with 4Geeks?
-    description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.
+    title: The Most Personalized Path to an AI Career
+    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support — every part of the experience is built around you, not a classroom of thirty.
     features:
-      - icon: TrendingUp
-        title: Thrive in tech with career support for the AI-Era
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Get personalized 1:1 coaching
-          - text: Build your AI-ready resume and portfolio
-          - text: Prepare for interviews and salary negotiation
-          - text: Keep growing with lifelong access to career support
-        video_url: https://youtu.be/-2ZvlgDnltc
-        cta:
-          text: Start learning now!
-          url: "#hero-form"
-          variant: primary
       - icon: Robot
-        title: Progress faster with AI-powered tools
+        title: AI-powered feedback that never sleeps
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Get instant feedback from Rigobot, our custom AI tutor
-          - text: Receive advice adjusted to your skill level and progress
-          - text: Get 24/7 help with debugging and problem-solving
-          - text: Access hundreds of interactive coding exercises on Learnpack, our educational platform
+          - text: Instant feedback from Rigobot, our custom AI tutor
+          - text: Advice adjusted to your skill level and progress
+          - text: 24/7 help with debugging and problem-solving
+          - text: Hundreds of interactive coding exercises and tests
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-        cta:
-          text: Start learning now!
-          url: "#hero-form"
-          variant: primary
       - icon: Headset
-        title: Unlimited 1:1 mentorship and an active community
+        title: Unlimited 1:1 mentorship, for life
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Lifelong access to 1:1 mentorship sessions
-          - text: 7:1 student–teacher ratio for personalized guidance
-          - text: Peer collaboration through Slack channels and weekly check-ins
-          - text: Dedicated Slack channels for coding support, job boards, and career advice
+          - text: Lifelong access to 1:1 technical mentorship
+          - text: {{ global.global_teacher_student_ratio | 7:1 }} student-to-instructor ratio
+          - text: Weekly check-ins and peer collaboration via Slack
+          - text: Dedicated channels for coding support, job boards, and career advice
         image_id: community-support-cropped
+      - icon: TrendingUp
+        title: Career support built for the AI job market
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Personalized 1:1 career coaching
+          - text: Resume and portfolio built to pass AI-based screening
+          - text: Interview prep and salary negotiation
+          - text: Lifelong access to career coaching and job support
+        video_url: https://youtu.be/-2ZvlgDnltc
+    section_id: ai_learning-0lvau9
+    marginY:
+      desktop: md none
     paddingY:
-      mobile: lg none
-      desktop: lg none
+      desktop: md
   - type: certificate
-    section_id: certificate-codmci
     title: Career Outcomes
-    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
+    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Step into roles paying:"
     benefits:
-      - text: "AI Software Engineer: $95K–$135K"
+      - text: "AI Engineer: $95K–$135K"
+      - text: "Forward-Deployed Engineer: $105K–$155K"
       - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-      - text: "Agent Engineer: $105K–$155K"
       - text: "Workflow Automation Engineer: $85K–$120K"
     card:
       title: AI Engineer
       subtitle: 4Geeks Academy Certificate
       program_name: AI Engineering
     stats:
-      - value: 84%
+      - value: {{ global.global_job_placement_rate | 84 }}%
         label: Hiring rate
-        description: Graduate with the skills, credentials, and professional profile employers are actively hiring for.
+        description: Graduate with the credentials, portfolio, and professional profile to get hired — not just qualified.
         benefits:
           - text: Certificate recognized by the Florida Department of Education
           - text: End-to-end AI-engineered company in your portfolio
@@ -391,22 +384,22 @@ sections:
           - text: Optimized professional profile and job-search strategy
       - value: 3-6 months
         label: Time to get hired
-        description: Most graduates land their first role within 3–6 months of graduation. With our structured 3-step career development process, technical skills turn into job offers fast.
+        description: Most graduates land their first role within 3–6 months. A structured 3-step career process turns your skills into offers fast.
         benefits:
-          - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
-          - text: Prepare through mock technical and behavioral interviews with real-world problem-solving practice
-          - text: Execute a personalized job-search strategy with access to relevant hiring networks
-      - value: 55%
+          - text: Resume, portfolio, and profiles optimized to attract recruiters and pass AI-based screening
+          - text: Technical and behavioral interview preparation
+          - text: Personalized job-search strategy with access to relevant hiring networks
+      - value: {{ global.global_salary_increase | 55 }}%
         label: Average salary increase
-        description: Our graduates see an average 55% salary increase after transitioning into AI engineering roles. The investment pays for itself.
+        description: AI skills are exactly what companies can't find enough of. Step into high-priority roles with immediate growth and long-term upside.
         benefits:
-          - text: "AI Software Engineer: $95K–$135K"
-          - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-          - text: "Agent Engineer: $105K–$155K"
-          - text: "Workflow Automation Engineer: $85K–$120K"
-      - value: 5,000+
+          - text: "AI Software Engineer: {{ global.average_salary_ai_engineer | $115K–$165K }}"
+          - text: "Forward-Deployed Engineer: {{ global.average_salary_ai_fluent_software_developer | $125K–$185K }}"
+          - text: "Agentic Systems Engineer: {{ global.average_salary_agent_engineer | $140K–$210K }}"
+          - text: "Workflow Automation Engineer: {{ global.average_salary_workflow_automation_engineer | $95K–$145K }}"
+      - value: 400+
         label: Hiring partners
-        description: Access our network of 5,000+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
+        description: 400+ companies actively hiring our graduates. Get exclusive access, priority referrals, and direct connections to the people making hiring decisions.
         benefits:
           - text: Exclusive job board access
           - text: Priority referrals to partner companies
@@ -414,6 +407,7 @@ sections:
           - text: Companies include Google, Meta, Amazon, startups
     certificate_position: right
     useSolidCard: true
+    section_id: certificate-yvgz4h
     marginY:
       mobile: none
       desktop: none
