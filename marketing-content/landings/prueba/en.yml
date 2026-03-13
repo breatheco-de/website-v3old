@@ -413,7 +413,7 @@ sections:
           - text: Adapts explanations to your exact skill level and learning pace
           - text: Get unblocked at 2am without losing momentum
           - text: Hundreds of interactive exercises on Learnpack, our purpose-built learning platform
-        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
+        video_url: https://www.youtube.com/watch?v=NRuShbSLtg0
         cta:
           text: See if you qualify
           url: "#hero-form"
@@ -427,7 +427,7 @@ sections:
           - text: 7:1 student to mentor ratio so you're never just a ticket in a queue
           - text: Weekly check-ins keep you accountable and on track to finish
           - text: Active Slack community with dedicated channels for jobs, code help, and career advice
-        image_id: community-support-cropped
+        video_url: https://youtu.be/Zoxxw5jP7xA
     section_id: ai_learning-xiuj75
     paddingY:
       mobile: lg none
