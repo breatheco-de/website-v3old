@@ -442,7 +442,7 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
+        marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
       show_terms: true
       button_className: bg-primary border-white
     form_background: hsl(var(--card))
