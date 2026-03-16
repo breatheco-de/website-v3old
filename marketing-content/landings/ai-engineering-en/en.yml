@@ -517,7 +517,6 @@ sections:
     background: hsl(var(--secondary))
     section_id: bento_cards-895utc
   - type: testimonials
-    section_id: testimonials-404m72
     title: Real Results from Real Graduates
     subtitle: Join thousands who've transformed their careers
     rating_summary:
@@ -542,6 +541,9 @@ sections:
         rating: 5
         comment: Excellent content and great mentor support. Now I'm working on cutting-edge AI.
         outcome: +100% salary increase
+    section_id: testimonials-404m72
+    marginY:
+      desktop: lg none
   - type: cta_banner
     section_id: cta_banner-nw5mm6
     version: "1.0"
