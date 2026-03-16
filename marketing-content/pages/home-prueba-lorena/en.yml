@@ -85,7 +85,7 @@ sections:
     rounded: true
     section_id: image_row-qjh14w
     marginY:
-      desktop: none
+      desktop: none md
     paddingY:
       desktop: md xl
   - type: features_grid
