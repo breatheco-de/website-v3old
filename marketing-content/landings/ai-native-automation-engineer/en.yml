@@ -264,27 +264,6 @@ sections:
       - question: ¿Necesito conocimientos previos?
         answer: No, nuestros bootcamps están diseñados para enseñarte a utilizar todas las herramientas y empezar con lo más básico de cada tecnología antes de empezar con lo más avanzado.
     section_id: faq-1y6kf3
-  - type: features_grid
-    version: "1.0"
-    variant: highlight
-    title: Advance Faster, Never Lose Momentum
-    subtitle: The
-    columns: 4
-    icon_color: "#0097CD"
-    items:
-      - icon: PeopleGroup
-        title: 7:1 Student-Teacher Ratio
-        description: Individual attention in every class.
-      - icon: Handshake
-        title: Unlimited 1:1 Mentorship
-        description: From day one — and for a lifetime.
-      - icon: Rocket
-        title: 24/7 AI Coding Assistant
-        description: Instant feedback while you code.
-      - icon: HandsGroup
-        title: Real Community Support
-        description: Mentors, alumni & peers always ready to help.
-    section_id: features_grid-zpn2hg
   - type: footer
     version: v1.0
     copyright_text: 2024 4Geeks Academy. All rights reserved.
