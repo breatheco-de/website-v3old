@@ -140,18 +140,18 @@ sections:
           text: Asistente las 24h
           description: Nuestra inteligencia artificial revisa tu código para brindarte retroalimentación instantánea, te ayuda con los ejercicios ¡y mucho más!
       - icon: TrendingUp
-        title: Mentorías uno a uno
+        title: Mentorías Uno a Uno
         description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
         show_rigobot_logo: true
         bullets:
           - text: Acceso a sesiones de mentoría 1:1
           - text: Orientadas a guiar tu aprendizaje
           - text: Resolver tus dudas de manera personalizada
-        image_url: community-support-cropped
+        image_url: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
         cta:
           text: Aprende con quienes ya lo hacen
       - icon: Headset
-        title: Aprende con una comunidad activa
+        title: Aprende con una Comunidad Activa
         description: Aprender junto a otros no solo es más divertido, sino que también te ayuda a progresar más rápido. Únete a nuestra comunidad activa de aprendizaje para recibir apoyo y colaboración.
         show_rigobot_logo: true
         bullets:
