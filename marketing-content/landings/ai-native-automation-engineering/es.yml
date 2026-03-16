@@ -56,7 +56,7 @@ sections:
       features:
         - icon: IconBook
           text: Lectura
-        - icon: dumbbell
+        - icon: <FontAwesomeIcon icon={byPrefixAndName.fal['bicep']} />
           text: Ejercicios interactivos    10
         - icon: code
           text: +100 ejercicios interactivos de programación
