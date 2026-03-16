@@ -121,7 +121,7 @@ sections:
           - text: Retroalimentación en tiempo real y guía experta
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
         cta: La IA te acompaña
-      - icon: Interview
+      - icon: Talk
         title: Mentorías uno a uno
         description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
         show_rigobot_logo: true
