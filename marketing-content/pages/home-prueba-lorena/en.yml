@@ -45,36 +45,6 @@ sections:
     background: linear-gradient(to bottom right, hsl(var(--primary) / 0.05), transparent, hsl(var(--chart-2) / 0.05))
     paddingY:
       desktop: sm none
-  - type: hero
-    version: "1.0"
-    variant: showcase
-    title: AI is changing every job. Be the one who uses it — not the one it replaces.
-    subtitle: 4Geeks doesn't just teach you tech skills — we get you hired. Unlimited 1:1 mentorship, AI-powered learning, and career support across AI Engineering, Full Stack, Data Science, and Cybersecurity.
-    trust_bar:
-      rating: 4.9/5
-      rating_count: 3,000+
-      trusted_text: Rated by students worldwide
-      avatars:
-        - woman-profile-headshot-1-608aff01
-        - man-profile-headshot-1-0850c276
-        - woman-profile-headshot-2-a0ea2c29
-        - man-profile-headshot-2-516b72e4
-    cta_button:
-      text: Find My Program
-      url: /programs
-      variant: primary
-    left_images:
-      - src: /images/students-collab.webp
-        alt: Students collaborating on a project
-      - src: /images/happy-developer.webp
-        alt: Happy developer at work
-    right_images:
-      - src: /images/woman-coding.webp
-        alt: Woman coding on laptop
-      - src: /images/tech-team.webp
-        alt: Tech team group photo
-    show_arrow: true
-    section_id: hero-9r3eho
   - type: award_badges
     section_id: award_badges-k62wf3
     version: v1.0
