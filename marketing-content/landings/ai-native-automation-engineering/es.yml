@@ -95,10 +95,9 @@ sections:
   - type: bullet_tabs_showcase
     version: "1.0"
     variant: withoutBorder
-    heading: Ideate and specify what to build next
-    subheading: Transform your ideas into actionable tasks seamlessly
+    heading: Construye flujos de automatización de cero a producción
+    subheading: Este bootcamp integral de 10 semanas cubre desde fundamentos de pensamiento en flujos de trabajo hasta sistemas de automatización listos para producción. Con 70% de práctica y 30% de aprendizaje conceptual, dominarás automatización n8n, integración de APIs, implementación de IA y prácticas profesionales usadas por ingenieros de automatización en la industria.
     subheading_centered: false
-    image_position: right
     tabs:
       - label: Collaborative documents
         description: Work together on specifications and requirements in real-time
@@ -109,6 +108,7 @@ sections:
       - label: Text-to-issue commands
         description: Seamlessly move between ideation and execution
         image_id: placeholder_strategies
+    image_position: right
     section_id: bullet_tabs_showcase-1q1lym
   - type: modal
     version: "1.0"
