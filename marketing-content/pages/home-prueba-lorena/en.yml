@@ -38,30 +38,27 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: xl none
-  - type: award_badges
-    section_id: award_badges-k62wf3
+  - type: trust_cards
     version: v1.0
-    variant: detailed
-    showBorder: false
+    title: "Rated #1 Across Every Major Review Platform"
     items:
-      - id: forbes-logo-award
-        alt: Forbes Award logo
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
-        logoHeight: 64px
-        description: Consistently listed among top 5 bootcamps by Forbes
-        link: /en/awards
-      - id: clark-university
-        alt: Clark University Logo
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
-        logoHeight: 64px
-        description: Certified by recognized universities
-      - id: careerkarma-detailed
-        alt: Award badges
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/badges-new.avif
-        logoHeight: 64px
-        description: Chosen best bootcamp in 2024 and 2025 by SwitchUp, Course Report, and Career Karma.
-        link: /en/awards
-        linkText: Learn more
+      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+        rating: 4.9
+        review_count: 4.9 on Course Report
+      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        rating: 4.8
+        review_count: 4.8 on Google
+      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        rating: 4.9
+        review_count: 4.9 on Career Karma
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 4.9 on SwitchUp
+    name: Default Trust Cards
+    description: Four review platform cards with ratings
+    section_id: trust_cards-eslgbu
+    paddingY:
+      desktop: md lg
     marginY:
       desktop: none md
   - type: image_row
