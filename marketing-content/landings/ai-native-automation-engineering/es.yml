@@ -123,6 +123,7 @@ sections:
     variant: feature-tabs
     badge: ¿Por qué aprender con 4Geeks?
     title: ¿Por qué aprender con 4Geeks?
+    title_highlight: 4Geeks
     description: Avanza más rápido y mantente motivado con nuestras herramientas de IA y método de enseñanza hiperpersonalizado.
     features:
       - icon: Robot
