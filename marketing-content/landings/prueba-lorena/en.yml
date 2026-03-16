@@ -190,7 +190,7 @@ sections:
       desktop: none sm
   - type: graduates_stats
     heading: Career Outcomes
-    subheading: Real results from 5,000+ graduates. Here's what happens after you complete the program.
+    subheading: Real results from 6,000+ graduates. Here's what happens after you complete the program.
     stats:
       - value: 84%
         label: Average hiring rate
