@@ -48,8 +48,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: showcase
-    title: Launch Your Tech Career
-    subtitle: Join thousands of graduates who transformed their lives with our bootcamp
+    title: Use AI. Or get replaced by it.
+    subtitle: 4Geeks doesn't just teach you tech skills — we get you hired. Unlimited 1:1 mentorship, AI-powered learning, and career support across AI Engineering, Full Stack, Data Science, and Cybersecurity.
     trust_bar:
       rating: 4.9/5
       rating_count: 3,000+
@@ -60,7 +60,7 @@ sections:
         - woman-profile-headshot-2-a0ea2c29
         - man-profile-headshot-2-516b72e4
     cta_button:
-      text: Choose Your Path
+      text: Find My Program
       url: /programs
       variant: primary
     left_images:
