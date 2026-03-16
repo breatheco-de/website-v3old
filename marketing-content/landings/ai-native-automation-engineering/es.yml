@@ -92,6 +92,25 @@ sections:
     description: 4Geeks.com es la primera plataforma diseñada para maximizar el aprendizaje a tu propio ritmo. Únete a sesiones en vivo cuando tu puedas, obtén ayuda de forma inmediata con IA y pide mentorías uno a uno. Todo nuestro contenido es totalmente interactivo y con videos.
     background: gradient
     section_id: banner-ravvyt
+  - type: features_grid
+    version: "1.0"
+    variant: highlight
+    title: ¿Por qué aprender con 4Geeks?
+    subtitle: Aprender de forma intensiva puede ser desafiante, pero hemos desarrollado las herramientas para mantenerte motivado, evitar que te quedes atascado en problemas y acelerar tu proceso de aprendizaje.
+    columns: 3
+    icon_color: "#0097CD"
+    items:
+      - icon: Robot
+        title: Aprende con IA
+        description: Nuestra inteligencia artificial revisa tu código para brindarte retroalimentación instantánea, te ayuda con los ejercicios ¡y mucho más!
+      - icon: HandsGroup
+        title: Mentorías uno a uno
+        description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
+      - icon: Rocket
+        title: Aprende en comunidad
+        description: Aprender junto a otros no solo es más divertido, sino que también te ayuda a progresar más rápido. Únete a nuestra comunidad activa de aprendizaje para recibir apoyo y colaboración.
+      - icon: HandsGroup
+    section_id: features_grid-w3lzhc
   - type: syllabus
     title: Construye flujos de automatización de cero a producción
     subtitle: Este bootcamp integral de 10 semanas cubre desde fundamentos de pensamiento en flujos de trabajo hasta sistemas de automatización listos para producción. Con 70% de práctica y 30% de aprendizaje conceptual, dominarás automatización n8n, integración de APIs, implementación de IA y prácticas profesionales usadas por ingenieros de automatización en la industria.
@@ -119,7 +138,7 @@ sections:
     expand_label: Detalles del curso
     collapse_label: Ocultar detalles del curso
     section_id: syllabus-mn0duk
-  - type: ai_learning
+  - type: ai_native-automation
     variant: feature-tabs
     badge: ¿Por qué aprender con 4Geeks?
     title: ¿Por qué aprender con 4Geeks?
@@ -147,7 +166,7 @@ sections:
           - text: Acceso a sesiones de mentoría 1:1
           - text: Orientadas a guiar tu aprendizaje
           - text: Resolver tus dudas de manera personalizada
-        image_id: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
+        image_id: https://storage.googleapis.com/4geeks-academy-website/media/what-is-4geeks.jpg
         cta:
           text: Aprende con quienes ya lo hacen
       - icon: Headset

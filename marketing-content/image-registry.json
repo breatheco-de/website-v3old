@@ -4550,6 +4550,31 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-13-145607-639w.webp"
         }
       ]
+    },
+    "4geeks-devs-logo-1763162063433": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433.png",
+      "alt": "Image: 4geeks-devs-logo_1763162063433",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "25422248ede1db8734e27ad0c5d3d67b6e7df20a60911995b5de0d50e6048ec9",
+      "width": 359,
+      "height": 82,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        359
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 359,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433-359w.webp"
+        }
+      ]
     }
   }
 }
