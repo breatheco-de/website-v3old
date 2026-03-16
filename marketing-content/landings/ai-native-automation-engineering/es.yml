@@ -119,7 +119,7 @@ sections:
     expand_label: Detalles del curso
     collapse_label: Ocultar detalles del curso
     section_id: syllabus-mn0duk
-  - type: ai_learning
+  - type: ai_native-automation
     variant: feature-tabs
     badge: ¿Por qué aprender con 4Geeks?
     title: ¿Por qué aprender con 4Geeks?
