@@ -45,6 +45,32 @@ sections:
     background: linear-gradient(to bottom right, hsl(var(--primary) / 0.05), transparent, hsl(var(--chart-2) / 0.05))
     paddingY:
       desktop: sm none
+  - type: hero
+    version: "1.0"
+    variant: singleColumn
+    badge: Career Program
+    title: Full Stack Development with AI
+    subtitle: Learn at your own pace with AI-powered tools and unlimited mentorship
+    cta_buttons:
+      - text: Start Learning Now
+        url: /signup
+        variant: primary
+        icon: Rocket
+      - text: View Curriculum
+        url: /curriculum
+        variant: outline
+        icon: Book
+    trust_bar:
+      rating: 4.8/5
+      rating_count: 2,500+
+      trusted_text: Trusted by 10,000+ students
+    award_badges:
+      - name: Best Coding Bootcamp
+        source: Forbes
+        year: "2024"
+      - name: Top Tech School
+        source: Course Report
+    section_id: hero-hq29hp
   - type: award_badges
     section_id: award_badges-k62wf3
     version: v1.0
