@@ -120,7 +120,9 @@ sections:
           - text: Rigobot es tutor de Inteligencia Artificial disponible 24/7
           - text: Retroalimentación en tiempo real y guía experta
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-      - icon: TrendingUp
+        cta:
+          icon: Headphones
+      - icon: null
         title: Mentorías uno a uno
         description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
         show_rigobot_logo: true
@@ -129,7 +131,8 @@ sections:
           - text: Orientadas a guiar tu aprendizaje
           - text: Resuelve tus dudas de manera personalizada
         video_url: https://youtu.be/-2ZvlgDnltc
-      - icon: Headset
+        cta: Aprende con los que saben
+      - icon: Rocket
         title: Aprende en comunidad
         description: Aprender junto a otros no solo es más divertido, sino que también te ayuda a progresar más rápido. Únete a nuestra comunidad activa de aprendizaje para recibir apoyo y colaboración.
         show_rigobot_logo: true
@@ -138,10 +141,37 @@ sections:
           - text: Recibe ayuda, comparte ideas y resuelve dudas
           - text: Comunidad activa conectada a través de Slack
         image_id: community-support-cropped
+        cta: Juntos es mejor
     marginY:
       desktop: md none
     paddingY:
       desktop: md none
+  - type: certificate
+    version: v1.0
+    title: Certifícate en tu tecnología favorita
+    description: Tu certificado de 4Geeks abrirá puertas a oportunidades profesionales con nuestra extensa red de empresas en todo el mundo. Respaldado por instituciones internacionales, representa un estándar reconocido a nivel global, desbloqueando diversos caminos profesionales.
+    benefits:
+      - text: Internationally recognized certificate
+      - text: Access to exclusive job board with 300+ partner companies
+      - text: Lifetime membership in our alumni community
+    card:
+      title: Full Stack Developer
+      subtitle: 4Geeks Academy Certificate
+    section_id: certificate-wttpxs
+  - type: split_cards
+    version: v1.0
+    variant: primary-left
+    background: muted
+    primary:
+      badge: Results-Backed Promise
+      heading: The Confidence of a Job Guarantee
+      description: "The strongest proof that we believe in our model? We back it with a Job Guarantee. Most schools promise \"career support.\" At 4Geeks, we promise results: get hired within 9 months, or we refund your tuition in full. Conditions apply."
+    secondary:
+      benefits:
+        - text: Our curriculum is industry-aligned and AI-ready
+        - text: Our mentorship is unlimited and personalized
+        - text: Our career support never expires
+    section_id: split_cards-1plysg
   - type: syllabus
     section_id: syllabus-v7dcug
     variant: program-modules
