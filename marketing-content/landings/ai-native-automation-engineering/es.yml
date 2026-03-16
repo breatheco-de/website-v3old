@@ -48,8 +48,8 @@ sections:
       - name: Rigo
         role: Asistente de Aprendizaje con IA
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: "Tus instructores:"
-    description: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
+    tutors_label: "Tus tutores:"
+    description: Transforma tu carrera con Ingeniería de Automatización Nativa de IA. Aprende a diseñar, construir y desplegar flujos de automatización listos para producción con entrenamiento práctico en n8n e integraciones de APIs reales. Gradúate con más de 35 proyectos en portafolio y las habilidades para trabajar como ingeniero de automatización profesional.
     signup_card:
       title: Recibe el plan de estudios completo
       description: Accede al programa completo, horarios y todo lo que necesitas saber sobre el programa.
