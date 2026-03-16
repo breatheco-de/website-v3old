@@ -165,9 +165,9 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-0lgvpc
     marginY:
-      desktop: md lg
+      desktop: md
     paddingY:
-      desktop: md lg
+      desktop: md none
   - type: career_support_explain
     version: v1.0
     heading: We Stay With You Until You're Hired.
