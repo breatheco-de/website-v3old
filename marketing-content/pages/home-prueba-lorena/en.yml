@@ -165,7 +165,7 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-0lgvpc
     marginY:
-      desktop: lg
+      desktop: md lg
     paddingY:
       desktop: md lg
   - type: two_column_accordion_card
