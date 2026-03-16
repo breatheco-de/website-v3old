@@ -1902,6 +1902,7 @@ export function DebugBubble() {
             slug={yamlEditorInfo.slug}
             locale={yamlEditorInfo.locale}
             onClose={() => setShowYamlEditor(false)}
+            onSaved={() => window.location.reload()}
           />
         </Suspense>
       )}

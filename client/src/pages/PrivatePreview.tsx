@@ -192,10 +192,7 @@ export default function PrivatePreview() {
               slug={slug}
               locale={locale}
               onClose={() => setShowRawEditor(false)}
-              onSaved={() => {
-                setShowRawEditor(false);
-                refetch();
-              }}
+              onSaved={() => window.location.reload()}
             />
           </Suspense>
         )}
