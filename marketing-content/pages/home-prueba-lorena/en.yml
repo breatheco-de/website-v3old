@@ -38,6 +38,8 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: xl none
+    marginY:
+      desktop: none md
   - type: trust_cards
     version: v1.0
     title: "Rated #1 Across Every Major Review Platform"
