@@ -37,7 +37,7 @@ sections:
     section_id: hero-hq29hp
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
-      desktop: xl none
+      desktop: XXL none
     marginY:
       desktop: md xl
   - type: trust_cards
