@@ -95,20 +95,20 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: highlight
-    title: Advance Faster, Never Lose Momentum
-    subtitle: The
-    columns: 4
+    title: ¿Por qué aprender con 4Geeks?
+    subtitle: Aprender de forma intensiva puede ser desafiante, pero hemos desarrollado las herramientas para mantenerte motivado, evitar que te quedes atascado en problemas y acelerar tu proceso de aprendizaje.
+    columns: 3
     icon_color: "#0097CD"
     items:
       - icon: PeopleGroup
-        title: 7:1 Student-Teacher Ratio
-        description: Individual attention in every class.
+        title: Aprende con IA
+        description: Nuestra inteligencia artificial revisa tu código para brindarte retroalimentación instantánea, te ayuda con los ejercicios ¡y mucho más!
       - icon: Handshake
-        title: Unlimited 1:1 Mentorship
-        description: From day one — and for a lifetime.
+        title: Mentorías uno a uno
+        description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
       - icon: Rocket
-        title: 24/7 AI Coding Assistant
-        description: Instant feedback while you code.
+        title: Aprende en comunidad
+        description: Aprender junto a otros no solo es más divertido, sino que también te ayuda a progresar más rápido. Únete a nuestra comunidad activa de aprendizaje para recibir apoyo y colaboración.
       - icon: HandsGroup
         title: Real Community Support
         description: Mentors, alumni & peers always ready to help.
