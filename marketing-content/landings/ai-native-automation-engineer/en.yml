@@ -50,8 +50,8 @@ sections:
     tutors_label: "Your instructors:"
     description: Transforma tu carrera con Ingeniería de Automatización Nativa de IA. Aprende a diseñar, construir y desplegar flujos de automatización listos para producción con entrenamiento práctico en n8n e integraciones de APIs reales. Gradúate con más de 35 proyectos en portafolio y las habilidades para trabajar como ingeniero de automatización profesional.
     signup_card:
-      title: Get the full program overview
-      description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
+      title: ACCEDE A CIENTOS DE DESAFÍOS, PROYECTOS Y CURSOS
+      description: Tendrás acceso a
       form:
         variant: stacked
         submit_label: Send me the details
@@ -70,8 +70,8 @@ sections:
             required: true
             default: full-stack
       features:
-        - icon: IconCalendar
-          text: 20-week track
+        - icon: IconBook
+          text: Lecturas
         - icon: IconCalendarBolt
           text: 12-week accelerated morning track
         - icon: code
