@@ -243,6 +243,45 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
+  - type: ai_learning
+    section_id: ai_learning-t5rl7a
+    variant: feature-tabs
+    badge: ¿Por qué 4Geeks?
+    title: Todo lo que necesitas para lanzar tu carrera en tecnología
+    description: Avanza más rápido y mantente motivado con nuestras herramientas de IA y método de enseñanza hiperpersonalizado.
+    features:
+      - icon: Robot
+        title: Progresa más rápido con herramientas de IA
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Obtén feedback instantáneo de Rigobot, nuestro tutor de IA personalizado
+          - text: Recibe consejos ajustados a tu nivel de habilidad y progreso
+          - text: Ayuda con depuración y tareas de resolución de problemas
+          - text: Accede a cientos de ejercicios interactivos en Learnpack
+        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
+      - icon: TrendingUp
+        title: Lanza tu carrera en tecnología con apoyo profesional para la Era de la IA
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Coaching personalizado 1:1
+          - text: Currículums optimizados para procesos de contratación con IA
+          - text: Preparación de entrevistas y negociación salarial
+          - text: Acceso de por vida para apoyar tu crecimiento profesional
+        video_url: https://youtu.be/-2ZvlgDnltc
+      - icon: Headset
+        title: Mentoría ilimitada 1:1 y una comunidad activa
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Acceso de por vida a sesiones de mentoría 1:1
+          - text: Relación 7:1 de estudiante a profesor, garantizando una atención personalizada
+          - text: Colaboración entre compañeros a través de canales de Slack y check-ins semanales
+          - text: Canales dedicados de Slack para soporte técnico, bolsas de trabajo y consejos de carrera
+        image_id: community-support-cropped
+    paddingY:
+      desktop: md none
   - type: syllabus
     section_id: syllabus-1z14e6
     variant: program-modules
@@ -318,45 +357,6 @@ sections:
         icon: IconUsers
     paddingY:
       desktop: md
-  - type: ai_learning
-    section_id: ai_learning-t5rl7a
-    variant: feature-tabs
-    badge: ¿Por qué 4Geeks?
-    title: Todo lo que necesitas para lanzar tu carrera en tecnología
-    description: Avanza más rápido y mantente motivado con nuestras herramientas de IA y método de enseñanza hiperpersonalizado.
-    features:
-      - icon: Robot
-        title: Progresa más rápido con herramientas de IA
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Obtén feedback instantáneo de Rigobot, nuestro tutor de IA personalizado
-          - text: Recibe consejos ajustados a tu nivel de habilidad y progreso
-          - text: Ayuda con depuración y tareas de resolución de problemas
-          - text: Accede a cientos de ejercicios interactivos en Learnpack
-        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-      - icon: TrendingUp
-        title: Lanza tu carrera en tecnología con apoyo profesional para la Era de la IA
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Coaching personalizado 1:1
-          - text: Currículums optimizados para procesos de contratación con IA
-          - text: Preparación de entrevistas y negociación salarial
-          - text: Acceso de por vida para apoyar tu crecimiento profesional
-        video_url: https://youtu.be/-2ZvlgDnltc
-      - icon: Headset
-        title: Mentoría ilimitada 1:1 y una comunidad activa
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Acceso de por vida a sesiones de mentoría 1:1
-          - text: Relación 7:1 de estudiante a profesor, garantizando una atención personalizada
-          - text: Colaboración entre compañeros a través de canales de Slack y check-ins semanales
-          - text: Canales dedicados de Slack para soporte técnico, bolsas de trabajo y consejos de carrera
-        image_id: community-support-cropped
-    paddingY:
-      desktop: md none
   - type: projects
     section_id: projects-e6weql
     title: Aprende construyendo proyectos reales
