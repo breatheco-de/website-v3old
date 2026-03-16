@@ -8,21 +8,21 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: at 4Geeks Academy
+    title: Build with AI.
     brand_mark:
-      prefix: Your current job has a ceiling. Become an
-      highlight: AI Engineer
+      prefix: Break Your Career
+      highlight: Ceiling.
       color: primary
-    description: The AI talent gap is real. 800,000+ open roles, not enough qualified engineers to fill them. In 24 weeks, you'll build production-ready AI apps, master LLMs and machine learning, and position yourself for the highest-paying entry point in tech right now.
+    description: "Become an AI Engineer: the fastest-growing job of 2026. 1.3M new roles. 42× growth since 2023. In 24 weeks, that's you — landing roles paying $95K–$135K+."
     bullets:
-      - text: "Career-focused from day one: get job-ready in 24 weeks and hired in 120 days"
-      - text: The only bootcamp that doesn't end at graduation, unlimited lifetime mentorship included
-      - text: "Flexible financing available: pay as low as $349/mo or $0 upfront with our Income Share Agreement"
+      - text: Build a complete AI-native system across 10 milestones
+      - text: Unlimited 1:1 mentorship and career support that doesn't stop at graduation
+      - text: "Job Guarantee option: get hired within 9 months or we'll refund your tuition"
     image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
@@ -44,14 +44,14 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: You're in. Someone from our admissions team will reach out within a few minutes via email — check your inbox.
+        message: Check your inbox! Your syllabus is on the way.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: I agree to receive information via email, WhatsApp and/or other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe easily at any time.
-        sms_text: I agree to receive SMS/text messages about workshops, events, courses and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information.
+        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
+        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
         sms_usa_only: true
       show_terms: true
     form_vertical_align: bottom
