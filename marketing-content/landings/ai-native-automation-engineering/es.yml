@@ -61,7 +61,7 @@ sections:
         text: ¿Ya eres estudiante? Inicia sesión aquí.
         url: https://4geeks.com/es/login
       features:
-        - icon: IconCalendar
+        - icon: IconBook
           text: Programa de {{ global.fullstack_week_duration | 20 }} semanas
         - icon: IconCalendarBolt
           text: Modalidad intensiva de 12 semanas (mañanas)
