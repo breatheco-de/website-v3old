@@ -23,6 +23,69 @@ schema:
     - courses:full-stack
 sections:
   - type: hero
+    version: "1.0"
+    variant: course
+    title: Ingeniería de Automatización con Inteligencia Artificial
+    title_highlight: con Inteligencia Artificial
+    subtitle: Esto no es sólo un curso, es una transformación.
+    students_enrolled:
+      avatars:
+        - https://randomuser.me/api/portraits/women/1.jpg
+        - https://randomuser.me/api/portraits/men/2.jpg
+        - https://randomuser.me/api/portraits/women/3.jpg
+        - https://randomuser.me/api/portraits/men/4.jpg
+      count: Cientos de estudiantes inscriptos de España, LATAM y EE. UU.
+    bullet_points:
+      - Construye más de 35 flujos de automatización funcionales incluyendo sistemas de clima, asistentes de IA y aplicaciones impulsadas por eventos.
+      - Domina la plataforma de automatización n8n con experiencia práctica desde conceptos básicos de 2 nodos hasta sistemas complejos de producción de 10 nodos.
+      - Integra APIs del mundo real y servicios de IA incluyendo OpenAI GPT, datos meteorológicos y sistemas de eventos basados en webhooks.
+      - Crea un proyecto final completo listo para portafolio con documentación profesional, pruebas y paquete para GitHub.
+      - Aprende prácticas de desarrollo nativo de IA, trabajando CON agentes de IA mediante ingeniería de prompts y patrones de validación.
+    tutors:
+      - name: Alejandro Sanchez
+        role: Instructor Principal
+        image: https://techhubsouthflorida.org/wp-content/uploads/2023/09/Alejandro-Sanchez.jpeg
+      - name: Rigo
+        role: Asistente de Aprendizaje con IA
+        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
+    tutors_label: "Tus tutores:"
+    description: Transforma tu carrera con Ingeniería de Automatización Nativa de IA. Aprende a diseñar, construir y desplegar flujos de automatización listos para producción con entrenamiento práctico en n8n e integraciones de APIs reales. Gradúate con más de 35 proyectos en portafolio y las habilidades para trabajar como ingeniero de automatización profesional.
+    signup_card:
+      title: ACCEDE A CIENTOS DE DESAFÍOS, PROYECTOS Y CURSOS
+      description: Con tu suscripción tendrás acceso a...
+      features:
+        - icon: IconBook
+          text: Lectura
+        - icon: IconPencilCode
+          text: Ejercicios interactivos
+        - icon: IconDeviceIpadCode
+          text: Proyectos interactivos
+        - icon: robot
+          text: Feedback en tiempo real con IA
+        - icon: calendar
+          text: Talleres todas las semanas
+        - icon: IconUsersGroup
+          text: Encuentros de la comunidad
+    layout_reversed: false
+    section_id: hero-jx2sbx
+    paddingY:
+      desktop: md lg
+    marginY:
+      desktop: none
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - houston-usa
+      - miami-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - madrid-spain
+  - type: hero
     section_id: hero-so0hp3
     version: "1.0"
     variant: course
@@ -98,69 +161,6 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
-  - type: hero
-    version: "1.0"
-    variant: course
-    title: Ingeniería de Automatización con Inteligencia Artificial
-    title_highlight: con Inteligencia Artificial
-    subtitle: Esto no es sólo un curso, es una transformación.
-    students_enrolled:
-      avatars:
-        - https://randomuser.me/api/portraits/women/1.jpg
-        - https://randomuser.me/api/portraits/men/2.jpg
-        - https://randomuser.me/api/portraits/women/3.jpg
-        - https://randomuser.me/api/portraits/men/4.jpg
-      count: Cientos de estudiantes inscriptos de España, LATAM y EE. UU.
-    bullet_points:
-      - Construye más de 35 flujos de automatización funcionales incluyendo sistemas de clima, asistentes de IA y aplicaciones impulsadas por eventos.
-      - Domina la plataforma de automatización n8n con experiencia práctica desde conceptos básicos de 2 nodos hasta sistemas complejos de producción de 10 nodos.
-      - Integra APIs del mundo real y servicios de IA incluyendo OpenAI GPT, datos meteorológicos y sistemas de eventos basados en webhooks.
-      - Crea un proyecto final completo listo para portafolio con documentación profesional, pruebas y paquete para GitHub.
-      - Aprende prácticas de desarrollo nativo de IA, trabajando CON agentes de IA mediante ingeniería de prompts y patrones de validación.
-    tutors:
-      - name: Alejandro Sanchez
-        role: Instructor Principal
-        image: https://techhubsouthflorida.org/wp-content/uploads/2023/09/Alejandro-Sanchez.jpeg
-      - name: Rigo
-        role: Asistente de Aprendizaje con IA
-        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: "Tus tutores:"
-    description: Transforma tu carrera con Ingeniería de Automatización Nativa de IA. Aprende a diseñar, construir y desplegar flujos de automatización listos para producción con entrenamiento práctico en n8n e integraciones de APIs reales. Gradúate con más de 35 proyectos en portafolio y las habilidades para trabajar como ingeniero de automatización profesional.
-    signup_card:
-      title: ACCEDE A CIENTOS DE DESAFÍOS, PROYECTOS Y CURSOS
-      description: Con tu suscripción tendrás acceso a...
-      features:
-        - icon: IconBook
-          text: Lectura
-        - icon: IconPencilCode
-          text: Ejercicios interactivos
-        - icon: IconDeviceIpadCode
-          text: Proyectos interactivos
-        - icon: robot
-          text: Feedback en tiempo real con IA
-        - icon: calendar
-          text: Talleres todas las semanas
-        - icon: IconUsersGroup
-          text: Encuentros de la comunidad
-    layout_reversed: false
-    section_id: hero-jx2sbx
-    paddingY:
-      desktop: md lg
-    marginY:
-      desktop: none
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - houston-usa
-      - miami-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - madrid-spain
   - type: modal
     version: "1.0"
     section_id: modal-7m3w5q
