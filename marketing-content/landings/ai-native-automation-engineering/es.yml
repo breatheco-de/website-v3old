@@ -56,9 +56,9 @@ sections:
       features:
         - icon: IconBook
           text: Lectura
-        - icon: code
+        - icon: IconPencilCode
           text: Ejercicios interactivos    10
-        - icon: code
+        - icon: IconDeviceIpadCode
           text: +100 ejercicios interactivos de programación
         - icon: robot
           text: Feedback con IA en tiempo real
