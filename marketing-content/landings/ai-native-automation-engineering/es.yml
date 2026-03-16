@@ -56,8 +56,7 @@ sections:
       features:
         - icon: IconBook
           text: Lectura
-          number: 1
-        - icon: IconArmFlex
+        - icon: IconDumbbell
           text: Ejercicios interactivos    10
         - icon: code
           text: +100 ejercicios interactivos de programación
