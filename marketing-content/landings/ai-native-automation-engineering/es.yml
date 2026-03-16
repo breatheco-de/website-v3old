@@ -100,18 +100,16 @@ sections:
     columns: 3
     icon_color: "#0097CD"
     items:
-      - icon: PeopleGroup
+      - icon: Robot
         title: Aprende con IA
         description: Nuestra inteligencia artificial revisa tu código para brindarte retroalimentación instantánea, te ayuda con los ejercicios ¡y mucho más!
-      - icon: Handshake
+      - icon: HandsGroup
         title: Mentorías uno a uno
         description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
       - icon: Rocket
         title: Aprende en comunidad
         description: Aprender junto a otros no solo es más divertido, sino que también te ayuda a progresar más rápido. Únete a nuestra comunidad activa de aprendizaje para recibir apoyo y colaboración.
       - icon: HandsGroup
-        title: Real Community Support
-        description: Mentors, alumni & peers always ready to help.
     section_id: features_grid-w3lzhc
   - type: syllabus
     title: Construye flujos de automatización de cero a producción
