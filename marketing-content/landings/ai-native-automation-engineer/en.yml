@@ -129,7 +129,7 @@ sections:
           - text: Acceso a mentorías 1:1
           - text: Orientadas a guiar tu aprendizaje
           - text: Resuelve tus dudas de manera personalizada
-        video_url: https://youtu.be/-2ZvlgDnltc
+        image_id: community-support-cropped
         cta: Aprende con los que saben
       - icon: Rocket
         title: Aprende en comunidad
