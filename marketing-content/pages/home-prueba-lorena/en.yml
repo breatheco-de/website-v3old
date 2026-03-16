@@ -20,7 +20,6 @@ sections:
     variant: singleColumn
     title: AI is changing every job. Be the one who uses it, not the one it replaces.
     subtitle: 4Geeks doesn't just teach you tech skills — we get you hired. Unlimited 1:1 mentorship, AI-powered learning, and career support that doesn't stop at graduation.
-    badge: Career Program
     cta_buttons:
       - text: Find My Program
         url: /signup
