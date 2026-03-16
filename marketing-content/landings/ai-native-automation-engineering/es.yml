@@ -137,6 +137,7 @@ sections:
           - text: Accede a cientos de ejercicios interactivos en Learnpack
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
         cta:
+          text: Asistente las 24h
           description: Nuestra inteligencia artificial revisa tu código para brindarte retroalimentación instantánea, te ayuda con los ejercicios ¡y mucho más!
       - icon: TrendingUp
         title: Mentorías uno a uno
