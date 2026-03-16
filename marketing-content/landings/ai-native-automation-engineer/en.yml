@@ -84,17 +84,6 @@ sections:
       variant: primary
     background: gradient
     section_id: banner-yaz1wu
-  - type: banner
-    version: "1.0"
-    logo: https://breathecode.herokuapp.com/v1/media/file/rigobot-icon-jpg
-    title: Conoce a Rigobot, nuestra IA interna diseñada para quienes aprenden solos
-    description: 4Geeks.com es la primera plataforma diseñada para maximizar el aprendizaje a tu propio ritmo. Únete a sesiones en vivo cuando tu puedas, obtén ayuda de forma inmediata con IA y pide mentorías uno a uno. Todo nuestro contenido es totalmente interactivo y con videos.
-    cta:
-      text: Learn More
-      url: "#"
-      variant: primary
-    background: hsl(var(--primary))
-    section_id: banner-3l8gf1
   - type: syllabus
     section_id: syllabus-v7dcug
     variant: program-modules
