@@ -1,0 +1,540 @@
+slug: ai-native-automation-engineer
+title: ai-native-automation-engineer
+meta:
+  robots: index, follow
+  og_image: /images/programs/full-stack-og.jpg
+  priority: 0.9
+  change_frequency: weekly
+  page_title: Full Stack Developer Career Program | 4Geeks
+  description: >-
+    Become a Full Stack Developer with unlimited 1:1 mentorship, career guidance, and hands-on projects. Launch a career
+    with $65K+ starting salaries.
+context:
+  when_to_use: >-
+    For visitors interested in becoming web developers, learning both frontend and backend technologies, or
+    transitioning into software development careers.
+  target_audience: >-
+    Career changers, recent graduates, and professionals looking to break into tech with comprehensive web development
+    skills.
+  goals:
+    - Highlight the practical, project-based learning approach
+    - Emphasize job-ready skills and career outcomes
+    - Showcase the full-stack technology coverage (HTML, CSS, JavaScript, React, Python, SQL)
+    - Address concerns about learning curve and time commitment
+schema:
+  include:
+    - organization
+    - website
+    - courses:full-stack
+sections:
+  - type: hero
+    version: '1.0'
+    variant: ApplyFormProductShowcase
+    title: ''
+    brand_mark:
+      prefix: Conviértete en Programador Full Stack con IA en
+      highlight: 4Geeks Academy
+      color: primary
+    description: >-
+      Aprende a crear aplicaciones web listas para producción integradas con inteligencia artificial y prepárate para la
+      nueva generación de roles en desarrollo web.
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Aplicar ahora
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        last_name:
+          visible: true
+          required: true
+          placeholder: Apellido
+        phone:
+          visible: true
+          required: true
+          default_country: ES
+        program:
+          visible: false
+          default: full-stack-ai
+      success:
+        message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
+      terms_url: /terminos-condiciones
+      privacy_url: /politica-privacidad
+      consent:
+        marketing: true
+        marketing_text: >-
+          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
+          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
+    cta_button:
+      text: Descargar programa
+      url: /programa/full-stack-ai
+      variant: outline
+      icon: Download
+    video:
+      url: https://www.youtube.com/watch?v=jiyZVACiucs
+      ratio: '4:7'
+      muted: true
+    section_id: hero-mjs4g0
+    bullets:
+      - text: Aprende a programar desde cero hasta convertirte en desarrollador profesional.
+      - text: Mentorías ilimitadas y de por vida incluso después de graduarte.
+      - text: Construye proyectos reales integrados con inteligencia artificial.
+      - text: Opciones de financiamiento disponibles en 6, 9, 12 y 18 meses.
+    paddingY:
+      mobile: md none
+      desktop: lg none
+    marginY:
+      mobile: none
+      desktop: none
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
+  - type: syllabus
+    section_id: syllabus-v7dcug
+    variant: program-modules
+    program_title: Full Stack with AI Program Overview
+    program_description: >-
+      Learn to build modern, production-ready web applications by mastering frontend and backend development alongside
+      AI. Work with APIs, databases, and intelligent tools to design, develop, and ship real-world software.
+    tech_logos:
+      - name: HTML5
+        icon: html
+      - name: CSS3
+        icon: css
+      - name: JavaScript
+        icon: javascript
+      - name: React
+        icon: react
+      - name: Python
+        icon: python
+      - name: Git
+        icon: git
+    module_cards:
+      - title: Introduction To HTML And CSS
+        duration: Weeks 1-2
+        objectives:
+          - Create web structures with semantic HTML
+          - Style pages with modern CSS techniques
+          - Build visually appealing and accessible websites
+        projects: Build responsive landing pages from scratch
+        orientation: vertical
+        icon: IconCode
+      - title: JavaScript
+        duration: Weeks 3-5
+        objectives:
+          - Master variables, functions, and loops
+          - DOM manipulation for interactive pages
+          - Modern ES6+ features and async programming
+        projects: Create dynamic, interactive web applications
+        orientation: vertical
+        icon: IconBrandJavascript
+      - title: React
+        duration: Weeks 6-9
+        objectives:
+          - Build component-based user interfaces
+          - State management with hooks
+          - Routing and best practices for scalable apps
+        projects: Build modern single-page applications
+        orientation: vertical
+        icon: IconBrandReact
+      - title: Python
+        duration: Weeks 10-12
+        objectives:
+          - Core programming concepts and data structures
+          - Object-oriented programming principles
+          - Web development and automation skills
+        projects: Create backend services and automation scripts
+        orientation: vertical
+        icon: IconBrandPython
+      - title: Creating APIs
+        duration: Weeks 13-15
+        objectives:
+          - Design and build RESTful APIs
+          - Authentication and database integration
+          - API documentation and best practices
+        projects: Build a full REST API with Flask/Express
+        orientation: vertical
+        icon: IconApi
+      - title: Agile Methodologies
+        duration: Week 16
+        objectives:
+          - Scrum, Kanban, and agile frameworks
+          - Sprint planning and daily standups
+          - Effective collaboration in dev teams
+        projects: Work in agile teams on group projects
+        orientation: vertical
+        icon: IconUsers
+    paddingY:
+      desktop: md
+  - type: projects
+    section_id: projects-o3b14u
+    title: Learn by Building Real-Life Projects
+    subtitle: Build production-ready full stack applications that mirror real software engineering roles and industry workflows.
+    items:
+      - title: Build a StarWars REST API
+        description: >-
+          The StarWars Blog API will let you practice building a REST API using lightweight API frameworks like Express
+          (for node) or Flask (for python) using SQLAlchemy ORM and Python language, while building a fun blog. Ideal
+          for juniors looking to practice API development in python.
+        image: star-wars
+        tags:
+          - REST
+        duration: 8 HOURS
+        difficulty: easy
+        date: 15/11/2022
+      - title: Authentication System with JWT
+        description: >-
+          Create a complete authentication system with JWT tokens, React frontend, and Python backend. Learn security
+          best practices and session management patterns used in production applications.
+        image: authentication
+        tags:
+          - Security
+          - JWT
+        duration: 6 HOURS
+        difficulty: medium
+        date: 20/01/2023
+      - title: Full-Stack Final Project
+        description: >-
+          Design and build your own full-stack application from scratch. Demonstrate your skills with React, Flask,
+          SQLAlchemy, and third-party API integrations. This capstone project showcases everything you've learned.
+        image: final-project
+        tags:
+          - Full-Stack
+          - Capstone
+        duration: 40 HOURS
+        difficulty: hard
+        date: 01/03/2023
+    paddingY:
+      desktop: md sm
+  - type: ai_learning
+    section_id: ai_learning-aazkxm
+    variant: feature-tabs
+    badge: Why 4Geeks?
+    title: How You’ll Learn at 4Geeks
+    description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.
+    features:
+      - icon: Robot
+        title: Progress faster with AI-powered tools
+        description: ''
+        show_rigobot_logo: true
+        bullets:
+          - text: Instant feedback from Rigobot, our custom AI tutor
+          - text: Advice adjusted to your skill level and progress
+          - text: 24/7 help with debugging and problem-solving
+          - text: Hundreds of interactive coding exercises and tests
+        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
+      - icon: TrendingUp
+        title: Thrive in tech with career support for the AI-Era
+        description: ''
+        show_rigobot_logo: true
+        bullets:
+          - text: Personalized 1:1 coaching
+          - text: AI-ready resumes and portfolios
+          - text: Interview prep and salary negotiation
+          - text: Lifelong access to support your growth
+        video_url: https://youtu.be/-2ZvlgDnltc
+      - icon: Headset
+        title: Unlimited 1:1 mentorship and an active community
+        description: ''
+        show_rigobot_logo: true
+        bullets:
+          - text: Lifelong access to 1:1 mentorship sessions
+          - text: 7:1 student–teacher ratio for personalized guidance
+          - text: Peer collaboration through Slack channels and weekly check-ins
+          - text: Dedicated Slack channels for coding support, job boards, and career advice
+        image_id: community-support-cropped
+    marginY:
+      desktop: md none
+    paddingY:
+      desktop: md none
+  - type: certificate
+    section_id: certificate-fx8gmn
+    title: Career Outcomes
+    description: >-
+      Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access
+      high-paying roles:
+    benefits:
+      - text: 'AI Software Engineer: {{ global.average_salary_fullstack | $95K–$135K }}'
+      - text: 'Full-Stack Engineer (AI-Fluent): $100K–$145K'
+      - text: 'Agent Engineer: $105K–$150K'
+      - text: 'Workflow Automation Engineer: $85K–$120K'
+    card:
+      title: AI Engineer
+      subtitle: 4Geeks Academy Certificate
+      program_name: AI Engineering
+    stats:
+      - value: {{ global.global_job_placement_rate | 84 }}%
+        label: Hiring rate
+        description: Graduate with the skills, credentials, and professional profile employers are actively hiring for.
+        benefits:
+          - text: Certificate recognized by the Florida Department of Education
+          - text: Career focused portfolio
+          - text: Demonstrated experience with AI workflows
+          - text: Optimized professional profile and job-search strategy
+      - value: 3-6 months
+        label: Time to get hired
+        description: >-
+          Land your first role within 3–6 months of graduation. With our structured 3-step career development process,
+          your skills turn into job offers fast.
+        benefits:
+          - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
+          - text: Practice for technical and behavioral interviews
+          - text: Execute a personalized job-search strategy with access to relevant hiring networks
+      - value: {{ global.global_salary_increase | 55 }}%
+        label: Average salary increase
+        description: >-
+          Stand out with full stack and AI skills companies are actively seeking, enabling significant salary growth as
+          you enter the field.
+        benefits:
+          - text: 'Full Stack Engineer: {{ global.average_salary_fullstack | $95K–$150K }}+'
+          - text: 'AI-fluent Software Developer: {{ global.average_salary_ai_fluent_software_developer }}'
+          - text: 'Web Applications Engineer: {{ global.average_salary_web_aplications_engineer | $95K–$140K }}'
+          - text: 'Backend Services Developer: {{ global.average_salary_backend_services_developer | $100K–$150K }} '
+      - value: 400+
+        label: Hiring partners
+        description: >-
+          Access our network of 400+ hiring partners actively seeking AI talent. Get exclusive job opportunities and
+          priority referrals.
+        benefits:
+          - text: Exclusive job board access
+          - text: Priority referrals to partner companies
+          - text: Networking events with hiring managers
+          - text: Companies include Google, Meta, Amazon, startups
+    certificate_position: right
+    useSolidCard: true
+    marginY:
+      mobile: none
+      desktop: none lg
+    paddingY:
+      mobile: lg
+      desktop: lg
+    background: hsl(var(--muted))
+  - type: pricing
+    section_id: pricing-y8kp1q
+    version: '1.0'
+    variant: product
+    title: Tuition & Financing Options
+    subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
+    discount_text: 'Full payment discount: Save 10% with upfront payment.'
+    financing_text: 'Credit-based financing: starting below'
+    financing_amount: {{ global.price_fullstack | $299 }}
+    tech_icons:
+      - openai
+      - python
+      - react
+      - nodejs
+      - api
+      - brain
+      - robot
+      - settings
+    features_title: Choose the option that fits you best.
+    features:
+      - icon: IconCheck
+        text: >-
+          Standard tuition is {{ global.price_full_fullstack | $10,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6
+          months.
+      - icon: IconCheck
+        text: >-
+          Enroll with a job guarantee* for added confidence. Get hired within 9 months of graduation or your money
+          back.&nbsp;<div>*Not available in all regions. <a
+          href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
+          conditions apply</a>.</div>
+      - icon: IconCheck
+        text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
+        use_rigobot_icon: true
+      - icon: IconCheck
+        text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
+    cta:
+      text: Get more info
+      url: '#apply-modal'
+      variant: primary
+    marginY:
+      desktop: none md
+    paddingY:
+      desktop: none md
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
+  - type: pricing
+    section_id: pricing-wjefcj
+    version: '1.0'
+    variant: product
+    title: Tuition and Financing Options
+    subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
+    discount_text: 'Full payment discount: Save 10% with early payment.'
+    financing_text: Installment financing starting from
+    financing_amount: {{ global.price_fullstack | $299 }}
+    tech_icons:
+      - openai
+      - python
+      - react
+      - nodejs
+      - api
+      - brain
+      - robot
+      - settings
+    static_icons: true
+    features_title: Choose the option that fits you best.
+    features:
+      - icon: IconCheck
+        text: >-
+          Pay upfront to get a better price with an additional discount, or split your payments into 6 to 24
+          installments through our partners.
+      - icon: IconCheck
+        text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
+      - icon: IconCheck
+        text: >-
+          We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not
+          your fees.
+    cta:
+      text: Get More Information
+      url: /es/apply
+      variant: primary
+    marginY:
+      desktop: none md
+    paddingY:
+      desktop: lg md
+    showOnLocations:
+      - barcelona-spain
+      - madrid-spain
+      - malaga-spain
+      - valencia-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - milan-italy
+      - munich-germany
+      - rome-italy
+  - type: whos_hiring
+    section_id: whos_hiring-0nft9w
+    variant: carousel
+    title: Top Companies Hiring our Graduates
+    subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
+    logos:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
+        alt: Microsoft
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
+        alt: Google Developers
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
+        alt: Boats Group
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
+        alt: Meta
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
+        alt: eBay
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
+        alt: National Geographic
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
+        alt: Evernote
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
+        alt: Telefonica
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
+        alt: Twilio
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
+        alt: Uber
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
+        alt: Neo9
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
+        alt: Jooble
+    paddingY:
+      desktop: none
+  - type: cta_banner
+    version: '1.0'
+    title: Ready to Become an {{ single.job_role | AI Engineer }}?
+    subtitle: Limited spots available. Start your transformation today.
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Apply now
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Your email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        phone:
+          visible: true
+          required: true
+          placeholder: Phone number
+        program:
+          visible: false
+          required: true
+          default: {{ single.bc_slug | unknown }}
+      success:
+        message: Thank you! We'll be in touch soon.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: I agree to receive information about courses and promotions
+      show_terms: true
+      button_className: bg-primary
+      terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
+    paddingY:
+      desktop: md
+    marginY:
+      desktop: lg none
+    background: hsl(var(--primary))
+    section_id: cta_banner-gud598
+  - type: sticky_cta
+    version: '1.0'
+    heading: Ready to start your tech career?
+    button_label: Apply Now
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Submit Application
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          required: false
+          default: {{ single.bc_slug | ai-engineering }}
+      success:
+        message: Thanks! We'll be in touch within 24 hours.
+    section_id: sticky_cta-nqf5pb
