@@ -70,6 +70,22 @@ sections:
       desktop: none sm
   - type: banner
     version: "1.0"
+    logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
+    avatars:
+      - avatar-woman-1
+      - avatar-man-2
+      - avatar-woman-3
+      - avatar-man-4
+    title: Lorem ipsum dolor sit amet
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+    cta:
+      text: Learn More
+      url: "#"
+      variant: primary
+    background: gradient
+    section_id: banner-yaz1wu
+  - type: banner
+    version: "1.0"
     logo: https://breathecode.herokuapp.com/v1/media/file/rigobot-icon-jpg
     title: Conoce a Rigobot, nuestra IA interna diseñada para quienes aprenden solos
     description: 4Geeks.com es la primera plataforma diseñada para maximizar el aprendizaje a tu propio ritmo. Únete a sesiones en vivo cuando tu puedas, obtén ayuda de forma inmediata con IA y pide mentorías uno a uno. Todo nuestro contenido es totalmente interactivo y con videos.
