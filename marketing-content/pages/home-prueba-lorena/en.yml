@@ -75,8 +75,8 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Graduate celebrating success
     highlight:
-      heading: Your Goals Are Unique. Your Program Should Be Too.
-      text: "Our programs combine unlimited 1:1 mentorship with AI-powered learning that adapts to you — your pace, your level, your goals. The result: the fastest, most direct path to landing a high-demand tech role."
+      heading: We don't just teach you. We stay until you're hired.
+      text: Most platforms give you a course and wish you luck. 4Geeks gives you unlimited 1:1 mentorship, AI-powered learning that adapts to your pace, and a career team that stays with you until you land the job — not just until you finish the program.
       background: primary
       width: 2
     height: 31rem
