@@ -42,9 +42,9 @@ sections:
       - Crea un proyecto final completo listo para portafolio con documentación profesional, pruebas y paquete para GitHub.
       - Aprende prácticas de desarrollo nativo de IA, trabajando CON agentes de IA mediante ingeniería de prompts y patrones de validación.
     tutors:
-      - name: Instructor Experto
+      - name: Alejandro Sanchez
         role: Instructor Principal
-        image: https://randomuser.me/api/portraits/men/10.jpg
+        image: https://techhubsouthflorida.org/wp-content/uploads/2023/09/Alejandro-Sanchez.jpeg
       - name: Rigo
         role: Asistente de Aprendizaje con IA
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
@@ -90,6 +90,7 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+      - madrid-spain
   - type: hero
     section_id: hero-so0hp3
     version: "1.0"
