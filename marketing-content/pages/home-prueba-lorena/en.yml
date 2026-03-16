@@ -16,36 +16,6 @@ schema:
     - website
 sections:
   - type: hero
-    variant: showcase
-    title: AI is changing every job. Be the one who uses it, not the one it replaces.
-    subtitle: 4Geeks doesn't just teach you tech skills. We get you hired. Unlimited 1:1 mentorship, AI-powered learning, and career support that doesn't stop at graduation — across AI Engineering, Full Stack, Data Science, and Cybersecurity.
-    trust_bar:
-      rating: 4.9/5
-      rating_count: 3,000+
-      trusted_text: Trusted by students worldwide
-    cta_button:
-      text: Find My Program
-      url: "#course_selector-ydufpl"
-      variant: primary
-      icon: ""
-    left_images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
-        alt: Community illustration
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
-        alt: Caracas graduates celebration
-    right_images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/fernando-funez_1765315920677.jpg
-        alt: Fernando Funez testimonial
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/feliz-empresario-laptop_1765406479465.png
-        alt: Happy professional with laptop
-    show_arrow: true
-    section_id: hero-almgzh
-    marginY:
-      desktop: sm none
-    background: linear-gradient(to bottom right, hsl(var(--primary) / 0.05), transparent, hsl(var(--chart-2) / 0.05))
-    paddingY:
-      desktop: sm none
-  - type: hero
     version: "1.0"
     variant: singleColumn
     title: AI is changing every job. Be the one who uses it, not the one it replaces.
