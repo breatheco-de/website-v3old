@@ -120,9 +120,8 @@ sections:
     collapse_label: Ocultar detalles del curso
     section_id: syllabus-mn0duk
   - type: ai_learning
-    section_id: ai_learning-t5rl7a
     variant: feature-tabs
-    badge: ¿Por qué 4Geeks?
+    badge: ¿Por qué aprender con 4Geeks?
     title: Todo lo que necesitas para lanzar tu carrera en tecnología
     description: Avanza más rápido y mantente motivado con nuestras herramientas de IA y método de enseñanza hiperpersonalizado.
     features:
@@ -156,6 +155,7 @@ sections:
           - text: Colaboración entre compañeros a través de canales de Slack y check-ins semanales
           - text: Canales dedicados de Slack para soporte técnico, bolsas de trabajo y consejos de carrera
         image_id: community-support-cropped
+    section_id: ai_learning-t5rl7a
     paddingY:
       desktop: md none
   - type: bullet_tabs_showcase
