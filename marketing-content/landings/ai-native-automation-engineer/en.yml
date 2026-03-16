@@ -55,7 +55,7 @@ sections:
       features:
         - icon: IconBook
           text: Lecturas
-        - icon: IconCalendarBolt
+        - icon: IconPencilCode
           text: Ejercicios interactivos
         - icon: code
           text: Proyectos interactivos
@@ -63,7 +63,7 @@ sections:
           text: Feedback en tiempo real de IA
         - icon: calendar
           text: Talleres todas las semanas
-        - icon: users
+        - icon: IconUsersGroup
           text: Encuentros de la comunidad
     section_id: hero-95qjzu
     marginY:
