@@ -41,6 +41,7 @@ sections:
       - name: Top Tech School
         source: Course Report
     section_id: hero-hq29hp
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: award_badges
     section_id: award_badges-k62wf3
     version: v1.0
