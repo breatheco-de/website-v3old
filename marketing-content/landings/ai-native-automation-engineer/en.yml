@@ -77,7 +77,7 @@ sections:
       text: Learn More
       url: "#"
       variant: primary
-    background: blue
+    background: degrade
     section_id: banner-3l8gf1
   - type: syllabus
     section_id: syllabus-v7dcug
