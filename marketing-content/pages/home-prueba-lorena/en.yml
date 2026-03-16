@@ -341,7 +341,7 @@ sections:
     version: "1.0"
     title: Your Next Career Move Starts Here.
     subtitle: Tell us where you are today and we'll show you exactly how to get where you want to be — program details, pricing, and a plan built around you.
-    background: hsl(var(--primary))
+    background: hsl(210 100% 50% / 0.05)
     variant: form
     form:
       variant: stacked
