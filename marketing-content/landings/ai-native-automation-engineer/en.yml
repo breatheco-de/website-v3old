@@ -105,6 +105,47 @@ sections:
       - title: Prácticas Profesionales
         description: En esta sesión, los estudiantes elevarán su proyecto final a estándares de producción dominando prácticas profesionales de desarrollo. Aprenderán convenciones de nomenclatura estándar de la industria para código mantenible, implementarán patrones integrales de organización de código, crearán documentación de grado de producción, desarrollarán estrategias avanzadas de manejo de errores, aplicarán control de versiones con Git y dominarán técnicas de comunicación con partes interesadas. El módulo cubre estándares de nomenclatura profesional, mejores prácticas de documentación, patrones y soluciones de errores comunes, metodologías de prueba sistemáticas, flujos de trabajo de control de versiones y técnicas efectivas de presentación para proyectos técnicos. Los estudiantes transformarán su automatización funcional en un sistema pulido y profesional que cumple con los estándares de la industria y puede presentarse con confianza a empleadores, clientes o partes interesadas.
     section_id: syllabus-8oy90c
+  - type: ai_learning
+    section_id: ai_learning-aazkxm
+    variant: feature-tabs
+    badge: Why 4Geeks?
+    title: How You’ll Learn at 4Geeks
+    description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.
+    features:
+      - icon: Robot
+        title: Progress faster with AI-powered tools
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Instant feedback from Rigobot, our custom AI tutor
+          - text: Advice adjusted to your skill level and progress
+          - text: 24/7 help with debugging and problem-solving
+          - text: Hundreds of interactive coding exercises and tests
+        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
+      - icon: TrendingUp
+        title: Thrive in tech with career support for the AI-Era
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Personalized 1:1 coaching
+          - text: AI-ready resumes and portfolios
+          - text: Interview prep and salary negotiation
+          - text: Lifelong access to support your growth
+        video_url: https://youtu.be/-2ZvlgDnltc
+      - icon: Headset
+        title: Unlimited 1:1 mentorship and an active community
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Lifelong access to 1:1 mentorship sessions
+          - text: 7:1 student–teacher ratio for personalized guidance
+          - text: Peer collaboration through Slack channels and weekly check-ins
+          - text: Dedicated Slack channels for coding support, job boards, and career advice
+        image_id: community-support-cropped
+    marginY:
+      desktop: md none
+    paddingY:
+      desktop: md none
   - type: syllabus
     section_id: syllabus-v7dcug
     variant: program-modules
@@ -180,47 +221,6 @@ sections:
         icon: IconUsers
     paddingY:
       desktop: md
-  - type: ai_learning
-    section_id: ai_learning-aazkxm
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: How You’ll Learn at 4Geeks
-    description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.
-    features:
-      - icon: Robot
-        title: Progress faster with AI-powered tools
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Instant feedback from Rigobot, our custom AI tutor
-          - text: Advice adjusted to your skill level and progress
-          - text: 24/7 help with debugging and problem-solving
-          - text: Hundreds of interactive coding exercises and tests
-        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-      - icon: TrendingUp
-        title: Thrive in tech with career support for the AI-Era
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Personalized 1:1 coaching
-          - text: AI-ready resumes and portfolios
-          - text: Interview prep and salary negotiation
-          - text: Lifelong access to support your growth
-        video_url: https://youtu.be/-2ZvlgDnltc
-      - icon: Headset
-        title: Unlimited 1:1 mentorship and an active community
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Lifelong access to 1:1 mentorship sessions
-          - text: 7:1 student–teacher ratio for personalized guidance
-          - text: Peer collaboration through Slack channels and weekly check-ins
-          - text: Dedicated Slack channels for coding support, job boards, and career advice
-        image_id: community-support-cropped
-    marginY:
-      desktop: md none
-    paddingY:
-      desktop: md none
   - type: certificate
     section_id: certificate-fx8gmn
     title: Career Outcomes
