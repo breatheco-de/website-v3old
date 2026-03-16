@@ -148,8 +148,8 @@ sections:
       desktop: md none
   - type: certificate
     version: v1.0
-    title: Certificate & Career Network
-    description: Graduate with a recognized certificate and join our global alumni network of over 5,000 developers working at top companies.
+    title: Certifícate en tu tecnología favorita
+    description: Tu certificado de 4Geeks abrirá puertas a oportunidades profesionales con nuestra extensa red de empresas en todo el mundo. Respaldado por instituciones internacionales, representa un estándar reconocido a nivel global, desbloqueando diversos caminos profesionales.
     benefits:
       - text: Internationally recognized certificate
       - text: Access to exclusive job board with 300+ partner companies
