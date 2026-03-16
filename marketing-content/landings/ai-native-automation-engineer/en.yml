@@ -131,7 +131,7 @@ sections:
           - text: Resuelve tus dudas de manera personalizada
         image_id: https://images.prismic.io/4geeks/c633749d-b848-44bf-920b-105e73698a6a_Group+6445+%281%29.png?auto=compress,format
         cta:
-          icon: Interview
+          icon: Robot
       - icon: Rocket
         title: Aprende en comunidad
         description: Aprender junto a otros no solo es más divertido, sino que también te ayuda a progresar más rápido. Únete a nuestra comunidad activa de aprendizaje para recibir apoyo y colaboración.
