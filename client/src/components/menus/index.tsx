@@ -17,6 +17,9 @@ export type NavbarItem = {
   component: "SimpleLink" | "Dropdown" | "Logo" | "LanguageSwitcher";
   dropdown?: DropdownProps["dropdown"];
   imageId?: string;
+  imageAlt?: string;
+  imageObjectFit?: string;
+  imageObjectPosition?: string;
 };
 
 export type NavbarConfig = {
@@ -34,7 +37,7 @@ export function resolveComponent(componentName: string): React.ComponentType<any
   return componentMap[componentName] || null;
 }
 
-function LogoItem({ imageId, href }: { imageId?: string; href: string }) {
+function LogoItem({ imageId, imageAlt, href }: { imageId?: string; imageAlt?: string; href: string }) {
   const handleLinkClick = useInternalNav();
   const { t } = useTranslation();
   const logoId = imageId || "4geeks-devs-logo-1763162063433";
@@ -46,14 +49,14 @@ function LogoItem({ imageId, href }: { imageId?: string; href: string }) {
       className="flex items-center hover-elevate rounded-md px-3 py-2"
       data-testid="link-home"
     >
-      <UniversalImage id={logoId} alt={t('nav.brand')} className="h-8" loading="eager" style={{ objectFit: "contain", width: "auto", height: "100%" }} />
+      <UniversalImage id={logoId} alt={imageAlt || t('nav.brand')} className="h-8" loading="eager" style={{ objectFit: "contain", width: "auto", height: "100%" }} />
     </a>
   );
 }
 
 export function renderNavbarItem(item: NavbarItem, controlledOpen?: boolean, onOpenChange?: (open: boolean) => void) {
   if (item.component === "Logo") {
-    return <LogoItem key="logo" imageId={item.imageId} href={item.href} />;
+    return <LogoItem key="logo" imageId={item.imageId} imageAlt={item.imageAlt} href={item.href} />;
   }
 
   if (item.component === "LanguageSwitcher") {
@@ -88,14 +91,27 @@ export function Navbar({ config }: { config: NavbarConfig }) {
     return null;
   }
   
+  const navItems = config.navbar.items;
+  const logoItems = navItems.filter((item) => item.component === "Logo");
+  const navLinkItems = navItems.filter(
+    (item) => item.component === "Dropdown" || item.component === "SimpleLink",
+  );
+  const trailingItems = navItems.filter((item) => item.component === "LanguageSwitcher");
+
   return (
     <nav className="flex flex-wrap items-center justify-between w-full gap-1" data-testid="navbar">
-      {config.navbar.items.map((item) => {
-        if (item.component === "Dropdown") {
-          return renderNavbarItem(item, activeDropdown === item.label, handleOpenChange(item.label));
-        }
-        return renderNavbarItem(item);
-      })}
+      {logoItems.map((item) => renderNavbarItem(item))}
+      {navLinkItems.length > 0 && (
+        <div className="flex items-center gap-1" data-testid="navbar-links">
+          {navLinkItems.map((item) => {
+            if (item.component === "Dropdown") {
+              return renderNavbarItem(item, activeDropdown === item.label, handleOpenChange(item.label));
+            }
+            return renderNavbarItem(item);
+          })}
+        </div>
+      )}
+      {trailingItems.map((item) => renderNavbarItem(item))}
     </nav>
   );
 }

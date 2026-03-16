@@ -87,6 +87,9 @@ interface MenuItemData {
   href: string;
   component: string;
   imageId?: string;
+  imageAlt?: string;
+  imageObjectFit?: string;
+  imageObjectPosition?: string;
   dropdown?: {
     type: string;
     title?: string;
@@ -374,12 +377,25 @@ function SortableMenuItemEditor({
               <ImageWithStylePicker
                 label="Logo Image"
                 value={item.imageId || ""}
+                alt={item.imageAlt || ""}
+                objectFit={item.imageObjectFit || ""}
+                objectPosition={item.imageObjectPosition || ""}
                 tagFilter="logo"
                 testId="logo-image"
+                disabled={locale !== "en"}
                 onChangeSrc={(_src, _alt, registryId) => {
-                  onUpdate(index, { ...item, imageId: registryId || _src });
+                  onUpdate(index, { ...item, imageId: registryId || _src, imageAlt: _alt || item.imageAlt });
                 }}
-                onRemove={() => onUpdate(index, { ...item, imageId: "" })}
+                onChangeAlt={(newAlt) =>
+                  onUpdate(index, { ...item, imageAlt: newAlt })
+                }
+                onChangeObjectFit={(fit) =>
+                  onUpdate(index, { ...item, imageObjectFit: fit })
+                }
+                onChangeObjectPosition={(pos) =>
+                  onUpdate(index, { ...item, imageObjectPosition: pos })
+                }
+                onRemove={() => onUpdate(index, { ...item, imageId: "", imageAlt: "", imageObjectFit: "", imageObjectPosition: "" })}
               />
             </div>
           )}
