@@ -159,7 +159,7 @@ sections:
       subtitle: 4Geeks Academy Certificate
     section_id: certificate-wttpxs
     marginY:
-      desktop: none sm
+      desktop: none md
   - type: awards_marquee
     version: v1.0
     speed: 40
