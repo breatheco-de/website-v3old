@@ -48,11 +48,11 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
+    title: AI is changing every job. Be the one who uses it, not the one it replaces.
+    subtitle: 4Geeks doesn't just teach you tech skills — we get you hired. Unlimited 1:1 mentorship, AI-powered learning, and career support that doesn't stop at graduation.
     badge: Career Program
-    title: Full Stack Development with AI
-    subtitle: Learn at your own pace with AI-powered tools and unlimited mentorship
     cta_buttons:
-      - text: Start Learning Now
+      - text: Find My Program
         url: /signup
         variant: primary
         icon: Rocket
@@ -61,9 +61,9 @@ sections:
         variant: outline
         icon: Book
     trust_bar:
-      rating: 4.8/5
-      rating_count: 2,500+
-      trusted_text: Trusted by 10,000+ students
+      rating: 4.9/5
+      rating_count: 3,000+
+      trusted_text: Trusted by students worldwide
     award_badges:
       - name: Best Coding Bootcamp
         source: Forbes
