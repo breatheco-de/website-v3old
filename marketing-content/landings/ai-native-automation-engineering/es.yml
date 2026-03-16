@@ -92,6 +92,25 @@ sections:
     description: 4Geeks.com es la primera plataforma diseñada para maximizar el aprendizaje a tu propio ritmo. Únete a sesiones en vivo cuando tu puedas, obtén ayuda de forma inmediata con IA y pide mentorías uno a uno. Todo nuestro contenido es totalmente interactivo y con videos.
     background: gradient
     section_id: banner-ravvyt
+  - type: features_grid
+    version: "1.0"
+    variant: highlight
+    title: ¿Por qué aprender con 4Geeks?
+    subtitle: Aprender de forma intensiva puede ser desafiante, pero hemos desarrollado las herramientas para mantenerte motivado, evitar que te quedes atascado en problemas y acelerar tu proceso de aprendizaje.
+    columns: 3
+    icon_color: "#0097CD"
+    items:
+      - icon: Robot
+        title: Aprende con IA
+        description: Nuestra inteligencia artificial revisa tu código para brindarte retroalimentación instantánea, te ayuda con los ejercicios ¡y mucho más!
+      - icon: HandsGroup
+        title: Mentorías uno a uno
+        description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
+      - icon: Rocket
+        title: Aprende en comunidad
+        description: Aprender junto a otros no solo es más divertido, sino que también te ayuda a progresar más rápido. Únete a nuestra comunidad activa de aprendizaje para recibir apoyo y colaboración.
+      - icon: HandsGroup
+    section_id: features_grid-w3lzhc
   - type: syllabus
     title: Construye flujos de automatización de cero a producción
     subtitle: Este bootcamp integral de 10 semanas cubre desde fundamentos de pensamiento en flujos de trabajo hasta sistemas de automatización listos para producción. Con 70% de práctica y 30% de aprendizaje conceptual, dominarás automatización n8n, integración de APIs, implementación de IA y prácticas profesionales usadas por ingenieros de automatización en la industria.
@@ -119,16 +138,16 @@ sections:
     expand_label: Detalles del curso
     collapse_label: Ocultar detalles del curso
     section_id: syllabus-mn0duk
-  - type: ai_learning
+  - type: ai_native-automation
     variant: feature-tabs
     badge: ¿Por qué aprender con 4Geeks?
     title: ¿Por qué aprender con 4Geeks?
     title_highlight: 4Geeks
-    description: Avanza más rápido y mantente motivado con nuestras herramientas de IA y método de enseñanza hiperpersonalizado.
+    description: Aprender de forma intensiva puede ser desafiante, pero hemos desarrollado las herramientas para mantenerte motivado, evitar que te quedes atascado en problemas y acelerar tu proceso de aprendizaje.
     features:
       - icon: Robot
-        title: Progresa más rápido con herramientas de IA
-        description: ""
+        title: Aprende con IA
+        description: Nuestra inteligencia artificial revisa tu código para brindarte retroalimentación instantánea, te ayuda con los ejercicios ¡y mucho más!
         show_rigobot_logo: true
         bullets:
           - text: Obtén feedback instantáneo de Rigobot, nuestro tutor de IA personalizado
@@ -136,29 +155,35 @@ sections:
           - text: Ayuda con depuración y tareas de resolución de problemas
           - text: Accede a cientos de ejercicios interactivos en Learnpack
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
+        cta:
+          text: Asistente las 24h
+          description: Nuestra inteligencia artificial revisa tu código para brindarte retroalimentación instantánea, te ayuda con los ejercicios ¡y mucho más!
       - icon: TrendingUp
-        title: Lanza tu carrera en tecnología con apoyo profesional para la Era de la IA
-        description: ""
+        title: Mentorías Uno a Uno
+        description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
         show_rigobot_logo: true
         bullets:
-          - text: Coaching personalizado 1:1
-          - text: Currículums optimizados para procesos de contratación con IA
-          - text: Preparación de entrevistas y negociación salarial
-          - text: Acceso de por vida para apoyar tu crecimiento profesional
-        video_url: https://youtu.be/-2ZvlgDnltc
+          - text: Acceso a sesiones de mentoría 1:1
+          - text: Orientadas a guiar tu aprendizaje
+          - text: Resolver tus dudas de manera personalizada
+        image_id: https://storage.googleapis.com/4geeks-academy-website/media/what-is-4geeks.jpg
+        cta:
+          text: Aprende con quienes ya lo hacen
       - icon: Headset
-        title: Mentoría ilimitada 1:1 y una comunidad activa
-        description: ""
+        title: Aprende con una Comunidad Activa
+        description: Aprender junto a otros no solo es más divertido, sino que también te ayuda a progresar más rápido. Únete a nuestra comunidad activa de aprendizaje para recibir apoyo y colaboración.
         show_rigobot_logo: true
         bullets:
-          - text: Acceso de por vida a sesiones de mentoría 1:1
-          - text: Relación 7:1 de estudiante a profesor, garantizando una atención personalizada
-          - text: Colaboración entre compañeros a través de canales de Slack y check-ins semanales
-          - text: Canales dedicados de Slack para soporte técnico, bolsas de trabajo y consejos de carrera
-        image_id: community-support-cropped
+          - text: Colaboración entre compañeros a través de canales de Slack
+          - text: Recibe ayuda, comparte ideas y resuelve dudas gracias a la interacción constante con otros estudiantes
+          - text: Participa en debates y colabora en proyectos con otros miembros de la comunidad
+        image_id: https://images.prismic.io/4geeks/e6909c01-2fc1-4afa-b0a1-1d10269cab09_Group+6169+%281%29.png?auto=compress,format
+        cta:
+          text: Crece en comunidad
     section_id: ai_learning-t5rl7a
     paddingY:
       desktop: md none
+    background: hsl(var(--sidebar-background))
   - type: bullet_tabs_showcase
     version: "1.0"
     variant: withoutBorder

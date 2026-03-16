@@ -86,8 +86,8 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Graduate celebrating success
     highlight:
-      heading: Your Goals Are Unique. Your Program Should Be Too.
-      text: "Our programs combine unlimited 1:1 mentorship with AI-powered learning that adapts to you — your pace, your level, your goals. The result: the fastest, most direct path to landing a high-demand tech role."
+      heading: Your surest path into tech. Backed by support that's tailored to you.
+      text: "Everything here is designed to get you further, faster. Your mentor is always available and meets you where you are, even after graduation. Our AI tutor tracks how you progress and shapes every interaction to accelerate your learning curve. The result: fewer setbacks, faster progress, and a real path to a high-demand tech role."
       background: primary
       width: 2
     height: 31rem
@@ -100,6 +100,27 @@ sections:
       desktop: none
     paddingY:
       desktop: md xl
+  - type: features_grid
+    version: "1.0"
+    variant: highlight
+    title: Real Outcomes for Our Graduates
+    subtitle: Our graduates land jobs, earn more, and build careers that last — across the U.S., LATAM, and beyond.
+    items:
+      - icon: IconBriefcase
+        value: {{ global.global_job_placement_rate | 84 }}%
+        title: Job placement rate
+      - icon: IconCalendarCheck
+        value: 3-6 months
+        title: Average time to get hired
+      - icon: IconReportMoney
+        value: {{ global.global_salary_increase | 55 }}%
+        title: Average salary increase after graduation
+    columns: 3
+    icon_color: "#0097CD"
+    background: hsl(var(--secondary))
+    section_id: features_grid-95o7vf
+    marginY:
+      desktop: none md
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -122,27 +143,6 @@ sections:
       desktop: none lg
     paddingY:
       desktop: none
-  - type: features_grid
-    version: "1.0"
-    variant: highlight
-    title: Real Outcomes for Our Graduates
-    subtitle: Our graduates land jobs, earn more, and build careers that last — across the U.S., LATAM, and beyond.
-    items:
-      - icon: IconBriefcase
-        value: {{ global.global_job_placement_rate | 84 }}%
-        title: Job placement rate
-      - icon: IconCalendarCheck
-        value: 3-6 months
-        title: Average time to get hired
-      - icon: IconReportMoney
-        value: {{ global.global_salary_increase | 55 }}%
-        title: Average salary increase after graduation
-    columns: 3
-    icon_color: "#0097CD"
-    background: hsl(var(--secondary))
-    section_id: features_grid-95o7vf
-    marginY:
-      desktop: none md
   - type: career_support_explain
     version: v1.0
     heading: Get Hired. Career Support That Doesn't Stop at Graduation.
