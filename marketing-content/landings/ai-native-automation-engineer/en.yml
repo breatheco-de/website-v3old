@@ -236,11 +236,11 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Pay upfront to get a better price with an additional discount, or split your payments into 6 to 24 installments through our partners.
+        text: Crea tu portfolio con cientos de proyectos reales.
       - icon: IconCheck
-        text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
+        text: Certificados de curso
       - icon: IconCheck
-        text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
+        text: Certificación otorgada por escuela certificada en los Estados Unidos, por el Departamento de Educación de Florida.
     cta:
       text: Get More Information
       url: /es/apply
@@ -254,13 +254,6 @@ sections:
       - madrid-spain
       - malaga-spain
       - valencia-spain
-      - berlin-germany
-      - dublin-ireland
-      - hamburg-germany
-      - lisbon-portugal
-      - milan-italy
-      - munich-germany
-      - rome-italy
   - type: whos_hiring
     section_id: whos_hiring-0nft9w
     variant: carousel
