@@ -56,8 +56,8 @@ sections:
       features:
         - icon: IconBook
           text: Lectura {{  01 }}
-        - icon: IconCalendarBolt
-          text: Modalidad intensiva de 12 semanas (mañanas)
+        - icon: IconArm
+          text: Ejercicios interactivos    10
         - icon: code
           text: +100 ejercicios interactivos de programación
         - icon: robot
