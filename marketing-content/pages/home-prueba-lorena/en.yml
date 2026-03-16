@@ -213,8 +213,8 @@ sections:
       desktop: none md
   - type: career_support_explain
     version: v1.0
-    heading: Get Hired. Career Support That Doesn't Stop at Graduation.
-    description: AI-optimized profiles, direct access to 400+ hiring partners, and hands-on support from first application to signed offer — and beyond.
+    heading: We Stay With You Until You're Hired.
+    description: This is what separates 4Geeks from every other platform. Not just courses. A complete system that takes you from enrolled to employed. AI-optimized profiles, direct access to 400+ hiring partners, and hands-on support from your first day to your signed offer letter and beyond.
     background: hsl(var(--sidebar-background))
     tabs:
       - tab_label: Job-Ready, Faster
@@ -222,7 +222,7 @@ sections:
         col1_subtitle: Build a Recruiter-Ready Profile, Smarter.
         col1_description: |-
           Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
-          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal  impact.
+          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal impact.
         col1_tagline: We'll help you create tailored job search materials
         col1_boxes:
           - icon: IconBrandLinkedin
@@ -252,7 +252,7 @@ sections:
         left_image_object_fit: cover
         left_image_object_position: center
         left_stat:
-          value: {{ global.number_of_hiring_partners_aprox | 250 }}+
+          value: 400+
           label: companies in 4Geeks employer network
         right_bullets:
           - icon: IconUserPlus
