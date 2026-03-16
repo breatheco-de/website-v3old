@@ -156,7 +156,8 @@ sections:
         show_rigobot_logo: true
         bullets:
           - text: Colaboración entre compañeros a través de canales de Slack
-          - text: Canales dedicados de Slack para soporte técnico, bolsas de trabajo y consejos de carrera
+          - text: Recibe ayuda, comparte ideas y resuelve dudas gracias a la interacción constante con otros estudiantes
+          - text: Participa en debates y colabora en proyectos con otros miembros de la comunidad
         image_id: https://images.prismic.io/4geeks/e6909c01-2fc1-4afa-b0a1-1d10269cab09_Group+6169+%281%29.png?auto=compress,format
         cta:
           text: Crece en comunidad
