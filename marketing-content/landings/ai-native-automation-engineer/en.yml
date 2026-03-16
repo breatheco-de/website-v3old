@@ -158,6 +158,8 @@ sections:
       title: AI Native Automation
       subtitle: 4Geeks Academy Certificate
     section_id: certificate-wttpxs
+    marginY:
+      desktop: none sm
   - type: syllabus
     section_id: syllabus-v7dcug
     variant: program-modules
