@@ -108,19 +108,17 @@ sections:
   - type: ai_learning
     section_id: ai_learning-aazkxm
     variant: feature-tabs
-    badge: Why 4Geeks?
-    title: How You’ll Learn at 4Geeks
-    description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.
+    badge: ¿Por qué aprender con 4Geeks?
+    title: ¿Por qué aprender con 4Geeks?
+    description: Aprender de forma intensiva puede ser desafiante, pero hemos desarrollado las herramientas para mantenerte motivado, evitar que te quedes atascado en problemas y acelerar tu proceso de aprendizaje.
     features:
       - icon: Robot
-        title: Progress faster with AI-powered tools
+        title: Aprende con IA
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Instant feedback from Rigobot, our custom AI tutor
-          - text: Advice adjusted to your skill level and progress
-          - text: 24/7 help with debugging and problem-solving
-          - text: Hundreds of interactive coding exercises and tests
+          - text: Rigobot es tutor de Inteligencia Artificial disponible 24/7
+          - text: Retroalimentación en tiempo real y guía experta
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
       - icon: TrendingUp
         title: Thrive in tech with career support for the AI-Era
