@@ -145,7 +145,7 @@ sections:
         show_rigobot_logo: true
         bullets:
           - text: Acceso a sesiones de mentoría 1:1
-          - text: Diseñadas para guiar tu aprendizaje
+          - text: Orientadas a guiar tu aprendizaje
           - text: Resolver tus dudas de manera personalizada
         image_url: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
         cta:
