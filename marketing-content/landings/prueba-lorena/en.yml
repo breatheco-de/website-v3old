@@ -192,14 +192,14 @@ sections:
     heading: Career Outcomes
     subheading: Real results from 5,000+ graduates. Here's what happens after you complete the program.
     stats:
-      - value: 86%
-        label: Hiring rate, US graduates placed within 90 days
+      - value: 84%
+        label: Average hiring rate
       - value: 55%
         label: Average salary increase after graduation
-      - value: ~3 months
-        label: Average time to get hired in 2025
-      - value: 5,000+
-        label: Graduates employed worldwide
+      - value: 3-6 months
+        label: Average time to get hired
+      - value: 6,000+
+        label: Graduates worldwide
     collage_images:
       - image_id: graduates_team_1
         col_span: 5
