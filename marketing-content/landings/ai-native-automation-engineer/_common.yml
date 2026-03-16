@@ -24,3 +24,6 @@ schema:
     - courses:ai-engineering
 locations:
   - madrid-spain
+layout:
+  menu:
+    bottom: main-footer
