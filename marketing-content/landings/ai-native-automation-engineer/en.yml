@@ -249,6 +249,12 @@ sections:
       - madrid-spain
       - malaga-spain
       - valencia-spain
+  - type: faq
+    version: v1.0
+    title: Frequently Asked Questions
+    related_features:
+      - online-platform
+    section_id: faq-5d4wgn
   - type: cta_banner
     version: "1.0"
     title: Ready to Become an {{ single.job_role | AI Engineer }}?
