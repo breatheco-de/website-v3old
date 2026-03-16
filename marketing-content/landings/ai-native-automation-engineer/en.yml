@@ -77,7 +77,7 @@ sections:
       text: Learn More
       url: "#"
       variant: primary
-    background: hsl(var(--card))
+    background: gradient
     section_id: banner-yaz1wu
   - type: syllabus
     section_id: syllabus-v7dcug
