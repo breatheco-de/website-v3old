@@ -52,14 +52,7 @@ sections:
     description: Transforma tu carrera con Ingeniería de Automatización Nativa de IA. Aprende a diseñar, construir y desplegar flujos de automatización listos para producción con entrenamiento práctico en n8n e integraciones de APIs reales. Gradúate con más de 35 proyectos en portafolio y las habilidades para trabajar como ingeniero de automatización profesional.
     signup_card:
       title: Accede a cientos de desafíos, proyectos y cursos.
-      description: Accede al programa completo, horarios y todo lo que necesitas saber sobre el programa.
-      cta_button:
-        text: Recibir el plan de estudios
-        url: "#modal-7m3w5q"
-        variant: primary
-      login_link:
-        text: ¿Ya eres estudiante? Inicia sesión aquí.
-        url: https://4geeks.com/es/login
+      description: ¿Qué incluye?
       features:
         - icon: IconBook
           text: Programa de {{ global.fullstack_week_duration | 20 }} semanas
