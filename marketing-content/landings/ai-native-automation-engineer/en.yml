@@ -275,4 +275,4 @@ sections:
     marginY:
       desktop: md sm
     paddingY:
-      desktop: none sm
+      desktop: md sm
