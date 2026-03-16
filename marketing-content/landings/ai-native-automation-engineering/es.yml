@@ -119,24 +119,6 @@ sections:
     expand_label: Detalles del curso
     collapse_label: Ocultar detalles del curso
     section_id: syllabus-mn0duk
-  - type: bullet_tabs_showcase
-    version: "1.0"
-    variant: withoutBorder
-    heading: Construye flujos de automatización de cero a producción
-    subheading: Este bootcamp integral de 10 semanas cubre desde fundamentos de pensamiento en flujos de trabajo hasta sistemas de automatización listos para producción. Con 70% de práctica y 30% de aprendizaje conceptual, dominarás automatización n8n, integración de APIs, implementación de IA y prácticas profesionales usadas por ingenieros de automatización en la industria.
-    subheading_centered: false
-    tabs:
-      - label: Collaborative documents
-        description: Work together on specifications and requirements in real-time
-        image_id: placeholder_career_guidance
-      - label: Inline comments
-        description: Add contextual feedback directly where it matters most
-        image_id: placeholder_mentorship
-      - label: Text-to-issue commands
-        description: Seamlessly move between ideation and execution
-        image_id: placeholder_strategies
-    image_position: right
-    section_id: bullet_tabs_showcase-1q1lym
   - type: ai_learning
     section_id: ai_learning-t5rl7a
     variant: feature-tabs
@@ -176,6 +158,24 @@ sections:
         image_id: community-support-cropped
     paddingY:
       desktop: md none
+  - type: bullet_tabs_showcase
+    version: "1.0"
+    variant: withoutBorder
+    heading: Construye flujos de automatización de cero a producción
+    subheading: Este bootcamp integral de 10 semanas cubre desde fundamentos de pensamiento en flujos de trabajo hasta sistemas de automatización listos para producción. Con 70% de práctica y 30% de aprendizaje conceptual, dominarás automatización n8n, integración de APIs, implementación de IA y prácticas profesionales usadas por ingenieros de automatización en la industria.
+    subheading_centered: false
+    tabs:
+      - label: Collaborative documents
+        description: Work together on specifications and requirements in real-time
+        image_id: placeholder_career_guidance
+      - label: Inline comments
+        description: Add contextual feedback directly where it matters most
+        image_id: placeholder_mentorship
+      - label: Text-to-issue commands
+        description: Seamlessly move between ideation and execution
+        image_id: placeholder_strategies
+    image_position: right
+    section_id: bullet_tabs_showcase-1q1lym
   - type: modal
     version: "1.0"
     section_id: modal-7m3w5q
