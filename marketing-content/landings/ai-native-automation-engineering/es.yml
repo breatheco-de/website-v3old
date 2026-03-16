@@ -92,6 +92,24 @@ sections:
     description: 4Geeks.com es la primera plataforma diseñada para maximizar el aprendizaje a tu propio ritmo. Únete a sesiones en vivo cuando tu puedas, obtén ayuda de forma inmediata con IA y pide mentorías uno a uno. Todo nuestro contenido es totalmente interactivo y con videos.
     background: gradient
     section_id: banner-ravvyt
+  - type: bullet_tabs_showcase
+    version: "1.0"
+    variant: withoutBorder
+    heading: Ideate and specify what to build next
+    subheading: Transform your ideas into actionable tasks seamlessly
+    subheading_centered: false
+    image_position: right
+    tabs:
+      - label: Collaborative documents
+        description: Work together on specifications and requirements in real-time
+        image_id: placeholder_career_guidance
+      - label: Inline comments
+        description: Add contextual feedback directly where it matters most
+        image_id: placeholder_mentorship
+      - label: Text-to-issue commands
+        description: Seamlessly move between ideation and execution
+        image_id: placeholder_strategies
+    section_id: bullet_tabs_showcase-1q1lym
   - type: modal
     version: "1.0"
     section_id: modal-7m3w5q
