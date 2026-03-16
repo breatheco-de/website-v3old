@@ -3,7 +3,9 @@ navbar:
     - label: Logo
       href: /
       component: Logo
-      imageId: 4geeks-devs-logo-1763162063433
+      imageId: 4geeks_academy_logo
+      imageObjectFit: cover
+      imageAlt: 4Geeks Academy logo
     - label: PROGRAMS
       href: /programs
       component: Dropdown
@@ -189,5 +191,5 @@ navbar:
       href: /upcoming-dates
       component: SimpleLink
     - label: LanguageSwitcher
-      href: "#"
+      href: '#'
       component: LanguageSwitcher
