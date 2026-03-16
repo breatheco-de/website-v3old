@@ -88,7 +88,6 @@ sections:
   - type: banner
     version: "1.0"
     logo: https://breathecode.herokuapp.com/v1/media/file/rigobot-icon-jpg
-    logo_size: xl
     title: Conoce a Rigobot, nuestra IA interna diseñada para quienes aprenden solos
     description: 4Geeks.com es la primera plataforma diseñada para maximizar el aprendizaje a tu propio ritmo. Únete a sesiones en vivo cuando tu puedas, obtén ayuda de forma inmediata con IA y pide mentorías uno a uno. Todo nuestro contenido es totalmente interactivo y con videos.
     background: gradient
