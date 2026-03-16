@@ -39,7 +39,7 @@ sections:
     paddingY:
       desktop: xl none
     marginY:
-      desktop: none md
+      desktop: none xl
   - type: trust_cards
     version: v1.0
     title: "Rated #1 Across Every Major Review Platform"
