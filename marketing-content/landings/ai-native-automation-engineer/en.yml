@@ -45,7 +45,7 @@ sections:
         role: Instructor Principal
         image: https://techhubsouthflorida.org/wp-content/uploads/2023/09/Alejandro-Sanchez.jpeg
       - name: Rigo
-        role: AI Learning Assistant
+        role: Tutor IA
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your instructors:"
     description: Build modern, production-ready web applications with AI and position yourself for the next generation of AI-fluent full stack development roles.
