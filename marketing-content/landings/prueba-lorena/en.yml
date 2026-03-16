@@ -195,7 +195,7 @@ sections:
       - value: 84%
         label: Average hiring rate
       - value: 55%
-        label: Average salary increase after graduation
+        label: Average salary increase at new position
       - value: 3-6 months
         label: Average time to get hired
       - value: 6,000+
