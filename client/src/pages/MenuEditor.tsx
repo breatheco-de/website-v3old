@@ -53,11 +53,10 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Skeleton } from "@/components/ui/skeleton";
 import { VariableDetailModal } from "@/components/editing/VariableDetailModal";
+import { ImageWithStylePicker } from "@/components/editing/ImageWithStylePicker";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { EditableDropdownPreview, EditableLinkItem, EditableText } from "@/components/menus";
-import { useImageRegistry } from "@/components/UniversalImage";
-import { IconPhoto, IconSearch, IconCheck } from "@tabler/icons-react";
 import {
   DndContext,
   closestCenter,
@@ -173,229 +172,6 @@ const dropdownTypes = [
   { value: "grouped-list", label: "Grouped List" },
 ];
 
-function LogoImagePreview({
-  imageId,
-  onImageIdChange,
-  isReadOnlyStructure,
-}: {
-  imageId: string;
-  onImageIdChange: (newImageId: string) => void;
-  isReadOnlyStructure: boolean;
-}) {
-  const { registry } = useImageRegistry();
-  const [pickerOpen, setPickerOpen] = useState(false);
-  const [pickerSearch, setPickerSearch] = useState("");
-  const [selectedId, setSelectedId] = useState(imageId);
-  const [visibleCount, setVisibleCount] = useState(48);
-
-  const imageEntry = imageId && registry?.images?.[imageId] ? registry.images[imageId] : null;
-  const displaySrc = imageEntry?.src || (imageId && (imageId.startsWith("/") || imageId.startsWith("http")) ? imageId : "");
-
-  const filteredImages = useMemo(() => {
-    if (!registry?.images) return [];
-    const entries = Object.entries(registry.images);
-    if (!pickerSearch.trim()) return entries;
-    const search = pickerSearch.toLowerCase();
-    return entries.filter(([id, img]) =>
-      id.toLowerCase().includes(search) ||
-      img.alt?.toLowerCase().includes(search) ||
-      img.tags?.some(t => t.toLowerCase().includes(search))
-    );
-  }, [registry?.images, pickerSearch]);
-
-  const handleOpenPicker = () => {
-    if (isReadOnlyStructure) return;
-    setSelectedId(imageId);
-    setPickerSearch("");
-    setVisibleCount(48);
-    setPickerOpen(true);
-  };
-
-  const handleSave = () => {
-    onImageIdChange(selectedId);
-    setPickerOpen(false);
-  };
-
-  const selectedEntry = selectedId && registry?.images?.[selectedId] ? registry.images[selectedId] : null;
-  const selectedDisplaySrc = selectedEntry?.src || "";
-
-  return (
-    <div className="border-t pt-4 mt-4">
-      <div className="flex items-center gap-2 mb-4">
-        <IconPhoto className="h-4 w-4 text-muted-foreground" />
-        <span className="font-medium text-sm">Image Preview</span>
-      </div>
-      <div className="flex items-start gap-4">
-        <button
-          type="button"
-          onClick={handleOpenPicker}
-          disabled={isReadOnlyStructure}
-          className="relative w-24 h-16 rounded-md overflow-hidden bg-muted border flex-shrink-0 flex items-center justify-center group cursor-pointer disabled:cursor-default"
-          data-testid="button-logo-image-picker"
-          title={isReadOnlyStructure ? "Read-only" : "Click to change image"}
-        >
-          {displaySrc ? (
-            <>
-              <img
-                src={displaySrc}
-                alt={imageEntry?.alt || "Logo"}
-                className="w-full h-full object-contain"
-                data-testid="logo-preview-image"
-              />
-              {!isReadOnlyStructure && (
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <IconPhoto className="h-5 w-5 text-white" />
-                </div>
-              )}
-            </>
-          ) : (
-            <IconPhoto className="h-6 w-6 text-muted-foreground" />
-          )}
-        </button>
-        <div className="flex-1 space-y-3">
-          <div className="space-y-1">
-            <Label className="text-xs text-muted-foreground">Image ID</Label>
-            <Input
-              value={imageId}
-              onChange={(e) => onImageIdChange(e.target.value)}
-              placeholder="image-registry-id"
-              className="text-sm font-mono"
-              disabled={isReadOnlyStructure}
-              data-testid="input-logo-image-id"
-            />
-          </div>
-          {imageEntry && (
-            <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-muted-foreground">
-              {imageEntry.alt && (
-                <div>
-                  <span className="font-medium">Alt:</span> {imageEntry.alt}
-                </div>
-              )}
-              {imageEntry.width && imageEntry.height && (
-                <div>
-                  <span className="font-medium">Size:</span> {imageEntry.width} x {imageEntry.height}
-                </div>
-              )}
-              {imageEntry.format && (
-                <div>
-                  <span className="font-medium">Format:</span> {imageEntry.format}
-                </div>
-              )}
-              {imageEntry.tags && imageEntry.tags.length > 0 && (
-                <div>
-                  <span className="font-medium">Tags:</span> {imageEntry.tags.join(", ")}
-                </div>
-              )}
-            </div>
-          )}
-          {imageId && !imageEntry && !displaySrc && (
-            <p className="text-xs text-destructive">Image not found in registry</p>
-          )}
-        </div>
-      </div>
-
-      <Dialog open={pickerOpen} onOpenChange={setPickerOpen}>
-        <DialogContent className="sm:max-w-2xl max-h-[80vh] flex flex-col">
-          <DialogHeader>
-            <DialogTitle>Select Logo Image</DialogTitle>
-          </DialogHeader>
-          <div className="flex-1 overflow-hidden flex flex-col gap-4 py-2">
-            <div className="relative">
-              <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search images..."
-                value={pickerSearch}
-                onChange={(e) => setPickerSearch(e.target.value)}
-                className="pl-10"
-                data-testid="input-logo-gallery-search"
-              />
-            </div>
-            <div className="flex-1 overflow-y-auto min-h-0">
-              <div className="columns-4 sm:columns-5 md:columns-6 gap-2">
-                {filteredImages.slice(0, visibleCount).map(([id, img]) => (
-                  <button
-                    key={id}
-                    type="button"
-                    onClick={() => setSelectedId(id)}
-                    className={`mb-2 rounded-md overflow-hidden bg-muted border-2 transition-colors block w-full ${
-                      selectedId === id
-                        ? "border-primary"
-                        : "border-transparent hover:border-muted-foreground/50"
-                    }`}
-                    title={img.alt}
-                    data-testid={`logo-gallery-image-${id}`}
-                  >
-                    <img
-                      src={img.src}
-                      alt={img.alt}
-                      className="w-full h-auto"
-                      loading="lazy"
-                    />
-                  </button>
-                ))}
-              </div>
-              {visibleCount < filteredImages.length && (
-                <div className="py-3 flex justify-center">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setVisibleCount(prev => Math.min(prev + 24, filteredImages.length))}
-                    data-testid="button-logo-load-more"
-                  >
-                    Load more ({filteredImages.length - visibleCount} remaining)
-                  </Button>
-                </div>
-              )}
-              {filteredImages.length === 0 && (
-                <div className="text-center py-8 text-muted-foreground">
-                  No images found
-                </div>
-              )}
-            </div>
-
-            {selectedId && selectedEntry && (
-              <div className="border-t pt-3">
-                <div className="flex gap-3 items-center">
-                  <div className="w-12 h-12 rounded-md overflow-hidden bg-muted border flex-shrink-0">
-                    <img
-                      src={selectedDisplaySrc}
-                      alt={selectedEntry.alt || "Selected"}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-mono truncate">{selectedId}</p>
-                    <p className="text-xs text-muted-foreground truncate">{selectedEntry.alt}</p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-          <DialogFooter className="flex-row gap-2 sm:justify-end">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => setPickerOpen(false)}
-              data-testid="button-logo-picker-cancel"
-            >
-              Cancel
-            </Button>
-            <Button
-              type="button"
-              onClick={handleSave}
-              disabled={!selectedId}
-              data-testid="button-logo-picker-save"
-            >
-              <IconCheck className="h-4 w-4 mr-2" />
-              Save
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
-  );
-}
 
 function SortableMenuItemEditor({
   id,
@@ -594,13 +370,19 @@ function SortableMenuItemEditor({
             </div>
           )}
           {item.component === "Logo" && (
-            <LogoImagePreview
-              imageId={item.imageId || ""}
-              onImageIdChange={(newImageId) =>
-                onUpdate(index, { ...item, imageId: newImageId })
-              }
-              isReadOnlyStructure={isReadOnlyStructure}
-            />
+            <div className="border-t pt-4 mt-4">
+              <ImageWithStylePicker
+                label="Logo Image"
+                value={item.imageId || ""}
+                tagFilter="logo"
+                testId="logo-image"
+                disabled={isReadOnlyStructure}
+                onChangeSrc={(_src, _alt, registryId) => {
+                  onUpdate(index, { ...item, imageId: registryId || _src });
+                }}
+                onRemove={() => onUpdate(index, { ...item, imageId: "" })}
+              />
+            </div>
           )}
         </CardContent>
       )}

@@ -69,6 +69,7 @@ import { RichTextArea } from "./RichTextArea";
 import { MarkdownEditorField } from "./MarkdownEditorField";
 import { SectionBindingDialog } from "./SectionBindingDialog";
 import { LinkPicker } from "./LinkPicker";
+import { ImageWithStylePicker } from "./ImageWithStylePicker";
 import type { Section, SectionLayout, ImageRegistry } from "@shared/schema";
 import { locations as allLocations, getLocationBySlug } from "@/lib/locations";
 import type { Location } from "@shared/session";
@@ -3981,10 +3982,8 @@ export function SectionEditorPanel({
 
                   const pathParts = fieldPath.split(".");
                   const parentPath = pathParts.slice(0, -1).join(".");
-                  const side = pathParts[0]; // "left" or "right" or the field itself
+                  const side = pathParts[0];
 
-                  // For simple fields like "image" (no parent), use direct field names
-                  // For nested fields like "left.image", use parent prefix
                   const hasParent = parentPath.length > 0;
                   const fieldPrefix = hasParent ? `${parentPath}.` : "";
 
@@ -4014,148 +4013,30 @@ export function SectionEditorPanel({
                   const fieldLabel = getFieldLabel(fieldPath);
 
                   return (
-                    <Collapsible key={fieldPath} className="border rounded-md">
-                      <CollapsibleTrigger asChild>
-                        <button
-                          type="button"
-                          className="w-full flex items-center gap-3 p-3 hover:bg-muted/50 transition-colors"
-                          data-testid={`props-image-style-${side}-trigger`}
-                        >
-                          <div className="w-10 h-10 rounded-md overflow-hidden bg-muted border flex-shrink-0">
-                            {currentValue ? (
-                              <img
-                                src={currentValue}
-                                alt={currentAlt || fieldLabel}
-                                className="w-full h-full object-cover"
-                              />
-                            ) : (
-                              <div className="w-full h-full flex items-center justify-center">
-                                <IconPhoto className="h-4 w-4 text-muted-foreground" />
-                              </div>
-                            )}
-                          </div>
-                          <span className="flex-1 text-left text-sm font-medium">
-                            {fieldLabel}
-                          </span>
-                          <IconChevronDown className="h-4 w-4 text-muted-foreground" />
-                        </button>
-                      </CollapsibleTrigger>
-                      <CollapsibleContent>
-                        <div className="p-3 pt-0 space-y-3 border-t">
-                          <div className="flex items-center gap-2">
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setImagePickerTarget({
-                                  fieldPath,
-                                  label: fieldLabel,
-                                  currentSrc: currentValue,
-                                  currentAlt,
-                                  tagFilter: variant,
-                                });
-                                setImagePickerOpen(true);
-                              }}
-                              className="relative w-16 h-16 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group"
-                              data-testid={`props-image-style-${side}-picker`}
-                              title="Cambiar imagen"
-                            >
-                              {currentValue ? (
-                                <>
-                                  <img
-                                    src={currentValue}
-                                    alt={currentAlt}
-                                    className="w-full h-full object-cover"
-                                  />
-                                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                    <IconPhoto className="h-5 w-5 text-white" />
-                                  </div>
-                                </>
-                              ) : (
-                                <div className="w-full h-full flex items-center justify-center">
-                                  <IconPhoto className="h-6 w-6 text-muted-foreground" />
-                                </div>
-                              )}
-                            </button>
-                            <div className="flex-1 space-y-1">
-                              <Label className="text-xs text-muted-foreground">
-                                Alt text
-                              </Label>
-                              <Input
-                                value={currentAlt}
-                                onChange={(e) =>
-                                  updateProperty(
-                                    `${fieldPrefix}image_alt`,
-                                    e.target.value,
-                                  )
-                                }
-                                placeholder="Descripción de la imagen"
-                                className="h-8 text-sm"
-                                data-testid={`props-image-style-${side}-alt`}
-                              />
-                            </div>
-                          </div>
-
-                          <div className="grid grid-cols-2 gap-3">
-                            <div className="space-y-1">
-                              <Label className="text-xs text-muted-foreground">
-                                Object Fit
-                              </Label>
-                              <Select
-                                value={currentObjectFit || "cover"}
-                                onValueChange={(value) =>
-                                  updateProperty(
-                                    `${fieldPrefix}image_object_fit`,
-                                    value,
-                                  )
-                                }
-                              >
-                                <SelectTrigger
-                                  className="h-8 text-sm"
-                                  data-testid={`props-image-style-${side}-object-fit`}
-                                >
-                                  <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="cover">
-                                    Cover (recorta)
-                                  </SelectItem>
-                                  <SelectItem value="contain">
-                                    Contain (completa)
-                                  </SelectItem>
-                                  <SelectItem value="fill">
-                                    Fill (estirar)
-                                  </SelectItem>
-                                  <SelectItem value="none">
-                                    None (original)
-                                  </SelectItem>
-                                  <SelectItem value="scale-down">
-                                    Scale Down
-                                  </SelectItem>
-                                </SelectContent>
-                              </Select>
-                            </div>
-
-                            <div className="space-y-1">
-                              <Label className="text-xs text-muted-foreground">
-                                Posición (X Y)
-                              </Label>
-                              <Input
-                                value={currentObjectPosition}
-                                onChange={(e) =>
-                                  updateProperty(
-                                    `${fieldPrefix}image_object_position`,
-                                    e.target.value,
-                                  )
-                                }
-                                placeholder="center center"
-                                className="h-8 text-sm"
-                                data-testid={`props-image-style-${side}-object-position`}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </CollapsibleContent>
-                    </Collapsible>
+                    <ImageWithStylePicker
+                      key={fieldPath}
+                      label={fieldLabel}
+                      value={currentValue}
+                      alt={currentAlt}
+                      objectFit={currentObjectFit}
+                      objectPosition={currentObjectPosition}
+                      tagFilter={variant}
+                      testId={`props-image-style-${side}`}
+                      onChangeSrc={(src, newAlt) => {
+                        updateProperty(fieldPath, src);
+                        if (newAlt) updateProperty(`${fieldPrefix}image_alt`, newAlt);
+                      }}
+                      onChangeAlt={(newAlt) =>
+                        updateProperty(`${fieldPrefix}image_alt`, newAlt)
+                      }
+                      onChangeObjectFit={(fit) =>
+                        updateProperty(`${fieldPrefix}image_object_fit`, fit)
+                      }
+                      onChangeObjectPosition={(pos) =>
+                        updateProperty(`${fieldPrefix}image_object_position`, pos)
+                      }
+                      onRemove={() => updateProperty(fieldPath, "")}
+                    />
                   );
                 }
 
