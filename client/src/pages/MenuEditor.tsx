@@ -376,7 +376,6 @@ function SortableMenuItemEditor({
                 value={item.imageId || ""}
                 tagFilter="logo"
                 testId="logo-image"
-                disabled={isReadOnlyStructure}
                 onChangeSrc={(_src, _alt, registryId) => {
                   onUpdate(index, { ...item, imageId: registryId || _src });
                 }}
