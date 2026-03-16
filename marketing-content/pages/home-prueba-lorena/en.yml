@@ -102,6 +102,7 @@ sections:
       - value: 86%
         title: Of US graduates hired within 90 days of graduation
     section_id: features_grid-142xko
+    background: hsl(var(--secondary))
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
