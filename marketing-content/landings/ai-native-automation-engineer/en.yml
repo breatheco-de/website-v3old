@@ -233,12 +233,12 @@ sections:
       - robot
       - settings
     static_icons: true
-    features_title: Choose the option that fits you best.
+    features_title: Acceso a cientos de ejercicios, proyectos tutoriales para desarrollar y cursos en las tecnologías más buscadas
     features:
       - icon: IconCheck
         text: Crea tu portfolio con cientos de proyectos reales.
       - icon: IconCheck
-        text: Certificados de curso
+        text: Cientos de retos de codificación en la nube.
       - icon: IconCheck
         text: Certificación otorgada por escuela certificada en los Estados Unidos, por el Departamento de Educación de Florida.
     cta:
