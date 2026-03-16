@@ -264,3 +264,7 @@ sections:
       - question: ¿Necesito conocimientos previos?
         answer: No, nuestros bootcamps están diseñados para enseñarte a utilizar todas las herramientas y empezar con lo más básico de cada tecnología antes de empezar con lo más avanzado.
     section_id: faq-1y6kf3
+  - type: footer
+    version: v1.0
+    copyright_text: 2024 4Geeks Academy. All rights reserved.
+    section_id: footer-qjut5d
