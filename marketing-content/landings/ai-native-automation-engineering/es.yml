@@ -101,8 +101,8 @@ sections:
       heading: Construye flujos de automatización de cero a producción
       description: Este bootcamp integral de 10 semanas cubre desde fundamentos de pensamiento en flujos de trabajo hasta sistemas de automatización listos para producción. Con 70% de práctica y 30% de aprendizaje conceptual, dominarás automatización n8n, integración de APIs, implementación de IA y prácticas profesionales usadas por ingenieros de automatización en la industria.
       bullets:
-        - text: Flujos De Trabajo Cotidianos
-          heading: Personalized Learning
+        - text: En esta sesión, los estudiantes desarrollarán habilidades fundamentales de pensamiento en flujos de trabajo, esenciales para la ingeniería de automatización. Aprenderán a identificar y diagramar procesos de la vida real, comenzando con actividades cotidianas como rutinas matutinas, compras de supermercado y tareas diarias. Los estudiantes dominarán la identificación de procesos, descomposición de pasos, ramificación de decisiones, bucles y rutas de error. Al final de este módulo, construirán más de 15 diagramas completos de flujos de trabajo, estableciendo la mentalidad central necesaria para abordar la automatización de manera sistemática. Esta base práctica prepara a los estudiantes para pensar en términos de procesos y secuencias, algo crítico para todo el trabajo de automatización posterior.
+          heading: Flujos De Trabajo Cotidianos
         - text: Build a portfolio employers actually want to see
           heading: Real Projects
         - text: Resume reviews, mock interviews, and job placement support
