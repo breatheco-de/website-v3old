@@ -26,4 +26,4 @@ locations:
   - madrid-spain
 layout:
   menu:
-    bottom: main-footer
+    bottom: null
