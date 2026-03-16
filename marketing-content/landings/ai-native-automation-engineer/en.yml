@@ -74,8 +74,8 @@ sections:
     title: Conoce a Rigobot, nuestra IA interna.
     description: Diseñada para quienes aprenden solos. 4Geeks.com es la primera plataforma diseñada para maximizar el aprendizaje a tu propio ritmo. Únete a sesiones en vivo cuando tu puedas, obtén ayuda de forma inmediata con IA y pide mentorías uno a uno. Todo nuestro contenido es totalmente interactivo y con videos.
     cta:
-      text: Learn More
-      url: "#"
+      text: Saber más sobre Rigobot
+      url: "#ai_learning-aazkxm"
       variant: primary
     background: gradient
     section_id: banner-yaz1wu
@@ -113,25 +113,24 @@ sections:
     description: Aprender de forma intensiva puede ser desafiante, pero hemos desarrollado las herramientas para mantenerte motivado, evitar que te quedes atascado en problemas y acelerar tu proceso de aprendizaje.
     features:
       - icon: Robot
-        title: Aprende con Inteligencia Artificial
+        title: Aprende con Rigobot
         description: Nuestra inteligencia artificial revisa tu código para brindarte retroalimentación instantánea, te ayuda con los ejercicios ¡y mucho más!
         show_rigobot_logo: true
         bullets:
           - text: Rigobot es tutor de Inteligencia Artificial disponible 24/7
           - text: Retroalimentación en tiempo real y guía experta
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-        cta:
-          icon: Headphones
-      - icon: null
-        title: Mentorías uno a uno
+        cta: Robot
+      - title: Mentorías uno a uno
         description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
         show_rigobot_logo: true
         bullets:
           - text: Acceso a mentorías 1:1
           - text: Orientadas a guiar tu aprendizaje
           - text: Resuelve tus dudas de manera personalizada
-        video_url: https://youtu.be/-2ZvlgDnltc
-        cta: Aprende con los que saben
+        image_id: https://images.prismic.io/4geeks/c633749d-b848-44bf-920b-105e73698a6a_Group+6445+%281%29.png?auto=compress,format
+        cta:
+          icon: Robot
       - icon: Rocket
         title: Aprende en comunidad
         description: Aprender junto a otros no solo es más divertido, sino que también te ayuda a progresar más rápido. Únete a nuestra comunidad activa de aprendizaje para recibir apoyo y colaboración.
@@ -249,109 +248,30 @@ sections:
       - madrid-spain
       - malaga-spain
       - valencia-spain
-  - type: whos_hiring
-    section_id: whos_hiring-0nft9w
-    variant: carousel
-    title: Top Companies Hiring our Graduates
-    subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
-    logos:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
-        alt: Microsoft
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
-        alt: Google Developers
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
-        alt: Boats Group
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
-        alt: Meta
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
-        alt: eBay
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
-        alt: National Geographic
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
-        alt: Evernote
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
-        alt: Telefonica
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
-        alt: Twilio
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
-        alt: Uber
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
-        alt: Neo9
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
-        alt: Jooble
+  - type: faq
+    version: v1.0
+    title: FAQ
+    items:
+      - question: ¿Aprenderé totalmente por mi cuenta?
+        answer: No, nuestro BootCamp solo está diseñado para aprender a tu propio ritmo y horario, pero sin dejar a un lado nuestra característica en vivo, ofreciendo diferentes actividades opcionales a las que puedes unirte cuando quieras. Tenemos muchos workshops en vivo sobre las tecnologías que estarás aprendiendo, que se hacen casi todos los días de la semana en diferentes horarios. Puedes agender mentorías privadas con un experto para que te ayude con los problemas que puedas tener en tu código o conceptos que no entiendas, y lo mejor de todo es que tu escoges el día y hora!
+      - question: ¿Cómo agendar mentorías?
+        answer: Para agendar una mentoría, debes acceder desde tu dashboard, seleccionar el tipo de mentoría que necesitas, escoger el mentor que más te guste o que esté disponible en el horario que desees y luego escoger el día y hora de la mentoría! Puedes ver más sobre cómo funcionan las mentorías aqui.
+      - question: ¿Qué son las mentorías uno a uno?
+        answer: Las mentorías uno a uno son videollamadas de 30 minutos con un experto, este tiempo lo puedes aprovechar para pedir ayuda con algún ejercicio que no sabes como resolver, con ayuda para seguir avanzando con alguno de tus proyectos, o incluso para que te ayuden a entender algún concepto nuevo que no tienes muy claro.
+      - question: ¿Qué tipo de ayuda recibo mientras estoy aprendiendo?
+        answer: Al entrar en cualquiera de nuestros programas de 4Geeks, obtienes acceso a nuestra comunidad en slack, en la que tenemos un canal especializado para ayudarte con problemas de código, con un tiempo de respuesta rápido. Además cuentas con la ayuda de Rigobot, nuestro modelo de inteligencia artificial entrenado para darte feedback de los ejercicios y proyectos que realizas, también puedes hablar en un chat con el, quien te dará una ayuda personalizada en base a lo que estas aprendiendo en el momento! Por otro lado, tienes acceso a las mentorías, que de agotarse, puedes solicitar más por un precio adicional para seguir utilizandolas.
+      - question: ¿Necesito conocimientos previos?
+        answer: No, nuestros bootcamps están diseñados para enseñarte a utilizar todas las herramientas y empezar con lo más básico de cada tecnología antes de empezar con lo más avanzado.
+    section_id: faq-1y6kf3
     paddingY:
-      desktop: none
-  - type: cta_banner
-    version: "1.0"
-    title: Ready to Become an {{ single.job_role | AI Engineer }}?
-    subtitle: Limited spots available. Start your transformation today.
-    variant: form
-    form:
-      variant: stacked
-      submit_label: Apply now
-      tags: website-lead
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Your email address
-        first_name:
-          visible: true
-          required: true
-          placeholder: First name
-        phone:
-          visible: true
-          required: true
-          placeholder: Phone number
-        program:
-          visible: false
-          required: true
-          default: {{ single.bc_slug | unknown }}
-      success:
-        message: Thank you! We'll be in touch soon.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: I agree to receive information about courses and promotions
-      show_terms: true
-      button_className: bg-primary
-      terms_className: text-white/80
-    form_background: hsl(var(--card))
-    terms_color: hsl(var(--primary))
-    paddingY:
-      desktop: md
+      desktop: md none
     marginY:
-      desktop: lg none
-    background: hsl(var(--primary))
-    section_id: cta_banner-gud598
-  - type: sticky_cta
-    version: "1.0"
-    heading: Ready to start your tech career?
-    button_label: Apply Now
-    show_dismiss: false
-    form:
-      variant: inline
-      conversion_name: student_application
-      submit_label: Submit Application
-      tags: website-lead
-      automations: strong
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        last_name:
-          visible: true
-          required: false
-        phone:
-          visible: true
-          required: true
-        program:
-          visible: false
-          required: false
-          default: {{ single.bc_slug | ai-engineering }}
-      success:
-        message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-nqf5pb
+      desktop: md none
+  - type: footer
+    version: v1.0
+    copyright_text: 2024 4Geeks Academy. All rights reserved.
+    section_id: footer-qjut5d
+    marginY:
+      desktop: md none
+    paddingY:
+      desktop: md none
