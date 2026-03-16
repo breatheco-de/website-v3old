@@ -25,8 +25,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Ingeniería de Automatización con IA
-    title_highlight: con IA
+    title: Ingeniería de Automatización con Inteligencia Artificial
+    title_highlight: con Inteligencia Artificial
     subtitle: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA, mentoría personalizada y resultados profesionales comprobados.
     students_enrolled:
       avatars:
