@@ -34,7 +34,7 @@ sections:
         - https://randomuser.me/api/portraits/men/2.jpg
         - https://randomuser.me/api/portraits/women/3.jpg
         - https://randomuser.me/api/portraits/men/4.jpg
-      count: Más de 1000 estudiantes en España, LATAM y EE. UU.
+      count: Cientos de estudiantes inscriptos de España, LATAM y EE. UU.
     bullet_points:
       - Domina el desarrollo frontend moderno con HTML, CSS, JavaScript y React
       - Construye sistemas backend escalables con Python, APIs y arquitectura de bases de datos
