@@ -71,14 +71,13 @@ sections:
   - type: banner
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    avatars: null
     title: Conoce a Rigobot, nuestra IA interna
     description: Diseñada para quienes aprenden solos. 4Geeks.com es la primera plataforma diseñada para maximizar el aprendizaje a tu propio ritmo. Únete a sesiones en vivo cuando tu puedas, obtén ayuda de forma inmediata con IA y pide mentorías uno a uno. Todo nuestro contenido es totalmente interactivo y con videos.
     cta:
       text: Learn More
       url: "#"
       variant: primary
-    background: gradient
+    background: hsl(var(--card))
     section_id: banner-yaz1wu
   - type: syllabus
     section_id: syllabus-v7dcug
