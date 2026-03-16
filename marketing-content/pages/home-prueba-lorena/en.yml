@@ -103,24 +103,72 @@ sections:
         title: Of US graduates hired within 90 days of graduation
     section_id: features_grid-142xko
     background: hsl(var(--secondary))
-  - type: ai_learning
+  - type: course_selector
     version: "1.0"
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: Why Learn with 4Geeks?
-    description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
-    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
-    features:
-      - icon: Robot
-        title: Learn with AI
-        description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
-      - icon: Headset
-        title: Unlimited 1:1 mentoring sessions
-        description: Access unlimited mentorship sessions with our experts whenever you need guidance.
-      - icon: Users
-        title: Learn with the community
-        description: Learning alongside others is more fun and helps you progress faster. Join our active community.
-    section_id: ai_learning-gk6inf
+    variant: solid
+    heading: Find Your Path Into Tech
+    subheading: "Four programs. One goal: get you hired in a high-demand role that AI can't take away."
+    courses:
+      - name: AI Engineering
+        icon: Brain
+        duration: 24 weeks
+        label: Updated in 2026
+        title: AI Engineering
+        badges:
+          - icon: Cpu
+            text: LLMs, AI Agents & Automation
+          - icon: Database
+            text: Production AI Systems
+        description: Build the AI systems companies are hiring for right now. Graduate with a live, production-ready AI product and the skills to back it up.
+        cta_text: View Program Details
+        cta_url: /en/career-programs/ai-engineering
+        course_background: hsl(var(--accent))
+      - name: Full Stack Development with AI
+        icon: Code
+        duration: 20 weeks
+        label: Updated in 2026
+        title: Full Stack Development with AI
+        badges:
+          - icon: Code
+            text: React, Node.js & Python
+        description: Build modern web apps from frontend to backend using AI-powered workflows. The most in-demand skill set for developers in 2025.
+        cta_text: View Program Details
+        cta_url: /en/career-programs/full-stack
+        course_background: hsl(var(--destructive))
+      - name: Data Science & ML
+        icon: ChartLine
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Data Science & Machine Learning with AI
+        badges:
+          - icon: BrainCircuit
+            text: Machine Learning & AI Models
+          - icon: BarChart
+            text: Data Analysis & Visualization
+        description: Turn data into decisions. Build ML models, work with real datasets, and position yourself for one of the fastest-growing roles in tech.
+        cta_text: View Program Details
+        cta_url: /en/career-programs/data-science-ml
+        course_background: hsl(var(--primary))
+      - name: Cybersecurity
+        icon: Shield
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Cybersecurity
+        badges:
+          - icon: Lock
+            text: Threat Detection & Network Security
+          - icon: Server
+            text: Cloud Security
+        description: Protect the systems AI depends on. Cybersecurity specialists are in critical demand as companies race to secure their AI infrastructure.
+        cta_text: View Program Details
+        cta_url: /en/career-programs/cybersecurity
+        course_background: hsl(var(--secondary-foreground))
+    background: hsl(var(--muted))
+    section_id: course_selector-0lgvpc
+    marginY:
+      desktop: lg
+    paddingY:
+      desktop: md lg
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
