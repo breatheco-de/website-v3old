@@ -198,8 +198,6 @@ sections:
         label: Average salary increase at new position
       - value: 3-6 months
         label: Average time to get hired
-      - value: 6,000+
-        label: Graduates worldwide
     collage_images:
       - image_id: graduates_team_1
         col_span: 5
