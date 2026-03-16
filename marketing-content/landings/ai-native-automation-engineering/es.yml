@@ -56,7 +56,7 @@ sections:
       features:
         - icon: IconBook
           text: Lectura
-        - icon: excercise
+        - icon: pen
           text: Ejercicios interactivos    10
         - icon: code
           text: +100 ejercicios interactivos de programación
