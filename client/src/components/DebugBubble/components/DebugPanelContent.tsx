@@ -130,6 +130,7 @@ export interface DebugPanelContentProps {
   handleDuplicatePage: (url: string) => void;
   handleDeletePage: (url: string) => void;
   handleDownloadYml: (url: string) => void;
+  handleEditYaml: (url: string) => void;
   contentLocale: string | null;
 
   session: { location?: { slug?: string; name?: string } };
@@ -846,6 +847,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
           handleDuplicatePage={props.handleDuplicatePage}
           handleDeletePage={props.handleDeletePage}
           handleDownloadYml={props.handleDownloadYml}
+          handleEditYaml={props.handleEditYaml}
         />
       )}
     </>

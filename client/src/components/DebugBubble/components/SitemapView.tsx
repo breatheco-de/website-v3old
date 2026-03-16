@@ -13,6 +13,7 @@ import {
   IconTrash,
   IconExternalLink,
   IconClipboard,
+  IconCode,
 } from "@tabler/icons-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
@@ -42,6 +43,7 @@ interface SitemapViewProps {
   handleDuplicatePage: (url: SitemapUrl) => void;
   handleDeletePage: (url: SitemapUrl) => void;
   handleDownloadYml: (url: SitemapUrl) => void;
+  handleEditYaml: (url: SitemapUrl) => void;
 }
 
 export function SitemapView({
@@ -61,6 +63,7 @@ export function SitemapView({
   handleDuplicatePage,
   handleDeletePage,
   handleDownloadYml,
+  handleEditYaml,
 }: SitemapViewProps) {
   const { toast } = useToast();
 
@@ -227,6 +230,10 @@ export function SitemapView({
                                       <IconDownload className="h-3.5 w-3.5 mr-2" />
                                       Download YAML
                                     </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => handleEditYaml(url)} className="text-[13px]" data-testid={`menu-edit-yaml-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                                      <IconCode className="h-3.5 w-3.5 mr-2" />
+                                      Edit YAML
+                                    </DropdownMenuItem>
                                     <DropdownMenuItem onClick={() => handleDeletePage(url)} className="text-[13px] text-destructive" data-testid={`menu-delete-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
                                       <IconTrash className="h-3.5 w-3.5 mr-2" />
                                       Delete
@@ -285,6 +292,10 @@ export function SitemapView({
                             <DropdownMenuItem onClick={() => handleDownloadYml(url)} className="text-[13px]" data-testid={`menu-download-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
                               <IconDownload className="h-3.5 w-3.5 mr-2" />
                               Download YAML
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleEditYaml(url)} className="text-[13px]" data-testid={`menu-edit-yaml-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                              <IconCode className="h-3.5 w-3.5 mr-2" />
+                              Edit YAML
                             </DropdownMenuItem>
                             <DropdownMenuItem onClick={() => handleDeletePage(url)} className="text-[13px] text-destructive" data-testid={`menu-delete-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
                               <IconTrash className="h-3.5 w-3.5 mr-2" />
