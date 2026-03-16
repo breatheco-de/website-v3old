@@ -55,9 +55,9 @@ sections:
       description: Con tu suscripción tendrás acceso a...
       features:
         - icon: IconBook
-          text: Lectura {{  01 }}
+          text: Lectura
           number: 1
-        - icon: IconBiceps
+        - icon: IconArmFlex
           text: Ejercicios interactivos    10
         - icon: code
           text: +100 ejercicios interactivos de programación
