@@ -144,20 +144,18 @@ sections:
         description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
         show_rigobot_logo: true
         bullets:
-          - text: Coaching personalizado 1:1
+          - text: Acceso a sesiones de mentoría 1:1
           - text: Currículums optimizados para procesos de contratación con IA
           - text: Preparación de entrevistas y negociación salarial
         image_url: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
         cta:
           text: Aprende con quienes ya lo hacen
       - icon: Headset
-        title: Mentoría ilimitada 1:1 y una comunidad activa
-        description: ""
+        title: Aprende con una comunidad activa
+        description: Aprender junto a otros no solo es más divertido, sino que también te ayuda a progresar más rápido. Únete a nuestra comunidad activa de aprendizaje para recibir apoyo y colaboración.
         show_rigobot_logo: true
         bullets:
-          - text: Acceso de por vida a sesiones de mentoría 1:1
-          - text: Relación 7:1 de estudiante a profesor, garantizando una atención personalizada
-          - text: Colaboración entre compañeros a través de canales de Slack y check-ins semanales
+          - text: Colaboración entre compañeros a través de canales de Slack
           - text: Canales dedicados de Slack para soporte técnico, bolsas de trabajo y consejos de carrera
         image_id: community-support-cropped
         cta:
