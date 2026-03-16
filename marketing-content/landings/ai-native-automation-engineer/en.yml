@@ -158,218 +158,70 @@ sections:
       title: AI Native Automation
       subtitle: 4Geeks Academy Certificate
     section_id: certificate-wttpxs
-  - type: split_cards
+    marginY:
+      desktop: none md
+  - type: awards_marquee
     version: v1.0
-    variant: primary-left
-    background: muted
-    primary:
-      badge: Results-Backed Promise
-      heading: The Confidence of a Job Guarantee
-      description: "The strongest proof that we believe in our model? We back it with a Job Guarantee. Most schools promise \"career support.\" At 4Geeks, we promise results: get hired within 9 months, or we refund your tuition in full. Conditions apply."
-    secondary:
-      benefits:
-        - text: Our curriculum is industry-aligned and AI-ready
-        - text: Our mentorship is unlimited and personalized
-        - text: Our career support never expires
-    section_id: split_cards-1plysg
-  - type: syllabus
-    section_id: syllabus-v7dcug
-    variant: program-modules
-    program_title: Full Stack with AI Program Overview
-    program_description: Learn to build modern, production-ready web applications by mastering frontend and backend development alongside AI. Work with APIs, databases, and intelligent tools to design, develop, and ship real-world software.
-    tech_logos:
-      - name: HTML5
-        icon: html
-      - name: CSS3
-        icon: css
-      - name: JavaScript
-        icon: javascript
-      - name: React
-        icon: react
-      - name: Python
-        icon: python
-      - name: Git
-        icon: git
-    module_cards:
-      - title: Introduction To HTML And CSS
-        duration: Weeks 1-2
-        objectives:
-          - Create web structures with semantic HTML
-          - Style pages with modern CSS techniques
-          - Build visually appealing and accessible websites
-        projects: Build responsive landing pages from scratch
-        orientation: vertical
-        icon: IconCode
-      - title: JavaScript
-        duration: Weeks 3-5
-        objectives:
-          - Master variables, functions, and loops
-          - DOM manipulation for interactive pages
-          - Modern ES6+ features and async programming
-        projects: Create dynamic, interactive web applications
-        orientation: vertical
-        icon: IconBrandJavascript
-      - title: React
-        duration: Weeks 6-9
-        objectives:
-          - Build component-based user interfaces
-          - State management with hooks
-          - Routing and best practices for scalable apps
-        projects: Build modern single-page applications
-        orientation: vertical
-        icon: IconBrandReact
-      - title: Python
-        duration: Weeks 10-12
-        objectives:
-          - Core programming concepts and data structures
-          - Object-oriented programming principles
-          - Web development and automation skills
-        projects: Create backend services and automation scripts
-        orientation: vertical
-        icon: IconBrandPython
-      - title: Creating APIs
-        duration: Weeks 13-15
-        objectives:
-          - Design and build RESTful APIs
-          - Authentication and database integration
-          - API documentation and best practices
-        projects: Build a full REST API with Flask/Express
-        orientation: vertical
-        icon: IconApi
-      - title: Agile Methodologies
-        duration: Week 16
-        objectives:
-          - Scrum, Kanban, and agile frameworks
-          - Sprint planning and daily standups
-          - Effective collaboration in dev teams
-        projects: Work in agile teams on group projects
-        orientation: vertical
-        icon: IconUsers
-    paddingY:
-      desktop: md
-  - type: certificate
-    section_id: certificate-fx8gmn
-    title: Career Outcomes
-    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
-    benefits:
-      - text: "AI Software Engineer: {{ global.average_salary_fullstack | $95K–$135K }}"
-      - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-      - text: "Agent Engineer: $105K–$150K"
-      - text: "Workflow Automation Engineer: $85K–$120K"
-    card:
-      title: AI Engineer
-      subtitle: 4Geeks Academy Certificate
-      program_name: AI Engineering
-    stats:
-      - value: {{ global.global_job_placement_rate | 84 }}%
-        label: Hiring rate
-        description: Graduate with the skills, credentials, and professional profile employers are actively hiring for.
-        benefits:
-          - text: Certificate recognized by the Florida Department of Education
-          - text: Career focused portfolio
-          - text: Demonstrated experience with AI workflows
-          - text: Optimized professional profile and job-search strategy
-      - value: 3-6 months
-        label: Time to get hired
-        description: Land your first role within 3–6 months of graduation. With our structured 3-step career development process, your skills turn into job offers fast.
-        benefits:
-          - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
-          - text: Practice for technical and behavioral interviews
-          - text: Execute a personalized job-search strategy with access to relevant hiring networks
-      - value: {{ global.global_salary_increase | 55 }}%
-        label: Average salary increase
-        description: Stand out with full stack and AI skills companies are actively seeking, enabling significant salary growth as you enter the field.
-        benefits:
-          - text: "Full Stack Engineer: {{ global.average_salary_fullstack | $95K–$150K }}+"
-          - text: "AI-fluent Software Developer: {{ global.average_salary_ai_fluent_software_developer }}"
-          - text: "Web Applications Engineer: {{ global.average_salary_web_aplications_engineer | $95K–$140K }}"
-          - text: "Backend Services Developer: {{ global.average_salary_backend_services_developer | $100K–$150K }} "
-      - value: 400+
-        label: Hiring partners
-        description: Access our network of 400+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
-        benefits:
-          - text: Exclusive job board access
-          - text: Priority referrals to partner companies
-          - text: Networking events with hiring managers
-          - text: Companies include Google, Meta, Amazon, startups
-    certificate_position: right
-    useSolidCard: true
-    marginY:
-      mobile: none
-      desktop: none lg
-    paddingY:
-      mobile: lg
-      desktop: lg
-    background: hsl(var(--muted))
-  - type: pricing
-    section_id: pricing-y8kp1q
-    version: "1.0"
-    variant: product
-    title: Tuition & Financing Options
-    subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: "Full payment discount: Save 10% with upfront payment."
-    financing_text: "Credit-based financing: starting below"
-    financing_amount: {{ global.price_fullstack | $299 }}
-    tech_icons:
-      - openai
-      - python
-      - react
-      - nodejs
-      - api
-      - brain
-      - robot
-      - settings
-    features_title: Choose the option that fits you best.
-    features:
-      - icon: IconCheck
-        text: Standard tuition is {{ global.price_full_fullstack | $10,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
-      - icon: IconCheck
-        text: Enroll with a job guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
-      - icon: IconCheck
-        text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
-        use_rigobot_icon: true
-      - icon: IconCheck
-        text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
-    cta:
-      text: Get more info
-      url: "#apply-modal"
-      variant: primary
-    marginY:
-      desktop: none md
-    paddingY:
-      desktop: none md
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
+    speed: 40
+    gradient: true
+    gradientWidth: 100
+    items:
+      - id: switchup-2025
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        alt: SwitchUp - Best Coding Bootcamps 2025
+        logoHeight: 56px
+      - id: course-report-2024
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+        alt: Course Report - Best Coding Bootcamp 2024
+        logoHeight: 56px
+      - id: tech-hub
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+        alt: South Florida Tech Hub
+        logoHeight: 56px
+      - id: ebootcamp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+        alt: eBootcamp Top
+        logoHeight: 56px
+      - id: premios-tecnologia
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+        alt: Premios Tecnologia Siglo XXI
+        logoHeight: 56px
+      - id: newsweek
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+        alt: Newsweek
+        logoHeight: 56px
+      - id: reviews-coursereport
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+        alt: 4.9 on Course Report Reviews
+        logoHeight: 56px
+      - id: excelencia-educativa
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+        alt: Excelencia Educativa - Institutional Quality
+        logoHeight: 56px
+    section_id: awards_marquee-wudxly
+  - type: mentorship
+    version: v1.0
+    title: Mentorship & Support
+    subtitle: You're never alone in your learning journey
+    cards:
+      - icon: user
+        title: 1-on-1 Mentorship
+        description: Weekly sessions with experienced developers who guide you through challenges and help you grow professionally.
+      - icon: users
+        title: Career Coaching
+        description: Dedicated career coaches help you build your resume, prepare for interviews, and connect with hiring partners.
+      - icon: headset
+        title: 24/7 Community Support
+        description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
+    section_id: mentorship-8sufi4
   - type: pricing
     section_id: pricing-wjefcj
     version: "1.0"
     variant: product
-    title: Tuition and Financing Options
-    subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: "Full payment discount: Save 10% with early payment."
-    financing_text: Installment financing starting from
-    financing_amount: {{ global.price_fullstack | $299 }}
+    title: Accede a todo nuestro contenido de aprendizaje, cursos y servicios
+    subtitle: Aprende una nueva habilidad cada 30 minutos, nunca te quedarás atascado o perdido de nuevo.
+    discount_text: "Aprende a tu propio ritmo: Contacta con un asesor para solicitar una suscripción."
+    financing_text: CONSULTA AHORA
     tech_icons:
       - openai
       - python
@@ -380,18 +232,14 @@ sections:
       - robot
       - settings
     static_icons: true
-    features_title: Choose the option that fits you best.
+    features_title: Acceso a cientos de ejercicios, proyectos tutoriales para desarrollar y cursos en las tecnologías más demandadas en el mercado.
     features:
       - icon: IconCheck
-        text: Pay upfront to get a better price with an additional discount, or split your payments into 6 to 24 installments through our partners.
+        text: Crea tu portfolio con cientos de proyectos reales.
       - icon: IconCheck
-        text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
+        text: Cientos de retos de codificación en la nube.
       - icon: IconCheck
-        text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
-    cta:
-      text: Get More Information
-      url: /es/apply
-      variant: primary
+        text: Certificación otorgada por escuela certificada en los Estados Unidos, por el Departamento de Educación de Florida.
     marginY:
       desktop: none md
     paddingY:
@@ -401,13 +249,6 @@ sections:
       - madrid-spain
       - malaga-spain
       - valencia-spain
-      - berlin-germany
-      - dublin-ireland
-      - hamburg-germany
-      - lisbon-portugal
-      - milan-italy
-      - munich-germany
-      - rome-italy
   - type: whos_hiring
     section_id: whos_hiring-0nft9w
     variant: carousel

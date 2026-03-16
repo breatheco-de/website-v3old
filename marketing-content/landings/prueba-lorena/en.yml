@@ -8,21 +8,21 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: at 4Geeks Academy
+    title: Build with AI.
     brand_mark:
-      prefix: Your current job has a ceiling. Become an
-      highlight: AI Engineer
+      prefix: Break Your Career
+      highlight: Ceiling.
       color: primary
-    description: The AI talent gap is real. 800,000+ open roles, not enough qualified engineers to fill them. In 24 weeks, you'll build production-ready AI apps, master LLMs and machine learning, and position yourself for the highest-paying entry point in tech right now.
+    description: "<span style=\"font-size: 1.125rem;\"><span>Become an AI Engineer: the fastest-growing job of 2026. 1.3M new roles.&nbsp;<div>42× growth since 2023. In 24 weeks, that's you — landing roles paying $95K–$135K+.</div></span></span><div></div>"
     bullets:
-      - text: "Career-focused from day one: get job-ready in 24 weeks and hired in 120 days"
-      - text: The only bootcamp that doesn't end at graduation, unlimited lifetime mentorship included
-      - text: "Flexible financing available: pay as low as $349/mo or $0 upfront with our Income Share Agreement"
+      - text: Build a complete AI-native system across 10 milestones
+      - text: Unlimited 1:1 mentorship and career support that doesn't stop at graduation
+      - text: "Job Guarantee option: get hired within 9 months or we'll refund your tuition"
     image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
@@ -44,20 +44,20 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: You're in. Someone from our admissions team will reach out within a few minutes via email — check your inbox.
+        message: Check your inbox! Your syllabus is on the way.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: I agree to receive information via email, WhatsApp and/or other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe easily at any time.
-        sms_text: I agree to receive SMS/text messages about workshops, events, courses and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information.
+        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
+        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
         sms_usa_only: true
       show_terms: true
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Get the Full AI Engineering Program Details
-    form_card_subtitle: "Takes 2 minutes. Our admissions team will send you the complete program overview: curriculum, pricing, and financing options within minutes of applying."
+    form_card_subtitle: "Fill in your details and we'll send you the complete program overview: curriculum, pricing, and financing options. It takes 2 minutes."
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: false
     awards_marquee:
@@ -190,16 +190,14 @@ sections:
       desktop: none sm
   - type: graduates_stats
     heading: Career Outcomes
-    subheading: Real results from 5,000+ graduates. Here's what happens after you complete the program.
+    subheading: 6,000+ graduates have made the switch into tech. These are their results.
     stats:
-      - value: 86%
-        label: Hiring rate, US graduates placed within 90 days
+      - value: 84%
+        label: Average hiring rate
       - value: 55%
-        label: Average salary increase after graduation
-      - value: ~3 months
-        label: Average time to get hired in 2025
-      - value: 5,000+
-        label: Graduates employed worldwide
+        label: Average salary increase at new position
+      - value: 3-6 months
+        label: Average time to get hired
     collage_images:
       - image_id: graduates_team_1
         col_span: 5
@@ -219,7 +217,7 @@ sections:
     variant: stats-text-card
     title: Why AI Engineering Now
     subtitle: The talent gap is real. This is your window.
-    description: AI Engineers build intelligent systems, automate workflows, and deliver the AI-powered systems companies urgently need. Demand is exploding — but only 3% of the workforce has the skills to fill these roles. That's not a problem. That's an opprtunity like no other.
+    description: AI Engineers build intelligent systems, automate workflows, and deliver the AI-powered systems companies urgently need. Demand is exploding — but only 3% of the workforce has the skills to fill these roles. That's not a problem. It's an opprtunity like no other.
     card_color: bg-background
     background: hsl(210 100% 50% / 0.05)
     items:
@@ -389,98 +387,100 @@ sections:
       mobile: lg none
       desktop: md sm
   - type: ai_learning
+    variant: feature-tabs
     badge: Why 4Geeks?
-    title: The Bootcamp That Doesn't End When You Graduate
-    description: Most bootcamps disappear after demo day. 4Geeks stays with you from your first line of code to your first offer letter and beyond.
+    title: The Most Personalized Path to an AI Career
+    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support, every part of the experience is built around you.
     features:
+      - icon: Robot
+        title: AI-powered feedback, available 24/7
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Instant feedback from Rigobot, our custom AI tutor
+          - text: Advice adjusted to your skill level and progress
+          - text: Instant help at any hour, day or night
+          - text: Hundreds of interactive coding exercises and tests
+        video_url: https://www.youtube.com/watch?v=NRuShbSLtg0
+      - icon: Headset
+        title: Unlimited 1:1 mentorship, for life
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Lifelong access to 1:1 technical mentorship
+          - text: "7:1 student-to-mentor ratio: so your mentor knows your name"
+          - text: Weekly check-ins and peer collaboration via Slack
+          - text: Dedicated channels for coding support, job boards, and career advice
+        video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
       - icon: TrendingUp
         title: Career support built for the AI job market
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: 1:1 coaching focused on landing AI engineering roles specifically
-          - text: Resume and portfolio optimized to pass AI-based recruiter screening
-          - text: Mock technical and behavioral interviews with real feedback
-          - text: Lifelong career support, not just until graduation
+          - text: Lifelong 1:1 career coaching
+          - text: Resume and portfolio built to pass AI-based screening
+          - text: Interview prep and salary negotiation
+          - text: Direct referrals to our 400+ employer network
         video_url: https://youtu.be/-2ZvlgDnltc
-      - icon: Robot
-        title: Learn faster with an AI tutor that knows where you're stuck
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Rigobot gives instant feedback on your code with no waiting for a human to be available
-          - text: Adapts explanations to your exact skill level and learning pace
-          - text: Get unblocked at 2am without losing momentum
-          - text: Hundreds of interactive exercises on Learnpack, our purpose-built learning platform
-        video_url: https://www.youtube.com/watch?v=NRuShbSLtg0
-      - icon: Headset
-        title: Unlimited 1:1 mentorship for life, not just while enrolled
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Book unlimited 1:1 sessions with senior engineers even after you graduate
-          - text: 7:1 student to mentor ratio so you're never just a ticket in a queue
-          - text: Weekly check-ins keep you accountable and on track to finish
-          - text: Active Slack community with dedicated channels for jobs, code help, and career advice
-        video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
     section_id: ai_learning-xiuj75
+    marginY:
+      desktop: md none
     paddingY:
-      mobile: lg none
-      desktop: lg md
-    background: hsl(var(--secondary))
+      desktop: md
   - type: certificate
-    title: Your Certificate. Your Salary Leverage.
-    description: Graduate with an industry-recognized certificate from a Florida Department of Education accredited institution and the credentials to negotiate your first AI engineering salary from a position of strength.
+    title: Your Certificate. Your Career Leverage.
+    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Step into roles paying:"
     benefits:
-      - text: "AI Software Engineer: $95K–$135K"
+      - text: "AI Engineer: $95K–$135K"
+      - text: "Forward-Deployed Engineer: $105K–$155K"
       - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-      - text: "Agent Engineer: $105K–$155K"
       - text: "Workflow Automation Engineer: $85K–$120K"
     card:
       title: AI Engineer
       subtitle: 4Geeks Academy Certificate
       program_name: AI Engineering
     stats:
-      - value: 86%
+      - value: {{ global.global_job_placement_rate | 84 }}%
         label: Hiring rate
-        description: Graduate with the skills, credentials, and professional profile employers are actively hiring for right now.
+        description: Graduate with the credentials, portfolio, and professional profile to get hired — not just qualified.
         benefits:
-          - text: Certificate accredited by the Florida Department of Education
-          - text: A live, end-to-end AI-powered company in your portfolio
+          - text: Certificate recognized by the Florida Department of Education
+          - text: End-to-end AI-engineered company in your portfolio
           - text: Demonstrated experience with agents, workflows, and AI systems
-          - text: Optimized professional profile that gets past AI-based recruiter screening
-      - value: ~3 months
-        label: Average time to get hired
-        description: In 2025, the average US graduate lands their first role in about 3 months. Our 3-step career process turns technical skills into job offers fast.
+          - text: Optimized professional profile and job-search strategy
+      - value: 3-6 months
+        label: Time to get hired
+        description: Most graduates land their first role within 3–6 months. A structured 3-step career process turns your skills into offers fast.
         benefits:
-          - text: Resume, portfolio, and online profiles built to attract recruiters
-          - text: Mock technical and behavioral interviews with real feedback from engineers
-          - text: Personalized job search strategy with access to active hiring networks
-      - value: 55%
+          - text: Resume, portfolio, and profiles optimized to attract recruiters and pass AI-based screening
+          - text: Technical and behavioral interview preparation
+          - text: Personalized job-search strategy with access to relevant hiring networks
+      - value: {{ global.global_salary_increase | 55 }}%
         label: Average salary increase
-        description: Graduates report an average 55% salary increase after transitioning into AI engineering. The program pays for itself within months of your first paycheck.
+        description: AI skills are exactly what companies can't find enough of. Step into high-priority roles with immediate growth and long-term upside.
         benefits:
-          - text: "AI Software Engineer: $95K–$135K"
-          - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-          - text: "Agent Engineer: $105K–$155K"
-          - text: "Workflow Automation Engineer: $85K–$120K"
-      - value: 5,000+
-        label: Graduates employed worldwide
-        description: Over 5,000 alumni placed at companies actively hiring AI talent. Get exclusive access to job opportunities before they're posted publicly.
+          - text: "AI Software Engineer: {{ global.average_salary_ai_engineer | $115K–$165K }}"
+          - text: "Forward-Deployed Engineer: {{ global.average_salary_ai_fluent_software_developer | $125K–$185K }}"
+          - text: "Agentic Systems Engineer: {{ global.average_salary_agent_engineer | $140K–$210K }}"
+          - text: "Workflow Automation Engineer: {{ global.average_salary_workflow_automation_engineer | $95K–$145K }}"
+      - value: 400+
+        label: Hiring partners
+        description: 400+ companies actively hiring our graduates. Get exclusive access, priority referrals, and direct connections to the people making hiring decisions.
         benefits:
-          - text: Exclusive job board with roles from hiring partners
-          - text: Priority referrals to companies in our network
+          - text: Exclusive job board access
+          - text: Priority referrals to partner companies
           - text: Networking events with hiring managers
-          - text: Alumni working at Google, Meta, Amazon, Microsoft and thousands more
+          - text: Companies include Google, Meta, Amazon, startups
     certificate_position: right
     useSolidCard: true
-    section_id: certificate-mjr42e
+    section_id: certificate-yvgz4h
     marginY:
       mobile: none
       desktop: none
     paddingY:
       mobile: lg
       desktop: lg
+    background: hsl(var(--muted))
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
     description: From musicians, philosophers, and support specialists to software engineers and AI developers. Real people, real salary increases, real careers.

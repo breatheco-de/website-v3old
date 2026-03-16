@@ -186,9 +186,9 @@ export function PricingSection({ data }: PricingSectionProps) {
                   className="w-full bg-white text-[#061258] border-0 hover:bg-white/90 font-bold h-10 text-[17px] tracking-wide rounded"
                   data-testid="button-get-plan"
                 >
-                  <a href={data.cta.url} onClick={handleLinkClick} className="flex items-center justify-center gap-2">
+                  <a href={data.cta?.url} onClick={handleLinkClick} className="flex items-center justify-center gap-2">
                     <IconSchool size={24} className="text-[#061258]" />
-                    {data.cta.text}
+                    {data.cta?.text}
                   </a>
                 </Button>
               </div>
@@ -400,9 +400,9 @@ export function PricingSection({ data }: PricingSectionProps) {
                 className="w-full bg-white text-[#061258] border-0 hover:bg-white/90 font-bold h-10 text-[17px] tracking-wide rounded"
                 data-testid="button-get-plan"
               >
-                <a href={data.cta.url} onClick={handleLinkClick} className="flex items-center justify-center gap-2">
+                <a href={data.cta?.url} onClick={handleLinkClick} className="flex items-center justify-center gap-2">
                   <IconSchool size={24} className="text-[#061258]" />
-                  {data.cta.text}
+                  {data.cta?.text}
                 </a>
               </Button>
             </div>

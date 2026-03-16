@@ -4,13 +4,14 @@ title: ai-native-automation-engineer
 job_role: Full Stack Developer
 meta:
   og_image: /images/programs/full-stack-og.jpg
+  robots: index, follow
+  priority: 0.9
+  change_frequency: weekly
+  page_title: AI Native automation Engineering | 4Geeks
+  description: Suscription AI Native automation Engineering
 context:
-  when_to_use: >-
-    For visitors interested in becoming web developers, learning both frontend and backend technologies, or
-    transitioning into software development careers.
-  target_audience: >-
-    Career changers, recent graduates, and professionals looking to break into tech with comprehensive web development
-    skills.
+  when_to_use: For visitors interested in becoming web developers, learning both frontend and backend technologies, or transitioning into software development careers.
+  target_audience: Career changers, recent graduates, and professionals looking to break into tech with comprehensive web development skills.
   goals:
     - Highlight the practical, project-based learning approach
     - Emphasize job-ready skills and career outcomes
@@ -21,3 +22,5 @@ schema:
     - organization
     - website
     - courses:full-stack
+locations:
+  - madrid-spain
