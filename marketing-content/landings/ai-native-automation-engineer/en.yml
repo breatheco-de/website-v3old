@@ -251,18 +251,18 @@ sections:
       - valencia-spain
   - type: faq
     version: v1.0
-    title: Frequently Asked Questions
+    title: FAQ
     items:
-      - question: Do I need prior coding experience?
-        answer: No prior experience is required. Our program is designed to take you from complete beginner to job-ready developer. We start with the fundamentals and progressively build your skills.
-      - question: How long does the program take to complete?
-        answer: The full-time program takes 16 weeks, while our part-time option spans 26 weeks. Both tracks cover the same comprehensive curriculum and lead to the same career outcomes.
-      - question: What kind of job support do you provide?
-        answer: We offer lifetime career support including resume reviews, interview preparation, job placement assistance, and access to our employer network. Our career coaches work with you one-on-one until you land your first tech role.
-      - question: Can I pay in installments?
-        answer: Yes! We offer flexible payment plans with monthly installments. We also have income share agreements (ISA) where you only pay after you get hired. Financial aid and scholarships are available for qualifying students.
-      - question: What technologies will I learn?
-        answer: You'll master modern web technologies including HTML, CSS, JavaScript, React, Python, Flask, SQL databases, Git, and deployment tools. Our curriculum is continuously updated to match industry demands.
-      - question: Is this program available online?
-        answer: Yes, we offer both online and in-person options. Our online program provides the same quality instruction with live sessions, mentorship, and collaborative projects - all accessible from anywhere in the world.
+      - question: ¿Aprenderé totalmente por mi cuenta?
+        answer: No, nuestro BootCamp solo está diseñado para aprender a tu propio ritmo y horario, pero sin dejar a un lado nuestra característica en vivo, ofreciendo diferentes actividades opcionales a las que puedes unirte cuando quieras. Tenemos muchos workshops en vivo sobre las tecnologías que estarás aprendiendo, que se hacen casi todos los días de la semana en diferentes horarios. Puedes agender mentorías privadas con un experto para que te ayude con los problemas que puedas tener en tu código o conceptos que no entiendas, y lo mejor de todo es que tu escoges el día y hora!
+      - question: ¿Cómo agendar mentorías?
+        answer: Para agendar una mentoría, debes acceder desde tu dashboard, seleccionar el tipo de mentoría que necesitas, escoger el mentor que más te guste o que esté disponible en el horario que desees y luego escoger el día y hora de la mentoría! Puedes ver más sobre cómo funcionan las mentorías aqui.
+      - question: ¿Qué son las mentorías uno a uno?
+        answer: Las mentorías uno a uno son videollamadas de 30 minutos con un experto, este tiempo lo puedes aprovechar para pedir ayuda con algún ejercicio que no sabes como resolver, con ayuda para seguir avanzando con alguno de tus proyectos, o incluso para que te ayuden a entender algún concepto nuevo que no tienes muy claro.
+      - question: ¿Qué tipo de ayuda recibo mientras estoy aprendiendo?
+        answer: Al entrar en cualquiera de nuestros programas de 4Geeks, obtienes acceso a nuestra comunidad en slack, en la que tenemos un canal especializado para ayudarte con problemas de código, con un tiempo de respuesta rápido. Además cuentas con la ayuda de Rigobot, nuestro modelo de inteligencia artificial entrenado para darte feedback de los ejercicios y proyectos que realizas, también puedes hablar en un chat con el, quien te dará una ayuda personalizada en base a lo que estas aprendiendo en el momento! Por otro lado, tienes acceso a las mentorías, que de agotarse, puedes solicitar más por un precio adicional para seguir utilizandolas.
+      - question: ¿Necesito conocimientos previos?
+        answer: No, nuestros bootcamps están diseñados para enseñarte a utilizar todas las herramientas y empezar con lo más básico de cada tecnología antes de empezar con lo más avanzado.
+      - question: null
+        answer: null
     section_id: faq-1y6kf3
