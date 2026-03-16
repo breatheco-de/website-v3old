@@ -373,7 +373,7 @@ sections:
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
-    form_background: hsl(var(--card))
+    form_background: hsl(210 100% 50% / 0.05)
     terms_color: hsl(var(--primary))
     section_id: cta_banner-8t72gj
     marginY:
