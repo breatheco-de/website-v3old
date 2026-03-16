@@ -240,10 +240,6 @@ sections:
         text: Cientos de retos de codificación en la nube.
       - icon: IconCheck
         text: Certificación otorgada por escuela certificada en los Estados Unidos, por el Departamento de Educación de Florida.
-    cta:
-      text: Get More Information
-      url: /es/apply
-      variant: primary
     marginY:
       desktop: none md
     paddingY:
