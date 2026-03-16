@@ -120,8 +120,7 @@ sections:
           - text: Rigobot es tutor de Inteligencia Artificial disponible 24/7
           - text: Retroalimentación en tiempo real y guía experta
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-        cta:
-          icon: Rigobot
+        cta: La IA te acompaña
       - icon: TrendingUp
         title: Mentorías uno a uno
         description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
@@ -131,8 +130,7 @@ sections:
           - text: Orientadas a guiar tu aprendizaje
           - text: Resuelve tus dudas de manera personalizada
         video_url: https://youtu.be/-2ZvlgDnltc
-        cta:
-          icon: Interview
+        cta: Aprende con los que saben
       - icon: Headset
         title: Aprende en comunidad
         description: Aprender junto a otros no solo es más divertido, sino que también te ayuda a progresar más rápido. Únete a nuestra comunidad activa de aprendizaje para recibir apoyo y colaboración.
@@ -142,8 +140,7 @@ sections:
           - text: Recibe ayuda, comparte ideas y resuelve dudas
           - text: Comunidad activa conectada a través de Slack
         image_id: community-support-cropped
-        cta:
-          icon: PeopleGroup
+        cta: Juntos es mejor
     marginY:
       desktop: md none
     paddingY:
