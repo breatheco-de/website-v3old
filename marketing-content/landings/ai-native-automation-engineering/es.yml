@@ -92,29 +92,6 @@ sections:
     description: 4Geeks.com es la primera plataforma diseñada para maximizar el aprendizaje a tu propio ritmo. Únete a sesiones en vivo cuando tu puedas, obtén ayuda de forma inmediata con IA y pide mentorías uno a uno. Todo nuestro contenido es totalmente interactivo y con videos.
     background: gradient
     section_id: banner-ravvyt
-  - type: two_column
-    proportions:
-      - 8
-      - 4
-    alignment: center
-    left:
-      heading: Construye flujos de automatización de cero a producción
-      description: Este bootcamp integral de 10 semanas cubre desde fundamentos de pensamiento en flujos de trabajo hasta sistemas de automatización listos para producción. Con 70% de práctica y 30% de aprendizaje conceptual, dominarás automatización n8n, integración de APIs, implementación de IA y prácticas profesionales usadas por ingenieros de automatización en la industria.
-      bullets:
-        - text: En esta sesión, los estudiantes desarrollarán habilidades fundamentales de pensamiento en flujos de trabajo, esenciales para la ingeniería de automatización. Aprenderán a identificar y diagramar procesos de la vida real, comenzando con actividades cotidianas como rutinas matutinas, compras de supermercado y tareas diarias. Los estudiantes dominarán la identificación de procesos, descomposición de pasos, ramificación de decisiones, bucles y rutas de error. Al final de este módulo, construirán más de 15 diagramas completos de flujos de trabajo, estableciendo la mentalidad central necesaria para abordar la automatización de manera sistemática. Esta base práctica prepara a los estudiantes para pensar en términos de procesos y secuencias, algo crítico para todo el trabajo de automatización posterior.
-          heading: Flujos De Trabajo Cotidianos
-        - text: Build a portfolio employers actually want to see
-          heading: Real Projects
-        - text: Resume reviews, mock interviews, and job placement support
-          heading: Career Services
-      bullet_icon: IconArrowRight
-      bullet_icon_color: text-primary
-    right:
-      image: https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=500&fit=crop
-      image_alt: Graduate celebrating success
-      justify: center
-    gap: "12"
-    section_id: two_column-ki7ax8
   - type: bullet_tabs_showcase
     version: "1.0"
     variant: withoutBorder
