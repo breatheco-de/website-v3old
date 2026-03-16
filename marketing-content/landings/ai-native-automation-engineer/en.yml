@@ -52,36 +52,19 @@ sections:
     signup_card:
       title: ACCEDE A CIENTOS DE DESAFÍOS, PROYECTOS Y CURSOS
       description: Tendrás acceso a
-      form:
-        variant: stacked
-        submit_label: Send me the details
-        fields:
-          email:
-            visible: true
-            required: true
-          first_name:
-            visible: true
-            required: true
-          phone:
-            visible: true
-            required: true
-          program:
-            visible: false
-            required: true
-            default: full-stack
       features:
         - icon: IconBook
           text: Lecturas
         - icon: IconCalendarBolt
-          text: 12-week accelerated morning track
+          text: Ejercicios interactivos
         - icon: code
-          text: Interactive coding exercises
+          text: Proyectos interactivos
         - icon: robot
-          text: AI-powered feedback
+          text: Feedback en tiempo real de IA
         - icon: calendar
-          text: 1:7 teacher student ratio
+          text: Talleres todas las semanas
         - icon: users
-          text: 1:1 mentorship
+          text: Encuentros de la comunidad
     section_id: hero-95qjzu
     marginY:
       desktop: none sm
