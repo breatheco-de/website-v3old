@@ -221,8 +221,6 @@ sections:
     title: Accede a todo nuestro contenido de aprendizaje, cursos y servicios
     subtitle: Aprende una nueva habilidad cada 30 minutos, nunca te quedarás atascado o perdido de nuevo.
     discount_text: "Aprende a tu propio ritmo: Contacta con un asesor para solicitar una suscripción."
-    financing_text: Installment financing starting from
-    financing_amount: {{ global.price_fullstack | $299 }}
     tech_icons:
       - openai
       - python
