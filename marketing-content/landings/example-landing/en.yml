@@ -6,7 +6,7 @@ meta:
   og_image: /images/landing-og.jpg
   priority: 0.9
   change_frequency: weekly
-  page_title: Example Landing Page (Default) | 4Geeks
+  page_title: Example Landing test Page (Default) | 4Geeks
   description: This is an example landing page demonstrating the various section types and layouts available.
   redirects:
     - /example/landing
