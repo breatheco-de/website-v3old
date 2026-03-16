@@ -55,7 +55,7 @@ sections:
       description: Con tu suscripción tendrás acceso a...
       features:
         - icon: IconBook
-          text: Programa de {{ global.fullstack_week_duration | 20 }} semanas
+          text: Lectura {{  01 }}
         - icon: IconCalendarBolt
           text: Modalidad intensiva de 12 semanas (mañanas)
         - icon: code
