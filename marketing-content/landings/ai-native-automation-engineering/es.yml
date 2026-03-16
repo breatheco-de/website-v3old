@@ -147,7 +147,7 @@ sections:
           - text: Coaching personalizado 1:1
           - text: Currículums optimizados para procesos de contratación con IA
           - text: Preparación de entrevistas y negociación salarial
-        video_url: https://youtu.be/-2ZvlgDnltc
+        image_url: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
         cta:
           text: Aprende con quienes ya lo hacen
       - icon: Headset
