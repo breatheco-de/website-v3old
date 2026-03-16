@@ -218,9 +218,9 @@ sections:
     section_id: pricing-wjefcj
     version: "1.0"
     variant: product
-    title: Tuition and Financing Options
-    subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: "Full payment discount: Save 10% with early payment."
+    title: Accede a todo nuestro contenido de aprendizaje, cursos y servicios
+    subtitle: Aprende una nueva habilidad cada 30 minutos, nunca te quedarás atascado o perdido de nuevo.
+    discount_text: "Aprende a tu propio ritmo: Contacta con un asesor para solicitar una suscripción."
     financing_text: Installment financing starting from
     financing_amount: {{ global.price_fullstack | $299 }}
     tech_icons:
