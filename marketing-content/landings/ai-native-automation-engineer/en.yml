@@ -114,15 +114,15 @@ sections:
     features:
       - icon: Robot
         title: Aprende con Inteligencia Artificial
-        description: ""
+        description: Nuestra inteligencia artificial revisa tu código para brindarte retroalimentación instantánea, te ayuda con los ejercicios ¡y mucho más!
         show_rigobot_logo: true
         bullets:
           - text: Rigobot es tutor de Inteligencia Artificial disponible 24/7
           - text: Retroalimentación en tiempo real y guía experta
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
       - icon: TrendingUp
-        title: Thrive in tech with career support for the AI-Era
-        description: ""
+        title: Mentorías uno a uno
+        description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
         show_rigobot_logo: true
         bullets:
           - text: Personalized 1:1 coaching
