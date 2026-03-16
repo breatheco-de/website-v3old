@@ -62,7 +62,7 @@ sections:
     paddingY:
       desktop: md lg
     marginY:
-      desktop: none md
+      desktop: none xl
     background: hsl(var(--secondary))
   - type: image_row
     images:
