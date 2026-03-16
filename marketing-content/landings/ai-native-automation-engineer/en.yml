@@ -125,20 +125,18 @@ sections:
         description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
         show_rigobot_logo: true
         bullets:
-          - text: Personalized 1:1 coaching
-          - text: AI-ready resumes and portfolios
-          - text: Interview prep and salary negotiation
-          - text: Lifelong access to support your growth
+          - text: Acceso a mentorías 1:1
+          - text: Orientadas a guiar tu aprendizaje
+          - text: Resuelve tus dudas de manera personalizada
         video_url: https://youtu.be/-2ZvlgDnltc
       - icon: Headset
-        title: Unlimited 1:1 mentorship and an active community
-        description: ""
+        title: Aprende en comunidad
+        description: Aprender junto a otros no solo es más divertido, sino que también te ayuda a progresar más rápido. Únete a nuestra comunidad activa de aprendizaje para recibir apoyo y colaboración.
         show_rigobot_logo: true
         bullets:
-          - text: Lifelong access to 1:1 mentorship sessions
-          - text: 7:1 student–teacher ratio for personalized guidance
-          - text: Peer collaboration through Slack channels and weekly check-ins
-          - text: Dedicated Slack channels for coding support, job boards, and career advice
+          - text: Aprende con otros compañeros y avanza más rápido
+          - text: Recibe ayuda, comparte ideas y resuelve dudas
+          - text: Comunidad activa conectada a través de Slack
         image_id: community-support-cropped
     marginY:
       desktop: md none
