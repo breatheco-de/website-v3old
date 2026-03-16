@@ -43,7 +43,7 @@ sections:
     tutors:
       - name: Alejandro Sanchez
         role: Instructor Principal
-        image: https://randomuser.me/api/portraits/men/10.jpg
+        image: https://techhubsouthflorida.org/wp-content/uploads/2023/09/Alejandro-Sanchez.jpeg
       - name: Rigo
         role: AI Learning Assistant
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
