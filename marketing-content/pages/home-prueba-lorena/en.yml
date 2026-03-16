@@ -286,6 +286,15 @@ sections:
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
     section_id: career_support_explain-w18hgq
+  - type: testimonials_slide
+    section_id: testimonials_slide-6jlded
+    title: Real Graduates, Real Career Results
+    description: See how our graduates transformed their careers with personalized learning and career support.
+    background: hsl(var(--card))
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none
   - type: why_learn_ai
     variant: laptop-edge
     title: Get Hired. Or Your Money Back.
@@ -317,15 +326,6 @@ sections:
       - buenosaires-argentina
       - costa-rica
       - mexicocity-mexico
-  - type: testimonials_slide
-    section_id: testimonials_slide-6jlded
-    title: Real Graduates, Real Career Results
-    description: See how our graduates transformed their careers with personalized learning and career support.
-    background: hsl(var(--card))
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none
   - type: faq
     section_id: faq-31bv5t
     title: Frequently Asked Questions
