@@ -159,6 +159,7 @@ sections:
     section_id: ai_learning-t5rl7a
     paddingY:
       desktop: md none
+    background: hsl(var(--primary))
   - type: bullet_tabs_showcase
     version: "1.0"
     variant: withoutBorder
