@@ -59,13 +59,13 @@ sections:
         - icon: IconPencilCode
           text: Ejercicios interactivos    10
         - icon: IconDeviceIpadCode
-          text: +100 ejercicios interactivos de programación
+          text: Proyectos interactivos
         - icon: robot
-          text: Feedback con IA en tiempo real
+          text: Feedback en tiempo real con IA
         - icon: calendar
-          text: Ratio {{ global.global_teacher_student_ratio | 1:7 }} estudiante–profesor
+          text: Talleres todas las semanas
         - icon: users
-          text: Mentoría personalizada 1:1
+          text: Encuentros de la comunidad
     section_id: hero-jx2sbx
     paddingY:
       desktop: md lg
@@ -84,6 +84,7 @@ sections:
       - tampa-usa
       - toronto-canada
       - madrid-spain
+    layout_reversed: false
   - type: hero
     section_id: hero-so0hp3
     version: "1.0"
