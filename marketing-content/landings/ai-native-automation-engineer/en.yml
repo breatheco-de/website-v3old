@@ -233,7 +233,7 @@ sections:
       - robot
       - settings
     static_icons: true
-    features_title: Acceso a cientos de ejercicios, proyectos tutoriales para desarrollar y cursos en las tecnologías más buscadas
+    features_title: Acceso a cientos de ejercicios, proyectos tutoriales para desarrollar y cursos en las tecnologías más demandadas en el mercado.
     features:
       - icon: IconCheck
         text: Crea tu portfolio con cientos de proyectos reales.
