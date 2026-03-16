@@ -163,7 +163,6 @@ sections:
         cta_text: View Program Details
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
-    background: hsl(var(--muted))
     section_id: course_selector-0lgvpc
     marginY:
       desktop: lg
