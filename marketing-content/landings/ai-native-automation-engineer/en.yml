@@ -143,39 +143,6 @@ sections:
         icon: IconUsers
     paddingY:
       desktop: md
-  - type: projects
-    section_id: projects-o3b14u
-    title: Learn by Building Real-Life Projects
-    subtitle: Build production-ready full stack applications that mirror real software engineering roles and industry workflows.
-    items:
-      - title: Build a StarWars REST API
-        description: The StarWars Blog API will let you practice building a REST API using lightweight API frameworks like Express (for node) or Flask (for python) using SQLAlchemy ORM and Python language, while building a fun blog. Ideal for juniors looking to practice API development in python.
-        image: star-wars
-        tags:
-          - REST
-        duration: 8 HOURS
-        difficulty: easy
-        date: 15/11/2022
-      - title: Authentication System with JWT
-        description: Create a complete authentication system with JWT tokens, React frontend, and Python backend. Learn security best practices and session management patterns used in production applications.
-        image: authentication
-        tags:
-          - Security
-          - JWT
-        duration: 6 HOURS
-        difficulty: medium
-        date: 20/01/2023
-      - title: Full-Stack Final Project
-        description: Design and build your own full-stack application from scratch. Demonstrate your skills with React, Flask, SQLAlchemy, and third-party API integrations. This capstone project showcases everything you've learned.
-        image: final-project
-        tags:
-          - Full-Stack
-          - Capstone
-        duration: 40 HOURS
-        difficulty: hard
-        date: 01/03/2023
-    paddingY:
-      desktop: md sm
   - type: ai_learning
     section_id: ai_learning-aazkxm
     variant: feature-tabs
