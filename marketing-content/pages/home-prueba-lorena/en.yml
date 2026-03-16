@@ -287,10 +287,10 @@ sections:
             achievement: She achieved a 100% salary increase.
     section_id: career_support_explain-w18hgq
   - type: testimonials_slide
-    section_id: testimonials_slide-6jlded
-    title: Real Graduates, Real Career Results
-    description: See how our graduates transformed their careers with personalized learning and career support.
+    title: They Were Exactly Where You Are Now.
+    description: "Different backgrounds, different programs, one result: a career in tech they didn't think was possible. These are real 4Geeks graduates with real numbers to back it up."
     background: hsl(var(--card))
+    section_id: testimonials_slide-6jlded
     marginY:
       desktop: none
     paddingY:
