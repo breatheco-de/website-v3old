@@ -93,9 +93,8 @@ sections:
     background: gradient
     section_id: banner-ravvyt
   - type: syllabus
-    version: "1.0"
-    title: Get Job-Ready with Our Syllabus!
-    subtitle: We've fine-tuned our course content with hundreds of job positions to prepare you for a successful entry into tech.
+    title: Construye flujos de automatización de cero a producción
+    subtitle: Este bootcamp integral de 10 semanas cubre desde fundamentos de pensamiento en flujos de trabajo hasta sistemas de automatización listos para producción. Con 70% de práctica y 30% de aprendizaje conceptual, dominarás automatización n8n, integración de APIs, implementación de IA y prácticas profesionales usadas por ingenieros de automatización en la industria.
     modules:
       - title: Introduction To HTML And CSS
         description: Learn to create web structures with HTML and style them with CSS, essential for building visually appealing and functional websites.
@@ -109,6 +108,8 @@ sections:
         description: Design and implement databases using SQL, understanding relationships, queries, and data modeling.
       - title: API Development
         description: Build and consume RESTful APIs, implementing authentication, validation, and error handling.
+    expand_label: Course details
+    collapse_label: Hide course details
     section_id: syllabus-mn0duk
   - type: bullet_tabs_showcase
     version: "1.0"
