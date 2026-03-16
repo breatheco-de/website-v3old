@@ -24,8 +24,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Ingeniería de Automatización con IA
-    title_highlight: con IA
+    title: Ingeniería de Automatización con Inteligencia Artificial
+    title_highlight: con Inteligencia Artificial
     subtitle: Esto no es sólo un curso, es una transformación.
     students_enrolled:
       avatars:
