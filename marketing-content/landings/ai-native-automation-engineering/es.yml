@@ -64,7 +64,7 @@ sections:
           text: Feedback en tiempo real con IA
         - icon: calendar
           text: Talleres todas las semanas
-        - icon: PeopleGroup
+        - icon: IconUsersGroup
           text: Encuentros de la comunidad
     layout_reversed: false
     section_id: hero-jx2sbx
