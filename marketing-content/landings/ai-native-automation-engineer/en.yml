@@ -129,7 +129,7 @@ sections:
           - text: Acceso a mentorías 1:1
           - text: Orientadas a guiar tu aprendizaje
           - text: Resuelve tus dudas de manera personalizada
-        image_id: community-support-cropped
+        image_id: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         cta: Aprende con los que saben
       - icon: Rocket
         title: Aprende en comunidad
