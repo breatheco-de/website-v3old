@@ -168,49 +168,6 @@ sections:
       desktop: md lg
     paddingY:
       desktop: md lg
-  - type: two_column_accordion_card
-    variant: image_background
-    version: "1.0"
-    title: The Most Personalized Path to a Tech Career.
-    description: Most programs teach everyone the same way. We don't. Unlimited 1:1 mentorship, AI-powered learning that adapts to your level, and career support that continues long after graduation — all designed to get you hired faster.
-    bullets:
-      - heading: Hyper-Personalized Learning
-        text: Small student-to-teacher ratios, unlimited mentor access, and AI-guided feedback that adapts to your pace and level — accelerating your path to job-ready.
-      - heading: Lifelong Mentorship and Career Support
-        text: 1:1 guidance from expert mentors and career coaches that doesn't stop at graduation. Get hired, stay competitive, and keep growing as the market evolves.
-      - heading: AI-Native Curriculum Built for 2026 and Beyond
-        text: Learn the AI tools, workflows, and engineering skills that companies are actively hiring for right now — not what was relevant three years ago.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
-    image_alt: Student learning with mentor support
-    video:
-      url: https://storage.googleapis.com/4geeks-academy-website/media/loop-1.mp4
-    reverse: true
-    section_id: two_column_accordion_card-vathw0
-    marginY:
-      desktop: none lg
-    paddingY:
-      desktop: none
-  - type: features_grid
-    version: "1.0"
-    variant: highlight
-    title: Real Outcomes for Our Graduates
-    subtitle: Our graduates land jobs, earn more, and build careers that last — across the U.S., LATAM, and beyond.
-    items:
-      - icon: IconBriefcase
-        value: {{ global.global_job_placement_rate | 84 }}%
-        title: Job placement rate
-      - icon: IconCalendarCheck
-        value: 3-6 months
-        title: Average time to get hired
-      - icon: IconReportMoney
-        value: {{ global.global_salary_increase | 55 }}%
-        title: Average salary increase after graduation
-    columns: 3
-    icon_color: "#0097CD"
-    background: hsl(var(--secondary))
-    section_id: features_grid-i5vyzf
-    marginY:
-      desktop: none md
   - type: career_support_explain
     version: v1.0
     heading: We Stay With You Until You're Hired.
@@ -329,6 +286,49 @@ sections:
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
     section_id: career_support_explain-w18hgq
+  - type: two_column_accordion_card
+    variant: image_background
+    version: "1.0"
+    title: The Most Personalized Path to a Tech Career.
+    description: Most programs teach everyone the same way. We don't. Unlimited 1:1 mentorship, AI-powered learning that adapts to your level, and career support that continues long after graduation — all designed to get you hired faster.
+    bullets:
+      - heading: Hyper-Personalized Learning
+        text: Small student-to-teacher ratios, unlimited mentor access, and AI-guided feedback that adapts to your pace and level — accelerating your path to job-ready.
+      - heading: Lifelong Mentorship and Career Support
+        text: 1:1 guidance from expert mentors and career coaches that doesn't stop at graduation. Get hired, stay competitive, and keep growing as the market evolves.
+      - heading: AI-Native Curriculum Built for 2026 and Beyond
+        text: Learn the AI tools, workflows, and engineering skills that companies are actively hiring for right now — not what was relevant three years ago.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
+    image_alt: Student learning with mentor support
+    video:
+      url: https://storage.googleapis.com/4geeks-academy-website/media/loop-1.mp4
+    reverse: true
+    section_id: two_column_accordion_card-vathw0
+    marginY:
+      desktop: none lg
+    paddingY:
+      desktop: none
+  - type: features_grid
+    version: "1.0"
+    variant: highlight
+    title: Real Outcomes for Our Graduates
+    subtitle: Our graduates land jobs, earn more, and build careers that last — across the U.S., LATAM, and beyond.
+    items:
+      - icon: IconBriefcase
+        value: {{ global.global_job_placement_rate | 84 }}%
+        title: Job placement rate
+      - icon: IconCalendarCheck
+        value: 3-6 months
+        title: Average time to get hired
+      - icon: IconReportMoney
+        value: {{ global.global_salary_increase | 55 }}%
+        title: Average salary increase after graduation
+    columns: 3
+    icon_color: "#0097CD"
+    background: hsl(var(--secondary))
+    section_id: features_grid-i5vyzf
+    marginY:
+      desktop: none md
   - type: course_selector
     version: "1.0"
     variant: solid
