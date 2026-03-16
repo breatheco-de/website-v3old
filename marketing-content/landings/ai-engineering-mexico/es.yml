@@ -58,11 +58,8 @@ sections:
       terms_url: /terminos-condiciones
       privacy_url: /politica-privacidad
       consent:
-        sms: true
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        sms_text: Acepto recibir SMS sobre talleres, eventos, cursos y materiales de marketing. Pueden aplicar cargos por mensaje y datos. Responde STOP para cancelar, HELP para ayuda. Puedes recibir 4–6 mensajes al mes. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        sms_usa_only: false
       show_terms: true
     cta_button:
       text: Descargar programa
