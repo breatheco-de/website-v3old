@@ -36,10 +36,11 @@ sections:
         - https://randomuser.me/api/portraits/men/4.jpg
       count: Cientos de estudiantes inscriptos de España, LATAM y EE. UU.
     bullet_points:
-      - Domina el desarrollo frontend moderno con HTML, CSS, JavaScript y React
-      - Construye sistemas backend escalables con Python, APIs y arquitectura de bases de datos
-      - Integra herramientas y flujos de trabajo con IA en aplicaciones web reales
-      - Accede a soporte profesional ilimitado, mentoría 1:1 y opción de Garantía de Empleo
+      - Construye más de 35 flujos de automatización funcionales incluyendo sistemas de clima, asistentes de IA y aplicaciones impulsadas por eventos.
+      - Domina la plataforma de automatización n8n con experiencia práctica desde conceptos básicos de 2 nodos hasta sistemas complejos de producción de 10 nodos.
+      - Integra APIs del mundo real y servicios de IA incluyendo OpenAI GPT, datos meteorológicos y sistemas de eventos basados en webhooks.
+      - Crea un proyecto final completo listo para portafolio con documentación profesional, pruebas y paquete para GitHub.
+      - Aprende prácticas de desarrollo nativo de IA, trabajando CON agentes de IA mediante ingeniería de prompts y patrones de validación.
     tutors:
       - name: Instructor Experto
         role: Instructor Principal
