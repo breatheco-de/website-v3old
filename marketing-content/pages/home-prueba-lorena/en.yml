@@ -63,7 +63,7 @@ sections:
       desktop: md lg
     marginY:
       desktop: none xl
-    background: hsl(var(--accent))
+    background: hsl(210 100% 50% / 0.05)
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
