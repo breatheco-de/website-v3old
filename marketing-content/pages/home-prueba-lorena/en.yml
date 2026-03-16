@@ -24,7 +24,6 @@ sections:
       - text: Find your path
         url: /signup
         variant: primary
-        icon: Rocket
     trust_bar:
       rating: 4.9/5
       rating_count: 3,000+
