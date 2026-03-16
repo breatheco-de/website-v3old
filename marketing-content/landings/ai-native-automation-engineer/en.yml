@@ -121,7 +121,7 @@ sections:
           - text: Retroalimentación en tiempo real y guía experta
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
         cta: La IA te acompaña
-      - icon: TrendingUp
+      - icon: Headset
         title: Mentorías uno a uno
         description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
         show_rigobot_logo: true
@@ -131,7 +131,7 @@ sections:
           - text: Resuelve tus dudas de manera personalizada
         video_url: https://youtu.be/-2ZvlgDnltc
         cta: Aprende con los que saben
-      - icon: Headset
+      - icon: Teamwork
         title: Aprende en comunidad
         description: Aprender junto a otros no solo es más divertido, sino que también te ayuda a progresar más rápido. Únete a nuestra comunidad activa de aprendizaje para recibir apoyo y colaboración.
         show_rigobot_logo: true
