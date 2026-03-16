@@ -13,7 +13,7 @@ sections:
       prefix: Break Your Career
       highlight: Ceiling.
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\">Become an AI Engineer: the fastest-growing job of 2026. 1.3M new roles.&nbsp;<div>42× growth since 2023. In 24 weeks, that's you — landing roles paying $95K–$135K+.</div></span><div></div>"
+    description: "<span style=\"font-size: 1.125rem;\"><span>Become an AI Engineer: the fastest-growing job of 2026. 1.3M new roles.&nbsp;<div>42× growth since 2023. In 24 weeks, that's you — landing roles paying $95K–$135K+.</div></span></span><div></div>"
     bullets:
       - text: Build a complete AI-native system across 10 milestones
       - text: Unlimited 1:1 mentorship and career support that doesn't stop at graduation
