@@ -716,7 +716,7 @@ class ContentIndex {
   resolveBaseSlug(slug: string, contentType: string): string {
     this.ensureInitialized();
     const normalized = this.normalizeType(contentType);
-    if (this.bySlug.has(slug)) return slug;
+    if (this.bySlug.has(slug) && this.bySlug.get(slug)?.some(e => e.contentType === normalized)) return slug;
     return this.localeSlugMap.get(`${slug}:${normalized}`) || slug;
   }
 
