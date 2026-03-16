@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
+import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { IconX, IconDeviceFloppy, IconLoader2, IconAlertTriangle, IconFile } from "@tabler/icons-react";
 import CodeMirror from "@uiw/react-codemirror";
 import { yaml } from "@codemirror/lang-yaml";
@@ -96,8 +96,22 @@ export default function RawFileEditorPanel({ contentType, slug, locale, onClose,
         return;
       }
 
+      const token = getDebugToken();
+      const author = await resolveAuthorName();
+
       for (const file of filesToSave) {
-        await apiRequest("PUT", "/api/content/raw-file", file);
+        const res = await fetch("/api/content/raw-file", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Token ${token}` } : {}),
+          },
+          body: JSON.stringify({ ...file, author }),
+        });
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({ error: "Unknown error" }));
+          throw new Error(errorData.error || `Request failed with status ${res.status}`);
+        }
       }
 
       if (localeFile) setLocaleFile({ ...localeFile, content: localeContent });
