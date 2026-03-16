@@ -3,6 +3,7 @@ slug: full-stack
 bc_slug: full-stack
 title: Full Stack Development
 job_role: Full Stack Developer
+valid_lead_form_option: true
 meta:
   og_image: /images/programs/full-stack-og.jpg
 

@@ -3,6 +3,7 @@ slug: cybersecurity
 bc_slug: cybersecurity
 title: Cybersecurity
 job_role: Cybersecurity Specialist
+valid_lead_form_option: true
 meta:
   og_image: /images/programs/cybersecurity-og.jpg
 

@@ -1,0 +1,382 @@
+slug: home-prueba-lorena
+template: default
+title: home-prueba lorena
+settings:
+  loading:
+    eager_count: 3
+meta:
+  robots: index, follow
+  priority: 1
+  change_frequency: daily
+  page_title: 4Geeks Academy | The AI Reskilling Platform
+  description: Transform your career with AI-powered learning. Get personalized education, expert mentorship, and career support to launch your tech career.
+schema:
+  include:
+    - organization
+    - website
+sections:
+  - type: hero
+    version: "1.0"
+    variant: singleColumn
+    title: AI is changing every job. Be the one who uses it, not the one it replaces.
+    subtitle: 4Geeks doesn't just teach you tech skills — we get you hired. Unlimited 1:1 mentorship, AI-powered learning, and career support that doesn't stop at graduation.
+    cta_buttons:
+      - text: Find your path
+        url: /signup
+        variant: primary
+    trust_bar:
+      rating: 4.9/5
+      rating_count: 3,000+
+      trusted_text: Trusted by students worldwide
+    award_badges:
+      - name: Best Coding Bootcamp
+        source: Forbes
+        year: "2024"
+      - name: Top Tech School
+        source: Course Report
+    section_id: hero-hq29hp
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    paddingY:
+      desktop: xl sm
+    marginY:
+      desktop: none xl
+  - type: trust_cards
+    version: v1.0
+    title: "Rated #1 Across Every Major Review Platform"
+    items:
+      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+        rating: 4.9
+        review_count: 4.9 on Course Report
+      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        rating: 4.8
+        review_count: 4.8 on Google
+      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        rating: 4.9
+        review_count: 4.9 on Career Karma
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 4.9 on SwitchUp
+    name: Default Trust Cards
+    description: Four review platform cards with ratings
+    section_id: trust_cards-eslgbu
+    paddingY:
+      desktop: md lg
+    marginY:
+      desktop: none xl
+    background: hsl(210 100% 50% / 0.05)
+  - type: image_row
+    images:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
+        alt: Student learning to code
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
+        alt: Developer working on project
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
+        alt: Team collaboration session
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
+        alt: Graduate celebrating success
+    highlight:
+      heading: We don't just teach you. We stay until you're hired.
+      text: Most platforms give you a course and wish you luck. 4Geeks gives you unlimited 1:1 mentorship, AI-powered learning that adapts to your pace, and a career team that stays with you until you land the job — not just until you finish the program.
+      background: primary
+      width: 2
+    height: 31rem
+    mobile_height: 24rem
+    gap: md
+    rounded: true
+    section_id: image_row-qjh14w
+    marginY:
+      desktop: none md
+    paddingY:
+      desktop: md xl
+  - type: features_grid
+    version: "1.0"
+    variant: stats-text
+    title: Why Now Is the Best Time to Make the Switch
+    subtitle: AI isn't replacing workers. It's replacing workers who don't know how to use it.
+    description: The tech job market is being rewritten in real time. Companies aren't just hiring developers anymore. They're hiring developers who can build with AI, analyze with AI, and secure systems against AI threats. The window to get ahead of this shift is open right now. It won't stay open forever.
+    items:
+      - value: 3.5M
+        title: Tech and AI-related roles expected globally by 2026
+      - value: 55%
+        title: Average salary increase reported by 4Geeks graduates
+      - value: 86%
+        title: Of US graduates hired within 90 days of graduation
+    section_id: features_grid-142xko
+    background: hsl(var(--secondary))
+  - type: course_selector
+    version: "1.0"
+    variant: solid
+    heading: Find Your Path Into Tech
+    subheading: "Four programs. One goal: get you hired in a high-demand role that AI can't take away."
+    courses:
+      - name: AI Engineering
+        icon: Brain
+        duration: 24 weeks
+        label: Updated in 2026
+        title: AI Engineering
+        badges:
+          - icon: Cpu
+            text: LLMs, AI Agents & Automation
+          - icon: Database
+            text: Production AI Systems
+        description: Build the AI systems companies are hiring for right now. Graduate with a live, production-ready AI product and the skills to back it up.
+        cta_text: View Program Details
+        cta_url: /en/career-programs/ai-engineering
+        course_background: hsl(var(--accent))
+      - name: Full Stack Development with AI
+        icon: Code
+        duration: 20 weeks
+        label: Updated in 2026
+        title: Full Stack Development with AI
+        badges:
+          - icon: Code
+            text: React, Node.js & Python
+        description: Build modern web apps from frontend to backend using AI-powered workflows. The most in-demand skill set for developers in 2025.
+        cta_text: View Program Details
+        cta_url: /en/career-programs/full-stack
+        course_background: hsl(var(--destructive))
+      - name: Data Science & ML
+        icon: ChartLine
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Data Science & Machine Learning with AI
+        badges:
+          - icon: BrainCircuit
+            text: Machine Learning & AI Models
+          - icon: BarChart
+            text: Data Analysis & Visualization
+        description: Turn data into decisions. Build ML models, work with real datasets, and position yourself for one of the fastest-growing roles in tech.
+        cta_text: View Program Details
+        cta_url: /en/career-programs/data-science-ml
+        course_background: hsl(var(--primary))
+      - name: Cybersecurity
+        icon: Shield
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Cybersecurity
+        badges:
+          - icon: Lock
+            text: Threat Detection & Network Security
+          - icon: Server
+            text: Cloud Security
+        description: Protect the systems AI depends on. Cybersecurity specialists are in critical demand as companies race to secure their AI infrastructure.
+        cta_text: View Program Details
+        cta_url: /en/career-programs/cybersecurity
+        course_background: hsl(var(--secondary-foreground))
+    section_id: course_selector-0lgvpc
+    marginY:
+      desktop: md
+    paddingY:
+      desktop: md none
+  - type: career_support_explain
+    version: v1.0
+    heading: We Stay With You Until You're Hired.
+    description: This is what separates 4Geeks from every other platform. Not just courses. A complete system that takes you from enrolled to employed. AI-optimized profiles, direct access to 400+ hiring partners, and hands-on support from your first day to your signed offer letter and beyond.
+    background: hsl(var(--sidebar-background))
+    tabs:
+      - tab_label: Job-Ready, Faster
+        layout: three_columns
+        col1_subtitle: Build a Recruiter-Ready Profile, Smarter.
+        col1_description: |-
+          Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
+          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal impact.
+        col1_tagline: We'll help you create tailored job search materials
+        col1_boxes:
+          - icon: IconBrandLinkedin
+            text: LinkedIn
+          - icon: IconFileText
+            text: Resume
+          - icon: IconBriefcase
+            text: Portfolio
+          - icon: IconMail
+            text: Cover letter
+        col2_heading: Career Strategy, Built Around You
+        col2_bullets:
+          - icon: IconRobot
+            text: 24/7 feedback from RigoBot to audit your LinkedIn and resume
+          - icon: IconUsers
+            text: 1-on-1 career coaching and strategy sessions
+          - icon: IconMicrophone
+            text: Mock interviews and technical interview prep
+        col3_image_id: 4geeks_member
+        col3_object_fit: cover
+        col3_object_position: center
+      - tab_label: Real Hiring Access
+        layout: two_column_cards
+        title: Access the Hidden Job Market.
+        left_text: Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
+        left_image_id: career_team_women
+        left_image_object_fit: cover
+        left_image_object_position: center
+        left_stat:
+          value: 400+
+          label: companies in 4Geeks employer network
+        right_bullets:
+          - icon: IconUserPlus
+            text: Direct referrals to hiring partners
+          - icon: IconTargetArrow
+            text: Curated job matches based on your profile
+          - icon: IconMessageChatbot
+            text: Networking and recruiter conversation coaching
+        right_logos:
+          - image_id: logo_google
+            alt: Google
+          - image_id: logo_meta
+            alt: Meta
+          - image_id: logo_microsoft
+            alt: Microsoft
+          - image_id: logo_uber
+            alt: Uber
+          - image_id: logo_ebay
+            alt: eBay
+          - image_id: logo_kpmg
+            alt: KPMG
+      - tab_label: Proof That Converts
+        layout: text_and_image
+        title: Projects that Demonstrate Real Skill.
+        left_description: |-
+          Visibility gets attention. Proof closes the gap.
+          Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
+        left_bullets:
+          - icon: IconBriefcase
+            text: Industry-aligned, real-world projects
+          - icon: IconPresentation
+            text: A showcase-ready capstone project
+          - icon: IconBrandGithub
+            text: GitHub optimization and professional code review
+        right_image_id: geekforce_valentina_ancieta
+        right_image_object_fit: cover
+        right_image_object_position: center
+      - tab_label: Your Best-Fit Role
+        layout: text_with_testimonials_carousel
+        title: Turn Your Background into an Advantage.
+        left_description: |-
+          Once offers are on the table, we help you choose and negotiate with confidence.
+          Your previous experience matters. We map transferable skills, focus your job search on the right roles, and support you through salary negotiation and long-term growth.
+        left_bullets:
+          - icon: IconTransfer
+            text: Transferable skills mapping
+          - icon: IconMap
+            text: Personalized career roadmap
+          - icon: IconCoin
+            text: Salary negotiation coaching
+          - icon: IconUsers
+            text: Ongoing alumni career support
+        testimonials:
+          - image_id: mailinh_tran
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: clark_university
+            description: MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her endeavor.
+            achievement: She launched her own startup, is hiring new tech talent, and coordinates an entire team of developers.
+          - image_id: martin_coimbra
+            image_object_fit: cover
+            image_object_position: center top
+            contributor_logos:
+              - image_id: logo_utec
+            description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
+            achievement: He achieved a 100% salary increase.
+          - image_id: melanie_galaretto
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: logo_utec
+              - image_id: bid_logo
+            description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
+            achievement: She achieved a 100% salary increase.
+    section_id: career_support_explain-w18hgq
+  - type: testimonials_slide
+    title: They Were Exactly Where You Are Now.
+    description: "Different backgrounds, different programs, one result: a career in tech they didn't think was possible. These are real 4Geeks graduates with real numbers to back it up."
+    background: hsl(var(--card))
+    section_id: testimonials_slide-6jlded
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Get Hired. Or Your Money Back.
+    subtitle: Most bootcamps hope you get a job. We guarantee it.
+    description: "<div><ul><li><span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Enroll with the Job Guarantee added to your payment plan.</span></span></span></span></li><li><span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Complete the program and the GeekFORCE career development process.</span></span></span></span></li><li><span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">If you're not hired within 9 months of graduation, you'll get a full refund of your tuition.</span></span></span></span></li></ul><div><span style=\"font-size: 1.125rem;\"><span><span><div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></span></span></div></span></span></span></div></div>"
+    cta:
+      text: See How It Works
+      url: /en/job-guarantee
+      variant: primary
+    section_id: why_learn_ai-z83qep
+    marginY:
+      desktop: md
+    paddingY:
+      desktop: none
+    background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - costa-rica
+      - mexicocity-mexico
+  - type: faq
+    section_id: faq-31bv5t
+    title: Frequently Asked Questions
+    related_features:
+      - online-platform
+      - certification
+      - mentors-and-teachers
+    marginY:
+      desktop: none md
+    paddingY:
+      desktop: md none
+  - type: cta_banner
+    version: "1.0"
+    title: Your Next Career Move Starts Here.
+    subtitle: Tell us where you are today and we'll show you exactly how to get where you want to be — program details, pricing, and a plan built around you.
+    background: hsl(210 100% 50% / 0.05)
+    variant: form
+    form:
+      variant: stacked
+      submit_label: Get My Personalized Plan
+      tags: request_more_info
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Your email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        phone:
+          visible: true
+          required: false
+          placeholder: Phone number
+        program:
+          visible: true
+          required: true
+          default: auto
+      success:
+        message: You're in. Someone from our team will reach out within minutes with a plan tailored to your goals.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: I agree to receive information about courses and promotions
+      show_terms: true
+      button_className: bg-primary
+      terms_className: text-white/80
+    form_background: hsl(210 100% 50% / 0.05)
+    terms_color: hsl(var(--primary))
+    section_id: cta_banner-8t72gj
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: md

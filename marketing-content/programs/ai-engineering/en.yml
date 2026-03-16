@@ -16,6 +16,7 @@ meta:
     - /coding-bootcamp/ai-engineering
     - /en/coding-bootcamps/software-engineer-bootcamp
     - /en/online-coding-bootcamp/best-online-coding-bootcamp
+ eeeeeex: as:
 schema:
   include:
     - organization
