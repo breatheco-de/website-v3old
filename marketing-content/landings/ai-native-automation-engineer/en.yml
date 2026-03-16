@@ -71,11 +71,7 @@ sections:
   - type: banner
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    avatars:
-      - avatar-woman-1
-      - avatar-man-2
-      - avatar-woman-3
-      - avatar-man-4
+    avatars: null
     title: Lorem ipsum dolor sit amet
     description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
     cta:
