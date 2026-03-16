@@ -24,24 +24,25 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Full Stack Development with AI Program
-    title_highlight: Full Stack Developer with AI
-    subtitle: Train for high-demand software development roles with an AI-powered full stack curriculum, personalized mentorship, and proven career outcomes.
+    title: Ingeniería de Automatización con IA
+    title_highlight: con IA
+    subtitle: Esto no es sólo un curso, es una transformación.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
         - https://randomuser.me/api/portraits/men/2.jpg
         - https://randomuser.me/api/portraits/women/3.jpg
         - https://randomuser.me/api/portraits/men/4.jpg
-      count: 1,000+ students enrolled across LATAM and the U.S.
+      count: Cientos de estudiantes inscritos en España, LATAM and the U.S.
     bullet_points:
-      - Master modern frontend development with HTML, CSS, JavaScript, and React
-      - Build scalable backend systems with Python, APIs, and database architecture
-      - Integrate AI tools and workflows into real-world web applications
-      - Unlimited career support, 1:1 mentorship, and access to an optional Job Guarantee
+      - Construye más de 35 flujos de automatización funcionales incluyendo sistemas de clima, asistentes de IA y aplicaciones impulsadas por eventos.
+      - Domina la plataforma de automatización n8n con experiencia práctica desde conceptos básicos de 2 nodos hasta sistemas complejos de producción de 10 nodos.
+      - Integra APIs del mundo real y servicios de IA incluyendo OpenAI GPT, datos meteorológicos y sistemas de eventos basados en webhooks.
+      - Crea un proyecto final completo listo para portafolio con documentación profesional, pruebas y paquete para GitHub.
+      - Aprende prácticas de desarrollo nativo de IA, trabajando CON agentes de IA mediante ingeniería de prompts y patrones de validación.
     tutors:
-      - name: Expert Instructor
-        role: Lead Instructor
+      - name: Alejandro Sanchez
+        role: Instructor Principal
         image: https://randomuser.me/api/portraits/men/10.jpg
       - name: Rigo
         role: AI Learning Assistant
