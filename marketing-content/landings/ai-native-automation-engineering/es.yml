@@ -122,7 +122,7 @@ sections:
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué aprender con 4Geeks?
-    title: Todo lo que necesitas para lanzar tu carrera en tecnología
+    title: ¿Por qué aprender con 4Geeks?
     description: Avanza más rápido y mantente motivado con nuestras herramientas de IA y método de enseñanza hiperpersonalizado.
     features:
       - icon: Robot
