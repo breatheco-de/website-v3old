@@ -105,6 +105,35 @@ sections:
       - title: Prácticas Profesionales
         description: En esta sesión, los estudiantes elevarán su proyecto final a estándares de producción dominando prácticas profesionales de desarrollo. Aprenderán convenciones de nomenclatura estándar de la industria para código mantenible, implementarán patrones integrales de organización de código, crearán documentación de grado de producción, desarrollarán estrategias avanzadas de manejo de errores, aplicarán control de versiones con Git y dominarán técnicas de comunicación con partes interesadas. El módulo cubre estándares de nomenclatura profesional, mejores prácticas de documentación, patrones y soluciones de errores comunes, metodologías de prueba sistemáticas, flujos de trabajo de control de versiones y técnicas efectivas de presentación para proyectos técnicos. Los estudiantes transformarán su automatización funcional en un sistema pulido y profesional que cumple con los estándares de la industria y puede presentarse con confianza a empleadores, clientes o partes interesadas.
     section_id: syllabus-8oy90c
+  - type: features_quad
+    version: "1.0"
+    variant: default
+    heading: Why Choose Our AI Engineering Program?
+    description: Get the skills, support, and job placement assistance you need to launch your career in AI engineering.
+    video:
+      url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+      ratio: "16:9"
+      width: 400px
+      preview_image_url: https://example.com/preview.jpg
+      muted: true
+      autoplay: false
+      loop: false
+    cards:
+      - icon: Trophy
+        title: Industry Recognition
+        description: Ranked among the top coding bootcamps by Forbes, Course Report, and Career Karma.
+      - icon: Wallet
+        title: Affordable Tuition
+        description: Among the most affordable tuition of any top-ranked bootcamp, with flexible payment options.
+      - icon: Clock
+        title: Flexible Schedule
+        description: Learn at your own pace with part-time and full-time options to fit your lifestyle.
+      - icon: Users
+        title: Career Support
+        description: Get unlimited 1:1 mentorship and job placement assistance for life.
+    footer_description: Join thousands of graduates who have launched successful tech careers.
+    background: bg-background
+    section_id: features_quad-e4212n
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
