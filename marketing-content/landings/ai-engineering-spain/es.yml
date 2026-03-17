@@ -208,7 +208,7 @@ sections:
         logoHeight: 56px
     marginY:
       mobile: md none
-      desktop: md
+      desktop: sm md
     paddingY:
       mobile: none lg
       desktop: none lg
