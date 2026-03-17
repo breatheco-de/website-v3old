@@ -187,7 +187,7 @@ sections:
         border_radius: 0.5rem
     bullet_groups:
       - title: Plataforma 4Geeks
-        image: https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433-359w.webp
+        icon: Code
         bullets:
           - text: Lecciones de lectura y explicaciones claras
           - text: Guía paso a paso para aprender haciendo
