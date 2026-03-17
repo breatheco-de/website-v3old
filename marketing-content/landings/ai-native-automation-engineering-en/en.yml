@@ -24,7 +24,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Work smarter, not harder, apply AI at Work
+    title: Automatización con IA usando n8n
+    title_highlight: Automatización con IA
     subtitle: Boost your career, harness the power of Applied AI.
     students_enrolled:
       avatars:
