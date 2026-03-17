@@ -396,24 +396,24 @@ sections:
   - type: certificate
     section_id: certificate-e3th63
     title: Tu certificado. Tu ventaja salarial.
-    description: Gradúate con un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida y las credenciales para negociar tu primer salario como Ingeniero de IA desde una posición de fuerza.
+    description: Gradúate con un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida y las credenciales para negociar tu primer salario como Full Stack Developer desde una posición de fuerza.
     benefits:
-      - text: "Ingeniero de Software con IA: €30K–€50K"
-      - text: "AI Engineer (Full Stack con IA): €35K–€55K"
-      - text: "Ingeniero de Agentes: €35K–€55K"
-      - text: "Ingeniero de Automatización: €28K–€45K"
+      - text: "Full Stack Developer: €25K–€45K"
+      - text: "Desarrollador Web con IA: €30K–€50K"
+      - text: "Ingeniero Backend: €28K–€48K"
+      - text: "Ingeniero Frontend: €25K–€42K"
     card:
-      title: Ingeniero de IA
+      title: Full Stack Developer
       subtitle: Certificado 4Geeks Academy
-      program_name: Ingeniería de IA
+      program_name: Full Stack con IA
     stats:
       - value: 86%
         label: Tasa de inserción laboral
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores en España están contratando activamente ahora mismo.
         benefits:
           - text: Certificado acreditado por el Departamento de Educación de Florida
-          - text: Un sistema de IA completo y funcionando en tu portfolio
-          - text: Experiencia demostrada con agentes, flujos de trabajo y sistemas de IA
+          - text: Un portfolio de proyectos reales y listos para producción
+          - text: Experiencia demostrada con flujos de trabajo y herramientas de IA
           - text: Perfil profesional optimizado para pasar los filtros automáticos de los recruiters
       - value: ~3 meses
         label: Tiempo medio para conseguir empleo
@@ -424,12 +424,12 @@ sections:
           - text: Estrategia personalizada de búsqueda de empleo con acceso a redes de contratación activas
       - value: 55%
         label: Aumento salarial medio
-        description: Los graduados reportan un aumento salarial medio del 55% tras incorporarse a roles de Ingeniería de IA. El programa se paga solo en pocos meses de trabajo.
+        description: Los graduados reportan un aumento salarial medio del 55% tras incorporarse a roles de Full Stack. El programa se paga solo en pocos meses de trabajo.
         benefits:
-          - text: "Ingeniero de Software con IA: €30K–€50K"
-          - text: "AI Engineer (Full Stack con IA): €35K–€55K"
-          - text: "Ingeniero de Agentes: €35K–€55K"
-          - text: "Ingeniero de Automatización: €28K–€45K"
+          - text: "Full Stack Developer: €25K–€45K"
+          - text: "Desarrollador Web con IA: €30K–€50K"
+          - text: "Ingeniero Backend: €28K–€48K"
+          - text: "Ingeniero Frontend: €25K–€42K"
       - value: 5.000+
         label: Graduados empleados en todo el mundo
         description: Más de 5.000 alumni colocados en empresas que buscan talento tech activamente. Consigue acceso exclusivo a oportunidades de empleo antes de que se publiquen.
