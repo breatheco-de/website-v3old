@@ -185,7 +185,7 @@ sections:
     paddingY:
       desktop: sm md
     marginY:
-      desktop: none xl
+      desktop: none lg
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
