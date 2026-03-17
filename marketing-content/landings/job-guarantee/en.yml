@@ -263,7 +263,7 @@ sections:
       - icon: JobSearch
         title: Full Refund, Within 30 Days
         text: Verified and approved, your full tuition is refunded within 30 days.
-    background: hsl(var(--sidebar-background))
+    background: hsl(210 100% 50% / 0.05)
     section_id: numbered_steps-sgeuhk
   - title: No Job Within 9 Months? Get Your Tuition Back.
     description: Complete the program, meet the Job Guarantee requirements, and if you don't land a tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.
