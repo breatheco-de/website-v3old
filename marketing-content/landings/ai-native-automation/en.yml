@@ -75,8 +75,8 @@ sections:
   - type: banner
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    title: ¿Conoces a Rigobot? Nuestra Inteligencia Artificial interna
-    description: Diseñada para quienes aprenden de forma autodidacta. 4Geeks Academy te permite avanzar a tu propio ritmo con ayuda inmediata de Rigobot cuando la necesites.
+    title: CONOCE A RIGOBOT
+    description: Nuestra Inteligencia Artificial interna, diseñada para quienes aprenden de forma autodidacta. 4Geeks Academy te permite avanzar a tu propio ritmo con ayuda inmediata de Rigobot cuando la necesites.
     cta:
       text: Learn More
       url: "#"
