@@ -25,7 +25,6 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Build with AI.
     brand_mark:
       prefix: Tus habilidades tienen fecha de caducidad. Conviértete en
       highlight: Full Stack Developer con IA
