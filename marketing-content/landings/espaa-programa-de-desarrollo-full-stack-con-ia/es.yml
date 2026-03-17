@@ -180,15 +180,15 @@ sections:
       - 6
     alignment: center
     left:
-      video: https://youtu.be/nvnO5WTkx0M?is=O06EtJA_1us4AjQb
+      video: https://youtu.be/9Vm_xD49MaU
       justify: center
     right:
       heading: "Diego Gómez González: cómo 4Geeks cambió su vida profesional"
       sub_heading: La experiencia de un estudiante de nuestro bootcamp
-      description: Diego, uno de nuestros estudiantes, comparte su experiencia en 4Geeks Academy, donde cursó el bootcamp de desarrollo Full Stack. Con un grado superior en desarrollo multiplataforma, Diego ya contaba con conocimientos en programación, pero necesitaba reforzar su capacidad para conectar las distintas áreas del desarrollo. Hoy trabaja como desarrollador y construye productos reales con las herramientas que las empresas contratan.
+      description: Diego, uno de nuestros estudiantes, comparte su experiencia en 4Geeks Academy, donde cursó el bootcamp de desarrollo Full Stack. Con un grado superior en desarrollo multiplataforma, Diego ya contaba con conocimientos en programación, pero necesitaba reforzar su capacidad para conectar las distintas áreas del desarrollo.
       button:
         text: Solicita tu plaza
-        url: "#hero-nzpyph"
+        url: "#bottom"
         variant: primary
         icon: Rocket
     gap: "8"
