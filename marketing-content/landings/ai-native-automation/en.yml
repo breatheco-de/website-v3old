@@ -76,7 +76,7 @@ sections:
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     title: ¿Conoces a Rigobot? Nuestra Inteligencia Artificial interna
-    description: Diseñada para quienes aprenden solos. 4Geeks Academy es la primera plataforma diseñada para maximiar el aprendizaje a tu propio ritmo. Obtén ayuda inmediata con Rigobot.
+    description: Diseñada para quienes aprenden de forma autodidacta. 4Geeks Academy te permite avanzar a tu propio ritmo con ayuda inmediata de Rigobot cuando la necesites.
     cta:
       text: Learn More
       url: "#"
