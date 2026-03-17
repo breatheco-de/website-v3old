@@ -99,17 +99,19 @@ sections:
     compact: true
     heading: How Our Job Guarantee Works
     cards:
-      - icon: Handshake
+      - icon: IconRubberStamp
         title: 1. Add the Job Guarantee When You Enroll
-      - icon: Graduation
-        title: 2. Complete the Program and Build Your Portfolio
-      - icon: ChecklistVerify
-        title: 3. Follow Our Proven Career Placement System
-      - icon: Briefcase
-        title: 4. Get Hired Within 9 Months — Or 100% of Your Tuition Back
+      - icon: IconFolderCheck
+        title: 2. Complete the Program and Graduate
+      - icon: IconChecklist
+        title: 3. Follow the Career Development Process
+      - icon: IconBriefcase
+        title: 4. Get Hired Within 9 Months, or Get 100% of Your Tuition Back
     background: hsl(210 100% 50% / 0.05)
     paddingY:
       desktop: none
+    marginY:
+      desktop: none md
   - type: course_selector
     version: "1.0"
     variant: solid
