@@ -134,14 +134,13 @@ sections:
           - text: Acceso de por vida para apoyar tu crecimiento profesional
         video_url: https://youtu.be/-2ZvlgDnltc
       - icon: Headset
-        title: Mentoría ilimitada 1:1 y una comunidad activa
+        title: Mentorías uno a uno
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Acceso de por vida a sesiones de mentoría 1:1
-          - text: Relación 7:1 de estudiante a profesor, garantizando una atención personalizada
-          - text: Colaboración entre compañeros a través de canales de Slack y check-ins semanales
-          - text: Canales dedicados de Slack para soporte técnico, bolsas de trabajo y consejos de carrera
+          - text: Acceso a sesiones de mentoría 1:1
+          - text: Guiamos tu aprendizaje
+          - text: Resuelve tus dudas de manera personalizada
         image_id: community-support-cropped
     paddingY:
       desktop: md none
