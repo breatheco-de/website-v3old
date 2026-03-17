@@ -117,24 +117,32 @@ sections:
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
-  - type: ai_learning
-    version: "1.0"
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: Why Learn with 4Geeks?
-    description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
-    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
-    features:
-      - icon: Robot
-        title: Learn with AI
-        description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
-      - icon: Headset
-        title: Unlimited 1:1 mentoring sessions
-        description: Access unlimited mentorship sessions with our experts whenever you need guidance.
-      - icon: Users
-        title: Learn with the community
-        description: Learning alongside others is more fun and helps you progress faster. Join our active community.
-    section_id: ai_learning-y839uf
+  - type: graduates_stats
+    heading: Resultados profesionales reales
+    subheading: Más de 6.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
+    stats:
+      - value: 86%
+        label: Tasa de inserción laboral
+      - value: 55%
+        label: Aumento salarial medio tras graduarse
+      - value: ~3 meses
+        label: Tiempo medio para conseguir empleo en 2025
+      - value: 5.000+
+        label: Graduados empleados en todo el mundo
+    collage_images:
+      - image_id: graduates_team_1
+        col_span: 5
+        row_span: 2
+      - image_id: graduates_team_2
+        col_span: 7
+        row_span: 2
+      - image_id: graduates_coding
+        col_span: 6
+        row_span: 2
+      - image_id: graduates_friends
+        col_span: 6
+        row_span: 2
+    section_id: graduates_stats-cnxqbb
   - type: awards_marquee
     section_id: awards_marquee-dgm174
     version: "1.0"
