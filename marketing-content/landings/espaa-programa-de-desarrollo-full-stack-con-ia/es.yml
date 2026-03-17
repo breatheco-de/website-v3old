@@ -210,6 +210,8 @@ sections:
         title: Salario medio de un desarrollador Full Stack en España
     section_id: features_grid-k3hgib
     background: hsl(var(--secondary))
+    marginY:
+      desktop: none lg
   - type: syllabus
     section_id: syllabus-q0etx0
     variant: program-modules
