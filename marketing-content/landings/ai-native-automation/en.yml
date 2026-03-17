@@ -183,7 +183,7 @@ sections:
     showBorder: true
     items:
       - id: award-with-logo
-        logo: /images/awards/course-report.svg
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
         alt: Course Report Award
         source: Course Report
         name: Best Bootcamp
