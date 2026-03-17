@@ -103,6 +103,7 @@ sections:
     marginX:
       desktop: none
     section_id: hero-nzpyph
+    awards_marquee_at_left_column: true
   - type: sticky_cta
     section_id: sticky_cta-k7207r
     version: "1.0"
