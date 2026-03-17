@@ -237,20 +237,6 @@ sections:
       desktop: none md
     marginY:
       desktop: none md
-  - type: features_grid
-    version: "1.0"
-    variant: stats-text
-    title: Why AI Engineering Now
-    subtitle: The talent shortage is your opportunity
-    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    items:
-      - value: 3.5M
-        title: AI-related roles expected by 2026
-      - value: 47%
-        title: Year-over-year growth in AI job postings
-      - value: $95K-$135K
-        title: Average starting salary for AI Engineers
-    section_id: features_grid-dr8cis
   - type: why_learn_ai
     section_id: why_learn_ai-utpdxj
     variant: laptop-edge
