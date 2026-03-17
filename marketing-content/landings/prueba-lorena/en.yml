@@ -543,7 +543,7 @@ sections:
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work
-    subtitle: From startups to global tech leaders, our graduates  work at some of the most recognized companies worldwide.
+    subtitle: From startups to global tech leaders, our alumni work at some of the most recognized companies worldwide.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
