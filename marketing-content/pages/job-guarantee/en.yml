@@ -174,6 +174,22 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+  - type: features_grid
+    section_id: features_grid-aay8s3
+    version: "1.0"
+    variant: cardHeader
+    heading: Why The Job Guarantee
+    description: The Job Guarantee is based on real outcomes and a hiring-focused model. Our programs, teaching approach, and career support are designed around how people actually get hired in today’s tech job market. Over the years, we’ve helped more than 3,500 graduates launch their tech careers across roles and industries.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
+    image_alt: 4Geeks Academy community support
+    background: bg-primary/5
+    cards:
+      - icon: BriefcaseFilled
+        text: Consistent hiring outcomes across our graduate community
+      - icon: BrandStackshare
+        text: Strong and ongoing demand for skilled tech professionals
+      - icon: ChalkboardTeacher
+        text: Structured training paired with hands-on, ongoing career support
   - type: features_quad
     section_id: features_quad-loz8eb
     version: "1.0"
@@ -194,22 +210,6 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
-  - type: features_grid
-    section_id: features_grid-aay8s3
-    version: "1.0"
-    variant: cardHeader
-    heading: Why The Job Guarantee
-    description: The Job Guarantee is based on real outcomes and a hiring-focused model. Our programs, teaching approach, and career support are designed around how people actually get hired in today’s tech job market. Over the years, we’ve helped more than 3,500 graduates launch their tech careers across roles and industries.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
-    image_alt: 4Geeks Academy community support
-    background: bg-primary/5
-    cards:
-      - icon: BriefcaseFilled
-        text: Consistent hiring outcomes across our graduate community
-      - icon: BrandStackshare
-        text: Strong and ongoing demand for skilled tech professionals
-      - icon: ChalkboardTeacher
-        text: Structured training paired with hands-on, ongoing career support
   - type: numbered_steps
     section_id: numbered_steps-2ramas
     version: "1.0"
