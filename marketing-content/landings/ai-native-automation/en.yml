@@ -160,31 +160,6 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
-  - type: features_quad
-    version: "1.0"
-    variant: laptopEdge
-    compact: true
-    heading: APRENDE HACIENDO
-    description: Sabemos que ver horas de vídeo no te hará estar listo para un empleo. Por eso nuestra plataforma divide el aprendizaje en módulos desbloqueables.
-    images:
-      - image_id: laceholder_career_guidance
-        alt: Student 1
-      - image_id: student-2
-        alt: Student 2
-    cards:
-      - icon: Code
-        title: Lecciones de lectura
-        description: Explicaciones claras y fundamentales
-      - icon: Brain
-        title: Deep Learning
-        description: Neural networks
-      - icon: Cloud
-        title: Cloud Deployment
-        description: AWS, GCP, Azure
-      - icon: Rocket
-        title: Fast-Track Career
-        description: Job-ready portfolio
-    section_id: features_quad-zs1jv3
   - type: bullet_tabs_showcase
     version: "1.0"
     heading: APRENDE HACIENDO
