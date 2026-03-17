@@ -294,7 +294,7 @@ sections:
       mobile: lg none
       desktop: lg md
     marginY:
-      desktop: none
+      desktop: none md
     background: hsl(210 100% 50% / 0.05)
   - type: testimonials_slide
     title: Dieron el salto. Esto es lo que pasó.
