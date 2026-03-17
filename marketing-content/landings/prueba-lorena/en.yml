@@ -476,7 +476,7 @@ sections:
     section_id: certificate-yvgz4h
     marginY:
       mobile: none
-      desktop: none
+      desktop: none sm
     paddingY:
       mobile: lg
       desktop: lg
