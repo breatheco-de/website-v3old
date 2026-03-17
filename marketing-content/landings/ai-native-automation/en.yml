@@ -93,7 +93,7 @@ sections:
         title: Revisión de código
         description: Recibe feedback inmediato sobre la calidad de tu código, buenas prácticas y posibles mejoras.
       - icon: Brain
-        title: Mentoría con ia
+        title: Mentoría con IA
         description: Orientación personalizada que se adapta a tu estilo y ritmo de aprendizaje
       - icon: Bug
         title: Asistente de depuración
