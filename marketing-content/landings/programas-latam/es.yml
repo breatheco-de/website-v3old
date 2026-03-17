@@ -556,14 +556,14 @@ sections:
       desktop: none lg
   - type: cta_banner
     version: "1.0"
-    title: Rellena el formulario y obtén más información
-    subtitle: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
+    title: Tu carrera en tecnología no va a empezar sola.
+    subtitle: Cada semana que esperas es una semana que otro se lleva el trabajo. Comprueba ahora si cumples los requisitos, es gratis y tarda 2 minutos.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Solicitar más información
+      submit_label: Comprueba si cumples los requisitos. Es gratis
       tags: website-lead
       fields:
         email:
@@ -586,7 +586,7 @@ sections:
           visible: true
           required: true
       success:
-        message: ¡Gracias! Nos pondremos en contacto pronto.
+        message: Ya estás dentro. Alguien de nuestro equipo de admisiones se pondrá en contacto contigo en unos minutos por email. Revisa tu bandeja de entrada.
       consent:
         email: true
         marketing: true
