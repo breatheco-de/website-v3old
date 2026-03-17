@@ -331,14 +331,14 @@ sections:
   - type: cta_banner
     section_id: cta_banner-deasu1
     version: "1.0"
-    title: Start Your Tech Career with the Confidence of a Job Guarantee
-    subtitle: Apply to a career-focused program and choose the Job Guarantee option at enrollment.
+    title: Ready to Launch Your Tech Career?
+    subtitle: Apply today and add the Job Guarantee at enrollment. Get hired within 9 months, or get your tuition back.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Apply Now
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
@@ -357,7 +357,7 @@ sections:
           visible: true
           required: true
       success:
-        message: Thank you! We'll be in touch soon.
+        message: Check your inbox! The information is on the way.
       consent:
         email: true
         marketing: true
