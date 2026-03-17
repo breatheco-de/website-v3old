@@ -26,20 +26,20 @@ sections:
     variant: course
     title: Automatización con IA usando n8n
     title_highlight: Automatización con IA
-    subtitle: Boost your career, harness the power of Applied AI.
+    subtitle: Esto no es sólo un curso, es una transformación.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
         - https://randomuser.me/api/portraits/men/2.jpg
         - https://randomuser.me/api/portraits/women/3.jpg
         - https://randomuser.me/api/portraits/men/4.jpg
-      count: +48 students enrolled
+      count: Cientos de estudiantes inscritos en España, LATAM y U.S.
     bullet_points:
-      - Learn prompt engineering techniques to control AI outputs precisely
-      - Create professional images, videos, and documents using AI tools
-      - Build automated workflows that save hours of repetitive work
-      - Develop websites and chatbots without writing code
-      - Apply AI to enhance your learning and personal development
+      - Construye más de 35 flujos de automatización funcionales incluyendo sistemas de clima, asistentes de IA y aplicaciones impulsadas por eventos.
+      - Domina la plataforma de automatización n8n con experiencia práctica desde conceptos básicos de 2 nodos hasta sistemas complejos de producción de 10 nodos.
+      - Integra APIs del mundo real y servicios de IA incluyendo OpenAI GPT, datos meteorológicos y sistemas de eventos basados en webhooks.
+      - Crea un proyecto final completo listo para portafolio con documentación profesional, pruebas y paquete para GitHub.
+      - Aprende prácticas de desarrollo nativo de IA, trabajando con agentes de IA mediante ingeniería de prompts y patrones de validación.
     tutors:
       - name: Charly Chacón
         role: Main Instructor
