@@ -124,14 +124,13 @@ sections:
           - text: Accede a cientos de ejercicios interactivos en Learnpack
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
       - icon: TrendingUp
-        title: Lanza tu carrera en tecnología con apoyo profesional para la Era de la IA
+        title: Aprende en comunidad
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Coaching personalizado 1:1
-          - text: Currículums optimizados para procesos de contratación con IA
-          - text: Preparación de entrevistas y negociación salarial
-          - text: Acceso de por vida para apoyar tu crecimiento profesional
+          - text: Aprende junto a otros compañeros y avanza más rápido
+          - text: Recibe ayuda, comparte ideas y resuelve dudas
+          - text: Comunidad activa conectada a través de Slack
         video_url: https://youtu.be/-2ZvlgDnltc
       - icon: Headset
         title: Mentorías uno a uno
