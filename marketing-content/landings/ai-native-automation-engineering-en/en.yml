@@ -24,8 +24,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Automatización con n8n. Flujos, APIs e inteligencia artificial
-    title_highlight: Automatización con n8n
+    title: Automatización con IA. Domina N8N.
+    title_highlight: Automatización con IA
     subtitle: Esto no es sólo un curso, es una transformación.
     students_enrolled:
       avatars:
