@@ -319,6 +319,8 @@ sections:
           - Capstone
         duration: 40 HORAS
         difficulty: hard
+    marginY:
+      desktop: none lg
   - type: ai_learning
     section_id: ai_learning-x1b774
     variant: feature-tabs
