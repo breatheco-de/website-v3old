@@ -173,8 +173,8 @@ sections:
       - label: Ejercicios Interactivos
         description: Ejercicios Interactivos - Retos autoevaluados con retroalimentación instantánea y tutoriales en video integrados
         image_id: placeholder_mentorship
-      - label: Text-to-issue commands
-        description: Seamlessly move between ideation and execution
+      - label: Proyectos
+        description: Proyectos - Construcciones dignas de portafolio con funcionalidad del mundo real e instrucciones paso a paso
         image_id: placeholder_strategies
     section_id: bullet_tabs_showcase-8mub8x
   - type: ai_learning
