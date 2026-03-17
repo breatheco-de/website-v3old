@@ -29,8 +29,8 @@ sections:
       prefix: Automatización con IA
       highlight: usando n8n
       color: chart-5
-    title: Crea tus propios flujos
-    subtitle: Esto no es solo un curso, es una transformación
+    title: null
+    subtitle: Crea tus propios flujos
     description: ortfolio building to interviews and AI-driven hiring platforms.
     marquee:
       speed: 40
