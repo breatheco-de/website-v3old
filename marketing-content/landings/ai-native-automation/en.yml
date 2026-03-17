@@ -168,7 +168,7 @@ sections:
     image_position: right
     tabs:
       - label: Lecciones de lectura
-        description: Explicaciones claras y fundamentales
+        description: Lecciones de lectura - Explicaciones claras y fundamentales
         image_id: placeholder_career_guidance
       - label: Inline comments
         description: Add contextual feedback directly where it matters most
