@@ -8,7 +8,6 @@ meta:
   change_frequency: weekly
   page_title: Programa de Carrera Desarrollador Full Stack | 4Geeks
   description: Conviértete en Desarrollador Full Stack con mentoría ilimitada 1:1, orientación profesional y proyectos prácticos. Inicia una carrera con salarios iniciales de $65K+.
-
 context:
   when_to_use: For visitors interested in becoming web developers, learning both frontend and backend technologies, or transitioning into software development careers.
   target_audience: Career changers, recent graduates, and professionals looking to break into tech with comprehensive web development skills.
@@ -238,6 +237,20 @@ sections:
       desktop: none md
     marginY:
       desktop: none md
+  - type: features_grid
+    version: "1.0"
+    variant: stats-text
+    title: Why AI Engineering Now
+    subtitle: The talent shortage is your opportunity
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    items:
+      - value: 3.5M
+        title: AI-related roles expected by 2026
+      - value: 47%
+        title: Year-over-year growth in AI job postings
+      - value: $95K-$135K
+        title: Average starting salary for AI Engineers
+    section_id: features_grid-dr8cis
   - type: why_learn_ai
     section_id: why_learn_ai-utpdxj
     variant: laptop-edge
