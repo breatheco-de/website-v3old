@@ -791,7 +791,8 @@ export function DebugBubble() {
       if (qLocale) return qLocale;
     }
     const seg = pathname.split("/").filter(Boolean)[0];
-    return seg || "en";
+    if (seg && /^[a-z]{2}$/.test(seg)) return seg;
+    return pageDiagnostics?.locale || i18n.language || "en";
   };
 
   const currentLocaleSlug = (seoData?.slug as string) || contentInfo.slug || "";
