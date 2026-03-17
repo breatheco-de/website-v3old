@@ -23,81 +23,104 @@ schema:
     - courses:full-stack
 sections:
   - type: hero
-    section_id: hero-6o141b
     version: "1.0"
-    variant: course
-    title: Programa de Desarrollo Full Stack con IA
-    title_highlight: Full Stack Developer con IA
-    subtitle: Prepárate para roles de desarrollo de software con alta demanda a través de un currículo full stack impulsado por IA, mentoría personalizada y resultados profesionales comprobados.
-    students_enrolled:
-      avatars:
-        - https://randomuser.me/api/portraits/women/1.jpg
-        - https://randomuser.me/api/portraits/men/2.jpg
-        - https://randomuser.me/api/portraits/women/3.jpg
-        - https://randomuser.me/api/portraits/men/4.jpg
-      count: Más de 1.000 estudiantes en LATAM y EE. UU.
-    bullet_points:
-      - Domina el desarrollo frontend moderno con HTML, CSS, JavaScript y React
-      - Construye sistemas backend escalables con Python, APIs y arquitectura de bases de datos
-      - Integra herramientas y flujos de trabajo con IA en aplicaciones web reales
-      - Accede a soporte profesional ilimitado, mentoría 1:1 y opción de Garantía de Empleo
-    tutors:
-      - name: Instructor Experto
-        role: Instructor Principal
-        image: https://randomuser.me/api/portraits/men/10.jpg
-      - name: Rigo
-        role: Asistente de Aprendizaje con IA
-        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: "Tus instructores:"
-    description: Desarrolla aplicaciones web modernas, listas para producción e integradas con IA, y posiciónate para la nueva generación de roles de desarollo web impulsados por inteligencia artificial.
-    signup_card:
-      title: Obtén el programa completo
-      description: Accede al programa completo, horarios y todo lo que necesitas saber sobre el programa.
-      cta_button:
-        text: Solicitar información
-        url: "#apply-modal"
-        variant: primary
-      login_link:
-        text: ¿Ya eres estudiante? Inicia sesión aquí.
-        url: https://4geeks.com/es/login
-      features:
-        - icon: IconCalendar
-          text: Programa de {{ global.fullstack_week_duration | 20 }} semanas
-        - icon: code
-          text: +100 ejercicios interactivos de programación
-        - icon: robot
-          text: Feedback con IA en tiempo real
-        - icon: calendar
-          text: Ratio 1:7 estudiante–profesor
-        - icon: users
-          text: Mentoría personalizada 1:1
-    paddingY:
-      desktop: md lg
+    variant: productShowcase
+    title: Build with AI.
+    brand_mark:
+      prefix: Every app you use was built by someone. Become a
+      highlight: Full Stack Developer with AI
+      color: primary
+    description: "<span style=\"font-size: 1.125rem;\"><span>Full Stack developers who build with AI are the most hired in tech right now. 1.4M open roles. In 20 weeks, that's you — landing positions paying $95K–$135K+.</span></span>"
+    bullets:
+      - text: "Career-focused from day one: get job-ready in 20 weeks and hired in 120 days"
+      - text: Unlimited 1:1 mentorship and career support that doesn't stop at graduation
+      - text: "Job Guarantee option: get hired within 9 months or we'll refund your tuition"
+    image_object_fit: none
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: See If You Qualify. It's Free
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Email Address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First Name
+        last_name:
+          visible: true
+          required: true
+          placeholder: Last Name
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          default: full-stack
+      success:
+        message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
+      terms_url: /terms-and-conditions
+      privacy_url: /privacy-policy
+      consent:
+        sms: true
+        marketing: true
+        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
+        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4-6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        sms_usa_only: true
+      show_terms: true
+    form_vertical_align: bottom
+    form_card_text_color: hsl(var(--foreground))
+    form_card_title: Get the Full Program Details
+    form_card_subtitle: "Takes 2 minutes. Our admissions team will send you the complete program overview: curriculum, pricing, and financing options within minutes of applying."
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+    show_awards_marquee: true
+    awards_marquee:
+      items:
+        - id: switchup-2025
+          alt: SwitchUp - Best Coding Bootcamps 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+          logoHeight: 55px
+        - id: course-report-2024
+          alt: Course Report - Best Coding Bootcamp 2024
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+          logoHeight: 55px
+        - id: tech-hub
+          alt: South Florida Tech Hub
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+          logoHeight: 55px
+        - id: ebootcamp
+          alt: eBootcamp Top
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+          logoHeight: 55px
+        - id: premios-tecnologia
+          alt: Premios Tecnología Siglo XXI
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+          logoHeight: 55px
+        - id: newsweek
+          alt: Newsweek
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+          logoHeight: 55px
+        - id: reviews-coursereport
+          alt: 4.9 Stars on Course Report Reviews
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+          logoHeight: 55px
+        - id: excelencia-educativa
+          alt: Educational Excellence - Institutional Quality
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+          logoHeight: 55px
+    video_title: GeekForce Career Support
     marginY:
       desktop: none
-    showOnLocations:
-      - barcelona-spain
-      - berlin-germany
-      - dublin-ireland
-      - hamburg-germany
-      - lisbon-portugal
-      - madrid-spain
-      - malaga-spain
-      - milan-italy
-      - munich-germany
-      - rome-italy
-      - valencia-spain
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    paddingY:
+      desktop: md none
+    marginX:
+      desktop: none
+    section_id: hero-nzpyph
+    awards_marquee_at_left_column: true
   - type: modal
     version: "1.0"
     section_id: apply-modal
