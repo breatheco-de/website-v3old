@@ -190,9 +190,9 @@ sections:
         year: "2024"
       - id: award-without-logo
         alt: Industry Recognition
-        source: TechCrunch
+        source: Mejor Bootcamp según Course Repor
         name: Top 10 EdTech Startups
-        year: "2024"
+        year: "2025"
       - id: another-text-only
         alt: Award Recognition
         source: Forbes
