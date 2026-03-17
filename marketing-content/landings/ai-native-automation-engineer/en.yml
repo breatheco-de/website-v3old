@@ -105,6 +105,21 @@ sections:
       - title: Prácticas Profesionales
         description: En esta sesión, los estudiantes elevarán su proyecto final a estándares de producción dominando prácticas profesionales de desarrollo. Aprenderán convenciones de nomenclatura estándar de la industria para código mantenible, implementarán patrones integrales de organización de código, crearán documentación de grado de producción, desarrollarán estrategias avanzadas de manejo de errores, aplicarán control de versiones con Git y dominarán técnicas de comunicación con partes interesadas. El módulo cubre estándares de nomenclatura profesional, mejores prácticas de documentación, patrones y soluciones de errores comunes, metodologías de prueba sistemáticas, flujos de trabajo de control de versiones y técnicas efectivas de presentación para proyectos técnicos. Los estudiantes transformarán su automatización funcional en un sistema pulido y profesional que cumple con los estándares de la industria y puede presentarse con confianza a empleadores, clientes o partes interesadas.
     section_id: syllabus-8oy90c
+  - type: mentorship
+    version: v1.0
+    title: Mentorship & Support
+    subtitle: You're never alone in your learning journey
+    cards:
+      - icon: user
+        title: 1-on-1 Mentorship
+        description: Weekly sessions with experienced developers who guide you through challenges and help you grow professionally.
+      - icon: users
+        title: Career Coaching
+        description: Dedicated career coaches help you build your resume, prepare for interviews, and connect with hiring partners.
+      - icon: headset
+        title: 24/7 Community Support
+        description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
+    section_id: mentorship-pi44vh
   - type: ai_learning
     section_id: ai_learning-aazkxm
     variant: feature-tabs
