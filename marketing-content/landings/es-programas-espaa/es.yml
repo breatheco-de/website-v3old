@@ -293,7 +293,6 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg md
-    background: hsl(210 100% 50% / 0.05)
     marginY:
       desktop: none xl
   - type: geeks_vs_others_comparison
