@@ -536,7 +536,7 @@ sections:
       desktop: md
   - type: testimonials_slide
     title: Dieron el salto y esto es lo que pasó.
-    description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa. Ahora son desarrolladores con empleos reales y salarios que no esperaban.
+    description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa, ahora son desarrolladores con empleos reales y salarios que no esperaban.
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
