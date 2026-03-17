@@ -181,6 +181,8 @@ sections:
         demand: High demand
     section_id: programs_showcase-nsa203
     background: hsl(var(--secondary))
+    paddingY:
+      desktop: lg none
   - type: features_quad
     section_id: features_quad-ge4f63
     version: "1.0"
