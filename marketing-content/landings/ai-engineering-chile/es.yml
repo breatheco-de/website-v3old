@@ -386,7 +386,7 @@ sections:
       desktop: none xl
     paddingY:
       mobile: lg none
-      desktop: lg md
+      desktop: lg
   - type: two_column
     proportions:
       - 6
@@ -409,6 +409,8 @@ sections:
       desktop: none xl
     section_id: ai_learning-2hqf27
     background: hsl(var(--secondary))
+    paddingY:
+      desktop: lg none
   - type: trust_cards
     version: v1.0
     title: La academia mejor valorada en todas las plataformas de reseñas
