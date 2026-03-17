@@ -220,7 +220,9 @@ sections:
     section_id: programs_showcase-5wibqd
     background: hsl(210 100% 50% / 0.05)
     paddingY:
-      desktop: md xl
+      desktop: md lg
+    marginY:
+      desktop: none lg
   - type: two_column
     proportions:
       - 6
