@@ -79,7 +79,6 @@ sections:
       mobile: none
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
-
   - type: sticky_cta
     section_id: sticky_cta-wgj7pu
     version: "1.0"
@@ -118,7 +117,6 @@ sections:
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
-
   - type: graduates_stats
     heading: Resultados profesionales reales
     subheading: Más de 5.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
@@ -145,7 +143,7 @@ sections:
         col_span: 6
         row_span: 2
     section_id: graduates_stats-cnxqbb
-
+    value_size: text-3xl
   - type: awards_marquee
     section_id: awards_marquee-dgm174
     version: "1.0"
@@ -215,7 +213,6 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
-
   - type: features_grid
     section_id: features_grid-0cm8zn
     version: "1.0"
@@ -238,7 +235,6 @@ sections:
     paddingY:
       mobile: none md
       desktop: none md
-
   - type: syllabus
     section_id: syllabus-tyek1h
     variant: program-modules
@@ -391,7 +387,6 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg md
-
   - type: two_column
     proportions:
       - 6
@@ -413,7 +408,6 @@ sections:
     marginY:
       desktop: none xl
     section_id: ai_learning-2hqf27
-
   - type: trust_cards
     version: v1.0
     title: La academia mejor valorada en todas las plataformas de reseñas
@@ -437,7 +431,6 @@ sections:
       desktop: md
     marginY:
       desktop: none xl
-
   - type: ai_learning
     section_id: ai_learning-qmjitd
     badge: ¿Por qué 4Geeks?
@@ -488,7 +481,6 @@ sections:
     background: hsl(210 100% 50% / 0.05)
     marginY:
       desktop: none xl
-
   - type: certificate
     section_id: certificate-e3th63
     title: Tu certificado. Tu ventaja salarial.
@@ -542,7 +534,6 @@ sections:
     paddingY:
       mobile: lg
       desktop: md
-
   - type: testimonials_slide
     title: Dieron el salto y esto es lo que pasó.
     description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa de México, Uruguay y Costa Rica. Ahora son desarrolladores con empleos reales y salarios que no esperaban.
@@ -655,7 +646,6 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-
   - type: pricing
     version: "1.0"
     variant: product
@@ -694,7 +684,6 @@ sections:
     paddingY:
       desktop: md lg
     background: hsl(var(--secondary))
-
   - type: numbered_steps
     section_id: numbered_steps-y83ffn
     version: "1.0"
@@ -721,7 +710,6 @@ sections:
           - Recibirás orientación clara sobre fechas, inversión y expectativas.
           - Si no es el mejor momento, te recomendamos alternativas para tu crecimiento profesional.
     background: bg-background
-
   - type: cta_banner
     section_id: cta_banner-z7t37t
     version: "1.0"
@@ -771,7 +759,6 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-
   - type: footer
     section_id: footer-mrlzkw
     version: "1.0"
