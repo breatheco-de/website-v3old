@@ -5,7 +5,7 @@ meta:
   og_image: /images/programs/full-stack-og.jpg
 sections:
   - type: hero
-    section_id: hero-0h1tw9
+    section_id: hero-a9qqic
     variant: singleColumn
     version: '1.0'
     background: linear-gradient(to bottom, hsl(var(--primary) / 0.05), hsl(var(--background)))
@@ -28,7 +28,7 @@ sections:
         variant: outline
         icon: Calculator
   - type: award_badges
-    section_id: award_badges-gzuewz
+    section_id: award_badges-y7k8xr
     version: '1.0'
     variant: simple
     showBorder: true
@@ -54,7 +54,7 @@ sections:
         name: Best Coding Bootcamp
         year: '2025'
   - type: syllabus
-    section_id: syllabus-xh7peu
+    section_id: syllabus-v27ut7
     title: Learn the Highest-Paying Tech Skills
     subtitle: Our curriculum focuses on the technologies that command the highest salaries in today's job market.
     modules:
@@ -75,7 +75,7 @@ sections:
       - title: Agile Methodologies
         description: Companies pay premium for developers who understand agile - it's required by 90% of tech employers.
   - type: projects
-    section_id: projects-0fgpx6
+    section_id: projects-rnqzp6
     title: Build Skills That Command Top Salaries
     subtitle: >-
       Every project you build adds to your market value. Our graduates are job-ready with portfolios that impress hiring
@@ -111,7 +111,7 @@ sections:
         date: 01/03/2023
         difficulty: hard
   - type: ai_learning
-    section_id: ai_learning-acexwc
+    section_id: ai_learning-xtz4bx
     version: '1.0'
     variant: feature-tabs
     badge: Maximum ROI
@@ -128,4 +128,4 @@ sections:
       - icon: Refresh
         title: 10x ROI in Year One
         description: The average tuition pays for itself 10 times over in the first year through increased earnings.
-slug: ai-native-automation-engineer
+slug: ai-native-automation-engineering-en

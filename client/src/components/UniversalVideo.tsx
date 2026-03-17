@@ -49,7 +49,7 @@ const extractYouTubeId = (url: string): string | null => {
 };
 
 const getYouTubeThumbnail = (videoId: string): string => {
-  return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+  return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 };
 
 const parseRatio = (ratio?: string): { paddingTop: string } => {
@@ -195,12 +195,6 @@ export function UniversalVideo({
             src={thumbnailUrl}
             alt="Video preview"
             className="absolute inset-0 w-full h-full object-cover"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              if (youtubeId && thumbnailUrl?.includes('maxresdefault')) {
-                target.src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
-              }
-            }}
           />
           <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
             <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
