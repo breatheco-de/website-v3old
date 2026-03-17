@@ -149,8 +149,8 @@ sections:
   - type: certificate
     version: v1.0
     title: Certifícate en tu tecnología favorita
+    description_title: Impulsa tu carrera profesional
     description: Certificarte te abrirá puertas a oportunidades profesionales gracias a nuestra red global de empresas. Avalado internacionalmente, es un estándar reconocido que te da acceso a múltiples salidas profesionales.
-    benefits: null
     card:
       title: AI NATIVE AUTOMATION
       subtitle: 4Geeks Academy Certificate
