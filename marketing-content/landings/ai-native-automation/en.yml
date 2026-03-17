@@ -252,53 +252,6 @@ sections:
         rating: 5
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
-  - type: cta_banner
-    section_id: cta_banner-sm6w80
-    version: "1.0"
-    title: Ready to Become an AI Engineer?
-    subtitle: Limited spots available. Start your transformation today.
-    background: hsl(var(--primary))
-    variant: form
-    form:
-      variant: stacked
-      conversion_name: student_application
-      submit_label: Apply Now
-      tags: website-lead
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Your email address
-        first_name:
-          visible: true
-          required: true
-          placeholder: First name
-        last_name:
-          visible: true
-          required: true
-          placeholder: Last name
-        phone:
-          visible: true
-          required: true
-          placeholder: Phone number
-        program:
-          visible: false
-          default: ai-engineering
-      success:
-        message: Thank you! We'll be in touch soon.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: I agree to receive information about courses and promotions
-      show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
-      terms_className: text-white/80
-    marginY:
-      mobile: md none
-      desktop: md none
-    paddingY:
-      mobile: lg
-      desktop: lg
   - type: footer
     section_id: footer-8fuz4n
     version: "1.0"
