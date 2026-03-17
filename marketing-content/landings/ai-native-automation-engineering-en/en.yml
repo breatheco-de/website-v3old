@@ -114,7 +114,7 @@ sections:
     description: Aprender de forma intensiva puede ser desafiante, pero hemos desarrollado las herramientas para mantenerte motivado, evitar que te quedes atascado en problemas y acelerar tu proceso de aprendizaje.
     features:
       - icon: Robot
-        title: Progresa más rápido con herramientas de IA
+        title: Aprende con Inteligencia Artificial
         description: ""
         show_rigobot_logo: true
         bullets:
