@@ -92,6 +92,28 @@ sections:
       desktop: md
     marginY:
       desktop: none md
+  - type: features_grid
+    version: "1.0"
+    variant: highlight
+    title: Real Outcomes for Our Graduates
+    subtitle: "These numbers come from real graduates with real jobs. Our Job Guarantee is built around one outcome: getting you hired."
+    items:
+      - icon: Briefcase
+        value: {{ global.global_job_placement_rate | 84 }}%
+        title: Job placement rate
+      - icon: Graduation
+        value: 3-6 months
+        title: Average time to get hired
+      - icon: GrowthChart
+        value: {{ global.global_salary_increase | 55 }}%
+        title: Average salary increase after graduation
+    columns: 3
+    icon_color: "#0097CD"
+    section_id: features_grid-mchky5
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none md
   - type: course_selector
     version: "1.0"
     variant: solid
@@ -138,28 +160,6 @@ sections:
     section_id: course_selector-x9c6qg
     marginY:
       desktop: md
-  - type: features_grid
-    version: "1.0"
-    variant: highlight
-    title: Real Outcomes for Our Graduates
-    subtitle: "These numbers come from real graduates with real jobs. Our Job Guarantee is built around one outcome: getting you hired."
-    items:
-      - icon: Briefcase
-        value: {{ global.global_job_placement_rate | 84 }}%
-        title: Job placement rate
-      - icon: Graduation
-        value: 3-6 months
-        title: Average time to get hired
-      - icon: GrowthChart
-        value: {{ global.global_salary_increase | 55 }}%
-        title: Average salary increase after graduation
-    columns: 3
-    icon_color: "#0097CD"
-    section_id: features_grid-mchky5
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none md
   - type: two_column_accordion_card
     section_id: two_column_accordion_card-s6gzio
     variant: image_background
