@@ -159,9 +159,9 @@ sections:
       subtitle: 4Geeks Academy Certificate
     section_id: certificate-cakai4
     paddingY:
-      desktop: none md
+      desktop: none
     marginY:
-      desktop: none md
+      desktop: none
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
