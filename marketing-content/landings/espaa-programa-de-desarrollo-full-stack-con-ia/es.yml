@@ -287,6 +287,8 @@ sections:
         icon: IconUsers
     paddingY:
       desktop: md
+    marginY:
+      desktop: none lg
   - type: projects
     section_id: projects-xqf89k
     title: Aprende construyendo proyectos reales
