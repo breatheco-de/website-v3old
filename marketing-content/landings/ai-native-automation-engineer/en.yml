@@ -119,10 +119,10 @@ sections:
       autoplay: false
       loop: false
     cards:
-      - icon: Rigobot
+      - icon: RigobotIconTiny
         title: Aprende con Rigobot
         description: Nuestra inteligencia artificial revisa tu código para brindarte retroalimentación instantánea, te ayuda con los ejercicios ¡y mucho más!
-      - icon: Interview
+      - icon: Contract
         title: Mentorías 1:1
         description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
       - icon: PeopleGroup
