@@ -120,11 +120,11 @@ sections:
       loop: false
     cards:
       - icon: Trophy
-        title: Industry Recognition
-        description: Ranked among the top coding bootcamps by Forbes, Course Report, and Career Karma.
+        title: Aprende con Rigobot
+        description: Nuestra inteligencia artificial revisa tu código para brindarte retroalimentación instantánea, te ayuda con los ejercicios ¡y mucho más!
       - icon: Wallet
-        title: Affordable Tuition
-        description: Among the most affordable tuition of any top-ranked bootcamp, with flexible payment options.
+        title: Mentorías 1:1
+        description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
       - icon: Clock
         title: Flexible Schedule
         description: Learn at your own pace with part-time and full-time options to fit your lifestyle.
