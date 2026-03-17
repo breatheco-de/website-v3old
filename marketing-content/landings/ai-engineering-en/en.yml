@@ -418,8 +418,8 @@ sections:
     section_id: pricing-8pb379
     version: "1.0"
     variant: product
-    title: Finance Your Investment
-    subtitle: Your future in tech is within reach.
+    title: The Investment That Pays for Itself
+    subtitle: Flexible financing so nothing stands between you and a high-paying tech career.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting below"
     financing_amount: $349
@@ -442,19 +442,19 @@ sections:
       - github
       - postman
       - n8n
-    features_title: We offer multiple ways to fund your enrollment. Choose the option that fits you best.
+    features_title: Multiple ways to get started.
     features:
       - icon: IconCheck
-        text: Regular tuition is $14,999. Pay upfront and get 10% discount, or spread payments interest-free over 6 months.
+        text: Tuition is $14,999. Pay upfront and save 10%, or split into 6 interest-free monthly payments.
       - icon: IconCheck
-        text: Finance your tuition through Climb, Fortify or Lumion. Choose among 24-36-48-60 month plans.
+        text: Finance over 24 to 60 months through our lending partners starting at $349/mo.
       - icon: IconCheck
-        text: 2–3 partial scholarships available per cohort for highly qualified applicants.
+        text: Partial scholarships available each cohort for highly qualified applicants.
         use_rigobot_icon: true
       - icon: IconCheck
-        text: Enroll with a Job Guarantee for added confidence. Get hired within 9 months of graduation or your money back.
+        text: "Add a Job Guarantee for total confidence: get hired within 9 months or get your tuition back."
     cta:
-      text: Get more info
+      text: Start Your Application
       url: "#hero-form"
       variant: primary
     paddingY:
