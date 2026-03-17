@@ -173,8 +173,8 @@ sections:
         alt: Student 2
     cards:
       - icon: Code
-        title: Lecciones de lectura - Explicaciones claras y fundamentales
-        description: Build real projects
+        title: Lecciones de lectura
+        description: Explicaciones claras y fundamentales
       - icon: Brain
         title: Deep Learning
         description: Neural networks
