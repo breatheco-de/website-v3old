@@ -394,7 +394,7 @@ sections:
     left:
       video: https://youtu.be/hUgwkBtYtUI?is=NZyqtXBleuOTTURF
       justify: center
-      image_alt: "Image: Bootcamp-de-IngenierÃ­a-de-IA-en-EspaÃ±a-4Geeks-Academy-03-17-2026_09_17_AM"
+      image_alt: https://storage.googleapis.com/4geeks-academy-website/media/Bootcamp-de-Ingenier-a-de-IA-en-Espa-a-4Geeks-Academy-03-17-2026_09_17_AM.png
     right:
       heading: ¿Para qué sirve realmente la Ingeniería de IA?
       sub_heading: Nuestro equipo en España te lo explica
