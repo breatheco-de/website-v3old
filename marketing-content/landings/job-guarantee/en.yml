@@ -248,7 +248,7 @@ sections:
     section_id: whos_hiring-mj9qyi
     variant: carousel
     title: Where 4Geeks Graduates Work
-    subtitle: From startups to global tech leaders, our graduates work at some of the most recognized companies in the world.
+    subtitle: From startups to global tech leaders, our graduates work at some of the most recognized companies worldwide.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
