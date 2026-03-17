@@ -412,46 +412,46 @@ sections:
   - type: ai_learning
     section_id: ai_learning-qmjitd
     badge: ¿Por qué 4Geeks?
-    title: ¿Por qué aprender Ingeniería de IA con 4Geeks?
-    description: Porque no solo aprendes IA. Aprendes a usarla como lo hacen las empresas. Nuestro enfoque está diseñado para que desarrolles habilidades reales, con acompañamiento constante y un camino claro hacia la empleabilidad.
+    title: La academia que no te abandona cuando te gradúas
+    description: La mayoría de academias te dan un curso y te desean suerte. 4Geeks se queda contigo desde tu primera línea de código hasta tu primera oferta de trabajo y más allá.
     features:
       - icon: TrendingUp
-        title: Destaca en tech con apoyo de carrera para la era de la IA
+        title: Apoyo de carrera construido para el mercado tech en España
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Recibe coaching 1:1 personalizado
-          - text: Construye tu currículum y portafolio listos para IA
-          - text: Prepárate para entrevistas y negociación salarial
-          - text: Sigue creciendo con acceso de por vida al apoyo de carrera
+          - text: Coaching 1:1 enfocado en conseguir roles de Ingeniería de IA específicamente
+          - text: CV y portfolio optimizados para pasar los filtros automáticos de los recruiters
+          - text: Preparación para entrevistas técnicas y negociación salarial
+          - text: Apoyo de carrera de por vida, no solo hasta que te gradúas
         video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
         cta:
-          text: Empieza a aprender ahora
-          url: "#hero-form"
+          text: Comprueba si cumples los requisitos
+          url: "#hero-lt4ge6"
           variant: primary
       - icon: Robot
-        title: Avanza más rápido con herramientas potenciadas por IA
+        title: Aprende más rápido con un tutor de IA que sabe dónde te has atascado
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Obtén retroalimentación al instante con Rigobot, nuestro tutor de IA
-          - text: Recibe consejos adaptados a tu nivel y progreso
-          - text: Ayuda 24/7 con depuración y resolución de problemas
-          - text: Accede a cientos de ejercicios de código en Learnpack, nuestra plataforma educativa
+          - text: Rigobot te da feedback instantáneo sobre tu código sin esperar a que haya un humano disponible
+          - text: Adapta las explicaciones a tu nivel exacto y ritmo de aprendizaje
+          - text: Desbloquéate a las 2 de la madrugada sin perder el hilo
+          - text: Cientos de ejercicios interactivos en Learnpack, nuestra plataforma de aprendizaje
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
         cta:
-          text: Empieza a aprender ahora
-          url: "#hero-form"
+          text: Comprueba si cumples los requisitos
+          url: "#hero-lt4ge6"
           variant: primary
       - icon: Headset
-        title: Mentoría 1:1 ilimitada y una comunidad activa
+        title: Mentoría 1:1 ilimitada de por vida, no solo mientras estudias
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Acceso de por vida a sesiones de mentoría 1:1
-          - text: Ratio 7:1 estudiantes–profesor para una guía personalizada
-          - text: Colaboración entre pares en canales de Slack y check-ins semanales
-          - text: Canales de Slack dedicados a soporte técnico, ofertas de empleo y carrera
+          - text: Reserva sesiones 1:1 ilimitadas con ingenieros senior incluso después de graduarte
+          - text: Ratio 7:1 estudiante por mentor para que tu mentor sepa quién eres
+          - text: Check-ins semanales para que te mantengas enfocado y termines el programa
+          - text: Comunidad activa en Slack con canales de empleo, soporte técnico y consejos de carrera
         video_url: https://youtu.be/Zoxxw5jP7xA
     paddingY:
       mobile: lg none
