@@ -663,8 +663,8 @@ sections:
     section_id: numbered_steps-y83ffn
     version: "1.0"
     variant: bubbleText
-    title: Nuestro proceso de admisión
-    description: Postular no significa inscribirse automáticamente. Evaluamos cada perfil para asegurar que este programa sea el adecuado para ti.
+    title: Así funciona el proceso de admisión
+    description: Aplicar no es comprometerse. Es el primer paso para saber si este programa es el adecuado para ti. Todo el proceso dura menos de 48 horas.
     steps:
       - icon: Application
         title: Aplicación al programa
