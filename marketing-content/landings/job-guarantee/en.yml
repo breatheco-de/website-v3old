@@ -2,23 +2,23 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Tech Career with Extra Confidence.
+    title: Get Hired. Or Your Tuition Back.
     brand_mark:
-      prefix: Launch a
-      highlight: High-Growth
+      prefix: Launch Your
+      highlight: Tech Career.
       color: primary
-    description: "<div><span style=\"font-size: 1.125rem; color: rgb(0, 7, 26);\"><span style=\"font-size: 1.25rem;\">Build the skills companies are hiring for and add the Job Guarantee* for extra confidence.</span>&nbsp;</span></div>"
+    description: Add the Job Guarantee* to any eligible program. Get hired within 9 months of graduation, or we refund 100% of your tuition.
     bullets:
-      - text: 84% of graduates land a tech job
-      - text: Get hired within 9 months or receive a full refund
-      - text: 1:1 career coaching and priority acess to employer network
-    footer: "<div><span style=\"color: hsl(var(--foreground));\"><span style=\"font-size: 1.25rem;\"><span><br></span></span></span></div><span style=\"font-size: 1.25rem;\"><span></span></span><span style=\"color: hsl(var(--foreground));\"><span style=\"font-size: 1.25rem;\"><span>Trusted by 6,500+ graduates • Top-rated by Course Report, SwitchUp</span></span><div><span style=\"font-size: 1.25rem;\"><span>&nbsp;&amp; Forbes</span></span></div></span><div><span style=\"font-size: 1.25rem;\"><span></span></span><div><br></div><div>*&nbsp;<a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></div></div>"
+      - text: 84% of our graduates land a tech job
+      - text: Get hired within 9 months or get a full tuition refund
+      - text: Unlimited 1:1 career coaching and access to 400+ hiring partners
+    footer: "<span style=\"color: hsl(var(--foreground));\"><span style=\"font-size: 1.25rem;\">Trusted by 6,000+ graduates • Top-rated by Course Report, SwitchUp & Forbes</span></span><div><br></div><div>* <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></div>"
     video_id: "-2ZvlgDnltc"
     video_ratio: "9:12"
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Request more info
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
@@ -99,17 +99,19 @@ sections:
     compact: true
     heading: How Our Job Guarantee Works
     cards:
-      - icon: Handshake
+      - icon: IconRubberStamp
         title: 1. Add the Job Guarantee When You Enroll
-      - icon: Graduation
-        title: 2. Complete the Program and Build Your Portfolio
-      - icon: ChecklistVerify
-        title: 3. Follow Our Proven Career Placement System
-      - icon: Briefcase
-        title: 4. Get Hired Within 9 Months — Or 100% of Your Tuition Back
+      - icon: IconCalendarCog
+        title: 2. Complete the Program and Graduate
+      - icon: IconChecklist
+        title: 3. Follow the Career Development Process
+      - icon: IconBriefcase
+        title: 4. Get Hired Within 9 Months, or Get 100% of Your Tuition Back
     background: hsl(210 100% 50% / 0.05)
     paddingY:
       desktop: none
+    marginY:
+      desktop: none md
   - type: course_selector
     version: "1.0"
     variant: solid

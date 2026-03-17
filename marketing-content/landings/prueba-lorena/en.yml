@@ -428,52 +428,6 @@ sections:
       mobile: lg
       desktop: lg
     background: hsl(var(--muted))
-  - type: pricing
-    section_id: pricing-8pb379
-    version: "1.0"
-    variant: product
-    title: The Investment That Pays for Itself
-    subtitle: Flexible financing so nothing stands between you and a high-paying tech career.
-    discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: "Credit-Based Financing: starting below"
-    financing_amount: $349
-    tech_icons:
-      - openai
-      - claude
-      - python
-      - pandas
-      - numpy
-      - scikitlearn
-      - pytorch
-      - matplotlib
-      - react
-      - nextjs
-      - tailwindcss
-      - nodejs
-      - vercel
-      - supabase
-      - git
-      - github
-      - postman
-      - n8n
-    features_title: Multiple ways to get started.
-    features:
-      - icon: IconCheck
-        text: Full tuition is $14,999. Pay upfront and save 10%, or split into 6 interest-free monthly payments.
-      - icon: IconCheck
-        text: Finance over 24 to 60 months through our lending partners starting at $349/mo.
-      - icon: IconCheck
-        text: Partial scholarships available each cohort for highly qualified applicants.
-        use_rigobot_icon: true
-      - icon: IconCheck
-        text: "Add a Job Guarantee for total confidence: get hired within 9 months or get your tuition back."
-    cta:
-      text: Start Your Application
-      url: "#hero-form"
-      variant: primary
-    paddingY:
-      mobile: lg none
-      desktop: lg none
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
     description: "Different backgrounds, one outcome: a career in tech that pays."
@@ -586,6 +540,91 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
+  - type: features_quad
+    version: "1.0"
+    variant: default
+    heading: Is This Program Right for You?
+    description: If you're nodding at all four, this is for you.
+    cards:
+      - icon: Clock
+        title: You're ready to commit
+        description: 20-24 hours/week for 24 weeks. Live classes, real projects, real intensity. You bring the commitment, we deliver the results.
+      - icon: IconBriefcase
+        title: You want a career, not a certificate
+        description: You're here to build with AI, land a high-paying role, and make a real career change. That's exactly what this program is built for.
+      - icon: Users
+        title: You want support that actually shows up
+        description: Clear milestones, expert instructors, and unlimited 1:1 mentorship every step of the way.
+      - icon: Sparkles
+        title: You're playing the long game
+        description: You're ready to move into one of the fastest-growing, highest-paying fields of the next decade and you want the skills to back it up.
+    background: hsl(210 100% 50% / 0.05)
+    marginY:
+      desktop: none lg
+    paddingY:
+      desktop: none
+    section_id: features_quad-xffhpo
+  - type: mentorship
+    version: v1.0
+    title: Mentorship & Support
+    subtitle: You're never alone in your learning journey
+    cards:
+      - icon: user
+        title: 1-on-1 Mentorship
+        description: Weekly sessions with experienced developers who guide you through challenges and help you grow professionally.
+      - icon: users
+        title: Career Coaching
+        description: Dedicated career coaches help you build your resume, prepare for interviews, and connect with hiring partners.
+      - icon: headset
+        title: 24/7 Community Support
+        description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
+    section_id: mentorship-clo9o1
+  - type: pricing
+    section_id: pricing-8pb379
+    version: "1.0"
+    variant: product
+    title: The Investment That Pays for Itself
+    subtitle: Flexible financing so nothing stands between you and a high-paying tech career.
+    discount_text: "Full Payment Discount: Save 10% with upfront payment."
+    financing_text: "Credit-Based Financing: starting below"
+    financing_amount: $349
+    tech_icons:
+      - openai
+      - claude
+      - python
+      - pandas
+      - numpy
+      - scikitlearn
+      - pytorch
+      - matplotlib
+      - react
+      - nextjs
+      - tailwindcss
+      - nodejs
+      - vercel
+      - supabase
+      - git
+      - github
+      - postman
+      - n8n
+    features_title: Multiple ways to get started.
+    features:
+      - icon: IconCheck
+        text: Full tuition is $14,999. Pay upfront and save 10%, or split into 6 interest-free monthly payments.
+      - icon: IconCheck
+        text: Finance over 24 to 60 months through our lending partners starting at $349/mo.
+      - icon: IconCheck
+        text: Partial scholarships available each cohort for highly qualified applicants.
+        use_rigobot_icon: true
+      - icon: IconCheck
+        text: "Add a Job Guarantee for total confidence: get hired within 9 months or get your tuition back."
+    cta:
+      text: Start Your Application
+      url: "#hero-form"
+      variant: primary
+    paddingY:
+      mobile: lg none
+      desktop: lg none
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work

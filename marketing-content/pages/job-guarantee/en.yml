@@ -41,6 +41,22 @@ sections:
       desktop: lg none
     marginY:
       desktop: none md
+  - type: features_grid
+    section_id: features_grid-aay8s3
+    version: "1.0"
+    variant: cardHeader
+    heading: Why The Job Guarantee
+    description: The Job Guarantee is based on real outcomes and a hiring-focused model. Our programs, teaching approach, and career support are designed around how people actually get hired in today’s tech job market. Over the years, we’ve helped more than 3,500 graduates launch their tech careers across roles and industries.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
+    image_alt: 4Geeks Academy community support
+    background: bg-primary/5
+    cards:
+      - icon: BriefcaseFilled
+        text: Consistent hiring outcomes across our graduate community
+      - icon: BrandStackshare
+        text: Strong and ongoing demand for skilled tech professionals
+      - icon: ChalkboardTeacher
+        text: Structured training paired with hands-on, ongoing career support
   - type: graduates_stats
     section_id: graduates_stats-rdqav1
     version: v1.0
@@ -213,22 +229,6 @@ sections:
       - icon: JobSearch
         text: You will receive your full refund within 30 days from the date your request is approved.
         title: Full Refund
-  - type: features_grid
-    section_id: features_grid-aay8s3
-    version: "1.0"
-    variant: cardHeader
-    heading: Why The Job Guarantee
-    description: The Job Guarantee is based on real outcomes and a hiring-focused model. Our programs, teaching approach, and career support are designed around how people actually get hired in today’s tech job market. Over the years, we’ve helped more than 3,500 graduates launch their tech careers across roles and industries.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
-    image_alt: 4Geeks Academy community support
-    background: bg-primary/5
-    cards:
-      - icon: BriefcaseFilled
-        text: Consistent hiring outcomes across our graduate community
-      - icon: BrandStackshare
-        text: Strong and ongoing demand for skilled tech professionals
-      - icon: ChalkboardTeacher
-        text: Structured training paired with hands-on, ongoing career support
   - type: cta_banner
     section_id: cta_banner-63cdpc
     version: "1.0"

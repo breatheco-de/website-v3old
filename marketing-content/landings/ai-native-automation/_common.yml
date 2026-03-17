@@ -1,0 +1,17 @@
+slug: ai-native-automation
+title: ai-native-automation
+locale: en
+meta:
+  og_image: /images/programs/ai-engineering-og.jpg
+  robots: index, follow
+  priority: 0.9
+  change_frequency: weekly
+  page_title: Automatización con IA | 4Geeks Academy
+  description: Domina la plataforma de automatización n8n con experiencia práctica desde conceptos básicos de 2 nodos hasta sistemas complejos de producción de 10 nodos
+schema:
+  include:
+    - organization
+    - website
+    - courses:ai-engineering
+locations:
+  - madrid-spain
