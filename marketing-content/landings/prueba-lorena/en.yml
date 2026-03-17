@@ -426,7 +426,7 @@ sections:
     marginY:
       desktop: md none
     paddingY:
-      desktop: md
+      desktop: md sm
   - type: certificate
     title: Your Certificate. Your Career Leverage.
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Step into roles paying:"
