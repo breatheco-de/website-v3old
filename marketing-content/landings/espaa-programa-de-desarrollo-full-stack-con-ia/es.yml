@@ -148,50 +148,6 @@ sections:
           default: full-stack
       success:
         message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
-  - type: awards_marquee
-    section_id: awards_marquee-spvbm6
-    version: v1.0
-    speed: 40
-    gradient: true
-    gradientWidth: 400
-    items:
-      - id: switchup-2025
-        alt: SwitchUp - Mejores Bootcamps de Programación 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        logoHeight: 64px
-      - id: course-report-2024
-        alt: Course Report - Mejor Bootcamp de Programación 2024
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
-        logoHeight: 64px
-      - id: tech-hub
-        alt: South Florida Tech Hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
-        logoHeight: 64px
-      - id: ebootcamp
-        alt: eBootcamp Top
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
-        logoHeight: 64px
-      - id: premios-tecnologia
-        alt: Premios Tecnología Siglo XXI
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-        logoHeight: 64px
-      - id: newsweek
-        alt: Newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
-        logoHeight: 64px
-      - id: reviews-coursereport
-        alt: 4.9 en Reseñas de Course Report
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-        logoHeight: 64px
-      - id: excelencia-educativa
-        alt: Excelencia Educativa - Calidad Institucional
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
-        logoHeight: 64px
-    paddingY:
-      mobile: md
-      desktop: none md
-    marginY:
-      desktop: none md
   - type: why_learn_ai
     section_id: why_learn_ai-utpdxj
     variant: laptop-edge
