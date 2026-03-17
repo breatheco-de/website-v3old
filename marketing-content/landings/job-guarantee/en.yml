@@ -9,7 +9,7 @@ sections:
       color: primary
     description: Build job-ready skills in AI Engineering, Data Science, Full-Stack Development, or Cybersecurity. Add the Job Guarantee* and if you're not hired within 9 months of graduation, we refund 100% of your tuition.
     bullets:
-      - text: 84% of graduates land a tech job
+      - text: 84% of our graduates land a tech job
       - text: Get hired within 9 months or get a full tuition refund
       - text: Unlimited 1:1 career coaching and access to 400+ hiring partners
     footer: "<span style=\"color: hsl(var(--foreground));\"><span style=\"font-size: 1.25rem;\">Trusted by 6,000+ graduates • Top-rated by Course Report, SwitchUp & Forbes</span></span><div><br></div><div>* <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></div>"
