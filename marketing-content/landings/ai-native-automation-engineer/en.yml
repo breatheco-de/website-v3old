@@ -108,8 +108,8 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: Why Choose Our AI Engineering Program?
-    description: Get the skills, support, and job placement assistance you need to launch your career in AI engineering.
+    heading: ¿Por qué aprender con 4Geeks?
+    description: Aprender de forma intensiva puede ser desafiante, pero hemos desarrollado las herramientas para mantenerte motivado, evitar que te quedes atascado en problemas y acelerar tu proceso de aprendizaje.
     video:
       url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
       ratio: "16:9"
