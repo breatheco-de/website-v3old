@@ -656,7 +656,7 @@ sections:
       variant: primary
     section_id: pricing-vcqjix
     marginY:
-      desktop: none md
+      desktop: none lg
     paddingY:
       desktop: md lg
     background: hsl(var(--secondary))
