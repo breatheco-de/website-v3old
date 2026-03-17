@@ -26,10 +26,9 @@ sections:
     variant: productShowcase
     welcome_text: Aprende
     brand_mark:
-      prefix: Automatización con IA
-      highlight: usando n8n
+      prefix: AUTOMATIZACIÓN CON IA
+      highlight: USANDO n8n
       color: chart-5
-    title: null
     subtitle: Crea tus propios flujos
     description: ortfolio building to interviews and AI-driven hiring platforms.
     marquee:
