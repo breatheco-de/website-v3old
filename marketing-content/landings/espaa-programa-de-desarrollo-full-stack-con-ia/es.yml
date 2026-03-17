@@ -211,7 +211,7 @@ sections:
     section_id: features_grid-k3hgib
     background: hsl(var(--secondary))
     marginY:
-      desktop: none lg
+      desktop: none xl
   - type: syllabus
     section_id: syllabus-q0etx0
     variant: program-modules
