@@ -89,7 +89,7 @@ sections:
     subtitle: No vuelvas a quedarte bloqueado
     description: Rigobot es tu asistente de programación impulsado por IA que te ayuda a mantener el ritmo en todo momento. Tanto si estás depurando código a las 2 de la madrugada como si te estás preparando para un examen, Rigobot está ahí para ayudarte a superar los desafíos y seguir aprendiendo.
     items:
-      - icon: Code Review
+      - icon: Code
         title: Revisión de código
         description: Recibe feedback inmediato sobre la calidad de tu código, buenas prácticas y posibles mejoras.
       - icon: Brain
