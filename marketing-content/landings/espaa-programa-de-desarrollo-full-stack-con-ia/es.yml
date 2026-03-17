@@ -215,8 +215,8 @@ sections:
   - type: syllabus
     section_id: syllabus-q0etx0
     variant: program-modules
-    program_title: Lo que aprenderás en el programa Full Stack
-    program_description: Domina el stack completo de desarrollo web, desde el frontend hasta el backend. Construye aplicaciones listas para producción usando las tecnologías más demandadas que los empleadores buscan.
+    program_title: Lo que construirás en 20 semanas
+    program_description: Desde el primer día trabajas en un producto real. Dominas el stack completo de frontend a backend, integras IA en cada capa y entregas código listo para producción. Te gradúas con un portfolio vivo que los empleadores pueden ver, no solo con un certificado.
     tech_logos:
       - name: HTML5
         icon: html
@@ -237,52 +237,52 @@ sections:
           - Crear estructuras web con HTML semántico
           - Estilizar páginas con técnicas modernas de CSS
           - Construir sitios web visualmente atractivos y accesibles
-        projects: Construye páginas de aterrizaje responsivas desde cero
+        projects: Publica tu primera página web real, visible en internet desde el primer día
         orientation: vertical
         icon: IconCode
       - title: JavaScript
         duration: Semanas 3-5
         objectives:
-          - Dominar variables, funciones y bucles
+          - Variables, funciones y control de flujo
           - Manipulación del DOM para páginas interactivas
           - Características modernas de ES6+ y programación asíncrona
-        projects: Crea aplicaciones web dinámicas e interactivas
+        projects: Construye aplicaciones web interactivas que los usuarios pueden usar de verdad
         orientation: vertical
         icon: IconBrandJavascript
       - title: React
         duration: Semanas 6-9
         objectives:
-          - Construir interfaces de usuario basadas en componentes
+          - Interfaces de usuario basadas en componentes
           - Gestión de estado con hooks
-          - Enrutamiento y mejores prácticas para apps escalables
-        projects: Construye aplicaciones modernas de página única
+          - Enrutamiento y arquitectura escalable
+        projects: Construye el tipo de frontend que consigue entrevistas en empresas tech
         orientation: vertical
         icon: IconBrandReact
       - title: Python
         duration: Semanas 10-12
         objectives:
-          - Conceptos fundamentales de programación y estructuras de datos
-          - Principios de programación orientada a objetos
-          - Desarrollo web y habilidades de automatización
-        projects: Crea servicios backend y scripts de automatización
+          - Fundamentos de programación y estructuras de datos
+          - Programación orientada a objetos
+          - Desarrollo web y automatización
+        projects: Crea servicios backend y scripts de automatización que funcionan en producción
         orientation: vertical
         icon: IconBrandPython
       - title: Creación de APIs
         duration: Semanas 13-15
         objectives:
-          - Diseñar y construir APIs RESTful
+          - Diseño y construcción de APIs RESTful
           - Autenticación e integración de bases de datos
-          - Documentación de APIs y mejores prácticas
-        projects: Construye una API REST completa con Flask/Express
+          - Documentación y buenas prácticas
+        projects: Construye una API REST completa que conecta un frontend real con una base de datos real
         orientation: vertical
         icon: IconApi
       - title: Metodologías Ágiles
         duration: Semana 16
         objectives:
-          - Scrum, Kanban y frameworks ágiles
-          - Planificación de sprints y reuniones diarias
-          - Colaboración efectiva en equipos de desarrollo
-        projects: Trabaja en equipos ágiles en proyectos grupales
+          - Scrum, Kanban y planificación de sprints
+          - Colaboración en equipos de desarrollo reales
+          - Revisión de código y cultura de entrega
+        projects: Entrega un proyecto en equipo usando los mismos flujos de trabajo que usan las empresas tech
         orientation: vertical
         icon: IconUsers
     paddingY:
