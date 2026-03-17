@@ -245,6 +245,26 @@ sections:
     section_id: testimonials_slide-1gorsq
     title: The Stories Behind the Stats
     description: Real people, real jobs, real salary increases. Here's what happened after they finished.
+  - type: numbered_steps
+    version: "1.0"
+    variant: bubbleText
+    title: No Job Within 9 Months? Get Your Tuition Back.
+    description: Complete the program, meet the Job Guarantee requirements, and if you don't land a tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.
+    description_link:
+      text: Terms and conditions apply.
+      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
+    steps:
+      - icon: Optimization
+        title: Notify Us
+        text: Let us know you haven't landed a qualifying role within 9 months of graduation. That's all it takes to start the process.
+      - icon: Interview
+        title: We Review the Requirements
+        text: Our team confirms that all Job Guarantee requirements were completed during the program and job search period.
+      - icon: JobSearch
+        title: Full Refund, Within 30 Days
+        text: Verified and approved, your full tuition is refunded within 30 days.
+    background: hsl(var(--sidebar-background))
+    section_id: numbered_steps-sgeuhk
   - type: whos_hiring
     section_id: whos_hiring-mj9qyi
     variant: carousel
@@ -276,26 +296,6 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
     background: hsl(var(--sidebar-background))
-  - type: numbered_steps
-    version: "1.0"
-    variant: bubbleText
-    title: No Job Within 9 Months? Get Your Tuition Back.
-    description: Complete the program, meet the Job Guarantee requirements, and if you don't land a tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.
-    description_link:
-      text: Terms and conditions apply.
-      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
-    steps:
-      - icon: Optimization
-        title: Notify Us
-        text: Let us know you haven't landed a qualifying role within 9 months of graduation. That's all it takes to start the process.
-      - icon: Interview
-        title: We Review the Requirements
-        text: Our team confirms that all Job Guarantee requirements were completed during the program and job search period.
-      - icon: JobSearch
-        title: Full Refund, Within 30 Days
-        text: Verified and approved, your full tuition is refunded within 30 days.
-    background: hsl(var(--sidebar-background))
-    section_id: numbered_steps-sgeuhk
   - title: No Job Within 9 Months? Get Your Tuition Back.
     description: Complete the program, meet the Job Guarantee requirements, and if you don't land a tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.
     steps:
