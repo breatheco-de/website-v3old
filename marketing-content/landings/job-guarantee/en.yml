@@ -148,19 +148,15 @@ sections:
         description: Design, build, and deploy complete AI systems used in real-world production.
         duration: 24 weeks / 15 weeks accelerated
         avg_salary: $95,000 – $150,000
-        cta_text: Explore Program
-        cta_url: /programs/ai-engineering
         color: muted-foreground
         role: AI Engineer
         role_label: Become an
-        demand: Critical demand
+        demand: Very high demand
       - name: Data Science & ML
         icon: IconChartBar
         description: Analyze complex datasets, build predictive models, and deploy machine learning solutions to real problems.
         duration: 18 weeks
         avg_salary: $80,000 – $130,000
-        cta_text: Explore Program
-        cta_url: /programs/data-science
         color: accent
         role: Data Scientist
         role_label: Become a
@@ -170,10 +166,8 @@ sections:
         description: Develop hands-on skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.
         duration: 14 weeks
         avg_salary: $80,000 – $115,000
-        cta_text: Explore Program
-        cta_url: /programs/cybersecurity
         color: destructive
-        role: Cybersecurity Analyst
+        role: Security Analyst
         role_label: Become a
         demand: Critical demand
       - name: Full Stack Development with AI
@@ -181,8 +175,6 @@ sections:
         description: Build modern web applications from frontend to backend using the latest AI-powered tools and workflows.
         duration: 16 weeks
         avg_salary: $85,000 – $120,000
-        cta_text: Explore Program
-        cta_url: /programs/full-stack
         color: primary
         role: Full Stack Developer
         role_label: Become a
