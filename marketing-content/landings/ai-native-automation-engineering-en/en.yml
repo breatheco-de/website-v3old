@@ -311,9 +311,9 @@ sections:
       - icon: IconCheck
         text: Certificación otorgada por escuela certificada en los Estados Unidos, por el Departamento de Educación de Florida.
     marginY:
-      desktop: none md
+      desktop: none sm
     paddingY:
-      desktop: lg md
+      desktop: lg sm
     showOnLocations:
       - barcelona-spain
       - madrid-spain
