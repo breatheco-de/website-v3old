@@ -25,7 +25,6 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Build with AI.
     brand_mark:
       prefix: Your skills have an expiration date. Become a
       highlight: Full Stack Developer with AI
