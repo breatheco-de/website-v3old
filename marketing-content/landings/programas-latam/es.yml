@@ -323,35 +323,60 @@ sections:
       desktop: lg none
     marginY:
       desktop: none xl
-  - type: features_grid
-    section_id: features_grid-hxb5k3
-    version: "1.0"
-    variant: detailed
-    title: Objetivos de nuestra academia
-    subtitle: ¿Qué nos hace diferentes?
-    items:
-      - id: aprendizaje-practico
-        icon: Flag
-        category: Objetivo
-        title: Aprendizaje práctico y orientado a la realidad
-        description: Nos enfocamos en las herramientas y tecnologías más demandadas por las empresas líderes del sector, lo que te permitirá estar preparado para cualquier trabajo una vez que te gradues.
-      - id: flexibilidad
-        icon: Clock
-        category: Objetivo
-        title: Horarios y métodos de pago flexibles
-        description: Ofrecemos un modelo de formación a medio tiempo, para que puedas conciliar tus estudios con otras actividades. Además, también contamos con múltiples formas de financiación para hacer más accesibles los costos de un curso de esta calidad.
-      - id: comunidad
-        icon: Users
-        category: Objetivo
-        title: Una comunidad apasionada por la tecnología
-        description: Desde un principio decidimos crear una comunidad de programadores de calidad con el propósito de que puedas encontrar apoyo, colaboración y oportunidades de networking que te ayudarán a alcanzar tus metas.
-    columns: 3
-    collapsible_mobile: true
-    background: hsl(var(--secondary))
-    paddingY:
-      desktop: md lg
+  - type: certificate
+    section_id: certificate-e3th63
+    title: Tu certificado. Tu ventaja salarial.
+    description: Gradúate con un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida y las credenciales para negociar tu primer salario en tecnología desde una posición de fuerza.
+    benefits:
+      - text: "Full Stack Developer: $45K–$85K"
+      - text: "Ingeniero de IA: $65K–$110K"
+      - text: "Científico de Datos: $55K–$95K"
+      - text: "Especialista en Ciberseguridad: $50K–$90K"
+    card:
+      title: Desarrollador de Tecnología con IA
+      subtitle: Certificado 4Geeks Academy
+      program_name: Tecnología con IA
+    stats:
+      - value: 86%
+        label: Tasa de inserción laboral
+        description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores en LATAM están contratando activamente ahora mismo.
+        benefits:
+          - text: Certificado acreditado por el Departamento de Educación de Florida
+          - text: Un portfolio de proyectos reales y listos para producción
+          - text: Experiencia demostrada con flujos de trabajo y herramientas de IA
+          - text: Perfil profesional optimizado para pasar los filtros automáticos de los recruiters
+      - value: ~3 meses
+        label: Tiempo medio para conseguir empleo
+        description: La mayoría de graduados consiguen su primer rol en unos 3 meses. Nuestro proceso de desarrollo profesional en 3 pasos convierte tus habilidades técnicas en ofertas de trabajo rápidamente.
+        benefits:
+          - text: CV, portfolio y LinkedIn construidos para atraer recruiters en LATAM
+          - text: Preparación para entrevistas técnicas y conductuales con feedback real de ingenieros
+          - text: Estrategia personalizada de búsqueda de empleo con acceso a redes de contratación activas
+      - value: 55%
+        label: Aumento salarial medio
+        description: Los graduados reportan un aumento salarial medio del 55% tras incorporarse a roles tech. El programa se paga solo en pocos meses de trabajo.
+        benefits:
+          - text: "Full Stack Developer: $45K–$85K"
+          - text: "Ingeniero de IA: $65K–$110K"
+          - text: "Científico de Datos: $55K–$95K"
+          - text: "Especialista en Ciberseguridad: $50K–$90K"
+      - value: 5.000+
+        label: Graduados empleados en todo el mundo
+        description: Más de 5.000 alumni colocados en empresas que buscan talento tech activamente. Consigue acceso exclusivo a oportunidades de empleo antes de que se publiquen.
+        benefits:
+          - text: Acceso exclusivo a bolsa de empleo con roles de empresas colaboradoras
+          - text: Recomendaciones directas a empresas de nuestra red
+          - text: Eventos de networking con recruiters y responsables de selección
+          - text: Alumni trabajando en Google, Meta, Microsoft, Amazon y miles más
+    certificate_position: right
+    useSolidCard: true
     marginY:
-      desktop: none lg
+      mobile: none
+      desktop: md lg
+    paddingY:
+      mobile: lg
+      desktop: md
+    background: hsl(var(--secondary))
   - type: cards_deck
     section_id: cards_deck-q5vsak
     version: "1.0"
