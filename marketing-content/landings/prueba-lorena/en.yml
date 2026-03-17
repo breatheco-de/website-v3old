@@ -549,7 +549,7 @@ sections:
       - icon: Clock
         title: You're ready to commit
         description: 20-24 hours/week for 24 weeks. Live classes, real projects, real intensity. You bring the commitment, we deliver the results.
-      - icon: Briefcase
+      - icon: IconBriefcase
         title: You want a career, not a certificate
         description: You're here to build with AI, land a high-paying role, and make a real career change. That's exactly what this program is built for.
       - icon: Users
