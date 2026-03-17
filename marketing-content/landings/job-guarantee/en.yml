@@ -138,26 +138,6 @@ sections:
     section_id: course_selector-x9c6qg
     marginY:
       desktop: md
-  - type: features_quad
-    section_id: features_quad-ge4f63
-    version: "1.0"
-    variant: default
-    compact: true
-    heading: How Our Job Guarantee Works
-    cards:
-      - icon: IconRubberStamp
-        title: 1. Add the Job Guarantee When You Enroll
-      - icon: IconCalendarCog
-        title: 2. Complete the Program and Graduate
-      - icon: IconChecklist
-        title: 3. Follow the Career Development Process
-      - icon: IconBriefcase
-        title: 4. Get Hired Within 9 Months, or Get 100% of Your Tuition Back
-    background: hsl(210 100% 50% / 0.05)
-    paddingY:
-      desktop: none
-    marginY:
-      desktop: none md
   - type: features_grid
     version: "1.0"
     variant: highlight
@@ -201,6 +181,26 @@ sections:
     marginY:
       desktop: none md
     paddingY:
+      desktop: none md
+  - type: features_quad
+    section_id: features_quad-ge4f63
+    version: "1.0"
+    variant: default
+    compact: true
+    heading: How Our Job Guarantee Works
+    cards:
+      - icon: IconRubberStamp
+        title: 1. Add the Job Guarantee When You Enroll
+      - icon: IconCalendarCog
+        title: 2. Complete the Program and Graduate
+      - icon: IconChecklist
+        title: 3. Follow the Career Development Process
+      - icon: IconBriefcase
+        title: 4. Get Hired Within 9 Months, or Get 100% of Your Tuition Back
+    background: hsl(210 100% 50% / 0.05)
+    paddingY:
+      desktop: none
+    marginY:
       desktop: none md
   - type: numbered_steps
     section_id: numbered_steps-646rz5
