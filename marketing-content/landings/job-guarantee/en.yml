@@ -221,7 +221,7 @@ sections:
       - icon: Cash
         heading: Connect With Companies That Are Hiring
         text: Follow a targeted job search plan and get direct access to 400+ hiring partners actively recruiting 4Geeks graduates.
-    background: hsl(var(--secondary))
+    background: hsl(var(--card))
     bullet_icon: Check
     bullet_icon_color: text-green-600
     paddingY:
