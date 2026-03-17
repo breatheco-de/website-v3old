@@ -266,9 +266,9 @@ sections:
         logoHeight: 56px
     section_id: awards_marquee-5o9w07
     paddingY:
-      desktop: none sm
+      desktop: none
     marginY:
-      desktop: none md
+      desktop: none
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
