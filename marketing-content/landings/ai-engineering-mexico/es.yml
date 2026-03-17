@@ -408,6 +408,7 @@ sections:
     marginY:
       desktop: none xl
     section_id: ai_learning-2hqf27
+    background: hsl(var(--secondary))
   - type: trust_cards
     version: v1.0
     title: La academia mejor valorada en todas las plataformas de reseñas
