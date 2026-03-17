@@ -173,7 +173,7 @@ sections:
         alt: Student 2
     cards:
       - icon: Code
-        title: Hands-On Coding
+        title: Lecciones de lectura - Explicaciones claras y fundamentales
         description: Build real projects
       - icon: Brain
         title: Deep Learning
