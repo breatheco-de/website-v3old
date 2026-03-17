@@ -163,8 +163,8 @@ sections:
   - type: ai_learning
     section_id: ai_learning-inbbwp
     badge: Why 4Geeks?
-    title: Why Learn AI Engineering with 4Geeks?
-    description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.
+    title: ¿Por qué aprender con 4Geeks?
+    description: Aprender de forma intensiva puede ser desafiante, pero hemos desarrollado las herramientas para mantenerte motivado, evitar que te quedes atascado en problemas y acelerar tu proceso de aprendizaje.
     features:
       - icon: TrendingUp
         title: Thrive in tech with career support for the AI-Era
