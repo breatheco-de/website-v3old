@@ -458,7 +458,7 @@ sections:
       desktop: lg md
     background: hsl(210 100% 50% / 0.05)
     marginY:
-      desktop: none md
+      desktop: none xl
   - type: certificate
     section_id: certificate-8xn2o7
     title: Impacto en tu carrera profesional
