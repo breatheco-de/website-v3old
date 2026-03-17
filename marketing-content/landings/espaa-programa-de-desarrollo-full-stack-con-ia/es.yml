@@ -174,23 +174,26 @@ sections:
         col_span: 6
         row_span: 2
     section_id: graduates_stats-cnxqbb
-  - type: ai_learning
-    version: "1.0"
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: Why Learn with 4Geeks?
-    description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
-    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
-    features:
-      - icon: Robot
-        title: Learn with AI
-        description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
-      - icon: Headset
-        title: Unlimited 1:1 mentoring sessions
-        description: Access unlimited mentorship sessions with our experts whenever you need guidance.
-      - icon: Users
-        title: Learn with the community
-        description: Learning alongside others is more fun and helps you progress faster. Join our active community.
+  - type: two_column
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    left:
+      video: https://youtu.be/nvnO5WTkx0M?is=O06EtJA_1us4AjQb
+      justify: center
+    right:
+      heading: "Diego Gómez González: cómo 4Geeks cambió su vida profesional"
+      sub_heading: La experiencia de un estudiante de nuestro bootcamp
+      description: Diego, uno de nuestros estudiantes, comparte su experiencia en 4Geeks Academy, donde cursó el bootcamp de desarrollo Full Stack. Con un grado superior en desarrollo multiplataforma, Diego ya contaba con conocimientos en programación, pero necesitaba reforzar su capacidad para conectar las distintas áreas del desarrollo. Hoy trabaja como desarrollador y construye productos reales con las herramientas que las empresas contratan.
+      button:
+        text: Solicita tu plaza
+        url: "#hero-nzpyph"
+        variant: primary
+        icon: Rocket
+    gap: "8"
+    marginY:
+      desktop: none xl
     section_id: ai_learning-2hqf27
   - type: syllabus
     section_id: syllabus-q0etx0
