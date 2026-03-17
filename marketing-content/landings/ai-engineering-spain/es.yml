@@ -658,7 +658,7 @@ sections:
     marginY:
       desktop: none md
     paddingY:
-      desktop: lg md
+      desktop: lg
     background: hsl(var(--secondary))
   - type: numbered_steps
     section_id: numbered_steps-y83ffn
