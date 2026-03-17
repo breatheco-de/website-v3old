@@ -455,7 +455,7 @@ sections:
         video_url: https://youtu.be/Zoxxw5jP7xA
     paddingY:
       mobile: lg none
-      desktop: lg
+      desktop: lg md
     background: hsl(210 100% 50% / 0.05)
   - type: certificate
     section_id: certificate-8xn2o7
