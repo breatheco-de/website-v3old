@@ -20,15 +20,15 @@ sections:
     variant: ApplyFormProductShowcase
     title: ""
     brand_mark:
-      prefix: Conviértete en
+      prefix: Tus habilidades tienen fecha de caducidad. Conviértete en
       highlight: Ingeniero de IA
-      suffix: y construye sistemas reales en producción
+      suffix: y trabaja en lo que más contratan las empresas ahora mismo
       color: primary
-    description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando, en 24 semanas.
+    description: En 24 semanas pasas de donde estás hoy a desarrollar, integrar y desplegar sistemas de IA reales. Los que las empresas en España llevan meses intentando contratar.
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Aplicar al programa
+      submit_label: Comprueba si cumples los requisitos. Es gratis
       tags: website-lead
       fields:
         email:
@@ -51,7 +51,7 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       terms_url: /terminos-condiciones
       privacy_url: /politica-privacidad
       consent:
@@ -69,9 +69,9 @@ sections:
       muted: true
     section_id: hero-lt4ge6
     bullets:
-      - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
-      - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
-      - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
+      - text: "Enfocado en tu carrera desde el primer día: prepárate en 24 semanas y consigue trabajo en 120 días"
+      - text: La única academia que no termina cuando te gradúas, mentoría ilimitada de por vida incluida
+      - text: Grupos reducidos con acompañamiento real antes, durante y después de graduarte
     paddingY:
       mobile: md none
       desktop: lg none
