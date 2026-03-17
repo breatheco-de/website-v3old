@@ -397,22 +397,24 @@ function ColumnContent({ column, defaultBulletIcon, hideHeadingOnTablet }: { col
           </div>
         );
       })()}
-      {column.video && (
-        <div className={`w-full flex ${getJustifyClass(column.justify)}`}>
-          <div 
-            style={{ 
-              width: column.video_width || "100%",
-              maxWidth: "100%"
-            }}
-          >
-            <UniversalVideo
-              url={column.video}
-              ratio={column.video_ratio || "16:9"}
-              preview_image_url={column.video_preview_image}
-            />
+      {column.video && (() => {
+        const videoIsObj = typeof column.video === "object" && column.video !== null;
+        const videoUrl = videoIsObj ? (column.video as { url: string }).url : (column.video as string);
+        const videoRatio = videoIsObj ? ((column.video as { ratio?: string }).ratio || "16:9") : (column.video_ratio || "16:9");
+        const videoPreviewImage = videoIsObj ? (column.video as { preview_image_url?: string }).preview_image_url : column.video_preview_image;
+        const videoWidth = videoIsObj ? ((column.video as { width?: string }).width || "100%") : (column.video_width || "100%");
+        return (
+          <div className={`w-full flex ${getJustifyClass(column.justify)}`}>
+            <div style={{ width: videoWidth, maxWidth: "100%" }}>
+              <UniversalVideo
+                url={videoUrl}
+                ratio={videoRatio}
+                preview_image_url={videoPreviewImage}
+              />
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </div>
   );
 }
@@ -501,11 +503,20 @@ function BenefitCardsVariant({ data }: TwoColumnProps) {
             <div className="flex items-center justify-center">
               {data.right?.video ? (
                 <div className="w-full max-w-md">
-                  <UniversalVideo
-                    url={data.right.video}
-                    ratio={data.right.video_ratio || "16:9"}
-                    preview_image_url={data.right.video_preview_image}
-                  />
+                  {(() => {
+                    const rv = data.right!.video;
+                    const rvIsObj = typeof rv === "object" && rv !== null;
+                    const rvUrl = rvIsObj ? (rv as { url: string }).url : (rv as string);
+                    const rvRatio = rvIsObj ? ((rv as { ratio?: string }).ratio || "16:9") : (data.right!.video_ratio || "16:9");
+                    const rvPreview = rvIsObj ? (rv as { preview_image_url?: string }).preview_image_url : data.right!.video_preview_image;
+                    return (
+                      <UniversalVideo
+                        url={rvUrl}
+                        ratio={rvRatio}
+                        preview_image_url={rvPreview}
+                      />
+                    );
+                  })()}
                 </div>
               ) : data.right?.image ? (
                 <img 
