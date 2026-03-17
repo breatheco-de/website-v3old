@@ -316,6 +316,7 @@ sections:
           - Full-Stack
           - Capstone
         duration: 40 HORAS
+        difficulty: hard
   - type: ai_learning
     section_id: ai_learning-x1b774
     variant: feature-tabs
