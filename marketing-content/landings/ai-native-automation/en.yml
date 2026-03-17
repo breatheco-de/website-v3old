@@ -95,9 +95,6 @@ sections:
       - icon: Brain
         title: AI Mentoring
         description: Personalized guidance that adapts to your learning style and pace.
-      - icon: School
-        title: Homework & Exam Prep
-        description: Practice problems and explanations to help you ace your assessments.
       - icon: Bug
         title: Debugging Assistant
         description: Step-by-step help to understand and fix errors in your code.
