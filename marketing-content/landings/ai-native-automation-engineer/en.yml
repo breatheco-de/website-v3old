@@ -226,6 +226,7 @@ sections:
     benefits:
       - text: Certificados otorgados por una escuela certificada en los Estados Unidos por el Departamento de Educación de Florida
       - text: Miles de retos de codificación en la nube (no se requiere configuración)
+      - icon: Brain
       - text: Nunca estarás atascado o solo de nuevo, nuestra IA te conoce
     card:
       title: AI Native Automation
