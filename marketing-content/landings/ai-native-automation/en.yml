@@ -186,18 +186,18 @@ sections:
         object_position: center 35%
         border_radius: 0.5rem
     bullet_groups:
-      - title: "Our Team of Expert Mentors:"
+      - title: Lecciones de lectura
         image: https://randomuser.me/api/portraits/men/10.jpg
         bullets:
-          - text: Provides personalized guidance on coding challenges
-          - text: Offers live troubleshooting and debugging support
-          - text: Expert bug fixing assistance
-      - title: "Rigobot + Learnpack:"
+          - text: Explicaciones claras
+          - text: Guía paso a paso para aprender haciendo
+          - text: Ejercicios interactivos y proyectos para tu portfolio
+      - title: Rigobot
         bullets:
-          - text: Provides instant feedback and tutoring while you code
-          - text: Tracks your skills and progress
-          - text: Helps with debugging and problem-solving tasks
-    footer_description: Together, human mentorship and AI-powered tools accelerate your learning.
+          - text: Provee retroalimentación en tiempo real
+          - text: Te ayuda a encontrar y corregir errores en tu código
+          - text: Explica conceptos paso a paso de forma clara
+    footer_description: Empieza hoy, avanza a tu propio ritmo.
     background: bg-background
     section_id: human_and_ai_duo-ek4fvi
   - type: bullet_tabs_showcase
