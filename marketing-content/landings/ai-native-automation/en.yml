@@ -40,7 +40,7 @@ sections:
     tutors_label: Tu tutor será
     description: Transforma tu carrera con Ingeniería de Automatización Nativa de IA. Aprende a diseñar, construir y desplegar flujos de automatización listos para producción con entrenamiento práctico en n8n e integraciones de APIs reales. Gradúate con más de 35 proyectos en portafolio y las habilidades para trabajar como ingeniero de automatización profesional.
     video:
-      url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+      url: https://www.youtube.com/watch?v=TgkIpTZ75NM
       ratio: "16:9"
       muted: true
       autoplay: true
