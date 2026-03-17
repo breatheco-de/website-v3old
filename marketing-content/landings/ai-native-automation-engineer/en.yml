@@ -107,58 +107,47 @@ sections:
       - title: Prácticas Profesionales
         description: En esta sesión, los estudiantes elevarán su proyecto final a estándares de producción dominando prácticas profesionales de desarrollo. Aprenderán convenciones de nomenclatura estándar de la industria para código mantenible, implementarán patrones integrales de organización de código, crearán documentación de grado de producción, desarrollarán estrategias avanzadas de manejo de errores, aplicarán control de versiones con Git y dominarán técnicas de comunicación con partes interesadas. El módulo cubre estándares de nomenclatura profesional, mejores prácticas de documentación, patrones y soluciones de errores comunes, metodologías de prueba sistemáticas, flujos de trabajo de control de versiones y técnicas efectivas de presentación para proyectos técnicos. Los estudiantes transformarán su automatización funcional en un sistema pulido y profesional que cumple con los estándares de la industria y puede presentarse con confianza a empleadores, clientes o partes interesadas.
     section_id: syllabus-8oy90c
-  - type: features_quad
-    version: "1.0"
-    variant: default
-    heading: ¿Por qué aprender con 4Geeks?
-    description: Aprender de forma intensiva puede ser desafiante, pero hemos desarrollado las herramientas para mantenerte motivado, evitar que te quedes atascado en problemas y acelerar tu proceso de aprendizaje.
-    video:
-      url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-      ratio: "16:9"
-      width: 400px
-      preview_image_url: https://example.com/preview.jpg
-      muted: true
-      autoplay: false
-      loop: false
-    cards:
-      - icon: RigobotIconTiny
-        title: Aprende con Rigobot
-        description: Nuestra inteligencia artificial revisa tu código para brindarte retroalimentación instantánea, te ayuda con los ejercicios ¡y mucho más!
-      - icon: Contract
-        title: Mentorías 1:1
-        description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
-      - icon: PeopleGroup
-        title: Aprende en comunidad
-        description: Aprender junto a otros no solo es más divertido, sino que también te ayuda a progresar más rápido. Únete a nuestra comunidad activa de aprendizaje para recibir apoyo y colaboración.
-      - icon: GrowthChart
-        title: Alta empleabilidad
-        description: En 4Geeks aprendes los lenguajes de programación con mayor demanda en el mercado laboral.
-    footer_description: Aprende con 4Geeks Academy.
-    background: bg-background
-    section_id: features_quad-e4212n
-    images:
-      - src: ""
-        alt: "TODO: Add alt text for rigobot-logo_1764707022198.webp"
-        object_fit: cover
-        object_position: center top
-        border_radius: 0.5rem
-        image_id: rigobot-logo-1764707022198
-        id: rigobot-logo-1764707022198
-      - src: ""
-        alt: Student 2
-        object_fit: cover
-        object_position: center top
-        border_radius: 0.5rem
-      - src: ""
-        alt: Student 3
-        object_fit: cover
-        object_position: center top
-        border_radius: 0.5rem
-      - src: ""
-        alt: Student 4
-        object_fit: cover
-        object_position: center top
-        border_radius: 0.5rem
+  - type: ai_learning
+    variant: feature-tabs
+    badge: ¿Por qué 4Geeks?
+    title: Todo lo que necesitas para lanzar tu carrera en tecnología
+    description: Avanza más rápido y mantente motivado con nuestras herramientas de IA y método de enseñanza hiperpersonalizado.
+    features:
+      - icon: Robot
+        title: Progresa más rápido con herramientas de IA
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Obtén feedback instantáneo de Rigobot, nuestro tutor de IA personalizado
+          - text: Recibe consejos ajustados a tu nivel de habilidad y progreso
+          - text: Ayuda con depuración y tareas de resolución de problemas
+          - text: Accede a cientos de ejercicios interactivos en Learnpack
+        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
+      - icon: TrendingUp
+        title: Lanza tu carrera en tecnología con apoyo profesional para la Era de la IA
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Coaching personalizado 1:1
+          - text: Currículums optimizados para procesos de contratación con IA
+          - text: Preparación de entrevistas y negociación salarial
+          - text: Acceso de por vida para apoyar tu crecimiento profesional
+        video_url: https://youtu.be/-2ZvlgDnltc
+      - icon: Headset
+        title: Mentoría ilimitada 1:1 y una comunidad activa
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Acceso de por vida a sesiones de mentoría 1:1
+          - text: Relación 7:1 de estudiante a profesor, garantizando una atención personalizada
+          - text: Colaboración entre compañeros a través de canales de Slack y check-ins semanales
+          - text: Canales dedicados de Slack para soporte técnico, bolsas de trabajo y consejos de carrera
+        image_id: community-support-cropped
+    paddingY:
+      desktop: md none
+    section_id: ai_learning-9g2eb8
+    marginY:
+      desktop: none sm
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
