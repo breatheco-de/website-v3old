@@ -65,6 +65,8 @@ sections:
           text: Talleres todas las semanas
         - icon: IconUsersGroup
           text: Encuentros de la comunidad
+        - icon: IconBrain
+          text: Acceso a mentorías
     section_id: hero-95qjzu
     marginY:
       desktop: none md
