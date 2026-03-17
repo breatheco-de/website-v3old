@@ -65,19 +65,12 @@ sections:
       features:
         - icon: book
           text: Readings and videos
-          count: "31"
         - icon: code
           text: Interactive Exercises
-          count: "2"
         - icon: briefcase
           text: Interactive Projects
-          count: "8"
         - icon: robot
           text: Real Time AI Feedback
-        - icon: calendar
-          text: Workshops every week
-        - icon: users
-          text: Community Gatherings.
     section_id: hero-qcvrq7
   - type: hero
     version: "1.0"
