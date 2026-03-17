@@ -148,7 +148,7 @@ sections:
       desktop: none sm
   - type: certificate
     version: v1.0
-    title: Certificate & Career Network
+    title: Certifícate en tu tecnología favorita
     description: Tu certificado de 4Geeks te abrirá puertas a oportunidades profesionales gracias a nuestra red global de empresas. Avalado internacionalmente, es un estándar reconocido que te da acceso a múltiples salidas profesionales.
     benefits:
       - text: Certificados emitidos por una escuela acreditada en Estados Unidos por el Departamento de Educación del Estado de Florida
