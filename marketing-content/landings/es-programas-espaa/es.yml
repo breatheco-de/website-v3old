@@ -4,20 +4,20 @@ sections:
     variant: productShowcase
     title: en 4Geeks Academy
     brand_mark:
-      prefix: Saca el máximo de tu
-      highlight: potencial
+      prefix: La IA está cambiando todos los empleos en España. Empieza tu carrera en
+      highlight: tecnología con IA
       color: primary
-    description: Programas diseñados para convertirte en un profesional de la programación, desarrollar habilidades autodidactas y fortalecer tu perfil profesional en la industria tecnológica.
+    description: En 4Geeks no solo aprendes a programar. Te preparamos para conseguir trabajo. Mentorías ilimitadas de por vida, herramientas de IA integradas en cada programa y apoyo de carrera hasta que firmes tu primer contrato.
     bullets:
-      - text: Aprende a resolver problemas de manera efectiva mediante programación y pensamiento lógico
-      - text: Desarrolla habilidades de aprendizaje autodidacta para adaptarte a nuevas tecnologías
-      - text: Accede a mentorías personalizadas ilimitadas y de por vida incluso después de graduarte
-      - text: Forma parte de una comunidad internacional de más de 5,000 profesionales en tecnología
+      - text: Elige entre Full Stack, Ingeniería de IA, Data Science o Ciberseguridad según tus objetivos
+      - text: La única academia que no termina cuando te gradúas, mentoría ilimitada de por vida incluida
+      - text: Grupos reducidos con acompañamiento real antes, durante y después de graduarte
+      - text: Más de 5.000 graduados empleados en empresas tech de todo el mundo
     image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Solicita más información
+      submit_label: Comprueba si cumples los requisitos. Es gratis
       tags: website-lead
       fields:
         email:
@@ -39,20 +39,20 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
         marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
-        sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
+        sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4-6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
         sms_usa_only: true
       show_terms: true
-    form_vertical_align: bottom
+    form_vertical_align: top
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Recibe todos los detalles del programa
-    form_card_subtitle: Completa el formulario para recibir el programa completo por correo electrónico y elegir cómo quieres que nuestro equipo de admisiones se ponga en contacto contigo.
+    form_card_subtitle: Tarda 2 minutos. Nuestro equipo de admisiones te enviará la información completa del programa que más te interese en unos minutos.
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: false
     awards_marquee:
@@ -99,7 +99,6 @@ sections:
       desktop: none
     section_id: hero-l4c46u
   - type: awards_marquee
-    section_id: awards_marquee-kelzv8
     version: v1.0
     speed: 40
     gradient: true
@@ -137,100 +136,97 @@ sections:
         logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
+    section_id: awards_marquee-yinel0
+  - type: graduates_stats
+    heading: Resultados profesionales reales
+    subheading: Más de 6.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
+    stats:
+      - value: 86%
+        label: Tasa de inserción laboral
+      - value: 55%
+        label: Aumento salarial medio tras graduarse
+      - value: ~3 meses
+        label: Tiempo medio para conseguir empleo en 2025
+      - value: 5.000+
+        label: Graduados empleados en todo el mundo
+    collage_images:
+      - image_id: graduates_team_1
+        col_span: 5
+        row_span: 2
+      - image_id: graduates_team_2
+        col_span: 7
+        row_span: 2
+      - image_id: graduates_coding
+        col_span: 6
+        row_span: 2
+      - image_id: graduates_friends
+        col_span: 6
+        row_span: 2
+    section_id: graduates_stats-cnxqbb
+  - type: trust_cards
+    version: v1.0
+    title: La academia mejor valorada en todas las plataformas de reseñas
+    items:
+      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+        rating: 4.9
+        review_count: 4.9 en Course Report
+      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        rating: 4.8
+        review_count: 4.8 en Google
+      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        rating: 4.9
+        review_count: 4.9 en Career Karma
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 4.9 en SwitchUp
+    name: Default Trust Cards
+    description: Four review platform cards with ratings
+    section_id: trust_cards-eslgbu
+    paddingY:
+      desktop: md
     marginY:
-      desktop: none lg
-  - type: two_column_accordion_card
-    variant: image_background
-    version: "1.0"
-    title: ¿Por qué elegir 4Geeks Academy como uno de los mejores bootcamps de España?
-    description: "Las razones por las que somos uno de los mejores bootcamps de programación en España:"
-    bullets:
-      - heading: Enfoque en las necesidades del mercado
-        text: Nuestro programa se basa en las habilidades y tecnologías más demandadas por las empresas, lo que asegura una formación práctica, relevante y alineada con la industria.
-      - heading: Mentorías personalizadas e ilimitadas
-        text: Recibe el apoyo individual de mentores expertos en cada etapa de tu carrera, desde la elección de tu camino profesional hasta la preparación para encontrar empleo.
-      - heading: Inserción laboral
-        text: Alrededor del 90% de nuestros graduados encuentran trabajo en los primeros 6 meses después de finalizar el programa.
-    footer: Forma parte de una comunidad internacional de profesionales que ya han transformado su carrera con 4Geeks Academy.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/Copia de Fav_DSC_1146.JPG
-    image_alt: Estudiantes aprendiendo programación en 4Geeks Academy
-    reverse: true
-    section_id: two_column_accordion_card-srkrjj
-  - type: course_selector
-    version: "1.0"
-    variant: solid
-    heading: Descubre tu potencial en 4Geeks Academy
-    subheading: Programas para convertirte en un experto en programación y complementar tu perfil profesional
-    courses:
+      desktop: none xl
+  - type: programs_showcase
+    version: v1.0
+    layout: spotlight_with_list
+    heading: Elige tu camino profesional
+    subheading: Cuatro programas diseñados para las habilidades que las empresas en España están contratando ahora mismo.
+    featured_label: Programa Destacado
+    programs:
       - name: Ingeniería de IA
-        icon: Brain
+        icon: IconBrain
+        description: Construye los sistemas de IA que las empresas contratan ahora mismo. Domina LLMs, agentes de IA y automatización mientras transformas un caso de negocio real en un sistema completamente nativo de IA, capa por capa.
         duration: 24 semanas
-        label: Actualizado en 2026
-        title: Ingeniería de IA
-        badges:
-          - icon: Cpu
-            text: LLMs, Agentes de IA y Automatización
-          - icon: Database
-            text: Sistemas de IA en Producción
-        description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ingenieria-ia
-        course_background: hsl(var(--accent))
       - name: Desarrollo Full Stack con IA
-        icon: Code
+        icon: IconCode
+        description: Construye aplicaciones web modernas y listas para producción de frontend a backend usando las herramientas de IA más demandadas del mercado.
         duration: 20 semanas
-        label: Actualizado en 2026
-        title: Desarrollo de Software Full Stack
-        badges:
-          - icon: Code
-            text: React, Node.js y Python
-        tags:
-          - icon: Plus
-            text: Desarrollo de APIs
-          - icon: ""
-            text: ""
-        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/desarrollo-full-stack
-        course_background: hsl(var(--destructive))
-      - name: Ciencia de Datos y ML
-        icon: ChartLine
+      - name: Ciencia de Datos y Machine Learning
+        icon: IconChartBar
+        description: Analiza datos complejos, construye modelos inteligentes y despliega soluciones de IA para problemas reales de negocio.
         duration: 16 semanas
-        label: Actualizado en 2026
-        title: Ciencia de Datos y Machine Learning con IA
-        badges:
-          - icon: BrainCircuit
-            text: Machine Learning y Modelos de IA
-          - icon: BarChart
-            text: Análisis y Visualización de Datos
-        description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
-        course_background: hsl(var(--primary))
       - name: Ciberseguridad
-        icon: Shield
+        icon: IconShield
+        description: Protege los sistemas que la IA necesita. Los especialistas en ciberseguridad son críticos ahora que las empresas escalan su infraestructura de IA.
         duration: 16 semanas
-        label: Actualizado en 2026
-        title: Ciberseguridad
-        badges:
-          - icon: Lock
-            text: Detección de Amenazas y Seguridad de Redes
-          - icon: Server
-            text: Seguridad en la Nube
-        description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciberseguridad
-        course_background: hsl(var(--secondary-foreground))
-    section_id: course_selector-nyglwg
-    marginY:
-      desktop: none
+    section_id: programs_showcase-5wibqd
+    background: hsl(210 100% 50% / 0.05)
     paddingY:
-      desktop: none
+      desktop: md lg
+    marginY:
+      desktop: none xl
   - type: two_column
     proportions:
       - 6
       - 6
-    background: hsl(210 100% 50% / 0.05)
     alignment: center
     left:
       video: https://youtu.be/9Vm_xD49MaU
@@ -247,9 +243,58 @@ sections:
     gap: "8"
     section_id: ai_learning-gyglcr
     marginY:
-      desktop: none xl
+      desktop: none lg
     paddingY:
       desktop: md
+  - type: ai_learning
+    section_id: ai_learning-qmjitd
+    badge: ¿Por qué 4Geeks?
+    title: La academia que no te abandona cuando te gradúas
+    description: La mayoría de academias te dan un curso y te desean suerte. 4Geeks se queda contigo desde tu primera línea de código hasta tu primera oferta de trabajo y más allá.
+    features:
+      - icon: TrendingUp
+        title: Apoyo de carrera construido para el mercado tech en España
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Coaching 1:1 enfocado en conseguir roles de Ingeniería de IA específicamente
+          - text: CV y portfolio optimizados para pasar los filtros automáticos de los recruiters
+          - text: Preparación para entrevistas técnicas y negociación salarial
+          - text: Apoyo de carrera de por vida, no solo hasta que te gradúas
+        video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
+        cta:
+          text: Comprueba si cumples los requisitos
+          url: "#hero-lt4ge6"
+          variant: primary
+      - icon: Robot
+        title: Aprende más rápido con un tutor de IA que sabe dónde te has atascado
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Rigobot te da feedback instantáneo sobre tu código sin esperar a que haya un humano disponible
+          - text: Adapta las explicaciones a tu nivel exacto y ritmo de aprendizaje
+          - text: Desbloquéate a las 2 de la madrugada sin perder el hilo
+          - text: Cientos de ejercicios interactivos en Learnpack, nuestra plataforma de aprendizaje
+        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
+        cta:
+          text: Comprueba si cumples los requisitos
+          url: "#hero-lt4ge6"
+          variant: primary
+      - icon: Headset
+        title: Mentoría 1:1 ilimitada de por vida, no solo mientras estudias
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Reserva sesiones 1:1 ilimitadas con ingenieros senior incluso después de graduarte
+          - text: Ratio 7:1 estudiante por mentor para que tu mentor sepa quién eres
+          - text: Check-ins semanales para que te mantengas enfocado y termines el programa
+          - text: Comunidad activa en Slack con canales de empleo, soporte técnico y consejos de carrera
+        video_url: https://youtu.be/Zoxxw5jP7xA
+    paddingY:
+      mobile: lg none
+      desktop: lg md
+    marginY:
+      desktop: none xl
   - type: geeks_vs_others_comparison
     section_id: geeks_vs_others_comparison-0w9570
     version: "1.0"
