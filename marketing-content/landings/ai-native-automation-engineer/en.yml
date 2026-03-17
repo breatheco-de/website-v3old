@@ -135,46 +135,6 @@ sections:
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
     section_id: mentorship-pi44vh
-  - type: ai_learning
-    section_id: ai_learning-aazkxm
-    variant: feature-tabs
-    badge: ¿Por qué aprender con 4Geeks?
-    title: ¿Por qué aprender con 4Geeks?
-    description: Aprender de forma intensiva puede ser desafiante, pero hemos desarrollado las herramientas para mantenerte motivado, evitar que te quedes atascado en problemas y acelerar tu proceso de aprendizaje.
-    features:
-      - icon: Robot
-        title: Aprende con Rigobot
-        description: Nuestra inteligencia artificial revisa tu código para brindarte retroalimentación instantánea, te ayuda con los ejercicios ¡y mucho más!
-        show_rigobot_logo: true
-        bullets:
-          - text: Rigobot es tutor de Inteligencia Artificial disponible 24/7
-          - text: Retroalimentación en tiempo real y guía experta
-        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-        cta: Robot
-      - title: Mentorías uno a uno
-        description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
-        show_rigobot_logo: true
-        bullets:
-          - text: Acceso a mentorías 1:1
-          - text: Orientadas a guiar tu aprendizaje
-          - text: Resuelve tus dudas de manera personalizada
-        image_id: https://images.prismic.io/4geeks/c633749d-b848-44bf-920b-105e73698a6a_Group+6445+%281%29.png?auto=compress,format
-        cta:
-          icon: Robot
-      - icon: Rocket
-        title: Aprende en comunidad
-        description: Aprender junto a otros no solo es más divertido, sino que también te ayuda a progresar más rápido. Únete a nuestra comunidad activa de aprendizaje para recibir apoyo y colaboración.
-        show_rigobot_logo: true
-        bullets:
-          - text: Aprende con otros compañeros y avanza más rápido
-          - text: Recibe ayuda, comparte ideas y resuelve dudas
-          - text: Comunidad activa conectada a través de Slack
-        image_id: community-support-cropped
-        cta: Juntos es mejor
-    marginY:
-      desktop: md none
-    paddingY:
-      desktop: md none
   - type: certificate
     version: v1.0
     title: Certifícate en tu tecnología favorita
