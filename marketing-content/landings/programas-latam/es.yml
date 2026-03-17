@@ -47,7 +47,7 @@ sections:
         sms_text: Acepto recibir mensajes SMS sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4-6 mensajes al mes. Nunca compartiremos tu información de contacto.
         sms_usa_only: true
       show_terms: true
-    form_vertical_align: bottom
+    form_vertical_align: top
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Obtén todos los detalles del programa
     form_card_subtitle: "Tarda 2 minutos. Nuestro equipo de admisiones te enviará la información completa del programa: plan de estudios, precios y opciones de financiación en minutos."
