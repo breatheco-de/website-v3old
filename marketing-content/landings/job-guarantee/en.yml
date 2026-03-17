@@ -114,6 +114,7 @@ sections:
       desktop: none
     paddingY:
       desktop: none md
+    background: hsl(210 100% 50% / 0.05)
   - type: two_column_accordion_card
     section_id: two_column_accordion_card-s6gzio
     variant: image_background
