@@ -180,6 +180,7 @@ sections:
         role_label: Become a
         demand: High demand
     section_id: programs_showcase-nsa203
+    background: hsl(var(--secondary))
   - type: features_quad
     section_id: features_quad-ge4f63
     version: "1.0"
