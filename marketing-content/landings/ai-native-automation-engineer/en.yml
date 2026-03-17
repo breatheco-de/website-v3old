@@ -125,7 +125,7 @@ sections:
       - icon: Interview
         title: Mentorías 1:1
         description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
-      - icon: IconUsersGroup
+      - icon: PeopleGroup
         title: Aprende en comunidad
         description: Aprender junto a otros no solo es más divertido, sino que también te ayuda a progresar más rápido. Únete a nuestra comunidad activa de aprendizaje para recibir apoyo y colaboración.
       - icon: GrowthChart
