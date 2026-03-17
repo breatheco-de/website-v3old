@@ -167,7 +167,7 @@ sections:
     heading: What You'll Learn
     description: Master the essential skills for AI engineering.
     images:
-      - image_id: student-1
+      - image_id: laceholder_career_guidance
         alt: Student 1
       - image_id: student-2
         alt: Student 2
