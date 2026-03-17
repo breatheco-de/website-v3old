@@ -150,10 +150,7 @@ sections:
     version: v1.0
     title: Certifícate en tu tecnología favorita
     description: Certificarte te abrirá puertas a oportunidades profesionales gracias a nuestra red global de empresas. Avalado internacionalmente, es un estándar reconocido que te da acceso a múltiples salidas profesionales.
-    benefits:
-      - text: Certificados emitidos por una escuela acreditada en Estados Unidos por el Departamento de Educación del Estado de Florida
-      - text: Cientos de retos de codificación en la nube (no se requiere configuración)
-      - text: Nunca estarás atascado o solo de nuevo, nuestra IA te conoce.
+    benefits: null
     card:
       title: AI NATIVE AUTOMATION
       subtitle: 4Geeks Academy Certificate
