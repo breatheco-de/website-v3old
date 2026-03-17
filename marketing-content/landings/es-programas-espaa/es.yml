@@ -243,7 +243,7 @@ sections:
     gap: "8"
     section_id: ai_learning-gyglcr
     marginY:
-      desktop: none lg
+      desktop: none md
     paddingY:
       desktop: md
   - type: ai_learning
