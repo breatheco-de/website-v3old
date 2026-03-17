@@ -536,8 +536,8 @@ sections:
   - type: whos_hiring
     section_id: whos_hiring-6ml5ey
     variant: carousel
-    title: Empresas que contratan a nuestros estudiantes
-    subtitle: Nuestros graduados trabajan en compañías líderes a nivel global
+    title: Donde trabajan nuestros graduados
+    subtitle: Más de 5.000 alumni colocados en empresas que contratan talento Full Stack y tech activamente en todo el mundo.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
