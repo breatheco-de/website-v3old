@@ -140,24 +140,13 @@ sections:
   - type: programs_showcase
     version: v1.0
     layout: grid
-    heading: Choose Your Career Path
-    subheading: Four programs built around the skills companies are actively hiring for right now.
+    heading: Every Program Comes With the Job Guarantee Option
+    subheading: Four programs. One promise. Get hired within 9 months, or get your tuition back.
     programs:
-      - name: Full Stack Development with AI
-        icon: IconCode
-        description: Build modern, production-ready web applications from frontend to backend, using the latest AI-powered tools and workflows.
-        duration: 16 weeks
-        avg_salary: $75,000 – $120,000
-        cta_text: Explore Program
-        cta_url: /programs/full-stack
-        color: primary
-        role: Full Stack Developer
-        role_label: Become a
-        demand: High demand
       - name: AI Engineering
         icon: IconBrain
-        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies. Transform a single business case into a fully AI-native system, layer by layer.
-        duration: 20 weeks
+        description: Design, build, and deploy complete AI systems used in real-world production.
+        duration: 24 weeks / 15 weeks accelerated
         avg_salary: $95,000 – $150,000
         cta_text: Explore Program
         cta_url: /programs/ai-engineering
@@ -167,7 +156,7 @@ sections:
         demand: Very high demand
       - name: Data Science & ML
         icon: IconChartBar
-        description: Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.
+        description: Analyze complex datasets, build predictive models, and deploy machine learning solutions to real problems.
         duration: 18 weeks
         avg_salary: $80,000 – $130,000
         cta_text: Explore Program
@@ -178,15 +167,26 @@ sections:
         demand: High demand
       - name: Cybersecurity
         icon: IconShield
-        description: Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.
+        description: Develop hands-on skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.
         duration: 14 weeks
-        avg_salary: $70,000 – $110,000
+        avg_salary: $80,000 – $115,000
         cta_text: Explore Program
         cta_url: /programs/cybersecurity
         color: destructive
         role: Security Analyst
         role_label: Become a
         demand: Critical demand
+      - name: Full Stack Development with AI
+        icon: IconCode
+        description: Build modern web applications from frontend to backend using the latest AI-powered tools and workflows.
+        duration: 16 weeks
+        avg_salary: $85,000 – $120,000
+        cta_text: Explore Program
+        cta_url: /programs/full-stack
+        color: primary
+        role: Full Stack Developer
+        role_label: Become a
+        demand: High demand
     section_id: programs_showcase-nsa203
   - type: features_quad
     section_id: features_quad-ge4f63
