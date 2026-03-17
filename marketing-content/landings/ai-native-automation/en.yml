@@ -162,8 +162,8 @@ sections:
       desktop: none lg
   - type: bullet_tabs_showcase
     version: "1.0"
-    heading: Ideate and specify what to build next
-    subheading: Transform your ideas into actionable tasks seamlessly. Our platform helps you collaborate with your team, track progress in real-time, and deliver projects faster than ever before. Whether you're building a startup or scaling an enterprise, we provide the tools you need to succeed.
+    heading: Aprende haciendo
+    subheading: Sabemos que ver horas de video no te hará estar listo para un empleo. Por eso nuestra plataforma divide el aprendizaje en módulos desbloqueables
     subheading_centered: false
     image_position: right
     tabs:
