@@ -204,15 +204,15 @@ sections:
     section_id: two_column_accordion_card-s6gzio
     variant: image_background
     version: "1.0"
-    title: AI-Powered Learning. Expert Mentorship. Real Career Support.
-    description: Our AI-powered learning, paired with unlimited 1:1 mentorship and career support, helps you build in-demand skills, gain confidence, and advance in high-growth tech roles faster than you thought possible.
+    title: What Backs Our Guarantee
+    description: "The Job Guarantee isn't a marketing promise. It's backed by a system built around one outcome: getting you hired. Here's what that looks like in practice."
     bullets:
-      - heading: Personalized Learning With Expert Support
-        text: Small student-to-teacher ratios, unlimited mentor access, and AI-guided feedback keep your learning fast, adaptive, and focused on what matters.
-      - heading: Lifelong Mentorship & Career Support
-        text: Work 1:1 with mentors and career coaches who guide your portfolio, interview preparation, and job search strategy until you land your first tech role.
-      - heading: AI-Integrated Curriculum and Learning Tools
-        text: Master the latest AI tools and workflows that employers are actively hiring for.
+      - heading: Unlimited 1:1 Mentorship, for Life
+        text: A 7:1 student-to-mentor ratio means you're never stuck. Work directly with experienced mentors at every stage, from your first project to your final interview.
+      - heading: AI-Native Skills Employers Are Hiring For
+        text: The curriculum is built around what companies actually need today, including AI tools, workflows, and systems that are shaping every tech role in the market.
+      - heading: Career Support Built for Today's Job Market
+        text: From a recruiter-ready profile to direct access to 400+ hiring partners, GeekFORCE works with you until you land, with coaching, referrals, and interview prep built in.
     image: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
     image_alt: Student learning with mentor support
     video:
