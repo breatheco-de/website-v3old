@@ -151,7 +151,7 @@ sections:
         color: muted-foreground
         role: AI Engineer
         role_label: Become an
-        demand: Very high demand
+        demand: Critical demand
       - name: Data Science & ML
         icon: IconChartBar
         description: Analyze complex datasets, build predictive models, and deploy machine learning solutions to real problems.
@@ -165,9 +165,9 @@ sections:
         icon: IconShield
         description: Develop hands-on skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.
         duration: 14 weeks
-        avg_salary: $80,000 – $115,000
+        avg_salary: $80,000 – $120,000
         color: destructive
-        role: Security Analyst
+        role: Cybersecurity Analyst
         role_label: Become a
         demand: Critical demand
       - name: Full Stack Development with AI
