@@ -183,7 +183,7 @@ sections:
     description: Four review platform cards with ratings
     section_id: trust_cards-eslgbu
     paddingY:
-      desktop: md
+      desktop: sm md
     marginY:
       desktop: none xl
   - type: programs_showcase
@@ -220,7 +220,7 @@ sections:
     section_id: programs_showcase-5wibqd
     background: hsl(210 100% 50% / 0.05)
     paddingY:
-      desktop: md lg
+      desktop: sm lg
     marginY:
       desktop: none xl
   - type: two_column
