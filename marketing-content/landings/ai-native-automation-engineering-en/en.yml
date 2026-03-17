@@ -131,7 +131,7 @@ sections:
           - text: Aprende junto a otros compañeros y avanza más rápido
           - text: Recibe ayuda, comparte ideas y resuelve dudas
           - text: Comunidad activa conectada a través de Slack
-        video_url: https://youtu.be/-2ZvlgDnltc
+        image_id: community-support-cropped
       - icon: Headset
         title: Mentorías uno a uno
         description: ""
