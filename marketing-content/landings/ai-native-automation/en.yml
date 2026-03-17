@@ -162,7 +162,7 @@ sections:
       desktop: none lg
   - type: bullet_tabs_showcase
     version: "1.0"
-    heading: Aprende haciendo
+    heading: APRENDE HACIENDO
     subheading: Sabemos que ver horas de video no te hará estar listo para un empleo. Por eso nuestra plataforma divide el aprendizaje en módulos desbloqueables
     subheading_centered: false
     image_position: right
