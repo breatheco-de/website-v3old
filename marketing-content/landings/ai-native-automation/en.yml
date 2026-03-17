@@ -72,6 +72,17 @@ sections:
         - icon: users
           text: Community Gatherings.
     section_id: hero-d29v3o
+  - type: banner
+    version: "1.0"
+    logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
+    title: Conoce a Rigobot, nuestra Inteligencia Artificial interna
+    description: Diseñada para quienes aprenden solos. 4Geeks Academy es la primera plataforma diseñada para maximiar el aprendizaje a tu propio ritmo. Obtén ayuda inmediata con Rigobot.
+    cta:
+      text: Learn More
+      url: "#"
+      variant: primary
+    background: gradient
+    section_id: banner-zfzyf7
   - type: awards_marquee
     section_id: awards_marquee-22c9rj
     version: "1.0"

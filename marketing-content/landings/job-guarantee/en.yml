@@ -162,7 +162,7 @@ sections:
     version: "1.0"
     variant: highlight
     title: Real Outcomes for Our Graduates
-    subtitle: 4Geeks grads across the U.S., LATAM, and beyond launch careers in AI engineering, software development, data, and cybersecurity, landing jobs and increasing earning potential.
+    subtitle: "These numbers come from real graduates with real jobs. Our Job Guarantee is built around one outcome: getting you hired."
     items:
       - icon: Briefcase
         value: {{ global.global_job_placement_rate | 84 }}%
