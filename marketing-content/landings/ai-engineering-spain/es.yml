@@ -251,7 +251,7 @@ sections:
         title: Salario inicial promedio para ingenieros de IA en España
     marginY:
       mobile: md none
-      desktop: md lg
+      desktop: lg
     paddingY:
       mobile: none md
       desktop: none md
