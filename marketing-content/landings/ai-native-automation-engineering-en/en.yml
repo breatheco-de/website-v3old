@@ -149,7 +149,7 @@ sections:
   - type: certificate
     version: v1.0
     title: Certifícate en tu tecnología favorita
-    description: Tu certificado de 4Geeks te abrirá puertas a oportunidades profesionales gracias a nuestra red global de empresas. Avalado internacionalmente, es un estándar reconocido que te da acceso a múltiples salidas profesionales.
+    description: Certificarte te abrirá puertas a oportunidades profesionales gracias a nuestra red global de empresas. Avalado internacionalmente, es un estándar reconocido que te da acceso a múltiples salidas profesionales.
     benefits:
       - text: Certificados emitidos por una escuela acreditada en Estados Unidos por el Departamento de Educación del Estado de Florida
       - text: Cientos de retos de codificación en la nube (no se requiere configuración)
