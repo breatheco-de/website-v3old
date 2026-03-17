@@ -218,20 +218,6 @@ sections:
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
     section_id: mentorship-junf1q
-  - type: certificate
-    version: v1.0
-    title: Certifícate en tu tecnología favorita
-    description: Tu certificado de 4Geeks abrirá puertas a oportunidades profesionales con nuestra extensa red de empresas en todo el mundo. Respaldado por instituciones internacionales, representa un estándar reconocido a nivel global, desbloqueando diversos caminos profesionales.
-    benefits:
-      - text: Certificados otorgados por una escuela certificada en los Estados Unidos por el Departamento de Educación de Florida
-      - text: Miles de retos de codificación en la nube (no se requiere configuración)
-      - text: Nunca estarás atascado o solo de nuevo, nuestra IA te conoce
-    card:
-      title: AI Native Automation
-      subtitle: 4Geeks Academy Certificate
-    section_id: certificate-o51gjn
-    marginY:
-      desktop: none md
   - type: awards_marquee
     version: v1.0
     speed: 40
