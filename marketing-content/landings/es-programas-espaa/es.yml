@@ -476,14 +476,14 @@ sections:
       desktop: none
   - type: cta_banner
     version: "1.0"
-    title: Rellena el formulario y obtén más información
-    subtitle: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
+    title: Tu nueva carrera en tech no va a empezar sola.
+    subtitle: Cada semana que esperas es una semana que otro se lleva el trabajo. Aplica en 2 minutos. Es gratis.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Aplicar ahora
+      submit_label: Comprueba si cumples los requisitos
       tags: website-lead
       fields:
         email:
@@ -506,7 +506,7 @@ sections:
           visible: true
           default: ai-engineering
       success:
-        message: ¡Gracias! Nos pondremos en contacto pronto.
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       consent:
         email: true
         marketing: true
