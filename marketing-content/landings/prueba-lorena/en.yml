@@ -219,7 +219,7 @@ sections:
     subtitle: The talent gap is real. This is your window.
     description: AI Engineers build intelligent systems, automate workflows, and deliver the AI-powered systems companies urgently need. Demand is exploding — but only 3% of the workforce has the skills to fill these roles. That's not a problem. It's an opprtunity like no other.
     card_color: bg-background
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--sidebar-background))
     items:
       - value: 42x
         title: Growth in Forward-Deployed Engineering since 2023
