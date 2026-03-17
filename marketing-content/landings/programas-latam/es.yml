@@ -489,53 +489,38 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-  - type: testimonials
-    section_id: testimonials-5p8dkw
-    version: v1.0
-    title: Testimonios de Nuestros Graduados
-    subtitle: Experiencias que respaldan nuestros resultados.
-    rating_summary:
-      average: "4.9"
-      count: 700+
-    items:
-      - name: Maria Rodriguez
-        role: Ingeniera de Software
-        company: Google
-        rating: 5
-        comment: Este programa cambió mi vida. Pasé de cero experiencia en código a conseguir mi trabajo soñado en 6 meses.
-        outcome: Contratada en 4 meses
-      - name: James Chen
-        role: Desarrollador Full Stack
-        company: Spotify
-        rating: 5
-        comment: La mentoría fue increíble. Tener acceso ilimitado a desarrolladores senior marcó toda la diferencia.
-        outcome: Aumento salarial 3x
-      - name: Sarah Williams
-        role: Desarrolladora Frontend
-        company: Meta
-        rating: 5
-        comment: Las herramientas de aprendizaje impulsadas por IA me ayudaron a entender conceptos complejos más rápido que cualquier otro curso que haya probado.
-        outcome: Cambio de carrera a los 35
-      - name: Carlos Mendez
-        role: Ingeniero Backend
-        company: Amazon
-        rating: 4
-        comment: Los proyectos prácticos y escenarios del mundo real me prepararon mejor que mi carrera en ciencias de la computación.
-        outcome: Trabajo remoto conseguido
-      - name: Emily Thompson
-        role: Ingeniera DevOps
-        company: Netflix
-        rating: 5
-        comment: El equipo de soporte profesional me ayudó a negociar un salario 50% más alto de lo que esperaba.
-        outcome: Aumento salarial del 50%
-      - name: David Kim
-        role: Tech Lead
-        company: Uber
-        rating: 5
-        comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
-        outcome: Promovido en 1 año
+  - type: cards_deck
+    section_id: cards_deck-8jlm80
+    version: "1.0"
+    heading: Historias reales de cambios de carrera
+    subtitle: Miles de graduados han utilizado nuestros programas para entrar en el mundo de la tecnología. Estas son solo algunas de sus historias, desde aumentos salariales hasta reinvenciones completas de carrera.
+    cards:
+      - video:
+          url: https://www.youtube.com/watch?v=B01-eTfgqqc
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: Mattia Tozzi
+        title: "\"4Geeks ha empujado mi futuro laboral\""
+        description: Las tutorías ilimitadas de 4Geeks fueron clave para elegirlos. Con la ayuda de sus profesores y la comunidad, pudo resolver todas sus dudas rápidamente y avanzar en su aprendizaje.
+        alt: Geekpal
+      - video:
+          url: https://www.youtube.com/watch?v=XqyM_QSVcOs
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: Ana Romero
+        title: "\"He superado mi miedo a programar\""
+        description: Están ahí siempre para brindarte apoyo. Sus buenos mentores, guías de programación y las herramientas de 4Geeks son excelentes. La recomendaría un millón de veces.
+        alt: Geekpal
+      - video:
+          url: https://www.youtube.com/watch?v=9Vm_xD49MaU
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: Diego Gómez González
+        title: "\"4Geeks me dio las herramientas para conectar todo lo que sabía\""
+        description: Diego tenía conocimientos previos en programación pero necesitaba conectar todas las piezas. Tras graduarse del bootcamp Full Stack en 4Geeks, consiguió hacer exactamente eso.
+        alt: Geekpal
     marginY:
-      desktop: lg
+      desktop: none xl
   - type: whos_hiring
     variant: carousel
     pretitle: ""
@@ -571,14 +556,14 @@ sections:
       desktop: none lg
   - type: cta_banner
     version: "1.0"
-    title: Rellena el formulario y obtén más información
-    subtitle: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
+    title: Tu carrera en tecnología no va a empezar sola.
+    subtitle: Cada semana que esperas es una semana que otro se lleva el trabajo. Comprueba ahora si cumples los requisitos, es gratis y tarda 2 minutos.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Solicitar más información
+      submit_label: Comprueba si cumples los requisitos. Es gratis
       tags: website-lead
       fields:
         email:
@@ -601,7 +586,7 @@ sections:
           visible: true
           required: true
       success:
-        message: ¡Gracias! Nos pondremos en contacto pronto.
+        message: Ya estás dentro. Alguien de nuestro equipo de admisiones se pondrá en contacto contigo en unos minutos por email. Revisa tu bandeja de entrada.
       consent:
         email: true
         marketing: true

@@ -791,7 +791,8 @@ export function DebugBubble() {
       if (qLocale) return qLocale;
     }
     const seg = pathname.split("/").filter(Boolean)[0];
-    return seg || "en";
+    if (seg && /^[a-z]{2}$/.test(seg)) return seg;
+    return pageDiagnostics?.locale || i18n.language || "en";
   };
 
   const currentLocaleSlug = (seoData?.slug as string) || contentInfo.slug || "";
@@ -1436,7 +1437,7 @@ export function DebugBubble() {
       toast({ title: "Cannot edit YAML", description: "Unrecognized content type", variant: "destructive" });
       return;
     }
-    const pathLocale = urlPath.startsWith('/es/') ? 'es' : urlPath.startsWith('/en/') ? 'en' : 'en';
+    const pathLocale = url.locale || (urlPath.startsWith('/es/') ? 'es' : urlPath.startsWith('/en/') ? 'en' : 'en');
     const token = getDebugToken();
     const headers: Record<string, string> = {};
     if (token) headers["Authorization"] = `Token ${token}`;
