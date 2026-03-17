@@ -408,7 +408,7 @@ sections:
       subtitle: Certificado 4Geeks Academy
       program_name: Full Stack con IA
     stats:
-      - value: 86%
+      - value: 81%
         label: Tasa de inserción laboral
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores en España están contratando activamente ahora mismo.
         benefits:
@@ -416,14 +416,14 @@ sections:
           - text: Un portfolio de proyectos reales y listos para producción
           - text: Experiencia demostrada con flujos de trabajo y herramientas de IA
           - text: Perfil profesional optimizado para pasar los filtros automáticos de los recruiters
-      - value: ~3 meses
+      - value: 3 - 6 meses
         label: Tiempo medio para conseguir empleo
         description: La mayoría de graduados consiguen su primer rol en unos 3 meses. Nuestro proceso de desarrollo profesional en 3 pasos convierte tus habilidades técnicas en ofertas de trabajo rápidamente.
         benefits:
           - text: CV, portfolio y LinkedIn construidos para atraer recruiters en España
           - text: Preparación para entrevistas técnicas y conductuales con feedback real de ingenieros
           - text: Estrategia personalizada de búsqueda de empleo con acceso a redes de contratación activas
-      - value: 55%
+      - value: 40%
         label: Aumento salarial medio
         description: Los graduados reportan un aumento salarial medio del 55% tras incorporarse a roles de Full Stack. El programa se paga solo en pocos meses de trabajo.
         benefits:
