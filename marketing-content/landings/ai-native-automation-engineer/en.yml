@@ -126,11 +126,11 @@ sections:
         title: Mentorías 1:1
         description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
       - icon: Clock
-        title: Flexible Schedule
-        description: Learn at your own pace with part-time and full-time options to fit your lifestyle.
+        title: Aprende en comunidad
+        description: Aprender junto a otros no solo es más divertido, sino que también te ayuda a progresar más rápido. Únete a nuestra comunidad activa de aprendizaje para recibir apoyo y colaboración.
       - icon: Users
-        title: Career Support
-        description: Get unlimited 1:1 mentorship and job placement assistance for life.
+        title: Alta empleabilidad
+        description: En 4Geeks aprendes los lenguajes de programación con mayo demanda en el mercado laboral.
     footer_description: Join thousands of graduates who have launched successful tech careers.
     background: bg-background
     section_id: features_quad-e4212n
