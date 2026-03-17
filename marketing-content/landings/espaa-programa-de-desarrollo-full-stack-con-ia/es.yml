@@ -594,13 +594,13 @@ sections:
   - type: cta_banner
     section_id: cta_banner-ifgt29
     version: "1.0"
-    title: ¿Listo para convertirte en Desarrollador Full Stack?
-    subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
+    title: Tu carrera como Full Stack Developer no va a empezar sola.
+    subtitle: Cada semana que esperas es una semana que otro se lleva el trabajo. Aplica en 2 minutos. Es gratis.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: {{ global.call_to_action_apply | Aplicar ahora }}
+      submit_label: Comprueba si cumples los requisitos
       tags: website-lead
       fields:
         email:
@@ -620,7 +620,7 @@ sections:
           required: true
           default: full-stack
       success:
-        message: ¡Gracias! Nos pondremos en contacto pronto.
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       consent:
         email: true
         marketing: true
