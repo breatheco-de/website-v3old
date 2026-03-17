@@ -471,7 +471,7 @@ sections:
         alt: Jooble
     section_id: whos_hiring-ed05rj
     marginY:
-      desktop: none md
+      desktop: none xl
     paddingY:
       desktop: none
   - type: cta_banner
