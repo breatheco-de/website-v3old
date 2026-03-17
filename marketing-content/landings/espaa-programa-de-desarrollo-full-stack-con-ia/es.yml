@@ -209,6 +209,7 @@ sections:
       - value: €25K– €45K
         title: Salario medio de un desarrollador Full Stack en España
     section_id: features_grid-k3hgib
+    background: hsl(var(--secondary))
   - type: syllabus
     section_id: syllabus-q0etx0
     variant: program-modules
