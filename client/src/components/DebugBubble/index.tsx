@@ -1436,7 +1436,7 @@ export function DebugBubble() {
       toast({ title: "Cannot edit YAML", description: "Unrecognized content type", variant: "destructive" });
       return;
     }
-    const pathLocale = urlPath.startsWith('/es/') ? 'es' : urlPath.startsWith('/en/') ? 'en' : 'en';
+    const pathLocale = url.locale || (urlPath.startsWith('/es/') ? 'es' : urlPath.startsWith('/en/') ? 'en' : 'en');
     const token = getDebugToken();
     const headers: Record<string, string> = {};
     if (token) headers["Authorization"] = `Token ${token}`;
