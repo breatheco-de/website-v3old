@@ -177,6 +177,28 @@ sections:
         description: Proyectos - Construcciones dignas de portafolio con funcionalidad del mundo real e instrucciones paso a paso
         image_id: placeholder_strategies
     section_id: bullet_tabs_showcase-8mub8x
+  - type: award_badges
+    version: v1.0
+    variant: simple
+    showBorder: true
+    items:
+      - id: award-with-logo
+        logo: /images/awards/course-report.svg
+        alt: Course Report Award
+        source: Course Report
+        name: Best Bootcamp
+        year: "2024"
+      - id: award-without-logo
+        alt: Industry Recognition
+        source: TechCrunch
+        name: Top 10 EdTech Startups
+        year: "2024"
+      - id: another-text-only
+        alt: Award Recognition
+        source: Forbes
+        name: Next Billion Dollar Startup
+        year: "2023"
+    section_id: award_badges-f8yelm
   - type: ai_learning
     section_id: ai_learning-inbbwp
     badge: Why 4Geeks?
