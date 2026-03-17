@@ -101,7 +101,7 @@ sections:
     cards:
       - icon: IconRubberStamp
         title: 1. Add the Job Guarantee When You Enroll
-      - icon: IconFolderCheck
+      - icon: IconCalendarCog
         title: 2. Complete the Program and Graduate
       - icon: IconChecklist
         title: 3. Follow the Career Development Process
