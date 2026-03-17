@@ -105,22 +105,6 @@ sections:
       - title: Prácticas Profesionales
         description: En esta sesión, los estudiantes elevarán su proyecto final a estándares de producción dominando prácticas profesionales de desarrollo. Aprenderán convenciones de nomenclatura estándar de la industria para código mantenible, implementarán patrones integrales de organización de código, crearán documentación de grado de producción, desarrollarán estrategias avanzadas de manejo de errores, aplicarán control de versiones con Git y dominarán técnicas de comunicación con partes interesadas. El módulo cubre estándares de nomenclatura profesional, mejores prácticas de documentación, patrones y soluciones de errores comunes, metodologías de prueba sistemáticas, flujos de trabajo de control de versiones y técnicas efectivas de presentación para proyectos técnicos. Los estudiantes transformarán su automatización funcional en un sistema pulido y profesional que cumple con los estándares de la industria y puede presentarse con confianza a empleadores, clientes o partes interesadas.
     section_id: syllabus-8oy90c
-  - type: features_grid
-    version: "1.0"
-    variant: cardHeader
-    heading: Unlimited Career Support – Always Ahead of Job Market Trends
-    description: Geekforce is built into every 4Geeks program to make sure you don't just learn tech, but launch a successful career.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
-    image_alt: 4Geeks Academy community support
-    background: bg-primary/5
-    cards:
-      - icon: Target
-        text: Receive tailored guidance aligned with your goals, context, and challenges.
-      - icon: Mentor2
-        text: Meet mentors online or in-person whenever you need support—unlimited, for life.
-      - icon: Rocket
-        text: Access proven tools and strategies to make smarter career moves.
-    section_id: features_grid-91q9e7
   - type: ai_learning
     section_id: ai_learning-aazkxm
     variant: feature-tabs
