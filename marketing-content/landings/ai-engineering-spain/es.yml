@@ -689,14 +689,14 @@ sections:
   - type: cta_banner
     section_id: cta_banner-z7t37t
     version: "1.0"
-    title: ¿Listo para convertirte en Ingeniero de IA?
-    subtitle: Cupos limitados. Comienza tu transformación hoy.
+    title: Tu carrera como Ingeniero de IA no va a empezar sola.
+    subtitle: Cada semana que esperas es una semana que otro se lleva el trabajo. Aplica en 2 minutos. Es gratis.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Aplicar ahora
+      submit_label: Comprueba si cumples los requisitos
       tags: website-lead
       fields:
         email:
@@ -720,7 +720,7 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: ¡Gracias! Nos pondremos en contacto pronto.
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       consent:
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
