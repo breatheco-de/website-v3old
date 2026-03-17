@@ -543,23 +543,26 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    compact: true
-    heading: Program Benefits
-    description: Everything you need to succeed in your AI engineering career.
+    heading: Is This Program Right for You?
+    description: If you're nodding at all four, this is for you.
     cards:
-      - icon: Trophy
-        title: Industry Recognition
-        description: Top-ranked bootcamp
-      - icon: Wallet
-        title: Affordable Tuition
-        description: Flexible payments
       - icon: Clock
-        title: Flexible Schedule
-        description: Part-time available
+        title: You're ready to commit
+        description: 20-24 hours/week for 24 weeks. Live classes, real projects, real intensity. You bring the commitment, we deliver the results.
+      - icon: Briefcase
+        title: You want a career, not a certificate
+        description: You're here to build with AI, land a high-paying role, and make a real career change. That's exactly what this program is built for.
       - icon: Users
-        title: Career Support
-        description: Unlimited mentorship
-    background: bg-muted/30
+        title: You want support that actually shows up
+        description: Clear milestones, expert instructors, and unlimited 1:1 mentorship every step of the way.
+      - icon: Sparkles
+        title: You're playing the long game
+        description: You're ready to move into one of the fastest-growing, highest-paying fields of the next decade and you want the skills to back it up.
+    background: hsl(var(--secondary))
+    marginY:
+      desktop: none lg
+    paddingY:
+      desktop: none
     section_id: features_quad-xffhpo
   - type: mentorship
     version: v1.0
