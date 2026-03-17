@@ -265,6 +265,10 @@ sections:
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
     section_id: awards_marquee-5o9w07
+    paddingY:
+      desktop: none sm
+    marginY:
+      desktop: none md
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
