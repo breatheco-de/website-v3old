@@ -1,0 +1,10 @@
+slug: ai-native-automation
+title: ai-native-automation
+locale: en
+meta:
+  og_image: /images/programs/ai-engineering-og.jpg
+schema:
+  include:
+    - organization
+    - website
+    - courses:ai-engineering
