@@ -192,6 +192,7 @@ sections:
         col_span: 6
         row_span: 2
     section_id: graduates_stats-cnxqbb
+    value_size: text-3xl
   - type: course_selector
     version: "1.0"
     variant: solid
