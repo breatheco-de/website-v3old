@@ -1,21 +1,10 @@
-slug: "espaa-programa-de-desarrollo-full-stack-con-ia"
-title: Full Stack Developer
+slug: prueba-lorena
+title: Full Stack Developer with AI
+locale: en
 meta:
-  robots: index, follow
+  page_title: Full Stack Developer with AI Career Program | 4Geeks Academy
+  description: Become a Full Stack Developer with AI in 20 weeks. Unlimited 1:1 mentorship, AI-powered learning, and career support until you're hired. Graduates earn $95K+.
   og_image: /images/programs/full-stack-og.jpg
-  priority: 0.9
-  change_frequency: weekly
-  page_title: Full Stack Developer Career Program | 4Geeks
-  description: Become a Full Stack Developer with unlimited 1:1 mentorship, career guidance, and hands-on projects. Launch a career with $65K+ starting salaries.
-
-context:
-  when_to_use: For visitors interested in becoming web developers, learning both frontend and backend technologies, or transitioning into software development careers.
-  target_audience: Career changers, recent graduates, and professionals looking to break into tech with comprehensive web development skills.
-  goals:
-    - Highlight the practical, project-based learning approach
-    - Emphasize job-ready skills and career outcomes
-    - Showcase the full-stack technology coverage (HTML, CSS, JavaScript, React, Python, SQL)
-    - Address concerns about learning curve and time commitment
 schema:
   include:
     - organization
@@ -23,171 +12,168 @@ schema:
     - courses:full-stack
 sections:
   - type: hero
-    section_id: hero-t87w7c
     version: "1.0"
-    variant: course
-    title: Full Stack Development with AI Program
-    title_highlight: Full Stack Developer with AI
-    subtitle: "Your job title won't protect you from AI. Your skills will. Train for the most in-demand developer role in Europe with an AI-powered curriculum, unlimited 1:1 mentorship, and career support until you're hired."
-    students_enrolled:
-      avatars:
-        - https://randomuser.me/api/portraits/women/1.jpg
-        - https://randomuser.me/api/portraits/men/2.jpg
-        - https://randomuser.me/api/portraits/women/3.jpg
-        - https://randomuser.me/api/portraits/men/4.jpg
-      count: 1,000+ students enrolled across LATAM and the U.S.
-    bullet_points:
-      - Career-focused from day one. Get job-ready in 20 weeks and hired in 120 days
-      - Build real production apps with React, Python, Node.js and AI tools companies actually use
-      - The only bootcamp that doesn't end at graduation. Unlimited 1:1 mentorship for life
-      - Flexible financing available, including zero upfront payment options
-    tutors:
-      - name: Expert Instructor
-        role: Lead Instructor
-        image: https://randomuser.me/api/portraits/men/10.jpg
-      - name: Rigo
-        role: AI Learning Assistant
-        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: "Your instructors:"
-    description: "Graduate with a live, production-ready portfolio and the AI-fluent skills that put you in the top 10% of Full Stack candidates in Spain."
-    signup_card:
-      title: Get the full program overview
-      description: "Takes 2 minutes. Receive the complete syllabus, schedule options, tuition details, and career support framework."
-      cta_button:
-        text: See If You Qualify. It's Free
-        url: "#apply-modal"
-        variant: primary
-      login_link:
-        text: Already a student? Login here.
-        url: https://4geeks.com/login
-      features:
-        - icon: IconCalendar
-          text: 20-week track
-        - icon: IconCalendarBolt
-          text: 12-week accelerated morning track
-        - icon: code
-          text: Interactive coding exercises
-        - icon: robot
-          text: AI-powered feedback
-        - icon: calendar
-          text: "7:1 teacher student ratio"
-        - icon: users
-          text: 1:1 mentorship
-    paddingY:
-      desktop: md lg
-    marginY:
-      desktop: none
-  - type: modal
-    version: "1.0"
-    heading: Request Program Details
-    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
-    show_close: true
-    size: md
+    variant: productShowcase
+    title: at 4Geeks Academy
+    brand_mark:
+      prefix: Your current job has a ceiling. Become a
+      highlight: Full Stack Developer with AI
+      color: primary
+    description: "800,000+ tech roles open right now, and companies are desperate for developers who can build with AI. In 20 weeks, you'll ship production-ready web apps, master React, Python and Node.js, and position yourself for the fastest-growing entry point in software development."
+    bullets:
+      - text: "Career-focused from day one: get job-ready in 20 weeks and hired in 120 days"
+      - text: The only bootcamp that doesn't end at graduation, unlimited lifetime mentorship included
+      - text: Flexible financing available, including zero upfront payment options
+    image_object_fit: none
     form:
       variant: stacked
-      submit_label: Get the Full Overview
-      tags: request_more_info
-      automations: soft
+      conversion_name: student_application
+      submit_label: See If You Qualify. It's Free
+      tags: website-lead
       fields:
         email:
           visible: true
           required: true
+          placeholder: Email Address
         first_name:
           visible: true
           required: true
+          placeholder: First Name
+        last_name:
+          visible: true
+          required: true
+          placeholder: Last Name
         phone:
           visible: true
           required: true
         program:
           visible: false
-          required: true
-          default: {{ single.bc_slug | ai-engineering }}
+          default: full-stack
       success:
-        message: Thank you. A program advisor will reach out with the details within 24 hours.
-    section_id: apply-modal
-  - type: awards_marquee
-    section_id: awards_marquee-60c4aq
-    version: v1.0
-    speed: 40
-    gradient: true
-    gradientWidth: 400
+        message: "You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox."
+      terms_url: /terms-and-conditions
+      privacy_url: /privacy-policy
+      consent:
+        sms: true
+        marketing: true
+        marketing_text: I agree to receive information via email, WhatsApp and/or other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe easily at any time.
+        sms_text: I agree to receive SMS/text messages about workshops, events, courses and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4-6 text messages per month. We will never share your contact information.
+        sms_usa_only: true
+      show_terms: true
+    form_vertical_align: bottom
+    form_card_text_color: hsl(var(--foreground))
+    form_card_title: Get the Full Program Details
+    form_card_subtitle: "Takes 2 minutes. Our admissions team will send you the complete program overview: curriculum, pricing, and financing options within minutes of applying."
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+    show_awards_marquee: true
+    awards_marquee:
+      items:
+        - id: switchup-2025
+          alt: SwitchUp - Best Coding Bootcamps 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+          logoHeight: 55px
+        - id: course-report-2024
+          alt: Course Report - Best Coding Bootcamp 2024
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+          logoHeight: 55px
+        - id: tech-hub
+          alt: South Florida Tech Hub
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+          logoHeight: 55px
+        - id: ebootcamp
+          alt: eBootcamp Top
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+          logoHeight: 55px
+        - id: premios-tecnologia
+          alt: Premios Tecnología Siglo XXI
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+          logoHeight: 55px
+        - id: newsweek
+          alt: Newsweek
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+          logoHeight: 55px
+        - id: reviews-coursereport
+          alt: 4.9 Stars on Course Report Reviews
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+          logoHeight: 55px
+        - id: excelencia-educativa
+          alt: Educational Excellence - Institutional Quality
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+          logoHeight: 55px
+    video_title: GeekForce Career Support
+    marginY:
+      desktop: none
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    paddingY:
+      desktop: md none
+    marginX:
+      desktop: none
+    section_id: hero-fullstack
+  - type: graduates_stats
+    heading: Career Outcomes
+    subheading: "Real results from 5,000+ graduates. Here's what happens after you complete the program."
+    stats:
+      - value: 86%
+        label: Hiring rate, US graduates placed within 90 days
+      - value: 55%
+        label: Average salary increase after graduation
+      - value: "~3 months"
+        label: Average time to get hired in 2025
+      - value: 5,000+
+        label: Graduates employed worldwide
+    collage_images:
+      - image_id: graduates_team_1
+        col_span: 5
+        row_span: 2
+      - image_id: graduates_team_2
+        col_span: 7
+        row_span: 2
+      - image_id: graduates_coding
+        col_span: 6
+        row_span: 2
+      - image_id: graduates_friends
+        col_span: 6
+        row_span: 2
+    section_id: graduates_stats-fullstack
+  - type: two_column
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    left:
+      video: https://youtu.be/nvnO5WTkx0M?is=O06EtJA_1us4AjQb
+      justify: center
+    right:
+      heading: "A real career change. Hear it from someone who lived it."
+      sub_heading: A 4Geeks graduate shares their story
+      description: "Before 4Geeks, they had no background in software development. In 20 weeks they built real production apps, mastered the full stack, and landed a developer role. This is what the program actually looks like from the inside."
+      button:
+        text: See If You Qualify
+        url: "#hero-fullstack"
+        variant: primary
+        icon: Rocket
+    gap: "8"
+    marginY:
+      desktop: none xl
+  - type: features_grid
+    version: "1.0"
+    variant: stats-text
+    title: Why Full Stack Development with AI Now
+    subtitle: "Software developers who can't work with AI are already being passed over. You can be the one who gets hired instead."
+    description: "The web development market is being reshaped in real time. Companies don't just need developers anymore. They need developers who can ship faster using AI, build smarter products, and integrate intelligent tools into every layer of the stack. That gap is your opportunity right now."
     items:
-      - id: switchup-2025
-        alt: SwitchUp - Best Coding Bootcamps 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        logoHeight: 64px
-      - id: course-report-2024
-        alt: Course Report - Best Coding Bootcamp 2024
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
-        logoHeight: 64px
-      - id: tech-hub
-        alt: South Florida Tech Hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
-        logoHeight: 64px
-      - id: ebootcamp
-        alt: eBootcamp Top
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
-        logoHeight: 64px
-      - id: premios-tecnologia
-        alt: Premios Tecnologia Siglo XXI
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-        logoHeight: 64px
-      - id: newsweek
-        alt: Newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
-        logoHeight: 64px
-      - id: reviews-coursereport
-        alt: 4.9 on Course Report Reviews
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-        logoHeight: 64px
-      - id: excelencia-educativa
-        alt: Excelencia Educativa - Institutional Quality
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
-        logoHeight: 64px
-    paddingY:
-      mobile: md
-      desktop: none md
-    marginY:
-      desktop: none md
-  - type: why_learn_ai
-    section_id: why_learn_ai-th9nq6
-    variant: laptop-edge
-    title: Get Hired. Or Your Money Back.
-    subtitle: "Most bootcamps hope you get a job. We guarantee it."
-    description: "<div><ul><li><span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Enroll with the Job Guarantee added to your payment plan.</span></span></span></span></li><li><span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Complete the program and the GeekFORCE career development process.</span></span></span></span></li><li><span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">If you're not hired within 9 months of graduation, you'll get a full refund of your tuition.</span></span></span></span></li></ul><div><span style=\"font-size: 1.125rem;\"><span><span><div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"/en/job-guarantee\">Terms and conditions apply.</a></span></span></span></div></span></span></span></div></div>"
-    cta:
-      text: See How It Works
-      url: /en/job-guarantee
-      variant: primary
-    marginY:
-      desktop: md
-    paddingY:
-      desktop: none sm
-    background: hsl(var(--secondary))
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
+      - value: 1.4M
+        title: Full Stack and web development roles open in the US right now
+      - value: 55%
+        label: Average salary increase reported by 4Geeks Full Stack graduates
+        title: Average salary increase reported by 4Geeks graduates
+      - value: $95K-$135K
+        title: Average starting salary for AI-fluent Full Stack developers
+    section_id: features_grid-fullstack
   - type: syllabus
-    section_id: syllabus-yx7633
     variant: program-modules
-    program_title: Full Stack with AI Program Overview
-    program_description: "Learn to build modern, production-ready web applications mastering frontend and backend development alongside AI. You graduate with a live portfolio of real projects, not just a certificate."
+    program_title: What You'll Build in 20 Weeks
+    program_description: "From day one you work on a real product. Over 6 modules you master the full stack from frontend to backend, integrate AI into every layer, and ship production-ready code. You graduate with a live portfolio, not just a certificate."
     tech_logos:
       - name: HTML5
         icon: html
@@ -202,34 +188,34 @@ sections:
       - name: Git
         icon: git
     module_cards:
-      - title: Introduction To HTML And CSS
+      - title: HTML and CSS Foundations
         duration: Weeks 1-2
         objectives:
-          - Create web structures with semantic HTML
-          - Style pages with modern CSS techniques
-          - Build visually appealing and accessible websites
-        projects: Ship responsive landing pages that work on every device
+          - Semantic HTML structure
+          - Modern CSS and Tailwind
+          - Responsive and accessible design
+        projects: Ship your first live webpage, visible on the internet from day one
         orientation: vertical
         icon: IconCode
-      - title: JavaScript
+      - title: JavaScript Mastery
         duration: Weeks 3-5
         objectives:
           - Variables, functions, and control flow
           - DOM manipulation for interactive pages
-          - Modern ES6+ features and async programming
-        projects: Build dynamic web apps users can actually interact with
+          - Modern ES6+ and async programming
+        projects: Build interactive web apps users can actually use
         orientation: vertical
         icon: IconBrandJavascript
-      - title: React
+      - title: React and Modern Frontend
         duration: Weeks 6-9
         objectives:
-          - Component-based user interfaces
+          - Component-based architecture
           - State management with hooks
-          - Routing and scalable app architecture
-        projects: Build the kind of frontend that gets you hired
+          - Routing and scalable app structure
+        projects: Build the kind of frontend that gets you hired at a tech company
         orientation: vertical
         icon: IconBrandReact
-      - title: Python
+      - title: Python and Backend Development
         duration: Weeks 10-12
         objectives:
           - Core programming and data structures
@@ -238,62 +224,28 @@ sections:
         projects: Create backend services and automation scripts that run in production
         orientation: vertical
         icon: IconBrandPython
-      - title: Creating APIs
+      - title: APIs and Database Architecture
         duration: Weeks 13-15
         objectives:
-          - Design and build RESTful APIs
+          - RESTful API design and development
           - Authentication and database integration
-          - API documentation and best practices
+          - Documentation and best practices
         projects: Build a full REST API that powers a real frontend application
         orientation: vertical
         icon: IconApi
-      - title: Agile Methodologies
+      - title: Agile and Team Workflows
         duration: Week 16
         objectives:
-          - Scrum, Kanban, and agile frameworks
-          - Sprint planning and team collaboration
-          - Working in real developer teams
+          - Scrum, Kanban, and sprint planning
+          - Collaboration in real developer teams
+          - Code review and shipping culture
         projects: Ship a group project using the same workflows used in real tech companies
         orientation: vertical
         icon: IconUsers
+    section_id: syllabus-fullstack
     paddingY:
       desktop: md
-  - type: projects
-    section_id: projects-ufqonx
-    title: Learn by Building Real-Life Projects
-    subtitle: Build production-ready full stack applications that mirror real software engineering roles and industry workflows.
-    items:
-      - title: Build a StarWars REST API
-        description: The StarWars Blog API will let you practice building a REST API using lightweight API frameworks like Express (for node) or Flask (for python) using SQLAlchemy ORM and Python language, while building a fun blog. Ideal for juniors looking to practice API development in python.
-        image: star-wars
-        tags:
-          - REST
-        duration: 8 HOURS
-        difficulty: easy
-        date: 15/11/2022
-      - title: Authentication System with JWT
-        description: Create a complete authentication system with JWT tokens, React frontend, and Python backend. Learn security best practices and session management patterns used in production applications.
-        image: authentication
-        tags:
-          - Security
-          - JWT
-        duration: 6 HOURS
-        difficulty: medium
-        date: 20/01/2023
-      - title: Full-Stack Final Project
-        description: Design and build your own full-stack application from scratch. Demonstrate your skills with React, Flask, SQLAlchemy, and third-party API integrations. This capstone project showcases everything you've learned.
-        image: final-project
-        tags:
-          - Full-Stack
-          - Capstone
-        duration: 40 HOURS
-        difficulty: hard
-        date: 01/03/2023
-    paddingY:
-      desktop: md sm
   - type: ai_learning
-    section_id: ai_learning-pp2mit
-    variant: feature-tabs
     badge: Why 4Geeks?
     title: The Bootcamp That Doesn't End When You Graduate
     description: "Most bootcamps give you a course and wish you luck. 4Geeks stays with you from your first line of code to your first offer letter and beyond."
@@ -308,6 +260,10 @@ sections:
           - text: Get unblocked at 2am without losing momentum
           - text: Hundreds of interactive exercises on Learnpack, our purpose-built learning platform
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
+        cta:
+          text: See If You Qualify
+          url: "#hero-fullstack"
+          variant: primary
       - icon: TrendingUp
         title: Career support built for the AI job market
         description: ""
@@ -318,6 +274,10 @@ sections:
           - text: Mock technical and behavioral interviews with real feedback
           - text: Lifelong career support, not just until graduation
         video_url: https://youtu.be/-2ZvlgDnltc
+        cta:
+          text: See If You Qualify
+          url: "#hero-fullstack"
+          variant: primary
       - icon: Headset
         title: Unlimited 1:1 mentorship for life, not just while enrolled
         description: ""
@@ -328,19 +288,18 @@ sections:
           - text: Weekly check-ins keep you accountable and on track to finish
           - text: Active Slack community with dedicated channels for jobs, code help, and career advice
         image_id: community-support-cropped
-    marginY:
-      desktop: md none
+    section_id: ai_learning-fullstack
     paddingY:
-      desktop: md none
+      mobile: lg none
+      desktop: lg none
   - type: certificate
-    section_id: certificate-a28uqj
     title: Your Certificate. Your Salary Leverage.
     description: "Graduate with an industry-recognized certificate from a Florida Department of Education accredited institution and the credentials to negotiate your first Full Stack salary from a position of strength."
     benefits:
-      - text: "Full Stack Developer: €25K–€45K"
-      - text: "AI-Fluent Web Developer: €30K–€50K"
-      - text: "Backend Engineer: €28K–€48K"
-      - text: "Frontend Engineer: €25K–€42K"
+      - text: "Full Stack Developer: $95K-$135K"
+      - text: "AI-Fluent Software Developer: $100K-$145K"
+      - text: "Web Applications Engineer: $95K-$140K"
+      - text: "Backend Services Developer: $100K-$150K"
     card:
       title: Full Stack Developer
       subtitle: 4Geeks Academy Certificate
@@ -348,7 +307,7 @@ sections:
     stats:
       - value: 86%
         label: Hiring rate
-        description: Graduate with the skills, credentials, and professional profile employers in Spain are actively hiring for right now.
+        description: Graduate with the skills, credentials, and professional profile employers are actively hiring for right now.
         benefits:
           - text: Certificate accredited by the Florida Department of Education
           - text: A live, production-ready portfolio of real projects
@@ -358,17 +317,17 @@ sections:
         label: Average time to get hired
         description: "Most graduates land their first role within 3 months of graduation. Our 3-step career process turns technical skills into job offers fast."
         benefits:
-          - text: Resume, portfolio, and LinkedIn built to attract recruiters in Spain
+          - text: Resume, portfolio, and LinkedIn built to attract recruiters
           - text: Mock technical and behavioral interviews with real feedback from engineers
           - text: Personalized job search strategy with access to active hiring networks
       - value: 55%
         label: Average salary increase
         description: Graduates report an average 55% salary increase after transitioning into Full Stack roles. The program pays for itself within months of your first paycheck.
         benefits:
-          - text: "Full Stack Developer: €25K–€45K"
-          - text: "AI-Fluent Web Developer: €30K–€50K"
-          - text: "Backend Engineer: €28K–€48K"
-          - text: "Frontend Engineer: €25K–€42K"
+          - text: "Full Stack Developer: $95K-$135K"
+          - text: "AI-Fluent Software Developer: $100K-$145K"
+          - text: "Web Applications Engineer: $95K-$140K"
+          - text: "Backend Services Developer: $100K-$150K"
       - value: 5,000+
         label: Graduates employed worldwide
         description: Over 5,000 alumni placed at companies actively hiring tech talent. Get exclusive access to job opportunities before they're posted publicly.
@@ -379,122 +338,54 @@ sections:
           - text: Alumni working at Google, Meta, Microsoft, Amazon and thousands more
     certificate_position: right
     useSolidCard: true
+    section_id: certificate-fullstack
     marginY:
       mobile: none
-      desktop: none lg
+      desktop: none
     paddingY:
       mobile: lg
       desktop: lg
     background: hsl(var(--muted))
+  - type: testimonials_slide
+    title: They Made the Switch. Here's What Happened.
+    description: "From baristas, teachers, and musicians to Full Stack developers earning $95K+. Real people, real salary increases, real careers."
+    section_id: testimonials_slide-fullstack
   - type: pricing
-    section_id: pricing-bcmru3
     version: "1.0"
     variant: product
     title: An Investment That Pays for Itself
     subtitle: "The average 4Geeks graduate sees a 55% salary increase. The program pays for itself within months of your first paycheck."
     discount_text: "Full payment discount: Save 10% with upfront payment."
     financing_text: "Credit-based financing: starting below"
-    financing_amount: {{ global.price_fullstack | $299 }}
+    financing_amount: $349
     tech_icons:
       - openai
       - python
       - react
       - nodejs
-      - api
-      - brain
-      - robot
-      - settings
-    features_title: Choose the option that fits you best.
+      - javascript
+      - git
+      - github
+      - postman
+    features_title: Multiple ways to fund your enrollment. Choose what fits your situation.
     features:
       - icon: IconCheck
-        text: Enroll with a job guarantee* for added confidence. Get hired within 9 months of graduation or your money back. *Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.
+        text: "Get hired within 9 months of graduation or your money back. No fine print. *Not available in all regions. Terms and conditions apply."
       - icon: IconCheck
-        text: Standard tuition is {{ global.price_full_fullstack | $10,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
+        text: "Regular tuition is $10,999. Pay upfront and save 10%, or spread payments interest-free over 6 months."
       - icon: IconCheck
-        text: "2 to 3 merit-based scholarships available per cohort for highly qualified applicants."
-        use_rigobot_icon: true
+        text: "Finance through Climb, Fortify or Lumion with 24, 36, 48 or 60 month plans starting at $349/mo."
       - icon: IconCheck
-        text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
+        text: "2 to 3 partial scholarships available per cohort for highly qualified applicants."
     cta:
       text: See If You Qualify
-      url: "#apply-modal"
+      url: "#hero-fullstack"
       variant: primary
-    marginY:
-      desktop: none md
+    section_id: pricing-fullstack
     paddingY:
-      desktop: none md
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
-  - type: pricing
-    section_id: pricing-thgw4u
-    version: "1.0"
-    variant: product
-    title: An Investment That Pays for Itself
-    subtitle: "The average 4Geeks graduate sees a 55% salary increase. The program pays for itself within months of your first paycheck."
-    discount_text: "Full payment discount: Save 10% with early payment."
-    financing_text: Installment financing starting from
-    financing_amount: {{ global.price_fullstack | $299 }}
-    tech_icons:
-      - openai
-      - python
-      - react
-      - nodejs
-      - api
-      - brain
-      - robot
-      - settings
-    static_icons: true
-    features_title: Choose the option that fits you best.
-    features:
-      - icon: IconCheck
-        text: Pay upfront to get a better price with an additional discount, or split your payments into 6 to 24 installments through our partners.
-      - icon: IconCheck
-        text: "2 to 3 merit-based scholarships available per cohort for highly qualified applicants."
-      - icon: IconCheck
-        text: We work with trusted partners to offer flexible and affordable financing so you can focus on your future, not your fees.
-    cta:
-      text: See If You Qualify
-      url: /es/apply
-      variant: primary
-    marginY:
-      desktop: none md
-    paddingY:
-      desktop: lg md
-    showOnLocations:
-      - barcelona-spain
-      - madrid-spain
-      - malaga-spain
-      - valencia-spain
-      - berlin-germany
-      - dublin-ireland
-      - hamburg-germany
-      - lisbon-portugal
-      - milan-italy
-      - munich-germany
-      - rome-italy
+      mobile: lg none
+      desktop: lg none
   - type: whos_hiring
-    section_id: whos_hiring-r10rxz
     variant: carousel
     title: Where Our Graduates Work
     subtitle: "5,000+ alumni placed at companies actively hiring Full Stack and AI talent worldwide."
@@ -503,8 +394,6 @@ sections:
         alt: Microsoft
       - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
         alt: Google Developers
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
-        alt: Boats Group
       - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
         alt: Meta
       - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
@@ -523,72 +412,19 @@ sections:
         alt: Neo9
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
+    section_id: whos_hiring-fullstack
     paddingY:
       desktop: none
-  - type: testimonials
-    section_id: testimonials-i7wm9o
-    title: They Made the Switch. Here's What Happened.
-    subtitle: "From musicians, teachers, and support specialists to Full Stack developers. Real people, real salary increases, real careers."
-    rating_summary:
-      average: 4.9
-      count: 1,294
-    items:
-      - name: Sarah Johnson
-        role: AI Engineer
-        company: Google
-        rating: 5
-        comment: This course completely transformed my career. The instructors are incredibly knowledgeable and the curriculum is perfectly structured for real-world AI applications.
-        outcome: +55% salary increase
-      - name: Michael Chen
-        role: ML Engineer
-        company: Meta
-        rating: 5
-        comment: Best investment I ever made. Got a job offer before even finishing the program! The mentorship and career support were invaluable.
-        outcome: Hired in 4 months
-      - name: Emily Rodriguez
-        role: AI Engineer
-        company: Amazon
-        rating: 5
-        comment: Excellent content and great support from mentors. The projects were challenging but rewarding, and now I'm working on cutting-edge AI.
-        outcome: +100% salary increase
-      - name: David Kim
-        role: AI Developer
-        company: Startup
-        rating: 5
-        comment: From zero knowledge to landing my dream job in 5 months. The structured curriculum and hands-on projects made all the difference.
-        outcome: Career change success
-      - name: Jessica Martinez
-        role: AI Engineer
-        company: Spotify
-        rating: 4
-        comment: Great course with practical, real-world projects. The community is supportive and the instructors are always available to help.
-        outcome: +45% salary increase
-      - name: Ryan Thompson
-        role: ML Engineer
-        company: Tech Startup
-        rating: 5
-        comment: The best online learning experience I've had. Clear explanations, practical exercises, and excellent career guidance throughout.
-        outcome: Landed first tech job
-    paddingY:
-      desktop: md
-  - type: faq
-    section_id: faq-sb8o5r
-    title: Frequently Asked Questions
-    related_features:
-      - full-stack
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: md
-    background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
     title: "Your Full Stack career won't start itself."
     subtitle: "Every week you wait is a week someone else gets hired first. Apply in 2 minutes. It's free."
+    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: See If You Qualify
+      conversion_name: student_application
+      submit_label: See If You Qualify. It's Free
       tags: website-lead
       fields:
         email:
@@ -599,14 +435,17 @@ sections:
           visible: true
           required: true
           placeholder: First name
+        last_name:
+          visible: true
+          required: true
+          placeholder: Last name
         phone:
           visible: true
           required: true
           placeholder: Phone number
         program:
           visible: false
-          required: true
-          default: {{ single.bc_slug | unknown }}
+          default: full-stack
       success:
         message: "You're in. Someone from our admissions team will reach out within minutes. Check your inbox."
       consent:
@@ -614,44 +453,12 @@ sections:
         marketing: true
         marketing_text: I agree to receive information about courses and promotions
       show_terms: true
-      button_className: bg-primary
+      button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
-    paddingY:
-      desktop: md
+    section_id: cta_banner-fullstack
     marginY:
       desktop: lg none
-    background: hsl(var(--primary))
-    section_id: cta_banner-yno9xp
-  - type: sticky_cta
-    version: "1.0"
-    heading: Ready to start your tech career?
-    button_label: Apply Now
-    show_dismiss: false
-    form:
-      variant: inline
-      conversion_name: student_application
-      submit_label: Submit Application
-      tags: website-lead
-      automations: strong
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        last_name:
-          visible: true
-          required: false
-        phone:
-          visible: true
-          required: true
-        program:
-          visible: false
-          required: false
-          default: {{ single.bc_slug | ai-engineering }}
-      success:
-        message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-et016q
+    paddingY:
+      desktop: md
