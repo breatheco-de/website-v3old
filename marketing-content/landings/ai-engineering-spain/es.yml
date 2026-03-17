@@ -212,27 +212,6 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
-  - type: two_column
-    proportions:
-      - 6
-      - 6
-    alignment: center
-    left:
-      video: https://youtu.be/hUgwkBtYtUI?is=NZyqtXBleuOTTURF
-      justify: center
-    right:
-      heading: ¿Para qué sirve realmente la Ingeniería de IA?
-      sub_heading: Nuestro equipo en España te lo explica
-      description: Un miembro de nuestro equipo en España te cuenta exactamente para qué sirve el programa de Ingeniería de IA, qué vas a aprender, y por qué este es el momento para formarte en este campo. Sin tecnicismos, sin rodeos. Lo que necesitas saber antes de decidir.
-      button:
-        text: Comprueba si cumples los requisitos
-        url: "#hero-lt4ge6"
-        variant: primary
-        icon: Rocket
-    gap: "8"
-    marginY:
-      desktop: none xl
-    section_id: ai_learning-2hqf27
   - type: features_grid
     section_id: features_grid-0cm8zn
     version: "1.0"
@@ -255,6 +234,27 @@ sections:
     paddingY:
       mobile: none md
       desktop: none md
+  - type: two_column
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    left:
+      video: https://youtu.be/hUgwkBtYtUI?is=NZyqtXBleuOTTURF
+      justify: center
+    right:
+      heading: ¿Para qué sirve realmente la Ingeniería de IA?
+      sub_heading: Nuestro equipo en España te lo explica
+      description: Un miembro de nuestro equipo en España te cuenta exactamente para qué sirve el programa de Ingeniería de IA, qué vas a aprender, y por qué este es el momento para formarte en este campo. Sin tecnicismos, sin rodeos. Lo que necesitas saber antes de decidir.
+      button:
+        text: Comprueba si cumples los requisitos
+        url: "#hero-lt4ge6"
+        variant: primary
+        icon: Rocket
+    gap: "8"
+    marginY:
+      desktop: none xl
+    section_id: ai_learning-2hqf27
   - type: syllabus
     section_id: syllabus-tyek1h
     variant: program-modules
