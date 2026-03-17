@@ -134,9 +134,9 @@ sections:
       url: https://storage.googleapis.com/4geeks-academy-website/media/loop-1.mp4
     reverse: true
     marginY:
-      desktop: none md
+      desktop: none sm
     paddingY:
-      desktop: none md
+      desktop: none sm
   - type: programs_showcase
     version: v1.0
     layout: grid
