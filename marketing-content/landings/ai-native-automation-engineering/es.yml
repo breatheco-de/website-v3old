@@ -59,32 +59,6 @@ sections:
       muted: true
       autoplay: true
       loop: true
-    signup_card:
-      title: Sign up to 4Geeks Plus
-      description: Subscribe and get access to hundreds of challenges, projects and courses
-      cta_button:
-        text: Join now from $39/mo.
-        url: /signup
-        variant: primary
-      login_link:
-        text: Login here.
-        url: /login
-      features:
-        - icon: book
-          text: Readings and videos
-          count: "31"
-        - icon: code
-          text: Interactive Exercises
-          count: "2"
-        - icon: briefcase
-          text: Interactive Projects
-          count: "8"
-        - icon: robot
-          text: Real Time AI Feedback
-        - icon: calendar
-          text: Workshops every week
-        - icon: users
-          text: Community Gatherings.
     section_id: hero-2gp20e
   - type: hero
     version: "1.0"
