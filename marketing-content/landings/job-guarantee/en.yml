@@ -183,6 +183,7 @@ sections:
     section_id: course_selector-x9c6qg
     marginY:
       desktop: md
+    background: hsl(var(--secondary))
   - type: features_quad
     section_id: features_quad-ge4f63
     version: "1.0"
