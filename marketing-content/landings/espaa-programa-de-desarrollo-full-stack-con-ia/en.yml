@@ -1,463 +1,214 @@
-slug: prueba-lorena
-title: Full Stack Developer with AI
-locale: en
-meta:
-  page_title: Full Stack Developer with AI Career Program | 4Geeks Academy
-  description: Become a Full Stack Developer with AI in 20 weeks. Unlimited 1:1 mentorship, AI-powered learning, and career support until you're hired. Graduates earn $95K+.
-  og_image: /images/programs/full-stack-og.jpg
-schema:
-  include:
-    - organization
-    - website
-    - courses:full-stack
-sections:
-  - type: hero
-    version: "1.0"
-    variant: productShowcase
-    title: at 4Geeks Academy
-    brand_mark:
-      prefix: Every app you use was built by someone. Become a
-      highlight: Full Stack Developer with AI
-      color: primary
-    description: "The developers getting hired in 2025 are not just coders. They are builders who use AI to ship faster, smarter, and better than anyone else. In 20 weeks you will master React, Python, Node.js and the AI tools that make you the candidate companies can't ignore."
-    bullets:
-      - text: "Career-focused from day one: get job-ready in 20 weeks and hired in 120 days"
-      - text: The only bootcamp that doesn't end at graduation, unlimited lifetime mentorship included
-      - text: Flexible financing available, including zero upfront payment options
-    image_object_fit: none
-    form:
-      variant: stacked
-      conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
-      tags: website-lead
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Email Address
-        first_name:
-          visible: true
-          required: true
-          placeholder: First Name
-        last_name:
-          visible: true
-          required: true
-          placeholder: Last Name
-        phone:
-          visible: true
-          required: true
-        program:
-          visible: false
-          default: full-stack
-      success:
-        message: "You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox."
-      terms_url: /terms-and-conditions
-      privacy_url: /privacy-policy
-      consent:
-        sms: true
-        marketing: true
-        marketing_text: I agree to receive information via email, WhatsApp and/or other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe easily at any time.
-        sms_text: I agree to receive SMS/text messages about workshops, events, courses and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4-6 text messages per month. We will never share your contact information.
-        sms_usa_only: true
-      show_terms: true
-    form_vertical_align: bottom
-    form_card_text_color: hsl(var(--foreground))
-    form_card_title: Get the Full Program Details
-    form_card_subtitle: "Takes 2 minutes. Our admissions team will send you the complete program overview: curriculum, pricing, and financing options within minutes of applying."
-    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-    show_awards_marquee: true
-    awards_marquee:
-      items:
-        - id: switchup-2025
-          alt: SwitchUp - Best Coding Bootcamps 2025
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-          logoHeight: 55px
-        - id: course-report-2024
-          alt: Course Report - Best Coding Bootcamp 2024
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
-          logoHeight: 55px
-        - id: tech-hub
-          alt: South Florida Tech Hub
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
-          logoHeight: 55px
-        - id: ebootcamp
-          alt: eBootcamp Top
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
-          logoHeight: 55px
-        - id: premios-tecnologia
-          alt: Premios Tecnología Siglo XXI
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-          logoHeight: 55px
-        - id: newsweek
-          alt: Newsweek
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
-          logoHeight: 55px
-        - id: reviews-coursereport
-          alt: 4.9 Stars on Course Report Reviews
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-          logoHeight: 55px
-        - id: excelencia-educativa
-          alt: Educational Excellence - Institutional Quality
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
-          logoHeight: 55px
-    video_title: GeekForce Career Support
-    marginY:
-      desktop: none
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-    paddingY:
-      desktop: md none
-    marginX:
-      desktop: none
-    section_id: hero-nzpyph
-  - type: graduates_stats
-    heading: Career Outcomes
-    subheading: "6,000+ graduates have made the switch into tech. These are their results."
-    stats:
-      - value: 86%
-        label: Average hiring rate
-      - value: 55%
-        label: Average salary increase at new position
-      - value: "~3 months"
-        label: Average time to get hired in 2025
-      - value: 5,000+
-        label: Graduates employed worldwide
-    collage_images:
-      - image_id: graduates_team_1
-        col_span: 5
-        row_span: 2
-      - image_id: graduates_team_2
-        col_span: 7
-        row_span: 2
-      - image_id: graduates_coding
-        col_span: 6
-        row_span: 2
-      - image_id: graduates_friends
-        col_span: 6
-        row_span: 2
-    section_id: graduates_stats-cnxqbb
-  - type: two_column
-    proportions:
-      - 6
-      - 6
-    alignment: center
-    left:
-      video: https://youtu.be/9Vm_xD49MaU
-      justify: center
-    right:
-      heading: "Diego went from zero to Full Stack Developer. Here's how."
-      sub_heading: A real student. A real career change.
-      description: "Diego already had some programming knowledge from a technical degree, but couldn't connect all the pieces. After 4Geeks he could build complete web applications from frontend to backend, work with APIs, databases, and AI tools, and ship products that companies actually hire for. This is what that journey looks like."
-      button:
-        text: See If You Qualify
-        url: "#hero-nzpyph"
-        variant: primary
-        icon: Rocket
-    gap: "8"
-    marginY:
-      desktop: none xl
-  - type: features_grid
-    version: "1.0"
-    variant: stats-text
-    title: Why Full Stack Development with AI Now
-    subtitle: "Developers who can't build with AI are already being passed over. You can be the one who gets hired instead."
-    description: "The web development job market is being rewritten in real time. Companies are not just looking for people who can code. They are looking for developers who can ship faster using AI, integrate intelligent tools into every layer of the stack, and build products that didn't exist last year. The window to get ahead of this shift is open right now."
-    items:
-      - value: 1.4M
-        title: Full Stack and web development roles open in the US right now
-      - value: 55%
-        title: Average salary increase reported by 4Geeks Full Stack graduates
-      - value: $95K-$135K
-        title: Average starting salary for AI-fluent Full Stack developers
-    section_id: features_grid-vsxh8j
-  - type: syllabus
-    variant: program-modules
-    program_title: What You'll Build in 20 Weeks
-    program_description: "From day one you work on a real product. Over 6 modules you master the full stack from frontend to backend, integrate AI into every layer, and ship production-ready code. You graduate with a live portfolio employers can actually see, not just a certificate."
-    tech_logos:
-      - name: HTML5
-        icon: html
-      - name: CSS3
-        icon: css
-      - name: JavaScript
-        icon: javascript
-      - name: React
-        icon: react
-      - name: Python
-        icon: python
-      - name: Git
-        icon: git
-    module_cards:
-      - title: HTML and CSS Foundations
-        duration: Weeks 1-2
-        objectives:
-          - Semantic HTML structure
-          - Modern CSS and Tailwind
-          - Responsive and accessible design
-        projects: Ship your first live webpage, visible on the internet from day one
-        orientation: vertical
-        icon: IconCode
-      - title: JavaScript Mastery
-        duration: Weeks 3-5
-        objectives:
-          - Variables, functions, and control flow
-          - DOM manipulation for interactive pages
-          - Modern ES6+ and async programming
-        projects: Build interactive web apps users can actually use
-        orientation: vertical
-        icon: IconBrandJavascript
-      - title: React and Modern Frontend
-        duration: Weeks 6-9
-        objectives:
-          - Component-based architecture
-          - State management with hooks
-          - Routing and scalable app structure
-        projects: Build the kind of frontend that gets you hired at a tech company
-        orientation: vertical
-        icon: IconBrandReact
-      - title: Python and Backend Development
-        duration: Weeks 10-12
-        objectives:
-          - Core programming and data structures
-          - Object-oriented programming
-          - Web development and automation
-        projects: Create backend services and automation scripts that run in production
-        orientation: vertical
-        icon: IconBrandPython
-      - title: APIs and Database Architecture
-        duration: Weeks 13-15
-        objectives:
-          - RESTful API design and development
-          - Authentication and database integration
-          - Documentation and best practices
-        projects: Build a full REST API that powers a real frontend application
-        orientation: vertical
-        icon: IconApi
-      - title: Agile and Team Workflows
-        duration: Week 16
-        objectives:
-          - Scrum, Kanban, and sprint planning
-          - Collaboration in real developer teams
-          - Code review and shipping culture
-        projects: Ship a group project using the same workflows used in real tech companies
-        orientation: vertical
-        icon: IconUsers
-    section_id: syllabus-fullstack
-    paddingY:
-      desktop: md
-  - type: ai_learning
-    badge: Why 4Geeks?
-    title: The Bootcamp That Doesn't End When You Graduate
-    description: "Most bootcamps give you a course and wish you luck. 4Geeks stays with you from your first line of code to your first offer letter and beyond."
-    features:
-      - icon: Robot
-        title: Learn faster with an AI tutor that knows where you're stuck
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Rigobot gives instant feedback on your code with no waiting for a human to be available
-          - text: Adapts explanations to your exact skill level and learning pace
-          - text: Get unblocked at 2am without losing momentum
-          - text: Hundreds of interactive exercises on Learnpack, our purpose-built learning platform
-        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-        cta:
-          text: See If You Qualify
-          url: "#hero-nzpyph"
-          variant: primary
-      - icon: TrendingUp
-        title: Career support built for the AI job market
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: "1:1 coaching focused on landing Full Stack roles specifically"
-          - text: Resume and portfolio optimized to pass AI-based recruiter screening
-          - text: Mock technical and behavioral interviews with real feedback
-          - text: Lifelong career support, not just until graduation
-        video_url: https://youtu.be/-2ZvlgDnltc
-        cta:
-          text: See If You Qualify
-          url: "#hero-nzpyph"
-          variant: primary
-      - icon: Headset
-        title: Unlimited 1:1 mentorship for life, not just while enrolled
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Book unlimited 1:1 sessions with senior engineers even after you graduate
-          - text: "7:1 student to mentor ratio so you're never just a ticket in a queue"
-          - text: Weekly check-ins keep you accountable and on track to finish
-          - text: Active Slack community with dedicated channels for jobs, code help, and career advice
-        image_id: community-support-cropped
-    section_id: ai_learning-fullstack
-    paddingY:
-      mobile: lg none
-      desktop: lg none
-  - type: certificate
-    title: Your Certificate. Your Salary Leverage.
-    description: "Graduate with an industry-recognized certificate from a Florida Department of Education accredited institution and the credentials to negotiate your first Full Stack salary from a position of strength."
-    benefits:
-      - text: "Full Stack Developer: $95K-$135K"
-      - text: "AI-Fluent Software Developer: $100K-$145K"
-      - text: "Web Applications Engineer: $95K-$140K"
-      - text: "Backend Services Developer: $100K-$150K"
-    card:
-      title: Full Stack Developer
-      subtitle: 4Geeks Academy Certificate
-      program_name: Full Stack Development with AI
-    stats:
-      - value: 86%
-        label: Hiring rate
-        description: Graduate with the skills, credentials, and professional profile employers are actively hiring for right now.
-        benefits:
-          - text: Certificate accredited by the Florida Department of Education
-          - text: A live, production-ready portfolio of real projects
-          - text: Demonstrated experience with AI-integrated development workflows
-          - text: Optimized professional profile that gets past AI-based recruiter screening
-      - value: "~3 months"
-        label: Average time to get hired
-        description: "Most graduates land their first role within 3 months of graduation. Our 3-step career process turns technical skills into job offers fast."
-        benefits:
-          - text: Resume, portfolio, and LinkedIn built to attract recruiters
-          - text: Mock technical and behavioral interviews with real feedback from engineers
-          - text: Personalized job search strategy with access to active hiring networks
-      - value: 55%
-        label: Average salary increase
-        description: "Graduates report an average 55% salary increase after transitioning into Full Stack roles. The program pays for itself within months of your first paycheck."
-        benefits:
-          - text: "Full Stack Developer: $95K-$135K"
-          - text: "AI-Fluent Software Developer: $100K-$145K"
-          - text: "Web Applications Engineer: $95K-$140K"
-          - text: "Backend Services Developer: $100K-$150K"
-      - value: 5,000+
-        label: Graduates employed worldwide
-        description: Over 5,000 alumni placed at companies actively hiring tech talent. Get exclusive access to job opportunities before they are posted publicly.
-        benefits:
-          - text: Exclusive job board with roles from hiring partners
-          - text: Priority referrals to companies in our network
-          - text: Networking events with hiring managers
-          - text: Alumni working at Google, Meta, Microsoft, Amazon and thousands more
-    certificate_position: right
-    useSolidCard: true
-    section_id: certificate-fullstack
-    marginY:
-      mobile: none
-      desktop: none
-    paddingY:
-      mobile: lg
-      desktop: lg
-    background: hsl(var(--muted))
-  - type: testimonials_slide
-    title: They Made the Switch. Here's What Happened.
-    description: "From baristas, teachers, and musicians to Full Stack developers earning $95K+. Real people, real salary increases, real careers."
-    section_id: testimonials_slide-fullstack
-  - type: pricing
-    version: "1.0"
-    variant: product
-    title: An Investment That Pays for Itself
-    subtitle: "The average 4Geeks graduate sees a 55% salary increase. The program pays for itself within months of your first paycheck."
-    discount_text: "Full payment discount: Save 10% with upfront payment."
-    financing_text: "Credit-based financing: starting below"
-    financing_amount: $349
-    tech_icons:
-      - openai
-      - python
-      - react
-      - nodejs
-      - javascript
-      - git
-      - github
-      - postman
-    features_title: Multiple ways to fund your enrollment. Choose what fits your situation.
-    features:
-      - icon: IconCheck
-        text: "Get hired within 9 months of graduation or your money back. No fine print. *Not available in all regions. Terms and conditions apply."
-      - icon: IconCheck
-        text: "Regular tuition is $10,999. Pay upfront and save 10%, or spread payments interest-free over 6 months."
-      - icon: IconCheck
-        text: "Finance through Climb, Fortify or Lumion with 24, 36, 48 or 60 month plans starting at $349/mo."
-      - icon: IconCheck
-        text: "2 to 3 partial scholarships available per cohort for highly qualified applicants."
-    cta:
-      text: See If You Qualify
-      url: "#hero-nzpyph"
-      variant: primary
-    section_id: pricing-fullstack
-    paddingY:
-      mobile: lg none
-      desktop: lg none
-  - type: whos_hiring
-    variant: carousel
-    title: Where Our Graduates Work
-    subtitle: "5,000+ alumni placed at companies actively hiring Full Stack and AI talent worldwide."
-    logos:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
-        alt: Microsoft
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
-        alt: Google Developers
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
-        alt: Meta
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
-        alt: eBay
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
-        alt: National Geographic
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
-        alt: Evernote
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
-        alt: Telefonica
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
-        alt: Twilio
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
-        alt: Uber
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
-        alt: Neo9
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
-        alt: Jooble
-    section_id: whos_hiring-fullstack
-    paddingY:
-      desktop: none
-  - type: cta_banner
-    version: "1.0"
-    title: "Your Full Stack career won't start itself."
-    subtitle: "Every week you wait is a week someone else gets hired first. Apply in 2 minutes. It's free."
-    background: hsl(var(--primary))
-    variant: form
-    form:
-      variant: stacked
-      conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
-      tags: website-lead
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Your email address
-        first_name:
-          visible: true
-          required: true
-          placeholder: First name
-        last_name:
-          visible: true
-          required: true
-          placeholder: Last name
-        phone:
-          visible: true
-          required: true
-          placeholder: Phone number
-        program:
-          visible: false
-          default: full-stack
-      success:
-        message: "You're in. Someone from our admissions team will reach out within minutes. Check your inbox."
-      consent:
-        email: true
-        marketing: true
-        marketing_text: I agree to receive information about courses and promotions
-      show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
-      terms_className: text-white/80
-    form_background: hsl(var(--card))
-    terms_color: hsl(var(--primary))
-    section_id: cta_banner-fullstack
-    marginY:
-      desktop: lg none
-    paddingY:
-      desktop: md
+---
+name: 4geeks-landing-optimizer
+description: >
+  Strategic framework for optimizing 4Geeks Academy landing pages for paid traffic (PPC), SEO, and LLM discoverability. Use this skill whenever building, reviewing, or rewriting any 4Geeks landing page — including new program landings, A/B variants, or copy refreshes. Triggers on: "optimize landing", "new landing page", "review this landing", "adapt this YML", "improve copy", "landing for [program name]", or any request involving 4Geeks YML components. This skill defines the section order, copy principles, and component-level rules that the copywriter and LLM must follow together to produce a landing that converts paid traffic into qualified leads.
+---
+
+# 4Geeks Landing Page Optimizer
+
+This skill captures the strategic framework built during the AI Engineering landing redesign. It exists so every future landing — regardless of program — follows the same proven narrative structure, copy principles, and component rules.
+
+**Two roles, one output:**
+- **Copywriter** — provides the human voice, real student stories, program-specific details, and emotional punch
+- **LLM (this skill)** — acts as the strategic head: enforces structure, rewrites copy for conversion, validates metrics, and ensures every section earns its place
+
+---
+
+## Core Philosophy
+
+Three rules that override everything else:
+
+1. **Sell the outcome, never the feature.** Users don't buy a bootcamp. They buy a new salary, a new career, a way out of a job with a ceiling. Every section must answer "what does the user get?" not "what does the program have?".
+
+2. **Earn trust before you sell.** Paid traffic arrives cold. If the first thing they see is a product pitch, they leave. The page must first make the user feel understood, then prove the product works, then explain what it is.
+
+3. **Every section must earn its place.** No section goes on the page because it exists in the CMS. Each one must answer a specific question the user has at that exact point in their scroll. If it doesn't, it gets cut.
+
+---
+
+## Section Order — The Required Narrative Sequence
+
+This is the only correct order for a 4Geeks paid traffic landing. Do not reorder without strong reason.
+
+| Position | Section | User question it answers |
+|---|---|---|
+| 1 | Hero | "Is this for someone like me?" |
+| 2 | Career Outcomes (stats + photos) | "Does this actually work?" |
+| 3 | Why [Field] Now | "Is this field worth pursuing?" |
+| 4 | Syllabus / What You'll Build | "Will I learn what I need?" |
+| 5 | Why 4Geeks | "Why this bootcamp over others?" |
+| 6 | Certificate + Detailed Outcomes | "What do I walk away with?" |
+| 7 | Testimonials | "Did it work for someone like me?" |
+| 8 | Pricing | "Can I afford this?" |
+| 9 | Where Graduates Work | "Are these employers real?" |
+| 10 | CTA Final | "What do I do right now?" |
+
+**Never put pricing before testimonials.** The user needs emotional validation before they see a number.
+
+**Never duplicate section titles.** If "Career Outcomes" appears twice, delete one. Duplicates signal a broken page and destroy credibility.
+
+---
+
+## Hero — Rules
+
+The hero is the most important section. It must do three things above the fold:
+
+**1. Open with the user's pain, not the product.**
+Wrong: "Become an AI Engineer in 24 Weeks"
+Right: "Your current job has a ceiling. Become an AI Engineer."
+
+The first line must describe the user's current situation or frustration before naming the solution.
+
+**2. Include the job promise with a specific number of days.**
+Every hero bullet list must contain a line that promises employment with a concrete timeline.
+Formula: `Career-focused from day one: get job-ready in [X weeks] and hired in [Y days]`
+
+**3. Never mention price in the hero.**
+Price in the hero kills conversion for cold traffic. They haven't processed the value yet. Mention that financing exists but never the dollar amount.
+Wrong: `Pay as low as $349/mo`
+Right: `Flexible financing available, including zero upfront payment options`
+
+**Hero CTA label:** Always `See If You Qualify. It's Free` — never "Apply Now" or "Get Started". "Apply" implies commitment. "See If You Qualify" frames it as the user evaluating the program, not the program evaluating them.
+
+**Form card subtitle:** Always include `Takes 2 minutes.` as the first sentence. Time friction is the primary cause of form abandonment.
+
+**Awards marquee:** Always `show_awards_marquee: true`. Third-party recognition is the only proof that doesn't come from 4Geeks itself.
+
+---
+
+## Career Outcomes (graduates_stats) — Rules
+
+This is the credibility anchor. It goes immediately after the hero.
+
+- Must have **4 stats**, not 3. The fourth stat is always scale: `5,000+ Graduates Employed Worldwide`
+- Use **verified 2025 data**: 86% hiring rate, ~3 months to hire, 55% salary increase
+- Never use template variables like `{{ global.job_placement_rate | 84 }}` — hardcode verified values
+- The subheading must start with a data point, not a promise from 4Geeks
+- Keep real student photos. Never replace with icons or illustrations
+
+---
+
+## Why [Field] Now (features_grid) — Rules
+
+This section agitates the market opportunity. It goes after Career Outcomes.
+
+- The subtitle must turn the market data into a personal invitation to the user
+- Wrong: `"The talent shortage is your opportunity"`
+- Right: `"87% of companies can't find the engineers they need. You can be one of them."`
+- The three stats must be market-level numbers (jobs available, growth rate, salary range) — not program features
+- This section should have no CTA. It's pure context-building.
+
+---
+
+## Syllabus — Rules
+
+- `program_description` must close with what the user **has** at the end, not what they **learn**
+- Always end with a version of: `"You graduate with a live product, not just a certificate"`
+- Every `projects` field must describe a consequence, not a task
+  - Wrong: `Build the company's backend`
+  - Right: `Create the company's backend — the engine that powers everything`
+- Simplify technical jargon in `objectives` without losing precision — the landing serves both technical and non-technical audiences
+
+---
+
+## Why 4Geeks (ai_learning) — Rules
+
+This section answers "why 4Geeks over any other bootcamp."
+
+- The component title must attack the #1 objection against bootcamps: that they abandon you after graduation
+- Use: `"The Bootcamp That Doesn't End When You Graduate"`
+- The description must contrast 4Geeks against unnamed competitors
+- Use: `"Most bootcamps disappear after demo day. 4Geeks stays with you..."`
+- All bullets must be in outcome format, not feature format
+- All CTAs within this component: `See If You Qualify`
+- No dashes in bullet text — they signal AI-generated copy
+
+---
+
+## Testimonials — Rules
+
+This is the emotional close before pricing. It must contain:
+
+- Real photos (not avatars or initials)
+- Full names (not just first names)
+- Specific salary increase percentages in the `achievement` field
+- The `description` subheading must list real backgrounds (musician, nurse, support specialist) so the user identifies with someone before reading a single testimonial
+
+Wrong title: `"Real Careers Start Here — Just Ask Our Students"`
+Right title: `"They Made the Switch. Here's What Happened."`
+
+---
+
+## Pricing — Rules
+
+- Title and subtitle must frame the price as an ROI calculation, not a cost
+- Formula: `"The average graduate sees X% salary increase. At $[price], the program pays for itself within months of your first paycheck."`
+- The **Job Guarantee must be the first bullet** — it's the most powerful objection-eliminator and must appear before the user processes the price
+- CTA: `See If You Qualify` — never `Get More Info`
+- Never show ISA option on landings where ISA is not available for that geography
+
+---
+
+## Where Graduates Work (whos_hiring) — Rules
+
+- Title must state a fact about graduates, not a claim about 4Geeks
+  - Wrong: `"Trusted by Leading Innovators"`
+  - Right: `"Where Our Graduates Work"`
+- Subtitle must reference the 5,000+ alumni number to anchor credibility
+- This section goes **after** pricing — it reinforces the decision already made, it doesn't build toward it
+
+---
+
+## CTA Final — Rules
+
+- Title must activate loss aversion, not make a promise
+  - Wrong: `"Ready to Become an AI Engineer?"`
+  - Right: `"Your AI career won't start itself."`
+- Subtitle must create urgency based on real market conditions, never fake scarcity
+  - Wrong: `"Limited spots available"`
+  - Right: `"Every week you wait is a week someone else gets hired first."`
+- Success message must confirm action with human tone and tell the user exactly what happens next
+  - Wrong: `"Thank you! We'll be in touch soon."`
+  - Right: `"You're in. Someone from our admissions team will reach out within minutes — check your inbox."`
+
+---
+
+## Metrics — Verified Values (2025)
+
+Always use these verified numbers. Never use outdated defaults.
+
+| Metric | Value | Source |
+|---|---|---|
+| US Hiring Rate | 86% | 2025 Mid-Year Outcomes Report |
+| Time to Hire (US) | ~3 months | 2025 Mid-Year Outcomes Report |
+| Average Salary Increase (global) | 55% | Annual outcomes survey |
+| Average Salary Increase (US only) | 41% | Course Report 2024 |
+| Graduates Employed | 5,000+ | Annual outcomes survey |
+| Course Report Rating | 4.9 stars | Course Report (verified) |
+
+**Critical correction:** `5,000+` refers to **graduates employed**, never "hiring partners". These are two different things. Using "hiring partners" with this number is factually incorrect and a regulatory risk.
+
+---
+
+## What Gets Cut
+
+Remove any section or element that:
+- Duplicates information already on the page
+- Links away from the landing (except Privacy Policy and Terms — legally required)
+- Uses nav links that exit the page — paid traffic landings must have zero exit links except the CTA
+- Talks about 4Geeks in third person superlatives without data to back it
+- Uses generic feature descriptions ("global community", "international recognition") without specific proof
+
+---
+
+## Copy Voice Rules
+
+These apply to every section, every component, every line:
+
+- **No dashes as stylistic punctuation** — they read as AI-generated
+- **No em-dashes in bullet points** — use commas or periods
+- **Outcomes before features** — always answer "what do I get" before "what does it have"
+- **Specific over general** — "$112K salary" beats "high-paying role"
+- **User as subject** — "You graduate with..." beats "Graduates receive..."
+- **Active verbs** — "Build", "Ship", "Land", "Earn" beat "Learn about", "Understand", "Explore"
+
