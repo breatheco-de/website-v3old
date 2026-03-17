@@ -20,9 +20,9 @@ sections:
     variant: ApplyFormProductShowcase
     title: ""
     brand_mark:
-      prefix: Tus habilidades tienen fecha de caducidad. Conviértete en
+      prefix: La IA está cambiando todos los trabajos. Conviértete en
       highlight: Ingeniero de IA
-      suffix: y trabaja en lo que más contratan las empresas ahora mismo
+      suffix: antes de que sea demasiado tarde
       color: primary
     description: En 24 semanas pasas de donde estás hoy a desarrollar, integrar y desplegar sistemas de IA reales. Los que las empresas en España llevan meses intentando contratar.
     form:
@@ -69,7 +69,7 @@ sections:
       muted: true
     section_id: hero-lt4ge6
     bullets:
-      - text: "Enfocado en tu carrera desde el primer día: prepárate en 24 semanas y consigue trabajo en 120 días"
+      - text: Aprende las habilidades en ingeniería de IA que las empresas tecnológicas contratan ahora mismo
       - text: La única academia que no termina cuando te gradúas, mentoría ilimitada de por vida incluida
       - text: Grupos reducidos con acompañamiento real antes, durante y después de graduarte
     paddingY:
