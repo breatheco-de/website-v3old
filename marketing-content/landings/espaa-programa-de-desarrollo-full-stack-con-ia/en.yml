@@ -16,10 +16,10 @@ sections:
     variant: productShowcase
     title: at 4Geeks Academy
     brand_mark:
-      prefix: Your current job has a ceiling. Become a
+      prefix: Every app you use was built by someone. Become a
       highlight: Full Stack Developer with AI
       color: primary
-    description: "800,000+ tech roles open right now and companies are desperate for developers who can build with AI. In 20 weeks you'll ship production-ready web apps, master React, Python and Node.js, and position yourself for the fastest-growing entry point in software development."
+    description: "The developers getting hired in 2025 are not just coders. They are builders who use AI to ship faster, smarter, and better than anyone else. In 20 weeks you will master React, Python, Node.js and the AI tools that make you the candidate companies can't ignore."
     bullets:
       - text: "Career-focused from day one: get job-ready in 20 weeks and hired in 120 days"
       - text: The only bootcamp that doesn't end at graduation, unlimited lifetime mentorship included
@@ -111,12 +111,12 @@ sections:
     section_id: hero-nzpyph
   - type: graduates_stats
     heading: Career Outcomes
-    subheading: "Real results from 5,000+ graduates. Here's what happens after you complete the program."
+    subheading: "6,000+ graduates have made the switch into tech. These are their results."
     stats:
       - value: 86%
-        label: Hiring rate, US graduates placed within 90 days
+        label: Average hiring rate
       - value: 55%
-        label: Average salary increase after graduation
+        label: Average salary increase at new position
       - value: "~3 months"
         label: Average time to get hired in 2025
       - value: 5,000+
@@ -141,12 +141,12 @@ sections:
       - 6
     alignment: center
     left:
-      video: https://youtu.be/nvnO5WTkx0M?is=O06EtJA_1us4AjQb
+      video: https://youtu.be/9Vm_xD49MaU
       justify: center
     right:
-      heading: "A real career change. Hear it from someone who lived it."
-      sub_heading: A 4Geeks graduate shares their story
-      description: "Before 4Geeks they had no background in software development. In 20 weeks they built real production apps, mastered the full stack, and landed a developer role. This is what the program actually looks like from the inside."
+      heading: "Diego went from zero to Full Stack Developer. Here's how."
+      sub_heading: A real student. A real career change.
+      description: "Diego already had some programming knowledge from a technical degree, but couldn't connect all the pieces. After 4Geeks he could build complete web applications from frontend to backend, work with APIs, databases, and AI tools, and ship products that companies actually hire for. This is what that journey looks like."
       button:
         text: See If You Qualify
         url: "#hero-nzpyph"
@@ -159,8 +159,8 @@ sections:
     version: "1.0"
     variant: stats-text
     title: Why Full Stack Development with AI Now
-    subtitle: "Developers who can't work with AI are already being passed over. You can be the one who gets hired instead."
-    description: "The web development market is being reshaped in real time. Companies don't just need developers anymore. They need developers who ship faster using AI, build smarter products, and integrate intelligent tools into every layer of the stack. That gap is your opportunity right now."
+    subtitle: "Developers who can't build with AI are already being passed over. You can be the one who gets hired instead."
+    description: "The web development job market is being rewritten in real time. Companies are not just looking for people who can code. They are looking for developers who can ship faster using AI, integrate intelligent tools into every layer of the stack, and build products that didn't exist last year. The window to get ahead of this shift is open right now."
     items:
       - value: 1.4M
         title: Full Stack and web development roles open in the US right now
@@ -168,11 +168,11 @@ sections:
         title: Average salary increase reported by 4Geeks Full Stack graduates
       - value: $95K-$135K
         title: Average starting salary for AI-fluent Full Stack developers
-    section_id: features_grid-dr8cis
+    section_id: features_grid-vsxh8j
   - type: syllabus
     variant: program-modules
     program_title: What You'll Build in 20 Weeks
-    program_description: "From day one you work on a real product. Over 6 modules you master the full stack from frontend to backend, integrate AI into every layer, and ship production-ready code. You graduate with a live portfolio, not just a certificate."
+    program_description: "From day one you work on a real product. Over 6 modules you master the full stack from frontend to backend, integrate AI into every layer, and ship production-ready code. You graduate with a live portfolio employers can actually see, not just a certificate."
     tech_logos:
       - name: HTML5
         icon: html
@@ -321,7 +321,7 @@ sections:
           - text: Personalized job search strategy with access to active hiring networks
       - value: 55%
         label: Average salary increase
-        description: Graduates report an average 55% salary increase after transitioning into Full Stack roles. The program pays for itself within months of your first paycheck.
+        description: "Graduates report an average 55% salary increase after transitioning into Full Stack roles. The program pays for itself within months of your first paycheck."
         benefits:
           - text: "Full Stack Developer: $95K-$135K"
           - text: "AI-Fluent Software Developer: $100K-$145K"
