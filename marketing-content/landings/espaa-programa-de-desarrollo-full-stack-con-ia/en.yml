@@ -19,7 +19,7 @@ sections:
       prefix: Your current job has a ceiling. Become a
       highlight: Full Stack Developer with AI
       color: primary
-    description: "800,000+ tech roles open right now, and companies are desperate for developers who can build with AI. In 20 weeks, you'll ship production-ready web apps, master React, Python and Node.js, and position yourself for the fastest-growing entry point in software development."
+    description: "800,000+ tech roles open right now and companies are desperate for developers who can build with AI. In 20 weeks you'll ship production-ready web apps, master React, Python and Node.js, and position yourself for the fastest-growing entry point in software development."
     bullets:
       - text: "Career-focused from day one: get job-ready in 20 weeks and hired in 120 days"
       - text: The only bootcamp that doesn't end at graduation, unlimited lifetime mentorship included
@@ -108,7 +108,7 @@ sections:
       desktop: md none
     marginX:
       desktop: none
-    section_id: hero-fullstack
+    section_id: hero-nzpyph
   - type: graduates_stats
     heading: Career Outcomes
     subheading: "Real results from 5,000+ graduates. Here's what happens after you complete the program."
@@ -134,7 +134,7 @@ sections:
       - image_id: graduates_friends
         col_span: 6
         row_span: 2
-    section_id: graduates_stats-fullstack
+    section_id: graduates_stats-cnxqbb
   - type: two_column
     proportions:
       - 6
@@ -146,10 +146,10 @@ sections:
     right:
       heading: "A real career change. Hear it from someone who lived it."
       sub_heading: A 4Geeks graduate shares their story
-      description: "Before 4Geeks, they had no background in software development. In 20 weeks they built real production apps, mastered the full stack, and landed a developer role. This is what the program actually looks like from the inside."
+      description: "Before 4Geeks they had no background in software development. In 20 weeks they built real production apps, mastered the full stack, and landed a developer role. This is what the program actually looks like from the inside."
       button:
         text: See If You Qualify
-        url: "#hero-fullstack"
+        url: "#hero-nzpyph"
         variant: primary
         icon: Rocket
     gap: "8"
@@ -159,17 +159,16 @@ sections:
     version: "1.0"
     variant: stats-text
     title: Why Full Stack Development with AI Now
-    subtitle: "Software developers who can't work with AI are already being passed over. You can be the one who gets hired instead."
-    description: "The web development market is being reshaped in real time. Companies don't just need developers anymore. They need developers who can ship faster using AI, build smarter products, and integrate intelligent tools into every layer of the stack. That gap is your opportunity right now."
+    subtitle: "Developers who can't work with AI are already being passed over. You can be the one who gets hired instead."
+    description: "The web development market is being reshaped in real time. Companies don't just need developers anymore. They need developers who ship faster using AI, build smarter products, and integrate intelligent tools into every layer of the stack. That gap is your opportunity right now."
     items:
       - value: 1.4M
         title: Full Stack and web development roles open in the US right now
       - value: 55%
-        label: Average salary increase reported by 4Geeks Full Stack graduates
-        title: Average salary increase reported by 4Geeks graduates
+        title: Average salary increase reported by 4Geeks Full Stack graduates
       - value: $95K-$135K
         title: Average starting salary for AI-fluent Full Stack developers
-    section_id: features_grid-fullstack
+    section_id: features_grid-dr8cis
   - type: syllabus
     variant: program-modules
     program_title: What You'll Build in 20 Weeks
@@ -262,7 +261,7 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
         cta:
           text: See If You Qualify
-          url: "#hero-fullstack"
+          url: "#hero-nzpyph"
           variant: primary
       - icon: TrendingUp
         title: Career support built for the AI job market
@@ -276,7 +275,7 @@ sections:
         video_url: https://youtu.be/-2ZvlgDnltc
         cta:
           text: See If You Qualify
-          url: "#hero-fullstack"
+          url: "#hero-nzpyph"
           variant: primary
       - icon: Headset
         title: Unlimited 1:1 mentorship for life, not just while enrolled
@@ -330,7 +329,7 @@ sections:
           - text: "Backend Services Developer: $100K-$150K"
       - value: 5,000+
         label: Graduates employed worldwide
-        description: Over 5,000 alumni placed at companies actively hiring tech talent. Get exclusive access to job opportunities before they're posted publicly.
+        description: Over 5,000 alumni placed at companies actively hiring tech talent. Get exclusive access to job opportunities before they are posted publicly.
         benefits:
           - text: Exclusive job board with roles from hiring partners
           - text: Priority referrals to companies in our network
@@ -379,7 +378,7 @@ sections:
         text: "2 to 3 partial scholarships available per cohort for highly qualified applicants."
     cta:
       text: See If You Qualify
-      url: "#hero-fullstack"
+      url: "#hero-nzpyph"
       variant: primary
     section_id: pricing-fullstack
     paddingY:
