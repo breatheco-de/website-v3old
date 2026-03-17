@@ -238,7 +238,7 @@ sections:
     section_id: syllabus-tyek1h
     variant: program-modules
     program_title: Lo que construirás en 24 semanas
-    program_description: Desde el primer día trabajarás en una empresa ficticia que evoluciona contigo. En cada hito desarrollarás soluciones de IA reales, aplicadas a problemas que hoy enfrentan las empresas.
+    program_description: Desde el primer día trabajas en una empresa real que evoluciona contigo. En cada hito desarrollas soluciones de IA aplicadas a problemas que las empresas enfrentan hoy. Te gradúas con un sistema de IA completo y funcionando, no solo con un certificado.
     tech_logos:
       - name: OpenAI
         icon: openai
@@ -285,6 +285,7 @@ sections:
           - Bases de JavaScript
           - Fundamentos de internet
           - Agentes de código
+        projects: Configura tu entorno y entrega tu primer código asistido por IA
         icon: IconRocket
       - title: Fundamentos web
         duration: Hito 1
@@ -292,22 +293,23 @@ sections:
           - HTML, CSS, Tailwind
           - Mejores prácticas de accesibilidad
           - Técnicas de maquetado
-        projects: Construye la primera página web de la empresa
+        projects: Publica la primera página web real de la empresa, visible en internet desde el primer día
         icon: IconWorld
       - title: Fundamentos de programación
         duration: Hito 2
         objectives:
           - Algoritmos y estructuras de datos
-          - Stateflow vs controlflow
+          - Lógica y control de flujo
           - Dominio de JavaScript
-        projects: Implementa pequeñas funcionalidades para la empresa
+        projects: Implementa funcionalidades reales para la empresa con código que tú escribiste
         icon: IconCode
       - title: UI con IA
         duration: Hito 3
         objectives:
           - Prompting de visión a especificación
           - Generación de componentes con IA
-        projects: Reconstruye la UI de la empresa con IA
+          - Flujos de diseño asistidos por IA
+        projects: Reconstruye toda la UI de la empresa usando IA en una fracción del tiempo habitual
         icon: IconSparkles
       - title: Fundamentos de React
         duration: Hito 4
@@ -315,7 +317,7 @@ sections:
           - Arquitectura SPA
           - Props, state y effects
           - Técnicas de depuración
-        projects: Construye el frontend interactivo de la empresa
+        projects: Construye el frontend interactivo de la empresa, dinámico, responsivo y listo para producción
         icon: IconBrandReact
       - title: Backend para frontends con IA
         duration: Hito 5
@@ -323,43 +325,47 @@ sections:
           - APIs y bases de datos
           - Serialización y autenticación
           - Funciones serverless
-        projects: Crea el backend de la empresa
+        projects: Crea el backend de la empresa, el motor que impulsa todo lo demás
         icon: IconServer
       - title: Telemetría y pipelines de datos
         duration: Hito 6
         objectives:
-          - Recopilar, transformar, agregar y reportar
-        projects: Construye la telemetría de la empresa
+          - Recopilación y transformación de datos
+          - Agregación y reporting
+          - Arquitectura de pipelines
+        projects: Construye la capa de datos de la empresa para saber en tiempo real qué está pasando
         icon: IconChartLine
       - title: RAG y memoria
         duration: Hito 7
         objectives:
-          - Chunking y embeddings
-          - Búsqueda vectorial
-        projects: Añade la capa de conocimiento de la empresa
+          - Embeddings y búsqueda vectorial
+          - Sistemas de recuperación de conocimiento
+          - Memoria a largo plazo para IA
+        projects: Dale un cerebro a la IA de la empresa, que aprende de sus propios datos
         icon: IconBrain
       - title: Ingeniería de agentes
         duration: Hito 8
         objectives:
+          - Llamadas a herramientas y planificación
+          - Coordinación multi-agente
           - Reglas y memoria
-          - Llamadas a herramientas
-          - Planificación multi-agente
-        projects: Construye los agentes de la empresa
+        projects: Construye agentes autónomos que trabajan para la empresa las 24 horas del día
         icon: IconRobot
       - title: Generación de flujos agenticos
         duration: Hito 9
         objectives:
-          - Usar LLMs para analizar el caso de la empresa
-          - Generar y validar flujos internos
-          - Implementar pipelines de automatización
-        projects: Serverless, colas, cronjobs o n8n
+          - Análisis de casos con LLMs
+          - Implementación de pipelines de automatización
+          - Serverless, colas y cronjobs
+        projects: Automatiza las operaciones internas de la empresa con agentes que gestionan el negocio
         icon: IconSitemap
       - title: Sistemas en tiempo real
         duration: Hito 10
         objectives:
-          - Streaming y sockets
+          - Streaming y websockets
           - Patrones pub/sub
-        projects: Habilita interacciones en tiempo real para datos, clientes, IA o empleados
+          - Arquitectura de datos en vivo
+        projects: Habilita interacciones en tiempo real para clientes, empleados y sistemas de IA
         icon: IconBolt
       - title: Empresa transformada por IA
         duration: Capstone
@@ -367,11 +373,11 @@ sections:
           - Frontend generado por IA
           - API y autenticación
           - Pipeline de telemetría y reportes
-          - Automatización de flujos (generada por agentes)
+          - Automatización de flujos generada por agentes
           - Capa de conocimiento RAG
           - Agentes con llamadas a herramientas
           - Capa de comunicación en tiempo real
-        projects: Entrega la transformación completa de la empresa que elegiste
+        projects: "Entrega la transformación completa de tu empresa elegida: un negocio operativo e impulsado por IA, construido íntegramente por ti"
         orientation: horizontal
         icon: IconTrophy
     marginY:
