@@ -2,27 +2,20 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: en 4Geeks Academy
     brand_mark:
-      prefix: Saca el máximo de tu
-      highlight: potencial
+      prefix: Tu trabajo actual tiene un techo. Conviértete en
+      highlight: Desarrollador de Tecnología con IA
       color: primary
-    description: Fórmate en las áreas más demandadas de la tecnología y desarrolla las habilidades necesarias para impulsar tu carrera profesional.
+    description: "<span style=\"font-size: 1.125rem;\"><span>Los profesionales que construyen con IA son los más contratados en tech ahora mismo. 1.4M puestos abiertos. En menos de 6 meses, ese podrías ser tú, accediendo a posiciones que pagan $45K–$85K+.</span></span>"
     bullets:
-      - text: Aprende a resolver problemas de manera efectiva
-      - text: Desarrolla habilidades de aprendizaje autodidacta
-      - text: Accede a mentorías personalizadas ilimitadas y de por vida
-    video:
-      url: https://www.youtube.com/shorts/ksGWXcccpc8
-      ratio: "9:15"
-      muted: true
-      autoplay: true
-      loop: true
-      preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/marceloricigliano_1770843650728.webp
+      - text: "Garantía de Empleo: consigue trabajo en 9 meses o te devolvemos la matrícula"
+      - text: La única academia que no termina cuando te gradúas, mentoría ilimitada de por vida incluida
+      - text: Opciones de financiación flexibles disponibles, incluyendo pago cero por adelantado
+    image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Solicita más información
+      submit_label: Comprueba si cumples los requisitos. Es gratis
       tags: website-lead
       fields:
         email:
@@ -36,32 +29,74 @@ sections:
         last_name:
           visible: true
           required: true
-          placeholder: Apellido
+          placeholder: Apellidos
         phone:
           visible: true
           required: true
         program:
-          visible: true
-          required: true
+          visible: false
+          default: full-stack
       success:
-        message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
+        message: Ya estás dentro. Alguien de nuestro equipo de admisiones se pondrá en contacto contigo en unos minutos por email. Revisa tu bandeja de entrada.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
+        sms: true
         marketing: true
-        marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
+        marketing_text: Acepto recibir información a través de email, WhatsApp y otros canales sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
+        sms_text: Acepto recibir mensajes SMS sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4-6 mensajes al mes. Nunca compartiremos tu información de contacto.
+        sms_usa_only: true
       show_terms: true
-    form_card_background: hsl(210 100% 50% / 0.05)
+    form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
-    form_card_title: Rellena el formulario y obtén más información
-    form_card_subtitle: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
+    form_card_title: Obtén todos los detalles del programa
+    form_card_subtitle: "Tarda 2 minutos. Nuestro equipo de admisiones te enviará la información completa del programa: plan de estudios, precios y opciones de financiación en minutos."
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-    section_id: hero-qcon9h
-    background: hsl(210 100% 50% / 0.05)
+    show_awards_marquee: true
+    awards_marquee:
+      items:
+        - id: switchup-2025
+          alt: SwitchUp - Best Coding Bootcamps 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+          logoHeight: 55px
+        - id: course-report-2024
+          alt: Course Report - Best Coding Bootcamp 2024
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+          logoHeight: 55px
+        - id: tech-hub
+          alt: South Florida Tech Hub
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+          logoHeight: 55px
+        - id: ebootcamp
+          alt: eBootcamp Top
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+          logoHeight: 55px
+        - id: premios-tecnologia
+          alt: Premios Tecnología Siglo XXI
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+          logoHeight: 55px
+        - id: newsweek
+          alt: Newsweek
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+          logoHeight: 55px
+        - id: reviews-coursereport
+          alt: 4.9 Stars on Course Report Reviews
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+          logoHeight: 55px
+        - id: excelencia-educativa
+          alt: Educational Excellence - Institutional Quality
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+          logoHeight: 55px
+    video_title: GeekForce Career Support
+    marginY:
+      desktop: none
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
-    marginY:
-      desktop: none lg
+    marginX:
+      desktop: none
+    section_id: hero-nzpyph
+    awards_marquee_at_left_column: true
   - type: modal
     version: "1.0"
     section_id: apply-modal
