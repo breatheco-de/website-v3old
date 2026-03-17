@@ -199,7 +199,7 @@ sections:
         title: 3. Follow the Career Development Process
       - icon: IconBriefcase
         title: 4. Get Hired Within 9 Months, or Get 100% of Your Tuition Back
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--card))
     paddingY:
       desktop: none
     marginY:
