@@ -198,16 +198,16 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
-    title: Why AI Engineering Now
-    subtitle: The talent shortage is your opportunity
-    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    title: Por qué Full Stack con IA ahora
+    subtitle: Los desarrolladores que no saben trabajar con IA ya están siendo descartados. Tú puedes ser el que consiga el trabajo.
+    description: El mercado de desarrollo web en España se está transformando. Las empresas no buscan solo personas que sepan programar. Buscan desarrolladores que construyan más rápido usando IA, integren herramientas inteligentes en cada capa del stack y entreguen productos que hace un año no existían. La ventana para adelantarte a este cambio está abierta ahora mismo.
     items:
-      - value: 3.5M
-        title: AI-related roles expected by 2026
-      - value: 47%
-        title: Year-over-year growth in AI job postings
-      - value: $95K-$135K
-        title: Average starting salary for AI Engineers
+      - value: 1.4M
+        title: Puestos de desarrollo web y Full Stack abiertos ahora mismo
+      - value: 30%
+        title: Crecimiento anual en ofertas de trabajo para desarrolladores con IA en Europa
+      - value: €25K–€45K
+        title: Salario medio de un desarrollador Full Stack en España
     section_id: features_grid-k3hgib
   - type: syllabus
     section_id: syllabus-q0etx0
