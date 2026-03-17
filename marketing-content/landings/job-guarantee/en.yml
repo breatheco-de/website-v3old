@@ -202,28 +202,19 @@ sections:
       desktop: none md
     paddingY:
       desktop: none md
-  - type: numbered_steps
-    section_id: numbered_steps-646rz5
-    variant: default
-    title: Get Hired Faster With GeekForce
-    description: Our 3-step Career Acceleration System combines proven strategies, personalized guidance, and direct access to hiring companies to help you land a tech role quickly.
-    description_link:
-      text: See terms
-      url: /terms-and-conditions
+  - ttitle: Get Hired Faster With GeekFORCE
+    description: GeekFORCE is 4Geeks' career support system, built into every program. Three focused steps from graduation to signed offer.
     steps:
       - icon: School
-        text: Optimize your LinkedIn, GitHub, and portfolio, craft an ATS-ready resume, and graduate with a recruiter-ready portfolio.
+        heading: Build a Recruiter-Ready Profile
+        text: Optimize your LinkedIn, GitHub, and portfolio. Graduate with an ATS-ready resume and a profile that gets responses.
       - icon: Briefcase
-        text: Master technical and behavioral interviews, practice coding exercises, and develop winning strategies for upcoming opportunities.
+        heading: Prepare for the Real Interview Process
+        text: Master technical and behavioral interviews, practice coding exercises, and walk into every conversation with a clear strategy.
       - icon: Cash
-        text: Follow a tailored job search plan, leverage AI-driven hiring tools, and connect with top hiring companies to land your role.
-    background: hsl(var(--secondary))
-    bullet_icon: Check
-    bullet_icon_color: text-green-600
-    paddingY:
-      desktop: lg md
-    marginY:
-      desktop: none md
+        heading: Connect With Companies That Are Hiring
+        text: Follow a targeted job search plan and get direct access to 400+ hiring partners actively recruiting 4Geeks graduates.
+    section_id: numbered_steps-646rz5
   - type: testimonials_slide
     section_id: testimonials_slide-1gorsq
     title: The Stories Behind the Stats
