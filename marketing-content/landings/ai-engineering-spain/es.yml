@@ -382,7 +382,7 @@ sections:
         icon: IconTrophy
     marginY:
       mobile: none
-      desktop: none md
+      desktop: none lg
     paddingY:
       mobile: lg none
       desktop: lg md
