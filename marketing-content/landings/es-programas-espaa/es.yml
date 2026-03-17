@@ -247,23 +247,55 @@ sections:
     paddingY:
       desktop: md
   - type: ai_learning
-    version: "1.0"
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: Why Learn with 4Geeks?
-    description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
-    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
+    section_id: ai_learning-qmjitd
+    badge: ¿Por qué 4Geeks?
+    title: La academia que no te abandona cuando te gradúas
+    description: La mayoría de academias te dan un curso y te desean suerte. 4Geeks se queda contigo desde tu primera línea de código hasta tu primera oferta de trabajo y más allá.
     features:
+      - icon: TrendingUp
+        title: Apoyo de carrera construido para el mercado tech en España
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Coaching 1:1 enfocado en conseguir roles de Ingeniería de IA específicamente
+          - text: CV y portfolio optimizados para pasar los filtros automáticos de los recruiters
+          - text: Preparación para entrevistas técnicas y negociación salarial
+          - text: Apoyo de carrera de por vida, no solo hasta que te gradúas
+        video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
+        cta:
+          text: Comprueba si cumples los requisitos
+          url: "#hero-lt4ge6"
+          variant: primary
       - icon: Robot
-        title: Learn with AI
-        description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
+        title: Aprende más rápido con un tutor de IA que sabe dónde te has atascado
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Rigobot te da feedback instantáneo sobre tu código sin esperar a que haya un humano disponible
+          - text: Adapta las explicaciones a tu nivel exacto y ritmo de aprendizaje
+          - text: Desbloquéate a las 2 de la madrugada sin perder el hilo
+          - text: Cientos de ejercicios interactivos en Learnpack, nuestra plataforma de aprendizaje
+        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
+        cta:
+          text: Comprueba si cumples los requisitos
+          url: "#hero-lt4ge6"
+          variant: primary
       - icon: Headset
-        title: Unlimited 1:1 mentoring sessions
-        description: Access unlimited mentorship sessions with our experts whenever you need guidance.
-      - icon: Users
-        title: Learn with the community
-        description: Learning alongside others is more fun and helps you progress faster. Join our active community.
-    section_id: ai_learning-jud0ik
+        title: Mentoría 1:1 ilimitada de por vida, no solo mientras estudias
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Reserva sesiones 1:1 ilimitadas con ingenieros senior incluso después de graduarte
+          - text: Ratio 7:1 estudiante por mentor para que tu mentor sepa quién eres
+          - text: Check-ins semanales para que te mantengas enfocado y termines el programa
+          - text: Comunidad activa en Slack con canales de empleo, soporte técnico y consejos de carrera
+        video_url: https://youtu.be/Zoxxw5jP7xA
+    paddingY:
+      mobile: lg none
+      desktop: lg md
+    background: hsl(210 100% 50% / 0.05)
+    marginY:
+      desktop: none xl
   - type: geeks_vs_others_comparison
     section_id: geeks_vs_others_comparison-0w9570
     version: "1.0"
