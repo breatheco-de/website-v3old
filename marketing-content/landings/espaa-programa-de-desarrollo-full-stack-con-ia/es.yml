@@ -323,48 +323,49 @@ sections:
       desktop: none xl
   - type: certificate
     section_id: certificate-e3th63
-    title: Resultados profesionales
-    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
+    title: Tu certificado. Tu ventaja salarial.
+    description: Gradúate con un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida y las credenciales para negociar tu primer salario como Full Stack Developer desde una posición de fuerza.
     benefits:
-      - text: "AI Software Engineer: {{ global.average_salary_ai_fluent_software_developer | $20K–$30K }}"
-      - text: "Full-Stack Engineer (AI-Fluent): {{ global.average_salary_ai_engineer | $20K–$35K }}"
-      - text: "Agent Engineer: {{ global.average_salary_agent_engineer | $25K–$40K }}"
-      - text: {{ global.average_salary_workflow_automation_engineer | $25K–$40K }}
+      - text: "Full Stack Developer: €25K–€45K"
+      - text: "Desarrollador Web con IA: €30K–€50K"
+      - text: "Ingeniero Backend: €28K–€48K"
+      - text: "Ingeniero Frontend: €25K–€42K"
     card:
-      title: AI Engineer
+      title: Full Stack Developer
       subtitle: Certificado 4Geeks Academy
-      program_name: AI Engineering
+      program_name: Full Stack con IA
     stats:
-      - value: {{ global.global_job_placement_rate | 84 }}%
-        label: Tasa de contratación
-        description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores están buscando activamente.
+      - value: 86%
+        label: Tasa de inserción laboral
+        description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores en España están contratando activamente ahora mismo.
         benefits:
-          - text: Certificado reconocido por el Departamento de Educación de Florida
-          - text: Empresa de ingeniería de IA de principio a fin en tu portafolio
-          - text: Experiencia demostrada con agentes, flujos de trabajo y sistemas de IA
-          - text: Perfil profesional optimizado y estrategia de búsqueda de empleo
-      - value: 3-6 meses
-        label: Tiempo para ser contratado
-        description: Consigue tu primer rol en 3 a 6 meses después de graduarte. Con nuestro proceso estructurado de desarrollo profesional en 3 pasos, tus habilidades se convierten en ofertas de trabajo rápidamente.
+          - text: Certificado acreditado por el Departamento de Educación de Florida
+          - text: Un portfolio de proyectos reales y listos para producción
+          - text: Experiencia demostrada con flujos de trabajo y herramientas de IA
+          - text: Perfil profesional optimizado para pasar los filtros automáticos de los recruiters
+      - value: ~3 meses
+        label: Tiempo medio para conseguir empleo
+        description: La mayoría de graduados consiguen su primer rol en unos 3 meses. Nuestro proceso de desarrollo profesional en 3 pasos convierte tus habilidades técnicas en ofertas de trabajo rápidamente.
         benefits:
-          - text: Optimiza tu currículum, portafolio y perfiles en línea para atraer reclutadores y pasar filtros basados en IA
-          - text: Practica para entrevistas técnicas y conductuales
-          - text: Ejecuta una estrategia personalizada de búsqueda de empleo con acceso a redes de contratación relevantes
-      - value: {{ global.global_salary_increase | 55 }}%
-        label: Aumento Salarial Promedio
-        description: Domina las habilidades de IA que las empresas tienen dificultad para encontrar. A medida que los negocios se orientan hacia la automatización, estarás listo para asumir roles de alta prioridad que ofrecen crecimiento inmediato y estabilidad a largo plazo.
+          - text: CV, portfolio y LinkedIn construidos para atraer recruiters en España
+          - text: Preparación para entrevistas técnicas y conductuales con feedback real de ingenieros
+          - text: Estrategia personalizada de búsqueda de empleo con acceso a redes de contratación activas
+      - value: 55%
+        label: Aumento salarial medio
+        description: Los graduados reportan un aumento salarial medio del 55% tras incorporarse a roles de Full Stack. El programa se paga solo en pocos meses de trabajo.
         benefits:
-          - text: "Full Stack Engineer: {{ global.average_salary_fullstack | $95K–$150K }}+"
-          - text: "AI-fluent Software Developer: {{ global.average_salary_ai_fluent_software_developer }}"
-          - text: "Web Applications Engineer: {{ global.average_salary_web_aplications_engineer | $95K–$140K }}"
-          - text: "Backend Services Developer: {{ global.average_salary_backend_services_developer | $100K–$150K }} "
-      - value: 500+
-        label: Empresas que contratan nuestro talento
-        description: Accede a nuestra red de más de 5.000 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
+          - text: "Full Stack Developer: €25K–€45K"
+          - text: "Desarrollador Web con IA: €30K–€50K"
+          - text: "Ingeniero Backend: €28K–€48K"
+          - text: "Ingeniero Frontend: €25K–€42K"
+      - value: 5.000+
+        label: Graduados empleados en todo el mundo
+        description: Más de 5.000 alumni colocados en empresas que buscan talento tech activamente. Consigue acceso exclusivo a oportunidades de empleo antes de que se publiquen.
         benefits:
-          - text: Acceso exclusivo a bolsa de de empleo
-          - text: Recomendaciones directas a empresas colaboradoras
+          - text: Acceso exclusivo a bolsa de empleo con roles de empresas colaboradoras
+          - text: Recomendaciones directas a empresas de nuestra red
           - text: Eventos de networking con recruiters y responsables de selección
+          - text: Alumni trabajando en Google, Meta, Microsoft, Amazon y miles más
     certificate_position: right
     useSolidCard: true
     marginY:
