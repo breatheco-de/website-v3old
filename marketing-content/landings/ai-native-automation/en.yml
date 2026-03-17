@@ -177,6 +177,10 @@ sections:
         description: Proyectos - Construcciones dignas de portafolio con funcionalidad del mundo real e instrucciones paso a paso
         image_id: placeholder_strategies
     section_id: bullet_tabs_showcase-8mub8x
+    paddingY:
+      desktop: none md
+    marginY:
+      desktop: none md
   - type: testimonials
     section_id: testimonials-4nwr0h
     version: v1.0
