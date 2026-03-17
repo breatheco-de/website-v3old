@@ -164,8 +164,8 @@ sections:
     version: "1.0"
     variant: laptopEdge
     compact: true
-    heading: What You'll Learn
-    description: Master the essential skills for AI engineering.
+    heading: APRENDE HACIENDO
+    description: Sabemos que ver horas de vídeo no te hará estar listo para un empleo. Por eso nuestra plataforma divide el aprendizaje en módulos desbloqueables.
     images:
       - image_id: laceholder_career_guidance
         alt: Student 1
