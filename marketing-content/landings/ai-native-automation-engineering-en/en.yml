@@ -159,9 +159,9 @@ sections:
       subtitle: 4Geeks Academy Certificate
     section_id: certificate-cakai4
     paddingY:
-      desktop: none
+      desktop: none sm
     marginY:
-      desktop: none
+      desktop: none sm
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
@@ -178,9 +178,9 @@ sections:
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
     section_id: mentorship-othkd4
     paddingY:
-      desktop: md none
+      desktop: none
     marginY:
-      desktop: md none
+      desktop: none
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
