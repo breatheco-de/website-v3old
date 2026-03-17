@@ -274,40 +274,55 @@ sections:
     marginY:
       desktop: none xl
     section_id: ai_learning-2hqf27
-  - type: geeks_vs_others_comparison
-    section_id: geeks_vs_others_comparison-bdczjl
-    version: "1.0"
-    title: ¿Qué diferencia a nuestro bootcamp de programación de los demás?
-    columns:
-      - name: Característica
-      - name: 4Geeks Academy
-        highlight: true
-      - name: Promedio de la industria / competidores
-    rows:
-      - feature: Apoyo profesional personalizado
-        values:
-          - Soporte de por vida hasta que consigas trabajo (y más allá)
-          - Limitado, a menudo expira después de meses
-      - feature: Proporción profesor:estudiante
-        values:
-          - "1:7"
-          - 1:10+
-      - feature: Retroalimentación con IA
-        values:
-          - Personalizada según tu progreso
-          - Genérica o inexistente
-      - feature: Mentoría 1 a 1
-        values:
-          - Ilimitada y continua
-          - Sesiones limitadas
-      - feature: Plan de estudios
-        values:
-          - Actualizado continuamente para coincidir con las necesidades de la industria
-          - Lento para adaptarse
+  - type: ai_learning
+    section_id: ai_learning-qmjitd
+    badge: ¿Por qué 4Geeks?
+    title: La academia que no te abandona cuando te gradúas
+    description: La mayoría de academias te dan un curso y te desean suerte. 4Geeks se queda contigo desde tu primera línea de código hasta tu primera oferta de trabajo y más allá.
+    features:
+      - icon: TrendingUp
+        title: Apoyo de carrera construido para el mercado tech en LATAM
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Coaching 1:1 enfocado en conseguir roles de tecnología específicamente
+          - text: CV y portfolio optimizados para pasar los filtros automáticos de los recruiters
+          - text: Preparación para entrevistas técnicas y negociación salarial
+          - text: Apoyo de carrera de por vida, no solo hasta que te gradúas
+        video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
+        cta:
+          text: Comprueba si cumples los requisitos
+          url: "#hero-nzpyph"
+          variant: primary
+      - icon: Robot
+        title: Aprende más rápido con un tutor de IA que sabe dónde te has atascado
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Rigobot te da feedback instantáneo sobre tu código sin esperar a que haya un humano disponible
+          - text: Adapta las explicaciones a tu nivel exacto y ritmo de aprendizaje
+          - text: Desbloquéate a las 2 de la madrugada sin perder el hilo
+          - text: Cientos de ejercicios interactivos en Learnpack, nuestra plataforma de aprendizaje
+        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
+        cta:
+          text: Comprueba si cumples los requisitos
+          url: "#hero-nzpyph"
+          variant: primary
+      - icon: Headset
+        title: Mentoría 1:1 ilimitada de por vida, no solo mientras estudias
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Reserva sesiones 1:1 ilimitadas con ingenieros senior incluso después de graduarte
+          - text: Ratio 7:1 estudiante por mentor para que tu mentor sepa quién eres
+          - text: Check-ins semanales para que te mantengas enfocado y termines el programa
+          - text: Comunidad activa en Slack con canales de empleo, soporte técnico y consejos de carrera
+        video_url: https://youtu.be/Zoxxw5jP7xA
+    paddingY:
+      mobile: lg none
+      desktop: lg none
     marginY:
       desktop: none xl
-    paddingY:
-      desktop: none
   - type: features_grid
     section_id: features_grid-hxb5k3
     version: "1.0"
