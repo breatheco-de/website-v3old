@@ -175,6 +175,8 @@ sections:
     section_id: mentorship-othkd4
     paddingY:
       desktop: sm none
+    marginY:
+      desktop: sm none
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
