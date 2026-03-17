@@ -98,13 +98,13 @@ sections:
     title: Real Outcomes for Our Graduates
     subtitle: "These numbers come from real graduates with real jobs. Our Job Guarantee is built around one outcome: getting you hired."
     items:
-      - icon: Briefcase
+      - icon: IconBriefcase
         value: {{ global.global_job_placement_rate | 84 }}%
         title: Job placement rate
-      - icon: Graduation
+      - icon: IconCalendarTime
         value: 3-6 months
         title: Average time to get hired
-      - icon: GrowthChart
+      - icon: IconReportMoney
         value: {{ global.global_salary_increase | 55 }}%
         title: Average salary increase after graduation
     columns: 3
