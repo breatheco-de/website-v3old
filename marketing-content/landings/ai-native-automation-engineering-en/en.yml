@@ -41,14 +41,11 @@ sections:
       - Crea un proyecto final completo listo para portafolio con documentación profesional, pruebas y paquete para GitHub.
       - Aprende prácticas de desarrollo nativo de IA, trabajando con agentes de IA mediante ingeniería de prompts y patrones de validación.
     tutors:
-      - name: Charly Chacón
-        role: Main Instructor
-        image: https://randomuser.me/api/portraits/men/10.jpg
       - name: Rigo
-        role: AI Tutor
-        image: https://randomuser.me/api/portraits/lego/1.jpg
-    tutors_label: "Your tutors:"
-    description: Unlock the power of Applied AI and Generative AI in your professional life—no coding required. This self-paced course teaches you how to master prompt engineering, automate workflows, and create content using advanced AI tools. Learn to compare open source and cloud-based solutions, generate documents and websites, build chatbots, and optimize your productivity with automation platforms.
+        role: Tutor IA
+        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
+    tutors_label: "Tu tutor con IA:"
+    description: Transforma tu carrera con Ingeniería de Automatización Nativa de IA. Aprende a diseñar, construir y desplegar flujos de automatización listos para producción con entrenamiento práctico en n8n e integraciones de APIs reales. Gradúate con más de 35 proyectos en portafolio y las habilidades para trabajar como ingeniero de automatización profesional.
     video:
       url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
       ratio: "16:9"
