@@ -170,8 +170,8 @@ sections:
       - label: Lecciones de lectura
         description: Lecciones de lectura - Explicaciones claras y fundamentales
         image_id: placeholder_career_guidance
-      - label: Inline comments
-        description: Add contextual feedback directly where it matters most
+      - label: Ejercicios Interactivos
+        description: Ejercicios Interactivos - Retos autoevaluados con retroalimentación instantánea y tutoriales en video integrados
         image_id: placeholder_mentorship
       - label: Text-to-issue commands
         description: Seamlessly move between ideation and execution
