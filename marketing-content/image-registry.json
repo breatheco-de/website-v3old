@@ -4578,6 +4578,37 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433-359w.webp"
         }
       ]
+    },
+    "bootcamp-de-ingenier-a-de-ia-en-espa-a-4geeks-academy-03-17-2026-09-17-am": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Bootcamp-de-Ingenier-a-de-IA-en-Espa-a-4Geeks-Academy-03-17-2026_09_17_AM.png",
+      "alt": "Image: Bootcamp-de-IngenierÃ­a-de-IA-en-EspaÃ±a-4Geeks-Academy-03-17-2026_09_17_AM",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "hash": "51220afbeb5a1e2987e7c6562c7dc2cd950e8c4ed9c5ad0a7ad28da885aa14a8",
+      "width": 1242,
+      "height": 689,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Bootcamp-de-Ingenier-a-de-IA-en-Espa-a-4Geeks-Academy-03-17-2026_09_17_AM-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Bootcamp-de-Ingenier-a-de-IA-en-Espa-a-4Geeks-Academy-03-17-2026_09_17_AM-960w.webp"
+        }
+      ]
     }
   }
 }
