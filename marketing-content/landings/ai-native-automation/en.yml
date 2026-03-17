@@ -47,10 +47,10 @@ sections:
       loop: true
       preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40.png
     signup_card:
-      title: Sign up to 4Geeks Plus
-      description: Subscribe and get access to hundreds of challenges, projects and courses
+      title: ELIMINAR CÓDIGO
+      description: LIMINAR CÓDIGO
       cta_button:
-        text: Join now from $39/mo.
+        text: JLIMINAR CÓDIGO
         url: /signup
         variant: primary
       login_link:
