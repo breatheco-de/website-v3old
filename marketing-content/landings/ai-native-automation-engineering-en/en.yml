@@ -123,7 +123,7 @@ sections:
           - text: Ayuda con depuración y tareas de resolución de problemas
           - text: Accede a cientos de ejercicios interactivos en Learnpack
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-      - icon: TrendingUp
+      - icon: School
         title: Aprende en comunidad
         description: ""
         show_rigobot_logo: true
