@@ -137,23 +137,32 @@ sections:
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
     section_id: awards_marquee-yinel0
-  - type: two_column_accordion_card
-    variant: image_background
-    version: "1.0"
-    title: ¿Por qué elegir 4Geeks Academy como uno de los mejores bootcamps de España?
-    description: "Las razones por las que somos uno de los mejores bootcamps de programación en España:"
-    bullets:
-      - heading: Enfoque en las necesidades del mercado
-        text: Nuestro programa se basa en las habilidades y tecnologías más demandadas por las empresas, lo que asegura una formación práctica, relevante y alineada con la industria.
-      - heading: Mentorías personalizadas e ilimitadas
-        text: Recibe el apoyo individual de mentores expertos en cada etapa de tu carrera, desde la elección de tu camino profesional hasta la preparación para encontrar empleo.
-      - heading: Inserción laboral
-        text: Alrededor del 90% de nuestros graduados encuentran trabajo en los primeros 6 meses después de finalizar el programa.
-    footer: Forma parte de una comunidad internacional de profesionales que ya han transformado su carrera con 4Geeks Academy.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/Copia de Fav_DSC_1146.JPG
-    image_alt: Estudiantes aprendiendo programación en 4Geeks Academy
-    reverse: true
-    section_id: two_column_accordion_card-srkrjj
+  - type: graduates_stats
+    heading: Resultados profesionales reales
+    subheading: Más de 6.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
+    stats:
+      - value: 86%
+        label: Tasa de inserción laboral
+      - value: 55%
+        label: Aumento salarial medio tras graduarse
+      - value: ~3 meses
+        label: Tiempo medio para conseguir empleo en 2025
+      - value: 5.000+
+        label: Graduados empleados en todo el mundo
+    collage_images:
+      - image_id: graduates_team_1
+        col_span: 5
+        row_span: 2
+      - image_id: graduates_team_2
+        col_span: 7
+        row_span: 2
+      - image_id: graduates_coding
+        col_span: 6
+        row_span: 2
+      - image_id: graduates_friends
+        col_span: 6
+        row_span: 2
+    section_id: graduates_stats-cnxqbb
   - type: course_selector
     version: "1.0"
     variant: solid
