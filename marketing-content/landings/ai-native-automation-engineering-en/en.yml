@@ -28,17 +28,10 @@ sections:
     brand_mark:
       prefix: Automatización con IA
       highlight: usando n8n
-      suffix: ":"
       color: chart-5
     title: Crea tus propios flujos
     subtitle: Esto no es solo un curso, es una transformación
-    description: null
-    bullet_points:
-      - Construye más de 35 flujos de automatización funcionales incluyendo sistemas de clima, asistentes de IA y aplicaciones impulsadas por eventos.
-      - Domina la plataforma de automatización n8n con experiencia práctica desde conceptos básicos de 2 nodos hasta sistemas complejos de producción de 10 nodos.
-      - Integra APIs del mundo real y servicios de IA incluyendo OpenAI GPT, datos meteorológicos y sistemas de eventos basados en webhooks.
-      - Crea un proyecto final completo listo para portafolio con documentación profesional, pruebas y paquete para GitHub.
-      - Aprende prácticas de desarrollo nativo de IA, trabajando CON agentes de IA mediante ingeniería de prompts y patrones de validación.
+    description: ortfolio building to interviews and AI-driven hiring platforms.
     marquee:
       speed: 40
       gradient: true
