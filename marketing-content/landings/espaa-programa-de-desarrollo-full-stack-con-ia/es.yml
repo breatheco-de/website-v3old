@@ -148,6 +148,24 @@ sections:
           default: full-stack
       success:
         message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
+  - type: ai_learning
+    version: "1.0"
+    variant: feature-tabs
+    badge: Why 4Geeks?
+    title: Why Learn with 4Geeks?
+    description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
+    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
+    features:
+      - icon: Robot
+        title: Learn with AI
+        description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
+      - icon: Headset
+        title: Unlimited 1:1 mentoring sessions
+        description: Access unlimited mentorship sessions with our experts whenever you need guidance.
+      - icon: Users
+        title: Learn with the community
+        description: Learning alongside others is more fun and helps you progress faster. Join our active community.
+    section_id: ai_learning-o3ddn3
   - type: syllabus
     section_id: syllabus-q0etx0
     variant: program-modules
