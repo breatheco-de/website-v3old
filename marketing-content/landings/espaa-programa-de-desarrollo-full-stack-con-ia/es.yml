@@ -25,34 +25,35 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
+    title: Build with AI.
     brand_mark:
-      prefix: Your skills have an expiration date. Become a
-      highlight: Full Stack Developer with AI
+      prefix: Tus habilidades tienen fecha de caducidad. Conviértete en
+      highlight: Full Stack Developer con IA
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\"><span>Full Stack developers who build with AI are the most hired in tech right now. 1.4M open roles. In 20 weeks, that's you — landing positions paying $95K–$135K+.</span></span>"
+    description: "<span style=\"font-size: 1.125rem;\"><span>Los desarrolladores que construyen con IA son los más contratados en tech ahora mismo. 1.4M puestos abiertos. En 20 semanas, ese podrías ser tú, accediendo a posiciones que pagan $95K–$135K+.</span></span>"
     bullets:
-      - text: "Career-focused from day one: get job-ready in 20 weeks and hired in 120 days"
-      - text: Unlimited 1:1 mentorship and career support that doesn't stop at graduation
-      - text: "Job Guarantee option: get hired within 9 months or we'll refund your tuition"
+      - text: "Enfocado en tu carrera desde el primer día: prepárate en 20 semanas y consigue trabajo en 120 días"
+      - text: La única academia que no termina cuando te gradúas, mentoría ilimitada de por vida incluida
+      - text: "Opción de Garantía de Empleo: consigue trabajo en 9 meses o te devolvemos la matrícula"
     image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
+      submit_label: Comprueba si cumples los requisitos. Es gratis
       tags: website-lead
       fields:
         email:
           visible: true
           required: true
-          placeholder: Email Address
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
-          placeholder: First Name
+          placeholder: Nombre
         last_name:
           visible: true
           required: true
-          placeholder: Last Name
+          placeholder: Apellidos
         phone:
           visible: true
           required: true
@@ -60,20 +61,20 @@ sections:
           visible: false
           default: full-stack
       success:
-        message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
+        message: Ya estás dentro. Alguien de nuestro equipo de admisiones se pondrá en contacto contigo en unos minutos por email. Revisa tu bandeja de entrada.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
-        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4-6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        marketing_text: Acepto recibir información a través de email, WhatsApp y otros canales sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
+        sms_text: Acepto recibir mensajes SMS sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4-6 mensajes al mes. Nunca compartiremos tu información de contacto.
         sms_usa_only: true
       show_terms: true
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
-    form_card_title: Get the Full Program Details
-    form_card_subtitle: "Takes 2 minutes. Our admissions team will send you the complete program overview: curriculum, pricing, and financing options within minutes of applying."
+    form_card_title: Obtén todos los detalles del programa
+    form_card_subtitle: "Tarda 2 minutos. Nuestro equipo de admisiones te enviará la información completa del programa: plan de estudios, precios y opciones de financiación en minutos."
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: true
     awards_marquee:
