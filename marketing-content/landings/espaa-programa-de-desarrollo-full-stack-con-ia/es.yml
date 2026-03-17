@@ -27,7 +27,7 @@ sections:
     variant: productShowcase
     title: Build with AI.
     brand_mark:
-      prefix: Every app you use was built by someone. Become a
+      prefix: Your skills have an expiration date. Become a
       highlight: Full Stack Developer with AI
       color: primary
     description: "<span style=\"font-size: 1.125rem;\"><span>Full Stack developers who build with AI are the most hired in tech right now. 1.4M open roles. In 20 weeks, that's you — landing positions paying $95K–$135K+.</span></span>"
