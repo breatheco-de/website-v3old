@@ -312,16 +312,16 @@ sections:
     version: "1.0"
     variant: laptopEdge
     heading: Who Can Add the Job Guarantee?
-    description: "You can enroll in the Job Guarantee if you:"
+    description: "The Job Guarantee is available to students who meet these four requirements:"
     cards:
       - icon: IconBriefcaseFilled
         title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
       - icon: IconCircleDashedCheck
-        title: Complete all coursework
+        title: Complete All Program Requirements
       - icon: IconBrain
-        title: Pass our logic test
+        title: Pass the Admissions Logic Test
       - icon: IconArrowGuideFilled
-        title: Follow our career plan
+        title: Follow the Full Career Development Process
     section_id: features_quad-ms7uox
     marginY:
       desktop: none
