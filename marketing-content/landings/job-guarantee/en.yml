@@ -188,53 +188,6 @@ sections:
         role_label: Become a
         demand: Critical demand
     section_id: programs_showcase-nsa203
-  - type: course_selector
-    version: "1.0"
-    variant: solid
-    heading: Choose the Tech Career You Want to Launch
-    subheading: Choose your path
-    courses:
-      - name: AI Engineering
-        icon: Brain
-        duration: {{ global.ai_engineering_week_duration | 24 }} weeks
-        label: Updated in 2026
-        title: AI Engineering
-        badges:
-          - icon: DollarSign
-            text: APIs, automation, telemetry
-        description: Build production-ready AI systems and learn to design, deploy, and scale AI-driven products.
-        price_period: " "
-        cta_text: Program details
-        cta_url: /en/career-programs/ai-engineering
-        course_background: hsl(var(--accent))
-      - name: Data Science and Machine Learning
-        duration: {{ global.data_science_week_duration | 16 }} weeks
-        label: Updated in 2026
-        title: Data Science and Machine Learning
-        badges:
-          - icon: Brain
-            text: Python, TensorFlow, SQL
-        description: Analyze real-world data, build predictive models, and apply machine learning techniques used by modern teams.
-        price_period: " "
-        cta_text: Program details
-        cta_url: /en/career-programs/ai-machine-learning
-        course_background: hsl(var(--primary))
-      - name: Cybersecurity
-        duration: {{ global.cybersecurity_week_duration | 16 }} weeks
-        label: Updated in 2026
-        title: Cybersecurity
-        badges:
-          - icon: Code
-            text: Threat detection & system protection
-        description: Develop the skills to identify threats, secure systems, and support security operations in today’s digital economy.
-        price_period: " "
-        cta_text: Program details
-        cta_url: /en/career-programs/cybersecurity
-        course_background: hsl(var(--secondary-foreground))
-    section_id: course_selector-x9c6qg
-    marginY:
-      desktop: md
-    background: hsl(var(--secondary))
   - type: features_quad
     section_id: features_quad-ge4f63
     version: "1.0"
