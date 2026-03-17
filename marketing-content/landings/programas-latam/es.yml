@@ -253,30 +253,27 @@ sections:
       desktop: md lg
     marginY:
       desktop: none lg
-  - type: trust_cards
-    version: v1.0
-    title: ¡Los mejor valorados en todos los sitios de reseñas!
-    items:
-      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
-        rating: 4.9
-        review_count: 4.84 en reseñas
-      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
-        rating: 4.8
-        review_count: 4.5 en reseñas
-      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
-        rating: 4.9
-        review_count: 4.89 en reseñas
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        rating: 4.9
-        review_count: 4.91 en reseñas
-    name: Default Trust Cards
-    description: Four review platform cards with ratings
-    section_id: trust_cards-eslgbu
-    paddingY:
-      desktop: md lg
+  - type: two_column
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    left:
+      video: https://www.youtube.com/watch?v=rtpfwwfE0yY
+      justify: center
+    right:
+      heading: "Joshua Bravo: de asistente de cocina a desarrollador Full Stack en una fintech"
+      sub_heading: Graduado de 4Geeks Academy, Chile
+      description: Joshua trabajaba como asistente de cocina y contable mientras intentaba aprender a programar solo con tutoriales de YouTube. Sabía que necesitaba algo más estructurado para dar el salto real. Tras completar el bootcamp de Full Stack en 4Geeks, construyó aplicaciones web completas de cero y consiguió empleo como desarrollador en Regcheq, una startup fintech. Hoy hace lo que le apasiona.
+      button:
+        text: Comprueba si cumples los requisitos
+        url: "#hero-nzpyph"
+        variant: primary
+        icon: Rocket
+    gap: "8"
     marginY:
       desktop: none xl
-    background: hsl(210 100% 50% / 0.05)
+    section_id: ai_learning-2hqf27
   - type: geeks_vs_others_comparison
     section_id: geeks_vs_others_comparison-bdczjl
     version: "1.0"
