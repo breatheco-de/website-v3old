@@ -218,7 +218,7 @@ sections:
       - 6
     alignment: center
     left:
-      video: https://www.youtube.com/watch?v=hUgwkBtYtUI
+      video: https://youtu.be/hUgwkBtYtUI?is=NZyqtXBleuOTTURF
       justify: center
     right:
       heading: ¿Para qué sirve realmente la Ingeniería de IA?
