@@ -85,9 +85,9 @@ sections:
     section_id: banner-zfzyf7
   - type: bento_cards
     version: "1.0"
-    title: 7 Ways Rigobot Keeps You Moving
-    subtitle: Never get stuck again
-    description: Rigobot is your AI-powered coding companion that ensures you never lose momentum. Whether you're debugging at 2am or preparing for an exam, Rigobot is there to help you push through challenges and keep learning.
+    title: ¿Cómo te ayuda Rigobot?
+    subtitle: No vuelvas a quedarte bloqueado
+    description: Rigobot es tu asistente de programación impulsado por IA que te ayuda a mantener el ritmo en todo momento. Tanto si estás depurando código a las 2 de la madrugada como si te estás preparando para un examen, Rigobot está ahí para ayudarte a superar los desafíos y seguir aprendiendo.
     items:
       - icon: CodeReview
         title: Code Review
