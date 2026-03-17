@@ -24,8 +24,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Ingeniería de Automatización con Inteligencia Artificial
-    title_highlight: con Inteligencia Artificial
+    title: Automatización con n8n. Flujos, APIs e inteligencia artificial
+    title_highlight: Automatización con n8n
     subtitle: Esto no es sólo un curso, es una transformación.
     students_enrolled:
       avatars:
