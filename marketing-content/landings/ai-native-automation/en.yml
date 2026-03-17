@@ -193,6 +193,7 @@ sections:
           - text: Guía paso a paso para aprender haciendo
           - text: Ejercicios interactivos y proyectos para tu portfolio
       - title: Rigobot
+        icon: Rigo
         bullets:
           - text: Provee retroalimentación en tiempo real
           - text: Te ayuda a encontrar y corregir errores en tu código
