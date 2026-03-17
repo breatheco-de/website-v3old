@@ -518,7 +518,7 @@ sections:
       url: /es/apply
       variant: primary
     marginY:
-      desktop: none md
+      desktop: none xl
     paddingY:
       desktop: sm md
     showOnLocations:
