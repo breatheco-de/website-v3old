@@ -173,6 +173,8 @@ sections:
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
     section_id: mentorship-othkd4
+    paddingY:
+      desktop: sm none
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
