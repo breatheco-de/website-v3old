@@ -189,34 +189,34 @@ sections:
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
-    heading: Choose Your Career Path
-    subheading: Four programs built around the skills companies are actively hiring for right now.
-    featured_label: Featured Program
+    heading: Elige tu camino profesional
+    subheading: Cuatro programas diseñados para las habilidades que las empresas en España están contratando ahora mismo.
+    featured_label: Programa Destacado
     programs:
-      - name: Full Stack Development with AI
-        icon: IconCode
-        description: Build modern, production-ready web applications from frontend to backend, using the latest AI-powered tools and workflows.
-        duration: 16 weeks
-        cta_text: Explore Program
-        cta_url: /programs/full-stack
-      - name: AI Engineering
+      - name: Ingeniería de IA
         icon: IconBrain
-        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies. Transform a single business case into a fully AI-native system, layer by layer.
-        duration: 20 weeks
-        cta_text: Explore
-        cta_url: /programs/ai-engineering
-      - name: Data Science & ML
+        description: Construye los sistemas de IA que las empresas contratan ahora mismo. Domina LLMs, agentes de IA y automatización mientras transformas un caso de negocio real en un sistema completamente nativo de IA, capa por capa.
+        duration: 24 semanas
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ingenieria-ia
+      - name: Desarrollo Full Stack con IA
+        icon: IconCode
+        description: Construye aplicaciones web modernas y listas para producción de frontend a backend usando las herramientas de IA más demandadas del mercado.
+        duration: 20 semanas
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/desarrollo-full-stack
+      - name: Ciencia de Datos y Machine Learning
         icon: IconChartBar
-        description: Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.
-        duration: 18 weeks
-        cta_text: Explore
-        cta_url: /programs/data-science
-      - name: Cybersecurity
+        description: Analiza datos complejos, construye modelos inteligentes y despliega soluciones de IA para problemas reales de negocio.
+        duration: 16 semanas
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
+      - name: Ciberseguridad
         icon: IconShield
-        description: Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.
-        duration: 14 weeks
-        cta_text: Explore
-        cta_url: /programs/cybersecurity
+        description: Protege los sistemas que la IA necesita. Los especialistas en ciberseguridad son críticos ahora que las empresas escalan su infraestructura de IA.
+        duration: 16 semanas
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ciberseguridad
     section_id: programs_showcase-5wibqd
   - type: course_selector
     version: "1.0"
