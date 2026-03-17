@@ -386,31 +386,29 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg md
-  - type: award_badges
-    section_id: award_badges-3dsz7h
+  - type: trust_cards
     version: v1.0
-    variant: detailed
-    showBorder: false
+    title: La academia mejor valorada en todas las plataformas de reseñas
     items:
-      - id: coursereport-detailed
-        alt: Course Report Badge 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-        logoHeight: 64px
-        description: Reconocida como una de las mejores escuelas tecnológicas a nivel mundial
-        link: https://www.coursereport.com
-        linkText: Leer reviews
-      - id: logo-premios-excelencia-educativa
-        alt: 17 Premios Excelencia Educativa
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios-excelencia-educativa-17_1770392145139.png
-        logoHeight: 64px
-        description: La mejor inversión para quienes empiezan de cero o buscan un cambio de carrera
-      - id: logo-switchup-best-bootcamps-2025
-        alt: SwitchUp Best Bootcamps 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
-        logoHeight: 64px
-        description: La escuela tecnológica mejor valorada, en base a reseñas verificadas de alumnos
-        link: https://www.switchup.org
-        linkText: Leer reviews
+      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+        rating: 4.9
+        review_count: 4.9 en Course Report
+      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        rating: 4.8
+        review_count: 4.8 en Google
+      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        rating: 4.9
+        review_count: 4.9 en Career Karma
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 4.9 en SwitchUp
+    name: Default Trust Cards
+    description: Four review platform cards with ratings
+    section_id: trust_cards-eslgbu
+    paddingY:
+      desktop: md lg
+    marginY:
+      desktop: none lg
   - type: ai_learning
     section_id: ai_learning-qmjitd
     badge: ¿Por qué 4Geeks?
