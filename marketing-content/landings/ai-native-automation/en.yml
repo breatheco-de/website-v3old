@@ -162,8 +162,8 @@ sections:
       desktop: none lg
   - type: human_and_ai_duo
     version: "1.0"
-    heading: "Human + AI: The Perfect Support Duo"
-    description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll have access to unlimited 1:1 mentorship plus AI-guided feedback from Rigobot.
+    heading: APRENDE HACIENDO
+    description: abemos que ver horas de video no te hará estar listo para un empleo. Por eso nuestra plataforma divide el aprendizaje en módulos desbloqueables.
     images:
       - src: https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400
         alt: Professional mentor 1
