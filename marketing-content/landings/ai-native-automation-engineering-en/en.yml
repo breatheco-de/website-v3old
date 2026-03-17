@@ -24,7 +24,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Automatización con IA usando N8N
+    title: Automatización con IA usando n8n
     title_highlight: Automatización con IA
     subtitle: Esto no es sólo un curso, es una transformación.
     students_enrolled:
