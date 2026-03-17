@@ -391,6 +391,8 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
+    marginY:
+      desktop: none md
   - type: certificate
     section_id: certificate-e3th63
     title: Tu certificado. Tu ventaja salarial.
