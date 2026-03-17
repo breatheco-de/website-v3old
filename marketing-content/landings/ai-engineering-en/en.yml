@@ -614,7 +614,7 @@ sections:
       - icon: IconCheck
         text: Finance over 24 to 60 months through our lending partners starting at $349/mo.
       - icon: IconCheck
-        text: Partial scholarships availablen for highly qualified applicants.
+        text: Partial scholarships available for highly qualified applicants.
         use_rigobot_icon: true
       - icon: IconCheck
         text: "Add a Job Guarantee for total confidence: get hired within 9 months or get your tuition back."
