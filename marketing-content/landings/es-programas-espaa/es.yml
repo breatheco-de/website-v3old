@@ -297,7 +297,7 @@ sections:
       desktop: none md
     background: hsl(var(--secondary))
   - type: testimonials_slide
-    title: Dieron el salto. Esto es lo que pasó.
+    title: Dieron el salto y esto es lo que pasó.
     description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa. Ahora son desarrolladores con empleos reales y salarios que no esperaban.
     testimonials:
       - name: Loretta Thompson
