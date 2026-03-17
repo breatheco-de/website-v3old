@@ -216,76 +216,43 @@ sections:
       desktop: md lg
     marginY:
       desktop: none lg
-  - type: course_selector
-    version: "1.0"
-    variant: solid
-    heading: Descubre tu potencial en 4Geeks Academy
-    subheading: Explora nuestros programas en IA, Desarrollo Full Stack, Ciencia de Datos y Ciberseguridad.
-    courses:
+  - type: programs_showcase
+    version: v1.0
+    layout: spotlight_with_list
+    heading: Elige tu camino profesional
+    subheading: Cuatro programas diseñados para las habilidades que las empresas en LATAM están contratando ahora mismo.
+    featured_label: Programa Destacado
+    programs:
       - name: Ingeniería de IA
-        icon: Brain
+        icon: IconBrain
+        description: Construye los sistemas de IA que las empresas contratan ahora mismo. Domina LLMs, agentes de IA y automatización mientras transformas un caso de negocio real en un sistema completamente nativo de IA, capa por capa.
         duration: 24 semanas
-        label: Actualizado en 2026
-        title: Ingeniería de IA
-        badges:
-          - icon: Cpu
-            text: LLMs, Agentes de IA y Automatización
-          - icon: Database
-            text: Sistemas de IA en Producción
-        description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
-        cta_text: Solicitar Detalles del Programa
-        cta_url: "#apply-modal"
-        course_background: hsl(var(--accent))
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ingenieria-ia
       - name: Desarrollo Full Stack con IA
-        icon: Code
+        icon: IconCode
+        description: Construye aplicaciones web modernas y listas para producción de frontend a backend usando las herramientas de IA más demandadas del mercado.
         duration: 20 semanas
-        label: Actualizado en 2026
-        title: Desarrollo de Software Full Stack
-        badges:
-          - icon: Code
-            text: React, Node.js y Python
-        tags:
-          - icon: Plus
-            text: Desarrollo de APIs
-          - icon: ""
-            text: ""
-        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
-        cta_text: Solicitar Detalles del Programa
-        cta_url: "#apply-modal"
-        course_background: hsl(var(--destructive))
-      - name: Ciencia de Datos y ML
-        icon: ChartLine
-        duration: 18 semanas
-        label: Actualizado en 2026
-        title: Ciencia de Datos y Machine Learning con IA
-        badges:
-          - icon: BrainCircuit
-            text: Machine Learning y Modelos de IA
-          - icon: BarChart
-            text: Análisis y Visualización de Datos
-        description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
-        cta_text: Solicitar Detalles del Programa
-        cta_url: "#apply-modal"
-        course_background: hsl(var(--primary))
-      - name: Ciberseguridad
-        icon: Shield
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/desarrollo-full-stack
+      - name: Ciencia de Datos y Machine Learning
+        icon: IconChartBar
+        description: Analiza datos complejos, construye modelos inteligentes y despliega soluciones de IA para problemas reales de negocio.
         duration: 16 semanas
-        label: Actualizado en 2026
-        title: Ciberseguridad
-        badges:
-          - icon: Lock
-            text: Detección de Amenazas y Seguridad de Redes
-          - icon: Server
-            text: Seguridad en la Nube
-        description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
-        cta_text: Solicitar Detalles del Programa
-        cta_url: "#apply-modal"
-        course_background: hsl(var(--secondary-foreground))
-    section_id: course_selector-wmev7d
-    marginY:
-      desktop: none
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
+      - name: Ciberseguridad
+        icon: IconShield
+        description: Protege los sistemas que la IA necesita. Los especialistas en ciberseguridad son críticos ahora que las empresas escalan su infraestructura de IA.
+        duration: 16 semanas
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/ciberseguridad
+    section_id: programs_showcase-5wibqd
+    background: hsl(210 100% 50% / 0.05)
     paddingY:
-      desktop: none
+      desktop: md lg
+    marginY:
+      desktop: none lg
   - type: trust_cards
     version: v1.0
     title: ¡Los mejor valorados en todos los sitios de reseñas!
