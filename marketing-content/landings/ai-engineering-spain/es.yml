@@ -624,42 +624,41 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-  - type: whos_hiring
-    section_id: whos_hiring-8u9ydp
-    variant: carousel
-    title: Empresas líderes confían en nuestro talento
-    subtitle: Nuestros graduados trabajan en compañías de referencia del sector tecnológico.
-    logos:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
-        alt: Jooble
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/images-removebg-preview_1767642331872.png
-        alt: Boats Group
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
-        alt: Microsoft
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
-        alt: National Geographic
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
-        alt: eBay
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
-        alt: Meta
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
-        alt: Evernote
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
-        alt: Telefonica
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
-        alt: Uber
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
-        alt: Twilio
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
-        alt: Neo9
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
-        alt: Google Developers
+  - type: pricing
+    version: "1.0"
+    variant: product
+    title: Una inversión que se paga sola
+    subtitle: El graduado medio de 4Geeks ve un aumento salarial del 55%. El programa se paga solo en pocos meses de trabajo.
+    discount_text: "Descuento por pago completo: ahorra un 10% pagando por adelantado."
+    financing_text: Cuota estimada de €140/mes financiando €5.750 a 48 meses (7,75% TAE), tras un depósito de €500 y sujeto a la aprobación del prestamista.*
+    financing_amount: 140€
+    tech_icons:
+      - python
+      - tensorflow
+      - pandas
+      - numpy
+      - sql
+      - git
+      - jupyter
+      - api
+    static_icons: true
+    features_title: Elige la opción que mejor se adapte a tu situación.
+    features:
+      - icon: IconCheck
+        text: Paga por adelantado con descuento adicional, o divide tus pagos en 6 cuotas sin intereses a través de nuestros partners.
+      - icon: IconCheck
+        text: 2 o 3 becas por mérito disponibles por cohorte para candidatos muy cualificados.
+      - icon: IconCheck
+        text: Trabajamos con partners de confianza para ofrecerte financiación flexible y asequible, para que te centres en tu futuro y no en las cuotas.
+    cta:
+      text: Comprueba si cumples los requisitos
+      url: /es/apply
+      variant: primary
+    section_id: pricing-vcqjix
     marginY:
-      mobile: none xl
-      desktop: none xl
+      desktop: none md
     paddingY:
-      mobile: lg none
-      desktop: lg none
+      desktop: lg md
   - type: numbered_steps
     section_id: numbered_steps-y83ffn
     version: "1.0"
