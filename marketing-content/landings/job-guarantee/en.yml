@@ -153,7 +153,7 @@ sections:
         color: muted-foreground
         role: AI Engineer
         role_label: Become an
-        demand: Very high demand
+        demand: Critical demand
       - name: Data Science & ML
         icon: IconChartBar
         description: Analyze complex datasets, build predictive models, and deploy machine learning solutions to real problems.
@@ -173,7 +173,7 @@ sections:
         cta_text: Explore Program
         cta_url: /programs/cybersecurity
         color: destructive
-        role: Security Analyst
+        role: Cybersecurity Analyst
         role_label: Become a
         demand: Critical demand
       - name: Full Stack Development with AI
