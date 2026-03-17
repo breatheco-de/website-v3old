@@ -243,33 +243,6 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
-  - type: bullet_tabs_showcase
-    section_id: bullet_tabs_showcase-5a9ii4
-    version: "1.0"
-    heading: Is This Program Right for You?
-    tabs:
-      - label: Collaborative documents
-        description: |-
-          Ready for an intensive commitment: 
-          20-24 hours/week for 24 weeks. (Live classes + ~12 hours of homework)
-        image_id: placeholder_career_guidance
-      - label: Inline comments
-        description: |-
-          Focused on career outcomes: 
-           Want AI-native skills that unlock in-demand, high-paying roles.
-        image_id: placeholder_mentorship
-      - label: Text-to-issue commands
-        description: |-
-          Motivated by structure: 
-           Prefer clear milestones, expert instructors, and a supportive cohort.
-        image_id: placeholder_strategies
-    image_position: right
-    marginY:
-      mobile: xl lg
-      desktop: xl lg
-    paddingY:
-      mobile: none
-      desktop: none
   - type: testimonials
     section_id: testimonials-4nwr0h
     version: v1.0
