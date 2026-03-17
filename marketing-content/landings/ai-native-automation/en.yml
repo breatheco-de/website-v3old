@@ -171,10 +171,9 @@ sections:
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Get personalized 1:1 coaching
-          - text: Build your AI-ready resume and portfolio
-          - text: Prepare for interviews and salary negotiation
-          - text: Keep growing with lifelong access to career support
+          - text: Reconocidos por Forbes, Newsweek y SwitchUp
+          - text: 4.9/5 de valoración en plataformas de reseñas
+          - text: Premios internacionales a excelencia educativa
         video_url: https://youtu.be/-2ZvlgDnltc
         cta:
           text: Start learning now!
