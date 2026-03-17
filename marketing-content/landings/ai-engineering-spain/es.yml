@@ -512,7 +512,6 @@ sections:
     paddingY:
       mobile: lg
       desktop: md
-    background: hsl(var(--secondary))
   - type: whos_hiring
     section_id: whos_hiring-8u9ydp
     variant: carousel
