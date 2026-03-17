@@ -111,7 +111,7 @@ sections:
     heading: ¿Por qué aprender con 4Geeks?
     description: Aprender de forma intensiva puede ser desafiante, pero hemos desarrollado las herramientas para mantenerte motivado, evitar que te quedes atascado en problemas y acelerar tu proceso de aprendizaje.
     video:
-      url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+      url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
       ratio: "16:9"
       width: 400px
       preview_image_url: https://example.com/preview.jpg
