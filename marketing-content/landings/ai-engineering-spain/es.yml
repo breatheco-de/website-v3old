@@ -660,38 +660,6 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
-  - type: bullet_tabs_showcase
-    section_id: bullet_tabs_showcase-vk3180
-    version: "1.0"
-    heading: ¿Este programa es para ti?
-    tabs:
-      - label: Compromiso real
-        description: |-
-          Estás dispuesto a asumir un compromiso serio con tu formación:
-          dedicar entre 20 y 24 horas a la semana durante 24 semanas, combinando clases en vivo y trabajo práctico.
-        image_id: group_original
-      - label: Enfoque profesional
-        description: |-
-          Buscas resultados reales en tu carrera:
-          desarrollar habilidades en ingeniería de IA que te permitan acceder a roles bien pagados y con alta demanda.
-        image_id: students_group_collaboration
-        alt: Group of 4Geeks Academy students collaborating around laptops
-        id: students-group-collaboration
-      - label: Aprendizaje guiado
-        description: |-
-          Valoras una estructura clara:
-          prefieres avanzar con hitos definidos, mentores expertos y una cohorte que te impulse a seguir avanzando.
-        image_id: student_coding_laptop
-        image_object_fit: cover
-        alt: 4Geeks Academy student coding on laptop wearing branded t-shirt
-        id: student-coding-laptop
-    image_position: right
-    marginY:
-      mobile: xl lg
-      desktop: xl lg
-    paddingY:
-      mobile: none
-      desktop: none
   - type: numbered_steps
     section_id: numbered_steps-y83ffn
     version: "1.0"
