@@ -184,7 +184,7 @@ sections:
   - type: syllabus
     variant: program-modules
     program_title: What You'll Build in 24 Weeks
-    program_description: Every student picks one real company, their own, one they want to build, or one they want to transform. Across 10 milestones, you'll engineer it into a fully operational, AI-powered business. You graduate with a live AI-powered system, not just a certificate.
+    program_description: Every student picks one real company, their own, one they want to build, or one they want to transform. Across 10 milestones, you'll engineer it into a fully operational, AI-powered business. You graduate with a live system, not just a certificate.
     tech_logos:
       - name: OpenAI
         icon: openai
