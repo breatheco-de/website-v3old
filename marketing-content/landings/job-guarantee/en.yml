@@ -180,26 +180,6 @@ sections:
       desktop: none
     paddingY:
       desktop: none md
-  - type: features_grid
-    section_id: features_grid-h4gehz
-    version: "1.0"
-    variant: cardHeader
-    heading: What Backs Our Guarantee
-    description: "4Geeks is built around one outcome: getting you hired. AI-native curriculum, unlimited 1:1 mentorship, and a structured career support system with an 84% placement rate. That's what backs the guarantee."
-    image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
-    image_alt: 4Geeks Academy career support
-    background: bg-primary/5
-    cards:
-      - icon: BriefcaseFilled
-        text: Career Support Built for Today's AI-Powered Job Market
-      - icon: Brain
-        text: AI-Native Skills Employers Are Actively Hiring For
-      - icon: ChalkboardTeacher
-        text: Structured Learning Method, Personalized to You
-    paddingY:
-      desktop: sm none
-    marginY:
-      desktop: none
   - type: two_column_accordion_card
     section_id: two_column_accordion_card-s6gzio
     variant: image_background
