@@ -230,7 +230,7 @@ sections:
         title: Puestos de desarrollo web y Full Stack abiertos ahora mismo
       - value: 30%
         title: Crecimiento anual en ofertas de trabajo para desarrolladores con IA en Europa
-      - value: €25K– €45K
+      - value: €25.000– €45.000
         title: Salario medio de un desarrollador Full Stack en España
     section_id: features_grid-k3hgib
     background: hsl(var(--secondary))
