@@ -26,8 +26,8 @@ sections:
     variant: productShowcase
     welcome_text: Welcome to
     brand_mark:
-      prefix: Geek
-      highlight: FORCE
+      prefix: Automatización con IA
+      highlight: usando n8n
       suffix: ":"
       color: chart-5
     title: Career Development
