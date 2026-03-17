@@ -692,32 +692,6 @@ sections:
     paddingY:
       mobile: none
       desktop: none
-  - type: testimonials
-    section_id: testimonials-5n9uq1
-    title: Graduados que hoy trabajan en tecnología
-    subtitle: Únete a miles que han transformado sus carreras
-    rating_summary:
-      average: "4.9"
-      count: 700+
-    items:
-      - name: Sara García
-        role: Ingeniera de IA
-        company: Google
-        rating: 5
-        comment: Este curso transformó completamente mi carrera. Los instructores son increíblemente conocedores y el currículo es perfecto para aplicaciones de IA del mundo real.
-        outcome: +55% aumento salarial
-      - name: Miguel Chen
-        role: Ingeniero ML
-        company: Meta
-        rating: 5
-        comment: La mejor inversión que he hecho. Recibí una oferta antes de terminar el programa.
-        outcome: Contratado en 4 meses
-      - name: Elena Rodríguez
-        role: Ingeniera de IA
-        company: Amazon
-        rating: 5
-        comment: Excelente contenido y gran apoyo de mentores. Ahora trabajo en IA de vanguardia.
-        outcome: +100% aumento salarial
   - type: numbered_steps
     section_id: numbered_steps-y83ffn
     version: "1.0"
