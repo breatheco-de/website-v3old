@@ -4618,7 +4618,37 @@
         "logo"
       ],
       "usage_count": 0,
-      "hash": "4826385ee3f782ce64563ffa8c4b45725baabbcd745a98af6712ef5deb8e3790"
+      "hash": "4826385ee3f782ce64563ffa8c4b45725baabbcd745a98af6712ef5deb8e3790",
+      "width": 2506,
+      "height": 1294,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960,
+        1280,
+        1920
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40-960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40-1280w.webp"
+        },
+        {
+          "w": 1920,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40-1920w.webp"
+        }
+      ]
     }
   }
 }
