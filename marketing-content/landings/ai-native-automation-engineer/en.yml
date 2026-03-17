@@ -119,18 +119,18 @@ sections:
       autoplay: false
       loop: false
     cards:
-      - icon: Trophy
+      - icon: Rigobot
         title: Aprende con Rigobot
         description: Nuestra inteligencia artificial revisa tu código para brindarte retroalimentación instantánea, te ayuda con los ejercicios ¡y mucho más!
-      - icon: Wallet
+      - icon: Interview
         title: Mentorías 1:1
         description: Accede a un paquete de sesiones mensuales de mentorías con nuestros expertos y añade sesiones adicionales según sea necesario.
-      - icon: Clock
+      - icon: IconUsersGroup
         title: Aprende en comunidad
         description: Aprender junto a otros no solo es más divertido, sino que también te ayuda a progresar más rápido. Únete a nuestra comunidad activa de aprendizaje para recibir apoyo y colaboración.
-      - icon: Users
+      - icon: GrowthChart
         title: Alta empleabilidad
-        description: En 4Geeks aprendes los lenguajes de programación con mayo demanda en el mercado laboral.
+        description: En 4Geeks aprendes los lenguajes de programación con mayor demanda en el mercado laboral.
     footer_description: Join thousands of graduates who have launched successful tech careers.
     background: bg-background
     section_id: features_quad-e4212n
