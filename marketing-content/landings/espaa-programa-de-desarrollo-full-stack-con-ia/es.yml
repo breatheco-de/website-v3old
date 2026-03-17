@@ -148,40 +148,6 @@ sections:
           default: full-stack
       success:
         message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
-  - type: why_learn_ai
-    section_id: why_learn_ai-utpdxj
-    variant: laptop-edge
-    title: Tu futuro profesional, con garantía*
-    subtitle: Respaldamos tu resultado profesional con un compromiso real
-    description: "Nuestra garantía de empleo opcional refleja la confianza que tenemos en tu potencial y en nuestra metodología. Si no consigues un empleo que cumpla los requisitos dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso total de tu matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">*No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican</a></span></div>"
-    cta:
-      text: Conocer más
-      url: /es/trabajo-garantizado
-      variant: primary
-    marginY:
-      desktop: md sm
-    paddingY:
-      desktop: none
-    background: hsl(var(--secondary))
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
   - type: syllabus
     section_id: syllabus-q0etx0
     variant: program-modules
