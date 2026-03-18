@@ -54,7 +54,7 @@ sections:
           required: true
           default_country: US
         program:
-          visible: false
+          visible: true
           default: ai-engineering
       success:
         message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
@@ -117,7 +117,6 @@ sections:
       desktop: none
     section_id: hero-nzpyph
     awards_marquee_at_left_column: true
-
   - type: sticky_cta
     section_id: sticky_cta-k7207r
     version: "1.0"
@@ -150,7 +149,6 @@ sections:
         message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
     paddingY:
       desktop: none sm
-
   - type: graduates_stats
     heading: Real Career Outcomes
     subheading: Over 5,000 graduates have made the switch to tech. Here's what happened after they completed the program.
@@ -177,10 +175,9 @@ sections:
         col_span: 6
         row_span: 2
     section_id: graduates_stats-cnxqbb
-
   - type: trust_cards
     version: v1.0
-    title: Rated #1 Across Every Major Review Platform
+    title: Rated
     items:
       - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
         rating: 4.9
@@ -201,7 +198,6 @@ sections:
       desktop: md
     marginY:
       desktop: none xl
-
   - type: features_quad
     version: "1.0"
     variant: default
@@ -227,7 +223,6 @@ sections:
     marginY:
       desktop: none md
     section_id: features_quad-ms7uox
-
   - type: features_grid
     version: "1.0"
     variant: stats-text-card
@@ -250,7 +245,6 @@ sections:
     paddingY:
       mobile: none md
       desktop: none md
-
   - type: syllabus
     variant: program-modules
     program_title: What You'll Build in 24 Weeks
@@ -403,7 +397,6 @@ sections:
     paddingY:
       mobile: lg none
       desktop: md sm
-
   - type: two_column
     proportions:
       - 6
@@ -425,7 +418,6 @@ sections:
     marginY:
       desktop: none xl
     section_id: two_column-luisa
-
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
@@ -467,7 +459,6 @@ sections:
       desktop: md none
     paddingY:
       desktop: md sm
-
   - type: certificate
     title: Your Certificate. Your Career Leverage.
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Step into roles paying:"
@@ -522,7 +513,6 @@ sections:
       mobile: lg
       desktop: lg
     background: hsl(var(--muted))
-
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
     description: "Different backgrounds, one outcome: a career in tech that pays."
@@ -635,7 +625,6 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-
   - type: features_quad
     version: "1.0"
     variant: default
@@ -660,7 +649,6 @@ sections:
     paddingY:
       desktop: none
     section_id: features_quad-xffhpo
-
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
@@ -676,7 +664,6 @@ sections:
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
     section_id: mentorship-clo9o1
-
   - type: pricing
     section_id: pricing-8pb379
     version: "1.0"
@@ -722,7 +709,6 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
-
   - type: numbered_steps
     version: "1.0"
     variant: bubbleText
@@ -743,7 +729,6 @@ sections:
         text: Verified and approved, your full tuition is refunded within 30 days.
     background: hsl(var(--card))
     section_id: numbered_steps-sgeuhk
-
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work
@@ -780,7 +765,6 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
-
   - type: cta_banner
     version: "1.0"
     title: Your AI career won't start itself.
@@ -829,7 +813,6 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-
   - type: footer
     section_id: footer-eisseg
     version: "1.0"
