@@ -669,7 +669,7 @@ sections:
     features_title: Elige la opción que mejor se adapte a tu situación.
     features:
       - icon: IconCheck
-        text: Paga por adelantado con descuento adicional, o divide en 6 cuotas sin intereses.
+        text: Paga por adelantado con descuento adicional, o divide en 6 cuotas sin interés.
       - icon: IconCheck
         text: Financia tu matrícula con planes de pago a 10, 12 o 18 meses.
       - icon: IconCheck
