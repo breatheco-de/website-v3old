@@ -92,10 +92,6 @@ sections:
           alt: Newsweek
           logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
           logoHeight: 55px
-        - id: reviews-coursereport
-          alt: 4.9 Stars on Course Report Reviews
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765590146414.webp
-          logoHeight: 55px
     marginY:
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
