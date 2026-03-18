@@ -130,6 +130,7 @@ sections:
         col_span: 6
         row_span: 2
     section_id: graduates_stats-cnxqbb
+    value_size: text-3xl
   - type: trust_cards
     version: v1.0
     title: Rated
