@@ -646,42 +646,6 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-  - type: pricing
-    version: "1.0"
-    variant: product
-    title: Una inversión que se paga sola
-    subtitle: El graduado medio de 4Geeks ve un aumento salarial del 40%. El programa se paga solo en pocos meses de trabajo.
-    discount_text: "Descuento por pago completo: ahorra un 10% pagando por adelantado."
-    financing_text: Cuota estimada de €140/mes financiando €5.750 a 48 meses (7,75% TAE), tras un depósito de €500 y sujeto a la aprobación del prestamista.*
-    financing_amount: 140€
-    tech_icons:
-      - python
-      - tensorflow
-      - pandas
-      - numpy
-      - sql
-      - git
-      - jupyter
-      - api
-    static_icons: true
-    features_title: Elige la opción que mejor se adapte a tu situación.
-    features:
-      - icon: IconCheck
-        text: Paga por adelantado con descuento adicional, o divide tus pagos en 6 cuotas sin intereses a través de nuestros partners.
-      - icon: IconCheck
-        text: 2 o 3 becas por mérito disponibles por cohorte para candidatos muy cualificados.
-      - icon: IconCheck
-        text: Trabajamos con partners de confianza para ofrecerte financiación flexible y asequible, para que te centres en tu futuro y no en las cuotas.
-    cta:
-      text: Comprueba si cumples los requisitos
-      url: /es/apply
-      variant: primary
-    section_id: pricing-vcqjix
-    marginY:
-      desktop: none lg
-    paddingY:
-      desktop: md lg
-    background: hsl(var(--secondary))
   - type: numbered_steps
     section_id: numbered_steps-y83ffn
     version: "1.0"
