@@ -655,8 +655,8 @@ sections:
     title: Una inversión que se paga sola
     subtitle: El graduado medio de 4Geeks ve un aumento salarial del 55%. El programa se paga solo en pocos meses de trabajo.
     discount_text: "Descuento por pago completo: ahorra un 10% pagando por adelantado."
-    financing_text: Financiamiento disponible desde $227 USD/mes a través de Climb, Fortify o Lumion con planes de 24, 36, 48 o 60 meses.
-    financing_amount: 227 USD
+    financing_text: Financiamiento disponible desde $188.889 CLP/mes.
+    financing_amount: 188.889 CLP
     tech_icons:
       - python
       - tensorflow
