@@ -232,6 +232,8 @@ sections:
     background: hsl(var(--secondary))
     marginY:
       desktop: none lg
+    paddingY:
+      desktop: lg none
   - type: syllabus
     section_id: syllabus-q0etx0
     variant: program-modules
