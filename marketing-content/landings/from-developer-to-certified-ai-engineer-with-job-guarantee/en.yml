@@ -704,6 +704,8 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
+    marginY:
+      desktop: none md
   - type: numbered_steps
     version: "1.0"
     variant: bubbleText
