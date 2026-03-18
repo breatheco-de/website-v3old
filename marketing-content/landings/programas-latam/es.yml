@@ -234,19 +234,19 @@ sections:
         description: Construye aplicaciones web modernas y listas para producción de frontend a backend usando las herramientas de IA más demandadas del mercado.
         duration: 20 semanas
         cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/desarrollo-full-stack
+        cta_url: "#apply-modal"
       - name: Ciencia de Datos y Machine Learning
         icon: IconChartBar
         description: Analiza datos complejos, construye modelos inteligentes y despliega soluciones de IA para problemas reales de negocio.
         duration: 16 semanas
         cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
+        cta_url: "#apply-modal"
       - name: Ciberseguridad
         icon: IconShield
         description: Protege los sistemas que la IA necesita. Los especialistas en ciberseguridad son críticos ahora que las empresas escalan su infraestructura de IA.
         duration: 16 semanas
         cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/ciberseguridad
+        cta_url: "#apply-modal"
     section_id: programs_showcase-5wibqd
     background: hsl(210 100% 50% / 0.05)
     paddingY:
