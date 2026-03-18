@@ -517,10 +517,10 @@ sections:
         label: Aumento salarial medio
         description: Los graduados reportan un aumento salarial medio del 40% tras incorporarse a roles de Ingeniería de IA. El programa se paga solo en pocos meses de trabajo.
         benefits:
-          - text: "Ingeniero de Software con IA: $45K–$70K"
-          - text: "AI Engineer Full Stack: $55K–$85K"
-          - text: "Ingeniero de Agentes: $55K–$85K"
-          - text: "Ingeniero de Automatización: $40K–$65K"
+          - text: "Ingeniero de Software con IA: CLP $1.3M – $2.5M"
+          - text: "AI Engineer Full Stack: CLP $1.5M – $2.8M"
+          - text: "Ingeniero de Agentes: CLP $1.8M – $3.0M"
+          - text: "Ingeniero de Automatización: CLP $1.8M – $2.8M"
       - value: 400+
         label: Empresas que contratan nuestro talento
         description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
