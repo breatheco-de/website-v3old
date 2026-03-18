@@ -670,8 +670,6 @@ sections:
     features_title: Elige la opción que mejor se adapte a tu situación.
     features:
       - icon: IconCheck
-        text: "Garantía de Empleo: consigue trabajo en 9 meses o te devolvemos la matrícula completa."
-      - icon: IconCheck
         text: Matrícula estándar de $3.500 USD. Paga de una sola vez con 10% de descuento, o divide en 6 cuotas sin intereses.
       - icon: IconCheck
         text: Financia tu matrícula a través de Climb, Fortify o Lumion con planes de 24, 36, 48 o 60 meses.
