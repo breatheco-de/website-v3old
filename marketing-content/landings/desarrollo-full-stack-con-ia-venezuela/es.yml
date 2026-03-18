@@ -697,7 +697,7 @@ sections:
           placeholder: Nombre
         last_name:
           visible: true
-          required: false
+          required: true
         phone:
           visible: true
           required: true
@@ -707,9 +707,10 @@ sections:
           visible: false
           default: full-stack
       success:
-        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
+        message: Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       consent:
         email: true
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
+    load: eager
