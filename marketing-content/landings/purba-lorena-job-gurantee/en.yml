@@ -661,7 +661,7 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
     marginY:
-      desktop: none md
+      desktop: none xl
     paddingY:
       desktop: none
   - type: cards_deck
