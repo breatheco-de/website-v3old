@@ -119,7 +119,7 @@ sections:
       show_terms: true
   - type: graduates_stats
     heading: Resultados profesionales reales
-    subheading: Más de 6.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
+    subheading: Más de 5.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
     stats:
       - value: 81%
         label: Tasa de inserción laboral
@@ -127,7 +127,7 @@ sections:
         label: Aumento salarial medio tras graduarse
       - value: ~4 meses
         label: Tiempo medio para conseguir empleo en 2025
-      - value: 6.000+
+      - value: 5.000+
         label: Graduados en todo el mundo
     collage_images:
       - image_id: graduates_team_1
