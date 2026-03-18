@@ -174,7 +174,7 @@ sections:
         label: Tasa de inserción laboral
       - value: 40%
         label: Aumento salarial medio tras graduarse
-      - value: ~3 meses
+      - value: 3-6 meses
         label: Tiempo medio para conseguir empleo en 2025
       - value: 5.000+
         label: Graduados en todo el mundo
