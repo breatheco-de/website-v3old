@@ -49,9 +49,6 @@ sections:
           visible: true
           required: true
           default_country: US
-        program:
-          visible: false
-          default: ai-engineering
       success:
         message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
       terms_url: /terms-and-conditions
