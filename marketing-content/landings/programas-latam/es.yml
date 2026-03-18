@@ -3,8 +3,8 @@ sections:
     version: "1.0"
     variant: productShowcase
     brand_mark:
-      prefix: Tu trabajo actual tiene un techo. Empieza tu carrera en
-      highlight: tecnología con IA
+      prefix: Tu trabajo actual tiene un techo. Construye una carrera en tecnología
+      highlight: con Inteligencia Artificial
       color: primary
     description: "<span style=\"font-size: 1.125rem;\"><span>Los profesionales que construyen con IA son los más contratados en tech ahora mismo. 1.4M puestos abiertos. En menos de 6 meses, ese podrías ser tú, accediendo a posiciones mejor remuneradas.</span></span>"
     bullets:
