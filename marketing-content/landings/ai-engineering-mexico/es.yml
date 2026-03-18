@@ -112,11 +112,12 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
+        message: Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       consent:
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
+    load: eager
   - type: graduates_stats
     heading: Resultados profesionales reales
     subheading: Más de 5.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
