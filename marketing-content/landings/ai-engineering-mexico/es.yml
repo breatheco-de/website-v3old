@@ -71,7 +71,7 @@ sections:
     bullets:
       - text: Aprende las habilidades en ingeniería de IA que las empresas tecnológicas contratan ahora mismo
       - text: La única academia que no termina cuando te gradúas, mentoría ilimitada de por vida incluida
-      - text: Opciones de financiación flexibles desde $227 USD/mes, sin pago inicial requerido
+      - text: Opciones de financiación flexibles desde $227 USD/mes
     paddingY:
       mobile: md none
       desktop: lg none
