@@ -648,6 +648,7 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
+    background: hsl(210 100% 50% / 0.05)
   - type: numbered_steps
     section_id: numbered_steps-y83ffn
     version: "1.0"
