@@ -669,7 +669,7 @@ sections:
     features_title: Elige la opción que mejor se adapte a tu situación.
     features:
       - icon: IconCheck
-        text: Matrícula estándar de $3.150.000 CLP. Paga de una sola vez con 10% de descuento, o divide en 6 cuotas sin intereses.
+        text: Paga por adelantado con descuento adicional, o divide en 6 cuotas sin intereses.
       - icon: IconCheck
         text: Financia tu matrícula con planes de 10, 12 o 18 meses.
       - icon: IconCheck
