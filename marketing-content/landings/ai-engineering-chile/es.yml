@@ -671,9 +671,9 @@ sections:
       - icon: IconCheck
         text: Paga por adelantado con descuento adicional, o divide en 6 cuotas sin intereses.
       - icon: IconCheck
-        text: Financia tu matrícula con planes de 10, 12 o 18 meses.
+        text: Financia tu matrícula con planes de pago a 10, 12 o 18 meses.
       - icon: IconCheck
-        text: Trabajamos constantemente en poder ofrecer planes de pagos más flexibles para que la cuota no sea una preocupación.
+        text: Con Banco de Chile, puedes pagar hasta en 18 cuotas sin interés.
     cta:
       text: Comprueba si cumples los requisitos
       url: "#hero-lt4ge6"
