@@ -30,7 +30,7 @@ sections:
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
+      submit_label: See If You Qualify.
       tags: website-lead
       fields:
         email:
