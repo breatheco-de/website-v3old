@@ -185,7 +185,7 @@ sections:
     section_id: two_column-joshua
     background: hsl(var(--secondary))
     paddingY:
-      desktop: lg none
+      desktop: lg
   - type: features_grid
     version: "1.0"
     variant: stats-text
@@ -204,7 +204,7 @@ sections:
     marginY:
       desktop: none lg
     paddingY:
-      desktop: lg none
+      desktop: none
   - type: syllabus
     section_id: syllabus-q0etx0
     variant: program-modules
