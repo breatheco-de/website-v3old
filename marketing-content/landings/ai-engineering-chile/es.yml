@@ -20,7 +20,7 @@ sections:
     variant: ApplyFormProductShowcase
     title: ""
     brand_mark:
-      prefix: La IA está cambiando todos los trabajos. Conviértete en
+      prefix: Conviértete en
       highlight: Ingeniero de IA
       suffix: antes de que sea demasiado tarde
       color: primary
