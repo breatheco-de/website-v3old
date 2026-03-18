@@ -153,27 +153,31 @@ sections:
       desktop: md
     marginY:
       desktop: none xl
-  - type: features_quad
-    version: "1.0"
-    variant: default
-    compact: true
-    heading: Program Benefits
-    description: Everything you need to succeed in your AI engineering career.
-    cards:
-      - icon: Trophy
-        title: Industry Recognition
-        description: Top-ranked bootcamp
-      - icon: Wallet
-        title: Affordable Tuition
-        description: Flexible payments
-      - icon: Clock
-        title: Flexible Schedule
-        description: Part-time available
-      - icon: Users
-        title: Career Support
-        description: Unlimited mentorship
-    background: bg-muted/30
-    section_id: features_quad-j5ik3d
+  - - type: features_quad
+      version: "1.0"
+      variant: default
+      compact: true
+      heading: Who Can Add the Job Guarantee?
+      description: The Job Guarantee is available to students who meet these four requirements.
+      cards:
+        - icon: IconBriefcaseFilled
+          title: U.S. Work Authorization
+          description: You must be legally authorized to work in the United States at the time of graduation.
+        - icon: IconCircleDashedCheck
+          title: Complete All Program Requirements
+          description: Attend live classes, submit all projects, and meet the graduation criteria.
+        - icon: IconBrain
+          title: Pass the Admissions Logic Test
+          description: A short assessment to confirm you have the problem-solving foundation to succeed.
+        - icon: IconArrowGuideFilled
+          title: Follow the Full Career Development Process
+          description: Actively participate in career coaching, interview prep, and job search support.
+      background: bg-muted/30
+      section_id: features_quad-ms7uox
+      marginY:
+        desktop: none
+      paddingY:
+        desktop: none
   - - type: features_quad
       version: "1.0"
       variant: default
