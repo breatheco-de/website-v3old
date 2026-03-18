@@ -1,0 +1,12 @@
+slug: purba-lorena-job-gurantee
+title: purba lorena job gurantee
+locale: en
+meta:
+  page_title: prueba
+  description: descirption de prueba
+  og_image: /images/programs/ai-engineering-og.jpg
+schema:
+  include:
+    - organization
+    - website
+    - courses:ai-engineering
