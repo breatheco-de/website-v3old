@@ -557,43 +557,6 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-  - type: pricing
-    section_id: pricing-r2kump
-    version: "1.0"
-    variant: product
-    title: Una inversión que se paga sola
-    subtitle: El graduado medio de 4Geeks ve un aumento salarial del 55%. El programa se paga solo en pocos meses de trabajo.
-    discount_text: "Descuento por pago completo: ahorra un 10% pagando por adelantado."
-    financing_text: Financiamiento disponible desde $150 USD/mes a través de Climb, Fortify o Lumion con planes de 24, 36, 48 o 60 meses.
-    financing_amount: 150 USD
-    tech_icons:
-      - openai
-      - python
-      - react
-      - nodejs
-      - api
-      - brain
-      - robot
-      - settings
-    static_icons: true
-    features_title: Elige la opción que mejor se adapte a tu situación.
-    features:
-      - icon: IconCheck
-        text: "Garantía de Empleo: consigue trabajo en 9 meses o te devolvemos la matrícula completa."
-      - icon: IconCheck
-        text: Matrícula estándar de $2.500 USD. Paga de una sola vez con 10% de descuento, o divide en 6 cuotas sin intereses.
-      - icon: IconCheck
-        text: Financia tu matrícula a través de Climb, Fortify o Lumion con planes de 24, 36, 48 o 60 meses.
-      - icon: IconCheck
-        text: 2 o 3 becas por mérito disponibles por cohorte para candidatos altamente calificados.
-    cta:
-      text: Comprueba si cumples los requisitos
-      url: "#hero-nzpyph"
-      variant: primary
-    marginY:
-      desktop: none xl
-    paddingY:
-      desktop: sm md
   - type: whos_hiring
     section_id: whos_hiring-6ml5ey
     variant: carousel
