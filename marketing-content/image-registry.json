@@ -4642,7 +4642,10 @@
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165808.png",
       "alt": "Image: Captura de pantalla 2026-03-09 165808",
       "focal_point": "center",
-      "tags": [],
+      "tags": [
+        "photo",
+        "team"
+      ],
       "usage_count": 0,
       "hash": "2a63d9703d6f697d0c663a63fbe4b215adaff68b4642525e140d3142d2b6a2e4"
     },
@@ -4650,7 +4653,10 @@
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-10-120305.png",
       "alt": "Image: Captura de pantalla 2026-03-10 120305",
       "focal_point": "center",
-      "tags": [],
+      "tags": [
+        "photo",
+        "team"
+      ],
       "usage_count": 0,
       "hash": "925421ab7693c619b55744b50b579ac022b647ba1f78920e8dcaafef00d0d108"
     },
