@@ -212,6 +212,7 @@ sections:
     marginY:
       desktop: none xl
     section_id: two_column-joshua
+    background: hsl(var(--secondary))
   - type: features_grid
     version: "1.0"
     variant: stats-text
