@@ -1,4 +1,4 @@
-slug: purba-lorena-job-gurantee
+slug: job-guarantee
 title: Job Guarantee Program
 locale: en
 meta:
@@ -17,20 +17,21 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
+    title: Get Hired. Or Your Tuition Back.
     brand_mark:
-      prefix: Your current job has a ceiling. Become a
-      highlight: Tech Professional with AI
+      prefix: Launch Your
+      highlight: Tech Career.
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\"><span>1.4M open positions. In less than 6 months, you could be filling one of them — with a salary of $65K–$110K+. Get hired within 9 months of graduating or get your tuition back.</span></span>"
+    description: Add the Job Guarantee to any eligible program. Get hired within 9 months of graduation, or we refund 100% of your tuition. No runaround.
     bullets:
-      - text: "Job Guarantee: get hired within 9 months of graduating or we refund your tuition"
+      - text: "Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
       - text: The only academy that doesn't end when you graduate — unlimited lifetime mentorship included
-      - text: Flexible financing available from $227/month, no upfront payment required
+      - text: Flexible financing available, including zero upfront payment options
     image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: See If You Qualify.
+      submit_label: See If You Qualify. It's Free
       tags: website-lead
       fields:
         email:
@@ -93,7 +94,7 @@ sections:
           logoHeight: 55px
         - id: reviews-coursereport
           alt: 4.9 Stars on Course Report Reviews
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765590146414.webp
           logoHeight: 55px
     marginY:
       desktop: none
@@ -104,6 +105,7 @@ sections:
       desktop: none
     section_id: hero-nzpyph
     awards_marquee_at_left_column: true
+
   - type: graduates_stats
     heading: Real Career Outcomes
     subheading: Over 5,000 graduates have made the switch to tech. Here's what happened after they completed the program.
@@ -131,9 +133,10 @@ sections:
         row_span: 2
     section_id: graduates_stats-cnxqbb
     value_size: text-3xl
+
   - type: trust_cards
     version: v1.0
-    title: Rated "#1" Across Every Major Review Platform
+    title: Rated #1 Across Every Major Review Platform
     items:
       - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
         rating: 4.9
@@ -154,97 +157,33 @@ sections:
       desktop: md
     marginY:
       desktop: none lg
-  - - type: trust_cards
-      version: v1.0
-      title: Rated
-      items:
-        - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
-          rating: 4.9
-          review_count: 4.9 on Course Report
-        - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
-          rating: 4.8
-          review_count: 4.8 on Google
-        - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
-          rating: 4.9
-          review_count: 4.9 on Career Karma
-        - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-          rating: 4.9
-          review_count: 4.9 on SwitchUp
-      name: Default Trust Cards
-      description: Four review platform cards with ratings
-      section_id: trust_cards-eslgbu
-      paddingY:
-        desktop: md
-      marginY:
-        desktop: none xl
+
   - type: features_quad
     version: "1.0"
+    variant: default
+    compact: true
     heading: Who Can Add the Job Guarantee?
-    description: "The Job Guarantee is available to students who meet these four requirements:"
+    description: "The Job Guarantee is available to students who meet these four requirements."
     cards:
       - icon: IconBriefcaseFilled
-        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
+        title: U.S. Work Authorization
+        description: You must be legally authorized to work in the United States at the time of graduation.
       - icon: IconCircleDashedCheck
         title: Complete All Program Requirements
+        description: Attend live classes, submit all projects, and meet the graduation criteria.
       - icon: IconBrain
         title: Pass the Admissions Logic Test
+        description: A short assessment to confirm you have the problem-solving foundation to succeed.
       - icon: IconArrowGuideFilled
         title: Follow the Full Career Development Process
+        description: Actively participate in career coaching, interview prep, and job search support. The guarantee works when you work it.
     section_id: features_quad-ms7uox
     marginY:
       desktop: none lg
     paddingY:
       desktop: none
     background: hsl(var(--muted))
-  - - type: features_quad
-      version: "1.0"
-      variant: default
-      compact: true
-      heading: Who Can Add the Job Guarantee?
-      description: The Job Guarantee is available to students who meet these four requirements.
-      cards:
-        - icon: IconBriefcaseFilled
-          title: U.S. Work Authorization
-          description: You must be legally authorized to work in the United States at the time of graduation.
-        - icon: IconCircleDashedCheck
-          title: Complete All Program Requirements
-          description: Attend live classes, submit all projects, and meet the graduation criteria.
-        - icon: IconBrain
-          title: Pass the Admissions Logic Test
-          description: A short assessment to confirm you have the problem-solving foundation to succeed.
-        - icon: IconArrowGuideFilled
-          title: Follow the Full Career Development Process
-          description: Actively participate in career coaching, interview prep, and job search support.
-      background: bg-muted/30
-      section_id: features_quad-ms7uox
-      marginY:
-        desktop: none
-      paddingY:
-        desktop: none
-  - - type: features_quad
-      version: "1.0"
-      variant: default
-      heading: Who Can Add the Job Guarantee?
-      description: The Job Guarantee is available to students who meet these four requirements.
-      cards:
-        - icon: IconBriefcaseFilled
-          title: You have U.S. work authorization
-          description: The Job Guarantee is only available to students legally authorized to work in the United States at the time of graduation.
-        - icon: IconCircleDashedCheck
-          title: You complete all program requirements
-          description: Attend live classes, submit all projects, and meet the graduation criteria. You show up fully, we back you fully.
-        - icon: IconBrain
-          title: You pass the admissions logic test
-          description: Not a technical exam. A short assessment to confirm you have the problem-solving foundation to succeed in the program.
-        - icon: IconArrowGuideFilled
-          title: You follow the full career development process
-          description: Actively participate in career coaching, interview prep, and job search support. The guarantee works when you work it.
-      background: hsl(210 100% 50% / 0.05)
-      marginY:
-        desktop: none lg
-      paddingY:
-        desktop: none
-      section_id: features_quad-ms7uox
+
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
@@ -256,24 +195,28 @@ sections:
         icon: IconBrain
         description: Build the AI systems companies are hiring for right now. Master LLMs, AI agents and automation while transforming a real business case into a fully AI-native system, layer by layer.
         duration: 24 weeks
+        avg_salary: $95,000 – $150,000
         cta_text: See Program Details
         cta_url: /us/career-programs/ai-engineering
       - name: Full Stack Development with AI
         icon: IconCode
         description: Build modern, production-ready web applications from frontend to backend using the most in-demand AI tools on the market.
         duration: 20 weeks
+        avg_salary: $65,000 – $105,000
         cta_text: See Program Details
         cta_url: /us/career-programs/full-stack
       - name: Data Science and Machine Learning
         icon: IconChartBar
         description: Analyze complex data, build intelligent models and deploy AI solutions for real business problems.
         duration: 16 weeks
+        avg_salary: $70,000 – $130,000
         cta_text: See Program Details
         cta_url: /us/career-programs/data-science-ml
       - name: Cybersecurity
         icon: IconShield
         description: Protect the systems AI depends on. Cybersecurity specialists are critical now that companies are scaling their AI infrastructure.
         duration: 16 weeks
+        avg_salary: $65,000 – $120,000
         cta_text: See Program Details
         cta_url: /us/career-programs/cybersecurity
     section_id: programs_showcase-5wibqd
@@ -282,6 +225,7 @@ sections:
       desktop: md lg
     marginY:
       desktop: none lg
+
   - type: two_column
     proportions:
       - 6
@@ -306,6 +250,7 @@ sections:
     background: hsl(var(--secondary))
     paddingY:
       desktop: md
+
   - type: career_support_explain
     version: v1.0
     heading: Get Hired. Career Support That Doesn't Stop at Graduation.
@@ -428,6 +373,7 @@ sections:
       desktop: none xl
     paddingY:
       desktop: md none
+
   - type: ai_learning
     section_id: ai_learning-qmjitd
     badge: Why 4Geeks?
@@ -478,6 +424,7 @@ sections:
     background: hsl(var(--secondary))
     marginY:
       desktop: none xl
+
   - type: certificate
     section_id: certificate-e3th63
     title: Your Certificate. Your Salary Leverage.
@@ -531,6 +478,7 @@ sections:
     paddingY:
       mobile: lg
       desktop: md
+
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
     description: Musicians, philosophers, support specialists and people with zero prior experience. Now they are developers with real jobs and salaries they didn't expect.
@@ -643,6 +591,7 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
+
   - type: numbered_steps
     version: "1.0"
     variant: bubbleText
@@ -663,6 +612,7 @@ sections:
         text: Verified and approved, your full tuition is refunded within 30 days.
     background: hsl(var(--card))
     section_id: numbered_steps-sgeuhk
+
   - type: whos_hiring
     section_id: whos_hiring-6ml5ey
     variant: carousel
@@ -697,6 +647,7 @@ sections:
       desktop: none xl
     paddingY:
       desktop: none
+
   - type: cards_deck
     version: "1.0"
     heading: Real Stories of Real Career Change
@@ -729,11 +680,12 @@ sections:
     section_id: cards_deck-cnay6o
     marginY:
       desktop: none xl
+
   - type: cta_banner
     section_id: cta_banner-z7t37t
     version: "1.0"
     title: Your tech career won't start itself.
-    subtitle: Every week you wait is a week someone else gets hired first. Apply in 2 minutes. It's free.
+    subtitle: Every week you wait is a week someone else gets hired first. Apply in 2 minutes and add the Job Guarantee at enrollment. It's free to apply.
     background: hsl(var(--primary))
     variant: form
     form:
@@ -778,6 +730,7 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
+
   - type: footer
     section_id: footer-mrlzkw
     version: "1.0"
