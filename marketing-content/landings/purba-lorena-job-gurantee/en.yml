@@ -395,6 +395,8 @@ sections:
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
     section_id: career_support_explain-xpc3k2
+    marginY:
+      desktop: none md
   - type: ai_learning
     section_id: ai_learning-qmjitd
     badge: Why 4Geeks?
