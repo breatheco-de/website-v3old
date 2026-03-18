@@ -229,7 +229,6 @@ sections:
       - value: $45K–$85K
         title: Salario promedio de un desarrollador Full Stack en LATAM
     section_id: features_grid-k3hgib
-    background: hsl(var(--secondary))
     marginY:
       desktop: none lg
     paddingY:
