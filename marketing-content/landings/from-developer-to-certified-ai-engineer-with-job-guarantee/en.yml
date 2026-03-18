@@ -67,7 +67,7 @@ sections:
         sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
         sms_usa_only: true
       show_terms: true
-    form_vertical_align: bottom
+    form_vertical_align: top
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Get the Full AI Engineering Program Details
     form_card_subtitle: "Takes 2 minutes. Our admissions team will send you the complete program overview: curriculum, pricing, and financing options."
