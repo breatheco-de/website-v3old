@@ -498,7 +498,7 @@ sections:
       subtitle: Certificado 4Geeks Academy
       program_name: Ingeniería de IA
     stats:
-      - value: 86%
+      - value: 81%
         label: Tasa de inserción laboral
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores en México están contratando activamente ahora mismo.
         benefits:
@@ -508,27 +508,26 @@ sections:
           - text: Perfil profesional optimizado para pasar los filtros automáticos de los recruiters
       - value: ~3 meses
         label: Tiempo medio para conseguir empleo
-        description: La mayoría de graduados consiguen su primer rol en unos 3 meses. Nuestro proceso de desarrollo profesional en 3 pasos convierte tus habilidades técnicas en ofertas de trabajo rápidamente.
+        description: La mayoría de graduados consiguen su primer rol en unos 3-6 meses. Nuestro proceso de desarrollo profesional en 3 pasos convierte tus habilidades técnicas en ofertas de trabajo rápidamente.
         benefits:
           - text: CV, portfolio y LinkedIn construidos para atraer recruiters en México
           - text: Preparación para entrevistas técnicas y conductuales con feedback real de ingenieros
           - text: Estrategia personalizada de búsqueda de empleo con acceso a redes de contratación activas
-      - value: 55%
+      - value: 40%
         label: Aumento salarial medio
-        description: Los graduados reportan un aumento salarial medio del 55% tras incorporarse a roles de Ingeniería de IA. El programa se paga solo en pocos meses de trabajo.
+        description: Los graduados reportan un aumento salarial medio del 40% tras incorporarse a roles de Ingeniería de IA. El programa se paga solo en pocos meses de trabajo.
         benefits:
           - text: "Ingeniero de Software con IA: $45K–$70K"
           - text: "AI Engineer Full Stack: $55K–$85K"
           - text: "Ingeniero de Agentes: $55K–$85K"
           - text: "Ingeniero de Automatización: $40K–$65K"
-      - value: 5.000+
-        label: Graduados empleados en todo el mundo
-        description: Más de 5.000 alumni colocados en empresas que buscan talento tech activamente. Consigue acceso exclusivo a oportunidades de empleo antes de que se publiquen.
+      - value: 400+
+        label: Empresas que contratan nuestro talento
+        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
         benefits:
-          - text: Acceso exclusivo a bolsa de empleo con roles de empresas colaboradoras
-          - text: Recomendaciones directas a empresas de nuestra red
+          - text: Acceso exclusivo a bolsa de trabajo
+          - text: Recomendaciones directas a empresas colaboradoras
           - text: Eventos de networking con recruiters y responsables de selección
-          - text: Alumni trabajando en Google, Meta, Microsoft, Amazon y miles más
     certificate_position: right
     useSolidCard: true
     marginY:
