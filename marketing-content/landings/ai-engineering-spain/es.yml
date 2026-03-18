@@ -127,8 +127,8 @@ sections:
         label: Aumento salarial medio tras graduarse
       - value: 3-6 meses
         label: Tiempo medio para conseguir empleo en 2025
-      - value: 6.000+
-        label: Graduados en todo el mundo
+      - value: 5.000+
+        label: Graduados colocados en todo el mundo
     collage_images:
       - image_id: graduates_team_1
         col_span: 5
