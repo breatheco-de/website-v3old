@@ -677,31 +677,25 @@ sections:
     paddingY:
       desktop: none
   - type: numbered_steps
-    section_id: numbered_steps-y83ffn
     version: "1.0"
     variant: bubbleText
-    title: How the Admissions Process Works
-    description: Applying is not a commitment. It's the first step to find out if this program is right for you. The entire process takes less than 48 hours.
+    title: No Job Within 9 Months? Get Your Tuition Back.
+    description: Complete the program, meet the Job Guarantee requirements, and if you don't land a tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.
+    description_link:
+      text: Terms and conditions apply.
+      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
     steps:
-      - icon: Application
-        title: Program Application
-        bullets:
-          - Complete the initial form to start your admissions process.
-          - We review your profile, experience and professional goals.
-          - We look for people committed to a real career transformation.
+      - icon: Optimization
+        title: Notify Us
+        text: Let us know you haven't landed a qualifying role within 9 months of graduation. That's all it takes to start the process.
       - icon: Interview
-        title: Phone Interview
-        bullets:
-          - You'll have a conversation with our academic or admissions team.
-          - We assess your motivation, availability and fit with the program.
-          - It's not a technical exam — it's a conversation to understand if you're the right fit and if this is the right moment for you.
-      - icon: Decision
-        title: Selection and Next Steps
-        bullets:
-          - If your profile is a match, we share the complete information to move forward.
-          - You'll receive clear guidance on dates, investment and expectations.
-          - If it's not the right moment, we recommend alternatives for your professional growth.
-    background: bg-background
+        title: We Review the Requirements
+        text: Our team confirms that all Job Guarantee requirements were completed during the program and job search period.
+      - icon: JobSearch
+        title: Full Refund, Within 30 Days
+        text: Verified and approved, your full tuition is refunded within 30 days.
+    background: hsl(210 100% 50% / 0.05)
+    section_id: numbered_steps-sgeuhk
   - type: cta_banner
     section_id: cta_banner-z7t37t
     version: "1.0"
