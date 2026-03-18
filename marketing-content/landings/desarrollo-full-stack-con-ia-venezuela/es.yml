@@ -113,7 +113,6 @@ sections:
       desktop: none
     section_id: hero-nzpyph
     awards_marquee_at_left_column: true
-
   - type: modal
     version: "1.0"
     section_id: apply-modal
@@ -142,7 +141,6 @@ sections:
           default: full-stack
       success:
         message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
-
   - type: graduates_stats
     heading: Resultados profesionales reales
     subheading: Más de 5.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
@@ -169,7 +167,7 @@ sections:
         col_span: 6
         row_span: 2
     section_id: graduates_stats-cnxqbb
-
+    value_size: text-3xl
   - type: trust_cards
     version: v1.0
     title: La academia mejor valorada en todas las plataformas de reseñas
@@ -193,7 +191,6 @@ sections:
       desktop: md lg
     marginY:
       desktop: none lg
-
   - type: two_column
     proportions:
       - 6
@@ -215,7 +212,6 @@ sections:
     marginY:
       desktop: none xl
     section_id: two_column-joshua
-
   - type: features_grid
     version: "1.0"
     variant: stats-text
@@ -233,7 +229,6 @@ sections:
     background: hsl(var(--secondary))
     marginY:
       desktop: none lg
-
   - type: syllabus
     section_id: syllabus-q0etx0
     variant: program-modules
@@ -311,7 +306,6 @@ sections:
       desktop: md
     marginY:
       desktop: none lg
-
   - type: projects
     section_id: projects-xqf89k
     title: Aprende construyendo proyectos reales
@@ -344,7 +338,6 @@ sections:
         difficulty: hard
     marginY:
       desktop: none lg
-
   - type: ai_learning
     section_id: ai_learning-qmjitd
     badge: ¿Por qué 4Geeks?
@@ -394,7 +387,6 @@ sections:
       desktop: lg none
     marginY:
       desktop: none xl
-
   - type: certificate
     section_id: certificate-e3th63
     title: Tu certificado. Tu ventaja salarial.
@@ -449,7 +441,6 @@ sections:
       mobile: lg
       desktop: md
     background: hsl(var(--secondary))
-
   - type: testimonials_slide
     title: Dieron el salto. Esto es lo que pasó.
     description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa de Venezuela, Uruguay y Costa Rica. Ahora son desarrolladores con empleos reales y salarios que no esperaban.
@@ -562,7 +553,6 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-
   - type: pricing
     section_id: pricing-r2kump
     version: "1.0"
@@ -600,7 +590,6 @@ sections:
       desktop: none xl
     paddingY:
       desktop: sm md
-
   - type: whos_hiring
     section_id: whos_hiring-6ml5ey
     variant: carousel
@@ -635,7 +624,6 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
-
   - type: cta_banner
     section_id: cta_banner-ifgt29
     version: "1.0"
@@ -683,7 +671,6 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-
   - type: sticky_cta
     section_id: sticky_cta-b4rn9w
     version: "1.0"
