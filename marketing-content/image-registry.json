@@ -4649,6 +4649,38 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40-1920w.webp"
         }
       ]
+    },
+    "luisa-glum-shares-her-4geeks-experience-income-share-agreement-youtube-03-18-2026-12-21-pm": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Luisa-Glum-shares-her-4Geeks-experience-Income-Share-Agreement-YouTube-03-18-2026_12_21_PM.png",
+      "alt": "Image: Luisa-Glum-shares-her-4Geeks-experience-Income-Share-Agreement-YouTube-03-18-2026_12_21_PM",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "testimonial",
+        "team"
+      ],
+      "usage_count": 0,
+      "hash": "3820436f4eea72bf1b5a6425fde606c637dc7d1163f1211a965ab6a70bea2a6a",
+      "width": 1122,
+      "height": 628,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Luisa-Glum-shares-her-4Geeks-experience-Income-Share-Agreement-YouTube-03-18-2026_12_21_PM-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Luisa-Glum-shares-her-4Geeks-experience-Income-Share-Agreement-YouTube-03-18-2026_12_21_PM-960w.webp"
+        }
+      ]
     }
   }
 }
