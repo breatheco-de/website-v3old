@@ -238,7 +238,7 @@ sections:
       - name: Ciencia de Datos y Machine Learning
         icon: IconChartBar
         description: Analiza datos complejos, construye modelos inteligentes y despliega soluciones de IA para problemas reales de negocio.
-        duration: 16 semanas
+        duration: 18 semanas
         cta_text: Ver Detalles del Programa
         cta_url: "#apply-modal"
       - name: Ciberseguridad
