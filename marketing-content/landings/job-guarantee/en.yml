@@ -25,7 +25,7 @@ sections:
     description: Add the Job Guarantee to any eligible program. Get hired within 9 months of graduation, or we refund 100% of your tuition. No runaround.
     bullets:
       - text: "Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
-      - text: The only academy that doesn't end when you graduate — unlimited lifetime mentorship included
+      - text: The only academy that doesn't end when you graduate; unlimited lifetime mentorship included
       - text: Flexible financing available, including zero upfront payment options
     image_object_fit: none
     form:
@@ -105,7 +105,6 @@ sections:
       desktop: none
     section_id: hero-nzpyph
     awards_marquee_at_left_column: true
-
   - type: graduates_stats
     heading: Real Career Outcomes
     subheading: Over 5,000 graduates have made the switch to tech. Here's what happened after they completed the program.
@@ -133,10 +132,9 @@ sections:
         row_span: 2
     section_id: graduates_stats-cnxqbb
     value_size: text-3xl
-
   - type: trust_cards
     version: v1.0
-    title: Rated #1 Across Every Major Review Platform
+    title: Rated
     items:
       - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
         rating: 4.9
@@ -157,13 +155,12 @@ sections:
       desktop: md
     marginY:
       desktop: none lg
-
   - type: features_quad
     version: "1.0"
     variant: default
     compact: true
     heading: Who Can Add the Job Guarantee?
-    description: "The Job Guarantee is available to students who meet these four requirements."
+    description: The Job Guarantee is available to students who meet these four requirements.
     cards:
       - icon: IconBriefcaseFilled
         title: U.S. Work Authorization
@@ -183,7 +180,6 @@ sections:
     paddingY:
       desktop: none
     background: hsl(var(--muted))
-
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
@@ -225,7 +221,6 @@ sections:
       desktop: md lg
     marginY:
       desktop: none lg
-
   - type: two_column
     proportions:
       - 6
@@ -250,7 +245,6 @@ sections:
     background: hsl(var(--secondary))
     paddingY:
       desktop: md
-
   - type: career_support_explain
     version: v1.0
     heading: Get Hired. Career Support That Doesn't Stop at Graduation.
@@ -373,7 +367,6 @@ sections:
       desktop: none xl
     paddingY:
       desktop: md none
-
   - type: ai_learning
     section_id: ai_learning-qmjitd
     badge: Why 4Geeks?
@@ -424,7 +417,6 @@ sections:
     background: hsl(var(--secondary))
     marginY:
       desktop: none xl
-
   - type: certificate
     section_id: certificate-e3th63
     title: Your Certificate. Your Salary Leverage.
@@ -478,7 +470,6 @@ sections:
     paddingY:
       mobile: lg
       desktop: md
-
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
     description: Musicians, philosophers, support specialists and people with zero prior experience. Now they are developers with real jobs and salaries they didn't expect.
@@ -591,7 +582,6 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-
   - type: numbered_steps
     version: "1.0"
     variant: bubbleText
@@ -612,7 +602,6 @@ sections:
         text: Verified and approved, your full tuition is refunded within 30 days.
     background: hsl(var(--card))
     section_id: numbered_steps-sgeuhk
-
   - type: whos_hiring
     section_id: whos_hiring-6ml5ey
     variant: carousel
@@ -647,7 +636,6 @@ sections:
       desktop: none xl
     paddingY:
       desktop: none
-
   - type: cards_deck
     version: "1.0"
     heading: Real Stories of Real Career Change
@@ -680,7 +668,6 @@ sections:
     section_id: cards_deck-cnay6o
     marginY:
       desktop: none xl
-
   - type: cta_banner
     section_id: cta_banner-z7t37t
     version: "1.0"
@@ -730,7 +717,6 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-
   - type: footer
     section_id: footer-mrlzkw
     version: "1.0"
