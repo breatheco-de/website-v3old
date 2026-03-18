@@ -69,8 +69,9 @@ sections:
       muted: true
     section_id: hero-lt4ge6
     bullets:
+      - text: Aprende las habilidades en ingeniería de IA que las empresas tecnológicas contratan ahora mismo
       - text: La única academia que no termina cuando te gradúas, mentoría ilimitada de por vida incluida
-      - text: Opciones de financiación flexibles desde $189.000 CLP/mes
+      - text: Grupos reducidos con acompañamiento real antes, durante y después de graduarte
     paddingY:
       mobile: md none
       desktop: lg none
