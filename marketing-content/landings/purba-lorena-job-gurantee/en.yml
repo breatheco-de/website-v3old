@@ -104,7 +104,6 @@ sections:
       desktop: none
     section_id: hero-nzpyph
     awards_marquee_at_left_column: true
-
   - type: graduates_stats
     heading: Real Career Outcomes
     subheading: Over 5,000 graduates have made the switch to tech. Here's what happened after they completed the program.
@@ -131,10 +130,9 @@ sections:
         col_span: 6
         row_span: 2
     section_id: graduates_stats-cnxqbb
-
   - type: trust_cards
     version: v1.0
-    title: Rated #1 Across Every Major Review Platform
+    title: Rated
     items:
       - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
         rating: 4.9
@@ -155,7 +153,24 @@ sections:
       desktop: md
     marginY:
       desktop: none xl
-
+  - type: ai_learning
+    version: "1.0"
+    variant: feature-tabs
+    badge: Why 4Geeks?
+    title: Why Learn with 4Geeks?
+    description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
+    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
+    features:
+      - icon: Robot
+        title: Learn with AI
+        description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
+      - icon: Headset
+        title: Unlimited 1:1 mentoring sessions
+        description: Access unlimited mentorship sessions with our experts whenever you need guidance.
+      - icon: Users
+        title: Learn with the community
+        description: Learning alongside others is more fun and helps you progress faster. Join our active community.
+    section_id: ai_learning-zbwapw
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
@@ -193,7 +208,6 @@ sections:
       desktop: md lg
     marginY:
       desktop: none lg
-
   - type: two_column
     proportions:
       - 6
@@ -215,7 +229,6 @@ sections:
     marginY:
       desktop: none xl
     section_id: two_column-joshua
-
   - type: career_support_explain
     version: v1.0
     heading: Get Hired. Career Support That Doesn't Stop at Graduation.
@@ -334,7 +347,6 @@ sections:
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
     section_id: career_support_explain-xpc3k2
-
   - type: ai_learning
     section_id: ai_learning-qmjitd
     badge: Why 4Geeks?
@@ -385,7 +397,6 @@ sections:
     background: hsl(210 100% 50% / 0.05)
     marginY:
       desktop: none xl
-
   - type: certificate
     section_id: certificate-e3th63
     title: Your Certificate. Your Salary Leverage.
@@ -439,7 +450,6 @@ sections:
     paddingY:
       mobile: lg
       desktop: md
-
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
     description: Musicians, philosophers, support specialists and people with zero prior experience. Now they are developers with real jobs and salaries they didn't expect.
@@ -552,7 +562,6 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-
   - type: pricing
     version: "1.0"
     variant: product
@@ -591,7 +600,6 @@ sections:
     paddingY:
       desktop: md lg
     background: hsl(var(--secondary))
-
   - type: whos_hiring
     section_id: whos_hiring-6ml5ey
     variant: carousel
@@ -626,7 +634,6 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
-
   - type: numbered_steps
     section_id: numbered_steps-y83ffn
     version: "1.0"
@@ -653,7 +660,6 @@ sections:
           - You'll receive clear guidance on dates, investment and expectations.
           - If it's not the right moment, we recommend alternatives for your professional growth.
     background: bg-background
-
   - type: cta_banner
     section_id: cta_banner-z7t37t
     version: "1.0"
@@ -703,7 +709,6 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-
   - type: footer
     section_id: footer-mrlzkw
     version: "1.0"
