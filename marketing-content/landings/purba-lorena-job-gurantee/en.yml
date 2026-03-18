@@ -403,6 +403,8 @@ sections:
     section_id: career_support_explain-xpc3k2
     marginY:
       desktop: none xl
+    paddingY:
+      desktop: md none
   - type: ai_learning
     section_id: ai_learning-qmjitd
     badge: Why 4Geeks?
