@@ -153,26 +153,20 @@ sections:
       desktop: none lg
   - type: features_quad
     version: "1.0"
-    variant: default
-    compact: true
     heading: Who Can Add the Job Guarantee?
-    description: The Job Guarantee is available to students who meet these four requirements.
+    description: "The Job Guarantee is available to students who meet these four requirements:"
     cards:
       - icon: IconBriefcaseFilled
-        title: U.S. Work Authorization
-        description: You must be legally authorized to work in the United States at the time of graduation.
+        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
       - icon: IconCircleDashedCheck
         title: Complete All Program Requirements
-        description: Attend live classes, submit all projects, and meet the graduation criteria.
       - icon: IconBrain
         title: Pass the Admissions Logic Test
-        description: A short assessment to confirm you have the problem-solving foundation to succeed.
       - icon: IconArrowGuideFilled
         title: Follow the Full Career Development Process
-        description: Actively participate in career coaching, interview prep, and job search support. The guarantee works when you work it.
     section_id: features_quad-ms7uox
     marginY:
-      desktop: none lg
+      desktop: none
     paddingY:
       desktop: none
     background: hsl(var(--muted))
