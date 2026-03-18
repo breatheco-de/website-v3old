@@ -518,14 +518,13 @@ sections:
           - text: "AI Engineer (Full Stack con IA): 35.000–55.000€"
           - text: "Ingeniero de Agentes: 35.000–55.000€"
           - text: "Ingeniero de Automatización: 28.000–45.000€"
-      - value: 5.000+
-        label: Graduados en todo el mundo
-        description: Más de 5.000 alumni colocados en empresas que buscan talento tech activamente. Consigue acceso exclusivo a oportunidades de empleo antes de que se publiquen.
+      - value: 400+
+        label: Empresas que contratan nuestro talento
+        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
         benefits:
-          - text: Acceso exclusivo a bolsa de empleo con roles de empresas colaboradoras
-          - text: Recomendaciones directas a empresas de nuestra red
+          - text: Acceso exclusivo a bolsa de trabajo
+          - text: Recomendaciones directas a empresas colaboradoras
           - text: Eventos de networking con recruiters y responsables de selección
-          - text: Alumni trabajando en Google, Meta, Microsoft, Amazon y miles más
     certificate_position: right
     useSolidCard: true
     marginY:
