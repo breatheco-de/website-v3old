@@ -512,7 +512,7 @@ sections:
           - text: Estrategia personalizada de búsqueda de empleo con acceso a redes de contratación activas
       - value: 40%
         label: Aumento salarial medio
-        description: Los graduados reportan un aumento salarial medio del 55% tras incorporarse a roles de Ingeniería de IA. El programa se paga solo en pocos meses de trabajo.
+        description: Los graduados reportan un aumento salarial medio del 40% tras incorporarse a roles de Ingeniería de IA. El programa se paga solo en pocos meses de trabajo.
         benefits:
           - text: "Ingeniero de Software con IA: €30K–€50K"
           - text: "AI Engineer (Full Stack con IA): €35K–€55K"
