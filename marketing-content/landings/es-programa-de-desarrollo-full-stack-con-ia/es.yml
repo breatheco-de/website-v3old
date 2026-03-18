@@ -184,6 +184,8 @@ sections:
       desktop: none xl
     section_id: two_column-joshua
     background: hsl(var(--secondary))
+    paddingY:
+      desktop: lg none
   - type: features_grid
     version: "1.0"
     variant: stats-text
