@@ -217,7 +217,7 @@ sections:
       - icon: IconArrowGuideFilled
         title: Follow the Full Career Development Process
         description: Actively participate in career coaching, interview prep, and job search support. The guarantee works when you work it.
-    background: bg-muted/30
+    background: hsl(var(--muted))
     paddingY:
       desktop: none md
     marginY:
