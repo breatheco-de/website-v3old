@@ -653,7 +653,7 @@ sections:
     variant: product
     title: Una inversión que se paga sola
     subtitle: El graduado medio de 4Geeks ve un aumento salarial del 40%. El programa se paga solo en pocos meses de trabajo.
-    discount_text: "Descuento por pago completo: ahorra un 10% pagando por adelantado."
+    discount_text: ""
     financing_text: Financiamiento disponible desde $189.000 CLP/mes.
     financing_amount: 188.889
     tech_icons:
