@@ -396,7 +396,7 @@ sections:
             achievement: She achieved a 100% salary increase.
     section_id: career_support_explain-xpc3k2
     marginY:
-      desktop: none md
+      desktop: none xl
   - type: ai_learning
     section_id: ai_learning-qmjitd
     badge: Why 4Geeks?
