@@ -233,6 +233,7 @@ sections:
       desktop: none lg
     paddingY:
       desktop: none
+    background: hsl(var(--card))
   - type: syllabus
     section_id: syllabus-q0etx0
     variant: program-modules
