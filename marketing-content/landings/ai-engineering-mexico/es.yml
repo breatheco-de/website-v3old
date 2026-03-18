@@ -51,7 +51,7 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
+        message: Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       terms_url: /terminos-condiciones
       privacy_url: /politica-privacidad
       consent:
