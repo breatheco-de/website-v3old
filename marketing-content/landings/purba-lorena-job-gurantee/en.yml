@@ -622,44 +622,6 @@ sections:
         description: Jonathan shares how the program helped him build confidence and create projects from scratch.
         alt: Geekpal
     section_id: cards_deck-cnay6o
-  - type: pricing
-    version: "1.0"
-    variant: product
-    title: An Investment That Pays for Itself
-    subtitle: The average 4Geeks graduate sees a 55% salary increase. The program pays for itself within months of your first paycheck.
-    discount_text: "Full payment discount: save 10% by paying upfront."
-    financing_text: Credit-based financing available from $227 USD/month through Climb, Fortify or Lumion with 24, 36, 48 or 60 month plans.
-    financing_amount: 227 USD
-    tech_icons:
-      - openai
-      - python
-      - react
-      - nodejs
-      - api
-      - brain
-      - robot
-      - settings
-    static_icons: true
-    features_title: Choose the option that works best for your situation.
-    features:
-      - icon: IconCheck
-        text: "Job Guarantee: get hired within 9 months of graduating or we refund your full tuition."
-      - icon: IconCheck
-        text: Standard tuition is $3,500 USD. Pay upfront with a 10% discount, or split into 6 interest-free installments.
-      - icon: IconCheck
-        text: Finance your tuition through Climb, Fortify or Lumion with 24, 36, 48 or 60 month plans.
-      - icon: IconCheck
-        text: 2 to 3 merit-based scholarships available per cohort for highly qualified candidates.
-    cta:
-      text: See If You Qualify. It's Free
-      url: "#hero-nzpyph"
-      variant: primary
-    section_id: pricing-vcqjix
-    marginY:
-      desktop: none lg
-    paddingY:
-      desktop: md lg
-    background: hsl(var(--secondary))
   - type: whos_hiring
     section_id: whos_hiring-6ml5ey
     variant: carousel
