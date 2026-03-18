@@ -15,7 +15,7 @@ sections:
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Comprueba si cumples los requisitos. Es gratis
+      submit_label: Comprueba si cumples los requisitos. Sin compromiso
       tags: website-lead
       fields:
         email:
