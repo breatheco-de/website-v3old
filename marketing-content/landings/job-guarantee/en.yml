@@ -405,7 +405,7 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg md
-    background: hsl(var(--secondary))
+    background: hsl(210 100% 50% / 0.05)
     marginY:
       desktop: none xl
   - type: certificate
