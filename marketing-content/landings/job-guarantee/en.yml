@@ -217,12 +217,12 @@ sections:
       - 6
     alignment: center
     left:
-      video: https://www.youtube.com/watch?v=rtpfwwfE0yY
+      video: https://www.youtube.com/watch?v=PWkgaAT8pHg
       justify: center
     right:
-      heading: "Joshua Bravo: From Kitchen Assistant to Full Stack Developer at a Fintech"
-      sub_heading: 4Geeks Academy Graduate
-      description: Joshua was working as a kitchen assistant and accountant while trying to learn programming on his own through YouTube tutorials. He knew he needed something more structured to make the real leap. After completing the Full Stack bootcamp at 4Geeks, he built complete web applications from scratch and landed a job as a developer at Regcheq, a fintech startup. Today he does what he loves.
+      heading: "Luisa Glum: From Auto Repair Shop to Full Stack Developer"
+      sub_heading: 4Geeks Academy Graduate, Boston
+      description: Luisa was working as a maintenance technician at a repair shop in Boston. She loved cars, but realized it was a hobby, not a long-term career. She needed a path into tech that came with real support, not just a course and good luck. After completing the Full Stack program at 4Geeks, she was referred directly to her first developer job by the academy. Today she builds software for a living.
       button:
         text: See If You Qualify
         url: "#hero-nzpyph"
