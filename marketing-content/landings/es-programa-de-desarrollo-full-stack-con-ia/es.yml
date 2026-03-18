@@ -563,24 +563,38 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
-  - type: ai_learning
+  - type: cards_deck
+    section_id: cards_deck-8jlm80
     version: "1.0"
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: Why Learn with 4Geeks?
-    description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
-    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
-    features:
-      - icon: Robot
-        title: Learn with AI
-        description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
-      - icon: Headset
-        title: Unlimited 1:1 mentoring sessions
-        description: Access unlimited mentorship sessions with our experts whenever you need guidance.
-      - icon: Users
-        title: Learn with the community
-        description: Learning alongside others is more fun and helps you progress faster. Join our active community.
-    section_id: ai_learning-bm9qlz
+    heading: Historias reales de cambios de carrera
+    subtitle: Miles de graduados han utilizado nuestros programas para entrar en el mundo de la tecnología. Estas son solo algunas de sus historias, desde aumentos salariales hasta reinvenciones completas de carrera.
+    cards:
+      - video:
+          url: https://www.youtube.com/watch?v=B01-eTfgqqc
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: Mattia Tozzi
+        title: "\"4Geeks ha empujado mi futuro laboral\""
+        description: Las tutorías ilimitadas de 4Geeks fueron clave para elegirlos. Con la ayuda de sus profesores y la comunidad, pudo resolver todas sus dudas rápidamente y avanzar en su aprendizaje.
+        alt: Geekpal
+      - video:
+          url: https://www.youtube.com/watch?v=XqyM_QSVcOs
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: Ana Romero
+        title: "\"He superado mi miedo a programar\""
+        description: Están ahí siempre para brindarte apoyo. Sus buenos mentores, guías de programación y las herramientas de 4Geeks son excelentes. La recomendaría un millón de veces.
+        alt: Geekpal
+      - video:
+          url: https://www.youtube.com/watch?v=9Vm_xD49MaU
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: Diego Gómez González
+        title: "\"4Geeks me dio las herramientas para conectar todo lo que sabía\""
+        description: Diego tenía conocimientos previos en programación pero necesitaba conectar todas las piezas. Tras graduarse del bootcamp Full Stack en 4Geeks, consiguió hacer exactamente eso.
+        alt: Geekpal
+    marginY:
+      desktop: none xl
   - type: cta_banner
     section_id: cta_banner-ifgt29
     version: "1.0"
