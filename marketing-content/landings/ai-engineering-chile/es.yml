@@ -24,7 +24,7 @@ sections:
       highlight: Ingeniero de IA
       suffix: antes de que sea demasiado tarde
       color: primary
-    description: En 24 semanas pasas de donde estás hoy a desarrollar, integrar y desplegar sistemas de IA reales. Los que las empresas en Chile llevan meses intentando contratar.
+    description: La IA está cambiando todos los trabajos. En 24 semanas pasas de donde estás hoy a desarrollar, integrar y desplegar sistemas de IA reales. Los que las empresas en Chile llevan meses intentando contratar.
     form:
       variant: stacked
       conversion_name: student_application
