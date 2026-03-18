@@ -648,42 +648,6 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-  - type: pricing
-    version: "1.0"
-    variant: product
-    title: Una inversión que se paga sola
-    subtitle: El graduado medio de 4Geeks ve un aumento salarial del 40%. El programa se paga solo en pocos meses de trabajo.
-    discount_text: ""
-    financing_text: Financiamiento disponible desde $189.000 CLP/mes.
-    financing_amount: 188.889
-    tech_icons:
-      - python
-      - tensorflow
-      - pandas
-      - numpy
-      - sql
-      - git
-      - jupyter
-      - api
-    static_icons: true
-    features_title: Elige la opción que mejor se adapte a tu situación.
-    features:
-      - icon: IconCheck
-        text: Paga por adelantado con descuento adicional, o divide en 6 cuotas sin interés.
-      - icon: IconCheck
-        text: Financia tu matrícula con planes de pago a 10, 12 o 18 meses.
-      - icon: IconCheck
-        text: Con Banco de Chile, puedes pagar hasta en 18 cuotas sin interés.
-    cta:
-      text: Comprueba si cumples los requisitos
-      url: "#hero-lt4ge6"
-      variant: primary
-    section_id: pricing-vcqjix
-    marginY:
-      desktop: none lg
-    paddingY:
-      desktop: md lg
-    background: hsl(var(--secondary))
   - type: numbered_steps
     section_id: numbered_steps-y83ffn
     version: "1.0"
