@@ -390,7 +390,7 @@ sections:
     section_id: syllabus-sj3ism
     marginY:
       mobile: none
-      desktop: lg
+      desktop: lg xl
     paddingY:
       mobile: lg none
       desktop: md sm
