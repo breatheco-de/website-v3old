@@ -670,9 +670,9 @@ sections:
     features_title: Elige la opción que mejor se adapte a tu situación.
     features:
       - icon: IconCheck
-        text: Matrícula estándar de $3.500 USD. Paga de una sola vez con 10% de descuento, o divide en 6 cuotas sin intereses.
+        text: Matrícula estándar de $3.150.000 CLP. Paga de una sola vez con 10% de descuento, o divide en 6 cuotas sin intereses.
       - icon: IconCheck
-        text: Financia tu matrícula a través de Climb, Fortify o Lumion con planes de 24, 36, 48 o 60 meses.
+        text: Financia tu matrícula con planes de 10, 12 o 18 meses.
       - icon: IconCheck
         text: 2 o 3 becas por mérito disponibles por cohorte para candidatos altamente calificados.
     cta:
