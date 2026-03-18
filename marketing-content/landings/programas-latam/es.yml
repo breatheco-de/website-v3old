@@ -228,7 +228,7 @@ sections:
         description: Construye los sistemas de IA que las empresas contratan ahora mismo. Domina LLMs, agentes de IA y automatización mientras transformas un caso de negocio real en un sistema completamente nativo de IA, capa por capa.
         duration: 24 semanas
         cta_text: Ver Detalles del Programa
-        cta_url: apply-modal
+        cta_url: "#apply-modal"
       - name: Desarrollo Full Stack con IA
         icon: IconCode
         description: Construye aplicaciones web modernas y listas para producción de frontend a backend usando las herramientas de IA más demandadas del mercado.
