@@ -17,8 +17,6 @@ schema:
     - organization
     - website
 sections:
-
-  # ─── 1. HERO ───────────────────────────────────────────────────────────────
   - type: hero
     version: "1.0"
     variant: productShowcase
@@ -119,8 +117,6 @@ sections:
       desktop: none
     section_id: hero-nzpyph
     awards_marquee_at_left_column: true
-
-  # ─── STICKY CTA ────────────────────────────────────────────────────────────
   - type: sticky_cta
     section_id: sticky_cta-k7207r
     version: "1.0"
@@ -153,11 +149,9 @@ sections:
         message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
     paddingY:
       desktop: none sm
-
-  # ─── 2. GRADUATES STATS ────────────────────────────────────────────────────
   - type: graduates_stats
     heading: Real Career Outcomes
-    subheading: "5,000+ certified graduates have already made the switch. Here's what happened after they completed the program."
+    subheading: 5,000+ certified graduates have already made the switch. Here's what happened after they completed the program.
     stats:
       - value: 86%
         label: Hiring rate, US graduates placed within 90 days
@@ -181,8 +175,7 @@ sections:
         col_span: 6
         row_span: 2
     section_id: graduates_stats-cnxqbb
-
-  # ─── 3. TRUST CARDS ────────────────────────────────────────────────────────
+    value_size: text-3xl
   - type: trust_cards
     version: v1.0
     title: "Rated #1 Across Every Major Review Platform"
@@ -206,8 +199,6 @@ sections:
       desktop: md
     marginY:
       desktop: none xl
-
-  # ─── 4. TWO COLUMN VIDEO ───────────────────────────────────────────────────
   - type: two_column
     proportions:
       - 6
@@ -229,8 +220,6 @@ sections:
     marginY:
       desktop: none xl
     section_id: two_column-luisa
-
-  # ─── 5. FEATURES GRID — WHY AI ENGINEERING NOW ─────────────────────────────
   - type: features_grid
     version: "1.0"
     variant: stats-text-card
@@ -253,8 +242,6 @@ sections:
     paddingY:
       mobile: none md
       desktop: none md
-
-  # ─── 6. SYLLABUS ───────────────────────────────────────────────────────────
   - type: syllabus
     variant: program-modules
     program_title: What You Build to Earn Your Certification
@@ -397,7 +384,7 @@ sections:
           - RAG knowledge layer
           - Agents with tool calling
           - Real-time communication layer
-        projects: "Complete every milestone, deliver a fully operational AI-powered company, and earn your accredited AI Engineering certification"
+        projects: Complete every milestone, deliver a fully operational AI-powered company, and earn your accredited AI Engineering certification
         orientation: horizontal
         icon: IconTrophy
     section_id: syllabus-sj3ism
@@ -407,8 +394,6 @@ sections:
     paddingY:
       mobile: lg none
       desktop: md sm
-
-  # ─── 7. AI LEARNING — WHY 4GEEKS ───────────────────────────────────────────
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
@@ -431,7 +416,7 @@ sections:
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 technical mentorship
-          - text: "7:1 student-to-mentor ratio so your mentor knows your name"
+          - text: 7:1 student-to-mentor ratio so your mentor knows your name
           - text: Weekly check-ins and peer collaboration via Slack
           - text: Dedicated channels for coding support, job boards, and career advice
         video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
@@ -451,8 +436,6 @@ sections:
     paddingY:
       desktop: md sm
     background: hsl(var(--secondary))
-
-  # ─── 8. CERTIFICATE ────────────────────────────────────────────────────────
   - type: certificate
     title: Your Certificate. Your Salary Leverage.
     description: "Earn an industry-recognized AI Engineering certification from a Florida Department of Education accredited institution. Step into roles paying:"
@@ -507,11 +490,9 @@ sections:
       mobile: lg
       desktop: lg
     background: hsl(var(--card))
-
-  # ─── 9. TESTIMONIALS ───────────────────────────────────────────────────────
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
-    description: "A maintenance technician, a musician, a support specialist at Microsoft, a philosopher, and people with zero coding experience. All certified. All employed."
+    description: A maintenance technician, a musician, a support specialist at Microsoft, a philosopher, and people with zero coding experience. All certified. All employed.
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
@@ -621,8 +602,6 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-
-  # ─── 10. PRICING ───────────────────────────────────────────────────────────
   - type: pricing
     section_id: pricing-8pb379
     version: "1.0"
@@ -670,8 +649,6 @@ sections:
       desktop: lg none
     marginY:
       desktop: none lg
-
-  # ─── 11. WHOS HIRING ───────────────────────────────────────────────────────
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work
@@ -708,8 +685,6 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
-
-  # ─── 12. JOB GUARANTEE ELIGIBILITY ────────────────────────────────────────
   - type: features_quad
     version: "1.0"
     heading: Who Qualifies for the Job Guarantee?
@@ -729,8 +704,6 @@ sections:
     paddingY:
       desktop: none
     background: hsl(var(--secondary))
-
-  # ─── 13. ADMISSIONS PROCESS ────────────────────────────────────────────────
   - type: numbered_steps
     version: "1.0"
     variant: bubbleText
@@ -748,8 +721,6 @@ sections:
         text: Choose your payment or financing plan, lock in your start date, and get immediate access to prework. You start working toward your certification from day one.
     background: hsl(var(--card))
     section_id: numbered_steps-sgeuhk
-
-  # ─── 14. CARDS DECK ────────────────────────────────────────────────────────
   - type: cards_deck
     version: "1.0"
     heading: Real Stories of Real Career Change
@@ -782,8 +753,6 @@ sections:
     section_id: cards_deck-cnay6o
     marginY:
       desktop: none xl
-
-  # ─── 15. CTA FINAL ─────────────────────────────────────────────────────────
   - type: cta_banner
     version: "1.0"
     title: Your AI Engineering certification won't earn itself.
@@ -832,8 +801,6 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-
-  # ─── FOOTER ────────────────────────────────────────────────────────────────
   - type: footer
     section_id: footer-eisseg
     version: "1.0"
