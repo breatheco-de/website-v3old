@@ -674,7 +674,7 @@ sections:
       - icon: IconCheck
         text: Financia tu matrícula con planes de 10, 12 o 18 meses.
       - icon: IconCheck
-        text: 2 o 3 becas por mérito disponibles por cohorte para candidatos altamente calificados.
+        text: 2 o 3 becas parciales por mérito disponibles por cohorte para candidatos altamente calificados.
     cta:
       text: Comprueba si cumples los requisitos
       url: "#hero-lt4ge6"
