@@ -282,7 +282,7 @@ sections:
     section_id: two_column-joshua
     background: hsl(var(--secondary))
     paddingY:
-      desktop: md none
+      desktop: md
   - type: career_support_explain
     version: v1.0
     heading: Get Hired. Career Support That Doesn't Stop at Graduation.
