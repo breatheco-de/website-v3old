@@ -278,7 +278,7 @@ sections:
         icon: Rocket
     gap: "8"
     marginY:
-      desktop: none xl
+      desktop: none lg
     section_id: two_column-joshua
     background: hsl(var(--secondary))
     paddingY:
