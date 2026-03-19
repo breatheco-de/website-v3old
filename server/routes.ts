@@ -4689,7 +4689,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
   });
 
-  app.get("/api/seo-preview/:contentType/:slug", (req, res) => {
+  app.get("/api/seo-preview/:contentType/:slug", async (req, res) => {
     try {
       const { contentType, slug } = req.params;
       const locale = normalizeLocale(
@@ -4699,6 +4699,45 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       if (!isValidType(contentType)) {
         res.status(400).json({
           error: `Invalid content type. Must be one of: ${getAllFolders().join(", ")}`,
+        });
+        return;
+      }
+
+      if (hasDatabaseSingle(contentType)) {
+        const page = await loadDatabaseSinglePage(contentType, slug, locale);
+        if (!page) {
+          res.status(404).json({ error: "Content not found" });
+          return;
+        }
+
+        const singleEntry = (page.singleEntry as Record<string, unknown>) || {};
+        const resolvedPage = resolveSingleVars(page, singleEntry) as typeof page;
+
+        const meta = (resolvedPage.meta as Record<string, unknown>) || {};
+        const schema = resolvedPage.schema as
+          | {
+              include?: string[];
+              overrides?: Record<string, Record<string, unknown>>;
+            }
+          | undefined;
+
+        let schemaOrg: Record<string, unknown>[] = [];
+        if (schema?.include && schema.include.length > 0) {
+          schemaOrg = getMergedSchemas(schema, locale);
+        }
+
+        const schemaInclude = (schema?.include as string[]) || [];
+        const schemaOverrides =
+          (schema?.overrides as Record<string, Record<string, unknown>>) || {};
+
+        res.json({
+          meta,
+          faqSchema: null,
+          schemaOrg,
+          schemaInclude,
+          schemaOverrides,
+          title: (resolvedPage.title as string) || "",
+          slug: (resolvedPage.slug as string) || slug,
         });
         return;
       }
