@@ -61,9 +61,9 @@ sections:
       - image_id: group_original
         alt: Original group illustration
         id: group-original
-      - image_id: graduates_celebration
-        alt: 4Geeks Academy graduates celebrating with their certificates
-        id: graduates-celebration
+      - image_id: unsplash_workspace
+        alt: Workspace image
+        id: unsplash-workspace
     cards:
       - icon: Code
         title: Plataforma 4Geeks
