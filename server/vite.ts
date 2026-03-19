@@ -5,7 +5,7 @@ import { createServer as createViteServer, createLogger } from "vite";
 import { type Server } from "http";
 import viteConfig from "../vite.config";
 import { contentIndex } from "./content-index";
-import { resolveInitialData, resolvePreloadHints } from "./initial-data-middleware";
+import { resolveInitialData, resolvePreloadHints, injectSsrMetaTags } from "./initial-data-middleware";
 
 function buildPreloadTags(urls: string[]): string {
   if (urls.length === 0) return "";
@@ -130,6 +130,7 @@ export async function setupVite(app: Express, server: Server) {
       const preloadUrls = resolvePreloadHints(initialDataPayload);
       const preloadTags = buildPreloadTags(preloadUrls);
       html = injectPreloadTags(html, preloadTags);
+      html = injectSsrMetaTags(html, initialDataPayload);
 
       if (initialDataPayload) {
         const scriptTag = `<script id="__INITIAL_DATA__" type="application/json">${JSON.stringify(initialDataPayload).replace(/</g, "\\u003c")}</script>`;
@@ -196,6 +197,7 @@ export function serveStatic(app: Express) {
         const preloadUrls = resolvePreloadHints(initialDataPayload);
         const preloadTags = buildPreloadTags(preloadUrls);
         html = injectPreloadTags(html, preloadTags);
+        html = injectSsrMetaTags(html, initialDataPayload);
 
         if (ssrSchemaHtml && html.includes("</head>")) {
           html = html.replace("</head>", `${ssrSchemaHtml}\n</head>`);

@@ -4,14 +4,14 @@ import * as yaml from "js-yaml";
 import type { Request, Response, NextFunction } from "express";
 import { contentIndex } from "./content-index";
 import { resolveDynamicEntries } from "./dynamic-entries";
-import { resolveLayout, getLocaleKey, getAllConfigs, getLabel, getLayout } from "./content-types";
+import { resolveLayout, getAllConfigs, getLabel, getLayout } from "./content-types";
 import { applyComponentSectionDefaults } from "./component-registry";
 import { variableManager } from "./variable-manager";
 import { loadImageRegistry } from "./image-registry";
 import { getDefaultLocale, normalizeLocale } from "./settings";
-import { databaseManager } from "./database";
-import { fetchMarkdownContent } from "./markdown";
 import { getApiPath } from "../shared/api-paths";
+import { loadDatabaseSinglePage } from "./database-single-loader";
+import { resolveSingleVars } from "./single-resolver";
 
 interface SingleQuery {
   queryKey: unknown[];
@@ -68,40 +68,23 @@ async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
 
     if (fromDatabase) {
       try {
-        if (contentType === "blog") {
-          let locale = cleanUrl.match(/^\/(es)\b/) ? "es" : "en";
-          if (resolved.params?.locale) {
-            locale = resolved.params.locale;
-          }
-          const normalizedLocale = normalizeLocale(locale);
-          const posts = await databaseManager.fetchMappedItems("blog");
-          const localeKey = getLocaleKey("blog") || "lang";
-          const post = posts.find(
-            (p: Record<string, unknown>) =>
-              p.slug === slug && p[localeKey] === normalizedLocale,
-          ) || posts.find((p: Record<string, unknown>) => p.slug === slug);
-
-          if (!post) return null;
-
-          let content = typeof post.content === "string" ? post.content : "";
-          if (!content && typeof post.readme_url === "string") {
-            content = await fetchMarkdownContent(post.readme_url);
-          }
-
-          const mergedRaw = contentIndex.loadMergedContent("blog", slug, locale);
-          const layoutSource = mergedRaw.data || post;
-          const blogLayout = resolveLayout("blog", layoutSource as Record<string, unknown>);
-          const data = { ...post, content, layout: blogLayout };
-
-          return {
-            queryKey: ["/api/blog/posts", slug, normalizedLocale],
-            data,
-          };
+        let locale = cleanUrl.match(/^\/(es)\b/) ? "es" : "en";
+        if (resolved.params?.locale) {
+          locale = resolved.params.locale;
         }
+        const normalizedLocale = normalizeLocale(locale);
+        const page = await loadDatabaseSinglePage(contentType, slug, normalizedLocale);
+        if (!page) return null;
+        const dbSingleRaw = contentIndex.loadMergedContent(contentType, slug, normalizedLocale);
+        const layout = resolveLayout(contentType, dbSingleRaw.data || (page as unknown as Record<string, unknown>));
+        const { layout: _strip, ...pageRest } = page as unknown as Record<string, unknown>;
+        return {
+          queryKey: ["/api/database-single", contentType, slug, normalizedLocale],
+          data: { ...pageRest, layout },
+        };
       } catch {
         return null;
       }
-      return null;
     }
 
     const apiPath = getApiPath(contentType);
@@ -249,7 +232,7 @@ export function resolvePreloadHints(
   const knownPageApiPaths = new Set(
     Object.keys(getAllConfigs()).map((type) => getApiPath(type)),
   );
-  knownPageApiPaths.add("/api/blog/posts");
+  knownPageApiPaths.add("/api/database-single");
 
   for (const q of payload.queries) {
     const key0 = q.queryKey[0];
@@ -297,6 +280,80 @@ export function resolvePreloadHints(
   }
 
   return preloadUrls;
+}
+
+function escapeAttr(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function replaceMetaContent(html: string, attr: string, attrValue: string, replacement: string): string {
+  const escaped = escapeAttr(replacement);
+  const pattern = new RegExp(`(<meta[^>]*${attr.replace(":", "\\:")}="${attrValue}"[^>]*content=")[^"]*(")`);
+  const patternRev = new RegExp(`(<meta[^>]*content=")[^"]*("[^>]*${attr.replace(":", "\\:")}="${attrValue}")`);
+  if (pattern.test(html)) return html.replace(pattern, `$1${escaped}$2`);
+  if (patternRev.test(html)) return html.replace(patternRev, `$1${escaped}$2`);
+  return html;
+}
+
+export function injectSsrMetaTags(html: string, payload: InitialDataPayload | null): string {
+  if (!payload) return html;
+
+  const knownPageApiPaths = new Set(
+    Object.keys(getAllConfigs()).map((type) => getApiPath(type)),
+  );
+  knownPageApiPaths.add("/api/database-single");
+
+  let pageQuery: SingleQuery | null = null;
+  for (const q of payload.queries) {
+    const key0 = q.queryKey[0];
+    if (typeof key0 === "string" && (knownPageApiPaths.has(key0) || key0.startsWith("/api/content-pages/"))) {
+      pageQuery = q;
+      break;
+    }
+  }
+
+  if (!pageQuery?.data) return html;
+
+  const data = pageQuery.data as Record<string, unknown>;
+  let meta = data.meta as Record<string, unknown> | undefined;
+  if (!meta) return html;
+
+  const singleEntry = data.singleEntry as Record<string, unknown> | undefined;
+  if (singleEntry) {
+    meta = resolveSingleVars(meta, singleEntry) as Record<string, unknown>;
+  }
+
+  if (typeof meta.page_title === "string" && !meta.page_title.includes("{{")) {
+    html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeAttr(meta.page_title)}</title>`);
+    html = replaceMetaContent(html, "property", "og:title", meta.page_title);
+    html = replaceMetaContent(html, "name", "twitter:title", meta.page_title);
+  }
+
+  if (typeof meta.description === "string" && !meta.description.includes("{{")) {
+    html = replaceMetaContent(html, "name", "description", meta.description);
+    html = replaceMetaContent(html, "property", "og:description", meta.description);
+    html = replaceMetaContent(html, "name", "twitter:description", meta.description);
+  }
+
+  if (typeof meta.og_image === "string" && !meta.og_image.includes("{{")) {
+    const escaped = escapeAttr(meta.og_image);
+    if (html.includes('property="og:image"')) {
+      html = replaceMetaContent(html, "property", "og:image", meta.og_image);
+    } else {
+      html = html.replace("</head>", `<meta property="og:image" content="${escaped}" />\n</head>`);
+    }
+    if (html.includes('name="twitter:image"')) {
+      html = replaceMetaContent(html, "name", "twitter:image", meta.og_image);
+    } else {
+      html = html.replace("</head>", `<meta name="twitter:image" content="${escaped}" />\n</head>`);
+    }
+  }
+
+  return html;
 }
 
 export async function resolveInitialData(
