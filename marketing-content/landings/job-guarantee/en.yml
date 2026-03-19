@@ -1,4 +1,4 @@
-slug: prueba-job-gurantee-lorena
+slug: job-guarantee
 title: Job Guarantee Program
 locale: en
 meta:
@@ -15,7 +15,7 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
+    version: '1.0'
     variant: productShowcase
     title: Get Hired. Or Your Tuition Back.
     brand_mark:
@@ -24,7 +24,7 @@ sections:
       color: primary
     description: Add the Job Guarantee to any eligible program. Get hired within 9 months of graduation, or we refund 100% of your tuition. No runaround.
     bullets:
-      - text: "Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
+      - text: 'Job Guarantee: get hired within 9 months of graduating or we refund your full tuition'
       - text: The only academy that doesn't end when you graduate; unlimited lifetime mentorship included
       - text: Flexible financing available, including zero upfront payment options
     image_object_fit: none
@@ -67,7 +67,7 @@ sections:
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Get All Program Details
-    form_card_subtitle: "Takes 2 minutes. Our admissions team will send you the complete program information: curriculum, pricing and financing options in minutes."
+    form_card_subtitle: 'Takes 2 minutes. Our admissions team will send you the complete program information: curriculum, pricing and financing options in minutes.'
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: true
     awards_marquee:
@@ -130,7 +130,7 @@ sections:
     value_size: text-3xl
   - type: trust_cards
     version: v1.0
-    title: "Rated #1 Across Every Major Review Platform"
+    title: 'Rated #1 Across Every Major Review Platform'
     items:
       - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
         rating: 4.9
@@ -152,9 +152,9 @@ sections:
     marginY:
       desktop: none lg
   - type: features_quad
-    version: "1.0"
+    version: '1.0'
     heading: Who Can Add the Job Guarantee?
-    description: "The Job Guarantee is available to students who meet these four requirements:"
+    description: 'The Job Guarantee is available to students who meet these four requirements:'
     cards:
       - icon: IconBriefcaseFilled
         title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
@@ -219,17 +219,17 @@ sections:
     left:
       video: https://www.youtube.com/watch?v=PWkgaAT8pHg
       justify: center
-      image_alt: "Image: Luisa-Glum-shares-her-4Geeks-experience-Income-Share-Agreement-YouTube-03-18-2026_12_21_PM"
+      image_alt: 'Image: Luisa-Glum-shares-her-4Geeks-experience-Income-Share-Agreement-YouTube-03-18-2026_12_21_PM'
     right:
-      heading: "Luisa Glum: From Auto Repair Shop to Full Stack Developer"
+      heading: 'Luisa Glum: From Auto Repair Shop to Full Stack Developer'
       sub_heading: 4Geeks Academy Graduate, Boston
       description: Luisa was working as a maintenance technician at a repair shop in Boston. She loved cars, but realized it was a hobby, not a long-term career. She needed a path into tech that came with real support, not just a course and good luck. After completing the Full Stack program at 4Geeks, she was referred directly to her first developer job by the academy. Today she builds software for a living.
       button:
         text: See If You Qualify
-        url: "#hero-nzpyph"
+        url: '#hero-nzpyph'
         variant: primary
         icon: Rocket
-    gap: "8"
+    gap: '8'
     marginY:
       desktop: none lg
     section_id: two_column-joshua
@@ -366,7 +366,7 @@ sections:
     features:
       - icon: TrendingUp
         title: Career support built for the US tech market
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: 1-on-1 coaching focused on landing AI Engineering and Full Stack roles specifically
@@ -376,11 +376,11 @@ sections:
         video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
         cta:
           text: See If You Qualify
-          url: "#hero-nzpyph"
+          url: '#hero-nzpyph'
           variant: primary
       - icon: Robot
         title: Learn faster with an AI tutor that knows exactly where you're stuck
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: RigoBot gives you instant feedback on your code without waiting for a human to be available
@@ -390,11 +390,11 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
         cta:
           text: See If You Qualify
-          url: "#hero-nzpyph"
+          url: '#hero-nzpyph'
           variant: primary
       - icon: Headset
         title: Unlimited 1-on-1 mentorship for life, not just while you study
-        description: ""
+        description: ''
         show_rigobot_logo: true
         bullets:
           - text: Book unlimited 1-on-1 sessions with senior engineers even after you graduate
@@ -413,10 +413,10 @@ sections:
     title: Your Certificate. Your Salary Leverage.
     description: Graduate with an industry-recognized certificate from an institution accredited by the Florida Department of Education and the credentials to negotiate your first salary as a tech professional from a position of strength.
     benefits:
-      - text: "AI Engineer: $65K–$110K"
-      - text: "Full Stack Developer: $65K–$105K"
-      - text: "Data Scientist: $70K–$115K"
-      - text: "Cybersecurity Specialist: $65K–$105K"
+      - text: 'AI Engineer: $65K–$110K'
+      - text: 'Full Stack Developer: $65K–$105K'
+      - text: 'Data Scientist: $70K–$115K'
+      - text: 'Cybersecurity Specialist: $65K–$105K'
     card:
       title: Tech Professional with AI
       subtitle: 4Geeks Academy Certificate
@@ -441,10 +441,10 @@ sections:
         label: Average salary increase
         description: Graduates report an average 55% salary increase after landing tech roles. The program pays for itself within months of your first paycheck.
         benefits:
-          - text: "AI Engineer: $65K–$110K"
-          - text: "Full Stack Developer: $65K–$105K"
-          - text: "Data Scientist: $70K–$115K"
-          - text: "Cybersecurity Specialist: $65K–$105K"
+          - text: 'AI Engineer: $65K–$110K'
+          - text: 'Full Stack Developer: $65K–$105K'
+          - text: 'Data Scientist: $70K–$115K'
+          - text: 'Cybersecurity Specialist: $65K–$105K'
       - value: 5,000+
         label: Graduates employed worldwide
         description: Over 5,000 alumni placed at companies actively looking for tech talent. Get exclusive access to job opportunities before they're posted publicly.
@@ -574,7 +574,7 @@ sections:
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
   - type: numbered_steps
-    version: "1.0"
+    version: '1.0'
     variant: bubbleText
     title: No Job Within 9 Months? Get Your Tuition Back.
     description: Complete the program, meet the Job Guarantee requirements, and if you don't land a tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.
@@ -628,32 +628,32 @@ sections:
     paddingY:
       desktop: none
   - type: cards_deck
-    version: "1.0"
+    version: '1.0'
     heading: Real Stories of Real Career Change
     subtitle: Thousands of graduates have used our programs to break into tech. Here are just a few of their stories, from salary increases to total career reinventions.
     cards:
       - video:
           url: https://youtu.be/ln3bQsV1BaQ
-        image: ""
+        image: ''
         brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
         author_name: Hernán García
-        title: "\"I got offers from companies I wasn't expecting\""
+        title: '"I got offers from companies I wasn''t expecting"'
         description: Hernán landed a job in tech within one month of starting his job search.
         alt: Geekforce
       - video:
           url: https://youtu.be/MBXqEnhodx0
-        image: ""
+        image: ''
         brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
         author_name: Joao Henrique
-        title: "\"You'll always have support from the Academy\""
+        title: '"You''ll always have support from the Academy"'
         description: Joao shares his experience receiving coding mentorship as a student, after graduating, and in his current job.
         alt: Geekpal
       - video:
           url: https://youtu.be/oeX_ocy6zv4
-        image: ""
+        image: ''
         brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
         author_name: Jonathan Ferragut
-        title: "\"Taking a course like this benefits us in a lot of different ways\""
+        title: '"Taking a course like this benefits us in a lot of different ways"'
         description: Jonathan shares how the program helped him build confidence and create projects from scratch.
         alt: Geekpal
     section_id: cards_deck-cnay6o
@@ -661,7 +661,7 @@ sections:
       desktop: none xl
   - type: cta_banner
     section_id: cta_banner-deasu1
-    version: "1.0"
+    version: '1.0'
     title: Ready to Launch Your Tech Career?
     subtitle: Apply today and add the Job Guarantee at enrollment. Get hired within 9 months, or your tuition back.
     background: hsl(var(--primary))
@@ -704,7 +704,7 @@ sections:
       desktop: lg
   - type: footer
     section_id: footer-mrlzkw
-    version: "1.0"
+    version: '1.0'
     copyright_text: 2024 4Geeks. All rights reserved.
     paddingY:
       mobile: none
