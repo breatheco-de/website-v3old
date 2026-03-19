@@ -606,6 +606,8 @@ sections:
     marginY:
       desktop: none xl
     background: hsl(210 100% 50% / 0.05)
+    paddingY:
+      desktop: md none
   - type: features_quad
     version: "1.0"
     heading: Who Can Add the Job Guarantee?
