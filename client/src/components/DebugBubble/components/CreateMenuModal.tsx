@@ -46,16 +46,6 @@ interface CreateMenuModalProps {
   onOpenChange: (open: boolean) => void;
 }
 
-function toSlug(value: string): string {
-  return value
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/[\s]+/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "");
-}
-
 function toSlugTyping(value: string): string {
   return value
     .toLowerCase()
