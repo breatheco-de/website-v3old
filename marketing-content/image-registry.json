@@ -5399,6 +5399,14 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/455d950c2e110ad696cc73e69098a00345dcbd1f730afe8f155a927d0fd08672-2--1920w.webp"
         }
       ]
+    },
+    "00fav-img-8339": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/00FAV_IMG_8339.jpg",
+      "alt": "Image: 00FAV_IMG_8339",
+      "focal_point": "center",
+      "tags": [],
+      "usage_count": 0,
+      "hash": "00138aad4fa0b8aa61b20abf86a8a4bec620309098a9692bc019957c7c4e2a5a"
     }
   }
 }
