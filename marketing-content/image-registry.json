@@ -1200,7 +1200,16 @@
       "tags": [
         "photo",
         "professional",
-        "hero"
+        "hero",
+        "logo",
+        "card",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
       ],
       "usage_count": 3,
       "hash": "876d976c67a4e2aae7f6b01c2d4b8a33b253378f332480b4684a79d4532b3cf8",
@@ -1242,7 +1251,15 @@
       "tags": [
         "photo",
         "testimonial",
-        "avatar"
+        "avatar",
+        "hero",
+        "logo",
+        "card",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "award"
       ],
       "usage_count": 3,
       "hash": "693ad4011fba03a9a9191348d5db5a7cd1a0d2f6fc9e276ef138d6f25e10a051",

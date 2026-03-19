@@ -45,6 +45,7 @@ sections:
       loop: true
       preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40.png
     section_id: hero-d29v3o
+    layout_reversed: false
   - type: features_quad
     version: "1.0"
     variant: default
@@ -65,16 +66,16 @@ sections:
         id: unsplash-workspace
     cards:
       - icon: Code
-        title: Plataforma 4Geeks
-        description: Aprende haciendo con lecciones guiadas, ejercicios prácticos y proyectos listos para tu portfolio.
+        title: Lecciones guiadas y ejercicios prácticos
+        description: En la platafroma de 4Geeks aprende haciendo con lecciones, ejercicios prácticos y proyectos listos para tu portfolio.
       - icon: Robot
-        title: Rigobot, tu tutor 24/7
+        title: Rigobot es tu tutor con IA
         description: Recibe feedback en tiempo real, corrige errores y entiende conceptos paso a paso cuando lo necesites.
       - icon: Trophy
-        title: Certifícate
+        title: Certifícate con 4Geeks
         description: Obtén un certificado que valida tus conocimientos.
       - icon: Users
-        title: Mentorías con expertos
+        title: Mentorías uno a uno
         description: Accede a 2 mentorías en vivo con profesores para resolver dudas y avanzar con acompañamiento real.
     background: bg-background
     section_id: features_quad-4u8ahp
@@ -89,29 +90,6 @@ sections:
       variant: primary
     background: gradient
     section_id: banner-zfzyf7
-  - type: bento_cards
-    version: "1.0"
-    title: ¿Cómo te ayuda Rigobot?
-    subtitle: No vuelvas a quedarte bloqueado
-    description: Rigobot es tu asistente de programación impulsado por IA que te ayuda a mantener el ritmo en todo momento. Tanto si estás depurando código a las 2 de la madrugada como si te estás preparando para un examen, Rigobot está ahí para ayudarte a superar los desafíos y seguir aprendiendo.
-    items:
-      - icon: Code
-        title: Revisión de código
-        description: Recibe feedback inmediato sobre la calidad de tu código, buenas prácticas y posibles mejoras.
-      - icon: Brain
-        title: Mentoría con IA
-        description: Orientación personalizada que se adapta a tu estilo y ritmo de aprendizaje
-      - icon: Bug
-        title: Asistente de depuración
-        description: Ayuda paso a paso para entender y solucionar errores en tu código.
-      - icon: Lightbulb
-        title: Explicación de conceptos
-        description: Explicaciones claras y pacientes de conceptos complejos de programación.
-      - icon: Clock
-        title: Disponible 24/7
-        description: Obtén ayuda cuando la necesites, sin esperar a horarios de tutoría.
-    background: bg-background
-    section_id: bento_cards-f47tl4
   - type: awards_marquee
     section_id: awards_marquee-22c9rj
     version: "1.0"
@@ -166,6 +144,30 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
+    title: <br>
+  - type: bento_cards
+    version: "1.0"
+    title: ¿Cómo te ayuda Rigobot?
+    subtitle: No vuelvas a quedarte bloqueado
+    description: Rigobot es tu asistente de programación impulsado por IA que te ayuda a mantener el ritmo en todo momento. Tanto si estás depurando código a las 2 de la madrugada como si te estás preparando para un examen, Rigobot está ahí para ayudarte a superar los desafíos y seguir aprendiendo.
+    items:
+      - icon: Code
+        title: Revisión de código
+        description: Recibe feedback inmediato sobre la calidad de tu código, buenas prácticas y posibles mejoras.
+      - icon: Brain
+        title: Mentoría con IA
+        description: Orientación personalizada que se adapta a tu estilo y ritmo de aprendizaje
+      - icon: Bug
+        title: Asistente de depuración
+        description: Ayuda paso a paso para entender y solucionar errores en tu código.
+      - icon: Lightbulb
+        title: Explicación de conceptos
+        description: Explicaciones claras y pacientes de conceptos complejos de programación.
+      - icon: Clock
+        title: Disponible 24/7
+        description: Obtén ayuda cuando la necesites, sin esperar a horarios de tutoría.
+    background: bg-background
+    section_id: bento_cards-f47tl4
   - type: certificate
     version: v1.0
     title: Certifícate en tu tecnología favorita
