@@ -37,7 +37,7 @@ sections:
         role: Tutor con IA
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: Tu tutor será
-    description: Impulsa tu carrera con automatización de procesos. Aprende a crear flujos reales con n8n, integrando APIs y sistemas de forma práctica. Realiza proyectos para incluir en tu portafolio y obtén las habilidades para trabajar como profesional en automatización.
+    description: null
     video:
       url: https://www.youtube.com/watch?v=TgkIpTZ75NM
       ratio: "16:9"
