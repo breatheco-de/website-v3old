@@ -1,7 +1,0 @@
-navbar:
-  items:
-    - label: NEW ITEM
-      href: /new-page
-      component: Logo
-      imageId: 4geeks-devs-logo-1763162063433
-      imageAlt: 'Image: 4geeks-devs-logo_1763162063433'
