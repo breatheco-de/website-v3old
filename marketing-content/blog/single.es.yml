@@ -6,7 +6,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    badge: Career Program
+    badge: {{ single.category | undefined }}
     title: {{ single.title | Full Stack Development with AI }}
     subtitle: {{ single.description | undefined }}
     section_id: hero-zol27l
