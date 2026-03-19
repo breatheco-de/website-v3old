@@ -275,68 +275,75 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
               })()}
 
               {Object.entries(assignments).some(([, s]) => s.top || s.bottom) && (
-                <div className="space-y-3 pt-1">
-                  {Object.entries(assignments)
-                    .filter(([, slots]) => slots.top || slots.bottom)
-                    .map(([ctName, slots]) => {
-                      const ct = contentTypes.find((c) => c.name === ctName);
-                      const label = ct?.label || ctName;
-                      const existingTop = ct?.layout?.menu?.top || null;
-                      const existingBottom = ct?.layout?.menu?.bottom || null;
-                      return (
-                        <div key={ctName} className="space-y-1">
-                          <p className="text-sm font-medium">{label}</p>
-                          {slots.top && (
-                            <div
-                              className="flex items-center justify-between gap-2 text-xs pl-1"
-                              data-testid={`summary-assignment-${ctName}-top`}
-                            >
-                              <span className="text-muted-foreground">
-                                Top
-                                {existingTop && (
-                                  <span className="ml-1 text-muted-foreground/70">
-                                    (overrides {existingTop})
-                                  </span>
-                                )}
+                <div className="space-y-1 pt-1">
+                  {Object.entries(assignments).flatMap(([ctName, slots]) => {
+                    const ct = contentTypes.find((c) => c.name === ctName);
+                    const label = ct?.label || ctName;
+                    const existingTop = ct?.layout?.menu?.top || null;
+                    const existingBottom = ct?.layout?.menu?.bottom || null;
+                    const rows: React.ReactNode[] = [];
+                    if (slots.top) {
+                      rows.push(
+                        <div
+                          key={`${ctName}-top`}
+                          className="flex items-center gap-3"
+                          data-testid={`summary-assignment-${ctName}-top`}
+                        >
+                          <span className="text-sm font-medium flex-1 truncate">
+                            {label}
+                          </span>
+                          <span className="text-xs text-muted-foreground shrink-0">
+                            Top
+                            {existingTop && (
+                              <span className="ml-1 text-muted-foreground/70">
+                                (overrides {existingTop})
                               </span>
-                              <Button
-                                size="icon"
-                                variant="ghost"
-                                onClick={() => toggleSlot(ctName, "top")}
-                                disabled={createMutation.isPending}
-                                data-testid={`remove-assignment-${ctName}-top`}
-                              >
-                                <IconX className="h-3 w-3" />
-                              </Button>
-                            </div>
-                          )}
-                          {slots.bottom && (
-                            <div
-                              className="flex items-center justify-between gap-2 text-xs pl-1"
-                              data-testid={`summary-assignment-${ctName}-bottom`}
-                            >
-                              <span className="text-muted-foreground">
-                                Bottom
-                                {existingBottom && (
-                                  <span className="ml-1 text-muted-foreground/70">
-                                    (overrides {existingBottom})
-                                  </span>
-                                )}
-                              </span>
-                              <Button
-                                size="icon"
-                                variant="ghost"
-                                onClick={() => toggleSlot(ctName, "bottom")}
-                                disabled={createMutation.isPending}
-                                data-testid={`remove-assignment-${ctName}-bottom`}
-                              >
-                                <IconX className="h-3 w-3" />
-                              </Button>
-                            </div>
-                          )}
+                            )}
+                          </span>
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            onClick={() => toggleSlot(ctName, "top")}
+                            disabled={createMutation.isPending}
+                            data-testid={`remove-assignment-${ctName}-top`}
+                          >
+                            <IconX className="h-3 w-3" />
+                          </Button>
                         </div>
                       );
-                    })}
+                    }
+                    if (slots.bottom) {
+                      rows.push(
+                        <div
+                          key={`${ctName}-bottom`}
+                          className="flex items-center gap-3"
+                          data-testid={`summary-assignment-${ctName}-bottom`}
+                        >
+                          <span className="text-sm font-medium flex-1 truncate">
+                            {label}
+                          </span>
+                          <span className="text-xs text-muted-foreground shrink-0">
+                            Bottom
+                            {existingBottom && (
+                              <span className="ml-1 text-muted-foreground/70">
+                                (overrides {existingBottom})
+                              </span>
+                            )}
+                          </span>
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            onClick={() => toggleSlot(ctName, "bottom")}
+                            disabled={createMutation.isPending}
+                            data-testid={`remove-assignment-${ctName}-bottom`}
+                          >
+                            <IconX className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      );
+                    }
+                    return rows;
+                  })}
                 </div>
               )}
             </div>
