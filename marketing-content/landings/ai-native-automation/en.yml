@@ -63,9 +63,9 @@ sections:
     heading: ¿Por qué 4Geeks Academy?
     description: Aprende automatización con n8n de forma práctica y acompañada. No solo adquirirás habilidades reales para crear flujos y trabajar con APIs, sino que contarás con mentorías, soporte continuo y una plataforma diseñada para aprender haciendo. Todo lo que necesitas para avanzar con confianza y construir proyectos listos para tu portfolio.
     images:
-      - image_id: student_latina_female
-        alt: Latina student celebrating success
-        id: student-latina-female
+      - image_id: graduates_coding
+        alt: Student coding at a desk with multiple monitors
+        id: graduates-coding
       - image_id: student_latin_male
         alt: Latino student working on a project
         id: student-latin-male
