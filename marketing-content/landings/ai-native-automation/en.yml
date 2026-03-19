@@ -55,9 +55,9 @@ sections:
       - image_id: graduates_coding
         alt: Student coding at a desk with multiple monitors
         id: graduates-coding
-      - image_id: group_original
-        alt: Original group illustration
-        id: group-original
+      - image_id: 455d950c2e110ad696cc73e69098a00345dcbd1f730afe8f155a927d0fd08672-2
+        alt: "Image: 455d950c2e110ad696cc73e69098a00345dcbd1f730afe8f155a927d0fd08672 (2)"
+        id: 455d950c2e110ad696cc73e69098a00345dcbd1f730afe8f155a927d0fd08672-2
       - image_id: community
         alt: Community illustration
         id: community
@@ -77,7 +77,6 @@ sections:
       - icon: Users
         title: Mentorías con expertos
         description: Accede a 2 mentorías en vivo con profesores para resolver dudas y avanzar con acompañamiento real.
-    footer_description: null
     background: bg-background
     section_id: features_quad-4u8ahp
   - type: banner
