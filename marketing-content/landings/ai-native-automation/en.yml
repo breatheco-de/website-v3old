@@ -46,17 +46,6 @@ sections:
       loop: true
       preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40.png
     section_id: hero-d29v3o
-  - type: banner
-    version: "1.0"
-    logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    title: CONOCE A RIGOBOT
-    description: Nuestra Inteligencia Artificial interna, diseñada para quienes aprenden de forma autodidacta. En la plataforma de 4Geeks Academy podrás avanzar a tu propio ritmo con ayuda inmediata de Rigobot cuando lo necesites.
-    cta:
-      text: SABER MÁS
-      url: "#bento_cards-f47tl4"
-      variant: primary
-    background: gradient
-    section_id: banner-zfzyf7
   - type: features_quad
     version: "1.0"
     variant: default
@@ -91,6 +80,17 @@ sections:
     footer_description: Join thousands of graduates who have launched successful tech careers.
     background: bg-background
     section_id: features_quad-4u8ahp
+  - type: banner
+    version: "1.0"
+    logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
+    title: CONOCE A RIGOBOT
+    description: Nuestra Inteligencia Artificial interna, diseñada para quienes aprenden de forma autodidacta. En la plataforma de 4Geeks Academy podrás avanzar a tu propio ritmo con ayuda inmediata de Rigobot cuando lo necesites.
+    cta:
+      text: SABER MÁS
+      url: "#bento_cards-f47tl4"
+      variant: primary
+    background: gradient
+    section_id: banner-zfzyf7
   - type: bento_cards
     version: "1.0"
     title: ¿Cómo te ayuda Rigobot?
