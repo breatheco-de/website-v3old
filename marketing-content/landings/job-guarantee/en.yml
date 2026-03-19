@@ -428,59 +428,6 @@ sections:
     background: hsl(210 100% 50% / 0.05)
     marginY:
       desktop: none xl
-  - type: certificate
-    section_id: certificate-e3th63
-    title: Your Certificate. Your Salary Leverage.
-    description: Graduate with an industry-recognized certificate from an institution accredited by the Florida Department of Education and the credentials to negotiate your first salary as a tech professional from a position of strength.
-    benefits:
-      - text: "AI Engineer: $65K–$110K"
-      - text: "Full Stack Developer: $65K–$105K"
-      - text: "Data Scientist: $70K–$115K"
-      - text: "Cybersecurity Specialist: $65K–$105K"
-    card:
-      title: Tech Professional with AI
-      subtitle: 4Geeks Academy Certificate
-      program_name: AI-Powered Tech
-    stats:
-      - value: 86%
-        label: Hiring rate
-        description: Graduate with the skills, credentials and professional profile that US employers are actively hiring for right now.
-        benefits:
-          - text: Certificate accredited by the Florida Department of Education
-          - text: A portfolio of real, production-ready projects
-          - text: Demonstrated experience with AI workflows and tools
-          - text: Professional profile optimized to pass recruiter filters and ATS systems
-      - value: ~3 months
-        label: Average time to get hired
-        description: Most graduates land their first role in about 3 months. Our 3-step career development process turns your technical skills into job offers fast.
-        benefits:
-          - text: Resume, portfolio and LinkedIn built to attract US recruiters
-          - text: Technical and behavioral interview prep with feedback from real engineers
-          - text: Personalized job search strategy with access to active hiring networks
-      - value: 55%
-        label: Average salary increase
-        description: Graduates report an average 55% salary increase after landing tech roles. The program pays for itself within months of your first paycheck.
-        benefits:
-          - text: "AI Engineer: $65K–$110K"
-          - text: "Full Stack Developer: $65K–$105K"
-          - text: "Data Scientist: $70K–$115K"
-          - text: "Cybersecurity Specialist: $65K–$105K"
-      - value: 5,000+
-        label: Graduates employed worldwide
-        description: Over 5,000 alumni placed at companies actively looking for tech talent. Get exclusive access to job opportunities before they're posted publicly.
-        benefits:
-          - text: Exclusive access to job board with roles from hiring partner companies
-          - text: Direct referrals to companies in our network
-          - text: Networking events with recruiters and hiring managers
-          - text: Alumni working at Google, Meta, Microsoft, Amazon and thousands more
-    certificate_position: right
-    useSolidCard: true
-    marginY:
-      mobile: none
-      desktop: md lg
-    paddingY:
-      mobile: lg
-      desktop: md
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
     description: Musicians, philosophers, support specialists and people with zero prior experience. Now they are developers with real jobs and salaries they didn't expect.
