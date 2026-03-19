@@ -91,47 +91,6 @@ sections:
     footer_description: Join thousands of graduates who have launched successful tech careers.
     background: bg-background
     section_id: features_quad-4u8ahp
-  - type: human_and_ai_duo
-    version: "1.0"
-    heading: ¿Por qué 4Geeks Academy?
-    description: Sabemos que ver horas de video no te hará estar listo para un empleo. Por eso nuestra plataforma divide el aprendizaje en módulos desbloqueables.
-    images:
-      - src: https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400
-        alt: Professional mentor 1
-        object_fit: cover
-        object_position: center 30%
-        border_radius: 0.5rem
-      - src: https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400
-        alt: Professional mentor 2
-        object_fit: cover
-        object_position: center 25%
-        border_radius: 0.5rem
-      - src: https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400
-        alt: Professional mentor 3
-        object_fit: cover
-        object_position: center 20%
-        border_radius: 0.5rem
-      - src: https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400
-        alt: Professional mentor 4
-        object_fit: cover
-        object_position: center 35%
-        border_radius: 0.5rem
-    bullet_groups:
-      - title: Plataforma 4Geeks
-        icon: Code
-        bullets:
-          - text: Lecciones de lectura y explicaciones claras
-          - text: Guía paso a paso para aprender haciendo
-          - text: Ejercicios interactivos y proyectos para tu portfolio
-      - title: Rigobot
-        icon: Robot
-        bullets:
-          - text: Provee retroalimentación en tiempo real
-          - text: Te ayuda a encontrar y corregir errores en tu código
-          - text: Explica conceptos paso a paso de forma clara
-    footer_description: Empieza hoy, avanza a tu propio ritmo.
-    background: bg-background
-    section_id: human_and_ai_duo-ek4fvi
   - type: bento_cards
     version: "1.0"
     title: ¿Cómo te ayuda Rigobot?
