@@ -3,19 +3,19 @@ sections:
     version: "1.0"
     variant: productShowcase
     brand_mark:
-      prefix: Tu trabajo actual tiene un techo. Conviértete en
-      highlight: Desarrollador de Tecnología con IA
+      prefix: Construye una carrera en tecnología con
+      highlight: Inteligencia Artificial
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\"><span>Los profesionales que construyen con IA son los más contratados en tech ahora mismo. 1.4M puestos abiertos. En menos de 6 meses, ese podrías ser tú, accediendo a posiciones que pagan $45K–$85K+.</span></span>"
+    description: "<span style=\"font-size: 1.125rem;\"><span>La IA está transformando el trabajo. Prepárate en menos de 6 meses para formar parte de ese cambio.</span></span>"
     bullets:
-      - text: "Garantía de Empleo: consigue trabajo en 9 meses o te devolvemos la matrícula"
+      - text: Aprende las habilidades que las empresas tecnológicas contratan ahora mismo
       - text: La única academia que no termina cuando te gradúas, mentoría ilimitada de por vida incluida
-      - text: Opciones de financiación flexibles disponibles, incluyendo pago cero por adelantado
+      - text: Opciones de financiación flexibles, tenemos planes de pago a 10, 12 y 18 meses
     image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Comprueba si cumples los requisitos. Es gratis
+      submit_label: Comprueba si cumples los requisitos.
       tags: website-lead
       fields:
         email:
@@ -34,10 +34,10 @@ sections:
           visible: true
           required: true
         program:
-          visible: false
-          default: full-stack
+          visible: true
+          requiere: true
       success:
-        message: Ya estás dentro. Alguien de nuestro equipo de admisiones se pondrá en contacto contigo en unos minutos por email. Revisa tu bandeja de entrada.
+        message: Alguien de nuestro equipo de admisiones se pondrá en contacto contigo en unos minutos por email. Revisa tu bandeja de entrada.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
@@ -170,14 +170,14 @@ sections:
     heading: Resultados profesionales reales
     subheading: Más de 5.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
     stats:
-      - value: 86%
+      - value: 81%
         label: Tasa de inserción laboral
-      - value: 55%
+      - value: 40%
         label: Aumento salarial medio tras graduarse
-      - value: ~3 meses
+      - value: 3-6 meses
         label: Tiempo medio para conseguir empleo en 2025
       - value: 5.000+
-        label: Graduados empleados en todo el mundo
+        label: Graduados en todo el mundo
     collage_images:
       - image_id: graduates_team_1
         col_span: 5
@@ -228,25 +228,25 @@ sections:
         description: Construye los sistemas de IA que las empresas contratan ahora mismo. Domina LLMs, agentes de IA y automatización mientras transformas un caso de negocio real en un sistema completamente nativo de IA, capa por capa.
         duration: 24 semanas
         cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/ingenieria-ia
+        cta_url: "#apply-modal"
       - name: Desarrollo Full Stack con IA
         icon: IconCode
         description: Construye aplicaciones web modernas y listas para producción de frontend a backend usando las herramientas de IA más demandadas del mercado.
         duration: 20 semanas
         cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/desarrollo-full-stack
+        cta_url: "#apply-modal"
       - name: Ciencia de Datos y Machine Learning
         icon: IconChartBar
         description: Analiza datos complejos, construye modelos inteligentes y despliega soluciones de IA para problemas reales de negocio.
-        duration: 16 semanas
+        duration: 18 semanas
         cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
+        cta_url: "#apply-modal"
       - name: Ciberseguridad
         icon: IconShield
         description: Protege los sistemas que la IA necesita. Los especialistas en ciberseguridad son críticos ahora que las empresas escalan su infraestructura de IA.
         duration: 16 semanas
         cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/ciberseguridad
+        cta_url: "#apply-modal"
     section_id: programs_showcase-5wibqd
     background: hsl(210 100% 50% / 0.05)
     paddingY:
@@ -337,7 +337,7 @@ sections:
       subtitle: Certificado 4Geeks Academy
       program_name: Tecnología con IA
     stats:
-      - value: 86%
+      - value: 81%
         label: Tasa de inserción laboral
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores en LATAM están contratando activamente ahora mismo.
         benefits:
@@ -345,29 +345,28 @@ sections:
           - text: Un portfolio de proyectos reales y listos para producción
           - text: Experiencia demostrada con flujos de trabajo y herramientas de IA
           - text: Perfil profesional optimizado para pasar los filtros automáticos de los recruiters
-      - value: ~3 meses
+      - value: ~4 meses
         label: Tiempo medio para conseguir empleo
-        description: La mayoría de graduados consiguen su primer rol en unos 3 meses. Nuestro proceso de desarrollo profesional en 3 pasos convierte tus habilidades técnicas en ofertas de trabajo rápidamente.
+        description: La mayoría de graduados consiguen su primer rol en unos 3-6 meses. Nuestro proceso de desarrollo profesional en 3 pasos convierte tus habilidades técnicas en ofertas de trabajo rápidamente.
         benefits:
           - text: CV, portfolio y LinkedIn construidos para atraer recruiters en LATAM
           - text: Preparación para entrevistas técnicas y conductuales con feedback real de ingenieros
           - text: Estrategia personalizada de búsqueda de empleo con acceso a redes de contratación activas
-      - value: 55%
+      - value: 40%
         label: Aumento salarial medio
-        description: Los graduados reportan un aumento salarial medio del 55% tras incorporarse a roles tech. El programa se paga solo en pocos meses de trabajo.
+        description: Los graduados reportan un aumento salarial medio del 40% tras incorporarse a roles tech. El programa se paga solo en pocos meses de trabajo.
         benefits:
           - text: "Full Stack Developer: $45K–$85K"
           - text: "Ingeniero de IA: $65K–$110K"
           - text: "Científico de Datos: $55K–$95K"
           - text: "Especialista en Ciberseguridad: $50K–$90K"
-      - value: 5.000+
-        label: Graduados empleados en todo el mundo
-        description: Más de 5.000 alumni colocados en empresas que buscan talento tech activamente. Consigue acceso exclusivo a oportunidades de empleo antes de que se publiquen.
+      - value: 400+
+        label: Empresas que contratan nuestro talento
+        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
         benefits:
           - text: Acceso exclusivo a bolsa de empleo con roles de empresas colaboradoras
           - text: Recomendaciones directas a empresas de nuestra red
           - text: Eventos de networking con recruiters y responsables de selección
-          - text: Alumni trabajando en Google, Meta, Microsoft, Amazon y miles más
     certificate_position: right
     useSolidCard: true
     marginY:

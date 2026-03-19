@@ -29,11 +29,11 @@ sections:
       prefix: Tus habilidades tienen fecha de caducidad. Conviértete en
       highlight: Full Stack Developer con IA
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\"><span>Los desarrolladores que construyen con IA son los más contratados en tech ahora mismo. 1.4M puestos abiertos. En 20 semanas, ese podrías ser tú, accediendo a posiciones que pagan €25K–€45K+.</span></span>"
+    description: "<span style=\"font-size: 1.125rem;\"><span>Los desarrolladores que construyen con IA son los más contratados en tech ahora mismo. 1.4M puestos abiertos. En 20 semanas, ese podrías ser tú, accediendo a posiciones que pagan €25.000 – €45.000+.</span></span>"
     bullets:
       - text: "Enfocado en tu carrera desde el primer día: prepárate en 20 semanas y consigue el trabajo de tus sueños"
       - text: La única academia que no termina cuando te gradúas, mentoría ilimitada de por vida incluida
-      - text: "Opción de Garantía de Empleo: consigue trabajo en 9 meses o te devolvemos la matrícula"
+      - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte
     image_object_fit: none
     form:
       variant: stacked
@@ -152,11 +152,11 @@ sections:
     heading: Resultados profesionales reales
     subheading: Más de 6.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
     stats:
-      - value: 86%
+      - value: 81%
         label: Tasa de inserción laboral
-      - value: 55%
+      - value: 40%
         label: Aumento salarial medio tras graduarse
-      - value: ~3 meses
+      - value: 3 - 6 meses
         label: Tiempo medio para conseguir empleo en 2025
       - value: 5.000+
         label: Graduados empleados en todo el mundo
@@ -230,7 +230,7 @@ sections:
         title: Puestos de desarrollo web y Full Stack abiertos ahora mismo
       - value: 30%
         title: Crecimiento anual en ofertas de trabajo para desarrolladores con IA en Europa
-      - value: €25K– €45K
+      - value: €25.000 – €45.000
         title: Salario medio de un desarrollador Full Stack en España
     section_id: features_grid-k3hgib
     background: hsl(var(--secondary))
@@ -408,7 +408,7 @@ sections:
       subtitle: Certificado 4Geeks Academy
       program_name: Full Stack con IA
     stats:
-      - value: 86%
+      - value: 81%
         label: Tasa de inserción laboral
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores en España están contratando activamente ahora mismo.
         benefits:
@@ -416,14 +416,14 @@ sections:
           - text: Un portfolio de proyectos reales y listos para producción
           - text: Experiencia demostrada con flujos de trabajo y herramientas de IA
           - text: Perfil profesional optimizado para pasar los filtros automáticos de los recruiters
-      - value: ~3 meses
+      - value: 3 - 6 meses
         label: Tiempo medio para conseguir empleo
         description: La mayoría de graduados consiguen su primer rol en unos 3 meses. Nuestro proceso de desarrollo profesional en 3 pasos convierte tus habilidades técnicas en ofertas de trabajo rápidamente.
         benefits:
           - text: CV, portfolio y LinkedIn construidos para atraer recruiters en España
           - text: Preparación para entrevistas técnicas y conductuales con feedback real de ingenieros
           - text: Estrategia personalizada de búsqueda de empleo con acceso a redes de contratación activas
-      - value: 55%
+      - value: 40%
         label: Aumento salarial medio
         description: Los graduados reportan un aumento salarial medio del 55% tras incorporarse a roles de Full Stack. El programa se paga solo en pocos meses de trabajo.
         benefits:

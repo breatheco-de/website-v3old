@@ -121,14 +121,14 @@ sections:
     heading: Resultados profesionales reales
     subheading: Más de 6.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
     stats:
-      - value: 86%
+      - value: 75%
         label: Tasa de inserción laboral
-      - value: 55%
+      - value: 30%
         label: Aumento salarial medio tras graduarse
-      - value: ~3 meses
+      - value: 3-6 meses
         label: Tiempo medio para conseguir empleo en 2025
-      - value: 5.000+
-        label: Graduados empleados en todo el mundo
+      - value: 6.000+
+        label: Graduados en todo el mundo
     collage_images:
       - image_id: graduates_team_1
         col_span: 5
@@ -226,7 +226,7 @@ sections:
         title: Roles relacionados con IA previstos para 2027
       - value: ~30%
         title: Crecimiento interanual en ofertas de trabajo en IA
-      - value: 30.000€-50.000€
+      - value: 40.000€-50.000€
         title: Salario inicial promedio para ingenieros de IA en España
     marginY:
       mobile: md none
@@ -495,7 +495,7 @@ sections:
       subtitle: Certificado 4Geeks Academy
       program_name: Ingeniería de IA
     stats:
-      - value: 86%
+      - value: 81%
         label: Tasa de inserción laboral
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores en España están contratando activamente ahora mismo.
         benefits:
@@ -503,29 +503,28 @@ sections:
           - text: Un sistema de IA completo y funcionando en tu portfolio
           - text: Experiencia demostrada con agentes, flujos de trabajo y sistemas de IA
           - text: Perfil profesional optimizado para pasar los filtros automáticos de los recruiters
-      - value: ~3 meses
+      - value: ~4 meses
         label: Tiempo medio para conseguir empleo
-        description: La mayoría de graduados consiguen su primer rol en unos 3 meses. Nuestro proceso de desarrollo profesional en 3 pasos convierte tus habilidades técnicas en ofertas de trabajo rápidamente.
+        description: La mayoría de graduados consiguen su primer rol en unos 3-6 meses. Nuestro proceso de desarrollo profesional en 3 pasos convierte tus habilidades técnicas en ofertas de trabajo rápidamente.
         benefits:
           - text: CV, portfolio y LinkedIn construidos para atraer recruiters en España
           - text: Preparación para entrevistas técnicas y conductuales con feedback real de ingenieros
           - text: Estrategia personalizada de búsqueda de empleo con acceso a redes de contratación activas
-      - value: 55%
+      - value: 30%
         label: Aumento salarial medio
-        description: Los graduados reportan un aumento salarial medio del 55% tras incorporarse a roles de Ingeniería de IA. El programa se paga solo en pocos meses de trabajo.
+        description: Los graduados reportan un aumento salarial medio del 30% tras incorporarse a roles de Ingeniería de IA. El programa se paga solo en pocos meses de trabajo.
         benefits:
-          - text: "Ingeniero de Software con IA: €30K–€50K"
-          - text: "AI Engineer (Full Stack con IA): €35K–€55K"
-          - text: "Ingeniero de Agentes: €35K–€55K"
-          - text: "Ingeniero de Automatización: €28K–€45K"
-      - value: 5.000+
-        label: Graduados empleados en todo el mundo
-        description: Más de 5.000 alumni colocados en empresas que buscan talento tech activamente. Consigue acceso exclusivo a oportunidades de empleo antes de que se publiquen.
+          - text: "Ingeniero de Software con IA: 30.000–50.000€"
+          - text: "AI Engineer (Full Stack con IA): 35.000–55.000€"
+          - text: "Ingeniero de Agentes: 35.000–55.000€"
+          - text: "Ingeniero de Automatización: 28.000–45.000€"
+      - value: 400+
+        label: Empresas que contratan nuestro talento
+        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
         benefits:
-          - text: Acceso exclusivo a bolsa de empleo con roles de empresas colaboradoras
-          - text: Recomendaciones directas a empresas de nuestra red
+          - text: Acceso exclusivo a bolsa de trabajo
+          - text: Recomendaciones directas a empresas colaboradoras
           - text: Eventos de networking con recruiters y responsables de selección
-          - text: Alumni trabajando en Google, Meta, Microsoft, Amazon y miles más
     certificate_position: right
     useSolidCard: true
     marginY:
@@ -535,8 +534,8 @@ sections:
       mobile: lg
       desktop: md
   - type: testimonials_slide
-    title: Dieron el salto. Esto es lo que pasó.
-    description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa. Ahora son desarrolladores con empleos reales y salarios que no esperaban.
+    title: Dieron el salto y esto es lo que pasó.
+    description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa, ahora son desarrolladores con empleos reales y salarios que no esperaban.
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
@@ -646,42 +645,7 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-  - type: pricing
-    version: "1.0"
-    variant: product
-    title: Una inversión que se paga sola
-    subtitle: El graduado medio de 4Geeks ve un aumento salarial del 55%. El programa se paga solo en pocos meses de trabajo.
-    discount_text: "Descuento por pago completo: ahorra un 10% pagando por adelantado."
-    financing_text: Cuota estimada de €140/mes financiando €5.750 a 48 meses (7,75% TAE), tras un depósito de €500 y sujeto a la aprobación del prestamista.*
-    financing_amount: 140€
-    tech_icons:
-      - python
-      - tensorflow
-      - pandas
-      - numpy
-      - sql
-      - git
-      - jupyter
-      - api
-    static_icons: true
-    features_title: Elige la opción que mejor se adapte a tu situación.
-    features:
-      - icon: IconCheck
-        text: Paga por adelantado con descuento adicional, o divide tus pagos en 6 cuotas sin intereses a través de nuestros partners.
-      - icon: IconCheck
-        text: 2 o 3 becas por mérito disponibles por cohorte para candidatos muy cualificados.
-      - icon: IconCheck
-        text: Trabajamos con partners de confianza para ofrecerte financiación flexible y asequible, para que te centres en tu futuro y no en las cuotas.
-    cta:
-      text: Comprueba si cumples los requisitos
-      url: /es/apply
-      variant: primary
-    section_id: pricing-vcqjix
-    marginY:
-      desktop: none lg
-    paddingY:
-      desktop: md lg
-    background: hsl(var(--secondary))
+    background: hsl(210 100% 50% / 0.05)
   - type: numbered_steps
     section_id: numbered_steps-y83ffn
     version: "1.0"

@@ -1,0 +1,14 @@
+slug: job-guarantee-prueba-anik
+locale: en
+title: job-guarantee-prueba-anik
+meta:
+  page_title: Job Guarantee Landing | 4Geeks Academy
+  description: Job Guarantee - Learn more at 4Geeks Academy.
+  robots: index, follow
+  og_image: /images/landing-og.jpg
+  priority: 0.9
+  change_frequency: weekly
+schema:
+  include:
+    - organization
+    - website

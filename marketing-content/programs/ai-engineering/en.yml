@@ -83,6 +83,18 @@ sections:
       desktop: md
     marginY:
       desktop: none
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: hero
     version: "1.0"
     variant: course
