@@ -573,25 +573,6 @@ sections:
       desktop: none xl
     paddingY:
       desktop: none
-  - type: features_quad
-    version: "1.0"
-    heading: Who Can Add the Job Guarantee?
-    description: "The Job Guarantee is available to students who meet these four requirements:"
-    cards:
-      - icon: IconBriefcaseFilled
-        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
-      - icon: IconCircleDashedCheck
-        title: Complete All Program Requirements
-      - icon: IconBrain
-        title: Pass the Admissions Logic Test
-      - icon: IconArrowGuideFilled
-        title: Follow the Full Career Development Process
-    section_id: features_quad-ms7uox
-    marginY:
-      desktop: none xl
-    paddingY:
-      desktop: none
-    background: hsl(var(--muted))
   - type: cards_deck
     version: "1.0"
     heading: From Enrollment to Hired. In Their Own Words
@@ -624,6 +605,25 @@ sections:
     section_id: cards_deck-cnay6o
     marginY:
       desktop: none xl
+  - type: features_quad
+    version: "1.0"
+    heading: Who Can Add the Job Guarantee?
+    description: "The Job Guarantee is available to students who meet these four requirements:"
+    cards:
+      - icon: IconBriefcaseFilled
+        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
+      - icon: IconCircleDashedCheck
+        title: Complete All Program Requirements
+      - icon: IconBrain
+        title: Pass the Admissions Logic Test
+      - icon: IconArrowGuideFilled
+        title: Follow the Full Career Development Process
+    section_id: features_quad-ms7uox
+    marginY:
+      desktop: none xl
+    paddingY:
+      desktop: none
+    background: hsl(var(--muted))
   - type: cta_banner
     section_id: cta_banner-deasu1
     version: "1.0"
