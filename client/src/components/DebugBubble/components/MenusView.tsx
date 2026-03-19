@@ -7,14 +7,11 @@ import {
   IconChevronDown,
   IconChevronRight,
   IconPencil,
-  IconPlus,
 } from "@tabler/icons-react";
 import type { MenuFileItem, MenuData } from "../types";
-import { CreateMenuModal } from "./CreateMenuModal";
 
 export function MenusView() {
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
-  const [createOpen, setCreateOpen] = useState(false);
   const [, navigate] = useLocation();
   
   const { data: menusData, isLoading } = useQuery<{ menus: MenuFileItem[] }>({
@@ -40,20 +37,6 @@ export function MenusView() {
 
   return (
     <>
-      <div className="flex items-center justify-between px-3 py-1.5 border-b mb-1">
-        <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-          Menus
-        </span>
-        <button
-          onClick={() => setCreateOpen(true)}
-          className="p-1 rounded hover-elevate"
-          title="Create new menu"
-          data-testid="button-create-menu"
-        >
-          <IconPlus className="h-3.5 w-3.5 text-muted-foreground" />
-        </button>
-      </div>
-
       {isLoading ? (
         <div className="flex items-center justify-center py-8">
           <IconRefresh className="h-5 w-5 animate-spin text-muted-foreground" />
@@ -126,8 +109,6 @@ export function MenusView() {
           </div>
         ))
       )}
-
-      <CreateMenuModal open={createOpen} onOpenChange={setCreateOpen} />
     </>
   );
 }

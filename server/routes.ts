@@ -3927,7 +3927,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       return;
     }
 
-    if (!type || (type !== "navbar" && type !== "footer")) {
+    const resolvedType = type || "navbar";
+    if (resolvedType !== "navbar" && resolvedType !== "footer") {
       res.status(400).json({ error: "type must be 'navbar' or 'footer'" });
       return;
     }
@@ -3948,7 +3949,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
 
     const scaffold =
-      type === "navbar"
+      resolvedType === "navbar"
         ? `navbar:\n  items: []\n`
         : `footer:\n  columns: []\n`;
 

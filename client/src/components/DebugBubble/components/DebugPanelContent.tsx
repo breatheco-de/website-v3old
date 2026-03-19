@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   IconAlertTriangle,
@@ -23,6 +24,7 @@ import {
   IconMoon,
   IconPencil,
   IconPhoto,
+  IconPlus,
   IconRefresh,
   IconRoute,
   IconSettings,
@@ -39,6 +41,7 @@ import { SyncStatusPopover } from "./SyncStatusPopover";
 import { ComponentsView } from "./ComponentsView";
 import { ExperimentsView } from "./ExperimentsView";
 import { MenusView } from "./MenusView";
+import { CreateMenuModal } from "./CreateMenuModal";
 import { DatabasesView } from "./DatabasesView";
 import { ContentTypesView } from "./ContentTypesView";
 import { SitemapView } from "./SitemapView";
@@ -208,6 +211,7 @@ function ExpandableMenuItem({ icon: Icon, label, expanded, onToggle, testId, act
 
 export function DebugPanelContent(props: DebugPanelContentProps) {
   const { i18n } = useTranslation();
+  const [createMenuOpen, setCreateMenuOpen] = useState(false);
 
   if (props.noTokenDetected) {
     return (
@@ -804,18 +808,28 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
       ) : props.menuView === "menus" ? (
         <>
           <div className="px-3 py-2 border-b">
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => props.setMenuView("main")}
-                className="p-1 rounded-md hover-elevate"
-                data-testid="button-back-to-main-menus"
-              >
-                <IconArrowLeft className="h-4 w-4" />
-              </button>
-              <div>
-                <h3 className="font-semibold text-sm">Menus</h3>
-                <p className="text-xs text-muted-foreground">Navigation menu configurations</p>
+            <div className="flex items-center gap-3 justify-between">
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => props.setMenuView("main")}
+                  className="p-1 rounded-md hover-elevate"
+                  data-testid="button-back-to-main-menus"
+                >
+                  <IconArrowLeft className="h-4 w-4" />
+                </button>
+                <div>
+                  <h3 className="font-semibold text-sm">Menus</h3>
+                  <p className="text-xs text-muted-foreground">Navigation menu configurations</p>
+                </div>
               </div>
+              <button
+                onClick={() => setCreateMenuOpen(true)}
+                className="p-1 rounded-md hover-elevate"
+                title="Create new menu"
+                data-testid="button-create-menu"
+              >
+                <IconPlus className="h-4 w-4 text-muted-foreground" />
+              </button>
             </div>
           </div>
 
@@ -824,6 +838,8 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               <MenusView />
             </div>
           </ScrollArea>
+
+          <CreateMenuModal open={createMenuOpen} onOpenChange={setCreateMenuOpen} />
         </>
       ) : props.menuView === "databases" ? (
         <DatabasesView setMenuView={props.setMenuView} />

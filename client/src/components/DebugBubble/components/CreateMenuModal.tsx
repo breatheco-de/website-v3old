@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   IconAlertTriangle,
   IconMenu2,
@@ -14,14 +14,23 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+
+interface ContentTypeItem {
+  name: string;
+  label: string;
+  layout?: {
+    menu?: {
+      top?: string | null;
+      bottom?: string | null;
+    };
+  };
+}
+
+interface SlotAssignment {
+  top: boolean;
+  bottom: boolean;
+}
 
 interface CreateMenuModalProps {
   open: boolean;
@@ -41,23 +50,47 @@ function toSlug(value: string): string {
 export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
   const [, navigate] = useLocation();
   const [name, setName] = useState("");
-  const [type, setType] = useState<"navbar" | "footer">("navbar");
+  const [assignments, setAssignments] = useState<Record<string, SlotAssignment>>({});
   const [error, setError] = useState<string | null>(null);
+
+  const { data: contentTypes } = useQuery<ContentTypeItem[]>({
+    queryKey: ["/api/content-types"],
+    enabled: open,
+  });
 
   const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
   const slugValid = name === "" || slugPattern.test(name);
 
-  const mutation = useMutation({
+  const createMutation = useMutation({
     mutationFn: async () => {
-      const res = await apiRequest("POST", "/api/menus", { name, type });
+      const res = await apiRequest("POST", "/api/menus", { name });
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
         throw new Error(body.error || "Failed to create menu");
       }
       return res.json();
     },
-    onSuccess: (data: { name: string }) => {
+    onSuccess: async (data: { name: string }) => {
+      // Apply content type assignments
+      const assignmentPromises: Promise<Response>[] = [];
+      for (const [ctType, slots] of Object.entries(assignments)) {
+        if (!slots.top && !slots.bottom) continue;
+        const menuUpdate: { top?: string; bottom?: string } = {};
+        if (slots.top) menuUpdate.top = data.name;
+        if (slots.bottom) menuUpdate.bottom = data.name;
+        assignmentPromises.push(
+          apiRequest("PUT", `/api/content-types/${ctType}/layout`, {
+            menu: menuUpdate,
+          })
+        );
+      }
+
+      // Wait for all assignments to complete (failures will throw)
+      await Promise.all(assignmentPromises);
+
       queryClient.invalidateQueries({ queryKey: ["/api/menus"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/content-types"] });
+
       onOpenChange(false);
       navigate(`/private/menu-editor/${data.name}`);
     },
@@ -69,7 +102,7 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
   const handleClose = (open: boolean) => {
     if (!open) {
       setName("");
-      setType("navbar");
+      setAssignments({});
       setError(null);
     }
     onOpenChange(open);
@@ -80,7 +113,17 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
     setError(null);
   };
 
-  const canSubmit = name.length > 0 && slugValid && !mutation.isPending;
+  const toggleSlot = (ctType: string, slot: "top" | "bottom") => {
+    setAssignments((prev) => {
+      const current = prev[ctType] || { top: false, bottom: false };
+      return {
+        ...prev,
+        [ctType]: { ...current, [slot]: !current[slot] },
+      };
+    });
+  };
+
+  const canSubmit = name.length > 0 && slugValid && !createMutation.isPending;
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
@@ -108,7 +151,7 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
               placeholder="e.g. main-nav"
               className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
               data-testid="input-menu-name"
-              disabled={mutation.isPending}
+              disabled={createMutation.isPending}
               autoFocus
             />
             {name && !slugValid && (
@@ -124,35 +167,66 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
             )}
           </div>
 
-          <div className="space-y-1.5">
-            <label
-              htmlFor="menu-type"
-              className="text-sm font-medium leading-none"
-            >
-              Type
-            </label>
-            <Select
-              value={type}
-              onValueChange={(v) => setType(v as "navbar" | "footer")}
-              disabled={mutation.isPending}
-            >
-              <SelectTrigger
-                id="menu-type"
-                data-testid="select-menu-type"
-              >
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="navbar">Navbar</SelectItem>
-                <SelectItem value="footer">Footer</SelectItem>
-              </SelectContent>
-            </Select>
-            <p className="text-xs text-muted-foreground">
-              {type === "navbar"
-                ? "A navigation bar with links and optional dropdowns."
-                : "A footer with columns of links."}
-            </p>
-          </div>
+          {contentTypes && contentTypes.length > 0 && (
+            <div className="space-y-1.5">
+              <p className="text-sm font-medium leading-none">
+                Assign to content types
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Choose which content types should use this menu at the top or bottom.
+              </p>
+              <div className="border rounded-md divide-y max-h-48 overflow-y-auto">
+                {contentTypes.map((ct) => {
+                  const currentTop = ct.layout?.menu?.top || null;
+                  const currentBottom = ct.layout?.menu?.bottom || null;
+                  const slotState = assignments[ct.name] || { top: false, bottom: false };
+                  return (
+                    <div
+                      key={ct.name}
+                      className="flex items-center gap-3 px-3 py-2"
+                      data-testid={`row-ct-assignment-${ct.name}`}
+                    >
+                      <span className="flex-1 text-sm font-medium truncate">
+                        {ct.label || ct.name}
+                      </span>
+                      <label className="flex items-center gap-1.5 cursor-pointer select-none">
+                        <input
+                          type="checkbox"
+                          checked={slotState.top}
+                          onChange={() => toggleSlot(ct.name, "top")}
+                          disabled={createMutation.isPending}
+                          data-testid={`checkbox-ct-top-${ct.name}`}
+                          className="rounded"
+                        />
+                        <span className="text-xs">Top</span>
+                        {currentTop && (
+                          <span className="text-xs text-muted-foreground">
+                            currently: {currentTop}
+                          </span>
+                        )}
+                      </label>
+                      <label className="flex items-center gap-1.5 cursor-pointer select-none">
+                        <input
+                          type="checkbox"
+                          checked={slotState.bottom}
+                          onChange={() => toggleSlot(ct.name, "bottom")}
+                          disabled={createMutation.isPending}
+                          data-testid={`checkbox-ct-bottom-${ct.name}`}
+                          className="rounded"
+                        />
+                        <span className="text-xs">Bottom</span>
+                        {currentBottom && (
+                          <span className="text-xs text-muted-foreground">
+                            currently: {currentBottom}
+                          </span>
+                        )}
+                      </label>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {error && (
             <div className="flex items-start gap-2 p-3 rounded-md bg-destructive/10 text-destructive text-sm">
@@ -166,17 +240,17 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
           <Button
             variant="ghost"
             onClick={() => handleClose(false)}
-            disabled={mutation.isPending}
+            disabled={createMutation.isPending}
             data-testid="button-cancel-create-menu"
           >
             Cancel
           </Button>
           <Button
-            onClick={() => mutation.mutate()}
+            onClick={() => createMutation.mutate()}
             disabled={!canSubmit}
             data-testid="button-confirm-create-menu"
           >
-            {mutation.isPending ? (
+            {createMutation.isPending ? (
               <>
                 <IconRefresh className="h-4 w-4 mr-1.5 animate-spin" />
                 Creating…
