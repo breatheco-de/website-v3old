@@ -5111,7 +5111,7 @@
       "hash": "925421ab7693c619b55744b50b579ac022b647ba1f78920e8dcaafef00d0d108"
     },
     "woman-profile-headshot-1-608aff01": {
-      "src": "/attached_assets/woman-profile-headshot-1.png",
+      "src": "/marketing-content/images/woman-profile-headshot-1.png",
       "alt": "Professional woman headshot portrait",
       "focal_point": "center",
       "tags": [
@@ -5120,10 +5120,35 @@
       ],
       "protected": true,
       "usage_count": 0,
-      "hash": "fc3123ff310dafe4db6841cf146f29e35c4f95beadc51499e9235143d3ae69f7"
+      "hash": "fc3123ff310dafe4db6841cf146f29e35c4f95beadc51499e9235143d3ae69f7",
+      "width": 1024,
+      "height": 1024,
+      "preset": [
+        "avatar"
+      ],
+      "widths_generated": [
+        64,
+        128,
+        256
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/marketing-content/images/woman-profile-headshot-1-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/marketing-content/images/woman-profile-headshot-1-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/marketing-content/images/woman-profile-headshot-1-256w.webp"
+        }
+      ]
     },
     "man-profile-headshot-1-0850c276": {
-      "src": "/attached_assets/man-profile-headshot-1.png",
+      "src": "/marketing-content/images/man-profile-headshot-1.png",
       "alt": "Professional man headshot portrait",
       "focal_point": "center",
       "tags": [
@@ -5132,10 +5157,35 @@
       ],
       "protected": true,
       "usage_count": 0,
-      "hash": "932acc3c73745dc483e8b8cfe5a0a6263ee69ecdcdeb635c530b26ede176cc20"
+      "hash": "932acc3c73745dc483e8b8cfe5a0a6263ee69ecdcdeb635c530b26ede176cc20",
+      "width": 1024,
+      "height": 1024,
+      "preset": [
+        "avatar"
+      ],
+      "widths_generated": [
+        64,
+        128,
+        256
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/marketing-content/images/man-profile-headshot-1-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/marketing-content/images/man-profile-headshot-1-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/marketing-content/images/man-profile-headshot-1-256w.webp"
+        }
+      ]
     },
     "woman-profile-headshot-2-a0ea2c29": {
-      "src": "/attached_assets/woman-profile-headshot-2.png",
+      "src": "/marketing-content/images/woman-profile-headshot-2.png",
       "alt": "Professional woman headshot portrait",
       "focal_point": "center",
       "tags": [
@@ -5144,10 +5194,35 @@
       ],
       "protected": true,
       "usage_count": 0,
-      "hash": "df3b1c6ea7b700b35fd701df634e1c91ac1d0f734cc54ba9c71a947520c71aff"
+      "hash": "df3b1c6ea7b700b35fd701df634e1c91ac1d0f734cc54ba9c71a947520c71aff",
+      "width": 1024,
+      "height": 1024,
+      "preset": [
+        "avatar"
+      ],
+      "widths_generated": [
+        64,
+        128,
+        256
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/marketing-content/images/woman-profile-headshot-2-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/marketing-content/images/woman-profile-headshot-2-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/marketing-content/images/woman-profile-headshot-2-256w.webp"
+        }
+      ]
     },
     "man-profile-headshot-2-516b72e4": {
-      "src": "/attached_assets/man-profile-headshot-2.png",
+      "src": "/marketing-content/images/man-profile-headshot-2.png",
       "alt": "Professional man headshot portrait",
       "focal_point": "center",
       "tags": [
@@ -5156,7 +5231,32 @@
       ],
       "protected": true,
       "usage_count": 0,
-      "hash": "b3e5a44b83830ae0006c24cb5f45d1dfb4a80ab77ab571a2414914c9ef8581b6"
+      "hash": "b3e5a44b83830ae0006c24cb5f45d1dfb4a80ab77ab571a2414914c9ef8581b6",
+      "width": 1024,
+      "height": 1024,
+      "preset": [
+        "avatar"
+      ],
+      "widths_generated": [
+        64,
+        128,
+        256
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/marketing-content/images/man-profile-headshot-2-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/marketing-content/images/man-profile-headshot-2-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/marketing-content/images/man-profile-headshot-2-256w.webp"
+        }
+      ]
     },
     "captura-de-pantalla-2026-03-13-145607": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-13-145607.png",
