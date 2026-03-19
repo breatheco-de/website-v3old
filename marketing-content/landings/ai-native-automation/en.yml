@@ -76,13 +76,13 @@ sections:
         alt: "TODO: Add alt text for Group_6660_1765391357731.png"
         id: group-6660-1765391357731
     cards:
-      - icon: Trophy
+      - icon: Code
         title: Plataforma 4Geeks
         description: Aprende haciendo con lecciones guiadas, ejercicios prácticos y proyectos listos para tu portfolio.
-      - icon: Wallet
+      - icon: Robot
         title: Rigobot, tu tutor 24/7
         description: Recibe feedback en tiempo real, corrige errores y entiende conceptos paso a paso cuando lo necesites.
-      - icon: Clock
+      - icon: Trophy
         title: Certifícate
         description: Obtén un certificado que valida tus conocimientos.
       - icon: Users
