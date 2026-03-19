@@ -38,7 +38,7 @@ sections:
         role: Tutor con IA
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: Tu tutor será
-    description: Transforma tu carrera con Ingeniería de Automatización Nativa de IA. Aprende a diseñar, construir y desplegar flujos de automatización listos para producción con entrenamiento práctico en n8n e integraciones de APIs reales. Gradúate con más de 35 proyectos en portafolio y las habilidades para trabajar como ingeniero de automatización profesional.
+    description: Impulsa tu carrera con automatización de procesos. Aprende a crear flujos reales con n8n, integrando APIs y sistemas de forma práctica. Realiza proyectos para incluir en tu portafolio y obtén las habilidades para trabajar como profesional en automatización.
     video:
       url: https://www.youtube.com/watch?v=TgkIpTZ75NM
       ratio: "16:9"
