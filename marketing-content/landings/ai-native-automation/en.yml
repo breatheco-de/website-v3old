@@ -27,7 +27,6 @@ sections:
         - https://randomuser.me/api/portraits/women/3.jpg
         - https://randomuser.me/api/portraits/men/4.jpg
       count: Cientos de estudiantes inscritos en España, LATAM y U.S.
-      description: Impulsa tu carrera con automatización de procesos. Aprende a crear flujos reales con n8n, integrando APIs y sistemas de forma práctica. Realiza proyectos para incluir en tu portafolio y obtén las habilidades para trabajar como profesional en automatización.
     bullet_points:
       - Construye automatizaciones funcionales conectando herramientas reales, desde flujos simples hasta sistemas listos para producción.
       - Domina la plataforma de automatización n8n con experiencia práctica desde conceptos básicos de 2 nodos hasta sistemas complejos de producción de 10 nodos.
