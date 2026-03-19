@@ -109,7 +109,7 @@ sections:
         label: Hiring rate, graduates placed within 90 days
       - value: 55%
         label: Average salary increase after graduation
-      - value: ~3 months
+      - value: 3-6 months
         label: Average time to get hired in 2025
       - value: 5,000+
         label: Graduates employed worldwide
