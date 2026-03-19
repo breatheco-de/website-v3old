@@ -17,8 +17,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Automatización con IA Aplicando n8n
-    title_highlight: Aplicando n8n
+    title: Automatización con IA aplicando n8n
+    title_highlight: aplicando n8n
     subtitle: Esto no es sólo un curso, es una transformación.
     students_enrolled:
       avatars:
