@@ -22,7 +22,7 @@ sections:
       prefix: Launch Your
       highlight: Tech Career.
       color: primary
-    description: Add the Job Guarantee to any eligible program. Get hired within 9 months of graduation, or we refund 100% of your tuition. No runaround.
+    description: "<span style=\"font-size: 1rem;\">Add the Job Guarantee to any eligible program. Get hired within 9 months of graduation, or we refund 100% of your tuition. No runaround.</span>"
     bullets:
       - text: Backed by a career support system with an 84% placement rate
       - text: "Support that doesn't stop at graduation: unlimited mentorship and career coaching for life"
