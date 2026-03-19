@@ -1571,6 +1571,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         page.sections = (await resolveDynamicEntries(page.sections, locale)) as any;
       }
       const dbPageData = page as unknown as Record<string, unknown>;
+      const dbSingleEntry = (dbPageData.singleEntry as Record<string, unknown>) || {};
+      if (Object.keys(dbSingleEntry).length > 0) {
+        const dbResolved = resolveSingleVars(dbPageData, dbSingleEntry) as Record<string, unknown>;
+        Object.assign(dbPageData, dbResolved);
+      }
       const dbRaw = contentIndex.loadMergedContent(contentType, slug, locale);
       const dbLayout = resolveLayout(contentType, dbRaw.data || {});
       const { layout: _dbStripLayout, ...dbRest } = dbPageData;
@@ -1601,6 +1606,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const singleEntry = buildSingleEntryFromContent(contentType, genericPageData);
     if (singleEntry) {
       genericPageData.singleEntry = singleEntry;
+      const resolved = resolveSingleVars(genericPageData, singleEntry) as Record<string, unknown>;
+      Object.assign(genericPageData, resolved);
     }
     const { layout: _genericStripLayout, ...genericRest } = genericPageData;
     res.json({ ...genericRest, layout: genericLayout });

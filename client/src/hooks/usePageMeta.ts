@@ -20,7 +20,7 @@ export function usePageMeta(meta: PageMeta | undefined) {
     const addedElements: Element[] = [];
     const modifiedElements: Map<Element, string> = new Map();
 
-    if (meta.page_title) {
+    if (meta.page_title && !meta.page_title.includes("{{")) {
       document.title = meta.page_title;
     }
 
@@ -51,7 +51,7 @@ export function usePageMeta(meta: PageMeta | undefined) {
       setMeta("og:image", meta.og_image, true);
     }
 
-    if (meta.page_title) {
+    if (meta.page_title && !meta.page_title.includes("{{")) {
       setMeta("og:title", meta.page_title, true);
     }
 
