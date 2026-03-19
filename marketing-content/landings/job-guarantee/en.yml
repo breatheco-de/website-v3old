@@ -595,7 +595,7 @@ sections:
   - type: cards_deck
     version: "1.0"
     heading: From Enrollment to Hired. In Their Own Words
-    subtitle: Thousands of graduates have used our programs to break into tech. Here are just a few of their stories, from salary increases to total career reinventions.
+    subtitle: Three graduates. Three different backgrounds. One outcome.
     cards:
       - video:
           url: https://youtu.be/ln3bQsV1BaQ
