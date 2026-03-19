@@ -1077,7 +1077,7 @@ export default function MediaGallery() {
                           </DropdownMenuContent>
                         </DropdownMenu>
                       </div>
-                      <div className="flex items-center gap-1.5 mb-1">
+                      <div className="flex items-center gap-1.5 mb-1 flex-wrap">
                         <Badge variant="secondary" className="text-xs px-1.5 py-0 no-default-active-elevate" data-testid={`badge-storage-${id}`}>
                           {img.src.startsWith("http") ? (
                             <><IconCloud className="h-3 w-3 mr-1" />Google Bucket</>
@@ -1085,6 +1085,15 @@ export default function MediaGallery() {
                             <><IconFolder className="h-3 w-3 mr-1" />Local</>
                           )}
                         </Badge>
+                        {img.srcset && img.srcset.length > 0 ? (
+                          <Badge variant="secondary" className="text-xs px-1.5 py-0 no-default-active-elevate" data-testid={`badge-srcset-count-${id}`}>
+                            {img.srcset.length} srcset{img.srcset.length !== 1 ? "s" : ""}
+                          </Badge>
+                        ) : (
+                          <Badge className="text-xs px-1.5 py-0 no-default-active-elevate bg-destructive text-destructive-foreground" data-testid={`badge-srcset-count-${id}`}>
+                            No srcsets
+                          </Badge>
+                        )}
                       </div>
                       <p className="text-xs text-muted-foreground line-clamp-2 mb-2" data-testid={`text-image-alt-${id}`}>
                         {img.alt}
