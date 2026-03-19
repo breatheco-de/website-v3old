@@ -1,12 +1,37 @@
 meta:
-  page_title: "{{ single.title }} | 4Geeks Academy"
-  description: "{{ single.description }}"
-  og_image: "{{ single.image }}"
-
+  page_title: {{ single.title }} | 4Geeks Academy
+  description: {{ single.description }}
+  og_image: {{ single.image }}
 sections:
+  - type: hero
+    version: "1.0"
+    variant: singleColumn
+    badge: Career Program
+    title: Full Stack Development with AI
+    subtitle: Learn at your own pace with AI-powered tools and unlimited mentorship
+    cta_buttons:
+      - text: Start Learning Now
+        url: /signup
+        variant: primary
+        icon: Rocket
+      - text: View Curriculum
+        url: /curriculum
+        variant: outline
+        icon: Book
+    trust_bar:
+      rating: 4.8/5
+      rating_count: 2,500+
+      trusted_text: Trusted by 10,000+ students
+    award_badges:
+      - name: Best Coding Bootcamp
+        source: Forbes
+        year: "2024"
+      - name: Top Tech School
+        source: Course Report
+    section_id: hero-zol27l
   - type: article
     section_id: article-631g5w
     show_toc: true
     toc_position: side
     max_width: lg
-    content: "{{ single.content }}"
+    content: {{ single.content }}
