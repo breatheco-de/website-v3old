@@ -810,6 +810,9 @@ export default function MediaGallery() {
                   <IconAlertTriangle className="h-4 w-4" />
                   {scanResult.brokenReferences.length} broken reference(s)
                 </div>
+                <p className="text-xs text-muted-foreground pl-6">
+                  A YAML content file points to an image path that no longer exists on disk.
+                </p>
                 <div className="max-h-32 overflow-y-auto space-y-1 pl-6">
                   {scanResult.brokenReferences.map((ref, i) => (
                     <div key={i} className="text-xs text-muted-foreground">
