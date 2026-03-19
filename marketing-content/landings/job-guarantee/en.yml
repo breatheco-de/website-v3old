@@ -237,25 +237,6 @@ sections:
     background: hsl(var(--secondary))
     paddingY:
       desktop: md
-  - type: features_quad
-    version: "1.0"
-    heading: Who Can Add the Job Guarantee?
-    description: "The Job Guarantee is available to students who meet these four requirements:"
-    cards:
-      - icon: IconBriefcaseFilled
-        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
-      - icon: IconCircleDashedCheck
-        title: Complete All Program Requirements
-      - icon: IconBrain
-        title: Pass the Admissions Logic Test
-      - icon: IconArrowGuideFilled
-        title: Follow the Full Career Development Process
-    section_id: features_quad-ms7uox
-    marginY:
-      desktop: none xl
-    paddingY:
-      desktop: none
-    background: hsl(var(--muted))
   - type: career_support_explain
     version: v1.0
     heading: Get Hired. Career Support That Doesn't Stop at Graduation.
@@ -426,6 +407,25 @@ sections:
       desktop: md
     marginY:
       desktop: none md
+  - type: features_quad
+    version: "1.0"
+    heading: Who Can Add the Job Guarantee?
+    description: "The Job Guarantee is available to students who meet these four requirements:"
+    cards:
+      - icon: IconBriefcaseFilled
+        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
+      - icon: IconCircleDashedCheck
+        title: Complete All Program Requirements
+      - icon: IconBrain
+        title: Pass the Admissions Logic Test
+      - icon: IconArrowGuideFilled
+        title: Follow the Full Career Development Process
+    section_id: features_quad-ms7uox
+    marginY:
+      desktop: none xl
+    paddingY:
+      desktop: none
+    background: hsl(var(--muted))
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
     description: From music, philosophy, customer support, and everything in between. Real jobs, real salaries, real proof.
