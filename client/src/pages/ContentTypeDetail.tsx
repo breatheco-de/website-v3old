@@ -12,16 +12,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LazyRender from "@/components/LazyRender";
 import MenuSlotPlaceholder from "@/components/editing/MenuSlotPlaceholder";
-
-const LEGACY_API_PATHS: Record<string, string> = {
-  program: "/api/career-programs",
-  location: "/api/locations",
-  landing: "/api/landings",
-};
-
-function getApiPath(type: string): string {
-  return LEGACY_API_PATHS[type] || `/api/content-pages/${type}`;
-}
+import { getApiPath } from "@shared/api-paths";
 
 function capitalize(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);

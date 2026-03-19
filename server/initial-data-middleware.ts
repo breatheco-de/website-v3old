@@ -4,13 +4,14 @@ import * as yaml from "js-yaml";
 import type { Request, Response, NextFunction } from "express";
 import { contentIndex } from "./content-index";
 import { resolveDynamicEntries } from "./dynamic-entries";
-import { resolveLayout, getLocaleKey } from "./content-types";
+import { resolveLayout, getLocaleKey, getAllConfigs, getLabel, getLayout } from "./content-types";
 import { applyComponentSectionDefaults } from "./component-registry";
 import { variableManager } from "./variable-manager";
 import { loadImageRegistry } from "./image-registry";
 import { getDefaultLocale, normalizeLocale } from "./settings";
 import { databaseManager } from "./database";
 import { fetchMarkdownContent } from "./markdown";
+import { getApiPath } from "../shared/api-paths";
 
 interface SingleQuery {
   queryKey: unknown[];
@@ -20,15 +21,6 @@ interface SingleQuery {
 export interface InitialDataPayload {
   queries: SingleQuery[];
 }
-
-const API_PATH_MAP: Record<string, string> = {
-  page: "/api/pages",
-  landing: "/api/landings",
-  program: "/api/career-programs",
-  location: "/api/locations",
-};
-
-const CONTENT_TYPES_WITH_PAGES = ["page", "landing", "program", "location"];
 
 async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
   const cleanUrl = url.split("?")[0].split("#")[0];
@@ -112,7 +104,7 @@ async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
       return null;
     }
 
-    const apiPath = API_PATH_MAP[contentType];
+    const apiPath = getApiPath(contentType);
     let locale = cleanUrl.match(/^\/(es)\b/) ? "es" : "en";
     if (resolved.params?.locale) {
       locale = resolved.params.locale;
@@ -123,7 +115,7 @@ async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
       }
     }
 
-    if (apiPath && CONTENT_TYPES_WITH_PAGES.includes(contentType)) {
+    if (apiPath) {
       const localeOrVariant = locale;
 
       const result = contentIndex.loadContent({
@@ -137,12 +129,6 @@ async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
       const data = result.data as any;
       if (data.sections && Array.isArray(data.sections)) {
         applyComponentSectionDefaults(data.sections);
-      }
-      if (
-        contentType === "page" &&
-        data.sections &&
-        Array.isArray(data.sections)
-      ) {
         data.sections = (await resolveDynamicEntries(
           data.sections,
           locale,
@@ -163,36 +149,7 @@ async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
       };
     }
 
-    const genericResult = contentIndex.loadContent({
-      contentType,
-      slug,
-      localeOrVariant: locale,
-    });
-
-    if (!genericResult.success) return null;
-
-    const genericData = genericResult.data as any;
-    if (genericData.sections && Array.isArray(genericData.sections)) {
-      applyComponentSectionDefaults(genericData.sections);
-      genericData.sections = (await resolveDynamicEntries(
-        genericData.sections,
-        locale,
-      )) as any;
-    }
-    const genericRaw = contentIndex.loadMergedContent(
-      contentType,
-      slug,
-      locale,
-    );
-    const genericLayout = resolveLayout(contentType, genericRaw.data || {});
-    genericData.layout = genericLayout;
-    genericData.locale = locale;
-
-    const genericApiPath = `/api/content-pages/${contentType}`;
-    return {
-      queryKey: [genericApiPath, slug, isNonLocalized ? "auto" : locale],
-      data: genericData,
-    };
+    return null;
   } catch {
     return null;
   }
@@ -289,15 +246,16 @@ export function resolvePreloadHints(
   let pageData: Record<string, unknown> | null = null;
   let registryData: { images: Record<string, { src: string; srcset?: Array<{ w: number; url: string }> }> } | null = null;
 
+  const knownPageApiPaths = new Set(
+    Object.keys(getAllConfigs()).map((type) => getApiPath(type)),
+  );
+  knownPageApiPaths.add("/api/blog/posts");
+
   for (const q of payload.queries) {
     const key0 = q.queryKey[0];
     if (
-      key0 === "/api/pages" ||
-      key0 === "/api/landings" ||
-      key0 === "/api/career-programs" ||
-      key0 === "/api/locations" ||
-      key0 === "/api/blog/posts" ||
-      (typeof key0 === "string" && key0.startsWith("/api/content-pages/"))
+      typeof key0 === "string" &&
+      (knownPageApiPaths.has(key0) || key0.startsWith("/api/content-pages/"))
     ) {
       pageData = q.data as Record<string, unknown>;
     }
@@ -375,6 +333,12 @@ export async function resolveInitialData(
     }
   }
 
+  const contentTypesPayload = buildContentTypesPayload();
+  queries.push({
+    queryKey: ["/api/content-types"],
+    data: contentTypesPayload,
+  });
+
   const registry = loadImageRegistry();
   if (registry) {
     queries.push({
@@ -384,6 +348,35 @@ export async function resolveInitialData(
   }
 
   return { queries };
+}
+
+function buildContentTypesPayload(): Record<string, unknown>[] {
+  const configs = getAllConfigs();
+  const result: Record<string, unknown>[] = [];
+  for (const [type, config] of Object.entries(configs)) {
+    result.push({
+      name: type,
+      label: getLabel(type),
+      directory: config.directory,
+      has_database: !!config.database?.slug,
+      database_slug: config.database?.slug || null,
+      has_field_mapping: !!(
+        config.field_mapping &&
+        Object.keys(config.field_mapping).filter(
+          (k) => !k.startsWith("_"),
+        ).length > 0
+      ),
+      unique_fields: config.unique_fields ?? ["slug"],
+      field_mapping_keys: Object.keys(config.field_mapping ?? {}).filter(
+        (k) => !k.startsWith("_"),
+      ),
+      url_pattern: config.url_pattern,
+      locale_key: config.field_mapping?._locale || null,
+      static_entry_count: contentIndex.findByType(type).length,
+      layout: getLayout(type),
+    });
+  }
+  return result;
 }
 
 function buildThemeCssOverrides(): string {
