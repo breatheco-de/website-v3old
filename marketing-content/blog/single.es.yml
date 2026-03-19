@@ -3,13 +3,16 @@ meta:
   description: {{ single.description }}
   og_image: {{ single.image }}
 sections:
-  - type: hero
-    version: "1.0"
-    variant: singleColumn
-    badge: {{ single.category | undefined }}
-    title: {{ single.title | Full Stack Development with AI }}
-    subtitle: {{ single.description | undefined }}
-    section_id: hero-zol27l
+  - - type: hero
+      version: "1.0"
+      variant: singleColumn
+      badge: {{ single.category | undefined }}
+      title: {{ single.title | undefined title }}
+      subtitle: {{ single.description | undefined subtitle }}
+      image:
+        src: https://storage.googleapis.com/4geeks-academy-website/media/the-academy-header_1770614327963.png
+        alt: Students coding at computers in a classroom
+      image_full_width: false
   - type: article
     section_id: article-631g5w
     show_toc: true
