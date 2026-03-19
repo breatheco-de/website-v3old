@@ -46,6 +46,32 @@ sections:
       autoplay: true
       loop: true
       preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40.png
+    signup_card:
+      title: ELIMINAR CÓDIGO
+      description: ELIMINAR CÓDIGO
+      cta_button:
+        text: ELIMINAR CÓDIGO
+        url: /signup
+        variant: primary
+      login_link:
+        text: Login here.
+        url: /login
+      features:
+        - icon: book
+          text: Readings and videos
+          count: "31"
+        - icon: code
+          text: Interactive Exercises
+          count: "2"
+        - icon: briefcase
+          text: Interactive Projects
+          count: "8"
+        - icon: robot
+          text: Real Time AI Feedback
+        - icon: calendar
+          text: Workshops every week
+        - icon: users
+          text: Community Gatherings.
     section_id: hero-d29v3o
   - type: banner
     version: "1.0"
