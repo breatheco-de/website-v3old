@@ -1679,6 +1679,20 @@ export default function MediaGallery() {
                       <p className="text-sm">{img.width} x {img.height}</p>
                     </div>
                   )}
+                  {img.srcset && img.srcset.length > 0 && (
+                    <div>
+                      <p className="text-xs text-muted-foreground mb-1">
+                        Srcsets <span className="text-foreground font-medium">({img.srcset.length})</span>
+                      </p>
+                      <div className="flex flex-wrap gap-1" data-testid="list-detail-srcsets">
+                        {img.srcset.map((s) => (
+                          <Badge key={s.w} variant="secondary" className="text-xs font-mono" data-testid={`badge-srcset-${s.w}`}>
+                            {s.w}w
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
               </div>
