@@ -1274,7 +1274,12 @@
         "logo",
         "badge",
         "award",
-        "forbes"
+        "forbes",
+        "hero",
+        "photo",
+        "partner",
+        "press",
+        "illustration"
       ],
       "usage_count": 2,
       "hash": "6a3ec4c253ddc0ff0ae3397c5722daf0746d1198b367a99df7f02d9fe9c557c5",
