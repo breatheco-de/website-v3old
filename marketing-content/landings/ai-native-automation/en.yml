@@ -19,7 +19,7 @@ sections:
     variant: course
     title: Automatización con IA aplicando n8n
     title_highlight: aplicando n8n
-    subtitle: Domina n8n con proyectos de la vida real e interactivos. Solo 30 minutos por día transformación.
+    subtitle: Domina n8n con proyectos de la vida real e interactivos. Solo 30 minutos por día.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
