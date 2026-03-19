@@ -45,6 +45,18 @@ export default function ComponentPreview() {
       if (event.data?.type === 'theme-update') {
         setTheme(event.data.theme || 'light');
       }
+      if (event.data?.type === 'theme-vars-update') {
+        const vars = event.data.vars as Record<string, string> | undefined;
+        const mode = event.data.mode as 'light' | 'dark' | undefined;
+        if (mode) {
+          setTheme(mode);
+        }
+        if (vars) {
+          for (const [key, value] of Object.entries(vars)) {
+            document.documentElement.style.setProperty(key, value);
+          }
+        }
+      }
     };
 
     window.addEventListener('message', handleMessage);

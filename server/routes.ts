@@ -848,6 +848,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.put("/api/theme/preview-examples", (req, res) => {
+    try {
+      const examples = req.body as Array<{ component: string; version: string; example: string }>;
+      const themePath = path.join(process.cwd(), "marketing-content", "theme.json");
+      if (!fs.existsSync(themePath)) {
+        res.status(404).json({ error: "Theme configuration not found" });
+        return;
+      }
+      const theme = JSON.parse(fs.readFileSync(themePath, "utf-8"));
+      theme.preview_examples = Array.isArray(examples) ? examples : [];
+      fs.writeFileSync(themePath, JSON.stringify(theme, null, 2));
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error saving preview examples:", error);
+      res.status(500).json({ error: "Failed to save preview examples" });
+    }
+  });
+
   app.get("/api/variables", (_req, res) => {
     res.json(variableManager.getDefinitions());
   });

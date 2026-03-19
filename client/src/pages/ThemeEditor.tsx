@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { MoleculeRenderer, type MoleculeDefinition } from "@/components/MoleculeRenderer";
@@ -14,14 +14,23 @@ import {
   IconArrowBackUp,
   IconPalette,
   IconComponents,
-  IconLink,
+  IconLayoutGrid,
+  IconTrash,
+  IconPlus,
 } from "@tabler/icons-react";
+
+interface PreviewExample {
+  component: string;
+  version: string;
+  example: string;
+}
 
 interface ThemeData {
   colors?: {
     light?: Record<string, string>;
     dark?: Record<string, string>;
   };
+  preview_examples?: PreviewExample[];
 }
 
 interface MoleculesData {
@@ -36,6 +45,11 @@ interface RegistryComponent {
 
 interface RegistryData {
   components: RegistryComponent[];
+}
+
+interface ExampleItem {
+  name: string;
+  yaml: string;
 }
 
 const TOKEN_GROUPS: { label: string; tokens: { id: string; label: string }[] }[] = [
@@ -313,9 +327,14 @@ export default function ThemeEditor() {
   const [lightColors, setLightColors] = useState<Record<string, string>>({});
   const [darkColors, setDarkColors] = useState<Record<string, string>>({});
   const [isSaving, setIsSaving] = useState(false);
-  const [activeSection, setActiveSection] = useState<"atoms" | "combinations">("atoms");
+  const [activeSection, setActiveSection] = useState<"atoms" | "examples">("atoms");
   const [expandedToken, setExpandedToken] = useState<string | null>(null);
   const [radiusOpen, setRadiusOpen] = useState(false);
+
+  const [confirmedExamples, setConfirmedExamples] = useState<PreviewExample[]>([]);
+  const [addRow, setAddRow] = useState<{ component: string; version: string; example: string } | null>(null);
+  const iframeRefs = useRef<Map<number, HTMLIFrameElement>>(new Map());
+  const colorsInitialized = useRef(false);
 
   const { data: themeData, isLoading: themeLoading } = useQuery<ThemeData>({
     queryKey: ["/api/theme"],
@@ -329,12 +348,53 @@ export default function ThemeEditor() {
     queryKey: ["/api/component-registry"],
   });
 
+  const addRowComponentVersions = useMemo(() => {
+    if (!addRow?.component || !registryData) return [];
+    const comp = registryData.components.find((c) => c.type === addRow.component);
+    return comp?.versions || [];
+  }, [addRow?.component, registryData]);
+
+  const { data: addRowExamplesData } = useQuery<{ examples: ExampleItem[] }>({
+    queryKey: ["/api/component-registry", addRow?.component, addRow?.version, "examples"],
+    enabled: !!(addRow?.component && addRow?.version),
+    queryFn: async () => {
+      const res = await fetch(`/api/component-registry/${addRow!.component}/${addRow!.version}/examples`);
+      if (!res.ok) throw new Error("Failed to fetch examples");
+      return res.json();
+    },
+  });
+
   useEffect(() => {
-    if (themeData?.colors) {
+    if (themeData?.colors && !colorsInitialized.current) {
       setLightColors(themeData.colors.light || {});
       setDarkColors(themeData.colors.dark || {});
+      colorsInitialized.current = true;
+    }
+    if (themeData?.preview_examples !== undefined) {
+      setConfirmedExamples(themeData.preview_examples);
     }
   }, [themeData]);
+
+  const savePreviewExamples = useCallback(async (examples: PreviewExample[]) => {
+    try {
+      await apiRequest("PUT", "/api/theme/preview-examples", examples);
+      queryClient.invalidateQueries({ queryKey: ["/api/theme"] });
+    } catch {
+      toast({ title: "Save failed", description: "Could not save preview examples.", variant: "destructive" });
+    }
+  }, [toast]);
+
+  useEffect(() => {
+    const activeColors = previewMode === "light" ? lightColors : darkColors;
+    iframeRefs.current.forEach((iframe) => {
+      if (iframe?.contentWindow) {
+        iframe.contentWindow.postMessage(
+          { type: "theme-vars-update", vars: activeColors, mode: previewMode },
+          "*"
+        );
+      }
+    });
+  }, [lightColors, darkColors, previewMode]);
 
   const activeColors = previewMode === "light" ? lightColors : darkColors;
 
@@ -389,24 +449,6 @@ export default function ThemeEditor() {
   const atomMolecules = useMemo(() => {
     return (moleculesData?.molecules || []).filter((m) => m.tags.includes("theme-preview"));
   }, [moleculesData]);
-
-  const combinationComponents = useMemo(() => {
-    const all = registryData?.components || [];
-    const preferred = ["hero", "features_grid", "cta_banner", "trust_cards", "stats_section", "two_column"];
-    const picks: RegistryComponent[] = [];
-    for (const pref of preferred) {
-      const found = all.find((c) => c.type === pref);
-      if (found) picks.push(found);
-      if (picks.length >= 3) break;
-    }
-    if (picks.length < 3) {
-      for (const c of all) {
-        if (!picks.find((p) => p.type === c.type)) picks.push(c);
-        if (picks.length >= 3) break;
-      }
-    }
-    return picks.slice(0, 3);
-  }, [registryData]);
 
   return (
     <div className="flex h-screen bg-background overflow-hidden" data-testid="page-theme-editor">
@@ -559,12 +601,12 @@ export default function ThemeEditor() {
             Atoms & Molecules
           </button>
           <button
-            onClick={() => setActiveSection("combinations")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${activeSection === "combinations" ? "bg-muted text-foreground" : "text-muted-foreground hover-elevate"}`}
-            data-testid="tab-combinations"
+            onClick={() => setActiveSection("examples")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${activeSection === "examples" ? "bg-muted text-foreground" : "text-muted-foreground hover-elevate"}`}
+            data-testid="tab-examples"
           >
-            <IconLink className="h-4 w-4" />
-            Combinations
+            <IconLayoutGrid className="h-4 w-4" />
+            Examples
           </button>
           <div className="ml-auto flex items-center gap-1.5 text-xs text-muted-foreground">
             <div className={`w-2 h-2 rounded-full ${previewMode === "dark" ? "bg-slate-500" : "bg-amber-400"}`} />
@@ -595,43 +637,135 @@ export default function ThemeEditor() {
             </div>
           )}
 
-          {activeSection === "combinations" && (
-            <div className="p-6 space-y-8" data-testid="preview-combinations">
-              {combinationComponents.length === 0 ? (
-                <div className="flex items-center justify-center h-64 text-muted-foreground">
-                  No component registry available
-                </div>
-              ) : (
-                combinationComponents.map((comp) => {
-                  const version = comp.versions?.[comp.versions.length - 1] || "v1.0";
-                  const iframeSrc = `/private/component-showcase/${comp.type}/preview?debug=false&version=${version}`;
-                  return (
-                    <div key={comp.type} className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <p className="text-sm font-medium">{comp.name}</p>
-                        <a
-                          href={`/private/component-showcase/${comp.type}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-xs text-primary hover:underline flex items-center gap-1"
-                          data-testid={`link-showcase-${comp.type}`}
-                        >
-                          Open in showcase
-                        </a>
-                      </div>
-                      <div className="rounded-md border border-border overflow-hidden">
-                        <iframe
-                          src={iframeSrc}
-                          className="w-full"
-                          style={{ height: 420, border: "none" }}
-                          title={`${comp.name} combination preview`}
-                          data-testid={`iframe-combination-${comp.type}`}
-                        />
-                      </div>
+          {activeSection === "examples" && (
+            <div className="p-6 space-y-6" data-testid="preview-examples">
+              {confirmedExamples.map((entry, idx) => {
+                const iframeSrc = `/private/component-showcase/${entry.component}/preview?debug=false&version=${encodeURIComponent(entry.version)}&example=${encodeURIComponent(entry.example)}`;
+                return (
+                  <div key={idx} className="space-y-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="text-sm font-medium truncate">
+                        {entry.component} &mdash; {entry.version} &mdash; {entry.example}
+                      </p>
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        onClick={async () => {
+                          const updated = confirmedExamples.filter((_, i) => i !== idx);
+                          setConfirmedExamples(updated);
+                          iframeRefs.current.delete(idx);
+                          await savePreviewExamples(updated);
+                        }}
+                        data-testid={`button-delete-example-${idx}`}
+                      >
+                        <IconTrash className="h-4 w-4" />
+                      </Button>
                     </div>
-                  );
-                })
+                    <div className="rounded-md border border-border overflow-hidden">
+                      <iframe
+                        ref={(el) => {
+                          if (el) iframeRefs.current.set(idx, el);
+                          else iframeRefs.current.delete(idx);
+                        }}
+                        src={iframeSrc}
+                        className="w-full"
+                        style={{ height: 420, border: "none" }}
+                        title={`${entry.component} ${entry.example} preview`}
+                        data-testid={`iframe-example-${idx}`}
+                        onLoad={(e) => {
+                          const win = (e.currentTarget as HTMLIFrameElement).contentWindow;
+                          if (win) {
+                            const colors = previewMode === "light" ? lightColors : darkColors;
+                            win.postMessage({ type: "theme-vars-update", vars: colors, mode: previewMode }, "*");
+                          }
+                        }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+
+              {addRow !== null && (
+                <div className="rounded-md border border-border p-4 space-y-3" data-testid="add-example-row">
+                  <p className="text-sm font-medium text-muted-foreground">Add example</p>
+                  <div className="flex flex-wrap gap-3">
+                    <select
+                      className="flex-1 min-w-[140px] text-sm rounded-md border border-input bg-background px-3 py-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                      value={addRow.component}
+                      onChange={(e) => setAddRow({ component: e.target.value, version: "", example: "" })}
+                      data-testid="select-add-component"
+                    >
+                      <option value="">Component...</option>
+                      {(registryData?.components || []).map((c) => (
+                        <option key={c.type} value={c.type}>{c.name}</option>
+                      ))}
+                    </select>
+
+                    <select
+                      className="flex-1 min-w-[120px] text-sm rounded-md border border-input bg-background px-3 py-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50"
+                      value={addRow.version}
+                      onChange={(e) => setAddRow((prev) => prev ? { ...prev, version: e.target.value, example: "" } : prev)}
+                      disabled={!addRow.component}
+                      data-testid="select-add-version"
+                    >
+                      <option value="">Version...</option>
+                      {addRowComponentVersions.map((v) => (
+                        <option key={v} value={v}>{v}</option>
+                      ))}
+                    </select>
+
+                    <select
+                      className="flex-1 min-w-[140px] text-sm rounded-md border border-input bg-background px-3 py-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50"
+                      value={addRow.example}
+                      onChange={(e) => setAddRow((prev) => prev ? { ...prev, example: e.target.value } : prev)}
+                      disabled={!addRow.component || !addRow.version}
+                      data-testid="select-add-example"
+                    >
+                      <option value="">Example...</option>
+                      {(addRowExamplesData?.examples || []).map((ex) => (
+                        <option key={ex.name} value={ex.name}>{ex.name}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => setAddRow(null)}
+                      data-testid="button-cancel-add-example"
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      size="sm"
+                      disabled={!addRow.component || !addRow.version || !addRow.example}
+                      onClick={async () => {
+                        if (!addRow.component || !addRow.version || !addRow.example) return;
+                        const updated = [...confirmedExamples, { component: addRow.component, version: addRow.version, example: addRow.example }];
+                        setConfirmedExamples(updated);
+                        setAddRow(null);
+                        await savePreviewExamples(updated);
+                      }}
+                      data-testid="button-confirm-add-example"
+                    >
+                      Add
+                    </Button>
+                  </div>
+                </div>
               )}
+
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setAddRow({ component: "", version: "", example: "" })}
+                disabled={addRow !== null}
+                data-testid="button-add-example"
+                className="flex items-center gap-1.5"
+              >
+                <IconPlus className="h-4 w-4" />
+                Add example
+              </Button>
             </div>
           )}
         </ScrollArea>
