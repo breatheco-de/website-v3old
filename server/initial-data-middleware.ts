@@ -177,8 +177,14 @@ function resolveMenuQuery(menuId: string, locale: string): SingleQuery | null {
 const DEFAULT_EAGER_COUNT = 3;
 
 interface ImageRefs {
-  ids: Set<string>;
+  ids: Map<string, string | undefined>;
   directUrls: Set<string>;
+}
+
+export interface PreloadHint {
+  src: string;
+  srcset?: string;
+  sizes?: string;
 }
 
 const IMAGE_URL_PATTERN = /\.(png|jpe?g|webp|avif|gif|svg)(\?|$)/i;
@@ -199,13 +205,19 @@ function extractImageRefsFromValue(value: unknown, refs: ImageRefs, parentKey?: 
       typeof obj.preset === "string" ||
       typeof obj.src === "string";
     if (hasImageContext) {
-      refs.ids.add(obj.id);
+      const preset = typeof obj.preset === "string" ? obj.preset : undefined;
+      if (!refs.ids.has(obj.id)) {
+        refs.ids.set(obj.id, preset);
+      }
     }
   }
 
   if (typeof obj.image === "object" && obj.image !== null) {
     const img = obj.image as Record<string, unknown>;
-    if (typeof img.id === "string") refs.ids.add(img.id);
+    if (typeof img.id === "string" && !refs.ids.has(img.id)) {
+      const preset = typeof img.preset === "string" ? img.preset : undefined;
+      refs.ids.set(img.id, preset);
+    }
   }
 
   if (typeof obj.src === "string" && obj.src.startsWith("http") && IMAGE_URL_PATTERN.test(obj.src)) {
@@ -214,7 +226,7 @@ function extractImageRefsFromValue(value: unknown, refs: ImageRefs, parentKey?: 
 
   for (const [key, v] of Object.entries(obj)) {
     if (typeof v === "string" && IMAGE_ID_KEY_PATTERN.test(key)) {
-      refs.ids.add(v);
+      if (!refs.ids.has(v)) refs.ids.set(v, undefined);
     } else {
       extractImageRefsFromValue(v, refs, key);
     }
@@ -223,11 +235,14 @@ function extractImageRefsFromValue(value: unknown, refs: ImageRefs, parentKey?: 
 
 export function resolvePreloadHints(
   payload: InitialDataPayload | null,
-): string[] {
+): PreloadHint[] {
   if (!payload) return [];
 
   let pageData: Record<string, unknown> | null = null;
-  let registryData: { images: Record<string, { src: string; srcset?: Array<{ w: number; url: string }> }> } | null = null;
+  let registryData: {
+    presets?: Record<string, { sizes?: string }>;
+    images: Record<string, { src: string; srcset?: Array<{ w: number; url: string }> }>;
+  } | null = null;
 
   const knownPageApiPaths = new Set(
     Object.keys(getAllConfigs()).map((type) => getApiPath(type)),
@@ -255,31 +270,48 @@ export function resolvePreloadHints(
   const settings = pageData.settings as { loading?: { eager_count?: number } } | undefined;
   const eagerCount = settings?.loading?.eager_count ?? DEFAULT_EAGER_COUNT;
 
-  const refs: ImageRefs = { ids: new Set(), directUrls: new Set() };
+  const refs: ImageRefs = { ids: new Map(), directUrls: new Set() };
   const prioritySections = sections.slice(0, eagerCount);
   for (const section of prioritySections) {
     extractImageRefsFromValue(section, refs);
   }
 
-  const preloadUrls: string[] = [];
+  const hints: PreloadHint[] = [];
   const seen = new Set<string>();
 
-  for (const id of refs.ids) {
+  const srcToEntry = new Map<string, { src: string; srcset?: Array<{ w: number; url: string }> }>();
+  for (const entry of Object.values(registryData.images)) {
+    if (entry.src) srcToEntry.set(entry.src, entry);
+  }
+
+  for (const [id, preset] of refs.ids) {
     const entry = registryData.images[id];
     if (entry?.src && !seen.has(entry.src)) {
       seen.add(entry.src);
-      preloadUrls.push(entry.src);
+      const hint: PreloadHint = { src: entry.src };
+      if (entry.srcset && entry.srcset.length > 0) {
+        hint.srcset = entry.srcset.map((s) => `${s.url} ${s.w}w`).join(", ");
+        const presetConfig = preset ? registryData.presets?.[preset] : undefined;
+        hint.sizes = presetConfig?.sizes ?? "100vw";
+      }
+      hints.push(hint);
     }
   }
 
   for (const url of refs.directUrls) {
     if (!seen.has(url)) {
       seen.add(url);
-      preloadUrls.push(url);
+      const entry = srcToEntry.get(url);
+      const hint: PreloadHint = { src: url };
+      if (entry?.srcset && entry.srcset.length > 0) {
+        hint.srcset = entry.srcset.map((s) => `${s.url} ${s.w}w`).join(", ");
+        hint.sizes = "100vw";
+      }
+      hints.push(hint);
     }
   }
 
-  return preloadUrls;
+  return hints;
 }
 
 function escapeAttr(str: string): string {

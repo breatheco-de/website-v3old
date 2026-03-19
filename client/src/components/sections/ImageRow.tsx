@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { hasHtmlTags, getTextLength, sliceHtml } from "@/lib/htmlTypewriter";
+import { useImageRegistry } from "@/components/UniversalImage";
 import type {
   ImageRowSection,
   ImageRowSlide,
@@ -268,6 +269,10 @@ function HighlightSlideshow({
 const PARALLAX_FACTOR = 0.08;
 const PARALLAX_MAX_PX = 40;
 
+function buildSrcsetString(srcset: Array<{ w: number; url: string }>): string {
+  return srcset.map((s) => `${s.url} ${s.w}w`).join(", ");
+}
+
 export default function ImageRow({ data }: ImageRowProps) {
   const {
     images,
@@ -279,6 +284,7 @@ export default function ImageRow({ data }: ImageRowProps) {
     background,
   } = data;
 
+  const { registry } = useImageRegistry();
   const editModeContext = useEditModeOptional();
   const isEditMode = editModeContext?.isEditMode ?? false;
   const sectionRef = useRef<HTMLElement>(null);
@@ -410,6 +416,13 @@ export default function ImageRow({ data }: ImageRowProps) {
             <div className="contents" style={{ display: "contents" }}>
               {images.map((image, index) => {
                 const imageHeight = image.height || undefined;
+                const registryEntry = registry
+                  ? Object.values(registry.images).find((e) => e.src === image.src)
+                  : undefined;
+                const srcsetString =
+                  registryEntry?.srcset && registryEntry.srcset.length > 0
+                    ? buildSrcsetString(registryEntry.srcset)
+                    : undefined;
                 return (
                   <div
                     key={image.src || `image-${index}`}
@@ -442,6 +455,7 @@ export default function ImageRow({ data }: ImageRowProps) {
                         willChange: "transform",
                       }}
                       loading="lazy"
+                      {...(srcsetString ? { srcSet: srcsetString, sizes: "100vw" } : {})}
                       data-testid={`img-image-row-${index}`}
                     />
                   </div>
