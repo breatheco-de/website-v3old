@@ -145,7 +145,7 @@ export function HeroShowcase({ data }: HeroShowcaseProps) {
               style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.15)" }}
             >
               <UniversalImage
-                id="https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png"
+                id={image.src}
                 alt={image.alt}
                 className="w-full h-48 rounded-lg"
                 style={{ objectFit: "cover" }}
