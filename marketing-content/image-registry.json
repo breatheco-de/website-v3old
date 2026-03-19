@@ -2646,7 +2646,17 @@
       "focal_point": "center",
       "tags": [
         "photo",
-        "workspace"
+        "workspace",
+        "hero",
+        "logo",
+        "card",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
       ],
       "hash": "84fb45d51aad251dd3ecec195a494271da3cf5e54bd5b669e13c0b5513fa62c2",
       "width": 1920,
