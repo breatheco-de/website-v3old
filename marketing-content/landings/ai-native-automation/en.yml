@@ -60,8 +60,8 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: Why Choose Our AI Engineering Program?
-    description: Get the skills, support, and job placement assistance you need to launch your career in AI engineering.
+    heading: ¿Por qué 4Geeks Academy?
+    description: Aprende automatización con n8n de forma práctica y acompañada. No solo adquirirás habilidades reales para crear flujos y trabajar con APIs, sino que contarás con mentorías, soporte continuo y una plataforma diseñada para aprender haciendo. Todo lo que necesitas para avanzar con confianza y construir proyectos listos para tu portfolio.
     images:
       - image_id: student-1
         alt: Student 1
