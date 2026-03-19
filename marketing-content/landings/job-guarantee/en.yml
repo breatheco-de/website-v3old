@@ -562,7 +562,7 @@ sections:
     section_id: whos_hiring-6ml5ey
     variant: carousel
     title: Where Our Graduates Work
-    subtitle: Over 5,000 alumni placed at companies actively hiring tech talent around the world.
+    subtitle: From startups to global tech leaders, our graduates work at some of the most recognized companies worldwide.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
