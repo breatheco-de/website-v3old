@@ -594,7 +594,7 @@ sections:
       desktop: none
   - type: cards_deck
     version: "1.0"
-    heading: Real Stories of Real Career Change
+    heading: From Enrollment to Hired. In Their Own Words
     subtitle: Thousands of graduates have used our programs to break into tech. Here are just a few of their stories, from salary increases to total career reinventions.
     cards:
       - video:
