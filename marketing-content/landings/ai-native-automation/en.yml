@@ -143,6 +143,20 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
+  - type: split_cards
+    version: v1.0
+    variant: primary-left
+    background: muted
+    primary:
+      badge: Results-Backed Promise
+      heading: The Confidence of a Job Guarantee
+      description: "The strongest proof that we believe in our model? We back it with a Job Guarantee. Most schools promise \"career support.\" At 4Geeks, we promise results: get hired within 9 months, or we refund your tuition in full. Conditions apply."
+    secondary:
+      benefits:
+        - text: Our curriculum is industry-aligned and AI-ready
+        - text: Our mentorship is unlimited and personalized
+        - text: Our career support never expires
+    section_id: split_cards-5m7kgg
   - type: bento_cards
     version: "1.0"
     title: ¿Cómo te ayuda Rigobot?
