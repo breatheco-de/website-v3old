@@ -424,6 +424,8 @@ sections:
     paddingY:
       mobile: sm none
       desktop: md none
+    marginY:
+      desktop: none lg
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
     description: Musicians, philosophers, support specialists and people with zero prior experience. Now they are developers with real jobs and salaries they didn't expect.
