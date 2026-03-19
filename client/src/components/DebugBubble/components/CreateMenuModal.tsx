@@ -221,13 +221,17 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
                     className="space-y-2 pt-1"
                     data-testid={`row-ct-assignment-${ct.name}`}
                   >
-                    <p className="text-xs font-medium text-muted-foreground">
+                    <p className="text-sm font-medium">
                       {ct.label || ct.name}
                     </p>
                     <div className="flex gap-6">
-                      <div className="flex flex-col items-start gap-0.5">
-                        <label className="flex items-center gap-1.5 cursor-pointer select-none">
+                      <label
+                        htmlFor={`checkbox-top-${ct.name}`}
+                        className="flex flex-col items-start gap-0.5 cursor-pointer select-none"
+                      >
+                        <span className="flex items-center gap-1.5">
                           <input
+                            id={`checkbox-top-${ct.name}`}
                             type="checkbox"
                             checked={slotState.top}
                             onChange={() => toggleSlot(ct.name, "top")}
@@ -236,16 +240,20 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
                             className="rounded"
                           />
                           <span className="text-xs">Top</span>
-                        </label>
+                        </span>
                         {currentTop && (
                           <span className="text-xs text-muted-foreground pl-5">
                             currently: {currentTop}
                           </span>
                         )}
-                      </div>
-                      <div className="flex flex-col items-start gap-0.5">
-                        <label className="flex items-center gap-1.5 cursor-pointer select-none">
+                      </label>
+                      <label
+                        htmlFor={`checkbox-bottom-${ct.name}`}
+                        className="flex flex-col items-start gap-0.5 cursor-pointer select-none"
+                      >
+                        <span className="flex items-center gap-1.5">
                           <input
+                            id={`checkbox-bottom-${ct.name}`}
                             type="checkbox"
                             checked={slotState.bottom}
                             onChange={() => toggleSlot(ct.name, "bottom")}
@@ -254,70 +262,81 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
                             className="rounded"
                           />
                           <span className="text-xs">Bottom</span>
-                        </label>
+                        </span>
                         {currentBottom && (
                           <span className="text-xs text-muted-foreground pl-5">
                             currently: {currentBottom}
                           </span>
                         )}
-                      </div>
+                      </label>
                     </div>
                   </div>
                 );
               })()}
 
               {Object.entries(assignments).some(([, s]) => s.top || s.bottom) && (
-                <div className="space-y-1 pt-1">
-                  {Object.entries(assignments).flatMap(([ctName, slots]) => {
-                    const ct = contentTypes.find((c) => c.name === ctName);
-                    const label = ct?.label || ctName;
-                    const rows: React.ReactNode[] = [];
-                    if (slots.top) {
-                      rows.push(
-                        <div
-                          key={`${ctName}-top`}
-                          className="flex items-center justify-between gap-2 text-xs"
-                          data-testid={`summary-assignment-${ctName}-top`}
-                        >
-                          <span className="text-muted-foreground">
-                            {label} — Top
-                          </span>
-                          <Button
-                            size="icon"
-                            variant="ghost"
-                            onClick={() => toggleSlot(ctName, "top")}
-                            disabled={createMutation.isPending}
-                            data-testid={`remove-assignment-${ctName}-top`}
-                          >
-                            <IconX className="h-3 w-3" />
-                          </Button>
+                <div className="space-y-3 pt-1">
+                  {Object.entries(assignments)
+                    .filter(([, slots]) => slots.top || slots.bottom)
+                    .map(([ctName, slots]) => {
+                      const ct = contentTypes.find((c) => c.name === ctName);
+                      const label = ct?.label || ctName;
+                      const existingTop = ct?.layout?.menu?.top || null;
+                      const existingBottom = ct?.layout?.menu?.bottom || null;
+                      return (
+                        <div key={ctName} className="space-y-1">
+                          <p className="text-sm font-medium">{label}</p>
+                          {slots.top && (
+                            <div
+                              className="flex items-center justify-between gap-2 text-xs pl-1"
+                              data-testid={`summary-assignment-${ctName}-top`}
+                            >
+                              <span className="text-muted-foreground">
+                                Top
+                                {existingTop && (
+                                  <span className="ml-1 text-muted-foreground/70">
+                                    (overrides {existingTop})
+                                  </span>
+                                )}
+                              </span>
+                              <Button
+                                size="icon"
+                                variant="ghost"
+                                onClick={() => toggleSlot(ctName, "top")}
+                                disabled={createMutation.isPending}
+                                data-testid={`remove-assignment-${ctName}-top`}
+                              >
+                                <IconX className="h-3 w-3" />
+                              </Button>
+                            </div>
+                          )}
+                          {slots.bottom && (
+                            <div
+                              className="flex items-center justify-between gap-2 text-xs pl-1"
+                              data-testid={`summary-assignment-${ctName}-bottom`}
+                            >
+                              <span className="text-muted-foreground">
+                                Bottom
+                                {existingBottom && (
+                                  <span className="ml-1 text-muted-foreground/70">
+                                    (overrides {existingBottom})
+                                  </span>
+                                )}
+                              </span>
+                              <Button
+                                size="icon"
+                                variant="ghost"
+                                onClick={() => toggleSlot(ctName, "bottom")}
+                                disabled={createMutation.isPending}
+                                data-testid={`remove-assignment-${ctName}-bottom`}
+                              >
+                                <IconX className="h-3 w-3" />
+                              </Button>
+                            </div>
+                          )}
                         </div>
                       );
-                    }
-                    if (slots.bottom) {
-                      rows.push(
-                        <div
-                          key={`${ctName}-bottom`}
-                          className="flex items-center justify-between gap-2 text-xs"
-                          data-testid={`summary-assignment-${ctName}-bottom`}
-                        >
-                          <span className="text-muted-foreground">
-                            {label} — Bottom
-                          </span>
-                          <Button
-                            size="icon"
-                            variant="ghost"
-                            onClick={() => toggleSlot(ctName, "bottom")}
-                            disabled={createMutation.isPending}
-                            data-testid={`remove-assignment-${ctName}-bottom`}
-                          >
-                            <IconX className="h-3 w-3" />
-                          </Button>
-                        </div>
-                      );
-                    }
-                    return rows;
-                  })}
+                    })}
                 </div>
               )}
             </div>
