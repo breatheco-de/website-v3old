@@ -237,17 +237,18 @@ export function HeroCourse({ data }: HeroCourseProps) {
             )}
 
             {/* Signup Card */}
+            {data.signup_card && 
             <Card className="p-6">
               <h3 className="text-xl font-semibold mb-2">
-                {data.signup_card.title}
+                {data.signup_card?.title}
               </h3>
-              {data.signup_card.description && (
+              {data.signup_card?.description && (
                 <p className="text-sm text-muted-foreground mb-4">
-                  {data.signup_card.description}
+                  {data.signup_card?.description}
                 </p>
               )}
 
-              {data.signup_card.form && (
+              {data.signup_card?.form && (
                 <div data-hero-inline-form className="mb-2">
                   <Suspense
                     fallback={
@@ -256,19 +257,19 @@ export function HeroCourse({ data }: HeroCourseProps) {
                       </div>
                     }
                   >
-                    <LeadForm data={data.signup_card.form} />
+                    <LeadForm data={data.signup_card?.form} />
                   </Suspense>
                 </div>
               )}
-              {data.signup_card.cta_button && (
+              {data.signup_card?.cta_button && (
                 <>
                   <Button
                     className="w-full mb-3"
                     size="lg"
                     variant={
-                      data.signup_card.cta_button.variant === "outline"
+                      data.signup_card?.cta_button.variant === "outline"
                         ? "outline"
-                        : data.signup_card.cta_button.variant === "secondary"
+                        : data.signup_card?.cta_button.variant === "secondary"
                           ? "secondary"
                           : "default"
                     }
@@ -276,38 +277,38 @@ export function HeroCourse({ data }: HeroCourseProps) {
                     asChild
                   >
                     <a
-                      href={data.signup_card.cta_button.url}
+                      href={data.signup_card?.cta_button.url}
                       onClick={handleLinkClick}
                     >
-                      {data.signup_card.cta_button.text}
+                      {data.signup_card?.cta_button.text}
                     </a>
                   </Button>
                 </>
               )}
-              {data.signup_card.login_link?.text &&
-                (data.signup_card.login_link.url ? (
+              {data.signup_card?.login_link?.text &&
+                (data.signup_card?.login_link.url ? (
                   <a
-                    href={data.signup_card.login_link.url}
+                    href={data.signup_card?.login_link.url}
                     onClick={handleLinkClick}
                     data-testid="link-hero-login"
                   >
                     <RichTextContent
-                      html={data.signup_card.login_link.text}
+                      html={data.signup_card?.login_link.text}
                       className="text-sm text-center text-muted-foreground mb-6 text-primary text-primary hover:underline"
                       data-testid="text-hero-login-link"
                     />
                   </a>
                 ) : (
                   <RichTextContent
-                    html={data.signup_card.login_link.text}
+                    html={data.signup_card?.login_link.text}
                     className="text-sm text-center text-muted-foreground mb-6"
                     data-testid="text-hero-login-link"
                   />
                 ))}
-              {data.signup_card.features &&
-                data.signup_card.features.length > 0 && (
+              {data.signup_card?.features &&
+                data.signup_card?.features.length > 0 && (
                   <div className="border-t pt-4 space-y-3">
-                    {data.signup_card.features.map((feature, index) => {
+                    {data.signup_card?.features.map((feature, index) => {
                       const IconComponent = getIcon(feature.icon) || IconBook;
                       return (
                         <div
@@ -327,6 +328,7 @@ export function HeroCourse({ data }: HeroCourseProps) {
                   </div>
                 )}
             </Card>
+            }
           </div>
         </div>
       </div>
