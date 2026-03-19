@@ -147,12 +147,5 @@
       "--ring": "210 100% 50%",
       "--radius": "0.75rem"
     }
-  },
-  "preview_examples": [
-    {
-      "component": "testimonials",
-      "version": "v1.0",
-      "example": "full_with_ratings"
-    }
-  ]
+  }
 }

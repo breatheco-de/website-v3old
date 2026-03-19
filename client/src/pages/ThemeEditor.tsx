@@ -608,6 +608,35 @@ export default function ThemeEditor() {
   const [expandedToken, setExpandedToken] = useState<string | null>(null);
   const [radiusOpen, setRadiusOpen] = useState(false);
 
+  const [sidebarWidth, setSidebarWidth] = useState(288);
+  const isDragging = useRef(false);
+  const dragStartX = useRef(0);
+  const dragStartWidth = useRef(0);
+
+  const handleDragStart = useCallback((e: React.MouseEvent) => {
+    isDragging.current = true;
+    dragStartX.current = e.clientX;
+    dragStartWidth.current = sidebarWidth;
+    document.body.style.cursor = "col-resize";
+    document.body.style.userSelect = "none";
+
+    const onMove = (ev: MouseEvent) => {
+      if (!isDragging.current) return;
+      const delta = ev.clientX - dragStartX.current;
+      const next = Math.max(200, Math.min(560, dragStartWidth.current + delta));
+      setSidebarWidth(next);
+    };
+    const onUp = () => {
+      isDragging.current = false;
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+    };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+  }, [sidebarWidth]);
+
   const [confirmedExamples, setConfirmedExamples] = useState<PreviewExample[]>([]);
   const [addRow, setAddRow] = useState<{ component: string; version: string; example: string } | null>(null);
   const iframeRefs = useRef<Map<number, HTMLIFrameElement>>(new Map());
@@ -784,7 +813,7 @@ export default function ThemeEditor() {
 
   return (
     <div className="flex h-screen bg-background overflow-hidden" data-testid="page-theme-editor">
-      <div className="w-72 shrink-0 flex flex-col border-r border-border bg-card">
+      <div className="shrink-0 flex flex-col bg-card relative border-r border-border" style={{ width: sidebarWidth }}>
         <div className="px-4 py-3 border-b border-border">
           <div className="flex items-center gap-2 mb-3">
             <IconPalette className="h-4 w-4 text-primary" />
@@ -1004,6 +1033,12 @@ export default function ThemeEditor() {
           </>
         )}
       </div>
+
+      <div
+        className="w-1 shrink-0 cursor-col-resize hover:bg-primary/30 active:bg-primary/50 transition-colors z-10 relative"
+        onMouseDown={handleDragStart}
+        data-testid="sidebar-resize-handle"
+      />
 
       <div className="flex-1 flex flex-col overflow-hidden">
         <div className="flex items-center gap-1 px-4 py-2 border-b border-border bg-card shrink-0">
