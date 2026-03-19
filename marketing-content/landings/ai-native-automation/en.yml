@@ -178,20 +178,20 @@ sections:
         alt: Forbes Award logo
         id: forbes-logo-award
       - image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-        rating: 4.8
-        review_count: 1,523 reviews
+        rating: null
+        review_count: null
         trusted_text: Top Rated Program
         alt: Course Report Badge 2025
         id: course-report-badge
       - image: https://storage.googleapis.com/4geeks-academy-website/media/Forbes-Advisor_1770392260031.png
-        rating: 4.9
-        review_count: 987 reviews
+        rating: null
+        review_count: null
         trusted_text: Verified Reviews
         alt: Forbes Advisor Best of 2025 - Best for lifetime career support
         id: logo-forbes-advisor-2025
       - image: https://storage.googleapis.com/4geeks-academy-website/media/premios-excelencia-educativa-17_1770392145139.png
-        rating: 4.9
-        review_count: 987 reviews
+        rating: null
+        review_count: null
         trusted_text: Verified Reviews
         alt: 17 Premios Excelencia Educativa
         id: logo-premios-excelencia-educativa
