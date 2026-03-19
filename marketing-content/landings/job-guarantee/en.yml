@@ -105,14 +105,14 @@ sections:
     heading: Real Career Outcomes
     subheading: Over 6,000 graduates have made the switch to tech. Here's what happened after they completed the program.
     stats:
-      - value: 86%
+      - value: 84%
         label: Hiring rate, graduates placed within 90 days
       - value: 55%
         label: Average salary increase after graduation
       - value: 3-6 months
         label: Average time to get hired in 2025
-      - value: 5,000+
-        label: Graduates employed worldwide
+      - value: 6,000+
+        label: Graduates worldwide
     collage_images:
       - image_id: graduates_team_1
         col_span: 5
