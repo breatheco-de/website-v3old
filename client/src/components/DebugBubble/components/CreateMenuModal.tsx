@@ -56,12 +56,19 @@ function toSlug(value: string): string {
     .replace(/^-|-$/g, "");
 }
 
+function toSlugTyping(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/[\s]+/g, "-")
+    .replace(/-+/g, "-");
+}
+
 export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
   const [, navigate] = useLocation();
   const [name, setName] = useState("");
   const [assignments, setAssignments] = useState<Record<string, SlotAssignment>>({});
   const [focusedCt, setFocusedCt] = useState<string | null>(null);
-  const [selectValue, setSelectValue] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   const { data: contentTypes } = useQuery<ContentTypeItem[]>({
@@ -115,14 +122,13 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
       setName("");
       setAssignments({});
       setFocusedCt(null);
-      setSelectValue("");
       setError(null);
     }
     onOpenChange(open);
   };
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(toSlug(e.target.value));
+    setName(toSlugTyping(e.target.value));
     setError(null);
   };
 
@@ -192,11 +198,8 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
               </div>
 
               <Select
-                value={selectValue}
-                onValueChange={(val) => {
-                  setFocusedCt(val);
-                  setSelectValue("");
-                }}
+                value={focusedCt ?? ""}
+                onValueChange={(val) => setFocusedCt(val)}
                 disabled={createMutation.isPending}
               >
                 <SelectTrigger data-testid="select-ct-picker">
