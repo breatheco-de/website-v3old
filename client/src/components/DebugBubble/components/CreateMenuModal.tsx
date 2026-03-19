@@ -3,6 +3,7 @@ import { useLocation } from "wouter";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   IconAlertTriangle,
+  IconArrowRight,
   IconMenu2,
   IconRefresh,
   IconX,
@@ -275,7 +276,7 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
               })()}
 
               {Object.entries(assignments).some(([, s]) => s.top || s.bottom) && (
-                <div className="space-y-1 pt-1">
+                <div className="space-y-1 pt-2 border-t">
                   {Object.entries(assignments).flatMap(([ctName, slots]) => {
                     const ct = contentTypes.find((c) => c.name === ctName);
                     const label = ct?.label || ctName;
@@ -286,12 +287,13 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
                       rows.push(
                         <div
                           key={`${ctName}-top`}
-                          className="flex items-center gap-3"
+                          className="flex items-center gap-2"
                           data-testid={`summary-assignment-${ctName}-top`}
                         >
                           <span className="text-sm font-medium flex-1 truncate">
                             {label}
                           </span>
+                          <IconArrowRight className="h-3 w-3 text-muted-foreground shrink-0" />
                           <span className="text-xs text-muted-foreground shrink-0">
                             Top
                             {existingTop && (
@@ -316,12 +318,13 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
                       rows.push(
                         <div
                           key={`${ctName}-bottom`}
-                          className="flex items-center gap-3"
+                          className="flex items-center gap-2"
                           data-testid={`summary-assignment-${ctName}-bottom`}
                         >
                           <span className="text-sm font-medium flex-1 truncate">
                             {label}
                           </span>
+                          <IconArrowRight className="h-3 w-3 text-muted-foreground shrink-0" />
                           <span className="text-xs text-muted-foreground shrink-0">
                             Bottom
                             {existingBottom && (
