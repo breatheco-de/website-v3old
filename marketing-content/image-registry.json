@@ -5368,7 +5368,37 @@
         "photo"
       ],
       "usage_count": 0,
-      "hash": "455d950c2e110ad696cc73e69098a00345dcbd1f730afe8f155a927d0fd08672"
+      "hash": "455d950c2e110ad696cc73e69098a00345dcbd1f730afe8f155a927d0fd08672",
+      "width": 2048,
+      "height": 1416,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960,
+        1280,
+        1920
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/455d950c2e110ad696cc73e69098a00345dcbd1f730afe8f155a927d0fd08672-2--640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/455d950c2e110ad696cc73e69098a00345dcbd1f730afe8f155a927d0fd08672-2--960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/455d950c2e110ad696cc73e69098a00345dcbd1f730afe8f155a927d0fd08672-2--1280w.webp"
+        },
+        {
+          "w": 1920,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/455d950c2e110ad696cc73e69098a00345dcbd1f730afe8f155a927d0fd08672-2--1920w.webp"
+        }
+      ]
     }
   }
 }
