@@ -109,18 +109,22 @@ export async function setupVite(app: Express, server: Server) {
       const initialDataPayload = await resolveInitialData(url).catch(() => null);
 
       let appHtml = "";
-      try {
-        const entryServerAbs = path.resolve(
-          import.meta.dirname,
-          "..",
-          "client",
-          "src",
-          "entry-server.tsx",
-        );
-        const { render } = await vite.ssrLoadModule(entryServerAbs);
-        appHtml = await render(url, initialDataPayload);
-      } catch (ssrErr) {
-        console.warn("[SSR] render failed, falling back to client-only:", (ssrErr as Error).stack ?? ssrErr);
+      const cleanUrlForSsr = url.split("?")[0].split("#")[0];
+      const skipSsr = cleanUrlForSsr.startsWith("/private/");
+      if (!skipSsr) {
+        try {
+          const entryServerAbs = path.resolve(
+            import.meta.dirname,
+            "..",
+            "client",
+            "src",
+            "entry-server.tsx",
+          );
+          const { render } = await vite.ssrLoadModule(entryServerAbs);
+          appHtml = await render(url, initialDataPayload);
+        } catch (ssrErr) {
+          console.warn("[SSR] render failed, falling back to client-only:", (ssrErr as Error).stack ?? ssrErr);
+        }
       }
 
       let html = appHtml
@@ -182,8 +186,11 @@ export function serveStatic(app: Express) {
     const status = isKnownRoute(url) ? 200 : 404;
     const ssrSchemaHtml = _req.ssrSchemaHtml;
 
+    const cleanUrlForSsr = url.split("?")[0].split("#")[0];
+    const skipSsr = cleanUrlForSsr.startsWith("/private/");
+
     try {
-      const render = await getSsrRender();
+      const render = !skipSsr ? await getSsrRender() : null;
       if (render) {
         const indexHtml = await fs.promises.readFile(indexHtmlPath, "utf-8");
         const initialDataPayload = await resolveInitialData(url).catch(() => null);

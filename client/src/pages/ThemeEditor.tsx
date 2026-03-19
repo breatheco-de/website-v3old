@@ -127,9 +127,11 @@ interface ColorRowProps {
   label: string;
   value: string;
   onChange: (token: string, value: string) => void;
+  isOpen: boolean;
+  onToggle: () => void;
 }
 
-function ColorRow({ tokenId, label, value, onChange }: ColorRowProps) {
+function ColorRow({ tokenId, label, value, onChange, isOpen, onToggle }: ColorRowProps) {
   const [h, s, l] = parseHsl(value);
   const hex = hslToHex(h, s, l);
   const [hexInput, setHexInput] = useState(hex);
@@ -145,96 +147,102 @@ function ColorRow({ tokenId, label, value, onChange }: ColorRowProps) {
   };
 
   return (
-    <div className="space-y-2 py-3" data-testid={`color-row-${tokenId.replace(/^--/, "")}`}>
+    <div className="py-3" data-testid={`color-row-${tokenId.replace(/^--/, "")}`}>
       <div className="flex items-center justify-between gap-2">
         <span className="text-sm font-medium truncate">{label}</span>
-        <div className="flex items-center gap-2 shrink-0">
-          <div
-            className="w-6 h-6 rounded-full border border-border shrink-0"
-            style={{ backgroundColor: `hsl(${h} ${s}% ${l}%)` }}
-          />
+        <button
+          type="button"
+          className="w-6 h-6 rounded-full border border-border shrink-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          style={{ backgroundColor: `hsl(${h} ${s}% ${l}%)` }}
+          onClick={onToggle}
+          aria-expanded={isOpen}
+          data-testid={`swatch-${tokenId.replace(/^--/, "")}`}
+        />
+      </div>
+      {isOpen && (
+        <div className="space-y-2 mt-2">
           <input
             type="text"
             value={hexInput}
             onChange={(e) => handleHexChange(e.target.value)}
-            className="w-20 text-xs px-2 py-1 rounded-md border border-input bg-background font-mono"
+            className="w-full text-xs px-2 py-1 rounded-md border border-input bg-background font-mono"
             data-testid={`input-hex-${tokenId.replace(/^--/, "")}`}
           />
-        </div>
-      </div>
-      <div className="space-y-1.5">
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground w-3">H</span>
-          <div
-            className="flex-1 h-2 rounded-full relative"
-            style={{
-              background: `linear-gradient(to right, hsl(0 ${s}% ${l}%), hsl(60 ${s}% ${l}%), hsl(120 ${s}% ${l}%), hsl(180 ${s}% ${l}%), hsl(240 ${s}% ${l}%), hsl(300 ${s}% ${l}%), hsl(360 ${s}% ${l}%))`,
-            }}
-          >
-            <input
-              type="range"
-              min={0}
-              max={360}
-              step={1}
-              value={h}
-              onChange={(e) => onChange(tokenId, formatHsl(Number(e.target.value), s, l))}
-              className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
-              data-testid={`slider-h-${tokenId.replace(/^--/, "")}`}
-            />
-            <div
-              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm"
-              style={{ left: `${(h / 360) * 100}%`, transform: "translateX(-50%) translateY(-50%)", backgroundColor: `hsl(${h} ${s}% ${l}%)` }}
-            />
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-muted-foreground w-3">H</span>
+              <div
+                className="flex-1 h-2 rounded-full relative"
+                style={{
+                  background: `linear-gradient(to right, hsl(0 ${s}% ${l}%), hsl(60 ${s}% ${l}%), hsl(120 ${s}% ${l}%), hsl(180 ${s}% ${l}%), hsl(240 ${s}% ${l}%), hsl(300 ${s}% ${l}%), hsl(360 ${s}% ${l}%))`,
+                }}
+              >
+                <input
+                  type="range"
+                  min={0}
+                  max={360}
+                  step={1}
+                  value={h}
+                  onChange={(e) => onChange(tokenId, formatHsl(Number(e.target.value), s, l))}
+                  className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
+                  data-testid={`slider-h-${tokenId.replace(/^--/, "")}`}
+                />
+                <div
+                  className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm"
+                  style={{ left: `${(h / 360) * 100}%`, transform: "translateX(-50%) translateY(-50%)", backgroundColor: `hsl(${h} ${s}% ${l}%)` }}
+                />
+              </div>
+              <span className="text-xs text-muted-foreground w-7 text-right">{h}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-muted-foreground w-3">S</span>
+              <div
+                className="flex-1 h-2 rounded-full relative"
+                style={{ background: `linear-gradient(to right, hsl(${h} 0% ${l}%), hsl(${h} 100% ${l}%))` }}
+              >
+                <input
+                  type="range"
+                  min={0}
+                  max={100}
+                  step={1}
+                  value={s}
+                  onChange={(e) => onChange(tokenId, formatHsl(h, Number(e.target.value), l))}
+                  className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
+                  data-testid={`slider-s-${tokenId.replace(/^--/, "")}`}
+                />
+                <div
+                  className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm"
+                  style={{ left: `${s}%`, transform: "translateX(-50%) translateY(-50%)", backgroundColor: `hsl(${h} ${s}% ${l}%)` }}
+                />
+              </div>
+              <span className="text-xs text-muted-foreground w-7 text-right">{s}%</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-muted-foreground w-3">L</span>
+              <div
+                className="flex-1 h-2 rounded-full relative"
+                style={{ background: `linear-gradient(to right, hsl(${h} ${s}% 0%), hsl(${h} ${s}% 50%), hsl(${h} ${s}% 100%))` }}
+              >
+                <input
+                  type="range"
+                  min={0}
+                  max={100}
+                  step={1}
+                  value={l}
+                  onChange={(e) => onChange(tokenId, formatHsl(h, s, Number(e.target.value)))}
+                  className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
+                  data-testid={`slider-l-${tokenId.replace(/^--/, "")}`}
+                />
+                <div
+                  className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm"
+                  style={{ left: `${l}%`, transform: "translateX(-50%) translateY(-50%)", backgroundColor: `hsl(${h} ${s}% ${l}%)` }}
+                />
+              </div>
+              <span className="text-xs text-muted-foreground w-7 text-right">{l}%</span>
+            </div>
           </div>
-          <span className="text-xs text-muted-foreground w-7 text-right">{h}</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground w-3">S</span>
-          <div
-            className="flex-1 h-2 rounded-full relative"
-            style={{ background: `linear-gradient(to right, hsl(${h} 0% ${l}%), hsl(${h} 100% ${l}%))` }}
-          >
-            <input
-              type="range"
-              min={0}
-              max={100}
-              step={1}
-              value={s}
-              onChange={(e) => onChange(tokenId, formatHsl(h, Number(e.target.value), l))}
-              className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
-              data-testid={`slider-s-${tokenId.replace(/^--/, "")}`}
-            />
-            <div
-              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm"
-              style={{ left: `${s}%`, transform: "translateX(-50%) translateY(-50%)", backgroundColor: `hsl(${h} ${s}% ${l}%)` }}
-            />
-          </div>
-          <span className="text-xs text-muted-foreground w-7 text-right">{s}%</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground w-3">L</span>
-          <div
-            className="flex-1 h-2 rounded-full relative"
-            style={{ background: `linear-gradient(to right, hsl(${h} ${s}% 0%), hsl(${h} ${s}% 50%), hsl(${h} ${s}% 100%))` }}
-          >
-            <input
-              type="range"
-              min={0}
-              max={100}
-              step={1}
-              value={l}
-              onChange={(e) => onChange(tokenId, formatHsl(h, s, Number(e.target.value)))}
-              className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
-              data-testid={`slider-l-${tokenId.replace(/^--/, "")}`}
-            />
-            <div
-              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm"
-              style={{ left: `${l}%`, transform: "translateX(-50%) translateY(-50%)", backgroundColor: `hsl(${h} ${s}% ${l}%)` }}
-            />
-          </div>
-          <span className="text-xs text-muted-foreground w-7 text-right">{l}%</span>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -306,6 +314,8 @@ export default function ThemeEditor() {
   const [darkColors, setDarkColors] = useState<Record<string, string>>({});
   const [isSaving, setIsSaving] = useState(false);
   const [activeSection, setActiveSection] = useState<"atoms" | "combinations">("atoms");
+  const [expandedToken, setExpandedToken] = useState<string | null>(null);
+  const [radiusOpen, setRadiusOpen] = useState(false);
 
   const { data: themeData, isLoading: themeLoading } = useQuery<ThemeData>({
     queryKey: ["/api/theme"],
@@ -447,6 +457,8 @@ export default function ThemeEditor() {
                         label={token.label}
                         value={activeColors[token.id] || "0 0% 0%"}
                         onChange={handleColorChange}
+                        isOpen={expandedToken === token.id}
+                        onToggle={() => setExpandedToken(expandedToken === token.id ? null : token.id)}
                       />
                       {i < group.tokens.length - 1 && <Separator />}
                     </div>
@@ -455,45 +467,58 @@ export default function ThemeEditor() {
               ))}
 
               <div className="py-3">
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider pt-4 pb-3">
-                  Radius
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="flex-1 relative h-2 rounded-full bg-muted">
-                    <input
-                      type="range"
-                      min={0}
-                      max={2}
-                      step={0.05}
-                      value={radiusValue}
-                      onChange={(e) => handleRadiusChange(Number(e.target.value))}
-                      className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
-                      data-testid="slider-radius"
-                    />
-                    <div
-                      className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white bg-primary shadow-sm"
-                      style={{ left: `${(radiusValue / 2) * 100}%`, transform: "translateX(-50%) translateY(-50%)" }}
-                    />
-                    <div
-                      className="h-full rounded-full bg-primary"
-                      style={{ width: `${(radiusValue / 2) * 100}%` }}
-                    />
-                  </div>
-                  <span className="text-xs text-muted-foreground w-12 text-right shrink-0">{radiusValue.toFixed(2)}rem</span>
-                </div>
-                <div className="mt-3 flex gap-2">
-                  {[0, 0.25, 0.5, 0.75, 1, 1.5, 2].map((v) => (
-                    <button
-                      key={v}
-                      onClick={() => handleRadiusChange(v)}
-                      className={`flex-1 h-6 border text-xs transition-colors hover-elevate ${Math.abs(radiusValue - v) < 0.01 ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground"}`}
-                      style={{ borderRadius: `${v * 8}px` }}
-                      data-testid={`button-radius-${v}`}
-                    >
-                      {v}
-                    </button>
-                  ))}
-                </div>
+                <button
+                  type="button"
+                  className="flex items-center justify-between w-full pt-4 pb-1 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  onClick={() => setRadiusOpen((prev) => !prev)}
+                  aria-expanded={radiusOpen}
+                  data-testid="button-radius-toggle"
+                >
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Radius
+                  </p>
+                  <span className="text-xs text-muted-foreground">{radiusValue.toFixed(2)}rem</span>
+                </button>
+                {radiusOpen && (
+                  <>
+                    <div className="flex items-center gap-3 mt-2">
+                      <div className="flex-1 relative h-2 rounded-full bg-muted">
+                        <input
+                          type="range"
+                          min={0}
+                          max={2}
+                          step={0.05}
+                          value={radiusValue}
+                          onChange={(e) => handleRadiusChange(Number(e.target.value))}
+                          className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
+                          data-testid="slider-radius"
+                        />
+                        <div
+                          className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white bg-primary shadow-sm"
+                          style={{ left: `${(radiusValue / 2) * 100}%`, transform: "translateX(-50%) translateY(-50%)" }}
+                        />
+                        <div
+                          className="h-full rounded-full bg-primary"
+                          style={{ width: `${(radiusValue / 2) * 100}%` }}
+                        />
+                      </div>
+                      <span className="text-xs text-muted-foreground w-12 text-right shrink-0">{radiusValue.toFixed(2)}rem</span>
+                    </div>
+                    <div className="mt-3 flex gap-2">
+                      {[0, 0.25, 0.5, 0.75, 1, 1.5, 2].map((v) => (
+                        <button
+                          key={v}
+                          onClick={() => handleRadiusChange(v)}
+                          className={`flex-1 h-6 border text-xs transition-colors hover-elevate ${Math.abs(radiusValue - v) < 0.01 ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground"}`}
+                          style={{ borderRadius: `${v * 8}px` }}
+                          data-testid={`button-radius-${v}`}
+                        >
+                          {v}
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           )}
