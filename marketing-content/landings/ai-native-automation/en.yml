@@ -66,13 +66,15 @@ sections:
       - image_id: graduates_coding
         alt: Student coding at a desk with multiple monitors
         id: graduates-coding
-      - image_id: student_latin_male
-        alt: Latino student working on a project
-        id: student-latin-male
-      - image_id: student-3
-        alt: Student 3
-      - image_id: student-4
-        alt: Student 4
+      - image_id: group_original
+        alt: Original group illustration
+        id: group-original
+      - image_id: community
+        alt: Community illustration
+        id: community
+      - image_id: group-6660-1765391357731
+        alt: "TODO: Add alt text for Group_6660_1765391357731.png"
+        id: group-6660-1765391357731
     cards:
       - icon: Trophy
         title: Industry Recognition
