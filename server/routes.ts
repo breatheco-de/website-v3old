@@ -3911,6 +3911,51 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     res.json({ menus });
   });
 
+  // Create a new menu file
+  app.post("/api/menus", (req, res) => {
+    const { name, type } = req.body || {};
+
+    if (!name || typeof name !== "string") {
+      res.status(400).json({ error: "name is required" });
+      return;
+    }
+
+    // Validate slug: lowercase letters, numbers, hyphens only
+    const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+    if (!slugPattern.test(name)) {
+      res.status(400).json({ error: "name must be a valid slug (lowercase letters, numbers, and hyphens only)" });
+      return;
+    }
+
+    if (!type || (type !== "navbar" && type !== "footer")) {
+      res.status(400).json({ error: "type must be 'navbar' or 'footer'" });
+      return;
+    }
+
+    const menusDir = path.join(process.cwd(), "marketing-content", "menus");
+
+    if (!fs.existsSync(menusDir)) {
+      fs.mkdirSync(menusDir, { recursive: true });
+    }
+
+    const fileName = `${name}.yml`;
+    const filePath = path.join(menusDir, fileName);
+
+    if (fs.existsSync(filePath)) {
+      res.status(409).json({ error: `A menu named '${name}' already exists` });
+      return;
+    }
+
+    const scaffold =
+      type === "navbar"
+        ? `navbar:\n  items: []\n`
+        : `footer:\n  columns: []\n`;
+
+    fs.writeFileSync(filePath, scaffold, "utf8");
+
+    res.status(201).json({ name, file: fileName });
+  });
+
   app.get("/api/menus/:name/usage", (req, res) => {
     try {
       const { name } = req.params;
