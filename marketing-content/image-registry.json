@@ -930,7 +930,13 @@
         "logo",
         "badge",
         "award",
-        "course-report"
+        "course-report",
+        "hero",
+        "card",
+        "photo",
+        "partner",
+        "press",
+        "illustration"
       ],
       "usage_count": 2,
       "hash": "ad15885745125ccf06aa10e2f9ccc8184e7822c9a36a42f7efb1c3085fae368a",
