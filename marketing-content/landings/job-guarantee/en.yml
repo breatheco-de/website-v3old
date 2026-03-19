@@ -245,7 +245,7 @@ sections:
       sub_heading: 4Geeks Academy Graduate, Boston
       description: Luisa was working as a maintenance technician at a repair shop in Boston. She loved cars, but realized it was a hobby, not a long-term career. She needed a path into tech that came with real support, not just a course and good luck. After completing the Full Stack program at 4Geeks, she was referred directly to her first developer job by the academy. Today she builds software for a living.
       button:
-        text: See If You Qualify
+        text: Apply now
         url: "#hero-nzpyph"
         variant: primary
         icon: Rocket
@@ -390,7 +390,7 @@ sections:
           - text: Personalized guidance from senior engineers
           - text: Live troubleshooting and bug fixing
           - text: Industry insights from people working in tech
-          - text: Available throughout the program and after graduation
+          - text: Unlimited number of sessions. Available lifelong
       - title: "Rigobot, your AI tutor:"
         bullets:
           - text: Instant feedback on your code, 24/7
@@ -428,7 +428,7 @@ sections:
       desktop: none md
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
-    description: Musicians, philosophers, support specialists and people with zero prior experience. Now they are developers with real jobs and salaries they didn't expect.
+    description: From music, philosophy, customer support, and everything in between. Real jobs, real salaries, real proof.
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
@@ -594,8 +594,8 @@ sections:
       desktop: none
   - type: cards_deck
     version: "1.0"
-    heading: Real Stories of Real Career Change
-    subtitle: Thousands of graduates have used our programs to break into tech. Here are just a few of their stories, from salary increases to total career reinventions.
+    heading: From Enrollment to Hired. In Their Own Words
+    subtitle: Three graduates. Three different backgrounds. One outcome.
     cards:
       - video:
           url: https://youtu.be/ln3bQsV1BaQ
