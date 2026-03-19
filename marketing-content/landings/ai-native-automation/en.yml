@@ -166,7 +166,7 @@ sections:
     heading: De la Teoría a la Práctica
     description: Sabemos que ver horas de video no te hará estar listo para un empleo. Por eso nuestra plataforma divide el aprendizaje en módulos desbloqueables.
     images:
-      - src: https://drive.google.com/file/d/1nvNYJzBjhq2cm8jhbV1vSYBucSGx1WTX/view?usp=drive_link
+      - src: https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400
         alt: Professional mentor 1
         object_fit: cover
         object_position: center 30%
