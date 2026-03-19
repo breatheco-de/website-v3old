@@ -65,16 +65,16 @@ sections:
         id: unsplash-workspace
     cards:
       - icon: Code
-        title: Plataforma 4Geeks
-        description: Aprende haciendo con lecciones guiadas, ejercicios prácticos y proyectos listos para tu portfolio.
+        title: Lecciones guiadas y ejercicios prácticos
+        description: En la platafroma de 4Geeks aprende haciendo con lecciones, ejercicios prácticos y proyectos listos para tu portfolio.
       - icon: Robot
-        title: Rigobot, tu tutor 24/7
+        title: Rigobot es tu tutor con IA
         description: Recibe feedback en tiempo real, corrige errores y entiende conceptos paso a paso cuando lo necesites.
       - icon: Trophy
-        title: Certifícate
+        title: Certifícate con 4Geeks
         description: Obtén un certificado que valida tus conocimientos.
       - icon: Users
-        title: Mentorías con expertos
+        title: Mentorías uno a uno
         description: Accede a 2 mentorías en vivo con profesores para resolver dudas y avanzar con acompañamiento real.
     background: bg-background
     section_id: features_quad-4u8ahp
