@@ -77,17 +77,17 @@ sections:
         id: group-6660-1765391357731
     cards:
       - icon: Trophy
-        title: Industry Recognition
-        description: Ranked among the top coding bootcamps by Forbes, Course Report, and Career Karma.
+        title: Plataforma 4Geeks
+        description: Aprende haciendo con lecciones guiadas, ejercicios prácticos y proyectos listos para tu portfolio.
       - icon: Wallet
-        title: Affordable Tuition
-        description: Among the most affordable tuition of any top-ranked bootcamp, with flexible payment options.
+        title: Rigobot, tu tutor 24/7
+        description: Recibe feedback en tiempo real, corrige errores y entiende conceptos paso a paso cuando lo necesites.
       - icon: Clock
-        title: Flexible Schedule
-        description: Learn at your own pace with part-time and full-time options to fit your lifestyle.
+        title: Certifícate
+        description: Obtén un certificado que valida tus conocimientos.
       - icon: Users
-        title: Career Support
-        description: Get unlimited 1:1 mentorship and job placement assistance for life.
+        title: Mentorías con expertos
+        description: Accede a 2 mentorías en vivo con profesores para resolver dudas y avanzar con acompañamiento real.
     footer_description: Join thousands of graduates who have launched successful tech careers.
     background: bg-background
     section_id: features_quad-4u8ahp
