@@ -104,6 +104,8 @@ export default function MediaGallery() {
   const [deduplicating, setDeduplicating] = useState(false);
   const [validationResult, setValidationResult] = useState<ValidationRunResult | null>(null);
   const [optimizing, setOptimizing] = useState(false);
+  const [optimizeProgress, setOptimizeProgress] = useState<{ total: number; processed: number } | null>(null);
+  const optimizePollerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [migrating, setMigrating] = useState(false);
   const [autoTagging, setAutoTagging] = useState(false);
   const [migrateConfirmOpen, setMigrateConfirmOpen] = useState(false);
@@ -220,6 +222,7 @@ export default function MediaGallery() {
 
   const handleTriggerOptimization = async () => {
     setOptimizing(true);
+    setOptimizeProgress(null);
     try {
       const res = await apiRequest("POST", "/api/image-registry/optimize-batch", {});
       const data = await res.json();
@@ -227,9 +230,32 @@ export default function MediaGallery() {
         title: "Optimization started",
         description: data.message || `Queued ${data.queued} image(s) for processing`,
       });
+      if (data.queued > 0) {
+        setOptimizeProgress({ total: data.queued, processed: 0 });
+        if (optimizePollerRef.current) clearInterval(optimizePollerRef.current);
+        optimizePollerRef.current = setInterval(async () => {
+          try {
+            const statusRes = await fetch("/api/image-registry/optimize-status");
+            const status = await statusRes.json();
+            setOptimizeProgress({ total: status.total, processed: status.processed });
+            if (!status.active) {
+              if (optimizePollerRef.current) clearInterval(optimizePollerRef.current);
+              optimizePollerRef.current = null;
+              setOptimizing(false);
+              setOptimizeProgress(null);
+            }
+          } catch {
+            if (optimizePollerRef.current) clearInterval(optimizePollerRef.current);
+            optimizePollerRef.current = null;
+            setOptimizing(false);
+            setOptimizeProgress(null);
+          }
+        }, 2500);
+      } else {
+        setOptimizing(false);
+      }
     } catch {
       toast({ title: "Optimization failed", description: "Could not start batch optimization", variant: "destructive" });
-    } finally {
       setOptimizing(false);
     }
   };
@@ -581,6 +607,12 @@ export default function MediaGallery() {
     return () => observer.disconnect();
   }, [hasMore, loadMore]);
 
+  useEffect(() => {
+    return () => {
+      if (optimizePollerRef.current) clearInterval(optimizePollerRef.current);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -908,7 +940,9 @@ export default function MediaGallery() {
                           {optimizing ? (
                             <>
                               <IconLoader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />
-                              Starting...
+                              {optimizeProgress
+                                ? `${optimizeProgress.total - optimizeProgress.processed} / ${optimizeProgress.total} remaining`
+                                : "Starting..."}
                             </>
                           ) : (
                             "Trigger optimization"

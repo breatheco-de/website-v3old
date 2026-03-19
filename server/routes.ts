@@ -1,6 +1,13 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+
+const optimizeJobState = {
+  active: false,
+  total: 0,
+  processed: 0,
+  failed: 0,
+};
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
@@ -8863,6 +8870,11 @@ sections: []
         return;
       }
 
+      optimizeJobState.active = true;
+      optimizeJobState.total = targetIds.length;
+      optimizeJobState.processed = 0;
+      optimizeJobState.failed = 0;
+
       res.json({ queued: targetIds.length, message: `Queued ${targetIds.length} image(s) for background optimization` });
 
       (async () => {
@@ -8881,24 +8893,40 @@ sections: []
               entry.format = result.format;
               entry.srcset = result.srcset;
               processed++;
+              optimizeJobState.processed = processed;
               if (processed % 10 === 0) {
                 mediaGallery.persistRegistry();
                 console.log(`[OptimizeBatch] Progress: ${processed}/${targetIds.length} processed, ${failed} failed`);
               }
             } else {
               failed++;
+              optimizeJobState.failed = failed;
             }
           } catch (err) {
             failed++;
+            optimizeJobState.failed = failed;
             console.error(`[OptimizeBatch] Error processing ${id}:`, err);
           }
         }
         mediaGallery.persistRegistry();
+        optimizeJobState.active = false;
         console.log(`[OptimizeBatch] Complete: ${processed} processed, ${failed} failed out of ${targetIds.length} total`);
-      })().catch(err => console.error("[OptimizeBatch] Background processing error:", err));
+      })().catch(err => {
+        optimizeJobState.active = false;
+        console.error("[OptimizeBatch] Background processing error:", err);
+      });
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Batch optimize failed" });
     }
+  });
+
+  app.get("/api/image-registry/optimize-status", (_req, res) => {
+    res.json({
+      active: optimizeJobState.active,
+      total: optimizeJobState.total,
+      processed: optimizeJobState.processed,
+      failed: optimizeJobState.failed,
+    });
   });
 
   app.post("/api/media/classify/:imageId", async (req, res) => {
