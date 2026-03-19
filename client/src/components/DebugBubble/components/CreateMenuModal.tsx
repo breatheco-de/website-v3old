@@ -203,7 +203,7 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
                         </label>
                         {currentTop && (
                           <span className="text-xs text-muted-foreground pl-5">
-                            {currentTop}
+                            currently: {currentTop}
                           </span>
                         )}
                       </div>
@@ -221,7 +221,7 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
                         </label>
                         {currentBottom && (
                           <span className="text-xs text-muted-foreground pl-5">
-                            {currentBottom}
+                            currently: {currentBottom}
                           </span>
                         )}
                       </div>
