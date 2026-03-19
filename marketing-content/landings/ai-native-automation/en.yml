@@ -61,9 +61,9 @@ sections:
       - image_id: group_original
         alt: Original group illustration
         id: group-original
-      - image_id: group-6660-1765391357731
-        alt: "TODO: Add alt text for Group_6660_1765391357731.png"
-        id: group-6660-1765391357731
+      - image_id: graduates_celebration
+        alt: 4Geeks Academy graduates celebrating with their certificates
+        id: graduates-celebration
     cards:
       - icon: Code
         title: Plataforma 4Geeks
