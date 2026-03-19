@@ -5,6 +5,7 @@ import {
   IconAlertTriangle,
   IconMenu2,
   IconRefresh,
+  IconX,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,6 +15,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 
 interface ContentTypeItem {
@@ -51,6 +59,7 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
   const [, navigate] = useLocation();
   const [name, setName] = useState("");
   const [assignments, setAssignments] = useState<Record<string, SlotAssignment>>({});
+  const [focusedCt, setFocusedCt] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const { data: contentTypes } = useQuery<ContentTypeItem[]>({
@@ -103,6 +112,7 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
     if (!open) {
       setName("");
       setAssignments({});
+      setFocusedCt(null);
       setError(null);
     }
     onOpenChange(open);
@@ -168,27 +178,48 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
           </div>
 
           {contentTypes && contentTypes.length > 0 && (
-            <div className="space-y-1.5">
-              <p className="text-sm font-medium leading-none">
-                Assign to content types
-              </p>
-              <p className="text-xs text-muted-foreground">
-                Choose which content types should use this menu at the top or bottom.
-              </p>
-              <div className="divide-y">
-                {contentTypes.map((ct) => {
-                  const currentTop = ct.layout?.menu?.top || null;
-                  const currentBottom = ct.layout?.menu?.bottom || null;
-                  const slotState = assignments[ct.name] || { top: false, bottom: false };
-                  return (
-                    <div
-                      key={ct.name}
-                      className="flex items-center gap-4 py-2"
-                      data-testid={`row-ct-assignment-${ct.name}`}
-                    >
-                      <span className="flex-1 text-sm font-medium truncate">
-                        {ct.label || ct.name}
-                      </span>
+            <div className="space-y-3">
+              <div className="space-y-1.5">
+                <p className="text-sm font-medium leading-none">
+                  Assign to content types
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Choose which content types should use this menu at the top or bottom.
+                </p>
+              </div>
+
+              <Select
+                value={focusedCt ?? ""}
+                onValueChange={(val) => setFocusedCt(val)}
+                disabled={createMutation.isPending}
+              >
+                <SelectTrigger data-testid="select-ct-picker">
+                  <SelectValue placeholder="Select a content type…" />
+                </SelectTrigger>
+                <SelectContent>
+                  {contentTypes.map((ct) => (
+                    <SelectItem key={ct.name} value={ct.name}>
+                      {ct.label || ct.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              {focusedCt && (() => {
+                const ct = contentTypes.find((c) => c.name === focusedCt);
+                if (!ct) return null;
+                const currentTop = ct.layout?.menu?.top || null;
+                const currentBottom = ct.layout?.menu?.bottom || null;
+                const slotState = assignments[ct.name] || { top: false, bottom: false };
+                return (
+                  <div
+                    className="space-y-2 pt-1"
+                    data-testid={`row-ct-assignment-${ct.name}`}
+                  >
+                    <p className="text-xs font-medium text-muted-foreground">
+                      {ct.label || ct.name}
+                    </p>
+                    <div className="flex gap-6">
                       <div className="flex flex-col items-start gap-0.5">
                         <label className="flex items-center gap-1.5 cursor-pointer select-none">
                           <input
@@ -226,9 +257,64 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
                         )}
                       </div>
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                );
+              })()}
+
+              {Object.entries(assignments).some(([, s]) => s.top || s.bottom) && (
+                <div className="space-y-1 pt-1">
+                  {Object.entries(assignments).flatMap(([ctName, slots]) => {
+                    const ct = contentTypes.find((c) => c.name === ctName);
+                    const label = ct?.label || ctName;
+                    const rows: React.ReactNode[] = [];
+                    if (slots.top) {
+                      rows.push(
+                        <div
+                          key={`${ctName}-top`}
+                          className="flex items-center justify-between gap-2 text-xs"
+                          data-testid={`summary-assignment-${ctName}-top`}
+                        >
+                          <span className="text-muted-foreground">
+                            {label} — Top
+                          </span>
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            onClick={() => toggleSlot(ctName, "top")}
+                            disabled={createMutation.isPending}
+                            data-testid={`remove-assignment-${ctName}-top`}
+                          >
+                            <IconX className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      );
+                    }
+                    if (slots.bottom) {
+                      rows.push(
+                        <div
+                          key={`${ctName}-bottom`}
+                          className="flex items-center justify-between gap-2 text-xs"
+                          data-testid={`summary-assignment-${ctName}-bottom`}
+                        >
+                          <span className="text-muted-foreground">
+                            {label} — Bottom
+                          </span>
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            onClick={() => toggleSlot(ctName, "bottom")}
+                            disabled={createMutation.isPending}
+                            data-testid={`remove-assignment-${ctName}-bottom`}
+                          >
+                            <IconX className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      );
+                    }
+                    return rows;
+                  })}
+                </div>
+              )}
             </div>
           )}
 
