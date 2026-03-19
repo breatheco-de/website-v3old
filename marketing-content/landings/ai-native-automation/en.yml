@@ -45,6 +45,7 @@ sections:
       loop: true
       preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40.png
     section_id: hero-d29v3o
+    layout_reversed: true
   - type: features_quad
     version: "1.0"
     variant: default
