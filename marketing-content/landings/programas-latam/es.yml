@@ -34,10 +34,10 @@ sections:
           visible: true
           required: true
         program:
-          visible: false
-          default: full-stack
+          visible: true
+          requiere: true
       success:
-        message: Ya estás dentro. Alguien de nuestro equipo de admisiones se pondrá en contacto contigo en unos minutos por email. Revisa tu bandeja de entrada.
+        message: Alguien de nuestro equipo de admisiones se pondrá en contacto contigo en unos minutos por email. Revisa tu bandeja de entrada.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
