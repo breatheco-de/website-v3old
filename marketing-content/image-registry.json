@@ -1242,7 +1242,15 @@
       "tags": [
         "photo",
         "testimonial",
-        "avatar"
+        "avatar",
+        "hero",
+        "logo",
+        "card",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "award"
       ],
       "usage_count": 3,
       "hash": "693ad4011fba03a9a9191348d5db5a7cd1a0d2f6fc9e276ef138d6f25e10a051",
