@@ -386,6 +386,34 @@ export async function resolveInitialData(
   return { queries };
 }
 
+function buildThemeCssOverrides(): string {
+  try {
+    const themePath = path.join(process.cwd(), "marketing-content", "theme.json");
+    if (!fs.existsSync(themePath)) return "";
+    const theme = JSON.parse(fs.readFileSync(themePath, "utf-8")) as {
+      colors?: { light?: Record<string, string>; dark?: Record<string, string> };
+    };
+    const colors = theme.colors;
+    if (!colors) return "";
+    let css = "";
+    if (colors.light && Object.keys(colors.light).length > 0) {
+      const vars = Object.entries(colors.light)
+        .map(([k, v]) => `  ${k}: ${v};`)
+        .join("\n");
+      css += `:root {\n${vars}\n}\n`;
+    }
+    if (colors.dark && Object.keys(colors.dark).length > 0) {
+      const vars = Object.entries(colors.dark)
+        .map(([k, v]) => `  ${k}: ${v};`)
+        .join("\n");
+      css += `.dark {\n${vars}\n}\n`;
+    }
+    return css ? `<style id="__theme_overrides__">\n${css}</style>` : "";
+  } catch {
+    return "";
+  }
+}
+
 export function initialDataMiddleware(
   req: Request,
   res: Response,
@@ -436,7 +464,11 @@ export function initialDataMiddleware(
                 return;
               }
               const scriptTag = `<script id="__INITIAL_DATA__" type="application/json">${JSON.stringify(payload).replace(/</g, "\\u003c")}</script>`;
-              const injected = html.replace("</body>", scriptTag + "</body>");
+              let injected = html.replace("</body>", scriptTag + "</body>");
+              const themeStyle = buildThemeCssOverrides();
+              if (themeStyle && !injected.includes('id="__theme_overrides__"')) {
+                injected = injected.replace("</head>", themeStyle + "</head>");
+              }
 
               const newLength = Buffer.byteLength(injected, "utf-8");
               res.setHeader("content-length", newLength);

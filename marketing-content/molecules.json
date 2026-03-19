@@ -176,6 +176,208 @@
       "props": {
         "className": ""
       }
+    },
+    {
+      "id": "button-primary",
+      "component": "Button",
+      "variant": "Primary",
+      "description": "shadcn Button — primary/default variant",
+      "tags": ["theme-preview", "atoms", "button"],
+      "props": { "variant": "default", "label": "Apply Now" }
+    },
+    {
+      "id": "button-secondary",
+      "component": "Button",
+      "variant": "Secondary",
+      "description": "shadcn Button — secondary variant",
+      "tags": ["theme-preview", "atoms", "button"],
+      "props": { "variant": "secondary", "label": "Learn More" }
+    },
+    {
+      "id": "button-outline",
+      "component": "Button",
+      "variant": "Outline",
+      "description": "shadcn Button — outline variant",
+      "tags": ["theme-preview", "atoms", "button"],
+      "props": { "variant": "outline", "label": "See Details" }
+    },
+    {
+      "id": "button-ghost",
+      "component": "Button",
+      "variant": "Ghost",
+      "description": "shadcn Button — ghost variant",
+      "tags": ["theme-preview", "atoms", "button"],
+      "props": { "variant": "ghost", "label": "Cancel" }
+    },
+    {
+      "id": "button-destructive",
+      "component": "Button",
+      "variant": "Destructive",
+      "description": "shadcn Button — destructive variant",
+      "tags": ["theme-preview", "atoms", "button"],
+      "props": { "variant": "destructive", "label": "Delete" }
+    },
+    {
+      "id": "badge-default",
+      "component": "Badge",
+      "variant": "Default",
+      "description": "shadcn Badge — default variant",
+      "tags": ["theme-preview", "atoms", "badge"],
+      "props": { "variant": "default", "label": "New" }
+    },
+    {
+      "id": "badge-secondary",
+      "component": "Badge",
+      "variant": "Secondary",
+      "description": "shadcn Badge — secondary variant",
+      "tags": ["theme-preview", "atoms", "badge"],
+      "props": { "variant": "secondary", "label": "Popular" }
+    },
+    {
+      "id": "badge-outline",
+      "component": "Badge",
+      "variant": "Outline",
+      "description": "shadcn Badge — outline variant",
+      "tags": ["theme-preview", "atoms", "badge"],
+      "props": { "variant": "outline", "label": "Beta" }
+    },
+    {
+      "id": "badge-destructive",
+      "component": "Badge",
+      "variant": "Destructive",
+      "description": "shadcn Badge — destructive variant",
+      "tags": ["theme-preview", "atoms", "badge"],
+      "props": { "variant": "destructive", "label": "Deprecated" }
+    },
+    {
+      "id": "card-basic",
+      "component": "Card",
+      "variant": "Basic Card",
+      "description": "shadcn Card with title and body text",
+      "tags": ["theme-preview", "atoms", "card"],
+      "props": { "title": "Card Title", "body": "A basic card with a title and body text that responds to theme color changes." }
+    },
+    {
+      "id": "input-text",
+      "component": "Input",
+      "variant": "Text Input",
+      "description": "shadcn Input with label",
+      "tags": ["theme-preview", "atoms", "form"],
+      "props": { "placeholder": "Enter your email...", "label": "Email address" }
+    },
+    {
+      "id": "switch-toggle",
+      "component": "Switch",
+      "variant": "Toggle",
+      "description": "shadcn Switch toggle",
+      "tags": ["theme-preview", "atoms", "form"],
+      "props": { "label": "Enable notifications", "defaultChecked": true }
+    },
+    {
+      "id": "checkbox-item",
+      "component": "Checkbox",
+      "variant": "Checkbox",
+      "description": "shadcn Checkbox with label",
+      "tags": ["theme-preview", "atoms", "form"],
+      "props": { "label": "Accept terms and conditions", "defaultChecked": false }
+    },
+    {
+      "id": "avatar-fallback",
+      "component": "Avatar",
+      "variant": "Fallback",
+      "description": "shadcn Avatar with initials fallback",
+      "tags": ["theme-preview", "atoms"],
+      "props": { "fallback": "JD", "label": "John Doe" }
+    },
+    {
+      "id": "cta-button-primary",
+      "component": "CtaButton",
+      "variant": "Primary Link",
+      "description": "Project custom button-as-anchor — primary variant",
+      "tags": ["theme-preview", "atoms", "button"],
+      "props": { "text": "Apply Now", "url": "#", "variant": "primary" }
+    },
+    {
+      "id": "cta-button-secondary",
+      "component": "CtaButton",
+      "variant": "Secondary Link",
+      "description": "Project custom button-as-anchor — secondary variant",
+      "tags": ["theme-preview", "atoms", "button"],
+      "props": { "text": "Learn More", "url": "#", "variant": "secondary" }
+    },
+    {
+      "id": "cta-button-outline",
+      "component": "CtaButton",
+      "variant": "Outline Link",
+      "description": "Project custom button-as-anchor — outline variant",
+      "tags": ["theme-preview", "atoms", "button"],
+      "props": { "text": "See Details", "url": "#", "variant": "outline" }
+    },
+    {
+      "id": "simple-link",
+      "component": "SimpleLink",
+      "variant": "Nav Link",
+      "description": "Hover-elevate styled anchor used in main navigation",
+      "tags": ["theme-preview", "atoms"],
+      "props": { "label": "Programs", "href": "#" }
+    },
+    {
+      "id": "solid-card-basic",
+      "component": "SolidCard",
+      "variant": "Basic",
+      "description": "Brand-specific card with bold offset shadow border",
+      "tags": ["theme-preview", "atoms", "card"],
+      "props": { "children": "A SolidCard with bold border and offset shadow — this is a custom card style used in marketing sections." }
+    },
+    {
+      "id": "dots-indicator-3",
+      "component": "DotsIndicator",
+      "variant": "3 Dots",
+      "description": "Carousel dot indicator with 3 items, second active",
+      "tags": ["theme-preview", "atoms"],
+      "props": { "count": 3, "activeIndex": 1 }
+    },
+    {
+      "id": "stats-card-up",
+      "component": "StatsCard",
+      "variant": "Trend Up",
+      "description": "Data card with icon, large value, and positive trend",
+      "tags": ["theme-preview", "atoms", "stats"],
+      "props": { "title": "Students Enrolled", "value": "12,400", "icon": "people-group", "trend": "+8% this month", "trendUp": true }
+    },
+    {
+      "id": "stats-card-down",
+      "component": "StatsCard",
+      "variant": "Trend Down",
+      "description": "Data card with icon, large value, and negative trend",
+      "tags": ["theme-preview", "atoms", "stats"],
+      "props": { "title": "Dropout Rate", "value": "4.2%", "icon": "chart-bar", "trend": "-0.5% this quarter", "trendUp": false }
+    },
+    {
+      "id": "banner-gradient",
+      "component": "Banner",
+      "variant": "Gradient",
+      "description": "Info strip with gradient background, title, description, and CTA",
+      "tags": ["theme-preview", "atoms", "banner"],
+      "props": {
+        "title": "Meet Rigobot, your AI mentor",
+        "description": "Get personalized guidance on every step of your learning journey.",
+        "background": "gradient",
+        "cta": { "text": "Try now", "url": "#", "variant": "secondary" }
+      }
+    },
+    {
+      "id": "banner-muted",
+      "component": "Banner",
+      "variant": "Muted",
+      "description": "Info strip with muted background",
+      "tags": ["theme-preview", "atoms", "banner"],
+      "props": {
+        "title": "Join 12,000+ students",
+        "description": "Learn from industry experts and land your first tech job.",
+        "background": "muted",
+        "cta": { "text": "Explore programs", "url": "#", "variant": "primary" }
+      }
     }
   ]
 }

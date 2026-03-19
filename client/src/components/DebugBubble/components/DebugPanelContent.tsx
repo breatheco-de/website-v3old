@@ -21,6 +21,7 @@ import {
   IconMenu2,
   IconMessageCircle,
   IconMoon,
+  IconPalette,
   IconPencil,
   IconPhoto,
   IconRefresh,
@@ -596,6 +597,14 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               href="/private/media-gallery"
               indicator="arrow"
               testId="link-media-gallery"
+            />
+
+            <MenuItem
+              icon={IconPalette}
+              label="Theme Editor"
+              href="/private/theme-editor"
+              indicator="arrow"
+              testId="link-theme-editor"
             />
 
             <MenuItem
