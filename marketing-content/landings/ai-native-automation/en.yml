@@ -77,7 +77,7 @@ sections:
       - icon: Users
         title: Mentorías con expertos
         description: Accede a 2 mentorías en vivo con profesores para resolver dudas y avanzar con acompañamiento real.
-    footer_description: Join thousands of graduates who have launched successful tech careers.
+    footer_description: null
     background: bg-background
     section_id: features_quad-4u8ahp
   - type: banner
