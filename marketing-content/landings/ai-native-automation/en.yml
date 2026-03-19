@@ -17,7 +17,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Automatización con IA aplicando n8n
+    title: Aprende Automatización con IA Aplicando n8n
     title_highlight: Automatización con IA
     subtitle: Esto no es sólo un curso, es una transformación.
     students_enrolled:
@@ -37,7 +37,6 @@ sections:
         role: Tutor con IA
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: Tu tutor será
-    description: null
     video:
       url: https://www.youtube.com/watch?v=TgkIpTZ75NM
       ratio: "16:9"
