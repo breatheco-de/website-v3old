@@ -255,7 +255,7 @@ export const heroCourseSchema = z.object({
       url: z.string().optional(),
     }).optional(),
     features: z.array(heroCourseFeatureSchema).optional(),
-  }),
+  }).optional(),
   layout_reversed: z.boolean().optional(),
 }).passthrough();
 
