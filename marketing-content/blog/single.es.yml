@@ -3,32 +3,16 @@ meta:
   description: {{ single.description }}
   og_image: {{ single.image }}
 sections:
-  - type: hero
-    version: "1.0"
-    variant: singleColumn
-    badge: Career Program
-    title: Full Stack Development with AI
-    subtitle: Learn at your own pace with AI-powered tools and unlimited mentorship
-    cta_buttons:
-      - text: Start Learning Now
-        url: /signup
-        variant: primary
-        icon: Rocket
-      - text: View Curriculum
-        url: /curriculum
-        variant: outline
-        icon: Book
-    trust_bar:
-      rating: 4.8/5
-      rating_count: 2,500+
-      trusted_text: Trusted by 10,000+ students
-    award_badges:
-      - name: Best Coding Bootcamp
-        source: Forbes
-        year: "2024"
-      - name: Top Tech School
-        source: Course Report
-    section_id: hero-psh9i3
+  - - type: hero
+      version: "1.0"
+      variant: singleColumn
+      badge: undefined badge
+      title: undefined title
+      subtitle: undefined subtitle
+      image:
+        src: https://storage.googleapis.com/4geeks-academy-website/media/the-academy-header_1770614327963.png
+        alt: Students coding at computers in a classroom
+      image_full_width: false
   - - type: hero
       version: "1.0"
       variant: singleColumn
