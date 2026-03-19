@@ -60,6 +60,7 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
   const [name, setName] = useState("");
   const [assignments, setAssignments] = useState<Record<string, SlotAssignment>>({});
   const [focusedCt, setFocusedCt] = useState<string | null>(null);
+  const [selectValue, setSelectValue] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   const { data: contentTypes } = useQuery<ContentTypeItem[]>({
@@ -113,6 +114,7 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
       setName("");
       setAssignments({});
       setFocusedCt(null);
+      setSelectValue("");
       setError(null);
     }
     onOpenChange(open);
@@ -189,8 +191,11 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
               </div>
 
               <Select
-                value={focusedCt ?? ""}
-                onValueChange={(val) => setFocusedCt(val)}
+                value={selectValue}
+                onValueChange={(val) => {
+                  setFocusedCt(val);
+                  setSelectValue("");
+                }}
                 disabled={createMutation.isPending}
               >
                 <SelectTrigger data-testid="select-ct-picker">
