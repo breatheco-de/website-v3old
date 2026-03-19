@@ -9,6 +9,8 @@ import { createElement } from "react";
 import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
 
+const BLOG_IMAGE_FALLBACK = "https://storage.googleapis.com/4geeks-academy-website/media/Group-original_1765419144159.webp";
+
 const DEFAULT_AVATAR_IDS = [
   "woman-profile-headshot-1-608aff01",
   "man-profile-headshot-1-0850c276",
@@ -130,6 +132,10 @@ export function HeroSingleColumn({ data }: HeroSingleColumnProps) {
                 style={{
                   width: data.image_width || '100%',
                   ...(data.image_full_width ? {} : { borderRadius: '0.8rem' }),
+                }}
+                onError={(e) => {
+                  e.currentTarget.src = data.image?.fallback ?? BLOG_IMAGE_FALLBACK;
+                  e.currentTarget.onerror = null;
                 }}
                 data-testid="img-hero-single-column"
               />
