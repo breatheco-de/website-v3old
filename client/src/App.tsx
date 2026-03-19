@@ -217,10 +217,10 @@ function App({ ssrQueryClient }: AppProps = {}) {
         <DebugAuthProvider>
         <TooltipProvider>
           <EditModeWrapper>
-            <Toaster />
             <PageTracker />
             <Router />
             <ClientOnly>
+              <Toaster />
               <ChatWidget />
               <DebugBubble />
               <VariableModalHost />

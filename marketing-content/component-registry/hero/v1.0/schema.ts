@@ -90,7 +90,7 @@ export const heroSingleColumnSchema = z.object({
   cta_buttons: z.array(ctaButtonSchema).optional(),
   trust_bar: trustBarSchema.optional(),
   award_badges: z.array(awardBadgeSchema).optional(),
-  image: z.object({ src: z.string(), alt: z.string().optional() }).optional(),
+  image: z.object({ src: z.string(), alt: z.string().optional(), fallback: z.string().optional() }).optional(),
   image_full_width: z.boolean().optional(),
   image_width: z.string().optional(),
 }).passthrough();

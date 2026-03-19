@@ -14,7 +14,7 @@ interface LLMYamlConfig {
     api_key_env?: string;
     base_url_env?: string;
   };
-  model?: string;
+  model?: string | { default: string; chat?: string; vision?: string };
   temperature?: number;
   max_tokens?: number;
 }
@@ -52,7 +52,10 @@ function getConfigMtime(): number | null {
 
 function resolveModel(cfg: LLMYamlConfig | null): string {
   if (process.env.LLM_MODEL) return process.env.LLM_MODEL;
-  return cfg?.model || "gpt-4o";
+  if (cfg?.model && typeof cfg.model === "object") {
+    return cfg.model.default || "gpt-4o";
+  }
+  return (cfg?.model as string | undefined) || "gpt-4o";
 }
 
 export function getLLMConfig(): LLMYamlConfig {
