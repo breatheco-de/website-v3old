@@ -6,6 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Badge } from "@/components/ui/badge";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { useToast } from "@/hooks/use-toast";
 import {
   IconSun,
@@ -15,8 +22,12 @@ import {
   IconPalette,
   IconComponents,
   IconLayoutGrid,
+  IconLink,
   IconTrash,
   IconPlus,
+  IconChevronUp,
+  IconChevronDown,
+  IconAlertTriangle,
 } from "@tabler/icons-react";
 
 interface PreviewExample {
@@ -25,12 +36,24 @@ interface PreviewExample {
   example: string;
 }
 
+interface PaletteEntry {
+  id: string;
+  label: string;
+  cssVar?: string;
+  value?: string;
+  lightValue?: string;
+  darkValue?: string;
+}
+
 interface ThemeData {
   colors?: {
     light?: Record<string, string>;
     dark?: Record<string, string>;
   };
   preview_examples?: PreviewExample[];
+  backgrounds?: PaletteEntry[];
+  text?: PaletteEntry[];
+  accents?: PaletteEntry[];
 }
 
 interface MoleculesData {
@@ -261,6 +284,258 @@ function ColorRow({ tokenId, label, value, onChange, isOpen, onToggle }: ColorRo
   );
 }
 
+interface PaletteEntryRowProps {
+  entry: PaletteEntry;
+  index: number;
+  total: number;
+  knownCssVars: Set<string>;
+  previewMode: "light" | "dark";
+  onChange: (index: number, entry: PaletteEntry) => void;
+  onDelete: (index: number) => void;
+  onMoveUp: (index: number) => void;
+  onMoveDown: (index: number) => void;
+}
+
+function resolveSwatchColor(entry: PaletteEntry, previewMode: "light" | "dark"): string {
+  if (entry.cssVar) return `hsl(var(${entry.cssVar}))`;
+  if (previewMode === "light" && entry.lightValue) return entry.lightValue;
+  if (previewMode === "dark" && entry.darkValue) return entry.darkValue;
+  return entry.value || "transparent";
+}
+
+function PaletteEntryRow({
+  entry,
+  index,
+  total,
+  knownCssVars,
+  previewMode,
+  onChange,
+  onDelete,
+  onMoveUp,
+  onMoveDown,
+}: PaletteEntryRowProps) {
+  const mode: "cssVar" | "value" = entry.cssVar ? "cssVar" : "value";
+  const isUnknownVar = mode === "cssVar" && entry.cssVar && !knownCssVars.has(entry.cssVar);
+  const swatchColor = resolveSwatchColor(entry, previewMode);
+
+  const setMode = (newMode: "cssVar" | "value") => {
+    if (newMode === "cssVar") {
+      onChange(index, { ...entry, cssVar: entry.cssVar || "--", value: undefined, lightValue: undefined, darkValue: undefined });
+    } else {
+      onChange(index, { ...entry, cssVar: undefined, value: entry.value || "", lightValue: entry.lightValue || "", darkValue: entry.darkValue || "" });
+    }
+  };
+
+  return (
+    <div className="py-2 space-y-2" data-testid={`palette-entry-${entry.id}`}>
+      <div className="flex items-center gap-2">
+        <div
+          className="w-5 h-5 rounded border border-border shrink-0"
+          style={{ background: swatchColor }}
+          title={swatchColor}
+        />
+        <input
+          type="text"
+          value={entry.label}
+          onChange={(e) => onChange(index, { ...entry, label: e.target.value })}
+          className="flex-1 min-w-0 text-xs px-2 py-1 rounded-md border border-input bg-background"
+          placeholder="Label"
+          data-testid={`input-palette-label-${index}`}
+        />
+        <div className="flex items-center gap-0.5 shrink-0">
+          <button
+            type="button"
+            onClick={() => setMode("cssVar")}
+            className={`text-xs px-1.5 py-0.5 rounded-l border transition-colors ${mode === "cssVar" ? "bg-primary text-primary-foreground border-primary" : "bg-background text-muted-foreground border-border hover-elevate"}`}
+            data-testid={`button-mode-cssvar-${index}`}
+          >
+            var
+          </button>
+          <button
+            type="button"
+            onClick={() => setMode("value")}
+            className={`text-xs px-1.5 py-0.5 rounded-r border-t border-r border-b transition-colors ${mode === "value" ? "bg-primary text-primary-foreground border-primary" : "bg-background text-muted-foreground border-border hover-elevate"}`}
+            data-testid={`button-mode-value-${index}`}
+          >
+            val
+          </button>
+        </div>
+        <button
+          type="button"
+          onClick={() => onMoveUp(index)}
+          disabled={index === 0}
+          className="text-muted-foreground disabled:opacity-30 hover-elevate p-0.5 rounded"
+          data-testid={`button-move-up-${index}`}
+        >
+          <IconChevronUp className="h-3.5 w-3.5" />
+        </button>
+        <button
+          type="button"
+          onClick={() => onMoveDown(index)}
+          disabled={index === total - 1}
+          className="text-muted-foreground disabled:opacity-30 hover-elevate p-0.5 rounded"
+          data-testid={`button-move-down-${index}`}
+        >
+          <IconChevronDown className="h-3.5 w-3.5" />
+        </button>
+        <button
+          type="button"
+          onClick={() => onDelete(index)}
+          className="text-muted-foreground hover:text-destructive hover-elevate p-0.5 rounded"
+          data-testid={`button-delete-entry-${index}`}
+        >
+          <IconTrash className="h-3.5 w-3.5" />
+        </button>
+      </div>
+
+      {mode === "cssVar" && (
+        <div className="flex items-center gap-2 pl-7">
+          <input
+            type="text"
+            value={entry.cssVar || ""}
+            onChange={(e) => onChange(index, { ...entry, cssVar: e.target.value })}
+            className="flex-1 text-xs px-2 py-1 rounded-md border border-input bg-background font-mono"
+            placeholder="--variable-name"
+            data-testid={`input-cssvar-${index}`}
+          />
+          {isUnknownVar && (
+            <Badge variant="outline" className="text-xs text-amber-600 border-amber-400 gap-1 shrink-0">
+              <IconAlertTriangle className="h-3 w-3" />
+              Unknown var
+            </Badge>
+          )}
+        </div>
+      )}
+
+      {mode === "value" && (
+        <div className="space-y-1.5 pl-7">
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-muted-foreground w-20 shrink-0">Value</span>
+            <input
+              type="text"
+              value={entry.value || ""}
+              onChange={(e) => onChange(index, { ...entry, value: e.target.value })}
+              className="flex-1 text-xs px-2 py-1 rounded-md border border-input bg-background font-mono"
+              placeholder="hsl(...) or linear-gradient(...)"
+              data-testid={`input-value-${index}`}
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-muted-foreground w-20 shrink-0">Light value</span>
+            <input
+              type="text"
+              value={entry.lightValue || ""}
+              onChange={(e) => onChange(index, { ...entry, lightValue: e.target.value })}
+              className="flex-1 text-xs px-2 py-1 rounded-md border border-input bg-background font-mono"
+              placeholder="optional light mode override"
+              data-testid={`input-light-value-${index}`}
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-muted-foreground w-20 shrink-0">Dark value</span>
+            <input
+              type="text"
+              value={entry.darkValue || ""}
+              onChange={(e) => onChange(index, { ...entry, darkValue: e.target.value })}
+              className="flex-1 text-xs px-2 py-1 rounded-md border border-input bg-background font-mono"
+              placeholder="optional dark mode override"
+              data-testid={`input-dark-value-${index}`}
+            />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+interface PaletteAccordionProps {
+  palette: "backgrounds" | "text" | "accents";
+  label: string;
+  entries: PaletteEntry[];
+  knownCssVars: Set<string>;
+  previewMode: "light" | "dark";
+  onChange: (palette: "backgrounds" | "text" | "accents", entries: PaletteEntry[]) => void;
+}
+
+function PaletteAccordion({ palette, label, entries, knownCssVars, previewMode, onChange }: PaletteAccordionProps) {
+  const handleEntryChange = useCallback((index: number, updated: PaletteEntry) => {
+    const next = [...entries];
+    next[index] = updated;
+    onChange(palette, next);
+  }, [entries, onChange, palette]);
+
+  const handleDelete = useCallback((index: number) => {
+    const next = entries.filter((_, i) => i !== index);
+    onChange(palette, next);
+  }, [entries, onChange, palette]);
+
+  const handleMoveUp = useCallback((index: number) => {
+    if (index === 0) return;
+    const next = [...entries];
+    [next[index - 1], next[index]] = [next[index], next[index - 1]];
+    onChange(palette, next);
+  }, [entries, onChange, palette]);
+
+  const handleMoveDown = useCallback((index: number) => {
+    if (index >= entries.length - 1) return;
+    const next = [...entries];
+    [next[index], next[index + 1]] = [next[index + 1], next[index]];
+    onChange(palette, next);
+  }, [entries, onChange, palette]);
+
+  const handleAdd = useCallback(() => {
+    const newEntry: PaletteEntry = {
+      id: `entry-${Date.now()}`,
+      label: "New entry",
+      cssVar: "--primary",
+    };
+    onChange(palette, [...entries, newEntry]);
+  }, [entries, onChange, palette]);
+
+  return (
+    <AccordionItem value={palette} data-testid={`palette-accordion-${palette}`}>
+      <AccordionTrigger className="text-xs font-semibold uppercase tracking-wider text-muted-foreground py-3 hover:no-underline">
+        {label}
+        <span className="ml-auto mr-2 text-xs font-normal normal-case tracking-normal text-muted-foreground">
+          {entries.length} entries
+        </span>
+      </AccordionTrigger>
+      <AccordionContent className="pb-2">
+        <div className="space-y-0">
+          {entries.map((entry, i) => (
+            <div key={`${entry.id}-${i}`}>
+              <PaletteEntryRow
+                entry={entry}
+                index={i}
+                total={entries.length}
+                knownCssVars={knownCssVars}
+                previewMode={previewMode}
+                onChange={handleEntryChange}
+                onDelete={handleDelete}
+                onMoveUp={handleMoveUp}
+                onMoveDown={handleMoveDown}
+              />
+              {i < entries.length - 1 && <Separator />}
+            </div>
+          ))}
+          <div className="pt-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleAdd}
+              className="w-full gap-1.5"
+              data-testid={`button-add-entry-${palette}`}
+            >
+              <IconPlus className="h-3.5 w-3.5" />
+              Add entry
+            </Button>
+          </div>
+        </div>
+      </AccordionContent>
+    </AccordionItem>
+  );
+}
+
 const ATOM_TAG_ORDER = ["button", "badge", "form", "card", "stats", "banner", "atoms"] as const;
 const ATOM_TAG_LABELS: Record<string, string> = {
   button: "Buttons",
@@ -327,7 +602,9 @@ export default function ThemeEditor() {
   const [lightColors, setLightColors] = useState<Record<string, string>>({});
   const [darkColors, setDarkColors] = useState<Record<string, string>>({});
   const [isSaving, setIsSaving] = useState(false);
+  const [isPaletteSaving, setIsPaletteSaving] = useState(false);
   const [activeSection, setActiveSection] = useState<"atoms" | "examples">("atoms");
+  const [activeTab, setActiveTab] = useState<"base" | "custom">("base");
   const [expandedToken, setExpandedToken] = useState<string | null>(null);
   const [radiusOpen, setRadiusOpen] = useState(false);
 
@@ -335,6 +612,11 @@ export default function ThemeEditor() {
   const [addRow, setAddRow] = useState<{ component: string; version: string; example: string } | null>(null);
   const iframeRefs = useRef<Map<number, HTMLIFrameElement>>(new Map());
   const colorsInitialized = useRef(false);
+
+  const [backgrounds, setBackgrounds] = useState<PaletteEntry[]>([]);
+  const [textPalette, setTextPalette] = useState<PaletteEntry[]>([]);
+  const [accents, setAccents] = useState<PaletteEntry[]>([]);
+  const palettesInitialized = useRef(false);
 
   const { data: themeData, isLoading: themeLoading } = useQuery<ThemeData>({
     queryKey: ["/api/theme"],
@@ -373,6 +655,12 @@ export default function ThemeEditor() {
     if (themeData?.preview_examples !== undefined) {
       setConfirmedExamples(themeData.preview_examples);
     }
+    if (!palettesInitialized.current && (themeData?.backgrounds || themeData?.text || themeData?.accents)) {
+      if (themeData.backgrounds) setBackgrounds(themeData.backgrounds);
+      if (themeData.text) setTextPalette(themeData.text);
+      if (themeData.accents) setAccents(themeData.accents);
+      palettesInitialized.current = true;
+    }
   }, [themeData]);
 
   const savePreviewExamples = useCallback(async (examples: PreviewExample[]) => {
@@ -397,6 +685,13 @@ export default function ThemeEditor() {
   }, [lightColors, darkColors, previewMode]);
 
   const activeColors = previewMode === "light" ? lightColors : darkColors;
+
+  const knownCssVars = useMemo(() => {
+    const vars = new Set<string>();
+    for (const key of Object.keys(themeData?.colors?.light || {})) vars.add(key);
+    for (const key of Object.keys(themeData?.colors?.dark || {})) vars.add(key);
+    return vars;
+  }, [themeData]);
 
   const handleColorChange = (token: string, value: string) => {
     if (previewMode === "light") {
@@ -446,6 +741,43 @@ export default function ThemeEditor() {
     }
   };
 
+  const handlePaletteSave = async () => {
+    setIsPaletteSaving(true);
+    try {
+      const res = await apiRequest("PUT", "/api/theme/palettes", { backgrounds, text: textPalette, accents });
+      const result = await res.json() as { ok: boolean; warnings?: string[] };
+      if (result?.warnings?.length) {
+        toast({
+          title: "Palettes saved with warnings",
+          description: `Saved, but some cssVar references may not resolve: ${result.warnings.join("; ")}`,
+        });
+      } else {
+        toast({ title: "Palettes saved", description: "Custom palette changes are now live." });
+      }
+      queryClient.invalidateQueries({ queryKey: ["/api/theme"] });
+    } catch (err: unknown) {
+      let description = "Could not save palettes.";
+      if (err instanceof Error) {
+        description = err.message || description;
+      }
+      toast({ title: "Save failed", description, variant: "destructive" });
+    } finally {
+      setIsPaletteSaving(false);
+    }
+  };
+
+  const handlePaletteReset = () => {
+    if (themeData?.backgrounds) setBackgrounds(themeData.backgrounds);
+    if (themeData?.text) setTextPalette(themeData.text);
+    if (themeData?.accents) setAccents(themeData.accents);
+  };
+
+  const handlePaletteChange = useCallback((palette: "backgrounds" | "text" | "accents", entries: PaletteEntry[]) => {
+    if (palette === "backgrounds") setBackgrounds(entries);
+    else if (palette === "text") setTextPalette(entries);
+    else if (palette === "accents") setAccents(entries);
+  }, []);
+
   const atomMolecules = useMemo(() => {
     return (moleculesData?.molecules || []).filter((m) => m.tags.includes("theme-preview"));
   }, [moleculesData]);
@@ -478,116 +810,199 @@ export default function ThemeEditor() {
           </div>
         </div>
 
-        <ScrollArea className="flex-1 px-4">
-          {themeLoading ? (
-            <div className="space-y-4 py-4">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <Skeleton key={i} className="h-16 w-full" />
-              ))}
-            </div>
-          ) : (
-            <div className="py-2">
-              {TOKEN_GROUPS.map((group) => (
-                <div key={group.label}>
-                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider pt-4 pb-1">
-                    {group.label}
-                  </p>
-                  {group.tokens.map((token, i) => (
-                    <div key={token.id}>
-                      <ColorRow
-                        tokenId={token.id}
-                        label={token.label}
-                        value={activeColors[token.id] || "0 0% 0%"}
-                        onChange={handleColorChange}
-                        isOpen={expandedToken === token.id}
-                        onToggle={() => setExpandedToken(expandedToken === token.id ? null : token.id)}
-                      />
-                      {i < group.tokens.length - 1 && <Separator />}
-                    </div>
+        <div className="flex border-b border-border shrink-0">
+          <button
+            onClick={() => setActiveTab("base")}
+            className={`flex-1 py-2 text-xs font-medium transition-colors ${activeTab === "base" ? "border-b-2 border-primary text-foreground" : "text-muted-foreground hover-elevate"}`}
+            data-testid="tab-base-theme"
+          >
+            Base Theme
+          </button>
+          <button
+            onClick={() => setActiveTab("custom")}
+            className={`flex-1 py-2 text-xs font-medium transition-colors ${activeTab === "custom" ? "border-b-2 border-primary text-foreground" : "text-muted-foreground hover-elevate"}`}
+            data-testid="tab-custom-theme"
+          >
+            Custom Theme
+          </button>
+        </div>
+
+        {activeTab === "base" && (
+          <>
+            <ScrollArea className="flex-1 px-4">
+              {themeLoading ? (
+                <div className="space-y-4 py-4">
+                  {Array.from({ length: 8 }).map((_, i) => (
+                    <Skeleton key={i} className="h-16 w-full" />
                   ))}
                 </div>
-              ))}
+              ) : (
+                <div className="py-2">
+                  <Accordion type="multiple" defaultValue={TOKEN_GROUPS.map((g) => g.label)} className="w-full">
+                    {TOKEN_GROUPS.map((group) => (
+                      <AccordionItem key={group.label} value={group.label} data-testid={`accordion-group-${group.label.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}>
+                        <AccordionTrigger className="text-xs font-semibold uppercase tracking-wider text-muted-foreground py-3 hover:no-underline">
+                          {group.label}
+                        </AccordionTrigger>
+                        <AccordionContent className="pb-0">
+                          <div>
+                            {group.tokens.map((token, i) => (
+                              <div key={token.id}>
+                                <ColorRow
+                                  tokenId={token.id}
+                                  label={token.label}
+                                  value={activeColors[token.id] || "0 0% 0%"}
+                                  onChange={handleColorChange}
+                                  isOpen={expandedToken === token.id}
+                                  onToggle={() => setExpandedToken(expandedToken === token.id ? null : token.id)}
+                                />
+                                {i < group.tokens.length - 1 && <Separator />}
+                              </div>
+                            ))}
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
 
-              <div className="py-3">
-                <button
-                  type="button"
-                  className="flex items-center justify-between w-full pt-4 pb-1 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                  onClick={() => setRadiusOpen((prev) => !prev)}
-                  aria-expanded={radiusOpen}
-                  data-testid="button-radius-toggle"
-                >
-                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                    Radius
-                  </p>
-                  <span className="text-xs text-muted-foreground">{radiusValue.toFixed(2)}rem</span>
-                </button>
-                {radiusOpen && (
-                  <>
-                    <div className="flex items-center gap-3 mt-2">
-                      <div className="flex-1 relative h-2 rounded-full bg-muted">
-                        <input
-                          type="range"
-                          min={0}
-                          max={2}
-                          step={0.05}
-                          value={radiusValue}
-                          onChange={(e) => handleRadiusChange(Number(e.target.value))}
-                          className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
-                          data-testid="slider-radius"
-                        />
-                        <div
-                          className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white bg-primary shadow-sm"
-                          style={{ left: `${(radiusValue / 2) * 100}%`, transform: "translateX(-50%) translateY(-50%)" }}
-                        />
-                        <div
-                          className="h-full rounded-full bg-primary"
-                          style={{ width: `${(radiusValue / 2) * 100}%` }}
-                        />
-                      </div>
-                      <span className="text-xs text-muted-foreground w-12 text-right shrink-0">{radiusValue.toFixed(2)}rem</span>
-                    </div>
-                    <div className="mt-3 flex gap-2">
-                      {[0, 0.25, 0.5, 0.75, 1, 1.5, 2].map((v) => (
-                        <button
-                          key={v}
-                          onClick={() => handleRadiusChange(v)}
-                          className={`flex-1 h-6 border text-xs transition-colors hover-elevate ${Math.abs(radiusValue - v) < 0.01 ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground"}`}
-                          style={{ borderRadius: `${v * 8}px` }}
-                          data-testid={`button-radius-${v}`}
-                        >
-                          {v}
-                        </button>
-                      ))}
-                    </div>
-                  </>
-                )}
-              </div>
+                    <AccordionItem value="Radius" data-testid="accordion-group-radius">
+                      <AccordionTrigger className="text-xs font-semibold uppercase tracking-wider text-muted-foreground py-3 hover:no-underline">
+                        Radius
+                        <span className="ml-auto mr-2 text-xs font-normal normal-case tracking-normal text-muted-foreground">{radiusValue.toFixed(2)}rem</span>
+                      </AccordionTrigger>
+                      <AccordionContent className="pb-3">
+                        <div className="flex items-center gap-3 mt-2">
+                          <div className="flex-1 relative h-2 rounded-full bg-muted">
+                            <input
+                              type="range"
+                              min={0}
+                              max={2}
+                              step={0.05}
+                              value={radiusValue}
+                              onChange={(e) => handleRadiusChange(Number(e.target.value))}
+                              className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
+                              data-testid="slider-radius"
+                            />
+                            <div
+                              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white bg-primary shadow-sm"
+                              style={{ left: `${(radiusValue / 2) * 100}%`, transform: "translateX(-50%) translateY(-50%)" }}
+                            />
+                            <div
+                              className="h-full rounded-full bg-primary"
+                              style={{ width: `${(radiusValue / 2) * 100}%` }}
+                            />
+                          </div>
+                          <span className="text-xs text-muted-foreground w-12 text-right shrink-0">{radiusValue.toFixed(2)}rem</span>
+                        </div>
+                        <div className="mt-3 flex gap-2">
+                          {[0, 0.25, 0.5, 0.75, 1, 1.5, 2].map((v) => (
+                            <button
+                              key={v}
+                              onClick={() => handleRadiusChange(v)}
+                              className={`flex-1 h-6 border text-xs transition-colors hover-elevate ${Math.abs(radiusValue - v) < 0.01 ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground"}`}
+                              style={{ borderRadius: `${v * 8}px` }}
+                              data-testid={`button-radius-${v}`}
+                            >
+                              {v}
+                            </button>
+                          ))}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
+              )}
+            </ScrollArea>
+
+            <div className="px-4 py-3 border-t border-border flex gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleReset}
+                className="flex-1"
+                data-testid="button-reset-theme"
+              >
+                <IconArrowBackUp className="h-3.5 w-3.5" />
+                Reset
+              </Button>
+              <Button
+                size="sm"
+                onClick={handleSave}
+                disabled={isSaving}
+                className="flex-1"
+                data-testid="button-save-theme"
+              >
+                <IconDeviceFloppy className="h-3.5 w-3.5" />
+                {isSaving ? "Saving..." : "Save"}
+              </Button>
             </div>
-          )}
-        </ScrollArea>
+          </>
+        )}
 
-        <div className="px-4 py-3 border-t border-border flex gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleReset}
-            className="flex-1"
-            data-testid="button-reset-theme"
-          >
-            <IconArrowBackUp className="h-3.5 w-3.5" />
-            Reset
-          </Button>
-          <Button
-            size="sm"
-            onClick={handleSave}
-            disabled={isSaving}
-            className="flex-1"
-            data-testid="button-save-theme"
-          >
-            <IconDeviceFloppy className="h-3.5 w-3.5" />
-            {isSaving ? "Saving..." : "Save"}
-          </Button>
-        </div>
+        {activeTab === "custom" && (
+          <>
+            <ScrollArea className="flex-1 px-4">
+              {themeLoading ? (
+                <div className="space-y-4 py-4">
+                  {Array.from({ length: 6 }).map((_, i) => (
+                    <Skeleton key={i} className="h-16 w-full" />
+                  ))}
+                </div>
+              ) : (
+                <div className="py-2">
+                  <Accordion type="multiple" defaultValue={["backgrounds", "text", "accents"]} className="w-full">
+                    <PaletteAccordion
+                      palette="backgrounds"
+                      label="Backgrounds"
+                      entries={backgrounds}
+                      knownCssVars={knownCssVars}
+                      previewMode={previewMode}
+                      onChange={handlePaletteChange}
+                    />
+                    <PaletteAccordion
+                      palette="text"
+                      label="Text"
+                      entries={textPalette}
+                      knownCssVars={knownCssVars}
+                      previewMode={previewMode}
+                      onChange={handlePaletteChange}
+                    />
+                    <PaletteAccordion
+                      palette="accents"
+                      label="Accents"
+                      entries={accents}
+                      knownCssVars={knownCssVars}
+                      previewMode={previewMode}
+                      onChange={handlePaletteChange}
+                    />
+                  </Accordion>
+                </div>
+              )}
+            </ScrollArea>
+
+            <div className="px-4 py-3 border-t border-border flex gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handlePaletteReset}
+                className="flex-1"
+                data-testid="button-reset-palettes"
+              >
+                <IconArrowBackUp className="h-3.5 w-3.5" />
+                Reset
+              </Button>
+              <Button
+                size="sm"
+                onClick={handlePaletteSave}
+                disabled={isPaletteSaving}
+                className="flex-1"
+                data-testid="button-save-palettes"
+              >
+                <IconDeviceFloppy className="h-3.5 w-3.5" />
+                {isPaletteSaving ? "Saving..." : "Save"}
+              </Button>
+            </div>
+          </>
+        )}
       </div>
 
       <div className="flex-1 flex flex-col overflow-hidden">

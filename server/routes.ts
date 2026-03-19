@@ -866,6 +866,97 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.put("/api/theme/palettes", async (req, res) => {
+    try {
+      const authHeader = req.headers.authorization;
+      const token = authHeader?.replace("Token ", "");
+      const isDevelopment = process.env.NODE_ENV !== "production";
+
+      if (!isDevelopment && !token) {
+        res.status(401).json({ error: "Authorization required" });
+        return;
+      }
+
+      if (!isDevelopment && token) {
+        const authResponse = await fetch(
+          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Token ${token}`,
+              Academy: "4",
+            },
+          },
+        );
+        if (authResponse.status !== 200) {
+          res.status(403).json({ error: "Invalid or unauthorized token" });
+          return;
+        }
+      }
+
+      const paletteEntrySchema = z.object({
+        id: z.string(),
+        label: z.string(),
+        cssVar: z.string().optional(),
+        value: z.string().optional(),
+        lightValue: z.string().optional(),
+        darkValue: z.string().optional(),
+      });
+      const bodySchema = z.object({
+        backgrounds: z.array(paletteEntrySchema),
+        text: z.array(paletteEntrySchema),
+        accents: z.array(paletteEntrySchema),
+      });
+      const parsed = bodySchema.safeParse(req.body);
+      if (!parsed.success) {
+        res.status(400).json({ error: "Invalid palette data", details: parsed.error.issues });
+        return;
+      }
+
+      const themePath = path.join(process.cwd(), "marketing-content", "theme.json");
+      if (!fs.existsSync(themePath)) {
+        res.status(404).json({ error: "Theme configuration not found" });
+        return;
+      }
+      const theme = JSON.parse(fs.readFileSync(themePath, "utf-8"));
+
+      const knownVars = new Set<string>([
+        ...Object.keys((theme.colors?.light as Record<string, string>) || {}),
+        ...Object.keys((theme.colors?.dark as Record<string, string>) || {}),
+      ]);
+
+      const unknownVarWarnings: string[] = [];
+      const allEntries = [
+        ...parsed.data.backgrounds,
+        ...parsed.data.text,
+        ...parsed.data.accents,
+      ];
+      for (const entry of allEntries) {
+        if (entry.cssVar && !knownVars.has(entry.cssVar)) {
+          unknownVarWarnings.push(`${entry.id}: unknown cssVar "${entry.cssVar}"`);
+        }
+      }
+
+      theme.backgrounds = parsed.data.backgrounds;
+      theme.text = parsed.data.text;
+      theme.accents = parsed.data.accents;
+
+      const themeDir = path.dirname(themePath);
+      const tmpPath = path.join(themeDir, `.theme.${Date.now()}.tmp`);
+      fs.writeFileSync(tmpPath, JSON.stringify(theme, null, 2));
+      fs.renameSync(tmpPath, themePath);
+
+      if (unknownVarWarnings.length > 0) {
+        res.json({ ok: true, warnings: unknownVarWarnings });
+      } else {
+        res.json({ ok: true });
+      }
+    } catch (error) {
+      console.error("Error saving theme palettes:", error);
+      res.status(500).json({ error: "Failed to save theme palettes" });
+    }
+  });
+
   app.get("/api/variables", (_req, res) => {
     res.json(variableManager.getDefinitions());
   });
