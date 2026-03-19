@@ -14,6 +14,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useToast } from "@/hooks/use-toast";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import {
   IconSun,
   IconMoon,
@@ -159,6 +160,168 @@ function hexToHsl(hex: string): [number, number, number] | null {
   return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
 }
 
+interface ColorPickerPopoverProps {
+  value: string;
+  onChange: (value: string) => void;
+  testId: string;
+  swatchClassName?: string;
+}
+
+function parseColorValue(value: string): [number, number, number] | null {
+  if (!value) return null;
+  const fromHex = hexToHsl(value);
+  if (fromHex) return fromHex;
+  const trimmed = value.trim();
+  if (/^\d/.test(trimmed)) {
+    const parts = trimmed.split(/\s+/);
+    if (parts.length >= 3) {
+      const h = parseFloat(parts[0]);
+      const s = parseFloat(parts[1]);
+      const l = parseFloat(parts[2]);
+      if (!isNaN(h) && !isNaN(s) && !isNaN(l)) return [Math.round(h), Math.round(s), Math.round(l)];
+    }
+  }
+  return null;
+}
+
+function ColorPickerBody({ value, onChange, testId }: { value: string; onChange: (v: string) => void; testId: string }) {
+  const parsed = parseColorValue(value);
+  const isColor = parsed !== null;
+  const [h, s, l] = isColor ? parsed : [0, 0, 50];
+  const [hexInput, setHexInput] = useState(isColor ? hslToHex(h, s, l) : "");
+
+  useEffect(() => {
+    const p = parseColorValue(value);
+    setHexInput(p ? hslToHex(...p) : "");
+  }, [value]);
+
+  const handleHexChange = (v: string) => {
+    setHexInput(v);
+    const p = hexToHsl(v);
+    if (p) onChange(formatHsl(...p));
+  };
+
+  return (
+    <div className="space-y-2">
+      <input
+        type="text"
+        value={hexInput}
+        onChange={(e) => handleHexChange(e.target.value)}
+        placeholder="#hex"
+        className="w-full text-xs px-2 py-1 rounded-md border border-input bg-background font-mono"
+        data-testid={`input-hex-${testId}`}
+      />
+      <div className="space-y-1.5">
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-muted-foreground w-3">H</span>
+          <div
+            className="flex-1 h-2 rounded-full relative"
+            style={{
+              background: `linear-gradient(to right, hsl(0 ${s}% ${l}%), hsl(60 ${s}% ${l}%), hsl(120 ${s}% ${l}%), hsl(180 ${s}% ${l}%), hsl(240 ${s}% ${l}%), hsl(300 ${s}% ${l}%), hsl(360 ${s}% ${l}%))`,
+            }}
+          >
+            <input
+              type="range"
+              min={0}
+              max={360}
+              step={1}
+              value={h}
+              onChange={(e) => onChange(formatHsl(Number(e.target.value), s, l))}
+              className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
+              data-testid={`slider-h-${testId}`}
+            />
+            <div
+              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm"
+              style={{ left: `${(h / 360) * 100}%`, transform: "translateX(-50%) translateY(-50%)", backgroundColor: `hsl(${h} ${s}% ${l}%)` }}
+            />
+          </div>
+          <span className="text-xs text-muted-foreground w-7 text-right">{h}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-muted-foreground w-3">S</span>
+          <div
+            className="flex-1 h-2 rounded-full relative"
+            style={{ background: `linear-gradient(to right, hsl(${h} 0% ${l}%), hsl(${h} 100% ${l}%))` }}
+          >
+            <input
+              type="range"
+              min={0}
+              max={100}
+              step={1}
+              value={s}
+              onChange={(e) => onChange(formatHsl(h, Number(e.target.value), l))}
+              className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
+              data-testid={`slider-s-${testId}`}
+            />
+            <div
+              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm"
+              style={{ left: `${s}%`, transform: "translateX(-50%) translateY(-50%)", backgroundColor: `hsl(${h} ${s}% ${l}%)` }}
+            />
+          </div>
+          <span className="text-xs text-muted-foreground w-7 text-right">{s}%</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-muted-foreground w-3">L</span>
+          <div
+            className="flex-1 h-2 rounded-full relative"
+            style={{ background: `linear-gradient(to right, hsl(${h} ${s}% 0%), hsl(${h} ${s}% 50%), hsl(${h} ${s}% 100%))` }}
+          >
+            <input
+              type="range"
+              min={0}
+              max={100}
+              step={1}
+              value={l}
+              onChange={(e) => onChange(formatHsl(h, s, Number(e.target.value)))}
+              className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
+              data-testid={`slider-l-${testId}`}
+            />
+            <div
+              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm"
+              style={{ left: `${l}%`, transform: "translateX(-50%) translateY(-50%)", backgroundColor: `hsl(${h} ${s}% ${l}%)` }}
+            />
+          </div>
+          <span className="text-xs text-muted-foreground w-7 text-right">{l}%</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ColorPickerPopover({ value, onChange, testId, swatchClassName }: ColorPickerPopoverProps) {
+  const parsed = parseColorValue(value);
+  const isColor = parsed !== null;
+  const [h, s, l] = isColor ? parsed : [0, 0, 50];
+
+  const defaultSwatchClass = "w-5 h-5 rounded border border-border shrink-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <button
+          type="button"
+          data-testid={`swatch-${testId}`}
+          className={swatchClassName ?? defaultSwatchClass}
+          style={isColor ? { backgroundColor: `hsl(${h} ${s}% ${l}%)` } : undefined}
+          title={isColor ? `hsl(${h} ${s}% ${l}%)` : "Not a plain color"}
+        >
+          {!isColor && (
+            <span
+              className="block w-full h-full rounded"
+              style={{
+                background: "repeating-conic-gradient(#aaa 0% 25%, transparent 0% 50%) 0 0 / 6px 6px",
+              }}
+            />
+          )}
+        </button>
+      </PopoverTrigger>
+      <PopoverContent align="end" className="w-64 p-3">
+        <ColorPickerBody value={value} onChange={onChange} testId={testId} />
+      </PopoverContent>
+    </Popover>
+  );
+}
+
 interface ColorRowProps {
   tokenId: string;
   label: string;
@@ -169,115 +332,29 @@ interface ColorRowProps {
 }
 
 function ColorRow({ tokenId, label, value, onChange, isOpen, onToggle }: ColorRowProps) {
-  const [h, s, l] = parseHsl(value);
-  const hex = hslToHex(h, s, l);
-  const [hexInput, setHexInput] = useState(hex);
-
-  useEffect(() => {
-    setHexInput(hslToHex(...parseHsl(value)));
-  }, [value]);
-
-  const handleHexChange = (v: string) => {
-    setHexInput(v);
-    const parsed = hexToHsl(v);
-    if (parsed) onChange(tokenId, formatHsl(...parsed));
-  };
-
+  const testId = tokenId.replace(/^--/, "");
+  const parsedColor = parseColorValue(value);
+  const swatchBg = parsedColor ? `hsl(${parsedColor[0]} ${parsedColor[1]}% ${parsedColor[2]}%)` : undefined;
   return (
-    <div className="py-3" data-testid={`color-row-${tokenId.replace(/^--/, "")}`}>
+    <div className="py-3" data-testid={`color-row-${testId}`}>
       <div className="flex items-center justify-between gap-2">
         <span className="text-sm font-medium truncate">{label}</span>
         <button
           type="button"
           className="w-6 h-6 rounded-full border border-border shrink-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          style={{ backgroundColor: `hsl(${h} ${s}% ${l}%)` }}
+          style={{ backgroundColor: swatchBg }}
           onClick={onToggle}
           aria-expanded={isOpen}
-          data-testid={`swatch-${tokenId.replace(/^--/, "")}`}
+          data-testid={`swatch-${testId}`}
         />
       </div>
       {isOpen && (
-        <div className="space-y-2 mt-2">
-          <input
-            type="text"
-            value={hexInput}
-            onChange={(e) => handleHexChange(e.target.value)}
-            className="w-full text-xs px-2 py-1 rounded-md border border-input bg-background font-mono"
-            data-testid={`input-hex-${tokenId.replace(/^--/, "")}`}
+        <div className="mt-2">
+          <ColorPickerBody
+            value={value}
+            onChange={(v) => onChange(tokenId, v)}
+            testId={testId}
           />
-          <div className="space-y-1.5">
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground w-3">H</span>
-              <div
-                className="flex-1 h-2 rounded-full relative"
-                style={{
-                  background: `linear-gradient(to right, hsl(0 ${s}% ${l}%), hsl(60 ${s}% ${l}%), hsl(120 ${s}% ${l}%), hsl(180 ${s}% ${l}%), hsl(240 ${s}% ${l}%), hsl(300 ${s}% ${l}%), hsl(360 ${s}% ${l}%))`,
-                }}
-              >
-                <input
-                  type="range"
-                  min={0}
-                  max={360}
-                  step={1}
-                  value={h}
-                  onChange={(e) => onChange(tokenId, formatHsl(Number(e.target.value), s, l))}
-                  className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
-                  data-testid={`slider-h-${tokenId.replace(/^--/, "")}`}
-                />
-                <div
-                  className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm"
-                  style={{ left: `${(h / 360) * 100}%`, transform: "translateX(-50%) translateY(-50%)", backgroundColor: `hsl(${h} ${s}% ${l}%)` }}
-                />
-              </div>
-              <span className="text-xs text-muted-foreground w-7 text-right">{h}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground w-3">S</span>
-              <div
-                className="flex-1 h-2 rounded-full relative"
-                style={{ background: `linear-gradient(to right, hsl(${h} 0% ${l}%), hsl(${h} 100% ${l}%))` }}
-              >
-                <input
-                  type="range"
-                  min={0}
-                  max={100}
-                  step={1}
-                  value={s}
-                  onChange={(e) => onChange(tokenId, formatHsl(h, Number(e.target.value), l))}
-                  className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
-                  data-testid={`slider-s-${tokenId.replace(/^--/, "")}`}
-                />
-                <div
-                  className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm"
-                  style={{ left: `${s}%`, transform: "translateX(-50%) translateY(-50%)", backgroundColor: `hsl(${h} ${s}% ${l}%)` }}
-                />
-              </div>
-              <span className="text-xs text-muted-foreground w-7 text-right">{s}%</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground w-3">L</span>
-              <div
-                className="flex-1 h-2 rounded-full relative"
-                style={{ background: `linear-gradient(to right, hsl(${h} ${s}% 0%), hsl(${h} ${s}% 50%), hsl(${h} ${s}% 100%))` }}
-              >
-                <input
-                  type="range"
-                  min={0}
-                  max={100}
-                  step={1}
-                  value={l}
-                  onChange={(e) => onChange(tokenId, formatHsl(h, s, Number(e.target.value)))}
-                  className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
-                  data-testid={`slider-l-${tokenId.replace(/^--/, "")}`}
-                />
-                <div
-                  className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm"
-                  style={{ left: `${l}%`, transform: "translateX(-50%) translateY(-50%)", backgroundColor: `hsl(${h} ${s}% ${l}%)` }}
-                />
-              </div>
-              <span className="text-xs text-muted-foreground w-7 text-right">{l}%</span>
-            </div>
-          </div>
         </div>
       )}
     </div>
@@ -409,38 +486,59 @@ function PaletteEntryRow({
 
       {mode === "value" && (
         <div className="space-y-1.5 pl-7">
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground w-20 shrink-0">Value</span>
-            <input
-              type="text"
-              value={entry.value || ""}
-              onChange={(e) => onChange(index, { ...entry, value: e.target.value })}
-              className="flex-1 text-xs px-2 py-1 rounded-md border border-input bg-background font-mono"
-              placeholder="hsl(...) or linear-gradient(...)"
-              data-testid={`input-value-${index}`}
-            />
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-muted-foreground w-20 shrink-0">Value</span>
+              <input
+                type="text"
+                value={entry.value || ""}
+                onChange={(e) => onChange(index, { ...entry, value: e.target.value })}
+                className="flex-1 text-xs px-2 py-1 rounded-md border border-input bg-background font-mono"
+                placeholder="hsl(...) or linear-gradient(...)"
+                data-testid={`input-value-${index}`}
+              />
+              <ColorPickerPopover
+                value={entry.value || ""}
+                onChange={(v) => onChange(index, { ...entry, value: v })}
+                testId={`value-${index}`}
+              />
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground w-20 shrink-0">Light value</span>
-            <input
-              type="text"
-              value={entry.lightValue || ""}
-              onChange={(e) => onChange(index, { ...entry, lightValue: e.target.value })}
-              className="flex-1 text-xs px-2 py-1 rounded-md border border-input bg-background font-mono"
-              placeholder="optional light mode override"
-              data-testid={`input-light-value-${index}`}
-            />
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-muted-foreground w-20 shrink-0">Light value</span>
+              <input
+                type="text"
+                value={entry.lightValue || ""}
+                onChange={(e) => onChange(index, { ...entry, lightValue: e.target.value })}
+                className="flex-1 text-xs px-2 py-1 rounded-md border border-input bg-background font-mono"
+                placeholder="optional light mode override"
+                data-testid={`input-light-value-${index}`}
+              />
+              <ColorPickerPopover
+                value={entry.lightValue || ""}
+                onChange={(v) => onChange(index, { ...entry, lightValue: v })}
+                testId={`light-value-${index}`}
+              />
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground w-20 shrink-0">Dark value</span>
-            <input
-              type="text"
-              value={entry.darkValue || ""}
-              onChange={(e) => onChange(index, { ...entry, darkValue: e.target.value })}
-              className="flex-1 text-xs px-2 py-1 rounded-md border border-input bg-background font-mono"
-              placeholder="optional dark mode override"
-              data-testid={`input-dark-value-${index}`}
-            />
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-muted-foreground w-20 shrink-0">Dark value</span>
+              <input
+                type="text"
+                value={entry.darkValue || ""}
+                onChange={(e) => onChange(index, { ...entry, darkValue: e.target.value })}
+                className="flex-1 text-xs px-2 py-1 rounded-md border border-input bg-background font-mono"
+                placeholder="optional dark mode override"
+                data-testid={`input-dark-value-${index}`}
+              />
+              <ColorPickerPopover
+                value={entry.darkValue || ""}
+                onChange={(v) => onChange(index, { ...entry, darkValue: v })}
+                testId={`dark-value-${index}`}
+              />
+            </div>
           </div>
         </div>
       )}
