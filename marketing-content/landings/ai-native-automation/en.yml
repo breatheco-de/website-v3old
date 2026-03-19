@@ -89,29 +89,6 @@ sections:
       variant: primary
     background: gradient
     section_id: banner-zfzyf7
-  - type: bento_cards
-    version: "1.0"
-    title: ¿Cómo te ayuda Rigobot?
-    subtitle: No vuelvas a quedarte bloqueado
-    description: Rigobot es tu asistente de programación impulsado por IA que te ayuda a mantener el ritmo en todo momento. Tanto si estás depurando código a las 2 de la madrugada como si te estás preparando para un examen, Rigobot está ahí para ayudarte a superar los desafíos y seguir aprendiendo.
-    items:
-      - icon: Code
-        title: Revisión de código
-        description: Recibe feedback inmediato sobre la calidad de tu código, buenas prácticas y posibles mejoras.
-      - icon: Brain
-        title: Mentoría con IA
-        description: Orientación personalizada que se adapta a tu estilo y ritmo de aprendizaje
-      - icon: Bug
-        title: Asistente de depuración
-        description: Ayuda paso a paso para entender y solucionar errores en tu código.
-      - icon: Lightbulb
-        title: Explicación de conceptos
-        description: Explicaciones claras y pacientes de conceptos complejos de programación.
-      - icon: Clock
-        title: Disponible 24/7
-        description: Obtén ayuda cuando la necesites, sin esperar a horarios de tutoría.
-    background: bg-background
-    section_id: bento_cards-f47tl4
   - type: awards_marquee
     section_id: awards_marquee-22c9rj
     version: "1.0"
@@ -166,6 +143,29 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
+  - type: bento_cards
+    version: "1.0"
+    title: ¿Cómo te ayuda Rigobot?
+    subtitle: No vuelvas a quedarte bloqueado
+    description: Rigobot es tu asistente de programación impulsado por IA que te ayuda a mantener el ritmo en todo momento. Tanto si estás depurando código a las 2 de la madrugada como si te estás preparando para un examen, Rigobot está ahí para ayudarte a superar los desafíos y seguir aprendiendo.
+    items:
+      - icon: Code
+        title: Revisión de código
+        description: Recibe feedback inmediato sobre la calidad de tu código, buenas prácticas y posibles mejoras.
+      - icon: Brain
+        title: Mentoría con IA
+        description: Orientación personalizada que se adapta a tu estilo y ritmo de aprendizaje
+      - icon: Bug
+        title: Asistente de depuración
+        description: Ayuda paso a paso para entender y solucionar errores en tu código.
+      - icon: Lightbulb
+        title: Explicación de conceptos
+        description: Explicaciones claras y pacientes de conceptos complejos de programación.
+      - icon: Clock
+        title: Disponible 24/7
+        description: Obtén ayuda cuando la necesites, sin esperar a horarios de tutoría.
+    background: bg-background
+    section_id: bento_cards-f47tl4
   - type: certificate
     version: v1.0
     title: Certifícate en tu tecnología favorita
