@@ -3940,8 +3940,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
     const fileName = `${name}.yml`;
     const filePath = path.join(menusDir, fileName);
+    const filePathYaml = path.join(menusDir, `${name}.yaml`);
 
-    if (fs.existsSync(filePath)) {
+    if (fs.existsSync(filePath) || fs.existsSync(filePathYaml)) {
       res.status(409).json({ error: `A menu named '${name}' already exists` });
       return;
     }
