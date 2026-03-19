@@ -519,25 +519,6 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-  - type: features_quad
-    version: "1.0"
-    heading: Who Can Add the Job Guarantee?
-    description: "The Job Guarantee is available to students who meet these four requirements:"
-    cards:
-      - icon: IconBriefcaseFilled
-        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
-      - icon: IconCircleDashedCheck
-        title: Complete All Program Requirements
-      - icon: IconBrain
-        title: Pass the Admissions Logic Test
-      - icon: IconArrowGuideFilled
-        title: Follow the Full Career Development Process
-    section_id: features_quad-ms7uox
-    marginY:
-      desktop: none xl
-    paddingY:
-      desktop: none
-    background: hsl(var(--muted))
   - type: numbered_steps
     version: "1.0"
     variant: bubbleText
@@ -592,6 +573,25 @@ sections:
       desktop: none xl
     paddingY:
       desktop: none
+  - type: features_quad
+    version: "1.0"
+    heading: Who Can Add the Job Guarantee?
+    description: "The Job Guarantee is available to students who meet these four requirements:"
+    cards:
+      - icon: IconBriefcaseFilled
+        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
+      - icon: IconCircleDashedCheck
+        title: Complete All Program Requirements
+      - icon: IconBrain
+        title: Pass the Admissions Logic Test
+      - icon: IconArrowGuideFilled
+        title: Follow the Full Career Development Process
+    section_id: features_quad-ms7uox
+    marginY:
+      desktop: none xl
+    paddingY:
+      desktop: none
+    background: hsl(var(--muted))
   - type: cards_deck
     version: "1.0"
     heading: From Enrollment to Hired. In Their Own Words
