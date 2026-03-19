@@ -143,6 +143,7 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
+    title: NUESTROS
   - type: bento_cards
     version: "1.0"
     title: ¿Cómo te ayuda Rigobot?
