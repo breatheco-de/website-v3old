@@ -175,7 +175,7 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
               <p className="text-xs text-muted-foreground">
                 Choose which content types should use this menu at the top or bottom.
               </p>
-              <div className="border rounded-md divide-y max-h-48 overflow-y-auto">
+              <div className="divide-y">
                 {contentTypes.map((ct) => {
                   const currentTop = ct.layout?.menu?.top || null;
                   const currentBottom = ct.layout?.menu?.bottom || null;
@@ -183,44 +183,48 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
                   return (
                     <div
                       key={ct.name}
-                      className="flex items-center gap-3 px-3 py-2"
+                      className="flex items-center gap-4 py-2"
                       data-testid={`row-ct-assignment-${ct.name}`}
                     >
                       <span className="flex-1 text-sm font-medium truncate">
                         {ct.label || ct.name}
                       </span>
-                      <label className="flex items-center gap-1.5 cursor-pointer select-none">
-                        <input
-                          type="checkbox"
-                          checked={slotState.top}
-                          onChange={() => toggleSlot(ct.name, "top")}
-                          disabled={createMutation.isPending}
-                          data-testid={`checkbox-ct-top-${ct.name}`}
-                          className="rounded"
-                        />
-                        <span className="text-xs">Top</span>
+                      <div className="flex flex-col items-start gap-0.5">
+                        <label className="flex items-center gap-1.5 cursor-pointer select-none">
+                          <input
+                            type="checkbox"
+                            checked={slotState.top}
+                            onChange={() => toggleSlot(ct.name, "top")}
+                            disabled={createMutation.isPending}
+                            data-testid={`checkbox-ct-top-${ct.name}`}
+                            className="rounded"
+                          />
+                          <span className="text-xs">Top</span>
+                        </label>
                         {currentTop && (
-                          <span className="text-xs text-muted-foreground">
-                            currently: {currentTop}
+                          <span className="text-xs text-muted-foreground pl-5">
+                            {currentTop}
                           </span>
                         )}
-                      </label>
-                      <label className="flex items-center gap-1.5 cursor-pointer select-none">
-                        <input
-                          type="checkbox"
-                          checked={slotState.bottom}
-                          onChange={() => toggleSlot(ct.name, "bottom")}
-                          disabled={createMutation.isPending}
-                          data-testid={`checkbox-ct-bottom-${ct.name}`}
-                          className="rounded"
-                        />
-                        <span className="text-xs">Bottom</span>
+                      </div>
+                      <div className="flex flex-col items-start gap-0.5">
+                        <label className="flex items-center gap-1.5 cursor-pointer select-none">
+                          <input
+                            type="checkbox"
+                            checked={slotState.bottom}
+                            onChange={() => toggleSlot(ct.name, "bottom")}
+                            disabled={createMutation.isPending}
+                            data-testid={`checkbox-ct-bottom-${ct.name}`}
+                            className="rounded"
+                          />
+                          <span className="text-xs">Bottom</span>
+                        </label>
                         {currentBottom && (
-                          <span className="text-xs text-muted-foreground">
-                            currently: {currentBottom}
+                          <span className="text-xs text-muted-foreground pl-5">
+                            {currentBottom}
                           </span>
                         )}
-                      </label>
+                      </div>
                     </div>
                   );
                 })}
