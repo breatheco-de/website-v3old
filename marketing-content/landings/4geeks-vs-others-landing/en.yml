@@ -249,7 +249,7 @@ sections:
       desktop: sm lg
   - type: faq
     version: v1.0
-    title: The Questions Every Bootcamp Shopper Asks. Answered Honestly.
+    title: The Questions Every Program Shopper Asks. Answered Honestly.
     related_features:
       - job-guarantee
       - outcomes
