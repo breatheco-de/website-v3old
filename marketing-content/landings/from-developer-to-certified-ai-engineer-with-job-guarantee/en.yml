@@ -27,7 +27,7 @@ sections:
       color: primary
     description: "<span style=\"font-size: 1.125rem;\">Become an AI Engineer: the fastest-growing job of 2026. 1.3M new roles. 42× growth since 2023. In 24 weeks, that's you, landing roles paying $95K–$135K+.</span>"
     bullets:
-      - text: Learn to build a complete AI-native business, from frontend and APIs to agents, automation, and real-time systems
+      - text: Learn to build a complete AI-native business, from intelligent agents and automation to real-time systems
       - text: Unlimited 1:1 mentorship and career support that doesn't stop at graduation
       - text: Get hired within 9 months of graduation, or we refund 100% of your tuition
     image_object_fit: none
