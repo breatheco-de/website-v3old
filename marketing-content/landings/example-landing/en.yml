@@ -31,6 +31,7 @@ sections:
         cta_url: "#apply-modal"
         badge: test
         color: hsl(var(--muted-foreground))
+        badge_icon: IconAB2
       - name: Desarrollo Full Stack con IA
         icon: IconCode
         description: Construye aplicaciones web modernas y listas para producción de frontend a backend usando las herramientas de IA más demandadas del mercado.
