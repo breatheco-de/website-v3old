@@ -116,6 +116,7 @@ import {
 import { variableManager } from "./variable-manager";
 import { getValidationService } from "../scripts/validation/service";
 import { getCanonicalUrl } from "../scripts/validation/shared/canonicalUrls";
+import { gcs } from "./gcs";
 import { z } from "zod";
 import {
   generateSsrSchemaHtml,
@@ -9801,6 +9802,214 @@ sections: []
     } catch (error) {
       console.error("Diagnostics page error:", error);
       res.status(500).json({ error: "Failed to generate page diagnostics" });
+    }
+  });
+
+  // ============================================
+  // Lighthouse / PageSpeed Insights API
+  // ============================================
+
+  app.get("/api/admin/lighthouse/config", (_req, res) => {
+    res.json({
+      hasSiteBaseUrl: !!process.env.SITE_BASE_URL,
+      hasApiKey: !!process.env.GOOGLE_PSI_API_KEY,
+      gcsAvailable: gcs.available,
+    });
+  });
+
+  app.get("/api/admin/lighthouse/pages", async (_req, res) => {
+    const siteBaseUrl = process.env.SITE_BASE_URL?.replace(/\/$/, "");
+    if (!siteBaseUrl) {
+      res.status(400).json({ error: "SITE_BASE_URL is not set" });
+      return;
+    }
+    try {
+      const service = getValidationService();
+      let context = service.getContext();
+      if (!context) {
+        context = await service.buildContext();
+      }
+      const seen = new Set<string>();
+      const pages: { slug: string; url: string; title: string; priority: number; type: string }[] = [];
+      for (const file of context.contentFiles) {
+        if (file.locale !== "en") continue;
+        const canonicalPath = getCanonicalUrl(file);
+        if (canonicalPath.startsWith("/private")) continue;
+        const fullUrl = file.meta?.canonical_url
+          ? file.meta.canonical_url
+          : `${siteBaseUrl}${canonicalPath}`;
+        if (seen.has(fullUrl)) continue;
+        seen.add(fullUrl);
+        pages.push({
+          slug: file.slug,
+          url: fullUrl,
+          title: file.title || file.slug,
+          priority: file.meta?.priority ?? 0.5,
+          type: file.type,
+        });
+      }
+      pages.sort((a, b) => b.priority - a.priority);
+      res.json(pages);
+    } catch (err) {
+      console.error("[Lighthouse] pages error:", err);
+      res.status(500).json({ error: "Failed to load pages" });
+    }
+  });
+
+  app.get("/api/admin/lighthouse/reports", async (_req, res) => {
+    try {
+      if (!gcs.available) {
+        res.json({ runs: [], latestRun: null });
+        return;
+      }
+      const keys: string[] = await gcs.list("reports/lighthouse/");
+      const dateSet = new Set<string>();
+      for (const key of keys) {
+        const m = key.match(/^reports\/lighthouse\/(\d{4}-\d{2}-\d{2})\//);
+        if (m) dateSet.add(m[1]);
+      }
+      const dates = Array.from(dateSet).sort().reverse().slice(0, 5);
+      const runs: { date: string; pageCount: number; avgPerformanceScore: number; worstPage: { slug: string; score: number } | null }[] = [];
+      for (const date of dates) {
+        try {
+          const buf: Buffer | null = await gcs.download(`reports/lighthouse/${date}/_summary.json`);
+          if (!buf) continue;
+          const pages = JSON.parse(buf.toString()) as { slug: string; performanceScore: number }[];
+          if (!Array.isArray(pages) || pages.length === 0) continue;
+          const avgPerformanceScore = Math.round(
+            pages.reduce((s, p) => s + p.performanceScore, 0) / pages.length
+          );
+          const worstPage = pages[0] ? { slug: pages[0].slug, score: pages[0].performanceScore } : null;
+          runs.push({ date, pageCount: pages.length, avgPerformanceScore, worstPage });
+        } catch {
+          /* skip bad runs */
+        }
+      }
+      res.json({ runs, latestRun: runs[0]?.date ?? null });
+    } catch (err) {
+      console.error("[Lighthouse] reports error:", err);
+      res.json({ runs: [], latestRun: null });
+    }
+  });
+
+  app.get("/api/admin/lighthouse/reports/:date", async (req, res) => {
+    try {
+      const { date } = req.params;
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+        res.status(400).json({ error: "Invalid date format" });
+        return;
+      }
+      if (!gcs.available) {
+        res.status(404).json({ error: "GCS not available" });
+        return;
+      }
+      const buf: Buffer | null = await gcs.download(`reports/lighthouse/${date}/_summary.json`);
+      if (!buf) {
+        res.status(404).json({ error: "Report not found" });
+        return;
+      }
+      const pages = JSON.parse(buf.toString());
+      res.json(pages);
+    } catch (err) {
+      console.error("[Lighthouse] report date error:", err);
+      res.status(500).json({ error: "Failed to load report" });
+    }
+  });
+
+  app.post("/api/admin/lighthouse/run", async (req, res) => {
+    req.setTimeout(180_000);
+    try {
+      const siteBaseUrl = process.env.SITE_BASE_URL?.replace(/\/$/, "");
+      if (!siteBaseUrl) {
+        res.status(400).json({ error: "SITE_BASE_URL is not set" });
+        return;
+      }
+      const apiKey = process.env.GOOGLE_PSI_API_KEY;
+
+      const rawUrls = req.body?.urls;
+      if (rawUrls !== undefined && rawUrls !== null) {
+        if (!Array.isArray(rawUrls) || rawUrls.some((u: unknown) => typeof u !== "string")) {
+          res.status(400).json({ error: "urls must be an array of strings" });
+          return;
+        }
+      }
+      let urlList: string[] = Array.isArray(rawUrls) ? (rawUrls as string[]) : [];
+      if (!gcs.available) {
+        res.status(503).json({ error: "GCS is not configured — reports cannot be persisted" });
+        return;
+      }
+
+      if (!urlList.length) {
+        const service = getValidationService();
+        let context = service.getContext();
+        if (!context) context = await service.buildContext();
+        const seen = new Set<string>();
+        for (const file of context.contentFiles) {
+          if (file.locale !== "en") continue;
+          const canonicalPath = getCanonicalUrl(file);
+          if (canonicalPath.startsWith("/private")) continue;
+          const fullUrl = file.meta?.canonical_url
+            ? file.meta.canonical_url
+            : `${siteBaseUrl}${canonicalPath}`;
+          if (seen.has(fullUrl)) continue;
+          seen.add(fullUrl);
+          urlList.push(fullUrl);
+        }
+      }
+
+      const { auditUrl, buildPageReport, safeReportFilename } = await import(
+        "../scripts/validation/validators/lighthouse"
+      );
+      type PageReport = Awaited<ReturnType<typeof buildPageReport>>;
+
+      const d = new Date();
+      const dateDir = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}-${String(d.getUTCDate()).padStart(2, "0")}`;
+      const gcsPrefix = `reports/lighthouse/${dateDir}`;
+
+      function sleep(ms: number): Promise<void> {
+        return new Promise((r) => setTimeout(r, ms));
+      }
+
+      const pages: PageReport[] = [];
+
+      for (let i = 0; i < urlList.length; i++) {
+        const url = urlList[i];
+        if (i > 0) await sleep(500);
+
+        try {
+          const slug = url.replace(siteBaseUrl, "").replace(/^\//, "").replace(/\//g, "--") || "home";
+          const data = await auditUrl(url, apiKey);
+          const report = buildPageReport(url, slug, data);
+
+          const filename = safeReportFilename(slug, url);
+          await gcs.upload(
+            `${gcsPrefix}/${filename}`,
+            Buffer.from(JSON.stringify(report, null, 2)),
+            "application/json",
+            { cacheControl: "no-store" }
+          );
+          pages.push(report);
+        } catch {
+          /* non-fatal — skip this page */
+        }
+      }
+
+      const sorted = [...pages].sort((a, b) => a.performanceScore - b.performanceScore);
+      await gcs.upload(
+        `${gcsPrefix}/_summary.json`,
+        Buffer.from(JSON.stringify(sorted, null, 2)),
+        "application/json",
+        { cacheControl: "no-store" }
+      );
+
+      const avgPerformanceScore = pages.length
+        ? Math.round(pages.reduce((s, p) => s + p.performanceScore, 0) / pages.length)
+        : 0;
+
+      res.json({ date: dateDir, pageCount: pages.length, avgPerformanceScore });
+    } catch (err) {
+      console.error("[Lighthouse] run error:", err);
+      res.status(500).json({ error: "Audit failed", message: String(err) });
     }
   });
 

@@ -19,6 +19,7 @@ import type {
   ValidationIssue,
 } from "../shared/types";
 import { getCanonicalUrl } from "../shared/canonicalUrls";
+import { gcs } from "../../../server/gcs";
 
 export interface PageReport {
   url: string;
@@ -63,7 +64,7 @@ function urlSuffix(url: string): string {
   return crypto.createHash("md5").update(url).digest("hex").slice(0, 6);
 }
 
-function safeReportFilename(slug: string, url: string): string {
+export function safeReportFilename(slug: string, url: string): string {
   return `${slug}--${urlSuffix(url)}.json`;
 }
 
@@ -73,7 +74,7 @@ function firstSentence(text: string | undefined): string {
   return match ? match[0].trim() : text.slice(0, 200).trim();
 }
 
-async function auditUrl(
+export async function auditUrl(
   url: string,
   apiKey?: string
 ): Promise<Record<string, unknown>> {
@@ -124,7 +125,7 @@ function parseMetrics(
   };
 }
 
-function buildPageReport(
+export function buildPageReport(
   url: string,
   slug: string,
   data: Record<string, unknown>
@@ -292,8 +293,10 @@ export const lighthouseValidator: Validator = {
       };
     }
 
-    const dir = todayDir();
-    ensureDir(dir);
+    gcs.initFromEnv();
+
+    const gcsPrefix = todayDir();
+    const localDir = todayDir();
 
     const pages: PageReport[] = [];
 
@@ -318,9 +321,19 @@ export const lighthouseValidator: Validator = {
         continue;
       }
 
-      const reportPath = path.join(dir, safeReportFilename(slug, url));
+      const filename = safeReportFilename(slug, url);
       try {
-        fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
+        if (gcs.available) {
+          await gcs.upload(
+            `${gcsPrefix}/${filename}`,
+            Buffer.from(JSON.stringify(report, null, 2)),
+            "application/json",
+            { cacheControl: "no-store" }
+          );
+        } else {
+          ensureDir(localDir);
+          fs.writeFileSync(path.join(localDir, filename), JSON.stringify(report, null, 2));
+        }
       } catch {
         /* non-fatal */
       }
@@ -341,10 +354,20 @@ export const lighthouseValidator: Validator = {
       (a, b) => a.performanceScore - b.performanceScore
     );
     try {
-      fs.writeFileSync(
-        path.join(dir, "_summary.json"),
-        JSON.stringify(sorted, null, 2)
-      );
+      if (gcs.available) {
+        await gcs.upload(
+          `${gcsPrefix}/_summary.json`,
+          Buffer.from(JSON.stringify(sorted, null, 2)),
+          "application/json",
+          { cacheControl: "no-store" }
+        );
+      } else {
+        ensureDir(localDir);
+        fs.writeFileSync(
+          path.join(localDir, "_summary.json"),
+          JSON.stringify(sorted, null, 2)
+        );
+      }
     } catch {
       /* non-fatal */
     }
@@ -365,7 +388,7 @@ export const lighthouseValidator: Validator = {
       duration: Date.now() - startTime,
       artifacts: {
         pages,
-        savedTo: dir,
+        savedTo: gcs.available ? gcsPrefix : localDir,
       },
     };
   },

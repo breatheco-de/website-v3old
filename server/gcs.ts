@@ -84,15 +84,34 @@ class GCSClient {
     }
   }
 
-  async upload(key: string, data: Buffer, contentType?: string): Promise<string> {
+  async upload(
+    key: string,
+    data: Buffer,
+    contentType?: string,
+    options?: { cacheControl?: string }
+  ): Promise<string> {
     if (!this.storage) throw new Error("[GCS] Not initialized");
     const file = this.storage.bucket(this.bucketName).file(key);
     await file.save(data, {
       contentType: contentType || "application/octet-stream",
       resumable: false,
-      metadata: { cacheControl: "public, max-age=31536000" },
+      metadata: {
+        cacheControl: options?.cacheControl ?? "public, max-age=31536000",
+      },
     });
     return this.getPublicUrl(key);
+  }
+
+  async list(prefix: string): Promise<string[]> {
+    if (!this.storage) return [];
+    try {
+      const [files] = await this.storage
+        .bucket(this.bucketName)
+        .getFiles({ prefix, versions: false });
+      return files.map((f) => f.name);
+    } catch {
+      return [];
+    }
   }
 
   async download(key: string): Promise<Buffer | null> {

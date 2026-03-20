@@ -45,6 +45,7 @@ import {
   IconClipboard,
   IconTargetArrow,
   IconInfoCircle,
+  IconGauge,
 } from "@tabler/icons-react";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import {
@@ -1420,6 +1421,12 @@ export default function DiagnosticsPage() {
                 <Button variant="outline" size="sm" data-testid="button-seo-geo">
                   <IconTargetArrow className="h-3.5 w-3.5" />
                   SEO &amp; GEO
+                </Button>
+              </Link>
+              <Link href="/private/diagnostics/lighthouse">
+                <Button variant="outline" size="sm" data-testid="button-page-speed">
+                  <IconGauge className="h-3.5 w-3.5" />
+                  Page Speed
                 </Button>
               </Link>
               <TabsList data-testid="tabs-diagnostics">
