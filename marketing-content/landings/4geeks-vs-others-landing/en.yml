@@ -164,25 +164,48 @@ sections:
       desktop: md
     marginY:
       desktop: none lg
-  - type: two_column_accordion_card
-    variant: image_background
-    version: "1.0"
+  - type: ai_learning
+    variant: feature-tabs
+    badge: Why 4Geeks?
     title: The Bootcamp That Doesn't End When You Graduate
-    description: Most bootcamps hand you a certificate and disappear after demo day. 4Geeks stays with you until you land the job — and beyond. Unlimited mentorship, AI-powered learning, and career support that keeps working for you long after graduation.
-    bullets:
-      - heading: Unlimited 1:1 Mentorship
-        text: Get guidance whenever you need it. From your first line of code to preparing for senior roles, mentors support your learning and career growth at every stage — for life.
-      - heading: AI-Powered Learning and Feedback
-        text: Rigobot and LearnPack tailor your learning path, give instant feedback on your code, and guide you to solve problems the way a real engineer would. Available 24/7.
-      - heading: Lifelong Career Support
-        text: GeekFORCE helps you land your first role and keep advancing. Resume prep, interview coaching, job search strategy, and direct referrals to 400+ hiring partners — always accessible.
-    footer: Join 5,000+ graduates who've launched tech careers and never stopped growing.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
-    section_id: two_column_accordion_card-7wppr4
+    description: Most bootcamps disappear after demo day. 4Geeks stays with you until you land the job — and beyond. Three things no other bootcamp offers together.
+    features:
+      - icon: Robot
+        title: AI-powered feedback, available 24/7
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Instant feedback from Rigobot, our custom AI tutor built in-house
+          - text: Advice adjusted to your skill level and progress, not a generic curriculum
+          - text: Available at any hour, so you never wait 24 hours for an answer
+          - text: Hundreds of interactive exercises that adapt to how you learn
+        video_url: https://www.youtube.com/watch?v=NRuShbSLtg0
+      - icon: Headset
+        title: Unlimited 1:1 mentorship, for life
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Lifelong access to 1:1 technical mentorship, even after you graduate
+          - text: 7:1 student-to-mentor ratio so your mentor knows your name, not just your ticket number
+          - text: Most bootcamps cap mentorship at graduation. Ours has no expiration date.
+          - text: Weekly check-ins, peer collaboration, and dedicated Slack support channels
+        video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
+      - icon: TrendingUp
+        title: Career support that doesn't stop at graduation
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Lifelong 1:1 career coaching, not a one-time resume review
+          - text: Resume and portfolio built to pass AI-based screening tools
+          - text: Interview prep and salary negotiation support
+          - text: Direct referrals to 400+ companies actively hiring our graduates
+        video_url: https://youtu.be/-2ZvlgDnltc
+    section_id: ai_learning-xiuj75
     marginY:
-      desktop: md lg
-    paddingY:
       desktop: md none
+    paddingY:
+      desktop: md sm
+    background: hsl(var(--secondary))
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
