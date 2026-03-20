@@ -377,7 +377,7 @@ sections:
     variant: feature-tabs
     badge: Why 4Geeks?
     title: The Most Personalized Path to an AI Career
-    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support, every part of the experience is built around you.
+    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support, every part of the experience is built around you. It's also what backs our guarantee.
     features:
       - icon: Robot
         title: AI-powered feedback, available 24/7
