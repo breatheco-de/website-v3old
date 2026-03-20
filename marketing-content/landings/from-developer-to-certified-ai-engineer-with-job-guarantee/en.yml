@@ -191,6 +191,8 @@ sections:
         title: YoY growth in US jobs requiring AI skills
       - value: 3%
         title: Of the workforce currently qualified to fill these roles
+      - value: $95K–$150K
+        title: Average salary range for AI Engineering roles
     section_id: features_grid-o2kd1x
     marginY:
       mobile: md none
