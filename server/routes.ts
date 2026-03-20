@@ -1,6 +1,13 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+
+const optimizeJobState = {
+  active: false,
+  total: 0,
+  processed: 0,
+  failed: 0,
+};
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
@@ -848,6 +855,115 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.put("/api/theme/preview-examples", (req, res) => {
+    try {
+      const examples = req.body as Array<{ component: string; version: string; example: string }>;
+      const themePath = path.join(process.cwd(), "marketing-content", "theme.json");
+      if (!fs.existsSync(themePath)) {
+        res.status(404).json({ error: "Theme configuration not found" });
+        return;
+      }
+      const theme = JSON.parse(fs.readFileSync(themePath, "utf-8"));
+      theme.preview_examples = Array.isArray(examples) ? examples : [];
+      fs.writeFileSync(themePath, JSON.stringify(theme, null, 2));
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error saving preview examples:", error);
+      res.status(500).json({ error: "Failed to save preview examples" });
+    }
+  });
+
+  app.put("/api/theme/palettes", async (req, res) => {
+    try {
+      const authHeader = req.headers.authorization;
+      const token = authHeader?.replace("Token ", "");
+      const isDevelopment = process.env.NODE_ENV !== "production";
+
+      if (!isDevelopment && !token) {
+        res.status(401).json({ error: "Authorization required" });
+        return;
+      }
+
+      if (!isDevelopment && token) {
+        const authResponse = await fetch(
+          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Token ${token}`,
+              Academy: "4",
+            },
+          },
+        );
+        if (authResponse.status !== 200) {
+          res.status(403).json({ error: "Invalid or unauthorized token" });
+          return;
+        }
+      }
+
+      const paletteEntrySchema = z.object({
+        id: z.string(),
+        label: z.string(),
+        cssVar: z.string().optional(),
+        value: z.string().optional(),
+        lightValue: z.string().optional(),
+        darkValue: z.string().optional(),
+      });
+      const bodySchema = z.object({
+        backgrounds: z.array(paletteEntrySchema),
+        text: z.array(paletteEntrySchema),
+        accents: z.array(paletteEntrySchema),
+      });
+      const parsed = bodySchema.safeParse(req.body);
+      if (!parsed.success) {
+        res.status(400).json({ error: "Invalid palette data", details: parsed.error.issues });
+        return;
+      }
+
+      const themePath = path.join(process.cwd(), "marketing-content", "theme.json");
+      if (!fs.existsSync(themePath)) {
+        res.status(404).json({ error: "Theme configuration not found" });
+        return;
+      }
+      const theme = JSON.parse(fs.readFileSync(themePath, "utf-8"));
+
+      const knownVars = new Set<string>([
+        ...Object.keys((theme.colors?.light as Record<string, string>) || {}),
+        ...Object.keys((theme.colors?.dark as Record<string, string>) || {}),
+      ]);
+
+      const unknownVarWarnings: string[] = [];
+      const allEntries = [
+        ...parsed.data.backgrounds,
+        ...parsed.data.text,
+        ...parsed.data.accents,
+      ];
+      for (const entry of allEntries) {
+        if (entry.cssVar && !knownVars.has(entry.cssVar)) {
+          unknownVarWarnings.push(`${entry.id}: unknown cssVar "${entry.cssVar}"`);
+        }
+      }
+
+      theme.backgrounds = parsed.data.backgrounds;
+      theme.text = parsed.data.text;
+      theme.accents = parsed.data.accents;
+
+      const themeDir = path.dirname(themePath);
+      const tmpPath = path.join(themeDir, `.theme.${Date.now()}.tmp`);
+      fs.writeFileSync(tmpPath, JSON.stringify(theme, null, 2));
+      fs.renameSync(tmpPath, themePath);
+
+      if (unknownVarWarnings.length > 0) {
+        res.json({ ok: true, warnings: unknownVarWarnings });
+      } else {
+        res.json({ ok: true });
+      }
+    } catch (error) {
+      console.error("Error saving theme palettes:", error);
+      res.status(500).json({ error: "Failed to save theme palettes" });
+    }
+  });
+
   app.get("/api/variables", (_req, res) => {
     res.json(variableManager.getDefinitions());
   });
@@ -1455,6 +1571,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         page.sections = (await resolveDynamicEntries(page.sections, locale)) as any;
       }
       const dbPageData = page as unknown as Record<string, unknown>;
+      const dbSingleEntry = (dbPageData.singleEntry as Record<string, unknown>) || {};
+      if (Object.keys(dbSingleEntry).length > 0) {
+        const dbResolved = resolveSingleVars(dbPageData, dbSingleEntry) as Record<string, unknown>;
+        Object.assign(dbPageData, dbResolved);
+      }
       const dbRaw = contentIndex.loadMergedContent(contentType, slug, locale);
       const dbLayout = resolveLayout(contentType, dbRaw.data || {});
       const { layout: _dbStripLayout, ...dbRest } = dbPageData;
@@ -1485,6 +1606,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const singleEntry = buildSingleEntryFromContent(contentType, genericPageData);
     if (singleEntry) {
       genericPageData.singleEntry = singleEntry;
+      const resolved = resolveSingleVars(genericPageData, singleEntry) as Record<string, unknown>;
+      Object.assign(genericPageData, resolved);
     }
     const { layout: _genericStripLayout, ...genericRest } = genericPageData;
     res.json({ ...genericRest, layout: genericLayout });
@@ -8801,6 +8924,11 @@ sections: []
         return;
       }
 
+      optimizeJobState.active = true;
+      optimizeJobState.total = targetIds.length;
+      optimizeJobState.processed = 0;
+      optimizeJobState.failed = 0;
+
       res.json({ queued: targetIds.length, message: `Queued ${targetIds.length} image(s) for background optimization` });
 
       (async () => {
@@ -8819,24 +8947,40 @@ sections: []
               entry.format = result.format;
               entry.srcset = result.srcset;
               processed++;
+              optimizeJobState.processed = processed;
               if (processed % 10 === 0) {
                 mediaGallery.persistRegistry();
                 console.log(`[OptimizeBatch] Progress: ${processed}/${targetIds.length} processed, ${failed} failed`);
               }
             } else {
               failed++;
+              optimizeJobState.failed = failed;
             }
           } catch (err) {
             failed++;
+            optimizeJobState.failed = failed;
             console.error(`[OptimizeBatch] Error processing ${id}:`, err);
           }
         }
         mediaGallery.persistRegistry();
+        optimizeJobState.active = false;
         console.log(`[OptimizeBatch] Complete: ${processed} processed, ${failed} failed out of ${targetIds.length} total`);
-      })().catch(err => console.error("[OptimizeBatch] Background processing error:", err));
+      })().catch(err => {
+        optimizeJobState.active = false;
+        console.error("[OptimizeBatch] Background processing error:", err);
+      });
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Batch optimize failed" });
     }
+  });
+
+  app.get("/api/image-registry/optimize-status", (_req, res) => {
+    res.json({
+      active: optimizeJobState.active,
+      total: optimizeJobState.total,
+      processed: optimizeJobState.processed,
+      failed: optimizeJobState.failed,
+    });
   });
 
   app.post("/api/media/classify/:imageId", async (req, res) => {

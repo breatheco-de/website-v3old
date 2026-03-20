@@ -31,7 +31,7 @@ sections:
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
@@ -67,7 +67,7 @@ sections:
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Get the Full Job Guarantee Details
-    form_card_subtitle: "Fill in your details and our admissions team will send you everything you need: program descriptions, requirements, and financing options. It only takes 2 minutes."
+    form_card_subtitle: "Fill in your details and our admissions team will send you everything you need: program descriptions, pricing, financing options and requirements. It only takes 2 minutes."
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: true
     awards_marquee:
@@ -130,7 +130,7 @@ sections:
     value_size: text-3xl
   - type: trust_cards
     version: v1.0
-    title: "Rated #1 Across Every Major Review Platform"
+    title: Top Rated Across Every Major Review Platform
     items:
       - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
         rating: 4.9
@@ -151,25 +151,6 @@ sections:
       desktop: md
     marginY:
       desktop: none lg
-  - type: features_quad
-    version: "1.0"
-    heading: Who Can Add the Job Guarantee?
-    description: "The Job Guarantee is available to students who meet these four requirements:"
-    cards:
-      - icon: IconBriefcaseFilled
-        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
-      - icon: IconCircleDashedCheck
-        title: Complete All Program Requirements
-      - icon: IconBrain
-        title: Pass the Admissions Logic Test
-      - icon: IconArrowGuideFilled
-        title: Follow the Full Career Development Process
-    section_id: features_quad-ms7uox
-    marginY:
-      desktop: none xl
-    paddingY:
-      desktop: none
-    background: hsl(var(--muted))
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
@@ -182,35 +163,35 @@ sections:
         description: Build the AI systems companies are hiring for right now. Master LLMs, AI agents and automation while transforming a real business case into a fully AI-native system, layer by layer.
         duration: 24 weeks
         avg_salary: $95,000 – $150,000
-        cta_text: See Program Details
-        cta_url: /us/career-programs/ai-engineering
+        cta_text: Get More Info
+        cta_url: "#hero-nzpyph"
       - name: Full Stack Development with AI
         icon: IconCode
         description: Build modern, production-ready web applications from frontend to backend using the most in-demand AI tools on the market.
         duration: 20 weeks
         avg_salary: $65,000 – $105,000
-        cta_text: See Program Details
-        cta_url: /us/career-programs/full-stack
+        cta_text: Get More Info
+        cta_url: "#hero-nzpyph"
       - name: Data Science and Machine Learning
         icon: IconChartBar
         description: Analyze complex data, build intelligent models and deploy AI solutions for real business problems.
         duration: 16 weeks
         avg_salary: $70,000 – $130,000
-        cta_text: See Program Details
-        cta_url: /us/career-programs/data-science-ml
+        cta_text: Get More Info
+        cta_url: "#hero-nzpyph"
       - name: Cybersecurity
         icon: IconShield
         description: Protect the systems AI depends on. Cybersecurity specialists are critical now that companies are scaling their AI infrastructure.
         duration: 16 weeks
         avg_salary: $65,000 – $120,000
-        cta_text: See Program Details
-        cta_url: /us/career-programs/cybersecurity
+        cta_text: Get More Info
+        cta_url: "#hero-nzpyph"
     section_id: programs_showcase-5wibqd
     background: hsl(var(--card))
     paddingY:
       desktop: md lg
     marginY:
-      desktop: none lg
+      desktop: sm lg
   - type: features_quad
     section_id: features_quad-ge4f63
     version: "1.0"
@@ -230,7 +211,7 @@ sections:
     paddingY:
       desktop: none
     marginY:
-      desktop: none md
+      desktop: none lg
   - type: two_column
     proportions:
       - 6
@@ -245,7 +226,7 @@ sections:
       sub_heading: 4Geeks Academy Graduate, Boston
       description: Luisa was working as a maintenance technician at a repair shop in Boston. She loved cars, but realized it was a hobby, not a long-term career. She needed a path into tech that came with real support, not just a course and good luck. After completing the Full Stack program at 4Geeks, she was referred directly to her first developer job by the academy. Today she builds software for a living.
       button:
-        text: See If You Qualify
+        text: Start Your Application
         url: "#hero-nzpyph"
         variant: primary
         icon: Rocket
@@ -259,7 +240,7 @@ sections:
   - type: career_support_explain
     version: v1.0
     heading: Get Hired. Career Support That Doesn't Stop at Graduation.
-    description: AI-optimized profiles, direct access to a 400+ hiring network, and hands-on support from first application to signed offer, and beyond.
+    description: AI-optimized profiles, direct access to a network of 400+ hiring partners, and hands-on support from first application to signed offer, and beyond.
     background: hsl(var(--sidebar-background))
     tabs:
       - tab_label: Job-Ready, Faster
@@ -390,7 +371,7 @@ sections:
           - text: Personalized guidance from senior engineers
           - text: Live troubleshooting and bug fixing
           - text: Industry insights from people working in tech
-          - text: Available throughout the program and after graduation
+          - text: Unlimited number of sessions. Available lifelong
       - title: "Rigobot, your AI tutor:"
         bullets:
           - text: Instant feedback on your code, 24/7
@@ -428,7 +409,7 @@ sections:
       desktop: none md
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
-    description: Musicians, philosophers, support specialists and people with zero prior experience. Now they are developers with real jobs and salaries they didn't expect.
+    description: From music, philosophy, customer support, and everything in between. Real jobs, real salaries, real proof.
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
@@ -538,31 +519,11 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-  - type: numbered_steps
-    version: "1.0"
-    variant: bubbleText
-    title: No Job Within 9 Months? Get Your Tuition Back.
-    description: Complete the program, meet the Job Guarantee requirements, and if you don't land a tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.
-    description_link:
-      text: Terms and conditions apply.
-      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
-    steps:
-      - icon: Optimization
-        title: Notify Us
-        text: Let us know you haven't landed a qualifying role within 9 months of graduation. That's all it takes to start the process.
-      - icon: Interview
-        title: We Review the Requirements
-        text: Our team confirms that all Job Guarantee requirements were completed during the program and job search period.
-      - icon: JobSearch
-        title: Full Refund, Within 30 Days
-        text: Verified and approved, your full tuition is refunded within 30 days.
-    background: hsl(var(--card))
-    section_id: numbered_steps-sgeuhk
   - type: whos_hiring
     section_id: whos_hiring-6ml5ey
     variant: carousel
     title: Where Our Graduates Work
-    subtitle: Over 5,000 alumni placed at companies actively hiring tech talent around the world.
+    subtitle: From startups to global tech leaders, our graduates work at some of the most recognized companies worldwide.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
@@ -592,10 +553,30 @@ sections:
       desktop: none xl
     paddingY:
       desktop: none
+  - type: numbered_steps
+    version: "1.0"
+    variant: bubbleText
+    title: No Job Within 9 Months? Get Your Tuition Back.
+    description: Complete the program, meet the Job Guarantee requirements, and if you don't land a tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.
+    description_link:
+      text: Terms and conditions apply.
+      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
+    steps:
+      - icon: Optimization
+        title: Notify Us
+        text: Let us know you haven't landed a qualifying role within 9 months of graduation. That's all it takes to start the process.
+      - icon: Interview
+        title: We Review the Requirements
+        text: Our team confirms that all Job Guarantee requirements were completed during the program and job search period.
+      - icon: JobSearch
+        title: Full Refund, Within 30 Days
+        text: Verified and approved, your full tuition is refunded within 30 days.
+    background: hsl(var(--card))
+    section_id: numbered_steps-sgeuhk
   - type: cards_deck
     version: "1.0"
-    heading: Real Stories of Real Career Change
-    subtitle: Thousands of graduates have used our programs to break into tech. Here are just a few of their stories, from salary increases to total career reinventions.
+    heading: From Enrollment to Hired. In Their Own Words
+    subtitle: Three graduates. Three different backgrounds. One outcome.
     cards:
       - video:
           url: https://youtu.be/ln3bQsV1BaQ
@@ -623,7 +604,29 @@ sections:
         alt: Geekpal
     section_id: cards_deck-cnay6o
     marginY:
+      desktop: none sm
+    background: hsl(210 100% 50% / 0.05)
+    paddingY:
+      desktop: md lg
+  - type: features_quad
+    version: "1.0"
+    heading: Who Can Add the Job Guarantee?
+    description: "The Job Guarantee is available to students who meet these four requirements:"
+    cards:
+      - icon: IconBriefcaseFilled
+        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
+      - icon: IconCircleDashedCheck
+        title: Complete All Program Requirements
+      - icon: IconBrain
+        title: Pass the Admissions Logic Test
+      - icon: IconArrowGuideFilled
+        title: Follow the Full Career Development Process
+    section_id: features_quad-ms7uox
+    marginY:
       desktop: none xl
+    paddingY:
+      desktop: none
+    background: hsl(var(--background))
   - type: cta_banner
     section_id: cta_banner-deasu1
     version: "1.0"
@@ -634,7 +637,7 @@ sections:
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Start Your Application
+      submit_label: Get Started
       tags: website-lead
       fields:
         email:

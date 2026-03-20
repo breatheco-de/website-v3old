@@ -17,9 +17,9 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Automatización con IA usando n8n
-    title_highlight: Automatización con IA
-    subtitle: Esto no es sólo un curso, es una transformación.
+    title: Automatización con IA aplicando n8n
+    title_highlight: aplicando n8n
+    subtitle: Con solo 30 minutos al día, domina n8n con proyectos de la vida real e interactivos.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -28,17 +28,15 @@ sections:
         - https://randomuser.me/api/portraits/men/4.jpg
       count: Cientos de estudiantes inscritos en España, LATAM y U.S.
     bullet_points:
-      - Construye más de 35 flujos de automatización funcionales incluyendo sistemas de clima, asistentes de IA y aplicaciones impulsadas por eventos.
+      - Construye automatizaciones funcionales conectando herramientas reales, desde flujos simples hasta sistemas listos para producción.
       - Domina la plataforma de automatización n8n con experiencia práctica desde conceptos básicos de 2 nodos hasta sistemas complejos de producción de 10 nodos.
-      - Integra APIs del mundo real y servicios de IA incluyendo OpenAI GPT, datos meteorológicos y sistemas de eventos basados en webhooks.
-      - Crea un proyecto final completo listo para portafolio con documentación profesional, pruebas y paquete para GitHub.
-      - Aprende prácticas de desarrollo nativo de IA, trabajando CON agentes de IA mediante ingeniería de prompts y patrones de validación.
+      - Integra servicios del mundo real, incluyendo APIs externas y herramientas de IA, para automatizar tareas y flujos de trabajo.
+      - Desarrolla un proyecto final completo listo para tu portfolio, con documentación profesional y preparado para GitHub.
     tutors:
       - name: Rigo
         role: Tutor con IA
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: Tu tutor será
-    description: Transforma tu carrera con Ingeniería de Automatización Nativa de IA. Aprende a diseñar, construir y desplegar flujos de automatización listos para producción con entrenamiento práctico en n8n e integraciones de APIs reales. Gradúate con más de 35 proyectos en portafolio y las habilidades para trabajar como ingeniero de automatización profesional.
     video:
       url: https://www.youtube.com/watch?v=TgkIpTZ75NM
       ratio: "16:9"
@@ -46,67 +44,52 @@ sections:
       autoplay: true
       loop: true
       preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40.png
-    signup_card:
-      title: ELIMINAR CÓDIGO
-      description: ELIMINAR CÓDIGO
-      cta_button:
-        text: ELIMINAR CÓDIGO
-        url: /signup
-        variant: primary
-      login_link:
-        text: Login here.
-        url: /login
-      features:
-        - icon: book
-          text: Readings and videos
-          count: "31"
-        - icon: code
-          text: Interactive Exercises
-          count: "2"
-        - icon: briefcase
-          text: Interactive Projects
-          count: "8"
-        - icon: robot
-          text: Real Time AI Feedback
-        - icon: calendar
-          text: Workshops every week
-        - icon: users
-          text: Community Gatherings.
     section_id: hero-d29v3o
+    layout_reversed: false
+  - type: features_quad
+    version: "1.0"
+    variant: default
+    heading: ¿Por qué 4Geeks Academy?
+    description: Aprende automatización con n8n de forma práctica y acompañada. No solo adquirirás habilidades reales para crear flujos y trabajar con APIs, sino que contarás con mentorías, soporte continuo y una plataforma diseñada para aprender haciendo. Todo lo que necesitas para avanzar con confianza y construir proyectos listos para tu portfolio.
+    images:
+      - image_id: graduates_coding
+        alt: Student coding at a desk with multiple monitors
+        id: graduates-coding
+      - image_id: 455d950c2e110ad696cc73e69098a00345dcbd1f730afe8f155a927d0fd08672-2
+        alt: "Image: 455d950c2e110ad696cc73e69098a00345dcbd1f730afe8f155a927d0fd08672 (2)"
+        id: 455d950c2e110ad696cc73e69098a00345dcbd1f730afe8f155a927d0fd08672-2
+      - image_id: group_original
+        alt: Original group illustration
+        id: group-original
+      - image_id: unsplash_workspace
+        alt: Workspace image
+        id: unsplash-workspace
+    cards:
+      - icon: Code
+        title: Lecciones guiadas y ejercicios prácticos
+        description: En la platafroma de 4Geeks aprende haciendo con lecciones, ejercicios prácticos y proyectos listos para tu portfolio.
+      - icon: Robot
+        title: Rigobot es tu tutor con IA
+        description: Recibe feedback en tiempo real, corrige errores y entiende conceptos paso a paso cuando lo necesites.
+      - icon: Trophy
+        title: Certifícate con 4Geeks
+        description: Obtén un certificado que valida tus conocimientos.
+      - icon: Users
+        title: Mentorías uno a uno
+        description: Accede a 2 mentorías en vivo con profesores para resolver dudas y avanzar con acompañamiento real.
+    background: bg-background
+    section_id: features_quad-4u8ahp
   - type: banner
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     title: CONOCE A RIGOBOT
-    description: Nuestra Inteligencia Artificial interna, diseñada para quienes aprenden de forma autodidacta. En la plataforma de 4Geeks Academy podrás avanzar a tu propio ritmo con ayuda inmediata de Rigobot cuando lo necesites.
+    description: Nuestra Inteligencia Artificial interna, diseñada para quienes aprenden de forma autodidacta. ¡No esperes horarios de tutoría!
     cta:
       text: SABER MÁS
       url: "#bento_cards-f47tl4"
       variant: primary
     background: gradient
     section_id: banner-zfzyf7
-  - type: bento_cards
-    version: "1.0"
-    title: ¿Cómo te ayuda Rigobot?
-    subtitle: No vuelvas a quedarte bloqueado
-    description: Rigobot es tu asistente de programación impulsado por IA que te ayuda a mantener el ritmo en todo momento. Tanto si estás depurando código a las 2 de la madrugada como si te estás preparando para un examen, Rigobot está ahí para ayudarte a superar los desafíos y seguir aprendiendo.
-    items:
-      - icon: Code
-        title: Revisión de código
-        description: Recibe feedback inmediato sobre la calidad de tu código, buenas prácticas y posibles mejoras.
-      - icon: Brain
-        title: Mentoría con IA
-        description: Orientación personalizada que se adapta a tu estilo y ritmo de aprendizaje
-      - icon: Bug
-        title: Asistente de depuración
-        description: Ayuda paso a paso para entender y solucionar errores en tu código.
-      - icon: Lightbulb
-        title: Explicación de conceptos
-        description: Explicaciones claras y pacientes de conceptos complejos de programación.
-      - icon: Clock
-        title: Disponible 24/7
-        description: Obtén ayuda cuando la necesites, sin esperar a horarios de tutoría.
-    background: bg-background
-    section_id: bento_cards-f47tl4
   - type: awards_marquee
     section_id: awards_marquee-22c9rj
     version: "1.0"
@@ -161,47 +144,38 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
-  - type: human_and_ai_duo
+    title: <br>
+  - type: bento_cards
     version: "1.0"
-    heading: De la Teoría a la Práctica
-    description: Sabemos que ver horas de video no te hará estar listo para un empleo. Por eso nuestra plataforma divide el aprendizaje en módulos desbloqueables.
-    images:
-      - src: https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400
-        alt: Professional mentor 1
-        object_fit: cover
-        object_position: center 30%
-        border_radius: 0.5rem
-      - src: https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400
-        alt: Professional mentor 2
-        object_fit: cover
-        object_position: center 25%
-        border_radius: 0.5rem
-      - src: https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400
-        alt: Professional mentor 3
-        object_fit: cover
-        object_position: center 20%
-        border_radius: 0.5rem
-      - src: https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400
-        alt: Professional mentor 4
-        object_fit: cover
-        object_position: center 35%
-        border_radius: 0.5rem
-    bullet_groups:
-      - title: Plataforma 4Geeks
-        icon: Code
-        bullets:
-          - text: Lecciones de lectura y explicaciones claras
-          - text: Guía paso a paso para aprender haciendo
-          - text: Ejercicios interactivos y proyectos para tu portfolio
-      - title: Rigobot
-        icon: Robot
-        bullets:
-          - text: Provee retroalimentación en tiempo real
-          - text: Te ayuda a encontrar y corregir errores en tu código
-          - text: Explica conceptos paso a paso de forma clara
-    footer_description: Empieza hoy, avanza a tu propio ritmo.
+    title: ¿Cómo te ayuda Rigobot?
+    subtitle: No vuelvas a quedarte bloqueado
+    description: Rigobot es tu asistente de programación impulsado por IA que te ayuda a mantener el ritmo en todo momento. Tanto si estás depurando código a las 2 de la madrugada como si te estás preparando para un examen, Rigobot está ahí para ayudarte a superar los desafíos y seguir aprendiendo.
+    items:
+      - icon: Code
+        title: Revisión de código
+        description: Recibe feedback inmediato sobre la calidad de tu código, buenas prácticas y posibles mejoras.
+      - icon: Brain
+        title: Mentoría con IA
+        description: Orientación personalizada que se adapta a tu estilo y ritmo de aprendizaje
+      - icon: Bug
+        title: Asistente de depuración
+        description: Ayuda paso a paso para entender y solucionar errores en tu código.
+      - icon: Lightbulb
+        title: Explicación de conceptos
+        description: Explicaciones claras y pacientes de conceptos complejos de programación.
+      - icon: Clock
+        title: Disponible 24/7
+        description: Obtén ayuda cuando la necesites, sin esperar a horarios de tutoría.
     background: bg-background
-    section_id: human_and_ai_duo-ek4fvi
+    section_id: bento_cards-f47tl4
+  - type: certificate
+    version: v1.0
+    title: Certifícate en tu tecnología favorita
+    description: Tu certificado de 4Geeks abrirá puertas a oportunidades profesionales con nuestra extensa red de empresas en todo el mundo. Respaldado por instituciones internacionales, representa un estándar reconocido a nivel global, desbloqueando diversos caminos profesionales.
+    card:
+      title: Full Stack Developer
+      subtitle: 4Geeks Academy Certificate
+    section_id: certificate-qz8hnz
   - type: testimonials
     section_id: testimonials-4nwr0h
     version: v1.0
@@ -247,3 +221,15 @@ sections:
         rating: 5
         comment: Empecé como principiante total, ahora lidero un equipo de desarrolladores. Eternamente agradecido.
         outcome: Promovido en 1 año
+    marginY:
+      desktop: sm none
+    paddingY:
+      desktop: sm none
+  - type: footer
+    version: v1.0
+    copyright_text: 2024 4Geeks Academy. All rights reserved.
+    section_id: footer-5z4pn5
+    paddingY:
+      desktop: md none
+    marginY:
+      desktop: md none

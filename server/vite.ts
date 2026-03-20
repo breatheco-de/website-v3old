@@ -5,12 +5,20 @@ import { createServer as createViteServer, createLogger } from "vite";
 import { type Server } from "http";
 import viteConfig from "../vite.config";
 import { contentIndex } from "./content-index";
-import { resolveInitialData, resolvePreloadHints, injectSsrMetaTags } from "./initial-data-middleware";
+import { resolveInitialData, resolvePreloadHints, injectSsrMetaTags, type PreloadHint } from "./initial-data-middleware";
 
-function buildPreloadTags(urls: string[]): string {
-  if (urls.length === 0) return "";
-  return urls
-    .map((url) => `<link rel="preload" as="image" fetchpriority="high" href="${url.replace(/"/g, "&quot;")}">`)
+function buildPreloadTags(hints: PreloadHint[]): string {
+  if (hints.length === 0) return "";
+  return hints
+    .map((hint) => {
+      const href = `href="${hint.src.replace(/"/g, "&quot;")}"`;
+      if (hint.srcset) {
+        const imagesrcset = `imagesrcset="${hint.srcset.replace(/"/g, "&quot;")}"`;
+        const imagesizes = `imagesizes="${(hint.sizes ?? "100vw").replace(/"/g, "&quot;")}"`;
+        return `<link rel="preload" as="image" fetchpriority="high" ${href} ${imagesrcset} ${imagesizes}>`;
+      }
+      return `<link rel="preload" as="image" fetchpriority="high" ${href}>`;
+    })
     .join("\n");
 }
 

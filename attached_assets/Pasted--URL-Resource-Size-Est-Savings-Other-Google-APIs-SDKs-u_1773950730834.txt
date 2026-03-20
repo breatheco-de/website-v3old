@@ -1,0 +1,104 @@
+
+URL
+Resource Size
+Est Savings
+Other Google APIs/SDKs utility 
+10,078.6 KiB	10,018.6 KiB
+Caracas graduates celebration
+<img src="https://storage.googleapis.com/4geeks-academy-website/media/caracas-gradua…" alt="Caracas graduates celebration" loading="eager" decoding="sync" fetchpriority="high" class="w-full h-full opacity-100" data-testid="img-https://storage.googleapis.com/4geeks-academy-website/media/caracas-gr…" style="object-fit: cover; object-position: center center;">
+…media/caracas-graduates_176….png(storage.googleapis.com)
+7,083.4 KiB
+7,074.4 KiB
+Using a modern image format (WebP, AVIF) or increasing the image compression could improve this image's download size.
+6,413.2 KiB
+This image file is larger than it needs to be (2190x1880) for its displayed dimensions (288x192). Use responsive images to reduce the image download size.
+6,988.4 KiB
+…media/community_176….png(storage.googleapis.com)
+2,851.0 KiB
+2,833.2 KiB
+Using a modern image format (WebP, AVIF) or increasing the image compression could improve this image's download size.
+2,545.8 KiB
+This image file is larger than it needs to be (2250x833) for its displayed dimensions (406x270). Use responsive images to reduce the image download size.
+2,684.3 KiB
+Clark University Logo
+<img src="https://storage.googleapis.com/4geeks-academy-website/media/clark-universi…" alt="Clark University Logo" class="w-auto object-contain mb-4" loading="lazy" data-testid="img-clark-university" style="height: 64px;">
+…media/clark-university_176….png(storage.googleapis.com)
+67.3 KiB
+65.2 KiB
+Using a modern image format (WebP, AVIF) or increasing the image compression could improve this image's download size.
+54.6 KiB
+This image file is larger than it needs to be (500x156) for its displayed dimensions (205x64). Use responsive images to reduce the image download size.
+56.0 KiB
+Forbes Award logo
+<img src="https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-aw…" alt="Forbes Award logo" class="w-auto object-contain mb-4" loading="lazy" data-testid="img-forbes-logo-award" style="height: 64px;">
+…media/forbes-logo-award_176….webp(storage.googleapis.com)
+24.8 KiB
+24.4 KiB
+This image file is larger than it needs to be (1000x475) for its displayed dimensions (135x64). Use responsive images to reduce the image download size.
+24.4 KiB
+Developer working on project
+<img src="https://storage.googleapis.com/4geeks-academy-website/media/student-2-lati…" alt="Developer working on project" class="w-full h-full" loading="lazy" srcset="https://storage.googleapis.com/4geeks-academy-website/media/student-2-lati…" sizes="100vw" data-testid="img-image-row-1" style="object-fit: cover; object-position: center center;">
+…media/student-2-latin-133w.webp(storage.googleapis.com)
+14.6 KiB
+6.9 KiB
+Increasing the image compression factor could improve this image's download size.
+6.9 KiB
+Graduate celebrating success
+<img src="https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady…" alt="Graduate celebrating success" class="w-full h-full" loading="lazy" srcset="https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady…" sizes="100vw" data-testid="img-image-row-3" style="object-fit: cover; object-position: center center;">
+…media/student-4-lady-latin-133w.webp(storage.googleapis.com)
+13.9 KiB
+6.2 KiB
+Increasing the image compression factor could improve this image's download size.
+6.2 KiB
+Team collaboration session
+<img src="https://storage.googleapis.com/4geeks-academy-website/media/student-3-afri…" alt="Team collaboration session" class="w-full h-full" loading="lazy" srcset="https://storage.googleapis.com/4geeks-academy-website/media/student-3-afri…" sizes="100vw" data-testid="img-image-row-2" style="object-fit: cover; object-position: center center;">
+…media/student-3-african-133w.webp(storage.googleapis.com)
+11.9 KiB
+4.3 KiB
+Increasing the image compression factor could improve this image's download size.
+4.3 KiB
+Student learning to code
+<img src="https://storage.googleapis.com/4geeks-academy-website/media/student-1-asia…" alt="Student learning to code" class="w-full h-full" loading="lazy" srcset="https://storage.googleapis.com/4geeks-academy-website/media/student-1-asia…" sizes="100vw" data-testid="img-image-row-0" style="object-fit: cover; object-position: center center;">
+…media/student-1-asian-133w.webp(storage.googleapis.com)
+11.7 KiB
+4.1 KiB
+Increasing the image compression factor could improve this image's download size.
+4.1 KiB
+4geeksacademy.com 1st party
+4,990.9 KiB	4,990.4 KiB
+User 4
+<img src="/attached_assets/man-profile-headshot-2.png" alt="User 4" loading="eager" decoding="sync" fetchpriority="high" class="w-full h-full opacity-100" data-testid="img-man-profile-headshot-2-516b72e4" style="object-fit: cover; object-position: center center;">
+/attached_assets/man-profile-headshot-2.png(4geeksacademy.com)
+1,308.4 KiB
+1,308.3 KiB
+Using a modern image format (WebP, AVIF) or increasing the image compression could improve this image's download size.
+1,137.8 KiB
+This image file is larger than it needs to be (1024x1024) for its displayed dimensions (28x28). Use responsive images to reduce the image download size.
+1,307.4 KiB
+User 2
+<img src="/attached_assets/man-profile-headshot-1.png" alt="User 2" loading="eager" decoding="sync" fetchpriority="high" class="w-full h-full opacity-100" data-testid="img-man-profile-headshot-1-0850c276" style="object-fit: cover; object-position: center center;">
+/attached_assets/man-profile-headshot-1.png(4geeksacademy.com)
+1,251.8 KiB
+1,251.7 KiB
+Using a modern image format (WebP, AVIF) or increasing the image compression could improve this image's download size.
+1,081.2 KiB
+This image file is larger than it needs to be (1024x1024) for its displayed dimensions (28x28). Use responsive images to reduce the image download size.
+1,250.9 KiB
+User 3
+<img src="/attached_assets/woman-profile-headshot-2.png" alt="User 3" loading="eager" decoding="sync" fetchpriority="high" class="w-full h-full opacity-100" data-testid="img-woman-profile-headshot-2-a0ea2c29" style="object-fit: cover; object-position: center center;">
+/attached_assets/woman-profile-headshot-2.png(4geeksacademy.com)
+1,219.9 KiB
+1,219.7 KiB
+Using a modern image format (WebP, AVIF) or increasing the image compression could improve this image's download size.
+1,049.2 KiB
+This image file is larger than it needs to be (1024x1024) for its displayed dimensions (28x28). Use responsive images to reduce the image download size.
+1,219.0 KiB
+User 1
+<img src="/attached_assets/woman-profile-headshot-1.png" alt="User 1" loading="eager" decoding="sync" fetchpriority="high" class="w-full h-full opacity-100" data-testid="img-woman-profile-headshot-1-608aff01" style="object-fit: cover; object-position: center center;">
+/attached_assets/woman-profile-headshot-1.png(4geeksacademy.com)
+1,210.8 KiB
+1,210.6 KiB
+Using a modern image format (WebP, AVIF) or increasing the image compression could improve this image's download size.
+1,040.1 KiB
+This image file is larger than it needs to be (1024x1024) for its displayed dimensions (28x28). Use responsive images to reduce the image download size.
+1,209.9 KiB

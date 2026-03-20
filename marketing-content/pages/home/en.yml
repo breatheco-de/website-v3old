@@ -40,8 +40,10 @@ sections:
     right_images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/fernando-funez_1765315920677.jpg
         alt: Fernando Funez testimonial
+        id: fernando-funez
       - src: https://storage.googleapis.com/4geeks-academy-website/media/feliz-empresario-laptop_1765406479465.png
         alt: Happy professional with laptop
+        id: feliz-empresario-laptop
     show_arrow: true
     section_id: hero-24ohep
     marginY:

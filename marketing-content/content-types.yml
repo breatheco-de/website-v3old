@@ -92,7 +92,7 @@ landing:
     default: /landing/:slug
   layout:
     menu:
-      top: null
+      top: logo-only
       bottom: null
 page:
   directory: pages

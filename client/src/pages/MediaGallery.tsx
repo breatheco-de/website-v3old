@@ -104,6 +104,8 @@ export default function MediaGallery() {
   const [deduplicating, setDeduplicating] = useState(false);
   const [validationResult, setValidationResult] = useState<ValidationRunResult | null>(null);
   const [optimizing, setOptimizing] = useState(false);
+  const [optimizeProgress, setOptimizeProgress] = useState<{ total: number; processed: number } | null>(null);
+  const optimizePollerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [migrating, setMigrating] = useState(false);
   const [autoTagging, setAutoTagging] = useState(false);
   const [migrateConfirmOpen, setMigrateConfirmOpen] = useState(false);
@@ -220,6 +222,7 @@ export default function MediaGallery() {
 
   const handleTriggerOptimization = async () => {
     setOptimizing(true);
+    setOptimizeProgress(null);
     try {
       const res = await apiRequest("POST", "/api/image-registry/optimize-batch", {});
       const data = await res.json();
@@ -227,9 +230,32 @@ export default function MediaGallery() {
         title: "Optimization started",
         description: data.message || `Queued ${data.queued} image(s) for processing`,
       });
+      if (data.queued > 0) {
+        setOptimizeProgress({ total: data.queued, processed: 0 });
+        if (optimizePollerRef.current) clearInterval(optimizePollerRef.current);
+        optimizePollerRef.current = setInterval(async () => {
+          try {
+            const statusRes = await fetch("/api/image-registry/optimize-status");
+            const status = await statusRes.json();
+            setOptimizeProgress({ total: status.total, processed: status.processed });
+            if (!status.active) {
+              if (optimizePollerRef.current) clearInterval(optimizePollerRef.current);
+              optimizePollerRef.current = null;
+              setOptimizing(false);
+              setOptimizeProgress(null);
+            }
+          } catch {
+            if (optimizePollerRef.current) clearInterval(optimizePollerRef.current);
+            optimizePollerRef.current = null;
+            setOptimizing(false);
+            setOptimizeProgress(null);
+          }
+        }, 2500);
+      } else {
+        setOptimizing(false);
+      }
     } catch {
       toast({ title: "Optimization failed", description: "Could not start batch optimization", variant: "destructive" });
-    } finally {
       setOptimizing(false);
     }
   };
@@ -581,6 +607,12 @@ export default function MediaGallery() {
     return () => observer.disconnect();
   }, [hasMore, loadMore]);
 
+  useEffect(() => {
+    return () => {
+      if (optimizePollerRef.current) clearInterval(optimizePollerRef.current);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -778,6 +810,9 @@ export default function MediaGallery() {
                   <IconAlertTriangle className="h-4 w-4" />
                   {scanResult.brokenReferences.length} broken reference(s)
                 </div>
+                <p className="text-xs text-muted-foreground pl-6">
+                  A YAML content file points to an image path that no longer exists on disk.
+                </p>
                 <div className="max-h-32 overflow-y-auto space-y-1 pl-6">
                   {scanResult.brokenReferences.map((ref, i) => (
                     <div key={i} className="text-xs text-muted-foreground">
@@ -908,7 +943,9 @@ export default function MediaGallery() {
                           {optimizing ? (
                             <>
                               <IconLoader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />
-                              Starting...
+                              {optimizeProgress
+                                ? `${optimizeProgress.total - optimizeProgress.processed} / ${optimizeProgress.total} remaining`
+                                : "Starting..."}
                             </>
                           ) : (
                             "Trigger optimization"
@@ -1077,7 +1114,7 @@ export default function MediaGallery() {
                           </DropdownMenuContent>
                         </DropdownMenu>
                       </div>
-                      <div className="flex items-center gap-1.5 mb-1">
+                      <div className="flex items-center gap-1.5 mb-1 flex-wrap">
                         <Badge variant="secondary" className="text-xs px-1.5 py-0 no-default-active-elevate" data-testid={`badge-storage-${id}`}>
                           {img.src.startsWith("http") ? (
                             <><IconCloud className="h-3 w-3 mr-1" />Google Bucket</>
@@ -1085,6 +1122,15 @@ export default function MediaGallery() {
                             <><IconFolder className="h-3 w-3 mr-1" />Local</>
                           )}
                         </Badge>
+                        {img.srcset && img.srcset.length > 0 ? (
+                          <Badge variant="secondary" className="text-xs px-1.5 py-0 no-default-active-elevate" data-testid={`badge-srcset-count-${id}`}>
+                            {img.srcset.length} srcset{img.srcset.length !== 1 ? "s" : ""}
+                          </Badge>
+                        ) : (
+                          <Badge className="text-xs px-1.5 py-0 no-default-active-elevate bg-destructive text-destructive-foreground" data-testid={`badge-srcset-count-${id}`}>
+                            No srcsets
+                          </Badge>
+                        )}
                       </div>
                       <p className="text-xs text-muted-foreground line-clamp-2 mb-2" data-testid={`text-image-alt-${id}`}>
                         {img.alt}
@@ -1677,6 +1723,20 @@ export default function MediaGallery() {
                     <div>
                       <p className="text-xs text-muted-foreground mb-1">Dimensions</p>
                       <p className="text-sm">{img.width} x {img.height}</p>
+                    </div>
+                  )}
+                  {img.srcset && img.srcset.length > 0 && (
+                    <div>
+                      <p className="text-xs text-muted-foreground mb-1">
+                        Srcsets <span className="text-foreground font-medium">({img.srcset.length})</span>
+                      </p>
+                      <div className="flex flex-wrap gap-1" data-testid="list-detail-srcsets">
+                        {img.srcset.map((s) => (
+                          <Badge key={s.w} variant="secondary" className="text-xs font-mono" data-testid={`badge-srcset-${s.w}`}>
+                            {s.w}w
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>

@@ -74,6 +74,13 @@ export function gcsKeyFromSrc(src: string): string | null {
   return null;
 }
 
+export function localKeyFromSrc(src: string): string | null {
+  if (src.startsWith("/marketing-content/images/")) {
+    return src.slice(1);
+  }
+  return null;
+}
+
 export function variantKey(originalKey: string, width: number, ext: string): string {
   const parsed = path.parse(originalKey);
   const dir = parsed.dir ? `${parsed.dir}/` : "";
@@ -163,7 +170,7 @@ export async function processImageBuffer(
 
   const origExt = srcExtension(src);
   const { sharpFormat, ext: outExt, registryFormat } = outputFormat(origExt);
-  const originalKey = gcsKeyFromSrc(src);
+  const originalKey = gcsKeyFromSrc(src) ?? (gcs.available ? localKeyFromSrc(src) : null);
 
   if (!originalKey && !dryRun) {
     console.log(`[ImageOptimizer] ${id}: skipping optimization — local provider does not support variant generation (src: ${src})`);
