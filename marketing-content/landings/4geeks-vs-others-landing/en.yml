@@ -249,7 +249,7 @@ sections:
       desktop: sm
   - type: faq
     version: v1.0
-    title: Frequently Asked Questions
+    title: The Questions Every Bootcamp Shopper Asks. Answered Honestly.
     related_features:
       - job-guarantee
       - outcomes
