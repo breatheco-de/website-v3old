@@ -94,10 +94,7 @@ export default defineConfig(async ({ isSsrBuild }) => ({
           ) {
             return 'date';
           }
-          if (
-            id.includes('node_modules/embla-carousel') ||
-            id.includes('node_modules/react-fast-marquee')
-          ) {
+          if (id.includes('node_modules/embla-carousel')) {
             return 'carousel';
           }
           if (
