@@ -255,6 +255,7 @@ sections:
       - outcomes
       - career-support
     section_id: faq-qubzh4
+    background: hsl(210 100% 50% / 0.05)
   - type: why_learn_ai
     variant: laptop-edge
     title: Get Hired Within 9 Months or Get Your Tuition Back
