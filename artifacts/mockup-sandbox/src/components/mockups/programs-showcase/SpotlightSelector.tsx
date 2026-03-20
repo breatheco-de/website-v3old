@@ -10,6 +10,35 @@ const CARD_BG = "#FFFFFF";
 const PAGE_BG = "#FAFAFA";
 const BORDER = "#EBEBEB";
 
+interface ResolvedColor {
+  base: string;
+  opacity: number;
+}
+
+function resolveColorVar(color: string | undefined): ResolvedColor {
+  const defaultColor: ResolvedColor = { base: PRIMARY, opacity: 1 };
+  if (!color) return defaultColor;
+  if (color.startsWith("#")) return { base: color, opacity: 1 };
+  if (color.startsWith("rgb")) return { base: color, opacity: 1 };
+  return defaultColor;
+}
+
+function hslColor(resolved: ResolvedColor, opacityMultiplier: number = 1): string {
+  const finalOpacity = Math.min(resolved.opacity * opacityMultiplier, 1);
+  const base = resolved.base;
+  if (base.startsWith("#") || base.startsWith("rgb")) {
+    if (opacityMultiplier < 1) {
+      const hex = base.replace("#", "");
+      const r = parseInt(hex.slice(0, 2), 16);
+      const g = parseInt(hex.slice(2, 4), 16);
+      const b = parseInt(hex.slice(4, 6), 16);
+      return `rgba(${r}, ${g}, ${b}, ${finalOpacity})`;
+    }
+    return base;
+  }
+  return `hsl(${base} / ${finalOpacity})`;
+}
+
 const programs = [
   {
     icon: Code2,
@@ -18,7 +47,7 @@ const programs = [
     tagline: "Build modern web apps from frontend to backend, supercharged with AI tools.",
     duration: "16 weeks",
     demand: "High demand",
-    demandColor: "#0084FF",
+    color: "#0084FF",
     skills: [
       "HTML, CSS, JavaScript & TypeScript",
       "React and modern frontend frameworks",
@@ -35,7 +64,7 @@ const programs = [
     tagline: "Design, train and deploy AI models that solve real-world business problems.",
     duration: "20 weeks",
     demand: "Top salary",
-    demandColor: "#7C3AED",
+    color: "#7C3AED",
     skills: [
       "Python for ML and AI",
       "Neural networks and deep learning",
@@ -52,7 +81,7 @@ const programs = [
     tagline: "Turn raw data into actionable insight using Python, ML and visualization.",
     duration: "18 weeks",
     demand: "In demand",
-    demandColor: "#059669",
+    color: "#059669",
     skills: [
       "Python, Pandas, NumPy",
       "Data visualization and storytelling",
@@ -69,7 +98,7 @@ const programs = [
     tagline: "Protect systems and networks against modern threats and vulnerabilities.",
     duration: "14 weeks",
     demand: null,
-    demandColor: "#DC2626",
+    color: "#DC2626",
     skills: [
       "Network security fundamentals",
       "Ethical hacking and penetration testing",
@@ -81,33 +110,11 @@ const programs = [
   },
 ];
 
-function hexToRgba(hex: string, alpha: number): string {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
-
-function DemandBadge({ demand, color }: { demand: string; color: string }) {
-  return (
-    <div
-      className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 whitespace-nowrap"
-      style={{
-        color: color,
-        backgroundColor: hexToRgba(color, 0.1),
-        fontFamily: "'Archivo', sans-serif",
-      }}
-    >
-      <TrendingUp className="w-3 h-3" strokeWidth={2} />
-      {demand}
-    </div>
-  );
-}
-
 export function SpotlightSelector() {
   const [activeIndex, setActiveIndex] = useState(0);
   const active = programs[activeIndex];
   const ActiveIcon = active.icon;
+  const resolved = resolveColorVar(active.color);
 
   return (
     <div
@@ -144,13 +151,15 @@ export function SpotlightSelector() {
             overflow: "hidden",
           }}
         >
+          {/* Small cards — sidebar */}
           <div
             className="flex flex-col"
-            style={{ width: "220px", borderRight: `1px solid ${BORDER}`, flexShrink: 0 }}
+            style={{ width: "260px", borderRight: `1px solid ${BORDER}`, flexShrink: 0 }}
           >
             {programs.map((program, idx) => {
               const Icon = program.icon;
               const isActive = idx === activeIndex;
+              const itemResolved = resolveColorVar(program.color);
               return (
                 <button
                   key={program.name}
@@ -170,7 +179,7 @@ export function SpotlightSelector() {
                     strokeWidth={1.5}
                   />
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between gap-1.5">
+                    <div className="flex items-start justify-between gap-2">
                       <span
                         style={{
                           fontFamily: "'Lato', sans-serif",
@@ -190,12 +199,13 @@ export function SpotlightSelector() {
                             fontSize: "10px",
                             fontWeight: 600,
                             padding: "2px 6px",
-                            color: program.demandColor,
-                            backgroundColor: hexToRgba(program.demandColor, 0.1),
+                            color: hslColor(itemResolved),
+                            backgroundColor: hslColor(itemResolved, 0.1),
                             fontFamily: "'Archivo', sans-serif",
                           }}
                         >
-                          <TrendingUp className="w-2.5 h-2.5" strokeWidth={2} />
+                          <TrendingUp className="w-2.5 h-2.5 shrink-0" strokeWidth={2} />
+                          <span style={{ marginLeft: "2px" }}>{program.demand}</span>
                         </div>
                       )}
                     </div>
@@ -205,10 +215,12 @@ export function SpotlightSelector() {
             })}
           </div>
 
+          {/* Featured card — detail panel with primary tint background */}
           <div
             className="flex-1 p-8 flex flex-col gap-6"
             style={{ backgroundColor: PRIMARY_BG }}
           >
+            {/* Icon row with badge on the right */}
             <div className="flex items-center justify-between gap-3">
               <ActiveIcon
                 className="w-8 h-8 shrink-0"
@@ -216,7 +228,17 @@ export function SpotlightSelector() {
                 strokeWidth={1.5}
               />
               {active.demand && (
-                <DemandBadge demand={active.demand} color={active.demandColor} />
+                <div
+                  className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0"
+                  style={{
+                    color: hslColor(resolved),
+                    backgroundColor: hslColor(resolved, 0.1),
+                    fontFamily: "'Archivo', sans-serif",
+                  }}
+                >
+                  <TrendingUp className="w-3 h-3" strokeWidth={2} />
+                  {active.demand}
+                </div>
               )}
             </div>
 
