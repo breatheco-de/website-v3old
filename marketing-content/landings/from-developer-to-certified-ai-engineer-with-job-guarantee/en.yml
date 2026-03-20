@@ -395,60 +395,54 @@ sections:
         object_position: 50% 30%
         border_radius: 0.5rem
     section_id: ai_learning-xiuj75
-  - type: certificate
-    title: Your Certificate. Your Career Leverage.
-    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Step into roles paying:"
-    benefits:
-      - text: "AI Engineer: $95K–$135K"
-      - text: "Forward-Deployed Engineer: $105K–$155K"
-      - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-      - text: "Workflow Automation Engineer: $85K–$120K"
-    card:
-      title: AI Engineer
-      subtitle: 4Geeks Academy Certificate
-      program_name: AI Engineering
-    stats:
-      - value: 86%
-        label: Hiring rate
-        description: Graduate with the credentials, portfolio, and professional profile to get hired — not just qualified.
-        benefits:
-          - text: Certificate recognized by the Florida Department of Education
-          - text: End-to-end AI-engineered company in your portfolio
-          - text: Demonstrated experience with agents, workflows, and AI systems
-          - text: Optimized professional profile and job-search strategy
-      - value: ~3 months
-        label: Average time to get hired
-        description: Most graduates land their first role in about 3 months. A structured 3-step career process turns your skills into offers fast.
-        benefits:
-          - text: Resume, portfolio, and profiles optimized to attract recruiters and pass AI-based screening
-          - text: Technical and behavioral interview preparation
-          - text: Personalized job-search strategy with access to relevant hiring networks
-      - value: 55%
-        label: Average salary increase
-        description: AI skills are exactly what companies can't find enough of. Step into high-priority roles with immediate growth and long-term upside.
-        benefits:
-          - text: "AI Engineer: $95K–$135K"
-          - text: "Forward-Deployed Engineer: $105K–$155K"
-          - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-          - text: "Workflow Automation Engineer: $85K–$120K"
-      - value: 400+
-        label: Hiring partners
-        description: 400+ companies actively hiring our graduates. Get exclusive access, priority referrals, and direct connections to the people making hiring decisions.
-        benefits:
-          - text: Exclusive job board access
-          - text: Priority referrals to partner companies
-          - text: Networking events with hiring managers
-          - text: Companies include Google, Meta, Amazon, startups
-    certificate_position: right
-    useSolidCard: true
-    section_id: certificate-yvgz4h
-    marginY:
-      mobile: none
-      desktop: none sm
+  - type: human_and_ai_duo
+    section_id: human_and_ai_duo-zg16oa
+    version: "1.0"
+    heading: The Support System Behind Your Skills
+    description: Learning works best when support is tailored to your progress. At 4Geeks, unlimited 1:1 mentorship and AI-powered feedback from Rigobot combine to keep you unblocked and moving faster than you thought possible.
+    bullet_groups:
+      - title: "Unlimited 1:1 mentorship:"
+        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
+        bullets:
+          - text: Personalized guidance from senior engineers
+          - text: Live troubleshooting and bug fixing
+          - text: Industry insights from people working in tech
+          - text: Unlimited number of sessions. Available lifelong
+      - title: "Rigobot, your AI tutor:"
+        bullets:
+          - text: Instant feedback on your code, 24/7
+          - text: Adapts to your level and learning pace
+          - text: Keeps you unblocked at any hour
+          - text: Hundreds of hands-on coding exercises and tests
+    images:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
+        alt: Asian student learning to code
+        object_fit: cover
+        object_position: 40% 20%
+        border_radius: 0.5rem
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
+        alt: Latino student working on a project
+        object_fit: cover
+        object_position: 50% 30%
+        border_radius: 0.5rem
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
+        alt: African student collaborating with team
+        object_fit: cover
+        object_position: 50% 15%
+        border_radius: 0.5rem
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
+        alt: Latina student celebrating success
+        object_fit: cover
+        object_position: 50% 30%
+        border_radius: 0.5rem
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
+    image_alt: Woman working on laptop in cafe
+    background: hsl(210 100% 50% / 0.05)
     paddingY:
-      mobile: lg
-      desktop: lg
-    background: hsl(var(--card))
+      mobile: sm none
+      desktop: md
+    marginY:
+      desktop: none md
   - type: features_quad
     version: "1.0"
     heading: Who Can Add the Job Guarantee?
