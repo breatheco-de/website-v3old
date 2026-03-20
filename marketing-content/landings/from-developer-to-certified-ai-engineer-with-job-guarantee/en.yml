@@ -742,7 +742,7 @@ sections:
   - type: features_quad
     version: "1.0"
     heading: Who Can Add the Job Guarantee?
-    description: "The Job Guarantee is available to students who meet these four requirements:"
+    description: Add the Job Guarantee at enrollment and meet these four requirements. If you're not hired within 9 months of graduation, you get 100% of your tuition back."
     cards:
       - icon: IconBriefcaseFilled
         title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
