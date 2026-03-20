@@ -256,6 +256,8 @@ sections:
       - career-support
     section_id: faq-qubzh4
     background: hsl(var(--sidebar-background))
+    marginY:
+      desktop: none lg
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
     description: A maintenance technician, a musician, a support specialist at Microsoft, a philosopher, and people with zero prior experience. All now working in tech.
