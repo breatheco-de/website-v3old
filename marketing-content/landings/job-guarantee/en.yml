@@ -191,7 +191,7 @@ sections:
     paddingY:
       desktop: md lg
     marginY:
-      desktop: sm lg
+      desktop: sm
   - type: features_quad
     section_id: features_quad-ge4f63
     version: "1.0"
