@@ -395,25 +395,6 @@ sections:
         object_position: 50% 30%
         border_radius: 0.5rem
     section_id: ai_learning-xiuj75
-  - type: features_quad
-    version: "1.0"
-    heading: Who Can Add the Job Guarantee?
-    description: "The Job Guarantee is available to students who meet these four requirements:"
-    cards:
-      - icon: IconBriefcaseFilled
-        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
-      - icon: IconCircleDashedCheck
-        title: Complete All Program Requirements
-      - icon: IconBrain
-        title: Pass the Admissions Logic Test
-      - icon: IconArrowGuideFilled
-        title: Follow the Full Career Development Process
-    section_id: features_quad-ms7uox
-    marginY:
-      desktop: none xl
-    paddingY:
-      desktop: none
-    background: hsl(var(--secondary))
   - type: certificate
     title: Your Certificate. Your Career Leverage.
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Step into roles paying:"
@@ -468,6 +449,25 @@ sections:
       mobile: lg
       desktop: lg
     background: hsl(var(--card))
+  - type: features_quad
+    version: "1.0"
+    heading: Who Can Add the Job Guarantee?
+    description: "The Job Guarantee is available to students who meet these four requirements:"
+    cards:
+      - icon: IconBriefcaseFilled
+        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
+      - icon: IconCircleDashedCheck
+        title: Complete All Program Requirements
+      - icon: IconBrain
+        title: Pass the Admissions Logic Test
+      - icon: IconArrowGuideFilled
+        title: Follow the Full Career Development Process
+    section_id: features_quad-ms7uox
+    marginY:
+      desktop: none xl
+    paddingY:
+      desktop: none
+    background: hsl(var(--secondary))
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
     description: "Different backgrounds, one outcome: a career in tech that pays."
