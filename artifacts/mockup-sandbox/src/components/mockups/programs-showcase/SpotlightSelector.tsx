@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { ArrowRight, Clock, Code2, Brain, BarChart3, Shield, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Clock, Code2, Brain, BarChart3, Shield, CheckCircle2, TrendingUp } from "lucide-react";
 
 const PRIMARY = "#0084FF";
+const PRIMARY_BG = "rgba(0, 132, 255, 0.05)";
+const PRIMARY_BORDER = "rgba(0, 132, 255, 0.2)";
 const FOREGROUND = "#00041A";
 const MUTED = "#737373";
 const CARD_BG = "#FFFFFF";
 const PAGE_BG = "#FAFAFA";
 const BORDER = "#EBEBEB";
-const PRIMARY_BG = "rgba(0, 132, 255, 0.06)";
-const PRIMARY_BORDER = "rgba(0, 132, 255, 0.25)";
 
 const programs = [
   {
@@ -17,6 +17,8 @@ const programs = [
     fullName: "Full Stack Development with AI",
     tagline: "Build modern web apps from frontend to backend, supercharged with AI tools.",
     duration: "16 weeks",
+    demand: "High demand",
+    demandColor: "#0084FF",
     skills: [
       "HTML, CSS, JavaScript & TypeScript",
       "React and modern frontend frameworks",
@@ -32,6 +34,8 @@ const programs = [
     fullName: "AI Engineering",
     tagline: "Design, train and deploy AI models that solve real-world business problems.",
     duration: "20 weeks",
+    demand: "Top salary",
+    demandColor: "#7C3AED",
     skills: [
       "Python for ML and AI",
       "Neural networks and deep learning",
@@ -47,6 +51,8 @@ const programs = [
     fullName: "Data Science & Machine Learning",
     tagline: "Turn raw data into actionable insight using Python, ML and visualization.",
     duration: "18 weeks",
+    demand: "In demand",
+    demandColor: "#059669",
     skills: [
       "Python, Pandas, NumPy",
       "Data visualization and storytelling",
@@ -62,6 +68,8 @@ const programs = [
     fullName: "Cybersecurity",
     tagline: "Protect systems and networks against modern threats and vulnerabilities.",
     duration: "14 weeks",
+    demand: null,
+    demandColor: "#DC2626",
     skills: [
       "Network security fundamentals",
       "Ethical hacking and penetration testing",
@@ -72,6 +80,29 @@ const programs = [
     outcome: "Security Analyst",
   },
 ];
+
+function hexToRgba(hex: string, alpha: number): string {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+function DemandBadge({ demand, color }: { demand: string; color: string }) {
+  return (
+    <div
+      className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 whitespace-nowrap"
+      style={{
+        color: color,
+        backgroundColor: hexToRgba(color, 0.1),
+        fontFamily: "'Archivo', sans-serif",
+      }}
+    >
+      <TrendingUp className="w-3 h-3" strokeWidth={2} />
+      {demand}
+    </div>
+  );
+}
 
 export function SpotlightSelector() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -124,9 +155,9 @@ export function SpotlightSelector() {
                 <button
                   key={program.name}
                   onClick={() => setActiveIndex(idx)}
-                  className="flex items-center gap-3 text-left transition-all duration-150"
+                  className="flex items-start gap-3 text-left transition-all duration-150"
                   style={{
-                    padding: "18px 20px",
+                    padding: "14px 16px",
                     backgroundColor: isActive ? PRIMARY_BG : "transparent",
                     borderLeft: isActive ? `2px solid ${PRIMARY}` : "2px solid transparent",
                     borderBottom: idx < programs.length - 1 ? `1px solid ${BORDER}` : "none",
@@ -134,51 +165,78 @@ export function SpotlightSelector() {
                   }}
                 >
                   <Icon
-                    className="w-5 h-5 shrink-0"
+                    className="w-4 h-4 shrink-0 mt-0.5"
                     style={{ color: isActive ? PRIMARY : MUTED }}
                     strokeWidth={1.5}
                   />
-                  <span
-                    style={{
-                      fontFamily: "'Lato', sans-serif",
-                      fontSize: "13px",
-                      fontWeight: isActive ? 700 : 500,
-                      color: isActive ? FOREGROUND : MUTED,
-                      lineHeight: 1.3,
-                    }}
-                  >
-                    {program.name}
-                  </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-1.5">
+                      <span
+                        style={{
+                          fontFamily: "'Lato', sans-serif",
+                          fontSize: "13px",
+                          fontWeight: isActive ? 700 : 500,
+                          color: isActive ? FOREGROUND : MUTED,
+                          lineHeight: 1.3,
+                          display: "block",
+                        }}
+                      >
+                        {program.name}
+                      </span>
+                      {program.demand && (
+                        <div
+                          className="flex items-center gap-0.5 rounded-full shrink-0 whitespace-nowrap"
+                          style={{
+                            fontSize: "10px",
+                            fontWeight: 600,
+                            padding: "2px 6px",
+                            color: program.demandColor,
+                            backgroundColor: hexToRgba(program.demandColor, 0.1),
+                            fontFamily: "'Archivo', sans-serif",
+                          }}
+                        >
+                          <TrendingUp className="w-2.5 h-2.5" strokeWidth={2} />
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </button>
               );
             })}
           </div>
 
-          <div className="flex-1 p-8 flex flex-col gap-6">
-            <div className="flex items-start gap-4">
+          <div
+            className="flex-1 p-8 flex flex-col gap-6"
+            style={{ backgroundColor: PRIMARY_BG }}
+          >
+            <div className="flex items-center justify-between gap-3">
               <ActiveIcon
                 className="w-8 h-8 shrink-0"
                 style={{ color: PRIMARY }}
                 strokeWidth={1.5}
               />
-              <div>
-                <h3
-                  className="text-2xl font-bold leading-snug"
-                  style={{
-                    fontFamily: "'Lato', sans-serif",
-                    color: FOREGROUND,
-                    letterSpacing: "-0.01em",
-                  }}
-                >
-                  {active.fullName}
-                </h3>
-                <p
-                  className="text-sm leading-relaxed mt-1.5"
-                  style={{ color: MUTED, fontFamily: "'Archivo', sans-serif" }}
-                >
-                  {active.tagline}
-                </p>
-              </div>
+              {active.demand && (
+                <DemandBadge demand={active.demand} color={active.demandColor} />
+              )}
+            </div>
+
+            <div>
+              <h3
+                className="text-2xl font-bold leading-snug mb-1.5"
+                style={{
+                  fontFamily: "'Lato', sans-serif",
+                  color: FOREGROUND,
+                  letterSpacing: "-0.01em",
+                }}
+              >
+                {active.fullName}
+              </h3>
+              <p
+                className="text-sm leading-relaxed"
+                style={{ color: MUTED, fontFamily: "'Archivo', sans-serif" }}
+              >
+                {active.tagline}
+              </p>
             </div>
 
             <div>
@@ -208,7 +266,7 @@ export function SpotlightSelector() {
 
             <div
               className="flex items-center justify-between pt-5 mt-auto"
-              style={{ borderTop: `1px solid ${BORDER}` }}
+              style={{ borderTop: `1px solid ${PRIMARY_BORDER}` }}
             >
               <div
                 className="flex items-center gap-1.5 text-sm"

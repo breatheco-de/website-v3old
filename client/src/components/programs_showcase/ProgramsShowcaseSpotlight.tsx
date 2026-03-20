@@ -23,11 +23,7 @@ function FeaturedCard({
 
   return (
     <div
-      className="flex flex-col group h-full border rounded-card"
-      style={{
-        backgroundColor: hslColor(resolved, 0.06),
-        borderColor: hslColor(resolved, 0.2),
-      }}
+      className="flex flex-col group h-full border rounded-card bg-[hsl(var(--primary)/0.05)] border-[hsl(var(--primary)/0.2)]"
       data-testid={`card-featured-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
     >
       <div className="p-7 flex flex-col gap-5 h-full">
@@ -72,7 +68,7 @@ function FeaturedCard({
 
         <div
           className="flex items-center justify-between gap-3 pt-4 flex-wrap"
-          style={{ borderTop: `1px solid ${hslColor(resolved, 0.2)}` }}
+          style={{ borderTop: "1px solid hsl(var(--primary) / 0.2)" }}
         >
           {showSalary && program.avg_salary ? (
             <div className="flex flex-col">
