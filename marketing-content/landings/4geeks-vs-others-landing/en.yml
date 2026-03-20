@@ -183,52 +183,47 @@ sections:
       desktop: md none
     paddingY:
       desktop: md none
-  - type: course_selector
-    version: "1.0"
-    variant: solid
-    heading: Find the Program That Fits Your Goal
-    subheading: Three career tracks. All built around getting you hired.
-    courses:
+  - type: programs_showcase
+    version: v1.0
+    layout: spotlight_with_list
+    heading: Every Program Comes With the Job Guarantee Option
+    subheading: Four programs. One promise. Get hired within 9 months, or get your tuition back.
+    featured_label: Featured Program
+    programs:
       - name: AI Engineering
-        icon: Brain
+        icon: IconBrain
+        description: Build the AI systems companies are hiring for right now. Master LLMs, AI agents and automation while transforming a real business case into a fully AI-native system, layer by layer.
         duration: 24 weeks
-        label: Updated in 2026
-        title: AI Engineering
-        badges:
-          - icon: DollarSign
-            text: APIs, automation, telemetry
-        description: Build production-ready AI systems. Graduate with a live AI-powered company in your portfolio and step into roles paying $95K–$135K.
-        price_period: " "
-        cta_text: Program details
-        cta_url: /en/career-programs/ai-engineering
-        course_background: hsl(var(--accent))
+        avg_salary: $95,000 – $150,000
+        cta_text: See Program Details
+        cta_url: /us/career-programs/ai-engineering
+      - name: Full Stack Development with AI
+        icon: IconCode
+        description: Build modern, production-ready web applications from frontend to backend using the most in-demand AI tools on the market.
+        duration: 20 weeks
+        avg_salary: $65,000 – $105,000
+        cta_text: See Program Details
+        cta_url: /us/career-programs/full-stack
       - name: Data Science and Machine Learning
+        icon: IconChartBar
+        description: Analyze complex data, build intelligent models and deploy AI solutions for real business problems.
         duration: 16 weeks
-        label: Updated in 2026
-        title: Data Science and Machine Learning
-        badges:
-          - icon: Brain
-            text: Python, TensorFlow, SQL
-        description: Analyze real-world data, build predictive models, and land roles where companies pay a premium for ML skills.
-        price_period: " "
-        cta_text: Program details
-        cta_url: /en/career-programs/ai-machine-learning
-        course_background: hsl(var(--primary))
+        avg_salary: $70,000 – $130,000
+        cta_text: See Program Details
+        cta_url: /us/career-programs/data-science-ml
       - name: Cybersecurity
+        icon: IconShield
+        description: Protect the systems AI depends on. Cybersecurity specialists are critical now that companies are scaling their AI infrastructure.
         duration: 16 weeks
-        label: Updated in 2026
-        title: Cybersecurity
-        badges:
-          - icon: Code
-            text: Threat detection & system protection
-        description: Develop the skills to identify threats, secure systems, and step into one of the fastest-growing fields in tech.
-        price_period: " "
-        cta_text: Program details
-        cta_url: /en/career-programs/cybersecurity
-        course_background: hsl(var(--secondary-foreground))
-    section_id: course_selector-pbg2nf
+        avg_salary: $65,000 – $120,000
+        cta_text: See Program Details
+        cta_url: /us/career-programs/cybersecurity
+    section_id: programs_showcase-5wibqd
+    background: hsl(var(--card))
     paddingY:
-      desktop: md none
+      desktop: md lg
+    marginY:
+      desktop: sm
   - type: why_learn_ai
     variant: laptop-edge
     title: Get Hired Within 9 Months or Get Your Tuition Back
