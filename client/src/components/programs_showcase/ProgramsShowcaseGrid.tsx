@@ -18,6 +18,9 @@ function ProgramCard({
 }) {
   const resolved = resolveColorVar(program.color);
   const Icon = program.icon ? getIcon(program.icon) : null;
+  const BadgeIcon = program.badge_icon ? getIcon(program.badge_icon) : IconTrendingUp;
+  const ctaText = program.cta?.text ?? program.cta_text;
+  const ctaUrl = program.cta?.url ?? program.cta_url ?? "#";
 
   return (
     <div
@@ -32,17 +35,17 @@ function ProgramCard({
               style={{ color: hslColor(resolved) }}
             />
           )}
-          {program.demand && (
+          {program.badge && (
             <div
               className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 font-sans"
               style={{
                 color: hslColor(resolved),
                 backgroundColor: hslColor(resolved, 0.1),
               }}
-              data-testid={`badge-demand-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
+              data-testid={`badge-program-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
             >
-              <IconTrendingUp className="w-3 h-3" />
-              {program.demand}
+              {BadgeIcon && <BadgeIcon className="w-3 h-3" />}
+              {program.badge}
             </div>
           )}
         </div>
@@ -86,15 +89,17 @@ function ProgramCard({
               <span>{program.duration}</span>
             </div>
           ) : null}
-          <a
-            href={program.cta_url}
-            className="flex items-center gap-1 text-sm font-semibold hover:underline transition-all duration-150 group-hover:gap-2 font-sans"
-            style={{ color: hslColor(resolved) }}
-            data-testid={`link-cta-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
-          >
-            {program.cta_text}
-            <IconArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
-          </a>
+          {ctaText && (
+            <a
+              href={ctaUrl}
+              className="flex items-center gap-1 text-sm font-semibold hover:underline transition-all duration-150 group-hover:gap-2 font-sans"
+              style={{ color: hslColor(resolved) }}
+              data-testid={`link-cta-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
+            >
+              {ctaText}
+              <IconArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
+            </a>
+          )}
         </div>
       </div>
     </div>

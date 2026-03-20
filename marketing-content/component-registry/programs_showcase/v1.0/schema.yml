@@ -9,7 +9,7 @@ when_to_use: |
   Best for landing pages, program overview sections, and career path comparison pages.
 variants:
   grid:
-    description: 2×2 equal card grid with per-program color dividers, demand badges, and role titles
+    description: 2×2 equal card grid with per-program color dividers, badges, and role titles
     best_for: Equal emphasis on all programs, career path selection pages
   stacked_list:
     description: Vertical list with left color bar, icons, duration/salary badges, and Explore CTA per row
@@ -79,12 +79,30 @@ props:
         description: Average salary range (e.g., "$85,000 – $120,000")
       cta_text:
         type: string
-        required: true
-        description: CTA link text
+        required: false
+        description: CTA link text (legacy flat field — prefer cta.text)
       cta_url:
         type: string
-        required: true
-        description: CTA link URL
+        required: false
+        description: CTA link URL (legacy flat field — prefer cta.url)
+      cta:
+        type: object
+        required: false
+        description: CTA button config (preferred nested form)
+        properties:
+          text:
+            type: string
+            required: true
+            description: Button label
+          url:
+            type: string
+            required: true
+            description: Button URL
+          variant:
+            type: string
+            required: true
+            options: [primary, secondary, outline]
+            description: Button visual variant
       color:
         type: string
         required: false
@@ -97,10 +115,14 @@ props:
         type: string
         required: false
         description: Label above role (e.g., "Become a")
-      demand:
+      badge:
         type: string
         required: false
-        description: Demand badge text for grid variant
+        description: Badge text shown on the card (e.g., "High demand")
+      badge_icon:
+        type: string
+        required: false
+        description: Tabler icon name for the badge (e.g., "IconTrendingUp")
   background:
     type: string
     required: false

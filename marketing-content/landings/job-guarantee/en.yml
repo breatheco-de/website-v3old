@@ -67,7 +67,7 @@ sections:
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Get the Full Job Guarantee Details
-    form_card_subtitle: "Fill in your details and our admissions team will send you everything you need: program descriptions, requirements, and financing options. It only takes 2 minutes."
+    form_card_subtitle: "Fill in your details and our admissions team will send you everything you need: program descriptions, pricing, financing options and requirements. It only takes 2 minutes."
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: true
     awards_marquee:
@@ -163,29 +163,29 @@ sections:
         description: Build the AI systems companies are hiring for right now. Master LLMs, AI agents and automation while transforming a real business case into a fully AI-native system, layer by layer.
         duration: 24 weeks
         avg_salary: $95,000 – $150,000
-        cta_text: See Program Details
-        cta_url: /us/career-programs/ai-engineering
+        cta_text: Get More Info
+        cta_url: "#hero-nzpyph"
       - name: Full Stack Development with AI
         icon: IconCode
         description: Build modern, production-ready web applications from frontend to backend using the most in-demand AI tools on the market.
         duration: 20 weeks
         avg_salary: $65,000 – $105,000
-        cta_text: See Program Details
-        cta_url: /us/career-programs/full-stack
+        cta_text: Get More Info
+        cta_url: "#hero-nzpyph"
       - name: Data Science and Machine Learning
         icon: IconChartBar
         description: Analyze complex data, build intelligent models and deploy AI solutions for real business problems.
         duration: 16 weeks
         avg_salary: $70,000 – $130,000
-        cta_text: See Program Details
-        cta_url: /us/career-programs/data-science-ml
+        cta_text: Get More Info
+        cta_url: "#hero-nzpyph"
       - name: Cybersecurity
         icon: IconShield
         description: Protect the systems AI depends on. Cybersecurity specialists are critical now that companies are scaling their AI infrastructure.
         duration: 16 weeks
         avg_salary: $65,000 – $120,000
-        cta_text: See Program Details
-        cta_url: /us/career-programs/cybersecurity
+        cta_text: Get More Info
+        cta_url: "#hero-nzpyph"
     section_id: programs_showcase-5wibqd
     background: hsl(var(--card))
     paddingY:
@@ -211,7 +211,7 @@ sections:
     paddingY:
       desktop: none
     marginY:
-      desktop: none md
+      desktop: none lg
   - type: two_column
     proportions:
       - 6

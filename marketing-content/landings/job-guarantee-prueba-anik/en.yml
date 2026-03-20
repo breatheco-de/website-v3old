@@ -167,7 +167,7 @@ sections:
         color: muted-foreground
         role: AI Engineer
         role_label: Become an
-        demand: Critical demand
+        badge: Critical demand
       - name: Data Science & ML
         icon: IconChartBar
         description: Analyze complex datasets, build predictive models, and deploy machine learning solutions to real problems.
@@ -176,7 +176,7 @@ sections:
         color: accent
         role: Data Scientist
         role_label: Become a
-        demand: High demand
+        badge: High demand
       - name: Cybersecurity
         icon: IconShield
         description: Develop hands-on skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.
@@ -185,7 +185,7 @@ sections:
         color: destructive
         role: Cybersecurity Analyst
         role_label: Become a
-        demand: Critical demand
+        badge: Critical demand
       - name: Full Stack Development with AI
         icon: IconCode
         description: Build modern web applications from frontend to backend using the latest AI-powered tools and workflows.
@@ -194,7 +194,7 @@ sections:
         color: primary
         role: Full Stack Developer
         role_label: Become a
-        demand: High demand
+        badge: High demand
     section_id: programs_showcase-nsa203
     background: hsl(var(--secondary))
     paddingY:
