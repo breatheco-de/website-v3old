@@ -39,7 +39,7 @@ export default defineConfig(async ({ isSsrBuild }) => ({
       compress: {
         drop_console: true,
         drop_debugger: true,
-        passes: 2,
+        passes: 1,
       },
       mangle: {
         safari10: true,
@@ -59,9 +59,6 @@ export default defineConfig(async ({ isSsrBuild }) => ({
           }
           if (id.includes('framer-motion')) {
             return 'framer';
-          }
-          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
-            return 'react';
           }
           if (id.includes('@tanstack')) {
             return 'tanstack';
