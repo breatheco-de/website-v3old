@@ -19,7 +19,10 @@ function FeaturedCard({
   salaryLabel?: string;
 }) {
   const Icon = program.icon ? getIcon(program.icon) : null;
+  const BadgeIcon = program.badge_icon ? getIcon(program.badge_icon) : IconTrendingUp;
   const resolved = resolveColorVar(program.color);
+  const ctaText = program.cta?.text ?? program.cta_text ?? "";
+  const ctaUrl = program.cta?.url ?? program.cta_url ?? "#";
 
   return (
     <div
@@ -33,17 +36,17 @@ function FeaturedCard({
               className="w-7 h-7 text-primary"
             />
           )}
-          {program.demand && (
+          {program.badge && (
             <div
               className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0"
               style={{
                 color: hslColor(resolved),
                 backgroundColor: hslColor(resolved, 0.1),
               }}
-              data-testid={`badge-demand-featured-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
+              data-testid={`badge-featured-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
             >
-              <IconTrendingUp className="w-3 h-3" />
-              {program.demand}
+              {BadgeIcon && <BadgeIcon className="w-3 h-3" />}
+              {program.badge}
             </div>
           )}
         </div>
@@ -83,11 +86,11 @@ function FeaturedCard({
             </div>
           ) : null}
           <a
-            href={program.cta_url}
-            className="flex items-center gap-1.5 text-sm font-semibold font-semibold text-primary hover:underline transition-all duration-150 group-hover:gap-2.5"
+            href={ctaUrl}
+            className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline transition-all duration-150 group-hover:gap-2.5"
             data-testid={`link-cta-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
           >
-            {program.cta_text}
+            {ctaText}
             <IconArrowRight className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-0.5" />
           </a>
         </div>
@@ -106,7 +109,10 @@ function SmallCard({
   salaryLabel?: string;
 }) {
   const Icon = program.icon ? getIcon(program.icon) : null;
+  const BadgeIcon = program.badge_icon ? getIcon(program.badge_icon) : IconTrendingUp;
   const resolved = resolveColorVar(program.color);
+  const ctaText = program.cta?.text ?? program.cta_text ?? "";
+  const ctaUrl = program.cta?.url ?? program.cta_url ?? "#";
 
   return (
     <div
@@ -128,17 +134,17 @@ function SmallCard({
               >
                 {program.name}
               </h3>
-              {program.demand && (
+              {program.badge && (
                 <div
                   className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0"
                   style={{
                     color: hslColor(resolved),
                     backgroundColor: hslColor(resolved, 0.1),
                   }}
-                  data-testid={`badge-demand-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
+                  data-testid={`badge-program-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
                 >
-                  <IconTrendingUp className="w-3 h-3" />
-                  {program.demand}
+                  {BadgeIcon && <BadgeIcon className="w-3 h-3" />}
+                  {program.badge}
                 </div>
               )}
             </div>
@@ -166,14 +172,12 @@ function SmallCard({
             </div>
           ) : null}
           <a
-            href={program.cta_url}
+            href={ctaUrl}
             className="flex items-center gap-1 text-sm font-semibold hover:underline transition-all duration-150 group-hover:gap-2 text-muted-foreground"
             data-testid={`link-cta-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
-            
           >
-            {program.cta_text}
+            {ctaText}
             <IconArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
-            
           </a>
         </div>
       </div>

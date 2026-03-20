@@ -29,7 +29,7 @@ sections:
         duration: 24 semanas
         cta_text: Ver Detalles del Programa
         cta_url: "#apply-modal"
-        demand: hola
+        badge: test
         color: hsl(var(--muted-foreground))
       - name: Desarrollo Full Stack con IA
         icon: IconCode
@@ -37,7 +37,7 @@ sections:
         duration: 20 semanas
         cta_text: Ver Detalles del Programa
         cta_url: "#apply-modal"
-        demand: hola
+        badge: test
         color: hsl(var(--color-orange))
       - name: Ciencia de Datos y Machine Learning
         icon: IconChartBar
@@ -45,7 +45,7 @@ sections:
         duration: 18 semanas
         cta_text: Ver Detalles del Programa
         cta_url: "#apply-modal"
-        demand: hola
+        badge: test
         color: hsl(var(--color-green))
       - name: Ciberseguridad
         icon: IconShield
@@ -53,7 +53,7 @@ sections:
         duration: 16 semanas
         cta_text: Ver Detalles del Programa
         cta_url: "#apply-modal"
-        demand: hola
+        badge: test
         color: hsl(var(--color-pink))
     section_id: programs_showcase-5wibqd
     paddingY:

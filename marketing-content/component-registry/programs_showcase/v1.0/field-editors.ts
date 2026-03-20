@@ -12,6 +12,8 @@ export const fieldEditors: Record<string, EditorType> = {
   layout: "string-picker:grid,stacked_list,spotlight_with_list",
   show_salary: "boolean-toggle",
   "programs[].icon": "icon-picker",
+  "programs[].badge_icon": "icon-picker",
   "programs[].color": "color-picker:courses",
   "programs[].cta_url": "link-picker",
+  "programs[].cta.url": "link-picker",
 };
