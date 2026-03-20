@@ -30,13 +30,12 @@ function FeaturedCard({
         <div className="flex items-center justify-between gap-3">
           {Icon && (
             <Icon
-              className="w-7 h-7"
-              style={{ color: hslColor(resolved) }}
+              className="w-7 h-7 text-primary"
             />
           )}
           {program.demand && (
             <div
-              className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 font-sans"
+              className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0"
               style={{
                 color: hslColor(resolved),
                 backgroundColor: hslColor(resolved, 0.1),
@@ -51,7 +50,7 @@ function FeaturedCard({
 
         <div className="flex-1">
           {featuredLabel && (
-            <div className="text-xs font-semibold uppercase tracking-widest mb-2 text-muted-foreground font-sans">
+            <div className="text-xs font-semibold uppercase tracking-widest mb-2 text-muted-foreground">
               {featuredLabel}
             </div>
           )}
@@ -61,7 +60,7 @@ function FeaturedCard({
           >
             {program.name}
           </h3>
-          <p className="text-base leading-relaxed text-muted-foreground font-sans">
+          <p className="text-base leading-relaxed text-muted-foreground">
             {program.description}
           </p>
         </div>
@@ -73,19 +72,19 @@ function FeaturedCard({
           {showSalary && program.avg_salary ? (
             <div className="flex flex-col">
               {salaryLabel && (
-                <span className="text-xs text-muted-foreground font-sans">{salaryLabel}</span>
+                <span className="text-xs text-muted-foreground">{salaryLabel}</span>
               )}
-              <span className="text-base text-foreground font-sans">{program.avg_salary}</span>
+              <span className="text-base text-foreground">{program.avg_salary}</span>
             </div>
           ) : program.duration ? (
-            <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-sans">
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <IconClock className="w-3.5 h-3.5" />
               <span>{program.duration}</span>
             </div>
           ) : null}
           <a
             href={program.cta_url}
-            className="flex items-center gap-1.5 text-sm font-semibold font-semibold text-muted-foreground hover:underline transition-all duration-150 group-hover:gap-2.5 font-sans"
+            className="flex items-center gap-1.5 text-sm font-semibold font-semibold text-primary hover:underline transition-all duration-150 group-hover:gap-2.5"
             data-testid={`link-cta-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
           >
             {program.cta_text}
@@ -119,7 +118,6 @@ function SmallCard({
           {Icon && (
             <Icon
               className="w-6 h-6 shrink-0 mt-0.5"
-              style={{ color: hslColor(resolved) }}
             />
           )}
           <div className="flex-1 min-w-0">
@@ -132,7 +130,7 @@ function SmallCard({
               </h3>
               {program.demand && (
                 <div
-                  className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 font-sans"
+                  className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0"
                   style={{
                     color: hslColor(resolved),
                     backgroundColor: hslColor(resolved, 0.1),
@@ -144,7 +142,7 @@ function SmallCard({
                 </div>
               )}
             </div>
-            <p className="text-sm leading-relaxed mt-1 text-muted-foreground font-sans">
+            <p className="text-sm leading-relaxed mt-1 text-muted-foreground">
               {program.description}
             </p>
           </div>
@@ -157,23 +155,25 @@ function SmallCard({
           {showSalary && program.avg_salary ? (
             <div className="flex flex-col">
               {salaryLabel && (
-                <span className="text-xs text-muted-foreground font-sans">{salaryLabel}</span>
+                <span className="text-xs text-muted-foreground">{salaryLabel}</span>
               )}
-              <span className="text-base text-foreground font-sans">{program.avg_salary}</span>
+              <span className="text-base text-foreground">{program.avg_salary}</span>
             </div>
           ) : program.duration ? (
-            <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-sans">
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <IconClock className="w-3.5 h-3.5" />
               <span>{program.duration}</span>
             </div>
           ) : null}
           <a
             href={program.cta_url}
-            className="flex items-center gap-1 text-sm font-semibold hover:underline transition-all duration-150 group-hover:gap-2 font-sans text-muted-foreground"
+            className="flex items-center gap-1 text-sm font-semibold hover:underline transition-all duration-150 group-hover:gap-2 text-muted-foreground"
             data-testid={`link-cta-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
+            
           >
             {program.cta_text}
             <IconArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
+            
           </a>
         </div>
       </div>
@@ -205,7 +205,7 @@ export function ProgramsShowcaseSpotlight({ data }: ProgramsShowcaseSpotlightPro
             )}
             {data.subheading && (
               <p
-                className="text-base max-w-xl mx-auto text-muted-foreground font-sans leading-relaxed"
+                className="text-base max-w-xl mx-auto text-muted-foreground leading-relaxed"
                 data-testid="text-subheading"
               >
                 {data.subheading}

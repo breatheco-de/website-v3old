@@ -29,24 +29,32 @@ sections:
         duration: 24 semanas
         cta_text: Ver Detalles del Programa
         cta_url: "#apply-modal"
+        demand: hola
+        color: hsl(var(--muted-foreground))
       - name: Desarrollo Full Stack con IA
         icon: IconCode
         description: Construye aplicaciones web modernas y listas para producción de frontend a backend usando las herramientas de IA más demandadas del mercado.
         duration: 20 semanas
         cta_text: Ver Detalles del Programa
         cta_url: "#apply-modal"
+        demand: hola
+        color: hsl(var(--color-orange))
       - name: Ciencia de Datos y Machine Learning
         icon: IconChartBar
         description: Analiza datos complejos, construye modelos inteligentes y despliega soluciones de IA para problemas reales de negocio.
         duration: 18 semanas
         cta_text: Ver Detalles del Programa
         cta_url: "#apply-modal"
+        demand: hola
+        color: hsl(var(--color-green))
       - name: Ciberseguridad
         icon: IconShield
         description: Protege los sistemas que la IA necesita. Los especialistas en ciberseguridad son críticos ahora que las empresas escalan su infraestructura de IA.
         duration: 16 semanas
         cta_text: Ver Detalles del Programa
         cta_url: "#apply-modal"
+        demand: hola
+        color: hsl(var(--color-pink))
     section_id: programs_showcase-5wibqd
     paddingY:
       desktop: md lg
