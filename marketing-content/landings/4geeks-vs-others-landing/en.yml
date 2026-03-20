@@ -180,7 +180,7 @@ sections:
     image: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
     section_id: two_column_accordion_card-7wppr4
     marginY:
-      desktop: md none
+      desktop: md lg
     paddingY:
       desktop: md none
   - type: programs_showcase
