@@ -6736,6 +6736,10 @@ export function SectionEditorPanel({
                       quality: cropQuality,
                     }),
                   });
+                  const contentType = resp.headers.get("content-type") || "";
+                  if (!contentType.includes("application/json")) {
+                    throw new Error(`Server returned an unexpected response (${resp.status}). Please try again or check the server logs.`);
+                  }
                   if (!resp.ok) {
                     const data = await resp.json();
                     throw new Error(data.error || "Processing failed");

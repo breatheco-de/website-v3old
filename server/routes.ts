@@ -8890,6 +8890,140 @@ sections: []
     },
   );
 
+  // ============================================
+  // Crop/Resize Endpoint
+  // ============================================
+
+  app.post("/api/media/crop-resize", async (req, res) => {
+    if (process.env.DEBUG_CROP_RESIZE) {
+      console.log("[CropResize] Handler reached — body keys:", Object.keys(req.body || {}));
+    }
+    try {
+      const bodySchema = z.object({
+        imageId: z.string().min(1),
+        crop: z.object({
+          x: z.number().min(0).max(1),
+          y: z.number().min(0).max(1),
+          width: z.number().min(0).max(1),
+          height: z.number().min(0).max(1),
+        }),
+        targetWidth: z.number().int().positive().max(8000),
+        targetHeight: z.number().int().positive().max(8000),
+        quality: z.number().int().min(50).max(100).default(85),
+      });
+
+      const parsed = bodySchema.safeParse(req.body);
+      if (!parsed.success) {
+        res.status(400).json({ error: "Invalid request", details: parsed.error.flatten() });
+        return;
+      }
+
+      const { imageId, crop, targetWidth, targetHeight, quality } = parsed.data;
+
+      const registry = mediaGallery.getRegistry();
+      if (!registry) {
+        res.status(500).json({ error: "Failed to load image registry" });
+        return;
+      }
+
+      const entry = registry.images[imageId];
+      if (!entry) {
+        res.status(404).json({ error: `Image "${imageId}" not found in registry` });
+        return;
+      }
+
+      const src = entry.src;
+      const ext = (() => {
+        try { return path.extname(new URL(src).pathname).toLowerCase(); }
+        catch { return path.extname(src).toLowerCase(); }
+      })();
+
+      if (ext === ".svg") {
+        res.status(422).json({ error: "SVG images cannot be raster-processed. Please select a different format." });
+        return;
+      }
+      if (ext === ".gif") {
+        res.status(422).json({ error: "Animated GIF images cannot be crop-processed. Please select a different format." });
+        return;
+      }
+
+      const { downloadImage } = await import("./image-optimizer");
+      const buffer = await downloadImage(src);
+      if (!buffer) {
+        res.status(422).json({ error: "Could not read source image. Make sure the file exists." });
+        return;
+      }
+
+      const sharp = (await import("sharp")).default;
+      const metadata = await sharp(buffer).metadata();
+      const imgW = metadata.width || 0;
+      const imgH = metadata.height || 0;
+
+      if (!imgW || !imgH) {
+        res.status(422).json({ error: "Could not determine image dimensions." });
+        return;
+      }
+
+      const cropLeft = Math.round(crop.x * imgW);
+      const cropTop = Math.round(crop.y * imgH);
+      const cropWidth = Math.round(crop.width * imgW);
+      const cropHeight = Math.round(crop.height * imgH);
+
+      const safeLeft = Math.max(0, Math.min(cropLeft, imgW - 1));
+      const safeTop = Math.max(0, Math.min(cropTop, imgH - 1));
+      const safeWidth = Math.max(1, Math.min(cropWidth, imgW - safeLeft));
+      const safeHeight = Math.max(1, Math.min(cropHeight, imgH - safeTop));
+
+      const processedBuffer = await sharp(buffer)
+        .extract({ left: safeLeft, top: safeTop, width: safeWidth, height: safeHeight })
+        .resize({ width: targetWidth, height: targetHeight, fit: "fill" })
+        .webp({ quality })
+        .toBuffer();
+
+      const baseId = `${imageId}-${targetWidth}x${targetHeight}`;
+
+      const parentTags = entry.tags || [];
+      let uniqueId = baseId;
+      let counter = 1;
+      while (registry.images[uniqueId]) {
+        uniqueId = `${baseId}-${counter}`;
+        counter++;
+      }
+
+      const derivedFilename = `${uniqueId}.webp`;
+      const defaultProvider = media.getDefaultProvider();
+      let newSrc: string;
+
+      if (defaultProvider.name === "local") {
+        const MARKETING_IMAGES_DIR = path.join(process.cwd(), "marketing-content", "images");
+        if (!fs.existsSync(MARKETING_IMAGES_DIR)) {
+          fs.mkdirSync(MARKETING_IMAGES_DIR, { recursive: true });
+        }
+        const destPath = path.join(MARKETING_IMAGES_DIR, derivedFilename);
+        fs.writeFileSync(destPath, processedBuffer);
+        newSrc = `/marketing-content/images/${derivedFilename}`;
+      } else {
+        newSrc = await defaultProvider.upload(derivedFilename, processedBuffer, "image/webp");
+      }
+
+      mediaGallery.register(uniqueId, {
+        src: newSrc,
+        alt: entry.alt,
+        tags: parentTags,
+        width: targetWidth,
+        height: targetHeight,
+        format: "webp",
+      });
+
+      console.log(`[CropResize] Created "${uniqueId}" (${targetWidth}x${targetHeight}) from "${imageId}"`);
+
+      res.json({ id: uniqueId, src: newSrc, width: targetWidth, height: targetHeight });
+    } catch (error: any) {
+      console.error("[CropResize] Error:", error);
+      res.status(500).json({ error: error.message || "Crop/resize failed" });
+    }
+  });
+
   app.post("/api/image-registry/optimize-batch", async (req, res) => {
     try {
       const { ids } = req.body as { ids?: string[] };
@@ -9023,137 +9157,6 @@ sections: []
         console.error("[Classify] Error:", error);
         res.status(500).json({ error: "Classification failed", message });
       }
-    }
-  });
-
-  // ============================================
-  // Crop/Resize Endpoint
-  // ============================================
-
-  app.post("/api/media/crop-resize", async (req, res) => {
-    try {
-      const bodySchema = z.object({
-        imageId: z.string().min(1),
-        crop: z.object({
-          x: z.number().min(0).max(1),
-          y: z.number().min(0).max(1),
-          width: z.number().min(0).max(1),
-          height: z.number().min(0).max(1),
-        }),
-        targetWidth: z.number().int().positive().max(8000),
-        targetHeight: z.number().int().positive().max(8000),
-        quality: z.number().int().min(50).max(100).default(85),
-      });
-
-      const parsed = bodySchema.safeParse(req.body);
-      if (!parsed.success) {
-        res.status(400).json({ error: "Invalid request", details: parsed.error.flatten() });
-        return;
-      }
-
-      const { imageId, crop, targetWidth, targetHeight, quality } = parsed.data;
-
-      const registry = mediaGallery.getRegistry();
-      if (!registry) {
-        res.status(500).json({ error: "Failed to load image registry" });
-        return;
-      }
-
-      const entry = registry.images[imageId];
-      if (!entry) {
-        res.status(404).json({ error: `Image "${imageId}" not found in registry` });
-        return;
-      }
-
-      const src = entry.src;
-      const ext = (() => {
-        try { return path.extname(new URL(src).pathname).toLowerCase(); }
-        catch { return path.extname(src).toLowerCase(); }
-      })();
-
-      if (ext === ".svg") {
-        res.status(422).json({ error: "SVG images cannot be raster-processed. Please select a different format." });
-        return;
-      }
-      if (ext === ".gif") {
-        res.status(422).json({ error: "Animated GIF images cannot be crop-processed. Please select a different format." });
-        return;
-      }
-
-      const { downloadImage } = await import("./image-optimizer");
-      const buffer = await downloadImage(src);
-      if (!buffer) {
-        res.status(422).json({ error: "Could not read source image. Make sure the file exists." });
-        return;
-      }
-
-      const sharp = (await import("sharp")).default;
-      const metadata = await sharp(buffer).metadata();
-      const imgW = metadata.width || 0;
-      const imgH = metadata.height || 0;
-
-      if (!imgW || !imgH) {
-        res.status(422).json({ error: "Could not determine image dimensions." });
-        return;
-      }
-
-      const cropLeft = Math.round(crop.x * imgW);
-      const cropTop = Math.round(crop.y * imgH);
-      const cropWidth = Math.round(crop.width * imgW);
-      const cropHeight = Math.round(crop.height * imgH);
-
-      const safeLeft = Math.max(0, Math.min(cropLeft, imgW - 1));
-      const safeTop = Math.max(0, Math.min(cropTop, imgH - 1));
-      const safeWidth = Math.max(1, Math.min(cropWidth, imgW - safeLeft));
-      const safeHeight = Math.max(1, Math.min(cropHeight, imgH - safeTop));
-
-      const processedBuffer = await sharp(buffer)
-        .extract({ left: safeLeft, top: safeTop, width: safeWidth, height: safeHeight })
-        .resize({ width: targetWidth, height: targetHeight, fit: "fill" })
-        .webp({ quality })
-        .toBuffer();
-
-      const baseId = `${imageId}-${targetWidth}x${targetHeight}`;
-
-      const parentTags = entry.tags || [];
-      let uniqueId = baseId;
-      let counter = 1;
-      while (registry.images[uniqueId]) {
-        uniqueId = `${baseId}-${counter}`;
-        counter++;
-      }
-
-      const derivedFilename = `${uniqueId}.webp`;
-      const defaultProvider = media.getDefaultProvider();
-      let newSrc: string;
-
-      if (defaultProvider.name === "local") {
-        const MARKETING_IMAGES_DIR = path.join(process.cwd(), "marketing-content", "images");
-        if (!fs.existsSync(MARKETING_IMAGES_DIR)) {
-          fs.mkdirSync(MARKETING_IMAGES_DIR, { recursive: true });
-        }
-        const destPath = path.join(MARKETING_IMAGES_DIR, derivedFilename);
-        fs.writeFileSync(destPath, processedBuffer);
-        newSrc = `/marketing-content/images/${derivedFilename}`;
-      } else {
-        newSrc = await defaultProvider.upload(derivedFilename, processedBuffer, "image/webp");
-      }
-
-      mediaGallery.register(uniqueId, {
-        src: newSrc,
-        alt: entry.alt,
-        tags: parentTags,
-        width: targetWidth,
-        height: targetHeight,
-        format: "webp",
-      });
-
-      console.log(`[CropResize] Created "${uniqueId}" (${targetWidth}x${targetHeight}) from "${imageId}"`);
-
-      res.json({ id: uniqueId, src: newSrc, width: targetWidth, height: targetHeight });
-    } catch (error: any) {
-      console.error("[CropResize] Error:", error);
-      res.status(500).json({ error: error.message || "Crop/resize failed" });
     }
   });
 
