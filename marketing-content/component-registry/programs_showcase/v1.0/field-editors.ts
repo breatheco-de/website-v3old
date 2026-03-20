@@ -1,7 +1,7 @@
 export type EditorType =
   | "icon-picker"
   | "color-picker"
-  | "color-picker:courses"
+  | "color-picker:accent"
   | "image-picker"
   | "link-picker"
   | "rich-text-editor"
@@ -13,7 +13,7 @@ export const fieldEditors: Record<string, EditorType> = {
   show_salary: "boolean-toggle",
   "programs[].icon": "icon-picker",
   "programs[].badge_icon": "icon-picker",
-  "programs[].color": "color-picker:courses",
+  "programs[].color": "color-picker:accent",
   "programs[].cta_url": "link-picker",
   "programs[].cta.url": "link-picker",
 };

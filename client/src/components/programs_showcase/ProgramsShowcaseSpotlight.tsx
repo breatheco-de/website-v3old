@@ -36,19 +36,7 @@ function FeaturedCard({
               className="w-7 h-7 text-primary"
             />
           )}
-          {program.badge && (
-            <div
-              className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0"
-              style={{
-                color: hslColor(resolved),
-                backgroundColor: hslColor(resolved, 0.1),
-              }}
-              data-testid={`badge-featured-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
-            >
-              {BadgeIcon && <BadgeIcon className="w-3 h-3" />}
-              {program.badge}
-            </div>
-          )}
+
         </div>
 
         <div className="flex-1">
@@ -63,6 +51,15 @@ function FeaturedCard({
           >
             {program.name}
           </h3>
+          {program.badge && (
+            <div
+              className="inline-flex items-center mb-2 gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 bg-primary/40"
+              data-testid={`badge-featured-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
+            >
+              {BadgeIcon && <BadgeIcon className="w-3 h-3" />}
+              {program.badge}
+            </div>
+          )}
           <p className="text-base leading-relaxed text-muted-foreground">
             {program.description}
           </p>
@@ -123,11 +120,11 @@ function SmallCard({
         <div className="flex items-start gap-3">
           {Icon && (
             <Icon
-              className="w-6 h-6 shrink-0 mt-0.5"
+              className="w-6 h-6 shrink-0 mt-0.5 text-primary"
             />
           )}
           <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between gap-2">
+            <div className="gap-2">
               <h3
                 className="text-base font-bold leading-snug text-foreground font-heading"
                 style={{ letterSpacing: "-0.01em" }}
@@ -136,11 +133,8 @@ function SmallCard({
               </h3>
               {program.badge && (
                 <div
-                  className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0"
-                  style={{
-                    color: hslColor(resolved),
-                    backgroundColor: hslColor(resolved, 0.1),
-                  }}
+                  className="inline-flex items-center gap-1 text-xs px-2.5 py-1 mt-1 rounded-full shrink-0 bg-secondary"
+
                   data-testid={`badge-program-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
                 >
                   {BadgeIcon && <BadgeIcon className="w-3 h-3" />}
