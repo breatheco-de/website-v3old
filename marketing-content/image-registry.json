@@ -5574,6 +5574,20 @@
       "tags": [],
       "usage_count": 0,
       "hash": "ff48799215a2f5bcb930a014c3d56e3b93b1fac90ce3709383dc84b2876759e3"
+    },
+    "student_asian-800x600": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/student_asian-800x600.webp",
+      "alt": "Asian student learning to code",
+      "focal_point": "center",
+      "tags": [
+        "student",
+        "portrait",
+        "diversity"
+      ],
+      "usage_count": 0,
+      "width": 800,
+      "height": 600,
+      "format": "webp"
     }
   }
 }
