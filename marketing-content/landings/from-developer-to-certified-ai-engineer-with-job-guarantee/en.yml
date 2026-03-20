@@ -20,13 +20,57 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Build with AI. Get Hired. Or Your Tuition Back.
+    title: Get Hired. Or Your Tuition Back.
     brand_mark:
       prefix: Break Your Career
       highlight: Ceiling.
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\"><span>Become an AI Engineer: the fastest-growing job of 2026. 1.3M new roles. 42× growth since 2023. In 24 weeks, that's you — landing roles paying $95K–$135K+. bullets: - text: Learn to build a complete AI-native business, from frontend and APIs to agents, automation, and real-time systems - text: Unlimited 1:1 mentorship and career support that doesn't stop at graduation - text: Get hired within 9 months of graduation, or we refund 100% of your tuition image_object_fit: none form: variant: stacked conversion_name: student_application submit_label: See If You Qualify! tags: website-lead fields: email: visible: true required: true placeholder: Email Address first_name: visible: true required: true placeholder: First Name last_name: visible: true required: true placeholder: Last Name phone: visible: true required: true default_country: US program: visible: true default: ai-engineering success: message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox. terms_url: /terms-and-conditions privacy_url: /privacy-policy consent: sms: true marketing: true marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment. sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment. sms_usa_only: true show_terms: true form_vertical_align: top form_card_text_color: hsl(var(--foreground)) form_card_title: Get the Full AI Engineering Program Details form_card_subtitle: "
-    Takes 2 minutes. Our admissions team will send you the complete program overview: curriculum, pricing, and financing options."
+    description: "<span style=\"font-size: 1.125rem;\">Become an AI Engineer: the fastest-growing job of 2026. 1.3M new roles. 42× growth since 2023. In 24 weeks, that's you, landing roles paying $95K–$135K+.</span>"
+    bullets:
+      - text: Learn to build a complete AI-native business, from frontend and APIs to agents, automation, and real-time systems
+      - text: Unlimited 1:1 mentorship and career support that doesn't stop at graduation
+      - text: Get hired within 9 months of graduation, or we refund 100% of your tuition
+    image_object_fit: none
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Start Your Application
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Email address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        last_name:
+          visible: true
+          required: true
+          placeholder: Last name
+        phone:
+          visible: true
+          required: true
+          default_country: US
+        program:
+          visible: true
+          default: ai-engineering
+      success:
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
+      terms_url: /terms-and-conditions
+      privacy_url: /privacy-policy
+      consent:
+        sms: true
+        marketing: true
+        marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe at any time.
+        sms_text: I agree to receive SMS messages about workshops, events, courses and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4-6 messages per month. We will never share your contact information.
+        sms_usa_only: true
+      show_terms: true
+    form_vertical_align: bottom
+    form_card_text_color: hsl(var(--foreground))
+    form_card_title: Get the Full Program Details
+    form_card_subtitle: "Fill in your details and our admissions team will send you everything you need: program descriptions, requirements, and financing options. It only takes 2 minutes."
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: true
     awards_marquee:
@@ -48,31 +92,8 @@ sections:
           logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
           logoHeight: 55px
         - id: premios-tecnologia
-          alt: Premios Tecnología Siglo XXI
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-          logoHeight: 55px
-        - id: newsweek
-          alt: Newsweek
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
-          logoHeight: 55px
-        - id: reviews-coursereport
-          alt: 4.9 Stars on Course Report Reviews
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-          logoHeight: 55px
-        - id: excelencia-educativa
-          alt: Educational Excellence - Institutional Quality
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
-          logoHeight: 55px
-    video_title: GeekForce Career Support
-    marginY:
-      desktop: none
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-    paddingY:
-      desktop: md none
-    marginX:
-      desktop: none
+          alt: Premios Tecnologí
     section_id: hero-nzpyph
-    awards_marquee_at_left_column: true
   - type: sticky_cta
     section_id: sticky_cta-k7207r
     version: "1.0"
