@@ -249,7 +249,7 @@ sections:
       desktop: sm lg
   - type: faq
     version: v1.0
-    title: The Questions Every Program Shopper Asks. Answered Honestly.
+    title: Real Questions. Honest Answers
     related_features:
       - job-guarantee
       - outcomes
