@@ -247,6 +247,14 @@ sections:
       desktop: md lg
     marginY:
       desktop: sm
+  - type: faq
+    version: v1.0
+    title: Frequently Asked Questions
+    related_features:
+      - job-guarantee
+      - outcomes
+      - career-support
+    section_id: faq-qubzh4
   - type: why_learn_ai
     variant: laptop-edge
     title: Get Hired Within 9 Months or Get Your Tuition Back
