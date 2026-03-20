@@ -231,7 +231,7 @@ sections:
     description: "<span style=\"font-size: 1.125rem;\">Complete the program, follow the career process, and if you don't land a qualifying tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.</span><div><span style=\"font-size: 1.125rem;\">We offer this because 86% of our graduates get hired within 90 days. The guarantee exists for the other 14% — and it means our incentives are fully aligned with yours.</span></div><div><br><span style=\"font-size: 0.875rem;\">*Not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"color: hsl(var(--primary));\">Terms and conditions apply.</a></span></div>"
     section_id: why_learn_ai-wxbuh3
     marginY:
-      desktop: none md
+      desktop: none xl
     paddingY:
       desktop: none
     background: hsl(var(--sidebar-background))
