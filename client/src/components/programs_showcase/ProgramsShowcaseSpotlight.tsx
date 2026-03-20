@@ -1,6 +1,7 @@
 import type { ProgramsShowcaseSection, ProgramItem } from "@shared/schema";
 import { getIcon } from "@/lib/icons";
-import { IconClock, IconArrowRight } from "@tabler/icons-react";
+import { IconClock, IconArrowRight, IconTrendingUp } from "@tabler/icons-react";
+import { resolveColorVar, hslColor } from "./shared";
 
 interface ProgramsShowcaseSpotlightProps {
   data: ProgramsShowcaseSection;
@@ -18,18 +19,39 @@ function FeaturedCard({
   salaryLabel?: string;
 }) {
   const Icon = program.icon ? getIcon(program.icon) : null;
+  const resolved = resolveColorVar(program.color);
 
   return (
     <div
-      className="flex flex-col group h-full border bg-background rounded-card"
+      className="flex flex-col group h-full border rounded-card"
+      style={{
+        backgroundColor: hslColor(resolved, 0.06),
+        borderColor: hslColor(resolved, 0.2),
+      }}
       data-testid={`card-featured-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
     >
       <div className="p-7 flex flex-col gap-5 h-full">
-        {Icon && (
-          <Icon
-            className="w-7 h-7 text-primary"
-          />
-        )}
+        <div className="flex items-center justify-between gap-3">
+          {Icon && (
+            <Icon
+              className="w-7 h-7"
+              style={{ color: hslColor(resolved) }}
+            />
+          )}
+          {program.demand && (
+            <div
+              className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 font-sans"
+              style={{
+                color: hslColor(resolved),
+                backgroundColor: hslColor(resolved, 0.1),
+              }}
+              data-testid={`badge-demand-featured-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
+            >
+              <IconTrendingUp className="w-3 h-3" />
+              {program.demand}
+            </div>
+          )}
+        </div>
 
         <div className="flex-1">
           {featuredLabel && (
@@ -50,7 +72,7 @@ function FeaturedCard({
 
         <div
           className="flex items-center justify-between gap-3 pt-4 flex-wrap"
-          style={{ borderTop: "1px solid hsl(var(--primary) / 0.2)" }}
+          style={{ borderTop: `1px solid ${hslColor(resolved, 0.2)}` }}
         >
           {showSalary && program.avg_salary ? (
             <div className="flex flex-col">
@@ -81,44 +103,51 @@ function FeaturedCard({
 
 function SmallCard({
   program,
-  odd,
   showSalary,
   salaryLabel,
 }: {
   program: ProgramItem;
-  odd: boolean;
   showSalary: boolean;
   salaryLabel?: string;
 }) {
   const Icon = program.icon ? getIcon(program.icon) : null;
-
-  const bgClass = odd
-    ? "bg-[hsl(var(--primary)/0.05)] border-border"
-    : "bg-card border-border";
-  const footerBorderColor = odd
-    ? "hsl(var(--primary) / 0.2)"
-    : "hsl(var(--border))";
-  const ctaColorClass = odd ? "text-primary" : "text-muted-foreground";
+  const resolved = resolveColorVar(program.color);
 
   return (
     <div
-      className={`group rounded-card border ${bgClass}`}
+      className="group rounded-card border bg-card border-border"
       data-testid={`card-program-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
     >
       <div className="p-5 flex flex-col gap-3">
         <div className="flex items-start gap-3">
           {Icon && (
             <Icon
-              className="w-6 h-6 shrink-0 mt-0.5 text-primary"
+              className="w-6 h-6 shrink-0 mt-0.5"
+              style={{ color: hslColor(resolved) }}
             />
           )}
           <div className="flex-1 min-w-0">
-            <h3
-              className="text-base font-bold leading-snug text-foreground font-heading"
-              style={{ letterSpacing: "-0.01em" }}
-            >
-              {program.name}
-            </h3>
+            <div className="flex items-start justify-between gap-2">
+              <h3
+                className="text-base font-bold leading-snug text-foreground font-heading"
+                style={{ letterSpacing: "-0.01em" }}
+              >
+                {program.name}
+              </h3>
+              {program.demand && (
+                <div
+                  className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 font-sans"
+                  style={{
+                    color: hslColor(resolved),
+                    backgroundColor: hslColor(resolved, 0.1),
+                  }}
+                  data-testid={`badge-demand-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
+                >
+                  <IconTrendingUp className="w-3 h-3" />
+                  {program.demand}
+                </div>
+              )}
+            </div>
             <p className="text-sm leading-relaxed mt-1 text-muted-foreground font-sans">
               {program.description}
             </p>
@@ -127,7 +156,7 @@ function SmallCard({
 
         <div
           className="flex items-center justify-between gap-3 pt-3 flex-wrap"
-          style={{ borderTop: `1px solid ${footerBorderColor}` }}
+          style={{ borderTop: "1px solid hsl(var(--border))" }}
         >
           {showSalary && program.avg_salary ? (
             <div className="flex flex-col">
@@ -144,7 +173,7 @@ function SmallCard({
           ) : null}
           <a
             href={program.cta_url}
-            className={`flex items-center gap-1 text-sm font-semibold hover:underline transition-all duration-150 group-hover:gap-2 font-sans ${ctaColorClass}`}
+            className="flex items-center gap-1 text-sm font-semibold hover:underline transition-all duration-150 group-hover:gap-2 font-sans text-muted-foreground"
             data-testid={`link-cta-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
           >
             {program.cta_text}
@@ -202,11 +231,10 @@ export function ProgramsShowcaseSpotlight({ data }: ProgramsShowcaseSpotlightPro
           </div>
 
           <div className="flex-1 flex flex-col gap-3 w-full">
-            {rest.map((program, index) => (
+            {rest.map((program) => (
               <SmallCard
                 key={program.name}
                 program={program}
-                odd={index % 2 === 0}
                 showSalary={showSalary}
                 salaryLabel={salaryLabel}
               />
