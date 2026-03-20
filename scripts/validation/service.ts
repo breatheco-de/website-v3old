@@ -15,7 +15,7 @@ import type {
 import { loadAllContent } from "./shared/contentLoader";
 import { buildValidUrlSet } from "./shared/canonicalUrls";
 import { getAvailableSchemaKeys } from "./shared/schemaRegistry";
-import { validators, getValidator, listValidators } from "./validators";
+import { validators, allValidators, getValidator, listValidators } from "./validators";
 
 export class ValidationService {
   private context: ValidationContext | null = null;
@@ -49,7 +49,8 @@ export class ValidationService {
       await this.buildContext();
     }
 
-    const validatorNames = options.validators || validators.map((v) => v.name);
+    const pool = options.includeSlow ? allValidators : validators;
+    const validatorNames = options.validators || pool.map((v) => v.name);
     const results: ValidatorResult[] = [];
 
     for (const name of validatorNames) {

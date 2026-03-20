@@ -38,7 +38,7 @@ export interface ValidatorMetadata {
   description: string;
   apiExposed: boolean;
   estimatedDuration: "fast" | "medium" | "slow";
-  category: "content" | "seo" | "integrity" | "components";
+  category: "content" | "seo" | "integrity" | "components" | "performance";
 }
 
 export interface Validator extends ValidatorMetadata {
@@ -106,6 +106,7 @@ export interface ValidationRunOptions {
   mode?: "strict" | "fast";
   output?: "detailed" | "summary";
   includeArtifacts?: boolean;
+  includeSlow?: boolean;
 }
 
 export interface ValidationRunResult {

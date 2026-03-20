@@ -22,6 +22,7 @@ interface CliOptions {
   list: boolean;
   artifacts: boolean;
   help: boolean;
+  slow: boolean;
 }
 
 function parseArgs(args: string[]): CliOptions {
@@ -30,6 +31,7 @@ function parseArgs(args: string[]): CliOptions {
     list: false,
     artifacts: false,
     help: false,
+    slow: false,
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -52,6 +54,8 @@ function parseArgs(args: string[]): CliOptions {
     } else if (arg.startsWith("-v=") || arg.startsWith("--validators=")) {
       const value = arg.split("=")[1];
       options.validators = value.split(",").map((s) => s.trim());
+    } else if (arg === "--slow" || arg === "-s") {
+      options.slow = true;
     }
   }
 
@@ -71,12 +75,15 @@ Options:
   -v, --validators <names>  Run specific validators (comma-separated)
   -j, --json                Output results as JSON
   -a, --artifacts           Include artifacts in output
+  -s, --slow                Include slow validators (e.g. lighthouse — makes network requests)
 
 Examples:
-  npx tsx scripts/validation/cli.ts                    # Run all validators
+  npx tsx scripts/validation/cli.ts                    # Run all fast validators
   npx tsx scripts/validation/cli.ts --list             # List validators
   npx tsx scripts/validation/cli.ts -v redirects,meta  # Run specific validators
   npx tsx scripts/validation/cli.ts --json             # JSON output for CI
+  npx tsx scripts/validation/cli.ts --slow             # Run all validators including lighthouse
+  npx tsx scripts/validation/cli.ts -v lighthouse      # Run only lighthouse
 `);
 }
 
@@ -104,6 +111,7 @@ async function main(): Promise<void> {
   const result = await service.runValidators({
     validators: options.validators,
     includeArtifacts: options.artifacts,
+    includeSlow: options.slow,
   });
 
   if (options.json) {

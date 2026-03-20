@@ -22,6 +22,9 @@ marketing-content/.*-state.txt
 # Log files
 *.log
 
+# Lighthouse / PSI report JSON files (keep .gitkeep, ignore dated report files)
+reports/lighthouse/**/*.json
+
 # IDE settings (uncomment if not sharing across team)
 # .vscode/
 # .idea/

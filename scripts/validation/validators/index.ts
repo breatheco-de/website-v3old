@@ -22,6 +22,7 @@ import { seoIntentValidator } from "./seo-intent";
 import { imageOptimizationValidator } from "./image-optimization";
 import { heroImageTagsValidator } from "./hero-image-tags";
 import { imageTagsValidator } from "./image-tags";
+import { lighthouseValidator } from "./lighthouse";
 
 export const validators: Validator[] = [
   redirectValidator,
@@ -43,16 +44,20 @@ export const validators: Validator[] = [
   imageTagsValidator,
 ];
 
+export const slowValidators: Validator[] = [lighthouseValidator];
+
+export const allValidators = [...validators, ...slowValidators];
+
 export const validatorMap = new Map<string, Validator>(
   validators.map((v) => [v.name, v])
 );
 
 export function getValidator(name: string): Validator | undefined {
-  return validatorMap.get(name);
+  return validatorMap.get(name) ?? slowValidators.find((v) => v.name === name);
 }
 
 export function listValidators(): ValidatorMetadata[] {
-  return validators.map((v) => ({
+  return allValidators.map((v) => ({
     name: v.name,
     description: v.description,
     apiExposed: v.apiExposed,
@@ -83,4 +88,5 @@ export {
   imageOptimizationValidator,
   heroImageTagsValidator,
   imageTagsValidator,
+  lighthouseValidator,
 };
