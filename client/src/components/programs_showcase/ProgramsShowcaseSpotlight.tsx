@@ -21,7 +21,7 @@ function FeaturedCard({
   const Icon = program.icon ? getIcon(program.icon) : null;
   const BadgeIcon = program.badge_icon ? getIcon(program.badge_icon) : IconTrendingUp;
   const resolved = resolveColorVar(program.color);
-  const ctaText = program.cta?.text ?? program.cta_text ?? "";
+  const ctaText = program.cta?.text ?? program.cta_text;
   const ctaUrl = program.cta?.url ?? program.cta_url ?? "#";
 
   return (
@@ -82,14 +82,16 @@ function FeaturedCard({
               <span>{program.duration}</span>
             </div>
           ) : null}
-          <a
-            href={ctaUrl}
-            className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline transition-all duration-150 group-hover:gap-2.5"
-            data-testid={`link-cta-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
-          >
-            {ctaText}
-            <IconArrowRight className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-0.5" />
-          </a>
+          {ctaText && (
+            <a
+              href={ctaUrl}
+              className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline transition-all duration-150 group-hover:gap-2.5"
+              data-testid={`link-cta-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
+            >
+              {ctaText}
+              <IconArrowRight className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-0.5" />
+            </a>
+          )}
         </div>
       </div>
     </div>
@@ -165,14 +167,16 @@ function SmallCard({
               <span>{program.duration}</span>
             </div>
           ) : null}
-          <a
-            href={ctaUrl}
-            className="flex items-center gap-1 text-sm font-semibold hover:underline transition-all duration-150 group-hover:gap-2 text-muted-foreground"
-            data-testid={`link-cta-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
-          >
-            {ctaText}
-            <IconArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
-          </a>
+          {ctaText && (
+            <a
+              href={ctaUrl}
+              className="flex items-center gap-1 text-sm font-semibold hover:underline transition-all duration-150 group-hover:gap-2 text-muted-foreground"
+              data-testid={`link-cta-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
+            >
+              {ctaText}
+              <IconArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
+            </a>
+          )}
         </div>
       </div>
     </div>
