@@ -426,25 +426,6 @@ sections:
     section_id: whos_hiring-vyd58o
     paddingY:
       desktop: none md
-  - type: numbered_steps
-    variant: default
-    title: How GeekForce Turns Your Skills Into a Job Offer
-    description: Graduating with skills is the first step. GeekForce is the structured career acceleration system that takes you from graduate to employed — with a clear process, not just encouragement.
-    steps:
-      - icon: School
-        text: Optimize your LinkedIn, GitHub, and portfolio. Build an ATS-ready resume that gets past automated screening and into the hands of real recruiters.
-      - icon: Briefcase
-        text: Master technical and behavioral interviews, sharpen your coding problem-solving, and develop a job-search strategy built around the roles you actually want.
-      - icon: Cash
-        text: Follow a tailored job-search plan, leverage AI-driven hiring tools, and get direct referrals to 400+ companies actively hiring our graduates.
-    background: hsl(var(--secondary))
-    bullet_icon: Check
-    bullet_icon_color: text-green-600
-    section_id: numbered_steps-646rz5
-    paddingY:
-      desktop: lg
-    marginY:
-      desktop: none lg
   - type: cta_banner
     version: "1.0"
     title: Your tech career won't start itself.
