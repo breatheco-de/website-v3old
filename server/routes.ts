@@ -2424,10 +2424,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       ) {
         items = items.map((item, idx) => {
           const mapped: Record<string, unknown> = { ...item };
+          const itemSlug = String(item.slug ?? item.id ?? idx);
           for (const [targetField, sourcePath] of Object.entries(
             regularMapping,
           )) {
-            const value = resolveFieldValue(sourcePath, item, targetField);
+            const value = resolveFieldValue(sourcePath, item, targetField, {
+              contentType: type,
+              slug: itemSlug,
+              fieldPath: targetField,
+            });
             if (value !== undefined) mapped[targetField] = value;
           }
           if (rawItems && rawItems[idx]) {
@@ -2438,6 +2443,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 sourcePath,
                 rawItems[idx],
                 targetField,
+                { contentType: type, slug: itemSlug, fieldPath: targetField },
               );
               if (value !== undefined) mapped[targetField] = value;
             }

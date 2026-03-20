@@ -116,7 +116,7 @@ function Router() {
   const { routes: dynamicRoutes, isLoading: dynamicRoutesLoading } = useDynamicRoutes();
 
   return (
-    <Suspense fallback={<LoadingFallback />}>
+    <Suspense fallback={null}>
       <Switch>
         <Route path="/" component={TemplatePage} />
         <Route path="/en/" component={TemplatePage} />

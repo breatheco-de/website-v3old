@@ -1,5 +1,7 @@
 import { queryClient } from "./queryClient";
 
+export const IS_SERVER = typeof document === 'undefined';
+
 interface SingleQuery {
   queryKey: unknown[];
   data: unknown;

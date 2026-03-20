@@ -4,7 +4,7 @@ import * as yaml from "js-yaml";
 import type { Request, Response, NextFunction } from "express";
 import { contentIndex } from "./content-index";
 import { resolveDynamicEntries } from "./dynamic-entries";
-import { resolveLayout, getAllConfigs, getLabel, getLayout } from "./content-types";
+import { resolveLayout, getAllConfigs, getLabel, getLayout, getLocaleKey, getContentTypeConfig } from "./content-types";
 import { applyComponentSectionDefaults } from "./component-registry";
 import { variableManager } from "./variable-manager";
 import { loadImageRegistry } from "./image-registry";
@@ -12,6 +12,7 @@ import { getDefaultLocale, normalizeLocale } from "./settings";
 import { getApiPath } from "../shared/api-paths";
 import { loadDatabaseSinglePage } from "./database-single-loader";
 import { resolveSingleVars } from "./single-resolver";
+import { databaseManager } from "./database";
 
 interface SingleQuery {
   queryKey: unknown[];
@@ -20,6 +21,60 @@ interface SingleQuery {
 
 export interface InitialDataPayload {
   queries: SingleQuery[];
+}
+
+async function fetchBlogListingPage(locale: string, page: number, category: string): Promise<Record<string, unknown> | null> {
+  try {
+    const posts = await databaseManager.fetchMappedItems("blog");
+    const localeKey = getLocaleKey("blog") || "lang";
+    const normalizedLocale = normalizeLocale(locale);
+    let filtered = posts.filter((p) => (p as any)[localeKey] === normalizedLocale);
+    if (category && category !== "all") {
+      filtered = filtered.filter((p: any) => (p.category?.slug || "") === category);
+    }
+    const categories = Array.from(
+      new Set(
+        posts
+          .filter((p) => (p as any)[localeKey] === normalizedLocale)
+          .map((p: any) => p.category?.slug || "")
+          .filter(Boolean),
+      ),
+    ).sort();
+    const limit = 12;
+    const total = filtered.length;
+    const stripped = filtered.map((p: any) => {
+      const { content, readme, ...rest } = p;
+      return rest;
+    });
+    const totalPages = Math.ceil(total / limit);
+    const start = (page - 1) * limit;
+    const paginated = stripped.slice(start, start + limit);
+    return {
+      count: paginated.length,
+      total,
+      page,
+      totalPages,
+      hasNext: page < totalPages,
+      hasPrev: page > 1,
+      categories,
+      results: paginated,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function resolveBlogConfigQuery(): SingleQuery | null {
+  try {
+    const config = getContentTypeConfig("blog");
+    if (!config) return null;
+    return {
+      queryKey: ["/api/blog/config"],
+      data: config,
+    };
+  } catch {
+    return null;
+  }
 }
 
 async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
@@ -391,6 +446,13 @@ export function injectSsrMetaTags(html: string, payload: InitialDataPayload | nu
 export async function resolveInitialData(
   url: string,
 ): Promise<InitialDataPayload | null> {
+  const cleanUrl = url.split("?")[0].split("#")[0];
+  const isBlogListing =
+    cleanUrl === "/en/blog" ||
+    cleanUrl === "/en/blog/" ||
+    cleanUrl === "/es/blog" ||
+    cleanUrl === "/es/blog/";
+
   const pageQuery = await resolvePageQuery(url);
 
   const variablesQuery: SingleQuery = {
@@ -401,6 +463,19 @@ export async function resolveInitialData(
   const queries: SingleQuery[] = [];
   if (pageQuery) queries.push(pageQuery);
   queries.push(variablesQuery);
+
+  if (isBlogListing) {
+    const locale = cleanUrl.startsWith("/es") ? "es" : "en";
+    const posts = await fetchBlogListingPage(locale, 1, "all");
+    if (posts) {
+      queries.push({
+        queryKey: ["/api/blog/posts", locale, 1, ""],
+        data: posts,
+      });
+    }
+    const blogConfigQuery = resolveBlogConfigQuery();
+    if (blogConfigQuery) queries.push(blogConfigQuery);
+  }
 
   if (pageQuery) {
     const pageData = pageQuery.data as Record<string, unknown>;

@@ -77,8 +77,13 @@ export async function loadDatabaseSinglePage(
     if (fieldMapping) {
       items = items.map((item) => {
         const mapped: Record<string, unknown> = { ...item };
+        const itemSlug = String(item[lookupKey] ?? item.slug ?? "unknown");
         for (const [targetField, sourcePath] of Object.entries(fieldMapping)) {
-          const value = resolveFieldValue(sourcePath, item, targetField);
+          const value = resolveFieldValue(sourcePath, item, targetField, {
+            contentType,
+            slug: itemSlug,
+            fieldPath: targetField,
+          });
           if (value !== undefined) mapped[targetField] = value;
         }
         return mapped;

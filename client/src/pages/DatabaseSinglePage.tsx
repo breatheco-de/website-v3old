@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { IS_SERVER } from "@/lib/initialData";
 import { useLocation } from "wouter";
 import { SectionRenderer } from "@/components/SectionRenderer";
 import { apiFetch } from "@/lib/queryClient";
@@ -72,7 +73,7 @@ export default function DatabaseSinglePage({ contentType }: DatabaseSinglePagePr
 
   useContentAutoRefresh(contentType, slug, locale, handleRefetch);
 
-  if (isLoading) {
+  if (isLoading && !IS_SERVER) {
     return (
       <div
         className="min-h-screen flex items-center justify-center"

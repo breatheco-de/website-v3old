@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { IS_SERVER } from "@/lib/initialData";
 import { useLocation, useSearch } from "wouter";
 import { apiFetch } from "@/lib/queryClient";
 import { IconLoader2, IconSearch, IconCalendar, IconUser, IconArrowRight, IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
@@ -174,7 +175,7 @@ export default function BlogListingPage() {
     return pages;
   }, [totalPages, currentPage]);
 
-  if (isLoading) {
+  if (isLoading && !IS_SERVER) {
     return (
       <div className="min-h-screen flex items-center justify-center" data-testid="loading-blog">
         <IconLoader2 className="w-8 h-8 animate-spin text-primary" />

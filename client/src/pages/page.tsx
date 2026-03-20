@@ -1,5 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { IS_SERVER } from "@/lib/initialData";
 import { useParams, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { SectionRenderer } from "@/components/SectionRenderer";
@@ -78,7 +79,7 @@ export default function Page() {
 
   useContentAutoRefresh("page", slug, locale, handleRefetch);
 
-  if (isLoading) {
+  if (isLoading && !IS_SERVER) {
     return (
       <div 
         className="min-h-screen flex items-center justify-center"

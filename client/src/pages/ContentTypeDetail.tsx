@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { IS_SERVER } from "@/lib/initialData";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "wouter";
 import { SectionRenderer } from "@/components/SectionRenderer";
@@ -79,7 +80,7 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
 
   useContentAutoRefresh(type, slug, effectiveLocale, handleRefetch);
 
-  if (isLoading) {
+  if (isLoading && !IS_SERVER) {
     return (
       <div
         className="min-h-screen flex items-center justify-center"

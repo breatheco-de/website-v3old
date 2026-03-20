@@ -2,6 +2,18 @@ import vm from "vm";
 
 export const FUNCTION_PREFIX = "function:";
 
+const transformTimeoutLastWarn = new Map<string, number>();
+
+function warnTransformTimeout(contentType: string, slug: string, fieldPath: string, message: string): void {
+  const key = `${contentType}:${slug}:${fieldPath}`;
+  const now = Date.now();
+  const last = transformTimeoutLastWarn.get(key) ?? 0;
+  if (now - last >= 60_000) {
+    transformTimeoutLastWarn.set(key, now);
+    console.warn(`[Transform] Runtime error in transformer (${contentType}/${slug} field=${fieldPath}): ${message}`);
+  }
+}
+
 export function getValueByPath(obj: unknown, dotPath: string): unknown {
   const parts = dotPath.split(".");
   let current: unknown = obj;
@@ -51,13 +63,18 @@ export function runTransformer(
   compiled: CompiledTransformer,
   value: unknown,
   item: Record<string, unknown>,
+  context?: { contentType?: string; slug?: string; fieldPath?: string },
 ): unknown {
   try {
     const sandbox = { __value__: value, __item__: item, __fn_expr__: undefined as unknown };
-    const context = vm.createContext(sandbox);
-    return compiled.script.runInContext(context, { timeout: 50 });
+    const vmContext = vm.createContext(sandbox);
+    return compiled.script.runInContext(vmContext, { timeout: 50 });
   } catch (err) {
-    console.warn(`[Transform] Runtime error in transformer: ${err}`);
+    const contentType = context?.contentType ?? "unknown";
+    const slug = context?.slug ?? "unknown";
+    const fieldPath = context?.fieldPath ?? "unknown";
+    const errMsg = err instanceof Error ? err.message : String(err);
+    warnTransformTimeout(contentType, slug, fieldPath, errMsg);
     return undefined;
   }
 }
@@ -66,12 +83,16 @@ export function resolveFieldValue(
   sourcePath: string,
   item: Record<string, unknown>,
   targetKey?: string,
+  context?: { contentType?: string; slug?: string; fieldPath?: string },
 ): unknown {
   if (isTransformer(sourcePath)) {
     const compiled = compileTransformer(sourcePath);
     if (!compiled) return undefined;
     const rawValue = targetKey ? item[targetKey] : undefined;
-    return runTransformer(compiled, rawValue, item);
+    const resolvedContext = context ?? {
+      fieldPath: targetKey ?? sourcePath.slice(0, 40),
+    };
+    return runTransformer(compiled, rawValue, item, resolvedContext);
   }
   return getValueByPath(item, sourcePath);
 }

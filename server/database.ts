@@ -237,12 +237,18 @@ function slugify(text: string): string {
 function applyContentTypeMapping(
   items: Record<string, unknown>[],
   mapping: Record<string, string>,
+  contentType?: string,
 ): Record<string, unknown>[] {
   return items.map((src, idx) => {
     const mapped: Record<string, unknown> = { ...src };
+    const itemSlug = String(src.slug ?? src.id ?? idx);
 
     for (const [targetKey, sourcePath] of Object.entries(mapping)) {
-      const value = resolveFieldValue(sourcePath, src, targetKey);
+      const value = resolveFieldValue(sourcePath, src, targetKey, contentType ? {
+        contentType,
+        slug: itemSlug,
+        fieldPath: targetKey,
+      } : undefined);
       if (value !== undefined) {
         mapped[targetKey] = value;
       }
@@ -569,7 +575,7 @@ export class DatabaseManager {
       if (!ctMapping || Object.keys(ctMapping).length === 0) {
         return rawItems;
       }
-      return applyContentTypeMapping(rawItems, ctMapping);
+      return applyContentTypeMapping(rawItems, ctMapping, contentType);
     } catch (err) {
       console.error(`[DatabaseManager] Failed to fetch mapped items for "${contentType}":`, err);
       return [];
