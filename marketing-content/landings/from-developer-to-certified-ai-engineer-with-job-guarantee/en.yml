@@ -888,6 +888,8 @@ sections:
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: null
     section_id: cta_banner-55y7oh
+    paddingY:
+      desktop: lg none
   - type: footer
     section_id: footer-eisseg
     version: "1.0"
