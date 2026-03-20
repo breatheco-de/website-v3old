@@ -246,7 +246,7 @@ sections:
     paddingY:
       desktop: md lg
     marginY:
-      desktop: sm
+      desktop: sm lg
   - type: faq
     version: v1.0
     title: The Questions Every Bootcamp Shopper Asks. Answered Honestly.
