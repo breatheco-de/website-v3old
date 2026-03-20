@@ -537,29 +537,34 @@ export function initialDataMiddleware(
     if (contentType && String(contentType).includes("text/html") && chunk) {
       payloadPromise
         .then((payload) => {
-          if (payload) {
-            try {
-              const html =
-                typeof chunk === "string" ? chunk : chunk.toString("utf-8");
-              if (html.includes('id="__INITIAL_DATA__"')) {
-                originalEnd.call(this, chunk, ...args);
-                return;
-              }
+          try {
+            const html =
+              typeof chunk === "string" ? chunk : chunk.toString("utf-8");
+            if (html.includes('id="__INITIAL_DATA__"')) {
+              originalEnd.call(this, chunk, ...args);
+              return;
+            }
+            let injected = html;
+            if (payload) {
               const scriptTag = `<script id="__INITIAL_DATA__" type="application/json">${JSON.stringify(payload).replace(/</g, "\\u003c")}</script>`;
-              let injected = html.replace("</body>", scriptTag + "</body>");
+              injected = injected.replace("</body>", scriptTag + "</body>");
               const themeStyle = buildThemeCssOverrides();
               if (themeStyle && !injected.includes('id="__theme_overrides__"')) {
                 injected = injected.replace("</head>", themeStyle + "</head>");
               }
-
-              const newLength = Buffer.byteLength(injected, "utf-8");
-              res.setHeader("content-length", newLength);
-
-              originalEnd.call(this, injected, ...args);
-            } catch {
-              originalEnd.call(this, chunk, ...args);
             }
-          } else {
+            injected = injected.replace(
+              /<link rel="stylesheet" (href="\/assets\/[^"]+\.css"[^>]*)>/g,
+              (_, attrs) =>
+                `<link rel="preload" ${attrs} as="style" onload="this.onload=null;this.rel='stylesheet'">` +
+                `<noscript><link rel="stylesheet" ${attrs}></noscript>`
+            );
+
+            const newLength = Buffer.byteLength(injected, "utf-8");
+            res.setHeader("content-length", newLength);
+
+            originalEnd.call(this, injected, ...args);
+          } catch {
             originalEnd.call(this, chunk, ...args);
           }
         })
