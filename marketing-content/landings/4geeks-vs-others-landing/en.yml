@@ -12,13 +12,6 @@ schema:
     - organization
     - website
 sections:
-
-  # ─── 1. HERO ───────────────────────────────────────────────────────────────
-  # Tráfico frío USA. No saben qué bootcamp quieren.
-  # Abrimos con el dolor universal de quien busca un bootcamp:
-  # todos prometen empleo, casi ninguno lo garantiza.
-  # El hero debe hacer sentir al usuario que esta academia
-  # es diferente antes de explicar por qué.
   - type: hero
     version: "1.0"
     variant: productShowcase
@@ -121,14 +114,9 @@ sections:
       desktop: none
     section_id: hero-6ad8dh
     awards_marquee_at_left_column: true
-
-  # ─── 2. GRADUATES STATS ────────────────────────────────────────────────────
-  # Reemplaza el features_grid de stats genérico.
-  # Siempre 4 stats, siempre con collage_images.
-  # Métricas verificadas 2025 — sin variables {{ global.* }}.
   - type: graduates_stats
     heading: Real Career Outcomes
-    subheading: "5,000+ graduates have made the switch to tech. Here's what happened after they completed the program."
+    subheading: 5,000+ graduates have made the switch to tech. Here's what happened after they completed the program.
     stats:
       - value: 86%
         label: Hiring rate, US graduates placed within 90 days
@@ -152,12 +140,7 @@ sections:
         col_span: 6
         row_span: 2
     section_id: graduates_stats-cnxqbb
-
-  # ─── 3. TRUST CARDS ────────────────────────────────────────────────────────
-  # Reemplaza la comparison_table.
-  # Tráfico frío no convierte con tablas defensivas vs competidores.
-  # Las plataformas de review independientes son más creíbles
-  # que cualquier columna "4Geeks vs Industry average" que nosotros mismos escribimos.
+    value_size: text-3xl
   - type: trust_cards
     version: v1.0
     title: "Rated #1 Across Every Major Review Platform"
@@ -181,11 +164,6 @@ sections:
       desktop: md
     marginY:
       desktop: none xl
-
-  # ─── 4. TWO COLUMN ACCORDION — WHY 4GEEKS ─────────────────────────────────
-  # Mantenemos el componente original porque ya tiene la estructura correcta.
-  # Cambiamos: título (ataca el #1 objection de bootcamps), descripción
-  # (contrasta contra competidores sin nombrarlos), footer (dato verificado).
   - type: two_column_accordion_card
     variant: image_background
     version: "1.0"
@@ -205,11 +183,6 @@ sections:
       desktop: md none
     paddingY:
       desktop: md none
-
-  # ─── 5. COURSE SELECTOR ────────────────────────────────────────────────────
-  # Tráfico frío necesita elegir su programa.
-  # Mantenemos el componente pero hardcodeamos las variables {{ global.* }}
-  # y mejoramos los descriptions para que vendan el outcome, no el contenido.
   - type: course_selector
     version: "1.0"
     variant: solid
@@ -256,11 +229,6 @@ sections:
     section_id: course_selector-pbg2nf
     paddingY:
       desktop: md none
-
-  # ─── 6. JOB GUARANTEE ─────────────────────────────────────────────────────
-  # El why_learn_ai original tenía un título defensivo ("for Extra Confidence").
-  # Reescrito para que el Job Guarantee sea un argumento de confianza,
-  # no una red de seguridad. Solo visible en USA locations.
   - type: why_learn_ai
     variant: laptop-edge
     title: Get Hired Within 9 Months or Get Your Tuition Back
@@ -284,10 +252,6 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
-
-  # ─── 7. NUMBERED STEPS — GEEKFORCE ─────────────────────────────────────────
-  # El componente original es sólido. Solo mejoramos el título
-  # para que sea un outcome, no una promesa de velocidad genérica.
   - type: numbered_steps
     variant: default
     title: How GeekForce Turns Your Skills Into a Job Offer
@@ -307,14 +271,9 @@ sections:
       desktop: lg
     marginY:
       desktop: none lg
-
-  # ─── 8. TESTIMONIALS ───────────────────────────────────────────────────────
-  # Se agregan title y description con backgrounds reales
-  # para que el usuario frío se identifique antes de leer.
-  # Los testimonios reales no se tocan.
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
-    description: "A maintenance technician, a musician, a support specialist at Microsoft, a philosopher, and people with zero prior experience. All now working in tech."
+    description: A maintenance technician, a musician, a support specialist at Microsoft, a philosopher, and people with zero prior experience. All now working in tech.
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
@@ -424,8 +383,6 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-dc7isf
-
-  # ─── 9. WHOS HIRING ────────────────────────────────────────────────────────
   - type: whos_hiring
     variant: carousel
     pretitle: Job Placement
@@ -459,8 +416,6 @@ sections:
     section_id: whos_hiring-vyd58o
     paddingY:
       desktop: none md
-
-  # ─── 10. CTA FINAL ─────────────────────────────────────────────────────────
   - type: cta_banner
     version: "1.0"
     title: Your tech career won't start itself.
@@ -509,8 +464,6 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-
-  # ─── STICKY CTA ────────────────────────────────────────────────────────────
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?
