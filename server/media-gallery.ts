@@ -641,6 +641,9 @@ class MediaGallery {
       ...(entry.protected ? { protected: true } : {}),
       usage_count: entry.usage_count || 0,
       ...(entry.hash ? { hash: entry.hash } : {}),
+      ...(entry.width ? { width: entry.width } : {}),
+      ...(entry.height ? { height: entry.height } : {}),
+      ...(entry.format ? { format: entry.format } : {}),
     };
 
     this.saveRegistry(registry);

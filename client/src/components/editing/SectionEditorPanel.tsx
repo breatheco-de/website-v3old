@@ -48,6 +48,7 @@ import { Switch } from "@/components/ui/switch";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogFooter,
@@ -94,6 +95,9 @@ import {
   unescapeYamlDump,
 } from "@shared/templateVars";
 import { useUndoRedo } from "@/hooks/useUndoRedo";
+import ReactCrop from "react-image-crop";
+import type { Crop } from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
 
 function safeYamlLoad(yamlStr: string): unknown {
   const { escaped, map } = escapeTemplateVars(yamlStr);
@@ -656,6 +660,15 @@ export function SectionEditorPanel({
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Crop panel state
+  const [cropPanelOpen, setCropPanelOpen] = useState(false);
+  const [cropState, setCropState] = useState<Crop>({ unit: "%", x: 0, y: 0, width: 100, height: 100 });
+  const [cropTargetWidth, setCropTargetWidth] = useState(800);
+  const [cropTargetHeight, setCropTargetHeight] = useState(600);
+  const [cropAspectLock, setCropAspectLock] = useState(false);
+  const [cropQuality, setCropQuality] = useState(85);
+  const [cropProcessing, setCropProcessing] = useState(false);
 
   const [videoPickerOpen, setVideoPickerOpen] = useState(false);
   const [videoPickerTarget, setVideoPickerTarget] = useState<{
@@ -6173,6 +6186,7 @@ export function SectionEditorPanel({
           if (!open) {
             setImageGallerySearch("");
             setImagePickerMode("browse");
+            setCropPanelOpen(false);
           }
         }}
       >
@@ -6399,20 +6413,37 @@ export function SectionEditorPanel({
                   )}
                 </div>
                 <div className="flex-1 space-y-2">
-                  <Input
-                    value={imagePickerTarget?.currentSrc || ""}
-                    onChange={(e) => {
-                      if (imagePickerTarget) {
-                        setImagePickerTarget({
-                          ...imagePickerTarget,
-                          currentSrc: e.target.value,
-                        });
-                      }
-                    }}
-                    placeholder="Image URL"
-                    className="text-sm"
-                    data-testid="input-image-url"
-                  />
+                  <div className="flex gap-2">
+                    <Input
+                      value={imagePickerTarget?.currentSrc || ""}
+                      onChange={(e) => {
+                        if (imagePickerTarget) {
+                          setImagePickerTarget({
+                            ...imagePickerTarget,
+                            currentSrc: e.target.value,
+                          });
+                        }
+                      }}
+                      placeholder="Image URL"
+                      className="text-sm flex-1"
+                      data-testid="input-image-url"
+                    />
+                    {imagePickerTarget?.currentRegistryId && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          setCropState({ unit: "%", x: 0, y: 0, width: 100, height: 100 });
+                          setCropPanelOpen(true);
+                        }}
+                        data-testid="button-crop-resize"
+                      >
+                        <IconPhoto className="h-4 w-4 mr-1.5" />
+                        Crop & Resize
+                      </Button>
+                    )}
+                  </div>
                   <div className="flex">
                     <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 bg-muted text-muted-foreground text-xs select-none">
                       Alt
@@ -6434,6 +6465,7 @@ export function SectionEditorPanel({
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
           <DialogFooter className="flex-row gap-2 sm:justify-between">
@@ -6573,6 +6605,172 @@ export function SectionEditorPanel({
                 Save
               </Button>
             </div>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Crop & Resize Modal */}
+      <Dialog
+        open={cropPanelOpen}
+        onOpenChange={(open) => {
+          setCropPanelOpen(open);
+        }}
+      >
+        <DialogContent className="sm:max-w-xl max-h-[90vh] flex flex-col">
+          <DialogHeader>
+            <DialogTitle>Crop & Resize</DialogTitle>
+            <DialogDescription>Select a crop area and set target dimensions to create a new optimized image.</DialogDescription>
+          </DialogHeader>
+          {imagePickerTarget?.currentRegistryId && (() => {
+            const regId = imagePickerTarget.currentRegistryId;
+            const imgEntry = imageRegistry?.images?.[regId];
+            const imgSrc = imgEntry?.src || imagePickerTarget.currentSrc;
+            return (
+              <div className="flex-1 overflow-y-auto space-y-4 py-2">
+                <div className="flex justify-center">
+                  <ReactCrop
+                    crop={cropState}
+                    onChange={(_, percentCrop) => {
+                      setCropState(percentCrop);
+                    }}
+                    aspect={cropAspectLock && cropTargetWidth > 0 && cropTargetHeight > 0 ? cropTargetWidth / cropTargetHeight : undefined}
+                  >
+                    <img
+                      src={imgSrc}
+                      alt="Crop source"
+                      className="max-w-full max-h-80"
+                      data-testid="crop-source-image"
+                    />
+                  </ReactCrop>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="text-xs font-medium text-muted-foreground">Target Width (px)</label>
+                    <Input
+                      type="number"
+                      min={1}
+                      value={cropTargetWidth}
+                      onChange={(e) => {
+                        const w = parseInt(e.target.value, 10) || 1;
+                        setCropTargetWidth(w);
+                      }}
+                      className="text-sm"
+                      data-testid="input-crop-width"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-medium text-muted-foreground">Target Height (px)</label>
+                    <Input
+                      type="number"
+                      min={1}
+                      value={cropTargetHeight}
+                      onChange={(e) => {
+                        const h = parseInt(e.target.value, 10) || 1;
+                        setCropTargetHeight(h);
+                      }}
+                      className="text-sm"
+                      data-testid="input-crop-height"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Switch
+                    checked={cropAspectLock}
+                    onCheckedChange={setCropAspectLock}
+                    id="crop-aspect-lock"
+                    data-testid="toggle-crop-aspect-lock"
+                  />
+                  <label htmlFor="crop-aspect-lock" className="text-sm cursor-pointer">
+                    Lock aspect ratio
+                  </label>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-medium text-muted-foreground">Quality</label>
+                    <span className="text-xs text-muted-foreground" data-testid="text-crop-quality">{cropQuality}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min={50}
+                    max={100}
+                    value={cropQuality}
+                    onChange={(e) => setCropQuality(parseInt(e.target.value, 10))}
+                    className="w-full accent-primary"
+                    data-testid="slider-crop-quality"
+                  />
+                </div>
+              </div>
+            );
+          })()}
+          <DialogFooter className="gap-2 sm:justify-between">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setCropPanelOpen(false)}
+              data-testid="button-crop-cancel"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              disabled={cropProcessing}
+              onClick={async () => {
+                if (!imagePickerTarget?.currentRegistryId) return;
+                const cX = (cropState.x ?? 0) / 100;
+                const cY = (cropState.y ?? 0) / 100;
+                const cW = (cropState.width ?? 100) / 100;
+                const cH = (cropState.height ?? 100) / 100;
+                setCropProcessing(true);
+                try {
+                  const resp = await fetch("/api/media/crop-resize", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      imageId: imagePickerTarget.currentRegistryId,
+                      crop: { x: cX, y: cY, width: cW, height: cH },
+                      targetWidth: cropTargetWidth,
+                      targetHeight: cropTargetHeight,
+                      quality: cropQuality,
+                    }),
+                  });
+                  if (!resp.ok) {
+                    const data = await resp.json();
+                    throw new Error(data.error || "Processing failed");
+                  }
+                  const result = await resp.json() as { id: string; src: string; width: number; height: number };
+                  const fieldName = imagePickerTarget.srcField || imagePickerTarget.fieldPath || "";
+                  const isIdField = fieldName.endsWith("_id");
+                  setImagePickerTarget({
+                    ...imagePickerTarget,
+                    currentSrc: isIdField ? result.id : result.src,
+                    currentRegistryId: result.id,
+                  });
+                  setCropPanelOpen(false);
+                  refetchRegistry();
+                  toast({ title: "Image processed", description: `Saved as ${result.width}×${result.height} WebP` });
+                } catch (err: any) {
+                  toast({ title: "Processing failed", description: err.message || "Unknown error", variant: "destructive" });
+                } finally {
+                  setCropProcessing(false);
+                }
+              }}
+              data-testid="button-crop-process"
+            >
+              {cropProcessing ? (
+                <>
+                  <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                <>
+                  <IconCheck className="h-4 w-4 mr-2" />
+                  Process & Use
+                </>
+              )}
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
