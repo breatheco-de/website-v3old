@@ -58,14 +58,28 @@ export function UniversalImage({
   const imgRef = useRef<HTMLImageElement>(null);
   const isPrioritySection = useSectionPriority();
 
+  const resolvedLoadingEarly: "lazy" | "eager" =
+    loadingProp !== undefined
+      ? loadingProp
+      : isPrioritySection
+        ? "eager"
+        : "lazy";
+
+  const isEager = resolvedLoadingEarly === "eager";
+
   useEffect(() => {
-    setIsLoaded(false);
     setHasError(false);
-    const img = imgRef.current;
-    if (img && img.complete && img.naturalWidth > 0) {
-      setIsLoaded(true);
+    if (isEager) {
+      return;
     }
-  }, [id]);
+    const img = imgRef.current;
+    const alreadyCached = img && img.complete && img.naturalWidth > 0;
+    if (alreadyCached) {
+      setIsLoaded(true);
+    } else {
+      setIsLoaded(false);
+    }
+  }, [id, isEager]);
 
   const handleLoad = () => {
     setIsLoaded(true);
@@ -110,12 +124,7 @@ export function UniversalImage({
   const finalAlt = altOverride || (imageEntry ? imageEntry.alt : id);
   const src = imageEntry ? imageEntry.src : id;
 
-  const resolvedLoading: "lazy" | "eager" =
-    loadingProp !== undefined
-      ? loadingProp
-      : isPrioritySection
-        ? "eager"
-        : "lazy";
+  const resolvedLoading = resolvedLoadingEarly;
 
   const fetchPriority: "high" | "auto" = isPrioritySection ? "high" : "auto";
   const decoding: "sync" | "async" = isPrioritySection ? "sync" : "async";
@@ -148,7 +157,7 @@ export function UniversalImage({
       style={containerStyle}
       data-testid={`img-container-${id}`}
     >
-      {!isLoaded && (
+      {!isEager && !isLoaded && (
         <div
           className="absolute inset-0 bg-muted animate-pulse"
           data-testid={`img-loading-${id}`}
@@ -168,8 +177,8 @@ export function UniversalImage({
         onLoad={handleLoad}
         onError={handleError}
         className={`w-full h-full ${
-          resolvedLoading === "eager"
-            ? (isLoaded ? "opacity-100" : "opacity-0")
+          isEager
+            ? "opacity-100"
             : `transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"}`
         }`}
         style={{
