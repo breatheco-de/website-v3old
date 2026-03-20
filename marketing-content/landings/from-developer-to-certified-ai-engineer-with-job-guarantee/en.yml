@@ -181,7 +181,7 @@ sections:
     variant: stats-text-card
     title: Why AI Engineering Now
     subtitle: The talent gap is real. This is your opportunity.
-    description: AI Engineers build intelligent systems, automate workflows, and deliver the AI-powered systems companies urgently need. Demand is exploding, but only 3% of the workforce has the skills to fill these roles. That's not a problem. That's your opening.
+    description: AI Engineers build intelligent systems, automate workflows, and deliver the AI-powered systems companies urgently need. Demand is exploding, but only 3% of the workforce has the skills to fill these roles. That's not a problem. That's your door to roles paying $95K–$150K.
     card_color: bg-background
     background: hsl(var(--card))
     items:
@@ -200,25 +200,6 @@ sections:
     paddingY:
       mobile: none md
       desktop: none md
-  - type: features_quad
-    version: "1.0"
-    heading: Who Can Add the Job Guarantee?
-    description: "The Job Guarantee is available to students who meet these four requirements:"
-    cards:
-      - icon: IconBriefcaseFilled
-        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
-      - icon: IconCircleDashedCheck
-        title: Complete All Program Requirements
-      - icon: IconBrain
-        title: Pass the Admissions Logic Test
-      - icon: IconArrowGuideFilled
-        title: Follow the Full Career Development Process
-    section_id: features_quad-ms7uox
-    marginY:
-      desktop: none xl
-    paddingY:
-      desktop: none
-    background: hsl(var(--secondary))
   - type: syllabus
     variant: program-modules
     program_title: What You'll Build in 24 Weeks
@@ -392,6 +373,25 @@ sections:
     marginY:
       desktop: none xl
     section_id: two_column-luisa
+  - type: features_quad
+    version: "1.0"
+    heading: Who Can Add the Job Guarantee?
+    description: "The Job Guarantee is available to students who meet these four requirements:"
+    cards:
+      - icon: IconBriefcaseFilled
+        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
+      - icon: IconCircleDashedCheck
+        title: Complete All Program Requirements
+      - icon: IconBrain
+        title: Pass the Admissions Logic Test
+      - icon: IconArrowGuideFilled
+        title: Follow the Full Career Development Process
+    section_id: features_quad-ms7uox
+    marginY:
+      desktop: none xl
+    paddingY:
+      desktop: none
+    background: hsl(var(--secondary))
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
