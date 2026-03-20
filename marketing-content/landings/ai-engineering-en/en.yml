@@ -617,7 +617,7 @@ sections:
         text: Partial scholarships available for highly qualified applicants.
         use_rigobot_icon: true
       - icon: IconCheck
-        text: "Add the Job Guarantee for $2,000 at enrollment: get hired within 9 months or get your full tuition back.<div><span style=\"font-size: 0.75rem;\">*Not available for all regions. Terms and Conditions Apply.</span></div>"
+        text: "Add the Job Guarantee* for $2,000 at enrollment: get hired within 9 months or get your full tuition back.<div><span style=\"font-size: 0.75rem;\">*Not available for all regions. Terms and Conditions Apply.</span></div>"
     cta:
       text: Start Your Application
       url: "#hero-form"
