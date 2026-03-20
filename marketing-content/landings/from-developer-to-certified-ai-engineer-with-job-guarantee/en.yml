@@ -741,7 +741,7 @@ sections:
       desktop: none lg
   - type: features_quad
     version: "1.0"
-    heading: Who Can Add the Job Guarantee?
+    heading: How the Job Guarantee Works
     description: Add the Job Guarantee at enrollment and meet these four requirements. If you're not hired within 9 months of graduation, you get 100% of your tuition back."
     cards:
       - icon: IconBriefcaseFilled
