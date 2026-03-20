@@ -155,7 +155,7 @@ sections:
     value_size: text-3xl
   - type: trust_cards
     version: v1.0
-    title: "Rated #1 Across Every Major Review Platform"
+    title: Top Rated Across Every Major Review Platform
     items:
       - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
         rating: 4.9
