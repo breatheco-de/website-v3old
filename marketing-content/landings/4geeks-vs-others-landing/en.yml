@@ -428,7 +428,7 @@ sections:
       desktop: none md
   - type: cta_banner
     version: "1.0"
-    title: Your tech career won't start itself.
+    title: You've Done the Research. 4Geeks Is the Answer.
     subtitle: Every week you wait is a week someone else gets hired first. Apply in 2 minutes and see which program fits your goals. It's free to apply.
     background: hsl(var(--primary))
     variant: form
