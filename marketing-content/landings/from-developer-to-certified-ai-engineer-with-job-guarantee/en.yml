@@ -889,9 +889,9 @@ sections:
       terms_className: null
     section_id: cta_banner-55y7oh
     paddingY:
-      desktop: lg none
+      desktop: lg
     marginY:
-      desktop: none lg
+      desktop: none sm
   - type: footer
     section_id: footer-eisseg
     version: "1.0"
