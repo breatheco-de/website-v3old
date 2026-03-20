@@ -848,14 +848,14 @@ sections:
       desktop: none xl
   - type: cta_banner
     version: "1.0"
-    title: Your AI career won't start itself.
-    subtitle: Every week you wait is a week someone else gets hired first. Apply in 2 minutes and add the Job Guarantee at enrollment. It's free to apply.
+    title: Ready to build your AI career?
+    subtitle: AI Engineer is the fastest-growing job of 2026. Apply today and add the Job Guarantee at enrollment. Get hired within 9 months, or your tuition back.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
@@ -879,21 +879,15 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       consent:
         email: true
         marketing: true
         marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe at any time.
       show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
-      terms_className: text-white/80
+      terms_className: null
     section_id: cta_banner-55y7oh
-    marginY:
-      mobile: md none
-      desktop: md none
-    paddingY:
-      mobile: lg
-      desktop: lg
   - type: footer
     section_id: footer-eisseg
     version: "1.0"
