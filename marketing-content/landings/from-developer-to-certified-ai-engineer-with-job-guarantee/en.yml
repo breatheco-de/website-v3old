@@ -891,13 +891,13 @@ sections:
     paddingY:
       desktop: lg none
     marginY:
-      desktop: none md
+      desktop: none lg
   - type: footer
     section_id: footer-eisseg
     version: "1.0"
     copyright_text: 2024 4Geeks. All rights reserved.
     paddingY:
       mobile: none
-      desktop: none
+      desktop: sm none
     marginY:
       desktop: sm none
