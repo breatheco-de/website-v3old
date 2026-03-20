@@ -186,8 +186,8 @@ sections:
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
-    heading: Every Program Comes With the Job Guarantee Option
-    subheading: Four programs. One promise. Get hired within 9 months, or get your tuition back.
+    heading: Four Programs. All Built Around Getting You Hired.
+    subheading: Most bootcamps offer a curriculum. 4Geeks offers a job outcome backed by a guarantee. Pick the track that fits your goal.
     featured_label: Featured Program
     programs:
       - name: AI Engineering
