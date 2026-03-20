@@ -116,7 +116,7 @@ sections:
     awards_marquee_at_left_column: true
   - type: graduates_stats
     heading: Real Career Outcomes
-    subheading: 5,000+ graduates have made the switch to tech. Here's what happened after they completed the program.
+    subheading: 5,000+ graduates chose 4Geeks over every other option. Here's what that decision looked like 90 days later.
     stats:
       - value: 86%
         label: Hiring rate, US graduates placed within 90 days
