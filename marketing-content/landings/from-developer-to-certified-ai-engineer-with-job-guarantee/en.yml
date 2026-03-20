@@ -890,6 +890,8 @@ sections:
     section_id: cta_banner-55y7oh
     paddingY:
       desktop: lg none
+    marginY:
+      desktop: none md
   - type: footer
     section_id: footer-eisseg
     version: "1.0"
