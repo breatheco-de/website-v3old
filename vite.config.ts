@@ -33,6 +33,88 @@ export default defineConfig(async ({ isSsrBuild }) => ({
       : path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
     ssr: isSsrBuild ? "src/entry-server.tsx" : undefined,
+    chunkSizeWarningLimit: 600,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+        passes: 2,
+      },
+      mangle: {
+        safari10: true,
+      },
+      format: {
+        comments: false,
+      },
+    },
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('@codemirror') || id.includes('@uiw/react-codemirror')) {
+            return 'codemirror';
+          }
+          if (id.includes('recharts') || id.includes('victory-vendor')) {
+            return 'charts';
+          }
+          if (id.includes('framer-motion')) {
+            return 'framer';
+          }
+          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
+            return 'react';
+          }
+          if (id.includes('@tanstack')) {
+            return 'tanstack';
+          }
+          if (id.includes('@tabler/icons-react')) {
+            return 'icons-tabler';
+          }
+          if (id.includes('react-icons')) {
+            return 'icons-react';
+          }
+          if (id.includes('lucide-react')) {
+            return 'icons-lucide';
+          }
+          if (id.includes('@radix-ui')) {
+            return 'radix-ui';
+          }
+          if (id.includes('i18next') || id.includes('react-i18next')) {
+            return 'i18n';
+          }
+          if (
+            id.includes('node_modules/zod') ||
+            id.includes('node_modules/react-hook-form') ||
+            id.includes('@hookform/resolvers')
+          ) {
+            return 'forms';
+          }
+          if (
+            id.includes('node_modules/date-fns') ||
+            id.includes('node_modules/react-day-picker')
+          ) {
+            return 'date';
+          }
+          if (
+            id.includes('node_modules/embla-carousel') ||
+            id.includes('node_modules/react-fast-marquee')
+          ) {
+            return 'carousel';
+          }
+          if (
+            id.includes('node_modules/react-markdown') ||
+            id.includes('node_modules/remark') ||
+            id.includes('node_modules/micromark') ||
+            id.includes('node_modules/mdast') ||
+            id.includes('node_modules/unified') ||
+            id.includes('node_modules/hast') ||
+            id.includes('node_modules/rehype') ||
+            id.includes('node_modules/vfile')
+          ) {
+            return 'markdown';
+          }
+        },
+      },
+    },
   },
   server: {
     fs: {
