@@ -95,7 +95,15 @@ export const redirectValidator: Validator = {
         if (redirectMap.has(normalizedRedirect)) {
           const existing = redirectMap.get(normalizedRedirect)!;
           const sameFolder = getContentFolder(file.filePath) === getContentFolder(existing.source.filePath);
-          const bothFromSameContent = sameFolder && (isCommon || existing.source.locale === "_common");
+
+          if (sameFolder) {
+            // Both files are sibling locale files within the same content folder.
+            // The redirect is inherited from the shared _common.yml parent. Silently
+            // skip — this is not a conflict.
+            continue;
+          }
+
+          const bothFromSameContent = isCommon || existing.source.locale === "_common";
 
           if (!bothFromSameContent) {
             errors.push({
