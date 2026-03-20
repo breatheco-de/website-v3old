@@ -364,11 +364,11 @@ sections:
       heading: "Luisa Glum: From Auto Repair Shop to Full Stack Developer"
       sub_heading: 4Geeks Academy Graduate, Boston
       description: Luisa was working as a maintenance technician at a repair shop in Boston. She loved cars, but realized it was a hobby, not a long-term career. She needed a path into tech that came with real support, not just a course and good luck. After completing the Full Stack program at 4Geeks, she was referred directly to her first developer job by the academy. Today she builds software for a living.
-      button:
-        text: See If You Qualify
-        url: "#hero-nzpyph"
-        variant: primary
-        icon: Rocket
+    button:
+      text: Start Your Application
+      url: "#hero-nzpyph"
+      variant: primary
+      icon: Rocket
     gap: "8"
     marginY:
       desktop: none xl
