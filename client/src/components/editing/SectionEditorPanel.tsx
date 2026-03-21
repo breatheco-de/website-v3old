@@ -119,6 +119,8 @@ function stripTransientDynamicKeys(section: unknown): unknown {
   return authored;
 }
 import { usePageHistoryOptional } from "@/contexts/PageHistoryContext";
+import { useImagePickerContext } from "@/contexts/ImagePickerContext";
+import type { ImagePickerTarget } from "@/contexts/ImagePickerContext";
 
 const TECHNICAL_SUFFIXES = new Set(["src", "url", "id", "href"]);
 const POSITIONAL_LABELS: Record<string, string> = {
@@ -632,23 +634,7 @@ export function SectionEditorPanel({
 
   // Image picker modal state
   const [imagePickerOpen, setImagePickerOpen] = useState(false);
-  const [imagePickerTarget, setImagePickerTarget] = useState<{
-    // For array fields
-    arrayPath?: string;
-    index?: number;
-    srcField?: string;
-    // For simple fields
-    fieldPath?: string;
-    label?: string;
-    // Common
-    currentSrc: string;
-    currentAlt: string;
-    currentRegistryId?: string;
-    // Optional tag filter (e.g., "logo" to show only logos)
-    tagFilter?: string;
-    // When true, Remove clears the field instead of removing the array item
-    clearFieldOnly?: boolean;
-  } | null>(null);
+  const [imagePickerTarget, setImagePickerTarget] = useState<ImagePickerTarget | null>(null);
   const [imageGallerySearch, setImageGallerySearch] = useState("");
   const [visibleImageCount, setVisibleImageCount] = useState(48);
   const [tableEditorMode, setTableEditorMode] = useState<
@@ -660,6 +646,25 @@ export function SectionEditorPanel({
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Register this panel's image picker into the global ImagePickerContext
+  const imagePickerCtx = useImagePickerContext();
+  const setImagePickerOpenRef = useRef(setImagePickerOpen);
+  const setImagePickerTargetRef = useRef(setImagePickerTarget);
+  setImagePickerOpenRef.current = setImagePickerOpen;
+  setImagePickerTargetRef.current = setImagePickerTarget;
+  useEffect(() => {
+    if (!imagePickerCtx) return;
+    imagePickerCtx.registerPicker({
+      openPicker: (target: ImagePickerTarget) => {
+        setImagePickerTargetRef.current(target);
+        setImagePickerOpenRef.current(true);
+      },
+    });
+    return () => {
+      imagePickerCtx.registerPicker(null);
+    };
+  }, [imagePickerCtx]);
 
   // Crop panel state
   const [cropPanelOpen, setCropPanelOpen] = useState(false);
@@ -6435,6 +6440,20 @@ export function SectionEditorPanel({
                         size="sm"
                         onClick={() => {
                           setCropState({ unit: "%", x: 0, y: 0, width: 100, height: 100 });
+                          // Smart crop defaults: use registry dimensions if available
+                          if (imagePickerTarget?.currentRegistryId && imageRegistry?.images?.[imagePickerTarget.currentRegistryId]) {
+                            const entry = imageRegistry.images[imagePickerTarget.currentRegistryId];
+                            if (entry.width && entry.height) {
+                              setCropTargetWidth(entry.width);
+                              setCropTargetHeight(entry.height);
+                            } else {
+                              setCropTargetWidth(800);
+                              setCropTargetHeight(600);
+                            }
+                          } else {
+                            setCropTargetWidth(800);
+                            setCropTargetHeight(600);
+                          }
                           setCropPanelOpen(true);
                         }}
                         data-testid="button-crop-resize"
@@ -6564,6 +6583,45 @@ export function SectionEditorPanel({
                         imagePickerTarget.index,
                         updates,
                       );
+                    } else if (imagePickerTarget._fromImageClick && (imagePickerTarget._oldRegistryId || imagePickerTarget._oldSrc)) {
+                      // YAML-level string replace fallback: no fieldPath or arrayPath provided.
+                      // Type-preserving substitution:
+                      //   - old registry ID occurrences -> new registry ID
+                      //   - old src URL occurrences -> new src URL
+                      const newRegistryId = imagePickerTarget.currentRegistryId;
+                      const newSrc = newRegistryId
+                        ? (imageRegistry?.images?.[newRegistryId]?.src || imagePickerTarget.currentSrc)
+                        : imagePickerTarget.currentSrc;
+
+                      // Build pairs: [oldValue, newValue] for each type
+                      const replacementPairs: Array<[string, string]> = [];
+                      if (imagePickerTarget._oldRegistryId && newRegistryId && imagePickerTarget._oldRegistryId !== newRegistryId) {
+                        replacementPairs.push([imagePickerTarget._oldRegistryId, newRegistryId]);
+                      }
+                      if (imagePickerTarget._oldSrc && newSrc && imagePickerTarget._oldSrc !== newSrc) {
+                        // Only replace src if it differs from the registry ID replacement (avoid double-replacement)
+                        const alreadyHandled = replacementPairs.some(([old]) => old === imagePickerTarget._oldSrc);
+                        if (!alreadyHandled) {
+                          replacementPairs.push([imagePickerTarget._oldSrc, newSrc]);
+                        }
+                      }
+
+                      if (replacementPairs.length > 0) {
+                        let newYaml = yamlContent;
+                        for (const [oldVal, newVal] of replacementPairs) {
+                          const escaped = oldVal.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                          newYaml = newYaml.replace(new RegExp(escaped, 'g'), newVal);
+                        }
+                        if (newYaml !== yamlContent) {
+                          pushUndoState(yamlContent);
+                          setYamlContent(newYaml);
+                          setHasChanges(true);
+                          try {
+                            const parsed = safeYamlLoad(newYaml) as Section;
+                            if (parsed && onPreviewChange) onPreviewChange(parsed);
+                          } catch (_err) { /* ignore parse errors */ }
+                        }
+                      }
                     }
 
                     if (imagePickerTarget.currentRegistryId) {
