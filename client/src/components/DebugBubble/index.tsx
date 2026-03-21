@@ -159,6 +159,11 @@ export function DebugBubble() {
   const [componentSearch, setComponentSearch] = useState("");
   const [showComponentSearch, setShowComponentSearch] = useState(false);
 
+  const { data: homePageSettings } = useQuery<{ type: string; slug: string }>({
+    queryKey: ["/api/settings/home-page"],
+    staleTime: 60000,
+  });
+
   const { data: componentRegistryData } = useQuery<{ components: Array<{ type: string; name: string; description: string; latestVersion: string; versions: string[] }> }>({
     queryKey: ["/api/component-registry"],
     staleTime: 60000,
@@ -320,7 +325,7 @@ export function DebugBubble() {
   const [pageDiagnosticsLoading, setPageDiagnosticsLoading] = useState(false);
 
   // Detect current content info from URL
-  const contentInfo = useMemo(() => detectContentInfo(pathname, contentTypesMap), [pathname, contentTypesMap]);
+  const contentInfo = useMemo(() => detectContentInfo(pathname, contentTypesMap, homePageSettings ?? null), [pathname, contentTypesMap, homePageSettings]);
 
   useEffect(() => {
     setSlugEditorExpanded(false);

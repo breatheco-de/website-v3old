@@ -25,7 +25,13 @@ export default function Page() {
   const locale = location.startsWith("/es/") || location.startsWith("/es") ? "es" : "en";
   const params = useParams<{ slug: string }>();
   const slugFromPath = location.split("?")[0].replace(/^\/(?:en|es)\//, "").split("/")[0] || "";
-  const slug = params.slug || slugFromPath || "home";
+
+  const { data: homePageSettings } = useQuery<{ type: string; slug: string }>({
+    queryKey: ["/api/settings/home-page"],
+    staleTime: 60000,
+  });
+  const homeSlug = homePageSettings?.slug ?? "home";
+  const slug = params.slug || slugFromPath || homeSlug;
 
   const [showRawEditor, setShowRawEditor] = useState(false);
 

@@ -1,3 +1,7 @@
+home_page:
+  type: page
+  slug: home
+
 i18n:
   default_locale: en
   supported_locales:
