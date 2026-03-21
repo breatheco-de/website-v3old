@@ -15,6 +15,7 @@ import CodeMirror from "@uiw/react-codemirror";
 import { yaml as yamlLang } from "@codemirror/lang-yaml";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
+import { useContentTypes, getFolderFromType } from "@/hooks/useContentTypes";
 import { useToast } from "@/hooks/use-toast";
 import { emitContentUpdated } from "@/lib/contentEvents";
 import { renderSection } from "@/components/SectionRenderer";
@@ -272,6 +273,7 @@ export function EditableSection({ children, section, index, sectionType, content
   const editMode = useEditModeOptional();
   const pageHistory = usePageHistoryOptional();
   const { toast } = useToast();
+  const contentTypesMap = useContentTypes();
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [currentSection, setCurrentSection] = useState<Section>(section);
   const [wasLocallyUpdated, setWasLocallyUpdated] = useState(false);
@@ -1113,7 +1115,8 @@ export function EditableSection({ children, section, index, sectionType, content
                     setHistoryOpen(true);
                     if (historyEntries.length === 0) {
                       setHistoryLoading(true);
-                      const filePath = `marketing-content/${contentType}/${slug}/${locale}.yml`;
+                      const contentDir = contentTypesMap ? getFolderFromType(contentTypesMap, contentType) : contentType;
+                      const filePath = `marketing-content/${contentDir}/${slug}/${locale}.yml`;
                       fetch(`/api/git/file-history?file=${encodeURIComponent(filePath)}&limit=20`)
                         .then(r => r.json())
                         .then(data => { setHistoryEntries(data.entries || []); })
@@ -1136,8 +1139,8 @@ export function EditableSection({ children, section, index, sectionType, content
             setHistoryOpen(open);
             if (open && historyEntries.length === 0) {
               setHistoryLoading(true);
-              const dir = contentType;
-              const filePath = `marketing-content/${dir}/${slug}/${locale}.yml`;
+              const contentDir = contentTypesMap ? getFolderFromType(contentTypesMap, contentType) : contentType;
+              const filePath = `marketing-content/${contentDir}/${slug}/${locale}.yml`;
               fetch(`/api/git/file-history?file=${encodeURIComponent(filePath)}&limit=20`)
                 .then(r => r.json())
                 .then(data => { setHistoryEntries(data.entries || []); })
@@ -1232,8 +1235,8 @@ export function EditableSection({ children, section, index, sectionType, content
                             setHistoryPreviewSection(null);
                             setHistoryPreviewLoading(true);
                             try {
-                              const dir = contentType;
-                              const filePath = `marketing-content/${dir}/${slug}/${locale}.yml`;
+                              const contentDir = contentTypesMap ? getFolderFromType(contentTypesMap, contentType) : contentType;
+                              const filePath = `marketing-content/${contentDir}/${slug}/${locale}.yml`;
                               const res = await fetch(`/api/git/file-at?file=${encodeURIComponent(filePath)}&sha=${entry.sha}`);
                               if (!res.ok) throw new Error("not found");
                               const text = await res.text();
