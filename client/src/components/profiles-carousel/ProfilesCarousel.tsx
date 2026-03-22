@@ -33,7 +33,7 @@ function useItemsPerPage(isRound: boolean) {
   return itemsPerPage;
 }
 
-function ProfileCardItem({ profile, isRound }: { profile: ProfileCard; isRound: boolean }) {
+function ProfileCardItem({ profile, isRound, profileIndex }: { profile: ProfileCard; isRound: boolean; profileIndex: number }) {
   const imageElement = profile.image_id ? (
     <UniversalImage
       id={profile.image_id}
@@ -43,6 +43,7 @@ function ProfileCardItem({ profile, isRound }: { profile: ProfileCard; isRound: 
         objectFit: (profile.object_fit as React.CSSProperties["objectFit"]) || "cover",
         objectPosition: profile.object_position || "center center",
       }}
+      fieldContext={{ arrayPath: "profiles", index: profileIndex, srcField: "image_id" }}
     />
   ) : (
     <div className="w-full h-full flex items-center justify-center bg-muted text-muted-foreground text-3xl font-bold">
@@ -225,6 +226,7 @@ export function ProfilesCarousel({ data }: ProfilesCarouselProps) {
                       key={pageIndex * itemsPerPage + i}
                       profile={profile}
                       isRound={isRound}
+                      profileIndex={pageIndex * itemsPerPage + i}
                     />
                   ))}
                 </div>

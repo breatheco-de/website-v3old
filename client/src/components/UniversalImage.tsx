@@ -185,7 +185,8 @@ export function UniversalImage({
     });
   };
 
-  const editOverlay = isEditMode && imagePickerCtx ? (
+  const hasFieldContext = !!(fieldContext?.fieldPath || (fieldContext?.arrayPath !== undefined && fieldContext?.index !== undefined && fieldContext?.srcField));
+  const editOverlay = isEditMode && imagePickerCtx && hasFieldContext ? (
     <button
       type="button"
       onClick={handleEditClick}
@@ -204,7 +205,7 @@ export function UniversalImage({
 
   const imageContent = (
     <div
-      className={`relative overflow-hidden ${borderClasses} ${useSolidCard ? "" : className} ${isEditMode && imagePickerCtx ? "group/editimg" : ""}`}
+      className={`relative overflow-hidden ${borderClasses} ${useSolidCard ? "" : className} ${isEditMode && imagePickerCtx && hasFieldContext ? "group/editimg" : ""}`}
       style={containerStyle}
       data-testid={`img-container-${id}`}
     >

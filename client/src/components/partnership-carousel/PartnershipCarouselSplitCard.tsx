@@ -67,9 +67,11 @@ function TruncatedDescription({ text }: { text: string }) {
 function SlideLeftCard({
   slide,
   verticalCards = false,
+  slideIndex,
 }: {
   slide: PartnershipSlide;
   verticalCards?: boolean;
+  slideIndex: number;
 }) {
   const handleLinkClick = useInternalNav();
   return (
@@ -95,6 +97,7 @@ function SlideLeftCard({
             objectPosition: slide.object_position || "center",
           }}
           data-testid="img-partnership-slide"
+          fieldContext={{ arrayPath: "slides", index: slideIndex, srcField: "image_id" }}
         />
       </div>
 
@@ -277,11 +280,13 @@ function SlideContent({
   verticalCards = false,
   institutionsHeading,
   referencesHeading,
+  slideIndex,
 }: {
   slide: PartnershipSlide;
   verticalCards?: boolean;
   institutionsHeading?: string;
   referencesHeading?: string;
+  slideIndex: number;
 }) {
   const hasRightCard =
     (slide.institution_logos && slide.institution_logos.length > 0) ||
@@ -301,7 +306,7 @@ function SlideContent({
             : ""
         }
       >
-        <SlideLeftCard slide={slide} verticalCards={verticalCards} />
+        <SlideLeftCard slide={slide} verticalCards={verticalCards} slideIndex={slideIndex} />
       </div>
 
       {hasRightCard && (
@@ -504,6 +509,7 @@ export function PartnershipCarouselSplitCard({
                     verticalCards={vertical_cards}
                     institutionsHeading={data.institutions_heading}
                     referencesHeading={data.references_heading}
+                    slideIndex={i}
                   />
                 </div>
               </div>

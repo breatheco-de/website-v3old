@@ -493,6 +493,7 @@ export function HeroProductShowcase({
                       : {}),
                   }}
                   data-testid="img-hero-product"
+                  fieldContext={{ fieldPath: "image" }}
                 />
                 {showAwardsMarquee && !awardsMarqueeAtLeft &&
                   awardsMarquee?.items &&
@@ -535,6 +536,7 @@ export function HeroProductShowcase({
                           opacity: formCardImageOpacity ?? 1,
                           borderRadius: formCardImageBorderRadius || undefined,
                         }}
+                        fieldContext={{ fieldPath: "form_card_image" }}
                       />
                     </div>
                   )}
@@ -615,6 +617,7 @@ export function HeroProductShowcase({
                         opacity: formCardImageOpacity ?? 1,
                         borderRadius: formCardImageBorderRadius || undefined,
                       }}
+                      fieldContext={{ fieldPath: "form_card_image" }}
                     />
                   </div>
                 )}

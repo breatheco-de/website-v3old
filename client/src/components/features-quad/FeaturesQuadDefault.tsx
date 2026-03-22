@@ -113,6 +113,7 @@ export function FeaturesQuadDefault({ data }: FeaturesQuadDefaultProps) {
                 objectFit: image.object_fit || "cover",
                 objectPosition: image.object_position || "top",
               }}
+              fieldContext={{ arrayPath: "images", index, srcField: "image_id" }}
             />
           </div>
         ))}
@@ -145,6 +146,7 @@ export function FeaturesQuadDefault({ data }: FeaturesQuadDefaultProps) {
                           objectFit: image.object_fit || "cover",
                           objectPosition: image.object_position || "top",
                         }}
+                        fieldContext={{ arrayPath: "images", index, srcField: "image_id" }}
                       />
                     </div>
                   ))}
@@ -226,6 +228,7 @@ export function FeaturesQuadDefault({ data }: FeaturesQuadDefaultProps) {
                           objectFit: image.object_fit || "cover",
                           objectPosition: image.object_position || "top",
                         }}
+                        fieldContext={{ arrayPath: "images", index, srcField: "image_id" }}
                       />
                     </div>
                   ))}
@@ -281,6 +284,7 @@ export function FeaturesQuadDefault({ data }: FeaturesQuadDefaultProps) {
                           objectFit: image.object_fit || "cover",
                           objectPosition: image.object_position || "top",
                         }}
+                        fieldContext={{ arrayPath: "images", index, srcField: "image_id" }}
                       />
                     </div>
                   ))}

@@ -24,6 +24,7 @@ function CTABox({
   onHover,
   onClick,
   side,
+  imageFieldPath,
   "data-testid": testId,
 }: {
   box: DoubleCTABox;
@@ -32,6 +33,7 @@ function CTABox({
   onHover: () => void;
   onClick: () => void;
   side: ActiveSide;
+  imageFieldPath?: string;
   "data-testid"?: string;
 }) {
   const hasBullets = box.bullets && box.bullets.length > 0;
@@ -141,6 +143,7 @@ function CTABox({
                         "cover",
                       objectPosition: box.image_object_position || "center",
                     }}
+                    fieldContext={imageFieldPath ? { fieldPath: imageFieldPath } : undefined}
                   />
                 </div>
               )}
@@ -158,6 +161,7 @@ function CTABox({
                         "cover",
                       objectPosition: box.image_object_position || "center",
                     }}
+                    fieldContext={imageFieldPath ? { fieldPath: imageFieldPath } : undefined}
                   />
                 </div>
               </div>
@@ -200,6 +204,7 @@ function CTABox({
                         "cover",
                       objectPosition: box.image_object_position || "center",
                     }}
+                    fieldContext={imageFieldPath ? { fieldPath: imageFieldPath } : undefined}
                   />
                 </div>
               )}
@@ -217,6 +222,7 @@ function CTABox({
                         "cover",
                       objectPosition: box.image_object_position || "center",
                     }}
+                    fieldContext={imageFieldPath ? { fieldPath: imageFieldPath } : undefined}
                   />
                 </div>
               </div>
@@ -382,6 +388,7 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
               onHover={isTablet ? () => {} : handleHoverLeft}
               onClick={isTablet ? () => {} : handleHoverLeft}
               side="left"
+              imageFieldPath="left.image_id"
               data-testid="card-double-cta-left"
             />
           </div>
@@ -408,6 +415,7 @@ export function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) {
               onHover={isTablet ? () => {} : handleHoverRight}
               onClick={isTablet ? () => {} : handleHoverRight}
               side="right"
+              imageFieldPath="right.image_id"
               data-testid="card-double-cta-right"
             />
           </div>

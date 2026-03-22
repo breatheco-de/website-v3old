@@ -150,6 +150,7 @@ export function HeroSingleColumn({ data }: HeroSingleColumnProps) {
                 ...(data.image_full_width ? {} : { borderRadius: '0.8rem' }),
               }}
               data-testid="img-hero-single-column"
+              fieldContext={{ fieldPath: "image_id" }}
             />
           )}
         </div>

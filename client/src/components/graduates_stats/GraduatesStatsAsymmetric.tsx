@@ -81,6 +81,7 @@ export function GraduatesStatsAsymmetric({ data }: GraduatesStatsAsymmetricProps
               preset="card"
               className="w-full h-full object-cover shadow-sm"
               alt="Featured graduate"
+              fieldContext={{ fieldPath: "tall_image" }}
             />
           </div>
           
@@ -95,6 +96,7 @@ export function GraduatesStatsAsymmetric({ data }: GraduatesStatsAsymmetricProps
                   preset="card"
                   className="w-full h-full object-cover shadow-sm"
                   alt="Graduate photo 1"
+                  fieldContext={{ fieldPath: "stacked_images.0" }}
                 />
               </div>
             )}
@@ -105,6 +107,7 @@ export function GraduatesStatsAsymmetric({ data }: GraduatesStatsAsymmetricProps
                   preset="card"
                   className="w-full h-full object-cover shadow-sm"
                   alt="Graduate photo 2"
+                  fieldContext={{ fieldPath: "stacked_images.1" }}
                 />
               </div>
             )}
@@ -123,6 +126,7 @@ export function GraduatesStatsAsymmetric({ data }: GraduatesStatsAsymmetricProps
                 preset="card"
                 className="w-full h-full object-cover shadow-sm"
                 alt="Featured graduate"
+                fieldContext={{ fieldPath: "tall_image" }}
               />
             </div>
             <div className="flex flex-col gap-3">
@@ -133,6 +137,7 @@ export function GraduatesStatsAsymmetric({ data }: GraduatesStatsAsymmetricProps
                     preset="card"
                     className="w-full h-full object-cover shadow-sm"
                     alt="Graduate photo 1"
+                    fieldContext={{ fieldPath: "stacked_images.0" }}
                   />
                 </div>
               )}
@@ -143,6 +148,7 @@ export function GraduatesStatsAsymmetric({ data }: GraduatesStatsAsymmetricProps
                     preset="card"
                     className="w-full h-full object-cover shadow-sm"
                     alt="Graduate photo 2"
+                    fieldContext={{ fieldPath: "stacked_images.1" }}
                   />
                 </div>
               )}

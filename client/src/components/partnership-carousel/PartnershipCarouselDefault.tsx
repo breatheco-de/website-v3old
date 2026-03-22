@@ -278,6 +278,7 @@ export function PartnershipCarouselDefault({ data }: PartnershipCarouselProps) {
                           objectPosition: slide.object_position || "center",
                         }}
                         data-testid={`img-partnership-slide-${i}`}
+                        fieldContext={{ arrayPath: "slides", index: i, srcField: "image_id" }}
                       />
                     </div>
                     <div

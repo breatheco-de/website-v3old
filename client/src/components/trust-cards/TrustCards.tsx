@@ -85,6 +85,7 @@ export function TrustCards({ data }: TrustCardsProps) {
                 alt={item.trusted_text || `Review platform ${index + 1}`}
                 className="h-full object-contain"
                 style={{ objectFit: "contain" }}
+                fieldContext={{ arrayPath: "items", index, srcField: "image" }}
               />
             </div>
 

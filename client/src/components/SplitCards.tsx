@@ -208,6 +208,7 @@ export const SplitCards = memo(function SplitCards({ data }: SplitCardsProps) {
             objectPosition:
               secondary.image_object_position || "center center",
           }}
+          fieldContext={{ fieldPath: "secondary.image_id" }}
         />
     </div>
   ) : (
