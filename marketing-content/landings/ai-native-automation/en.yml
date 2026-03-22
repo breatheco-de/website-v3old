@@ -147,8 +147,8 @@ sections:
     title: <br>
   - type: syllabus
     version: "1.0"
-    title: Get Job-Ready with Our Syllabus!
-    subtitle: We've fine-tuned our course content with hundreds of job positions to prepare you for a successful entry into tech.
+    title: Crea flujos de automatización desde cero hasta producción
+    subtitle: En este curso aprenderás desde los fundamentos del pensamiento orientado a workflows hasta sistemas de automatización listos para producción. Dominarás la automatización con n8n, la integración de APIs y la implementación de IA.
     modules:
       - title: Introduction To HTML And CSS
         description: Learn to create web structures with HTML and style them with CSS, essential for building visually appealing and functional websites.
