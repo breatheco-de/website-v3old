@@ -150,8 +150,8 @@ sections:
     title: Crea flujos de automatización desde cero hasta producción
     subtitle: En este curso aprenderás desde los fundamentos del pensamiento orientado a workflows hasta sistemas de automatización listos para producción. Dominarás la automatización con n8n, la integración de APIs y la implementación de IA.
     modules:
-      - title: Introduction To HTML And CSS
-        description: Learn to create web structures with HTML and style them with CSS, essential for building visually appealing and functional websites.
+      - title: Flujos de trabajo del día a día
+        description: En esta sesión, los estudiantes desarrollarán habilidades fundamentales de pensamiento en workflows, esenciales para la ingeniería de automatización. Aprenderán a identificar y diagramar procesos reales, comenzando por actividades cotidianas como la rutina de la mañana, hacer la compra o tareas diarias. Dominarán la identificación de procesos, la descomposición en pasos, la toma de decisiones (ramificaciones), los bucles y la gestión de errores. Al finalizar este módulo, serán capaces de crear diagramas completos de workflows con más de 15 pasos, sentando las bases para abordar la automatización de forma estructurada. Esta base práctica prepara a los estudiantes para pensar en términos de procesos y secuencias, una habilidad clave para todo el trabajo posterior en automatización.
       - title: JavaScript Fundamentals
         description: Master JavaScript programming concepts including variables, functions, DOM manipulation, and event handling.
       - title: React Development
