@@ -116,6 +116,29 @@ sections:
       - title: Buenas prácticas profesionales
         description: En esta sesión, los estudiantes llevarán su proyecto final a estándares de producción mediante la adopción de prácticas profesionales de desarrollo. Aprenderán convenciones de nomenclatura utilizadas en la industria para crear código mantenible, implementarán patrones de organización claros, desarrollarán documentación de nivel profesional, aplicarán estrategias avanzadas de gestión de errores, utilizarán control de versiones con Git y mejorarán sus habilidades de comunicación con stakeholders. El módulo cubre estándares de naming, buenas prácticas de documentación, patrones comunes de errores y sus soluciones, metodologías de testing sistemático, flujos de trabajo con control de versiones y técnicas efectivas de presentación de proyectos técnicos. Los estudiantes transformarán su automatización funcional en un sistema pulido y profesional, alineado con los estándares de la industria y preparado para presentarse con confianza ante empleadores, clientes o stakeholders.
     section_id: syllabus-xtnk7v
+  - type: bento_cards
+    version: "1.0"
+    title: ¿Cómo te ayuda Rigobot?
+    subtitle: No vuelvas a quedarte bloqueado
+    description: Rigobot es tu asistente de programación impulsado por IA que te ayuda a mantener el ritmo en todo momento. Tanto si estás depurando código a las 2 de la madrugada como si te estás preparando para un examen, Rigobot está ahí para ayudarte a superar los desafíos y seguir aprendiendo.
+    items:
+      - icon: Code
+        title: Revisión de código
+        description: Recibe feedback inmediato sobre la calidad de tu código, buenas prácticas y posibles mejoras.
+      - icon: Brain
+        title: Mentoría con IA
+        description: Orientación personalizada que se adapta a tu estilo y ritmo de aprendizaje
+      - icon: Bug
+        title: Asistente de depuración
+        description: Ayuda paso a paso para entender y solucionar errores en tu código.
+      - icon: Lightbulb
+        title: Explicación de conceptos
+        description: Explicaciones claras y pacientes de conceptos complejos de programación.
+      - icon: Clock
+        title: Disponible 24/7
+        description: Obtén ayuda cuando la necesites, sin esperar a horarios de tutoría.
+    background: bg-background
+    section_id: bento_cards-f47tl4
   - type: awards_marquee
     section_id: awards_marquee-22c9rj
     version: "1.0"
@@ -171,29 +194,6 @@ sections:
       mobile: none lg
       desktop: none lg
     title: <br>
-  - type: bento_cards
-    version: "1.0"
-    title: ¿Cómo te ayuda Rigobot?
-    subtitle: No vuelvas a quedarte bloqueado
-    description: Rigobot es tu asistente de programación impulsado por IA que te ayuda a mantener el ritmo en todo momento. Tanto si estás depurando código a las 2 de la madrugada como si te estás preparando para un examen, Rigobot está ahí para ayudarte a superar los desafíos y seguir aprendiendo.
-    items:
-      - icon: Code
-        title: Revisión de código
-        description: Recibe feedback inmediato sobre la calidad de tu código, buenas prácticas y posibles mejoras.
-      - icon: Brain
-        title: Mentoría con IA
-        description: Orientación personalizada que se adapta a tu estilo y ritmo de aprendizaje
-      - icon: Bug
-        title: Asistente de depuración
-        description: Ayuda paso a paso para entender y solucionar errores en tu código.
-      - icon: Lightbulb
-        title: Explicación de conceptos
-        description: Explicaciones claras y pacientes de conceptos complejos de programación.
-      - icon: Clock
-        title: Disponible 24/7
-        description: Obtén ayuda cuando la necesites, sin esperar a horarios de tutoría.
-    background: bg-background
-    section_id: bento_cards-f47tl4
   - type: certificate
     version: v1.0
     title: Certifícate en tu tecnología favorita
