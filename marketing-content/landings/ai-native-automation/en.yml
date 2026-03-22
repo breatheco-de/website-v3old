@@ -139,6 +139,14 @@ sections:
         description: Obtén ayuda cuando la necesites, sin esperar a horarios de tutoría.
     background: bg-background
     section_id: bento_cards-f47tl4
+  - type: certificate
+    version: v1.0
+    title: Certifícate en tu tecnología favorita
+    description: Tu certificado de 4Geeks abrirá puertas a oportunidades profesionales con nuestra extensa red de empresas en todo el mundo. Respaldado por instituciones internacionales, representa un estándar reconocido a nivel global, desbloqueando diversos caminos profesionales.
+    card:
+      title: Full Stack Developer
+      subtitle: 4Geeks Academy Certificate
+    section_id: certificate-qz8hnz
   - type: awards_marquee
     section_id: awards_marquee-22c9rj
     version: "1.0"
@@ -194,14 +202,6 @@ sections:
       mobile: none lg
       desktop: none lg
     title: <br>
-  - type: certificate
-    version: v1.0
-    title: Certifícate en tu tecnología favorita
-    description: Tu certificado de 4Geeks abrirá puertas a oportunidades profesionales con nuestra extensa red de empresas en todo el mundo. Respaldado por instituciones internacionales, representa un estándar reconocido a nivel global, desbloqueando diversos caminos profesionales.
-    card:
-      title: Full Stack Developer
-      subtitle: 4Geeks Academy Certificate
-    section_id: certificate-qz8hnz
   - type: testimonials
     section_id: testimonials-4nwr0h
     version: v1.0
