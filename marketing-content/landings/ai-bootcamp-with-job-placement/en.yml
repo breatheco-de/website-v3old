@@ -150,7 +150,7 @@ sections:
       desktop: none sm
   - type: graduates_stats
     heading: Real Career Outcomes
-    subheading: Over 5,000 graduates have made the switch to tech. Here's what happened after they completed the program.
+    subheading: Over 6,000 graduates have made the switch to tech. Here's what happened after they completed the program.
     stats:
       - value: 84%
         label: Average hiring rate
