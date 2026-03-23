@@ -76,7 +76,7 @@ export function renderNavbarItem(item: NavbarItem, controlledOpen?: boolean, onO
   }
   
   if (item.component === "TypewriterAnnouncement") {
-    return <TypewriterAnnouncement key="typewriter-announcement" message={item.message || ""} icon={item.icon} />;
+    return <TypewriterAnnouncement key={`typewriter-announcement-${item.label}`} message={item.message || ""} icon={item.icon} />;
   }
 
   if (item.component === "Dropdown" && item.dropdown) {
