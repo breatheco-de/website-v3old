@@ -1,0 +1,12 @@
+navbar:
+  items:
+    - label: 4Geeks Logo
+      href: /
+      component: Logo
+      imageId: 4geeks-devs-logo-1763162063433
+      imageAlt: '4Geeks'
+    - label: Announcement
+      href: ''
+      component: TypewriterAnnouncement
+      message: "Applications open — next cohort starts April 14th. Apply before March 31st."
+      icon: IconMegaphone

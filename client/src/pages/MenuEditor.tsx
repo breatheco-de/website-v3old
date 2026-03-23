@@ -49,11 +49,14 @@ import {
   IconFileCode,
   IconVariable,
   IconInfoCircle,
+  IconMegaphone,
 } from "@tabler/icons-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Skeleton } from "@/components/ui/skeleton";
 import { VariableDetailModal } from "@/components/editing/VariableDetailModal";
 import { ImageWithStylePicker } from "@/components/editing/ImageWithStylePicker";
+import { IconPickerModal } from "@/components/editing/IconPickerModal";
+import { getIcon } from "@/lib/icons";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { EditableDropdownPreview, EditableLinkItem, EditableText } from "@/components/menus";
@@ -90,6 +93,8 @@ interface MenuItemData {
   imageAlt?: string;
   imageObjectFit?: string;
   imageObjectPosition?: string;
+  message?: string;
+  icon?: string;
   dropdown?: {
     type: string;
     title?: string;
@@ -166,6 +171,7 @@ const componentOptions = [
   { value: "Dropdown", label: "Dropdown Menu" },
   { value: "Logo", label: "Logo (Universal Image)" },
   { value: "LanguageSwitcher", label: "Language Switcher" },
+  { value: "TypewriterAnnouncement", label: "Typewriter Announcement" },
 ];
 
 const dropdownTypes = [
@@ -205,6 +211,8 @@ function SortableMenuItemEditor({
     transition,
     isDragging,
   } = useSortable({ id });
+
+  const [iconPickerOpen, setIconPickerOpen] = useState(false);
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -397,6 +405,58 @@ function SortableMenuItemEditor({
                 }
                 onRemove={() => onUpdate(index, { ...item, imageId: "", imageAlt: "", imageObjectFit: "", imageObjectPosition: "" })}
               />
+            </div>
+          )}
+          {item.component === "TypewriterAnnouncement" && (
+            <div className="border-t pt-4 mt-4 space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor={`message-${index}`}>Message</Label>
+                <textarea
+                  id={`message-${index}`}
+                  value={item.message || ""}
+                  onChange={(e) => onUpdate(index, { ...item, message: e.target.value })}
+                  placeholder="Applications open — next cohort starts soon."
+                  className="w-full min-h-[72px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 resize-none"
+                  data-testid={`input-message-${index}`}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Icon</Label>
+                <div className="flex items-center gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setIconPickerOpen(true)}
+                    className="flex items-center gap-2"
+                    data-testid={`button-icon-picker-${index}`}
+                  >
+                    {(() => {
+                      const Ic = item.icon ? getIcon(item.icon) : null;
+                      const FallbackIcon = Ic ?? IconMegaphone;
+                      return <FallbackIcon className="h-4 w-4" />;
+                    })()}
+                    <span className="text-sm">{item.icon || "Megaphone (default)"}</span>
+                  </Button>
+                  {item.icon && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => onUpdate(index, { ...item, icon: "" })}
+                      data-testid={`button-icon-clear-${index}`}
+                    >
+                      <IconTrash className="h-4 w-4 text-destructive" />
+                    </Button>
+                  )}
+                </div>
+                <IconPickerModal
+                  open={iconPickerOpen}
+                  onOpenChange={setIconPickerOpen}
+                  currentValue={item.icon}
+                  onSelect={(iconName) => onUpdate(index, { ...item, icon: iconName })}
+                  itemLabel="announcement"
+                />
+              </div>
             </div>
           )}
         </CardContent>

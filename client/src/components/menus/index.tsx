@@ -2,10 +2,12 @@ export { SimpleLink, type SimpleLinkProps } from "./SimpleLink";
 export { Dropdown, type DropdownProps } from "./Dropdown";
 export { EditableDropdownPreview, EditableLinkItem, EditableText } from "./EditableDropdownPreview";
 export { MobileNav } from "./MobileNav";
+export { TypewriterAnnouncement, type TypewriterAnnouncementProps } from "./TypewriterAnnouncement";
 
 import { useState, useCallback } from "react";
 import { SimpleLink, type SimpleLinkProps } from "./SimpleLink";
 import { Dropdown, type DropdownProps } from "./Dropdown";
+import { TypewriterAnnouncement } from "./TypewriterAnnouncement";
 import UniversalImage from "@/components/UniversalImage";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useInternalNav } from "@/hooks/useInternalNav";
@@ -14,12 +16,14 @@ import { useTranslation } from "react-i18next";
 export type NavbarItem = {
   label: string;
   href: string;
-  component: "SimpleLink" | "Dropdown" | "Logo" | "LanguageSwitcher";
+  component: "SimpleLink" | "Dropdown" | "Logo" | "LanguageSwitcher" | "TypewriterAnnouncement";
   dropdown?: DropdownProps["dropdown"];
   imageId?: string;
   imageAlt?: string;
   imageObjectFit?: string;
   imageObjectPosition?: string;
+  message?: string;
+  icon?: string;
 };
 
 export type NavbarConfig = {
@@ -31,6 +35,7 @@ export type NavbarConfig = {
 const componentMap: Record<string, React.ComponentType<any>> = {
   SimpleLink,
   Dropdown,
+  TypewriterAnnouncement,
 };
 
 export function resolveComponent(componentName: string): React.ComponentType<any> | null {
@@ -70,6 +75,10 @@ export function renderNavbarItem(item: NavbarItem, controlledOpen?: boolean, onO
     return null;
   }
   
+  if (item.component === "TypewriterAnnouncement") {
+    return <TypewriterAnnouncement key="typewriter-announcement" message={item.message || ""} icon={item.icon} />;
+  }
+
   if (item.component === "Dropdown" && item.dropdown) {
     return <Component key={item.label} label={item.label} href={item.href} dropdown={item.dropdown} controlledOpen={controlledOpen} onOpenChange={onOpenChange} />;
   }
