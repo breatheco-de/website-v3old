@@ -102,6 +102,7 @@ export function Navbar({ config }: { config: NavbarConfig }) {
   
   const navItems = config.navbar.items;
   const logoItems = navItems.filter((item) => item.component === "Logo");
+  const announcementItems = navItems.filter((item) => item.component === "TypewriterAnnouncement");
   const navLinkItems = navItems.filter(
     (item) => item.component === "Dropdown" || item.component === "SimpleLink",
   );
@@ -110,6 +111,7 @@ export function Navbar({ config }: { config: NavbarConfig }) {
   return (
     <nav className="flex flex-wrap items-center justify-between w-full gap-1" data-testid="navbar">
       {logoItems.map((item) => renderNavbarItem(item))}
+      {announcementItems.map((item) => renderNavbarItem(item))}
       {navLinkItems.length > 0 && (
         <div className="flex items-center gap-1" data-testid="navbar-links">
           {navLinkItems.map((item) => {
