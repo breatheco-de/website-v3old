@@ -9,4 +9,4 @@ navbar:
       href: ''
       component: TypewriterAnnouncement
       message: "Applications open — next cohort starts April 14th. Apply before March 31st."
-      icon: IconMegaphone
+      icon: IconSpeakerphone

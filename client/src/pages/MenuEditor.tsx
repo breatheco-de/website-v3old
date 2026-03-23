@@ -49,7 +49,7 @@ import {
   IconFileCode,
   IconVariable,
   IconInfoCircle,
-  IconMegaphone,
+  IconSpeakerphone,
 } from "@tabler/icons-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -432,10 +432,10 @@ function SortableMenuItemEditor({
                   >
                     {(() => {
                       const Ic = item.icon ? getIcon(item.icon) : null;
-                      const FallbackIcon = Ic ?? IconMegaphone;
+                      const FallbackIcon = Ic ?? IconSpeakerphone;
                       return <FallbackIcon className="h-4 w-4" />;
                     })()}
-                    <span className="text-sm">{item.icon || "Megaphone (default)"}</span>
+                    <span className="text-sm">{item.icon || "Speakerphone (default)"}</span>
                   </Button>
                   {item.icon && (
                     <Button
