@@ -200,7 +200,7 @@ sections:
     variant: stats-text-card
     title: Why AI Engineering Now
     subtitle: The talent gap is real. This is your opportunity.
-    description: AI Engineers build intelligent systems, automate workflows, and deliver the AI-powered systems companies urgently need. Demand is exploding, but only 3% of the workforce has the skills to fill these roles. That's not a problem. That's your opening.
+    description: AI Engineers build intelligent systems, automate workflows, and deliver the AI-powered systems companies urgently need. Demand is exploding, but only 3% of the workforce has the skills to fill these roles. That's not a problem. It's your door into tech.
     card_color: bg-background
     background: hsl(var(--card))
     items:
