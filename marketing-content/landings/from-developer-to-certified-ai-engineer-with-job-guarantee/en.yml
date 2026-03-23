@@ -720,7 +720,7 @@ sections:
       - github
       - postman
       - n8n
-    features_title: Multiple ways to get started.
+    features_title: Choose the option that works best for you.
     features:
       - icon: IconCheck
         text: Full tuition is $14,999. Pay upfront and save 10%, or split into 6 interest-free monthly payments.
