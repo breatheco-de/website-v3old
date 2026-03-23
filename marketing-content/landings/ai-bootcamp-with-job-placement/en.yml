@@ -27,9 +27,9 @@ sections:
       color: primary
     description: "<span style=\"font-size: 1.125rem;\"><span>AI Engineering: the fastest-growing job of 2026. 1.3M new roles. 42× growth since 2023. In 24 weeks, that's your new career — with roles paying $95K–$135K+. Get hired within 9 months or we refund your tuition.</span></span>"
     bullets:
-      - text: "Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
       - text: Build a complete AI-native system across 10 milestones
       - text: Unlimited 1:1 mentorship and career support that doesn't stop at graduation
+      - text: "Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
     image_object_fit: none
     form:
       variant: stacked
