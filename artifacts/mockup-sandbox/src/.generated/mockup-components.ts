@@ -8,5 +8,7 @@ export const modules: ModuleMap = {
   "./components/mockups/programs-showcase/HorizontalRows.tsx": () => import("../components/mockups/programs-showcase/HorizontalRows.tsx"),
   "./components/mockups/programs-showcase/OutcomeLed.tsx": () => import("../components/mockups/programs-showcase/OutcomeLed.tsx"),
   "./components/mockups/programs-showcase/SkillsMap.tsx": () => import("../components/mockups/programs-showcase/SkillsMap.tsx"),
-  "./components/mockups/programs-showcase/SpotlightSelector.tsx": () => import("../components/mockups/programs-showcase/SpotlightSelector.tsx")
+  "./components/mockups/programs-showcase/SpotlightCards.tsx": () => import("../components/mockups/programs-showcase/SpotlightCards.tsx"),
+  "./components/mockups/programs-showcase/SpotlightSelector.tsx": () => import("../components/mockups/programs-showcase/SpotlightSelector.tsx"),
+  "./components/mockups/typewriter-navbar/Typewriter.tsx": () => import("../components/mockups/typewriter-navbar/Typewriter.tsx")
 };
