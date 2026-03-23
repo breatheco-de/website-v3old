@@ -665,7 +665,6 @@ sections:
         program:
           visible: false
           required: false
-          default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
     load: eager
