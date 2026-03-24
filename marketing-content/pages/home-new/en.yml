@@ -76,66 +76,38 @@ sections:
         linkText: Learn more
     marginY:
       desktop: none md
-  - type: hero
-    version: "1.0"
-    variant: course
-    title: Work smarter, not harder, apply AI at Work
-    subtitle: Boost your career, harness the power of Applied AI.
-    students_enrolled:
-      avatars:
-        - https://randomuser.me/api/portraits/women/1.jpg
-        - https://randomuser.me/api/portraits/men/2.jpg
-        - https://randomuser.me/api/portraits/women/3.jpg
-        - https://randomuser.me/api/portraits/men/4.jpg
-      count: +48 students enrolled
-    bullet_points:
-      - Learn prompt engineering techniques to control AI outputs precisely
-      - Create professional images, videos, and documents using AI tools
-      - Build automated workflows that save hours of repetitive work
-      - Develop websites and chatbots without writing code
-      - Apply AI to enhance your learning and personal development
-    tutors:
-      - name: Charly Chacón
-        role: Main Instructor
-        image: https://randomuser.me/api/portraits/men/10.jpg
-      - name: Rigo
-        role: AI Tutor
-        image: https://randomuser.me/api/portraits/lego/1.jpg
-    tutors_label: "Your tutors:"
-    description: Unlock the power of Applied AI and Generative AI in your professional life—no coding required. This self-paced course teaches you how to master prompt engineering, automate workflows, and create content using advanced AI tools. Learn to compare open source and cloud-based solutions, generate documents and websites, build chatbots, and optimize your productivity with automation platforms.
-    video:
-      url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
-      ratio: "16:9"
-      muted: true
-      autoplay: true
-      loop: true
-    signup_card:
-      title: Sign up to 4Geeks Plus
-      description: Subscribe and get access to hundreds of challenges, projects and courses
+  - - type: hero
+      variant: showcase
+      title: 1.3 million new AI roles. We're your path in.
+      subtitle: Intensive 16-24 week programs built to launch AI careers. 84% of our graduates land tech roles within 6 months, earning ~55% more than before. Lifelong mentorship. Career support until you're hired, and beyond.
+      trust_bar:
+        rating: {{ global.global_review_rating | 4.9 }}/5
+        rating_count: 3,000+
+        trusted_text: Trusted by the IDB, the US Department of Commerce, and institutions across 6 countries
       cta_button:
-        text: Join now from $39/mo.
-        url: /signup
+        text: Start Your Application
+        url: "#cta_banner-y7nw0f"
         variant: primary
-      login_link:
-        text: Login here.
-        url: /login
-      features:
-        - icon: book
-          text: Readings and videos
-          count: "31"
-        - icon: code
-          text: Interactive Exercises
-          count: "2"
-        - icon: briefcase
-          text: Interactive Projects
-          count: "8"
-        - icon: robot
-          text: Real Time AI Feedback
-        - icon: calendar
-          text: Workshops every week
-        - icon: users
-          text: Community Gatherings.
-    section_id: hero-4flnup
+        icon: ""
+      left_images:
+        - src: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
+          alt: Community illustration
+        - src: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
+          alt: Caracas graduates celebration
+      right_images:
+        - src: https://storage.googleapis.com/4geeks-academy-website/media/fernando-funez_1765315920677.jpg
+          alt: Fernando Funez testimonial
+          id: fernando-funez
+        - src: https://storage.googleapis.com/4geeks-academy-website/media/feliz-empresario-laptop_1765406479465.png
+          alt: Happy professional with laptop
+          id: feliz-empresario-laptop
+      show_arrow: true
+      section_id: hero-24ohep
+      marginY:
+        desktop: sm none
+      background: linear-gradient(to bottom right, hsl(var(--primary) / 0.05), transparent, hsl(var(--chart-2) / 0.05))
+      paddingY:
+        desktop: sm none
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
