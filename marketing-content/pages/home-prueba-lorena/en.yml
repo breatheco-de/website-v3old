@@ -140,6 +140,8 @@ sections:
         cta_text: Explore
         cta_url: /programs/cybersecurity
     section_id: programs_showcase-exhqet
+    marginY:
+      desktop: none lg
   - type: career_support_explain
     version: v1.0
     heading: We Stay With You Until You're Hired.
