@@ -61,8 +61,9 @@ export function MenusView() {
       setDeleteTarget(null);
       setUsageData(null);
     },
-    onError: (err: any) => {
-      toast({ title: "Delete failed", description: String(err?.message || err), variant: "destructive" });
+    onError: (err: unknown) => {
+      const msg = err instanceof Error ? err.message : String(err);
+      toast({ title: "Delete failed", description: msg, variant: "destructive" });
     },
   });
 
@@ -82,8 +83,12 @@ export function MenusView() {
     e.stopPropagation();
     try {
       const res = await fetch(`/api/menus/${menuName}/usage`);
-      const data: UsageData = await res.json();
-      setUsageData(data);
+      if (res.ok) {
+        const data: UsageData = await res.json();
+        setUsageData(data);
+      } else {
+        setUsageData({ defaultContentTypes: [], overrides: [] });
+      }
     } catch {
       setUsageData({ defaultContentTypes: [], overrides: [] });
     }

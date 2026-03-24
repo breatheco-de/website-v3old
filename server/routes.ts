@@ -4006,6 +4006,14 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   app.delete("/api/menus/:name", (req, res) => {
     try {
       const { name } = req.params;
+
+      // Validate name is a safe slug — same rule as POST /api/menus
+      const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+      if (!slugPattern.test(name)) {
+        res.status(400).json({ error: "Invalid menu name" });
+        return;
+      }
+
       const menusDir = path.join(process.cwd(), "marketing-content", "menus");
 
       // Find main file (yml or yaml)
@@ -4017,6 +4025,27 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         res.status(404).json({ error: `Menu "${name}" not found` });
         return;
       }
+
+      type LayoutObj = Record<string, unknown> & { menu?: { top?: string | null; bottom?: string | null } };
+
+      const cleanMenuRef = (parsed: Record<string, unknown>, position: "top" | "bottom" | "both"): boolean => {
+        const layout = parsed.layout as LayoutObj | undefined;
+        if (!layout?.menu) return false;
+        let changed = false;
+        if ((position === "top" || position === "both") && layout.menu.top === name) {
+          delete layout.menu.top;
+          changed = true;
+        }
+        if ((position === "bottom" || position === "both") && layout.menu.bottom === name) {
+          delete layout.menu.bottom;
+          changed = true;
+        }
+        if (changed) {
+          if (Object.keys(layout.menu).length === 0) delete layout.menu;
+          if (Object.keys(layout).length === 0) delete parsed.layout;
+        }
+        return changed;
+      };
 
       // 1. Clean up layout references in content-types.yml
       const configs = getAllConfigs();
@@ -4033,6 +4062,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         updateContentTypeConfig(typeName, { layout: { menu: newMenu } });
 
         // Also clean any page-level overrides for this content type
+        const position: "top" | "bottom" | "both" = top && bottom ? "both" : top ? "top" : "bottom";
         const slugs = contentIndex.listContentSlugs(typeName);
         for (const slug of slugs) {
           const commonPath = contentIndex.getCommonFilePath(typeName, slug);
@@ -4040,15 +4070,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           try {
             const raw = fs.readFileSync(commonPath, "utf-8");
             const parsed = yaml.load(raw) as Record<string, unknown> | null;
-            if (!parsed?.layout) continue;
-            const layout = parsed.layout as { menu?: { top?: string | null; bottom?: string | null } };
-            if (!layout.menu) continue;
-            let changed = false;
-            if (top && layout.menu.top === name) { delete layout.menu.top; changed = true; }
-            if (bottom && layout.menu.bottom === name) { delete layout.menu.bottom; changed = true; }
-            if (changed) {
-              if (Object.keys(layout.menu).length === 0) delete (parsed.layout as any).menu;
-              if (Object.keys(parsed.layout as any).length === 0) delete parsed.layout;
+            if (!parsed) continue;
+            if (cleanMenuRef(parsed, position)) {
               fs.writeFileSync(commonPath, yaml.dump(parsed, { lineWidth: 120, noRefs: true }), "utf-8");
             }
           } catch {}
@@ -4063,15 +4086,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         try {
           const raw = fs.readFileSync(commonPath, "utf-8");
           const parsed = yaml.load(raw) as Record<string, unknown> | null;
-          if (!parsed?.layout) continue;
-          const layout = parsed.layout as { menu?: { top?: string | null; bottom?: string | null } };
-          if (!layout.menu) continue;
-          let changed = false;
-          if (override.position === "top" && layout.menu.top === name) { delete layout.menu.top; changed = true; }
-          if (override.position === "bottom" && layout.menu.bottom === name) { delete layout.menu.bottom; changed = true; }
-          if (changed) {
-            if (Object.keys(layout.menu).length === 0) delete (parsed.layout as any).menu;
-            if (Object.keys(parsed.layout as any).length === 0) delete parsed.layout;
+          if (!parsed) continue;
+          if (cleanMenuRef(parsed, override.position)) {
             fs.writeFileSync(commonPath, yaml.dump(parsed, { lineWidth: 120, noRefs: true }), "utf-8");
           }
         } catch {}
@@ -4080,8 +4096,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       // 3. Delete the main file and any translation variant files
       fs.unlinkSync(mainFile);
       try {
+        // Safe: name is already validated as a slug (no special regex chars)
+        const translationPattern = new RegExp(`^${name}\\.[a-z]{2}(?:\\.[a-z]{2})?\\.(yml|yaml)$`);
         const dir = fs.readdirSync(menusDir);
-        const translationPattern = new RegExp(`^${name}\\.[a-z]{2}(\\.[a-z]{2})?\\.(yml|yaml)$`);
         for (const f of dir) {
           if (translationPattern.test(f)) {
             fs.unlinkSync(path.join(menusDir, f));
