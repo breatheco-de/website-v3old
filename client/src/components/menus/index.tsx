@@ -44,7 +44,7 @@ export function resolveComponent(componentName: string): React.ComponentType<any
   return componentMap[componentName] || null;
 }
 
-function LogoItem({ imageId, imageAlt, href }: { imageId?: string; imageAlt?: string; href: string }) {
+function LogoItem({ imageId, imageAlt, href, constrained_margin }: { imageId?: string; imageAlt?: string; href: string; constrained_margin?: boolean }) {
   const handleLinkClick = useInternalNav();
   const { t } = useTranslation();
   const logoId = imageId || "4geeks-devs-logo-1763162063433";
@@ -53,7 +53,7 @@ function LogoItem({ imageId, imageAlt, href }: { imageId?: string; imageAlt?: st
     <a
       href={href}
       onClick={handleLinkClick}
-      className="flex items-center hover-elevate rounded-md px-3 py-2"
+      className={`flex items-center hover-elevate rounded-md${constrained_margin ? "" : " px-3 py-2"}`}
       data-testid="link-home"
     >
       <UniversalImage id={logoId} alt={imageAlt || t('nav.brand')} className="h-8" loading="eager" style={{ objectFit: "contain", width: "auto", height: "100%" }} />
@@ -61,9 +61,9 @@ function LogoItem({ imageId, imageAlt, href }: { imageId?: string; imageAlt?: st
   );
 }
 
-export function renderNavbarItem(item: NavbarItem, controlledOpen?: boolean, onOpenChange?: (open: boolean) => void) {
+export function renderNavbarItem(item: NavbarItem, controlledOpen?: boolean, onOpenChange?: (open: boolean) => void, constrained_margin?: boolean) {
   if (item.component === "Logo") {
-    return <LogoItem key="logo" imageId={item.imageId} imageAlt={item.imageAlt} href={item.href} />;
+    return <LogoItem key="logo" imageId={item.imageId} imageAlt={item.imageAlt} href={item.href} constrained_margin={constrained_margin} />;
   }
 
   if (item.component === "LanguageSwitcher") {

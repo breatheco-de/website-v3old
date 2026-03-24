@@ -8,7 +8,7 @@ export interface TypewriterAnnouncementProps {
 }
 
 export function TypewriterAnnouncement({ message, icon }: TypewriterAnnouncementProps) {
-  const { displayText, isDone } = useTypewriter(message, 40, 700);
+  const { displayText } = useTypewriter(message, 40, 700);
 
   const ResolvedIcon = icon ? getIcon(icon) : null;
   const Icon = ResolvedIcon ?? Megaphone;
@@ -18,19 +18,15 @@ export function TypewriterAnnouncement({ message, icon }: TypewriterAnnouncement
       className="flex-1 flex items-center justify-center gap-2 min-w-0"
       data-testid="typewriter-announcement"
     >
-      <div className="inline-flex w-min gap-1">
+      <div className="inline-flex items-center w-min gap-1">
         <Icon className="w-6 h-6 text-primary shrink-0" />
-        <span className="text-muted-foreground whitespace-nowrap overflow-hidden">
-          {displayText}
-            <span
-              className={`bg-primary inline-block w-px h-4 ml-1 transition-opacity ${
-                isDone ? "animate-pulse" : "opacity-100"
-              }`}
-            />
-        </span>
-
+        <div className="inline-flex items-center">
+          <span className="text-muted-foreground whitespace-nowrap overflow-hidden">
+            {displayText}
+          </span>
+          <span className="bg-primary inline-block w-px h-4 ml-0.5 animate-blink shrink-0" />
+        </div>
       </div>
-
     </div>
   );
 }

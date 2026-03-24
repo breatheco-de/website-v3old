@@ -63,7 +63,7 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
         </div>
 
         <div className="flex md:hidden flex-1 items-center justify-between gap-3">
-          {logoItem && renderNavbarItem(logoItem)}
+          {logoItem && renderNavbarItem(logoItem, undefined, undefined, menuConfig?.navbar?.constrained_margin)}
           <div className="flex items-center gap-3">
             {langItem && renderNavbarItem(langItem)}
             {menuConfig && <MobileNav config={menuConfig} />}

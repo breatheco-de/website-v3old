@@ -7,12 +7,12 @@ export function useTypewriter(
   isActive = true,
 ) {
   const [visibleChars, setVisibleChars] = useState(0);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const startRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cancelledRef = useRef(false);
 
   useEffect(() => {
-    if (timerRef.current) clearInterval(timerRef.current);
-    if (startRef.current) clearTimeout(startRef.current);
+    cancelledRef.current = false;
+    if (timerRef.current) clearTimeout(timerRef.current);
 
     if (!isActive) {
       setVisibleChars(0);
@@ -20,20 +20,42 @@ export function useTypewriter(
     }
 
     setVisibleChars(0);
-    startRef.current = setTimeout(() => {
-      let i = 0;
-      timerRef.current = setInterval(() => {
-        i++;
-        setVisibleChars(i);
-        if (i >= text.length) {
-          if (timerRef.current) clearInterval(timerRef.current);
+
+    const scheduleType = (chars: number, delay: number) => {
+      if (cancelledRef.current) return;
+      timerRef.current = setTimeout(() => {
+        if (cancelledRef.current) return;
+        const next = chars + 1;
+        setVisibleChars(next);
+        if (next >= text.length) {
+          scheduleErase(next, 1500);
+        } else {
+          scheduleType(next, charDelay);
         }
-      }, charDelay);
+      }, delay);
+    };
+
+    const scheduleErase = (chars: number, delay: number) => {
+      if (cancelledRef.current) return;
+      timerRef.current = setTimeout(() => {
+        if (cancelledRef.current) return;
+        const next = chars - 1;
+        setVisibleChars(next);
+        if (next <= 0) {
+          scheduleType(0, 500);
+        } else {
+          scheduleErase(next, charDelay / 2);
+        }
+      }, delay);
+    };
+
+    timerRef.current = setTimeout(() => {
+      scheduleType(0, 0);
     }, startDelay);
 
     return () => {
-      if (startRef.current) clearTimeout(startRef.current);
-      if (timerRef.current) clearInterval(timerRef.current);
+      cancelledRef.current = true;
+      if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, [text, charDelay, startDelay, isActive]);
 
