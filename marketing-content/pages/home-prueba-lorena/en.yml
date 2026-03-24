@@ -106,7 +106,7 @@ sections:
     section_id: features_grid-142xko
     background: hsl(var(--secondary))
     marginY:
-      desktop: none md
+      desktop: none xl
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
