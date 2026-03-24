@@ -85,7 +85,6 @@ sections:
     mobile_height: 24rem
     gap: md
     rounded: true
-    background: hsl(var(--secondary))
     section_id: image_row-z97kqt
     marginY:
       desktop: none
