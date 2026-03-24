@@ -20,12 +20,10 @@ export function TypewriterAnnouncement({ message, icon }: TypewriterAnnouncement
     >
       <div className="inline-flex items-center w-min gap-1">
         <Icon className="w-6 h-6 text-primary shrink-0" />
-        <div className="inline-flex items-center">
-          <span className="text-muted-foreground whitespace-nowrap overflow-hidden">
-            {displayText}
-          </span>
-          <span className="bg-primary inline-block w-px h-4 ml-0.5 animate-blink shrink-0" />
-        </div>
+        <span className="inline-flex items-center text-muted-foreground whitespace-nowrap overflow-hidden">
+          {displayText}
+        </span>
+        <span className="bg-primary inline-block w-px h-4 ml-0.5 animate-blink shrink-0" />
       </div>
     </div>
   );

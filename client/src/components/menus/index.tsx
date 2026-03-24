@@ -110,9 +110,11 @@ export function Navbar({ config }: { config: NavbarConfig }) {
   );
   const trailingItems = navItems.filter((item) => item.component === "LanguageSwitcher");
 
+  const constrained_margin = config.navbar.constrained_margin;
+
   return (
     <nav className="flex flex-wrap items-center justify-between w-full gap-1" data-testid="navbar">
-      {logoItems.map((item) => renderNavbarItem(item))}
+      {logoItems.map((item) => renderNavbarItem(item, undefined, undefined, constrained_margin))}
       {announcementItems.map((item) => renderNavbarItem(item))}
       {navLinkItems.length > 0 && (
         <div className="flex items-center gap-1" data-testid="navbar-links">
