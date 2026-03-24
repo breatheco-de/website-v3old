@@ -1231,7 +1231,7 @@ export default function MenuEditor() {
                 )}
               </div>
 
-              <ScrollArea className="h-[calc(100vh-200px)]">
+              <ScrollArea className="max-h-[calc(100vh-200px)]">
                 <DndContext
                   sensors={sensors}
                   collisionDetection={closestCenter}
@@ -1280,7 +1280,7 @@ export default function MenuEditor() {
                     onClick={() => setNavbarSettingsOpen((v) => !v)}
                     data-testid="button-navbar-settings-toggle"
                   >
-                    <span>Navbar Settings</span>
+                    <span>Menu Settings</span>
                     <div className="flex items-center gap-2">
                       <span className="text-xs text-muted-foreground">
                         {(() => {
