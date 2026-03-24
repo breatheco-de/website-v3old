@@ -54,10 +54,10 @@ export function MenusView() {
 
   const deleteMutation = useMutation({
     mutationFn: (name: string) => apiRequest("DELETE", `/api/menus/${name}`),
-    onSuccess: () => {
+    onSuccess: (_data, name) => {
       queryClient.invalidateQueries({ queryKey: ["/api/menus"] });
-      if (expandedMenu === deleteTarget) setExpandedMenu(null);
-      toast({ title: "Menu deleted", description: `"${deleteTarget}" has been removed.` });
+      if (expandedMenu === name) setExpandedMenu(null);
+      toast({ title: "Menu deleted", description: `"${name}" has been removed.` });
       setDeleteTarget(null);
       setUsageData(null);
     },
@@ -82,13 +82,9 @@ export function MenusView() {
   const handleDeleteClick = async (e: React.MouseEvent, menuName: string) => {
     e.stopPropagation();
     try {
-      const res = await fetch(`/api/menus/${menuName}/usage`);
-      if (res.ok) {
-        const data: UsageData = await res.json();
-        setUsageData(data);
-      } else {
-        setUsageData({ defaultContentTypes: [], overrides: [] });
-      }
+      const res = await apiRequest("GET", `/api/menus/${menuName}/usage`);
+      const data: UsageData = await res.json();
+      setUsageData(data);
     } catch {
       setUsageData({ defaultContentTypes: [], overrides: [] });
     }
