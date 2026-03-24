@@ -26,9 +26,13 @@ export type NavbarItem = {
   icon?: string;
 };
 
+export type NavbarSize = "sm" | "default" | "lg";
+
 export type NavbarConfig = {
   navbar: {
     items: NavbarItem[];
+    constrained_margin?: boolean;
+    size?: NavbarSize;
   };
 };
 

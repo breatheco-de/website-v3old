@@ -11,6 +11,7 @@ import { oneDark } from "@codemirror/theme-one-dark";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -152,8 +153,13 @@ interface FooterData {
   copyright_text: string;
 }
 
+interface NavbarSettings {
+  constrained_margin?: boolean;
+  size?: "sm" | "default" | "lg";
+}
+
 interface MenuData {
-  navbar?: {
+  navbar?: NavbarSettings & {
     items: MenuItemData[];
   };
   footer?: FooterData;
@@ -737,6 +743,7 @@ export default function MenuEditor() {
   const [yamlSource, setYamlSource] = useState<string>("");
   const [yamlError, setYamlError] = useState<string | null>(null);
   const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set());
+  const [navbarSettingsOpen, setNavbarSettingsOpen] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
   const [confirmDeleteIndex, setConfirmDeleteIndex] = useState<number | null>(null);
   const [showSourceSidebar, setShowSourceSidebar] = useState(false);
@@ -976,6 +983,11 @@ export default function MenuEditor() {
     const newItems = menuData.navbar.items.filter((_, i) => i !== index);
     updateYamlFromData({ ...menuData, navbar: { ...menuData.navbar, items: newItems } });
     setConfirmDeleteIndex(null);
+  };
+
+  const updateNavbarSettings = (updates: Partial<NavbarSettings>) => {
+    if (!menuData || !menuData.navbar) return;
+    updateYamlFromData({ ...menuData, navbar: { ...menuData.navbar, ...updates } });
   };
 
   const handleAddItem = () => {
@@ -1259,6 +1271,69 @@ export default function MenuEditor() {
                   </div>
                 )}
               </ScrollArea>
+
+              {isEnglish && (
+                <div className="mt-4 border rounded-md">
+                  <button
+                    type="button"
+                    className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-md hover-elevate"
+                    onClick={() => setNavbarSettingsOpen((v) => !v)}
+                    data-testid="button-navbar-settings-toggle"
+                  >
+                    <span>Navbar Settings</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-muted-foreground">
+                        {(() => {
+                          const s = menuData!.navbar!.size;
+                          const sizeLabel = s === "sm" ? "Small (40px)" : s === "lg" ? "Large (80px)" : "Default (64px)";
+                          const marginLabel = menuData!.navbar!.constrained_margin ? "Constrained" : "Full width";
+                          return `${sizeLabel} · ${marginLabel}`;
+                        })()}
+                      </span>
+                      {navbarSettingsOpen
+                        ? <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                        : <IconChevronRight className="h-4 w-4 text-muted-foreground" />}
+                    </div>
+                  </button>
+
+                  {navbarSettingsOpen && (
+                    <div className="px-4 py-4 border-t space-y-5">
+                      <div className="flex items-center justify-between gap-4">
+                        <div>
+                          <Label className="text-sm font-medium">Constrained margin</Label>
+                          <p className="text-xs text-muted-foreground mt-0.5">
+                            Limits content to a centered max-width container
+                          </p>
+                        </div>
+                        <Switch
+                          checked={!!menuData!.navbar!.constrained_margin}
+                          onCheckedChange={(checked) => updateNavbarSettings({ constrained_margin: checked || undefined })}
+                          data-testid="switch-constrained-margin"
+                        />
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <Label className="text-sm font-medium">Navbar size</Label>
+                        <Select
+                          value={menuData!.navbar!.size ?? "default"}
+                          onValueChange={(val) =>
+                            updateNavbarSettings({ size: val === "default" ? undefined : (val as "sm" | "lg") })
+                          }
+                        >
+                          <SelectTrigger data-testid="select-navbar-size">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="sm">Small (40px)</SelectItem>
+                            <SelectItem value="default">Default (64px)</SelectItem>
+                            <SelectItem value="lg">Large (80px)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </>
           )}
 
