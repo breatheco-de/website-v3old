@@ -2,6 +2,7 @@ import type { ProgramsShowcaseSection, ProgramItem } from "@shared/schema";
 import { getIcon } from "@/lib/icons";
 import { IconClock, IconArrowRight } from "@tabler/icons-react";
 import { resolveColorVar, hslColor } from "./shared";
+import { RichTextContent } from "@/components/ui/rich-text-content";
 
 interface ProgramsShowcaseStackedListProps {
   data: ProgramsShowcaseSection;
@@ -48,9 +49,11 @@ function StackedListItem({
             >
               {program.name}
             </h3>
-            <p className="text-base leading-relaxed mt-1.5 max-w-3xl text-muted-foreground font-sans">
-              {program.description}
-            </p>
+            <RichTextContent
+              html={program.description}
+              className="text-base text-muted-foreground leading-relaxed mt-1.5 max-w-3xl font-sans"
+              data-testid={`text-description-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
+            />
           </div>
 
           <div className="flex flex-row md:flex-col justify-between md:justify-between items-center gap-2 shrink-0 md:pt-1">
