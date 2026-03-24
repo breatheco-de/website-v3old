@@ -1,26 +1,69 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   IconRefresh,
   IconMenu2,
   IconChevronDown,
   IconChevronRight,
   IconPencil,
+  IconDotsVertical,
+  IconTrash,
 } from "@tabler/icons-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 import type { MenuFileItem, MenuData } from "../types";
+
+interface UsageData {
+  defaultContentTypes: { name: string; position: "top" | "bottom" | "both" }[];
+  overrides: { contentType: string; slug: string; source: string; position: "top" | "bottom" }[];
+}
 
 export function MenusView() {
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
+  const [usageData, setUsageData] = useState<UsageData | null>(null);
   const [, navigate] = useLocation();
-  
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
   const { data: menusData, isLoading } = useQuery<{ menus: MenuFileItem[] }>({
     queryKey: ["/api/menus"],
   });
-  
+
   const { data: menuDetailData, isFetching: isMenuLoading } = useQuery<{ name: string; data: MenuData }>({
     queryKey: ["/api/menus", expandedMenu],
     enabled: !!expandedMenu,
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (name: string) => apiRequest("DELETE", `/api/menus/${name}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/menus"] });
+      if (expandedMenu === deleteTarget) setExpandedMenu(null);
+      toast({ title: "Menu deleted", description: `"${deleteTarget}" has been removed.` });
+      setDeleteTarget(null);
+      setUsageData(null);
+    },
+    onError: (err: any) => {
+      toast({ title: "Delete failed", description: String(err?.message || err), variant: "destructive" });
+    },
   });
 
   const menus = menusData?.menus || [];
@@ -34,6 +77,24 @@ export function MenusView() {
     e.stopPropagation();
     navigate(`/private/menu-editor/${menuName}`);
   };
+
+  const handleDeleteClick = async (e: React.MouseEvent, menuName: string) => {
+    e.stopPropagation();
+    try {
+      const res = await fetch(`/api/menus/${menuName}/usage`);
+      const data: UsageData = await res.json();
+      setUsageData(data);
+    } catch {
+      setUsageData({ defaultContentTypes: [], overrides: [] });
+    }
+    setDeleteTarget(menuName);
+  };
+
+  const confirmDelete = () => {
+    if (deleteTarget) deleteMutation.mutate(deleteTarget);
+  };
+
+  const hasUsage = usageData && (usageData.defaultContentTypes.length > 0 || usageData.overrides.length > 0);
 
   return (
     <>
@@ -54,7 +115,7 @@ export function MenusView() {
       ) : (
         menus.map((menu) => (
           <div key={menu.name} className="mb-1">
-            <div className="flex items-center">
+            <div className="flex items-center gap-1">
               <button
                 onClick={() => toggleMenu(menu.name)}
                 className="flex items-center gap-2 flex-1 px-3 py-2 rounded-md text-sm hover-elevate cursor-pointer"
@@ -71,14 +132,36 @@ export function MenusView() {
                 <span className="font-medium">{menu.name}</span>
                 <span className="text-xs text-muted-foreground ml-auto">{menu.file}</span>
               </button>
-              <button
-                onClick={(e) => handleEditMenu(e, menu.name)}
-                className="p-2 rounded-md hover-elevate cursor-pointer"
-                title="Edit menu"
-                data-testid={`button-edit-menu-${menu.name}`}
-              >
-                <IconPencil className="h-4 w-4 text-muted-foreground" />
-              </button>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button
+                    className="flex-shrink-0 p-1 rounded bg-muted hover:bg-muted-foreground/20 transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                    data-testid={`button-menu-options-${menu.name}`}
+                  >
+                    <IconDotsVertical className="h-3 w-3 text-muted-foreground" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-36">
+                  <DropdownMenuItem
+                    onClick={(e) => handleEditMenu(e, menu.name)}
+                    className="text-[13px]"
+                    data-testid={`menu-edit-${menu.name}`}
+                  >
+                    <IconPencil className="h-3.5 w-3.5 mr-2" />
+                    Edit
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={(e) => handleDeleteClick(e, menu.name)}
+                    className="text-[13px] text-destructive"
+                    data-testid={`menu-delete-${menu.name}`}
+                  >
+                    <IconTrash className="h-3.5 w-3.5 mr-2" />
+                    Delete
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
 
             {expandedMenu === menu.name && menuData && (
@@ -109,6 +192,45 @@ export function MenusView() {
           </div>
         ))
       )}
+
+      <AlertDialog open={!!deleteTarget} onOpenChange={(open) => { if (!open) { setDeleteTarget(null); setUsageData(null); } }}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete menu "{deleteTarget}"?</AlertDialogTitle>
+            <AlertDialogDescription asChild>
+              <div>
+                <p>This will permanently delete the menu file and cannot be undone.</p>
+                {hasUsage && (
+                  <div className="mt-3 space-y-1">
+                    <p className="text-sm font-medium text-foreground">This menu is currently in use:</p>
+                    {usageData!.defaultContentTypes.map((ct) => (
+                      <p key={ct.name} className="text-xs">
+                        Content type <span className="font-medium">{ct.name}</span> ({ct.position} menu)
+                      </p>
+                    ))}
+                    {usageData!.overrides.map((o, i) => (
+                      <p key={i} className="text-xs">
+                        Page <span className="font-medium">{o.slug}</span> ({o.contentType}, {o.position})
+                      </p>
+                    ))}
+                    <p className="text-xs text-muted-foreground mt-2">All references will be removed automatically.</p>
+                  </div>
+                )}
+              </div>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel data-testid="button-delete-menu-cancel">Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={confirmDelete}
+              className="bg-destructive text-destructive-foreground"
+              data-testid="button-delete-menu-confirm"
+            >
+              {deleteMutation.isPending ? "Deleting..." : "Delete"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 }

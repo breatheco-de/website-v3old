@@ -4003,6 +4003,99 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
   });
 
+  app.delete("/api/menus/:name", (req, res) => {
+    try {
+      const { name } = req.params;
+      const menusDir = path.join(process.cwd(), "marketing-content", "menus");
+
+      // Find main file (yml or yaml)
+      const mainYml = path.join(menusDir, `${name}.yml`);
+      const mainYaml = path.join(menusDir, `${name}.yaml`);
+      const mainFile = fs.existsSync(mainYml) ? mainYml : fs.existsSync(mainYaml) ? mainYaml : null;
+
+      if (!mainFile) {
+        res.status(404).json({ error: `Menu "${name}" not found` });
+        return;
+      }
+
+      // 1. Clean up layout references in content-types.yml
+      const configs = getAllConfigs();
+      for (const [typeName, config] of Object.entries(configs)) {
+        const top = config.layout?.menu?.top === name;
+        const bottom = config.layout?.menu?.bottom === name;
+        if (!top && !bottom) continue;
+
+        const currentMenu = config.layout?.menu || {};
+        const newMenu: { top?: string | null; bottom?: string | null } = {
+          top: top ? null : (currentMenu.top ?? null),
+          bottom: bottom ? null : (currentMenu.bottom ?? null),
+        };
+        updateContentTypeConfig(typeName, { layout: { menu: newMenu } });
+
+        // Also clean any page-level overrides for this content type
+        const slugs = contentIndex.listContentSlugs(typeName);
+        for (const slug of slugs) {
+          const commonPath = contentIndex.getCommonFilePath(typeName, slug);
+          if (!fs.existsSync(commonPath)) continue;
+          try {
+            const raw = fs.readFileSync(commonPath, "utf-8");
+            const parsed = yaml.load(raw) as Record<string, unknown> | null;
+            if (!parsed?.layout) continue;
+            const layout = parsed.layout as { menu?: { top?: string | null; bottom?: string | null } };
+            if (!layout.menu) continue;
+            let changed = false;
+            if (top && layout.menu.top === name) { delete layout.menu.top; changed = true; }
+            if (bottom && layout.menu.bottom === name) { delete layout.menu.bottom; changed = true; }
+            if (changed) {
+              if (Object.keys(layout.menu).length === 0) delete (parsed.layout as any).menu;
+              if (Object.keys(parsed.layout as any).length === 0) delete parsed.layout;
+              fs.writeFileSync(commonPath, yaml.dump(parsed, { lineWidth: 120, noRefs: true }), "utf-8");
+            }
+          } catch {}
+        }
+      }
+
+      // 2. Clean page-level overrides not covered by content-type defaults above
+      const rawOverrides = contentIndex.getMenuUsageByMenuId(name);
+      for (const override of rawOverrides) {
+        const commonPath = contentIndex.getCommonFilePath(override.contentType, override.slug);
+        if (!fs.existsSync(commonPath)) continue;
+        try {
+          const raw = fs.readFileSync(commonPath, "utf-8");
+          const parsed = yaml.load(raw) as Record<string, unknown> | null;
+          if (!parsed?.layout) continue;
+          const layout = parsed.layout as { menu?: { top?: string | null; bottom?: string | null } };
+          if (!layout.menu) continue;
+          let changed = false;
+          if (override.position === "top" && layout.menu.top === name) { delete layout.menu.top; changed = true; }
+          if (override.position === "bottom" && layout.menu.bottom === name) { delete layout.menu.bottom; changed = true; }
+          if (changed) {
+            if (Object.keys(layout.menu).length === 0) delete (parsed.layout as any).menu;
+            if (Object.keys(parsed.layout as any).length === 0) delete parsed.layout;
+            fs.writeFileSync(commonPath, yaml.dump(parsed, { lineWidth: 120, noRefs: true }), "utf-8");
+          }
+        } catch {}
+      }
+
+      // 3. Delete the main file and any translation variant files
+      fs.unlinkSync(mainFile);
+      try {
+        const dir = fs.readdirSync(menusDir);
+        const translationPattern = new RegExp(`^${name}\\.[a-z]{2}(\\.[a-z]{2})?\\.(yml|yaml)$`);
+        for (const f of dir) {
+          if (translationPattern.test(f)) {
+            fs.unlinkSync(path.join(menusDir, f));
+          }
+        }
+      } catch {}
+
+      contentIndex.refresh();
+      res.json({ success: true });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
   app.put("/api/content-types/:type/layout", (req, res) => {
     try {
       const { type } = req.params;
