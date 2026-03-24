@@ -155,7 +155,7 @@ interface FooterData {
 
 interface NavbarSettings {
   constrained_margin?: boolean;
-  size?: "sm" | "default" | "lg";
+  size?: number;
 }
 
 interface MenuData {
@@ -1285,7 +1285,7 @@ export default function MenuEditor() {
                       <span className="text-xs text-muted-foreground">
                         {(() => {
                           const s = menuData!.navbar!.size;
-                          const sizeLabel = s === "sm" ? "Small (40px)" : s === "lg" ? "Large (80px)" : "Default (64px)";
+                          const sizeLabel = s ? `${s}px` : "Default (64px)";
                           const marginLabel = menuData!.navbar!.constrained_margin ? "Constrained" : "Full width";
                           return `${sizeLabel} · ${marginLabel}`;
                         })()}
@@ -1314,21 +1314,20 @@ export default function MenuEditor() {
 
                       <div className="space-y-1.5">
                         <Label className="text-sm font-medium">Navbar size</Label>
-                        <Select
-                          value={menuData!.navbar!.size ?? "default"}
-                          onValueChange={(val) =>
-                            updateNavbarSettings({ size: val === "default" ? undefined : (val as "sm" | "lg") })
-                          }
-                        >
-                          <SelectTrigger data-testid="select-navbar-size">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="sm">Small (40px)</SelectItem>
-                            <SelectItem value="default">Default (64px)</SelectItem>
-                            <SelectItem value="lg">Large (80px)</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <div className="flex items-center gap-2">
+                          <Input
+                            type="number"
+                            min={20}
+                            placeholder="64"
+                            value={menuData!.navbar!.size ?? ""}
+                            onChange={(e) => {
+                              const val = parseInt(e.target.value, 10);
+                              updateNavbarSettings({ size: val > 0 ? val : undefined });
+                            }}
+                            data-testid="input-navbar-size"
+                          />
+                          <span className="text-sm text-muted-foreground shrink-0">px</span>
+                        </div>
                       </div>
                     </div>
                   )}
