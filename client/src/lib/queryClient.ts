@@ -1,5 +1,6 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
 import { getSessionHeaders } from "./sessionHeaders";
+import { getDebugToken } from "@/hooks/useDebugAuth";
 
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
@@ -28,6 +29,27 @@ export async function apiRequest(
     headers: {
       ...(data ? { "Content-Type": "application/json" } : {}),
       ...getSessionHeaders(),
+    },
+    body: data ? JSON.stringify(data) : undefined,
+    credentials: "include",
+  });
+
+  await throwIfResNotOk(res);
+  return res;
+}
+
+export async function apiRequestWithAuth(
+  method: string,
+  url: string,
+  data?: unknown,
+): Promise<Response> {
+  const token = getDebugToken();
+  const res = await fetch(url, {
+    method,
+    headers: {
+      ...(data ? { "Content-Type": "application/json" } : {}),
+      ...getSessionHeaders(),
+      ...(token ? { Authorization: `Token ${token}` } : {}),
     },
     body: data ? JSON.stringify(data) : undefined,
     credentials: "include",

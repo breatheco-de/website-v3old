@@ -1,7 +1,6 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { apiRequest, queryClient } from "@/lib/queryClient";
-import { getDebugToken } from "@/hooks/useDebugAuth";
+import { apiRequest, apiRequestWithAuth, queryClient } from "@/lib/queryClient";
 import { MoleculeRenderer, type MoleculeDefinition } from "@/components/MoleculeRenderer";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -872,15 +871,7 @@ export default function ThemeEditor() {
   const handlePaletteSave = async () => {
     setIsPaletteSaving(true);
     try {
-      const token = getDebugToken();
-      const headers: Record<string, string> = { "Content-Type": "application/json" };
-      if (token) headers["Authorization"] = `Token ${token}`;
-      const res = await fetch("/api/theme/palettes", {
-        method: "PUT",
-        headers,
-        body: JSON.stringify({ backgrounds, text: textPalette, accents }),
-      });
-      if (!res.ok) throw new Error(`${res.status}: ${await res.text()}`);
+      const res = await apiRequestWithAuth("PUT", "/api/theme/palettes", { backgrounds, text: textPalette, accents });
       const result = await res.json() as { ok: boolean; warnings?: string[] };
       if (result?.warnings?.length) {
         toast({
