@@ -1285,7 +1285,7 @@ export default function MenuEditor() {
                       <span className="text-xs text-muted-foreground">
                         {(() => {
                           const s = menuData!.navbar!.size;
-                          const sizeLabel = s ? `${s}px` : "Default (64px)";
+                          const sizeLabel = s !== undefined ? `${s}px` : "Default (64px)";
                           const marginLabel = menuData!.navbar!.constrained_margin ? "Constrained" : "Full width";
                           return `${sizeLabel} · ${marginLabel}`;
                         })()}
@@ -1322,7 +1322,7 @@ export default function MenuEditor() {
                             value={menuData!.navbar!.size ?? ""}
                             onChange={(e) => {
                               const val = parseInt(e.target.value, 10);
-                              updateNavbarSettings({ size: val > 0 ? val : undefined });
+                              updateNavbarSettings({ size: val || undefined });
                             }}
                             data-testid="input-navbar-size"
                           />
