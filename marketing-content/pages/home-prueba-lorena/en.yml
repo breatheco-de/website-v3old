@@ -110,6 +110,7 @@ sections:
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
+    badges: true
     heading: Choose Your Career Path
     subheading: Four programs built around the skills companies are actively hiring for right now.
     featured_label: Featured Program
