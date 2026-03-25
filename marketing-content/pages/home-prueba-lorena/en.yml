@@ -80,8 +80,8 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: highlight
-    title: Real Outcomes for Our Graduates
-    subtitle: Our graduates land jobs, earn more, and build careers that last — across the U.S., LATAM, and beyond.
+    title: Our Graduates Get Hired. Fast.
+    subtitle: 6,000+ graduates worldwide. Now thriving in tech.
     items:
       - icon: IconBriefcase
         value: {{ global.global_job_placement_rate | 84 }}%
@@ -90,7 +90,7 @@ sections:
         value: 3-6 months
         title: Average time to get hired
       - icon: IconReportMoney
-        value: {{ global.global_salary_increase | 55 }}%
+        value: ~{{ global.global_salary_increase | 55 }}%
         title: Average salary increase after graduation
     columns: 3
     icon_color: "#0097CD"
