@@ -75,24 +75,33 @@ sections:
     title_above_carousel: true
     marginY:
       desktop: none lg
-  - type: ai_learning
-    version: "1.0"
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: Why Learn with 4Geeks?
-    description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
-    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
-    features:
-      - icon: Robot
-        title: Learn with AI
-        description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
-      - icon: Headset
-        title: Unlimited 1:1 mentoring sessions
-        description: Access unlimited mentorship sessions with our experts whenever you need guidance.
-      - icon: Users
-        title: Learn with the community
-        description: Learning alongside others is more fun and helps you progress faster. Join our active community.
-    section_id: ai_learning-ugv9wa
+  - type: graduates_stats
+    heading: Real Career Outcomes
+    subheading: 5,000+ graduates chose 4Geeks over every other option. Here's what that decision looked like 90 days later.
+    stats:
+      - value: 86%
+        label: Hiring rate, US graduates placed within 90 days
+      - value: 55%
+        label: Average salary increase after graduation
+      - value: ~3 months
+        label: Average time to get hired in 2025
+      - value: 5,000+
+        label: Graduates employed worldwide
+    collage_images:
+      - image_id: graduates_team_1
+        col_span: 5
+        row_span: 2
+      - image_id: graduates_team_2
+        col_span: 7
+        row_span: 2
+      - image_id: graduates_coding
+        col_span: 6
+        row_span: 2
+      - image_id: graduates_friends
+        col_span: 6
+        row_span: 2
+    section_id: graduates_stats-cnxqbb
+    value_size: text-3xl
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
