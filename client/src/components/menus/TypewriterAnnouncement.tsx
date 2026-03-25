@@ -19,11 +19,11 @@ export function TypewriterAnnouncement({ message, icon }: TypewriterAnnouncement
       data-testid="typewriter-announcement"
     >
       <div className="inline-flex items-center w-min gap-1">
-        <Icon className="w-6 h-6 text-primary shrink-0" />
+        <Icon className="w-5 h-5 text-primary shrink-0" />
         <span className="inline-flex items-center text-muted-foreground whitespace-nowrap overflow-hidden">
           {displayText}
         </span>
-        <span className="bg-primary inline-block w-px h-4 ml-0.5 animate-blink shrink-0" />
+        <span className="bg-muted-foreground inline-block w-px h-4 ml-[0.2px] animate-blink shrink-0" />
       </div>
     </div>
   );
