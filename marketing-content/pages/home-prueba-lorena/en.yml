@@ -49,7 +49,7 @@ sections:
       - id: download-1
         logo: https://storage.googleapis.com/4geeks-academy-website/media/download-1-.png
         alt: "Image: download (1)"
-        logoHeight: 56px
+        logoHeight: 70px
       - id: clark-university
         logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
         alt: Clark University Logo
