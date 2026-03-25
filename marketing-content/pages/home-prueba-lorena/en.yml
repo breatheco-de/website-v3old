@@ -51,27 +51,27 @@ sections:
       - id: download-1
         logo: https://storage.googleapis.com/4geeks-academy-website/media/download-1-.png
         alt: "Image: download (1)"
-        logoHeight: 70px
+        logoHeight: 60px
       - id: clark-university
         logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
         alt: Clark University Logo
-        logoHeight: 70px
+        logoHeight: 60px
       - id: download-2
         logo: https://storage.googleapis.com/4geeks-academy-website/media/download-2-.png
         alt: "Image: download (2)"
-        logoHeight: 70px
+        logoHeight: 60px
       - id: download-3
         logo: https://storage.googleapis.com/4geeks-academy-website/media/download-3-.png
         alt: "Image: download (3)"
-        logoHeight: 70px
+        logoHeight: 60px
       - id: download-4
         logo: https://storage.googleapis.com/4geeks-academy-website/media/download-4-.png
         alt: "Image: download (4)"
-        logoHeight: 70px
+        logoHeight: 60px
       - id: download-4-1
         logo: https://storage.googleapis.com/4geeks-academy-website/media/download-4-.jpg
         alt: "Image: download (4)"
-        logoHeight: 56px
+        logoHeight: 60px
     section_id: awards_marquee-l9ssii
     title: "<span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.125rem;\">Trusted by&nbsp;</span></span>"
     title_above_carousel: true
