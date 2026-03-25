@@ -22,7 +22,7 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
       return response.json();
     },
   });
-  
+
   const menuConfig = menuResponse?.data;
 
   const logoItem = menuConfig?.navbar?.items?.find(item => item.component === "Logo");
@@ -33,7 +33,6 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
       setIsScrolled(window.scrollY > 0);
       setIsPastThreshold(window.scrollY > 100);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -44,7 +43,7 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
   if (urlParams.get('navbar') === 'false') {
     return null;
   }
-  
+
   const navSize = menuConfig?.navbar?.size ?? 64;
   const constrainClass = menuConfig?.navbar?.constrained_margin
     ? "max-w-6xl mx-auto px-4"
@@ -57,39 +56,47 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
   const marqueeSticky = menuConfig?.navbar?.marquee_sticky ?? false;
   const marqueeCollapsed = isPastThreshold && !marqueeSticky;
 
+  const marqueeHeight = 49;
+  const totalMaxHeight = navSize + (showMarquee ? marqueeHeight : 0);
+
   return (
-    <header className={`sticky top-0 z-50 w-full bg-background transition-[transform,colors] duration-300 ${headerSlideOut ? "-translate-y-full" : "translate-y-0"} ${isScrolled ? 'border-b' : 'border-b border-background'}`}>
-      <div className={`flex items-center gap-4 ${constrainClass}`} style={{ height: `${navSize}px` }}>
-        <div className="hidden md:flex flex-1">
-          {isLoading ? (
-            <div className="flex items-center gap-4">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="h-4 w-20 bg-muted animate-pulse rounded" />
-              ))}
+    <div
+      className="sticky top-0 z-50 overflow-hidden transition-[max-height] duration-300 ease-in-out"
+      style={{ maxHeight: headerSlideOut ? 0 : `${totalMaxHeight}px` }}
+    >
+      <header className={`w-full bg-background ${isScrolled ? 'border-b' : 'border-b border-background'}`}>
+        <div className={`flex items-center gap-4 ${constrainClass}`} style={{ height: `${navSize}px` }}>
+          <div className="hidden md:flex flex-1">
+            {isLoading ? (
+              <div className="flex items-center gap-4">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <div key={i} className="h-4 w-20 bg-muted animate-pulse rounded" />
+                ))}
+              </div>
+            ) : menuConfig ? (
+              <Navbar config={menuConfig} />
+            ) : null}
+          </div>
+
+          <div className="flex md:hidden flex-1 items-center justify-between gap-3">
+            {logoItem && renderNavbarItem(logoItem, undefined, undefined, menuConfig?.navbar?.constrained_margin)}
+            <div className="flex items-center gap-3">
+              {langItem && renderNavbarItem(langItem)}
+              {menuConfig && <MobileNav config={menuConfig} />}
             </div>
-          ) : menuConfig ? (
-            <Navbar config={menuConfig} />
-          ) : null}
-        </div>
-
-        <div className="flex md:hidden flex-1 items-center justify-between gap-3">
-          {logoItem && renderNavbarItem(logoItem, undefined, undefined, menuConfig?.navbar?.constrained_margin)}
-          <div className="flex items-center gap-3">
-            {langItem && renderNavbarItem(langItem)}
-            {menuConfig && <MobileNav config={menuConfig} />}
           </div>
         </div>
-      </div>
 
-      {showMarquee && (
-        <div
-          className={`overflow-hidden border-t transition-[max-height] duration-300 ease-in-out ${marqueeCollapsed ? "max-h-0" : "max-h-12"}`}
-        >
-          <div className={`${constrainClass} py-2`}>
-            <TypewriterAnnouncement message={menuConfig!.navbar!.marquee_text!} />
+        {showMarquee && (
+          <div
+            className={`overflow-hidden border-t transition-[max-height] duration-300 ease-in-out ${marqueeCollapsed ? "max-h-0" : "max-h-12"}`}
+          >
+            <div className={`${constrainClass} py-2`}>
+              <TypewriterAnnouncement message={menuConfig!.navbar!.marquee_text!} />
+            </div>
           </div>
-        </div>
-      )}
-    </header>
+        )}
+      </header>
+    </div>
   );
 }
