@@ -19,10 +19,11 @@ export function TypewriterAnnouncement({
   startDelay = 600,
   displayTime = 3000,
 }: TypewriterAnnouncementProps) {
-  const { displayText, ctaLabel, ctaUrl } = useTypewriter(messages, charDelay, startDelay, displayTime);
+  const { displayText, ctaLabel, ctaUrl, icon: msgIcon } = useTypewriter(messages, charDelay, startDelay, displayTime);
   const handleLinkClick = useInternalNav();
 
-  const ResolvedIcon = icon ? getIcon(icon) : null;
+  const resolvedIconName = msgIcon || icon;
+  const ResolvedIcon = resolvedIconName ? getIcon(resolvedIconName) : null;
   const Icon = ResolvedIcon ?? Megaphone;
 
   return (

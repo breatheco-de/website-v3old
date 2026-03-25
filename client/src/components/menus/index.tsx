@@ -22,14 +22,19 @@ export type NavbarItem = {
   imageAlt?: string;
   imageObjectFit?: string;
   imageObjectPosition?: string;
-  message?: string;
+  messages?: MarqueeMessage[];
   icon?: string;
+  char_delay?: number;
+  start_delay?: number;
+  display_time?: number;
 };
 
 export type MarqueeMessage = {
   text: string;
   cta_label?: string;
   cta_url?: string;
+  cta_url_overrides?: Record<string, string>;
+  icon?: string;
 };
 
 export type MarqueeConfig = {
@@ -97,7 +102,16 @@ export function renderNavbarItem(item: NavbarItem, controlledOpen?: boolean, onO
   }
   
   if (item.component === "TypewriterAnnouncement") {
-    return <TypewriterAnnouncement key={`typewriter-announcement-${item.label}`} messages={[{ text: item.message || "" }]} icon={item.icon} />;
+    return (
+      <TypewriterAnnouncement
+        key={`typewriter-announcement-${item.label}`}
+        messages={item.messages ?? []}
+        icon={item.icon}
+        charDelay={item.char_delay}
+        startDelay={item.start_delay}
+        displayTime={item.display_time}
+      />
+    );
   }
 
   if (item.component === "Dropdown" && item.dropdown) {

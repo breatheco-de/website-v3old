@@ -52,7 +52,10 @@ import {
   IconInfoCircle,
   IconSpeakerphone,
   IconExternalLink,
+  IconSearch,
+  IconCheck,
 } from "@tabler/icons-react";
+import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Skeleton } from "@/components/ui/skeleton";
 import { VariableDetailModal } from "@/components/editing/VariableDetailModal";
@@ -97,8 +100,11 @@ interface MenuItemData {
   imageAlt?: string;
   imageObjectFit?: string;
   imageObjectPosition?: string;
-  message?: string;
+  messages?: MarqueeMessageSetting[];
   icon?: string;
+  char_delay?: number;
+  start_delay?: number;
+  display_time?: number;
   dropdown?: {
     type: string;
     title?: string;
@@ -160,6 +166,8 @@ interface MarqueeMessageSetting {
   text: string;
   cta_label?: string;
   cta_url?: string;
+  cta_url_overrides?: Record<string, string>;
+  icon?: string;
 }
 
 interface MarqueeConfigSetting {
@@ -240,13 +248,16 @@ function SortableMenuItemEditor({
     isDragging,
   } = useSortable({ id });
 
-  const [iconPickerOpen, setIconPickerOpen] = useState(false);
-
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
   };
+
+  const twSensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
+  );
 
   return (
     <Card ref={setNodeRef} style={style} className="mb-2">
@@ -438,52 +449,100 @@ function SortableMenuItemEditor({
           {item.component === "TypewriterAnnouncement" && (
             <div className="border-t pt-4 mt-4 space-y-4">
               <div className="space-y-2">
-                <Label htmlFor={`message-${index}`}>Message</Label>
-                <textarea
-                  id={`message-${index}`}
-                  value={item.message || ""}
-                  onChange={(e) => onUpdate(index, { ...item, message: e.target.value })}
-                  placeholder="Applications open — next cohort starts soon."
-                  className="w-full min-h-[72px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 resize-none"
-                  data-testid={`input-message-${index}`}
-                />
+                <div className="flex items-center justify-between gap-2">
+                  <Label className="text-sm font-medium">Messages</Label>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => onUpdate(index, { ...item, messages: [...(item.messages ?? []), { text: "" }] })}
+                    data-testid={`button-add-tw-message-${index}`}
+                  >
+                    <IconPlus className="h-3 w-3 mr-1" />
+                    Add message
+                  </Button>
+                </div>
+                <DndContext
+                  sensors={twSensors}
+                  collisionDetection={closestCenter}
+                  onDragEnd={(event) => {
+                    const { active, over } = event;
+                    if (!over || active.id === over.id) return;
+                    const msgs = item.messages ?? [];
+                    const oldIdx = msgs.findIndex((_, i) => `tw-msg-${index}-${i}` === String(active.id));
+                    const newIdx = msgs.findIndex((_, i) => `tw-msg-${index}-${i}` === String(over.id));
+                    if (oldIdx >= 0 && newIdx >= 0) {
+                      onUpdate(index, { ...item, messages: arrayMove(msgs, oldIdx, newIdx) });
+                    }
+                  }}
+                >
+                  <SortableContext
+                    items={(item.messages ?? []).map((_, i) => `tw-msg-${index}-${i}`)}
+                    strategy={verticalListSortingStrategy}
+                  >
+                    <div className="space-y-2">
+                      {(item.messages ?? []).map((msg, msgIdx) => (
+                        <SortableMarqueeMessageRow
+                          key={`tw-msg-${index}-${msgIdx}`}
+                          id={`tw-msg-${index}-${msgIdx}`}
+                          msg={msg}
+                          index={msgIdx}
+                          locale={locale}
+                          onUpdate={(updates) => {
+                            const msgs = [...(item.messages ?? [])];
+                            msgs[msgIdx] = { ...msgs[msgIdx], ...updates };
+                            onUpdate(index, { ...item, messages: msgs });
+                          }}
+                          onDelete={() => {
+                            const msgs = [...(item.messages ?? [])];
+                            msgs.splice(msgIdx, 1);
+                            onUpdate(index, { ...item, messages: msgs });
+                          }}
+                        />
+                      ))}
+                      {(!item.messages || item.messages.length === 0) && (
+                        <p className="text-xs text-muted-foreground text-center py-2">No messages yet — add one above</p>
+                      )}
+                    </div>
+                  </SortableContext>
+                </DndContext>
               </div>
               <div className="space-y-2">
-                <Label>Icon</Label>
-                <div className="flex items-center gap-2">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => setIconPickerOpen(true)}
-                    className="flex items-center gap-2"
-                    data-testid={`button-icon-picker-${index}`}
-                  >
-                    {(() => {
-                      const Ic = item.icon ? getIcon(item.icon) : null;
-                      const FallbackIcon = Ic ?? IconSpeakerphone;
-                      return <FallbackIcon className="h-4 w-4" />;
-                    })()}
-                    <span className="text-sm">{item.icon || "Speakerphone (default)"}</span>
-                  </Button>
-                  {item.icon && (
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => onUpdate(index, { ...item, icon: "" })}
-                      data-testid={`button-icon-clear-${index}`}
-                    >
-                      <IconTrash className="h-4 w-4 text-destructive" />
-                    </Button>
-                  )}
+                <Label className="text-sm font-medium">Timing</Label>
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="space-y-1">
+                    <Label className="text-xs text-muted-foreground">Start delay (ms)</Label>
+                    <Input
+                      type="number"
+                      min={0}
+                      placeholder="600"
+                      value={item.start_delay ?? ""}
+                      onChange={(e) => onUpdate(index, { ...item, start_delay: parseInt(e.target.value, 10) || undefined })}
+                      data-testid={`input-tw-start-delay-${index}`}
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-xs text-muted-foreground">Char delay (ms)</Label>
+                    <Input
+                      type="number"
+                      min={1}
+                      placeholder="40"
+                      value={item.char_delay ?? ""}
+                      onChange={(e) => onUpdate(index, { ...item, char_delay: parseInt(e.target.value, 10) || undefined })}
+                      data-testid={`input-tw-char-delay-${index}`}
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-xs text-muted-foreground">Display time (ms)</Label>
+                    <Input
+                      type="number"
+                      min={0}
+                      placeholder="3000"
+                      value={item.display_time ?? ""}
+                      onChange={(e) => onUpdate(index, { ...item, display_time: parseInt(e.target.value, 10) || undefined })}
+                      data-testid={`input-tw-display-time-${index}`}
+                    />
+                  </div>
                 </div>
-                <IconPickerModal
-                  open={iconPickerOpen}
-                  onOpenChange={setIconPickerOpen}
-                  currentValue={item.icon}
-                  onSelect={(iconName) => onUpdate(index, { ...item, icon: iconName })}
-                  itemLabel="announcement"
-                />
               </div>
             </div>
           )}
@@ -658,6 +717,99 @@ interface MenuUsageResponse {
   overrides: Array<{ contentType: string; slug: string; source: string; position: "top" | "bottom" }>;
 }
 
+function PagePickerPopover({
+  value,
+  locale,
+  testId,
+  onChange,
+}: {
+  value: string;
+  locale: string;
+  testId?: string;
+  onChange: (path: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
+
+  const { data: sitemapUrls = [], isLoading } = useQuery<{ loc: string; label: string }[]>({
+    queryKey: ["/api/sitemap-urls", locale],
+    queryFn: async () => {
+      const r = await fetch(`/api/sitemap-urls?locale=${locale}`);
+      if (!r.ok) throw new Error("Failed to load sitemap");
+      return r.json();
+    },
+  });
+
+  const filtered = useMemo(() => {
+    const q = search.toLowerCase();
+    return q
+      ? sitemapUrls.filter((e) => e.loc.toLowerCase().includes(q) || e.label.toLowerCase().includes(q))
+      : sitemapUrls;
+  }, [sitemapUrls, search]);
+
+  const extractPath = (loc: string) => {
+    try { return new URL(loc).pathname; } catch { return loc; }
+  };
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <button
+          className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-md border border-input bg-background hover-elevate truncate max-w-[140px]"
+          data-testid={testId}
+        >
+          <IconLink className="h-3 w-3 shrink-0 text-muted-foreground" />
+          <span className="truncate">{value || "Select page…"}</span>
+        </button>
+      </PopoverTrigger>
+      <PopoverContent className="w-72 p-0 z-[10001]" align="start">
+        <div className="p-2 border-b">
+          <div className="relative">
+            <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+            <Input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search pages…"
+              className="h-8 pl-8 text-sm"
+              autoFocus
+              data-testid={testId ? `${testId}-search` : undefined}
+            />
+          </div>
+        </div>
+        <ScrollArea className="h-48">
+          {isLoading ? (
+            <div className="p-3 text-xs text-muted-foreground text-center">Loading…</div>
+          ) : filtered.length === 0 ? (
+            <div className="p-3 text-xs text-muted-foreground text-center">No pages found</div>
+          ) : (
+            <div className="p-1">
+              {filtered.map((entry) => {
+                const path = extractPath(entry.loc);
+                return (
+                  <button
+                    key={entry.loc}
+                    onClick={() => { onChange(path); setOpen(false); setSearch(""); }}
+                    className={cn(
+                      "w-full text-left px-2 py-1.5 rounded-md hover-elevate flex items-start gap-2",
+                      value === path && "bg-primary/10"
+                    )}
+                  >
+                    <div className="flex-1 min-w-0">
+                      <div className="text-xs font-medium truncate">{entry.label}</div>
+                      <div className="text-xs text-muted-foreground truncate">{path}</div>
+                    </div>
+                    {value === path && <IconCheck className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" />}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </ScrollArea>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
 function SortableMarqueeMessageRow({
   id,
   msg,
@@ -689,6 +841,18 @@ function SortableMarqueeMessageRow({
   };
 
   const [ctaExpanded, setCtaExpanded] = useState(false);
+  const [iconExpanded, setIconExpanded] = useState(false);
+  const [iconPickerOpen, setIconPickerOpen] = useState(false);
+
+  const overrideEntries = Object.entries(msg.cta_url_overrides ?? {});
+
+  const MsgIcon = (() => {
+    if (msg.icon) {
+      const Ic = getIcon(msg.icon);
+      return Ic ?? IconSpeakerphone;
+    }
+    return IconSpeakerphone;
+  })();
 
   return (
     <div ref={setNodeRef} style={style} className="group/marquee-msg border rounded-md p-2 space-y-2 bg-background" data-testid={`marquee-message-${index}`}>
@@ -711,6 +875,16 @@ function SortableMarqueeMessageRow({
         <Button
           variant="ghost"
           size="icon"
+          onClick={() => setIconExpanded(v => !v)}
+          title="Icon"
+          className={iconExpanded || msg.icon ? "text-primary" : "text-muted-foreground"}
+          data-testid={`button-marquee-msg-icon-toggle-${index}`}
+        >
+          <MsgIcon className="h-3.5 w-3.5" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon"
           onClick={() => setCtaExpanded(v => !v)}
           title="CTA settings"
           className={ctaExpanded || msg.cta_label ? "text-primary" : "text-muted-foreground"}
@@ -728,6 +902,43 @@ function SortableMarqueeMessageRow({
           <IconTrash className="h-3.5 w-3.5" />
         </Button>
       </div>
+
+      {(iconExpanded || msg.icon) && (
+        <div className="pl-6 space-y-1">
+          <Label className="text-xs text-muted-foreground">Icon</Label>
+          <div className="flex items-center gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => setIconPickerOpen(true)}
+              className="flex items-center gap-2"
+              data-testid={`button-marquee-msg-icon-picker-${index}`}
+            >
+              <MsgIcon className="h-4 w-4" />
+              <span className="text-xs">{msg.icon || "Speakerphone (default)"}</span>
+            </Button>
+            {msg.icon && (
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={() => onUpdate({ icon: undefined })}
+                data-testid={`button-marquee-msg-icon-clear-${index}`}
+              >
+                <IconTrash className="h-3.5 w-3.5 text-destructive" />
+              </Button>
+            )}
+          </div>
+          <IconPickerModal
+            open={iconPickerOpen}
+            onOpenChange={setIconPickerOpen}
+            currentValue={msg.icon}
+            onSelect={(iconName) => onUpdate({ icon: iconName || undefined })}
+            itemLabel="message"
+          />
+        </div>
+      )}
 
       {(ctaExpanded || msg.cta_label || msg.cta_url) && (
         <div className="pl-6 space-y-2">
@@ -749,6 +960,58 @@ function SortableMarqueeMessageRow({
               locale={locale}
               testId={`marquee-msg-${index}-cta-link-picker`}
             />
+          </div>
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between gap-2">
+              <Label className="text-xs text-muted-foreground">Per-page URL overrides</Label>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-6 px-2 text-xs"
+                onClick={() => onUpdate({ cta_url_overrides: { ...(msg.cta_url_overrides ?? {}), "": "" } })}
+                data-testid={`button-marquee-msg-add-override-${index}`}
+              >
+                <IconPlus className="h-3 w-3 mr-1" />
+                Add override
+              </Button>
+            </div>
+            {overrideEntries.map(([path, url], i) => (
+              <div key={i} className="flex items-center gap-1">
+                <PagePickerPopover
+                  value={path}
+                  locale={locale}
+                  testId={`override-page-${index}-${i}`}
+                  onChange={(newPath) => {
+                    const newOverrides: Record<string, string> = {};
+                    overrideEntries.forEach(([p, u], idx) => {
+                      newOverrides[idx === i ? newPath : p] = u;
+                    });
+                    onUpdate({ cta_url_overrides: newOverrides });
+                  }}
+                />
+                <LinkPicker
+                  value={url}
+                  onChange={(newUrl) => {
+                    const newOverrides = { ...(msg.cta_url_overrides ?? {}), [path]: newUrl };
+                    onUpdate({ cta_url_overrides: newOverrides });
+                  }}
+                  locale={locale}
+                  testId={`override-url-${index}-${i}`}
+                />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => {
+                    const newOverrides = { ...(msg.cta_url_overrides ?? {}) };
+                    delete newOverrides[path];
+                    onUpdate({ cta_url_overrides: Object.keys(newOverrides).length > 0 ? newOverrides : undefined });
+                  }}
+                  data-testid={`button-override-delete-${index}-${i}`}
+                >
+                  <IconTrash className="h-3 w-3 text-destructive" />
+                </Button>
+              </div>
+            ))}
           </div>
         </div>
       )}

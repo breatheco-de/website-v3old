@@ -10,10 +10,15 @@ export interface TypewriterResult {
   displayText: string;
   ctaLabel: string;
   ctaUrl: string;
+  icon: string | undefined;
   isDone: boolean;
 }
 
 const INTER_MESSAGE_PAUSE = 500;
+
+function stripLocalePrefix(pathname: string): string {
+  return pathname.replace(/^\/[a-z]{2}(\/|$)/i, (_, sep) => sep || "/");
+}
 
 export function useTypewriter(
   messages: MarqueeMessage[],
@@ -95,10 +100,17 @@ export function useTypewriter(
   const displayText = displayFull.slice(0, Math.min(state.visibleChars, textLen));
   const ctaVisible = state.visibleChars > textLen ? displayFull.slice(textLen) : "";
 
+  const currentPath = typeof window !== "undefined" ? stripLocalePrefix(window.location.pathname) : "/";
+  const resolvedCtaUrl =
+    (msg.cta_url_overrides && currentPath && msg.cta_url_overrides[currentPath])
+      ? msg.cta_url_overrides[currentPath]
+      : (msg.cta_url || "");
+
   return {
     displayText,
     ctaLabel: ctaVisible,
-    ctaUrl: msg.cta_url || "",
+    ctaUrl: resolvedCtaUrl,
+    icon: msg.icon,
     isDone: state.visibleChars >= fullText.length,
   };
 }
