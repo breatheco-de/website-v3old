@@ -28,7 +28,7 @@ export function useTypewriter(
         const next = chars + 1;
         setVisibleChars(next);
         if (next >= text.length) {
-          scheduleErase(next, 1500);
+          scheduleErase(next, 3000);
         } else {
           scheduleType(next, charDelay);
         }
@@ -42,9 +42,9 @@ export function useTypewriter(
         const next = chars - 1;
         setVisibleChars(next);
         if (next <= 0) {
-          scheduleType(0, 500);
+          scheduleType(0, 2000);
         } else {
-          scheduleErase(next, charDelay / 2);
+          scheduleErase(next, charDelay);
         }
       }, delay);
     };

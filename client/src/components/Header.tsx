@@ -98,7 +98,7 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
             <div
               className={`overflow-hidden border-t transition-[max-height] duration-300 ease-in-out ${marqueeCollapsed ? "max-h-0" : "max-h-12"}`}
             >
-              <div className={`${constrainClass} py-2`}>
+              <div className={`${constrainClass} py-1 bg-primary/5`}>
                 <TypewriterAnnouncement message={menuConfig!.navbar!.marquee_text!} />
               </div>
             </div>
