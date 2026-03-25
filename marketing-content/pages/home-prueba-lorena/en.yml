@@ -131,18 +131,21 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
-    title: AI isn't replacing developers. It's replacing developers who don't use AI.
-    subtitle: The window to get ahead of this shift is open right now.
-    description: Every week, companies are rewriting job descriptions. They're not just hiring developers anymore — they're hiring developers who build with AI, analyze with AI, and secure systems against AI threats. The people who move now are the ones who get hired first.
-    items:
-      - value: 3.5M
-        title: Tech and AI roles expected globally by 2026
-      - value: 87%
-        title: Of companies report a shortage of AI-skilled engineers right now
-      - value: 40%
-        title: Of current job listings now require AI or machine learning skills
-    section_id: features_grid-142xko
+    title: AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.
+    subtitle: That's your opportunity.
+    description: Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.
     background: hsl(210 100% 50% / 0.05)
+    items:
+      - id: "1"
+        value: 42x
+        title: Growth in Forward-Deployed Engineering since 2023
+      - id: "2"
+        value: 70%
+        title: YoY growth in US jobs requiring AI skills
+      - id: "3"
+        value: 3%
+        title: Of the workforce currently qualified to fill AI roles
+    section_id: features_grid-142xko
     marginY:
       desktop: none xl
   - type: numbered_steps
