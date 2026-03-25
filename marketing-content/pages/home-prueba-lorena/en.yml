@@ -128,7 +128,7 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md xl
-  - type: features_grid
+  - ttype: features_grid
     version: "1.0"
     variant: stats-text
     title: AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.
@@ -138,13 +138,13 @@ sections:
     items:
       - id: "1"
         value: 7x
-        title: growth in demand for AI-fluent workers since 2023
+        title: Growth in demand for AI-fluent workers since 2023
       - id: "2"
-        value: 70%
-        title: YoY growth for jobs with AI skills
-      - id: "3"
         value: 3%
-        title: of the workforce qualifies for AI roles
+        title: Of the workforce qualifies for AI roles
+      - id: "3"
+        value: 56%
+        title: Salary premium for workers with AI skills
     section_id: features_grid-142xko
     marginY:
       desktop: none xl
