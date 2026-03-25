@@ -51,16 +51,14 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
     : "px-6";
 
   const stickyEnabled = menuConfig?.navbar?.sticky ?? true;
-  const headerPositionClass = (stickyEnabled || !isPastThreshold)
-    ? "sticky top-0 z-50"
-    : "relative";
+  const headerSlideOut = !stickyEnabled && isPastThreshold;
 
   const showMarquee = !!(menuConfig?.navbar?.marquee && menuConfig?.navbar?.marquee_text);
   const marqueeSticky = menuConfig?.navbar?.marquee_sticky ?? false;
   const marqueeCollapsed = isPastThreshold && !marqueeSticky;
 
   return (
-    <header className={`${headerPositionClass} w-full bg-background transition-colors ${isScrolled ? 'border-b' : 'border-b border-background'}`}>
+    <header className={`sticky top-0 z-50 w-full bg-background transition-[transform,colors] duration-300 ${headerSlideOut ? "-translate-y-full" : "translate-y-0"} ${isScrolled ? 'border-b' : 'border-b border-background'}`}>
       <div className={`flex items-center gap-4 ${constrainClass}`} style={{ height: `${navSize}px` }}>
         <div className="hidden md:flex flex-1">
           {isLoading ? (
