@@ -81,6 +81,8 @@ sections:
     section_id: awards_marquee-l9ssii
     title: Trusted by&nbsp;
     title_above_carousel: true
+    marginY:
+      desktop: none lg
   - type: trust_cards
     version: v1.0
     title: "Rated #1 Across Every Major Review Platform"
