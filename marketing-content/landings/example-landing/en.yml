@@ -280,6 +280,8 @@ sections:
       text: "Everything here is designed to get you further, faster. Your mentor is always available and meets you where you are, even after graduation. Our AI tutor tracks how you progress and shapes every interaction to accelerate your learning curve. The result: fewer setbacks, faster progress, and a real path to a high-demand tech role."
       background: primary
       width: 2
+      text_1: test
+      text_2: tesst2
     height: 31rem
     mobile_height: 24rem
     gap: md
