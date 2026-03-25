@@ -26,15 +26,30 @@ export type NavbarItem = {
   icon?: string;
 };
 
+export type MarqueeMessage = {
+  text: string;
+  cta_label?: string;
+  cta_url?: string;
+};
+
+export type MarqueeConfig = {
+  enabled?: boolean;
+  texts?: MarqueeMessage[];
+  position?: "above" | "below";
+  sticky?: boolean;
+  background?: string;
+  start_delay?: number;
+  char_delay?: number;
+  display_time?: number;
+};
+
 export type NavbarConfig = {
   navbar: {
     items: NavbarItem[];
     constrained_margin?: boolean;
     size?: number;
     sticky?: boolean;
-    marquee?: boolean;
-    marquee_text?: string;
-    marquee_sticky?: boolean;
+    marquee?: MarqueeConfig;
   };
 };
 
@@ -82,7 +97,7 @@ export function renderNavbarItem(item: NavbarItem, controlledOpen?: boolean, onO
   }
   
   if (item.component === "TypewriterAnnouncement") {
-    return <TypewriterAnnouncement key={`typewriter-announcement-${item.label}`} message={item.message || ""} icon={item.icon} />;
+    return <TypewriterAnnouncement key={`typewriter-announcement-${item.label}`} messages={[{ text: item.message || "" }]} icon={item.icon} />;
   }
 
   if (item.component === "Dropdown" && item.dropdown) {

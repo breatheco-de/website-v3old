@@ -51,12 +51,15 @@ import {
   IconVariable,
   IconInfoCircle,
   IconSpeakerphone,
+  IconExternalLink,
 } from "@tabler/icons-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Skeleton } from "@/components/ui/skeleton";
 import { VariableDetailModal } from "@/components/editing/VariableDetailModal";
 import { ImageWithStylePicker } from "@/components/editing/ImageWithStylePicker";
 import { IconPickerModal } from "@/components/editing/IconPickerModal";
+import { LinkPicker } from "@/components/editing/LinkPicker";
+import { ColorPicker } from "@/components/ui/color-picker";
 import { getIcon } from "@/lib/icons";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -153,13 +156,28 @@ interface FooterData {
   copyright_text: string;
 }
 
+interface MarqueeMessageSetting {
+  text: string;
+  cta_label?: string;
+  cta_url?: string;
+}
+
+interface MarqueeConfigSetting {
+  enabled?: boolean;
+  texts?: MarqueeMessageSetting[];
+  position?: "above" | "below";
+  sticky?: boolean;
+  background?: string;
+  start_delay?: number;
+  char_delay?: number;
+  display_time?: number;
+}
+
 interface NavbarSettings {
   constrained_margin?: boolean;
   size?: number;
   sticky?: boolean;
-  marquee?: boolean;
-  marquee_text?: string;
-  marquee_sticky?: boolean;
+  marquee?: MarqueeConfigSetting;
 }
 
 interface MenuData {
@@ -640,6 +658,104 @@ interface MenuUsageResponse {
   overrides: Array<{ contentType: string; slug: string; source: string; position: "top" | "bottom" }>;
 }
 
+function SortableMarqueeMessageRow({
+  id,
+  msg,
+  index,
+  locale,
+  onUpdate,
+  onDelete,
+}: {
+  id: string;
+  msg: MarqueeMessageSetting;
+  index: number;
+  locale: string;
+  onUpdate: (updates: Partial<MarqueeMessageSetting>) => void;
+  onDelete: () => void;
+}) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  const [ctaExpanded, setCtaExpanded] = useState(false);
+
+  return (
+    <div ref={setNodeRef} style={style} className="group/marquee-msg border rounded-md p-2 space-y-2 bg-background" data-testid={`marquee-message-${index}`}>
+      <div className="flex items-start gap-1">
+        <button
+          className="touch-none cursor-grab active:cursor-grabbing mt-1.5"
+          {...attributes}
+          {...listeners}
+          data-testid={`button-drag-marquee-msg-${index}`}
+        >
+          <IconGripVertical className="h-4 w-4 text-muted-foreground" />
+        </button>
+        <Input
+          className="flex-1 text-sm"
+          placeholder="Type your announcement…"
+          value={msg.text}
+          onChange={(e) => onUpdate({ text: e.target.value })}
+          data-testid={`input-marquee-msg-text-${index}`}
+        />
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setCtaExpanded(v => !v)}
+          title="CTA settings"
+          className={ctaExpanded || msg.cta_label ? "text-primary" : "text-muted-foreground"}
+          data-testid={`button-marquee-msg-cta-toggle-${index}`}
+        >
+          <IconExternalLink className="h-3.5 w-3.5" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onDelete}
+          className="text-destructive"
+          data-testid={`button-delete-marquee-msg-${index}`}
+        >
+          <IconTrash className="h-3.5 w-3.5" />
+        </Button>
+      </div>
+
+      {(ctaExpanded || msg.cta_label || msg.cta_url) && (
+        <div className="pl-6 space-y-2">
+          <div className="space-y-1">
+            <Label className="text-xs text-muted-foreground">CTA label (typed after message)</Label>
+            <Input
+              className="text-sm"
+              placeholder="Learn more"
+              value={msg.cta_label ?? ""}
+              onChange={(e) => onUpdate({ cta_label: e.target.value || undefined })}
+              data-testid={`input-marquee-msg-cta-label-${index}`}
+            />
+          </div>
+          <div className="space-y-1">
+            <Label className="text-xs text-muted-foreground">CTA URL</Label>
+            <LinkPicker
+              value={msg.cta_url ?? ""}
+              onChange={(url) => onUpdate({ cta_url: url || undefined })}
+              locale={locale}
+              testId={`marquee-msg-${index}-cta-link-picker`}
+            />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function MenuUsageInfo({ menuName }: { menuName: string }) {
   const { data, isLoading } = useQuery<MenuUsageResponse>({
     queryKey: ["/api/menus", menuName, "usage"],
@@ -994,6 +1110,38 @@ export default function MenuEditor() {
     updateYamlFromData({ ...menuData, navbar: { ...menuData.navbar, ...updates } });
   };
 
+  const updateMarqueeSettings = (updates: Partial<MarqueeConfigSetting>) => {
+    const current = menuData?.navbar?.marquee || {};
+    updateNavbarSettings({ marquee: { ...current, ...updates } });
+  };
+
+  const updateMarqueeMessage = (index: number, updates: Partial<MarqueeMessageSetting>) => {
+    const currentTexts = menuData?.navbar?.marquee?.texts || [];
+    const newTexts = currentTexts.map((msg, i) => i === index ? { ...msg, ...updates } : msg);
+    updateMarqueeSettings({ texts: newTexts });
+  };
+
+  const addMarqueeMessage = () => {
+    const currentTexts = menuData?.navbar?.marquee?.texts || [];
+    updateMarqueeSettings({ texts: [...currentTexts, { text: "" }] });
+  };
+
+  const deleteMarqueeMessage = (index: number) => {
+    const currentTexts = menuData?.navbar?.marquee?.texts || [];
+    updateMarqueeSettings({ texts: currentTexts.filter((_, i) => i !== index) });
+  };
+
+  const handleMarqueeDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+    const currentTexts = menuData?.navbar?.marquee?.texts || [];
+    const oldIndex = currentTexts.findIndex((_, i) => `marquee-msg-${i}` === active.id);
+    const newIndex = currentTexts.findIndex((_, i) => `marquee-msg-${i}` === over.id);
+    if (oldIndex !== -1 && newIndex !== -1) {
+      updateMarqueeSettings({ texts: arrayMove(currentTexts, oldIndex, newIndex) });
+    }
+  };
+
   const handleAddItem = () => {
     if (!menuData || !menuData.navbar) return;
     const newItem: MenuItemData = {
@@ -1292,7 +1440,7 @@ export default function MenuEditor() {
                           const sizeLabel = s !== undefined ? `${s}px` : "Default (64px)";
                           const marginLabel = menuData!.navbar!.constrained_margin ? "Constrained" : "Full width";
                           const stickyLabel = menuData!.navbar!.sticky === false ? "Not sticky" : "Sticky";
-                          const marqueeLabel = menuData!.navbar!.marquee ? "Marquee" : null;
+                          const marqueeLabel = menuData!.navbar!.marquee?.enabled ? `Marquee (${menuData!.navbar!.marquee.texts?.length || 0} msg)` : null;
                           return [sizeLabel, marginLabel, stickyLabel, marqueeLabel].filter(Boolean).join(" · ");
                         })()}
                       </span>
@@ -1350,48 +1498,146 @@ export default function MenuEditor() {
                         />
                       </div>
 
-                      <div className="flex items-center justify-between gap-4">
-                        <div>
-                          <Label className="text-sm font-medium">Marquee bar</Label>
-                          <p className="text-xs text-muted-foreground mt-0.5">
-                            Show an animated text strip below the navbar
-                          </p>
+                      <div className="border rounded-md">
+                        <div className="flex items-center justify-between gap-4 px-3 py-3">
+                          <div>
+                            <Label className="text-sm font-medium">Marquee bar</Label>
+                            <p className="text-xs text-muted-foreground mt-0.5">
+                              Show an animated text strip near the navbar
+                            </p>
+                          </div>
+                          <Switch
+                            checked={!!menuData!.navbar!.marquee?.enabled}
+                            onCheckedChange={(checked) => updateMarqueeSettings({ enabled: checked || undefined })}
+                            data-testid="switch-marquee"
+                          />
                         </div>
-                        <Switch
-                          checked={!!menuData!.navbar!.marquee}
-                          onCheckedChange={(checked) => updateNavbarSettings({ marquee: checked || undefined })}
-                          data-testid="switch-marquee"
-                        />
-                      </div>
 
-                      {menuData!.navbar!.marquee && (
-                        <>
-                          <div className="space-y-1.5">
-                            <Label className="text-sm font-medium">Marquee text</Label>
-                            <Input
-                              type="text"
-                              placeholder="Applications open — next cohort starts soon."
-                              value={menuData!.navbar!.marquee_text ?? ""}
-                              onChange={(e) => updateNavbarSettings({ marquee_text: e.target.value || undefined })}
-                              data-testid="input-marquee-text"
-                            />
-                          </div>
+                        {menuData!.navbar!.marquee?.enabled && (
+                          <div className="border-t px-3 py-3 space-y-4">
+                            <div className="space-y-2">
+                              <div className="flex items-center justify-between gap-2">
+                                <Label className="text-sm font-medium">Messages</Label>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={addMarqueeMessage}
+                                  data-testid="button-add-marquee-message"
+                                >
+                                  <IconPlus className="h-3 w-3 mr-1" />
+                                  Add message
+                                </Button>
+                              </div>
 
-                          <div className="flex items-center justify-between gap-4">
-                            <div>
-                              <Label className="text-sm font-medium">Marquee sticky</Label>
-                              <p className="text-xs text-muted-foreground mt-0.5">
-                                Keep the marquee visible while scrolling
-                              </p>
+                              <DndContext
+                                sensors={sensors}
+                                collisionDetection={closestCenter}
+                                onDragEnd={handleMarqueeDragEnd}
+                              >
+                                <SortableContext
+                                  items={(menuData!.navbar!.marquee?.texts || []).map((_, i) => `marquee-msg-${i}`)}
+                                  strategy={verticalListSortingStrategy}
+                                >
+                                  <div className="space-y-2">
+                                    {(menuData!.navbar!.marquee?.texts || []).map((msg, index) => (
+                                      <SortableMarqueeMessageRow
+                                        key={`marquee-msg-${index}`}
+                                        id={`marquee-msg-${index}`}
+                                        msg={msg}
+                                        index={index}
+                                        locale={locale}
+                                        onUpdate={(updates) => updateMarqueeMessage(index, updates)}
+                                        onDelete={() => deleteMarqueeMessage(index)}
+                                      />
+                                    ))}
+                                    {(!menuData!.navbar!.marquee?.texts || menuData!.navbar!.marquee.texts.length === 0) && (
+                                      <p className="text-xs text-muted-foreground text-center py-2">No messages yet — add one above</p>
+                                    )}
+                                  </div>
+                                </SortableContext>
+                              </DndContext>
                             </div>
-                            <Switch
-                              checked={!!menuData!.navbar!.marquee_sticky}
-                              onCheckedChange={(checked) => updateNavbarSettings({ marquee_sticky: checked || undefined })}
-                              data-testid="switch-marquee-sticky"
+
+                            <div className="space-y-1.5">
+                              <Label className="text-sm font-medium">Position</Label>
+                              <div className="flex gap-1">
+                                {(["above", "below"] as const).map((pos) => (
+                                  <Button
+                                    key={pos}
+                                    variant={( menuData!.navbar!.marquee?.position ?? "below") === pos ? "default" : "outline"}
+                                    size="sm"
+                                    onClick={() => updateMarqueeSettings({ position: pos })}
+                                    data-testid={`button-marquee-position-${pos}`}
+                                  >
+                                    {pos.charAt(0).toUpperCase() + pos.slice(1)}
+                                  </Button>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-between gap-4">
+                              <div>
+                                <Label className="text-sm font-medium">Sticky</Label>
+                                <p className="text-xs text-muted-foreground mt-0.5">
+                                  Keep the marquee visible while scrolling
+                                </p>
+                              </div>
+                              <Switch
+                                checked={!!menuData!.navbar!.marquee?.sticky}
+                                onCheckedChange={(checked) => updateMarqueeSettings({ sticky: checked || undefined })}
+                                data-testid="switch-marquee-sticky"
+                              />
+                            </div>
+
+                            <ColorPicker
+                              value={menuData!.navbar!.marquee?.background ?? ""}
+                              onChange={(value) => updateMarqueeSettings({ background: value || undefined })}
+                              type="background"
+                              label="Background color"
+                              testIdPrefix="marquee-bg"
                             />
+
+                            <div className="space-y-2">
+                              <Label className="text-sm font-medium">Timing</Label>
+                              <div className="grid grid-cols-3 gap-2">
+                                <div className="space-y-1">
+                                  <Label className="text-xs text-muted-foreground">Start delay (ms)</Label>
+                                  <Input
+                                    type="number"
+                                    min={0}
+                                    placeholder="600"
+                                    value={menuData!.navbar!.marquee?.start_delay ?? ""}
+                                    onChange={(e) => updateMarqueeSettings({ start_delay: parseInt(e.target.value, 10) || undefined })}
+                                    data-testid="input-marquee-start-delay"
+                                  />
+                                </div>
+                                <div className="space-y-1">
+                                  <Label className="text-xs text-muted-foreground">Char delay (ms)</Label>
+                                  <Input
+                                    type="number"
+                                    min={1}
+                                    placeholder="40"
+                                    value={menuData!.navbar!.marquee?.char_delay ?? ""}
+                                    onChange={(e) => updateMarqueeSettings({ char_delay: parseInt(e.target.value, 10) || undefined })}
+                                    data-testid="input-marquee-char-delay"
+                                  />
+                                </div>
+                                <div className="space-y-1">
+                                  <Label className="text-xs text-muted-foreground">Display time (ms)</Label>
+                                  <Input
+                                    type="number"
+                                    min={0}
+                                    placeholder="3000"
+                                    value={menuData!.navbar!.marquee?.display_time ?? ""}
+                                    onChange={(e) => updateMarqueeSettings({ display_time: parseInt(e.target.value, 10) || undefined })}
+                                    data-testid="input-marquee-display-time"
+                                  />
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        </>
-                      )}
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>

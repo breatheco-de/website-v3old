@@ -1,14 +1,26 @@
 import { Megaphone } from "lucide-react";
 import { useTypewriter } from "@/hooks/useTypewriter";
 import { getIcon } from "@/lib/icons";
+import type { MarqueeMessage } from "@/components/menus";
+import { useInternalNav } from "@/hooks/useInternalNav";
 
 export interface TypewriterAnnouncementProps {
-  message: string;
+  messages: MarqueeMessage[];
   icon?: string;
+  charDelay?: number;
+  startDelay?: number;
+  displayTime?: number;
 }
 
-export function TypewriterAnnouncement({ message, icon }: TypewriterAnnouncementProps) {
-  const { displayText } = useTypewriter(message, 40, 700);
+export function TypewriterAnnouncement({
+  messages,
+  icon,
+  charDelay = 40,
+  startDelay = 700,
+  displayTime = 3000,
+}: TypewriterAnnouncementProps) {
+  const { displayText, ctaLabel, ctaUrl } = useTypewriter(messages, charDelay, startDelay, displayTime);
+  const handleLinkClick = useInternalNav();
 
   const ResolvedIcon = icon ? getIcon(icon) : null;
   const Icon = ResolvedIcon ?? Megaphone;
@@ -22,6 +34,19 @@ export function TypewriterAnnouncement({ message, icon }: TypewriterAnnouncement
         <Icon className="w-5 h-5 text-primary shrink-0 my-1" />
         <span className="inline-flex items-center text-muted-foreground whitespace-nowrap overflow-hidden">
           {displayText}
+          {ctaLabel && ctaUrl && (
+            <a
+              href={ctaUrl}
+              onClick={handleLinkClick}
+              className="text-primary hover:underline ml-1"
+              data-testid="typewriter-cta-link"
+            >
+              {ctaLabel}
+            </a>
+          )}
+          {ctaLabel && !ctaUrl && (
+            <span className="text-primary ml-1">{ctaLabel}</span>
+          )}
         </span>
         <span className="bg-primary inline-block w-px h-4 ml-[0.2px] animate-blink shrink-0" />
       </div>

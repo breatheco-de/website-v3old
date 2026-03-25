@@ -50,12 +50,13 @@ function TypewriterText({
   );
 
   const animText = isHtml ? " ".repeat(totalChars) : text;
-  const { visibleChars } = useTypewriter(
-    animText,
+  const enabled = !isEditMode && isActive;
+  const { displayText } = useTypewriter(
+    enabled ? [{ text: animText }] : [],
     charDelayMs,
     startDelayMs,
-    !isEditMode && isActive,
   );
+  const visibleChars = enabled ? displayText.length : animText.length;
 
   if (isHtml) {
     if (isEditMode || visibleChars >= totalChars) {
