@@ -76,7 +76,7 @@ sections:
     title: "<span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.125rem;\">Trusted by&nbsp;</span></span>"
     title_above_carousel: true
     marginY:
-      desktop: none lg
+      desktop: none xl
   - type: features_grid
     version: "1.0"
     variant: highlight
@@ -97,7 +97,7 @@ sections:
     background: hsl(210 100% 50% / 0.05)
     section_id: features_grid-95o7vf
     marginY:
-      desktop: md
+      desktop: lg md
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
