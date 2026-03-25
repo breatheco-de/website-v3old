@@ -114,7 +114,7 @@ sections:
       background: primary
       width: 2
       text_2: A mentor, a career coach, an AI tutor, and your personal AI agent. All tailored to you.
-      text_1: You bring the commitment. We bring everything else.
+      text_1: "<span style=\"font-size: 1.25rem;\">You bring the commitment. We bring everything else.</span>"
     height: 31rem
     mobile_height: 24rem
     gap: md
