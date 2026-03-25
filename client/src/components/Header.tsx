@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { useQuery } from "@tanstack/react-query";
 import { Navbar, MobileNav, renderNavbarItem, type NavbarConfig } from "@/components/menus";
+import { TypewriterAnnouncement } from "@/components/menus/TypewriterAnnouncement";
 
 interface HeaderProps {
   menuId?: string;
@@ -10,6 +11,7 @@ interface HeaderProps {
 export default function Header({ menuId = "main-navbar" }: HeaderProps) {
   const { i18n } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isPastThreshold, setIsPastThreshold] = useState(false);
   const locale = i18n.language || 'en';
 
   const { data: menuResponse, isLoading } = useQuery<{ name: string; data: NavbarConfig }>({
@@ -29,6 +31,7 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
+      setIsPastThreshold(window.scrollY > 100);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -47,8 +50,17 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
     ? "max-w-6xl mx-auto px-4"
     : "px-6";
 
+  const stickyEnabled = menuConfig?.navbar?.sticky ?? true;
+  const headerPositionClass = (stickyEnabled || !isPastThreshold)
+    ? "sticky top-0 z-50"
+    : "relative";
+
+  const showMarquee = !!(menuConfig?.navbar?.marquee && menuConfig?.navbar?.marquee_text);
+  const marqueeSticky = menuConfig?.navbar?.marquee_sticky ?? false;
+  const marqueeCollapsed = isPastThreshold && !marqueeSticky;
+
   return (
-    <header className={`sticky top-0 z-50 w-full bg-background transition-colors ${isScrolled ? 'border-b' : 'border-b border-background'}`}>
+    <header className={`${headerPositionClass} w-full bg-background transition-colors ${isScrolled ? 'border-b' : 'border-b border-background'}`}>
       <div className={`flex items-center gap-4 ${constrainClass}`} style={{ height: `${navSize}px` }}>
         <div className="hidden md:flex flex-1">
           {isLoading ? (
@@ -70,6 +82,16 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
           </div>
         </div>
       </div>
+
+      {showMarquee && (
+        <div
+          className={`overflow-hidden border-t transition-[max-height] duration-300 ease-in-out ${marqueeCollapsed ? "max-h-0" : "max-h-12"}`}
+        >
+          <div className={`${constrainClass} py-2`}>
+            <TypewriterAnnouncement message={menuConfig!.navbar!.marquee_text!} />
+          </div>
+        </div>
+      )}
     </header>
   );
 }

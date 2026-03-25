@@ -156,6 +156,10 @@ interface FooterData {
 interface NavbarSettings {
   constrained_margin?: boolean;
   size?: number;
+  sticky?: boolean;
+  marquee?: boolean;
+  marquee_text?: string;
+  marquee_sticky?: boolean;
 }
 
 interface MenuData {
@@ -1287,7 +1291,9 @@ export default function MenuEditor() {
                           const s = menuData!.navbar!.size;
                           const sizeLabel = s !== undefined ? `${s}px` : "Default (64px)";
                           const marginLabel = menuData!.navbar!.constrained_margin ? "Constrained" : "Full width";
-                          return `${sizeLabel} · ${marginLabel}`;
+                          const stickyLabel = menuData!.navbar!.sticky === false ? "Not sticky" : "Sticky";
+                          const marqueeLabel = menuData!.navbar!.marquee ? "Marquee" : null;
+                          return [sizeLabel, marginLabel, stickyLabel, marqueeLabel].filter(Boolean).join(" · ");
                         })()}
                       </span>
                       {navbarSettingsOpen
@@ -1329,6 +1335,63 @@ export default function MenuEditor() {
                           <span className="text-sm text-muted-foreground shrink-0">px</span>
                         </div>
                       </div>
+
+                      <div className="flex items-center justify-between gap-4">
+                        <div>
+                          <Label className="text-sm font-medium">Sticky header</Label>
+                          <p className="text-xs text-muted-foreground mt-0.5">
+                            Header stays fixed at the top while scrolling
+                          </p>
+                        </div>
+                        <Switch
+                          checked={menuData!.navbar!.sticky !== false}
+                          onCheckedChange={(checked) => updateNavbarSettings({ sticky: checked ? undefined : false })}
+                          data-testid="switch-sticky"
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-between gap-4">
+                        <div>
+                          <Label className="text-sm font-medium">Marquee bar</Label>
+                          <p className="text-xs text-muted-foreground mt-0.5">
+                            Show an animated text strip below the navbar
+                          </p>
+                        </div>
+                        <Switch
+                          checked={!!menuData!.navbar!.marquee}
+                          onCheckedChange={(checked) => updateNavbarSettings({ marquee: checked || undefined })}
+                          data-testid="switch-marquee"
+                        />
+                      </div>
+
+                      {menuData!.navbar!.marquee && (
+                        <>
+                          <div className="space-y-1.5">
+                            <Label className="text-sm font-medium">Marquee text</Label>
+                            <Input
+                              type="text"
+                              placeholder="Applications open — next cohort starts soon."
+                              value={menuData!.navbar!.marquee_text ?? ""}
+                              onChange={(e) => updateNavbarSettings({ marquee_text: e.target.value || undefined })}
+                              data-testid="input-marquee-text"
+                            />
+                          </div>
+
+                          <div className="flex items-center justify-between gap-4">
+                            <div>
+                              <Label className="text-sm font-medium">Marquee sticky</Label>
+                              <p className="text-xs text-muted-foreground mt-0.5">
+                                Keep the marquee visible while scrolling
+                              </p>
+                            </div>
+                            <Switch
+                              checked={!!menuData!.navbar!.marquee_sticky}
+                              onCheckedChange={(checked) => updateNavbarSettings({ marquee_sticky: checked || undefined })}
+                              data-testid="switch-marquee-sticky"
+                            />
+                          </div>
+                        </>
+                      )}
                     </div>
                   )}
                 </div>

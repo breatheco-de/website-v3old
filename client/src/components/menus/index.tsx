@@ -31,6 +31,10 @@ export type NavbarConfig = {
     items: NavbarItem[];
     constrained_margin?: boolean;
     size?: number;
+    sticky?: boolean;
+    marquee?: boolean;
+    marquee_text?: string;
+    marquee_sticky?: boolean;
   };
 };
 
