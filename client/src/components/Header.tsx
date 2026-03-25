@@ -53,50 +53,55 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
   const headerSlideOut = !stickyEnabled && isPastThreshold;
 
   const showMarquee = !!(menuConfig?.navbar?.marquee && menuConfig?.navbar?.marquee_text);
+  const marqueeHeight = 49;
   const marqueeSticky = menuConfig?.navbar?.marquee_sticky ?? false;
   const marqueeCollapsed = isPastThreshold && !marqueeSticky;
 
-  const marqueeHeight = 49;
-  const totalMaxHeight = navSize + (showMarquee ? marqueeHeight : 0);
+  const totalHeight = navSize + (showMarquee ? marqueeHeight : 0);
+  const spacerHeight = navSize + (showMarquee && !marqueeCollapsed ? marqueeHeight : 0);
 
   return (
-    <div
-      className="sticky top-0 z-50 overflow-hidden transition-[max-height] duration-300 ease-in-out"
-      style={{ maxHeight: headerSlideOut ? 0 : `${totalMaxHeight}px` }}
-    >
-      <header className={`w-full bg-background ${isScrolled ? 'border-b' : 'border-b border-background'}`}>
-        <div className={`flex items-center gap-4 ${constrainClass}`} style={{ height: `${navSize}px` }}>
-          <div className="hidden md:flex flex-1">
-            {isLoading ? (
-              <div className="flex items-center gap-4">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} className="h-4 w-20 bg-muted animate-pulse rounded" />
-                ))}
+    <>
+      <div aria-hidden="true" style={{ height: `${spacerHeight}px` }} className="transition-[height] duration-300 ease-in-out" />
+
+      <div
+        className="fixed left-0 right-0 z-50 transition-[top] duration-300 ease-in-out"
+        style={{ top: headerSlideOut ? `-${totalHeight}px` : '0px' }}
+      >
+        <header className={`w-full bg-background ${isScrolled ? 'border-b' : 'border-b border-background'}`}>
+          <div className={`flex items-center gap-4 ${constrainClass}`} style={{ height: `${navSize}px` }}>
+            <div className="hidden md:flex flex-1">
+              {isLoading ? (
+                <div className="flex items-center gap-4">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <div key={i} className="h-4 w-20 bg-muted animate-pulse rounded" />
+                  ))}
+                </div>
+              ) : menuConfig ? (
+                <Navbar config={menuConfig} />
+              ) : null}
+            </div>
+
+            <div className="flex md:hidden flex-1 items-center justify-between gap-3">
+              {logoItem && renderNavbarItem(logoItem, undefined, undefined, menuConfig?.navbar?.constrained_margin)}
+              <div className="flex items-center gap-3">
+                {langItem && renderNavbarItem(langItem)}
+                {menuConfig && <MobileNav config={menuConfig} />}
               </div>
-            ) : menuConfig ? (
-              <Navbar config={menuConfig} />
-            ) : null}
-          </div>
-
-          <div className="flex md:hidden flex-1 items-center justify-between gap-3">
-            {logoItem && renderNavbarItem(logoItem, undefined, undefined, menuConfig?.navbar?.constrained_margin)}
-            <div className="flex items-center gap-3">
-              {langItem && renderNavbarItem(langItem)}
-              {menuConfig && <MobileNav config={menuConfig} />}
             </div>
           </div>
-        </div>
 
-        {showMarquee && (
-          <div
-            className={`overflow-hidden border-t transition-[max-height] duration-300 ease-in-out ${marqueeCollapsed ? "max-h-0" : "max-h-12"}`}
-          >
-            <div className={`${constrainClass} py-2`}>
-              <TypewriterAnnouncement message={menuConfig!.navbar!.marquee_text!} />
+          {showMarquee && (
+            <div
+              className={`overflow-hidden border-t transition-[max-height] duration-300 ease-in-out ${marqueeCollapsed ? "max-h-0" : "max-h-12"}`}
+            >
+              <div className={`${constrainClass} py-2`}>
+                <TypewriterAnnouncement message={menuConfig!.navbar!.marquee_text!} />
+              </div>
             </div>
-          </div>
-        )}
-      </header>
-    </div>
+          )}
+        </header>
+      </div>
+    </>
   );
 }
