@@ -5614,6 +5614,32 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-225w.webp"
         }
       ]
+    },
+    "download-1": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/download-1-.png",
+      "alt": "Image: download (1)",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "badge"
+      ],
+      "usage_count": 0,
+      "hash": "46b6adedcbb93fc444b4f355af93eee4fa48777d65ce6618ba4cda875e155f77",
+      "width": 225,
+      "height": 225,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        225
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 225,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-1--225w.webp"
+        }
+      ]
     }
   }
 }
