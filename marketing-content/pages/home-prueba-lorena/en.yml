@@ -73,7 +73,7 @@ sections:
         alt: "Image: download (4)"
         logoHeight: 56px
     section_id: awards_marquee-l9ssii
-    title: "<span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.125rem;\"><span style=\"font-size: 1.25rem;\"><span>The tech training institutions trust for high-stake programs.&nbsp;</span></span></span></span>"
+    title: "<span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.125rem;\"><span style=\"font-size: 1.25rem;\"><span>The tech training institutions trust for their high-stake programs.&nbsp;</span></span></span></span>"
     title_above_carousel: true
     marginY:
       desktop: none xl
