@@ -104,6 +104,7 @@ sections:
         row_span: 2
     section_id: graduates_stats-cnxqbb
     value_size: text-3xl
+    background: hsl(var(--secondary))
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
