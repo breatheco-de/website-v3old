@@ -97,7 +97,7 @@ sections:
     background: hsl(210 100% 50% / 0.05)
     section_id: features_grid-95o7vf
     marginY:
-      desktop: none md
+      desktop: md
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
