@@ -150,30 +150,36 @@ sections:
     marginY:
       desktop: none xl
   - type: numbered_steps
-    section_id: numbered_steps-y83ffn
+    section_id: numbered_steps-howitworks
     version: "1.0"
     variant: bubbleText
-    title: Así funciona el proceso de admisión
-    description: Aplicar no es comprometerse. Es el primer paso para saber si este programa es el adecuado para ti. Todo el proceso dura menos de 48 horas.
+    title: From zero to hired. Here's exactly how it works.
+    description: No guesswork. No vague promises. This is the exact path 4Geeks takes you through — from your first application to your first day at a new job.
     steps:
       - icon: Application
-        title: Aplicación al programa
+        title: Apply in minutes. Hear back in 48 hours.
         bullets:
-          - Completa el formulario inicial para iniciar tu proceso de admisión.
-          - Revisamos tu perfil, experiencia y objetivos profesionales.
-          - Buscamos personas comprometidas con una transformación real en su carrera.
-      - icon: Interview
-        title: Entrevista telefónica
+          - Fill out a short form — no technical test, no prior experience required.
+          - Our admissions team reviews your profile and goals within 48 hours.
+          - A quick conversation to make sure this is the right moment for you.
+      - icon: Learning
+        title: Learn by building real things with AI.
         bullets:
-          - Nuestro equipo de admisiones te escribirá por WhatsApp.
-          - Evaluamos tu motivación, disponibilidad y encaje con el programa.
-          - No es un examen técnico, es una conversación para entender si encajas en el perfil que buscamos y si este es el momento adecuado para ti.
-      - icon: Decision
-        title: Selección y próximos pasos
+          - Live classes, hands-on projects, and an AI-native curriculum updated for 2025.
+          - Unlimited 1-on-1 mentorship from day one — available whenever you need it.
+          - Rigobot, your personal AI tutor, tracks your progress and adapts to your pace.
+      - icon: Career
+        title: Build your professional profile before you graduate.
         bullets:
-          - Si tu perfil encaja, te compartimos la información completa para avanzar.
-          - Recibirás orientación clara sobre fechas, inversión y expectativas.
-          - Si no es el mejor momento, te recomendamos alternativas para tu crecimiento profesional.
+          - LinkedIn optimization, portfolio, CV, and mock interviews — all included.
+          - GeekForce starts working with you weeks before graduation.
+          - You leave with a real product you built, not just a certificate.
+      - icon: Hiring
+        title: We stay with you until you sign your offer.
+        bullets:
+          - Direct access to our hiring partner network from day one.
+          - Dedicated career mentor tracks your job search and keeps it moving.
+          - Lifetime career support — even for your next career move after your first job.
     background: bg-background
   - type: programs_showcase
     version: v1.0
