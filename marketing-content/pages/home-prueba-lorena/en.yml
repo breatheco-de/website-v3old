@@ -46,9 +46,9 @@ sections:
     gradient: true
     gradientWidth: 100
     items:
-      - id: switchup-2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        alt: SwitchUp - Best Coding Bootcamps 2025
+      - id: download-1
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/download-1-.png
+        alt: "Image: download (1)"
         logoHeight: 56px
       - id: course-report-2024
         logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
@@ -79,6 +79,8 @@ sections:
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
     section_id: awards_marquee-l9ssii
+    title: Trusted by&nbsp;
+    title_above_carousel: true
   - type: trust_cards
     version: v1.0
     title: "Rated #1 Across Every Major Review Platform"
