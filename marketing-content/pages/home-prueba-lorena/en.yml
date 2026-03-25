@@ -146,7 +146,7 @@ sections:
       - value: 40%
         title: Of current job listings now require AI or machine learning skills
     section_id: features_grid-142xko
-    background: hsl(var(--secondary))
+    background: hsl(210 100% 50% / 0.05)
     marginY:
       desktop: none xl
   - type: programs_showcase
