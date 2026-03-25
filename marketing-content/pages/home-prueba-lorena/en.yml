@@ -109,14 +109,15 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Graduate celebrating success
     highlight:
-      heading: Your surest path into tech. Backed by support that's tailored to you.
-      text: "Everything here is designed to get you further, faster. Your mentor is always available and meets you where you are, even after graduation. Our AI tutor tracks how you progress and shapes every interaction to accelerate your learning curve. The result: fewer setbacks, faster progress, and a real path to a high-demand tech role."
+      heading: You bring the commitment. We bring everything else.
+      text: A mentor, an AI tutor, and a career coach. Tailored to you.
       background: primary
       width: 2
     height: 31rem
     mobile_height: 24rem
     gap: md
     rounded: true
+    background: hsl(var(--secondary))
     section_id: image_row-z97kqt
     marginY:
       desktop: none
