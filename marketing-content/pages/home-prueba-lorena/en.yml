@@ -135,16 +135,16 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
-    title: Why Now Is the Best Time to Make the Switch
-    subtitle: AI isn't replacing workers. It's replacing workers who don't know how to use it.
-    description: The tech job market is being rewritten in real time. Companies aren't just hiring developers anymore. They're hiring developers who can build with AI, analyze with AI, and secure systems against AI threats. The window to get ahead of this shift is open right now. It won't stay open forever.
+    title: AI isn't replacing developers. It's replacing developers who don't use AI.
+    subtitle: The window to get ahead of this shift is open right now.
+    description: Every week, companies are rewriting job descriptions. They're not just hiring developers anymore — they're hiring developers who build with AI, analyze with AI, and secure systems against AI threats. The people who move now are the ones who get hired first.
     items:
       - value: 3.5M
-        title: Tech and AI-related roles expected globally by 2026
+        title: Tech and AI roles expected globally by 2026
       - value: 55%
-        title: Average salary increase reported by 4Geeks graduates
+        title: Average salary increase for 4Geeks graduates
       - value: 86%
-        title: Of US graduates hired within 90 days of graduation
+        title: US graduates hired within 90 days
     section_id: features_grid-142xko
     background: hsl(var(--secondary))
     marginY:
