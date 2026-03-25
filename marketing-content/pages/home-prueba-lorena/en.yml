@@ -141,10 +141,10 @@ sections:
     items:
       - value: 3.5M
         title: Tech and AI roles expected globally by 2026
-      - value: 55%
-        title: Average salary increase for 4Geeks graduates
-      - value: 86%
-        title: US graduates hired within 90 days
+      - value: 87%
+        title: Of companies report a shortage of AI-skilled engineers right now
+      - value: 40%
+        title: Of current job listings now require AI or machine learning skills
     section_id: features_grid-142xko
     background: hsl(var(--secondary))
     marginY:
