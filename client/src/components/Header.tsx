@@ -31,7 +31,11 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
-      setIsPastThreshold(window.scrollY > 100);
+      setIsPastThreshold(prev => {
+        if (window.scrollY > 150) return true;
+        if (window.scrollY < 50) return false;
+        return prev;
+      });
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -58,11 +62,10 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
   const marqueeCollapsed = isPastThreshold && !marqueeSticky;
 
   const totalHeight = navSize + (showMarquee ? marqueeHeight : 0);
-  const spacerHeight = navSize + (showMarquee && !marqueeCollapsed ? marqueeHeight : 0);
 
   return (
     <>
-      <div aria-hidden="true" style={{ height: `${spacerHeight}px` }} className="transition-[height] duration-300 ease-in-out" />
+      <div aria-hidden="true" style={{ height: `${totalHeight}px` }} />
 
       <div
         className="fixed left-0 right-0 z-50 transition-[top] duration-300 ease-in-out"
