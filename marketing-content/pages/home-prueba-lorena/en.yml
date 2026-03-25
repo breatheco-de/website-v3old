@@ -44,6 +44,8 @@ sections:
       desktop: none
     paddingX:
       desktop: xl
+    maxWidth:
+      desktop: 2xl
   - type: awards_marquee
     version: v1.0
     speed: 40
