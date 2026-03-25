@@ -16,7 +16,7 @@ export function TypewriterAnnouncement({
   messages,
   icon,
   charDelay = 40,
-  startDelay = 700,
+  startDelay = 600,
   displayTime = 3000,
 }: TypewriterAnnouncementProps) {
   const { displayText, ctaLabel, ctaUrl } = useTypewriter(messages, charDelay, startDelay, displayTime);

@@ -72,7 +72,7 @@ export function useTypewriter(
           setState({ index: currentIndex, visibleChars: 0 });
           scheduleType(0, INTER_MESSAGE_PAUSE);
         } else {
-          scheduleErase(next, Math.floor(charDelayRef.current / 2));
+          scheduleErase(next, charDelayRef.current);
         }
       }, delay);
     };
