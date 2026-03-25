@@ -137,14 +137,15 @@ sections:
     background: hsl(210 100% 50% / 0.05)
     items:
       - id: "1"
-        value: 42x
-        title: Growth in Forward-Deployed Engineering since 2023
+        value: 7x
+        title: Growth in demand for AI-fluent workers in just two years
       - id: "2"
         value: 70%
         title: YoY growth in US jobs requiring AI skills
       - id: "3"
         value: 3%
         title: Of the workforce currently qualified to fill AI roles
+    footnote: "Sources: McKinsey Global Institute 2025, LinkedIn Jobs on the Rise 2026."
     section_id: features_grid-142xko
     marginY:
       desktop: none xl
