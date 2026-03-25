@@ -67,7 +67,7 @@ sections:
         alt: "Image: download (4)"
         logoHeight: 56px
     section_id: awards_marquee-l9ssii
-    title: Trusted by&nbsp;
+    title: "<span style=\"font-size: 1.875rem;\">Trusted by&nbsp;</span>"
     title_above_carousel: true
     marginY:
       desktop: none lg
