@@ -278,7 +278,7 @@ sections:
     highlight:
       background: primary
       width: 2
-      text_1: test
+      text_1: "<span style=\"font-size: 1.875rem;\">test</span>"
       text_2: xcxz
     height: 31rem
     mobile_height: 24rem
