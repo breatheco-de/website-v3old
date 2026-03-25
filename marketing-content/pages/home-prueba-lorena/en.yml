@@ -40,6 +40,8 @@ sections:
       desktop: xl sm
     marginY:
       desktop: none md
+    marginX:
+      desktop: lg
   - type: awards_marquee
     version: v1.0
     speed: 40
