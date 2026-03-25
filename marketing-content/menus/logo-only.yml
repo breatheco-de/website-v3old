@@ -5,4 +5,8 @@ navbar:
       component: Logo
       imageId: 4geeks-devs-logo-1763162063433
       imageAlt: 'Image: 4geeks-devs-logo_1763162063433'
-  sticky: false
+    - label: NEW ITEM
+      href: /new-page
+      component: TypewriterAnnouncement
+      message: 4Geeks, Harvard Oxford y Columbia se unen para educar en Inteligencia Artificial en las Bahamas
+  marquee_text: 4Geeks, Harvard Oxford y Columbia se unen para educar en Inteligencia Artificial en las Bahamas
