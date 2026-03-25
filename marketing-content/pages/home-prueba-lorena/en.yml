@@ -75,32 +75,6 @@ sections:
     title_above_carousel: true
     marginY:
       desktop: none lg
-  - type: trust_cards
-    version: v1.0
-    title: "Rated #1 Across Every Major Review Platform"
-    items:
-      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
-        rating: 4.9
-        review_count: 4.9 on Course Report
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/download.png
-        rating: 4.8
-        review_count: 4.8 on Google
-        alt: "Image: download"
-        id: download
-      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
-        rating: 4.9
-        review_count: 4.9 on Career Karma
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        rating: 4.9
-        review_count: 4.9 on SwitchUp
-    name: Default Trust Cards
-    description: Four review platform cards with ratings
-    section_id: trust_cards-eslgbu
-    paddingY:
-      desktop: md lg
-    marginY:
-      desktop: none xl
-    background: hsl(210 100% 50% / 0.05)
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
