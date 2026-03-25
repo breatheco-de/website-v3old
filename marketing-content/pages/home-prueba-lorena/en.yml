@@ -24,10 +24,6 @@ sections:
       - text: Find your path
         url: /signup
         variant: primary
-    trust_bar:
-      rating: 4.9/5
-      rating_count: 3,000+
-      trusted_text: Trusted by students worldwide
     award_badges:
       - name: Best Coding Bootcamp
         source: Forbes
