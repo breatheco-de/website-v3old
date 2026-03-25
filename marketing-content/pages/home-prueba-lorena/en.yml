@@ -39,31 +39,69 @@ sections:
     paddingY:
       desktop: xl sm
     marginY:
-      desktop: none xl
-  - type: trust_cards
+      desktop: none md
+  - type: awards_marquee
     version: v1.0
-    title: "Rated #1 Across Every Major Review Platform"
+    speed: 40
+    gradient: true
+    gradientWidth: 100
     items:
-      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
-        rating: 4.9
-        review_count: 4.9 on Course Report
-      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
-        rating: 4.8
-        review_count: 4.8 on Google
-      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
-        rating: 4.9
-        review_count: 4.9 on Career Karma
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        rating: 4.9
-        review_count: 4.9 on SwitchUp
-    name: Default Trust Cards
-    description: Four review platform cards with ratings
-    section_id: trust_cards-eslgbu
-    paddingY:
-      desktop: md lg
+      - id: download-1
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/download-1-.png
+        alt: "Image: download (1)"
+        logoHeight: 70px
+      - id: clark-university
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
+        alt: Clark University Logo
+        logoHeight: 70px
+      - id: download-2
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/download-2-.png
+        alt: "Image: download (2)"
+        logoHeight: 70px
+      - id: download-3
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/download-3-.png
+        alt: "Image: download (3)"
+        logoHeight: 70px
+      - id: download-4
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/download-4-.png
+        alt: "Image: download (4)"
+        logoHeight: 70px
+      - id: download-4-1
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/download-4-.jpg
+        alt: "Image: download (4)"
+        logoHeight: 56px
+    section_id: awards_marquee-l9ssii
+    title: "<span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.125rem;\">Trusted by&nbsp;</span></span>"
+    title_above_carousel: true
     marginY:
-      desktop: none xl
-    background: hsl(210 100% 50% / 0.05)
+      desktop: none lg
+  - type: graduates_stats
+    heading: Real Career Outcomes
+    subheading: 5,000+ graduates chose 4Geeks over every other option. Here's what that decision looked like 90 days later.
+    stats:
+      - value: 86%
+        label: Hiring rate, US graduates placed within 90 days
+      - value: 55%
+        label: Average salary increase after graduation
+      - value: ~3 months
+        label: Average time to get hired in 2025
+      - value: 5,000+
+        label: Graduates employed worldwide
+    collage_images:
+      - image_id: graduates_team_1
+        col_span: 5
+        row_span: 2
+      - image_id: graduates_team_2
+        col_span: 7
+        row_span: 2
+      - image_id: graduates_coding
+        col_span: 6
+        row_span: 2
+      - image_id: graduates_friends
+        col_span: 6
+        row_span: 2
+    section_id: graduates_stats-cnxqbb
+    value_size: text-3xl
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
@@ -75,17 +113,17 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Graduate celebrating success
     highlight:
-      heading: We don't just teach you. We stay until you're hired.
-      text: Most platforms give you a course and wish you luck. 4Geeks gives you unlimited 1:1 mentorship, AI-powered learning that adapts to your pace, and a career team that stays with you until you land the job — not just until you finish the program.
+      heading: Your surest path into tech. Backed by support that's tailored to you.
+      text: "Everything here is designed to get you further, faster. Your mentor is always available and meets you where you are, even after graduation. Our AI tutor tracks how you progress and shapes every interaction to accelerate your learning curve. The result: fewer setbacks, faster progress, and a real path to a high-demand tech role."
       background: primary
       width: 2
     height: 31rem
     mobile_height: 24rem
     gap: md
     rounded: true
-    section_id: image_row-qjh14w
+    section_id: image_row-z97kqt
     marginY:
-      desktop: none md
+      desktop: none
     paddingY:
       desktop: md xl
   - type: features_grid
@@ -103,71 +141,43 @@ sections:
         title: Of US graduates hired within 90 days of graduation
     section_id: features_grid-142xko
     background: hsl(var(--secondary))
-  - type: course_selector
-    version: "1.0"
-    variant: solid
-    heading: Find Your Path Into Tech
-    subheading: "Four programs. One goal: get you hired in a high-demand role that AI can't take away."
-    courses:
-      - name: AI Engineering
-        icon: Brain
-        duration: 24 weeks
-        label: Updated in 2026
-        title: AI Engineering
-        badges:
-          - icon: Cpu
-            text: LLMs, AI Agents & Automation
-          - icon: Database
-            text: Production AI Systems
-        description: Build the AI systems companies are hiring for right now. Graduate with a live, production-ready AI product and the skills to back it up.
-        cta_text: View Program Details
-        cta_url: /en/career-programs/ai-engineering
-        course_background: hsl(var(--accent))
-      - name: Full Stack Development with AI
-        icon: Code
-        duration: 20 weeks
-        label: Updated in 2026
-        title: Full Stack Development with AI
-        badges:
-          - icon: Code
-            text: React, Node.js & Python
-        description: Build modern web apps from frontend to backend using AI-powered workflows. The most in-demand skill set for developers in 2025.
-        cta_text: View Program Details
-        cta_url: /en/career-programs/full-stack
-        course_background: hsl(var(--destructive))
-      - name: Data Science & ML
-        icon: ChartLine
-        duration: 16 weeks
-        label: Updated in 2026
-        title: Data Science & Machine Learning with AI
-        badges:
-          - icon: BrainCircuit
-            text: Machine Learning & AI Models
-          - icon: BarChart
-            text: Data Analysis & Visualization
-        description: Turn data into decisions. Build ML models, work with real datasets, and position yourself for one of the fastest-growing roles in tech.
-        cta_text: View Program Details
-        cta_url: /en/career-programs/data-science-ml
-        course_background: hsl(var(--primary))
-      - name: Cybersecurity
-        icon: Shield
-        duration: 16 weeks
-        label: Updated in 2026
-        title: Cybersecurity
-        badges:
-          - icon: Lock
-            text: Threat Detection & Network Security
-          - icon: Server
-            text: Cloud Security
-        description: Protect the systems AI depends on. Cybersecurity specialists are in critical demand as companies race to secure their AI infrastructure.
-        cta_text: View Program Details
-        cta_url: /en/career-programs/cybersecurity
-        course_background: hsl(var(--secondary-foreground))
-    section_id: course_selector-0lgvpc
     marginY:
-      desktop: md
-    paddingY:
-      desktop: md none
+      desktop: none xl
+  - type: programs_showcase
+    version: v1.0
+    layout: spotlight_with_list
+    badge: ""
+    heading: Choose Your Career Path
+    subheading: Four programs built around the skills companies are actively hiring for right now.
+    featured_label: Featured Program
+    programs:
+      - name: Full Stack Development with AI
+        icon: IconCode
+        description: Build modern, production-ready web applications from frontend to backend, using the latest AI-powered tools and workflows.
+        duration: 16 weeks
+        cta_text: Explore Program
+        cta_url: /programs/full-stack
+      - name: AI Engineering
+        icon: IconBrain
+        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies. Transform a single business case into a fully AI-native system, layer by layer.
+        duration: 20 weeks
+        cta_text: Explore
+        cta_url: /programs/ai-engineering
+      - name: Data Science & ML
+        icon: IconChartBar
+        description: Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.
+        duration: 18 weeks
+        cta_text: Explore
+        cta_url: /programs/data-science
+      - name: Cybersecurity
+        icon: IconShield
+        description: Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.
+        duration: 14 weeks
+        cta_text: Explore
+        cta_url: /programs/cybersecurity
+    section_id: programs_showcase-exhqet
+    marginY:
+      desktop: none lg
   - type: career_support_explain
     version: v1.0
     heading: We Stay With You Until You're Hired.

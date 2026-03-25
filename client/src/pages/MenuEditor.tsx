@@ -11,6 +11,7 @@ import { oneDark } from "@codemirror/theme-one-dark";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -49,11 +50,14 @@ import {
   IconFileCode,
   IconVariable,
   IconInfoCircle,
+  IconSpeakerphone,
 } from "@tabler/icons-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Skeleton } from "@/components/ui/skeleton";
 import { VariableDetailModal } from "@/components/editing/VariableDetailModal";
 import { ImageWithStylePicker } from "@/components/editing/ImageWithStylePicker";
+import { IconPickerModal } from "@/components/editing/IconPickerModal";
+import { getIcon } from "@/lib/icons";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { EditableDropdownPreview, EditableLinkItem, EditableText } from "@/components/menus";
@@ -90,6 +94,8 @@ interface MenuItemData {
   imageAlt?: string;
   imageObjectFit?: string;
   imageObjectPosition?: string;
+  message?: string;
+  icon?: string;
   dropdown?: {
     type: string;
     title?: string;
@@ -147,8 +153,13 @@ interface FooterData {
   copyright_text: string;
 }
 
+interface NavbarSettings {
+  constrained_margin?: boolean;
+  size?: number;
+}
+
 interface MenuData {
-  navbar?: {
+  navbar?: NavbarSettings & {
     items: MenuItemData[];
   };
   footer?: FooterData;
@@ -166,6 +177,7 @@ const componentOptions = [
   { value: "Dropdown", label: "Dropdown Menu" },
   { value: "Logo", label: "Logo (Universal Image)" },
   { value: "LanguageSwitcher", label: "Language Switcher" },
+  { value: "TypewriterAnnouncement", label: "Typewriter Announcement" },
 ];
 
 const dropdownTypes = [
@@ -205,6 +217,8 @@ function SortableMenuItemEditor({
     transition,
     isDragging,
   } = useSortable({ id });
+
+  const [iconPickerOpen, setIconPickerOpen] = useState(false);
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -397,6 +411,58 @@ function SortableMenuItemEditor({
                 }
                 onRemove={() => onUpdate(index, { ...item, imageId: "", imageAlt: "", imageObjectFit: "", imageObjectPosition: "" })}
               />
+            </div>
+          )}
+          {item.component === "TypewriterAnnouncement" && (
+            <div className="border-t pt-4 mt-4 space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor={`message-${index}`}>Message</Label>
+                <textarea
+                  id={`message-${index}`}
+                  value={item.message || ""}
+                  onChange={(e) => onUpdate(index, { ...item, message: e.target.value })}
+                  placeholder="Applications open — next cohort starts soon."
+                  className="w-full min-h-[72px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 resize-none"
+                  data-testid={`input-message-${index}`}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Icon</Label>
+                <div className="flex items-center gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setIconPickerOpen(true)}
+                    className="flex items-center gap-2"
+                    data-testid={`button-icon-picker-${index}`}
+                  >
+                    {(() => {
+                      const Ic = item.icon ? getIcon(item.icon) : null;
+                      const FallbackIcon = Ic ?? IconSpeakerphone;
+                      return <FallbackIcon className="h-4 w-4" />;
+                    })()}
+                    <span className="text-sm">{item.icon || "Speakerphone (default)"}</span>
+                  </Button>
+                  {item.icon && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => onUpdate(index, { ...item, icon: "" })}
+                      data-testid={`button-icon-clear-${index}`}
+                    >
+                      <IconTrash className="h-4 w-4 text-destructive" />
+                    </Button>
+                  )}
+                </div>
+                <IconPickerModal
+                  open={iconPickerOpen}
+                  onOpenChange={setIconPickerOpen}
+                  currentValue={item.icon}
+                  onSelect={(iconName) => onUpdate(index, { ...item, icon: iconName })}
+                  itemLabel="announcement"
+                />
+              </div>
             </div>
           )}
         </CardContent>
@@ -677,6 +743,7 @@ export default function MenuEditor() {
   const [yamlSource, setYamlSource] = useState<string>("");
   const [yamlError, setYamlError] = useState<string | null>(null);
   const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set());
+  const [navbarSettingsOpen, setNavbarSettingsOpen] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
   const [confirmDeleteIndex, setConfirmDeleteIndex] = useState<number | null>(null);
   const [showSourceSidebar, setShowSourceSidebar] = useState(false);
@@ -916,6 +983,11 @@ export default function MenuEditor() {
     const newItems = menuData.navbar.items.filter((_, i) => i !== index);
     updateYamlFromData({ ...menuData, navbar: { ...menuData.navbar, items: newItems } });
     setConfirmDeleteIndex(null);
+  };
+
+  const updateNavbarSettings = (updates: Partial<NavbarSettings>) => {
+    if (!menuData || !menuData.navbar) return;
+    updateYamlFromData({ ...menuData, navbar: { ...menuData.navbar, ...updates } });
   };
 
   const handleAddItem = () => {
@@ -1159,7 +1231,7 @@ export default function MenuEditor() {
                 )}
               </div>
 
-              <ScrollArea className="h-[calc(100vh-200px)]">
+              <ScrollArea className="max-h-[calc(100vh-200px)]">
                 <DndContext
                   sensors={sensors}
                   collisionDetection={closestCenter}
@@ -1199,6 +1271,68 @@ export default function MenuEditor() {
                   </div>
                 )}
               </ScrollArea>
+
+              {isEnglish && (
+                <div className="mt-4 border rounded-md">
+                  <button
+                    type="button"
+                    className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-md hover-elevate"
+                    onClick={() => setNavbarSettingsOpen((v) => !v)}
+                    data-testid="button-navbar-settings-toggle"
+                  >
+                    <span>Menu Settings</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-muted-foreground">
+                        {(() => {
+                          const s = menuData!.navbar!.size;
+                          const sizeLabel = s !== undefined ? `${s}px` : "Default (64px)";
+                          const marginLabel = menuData!.navbar!.constrained_margin ? "Constrained" : "Full width";
+                          return `${sizeLabel} · ${marginLabel}`;
+                        })()}
+                      </span>
+                      {navbarSettingsOpen
+                        ? <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                        : <IconChevronRight className="h-4 w-4 text-muted-foreground" />}
+                    </div>
+                  </button>
+
+                  {navbarSettingsOpen && (
+                    <div className="px-4 py-4 border-t space-y-5">
+                      <div className="flex items-center justify-between gap-4">
+                        <div>
+                          <Label className="text-sm font-medium">Constrained margin</Label>
+                          <p className="text-xs text-muted-foreground mt-0.5">
+                            Limits content to a centered max-width container
+                          </p>
+                        </div>
+                        <Switch
+                          checked={!!menuData!.navbar!.constrained_margin}
+                          onCheckedChange={(checked) => updateNavbarSettings({ constrained_margin: checked || undefined })}
+                          data-testid="switch-constrained-margin"
+                        />
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <Label className="text-sm font-medium">Navbar size</Label>
+                        <div className="flex items-center gap-2">
+                          <Input
+                            type="number"
+                            min={20}
+                            placeholder="64"
+                            value={menuData!.navbar!.size ?? ""}
+                            onChange={(e) => {
+                              const val = parseInt(e.target.value, 10);
+                              updateNavbarSettings({ size: val || undefined });
+                            }}
+                            data-testid="input-navbar-size"
+                          />
+                          <span className="text-sm text-muted-foreground shrink-0">px</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </>
           )}
 

@@ -2,6 +2,7 @@ import type { ProgramsShowcaseSection, ProgramItem } from "@shared/schema";
 import { getIcon } from "@/lib/icons";
 import { IconClock, IconArrowRight, IconTrendingUp } from "@tabler/icons-react";
 import { resolveColorVar, hslColor } from "./shared";
+import { RichTextContent } from "@/components/ui/rich-text-content";
 
 interface ProgramsShowcaseSpotlightProps {
   data: ProgramsShowcaseSection;
@@ -26,7 +27,7 @@ function FeaturedCard({
 
   return (
     <div
-      className="flex flex-col group h-full border rounded-card bg-[hsl(var(--primary)/0.05)] border-[hsl(var(--primary)/0.2)]"
+      className="flex flex-col group h-full border rounded-card bg-[hsl(var(--primary)/0.05)]"
       data-testid={`card-featured-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
     >
       <div className="p-7 flex flex-col gap-5 h-full">
@@ -60,9 +61,11 @@ function FeaturedCard({
               {program.badge}
             </div>
           )}
-          <p className="text-base leading-relaxed text-muted-foreground">
-            {program.description}
-          </p>
+          <RichTextContent
+            html={program.description}
+            className="text-base text-muted-foreground leading-relaxed"
+            data-testid={`text-description-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
+          />
         </div>
 
         <div
@@ -144,9 +147,11 @@ function SmallCard({
                 </div>
               )}
             </div>
-            <p className="text-sm leading-relaxed mt-1 text-muted-foreground">
-              {program.description}
-            </p>
+            <RichTextContent
+              html={program.description}
+              className="text-sm text-muted-foreground leading-relaxed mt-1"
+              data-testid={`text-description-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
+            />
           </div>
         </div>
 

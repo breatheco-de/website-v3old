@@ -622,8 +622,7 @@ sections:
           placeholder: Phone number
         program:
           visible: true
-          required: false
-          default: auto
+          required: true
       success:
         message: Thank you! We'll be in touch soon.
       consent:
@@ -661,10 +660,10 @@ sections:
           required: false
         phone:
           visible: true
-          required: false
+          required: true
         program:
           visible: false
           required: false
-          default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
+    load: eager

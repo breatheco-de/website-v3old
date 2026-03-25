@@ -20,16 +20,16 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Build with AI. Get Hired. Or Your Tuition Back.
+    title: Become an AI Engineer. With the Best Career Support in Tech.
     brand_mark:
       prefix: Break Your Career
       highlight: Ceiling.
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\"><span>Become an AI Engineer: the fastest-growing job of 2026. 1.3M new roles. 42× growth since 2023. In 24 weeks, that's you — landing roles paying $95K–$135K+. Get hired within 9 months or we refund your tuition.</span></span>"
+    description: "<span style=\"font-size: 1.125rem;\"><span>AI Engineering: the fastest-growing job of 2026. 1.3M new roles. 42× growth since 2023. In 24 weeks, that's your new career — with roles paying $95K–$135K+.</span></span>"
     bullets:
-      - text: "Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
-      - text: Build a complete AI-native system across 10 milestones
+      - text: Learn to build a complete AI-native business, from intelligent agents and automation to real-time systems
       - text: Unlimited 1:1 mentorship and career support that doesn't stop at graduation
+      - text: "Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
     image_object_fit: none
     form:
       variant: stacked
@@ -57,7 +57,7 @@ sections:
           visible: true
           default: ai-engineering
       success:
-        message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
@@ -70,9 +70,8 @@ sections:
     form_vertical_align: top
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Get the Full AI Engineering Program Details
-    form_card_subtitle: "Takes 2 minutes. Our admissions team will send you the complete program overview: curriculum, pricing, and financing options."
+    form_card_subtitle: "Fill in your details and our admissions team will send you everything you need: program descriptions, requirements, and financing options. It only takes 2 minutes."
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-    show_awards_marquee: true
     awards_marquee:
       items:
         - id: switchup-2025
@@ -151,16 +150,14 @@ sections:
       desktop: none sm
   - type: graduates_stats
     heading: Real Career Outcomes
-    subheading: Over 5,000 graduates have made the switch to tech. Here's what happened after they completed the program.
+    subheading: Over 6,000 graduates have made the switch to tech. Here's what happened after they completed the program.
     stats:
-      - value: 86%
+      - value: 84%
         label: Average hiring rate
       - value: 55%
         label: Average salary increase after graduation
-      - value: ~3 months
+      - value: 3-6 months months
         label: Average time to get hired in 2025
-      - value: 5,000+
-        label: Graduates employed worldwide
     collage_images:
       - image_id: graduates_team_1
         col_span: 5
@@ -177,7 +174,7 @@ sections:
     section_id: graduates_stats-cnxqbb
   - type: trust_cards
     version: v1.0
-    title: "Rated #1 Across Every Major Review Platform"
+    title: Top Rated Across Every Major Review Platform
     items:
       - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
         rating: 4.9
@@ -198,31 +195,12 @@ sections:
       desktop: md
     marginY:
       desktop: none xl
-  - type: features_quad
-    version: "1.0"
-    heading: Who Can Add the Job Guarantee?
-    description: "The Job Guarantee is available to students who meet these four requirements:"
-    cards:
-      - icon: IconBriefcaseFilled
-        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
-      - icon: IconCircleDashedCheck
-        title: Complete All Program Requirements
-      - icon: IconBrain
-        title: Pass the Admissions Logic Test
-      - icon: IconArrowGuideFilled
-        title: Follow the Full Career Development Process
-    section_id: features_quad-ms7uox
-    marginY:
-      desktop: none xl
-    paddingY:
-      desktop: none
-    background: hsl(var(--secondary))
   - type: features_grid
     version: "1.0"
     variant: stats-text-card
     title: Why AI Engineering Now
     subtitle: The talent gap is real. This is your opportunity.
-    description: AI Engineers build intelligent systems, automate workflows, and deliver the AI-powered systems companies urgently need. Demand is exploding, but only 3% of the workforce has the skills to fill these roles. That's not a problem. That's your opening.
+    description: AI Engineers build intelligent systems, automate workflows, and deliver the AI-powered systems companies urgently need. Demand is exploding, but only 3% of the workforce has the skills to fill these roles. That's not a problem. That's your door into tech.
     card_color: bg-background
     background: hsl(var(--card))
     items:
@@ -412,102 +390,176 @@ sections:
     marginY:
       desktop: none xl
     section_id: two_column-luisa
-  - type: ai_learning
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: The Most Personalized Path to an AI Career
-    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support, every part of the experience is built around you.
-    features:
-      - icon: Robot
-        title: AI-powered feedback, available 24/7
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Instant feedback from Rigobot, our custom AI tutor
-          - text: Advice adjusted to your skill level and progress
-          - text: Instant help at any hour, day or night
-          - text: Hundreds of interactive coding exercises and tests
-        video_url: https://www.youtube.com/watch?v=NRuShbSLtg0
-      - icon: Headset
-        title: Unlimited 1:1 mentorship, for life
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Lifelong access to 1:1 technical mentorship
-          - text: "7:1 student-to-mentor ratio: so your mentor knows your name"
-          - text: Weekly check-ins and peer collaboration via Slack
-          - text: Dedicated channels for coding support, job boards, and career advice
-        video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
-      - icon: TrendingUp
-        title: Career support built for the AI job market
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Lifelong 1:1 career coaching
-          - text: Resume and portfolio built to pass AI-based screening
-          - text: Interview prep and salary negotiation
-          - text: Direct referrals to our 400+ employer network
-        video_url: https://youtu.be/-2ZvlgDnltc
-    section_id: ai_learning-xiuj75
+  - type: career_support_explain
+    version: v1.0
+    heading: Get Hired. Career Support That Doesn't Stop at Graduation.
+    description: AI-optimized profiles, direct access to a network of 400+ hiring partners, and hands-on support from first application to signed offer, and beyond. The career support system that makes the Job Guarantee possible.
+    background: hsl(var(--sidebar-background))
+    tabs:
+      - tab_label: Job-Ready, Faster
+        layout: three_columns
+        col1_subtitle: Build a Recruiter-Ready Profile, Smarter.
+        col1_description: |-
+          Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
+          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal impact.
+        col1_tagline: We'll help you create tailored job search materials
+        col1_boxes:
+          - icon: IconBrandLinkedin
+            text: LinkedIn
+          - icon: IconFileText
+            text: Resume
+          - icon: IconBriefcase
+            text: Portfolio
+          - icon: IconMail
+            text: Cover letter
+        col2_heading: Career Strategy, Built Around You
+        col2_bullets:
+          - icon: IconRobot
+            text: 24/7 feedback from RigoBot to audit your LinkedIn and resume
+          - icon: IconUsers
+            text: 1-on-1 career coaching and strategy sessions
+          - icon: IconMicrophone
+            text: Mock interviews and technical interview prep
+        col3_image_id: 4geeks_member
+        col3_object_fit: cover
+        col3_object_position: center
+      - tab_label: Real Hiring Access
+        layout: two_column_cards
+        title: Access the Hidden Job Market.
+        left_text: Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
+        left_image_id: career_team_women
+        left_image_object_fit: cover
+        left_image_object_position: center
+        left_stat:
+          value: 250+
+          label: companies in 4Geeks employer network
+        right_bullets:
+          - icon: IconUserPlus
+            text: Direct referrals to hiring partners
+          - icon: IconTargetArrow
+            text: Curated job matches based on your profile
+          - icon: IconMessageChatbot
+            text: Networking and recruiter conversation coaching
+        right_logos:
+          - image_id: logo_google
+            alt: Google
+          - image_id: logo_meta
+            alt: Meta
+          - image_id: logo_microsoft
+            alt: Microsoft
+          - image_id: logo_uber
+            alt: Uber
+          - image_id: logo_ebay
+            alt: eBay
+          - image_id: logo_kpmg
+            alt: KPMG
+      - tab_label: Proof That Converts
+        layout: text_and_image
+        title: Projects that Demonstrate Real Skill.
+        left_description: |-
+          Visibility gets attention. Proof closes the gap.
+          Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
+        left_bullets:
+          - icon: IconBriefcase
+            text: Industry-aligned, real-world projects
+          - icon: IconPresentation
+            text: A showcase-ready capstone project
+          - icon: IconBrandGithub
+            text: GitHub optimization and professional code review
+        right_image_id: geekforce_valentina_ancieta
+        right_image_object_fit: cover
+        right_image_object_position: center
+      - tab_label: Your Best-Fit Role
+        layout: text_with_testimonials_carousel
+        title: Turn Your Background into an Advantage.
+        left_description: |-
+          Once offers are on the table, we help you choose and negotiate with confidence.
+          Your previous experience matters. We map transferable skills, focus your job search on the right roles, and support you through salary negotiation and long-term growth.
+        left_bullets:
+          - icon: IconTransfer
+            text: Transferable skills mapping
+          - icon: IconMap
+            text: Personalized career roadmap
+          - icon: IconCoin
+            text: Salary negotiation coaching
+          - icon: IconUsers
+            text: Ongoing alumni career support
+        testimonials:
+          - image_id: mailinh_tran
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: clark_university
+            description: MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her endeavor.
+            achievement: She launched her own startup, is hiring new tech talent, and coordinates an entire team of developers.
+          - image_id: martin_coimbra
+            image_object_fit: cover
+            image_object_position: center top
+            contributor_logos:
+              - image_id: logo_utec
+            description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
+            achievement: He achieved a 100% salary increase.
+          - image_id: melanie_galaretto
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: logo_utec
+              - image_id: bid_logo
+            description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
+            achievement: She achieved a 100% salary increase.
+    section_id: career_support_explain-xpc3k2
     marginY:
-      desktop: md lg
+      desktop: none xl
     paddingY:
-      desktop: md sm
-    background: hsl(var(--secondary))
-  - type: certificate
-    title: Your Certificate. Your Career Leverage.
-    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Step into roles paying:"
-    benefits:
-      - text: "AI Engineer: $95K–$135K"
-      - text: "Forward-Deployed Engineer: $105K–$155K"
-      - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-      - text: "Workflow Automation Engineer: $85K–$120K"
-    card:
-      title: AI Engineer
-      subtitle: 4Geeks Academy Certificate
-      program_name: AI Engineering
-    stats:
-      - value: 86%
-        label: Hiring rate
-        description: Graduate with the credentials, portfolio, and professional profile to get hired — not just qualified.
-        benefits:
-          - text: Certificate recognized by the Florida Department of Education
-          - text: End-to-end AI-engineered company in your portfolio
-          - text: Demonstrated experience with agents, workflows, and AI systems
-          - text: Optimized professional profile and job-search strategy
-      - value: ~3 months
-        label: Average time to get hired
-        description: Most graduates land their first role in about 3 months. A structured 3-step career process turns your skills into offers fast.
-        benefits:
-          - text: Resume, portfolio, and profiles optimized to attract recruiters and pass AI-based screening
-          - text: Technical and behavioral interview preparation
-          - text: Personalized job-search strategy with access to relevant hiring networks
-      - value: 55%
-        label: Average salary increase
-        description: AI skills are exactly what companies can't find enough of. Step into high-priority roles with immediate growth and long-term upside.
-        benefits:
-          - text: "AI Engineer: $95K–$135K"
-          - text: "Forward-Deployed Engineer: $105K–$155K"
-          - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-          - text: "Workflow Automation Engineer: $85K–$120K"
-      - value: 400+
-        label: Hiring partners
-        description: 400+ companies actively hiring our graduates. Get exclusive access, priority referrals, and direct connections to the people making hiring decisions.
-        benefits:
-          - text: Exclusive job board access
-          - text: Priority referrals to partner companies
-          - text: Networking events with hiring managers
-          - text: Companies include Google, Meta, Amazon, startups
-    certificate_position: right
-    useSolidCard: true
-    section_id: certificate-yvgz4h
+      desktop: md none
+  - type: human_and_ai_duo
+    section_id: human_and_ai_duo-zg16oa
+    version: "1.0"
+    heading: The Support System Behind Your Skills
+    description: Learning works best when support is tailored to your progress. At 4Geeks, unlimited 1:1 mentorship and AI-powered feedback from Rigobot combine to keep you unblocked and moving faster than you thought possible.
+    bullet_groups:
+      - title: "Unlimited 1:1 mentorship:"
+        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
+        bullets:
+          - text: Personalized guidance from senior engineers
+          - text: Live troubleshooting and bug fixing
+          - text: Industry insights from people working in tech
+          - text: Unlimited number of sessions. Available lifelong
+      - title: "Rigobot, your AI tutor:"
+        bullets:
+          - text: Instant feedback on your code, 24/7
+          - text: Adapts to your level and learning pace
+          - text: Keeps you unblocked at any hour
+          - text: Hundreds of hands-on coding exercises and tests
+    images:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
+        alt: Asian student learning to code
+        object_fit: cover
+        object_position: 40% 20%
+        border_radius: 0.5rem
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
+        alt: Latino student working on a project
+        object_fit: cover
+        object_position: 50% 30%
+        border_radius: 0.5rem
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
+        alt: African student collaborating with team
+        object_fit: cover
+        object_position: 50% 15%
+        border_radius: 0.5rem
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
+        alt: Latina student celebrating success
+        object_fit: cover
+        object_position: 50% 30%
+        border_radius: 0.5rem
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
+    image_alt: Woman working on laptop in cafe
+    background: hsl(210 100% 50% / 0.05)
+    paddingY:
+      mobile: sm none
+      desktop: md
     marginY:
-      mobile: none
-      desktop: none sm
-    paddingY:
-      mobile: lg
-      desktop: lg
-    background: hsl(var(--card))
+      desktop: none md
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
     description: "Different backgrounds, one outcome: a career in tech that pays."
@@ -620,6 +672,25 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
+  - type: features_quad
+    version: "1.0"
+    heading: Who Can Add the Job Guarantee?
+    description: "The Job Guarantee is available to students who meet these four requirements:"
+    cards:
+      - icon: IconBriefcaseFilled
+        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
+      - icon: IconCircleDashedCheck
+        title: Complete All Program Requirements
+      - icon: IconBrain
+        title: Pass the Admissions Logic Test
+      - icon: IconArrowGuideFilled
+        title: Follow the Full Career Development Process
+    section_id: features_quad-ms7uox
+    marginY:
+      desktop: none xl
+    paddingY:
+      desktop: none
+    background: hsl(var(--secondary))
   - type: features_quad
     version: "1.0"
     variant: default

@@ -2,6 +2,7 @@ import type { ProgramsShowcaseSection, ProgramItem } from "@shared/schema";
 import { getIcon } from "@/lib/icons";
 import { IconClock, IconTrendingUp, IconArrowRight } from "@tabler/icons-react";
 import { resolveColorVar, hslColor } from "./shared";
+import { RichTextContent } from "@/components/ui/rich-text-content";
 
 interface ProgramsShowcaseGridProps {
   data: ProgramsShowcaseSection;
@@ -67,9 +68,11 @@ function ProgramCard({
           <div className="text-xs mb-2 text-muted-foreground font-sans">
             {program.name}
           </div>
-          <p className="text-base leading-relaxed text-muted-foreground font-sans">
-            {program.description}
-          </p>
+          <RichTextContent
+            html={program.description}
+            className="text-base text-muted-foreground leading-relaxed font-sans"
+            data-testid={`text-description-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
+          />
         </div>
 
         <div

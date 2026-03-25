@@ -604,7 +604,7 @@ sections:
           placeholder: Nombre
         phone:
           visible: true
-          required: false
+          required: true
           placeholder: Número de teléfono
         program:
           visible: false

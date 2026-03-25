@@ -42,9 +42,14 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
     return null;
   }
   
+  const navSize = menuConfig?.navbar?.size ?? 64;
+  const constrainClass = menuConfig?.navbar?.constrained_margin
+    ? "max-w-6xl mx-auto px-4"
+    : "px-6";
+
   return (
     <header className={`sticky top-0 z-50 w-full bg-background transition-colors ${isScrolled ? 'border-b' : 'border-b border-background'}`}>
-      <div className="flex h-16 items-center gap-4 px-6">
+      <div className={`flex items-center gap-4 ${constrainClass}`} style={{ height: `${navSize}px` }}>
         <div className="hidden md:flex flex-1">
           {isLoading ? (
             <div className="flex items-center gap-4">

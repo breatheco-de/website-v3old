@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { hasHtmlTags, getTextLength, sliceHtml } from "@/lib/htmlTypewriter";
+import { useTypewriter } from "@/hooks/useTypewriter";
 import { useImageRegistry } from "@/components/UniversalImage";
 import type {
   ImageRowSection,
@@ -42,42 +43,19 @@ function TypewriterText({
   isEditMode,
   className = "",
 }: TypewriterTextProps) {
-  const [visibleChars, setVisibleChars] = useState(0);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const startTimerRef = useRef<NodeJS.Timeout | null>(null);
   const isHtml = useMemo(() => hasHtmlTags(text), [text]);
   const totalChars = useMemo(
     () => (isHtml ? getTextLength(text) : text.length),
     [text, isHtml],
   );
 
-  useEffect(() => {
-    if (startTimerRef.current) clearTimeout(startTimerRef.current);
-    if (timerRef.current) clearInterval(timerRef.current);
-
-    if (isEditMode || !isActive) {
-      setVisibleChars(isEditMode ? totalChars : 0);
-      return;
-    }
-
-    setVisibleChars(0);
-
-    startTimerRef.current = setTimeout(() => {
-      let currentChar = 0;
-      timerRef.current = setInterval(() => {
-        currentChar++;
-        setVisibleChars(currentChar);
-        if (currentChar >= totalChars) {
-          if (timerRef.current) clearInterval(timerRef.current);
-        }
-      }, charDelayMs);
-    }, startDelayMs);
-
-    return () => {
-      if (startTimerRef.current) clearTimeout(startTimerRef.current);
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [text, totalChars, startDelayMs, charDelayMs, isActive, isEditMode]);
+  const animText = isHtml ? " ".repeat(totalChars) : text;
+  const { visibleChars } = useTypewriter(
+    animText,
+    charDelayMs,
+    startDelayMs,
+    !isEditMode && isActive,
+  );
 
   if (isHtml) {
     if (isEditMode || visibleChars >= totalChars) {
