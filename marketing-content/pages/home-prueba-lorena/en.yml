@@ -138,14 +138,13 @@ sections:
     items:
       - id: "1"
         value: 7x
-        title: Growth in demand for AI-fluent workers in just two years
+        title: Growth in demand for AI-fluent workers since 2023
       - id: "2"
         value: 70%
-        title: YoY growth in US jobs requiring AI skills
+        title: YoY growth for jobs with AI skills
       - id: "3"
         value: 3%
-        title: Of the workforce currently qualified to fill AI roles
-    footnote: "Sources: McKinsey Global Institute 2025, LinkedIn Jobs on the Rise 2026."
+        title: Of the workforce qualifies for AI roles
     section_id: features_grid-142xko
     marginY:
       desktop: none xl
