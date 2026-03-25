@@ -50,32 +50,6 @@ sections:
       background: linear-gradient(to bottom right, hsl(var(--primary) / 0.05), transparent, hsl(var(--chart-2) / 0.05))
       paddingY:
         desktop: sm none
-  - type: award_badges
-    section_id: award_badges-exynu8
-    version: v1.0
-    variant: detailed
-    showBorder: false
-    items:
-      - id: forbes-logo-award
-        alt: Forbes Award logo
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
-        logoHeight: 64px
-        description: Consistently listed among top 5 bootcamps by Forbes
-        link: /en/awards
-      - id: clark-university
-        alt: Clark University Logo
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
-        logoHeight: 64px
-        description: Certified by recognized universities
-      - id: careerkarma-detailed
-        alt: Award badges
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/badges-new.avif
-        logoHeight: 64px
-        description: Chosen best bootcamp in 2024 and 2025 by SwitchUp, Course Report, and Career Karma.
-        link: /en/awards
-        linkText: Learn more
-    marginY:
-      desktop: none md
   - type: hero
     variant: showcase
     title: 1.3 million new AI roles. We're your path in.
@@ -108,6 +82,32 @@ sections:
     background: linear-gradient(to bottom right, hsl(var(--primary) / 0.05), transparent, hsl(var(--chart-2) / 0.05))
     paddingY:
       desktop: sm none
+  - type: award_badges
+    section_id: award_badges-exynu8
+    version: v1.0
+    variant: detailed
+    showBorder: false
+    items:
+      - id: forbes-logo-award
+        alt: Forbes Award logo
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
+        logoHeight: 64px
+        description: Consistently listed among top 5 bootcamps by Forbes
+        link: /en/awards
+      - id: clark-university
+        alt: Clark University Logo
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
+        logoHeight: 64px
+        description: Certified by recognized universities
+      - id: careerkarma-detailed
+        alt: Award badges
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/badges-new.avif
+        logoHeight: 64px
+        description: Chosen best bootcamp in 2024 and 2025 by SwitchUp, Course Report, and Career Karma.
+        link: /en/awards
+        linkText: Learn more
+    marginY:
+      desktop: none md
   - - type: hero
       variant: showcase
       title: 1.3 million new AI roles. We're your path in.
