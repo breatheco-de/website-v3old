@@ -113,7 +113,7 @@ sections:
       text: A mentor, a career coach, an AI tutor, and your personal AI agent. All tailored to you.
       background: primary
       width: 2
-      text_2: A mentor, a career coach, an AI tutor, and your personal AI agent. All tailored to you.
+      text_2: "<span style=\"font-size: 1.5rem;\">A mentor, a career coach, an AI tutor, and your personal AI agent. All tailored to you.</span>"
       text_1: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.875rem;\"><b>You bring the commitment. We bring everything else.</b></span></span>"
     height: 31rem
     mobile_height: 24rem
