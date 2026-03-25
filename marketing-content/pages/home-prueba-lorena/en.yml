@@ -77,33 +77,27 @@ sections:
     title_above_carousel: true
     marginY:
       desktop: none lg
-  - type: graduates_stats
-    heading: Real Career Outcomes
-    subheading: 5,000+ graduates chose 4Geeks over every other option. Here's what that decision looked like 90 days later.
-    stats:
-      - value: 86%
-        label: Hiring rate, US graduates placed within 90 days
-      - value: 55%
-        label: Average salary increase after graduation
-      - value: ~3 months
-        label: Average time to get hired in 2025
-      - value: 5,000+
-        label: Graduates employed worldwide
-    collage_images:
-      - image_id: graduates_team_1
-        col_span: 5
-        row_span: 2
-      - image_id: graduates_team_2
-        col_span: 7
-        row_span: 2
-      - image_id: graduates_coding
-        col_span: 6
-        row_span: 2
-      - image_id: graduates_friends
-        col_span: 6
-        row_span: 2
-    section_id: graduates_stats-cnxqbb
-    value_size: text-3xl
+  - type: features_grid
+    version: "1.0"
+    variant: highlight
+    title: Real Outcomes for Our Graduates
+    subtitle: Our graduates land jobs, earn more, and build careers that last — across the U.S., LATAM, and beyond.
+    items:
+      - icon: IconBriefcase
+        value: {{ global.global_job_placement_rate | 84 }}%
+        title: Job placement rate
+      - icon: IconCalendarCheck
+        value: 3-6 months
+        title: Average time to get hired
+      - icon: IconReportMoney
+        value: {{ global.global_salary_increase | 55 }}%
+        title: Average salary increase after graduation
+    columns: 3
+    icon_color: "#0097CD"
+    background: hsl(var(--secondary))
+    section_id: features_grid-95o7vf
+    marginY:
+      desktop: none md
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
