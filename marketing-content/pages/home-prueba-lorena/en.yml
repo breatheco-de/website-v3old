@@ -104,27 +104,6 @@ sections:
         row_span: 2
     section_id: graduates_stats-cnxqbb
     value_size: text-3xl
-  - type: features_grid
-    version: "1.0"
-    variant: highlight
-    title: Our Graduates Get Hired. Fast.
-    subtitle: 6,000+ graduates worldwide. Now thriving in tech.
-    items:
-      - icon: IconBriefcase
-        value: {{ global.global_job_placement_rate | 84 }}%
-        title: Job placement rate
-      - icon: IconCalendarCheck
-        value: 3-6 months
-        title: Average time to get hired
-      - icon: IconReportMoney
-        value: ~{{ global.global_salary_increase | 55 }}%
-        title: Average salary increase after graduation
-    columns: 3
-    icon_color: "#0097CD"
-    background: hsl(210 100% 50% / 0.05)
-    section_id: features_grid-95o7vf
-    marginY:
-      desktop: lg md
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
