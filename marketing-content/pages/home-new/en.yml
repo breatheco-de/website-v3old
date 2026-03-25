@@ -15,7 +15,7 @@ schema:
     - organization
     - website
 sections:
-  - type: hero
+   - type: hero
       variant: showcase
       title: 1.3 million new AI roles. We're your path in.
       subtitle: Intensive 16-24 week programs built to launch AI careers. 84% of our graduates land tech roles within 6 months, earning ~55% more than before. Lifelong mentorship. Career support until you're hired, and beyond.
