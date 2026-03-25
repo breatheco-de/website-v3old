@@ -18,8 +18,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: AI is changing every job. Be the one who uses it
-    subtitle: 4Geeks doesn't just teach you tech skills — we get you hired. Unlimited 1:1 mentorship, AI-powered learning, and career support that doesn't stop at graduation.
+    title: 1.3 million new AI roles. We're your path in.
+    subtitle: Intensive 16-24 week programs built to launch AI careers. 84% of our graduates land tech roles within 6 months, earning ~55% more than before. Lifelong mentorship. Career support until you''re hired, and beyond.
     cta_buttons:
       - text: Find your path
         url: /signup
