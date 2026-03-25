@@ -77,23 +77,33 @@ sections:
     title_above_carousel: true
     marginY:
       desktop: none xl
-  - type: article
-    version: v1.0
-    show_toc: false
-    max_width: md
-    content: |
-      # About Our Program
-
-      We offer a comprehensive learning experience designed to transform beginners into job-ready professionals.
-
-      Our curriculum is built by industry experts and updated regularly to reflect the latest trends and technologies.
-
-      ## What Makes Us Different
-
-      Unlike traditional bootcamps, we focus on **real-world projects** and **personalized mentorship** to ensure every student succeeds.
-
-      Our graduates work at companies like Google, Meta, Amazon, and hundreds of innovative startups around the world.
-    section_id: article-fjtltg
+  - type: graduates_stats
+    heading: Real Career Outcomes
+    subheading: 5,000+ graduates chose 4Geeks over every other option. Here's what that decision looked like 90 days later.
+    stats:
+      - value: 86%
+        label: Hiring rate, US graduates placed within 90 days
+      - value: 55%
+        label: Average salary increase after graduation
+      - value: ~3 months
+        label: Average time to get hired in 2025
+      - value: 5,000+
+        label: Graduates employed worldwide
+    collage_images:
+      - image_id: graduates_team_1
+        col_span: 5
+        row_span: 2
+      - image_id: graduates_team_2
+        col_span: 7
+        row_span: 2
+      - image_id: graduates_coding
+        col_span: 6
+        row_span: 2
+      - image_id: graduates_friends
+        col_span: 6
+        row_span: 2
+    section_id: graduates_stats-cnxqbb
+    value_size: text-3xl
   - type: features_grid
     version: "1.0"
     variant: highlight
