@@ -334,38 +334,44 @@ sections:
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
-    badge: ""
-    heading: Choose Your Career Path
-    subheading: Four programs built around the skills companies are actively hiring for right now.
+    heading: Every Program Comes With the Job Guarantee Option
+    subheading: Four programs. One promise. Get hired within 9 months, or get your tuition back.
     featured_label: Featured Program
     programs:
-      - name: Full Stack Development with AI
-        icon: IconCode
-        description: Build modern, production-ready web applications from frontend to backend, using the latest AI-powered tools and workflows.
-        duration: 16 weeks
-        cta_text: Explore Program
-        cta_url: /programs/full-stack
       - name: AI Engineering
         icon: IconBrain
-        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies. Transform a single business case into a fully AI-native system, layer by layer.
+        description: Build the AI systems companies are hiring for right now. Master LLMs, AI agents and automation while transforming a real business case into a fully AI-native system, layer by layer.
+        duration: 24 weeks
+        avg_salary: $95,000 – $150,000
+        cta_text: Get More Info
+        cta_url: "#hero-nzpyph"
+      - name: Full Stack Development with AI
+        icon: IconCode
+        description: Build modern, production-ready web applications from frontend to backend using the most in-demand AI tools on the market.
         duration: 20 weeks
-        cta_text: Explore
-        cta_url: /programs/ai-engineering
-      - name: Data Science & ML
+        avg_salary: $65,000 – $105,000
+        cta_text: Get More Info
+        cta_url: "#hero-nzpyph"
+      - name: Data Science and Machine Learning
         icon: IconChartBar
-        description: Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.
-        duration: 18 weeks
-        cta_text: Explore
-        cta_url: /programs/data-science
+        description: Analyze complex data, build intelligent models and deploy AI solutions for real business problems.
+        duration: 16 weeks
+        avg_salary: $70,000 – $130,000
+        cta_text: Get More Info
+        cta_url: "#hero-nzpyph"
       - name: Cybersecurity
         icon: IconShield
-        description: Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.
-        duration: 14 weeks
-        cta_text: Explore
-        cta_url: /programs/cybersecurity
-    section_id: programs_showcase-exhqet
+        description: Protect the systems AI depends on. Cybersecurity specialists are critical now that companies are scaling their AI infrastructure.
+        duration: 16 weeks
+        avg_salary: $65,000 – $120,000
+        cta_text: Get More Info
+        cta_url: "#hero-nzpyph"
+    section_id: programs_showcase-5wibqd
+    background: hsl(var(--card))
+    paddingY:
+      desktop: md lg
     marginY:
-      desktop: none xl
+      desktop: sm lg
   - type: why_learn_ai
     variant: laptop-edge
     title: Get Hired. Or Your Money Back.
