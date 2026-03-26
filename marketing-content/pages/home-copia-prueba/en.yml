@@ -120,7 +120,7 @@ sections:
       width: 2
       text_1: "<span style=\"font-size: 1.875rem;\"><b><span style=\"font-size: 1.875rem;\">Accelerate your learning and break into tech with support like nowhere else.</span></b></span>"
       text_2: |-
-        <ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3"><li class="whitespace-normal break-words pl-2"></li></ul><span style="font-size: 1.25rem;"><ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3"><li class="whitespace-normal break-words pl-2">Unlimited 1:1 mentorship with real tech professionals</li>
+        <span style="font-size: 1.25rem;"><ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3"><li class="whitespace-normal break-words pl-2">Unlimited 1:1 mentorship with real tech professionals</li>
         <li class="whitespace-normal break-words pl-2">Career coaching built to get you hired</li>
         <li class="whitespace-normal break-words pl-2">An AI tutor that adapts to your learning path</li>
         <li class="whitespace-normal break-words pl-2">Your own AI agent</li>
