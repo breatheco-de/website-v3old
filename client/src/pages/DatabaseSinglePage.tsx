@@ -111,6 +111,7 @@ export default function DatabaseSinglePage({ contentType }: DatabaseSinglePagePr
   return (
     <div data-testid={`page-${contentType}-${slug}`}>
       <div className="group relative">
+        {topMenuId && <Header menuId={topMenuId} />}
         <MenuSlotPlaceholder
           position="top"
           currentMenuId={topMenuId ?? null}
@@ -121,7 +122,6 @@ export default function DatabaseSinglePage({ contentType }: DatabaseSinglePagePr
           isSharedTemplate
         />
       </div>
-      {topMenuId && <Header menuId={topMenuId} />}
       <SectionRenderer
         sections={page.sections}
         settings={page.settings}

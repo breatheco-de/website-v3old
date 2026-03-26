@@ -119,6 +119,7 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
   return (
     <div data-testid={`page-${type}`}>
       <div className="group relative">
+        {topMenuId && <Header menuId={topMenuId} />}
         <MenuSlotPlaceholder
           position="top"
           currentMenuId={topMenuId ?? null}
@@ -128,7 +129,6 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
           onMenuChange={() => refetch()}
         />
       </div>
-      {topMenuId && <Header menuId={topMenuId} />}
       <SectionRenderer
         sections={(data.sections as any[]) || []}
         settings={data.settings}

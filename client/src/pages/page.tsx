@@ -142,6 +142,7 @@ export default function Page() {
   return (
     <div data-testid={`page-${slug}`}>
       <div className="group relative">
+        {topMenuId && <Header menuId={topMenuId} />}
         <MenuSlotPlaceholder
           position="top"
           currentMenuId={topMenuId ?? null}
@@ -151,7 +152,6 @@ export default function Page() {
           onMenuChange={() => refetch()}
         />
       </div>
-      {topMenuId && <Header menuId={topMenuId} />}
       <SectionRenderer 
         sections={page.sections} 
         settings={page.settings}

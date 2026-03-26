@@ -207,6 +207,7 @@ export default function PrivatePreview() {
   return (
     <div data-testid={`preview-${contentType}-${slug}`}>
       <div className="group relative">
+        {topMenuId && <Header menuId={topMenuId} />}
         <MenuSlotPlaceholder
           position="top"
           currentMenuId={topMenuId}
@@ -215,9 +216,7 @@ export default function PrivatePreview() {
           locale={locale}
           onMenuChange={() => refetch()}
         />
-
       </div>
-      {topMenuId && <Header menuId={topMenuId} />}
       <SectionRenderer 
         sections={content.sections} 
         contentType={normalizedType}
