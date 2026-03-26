@@ -138,8 +138,9 @@ sections:
         id: gemini-generated-image-r0lkblr0lkblr0lk
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
         alt: Developer working on project
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
-        alt: Team collaboration session
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/043521d2c9936a67a5c9e3728c3436d2d7d765bc899573fa0074243eeec15c1a.jpg
+        alt: "Image: 043521d2c9936a67a5c9e3728c3436d2d7d765bc899573fa0074243eeec15c1a"
+        id: 043521d2c9936a67a5c9e3728c3436d2d7d765bc899573fa0074243eeec15c1a
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Graduate celebrating success
     highlight:
