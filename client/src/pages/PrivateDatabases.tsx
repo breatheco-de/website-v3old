@@ -97,7 +97,7 @@ interface DatabaseDetail {
     };
     cache?: { ttl_hours?: number };
     field_mapping?: Record<string, string>;
-    editor?: Record<string, { type?: string; options?: string[] }>;
+    editor?: Record<string, { type?: string; options?: string[]; populate_options?: boolean }>;
   };
   cache_status?: {
     fetched_at: string;
@@ -1722,6 +1722,7 @@ function FieldMappingEditor({
   const [hintDialogType, setHintDialogType] = useState<string>("text");
   const [hintDialogOptions, setHintDialogOptions] = useState<string[]>([]);
   const [hintDialogNewOption, setHintDialogNewOption] = useState<string>("");
+  const [hintDialogPopulateOptions, setHintDialogPopulateOptions] = useState<boolean>(false);
 
   const openHintDialog = (field: string) => {
     const hint = editorHints[field] || {};
@@ -1729,6 +1730,7 @@ function FieldMappingEditor({
     setHintDialogType(hint.type || "text");
     setHintDialogOptions(hint.options ? [...hint.options] : []);
     setHintDialogNewOption("");
+    setHintDialogPopulateOptions(hint.populate_options ?? false);
   };
 
   const addHintOption = () => {
@@ -1744,9 +1746,10 @@ function FieldMappingEditor({
 
   const saveHintDialog = () => {
     if (!hintDialogField) return;
-    const hint: { type?: string; options?: string[] } = { type: hintDialogType };
-    if ((hintDialogType === "select" || hintDialogType === "tags") && hintDialogOptions.length > 0) {
-      hint.options = hintDialogOptions;
+    const hint: { type?: string; options?: string[]; populate_options?: boolean } = { type: hintDialogType };
+    if ((hintDialogType === "select" || hintDialogType === "tags")) {
+      if (hintDialogOptions.length > 0) hint.options = hintDialogOptions;
+      if (hintDialogPopulateOptions) hint.populate_options = true;
     }
     setEditorHints((prev) => ({ ...prev, [hintDialogField]: hint }));
     setHintDialogField(null);
@@ -2155,6 +2158,18 @@ function FieldMappingEditor({
                 {hintDialogOptions.length === 0 && (
                   <p className="text-xs text-muted-foreground">No options added yet.</p>
                 )}
+                <label className="flex items-center gap-2 cursor-pointer pt-1" data-testid="label-populate-options">
+                  <input
+                    type="checkbox"
+                    checked={hintDialogPopulateOptions}
+                    onChange={(e) => setHintDialogPopulateOptions(e.target.checked)}
+                    className="h-3.5 w-3.5 rounded"
+                    data-testid="checkbox-populate-options"
+                  />
+                  <span className="text-xs text-muted-foreground">
+                    Also include values from existing data
+                  </span>
+                </label>
               </div>
             )}
           </div>
@@ -2266,7 +2281,18 @@ function ItemEditModal({
   const renderField = (key: string) => {
     const editorConfig = config.editor?.[key];
     const type = editorConfig?.type || "text";
-    const options = editorConfig?.options || [];
+    const manualOptions = editorConfig?.options || [];
+    const dataOptions: string[] = editorConfig?.populate_options
+      ? Array.from(
+          new Set(
+            allItems
+              .map((it) => it[key])
+              .flat()
+              .filter((v): v is string => typeof v === "string" && v.trim() !== "")
+          )
+        ).sort()
+      : [];
+    const options = Array.from(new Set([...manualOptions, ...dataOptions]));
     const value = formData[key];
 
     switch (type) {

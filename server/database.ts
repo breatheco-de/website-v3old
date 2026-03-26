@@ -35,7 +35,7 @@ export interface DatabaseConfig {
     ttl_hours?: number;
   };
   field_mapping?: Record<string, string>;
-  editor?: Record<string, { type?: string; options?: string[] }>;
+  editor?: Record<string, { type?: string; options?: string[]; populate_options?: boolean }>;
 }
 
 interface CacheEntry {
