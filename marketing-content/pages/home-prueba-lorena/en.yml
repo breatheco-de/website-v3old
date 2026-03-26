@@ -206,7 +206,7 @@ sections:
     version: v1.0
     heading: We Stay With You Until You're Hired.
     description: This is what separates 4Geeks from every other platform. Not just courses. A complete system that takes you from enrolled to employed. AI-optimized profiles, direct access to 400+ hiring partners, and hands-on support from your first day to your signed offer letter and beyond.
-    background: hsl(var(--secondary))
+    background: hsl(var(--muted))
     tabs:
       - tab_label: Job-Ready, Faster
         layout: three_columns
