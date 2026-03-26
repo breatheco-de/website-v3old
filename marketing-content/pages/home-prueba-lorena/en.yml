@@ -101,9 +101,11 @@ sections:
         row_span: 2
         alt: "Image: Gemini_Generated_Image_yxg2tyyxg2tyyxg2"
         id: gemini-generated-image-yxg2tyyxg2tyyxg2
-      - image_id: graduates_friends
+      - image_id: gemini-generated-image-wpk4yvwpk4yvwpk4
         col_span: 6
         row_span: 2
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
+        id: gemini-generated-image-wpk4yvwpk4yvwpk4
     section_id: graduates_stats-cnxqbb
     marginY:
       desktop: none md
