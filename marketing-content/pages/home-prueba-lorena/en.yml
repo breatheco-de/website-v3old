@@ -407,14 +407,15 @@ sections:
     paddingY:
       desktop: md none
   - type: cta_banner
+    section_id: cta_banner-y7nw0f
     version: "1.0"
-    title: Your Next Career Move Starts Here.
-    subtitle: Tell us where you are today and we'll show you exactly how to get where you want to be — program details, pricing, and a plan built around you.
-    background: hsl(210 100% 50% / 0.05)
+    title: Take the Next Step Toward Your Tech Career
+    subtitle: Get pricing, program details, and personalized guidance.
+    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Get My Personalized Plan
+      submit_label: Get the details
       tags: request_more_info
       fields:
         email:
@@ -434,7 +435,7 @@ sections:
           required: true
           default: auto
       success:
-        message: You're in. Someone from our team will reach out within minutes with a plan tailored to your goals.
+        message: Thank you! We'll be in touch soon.
       consent:
         email: true
         marketing: true
@@ -442,9 +443,8 @@ sections:
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
-    form_background: hsl(210 100% 50% / 0.05)
+    form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
-    section_id: cta_banner-8t72gj
     marginY:
       desktop: lg none
     paddingY:
