@@ -2210,7 +2210,7 @@ function ItemEditModal({
 
       const newItems = isNew
         ? [...allItems, cleanedItem]
-        : allItems.map((it, i) => (i === itemIndex ? cleanedItem : it));
+        : allItems.map((it, i) => (i === itemIndex ? { ...it, ...cleanedItem } : it));
 
       await onSaved(newItems);
       onClose();
@@ -2284,6 +2284,39 @@ function ItemEditModal({
         );
       case "tags": {
         const tags = Array.isArray(value) ? (value as string[]) : [];
+        if (options.length > 0) {
+          const toggle = (opt: string) => {
+            if (tags.includes(opt)) {
+              setValue(key, tags.filter((t) => t !== opt));
+            } else {
+              setValue(key, [...tags, opt]);
+            }
+          };
+          return (
+            <div className="flex flex-wrap gap-1.5" data-testid={`tags-${key}`}>
+              {options.map((opt) => {
+                const selected = tags.includes(opt);
+                return (
+                  <button
+                    key={opt}
+                    type="button"
+                    onClick={() => toggle(opt)}
+                    data-testid={`button-tag-${key}-${opt}`}
+                    className="inline-flex"
+                  >
+                    <Badge
+                      variant={selected ? "default" : "outline"}
+                      className={selected ? "" : "text-muted-foreground"}
+                    >
+                      {selected && <IconCheck className="h-3 w-3 mr-1" />}
+                      {opt}
+                    </Badge>
+                  </button>
+                );
+              })}
+            </div>
+          );
+        }
         const inputVal = tagInput[key] || "";
         const addTag = () => {
           if (!inputVal.trim()) return;
