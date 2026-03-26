@@ -4812,6 +4812,13 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       overlayTextFieldsOnObject(result, translation);
     }
 
+    // Marquee config is locale-specific — if the translation carries its own
+    // navbar.marquee block, use it wholesale instead of the English master's.
+    if (translation?.navbar?.marquee !== undefined) {
+      if (!result.navbar) result.navbar = {};
+      result.navbar.marquee = translation.navbar.marquee;
+    }
+
     return result;
   }
 

@@ -1696,8 +1696,7 @@ export default function MenuEditor() {
                 )}
               </ScrollArea>
 
-              {isEnglish && (
-                <div className="mt-4 border rounded-md">
+              <div className="mt-4 border rounded-md">
                   <button
                     type="button"
                     className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-md hover-elevate"
@@ -1724,9 +1723,14 @@ export default function MenuEditor() {
 
                   {navbarSettingsOpen && (
                     <div className="px-4 py-4 border-t space-y-5">
+                      {!isEnglish && (
+                        <p className="text-xs text-muted-foreground bg-muted/50 rounded px-2 py-1.5">
+                          Layout settings apply to all languages and can only be changed in English.
+                        </p>
+                      )}
                       <div className="flex items-center justify-between gap-4">
                         <div>
-                          <Label className="text-sm font-medium">Constrained margin</Label>
+                          <Label className={`text-sm font-medium ${!isEnglish ? "text-muted-foreground" : ""}`}>Constrained margin</Label>
                           <p className="text-xs text-muted-foreground mt-0.5">
                             Limits content to a centered max-width container
                           </p>
@@ -1734,12 +1738,13 @@ export default function MenuEditor() {
                         <Switch
                           checked={!!menuData!.navbar!.constrained_margin}
                           onCheckedChange={(checked) => updateNavbarSettings({ constrained_margin: checked || undefined })}
+                          disabled={!isEnglish}
                           data-testid="switch-constrained-margin"
                         />
                       </div>
 
                       <div className="space-y-1.5">
-                        <Label className="text-sm font-medium">Navbar size</Label>
+                        <Label className={`text-sm font-medium ${!isEnglish ? "text-muted-foreground" : ""}`}>Navbar size</Label>
                         <div className="flex items-center gap-2">
                           <Input
                             type="number"
@@ -1750,6 +1755,7 @@ export default function MenuEditor() {
                               const val = parseInt(e.target.value, 10);
                               updateNavbarSettings({ size: val || undefined });
                             }}
+                            disabled={!isEnglish}
                             data-testid="input-navbar-size"
                           />
                           <span className="text-sm text-muted-foreground shrink-0">px</span>
@@ -1758,7 +1764,7 @@ export default function MenuEditor() {
 
                       <div className="flex items-center justify-between gap-4">
                         <div>
-                          <Label className="text-sm font-medium">Sticky header</Label>
+                          <Label className={`text-sm font-medium ${!isEnglish ? "text-muted-foreground" : ""}`}>Sticky header</Label>
                           <p className="text-xs text-muted-foreground mt-0.5">
                             Header stays fixed at the top while scrolling
                           </p>
@@ -1766,6 +1772,7 @@ export default function MenuEditor() {
                         <Switch
                           checked={menuData!.navbar!.sticky !== false}
                           onCheckedChange={(checked) => updateNavbarSettings({ sticky: checked ? undefined : false })}
+                          disabled={!isEnglish}
                           data-testid="switch-sticky"
                         />
                       </div>
@@ -1912,8 +1919,7 @@ export default function MenuEditor() {
                       </div>
                     </div>
                   )}
-                </div>
-              )}
+              </div>
             </>
           )}
 
