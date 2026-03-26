@@ -5885,6 +5885,42 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Gemini_Generated_Image_pd2u4upd2u4upd2u-1280w.webp"
         }
       ]
+    },
+    "gemini-generated-image-uwpyyruwpyyruwpy": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Gemini_Generated_Image_uwpyyruwpyyruwpy.png",
+      "alt": "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "hash": "713836568c1a946e0d3c16b9194a4bb409339317bd4a65b2f81e5ccd761a729d",
+      "width": 1387,
+      "height": 768,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960,
+        1280
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Gemini_Generated_Image_uwpyyruwpyyruwpy-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Gemini_Generated_Image_uwpyyruwpyyruwpy-960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Gemini_Generated_Image_uwpyyruwpyyruwpy-1280w.webp"
+        }
+      ]
     }
   }
 }
