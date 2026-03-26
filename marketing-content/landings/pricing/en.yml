@@ -99,7 +99,7 @@ sections:
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
-      desktop: md none
+      desktop: none
     marginX:
       desktop: none
     section_id: hero-nzpyph
