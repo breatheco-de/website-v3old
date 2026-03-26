@@ -1,0 +1,15 @@
+navbar:
+  items:
+    - label: NEW ITEM
+      href: /new-page
+      component: Logo
+    - label: NEW ITEM
+      href: /new-page
+      component: TypewriterAnnouncement
+      messages:
+        - text: 4Geeks, Harvard, Oxford, and Columbia partner to provide Artificial Intelligence education in the Bahamas.
+          cta_label: See more
+          cta_url: https://www.entnerd.com/startup-chilena-es-reclutada-por-bahamas-junto-a-oxford-columbia-y-harvard-para-dar-clases-gratuitas-online/
+  constrained_margin: true
+  sticky: false
+  size: 46
