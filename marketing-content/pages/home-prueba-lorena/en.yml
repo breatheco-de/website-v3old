@@ -101,6 +101,8 @@ sections:
         col_span: 6
         row_span: 2
     section_id: graduates_stats-cnxqbb
+    marginY:
+      desktop: none md
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
@@ -125,16 +127,16 @@ sections:
     background: hsl(var(--background))
     section_id: image_row-z97kqt
     marginY:
-      desktop: lg none
+      desktop: none xl
     paddingY:
-      desktop: md xl
+      desktop: none
   - type: features_grid
     version: "1.0"
     variant: stats-text
     title: AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.
     subtitle: That's your opportunity.
     description: Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--secondary))
     items:
       - id: "1"
         value: 7x
@@ -147,7 +149,7 @@ sections:
         title: Salary premium for workers with AI skills
     section_id: features_grid-142xko
     marginY:
-      desktop: none xl
+      desktop: md
   - ttype: features_grid
     version: "1.0"
     variant: stats-text
@@ -200,46 +202,11 @@ sections:
           - Dedicated career mentor tracks your job search and keeps it moving.
           - Lifetime career support — even for your next career move after your first job.
     background: bg-background
-  - type: programs_showcase
-    version: v1.0
-    layout: spotlight_with_list
-    badge: ""
-    heading: Choose Your Career Path
-    subheading: Four programs built around the skills companies are actively hiring for right now.
-    featured_label: Featured Program
-    programs:
-      - name: Full Stack Development with AI
-        icon: IconCode
-        description: Build modern, production-ready web applications from frontend to backend, using the latest AI-powered tools and workflows.
-        duration: 16 weeks
-        cta_text: Explore Program
-        cta_url: /programs/full-stack
-      - name: AI Engineering
-        icon: IconBrain
-        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies. Transform a single business case into a fully AI-native system, layer by layer.
-        duration: 20 weeks
-        cta_text: Explore
-        cta_url: /programs/ai-engineering
-      - name: Data Science & ML
-        icon: IconChartBar
-        description: Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.
-        duration: 18 weeks
-        cta_text: Explore
-        cta_url: /programs/data-science
-      - name: Cybersecurity
-        icon: IconShield
-        description: Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.
-        duration: 14 weeks
-        cta_text: Explore
-        cta_url: /programs/cybersecurity
-    section_id: programs_showcase-exhqet
-    marginY:
-      desktop: none lg
   - type: career_support_explain
     version: v1.0
     heading: We Stay With You Until You're Hired.
     description: This is what separates 4Geeks from every other platform. Not just courses. A complete system that takes you from enrolled to employed. AI-optimized profiles, direct access to 400+ hiring partners, and hands-on support from your first day to your signed offer letter and beyond.
-    background: hsl(var(--sidebar-background))
+    background: hsl(var(--muted))
     tabs:
       - tab_label: Job-Ready, Faster
         layout: three_columns
@@ -353,6 +320,8 @@ sections:
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
     section_id: career_support_explain-w18hgq
+    marginY:
+      desktop: none xl
   - type: testimonials_slide
     title: They Were Exactly Where You Are Now.
     description: "Different backgrounds, different programs, one result: a career in tech they didn't think was possible. These are real 4Geeks graduates with real numbers to back it up."
@@ -362,6 +331,41 @@ sections:
       desktop: none
     paddingY:
       desktop: none
+  - type: programs_showcase
+    version: v1.0
+    layout: spotlight_with_list
+    badge: ""
+    heading: Choose Your Career Path
+    subheading: Four programs built around the skills companies are actively hiring for right now.
+    featured_label: Featured Program
+    programs:
+      - name: Full Stack Development with AI
+        icon: IconCode
+        description: Build modern, production-ready web applications from frontend to backend, using the latest AI-powered tools and workflows.
+        duration: 16 weeks
+        cta_text: Explore Program
+        cta_url: /programs/full-stack
+      - name: AI Engineering
+        icon: IconBrain
+        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies. Transform a single business case into a fully AI-native system, layer by layer.
+        duration: 20 weeks
+        cta_text: Explore
+        cta_url: /programs/ai-engineering
+      - name: Data Science & ML
+        icon: IconChartBar
+        description: Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.
+        duration: 18 weeks
+        cta_text: Explore
+        cta_url: /programs/data-science
+      - name: Cybersecurity
+        icon: IconShield
+        description: Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.
+        duration: 14 weeks
+        cta_text: Explore
+        cta_url: /programs/cybersecurity
+    section_id: programs_showcase-exhqet
+    marginY:
+      desktop: none xl
   - type: why_learn_ai
     variant: laptop-edge
     title: Get Hired. Or Your Money Back.
@@ -373,10 +377,10 @@ sections:
       variant: primary
     section_id: why_learn_ai-z83qep
     marginY:
-      desktop: md
+      desktop: md lg
     paddingY:
       desktop: none
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--muted))
     showOnLocations:
       - atlanta-usa
       - austin-usa
@@ -405,14 +409,15 @@ sections:
     paddingY:
       desktop: md none
   - type: cta_banner
+    section_id: cta_banner-y7nw0f
     version: "1.0"
-    title: Your Next Career Move Starts Here.
-    subtitle: Tell us where you are today and we'll show you exactly how to get where you want to be — program details, pricing, and a plan built around you.
-    background: hsl(210 100% 50% / 0.05)
+    title: Take the Next Step Toward Your Tech Career
+    subtitle: Get pricing, program details, and personalized guidance.
+    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Get My Personalized Plan
+      submit_label: Get the details
       tags: request_more_info
       fields:
         email:
@@ -432,7 +437,7 @@ sections:
           required: true
           default: auto
       success:
-        message: You're in. Someone from our team will reach out within minutes with a plan tailored to your goals.
+        message: Thank you! We'll be in touch soon.
       consent:
         email: true
         marketing: true
@@ -440,9 +445,8 @@ sections:
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
-    form_background: hsl(210 100% 50% / 0.05)
+    form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
-    section_id: cta_banner-8t72gj
     marginY:
       desktop: lg none
     paddingY:
