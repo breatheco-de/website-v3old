@@ -97,7 +97,7 @@ export function PressMentions({ data }: PressMentionsProps) {
 }
 
 interface PressMentionCardProps {
-  item: NonNullable<PressMentionsSectionType["items"]>[number];
+  item: NonNullable<ListPressMentionsSection["items"]>[number];
   defaultBoxColor: string;
   defaultTitleColor?: string;
   defaultExcerptColor?: string;

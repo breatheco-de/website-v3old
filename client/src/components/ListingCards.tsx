@@ -239,7 +239,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
     return "";
   };
 
-  const hasHeader = data.title || showSearch || categories.length > 0 || userFilters.length > 0;
+  const hasHeader = data.title || showSearch || userFilters.length > 0;
 
   return (
     <div data-testid="section-list-cards">
