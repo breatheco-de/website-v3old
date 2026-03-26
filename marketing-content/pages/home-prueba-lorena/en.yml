@@ -219,7 +219,30 @@ sections:
           label: companies in 4Geeks employer network
         right_bullets:
           - icon: IconUserPlus
-            text: Direct referrals
+            text: Direct referrals to hiring partners
+          - icon: IconTargetArrow
+            text: Curated job matches based on your profile
+          - icon: IconMessageChatbot
+            text: Networking and recruiter conversation coaching
+        right_logos:
+          - image_id: logo_google
+            alt: Google
+          - image_id: logo_meta
+            alt: Meta
+          - image_id: logo_microsoft
+            alt: Microsoft
+          - image_id: logo_uber
+            alt: Uber
+          - image_id: logo_ebay
+            alt: eBay
+          - image_id: logo_kpmg
+            alt: KPMG
+      - tab_label: Proof That Converts
+        layout: text_and_image
+        title: Projects that Demonstrate Real Skill.
+        left_description: |-
+          Visibility gets attention. Proof closes the gap.
+          Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves rea
     section_id: career_support_explain-w18hgq
   - type: numbered_steps
     section_id: numbered_steps-howitworks
