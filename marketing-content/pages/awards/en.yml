@@ -28,8 +28,8 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: lg none
-  - type: press_mentions
-    section_id: press_mentions-bpkhdr
+  - type: list_press_mentions
+    section_id: list_ress_mentions-bpkhdr
     version: v1.0
     title: Our Awards
     subtitle: Globally recognized for excellence in tech education

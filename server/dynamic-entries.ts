@@ -134,7 +134,7 @@ export async function resolveDynamicEntries(
         items = await databaseManager.fetchMappedItems(contentType);
       } else if (dynamicEntries.database) {
         const rawItems = await databaseManager.fetchItems(dynamicEntries.database);
-        items = rawItems as Record<string, unknown>[];
+        items = rawItems.items as Record<string, unknown>[];
       } else {
         items = [];
       }

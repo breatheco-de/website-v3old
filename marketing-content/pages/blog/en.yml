@@ -12,8 +12,8 @@ schema:
     - organization
     - website
 sections:
-  - type: listing_cards
-    section_id: listing_cards-nuobzr
+  - type: list_cards
+    section_id: list_cards-nuobzr
     title: Blog
     sub_heading: Articles, tutorials and news about coding and technology
     layout:
@@ -21,9 +21,6 @@ sections:
     search:
       enabled: true
       placeholder: Search articles...
-    category_filter:
-      enabled: true
-      all_label: All
     pagination:
       page_size: 12
       page_label: Page
@@ -33,6 +30,10 @@ sections:
     dynamic_entries:
       content_type: blog
       sort: "-published_at"
+      user_filters:
+        - item_property_slug: badge
+          component_renderer: tags
+          all_label: All
       item_template:
         image: {{ single.image }}
         title: {{ single.title }}

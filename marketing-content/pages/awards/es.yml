@@ -27,8 +27,8 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: lg none
-  - type: press_mentions
-    section_id: press_mentions-xqo4gb
+  - type: list_press_mentions
+    section_id: list_press_mentions-xqo4gb
     version: v1.0
     title: Nuestros premios
     subtitle: Reconocidos globalmente por excelencia en educación tecnológica

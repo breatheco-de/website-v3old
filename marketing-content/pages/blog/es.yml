@@ -12,8 +12,8 @@ schema:
     - organization
     - website
 sections:
-  - type: listing_cards
-    section_id: listing_cards-vj452p
+  - type: list_cards
+    section_id: list_cards-vj452p
     title: Blog
     sub_heading: Artículos, tutoriales y noticias sobre programación y tecnología
     layout:
@@ -21,9 +21,6 @@ sections:
     search:
       enabled: true
       placeholder: Buscar artículos...
-    category_filter:
-      enabled: true
-      all_label: Todos
     pagination:
       page_size: 12
       page_label: Página
@@ -33,6 +30,10 @@ sections:
     dynamic_entries:
       content_type: blog
       sort: "-published_at"
+      user_filters:
+        - item_property_slug: badge
+          component_renderer: tags
+          all_label: Todos
       item_template:
         image: {{ single.image }}
         title: {{ single.title }}
