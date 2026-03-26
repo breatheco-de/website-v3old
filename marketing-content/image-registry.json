@@ -6125,6 +6125,18 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_26_00-PM-960w.webp"
         }
       ]
+    },
+    "chatgpt-image-mar-26-2026-04-28-27-pm": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png",
+      "alt": "Image: ChatGPT Image Mar 26, 2026, 04_28_27 PM",
+      "focal_point": "center",
+      "tags": [
+        "avatar",
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "hash": "ad8e9373e98cec7ddbee5d9c0c0610e0eda2b4a1ae41b0e4325ebb8af5698dbd"
     }
   }
 }
