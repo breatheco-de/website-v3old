@@ -1664,6 +1664,72 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Returns sections for a given page path — used by LinkPicker's Section/Modal tabs
+  // when a contextPath is set (e.g. in per-page CTA override rows)
+  app.get("/api/page-sections", async (req, res) => {
+    try {
+      const pagePath = req.query.path as string;
+      const locale = (req.query.locale as string) || "en";
+
+      if (!pagePath) {
+        res.status(400).json({ error: "Missing path query parameter", sections: [] });
+        return;
+      }
+
+      const service = getValidationService();
+      let context = service.getContext();
+      if (!context) {
+        context = await service.buildContext();
+      }
+
+      const matchingFiles = (context.contentFiles as any[]).filter(
+        (f: any) => getCanonicalUrl(f) === pagePath,
+      );
+
+      const file =
+        matchingFiles.find((f: any) => f.locale === locale) ||
+        matchingFiles.find((f: any) => f.locale !== "_common") ||
+        matchingFiles[0] ||
+        null;
+
+      if (!file) {
+        res.json({ sections: [] });
+        return;
+      }
+
+      let rawData: Record<string, unknown> = {};
+      try {
+        const commonPath = path.join(path.dirname(file.filePath), "_common.yml");
+        if (fs.existsSync(commonPath)) {
+          const commonData =
+            (safeYamlLoad(fs.readFileSync(commonPath, "utf-8")) as Record<string, unknown>) || {};
+          rawData = { ...commonData };
+        }
+        if (fs.existsSync(file.filePath)) {
+          const localeData =
+            (safeYamlLoad(fs.readFileSync(file.filePath, "utf-8")) as Record<string, unknown>) || {};
+          rawData = { ...rawData, ...localeData };
+        }
+      } catch {}
+
+      const rawSections = (rawData.sections as any[]) || [];
+      const sections = rawSections
+        .filter((s: any) => s?.type)
+        .map((s: any, index: number) => ({
+          type: s.type as string,
+          section_id: (s.section_id as string) || null,
+          label:
+            (s.title as string) ||
+            (s.heading as string) ||
+            `${s.type} (section ${index + 1})`,
+        }));
+
+      res.json({ sections });
+    } catch (e) {
+      res.status(500).json({ error: String(e), sections: [] });
+    }
+  });
+
   // ============================================================================
   // Blog API routes
   // ============================================================================

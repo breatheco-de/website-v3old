@@ -33,6 +33,12 @@ interface SectionOption {
   type: string;
 }
 
+interface RemoteSection {
+  type: string;
+  section_id: string | null;
+  label: string;
+}
+
 function extractPath(url: string): string {
   try {
     const parsed = new URL(url);
@@ -89,23 +95,61 @@ function extractSectionsFromYaml(allSections?: Section[]): { modals: SectionOpti
   return { modals, scrollSections };
 }
 
+function extractSectionsFromRemote(remoteSections: RemoteSection[]): { modals: SectionOption[]; scrollSections: SectionOption[] } {
+  const modals: SectionOption[] = [];
+  const scrollSections: SectionOption[] = [
+    { id: "top", label: "Top of page", type: "built-in" },
+    { id: "bottom", label: "Bottom of page", type: "built-in" },
+  ];
+
+  remoteSections.forEach((s, index) => {
+    if (s.type === "modal") {
+      if (s.section_id) {
+        modals.push({ id: s.section_id, label: s.label, type: s.type });
+      }
+    } else {
+      const id = s.section_id || `${s.type}-${index}`;
+      scrollSections.push({ id, label: s.label, type: s.type });
+    }
+  });
+
+  return { modals, scrollSections };
+}
+
 interface LinkPickerProps {
   value: string;
   onChange: (value: string) => void;
   locale?: string;
   allSections?: Section[];
+  contextPath?: string;
   testId?: string;
   portalContainer?: HTMLElement | null;
 }
 
-export function LinkPicker({ value, onChange, locale = "en", allSections, testId = "link-picker", portalContainer }: LinkPickerProps) {
-  const { modals, scrollSections } = useMemo(() => extractSectionsFromYaml(allSections), [allSections]);
-
+export function LinkPicker({ value, onChange, locale = "en", allSections, contextPath, testId = "link-picker", portalContainer }: LinkPickerProps) {
   const [open, setOpen] = useState(false);
-  const [activeType, setActiveType] = useState<LinkType>(() => detectLinkType(value, modals, scrollSections));
   const [searchQuery, setSearchQuery] = useState("");
   const [customUrl, setCustomUrl] = useState(value || "");
   const [customError, setCustomError] = useState("");
+
+  const { data: remoteSectionsData, isLoading: remoteSectionsLoading } = useQuery<{ sections: RemoteSection[] }>({
+    queryKey: ["/api/page-sections", contextPath, locale],
+    queryFn: async () => {
+      const response = await fetch(`/api/page-sections?path=${encodeURIComponent(contextPath!)}&locale=${locale}`);
+      if (!response.ok) throw new Error("Failed to load page sections");
+      return response.json();
+    },
+    enabled: !!contextPath && open,
+  });
+
+  const { modals, scrollSections } = useMemo(() => {
+    if (contextPath && remoteSectionsData) {
+      return extractSectionsFromRemote(remoteSectionsData.sections);
+    }
+    return extractSectionsFromYaml(allSections);
+  }, [contextPath, remoteSectionsData, allSections]);
+
+  const [activeType, setActiveType] = useState<LinkType>(() => detectLinkType(value, modals, scrollSections));
 
   useEffect(() => {
     setCustomUrl(value || "");
@@ -185,6 +229,8 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, testId
       : IconLink;
 
   const DisplayIconComponent = displayIcon;
+
+  const sectionsLoading = !!contextPath && remoteSectionsLoading;
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -329,13 +375,15 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, testId
 
         {activeType === "modal" && (
           <ScrollArea className="h-[200px]">
-            {modals.length === 0 ? (
+            {sectionsLoading ? (
+              <div className="p-4 text-sm text-muted-foreground text-center">Loading sections...</div>
+            ) : modals.length === 0 ? (
               <div className="p-4 space-y-3">
                 <p className="text-sm font-medium text-foreground text-center">No modals on this page</p>
                 <p className="text-xs text-muted-foreground">
                   Modal links open a popup overlay when clicked. To add a modal, add a section with <code className="bg-muted px-1 py-0.5 rounded text-xs">type: modal</code> in your page YAML or using the manual editor with "Edit Mode". It will then appear here for selection.
                 </p>
-                <img src={addSectionImg} alt="Use the Add button between sections to insert a new modal section" className="w-full rounded border" />
+                {!contextPath && <img src={addSectionImg} alt="Use the Add button between sections to insert a new modal section" className="w-full rounded border" />}
               </div>
             ) : (
               <div className="p-1">
@@ -369,7 +417,9 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, testId
 
         {activeType === "scroll" && (
           <ScrollArea className="h-[200px]">
-            {scrollSections.length === 0 ? (
+            {sectionsLoading ? (
+              <div className="p-4 text-sm text-muted-foreground text-center">Loading sections...</div>
+            ) : scrollSections.length === 0 ? (
               <div className="p-4 space-y-2">
                 <p className="text-sm font-medium text-foreground text-center">No sections available</p>
                 <p className="text-xs text-muted-foreground">

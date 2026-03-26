@@ -996,6 +996,7 @@ function SortableMarqueeMessageRow({
                     onUpdate({ cta_url_overrides: newOverrides });
                   }}
                   locale={locale}
+                  contextPath={path || undefined}
                   testId={`override-url-${index}-${i}`}
                 />
                 <Button
