@@ -2131,7 +2131,8 @@ function FieldMappingEditor({
                     disabled={!hintDialogNewOption.trim() || hintDialogOptions.includes(hintDialogNewOption.trim())}
                     data-testid="button-add-hint-option"
                   >
-                    <IconPlus className="h-3.5 w-3.5" />
+                    <IconPlus className="h-3.5 w-3.5 mr-1" />
+                    Add
                   </Button>
                 </div>
                 {hintDialogOptions.length > 0 && (
@@ -2162,7 +2163,6 @@ function FieldMappingEditor({
               variant="ghost"
               size="sm"
               onClick={() => setHintDialogField(null)}
-              disabled={hintDialogSaving}
               data-testid="button-cancel-hint"
             >
               Cancel
@@ -2170,14 +2170,9 @@ function FieldMappingEditor({
             <Button
               size="sm"
               onClick={saveHintDialog}
-              disabled={hintDialogSaving}
               data-testid="button-save-hint"
             >
-              {hintDialogSaving ? (
-                <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
-              ) : (
-                <IconCheck className="h-3.5 w-3.5 mr-1" />
-              )}
+              <IconCheck className="h-3.5 w-3.5 mr-1" />
               Apply
             </Button>
           </DialogFooter>
