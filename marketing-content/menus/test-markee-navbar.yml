@@ -1,0 +1,6 @@
+navbar:
+  items: []
+  marquee:
+    enabled: true
+    texts:
+      - text: 4Geeks, Harvard Oxford y Columbia se unen para educar en Inteligencia Artificial en las Bahamas
