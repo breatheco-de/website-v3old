@@ -960,11 +960,11 @@ export const listCardsSectionSchema = z.object({
     sort: z.string().optional(),
     item_template: z.record(z.string(), z.unknown()).optional(),
     hardcoded_entries: z.array(z.unknown()).optional(),
+    permanent_filters: z.array(permanentFilterSchema).optional(),
+    user_filters: z.array(userFilterSchema).optional(),
   }).optional(),
   item_template: z.record(z.string(), z.unknown()).optional(),
   hardcoded_entries: z.array(z.unknown()).optional(),
-  permanent_filters: z.array(permanentFilterSchema).optional(),
-  user_filters: z.array(userFilterSchema).optional(),
   _dynamic_meta: z.object({
     content_type: z.string().optional(),
     total: z.number().optional(),

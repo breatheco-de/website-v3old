@@ -33,7 +33,6 @@ export const listPressMentionsSectionSchema = z.object({
   columns: z.number().optional(),
   items: z.array(pressMentionItemSchema).optional(),
   background: z.string().optional(),
-  permanent_filters: z.array(permanentFilterSchema).optional(),
   dynamic_entries: z.object({
     database: z.string().optional(),
     content_type: z.string().optional(),
@@ -41,6 +40,7 @@ export const listPressMentionsSectionSchema = z.object({
     sort: z.string().optional(),
     item_template: z.record(z.string(), z.unknown()).optional(),
     hardcoded_entries: z.array(z.unknown()).optional(),
+    permanent_filters: z.array(permanentFilterSchema).optional(),
   }).optional(),
   _dynamic_meta: z.object({
     content_type: z.string().optional(),

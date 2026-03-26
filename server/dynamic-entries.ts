@@ -83,11 +83,25 @@ function sortItems(items: Record<string, unknown>[], sortField: string): Record<
   });
 }
 
+interface PermanentFilter {
+  item_property_slug: string;
+  value: unknown;
+}
+
+interface UserFilter {
+  item_property_slug: string;
+  component_renderer: string;
+  default_value?: unknown;
+  all_label?: string;
+}
+
 interface DynamicEntriesConfig {
   content_type?: string;
   database?: string;
   limit?: number;
   sort?: string;
+  permanent_filters?: PermanentFilter[];
+  user_filters?: UserFilter[];
 }
 
 export async function resolveDynamicEntries(
@@ -137,7 +151,7 @@ export async function resolveDynamicEntries(
         });
       }
 
-      const permanentFilters = sec.permanent_filters as Array<{ item_property_slug: string; value: unknown }> | undefined;
+      const permanentFilters = dynamicEntries.permanent_filters;
       if (permanentFilters && Array.isArray(permanentFilters) && permanentFilters.length > 0) {
         for (const pf of permanentFilters) {
           items = items.filter(item => {

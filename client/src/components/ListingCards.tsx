@@ -55,9 +55,16 @@ interface ListingCardsData {
     items_label?: string;
     empty_text?: string;
   };
-  permanent_filters?: PermanentFilter[];
-  user_filters?: UserFilter[];
-  dynamic_entries?: Record<string, unknown>;
+  dynamic_entries?: {
+    content_type?: string;
+    database?: string;
+    limit?: number;
+    sort?: string;
+    item_template?: Record<string, unknown>;
+    hardcoded_entries?: unknown[];
+    permanent_filters?: PermanentFilter[];
+    user_filters?: UserFilter[];
+  };
   columns?: number;
   show_search?: boolean;
   show_category_filter?: boolean;
@@ -133,7 +140,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
   const ofLabel = data.pagination?.of_label ?? data.of_label ?? "of";
   const itemsLabel = data.pagination?.items_label ?? data.items_label ?? "items";
 
-  const userFilters = data.user_filters || [];
+  const userFilters = data.dynamic_entries?.user_filters || [];
 
   const [userFilterValues, setUserFilterValues] = useState<Record<string, string>>(() => {
     const init: Record<string, string> = {};

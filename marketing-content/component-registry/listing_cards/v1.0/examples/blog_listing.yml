@@ -1,4 +1,4 @@
-- type: listing_cards
+- type: list_cards
   title: "Blog"
   sub_heading: "Articles, tutorials and news about coding and technology"
   layout:
@@ -6,9 +6,6 @@
   search:
     enabled: true
     placeholder: "Search articles..."
-  category_filter:
-    enabled: true
-    all_label: "All"
   pagination:
     page_size: 12
     page_label: "Page"
@@ -18,6 +15,13 @@
   dynamic_entries:
     content_type: blog
     sort: "-published_at"
+    permanent_filters:
+      - item_property_slug: locale
+        value: en
+    user_filters:
+      - item_property_slug: category
+        component_renderer: tags
+        all_label: "All categories"
     item_template:
       image: "{{ single.image }}"
       title: "{{ single.title }}"
