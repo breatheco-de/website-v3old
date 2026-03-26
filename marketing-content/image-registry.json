@@ -5849,6 +5849,17 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Gemini_Generated_Image_wpk4yvwpk4yvwpk4-1280w.webp"
         }
       ]
+    },
+    "gemini-generated-image-pd2u4upd2u4upd2u": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Gemini_Generated_Image_pd2u4upd2u4upd2u.png",
+      "alt": "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "hash": "ffaee62b6b8614b7f2559cc860e3d0e19e4e501d45c677e9d9c9071b28cc6816"
     }
   }
 }
