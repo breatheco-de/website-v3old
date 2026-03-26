@@ -139,9 +139,9 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_26_00-PM.png
         alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
         id: chatgpt-image-mar-26-2026-04-26-00-pm
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/043521d2c9936a67a5c9e3728c3436d2d7d765bc899573fa0074243eeec15c1a.jpg
-        alt: "Image: 043521d2c9936a67a5c9e3728c3436d2d7d765bc899573fa0074243eeec15c1a"
-        id: 043521d2c9936a67a5c9e3728c3436d2d7d765bc899573fa0074243eeec15c1a
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina_brightened.png
+        alt: "Image: valentina_brightened"
+        id: valentina-brightened
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
         alt: Graduate celebrating success
     highlight:
@@ -183,7 +183,7 @@ sections:
       desktop: none xl
   - type: career_support_explain
     version: v1.0
-    heading: How we get you hired. Every step, covered.
+    heading: How We Get You Hired. Every Step, Covered.
     description: A complete system that takes you from enrolled to employed. AI-optimized profiles, direct access to 400+ hiring partners, and hands-on support from your first day to your signed offer letter, and beyond.
     background: hsl(var(--sidebar-background))
     tabs:
