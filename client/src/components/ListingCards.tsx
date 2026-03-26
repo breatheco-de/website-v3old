@@ -44,10 +44,6 @@ interface ListingCardsData {
     enabled?: boolean;
     placeholder?: string;
   };
-  category_filter?: {
-    enabled?: boolean;
-    all_label?: string;
-  };
   pagination?: {
     page_size?: number;
     page_label?: string;
@@ -67,10 +63,8 @@ interface ListingCardsData {
   };
   columns?: number;
   show_search?: boolean;
-  show_category_filter?: boolean;
   page_size?: number;
   search_placeholder?: string;
-  all_label?: string;
   empty_text?: string;
   page_label?: string;
   of_label?: string;
@@ -133,8 +127,6 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
   const perPage = data.pagination?.page_size ?? data.page_size ?? 0;
   const showSearch = data.search?.enabled ?? data.show_search ?? false;
   const searchPlaceholder = data.search?.placeholder ?? data.search_placeholder ?? "Search...";
-  const showCategoryFilter = data.category_filter?.enabled ?? data.show_category_filter ?? false;
-  const allLabel = data.category_filter?.all_label ?? data.all_label ?? "All";
   const emptyText = data.pagination?.empty_text ?? data.empty_text ?? "No items found.";
   const pageLabel = data.pagination?.page_label ?? data.page_label ?? "Page";
   const ofLabel = data.pagination?.of_label ?? data.of_label ?? "of";
@@ -152,7 +144,6 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
 
   const params = new URLSearchParams(searchString);
   const currentPage = Math.max(1, parseInt(params.get("page") || "1", 10));
-  const activeCategory = params.get("category") || "";
   const [searchQuery, setSearchQuery] = useState("");
 
   const userFilterOptions = useMemo(() => {
@@ -185,37 +176,15 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
     );
   }, [items, userFilters, userFilterValues]);
 
-  const categories = useMemo(() => {
-    if (!showCategoryFilter) return [];
-    const cats = new Set<string>();
-    for (const item of userFiltered) {
-      const badge = typeof item.badge === "string" ? item.badge :
-        (item.badge && typeof item.badge === "object" && "slug" in (item.badge as any))
-          ? (item.badge as any).slug : "";
-      if (badge) cats.add(badge);
-    }
-    return Array.from(cats).sort();
-  }, [userFiltered, showCategoryFilter]);
-
-  const filteredByCategory = useMemo(() => {
-    if (!activeCategory) return userFiltered;
-    return userFiltered.filter(item => {
-      const badge = typeof item.badge === "string" ? item.badge :
-        (item.badge && typeof item.badge === "object" && "slug" in (item.badge as any))
-          ? (item.badge as any).slug : "";
-      return badge === activeCategory;
-    });
-  }, [userFiltered, activeCategory]);
-
   const filteredBySearch = useMemo(() => {
-    if (!searchQuery.trim()) return filteredByCategory;
+    if (!searchQuery.trim()) return userFiltered;
     const query = searchQuery.toLowerCase();
-    return filteredByCategory.filter(item =>
+    return userFiltered.filter(item =>
       (item.title || "").toLowerCase().includes(query) ||
       (item.description || "").toLowerCase().includes(query) ||
       (typeof item.badge === "string" ? item.badge : "").toLowerCase().includes(query)
     );
-  }, [filteredByCategory, searchQuery]);
+  }, [userFiltered, searchQuery]);
 
   const totalItems = filteredBySearch.length;
   const totalPages = perPage > 0 ? Math.ceil(totalItems / perPage) : 1;
@@ -224,23 +193,17 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
     : filteredBySearch;
 
   const buildPageUrl = useCallback(
-    (page: number, category?: string) => {
+    (page: number) => {
       const p = new URLSearchParams();
       if (page > 1) p.set("page", String(page));
-      if (category) p.set("category", category);
       const qs = p.toString();
       return `${location.split("?")[0]}${qs ? `?${qs}` : ""}`;
     },
     [location]
   );
 
-  const handleCategoryClick = (cat: string) => {
-    const next = activeCategory === cat ? "" : cat;
-    setLocation(buildPageUrl(1, next || undefined));
-  };
-
   const handlePageChange = (page: number) => {
-    setLocation(buildPageUrl(page, activeCategory || undefined));
+    setLocation(buildPageUrl(page));
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -368,29 +331,6 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
             </div>
           ))}
 
-          {categories.length > 0 && (
-            <div className="flex items-center gap-2 flex-wrap" data-testid="section-category-cloud">
-              <Badge
-                variant={activeCategory === "" ? "default" : "outline"}
-                className="cursor-pointer"
-                onClick={() => handleCategoryClick("")}
-                data-testid="chip-category-all"
-              >
-                {allLabel}
-              </Badge>
-              {categories.map((cat) => (
-                <Badge
-                  key={cat}
-                  variant={activeCategory === cat ? "default" : "outline"}
-                  className="cursor-pointer"
-                  onClick={() => handleCategoryClick(cat)}
-                  data-testid={`chip-category-${cat}`}
-                >
-                  {formatCategoryLabel(cat)}
-                </Badge>
-              ))}
-            </div>
-          )}
         </div>
       )}
 
@@ -494,7 +434,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
             <>
               <nav className="flex items-center justify-center gap-1 mt-10" aria-label="Pagination" data-testid="nav-pagination">
                 <a
-                  href={currentPage > 1 ? buildPageUrl(currentPage - 1, activeCategory || undefined) : undefined}
+                  href={currentPage > 1 ? buildPageUrl(currentPage - 1) : undefined}
                   onClick={(e) => {
                     e.preventDefault();
                     if (currentPage > 1) handlePageChange(currentPage - 1);
@@ -518,7 +458,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
                   ) : (
                     <a
                       key={p}
-                      href={buildPageUrl(p as number, activeCategory || undefined)}
+                      href={buildPageUrl(p as number)}
                       onClick={(e) => {
                         e.preventDefault();
                         handlePageChange(p as number);
@@ -535,7 +475,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
                   )
                 )}
                 <a
-                  href={currentPage < totalPages ? buildPageUrl(currentPage + 1, activeCategory || undefined) : undefined}
+                  href={currentPage < totalPages ? buildPageUrl(currentPage + 1) : undefined}
                   onClick={(e) => {
                     e.preventDefault();
                     if (currentPage < totalPages) handlePageChange(currentPage + 1);

@@ -931,10 +931,6 @@ export const listCardsSectionSchema = z.object({
     enabled: z.boolean().optional(),
     placeholder: z.string().optional(),
   }).optional(),
-  category_filter: z.object({
-    enabled: z.boolean().optional(),
-    all_label: z.string().optional(),
-  }).optional(),
   pagination: z.object({
     page_size: z.number().optional(),
     page_label: z.string().optional(),
@@ -944,7 +940,6 @@ export const listCardsSectionSchema = z.object({
   }).optional(),
   columns: z.number().optional(),
   show_search: z.boolean().optional(),
-  show_category_filter: z.boolean().optional(),
   page_size: z.number().optional(),
   search_placeholder: z.string().optional(),
   all_label: z.string().optional(),
