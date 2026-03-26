@@ -118,7 +118,7 @@ sections:
       text: Mentors and career coaches that are always within reach, an AI tutor, and your personal AI agent. All tailored to you.
       background: primary
       width: 2
-      text_2: "<div><span style=\"font-size: 1.5rem;\"></span></div><span style=\"font-size: 1.5rem;\"><div><span></span></div></span><span style=\"font-size: 1.5rem;\"><span><div><span><br></span></div></span></span><span style=\"font-size: 1.5rem;\">Unlimited 1:1 mentorship with real tech professionals, career coaching, an AI tutor, and your own AI agent. Tailored to you. Yours for life.</span><span style=\"font-size: 1.5rem;\"></span><span style=\"font-size: 1.5rem;\"></span>"
+      text_2: "<div><span style=\"font-size: 1.5rem;\"></span></div><span style=\"font-size: 1.5rem;\"><div><span></span></div></span><span style=\"font-size: 1.5rem;\"><span><div><span><br></span></div></span></span><span style=\"font-size: 1.5rem;\">Unlimited 1:1 mentorship with real tech professionals, career coaching, an AI tutor, and your own AI agent. Tailored to you and yours for life.</span><span style=\"font-size: 1.5rem;\"></span><span style=\"font-size: 1.5rem;\"></span>"
       text_1: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.875rem;\"><b>You bring the commitment. We bring everything else.</b></span></span>"
     height: 31rem
     mobile_height: 24rem
