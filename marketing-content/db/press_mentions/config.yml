@@ -1,0 +1,9 @@
+name: Press Mentions
+description: A list of news that mention us to showcase on the pages
+source:
+  type: local
+  local:
+    filename: press_mentions.yml
+    results_path: press_mentions
+cache:
+  ttl_hours: 24
