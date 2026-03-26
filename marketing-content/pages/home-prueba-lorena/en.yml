@@ -331,38 +331,6 @@ sections:
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
     section_id: awards_marquee-fmat04
-  - type: numbered_steps
-    section_id: numbered_steps-howitworks
-    version: "1.0"
-    variant: bubbleText
-    title: From zero to hired. Here's exactly how it works.
-    description: No guesswork. No vague promises. This is the exact path 4Geeks takes you through — from your first application to your first day at a new job.
-    steps:
-      - icon: Application
-        title: Apply in minutes. Hear back in 48 hours.
-        bullets:
-          - Fill out a short form — no technical test, no prior experience required.
-          - Our admissions team reviews your profile and goals within 48 hours.
-          - A quick conversation to make sure this is the right moment for you.
-      - icon: Learning
-        title: Learn by building real things with AI.
-        bullets:
-          - Live classes, hands-on projects, and an AI-native curriculum updated for 2025.
-          - Unlimited 1-on-1 mentorship from day one — available whenever you need it.
-          - Rigobot, your personal AI tutor, tracks your progress and adapts to your pace.
-      - icon: Career
-        title: Build your professional profile before you graduate.
-        bullets:
-          - LinkedIn optimization, portfolio, CV, and mock interviews — all included.
-          - GeekForce starts working with you weeks before graduation.
-          - You leave with a real product you built, not just a certificate.
-      - icon: Hiring
-        title: We stay with you until you sign your offer.
-        bullets:
-          - Direct access to our hiring partner network from day one.
-          - Dedicated career mentor tracks your job search and keeps it moving.
-          - Lifetime career support — even for your next career move after your first job.
-    background: bg-background
   - type: testimonials_slide
     title: They Were Exactly Where You Are Now.
     description: "Different backgrounds, different programs, one result: a career in tech they didn't think was possible. These are real 4Geeks graduates with real numbers to back it up."
