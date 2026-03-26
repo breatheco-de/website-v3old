@@ -5932,7 +5932,32 @@
         "testimonial"
       ],
       "usage_count": 0,
-      "hash": "8a7a059d4e6db5e79e216c47845cbc79ade14634aab87a14adfcc827180d51c9"
+      "hash": "8a7a059d4e6db5e79e216c47845cbc79ade14634aab87a14adfcc827180d51c9",
+      "width": 1387,
+      "height": 768,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960,
+        1280
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Gemini_Generated_Image_dhko5mdhko5mdhko-1--640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Gemini_Generated_Image_dhko5mdhko5mdhko-1--960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Gemini_Generated_Image_dhko5mdhko5mdhko-1--1280w.webp"
+        }
+      ]
     }
   }
 }
