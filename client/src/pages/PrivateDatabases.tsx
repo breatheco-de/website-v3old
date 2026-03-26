@@ -2360,6 +2360,7 @@ function ItemEditModal({
           const COLLAPSE_THRESHOLD = 8;
           const isExpanded = !!expandedTagFields[key];
           const visibleOptions = isExpanded ? options : options.slice(0, COLLAPSE_THRESHOLD);
+          const customTags = tags.filter((t) => !options.includes(t));
           const toggle = (opt: string) => {
             if (tags.includes(opt)) {
               setValue(key, tags.filter((t) => t !== opt));
@@ -2400,11 +2401,27 @@ function ItemEditModal({
                     className="inline-flex"
                   >
                     <Badge variant="outline" className="text-muted-foreground">
-                      {isExpanded ? "Show less" : `+${options.length - COLLAPSE_THRESHOLD} more`}
+                      {isExpanded ? "Show less" : `Show all (${options.length})`}
                     </Badge>
                   </button>
                 )}
               </div>
+              {customTags.length > 0 && (
+                <div className="flex flex-wrap gap-1.5">
+                  {customTags.map((tag, ti) => (
+                    <Badge key={ti} variant="secondary" className="gap-1">
+                      {tag}
+                      <button
+                        type="button"
+                        onClick={() => setValue(key, tags.filter((t) => t !== tag))}
+                        data-testid={`button-remove-custom-tag-${key}-${ti}`}
+                      >
+                        <IconX className="h-3 w-3" />
+                      </button>
+                    </Badge>
+                  ))}
+                </div>
+              )}
               {editorConfig?.populate_options && (
                 <div className="flex gap-2">
                   <Input
