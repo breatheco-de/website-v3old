@@ -44,9 +44,8 @@ export function HeroSingleColumn({ data }: HeroSingleColumnProps) {
         <h1 
           className="text-4xl md:text-h1 mb-6 text-foreground"
           data-testid="text-hero-title"
-        >
-          {data.title}
-        </h1>
+          dangerouslySetInnerHTML={{ __html: data.title || "" }}
+        />
         
         {data.subtitle && (
           <RichTextContent 

@@ -43,6 +43,7 @@ export const fieldEditors: Record<string, EditorType> = {
   "showcase:cta_button.icon": "icon-picker",
   "simpleTwoColumn:image": "image-with-style-picker",
   "simpleTwoColumn:subtitle": "rich-text-editor",
+  "singleColumn:title": "rich-text-editor",
   "singleColumn:subtitle": "rich-text-editor",
   "singleColumn:image.src": "image-picker",
   "singleColumn:cta_buttons[]": "cta-picker",
