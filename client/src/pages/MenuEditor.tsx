@@ -840,8 +840,8 @@ function SortableMarqueeMessageRow({
     opacity: isDragging ? 0.5 : 1,
   };
 
-  const [ctaExpanded, setCtaExpanded] = useState(false);
-  const [iconExpanded, setIconExpanded] = useState(false);
+  const hasDetails = !!(msg.icon || msg.cta_label || msg.cta_url || (msg.cta_url_overrides && Object.keys(msg.cta_url_overrides).length > 0));
+  const [expanded, setExpanded] = useState(hasDetails);
   const [iconPickerOpen, setIconPickerOpen] = useState(false);
 
   const overrideEntries = Object.entries(msg.cta_url_overrides ?? {});
@@ -875,22 +875,12 @@ function SortableMarqueeMessageRow({
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => setIconExpanded(v => !v)}
-          title="Icon"
-          className={iconExpanded || msg.icon ? "text-primary" : "text-muted-foreground"}
-          data-testid={`button-marquee-msg-icon-toggle-${index}`}
+          onClick={() => setExpanded(v => !v)}
+          title={expanded ? "Collapse" : "Expand options"}
+          className="text-muted-foreground"
+          data-testid={`button-marquee-msg-expand-${index}`}
         >
-          <MsgIcon className="h-3.5 w-3.5" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setCtaExpanded(v => !v)}
-          title="CTA settings"
-          className={ctaExpanded || msg.cta_label ? "text-primary" : "text-muted-foreground"}
-          data-testid={`button-marquee-msg-cta-toggle-${index}`}
-        >
-          <IconExternalLink className="h-3.5 w-3.5" />
+          <IconChevronDown className={cn("h-3.5 w-3.5 transition-transform", expanded && "rotate-180")} />
         </Button>
         <Button
           variant="ghost"
@@ -903,7 +893,7 @@ function SortableMarqueeMessageRow({
         </Button>
       </div>
 
-      {(iconExpanded || msg.icon) && (
+      {expanded && (
         <div className="pl-6 space-y-1">
           <Label className="text-xs text-muted-foreground">Icon</Label>
           <div className="flex items-center gap-2">
@@ -940,7 +930,7 @@ function SortableMarqueeMessageRow({
         </div>
       )}
 
-      {(ctaExpanded || msg.cta_label || msg.cta_url) && (
+      {expanded && (
         <div className="pl-6 space-y-2">
           <div className="space-y-1">
             <Label className="text-xs text-muted-foreground">CTA label (typed after message)</Label>
