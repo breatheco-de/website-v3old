@@ -6094,6 +6094,37 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/71fc87f348c18a6a2ef6d8d063ec102d9baf16502802632ed3b3dd2282f7191b-1920w.webp"
         }
       ]
+    },
+    "chatgpt-image-mar-26-2026-04-26-00-pm": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_26_00-PM.png",
+      "alt": "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM",
+      "focal_point": "center",
+      "tags": [
+        "team",
+        "photo"
+      ],
+      "usage_count": 0,
+      "hash": "15cc4baa3e89a9a495fbc21728962bc5d25d439a40d2c0c4bdbf8c7bb847e1ab",
+      "width": 1024,
+      "height": 1536,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_26_00-PM-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_26_00-PM-960w.webp"
+        }
+      ]
     }
   }
 }
