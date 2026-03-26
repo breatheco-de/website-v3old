@@ -5859,7 +5859,32 @@
         "team"
       ],
       "usage_count": 0,
-      "hash": "ffaee62b6b8614b7f2559cc860e3d0e19e4e501d45c677e9d9c9071b28cc6816"
+      "hash": "ffaee62b6b8614b7f2559cc860e3d0e19e4e501d45c677e9d9c9071b28cc6816",
+      "width": 1387,
+      "height": 768,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960,
+        1280
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Gemini_Generated_Image_pd2u4upd2u4upd2u-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Gemini_Generated_Image_pd2u4upd2u4upd2u-960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Gemini_Generated_Image_pd2u4upd2u4upd2u-1280w.webp"
+        }
+      ]
     }
   }
 }
