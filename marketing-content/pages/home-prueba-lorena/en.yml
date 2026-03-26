@@ -157,7 +157,7 @@ sections:
     background: hsl(var(--background))
     section_id: image_row-z97kqt
     marginY:
-      desktop: none xl
+      desktop: md xl
     paddingY:
       desktop: none
   - ttype: features_grid
