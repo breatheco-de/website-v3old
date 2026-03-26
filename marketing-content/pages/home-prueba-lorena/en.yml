@@ -360,7 +360,7 @@ sections:
     paddingY:
       desktop: none lg
     marginY:
-      desktop: none lg
+      desktop: lg
   - type: testimonials_slide
     title: They Were Exactly Where You Are Now.
     description: "Different backgrounds, different programs, one result: a career in tech they didn't think was possible. These are real 4Geeks graduates with real numbers to back it up."
