@@ -101,6 +101,8 @@ sections:
         col_span: 6
         row_span: 2
     section_id: graduates_stats-cnxqbb
+    marginY:
+      desktop: none md
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
