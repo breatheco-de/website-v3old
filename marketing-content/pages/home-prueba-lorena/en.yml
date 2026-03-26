@@ -333,15 +333,6 @@ sections:
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
     section_id: awards_marquee-fmat04
-  - type: testimonials_slide
-    title: They Were Exactly Where You Are Now.
-    description: "Different backgrounds, different programs, one result: a career in tech they didn't think was possible. These are real 4Geeks graduates with real numbers to back it up."
-    background: hsl(var(--card))
-    section_id: testimonials_slide-6jlded
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
@@ -383,6 +374,15 @@ sections:
       desktop: none lg
     marginY:
       desktop: none lg
+  - type: testimonials_slide
+    title: They Were Exactly Where You Are Now.
+    description: "Different backgrounds, different programs, one result: a career in tech they didn't think was possible. These are real 4Geeks graduates with real numbers to back it up."
+    background: hsl(var(--card))
+    section_id: testimonials_slide-6jlded
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none
   - type: why_learn_ai
     variant: laptop-edge
     title: Get Hired. Or Your Money Back.
