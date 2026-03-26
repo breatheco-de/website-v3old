@@ -2217,6 +2217,7 @@ function ItemEditModal({
   const { toast } = useToast();
   const [saving, setSaving] = useState(false);
   const [tagInput, setTagInput] = useState<Record<string, string>>({});
+  const [expandedTagFields, setExpandedTagFields] = useState<Record<string, boolean>>({});
 
   const [formData, setFormData] = useState<Record<string, unknown>>(() => {
     if (isNew) {
@@ -2348,7 +2349,17 @@ function ItemEditModal({
         );
       case "tags": {
         const tags = Array.isArray(value) ? (value as string[]) : [];
+        const inputVal = tagInput[key] || "";
+        const addTag = () => {
+          const trimmed = inputVal.trim();
+          if (!trimmed) return;
+          if (!tags.includes(trimmed)) setValue(key, [...tags, trimmed]);
+          setTagInput((prev) => ({ ...prev, [key]: "" }));
+        };
         if (options.length > 0) {
+          const COLLAPSE_THRESHOLD = 8;
+          const isExpanded = !!expandedTagFields[key];
+          const visibleOptions = isExpanded ? options : options.slice(0, COLLAPSE_THRESHOLD);
           const toggle = (opt: string) => {
             if (tags.includes(opt)) {
               setValue(key, tags.filter((t) => t !== opt));
@@ -2357,36 +2368,75 @@ function ItemEditModal({
             }
           };
           return (
-            <div className="flex flex-wrap gap-1.5" data-testid={`tags-${key}`}>
-              {options.map((opt) => {
-                const selected = tags.includes(opt);
-                return (
+            <div className="space-y-2" data-testid={`tags-${key}`}>
+              <div className="flex flex-wrap gap-1.5">
+                {visibleOptions.map((opt) => {
+                  const selected = tags.includes(opt);
+                  return (
+                    <button
+                      key={opt}
+                      type="button"
+                      onClick={() => toggle(opt)}
+                      data-testid={`button-tag-${key}-${opt}`}
+                      className="inline-flex"
+                    >
+                      <Badge
+                        variant={selected ? "default" : "outline"}
+                        className={selected ? "" : "text-muted-foreground"}
+                      >
+                        {selected && <IconCheck className="h-3 w-3 mr-1" />}
+                        {opt}
+                      </Badge>
+                    </button>
+                  );
+                })}
+                {options.length > COLLAPSE_THRESHOLD && (
                   <button
-                    key={opt}
                     type="button"
-                    onClick={() => toggle(opt)}
-                    data-testid={`button-tag-${key}-${opt}`}
+                    onClick={() =>
+                      setExpandedTagFields((prev) => ({ ...prev, [key]: !prev[key] }))
+                    }
+                    data-testid={`button-tag-expand-${key}`}
                     className="inline-flex"
                   >
-                    <Badge
-                      variant={selected ? "default" : "outline"}
-                      className={selected ? "" : "text-muted-foreground"}
-                    >
-                      {selected && <IconCheck className="h-3 w-3 mr-1" />}
-                      {opt}
+                    <Badge variant="outline" className="text-muted-foreground">
+                      {isExpanded ? "Show less" : `+${options.length - COLLAPSE_THRESHOLD} more`}
                     </Badge>
                   </button>
-                );
-              })}
+                )}
+              </div>
+              {editorConfig?.populate_options && (
+                <div className="flex gap-2">
+                  <Input
+                    value={inputVal}
+                    onChange={(e) =>
+                      setTagInput((prev) => ({ ...prev, [key]: e.target.value }))
+                    }
+                    placeholder="Add new tag..."
+                    className="h-8 text-sm flex-1"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        addTag();
+                      }
+                    }}
+                    data-testid={`input-tag-${key}`}
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    disabled={!inputVal.trim()}
+                    onClick={addTag}
+                    data-testid={`button-add-tag-${key}`}
+                  >
+                    <IconPlus className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
+              )}
             </div>
           );
         }
-        const inputVal = tagInput[key] || "";
-        const addTag = () => {
-          if (!inputVal.trim()) return;
-          setValue(key, [...tags, inputVal.trim()]);
-          setTagInput((prev) => ({ ...prev, [key]: "" }));
-        };
         return (
           <div className="space-y-2">
             {tags.length > 0 && (
@@ -2459,14 +2509,23 @@ function ItemEditModal({
           </DialogDescription>
         </DialogHeader>
         <div className="flex-1 overflow-y-auto space-y-4 py-2 pr-1 min-h-0">
-          {fields.map((key) => (
-            <div key={key} className="space-y-1.5">
-              <Label className="text-xs font-medium capitalize">
-                {key.replace(/_/g, " ")}
-              </Label>
-              {renderField(key)}
+          {fields.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-8 text-center gap-2">
+              <p className="text-sm font-medium">No fields configured</p>
+              <p className="text-xs text-muted-foreground max-w-xs">
+                Go to database settings → Field Mappings to add fields before editing items.
+              </p>
             </div>
-          ))}
+          ) : (
+            fields.map((key) => (
+              <div key={key} className="space-y-1.5">
+                <Label className="text-xs font-medium capitalize">
+                  {key.replace(/_/g, " ")}
+                </Label>
+                {renderField(key)}
+              </div>
+            ))
+          )}
         </div>
         <DialogFooter className="flex items-center justify-end gap-2 pt-2 border-t mt-2">
           <Button
@@ -2481,7 +2540,7 @@ function ItemEditModal({
           <Button
             size="sm"
             onClick={handleSave}
-            disabled={saving}
+            disabled={saving || fields.length === 0}
             data-testid="button-save-edit-item"
           >
             {saving ? (
