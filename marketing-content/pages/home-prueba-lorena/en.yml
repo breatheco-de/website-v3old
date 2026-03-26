@@ -242,8 +242,54 @@ sections:
         title: Projects that Demonstrate Real Skill.
         left_description: |-
           Visibility gets attention. Proof closes the gap.
-          Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves rea
-    section_id: career_support_explain-w18hgq
+          Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
+        left_bullets:
+          - icon: IconBriefcase
+            text: Industry-aligned, real-world projects
+          - icon: IconPresentation
+            text: A showcase-ready capstone project
+          - icon: IconBrandGithub
+            text: GitHub optimization and professional code review
+        right_image_id: geekforce_valentina_ancieta
+        right_image_object_fit: cover
+        right_image_object_position: center
+      - tab_label: Your Best-Fit Role
+        layout: text_with_testimonials_carousel
+        title: Turn Your Background into an Advantage.
+        left_description: Your previous experience matters. We map your transferable skills, focus your search on the right roles, and when offers come, help you negotiate with confidence and choose the right one.
+        left_bullets:
+          - icon: IconTransfer
+            text: Transferable skills mapping
+          - icon: IconMap
+            text: Personalized career roadmap
+          - icon: IconCoin
+            text: Salary negotiation coaching
+          - icon: IconUsers
+            text: Ongoing alumni career support
+        testimonials:
+          - image_id: mailinh_tran
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: clark_university
+            description: MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her endeavor.
+            achievement: She launched her own startup, is hiring new tech talent, and coordinates an entire team of developers.
+          - image_id: martin_coimbra
+            image_object_fit: cover
+            image_object_position: center top
+            contributor_logos:
+              - image_id: logo_utec
+            description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
+            achievement: He achieved a 100% salary increase.
+          - image_id: melanie_galaretto
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: logo_utec
+              - image_id: bid_logo
+            description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
+            achievement: She achieved a 100% salary increase.
+    section_id: career_support_explain-xpc3k2
   - type: numbered_steps
     section_id: numbered_steps-howitworks
     version: "1.0"
