@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+const permanentFilterSchema = z.object({
+  item_property_slug: z.string(),
+  value: z.unknown(),
+});
+
 export const pressMentionItemSchema = z.object({
   logo: z.string().optional(),
   logo_height: z.number().optional(),
@@ -11,10 +16,10 @@ export const pressMentionItemSchema = z.object({
   title_color: z.string().optional(),
   excerpt_color: z.string().optional(),
   link_color: z.string().optional(),
-});
+}).passthrough();
 
-export const pressMentionsSectionSchema = z.object({
-  type: z.literal("press_mentions"),
+export const listPressMentionsSectionSchema = z.object({
+  type: z.literal("list_press_mentions"),
   version: z.string().optional(),
   title: z.string().optional(),
   subtitle: z.string().optional(),
@@ -28,7 +33,24 @@ export const pressMentionsSectionSchema = z.object({
   columns: z.number().optional(),
   items: z.array(pressMentionItemSchema).optional(),
   background: z.string().optional(),
+  permanent_filters: z.array(permanentFilterSchema).optional(),
+  dynamic_entries: z.object({
+    database: z.string().optional(),
+    content_type: z.string().optional(),
+    limit: z.number().optional(),
+    sort: z.string().optional(),
+    item_template: z.record(z.string(), z.unknown()).optional(),
+    hardcoded_entries: z.array(z.unknown()).optional(),
+  }).optional(),
+  _dynamic_meta: z.object({
+    content_type: z.string().optional(),
+    total: z.number().optional(),
+    locale: z.string().optional(),
+  }).optional(),
 });
 
 export type PressMentionItem = z.infer<typeof pressMentionItemSchema>;
-export type PressMentionsSection = z.infer<typeof pressMentionsSectionSchema>;
+export type ListPressMentionsSection = z.infer<typeof listPressMentionsSectionSchema>;
+
+export { listPressMentionsSectionSchema as pressMentionsSectionSchema };
+export type { ListPressMentionsSection as PressMentionsSection };

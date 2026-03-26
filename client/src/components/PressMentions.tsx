@@ -1,8 +1,8 @@
-import type { PressMentionsSection as PressMentionsSectionType } from "@shared/schema";
+import type { ListPressMentionsSection } from "@shared/schema";
 import { UniversalImage } from "@/components/UniversalImage";
 
 interface PressMentionsProps {
-  data: PressMentionsSectionType;
+  data: ListPressMentionsSection;
 }
 
 export function PressMentions({ data }: PressMentionsProps) {

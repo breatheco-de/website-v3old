@@ -1,5 +1,5 @@
-name: listing_cards
-description: A generic card grid for listing content entries with optional search, category filtering, and pagination. Supports dynamic entries from content types or databases.
+name: list_cards
+description: A generic card grid for listing content entries with optional search, user-driven filtering, and pagination. Supports dynamic entries from content types or databases.
 
 variants:
   - name: default

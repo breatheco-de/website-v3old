@@ -113,7 +113,7 @@ const componentIconMap: Record<string, typeof IconComponents> = {
   apply_form: IconFile,
   banner: IconRocket,
   article: IconBook,
-  press_mentions: IconMessage,
+  list_press_mentions: IconMessage,
   split_cards: IconLayoutColumns,
   course_selector: IconBook,
   sticky_cta: IconArrowRight,

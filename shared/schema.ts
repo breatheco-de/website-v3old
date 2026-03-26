@@ -736,8 +736,9 @@ import { applyFormSectionSchema } from "../marketing-content/component-registry/
 import { awardBadgesSectionSchema } from "../marketing-content/component-registry/award_badges/v1.0/schema";
 import { awardsMarqueeSectionSchema, type AwardsMarqueeSection, type AwardsMarqueeItem } from "../marketing-content/component-registry/awards_marquee/v1.0/schema";
 export { awardsMarqueeSectionSchema, type AwardsMarqueeSection, type AwardsMarqueeItem };
-import { pressMentionsSectionSchema, type PressMentionsSection, type PressMentionItem } from "../marketing-content/component-registry/press_mentions/v1.0/schema";
-export { pressMentionsSectionSchema, type PressMentionsSection, type PressMentionItem };
+import { listPressMentionsSectionSchema, type ListPressMentionsSection, type PressMentionItem, pressMentionsSectionSchema, type PressMentionsSection } from "../marketing-content/component-registry/press_mentions/v1.0/schema";
+export { listPressMentionsSectionSchema, type ListPressMentionsSection, type PressMentionItem };
+export { pressMentionsSectionSchema, type PressMentionsSection };
 import { valueProofPanelSectionSchema } from "../marketing-content/component-registry/value_proof_panel/v1.0/schema";
 import { stickyCtaSectionSchema } from "../marketing-content/component-registry/sticky_cta/v1.0/schema";
 export { stickyCtaSectionSchema, type StickyCtaSection } from "../marketing-content/component-registry/sticky_cta/v1.0/schema";
@@ -892,6 +893,21 @@ export type FaqEditorSection = z.infer<typeof faqEditorSectionSchema>;
 // ============================================
 // Listing Cards Section
 // ============================================
+export const permanentFilterSchema = z.object({
+  item_property_slug: z.string(),
+  value: z.unknown(),
+});
+
+export const userFilterSchema = z.object({
+  item_property_slug: z.string(),
+  component_renderer: z.enum(["text-input", "dropdown", "tags"]),
+  default_value: z.unknown().optional(),
+  all_label: z.string().optional(),
+});
+
+export type PermanentFilter = z.infer<typeof permanentFilterSchema>;
+export type UserFilter = z.infer<typeof userFilterSchema>;
+
 const listingCardItemSchema = z.object({
   image: z.string().optional(),
   title: z.string().optional(),
@@ -903,8 +919,8 @@ const listingCardItemSchema = z.object({
   cta_text: z.string().optional(),
 }).passthrough();
 
-export const listingCardsSectionSchema = z.object({
-  type: z.literal("listing_cards"),
+export const listCardsSectionSchema = z.object({
+  type: z.literal("list_cards"),
   version: z.string().optional(),
   title: z.string().optional(),
   sub_heading: z.string().optional(),
@@ -940,7 +956,6 @@ export const listingCardsSectionSchema = z.object({
   dynamic_entries: z.object({
     content_type: z.string().optional(),
     database: z.string().optional(),
-    filter: z.record(z.string(), z.unknown()).optional(),
     limit: z.number().optional(),
     sort: z.string().optional(),
     item_template: z.record(z.string(), z.unknown()).optional(),
@@ -948,6 +963,8 @@ export const listingCardsSectionSchema = z.object({
   }).optional(),
   item_template: z.record(z.string(), z.unknown()).optional(),
   hardcoded_entries: z.array(z.unknown()).optional(),
+  permanent_filters: z.array(permanentFilterSchema).optional(),
+  user_filters: z.array(userFilterSchema).optional(),
   _dynamic_meta: z.object({
     content_type: z.string().optional(),
     total: z.number().optional(),
@@ -955,7 +972,9 @@ export const listingCardsSectionSchema = z.object({
   }).optional(),
 });
 
-export type ListingCardsSection = z.infer<typeof listingCardsSectionSchema>;
+export type ListCardsSection = z.infer<typeof listCardsSectionSchema>;
+export { listCardsSectionSchema as listingCardsSectionSchema };
+export type { ListCardsSection as ListingCardsSection };
 
 // ============================================
 // Cards Deck Section
@@ -985,7 +1004,7 @@ export type CardsDeckSection = z.infer<typeof cardsDeckSectionSchema>;
 
 // Base section schema union (component-specific fields)
 const baseSectionSchema = z.union([
-  listingCardsSectionSchema,
+  listCardsSectionSchema,
   faqEditorSectionSchema,
   heroSchema,
   featuresGridSchema,
@@ -1019,7 +1038,7 @@ const baseSectionSchema = z.union([
   applyFormSectionSchema,
   awardBadgesSectionSchema,
   awardsMarqueeSectionSchema,
-  pressMentionsSectionSchema,
+  listPressMentionsSectionSchema,
   humanAndAIDuoSectionSchema,
   communitySupportSectionSchema,
   twoColumnAccordionCardSectionSchema,

@@ -86,7 +86,6 @@ function sortItems(items: Record<string, unknown>[], sortField: string): Record<
 interface DynamicEntriesConfig {
   content_type?: string;
   database?: string;
-  filter?: Record<string, unknown>;
   limit?: number;
   sort?: string;
 }
@@ -138,14 +137,15 @@ export async function resolveDynamicEntries(
         });
       }
 
-      if (dynamicEntries.filter && typeof dynamicEntries.filter === "object") {
-        for (const [key, value] of Object.entries(dynamicEntries.filter)) {
+      const permanentFilters = sec.permanent_filters as Array<{ item_property_slug: string; value: unknown }> | undefined;
+      if (permanentFilters && Array.isArray(permanentFilters) && permanentFilters.length > 0) {
+        for (const pf of permanentFilters) {
           items = items.filter(item => {
-            const itemVal = item[key];
+            const itemVal = item[pf.item_property_slug];
             if (itemVal && typeof itemVal === "object" && "slug" in (itemVal as any)) {
-              return (itemVal as any).slug === value;
+              return String((itemVal as any).slug) === String(pf.value);
             }
-            return itemVal === value;
+            return String(itemVal) === String(pf.value);
           });
         }
       }

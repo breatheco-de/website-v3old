@@ -520,7 +520,7 @@ export function renderSection(section: Section, index: number, landingLocations?
       return <Hero key={index} data={section as Parameters<typeof Hero>[0]["data"]} landingLocations={landingLocations} />;
     case "features_grid":
       return <FeaturesGrid key={index} data={section as Parameters<typeof FeaturesGrid>[0]["data"]} />;
-    case "listing_cards":
+    case "list_cards":
       return <ListingCards key={index} data={section as any} />;
     case "stats":
       return <StatsSection key={index} data={section as Parameters<typeof StatsSection>[0]["data"]} />;
@@ -611,7 +611,7 @@ export function renderSection(section: Section, index: number, landingLocations?
       return <TestimonialsGrid data={section as Parameters<typeof TestimonialsGrid>[0]["data"]} />;
     case "dynamic_table":
       return <DynamicTable data={section as Parameters<typeof DynamicTable>[0]["data"]} />;
-    case "press_mentions":
+    case "list_press_mentions":
       return <PressMentions data={section as Parameters<typeof PressMentions>[0]["data"]} />;
     case "programs_list":
       return <ProgramsListSection data={section as Parameters<typeof ProgramsListSection>[0]["data"]} />;

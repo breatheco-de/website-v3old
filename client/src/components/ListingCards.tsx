@@ -5,7 +5,20 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useInternalNav } from "@/hooks/useInternalNav";
+
+interface PermanentFilter {
+  item_property_slug: string;
+  value: unknown;
+}
+
+interface UserFilter {
+  item_property_slug: string;
+  component_renderer: "text-input" | "dropdown" | "tags";
+  default_value?: unknown;
+  all_label?: string;
+}
 
 interface ListingItem {
   image?: string;
@@ -16,6 +29,7 @@ interface ListingItem {
   meta_left?: string;
   meta_right?: string;
   cta_text?: string;
+  [key: string]: unknown;
 }
 
 interface ListingCardsData {
@@ -41,6 +55,8 @@ interface ListingCardsData {
     items_label?: string;
     empty_text?: string;
   };
+  permanent_filters?: PermanentFilter[];
+  user_filters?: UserFilter[];
   dynamic_entries?: Record<string, unknown>;
   columns?: number;
   show_search?: boolean;
@@ -91,6 +107,15 @@ function formatAuthor(value: unknown): string {
   return String(value);
 }
 
+function getFieldStringValue(item: Record<string, unknown>, slug: string): string {
+  const raw = item[slug];
+  if (raw === undefined || raw === null) return "";
+  if (typeof raw === "object" && "slug" in (raw as Record<string, unknown>)) {
+    return String((raw as Record<string, unknown>).slug);
+  }
+  return String(raw);
+}
+
 export default function ListingCards({ data }: { data: ListingCardsData }) {
   const [location, setLocation] = useLocation();
   const searchString = useSearch();
@@ -108,32 +133,72 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
   const ofLabel = data.pagination?.of_label ?? data.of_label ?? "of";
   const itemsLabel = data.pagination?.items_label ?? data.items_label ?? "items";
 
+  const userFilters = data.user_filters || [];
+
+  const [userFilterValues, setUserFilterValues] = useState<Record<string, string>>(() => {
+    const init: Record<string, string> = {};
+    for (const uf of userFilters) {
+      init[uf.item_property_slug] = uf.default_value != null ? String(uf.default_value) : "";
+    }
+    return init;
+  });
+
   const params = new URLSearchParams(searchString);
   const currentPage = Math.max(1, parseInt(params.get("page") || "1", 10));
   const activeCategory = params.get("category") || "";
   const [searchQuery, setSearchQuery] = useState("");
 
+  const userFilterOptions = useMemo(() => {
+    const opts: Record<string, string[]> = {};
+    for (const uf of userFilters) {
+      if (uf.component_renderer === "dropdown" || uf.component_renderer === "tags") {
+        const values = new Set<string>();
+        for (const item of items) {
+          const v = getFieldStringValue(item as Record<string, unknown>, uf.item_property_slug);
+          if (v) values.add(v);
+        }
+        opts[uf.item_property_slug] = Array.from(values).sort();
+      }
+    }
+    return opts;
+  }, [items, userFilters]);
+
+  const userFiltered = useMemo(() => {
+    if (!userFilters.length) return items;
+    return items.filter(item =>
+      userFilters.every(f => {
+        const val = userFilterValues[f.item_property_slug];
+        if (!val) return true;
+        const itemVal = getFieldStringValue(item as Record<string, unknown>, f.item_property_slug);
+        if (f.component_renderer === "text-input") {
+          return itemVal.toLowerCase().includes(val.toLowerCase());
+        }
+        return itemVal === val;
+      })
+    );
+  }, [items, userFilters, userFilterValues]);
+
   const categories = useMemo(() => {
     if (!showCategoryFilter) return [];
     const cats = new Set<string>();
-    for (const item of items) {
+    for (const item of userFiltered) {
       const badge = typeof item.badge === "string" ? item.badge :
         (item.badge && typeof item.badge === "object" && "slug" in (item.badge as any))
           ? (item.badge as any).slug : "";
       if (badge) cats.add(badge);
     }
     return Array.from(cats).sort();
-  }, [items, showCategoryFilter]);
+  }, [userFiltered, showCategoryFilter]);
 
   const filteredByCategory = useMemo(() => {
-    if (!activeCategory) return items;
-    return items.filter(item => {
+    if (!activeCategory) return userFiltered;
+    return userFiltered.filter(item => {
       const badge = typeof item.badge === "string" ? item.badge :
         (item.badge && typeof item.badge === "object" && "slug" in (item.badge as any))
           ? (item.badge as any).slug : "";
       return badge === activeCategory;
     });
-  }, [items, activeCategory]);
+  }, [userFiltered, activeCategory]);
 
   const filteredBySearch = useMemo(() => {
     if (!searchQuery.trim()) return filteredByCategory;
@@ -172,6 +237,10 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const setUserFilter = (slug: string, value: string) => {
+    setUserFilterValues(prev => ({ ...prev, [slug]: value }));
+  };
+
   const pageNumbers = useMemo(() => {
     const pages: (number | "...")[] = [];
     if (totalPages <= 7) {
@@ -200,9 +269,11 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
     return "";
   };
 
+  const hasHeader = data.title || showSearch || categories.length > 0 || userFilters.length > 0;
+
   return (
-    <div data-testid="section-listing-cards">
-      {(data.title || showSearch || categories.length > 0) && (
+    <div data-testid="section-list-cards">
+      {hasHeader && (
         <div className="mb-10">
           {data.title && (
             <h2 className="text-4xl font-bold text-foreground mb-3" data-testid="text-listing-title">
@@ -210,26 +281,85 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
             </h2>
           )}
 
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 flex-wrap">
-            {data.sub_heading && (
-              <p className="text-lg text-muted-foreground" data-testid="text-listing-subtitle">
-                {data.sub_heading}
-              </p>
-            )}
+          {(data.sub_heading || showSearch || userFilters.some(f => f.component_renderer === "text-input") || userFilters.some(f => f.component_renderer === "dropdown")) && (
+            <div className="flex flex-col md:flex-row md:items-center gap-3 mb-4 flex-wrap">
+              {data.sub_heading && (
+                <p className="text-lg text-muted-foreground flex-1" data-testid="text-listing-subtitle">
+                  {data.sub_heading}
+                </p>
+              )}
 
-            {showSearch && (
-              <div className="relative max-w-md md:w-72 shrink-0">
-                <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input
-                  placeholder={searchPlaceholder}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10"
-                  data-testid="input-listing-search"
-                />
-              </div>
-            )}
-          </div>
+              {userFilters.filter(f => f.component_renderer === "text-input").map(uf => (
+                <div key={uf.item_property_slug} className="relative max-w-md md:w-64 shrink-0">
+                  <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    placeholder={uf.all_label || "Search..."}
+                    value={userFilterValues[uf.item_property_slug] || ""}
+                    onChange={e => setUserFilter(uf.item_property_slug, e.target.value)}
+                    className="pl-10"
+                    data-testid={`input-filter-${uf.item_property_slug}`}
+                  />
+                </div>
+              ))}
+
+              {showSearch && (
+                <div className="relative max-w-md md:w-72 shrink-0">
+                  <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    placeholder={searchPlaceholder}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10"
+                    data-testid="input-listing-search"
+                  />
+                </div>
+              )}
+
+              {userFilters.filter(f => f.component_renderer === "dropdown").map(uf => (
+                <Select
+                  key={uf.item_property_slug}
+                  value={userFilterValues[uf.item_property_slug] || ""}
+                  onValueChange={v => setUserFilter(uf.item_property_slug, v === "__all__" ? "" : v)}
+                >
+                  <SelectTrigger className="w-48 shrink-0" data-testid={`select-filter-${uf.item_property_slug}`}>
+                    <SelectValue placeholder={uf.all_label || "All"} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="__all__">{uf.all_label || "All"}</SelectItem>
+                    {(userFilterOptions[uf.item_property_slug] || []).map(v => (
+                      <SelectItem key={v} value={v}>
+                        {formatCategoryLabel(v)}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ))}
+            </div>
+          )}
+
+          {userFilters.filter(f => f.component_renderer === "tags").map(uf => (
+            <div key={uf.item_property_slug} className="flex items-center gap-2 flex-wrap mb-4" data-testid={`section-tag-filter-${uf.item_property_slug}`}>
+              <Badge
+                variant={!userFilterValues[uf.item_property_slug] ? "default" : "outline"}
+                className="cursor-pointer"
+                onClick={() => setUserFilter(uf.item_property_slug, "")}
+                data-testid={`chip-filter-all-${uf.item_property_slug}`}
+              >
+                {uf.all_label || "All"}
+              </Badge>
+              {(userFilterOptions[uf.item_property_slug] || []).map(v => (
+                <Badge
+                  key={v}
+                  variant={userFilterValues[uf.item_property_slug] === v ? "default" : "outline"}
+                  className="cursor-pointer"
+                  onClick={() => setUserFilter(uf.item_property_slug, userFilterValues[uf.item_property_slug] === v ? "" : v)}
+                  data-testid={`chip-filter-${uf.item_property_slug}-${v}`}
+                >
+                  {formatCategoryLabel(v)}
+                </Badge>
+              ))}
+            </div>
+          ))}
 
           {categories.length > 0 && (
             <div className="flex items-center gap-2 flex-wrap" data-testid="section-category-cloud">
