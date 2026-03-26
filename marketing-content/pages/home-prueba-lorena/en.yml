@@ -177,7 +177,7 @@ sections:
   - type: career_support_explain
     version: v1.0
     heading: How we get you hired. Every step, covered.
-    description: AI-optimized profiles, direct access to 400+ hiring partners, and hands-on support from first application to signed offer, and beyond.
+    description: A complete system that takes you from enrolled to employed. AI-optimized profiles, direct access to 400+ hiring partners, and hands-on support from your first day to your signed offer letter, and beyond.
     background: hsl(var(--sidebar-background))
     tabs:
       - tab_label: Job-Ready, Faster
