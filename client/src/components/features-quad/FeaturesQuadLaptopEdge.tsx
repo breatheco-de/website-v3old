@@ -137,7 +137,7 @@ function normalizeVideo(
 
 export function FeaturesQuadLaptopEdge({ data }: FeaturesQuadLaptopEdgeProps) {
   const { registry } = useImageRegistry();
-  const laptopCodeEditor = registry?.images?.[LAPTOP_IMAGE_ID]?.src;
+  const laptopCodeEditor = registry?.images?.[LAPTOP_IMAGE_ID]?.src ?? "https://storage.googleapis.com/4geeks-academy-website/media/laptop.png";
   const isCompact = data.compact !== null ? data.compact : false;
   const CardComponent = isCompact ? CompactCard : FullCard;
   const images = data.images || [];

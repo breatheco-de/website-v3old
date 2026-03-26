@@ -23,7 +23,7 @@ interface WhyLearnAILaptopEdgeProps {
 
 export function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps) {
   const { registry } = useImageRegistry();
-  const laptopCodeEditor = registry?.images?.[LAPTOP_IMAGE_ID]?.src;
+  const laptopCodeEditor = registry?.images?.[LAPTOP_IMAGE_ID]?.src ?? "https://storage.googleapis.com/4geeks-academy-website/media/laptop.png";
   const handleLinkClick = useInternalNav();
   const [isExpanded, setIsExpanded] = useState(false);
   const description = data.description || "";
