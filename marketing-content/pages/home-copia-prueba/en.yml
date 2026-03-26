@@ -9,24 +9,17 @@ meta:
   priority: 1
   change_frequency: daily
   page_title: 4Geeks Academy | The AI Reskilling Platform
-  description: >-
-    Transform your career with AI-powered learning. Get personalized education, expert mentorship, and career support to
-    launch your tech career.
+  description: Transform your career with AI-powered learning. Get personalized education, expert mentorship, and career support to launch your tech career.
 schema:
   include:
     - organization
     - website
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: singleColumn
-    title: >-
-      1.3 Million New AI Roles.&nbsp;<div><span style="color: hsl(var(--primary));"><span style="color:
-      hsl(var(--foreground));">We're </span>Your Path In.</span></div>
-    subtitle: >-
-      <span style="font-size: 16px; text-align: center;"><span style="font-size: 1.5rem;">Immersive programs built to
-      launch AI careers. Backed by lifelong unlimited mentorship, AI-powered learning, and career support that gets you
-      hired.</span></span>
+    title: "1.3 Million New AI Roles.&nbsp;<div><span style=\"color: hsl(var(--primary));\"><span style=\"color: hsl(var(--foreground));\">We're </span>Your Path In.</span></div>"
+    subtitle: "<span style=\"font-size: 16px; text-align: center;\"><span style=\"font-size: 1.5rem;\">Immersive programs built to launch AI careers. Backed by lifelong unlimited mentorship, AI-powered learning, and career support that gets you hired.</span></span>"
     cta_buttons:
       - text: Start Your Application
         url: /signup
@@ -34,7 +27,7 @@ sections:
     award_badges:
       - name: Best Coding Bootcamp
         source: Forbes
-        year: '2024'
+        year: "2024"
       - name: Top Tech School
         source: Course Report
     section_id: hero-lkbn89
@@ -57,7 +50,7 @@ sections:
     items:
       - id: download-1
         logo: https://storage.googleapis.com/4geeks-academy-website/media/download-1-.png
-        alt: 'Image: download (1)'
+        alt: "Image: download (1)"
         logoHeight: 60px
       - id: clark-university
         logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
@@ -65,25 +58,22 @@ sections:
         logoHeight: 60px
       - id: download-2
         logo: https://storage.googleapis.com/4geeks-academy-website/media/download-2-.png
-        alt: 'Image: download (2)'
+        alt: "Image: download (2)"
         logoHeight: 60px
       - id: download-3
         logo: https://storage.googleapis.com/4geeks-academy-website/media/download-3-.png
-        alt: 'Image: download (3)'
+        alt: "Image: download (3)"
         logoHeight: 60px
       - id: download-4
         logo: https://storage.googleapis.com/4geeks-academy-website/media/download-4-.png
-        alt: 'Image: download (4)'
+        alt: "Image: download (4)"
         logoHeight: 60px
       - id: download-4-1
         logo: https://storage.googleapis.com/4geeks-academy-website/media/download-4-.jpg
-        alt: 'Image: download (4)'
+        alt: "Image: download (4)"
         logoHeight: 60px
     section_id: awards_marquee-jld4gp
-    title: >-
-      <span style="font-size: 1.875rem;"><span style="font-size: 1.125rem;"><span style="font-size:
-      1.25rem;"><span><span style="font-size: 1rem;">The tech training institutions trust for their high-stake
-      programs.&nbsp;</span></span></span></span></span>
+    title: "<span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.125rem;\"><span style=\"font-size: 1.25rem;\"><span><span style=\"font-size: 1rem;\">The tech training institutions trust for their high-stake programs.&nbsp;</span></span></span></span></span>"
     title_above_carousel: true
     marginY:
       desktop: none xl
@@ -125,22 +115,11 @@ sections:
         alt: Graduate celebrating success
     highlight:
       heading: You bring the commitment. We bring everything else.
-      text: >-
-        Mentors and career coaches that are always within reach, an AI tutor, and your personal AI agent. All tailored
-        to you.
+      text: Mentors and career coaches that are always within reach, an AI tutor, and your personal AI agent. All tailored to you.
       background: primary
       width: 2
-      text_2: >-
-        <div><span style="font-size: 1.5rem;"></span></div><span style="font-size:
-        1.5rem;"><div><span></span></div></span><span style="font-size:
-        1.5rem;"><span><div><span><br></span></div></span></span><span style="font-size: 1.5rem;">Unlimited 1:1
-        mentorship with real tech professionals, career coaching, an AI tutor, and your own AI
-        agent.&nbsp;</span><div><span style="font-size: 1.5rem;"><br></span></div><div><span style="font-size:
-        1.5rem;">Tailored to you and yours for life.</span><span style="font-size: 1.5rem;"></span><span
-        style="font-size: 1.5rem;"></span></div>
-      text_1: >-
-        <span style="font-size: 1.875rem;"><b>We accelerate your learning and back your career like no other
-        program.</b></span>
+      text_2: "<div><span style=\"font-size: 1.5rem;\"></span></div><span style=\"font-size: 1.5rem;\"><div><span></span></div></span><span style=\"font-size: 1.5rem;\"><span><div><span><br></span></div></span></span><span style=\"font-size: 1.5rem;\">Unlimited 1:1 mentorship with real tech professionals, career coaching, an AI tutor, and your own AI agent.&nbsp;</span><div><span style=\"font-size: 1.5rem;\"><br></span></div><div><span style=\"font-size: 1.5rem;\">Tailored to you and yours for life.</span><span style=\"font-size: 1.5rem;\"></span><span style=\"font-size: 1.5rem;\"></span></div>"
+      text_1: "<span style=\"font-size: 1.875rem;\"><b>Accelerate your learning and break into tech with support like nowhere else.</b></span>"
     height: 31rem
     mobile_height: 24rem
     gap: md
@@ -152,44 +131,40 @@ sections:
     paddingY:
       desktop: none
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-text
     title: AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.
     subtitle: That's your opportunity.
-    description: >-
-      Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work
-      with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.
+    description: Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.
     background: hsl(var(--secondary))
     items:
-      - id: '1'
+      - id: "1"
         value: 7x
         title: Growth in demand for AI-fluent workers since 2023
-      - id: '2'
+      - id: "2"
         value: 3%
         title: Of the workforce qualifies for AI roles
-      - id: '3'
+      - id: "3"
         value: 56%
         title: Salary premium for workers with AI skills
     section_id: section-17y1az
     marginY:
       desktop: md
   - ttype: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-text
     title: AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.
     subtitle: That's your opportunity.
-    description: >-
-      Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work
-      with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.
+    description: Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.
     background: hsl(210 100% 50% / 0.05)
     items:
-      - id: '1'
+      - id: "1"
         value: 7x
         title: Growth in demand for AI-fluent workers since 2023
-      - id: '2'
+      - id: "2"
         value: 3%
         title: Of the workforce qualifies for AI roles
-      - id: '3'
+      - id: "3"
         value: 56%
         title: Salary premium for workers with AI skills
     section_id: section-17y1az
@@ -198,19 +173,14 @@ sections:
   - type: career_support_explain
     version: v1.0
     heading: We Stay With You Until You're Hired.
-    description: >-
-      This is what separates 4Geeks from every other platform. Not just courses. A complete system that takes you from
-      enrolled to employed. AI-optimized profiles, direct access to 400+ hiring partners, and hands-on support from your
-      first day to your signed offer letter and beyond.
+    description: This is what separates 4Geeks from every other platform. Not just courses. A complete system that takes you from enrolled to employed. AI-optimized profiles, direct access to 400+ hiring partners, and hands-on support from your first day to your signed offer letter and beyond.
     tabs:
       - tab_label: Job-Ready, Faster
         layout: three_columns
         col1_subtitle: Build a Recruiter-Ready Profile, Smarter.
-        col1_description: >-
+        col1_description: |-
           Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
-
-          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio,
-          and interview performance for optimal impact.
+          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal impact.
         col1_tagline: We'll help you create tailored job search materials
         col1_boxes:
           - icon: IconBrandLinkedin
@@ -235,10 +205,7 @@ sections:
       - tab_label: Real Hiring Access
         layout: two_column_cards
         title: Access the Hidden Job Market.
-        left_text: >-
-          Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and
-          decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a
-          targeted networking strategy.
+        left_text: Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
         left_image_id: career_team_women
         left_image_object_fit: cover
         left_image_object_position: center
@@ -268,11 +235,9 @@ sections:
       - tab_label: Proof That Converts
         layout: text_and_image
         title: Projects that Demonstrate Real Skill.
-        left_description: >-
+        left_description: |-
           Visibility gets attention. Proof closes the gap.
-
-          Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that
-          solves real business problems, your work becomes clear evidence of your ability.
+          Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
         left_bullets:
           - icon: IconBriefcase
             text: Industry-aligned, real-world projects
@@ -286,11 +251,9 @@ sections:
       - tab_label: Your Best-Fit Role
         layout: text_with_testimonials_carousel
         title: Turn Your Background into an Advantage.
-        left_description: >-
+        left_description: |-
           Once offers are on the table, we help you choose and negotiate with confidence.
-
-          Your previous experience matters. We map transferable skills, focus your job search on the right roles, and
-          support you through salary negotiation and long-term growth.
+          Your previous experience matters. We map transferable skills, focus your job search on the right roles, and support you through salary negotiation and long-term growth.
         left_bullets:
           - icon: IconTransfer
             text: Transferable skills mapping
@@ -306,18 +269,14 @@ sections:
             image_object_position: center
             contributor_logos:
               - image_id: clark_university
-            description: >-
-              MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her
-              endeavor.
+            description: MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her endeavor.
             achievement: She launched her own startup, is hiring new tech talent, and coordinates an entire team of developers.
           - image_id: martin_coimbra
             image_object_fit: cover
             image_object_position: center top
             contributor_logos:
               - image_id: logo_utec
-            description: >-
-              Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a
-              career he is passionate about, and a whole new professional life.
+            description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
             achievement: He achieved a 100% salary increase.
           - image_id: melanie_galaretto
             image_object_fit: cover
@@ -325,9 +284,7 @@ sections:
             contributor_logos:
               - image_id: logo_utec
               - image_id: bid_logo
-            description: >-
-              Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and
-              committed software developer working at a software company in her home country.
+            description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
     section_id: career_support_explain-atccy5
     marginY:
@@ -335,12 +292,10 @@ sections:
     background: hsl(var(--muted))
   - type: numbered_steps
     section_id: numbered_steps-k1da7b
-    version: '1.0'
+    version: "1.0"
     variant: bubbleText
     title: From zero to hired. Here's exactly how it works.
-    description: >-
-      No guesswork. No vague promises. This is the exact path 4Geeks takes you through — from your first application to
-      your first day at a new job.
+    description: No guesswork. No vague promises. This is the exact path 4Geeks takes you through — from your first application to your first day at a new job.
     steps:
       - icon: Application
         title: Apply in minutes. Hear back in 48 hours.
@@ -369,9 +324,7 @@ sections:
     background: bg-background
   - type: testimonials_slide
     title: They Were Exactly Where You Are Now.
-    description: >-
-      Different backgrounds, different programs, one result: a career in tech they didn't think was possible. These are
-      real 4Geeks graduates with real numbers to back it up.
+    description: "Different backgrounds, different programs, one result: a career in tech they didn't think was possible. These are real 4Geeks graduates with real numbers to back it up."
     background: hsl(var(--card))
     section_id: testimonials_slide-6fuyi4
     marginY:
@@ -387,40 +340,32 @@ sections:
     programs:
       - name: AI Engineering
         icon: IconBrain
-        description: >-
-          Build the AI systems companies are hiring for right now. Master LLMs, AI agents, and automation while
-          transforming a real business case into a fully AI-native system, layer by layer.
+        description: Build the AI systems companies are hiring for right now. Master LLMs, AI agents, and automation while transforming a real business case into a fully AI-native system, layer by layer.
         duration: 24 weeks
         avg_salary: $95,000 – $150,000
         cta_text: See If You Qualify
-        cta_url: '#hero-nzpyph'
+        cta_url: "#hero-nzpyph"
       - name: Full Stack Development with AI
         icon: IconCode
-        description: >-
-          Build modern, production-ready web applications from frontend to backend — with AI integrated at every layer,
-          not added on top.
+        description: Build modern, production-ready web applications from frontend to backend — with AI integrated at every layer, not added on top.
         duration: 20 weeks
         avg_salary: $65,000 – $105,000
         cta_text: See If You Qualify
-        cta_url: '#hero-nzpyph'
+        cta_url: "#hero-nzpyph"
       - name: Data Science and Machine Learning
         icon: IconChartBar
-        description: >-
-          Analyze complex data, build intelligent models, and deploy AI solutions that solve real business problems —
-          not just academic exercises.
+        description: Analyze complex data, build intelligent models, and deploy AI solutions that solve real business problems — not just academic exercises.
         duration: 16 weeks
         avg_salary: $70,000 – $130,000
         cta_text: See If You Qualify
-        cta_url: '#hero-nzpyph'
+        cta_url: "#hero-nzpyph"
       - name: Cybersecurity
         icon: IconShield
-        description: >-
-          Protect the systems AI depends on. Every company scaling AI infrastructure needs specialists who can secure
-          it. That demand isn't slowing down.
+        description: Protect the systems AI depends on. Every company scaling AI infrastructure needs specialists who can secure it. That demand isn't slowing down.
         duration: 16 weeks
         avg_salary: $65,000 – $120,000
         cta_text: See If You Qualify
-        cta_url: '#hero-nzpyph'
+        cta_url: "#hero-nzpyph"
     section_id: programs_showcase-tej6dk
     background: hsl(var(--card))
     paddingY:
@@ -431,17 +376,7 @@ sections:
     variant: laptop-edge
     title: Get Hired. Or Your Money Back.
     subtitle: Most bootcamps hope you get a job. We guarantee it.
-    description: >-
-      <div><ul><li><span style="font-size: 1.125rem;"><span><span><span style="font-size: 1.25rem;">Enroll with the Job
-      Guarantee added to your payment plan.</span></span></span></span></li><li><span style="font-size:
-      1.125rem;"><span><span><span style="font-size: 1.25rem;">Complete the program and the GeekFORCE career development
-      process.</span></span></span></span></li><li><span style="font-size: 1.125rem;"><span><span><span
-      style="font-size: 1.25rem;">If you're not hired within 9 months of graduation, you'll get a full refund of your
-      tuition.</span></span></span></span></li></ul><div><span style="font-size:
-      1.125rem;"><span><span><div><span><span><span style="font-size: 0.875rem;">*The Job Guarantee is not available in
-      all regions. <a
-      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
-      conditions apply.</a></span></span></span></div></span></span></span></div></div>
+    description: "<div><ul><li><span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Enroll with the Job Guarantee added to your payment plan.</span></span></span></span></li><li><span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Complete the program and the GeekFORCE career development process.</span></span></span></span></li><li><span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">If you're not hired within 9 months of graduation, you'll get a full refund of your tuition.</span></span></span></span></li></ul><div><span style=\"font-size: 1.125rem;\"><span><span><div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></span></span></div></span></span></span></div></div>"
     cta:
       text: See How It Works
       url: /en/job-guarantee
@@ -481,7 +416,7 @@ sections:
       desktop: md none
   - type: cta_banner
     section_id: cta_banner-vf5u70
-    version: '1.0'
+    version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
