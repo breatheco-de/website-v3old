@@ -110,7 +110,7 @@ sections:
         id: gemini-generated-image-wpk4yvwpk4yvwpk4
     section_id: graduates_stats-cnxqbb
     marginY:
-      desktop: none md
+      desktop: none sm
   - type: features_grid
     version: "1.0"
     variant: stats-text
