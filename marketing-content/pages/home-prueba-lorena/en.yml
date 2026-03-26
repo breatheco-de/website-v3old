@@ -183,7 +183,7 @@ sections:
       desktop: none xl
   - type: career_support_explain
     version: v1.0
-    heading: How We Get You Hired. Every Step, Covered.
+    heading: How We Get You Hired. From First Day to Signed Offer.
     description: A complete system that takes you from enrolled to employed. AI-optimized profiles, direct access to 400+ hiring partners, and hands-on support from your first day to your signed offer letter, and beyond.
     background: hsl(var(--sidebar-background))
     tabs:
