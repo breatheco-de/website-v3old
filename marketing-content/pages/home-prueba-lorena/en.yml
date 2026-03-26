@@ -149,7 +149,7 @@ sections:
         title: Salary premium for workers with AI skills
     section_id: features_grid-142xko
     marginY:
-      desktop: none md
+      desktop: md
   - ttype: features_grid
     version: "1.0"
     variant: stats-text
