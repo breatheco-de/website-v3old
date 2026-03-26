@@ -142,8 +142,9 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina_brightened.png
         alt: "Image: valentina_brightened"
         id: valentina-brightened
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
-        alt: Graduate celebrating success
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-05_38_41-PM.png
+        alt: "Image: ChatGPT Image Mar 26, 2026, 05_38_41 PM"
+        id: chatgpt-image-mar-26-2026-05-38-41-pm
     highlight:
       heading: You bring the commitment. We bring everything else.
       text: Mentors and career coaches that are always within reach, an AI tutor, and your personal AI agent. All tailored to you.
