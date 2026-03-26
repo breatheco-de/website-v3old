@@ -292,6 +292,33 @@ sections:
             description: Melanie retrained as a software developer and now works remotely for a tech company, from home, in a career she chose.
             achievement: Her salary doubled. And she works remotely, on her own terms.
     section_id: career_support_explain-xpc3k2
+  - type: award_badges
+    version: v1.0
+    variant: detailed
+    showBorder: false
+    items:
+      - id: coursereport-detailed
+        logo: /images/awards/course-report.svg
+        alt: Course Report - Best Coding Bootcamp
+        logoHeight: 64px
+        description: Recognized as one of the best coding bootcamps worldwide
+        link: https://www.coursereport.com
+        linkText: Read reviews
+      - id: switchup-detailed
+        logo: /images/awards/switchup.svg
+        alt: SwitchUp - Top Bootcamp
+        logoHeight: 64px
+        description: Top-rated bootcamp based on verified student reviews
+        link: https://www.switchup.org
+        linkText: See rankings
+      - id: careerkarma-detailed
+        logo: /images/awards/career-karma.svg
+        alt: Career Karma - Best Value
+        logoHeight: 64px
+        description: Best value for career changers and beginners
+        link: https://careerkarma.com
+        linkText: Learn more
+    section_id: award_badges-v1irtt
   - type: numbered_steps
     section_id: numbered_steps-howitworks
     version: "1.0"
