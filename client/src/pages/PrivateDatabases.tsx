@@ -57,6 +57,7 @@ import {
   IconCloudUpload,
   IconLink,
   IconServer,
+  IconAdjustments,
 } from "@tabler/icons-react";
 import { queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -96,6 +97,7 @@ interface DatabaseDetail {
     };
     cache?: { ttl_hours?: number };
     field_mapping?: Record<string, string>;
+    editor?: Record<string, { type?: string; options?: string[] }>;
   };
   cache_status?: {
     fetched_at: string;
@@ -1709,6 +1711,39 @@ function FieldMappingEditor({
   const [sampleData, setSampleData] = useState<{ items: Record<string, unknown>[]; count: number } | null>(null);
   const [sampleLoading, setSampleLoading] = useState(false);
 
+  const [editorHints, setEditorHints] = useState<Record<string, { type?: string; options?: string[] }>>(() =>
+    config.editor ? { ...config.editor } : {}
+  );
+  useEffect(() => {
+    setEditorHints(config.editor ? { ...config.editor } : {});
+  }, [config.editor]);
+
+  const [hintDialogField, setHintDialogField] = useState<string | null>(null);
+  const [hintDialogType, setHintDialogType] = useState<string>("text");
+  const [hintDialogOptions, setHintDialogOptions] = useState<string>("");
+  const [hintDialogSaving, setHintDialogSaving] = useState(false);
+
+  const openHintDialog = (field: string) => {
+    const hint = editorHints[field] || {};
+    setHintDialogField(field);
+    setHintDialogType(hint.type || "text");
+    setHintDialogOptions((hint.options || []).join("\n"));
+  };
+
+  const saveHintDialog = () => {
+    if (!hintDialogField) return;
+    const hint: { type?: string; options?: string[] } = { type: hintDialogType };
+    if (hintDialogType === "select" || hintDialogType === "tags") {
+      const opts = hintDialogOptions
+        .split("\n")
+        .map((s) => s.trim())
+        .filter(Boolean);
+      if (opts.length > 0) hint.options = opts;
+    }
+    setEditorHints((prev) => ({ ...prev, [hintDialogField]: hint }));
+    setHintDialogField(null);
+  };
+
   const handleViewSample = async () => {
     setSampleOpen(true);
     if (sampleData) return;
@@ -1780,6 +1815,7 @@ function FieldMappingEditor({
       const updatedConfig = {
         ...config,
         field_mapping: Object.keys(fieldMapping).length > 0 ? fieldMapping : undefined,
+        editor: Object.keys(editorHints).length > 0 ? editorHints : undefined,
       };
 
       const res = await fetch(`/api/databases/${dbName}/config`, {
@@ -1929,7 +1965,22 @@ function FieldMappingEditor({
                   >
                     <IconTrashX className="h-3.5 w-3.5" />
                   </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => openHintDialog(normalizedKey)}
+                    title="Configure editor type"
+                    data-testid={`button-hint-field-${normalizedKey}`}
+                  >
+                    <IconAdjustments className="h-3.5 w-3.5 text-muted-foreground" />
+                  </Button>
                 </div>
+                {editorHints[normalizedKey]?.type && editorHints[normalizedKey].type !== "text" && (
+                  <p className="text-[10px] text-muted-foreground ml-[6.5rem]">
+                    editor: <code>{editorHints[normalizedKey].type}</code>
+                    {editorHints[normalizedKey].options?.length ? ` (${editorHints[normalizedKey].options!.length} options)` : ""}
+                  </p>
+                )}
               </div>
             );
           })}
@@ -2021,7 +2072,331 @@ function FieldMappingEditor({
           </div>
         </DialogContent>
       </Dialog>
+
+      <Dialog
+        open={hintDialogField !== null}
+        onOpenChange={(v) => { if (!v) setHintDialogField(null); }}
+      >
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Editor Type for "{hintDialogField}"</DialogTitle>
+            <DialogDescription>
+              Choose how this field renders in the item editor.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-2">
+            <div className="space-y-2">
+              <Label className="text-xs">Field type</Label>
+              <Select value={hintDialogType} onValueChange={setHintDialogType}>
+                <SelectTrigger className="text-sm" data-testid="select-hint-type">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="text">text — single-line input</SelectItem>
+                  <SelectItem value="textarea">textarea — multi-line</SelectItem>
+                  <SelectItem value="number">number — numeric</SelectItem>
+                  <SelectItem value="boolean">boolean — toggle</SelectItem>
+                  <SelectItem value="select">select — dropdown</SelectItem>
+                  <SelectItem value="tags">tags — multi-value</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            {(hintDialogType === "select" || hintDialogType === "tags") && (
+              <div className="space-y-2">
+                <Label className="text-xs">Options (one per line)</Label>
+                <Textarea
+                  value={hintDialogOptions}
+                  onChange={(e) => setHintDialogOptions(e.target.value)}
+                  placeholder="option1&#10;option2&#10;option3"
+                  className="text-xs font-mono min-h-[6rem] resize-y"
+                  data-testid="textarea-hint-options"
+                />
+              </div>
+            )}
+          </div>
+          <DialogFooter className="flex items-center justify-end gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setHintDialogField(null)}
+              disabled={hintDialogSaving}
+              data-testid="button-cancel-hint"
+            >
+              Cancel
+            </Button>
+            <Button
+              size="sm"
+              onClick={saveHintDialog}
+              disabled={hintDialogSaving}
+              data-testid="button-save-hint"
+            >
+              {hintDialogSaving ? (
+                <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+              ) : (
+                <IconCheck className="h-3.5 w-3.5 mr-1" />
+              )}
+              Apply
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
+  );
+}
+
+function ItemEditModal({
+  config,
+  item,
+  itemIndex,
+  isNew,
+  allItems,
+  onClose,
+  onSaved,
+}: {
+  config: DatabaseDetail["config"];
+  item: Record<string, unknown> | null;
+  itemIndex: number | null;
+  isNew: boolean;
+  allItems: Record<string, unknown>[];
+  onClose: () => void;
+  onSaved: (newItems: Record<string, unknown>[]) => Promise<void>;
+}) {
+  const { toast } = useToast();
+  const [saving, setSaving] = useState(false);
+  const [tagInput, setTagInput] = useState<Record<string, string>>({});
+
+  const [formData, setFormData] = useState<Record<string, unknown>>(() => {
+    if (isNew) {
+      const defaults: Record<string, unknown> = {};
+      if (config.field_mapping) {
+        for (const key of Object.keys(config.field_mapping)) {
+          const editorType = config.editor?.[key]?.type;
+          defaults[key] = editorType === "tags" ? [] : editorType === "boolean" ? false : "";
+        }
+      }
+      return defaults;
+    }
+    return item ? { ...item } : {};
+  });
+
+  const fields = config.field_mapping ? Object.keys(config.field_mapping) : [];
+
+  const setValue = (key: string, v: unknown) =>
+    setFormData((prev) => ({ ...prev, [key]: v }));
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      const cleanedItem: Record<string, unknown> = {};
+      for (const key of fields) {
+        const value = formData[key];
+        const editorType = config.editor?.[key]?.type;
+        if (editorType === "boolean") {
+          cleanedItem[key] = Boolean(value);
+        } else if (editorType === "tags") {
+          const arr = Array.isArray(value) ? value : [];
+          if (arr.length > 0) cleanedItem[key] = arr;
+        } else if (editorType === "number") {
+          if (value !== "" && value !== null && value !== undefined) {
+            const n = Number(value);
+            cleanedItem[key] = isNaN(n) ? value : n;
+          }
+        } else {
+          if (value !== "" && value !== null && value !== undefined) {
+            cleanedItem[key] = value;
+          }
+        }
+      }
+
+      const newItems = isNew
+        ? [...allItems, cleanedItem]
+        : allItems.map((it, i) => (i === itemIndex ? cleanedItem : it));
+
+      await onSaved(newItems);
+      onClose();
+    } catch (err) {
+      toast({
+        title: "Save failed",
+        description: err instanceof Error ? err.message : String(err),
+        variant: "destructive",
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const renderField = (key: string) => {
+    const editorConfig = config.editor?.[key];
+    const type = editorConfig?.type || "text";
+    const options = editorConfig?.options || [];
+    const value = formData[key];
+
+    switch (type) {
+      case "textarea":
+        return (
+          <Textarea
+            value={String(value ?? "")}
+            onChange={(e) => setValue(key, e.target.value)}
+            className="text-sm min-h-[6rem] resize-y"
+            data-testid={`input-edit-${key}`}
+          />
+        );
+      case "boolean":
+        return (
+          <div className="flex items-center gap-2">
+            <Switch
+              checked={Boolean(value)}
+              onCheckedChange={(v) => setValue(key, v)}
+              data-testid={`switch-edit-${key}`}
+            />
+            <span className="text-sm text-muted-foreground">
+              {Boolean(value) ? "Yes" : "No"}
+            </span>
+          </div>
+        );
+      case "number":
+        return (
+          <Input
+            type="number"
+            value={String(value ?? "")}
+            onChange={(e) => setValue(key, e.target.value)}
+            className="text-sm"
+            data-testid={`input-edit-${key}`}
+          />
+        );
+      case "select":
+        return (
+          <Select
+            value={String(value ?? "")}
+            onValueChange={(v) => setValue(key, v)}
+          >
+            <SelectTrigger className="text-sm" data-testid={`select-edit-${key}`}>
+              <SelectValue placeholder="Select..." />
+            </SelectTrigger>
+            <SelectContent>
+              {options.map((opt) => (
+                <SelectItem key={opt} value={String(opt)}>
+                  {opt}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        );
+      case "tags": {
+        const tags = Array.isArray(value) ? (value as string[]) : [];
+        const inputVal = tagInput[key] || "";
+        const addTag = () => {
+          if (!inputVal.trim()) return;
+          setValue(key, [...tags, inputVal.trim()]);
+          setTagInput((prev) => ({ ...prev, [key]: "" }));
+        };
+        return (
+          <div className="space-y-2">
+            {tags.length > 0 && (
+              <div className="flex flex-wrap gap-1.5">
+                {tags.map((tag, ti) => (
+                  <Badge key={ti} variant="secondary" className="gap-1">
+                    {tag}
+                    <button
+                      type="button"
+                      onClick={() => setValue(key, tags.filter((_, i) => i !== ti))}
+                      data-testid={`button-remove-tag-${key}-${ti}`}
+                    >
+                      <IconX className="h-3 w-3" />
+                    </button>
+                  </Badge>
+                ))}
+              </div>
+            )}
+            <div className="flex gap-2">
+              <Input
+                value={inputVal}
+                onChange={(e) =>
+                  setTagInput((prev) => ({ ...prev, [key]: e.target.value }))
+                }
+                placeholder="Add tag..."
+                className="h-8 text-sm flex-1"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    addTag();
+                  }
+                }}
+                data-testid={`input-tag-${key}`}
+              />
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                disabled={!inputVal.trim()}
+                onClick={addTag}
+                data-testid={`button-add-tag-${key}`}
+              >
+                <IconPlus className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+          </div>
+        );
+      }
+      default:
+        return (
+          <Input
+            value={String(value ?? "")}
+            onChange={(e) => setValue(key, e.target.value)}
+            className="text-sm"
+            data-testid={`input-edit-${key}`}
+          />
+        );
+    }
+  };
+
+  return (
+    <Dialog open onOpenChange={(v) => { if (!v) onClose(); }}>
+      <DialogContent className="max-w-2xl max-h-[85vh] flex flex-col">
+        <DialogHeader>
+          <DialogTitle>{isNew ? "Add Item" : "Edit Item"}</DialogTitle>
+          <DialogDescription>
+            {isNew
+              ? "Fill in the fields to create a new entry."
+              : `Editing item ${itemIndex !== null ? itemIndex + 1 : ""}.`}
+          </DialogDescription>
+        </DialogHeader>
+        <div className="flex-1 overflow-y-auto space-y-4 py-2 pr-1 min-h-0">
+          {fields.map((key) => (
+            <div key={key} className="space-y-1.5">
+              <Label className="text-xs font-medium capitalize">
+                {key.replace(/_/g, " ")}
+              </Label>
+              {renderField(key)}
+            </div>
+          ))}
+        </div>
+        <DialogFooter className="flex items-center justify-end gap-2 pt-2 border-t mt-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onClose}
+            disabled={saving}
+            data-testid="button-cancel-edit-item"
+          >
+            Cancel
+          </Button>
+          <Button
+            size="sm"
+            onClick={handleSave}
+            disabled={saving}
+            data-testid="button-save-edit-item"
+          >
+            {saving ? (
+              <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+            ) : (
+              <IconDeviceFloppy className="h-3.5 w-3.5 mr-1" />
+            )}
+            Save
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
 
@@ -2041,6 +2416,13 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   const [editingDesc, setEditingDesc] = useState(false);
   const [editDescValue, setEditDescValue] = useState("");
   const [inlineSaving, setInlineSaving] = useState(false);
+
+  const [editMode, setEditMode] = useState(false);
+  const [editingItem, setEditingItem] = useState<Record<string, unknown> | null>(null);
+  const [editingItemIndex, setEditingItemIndex] = useState<number | null>(null);
+  const [isAddingItem, setIsAddingItem] = useState(false);
+  const [deleteConfirmIndex, setDeleteConfirmIndex] = useState<number | null>(null);
+  const [savingItems, setSavingItems] = useState(false);
 
   const { data: detail, refetch: refetchDetail } = useQuery<DatabaseDetail>({
     queryKey: ["/api/databases", dbName],
@@ -2151,6 +2533,32 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
       });
     } finally {
       setIsRefreshing(false);
+    }
+  };
+
+  const handleSaveItems = async (newItems: Record<string, unknown>[]): Promise<void> => {
+    setSavingItems(true);
+    try {
+      const res = await fetch(`/api/databases/${dbName}/items`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items: newItems }),
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to save items");
+      }
+      await Promise.all([refetchItems(), refetchRawItems()]);
+      toast({ title: "Items saved", description: `${newItems.length} items written to file` });
+    } catch (err) {
+      toast({
+        title: "Error saving items",
+        description: err instanceof Error ? err.message : String(err),
+        variant: "destructive",
+      });
+      throw err;
+    } finally {
+      setSavingItems(false);
     }
   };
 
@@ -2490,6 +2898,17 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                       </Button>
                     </div>
                   )}
+                  {editMode && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setIsAddingItem(true)}
+                      data-testid="button-add-item"
+                    >
+                      <IconPlus className="h-3.5 w-3.5 mr-1" />
+                      Add Item
+                    </Button>
+                  )}
                 </div>
                 <div className="flex items-center gap-2">
                   {(hasFetched || itemsData) && (
@@ -2528,6 +2947,18 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                     <IconRefresh className={`h-3.5 w-3.5 mr-1 ${isRefreshing ? "animate-spin" : ""}`} />
                     Force Refresh
                   </Button>
+                  {config?.source.type === "local" && (
+                    <Button
+                      variant={editMode ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setEditMode(!editMode)}
+                      disabled={!hasFetched && !itemsData}
+                      data-testid="button-edit-items"
+                    >
+                      <IconEdit className="h-3.5 w-3.5 mr-1" />
+                      {editMode ? "Done" : "Edit Items"}
+                    </Button>
+                  )}
                 </div>
               </div>
             </CardHeader>
@@ -2561,27 +2992,28 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                           <th
                             key={col}
                             className="px-3 py-2 text-left font-medium text-muted-foreground cursor-pointer hover:text-foreground whitespace-nowrap"
-                            onClick={() => handleSort(col)}
+                            onClick={() => !editMode && handleSort(col)}
                             data-testid={`th-sort-${col}`}
                           >
                             <span className="inline-flex items-center gap-1">
                               {col}
-                              {sortKey === col ? (
+                              {!editMode && sortKey === col ? (
                                 sortDir === "asc" ? (
                                   <IconChevronUp className="h-3 w-3" />
                                 ) : (
                                   <IconChevronDown className="h-3 w-3" />
                                 )
-                              ) : (
+                              ) : !editMode ? (
                                 <IconArrowsSort className="h-3 w-3 opacity-30" />
-                              )}
+                              ) : null}
                             </span>
                           </th>
                         ))}
+                        {editMode && <th className="px-2 py-2 w-20" />}
                       </tr>
                     </thead>
                     <tbody>
-                      {filteredItems.map((item, i) => (
+                      {(editMode ? (itemsData?.items || []) : filteredItems).map((item, i) => (
                         <tr
                           key={i}
                           className="border-b last:border-b-0 hover:bg-muted/30"
@@ -2596,6 +3028,34 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                               {formatCellValue(item[col])}
                             </td>
                           ))}
+                          {editMode && (
+                            <td className="px-2 py-1 whitespace-nowrap">
+                              <div className="flex items-center gap-0.5">
+                                <Button
+                                  size="icon"
+                                  variant="ghost"
+                                  onClick={() => {
+                                    setEditingItem(item);
+                                    setEditingItemIndex(i);
+                                    setIsAddingItem(false);
+                                  }}
+                                  disabled={savingItems}
+                                  data-testid={`button-edit-row-${i}`}
+                                >
+                                  <IconPencil className="h-3.5 w-3.5" />
+                                </Button>
+                                <Button
+                                  size="icon"
+                                  variant="ghost"
+                                  onClick={() => setDeleteConfirmIndex(i)}
+                                  disabled={savingItems}
+                                  data-testid={`button-delete-row-${i}`}
+                                >
+                                  <IconTrash className="h-3.5 w-3.5 text-destructive" />
+                                </Button>
+                              </div>
+                            </td>
+                          )}
                         </tr>
                       ))}
                     </tbody>
@@ -2605,6 +3065,66 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
             </CardContent>
           </Card>
         </>
+      )}
+
+      {deleteConfirmIndex !== null && (
+        <Dialog open onOpenChange={(v) => { if (!v) setDeleteConfirmIndex(null); }}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Delete Item</DialogTitle>
+              <DialogDescription>
+                Are you sure you want to delete item {deleteConfirmIndex + 1}? This will immediately save the file without this entry.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter className="flex items-center justify-end gap-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setDeleteConfirmIndex(null)}
+                disabled={savingItems}
+                data-testid="button-cancel-delete-item"
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="destructive"
+                size="sm"
+                disabled={savingItems}
+                data-testid="button-confirm-delete-item"
+                onClick={async () => {
+                  const idx = deleteConfirmIndex;
+                  setDeleteConfirmIndex(null);
+                  const currentItems = itemsData?.items || [];
+                  const newItems = currentItems.filter((_, i) => i !== idx);
+                  await handleSaveItems(newItems);
+                }}
+              >
+                {savingItems ? (
+                  <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+                ) : (
+                  <IconTrash className="h-3.5 w-3.5 mr-1" />
+                )}
+                Delete
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {(editingItem !== null || isAddingItem) && config && (
+        <ItemEditModal
+          config={config}
+          item={editingItem}
+          itemIndex={editingItemIndex}
+          isNew={isAddingItem}
+          allItems={itemsData?.items || []}
+          onClose={() => {
+            setEditingItem(null);
+            setEditingItemIndex(null);
+            setIsAddingItem(false);
+          }}
+          onSaved={handleSaveItems}
+        />
       )}
     </div>
   );

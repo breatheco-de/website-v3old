@@ -35,6 +35,7 @@ export interface DatabaseConfig {
     ttl_hours?: number;
   };
   field_mapping?: Record<string, string>;
+  editor?: Record<string, { type?: string; options?: string[] }>;
 }
 
 interface CacheEntry {
@@ -624,6 +625,14 @@ export class DatabaseManager {
       collectAllPaths(item, "", keys);
     }
     return Array.from(keys).sort();
+  }
+
+  clearCache(name: string): void {
+    this.memoryCache.delete(name);
+    const cachePath = path.join(CACHE_DIR, `db-${name}.json`);
+    if (fs.existsSync(cachePath)) fs.unlinkSync(cachePath);
+    const rawCachePath = path.join(CACHE_DIR, `db-${name}-raw.json`);
+    if (fs.existsSync(rawCachePath)) fs.unlinkSync(rawCachePath);
   }
 
   private loadFileCache(

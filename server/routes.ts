@@ -3174,6 +3174,49 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
   });
 
+  app.put("/api/databases/:name/items", async (req, res) => {
+    try {
+      const dbName = req.params.name;
+      const config = databaseManager.get(dbName);
+
+      if (config.source.type !== "local") {
+        res.status(400).json({ error: "Only local databases support item editing" });
+        return;
+      }
+
+      const { items } = req.body;
+      if (!Array.isArray(items)) {
+        res.status(400).json({ error: "items must be an array" });
+        return;
+      }
+
+      const localConfig = config.source.local!;
+      const filename = localConfig.filename;
+      const resultsPath = localConfig.results_path;
+
+      const filePath = path.join(process.cwd(), "marketing-content", "db", dbName, filename);
+      if (!fs.existsSync(path.dirname(filePath))) {
+        res.status(404).json({ error: `Database directory not found` });
+        return;
+      }
+
+      const data: unknown = resultsPath ? { [resultsPath]: items } : items;
+      const yamlStr = safeYamlDump(data, { lineWidth: 120 });
+      fs.writeFileSync(filePath, yamlStr);
+
+      databaseManager.clearCache(dbName);
+
+      res.json({ success: true, count: items.length });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes("not found")) {
+        res.status(404).json({ error: msg });
+      } else {
+        res.status(500).json({ error: msg });
+      }
+    }
+  });
+
   app.post("/api/databases/:name/refresh", async (req, res) => {
     try {
       const result = await databaseManager.fetchItems(req.params.name, true);
