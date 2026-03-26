@@ -42,6 +42,8 @@ sections:
       desktop: xl
     maxWidth:
       desktop: none
+    image:
+      src: https://storage.googleapis.com/4geeks-academy-website/media/fernando-funez_1765315920677.jpg
   - type: awards_marquee
     version: v1.0
     speed: 40
