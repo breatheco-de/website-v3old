@@ -377,7 +377,7 @@ sections:
       variant: primary
     section_id: why_learn_ai-z83qep
     marginY:
-      desktop: md
+      desktop: md lg
     paddingY:
       desktop: none
     background: hsl(var(--muted))
