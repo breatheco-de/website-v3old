@@ -189,11 +189,5 @@ navbar:
       href: /upcoming-dates
       component: SimpleLink
     - label: LanguageSwitcher
-      href: '#'
+      href: "#"
       component: LanguageSwitcher
-  marquee:
-    enabled: true
-    texts:
-      - text: "4Geeks, Harvard Oxford y Columbia se unen para educar en Inteligencia Artificial en las Bahamas"
-    position: below
-    sticky: false
