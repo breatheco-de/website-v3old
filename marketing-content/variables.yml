@@ -486,7 +486,7 @@ global.data_science_week_duration:
       value: "18"
     - query:
         region: "usa-canada"
-      value: "16 "
+      value: "18"
 global.ai_engineering_week_duration:
   default: "24 "
 global.cybersecurity_week_duration:
