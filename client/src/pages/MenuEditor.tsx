@@ -951,58 +951,76 @@ function SortableMarqueeMessageRow({
               testId={`marquee-msg-${index}-cta-link-picker`}
             />
           </div>
-          <div className="space-y-1.5">
-            <div className="flex items-center justify-between gap-2">
-              <Label className="text-xs text-muted-foreground">Per-page URL overrides</Label>
+          <div className="space-y-2">
+            <div className="flex items-start justify-between gap-2">
+              <div className="space-y-0.5">
+                <Label className="text-xs text-muted-foreground">Override CTA link per page</Label>
+                <p className="text-xs text-muted-foreground/70 leading-snug">
+                  On specific pages, replace the CTA link above with a different destination.
+                </p>
+              </div>
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-6 px-2 text-xs"
+                className="h-6 px-2 text-xs shrink-0 mt-0.5"
                 onClick={() => onUpdate({ cta_url_overrides: { ...(msg.cta_url_overrides ?? {}), "": "" } })}
                 data-testid={`button-marquee-msg-add-override-${index}`}
               >
                 <IconPlus className="h-3 w-3 mr-1" />
-                Add override
+                Add
               </Button>
             </div>
-            {overrideEntries.map(([path, url], i) => (
-              <div key={i} className="flex items-center gap-1">
-                <PagePickerPopover
-                  value={path}
-                  locale={locale}
-                  testId={`override-page-${index}-${i}`}
-                  onChange={(newPath) => {
-                    const newOverrides: Record<string, string> = {};
-                    overrideEntries.forEach(([p, u], idx) => {
-                      newOverrides[idx === i ? newPath : p] = u;
-                    });
-                    onUpdate({ cta_url_overrides: newOverrides });
-                  }}
-                />
-                <LinkPicker
-                  value={url}
-                  onChange={(newUrl) => {
-                    const newOverrides = { ...(msg.cta_url_overrides ?? {}), [path]: newUrl };
-                    onUpdate({ cta_url_overrides: newOverrides });
-                  }}
-                  locale={locale}
-                  contextPath={path || undefined}
-                  testId={`override-url-${index}-${i}`}
-                />
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => {
-                    const newOverrides = { ...(msg.cta_url_overrides ?? {}) };
-                    delete newOverrides[path];
-                    onUpdate({ cta_url_overrides: Object.keys(newOverrides).length > 0 ? newOverrides : undefined });
-                  }}
-                  data-testid={`button-override-delete-${index}-${i}`}
-                >
-                  <IconTrash className="h-3 w-3 text-destructive" />
-                </Button>
+            {overrideEntries.length > 0 && (
+              <div className="space-y-1.5">
+                {overrideEntries.map(([path, url], i) => (
+                  <div key={i} className="space-y-1">
+                    {i === 0 && (
+                      <div className="flex items-center gap-1 px-0.5">
+                        <span className="text-xs text-muted-foreground/60 w-[120px] shrink-0">When on page</span>
+                        <span className="text-xs text-muted-foreground/60">Send to</span>
+                      </div>
+                    )}
+                    <div className="flex items-center gap-1">
+                      <PagePickerPopover
+                        value={path}
+                        locale={locale}
+                        testId={`override-page-${index}-${i}`}
+                        onChange={(newPath) => {
+                          const newOverrides: Record<string, string> = {};
+                          overrideEntries.forEach(([p, u], idx) => {
+                            newOverrides[idx === i ? newPath : p] = u;
+                          });
+                          onUpdate({ cta_url_overrides: newOverrides });
+                        }}
+                      />
+                      <span className="text-muted-foreground/40 text-xs shrink-0">→</span>
+                      <LinkPicker
+                        value={url}
+                        onChange={(newUrl) => {
+                          const newOverrides = { ...(msg.cta_url_overrides ?? {}), [path]: newUrl };
+                          onUpdate({ cta_url_overrides: newOverrides });
+                        }}
+                        locale={locale}
+                        contextPath={path || undefined}
+                        testId={`override-url-${index}-${i}`}
+                      />
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => {
+                          const newOverrides = { ...(msg.cta_url_overrides ?? {}) };
+                          delete newOverrides[path];
+                          onUpdate({ cta_url_overrides: Object.keys(newOverrides).length > 0 ? newOverrides : undefined });
+                        }}
+                        data-testid={`button-override-delete-${index}-${i}`}
+                      >
+                        <IconTrash className="h-3 w-3 text-destructive" />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
         </div>
       )}

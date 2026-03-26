@@ -14,7 +14,8 @@ navbar:
     enabled: true
     texts:
       - text: 'test '
-      - text: test 2
-        cta_label: View more
-        cta_url: /en/career-programs/ai-engineering
+        cta_label: seee
+        cta_url: /en/career-programs/cybersecurity
+        cta_url_overrides:
+          /landing/ai-engineering-en: '#whos_hiring-dvkv7b'
     position: above
