@@ -328,7 +328,7 @@ sections:
             achievement: She achieved a 100% salary increase.
     section_id: career_support_explain-w18hgq
     marginY:
-      desktop: none lg
+      desktop: none xl
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
