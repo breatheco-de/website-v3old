@@ -119,8 +119,8 @@ sections:
       background: primary
       width: 2
       text_2: |-
-        <div><span style="font-size: 1.5rem;"></span></div><span style="font-size: 1.5rem;"><div><span></span></div></span><ul><li class="whitespace-normal break-words pl-2">Unlimited 1:1 mentorship with real tech professionals</li></ul>
-        <ul style="font-size: 1.25rem;"><li class="whitespace-normal break-words pl-2">Career coaching built to get you hired</li><li class="whitespace-normal break-words pl-2">An AI tutor that adapts to your learning path</li><li class="whitespace-normal break-words pl-2">Your own AI agent</li></ul><span style="font-size: 20px;"><br></span>
+        <div><span style="font-size: 1.5rem;"></span></div><span style="font-size: 1.5rem;"><div><span></span></div></span><ul><li class="whitespace-normal break-words pl-2"></li></ul><span style="font-size: 1.875rem;"><ul><li class="whitespace-normal break-words pl-2"></li></ul><span style="font-size: 1.5rem;"><ul><li class="whitespace-normal break-words pl-2">Unlimited 1:1 mentorship with real tech professionals</li></ul>
+        <ul style="font-size: 1.25rem;"><li class="whitespace-normal break-words pl-2">Career coaching built to get you hired</li><li class="whitespace-normal break-words pl-2">An AI tutor that adapts to your learning path</li><li class="whitespace-normal break-words pl-2">Your own AI agent</li></ul></span><ul style="font-size: 1.25rem;"><li class="whitespace-normal break-words pl-2"></li></ul><span></span></span><span style="font-size: 20px;"><br></span>
         <div><span style="font-size: 1.5rem;">Tailored to you and yours for life.</span><span style="font-size: 1.5rem;"></span><span style="font-size: 1.5rem;"></span></div>
       text_1: "<span style=\"font-size: 1.875rem;\"><b><span style=\"font-size: 1.875rem;\">Accelerate your learning and break into tech with support like nowhere else.</span></b></span>"
     height: 31rem
