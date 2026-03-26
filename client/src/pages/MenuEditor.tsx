@@ -951,9 +951,9 @@ function SortableMarqueeMessageRow({
               testId={`marquee-msg-${index}-cta-link-picker`}
             />
           </div>
-          <div className="space-y-2">
+          <div className="space-y-2 border border-muted-foreground p-2 rounded-md">
             <div className="flex items-start justify-between gap-2">
-              <div className="space-y-0.5">
+              <div className="space-y-1">
                 <Label className="text-xs text-muted-foreground">Override CTA link per page</Label>
                 <p className="text-xs text-muted-foreground/70 leading-snug">
                   On specific pages, replace the CTA link above with a different destination.
@@ -976,7 +976,7 @@ function SortableMarqueeMessageRow({
                   <div key={i} className="space-y-1">
                     {i === 0 && (
                       <div className="flex items-center gap-1 px-0.5">
-                        <span className="text-xs text-muted-foreground/60 w-[120px] shrink-0">When on page</span>
+                        <span className="text-xs text-muted-foreground/60 w-[140px] shrink-0">When on page</span>
                         <span className="text-xs text-muted-foreground/60">Send to</span>
                       </div>
                     )}
@@ -1775,7 +1775,7 @@ export default function MenuEditor() {
                           <div>
                             <Label className="text-sm font-medium">Marquee bar</Label>
                             <p className="text-xs text-muted-foreground mt-0.5">
-                              Show an animated text strip near the navbar
+                              Show an animated text strip near the menu
                             </p>
                           </div>
                           <Switch
