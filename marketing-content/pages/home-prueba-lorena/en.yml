@@ -202,15 +202,6 @@ sections:
           - Dedicated career mentor tracks your job search and keeps it moving.
           - Lifetime career support — even for your next career move after your first job.
     background: bg-background
-  - type: testimonials_slide
-    title: They Were Exactly Where You Are Now.
-    description: "Different backgrounds, different programs, one result: a career in tech they didn't think was possible. These are real 4Geeks graduates with real numbers to back it up."
-    background: hsl(var(--card))
-    section_id: testimonials_slide-6jlded
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none
   - type: career_support_explain
     version: v1.0
     heading: We Stay With You Until You're Hired.
@@ -331,6 +322,15 @@ sections:
     section_id: career_support_explain-w18hgq
     marginY:
       desktop: none xl
+  - type: testimonials_slide
+    title: They Were Exactly Where You Are Now.
+    description: "Different backgrounds, different programs, one result: a career in tech they didn't think was possible. These are real 4Geeks graduates with real numbers to back it up."
+    background: hsl(var(--card))
+    section_id: testimonials_slide-6jlded
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
