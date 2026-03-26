@@ -98,11 +98,11 @@ sections:
         row_span: 2
         alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
         id: gemini-generated-image-pd2u4upd2u4upd2u
-      - image_id: gemini-generated-image-yxg2tyyxg2tyyxg2
+      - image_id: gemini-generated-image-dhko5mdhko5mdhko-1
         col_span: 6
         row_span: 2
-        alt: "Image: Gemini_Generated_Image_yxg2tyyxg2tyyxg2"
-        id: gemini-generated-image-yxg2tyyxg2tyyxg2
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
+        id: gemini-generated-image-dhko5mdhko5mdhko-1
       - image_id: gemini-generated-image-wpk4yvwpk4yvwpk4
         col_span: 6
         row_span: 2
