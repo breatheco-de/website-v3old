@@ -139,6 +139,7 @@ function PressMentionCard({
               className="!overflow-visible h-full w-auto max-w-[140px]"
               style={{ objectFit: "contain", objectPosition: "left center" }}
               loading="lazy"
+              fieldContext={{ arrayPath: "items", index, srcField: "logo" }}
             />
           </div>
         )}

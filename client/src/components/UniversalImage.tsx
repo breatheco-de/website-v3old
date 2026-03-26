@@ -3,6 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import type { ImageRef, ImageEntry, ImagePreset } from "@shared/schema";
 import SolidCard from "./SolidCard";
 import { useSectionPriority } from "@/contexts/SectionPriorityContext";
+import { useEditModeOptional } from "@/contexts/EditModeContext";
+import { useImagePickerContext } from "@/contexts/ImagePickerContext";
+import { Pencil } from "lucide-react";
 
 interface ImageRegistryData {
   presets: Record<string, ImagePreset>;
@@ -18,6 +21,13 @@ export function useImageRegistry() {
   return { registry: data ?? null, loading: isLoading };
 }
 
+interface FieldContext {
+  fieldPath?: string;
+  arrayPath?: string;
+  index?: number;
+  srcField?: string;
+}
+
 interface UniversalImageProps extends ImageRef {
   loading?: "lazy" | "eager";
   onLoad?: () => void;
@@ -25,6 +35,7 @@ interface UniversalImageProps extends ImageRef {
   useSolidCard?: boolean;
   bordered?: boolean;
   style?: React.CSSProperties;
+  fieldContext?: FieldContext;
 }
 
 const ASPECT_RATIOS: Record<string, number> = {
@@ -51,12 +62,16 @@ export function UniversalImage({
   useSolidCard = false,
   bordered = false,
   style,
+  fieldContext,
 }: UniversalImageProps) {
   const { registry, loading: registryLoading } = useImageRegistry();
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
   const isPrioritySection = useSectionPriority();
+  const editModeCtx = useEditModeOptional();
+  const imagePickerCtx = useImagePickerContext();
+  const isEditMode = editModeCtx?.isEditMode ?? false;
 
   const resolvedLoadingEarly: "lazy" | "eager" =
     loadingProp !== undefined
@@ -151,9 +166,45 @@ export function UniversalImage({
     ? "border-2 border-muted-foreground/40 rounded-lg"
     : "";
 
+  const handleEditClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!imagePickerCtx) return;
+
+    const pickerFieldContext = fieldContext?.fieldPath
+      ? { fieldPath: fieldContext.fieldPath }
+      : fieldContext?.arrayPath !== undefined && fieldContext?.index !== undefined && fieldContext?.srcField
+        ? { arrayPath: fieldContext.arrayPath, index: fieldContext.index, srcField: fieldContext.srcField }
+        : undefined;
+
+    imagePickerCtx.openImagePicker({
+      id: src,
+      alt: finalAlt,
+      currentRegistryId: imageEntry ? id : undefined,
+      fieldContext: pickerFieldContext,
+    });
+  };
+
+  const editOverlay = isEditMode && imagePickerCtx ? (
+    <button
+      type="button"
+      onClick={handleEditClick}
+      className="absolute inset-0 flex items-center justify-center invisible group-hover/editimg:visible cursor-pointer w-full"
+      data-edit-overlay="true"
+      data-testid={`button-edit-image-${id}`}
+      aria-label="Replace image"
+    >
+      <div className="absolute inset-0 bg-black/40" />
+      <span className="relative z-10 flex items-center gap-1.5 bg-white/90 text-gray-900 rounded-md px-2.5 py-1.5 text-xs font-medium shadow-md">
+        <Pencil className="h-3 w-3" />
+        Replace
+      </span>
+    </button>
+  ) : null;
+
   const imageContent = (
     <div
-      className={`relative overflow-hidden ${borderClasses} ${useSolidCard ? "" : className}`}
+      className={`relative overflow-hidden ${borderClasses} ${useSolidCard ? "" : className} ${isEditMode && imagePickerCtx ? "group/editimg" : ""}`}
       style={containerStyle}
       data-testid={`img-container-${id}`}
     >
@@ -188,6 +239,7 @@ export function UniversalImage({
         }}
         data-testid={`img-${id}`}
       />
+      {editOverlay}
     </div>
   );
 

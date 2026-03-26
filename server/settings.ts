@@ -14,8 +14,14 @@ interface I18nSettings {
   supported_locales: LocaleEntry[];
 }
 
+interface HomePageSettings {
+  type: string;
+  slug: string;
+}
+
 interface SiteSettings {
   i18n: I18nSettings;
+  home_page: HomePageSettings;
 }
 
 let cached: SiteSettings | null = null;
@@ -30,6 +36,10 @@ function loadSettings(): SiteSettings {
         { code: "en", label: "English" },
         { code: "es", label: "Spanish" },
       ],
+    },
+    home_page: {
+      type: "page",
+      slug: "home",
     },
   };
 
@@ -57,9 +67,15 @@ function loadSettings(): SiteSettings {
         : defaults.i18n.supported_locales,
     };
 
-    cached = { ...defaults, i18n };
+    const homePageRaw = parsed.home_page as Record<string, unknown> | undefined;
+    const home_page: HomePageSettings = {
+      type: (homePageRaw?.type as string) || defaults.home_page.type,
+      slug: (homePageRaw?.slug as string) || defaults.home_page.slug,
+    };
+
+    cached = { ...defaults, i18n, home_page };
     console.log(
-      `[Settings] Loaded: ${i18n.supported_locales.length} locale(s), default="${i18n.default_locale}"`
+      `[Settings] Loaded: ${i18n.supported_locales.length} locale(s), default="${i18n.default_locale}", home_page="${home_page.slug}"`
     );
     return cached;
   } catch (err) {
@@ -88,6 +104,10 @@ export function getLocaleLabel(code: string): string | undefined {
 
 export function getLocaleEntries(): LocaleEntry[] {
   return loadSettings().i18n.supported_locales;
+}
+
+export function getHomePage(): HomePageSettings {
+  return loadSettings().home_page;
 }
 
 export function normalizeLocale(locale: string | undefined | null): string {

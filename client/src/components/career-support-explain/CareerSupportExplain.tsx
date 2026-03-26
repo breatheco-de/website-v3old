@@ -24,7 +24,7 @@ function getTablerIcon(name: string) {
   return icons[name] || TablerIcons.IconCircle;
 }
 
-function ThreeColumnsLayout({ tab }: { tab: CareerSupportTab }) {
+function ThreeColumnsLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabIndex: number }) {
   return (
     <div
       className="flex flex-col lg:flex-row gap-4 h-full"
@@ -145,6 +145,7 @@ function ThreeColumnsLayout({ tab }: { tab: CareerSupportTab }) {
                 objectPosition: tab.col3_object_position || "center",
               }}
               data-testid="img-tab-content"
+              fieldContext={{ arrayPath: "tabs", index: tabIndex, srcField: "col3_image_id" }}
             />
           )}
         </div>
@@ -153,7 +154,7 @@ function ThreeColumnsLayout({ tab }: { tab: CareerSupportTab }) {
   );
 }
 
-function TwoColumnCardsLayout({ tab }: { tab: CareerSupportTab }) {
+function TwoColumnCardsLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabIndex: number }) {
   return (
     <div
       className="flex flex-col lg:flex-row gap-4 h-full items-center"
@@ -196,6 +197,7 @@ function TwoColumnCardsLayout({ tab }: { tab: CareerSupportTab }) {
                   objectPosition: tab.left_image_object_position || "center",
                 }}
                 data-testid="img-left-content-mobile"
+                fieldContext={{ arrayPath: "tabs", index: tabIndex, srcField: "left_image_id" }}
               />
             </div>
           )}
@@ -242,6 +244,7 @@ function TwoColumnCardsLayout({ tab }: { tab: CareerSupportTab }) {
                         tab.left_image_object_position || "center",
                     }}
                     data-testid="img-left-content"
+                    fieldContext={{ arrayPath: "tabs", index: tabIndex, srcField: "left_image_id" }}
                   />
                 </div>
               )}
@@ -315,7 +318,7 @@ function TwoColumnCardsLayout({ tab }: { tab: CareerSupportTab }) {
   );
 }
 
-function TextAndImageLayout({ tab }: { tab: CareerSupportTab }) {
+function TextAndImageLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabIndex: number }) {
   return (
     <div
       className="flex flex-col lg:flex-row gap-8 h-full"
@@ -382,6 +385,7 @@ function TextAndImageLayout({ tab }: { tab: CareerSupportTab }) {
               objectPosition: tab.right_image_object_position ?? "center",
             }}
             data-testid="img-right-content"
+            fieldContext={{ arrayPath: "tabs", index: tabIndex, srcField: "right_image_id" }}
           />
         )}
       </div>
@@ -391,8 +395,12 @@ function TextAndImageLayout({ tab }: { tab: CareerSupportTab }) {
 
 function TestimonialSlide({
   testimonial,
+  tabIndex,
+  testimonialIndex,
 }: {
   testimonial: CareerSupportTestimonial;
+  tabIndex: number;
+  testimonialIndex: number;
 }) {
   return (
     <div
@@ -415,6 +423,7 @@ function TestimonialSlide({
               minHeight: "200px",
             }}
             data-testid="testimonial-image"
+            fieldContext={{ arrayPath: `tabs.${tabIndex}.testimonials`, index: testimonialIndex, srcField: "image_id" }}
           />
         )}
       </div>
@@ -469,8 +478,10 @@ function TestimonialSlide({
 
 function TextWithTestimonialsCarouselLayout({
   tab,
+  tabIndex,
 }: {
   tab: CareerSupportTab;
+  tabIndex: number;
 }) {
   const testimonials = tab.testimonials ?? [];
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -546,7 +557,7 @@ function TextWithTestimonialsCarouselLayout({
               >
                 {testimonials.map((testimonial, i) => (
                   <div key={i} className="w-full flex-shrink-0 h-full">
-                    <TestimonialSlide testimonial={testimonial} />
+                    <TestimonialSlide testimonial={testimonial} tabIndex={tabIndex} testimonialIndex={i} />
                   </div>
                 ))}
               </div>
@@ -614,16 +625,16 @@ function EmptyLayout() {
   );
 }
 
-function TabContent({ tab }: { tab: CareerSupportTab }) {
+function TabContent({ tab, tabIndex }: { tab: CareerSupportTab; tabIndex: number }) {
   switch (tab.layout) {
     case "three_columns":
-      return <ThreeColumnsLayout tab={tab} />;
+      return <ThreeColumnsLayout tab={tab} tabIndex={tabIndex} />;
     case "two_column_cards":
-      return <TwoColumnCardsLayout tab={tab} />;
+      return <TwoColumnCardsLayout tab={tab} tabIndex={tabIndex} />;
     case "text_and_image":
-      return <TextAndImageLayout tab={tab} />;
+      return <TextAndImageLayout tab={tab} tabIndex={tabIndex} />;
     case "text_with_testimonials_carousel":
-      return <TextWithTestimonialsCarouselLayout tab={tab} />;
+      return <TextWithTestimonialsCarouselLayout tab={tab} tabIndex={tabIndex} />;
     default:
       return <EmptyLayout />;
   }
@@ -761,7 +772,7 @@ export function CareerSupportExplain({ data }: CareerSupportExplainProps) {
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <TabContent tab={tabs[activeTab]} />
+          <TabContent tab={tabs[activeTab]} tabIndex={activeTab} />
         </div>
       </div>
     </section>

@@ -83,6 +83,7 @@ export function BulletTabsShowcase({ data }: BulletTabsShowcaseProps) {
             className="w-full h-auto rounded-lg shadow-lg"
             alt={activeTab.label}
             style={imageStyle}
+            fieldContext={{ arrayPath: "tabs", index: activeIndex, srcField: "image_id" }}
           />
         </div>
       ) : (
@@ -97,6 +98,7 @@ export function BulletTabsShowcase({ data }: BulletTabsShowcaseProps) {
               className="w-full h-auto rounded-l-lg shadow-lg"
               alt={activeTab.label}
               style={imageStyle}
+              fieldContext={{ arrayPath: "tabs", index: activeIndex, srcField: "image_id" }}
             />
           </div>
         </div>

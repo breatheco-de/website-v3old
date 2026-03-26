@@ -98,6 +98,7 @@ export function CardsDeckDefault({ data }: CardsDeckDefaultProps) {
                           id={card.brand_image}
                           alt=""
                           className="h-6 flex-shrink-0"
+                          fieldContext={{ arrayPath: "cards", index, srcField: "brand_image" }}
                         />
                       </div>
                     )}

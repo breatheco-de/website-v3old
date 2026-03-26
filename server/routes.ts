@@ -112,6 +112,7 @@ import {
   getDefaultLocale,
   getLocaleEntries,
   updateLocaleSettings,
+  getHomePage,
 } from "./settings";
 import { variableManager } from "./variable-manager";
 import { getValidationService } from "../scripts/validation/service";
@@ -2029,6 +2030,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (err) {
       res.status(400).json({ error: String(err) });
     }
+  });
+
+  app.get("/api/settings/home-page", (_req, res) => {
+    res.json(getHomePage());
   });
 
   app.get("/api/settings/locales", (_req, res) => {

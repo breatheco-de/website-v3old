@@ -40,6 +40,7 @@ export function HeroShowcase({ data }: HeroShowcaseProps) {
                 alt={image.alt}
                 className="w-full h-48 rounded-lg"
                 style={{ objectFit: "cover" }}
+                fieldContext={{ arrayPath: "left_images", index, srcField: "src" }}
               />
             </div>
           ))}
@@ -149,6 +150,7 @@ export function HeroShowcase({ data }: HeroShowcaseProps) {
                 alt={image.alt}
                 className="w-full h-48 rounded-lg"
                 style={{ objectFit: "cover" }}
+                fieldContext={{ arrayPath: "right_images", index, srcField: "src" }}
               />
             </div>
           ))}

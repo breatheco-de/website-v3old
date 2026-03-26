@@ -128,5 +128,9 @@ export default {
       },
     },
   },
+  safelist: [
+    "group/editimg",
+    "group-hover/editimg:visible",
+  ],
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 } satisfies Config;

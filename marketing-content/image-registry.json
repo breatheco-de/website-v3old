@@ -529,7 +529,8 @@
       "tags": [
         "logo",
         "university",
-        "partner"
+        "partner",
+        "press"
       ],
       "usage_count": 0,
       "hash": "8fc6417085927b9e23549a513ec05c0200bf8be18441ba1bad243146e9e7252d",
@@ -5588,6 +5589,157 @@
       "width": 800,
       "height": 600,
       "format": "webp"
+    },
+    "download": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/download.png",
+      "alt": "Image: download",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "9a9b98065b8836dec8fd258eccbb74e5c1ffb33fa6c4ce9002d056652a5c3938",
+      "width": 225,
+      "height": 148,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        225
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 225,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-225w.webp"
+        }
+      ]
+    },
+    "download-1": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/download-1-.png",
+      "alt": "Image: download (1)",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "badge"
+      ],
+      "usage_count": 0,
+      "hash": "46b6adedcbb93fc444b4f355af93eee4fa48777d65ce6618ba4cda875e155f77",
+      "width": 225,
+      "height": 225,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        225
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 225,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-1--225w.webp"
+        }
+      ]
+    },
+    "download-2": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/download-2-.png",
+      "alt": "Image: download (2)",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "eeacf7aed8c02063196240ce2023c9185f82266157e0e72b70b3d935f33c5234",
+      "width": 329,
+      "height": 153,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        329
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 329,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-2--329w.webp"
+        }
+      ]
+    },
+    "download-3": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/download-3-.png",
+      "alt": "Image: download (3)",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "d053d132e52f7ef30a906af7d8fbdacea24751480ce0fb90d47bc5c5579090d5",
+      "width": 225,
+      "height": 225,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        225
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 225,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-3--225w.webp"
+        }
+      ]
+    },
+    "download-4": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/download-4-.png",
+      "alt": "Image: download (4)",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "f5351b2c7979646e4fead4af9ad540d7e6565a433c876dacc803905b1c95dd2d",
+      "width": 225,
+      "height": 225,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        225
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 225,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-4--225w.webp"
+        }
+      ]
+    },
+    "download-4-1": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/download-4-.jpg",
+      "alt": "Image: download (4)",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "c81c02d0baace4e2a12f8288ab6e3da7adfeb81510303ec93388519e5cf1e457",
+      "width": 433,
+      "height": 116,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        433
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 433,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-4--433w.webp"
+        }
+      ]
     }
   }
 }

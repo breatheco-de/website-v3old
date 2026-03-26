@@ -33,6 +33,7 @@ export function GraduatesStatsFullBleed({ data }: GraduatesStatsFullBleedProps) 
             preset="card"
             className="w-full h-full object-cover shadow-sm rounded-lg"
             alt={`Graduate photo ${index + 1}`}
+            fieldContext={{ arrayPath: "collage_images", index, srcField: "image_id" }}
           />
         </div>
       ))}
@@ -129,6 +130,7 @@ export function GraduatesStatsFullBleed({ data }: GraduatesStatsFullBleedProps) 
                       preset="card"
                       className="w-full h-full object-cover shadow-sm rounded-lg"
                       alt={`Featured graduate photo ${index + 1}`}
+                      fieldContext={{ arrayPath: "featured_images", index, srcField: "image_id" }}
                     />
                   </div>
                 );
@@ -151,6 +153,7 @@ export function GraduatesStatsFullBleed({ data }: GraduatesStatsFullBleedProps) 
                       preset="card"
                       className="w-full h-full object-cover shadow-sm rounded-lg"
                       alt={`Graduate photo ${index + 1}`}
+                      fieldContext={{ arrayPath: "collage_images", index, srcField: "image_id" }}
                     />
                   </div>
                 );

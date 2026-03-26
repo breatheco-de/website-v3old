@@ -214,6 +214,7 @@ function AILearningFeatureTabs({ data }: { data: AiLearningFeatureTabsSection })
                         preset="card-wide"
                         className="aspect-video"
                         bordered={true}
+                        fieldContext={{ arrayPath: "features", index: selectedIndex, srcField: "image_id" }}
                       />
                     </div>
                   ) : (displayedFeature.video?.url || displayedFeature.video_url) ? (

@@ -11,6 +11,7 @@ import { VariableModalHost } from "@/components/editing/VariableHighlight";
 import { SessionProvider } from "@/contexts/SessionContext";
 import { EditModeWrapper } from "@/components/editing/EditModeWrapper";
 import { DebugAuthProvider } from "@/hooks/useDebugAuth";
+import { ImagePickerProvider } from "@/contexts/ImagePickerContext";
 import { usePageTracking } from "@/hooks/usePageTracking";
 import type { ContentTypeApiItem } from "@/hooks/useContentTypes";
 import "./i18n";
@@ -217,6 +218,7 @@ function App({ ssrQueryClient }: AppProps = {}) {
         <DebugAuthProvider>
         <TooltipProvider>
           <EditModeWrapper>
+            <ImagePickerProvider>
             <PageTracker />
             <Router />
             <ClientOnly>
@@ -225,6 +227,7 @@ function App({ ssrQueryClient }: AppProps = {}) {
               <DebugBubble />
               <VariableModalHost />
             </ClientOnly>
+            </ImagePickerProvider>
           </EditModeWrapper>
         </TooltipProvider>
         </DebugAuthProvider>

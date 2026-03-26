@@ -36,6 +36,7 @@ export function GraduatesStatsStandard({ data }: GraduatesStatsStandardProps) {
               preset="card"
               className="w-full h-full object-cover shadow-sm"
               alt={`Graduate photo ${index + 1}`}
+              fieldContext={{ arrayPath: "collage_images", index, srcField: "image_id" }}
             />
           </div>
         );

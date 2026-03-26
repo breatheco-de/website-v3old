@@ -176,6 +176,7 @@ export function TwoColumnAccordionCardImageBackground({ data }: TwoColumnAccordi
                                 id={image}
                                 alt={image_alt || ""}
                                 className="w-full h-full object-cover rounded-lg"
+                                fieldContext={{ fieldPath: "image" }}
                               />
                             </div>
                           )}
@@ -204,6 +205,7 @@ export function TwoColumnAccordionCardImageBackground({ data }: TwoColumnAccordi
                             objectFit: image_object_fit || "contain",
                             objectPosition: image_object_position || "center center",
                           }}
+                          fieldContext={{ fieldPath: "image" }}
                         />
                       ) : null}
                     </div>

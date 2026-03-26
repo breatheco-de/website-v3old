@@ -18,10 +18,18 @@ const PLURAL_TO_SINGULAR: Record<string, string> = {
   locations: "location",
 };
 
+const HOME_PATH_RE = /^\/(?:en|es)?\/?$/;
+
 export function detectContentInfo(
   pathname: string,
-  contentTypes?: Record<string, { directory: string; url_pattern: Record<string, string> }> | null
+  contentTypes?: Record<string, { directory: string; url_pattern: Record<string, string> }> | null,
+  homePage?: { type: string; slug: string } | null
 ): ContentInfo {
+  if (HOME_PATH_RE.test(pathname)) {
+    const hp = homePage ?? { type: "page", slug: "home" };
+    return { type: hp.type, slug: hp.slug, label: capitalize(hp.type) };
+  }
+
   const previewMatch = pathname.match(/^\/private\/preview\/([^/]+)\/([^/]+)\/?$/);
   if (previewMatch) {
     let type = previewMatch[1];

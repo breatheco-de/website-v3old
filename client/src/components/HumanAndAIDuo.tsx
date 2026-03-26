@@ -140,6 +140,7 @@ export function HumanAndAIDuo({ data }: HumanAndAIDuoProps) {
               alt={image.alt || `Image ${index + 1}`}
               className="w-full h-full"
               style={getImageStyle(image)}
+              fieldContext={data.images && data.images.length > 0 ? { arrayPath: "images", index, srcField: "src" } : undefined}
             />
           </div>
         ))}

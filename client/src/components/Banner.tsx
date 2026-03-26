@@ -70,6 +70,7 @@ export function Banner({ data }: BannerProps) {
                 alt="Logo"
                 className="w-9 h-9"
                 style={{ objectFit: "contain" }}
+                fieldContext={{ fieldPath: "logo" }}
               />
             </div>
           )}
