@@ -96,9 +96,11 @@ sections:
         row_span: 2
         alt: "Image: Gemini_Generated_Image_pvy366pvy366pvy3"
         id: gemini-generated-image-pvy366pvy366pvy3
-      - image_id: graduates_coding
+      - image_id: gemini-generated-image-yxg2tyyxg2tyyxg2
         col_span: 6
         row_span: 2
+        alt: "Image: Gemini_Generated_Image_yxg2tyyxg2tyyxg2"
+        id: gemini-generated-image-yxg2tyyxg2tyyxg2
       - image_id: graduates_friends
         col_span: 6
         row_span: 2
