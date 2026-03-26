@@ -476,7 +476,7 @@ global.average_salary_workflow_automation_engineer:
         region: "europe"
       value: "20.000€- 30.000€"
 global.data_science_week_duration:
-  default: "16"
+  default: "18"
   conditions:
     - query:
         region: "europe"
