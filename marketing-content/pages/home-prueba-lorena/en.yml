@@ -369,9 +369,9 @@ sections:
     section_id: programs_showcase-5wibqd
     background: hsl(var(--card))
     paddingY:
-      desktop: md lg
+      desktop: none lg
     marginY:
-      desktop: sm lg
+      desktop: none lg
   - type: why_learn_ai
     variant: laptop-edge
     title: Get Hired. Or Your Money Back.
