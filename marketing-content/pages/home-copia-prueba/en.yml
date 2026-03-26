@@ -125,7 +125,7 @@ sections:
         <li class="whitespace-normal break-words pl-2">An AI tutor that adapts to your learning path</li>
         <li class="whitespace-normal break-words pl-2">Your own AI agent</li>
         </ul>
-        <p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Tailored to you and yours for life.</p></span><p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"></p>
+        <p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><span style="font-size: 1.25rem;"><span>Tailored to you and yours for life.</span></span></p></span><p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"></p>
     height: 31rem
     mobile_height: 24rem
     gap: md
