@@ -363,7 +363,7 @@ sections:
         cta_url: /programs/cybersecurity
     section_id: programs_showcase-exhqet
     marginY:
-      desktop: none lg
+      desktop: none xl
   - type: why_learn_ai
     variant: laptop-edge
     title: Get Hired. Or Your Money Back.
