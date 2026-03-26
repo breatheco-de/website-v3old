@@ -321,7 +321,7 @@ sections:
             achievement: She achieved a 100% salary increase.
     section_id: career_support_explain-w18hgq
     marginY:
-      desktop: none xl
+      desktop: none lg
   - type: testimonials_slide
     title: They Were Exactly Where You Are Now.
     description: "Different backgrounds, different programs, one result: a career in tech they didn't think was possible. These are real 4Geeks graduates with real numbers to back it up."
