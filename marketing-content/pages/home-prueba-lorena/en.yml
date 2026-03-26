@@ -235,6 +235,15 @@ sections:
     section_id: programs_showcase-exhqet
     marginY:
       desktop: none lg
+  - type: testimonials_slide
+    title: They Were Exactly Where You Are Now.
+    description: "Different backgrounds, different programs, one result: a career in tech they didn't think was possible. These are real 4Geeks graduates with real numbers to back it up."
+    background: hsl(var(--card))
+    section_id: testimonials_slide-6jlded
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none
   - type: career_support_explain
     version: v1.0
     heading: We Stay With You Until You're Hired.
@@ -353,15 +362,6 @@ sections:
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
     section_id: career_support_explain-w18hgq
-  - type: testimonials_slide
-    title: They Were Exactly Where You Are Now.
-    description: "Different backgrounds, different programs, one result: a career in tech they didn't think was possible. These are real 4Geeks graduates with real numbers to back it up."
-    background: hsl(var(--card))
-    section_id: testimonials_slide-6jlded
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none
   - type: why_learn_ai
     variant: laptop-edge
     title: Get Hired. Or Your Money Back.
