@@ -3206,6 +3206,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
       databaseManager.clearCache(dbName);
 
+      const relPath = `marketing-content/db/${dbName}/${filename}`;
+      markFileAsModified(relPath, "api");
+
       res.json({ success: true, count: items.length });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);

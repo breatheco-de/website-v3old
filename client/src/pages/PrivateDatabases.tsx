@@ -1720,25 +1720,33 @@ function FieldMappingEditor({
 
   const [hintDialogField, setHintDialogField] = useState<string | null>(null);
   const [hintDialogType, setHintDialogType] = useState<string>("text");
-  const [hintDialogOptions, setHintDialogOptions] = useState<string>("");
-  const [hintDialogSaving, setHintDialogSaving] = useState(false);
+  const [hintDialogOptions, setHintDialogOptions] = useState<string[]>([]);
+  const [hintDialogNewOption, setHintDialogNewOption] = useState<string>("");
 
   const openHintDialog = (field: string) => {
     const hint = editorHints[field] || {};
     setHintDialogField(field);
     setHintDialogType(hint.type || "text");
-    setHintDialogOptions((hint.options || []).join("\n"));
+    setHintDialogOptions(hint.options ? [...hint.options] : []);
+    setHintDialogNewOption("");
+  };
+
+  const addHintOption = () => {
+    const trimmed = hintDialogNewOption.trim();
+    if (!trimmed || hintDialogOptions.includes(trimmed)) return;
+    setHintDialogOptions((prev) => [...prev, trimmed]);
+    setHintDialogNewOption("");
+  };
+
+  const removeHintOption = (idx: number) => {
+    setHintDialogOptions((prev) => prev.filter((_, i) => i !== idx));
   };
 
   const saveHintDialog = () => {
     if (!hintDialogField) return;
     const hint: { type?: string; options?: string[] } = { type: hintDialogType };
-    if (hintDialogType === "select" || hintDialogType === "tags") {
-      const opts = hintDialogOptions
-        .split("\n")
-        .map((s) => s.trim())
-        .filter(Boolean);
-      if (opts.length > 0) hint.options = opts;
+    if ((hintDialogType === "select" || hintDialogType === "tags") && hintDialogOptions.length > 0) {
+      hint.options = hintDialogOptions;
     }
     setEditorHints((prev) => ({ ...prev, [hintDialogField]: hint }));
     setHintDialogField(null);
@@ -2103,14 +2111,49 @@ function FieldMappingEditor({
             </div>
             {(hintDialogType === "select" || hintDialogType === "tags") && (
               <div className="space-y-2">
-                <Label className="text-xs">Options (one per line)</Label>
-                <Textarea
-                  value={hintDialogOptions}
-                  onChange={(e) => setHintDialogOptions(e.target.value)}
-                  placeholder="option1&#10;option2&#10;option3"
-                  className="text-xs font-mono min-h-[6rem] resize-y"
-                  data-testid="textarea-hint-options"
-                />
+                <Label className="text-xs">Options</Label>
+                <div className="flex gap-2">
+                  <Input
+                    value={hintDialogNewOption}
+                    onChange={(e) => setHintDialogNewOption(e.target.value)}
+                    placeholder="Add an option..."
+                    className="text-sm flex-1"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") { e.preventDefault(); addHintOption(); }
+                    }}
+                    data-testid="input-hint-new-option"
+                  />
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={addHintOption}
+                    disabled={!hintDialogNewOption.trim() || hintDialogOptions.includes(hintDialogNewOption.trim())}
+                    data-testid="button-add-hint-option"
+                  >
+                    <IconPlus className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
+                {hintDialogOptions.length > 0 && (
+                  <div className="border rounded-md divide-y max-h-40 overflow-y-auto">
+                    {hintDialogOptions.map((opt, idx) => (
+                      <div key={idx} className="flex items-center justify-between px-3 py-1.5 text-sm">
+                        <span className="font-mono text-xs truncate">{opt}</span>
+                        <button
+                          type="button"
+                          onClick={() => removeHintOption(idx)}
+                          className="ml-2 text-muted-foreground hover:text-destructive"
+                          data-testid={`button-remove-hint-option-${idx}`}
+                        >
+                          <IconX className="h-3.5 w-3.5" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {hintDialogOptions.length === 0 && (
+                  <p className="text-xs text-muted-foreground">No options added yet.</p>
+                )}
               </div>
             )}
           </div>
@@ -3021,6 +3064,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                   <table className="w-full text-xs" data-testid="table-database-items">
                     <thead>
                       <tr className="border-b bg-muted/50">
+                        {editMode && <th className="px-2 py-2 w-20" />}
                         {columns.map((col) => (
                           <th
                             key={col}
@@ -3042,7 +3086,6 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                             </span>
                           </th>
                         ))}
-                        {editMode && <th className="px-2 py-2 w-20" />}
                       </tr>
                     </thead>
                     <tbody>
@@ -3052,15 +3095,6 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                           className="border-b last:border-b-0 hover:bg-muted/30"
                           data-testid={`row-item-${i}`}
                         >
-                          {columns.map((col) => (
-                            <td
-                              key={col}
-                              className="px-3 py-2 max-w-[200px] truncate whitespace-nowrap"
-                              title={formatCellValue(item[col])}
-                            >
-                              {formatCellValue(item[col])}
-                            </td>
-                          ))}
                           {editMode && (
                             <td className="px-2 py-1 whitespace-nowrap">
                               <div className="flex items-center gap-0.5">
@@ -3089,6 +3123,15 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                               </div>
                             </td>
                           )}
+                          {columns.map((col) => (
+                            <td
+                              key={col}
+                              className="px-3 py-2 max-w-[200px] truncate whitespace-nowrap"
+                              title={formatCellValue(item[col])}
+                            >
+                              {formatCellValue(item[col])}
+                            </td>
+                          ))}
                         </tr>
                       ))}
                     </tbody>
