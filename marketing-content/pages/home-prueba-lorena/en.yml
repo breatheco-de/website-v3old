@@ -268,29 +268,29 @@ sections:
             text: Salary negotiation coaching
           - icon: IconUsers
             text: Ongoing alumni career support
-    testimonials:
-      - image_id: mailinh_tran
-        image_object_fit: cover
-        image_object_position: center
-        contributor_logos:
-          - image_id: clark_university
-        description: MaiLinh came to 4Geeks with an entrepreneurial vision and no technical background. Today she runs her own tech startup and leads a team of developers.
-        achievement: She launched her own business and is now hiring the talent she once wanted to become.
-      - image_id: martin_coimbra
-        image_object_fit: cover
-        image_object_position: center top
-        contributor_logos:
-          - image_id: logo_utec
-        description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
-        achievement: His salary doubled. And he finally does work he loves.
-      - image_id: melanie_galaretto
-        image_object_fit: cover
-        image_object_position: center
-        contributor_logos:
-          - image_id: logo_utec
-          - image_id: bid_logo
-        description: Melanie retrained as a software developer and now works remotely for a tech company, from home, in a career she chose.
-        achievement: Her salary doubled. And she works remotely, on her own terms.
+        testimonials:
+          - image_id: mailinh_tran
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: clark_university
+            description: MaiLinh came to 4Geeks with an entrepreneurial vision and no technical background. Today she runs her own tech startup and leads a team of developers.
+            achievement: She launched her own business and is now hiring the talent she once wanted to become.
+          - image_id: martin_coimbra
+            image_object_fit: cover
+            image_object_position: center top
+            contributor_logos:
+              - image_id: logo_utec
+            description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
+            achievement: His salary doubled. And he finally does work he loves.
+          - image_id: melanie_galaretto
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: logo_utec
+              - image_id: bid_logo
+            description: Melanie retrained as a software developer and now works remotely for a tech company, from home, in a career she chose.
+            achievement: Her salary doubled. And she works remotely, on her own terms.
     section_id: career_support_explain-xpc3k2
   - type: numbered_steps
     section_id: numbered_steps-howitworks
