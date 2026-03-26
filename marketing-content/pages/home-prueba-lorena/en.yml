@@ -380,7 +380,7 @@ sections:
       desktop: md
     paddingY:
       desktop: none
-    background: hsl(var(--sidebar-background))
+    background: hsl(var(--muted))
     showOnLocations:
       - atlanta-usa
       - austin-usa
