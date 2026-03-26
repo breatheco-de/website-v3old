@@ -6136,7 +6136,27 @@
         "team"
       ],
       "usage_count": 0,
-      "hash": "ad8e9373e98cec7ddbee5d9c0c0610e0eda2b4a1ae41b0e4325ebb8af5698dbd"
+      "hash": "ad8e9373e98cec7ddbee5d9c0c0610e0eda2b4a1ae41b0e4325ebb8af5698dbd",
+      "width": 1024,
+      "height": 1536,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM-960w.webp"
+        }
+      ]
     }
   }
 }
