@@ -18,7 +18,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: "1.3 million new AI roles.&nbsp;<div><span style=\"color: hsl(var(--primary));\">We're your path in.</span></div>"
+    title: "1.3 million new AI roles.&nbsp;<div><span style=\"color: hsl(var(--primary));\"><span style=\"color: hsl(var(--foreground));\">We're </span>your path in.</span></div>"
     subtitle: "<span style=\"font-size: 16px; text-align: center;\"><span style=\"font-size: 1.5rem;\">Immersive programs built to launch AI careers. Backed by lifelong unlimited mentorship, AI-powered learning, and career support that gets you hired.</span></span>"
     cta_buttons:
       - text: Start Your Application
