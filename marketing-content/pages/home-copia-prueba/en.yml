@@ -118,7 +118,7 @@ sections:
       text: Mentors and career coaches that are always within reach, an AI tutor, and your personal AI agent. All tailored to you.
       background: primary
       width: 2
-      text_1: "<span style=\"font-size: 1.875rem;\"><b><span style=\"font-size: 1.875rem;\"><span style=\"line-height: 1.1;\"><span><span><span style=\"line-height: 1.1;\"><span>Accelerate your learning and break into tech with more support than anywhere else.</span></span></span></span></span></span></b></span>"
+      text_1: "<span style=\"font-size: 1.875rem;\"><b>Committed to breaking into tech? We support you like no one else does.</b></span>"
       text_2: |-
         <span style="font-size: 1.25rem;"><ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3"><li class="whitespace-normal break-words pl-2">Unlimited 1:1 mentorship with real tech professionals</li>
         <li class="whitespace-normal break-words pl-2">Career coaching built to get you hired</li>
