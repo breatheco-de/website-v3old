@@ -133,8 +133,9 @@ sections:
       desktop: sm xl
   - type: image_row
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
-        alt: Student learning to code
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Gemini_Generated_Image_r0lkblr0lkblr0lk.png
+        alt: "Image: Gemini_Generated_Image_r0lkblr0lkblr0lk"
+        id: gemini-generated-image-r0lkblr0lkblr0lk
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
         alt: Developer working on project
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
