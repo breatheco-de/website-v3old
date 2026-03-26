@@ -334,37 +334,37 @@ sections:
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
-    heading: Every Program Comes With the Job Guarantee Option
-    subheading: Four programs. One promise. Get hired within 9 months, or get your tuition back.
-    featured_label: Featured Program
+    heading: Find the program that fits where you're going.
+    subheading: Four paths. All built around getting you hired — not just trained.
+    featured_label: Most Popular
     programs:
       - name: AI Engineering
         icon: IconBrain
-        description: Build the AI systems companies are hiring for right now. Master LLMs, AI agents and automation while transforming a real business case into a fully AI-native system, layer by layer.
+        description: Build the AI systems companies are hiring for right now. Master LLMs, AI agents, and automation while transforming a real business case into a fully AI-native system, layer by layer.
         duration: 24 weeks
         avg_salary: $95,000 – $150,000
-        cta_text: Get More Info
+        cta_text: See If You Qualify
         cta_url: "#hero-nzpyph"
       - name: Full Stack Development with AI
         icon: IconCode
-        description: Build modern, production-ready web applications from frontend to backend using the most in-demand AI tools on the market.
+        description: Build modern, production-ready web applications from frontend to backend — with AI integrated at every layer, not added on top.
         duration: 20 weeks
         avg_salary: $65,000 – $105,000
-        cta_text: Get More Info
+        cta_text: See If You Qualify
         cta_url: "#hero-nzpyph"
       - name: Data Science and Machine Learning
         icon: IconChartBar
-        description: Analyze complex data, build intelligent models and deploy AI solutions for real business problems.
+        description: Analyze complex data, build intelligent models, and deploy AI solutions that solve real business problems — not just academic exercises.
         duration: 16 weeks
         avg_salary: $70,000 – $130,000
-        cta_text: Get More Info
+        cta_text: See If You Qualify
         cta_url: "#hero-nzpyph"
       - name: Cybersecurity
         icon: IconShield
-        description: Protect the systems AI depends on. Cybersecurity specialists are critical now that companies are scaling their AI infrastructure.
+        description: Protect the systems AI depends on. Every company scaling AI infrastructure needs specialists who can secure it. That demand isn't slowing down.
         duration: 16 weeks
         avg_salary: $65,000 – $120,000
-        cta_text: Get More Info
+        cta_text: See If You Qualify
         cta_url: "#hero-nzpyph"
     section_id: programs_showcase-5wibqd
     background: hsl(var(--card))
