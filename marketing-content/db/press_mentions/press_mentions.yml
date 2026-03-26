@@ -1,23 +1,26 @@
 press_mentions:
   - locale: en
     title: Selected by the Government of the Bahamas alongside Harvard, Oxford and Columbia to deliver national AI education
-    organization: Government of the Bahamas
     category: Government
-    excerpt: When institutions with due diligence requirements and public accountability choose a coding school, they do not choose lightly.
+    excerpt: >-
+      When institutions with due diligence requirements and public accountability choose a coding school, they do not
+      choose lightly.
+    priority: 1
+    organization: Government of the Bahamas
     year: '2018'
     tags:
       - Harvard
       - Oxford
       - Columbia
       - 4Geeks
-    priority: 1
-
   - locale: en
     title: Chosen as exclusive coding school partner across Costa Rica, Uruguay and Mexico
     organization: IDB
-    subtitle: 'Inter-American Development Bank · Multilateral Coding Education Partner across Latin America'
+    subtitle: Inter-American Development Bank · Multilateral Coding Education Partner across Latin America
     category: Multilateral Bank
-    excerpt: Selected as the exclusive coding school partner across Costa Rica, Uruguay and Mexico. Competing partners were evaluated against IDB procurement standards.
+    excerpt: >-
+      Selected as the exclusive coding school partner across Costa Rica, Uruguay and Mexico. Competing partners were
+      evaluated against IDB procurement standards.
     stat_value: '3'
     stat_label: countries
     tags:
@@ -25,26 +28,28 @@ press_mentions:
       - Uruguay
       - Mexico
     priority: 2
-
   - locale: en
-    title: 'Good Jobs Challenge · $10M federal grant'
+    title: Good Jobs Challenge · $10M federal grant
     organization: U.S. EDA
-    subtitle: 'U.S. Department of Commerce · Good Jobs Challenge Initiative · Federal Workforce Program'
+    subtitle: U.S. Department of Commerce · Good Jobs Challenge Initiative · Federal Workforce Program
     category: U.S. Federal Government
-    excerpt: Selected from 50+ applicants by the U.S. Department of Commerce. The program achieved 100% of placement targets and a 96% Good Jobs rate.
+    excerpt: >-
+      Selected from 50+ applicants by the U.S. Department of Commerce. The program achieved 100% of placement targets
+      and a 96% Good Jobs rate.
     stat_value: 96%
     stat_label: Good Jobs placement rate
     tags:
       - Miami Dade
       - 74 graduates placed
     priority: 3
-
   - locale: en
     title: Curriculum and instruction partner for MDC's technology bootcamp portfolio
     organization: Miami Dade
-    subtitle: 'College · Technology Bootcamp Curriculum & Instruction Partner since 2017'
+    subtitle: College · Technology Bootcamp Curriculum & Instruction Partner since 2017
     category: University Partnership
-    excerpt: Since 2017. Curriculum and instruction partner for MDC's technology bootcamp portfolio. 8 years of continuous partnership — the strongest possible signal of program quality.
+    excerpt: >-
+      Since 2017. Curriculum and instruction partner for MDC's technology bootcamp portfolio. 8 years of continuous
+      partnership — the strongest possible signal of program quality.
     stat_value: 400+
     stat_label: graduates
     tags:
@@ -53,113 +58,97 @@ press_mentions:
       - Applied AI
     year: '2017'
     priority: 4
-
   - locale: en
     title: Chosen as sole coding school to deploy a MacKenzie Scott philanthropist grant
     organization: United Way
-    subtitle: 'Miami, FL · MacKenzie Scott Philanthropist Grant Program · 2022'
+    subtitle: Miami, FL · MacKenzie Scott Philanthropist Grant Program · 2022
     category: Philanthropy / Mackenzie Scott
-    excerpt: Chosen as the sole coding school by United Way Miami to deploy a MacKenzie Scott philanthropist grant. Over 1,000 applications for 100 funded seats.
+    excerpt: >-
+      Chosen as the sole coding school by United Way Miami to deploy a MacKenzie Scott philanthropist grant. Over 1,000
+      applications for 100 funded seats.
     stat_value: 1,000+
     stat_label: applications for 100 seats
     tags:
       - Fully funded
-      - '$8,400 living stipend'
+      - $8,400 living stipend
     priority: 5
-
   - locale: en
     title: Ongoing partnership — 60% program cost covered for women in tech
     organization: ACAPI
-    subtitle: 'Foundation · Women-Focused Workforce Training Initiative · Mexico City'
+    subtitle: Foundation · Women-Focused Workforce Training Initiative · Mexico City
     category: Civil Society / Mexico
-    excerpt: 60% program cost covered by ACAPI. 76% of seats reserved for women. 61% graduation rate and 50% employment meetings — among the highest in 4Geeks' portfolio.
+    excerpt: >-
+      60% program cost covered by ACAPI. 76% of seats reserved for women. 61% graduation rate and 50% employment
+      meetings — among the highest in 4Geeks' portfolio.
     stat_value: 53%
     stat_label: average salary increase
     tags:
       - Women in Tech focus
       - Mexico City
     priority: 6
-
   - locale: en
     title: Selected as delivery partner for the Miami Workforce Project
     organization: Clark Univ.
-    subtitle: 'Miami Workforce Development Project · Clark University Community Partnership'
+    subtitle: Miami Workforce Development Project · Clark University Community Partnership
     category: University / Workforce
-    excerpt: Selected by Clark University as the delivery partner for the Miami Workforce Project. Program Director confirmed it exceeded expectations.
-    stat_value: '$4,000'
+    excerpt: >-
+      Selected by Clark University as the delivery partner for the Miami Workforce Project. Program Director confirmed
+      it exceeded expectations.
+    stat_value: $4,000
     stat_label: scholarship per student
     tags:
       - Unemployed & underrepresented students
     priority: 7
-
   - locale: en
     title: The future Workforce
-    image: global-miami-logo
-    excerpt: Since tech training boot camps are skills-based and shorter than an academic degree program, they can be an effective way to reach the incumbent workforce.
-    link_text: Read Article
-    link_url: 'https://issuu.com/coralgablesmagazine.com/docs/gm_jan-feb_2024_fullissue/74?ff'
+    excerpt: >-
+      Since tech training boot camps are skills-based and shorter than an academic degree program, they can be an
+      effective way to reach the incumbent workforce.
     priority: 10
-
   - locale: en
     title: 5 Best Online Full-Stack Bootcamps Of 2024
-    image: 'https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp'
-    excerpt: Full-stack developers create and troubleshoot both the back-end and front-end of websites and software—an indispensable skill set for companies across industries.
-    link_text: Read Article
-    link_url: 'https://www.forbes.com/advisor/education/bootcamps/best-full-stack-developer-bootcamp/'
+    excerpt: >-
+      Full-stack developers create and troubleshoot both the back-end and front-end of websites and software—an
+      indispensable skill set for companies across industries.
     priority: 11
-
   - locale: en
     title: Best Data Science Bootcamps Online In 2024
-    image: 'https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp'
-    excerpt: Current and prospective tech professionals can complete data science bootcamps to sharpen their existing skills, change fields or advance in their current careers.
-    link_text: Read Article
-    link_url: 'https://www.forbes.com/advisor/education/bootcamps/best-data-science-bootcamps/'
+    excerpt: >-
+      Current and prospective tech professionals can complete data science bootcamps to sharpen their existing skills,
+      change fields or advance in their current careers.
     priority: 12
-
   - locale: en
     title: Global Coding Bootcamp Market 2021-2025
-    image: businesswire-logo
-    excerpt: The publisher's robust vendor analysis is designed to help clients improve their market position, and in line with this, this report provides a detailed analysis of several leading coding bootcamp market vendors that include 4Geeks Academy LLC
-    link_text: Read Article
-    link_url: 'https://www.businesswire.com/news/home/20210519005401/en/Global-Coding-Bootcamp-Market-2021-2025---Low-Cost-of-Bootcamps-and-an-Increase-in-Student-Enrollments-to-Drive-Growth---ResearchAndMarkets.com'
+    excerpt: >-
+      The publisher's robust vendor analysis is designed to help clients improve their market position, and in line with
+      this, this report provides a detailed analysis of several leading coding bootcamp market vendors that include
+      4Geeks Academy LLC
     priority: 13
-
   - locale: en
     title: Miami-based coding school 4Geeks is breaking down the barriers to becoming a software developer
-    image: refresh-miami-logo
-    excerpt: Miami-based Marcelo Ricigliano is helping South Floridians hope on these trends and change their lives. Ricigliano is the CEO of coding school 4Geeks Academy, which aims to lower the barrier to entry to tech jobs.
-    link_text: See Interview
-    link_url: 'https://refreshmiami.com/miami-based-coding-school-4geeks-is-breaking-down-the-barriers-to-becoming-a-software-developer/'
+    excerpt: >-
+      Miami-based Marcelo Ricigliano is helping South Floridians hope on these trends and change their lives. Ricigliano
+      is the CEO of coding school 4Geeks Academy, which aims to lower the barrier to entry to tech jobs.
     priority: 14
-
   - locale: en
     title: Learn to Code Scholarships
-    image: the-miami-herald-logo
-    excerpt: After a lot of hard work we were able to partner with United Way to offer 100 scholarships in minority populations to become a software engineer or software developer
-    link_text: See Interview
-    link_url: 'https://www.miamiherald.com/news/business/article263937731.html'
+    excerpt: >-
+      After a lot of hard work we were able to partner with United Way to offer 100 scholarships in minority populations
+      to become a software engineer or software developer
     priority: 15
-
   - locale: en
     title: Web Development Coding Bootcamp
-    image: 'https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp'
-    excerpt: On a research made and published by Forbes while specified all the possible ways you can become a web developer in the USA.
-    link_text: Read Article
-    link_url: 'https://www.forbes.com/advisor/education/what-is-web-development'
+    excerpt: >-
+      On a research made and published by Forbes while specified all the possible ways you can become a web developer in
+      the USA.
     priority: 16
-
   - locale: en
     title: Student With Autism Learns to Code
-    image: nbc-logo
-    excerpt: Victor Fitchhorn, who has autism, is learning how to code at Miami-based 4Geeks Academy, a coding bootcamp. NBC 6's Ari Odzer reports.
-    link_text: Watch Video
-    link_url: 'https://www.nbcmiami.com/on-air/as-seen-on/students-with-autism-learn-to-code_miami/159640/'
+    excerpt: >-
+      Victor Fitchhorn, who has autism, is learning how to code at Miami-based 4Geeks Academy, a coding bootcamp. NBC
+      6's Ari Odzer reports.
     priority: 17
-
   - locale: en
     title: A Coding Career and You - Top Coding Schools 2017
-    image: newsweek-logo
     excerpt: Profundizamos a un nivel avanzado principios específicos de desarrollo, llevando tu carrera a otro nivel.
-    link_text: Read Article
-    link_url: 'https://www.newsweek.com/insights/coding-career-and-you-top-coding-schools-2017/4geeks-academy'
     priority: 18

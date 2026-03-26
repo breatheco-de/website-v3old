@@ -28,4 +28,4 @@ editor:
     type: text
   tags:
     type: tags
-    populate_options: true
+    populate_options: false
