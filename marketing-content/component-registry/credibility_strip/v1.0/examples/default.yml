@@ -5,7 +5,6 @@ yaml: |
     cta: "/partners"
     item_badge_shape: true
     item_background_color: "bg-secondary"
-    background: "bg-background"
     items:
       - label: "University Partners"
         logos:

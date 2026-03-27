@@ -2273,7 +2273,16 @@
         "logo",
         "badge",
         "award",
-        "spanish"
+        "spanish",
+        "avatar",
+        "card",
+        "icon",
+        "photo",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team"
       ],
       "usage_count": 2,
       "hash": "55a55ab451168a18828e7d28373541743a0c814c9eda09ce8ec45c541013957e",

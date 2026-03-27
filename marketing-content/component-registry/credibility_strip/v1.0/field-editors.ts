@@ -9,10 +9,8 @@ export type EditorType =
   | "select";
 
 export const fieldEditors: Record<string, EditorType> = {
-  background: "color-picker:background",
-  item_background_color: "color-picker:background",
-  item_badge_shape: "boolean-toggle",
-  cta: "link-picker",
-  link_url: "link-picker",
+  "item_background_color": "color-picker:background",
+  "item_badge_shape": "boolean-toggle",
+  "cta": "link-picker",
   "items[].logos[].image_id": "image-picker:logo",
 };

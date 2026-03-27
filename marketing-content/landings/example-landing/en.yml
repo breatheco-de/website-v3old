@@ -16,6 +16,34 @@ schema:
     - organization
     - website
 sections:
+  - type: credibility_strip
+    version: v1.0
+    cta: /partners
+    item_badge_shape: true
+    item_background_color: hsl(var(--muted))
+    items:
+      - label: University Partners
+        logos:
+          - image_id: premios_tecnologia
+            alt: Technology Awards XXI Century
+            id: premios-tecnologia
+          - image_id: logo_razz
+            alt: Razz logo
+            id: logo-razz
+          - image_id: coimbra_university
+      - label: Government Programs
+        logos:
+          - image_id: bid_logo
+          - image_id: beacon_council
+          - image_id: cinde
+      - label: Top Ranked, Every Year
+        logos:
+          - image_id: clark_university
+            alt: Clark University Logo
+            id: clark-university
+          - image_id: course_report
+          - image_id: forbes
+    section_id: credibility_strip-vcpur5
   - type: list_single_press_mention
     version: "1.0"
     button_icon: IconExternalLink
