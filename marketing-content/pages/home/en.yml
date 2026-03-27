@@ -81,6 +81,7 @@ sections:
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Student learning to code
+        object_position: 50% 50%
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
         alt: Developer working on project
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
