@@ -70,7 +70,7 @@ function FeaturedCourseCard({ course }: { course: CourseItem }) {
         </div>
 
         <h3
-          className="text-2xl font-bold text-foreground leading-tight flex items-center gap-2.5"
+          className="text-3xl font-bold text-foreground leading-tight flex items-center gap-2.5"
           data-testid="text-course-title"
         >
           {Icon && (
@@ -114,7 +114,7 @@ function FeaturedCourseCard({ course }: { course: CourseItem }) {
         )}
 
         <p
-          className="text-sm text-muted-foreground leading-relaxed flex-1"
+          className="text-base text-muted-foreground leading-relaxed flex-1"
           data-testid="text-description"
         >
           {vt(course.description)}
@@ -211,30 +211,28 @@ function SmallCourseCard({ course }: { course: CourseItem }) {
           )}
         </div>
 
-        {course.badges && course.badges.length > 0 && (
-          <div className="flex flex-wrap gap-1.5" data-testid="container-badges">
-            {course.badges.map((badge, i) => {
-              const BadgeIcon = getIcon(badge.icon);
-              return (
-                <span
-                  key={i}
-                  className="inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full"
-                  style={{ backgroundColor: hslColor(resolved, 0.4) }}
-                  data-testid={`badge-course-${i}`}
-                >
-                  {BadgeIcon && <BadgeIcon className="w-3 h-3" />}
-                  {vt(badge.text)}
-                </span>
-              );
-            })}
-          </div>
-        )}
-
-        {course.tags && course.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2" data-testid="container-tags">
-            {course.tags.map((tag, i) => (
-              <SpotlightTagItem key={i} icon={tag.icon} text={tag.text} />
-            ))}
+        {((course.badges && course.badges.length > 0) ||
+          (course.tags && course.tags.length > 0)) && (
+          <div className="flex flex-wrap gap-1.5" data-testid="container-badges-tags">
+            {course.badges &&
+              course.badges.map((badge, i) => {
+                const BadgeIcon = getIcon(badge.icon);
+                return (
+                  <span
+                    key={`badge-${i}`}
+                    className="inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full"
+                    style={{ backgroundColor: hslColor(resolved, 0.4) }}
+                    data-testid={`badge-course-${i}`}
+                  >
+                    {BadgeIcon && <BadgeIcon className="w-3 h-3" />}
+                    {vt(badge.text)}
+                  </span>
+                );
+              })}
+            {course.tags &&
+              course.tags.map((tag, i) => (
+                <SpotlightTagItem key={`tag-${i}`} icon={tag.icon} text={tag.text} />
+              ))}
           </div>
         )}
 
@@ -245,7 +243,7 @@ function SmallCourseCard({ course }: { course: CourseItem }) {
           {vt(course.description)}
         </p>
 
-        <div className="flex items-center justify-between gap-3 flex-wrap">
+        <div className="flex items-center gap-3 flex-wrap">
           <div className="flex items-baseline gap-1" data-testid="container-pricing">
             {course.original_price && (
               <span
@@ -276,18 +274,17 @@ function SmallCourseCard({ course }: { course: CourseItem }) {
             <IconClock className="w-3.5 h-3.5" />
             {vt(course.duration)}
           </span>
+          <a
+            href={course.cta_url}
+            onClick={handleLinkClick}
+            className="inline-flex items-center gap-1 text-sm font-semibold hover:underline ml-auto"
+            style={{ color: hslColor(resolved, 1) }}
+            data-testid="link-cta"
+          >
+            {vt(course.cta_text)}
+            <IconArrowRight className="w-3.5 h-3.5" />
+          </a>
         </div>
-
-        <a
-          href={course.cta_url}
-          onClick={handleLinkClick}
-          className="inline-flex items-center gap-1 text-sm font-semibold hover:underline"
-          style={{ color: hslColor(resolved, 1) }}
-          data-testid="link-cta"
-        >
-          {vt(course.cta_text)}
-          <IconArrowRight className="w-3.5 h-3.5" />
-        </a>
       </div>
     </div>
   );
