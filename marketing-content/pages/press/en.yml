@@ -86,7 +86,6 @@ sections:
         link_url: https://www.newsweek.com/insights/coding-career-and-you-top-coding-schools-2017/4geeks-academy
     paddingY:
       desktop: none md
-    title_color: hsl(var(--primary))
   - type: value_proof_panel
     section_id: value_proof_panel-5sit3c
     title: Recognized Globally For Excellence
