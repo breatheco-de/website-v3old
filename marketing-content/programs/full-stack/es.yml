@@ -198,7 +198,6 @@ sections:
           required: true
         program:
           visible: false
-          required: true
           default: full-stack
       success:
         message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
