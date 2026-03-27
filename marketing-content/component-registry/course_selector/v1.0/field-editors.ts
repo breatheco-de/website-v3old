@@ -9,5 +9,6 @@ export const fieldEditors: Record<string, EditorType> = {
   "courses[].cta_url": "link-picker",
 
   "default:courses[].course_background":  "color-picker:courses",
-  "solid:courses[].course_background": "color-picker:accent"
+  "solid:courses[].course_background": "color-picker:accent",
+  "spotlight:courses[].course_background": "color-picker:courses"
 };
