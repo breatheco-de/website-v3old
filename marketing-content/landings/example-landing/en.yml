@@ -21,6 +21,7 @@ sections:
     cta: /partners
     item_badge_shape: true
     item_background_color: hsl(var(--muted))
+    logo_rotation_ms_time: 2000
     items:
       - label: University Partners
         logos:
