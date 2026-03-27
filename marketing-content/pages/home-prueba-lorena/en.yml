@@ -185,9 +185,8 @@ sections:
       desktop: none xl
   - type: career_support_explain
     version: v1.0
-    heading: How We Get You Hired. From First Day to Signed Offer.
-    description: A complete system that takes you from enrolled to employed. AI-optimized profiles, direct access to 400+ hiring partners, and 1:1 support that's with you beyond landing your first role.
-    background: hsl(var(--muted))
+    heading: We Stay With You Until You're Hired.
+    description: This is what separates 4Geeks from every other platform. Not just courses. A complete system that takes you from enrolled to employed. AI-optimized profiles, direct access to 400+ hiring partners, and hands-on support from your first day to your signed offer letter and beyond.
     tabs:
       - tab_label: Job-Ready, Faster
         layout: three_columns
@@ -224,7 +223,7 @@ sections:
         left_image_object_fit: cover
         left_image_object_position: center
         left_stat:
-          value: {{ global.number_of_hiring_partners_aprox | 250 }}+
+          value: 400+
           label: companies in 4Geeks employer network
         right_bullets:
           - icon: IconUserPlus
@@ -265,7 +264,9 @@ sections:
       - tab_label: Your Best-Fit Role
         layout: text_with_testimonials_carousel
         title: Turn Your Background into an Advantage.
-        left_description: Your previous experience matters. We map your transferable skills, focus your search on the right roles, and when offers come, help you negotiate with confidence and choose the right one.
+        left_description: |-
+          Once offers are on the table, we help you choose and negotiate with confidence.
+          Your previous experience matters. We map transferable skills, focus your job search on the right roles, and support you through salary negotiation and long-term growth.
         left_bullets:
           - icon: IconTransfer
             text: Transferable skills mapping
@@ -281,24 +282,27 @@ sections:
             image_object_position: center
             contributor_logos:
               - image_id: clark_university
-            description: MaiLinh came to 4Geeks with an entrepreneurial vision and no technical background. Today she runs her own tech startup and leads a team of developers.
-            achievement: She launched her own business and is now hiring the talent she once wanted to become.
+            description: MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her endeavor.
+            achievement: She launched her own startup, is hiring new tech talent, and coordinates an entire team of developers.
           - image_id: martin_coimbra
             image_object_fit: cover
             image_object_position: center top
             contributor_logos:
               - image_id: logo_utec
             description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
-            achievement: His salary doubled. And he finally does work he loves.
+            achievement: He achieved a 100% salary increase.
           - image_id: melanie_galaretto
             image_object_fit: cover
             image_object_position: center
             contributor_logos:
               - image_id: logo_utec
               - image_id: bid_logo
-            description: Melanie retrained as a software developer and now works remotely for a tech company, from home, in a career she chose.
-            achievement: Her salary doubled. And she works remotely, on her own terms.
-    section_id: career_support_explain-xpc3k2
+            description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
+            achievement: She achieved a 100% salary increase.
+    section_id: career_support_explain-atccy5
+    marginY:
+      desktop: none lg
+    background: hsl(var(--muted))
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
