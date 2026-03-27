@@ -136,7 +136,7 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
         alt: "Image: ChatGPT Image Mar 26, 2026, 04_28_27 PM"
         id: chatgpt-image-mar-26-2026-04-28-27-pm
-        object_position: 60% 80%
+        object_position: 60% 60%
       - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_26_00-PM.png
         alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
         id: chatgpt-image-mar-26-2026-04-26-00-pm
