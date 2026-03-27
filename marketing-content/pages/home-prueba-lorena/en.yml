@@ -35,7 +35,7 @@ sections:
     paddingY:
       desktop: xl none
     marginY:
-      desktop: none md
+      desktop: none lg
     marginX:
       desktop: none
     paddingX:
