@@ -51,7 +51,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
           <div className="text-center flex flex-col gap-3">
             {data.title && (
               <h2
-                className="text-3xl md:text-4xl font-bold text-foreground leading-tight"
+                className="text-3xl md:text-4xl font-bold text-foreground leading-tight whitespace-pre-line "
                 style={data.title_color ? { color: data.title_color } : undefined}
                 data-testid="text-press-showcase-title"
               >
@@ -78,8 +78,8 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
           >
             {/* Left: Star + year */}
             <div className="flex-shrink-0 flex flex-col items-center gap-2 w-16">
-              <div className="bg-accent/5 p-3 rounded-full">
-                <Star className="w-6 h-6 text-yellow-500 text-yellow-300 fill-yellow-300" />
+              <div className="bg-yellow-100 p-3 rounded-full">
+                <Star className="w-6 h-6 text-yellow-500" fill="currentColor" />
               </div>
               {featured.year && (
                 <span className="text-sm font-bold text-white" data-testid="text-press-featured-year">
@@ -89,16 +89,16 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
             </div>
 
             {/* Center: title */}
-            <div className="w-[560px] flex-shrink-0">
+            <div className="w-[700px] me-24">
               {featured.title && (
-                <h3 className="text-xl font-bold text-white leading-snug" data-testid="text-press-featured-title">
+                <h3 className="text-xl font-extrabold text-white leading-snug" data-testid="text-press-featured-title">
                   {featured.title}
                 </h3>
               )}
             </div>
 
             {/* Right: logo + link + tags */}
-            <div className="flex-1 flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-center w-[50%]">
               {showLogos && featured.logo && (
                 <div className="h-10 max-w-[120px]" data-testid="img-press-featured-logo">
                   <UniversalImage
@@ -126,7 +126,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
                   {featured.tags.slice(0, 4).map((tag, i) => (
                     <span
                       key={i}
-                      className="bg-[#f1f5f9] text-[#475569] text-xs px-3 py-0.5 rounded-full font-medium whitespace-nowrap"
+                      className="bg-background text-foreground text-xs px-3 py-0.5 rounded-full font-medium whitespace-nowrap"
                       data-testid={`tag-press-featured-${i}`}
                     >
                       {tag}

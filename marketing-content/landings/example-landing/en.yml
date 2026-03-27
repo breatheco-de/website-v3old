@@ -31,7 +31,9 @@ sections:
   - type: list_press_mentions
     version: v1.0
     variant: featured_showcase
-    title: Governments, banks, and universities have audited us. Then hired us.
+    title: |-
+      Governments, banks, and universities
+      have audited us. Then hired us.
     subtitle: When institutions with due diligence requirements and public accountability choose a coding school, they do not choose lightly.
     show_links: false
     show_logos: true
