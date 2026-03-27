@@ -380,8 +380,8 @@ sections:
   - type: why_learn_ai
     variant: laptop-edge
     title: Get Hired. Or Your Money Back.
-    subtitle: Every program comes with the option of a Job Guarantee. Not hired within 9 months? Full tuition refund. That's how confident we are in what we built.
-    description: ""
+    subtitle: null
+    description: Every program comes with the option of a Job Guarantee. Not hired within 9 months? Full tuition refund. That's how confident we are in what we built.
     cta:
       text: See How It Works
       url: /en/job-guarantee
