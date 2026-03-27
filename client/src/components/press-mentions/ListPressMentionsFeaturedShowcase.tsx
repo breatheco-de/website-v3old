@@ -4,6 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import type { ListPressMentionsSection } from "@shared/schema";
 import { UniversalImage } from "@/components/UniversalImage";
 
+type PressMentionItem = NonNullable<ListPressMentionsSection["items"]>[number];
+
 interface ListPressMentionsFeaturedShowcaseProps {
   data: ListPressMentionsSection;
 }
@@ -17,7 +19,11 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
 
   const featured = items[0];
   const allCards = items.slice(1);
-  const totalPages = Math.ceil(allCards.length / 3);
+  const pageGroups: PressMentionItem[][] = [];
+  for (let i = 0; i < allCards.length; i += 3) {
+    pageGroups.push(allCards.slice(i, i + 3));
+  }
+  const totalPages = pageGroups.length;
 
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -26,8 +32,6 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
       setCurrentPage(totalPages - 1);
     }
   }, [totalPages, currentPage]);
-
-  const pageCards = allCards.slice(currentPage * 3, currentPage * 3 + 3);
 
   const bgStyle: React.CSSProperties = {};
   if (data.background) {
@@ -141,19 +145,28 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
         {/* Carousel */}
         {allCards.length > 0 && (
           <div className="flex flex-col gap-3">
-            <div className="flex gap-4">
-              {pageCards.map((card, i) => {
-                const globalIndex = currentPage * 3 + i + 1;
-                return (
-                  <ShowcaseCard
-                    key={globalIndex}
-                    item={card}
-                    index={globalIndex}
-                    showLinks={showLinks}
-                    showLogos={showLogos}
-                  />
-                );
-              })}
+            <div className="overflow-hidden">
+              <div
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentPage * 100}%)` }}
+              >
+                {pageGroups.map((group, pageIdx) => (
+                  <div key={pageIdx} className="flex gap-4 w-full flex-shrink-0">
+                    {group.map((card, i) => {
+                      const globalIndex = pageIdx * 3 + i + 1;
+                      return (
+                        <ShowcaseCard
+                          key={globalIndex}
+                          item={card}
+                          index={globalIndex}
+                          showLinks={showLinks}
+                          showLogos={showLogos}
+                        />
+                      );
+                    })}
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Nav dots — hidden when only 1 page */}
@@ -224,8 +237,6 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
     </section>
   );
 }
-
-type PressMentionItem = NonNullable<ListPressMentionsSection["items"]>[number];
 
 interface ShowcaseCardProps {
   item: PressMentionItem;
