@@ -62,7 +62,7 @@ function CredibilityPill({
       <div
         style={{
           position: "relative",
-          width: "110px",
+          width: "70px",
           height: "36px",
           flexShrink: 0,
         }}
@@ -78,7 +78,7 @@ function CredibilityPill({
               left: "50%",
               transform: "translate(-50%, -50%)",
               maxHeight: "36px",
-              maxWidth: "110px",
+              maxWidth: "70px",
               width: "auto",
               objectFit: "contain",
               filter: "grayscale(100%) opacity(0.6)",
