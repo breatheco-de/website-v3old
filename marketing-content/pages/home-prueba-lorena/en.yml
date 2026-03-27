@@ -140,7 +140,7 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_26_00-PM.png
         alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
         id: chatgpt-image-mar-26-2026-04-26-00-pm
-        object_position: 30% 80%
+        object_position: 40% 10%
       - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina_brightened.png
         alt: "Image: valentina_brightened"
         id: valentina-brightened
