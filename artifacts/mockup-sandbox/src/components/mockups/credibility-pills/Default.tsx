@@ -20,7 +20,7 @@ const PILLS = [
     ],
   },
   {
-    label: "Top Ranked, Every Year",
+    label: "Top Ranked, Every Year sadasd  adsds",
     logos: [
       { url: BASE + "forbes-logo.png", alt: "Forbes" },
       { url: BASE + "switchup_1765590146414.webp", alt: "SwitchUp" },
