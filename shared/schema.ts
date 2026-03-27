@@ -736,7 +736,7 @@ import { applyFormSectionSchema } from "../marketing-content/component-registry/
 import { awardBadgesSectionSchema } from "../marketing-content/component-registry/award_badges/v1.0/schema";
 import { awardsMarqueeSectionSchema, type AwardsMarqueeSection, type AwardsMarqueeItem } from "../marketing-content/component-registry/awards_marquee/v1.0/schema";
 export { awardsMarqueeSectionSchema, type AwardsMarqueeSection, type AwardsMarqueeItem };
-import { listPressMentionsSectionSchema, type ListPressMentionsSection, type PressMentionItem, pressMentionsSectionSchema, type PressMentionsSection } from "../marketing-content/component-registry/press_mentions/v1.0/schema";
+import { listPressMentionsSectionSchema, type ListPressMentionsSection, type PressMentionItem, pressMentionsSectionSchema, type PressMentionsSection } from "../marketing-content/component-registry/list_press_mentions/v1.0/schema";
 export { listPressMentionsSectionSchema, type ListPressMentionsSection, type PressMentionItem };
 export { pressMentionsSectionSchema, type PressMentionsSection };
 export { listSinglePressMentionSectionSchema, type ListSinglePressMentionSection } from "../marketing-content/component-registry/list_single_press_mention/v1.0/schema";

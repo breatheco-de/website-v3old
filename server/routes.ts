@@ -1296,7 +1296,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json(landings);
   });
 
-  app.get("/api/landings/:slug", (req, res) => {
+  app.get("/api/landings/:slug", async (req, res) => {
     const { slug } = req.params;
     const forceVariant = req.query.force_variant as string | undefined;
     const forceVersion = req.query.force_version
@@ -1370,6 +1370,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const landingLocations =
       (commonData?.locations as string[] | undefined) || undefined;
     const landingData = landing as unknown as Record<string, unknown>;
+
+    if (landing.sections && Array.isArray(landing.sections)) {
+      (landing as any).sections = await resolveDynamicEntries(landing.sections as any, locale);
+    }
+
     const rawMerged = contentIndex.loadMergedContent("landing", slug, locale);
     const layout = resolveLayout("landing", rawMerged.data || commonData || {});
     const singleEntry = buildSingleEntryFromContent("landing", landingData);
