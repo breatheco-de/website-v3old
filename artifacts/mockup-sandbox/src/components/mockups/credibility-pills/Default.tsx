@@ -51,10 +51,10 @@ function CredibilityPill({
         display: "inline-flex",
         alignItems: "center",
         gap: "10px",
-        padding: "5px 10px",
+        padding: "7px 10px",
         background: "#F9FAFB",
         border: "1px solid #E5E7EB",
-        borderRadius: "9999px",
+        borderRadius: "10px",
         whiteSpace: "nowrap",
         flexShrink: 0,
       }}
@@ -62,7 +62,7 @@ function CredibilityPill({
       <div
         style={{
           position: "relative",
-          width: "70px",
+          width: "50px",
           height: "36px",
           flexShrink: 0,
         }}
@@ -77,7 +77,7 @@ function CredibilityPill({
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              maxHeight: "36px",
+              maxHeight: "40px",
               maxWidth: "70px",
               width: "auto",
               objectFit: "contain",
