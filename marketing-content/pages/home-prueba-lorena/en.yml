@@ -76,7 +76,7 @@ sections:
     title: "<span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.125rem;\"><span style=\"font-size: 1.25rem;\"><span><span style=\"font-size: 1rem;\">The tech training institutions trust for their high-stake programs.&nbsp;</span></span></span></span></span>"
     title_above_carousel: true
     marginY:
-      desktop: md
+      desktop: md lg
   - type: features_grid
     version: "1.0"
     variant: stats-text
@@ -96,7 +96,7 @@ sections:
         title: Salary premium for workers with AI skills
     section_id: features_grid-142xko
     marginY:
-      desktop: sm xl
+      desktop: lg xl
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thiriving in tech.
