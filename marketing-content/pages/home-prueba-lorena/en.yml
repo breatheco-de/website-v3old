@@ -370,7 +370,6 @@ sections:
   - type: testimonials_slide
     title: They Were Where You Are. Now They're Thriving in Tech.
     description: "Different backgrounds, different starting points, one result: a career in tech that changed everything. These are their stories."
-    background: hsl(var(--card))
     section_id: testimonials_slide-6jlded
     marginY:
       desktop: none
