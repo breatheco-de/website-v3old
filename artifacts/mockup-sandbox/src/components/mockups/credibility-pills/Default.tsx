@@ -91,7 +91,7 @@ function CredibilityPill({
 
       <span
         style={{
-          fontSize: "13px",
+          fontSize: "15px",
           fontWeight: 500,
           color: "#00041A",
           lineHeight: 1,
