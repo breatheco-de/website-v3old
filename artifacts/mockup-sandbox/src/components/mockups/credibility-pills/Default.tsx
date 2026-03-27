@@ -81,7 +81,7 @@ function CredibilityPill({
               maxWidth: "70px",
               width: "auto",
               objectFit: "contain",
-              filter: "grayscale(100%) opacity(0.6)",
+              filter: "grayscale(100%) opacity(0.85)",
               opacity: i === activeIdx ? 1 : 0,
               transition: "opacity 200ms ease",
             }}
