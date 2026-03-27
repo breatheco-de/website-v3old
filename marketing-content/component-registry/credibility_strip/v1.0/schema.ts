@@ -16,7 +16,7 @@ export const credibilityStripSectionSchema = z.object({
   link_url: z.string().optional(),
   item_badge_shape: z.boolean().optional(),
   item_background_color: z.string().optional(),
-  logo_rotation_seconds: z.number().optional(),
+  logo_rotation_ms_time: z.number().optional(),
   items: z.array(credibilityStripItemSchema).optional(),
 });
 

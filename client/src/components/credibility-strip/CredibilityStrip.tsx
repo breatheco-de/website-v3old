@@ -32,11 +32,13 @@ function CredibilityItem({
   borderRadius,
   itemBgStyle,
   sectionHovered,
+  rotationMs,
 }: {
   item: CredibilityStripItem;
   borderRadius: string;
   itemBgStyle: CSSProperties;
   sectionHovered: boolean;
+  rotationMs: number;
 }) {
   const logos = item.logos || [];
   const [activeIdx, setActiveIdx] = useState(0);
@@ -45,9 +47,9 @@ function CredibilityItem({
     if (logos.length <= 1) return;
     const timer = setInterval(() => {
       setActiveIdx((prev) => (prev + 1) % logos.length);
-    }, 2000);
+    }, rotationMs);
     return () => clearInterval(timer);
-  }, [logos.length]);
+  }, [logos.length, rotationMs]);
 
   return (
     <div
@@ -101,6 +103,7 @@ export function CredibilityStrip({ data }: { data: CredibilityStripSection }) {
   const itemBgStyle: CSSProperties = {
     backgroundColor: data.item_background_color || "hsl(var(--secondary))",
   };
+  const rotationMs = data.logo_rotation_ms_time ?? 2000;
 
   const href = data.cta || data.link_url;
   const Wrapper = (href ? "a" : "div") as "a" | "div";
@@ -134,6 +137,7 @@ export function CredibilityStrip({ data }: { data: CredibilityStripSection }) {
             borderRadius={borderRadius}
             itemBgStyle={itemBgStyle}
             sectionHovered={hovered}
+            rotationMs={rotationMs}
           />
         ))}
       </div>
