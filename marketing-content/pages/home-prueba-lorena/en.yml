@@ -371,7 +371,7 @@ sections:
     marginY:
       desktop: none
     paddingY:
-      desktop: md none
+      desktop: none
   - type: why_learn_ai
     variant: laptop-edge
     title: Land the Job. Or Your Money Back.
