@@ -120,8 +120,8 @@ function FeaturedCourseCard({ course }: { course: CourseItem }) {
           {vt(course.description)}
         </p>
 
-        <div className="mt-auto flex flex-col lg:flex-row lg:items-end lg:justify-between gap-1 lg:gap-3">
-          <div className="flex flex-col gap-1">
+        <div className="mt-auto lg:flex justify-between gap-1">
+          <div>
             <div className="flex items-baseline gap-1.5" data-testid="container-pricing">
               {course.original_price && (
                 <span
@@ -153,10 +153,11 @@ function FeaturedCourseCard({ course }: { course: CourseItem }) {
               />
             )}
           </div>
+          
           <a
             href={course.cta_url}
             onClick={handleLinkClick}
-            className="inline-flex items-center gap-1 text-sm font-semibold hover:underline lg:shrink-0"
+            className="inline-flex items-end gap-1 text-sm font-semibold hover:underline mt-1"
             style={{ color: hslColor(resolved, 1) }}
             data-testid="link-cta"
           >
