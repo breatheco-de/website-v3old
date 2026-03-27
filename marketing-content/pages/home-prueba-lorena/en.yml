@@ -346,6 +346,7 @@ sections:
     programs:
       - name: AI Engineering
         icon: IconBrain
+        badge: hola
         description: Build the AI systems companies are hiring for right now. Master LLMs, AI agents, and automation while transforming a real business case into a fully AI-native system, layer by layer.
         duration: 24 weeks, or 15-week accelerated track
         avg_salary: $95,000 - $150,000
