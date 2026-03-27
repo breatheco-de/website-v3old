@@ -52,4 +52,6 @@ export const componentsList: ComponentItem[] = [
   { type: "bullet_tabs_showcase", label: "Bullet Tabs Showcase", icon: IconListDetails, description: "Interactive tabs with vertical highlight bar and image" },
   { type: "graduates_stats", label: "Graduates Stats", icon: IconUsersGroup, description: "Image collage with statistics - standard and fullBleed variants" },
   { type: "programs_showcase", label: "Programs Showcase", icon: IconLayoutGrid, description: "All programs side-by-side - grid, stacked list, or spotlight variants" },
+  { type: "list_press_mentions", label: "Press Mentions List", icon: IconBuildingSkyscraper, description: "Grid of press mention cards with logos, excerpts and links" },
+  { type: "list_single_press_mention", label: "Featured Press Mention", icon: IconBuildingSkyscraper, description: "Single highlighted press mention — image left, content right" },
 ];

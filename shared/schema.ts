@@ -739,6 +739,7 @@ export { awardsMarqueeSectionSchema, type AwardsMarqueeSection, type AwardsMarqu
 import { listPressMentionsSectionSchema, type ListPressMentionsSection, type PressMentionItem, pressMentionsSectionSchema, type PressMentionsSection } from "../marketing-content/component-registry/press_mentions/v1.0/schema";
 export { listPressMentionsSectionSchema, type ListPressMentionsSection, type PressMentionItem };
 export { pressMentionsSectionSchema, type PressMentionsSection };
+export { listSinglePressMentionSectionSchema, type ListSinglePressMentionSection } from "../marketing-content/component-registry/list_single_press_mention/v1.0/schema";
 import { valueProofPanelSectionSchema } from "../marketing-content/component-registry/value_proof_panel/v1.0/schema";
 import { stickyCtaSectionSchema } from "../marketing-content/component-registry/sticky_cta/v1.0/schema";
 export { stickyCtaSectionSchema, type StickyCtaSection } from "../marketing-content/component-registry/sticky_cta/v1.0/schema";
