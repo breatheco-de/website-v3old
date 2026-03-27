@@ -1,40 +1,8 @@
-type: press_mentions
+type: list_press_mentions
+variant: cards
 title: Featured in the Press
 columns: 3
-items:
-  - logo: global-miami-logo
-    logo_height: 28
-    title: The future Workforce
-    excerpt: Since tech training boot camps are skills-based and shorter than an academic degree program, they can be an effective way to reach the incumbet workforce.
-    link_text: Read Article
-    link_url: https://example.com/article-1
-  - logo: forbes-logo
-    logo_height: 28
-    title: 5 Best Online Full-Stack Bootcamps Of 2024
-    excerpt: "Full-stack developers create and troubleshoot both the back-end and front-end of websites and software\u2014an indispensable skill set for companies across industries."
-    link_text: Read Article
-    link_url: https://example.com/article-2
-  - logo: forbes-logo
-    logo_height: 28
-    title: Best Data Science Bootcamps Online In 2024
-    excerpt: Current and prospective tech professionals can complete data science bootcamps to sharpen their existing skills, change fields or advance in their current careers.
-    link_text: Read Article
-    link_url: https://example.com/article-3
-  - logo: businesswire-logo
-    logo_height: 28
-    title: Global Coding Bootcamp Market 2021-2025
-    excerpt: The publisher's robust vendor analysis is designed to help clients improve their market position, and in line with this, this report provides a detailed analysis of several leading coding bootcamp market vendors that include 4Geeks Academy LLC
-    link_text: Read Article
-    link_url: https://example.com/article-4
-  - logo: refresh-miami-logo
-    logo_height: 28
-    title: Miami-based coding school 4Geeks is breaking down the barriers to becoming a software developer
-    excerpt: Miami-based Marcelo Ricigliano is helping South Floridians hope on these trends and change their lives. Ricigliano is the CEO of coding school 4Geeks Academy, which aims to lower the barrier to entry to tech jobs.
-    link_text: See Interview
-    link_url: https://example.com/interview
-  - logo: nbc-logo
-    logo_height: 28
-    title: Student With Autism Learns to Code
-    excerpt: Victor Fitchhorn, who has autism, is learning how to code at Miami-based 4Geeks Academy, a coding bootcamp. NBC 6's Ari Odzer reports.
-    link_text: Watch Video
-    link_url: https://example.com/nbc-video
+dynamic_entries:
+  database: press_mentions
+  limit: 6
+  sort: priority
