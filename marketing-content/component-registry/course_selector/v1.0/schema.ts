@@ -37,7 +37,7 @@ export const courseItemSchema = z.object({
 export const courseSelectorSectionSchema = z.object({
   type: z.literal("course_selector"),
   version: z.string().optional().default("1.0"),
-  variant: z.enum(["default", "solid"]).optional().default("default").describe("Visual variant: 'default' uses gradient background, 'solid' uses flat fill with edge-to-edge tabs"),
+  variant: z.enum(["default", "solid", "spotlight"]).optional().default("default").describe("Visual variant: 'default' uses gradient background, 'solid' uses flat fill with edge-to-edge tabs, 'spotlight' shows all courses as cards in a spotlight layout (large card left + stacked cards right)"),
   heading: z.string().optional().describe("Optional section heading above the card"),
   subheading: z.string().optional().describe("Optional section subheading"),
   courses: z.array(courseItemSchema).min(1).describe("Array of course items, each rendered as a selectable tab"),
