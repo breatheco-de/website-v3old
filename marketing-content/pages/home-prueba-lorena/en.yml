@@ -336,7 +336,7 @@ sections:
         cta_url: /en/career-programs/cybersecurity
     section_id: programs_showcase-5wibqd
     paddingY:
-      desktop: md
+      desktop: sm md
     marginY:
       desktop: lg xl
   - type: trust_cards
