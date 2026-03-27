@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Star, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { ListPressMentionsSection } from "@shared/schema";
@@ -20,6 +20,12 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
   const totalPages = Math.ceil(allCards.length / 3);
 
   const [currentPage, setCurrentPage] = useState(0);
+
+  useEffect(() => {
+    if (totalPages > 0 && currentPage >= totalPages) {
+      setCurrentPage(totalPages - 1);
+    }
+  }, [totalPages, currentPage]);
 
   const pageCards = allCards.slice(currentPage * 3, currentPage * 3 + 3);
 
@@ -99,6 +105,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
                     id={featured.logo}
                     alt={featured.organization || featured.title || ""}
                     className="h-full w-auto object-contain"
+                    fieldContext={{ arrayPath: "items", index: 0, srcField: "logo" }}
                   />
                 </div>
               )}
@@ -246,6 +253,7 @@ function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) 
               id={item.logo}
               alt={item.organization || item.title || ""}
               className="max-w-full h-full object-contain rounded-md bg-white p-1"
+              fieldContext={{ arrayPath: "items", index, srcField: "logo" }}
             />
           </div>
         )}
