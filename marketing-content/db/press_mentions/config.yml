@@ -19,6 +19,9 @@ field_mapping:
   stat_value: stat_value
   year: year
   tags: tags
+  logo: logo
+  link_url: link_url
+  link_text: link_text
 editor:
   excerpt:
     type: textarea
