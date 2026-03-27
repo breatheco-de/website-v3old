@@ -45,7 +45,7 @@ sections:
         label: Employment rate across programs
     dynamic_entries:
       database: press_mentions
-      limit: 4
+      limit: 12
       sort: priority
     section_id: list_press_mentions-w7r1sh
   - type: programs_showcase
