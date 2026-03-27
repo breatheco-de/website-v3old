@@ -78,8 +78,8 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
           >
             {/* Left: Star + year */}
             <div className="flex-shrink-0 flex flex-col items-center gap-2 w-16">
-              <div className="bg-accent/20 p-3 rounded-full">
-                <Star className="w-6 h-6 text-accent" />
+              <div className="bg-accent/5 p-3 rounded-full">
+                <Star className="w-6 h-6 text-yellow-500 text-yellow-300 fill-yellow-300" />
               </div>
               {featured.year && (
                 <span className="text-sm font-bold text-white" data-testid="text-press-featured-year">
