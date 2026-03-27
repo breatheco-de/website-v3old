@@ -77,7 +77,6 @@ sections:
     title_above_carousel: true
     marginY:
       desktop: md
-    background: hsl(var(--card))
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thiriving in tech.
