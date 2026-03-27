@@ -18,8 +18,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    title: 1.3 million new AI roles. We're your path in.
-    subtitle: Intensive 16-24 week programs built to launch AI careers. Backed by unlimited mentorship, AI-powered learning, and career support that gets you hired. Lifelong.
+    title: "1.3 Million New AI Roles.&nbsp;<div><span style=\"color: hsl(var(--primary));\"><span style=\"color: hsl(var(--foreground));\">We're </span>Your Path In.</span></div>"
+    subtitle: "<span style=\"font-size: 16px; text-align: center;\"><span style=\"font-size: 1.5rem;\">Immersive programs built to launch AI careers. Backed by lifelong unlimited mentorship, AI-powered learning, and career support that gets you hired.</span></span>"
     cta_buttons:
       - text: Start Your Application
         url: /signup
@@ -35,7 +35,7 @@ sections:
     paddingY:
       desktop: xl none
     marginY:
-      desktop: none
+      desktop: none xl
     marginX:
       desktop: none
     paddingX:
@@ -76,60 +76,7 @@ sections:
     title: "<span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.125rem;\"><span style=\"font-size: 1.25rem;\"><span><span style=\"font-size: 1rem;\">The tech training institutions trust for their high-stake programs.&nbsp;</span></span></span></span></span>"
     title_above_carousel: true
     marginY:
-      desktop: none xl
-  - type: graduates_stats
-    heading: Our Graduates Get Hired. Fast.
-    subheading: 6,000+ graduates worldwide. Now thiriving in tech.
-    stats:
-      - value: 84%
-        label: Average hiring rate
-      - value: 55%
-        label: Average salary increase at new position
-      - value: 3-6 months
-        label: Average time to get hired
-    collage_images:
-      - image_id: graduates_team_1
-        col_span: 5
-        row_span: 2
-      - image_id: graduates_team_2
-        col_span: 7
-        row_span: 2
-      - image_id: graduates_coding
-        col_span: 6
-        row_span: 2
-      - image_id: graduates_friends
-        col_span: 6
-        row_span: 2
-    section_id: graduates_stats-cnxqbb
-    marginY:
-      desktop: none md
-  - type: image_row
-    images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
-        alt: Student learning to code
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
-        alt: Developer working on project
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
-        alt: Team collaboration session
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
-        alt: Graduate celebrating success
-    highlight:
-      heading: You bring the commitment. We bring everything else.
-      text: Mentors and career coaches that are always within reach, an AI tutor, and your personal AI agent. All tailored to you.
-      background: primary
-      width: 2
-      text_2: "<div><span style=\"font-size: 1.5rem;\"></span></div><span style=\"font-size: 1.5rem;\"><div><span><br></span></div>Unlimited mentorship and career coaching, an AI tutor, and your own AI agent.&nbsp;</span><span style=\"font-size: 24px;\">All tailored to you.</span>"
-      text_1: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.875rem;\"><b>You bring the commitment. We bring everything else.</b></span></span>"
-    height: 31rem
-    mobile_height: 24rem
-    gap: md
-    rounded: true
-    background: hsl(var(--background))
-    section_id: image_row-z97kqt
-    marginY:
-      desktop: none xl
-    paddingY:
-      desktop: none
+      desktop: md lg
   - type: features_grid
     version: "1.0"
     variant: stats-text
@@ -149,7 +96,75 @@ sections:
         title: Salary premium for workers with AI skills
     section_id: features_grid-142xko
     marginY:
-      desktop: md
+      desktop: xl
+  - type: graduates_stats
+    heading: Our Graduates Get Hired. Fast.
+    subheading: 6,000+ graduates worldwide. Now thiriving in tech.
+    stats:
+      - value: 84%
+        label: Average hiring rate
+      - value: 55%
+        label: Average salary increase at new position
+      - value: 3-6 months
+        label: Average time to get hired
+    collage_images:
+      - image_id: gemini-generated-image-uwpyyruwpyyruwpy
+        col_span: 5
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
+        id: gemini-generated-image-uwpyyruwpyyruwpy
+      - image_id: gemini-generated-image-pd2u4upd2u4upd2u
+        col_span: 7
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
+        id: gemini-generated-image-pd2u4upd2u4upd2u
+      - image_id: gemini-generated-image-dhko5mdhko5mdhko-1
+        col_span: 6
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
+        id: gemini-generated-image-dhko5mdhko5mdhko-1
+      - image_id: gemini-generated-image-wpk4yvwpk4yvwpk4
+        col_span: 6
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
+        id: gemini-generated-image-wpk4yvwpk4yvwpk4
+    section_id: graduates_stats-cnxqbb
+    marginY:
+      desktop: none
+  - type: image_row
+    images:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
+        alt: "Image: ChatGPT Image Mar 26, 2026, 04_28_27 PM"
+        id: chatgpt-image-mar-26-2026-04-28-27-pm
+        object_position: 60%90%
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_26_00-PM.png
+        alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
+        id: chatgpt-image-mar-26-2026-04-26-00-pm
+        object_position: 40% 80%
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina_brightened.png
+        alt: "Image: valentina_brightened"
+        id: valentina-brightened
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-05_38_41-PM.png
+        alt: "Image: ChatGPT Image Mar 26, 2026, 05_38_41 PM"
+        id: chatgpt-image-mar-26-2026-05-38-41-pm
+        object_position: 50% 90%
+    highlight:
+      heading: Committed to breaking into tech? We support you like no one else does.
+      text: Mentors and career coaches that are always within reach, an AI tutor, and your personal AI agent. All tailored to you.
+      background: primary
+      width: 2
+      text_2: "<div><span style=\"font-size: 1.5rem;\"></span></div><span style=\"font-size: 1.5rem;\"><div><span></span></div></span><!--StartFragment--><ul class=\"[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 20px;\"><li class=\"whitespace-normal break-words pl-2\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\">Unlimited 1:1 mentorship with real tech professionals</li><li class=\"whitespace-normal break-words pl-2\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\">Career coaching built to get you hired</li><li class=\"whitespace-normal break-words pl-2\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\">An AI tutor that adapts to your learning path</li><li class=\"whitespace-normal break-words pl-2\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\">Your own AI agent</li></ul><p class=\"font-claude-response-body break-words whitespace-normal leading-[1.7]\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 20px;\"><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 1.25rem;\"><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\"><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-weight: bolder;\"><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 1.5rem;\">Tailored to you and yours for life.</span></span></span></span></p><!--EndFragment-->"
+      text_1: "<!--StartFragment--><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-weight: bolder; font-size: 30px;\">Committed to breaking into tech? We support you like no one else does.</span><!--EndFragment-->"
+    height: 31rem
+    mobile_height: 24rem
+    gap: md
+    rounded: true
+    background: hsl(var(--background))
+    section_id: image_row-z97kqt
+    marginY:
+      desktop: none xl
+    paddingY:
+      desktop: none
   - ttype: features_grid
     version: "1.0"
     variant: stats-text
@@ -170,43 +185,10 @@ sections:
     section_id: features_grid-142xko
     marginY:
       desktop: none xl
-  - type: numbered_steps
-    section_id: numbered_steps-howitworks
-    version: "1.0"
-    variant: bubbleText
-    title: From zero to hired. Here's exactly how it works.
-    description: No guesswork. No vague promises. This is the exact path 4Geeks takes you through — from your first application to your first day at a new job.
-    steps:
-      - icon: Application
-        title: Apply in minutes. Hear back in 48 hours.
-        bullets:
-          - Fill out a short form — no technical test, no prior experience required.
-          - Our admissions team reviews your profile and goals within 48 hours.
-          - A quick conversation to make sure this is the right moment for you.
-      - icon: Learning
-        title: Learn by building real things with AI.
-        bullets:
-          - Live classes, hands-on projects, and an AI-native curriculum updated for 2025.
-          - Unlimited 1-on-1 mentorship from day one — available whenever you need it.
-          - Rigobot, your personal AI tutor, tracks your progress and adapts to your pace.
-      - icon: Career
-        title: Build your professional profile before you graduate.
-        bullets:
-          - LinkedIn optimization, portfolio, CV, and mock interviews — all included.
-          - GeekForce starts working with you weeks before graduation.
-          - You leave with a real product you built, not just a certificate.
-      - icon: Hiring
-        title: We stay with you until you sign your offer.
-        bullets:
-          - Direct access to our hiring partner network from day one.
-          - Dedicated career mentor tracks your job search and keeps it moving.
-          - Lifetime career support — even for your next career move after your first job.
-    background: bg-background
   - type: career_support_explain
     version: v1.0
     heading: We Stay With You Until You're Hired.
     description: This is what separates 4Geeks from every other platform. Not just courses. A complete system that takes you from enrolled to employed. AI-optimized profiles, direct access to 400+ hiring partners, and hands-on support from your first day to your signed offer letter and beyond.
-    background: hsl(210 100% 50% / 0.05)
     tabs:
       - tab_label: Job-Ready, Faster
         layout: three_columns
@@ -319,53 +301,114 @@ sections:
               - image_id: bid_logo
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
-    section_id: career_support_explain-w18hgq
+    section_id: career_support_explain-atccy5
     marginY:
       desktop: none lg
+    background: hsl(var(--muted))
+  - type: numbered_steps
+    section_id: numbered_steps-k1da7b
+    version: "1.0"
+    variant: bubbleText
+    title: From zero to hired. Here's exactly how it works.
+    description: No guesswork. No vague promises. This is the exact path 4Geeks takes you through — from your first application to your first day at a new job.
+    steps:
+      - icon: Application
+        title: Apply in minutes. Hear back in 48 hours.
+        bullets:
+          - Fill out a short form — no technical test, no prior experience required.
+          - Our admissions team reviews your profile and goals within 48 hours.
+          - A quick conversation to make sure this is the right moment for you.
+      - icon: Learning
+        title: Learn by building real things with AI.
+        bullets:
+          - Live classes, hands-on projects, and an AI-native curriculum updated for 2025.
+          - Unlimited 1-on-1 mentorship from day one — available whenever you need it.
+          - Rigobot, your personal AI tutor, tracks your progress and adapts to your pace.
+      - icon: Career
+        title: Build your professional profile before you graduate.
+        bullets:
+          - LinkedIn optimization, portfolio, CV, and mock interviews — all included.
+          - GeekForce starts working with you weeks before graduation.
+          - You leave with a real product you built, not just a certificate.
+      - icon: Hiring
+        title: We stay with you until you sign your offer.
+        bullets:
+          - Direct access to our hiring partner network from day one.
+          - Dedicated career mentor tracks your job search and keeps it moving.
+          - Lifetime career support — even for your next career move after your first job.
+    background: bg-background
+  - type: programs_showcase
+    version: v1.0
+    layout: spotlight_with_list
+    heading: Find Your Path Into Tech.
+    subheading: Four programs. All built around getting you hired, not just trained.
+    featured_label: Most Popular
+    programs:
+      - name: AI Engineering
+        icon: IconBrain
+        description: Build the AI systems companies are hiring for right now. Master LLMs, AI agents, and automation while transforming a real business case into a fully AI-native system, layer by layer.
+        duration: 24 weeks, or 15-week accelerated track
+        avg_salary: $95,000 - $150,000
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/ai-engineering
+      - name: Full Stack Development with AI
+        icon: IconCode
+        description: Build modern, production-ready web applications from frontend to backend, with AI integrated at every layer, not added on top.
+        duration: 20 weeks
+        avg_salary: $90,000 - $120,000
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/full-stack
+      - name: Data Science and Machine Learning
+        icon: IconChartBar
+        description: Master the skills behind AI-driven decisions. Build models, analyze data at scale, and deploy solutions that companies in every industry are actively hiring for.
+        duration: 18 weeks
+        avg_salary: $70,000 - $130,000
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/data-science-ml
+      - name: Cybersecurity
+        icon: IconShield
+        description: Protect the systems AI depends on. Every company scaling AI infrastructure needs specialists who can secure it. That demand isn't slowing down.
+        duration: 16 weeks
+        avg_salary: $65,000 - $120,000
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/cybersecurity
+    section_id: programs_showcase-5wibqd
+    paddingY:
+      desktop: sm
+    marginY:
+      desktop: lg xl
+  - type: trust_cards
+    version: v1.0
+    title: Top rated across all major platforms.
+    items:
+      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+        rating: 4.9
+        review_count: 4.9 on Course Report
+      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        rating: 4.8
+        review_count: 4.8 on Google
+      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        rating: 4.9
+        review_count: 4.9 on Career Karma
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 4.9 on SwitchUp
+    name: Default Trust Cards
+    description: Four review platform cards with ratings
+    section_id: trust_cards-eslgbu
+    paddingY:
+      desktop: sm md
+    marginY:
+      desktop: md lg
+    background: hsl(210 100% 50% / 0.05)
   - type: testimonials_slide
-    title: They Were Exactly Where You Are Now.
-    description: "Different backgrounds, different programs, one result: a career in tech they didn't think was possible. These are real 4Geeks graduates with real numbers to back it up."
-    background: hsl(var(--card))
+    title: They Were Where You Are. Now They're Thriving in Tech.
+    description: "Different backgrounds, different starting points, one result: a career in tech that changed everything. These are their stories."
     section_id: testimonials_slide-6jlded
     marginY:
       desktop: none
     paddingY:
       desktop: none
-  - type: programs_showcase
-    version: v1.0
-    layout: spotlight_with_list
-    badge: ""
-    heading: Choose Your Career Path
-    subheading: Four programs built around the skills companies are actively hiring for right now.
-    featured_label: Featured Program
-    programs:
-      - name: Full Stack Development with AI
-        icon: IconCode
-        description: Build modern, production-ready web applications from frontend to backend, using the latest AI-powered tools and workflows.
-        duration: 16 weeks
-        cta_text: Explore Program
-        cta_url: /programs/full-stack
-      - name: AI Engineering
-        icon: IconBrain
-        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies. Transform a single business case into a fully AI-native system, layer by layer.
-        duration: 20 weeks
-        cta_text: Explore
-        cta_url: /programs/ai-engineering
-      - name: Data Science & ML
-        icon: IconChartBar
-        description: Learn to analyze complex datasets, build intelligent models, and deploy AI-driven solutions to real-world problems.
-        duration: 18 weeks
-        cta_text: Explore
-        cta_url: /programs/data-science
-      - name: Cybersecurity
-        icon: IconShield
-        description: Develop practical skills to protect systems, secure infrastructure, and respond to modern cybersecurity threats.
-        duration: 14 weeks
-        cta_text: Explore
-        cta_url: /programs/cybersecurity
-    section_id: programs_showcase-exhqet
-    marginY:
-      desktop: none xl
   - type: why_learn_ai
     variant: laptop-edge
     title: Get Hired. Or Your Money Back.
@@ -375,7 +418,7 @@ sections:
       text: See How It Works
       url: /en/job-guarantee
       variant: primary
-    section_id: why_learn_ai-z83qep
+    section_id: why_learn_ai-efzm04
     marginY:
       desktop: md lg
     paddingY:

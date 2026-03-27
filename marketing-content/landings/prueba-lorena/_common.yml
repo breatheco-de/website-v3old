@@ -10,3 +10,6 @@ schema:
     - organization
     - website
     - courses:ai-engineering
+layout:
+  menu:
+    top: test-marquee-landing-lorena
