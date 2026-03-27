@@ -21,6 +21,7 @@ import {
   IconListDetails,
   IconMarquee,
   IconLayoutGrid,
+  IconShieldCheck,
 } from "@tabler/icons-react";
 import type { ComponentItem } from "../types";
 
@@ -54,4 +55,5 @@ export const componentsList: ComponentItem[] = [
   { type: "programs_showcase", label: "Programs Showcase", icon: IconLayoutGrid, description: "All programs side-by-side - grid, stacked list, or spotlight variants" },
   { type: "list_press_mentions", label: "Press Mentions List", icon: IconBuildingSkyscraper, description: "Grid of press mention cards with logos, excerpts and links" },
   { type: "list_single_press_mention", label: "Featured Press Mention", icon: IconBuildingSkyscraper, description: "Single highlighted press mention — image left, content right" },
+  { type: "credibility_strip", label: "Credibility Strip", icon: IconShieldCheck, description: "Compact band of rotating-logo pills signalling partnerships, programs, and rankings" },
 ];

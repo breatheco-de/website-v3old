@@ -259,6 +259,7 @@ import { DynamicTable } from "@/components/DynamicTable";
 import { ListPressMentions } from "@/components/press-mentions/ListPressMentions";
 import { ListSinglePressMention } from "@/components/ListSinglePressMention";
 import { ProgramsListSection } from "./ProgramsListSection";
+import { CredibilityStrip } from "@/components/credibility-strip/CredibilityStrip";
 import { CTABannerSection } from "./CTABannerSection";
 import { ProjectShowcase } from "@/components/ProjectShowcase";
 import { About } from "@/components/About";
@@ -616,6 +617,8 @@ export function renderSection(section: Section, index: number, landingLocations?
       return <ListPressMentions data={section as Parameters<typeof ListPressMentions>[0]["data"]} />;
     case "list_single_press_mention":
       return <ListSinglePressMention data={section as Parameters<typeof ListSinglePressMention>[0]["data"]} />;
+    case "credibility_strip":
+      return <CredibilityStrip data={section as Parameters<typeof CredibilityStrip>[0]["data"]} />;
     case "programs_list":
       return <ProgramsListSection data={section as Parameters<typeof ProgramsListSection>[0]["data"]} />;
     case "cta_banner":

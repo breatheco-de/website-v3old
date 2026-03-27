@@ -1,0 +1,24 @@
+name: "Default — Three-item strip"
+description: "Single row of three rotating-logo pills with a section link"
+yaml: |
+  - type: credibility_strip
+    link_url: "/partners"
+    item_badge_shape: true
+    item_background_color: "bg-secondary"
+    background: "bg-background"
+    items:
+      - label: "University Partners"
+        logos:
+          - image_id: clark_university
+          - image_id: mdc_ce
+          - image_id: coimbra_university
+      - label: "Government Programs"
+        logos:
+          - image_id: bid_logo
+          - image_id: beacon_council
+          - image_id: cinde
+      - label: "Top Ranked, Every Year"
+        logos:
+          - image_id: switchup
+          - image_id: course_report
+          - image_id: forbes
