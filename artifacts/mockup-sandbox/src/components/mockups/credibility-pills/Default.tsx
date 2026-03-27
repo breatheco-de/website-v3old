@@ -59,26 +59,6 @@ function CredibilityPill({
         flexShrink: 0,
       }}
     >
-      <span
-        style={{
-          fontSize: "13px",
-          fontWeight: 500,
-          color: "#00041A",
-          lineHeight: 1,
-        }}
-      >
-        {label}
-      </span>
-
-      <div
-        style={{
-          width: "1px",
-          height: "14px",
-          background: "#D1D5DB",
-          flexShrink: 0,
-        }}
-      />
-
       <div
         style={{
           position: "relative",
@@ -108,6 +88,17 @@ function CredibilityPill({
           />
         ))}
       </div>
+
+      <span
+        style={{
+          fontSize: "13px",
+          fontWeight: 500,
+          color: "#00041A",
+          lineHeight: 1,
+        }}
+      >
+        {label}
+      </span>
     </div>
   );
 }
