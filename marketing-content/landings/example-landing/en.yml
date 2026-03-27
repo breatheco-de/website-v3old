@@ -85,7 +85,7 @@ sections:
             text: AI tools for business
           - icon: Rocket
             text: No coding required
-        description: Connect AI tools to enterprise platforms and business data. Optimize existing solutions or build new ones. Eliminate resource bottlenecks and transform operations.
+        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies. Transform a single business case into a fully AI-native system, layer by layer.
         price: $328
         price_period: /mo
         original_price: $442
@@ -99,15 +99,10 @@ sections:
         duration: 9 months part-time
         label: Updated in 2025
         title: AI and Machine Learning
-        tags:
-          - icon: Bolt
-            text: AI tools for business
-          - icon: Rocket
-            text: No coding required
         badges:
           - icon: Brain
             text: LLMs & Generative AI
-        description: Build systems that learn from data and improve over time without being explicitly programmed.
+        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies. Transform a single business case into a fully AI-native system, layer by layer.
         price: $439
         price_period: /mo
         cta_text: Discover program
@@ -122,17 +117,12 @@ sections:
             text: React, Node.js & Python
           - icon: Code
             text: React, Node.js & Python
-        tags:
-          - icon: Code
-            text: React, Node.js & Python
-          - icon: Code
-            text: React, Node.js & Python
-        description: Master modern web development from frontend to backend. Build production-ready applications.
+        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies. Transform a single business case into a fully AI-native system, layer by layer.
         price: $439
         price_period: /mo
         cta_text: Discover program
         cta_url: /en/full-stack
-        course_background: secondary
+        course_background: hsl(var(--muted-foreground))
       - name: Data Science
         icon: ChartBar
         duration: 6 months part-time
@@ -140,7 +130,7 @@ sections:
         badges:
           - icon: ChartBar
             text: Python & SQL
-        description: Turn raw data into meaningful insights. Learn to analyze, visualize, and communicate data-driven decisions.
+        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies. Transform a single business case into a fully AI-native system, layer by layer.
         price: $399
         price_period: /mo
         cta_text: Discover program
@@ -158,6 +148,7 @@ sections:
     programs:
       - name: Full Stack Development with AI
         icon: IconCode
+        badge: aaa
         description: Build modern, production-ready web applications from frontend to backend, using the latest AI-powered tools and workflows.
         avg_salary: $75,000 – $120,000
         cta_text: Explore Program

@@ -41,7 +41,7 @@ function FeaturedCourseCard({ course }: { course: CourseItem }) {
 
   return (
     <div
-      className="rounded-xl border relative overflow-hidden h-full flex flex-col"
+      className="rounded-xl  relative overflow-hidden h-full flex flex-col"
       data-testid={`card-course-featured-${course.name.toLowerCase().replace(/\s+/g, "-")}`}
     >
       <div
@@ -120,41 +120,43 @@ function FeaturedCourseCard({ course }: { course: CourseItem }) {
           {vt(course.description)}
         </p>
 
-        <div className="mt-auto flex flex-col gap-1">
-          <div className="flex items-baseline gap-1.5" data-testid="container-pricing">
-            {course.original_price && (
-              <span
-                className="text-sm text-muted-foreground line-through"
-                data-testid="text-original-price"
-              >
-                {vt(course.original_price)}
-              </span>
-            )}
-            {course.price && (
-              <>
+        <div className="mt-auto flex flex-col lg:flex-row lg:items-end lg:justify-between gap-1 lg:gap-3">
+          <div className="flex flex-col gap-1">
+            <div className="flex items-baseline gap-1.5" data-testid="container-pricing">
+              {course.original_price && (
                 <span
-                  className="text-2xl font-bold text-foreground"
-                  data-testid="text-price"
+                  className="text-sm text-muted-foreground line-through"
+                  data-testid="text-original-price"
                 >
-                  {vt(course.price)}
+                  {vt(course.original_price)}
                 </span>
-                <span className="text-sm text-muted-foreground">
-                  {course.price_period || "/mo"}
-                </span>
-              </>
+              )}
+              {course.price && (
+                <>
+                  <span
+                    className="text-2xl font-bold text-foreground"
+                    data-testid="text-price"
+                  >
+                    {vt(course.price)}
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    {course.price_period || "/mo"}
+                  </span>
+                </>
+              )}
+            </div>
+            {course.price_info && (
+              <RichTextContent
+                html={course.price_info}
+                className="text-xs text-muted-foreground [&_p]:mb-0"
+                data-testid="text-price-info"
+              />
             )}
           </div>
-          {course.price_info && (
-            <RichTextContent
-              html={course.price_info}
-              className="text-xs text-muted-foreground [&_p]:mb-0"
-              data-testid="text-price-info"
-            />
-          )}
           <a
             href={course.cta_url}
             onClick={handleLinkClick}
-            className="inline-flex items-center gap-1 text-sm font-semibold hover:underline mt-1"
+            className="inline-flex items-center gap-1 text-sm font-semibold hover:underline lg:shrink-0"
             style={{ color: hslColor(resolved, 1) }}
             data-testid="link-cta"
           >
@@ -178,7 +180,7 @@ function SmallCourseCard({ course }: { course: CourseItem }) {
 
   return (
     <div
-      className="rounded-xl border relative overflow-hidden flex flex-col"
+      className="rounded-xl relative overflow-hidden flex flex-col"
       data-testid={`card-course-small-${course.name.toLowerCase().replace(/\s+/g, "-")}`}
     >
       <div
@@ -220,7 +222,7 @@ function SmallCourseCard({ course }: { course: CourseItem }) {
                 return (
                   <span
                     key={`badge-${i}`}
-                    className="inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full"
+                    className="inline-flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full"
                     style={{ backgroundColor: hslColor(resolved, 0.4) }}
                     data-testid={`badge-course-${i}`}
                   >
