@@ -2,7 +2,7 @@ name: "Default — Three-item strip"
 description: "Single row of three rotating-logo pills with a section link"
 yaml: |
   - type: credibility_strip
-    link_url: "/partners"
+    cta: "/partners"
     item_badge_shape: true
     item_background_color: "bg-secondary"
     background: "bg-background"

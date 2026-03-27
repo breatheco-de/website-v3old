@@ -12,11 +12,15 @@ variants:
     best_for: General trust-signal strip below hero or above pricing
 
 props:
+  cta:
+    type: string
+    required: false
+    description: URL the entire section links to when clicked. Takes priority over link_url.
+    example: "/partners"
   link_url:
     type: string
     required: false
-    description: If set, the entire section becomes a clickable anchor pointing to this URL.
-    example: "/partners"
+    description: Legacy alias for cta. Use cta instead.
   item_badge_shape:
     type: boolean
     required: false

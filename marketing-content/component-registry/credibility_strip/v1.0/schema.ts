@@ -12,6 +12,7 @@ export const credibilityStripItemSchema = z.object({
 export const credibilityStripSectionSchema = z.object({
   type: z.literal("credibility_strip"),
   version: z.string().optional(),
+  cta: z.string().optional(),
   link_url: z.string().optional(),
   item_badge_shape: z.boolean().optional(),
   item_background_color: z.string().optional(),

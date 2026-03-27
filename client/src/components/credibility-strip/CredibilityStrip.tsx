@@ -78,8 +78,9 @@ export function CredibilityStrip({ data }: { data: CredibilityStripSection }) {
   const itemBg = data.item_background_color || "bg-secondary";
   const sectionBg = data.background || "bg-background";
 
-  const Wrapper = (data.link_url ? "a" : "div") as "a" | "div";
-  const wrapperProps = data.link_url ? { href: data.link_url } : {};
+  const href = data.cta || data.link_url;
+  const Wrapper = (href ? "a" : "div") as "a" | "div";
+  const wrapperProps = href ? { href } : {};
 
   return (
     <Wrapper
@@ -88,7 +89,7 @@ export function CredibilityStrip({ data }: { data: CredibilityStripSection }) {
       onMouseLeave={() => setHovered(false)}
       data-testid="credibility-strip"
       className={`relative ${sectionBg} py-6 flex justify-center items-center transition-colors duration-200 ${
-        data.link_url ? "cursor-pointer" : ""
+        href ? "cursor-pointer" : ""
       }`}
     >
       <div
