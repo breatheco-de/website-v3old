@@ -6229,6 +6229,19 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-05_38_41-PM-1280w.webp"
         }
       ]
+    },
+    "chatgpt-image-mar-26-2026-05-38-41-pm-1400x1024": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-05-38-41-pm-1400x1024.webp",
+      "alt": "Image: ChatGPT Image Mar 26, 2026, 05_38_41 PM",
+      "focal_point": "center",
+      "tags": [
+        "avatar",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 1400,
+      "height": 1024,
+      "format": "webp"
     }
   }
 }
