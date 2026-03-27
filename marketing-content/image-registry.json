@@ -984,7 +984,18 @@
       "focal_point": "center",
       "tags": [
         "logo",
-        "review"
+        "review",
+        "avatar",
+        "card",
+        "icon",
+        "photo",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
       ],
       "usage_count": 0,
       "hash": "4f784db623ce4204a36b68b744356953d6e2bbd520b8881219dc13ce27495014",
@@ -1073,7 +1084,14 @@
       "tags": [
         "logo",
         "badge",
-        "award"
+        "award",
+        "card",
+        "photo",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team"
       ],
       "usage_count": 2,
       "hash": "7e233659f9d57c132bae958a3d6317a088636e033d2322458dd0e198d0a28ad4",
@@ -1804,7 +1822,17 @@
       "focal_point": "center",
       "tags": [
         "logo",
-        "partner"
+        "partner",
+        "avatar",
+        "card",
+        "icon",
+        "photo",
+        "badge",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
       ],
       "usage_count": 10,
       "hash": "b93cd5652e0cb97abdfcd8df069f2e2fb71cadc82ac8e8f952dceb9ff32d74ec",
@@ -2560,7 +2588,8 @@
       "focal_point": "center",
       "tags": [
         "logo",
-        "partner"
+        "partner",
+        "press"
       ],
       "usage_count": 14,
       "hash": "4bcbd8299716fcb874080916acb6d00b7bfa117d8ca04f3fcf207845a6497510",
@@ -2591,7 +2620,8 @@
       "focal_point": "center",
       "tags": [
         "logo",
-        "partner"
+        "partner",
+        "press"
       ],
       "usage_count": 10,
       "hash": "6c886d9af866d092127e5b729b115834353a06c74975641f75bc0efa8edf26c8",

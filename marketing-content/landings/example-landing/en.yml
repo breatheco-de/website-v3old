@@ -30,19 +30,29 @@ sections:
           - image_id: logo_razz
             alt: Razz logo
             id: logo-razz
-          - image_id: coimbra_university
+          - image_id: ebootcamp_top
+            alt: eBootcamp Top Award
+            id: ebootcamp-top
       - label: Government Programs
         logos:
           - image_id: bid_logo
-          - image_id: beacon_council
-          - image_id: cinde
+          - image_id: logo_jooble
+            alt: Jooble logo
+            id: logo-jooble
+          - image_id: logo_course_report
+            alt: Course Report logo
+            id: logo-course-report
       - label: Top Ranked, Every Year
         logos:
-          - image_id: clark_university
-            alt: Clark University Logo
-            id: clark-university
-          - image_id: course_report
-          - image_id: forbes
+          - image_id: logo_overseas
+            alt: Overseas logo
+            id: logo-overseas
+          - image_id: logo_telefonica
+            alt: Telefonica logo
+            id: logo-telefonica
+          - image_id: logo_twilio
+            alt: Twilio logo
+            id: logo-twilio
     section_id: credibility_strip-vcpur5
   - type: list_single_press_mention
     version: "1.0"
