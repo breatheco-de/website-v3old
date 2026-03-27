@@ -1,15 +1,6 @@
 import { useState, useEffect } from "react";
-import { useImageRegistry } from "@/components/UniversalImage";
+import { UniversalImage } from "@/components/UniversalImage";
 import type { CredibilityStripSection, CredibilityStripItem } from "@shared/schema";
-
-function resolveLogoSrc(
-  imageId: string,
-  registry: ReturnType<typeof useImageRegistry>["registry"]
-): string {
-  if (!imageId) return "";
-  if (registry?.images?.[imageId]?.src) return registry.images[imageId].src;
-  return imageId;
-}
 
 function CredibilityItem({
   item,
@@ -24,7 +15,6 @@ function CredibilityItem({
 }) {
   const logos = item.logos || [];
   const [activeIdx, setActiveIdx] = useState(0);
-  const { registry } = useImageRegistry();
 
   useEffect(() => {
     if (logos.length <= 1) return;
@@ -47,24 +37,19 @@ function CredibilityItem({
 
       {logos.length > 0 && (
         <div className="relative w-[50px] h-9 flex-shrink-0">
-          {logos.map((logo, i) => {
-            const src = resolveLogoSrc(logo.image_id, registry);
-            if (!src) return null;
-            return (
-              <div
-                key={logo.image_id + i}
-                className="absolute inset-0 flex items-center justify-center transition-opacity duration-200"
-                style={{ opacity: i === activeIdx ? 1 : 0 }}
-              >
-                <img
-                  src={src}
-                  alt={item.label || "logo"}
-                  className="max-h-9 max-w-[50px] w-auto h-auto object-contain grayscale"
-                  style={{ opacity: 0.85 }}
-                />
-              </div>
-            );
-          })}
+          {logos.map((logo, i) => (
+            <div
+              key={logo.image_id + i}
+              className="absolute inset-0 flex items-center justify-center transition-opacity duration-200"
+              style={{ opacity: i === activeIdx ? 1 : 0 }}
+            >
+              <UniversalImage
+                id={logo.image_id}
+                className="max-h-9 max-w-[70px] w-auto object-contain grayscale opacity-85"
+                loading="lazy"
+              />
+            </div>
+          ))}
         </div>
       )}
 

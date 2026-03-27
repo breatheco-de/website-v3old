@@ -16,31 +16,6 @@ schema:
     - organization
     - website
 sections:
-  - type: credibility_strip
-    version: v1.0
-    cta: /partners
-    item_badge_shape: true
-    item_background_color: bg-secondary
-    background: bg-background
-    items:
-      - label: University Partners
-        logos:
-          - image_id: clark_university
-          - image_id: mdc_ce
-          - image_id: coimbra_university
-      - label: Government Programs
-        logos:
-          - image_id: bid_logo
-          - image_id: beacon_council
-          - image_id: cinde
-      - label: Top Ranked, Every Year
-        logos:
-          - image_id: logo_razz
-            alt: Razz logo
-            id: logo-razz
-          - image_id: course_report
-          - image_id: forbes
-    section_id: credibility_strip-dmbdk9
   - type: list_single_press_mention
     version: "1.0"
     button_icon: IconExternalLink
@@ -652,7 +627,6 @@ sections:
       cta_url: /en/full-stack
       sub_text: Next cohort starts soon - Limited spots available
       image_object_position: 50% 10%
-      image_alt: Caracas graduates celebration
     right:
       heading: AI & Machine Learning
       description: Dive into the future of tech with our AI engineering program. Learn to build intelligent systems from day one.
@@ -704,10 +678,8 @@ sections:
     profiles:
       - name: Alejandro Sánchez
         role: Co-Founder & Technology Director
-        image_id: group_geekpal
+        image_id: student_asian
         linkedin_url: https://linkedin.com/in/example
-        alt: GeekPal support illustration
-        id: group-geekpal
       - name: Marcelo Ricigliano
         role: Co-founder & CEO
         image_id: student_asian
