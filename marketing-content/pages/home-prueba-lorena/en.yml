@@ -147,7 +147,7 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-05_38_41-PM.png
         alt: "Image: ChatGPT Image Mar 26, 2026, 05_38_41 PM"
         id: chatgpt-image-mar-26-2026-05-38-41-pm
-        object_position: 50% 90%
+        object_position: 50% 50%
     highlight:
       heading: Committed to breaking into tech? We support you like no one else does.
       text: Mentors and career coaches that are always within reach, an AI tutor, and your personal AI agent. All tailored to you.
