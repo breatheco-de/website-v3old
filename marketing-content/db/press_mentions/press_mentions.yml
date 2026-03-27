@@ -13,7 +13,7 @@ press_mentions:
       - Oxford
       - Columbia
       - 4Geeks
-  - locale: es
+  - locale: en
     title: Chosen as exclusive coding school partner across Costa Rica, Uruguay and Mexico
     organization: IDB
     subtitle: Inter-American Development Bank · Multilateral Coding Education Partner across Latin America
@@ -28,7 +28,7 @@ press_mentions:
       - Uruguay
       - Mexico
     priority: 2
-  - locale: es
+  - locale: en
     title: Good Jobs Challenge · $10M federal grant
     organization: U.S. EDA
     subtitle: U.S. Department of Commerce · Good Jobs Challenge Initiative · Federal Workforce Program
@@ -42,7 +42,7 @@ press_mentions:
       - Miami Dade
       - 74 graduates placed
     priority: 3
-  - locale: es
+  - locale: en
     title: Curriculum and instruction partner for MDC's technology bootcamp portfolio
     organization: Miami Dade
     subtitle: College · Technology Bootcamp Curriculum & Instruction Partner since 2017
