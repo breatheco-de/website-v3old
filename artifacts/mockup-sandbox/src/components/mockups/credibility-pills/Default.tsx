@@ -6,7 +6,7 @@ const PILLS = [
   {
     label: "University Partners",
     logos: [
-      { url: BASE + "clark-university_1769653206336.png", alt: "Clark University" },
+      { url: "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Clark_University_seal.svg/960px-Clark_University_seal.svg.png", alt: "Clark University" },
       { url: BASE + "mdc_ce_1764720089793.png", alt: "Miami Dade College" },
       { url: BASE + "coimbra_1764725341501.png", alt: "Coimbra University" },
     ],
@@ -20,7 +20,7 @@ const PILLS = [
     ],
   },
   {
-    label: "Top Ranked, Every Year sadasd  adsds",
+    label: "Top Ranked, Every Year",
     logos: [
       { url: BASE + "forbes-logo.png", alt: "Forbes" },
       { url: BASE + "switchup_1765590146414.webp", alt: "SwitchUp" },
@@ -32,9 +32,11 @@ const PILLS = [
 function CredibilityPill({
   label,
   logos,
+  sectionHovered,
 }: {
   label: string;
   logos: { url: string; alt: string }[];
+  sectionHovered: boolean;
 }) {
   const [activeIdx, setActiveIdx] = useState(0);
 
@@ -52,11 +54,12 @@ function CredibilityPill({
         alignItems: "center",
         gap: "10px",
         padding: "7px 10px",
-        background: "#F9FAFB",
-        border: "1px solid #E5E7EB",
-        borderRadius: "10px",
+        background: sectionHovered ? "#EFEFEF" : "#F9FAFB",
+        border: `1px solid ${sectionHovered ? "#C9CDD4" : "#E5E7EB"}`,
+        borderRadius: "9999px",
         whiteSpace: "nowrap",
         flexShrink: 0,
+        transition: "background 200ms ease, border-color 200ms ease",
       }}
     >
       <div
@@ -89,13 +92,22 @@ function CredibilityPill({
         ))}
       </div>
 
+      <div
+        style={{
+          width: "1px",
+          height: "20px",
+          background: "#D1D5DB",
+          flexShrink: 0,
+          marginLeft: "4px",
+        }}
+      />
+
       <span
         style={{
           fontSize: "15px",
           fontWeight: 500,
           color: "#00041A",
           lineHeight: 1,
-          marginLeft: 
         }}
       >
         {label}
@@ -105,15 +117,21 @@ function CredibilityPill({
 }
 
 export function Default() {
+  const [hovered, setHovered] = useState(false);
+
   return (
     <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       style={{
-        background: "#FFFFFF",
+        background: hovered ? "#F5F5F5" : "#FFFFFF",
         padding: "24px",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         minHeight: "80px",
+        cursor: "pointer",
+        transition: "background 200ms ease",
       }}
     >
       <div
@@ -128,7 +146,12 @@ export function Default() {
         }}
       >
         {PILLS.map((pill) => (
-          <CredibilityPill key={pill.label} label={pill.label} logos={pill.logos} />
+          <CredibilityPill
+            key={pill.label}
+            label={pill.label}
+            logos={pill.logos}
+            sectionHovered={hovered}
+          />
         ))}
       </div>
     </div>
