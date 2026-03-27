@@ -359,7 +359,7 @@ sections:
     description: Four review platform cards with ratings
     section_id: trust_cards-eslgbu
     paddingY:
-      desktop: none lg
+      desktop: none md
     marginY:
       desktop: lg
     background: hsl(210 100% 50% / 0.05)
@@ -371,7 +371,7 @@ sections:
     marginY:
       desktop: none
     paddingY:
-      desktop: none
+      desktop: md none
   - type: why_learn_ai
     variant: laptop-edge
     title: Land the Job. Or Your Money Back.
