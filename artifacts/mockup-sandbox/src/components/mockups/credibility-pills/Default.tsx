@@ -51,7 +51,7 @@ function CredibilityPill({
         display: "inline-flex",
         alignItems: "center",
         gap: "10px",
-        padding: "10px 20px",
+        padding: "5px 10px",
         background: "#F9FAFB",
         border: "1px solid #E5E7EB",
         borderRadius: "9999px",
@@ -88,6 +88,15 @@ function CredibilityPill({
           />
         ))}
       </div>
+
+      <div
+        style={{
+          width: "1px",
+          height: "20px",
+          background: "#D1D5DB",
+          flexShrink: 0,
+        }}
+      />
 
       <span
         style={{
