@@ -329,6 +329,14 @@ sections:
     marginY:
       desktop: md lg
     background: hsl(210 100% 50% / 0.05)
+  - type: testimonials_slide
+    title: They Were Where You Are. Now They're Thriving in Tech.
+    description: "Different backgrounds, different starting points, one result: a career in tech that changed everything. These are their stories."
+    section_id: testimonials_slide-6jlded
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
@@ -369,14 +377,6 @@ sections:
       desktop: sm
     marginY:
       desktop: lg xl
-  - type: testimonials_slide
-    title: They Were Where You Are. Now They're Thriving in Tech.
-    description: "Different backgrounds, different starting points, one result: a career in tech that changed everything. These are their stories."
-    section_id: testimonials_slide-6jlded
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none
   - type: why_learn_ai
     variant: laptop-edge
     title: Get Hired. Or Your Money Back.
