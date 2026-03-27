@@ -361,7 +361,7 @@ sections:
     paddingY:
       desktop: sm md
     marginY:
-      desktop: lg
+      desktop: md lg
     background: hsl(210 100% 50% / 0.05)
   - type: testimonials_slide
     title: They Were Where You Are. Now They're Thriving in Tech.
