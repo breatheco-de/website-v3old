@@ -96,7 +96,7 @@ sections:
         title: Salary premium for workers with AI skills
     section_id: features_grid-142xko
     marginY:
-      desktop: lg xl
+      desktop: xl
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thiriving in tech.
