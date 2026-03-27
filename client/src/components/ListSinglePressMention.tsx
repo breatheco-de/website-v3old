@@ -35,15 +35,15 @@ export function ListSinglePressMention({ data }: ListSinglePressMentionProps) {
 
   return (
     <section
-      className="py-12 md:py-20"
+      className="max-w-6xl mx-auto px-4 "
       style={bgStyle}
       data-testid="section-list-single-press-mention"
     >
-      <div className="max-w-6xl mx-auto px-4 md:px-8">
-        <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-center">
+      <div className="md:px-8">
+        <div className="flex  gap-8 items-center">
           {/* Left: Image */}
           {image && (
-            <div className="w-full md:w-[45%] flex-shrink-0">
+            <div className="w-[50%] flex-shrink-0">
               <div className="rounded-md overflow-hidden aspect-video bg-muted">
                 <UniversalImage
                   id={image}
@@ -58,18 +58,8 @@ export function ListSinglePressMention({ data }: ListSinglePressMentionProps) {
 
           {/* Right: Content */}
           <div
-            className={`flex flex-col gap-4 ${image ? "w-full md:w-[55%]" : "w-full"}`}
+            className={`flex flex-col  gap-4 ${image ? "w-full md:w-[55%]" : "w-full"}`}
           >
-            {organization && (
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                  As seen on
-                </span>
-                <span className="text-xs font-bold uppercase tracking-widest text-primary">
-                  {organization}
-                </span>
-              </div>
-            )}
 
             {title && (
               <h2 className="text-2xl md:text-3xl font-bold leading-tight text-foreground">
