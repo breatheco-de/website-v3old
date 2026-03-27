@@ -386,19 +386,19 @@ sections:
     background: hsl(var(--muted))
   - type: why_learn_ai
     variant: laptop-edge
-    title: Land the Job. Or Your Money Back.
-    subtitle: Every program comes with the option of a Job Guarantee. Not hired within 9 months? Full tuition refund. That's how confident we are in what we built.
-    description: ""
+    title: Get Hired. Or Your Money Back.
+    subtitle: Most bootcamps hope you get a job. We guarantee it.
+    description: "<div><ul><li><span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Enroll with the Job Guarantee added to your payment plan.</span></span></span></span></li><li><span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Complete the program and the GeekFORCE career development process.</span></span></span></span></li><li><span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">If you're not hired within 9 months of graduation, you'll get a full refund of your tuition.</span></span></span></span></li></ul><div><span style=\"font-size: 1.125rem;\"><span><span><div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></span></span></div></span></span></span></div></div>"
     cta:
       text: See How It Works
       url: /en/job-guarantee
       variant: primary
-    section_id: why_learn_ai-9pbrek
+    section_id: why_learn_ai-efzm04
     marginY:
-      desktop: md
+      desktop: md lg
     paddingY:
       desktop: none
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--muted))
     showOnLocations:
       - atlanta-usa
       - austin-usa
