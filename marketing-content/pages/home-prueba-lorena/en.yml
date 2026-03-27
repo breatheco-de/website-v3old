@@ -335,7 +335,7 @@ sections:
         cta_text: Get Program Details
         cta_url: /en/career-programs/cybersecurity
     section_id: programs_showcase-5wibqd
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--muted))
     paddingY:
       desktop: md
     marginY:
