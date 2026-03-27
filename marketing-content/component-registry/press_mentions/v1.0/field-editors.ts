@@ -1,4 +1,4 @@
-export type EditorType = "icon-picker" | "color-picker" | "image-picker" | "link-picker";
+export type EditorType = "icon-picker" | "color-picker" | "color-picker:background" | "image-picker" | "link-picker" | "boolean-toggle" | "select";
 export const fieldEditors: Record<string, EditorType> = {
   "default_box_color": "color-picker",
   "default_title_color": "color-picker",
@@ -6,7 +6,12 @@ export const fieldEditors: Record<string, EditorType> = {
   "default_link_color": "color-picker",
   "title_color": "color-picker",
   "subtitle_color": "color-picker",
-  "background": "color-picker",
+  "background": "color-picker:background",
+  "featured_background": "color-picker:background",
+  "cards_background": "color-picker:background",
+  "show_links": "boolean-toggle",
+  "show_logos": "boolean-toggle",
+  "variant": "select",
   "items[].box_color": "color-picker",
   "items[].title_color": "color-picker",
   "items[].excerpt_color": "color-picker",

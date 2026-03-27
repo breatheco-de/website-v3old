@@ -256,7 +256,7 @@ import NumberedSteps from "@/components/NumberedSteps";
 import TestimonialsSlide from "@/components/TestimonialsSlide";
 import { TestimonialsGrid } from "@/components/TestimonialsGrid";
 import { DynamicTable } from "@/components/DynamicTable";
-import { PressMentions } from "@/components/PressMentions";
+import { ListPressMentions } from "@/components/press-mentions/ListPressMentions";
 import { ListSinglePressMention } from "@/components/ListSinglePressMention";
 import { ProgramsListSection } from "./ProgramsListSection";
 import { CTABannerSection } from "./CTABannerSection";
@@ -613,7 +613,7 @@ export function renderSection(section: Section, index: number, landingLocations?
     case "dynamic_table":
       return <DynamicTable data={section as Parameters<typeof DynamicTable>[0]["data"]} />;
     case "list_press_mentions":
-      return <PressMentions data={section as Parameters<typeof PressMentions>[0]["data"]} />;
+      return <ListPressMentions data={section as Parameters<typeof ListPressMentions>[0]["data"]} />;
     case "list_single_press_mention":
       return <ListSinglePressMention data={section as Parameters<typeof ListSinglePressMention>[0]["data"]} />;
     case "programs_list":

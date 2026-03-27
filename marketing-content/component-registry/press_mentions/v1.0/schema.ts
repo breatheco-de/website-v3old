@@ -8,14 +8,21 @@ const permanentFilterSchema = z.object({
 export const pressMentionItemSchema = z.object({
   logo: z.string().optional(),
   logo_height: z.number().optional(),
-  title: z.string(),
-  excerpt: z.string(),
+  title: z.string().optional(),
+  excerpt: z.string().optional(),
   link_text: z.string().optional(),
   link_url: z.string().optional(),
   box_color: z.string().optional(),
   title_color: z.string().optional(),
   excerpt_color: z.string().optional(),
   link_color: z.string().optional(),
+  category: z.string().optional(),
+  organization: z.string().optional(),
+  subtitle: z.string().optional(),
+  stat_value: z.string().optional(),
+  stat_label: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  year: z.string().optional(),
 }).passthrough();
 
 export const listPressMentionsSectionSchema = z.object({
@@ -33,6 +40,16 @@ export const listPressMentionsSectionSchema = z.object({
   columns: z.number().optional(),
   items: z.array(pressMentionItemSchema).optional(),
   background: z.string().optional(),
+  variant: z.enum(["cards", "featured_showcase"]).optional(),
+  show_links: z.boolean().optional(),
+  show_logos: z.boolean().optional(),
+  featured_background: z.string().optional(),
+  cards_background: z.string().optional(),
+  footer_stats: z.array(z.object({
+    value: z.string().optional(),
+    label: z.string().optional(),
+  })).optional(),
+  footer_text: z.string().optional(),
   dynamic_entries: z.object({
     database: z.string().optional(),
     content_type: z.string().optional(),
