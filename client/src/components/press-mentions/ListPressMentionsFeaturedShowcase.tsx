@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { Star, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import type { ListPressMentionsSection } from "@shared/schema";
 import { UniversalImage } from "@/components/UniversalImage";
 
@@ -12,16 +12,16 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
   const items = data.items || [];
   const showLinks = data.show_links ?? false;
   const showLogos = data.show_logos ?? true;
-  const featuredBg = data.featured_background || "hsl(var(--primary))";
-  const cardsBg = data.cards_background;
   const footerStats = data.footer_stats || [];
   const footerText = data.footer_text;
 
   const featured = items[0];
-  const cards = items.slice(1, 4);
-  const hasContent = featured || cards.length > 0;
+  const allCards = items.slice(1);
+  const totalPages = Math.ceil(allCards.length / 3);
 
-  if (!hasContent) return null;
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const pageCards = allCards.slice(currentPage * 3, currentPage * 3 + 3);
 
   const bgStyle: React.CSSProperties = {};
   if (data.background) {
@@ -34,11 +34,11 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
 
   return (
     <section
-      className="py-12 md:py-16"
+      className="py-16"
       style={bgStyle}
       data-testid="section-press-mentions-showcase"
     >
-      <div className="max-w-6xl mx-auto px-4 md:px-6 flex flex-col gap-8">
+      <div className="max-w-6xl mx-auto px-4 flex flex-col gap-8">
 
         {/* Header */}
         {(data.title || data.subtitle) && (
@@ -64,14 +64,13 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
           </div>
         )}
 
-        {/* Featured card */}
+        {/* Featured Card */}
         {featured && (
           <div
-            className="rounded-[0.8rem] p-6 md:p-8 flex flex-row gap-6 items-center"
-            style={{ backgroundColor: featuredBg }}
+            className="bg-[#0080ff] rounded-[0.8rem] p-6 md:p-8 flex flex-row gap-6 items-center"
             data-testid="card-press-featured"
           >
-            {/* Left: star + year */}
+            {/* Left: Star + year */}
             <div className="flex-shrink-0 flex flex-col items-center gap-2 w-16">
               <div className="bg-yellow-400/20 p-3 rounded-full">
                 <Star className="w-6 h-6 text-yellow-300 fill-yellow-300" />
@@ -86,25 +85,20 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
             {/* Center: title */}
             <div className="w-[560px] flex-shrink-0">
               {featured.title && (
-                <h3
-                  className="text-xl font-bold text-white leading-snug"
-                  data-testid="text-press-featured-title"
-                >
+                <h3 className="text-xl font-bold text-white leading-snug" data-testid="text-press-featured-title">
                   {featured.title}
                 </h3>
               )}
             </div>
 
             {/* Right: logo + link + tags */}
-            <div className="flex-1 flex flex-col items-center justify-center gap-3">
+            <div className="flex-1 flex flex-col items-center justify-center">
               {showLogos && featured.logo && (
                 <div className="h-10 max-w-[120px]" data-testid="img-press-featured-logo">
                   <UniversalImage
                     id={featured.logo}
-                    alt={featured.organization || featured.title}
-                    className="h-full w-auto"
-                    style={{ objectFit: "contain" }}
-                    fieldContext={{ arrayPath: "items", index: 0, srcField: "logo" }}
+                    alt={featured.organization || featured.title || ""}
+                    className="h-full w-auto object-contain"
                   />
                 </div>
               )}
@@ -121,11 +115,11 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
                 </a>
               )}
               {featured.tags && featured.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2 justify-between w-full">
+                <div className="flex flex-wrap gap-2 justify-between w-full mt-2">
                   {featured.tags.slice(0, 4).map((tag, i) => (
                     <span
                       key={i}
-                      className="bg-white/10 text-white/90 text-xs px-3 py-0.5 rounded-full font-medium whitespace-nowrap border border-white/20"
+                      className="bg-[#f1f5f9] text-[#475569] text-xs px-3 py-0.5 rounded-full font-medium whitespace-nowrap"
                       data-testid={`tag-press-featured-${i}`}
                     >
                       {tag}
@@ -137,39 +131,57 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
           </div>
         )}
 
-        {/* Cards row */}
-        {cards.length > 0 && (
+        {/* Carousel */}
+        {allCards.length > 0 && (
           <div className="flex flex-col gap-3">
             <div className="flex gap-4">
-              {cards.map((card, i) => (
-                <ShowcaseCard
-                  key={i}
-                  item={card}
-                  index={i + 1}
-                  showLinks={showLinks}
-                  showLogos={showLogos}
-                  cardsBg={cardsBg}
-                />
-              ))}
+              {pageCards.map((card, i) => {
+                const globalIndex = currentPage * 3 + i + 1;
+                return (
+                  <ShowcaseCard
+                    key={globalIndex}
+                    item={card}
+                    index={globalIndex}
+                    showLinks={showLinks}
+                    showLogos={showLogos}
+                  />
+                );
+              })}
             </div>
 
-            {/* Nav */}
-            <div className="flex items-center justify-center gap-3">
-              <Button variant="outline" size="icon" data-testid="button-press-carousel-prev">
-                <ChevronLeft className="w-4 h-4" />
-              </Button>
-              <div className="flex gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-primary" />
-                <span className="w-2 h-2 rounded-full bg-muted" />
+            {/* Nav dots — hidden when only 1 page */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-3">
+                <button
+                  className="h-9 w-9 flex items-center justify-center rounded-md border border-border bg-background text-foreground"
+                  onClick={() => setCurrentPage((p) => (p - 1 + totalPages) % totalPages)}
+                  data-testid="button-press-carousel-prev"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <div className="flex gap-1.5">
+                  {Array.from({ length: totalPages }).map((_, i) => (
+                    <span
+                      key={i}
+                      className={`w-2 h-2 rounded-full cursor-pointer ${i === currentPage ? "bg-[#0080ff]" : "bg-muted"}`}
+                      onClick={() => setCurrentPage(i)}
+                      data-testid={`dot-press-carousel-${i}`}
+                    />
+                  ))}
+                </div>
+                <button
+                  className="h-9 w-9 flex items-center justify-center rounded-md border border-border bg-background text-foreground"
+                  onClick={() => setCurrentPage((p) => (p + 1) % totalPages)}
+                  data-testid="button-press-carousel-next"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
               </div>
-              <Button variant="outline" size="icon" data-testid="button-press-carousel-next">
-                <ChevronRight className="w-4 h-4" />
-              </Button>
-            </div>
+            )}
           </div>
         )}
 
-        {/* Footer */}
+        {/* Footer stats */}
         {(footerStats.length > 0 || footerText) && (
           <div
             className="flex flex-col sm:flex-row gap-6 items-start sm:items-center border-t border-border pt-6"
@@ -180,7 +192,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
                 {footerStats.map((stat, i) => (
                   <div key={i} className="flex flex-col gap-0.5" data-testid={`stat-press-footer-${i}`}>
                     {stat.value && (
-                      <span className="text-3xl font-bold text-primary">
+                      <span className="text-3xl font-bold text-[#0080ff]">
                         {stat.value}
                       </span>
                     )}
@@ -206,30 +218,25 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
   );
 }
 
+type PressMentionItem = NonNullable<ListPressMentionsSection["items"]>[number];
+
 interface ShowcaseCardProps {
-  item: NonNullable<ListPressMentionsSection["items"]>[number];
+  item: PressMentionItem;
   index: number;
   showLinks: boolean;
   showLogos: boolean;
-  cardsBg?: string;
 }
 
-function ShowcaseCard({ item, index, showLinks, showLogos, cardsBg }: ShowcaseCardProps) {
-  const cardStyle: React.CSSProperties = {};
-  if (cardsBg) {
-    cardStyle.backgroundColor = cardsBg;
-  }
-
+function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) {
   return (
     <div
-      className={`flex-1 border border-border rounded-[0.8rem] p-5 flex flex-col gap-1 ${!cardsBg ? "bg-card" : ""}`}
-      style={cardStyle}
+      className="flex-1 bg-card border border-border rounded-[0.8rem] p-5 flex flex-col gap-1"
       data-testid={`card-press-showcase-${index}`}
     >
-      {/* Header: category + logo */}
+      {/* Header: category badge + logo */}
       <div className="flex items-center justify-between gap-2">
         {item.category && (
-          <Badge className="w-fit text-xs rounded-full bg-primary/5 text-foreground border-transparent no-default-active-elevate">
+          <Badge className="w-fit text-xs rounded-full bg-[#0080ff]/5 text-foreground border-transparent">
             {item.category}
           </Badge>
         )}
@@ -237,10 +244,8 @@ function ShowcaseCard({ item, index, showLinks, showLogos, cardsBg }: ShowcaseCa
           <div className="w-24 h-12 shrink-0 flex items-center justify-end" data-testid={`img-press-card-logo-${index}`}>
             <UniversalImage
               id={item.logo}
-              alt={item.organization || item.title}
-              className="max-w-full h-full"
-              style={{ objectFit: "contain" }}
-              fieldContext={{ arrayPath: "items", index, srcField: "logo" }}
+              alt={item.organization || item.title || ""}
+              className="max-w-full h-full object-contain rounded-md bg-white p-1"
             />
           </div>
         )}
@@ -267,12 +272,12 @@ function ShowcaseCard({ item, index, showLinks, showLogos, cardsBg }: ShowcaseCa
         </p>
       )}
 
-      {/* Bottom */}
+      {/* Bottom stats + tags + link */}
       <div className="mt-auto flex flex-col gap-2">
         {(item.stat_value || item.stat_label) && (
           <div>
             {item.stat_value && (
-              <span className="text-3xl font-bold text-primary" data-testid={`text-press-stat-value-${index}`}>
+              <span className="text-3xl font-bold text-[#0080ff]" data-testid={`text-press-stat-value-${index}`}>
                 {item.stat_value}
               </span>
             )}
@@ -301,7 +306,7 @@ function ShowcaseCard({ item, index, showLinks, showLogos, cardsBg }: ShowcaseCa
             href={item.link_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-sm font-medium text-primary mt-1 hover:underline"
+            className="flex items-center gap-1 text-sm font-medium text-[#0080ff] mt-1 hover:underline"
             data-testid={`link-press-card-${index}`}
           >
             {item.link_text}
