@@ -383,6 +383,7 @@ sections:
       url: /signup
       variant: primary
     section_id: why_learn_ai-sw7c34
+    background: hsl(var(--muted))
   - type: why_learn_ai
     variant: laptop-edge
     title: Land the Job. Or Your Money Back.
