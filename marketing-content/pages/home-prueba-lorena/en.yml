@@ -354,6 +354,7 @@ sections:
         cta_url: /en/career-programs/ai-engineering
       - name: Full Stack Development with AI
         icon: IconCode
+        badge: hola
         description: Build modern, production-ready web applications from frontend to backend, with AI integrated at every layer, not added on top.
         duration: 20 weeks
         avg_salary: $90,000 - $120,000
