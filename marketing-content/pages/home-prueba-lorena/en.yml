@@ -144,9 +144,9 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina_brightened.png
         alt: "Image: valentina_brightened"
         id: valentina-brightened
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-05-38-41-pm-1400x1024.webp
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-05_38_41-PM.png
         alt: "Image: ChatGPT Image Mar 26, 2026, 05_38_41 PM"
-        id: chatgpt-image-mar-26-2026-05-38-41-pm-1400x1024
+        id: chatgpt-image-mar-26-2026-05-38-41-pm
         object_position: 50% 90%
     highlight:
       heading: Committed to breaking into tech? We support you like no one else does.
