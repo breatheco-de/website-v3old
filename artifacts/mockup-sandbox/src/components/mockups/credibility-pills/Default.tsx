@@ -89,21 +89,13 @@ function CredibilityPill({
         ))}
       </div>
 
-      <div
-        style={{
-          width: "1px",
-          height: "20px",
-          background: "#D1D5DB",
-          flexShrink: 0,
-        }}
-      />
-
       <span
         style={{
           fontSize: "15px",
           fontWeight: 500,
           color: "#00041A",
           lineHeight: 1,
+          marginLeft: 
         }}
       >
         {label}
