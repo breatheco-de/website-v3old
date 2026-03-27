@@ -26,7 +26,7 @@ sections:
         - item_property_slug: locale
           value: en
         - item_property_slug: priority
-          value: 10
+          value: 1
     section_id: list_single_press_mention-my2suv
   - type: list_press_mentions
     version: v1.0
@@ -51,6 +51,7 @@ sections:
       sort: priority
     section_id: list_press_mentions-w7r1sh
     featured_background: hsl(var(--primary))
+    background: hsl(var(--muted))
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list

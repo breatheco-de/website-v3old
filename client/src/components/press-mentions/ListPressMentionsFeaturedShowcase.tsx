@@ -82,8 +82,11 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
           >
             {/* Left: Star + year */}
             <div className="flex-shrink-0 flex flex-col items-center gap-2 w-16">
-              <div className="bg-yellow-100 p-3 rounded-full">
-                <Star className="w-6 h-6 text-yellow-500" fill="currentColor" />
+              <div 
+                className="p-3 rounded-full" 
+                style={{ backgroundColor: "hsl(var(--accent) / 0.4)" }} 
+              >
+                <Star className="w-6 h-6"     style={{ color: "hsl(var(--accent))" }} fill="currentColor" />
               </div>
               {featured.year && (
                 <span className="text-sm font-bold text-white" data-testid="text-press-featured-year">
