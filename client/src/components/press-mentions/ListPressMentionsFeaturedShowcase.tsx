@@ -73,13 +73,13 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
         {/* Featured Card */}
         {featured && (
           <div
-            className="bg-[#0080ff] rounded-[0.8rem] p-6 md:p-8 flex flex-row gap-6 items-center"
+            className="bg-primary rounded-[0.8rem] p-6 md:p-8 flex flex-row gap-6 items-center"
             data-testid="card-press-featured"
           >
             {/* Left: Star + year */}
             <div className="flex-shrink-0 flex flex-col items-center gap-2 w-16">
-              <div className="bg-yellow-400/20 p-3 rounded-full">
-                <Star className="w-6 h-6 text-yellow-300 fill-yellow-300" />
+              <div className="bg-accent/20 p-3 rounded-full">
+                <Star className="w-6 h-6 text-accent" />
               </div>
               {featured.year && (
                 <span className="text-sm font-bold text-white" data-testid="text-press-featured-year">
@@ -170,7 +170,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
                   {Array.from({ length: totalPages }).map((_, i) => (
                     <span
                       key={i}
-                      className={`w-2 h-2 rounded-full cursor-pointer ${i === currentPage ? "bg-[#0080ff]" : "bg-muted"}`}
+                      className={`w-2 h-2 rounded-full cursor-pointer ${i === currentPage ? "bg-primary" : "bg-muted"}`}
                       onClick={() => setCurrentPage(i)}
                       data-testid={`dot-press-carousel-${i}`}
                     />
@@ -199,7 +199,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
                 {footerStats.map((stat, i) => (
                   <div key={i} className="flex flex-col gap-0.5" data-testid={`stat-press-footer-${i}`}>
                     {stat.value && (
-                      <span className="text-3xl font-bold text-[#0080ff]">
+                      <span className="text-3xl font-bold text-primary">
                         {stat.value}
                       </span>
                     )}
@@ -243,7 +243,7 @@ function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) 
       {/* Header: category badge + logo */}
       <div className="flex items-center justify-between gap-2">
         {item.category && (
-          <Badge className="w-fit text-xs rounded-full bg-[#0080ff]/5 text-foreground border-transparent">
+          <Badge className="w-fit text-xs rounded-full bg-primary/5 text-foreground border-transparent">
             {item.category}
           </Badge>
         )}
@@ -285,7 +285,7 @@ function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) 
         {(item.stat_value || item.stat_label) && (
           <div>
             {item.stat_value && (
-              <span className="text-3xl font-bold text-[#0080ff]" data-testid={`text-press-stat-value-${index}`}>
+              <span className="text-3xl font-bold text-primary" data-testid={`text-press-stat-value-${index}`}>
                 {item.stat_value}
               </span>
             )}
@@ -314,7 +314,7 @@ function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) 
             href={item.link_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-sm font-medium text-[#0080ff] mt-1 hover:underline"
+            className="flex items-center gap-1 text-sm font-medium text-primary mt-1 hover:underline"
             data-testid={`link-press-card-${index}`}
           >
             {item.link_text}

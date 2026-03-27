@@ -48,6 +48,7 @@ sections:
       limit: 12
       sort: priority
     section_id: list_press_mentions-w7r1sh
+    featured_background: hsl(var(--primary))
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
