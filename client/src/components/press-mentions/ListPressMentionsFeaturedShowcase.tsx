@@ -318,7 +318,7 @@ function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) 
         )}
         {item.title && (
           <span
-            className="text-base font-bold text-foreground leading-snug"
+            className="text-lg font-bold text-foreground leading-snug"
             data-testid={`text-press-card-title-${index}`}
           >
             {item.title}
