@@ -40,10 +40,10 @@ export function ListSinglePressMention({ data }: ListSinglePressMentionProps) {
       data-testid="section-list-single-press-mention"
     >
       <div className="md:px-8">
-        <div className="flex  gap-8 items-center">
+        <div className="flex flex-col md:flex-row gap-8 items-center">
           {/* Left: Image */}
           {image && (
-            <div className="w-[50%] flex-shrink-0">
+            <div className="w-full md:w-[50%] flex-shrink-0">
               <div className="rounded-md overflow-hidden aspect-video bg-muted">
                 <UniversalImage
                   id={image}

@@ -99,7 +99,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
         {/* Featured Card */}
         {featured && (
           <div
-            className="bg-primary rounded-[0.8rem] p-6 md:p-8 flex flex-col md:flex-row gap-6 md:items-center"
+            className="bg-primary rounded-[0.8rem] p-6 md:p-8 flex flex-col md:flex-row gap-3 md:gap-6 md:items-center"
             data-testid="card-press-featured"
           >
             {/* Star + year — row on mobile, column on md+ */}
@@ -240,7 +240,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
         {/* Footer stats */}
         {(footerStats.length > 0 || footerText) && (
           <div
-            className="flex flex-col sm:flex-row gap-6 items-start sm:items-center border-t border-border pt-6"
+            className="flex flex-col sm:flex-row items-center gap-6 items-start sm:items-center border-t border-border pt-6"
             data-testid="section-press-footer"
           >
             {footerStats.length > 0 && (
