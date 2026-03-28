@@ -10,6 +10,25 @@ interface ListPressMentionsFeaturedShowcaseProps {
   data: ListPressMentionsSection;
 }
 
+function useCardsPerPage(): number {
+  const getCardsPerPage = () => {
+    if (typeof window === "undefined") return 3;
+    if (window.innerWidth < 640) return 1;
+    if (window.innerWidth < 1024) return 2;
+    return 3;
+  };
+
+  const [cardsPerPage, setCardsPerPage] = useState(getCardsPerPage);
+
+  useEffect(() => {
+    const handleResize = () => setCardsPerPage(getCardsPerPage());
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return cardsPerPage;
+}
+
 export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFeaturedShowcaseProps) {
   const items = data.items || [];
   const showLinks = data.show_links ?? false;
@@ -19,9 +38,12 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
 
   const featured = items[0];
   const allCards = items.slice(1);
+
+  const cardsPerPage = useCardsPerPage();
+
   const pageGroups: PressMentionItem[][] = [];
-  for (let i = 0; i < allCards.length; i += 3) {
-    pageGroups.push(allCards.slice(i, i + 3));
+  for (let i = 0; i < allCards.length; i += cardsPerPage) {
+    pageGroups.push(allCards.slice(i, i + cardsPerPage));
   }
   const totalPages = pageGroups.length;
 
@@ -55,7 +77,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
           <div className="text-center flex flex-col gap-3">
             {data.title && (
               <h2
-                className="text-3xl md:text-4xl font-bold text-foreground leading-tight whitespace-pre-line "
+                className="text-3xl md:text-4xl font-bold text-foreground leading-tight whitespace-pre-line"
                 style={data.title_color ? { color: data.title_color } : undefined}
                 data-testid="text-press-showcase-title"
               >
@@ -77,16 +99,16 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
         {/* Featured Card */}
         {featured && (
           <div
-            className="bg-primary rounded-[0.8rem] p-6 md:p-8 flex flex-row gap-6 items-center"
+            className="bg-primary rounded-[0.8rem] p-6 md:p-8 flex flex-col md:flex-row gap-6 md:items-center"
             data-testid="card-press-featured"
           >
-            {/* Left: Star + year */}
-            <div className="flex-shrink-0 flex flex-col items-center gap-2 w-16">
-              <div 
-                className="p-3 rounded-full" 
-                style={{ backgroundColor: "hsl(var(--accent) / 0.4)" }} 
+            {/* Star + year — row on mobile, column on md+ */}
+            <div className="flex-shrink-0 flex flex-row md:flex-col items-center gap-2 md:w-16">
+              <div
+                className="p-3 rounded-full"
+                style={{ backgroundColor: "hsl(var(--accent) / 0.4)" }}
               >
-                <Star className="w-6 h-6"     style={{ color: "hsl(var(--accent))" }} fill="currentColor" />
+                <Star className="w-6 h-6" style={{ color: "hsl(var(--accent))" }} fill="currentColor" />
               </div>
               {featured.year && (
                 <span className="text-sm font-bold text-white" data-testid="text-press-featured-year">
@@ -95,17 +117,28 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
               )}
             </div>
 
-            {/* Center: title */}
-            <div className="w-[700px] me-24">
+            {/* Center: org label + title */}
+            <div className="flex-1">
+              {featured.organization && (
+                <p
+                  className="text-xs font-medium uppercase tracking-wide text-white/70 mb-1.5"
+                  data-testid="text-press-featured-org"
+                >
+                  {featured.organization}
+                </p>
+              )}
               {featured.title && (
-                <h3 className="text-xl font-extrabold text-white leading-snug" data-testid="text-press-featured-title">
+                <h3
+                  className="text-xl font-extrabold text-white leading-snug"
+                  data-testid="text-press-featured-title"
+                >
                   {featured.title}
                 </h3>
               )}
             </div>
 
             {/* Right: logo + link + tags */}
-            <div className="flex flex-col items-center justify-center w-[50%]">
+            <div className="flex flex-col items-start md:items-center justify-center md:shrink-0 md:w-48 gap-2">
               {showLogos && featured.logo && (
                 <div className="h-10 max-w-[120px]" data-testid="img-press-featured-logo">
                   <UniversalImage
@@ -129,7 +162,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
                 </a>
               )}
               {featured.tags && featured.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2 justify-between w-full mt-2">
+                <div className="flex flex-wrap gap-2 w-full">
                   {featured.tags.slice(0, 4).map((tag, i) => (
                     <span
                       key={i}
@@ -156,7 +189,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
                 {pageGroups.map((group, pageIdx) => (
                   <div key={pageIdx} className="flex gap-4 w-full flex-shrink-0">
                     {group.map((card, i) => {
-                      const globalIndex = pageIdx * 3 + i + 1;
+                      const globalIndex = pageIdx * cardsPerPage + i + 1;
                       return (
                         <ShowcaseCard
                           key={globalIndex}
@@ -251,7 +284,7 @@ interface ShowcaseCardProps {
 function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) {
   return (
     <div
-      className="flex-1 bg-card border border-border rounded-[0.8rem] p-5 flex flex-col gap-1"
+      className="flex-1 bg-card border border-border rounded-[0.8rem] p-5 flex flex-col gap-2"
       data-testid={`card-press-showcase-${index}`}
     >
       {/* Header: category badge + logo */}
@@ -273,23 +306,29 @@ function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) 
         )}
       </div>
 
-      {/* Org + title */}
-      <div>
+      {/* Org (context label) + title (headline) — separate lines */}
+      <div className="flex flex-col gap-0.5">
         {item.organization && (
-          <span className="text-xl font-extrabold text-foreground">
+          <span
+            className="text-xs font-medium uppercase tracking-wide text-muted-foreground"
+            data-testid={`text-press-card-org-${index}`}
+          >
             {item.organization}
           </span>
         )}
         {item.title && (
-          <span className="text-lg text-foreground/80">
-            {item.organization ? " · " : ""}{item.title}
+          <span
+            className="text-base font-bold text-foreground leading-snug"
+            data-testid={`text-press-card-title-${index}`}
+          >
+            {item.title}
           </span>
         )}
       </div>
 
       {/* Excerpt */}
       {item.excerpt && (
-        <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-4">
+        <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-2">
           {item.excerpt}
         </p>
       )}
