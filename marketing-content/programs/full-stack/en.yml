@@ -656,8 +656,9 @@ sections:
           required: true
         program:
           visible: false
-          required: false
-          default: {{ single.bc_slug | ai-engineering }}
+          required: true
+          default: full-stack
       success:
         message: Thanks! We'll be in touch within 24 hours.
     section_id: sticky_cta-et016q
+    load: eager
