@@ -3,6 +3,7 @@ import { useTypewriter } from "@/hooks/useTypewriter";
 import { getIcon } from "@/lib/icons";
 import type { MarqueeMessage } from "@/components/menus";
 import { useInternalNav } from "@/hooks/useInternalNav";
+import Marquee from "@/lib/marquee";
 
 export interface TypewriterAnnouncementProps {
   messages: MarqueeMessage[];
@@ -22,43 +23,31 @@ export function TypewriterAnnouncement({
   const { displayText, ctaLabel, ctaUrl, icon: msgIcon } = useTypewriter(messages, charDelay, startDelay, displayTime);
   const handleLinkClick = useInternalNav();
 
-  const resolvedIconName = msgIcon || icon || (messages[0]?.icon);
+  const resolvedIconName = msgIcon || icon;
   const ResolvedIcon = resolvedIconName ? getIcon(resolvedIconName) : null;
   const Icon = ResolvedIcon ?? Megaphone;
 
   const safeMessages = messages && messages.length > 0 ? messages : [];
-  const totalChars = safeMessages.reduce((sum, m) => sum + (m.text || "").length + (m.cta_label || "").length, 0);
-  const tickerDuration = Math.max(8, totalChars * 0.14);
-
-  const renderTickerMessages = (prefix: string) =>
-    safeMessages.map((msg, i) => (
-      <span key={`${prefix}-${i}`} className="inline-flex items-center">
-        <span className="text-muted-foreground">
-          {msg.text}
-          {msg.cta_label && (
-            <span className="text-primary ml-1">{msg.cta_label}</span>
-          )}
-        </span>
-        <span className="mx-4 text-muted-foreground/40" aria-hidden="true">·</span>
-      </span>
-    ));
 
   return (
     <div
       className="flex-1 flex items-center justify-center gap-2 min-w-0"
       data-testid="typewriter-announcement"
     >
-      {/* Mobile: sliding ticker */}
+      {/* Mobile: sliding ticker using react-fast-marquee */}
       <div className="md:hidden flex-1 flex items-center gap-2 min-w-0 overflow-hidden">
         <Icon className="w-4 h-4 text-primary shrink-0" />
-        <div className="flex-1 overflow-hidden">
-          <div
-            className="logo-carousel-track inline-flex"
-            style={{ animationDuration: `${tickerDuration}s` }}
-          >
-            {renderTickerMessages("a")}
-            {renderTickerMessages("b")}
-          </div>
+        <div className="flex-1 min-w-0 overflow-hidden">
+          <Marquee speed={50} pauseOnHover={false} autoFill={true} gradient={false}>
+            {safeMessages.map((msg, i) => (
+              <span key={i} className="inline-flex items-center mx-4 whitespace-nowrap">
+                <span className="text-muted-foreground text-sm">{msg.text}</span>
+                {msg.cta_label && (
+                  <span className="text-primary ml-1 text-sm">{msg.cta_label}</span>
+                )}
+              </span>
+            ))}
+          </Marquee>
         </div>
       </div>
 
