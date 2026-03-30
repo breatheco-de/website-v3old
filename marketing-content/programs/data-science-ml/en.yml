@@ -607,7 +607,7 @@ sections:
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | unknown }}
+          default: datascience-ml
       success:
         message: Thank you! We'll be in touch soon.
       consent:
