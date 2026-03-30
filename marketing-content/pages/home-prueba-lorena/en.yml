@@ -69,9 +69,9 @@ sections:
           - image_id: ""
       - label: Top Ranked
         logos:
-          - image_id: logo_overseas
-            alt: Overseas logo
-            id: logo-overseas
+          - image_id: logo_switchup
+            alt: SwitchUp logo
+            id: logo-switchup
           - image_id: pee_trajectory
             alt: Trajectory excellence award
             id: pee-trajectory
