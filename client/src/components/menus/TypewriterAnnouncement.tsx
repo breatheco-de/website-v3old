@@ -35,20 +35,22 @@ export function TypewriterAnnouncement({
       data-testid="typewriter-announcement"
     >
       {/* Mobile: sliding ticker using react-fast-marquee */}
-      <div className="md:hidden flex-1 flex items-center gap-2 min-w-0 overflow-hidden">
-        <Icon className="w-4 h-4 text-primary shrink-0" />
-        <div className="flex-1 min-w-0 overflow-hidden">
-          <Marquee speed={50} pauseOnHover={false} autoFill={true} gradient={false}>
-            {safeMessages.map((msg, i) => (
-              <span key={i} className="inline-flex items-center mx-4 whitespace-nowrap">
+      <div className="md:hidden flex-1 min-w-0 overflow-hidden">
+        <Marquee speed={50} pauseOnHover={false} autoFill={true} gradient={false}>
+          {safeMessages.map((msg, i) => {
+            const msgIconName = msg.icon || icon;
+            const MsgIcon = msgIconName ? (getIcon(msgIconName) ?? Megaphone) : Megaphone;
+            return (
+              <span key={i} className="inline-flex items-center gap-1.5 mx-4 whitespace-nowrap">
+                <MsgIcon className="w-4 h-4 text-primary shrink-0" />
                 <span className="text-muted-foreground text-sm">{msg.text}</span>
                 {msg.cta_label && (
-                  <span className="text-primary ml-1 text-sm">{msg.cta_label}</span>
+                  <span className="text-primary text-sm">{msg.cta_label}</span>
                 )}
               </span>
-            ))}
-          </Marquee>
-        </div>
+            );
+          })}
+        </Marquee>
       </div>
 
       {/* Desktop: typewriter */}
