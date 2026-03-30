@@ -380,7 +380,7 @@ sections:
   - type: list_press_mentions
     version: v1.0
     variant: featured_showcase
-    title: Governments, Universities and Multilateral Institutions Trust Us With Their Programs. Here's What We've Built.
+    title: Governments, Universities and Global Institutions Trust Us With Their Programs. Here's What We've Built.
     subtitle: The Inter-American Development Bank, the US federal government, universities across the Americas. They all came with KPIs, public accountability, and high expectations. We delivered every time.
     show_links: false
     show_logos: true
