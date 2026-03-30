@@ -12,6 +12,7 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
   const { i18n } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isPastThreshold, setIsPastThreshold] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : false);
   const locale = i18n.language || 'en';
 
   const { data: menuResponse, isLoading } = useQuery<{ name: string; data: NavbarConfig }>({
@@ -37,8 +38,13 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
         return prev;
       });
     };
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const urlParams = typeof window !== 'undefined'
@@ -69,7 +75,10 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
     marqueeShowOn === "desktop" ? "hidden md:block" :
     "";
 
-  const totalHeight = navSize + (showMarquee ? marqueeHeight : 0);
+  const marqueeHeightDesktop = showMarquee && marqueeShowOn !== "mobile" ? marqueeHeight : 0;
+  const marqueeHeightMobile = showMarquee && marqueeShowOn !== "desktop" ? marqueeHeight : 0;
+  const totalHeightDesktop = navSize + marqueeHeightDesktop;
+  const totalHeightMobile = navSize + marqueeHeightMobile;
 
   const marqueeStrip = showMarquee ? (
     <div
@@ -89,9 +98,12 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
     </div>
   ) : null;
 
+  const totalHeight = isMobile ? totalHeightMobile : totalHeightDesktop;
+
   return (
     <>
-      <div aria-hidden="true" style={{ height: `${totalHeight}px` }} />
+      <div aria-hidden="true" className="hidden md:block" style={{ height: `${totalHeightDesktop}px` }} />
+      <div aria-hidden="true" className="md:hidden" style={{ height: `${totalHeightMobile}px` }} />
 
       <div
         className="fixed left-0 right-0 z-50 transition-[top] duration-300 ease-in-out"
