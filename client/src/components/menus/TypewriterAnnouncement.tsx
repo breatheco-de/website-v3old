@@ -30,17 +30,18 @@ export function TypewriterAnnouncement({
   const totalChars = safeMessages.reduce((sum, m) => sum + (m.text || "").length + (m.cta_label || "").length, 0);
   const tickerDuration = Math.max(8, totalChars * 0.14);
 
-  const tickerContent = safeMessages.map((msg, i) => (
-    <span key={i} className="inline-flex items-center">
-      <span className="text-muted-foreground">
-        {msg.text}
-        {msg.cta_label && (
-          <span className="text-primary ml-1">{msg.cta_label}</span>
-        )}
+  const renderTickerMessages = (prefix: string) =>
+    safeMessages.map((msg, i) => (
+      <span key={`${prefix}-${i}`} className="inline-flex items-center">
+        <span className="text-muted-foreground">
+          {msg.text}
+          {msg.cta_label && (
+            <span className="text-primary ml-1">{msg.cta_label}</span>
+          )}
+        </span>
+        <span className="mx-4 text-muted-foreground/40" aria-hidden="true">·</span>
       </span>
-      <span className="mx-4 text-muted-foreground/40" aria-hidden="true">·</span>
-    </span>
-  ));
+    ));
 
   return (
     <div
@@ -55,8 +56,8 @@ export function TypewriterAnnouncement({
             className="logo-carousel-track inline-flex"
             style={{ animationDuration: `${tickerDuration}s` }}
           >
-            {tickerContent}
-            {tickerContent}
+            {renderTickerMessages("a")}
+            {renderTickerMessages("b")}
           </div>
         </div>
       </div>
