@@ -382,12 +382,8 @@ sections:
   - type: list_press_mentions
     version: v1.0
     variant: featured_showcase
-    title: |-
-      Governments, banks, and universities
-      have audited us. Then hired us.
-    subtitle: When institutions with due diligence requirements and public accountability choose a coding school, they do not choose lightly.
-    show_links: false
-    show_logos: true
+    title: Governments, universities and multilateral institutions trust us with their programs. Here's what we've built.
+    subtitle: The Inter-American Development Bank, the US federal government, universities across the Americas. They all came with KPIs, public accountability, and high expectations. We delivered every time.
     footer_text: Institutions with public accountability and due diligence requirements. Not awards programs.
     footer_stats:
       - value: $20M+
