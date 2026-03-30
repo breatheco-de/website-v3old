@@ -16,3 +16,9 @@ navbar:
   constrained_margin: true
   sticky: false
   size: 46
+  marquee:
+    enabled: true
+    texts:
+      - text: 4Geeks, Harvard, Oxford, and Columbia partner to provide Artificial Intelligence education in the Bahamas.
+      - text: bbbbbbbb b bb
+    show_on: mobile

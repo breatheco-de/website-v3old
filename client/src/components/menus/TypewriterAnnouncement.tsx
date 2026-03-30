@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { Megaphone } from "lucide-react";
 import { useTypewriter } from "@/hooks/useTypewriter";
 import { getIcon } from "@/lib/icons";
@@ -23,16 +23,13 @@ export function TypewriterAnnouncement({
 }: TypewriterAnnouncementProps) {
   const { displayText, ctaLabel, ctaUrl, icon: msgIcon } = useTypewriter(messages, charDelay, startDelay, displayTime);
   const handleLinkClick = useInternalNav();
-
-  const [isMobile, setIsMobile] = useState(false);
+  const textRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const mq = window.matchMedia("(max-width: 767px)");
-    setIsMobile(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
+    if (textRef.current) {
+      textRef.current.scrollLeft = textRef.current.scrollWidth;
+    }
+  }, [displayText, ctaLabel]);
 
   const resolvedIconName = msgIcon || icon;
   const ResolvedIcon = resolvedIconName ? getIcon(resolvedIconName) : null;
@@ -40,12 +37,13 @@ export function TypewriterAnnouncement({
 
   const safeMessages = messages && messages.length > 0 ? messages : [];
 
-  if (isMobile) {
-    return (
-      <div
-        className="flex-1 min-w-0 overflow-hidden"
-        data-testid="typewriter-announcement"
-      >
+  return (
+    <div
+      className="flex-1 flex items-center justify-center gap-2 min-w-0 max-w-full overflow-hidden"
+      data-testid="typewriter-announcement"
+    >
+      {/* Mobile: sliding ticker using react-fast-marquee */}
+      <div className="md:hidden flex-1 min-w-0 overflow-hidden">
         <Marquee speed={50} pauseOnHover={false} autoFill={true} gradient={false}>
           {safeMessages.map((msg, i) => {
             const msgIconName = msg.icon || icon;
@@ -62,17 +60,14 @@ export function TypewriterAnnouncement({
           })}
         </Marquee>
       </div>
-    );
-  }
 
-  return (
-    <div
-      className="flex-1 flex items-center justify-center gap-2 min-w-0"
-      data-testid="typewriter-announcement"
-    >
-      <div className="inline-flex items-center w-min gap-1">
+      {/* Desktop: typewriter — text scrolls to always show the end; cursor stays visible */}
+      <div className="hidden md:inline-flex items-center w-min max-w-full gap-1">
         <Icon className="w-5 h-5 text-primary shrink-0 my-1" />
-        <span className="inline-flex items-center text-muted-foreground whitespace-nowrap overflow-hidden">
+        <div
+          ref={textRef}
+          className="overflow-hidden inline-flex items-center text-muted-foreground whitespace-nowrap"
+        >
           {displayText}
           {ctaLabel && ctaUrl && (
             <a
@@ -87,7 +82,7 @@ export function TypewriterAnnouncement({
           {ctaLabel && !ctaUrl && (
             <span className="text-primary ml-1">{ctaLabel}</span>
           )}
-        </span>
+        </div>
         <span className="bg-primary inline-block w-px h-4 ml-[0.2px] animate-blink shrink-0" />
       </div>
     </div>
