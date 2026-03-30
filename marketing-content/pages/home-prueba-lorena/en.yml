@@ -340,7 +340,7 @@ sections:
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
-    heading: Find Your Path Into Tech.
+    heading: Find Your Path
     subheading: Four programs. All built around getting you hired, not just trained.
     featured_label: Most Popular
     programs:
