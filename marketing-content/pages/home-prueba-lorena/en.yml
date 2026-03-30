@@ -49,7 +49,7 @@ sections:
     item_background_color: hsl(var(--muted))
     logo_rotation_ms_time: 2000
     items:
-      - label: University Partners
+      - label: University Backed
         logos:
           - image_id: premios_tecnologia
             alt: Technology Awards XXI Century
@@ -60,7 +60,7 @@ sections:
           - image_id: ebootcamp_top
             alt: eBootcamp Top Award
             id: ebootcamp-top
-      - label: Government Programs
+      - label: Trusted by Governments
         logos:
           - image_id: bid_logo
           - image_id: logo_jooble
@@ -69,7 +69,7 @@ sections:
           - image_id: logo_course_report
             alt: Course Report logo
             id: logo-course-report
-      - label: Top Ranked, Every Year
+      - label: Top Ranked
         logos:
           - image_id: logo_overseas
             alt: Overseas logo
