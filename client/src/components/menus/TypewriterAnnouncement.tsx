@@ -49,7 +49,7 @@ export function TypewriterAnnouncement({
             const msgIconName = msg.icon || icon;
             const MsgIcon = msgIconName ? (getIcon(msgIconName) ?? Megaphone) : Megaphone;
             return (
-              <span key={i} className="inline-flex items-center gap-1.5 mx-4 whitespace-nowrap">
+              <span key={i} className="inline-flex items-center gap-1.5 whitespace-nowrap ">
                 <MsgIcon className="w-4 h-4 text-primary shrink-0" />
                 <span className="text-muted-foreground text-sm">{msg.text}</span>
                 {msg.cta_label && (
@@ -62,11 +62,11 @@ export function TypewriterAnnouncement({
       </div>
 
       {/* Desktop: typewriter — text scrolls to always show the end; cursor stays visible */}
-      <div className="hidden md:inline-flex items-center w-min max-w-full gap-1">
+      <div className="hidden md:inline-flex items-center max-w-full gap-1">
         <Icon className="w-5 h-5 text-primary shrink-0 my-1" />
         <div
           ref={textRef}
-          className="overflow-hidden inline-flex items-center text-muted-foreground whitespace-nowrap"
+          className="overflow-hidden inline-flex items-center text-muted-foreground leading-[20px] shrink min-w-0"
         >
           {displayText}
           {ctaLabel && ctaUrl && (

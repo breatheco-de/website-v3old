@@ -11,6 +11,7 @@ export type EditorType =
 export const fieldEditors: Record<string, EditorType> = {
   "item_background_color": "color-picker:background",
   "item_badge_shape": "boolean-toggle",
+  "colored_logos": "boolean-toggle",
   "cta": "link-picker",
   "items[].logos[].image_id": "image-picker:logo",
 };

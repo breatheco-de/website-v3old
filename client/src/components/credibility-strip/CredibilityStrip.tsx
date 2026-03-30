@@ -2,7 +2,7 @@ import { useState, useEffect, type CSSProperties } from "react";
 import { useImageRegistry } from "@/components/UniversalImage";
 import type { CredibilityStripSection, CredibilityStripItem } from "@shared/schema";
 
-function LogoImage({ id }: { id: string }) {
+function LogoImage({ id, colored }: { id: string; colored?: boolean }) {
   const { registry, loading } = useImageRegistry();
   if (loading || !registry) return null;
   const entry = registry.images?.[id];
@@ -21,7 +21,7 @@ function LogoImage({ id }: { id: string }) {
         width: "auto",
         height: "auto",
         objectFit: "contain",
-        filter: "grayscale(100%) opacity(0.9)",
+        filter: colored ? "none" : "grayscale(100%) opacity(0.9)",
       }}
     />
   );
@@ -33,12 +33,14 @@ function CredibilityItem({
   itemBgStyle,
   sectionHovered,
   rotationMs,
+  colored,
 }: {
   item: CredibilityStripItem;
   borderRadius: string;
   itemBgStyle: CSSProperties;
   sectionHovered: boolean;
   rotationMs: number;
+  colored?: boolean;
 }) {
   const logos = item.logos || [];
   const [activeIdx, setActiveIdx] = useState(0);
@@ -65,7 +67,7 @@ function CredibilityItem({
                className="absolute min-w-[60px] inset-0 transition-opacity duration-200"
                style={{ opacity: i === activeIdx ? 1 : 0 }}
              >
-               <LogoImage id={logo.image_id} />
+               <LogoImage id={logo.image_id} colored={colored} />
              </div>
            ))}
          </div>
@@ -104,6 +106,7 @@ export function CredibilityStrip({ data }: { data: CredibilityStripSection }) {
     backgroundColor: data.item_background_color || "hsl(var(--secondary))",
   };
   const rotationMs = data.logo_rotation_ms_time ?? 2000;
+  const coloredLogos = data.colored_logos ?? false;
 
   const href = data.cta || data.link_url;
   const Wrapper = (href ? "a" : "div") as "a" | "div";
@@ -138,6 +141,7 @@ export function CredibilityStrip({ data }: { data: CredibilityStripSection }) {
             itemBgStyle={itemBgStyle}
             sectionHovered={hovered}
             rotationMs={rotationMs}
+            colored={coloredLogos}
           />
         ))}
       </div>
