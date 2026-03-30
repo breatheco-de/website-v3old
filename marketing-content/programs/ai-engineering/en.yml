@@ -765,7 +765,7 @@ sections:
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | unknown }}
+          default: ai-engineering
       success:
         message: Thank you! We'll be in touch soon.
       consent:
