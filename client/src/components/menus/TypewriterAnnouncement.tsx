@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Megaphone } from "lucide-react";
 import { useTypewriter } from "@/hooks/useTypewriter";
 import { getIcon } from "@/lib/icons";
@@ -23,19 +24,28 @@ export function TypewriterAnnouncement({
   const { displayText, ctaLabel, ctaUrl, icon: msgIcon } = useTypewriter(messages, charDelay, startDelay, displayTime);
   const handleLinkClick = useInternalNav();
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
   const resolvedIconName = msgIcon || icon;
   const ResolvedIcon = resolvedIconName ? getIcon(resolvedIconName) : null;
   const Icon = ResolvedIcon ?? Megaphone;
 
   const safeMessages = messages && messages.length > 0 ? messages : [];
 
-  return (
-    <div
-      className="flex-1 flex items-center justify-center gap-2 min-w-0"
-      data-testid="typewriter-announcement"
-    >
-      {/* Mobile: sliding ticker using react-fast-marquee */}
-      <div className="md:hidden flex-1 min-w-0 overflow-hidden">
+  if (isMobile) {
+    return (
+      <div
+        className="flex-1 min-w-0 overflow-hidden"
+        data-testid="typewriter-announcement"
+      >
         <Marquee speed={50} pauseOnHover={false} autoFill={true} gradient={false}>
           {safeMessages.map((msg, i) => {
             const msgIconName = msg.icon || icon;
@@ -52,9 +62,15 @@ export function TypewriterAnnouncement({
           })}
         </Marquee>
       </div>
+    );
+  }
 
-      {/* Desktop: typewriter */}
-      <div className="hidden md:inline-flex items-center w-min gap-1">
+  return (
+    <div
+      className="flex-1 flex items-center justify-center gap-2 min-w-0"
+      data-testid="typewriter-announcement"
+    >
+      <div className="inline-flex items-center w-min gap-1">
         <Icon className="w-5 h-5 text-primary shrink-0 my-1" />
         <span className="inline-flex items-center text-muted-foreground whitespace-nowrap overflow-hidden">
           {displayText}
