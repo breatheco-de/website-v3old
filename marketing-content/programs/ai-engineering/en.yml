@@ -201,8 +201,7 @@ sections:
           required: true
         program:
           visible: false
-          required: true
-          default: {{ single.bc_slug | ai-engineering }}
+          default: ai-engineering
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
   - type: awards_marquee
