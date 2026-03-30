@@ -382,8 +382,10 @@ sections:
   - type: list_press_mentions
     version: v1.0
     variant: featured_showcase
-    title: Governments, universities and multilateral institutions trust us with their programs. Here's what we've built.
+    title: Governments, Universities and Multilateral Institutions Trust Us With Their Programs. Here's What We've Built.
     subtitle: The Inter-American Development Bank, the US federal government, universities across the Americas. They all came with KPIs, public accountability, and high expectations. We delivered every time.
+    show_links: false
+    show_logos: true
     footer_text: Institutions with public accountability and due diligence requirements. Not awards programs.
     footer_stats:
       - value: $20M+
