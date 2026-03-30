@@ -1529,34 +1529,6 @@
       "name": "sticky_cta_programs_en"
     },
     {
-      "id": "bind_mmdn4mws_1tf5hc",
-      "component": "modal",
-      "locale": "en",
-      "members": [
-        {
-          "contentType": "program",
-          "slug": "ai-engineering",
-          "sectionId": "apply-modal"
-        },
-        {
-          "contentType": "program",
-          "slug": "cybersecurity",
-          "sectionId": "apply-modal"
-        },
-        {
-          "contentType": "program",
-          "slug": "data-science-ml",
-          "sectionId": "apply-modal"
-        },
-        {
-          "contentType": "program",
-          "slug": "full-stack",
-          "sectionId": "apply-modal"
-        }
-      ],
-      "createdAt": "2026-03-05T15:48:49.276Z"
-    },
-    {
       "id": "bind_mmf5oo60_a5stn9",
       "component": "sticky_cta",
       "locale": "es",
