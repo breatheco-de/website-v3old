@@ -42,41 +42,45 @@ sections:
       desktop: xl
     maxWidth:
       desktop: none
-  - type: awards_marquee
+  - type: credibility_strip
     version: v1.0
-    speed: 40
-    gradient: true
-    gradientWidth: 100
+    cta: /partners
+    item_badge_shape: true
+    item_background_color: hsl(var(--muted))
+    logo_rotation_ms_time: 2000
     items:
-      - id: download-1
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/download-1-.png
-        alt: "Image: download (1)"
-        logoHeight: 60px
-      - id: clark-university
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
-        alt: Clark University Logo
-        logoHeight: 60px
-      - id: download-2
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/download-2-.png
-        alt: "Image: download (2)"
-        logoHeight: 60px
-      - id: download-3
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/download-3-.png
-        alt: "Image: download (3)"
-        logoHeight: 60px
-      - id: download-4
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/download-4-.png
-        alt: "Image: download (4)"
-        logoHeight: 60px
-      - id: download-4-1
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/download-4-.jpg
-        alt: "Image: download (4)"
-        logoHeight: 60px
-    section_id: awards_marquee-l9ssii
-    title: "<span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.125rem;\"><span style=\"font-size: 1.25rem;\"><span><span style=\"font-size: 1rem;\">The tech training institutions trust for their high-stake programs.&nbsp;</span></span></span></span></span>"
-    title_above_carousel: true
-    marginY:
-      desktop: md lg
+      - label: University Partners
+        logos:
+          - image_id: premios_tecnologia
+            alt: Technology Awards XXI Century
+            id: premios-tecnologia
+          - image_id: logo_razz
+            alt: Razz logo
+            id: logo-razz
+          - image_id: ebootcamp_top
+            alt: eBootcamp Top Award
+            id: ebootcamp-top
+      - label: Government Programs
+        logos:
+          - image_id: bid_logo
+          - image_id: logo_jooble
+            alt: Jooble logo
+            id: logo-jooble
+          - image_id: logo_course_report
+            alt: Course Report logo
+            id: logo-course-report
+      - label: Top Ranked, Every Year
+        logos:
+          - image_id: logo_overseas
+            alt: Overseas logo
+            id: logo-overseas
+          - image_id: logo_telefonica
+            alt: Telefonica logo
+            id: logo-telefonica
+          - image_id: logo_twilio
+            alt: Twilio logo
+            id: logo-twilio
+    section_id: credibility_strip-vcpur5
   - type: features_grid
     version: "1.0"
     variant: stats-text
