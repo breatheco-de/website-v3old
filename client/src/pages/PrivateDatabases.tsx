@@ -2256,7 +2256,7 @@ function ItemEditModal({
             cleanedItem[key] = isNaN(n) ? value : n;
           }
         } else {
-          if (value !== null && value !== undefined) {
+          if (value !== "" && value !== null && value !== undefined) {
             cleanedItem[key] = value;
           }
         }
@@ -2264,7 +2264,14 @@ function ItemEditModal({
 
       const newItems = isNew
         ? [...allItems, cleanedItem]
-        : allItems.map((it, i) => (i === itemIndex ? { ...it, ...cleanedItem } : it));
+        : allItems.map((it, i) => {
+            if (i !== itemIndex) return it;
+            const merged = { ...it, ...cleanedItem };
+            for (const k of fields) {
+              if (!(k in cleanedItem)) delete merged[k];
+            }
+            return merged;
+          });
 
       await onSaved(newItems);
       onClose();
