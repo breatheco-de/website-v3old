@@ -201,8 +201,7 @@ sections:
           required: true
         program:
           visible: false
-          required: true
-          default: {{ single.bc_slug | ai-engineering }}
+          default: ai-engineering
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
   - type: awards_marquee
@@ -554,14 +553,11 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Standard tuition is {{ global.price_full_ai_engineering | $14,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
+        text: Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
         text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
       - icon: IconCheck
-        text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
-        use_rigobot_icon: true
-      - icon: IconCheck
-        text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
+        text: Finance your tuition with 18-month plans.
     cta:
       text: Get more info
       url: "#apply-modal"
@@ -766,7 +762,7 @@ sections:
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | unknown }}
+          default: ai-engineering
       success:
         message: Thank you! We'll be in touch soon.
       consent:
@@ -810,7 +806,8 @@ sections:
           required: true
         program:
           visible: false
-          required: false
-          default: {{ single.bc_slug | unknown }}
+          required: true
+          default: ai-engineering
       success:
         message: Thanks! We'll be in touch within 24 hours.
+    load: eager

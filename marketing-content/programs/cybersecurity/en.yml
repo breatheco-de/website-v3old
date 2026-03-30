@@ -97,7 +97,7 @@ sections:
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | ai-engineering }}
+          default: cybersecurity
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
     section_id: apply-modal
@@ -616,7 +616,7 @@ sections:
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | unknown }}
+          default: cybersecurity
       success:
         message: Thank you! We'll be in touch soon.
       consent:
@@ -660,8 +660,9 @@ sections:
           required: true
         program:
           visible: false
-          required: false
-          default: {{ single.bc_slug | ai-engineering }}
+          required: true
+          default: cybersecurity
       success:
         message: Thanks! We'll be in touch within 24 hours.
     section_id: sticky_cta-dl9ciq
+    load: eager
