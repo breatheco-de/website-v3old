@@ -124,6 +124,7 @@ sections:
         program:
           visible: true
           required: true
+          placeholder: Selecciona un programa
       success:
         message: ¡Gracias! Nos comunicaremos contigo a la brevedad posible.
       terms_url: /terms-and-conditions
