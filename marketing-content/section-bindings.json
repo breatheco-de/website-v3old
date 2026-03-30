@@ -1471,35 +1471,6 @@
       "createdAt": "2026-03-03T19:16:11.259Z"
     },
     {
-      "id": "bind_mmc6fp5x_nv8bah",
-      "component": "sticky_cta",
-      "locale": "en",
-      "members": [
-        {
-          "contentType": "program",
-          "slug": "ai-engineering",
-          "sectionId": "sticky_cta-5ry34w"
-        },
-        {
-          "contentType": "program",
-          "slug": "cybersecurity",
-          "sectionId": "sticky_cta-dl9ciq"
-        },
-        {
-          "contentType": "program",
-          "slug": "data-science-ml",
-          "sectionId": "sticky_cta-ea9lr3"
-        },
-        {
-          "contentType": "program",
-          "slug": "full-stack",
-          "sectionId": "sticky_cta-et016q"
-        }
-      ],
-      "createdAt": "2026-03-04T15:13:45.765Z",
-      "name": "sticky_cta_programs_en"
-    },
-    {
       "id": "bind_mmf5oo60_a5stn9",
       "component": "sticky_cta",
       "locale": "es",
