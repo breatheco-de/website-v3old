@@ -49,7 +49,7 @@ sections:
     item_background_color: hsl(var(--muted))
     logo_rotation_ms_time: 2000
     items:
-      - label: University Backed
+      - label: University Partners
         logos:
           - image_id: clark_university
             alt: Clark University Logo
