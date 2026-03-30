@@ -104,7 +104,7 @@ sections:
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | ai-engineering }}
+          default: datascience-ml
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
     section_id: apply-modal
