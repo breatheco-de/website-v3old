@@ -179,6 +179,7 @@ interface MarqueeConfigSetting {
   start_delay?: number;
   char_delay?: number;
   display_time?: number;
+  show_on?: "desktop" | "mobile" | "";
 }
 
 interface NavbarSettings {
@@ -1851,6 +1852,35 @@ export default function MenuEditor() {
                                     {pos.charAt(0).toUpperCase() + pos.slice(1)}
                                   </Button>
                                 ))}
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-between gap-3">
+                              <Label className="text-sm font-medium whitespace-nowrap">Show on</Label>
+                              <div className="flex rounded-md border border-border overflow-hidden">
+                                {([
+                                  { id: "", label: "Both" },
+                                  { id: "desktop", label: "Desktop" },
+                                  { id: "mobile", label: "Mobile" },
+                                ] as const).map((option, index) => {
+                                  const currentShowOn = menuData!.navbar!.marquee?.show_on ?? "";
+                                  const isSelected = currentShowOn === option.id;
+                                  return (
+                                    <button
+                                      key={option.id || "both"}
+                                      type="button"
+                                      onClick={() => updateMarqueeSettings({ show_on: option.id || undefined })}
+                                      className={`px-3 py-1.5 text-sm transition-colors ${
+                                        isSelected
+                                          ? "bg-primary text-primary-foreground"
+                                          : "bg-transparent text-muted-foreground hover:bg-muted"
+                                      } ${index !== 0 ? "border-l border-border" : ""}`}
+                                      data-testid={`button-marquee-show-on-${option.id || "both"}`}
+                                    >
+                                      {option.label}
+                                    </button>
+                                  );
+                                })}
                               </div>
                             </div>
 

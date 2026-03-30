@@ -46,6 +46,7 @@ export type MarqueeConfig = {
   start_delay?: number;
   char_delay?: number;
   display_time?: number;
+  show_on?: "desktop" | "mobile" | "";
 };
 
 export type NavbarConfig = {

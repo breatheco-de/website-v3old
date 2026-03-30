@@ -62,12 +62,18 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
   const marqueeSticky = marquee?.sticky ?? false;
   const marqueeCollapsed = isPastThreshold && !marqueeSticky;
   const marqueePosition = marquee?.position ?? "below";
+  const marqueeShowOn = marquee?.show_on ?? "";
+
+  const marqueeVisibilityClass =
+    marqueeShowOn === "mobile" ? "md:hidden" :
+    marqueeShowOn === "desktop" ? "hidden md:block" :
+    "";
 
   const totalHeight = navSize + (showMarquee ? marqueeHeight : 0);
 
   const marqueeStrip = showMarquee ? (
     <div
-      className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${marqueeCollapsed ? "max-h-0" : "max-h-12"} ${marqueePosition === "below" ? "border-t" : "border-b"}`}
+      className={`${marqueeVisibilityClass} overflow-hidden transition-[max-height] duration-300 ease-in-out ${marqueeCollapsed ? "max-h-0" : "max-h-12"} ${marqueePosition === "below" ? "border-t" : "border-b"}`}
     >
       <div
         className={`${constrainClass} py-1`}
