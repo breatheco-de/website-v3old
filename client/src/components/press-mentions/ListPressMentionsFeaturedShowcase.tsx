@@ -138,7 +138,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
             </div>
 
             {/* Right: logo + link + tags */}
-            <div className="flex flex-col items-start md:items-center justify-center md:shrink-0 md:w-48 gap-2">
+            <div className="flex flex-col items-start md:items-center justify-center md:shrink-0 md:w-62 gap-2">
               {showLogos && featured.logo && (
                 <div className="h-10 max-w-[120px]" data-testid="img-press-featured-logo">
                   <UniversalImage

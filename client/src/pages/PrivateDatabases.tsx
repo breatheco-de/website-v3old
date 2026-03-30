@@ -2256,7 +2256,7 @@ function ItemEditModal({
             cleanedItem[key] = isNaN(n) ? value : n;
           }
         } else {
-          if (value !== "" && value !== null && value !== undefined) {
+          if (value !== null && value !== undefined) {
             cleanedItem[key] = value;
           }
         }
