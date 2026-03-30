@@ -660,8 +660,9 @@ sections:
           required: true
         program:
           visible: false
-          required: false
-          default: {{ single.bc_slug | ai-engineering }}
+          required: true
+          default: cybersecurity
       success:
         message: Thanks! We'll be in touch within 24 hours.
     section_id: sticky_cta-dl9ciq
+    load: eager
