@@ -2533,7 +2533,18 @@
       "focal_point": "center",
       "tags": [
         "logo",
-        "review"
+        "review",
+        "avatar",
+        "card",
+        "icon",
+        "photo",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
       ],
       "usage_count": 0,
       "hash": "437cbde645dbbb655169bdc798763d51263f1523e4228e7f05084abcebd843b5",
