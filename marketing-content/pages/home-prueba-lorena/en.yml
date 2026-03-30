@@ -51,15 +51,12 @@ sections:
     items:
       - label: University Backed
         logos:
-          - image_id: premios_tecnologia
-            alt: Technology Awards XXI Century
-            id: premios-tecnologia
-          - image_id: logo_razz
-            alt: Razz logo
-            id: logo-razz
-          - image_id: ebootcamp_top
-            alt: eBootcamp Top Award
-            id: ebootcamp-top
+          - image_id: clark_university
+            alt: Clark University Logo
+            id: clark-university
+          - image_id: logo_mdc
+            alt: MDC CE logo
+            id: logo-mdc
       - label: Trusted by Governments
         logos:
           - image_id: bid_logo
@@ -69,6 +66,7 @@ sections:
           - image_id: logo_course_report
             alt: Course Report logo
             id: logo-course-report
+          - image_id: ""
       - label: Top Ranked
         logos:
           - image_id: logo_overseas
