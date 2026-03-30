@@ -616,7 +616,7 @@ sections:
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | unknown }}
+          default: cybersecurity
       success:
         message: Thank you! We'll be in touch soon.
       consent:
