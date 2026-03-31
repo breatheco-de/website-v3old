@@ -79,6 +79,7 @@ sections:
             alt: Forbes Award logo
             id: forbes-logo-award
     section_id: credibility_strip-vcpur5
+    colored_logos: true
   - type: features_grid
     version: "1.0"
     variant: stats-text
