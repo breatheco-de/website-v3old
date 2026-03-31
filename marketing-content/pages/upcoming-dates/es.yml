@@ -33,7 +33,7 @@ sections:
       - key: academy.name
         label: Ubicación
         type: text
-        function: KHJvdykgPT4gYCR7cm93LmFjYWRlbXk/Lm5hbWUgfHwgJyd9IC0gJHtyb3cuYWNhZGVteT8uY291bnRyeT8ubmFtZSB8fCAnJ31gLnRyaW0oKQ==
+        function: KHJvdykgPT4gcm93LmFjYWRlbXk/LmNvdW50cnk/Lm5hbWUgPT09ICdVU0EnID8gJzRHZWVrcyBPbmxpbmUgLSBVU0EnIDogYCR7cm93LmFjYWRlbXk/Lm5hbWUgfHwgJyd9IC0gJHtyb3cuYWNhZGVteT8uY291bnRyeT8ubmFtZSB8fCAnJ31gLnRyaW0oKQ==
       - key: syllabus_version.duration_in_days
         label: Duración
         type: text
