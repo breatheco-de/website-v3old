@@ -25,7 +25,7 @@ sections:
         url: /signup
         variant: primary
       - text: Explore our programs
-        url: /signup
+        url: "#programs_showcase-5wibqd"
         variant: primary
     award_badges:
       - name: Best Coding Bootcamp
