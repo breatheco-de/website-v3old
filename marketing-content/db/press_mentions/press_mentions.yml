@@ -19,12 +19,13 @@ press_mentions:
     link_text: Read article
     image: https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80
   - locale: en
-    title: Chosen as exclusive coding school partner across Costa Rica, Uruguay and Mexico
-    subtitle: Inter-American Development Bank · Multilateral Coding Education Partner across Latin America
-    category: Multilateral Bank
+    title: Exclusive coding school partner for IDB workforce programs across Latin America
+    subtitle: Inter-American Development Bank · Partners in Education
+    category: Multilateral  Institution
     excerpt: >-
-      Selected as the exclusive coding school partner across Costa Rica, Uruguay and Mexico. Competing partners were
-      evaluated against IDB procurement standards.
+      The largest development bank in Latin America selected 4Geeks through competitive procurement as their sole coding
+      school partner across Costa Rica, Uruguay and Mexico. Over 600 graduates and counting. Programs running since
+      2020.
     priority: 2
     organization: IDB
     stat_label: countries
