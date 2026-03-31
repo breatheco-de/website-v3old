@@ -384,7 +384,7 @@ sections:
   - type: list_press_mentions
     version: v1.0
     variant: featured_showcase
-    title: The World's Most Accountable Institutions Chose Us. Here's What We Built Together.
+    title: The World's Most Accountable Institutions Chose Us. Here's What We've Built Together.
     subtitle: From the Inter-American Development Bank to governments across the Americas and universities on three continents, every institution that selected us to run their programs came with KPIs, public accountability, and high expectations. We delivered every time.
     show_links: false
     show_logos: true
