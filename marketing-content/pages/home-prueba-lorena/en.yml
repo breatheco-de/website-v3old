@@ -21,7 +21,10 @@ sections:
     title: "1.3 Million New AI Roles.&nbsp;<div><span style=\"color: hsl(var(--primary));\"><span style=\"color: hsl(var(--foreground));\">We're </span>Your Path In.</span></div>"
     subtitle: "<span style=\"font-size: 16px; text-align: center;\"><span style=\"font-size: 1.5rem;\">Immersive programs built to launch AI careers. Backed by lifelong unlimited mentorship, AI-powered learning, and career support that gets you hired.</span></span>"
     cta_buttons:
-      - text: Start Your Application
+      - text: Start your application
+        url: /signup
+        variant: primary
+      - text: Explore our programs
         url: /signup
         variant: primary
     award_badges:
