@@ -26,7 +26,7 @@ sections:
         variant: primary
       - text: Explore our programs
         url: "#programs_showcase-5wibqd"
-        variant: primary
+        variant: outline
     award_badges:
       - name: Best Coding Bootcamp
         source: Forbes
