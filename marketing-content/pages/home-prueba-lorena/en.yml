@@ -385,10 +385,9 @@ sections:
     version: v1.0
     variant: featured_showcase
     title: Governments, Universities and Global Institutions Trust Us With Their Programs. Here's What We've Built.
-    subtitle: The Inter-American Development Bank, the US federal government, universities across the Americas. They all came with KPIs, public accountability, and high expectations. We delivered every time.
+    subtitle: From the Inter-American Development Bank to governments across the Americas and universities on three continents, every institution that chose us to run their programs came with KPIs, public accountability, and high expectations. We delivered every time.
     show_links: false
     show_logos: true
-    footer_text: null
     footer_stats:
       - value: $20M+
         label: Institutional funding mobilized
