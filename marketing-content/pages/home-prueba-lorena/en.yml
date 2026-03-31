@@ -388,7 +388,7 @@ sections:
     subtitle: The Inter-American Development Bank, the US federal government, universities across the Americas. They all came with KPIs, public accountability, and high expectations. We delivered every time.
     show_links: false
     show_logos: true
-    footer_text: Institutions with public accountability and due diligence requirements. Not awards programs.
+    footer_text: null
     footer_stats:
       - value: $20M+
         label: Institutional funding mobilized
