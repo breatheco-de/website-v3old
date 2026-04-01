@@ -156,10 +156,13 @@ export async function resolveDynamicEntries(
         for (const pf of permanentFilters) {
           items = items.filter(item => {
             const itemVal = item[pf.item_property_slug];
-            if (itemVal && typeof itemVal === "object" && "slug" in (itemVal as any)) {
-              return String((itemVal as any).slug) === String(pf.value);
-            }
-            return String(itemVal) === String(pf.value);
+            const values = Array.isArray(pf.value) ? pf.value : [pf.value];
+            return values.some((v: unknown) => {
+              if (itemVal && typeof itemVal === "object" && "slug" in (itemVal as any)) {
+                return String((itemVal as any).slug) === String(v);
+              }
+              return String(itemVal) === String(v);
+            });
           });
         }
       }
