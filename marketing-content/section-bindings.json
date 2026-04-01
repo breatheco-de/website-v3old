@@ -1655,6 +1655,25 @@
       ],
       "createdAt": "2026-04-01T22:20:52.255Z",
       "name": "prueba"
+    },
+    {
+      "id": "bind_mngmdd9r_ykbto5",
+      "component": "banner",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "landing",
+          "slug": "prueba2",
+          "sectionId": "banner-s4nyi7"
+        },
+        {
+          "contentType": "landing",
+          "slug": "pricing",
+          "sectionId": "banner-8lqqzx"
+        }
+      ],
+      "createdAt": "2026-04-01T22:30:37.935Z",
+      "name": "tesdtt"
     }
   ]
 }
