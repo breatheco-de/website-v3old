@@ -5440,10 +5440,10 @@ export function SectionEditorPanel({
                                           min={1}
                                           max={3}
                                           step={0.05}
-                                          value={
+                                          defaultValue={
                                             (item.object_scale as number) ?? 1
                                           }
-                                          onChange={(e) =>
+                                          onBlur={(e) =>
                                             updateArrayItemField(
                                               arrayPath,
                                               index,
