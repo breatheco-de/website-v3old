@@ -38,44 +38,44 @@ sections:
     section_id: ai_learning-whcd5o
   - type: pricing
     version: "1.0"
-    title: Get access to all of our learning database, courses, and services
-    subtitle: Earn new skills every 30 min, never get stuck or lost again.
-    monthly:
-      discount_badge: 35% OFF
-      price: "38.99"
-      period: mo
-      original_price: "59.99"
-    yearly:
-      discount_badge: 35% OFF
-      price: "311.99"
-      period: yr
-      original_price: "479.99"
-      savings_badge: Save 3 months
+    variant: product
+    title: An Investment That Pays for Itself
+    subtitle: The average 4Geeks graduate sees a 55% salary increase. At $14,999, the program pays for itself within months of your first paycheck.
+    discount_text: "Full Payment Discount: Save 10% with upfront payment."
+    financing_text: "Credit-Based Financing: starting below"
+    financing_amount: $349
     tech_icons:
-      - html
-      - css
-      - javascript
-      - react
+      - openai
+      - claude
       - python
+      - pandas
+      - numpy
+      - scikitlearn
+      - pytorch
+      - matplotlib
+      - react
+      - nextjs
+      - tailwindcss
       - nodejs
+      - vercel
+      - supabase
       - git
-      - bootstrap
-      - api
-      - settings
-    features_title: Access hundreds of exercises, projects tutorials and courses
+      - github
+      - postman
+      - n8n
+    features_title: Multiple ways to fund your enrollment. Choose what fits your situation.
     features:
-      - icon: certificate
-        text: Build your portfolio with hundreds of real-world projects.
-      - icon: cloud
-        text: Thousands of cloud-based coding challenges (no setup needed).
-      - text: AI-powered feedback as you code.
-        icon: RigobotIconTiny
-      - icon: certificate
-        text: Course certificates
-      - icon: certificate
-        text: Earn certificates from a USA certified school.
+      - icon: IconCheck
+        text: Get hired within 9 months of graduation or your money back. No fine print.
+        use_rigobot_icon: true
+      - icon: IconCheck
+        text: Regular tuition is $14,999. Pay upfront and save 10%, or spread payments interest-free over 6 months.
+      - icon: IconCheck
+        text: Finance through Climb, Fortify or Lumion with 24, 36, 48 or 60 month plans starting at $349/mo.
+      - icon: IconCheck
+        text: 2 to 3 partial scholarships available per cohort for highly qualified applicants.
     cta:
-      text: Get plan
-      url: /signup
+      text: See if you qualify
+      url: "#hero-form"
       variant: primary
     section_id: pricing-vk6q5o
