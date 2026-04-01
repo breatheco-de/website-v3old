@@ -7286,9 +7286,10 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           const updatedSection = updatedSections?.[sIdx];
           if (updatedSection) {
             const normalizedLocaleForBinding = normalizeLocale(locale);
+            const baseSlugForBinding = contentIndex.resolveBaseSlug(slug, contentType);
             const propagation = bindingManager.propagateUpdate(
               contentType,
-              slug,
+              baseSlugForBinding,
               sIdx,
               updatedSection,
               authorName,
