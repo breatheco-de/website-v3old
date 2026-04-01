@@ -96,7 +96,6 @@ sections:
             text: LLMs & Generative AI
         description: Build modern, production-ready web applications from frontend to backend, with AI integrated at every layer, not added on top.
         price: {{ global.price_fullstack | $299 }}
-        price_info: or less depending on your plan
         price_period: /mo
         cta_text: Get Program Details
         cta_url: /en/career-programs/full-stack
@@ -109,7 +108,7 @@ sections:
           - icon: Code
             text: React, Node.js & Python
         description: Master the skills behind AI-driven decisions. Build models, analyze data at scale, and deploy solutions that companies in every industry are actively hiring for.
-        price: $439
+        price: {{ global.price_datascience | 299$ }}
         price_period: /mo
         cta_text: Get Program Details
         cta_url: /en/career-programs/data-science-ml
@@ -122,7 +121,7 @@ sections:
           - icon: ChartBar
             text: Python & SQL
         description: Protect the systems AI depends on. Every company scaling AI infrastructure needs specialists who can secure it. That demand isn't slowing down.
-        price: $399
+        price: {{ global.price_cybersecurity | 299$ }}
         price_period: /mo
         cta_text: Get Program Details
         cta_url: /en/career-programs/cybersecurity
