@@ -3,6 +3,7 @@ import { Star, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { ListPressMentionsSection } from "@shared/schema";
 import { UniversalImage } from "@/components/UniversalImage";
+import { DotsIndicator } from "@/components/DotsIndicator";
 
 type PressMentionItem = NonNullable<ListPressMentionsSection["items"]>[number];
 
@@ -118,7 +119,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
             </div>
 
             {/* Center: org label + title */}
-            <div className="flex-1">
+            <div className="flex-1 min-w-0 min-w-[720px]">
               {featured.organization && (
                 <p
                   className="text-xs font-medium uppercase tracking-wide text-white/70 mb-1.5"
@@ -129,7 +130,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
               )}
               {featured.title && (
                 <h3
-                  className="text-xl font-extrabold text-white leading-snug"
+                  className="text-xl font-extrabold text-white leading-snug  max-w-[720px]"
                   data-testid="text-press-featured-title"
                 >
                   {featured.title}
@@ -138,9 +139,9 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
             </div>
 
             {/* Right: logo + link + tags */}
-            <div className="flex flex-col items-start md:items-center justify-center md:shrink-0 md:w-62 gap-2">
+            <div className="flex flex-col items-start md:items-center justify-center md:shrink-0 gap-1 flex-1">
               {showLogos && featured.logo && (
-                <div className="h-10 max-w-[120px]" data-testid="img-press-featured-logo">
+                <div className="h-9" data-testid="img-press-featured-logo">
                   <UniversalImage
                     id={featured.logo}
                     alt={featured.organization || featured.title || ""}
@@ -162,11 +163,11 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
                 </a>
               )}
               {featured.tags && featured.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2 w-full">
+                <div className={`grid grid-cols-2 w-full ${featured.logo ? "gap-2" : "gap-7"}`}>
                   {featured.tags.slice(0, 4).map((tag, i) => (
                     <span
                       key={i}
-                      className="bg-background text-foreground text-xs px-3 py-0.5 rounded-full font-medium whitespace-nowrap"
+                      className="bg-background text-center text-foreground text-xs px-3 py-0.5 rounded-full font-medium whitespace-nowrap m"
                       data-testid={`tag-press-featured-${i}`}
                     >
                       {tag}
@@ -215,16 +216,11 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
-                <div className="flex gap-1.5">
-                  {Array.from({ length: totalPages }).map((_, i) => (
-                    <span
-                      key={i}
-                      className={`w-2 h-2 rounded-full cursor-pointer ${i === currentPage ? "bg-primary" : "bg-muted"}`}
-                      onClick={() => setCurrentPage(i)}
-                      data-testid={`dot-press-carousel-${i}`}
-                    />
-                  ))}
-                </div>
+                <DotsIndicator
+                  count={totalPages}
+                  activeIndex={currentPage}
+                  onDotClick={setCurrentPage}
+                />
                 <button
                   className="h-9 w-9 flex items-center justify-center rounded-md border border-border bg-background text-foreground"
                   onClick={() => setCurrentPage((p) => (p + 1) % totalPages)}
@@ -240,7 +236,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
         {/* Footer stats */}
         {(footerStats.length > 0 || footerText) && (
           <div
-            className="flex flex-col sm:flex-row items-center gap-6 items-start sm:items-center border-t border-border pt-6"
+            className="flex flex-col sm:flex-row items-center gap-6 items-start sm:items-center pt-2"
             data-testid="section-press-footer"
           >
             {footerStats.length > 0 && (
@@ -288,7 +284,15 @@ function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) 
       data-testid={`card-press-showcase-${index}`}
     >
       {/* Header: category badge + logo */}
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex items-center gap-2">
+        {item.organization && (
+          <span
+            className="text-xs font-medium uppercase tracking-wide text-muted-foreground"
+            data-testid={`text-press-card-org-${index}`}
+          >
+            {item.organization}
+          </span>
+        )}
         {item.category && (
           <Badge className="w-fit text-xs rounded-full bg-primary/5 text-foreground border-transparent">
             {item.category}
@@ -308,14 +312,6 @@ function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) 
 
       {/* Org (context label) + title (headline) — separate lines */}
       <div className="flex flex-col gap-0.5">
-        {item.organization && (
-          <span
-            className="text-xs font-medium uppercase tracking-wide text-muted-foreground"
-            data-testid={`text-press-card-org-${index}`}
-          >
-            {item.organization}
-          </span>
-        )}
         {item.title && (
           <span
             className="text-lg font-bold text-foreground leading-snug"
