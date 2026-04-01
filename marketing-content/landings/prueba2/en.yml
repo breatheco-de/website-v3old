@@ -37,9 +37,8 @@ sections:
         video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
     section_id: ai_learning-whcd5o
   - type: testimonials_slide
-    version: "1.0"
-    title: Real Careers Start Here — Just Ask Our Students
-    description: Our grads are in high demand, with over 84% hired within six months of finishing the program.
+    title: They Made the Switch. Here's What Happened.
+    description: From musicians, philosophers, and support specialists to software engineers and AI developers. Real people, real salary increases, real careers.
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
