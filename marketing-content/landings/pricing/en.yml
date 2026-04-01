@@ -593,36 +593,42 @@ sections:
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
   - type: pricing
-    title: Unlock Your Tech Career
+    title: Invest in Your Future
+    subtitle: We offer flexible payment options to help you achieve your career goals in tech.
     monthly:
-      discount_badge: 35% OFF
-      price: $38.99
-      period: mo
-      original_price: $59.99
-      savings_badge: null
+      discount_badge: Save 10% with upfront payment
+      price: $499
+      period: month
+      original_price: $549
+      savings_badge: $50 off
     yearly:
-      discount_badge: 35% OFF
-      price: $311.99
-      period: yr
-      original_price: $479.99
-      savings_badge: Save 3 months
+      discount_badge: Save 20% with annual payment
+      price: $4,999
+      period: year
+      original_price: $6,249
+      savings_badge: $1,250 off
+    tech_icons:
+      - html
+      - css
+      - javascript
+      - react
+      - python
+      - nodejs
+      - git
+      - bootstrap
+      - api
     features:
-      - icon: certificate
-        text: Build your portfolio with hundreds of real-world projects and get hired in tech
-      - icon: cloud
-        text: Access thousands of cloud-based coding challenges with unlimited 1:1 mentorship for life
-      - icon: robot
-        text: AI-powered feedback as you code with Rigobot tutor
-      - icon: certificate
-        text: Earn certificates from a USA certified school and boost your career
-      - icon: settings
-        text: Get career support that never expires and flexible learning options
+      - Build your portfolio with hundreds of real-world projects.
+      - Thousands of cloud-based coding challenges (no setup needed).
+      - AI-powered feedback as you code.
+      - Course certificates
+      - Earn certificates from a USA certified school.
     cta:
-      text: Start Your Journey
-      url: /signup
+      text: Get Started Today
+      url: /apply
       variant: primary
       icon: settings
-    variant: default
+    variant: product
     section_id: pricing-0xok39
   - type: whos_hiring
     variant: carousel
