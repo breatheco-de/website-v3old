@@ -95,7 +95,8 @@ sections:
           - icon: Brain
             text: LLMs & Generative AI
         description: Build modern, production-ready web applications from frontend to backend, with AI integrated at every layer, not added on top.
-        price: $439
+        price: {{ global.price_fullstack | $299 }}
+        price_info: or less depending on your plan
         price_period: /mo
         cta_text: Get Program Details
         cta_url: /en/career-programs/full-stack
