@@ -593,51 +593,37 @@ sections:
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
   - type: pricing
-    version: "1.0"
-    variant: product
-    title: An Investment That Pays for Itself
-    subtitle: The average 4Geeks graduate sees a 55% salary increase. At $14,999, the program pays for itself within months of your first paycheck.
-    discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: "Credit-Based Financing: starting below"
-    financing_amount: $349
-    tech_icons:
-      - openai
-      - claude
-      - python
-      - pandas
-      - numpy
-      - scikitlearn
-      - pytorch
-      - matplotlib
-      - react
-      - nextjs
-      - tailwindcss
-      - nodejs
-      - vercel
-      - supabase
-      - git
-      - github
-      - postman
-      - n8n
-    features_title: Multiple ways to fund your enrollment. Choose what fits your situation.
+    title: Unlock Your Tech Career
+    monthly:
+      discount_badge: 35% OFF
+      price: $38.99
+      period: mo
+      original_price: $59.99
+      savings_badge: null
+    yearly:
+      discount_badge: 35% OFF
+      price: $311.99
+      period: yr
+      original_price: $479.99
+      savings_badge: Save 3 months
     features:
-      - icon: IconCheck
-        text: Get hired within 9 months of graduation or your money back. No fine print.
-        use_rigobot_icon: true
-      - icon: IconCheck
-        text: Regular tuition is $14,999. Pay upfront and save 10%, or spread payments interest-free over 6 months.
-      - icon: IconCheck
-        text: Finance through Climb, Fortify or Lumion with 24, 36, 48 or 60 month plans starting at $349/mo.
-      - icon: IconCheck
-        text: 2 to 3 partial scholarships available per cohort for highly qualified applicants.
+      - icon: certificate
+        text: Build your portfolio with hundreds of real-world projects and get hired in tech
+      - icon: cloud
+        text: Access thousands of cloud-based coding challenges with unlimited 1:1 mentorship for life
+      - icon: robot
+        text: AI-powered feedback as you code with Rigobot tutor
+      - icon: certificate
+        text: Earn certificates from a USA certified school and boost your career
+      - icon: settings
+        text: Get career support that never expires and flexible learning options
     cta:
-      text: See if you qualify
-      url: "#hero-form"
+      text: Start Your Journey
+      url: /signup
       variant: primary
+      icon: settings
+    variant: default
     section_id: pricing-0xok39
-    paddingY:
-      mobile: lg none
-      desktop: none md
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work
