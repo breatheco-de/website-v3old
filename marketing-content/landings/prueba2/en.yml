@@ -36,3 +36,46 @@ sections:
           - text: Active Slack community with dedicated channels for jobs, code help, and career advice
         video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
     section_id: ai_learning-whcd5o
+  - type: pricing
+    version: "1.0"
+    title: Get access to all of our learning database, courses, and services
+    subtitle: Earn new skills every 30 min, never get stuck or lost again.
+    monthly:
+      discount_badge: 35% OFF
+      price: "38.99"
+      period: mo
+      original_price: "59.99"
+    yearly:
+      discount_badge: 35% OFF
+      price: "311.99"
+      period: yr
+      original_price: "479.99"
+      savings_badge: Save 3 months
+    tech_icons:
+      - html
+      - css
+      - javascript
+      - react
+      - python
+      - nodejs
+      - git
+      - bootstrap
+      - api
+      - settings
+    features_title: Access hundreds of exercises, projects tutorials and courses
+    features:
+      - icon: certificate
+        text: Build your portfolio with hundreds of real-world projects.
+      - icon: cloud
+        text: Thousands of cloud-based coding challenges (no setup needed).
+      - text: AI-powered feedback as you code.
+        icon: RigobotIconTiny
+      - icon: certificate
+        text: Course certificates
+      - icon: certificate
+        text: Earn certificates from a USA certified school.
+    cta:
+      text: Get plan
+      url: /signup
+      variant: primary
+    section_id: pricing-y2ih10
