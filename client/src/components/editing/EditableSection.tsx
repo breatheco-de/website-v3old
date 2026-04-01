@@ -57,6 +57,10 @@ const SectionBindingDialog = lazy(() =>
   import("./SectionBindingDialog").then(mod => ({ default: mod.SectionBindingDialog }))
 );
 
+const BindingConfirmDialog = lazy(() =>
+  import("./BindingConfirmDialog").then(mod => ({ default: mod.BindingConfirmDialog }))
+);
+
 const X_SPACING_PRESETS = [
   { label: "None", value: "none" },
   { label: "S", value: "sm" },
@@ -356,7 +360,14 @@ export function EditableSection({ children, section, index, sectionType, content
   });
   const isBound = !!bindingData?.group;
   const boundSiblingCount = isBound ? (bindingData.group!.members.length - 1) : 0;
+  const boundSiblings = (bindingData?.group?.members ?? [])
+    .filter((m) => {
+      const member = m as { contentType: string; slug: string; sectionIndex: number };
+      return !(member.contentType === contentType && member.slug === slug && member.sectionIndex === index);
+    }) as { contentType: string; slug: string; sectionIndex: number }[];
   const [bindingDialogOpen, setBindingDialogOpen] = useState(false);
+  const [bindingConfirmForAI, setBindingConfirmForAI] = useState(false);
+  const pendingAIApply = useRef<(() => Promise<void>) | null>(null);
 
   const openBindingDialog = () => {
     refetchBindingData();
@@ -645,20 +656,17 @@ export function EditableSection({ children, section, index, sectionType, content
     setShowReviewCodeModal(true);
   }, [adaptedSection]);
   
-  // Apply changes from the review code modal (parse edited YAML and save)
-  const handleApplyReviewedCode = useCallback(async () => {
+  // Core AI apply logic — parse reviewed YAML and save
+  const executeAIApply = useCallback(async () => {
     if (!contentType || !slug) return;
-    
     setIsConfirming(true);
     setReviewCodeError(null);
-    
-    // Save page snapshot for undo before making changes
+
     if (pageHistory) {
       pageHistory.saveCurrentSnapshot(`Antes de aplicar adaptación en sección ${index + 1}`);
     }
-    
+
     try {
-      // Parse the edited YAML (escape template vars like {{ }} before parsing)
       const { escaped: escapedReview, map: reviewMap } = escapeTemplateVars(reviewCodeYaml);
       const parsed = unescapeObjectVars(yaml.load(escapedReview), reviewMap);
       let sectionData: Record<string, unknown>;
@@ -669,14 +677,13 @@ export function EditableSection({ children, section, index, sectionType, content
       } else {
         throw new Error('Invalid YAML format');
       }
-      
+
       const sectionToSave = { type: sectionType, ...sectionData } as Section;
-      
       const token = getDebugToken();
       const author = await resolveAuthorName();
       const res = await fetch('/api/content/edit-sections', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           ...(token ? { 'X-Debug-Token': token } : {})
         },
@@ -692,14 +699,13 @@ export function EditableSection({ children, section, index, sectionType, content
           author,
         })
       });
-      
+
       if (!res.ok) {
         const errorData = await res.json().catch(() => ({}));
-        const errorMessage = errorData.error || 'Failed to apply section';
-        setReviewCodeError(errorMessage);
+        setReviewCodeError(errorData.error || 'Failed to apply section');
         return;
       }
-      
+
       setCurrentSection(sectionToSave);
       setWasLocallyUpdated(true);
       setShowReviewCodeModal(false);
@@ -715,6 +721,17 @@ export function EditableSection({ children, section, index, sectionType, content
       setIsConfirming(false);
     }
   }, [reviewCodeYaml, sectionType, contentType, slug, locale, variant, version, index, toast, pageHistory]);
+
+  // Apply changes from the review code modal — gates through binding confirm if section is bound
+  const handleApplyReviewedCode = useCallback(async () => {
+    if (!contentType || !slug) return;
+    if (isBound && boundSiblings.length > 0) {
+      pendingAIApply.current = executeAIApply;
+      setBindingConfirmForAI(true);
+      return;
+    }
+    await executeAIApply();
+  }, [contentType, slug, isBound, boundSiblings.length, executeAIApply]);
   
   const handleXSpacingOpen = useCallback((open: boolean) => {
     setXSpacingOpen(open);
@@ -1696,6 +1713,25 @@ export function EditableSection({ children, section, index, sectionType, content
             locale={locale}
             existingGroup={bindingData?.group as { id: string; name?: string; component: string; locale: string; members: Array<{ contentType: string; slug: string; sectionIndex: number }> } | null}
             onBindingChanged={() => {}}
+          />
+        </Suspense>
+      )}
+
+      {/* Binding confirmation for AI adaptation */}
+      {bindingConfirmForAI && (
+        <Suspense fallback={null}>
+          <BindingConfirmDialog
+            open={bindingConfirmForAI}
+            onOpenChange={setBindingConfirmForAI}
+            boundSiblings={boundSiblings}
+            onConfirm={async () => {
+              if (pendingAIApply.current) {
+                await pendingAIApply.current();
+                pendingAIApply.current = null;
+              }
+            }}
+            confirmLabel="Apply to all"
+            confirmIcon={<IconSparkles className="h-4 w-4 mr-2" />}
           />
         </Suspense>
       )}
