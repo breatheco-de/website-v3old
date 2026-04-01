@@ -48,7 +48,7 @@ sections:
   - type: credibility_strip
     version: v1.0
     cta: /partners
-    item_badge_shape: false
+    item_badge_shape: true
     item_background_color: hsl(var(--muted))
     logo_rotation_ms_time: 2000
     items:
