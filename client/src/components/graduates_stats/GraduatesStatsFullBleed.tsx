@@ -36,6 +36,7 @@ export function GraduatesStatsFullBleed({ data }: GraduatesStatsFullBleedProps) 
             style={{
               objectPosition: img.object_position ?? "center center",
               transform: `scale(${img.object_scale ?? 1})`,
+              transformOrigin: img.transform_origin ?? "50% 50%",
             }}
             fieldContext={{ arrayPath: "collage_images", index, srcField: "image_id" }}
           />
@@ -137,6 +138,7 @@ export function GraduatesStatsFullBleed({ data }: GraduatesStatsFullBleedProps) 
                       style={{
                         objectPosition: img.object_position ?? "center center",
                         transform: `scale(${img.object_scale ?? 1})`,
+                        transformOrigin: img.transform_origin ?? "50% 50%",
                       }}
                       fieldContext={{ arrayPath: "featured_images", index, srcField: "image_id" }}
                     />
@@ -164,6 +166,7 @@ export function GraduatesStatsFullBleed({ data }: GraduatesStatsFullBleedProps) 
                       style={{
                         objectPosition: img.object_position ?? "center center",
                         transform: `scale(${img.object_scale ?? 1})`,
+                        transformOrigin: img.transform_origin ?? "50% 50%",
                       }}
                       fieldContext={{ arrayPath: "collage_images", index, srcField: "image_id" }}
                     />

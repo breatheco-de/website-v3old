@@ -39,6 +39,7 @@ export function GraduatesStatsStandard({ data }: GraduatesStatsStandardProps) {
               style={{
                 objectPosition: img.object_position ?? "center center",
                 transform: `scale(${img.object_scale ?? 1})`,
+                transformOrigin: img.transform_origin ?? "50% 50%",
               }}
               fieldContext={{ arrayPath: "collage_images", index, srcField: "image_id" }}
             />

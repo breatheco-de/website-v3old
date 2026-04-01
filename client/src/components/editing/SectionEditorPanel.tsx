@@ -5071,7 +5071,7 @@ export function SectionEditorPanel({
 
                   // Detect if array items have non-image fields (e.g. cards with title, description, video).
                   // In that case, delete should clear the image field instead of removing the whole item.
-                  const imageRelatedKeys = new Set(["src", "alt", "object_fit", "object_position", "object_scale", "border_radius", "width", "height", "max_width", "max_height", "opacity", "filter", "image_id", "image_object_fit", "image_object_position", itemField]);
+                  const imageRelatedKeys = new Set(["src", "alt", "object_fit", "object_position", "object_scale", "transform_origin", "border_radius", "width", "height", "max_width", "max_height", "opacity", "filter", "image_id", "image_object_fit", "image_object_position", itemField]);
                   const isMixedItemArray = safeArrayData.length > 0 && Object.keys(safeArrayData[0]).some(k => !imageRelatedKeys.has(k));
 
                   // For tabs: use image_object_fit/image_object_position (schema naming)
@@ -5431,7 +5431,7 @@ export function SectionEditorPanel({
                                           data-testid={`props-image-style-${index}-height`}
                                         />
                                       </div>
-                                      <div className="space-y-1 col-span-2">
+                                      <div className="space-y-1">
                                         <Label className="text-xs text-muted-foreground">
                                           Zoom
                                         </Label>
@@ -5454,6 +5454,27 @@ export function SectionEditorPanel({
                                           placeholder="1"
                                           className="h-8 text-sm"
                                           data-testid={`props-image-style-${index}-scale`}
+                                        />
+                                      </div>
+                                      <div className="space-y-1">
+                                        <Label className="text-xs text-muted-foreground">
+                                          Transform Origin
+                                        </Label>
+                                        <Input
+                                          defaultValue={
+                                            (item.transform_origin as string) ?? "50% 50%"
+                                          }
+                                          onBlur={(e) =>
+                                            updateArrayItemField(
+                                              arrayPath,
+                                              index,
+                                              "transform_origin",
+                                              e.target.value || "50% 50%",
+                                            )
+                                          }
+                                          placeholder="50% 50%"
+                                          className="h-8 text-sm"
+                                          data-testid={`props-image-style-${index}-transform-origin`}
                                         />
                                       </div>
                                     </div>

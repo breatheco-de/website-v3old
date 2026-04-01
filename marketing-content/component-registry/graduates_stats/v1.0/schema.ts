@@ -22,6 +22,7 @@ export const graduatesCollageImageSchema = z.object({
   row_start: z.number().optional(),
   object_position: z.string().optional().describe("CSS object-position property (e.g., 'center top', '20% 50%')"),
   object_scale: z.number().optional().describe("CSS transform scale factor (e.g., 1.2 for 20% zoom)"),
+  transform_origin: z.string().optional().describe("CSS transform-origin (e.g., '50% 0%' for center top)"),
 });
 
 export const graduatesFeaturedImageSchema = z.object({
@@ -32,6 +33,7 @@ export const graduatesFeaturedImageSchema = z.object({
   row_start: z.number().optional(),
   object_position: z.string().optional().describe("CSS object-position property (e.g., 'center top', '20% 50%')"),
   object_scale: z.number().optional().describe("CSS transform scale factor (e.g., 1.2 for 20% zoom)"),
+  transform_origin: z.string().optional().describe("CSS transform-origin (e.g., '50% 0%' for center top)"),
 });
 
 // ============================================
