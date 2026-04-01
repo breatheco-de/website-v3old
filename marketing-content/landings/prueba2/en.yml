@@ -1,20 +1,38 @@
 slug: prueba2
 sections:
   - type: ai_learning
-    version: "1.0"
-    variant: feature-tabs
     badge: Why 4Geeks?
-    title: Why Learn with 4Geeks?
-    description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
-    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
+    title: The Bootcamp That Doesn't End When You Graduate
+    description: Most bootcamps disappear after demo day. 4Geeks stays with you from your first line of code to your first offer letter and beyond.
     features:
+      - icon: TrendingUp
+        title: Career support built for the AI job market
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: 1:1 coaching focused on landing AI engineering roles specifically
+          - text: Resume and portfolio optimized to pass AI-based recruiter screening
+          - text: Mock technical and behavioral interviews with real feedback
+          - text: Lifelong career support, not just until graduation
+        video_url: https://youtu.be/-2ZvlgDnltc
       - icon: Robot
-        title: Learn with AI
-        description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
+        title: Learn faster with an AI tutor that knows where you're stuck
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Rigobot gives instant feedback on your code with no waiting for a human to be available
+          - text: Adapts explanations to your exact skill level and learning pace
+          - text: Get unblocked at 2am without losing momentum
+          - text: Hundreds of interactive exercises on Learnpack, our purpose-built learning platform
+        video_url: https://www.youtube.com/watch?v=NRuShbSLtg0
       - icon: Headset
-        title: Unlimited 1:1 mentoring sessions
-        description: Access unlimited mentorship sessions with our experts whenever you need guidance.
-      - icon: Users
-        title: Learn with the community
-        description: Learning alongside others is more fun and helps you progress faster. Join our active community.
+        title: Unlimited 1:1 mentorship for life, not just while enrolled
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Book unlimited 1:1 sessions with senior engineers even after you graduate
+          - text: 7:1 student to mentor ratio so you're never just a ticket in a queue
+          - text: Weekly check-ins keep you accountable and on track to finish
+          - text: Active Slack community with dedicated channels for jobs, code help, and career advice
+        video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
     section_id: ai_learning-whcd5o
