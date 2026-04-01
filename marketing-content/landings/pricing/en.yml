@@ -593,8 +593,7 @@ sections:
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
   - type: pricing
-    title: Invest in Your Tech Career
-    subtitle: Choose a payment plan that works for you and start your journey to a successful tech career
+    title: Invest in Your Future
     monthly:
       discount_badge: Save 10% with upfront payment
       price: $299
@@ -602,10 +601,10 @@ sections:
       original_price: $329
       savings_badge: 10% off
     yearly:
-      discount_badge: Save 20% with yearly payment
-      price: $2,999
+      discount_badge: Save 20% with annual payment
+      price: $2999
       period: year
-      original_price: $3,299
+      original_price: $3299
       savings_badge: 20% off
     tech_icons:
       - html
@@ -617,24 +616,17 @@ sections:
       - git
       - bootstrap
       - api
-      - settings
-    features_title: Unlock Your Tech Potential
     features:
-      - icon: certificate
-        text: Build your portfolio with hundreds of real-world projects and get hired in tech
-      - icon: cloud
-        text: Access thousands of cloud-based coding challenges with AI-powered feedback
-      - icon: users
-        text: Unlimited 1:1 mentorship for life
-      - icon: certificate
-        text: Earn certificates from a USA certified school and boost your career
-      - icon: clock
-        text: Career support that never expires
+      - Build your portfolio with hundreds of real-world projects
+      - Thousands of cloud-based coding challenges (no setup needed)
+      - AI-powered feedback as you code
+      - Course certificates
+      - Earn certificates from a USA certified school
     cta:
       text: Apply Now
       url: /apply
       variant: primary
-      icon: arrow-right
+      icon: settings
     variant: product
     section_id: pricing-fptkzz
   - type: whos_hiring

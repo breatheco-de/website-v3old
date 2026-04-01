@@ -149,20 +149,19 @@ sections:
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-71fytd
   - type: pricing
-    version: "1.0"
-    title: Get access to all of our learning database, courses, and services
-    subtitle: Earn new skills every 30 min, never get stuck or lost again.
+    title: Invest in Your Future
     monthly:
-      discount_badge: 35% OFF
-      price: "38.99"
-      period: mo
-      original_price: "59.99"
+      discount_badge: Save 10% with upfront payment
+      price: $299
+      period: month
+      original_price: $329
+      savings_badge: 10% off
     yearly:
-      discount_badge: 35% OFF
-      price: "311.99"
-      period: yr
-      original_price: "479.99"
-      savings_badge: Save 3 months
+      discount_badge: Save 20% with annual payment
+      price: $2999
+      period: year
+      original_price: $3299
+      savings_badge: 20% off
     tech_icons:
       - html
       - css
@@ -173,21 +172,16 @@ sections:
       - git
       - bootstrap
       - api
-      - settings
-    features_title: Access hundreds of exercises, projects tutorials and courses
     features:
-      - icon: certificate
-        text: Build your portfolio with hundreds of real-world projects.
-      - icon: cloud
-        text: Thousands of cloud-based coding challenges (no setup needed).
-      - text: AI-powered feedback as you code.
-        icon: RigobotIconTiny
-      - icon: certificate
-        text: Course certificates
-      - icon: certificate
-        text: Earn certificates from a USA certified school.
+      - Build your portfolio with hundreds of real-world projects
+      - Thousands of cloud-based coding challenges (no setup needed)
+      - AI-powered feedback as you code
+      - Course certificates
+      - Earn certificates from a USA certified school
     cta:
-      text: Get plan
-      url: /signup
+      text: Apply Now
+      url: /apply
       variant: primary
+      icon: settings
+    variant: product
     section_id: pricing-y2ih10
