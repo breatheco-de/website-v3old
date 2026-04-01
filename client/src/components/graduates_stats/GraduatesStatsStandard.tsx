@@ -36,6 +36,7 @@ export function GraduatesStatsStandard({ data }: GraduatesStatsStandardProps) {
               preset="card"
               className="w-full h-full object-cover shadow-sm"
               alt={`Graduate photo ${index + 1}`}
+              style={{ objectPosition: img.object_position ?? "center center" }}
               fieldContext={{ arrayPath: "collage_images", index, srcField: "image_id" }}
             />
           </div>

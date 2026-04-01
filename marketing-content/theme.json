@@ -97,7 +97,8 @@
     { "id": "lg", "label": "Large", "value": "1.125rem", "tailwind": "text-lg" },
     { "id": "xl", "label": "Extra Large", "value": "1.25rem", "tailwind": "text-xl" },
     { "id": "2xl", "label": "2XL", "value": "1.5rem", "tailwind": "text-2xl" },
-    { "id": "3xl", "label": "3XL", "value": "1.875rem", "tailwind": "text-3xl" }
+    { "id": "4xl", "label": "4XL", "value": "2.25rem", "tailwind": "text-4xl" },
+    { "id": "6xl", "label": "6XL", "value": "3.75rem", "tailwind": "text-6xl" }
   ],
   "button_variants": [
     { "id": "primary", "label": "Primary" },

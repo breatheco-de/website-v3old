@@ -20,6 +20,7 @@ export const graduatesCollageImageSchema = z.object({
   row_span: z.number().optional(),
   col_start: z.number().optional(),
   row_start: z.number().optional(),
+  object_position: z.string().optional().describe("CSS object-position property (e.g., 'center top', '20% 50%')"),
 });
 
 export const graduatesFeaturedImageSchema = z.object({
@@ -28,6 +29,7 @@ export const graduatesFeaturedImageSchema = z.object({
   row_span: z.number().optional(),
   col_start: z.number().optional(),
   row_start: z.number().optional(),
+  object_position: z.string().optional().describe("CSS object-position property (e.g., 'center top', '20% 50%')"),
 });
 
 // ============================================
