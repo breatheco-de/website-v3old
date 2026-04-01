@@ -48,7 +48,7 @@ sections:
   - type: credibility_strip
     version: v1.0
     cta: /partners
-    item_badge_shape: true
+    item_badge_shape: false
     item_background_color: hsl(var(--muted))
     logo_rotation_ms_time: 2000
     items:
@@ -82,7 +82,7 @@ sections:
             alt: Forbes Award logo
             id: forbes-logo-award
     section_id: credibility_strip-vcpur5
-    colored_logos: false
+    colored_logos: true
   - type: features_grid
     version: "1.0"
     variant: stats-text
