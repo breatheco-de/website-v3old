@@ -5071,7 +5071,7 @@ export function SectionEditorPanel({
 
                   // Detect if array items have non-image fields (e.g. cards with title, description, video).
                   // In that case, delete should clear the image field instead of removing the whole item.
-                  const imageRelatedKeys = new Set(["src", "alt", "object_fit", "object_position", "border_radius", "width", "height", "max_width", "max_height", "opacity", "filter", "image_id", "image_object_fit", "image_object_position", itemField]);
+                  const imageRelatedKeys = new Set(["src", "alt", "object_fit", "object_position", "object_scale", "border_radius", "width", "height", "max_width", "max_height", "opacity", "filter", "image_id", "image_object_fit", "image_object_position", itemField]);
                   const isMixedItemArray = safeArrayData.length > 0 && Object.keys(safeArrayData[0]).some(k => !imageRelatedKeys.has(k));
 
                   // For tabs: use image_object_fit/image_object_position (schema naming)
@@ -5429,6 +5429,31 @@ export function SectionEditorPanel({
                                           placeholder="400px, 20rem..."
                                           className="h-8 text-sm"
                                           data-testid={`props-image-style-${index}-height`}
+                                        />
+                                      </div>
+                                      <div className="space-y-1 col-span-2">
+                                        <Label className="text-xs text-muted-foreground">
+                                          Zoom
+                                        </Label>
+                                        <Input
+                                          type="number"
+                                          min={1}
+                                          max={3}
+                                          step={0.05}
+                                          value={
+                                            (item.object_scale as number) ?? 1
+                                          }
+                                          onChange={(e) =>
+                                            updateArrayItemField(
+                                              arrayPath,
+                                              index,
+                                              "object_scale",
+                                              parseFloat(e.target.value) || 1,
+                                            )
+                                          }
+                                          placeholder="1"
+                                          className="h-8 text-sm"
+                                          data-testid={`props-image-style-${index}-scale`}
                                         />
                                       </div>
                                     </div>
