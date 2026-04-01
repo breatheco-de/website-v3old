@@ -67,74 +67,65 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: spotlight
-    heading: Choose Your Path
-    subheading: Pick the program that fits your career goals
+    heading: Find Your Path
+    subheading: Four programs. All built around getting you hired, not just trained.
     courses:
-      - name: AI Automation
+      - name: AI Engineering
         icon: Bolt
-        duration: 4 months part-time
+        duration: 24 weeks, or 15-week accelerated track
         label: Most Popular
-        title: AI Automation
+        title: AI Engineering
         badges:
           - icon: Bolt
             text: AI tools for business
-          - icon: Rocket
-            text: No coding required
-        tags:
-          - icon: Bolt
-            text: AI tools for business
-          - icon: Rocket
-            text: No coding required
-        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies. Transform a single business case into a fully AI-native system, layer by layer.
+        description: Build the AI systems companies are hiring for right now. Master LLMs, AI agents, and automation while transforming a real business case into a fully AI-native system, layer by layer.
         price: $328
         price_period: /mo
         original_price: $442
         price_info: with 4Geeks Installments
-        cta_text: Discover program
-        cta_url: /en/ai-automation
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/ai-engineering
         course_background: accent
-      - name: Machine Learning
-        icon: Brain
+      - name: Full Stack Development with AI
+        icon: IconCode
         original_price: $442
-        duration: 9 months part-time
-        label: Updated in 2025
-        title: AI and Machine Learning
+        duration: 20 weeks
+        label: Updated in 2026
+        title: Full Stack Development with AI
         badges:
           - icon: Brain
             text: LLMs & Generative AI
-        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies. Transform a single business case into a fully AI-native system, layer by layer.
+        description: Build modern, production-ready web applications from frontend to backend, with AI integrated at every layer, not added on top.
         price: $439
         price_period: /mo
-        cta_text: Discover program
-        cta_url: /en/ai-machine-learning
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/full-stack
         course_background: primary
-      - name: Full Stack Dev
-        icon: Code
-        duration: 9 months part-time
-        title: Full Stack Software Development
+      - name: Data Science and Machine Learning
+        icon: IconChartBar
+        duration: 18 weeks
+        title: Data Science and Machine Learning
         badges:
           - icon: Code
             text: React, Node.js & Python
-          - icon: Code
-            text: React, Node.js & Python
-        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies. Transform a single business case into a fully AI-native system, layer by layer.
+        description: Master the skills behind AI-driven decisions. Build models, analyze data at scale, and deploy solutions that companies in every industry are actively hiring for.
         price: $439
         price_period: /mo
-        cta_text: Discover program
-        cta_url: /en/full-stack
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/data-science-ml
         course_background: hsl(var(--muted-foreground))
-      - name: Data Science
-        icon: ChartBar
-        duration: 6 months part-time
-        title: Data Science & Analytics
+      - name: Cybersecurity
+        icon: IconShield
+        duration: 16 weeks
+        title: Cybersecurity
         badges:
           - icon: ChartBar
             text: Python & SQL
-        description: Build and scale AI-native products while mastering real-world AI systems, workflows, and deployment strategies. Transform a single business case into a fully AI-native system, layer by layer.
+        description: Protect the systems AI depends on. Every company scaling AI infrastructure needs specialists who can secure it. That demand isn't slowing down.
         price: $399
         price_period: /mo
-        cta_text: Discover program
-        cta_url: /en/data-science
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/cybersecurity
         course_background: destructive
     section_id: course_selector-4m5sh4
   - type: programs_showcase
