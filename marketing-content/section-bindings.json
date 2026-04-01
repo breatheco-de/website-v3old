@@ -1617,6 +1617,25 @@
       ],
       "createdAt": "2026-04-01T21:01:16.865Z",
       "name": "test_bind"
+    },
+    {
+      "id": "bind_mnglprhf_iaxrev",
+      "component": "pricing",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "landing",
+          "slug": "pricing",
+          "sectionId": "pricing-fptkzz"
+        },
+        {
+          "contentType": "landing",
+          "slug": "prueba2",
+          "sectionId": "pricing-y2ih10"
+        }
+      ],
+      "createdAt": "2026-04-01T22:12:16.611Z",
+      "name": "test"
     }
   ]
 }
