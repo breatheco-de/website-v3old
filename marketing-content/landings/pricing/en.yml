@@ -593,20 +593,20 @@ sections:
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
   - type: pricing
-    version: "1.0"
-    title: Get access to all of our learning database, courses, and services
-    subtitle: Earn new skills every 30 min, never get stuck or lost again.
+    title: Invest in Your Tech Career
+    subtitle: Choose a payment plan that works for you and start your journey to a successful tech career
     monthly:
-      discount_badge: 35% OFF
-      price: "38.99"
-      period: mo
-      original_price: "59.99"
+      discount_badge: Save 10% with upfront payment
+      price: $299
+      period: month
+      original_price: $329
+      savings_badge: 10% off
     yearly:
-      discount_badge: 35% OFF
-      price: "311.99"
-      period: yr
-      original_price: "479.99"
-      savings_badge: Save 3 months
+      discount_badge: Save 20% with yearly payment
+      price: $2,999
+      period: year
+      original_price: $3,299
+      savings_badge: 20% off
     tech_icons:
       - html
       - css
@@ -618,22 +618,24 @@ sections:
       - bootstrap
       - api
       - settings
-    features_title: Access hundreds of exercises, projects tutorials and courses
+    features_title: Unlock Your Tech Potential
     features:
       - icon: certificate
-        text: Build your portfolio with hundreds of real-world projects.
+        text: Build your portfolio with hundreds of real-world projects and get hired in tech
       - icon: cloud
-        text: Thousands of cloud-based coding challenges (no setup needed).
-      - text: AI-powered feedback as you code.
-        icon: RigobotIconTiny
+        text: Access thousands of cloud-based coding challenges with AI-powered feedback
+      - icon: users
+        text: Unlimited 1:1 mentorship for life
       - icon: certificate
-        text: Course certificates
-      - icon: certificate
-        text: Earn certificates from a USA certified school.
+        text: Earn certificates from a USA certified school and boost your career
+      - icon: clock
+        text: Career support that never expires
     cta:
-      text: Get plan
-      url: /signup
+      text: Apply Now
+      url: /apply
       variant: primary
+      icon: arrow-right
+    variant: product
     section_id: pricing-fptkzz
   - type: whos_hiring
     variant: carousel
