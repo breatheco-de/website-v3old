@@ -2252,7 +2252,14 @@
       "tags": [
         "logo",
         "badge",
-        "award"
+        "award",
+        "avatar",
+        "card",
+        "icon",
+        "photo",
+        "illustration",
+        "testimonial",
+        "team"
       ],
       "usage_count": 2,
       "hash": "22f40f045b3bbd7f4f6ce53e825e468d3f5ec9fd3dbe972061d3ee4f79a39938",
@@ -2526,7 +2533,18 @@
       "focal_point": "center",
       "tags": [
         "logo",
-        "review"
+        "review",
+        "avatar",
+        "card",
+        "icon",
+        "photo",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
       ],
       "usage_count": 0,
       "hash": "437cbde645dbbb655169bdc798763d51263f1523e4228e7f05084abcebd843b5",

@@ -18,6 +18,5 @@ navbar:
   marquee:
     enabled: true
     texts:
-      - text: 4Geeks, Harvard, Oxford, and Columbia partner to provide Artificial Intelligence education in the Bahamas.
-      - text: bbbbbbbb b bb
+      - text: 4Geeks, Harvard, Oxford, and Columbia chosen to deliver AI education by the Government of the Bahamas.
     show_on: mobile

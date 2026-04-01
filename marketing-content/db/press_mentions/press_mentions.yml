@@ -1,6 +1,6 @@
 press_mentions:
   - locale: en
-    title: Selected by the Government of the Bahamas alongside Harvard, Oxford and Columbia to deliver national AI education
+    title: 4Geeks, Harvard, Oxford, and Columbia chosen to deliver AI education by the Government of the Bahamas.
     category: Government
     excerpt: >-
       When institutions with due diligence requirements and public accountability choose a coding school, they do not
@@ -13,18 +13,18 @@ press_mentions:
       - Oxford
       - Columbia
       - 4Geeks
-    logo: ' '
     link_url: >-
       https://www.entnerd.com/startup-chilena-es-reclutada-por-bahamas-junto-a-oxford-columbia-y-harvard-para-dar-clases-gratuitas-online/
     link_text: Read article
     image: https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80
   - locale: en
-    title: Chosen as exclusive coding school partner across Costa Rica, Uruguay and Mexico
-    subtitle: Inter-American Development Bank · Multilateral Coding Education Partner across Latin America
-    category: Multilateral Bank
+    title: Exclusive coding school partner for IDB workforce programs across Latin America
+    subtitle: Inter-American Development Bank · Partners in Education
+    category: Multilateral  Institution
     excerpt: >-
-      Selected as the exclusive coding school partner across Costa Rica, Uruguay and Mexico. Competing partners were
-      evaluated against IDB procurement standards.
+      The largest development bank in Latin America selected 4Geeks through competitive procurement as their sole coding
+      school partner across Costa Rica, Uruguay and Mexico. Over 600 graduates and counting. Programs running since
+      2020.
     priority: 2
     organization: IDB
     stat_label: countries
