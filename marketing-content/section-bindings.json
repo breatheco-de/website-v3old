@@ -1598,6 +1598,44 @@
       ],
       "createdAt": "2026-03-06T17:16:03.288Z",
       "name": "sticky_cta_other_pages"
+    },
+    {
+      "id": "bind_mngj6gn5_q6joc9",
+      "component": "ai_learning",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "landing",
+          "slug": "pricing",
+          "sectionId": "ai_learning-xiuj75"
+        },
+        {
+          "contentType": "landing",
+          "slug": "prueba2",
+          "sectionId": "ai_learning-whcd5o"
+        }
+      ],
+      "createdAt": "2026-04-01T21:01:16.865Z",
+      "name": "test_bind"
+    },
+    {
+      "id": "bind_mngj8yin_5bzl7k",
+      "component": "pricing",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "landing",
+          "slug": "pricing",
+          "sectionId": "pricing-0xok39"
+        },
+        {
+          "contentType": "landing",
+          "slug": "prueba2",
+          "sectionId": "pricing-vk6q5o"
+        }
+      ],
+      "createdAt": "2026-04-01T21:03:13.343Z",
+      "name": "test_binding_2"
     }
   ]
 }

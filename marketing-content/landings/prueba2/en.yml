@@ -1,2 +1,81 @@
 slug: prueba2
-sections: []
+sections:
+  - type: ai_learning
+    badge: Why 4Geeks?
+    title: The Bootcamp That Doesn't End When You Graduate
+    description: Most bootcamps disappear after demo day. 4Geeks stays with you from your first line of code to your first offer letter and beyond.
+    features:
+      - icon: TrendingUp
+        title: Career support built for the AI job market
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: 1:1 coaching focused on landing AI engineering roles specifically
+          - text: Resume and portfolio optimized to pass AI-based recruiter screening
+          - text: Mock technical and behavioral interviews with real feedback
+          - text: Lifelong career support, not just until graduation
+        video_url: https://youtu.be/-2ZvlgDnltc
+      - icon: Robot
+        title: Learn faster with an AI tutor that knows where you're stuck
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Rigobot gives instant feedback on your code with no waiting for a human to be available
+          - text: Adapts explanations to your exact skill level and learning pace
+          - text: Get unblocked at 2am without losing momentum
+          - text: Hundreds of interactive exercises on Learnpack, our purpose-built learning platform
+        video_url: https://www.youtube.com/watch?v=NRuShbSLtg0
+      - icon: Headset
+        title: Unlimited 1:1 mentorship for life, not just while enrolled
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Book unlimited 1:1 sessions with senior engineers even after you graduate
+          - text: 7:1 student to mentor ratio so you're never just a ticket in a queue
+          - text: Weekly check-ins keep you accountable and on track to finish
+          - text: Active Slack community with dedicated channels for jobs, code help, and career advice
+        video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
+    section_id: ai_learning-whcd5o
+  - type: pricing
+    version: "1.0"
+    variant: product
+    title: An Investment That Pays for Itself
+    subtitle: The average 4Geeks graduate sees a 55% salary increase. At $14,999, the program pays for itself within months of your first paycheck.
+    discount_text: "Full Payment Discount: Save 10% with upfront payment."
+    financing_text: "Credit-Based Financing: starting below"
+    financing_amount: $349
+    tech_icons:
+      - openai
+      - claude
+      - python
+      - pandas
+      - numpy
+      - scikitlearn
+      - pytorch
+      - matplotlib
+      - react
+      - nextjs
+      - tailwindcss
+      - nodejs
+      - vercel
+      - supabase
+      - git
+      - github
+      - postman
+      - n8n
+    features_title: Multiple ways to fund your enrollment. Choose what fits your situation.
+    features:
+      - icon: IconCheck
+        text: Get hired within 9 months of graduation or your money back. No fine print.
+        use_rigobot_icon: true
+      - icon: IconCheck
+        text: Regular tuition is $14,999. Pay upfront and save 10%, or spread payments interest-free over 6 months.
+      - icon: IconCheck
+        text: Finance through Climb, Fortify or Lumion with 24, 36, 48 or 60 month plans starting at $349/mo.
+      - icon: IconCheck
+        text: 2 to 3 partial scholarships available per cohort for highly qualified applicants.
+    cta:
+      text: See if you qualify
+      url: "#hero-form"
+      variant: primary
+    section_id: pricing-vk6q5o
