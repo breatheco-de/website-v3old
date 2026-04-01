@@ -227,6 +227,7 @@ export function PricingSection({ data }: PricingSectionProps) {
                       gradient={true}
                       gradientWidth={50}
                       pauseOnHover={true}
+                      gradientColor="hsl(var(--background))"
                     >
                       {data.tech_icons.map((iconName, index) => {
                         const IconComponent = techIconMap[iconName.toLowerCase()];

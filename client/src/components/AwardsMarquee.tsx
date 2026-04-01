@@ -68,7 +68,7 @@ export function AwardsMarquee({
           speed={speed}
           pauseOnHover={false}
           gradient={gradient}
-          gradientColor={gradientColor}
+          gradientColor="hsl(var(--background))"
           gradientWidth={responsiveGradientWidth}
           autoFill={true}
         >
