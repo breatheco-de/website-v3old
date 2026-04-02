@@ -212,6 +212,7 @@ interface AppProps {
 
 function App({ ssrQueryClient }: AppProps = {}) {
   const client = ssrQueryClient || defaultQueryClient;
+
   return (
     <QueryClientProvider client={client}>
       <SessionProvider>

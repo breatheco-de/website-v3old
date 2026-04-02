@@ -33,6 +33,11 @@ export function hydrateInitialData() {
   }
 
   isSSRHydration = true;
+  document.documentElement.setAttribute("data-ssr-hydrating", "");
   script.remove();
-  setTimeout(() => { isSSRHydration = false; }, 0);
+}
+
+export function clearSSRHydration() {
+  isSSRHydration = false;
+  document.documentElement.removeAttribute("data-ssr-hydrating");
 }
