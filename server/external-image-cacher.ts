@@ -92,16 +92,34 @@ export const ExternalImageCacher = {
     if (urlMap.size === 0) return;
 
     let enqueued = 0;
+    let backfilled = 0;
+    const registry = mediaGallery.getRegistry();
     for (const [url, sourceItem] of urlMap) {
+      // Track source_item backfills on existing entries before enqueueing
+      if (sourceItem && registry) {
+        for (const entry of Object.values(registry.images)) {
+          if (entry.source_url === url && !entry.source_item) {
+            backfilled++;
+            break;
+          }
+        }
+      }
       const result = enqueueExternalImage(url, dbName, [], sourceItem);
       if (result !== null) enqueued++;
     }
 
-    if (enqueued > 0) {
+    if (enqueued > 0 || backfilled > 0) {
       mediaGallery.persistRegistry();
-      console.log(
-        `[ExternalImageCacher] Enqueued ${enqueued} new URL(s) for db "${dbName}" (worker will process them)`
-      );
+      if (enqueued > 0) {
+        console.log(
+          `[ExternalImageCacher] Enqueued ${enqueued} new URL(s) for db "${dbName}" (worker will process them)`
+        );
+      }
+      if (backfilled > 0) {
+        console.log(
+          `[ExternalImageCacher] Backfilled source_item on ${backfilled} existing entry(s) for db "${dbName}"`
+        );
+      }
     }
   },
 };

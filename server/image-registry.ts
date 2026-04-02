@@ -108,6 +108,11 @@ export function enqueueExternalImage(
   for (const [id, entry] of Object.entries(registry.images)) {
     if (entry.source_url !== sourceUrl) continue;
 
+    // Always backfill source_item on any existing entry that's missing it
+    if (sourceItem && !entry.source_item) {
+      entry.source_item = sourceItem;
+    }
+
     // Already successfully cached — skip
     if (entry.src && !entry.failed_at) return null;
     // Already pending in the queue — skip
@@ -122,10 +127,6 @@ export function enqueueExternalImage(
     delete entry.failed_at;
     // Clear src so getPendingExternalImages can pick this entry up
     entry.src = "";
-    // Set source_item if provided and not already set
-    if (sourceItem && !entry.source_item) {
-      entry.source_item = sourceItem;
-    }
     return id;
   }
 
