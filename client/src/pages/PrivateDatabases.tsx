@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRoute, Link, useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -60,7 +60,7 @@ import {
   IconAdjustments,
   IconPhoto,
 } from "@tabler/icons-react";
-import { queryClient } from "@/lib/queryClient";
+import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
 interface DatabaseSummary {
@@ -2603,40 +2603,132 @@ function ItemEditModal({
 }
 
 function CachedImagesKpiCard({ dbName }: { dbName: string }) {
+  const { toast } = useToast();
+  const [failedOpen, setFailedOpen] = useState(false);
+
   const { data, isLoading, refetch, isFetching } = useQuery<{ cached: number; failed: number }>({
     queryKey: ["/api/image-registry/stats", dbName],
     queryFn: () =>
       fetch(`/api/image-registry/stats?tag=${encodeURIComponent(dbName)}`).then((r) => r.json()),
   });
 
+  const { data: failedData, isLoading: failedLoading, refetch: refetchFailed } = useQuery<{
+    entries: { id: string; source_url: string; failed_at: string }[];
+  }>({
+    queryKey: ["/api/image-registry/failed", dbName],
+    queryFn: () =>
+      fetch(`/api/image-registry/failed?tag=${encodeURIComponent(dbName)}`).then((r) => r.json()),
+    enabled: failedOpen,
+  });
+
+  const retryMutation = useMutation({
+    mutationFn: () =>
+      apiRequest("POST", "/api/image-registry/retry-failed", { tag: dbName }).then((r) => r.json()),
+    onSuccess: (result: { retried: number }) => {
+      toast({ title: "Retry queued", description: `${result.retried} image(s) re-queued for caching` });
+      setFailedOpen(false);
+      refetch();
+    },
+    onError: () => {
+      toast({ title: "Retry failed", variant: "destructive" });
+    },
+  });
+
   return (
-    <Card>
-      <CardContent className="pt-4 pb-3 space-y-1">
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <IconPhoto className="h-3.5 w-3.5" />
-            <span>Cached Images</span>
+    <>
+      <Card>
+        <CardContent className="pt-4 pb-3 space-y-1">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <IconPhoto className="h-3.5 w-3.5" />
+              <span>Cached Images</span>
+            </div>
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => refetch()}
+              disabled={isFetching}
+              data-testid="button-refresh-cached-stats"
+            >
+              <IconRefresh className={`h-3.5 w-3.5 ${isFetching ? "animate-spin" : ""}`} />
+            </Button>
           </div>
-          <Button
-            size="icon"
-            variant="ghost"
-            onClick={() => refetch()}
-            disabled={isFetching}
-            data-testid="button-refresh-cached-stats"
-          >
-            <IconRefresh className={`h-3.5 w-3.5 ${isFetching ? "animate-spin" : ""}`} />
-          </Button>
-        </div>
-        <p className="text-sm font-medium" data-testid="text-cached-images-count">
-          {isLoading ? "..." : (data?.cached ?? "\u2014")}
-        </p>
-        {!isLoading && data && data.failed > 0 && (
-          <p className="text-xs text-red-500" data-testid="text-cached-images-failed">
-            {data.failed} failed
+          <p className="text-sm font-medium" data-testid="text-cached-images-count">
+            {isLoading ? "..." : (data?.cached ?? "\u2014")}
           </p>
-        )}
-      </CardContent>
-    </Card>
+          {!isLoading && data && data.failed > 0 && (
+            <button
+              className="text-xs text-red-500 hover:underline cursor-pointer text-left"
+              onClick={() => setFailedOpen(true)}
+              data-testid="button-show-failed-images"
+            >
+              {data.failed} failed
+            </button>
+          )}
+        </CardContent>
+      </Card>
+
+      <Dialog open={failedOpen} onOpenChange={setFailedOpen}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Failed Image Caches</DialogTitle>
+            <DialogDescription>
+              These images failed to download and cache. Retry to re-queue them for the next worker tick.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="max-h-80 overflow-y-auto space-y-1 py-1">
+            {failedLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+              </div>
+            ) : failedData?.entries.length === 0 ? (
+              <p className="text-sm text-muted-foreground text-center py-4">No failed entries.</p>
+            ) : (
+              failedData?.entries.map((entry) => (
+                <div key={entry.id} className="rounded-md border bg-muted/30 px-3 py-2 space-y-0.5" data-testid={`row-failed-${entry.id}`}>
+                  <p className="text-xs font-mono truncate text-foreground" title={entry.source_url}>
+                    {entry.source_url}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground">
+                    Failed {new Date(entry.failed_at).toLocaleString()}
+                  </p>
+                </div>
+              ))
+            )}
+          </div>
+          <DialogFooter className="flex items-center justify-between gap-2 sm:justify-between flex-wrap">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => { refetchFailed(); }}
+              disabled={failedLoading}
+              data-testid="button-refresh-failed-list"
+            >
+              <IconRefresh className={`h-3.5 w-3.5 mr-1 ${failedLoading ? "animate-spin" : ""}`} />
+              Refresh
+            </Button>
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" size="sm" onClick={() => setFailedOpen(false)} data-testid="button-close-failed-modal">
+                Close
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => retryMutation.mutate()}
+                disabled={retryMutation.isPending || failedLoading || !failedData?.entries.length}
+                data-testid="button-retry-all-failed"
+              >
+                {retryMutation.isPending ? (
+                  <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+                ) : (
+                  <IconRefresh className="h-3.5 w-3.5 mr-1" />
+                )}
+                Retry All
+              </Button>
+            </div>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 

@@ -1,7 +1,7 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { getQueueStats, enqueueOptimization, getPendingOptimizations } from "./image-registry";
+import { getQueueStats, enqueueOptimization, getPendingOptimizations, getFailedEntries, retryFailedImages } from "./image-registry";
 
 import * as fs from "fs";
 import * as path from "path";
@@ -8820,6 +8820,19 @@ sections: []
       }
     }
     res.json({ cached, failed });
+  });
+
+  app.get("/api/image-registry/failed", (req, res) => {
+    const tag = req.query.tag as string | undefined;
+    const entries = getFailedEntries(tag);
+    res.json({ entries });
+  });
+
+  app.post("/api/image-registry/retry-failed", (req, res) => {
+    const { tag } = req.body as { tag?: string };
+    const count = retryFailedImages(tag);
+    if (count > 0) mediaGallery.persistRegistry();
+    res.json({ retried: count });
   });
 
   app.get("/api/image-registry", (_req, res) => {

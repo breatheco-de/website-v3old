@@ -249,6 +249,52 @@ export function markJobFailed(id: string, message: string): void {
 }
 
 /**
+ * Returns all failed entries, optionally filtered by tag.
+ */
+export function getFailedEntries(
+  tag?: string
+): Array<{ id: string; source_url: string; failed_at: string; tags: string[] }> {
+  const registry = mediaGallery.getRegistry();
+  if (!registry) return [];
+
+  const results = [];
+  for (const [id, entry] of Object.entries(registry.images)) {
+    if (!entry.failed_at) continue;
+    if (!entry.source_url) continue;
+    if (tag && !(entry.tags ?? []).includes(tag)) continue;
+    results.push({
+      id,
+      source_url: entry.source_url,
+      failed_at: entry.failed_at,
+      tags: entry.tags ?? [],
+    });
+  }
+  return results;
+}
+
+/**
+ * Clears failed_at and sets queued_at on all failed entries for a tag,
+ * so the queue worker will retry them. Returns the count re-queued.
+ */
+export function retryFailedImages(tag?: string): number {
+  const registry = mediaGallery.getRegistry();
+  if (!registry) return 0;
+
+  let count = 0;
+  for (const entry of Object.values(registry.images)) {
+    if (!entry.failed_at) continue;
+    if (!entry.source_url) continue;
+    if (tag && !(entry.tags ?? []).includes(tag)) continue;
+    entry.queued_at = new Date().toISOString();
+    // Clear src so getPendingExternalImages picks it up
+    entry.src = "";
+    delete entry.failed_at;
+    count++;
+  }
+  return count;
+}
+
+/**
  * Returns queue statistics, optionally filtered by tag.
  */
 export function getQueueStats(tag?: string): { queued: number; cached: number; failed: number } {
