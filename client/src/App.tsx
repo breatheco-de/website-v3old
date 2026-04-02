@@ -16,9 +16,9 @@ import { usePageTracking } from "@/hooks/usePageTracking";
 import type { ContentTypeApiItem } from "@/hooks/useContentTypes";
 import "./i18n";
 
-import ContentTypeDetail from "@/pages/ContentTypeDetail";
-import TemplatePage from "@/pages/page";
-import DatabaseSinglePage from "@/pages/DatabaseSinglePage";
+const ContentTypeDetail = lazy(() => import("@/pages/ContentTypeDetail"));
+const TemplatePage = lazy(() => import("@/pages/page"));
+const DatabaseSinglePage = lazy(() => import("@/pages/DatabaseSinglePage"));
 
 const PreviewFrame = lazy(() => import("@/pages/PreviewFrame"));
 const PrivateRouter = lazy(() => import("@/pages/PrivateRouter"));
