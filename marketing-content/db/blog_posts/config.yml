@@ -4,19 +4,18 @@ source:
   type: api
   api:
     endpoint: https://breathecode.herokuapp.com/v1/registry/academy/asset
-    params:
-      limit: 500
-      offset: 0
-      status: published
-      visibility: public
-      academy: 7
-      big: 'true'
-      expand: cluster
     results_path: results
     auth:
-      token_env_var: BREATHECODE_TOKEN
+      token_env_var: BREATHECODE_ACADEMY_TOKEN
       prefix: Token
-    headers: {}
+    params:
+      limit: '500'
+      offset: '0'
+      status: published
+      visibility: public
+      academy: '7'
+      big: 'true'
+      expand: cluster
 cache:
   ttl_hours: 24
 field_mapping:
