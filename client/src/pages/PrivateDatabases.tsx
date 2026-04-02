@@ -2603,7 +2603,7 @@ function ItemEditModal({
 }
 
 function CachedImagesKpiCard({ dbName }: { dbName: string }) {
-  const { data, isLoading } = useQuery<{ cached: number; failed: number }>({
+  const { data, isLoading, refetch, isFetching } = useQuery<{ cached: number; failed: number }>({
     queryKey: ["/api/image-registry/stats", dbName],
     queryFn: () =>
       fetch(`/api/image-registry/stats?tag=${encodeURIComponent(dbName)}`).then((r) => r.json()),
@@ -2612,9 +2612,20 @@ function CachedImagesKpiCard({ dbName }: { dbName: string }) {
   return (
     <Card>
       <CardContent className="pt-4 pb-3 space-y-1">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <IconPhoto className="h-3.5 w-3.5" />
-          <span>Cached Images</span>
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <IconPhoto className="h-3.5 w-3.5" />
+            <span>Cached Images</span>
+          </div>
+          <Button
+            size="icon"
+            variant="ghost"
+            onClick={() => refetch()}
+            disabled={isFetching}
+            data-testid="button-refresh-cached-stats"
+          >
+            <IconRefresh className={`h-3.5 w-3.5 ${isFetching ? "animate-spin" : ""}`} />
+          </Button>
         </div>
         <p className="text-sm font-medium" data-testid="text-cached-images-count">
           {isLoading ? "..." : (data?.cached ?? "\u2014")}

@@ -9343,12 +9343,6 @@ sections: []
     });
   });
 
-  app.get("/api/image-registry/stats", (req, res) => {
-    const tag = typeof req.query.tag === "string" ? req.query.tag : undefined;
-    const stats = getQueueStats(tag);
-    res.json(stats);
-  });
-
   app.post("/api/media/classify/:imageId", async (req, res) => {
     try {
       const { imageId } = req.params;
