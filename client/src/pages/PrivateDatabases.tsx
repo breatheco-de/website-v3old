@@ -2686,9 +2686,16 @@ function CachedImagesKpiCard({ dbName }: { dbName: string }) {
             ) : (
               failedData?.entries.map((entry) => (
                 <div key={entry.id} className="rounded-md border bg-muted/30 px-3 py-2 space-y-0.5" data-testid={`row-failed-${entry.id}`}>
-                  <p className="text-xs font-mono truncate text-foreground" title={entry.source_url}>
+                  <a
+                    href={entry.source_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-mono truncate text-foreground hover:underline block"
+                    title={entry.source_url}
+                    data-testid={`link-failed-url-${entry.id}`}
+                  >
                     {entry.source_url}
-                  </p>
+                  </a>
                   <p className="text-[10px] text-muted-foreground">
                     Failed {new Date(entry.failed_at).toLocaleString()}
                   </p>
