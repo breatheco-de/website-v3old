@@ -422,6 +422,7 @@ export const imageEntrySchema = z.object({
   srcset: z.array(imageSrcsetEntrySchema).optional(),
   source_url: z.string().optional(),
   failed_at: z.string().optional(),
+  queued_at: z.string().optional(),
 });
 
 export const tagDefinitionSchema = z.object({
