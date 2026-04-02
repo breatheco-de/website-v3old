@@ -39,6 +39,3 @@ field_mapping:
   allow_contributions: allow_contributions
   feature: feature
   content: readme.decoded
-editor:
-  preview_image:
-    cache_images: true
