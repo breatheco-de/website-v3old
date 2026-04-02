@@ -98,7 +98,8 @@ export function clearImageRegistryCache() {
 export function enqueueExternalImage(
   sourceUrl: string,
   dbName: string,
-  extraTags: string[] = []
+  extraTags: string[] = [],
+  sourceItem?: string
 ): string | null {
   const registry = mediaGallery.getRegistry();
   if (!registry) return null;
@@ -121,6 +122,10 @@ export function enqueueExternalImage(
     delete entry.failed_at;
     // Clear src so getPendingExternalImages can pick this entry up
     entry.src = "";
+    // Set source_item if provided and not already set
+    if (sourceItem && !entry.source_item) {
+      entry.source_item = sourceItem;
+    }
     return id;
   }
 
@@ -134,6 +139,7 @@ export function enqueueExternalImage(
     source_url: sourceUrl,
     queued_at: new Date().toISOString(),
     usage_count: 0,
+    ...(sourceItem ? { source_item: sourceItem } : {}),
   };
   registry.images[id] = newEntry;
   return id;
@@ -253,7 +259,7 @@ export function markJobFailed(id: string, message: string): void {
  */
 export function getFailedEntries(
   tag?: string
-): Array<{ id: string; source_url: string; failed_at: string; tags: string[] }> {
+): Array<{ id: string; source_url: string; failed_at: string; tags: string[]; source_item?: string }> {
   const registry = mediaGallery.getRegistry();
   if (!registry) return [];
 
@@ -267,6 +273,7 @@ export function getFailedEntries(
       source_url: entry.source_url,
       failed_at: entry.failed_at,
       tags: entry.tags ?? [],
+      ...(entry.source_item ? { source_item: entry.source_item } : {}),
     });
   }
   return results;

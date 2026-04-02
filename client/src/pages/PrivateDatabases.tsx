@@ -2613,7 +2613,7 @@ function CachedImagesKpiCard({ dbName }: { dbName: string }) {
   });
 
   const { data: failedData, isLoading: failedLoading, refetch: refetchFailed } = useQuery<{
-    entries: { id: string; source_url: string; failed_at: string }[];
+    entries: { id: string; source_url: string; failed_at: string; source_item?: string }[];
   }>({
     queryKey: ["/api/image-registry/failed", dbName],
     queryFn: () =>
@@ -2696,6 +2696,11 @@ function CachedImagesKpiCard({ dbName }: { dbName: string }) {
                   >
                     {entry.source_url}
                   </a>
+                  {entry.source_item && (
+                    <p className="text-[10px] text-muted-foreground" data-testid={`text-source-item-${entry.id}`}>
+                      from: {entry.source_item}
+                    </p>
+                  )}
                   <p className="text-[10px] text-muted-foreground">
                     Failed {new Date(entry.failed_at).toLocaleString()}
                   </p>

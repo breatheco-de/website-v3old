@@ -30,29 +30,56 @@ export function isSafeUrl(rawUrl: string): boolean {
   return true;
 }
 
+function deriveSourceItem(item: Record<string, unknown>, urlFallback?: string): string {
+  for (const key of ["slug", "handle", "title", "name"]) {
+    const val = item[key];
+    if (typeof val === "string" && val.trim().length > 0) return val.trim();
+  }
+  const id = item["id"];
+  if (id !== undefined && id !== null) return String(id);
+  // Fallback: truncated filename from the URL
+  if (urlFallback) {
+    try {
+      const pathname = new URL(urlFallback).pathname;
+      const filename = pathname.split("/").filter(Boolean).pop() ?? "";
+      const base = filename.replace(/\.[^.]+$/, ""); // strip extension
+      if (base.length > 0) return base.slice(0, 60);
+    } catch {
+      // ignore malformed URL
+    }
+  }
+  return "";
+}
+
 function collectCacheableUrls(
   config: DatabaseConfig,
   items: Record<string, unknown>[]
-): Set<string> {
-  const urls = new Set<string>();
-  if (!config.editor) return urls;
+): Map<string, string | undefined> {
+  const urlMap = new Map<string, string | undefined>();
+  if (!config.editor) return urlMap;
 
   const cacheFields = Object.entries(config.editor)
     .filter(([, hint]) => hint.cache_images === true)
     .map(([field]) => field);
 
-  if (cacheFields.length === 0) return urls;
+  if (cacheFields.length === 0) return urlMap;
 
   for (const item of items) {
     for (const field of cacheFields) {
       const val = item[field];
       if (typeof val === "string" && val.startsWith("http") && isSafeUrl(val)) {
-        urls.add(val);
+        const existing = urlMap.get(val);
+        // Derive source item, using the URL as fallback for filename extraction
+        const sourceItem = deriveSourceItem(item, val) || undefined;
+        // Upgrade mapping if we now have a value and didn't before
+        if (!urlMap.has(val) || (existing === undefined && sourceItem !== undefined)) {
+          urlMap.set(val, sourceItem);
+        }
       }
     }
   }
 
-  return urls;
+  return urlMap;
 }
 
 export const ExternalImageCacher = {
@@ -61,12 +88,12 @@ export const ExternalImageCacher = {
     config: DatabaseConfig,
     items: Record<string, unknown>[]
   ): void {
-    const urls = collectCacheableUrls(config, items);
-    if (urls.size === 0) return;
+    const urlMap = collectCacheableUrls(config, items);
+    if (urlMap.size === 0) return;
 
     let enqueued = 0;
-    for (const url of urls) {
-      const result = enqueueExternalImage(url, dbName);
+    for (const [url, sourceItem] of urlMap) {
+      const result = enqueueExternalImage(url, dbName, [], sourceItem);
       if (result !== null) enqueued++;
     }
 
