@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import type { ImageRegistry } from "@shared/schema";
+import { mediaGallery } from "./media-gallery";
 
 const REGISTRY_PATH = path.join(process.cwd(), "marketing-content", "image-registry.json");
 
@@ -66,6 +67,18 @@ export function listPresets() {
     name,
     ...preset,
   }));
+}
+
+export function resolveBySourceUrl(url: string): string | null {
+  const registry = mediaGallery.getRegistry();
+  if (!registry) return null;
+
+  for (const entry of Object.values(registry.images)) {
+    if (entry.source_url === url && !entry.failed_at) {
+      return entry.src;
+    }
+  }
+  return null;
 }
 
 export function clearImageRegistryCache() {

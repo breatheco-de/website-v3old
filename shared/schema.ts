@@ -420,6 +420,8 @@ export const imageEntrySchema = z.object({
   widths_generated: z.array(z.number()).optional(),
   format: z.enum(["webp", "avif", "jpeg", "png"]).optional(),
   srcset: z.array(imageSrcsetEntrySchema).optional(),
+  source_url: z.string().optional(),
+  failed_at: z.string().optional(),
 });
 
 export const tagDefinitionSchema = z.object({

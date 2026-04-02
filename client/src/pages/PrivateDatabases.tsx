@@ -58,6 +58,7 @@ import {
   IconLink,
   IconServer,
   IconAdjustments,
+  IconPhoto,
 } from "@tabler/icons-react";
 import { queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -97,7 +98,7 @@ interface DatabaseDetail {
     };
     cache?: { ttl_hours?: number };
     field_mapping?: Record<string, string>;
-    editor?: Record<string, { type?: string; options?: string[]; populate_options?: boolean }>;
+    editor?: Record<string, { type?: string; options?: string[]; populate_options?: boolean; cache_images?: boolean }>;
   };
   cache_status?: {
     fetched_at: string;
@@ -1711,7 +1712,7 @@ function FieldMappingEditor({
   const [sampleData, setSampleData] = useState<{ items: Record<string, unknown>[]; count: number } | null>(null);
   const [sampleLoading, setSampleLoading] = useState(false);
 
-  const [editorHints, setEditorHints] = useState<Record<string, { type?: string; options?: string[] }>>(() =>
+  const [editorHints, setEditorHints] = useState<Record<string, { type?: string; options?: string[]; cache_images?: boolean }>>(() =>
     config.editor ? { ...config.editor } : {}
   );
   useEffect(() => {
@@ -1746,12 +1747,15 @@ function FieldMappingEditor({
 
   const saveHintDialog = () => {
     if (!hintDialogField) return;
-    const hint: { type?: string; options?: string[]; populate_options?: boolean } = { type: hintDialogType };
+    const hint: { type?: string; options?: string[]; populate_options?: boolean; cache_images?: boolean } = { type: hintDialogType };
     if ((hintDialogType === "select" || hintDialogType === "tags")) {
       if (hintDialogOptions.length > 0) hint.options = hintDialogOptions;
       if (hintDialogPopulateOptions) hint.populate_options = true;
     }
-    setEditorHints((prev) => ({ ...prev, [hintDialogField]: hint }));
+    setEditorHints((prev) => {
+      const existing = prev[hintDialogField] || {};
+      return { ...prev, [hintDialogField]: { ...hint, cache_images: existing.cache_images } };
+    });
     setHintDialogField(null);
   };
 
@@ -1985,13 +1989,31 @@ function FieldMappingEditor({
                   >
                     <IconAdjustments className="h-3.5 w-3.5 text-muted-foreground" />
                   </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => {
+                      setEditorHints((prev) => {
+                        const current = prev[normalizedKey] || {};
+                        return { ...prev, [normalizedKey]: { ...current, cache_images: !current.cache_images } };
+                      });
+                    }}
+                    title={editorHints[normalizedKey]?.cache_images ? "Image caching enabled — click to disable" : "Enable image caching for this field"}
+                    data-testid={`button-cache-images-${normalizedKey}`}
+                  >
+                    <IconPhoto className={`h-3.5 w-3.5 ${editorHints[normalizedKey]?.cache_images ? "text-blue-500" : "text-muted-foreground"}`} />
+                  </Button>
                 </div>
-                {editorHints[normalizedKey]?.type && editorHints[normalizedKey].type !== "text" && (
-                  <p className="text-[10px] text-muted-foreground ml-[6.5rem]">
-                    editor: <code>{editorHints[normalizedKey].type}</code>
-                    {editorHints[normalizedKey].options?.length ? ` (${editorHints[normalizedKey].options!.length} options)` : ""}
+                {(editorHints[normalizedKey]?.type && editorHints[normalizedKey].type !== "text") || editorHints[normalizedKey]?.cache_images ? (
+                  <p className="text-[10px] text-muted-foreground ml-[6.5rem] flex items-center gap-2">
+                    {editorHints[normalizedKey]?.type && editorHints[normalizedKey].type !== "text" && (
+                      <span>editor: <code>{editorHints[normalizedKey].type}</code>{editorHints[normalizedKey].options?.length ? ` (${editorHints[normalizedKey].options!.length} options)` : ""}</span>
+                    )}
+                    {editorHints[normalizedKey]?.cache_images && (
+                      <span className="text-blue-500">cached</span>
+                    )}
                   </p>
-                )}
+                ) : null}
               </div>
             );
           })}
