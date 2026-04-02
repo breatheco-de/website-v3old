@@ -2602,6 +2602,33 @@ function ItemEditModal({
   );
 }
 
+function CachedImagesKpiCard({ dbName }: { dbName: string }) {
+  const { data, isLoading } = useQuery<{ cached: number; failed: number }>({
+    queryKey: ["/api/image-registry/stats", dbName],
+    queryFn: () =>
+      fetch(`/api/image-registry/stats?tag=${encodeURIComponent(dbName)}`).then((r) => r.json()),
+  });
+
+  return (
+    <Card>
+      <CardContent className="pt-4 pb-3 space-y-1">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <IconPhoto className="h-3.5 w-3.5" />
+          <span>Cached Images</span>
+        </div>
+        <p className="text-sm font-medium" data-testid="text-cached-images-count">
+          {isLoading ? "..." : (data?.cached ?? "\u2014")}
+        </p>
+        {!isLoading && data && data.failed > 0 && (
+          <p className="text-xs text-red-500" data-testid="text-cached-images-failed">
+            {data.failed} failed
+          </p>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
 function DatabaseDetailView({ dbName }: { dbName: string }) {
   const { toast } = useToast();
   const [search, setSearch] = useState("");
@@ -2978,7 +3005,12 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
         </Card>
       ) : (
         <>
-          <div className="grid gap-4 sm:grid-cols-3">
+          {(() => {
+            const hasCachedFields = config?.editor
+              ? Object.values(config.editor).some((f) => f.cache_images === true)
+              : false;
+            return (
+          <div className={`grid gap-4 ${hasCachedFields ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"}`}>
             <Card>
               <CardContent className="pt-4 pb-3 space-y-1">
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -3025,7 +3057,12 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                 </p>
               </CardContent>
             </Card>
+            {hasCachedFields && (
+              <CachedImagesKpiCard dbName={dbName} />
+            )}
           </div>
+            );
+          })()}
 
           <Card>
             <CardHeader className="py-3 px-4">

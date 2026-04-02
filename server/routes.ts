@@ -8801,6 +8801,27 @@ sections: []
   });
 
   // Image Registry API endpoints (delegated to MediaGallery singleton)
+  app.get("/api/image-registry/stats", (req, res) => {
+    const tag = req.query.tag as string | undefined;
+    const registry = mediaGallery.getRegistry();
+    if (!registry) {
+      res.status(500).json({ error: "Failed to load image registry" });
+      return;
+    }
+    let cached = 0;
+    let failed = 0;
+    for (const entry of Object.values(registry.images)) {
+      if (!entry.source_url) continue;
+      if (tag && !(entry.tags ?? []).includes(tag)) continue;
+      if (entry.failed_at) {
+        failed++;
+      } else {
+        cached++;
+      }
+    }
+    res.json({ cached, failed });
+  });
+
   app.get("/api/image-registry", (_req, res) => {
     const registry = mediaGallery.getRegistry();
     if (!registry) {
