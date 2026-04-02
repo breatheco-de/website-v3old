@@ -13,6 +13,7 @@ import { getApiPath } from "../shared/api-paths";
 import { loadDatabaseSinglePage } from "./database-single-loader";
 import { resolveSingleVars } from "./single-resolver";
 import { databaseManager } from "./database";
+import { applyNonBlockingCss } from "./utils/html-transforms";
 
 interface SingleQuery {
   queryKey: unknown[];
@@ -636,12 +637,7 @@ export function initialDataMiddleware(
                 injected = injected.replace("</head>", themeStyle + "</head>");
               }
             }
-            injected = injected.replace(
-              /<link rel="stylesheet" (href="\/assets\/[^"]+\.css"[^>]*)>/g,
-              (_, attrs) =>
-                `<link rel="preload" ${attrs} as="style" onload="this.onload=null;this.rel='stylesheet'">` +
-                `<noscript><link rel="stylesheet" ${attrs}></noscript>`
-            );
+            injected = applyNonBlockingCss(injected);
 
             const newLength = Buffer.byteLength(injected, "utf-8");
             res.setHeader("content-length", newLength);
