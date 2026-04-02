@@ -3041,6 +3041,12 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                       <code className="bg-muted px-1.5 py-0.5 rounded font-medium">{key}</code>
                       <span className="text-muted-foreground">&larr;</span>
                       <code className="text-muted-foreground truncate">{p || "null"}</code>
+                      {config?.editor?.[key]?.cache_images && (
+                        <span className="inline-flex items-center gap-0.5 text-blue-500 shrink-0" title="Image caching enabled">
+                          <IconPhoto className="h-3 w-3" />
+                          <span className="text-[10px] font-medium">cached</span>
+                        </span>
+                      )}
                     </div>
                   ))}
                 </div>
