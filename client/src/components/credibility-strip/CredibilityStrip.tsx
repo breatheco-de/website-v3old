@@ -1,4 +1,4 @@
-import { useState, useEffect, type CSSProperties } from "react";
+import { useState, useEffect, useRef, type CSSProperties } from "react";
 import { useImageRegistry } from "@/components/UniversalImage";
 import type { CredibilityStripSection, CredibilityStripItem } from "@shared/schema";
 
@@ -46,13 +46,21 @@ function CredibilityItem({
 }) {
   const logos = item.logos || [];
   const [activeIdx, setActiveIdx] = useState(0);
+  const initialDelayRef = useRef(Math.floor(Math.random() * rotationMs));
 
   useEffect(() => {
     if (logos.length <= 1) return;
-    const timer = setInterval(() => {
+    let interval: ReturnType<typeof setInterval>;
+    const timeout = setTimeout(() => {
       setActiveIdx((prev) => (prev + 1) % logos.length);
-    }, rotationMs);
-    return () => clearInterval(timer);
+      interval = setInterval(() => {
+        setActiveIdx((prev) => (prev + 1) % logos.length);
+      }, rotationMs);
+    }, initialDelayRef.current);
+    return () => {
+      clearTimeout(timeout);
+      clearInterval(interval);
+    };
   }, [logos.length, rotationMs]);
 
   return (
@@ -110,7 +118,7 @@ export function CredibilityStrip({ data }: { data: CredibilityStripSection }) {
   const itemBgStyle: CSSProperties = {
     backgroundColor: data.item_background_color || "hsl(var(--secondary))",
   };
-  const rotationMs = data.logo_rotation_ms_time ?? 2000;
+  const rotationMs = data.logo_swap_speed_milisec ?? data.logo_rotation_ms_time ?? 2000;
   const coloredLogos = data.colored_logos ?? false;
 
   const href = data.cta || data.link_url;
