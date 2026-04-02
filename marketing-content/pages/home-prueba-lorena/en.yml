@@ -52,7 +52,7 @@ sections:
     item_background_color: hsl(var(--muted))
     logo_rotation_ms_time: 2000
     items:
-      - label: University Partners
+      - label: 10 University Partners
         logos:
           - image_id: clark_university
             alt: Clark University Logo
@@ -60,7 +60,7 @@ sections:
           - image_id: logo_mdc
             alt: MDC CE logo
             id: logo-mdc
-      - label: Trusted by Governments
+      - label: Trusted by 6 Governments
         logos:
           - image_id: bid_logo
           - image_id: logo_jooble
@@ -70,7 +70,7 @@ sections:
             alt: Course Report logo
             id: logo-course-report
           - image_id: ""
-      - label: Top Ranked
+      - label: Award wining and recognized by all major publications
         logos:
           - image_id: logo_switchup
             alt: SwitchUp logo
