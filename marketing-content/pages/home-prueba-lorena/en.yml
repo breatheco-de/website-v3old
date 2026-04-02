@@ -60,7 +60,7 @@ sections:
           - image_id: logo_mdc
             alt: MDC CE logo
             id: logo-mdc
-      - label: Trusted by 6 Governments
+      - label: Trusted by many official Governments
         logos:
           - image_id: bid_logo
           - image_id: logo_jooble
