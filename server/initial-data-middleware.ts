@@ -347,7 +347,7 @@ export function resolvePreloadHints(
       if (entry.srcset && entry.srcset.length > 0) {
         hint.srcset = entry.srcset.map((s) => `${s.url} ${s.w}w`).join(", ");
         const presetConfig = preset ? registryData.presets?.[preset] : undefined;
-        hint.sizes = presetConfig?.sizes ?? "100vw";
+        hint.sizes = presetConfig?.sizes ?? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
       }
       hints.push(hint);
     }
@@ -360,7 +360,7 @@ export function resolvePreloadHints(
       const hint: PreloadHint = { src: url };
       if (entry?.srcset && entry.srcset.length > 0) {
         hint.srcset = entry.srcset.map((s) => `${s.url} ${s.w}w`).join(", ");
-        hint.sizes = "100vw";
+        hint.sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
       }
       hints.push(hint);
     }
@@ -620,6 +620,14 @@ export function initialDataMiddleware(
               return;
             }
             let injected = html;
+
+            if (!injected.includes('storage.googleapis.com')) {
+              const gcsHints =
+                '<link rel="preconnect" href="https://storage.googleapis.com" crossorigin />\n' +
+                '<link rel="dns-prefetch" href="https://storage.googleapis.com" />\n';
+              injected = injected.replace("</head>", gcsHints + "</head>");
+            }
+
             if (payload) {
               const scriptTag = `<script id="__INITIAL_DATA__" type="application/json">${JSON.stringify(payload).replace(/</g, "\\u003c")}</script>`;
               injected = injected.replace("</body>", scriptTag + "</body>");
