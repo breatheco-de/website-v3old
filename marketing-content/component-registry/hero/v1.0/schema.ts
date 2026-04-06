@@ -309,6 +309,36 @@ export const heroApplyFormProductShowcaseSchema = z.object({
   }).optional(),
 }).passthrough();
 
+// ─── HeroCredibility sub-schemas ─────────────────────────────────────────────
+
+export const heroCredibilityPillLogoSchema = z.object({
+  image_id: z.string(),
+});
+
+export const heroCredibilityPillSchema = z.object({
+  category: z.string(),
+  logos: z.array(heroCredibilityPillLogoSchema).optional(),
+  label: z.string(),
+  background_color: z.string().optional(),
+});
+
+export const heroCredibilityMarqueeItemSchema = z.object({
+  bold_text: z.string(),
+  light_text: z.string(),
+});
+
+export const heroCredibilitySchema = z.object({
+  type: z.literal("hero"),
+  version: z.string().optional(),
+  variant: z.literal("credibility"),
+  title: z.string(),
+  description: z.string().optional(),
+  cta_buttons: z.array(ctaButtonSchema).optional(),
+  pills: z.array(heroCredibilityPillSchema).optional(),
+  show_marquee: z.boolean().optional(),
+  marquee_items: z.array(heroCredibilityMarqueeItemSchema).optional(),
+}).passthrough();
+
 // Combined hero section schema
 export const heroSectionSchema = z.union([
   heroSingleColumnSchema,
@@ -319,6 +349,7 @@ export const heroSectionSchema = z.union([
   heroTwoColumnSchema,
   heroCourseSchema,
   heroApplyFormProductShowcaseSchema,
+  heroCredibilitySchema,
 ]);
 
 // Type exports
@@ -340,4 +371,8 @@ export type HeroSimpleStacked = z.infer<typeof heroSimpleStackedSchema>;
 export type HeroTwoColumn = z.infer<typeof heroTwoColumnSchema>;
 export type HeroCourse = z.infer<typeof heroCourseSchema>;
 export type HeroApplyFormProductShowcase = z.infer<typeof heroApplyFormProductShowcaseSchema>;
+export type HeroCredibilityPillLogo = z.infer<typeof heroCredibilityPillLogoSchema>;
+export type HeroCredibilityPill = z.infer<typeof heroCredibilityPillSchema>;
+export type HeroCredibilityMarqueeItem = z.infer<typeof heroCredibilityMarqueeItemSchema>;
+export type HeroCredibility = z.infer<typeof heroCredibilitySchema>;
 export type HeroSection = z.infer<typeof heroSectionSchema>;

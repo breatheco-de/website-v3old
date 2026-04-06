@@ -77,4 +77,12 @@ export const fieldEditors: Record<string, EditorType> = {
   "ApplyFormProductShowcase:cta_button.url": "link-picker",
   "ApplyFormProductShowcase:cta_button.variant": "string-picker:primary,secondary,outline" as EditorType,
   "ApplyFormProductShowcase:cta_button.icon": "icon-picker",
+
+  // credibility variant
+  "credibility:title": "rich-text-editor",
+  "credibility:description": "rich-text-editor",
+  "credibility:cta_buttons[]": "cta-picker",
+  "credibility:show_marquee": "boolean-toggle",
+  "credibility:pills[].logos[].image_id": "image-picker:logo",
+  "credibility:pills[].background_color": "color-picker",
 };
