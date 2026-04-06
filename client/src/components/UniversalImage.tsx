@@ -1,11 +1,11 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { ImageRef, ImageEntry, ImagePreset } from "@shared/schema";
 import SolidCard from "./SolidCard";
 import { useSectionContext } from "@/contexts/SectionContext";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { Pencil } from "lucide-react";
-import { ImagePickerDialog } from "./editing/ImagePickerDialog";
+import { ImagePickerDialog } from "@/components/editing/ImagePickerDialog";
 import { editContent } from "@/lib/contentApi";
 import { emitContentUpdated } from "@/lib/contentEvents";
 import { useToast } from "@/hooks/use-toast";
@@ -70,28 +70,27 @@ export function UniversalImage({
   const { registry, loading: registryLoading } = useImageRegistry();
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [pickerOpen, setPickerOpen] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
-  const {
-    isPriority: isPrioritySection,
-    sectionIndex,
-    contentType: sectionContentType,
-    slug: sectionSlug,
-    locale: sectionLocale,
-  } = useSectionContext();
+  const { isPriority: isPrioritySection, sectionIndex, contentType: sectionContentType, slug: sectionSlug, locale: sectionLocale } = useSectionContext();
   const editModeCtx = useEditModeOptional();
   const isEditMode = editModeCtx?.isEditMode ?? false;
   const { toast } = useToast();
 
-  const [pickerOpen, setPickerOpen] = useState(false);
-
   const resolvedLoadingEarly: "lazy" | "eager" =
-    loadingProp !== undefined ? loadingProp : isPrioritySection ? "eager" : "lazy";
+    loadingProp !== undefined
+      ? loadingProp
+      : isPrioritySection
+        ? "eager"
+        : "lazy";
 
   const isEager = resolvedLoadingEarly === "eager";
 
   useEffect(() => {
     setHasError(false);
-    if (isEager) return;
+    if (isEager) {
+      return;
+    }
     const img = imgRef.current;
     const alreadyCached = img && img.complete && img.naturalWidth > 0;
     if (alreadyCached) {
@@ -111,52 +110,12 @@ export function UniversalImage({
     onError?.();
   };
 
-  const handlePickerSave = useCallback(
-    async (src: string, _alt: string, _registryId: string | undefined) => {
-      if (!src || sectionIndex < 0 || !sectionContentType || !sectionSlug || !sectionLocale) {
-        throw new Error("Missing section context — cannot save image");
-      }
-
-      let path: string | null = null;
-      if (fieldContext?.fieldPath) {
-        path = `sections.${sectionIndex}.${fieldContext.fieldPath}`;
-      } else if (
-        fieldContext?.arrayPath !== undefined &&
-        fieldContext?.index !== undefined &&
-        fieldContext?.srcField
-      ) {
-        path = `sections.${sectionIndex}.${fieldContext.arrayPath}.${fieldContext.index}.${fieldContext.srcField}`;
-      }
-
-      if (!path) {
-        throw new Error("No field path configured for this image");
-      }
-
-      const result = await editContent({
-        contentType: sectionContentType,
-        slug: sectionSlug,
-        locale: sectionLocale,
-        operations: [{ action: "update_field", path, value: src }],
-      });
-
-      if (!result.success) {
-        throw new Error(result.error ?? "Save failed");
-      }
-
-      emitContentUpdated({
-        contentType: sectionContentType,
-        slug: sectionSlug,
-        locale: sectionLocale,
-      });
-
-      toast({ title: "Image updated" });
-    },
-    [sectionIndex, sectionContentType, sectionSlug, sectionLocale, fieldContext, toast],
-  );
-
   if (registryLoading || !registry || !registry.images) {
     return (
-      <div className={`bg-muted animate-pulse ${className}`} data-testid={`img-skeleton-${id}`} />
+      <div
+        className={`bg-muted animate-pulse ${className}`}
+        data-testid={`img-skeleton-${id}`}
+      />
     );
   }
 
@@ -177,11 +136,14 @@ export function UniversalImage({
   }
 
   const presetConfig = registry.presets[preset];
-  const aspectRatio = presetConfig?.aspect_ratio ? ASPECT_RATIOS[presetConfig.aspect_ratio] : undefined;
+  const aspectRatio = presetConfig?.aspect_ratio
+    ? ASPECT_RATIOS[presetConfig.aspect_ratio]
+    : undefined;
 
   const finalAlt = altOverride || (imageEntry ? imageEntry.alt : id);
   const src = imageEntry ? imageEntry.src : id;
 
+  const resolvedLoading = resolvedLoadingEarly;
   const fetchPriority: "high" | "auto" = isPrioritySection ? "high" : "auto";
   const decoding: "sync" | "async" = isPrioritySection ? "sync" : "async";
 
@@ -198,15 +160,17 @@ export function UniversalImage({
     ? { aspectRatio: aspectRatio.toString() }
     : {};
 
-  if (hasError) return null;
+  if (hasError) {
+    return null;
+  }
 
-  const borderClasses = bordered ? "border-2 border-muted-foreground/40 rounded-lg" : "";
+  const borderClasses = bordered
+    ? "border-2 border-muted-foreground/40 rounded-lg"
+    : "";
 
   const hasFieldContext = !!(
     fieldContext?.fieldPath ||
-    (fieldContext?.arrayPath !== undefined &&
-      fieldContext?.index !== undefined &&
-      fieldContext?.srcField)
+    (fieldContext?.arrayPath !== undefined && fieldContext?.index !== undefined && fieldContext?.srcField)
   );
   const canReplace = isEditMode && hasFieldContext && sectionIndex >= 0;
 
@@ -214,6 +178,44 @@ export function UniversalImage({
     e.preventDefault();
     e.stopPropagation();
     setPickerOpen(true);
+  };
+
+  const handlePickerSave = async (pickedSrc: string, _alt: string, registryId: string | undefined) => {
+    if (sectionIndex < 0 || !sectionContentType || !sectionSlug || !sectionLocale) {
+      toast({ title: "Cannot save", description: "Missing section context", variant: "destructive" });
+      throw new Error("Missing section context");
+    }
+
+    let path: string | null = null;
+    if (fieldContext?.fieldPath) {
+      path = `sections.${sectionIndex}.${fieldContext.fieldPath}`;
+    } else if (fieldContext?.arrayPath !== undefined && fieldContext?.index !== undefined && fieldContext?.srcField) {
+      path = `sections.${sectionIndex}.${fieldContext.arrayPath}.${fieldContext.index}.${fieldContext.srcField}`;
+    }
+
+    if (!path) {
+      toast({ title: "Cannot save", description: "No field path configured for this image", variant: "destructive" });
+      throw new Error("No field path configured");
+    }
+
+    // For _id fields (e.g. image_id in graduates_stats), save the registry ID.
+    // For src/url fields, save the resolved URL.
+    const isIdField = fieldContext?.srcField?.endsWith("_id") ?? false;
+    const valueToSave = isIdField && registryId ? registryId : pickedSrc;
+
+    const result = await editContent({
+      contentType: sectionContentType,
+      slug: sectionSlug,
+      locale: sectionLocale,
+      operations: [{ action: "update_field", path, value: valueToSave }],
+    });
+
+    if (result.success) {
+      emitContentUpdated({ contentType: sectionContentType, slug: sectionSlug, locale: sectionLocale });
+      toast({ title: "Image updated" });
+    } else {
+      throw new Error(result.error ?? "Save failed");
+    }
   };
 
   const editOverlay = canReplace ? (
@@ -240,13 +242,16 @@ export function UniversalImage({
       data-testid={`img-container-${id}`}
     >
       {!isEager && !isLoaded && (
-        <div className="absolute inset-0 bg-muted animate-pulse" data-testid={`img-loading-${id}`} />
+        <div
+          className="absolute inset-0 bg-muted animate-pulse"
+          data-testid={`img-loading-${id}`}
+        />
       )}
       <img
         ref={imgRef}
         src={src}
         alt={finalAlt}
-        loading={resolvedLoadingEarly}
+        loading={resolvedLoading}
         decoding={decoding}
         {...{ fetchpriority: fetchPriority }}
         {...(srcsetString ? { srcSet: srcsetString } : {})}
@@ -271,22 +276,24 @@ export function UniversalImage({
     </div>
   );
 
+  const pickerDialog = canReplace ? (
+    <ImagePickerDialog
+      open={pickerOpen}
+      onOpenChange={setPickerOpen}
+      title="Replace Image"
+      initialSrc={src}
+      initialAlt={finalAlt}
+      onSave={handlePickerSave}
+    />
+  ) : null;
+
   if (useSolidCard) {
     return (
       <>
         <SolidCard className={`!p-0 !min-h-0 overflow-hidden ${className}`}>
           {imageContent}
         </SolidCard>
-        {canReplace && (
-          <ImagePickerDialog
-            open={pickerOpen}
-            onOpenChange={setPickerOpen}
-            title="Replace Image"
-            initialSrc={src}
-            initialAlt={finalAlt}
-            onSave={handlePickerSave}
-          />
-        )}
+        {pickerDialog}
       </>
     );
   }
@@ -294,16 +301,7 @@ export function UniversalImage({
   return (
     <>
       {imageContent}
-      {canReplace && (
-        <ImagePickerDialog
-          open={pickerOpen}
-          onOpenChange={setPickerOpen}
-          title="Replace Image"
-          initialSrc={src}
-          initialAlt={finalAlt}
-          onSave={handlePickerSave}
-        />
-      )}
+      {pickerDialog}
     </>
   );
 }
