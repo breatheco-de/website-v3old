@@ -9,4 +9,4 @@ schema:
     - website
 layout:
   menu:
-    top: main-navbar
+    top: main-navbar-test
