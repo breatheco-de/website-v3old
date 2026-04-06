@@ -332,31 +332,24 @@ function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) 
       {/* Bottom stats + tags + link */}
       <div className="mt-auto flex flex-col gap-2">
         {(item.stat_value || item.stat_label) && (
-          <div>
-            {item.stat_value && (
-              <span className="text-3xl font-bold text-primary" data-testid={`text-press-stat-value-${index}`}>
-                {item.stat_value}
-              </span>
-            )}
-            {item.stat_label && (
-              <span className="text-base text-muted-foreground ml-1.5">
-                {item.stat_label}
-              </span>
-            )}
-          </div>
+          <Badge
+            className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/10 text-sm font-semibold px-3 py-1 w-fit"
+            data-testid={`badge-press-stat-${index}`}
+          >
+            {item.stat_value && <span data-testid={`text-press-stat-value-${index}`}>{item.stat_value}</span>}
+            {item.stat_value && item.stat_label && <span className="mx-1 font-normal opacity-70">·</span>}
+            {item.stat_label && <span className="font-normal opacity-80">{item.stat_label}</span>}
+          </Badge>
         )}
         {item.tags && item.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1">
+          <p className="text-xs text-muted-foreground" data-testid={`tags-press-card-${index}`}>
             {item.tags.slice(0, 3).map((tag, t) => (
-              <span
-                key={t}
-                className="bg-muted text-foreground text-[11px] px-2 py-0.5 rounded-full"
-                data-testid={`tag-press-card-${index}-${t}`}
-              >
-                {tag}
+              <span key={t}>
+                {t > 0 && <span className="mx-1">·</span>}
+                <span data-testid={`tag-press-card-${index}-${t}`}>{tag}</span>
               </span>
             ))}
-          </div>
+          </p>
         )}
         {showLinks && item.link_url && item.link_text && (
           <a

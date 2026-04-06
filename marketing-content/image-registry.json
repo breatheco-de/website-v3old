@@ -6310,6 +6310,21 @@
       "width": 1400,
       "height": 1024,
       "format": "webp"
+    },
+    "exelencia_educativa-100x226": {
+      "src": "/marketing-content/images/exelencia_educativa-100x226.webp",
+      "alt": "Excelencia Educativa award",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "badge",
+        "award",
+        "spanish"
+      ],
+      "usage_count": 0,
+      "width": 100,
+      "height": 226,
+      "format": "webp"
     }
   }
 }
