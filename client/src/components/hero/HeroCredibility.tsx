@@ -1,4 +1,4 @@
-import { createElement } from "react";
+import { createElement, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useImageRegistry } from "@/components/UniversalImage";
 import { useInternalNav } from "@/hooks/useInternalNav";
@@ -20,37 +20,76 @@ function PillLogo({ imageId }: { imageId: string }) {
     <img
       src={entry.src}
       alt={entry.alt || ""}
-      className="max-w-full max-h-full object-contain"
+      style={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        maxHeight: "36px",
+        maxWidth: "60px",
+        width: "auto",
+        height: "auto",
+        objectFit: "contain",
+        filter: "grayscale(100%) opacity(0.85)",
+      }}
     />
   );
 }
 
 // ─── CredibilityPill ──────────────────────────────────────────────────────────
 
+const PILL_ROTATION_MS = 2500;
+
 function CredibilityPill({ pill }: { pill: HeroCredibilityPill }) {
   const logos = pill.logos ?? [];
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => {
+    if (logos.length <= 1) return;
+    const timer = setInterval(() => {
+      setActiveIdx((prev) => (prev + 1) % logos.length);
+    }, PILL_ROTATION_MS);
+    return () => clearInterval(timer);
+  }, [logos.length]);
 
   return (
     <div
-      className="flex items-center gap-3 px-5 py-3 rounded-full w-full h-[76px] overflow-hidden"
+      className="flex items-center gap-3 px-5 py-3 rounded-full w-full h-[76px] overflow-hidden flex-shrink-0"
       style={{
         backgroundColor: pill.background_color || "white",
-        border: "1.5px solid #00000018",
+        border: "1.5px solid rgba(0,0,0,0.09)",
       }}
     >
+      {/* Logo area with rotation */}
       {logos.length > 0 && (
-        <div className="relative w-16 h-9 flex-shrink-0 flex items-center justify-center">
-          <PillLogo imageId={logos[0].image_id} />
+        <div className="relative w-16 h-9 flex-shrink-0">
+          {logos.map((logo, i) => (
+            <div
+              key={logo.image_id + i}
+              className="absolute inset-0 transition-opacity duration-300"
+              style={{ opacity: i === activeIdx ? 1 : 0 }}
+            >
+              <PillLogo imageId={logo.image_id} />
+            </div>
+          ))}
         </div>
       )}
 
-      <div className="w-px h-8 bg-gray-200 flex-shrink-0" />
+      {/* Divider */}
+      <div
+        className="flex-shrink-0"
+        style={{ width: "1px", height: "32px", background: "#D1D5DB" }}
+      />
 
+      {/* Category + label */}
       <div className="flex flex-col min-w-0">
-        <span className="text-[9px] uppercase tracking-[0.13em] text-gray-400 font-semibold leading-none mb-1">
+        <span
+          className="uppercase font-semibold leading-none mb-1"
+          style={{ fontSize: "9px", letterSpacing: "0.13em", color: "#9CA3AF" }}
+        >
           {pill.category}
         </span>
-        <span className="text-sm font-medium text-gray-900 leading-snug line-clamp-2">
+        <span className="text-sm font-medium leading-snug line-clamp-2" style={{ color: "#111827" }}>
           {pill.label}
         </span>
       </div>
@@ -67,7 +106,6 @@ const DEFAULT_MARQUEE_ITEMS = [
   { bold_text: "Google", light_text: "4.8 \u2605" },
   { bold_text: "5,000+", light_text: "graduates employed worldwide" },
   { bold_text: "55%", light_text: "avg salary increase" },
-  { bold_text: "~3 months", light_text: "avg time to hire" },
 ];
 
 function WatermarkMarquee({ items }: { items: { bold_text: string; light_text: string }[] }) {
@@ -108,11 +146,12 @@ function WatermarkMarquee({ items }: { items: { bold_text: string; light_text: s
           {repeated.map((item, i) => (
             <span
               key={i}
-              className="flex items-center gap-2 mr-10 text-xs text-gray-300 whitespace-nowrap"
+              className="flex items-center gap-2 mr-10 text-xs whitespace-nowrap"
+              style={{ color: "#D1D5DB" }}
             >
-              <span className="font-semibold text-gray-400">{item.bold_text}</span>
+              <span className="font-semibold" style={{ color: "#9CA3AF" }}>{item.bold_text}</span>
               <span>{item.light_text}</span>
-              <span className="text-gray-200 mx-1">&middot;</span>
+              <span className="mx-1" style={{ color: "#E5E7EB" }}>&middot;</span>
             </span>
           ))}
         </div>
@@ -138,9 +177,11 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
           <div className="flex flex-col gap-8 md:max-w-[55%]">
             <div className="flex flex-col gap-3">
               {data.description && (
-                <p className="text-muted-foreground leading-relaxed" data-testid="text-hero-description">
-                  {data.description}
-                </p>
+                <p
+                  className="text-muted-foreground leading-relaxed"
+                  data-testid="text-hero-description"
+                  dangerouslySetInnerHTML={{ __html: data.description }}
+                />
               )}
               <h1
                 className="font-extrabold text-foreground leading-[1.03]"

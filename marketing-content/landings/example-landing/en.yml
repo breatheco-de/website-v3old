@@ -64,6 +64,45 @@ sections:
         cta_url: /en/full-stack
         course_background: secondary
     section_id: course_selector-n0tubj
+  - type: hero
+    version: "1.0"
+    variant: credibility
+    description: Immersive programs built to launch AI careers. Backed by lifelong unlimited mentorship, AI-powered learning, and career support that gets you hired.
+    title: 1.3 million<br>new <span style="color:#0084FF;font-style:italic">AI roles.</span><br>We'll get you one.
+    cta_buttons:
+      - text: See if you qualify
+        url: /apply
+        variant: primary
+        icon: ChevronRight
+      - text: View curriculum
+        url: /curriculum
+        variant: outline
+    pills:
+      - category: Institutional Backing
+        logos:
+          - image_id: forbes-logo-c8a5f1b2
+        label: Chosen Partners of 12+ Universities
+      - category: Graduate Outcomes
+        logos:
+          - image_id: switchup-logo-d3e2a7f0
+        label: Trusted with $20M+ in Government Funding
+      - category: Student Ratings
+        logos:
+          - image_id: course-report-logo-9b4c1e82
+        label: Best Bootcamp Awards by Forbes, Course Report and more.
+    show_marquee: true
+    marquee_items:
+      - bold_text: Course Report
+        light_text: 4.9 ★
+      - bold_text: SwitchUp
+        light_text: 4.9 ★
+      - bold_text: Career Karma
+        light_text: 4.9 ★
+      - bold_text: 5,000+
+        light_text: graduates employed worldwide
+      - bold_text: 55%
+        light_text: avg salary increase
+    section_id: hero-r5kmch
   - type: course_selector
     version: "1.0"
     variant: spotlight
