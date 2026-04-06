@@ -191,3 +191,12 @@ navbar:
     - label: LanguageSwitcher
       href: '#'
       component: LanguageSwitcher
+  marquee:
+    enabled: true
+    texts:
+      - text: 4Geeks chosen to deliver AI education in the Bahamas alongside Harvard, Oxford, and Columbia.
+        cta_label: See more
+        cta_url: https://www.entnerd.com/startup-chilena-es-reclutada-por-bahamas-junto-a-oxford-columbia-y-harvard-para-dar-clases-gratuitas-online/
+        cta_url_overrides:
+          /en/home-prueba-lorena: '#list_press_mentions-w7r1sh'
+    position: above
