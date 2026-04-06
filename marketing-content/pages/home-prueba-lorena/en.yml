@@ -70,7 +70,7 @@ sections:
             alt: Course Report logo
             id: logo-course-report
           - image_id: ""
-      - label: Best Bootcamp Awards. Forbes, Course Report and more.
+      - label: Best Bootcamp Awards by Forbes, Course Report and more.
         logos:
           - image_id: logo_switchup
             alt: SwitchUp logo
