@@ -112,6 +112,7 @@ const MAX_WIDTH_PRESETS: Record<string, string> = {
   lg: "896px",
   xl: "1152px",
   "2xl": "1280px",
+  "6xl": "1152px",
   full: "100%",
 };
 
@@ -160,12 +161,12 @@ function parseBackground(value: string | undefined): string | undefined {
   return value;
 }
 
-// Get section layout styles - applies responsive spacing from YAML or defaults
+// Get section wrapper styles - full-bleed background + spacing + CSS vars
 // Uses CSS custom properties + media query for responsive behavior
-// paddingY: Applied to wrapper (for sections that DON'T have internal content padding)
-// marginY: Applied to wrapper (for spacing between sections)
+// paddingY/marginY/paddingX/marginX: Applied to wrapper
 // background: Applied to wrapper (semantic token or custom CSS)
-function getSectionLayoutStyles(section: Section): CSSProperties & Record<string, string> {
+// maxWidth: stored as CSS vars (--section-mw-*) and applied on inner container
+function getSectionWrapperStyles(section: Section): CSSProperties & Record<string, string> {
   const layoutSection = section as SectionLayout;
 
   const padding = parseResponsiveSpacing(layoutSection.paddingY);
@@ -206,12 +207,6 @@ function getSectionLayoutStyles(section: Section): CSSProperties & Record<string
 
   styles['--section-mw-mobile'] = maxWidth?.mobile ?? "none";
   styles['--section-mw-desktop'] = maxWidth?.desktop ?? "none";
-  styles.maxWidth = 'var(--section-mw)';
-
-  if (maxWidth && (maxWidth.mobile !== "none" || maxWidth.desktop !== "none")) {
-    styles.marginLeft = 'auto';
-    styles.marginRight = 'auto';
-  }
 
   if (background) {
     styles.background = background;
@@ -616,7 +611,7 @@ export function renderSection(section: Section, index: number, landingLocations?
     case "list_press_mentions":
       return <ListPressMentions data={section as Parameters<typeof ListPressMentions>[0]["data"]} />;
     case "list_single_press_mention":
-      return <ListSinglePressMention data={section as Parameters<typeof ListSinglePressMention>[0]["data"]} />;
+      return <ListSinglePressMention data={section as unknown as Parameters<typeof ListSinglePressMention>[0]["data"]} />;
     case "credibility_strip":
       return <CredibilityStrip data={section as Parameters<typeof CredibilityStrip>[0]["data"]} />;
     case "programs_list":
@@ -1048,7 +1043,13 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
         const sectionType = (section as { type: string }).type;
         const loadStrategy = isEditMode ? "eager" : resolveLoadStrategy(rawSection, index, settings);
         const renderedContent = renderSectionWithContext(section, index);
-        const layoutStyles = getSectionLayoutStyles(section);
+        const wrapperStyles = getSectionWrapperStyles(section);
+        const innerStyles: CSSProperties = {
+          maxWidth: "var(--section-mw)",
+          marginLeft: "auto",
+          marginRight: "auto",
+          width: "100%",
+        };
         const showOn = (rawSection as SectionLayout).showOn;
 
         const isVisible = shouldShowSection(showOn, previewBreakpoint, isEditMode);
@@ -1087,33 +1088,35 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           : priorityWrapped;
 
         return (
-          <div key={index} id={sectionId} data-section-type={sectionType} className={`section-wrapper${sectionType !== "modal" ? " scroll-mt-20" : ""}${visibilityClasses ? " " + visibilityClasses : ""}`.trim()} style={layoutStyles}>
-            <EditableSection
-              section={rawSection}
-              index={index}
-              sectionType={sectionType}
-              contentType={contentType}
-              slug={slug}
-              locale={locale}
-              totalSections={sections.length}
-              allSections={sections}
-              onMoveUp={handleMoveUp}
-              onMoveDown={handleMoveDown}
-              onDelete={handleDelete}
-              onDuplicate={handleDuplicate}
-            >
-              <VariableHighlightProvider sectionIndex={index} contentType={contentType}>
-                {renderedSection}
-              </VariableHighlightProvider>
-            </EditableSection>
-            <AddSectionButton
-              insertIndex={index + 1}
-              sections={sections}
-              contentType={contentType}
-              slug={slug}
-              locale={locale}
-              isSharedTemplate={isSharedTemplate}
-            />
+          <div key={index} id={sectionId} data-section-type={sectionType} className={`section-wrapper${sectionType !== "modal" ? " scroll-mt-20" : ""}${visibilityClasses ? " " + visibilityClasses : ""}`.trim()} style={wrapperStyles}>
+            <div style={innerStyles}>
+              <EditableSection
+                section={rawSection}
+                index={index}
+                sectionType={sectionType}
+                contentType={contentType}
+                slug={slug}
+                locale={locale}
+                totalSections={sections.length}
+                allSections={sections}
+                onMoveUp={handleMoveUp}
+                onMoveDown={handleMoveDown}
+                onDelete={handleDelete}
+                onDuplicate={handleDuplicate}
+              >
+                <VariableHighlightProvider sectionIndex={index} contentType={contentType}>
+                  {renderedSection}
+                </VariableHighlightProvider>
+              </EditableSection>
+              <AddSectionButton
+                insertIndex={index + 1}
+                sections={sections}
+                contentType={contentType}
+                slug={slug}
+                locale={locale}
+                isSharedTemplate={isSharedTemplate}
+              />
+            </div>
           </div>
         );
       })}
