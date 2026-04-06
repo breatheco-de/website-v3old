@@ -63,12 +63,6 @@ sections:
       - label: Trusted with $20M+ in Government Funding
         logos:
           - image_id: bid_logo
-          - image_id: logo_jooble
-            alt: Jooble logo
-            id: logo-jooble
-          - image_id: logo_course_report
-            alt: Course Report logo
-            id: logo-course-report
           - image_id: ""
       - label: Best Bootcamp Awards by Forbes, Course Report and more.
         logos:
@@ -81,6 +75,13 @@ sections:
           - image_id: forbes_logo_award
             alt: Forbes Award logo
             id: forbes-logo-award
+          - image_id: logo_course_report
+            alt: Course Report logo
+            id: logo-course-report
+          - image_id: ""
+          - image_id: ""
+            alt: ""
+            id: ""
     section_id: credibility_strip-vcpur5
     colored_logos: true
   - type: features_grid
