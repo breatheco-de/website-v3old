@@ -57,3 +57,18 @@ props:
             type: string
             required: true
             description: Image registry ID of the logo.
+  logo_swap_speed_milisec:
+    type: number
+    required: false
+    default: 2000
+    description: |
+      Interval in milliseconds between logo swaps. All cards in the strip flip simultaneously at this rate.
+      Takes priority over the legacy logo_rotation_ms_time when both are present.
+    example: 3000
+  logo_rotation_ms_time:
+    type: number
+    required: false
+    default: 2000
+    description: |
+      Legacy alias for logo_swap_speed_milisec. Still accepted for backward compatibility.
+      Prefer logo_swap_speed_milisec for new content.

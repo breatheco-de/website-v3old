@@ -8,6 +8,7 @@ import { resolveDeep } from "@/lib/variable-manager";
 import { SectionContextProvider } from "@/contexts/SectionContext";
 import { isSSRHydration } from "@/lib/initialData";
 
+
 // ============================================
 // Component Load Strategy Registry
 // ============================================
@@ -362,10 +363,9 @@ function resolveLoadStrategy(
 function DeferredSection({ children }: { children: React.ReactNode }) {
   const [isVisible, setIsVisible] = useState(true);
   const sentinelRef = useRef<HTMLDivElement>(null);
-  const wasSSRHydrated = useRef(isSSRHydration);
 
   useEffect(() => {
-    if (wasSSRHydrated.current) return;
+    if (document.documentElement.hasAttribute("data-ssr-hydrating")) return;
     if (typeof IntersectionObserver === "undefined") return;
     setIsVisible(false);
   }, []);
