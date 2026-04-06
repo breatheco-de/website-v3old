@@ -36,6 +36,7 @@ export function GraduatesStatsStandard({ data }: GraduatesStatsStandardProps) {
               preset="card"
               className="w-full h-full object-cover shadow-sm"
               alt={`Graduate photo ${index + 1}`}
+              loading={index < 2 ? "eager" : "lazy"}
               style={{
                 objectPosition: img.object_position ?? "center center",
                 transform: `scale(${img.object_scale ?? 1})`,
