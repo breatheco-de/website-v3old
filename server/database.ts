@@ -3,6 +3,8 @@ import path from "path";
 import yaml from "js-yaml";
 import { getContentTypeConfig, getLocaleKey, getFieldMapping } from "./content-types";
 import { getValueByPath, resolveFieldValue } from "./transform";
+import { ExternalImageCacher } from "./external-image-cacher";
+import { resolveBySourceUrl } from "./image-registry";
 
 const DB_DIR = path.join(process.cwd(), "marketing-content", "db");
 const CACHE_DIR = path.join(process.cwd(), ".cache");
@@ -35,7 +37,7 @@ export interface DatabaseConfig {
     ttl_hours?: number;
   };
   field_mapping?: Record<string, string>;
-  editor?: Record<string, { type?: string; options?: string[]; populate_options?: boolean }>;
+  editor?: Record<string, { type?: string; options?: string[]; populate_options?: boolean; cache_images?: boolean }>;
 }
 
 interface CacheEntry {
@@ -384,6 +386,7 @@ export class DatabaseManager {
     if (!forceRefresh) {
       const memEntry = this.memoryCache.get(name);
       if (memEntry && Date.now() < memEntry.expires) {
+        ExternalImageCacher.scheduleItems(name, config, memEntry.data.items);
         return { ...memEntry.data, from_cache: true };
       }
 
@@ -393,6 +396,7 @@ export class DatabaseManager {
           data: fileEntry,
           expires: Date.now() + ttl * 60 * 60 * 1000,
         });
+        ExternalImageCacher.scheduleItems(name, config, fileEntry.items);
         return { ...fileEntry, from_cache: true };
       }
     }
@@ -441,6 +445,8 @@ export class DatabaseManager {
       data: entry,
       expires: Date.now() + ttl * 60 * 60 * 1000,
     });
+
+    ExternalImageCacher.scheduleItems(name, config, items);
 
     return { ...entry, from_cache: false };
   }
@@ -571,7 +577,28 @@ export class DatabaseManager {
 
     try {
       const result = await this.fetchItems(dbName, forceRefresh);
-      const rawItems = result.items;
+      let rawItems = result.items;
+
+      const dbConfig = this.get(dbName);
+      if (dbConfig.editor) {
+        const cacheFields = Object.entries(dbConfig.editor)
+          .filter(([, hint]) => hint.cache_images === true)
+          .map(([field]) => field);
+        if (cacheFields.length > 0) {
+          rawItems = rawItems.map((item) => {
+            const updated = { ...item };
+            for (const field of cacheFields) {
+              const val = item[field];
+              if (typeof val === "string" && val.startsWith("http")) {
+                const resolved = resolveBySourceUrl(val);
+                if (resolved) updated[field] = resolved;
+              }
+            }
+            return updated;
+          });
+        }
+      }
+
       const ctMapping = getFieldMapping(contentType);
       if (!ctMapping || Object.keys(ctMapping).length === 0) {
         return rawItems;

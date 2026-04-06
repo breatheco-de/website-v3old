@@ -6,6 +6,7 @@ import { type Server } from "http";
 import viteConfig from "../vite.config";
 import { contentIndex } from "./content-index";
 import { resolveInitialData, resolvePreloadHints, injectSsrMetaTags, type PreloadHint } from "./initial-data-middleware";
+import { applyNonBlockingCss } from "./utils/html-transforms";
 
 function buildPreloadTags(hints: PreloadHint[]): string {
   if (hints.length === 0) return "";
@@ -223,6 +224,8 @@ export function serveStatic(app: Express) {
           html = html.replace("</body>", scriptTag + "</body>");
         }
 
+        html = applyNonBlockingCss(html);
+
         res.status(status).set({ "Content-Type": "text/html" }).send(html);
         return;
       }
@@ -236,6 +239,7 @@ export function serveStatic(app: Express) {
         if (html.includes("</head>")) {
           html = html.replace("</head>", `${ssrSchemaHtml}\n</head>`);
         }
+        html = applyNonBlockingCss(html);
         res.status(status).set({ "Content-Type": "text/html" }).send(html);
         return;
       } catch {
@@ -243,6 +247,12 @@ export function serveStatic(app: Express) {
       }
     }
 
-    res.status(status).sendFile(indexHtmlPath);
+    try {
+      let html = await fs.promises.readFile(indexHtmlPath, "utf-8");
+      html = applyNonBlockingCss(html);
+      res.status(status).set({ "Content-Type": "text/html" }).send(html);
+    } catch {
+      res.status(status).sendFile(indexHtmlPath);
+    }
   });
 }

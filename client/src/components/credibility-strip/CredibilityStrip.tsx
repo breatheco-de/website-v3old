@@ -1,4 +1,4 @@
-import { useState, useEffect, type CSSProperties } from "react";
+import { useState, useEffect, useRef, type CSSProperties } from "react";
 import { useImageRegistry } from "@/components/UniversalImage";
 import type { CredibilityStripSection, CredibilityStripItem } from "@shared/schema";
 
@@ -34,6 +34,7 @@ function CredibilityItem({
   sectionHovered,
   rotationMs,
   colored,
+  isMobile,
 }: {
   item: CredibilityStripItem;
   borderRadius: string;
@@ -41,23 +42,36 @@ function CredibilityItem({
   sectionHovered: boolean;
   rotationMs: number;
   colored?: boolean;
+  isMobile?: boolean;
 }) {
   const logos = item.logos || [];
   const [activeIdx, setActiveIdx] = useState(0);
+  const initialDelayRef = useRef(Math.floor(Math.random() * rotationMs));
 
   useEffect(() => {
     if (logos.length <= 1) return;
-    const timer = setInterval(() => {
+    let interval: ReturnType<typeof setInterval>;
+    const timeout = setTimeout(() => {
       setActiveIdx((prev) => (prev + 1) % logos.length);
-    }, rotationMs);
-    return () => clearInterval(timer);
+      interval = setInterval(() => {
+        setActiveIdx((prev) => (prev + 1) % logos.length);
+      }, rotationMs);
+    }, initialDelayRef.current);
+    return () => {
+      clearTimeout(timeout);
+      clearInterval(interval);
+    };
   }, [logos.length, rotationMs]);
 
   return (
     <div
       data-testid="credibility-strip-item"
-      className={`relative flex items-center justify-start gap-2.5 px-3 py-2 border border-border ${borderRadius} transition-colors duration-200 flex-shrink-0`}
-      style={itemBgStyle}
+      className={`relative flex items-center justify-start gap-2.5 px-3 py-2 transition-colors duration-200 ${
+        isMobile
+          ? "w-full"
+          : `border border-border ${borderRadius} flex-shrink-0`
+      }`}
+      style={isMobile ? undefined : itemBgStyle}
     >
        {logos.length > 0 && (
          <div className="relative min-w-[40px] px-4 h-9 ">
@@ -83,11 +97,10 @@ function CredibilityItem({
         }}
       />
 
-
       {item.label && (
         <span
           data-testid="credibility-strip-item-label"
-          className="text-sm font-medium text-foreground whitespace-nowrap "
+          className="text-sm font-medium text-foreground"
         >
           {item.label}
         </span>
@@ -100,12 +113,12 @@ export function CredibilityStrip({ data }: { data: CredibilityStripSection }) {
   const [hovered, setHovered] = useState(false);
 
   const items = data.items || [];
-  const multiRow = items.length >= 4;
+  const count = items.length;
   const borderRadius = data.item_badge_shape ? "rounded-full" : "rounded-lg";
   const itemBgStyle: CSSProperties = {
     backgroundColor: data.item_background_color || "hsl(var(--secondary))",
   };
-  const rotationMs = data.logo_rotation_ms_time ?? 2000;
+  const rotationMs = data.logo_swap_speed_milisec ?? data.logo_rotation_ms_time ?? 2000;
   const coloredLogos = data.colored_logos ?? false;
 
   const href = data.cta || data.link_url;
@@ -128,22 +141,43 @@ export function CredibilityStrip({ data }: { data: CredibilityStripSection }) {
         }`}
       />
 
-      <div
-        className={`relative z-10 max-w-5xl w-full px-6 flex flex-wrap justify-center gap-3 ${
-          multiRow ? "max-w-2xl" : ""
-        }`}
-      >
-        {items.map((item, idx) => (
-          <CredibilityItem
-            key={idx}
-            item={item}
-            borderRadius={borderRadius}
-            itemBgStyle={itemBgStyle}
-            sectionHovered={hovered}
-            rotationMs={rotationMs}
-            colored={coloredLogos}
-          />
-        ))}
+      <div className="relative z-10 max-w-5xl w-full px-6">
+        {/* Mobile: accordion skin */}
+        <div className="md:hidden border border-border rounded-lg overflow-hidden">
+          {items.map((item, idx) => (
+            <div key={idx}>
+              {idx > 0 && <hr className="border-t border-border" />}
+              <CredibilityItem
+                item={item}
+                borderRadius={borderRadius}
+                itemBgStyle={itemBgStyle}
+                sectionHovered={hovered}
+                rotationMs={rotationMs}
+                colored={coloredLogos}
+                isMobile={true}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop: equal-width single row */}
+        <div
+          className="hidden md:grid gap-3"
+          style={{ gridTemplateColumns: `repeat(${count || 1}, 1fr)` }}
+        >
+          {items.map((item, idx) => (
+            <CredibilityItem
+              key={idx}
+              item={item}
+              borderRadius={borderRadius}
+              itemBgStyle={itemBgStyle}
+              sectionHovered={hovered}
+              rotationMs={rotationMs}
+              colored={coloredLogos}
+              isMobile={false}
+            />
+          ))}
+        </div>
       </div>
     </Wrapper>
   );

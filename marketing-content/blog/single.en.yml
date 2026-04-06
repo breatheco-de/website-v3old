@@ -7,15 +7,15 @@ sections:
     section_id: hero-cweekr
     version: "1.0"
     variant: singleColumn
-    badge: {{ single.category | Blog }}
-    title: {{ single.title | Blog title }}
-    subtitle: {{ single.description | blog description }}
-    image:
-      src: {{ single.image | https://storage.googleapis.com/4geeks-academy-website/media/Group-original_1765419144159.webp }}
+    badge: software-engineer-salary
+    title: {{ single.title | blog title }}
+    subtitle: {{ single.description | blog subtitle }}
     image_full_width: false
+    image:
+      src: {{ single.image | undefined }}
   - type: article
     section_id: article-2i1h11
     show_toc: true
     toc_position: side
-    max_width: lg
-    content: {{single.content}}
+    max_width: xl
+    content: {{ single.content | blog content }}

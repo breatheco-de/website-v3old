@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRoute, Link, useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -58,8 +58,9 @@ import {
   IconLink,
   IconServer,
   IconAdjustments,
+  IconPhoto,
 } from "@tabler/icons-react";
-import { queryClient } from "@/lib/queryClient";
+import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
 interface DatabaseSummary {
@@ -97,7 +98,7 @@ interface DatabaseDetail {
     };
     cache?: { ttl_hours?: number };
     field_mapping?: Record<string, string>;
-    editor?: Record<string, { type?: string; options?: string[]; populate_options?: boolean }>;
+    editor?: Record<string, { type?: string; options?: string[]; populate_options?: boolean; cache_images?: boolean }>;
   };
   cache_status?: {
     fetched_at: string;
@@ -1711,7 +1712,7 @@ function FieldMappingEditor({
   const [sampleData, setSampleData] = useState<{ items: Record<string, unknown>[]; count: number } | null>(null);
   const [sampleLoading, setSampleLoading] = useState(false);
 
-  const [editorHints, setEditorHints] = useState<Record<string, { type?: string; options?: string[] }>>(() =>
+  const [editorHints, setEditorHints] = useState<Record<string, { type?: string; options?: string[]; cache_images?: boolean }>>(() =>
     config.editor ? { ...config.editor } : {}
   );
   useEffect(() => {
@@ -1746,12 +1747,15 @@ function FieldMappingEditor({
 
   const saveHintDialog = () => {
     if (!hintDialogField) return;
-    const hint: { type?: string; options?: string[]; populate_options?: boolean } = { type: hintDialogType };
+    const hint: { type?: string; options?: string[]; populate_options?: boolean; cache_images?: boolean } = { type: hintDialogType };
     if ((hintDialogType === "select" || hintDialogType === "tags")) {
       if (hintDialogOptions.length > 0) hint.options = hintDialogOptions;
       if (hintDialogPopulateOptions) hint.populate_options = true;
     }
-    setEditorHints((prev) => ({ ...prev, [hintDialogField]: hint }));
+    setEditorHints((prev) => {
+      const existing = prev[hintDialogField] || {};
+      return { ...prev, [hintDialogField]: { ...hint, cache_images: existing.cache_images } };
+    });
     setHintDialogField(null);
   };
 
@@ -1985,13 +1989,31 @@ function FieldMappingEditor({
                   >
                     <IconAdjustments className="h-3.5 w-3.5 text-muted-foreground" />
                   </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => {
+                      setEditorHints((prev) => {
+                        const current = prev[normalizedKey] || {};
+                        return { ...prev, [normalizedKey]: { ...current, cache_images: !current.cache_images } };
+                      });
+                    }}
+                    title={editorHints[normalizedKey]?.cache_images ? "Image caching enabled — click to disable" : "Enable image caching for this field"}
+                    data-testid={`button-cache-images-${normalizedKey}`}
+                  >
+                    <IconPhoto className={`h-3.5 w-3.5 ${editorHints[normalizedKey]?.cache_images ? "text-blue-500" : "text-muted-foreground"}`} />
+                  </Button>
                 </div>
-                {editorHints[normalizedKey]?.type && editorHints[normalizedKey].type !== "text" && (
-                  <p className="text-[10px] text-muted-foreground ml-[6.5rem]">
-                    editor: <code>{editorHints[normalizedKey].type}</code>
-                    {editorHints[normalizedKey].options?.length ? ` (${editorHints[normalizedKey].options!.length} options)` : ""}
+                {(editorHints[normalizedKey]?.type && editorHints[normalizedKey].type !== "text") || editorHints[normalizedKey]?.cache_images ? (
+                  <p className="text-[10px] text-muted-foreground ml-[6.5rem] flex items-center gap-2">
+                    {editorHints[normalizedKey]?.type && editorHints[normalizedKey].type !== "text" && (
+                      <span>editor: <code>{editorHints[normalizedKey].type}</code>{editorHints[normalizedKey].options?.length ? ` (${editorHints[normalizedKey].options!.length} options)` : ""}</span>
+                    )}
+                    {editorHints[normalizedKey]?.cache_images && (
+                      <span className="text-blue-500">cached</span>
+                    )}
                   </p>
-                )}
+                ) : null}
               </div>
             );
           })}
@@ -2580,6 +2602,148 @@ function ItemEditModal({
   );
 }
 
+function CachedImagesKpiCard({ dbName }: { dbName: string }) {
+  const { toast } = useToast();
+  const [failedOpen, setFailedOpen] = useState(false);
+
+  const { data, isLoading, refetch, isFetching } = useQuery<{ cached: number; failed: number }>({
+    queryKey: ["/api/image-registry/stats", dbName],
+    queryFn: () =>
+      fetch(`/api/image-registry/stats?tag=${encodeURIComponent(dbName)}`).then((r) => r.json()),
+  });
+
+  const { data: failedData, isLoading: failedLoading, refetch: refetchFailed } = useQuery<{
+    entries: { id: string; source_url: string; failed_at: string; source_item?: string }[];
+  }>({
+    queryKey: ["/api/image-registry/failed", dbName],
+    queryFn: () =>
+      fetch(`/api/image-registry/failed?tag=${encodeURIComponent(dbName)}`).then((r) => r.json()),
+    enabled: failedOpen,
+  });
+
+  const retryMutation = useMutation({
+    mutationFn: () =>
+      apiRequest("POST", "/api/image-registry/retry-failed", { tag: dbName }).then((r) => r.json()),
+    onSuccess: (result: { retried: number }) => {
+      toast({ title: "Retry queued", description: `${result.retried} image(s) re-queued for caching` });
+      setFailedOpen(false);
+      refetch();
+    },
+    onError: () => {
+      toast({ title: "Retry failed", variant: "destructive" });
+    },
+  });
+
+  return (
+    <>
+      <Card>
+        <CardContent className="pt-4 pb-3 space-y-1">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <IconPhoto className="h-3.5 w-3.5" />
+              <span>Cached Images</span>
+            </div>
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => refetch()}
+              disabled={isFetching}
+              data-testid="button-refresh-cached-stats"
+            >
+              <IconRefresh className={`h-3.5 w-3.5 ${isFetching ? "animate-spin" : ""}`} />
+            </Button>
+          </div>
+          <p className="text-sm font-medium" data-testid="text-cached-images-count">
+            {isLoading ? "..." : (data?.cached ?? "\u2014")}
+          </p>
+          {!isLoading && data && data.failed > 0 && (
+            <button
+              className="text-xs text-red-500 hover:underline cursor-pointer text-left"
+              onClick={() => setFailedOpen(true)}
+              data-testid="button-show-failed-images"
+            >
+              {data.failed} failed
+            </button>
+          )}
+        </CardContent>
+      </Card>
+
+      <Dialog open={failedOpen} onOpenChange={setFailedOpen}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Failed Image Caches</DialogTitle>
+            <DialogDescription>
+              These images failed to download and cache. Retry to re-queue them for the next worker tick.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="max-h-80 overflow-y-auto space-y-1 py-1">
+            {failedLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+              </div>
+            ) : failedData?.entries.length === 0 ? (
+              <p className="text-sm text-muted-foreground text-center py-4">No failed entries.</p>
+            ) : (
+              failedData?.entries.map((entry) => (
+                <div key={entry.id} className="rounded-md border bg-muted/30 px-3 py-2 space-y-0.5" data-testid={`row-failed-${entry.id}`}>
+                  <a
+                    href={entry.source_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-mono truncate text-foreground hover:underline block"
+                    title={entry.source_url}
+                    data-testid={`link-failed-url-${entry.id}`}
+                  >
+                    {entry.source_url}
+                  </a>
+                  {entry.source_item && (
+                    <p className="text-[10px] text-muted-foreground" data-testid={`text-source-item-${entry.id}`}>
+                      from: {entry.source_item}
+                    </p>
+                  )}
+                  <p className="text-[10px] text-muted-foreground">
+                    Failed {new Date(entry.failed_at).toLocaleString()}
+                  </p>
+                </div>
+              ))
+            )}
+          </div>
+          <DialogFooter className="flex items-center justify-between gap-2 sm:justify-between flex-wrap">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => { refetchFailed(); }}
+              disabled={failedLoading}
+              data-testid="button-refresh-failed-list"
+            >
+              <IconRefresh className={`h-3.5 w-3.5 mr-1 ${failedLoading ? "animate-spin" : ""}`} />
+              Refresh
+            </Button>
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" size="sm" onClick={() => setFailedOpen(false)} data-testid="button-close-failed-modal">
+                Close
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => retryMutation.mutate()}
+                disabled={retryMutation.isPending || failedLoading || !failedData?.entries.length}
+                data-testid="button-retry-all-failed"
+              >
+                {retryMutation.isPending ? (
+                  <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+                ) : (
+                  <IconRefresh className="h-3.5 w-3.5 mr-1" />
+                )}
+                Retry All
+              </Button>
+            </div>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
+
 function DatabaseDetailView({ dbName }: { dbName: string }) {
   const { toast } = useToast();
   const [search, setSearch] = useState("");
@@ -2956,7 +3120,12 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
         </Card>
       ) : (
         <>
-          <div className="grid gap-4 sm:grid-cols-3">
+          {(() => {
+            const hasCachedFields = config?.editor
+              ? Object.values(config.editor).some((f) => f.cache_images === true)
+              : false;
+            return (
+          <div className={`grid gap-4 ${hasCachedFields ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"}`}>
             <Card>
               <CardContent className="pt-4 pb-3 space-y-1">
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -3003,7 +3172,12 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                 </p>
               </CardContent>
             </Card>
+            {hasCachedFields && (
+              <CachedImagesKpiCard dbName={dbName} />
+            )}
           </div>
+            );
+          })()}
 
           <Card>
             <CardHeader className="py-3 px-4">
@@ -3019,6 +3193,12 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                       <code className="bg-muted px-1.5 py-0.5 rounded font-medium">{key}</code>
                       <span className="text-muted-foreground">&larr;</span>
                       <code className="text-muted-foreground truncate">{p || "null"}</code>
+                      {config?.editor?.[key]?.cache_images && (
+                        <span className="inline-flex items-center gap-0.5 text-blue-500 shrink-0" title="Image caching enabled">
+                          <IconPhoto className="h-3 w-3" />
+                          <span className="text-[10px] font-medium">cached</span>
+                        </span>
+                      )}
                     </div>
                   ))}
                 </div>

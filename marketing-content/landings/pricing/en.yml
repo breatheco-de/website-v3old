@@ -481,7 +481,7 @@ sections:
       mobile: lg
       desktop: lg
   - type: testimonials_slide
-    title: They Made the Switch. Here's What Happened.
+    title: They gpl sss a Made the Switch. Here's What Happened.
     description: From musicians, philosophers, and support specialists to software engineers and AI developers. Real people, real salary increases, real careers.
     testimonials:
       - name: Loretta Thompson
@@ -593,37 +593,58 @@ sections:
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
   - type: pricing
-    title: Unlock Your Tech Career
+    title: Invest in Your Future
     monthly:
-      discount_badge: 35% OFF
-      price: $38.99
-      period: mo
-      original_price: $59.99
-      savings_badge: null
+      discount_badge: Save 10% with upfront payment
+      price: $299
+      period: month
+      original_price: $329
+      savings_badge: 10% off
     yearly:
-      discount_badge: 35% OFF
-      price: $311.99
-      period: yr
-      original_price: $479.99
-      savings_badge: Save 3 months
+      discount_badge: Save 20% with annual payment
+      price: $2999
+      period: year
+      original_price: $3299
+      savings_badge: 20% off
+    tech_icons:
+      - html
+      - css
+      - javascript
+      - react
+      - python
+      - nodejs
+      - git
+      - bootstrap
+      - api
     features:
-      - icon: certificate
-        text: Build your portfolio with hundreds of real-world projects and get hired in tech
-      - icon: cloud
-        text: Access thousands of cloud-based coding challenges with unlimited 1:1 mentorship for life
-      - icon: robot
-        text: AI-powered feedback as you code with Rigobot tutor
-      - icon: certificate
-        text: Earn certificates from a USA certified school and boost your career
-      - icon: settings
-        text: Get career support that never expires and flexible learning options
+      - Build your portfolio with hundreds of real-world projects
+      - Thousands of cloud-based coding challenges (no setup needed)
+      - AI-powered feedback as you code
+      - Course certificates
+      - Earn certificates from a USA certified school
     cta:
-      text: Start Your Journey
-      url: /signup
+      text: Apply Now
+      url: /apply
       variant: primary
       icon: settings
-    variant: default
-    section_id: pricing-0xok39
+    variant: product
+    section_id: pricing-fptkzz
+  - type: banner
+    version: "1.0"
+    logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
+    avatars:
+      - avatar-woman-1
+      - avatar-man-2
+      - avatar-woman-3
+      - avatar-man-4
+    title: hola  Lorem ipsum dolor sit amet
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+    cta:
+      text: Learn More
+      url: "#"
+      variant: primary
+    background: gradient
+    section_id: banner-8lqqzx
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work

@@ -33,6 +33,7 @@ export default defineConfig(async ({ isSsrBuild }) => ({
       : path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
     ssr: isSsrBuild ? "src/entry-server.tsx" : undefined,
+    target: isSsrBuild ? "node18" : ["chrome89", "safari15", "firefox89", "edge89"],
     chunkSizeWarningLimit: 600,
     minify: 'terser',
     terserOptions: {

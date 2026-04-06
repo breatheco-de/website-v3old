@@ -1,13 +1,8 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { getQueueStats, enqueueOptimization, getPendingOptimizations, getFailedEntries, retryFailedImages } from "./image-registry";
 
-const optimizeJobState = {
-  active: false,
-  total: 0,
-  processed: 0,
-  failed: 0,
-};
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
@@ -7286,9 +7281,10 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           const updatedSection = updatedSections?.[sIdx];
           if (updatedSection) {
             const normalizedLocaleForBinding = normalizeLocale(locale);
+            const baseSlugForBinding = contentIndex.resolveBaseSlug(slug, contentType);
             const propagation = bindingManager.propagateUpdate(
               contentType,
-              slug,
+              baseSlugForBinding,
               sIdx,
               updatedSection,
               authorName,
@@ -8805,6 +8801,40 @@ sections: []
   });
 
   // Image Registry API endpoints (delegated to MediaGallery singleton)
+  app.get("/api/image-registry/stats", (req, res) => {
+    const tag = req.query.tag as string | undefined;
+    const registry = mediaGallery.getRegistry();
+    if (!registry) {
+      res.status(500).json({ error: "Failed to load image registry" });
+      return;
+    }
+    let cached = 0;
+    let failed = 0;
+    for (const entry of Object.values(registry.images)) {
+      if (!entry.source_url) continue;
+      if (tag && !(entry.tags ?? []).includes(tag)) continue;
+      if (entry.failed_at) {
+        failed++;
+      } else {
+        cached++;
+      }
+    }
+    res.json({ cached, failed });
+  });
+
+  app.get("/api/image-registry/failed", (req, res) => {
+    const tag = req.query.tag as string | undefined;
+    const entries = getFailedEntries(tag);
+    res.json({ entries });
+  });
+
+  app.post("/api/image-registry/retry-failed", (req, res) => {
+    const { tag } = req.body as { tag?: string };
+    const count = retryFailedImages(tag);
+    if (count > 0) mediaGallery.persistRegistry();
+    res.json({ retried: count });
+  });
+
   app.get("/api/image-registry", (_req, res) => {
     const registry = mediaGallery.getRegistry();
     if (!registry) {
@@ -9272,8 +9302,6 @@ sections: []
         return;
       }
 
-      const { processImageFromSrc } = await import("./image-optimizer");
-      const presets = registry.presets as Record<string, import("./image-optimizer").Preset>;
       const rasterExtensions = new Set([".png", ".jpg", ".jpeg", ".webp", ".avif"]);
 
       const getExt = (src: string): string => {
@@ -9291,6 +9319,7 @@ sections: []
       } else {
         targetIds = Object.entries(registry.images)
           .filter(([_id, entry]) => {
+            if (!entry.src) return false;
             const ext = getExt(entry.src);
             if (!rasterExtensions.has(ext)) return false;
             const hasSrcset = Array.isArray(entry.srcset) && entry.srcset.length > 0;
@@ -9304,62 +9333,26 @@ sections: []
         return;
       }
 
-      optimizeJobState.active = true;
-      optimizeJobState.total = targetIds.length;
-      optimizeJobState.processed = 0;
-      optimizeJobState.failed = 0;
+      for (const id of targetIds) {
+        enqueueOptimization(id);
+      }
+      mediaGallery.persistRegistry();
 
+      console.log(`[OptimizeBatch] Enqueued ${targetIds.length} image(s) for background optimization`);
       res.json({ queued: targetIds.length, message: `Queued ${targetIds.length} image(s) for background optimization` });
-
-      (async () => {
-        let processed = 0;
-        let failed = 0;
-        for (const id of targetIds) {
-          const entry = registry.images[id];
-          if (!entry) continue;
-          try {
-            const result = await processImageFromSrc(id, entry, presets);
-            if (result) {
-              entry.width = result.width;
-              entry.height = result.height;
-              entry.preset = result.preset;
-              entry.widths_generated = result.widths_generated;
-              entry.format = result.format;
-              entry.srcset = result.srcset;
-              processed++;
-              optimizeJobState.processed = processed;
-              if (processed % 10 === 0) {
-                mediaGallery.persistRegistry();
-                console.log(`[OptimizeBatch] Progress: ${processed}/${targetIds.length} processed, ${failed} failed`);
-              }
-            } else {
-              failed++;
-              optimizeJobState.failed = failed;
-            }
-          } catch (err) {
-            failed++;
-            optimizeJobState.failed = failed;
-            console.error(`[OptimizeBatch] Error processing ${id}:`, err);
-          }
-        }
-        mediaGallery.persistRegistry();
-        optimizeJobState.active = false;
-        console.log(`[OptimizeBatch] Complete: ${processed} processed, ${failed} failed out of ${targetIds.length} total`);
-      })().catch(err => {
-        optimizeJobState.active = false;
-        console.error("[OptimizeBatch] Background processing error:", err);
-      });
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Batch optimize failed" });
     }
   });
 
   app.get("/api/image-registry/optimize-status", (_req, res) => {
+    const pending = getPendingOptimizations(10000);
+    const remaining = pending.length;
     res.json({
-      active: optimizeJobState.active,
-      total: optimizeJobState.total,
-      processed: optimizeJobState.processed,
-      failed: optimizeJobState.failed,
+      active: remaining > 0,
+      total: remaining,
+      processed: 0,
+      failed: 0,
     });
   });
 
@@ -11377,6 +11370,11 @@ sections: []
   });
 
   const httpServer = createServer(app);
+
+  // Start the background image queue worker
+  import("./image-queue-worker").then(({ start }) => start()).catch((err) => {
+    console.error("[ImageQueueWorker] Failed to start:", err);
+  });
 
   return httpServer;
 }

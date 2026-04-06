@@ -1619,23 +1619,61 @@
       "name": "test_bind"
     },
     {
-      "id": "bind_mngj8yin_5bzl7k",
+      "id": "bind_mnglprhf_iaxrev",
       "component": "pricing",
       "locale": "en",
       "members": [
         {
           "contentType": "landing",
           "slug": "pricing",
-          "sectionId": "pricing-0xok39"
+          "sectionId": "pricing-fptkzz"
         },
         {
           "contentType": "landing",
           "slug": "prueba2",
-          "sectionId": "pricing-vk6q5o"
+          "sectionId": "pricing-y2ih10"
         }
       ],
-      "createdAt": "2026-04-01T21:03:13.343Z",
-      "name": "test_binding_2"
+      "createdAt": "2026-04-01T22:12:16.611Z",
+      "name": "test"
+    },
+    {
+      "id": "bind_mngm0tcv_ush2o0",
+      "component": "testimonials_slide",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "landing",
+          "slug": "pricing",
+          "sectionId": "testimonials_slide-731ujk"
+        },
+        {
+          "contentType": "landing",
+          "slug": "prueba2",
+          "sectionId": "testimonials_slide-71fytd"
+        }
+      ],
+      "createdAt": "2026-04-01T22:20:52.255Z",
+      "name": "prueba"
+    },
+    {
+      "id": "bind_mngmdd9r_ykbto5",
+      "component": "banner",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "landing",
+          "slug": "prueba2",
+          "sectionId": "banner-s4nyi7"
+        },
+        {
+          "contentType": "landing",
+          "slug": "pricing",
+          "sectionId": "banner-8lqqzx"
+        }
+      ],
+      "createdAt": "2026-04-01T22:30:37.935Z",
+      "name": "tesdtt"
     }
   ]
 }
