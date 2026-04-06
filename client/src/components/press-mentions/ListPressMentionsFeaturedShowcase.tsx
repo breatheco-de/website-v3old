@@ -210,7 +210,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-3">
                 <button
-                  className="h-9 w-9 flex items-center justify-center rounded-md border border-border bg-background text-foreground"
+                  className="h-9 w-9 flex items-center justify-center rounded-full hover:bg-muted text-foreground"
                   onClick={() => setCurrentPage((p) => (p - 1 + totalPages) % totalPages)}
                   data-testid="button-press-carousel-prev"
                 >
@@ -222,7 +222,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
                   onDotClick={setCurrentPage}
                 />
                 <button
-                  className="h-9 w-9 flex items-center justify-center rounded-md border border-border bg-background text-foreground"
+                  className="h-9 w-9 flex items-center justify-center rounded-full text-foreground"
                   onClick={() => setCurrentPage((p) => (p + 1) % totalPages)}
                   data-testid="button-press-carousel-next"
                 >
@@ -294,7 +294,7 @@ function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) 
           </span>
         )}
         {item.category && (
-          <Badge className="w-fit text-xs rounded-full bg-primary/5 text-foreground border-transparent">
+          <Badge className="w-fit text-xs rounded-full bg-primary/20 text-foreground border-transparent">
             {item.category}
           </Badge>
         )}
@@ -333,8 +333,9 @@ function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) 
       <div className="mt-auto flex flex-col gap-2">
         {(item.stat_value || item.stat_label) && (
           <Badge
-            className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/10 text-sm font-semibold px-3 py-1 w-fit"
+            className="bg-primary/10 text-foreground rounded-full hover:bg-primary/10 text-sm font-semibold px-3 py-1 w-fit"
             data-testid={`badge-press-stat-${index}`}
+            style={{ backgroundColor: "hsl(var(--accent) / 0.7)" }}
           >
             {item.stat_value && <span data-testid={`text-press-stat-value-${index}`}>{item.stat_value}</span>}
             {item.stat_value && item.stat_label && <span className="mx-1 font-normal opacity-70">·</span>}
