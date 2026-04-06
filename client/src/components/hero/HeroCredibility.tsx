@@ -82,14 +82,17 @@ function CredibilityPill({ pill }: { pill: HeroCredibilityPill }) {
       />
 
       {/* Category + label */}
-      <div className="flex flex-col min-w-0">
+      <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
         <span
           className="uppercase font-semibold leading-none mb-1"
           style={{ fontSize: "9px", letterSpacing: "0.13em", color: "#9CA3AF" }}
         >
           {pill.category}
         </span>
-        <span className="text-sm font-medium leading-snug line-clamp-2" style={{ color: "#111827" }}>
+        <span className="text-sm font-medium leading-snug" 
+          style={{ color: "#111827" ,
+
+                 }}>
           {pill.label}
         </span>
       </div>
@@ -169,12 +172,12 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
   const marqueeItems = data.marquee_items?.length ? data.marquee_items : DEFAULT_MARQUEE_ITEMS;
 
   return (
-    <section data-testid="section-hero-credibility">
+    <section data-testid="section-hero-credibility" className="max-w-6xl mx-auto ">
       <div className="flex flex-col px-4 md:px-10 pt-10 pb-6 w-full max-w-[1200px] mx-auto">
         <div className="flex flex-col md:flex-row items-stretch justify-between gap-8">
 
           {/* ── LEFT COLUMN ── */}
-          <div className="flex flex-col gap-8 md:max-w-[55%]">
+          <div className="flex flex-1 min-w-0 flex-col gap-8 md:max-w-[55%]">
             <div className="flex flex-col gap-3">
               {data.description && (
                 <p
@@ -185,7 +188,6 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
               )}
               <h1
                 className="font-extrabold text-foreground leading-[1.03]"
-                style={{ fontSize: "clamp(46px, 5.5vw, 66px)", letterSpacing: "-0.02em" }}
                 data-testid="text-hero-title"
                 dangerouslySetInnerHTML={{ __html: data.title || "" }}
               />
@@ -217,7 +219,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
           {/* ── RIGHT COLUMN — credibility pills ── */}
           {pills.length > 0 && (
             <div
-              className="flex flex-col justify-center gap-5 w-full md:w-[430px] md:flex-shrink-0"
+              className="flex flex-col justify-center gap-5 w-[430px] flex--0"
               data-testid="hero-credibility-pills"
             >
               {pills.map((pill, i) => (
