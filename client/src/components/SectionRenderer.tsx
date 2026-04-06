@@ -5,7 +5,7 @@ import { useSession } from "@/contexts/SessionContext";
 import { VariableHighlightProvider } from "@/components/editing/VariableHighlight";
 import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
 import { resolveDeep } from "@/lib/variable-manager";
-import { SectionPriorityProvider } from "@/contexts/SectionPriorityContext";
+import { SectionContextProvider } from "@/contexts/SectionContext";
 import { isSSRHydration } from "@/lib/initialData";
 
 // ============================================
@@ -1078,9 +1078,9 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
         const sectionId = (rawSection as SectionLayout).section_id || `${sectionType}-${index}`;
         const isPriority = loadStrategy === "eager";
         const priorityWrapped = (
-          <SectionPriorityProvider value={isPriority}>
+          <SectionContextProvider value={{ isPriority, sectionIndex: index, contentType: contentType ?? "", slug: slug ?? "", locale: locale ?? "" }}>
             {renderedContent}
-          </SectionPriorityProvider>
+          </SectionContextProvider>
         );
         const renderedSection = loadStrategy === "lazy"
           ? <DeferredSection>{priorityWrapped}</DeferredSection>
