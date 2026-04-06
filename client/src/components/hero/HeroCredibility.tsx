@@ -110,13 +110,27 @@ const DEFAULT_MARQUEE_ITEMS = [
 ];
 
 function WatermarkMarquee({ items }: { items: { bold_text: string; light_text: string }[] }) {
+  const [bgColor, setBgColor] = useState<string>("hsl(0 0% 100%)");
+
+  useEffect(() => {
+    const resolve = () => {
+      const raw = getComputedStyle(document.documentElement)
+        .getPropertyValue("--background")
+        .trim();
+      if (raw) setBgColor(`hsl(${raw})`);
+    };
+    resolve();
+    const observer = new MutationObserver(resolve);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="w-full mt-10 relative">
-      {/* Left gradient fade using bg-background token */}
-      <div className="absolute left-0 top-0 bottom-0 w-[100px] bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-      {/* Right gradient fade */}
-      <div className="absolute right-0 top-0 bottom-0 w-[100px] bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-      <Marquee speed={50} gradient={false} pauseOnHover={false}>
+    <div className="w-full mt-10">
+      <Marquee speed={50} gradient={true} gradientColor={bgColor} gradientWidth={100} pauseOnHover={false}>
         {items.map((item, i) => (
           <span
             key={i}
