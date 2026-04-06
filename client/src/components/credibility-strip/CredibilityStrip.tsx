@@ -2,7 +2,7 @@ import { useState, useEffect, type CSSProperties } from "react";
 import { useImageRegistry } from "@/components/UniversalImage";
 import type { CredibilityStripSection, CredibilityStripItem } from "@shared/schema";
 
-function LogoImage({ id, colored }: { id: string; colored?: boolean }) {
+export function LogoImage({ id, colored }: { id: string; colored?: boolean }) {
   const { registry, loading } = useImageRegistry();
   if (loading || !registry) return null;
   const entry = registry.images?.[id];

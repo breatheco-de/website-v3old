@@ -26,6 +26,7 @@ yaml: |
       - category: "Student Ratings"
         logos:
           - image_id: "course-report-logo-9b4c1e82"
+          - image_id: "forbes-logo-c8a5f1b2"
         label: "Best Bootcamp Awards by Forbes, Course Report and more."
     show_marquee: true
     marquee_items:
