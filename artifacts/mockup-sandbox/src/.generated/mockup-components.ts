@@ -6,6 +6,7 @@ export const modules: ModuleMap = {
   "./components/mockups/credibility-pills/CyclingStrip.tsx": () => import("../components/mockups/credibility-pills/CyclingStrip.tsx"),
   "./components/mockups/credibility-pills/Default.tsx": () => import("../components/mockups/credibility-pills/Default.tsx"),
   "./components/mockups/credibility-pills/InlineFlat.tsx": () => import("../components/mockups/credibility-pills/InlineFlat.tsx"),
+  "./components/mockups/press-mention-featured/Default.tsx": () => import("../components/mockups/press-mention-featured/Default.tsx"),
   "./components/mockups/programs-showcase/ComparisonRail.tsx": () => import("../components/mockups/programs-showcase/ComparisonRail.tsx"),
   "./components/mockups/programs-showcase/EditorialList.tsx": () => import("../components/mockups/programs-showcase/EditorialList.tsx"),
   "./components/mockups/programs-showcase/FeaturedGrid.tsx": () => import("../components/mockups/programs-showcase/FeaturedGrid.tsx"),
@@ -15,6 +16,5 @@ export const modules: ModuleMap = {
   "./components/mockups/programs-showcase/SkillsMap.tsx": () => import("../components/mockups/programs-showcase/SkillsMap.tsx"),
   "./components/mockups/programs-showcase/SpotlightCards.tsx": () => import("../components/mockups/programs-showcase/SpotlightCards.tsx"),
   "./components/mockups/programs-showcase/SpotlightSelector.tsx": () => import("../components/mockups/programs-showcase/SpotlightSelector.tsx"),
-  "./components/mockups/press-mention-featured/Default.tsx": () => import("../components/mockups/press-mention-featured/Default.tsx"),
   "./components/mockups/typewriter-navbar/Typewriter.tsx": () => import("../components/mockups/typewriter-navbar/Typewriter.tsx")
 };
