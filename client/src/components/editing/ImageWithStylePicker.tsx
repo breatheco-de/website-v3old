@@ -51,6 +51,7 @@ export function ImageWithStylePicker({
   onChangeAlt,
   onChangeObjectFit,
   onChangeObjectPosition,
+  onRemove,
 }: ImageWithStylePickerProps) {
   const { toast } = useToast();
 
