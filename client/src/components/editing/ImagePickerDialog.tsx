@@ -6,6 +6,7 @@ import {
   IconCloudUpload,
   IconLoader2,
   IconCheck,
+  IconX,
 } from "@tabler/icons-react";
 import {
   Dialog,
@@ -27,6 +28,7 @@ export interface ImagePickerDialogProps {
   initialAlt?: string;
   tagFilter?: string;
   onSave: (src: string, alt: string, registryId: string | undefined) => Promise<void> | void;
+  onRemove?: () => void;
 }
 
 export function ImagePickerDialog({
@@ -37,6 +39,7 @@ export function ImagePickerDialog({
   initialAlt = "",
   tagFilter,
   onSave,
+  onRemove,
 }: ImagePickerDialogProps) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -182,6 +185,11 @@ export function ImagePickerDialog({
   const handleClose = () => {
     onOpenChange(false);
   };
+
+  const handleRemove = useCallback(() => {
+    onRemove?.();
+    onOpenChange(false);
+  }, [onRemove, onOpenChange]);
 
   return (
     <Dialog
@@ -399,28 +407,43 @@ export function ImagePickerDialog({
           </div>
         </div>
 
-        <DialogFooter className="flex-row gap-2 sm:justify-end">
-          <Button
-            type="button"
-            variant="outline"
-            onClick={handleClose}
-            data-testid="button-image-cancel"
-          >
-            Cancel
-          </Button>
-          <Button
-            type="button"
-            onClick={handleSave}
-            disabled={!selectedSrc || saving}
-            data-testid="button-image-save"
-          >
-            {saving ? (
-              <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
-            ) : (
-              <IconCheck className="h-4 w-4 mr-2" />
-            )}
-            Save
-          </Button>
+        <DialogFooter className="flex-row gap-2 sm:justify-between">
+          {onRemove ? (
+            <Button
+              type="button"
+              variant="destructive"
+              onClick={handleRemove}
+              data-testid="button-image-remove"
+            >
+              <IconX className="h-4 w-4 mr-2" />
+              Remove
+            </Button>
+          ) : (
+            <div />
+          )}
+          <div className="flex gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleClose}
+              data-testid="button-image-cancel"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              onClick={handleSave}
+              disabled={!selectedSrc || saving}
+              data-testid="button-image-save"
+            >
+              {saving ? (
+                <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+              ) : (
+                <IconCheck className="h-4 w-4 mr-2" />
+              )}
+              Save
+            </Button>
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>

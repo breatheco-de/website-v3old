@@ -191,6 +191,7 @@ export function ImageWithStylePicker({
         initialAlt={alt}
         tagFilter={tagFilter}
         onSave={handleSave}
+        onRemove={onRemove}
       />
     </>
   );
