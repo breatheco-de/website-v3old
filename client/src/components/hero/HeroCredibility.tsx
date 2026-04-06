@@ -135,11 +135,9 @@ function WatermarkMarquee({ items }: { items: { bold_text: string; light_text: s
           <span
             key={i}
             className="flex items-center gap-2 mr-10 text-xs whitespace-nowrap"
-            style={{ color: "#D1D5DB" }}
           >
-            <span className="font-semibold" style={{ color: "#9CA3AF" }}>{item.bold_text}</span>
-            <span>{item.light_text}</span>
-            <span className="mx-1" style={{ color: "#E5E7EB" }}>&middot;</span>
+            <span className="font-extrabold text-muted-foreground">{item.bold_text}</span>
+            <span className="text-muted-foreground/80">{item.light_text}</span>
           </span>
         ))}
       </Marquee>

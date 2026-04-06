@@ -100,7 +100,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
         {/* Featured Card */}
         {featured && (
           <div
-            className="bg-primary rounded-[0.8rem] p-6 md:p-8 flex flex-col md:flex-row gap-3 md:gap-6 md:items-center"
+            className="bg-primary rounded-[0.8rem] p-6 md:p-8 flex flex-col md:flex-row gap-3 md:gap-4 md:items-center"
             data-testid="card-press-featured"
           >
             {/* Star + year — row on mobile, column on md+ */}
@@ -119,7 +119,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
             </div>
 
             {/* Center: org label + title */}
-            <div className="flex-1 min-w-0 min-w-[720px]">
+            <div className="flex-1 min-w-0 min-w-[370px] lg:min-w-[650px] xl:min-w-[720px]">
               {featured.organization && (
                 <p
                   className="text-xs font-medium uppercase tracking-wide text-white/70 mb-1.5"
@@ -163,7 +163,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
                 </a>
               )}
               {featured.tags && featured.tags.length > 0 && (
-                <div className={`grid grid-cols-2 w-full ${featured.logo ? "gap-2" : "gap-7"}`}>
+                <div className={`grid grid-cols-2 w-full ${featured.logo ? "gap-2" : "gap-6"}`}>
                   {featured.tags.slice(0, 4).map((tag, i) => (
                     <span
                       key={i}
