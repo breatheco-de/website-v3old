@@ -127,8 +127,8 @@ sections:
         value: 3%
         title: De la fuerza laboral califica para roles de IA
       - id: "3"
-        value: 56%
-        title: Más salario para trabajadores con habilidades en IA
+        value: +56%
+        title: De salario para trabajadores con habilidades en IA
     section_id: features_grid-142xko
     marginY:
       desktop: sm xl
