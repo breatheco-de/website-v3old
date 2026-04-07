@@ -1110,29 +1110,9 @@ export function RichTextArea({
               </div>
             ) : (
               <div className="flex flex-col gap-0.5">
-                {fontSizes.map((size) => {
-                  const isActive = activeFontSize !== null && Math.abs(parseFloat(activeFontSize) - parseFloat(size.value)) < 0.001;
-                  return (
-                  <button
-                    key={size.id}
-                    type="button"
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      handleFontSizeSelect(size.value);
-                    }}
-                    className={`flex items-center justify-between gap-4 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors${isActive ? " bg-accent/20 font-medium" : ""}`}
-                    data-testid={testId ? `${testId}-fontsize-${size.id}` : undefined}
-                  >
-                    <span style={{ fontSize: size.value }} className="text-foreground">
-                      {size.label}
-                    </span>
-                    <span className="text-xs text-muted-foreground">{size.tailwind}</span>
-                  </button>
-                  );
-                })}
                 {allowCustomFontSize && (
                   customFontSizeMode ? (
-                    <div className="border-t mt-0.5 pt-1 px-1 space-y-1">
+                    <div className="border-b mb-0.5 pb-1 px-1 space-y-1">
                       <p className="text-xs text-muted-foreground px-2">Size in px:</p>
                       <div className="flex gap-1">
                         <Input
@@ -1164,13 +1144,33 @@ export function RichTextArea({
                         }
                         setCustomFontSizeMode(true);
                       }}
-                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-t mt-0.5 pt-2 text-xs text-muted-foreground w-full"
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-b mb-0.5 pb-2 text-xs text-muted-foreground w-full"
                       data-testid={testId ? `${testId}-fontsize-custom-toggle` : undefined}
                     >
                       Custom (px)…
                     </button>
                   )
                 )}
+                {fontSizes.map((size) => {
+                  const isActive = activeFontSize !== null && Math.abs(parseFloat(activeFontSize) - parseFloat(size.value)) < 0.001;
+                  return (
+                  <button
+                    key={size.id}
+                    type="button"
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      handleFontSizeSelect(size.value);
+                    }}
+                    className={`flex items-center justify-between gap-4 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors${isActive ? " bg-accent/20 font-medium" : ""}`}
+                    data-testid={testId ? `${testId}-fontsize-${size.id}` : undefined}
+                  >
+                    <span style={{ fontSize: size.value }} className="text-foreground">
+                      {size.label}
+                    </span>
+                    <span className="text-xs text-muted-foreground">{size.tailwind}</span>
+                  </button>
+                  );
+                })}
               </div>
             )}
           </PopoverContent>
@@ -1197,27 +1197,9 @@ export function RichTextArea({
               </div>
             ) : (
               <div className="flex flex-col gap-0.5">
-                {lineHeights.map((lh) => {
-                  const isActive = activeLineHeight !== null && Math.abs(parseFloat(activeLineHeight) - parseFloat(lh.value)) < 0.01;
-                  return (
-                  <button
-                    key={lh.id}
-                    type="button"
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      handleLineHeightSelect(lh.value);
-                    }}
-                    className={`flex items-center justify-between gap-4 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors${isActive ? " bg-accent/20 font-medium" : ""}`}
-                    data-testid={testId ? `${testId}-lineheight-${lh.id}` : undefined}
-                  >
-                    <span className="text-foreground text-sm">{lh.label}</span>
-                    <span className="text-xs text-muted-foreground">{lh.value}</span>
-                  </button>
-                  );
-                })}
                 {allowCustomLineHeight && (
                   customLineHeightMode ? (
-                    <div className="border-t mt-0.5 pt-1 px-1 space-y-1">
+                    <div className="border-b mb-0.5 pb-1 px-1 space-y-1">
                       <p className="text-xs text-muted-foreground px-2">Line height:</p>
                       <div className="flex gap-1">
                         <Input
@@ -1250,13 +1232,31 @@ export function RichTextArea({
                         }
                         setCustomLineHeightMode(true);
                       }}
-                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-t mt-0.5 pt-2 text-xs text-muted-foreground w-full"
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-b mb-0.5 pb-2 text-xs text-muted-foreground w-full"
                       data-testid={testId ? `${testId}-lineheight-custom-toggle` : undefined}
                     >
                       Custom…
                     </button>
                   )
                 )}
+                {lineHeights.map((lh) => {
+                  const isActive = activeLineHeight !== null && Math.abs(parseFloat(activeLineHeight) - parseFloat(lh.value)) < 0.01;
+                  return (
+                  <button
+                    key={lh.id}
+                    type="button"
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      handleLineHeightSelect(lh.value);
+                    }}
+                    className={`flex items-center justify-between gap-4 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors${isActive ? " bg-accent/20 font-medium" : ""}`}
+                    data-testid={testId ? `${testId}-lineheight-${lh.id}` : undefined}
+                  >
+                    <span className="text-foreground text-sm">{lh.label}</span>
+                    <span className="text-xs text-muted-foreground">{lh.value}</span>
+                  </button>
+                  );
+                })}
               </div>
             )}
           </PopoverContent>
@@ -1283,27 +1283,9 @@ export function RichTextArea({
               </div>
             ) : (
               <div className="flex flex-col gap-0.5">
-                {fontWeights.map((fw) => {
-                  const isActive = activeFontWeight !== null && Math.abs(parseFloat(activeFontWeight) - parseFloat(fw.value)) < 1;
-                  return (
-                  <button
-                    key={fw.id}
-                    type="button"
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      handleFontWeightSelect(fw.value);
-                    }}
-                    className={`flex items-center justify-between gap-4 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors${isActive ? " bg-accent/20 font-medium" : ""}`}
-                    data-testid={testId ? `${testId}-fontweight-${fw.id}` : undefined}
-                  >
-                    <span className="text-foreground text-sm" style={{ fontWeight: fw.value }}>{fw.label}</span>
-                    <span className="text-xs text-muted-foreground">{fw.value}</span>
-                  </button>
-                  );
-                })}
                 {allowCustomFontWeight && (
                   customFontWeightMode ? (
-                    <div className="border-t mt-0.5 pt-1 px-1 space-y-1">
+                    <div className="border-b mb-0.5 pb-1 px-1 space-y-1">
                       <p className="text-xs text-muted-foreground px-2">Weight (100–900):</p>
                       <div className="flex gap-1">
                         <Input
@@ -1337,13 +1319,31 @@ export function RichTextArea({
                         }
                         setCustomFontWeightMode(true);
                       }}
-                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-t mt-0.5 pt-2 text-xs text-muted-foreground w-full"
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-b mb-0.5 pb-2 text-xs text-muted-foreground w-full"
                       data-testid={testId ? `${testId}-fontweight-custom-toggle` : undefined}
                     >
                       Custom…
                     </button>
                   )
                 )}
+                {fontWeights.map((fw) => {
+                  const isActive = activeFontWeight !== null && Math.abs(parseFloat(activeFontWeight) - parseFloat(fw.value)) < 1;
+                  return (
+                  <button
+                    key={fw.id}
+                    type="button"
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      handleFontWeightSelect(fw.value);
+                    }}
+                    className={`flex items-center justify-between gap-4 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors${isActive ? " bg-accent/20 font-medium" : ""}`}
+                    data-testid={testId ? `${testId}-fontweight-${fw.id}` : undefined}
+                  >
+                    <span className="text-foreground text-sm" style={{ fontWeight: fw.value }}>{fw.label}</span>
+                    <span className="text-xs text-muted-foreground">{fw.value}</span>
+                  </button>
+                  );
+                })}
               </div>
             )}
           </PopoverContent>
@@ -1370,27 +1370,9 @@ export function RichTextArea({
               </div>
             ) : (
               <div className="flex flex-col gap-0.5">
-                {letterSpacings.map((ls) => {
-                  const isActive = activeLetterSpacing !== null && Math.abs(parseFloat(activeLetterSpacing) - parseFloat(ls.value)) < 0.001;
-                  return (
-                  <button
-                    key={ls.id}
-                    type="button"
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      handleLetterSpacingSelect(ls.value);
-                    }}
-                    className={`flex items-center justify-between gap-4 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors${isActive ? " bg-accent/20 font-medium" : ""}`}
-                    data-testid={testId ? `${testId}-letterspacing-${ls.id}` : undefined}
-                  >
-                    <span className="text-foreground text-sm" style={{ letterSpacing: ls.value }}>{ls.label}</span>
-                    <span className="text-xs text-muted-foreground">{ls.value}</span>
-                  </button>
-                  );
-                })}
                 {allowCustomLetterSpacing && (
                   customLetterSpacingMode ? (
-                    <div className="border-t mt-0.5 pt-1 px-1 space-y-1">
+                    <div className="border-b mb-0.5 pb-1 px-1 space-y-1">
                       <p className="text-xs text-muted-foreground px-2">Spacing (em):</p>
                       <div className="flex gap-1">
                         <Input
@@ -1422,13 +1404,31 @@ export function RichTextArea({
                         }
                         setCustomLetterSpacingMode(true);
                       }}
-                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-t mt-0.5 pt-2 text-xs text-muted-foreground w-full"
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-b mb-0.5 pb-2 text-xs text-muted-foreground w-full"
                       data-testid={testId ? `${testId}-letterspacing-custom-toggle` : undefined}
                     >
                       Custom (em)…
                     </button>
                   )
                 )}
+                {letterSpacings.map((ls) => {
+                  const isActive = activeLetterSpacing !== null && Math.abs(parseFloat(activeLetterSpacing) - parseFloat(ls.value)) < 0.001;
+                  return (
+                  <button
+                    key={ls.id}
+                    type="button"
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      handleLetterSpacingSelect(ls.value);
+                    }}
+                    className={`flex items-center justify-between gap-4 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors${isActive ? " bg-accent/20 font-medium" : ""}`}
+                    data-testid={testId ? `${testId}-letterspacing-${ls.id}` : undefined}
+                  >
+                    <span className="text-foreground text-sm" style={{ letterSpacing: ls.value }}>{ls.label}</span>
+                    <span className="text-xs text-muted-foreground">{ls.value}</span>
+                  </button>
+                  );
+                })}
               </div>
             )}
           </PopoverContent>

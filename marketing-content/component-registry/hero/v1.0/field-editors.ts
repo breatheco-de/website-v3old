@@ -22,7 +22,8 @@ export type EditorType =
   | "text-input"
   | "rich-text-editor"
   | "boolean-toggle"
-  | "string-picker";
+  | "string-picker"
+  | "rich-text-editor:custom-font-size";
 
 export const fieldEditors: Record<string, EditorType> = {
   // Global - applies to all variants that have this field
@@ -79,7 +80,7 @@ export const fieldEditors: Record<string, EditorType> = {
   "ApplyFormProductShowcase:cta_button.icon": "icon-picker",
 
   // credibility variant
-  "credibility:title": "rich-text-editor",
+  "credibility:title": "rich-text-editor:custom-font-size,custom-letter-spacing,custom-line-height",
   "credibility:description": "rich-text-editor",
   "credibility:cta_buttons[]": "cta-picker",
   "credibility:show_marquee": "boolean-toggle",
