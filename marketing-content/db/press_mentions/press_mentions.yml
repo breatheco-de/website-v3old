@@ -34,16 +34,14 @@ press_mentions:
       - Uruguay
       - Mexico
   - locale: en
-    title: One of two providers selected for a $10M federal workforce program in South Florida
-    subtitle: ' Good Jobs Challenge'
-    category: 'U.S. Federal Government '
-    excerpt: >-
-      Miami Dade College chose 4Geeks to deliver workforce training for underserved communities under a $10M federal EDA
-      grant. 74 graduates placed in tech roles averaging $74K annually. Every federal placement target met and exceeded.
+    title: Selected to run a tech workforce program for women from high-unemployment areas in Costa Rica
+    category: Non-Profit
+    excerpt: |2
+       The Costa Rica-US Foundation for Cooperation selected 4Geeks to deliver employment-first tech training, targeting women from high-unemployment areas. Two cohorts completed with a 100% graduation rate and 75% hiring rate.
     priority: 3
-    organization: U.S. EDA
-    stat_label: federal placement target achieved
-    stat_value: 116%
+    organization: CRUSA Foundation · Costa Rica
+    stat_label: graduation rate across both cohorts
+    stat_value: '100% '
     tags:
       - Miami Dade
       - 74 graduates placed
