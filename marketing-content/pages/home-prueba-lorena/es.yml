@@ -71,9 +71,9 @@ sections:
     heading: Nuestros Graduados Consiguen Empleo. Rápido.
     subheading: Más de 6,000 graduados en todo el mundo. Ahora prosperando en tecnología.
     stats:
-      - value: 84%
+      - value: {{ global.global_job_placement_rate | 84% }}
         label: Tasa de contratación promedio
-      - value: 55%
+      - value: {{ global.global_salary_increase | 55% }}
         label: Aumento salarial promedio en el nuevo puesto
       - value: 3-6 meses
         label: Tiempo promedio para conseguir empleo
@@ -155,7 +155,7 @@ sections:
         object_position: 38% 100%
         object_scale: 1.45
     highlight:
-      heading: "¿Comprometido a entrar en tecnología? Te apoyamos como nadie más."
+      heading: ¿Comprometido a entrar en tecnología? Te apoyamos como nadie más.
       text: Mentores y coaches de carrera siempre al alcance, un tutor de IA y tu agente personal de IA. Todo personalizado para ti.
       background: primary
       width: 2
@@ -515,7 +515,7 @@ sections:
           required: true
           default: auto
       success:
-        message: "¡Gracias! Nos pondremos en contacto contigo pronto."
+        message: ¡Gracias! Nos pondremos en contacto contigo pronto.
       consent:
         email: true
         marketing: true
