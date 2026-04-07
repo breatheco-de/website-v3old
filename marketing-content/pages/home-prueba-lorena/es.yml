@@ -71,9 +71,9 @@ sections:
     heading: Nuestros Graduados Consiguen Empleo. Rápido.
     subheading: Más de 6,000 graduados en todo el mundo. Ahora prosperando en tecnología.
     stats:
-      - value: {{ global.global_job_placement_rate | 84% }}
+      - value: {{ global.global_job_placement_rate | 84% }}%
         label: Tasa de contratación promedio
-      - value: {{ global.global_salary_increase | 55% }}
+      - value: {{ global.global_salary_increase | 55% }}%
         label: Aumento salarial promedio en el nuevo puesto
       - value: 3-6 meses
         label: Tiempo promedio para conseguir empleo
