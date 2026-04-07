@@ -24,7 +24,7 @@ press_mentions:
     excerpt: >-
       The largest development bank in Latin America selected 4Geeks through competitive procurement as their sole coding
       school partner across Costa Rica, Uruguay and Mexico. Over 600 graduates and counting. Programs running since
-      2020.
+      2020. 
     priority: 2
     organization: IDB
     stat_label: countries
@@ -34,28 +34,28 @@ press_mentions:
       - Uruguay
       - Mexico
   - locale: en
-    title: Good Jobs Challenge · $10M federal grant
-    subtitle: U.S. Department of Commerce · Good Jobs Challenge Initiative · Federal Workforce Program
-    category: U.S. Federal Government
+    title: One of two providers selected for a $10M federal workforce program in South Florida
+    subtitle: ' Good Jobs Challenge'
+    category: 'U.S. Federal Government '
     excerpt: >-
-      Selected from 50+ applicants by the U.S. Department of Commerce. The program achieved 100% of placement targets
-      and a 96% Good Jobs rate.
+      Miami Dade College chose 4Geeks to deliver workforce training for underserved communities under a $10M federal EDA
+      grant. 74 graduates placed in tech roles averaging $74K annually. Every federal placement target met and exceeded.
     priority: 3
     organization: U.S. EDA
-    stat_label: Good Jobs placement rate
-    stat_value: 96%
+    stat_label: federal placement target achieved
+    stat_value: 116%
     tags:
       - Miami Dade
       - 74 graduates placed
   - locale: en
-    title: Curriculum and instruction partner for MDC's technology bootcamp portfolio
-    subtitle: College · Technology Bootcamp Curriculum & Instruction Partner since 2017
+    title: 'Chosen tech curriculum partner for Miami Dade College''s Continuing Education '
     category: University Partnership
     excerpt: >-
-      Since 2017. Curriculum and instruction partner for MDC's technology bootcamp portfolio. 8 years of continuous
-      partnership — the strongest possible signal of program quality.
+      Miami Dade College serves over 160,000 students annually. Since 2017, 4Geeks has delivered their Continuing
+      Education tech programs across multiple campuses, covering Full Stack, Web Development and Applied AI, with every
+      graduate earning dual certification from both institutions.
     priority: 4
-    organization: Miami Dade
+    organization: Miami Dade College
     stat_label: graduates
     stat_value: 400+
     year: '2017'
@@ -64,16 +64,16 @@ press_mentions:
       - Web Dev
       - Applied AI
   - locale: en
-    title: Chosen as sole coding school to deploy a MacKenzie Scott philanthropist grant
-    subtitle: Miami, FL · MacKenzie Scott Philanthropist Grant Program · 2022
-    category: Philanthropy / Mackenzie Scott
+    title: Sole coding school chosen for a MacKenzie Scott-funded workforce initiative in Miami
+    category: Philanthropy / workforce development
     excerpt: >-
-      Chosen as the sole coding school by United Way Miami to deploy a MacKenzie Scott philanthropist grant. Over 1,000
-      applications for 100 funded seats.
+      Chosen as the sole coding school partner for a MacKenzie Scott-funded initiative in Miami. United Way fully funded
+      the program, covering tuition and living stipends for Miami-Dade residents changing careers into tech, with over
+      1,000 applications received for 100 funded seats.
     priority: 5
     organization: United Way
-    stat_label: applications for 100 seats
-    stat_value: 1,000+
+    stat_value: '$6,400 '
+    year: ' living stipend per student'
     tags:
       - Fully funded
       - $8,400 living stipend
