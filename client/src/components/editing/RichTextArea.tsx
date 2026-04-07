@@ -13,6 +13,8 @@ import {
   IconTextSize,
   IconLineHeight,
   IconEraser,
+  IconLetterCase,
+  IconLetterSpacing,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -44,10 +46,24 @@ interface ThemeLineHeight {
   value: string;
 }
 
+interface ThemeFontWeight {
+  id: string;
+  label: string;
+  value: string;
+}
+
+interface ThemeLetterSpacing {
+  id: string;
+  label: string;
+  value: string;
+}
+
 interface ThemeConfig {
   text?: ThemeColor[];
   fontSizes?: ThemeFontSize[];
   lineHeights?: ThemeLineHeight[];
+  fontWeights?: ThemeFontWeight[];
+  letterSpacings?: ThemeLetterSpacing[];
 }
 
 interface SitemapEntry {
@@ -71,6 +87,7 @@ export interface RichTextAreaProps {
   className?: string;
   minHeight?: string;
   locale?: string;
+  customOptions?: string[];
   "data-testid"?: string;
 }
 
@@ -308,6 +325,134 @@ function applyLineHeight(
   savedRangeRef.current = null;
 }
 
+function applyFontWeight(
+  value: string,
+  editableRef: React.RefObject<HTMLDivElement | null>,
+  savedRangeRef: React.MutableRefObject<Range | null>,
+  onChange: (html: string) => void
+) {
+  if (!editableRef.current) return;
+  const sel = window.getSelection();
+  if (!sel) return;
+  if (savedRangeRef.current) {
+    try {
+      sel.removeAllRanges();
+      sel.addRange(savedRangeRef.current);
+    } catch {
+      savedRangeRef.current = null;
+      return;
+    }
+  }
+  if (sel.rangeCount === 0) return;
+  const range = sel.getRangeAt(0);
+  if (range.collapsed) return;
+
+  let node: Node | null = range.commonAncestorContainer;
+  if (node.nodeType === Node.TEXT_NODE) node = node.parentElement;
+  if (node?.nodeType === Node.ELEMENT_NODE && (node as Element).tagName === "SPAN") {
+    const spanEl = node as HTMLSpanElement;
+    const wholeSpanRange = document.createRange();
+    wholeSpanRange.selectNodeContents(spanEl);
+    const sameStart = range.compareBoundaryPoints(Range.START_TO_START, wholeSpanRange) === 0;
+    const sameEnd = range.compareBoundaryPoints(Range.END_TO_END, wholeSpanRange) === 0;
+    if (sameStart && sameEnd) {
+      spanEl.style.fontWeight = value;
+      onChange(editableRef.current!.innerHTML);
+      savedRangeRef.current = null;
+      return;
+    }
+  }
+
+  const span = document.createElement("span");
+  span.style.fontWeight = value;
+
+  const fragment = range.extractContents();
+  const spans: HTMLSpanElement[] = [];
+  const walk = (n: Node) => {
+    if (n.nodeType === Node.ELEMENT_NODE && (n as Element).tagName === "SPAN") {
+      spans.push(n as HTMLSpanElement);
+    }
+    n.childNodes.forEach(walk);
+  };
+  fragment.childNodes.forEach(walk);
+  for (const s of spans) {
+    if (s.style.fontWeight) {
+      s.style.fontWeight = "";
+      if (!s.style.cssText.trim()) s.removeAttribute("style");
+    }
+  }
+
+  span.appendChild(fragment);
+  range.insertNode(span);
+
+  onChange(editableRef.current!.innerHTML);
+  savedRangeRef.current = null;
+}
+
+function applyLetterSpacing(
+  value: string,
+  editableRef: React.RefObject<HTMLDivElement | null>,
+  savedRangeRef: React.MutableRefObject<Range | null>,
+  onChange: (html: string) => void
+) {
+  if (!editableRef.current) return;
+  const sel = window.getSelection();
+  if (!sel) return;
+  if (savedRangeRef.current) {
+    try {
+      sel.removeAllRanges();
+      sel.addRange(savedRangeRef.current);
+    } catch {
+      savedRangeRef.current = null;
+      return;
+    }
+  }
+  if (sel.rangeCount === 0) return;
+  const range = sel.getRangeAt(0);
+  if (range.collapsed) return;
+
+  let node: Node | null = range.commonAncestorContainer;
+  if (node.nodeType === Node.TEXT_NODE) node = node.parentElement;
+  if (node?.nodeType === Node.ELEMENT_NODE && (node as Element).tagName === "SPAN") {
+    const spanEl = node as HTMLSpanElement;
+    const wholeSpanRange = document.createRange();
+    wholeSpanRange.selectNodeContents(spanEl);
+    const sameStart = range.compareBoundaryPoints(Range.START_TO_START, wholeSpanRange) === 0;
+    const sameEnd = range.compareBoundaryPoints(Range.END_TO_END, wholeSpanRange) === 0;
+    if (sameStart && sameEnd) {
+      spanEl.style.letterSpacing = value;
+      onChange(editableRef.current!.innerHTML);
+      savedRangeRef.current = null;
+      return;
+    }
+  }
+
+  const span = document.createElement("span");
+  span.style.letterSpacing = value;
+
+  const fragment = range.extractContents();
+  const spans: HTMLSpanElement[] = [];
+  const walk = (n: Node) => {
+    if (n.nodeType === Node.ELEMENT_NODE && (n as Element).tagName === "SPAN") {
+      spans.push(n as HTMLSpanElement);
+    }
+    n.childNodes.forEach(walk);
+  };
+  fragment.childNodes.forEach(walk);
+  for (const s of spans) {
+    if (s.style.letterSpacing) {
+      s.style.letterSpacing = "";
+      if (!s.style.cssText.trim()) s.removeAttribute("style");
+    }
+  }
+
+  span.appendChild(fragment);
+  range.insertNode(span);
+
+  onChange(editableRef.current!.innerHTML);
+  savedRangeRef.current = null;
+}
+
 function markLightColorSpans(container: HTMLElement) {
   container.querySelectorAll("span[style]").forEach((el) => {
     const span = el as HTMLSpanElement;
@@ -338,6 +483,7 @@ export function RichTextArea({
   className,
   minHeight = "120px",
   locale = "en",
+  customOptions,
   "data-testid": testId,
 }: RichTextAreaProps) {
   const editableRef = useRef<HTMLDivElement | null>(null);
@@ -347,6 +493,21 @@ export function RichTextArea({
   const [colorOpen, setColorOpen] = useState(false);
   const [fontSizeOpen, setFontSizeOpen] = useState(false);
   const [lineHeightOpen, setLineHeightOpen] = useState(false);
+  const [fontWeightOpen, setFontWeightOpen] = useState(false);
+  const [letterSpacingOpen, setLetterSpacingOpen] = useState(false);
+  const [customFontSizeMode, setCustomFontSizeMode] = useState(false);
+  const [customFontSizeVal, setCustomFontSizeVal] = useState("");
+  const [customFontWeightMode, setCustomFontWeightMode] = useState(false);
+  const [customFontWeightVal, setCustomFontWeightVal] = useState("");
+  const [customLetterSpacingMode, setCustomLetterSpacingMode] = useState(false);
+  const [customLetterSpacingVal, setCustomLetterSpacingVal] = useState("");
+  const [customLineHeightMode, setCustomLineHeightMode] = useState(false);
+  const [customLineHeightVal, setCustomLineHeightVal] = useState("");
+
+  const allowCustomFontSize = customOptions?.includes("custom-font-size") ?? false;
+  const allowCustomFontWeight = customOptions?.includes("custom-font-weight") ?? false;
+  const allowCustomLetterSpacing = customOptions?.includes("custom-letter-spacing") ?? false;
+  const allowCustomLineHeight = customOptions?.includes("custom-line-height") ?? false;
   const [linkHoverPopover, setLinkHoverPopover] = useState<{
     anchor: HTMLAnchorElement;
     rect: DOMRect;
@@ -399,6 +560,8 @@ export function RichTextArea({
   const textColors = theme?.text ?? [];
   const fontSizes = theme?.fontSizes ?? [];
   const lineHeights = theme?.lineHeights ?? [];
+  const fontWeights = theme?.fontWeights ?? [];
+  const letterSpacings = theme?.letterSpacings ?? [];
 
   useEffect(() => {
     if (!editableRef.current || initialSynced.current) return;
@@ -548,6 +711,63 @@ export function RichTextArea({
     },
     [onChange],
   );
+
+  const handleFontWeightSelect = useCallback(
+    (weightValue: string) => {
+      if (!weightValue) return;
+      editableRef.current?.focus();
+      applyFontWeight(weightValue, editableRef, savedSelectionRef, onChange);
+      setFontWeightOpen(false);
+    },
+    [onChange],
+  );
+
+  const handleLetterSpacingSelect = useCallback(
+    (spacingValue: string) => {
+      if (!spacingValue) return;
+      editableRef.current?.focus();
+      applyLetterSpacing(spacingValue, editableRef, savedSelectionRef, onChange);
+      setLetterSpacingOpen(false);
+    },
+    [onChange],
+  );
+
+  const handleCustomFontSizeApply = useCallback(() => {
+    const px = parseFloat(customFontSizeVal);
+    if (!isNaN(px) && px > 0) {
+      const rem = (px / 16).toFixed(4).replace(/\.?0+$/, "") + "rem";
+      handleFontSizeSelect(rem);
+    }
+    setCustomFontSizeMode(false);
+    setCustomFontSizeVal("");
+  }, [customFontSizeVal, handleFontSizeSelect]);
+
+  const handleCustomFontWeightApply = useCallback(() => {
+    const w = parseFloat(customFontWeightVal);
+    if (!isNaN(w) && w >= 100 && w <= 900) {
+      handleFontWeightSelect(String(Math.round(w / 100) * 100));
+    }
+    setCustomFontWeightMode(false);
+    setCustomFontWeightVal("");
+  }, [customFontWeightVal, handleFontWeightSelect]);
+
+  const handleCustomLetterSpacingApply = useCallback(() => {
+    const v = parseFloat(customLetterSpacingVal);
+    if (!isNaN(v)) {
+      handleLetterSpacingSelect(`${v}em`);
+    }
+    setCustomLetterSpacingMode(false);
+    setCustomLetterSpacingVal("");
+  }, [customLetterSpacingVal, handleLetterSpacingSelect]);
+
+  const handleCustomLineHeightApply = useCallback(() => {
+    const v = parseFloat(customLineHeightVal);
+    if (!isNaN(v) && v > 0) {
+      handleLineHeightSelect(String(v));
+    }
+    setCustomLineHeightMode(false);
+    setCustomLineHeightVal("");
+  }, [customLineHeightVal, handleLineHeightSelect]);
 
   const handlePaste = useCallback((e: React.ClipboardEvent<HTMLDivElement>) => {
     const html = e.clipboardData.getData("text/html");
@@ -813,7 +1033,7 @@ export function RichTextArea({
           </PopoverContent>
         </Popover>
 
-        <Popover open={fontSizeOpen} onOpenChange={setFontSizeOpen}>
+        <Popover open={fontSizeOpen} onOpenChange={(open) => { setFontSizeOpen(open); if (!open) { setCustomFontSizeMode(false); setCustomFontSizeVal(""); } }}>
           <PopoverTrigger asChild>
             <Button
               type="button"
@@ -851,12 +1071,47 @@ export function RichTextArea({
                     <span className="text-xs text-muted-foreground">{size.tailwind}</span>
                   </button>
                 ))}
+                {allowCustomFontSize && (
+                  customFontSizeMode ? (
+                    <div className="border-t mt-0.5 pt-1 px-1 space-y-1">
+                      <p className="text-xs text-muted-foreground px-2">Size in px:</p>
+                      <div className="flex gap-1">
+                        <Input
+                          type="number"
+                          min={1}
+                          value={customFontSizeVal}
+                          onChange={(e) => setCustomFontSizeVal(e.target.value)}
+                          className="h-7 text-xs w-20"
+                          autoFocus
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") { e.preventDefault(); handleCustomFontSizeApply(); }
+                            if (e.key === "Escape") { setCustomFontSizeMode(false); setCustomFontSizeVal(""); }
+                          }}
+                          data-testid={testId ? `${testId}-fontsize-custom-input` : undefined}
+                        />
+                        <Button size="sm" className="h-7 text-xs px-2" onMouseDown={(e) => e.preventDefault()} onClick={handleCustomFontSizeApply} data-testid={testId ? `${testId}-fontsize-custom-apply` : undefined}>
+                          Apply
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => setCustomFontSizeMode(true)}
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-t mt-0.5 pt-2 text-xs text-muted-foreground w-full"
+                      data-testid={testId ? `${testId}-fontsize-custom-toggle` : undefined}
+                    >
+                      Custom (px)…
+                    </button>
+                  )
+                )}
               </div>
             )}
           </PopoverContent>
         </Popover>
 
-        <Popover open={lineHeightOpen} onOpenChange={setLineHeightOpen}>
+        <Popover open={lineHeightOpen} onOpenChange={(open) => { setLineHeightOpen(open); if (!open) { setCustomLineHeightMode(false); setCustomLineHeightVal(""); } }}>
           <PopoverTrigger asChild>
             <Button
               type="button"
@@ -892,6 +1147,196 @@ export function RichTextArea({
                     <span className="text-xs text-muted-foreground">{lh.value}</span>
                   </button>
                 ))}
+                {allowCustomLineHeight && (
+                  customLineHeightMode ? (
+                    <div className="border-t mt-0.5 pt-1 px-1 space-y-1">
+                      <p className="text-xs text-muted-foreground px-2">Line height:</p>
+                      <div className="flex gap-1">
+                        <Input
+                          type="number"
+                          min={0.5}
+                          step={0.1}
+                          value={customLineHeightVal}
+                          onChange={(e) => setCustomLineHeightVal(e.target.value)}
+                          className="h-7 text-xs w-20"
+                          autoFocus
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") { e.preventDefault(); handleCustomLineHeightApply(); }
+                            if (e.key === "Escape") { setCustomLineHeightMode(false); setCustomLineHeightVal(""); }
+                          }}
+                          data-testid={testId ? `${testId}-lineheight-custom-input` : undefined}
+                        />
+                        <Button size="sm" className="h-7 text-xs px-2" onMouseDown={(e) => e.preventDefault()} onClick={handleCustomLineHeightApply} data-testid={testId ? `${testId}-lineheight-custom-apply` : undefined}>
+                          Apply
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => setCustomLineHeightMode(true)}
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-t mt-0.5 pt-2 text-xs text-muted-foreground w-full"
+                      data-testid={testId ? `${testId}-lineheight-custom-toggle` : undefined}
+                    >
+                      Custom…
+                    </button>
+                  )
+                )}
+              </div>
+            )}
+          </PopoverContent>
+        </Popover>
+
+        <Popover open={fontWeightOpen} onOpenChange={(open) => { setFontWeightOpen(open); if (!open) { setCustomFontWeightMode(false); setCustomFontWeightVal(""); } }}>
+          <PopoverTrigger asChild>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8"
+              onMouseDown={(e) => e.preventDefault()}
+              title="Font weight"
+              data-testid={testId ? `${testId}-fontweight-trigger` : undefined}
+            >
+              <IconLetterCase className="h-4 w-4" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-1 z-[10000]" align="start">
+            {themeLoading ? (
+              <div className="flex items-center justify-center h-12 w-32">
+                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+              </div>
+            ) : (
+              <div className="flex flex-col gap-0.5">
+                {fontWeights.map((fw) => (
+                  <button
+                    key={fw.id}
+                    type="button"
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      handleFontWeightSelect(fw.value);
+                    }}
+                    className="flex items-center justify-between gap-4 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors"
+                    data-testid={testId ? `${testId}-fontweight-${fw.id}` : undefined}
+                  >
+                    <span className="text-foreground text-sm" style={{ fontWeight: fw.value }}>{fw.label}</span>
+                    <span className="text-xs text-muted-foreground">{fw.value}</span>
+                  </button>
+                ))}
+                {allowCustomFontWeight && (
+                  customFontWeightMode ? (
+                    <div className="border-t mt-0.5 pt-1 px-1 space-y-1">
+                      <p className="text-xs text-muted-foreground px-2">Weight (100–900):</p>
+                      <div className="flex gap-1">
+                        <Input
+                          type="number"
+                          min={100}
+                          max={900}
+                          step={100}
+                          value={customFontWeightVal}
+                          onChange={(e) => setCustomFontWeightVal(e.target.value)}
+                          className="h-7 text-xs w-20"
+                          autoFocus
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") { e.preventDefault(); handleCustomFontWeightApply(); }
+                            if (e.key === "Escape") { setCustomFontWeightMode(false); setCustomFontWeightVal(""); }
+                          }}
+                          data-testid={testId ? `${testId}-fontweight-custom-input` : undefined}
+                        />
+                        <Button size="sm" className="h-7 text-xs px-2" onMouseDown={(e) => e.preventDefault()} onClick={handleCustomFontWeightApply} data-testid={testId ? `${testId}-fontweight-custom-apply` : undefined}>
+                          Apply
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => setCustomFontWeightMode(true)}
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-t mt-0.5 pt-2 text-xs text-muted-foreground w-full"
+                      data-testid={testId ? `${testId}-fontweight-custom-toggle` : undefined}
+                    >
+                      Custom…
+                    </button>
+                  )
+                )}
+              </div>
+            )}
+          </PopoverContent>
+        </Popover>
+
+        <Popover open={letterSpacingOpen} onOpenChange={(open) => { setLetterSpacingOpen(open); if (!open) { setCustomLetterSpacingMode(false); setCustomLetterSpacingVal(""); } }}>
+          <PopoverTrigger asChild>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8"
+              onMouseDown={(e) => e.preventDefault()}
+              title="Letter spacing"
+              data-testid={testId ? `${testId}-letterspacing-trigger` : undefined}
+            >
+              <IconLetterSpacing className="h-4 w-4" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-1 z-[10000]" align="start">
+            {themeLoading ? (
+              <div className="flex items-center justify-center h-12 w-32">
+                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+              </div>
+            ) : (
+              <div className="flex flex-col gap-0.5">
+                {letterSpacings.map((ls) => (
+                  <button
+                    key={ls.id}
+                    type="button"
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      handleLetterSpacingSelect(ls.value);
+                    }}
+                    className="flex items-center justify-between gap-4 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors"
+                    data-testid={testId ? `${testId}-letterspacing-${ls.id}` : undefined}
+                  >
+                    <span className="text-foreground text-sm" style={{ letterSpacing: ls.value }}>{ls.label}</span>
+                    <span className="text-xs text-muted-foreground">{ls.value}</span>
+                  </button>
+                ))}
+                {allowCustomLetterSpacing && (
+                  customLetterSpacingMode ? (
+                    <div className="border-t mt-0.5 pt-1 px-1 space-y-1">
+                      <p className="text-xs text-muted-foreground px-2">Spacing (em):</p>
+                      <div className="flex gap-1">
+                        <Input
+                          type="number"
+                          step={0.01}
+                          value={customLetterSpacingVal}
+                          onChange={(e) => setCustomLetterSpacingVal(e.target.value)}
+                          className="h-7 text-xs w-20"
+                          autoFocus
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") { e.preventDefault(); handleCustomLetterSpacingApply(); }
+                            if (e.key === "Escape") { setCustomLetterSpacingMode(false); setCustomLetterSpacingVal(""); }
+                          }}
+                          data-testid={testId ? `${testId}-letterspacing-custom-input` : undefined}
+                        />
+                        <Button size="sm" className="h-7 text-xs px-2" onMouseDown={(e) => e.preventDefault()} onClick={handleCustomLetterSpacingApply} data-testid={testId ? `${testId}-letterspacing-custom-apply` : undefined}>
+                          Apply
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => setCustomLetterSpacingMode(true)}
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-t mt-0.5 pt-2 text-xs text-muted-foreground w-full"
+                      data-testid={testId ? `${testId}-letterspacing-custom-toggle` : undefined}
+                    >
+                      Custom (em)…
+                    </button>
+                  )
+                )}
               </div>
             )}
           </PopoverContent>

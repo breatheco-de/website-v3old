@@ -3373,6 +3373,7 @@ export function SectionEditorPanel({
                                             placeholder={`Edit ${label}…`}
                                             minHeight="80px"
                                             locale={locale}
+                                            customOptions={configuredField.variant ? configuredField.variant.split(",").map((o: string) => o.trim()) : undefined}
                                             data-testid={`props-grouped-richtext-${fieldKey}-${index}`}
                                           />
                                         </div>
@@ -4382,6 +4383,7 @@ export function SectionEditorPanel({
                                 placeholder={`Edit ${leafLabel}…`}
                                 minHeight="80px"
                                 locale={locale}
+                                customOptions={variant ? variant.split(",").map((o: string) => o.trim()) : undefined}
                               />
                             </div>
                           );
@@ -4451,6 +4453,7 @@ export function SectionEditorPanel({
                         placeholder={`Edit ${fieldLabel}…`}
                         minHeight="120px"
                         locale={locale}
+                        customOptions={variant ? variant.split(",").map((o: string) => o.trim()) : undefined}
                         data-testid={`props-rich-text-${fieldLabel}`}
                       />
                     </div>
@@ -5815,6 +5818,7 @@ export function SectionEditorPanel({
                               placeholder={`Edit ${itemLabel}…`}
                               minHeight="80px"
                               locale={locale}
+                              customOptions={variant ? variant.split(",").map((o: string) => o.trim()) : undefined}
                               data-testid={`props-richtext-${arrayFieldLabel}-${index}`}
                             />
                           </div>
