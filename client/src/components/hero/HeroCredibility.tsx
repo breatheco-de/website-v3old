@@ -163,7 +163,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
             <div className="flex flex-col gap-3 w-full">
               {/* Title: first on mobile (order-1), second on desktop (order-2) */}
               <h1
-                className="order-1 md:order-2 text-foreground leading-[1.03] text-center md:text-left font-inter"
+                className="order-1 md:order-2 text-foreground leading-[1.03] text-center md:text-left font-inter mt-3"
                 data-testid="text-hero-title"
                 dangerouslySetInnerHTML={{ __html: data.title || "" }}
               />
