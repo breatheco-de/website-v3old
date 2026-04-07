@@ -346,7 +346,7 @@ function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) 
           <p className="text-xs text-muted-foreground" data-testid={`tags-press-card-${index}`}>
             {item.tags.slice(0, 3).map((tag, t) => (
               <span key={t}>
-                {t > 0 && <span className="mx-1">·</span>}
+                {t > 0 && <span className="mx-1 text-primary">·</span>}
                 <span data-testid={`tag-press-card-${index}-${t}`}>{tag}</span>
               </span>
             ))}

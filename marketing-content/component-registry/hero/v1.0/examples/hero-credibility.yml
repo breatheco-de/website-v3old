@@ -28,8 +28,8 @@ yaml: |
           - image_id: "course-report-logo-9b4c1e82"
           - image_id: "forbes-logo-c8a5f1b2"
         label: "Best Bootcamp Awards by Forbes, Course Report and more."
-    logo_rotation_ms_time: 2500
-    colored_logos: false
+    logo_rotation_ms_time: 2000
+    colored_logos: true
     show_marquee: true
     marquee_items:
       - bold_text: "Course Report"
