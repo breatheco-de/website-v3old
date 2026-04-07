@@ -55,6 +55,8 @@ function TypewriterText({
     enabled ? [{ text: animText }] : [],
     charDelayMs,
     startDelayMs,
+    3000,
+    false,
   );
   const visibleChars = enabled ? displayText.length : animText.length;
 

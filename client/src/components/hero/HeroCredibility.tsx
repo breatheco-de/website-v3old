@@ -99,7 +99,7 @@ const DEFAULT_MARQUEE_ITEMS = [
   { bold_text: "55%", light_text: "avg salary increase" },
 ];
 
-function WatermarkMarquee({ items }: { items: { bold_text: string; light_text: string }[] }) {
+function WatermarkMarquee({ items, isStatic }: { items: { bold_text: string; light_text: string }[]; isStatic?: boolean }) {
   const [bgColor, setBgColor] = useState<string>("hsl(0 0% 100%)");
 
   useEffect(() => {
@@ -118,18 +118,28 @@ function WatermarkMarquee({ items }: { items: { bold_text: string; light_text: s
     return () => observer.disconnect();
   }, []);
 
+  const itemNodes = items.map((item, i) => (
+    <span
+      key={i}
+      className="flex items-center gap-2 mr-10 text-xs whitespace-nowrap"
+    >
+      <span className="font-extrabold text-muted-foreground">{item.bold_text}</span>
+      <span className="text-muted-foreground/80">{item.light_text}</span>
+    </span>
+  ));
+
+  if (isStatic) {
+    return (
+      <div className="w-full mt-10 flex flex-wrap gap-y-2">
+        {itemNodes}
+      </div>
+    );
+  }
+
   return (
     <div className="w-full mt-10">
       <Marquee speed={50} gradient={true} gradientColor={bgColor} gradientWidth={100} pauseOnHover={false}>
-        {items.map((item, i) => (
-          <span
-            key={i}
-            className="flex items-center gap-2 mr-10 text-xs whitespace-nowrap"
-          >
-            <span className="font-extrabold text-muted-foreground">{item.bold_text}</span>
-            <span className="text-muted-foreground/80">{item.light_text}</span>
-          </span>
-        ))}
+        {itemNodes}
       </Marquee>
     </div>
   );
@@ -141,6 +151,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
   const handleLinkClick = useInternalNav();
   const pills = data.pills ?? [];
   const showMarquee = data.show_marquee ?? true;
+  const marqueeStatic = data.marquee_static ?? false;
   const marqueeItems = data.marquee_items?.length ? data.marquee_items : DEFAULT_MARQUEE_ITEMS;
   const rotationMs = data.logo_rotation_ms_time ?? 2500;
   const coloredLogos = data.colored_logos ?? false;
@@ -156,37 +167,65 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
   return (
     <section data-testid="section-hero-credibility" className="max-w-6xl mx-auto">
       <div className="flex flex-col px-4 md:px-10 pt-10 pb-6 w-full max-w-[1200px] mx-auto">
-        <div className="flex flex-col md:flex-row items-stretch justify-between gap-8">
+        <div className="flex flex-col lg:flex-row items-stretch justify-between gap-8">
 
           {/* ── LEFT COLUMN ── */}
-          <div className="flex flex-1 min-w-0 flex-col gap-8 md:max-w-[55%] items-center md:items-start">
+          <div className="flex flex-1 min-w-0 flex-col gap-8 lg:max-w-[55%] items-center lg:items-start">
             <div className="flex flex-col gap-3 w-full">
               {/* Title: first on mobile (order-1), second on desktop (order-2) */}
               <h1
-                className="order-1 md:order-2 text-foreground leading-[1.03] text-center md:text-left font-inter mt-3"
+                className="order-1 lg:order-2 text-foreground text-center lg:text-left font-inter"
                 data-testid="text-hero-title"
-                dangerouslySetInnerHTML={{ __html: data.title || "" }}
-              />
+              >
+                {/* Mobile: RTE HTML without font-size, br stripped */}
+                <span
+                  className="block lg:hidden text-[50px] md:text-6xl leading-[25px] "
+                  dangerouslySetInnerHTML={{
+                    __html: (data.title || "")
+                      .replace(/font-size\s*:[^;"]*(;)?/g, "")
+                      .replace(/<br\s*\/?>/gi, " ")
+                  }}
+                />
+                {/* Desktop: full RTE HTML */}
+                <span
+                  className="hidden lg:block leading-[1.03]"
+                  dangerouslySetInnerHTML={{ __html: data.title || "" }}
+                />
+              </h1>
               {/* Description: second on mobile (order-2), first on desktop (order-1) */}
               {data.description && (
-                <p
-                  className="order-2 md:order-1 text-muted-foreground leading-relaxed text-center md:text-left"
+                <div
+                  className="order-2 md:order-1 text-muted-foreground leading-relaxed text-center lg:text-left"
                   data-testid="text-hero-description"
-                  dangerouslySetInnerHTML={{ __html: data.description }}
-                />
+                >
+                  {/* Mobile: strip font-size and br */}
+                  <p
+                    className="block lg:hidden"
+                    dangerouslySetInnerHTML={{
+                      __html: data.description
+                        .replace(/font-size\s*:[^;"]*(;)?/g, "")
+                        .replace(/<br\s*\/?>/gi, " ")
+                    }}
+                  />
+                  {/* Desktop: full RTE HTML */}
+                  <p
+                    className="hidden lg:block"
+                    dangerouslySetInnerHTML={{ __html: data.description }}
+                  />
+                </div>
               )}
             </div>
 
             {data.cta_buttons && data.cta_buttons.length > 0 && (
               <div
-                className="flex items-center justify-center md:justify-start gap-3 flex-wrap"
+                className="flex items-center justify-center lg:justify-start gap-3 flex-wrap"
                 data-testid="hero-cta-buttons"
               >
                 {data.cta_buttons.map((button, index) => (
                   <Button
                     key={index}
                     variant={button.variant === "primary" ? "default" : button.variant}
-                    size="lg"
+                    size="default"
                     asChild
                     data-testid={`button-hero-cta-${index}`}
                   >
@@ -206,7 +245,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
           {/* ── RIGHT COLUMN — credibility pills ── */}
           {pills.length > 0 && (
             <div
-              className="flex flex-col justify-center gap-3 md:gap-5 w-full md:w-[430px] md:flex-shrink-0"
+              className="flex flex-col justify-center gap-3 lg:gap-5 w-full lg:w-[430px] lg:flex-shrink-0"
               data-testid="hero-credibility-pills"
             >
               {pills.map((pill, i) => (
@@ -217,7 +256,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
         </div>
 
         {/* ── WATERMARK MARQUEE ── */}
-        {showMarquee && <WatermarkMarquee items={marqueeItems} />}
+        {showMarquee && <WatermarkMarquee items={marqueeItems} isStatic={marqueeStatic} />}
       </div>
     </section>
   );
