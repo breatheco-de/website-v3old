@@ -12,7 +12,7 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
   const { i18n } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isPastThreshold, setIsPastThreshold] = useState(false);
-  const [headerHeight, setHeaderHeight] = useState(0);
+  const [headerHeight, setHeaderHeight] = useState(80);
   const headerRef = useRef<HTMLDivElement>(null);
   const locale = i18n.language || 'en';
 
