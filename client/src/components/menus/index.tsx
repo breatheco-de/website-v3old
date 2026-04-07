@@ -70,7 +70,7 @@ export function resolveComponent(componentName: string): React.ComponentType<any
   return componentMap[componentName] || null;
 }
 
-function LogoItem({ imageId, imageAlt, href, constrained_margin, subtleAtTop }: { imageId?: string; imageAlt?: string; href: string; constrained_margin?: boolean; subtleAtTop?: boolean }) {
+function LogoItem({ imageId, imageAlt, href, constrained_margin }: { imageId?: string; imageAlt?: string; href: string; constrained_margin?: boolean }) {
   const handleLinkClick = useInternalNav();
   const { t } = useTranslation();
   const logoId = imageId || "4geeks-devs-logo-1763162063433";
@@ -85,7 +85,7 @@ function LogoItem({ imageId, imageAlt, href, constrained_margin, subtleAtTop }: 
       <UniversalImage
         id={logoId}
         alt={imageAlt || t('nav.brand')}
-        className={`transition-[height] duration-300 ${subtleAtTop ? "h-6" : "h-8"}`}
+        className="h-8"
         loading="eager"
         style={{ objectFit: "contain", width: "auto", height: "100%" }}
       />
@@ -93,9 +93,9 @@ function LogoItem({ imageId, imageAlt, href, constrained_margin, subtleAtTop }: 
   );
 }
 
-export function renderNavbarItem(item: NavbarItem, controlledOpen?: boolean, onOpenChange?: (open: boolean) => void, constrained_margin?: boolean, subtleAtTop?: boolean) {
+export function renderNavbarItem(item: NavbarItem, controlledOpen?: boolean, onOpenChange?: (open: boolean) => void, constrained_margin?: boolean) {
   if (item.component === "Logo") {
-    return <LogoItem key="logo" imageId={item.imageId} imageAlt={item.imageAlt} href={item.href} constrained_margin={constrained_margin} subtleAtTop={subtleAtTop} />;
+    return <LogoItem key="logo" imageId={item.imageId} imageAlt={item.imageAlt} href={item.href} constrained_margin={constrained_margin} />;
   }
 
   if (item.component === "LanguageSwitcher") {
@@ -123,13 +123,13 @@ export function renderNavbarItem(item: NavbarItem, controlledOpen?: boolean, onO
   }
 
   if (item.component === "Dropdown" && item.dropdown) {
-    return <Component key={item.label} label={item.label} href={item.href} dropdown={item.dropdown} controlledOpen={controlledOpen} onOpenChange={onOpenChange} subtleAtTop={subtleAtTop} />;
+    return <Component key={item.label} label={item.label} href={item.href} dropdown={item.dropdown} controlledOpen={controlledOpen} onOpenChange={onOpenChange} />;
   }
   
-  return <Component key={item.label} label={item.label} href={item.href} subtleAtTop={subtleAtTop} />;
+  return <Component key={item.label} label={item.label} href={item.href} />;
 }
 
-export function Navbar({ config, subtleAtTop }: { config: NavbarConfig; subtleAtTop?: boolean }) {
+export function Navbar({ config }: { config: NavbarConfig }) {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   const handleOpenChange = useCallback((label: string) => (open: boolean) => {
@@ -155,15 +155,15 @@ export function Navbar({ config, subtleAtTop }: { config: NavbarConfig; subtleAt
 
   return (
     <nav className="flex flex-wrap items-center justify-between w-full gap-1" data-testid="navbar">
-      {logoItems.map((item) => renderNavbarItem(item, undefined, undefined, constrained_margin, subtleAtTop))}
+      {logoItems.map((item) => renderNavbarItem(item, undefined, undefined, constrained_margin))}
       {announcementItems.map((item) => renderNavbarItem(item))}
       {navLinkItems.length > 0 && (
         <div className="flex items-center gap-1" data-testid="navbar-links">
           {navLinkItems.map((item) => {
             if (item.component === "Dropdown") {
-              return renderNavbarItem(item, activeDropdown === item.label, handleOpenChange(item.label), undefined, subtleAtTop);
+              return renderNavbarItem(item, activeDropdown === item.label, handleOpenChange(item.label));
             }
-            return renderNavbarItem(item, undefined, undefined, undefined, subtleAtTop);
+            return renderNavbarItem(item);
           })}
         </div>
       )}

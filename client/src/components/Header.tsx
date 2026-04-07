@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { useQuery } from "@tanstack/react-query";
 import { Navbar, MobileNav, renderNavbarItem, type NavbarConfig } from "@/components/menus";
 import { TypewriterAnnouncement } from "@/components/menus/TypewriterAnnouncement";
-import { useNavbarOverlay } from "@/contexts/NavbarOverlayContext";
 
 interface HeaderProps {
   menuId?: string;
@@ -15,7 +14,6 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
   const [isPastThreshold, setIsPastThreshold] = useState(false);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : false);
   const locale = i18n.language || 'en';
-  const { setState: setOverlayState } = useNavbarOverlay();
 
   const { data: menuResponse, isLoading } = useQuery<{ name: string; data: NavbarConfig }>({
     queryKey: ["/api/menus", menuId, locale],
@@ -64,9 +62,6 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
   const stickyEnabled = menuConfig?.navbar?.sticky ?? true;
   const headerSlideOut = !stickyEnabled && isPastThreshold;
 
-  const subtleAtTopEnabled = !!(menuConfig?.navbar?.subtle_at_top);
-  const isSubtle = subtleAtTopEnabled && !isPastThreshold;
-
   const marquee = menuConfig?.navbar?.marquee;
   const showMarquee = !!(marquee?.enabled && marquee?.texts && marquee.texts.length > 0);
   const marqueeHeight = 49;
@@ -84,17 +79,6 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
   const marqueeHeightMobile = showMarquee && marqueeShowOn !== "desktop" ? marqueeHeight : 0;
   const totalHeightDesktop = navSize + marqueeHeightDesktop;
   const totalHeightMobile = navSize + marqueeHeightMobile;
-
-  useEffect(() => {
-    setOverlayState({
-      subtleAtTopEnabled,
-      desktopHeight: totalHeightDesktop,
-      mobileHeight: totalHeightMobile,
-    });
-    return () => {
-      setOverlayState({ subtleAtTopEnabled: false, desktopHeight: 0, mobileHeight: 0 });
-    };
-  }, [subtleAtTopEnabled, totalHeightDesktop, totalHeightMobile, setOverlayState]);
 
   const marqueeStrip = showMarquee ? (
     <div
@@ -116,26 +100,16 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
 
   const totalHeight = isMobile ? totalHeightMobile : totalHeightDesktop;
 
-  const headerBgClass = isSubtle
-    ? "bg-transparent border-transparent"
-    : isScrolled
-      ? "bg-background border-b"
-      : "bg-background border-b border-background";
-
   return (
     <>
-      {!subtleAtTopEnabled && (
-        <>
-          <div aria-hidden="true" className="hidden md:block" style={{ height: `${totalHeightDesktop}px` }} />
-          <div aria-hidden="true" className="md:hidden" style={{ height: `${totalHeightMobile}px` }} />
-        </>
-      )}
+      <div aria-hidden="true" className="hidden md:block" style={{ height: `${totalHeightDesktop}px` }} />
+      <div aria-hidden="true" className="md:hidden" style={{ height: `${totalHeightMobile}px` }} />
 
       <div
         className="fixed left-0 right-0 z-50 transition-[top] duration-300 ease-in-out"
         style={{ top: headerSlideOut ? `-${totalHeight}px` : '0px' }}
       >
-        <header className={`w-full transition-colors duration-300 ${headerBgClass}`}>
+        <header className={`w-full bg-background ${isScrolled ? 'border-b' : 'border-b border-background'}`}>
           {marqueePosition === "above" && marqueeStrip}
 
           <div className={`flex items-center gap-4 ${constrainClass}`} style={{ height: `${navSize}px` }}>
@@ -147,12 +121,12 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
                   ))}
                 </div>
               ) : menuConfig ? (
-                <Navbar config={menuConfig} subtleAtTop={isSubtle} />
+                <Navbar config={menuConfig} />
               ) : null}
             </div>
 
             <div className="flex md:hidden flex-1 items-center justify-between gap-3">
-              {logoItem && renderNavbarItem(logoItem, undefined, undefined, menuConfig?.navbar?.constrained_margin, isSubtle)}
+              {logoItem && renderNavbarItem(logoItem, undefined, undefined, menuConfig?.navbar?.constrained_margin)}
               <div className="flex items-center gap-3">
                 {langItem && renderNavbarItem(langItem)}
                 {menuConfig && <MobileNav config={menuConfig} />}
