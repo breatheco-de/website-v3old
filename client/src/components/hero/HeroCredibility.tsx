@@ -179,7 +179,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
               >
                 {/* Mobile: RTE HTML without font-size, br stripped */}
                 <span
-                  className="block lg:hidden text-5xl md:text-6xl leading-[10px] mb-4 lg:mb-0 leading-tight"
+                  className="block lg:hidden text-[50px] md:text-6xl leading-[25px] "
                   dangerouslySetInnerHTML={{
                     __html: (data.title || "")
                       .replace(/font-size\s*:[^;"]*(;)?/g, "")
@@ -225,7 +225,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
                   <Button
                     key={index}
                     variant={button.variant === "primary" ? "default" : button.variant}
-                    size="lg"
+                    size="default"
                     asChild
                     data-testid={`button-hero-cta-${index}`}
                   >
