@@ -142,6 +142,8 @@ sections:
       success:
         message: Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
   - type: graduates_stats
+    maxWidth:
+      desktop: 6xl
     heading: Resultados profesionales reales
     subheading: Más de 5.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
     stats:
@@ -169,6 +171,8 @@ sections:
     section_id: graduates_stats-cnxqbb
     value_size: text-3xl
   - type: trust_cards
+    maxWidth:
+      desktop: 6xl
     version: v1.0
     title: La academia mejor valorada en todas las plataformas de reseñas
     items:
@@ -218,6 +222,8 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
+    maxWidth:
+      desktop: 6xl
     title: Por qué Full Stack con IA ahora
     subtitle: Los desarrolladores que no saben trabajar con IA ya están siendo descartados. Tú puedes ser el que consiga el trabajo.
     description: El mercado de desarrollo web en LATAM se está transformando. Las empresas no buscan solo personas que sepan programar. Buscan desarrolladores que construyan más rápido usando IA, integren herramientas inteligentes en cada capa del stack y entreguen productos que hace un año no existían. La ventana para adelantarte a este cambio está abierta ahora mismo.

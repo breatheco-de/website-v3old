@@ -239,6 +239,8 @@ sections:
     paddingY:
       desktop: none
   - type: trust_cards
+    maxWidth:
+      desktop: 6xl
     version: v1.0
     title: ¡Los mejor valorados en todos los sitios de reseñas!
     items:

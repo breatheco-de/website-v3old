@@ -1,4 +1,6 @@
 type: career_support_explain
+maxWidth:
+  desktop: 6xl
 heading: GeekForce Career Support
 description: Our career support program is designed to help you land your first job in tech
 background: hsl(var(--secondary))

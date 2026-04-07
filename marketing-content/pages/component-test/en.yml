@@ -122,6 +122,8 @@ sections:
 
   - type: career_support_explain
     section_id: career_support_explain-fc3a20
+    maxWidth:
+      desktop: 6xl
     heading: "GeekForce Career Support"
     description: "Our career support program is designed to help you land your first job in tech"
     tabs:

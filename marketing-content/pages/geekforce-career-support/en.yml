@@ -71,6 +71,8 @@ sections:
     marginY:
       desktop: none sm
   - type: career_support_explain
+    maxWidth:
+      desktop: 6xl
     section_id: career_support_explain-0c1gr4
     version: v1.0
     heading: GeekForce Career Support
@@ -189,6 +191,8 @@ sections:
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
   - type: graduates_stats
+    maxWidth:
+      desktop: 6xl
     section_id: graduates_stats-cnxqbb
     heading: Career Outcomes
     subheading: We turn your education into employment. See the real-world impact of our coaching.

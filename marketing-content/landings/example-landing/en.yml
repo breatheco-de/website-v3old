@@ -111,6 +111,8 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: spotlight
+    maxWidth:
+      desktop: 6xl
     heading: Find Your Path
     subheading: Four programs. All built around getting you hired, not just trained.
     courses:
@@ -327,6 +329,8 @@ sections:
     marginY:
       desktop: none xl
   - type: career_support_explain
+    maxWidth:
+      desktop: 6xl
     version: v1.0
     heading: GeekForce Career Support
     description: Our career support program is designed to help you land your first job in tech
@@ -557,6 +561,8 @@ sections:
       desktop: none
     paddingY:
       desktop: md xl
+    maxWidth:
+      desktop: 6xl
   - type: testimonials_grid
     section_id: testimonials_grid-0to7bo
     version: v1.0
@@ -1523,6 +1529,8 @@ sections:
     showOn: mobile
   - type: image_row
     section_id: image_row-86yw4k
+    maxWidth:
+      desktop: 6xl
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Asian student learning to code
@@ -1881,6 +1889,8 @@ sections:
       - value: $95K-$135K
         title: Average starting salary for AI Engineers
     variant: stats-text
+    maxWidth:
+      desktop: 6xl
   - type: two_column_accordion_card
     section_id: two_column_accordion_card-3q247p
     version: "1.0"

@@ -31,6 +31,7 @@ export function CTABannerSection({ data, programContext, landingLocations }: CTA
     return (
       <section 
         data-testid="section-cta-banner"
+        className="max-w-6xl mx-auto px-4"
       >
         <div>
           <div className="flex flex-col lg:flex-row lg:items-center lg:gap-20">
@@ -92,7 +93,7 @@ export function CTABannerSection({ data, programContext, landingLocations }: CTA
     
     return (
       <section 
-        className="px-4 text-primary-foreground"
+        className="max-w-6xl mx-auto px-4 text-primary-foreground"
         data-testid="section-cta-banner"
       >
         <div className="max-w-4xl mx-auto text-center">

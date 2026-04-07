@@ -55,6 +55,8 @@ sections:
     section_id: features_grid-gl0rwp
     version: "1.0"
     variant: stats-text
+    maxWidth:
+      desktop: 6xl
     title: Proven Career Outcomes
     subtitle: Strong hiring results. Real salary growth.
     description: Recognized by Forbes as a Best Online Bootcamp, including recognition for students on a budget, 4Geeks combines accessible tuition with proven career outcomes that help you launch your tech career with confidence.

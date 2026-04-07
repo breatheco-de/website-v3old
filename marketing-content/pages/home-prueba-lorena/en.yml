@@ -97,6 +97,7 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
+
     title: AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.
     subtitle: That's your opportunity.
     description: Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.
@@ -194,6 +195,8 @@ sections:
   - ttype: features_grid
     version: "1.0"
     variant: stats-text
+    maxWidth:
+      desktop: 6xl
     title: AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.
     subtitle: That's your opportunity.
     description: Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.
@@ -497,8 +500,6 @@ sections:
       desktop: none md
     paddingY:
       desktop: md none
-    maxWidth:
-      desktop: 6xl
   - type: cta_banner
     section_id: cta_banner-y7nw0f
     version: "1.0"

@@ -150,6 +150,8 @@ sections:
     section_id: features_grid-w5522p
     version: "1.0"
     variant: stats-text
+    maxWidth:
+      desktop: 6xl
     title: ¿Por qué Ciencia de Datos ahora?
     subtitle: Los datos son el combustible de la revolución de la IA.
     description: A medida que las empresas avanzan hacia operaciones autónomas, la demanda de expertos capaces de convertir información en inteligencia predictiva nunca ha sido mayor. La Ciencia de Datos y el Machine Learning no se tratan solo de analizar el pasado, sino de construir los sistemas que predicen el futuro. Aprovechando herramientas modernas de IA, los profesionales de datos de hoy generan los insights que están transformando cada industria. Domina las habilidades que se mantienen en demanda, sin importar cómo cambie el panorama tecnológico.

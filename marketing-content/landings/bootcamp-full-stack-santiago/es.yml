@@ -120,6 +120,8 @@ sections:
       desktop: none
     section_id: hero-56bog6
   - type: trust_cards
+    maxWidth:
+      desktop: 6xl
     version: v1.0
     title: Con la confianza de estudiantes en todo el mundo
     items:

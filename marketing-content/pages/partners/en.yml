@@ -81,6 +81,8 @@ sections:
     section_id: features_grid-e2gon2
     version: "1.0"
     variant: stats-text
+    maxWidth:
+      desktop: 6xl
     title: Impact in Numbers
     subtitle: Over {{ global.total_scholarships | $20M }} in scholarships and grants awarded
     description: 4Geeks Academy partners empower thousands of students worldwide with access to tech education, hands-on mentorship, and career opportunities that drive real results.

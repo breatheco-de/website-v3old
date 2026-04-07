@@ -102,6 +102,8 @@ sections:
     section_id: hero-nzpyph
     awards_marquee_at_left_column: true
   - type: graduates_stats
+    maxWidth:
+      desktop: 6xl
     heading: Real Career Outcomes
     subheading: Over 6,000 graduates have made the switch to tech. Here's what happened after they completed the program.
     stats:
@@ -129,6 +131,8 @@ sections:
     section_id: graduates_stats-cnxqbb
     value_size: text-3xl
   - type: trust_cards
+    maxWidth:
+      desktop: 6xl
     version: v1.0
     title: Top Rated Across Every Major Review Platform
     items:
@@ -238,6 +242,8 @@ sections:
     paddingY:
       desktop: md
   - type: career_support_explain
+    maxWidth:
+      desktop: 6xl
     version: v1.0
     heading: Get Hired. Career Support That Doesn't Stop at Graduation.
     description: AI-optimized profiles, direct access to a network of 400+ hiring partners, and hands-on support from first application to signed offer, and beyond.

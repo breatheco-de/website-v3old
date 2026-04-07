@@ -138,6 +138,8 @@ sections:
         logoHeight: 56px
     section_id: awards_marquee-yinel0
   - type: graduates_stats
+    maxWidth:
+      desktop: 6xl
     heading: Resultados profesionales reales
     subheading: Más de 6.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
     stats:
@@ -164,6 +166,8 @@ sections:
         row_span: 2
     section_id: graduates_stats-cnxqbb
   - type: trust_cards
+    maxWidth:
+      desktop: 6xl
     version: v1.0
     title: La academia mejor valorada en todas las plataformas de reseñas
     items:

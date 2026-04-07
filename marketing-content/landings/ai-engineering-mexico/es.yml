@@ -119,6 +119,8 @@ sections:
       show_terms: true
     load: eager
   - type: graduates_stats
+    maxWidth:
+      desktop: 6xl
     heading: Resultados profesionales reales
     subheading: Más de 5.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
     stats:
@@ -413,6 +415,8 @@ sections:
     paddingY:
       desktop: lg
   - type: trust_cards
+    maxWidth:
+      desktop: 6xl
     version: v1.0
     title: La academia mejor valorada en todas las plataformas de reseñas
     items:

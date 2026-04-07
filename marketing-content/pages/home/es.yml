@@ -76,6 +76,8 @@ sections:
       desktop: none md
   - type: image_row
     section_id: image_row-9qzvi8
+    maxWidth:
+      desktop: 6xl
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Estudiante aprendiendo a programar
@@ -140,6 +142,8 @@ sections:
     marginY:
       desktop: none md
   - type: career_support_explain
+    maxWidth:
+      desktop: 6xl
     section_id: career_support_explain-9d2kbi
     version: v1.0
     heading: Consigue empleo. Con apoyo profesional para la era de la IA

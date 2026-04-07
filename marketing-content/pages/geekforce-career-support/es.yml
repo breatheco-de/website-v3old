@@ -70,6 +70,8 @@ sections:
     marginY:
       desktop: none sm
   - type: career_support_explain
+    maxWidth:
+      desktop: 6xl
     section_id: career_support_explain-q2psrx
     version: v1.0
     heading: Consigue empleo. Con soporte de carrera para la era de la IA
@@ -188,6 +190,8 @@ sections:
             description: Melanie es una joven profesional que soñaba con lograr la vida que ahora tiene. Es una desarrolladora de software ingeniosa y comprometida trabajando en una empresa de software en su país natal.
             achievement: Logró un aumento salarial del 100%.
   - type: graduates_stats
+    maxWidth:
+      desktop: 6xl
     section_id: graduates_stats-w0h8h4
     heading: Colocación laboral
     subheading: Convertimos tu educación en empleo. Mira el impacto real de nuestro acompañamiento.
