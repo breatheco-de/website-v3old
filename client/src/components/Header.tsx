@@ -29,7 +29,7 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
 
   const logoItem = menuConfig?.navbar?.items?.find(item => item.component === "Logo");
   const langItem = menuConfig?.navbar?.items?.find(item => item.component === "LanguageSwitcher");
-
+  // testt
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
