@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useQuery } from "@tanstack/react-query";
 import { Navbar, MobileNav, renderNavbarItem, type NavbarConfig } from "@/components/menus";
 import { TypewriterAnnouncement } from "@/components/menus/TypewriterAnnouncement";
@@ -12,7 +12,8 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
   const { i18n } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isPastThreshold, setIsPastThreshold] = useState(false);
-  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : false);
+  const [headerHeight, setHeaderHeight] = useState(0);
+  const headerRef = useRef<HTMLDivElement>(null);
   const locale = i18n.language || 'en';
 
   const { data: menuResponse, isLoading } = useQuery<{ name: string; data: NavbarConfig }>({
@@ -38,13 +39,18 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
         return prev;
       });
     };
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(() => {
+      setHeaderHeight(el.getBoundingClientRect().height);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   const urlParams = typeof window !== 'undefined'
@@ -67,7 +73,6 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
 
   const marquee = menuConfig?.navbar?.marquee;
   const showMarquee = !!(marquee?.enabled && marquee?.texts && marquee.texts.length > 0);
-  const marqueeHeight = 49;
   const marqueeSticky = marquee?.sticky ?? false;
   const marqueeCollapsed = isPastThreshold && !marqueeSticky;
   const marqueePosition = marquee?.position ?? "below";
@@ -77,11 +82,6 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
     marqueeShowOn === "mobile" ? "md:hidden" :
     marqueeShowOn === "desktop" ? "hidden md:block" :
     "";
-
-  const marqueeHeightDesktop = showMarquee && marqueeShowOn !== "mobile" ? marqueeHeight : 0;
-  const marqueeHeightMobile = showMarquee && marqueeShowOn !== "desktop" ? marqueeHeight : 0;
-  const totalHeightDesktop = navSize + marqueeHeightDesktop;
-  const totalHeightMobile = navSize + marqueeHeightMobile;
 
   const marqueeStrip = showMarquee ? (
     <div
@@ -101,16 +101,14 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
     </div>
   ) : null;
 
-  const totalHeight = isMobile ? totalHeightMobile : totalHeightDesktop;
-
   return (
     <>
-      <div aria-hidden="true" className="hidden md:block" style={{ height: `${totalHeightDesktop}px` }} />
-      <div aria-hidden="true" className="md:hidden" style={{ height: `${totalHeightMobile}px` }} />
+      <div aria-hidden="true" style={{ height: headerHeight }} />
 
       <div
+        ref={headerRef}
         className="fixed left-0 right-0 z-50 transition-[top] duration-300 ease-in-out"
-        style={{ top: headerSlideOut ? `-${totalHeight}px` : '0px' }}
+        style={{ top: headerSlideOut ? `-${headerHeight}px` : '0px' }}
       >
         <header className={`w-full transition-[background-color,border-color] duration-300 ease-in-out ${subtleAtTop ? 'bg-transparent border-b border-transparent' : `bg-background ${isScrolled ? 'border-b' : 'border-b border-background'}`}`}>
           {marqueePosition === "above" && marqueeStrip}
