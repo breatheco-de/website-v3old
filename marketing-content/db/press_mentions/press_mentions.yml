@@ -151,15 +151,6 @@ press_mentions:
       https://refreshmiami.com/miami-based-coding-school-4geeks-is-breaking-down-the-barriers-to-becoming-a-software-developer/
     link_text: See Interview
   - locale: en
-    title: Learn to Code Scholarships
-    excerpt: >-
-      After a lot of hard work we were able to partner with United Way to offer 100 scholarships in minority populations
-      to become a software engineer or software developer
-    priority: 15
-    logo: the-miami-herald-logo
-    link_url: https://www.miamiherald.com/news/business/article263937731.html
-    link_text: See Interview
-  - locale: en
     title: Web Development Coding Bootcamp
     excerpt: >-
       On a research made and published by Forbes while specified all the possible ways you can become a web developer in
