@@ -437,6 +437,9 @@ sections:
       database: press_mentions
       limit: 10
       sort: priority
+      permanent_filters:
+        - item_property_slug: locale
+          value: en
     section_id: list_press_mentions-w7r1sh
     featured_background: hsl(var(--primary))
     maxWidth:
