@@ -194,11 +194,25 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
               </h1>
               {/* Description: second on mobile (order-2), first on desktop (order-1) */}
               {data.description && (
-                <p
+                <div
                   className="order-2 md:order-1 text-muted-foreground leading-relaxed text-center md:text-left"
                   data-testid="text-hero-description"
-                  dangerouslySetInnerHTML={{ __html: data.description }}
-                />
+                >
+                  {/* Mobile: strip font-size and br */}
+                  <p
+                    className="block lg:hidden"
+                    dangerouslySetInnerHTML={{
+                      __html: data.description
+                        .replace(/font-size\s*:[^;"]*(;)?/g, "")
+                        .replace(/<br\s*\/?>/gi, " ")
+                    }}
+                  />
+                  {/* Desktop: full RTE HTML */}
+                  <p
+                    className="hidden lg:block"
+                    dangerouslySetInnerHTML={{ __html: data.description }}
+                  />
+                </div>
               )}
             </div>
 
