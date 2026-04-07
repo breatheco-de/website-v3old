@@ -16,6 +16,23 @@ schema:
     - organization
     - website
 sections:
+  - type: list_press_mentions
+    version: v1.0
+    variant: featured_showcase
+    title: The World's Most Accountable Institutions Chose Us. Here's What We've Built.
+    subtitle: From the Inter-American Development Bank to governments across the Americas and universities on three continents, every institution that selected us to run their programs came with KPIs, public accountability, and high expectations. We delivered every time.
+    show_links: false
+    show_logos: true
+    dynamic_entries:
+      database: press_mentions
+      limit: 12
+      sort: priority
+    section_id: list_press_mentions-w7r1sh
+    featured_background: hsl(var(--primary))
+    maxWidth:
+      desktop: 6xl
+    marginY:
+      desktop: none md
   - type: course_selector
     version: "1.0"
     variant: solid

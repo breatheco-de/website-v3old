@@ -18,15 +18,14 @@ press_mentions:
     link_text: Read article
     image: https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80
   - locale: en
-    title: Exclusive coding school partner for IDB workforce programs across Latin America
-    subtitle: Inter-American Development Bank · Partners in Education
+    title: Exclusive Tech Training Partner for IDB Workforce Programs Across 3 Countries
     category: Multilateral  Institution
     excerpt: >-
-      The largest development bank in Latin America selected 4Geeks through competitive procurement as their sole coding
-      school partner across Costa Rica, Uruguay and Mexico. Over 600 graduates and counting. Programs running since
-      2020. 
+      The largest development bank in Latin America  chose 4Geeks as their sole coding school partner across Costa Rica,
+      Uruguay and Mexico after evaluating multiple providers. Over 600 graduates have completed the program, running
+      continuously since 2020.
     priority: 2
-    organization: IDB
+    organization: Inter-American Development Bank
     stat_label: countries
     stat_value: '3'
     tags:
@@ -34,85 +33,84 @@ press_mentions:
       - Uruguay
       - Mexico
   - locale: en
-    title: One of two providers selected for a $10M federal workforce program in South Florida
-    subtitle: ' Good Jobs Challenge'
-    category: 'U.S. Federal Government '
-    excerpt: >-
-      Miami Dade College chose 4Geeks to deliver workforce training for underserved communities under a $10M federal EDA
-      grant. 74 graduates placed in tech roles averaging $74K annually. Every federal placement target met and exceeded.
-    priority: 3
-    organization: U.S. EDA
-    stat_label: federal placement target achieved
-    stat_value: 116%
+    title: Selected to Run a Tech Training Program for Women from High-Unemployment Areas in Costa Rica
+    category: Non-Profit
+    excerpt: |2
+       The Costa Rica-US Foundation for Cooperation selected 4Geeks to deliver employment-first tech training, targeting women from high-unemployment areas. Two cohorts completed with a 100% graduation rate and 75% hiring rate.
+    priority: 9
+    organization: CRUSA Foundation · Costa Rica
+    stat_label: graduation rate across both cohorts
+    stat_value: '100% '
     tags:
       - Miami Dade
       - 74 graduates placed
   - locale: en
-    title: 'Chosen tech curriculum partner for Miami Dade College''s Continuing Education '
-    category: University Partnership
-    excerpt: >-
-      Miami Dade College serves over 160,000 students annually. Since 2017, 4Geeks has delivered their Continuing
-      Education tech programs across multiple campuses, covering Full Stack, Web Development and Applied AI, with every
-      graduate earning dual certification from both institutions.
+    title: Selected by the Bahamas Government for National AI Education, Alongside Harvard, Oxford and Columbia
+    category: Government Partnership
+    excerpt: >
+      The Bahamas government contracted 4Geeks to reskill their national workforce for the AI economy. First Caribbean
+      deployment for 4Geeks, in a country whose tech industry is growing at 18% annually.
     priority: 4
-    organization: Miami Dade College
-    stat_label: graduates
-    stat_value: 400+
-    year: '2017'
+    organization: 'Bahamas Upskilling Project '
+    stat_label: annual tech industry growth in the Bahamas
+    stat_value: '18% '
     tags:
       - Full Stack
       - Web Dev
       - Applied AI
   - locale: en
-    title: Sole coding school chosen for a MacKenzie Scott-funded workforce initiative in Miami
-    category: Philanthropy / workforce development
-    excerpt: >-
-      Chosen as the sole coding school partner for a MacKenzie Scott-funded initiative in Miami. United Way fully funded
-      the program, covering tuition and living stipends for Miami-Dade residents changing careers into tech, with over
-      1,000 applications received for 100 funded seats.
+    title: 8 Years as the Tech Curriculum Partner for One of the Largest Colleges in the U.S.
+    category: University Partnership
+    excerpt: >+
+      8 years as the tech curriculum partner for one of the largest colleges in the United States
+
+      Description: Miami Dade College serves 160,000+ students annually across Miami-Dade County. Over 400 students have
+      completed 4Geeks programs through this partnership, across Full Stack, Web Development and Applied AI, graduating
+      with a dual certification by both institutions.
+
+
     priority: 5
-    organization: United Way
-    stat_value: '$6,400 '
-    year: ' living stipend per student'
+    organization: ' Miami Dade College · Continuing Education'
+    stat_label: graduates, 8 years and counting
+    stat_value: 'Stat: 400+'
     tags:
       - Fully funded
       - $8,400 living stipend
   - locale: en
-    title: Ongoing partnership — 60% program cost covered for women in tech
-    subtitle: Foundation · Women-Focused Workforce Training Initiative · Mexico City
-    category: Civil Society / Mexico
-    excerpt: >-
-      60% program cost covered by ACAPI. 76% of seats reserved for women. 61% graduation rate and 50% employment
-      meetings — among the highest in 4Geeks' portfolio.
+    title: The Only Coding School Chosen for MacKenzie Scott-Funded Workforce Initiative in Miami
+    category: Non-Profit
+    excerpt: >
+      United Way Miami chose 4Geeks to receive 100 fully funded scholarships for Miami-Dade residents changing careers
+      into tech, covering tuition and living stipends. Over 1,000 people applied.
     priority: 6
-    organization: ACAPI
-    stat_label: average salary increase
-    stat_value: 53%
+    organization: United Way Miami
+    stat_label: max living stipend per student
+    stat_value: '$6,400 '
     tags:
       - Women in Tech focus
       - Mexico City
   - locale: en
-    title: Selected as delivery partner for the Miami Workforce Project
-    subtitle: Miami Workforce Development Project · Clark University Community Partnership
-    category: University / Workforce
+    title: Chosen by Clark University to Run the Miami Workforce Development Project
+    category: University Partnership
     excerpt: >-
-      Selected by Clark University as the delivery partner for the Miami Workforce Project. Program Director confirmed
-      it exceeded expectations.
+
+      Institution name:
+
+      Title: 
+
+      Clark University provided scholarships of up to $4,000 per student, applied directly toward 4Geeks program
+      tuition, for unemployed and underemployed Miami-Dade residents. Zero upfront cost for participants. Every target
+      set at launch was exceeded.
+
+      Stat: $4,000
+
+      Stat label: scholarship per student, zero upfront cost
     priority: 7
-    organization: Clark Univ.
+    organization: ' Clark University '
     stat_label: scholarship per student
     stat_value: $4,000
     tags:
       - Unemployed & underrepresented students
-  - locale: en
-    title: The future Workforce
-    excerpt: >-
-      Since tech training boot camps are skills-based and shorter than an academic degree program, they can be an
-      effective way to reach the incumbent workforce.
-    priority: 10
-    logo: global-miami-logo
-    link_url: https://issuu.com/coralgablesmagazine.com/docs/gm_jan-feb_2024_fullissue/74?ff
-    link_text: Read Article
   - locale: en
     title: 5 Best Online Full-Stack Bootcamps Of 2024
     excerpt: >-
@@ -153,15 +151,6 @@ press_mentions:
       https://refreshmiami.com/miami-based-coding-school-4geeks-is-breaking-down-the-barriers-to-becoming-a-software-developer/
     link_text: See Interview
   - locale: en
-    title: Learn to Code Scholarships
-    excerpt: >-
-      After a lot of hard work we were able to partner with United Way to offer 100 scholarships in minority populations
-      to become a software engineer or software developer
-    priority: 15
-    logo: the-miami-herald-logo
-    link_url: https://www.miamiherald.com/news/business/article263937731.html
-    link_text: See Interview
-  - locale: en
     title: Web Development Coding Bootcamp
     excerpt: >-
       On a research made and published by Forbes while specified all the possible ways you can become a web developer in
@@ -180,9 +169,32 @@ press_mentions:
     link_url: https://www.nbcmiami.com/on-air/as-seen-on/students-with-autism-learn-to-code_miami/159640/
     link_text: Watch Video
   - locale: en
-    title: A Coding Career and You - Top Coding Schools 2017
-    excerpt: Profundizamos a un nivel avanzado principios específicos de desarrollo, llevando tu carrera a otro nivel.
-    priority: 18
-    logo: newsweek-logo
-    link_url: https://www.newsweek.com/insights/coding-career-and-you-top-coding-schools-2017/4geeks-academy
-    link_text: Read Article
+    title: Chosen by Uruguay's National University to Teach  Nationwide Tech Programs
+    category: University Partnership
+    excerpt: >-
+
+      The Inter-American Development Bank funded 4Geeks and UTEC to deliver Full Stack and AI programs remotely and
+      in-person, reaching communities across the entire country. 200+ graduates with programs ongoing since 2021.
+    priority: 8
+    organization: UTEC · Universidad Tecnológica del Uruguay
+    stat_label: graduates, programs ongoing since 2021
+    stat_value: 200+
+  - locale: en
+    title: Selected in Mexico to Deliver Tech Training for Women, with 90%  Funded  by Foundation
+    category: 'Non-Profit '
+    excerpt: >
+      Fundación ACAPI selected 4Geeks and covered 90% of program costs, reserving 75% of seats for women entering tech.
+      Graduates achieved a 91% graduation rate, 80% employment rate, and an average salary increase of 53%.
+    priority: 10
+    organization: Fundación ACAPI · Mexico
+    stat_label: employment rate post-graduation
+    stat_value: 80%
+  - title: Chosen from 50+ Applicants to Train South Florida's Workforce Through a US Federal Government Grant
+    category: University Partnerships
+    excerpt: >
+      Miami Dade College chose 4Geeks to deliver workforce training for underserved communities under a $10M federal EDA
+      grant. 74 graduates placed in tech roles averaging $74K annually. Every federal placement target met and exceeded.
+    priority: 3
+    organization: 'Miami Dade College/ U.S. Economic Development Administration '
+    stat_label: ' of federal placement targets achieved'
+    stat_value: '116% '

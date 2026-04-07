@@ -9218,6 +9218,54 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Group-7086-1--1280w.webp"
         }
       ]
+    },
+    "press_mentions-photo-1504711434969-e33886168f5c-68696be7": {
+      "src": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80",
+      "alt": "Image from press_mentions",
+      "tags": [
+        "press_mentions"
+      ],
+      "source_url": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80",
+      "usage_count": 0,
+      "source_item": "4Geeks, Harvard, Oxford, and Columbia chosen to deliver AI education by the Government of the Bahamas.",
+      "width": 800,
+      "height": 533,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "press_mentions-forbes-logo-award_1764709625651-e9e1744c": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651-640w.webp",
+      "alt": "Image from press_mentions",
+      "tags": [
+        "press_mentions"
+      ],
+      "source_url": "https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp",
+      "usage_count": 0,
+      "source_item": "5 Best Online Full-Stack Bootcamps Of 2024",
+      "width": 1000,
+      "height": 475,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651-960w.webp"
+        }
+      ]
     }
   }
 }
