@@ -99,7 +99,7 @@ const DEFAULT_MARQUEE_ITEMS = [
   { bold_text: "55%", light_text: "avg salary increase" },
 ];
 
-function WatermarkMarquee({ items }: { items: { bold_text: string; light_text: string }[] }) {
+function WatermarkMarquee({ items, isStatic }: { items: { bold_text: string; light_text: string }[]; isStatic?: boolean }) {
   const [bgColor, setBgColor] = useState<string>("hsl(0 0% 100%)");
 
   useEffect(() => {
@@ -118,18 +118,28 @@ function WatermarkMarquee({ items }: { items: { bold_text: string; light_text: s
     return () => observer.disconnect();
   }, []);
 
+  const itemNodes = items.map((item, i) => (
+    <span
+      key={i}
+      className="flex items-center gap-2 mr-10 text-xs whitespace-nowrap"
+    >
+      <span className="font-extrabold text-muted-foreground">{item.bold_text}</span>
+      <span className="text-muted-foreground/80">{item.light_text}</span>
+    </span>
+  ));
+
+  if (isStatic) {
+    return (
+      <div className="w-full mt-10 flex flex-wrap gap-y-2">
+        {itemNodes}
+      </div>
+    );
+  }
+
   return (
     <div className="w-full mt-10">
       <Marquee speed={50} gradient={true} gradientColor={bgColor} gradientWidth={100} pauseOnHover={false}>
-        {items.map((item, i) => (
-          <span
-            key={i}
-            className="flex items-center gap-2 mr-10 text-xs whitespace-nowrap"
-          >
-            <span className="font-extrabold text-muted-foreground">{item.bold_text}</span>
-            <span className="text-muted-foreground/80">{item.light_text}</span>
-          </span>
-        ))}
+        {itemNodes}
       </Marquee>
     </div>
   );
@@ -141,6 +151,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
   const handleLinkClick = useInternalNav();
   const pills = data.pills ?? [];
   const showMarquee = data.show_marquee ?? true;
+  const marqueeStatic = data.marquee_static ?? false;
   const marqueeItems = data.marquee_items?.length ? data.marquee_items : DEFAULT_MARQUEE_ITEMS;
   const rotationMs = data.logo_rotation_ms_time ?? 2500;
   const coloredLogos = data.colored_logos ?? false;
@@ -163,7 +174,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
             <div className="flex flex-col gap-3 w-full">
               {/* Title: first on mobile (order-1), second on desktop (order-2) */}
               <h1
-                className="order-1 md:order-2 text-foreground leading-[1.03] text-center md:text-left font-inter"
+                className="order-1 md:order-2 text-3xl md:text-h1 text-foreground leading-[1.03] text-center md:text-left font-inter"
                 data-testid="text-hero-title"
                 dangerouslySetInnerHTML={{ __html: data.title || "" }}
               />
@@ -217,7 +228,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
         </div>
 
         {/* ── WATERMARK MARQUEE ── */}
-        {showMarquee && <WatermarkMarquee items={marqueeItems} />}
+        {showMarquee && <WatermarkMarquee items={marqueeItems} isStatic={marqueeStatic} />}
       </div>
     </section>
   );

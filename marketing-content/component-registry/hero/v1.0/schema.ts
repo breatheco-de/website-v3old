@@ -336,6 +336,7 @@ export const heroCredibilitySchema = z.object({
   cta_buttons: z.array(ctaButtonSchema).optional(),
   pills: z.array(heroCredibilityPillSchema).optional(),
   show_marquee: z.boolean().optional(),
+  marquee_static: z.boolean().optional(),
   marquee_items: z.array(heroCredibilityMarqueeItemSchema).optional(),
   logo_rotation_ms_time: z.number().optional(),
   colored_logos: z.boolean().optional(),

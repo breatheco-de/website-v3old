@@ -25,6 +25,7 @@ export function useTypewriter(
   charDelay = 40,
   startDelay = 600,
   displayTime = 3000,
+  loop = true,
 ): TypewriterResult {
   const [state, setState] = useState<TypewriterState>({ index: 0, visibleChars: 0 });
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -33,10 +34,12 @@ export function useTypewriter(
   const messagesRef = useRef(messages);
   const charDelayRef = useRef(charDelay);
   const displayTimeRef = useRef(displayTime);
+  const loopRef = useRef(loop);
 
   useEffect(() => { messagesRef.current = messages; }, [messages]);
   useEffect(() => { charDelayRef.current = charDelay; }, [charDelay]);
   useEffect(() => { displayTimeRef.current = displayTime; }, [displayTime]);
+  useEffect(() => { loopRef.current = loop; }, [loop]);
 
   useEffect(() => {
     const msgs = messages || [];
@@ -59,7 +62,9 @@ export function useTypewriter(
         const next = chars + 1;
         setState({ index: currentIndex, visibleChars: next });
         if (next >= fullText.length) {
-          scheduleErase(next, displayTimeRef.current);
+          if (loopRef.current) {
+            scheduleErase(next, displayTimeRef.current);
+          }
         } else {
           scheduleType(next, charDelayRef.current);
         }
