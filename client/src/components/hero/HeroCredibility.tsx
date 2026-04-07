@@ -179,7 +179,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
               >
                 {/* Mobile: RTE HTML without font-size, br stripped */}
                 <span
-                  className="block lg:hidden text-6xl mb-4 lg:mb-0 leading-tight"
+                  className="block lg:hidden text-5xl md:text-6xl leading-[10px] mb-4 lg:mb-0 leading-tight"
                   dangerouslySetInnerHTML={{
                     __html: (data.title || "")
                       .replace(/font-size\s*:[^;"]*(;)?/g, "")
@@ -195,7 +195,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
               {/* Description: second on mobile (order-2), first on desktop (order-1) */}
               {data.description && (
                 <div
-                  className="order-2 md:order-1 text-muted-foreground leading-relaxed text-center md:text-left"
+                  className="order-2 md:order-1 text-muted-foreground leading-relaxed text-center lg:text-left"
                   data-testid="text-hero-description"
                 >
                   {/* Mobile: strip font-size and br */}
