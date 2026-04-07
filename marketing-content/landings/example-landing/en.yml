@@ -19,23 +19,20 @@ sections:
   - type: list_press_mentions
     version: v1.0
     variant: featured_showcase
-    title: Governments, banks, and universities have audited us. Then hired us.
-    subtitle: When institutions with due diligence requirements and public accountability choose a coding school, they do not choose lightly.
+    title: The World's Most Accountable Institutions Chose Us. Here's What We've Built.
+    subtitle: From the Inter-American Development Bank to governments across the Americas and universities on three continents, every institution that selected us to run their programs came with KPIs, public accountability, and high expectations. We delivered every time.
     show_links: false
     show_logos: true
-    footer_text: Institutions with public accountability and due diligence requirements. Not awards programs.
-    footer_stats:
-      - value: $20M+
-        label: Institutional funding mobilized
-      - value: 700+
-        label: Subsidized graduates across 6 countries
-      - value: 84%+
-        label: Employment rate across programs
     dynamic_entries:
       database: press_mentions
-      limit: 4
+      limit: 12
       sort: priority
-    section_id: list_press_mentions-bmoqfg
+    section_id: list_press_mentions-w7r1sh
+    featured_background: hsl(var(--primary))
+    maxWidth:
+      desktop: 6xl
+    marginY:
+      desktop: none md
   - type: course_selector
     version: "1.0"
     variant: solid
