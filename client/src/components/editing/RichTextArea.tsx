@@ -1110,12 +1110,6 @@ export function RichTextArea({
               </div>
             ) : (
               <div className="flex flex-col gap-0.5">
-                {activeFontSize && !fontSizes.some(s => Math.abs(parseFloat(activeFontSize) - parseFloat(s.value)) < 0.001) && (
-                  <div className="px-3 py-1.5 text-xs border-b mb-0.5 flex items-center justify-between gap-4 bg-accent/20">
-                    <span className="text-muted-foreground">Current</span>
-                    <span className="font-medium text-foreground">{Math.round(parseFloat(activeFontSize) * 16)}px</span>
-                  </div>
-                )}
                 {fontSizes.map((size) => {
                   const isActive = activeFontSize !== null && Math.abs(parseFloat(activeFontSize) - parseFloat(size.value)) < 0.001;
                   return (
@@ -1164,7 +1158,12 @@ export function RichTextArea({
                     <button
                       type="button"
                       onMouseDown={(e) => e.preventDefault()}
-                      onClick={() => setCustomFontSizeMode(true)}
+                      onClick={() => {
+                        if (activeFontSize && !fontSizes.some(s => Math.abs(parseFloat(activeFontSize) - parseFloat(s.value)) < 0.001)) {
+                          setCustomFontSizeVal(String(Math.round(parseFloat(activeFontSize) * 16)));
+                        }
+                        setCustomFontSizeMode(true);
+                      }}
                       className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-t mt-0.5 pt-2 text-xs text-muted-foreground w-full"
                       data-testid={testId ? `${testId}-fontsize-custom-toggle` : undefined}
                     >
@@ -1198,12 +1197,6 @@ export function RichTextArea({
               </div>
             ) : (
               <div className="flex flex-col gap-0.5">
-                {activeLineHeight && !lineHeights.some(lh => Math.abs(parseFloat(activeLineHeight) - parseFloat(lh.value)) < 0.01) && (
-                  <div className="px-3 py-1.5 text-xs border-b mb-0.5 flex items-center justify-between gap-4 bg-accent/20">
-                    <span className="text-muted-foreground">Current</span>
-                    <span className="font-medium text-foreground">{activeLineHeight}</span>
-                  </div>
-                )}
                 {lineHeights.map((lh) => {
                   const isActive = activeLineHeight !== null && Math.abs(parseFloat(activeLineHeight) - parseFloat(lh.value)) < 0.01;
                   return (
@@ -1251,7 +1244,12 @@ export function RichTextArea({
                     <button
                       type="button"
                       onMouseDown={(e) => e.preventDefault()}
-                      onClick={() => setCustomLineHeightMode(true)}
+                      onClick={() => {
+                        if (activeLineHeight && !lineHeights.some(lh => Math.abs(parseFloat(activeLineHeight) - parseFloat(lh.value)) < 0.01)) {
+                          setCustomLineHeightVal(activeLineHeight);
+                        }
+                        setCustomLineHeightMode(true);
+                      }}
                       className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-t mt-0.5 pt-2 text-xs text-muted-foreground w-full"
                       data-testid={testId ? `${testId}-lineheight-custom-toggle` : undefined}
                     >
@@ -1285,12 +1283,6 @@ export function RichTextArea({
               </div>
             ) : (
               <div className="flex flex-col gap-0.5">
-                {activeFontWeight && !fontWeights.some(fw => Math.abs(parseFloat(activeFontWeight) - parseFloat(fw.value)) < 1) && (
-                  <div className="px-3 py-1.5 text-xs border-b mb-0.5 flex items-center justify-between gap-4 bg-accent/20">
-                    <span className="text-muted-foreground">Current</span>
-                    <span className="font-medium text-foreground">{activeFontWeight}</span>
-                  </div>
-                )}
                 {fontWeights.map((fw) => {
                   const isActive = activeFontWeight !== null && Math.abs(parseFloat(activeFontWeight) - parseFloat(fw.value)) < 1;
                   return (
@@ -1339,7 +1331,12 @@ export function RichTextArea({
                     <button
                       type="button"
                       onMouseDown={(e) => e.preventDefault()}
-                      onClick={() => setCustomFontWeightMode(true)}
+                      onClick={() => {
+                        if (activeFontWeight && !fontWeights.some(fw => Math.abs(parseFloat(activeFontWeight) - parseFloat(fw.value)) < 1)) {
+                          setCustomFontWeightVal(activeFontWeight);
+                        }
+                        setCustomFontWeightMode(true);
+                      }}
                       className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-t mt-0.5 pt-2 text-xs text-muted-foreground w-full"
                       data-testid={testId ? `${testId}-fontweight-custom-toggle` : undefined}
                     >
@@ -1373,12 +1370,6 @@ export function RichTextArea({
               </div>
             ) : (
               <div className="flex flex-col gap-0.5">
-                {activeLetterSpacing && !letterSpacings.some(ls => Math.abs(parseFloat(activeLetterSpacing) - parseFloat(ls.value)) < 0.001) && (
-                  <div className="px-3 py-1.5 text-xs border-b mb-0.5 flex items-center justify-between gap-4 bg-accent/20">
-                    <span className="text-muted-foreground">Current</span>
-                    <span className="font-medium text-foreground">{activeLetterSpacing}</span>
-                  </div>
-                )}
                 {letterSpacings.map((ls) => {
                   const isActive = activeLetterSpacing !== null && Math.abs(parseFloat(activeLetterSpacing) - parseFloat(ls.value)) < 0.001;
                   return (
@@ -1425,7 +1416,12 @@ export function RichTextArea({
                     <button
                       type="button"
                       onMouseDown={(e) => e.preventDefault()}
-                      onClick={() => setCustomLetterSpacingMode(true)}
+                      onClick={() => {
+                        if (activeLetterSpacing && !letterSpacings.some(ls => Math.abs(parseFloat(activeLetterSpacing) - parseFloat(ls.value)) < 0.001)) {
+                          setCustomLetterSpacingVal(activeLetterSpacing.replace("em", ""));
+                        }
+                        setCustomLetterSpacingMode(true);
+                      }}
                       className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-t mt-0.5 pt-2 text-xs text-muted-foreground w-full"
                       data-testid={testId ? `${testId}-letterspacing-custom-toggle` : undefined}
                     >
