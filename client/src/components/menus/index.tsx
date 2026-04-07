@@ -55,7 +55,6 @@ export type NavbarConfig = {
     constrained_margin?: boolean;
     size?: number;
     sticky?: boolean;
-    subtle_at_top?: boolean;
     marquee?: MarqueeConfig;
   };
 };
@@ -82,13 +81,7 @@ function LogoItem({ imageId, imageAlt, href, constrained_margin }: { imageId?: s
       className={`flex items-center hover-elevate rounded-md${constrained_margin ? "" : " px-3 py-2"}`}
       data-testid="link-home"
     >
-      <UniversalImage
-        id={logoId}
-        alt={imageAlt || t('nav.brand')}
-        className="h-8"
-        loading="eager"
-        style={{ objectFit: "contain", width: "auto", height: "100%" }}
-      />
+      <UniversalImage id={logoId} alt={imageAlt || t('nav.brand')} className="h-8" loading="eager" style={{ objectFit: "contain", width: "auto", height: "100%" }} />
     </a>
   );
 }
