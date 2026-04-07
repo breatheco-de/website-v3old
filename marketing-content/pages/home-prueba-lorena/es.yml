@@ -67,24 +67,58 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: none
-  - type: ai_learning
+  - type: hero
     version: "1.0"
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: Why Learn with 4Geeks?
-    description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
-    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
-    features:
-      - icon: Robot
-        title: Learn with AI
-        description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
-      - icon: Headset
-        title: Unlimited 1:1 mentoring sessions
-        description: Access unlimited mentorship sessions with our experts whenever you need guidance.
-      - icon: Users
-        title: Learn with the community
-        description: Learning alongside others is more fun and helps you progress faster. Join our active community.
-    section_id: ai_learning-g98evx
+    variant: credibility
+    description: "<span style=\"font-size: 0.75rem; color: hsl(var(--muted-foreground));\">Immersive programs built to launch AI careers.&nbsp;Backed by&nbsp;lifelong unlimited&nbsp;<div bis_skin_checked=\"1\"><span><span>mentorship,&nbsp;AI-powered learning,&nbsp;and career support that&nbsp;gets you hired.</span></span></div></span><div bis_skin_checked=\"1\"><span><span></span></span><span></span><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"></div><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"></div></div></div></div></div></div>"
+    title: "<span style=\"line-height: 1.1;\"><span style=\"font-size: 3.75rem;\"><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span style=\"line-height: 0.85;\"><span style=\"font-size: 4.375rem;\"><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span><span style=\"font-size: 4.5rem;\"><span style=\"line-height: 1.1;\"><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span style=\"line-height: 0.85;\"><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span><span style=\"line-height: 0.1;\"><span style=\"font-size: 4.9375rem;\"><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span><span style=\"line-height: 0.4;\"><span><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span><span style=\"line-height: 0.9;\"><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\">1.3 million<br>new <span style=\"color:#0084FF;font-style:italic\">AI Roles.</span><br>we're y</span></span></span></span></span></span></span></span><span style=\"letter-spacing: -2px; font-weight: 900; color: rgb(0, 7, 26);\">our</span><div bis_skin_checked=\"1\"><span style=\"letter-spacing: -2px; font-weight: 900; color: rgb(0, 7, 26);\">path in.</span></div></span><div bis_skin_checked=\"1\"><span style=\"letter-spacing: -2px; font-weight: 900; color: rgb(0, 7, 26);\"></span></div></span></span><div bis_skin_checked=\"1\"><span style=\"letter-spacing: -2px; font-weight: 900; color: rgb(0, 7, 26);\"></span></div></span></span><div bis_skin_checked=\"1\"><span style=\"letter-spacing: -2px; font-weight: 900; color: rgb(0, 7, 26);\"></span></div></span><div bis_skin_checked=\"1\"><span style=\"letter-spacing: -2px; font-size: 4.375rem; font-weight: 900; color: rgb(0, 7, 26);\"></span></div>"
+    cta_buttons:
+      - text: Start your application
+        url: /apply
+        variant: primary
+        icon: ChevronRight
+      - text: Explore our programs
+        url: /curriculum
+        variant: outline
+    pills:
+      - category: Academic Partnerships
+        logos:
+          - image_id: clark_university
+          - image_id: logo-of-miami-dade-county-floridasvg
+          - image_id: 06-isologotipo-para-fondo-blanco-1
+          - image_id: logo-ucab-3
+        label: Chosen Partners of 12+ Universities
+      - category: Institutional Partnershipss
+        logos:
+          - image_id: bid_logo
+          - image_id: cinde-removebg-preview
+          - image_id: seal-of-the-united-states-economic-development-administration
+          - image_id: austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview
+        label: Trusted with $20M+ in Government and NGO Grants
+      - category: Industry Recognition
+        logos:
+          - image_id: logo_switchup
+          - image_id: forbes_logo_award
+          - image_id: careerkarma-logo
+        label: Best Bootcamp Awards by Forbes, Fortune, Course Report and more.
+    logo_rotation_ms_time: 2000
+    colored_logos: true
+    show_marquee: true
+    marquee_items:
+      - bold_text: Course Report
+        light_text: 4.9 ★
+      - bold_text: SwitchUp
+        light_text: 4.9 ★
+      - bold_text: Career Karma
+        light_text: 4.9 ★
+      - bold_text: 5,000+
+        light_text: graduates employed worldwide
+      - bold_text: 55%
+        light_text: avg salary increase
+    section_id: hero-tcvppl
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    paddingY:
+      desktop: none
   - type: graduates_stats
     heading: Nuestros Graduados Consiguen Empleo. Rápido.
     subheading: Más de 6,000 graduados en todo el mundo. Ahora prosperando en tecnología.
