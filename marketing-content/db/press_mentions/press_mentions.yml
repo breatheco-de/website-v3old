@@ -186,3 +186,14 @@ press_mentions:
     logo: newsweek-logo
     link_url: https://www.newsweek.com/insights/coding-career-and-you-top-coding-schools-2017/4geeks-academy
     link_text: Read Article
+  - locale: en
+    title: Chosen by Uruguay's national university to deliver one of the region's most advanced tech programs
+    category: University Partnership
+    excerpt: >-
+
+      The Inter-American Development Bank funded 4Geeks and UTEC to deliver Full Stack and AI programs remotely and
+      in-person, reaching communities across the entire country. 200+ graduates with programs ongoing since 2021.
+    priority: 8
+    organization: UTEC · Universidad Tecnológica del Uruguay
+    stat_label: 200+
+    stat_value: graduates, programs ongoing since 2021
