@@ -33,3 +33,7 @@ editor:
   tags:
     type: tags
     populate_options: true
+  image:
+    cache_images: true
+  logo:
+    cache_images: true
