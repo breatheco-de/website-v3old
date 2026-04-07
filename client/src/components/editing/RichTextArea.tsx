@@ -241,7 +241,6 @@ function CustomPickerRow({
               if (e.key === "Enter") { e.preventDefault(); onApply(); }
               if (e.key === "Escape") { e.preventDefault(); onClose(); }
             }}
-            onBlur={onApply}
             data-testid={testIdPrefix ? `${testIdPrefix}-input` : undefined}
           />
           <Button
@@ -620,11 +619,10 @@ export function RichTextArea({
     const cs = detectSelectionStyle();
     if (!cs) { setActiveLetterSpacing(null); return; }
     const raw = cs.letterSpacing;
-    if (!raw || raw === "normal") { setActiveLetterSpacing("0em"); return; }
+    if (!raw || raw === "normal") { setActiveLetterSpacing("0px"); return; }
     const pxVal = parseFloat(raw);
     if (isNaN(pxVal)) { setActiveLetterSpacing(null); return; }
-    const fontSize = parseFloat(cs.fontSize) || 16;
-    setActiveLetterSpacing(`${(pxVal / fontSize).toFixed(4).replace(/\.?0+$/, "")}em`);
+    setActiveLetterSpacing(`${pxVal}px`);
   }, [detectSelectionStyle]);
 
   const detectActiveLineHeight = useCallback(() => {
@@ -880,7 +878,7 @@ export function RichTextArea({
   const handleCustomLetterSpacingApply = useCallback(() => {
     const v = parseFloat(customLetterSpacingVal);
     if (!isNaN(v)) {
-      handleLetterSpacingSelect(`${v}em`);
+      handleLetterSpacingSelect(`${v}px`);
     }
   }, [customLetterSpacingVal, handleLetterSpacingSelect]);
 
@@ -1373,24 +1371,24 @@ export function RichTextArea({
                 {allowCustomLetterSpacing && (
                   <CustomPickerRow
                     mode={customLetterSpacingMode}
-                    label="Spacing (em):"
-                    toggleLabel="Custom (em)…"
+                    label="Spacing (px):"
+                    toggleLabel="Custom (px)…"
                     value={customLetterSpacingVal}
                     onChange={setCustomLetterSpacingVal}
                     onApply={handleCustomLetterSpacingApply}
                     onOpen={() => {
-                      if (activeLetterSpacing && !letterSpacings.some(ls => Math.abs(parseFloat(activeLetterSpacing) - parseFloat(ls.value)) < 0.001)) {
-                        setCustomLetterSpacingVal(activeLetterSpacing.replace("em", ""));
+                      if (activeLetterSpacing && !letterSpacings.some(ls => Math.abs(parseFloat(activeLetterSpacing) - parseFloat(ls.value)) < 0.01)) {
+                        setCustomLetterSpacingVal(activeLetterSpacing.replace("px", ""));
                       }
                       setCustomLetterSpacingMode(true);
                     }}
                     onClose={() => { setCustomLetterSpacingMode(false); setCustomLetterSpacingVal(""); }}
-                    step={0.001}
+                    step={0.1}
                     testIdPrefix={testId ? `${testId}-letterspacing-custom` : undefined}
                   />
                 )}
                 {letterSpacings.map((ls) => {
-                  const isActive = activeLetterSpacing !== null && Math.abs(parseFloat(activeLetterSpacing) - parseFloat(ls.value)) < 0.001;
+                  const isActive = activeLetterSpacing !== null && Math.abs(parseFloat(activeLetterSpacing) - parseFloat(ls.value)) < 0.01;
                   return (
                   <button
                     key={ls.id}
