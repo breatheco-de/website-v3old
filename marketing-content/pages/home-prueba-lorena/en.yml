@@ -29,15 +29,14 @@ sections:
         url: /curriculum
         variant: outline
     pills:
-      - category: Institutional Backing
+      - category: Academic Partnerships
         logos:
           - image_id: clark_university
           - image_id: logo-of-miami-dade-county-floridasvg
           - image_id: 06-isologotipo-para-fondo-blanco-1
           - image_id: logo-ucab-3
-          - image_id: logo-unimet-6-removebg-preview
         label: Chosen Partners of 12+ Universities
-      - category: Graduate Outcomes
+      - category: Institutional Partnershipss
         logos:
           - image_id: bid_logo
           - image_id: cinde-removebg-preview
