@@ -14,6 +14,8 @@ import { DebugAuthProvider } from "@/hooks/useDebugAuth";
 import { ImagePickerProvider } from "@/contexts/ImagePickerContext";
 import { usePageTracking } from "@/hooks/usePageTracking";
 import type { ContentTypeApiItem } from "@/hooks/useContentTypes";
+import { NavbarOverlayProvider } from "@/contexts/NavbarOverlayContext";
+import { NavbarContentWrapper } from "@/components/NavbarContentWrapper";
 import "./i18n";
 
 const ContentTypeDetail = lazy(() => import("@/pages/ContentTypeDetail"));
@@ -215,13 +217,16 @@ function App({ ssrQueryClient }: AppProps = {}) {
 
   return (
     <QueryClientProvider client={client}>
+      <NavbarOverlayProvider>
       <SessionProvider>
         <DebugAuthProvider>
         <TooltipProvider>
           <EditModeWrapper>
             <ImagePickerProvider>
             <PageTracker />
-            <Router />
+            <NavbarContentWrapper>
+              <Router />
+            </NavbarContentWrapper>
             <ClientOnly>
               <Toaster />
               <ChatWidget />
@@ -233,6 +238,7 @@ function App({ ssrQueryClient }: AppProps = {}) {
         </TooltipProvider>
         </DebugAuthProvider>
       </SessionProvider>
+      </NavbarOverlayProvider>
     </QueryClientProvider>
   );
 }
