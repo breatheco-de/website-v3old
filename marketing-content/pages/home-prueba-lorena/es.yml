@@ -197,7 +197,7 @@ sections:
       desktop: none xl
   - type: career_support_explain
     version: v1.0
-    heading: Cómo Te Conseguimos Empleo. Desde el Primer Día hasta la Oferta Firmada.
+    heading: Cómo Te Ayudamos a Conseguir Empleo. Desde el Primer Día hasta la Oferta Firmada.
     description: Un sistema completo que te lleva de inscrito a empleado. Perfiles optimizados con IA, acceso directo a más de 400 socios de contratación y apoyo 1:1 que te acompaña más allá de tu primer rol.
     background: hsl(var(--sidebar-background))
     tabs:
