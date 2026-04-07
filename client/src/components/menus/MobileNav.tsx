@@ -18,6 +18,7 @@ import type { NavbarConfig, NavbarItem } from "./index";
 
 interface MobileNavProps {
   config: NavbarConfig;
+  subtleAtTop?: boolean;
 }
 
 interface MobileNavItemProps {
@@ -162,7 +163,7 @@ function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProp
   );
 }
 
-export function MobileNav({ config }: MobileNavProps) {
+export function MobileNav({ config, subtleAtTop }: MobileNavProps) {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [openItemIndex, setOpenItemIndex] = useState<number | null>(null);
 
@@ -188,7 +189,7 @@ export function MobileNav({ config }: MobileNavProps) {
           className="md:hidden"
           data-testid="button-mobile-menu"
         >
-          <IconMenu2 className="h-5 w-5" />
+          <IconMenu2 className={`transition-[width,height] duration-300 ease-in-out${subtleAtTop ? " h-4 w-4" : " h-5 w-5"}`} />
           <span className="sr-only">Open menu</span>
         </Button>
       </SheetTrigger>

@@ -132,7 +132,7 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
               {logoItem && renderNavbarItem(logoItem, undefined, undefined, menuConfig?.navbar?.constrained_margin, subtleAtTop)}
               <div className="flex items-center gap-3">
                 {langItem && renderNavbarItem(langItem)}
-                {menuConfig && <MobileNav config={menuConfig} />}
+                {menuConfig && <MobileNav config={menuConfig} subtleAtTop={subtleAtTop} />}
               </div>
             </div>
           </div>
