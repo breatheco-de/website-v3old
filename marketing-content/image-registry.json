@@ -9073,6 +9073,151 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Group-7086-1280w.webp"
         }
       ]
+    },
+    "group-7085-1": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Group-7085-1-.jpg",
+      "alt": "Image: Group 7085 (1)",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "hash": "982fb73f0b9bf4c55298f5bf5386b3a9d8ec590aa5a696af89e95e3e347c4f30",
+      "width": 1387,
+      "height": 768,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960,
+        1280
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Group-7085-1--640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Group-7085-1--960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Group-7085-1--1280w.webp"
+        }
+      ]
+    },
+    "group-7084-1": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Group-7084-1-.jpg",
+      "alt": "Image: Group 7084 (1)",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team",
+        "testimonial"
+      ],
+      "usage_count": 0,
+      "hash": "f0ed4c86b8b9f0d289fda5799cca899bd0b72941bb903c130521b50a8ff7051c",
+      "width": 1388,
+      "height": 768,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960,
+        1280
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Group-7084-1--640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Group-7084-1--960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Group-7084-1--1280w.webp"
+        }
+      ]
+    },
+    "group-7087-1": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Group-7087-1-.jpg",
+      "alt": "Image: Group 7087 (1)",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "hash": "2b19da2cb95c9f4688630115d231efbe146cb85fea926c1985cc6a88d60313c9",
+      "width": 1352,
+      "height": 784,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960,
+        1280
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Group-7087-1--640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Group-7087-1--960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Group-7087-1--1280w.webp"
+        }
+      ]
+    },
+    "group-7086-1": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Group-7086-1-.jpg",
+      "alt": "Image: Group 7086 (1)",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "hash": "0425bdae82dc2e39c23a194f00787f635b2fee3912d63cdbac9c4a901f826891",
+      "width": 1387,
+      "height": 768,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960,
+        1280
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Group-7086-1--640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Group-7086-1--960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Group-7086-1--1280w.webp"
+        }
+      ]
     }
   }
 }
