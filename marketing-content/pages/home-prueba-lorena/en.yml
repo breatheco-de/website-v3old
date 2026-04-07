@@ -154,7 +154,7 @@ sections:
         alt: "Image: 664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf"
         id: 664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf
         object_position: 38% 100%
-        object_scale: 1.35
+        object_scale: 1.45
     highlight:
       heading: Committed to breaking into tech? We support you like no one else does.
       text: Mentors and career coaches that are always within reach, an AI tutor, and your personal AI agent. All tailored to you.
@@ -314,6 +314,8 @@ sections:
     section_id: career_support_explain-xpc3k2
     maxWidth:
       desktop: 6xl
+    marginY:
+      desktop: none md
   - type: trust_cards
     version: v1.0
     title: Top rated across all major platforms.
@@ -450,7 +452,7 @@ sections:
       variant: primary
     section_id: why_learn_ai-9pbrek
     marginY:
-      desktop: md
+      desktop: md lg
     paddingY:
       desktop: none
     background: hsl(210 100% 50% / 0.05)

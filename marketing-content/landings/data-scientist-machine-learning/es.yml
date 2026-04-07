@@ -312,61 +312,59 @@ sections:
     marginY:
       desktop: none xl
   - type: certificate
-    section_id: certificate-5t8l02
-    title: Tu certificado. Tu ventaja salarial.
-    description: Gradúate con un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida y las credenciales para negociar tu primer salario como Full Stack Developer desde una posición de fuerza.
+    section_id: certificate-x5e6qd
+    title: Tu certificado. Tu ventaja Salarial
+    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
     benefits:
-      - text: "Full Stack Developer: $45K–$75K"
-      - text: "Desarrollador Web con IA: $50K–$80K"
-      - text: "Ingeniero Backend: $48K–$78K"
-      - text: "Ingeniero Frontend: $42K–$70K"
+      - text: Analista de Ciberseguridad Junior 20.000€ a 25.000€
+      - text: Data Scientist
+      - text: Full-Stack Engineer (<2 años)
+      - text: AI Engineer 22.000€ a 35.000€ (<2 años)
     card:
-      title: Full Stack Developer
-      subtitle: Certificado 4Geeks Academy
-      program_name: Full Stack con IA
+      title: Data Scientist
+      subtitle: Certificado de 4Geeks Academy
+      program_name: Data Science & Machine Learning
     stats:
-      - value: 81%
-        label: Tasa de inserción laboral
-        description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores en LATAM están contratando activamente ahora mismo.
+      - value: {{ global.global_job_placement_rate | 84 }}%
+        label: Tasa de contratación
+        description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores buscan activamente.
         benefits:
-          - text: Certificado acreditado por el Departamento de Educación de Florida
-          - text: Un portfolio de proyectos reales y listos para producción
-          - text: Experiencia demostrada con flujos de trabajo y herramientas de IA
-          - text: Perfil profesional optimizado para pasar los filtros automáticos de los recruiters
-      - value: ~4 meses
-        label: Tiempo medio para conseguir empleo
-        description: La mayoría de graduados consiguen su primer rol en unos 3-6 meses. Nuestro proceso de desarrollo profesional en 3 pasos convierte tus habilidades técnicas en ofertas de trabajo rápidamente.
+          - text: Certificado reconocido por el Departamento de Educación de Florida
+          - text: Proyectos de datos enfocados en análisis, insights y decisiones
+          - text: Experiencia práctica construyendo y evaluando modelos predictivos de machine learning
+          - text: Perfil profesional optimizado y estrategia de búsqueda de empleo
+      - value: 3-6 meses
+        label: Tiempo para conseguir empleo
+        description: Consigue tu primer rol en 3–6 meses después de graduarte. Con nuestro proceso estructurado de desarrollo profesional en 3 pasos, tus habilidades se convierten en ofertas de trabajo rápidamente.
         benefits:
-          - text: CV, portfolio y LinkedIn construidos para atraer recruiters en LATAM
-          - text: Preparación para entrevistas técnicas y conductuales con feedback real de ingenieros
-          - text: Estrategia personalizada de búsqueda de empleo con acceso a redes de contratación activas
-      - value: 40%
-        label: Aumento salarial medio
-        description: Los graduados reportan un aumento salarial medio del 40% tras incorporarse a roles de Full Stack. El programa se paga solo en pocos meses de trabajo.
+          - text: Optimiza tu currículum, portafolio y perfiles en línea para atraer reclutadores y superar filtros basados en IA
+          - text: Practica para entrevistas técnicas y conductuales
+          - text: Ejecuta una estrategia personalizada de búsqueda de empleo con acceso a redes de contratación relevantes
+      - value: {{ global.global_salary_increase | 55 }}%
+        label: Aumento salarial promedio
+        description: Gradúate listo para ocupar posiciones bien remuneradas en ciencia de datos y machine learning, con crecimiento inmediato y estabilidad a largo plazo.
         benefits:
-          - text: "Full Stack Developer: $45K–$75K"
-          - text: "Desarrollador Web con IA: $50K–$80K"
-          - text: "Ingeniero Backend: $48K–$78K"
-          - text: "Ingeniero Frontend: $42K–$70K"
-      - value: 400+
-        label: Empresas que contratan nuestro talento
-        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
+          - text: Científico de datos {{ global.salary_data_scientist }}
+          - text: Ingeniero de Machine Learnign {{ global.average_salary_machine_learning_engineer | $90K–$150K  }}
+          - text: Analista de Datos {{ global.average_salary_data_analyst | 20.000€-30.000€ }}
+          - text: AI Engineer {{ global.average_salary_ai_engineer | 22.000€-35.000€ }}
+      - value: {{ global.number_of_hiring_partners_aprox | 5,000 }}+
+        label: Empresas Asociadas
+        description: Accede a nuestra red de más de {{ global.number_of_hiring_partners_aprox | 5,000 }} empresas asociadas que buscan activamente talento en ciencia de datos. Obtén oportunidades de trabajo exclusivas y referencias prioritarias.
         benefits:
           - text: Acceso exclusivo a bolsa de trabajo
-          - text: Recomendaciones directas a empresas colaboradoras
-          - text: Eventos de networking con recruiters y responsables de selección
+          - text: Referencias prioritarias a empresas asociadas
+          - text: Eventos de networking con gerentes de contratación
+          - text: Las empresas incluyen Google, Meta, Amazon, startups
     certificate_position: right
     useSolidCard: true
-    marginY:
-      mobile: none
-      desktop: md lg
     paddingY:
       mobile: lg
-      desktop: md
+      desktop: none lg
     background: hsl(var(--secondary))
   - type: testimonials_slide
     title: Dieron el salto. Esto es lo que pasó.
-    description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa de Uruguay, Costa Rica, Chile y más. Ahora son desarrolladores con empleos reales y salarios que no esperaban.
+    description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa de México, Uruguay, Costa Rica, Chile y más. Ahora son Científicos de Datos con empleos reales y salarios que no esperaban.
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
@@ -480,7 +478,7 @@ sections:
     section_id: whos_hiring-nyih8u
     variant: carousel
     title: Donde trabajan nuestros graduados
-    subtitle: Más de 5.000 alumni colocados en empresas que contratan talento Full Stack y tech activamente en todo el mundo.
+    subtitle: Más de 5.000 alumni colocados en empresas que contratan talento tech activamente en todo el mundo.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
@@ -545,7 +543,7 @@ sections:
   - type: cta_banner
     section_id: cta_banner-kqchc8
     version: "1.0"
-    title: Tu carrera como Full Stack Developer no va a empezar sola.
+    title: ¿Listo para iniciar tu carrera en Ciencia de Datos?
     subtitle: Cada semana que esperas es una semana que otro se lleva el trabajo. Aplica en 2 minutos. Es gratis.
     background: hsl(var(--primary))
     variant: form

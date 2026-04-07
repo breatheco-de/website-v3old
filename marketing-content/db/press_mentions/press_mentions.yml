@@ -64,12 +64,12 @@ press_mentions:
       - Web Dev
       - Applied AI
   - locale: en
-    title: Sole coding school chosen for a MacKenzie Scott-funded workforce initiative in Miami
-    category: Philanthropy / workforce development
-    excerpt: >-
-      Chosen as the sole coding school partner for a MacKenzie Scott-funded initiative in Miami. United Way fully funded
-      the program, covering tuition and living stipends for Miami-Dade residents changing careers into tech, with over
-      1,000 applications received for 100 funded seats.
+    title: Sole coding school chosen for a MacKenzie Scott-funded  workforce development program in South Florida
+    category: Workforce Development Program
+    excerpt: >
+      United Way Miami selected 4Geeks as their only coding school partner to receive fully funded scholarships for
+      Miami-Dade residents changing careers into tech, covering tuition and living stipends. Over 1,000 applications for
+      100 funded seats in our programs.
     priority: 5
     organization: United Way
     stat_value: '$6,400 '
