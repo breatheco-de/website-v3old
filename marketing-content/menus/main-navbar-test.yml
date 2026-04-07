@@ -200,4 +200,3 @@ navbar:
         cta_url_overrides:
           /en/home-prueba-lorena: '#list_press_mentions-w7r1sh'
     position: above
-  subtle_at_top: true
