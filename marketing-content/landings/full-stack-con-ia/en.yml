@@ -592,6 +592,8 @@ sections:
     background: bg-muted
     media_position: right
   - type: career_support_explain
+    maxWidth:
+      desktop: 6xl
     section_id: career_support_explain-vwfytx
     version: v1.0
     heading: GeekForce Career Support
@@ -903,6 +905,8 @@ sections:
     showOn: mobile
   - type: image_row
     section_id: image_row-we3cdy
+    maxWidth:
+      desktop: 6xl
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Asian student learning to code
@@ -1261,6 +1265,8 @@ sections:
       - value: $95K-$135K
         title: Average starting salary for AI Engineers
     variant: stats-text
+    maxWidth:
+      desktop: 6xl
   - type: two_column_accordion_card
     section_id: two_column_accordion_card-7w0jms
     version: "1.0"

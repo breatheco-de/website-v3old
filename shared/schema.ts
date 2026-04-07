@@ -59,6 +59,10 @@ export {
   heroCourseTutorSchema,
   heroCourseFeatureSchema,
   heroSectionSchema,
+  heroCredibilityPillLogoSchema,
+  heroCredibilityPillSchema,
+  heroCredibilityMarqueeItemSchema,
+  heroCredibilitySchema,
   type TrustBar,
   type AwardBadge,
   type HeroImage,
@@ -69,6 +73,10 @@ export {
   type HeroCourseTutor,
   type HeroCourseFeature,
   type HeroSection,
+  type HeroCredibilityPillLogo,
+  type HeroCredibilityPill,
+  type HeroCredibilityMarqueeItem,
+  type HeroCredibility,
 } from "../marketing-content/component-registry/hero/v1.0/schema";
 
 // Variant types for type narrowing (schemas are internal to component registry)
@@ -82,6 +90,8 @@ export type {
   HeroCourse,
   HeroApplyFormProductShowcase,
 } from "../marketing-content/component-registry/hero/v1.0/schema";
+
+// HeroCredibility is already exported via the re-export block above
 
 // ============================================
 // Re-export AI Learning Schemas from Component Registry

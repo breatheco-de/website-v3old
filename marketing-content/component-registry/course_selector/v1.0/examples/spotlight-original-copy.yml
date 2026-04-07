@@ -3,6 +3,8 @@ description: "Course selector with spotlight layout: first course as large featu
 type: course_selector
 version: "1.0"
 variant: spotlight
+maxWidth:
+  desktop: 6xl
 heading: Find Your Path
 subheading: Four programs. All built around getting you hired, not just trained.
 courses:

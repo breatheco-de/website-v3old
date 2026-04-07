@@ -71,7 +71,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
       style={bgStyle}
       data-testid="section-press-mentions-showcase"
     >
-      <div className="max-w-6xl mx-auto px-4 flex flex-col gap-8">
+      <div className="flex flex-col gap-8">
 
         {/* Header */}
         {(data.title || data.subtitle) && (
@@ -100,7 +100,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
         {/* Featured Card */}
         {featured && (
           <div
-            className="bg-primary rounded-[0.8rem] p-6 md:p-8 flex flex-col md:flex-row gap-3 md:gap-6 md:items-center"
+            className="bg-primary rounded-[0.8rem] p-6 md:p-8 flex flex-col md:flex-row gap-3 md:gap-4 md:items-center"
             data-testid="card-press-featured"
           >
             {/* Star + year — row on mobile, column on md+ */}
@@ -119,7 +119,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
             </div>
 
             {/* Center: org label + title */}
-            <div className="flex-1 min-w-0 min-w-[720px]">
+            <div className="flex-1 min-w-0 min-w-[370px] lg:min-w-[650px] xl:min-w-[720px]">
               {featured.organization && (
                 <p
                   className="text-xs font-medium uppercase tracking-wide text-white/70 mb-1.5"
@@ -163,7 +163,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
                 </a>
               )}
               {featured.tags && featured.tags.length > 0 && (
-                <div className={`grid grid-cols-2 w-full ${featured.logo ? "gap-2" : "gap-7"}`}>
+                <div className={`grid grid-cols-2 w-full ${featured.logo ? "gap-2" : "gap-6"}`}>
                   {featured.tags.slice(0, 4).map((tag, i) => (
                     <span
                       key={i}
@@ -210,7 +210,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-3">
                 <button
-                  className="h-9 w-9 flex items-center justify-center rounded-md border border-border bg-background text-foreground"
+                  className="h-9 w-9 flex items-center justify-center rounded-full hover:bg-muted text-foreground"
                   onClick={() => setCurrentPage((p) => (p - 1 + totalPages) % totalPages)}
                   data-testid="button-press-carousel-prev"
                 >
@@ -222,7 +222,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
                   onDotClick={setCurrentPage}
                 />
                 <button
-                  className="h-9 w-9 flex items-center justify-center rounded-md border border-border bg-background text-foreground"
+                  className="h-9 w-9 flex items-center justify-center rounded-full text-foreground"
                   onClick={() => setCurrentPage((p) => (p + 1) % totalPages)}
                   data-testid="button-press-carousel-next"
                 >
@@ -294,7 +294,7 @@ function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) 
           </span>
         )}
         {item.category && (
-          <Badge className="w-fit text-xs rounded-full bg-primary/5 text-foreground border-transparent">
+          <Badge className="w-fit text-xs rounded-full bg-primary/20 text-foreground border-transparent">
             {item.category}
           </Badge>
         )}
@@ -332,31 +332,25 @@ function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) 
       {/* Bottom stats + tags + link */}
       <div className="mt-auto flex flex-col gap-2">
         {(item.stat_value || item.stat_label) && (
-          <div>
-            {item.stat_value && (
-              <span className="text-3xl font-bold text-primary" data-testid={`text-press-stat-value-${index}`}>
-                {item.stat_value}
-              </span>
-            )}
-            {item.stat_label && (
-              <span className="text-base text-muted-foreground ml-1.5">
-                {item.stat_label}
-              </span>
-            )}
-          </div>
+          <Badge
+            className="bg-primary/10 text-foreground rounded-full hover:bg-primary/10 text-sm font-semibold px-3 py-1 w-fit"
+            data-testid={`badge-press-stat-${index}`}
+            style={{ backgroundColor: "hsl(var(--accent) / 0.7)" }}
+          >
+            {item.stat_value && <span data-testid={`text-press-stat-value-${index}`}>{item.stat_value}</span>}
+            {item.stat_value && item.stat_label && <span className="mx-1 font-normal opacity-70">·</span>}
+            {item.stat_label && <span className="font-normal opacity-80">{item.stat_label}</span>}
+          </Badge>
         )}
         {item.tags && item.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1">
+          <p className="text-xs text-muted-foreground" data-testid={`tags-press-card-${index}`}>
             {item.tags.slice(0, 3).map((tag, t) => (
-              <span
-                key={t}
-                className="bg-muted text-foreground text-[11px] px-2 py-0.5 rounded-full"
-                data-testid={`tag-press-card-${index}-${t}`}
-              >
-                {tag}
+              <span key={t}>
+                {t > 0 && <span className="mx-1 text-primary">·</span>}
+                <span data-testid={`tag-press-card-${index}-${t}`}>{tag}</span>
               </span>
             ))}
-          </div>
+          </p>
         )}
         {showLinks && item.link_url && item.link_text && (
           <a

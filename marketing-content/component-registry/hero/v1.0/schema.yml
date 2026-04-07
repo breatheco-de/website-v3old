@@ -26,6 +26,9 @@ variants:
     description: Two column layout with content on left (title, bullet points, tutors) and media + signup card on right
     best_for: Course landing pages, self-paced program pages
   twoColumn: {}
+  credibility:
+    description: Two column hero with large rich-text title on the left and a vertical stack of credibility pills on the right, plus an optional muted watermark marquee at the bottom
+    best_for: Homepage hero sections, trust-building landing pages, program overview pages
 variant_props:
   singleColumn:
     badge:
@@ -794,6 +797,92 @@ variant_props:
               required: false
           description: List of features with icons and optional counts
       description: Signup/CTA card below media
+  credibility:
+    title:
+      type: string
+      required: true
+      description: Main headline. Supports inline HTML for rich text (bold, italic, color spans). HTML is rendered via dangerouslySetInnerHTML.
+      example: "1.3 million<br>new <span style=\"color:#0084FF;font-style:italic\">AI roles.</span><br>We'll get you one."
+    description:
+      type: string
+      required: false
+      description: Short supporting text displayed above the title in muted color
+      example: "Immersive programs built to launch AI careers."
+    cta_buttons:
+      type: array
+      required: false
+      description: "Call-to-action buttons (recommended: 2 buttons max)"
+      items:
+        text:
+          type: string
+          required: true
+        url:
+          type: string
+          required: true
+        variant:
+          type: string
+          required: true
+          options:
+            - primary
+            - secondary
+            - outline
+        icon:
+          type: string
+          required: false
+          description: Tabler icon name (without 'Icon' prefix)
+    pills:
+      type: array
+      required: false
+      description: Vertical stack of credibility pills displayed in the right column
+      items:
+        category:
+          type: string
+          required: true
+          description: Small uppercase label above the pill text (e.g. "Institutional Backing")
+        logos:
+          type: array
+          required: false
+          description: One or more logo images displayed in the pill's logo area
+          items:
+            image_id:
+              type: string
+              required: true
+              description: Image registry ID of the logo
+        label:
+          type: string
+          required: true
+          description: Main pill text shown below the category label
+        background_color:
+          type: string
+          required: false
+          description: CSS color value for the pill background (defaults to white)
+          example: "white"
+    logo_rotation_ms_time:
+      type: number
+      required: false
+      description: How many milliseconds each logo is shown before rotating to the next one. All badges rotate simultaneously. Defaults to 2500ms.
+      example: 2500
+    colored_logos:
+      type: boolean
+      required: false
+      description: When true, logos are shown in full color. When false (default), logos are displayed in grayscale.
+    show_marquee:
+      type: boolean
+      required: false
+      description: Whether to show the muted watermark marquee at the bottom (defaults to true)
+    marquee_items:
+      type: array
+      required: false
+      description: Items for the watermark marquee. If omitted, default items are used.
+      items:
+        bold_text:
+          type: string
+          required: true
+          description: Bold/emphasized text (e.g. platform name or stat)
+        light_text:
+          type: string
+          required: true
+          description: Light/muted text following the bold text (e.g. rating or description)
 props:
   title:
     type: string

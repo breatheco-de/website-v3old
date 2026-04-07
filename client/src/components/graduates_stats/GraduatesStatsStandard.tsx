@@ -36,6 +36,7 @@ export function GraduatesStatsStandard({ data }: GraduatesStatsStandardProps) {
               preset="card"
               className="w-full h-full object-cover shadow-sm"
               alt={`Graduate photo ${index + 1}`}
+              loading={index < 2 ? "eager" : "lazy"}
               style={{
                 objectPosition: img.object_position ?? "center center",
                 transform: `scale(${img.object_scale ?? 1})`,
@@ -92,7 +93,7 @@ export function GraduatesStatsStandard({ data }: GraduatesStatsStandardProps) {
       className={`py-16 md:py-24 ${background || ''}`}
       data-testid="section-graduates-stats"
     >
-      <div className="max-w-6xl mx-auto px-4">
+      <div>
         {(heading || subheading) && (
           <div className="text-center mb-12">
             {heading && (

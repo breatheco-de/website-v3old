@@ -149,6 +149,8 @@ sections:
     paddingY:
       desktop: none sm
   - type: graduates_stats
+    maxWidth:
+      desktop: 6xl
     heading: Real Career Outcomes
     subheading: Over 6,000 graduates have made the switch to tech. Here's what happened after they completed the program.
     stats:
@@ -173,6 +175,8 @@ sections:
         row_span: 2
     section_id: graduates_stats-cnxqbb
   - type: trust_cards
+    maxWidth:
+      desktop: 6xl
     version: v1.0
     title: Top Rated Across Every Major Review Platform
     items:
@@ -391,6 +395,8 @@ sections:
       desktop: none xl
     section_id: two_column-luisa
   - type: career_support_explain
+    maxWidth:
+      desktop: 6xl
     version: v1.0
     heading: Get Hired. Career Support That Doesn't Stop at Graduation.
     description: AI-optimized profiles, direct access to a network of 400+ hiring partners, and hands-on support from first application to signed offer, and beyond. The career support system that makes the Job Guarantee possible.

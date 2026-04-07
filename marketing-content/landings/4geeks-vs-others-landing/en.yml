@@ -115,6 +115,8 @@ sections:
     section_id: hero-6ad8dh
     awards_marquee_at_left_column: true
   - type: graduates_stats
+    maxWidth:
+      desktop: 6xl
     heading: Real Career Outcomes
     subheading: 5,000+ graduates chose 4Geeks over every other option. Here's what that decision looked like 90 days later.
     stats:
@@ -142,6 +144,8 @@ sections:
     section_id: graduates_stats-cnxqbb
     value_size: text-3xl
   - type: trust_cards
+    maxWidth:
+      desktop: 6xl
     version: v1.0
     title: Don't Take Our Word for It. Here's What Independent Platforms Say.
     items:

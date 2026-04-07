@@ -152,6 +152,8 @@ sections:
     section_id: features_grid-y3btwy
     version: "1.0"
     variant: stats-text
+    maxWidth:
+      desktop: 6xl
     title: La falta de especialistas en Ciberseguridad es tu Oportunidad
     subtitle: Lanza una carrera en uno de los sectores tecnológicos de mayor crecimiento y más esenciales del mundo.
     description: Con una brecha global significativa de talento e inversiones récord en ciberdefensa, la oportunidad para profesionales capacitados no tiene precedentes. Nuestro programa proporciona las habilidades técnicas y la experiencia práctica para acceder directamente a estos roles altamente demandados y de altos salarios.

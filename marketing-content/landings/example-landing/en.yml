@@ -64,9 +64,55 @@ sections:
         cta_url: /en/full-stack
         course_background: secondary
     section_id: course_selector-n0tubj
+  - type: hero
+    version: "1.0"
+    variant: credibility
+    description: Immersive programs built to launch AI careers. Backed by lifelong unlimited mentorship, AI-powered learning, and career support that gets you hired.
+    title: 1.3 million<br>new <span style="color:#0084FF;font-style:italic">AI roles.</span><br>We'll get you one.
+    cta_buttons:
+      - text: See if you qualify
+        url: /apply
+        variant: primary
+        icon: ChevronRight
+      - text: View curriculum
+        url: /curriculum
+        variant: outline
+    pills:
+      - category: Institutional Backing
+        logos:
+          - image_id: logo_razz
+            alt: Razz logo
+            id: logo-razz
+          - image_id: logo_overseas
+            alt: Overseas logo
+            id: logo-overseas
+        label: Chosen Partners of 12+ Universities
+      - category: Graduate Outcomes
+        logos:
+          - image_id: switchup-logo-d3e2a7f0
+        label: Trusted with $20M+ in Government Funding
+      - category: Student Ratings
+        logos:
+          - image_id: course-report-logo-9b4c1e82
+        label: Best Bootcamp Awards by Forbes, Course Report and more.
+    show_marquee: true
+    marquee_items:
+      - bold_text: Course Report
+        light_text: 4.9 ★
+      - bold_text: SwitchUp
+        light_text: 4.9 ★
+      - bold_text: Career Karma
+        light_text: 4.9 ★
+      - bold_text: 5,000+
+        light_text: graduates employed worldwide
+      - bold_text: 55%
+        light_text: avg salary increase
+    section_id: hero-r5kmch
   - type: course_selector
     version: "1.0"
     variant: spotlight
+    maxWidth:
+      desktop: 6xl
     heading: Find Your Path
     subheading: Four programs. All built around getting you hired, not just trained.
     courses:
@@ -283,6 +329,8 @@ sections:
     marginY:
       desktop: none xl
   - type: career_support_explain
+    maxWidth:
+      desktop: 6xl
     version: v1.0
     heading: GeekForce Career Support
     description: Our career support program is designed to help you land your first job in tech
@@ -513,6 +561,8 @@ sections:
       desktop: none
     paddingY:
       desktop: md xl
+    maxWidth:
+      desktop: 6xl
   - type: testimonials_grid
     section_id: testimonials_grid-0to7bo
     version: v1.0
@@ -1479,6 +1529,8 @@ sections:
     showOn: mobile
   - type: image_row
     section_id: image_row-86yw4k
+    maxWidth:
+      desktop: 6xl
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Asian student learning to code
@@ -1837,6 +1889,8 @@ sections:
       - value: $95K-$135K
         title: Average starting salary for AI Engineers
     variant: stats-text
+    maxWidth:
+      desktop: 6xl
   - type: two_column_accordion_card
     section_id: two_column_accordion_card-3q247p
     version: "1.0"

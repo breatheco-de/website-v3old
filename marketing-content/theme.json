@@ -53,6 +53,7 @@
     { "id": "muted", "label": "Muted", "cssVar": "--muted" },
     { "id": "card", "label": "Card", "cssVar": "--card" },
     { "id": "accent", "label": "Accent", "cssVar": "--accent" },
+    { "id": "light-accent-5", "label": "Light Accent 5%", "value": "hsl(43 100% 55 / 0.05)" },
     { "id": "primary", "label": "Primary", "cssVar": "--primary" },
     { "id": "secondary", "label": "Secondary", "cssVar": "--secondary" },
     { "id": "sidebar", "label": "Sidebar", "cssVar": "--sidebar-background" },

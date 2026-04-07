@@ -2,10 +2,13 @@ import { useState, useRef, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { ImageRef, ImageEntry, ImagePreset } from "@shared/schema";
 import SolidCard from "./SolidCard";
-import { useSectionPriority } from "@/contexts/SectionPriorityContext";
+import { useSectionContext } from "@/contexts/SectionContext";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
-import { useImagePickerContext } from "@/contexts/ImagePickerContext";
 import { Pencil } from "lucide-react";
+import { ImagePickerDialog } from "@/components/editing/ImagePickerDialog";
+import { editContent } from "@/lib/contentApi";
+import { emitContentUpdated } from "@/lib/contentEvents";
+import { useToast } from "@/hooks/use-toast";
 
 interface ImageRegistryData {
   presets: Record<string, ImagePreset>;
@@ -67,11 +70,12 @@ export function UniversalImage({
   const { registry, loading: registryLoading } = useImageRegistry();
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [pickerOpen, setPickerOpen] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
-  const isPrioritySection = useSectionPriority();
+  const { isPriority: isPrioritySection, sectionIndex, contentType: sectionContentType, slug: sectionSlug, locale: sectionLocale } = useSectionContext();
   const editModeCtx = useEditModeOptional();
-  const imagePickerCtx = useImagePickerContext();
   const isEditMode = editModeCtx?.isEditMode ?? false;
+  const { toast } = useToast();
 
   const resolvedLoadingEarly: "lazy" | "eager" =
     loadingProp !== undefined
@@ -140,7 +144,6 @@ export function UniversalImage({
   const src = imageEntry ? imageEntry.src : id;
 
   const resolvedLoading = resolvedLoadingEarly;
-
   const fetchPriority: "high" | "auto" = isPrioritySection ? "high" : "auto";
   const decoding: "sync" | "async" = isPrioritySection ? "sync" : "async";
 
@@ -148,6 +151,7 @@ export function UniversalImage({
     imageEntry?.srcset && imageEntry.srcset.length > 0
       ? buildSrcsetString(imageEntry.srcset)
       : undefined;
+
 
   const sizesString = presetConfig?.sizes || (srcsetString ? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" : undefined);
 
@@ -166,26 +170,57 @@ export function UniversalImage({
     ? "border-2 border-muted-foreground/40 rounded-lg"
     : "";
 
+  const hasFieldContext = !!(
+    fieldContext?.fieldPath ||
+    (fieldContext?.arrayPath !== undefined && fieldContext?.index !== undefined && fieldContext?.srcField)
+  );
+  const canReplace = isEditMode && hasFieldContext && sectionIndex >= 0;
+
   const handleEditClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!imagePickerCtx) return;
-
-    const pickerFieldContext = fieldContext?.fieldPath
-      ? { fieldPath: fieldContext.fieldPath }
-      : fieldContext?.arrayPath !== undefined && fieldContext?.index !== undefined && fieldContext?.srcField
-        ? { arrayPath: fieldContext.arrayPath, index: fieldContext.index, srcField: fieldContext.srcField }
-        : undefined;
-
-    imagePickerCtx.openImagePicker({
-      id: src,
-      alt: finalAlt,
-      currentRegistryId: imageEntry ? id : undefined,
-      fieldContext: pickerFieldContext,
-    });
+    setPickerOpen(true);
   };
 
-  const editOverlay = isEditMode && imagePickerCtx ? (
+  const handlePickerSave = async (pickedSrc: string, _alt: string, registryId: string | undefined) => {
+    if (sectionIndex < 0 || !sectionContentType || !sectionSlug || !sectionLocale) {
+      toast({ title: "Cannot save", description: "Missing section context", variant: "destructive" });
+      throw new Error("Missing section context");
+    }
+
+    let path: string | null = null;
+    if (fieldContext?.fieldPath) {
+      path = `sections.${sectionIndex}.${fieldContext.fieldPath}`;
+    } else if (fieldContext?.arrayPath !== undefined && fieldContext?.index !== undefined && fieldContext?.srcField) {
+      path = `sections.${sectionIndex}.${fieldContext.arrayPath}.${fieldContext.index}.${fieldContext.srcField}`;
+    }
+
+    if (!path) {
+      toast({ title: "Cannot save", description: "No field path configured for this image", variant: "destructive" });
+      throw new Error("No field path configured");
+    }
+
+    // For _id fields (e.g. image_id in graduates_stats), save the registry ID.
+    // For src/url fields, save the resolved URL.
+    const isIdField = fieldContext?.srcField?.endsWith("_id") ?? false;
+    const valueToSave = isIdField && registryId ? registryId : pickedSrc;
+
+    const result = await editContent({
+      contentType: sectionContentType,
+      slug: sectionSlug,
+      locale: sectionLocale,
+      operations: [{ action: "update_field", path, value: valueToSave }],
+    });
+
+    if (result.success) {
+      emitContentUpdated({ contentType: sectionContentType, slug: sectionSlug, locale: sectionLocale });
+      toast({ title: "Image updated" });
+    } else {
+      throw new Error(result.error ?? "Save failed");
+    }
+  };
+
+  const editOverlay = canReplace ? (
     <button
       type="button"
       onClick={handleEditClick}
@@ -204,7 +239,7 @@ export function UniversalImage({
 
   const imageContent = (
     <div
-      className={`relative overflow-hidden ${borderClasses} ${useSolidCard ? "" : className} ${isEditMode && imagePickerCtx ? "group/editimg" : ""}`}
+      className={`relative overflow-hidden ${borderClasses} ${useSolidCard ? "" : className} ${canReplace ? "group/editimg" : ""}`}
       style={containerStyle}
       data-testid={`img-container-${id}`}
     >
@@ -243,15 +278,34 @@ export function UniversalImage({
     </div>
   );
 
+  const pickerDialog = canReplace ? (
+    <ImagePickerDialog
+      open={pickerOpen}
+      onOpenChange={setPickerOpen}
+      title="Replace Image"
+      initialSrc={src}
+      initialAlt={finalAlt}
+      onSave={handlePickerSave}
+    />
+  ) : null;
+
   if (useSolidCard) {
     return (
-      <SolidCard className={`!p-0 !min-h-0 overflow-hidden ${className}`}>
-        {imageContent}
-      </SolidCard>
+      <>
+        <SolidCard className={`!p-0 !min-h-0 overflow-hidden ${className}`}>
+          {imageContent}
+        </SolidCard>
+        {pickerDialog}
+      </>
     );
   }
 
-  return imageContent;
+  return (
+    <>
+      {imageContent}
+      {pickerDialog}
+    </>
+  );
 }
 
 export default UniversalImage;

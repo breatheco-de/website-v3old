@@ -100,8 +100,9 @@ export function FAQSection({ data, programSlug }: FAQSectionProps) {
   return (
     <section 
       data-testid="section-faq"
+      className="max-w-6xl mx-auto px-4"
     >
-      <div className="max-w-6xl mx-auto px-4">
+      <div >
         <h2 
           className="mb-8 text-center text-foreground text-[36px]"
           data-testid="text-faq-title"

@@ -42,7 +42,7 @@ sections:
     marginX:
       desktop: none
     paddingX:
-      desktop: xl
+      desktop: none
     maxWidth:
       desktop: none
   - type: credibility_strip
@@ -52,40 +52,52 @@ sections:
     item_background_color: hsl(var(--muted))
     logo_rotation_ms_time: 2000
     items:
-      - label: Dozends of University Partners
+      - label: Chosen Partners of 12+ Universities
         logos:
           - image_id: clark_university
             alt: Clark University Logo
             id: clark-university
-          - image_id: logo_mdc
-            alt: MDC CE logo
-            id: logo-mdc
-      - label: Trusted by many official Governments
+          - image_id: logo-of-miami-dade-county-floridasvg
+            alt: "Image: Logo_of_Miami-Dade_County,_Florida.svg"
+            id: logo-of-miami-dade-county-floridasvg
+          - image_id: 06-isologotipo-para-fondo-blanco-1
+            alt: "Image: 06-isologotipo-para-fondo-blanco-1"
+            id: 06-isologotipo-para-fondo-blanco-1
+          - image_id: logo-ucab-3
+            alt: "Image: Logo_UCAB_3"
+            id: logo-ucab-3
+          - image_id: logo-unimet-6-removebg-preview
+            alt: "Image: Logo-unimet-6-removebg-preview"
+            id: logo-unimet-6-removebg-preview
+      - label: Trusted with $20M+ in Government Funding
         logos:
           - image_id: bid_logo
-          - image_id: logo_jooble
-            alt: Jooble logo
-            id: logo-jooble
-          - image_id: logo_course_report
-            alt: Course Report logo
-            id: logo-course-report
-          - image_id: ""
-      - label: Award wining and recognized by all major publications
+          - image_id: austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview
+            alt: "Image: austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview"
+            id: austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview
+          - image_id: cinde-removebg-preview
+            alt: "Image: cinde-removebg-preview"
+            id: cinde-removebg-preview
+          - image_id: seal-of-the-united-states-economic-development-administration
+            alt: "Image: Seal_of_the_United_States_Economic_Development_Administration"
+            id: seal-of-the-united-states-economic-development-administration
+      - label: Best Bootcamp Awards by Forbes, Course Report and more.
         logos:
           - image_id: logo_switchup
             alt: SwitchUp logo
             id: logo-switchup
-          - image_id: pee_trajectory
-            alt: Trajectory excellence award
-            id: pee-trajectory
           - image_id: forbes_logo_award
             alt: Forbes Award logo
             id: forbes-logo-award
+          - image_id: careerkarma-logo
+            alt: "Image: CareerKarma_logo"
+            id: careerkarma-logo
     section_id: credibility_strip-vcpur5
     colored_logos: true
   - type: features_grid
     version: "1.0"
     variant: stats-text
+
     title: AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.
     subtitle: That's your opportunity.
     description: Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.
@@ -104,6 +116,8 @@ sections:
     marginY:
       desktop: xl md
     maxWidth:
+      desktop: 6xl
+    marginX:
       desktop: none
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
@@ -139,6 +153,8 @@ sections:
     section_id: graduates_stats-cnxqbb
     marginY:
       desktop: none
+    maxWidth:
+      desktop: 6xl
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
@@ -152,17 +168,18 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina_brightened.png
         alt: "Image: valentina_brightened"
         id: valentina-brightened
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-05_38_41-PM.png
-        alt: "Image: ChatGPT Image Mar 26, 2026, 05_38_41 PM"
-        id: chatgpt-image-mar-26-2026-05-38-41-pm
-        object_position: 50% 90%
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf.jpg
+        alt: "Image: 664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf"
+        id: 664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf
+        object_position: 38% 100%
+        object_scale: 1.35
     highlight:
       heading: Committed to breaking into tech? We support you like no one else does.
       text: Mentors and career coaches that are always within reach, an AI tutor, and your personal AI agent. All tailored to you.
       background: primary
       width: 2
       text_2: "<div><span style=\"font-size: 1.5rem;\"></span></div><span style=\"font-size: 1.5rem;\"><div><span></span></div></span><!--StartFragment--><ul class=\"[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 20px;\"><li class=\"whitespace-normal break-words pl-2\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\">Unlimited 1:1 mentorship with real tech professionals</li><li class=\"whitespace-normal break-words pl-2\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\">Career coaching built to get you hired</li><li class=\"whitespace-normal break-words pl-2\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\">An AI tutor that adapts to your learning path</li><li class=\"whitespace-normal break-words pl-2\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\">Your own AI agent</li></ul><p class=\"font-claude-response-body break-words whitespace-normal leading-[1.7]\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 20px;\"><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 1.25rem;\"><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\"><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-weight: bolder;\"><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 1.5rem;\">Tailored to you, and yours for life.</span></span></span></span></p><!--EndFragment-->"
-      text_1: "<!--StartFragment--><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-weight: bolder; font-size: 30px;\"><span style=\"line-height: 1.1;\"><span><span><span style=\"line-height: 1.1;\">Committed to breaking into tech? We support you like no one else does.</span></span></span></span></span><!--EndFragment-->"
+      text_1: "<span style=\"font-size: 1.5rem;\"><b><span style=\"line-height: 1.1;\">Committed to breaking into tech? We support you like no one else does.</span></b></span>"
     height: 31rem
     mobile_height: 24rem
     gap: md
@@ -173,9 +190,13 @@ sections:
       desktop: none xl
     paddingY:
       desktop: none
+    maxWidth:
+      desktop: 6xl
   - ttype: features_grid
     version: "1.0"
     variant: stats-text
+    maxWidth:
+      desktop: 6xl
     title: AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.
     subtitle: That's your opportunity.
     description: Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.
@@ -309,6 +330,8 @@ sections:
             description: Melanie retrained as a software developer and now works remotely for a tech company, from home, in a career she chose.
             achievement: Her salary doubled. And she works remotely, on her own terms.
     section_id: career_support_explain-xpc3k2
+    maxWidth:
+      desktop: 6xl
   - type: trust_cards
     version: v1.0
     title: Top rated across all major platforms.
@@ -333,6 +356,8 @@ sections:
     marginY:
       desktop: md lg
     background: hsl(210 100% 50% / 0.05)
+    maxWidth:
+      desktop: 6xl
   - type: testimonials_slide
     title: They Were Where You Are. Now They're Thriving in Tech.
     description: "Different backgrounds, different starting points, one result: a career in tech that changed everything. These are their stories."
@@ -341,48 +366,79 @@ sections:
       desktop: none
     paddingY:
       desktop: none
-  - type: programs_showcase
-    version: v1.0
-    layout: spotlight_with_list
+    maxWidth:
+      desktop: none
+  - type: course_selector
+    version: "1.0"
+    variant: spotlight
     heading: Find Your Path
     subheading: Four programs. All built around getting you hired, not just trained.
-    featured_label: Most Popular
-    programs:
+    courses:
       - name: AI Engineering
-        icon: IconBrain
-        badge: hola
-        description: Build the AI systems companies are hiring for right now. Master LLMs, AI agents, and automation while transforming a real business case into a fully AI-native system, layer by layer.
+        icon: Bolt
         duration: 24 weeks, or 15-week accelerated track
-        avg_salary: $95,000 - $150,000
+        label: Updated in 2026
+        title: AI Engineering
+        badges:
+          - icon: Bolt
+            text: RAG & Vector Search
+          - icon: Bolt
+            text: AI Agents
+          - icon: Bolt
+            text: Python
+        description: Transform a real business case into a fully AI-native system, layer by layer. Master the agents, RAG systems, and automation pipelines that companies are hiring for right now.
         cta_text: Get Program Details
         cta_url: /en/career-programs/ai-engineering
-      - name: Full Stack Development with AI
-        icon: IconCode
-        badge: hola
-        description: Build modern, production-ready web applications from frontend to backend, with AI integrated at every layer, not added on top.
-        duration: 20 weeks
-        avg_salary: $90,000 - $120,000
-        cta_text: Get Program Details
-        cta_url: /en/career-programs/full-stack
+        course_background: accent
       - name: Data Science and Machine Learning
         icon: IconChartBar
-        description: Master the skills behind AI-driven decisions. Build models, analyze data at scale, and deploy solutions that companies in every industry are actively hiring for.
         duration: 18 weeks
-        avg_salary: $70,000 - $130,000
+        label: Updated in 2026
+        title: Data Science and Machine Learning
+        badges:
+          - icon: ChartBar
+            text: Python & Pandas
+          - icon: ChartBar
+            text: TensorFlow
+          - icon: ChartBar
+            text: Data Visualization
+        description: Master the skills behind AI-driven decisions. Build models, analyze data at scale, and deploy solutions that companies in every industry are actively hiring for.
         cta_text: Get Program Details
         cta_url: /en/career-programs/data-science-ml
+        course_background: hsl(var(--muted-foreground))
       - name: Cybersecurity
         icon: IconShield
-        description: Protect the systems AI depends on. Every company scaling AI infrastructure needs specialists who can secure it. That demand isn't slowing down.
         duration: 16 weeks
-        avg_salary: $65,000 - $120,000
+        label: Updated in 2026
+        title: Cybersecurity
+        badges:
+          - icon: Shield
+            text: Ethical Hacking & Pentesting
+          - icon: Shield
+            text: NIST Framework
+        description: Detect threats, protect systems, and secure the data every organization depends on. One of the fastest-growing careers in tech, with a global shortage of skilled professionals that shows no signs of slowing.
         cta_text: Get Program Details
         cta_url: /en/career-programs/cybersecurity
-    section_id: programs_showcase-5wibqd
-    paddingY:
-      desktop: sm
-    marginY:
-      desktop: lg xl
+        course_background: destructive
+      - name: Full Stack Development with AI
+        icon: IconCode
+        duration: 20 weeks
+        label: Updated in 2026
+        title: Full Stack Development with AI
+        badges:
+          - icon: Code
+            text: React & Next.js
+          - icon: Code
+            text: Python & APIs
+          - icon: Code
+            text: AI Integration
+        description: Build modern, production-ready web applications from frontend to backend, with AI integrated into your development process from day one.
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/full-stack
+        course_background: primary
+    section_id: course_selector-4m5sh4
+    maxWidth:
+      desktop: 6xl
   - type: list_press_mentions
     version: v1.0
     variant: featured_showcase
@@ -397,6 +453,8 @@ sections:
     section_id: list_press_mentions-w7r1sh
     featured_background: hsl(var(--primary))
     background: hsl(var(--muted))
+    maxWidth:
+      desktop: 6xl
   - type: why_learn_ai
     variant: laptop-edge
     title: Land the Job. Or Your Money Back.
@@ -427,6 +485,10 @@ sections:
       - buenosaires-argentina
       - costa-rica
       - mexicocity-mexico
+    marginX:
+      desktop: none
+    maxWidth:
+      desktop: none
   - type: faq
     section_id: faq-31bv5t
     title: Frequently Asked Questions
@@ -481,3 +543,5 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
+    maxWidth:
+      desktop: 6xl

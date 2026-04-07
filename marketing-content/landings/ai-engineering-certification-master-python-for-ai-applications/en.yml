@@ -150,6 +150,8 @@ sections:
     paddingY:
       desktop: none sm
   - type: graduates_stats
+    maxWidth:
+      desktop: 6xl
     heading: Real Career Outcomes
     subheading: 5,000+ graduates have already made the move from developer to AI Engineer. Here's what happened after they completed the program.
     stats:
@@ -177,6 +179,8 @@ sections:
     section_id: graduates_stats-cnxqbb
     value_size: text-3xl
   - type: trust_cards
+    maxWidth:
+      desktop: 6xl
     version: v1.0
     title: "Rated #1 Across Every Major Review Platform"
     items:

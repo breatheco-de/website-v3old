@@ -93,6 +93,8 @@ sections:
       - madrid-spain
   - type: image_row
     section_id: image_row-qrfsfa
+    maxWidth:
+      desktop: 6xl
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/image_1765318600261.png
         alt: Feature illustration

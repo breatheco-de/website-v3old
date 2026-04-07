@@ -189,6 +189,8 @@ sections:
       mobile: none lg
       desktop: none sm
   - type: graduates_stats
+    maxWidth:
+      desktop: 6xl
     heading: Career Outcomes
     subheading: Real results from 5,000+ graduates. Here's what happens after you complete the program.
     stats:

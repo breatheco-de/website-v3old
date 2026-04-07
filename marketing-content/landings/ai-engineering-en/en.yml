@@ -136,6 +136,8 @@ sections:
     paddingY:
       desktop: none sm
   - type: graduates_stats
+    maxWidth:
+      desktop: 6xl
     heading: Career Outcomes
     subheading: 6,000+ graduates have made the switch into tech. These are their results.
     stats:

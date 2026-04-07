@@ -151,6 +151,8 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
+    maxWidth:
+      desktop: 6xl
     title: Por Qué las Habilidades de IA Importan Ahora
     subtitle: La IA se está convirtiendo en una habilidad laboral fundamental
     description: La IA está rápidamente convirtiéndose en parte del trabajo cotidiano en todos los sectores. Los profesionales que saben cómo usar herramientas y flujos de trabajo de IA están obteniendo una ventaja significativa en productividad, crecimiento profesional y potencial de ingresos.

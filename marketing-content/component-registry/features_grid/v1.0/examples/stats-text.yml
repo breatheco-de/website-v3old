@@ -14,3 +14,5 @@ yaml: |
         title: Year-over-year growth in AI job postings
       - value: $95K-$135K
         title: Average starting salary for AI Engineers
+    maxWidth:
+      desktop: 6xl

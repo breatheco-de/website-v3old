@@ -14,6 +14,12 @@ export const graduatesStatItemSchema = z.object({
   label: z.string(),
 });
 
+/**
+ * Image entry used inside collage grids (standard and fullBleed variants).
+ * Carries layout grid properties alongside image-position styling fields so
+ * that the image-with-style-picker editor can read/write object_position,
+ * object_scale, and transform_origin without a separate sibling field.
+ */
 export const graduatesCollageImageSchema = z.object({
   image_id: z.string(),
   col_span: z.number().optional(),
@@ -25,6 +31,11 @@ export const graduatesCollageImageSchema = z.object({
   transform_origin: z.string().optional().describe("CSS transform-origin (e.g., '50% 0%' for center top)"),
 });
 
+/**
+ * Image entry used in the featured image slots (fullBleed variant only).
+ * Same structure as graduatesCollageImageSchema so the editor picks it up
+ * under the featured_images[].image_id → image-with-style-picker mapping.
+ */
 export const graduatesFeaturedImageSchema = z.object({
   image_id: z.string(),
   col_span: z.number().optional(),

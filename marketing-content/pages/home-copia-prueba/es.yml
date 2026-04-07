@@ -88,6 +88,8 @@ sections:
     marginY:
       desktop: none xl
   - type: graduates_stats
+    maxWidth:
+      desktop: 6xl
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thiriving in tech.
     stats:
@@ -114,6 +116,8 @@ sections:
     marginY:
       desktop: none md
   - type: image_row
+    maxWidth:
+      desktop: 6xl
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Student learning to code
@@ -154,6 +158,8 @@ sections:
   - type: features_grid
     version: '1.0'
     variant: stats-text
+    maxWidth:
+      desktop: 6xl
     title: AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.
     subtitle: That's your opportunity.
     description: >-
@@ -176,6 +182,8 @@ sections:
   - ttype: features_grid
     version: '1.0'
     variant: stats-text
+    maxWidth:
+      desktop: 6xl
     title: AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.
     subtitle: That's your opportunity.
     description: >-
@@ -197,6 +205,8 @@ sections:
       desktop: none xl
   - type: career_support_explain
     version: v1.0
+    maxWidth:
+      desktop: 6xl
     heading: We Stay With You Until You're Hired.
     description: >-
       This is what separates 4Geeks from every other platform. Not just courses. A complete system that takes you from

@@ -78,6 +78,8 @@ sections:
     marginY:
       desktop: none md
   - type: image_row
+    maxWidth:
+      desktop: 6xl
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Student learning to code
@@ -148,6 +150,8 @@ sections:
       desktop: none
   - type: career_support_explain
     version: v1.0
+    maxWidth:
+      desktop: 6xl
     heading: How we get you hired. Every step, covered.
     description: AI-optimized profiles, direct access to 400+ hiring partners, and hands-on support from first application to signed offer, and beyond.
     background: hsl(var(--sidebar-background))

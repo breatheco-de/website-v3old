@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef, type CSSProperties } from "react";
+import { useState, useEffect, type CSSProperties } from "react";
 import { useImageRegistry } from "@/components/UniversalImage";
 import type { CredibilityStripSection, CredibilityStripItem } from "@shared/schema";
 
-function LogoImage({ id, colored }: { id: string; colored?: boolean }) {
+export function LogoImage({ id, colored }: { id: string; colored?: boolean }) {
   const { registry, loading } = useImageRegistry();
   if (loading || !registry) return null;
   const entry = registry.images?.[id];
@@ -32,7 +32,7 @@ function CredibilityItem({
   borderRadius,
   itemBgStyle,
   sectionHovered,
-  rotationMs,
+  tick,
   colored,
   isMobile,
 }: {
@@ -40,28 +40,12 @@ function CredibilityItem({
   borderRadius: string;
   itemBgStyle: CSSProperties;
   sectionHovered: boolean;
-  rotationMs: number;
+  tick: number;
   colored?: boolean;
   isMobile?: boolean;
 }) {
   const logos = item.logos || [];
-  const [activeIdx, setActiveIdx] = useState(0);
-  const initialDelayRef = useRef(Math.floor(Math.random() * rotationMs));
-
-  useEffect(() => {
-    if (logos.length <= 1) return;
-    let interval: ReturnType<typeof setInterval>;
-    const timeout = setTimeout(() => {
-      setActiveIdx((prev) => (prev + 1) % logos.length);
-      interval = setInterval(() => {
-        setActiveIdx((prev) => (prev + 1) % logos.length);
-      }, rotationMs);
-    }, initialDelayRef.current);
-    return () => {
-      clearTimeout(timeout);
-      clearInterval(interval);
-    };
-  }, [logos.length, rotationMs]);
+  const activeIdx = logos.length > 0 ? tick % logos.length : 0;
 
   return (
     <div
@@ -121,6 +105,14 @@ export function CredibilityStrip({ data }: { data: CredibilityStripSection }) {
   const rotationMs = data.logo_swap_speed_milisec ?? data.logo_rotation_ms_time ?? 2000;
   const coloredLogos = data.colored_logos ?? false;
 
+  const [tick, setTick] = useState(0);
+  useEffect(() => {
+    const hasManyLogos = items.some((item) => (item.logos || []).length > 1);
+    if (!hasManyLogos) return;
+    const timer = setInterval(() => setTick((t) => t + 1), rotationMs);
+    return () => clearInterval(timer);
+  }, [items, rotationMs]);
+
   const href = data.cta || data.link_url;
   const Wrapper = (href ? "a" : "div") as "a" | "div";
   const wrapperProps = href ? { href } : {};
@@ -152,7 +144,7 @@ export function CredibilityStrip({ data }: { data: CredibilityStripSection }) {
                 borderRadius={borderRadius}
                 itemBgStyle={itemBgStyle}
                 sectionHovered={hovered}
-                rotationMs={rotationMs}
+                tick={tick}
                 colored={coloredLogos}
                 isMobile={true}
               />
@@ -172,7 +164,7 @@ export function CredibilityStrip({ data }: { data: CredibilityStripSection }) {
               borderRadius={borderRadius}
               itemBgStyle={itemBgStyle}
               sectionHovered={hovered}
-              rotationMs={rotationMs}
+              tick={tick}
               colored={coloredLogos}
               isMobile={false}
             />

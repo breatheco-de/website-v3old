@@ -76,6 +76,7 @@ const MAX_WIDTH_PRESETS = [
   { label: "LG", value: "lg" },
   { label: "XL", value: "xl" },
   { label: "2XL", value: "2xl" },
+  { label: "6XL", value: "6xl" },
   { label: "Full", value: "full" },
 ];
 

@@ -245,6 +245,8 @@ sections:
     section_id: features_grid-k2kav6
     version: "1.2"
     variant: stats-text
+    maxWidth:
+      desktop: 6xl
     title: Por qué estudiar Ingeniería de IA ahora
     subtitle: El mercado laboral de inteligencia artificial está creciendo más rápido que la disponibilidad de talento cualificado.
     description: Informes de Microsoft y LinkedIn destacan que las habilidades en inteligencia artificial se han convertido en una prioridad estratégica para las empresas, impulsadas por la adopción masiva de herramientas de IA generativa. Formarte ahora te posiciona en el centro de una transformación tecnológica que está redefiniendo industrias enteras.
