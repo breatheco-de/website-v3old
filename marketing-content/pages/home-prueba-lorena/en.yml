@@ -97,7 +97,6 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text
-
     title: AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.
     subtitle: That's your opportunity.
     description: Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.
@@ -130,7 +129,7 @@ sections:
       - value: 3-6 months
         label: Average time to get hired
     collage_images:
-      - image_id: gemini-generated-image-uwpyyruwpyyruwpy
+      - image_id: group-7086
         col_span: 5
         row_span: 2
         alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
