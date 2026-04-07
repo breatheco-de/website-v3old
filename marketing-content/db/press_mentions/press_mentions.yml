@@ -191,12 +191,10 @@ press_mentions:
     stat_value: 80%
   - title: Chosen from 50+ Applicants to Train South Florida's Workforce Through a US Federal Government Grant
     category: University Partnerships
-    excerpt: >-
+    excerpt: >
       Miami Dade College chose 4Geeks to deliver workforce training for underserved communities under a $10M federal EDA
       grant. 74 graduates placed in tech roles averaging $74K annually. Every federal placement target met and exceeded.
-
-      Stat: 116%
-
-      Stat label: of federal placement targets achieved
     priority: 3
     organization: 'Miami Dade College/ U.S. Economic Development Administration '
+    stat_label: ' of federal placement targets achieved'
+    stat_value: '116% '
