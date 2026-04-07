@@ -54,7 +54,7 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
     return null;
   }
 
-  const navSize = menuConfig?.navbar?.size ?? 64;
+  const navSize = menuConfig?.navbar?.size ?? 56;
   const constrainClass = menuConfig?.navbar?.constrained_margin
     ? "max-w-6xl mx-auto px-4"
     : "px-6";
