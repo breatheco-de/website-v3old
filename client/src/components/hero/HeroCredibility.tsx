@@ -178,7 +178,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
                 data-testid="text-hero-title"
               >
                 {/* Mobile: RTE HTML without font-size, br stripped */}
-                <span
+                <div
                   className="block lg:hidden text-[50px] md:text-6xl leading-[25px] "
                   dangerouslySetInnerHTML={{
                     __html: (data.title || "")
@@ -187,7 +187,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
                   }}
                 />
                 {/* Desktop: full RTE HTML */}
-                <span
+                <div
                   className="hidden lg:block leading-[1.03]"
                   dangerouslySetInnerHTML={{ __html: data.title || "" }}
                 />
@@ -199,7 +199,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
                   data-testid="text-hero-description"
                 >
                   {/* Mobile: strip font-size and br */}
-                  <p
+                  <div
                     className="block lg:hidden"
                     dangerouslySetInnerHTML={{
                       __html: data.description
@@ -208,7 +208,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
                     }}
                   />
                   {/* Desktop: full RTE HTML */}
-                  <p
+                  <div
                     className="hidden lg:block"
                     dangerouslySetInnerHTML={{ __html: data.description }}
                   />
@@ -225,7 +225,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
                   <Button
                     key={index}
                     variant={button.variant === "primary" ? "default" : button.variant}
-                    size="default"
+                    className="px-3 md:px-6"
                     asChild
                     data-testid={`button-hero-cta-${index}`}
                   >
