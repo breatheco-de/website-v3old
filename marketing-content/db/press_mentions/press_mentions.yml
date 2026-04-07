@@ -48,17 +48,15 @@ press_mentions:
       - Miami Dade
       - 74 graduates placed
   - locale: en
-    title: 'Chosen tech curriculum partner for Miami Dade College''s Continuing Education '
-    category: University Partnership
-    excerpt: >-
-      Miami Dade College serves over 160,000 students annually. Since 2017, 4Geeks has delivered their Continuing
-      Education tech programs across multiple campuses, covering Full Stack, Web Development and Applied AI, with every
-      graduate earning dual certification from both institutions.
+    title: Selected by the Bahamas government for national AI education, alongside Harvard, Oxford and Columbia
+    category: Government Partnership
+    excerpt: >
+      The Bahamas government contracted 4Geeks to reskill their national workforce for the AI economy. First Caribbean
+      deployment for 4Geeks, in a country whose tech industry is growing at 18% annually.
     priority: 4
-    organization: Miami Dade College
-    stat_label: graduates
-    stat_value: 400+
-    year: '2017'
+    organization: 'Bahamas Upskilling Project '
+    stat_label: annual tech industry growth in the Bahamas
+    stat_value: '18% '
     tags:
       - Full Stack
       - Web Dev
