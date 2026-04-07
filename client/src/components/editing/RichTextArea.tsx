@@ -196,6 +196,79 @@ function applyTextColor(
   savedRangeRef.current = null;
 }
 
+function CustomPickerRow({
+  mode,
+  label,
+  toggleLabel,
+  value,
+  onChange,
+  onApply,
+  onOpen,
+  onClose,
+  min,
+  max,
+  step,
+  testIdPrefix,
+}: {
+  mode: boolean;
+  label: string;
+  toggleLabel: string;
+  value: string;
+  onChange: (v: string) => void;
+  onApply: () => void;
+  onOpen: () => void;
+  onClose: () => void;
+  min?: number;
+  max?: number;
+  step?: number;
+  testIdPrefix?: string;
+}) {
+  if (mode) {
+    return (
+      <div className="border-b mb-0.5 pb-1 px-1 space-y-1">
+        <p className="text-xs text-muted-foreground px-2">{label}</p>
+        <div className="flex gap-1">
+          <Input
+            type="number"
+            min={min}
+            max={max}
+            step={step}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            className="h-7 text-xs w-20"
+            autoFocus
+            onKeyDown={(e) => {
+              if (e.key === "Enter") { e.preventDefault(); onApply(); }
+              if (e.key === "Escape") { e.preventDefault(); onClose(); }
+            }}
+            data-testid={testIdPrefix ? `${testIdPrefix}-input` : undefined}
+          />
+          <Button
+            size="sm"
+            className="h-7 text-xs px-2"
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={onApply}
+            data-testid={testIdPrefix ? `${testIdPrefix}-apply` : undefined}
+          >
+            Apply
+          </Button>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <button
+      type="button"
+      onMouseDown={(e) => e.preventDefault()}
+      onClick={onOpen}
+      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-b mb-0.5 pb-2 text-xs text-muted-foreground w-full"
+      data-testid={testIdPrefix ? `${testIdPrefix}-toggle` : undefined}
+    >
+      {toggleLabel}
+    </button>
+  );
+}
+
 function applyFontSize(
   sizeValue: string,
   editableRef: React.RefObject<HTMLDivElement | null>,
@@ -546,11 +619,10 @@ export function RichTextArea({
     const cs = detectSelectionStyle();
     if (!cs) { setActiveLetterSpacing(null); return; }
     const raw = cs.letterSpacing;
-    if (!raw || raw === "normal") { setActiveLetterSpacing("0em"); return; }
+    if (!raw || raw === "normal") { setActiveLetterSpacing("0px"); return; }
     const pxVal = parseFloat(raw);
     if (isNaN(pxVal)) { setActiveLetterSpacing(null); return; }
-    const fontSize = parseFloat(cs.fontSize) || 16;
-    setActiveLetterSpacing(`${(pxVal / fontSize).toFixed(4).replace(/\.?0+$/, "")}em`);
+    setActiveLetterSpacing(`${pxVal}px`);
   }, [detectSelectionStyle]);
 
   const detectActiveLineHeight = useCallback(() => {
@@ -794,8 +866,6 @@ export function RichTextArea({
       const rem = (px / 16).toFixed(4).replace(/\.?0+$/, "") + "rem";
       handleFontSizeSelect(rem);
     }
-    setCustomFontSizeMode(false);
-    setCustomFontSizeVal("");
   }, [customFontSizeVal, handleFontSizeSelect]);
 
   const handleCustomFontWeightApply = useCallback(() => {
@@ -803,17 +873,13 @@ export function RichTextArea({
     if (!isNaN(w) && w >= 100 && w <= 900) {
       handleFontWeightSelect(String(Math.round(w / 100) * 100));
     }
-    setCustomFontWeightMode(false);
-    setCustomFontWeightVal("");
   }, [customFontWeightVal, handleFontWeightSelect]);
 
   const handleCustomLetterSpacingApply = useCallback(() => {
     const v = parseFloat(customLetterSpacingVal);
     if (!isNaN(v)) {
-      handleLetterSpacingSelect(`${v}em`);
+      handleLetterSpacingSelect(`${v}px`);
     }
-    setCustomLetterSpacingMode(false);
-    setCustomLetterSpacingVal("");
   }, [customLetterSpacingVal, handleLetterSpacingSelect]);
 
   const handleCustomLineHeightApply = useCallback(() => {
@@ -821,8 +887,6 @@ export function RichTextArea({
     if (!isNaN(v) && v > 0) {
       handleLineHeightSelect(String(v));
     }
-    setCustomLineHeightMode(false);
-    setCustomLineHeightVal("");
   }, [customLineHeightVal, handleLineHeightSelect]);
 
   const handlePaste = useCallback((e: React.ClipboardEvent<HTMLDivElement>) => {
@@ -1103,7 +1167,7 @@ export function RichTextArea({
               <IconTextSize className="h-4 w-4" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-auto p-1 z-[10000]" align="start">
+          <PopoverContent className="w-auto p-1 z-[10000]" align="start" onFocusOutside={(e) => e.preventDefault()}>
             {themeLoading ? (
               <div className="flex items-center justify-center h-12 w-32">
                 <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
@@ -1111,45 +1175,23 @@ export function RichTextArea({
             ) : (
               <div className="flex flex-col gap-0.5">
                 {allowCustomFontSize && (
-                  customFontSizeMode ? (
-                    <div className="border-b mb-0.5 pb-1 px-1 space-y-1">
-                      <p className="text-xs text-muted-foreground px-2">Size in px:</p>
-                      <div className="flex gap-1">
-                        <Input
-                          type="number"
-                          min={1}
-                          value={customFontSizeVal}
-                          onChange={(e) => setCustomFontSizeVal(e.target.value)}
-                          className="h-7 text-xs w-20"
-                          autoFocus
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter") { e.preventDefault(); handleCustomFontSizeApply(); }
-                            if (e.key === "Escape") { setCustomFontSizeMode(false); setCustomFontSizeVal(""); }
-                          }}
-                          onBlur={handleCustomFontSizeApply}
-                          data-testid={testId ? `${testId}-fontsize-custom-input` : undefined}
-                        />
-                        <Button size="sm" className="h-7 text-xs px-2" onMouseDown={(e) => e.preventDefault()} onClick={handleCustomFontSizeApply} data-testid={testId ? `${testId}-fontsize-custom-apply` : undefined}>
-                          Apply
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <button
-                      type="button"
-                      onMouseDown={(e) => e.preventDefault()}
-                      onClick={() => {
-                        if (activeFontSize && !fontSizes.some(s => Math.abs(parseFloat(activeFontSize) - parseFloat(s.value)) < 0.001)) {
-                          setCustomFontSizeVal(String(Math.round(parseFloat(activeFontSize) * 16)));
-                        }
-                        setCustomFontSizeMode(true);
-                      }}
-                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-b mb-0.5 pb-2 text-xs text-muted-foreground w-full"
-                      data-testid={testId ? `${testId}-fontsize-custom-toggle` : undefined}
-                    >
-                      Custom (px)…
-                    </button>
-                  )
+                  <CustomPickerRow
+                    mode={customFontSizeMode}
+                    label="Size in px:"
+                    toggleLabel="Custom (px)…"
+                    value={customFontSizeVal}
+                    onChange={setCustomFontSizeVal}
+                    onApply={handleCustomFontSizeApply}
+                    onOpen={() => {
+                      if (activeFontSize && !fontSizes.some(s => Math.abs(parseFloat(activeFontSize) - parseFloat(s.value)) < 0.001)) {
+                        setCustomFontSizeVal(String(Math.round(parseFloat(activeFontSize) * 16)));
+                      }
+                      setCustomFontSizeMode(true);
+                    }}
+                    onClose={() => { setCustomFontSizeMode(false); setCustomFontSizeVal(""); }}
+                    min={1}
+                    testIdPrefix={testId ? `${testId}-fontsize-custom` : undefined}
+                  />
                 )}
                 {fontSizes.map((size) => {
                   const isActive = activeFontSize !== null && Math.abs(parseFloat(activeFontSize) - parseFloat(size.value)) < 0.001;
@@ -1190,7 +1232,7 @@ export function RichTextArea({
               <IconLineHeight className="h-4 w-4" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-auto p-1 z-[10000]" align="start">
+          <PopoverContent className="w-auto p-1 z-[10000]" align="start" onFocusOutside={(e) => e.preventDefault()}>
             {themeLoading ? (
               <div className="flex items-center justify-center h-12 w-32">
                 <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
@@ -1198,46 +1240,24 @@ export function RichTextArea({
             ) : (
               <div className="flex flex-col gap-0.5">
                 {allowCustomLineHeight && (
-                  customLineHeightMode ? (
-                    <div className="border-b mb-0.5 pb-1 px-1 space-y-1">
-                      <p className="text-xs text-muted-foreground px-2">Line height:</p>
-                      <div className="flex gap-1">
-                        <Input
-                          type="number"
-                          min={0.5}
-                          step={0.1}
-                          value={customLineHeightVal}
-                          onChange={(e) => setCustomLineHeightVal(e.target.value)}
-                          className="h-7 text-xs w-20"
-                          autoFocus
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter") { e.preventDefault(); handleCustomLineHeightApply(); }
-                            if (e.key === "Escape") { setCustomLineHeightMode(false); setCustomLineHeightVal(""); }
-                          }}
-                          onBlur={handleCustomLineHeightApply}
-                          data-testid={testId ? `${testId}-lineheight-custom-input` : undefined}
-                        />
-                        <Button size="sm" className="h-7 text-xs px-2" onMouseDown={(e) => e.preventDefault()} onClick={handleCustomLineHeightApply} data-testid={testId ? `${testId}-lineheight-custom-apply` : undefined}>
-                          Apply
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <button
-                      type="button"
-                      onMouseDown={(e) => e.preventDefault()}
-                      onClick={() => {
-                        if (activeLineHeight && !lineHeights.some(lh => Math.abs(parseFloat(activeLineHeight) - parseFloat(lh.value)) < 0.01)) {
-                          setCustomLineHeightVal(activeLineHeight);
-                        }
-                        setCustomLineHeightMode(true);
-                      }}
-                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-b mb-0.5 pb-2 text-xs text-muted-foreground w-full"
-                      data-testid={testId ? `${testId}-lineheight-custom-toggle` : undefined}
-                    >
-                      Custom…
-                    </button>
-                  )
+                  <CustomPickerRow
+                    mode={customLineHeightMode}
+                    label="Line height:"
+                    toggleLabel="Custom…"
+                    value={customLineHeightVal}
+                    onChange={setCustomLineHeightVal}
+                    onApply={handleCustomLineHeightApply}
+                    onOpen={() => {
+                      if (activeLineHeight && !lineHeights.some(lh => Math.abs(parseFloat(activeLineHeight) - parseFloat(lh.value)) < 0.01)) {
+                        setCustomLineHeightVal(activeLineHeight);
+                      }
+                      setCustomLineHeightMode(true);
+                    }}
+                    onClose={() => { setCustomLineHeightMode(false); setCustomLineHeightVal(""); }}
+                    min={0.5}
+                    step={0.1}
+                    testIdPrefix={testId ? `${testId}-lineheight-custom` : undefined}
+                  />
                 )}
                 {lineHeights.map((lh) => {
                   const isActive = activeLineHeight !== null && Math.abs(parseFloat(activeLineHeight) - parseFloat(lh.value)) < 0.01;
@@ -1276,7 +1296,7 @@ export function RichTextArea({
               <IconLetterCase className="h-4 w-4" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-auto p-1 z-[10000]" align="start">
+          <PopoverContent className="w-auto p-1 z-[10000]" align="start" onFocusOutside={(e) => e.preventDefault()}>
             {themeLoading ? (
               <div className="flex items-center justify-center h-12 w-32">
                 <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
@@ -1284,47 +1304,25 @@ export function RichTextArea({
             ) : (
               <div className="flex flex-col gap-0.5">
                 {allowCustomFontWeight && (
-                  customFontWeightMode ? (
-                    <div className="border-b mb-0.5 pb-1 px-1 space-y-1">
-                      <p className="text-xs text-muted-foreground px-2">Weight (100–900):</p>
-                      <div className="flex gap-1">
-                        <Input
-                          type="number"
-                          min={100}
-                          max={900}
-                          step={100}
-                          value={customFontWeightVal}
-                          onChange={(e) => setCustomFontWeightVal(e.target.value)}
-                          className="h-7 text-xs w-20"
-                          autoFocus
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter") { e.preventDefault(); handleCustomFontWeightApply(); }
-                            if (e.key === "Escape") { setCustomFontWeightMode(false); setCustomFontWeightVal(""); }
-                          }}
-                          onBlur={handleCustomFontWeightApply}
-                          data-testid={testId ? `${testId}-fontweight-custom-input` : undefined}
-                        />
-                        <Button size="sm" className="h-7 text-xs px-2" onMouseDown={(e) => e.preventDefault()} onClick={handleCustomFontWeightApply} data-testid={testId ? `${testId}-fontweight-custom-apply` : undefined}>
-                          Apply
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <button
-                      type="button"
-                      onMouseDown={(e) => e.preventDefault()}
-                      onClick={() => {
-                        if (activeFontWeight && !fontWeights.some(fw => Math.abs(parseFloat(activeFontWeight) - parseFloat(fw.value)) < 1)) {
-                          setCustomFontWeightVal(activeFontWeight);
-                        }
-                        setCustomFontWeightMode(true);
-                      }}
-                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-b mb-0.5 pb-2 text-xs text-muted-foreground w-full"
-                      data-testid={testId ? `${testId}-fontweight-custom-toggle` : undefined}
-                    >
-                      Custom…
-                    </button>
-                  )
+                  <CustomPickerRow
+                    mode={customFontWeightMode}
+                    label="Weight (100–900):"
+                    toggleLabel="Custom…"
+                    value={customFontWeightVal}
+                    onChange={setCustomFontWeightVal}
+                    onApply={handleCustomFontWeightApply}
+                    onOpen={() => {
+                      if (activeFontWeight && !fontWeights.some(fw => Math.abs(parseFloat(activeFontWeight) - parseFloat(fw.value)) < 1)) {
+                        setCustomFontWeightVal(activeFontWeight);
+                      }
+                      setCustomFontWeightMode(true);
+                    }}
+                    onClose={() => { setCustomFontWeightMode(false); setCustomFontWeightVal(""); }}
+                    min={100}
+                    max={900}
+                    step={100}
+                    testIdPrefix={testId ? `${testId}-fontweight-custom` : undefined}
+                  />
                 )}
                 {fontWeights.map((fw) => {
                   const isActive = activeFontWeight !== null && Math.abs(parseFloat(activeFontWeight) - parseFloat(fw.value)) < 1;
@@ -1363,7 +1361,7 @@ export function RichTextArea({
               <IconLetterSpacing className="h-4 w-4" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-auto p-1 z-[10000]" align="start">
+          <PopoverContent className="w-auto p-1 z-[10000]" align="start" onFocusOutside={(e) => e.preventDefault()}>
             {themeLoading ? (
               <div className="flex items-center justify-center h-12 w-32">
                 <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
@@ -1371,48 +1369,26 @@ export function RichTextArea({
             ) : (
               <div className="flex flex-col gap-0.5">
                 {allowCustomLetterSpacing && (
-                  customLetterSpacingMode ? (
-                    <div className="border-b mb-0.5 pb-1 px-1 space-y-1">
-                      <p className="text-xs text-muted-foreground px-2">Spacing (em):</p>
-                      <div className="flex gap-1">
-                        <Input
-                          type="number"
-                          step={0.01}
-                          value={customLetterSpacingVal}
-                          onChange={(e) => setCustomLetterSpacingVal(e.target.value)}
-                          className="h-7 text-xs w-20"
-                          autoFocus
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter") { e.preventDefault(); handleCustomLetterSpacingApply(); }
-                            if (e.key === "Escape") { setCustomLetterSpacingMode(false); setCustomLetterSpacingVal(""); }
-                          }}
-                          onBlur={handleCustomLetterSpacingApply}
-                          data-testid={testId ? `${testId}-letterspacing-custom-input` : undefined}
-                        />
-                        <Button size="sm" className="h-7 text-xs px-2" onMouseDown={(e) => e.preventDefault()} onClick={handleCustomLetterSpacingApply} data-testid={testId ? `${testId}-letterspacing-custom-apply` : undefined}>
-                          Apply
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <button
-                      type="button"
-                      onMouseDown={(e) => e.preventDefault()}
-                      onClick={() => {
-                        if (activeLetterSpacing && !letterSpacings.some(ls => Math.abs(parseFloat(activeLetterSpacing) - parseFloat(ls.value)) < 0.001)) {
-                          setCustomLetterSpacingVal(activeLetterSpacing.replace("em", ""));
-                        }
-                        setCustomLetterSpacingMode(true);
-                      }}
-                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors border-b mb-0.5 pb-2 text-xs text-muted-foreground w-full"
-                      data-testid={testId ? `${testId}-letterspacing-custom-toggle` : undefined}
-                    >
-                      Custom (em)…
-                    </button>
-                  )
+                  <CustomPickerRow
+                    mode={customLetterSpacingMode}
+                    label="Spacing (px):"
+                    toggleLabel="Custom (px)…"
+                    value={customLetterSpacingVal}
+                    onChange={setCustomLetterSpacingVal}
+                    onApply={handleCustomLetterSpacingApply}
+                    onOpen={() => {
+                      if (activeLetterSpacing && !letterSpacings.some(ls => Math.abs(parseFloat(activeLetterSpacing) - parseFloat(ls.value)) < 0.01)) {
+                        setCustomLetterSpacingVal(activeLetterSpacing.replace("px", ""));
+                      }
+                      setCustomLetterSpacingMode(true);
+                    }}
+                    onClose={() => { setCustomLetterSpacingMode(false); setCustomLetterSpacingVal(""); }}
+                    step={0.1}
+                    testIdPrefix={testId ? `${testId}-letterspacing-custom` : undefined}
+                  />
                 )}
                 {letterSpacings.map((ls) => {
-                  const isActive = activeLetterSpacing !== null && Math.abs(parseFloat(activeLetterSpacing) - parseFloat(ls.value)) < 0.001;
+                  const isActive = activeLetterSpacing !== null && Math.abs(parseFloat(activeLetterSpacing) - parseFloat(ls.value)) < 0.01;
                   return (
                   <button
                     key={ls.id}
