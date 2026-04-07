@@ -434,7 +434,7 @@ sections:
     show_logos: true
     dynamic_entries:
       database: press_mentions
-      limit: 9
+      limit: 10
       sort: priority
     section_id: list_press_mentions-w7r1sh
     featured_background: hsl(var(--primary))
