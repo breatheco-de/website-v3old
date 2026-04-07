@@ -174,10 +174,19 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
             <div className="flex flex-col gap-3 w-full">
               {/* Title: first on mobile (order-1), second on desktop (order-2) */}
               <h1
-                className="order-1 md:order-2 text-xl md:text-[10px] lg:text-none text-foreground leading-[1.03] text-center md:text-left font-inter"
+                className="order-1 md:order-2 text-foreground text-center md:text-left font-inter"
                 data-testid="text-hero-title"
-                dangerouslySetInnerHTML={{ __html: data.title || "" }}
-              />
+              >
+                {/* Mobile: plain text with fixed size */}
+                <span className="block md:hidden text-3xl leading-tight">
+                  {(data.title || "").replace(/<[^>]*>/g, "")}
+                </span>
+                {/* Desktop: full RTE HTML */}
+                <span
+                  className="hidden md:block leading-[1.03]"
+                  dangerouslySetInnerHTML={{ __html: data.title || "" }}
+                />
+              </h1>
               {/* Description: second on mobile (order-2), first on desktop (order-1) */}
               {data.description && (
                 <p
