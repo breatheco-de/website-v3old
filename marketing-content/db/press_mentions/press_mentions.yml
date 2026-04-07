@@ -197,3 +197,13 @@ press_mentions:
     organization: UTEC · Universidad Tecnológica del Uruguay
     stat_label: graduates, programs ongoing since 2021
     stat_value: 200+
+  - locale: en
+    title: 'Selected in Mexico to deliver tech training for women, with 90% funded  '
+    category: 'Non-Profit '
+    excerpt: >
+      Fundación ACAPI selected 4Geeks and covered 90% of program costs, reserving 75% of seats for women entering tech.
+      Graduates achieved a 91% graduation rate, 80% employment rate, and an average salary increase of 53%.
+    priority: 9
+    organization: Fundación ACAPI · Mexico
+    stat_label: employment rate post-graduation
+    stat_value: 80%
