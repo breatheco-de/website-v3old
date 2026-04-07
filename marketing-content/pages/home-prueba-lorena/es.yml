@@ -59,9 +59,9 @@ sections:
         light_text: 4.9 ★
       - bold_text: Career Karma
         light_text: 4.9 ★
-      - bold_text: 5,000+
+      - bold_text: 6,000+
         light_text: graduados empleados en todo el mundo
-      - bold_text: 55%
+      - bold_text: {{ global.global_salary_increase | 55 }}%
         light_text: aumento salarial promedio
     section_id: hero-tcvppl
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
