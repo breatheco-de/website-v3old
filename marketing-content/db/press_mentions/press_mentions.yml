@@ -78,16 +78,15 @@ press_mentions:
       - Fully funded
       - $8,400 living stipend
   - locale: en
-    title: Ongoing partnership — 60% program cost covered for women in tech
-    subtitle: Foundation · Women-Focused Workforce Training Initiative · Mexico City
-    category: Civil Society / Mexico
-    excerpt: >-
-      60% program cost covered by ACAPI. 76% of seats reserved for women. 61% graduation rate and 50% employment
-      meetings — among the highest in 4Geeks' portfolio.
+    title: The Only Coding School Chosen for MacKenzie Scott-Funded Workforce Initiative in Miami
+    category: Non-Profit
+    excerpt: >
+      United Way Miami chose 4Geeks to receive 100 fully funded scholarships for Miami-Dade residents changing careers
+      into tech, covering tuition and living stipends. Over 1,000 people applied.
     priority: 6
-    organization: ACAPI
-    stat_label: average salary increase
-    stat_value: 53%
+    organization: United Way Miami
+    stat_label: max living stipend per student
+    stat_value: '$6,400 '
     tags:
       - Women in Tech focus
       - Mexico City
