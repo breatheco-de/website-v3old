@@ -112,6 +112,8 @@ sections:
       desktop: none
     maxWidth:
       desktop: 6xl
+    paddingY:
+      desktop: md none
   - type: features_grid
     version: "1.0"
     variant: stats-text
