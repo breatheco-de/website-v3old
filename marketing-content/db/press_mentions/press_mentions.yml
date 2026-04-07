@@ -34,13 +34,12 @@ press_mentions:
       - Uruguay
       - Mexico
   - locale: en
-    title: Good Jobs Challenge · $10M federal grant
-    subtitle: U.S. Department of Commerce · Good Jobs Challenge Initiative · Federal Workforce Program
-    category: U.S. Federal Government
+    title: One of two providers selected for a $10M federal workforce program in South Florida
+    subtitle: ' Good Jobs Challenge'
+    category: 'U.S. Federal Government '
     excerpt: >-
-      The U.S. Department of Commerce awarded $10M to Miami Dade College under the Good Jobs Challenge, a $500M American
-      Rescue Plan initiative. From a pool of 50+ applicants, 4Geeks was chosen as one of only two training providers. 74
-      graduates placed in tech roles averaging $74K annually, exceeding the project's federal placement target.
+      Miami Dade College chose 4Geeks to deliver workforce training for underserved communities under a $10M federal EDA
+      grant. 74 graduates placed in tech roles averaging $74K annually. Every federal placement target met and exceeded.
     priority: 3
     organization: U.S. EDA
     stat_label: federal placement target achieved
@@ -49,12 +48,12 @@ press_mentions:
       - Miami Dade
       - 74 graduates placed
   - locale: en
-    title: Chosen partner for Miami Dade College's Continuing Education tech programs since 2017
+    title: 'Chosen tech curriculum partner for Miami Dade College''s Continuing Education '
     category: University Partnership
     excerpt: >-
       Miami Dade College serves over 160,000 students annually. Since 2017, 4Geeks has delivered their Continuing
-      Education tech programs across multiple campuses, covering Full Stack, Web Development and Applied AI. Every
-      graduate earns dual certification from both institutions.
+      Education tech programs across multiple campuses, covering Full Stack, Web Development and Applied AI, with every
+      graduate earning dual certification from both institutions.
     priority: 4
     organization: Miami Dade College
     stat_label: graduates
@@ -74,10 +73,10 @@ press_mentions:
     priority: 5
     organization: United Way
     stat_value: '$6,400 '
+    year: ' living stipend per student'
     tags:
       - Fully funded
       - $8,400 living stipend
-    year: ' living stipend per student'
   - locale: en
     title: Ongoing partnership — 60% program cost covered for women in tech
     subtitle: Foundation · Women-Focused Workforce Training Initiative · Mexico City
