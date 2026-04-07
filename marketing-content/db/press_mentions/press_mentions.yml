@@ -37,7 +37,7 @@ press_mentions:
     category: Non-Profit
     excerpt: |2
        The Costa Rica-US Foundation for Cooperation selected 4Geeks to deliver employment-first tech training, targeting women from high-unemployment areas. Two cohorts completed with a 100% graduation rate and 75% hiring rate.
-    priority: 10
+    priority: 9
     organization: CRUSA Foundation · Costa Rica
     stat_label: graduation rate across both cohorts
     stat_value: '100% '
