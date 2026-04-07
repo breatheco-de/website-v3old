@@ -92,14 +92,23 @@ press_mentions:
       - Women in Tech focus
       - Mexico City
   - locale: en
-    title: Selected as delivery partner for the Miami Workforce Project
-    subtitle: Miami Workforce Development Project · Clark University Community Partnership
-    category: University / Workforce
+    title: Chosen by Clark University to Run the Miami Workforce Development Project
+    category: University Partnership
     excerpt: >-
-      Selected by Clark University as the delivery partner for the Miami Workforce Project. Program Director confirmed
-      it exceeded expectations.
+
+      Institution name:
+
+      Title: 
+
+      Clark University provided scholarships of up to $4,000 per student, applied directly toward 4Geeks program
+      tuition, for unemployed and underemployed Miami-Dade residents. Zero upfront cost for participants. Every target
+      set at launch was exceeded.
+
+      Stat: $4,000
+
+      Stat label: scholarship per student, zero upfront cost
     priority: 7
-    organization: Clark Univ.
+    organization: ' Clark University '
     stat_label: scholarship per student
     stat_value: $4,000
     tags:
