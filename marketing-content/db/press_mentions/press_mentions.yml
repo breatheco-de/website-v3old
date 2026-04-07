@@ -185,7 +185,7 @@ press_mentions:
     excerpt: >
       Fundación ACAPI selected 4Geeks and covered 90% of program costs, reserving 75% of seats for women entering tech.
       Graduates achieved a 91% graduation rate, 80% employment rate, and an average salary increase of 53%.
-    priority: 9
+    priority: 10
     organization: Fundación ACAPI · Mexico
     stat_label: employment rate post-graduation
     stat_value: 80%
