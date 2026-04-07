@@ -93,7 +93,7 @@ export function GraduatesStatsStandard({ data }: GraduatesStatsStandardProps) {
       className={`py-16 md:py-24 ${background || ''}`}
       data-testid="section-graduates-stats"
     >
-      <div className="max-w-6xl mx-auto px-4">
+      <div>
         {(heading || subheading) && (
           <div className="text-center mb-12">
             {heading && (

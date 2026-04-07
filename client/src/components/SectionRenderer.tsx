@@ -1049,6 +1049,8 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           marginLeft: "auto",
           marginRight: "auto",
           width: "100%",
+          paddingLeft: "1rem",
+          paddingRight: "1rem"
         };
         const showOn = (rawSection as SectionLayout).showOn;
 

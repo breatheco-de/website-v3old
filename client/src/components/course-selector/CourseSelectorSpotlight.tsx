@@ -41,7 +41,7 @@ function FeaturedCourseCard({ course }: { course: CourseItem }) {
 
   return (
     <div
-      className="rounded-xl  relative overflow-hidden h-full flex flex-col"
+      className="rounded-xl relative overflow-hidden h-full flex flex-col"
       data-testid={`card-course-featured-${course.name.toLowerCase().replace(/\s+/g, "-")}`}
     >
       <div
@@ -305,7 +305,7 @@ export function CourseSelectorSpotlight({ data }: CourseSelectorSpotlightProps) 
       className="w-full py-12 md:py-16"
       data-testid="section-course-selector-spotlight"
     >
-      <div className="max-w-6xl mx-auto px-4 md:px-8">
+      <div>
         {(data.heading || data.subheading) && (
           <div className="text-center mb-8 md:mb-12">
             {data.heading && (

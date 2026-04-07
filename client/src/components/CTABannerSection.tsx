@@ -30,11 +30,10 @@ export function CTABannerSection({ data, programContext, landingLocations }: CTA
   if (isFormVariant(data)) {
     return (
       <section 
-        className="px-4"
         data-testid="section-cta-banner"
       >
-        <div className="max-w-5xl mx-auto">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:gap-12">
+        <div>
+          <div className="flex flex-col lg:flex-row lg:items-center lg:gap-20">
             {/* Left side: Message */}
             <div className="flex-1 text-center lg:text-left mb-6 lg:mb-0 text-primary-foreground">
               <h2 
