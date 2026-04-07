@@ -48,7 +48,7 @@ sections:
           - image_id: logo_switchup
           - image_id: forbes_logo_award
           - image_id: careerkarma-logo
-        label: Best Bootcamp Awards by Forbes, Course Report and more.
+        label: Best Bootcamp Awards by Forbes, Fortune, Course Report and more.
     logo_rotation_ms_time: 2000
     colored_logos: true
     show_marquee: true
