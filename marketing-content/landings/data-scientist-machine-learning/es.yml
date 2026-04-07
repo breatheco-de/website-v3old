@@ -165,9 +165,9 @@ sections:
     description: Four review platform cards with ratings
     section_id: trust_cards-fh4ahk
     paddingY:
-      desktop: md lg
+      desktop: md
     marginY:
-      desktop: none lg
+      desktop: none md
   - type: features_grid
     section_id: features_grid-w5522p
     version: "1.0"
