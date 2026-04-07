@@ -241,6 +241,7 @@ function CustomPickerRow({
               if (e.key === "Enter") { e.preventDefault(); onApply(); }
               if (e.key === "Escape") { e.preventDefault(); onClose(); }
             }}
+            onBlur={onApply}
             data-testid={testIdPrefix ? `${testIdPrefix}-input` : undefined}
           />
           <Button
@@ -619,10 +620,11 @@ export function RichTextArea({
     const cs = detectSelectionStyle();
     if (!cs) { setActiveLetterSpacing(null); return; }
     const raw = cs.letterSpacing;
-    if (!raw || raw === "normal") { setActiveLetterSpacing("0px"); return; }
+    if (!raw || raw === "normal") { setActiveLetterSpacing("0em"); return; }
     const pxVal = parseFloat(raw);
     if (isNaN(pxVal)) { setActiveLetterSpacing(null); return; }
-    setActiveLetterSpacing(`${pxVal}px`);
+    const fontSize = parseFloat(cs.fontSize) || 16;
+    setActiveLetterSpacing(`${(pxVal / fontSize).toFixed(4).replace(/\.?0+$/, "")}em`);
   }, [detectSelectionStyle]);
 
   const detectActiveLineHeight = useCallback(() => {
@@ -871,14 +873,15 @@ export function RichTextArea({
   const handleCustomFontWeightApply = useCallback(() => {
     const w = parseFloat(customFontWeightVal);
     if (!isNaN(w) && w >= 100 && w <= 900) {
-      handleFontWeightSelect(String(Math.round(w / 100) * 100));
+      handleFontWeightSelect(String(w));
     }
   }, [customFontWeightVal, handleFontWeightSelect]);
 
   const handleCustomLetterSpacingApply = useCallback(() => {
-    const v = parseFloat(customLetterSpacingVal);
-    if (!isNaN(v)) {
-      handleLetterSpacingSelect(`${v}px`);
+    const px = parseFloat(customLetterSpacingVal);
+    if (!isNaN(px)) {
+      const em = (px / 16).toFixed(4).replace(/\.?0+$/, "") + "em";
+      handleLetterSpacingSelect(em);
     }
   }, [customLetterSpacingVal, handleLetterSpacingSelect]);
 
@@ -1377,8 +1380,9 @@ export function RichTextArea({
                     onChange={setCustomLetterSpacingVal}
                     onApply={handleCustomLetterSpacingApply}
                     onOpen={() => {
-                      if (activeLetterSpacing && !letterSpacings.some(ls => Math.abs(parseFloat(activeLetterSpacing) - parseFloat(ls.value)) < 0.01)) {
-                        setCustomLetterSpacingVal(activeLetterSpacing.replace("px", ""));
+                      if (activeLetterSpacing && !letterSpacings.some(ls => Math.abs(parseFloat(activeLetterSpacing) - parseFloat(ls.value)) < 0.001)) {
+                        const emVal = parseFloat(activeLetterSpacing);
+                        setCustomLetterSpacingVal(String(Math.round(emVal * 16 * 100) / 100));
                       }
                       setCustomLetterSpacingMode(true);
                     }}
@@ -1388,7 +1392,7 @@ export function RichTextArea({
                   />
                 )}
                 {letterSpacings.map((ls) => {
-                  const isActive = activeLetterSpacing !== null && Math.abs(parseFloat(activeLetterSpacing) - parseFloat(ls.value)) < 0.01;
+                  const isActive = activeLetterSpacing !== null && Math.abs(parseFloat(activeLetterSpacing) - parseFloat(ls.value)) < 0.001;
                   return (
                   <button
                     key={ls.id}

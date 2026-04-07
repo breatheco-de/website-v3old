@@ -167,11 +167,11 @@
     { "id": "black",      "label": "Black",       "value": "900" }
   ],
   "letterSpacings": [
-    { "id": "tighter", "label": "Tighter", "value": "-0.8px" },
-    { "id": "tight",   "label": "Tight",   "value": "-0.4px" },
-    { "id": "normal",  "label": "Normal",  "value": "0px" },
-    { "id": "wide",    "label": "Wide",    "value": "0.4px" },
-    { "id": "wider",   "label": "Wider",   "value": "0.8px" },
-    { "id": "widest",  "label": "Widest",  "value": "1.6px" }
+    { "id": "tighter", "label": "Tighter", "value": "-0.05em" },
+    { "id": "tight",   "label": "Tight",   "value": "-0.025em" },
+    { "id": "normal",  "label": "Normal",  "value": "0em" },
+    { "id": "wide",    "label": "Wide",    "value": "0.025em" },
+    { "id": "wider",   "label": "Wider",   "value": "0.05em" },
+    { "id": "widest",  "label": "Widest",  "value": "0.1em" }
   ]
 }
