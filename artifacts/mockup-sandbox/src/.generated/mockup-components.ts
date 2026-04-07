@@ -8,7 +8,6 @@ export const modules: ModuleMap = {
   "./components/mockups/hero-credibility/HeroCredibility.tsx": () => import("../components/mockups/hero-credibility/HeroCredibility.tsx"),
   "./components/mockups/partners-showcase/Default.tsx": () => import("../components/mockups/partners-showcase/Default.tsx"),
   "./components/mockups/press-mention-featured/Default.tsx": () => import("../components/mockups/press-mention-featured/Default.tsx"),
-  "./components/mockups/typewriter-navbar/Typewriter.tsx": () => import("../components/mockups/typewriter-navbar/Typewriter.tsx"),
   "./components/mockups/programs-showcase/ComparisonRail.tsx": () => import("../components/mockups/programs-showcase/ComparisonRail.tsx"),
   "./components/mockups/programs-showcase/EditorialList.tsx": () => import("../components/mockups/programs-showcase/EditorialList.tsx"),
   "./components/mockups/programs-showcase/FeaturedGrid.tsx": () => import("../components/mockups/programs-showcase/FeaturedGrid.tsx"),
@@ -17,5 +16,6 @@ export const modules: ModuleMap = {
   "./components/mockups/programs-showcase/OutcomeLed.tsx": () => import("../components/mockups/programs-showcase/OutcomeLed.tsx"),
   "./components/mockups/programs-showcase/SkillsMap.tsx": () => import("../components/mockups/programs-showcase/SkillsMap.tsx"),
   "./components/mockups/programs-showcase/SpotlightCards.tsx": () => import("../components/mockups/programs-showcase/SpotlightCards.tsx"),
-  "./components/mockups/programs-showcase/SpotlightSelector.tsx": () => import("../components/mockups/programs-showcase/SpotlightSelector.tsx")
+  "./components/mockups/programs-showcase/SpotlightSelector.tsx": () => import("../components/mockups/programs-showcase/SpotlightSelector.tsx"),
+  "./components/mockups/typewriter-navbar/Typewriter.tsx": () => import("../components/mockups/typewriter-navbar/Typewriter.tsx")
 };
