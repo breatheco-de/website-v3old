@@ -65,18 +65,22 @@ press_mentions:
       - Applied AI
   - locale: en
     title: Sole coding school chosen for a MacKenzie Scott-funded  workforce development program in South Florida
-    category: Workforce Development Program
-    excerpt: >
-      United Way Miami selected 4Geeks as their only coding school partner to receive fully funded scholarships for
-      Miami-Dade residents changing careers into tech, covering tuition and living stipends. Over 1,000 applications for
-      100 funded seats in our programs.
+    category: University Partnership
+    excerpt: >+
+      8 years as the tech curriculum partner for one of the largest colleges in the United States
+
+      Description: Miami Dade College serves 160,000+ students annually across Miami-Dade County. Over 400 students have
+      completed 4Geeks programs through this partnership, across Full Stack, Web Development and Applied AI, graduating
+      with a dual certification by both institutions.
+
+
     priority: 5
-    organization: United Way
-    stat_value: '$6,400 '
-    year: ' living stipend per student'
+    organization: ' Miami Dade College · Continuing Education'
+    stat_value: 'Stat: 400+'
     tags:
       - Fully funded
       - $8,400 living stipend
+    stat_label: graduates, 8 years and counting
   - locale: en
     title: The Only Coding School Chosen for MacKenzie Scott-Funded Workforce Initiative in Miami
     category: Non-Profit
