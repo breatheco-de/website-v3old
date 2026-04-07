@@ -10,20 +10,7 @@
  * Example: "productShowcase:left_images[].src" only applies to productShowcase variant
  */
 
-export type EditorType =
-  | "icon-picker"
-  | "color-picker"
-  | "image-picker"
-  | "image-picker:logo"
-  | "image-with-style-picker"
-  | "link-picker"
-  | "cta-picker"
-  | "video-picker"
-  | "text-input"
-  | "rich-text-editor"
-  | "boolean-toggle"
-  | "string-picker"
-  | "rich-text-editor:custom-font-size";
+export type EditorType = string;
 
 export const fieldEditors: Record<string, EditorType> = {
   // Global - applies to all variants that have this field
@@ -80,7 +67,7 @@ export const fieldEditors: Record<string, EditorType> = {
   "ApplyFormProductShowcase:cta_button.icon": "icon-picker",
 
   // credibility variant
-  "credibility:title": "rich-text-editor:custom-font-size,custom-letter-spacing,custom-line-height",
+  "credibility:title": "rich-text-editor:custom-font-size,custom-letter-spacing,custom-line-height,custom-font-weight",
   "credibility:description": "rich-text-editor",
   "credibility:cta_buttons[]": "cta-picker",
   "credibility:show_marquee": "boolean-toggle",
