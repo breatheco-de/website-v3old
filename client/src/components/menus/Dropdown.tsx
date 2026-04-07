@@ -85,7 +85,6 @@ export interface DropdownProps {
   label: string;
   href: string;
   dropdown: DropdownData;
-  subtleAtTop?: boolean;
 }
 
 function CardsDropdown({ dropdown, onLinkClick }: { dropdown: CardsDropdownData; onLinkClick: React.MouseEventHandler<HTMLAnchorElement> }) {
@@ -311,7 +310,7 @@ const DROPDOWN_WIDTH_PX: Record<string, number> = {
 
 const VIEWPORT_PADDING = 16;
 
-export function Dropdown({ label, href, dropdown, controlledOpen, onOpenChange, subtleAtTop }: DropdownProps & { controlledOpen?: boolean; onOpenChange?: (open: boolean) => void }) {
+export function Dropdown({ label, href, dropdown, controlledOpen, onOpenChange }: DropdownProps & { controlledOpen?: boolean; onOpenChange?: (open: boolean) => void }) {
   const [internalOpen, setInternalOpen] = useState(false);
   const isControlled = controlledOpen !== undefined;
   const isOpen = isControlled ? controlledOpen : internalOpen;
@@ -421,7 +420,7 @@ export function Dropdown({ label, href, dropdown, controlledOpen, onOpenChange, 
     >
       <button
         type="button"
-        className={`flex items-center gap-1 px-4 py-2 font-medium text-foreground hover-elevate rounded-md transition-[font-size] duration-300 ease-in-out no-default-hover-elevate no-default-active-elevate${subtleAtTop ? " text-xs" : " text-sm"}`}
+        className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-foreground hover-elevate rounded-md transition-colors no-default-hover-elevate no-default-active-elevate"
         data-testid={`nav-dropdown-${label.toLowerCase().replace(/\s+/g, "-")}`}
       >
         {label}
