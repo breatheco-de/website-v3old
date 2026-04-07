@@ -214,3 +214,14 @@ press_mentions:
     organization: Fundación ACAPI · Mexico
     stat_label: employment rate post-graduation
     stat_value: 80%
+  - title: Selected from 50+ applicants to train South Florida's workforce through a US federal government grant
+    category: University Partnerships
+    excerpt: >-
+      Miami Dade College chose 4Geeks to deliver workforce training for underserved communities under a $10M federal EDA
+      grant. 74 graduates placed in tech roles averaging $74K annually. Every federal placement target met and exceeded.
+
+      Stat: 116%
+
+      Stat label: of federal placement targets achieved
+    priority: 10
+    organization: 'Miami Dade College/ U.S. Economic Development Administration '
