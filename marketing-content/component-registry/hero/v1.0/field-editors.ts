@@ -83,6 +83,7 @@ export const fieldEditors: Record<string, EditorType> = {
   "credibility:description": "rich-text-editor",
   "credibility:cta_buttons[]": "cta-picker",
   "credibility:show_marquee": "boolean-toggle",
+  "credibility:colored_logos": "boolean-toggle",
   "credibility:pills[].logos[].image_id": "image-picker:logo",
   "credibility:pills[].background_color": "color-picker",
 };

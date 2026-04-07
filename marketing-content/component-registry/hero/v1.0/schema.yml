@@ -857,6 +857,15 @@ variant_props:
           required: false
           description: CSS color value for the pill background (defaults to white)
           example: "white"
+    logo_rotation_ms_time:
+      type: number
+      required: false
+      description: How many milliseconds each logo is shown before rotating to the next one. All badges rotate simultaneously. Defaults to 2500ms.
+      example: 2500
+    colored_logos:
+      type: boolean
+      required: false
+      description: When true, logos are shown in full color. When false (default), logos are displayed in grayscale.
     show_marquee:
       type: boolean
       required: false

@@ -12,7 +12,7 @@ interface HeroCredibilityProps {
 
 // ─── PillLogo ─────────────────────────────────────────────────────────────────
 
-function PillLogo({ imageId }: { imageId: string }) {
+function PillLogo({ imageId, colored }: { imageId: string; colored: boolean }) {
   const { registry, loading } = useImageRegistry();
   if (loading || !registry) return null;
   const entry = registry.images?.[imageId];
@@ -22,26 +22,16 @@ function PillLogo({ imageId }: { imageId: string }) {
       src={entry.src}
       alt={entry.alt || ""}
       className="max-w-full max-h-full object-contain"
-      style={{ filter: "grayscale(100%) opacity(0.85)" }}
+      style={{ filter: colored ? "none" : "grayscale(100%) opacity(0.85)" }}
     />
   );
 }
 
 // ─── CredibilityPill ──────────────────────────────────────────────────────────
 
-const PILL_ROTATION_MS = 2500;
-
-function CredibilityPill({ pill }: { pill: HeroCredibilityPill }) {
+function CredibilityPill({ pill, tick, colored }: { pill: HeroCredibilityPill; tick: number; colored: boolean }) {
   const logos = pill.logos ?? [];
-  const [activeIdx, setActiveIdx] = useState(0);
-
-  useEffect(() => {
-    if (logos.length <= 1) return;
-    const timer = setInterval(() => {
-      setActiveIdx((prev) => (prev + 1) % logos.length);
-    }, PILL_ROTATION_MS);
-    return () => clearInterval(timer);
-  }, [logos.length]);
+  const activeIdx = logos.length > 0 ? tick % logos.length : 0;
 
   return (
     <div
@@ -61,7 +51,7 @@ function CredibilityPill({ pill }: { pill: HeroCredibilityPill }) {
               className="absolute inset-0 flex items-center justify-center transition-opacity duration-300"
               style={{ opacity: i === activeIdx ? 1 : 0 }}
             >
-              <PillLogo imageId={logo.image_id} />
+              <PillLogo imageId={logo.image_id} colored={colored} />
             </div>
           ))}
         </div>
@@ -152,6 +142,16 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
   const pills = data.pills ?? [];
   const showMarquee = data.show_marquee ?? true;
   const marqueeItems = data.marquee_items?.length ? data.marquee_items : DEFAULT_MARQUEE_ITEMS;
+  const rotationMs = data.logo_rotation_ms_time ?? 2500;
+  const coloredLogos = data.colored_logos ?? false;
+
+  const [tick, setTick] = useState(0);
+  useEffect(() => {
+    const hasManyLogos = pills.some((p) => (p.logos ?? []).length > 1);
+    if (!hasManyLogos) return;
+    const timer = setInterval(() => setTick((t) => t + 1), rotationMs);
+    return () => clearInterval(timer);
+  }, [pills, rotationMs]);
 
   return (
     <section data-testid="section-hero-credibility" className="max-w-6xl mx-auto">
@@ -210,7 +210,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
               data-testid="hero-credibility-pills"
             >
               {pills.map((pill, i) => (
-                <CredibilityPill key={i} pill={pill} />
+                <CredibilityPill key={i} pill={pill} tick={tick} colored={coloredLogos} />
               ))}
             </div>
           )}
