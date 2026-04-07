@@ -50,38 +50,48 @@ sections:
     cta: /partners
     item_badge_shape: true
     item_background_color: hsl(var(--muted))
-    logo_rotation_ms_time: 500
+    logo_rotation_ms_time: 2000
     items:
       - label: Chosen Partners of 12+ Universities
         logos:
           - image_id: clark_university
             alt: Clark University Logo
             id: clark-university
-          - image_id: logo_mdc
-            alt: MDC CE logo
-            id: logo-mdc
+          - image_id: logo-of-miami-dade-county-floridasvg
+            alt: "Image: Logo_of_Miami-Dade_County,_Florida.svg"
+            id: logo-of-miami-dade-county-floridasvg
+          - image_id: 06-isologotipo-para-fondo-blanco-1
+            alt: "Image: 06-isologotipo-para-fondo-blanco-1"
+            id: 06-isologotipo-para-fondo-blanco-1
+          - image_id: logo-ucab-3
+            alt: "Image: Logo_UCAB_3"
+            id: logo-ucab-3
+          - image_id: logo-unimet-6-removebg-preview
+            alt: "Image: Logo-unimet-6-removebg-preview"
+            id: logo-unimet-6-removebg-preview
       - label: Trusted with $20M+ in Government Funding
         logos:
           - image_id: bid_logo
-          - image_id: ""
+          - image_id: austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview
+            alt: "Image: austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview"
+            id: austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview
+          - image_id: cinde-removebg-preview
+            alt: "Image: cinde-removebg-preview"
+            id: cinde-removebg-preview
+          - image_id: seal-of-the-united-states-economic-development-administration
+            alt: "Image: Seal_of_the_United_States_Economic_Development_Administration"
+            id: seal-of-the-united-states-economic-development-administration
       - label: Best Bootcamp Awards by Forbes, Course Report and more.
         logos:
           - image_id: logo_switchup
             alt: SwitchUp logo
             id: logo-switchup
-          - image_id: pee_trajectory
-            alt: Trajectory excellence award
-            id: pee-trajectory
           - image_id: forbes_logo_award
             alt: Forbes Award logo
             id: forbes-logo-award
-          - image_id: logo_course_report
-            alt: Course Report logo
-            id: logo-course-report
-          - image_id: ""
-          - image_id: ""
-            alt: ""
-            id: ""
+          - image_id: careerkarma-logo
+            alt: "Image: CareerKarma_logo"
+            id: careerkarma-logo
     section_id: credibility_strip-vcpur5
     colored_logos: true
   - type: features_grid
