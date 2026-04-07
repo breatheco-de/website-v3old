@@ -186,7 +186,6 @@ interface NavbarSettings {
   constrained_margin?: boolean;
   size?: number;
   sticky?: boolean;
-  subtle_at_top?: boolean;
   marquee?: MarqueeConfigSetting;
 }
 
@@ -1776,21 +1775,6 @@ export default function MenuEditor() {
                           onCheckedChange={(checked) => updateNavbarSettings({ sticky: checked ? undefined : false })}
                           disabled={!isEnglish}
                           data-testid="switch-sticky"
-                        />
-                      </div>
-
-                      <div className="flex items-center justify-between gap-4">
-                        <div>
-                          <Label className={`text-sm font-medium ${!isEnglish ? "text-muted-foreground" : ""}`}>Subtle at top</Label>
-                          <p className="text-xs text-muted-foreground mt-0.5">
-                            Transparent navbar with smaller items when at the top of the page
-                          </p>
-                        </div>
-                        <Switch
-                          checked={!!menuData!.navbar!.subtle_at_top}
-                          onCheckedChange={(checked) => updateNavbarSettings({ subtle_at_top: checked || undefined })}
-                          disabled={!isEnglish}
-                          data-testid="switch-subtle-at-top"
                         />
                       </div>
 

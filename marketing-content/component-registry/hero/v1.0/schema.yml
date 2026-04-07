@@ -870,6 +870,10 @@ variant_props:
       type: boolean
       required: false
       description: Whether to show the muted watermark marquee at the bottom (defaults to true)
+    marquee_static:
+      type: boolean
+      required: false
+      description: When true, the marquee items are displayed as a static row instead of scrolling (defaults to false)
     marquee_items:
       type: array
       required: false
