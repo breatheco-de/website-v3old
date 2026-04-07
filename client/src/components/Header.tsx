@@ -62,6 +62,9 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
   const stickyEnabled = menuConfig?.navbar?.sticky ?? true;
   const headerSlideOut = !stickyEnabled && isPastThreshold;
 
+  const subtleAtTopEnabled = menuConfig?.navbar?.subtle_at_top ?? false;
+  const subtleAtTop = subtleAtTopEnabled && !isPastThreshold;
+
   const marquee = menuConfig?.navbar?.marquee;
   const showMarquee = !!(marquee?.enabled && marquee?.texts && marquee.texts.length > 0);
   const marqueeHeight = 49;
@@ -109,7 +112,7 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
         className="fixed left-0 right-0 z-50 transition-[top] duration-300 ease-in-out"
         style={{ top: headerSlideOut ? `-${totalHeight}px` : '0px' }}
       >
-        <header className={`w-full bg-background ${isScrolled ? 'border-b' : 'border-b border-background'}`}>
+        <header className={`w-full transition-[background-color,border-color] duration-300 ease-in-out ${subtleAtTop ? 'bg-transparent border-b border-transparent' : `bg-background ${isScrolled ? 'border-b' : 'border-b border-background'}`}`}>
           {marqueePosition === "above" && marqueeStrip}
 
           <div className={`flex items-center gap-4 ${constrainClass}`} style={{ height: `${navSize}px` }}>
@@ -121,12 +124,12 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
                   ))}
                 </div>
               ) : menuConfig ? (
-                <Navbar config={menuConfig} />
+                <Navbar config={menuConfig} subtleAtTop={subtleAtTop} />
               ) : null}
             </div>
 
             <div className="flex md:hidden flex-1 items-center justify-between gap-3">
-              {logoItem && renderNavbarItem(logoItem, undefined, undefined, menuConfig?.navbar?.constrained_margin)}
+              {logoItem && renderNavbarItem(logoItem, undefined, undefined, menuConfig?.navbar?.constrained_margin, subtleAtTop)}
               <div className="flex items-center gap-3">
                 {langItem && renderNavbarItem(langItem)}
                 {menuConfig && <MobileNav config={menuConfig} />}
