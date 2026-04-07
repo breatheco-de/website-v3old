@@ -878,10 +878,9 @@ export function RichTextArea({
   }, [customFontWeightVal, handleFontWeightSelect]);
 
   const handleCustomLetterSpacingApply = useCallback(() => {
-    const px = parseFloat(customLetterSpacingVal);
-    if (!isNaN(px)) {
-      const em = (px / 16).toFixed(4).replace(/\.?0+$/, "") + "em";
-      handleLetterSpacingSelect(em);
+    const v = parseFloat(customLetterSpacingVal);
+    if (!isNaN(v)) {
+      handleLetterSpacingSelect(`${v}em`);
     }
   }, [customLetterSpacingVal, handleLetterSpacingSelect]);
 
@@ -1374,20 +1373,19 @@ export function RichTextArea({
                 {allowCustomLetterSpacing && (
                   <CustomPickerRow
                     mode={customLetterSpacingMode}
-                    label="Spacing (px):"
-                    toggleLabel="Custom (px)…"
+                    label="Spacing (em):"
+                    toggleLabel="Custom (em)…"
                     value={customLetterSpacingVal}
                     onChange={setCustomLetterSpacingVal}
                     onApply={handleCustomLetterSpacingApply}
                     onOpen={() => {
                       if (activeLetterSpacing && !letterSpacings.some(ls => Math.abs(parseFloat(activeLetterSpacing) - parseFloat(ls.value)) < 0.001)) {
-                        const emVal = parseFloat(activeLetterSpacing);
-                        setCustomLetterSpacingVal(String(Math.round(emVal * 16 * 100) / 100));
+                        setCustomLetterSpacingVal(activeLetterSpacing.replace("em", ""));
                       }
                       setCustomLetterSpacingMode(true);
                     }}
                     onClose={() => { setCustomLetterSpacingMode(false); setCustomLetterSpacingVal(""); }}
-                    step={0.1}
+                    step={0.001}
                     testIdPrefix={testId ? `${testId}-letterspacing-custom` : undefined}
                   />
                 )}
