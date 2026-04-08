@@ -42,8 +42,7 @@ press_mentions:
     stat_label: graduation rate across both cohorts
     stat_value: '100% '
     tags:
-      - Miami Dade
-      - 74 graduates placed
+      - Costa Rica
   - locale: en
     title: Selected by the Bahamas Government for National AI Education, Alongside Harvard, Oxford and Columbia
     category: Government Partnership
@@ -55,9 +54,7 @@ press_mentions:
     stat_label: annual tech industry growth in the Bahamas
     stat_value: '18% '
     tags:
-      - Full Stack
-      - Web Dev
-      - Applied AI
+      - The Bahamas
   - locale: en
     title: 8 Years as the Tech Curriculum Partner for One of the Largest Colleges in the U.S.
     category: University Partnership
@@ -70,12 +67,10 @@ press_mentions:
 
 
     priority: 5
-    organization: ' Miami Dade College · Continuing Education'
     stat_label: graduates, 8 years and counting
     stat_value: 'Stat: 400+'
     tags:
-      - Fully funded
-      - $8,400 living stipend
+      - South Florida
   - locale: en
     title: The Only Coding School Chosen for MacKenzie Scott-Funded Workforce Initiative in Miami
     category: Non-Profit
@@ -87,8 +82,7 @@ press_mentions:
     stat_label: max living stipend per student
     stat_value: '$6,400 '
     tags:
-      - Women in Tech focus
-      - Mexico City
+      - South Florida
   - locale: en
     title: Chosen by Clark University to Run the Miami Workforce Development Project
     category: University Partnership
@@ -110,7 +104,7 @@ press_mentions:
     stat_label: scholarship per student
     stat_value: $4,000
     tags:
-      - Unemployed & underrepresented students
+      - South Florida
   - locale: en
     title: 5 Best Online Full-Stack Bootcamps Of 2024
     excerpt: >-
@@ -179,6 +173,8 @@ press_mentions:
     organization: UTEC · Universidad Tecnológica del Uruguay
     stat_label: graduates, programs ongoing since 2021
     stat_value: 200+
+    tags:
+      - Uruguay
   - locale: en
     title: Selected in Mexico to Deliver Tech Training for Women, with 90%  Funded  by Foundation
     category: 'Non-Profit '
@@ -189,6 +185,8 @@ press_mentions:
     organization: Fundación ACAPI · Mexico
     stat_label: employment rate post-graduation
     stat_value: 80%
+    tags:
+      - Mexico
   - title: Chosen from 50+ Applicants to Train South Florida's Workforce Through a US Federal Government Grant
     category: University Partnerships
     excerpt: >
@@ -198,7 +196,8 @@ press_mentions:
     organization: 'Miami Dade College/ U.S. Economic Development Administration '
     stat_label: ' of federal placement targets achieved'
     stat_value: '116% '
-    locale: en
+    tags:
+      - South Florida
   - locale: es
     title: 4Geeks, Harvard, Oxford y Columbia elegidos para impartir educación en IA por el Gobierno de las Bahamas.
     category: Gobierno
