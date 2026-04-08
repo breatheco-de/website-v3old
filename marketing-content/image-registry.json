@@ -9289,6 +9289,42 @@
       ],
       "usage_count": 0,
       "hash": "3336e339c2404fae190ee695e91f56528417cb254eeab3b88e4d621568a71e7d"
+    },
+    "newsweek-logosvg": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Newsweek_Logo.svg.png",
+      "alt": "Image: Newsweek_Logo.svg",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "press"
+      ],
+      "usage_count": 0,
+      "hash": "956b16be46a052e0e086e091f8c1daab5f82070bb900204d82e3c990fdd7dfde",
+      "width": 1280,
+      "height": 329,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960,
+        1280
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Newsweek_Logo.svg-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Newsweek_Logo.svg-960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Newsweek_Logo.svg-1280w.webp"
+        }
+      ]
     }
   }
 }
