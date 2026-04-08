@@ -84,21 +84,12 @@ press_mentions:
     tags:
       - South Florida
   - locale: en
-    title: Chosen by Clark University  as Tech Education Provider for National Workforce Development Program
+    title: Chosen by Clark University  as Tech Education Partner for a US Department of Labor Workforce Program
     category: University Partnership
     excerpt: >-
-
-      Institution name:
-
-      Title: 
-
-      As part of the  National TechBoost Workforce Development Program, Clark University provided scholarships of up to
-      $4,000 per student, applied directly toward 4Geeks program tuition, for unemployed and underemployed  U.S.
-      residents. Zero upfront cost for participants. Every target set at launch was exceeded.
-
-      Stat: $4,000
-
-      Stat label: scholarship per student, zero upfront cost
+      Clark University selected 4Geeks as their IT education providers for TechBoost, a national workforce program
+      funded by the US Department of Labor. $4,000 scholarships were made available directly toward 4Geeks program
+      tuition for qualifying students nationwide.
     priority: 7
     organization: ' Clark University '
     stat_label: scholarship per student
