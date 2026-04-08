@@ -31,26 +31,35 @@ sections:
         url: "#course_selector-4m5sh4"
         variant: outline
     pills:
-      - category: Alianzas Académicas
+      - category: Academic Partnerships
         logos:
           - image_id: clark_university
-          - image_id: logo-of-miami-dade-county-floridasvg
+          - image_id: miami-dade-college-logo
+            alt: "Image: Miami_Dade_College_logo"
+            id: miami-dade-college-logo
           - image_id: 06-isologotipo-para-fondo-blanco-1
           - image_id: logo-ucab-3
-        label: Aliados elegidos de más de 12 universidades
-      - category: Alianzas Institucionales
+        label: Chosen Partners of 12+ Universities
+      - category: Institutional Partnershipss
         logos:
           - image_id: bid_logo
           - image_id: cinde-removebg-preview
           - image_id: seal-of-the-united-states-economic-development-administration
           - image_id: austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview
-        label: Respaldados con más de $20M en subvenciones gubernamentales y de ONG
-      - category: Reconocimiento de la Industria
+        label: Trusted with $20M+ in Government and NGO Grants
+      - category: Industry Recognition
         logos:
-          - image_id: logo_switchup
+          - image_id: newsweek_badge
+            alt: Newsweek award badge
+            id: newsweek-badge
           - image_id: forbes_logo_award
-          - image_id: careerkarma-logo
-        label: Premios a Mejor Bootcamp por Forbes, Fortune, Course Report y más.
+          - image_id: fortune_logo
+            alt: Fortune logo
+            id: fortune-logo
+          - image_id: logo_course_report
+            alt: Course Report logo
+            id: logo-course-report
+        label: Best Bootcamp Awards by Forbes, Fortune, Course Report and more.
     logo_rotation_ms_time: 2000
     colored_logos: true
     show_marquee: true
