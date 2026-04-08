@@ -182,6 +182,8 @@ press_mentions:
     organization: Fundación ACAPI · Mexico
     stat_label: employment rate post-graduation
     stat_value: 80%
+    tags:
+      - Mexico
   - title: Chosen from 50+ Applicants to Train South Florida's Workforce Through a US Federal Government Grant
     category: University Partnerships
     excerpt: >
