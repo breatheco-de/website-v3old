@@ -70,10 +70,6 @@ sections:
         light_text: 4.9 ★
       - bold_text: Career Karma
         light_text: 4.9 ★
-      - bold_text: 5,000+
-        light_text: graduates employed worldwide
-      - bold_text: 55%
-        light_text: avg salary increase
     section_id: hero-tcvppl
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
