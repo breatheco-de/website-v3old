@@ -36,7 +36,9 @@ sections:
       - category: Academic Partnerships
         logos:
           - image_id: clark_university
-          - image_id: logo-of-miami-dade-county-floridasvg
+          - image_id: miami-dade-college-logo
+            alt: "Image: Miami_Dade_College_logo"
+            id: miami-dade-college-logo
           - image_id: 06-isologotipo-para-fondo-blanco-1
           - image_id: logo-ucab-3
         label: Chosen Partners of 12+ Universities
