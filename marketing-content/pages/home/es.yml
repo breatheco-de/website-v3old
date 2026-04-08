@@ -77,6 +77,7 @@ sections:
     paddingY:
       desktop: none
     pills_url: "#list_press_mentions-w7r1sh"
+    marquee_static: true
   - type: graduates_stats
     heading: Nuestros Graduados Consiguen Empleo. Rápido.
     subheading: Más de 6,000 graduados en todo el mundo. Ahora prosperando en tecnología.
