@@ -39,7 +39,7 @@ sections:
             id: miami-dade-college-logo
           - image_id: 06-isologotipo-para-fondo-blanco-1
           - image_id: logo-ucab-3
-        label: Hemos trabajado con más de 10 Universidades Top en el mundo.
+        label: Hemos trabajado con más de 10 Universidades Top en el mundo
       - category: Alianzas Institucionales
         logos:
           - image_id: bid_logo
