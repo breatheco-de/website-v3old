@@ -170,6 +170,8 @@ press_mentions:
     organization: UTEC · Universidad Tecnológica del Uruguay
     stat_label: graduates, programs ongoing since 2021
     stat_value: 200+
+    tags:
+      - Uruguay
   - locale: en
     title: Selected in Mexico to Deliver Tech Training for Women, with 90%  Funded  by Foundation
     category: 'Non-Profit '
