@@ -3,7 +3,6 @@ navbar:
     - label: Logo
       href: /
       component: Logo
-      imageId: 4geeks-devs-logo-1763162063433
     - label: PROGRAMAS
       href: /programs
       component: Dropdown
@@ -191,14 +190,3 @@ navbar:
     - label: LanguageSwitcher
       href: '#'
       component: LanguageSwitcher
-  marquee:
-    enabled: true
-    position: above
-    texts:
-      - text: 4Geeks, Harvard Oxford y Columbia se unen para educar en Inteligencia Artificial en las Bahamas.
-        cta_label: Ver más
-        cta_url: https://www.entnerd.com/startup-chilena-es-reclutada-por-bahamas-junto-a-oxford-columbia-y-harvard-para-dar-clases-gratuitas-online/
-        cta_url_overrides:
-          /inicio: '#list_press_mentions-w7r1sh'
-    char_delay: 20
-    display_time: 6500
