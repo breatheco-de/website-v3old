@@ -193,3 +193,5 @@ press_mentions:
     organization: 'Miami Dade College/ U.S. Economic Development Administration '
     stat_label: ' of federal placement targets achieved'
     stat_value: '116% '
+    tags:
+      - South Florida
