@@ -39,14 +39,14 @@ sections:
             id: miami-dade-college-logo
           - image_id: 06-isologotipo-para-fondo-blanco-1
           - image_id: logo-ucab-3
-        label: Aliados elegidos de más de 12 universidades
+        label: Hemos trabajado con más de 10 Universidades Top en el mundo.
       - category: Alianzas Institucionales
         logos:
           - image_id: bid_logo
           - image_id: cinde-removebg-preview
           - image_id: seal-of-the-united-states-economic-development-administration
           - image_id: austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview
-        label: Elegidos para ejecutar proyectos gubernamentales y de ONG por más de $20M
+        label: Gobiernos y grandes ONG confían en 4Geeks para sus proyectos formativos (+20M en becas)
       - category: Reconocimiento de la Industria
         logos:
           - image_id: newsweek-logosvg
@@ -59,7 +59,7 @@ sections:
           - image_id: logo_course_report
             alt: Course Report logo
             id: logo-course-report
-        label: Premios a Mejor Bootcamp por Forbes, Fortune, Course Report y más
+        label: Más 25 premios en los últimos 5 años (Mejor Escuela Tech según Forbes y muchos más
     logo_rotation_ms_time: 2000
     colored_logos: true
     show_marquee: true
