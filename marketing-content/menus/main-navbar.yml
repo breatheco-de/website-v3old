@@ -200,5 +200,5 @@ navbar:
         cta_url: https://www.entnerd.com/startup-chilena-es-reclutada-por-bahamas-junto-a-oxford-columbia-y-harvard-para-dar-clases-gratuitas-online/
         cta_url_overrides:
           /en/home: '#list_press_mentions-w7r1sh'
-    char_delay: 20
-    display_time: 5000
+    char_delay: 15
+    display_time: 6500
