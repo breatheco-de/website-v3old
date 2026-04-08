@@ -243,16 +243,43 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
           </div>
 
           {/* ── RIGHT COLUMN — credibility pills ── */}
-          {pills.length > 0 && (
-            <div
-              className="flex flex-col justify-center gap-3 lg:gap-5 w-full lg:w-[430px] lg:flex-shrink-0"
-              data-testid="hero-credibility-pills"
-            >
-              {pills.map((pill, i) => (
-                <CredibilityPill key={i} pill={pill} tick={tick} colored={coloredLogos} />
-              ))}
-            </div>
-          )}
+          {pills.length > 0 && (() => {
+            const pillsInner = (
+              <div className="relative">
+                {data.pills_url && (
+                  <div
+                    className="pointer-events-none absolute -inset-4 rounded-2xl transition-colors group-hover:bg-secondary/50"
+                    aria-hidden="true"
+                  />
+                )}
+                <div className="relative z-10 flex flex-col gap-3 lg:gap-5">
+                  {pills.map((pill, i) => (
+                    <CredibilityPill key={i} pill={pill} tick={tick} colored={coloredLogos} />
+                  ))}
+                </div>
+              </div>
+            );
+
+            return (
+              <div
+                className="flex flex-col justify-center w-full lg:w-[430px] lg:flex-shrink-0"
+                data-testid="hero-credibility-pills"
+              >
+                {data.pills_url ? (
+                  <a
+                    href={data.pills_url}
+                    onClick={handleLinkClick}
+                    className="group -m-[150px] p-[150px] block"
+                    data-testid="hero-credibility-pills-link"
+                  >
+                    {pillsInner}
+                  </a>
+                ) : (
+                  pillsInner
+                )}
+              </div>
+            );
+          })()}
         </div>
 
         {/* ── WATERMARK MARQUEE ── */}

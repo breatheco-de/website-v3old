@@ -335,6 +335,7 @@ export const heroCredibilitySchema = z.object({
   description: z.string().optional(),
   cta_buttons: z.array(ctaButtonSchema).optional(),
   pills: z.array(heroCredibilityPillSchema).optional(),
+  pills_url: z.string().optional(),
   show_marquee: z.boolean().optional(),
   marquee_static: z.boolean().optional(),
   marquee_items: z.array(heroCredibilityMarqueeItemSchema).optional(),
