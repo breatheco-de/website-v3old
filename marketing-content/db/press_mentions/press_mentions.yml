@@ -102,8 +102,6 @@ press_mentions:
     organization: ' Clark University '
     stat_label: scholarship per student
     stat_value: $4,000
-    tags:
-      - Unemployed & underrepresented students
   - locale: en
     title: 5 Best Online Full-Stack Bootcamps Of 2024
     excerpt: >-
