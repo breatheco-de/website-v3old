@@ -18,145 +18,198 @@ schema:
     - website
 sections:
   - type: hero
-    variant: showcase
-    title: Aquí se construyen las carreras del futuro en IA
-    subtitle: La Inteligencia Artificial ya está transformando el empleo. Prepárate para liderar el cambio con formación práctica en AI Engineering, Data Science, Desarrollo de Software y Ciberseguridad.
-    trust_bar:
-      rating: {{ global.global_review_rating | 4.9 }}/5
-      rating_count: 3,000+
-      trusted_text: Miles de estudiantes confían en nosotros
-    cta_button:
-      text: Explora Nuestros Programas
-      url: "#course_selector-ew45w6"
-      variant: primary
-      icon: ""
-    left_images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
-        alt: Ilustración de comunidad
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
-        alt: Celebración de graduados en Caracas
-    right_images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/fernando-funez_1765315920677.jpg
-        alt: Testimonio de Fernando Funez
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/feliz-empresario-laptop_1765406479465.png
-        alt: Profesional feliz con laptop
-    show_arrow: true
-    section_id: hero-g3y8zf
-    marginY:
-      desktop: sm none
-    background: linear-gradient(to bottom right, hsl(var(--primary) / 0.05), transparent, hsl(var(--chart-2) / 0.05))
+    version: "1.0"
+    variant: credibility
+    description: "<!--StartFragment--><span style=\"font-size: 16px;\"><span style=\"font-size: 0.75rem;\"></span></span><span style=\"font-size: 0.75rem;\"><span style=\"color: hsl(var(--muted-foreground));\"><span><span></span></span><span style=\"font-size: 0.875rem;\"><span><span></span></span><span style=\"font-size: 0.75rem;\"><span><span>Programas inmersivos diseñados para lanzar carreras en IA.&nbsp;</span></span>Respaldados&nbsp;<div>por mentoría ilimitada de por vida, aprendizaje&nbsp;&nbsp;potenciado por IA y apoyo&nbsp;</div><div>profesional que te consigue empleo.</div></span><div></div></span><div></div></span></span><div><span style=\"font-size: 0.75rem; color: rgb(0, 7, 26);\"></span><div><!--EndFragment--><div bis_skin_checked=\"1\"><span><span></span></span><span></span><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"></div><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"></div></div></div></div></div></div></div></div>"
+    title: "<span style=\"line-height: 1.1;\"><span style=\"font-size: 3.75rem;\"><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span style=\"line-height: 0.85;\"><span style=\"font-size: 4.375rem;\"><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span><span style=\"font-size: 4.5rem;\"><span style=\"line-height: 1.1;\"><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span style=\"line-height: 0.85;\"><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span><span style=\"line-height: 0.1;\"><span style=\"font-size: 4.9375rem;\"><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span><span style=\"line-height: 0.4;\"><span><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span><span style=\"line-height: 0.9;\"><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"><span style=\"font-size: 3.75rem;\"><span><span>1.3 millones de<br>nuevos&nbsp;<span style=\"color:#0084FF;font-style:italic\">Roles en IA.</span><br>Nosotros somos</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><div><span style=\"font-size: 4.5rem;\"><span style=\"line-height: 0.1;\"><span style=\"font-size: 4.9375rem;\"><span style=\"line-height: 0.4;\"><span><span style=\"line-height: 0.9;\"><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"><span style=\"font-size: 3.75rem;\"><span><span>tu camino.</span></span></span></span></span></span></span></span></span></span></span></span><div bis_skin_checked=\"1\"><span style=\"letter-spacing: -2px; font-weight: 900; color: rgb(0, 7, 26);\"></span></div></span></span><div bis_skin_checked=\"1\"><span style=\"letter-spacing: -2px; font-weight: 900; color: rgb(0, 7, 26);\"></span></div></span></span><div bis_skin_checked=\"1\"><span style=\"letter-spacing: -2px; font-weight: 900; color: rgb(0, 7, 26);\"></span></div></span><div bis_skin_checked=\"1\"><span style=\"letter-spacing: -2px; font-size: 4.375rem; font-weight: 900; color: rgb(0, 7, 26);\"></span></div></div>"
+    cta_buttons:
+      - text: Comienza tu solicitud
+        url: /apply
+        variant: primary
+        icon: ChevronRight
+      - text: Explora nuestros programas
+        url: /curriculum
+        variant: outline
+    pills:
+      - category: Alianzas Académicas
+        logos:
+          - image_id: clark_university
+          - image_id: logo-of-miami-dade-county-floridasvg
+          - image_id: 06-isologotipo-para-fondo-blanco-1
+          - image_id: logo-ucab-3
+        label: Aliados elegidos de más de 12 universidades
+      - category: Alianzas Institucionales
+        logos:
+          - image_id: bid_logo
+          - image_id: cinde-removebg-preview
+          - image_id: seal-of-the-united-states-economic-development-administration
+          - image_id: austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview
+        label: Respaldados con más de $20M en subvenciones gubernamentales y de ONG
+      - category: Reconocimiento de la Industria
+        logos:
+          - image_id: logo_switchup
+          - image_id: forbes_logo_award
+          - image_id: careerkarma-logo
+        label: Premios a Mejor Bootcamp por Forbes, Fortune, Course Report y más.
+    logo_rotation_ms_time: 2000
+    colored_logos: true
+    show_marquee: true
+    marquee_items:
+      - bold_text: Course Report
+        light_text: 4.9 ★
+      - bold_text: SwitchUp
+        light_text: 4.9 ★
+      - bold_text: Career Karma
+        light_text: 4.9 ★
+      - bold_text: 5,000+
+        light_text: graduates employed worldwide
+      - bold_text: 55%
+        light_text: avg salary increase
+    section_id: hero-tcvppl
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
-      desktop: sm none
-  - type: award_badges
-    section_id: award_badges-22yzwf
-    version: v1.0
-    variant: detailed
-    showBorder: false
-    items:
-      - id: coursereport-detailed
-        alt: Logo del premio Forbes
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
-        logoHeight: 64px
-        description: Nombrado entre los 5 mejores bootcamps por Forbes
-        link: /es/premios
-        linkText: Ver más
-      - id: clark-university
-        alt: Logo de Clark University
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
-        logoHeight: 64px
-        description: Certificado por universidades reconocidas
-      - id: careerkarma-detailed
-        alt: Insignias de premios
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/badges-new.avif
-        logoHeight: 64px
-        description: Elegido mejor bootcamp en 2024 y 2025 por SwitchUp, Course Report y Career Karma.
-        link: /es/premios
-        linkText: Ver más
+      desktop: none
+    pills_url: "#list_press_mentions-w7r1sh"
+  - type: graduates_stats
+    heading: Nuestros Graduados Consiguen Empleo. Rápido.
+    subheading: Más de 6,000 graduados en todo el mundo. Ahora prosperando en tecnología.
+    stats:
+      - value: {{ global.global_job_placement_rate | 84% }}%
+        label: Tasa de contratación promedio
+      - value: {{ global.global_salary_increase | 55% }}%
+        label: Aumento salarial promedio en el nuevo puesto
+      - value: 3-6 meses
+        label: Tiempo promedio para conseguir empleo
+    collage_images:
+      - image_id: group-7085-1
+        col_span: 5
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
+        id: gemini-generated-image-uwpyyruwpyyruwpy
+        object_scale: 1.1
+        object_position: 50% 30%
+      - image_id: group-7086-1
+        col_span: 7
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
+        id: gemini-generated-image-pd2u4upd2u4upd2u
+        object_scale: 1
+        transform_origin: 50% 50%
+        object_position: 50% 60%
+      - image_id: group-7084-1
+        col_span: 6
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
+        id: gemini-generated-image-dhko5mdhko5mdhko-1
+        object_scale: 1.05
+      - image_id: group-7087-1
+        col_span: 6
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
+        id: gemini-generated-image-wpk4yvwpk4yvwpk4
+        object_scale: 1.05
+        transform_origin: 50% 50%
+        object_position: 50% 45%
+    section_id: graduates_stats-cnxqbb
     marginY:
-      desktop: none md
-  - type: image_row
-    section_id: image_row-9qzvi8
+      desktop: none
     maxWidth:
       desktop: 6xl
+  - type: features_grid
+    version: "1.0"
+    variant: stats-text
+    title: La IA está reemplazando empleos. También está creando nuevos, más rápido de lo que la fuerza laboral está preparada para ocuparlos.
+    subtitle: Esa es tu oportunidad.
+    description: Cada semana, las empresas publican roles en IA que no pueden cubrir. Necesitan ingenieros que construyan con IA, analistas que trabajen con IA y profesionales de seguridad que la defiendan. La brecha de talento es real y se está ampliando rápidamente.
+    background: hsl(var(--secondary))
+    items:
+      - id: "1"
+        value: 7x
+        title: Crecimiento en la demanda de trabajadores con fluidez en IA desde 2023
+      - id: "2"
+        value: 3%
+        title: De la fuerza laboral califica para roles de IA
+      - id: "3"
+        value: +56%
+        title: De salario para trabajadores con habilidades en IA
+    section_id: features_grid-142xko
+    marginY:
+      desktop: sm xl
+    maxWidth:
+      desktop: 6xl
+    marginX:
+      desktop: none
+  - type: image_row
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
-        alt: Estudiante aprendiendo a programar
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
-        alt: Desarrollador trabajando en un proyecto
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
-        alt: Sesión de colaboración en equipo
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
-        alt: Graduada celebrando su éxito
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
+        alt: "Image: ChatGPT Image Mar 26, 2026, 04_28_27 PM"
+        id: chatgpt-image-mar-26-2026-04-28-27-pm
+        object_position: 60%90%
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_26_00-PM.png
+        alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
+        id: chatgpt-image-mar-26-2026-04-26-00-pm
+        object_position: 40% 80%
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina_brightened.png
+        alt: "Image: valentina_brightened"
+        id: valentina-brightened
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf.jpg
+        alt: "Image: 664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf"
+        id: 664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf
+        object_position: 38% 100%
+        object_scale: 1.45
     highlight:
-      heading: "<span style=\"font-size: 1.25rem;\"><span style=\"font-size: 1.25rem;\">Las carreras en tecnología no nacen de fórmulas estándar.</span></span>"
-      text: "<span style=\"font-size: 1.125rem;\"><span><span><span style=\"font-size: 1.25rem;\">Nuestros programas combinan mentoría 1:1 con aprendizaje potenciado por IA que se adapta a tus fortalezas y necesidades de aprendizaje. El resultado: preparación más rápida para roles tech de alto crecimiento.</span></span></span></span>"
+      heading: ¿Comprometido a entrar en tecnología? Te apoyamos como nadie más.
+      text: Mentores y coaches de carrera siempre al alcance, un tutor de IA y tu agente personal de IA. Todo personalizado para ti.
       background: primary
       width: 2
+      text_2: "<div bis_skin_checked=\"1\"><span></span></div><span><div bis_skin_checked=\"1\"><span></span></div></span><!--StartFragment--><ul class=\"[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3\" style=\"font-size: 20px;\"><li class=\"whitespace-normal break-words pl-2\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\">Mentoría ilimitada 1:1 con profesionales reales</li><li class=\"whitespace-normal break-words pl-2\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\">Coaching de carrera diseñado para conseguirte empleo</li><li class=\"whitespace-normal break-words pl-2\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\">Un tutor de IA que se adapta a tu ritmo de aprendizaje</li><li class=\"whitespace-normal break-words pl-2\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\">Tu propio agente de IA</li></ul><p class=\"font-claude-response-body break-words whitespace-normal leading-[1.7]\" style=\"font-size: 20px;\"><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 1.25rem;\"><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\"><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-weight: bolder;\"><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 1.5rem;\">Hecho a tu medida. Incluido de por vida.</span></span></span></span></p><!--EndFragment-->"
+      text_1: "<span style=\"font-size: 1.5rem;\"><b><span style=\"line-height: 1.1;\">¿Comprometido a entrar en tecnología? Te apoyamos como nadie más.</span></b></span>"
     height: 31rem
     mobile_height: 24rem
     gap: md
     rounded: true
+    background: hsl(var(--background))
+    section_id: image_row-z97kqt
     marginY:
-      desktop: none lg
+      desktop: none xl
     paddingY:
-      desktop: md none
-  - type: two_column_accordion_card
-    section_id: two_column_accordion_card-jahs43
-    variant: image_background
-    version: "1.0"
-    title: Donde el aprendizaje con IA se une a la mentoría de por vida
-    description: El aprendizaje potenciado por IA se combina con mentoría ilimitada 1:1 para ayudarte a desarrollar habilidades, ganar confianza y avanzar en roles tech de alto crecimiento, más rápido e inteligente.
-    bullets:
-      - heading: Aprendizaje personalizado en cada nivel
-        text: Grupos reducidos, acceso ilimitado a mentores y retroalimentación guiada por IA mantienen tu aprendizaje rápido, adaptativo y enfocado en lo que importa.
-      - heading: Mentoría de por vida y apoyo profesional
-        text: Orientación 1:1 de mentores expertos y coaches de carrera para ayudarte a conseguir empleo, mantenerte competitivo y crecer a medida que evoluciona tu carrera.
-      - heading: Currículum y herramientas de aprendizaje integradas con IA
-        text: Domina las herramientas más actuales y los flujos de trabajo con IA que los empleadores están buscando.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
-    image_alt: Estudiante aprendiendo con apoyo de mentor
-    video:
-      url: https://storage.googleapis.com/4geeks-academy-website/media/loop-1.mp4
-    reverse: true
-    marginY:
-      desktop: none lg
-  - type: features_grid
-    section_id: features_grid-ur984i
-    version: "1.0"
-    variant: highlight
-    title: Resultados reales para nuestros graduados
-    subtitle: Los graduados de 4Geeks en EE.UU., LATAM y el mundo inician carreras en ingeniería de IA, desarrollo de software, datos y ciberseguridad, consiguiendo empleos y aumentando su potencial de ingresos.
-    items:
-      - icon: Briefcase
-        value: {{ global.global_job_placement_rate | 84 }}%
-        title: Tasa de colocación laboral
-      - icon: Graduation
-        value: 3-6 meses
-        title: Tiempo promedio para conseguir empleo
-      - icon: GrowthChart
-        value: {{ global.global_salary_increase | 55 }}%
-        title: Aumento salarial promedio después de graduarse
-    columns: 3
-    icon_color: "#0097CD"
-    background: hsl(var(--secondary))
-    marginY:
-      desktop: none md
-  - type: career_support_explain
+      desktop: none
     maxWidth:
       desktop: 6xl
-    section_id: career_support_explain-9d2kbi
+  - ttype: features_grid
+    version: "1.0"
+    variant: stats-text
+    maxWidth:
+      desktop: 6xl
+    title: La IA está reemplazando empleos. También está creando nuevos, más rápido de lo que la fuerza laboral está preparada para ocuparlos.
+    subtitle: Esa es tu oportunidad.
+    description: Cada semana, las empresas publican roles en IA que no pueden cubrir. Necesitan ingenieros que construyan con IA, analistas que trabajen con IA y profesionales de seguridad que la defiendan. La brecha de talento es real y se está ampliando rápidamente.
+    background: hsl(210 100% 50% / 0.05)
+    items:
+      - id: "1"
+        value: 7x
+        title: Crecimiento en la demanda de trabajadores con fluidez en IA desde 2023
+      - id: "2"
+        value: 3%
+        title: De la fuerza laboral califica para roles de IA
+      - id: "3"
+        value: 56%
+        title: Prima salarial para trabajadores con habilidades en IA
+    section_id: features_grid-142xko
+    marginY:
+      desktop: none xl
+  - type: career_support_explain
     version: v1.0
-    heading: Consigue empleo. Con apoyo profesional para la era de la IA
-    description: Nuestro programa de apoyo profesional está diseñado para ayudarte a conseguir tu primer empleo en tecnología
+    heading: Cómo Te Ayudamos a Conseguir Empleo. Desde el Primer Día hasta la Oferta Firmada.
+    description: Un sistema completo que te lleva de inscrito a empleado. Perfiles optimizados con IA, acceso directo a más de 400 socios de contratación y apoyo 1:1 que te acompaña más allá de tu primer rol.
     background: hsl(var(--sidebar-background))
     tabs:
-      - tab_label: Listo para trabajar, más rápido
+      - tab_label: Listo para Trabajar, Más Rápido
         layout: three_columns
-        col1_subtitle: Construye un perfil atractivo para reclutadores.
+        col1_subtitle: Construye un Perfil Atractivo para Reclutadores, de Forma Inteligente.
         col1_description: |-
-          Prepárate para procesos reales de contratación usando una combinación de herramientas de IA y coaching 1:1.
-          Rigobot revisa tu currículum y LinkedIn en tiempo real. Los mentores de carrera te ayudan a perfeccionar tu historia, portafolio y desempeño en entrevistas.
-        col1_tagline: Te ayudaremos a crear materiales de búsqueda de empleo
+          Prepárate para procesos de contratación reales usando una combinación de herramientas de IA y coaching 1:1.
+          RigoBot revisa tu currículum y LinkedIn en tiempo real. Los mentores de carrera te ayudan a perfeccionar tu historia, portafolio y desempeño en entrevistas para un impacto óptimo.
         col1_boxes:
           - icon: IconBrandLinkedin
             text: LinkedIn
@@ -166,26 +219,26 @@ sections:
             text: Portafolio
           - icon: IconMail
             text: Carta de presentación
-        col2_heading: Estrategia profesional, construida para ti
+        col2_heading: Estrategia Profesional, Construida para Ti
         col2_bullets:
           - icon: IconRobot
-            text: Feedback 24/7 de Rigobot para auditar tu LinkedIn y currículum
+            text: Feedback 24/7 de RigoBot para auditar tu LinkedIn y currículum
           - icon: IconUsers
-            text: Sesiones de coaching y estrategia profesional 1:1
+            text: Coaching y sesiones de estrategia profesional 1:1
           - icon: IconMicrophone
             text: Entrevistas simuladas y preparación para entrevistas técnicas
         col3_image_id: 4geeks_member
         col3_object_fit: cover
         col3_object_position: center
-      - tab_label: Acceso real a empleo
+      - tab_label: Acceso Real a Empleo
         layout: two_column_cards
-        title: Accede al mercado laboral oculto.
+        title: Accede al Mercado Laboral Oculto.
         left_text: Una vez que tu perfil esté listo, la visibilidad pasa a ser el foco. Te conectamos directamente con socios de contratación y tomadores de decisiones. Tu perfil se comparte con empresas que activamente buscan egresados de 4Geeks, respaldado por una estrategia de networking dirigida.
         left_image_id: career_team_women
         left_image_object_fit: cover
         left_image_object_position: center
         left_stat:
-          value: 250+
+          value: {{ global.number_of_hiring_partners_aprox | 250 }}+
           label: empresas en la red de empleadores de 4Geeks
         right_bullets:
           - icon: IconUserPlus
@@ -207,9 +260,9 @@ sections:
             alt: eBay
           - image_id: logo_kpmg
             alt: KPMG
-      - tab_label: Proyectos que convierten
+      - tab_label: Proyectos que Convencen
         layout: text_and_image
-        title: Proyectos que demuestran habilidad real.
+        title: Proyectos que Demuestran Habilidad Real.
         left_description: |-
           La visibilidad atrae atención. Tu portafolio cierra la brecha.
           Gradúate con un portafolio que muestre lo que realmente puedes construir. Desde proyectos prácticos hasta un proyecto final que resuelve problemas reales de negocio, tu trabajo se convierte en evidencia clara de tu capacidad.
@@ -223,12 +276,10 @@ sections:
         right_image_id: geekforce_valentina_ancieta
         right_image_object_fit: cover
         right_image_object_position: center
-      - tab_label: El Rol ideal para ti
+      - tab_label: El Rol Ideal para Ti
         layout: text_with_testimonials_carousel
-        title: Convierte tu trayectoria en una ventaja.
-        left_description: |-
-          Cuando las ofertas lleguen, te ayudamos a elegir y negociar con confianza.
-          Tu experiencia previa importa. Mapeamos habilidades transferibles, enfocamos tu búsqueda en los roles correctos y te apoyamos en la negociación salarial y el crecimiento a largo plazo.
+        title: Convierte Tu Trayectoria en una Ventaja.
+        left_description: Tu experiencia previa importa. Mapeamos tus habilidades transferibles, enfocamos tu búsqueda en los roles correctos y, cuando lleguen las ofertas, te ayudamos a negociar con confianza y elegir la indicada.
         left_bullets:
           - icon: IconTransfer
             text: Mapeo de habilidades transferibles
@@ -244,108 +295,170 @@ sections:
             image_object_position: center
             contributor_logos:
               - image_id: clark_university
-            description: MaiLinh Tran es una emprendedora apasionada por la tecnología, ahora enfocada en el lado de desarrollo de su proyecto.
-            achievement: ¡Lanzó su propia startup, contrata nuevo talento tech y coordina un equipo de desarrollo completo!
+            description: MaiLinh llegó a 4Geeks con una visión emprendedora y sin conocimientos técnicos. Hoy dirige su propia startup tecnológica y lidera un equipo de desarrolladores.
+            achievement: Lanzó su propio negocio y ahora contrata el talento que ella misma quería llegar a ser.
           - image_id: martin_coimbra
             image_object_fit: cover
             image_object_position: center top
             contributor_logos:
               - image_id: logo_utec
             description: Martín se unió al primer programa que lanzamos junto con UTEC e IDB. Consiguió un empleo mejor remunerado, una carrera que le apasiona y toda una nueva vida profesional.
-            achievement: Logró un aumento salarial del 100%.
+            achievement: Su salario se duplicó. Y por fin hace un trabajo que ama.
           - image_id: melanie_galaretto
             image_object_fit: cover
             image_object_position: center
             contributor_logos:
               - image_id: logo_utec
               - image_id: bid_logo
-            description: Melanie es una joven profesional que soñaba con lograr la vida que ahora tiene. Es una desarrolladora de software ingeniosa y comprometida trabajando en una empresa de software en su país natal.
-            achievement: Logró un aumento salarial del 100%.
+            description: Melanie se reconvirtió como desarrolladora de software y ahora trabaja de forma remota para una empresa tecnológica, desde casa, en la carrera que eligió.
+            achievement: Su salario se duplicó. Y trabaja de forma remota, en sus propios términos.
+    section_id: career_support_explain-xpc3k2
+    maxWidth:
+      desktop: 6xl
+    marginY:
+      desktop: none md
+  - type: trust_cards
+    version: v1.0
+    title: Las mejor valoradas en todas las principales plataformas.
+    items:
+      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+        rating: 4.9
+        review_count: 4.9 en Course Report
+      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        rating: 4.8
+        review_count: 4.8 en Google
+      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        rating: 4.9
+        review_count: 4.9 en Career Karma
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 4.9 en SwitchUp
+    name: Default Trust Cards
+    description: Cuatro tarjetas de plataformas de reseñas con calificaciones
+    section_id: trust_cards-eslgbu
+    paddingY:
+      desktop: sm md
+    marginY:
+      desktop: md lg
+    background: hsl(210 100% 50% / 0.05)
+    maxWidth:
+      desktop: 6xl
+  - type: testimonials_slide
+    title: Ellos Estuvieron Donde Tú Estás. Ahora Prosperan en Tecnología.
+    description: "Diferentes trayectorias, diferentes puntos de partida, un solo resultado: una carrera en tecnología que lo cambió todo. Estas son sus historias."
+    section_id: testimonials_slide-6jlded
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none
+    maxWidth:
+      desktop: none
   - type: course_selector
-    section_id: course_selector-ew45w6
     version: "1.0"
-    variant: solid
-    heading: Explora nuestros programas
-    subheading: Formación alineada con la industria, diseñada para lanzar tu carrera en tecnología
+    variant: spotlight
+    heading: Encuentra Tu Camino
+    subheading: Cuatro programas. Todos diseñados para conseguirte empleo, no solo formarte.
     courses:
       - name: Ingeniería de IA
-        icon: Brain
-        duration: {{ global.ai_engineering_week_duration | 24 }} semanas
+        icon: Bolt
+        duration: 24 semanas, o pista acelerada de 15 semanas
         label: Actualizado en 2026
         title: Ingeniería de IA
         badges:
-          - icon: Cpu
-            text: LLMs, Agentes de IA y Automatización
-          - icon: Database
-            text: Sistemas de IA en Producción
-        description: Construye y escala productos nativos de IA mientras dominas sistemas, flujos de trabajo y estrategias de despliegue en el mundo real.
+          - icon: Bolt
+            text: RAG y Búsqueda Vectorial
+          - icon: Bolt
+            text: Agentes de IA
+          - icon: Bolt
+            text: Python
+        description: Transforma un caso de negocio real en un sistema totalmente nativo de IA, capa por capa. Domina los agentes, sistemas RAG y pipelines de automatización que las empresas están contratando ahora mismo.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ingenieria-ia
-        course_background: hsl(var(--accent))
-      - name: Desarrollo Full Stack con IA
-        icon: Code
-        duration: {{ global.fullstack_week_duration | 2O }} semanas
+        course_background: accent
+      - name: Ciencia de Datos y Machine Learning
+        icon: IconChartBar
+        duration: 18 semanas
         label: Actualizado en 2026
-        title: Desarrollo de Software Full Stack
+        title: Ciencia de Datos y Machine Learning
         badges:
-          - icon: Code
-            text: React, Node.js y Python
-        tags:
-          - icon: Plus
-            text: Desarrollo de APIs
-          - icon: ""
-            text: ""
-        description: Domina el desarrollo web moderno de frontend a backend y construye aplicaciones listas para producción con herramientas estándar de la industria.
-        cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/desarrollo-full-stack
-        course_background: hsl(var(--destructive))
-      - name: Ciencia de Datos y ML
-        icon: ChartLine
-        duration: {{ global.data_science_week_duration | 18 }} semanas
-        label: Actualizado en 2026
-        title: Ciencia de Datos y Machine Learning con IA
-        badges:
-          - icon: BrainCircuit
-            text: Machine Learning y Modelos de IA
-          - icon: BarChart
-            text: Análisis y Visualización de Datos
-        description: Aprende a analizar conjuntos de datos complejos, construir modelos inteligentes y desplegar soluciones impulsadas por IA para problemas del mundo real.
+          - icon: ChartBar
+            text: Python y Pandas
+          - icon: ChartBar
+            text: TensorFlow
+          - icon: ChartBar
+            text: Visualización de Datos
+        description: Domina las habilidades detrás de las decisiones impulsadas por IA. Construye modelos, analiza datos a escala y despliega soluciones que las empresas de todos los sectores están contratando activamente.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
-        course_background: hsl(var(--primary))
+        course_background: hsl(var(--muted-foreground))
       - name: Ciberseguridad
-        icon: Shield
-        duration: {{ global.cybersecurity_week_duration | 16 }} semanas
+        icon: IconShield
+        duration: 16 semanas
         label: Actualizado en 2026
         title: Ciberseguridad
         badges:
-          - icon: Lock
-            text: Detección de Amenazas y Seguridad de Redes
-          - icon: Server
-            text: Seguridad en la Nube
-        description: Desarrolla habilidades prácticas para proteger sistemas, asegurar infraestructura y responder a amenazas modernas de ciberseguridad.
+          - icon: Shield
+            text: Hacking Ético y Pentesting
+          - icon: Shield
+            text: Marco NIST
+        description: Detecta amenazas, protege sistemas y asegura los datos de los que dependen todas las organizaciones. Una de las carreras de más rápido crecimiento en tecnología, con una escasez global de profesionales cualificados que no da señales de desacelerarse.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciberseguridad
-        course_background: hsl(var(--secondary-foreground))
-    background: hsl(var(--muted))
+        course_background: destructive
+      - name: Desarrollo Full Stack con IA
+        icon: IconCode
+        duration: 20 semanas
+        label: Actualizado en 2026
+        title: Desarrollo Full Stack con IA
+        badges:
+          - icon: Code
+            text: React y Next.js
+          - icon: Code
+            text: Python y APIs
+          - icon: Code
+            text: Integración de IA
+        description: Construye aplicaciones web modernas y listas para producción de frontend a backend, con IA integrada en tu proceso de desarrollo desde el primer día.
+        cta_text: Ver Detalles del Programa
+        cta_url: /es/programas-de-carrera/desarrollo-full-stack
+        course_background: primary
+    section_id: course_selector-4m5sh4
+    maxWidth:
+      desktop: 6xl
     marginY:
-      desktop: lg
-    paddingY:
-      desktop: md lg
+      desktop: none md
+  - type: list_press_mentions
+    version: v1.0
+    variant: featured_showcase
+    title: Las Instituciones Más Reconocidas del Mundo Nos Eligieron. Esto Es Lo Que Hemos Construido.
+    subtitle: Desde el Banco Interamericano de Desarrollo hasta gobiernos de toda América y universidades en tres continentes, cada institución que nos seleccionó para ejecutar sus programas llegó con KPIs, responsabilidad pública y altas expectativas. Cumplimos siempre.
+    show_links: false
+    show_logos: true
+    dynamic_entries:
+      database: press_mentions
+      limit: 10
+      sort: priority
+      permanent_filters:
+        - item_property_slug: locale
+          value: es
+    section_id: list_press_mentions-w7r1sh
+    featured_background: hsl(var(--primary))
+    maxWidth:
+      desktop: 6xl
+    marginY:
+      desktop: none md
   - type: why_learn_ai
-    section_id: why_learn_ai-bko3ey
     variant: laptop-edge
-    title: Garantía de Empleo* opcional
-    subtitle: Respalda tu resultado profesional con un compromiso más fuerte
-    description: "<span style=\"font-size: 1.125rem;\"><span><span>Agrega nuestra Garantía de Empleo opcional para mayor tranquilidad. Si no consigues un empleo calificado dentro de los 9 meses posteriores a tu graduación, recibirás el reembolso completo de la matrícula.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*La Garantía de Empleo no está disponible en todas las regiones. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Términos y condiciones aplican.</a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
+    title: Consigue el Empleo. O Te Devolvemos el Dinero.
+    description: "<span style=\"font-size: 1.5rem;\"><span><span></span></span></span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span><span style=\"line-height: 1.625;\"><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span></span><span style=\"line-height: 1.625;\"><span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\">Cada programa viene con la opción de una Garantía de Empleo.*</span></span></span></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">¿No consigues empleo en 9 meses?&nbsp;</span><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Reembolso total de la matrícula.&nbsp;</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Así de seguros estamos de lo que construimos.</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span></span></span></div></span><span style=\"line-height: 1.1;\"><span><span><span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"><br></span></div></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span><span></span></span></span></div><div><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">*La Garantía de Empleo no está disponible en todas las regiones.&nbsp;</span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\">Aplican términos y condiciones.</a></div></div></span></span></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div>"
     cta:
-      text: Más Información
+      text: Cómo Funciona
       url: /es/garantia-de-empleo
       variant: primary
+    section_id: why_learn_ai-9pbrek
     marginY:
-      desktop: md
+      desktop: md lg
     paddingY:
-      desktop: none sm
+      desktop: none
     background: hsl(210 100% 50% / 0.05)
     showOnLocations:
       - atlanta-usa
@@ -363,20 +476,13 @@ sections:
       - buenosaires-argentina
       - costa-rica
       - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-  - type: testimonials_slide
-    section_id: testimonials_slide-mduh8o
-    title: Historias reales de nuestros graduados
-    description: Descubre cómo nuestros graduados transformaron sus carreras con aprendizaje personalizado y nuestro apoyo profesional.
-    background: hsl(var(--card))
-    marginY:
+    marginX:
       desktop: none
-    paddingY:
+    maxWidth:
       desktop: none
   - type: faq
-    section_id: faq-ba1oga
-    title: Preguntas frecuentes
+    section_id: faq-31bv5t
+    title: Preguntas Frecuentes
     related_features:
       - online-platform
       - certification
@@ -386,10 +492,10 @@ sections:
     paddingY:
       desktop: md none
   - type: cta_banner
-    section_id: cta_banner-j1hfg4
+    section_id: cta_banner-y7nw0f
     version: "1.0"
-    title: Da el siguiente paso hacia tu carrera en tecnología
-    subtitle: Recibe información personalizada del programa y los próximos pasos.
+    title: Da el Siguiente Paso Hacia Tu Carrera en Tecnología
+    subtitle: Obtén precios, detalles del programa y orientación personalizada.
     background: hsl(var(--primary))
     variant: form
     form:
@@ -407,7 +513,7 @@ sections:
           placeholder: Nombre
         phone:
           visible: true
-          required: true
+          required: false
           placeholder: Número de teléfono
         program:
           visible: true
@@ -418,12 +524,15 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: Acepto recibir información sobre cursos y promociones
       show_terms: true
       button_className: bg-primary
+      terms_className: text-white/80
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
     marginY:
       desktop: lg none
     paddingY:
       desktop: md
+    maxWidth:
+      desktop: 6xl
