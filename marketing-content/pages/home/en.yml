@@ -51,9 +51,9 @@ sections:
         label: Trusted with $20M+ in Government and NGO Grants
       - category: Industry Recognition
         logos:
-          - image_id: newsweek_badge
-            alt: Newsweek award badge
-            id: newsweek-badge
+          - image_id: newsweek-logosvg
+            alt: "Image: Newsweek_Logo.svg"
+            id: newsweek-logosvg
           - image_id: forbes_logo_award
           - image_id: fortune_logo
             alt: Fortune logo
