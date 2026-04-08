@@ -69,6 +69,8 @@ press_mentions:
     priority: 5
     stat_label: graduates, 8 years and counting
     stat_value: 'Stat: 400+'
+    tags:
+      - South Florida
   - locale: en
     title: The Only Coding School Chosen for MacKenzie Scott-Funded Workforce Initiative in Miami
     category: Non-Profit
