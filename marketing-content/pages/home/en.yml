@@ -72,6 +72,8 @@ sections:
         light_text: 4.9 ★
       - bold_text: Career Karma
         light_text: 4.9 ★
+      - bold_text: Google
+        light_text: 4.8 ★
     section_id: hero-tcvppl
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
