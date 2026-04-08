@@ -1370,7 +1370,12 @@
         "logo",
         "badge",
         "award",
-        "fortune"
+        "fortune",
+        "hero",
+        "photo",
+        "partner",
+        "press",
+        "illustration"
       ],
       "usage_count": 2,
       "hash": "984501efd0e406ab3d25c99522f2a46376360ff1ef0c073c8428172f5dae18b0",
@@ -2051,7 +2056,14 @@
         "logo",
         "badge",
         "award",
-        "newsweek"
+        "newsweek",
+        "card",
+        "photo",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team"
       ],
       "usage_count": 2,
       "hash": "6fbc5f4b82d8a7dca4a0d99b4df2bae787f94394f06accc823ecbf8c3370fcb3",
@@ -7130,7 +7142,7 @@
       "source_url": "https://breathecode.herokuapp.com/v1/media/file/programmer-at-night-2-jpg",
       "usage_count": 0,
       "source_item": "cuanto-gana-un-ingeniero-informatico-en-espana",
-      "failed_at": "2026-04-07T07:05:40.543Z"
+      "failed_at": "2026-04-08T07:07:15.256Z"
     },
     "blog_posts-b39e46434a2e57b03efe488bedced0256ec8fedc-b1cd7ffe": {
       "src": "https://storage.googleapis.com/media-breathecode/b39e46434a2e57b03efe488bedced0256ec8fedc88e5cf13514152d170f32e45",
@@ -7303,7 +7315,7 @@
       "source_url": "https://4geeksacademy.com/static/e87935aadbb3844e3734315214b5f032/9298b/madrid-3.webp",
       "usage_count": 0,
       "source_item": "bootcamp-programacion-barcelona",
-      "failed_at": "2026-04-07T07:05:40.550Z"
+      "failed_at": "2026-04-08T07:07:15.247Z"
     },
     "blog_posts-career-support-img-jpg-c87249c5": {
       "src": "https://breathecode.herokuapp.com/v1/media/file/career-support-img-jpg",
@@ -7782,7 +7794,7 @@
       "source_url": "https://4GeeksAcademy.com/images/4geeks-main.jpg",
       "usage_count": 0,
       "source_item": "carrera-de-programacion-es",
-      "failed_at": "2026-04-07T07:05:40.534Z"
+      "failed_at": "2026-04-08T07:07:15.276Z"
     },
     "blog_posts-double-exposure-abstract-programming-lan-68101a76": {
       "src": "https://breathecode.herokuapp.com/v1/media/file/double-exposure-abstract-programming-language-interface-new-york-city-skyscrapers-background-research-development-concept-jpg?",
@@ -8315,7 +8327,7 @@
       "source_url": "https://4GeeksAcademy.com/wp-content/uploads/2017/08/Miami-Dade.jpg",
       "usage_count": 0,
       "source_item": "full-stack-web-development-at-miami-dade-college",
-      "failed_at": "2026-04-07T07:05:40.540Z"
+      "failed_at": "2026-04-08T07:07:15.253Z"
     },
     "blog_posts-diana-ma-png-4df6a9fe": {
       "src": "https://breathecode.herokuapp.com/v1/media/file/diana-ma-png",
@@ -8344,7 +8356,7 @@
       "source_url": "https://4geeksacademy.com/images/why2.jpg",
       "usage_count": 0,
       "source_item": "4geeks-academy-history",
-      "failed_at": "2026-04-07T07:05:40.546Z"
+      "failed_at": "2026-04-08T07:07:15.239Z"
     },
     "blog_posts-martes-1-dacdee7e": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/blog/2016/01/Martes-1-640w.webp",
@@ -9264,6 +9276,53 @@
         {
           "w": 960,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651-960w.webp"
+        }
+      ]
+    },
+    "miami-dade-college-logo": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Miami_Dade_College_logo.svg",
+      "alt": "Image: Miami_Dade_College_logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner"
+      ],
+      "usage_count": 0,
+      "hash": "3336e339c2404fae190ee695e91f56528417cb254eeab3b88e4d621568a71e7d"
+    },
+    "newsweek-logosvg": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Newsweek_Logo.svg.png",
+      "alt": "Image: Newsweek_Logo.svg",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "press"
+      ],
+      "usage_count": 0,
+      "hash": "956b16be46a052e0e086e091f8c1daab5f82070bb900204d82e3c990fdd7dfde",
+      "width": 1280,
+      "height": 329,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960,
+        1280
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Newsweek_Logo.svg-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Newsweek_Logo.svg-960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Newsweek_Logo.svg-1280w.webp"
         }
       ]
     }
