@@ -9266,6 +9266,17 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651-960w.webp"
         }
       ]
+    },
+    "miami-dade-college-logo": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Miami_Dade_College_logo.svg",
+      "alt": "Image: Miami_Dade_College_logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner"
+      ],
+      "usage_count": 0,
+      "hash": "3336e339c2404fae190ee695e91f56528417cb254eeab3b88e4d621568a71e7d"
     }
   }
 }
