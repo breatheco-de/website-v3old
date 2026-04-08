@@ -345,7 +345,7 @@ sections:
       desktop: sm md
     marginY:
       desktop: md lg
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--secondary))
     maxWidth:
       desktop: 6xl
   - type: testimonials_slide
