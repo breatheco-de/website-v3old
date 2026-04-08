@@ -248,7 +248,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
               <div className="relative">
                 {data.pills_url && (
                   <div
-                    className="pointer-events-none absolute -inset-4 rounded-2xl transition-colors group-hover:bg-secondary/50"
+                    className="pointer-events-none absolute  rounded-2xl transition-colors group-hover:bg-secondary/50"
                     aria-hidden="true"
                   />
                 )}
@@ -269,7 +269,7 @@ export function HeroCredibility({ data }: HeroCredibilityProps) {
                   <a
                     href={data.pills_url}
                     onClick={handleLinkClick}
-                    className="group -m-[150px] p-[150px] block"
+                    className="group lg:-my-[150px] lg:-ms-[150px] lg:py-[150px] lg:ps-[150px] block"
                     data-testid="hero-credibility-pills-link"
                   >
                     {pillsInner}

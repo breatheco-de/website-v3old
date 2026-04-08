@@ -119,7 +119,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
             </div>
 
             {/* Center: org label + title */}
-            <div className="flex-1 min-w-0 min-w-[370px] lg:min-w-[650px] xl:min-w-[720px]">
+            <div className="flex-1 min-w-0 lg:min-w-[650px] xl:min-w-[720px]">
               {featured.organization && (
                 <p
                   className="text-xs font-medium uppercase tracking-wide text-white/70 mb-1.5"
