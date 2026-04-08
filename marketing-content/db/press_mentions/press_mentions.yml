@@ -68,12 +68,8 @@ press_mentions:
 
 
     priority: 5
-    organization: ' Miami Dade College · Continuing Education'
     stat_label: graduates, 8 years and counting
     stat_value: 'Stat: 400+'
-    tags:
-      - Fully funded
-      - $8,400 living stipend
   - locale: en
     title: The Only Coding School Chosen for MacKenzie Scott-Funded Workforce Initiative in Miami
     category: Non-Profit
