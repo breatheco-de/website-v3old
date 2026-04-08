@@ -42,7 +42,6 @@ press_mentions:
     stat_label: graduation rate across both cohorts
     stat_value: '100% '
     tags:
-      - Miami Dade
       - Costa Rica
   - locale: en
     title: Selected by the Bahamas Government for National AI Education, Alongside Harvard, Oxford and Columbia
