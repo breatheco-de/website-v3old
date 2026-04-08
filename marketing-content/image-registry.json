@@ -2056,7 +2056,14 @@
         "logo",
         "badge",
         "award",
-        "newsweek"
+        "newsweek",
+        "card",
+        "photo",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team"
       ],
       "usage_count": 2,
       "hash": "6fbc5f4b82d8a7dca4a0d99b4df2bae787f94394f06accc823ecbf8c3370fcb3",
