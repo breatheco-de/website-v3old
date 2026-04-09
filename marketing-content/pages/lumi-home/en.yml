@@ -59,7 +59,7 @@ sections:
             id: logo-course-report
         label: Best Bootcamp Awards by Forbes, Fortune, Course Report and more
     logo_rotation_ms_time: 2000
-    colored_logos: false
+    colored_logos: true
     show_marquee: true
     marquee_items:
       - bold_text: Course Report
