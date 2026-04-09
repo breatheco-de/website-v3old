@@ -123,6 +123,7 @@ sections:
       desktop: 6xl
     paddingY:
       desktop: md none
+    value_size: text-2xl
   - type: features_grid
     version: "1.0"
     variant: stats-text
