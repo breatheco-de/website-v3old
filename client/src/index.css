@@ -697,6 +697,7 @@
   --section-ml: var(--section-ml-mobile);
   --section-mr: var(--section-mr-mobile);
   --section-mw: var(--section-mw-mobile);
+  --section-inner-px: var(--section-inner-px-mobile);
 }
 
 /* Prose preview for markdown editor modal */
@@ -752,6 +753,7 @@
     --section-ml: var(--section-ml-desktop);
     --section-mr: var(--section-mr-desktop);
     --section-mw: var(--section-mw-desktop);
+    --section-inner-px: var(--section-inner-px-desktop);
   }
 }
 

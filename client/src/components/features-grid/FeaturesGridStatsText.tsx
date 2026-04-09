@@ -31,6 +31,7 @@ export function FeaturesGridStatsText({ data }: FeaturesGridStatsTextProps) {
                     use_card={false}
                     card_color="bg-transparent"
                     size="small"
+                    value_size="text-4xl md:text-4xl lg:text-5xl"
                     className="text-center"
                     data-testid={`stat-${itemId}`}
                   />
@@ -49,6 +50,7 @@ export function FeaturesGridStatsText({ data }: FeaturesGridStatsTextProps) {
                       use_card={false}
                       card_color="bg-transparent"
                       size="small"
+                      value_size="text-3xl md:text-4xl lg:text-5xl"
                       className="text-center"
                       data-testid={`stat-${itemId}`}
                     />
@@ -62,7 +64,7 @@ export function FeaturesGridStatsText({ data }: FeaturesGridStatsTextProps) {
             <div>
               {data.title && (
                 <h2
-                  className="text-h2 mb-2 text-foreground"
+                  className="text-2xl md:text-h2 mb-2 text-foreground"
                   data-testid="text-stats-text-title"
                 >
                   {data.title}

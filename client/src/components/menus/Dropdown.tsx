@@ -117,7 +117,7 @@ function CardsDropdown({ dropdown, onLinkClick }: { dropdown: CardsDropdownData;
                   <IconComponent className="w-6 h-6" />
                 </div>
               )}
-              <h4 className="font-semibold text-foreground mb-2">
+              <h4 className="text-base font-semibold text-foreground mb-2">
                 {item.title}
               </h4>
               <p className="text-sm text-muted-foreground mb-3 line-clamp-4">
@@ -173,7 +173,7 @@ function ColumnsDropdown({ dropdown, onLinkClick }: { dropdown: ColumnsDropdownD
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
         {dropdown.columns.map((column, colIndex) => (
           <div key={colIndex}>
-            <h4 className="font-semibold text-foreground mb-3">{column.title}</h4>
+            <h4 className="text-base font-semibold text-foreground mb-3">{column.title}</h4>
             <ul className="space-y-2">
               {column.items.map((item, itemIndex) => (
                 <li key={itemIndex}>
@@ -210,7 +210,7 @@ function SimpleListDropdown({ dropdown, onLinkClick }: { dropdown: SimpleListDro
           )}
           <div>
             {dropdown.title && (
-              <h3 className="font-semibold text-foreground">{dropdown.title}</h3>
+              <h3 className="text-base font-semibold text-foreground">{dropdown.title}</h3>
             )}
             {dropdown.description && (
               <p className="text-xs text-muted-foreground mt-1">{dropdown.description}</p>
@@ -253,7 +253,7 @@ function GroupedListDropdown({ dropdown, onLinkClick }: { dropdown: GroupedListD
           )}
           <div>
             {dropdown.title && (
-              <h3 className="font-semibold text-foreground">{dropdown.title}</h3>
+              <h3 className="text-base font-semibold text-foreground">{dropdown.title}</h3>
             )}
             {dropdown.description && (
               <p className="text-xs text-muted-foreground mt-1">{dropdown.description}</p>
@@ -319,9 +319,8 @@ export function Dropdown({ label, href, dropdown, controlledOpen, onOpenChange }
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
-  
   const isWideDropdown = dropdown.type === "cards" || dropdown.type === "columns";
-
+  
   useEffect(() => {
     return () => {
       if (closeTimeoutRef.current) {
@@ -377,20 +376,22 @@ export function Dropdown({ label, href, dropdown, controlledOpen, onOpenChange }
     }
 
     const triggerCenter = triggerRect.left + triggerRect.width / 2;
-    let idealLeft = triggerCenter - dropdownW / 2;
+    let idealLeft = isWideDropdown
+      ? (viewportW - dropdownW) / 2
+      : triggerCenter - dropdownW / 2;
     idealLeft = Math.max(VIEWPORT_PADDING, Math.min(idealLeft, viewportW - dropdownW - VIEWPORT_PADDING));
 
     const relativeLeft = idealLeft - triggerRect.left;
     panel.style.left = `${relativeLeft}px`;
-  }, [dropdown.type]);
+  }, [dropdown.type, isWideDropdown]);
 
   useLayoutEffect(() => {
-    if (!isOpen || isWideDropdown) return;
+    if (!isOpen) return;
     positionPanel();
 
     window.addEventListener("resize", positionPanel);
     return () => window.removeEventListener("resize", positionPanel);
-  }, [isOpen, isWideDropdown, positionPanel]);
+  }, [isOpen, positionPanel]);
   
   const handleLinkClick = useInternalNav(useCallback(() => {
     setIsOpen(false);
@@ -420,35 +421,21 @@ export function Dropdown({ label, href, dropdown, controlledOpen, onOpenChange }
     >
       <button
         type="button"
-        className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-foreground hover-elevate rounded-md transition-colors no-default-hover-elevate no-default-active-elevate"
+        className="flex items-center gap-1 px-4 py-2 font-medium text-foreground hover-elevate rounded-md transition-all duration-150 ease-out no-default-hover-elevate no-default-active-elevate"
         data-testid={`nav-dropdown-${label.toLowerCase().replace(/\s+/g, "-")}`}
       >
         {label}
-        <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+        <ChevronDown className={`h-[1em] w-[1em] shrink-0 transition-transform duration-150 ease-out ${isOpen ? "rotate-180" : ""}`} />
       </button>
       
       {isOpen && (
-        isWideDropdown ? (
-          <>
-            <div
-              className="absolute left-0 right-0 top-full z-50"
-              style={{ height: "1rem" }}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            />
-            <div 
-              className="fixed top-16 left-0 right-0 z-50 flex justify-center pointer-events-none"
-            >
-              <div 
-                className={`pointer-events-auto bg-white dark:bg-zinc-900 border border-border rounded-lg shadow-lg ${getDropdownWidth()}`}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                {renderDropdownContent()}
-              </div>
-            </div>
-          </>
-        ) : (
+        <>
+          <div
+            className="absolute left-0 right-0 top-full z-50"
+            style={{ height: "1rem" }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          />
           <div
             ref={panelRef}
             className={`absolute top-full z-50 mt-1 bg-white dark:bg-zinc-900 border border-border rounded-lg shadow-lg ${getDropdownWidth()}`}
@@ -458,7 +445,7 @@ export function Dropdown({ label, href, dropdown, controlledOpen, onOpenChange }
           >
             {renderDropdownContent()}
           </div>
-        )
+        </>
       )}
     </div>
   );

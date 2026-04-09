@@ -186,6 +186,8 @@ interface NavbarSettings {
   constrained_margin?: boolean;
   size?: number;
   sticky?: boolean;
+  subtle_at_top?: boolean;
+  floating?: boolean;
   marquee?: MarqueeConfigSetting;
 }
 
@@ -1712,8 +1714,10 @@ export default function MenuEditor() {
                           const sizeLabel = s !== undefined ? `${s}px` : "Default (64px)";
                           const marginLabel = menuData!.navbar!.constrained_margin ? "Constrained" : "Full width";
                           const stickyLabel = menuData!.navbar!.sticky === false ? "Not sticky" : "Sticky";
+                          const subtleTopLabel = menuData!.navbar!.subtle_at_top ? "Subtle at top" : null;
+                          const floatingLabel = menuData!.navbar!.floating ? "Floating" : null;
                           const marqueeLabel = menuData!.navbar!.marquee?.enabled ? `Marquee (${menuData!.navbar!.marquee.texts?.length || 0} msg)` : null;
-                          return [sizeLabel, marginLabel, stickyLabel, marqueeLabel].filter(Boolean).join(" · ");
+                          return [sizeLabel, marginLabel, stickyLabel, subtleTopLabel, floatingLabel, marqueeLabel].filter(Boolean).join(" · ");
                         })()}
                       </span>
                       {navbarSettingsOpen
@@ -1775,6 +1779,36 @@ export default function MenuEditor() {
                           onCheckedChange={(checked) => updateNavbarSettings({ sticky: checked ? undefined : false })}
                           disabled={!isEnglish}
                           data-testid="switch-sticky"
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-between gap-4">
+                        <div>
+                          <Label className={`text-sm font-medium ${!isEnglish ? "text-muted-foreground" : ""}`}>Subtle at top</Label>
+                          <p className="text-xs text-muted-foreground mt-0.5">
+                            Make navbar transparent and compact at page top, then restore on scroll
+                          </p>
+                        </div>
+                        <Switch
+                          checked={!!menuData!.navbar!.subtle_at_top}
+                          onCheckedChange={(checked) => updateNavbarSettings({ subtle_at_top: checked || undefined })}
+                          disabled={!isEnglish}
+                          data-testid="switch-subtle-at-top"
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-between gap-4">
+                        <div>
+                          <Label className={`text-sm font-medium ${!isEnglish ? "text-muted-foreground" : ""}`}>Floating</Label>
+                          <p className="text-xs text-muted-foreground mt-0.5">
+                            Add margin, rounded corners, border and a soft shadow to the navbar chrome
+                          </p>
+                        </div>
+                        <Switch
+                          checked={!!menuData!.navbar!.floating}
+                          onCheckedChange={(checked) => updateNavbarSettings({ floating: checked || undefined })}
+                          disabled={!isEnglish}
+                          data-testid="switch-floating-navbar"
                         />
                       </div>
 

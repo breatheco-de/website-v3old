@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { IS_SERVER } from "@/lib/initialData";
 import { useTranslation } from "react-i18next";
@@ -13,7 +13,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LazyRender from "@/components/LazyRender";
 import MenuSlotPlaceholder from "@/components/editing/MenuSlotPlaceholder";
+import { MenuVisualContextProvider } from "@/contexts/MenuVisualContext";
 import { getApiPath } from "@shared/api-paths";
+import { useMenuConfig } from "@/hooks/useMenuConfig";
 
 function capitalize(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
@@ -80,6 +82,15 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
 
   useContentAutoRefresh(type, slug, effectiveLocale, handleRefetch);
 
+  const [sectionBackgroundOverlapHeight, setSectionBackgroundOverlapHeight] = useState(300);
+  const {
+    topMenuId,
+    bottomMenuId,
+    topMenuConfig,
+    isTopMenuLoading,
+    sectionBackgroundOverlapsMenu,
+  } = useMenuConfig({ layout: data?.layout as { menu?: { top?: string | null; bottom?: string | null } } | undefined, locale: effectiveLocale });
+
   if (isLoading && !IS_SERVER) {
     return (
       <div
@@ -112,32 +123,30 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
     );
   }
 
-  const layoutMenu = (data.layout as { menu?: { top?: string | null; bottom?: string | null } } | undefined)?.menu;
-  const topMenuId = layoutMenu?.top;
-  const bottomMenuId = layoutMenu?.bottom;
-
   return (
     <div data-testid={`page-${type}`}>
-      <div className="group relative">
-        {topMenuId && <Header menuId={topMenuId} />}
-        <MenuSlotPlaceholder
-          position="top"
-          currentMenuId={topMenuId ?? null}
+      <MenuVisualContextProvider value={{ sectionBackgroundOverlapsMenu, sectionBackgroundOverlapHeight, setSectionBackgroundOverlapHeight }}>
+        <div className="group relative">
+          {topMenuId && <Header menuConfig={topMenuConfig} isLoading={isTopMenuLoading} />}
+          <MenuSlotPlaceholder
+            position="top"
+            currentMenuId={topMenuId ?? null}
+            contentType={type}
+            slug={slug}
+            locale={effectiveLocale}
+            onMenuChange={() => refetch()}
+          />
+        </div>
+        <SectionRenderer
+          sections={(data.sections as any[]) || []}
+          settings={data.settings}
           contentType={type}
           slug={slug}
           locale={effectiveLocale}
-          onMenuChange={() => refetch()}
+          programSlug={type === "program" ? slug : undefined}
+          singleEntry={data.singleEntry as Record<string, unknown> | undefined}
         />
-      </div>
-      <SectionRenderer
-        sections={(data.sections as any[]) || []}
-        settings={data.settings}
-        contentType={type}
-        slug={slug}
-        locale={effectiveLocale}
-        programSlug={type === "program" ? slug : undefined}
-        singleEntry={data.singleEntry as Record<string, unknown> | undefined}
-      />
+      </MenuVisualContextProvider>
       <div className="group relative">
         {bottomMenuId && (
           <LazyRender>

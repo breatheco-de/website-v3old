@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Star, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { Star, ChevronLeft, ChevronRight, ChevronDown, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { ListPressMentionsSection } from "@shared/schema";
 import { UniversalImage } from "@/components/UniversalImage";
@@ -49,12 +49,81 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
   const totalPages = pageGroups.length;
 
   const [currentPage, setCurrentPage] = useState(0);
+  const [isExpandedMobile, setIsExpandedMobile] = useState(false);
+  const mobileViewportRef = useRef<HTMLDivElement | null>(null);
+  const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
+  const swipeDeltaXRef = useRef(0);
+  const isHorizontalSwipeRef = useRef(false);
 
   useEffect(() => {
     if (totalPages > 0 && currentPage >= totalPages) {
       setCurrentPage(totalPages - 1);
     }
   }, [totalPages, currentPage]);
+
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [cardsPerPage]);
+
+  const resetTouchState = useCallback(() => {
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+    swipeDeltaXRef.current = 0;
+    isHorizontalSwipeRef.current = false;
+  }, []);
+
+  const handleTouchStart = useCallback((event: React.TouchEvent<HTMLDivElement>) => {
+    if (cardsPerPage !== 1) return;
+    const touch = event.touches[0];
+    if (!touch) return;
+
+    touchStartXRef.current = touch.clientX;
+    touchStartYRef.current = touch.clientY;
+    swipeDeltaXRef.current = 0;
+    isHorizontalSwipeRef.current = false;
+  }, [cardsPerPage]);
+
+  const handleTouchMove = useCallback((event: React.TouchEvent<HTMLDivElement>) => {
+    if (cardsPerPage !== 1) return;
+    const touch = event.touches[0];
+    if (!touch || touchStartXRef.current === null || touchStartYRef.current === null) return;
+
+    const deltaX = touch.clientX - touchStartXRef.current;
+    const deltaY = touch.clientY - touchStartYRef.current;
+
+    if (!isHorizontalSwipeRef.current) {
+      if (Math.abs(deltaX) < 8 && Math.abs(deltaY) < 8) return;
+      if (Math.abs(deltaX) <= Math.abs(deltaY)) return;
+      isHorizontalSwipeRef.current = true;
+    }
+
+    event.preventDefault();
+    swipeDeltaXRef.current = deltaX;
+  }, [cardsPerPage]);
+
+  const handleTouchEnd = useCallback(() => {
+    if (cardsPerPage !== 1) {
+      resetTouchState();
+      return;
+    }
+    if (!isHorizontalSwipeRef.current) {
+      resetTouchState();
+      return;
+    }
+
+    const viewportWidth = mobileViewportRef.current?.offsetWidth ?? 0;
+    const swipeThreshold = Math.max(viewportWidth * 0.18, 48);
+    const finalOffset = swipeDeltaXRef.current;
+
+    if (finalOffset <= -swipeThreshold && currentPage < totalPages - 1) {
+      setCurrentPage((prev) => prev + 1);
+    } else if (finalOffset >= swipeThreshold && currentPage > 0) {
+      setCurrentPage((prev) => prev - 1);
+    }
+
+    resetTouchState();
+  }, [cardsPerPage, currentPage, totalPages, resetTouchState]);
 
   const bgStyle: React.CSSProperties = {};
   if (data.background) {
@@ -103,8 +172,38 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
             className="bg-primary rounded-[0.8rem] p-6 md:p-8 flex flex-col md:flex-row gap-3 md:gap-4 md:items-center"
             data-testid="card-press-featured"
           >
+            <div className="flex items-start justify-between gap-3 md:hidden">
+              <div className="flex-shrink-0 flex flex-row items-center justify-between gap-2">
+                <div
+                  className="p-3 rounded-full"
+                  style={{ backgroundColor: "hsl(var(--accent) / 0.4)" }}
+                >
+                  <Star className="w-6 h-6" style={{ color: "hsl(var(--accent))" }} fill="currentColor" />
+                </div>
+                {featured.year && (
+                  <span className="text-sm font-bold text-white" data-testid="text-press-featured-year">
+                    {featured.year}
+                  </span>
+                )}
+              </div>
+
+              {featured.tags && featured.tags.length > 0 && (
+                <div className="flex flex-wrap justify-center content-center gap-2 max-w-[60%]">
+                  {featured.tags.slice(0, 4).map((tag, i) => (
+                    <span
+                      key={i}
+                      className="bg-background text-center text-foreground text-[11px] px-2.5 py-0.5 rounded-full font-medium leading-tight"
+                      data-testid={`tag-press-featured-mobile-${i}`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {/* Star + year — row on mobile, column on md+ */}
-            <div className="flex-shrink-0 flex flex-row md:flex-col items-center gap-2 md:w-16">
+            <div className="hidden md:flex flex-shrink-0 md:flex-col items-center gap-2 md:w-16">
               <div
                 className="p-3 rounded-full"
                 style={{ backgroundColor: "hsl(var(--accent) / 0.4)" }}
@@ -163,7 +262,7 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
                 </a>
               )}
               {featured.tags && featured.tags.length > 0 && (
-                <div className={`grid grid-cols-2 w-full ${featured.logo ? "gap-2" : "gap-6"}`}>
+                <div className={`hidden md:grid grid-cols-2 w-full ${featured.logo ? "gap-2" : "gap-6"}`}>
                   {featured.tags.slice(0, 4).map((tag, i) => (
                     <span
                       key={i}
@@ -182,7 +281,15 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
         {/* Carousel */}
         {allCards.length > 0 && (
           <div className="flex flex-col gap-3">
-            <div className="overflow-hidden">
+            <div
+              ref={mobileViewportRef}
+              className="overflow-hidden"
+              style={cardsPerPage === 1 ? { touchAction: "pan-y" } : undefined}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              onTouchCancel={handleTouchEnd}
+            >
               <div
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${currentPage * 100}%)` }}
@@ -198,6 +305,8 @@ export function ListPressMentionsFeaturedShowcase({ data }: ListPressMentionsFea
                           index={globalIndex}
                           showLinks={showLinks}
                           showLogos={showLogos}
+                          isExpandedMobile={isExpandedMobile}
+                          onToggleMobile={() => setIsExpandedMobile((prev) => !prev)}
                         />
                       );
                     })}
@@ -275,12 +384,36 @@ interface ShowcaseCardProps {
   index: number;
   showLinks: boolean;
   showLogos: boolean;
+  isExpandedMobile: boolean;
+  onToggleMobile: () => void;
 }
 
-function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) {
+function ShowcaseCard({
+  item,
+  index,
+  showLinks,
+  showLogos,
+  isExpandedMobile,
+  onToggleMobile,
+}: ShowcaseCardProps) {
+  const hasExpandableContent = !!(
+    item.excerpt ||
+    item.stat_value ||
+    item.stat_label ||
+    (item.tags && item.tags.length > 0) ||
+    (showLinks && item.link_url && item.link_text)
+  );
+
+  const handleCardClick = () => {
+    if (typeof window !== "undefined" && window.innerWidth < 768 && hasExpandableContent) {
+      onToggleMobile();
+    }
+  };
+
   return (
     <div
-      className="flex-1 bg-card border border-border rounded-[0.8rem] p-5 flex flex-col gap-2"
+      className={`flex-1 bg-card border border-border rounded-[0.8rem] p-4 md:p-5 flex flex-col gap-2 ${hasExpandableContent ? "cursor-pointer md:cursor-default" : ""}`}
+      onClick={handleCardClick}
       data-testid={`card-press-showcase-${index}`}
     >
       {/* Header: category badge + logo */}
@@ -313,33 +446,101 @@ function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) 
       {/* Org (context label) + title (headline) — separate lines */}
       <div className="flex flex-col gap-0.5">
         {item.title && (
-          <span
-            className="text-lg font-bold text-foreground leading-snug"
-            data-testid={`text-press-card-title-${index}`}
-          >
-            {item.title}
-          </span>
+          <>
+            <span
+              className="text-lg font-bold text-foreground leading-snug"
+              data-testid={`text-press-card-title-${index}`}
+            >
+              {item.title}
+            </span>
+            {hasExpandableContent && (
+              <button
+                type="button"
+                className="md:hidden mt-1 inline-flex items-center gap-1 self-start text-base font-medium text-primary"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onToggleMobile();
+                }}
+                data-testid={`button-press-card-toggle-${index}`}
+              >
+                {isExpandedMobile ? "See less" : "See more"}
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isExpandedMobile ? "rotate-180" : ""}`} />
+              </button>
+            )}
+          </>
         )}
       </div>
 
       {/* Excerpt */}
       {item.excerpt && (
-        <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-2">
+        <p className="hidden md:block text-sm text-muted-foreground leading-relaxed flex-1 mb-2">
           {item.excerpt}
         </p>
       )}
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          isExpandedMobile ? "max-h-96 opacity-100 mt-2" : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="flex flex-col gap-2 pb-1">
+          {item.excerpt && (
+            <p className="text-sm text-muted-foreground leading-relaxed mb-1">
+              {item.excerpt}
+            </p>
+          )}
+
+          {(item.stat_value || item.stat_label) && (
+            <Badge
+              className="max-w-full bg-primary/10 text-foreground rounded-2xl hover:bg-primary/10 text-[11px] font-semibold px-3 py-1 w-fit whitespace-normal break-words"
+              data-testid={`badge-press-stat-${index}`}
+              style={{ backgroundColor: "hsl(var(--accent) / 0.7)" }}
+            >
+              <span className="inline-flex max-w-full flex-wrap items-center gap-x-1 gap-y-0.5 text-center leading-tight">
+                {item.stat_value && <span data-testid={`text-press-stat-value-${index}`}>{item.stat_value}</span>}
+                {item.stat_value && item.stat_label && <span className="font-normal opacity-70">·</span>}
+                {item.stat_label && <span className="font-normal opacity-80">{item.stat_label}</span>}
+              </span>
+            </Badge>
+          )}
+          {item.tags && item.tags.length > 0 && (
+            <p className="text-xs text-muted-foreground" data-testid={`tags-press-card-${index}`}>
+              {item.tags.slice(0, 3).map((tag, t) => (
+                <span key={t}>
+                  {t > 0 && <span className="mx-1 text-primary">·</span>}
+                  <span data-testid={`tag-press-card-${index}-${t}`}>{tag}</span>
+                </span>
+              ))}
+            </p>
+          )}
+          {showLinks && item.link_url && item.link_text && (
+            <a
+              href={item.link_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-sm font-medium text-primary mt-1 hover:underline"
+              onClick={(event) => event.stopPropagation()}
+              data-testid={`link-press-card-${index}`}
+            >
+              {item.link_text}
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          )}
+        </div>
+      </div>
 
       {/* Bottom stats + tags + link */}
-      <div className="mt-auto flex flex-col gap-2">
+      <div className="mt-auto hidden md:flex md:flex-col md:gap-2">
         {(item.stat_value || item.stat_label) && (
           <Badge
-            className="bg-primary/10 text-foreground rounded-full hover:bg-primary/10 text-sm font-semibold px-3 py-1 w-fit"
+            className="max-w-full bg-primary/10 text-foreground rounded-2xl hover:bg-primary/10 text-sm font-semibold px-3 py-1 w-fit whitespace-normal break-words"
             data-testid={`badge-press-stat-${index}`}
             style={{ backgroundColor: "hsl(var(--accent) / 0.7)" }}
           >
-            {item.stat_value && <span data-testid={`text-press-stat-value-${index}`}>{item.stat_value}</span>}
-            {item.stat_value && item.stat_label && <span className="mx-1 font-normal opacity-70">·</span>}
-            {item.stat_label && <span className="font-normal opacity-80">{item.stat_label}</span>}
+            <span className="inline-flex max-w-full flex-wrap items-center gap-x-1 gap-y-0.5 text-left leading-tight">
+              {item.stat_value && <span data-testid={`text-press-stat-value-${index}`}>{item.stat_value}</span>}
+              {item.stat_value && item.stat_label && <span className="font-normal opacity-70">·</span>}
+              {item.stat_label && <span className="font-normal opacity-80">{item.stat_label}</span>}
+            </span>
           </Badge>
         )}
         {item.tags && item.tags.length > 0 && (
@@ -358,6 +559,7 @@ function ShowcaseCard({ item, index, showLinks, showLogos }: ShowcaseCardProps) 
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1 text-sm font-medium text-primary mt-1 hover:underline"
+            onClick={(event) => event.stopPropagation()}
             data-testid={`link-press-card-${index}`}
           >
             {item.link_text}

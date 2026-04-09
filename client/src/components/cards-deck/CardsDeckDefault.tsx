@@ -93,11 +93,14 @@ export function CardsDeckDefault({ data }: CardsDeckDefaultProps) {
                     data-testid={`card-deck-author-row-${index}`}
                   >
                     {card.brand_image && (
-                      <div data-testid={`card-deck-brand-image-${index}`}>
+                      <div
+                        className="flex h-8 items-center"
+                        data-testid={`card-deck-brand-image-${index}`}
+                      >
                         <UniversalImage
                           id={card.brand_image}
                           alt=""
-                          className="h-6 flex-shrink-0"
+                          className="h-full max-h-full w-auto max-w-full flex-shrink-0 object-contain"
                           fieldContext={{ arrayPath: "cards", index, srcField: "brand_image" }}
                         />
                       </div>

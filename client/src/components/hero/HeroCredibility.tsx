@@ -121,7 +121,7 @@ function WatermarkMarquee({ items, isStatic }: { items: { bold_text: string; lig
   const itemNodes = items.map((item, i) => (
     <span
       key={i}
-      className="flex items-center gap-2 mr-10 text-xs whitespace-nowrap"
+      className="flex items-center gap-2 mx-4 md:ml-0 md:mr-10 text-xs whitespace-nowrap "
     >
       <span className="font-extrabold text-muted-foreground">{item.bold_text}</span>
       <span className="text-muted-foreground/80">{item.light_text}</span>
@@ -130,7 +130,7 @@ function WatermarkMarquee({ items, isStatic }: { items: { bold_text: string; lig
 
   if (isStatic) {
     return (
-      <div className="w-full mt-10 flex flex-wrap gap-y-2">
+      <div className="w-full mt-7 flex flex-wrap gap-y-2 justify-center md:justify-start items-center">
         {itemNodes}
       </div>
     );
