@@ -104,6 +104,8 @@ export default function Header({ menuId = "main-navbar", menuConfig: injectedMen
           ? marqueePosition === "above"
             ? `rounded-t-2xl rounded-b-none ${hasVisibleMarquee ? "border border-border border-b-0" : ""}`
             : `rounded-b-2xl rounded-t-none ${hasVisibleMarquee ? "border border-border border-t-0" : ""}`
+          : useSubtleAtTop
+            ? "border-b border-border"
           : hasVisibleMarquee && marqueePosition === "below"
             ? "border-t"
             : ""
