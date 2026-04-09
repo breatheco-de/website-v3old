@@ -16,6 +16,8 @@ import Footer from "@/components/Footer";
 import LazyRender from "@/components/LazyRender";
 import MenuSlotPlaceholder from "@/components/editing/MenuSlotPlaceholder";
 import { Button } from "@/components/ui/button";
+import { MenuVisualContextProvider } from "@/contexts/MenuVisualContext";
+import { useMenuConfig } from "@/hooks/useMenuConfig";
 
 const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditorPanel"));
 
@@ -85,6 +87,15 @@ export default function Page() {
 
   useContentAutoRefresh("page", slug, locale, handleRefetch);
 
+  const [sectionBackgroundOverlapHeight, setSectionBackgroundOverlapHeight] = useState(300);
+  const {
+    topMenuId,
+    bottomMenuId,
+    topMenuConfig,
+    isTopMenuLoading,
+    sectionBackgroundOverlapsMenu,
+  } = useMenuConfig({ layout: (page as any)?.layout, locale });
+
   if (isLoading && !IS_SERVER) {
     return (
       <div 
@@ -135,31 +146,29 @@ export default function Page() {
     );
   }
 
-  const layoutMenu = (page as any).layout?.menu;
-  const topMenuId = layoutMenu?.top as string | null | undefined;
-  const bottomMenuId = layoutMenu?.bottom as string | null | undefined;
-
   return (
     <div data-testid={`page-${slug}`}>
-      <div className="group relative">
-        {topMenuId && <Header menuId={topMenuId} />}
-        <MenuSlotPlaceholder
-          position="top"
-          currentMenuId={topMenuId ?? null}
+      <MenuVisualContextProvider value={{ sectionBackgroundOverlapsMenu, sectionBackgroundOverlapHeight, setSectionBackgroundOverlapHeight }}>
+        <div className="group relative">
+          {topMenuId && <Header menuConfig={topMenuConfig} isLoading={isTopMenuLoading} />}
+          <MenuSlotPlaceholder
+            position="top"
+            currentMenuId={topMenuId ?? null}
+            contentType="page"
+            slug={slug}
+            locale={locale}
+            onMenuChange={() => refetch()}
+          />
+        </div>
+        <SectionRenderer 
+          sections={page.sections} 
+          settings={page.settings}
           contentType="page"
           slug={slug}
           locale={locale}
-          onMenuChange={() => refetch()}
+          singleEntry={page.singleEntry}
         />
-      </div>
-      <SectionRenderer 
-        sections={page.sections} 
-        settings={page.settings}
-        contentType="page"
-        slug={slug}
-        locale={locale}
-        singleEntry={page.singleEntry}
-      />
+      </MenuVisualContextProvider>
       <div className="group relative">
         {bottomMenuId && (
           <LazyRender>

@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import { useState, useCallback, useMemo, useRef, useEffect } from "react";
 import type { Section, EditOperation, SectionLayout, ResponsiveSpacing, ShowOn, PageSettings } from "@shared/schema";
 import { useSession } from "@/contexts/SessionContext";
+import { useMenuVisualContext } from "@/contexts/MenuVisualContext";
 import { VariableHighlightProvider } from "@/components/editing/VariableHighlight";
 import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
 import { resolveDeep } from "@/lib/variable-manager";
@@ -748,6 +749,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
   const isEditMode = editMode?.isEditMode ?? false;
   const previewBreakpoint = editMode?.previewBreakpoint;
   const { session } = useSession();
+  const { sectionBackgroundOverlapsMenu, sectionBackgroundOverlapHeight } = useMenuVisualContext();
   const sessionLocationSlug = session.location?.slug;
   const sessionLocationRegion = session.location?.region;
 
@@ -1038,7 +1040,10 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           isSharedTemplate={isSharedTemplate}
         />
       )}
-      {resolvedSections.map((section, index) => {
+      {(() => {
+        let hasAppliedTopCover = false;
+
+        return resolvedSections.map((section, index) => {
         const rawSection = sections[index];
         const sectionType = (section as { type: string }).type;
         const loadStrategy = isEditMode ? "eager" : resolveLoadStrategy(rawSection, index, settings);
@@ -1077,6 +1082,19 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           );
         }
 
+        const isFirstVisibleSection = isVisible && !hasAppliedTopCover;
+        if (isFirstVisibleSection) {
+          hasAppliedTopCover = true;
+        }
+
+        const sectionWrapperStyles = isFirstVisibleSection
+          ? {
+              ...wrapperStyles,
+              marginTop: `calc(var(--section-mt) - ${sectionBackgroundOverlapsMenu ? sectionBackgroundOverlapHeight : 0}px)`,
+              paddingTop: `calc(var(--section-pt) + ${sectionBackgroundOverlapsMenu ? sectionBackgroundOverlapHeight : 0}px)`,
+            }
+          : wrapperStyles;
+
 
         const sectionId = (rawSection as SectionLayout).section_id || `${sectionType}-${index}`;
         const isPriority = loadStrategy === "eager";
@@ -1090,7 +1108,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           : priorityWrapped;
 
         return (
-          <div key={index} id={sectionId} data-section-type={sectionType} className={`section-wrapper${sectionType !== "modal" ? " scroll-mt-20" : ""}${visibilityClasses ? " " + visibilityClasses : ""}`.trim()} style={wrapperStyles}>
+          <div key={index} id={sectionId} data-section-type={sectionType} className={`section-wrapper${sectionType !== "modal" ? " scroll-mt-20" : ""}${visibilityClasses ? " " + visibilityClasses : ""}`.trim()} style={sectionWrapperStyles}>
             <div style={innerStyles}>
               <EditableSection
                 section={rawSection}
@@ -1121,7 +1139,8 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
             </div>
           </div>
         );
-      })}
+      });
+      })()}
     </>
   );
 

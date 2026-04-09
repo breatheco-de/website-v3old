@@ -5,13 +5,14 @@ export { MobileNav } from "./MobileNav";
 export { TypewriterAnnouncement, type TypewriterAnnouncementProps } from "./TypewriterAnnouncement";
 
 import { useState, useCallback } from "react";
-import { SimpleLink, type SimpleLinkProps } from "./SimpleLink";
+import { SimpleLink } from "./SimpleLink";
 import { Dropdown, type DropdownProps } from "./Dropdown";
 import { TypewriterAnnouncement } from "./TypewriterAnnouncement";
 import UniversalImage from "@/components/UniversalImage";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { useTranslation } from "react-i18next";
+import { useMenuVisualContext } from "@/contexts/MenuVisualContext";
 
 export type NavbarItem = {
   label: string;
@@ -55,6 +56,8 @@ export type NavbarConfig = {
     constrained_margin?: boolean;
     size?: number;
     sticky?: boolean;
+    subtle_at_top?: boolean;
+    floating?: boolean;
     marquee?: MarqueeConfig;
   };
 };
@@ -72,6 +75,7 @@ export function resolveComponent(componentName: string): React.ComponentType<any
 function LogoItem({ imageId, imageAlt, href, constrained_margin }: { imageId?: string; imageAlt?: string; href: string; constrained_margin?: boolean }) {
   const handleLinkClick = useInternalNav();
   const { t } = useTranslation();
+  const { isCompact } = useMenuVisualContext();
   const logoId = imageId || "4geeks-devs-logo-1763162063433";
 
   return (
@@ -81,12 +85,23 @@ function LogoItem({ imageId, imageAlt, href, constrained_margin }: { imageId?: s
       className={`flex items-center hover-elevate rounded-md${constrained_margin ? "" : " px-3 py-2"}`}
       data-testid="link-home"
     >
-      <UniversalImage id={logoId} alt={imageAlt || t('nav.brand')} className="h-8" loading="eager" style={{ objectFit: "contain", width: "auto", height: "100%" }} />
+      <UniversalImage
+        id={logoId}
+        alt={imageAlt || t('nav.brand')}
+        className={`transition-all duration-150 ease-out ${isCompact ? "h-6" : "h-8"}`}
+        loading="eager"
+        style={{ objectFit: "contain", width: "auto", height: "100%" }}
+      />
     </a>
   );
 }
 
-export function renderNavbarItem(item: NavbarItem, controlledOpen?: boolean, onOpenChange?: (open: boolean) => void, constrained_margin?: boolean) {
+export function renderNavbarItem(
+  item: NavbarItem,
+  controlledOpen?: boolean,
+  onOpenChange?: (open: boolean) => void,
+  constrained_margin?: boolean,
+) {
   if (item.component === "Logo") {
     return <LogoItem key="logo" imageId={item.imageId} imageAlt={item.imageAlt} href={item.href} constrained_margin={constrained_margin} />;
   }
@@ -118,12 +133,13 @@ export function renderNavbarItem(item: NavbarItem, controlledOpen?: boolean, onO
   if (item.component === "Dropdown" && item.dropdown) {
     return <Component key={item.label} label={item.label} href={item.href} dropdown={item.dropdown} controlledOpen={controlledOpen} onOpenChange={onOpenChange} />;
   }
-  
+
   return <Component key={item.label} label={item.label} href={item.href} />;
 }
 
 export function Navbar({ config }: { config: NavbarConfig }) {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const { isCompact } = useMenuVisualContext();
 
   const handleOpenChange = useCallback((label: string) => (open: boolean) => {
     setActiveDropdown((prev) => {
@@ -151,7 +167,7 @@ export function Navbar({ config }: { config: NavbarConfig }) {
       {logoItems.map((item) => renderNavbarItem(item, undefined, undefined, constrained_margin))}
       {announcementItems.map((item) => renderNavbarItem(item))}
       {navLinkItems.length > 0 && (
-        <div className="flex items-center gap-1" data-testid="navbar-links">
+        <div className={`flex items-center gap-1 transition-all duration-150 ease-out ${isCompact ? "text-xs" : "text-sm"}`} data-testid="navbar-links">
           {navLinkItems.map((item) => {
             if (item.component === "Dropdown") {
               return renderNavbarItem(item, activeDropdown === item.label, handleOpenChange(item.label));

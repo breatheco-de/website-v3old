@@ -14,6 +14,8 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import LazyRender from "@/components/LazyRender";
 import MenuSlotPlaceholder from "@/components/editing/MenuSlotPlaceholder";
+import { MenuVisualContextProvider } from "@/contexts/MenuVisualContext";
+import { useMenuConfig } from "@/hooks/useMenuConfig";
 
 const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditorPanel"));
 
@@ -121,6 +123,15 @@ export default function PrivatePreview() {
     handleRefetch
   );
 
+  const [sectionBackgroundOverlapHeight, setSectionBackgroundOverlapHeight] = useState(300);
+  const {
+    topMenuId,
+    bottomMenuId,
+    topMenuConfig,
+    isTopMenuLoading,
+    sectionBackgroundOverlapsMenu,
+  } = useMenuConfig({ layout: (content as any)?.layout as { menu?: { top?: string | null; bottom?: string | null } } | undefined, locale });
+
   if (typesLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center" data-testid="loading-preview">
@@ -200,30 +211,28 @@ export default function PrivatePreview() {
     );
   }
 
-  const layoutData = (content as any).layout as { menu?: { top?: string | null; bottom?: string | null } } | undefined;
-  const topMenuId = layoutData?.menu?.top ?? null;
-  const bottomMenuId = layoutData?.menu?.bottom ?? null;
-
   return (
     <div data-testid={`preview-${contentType}-${slug}`}>
-      <div className="group relative">
-        {topMenuId && <Header menuId={topMenuId} />}
-        <MenuSlotPlaceholder
-          position="top"
-          currentMenuId={topMenuId}
+      <MenuVisualContextProvider value={{ sectionBackgroundOverlapsMenu, sectionBackgroundOverlapHeight, setSectionBackgroundOverlapHeight }}>
+        <div className="group relative">
+          {topMenuId && <Header menuConfig={topMenuConfig} isLoading={isTopMenuLoading} />}
+          <MenuSlotPlaceholder
+            position="top"
+            currentMenuId={topMenuId}
+            contentType={normalizedType}
+            slug={slug!}
+            locale={locale}
+            onMenuChange={() => refetch()}
+          />
+        </div>
+        <SectionRenderer 
+          sections={content.sections} 
           contentType={normalizedType}
-          slug={slug!}
+          slug={slug}
           locale={locale}
-          onMenuChange={() => refetch()}
+          singleEntry={(content as any).singleEntry}
         />
-      </div>
-      <SectionRenderer 
-        sections={content.sections} 
-        contentType={normalizedType}
-        slug={slug}
-        locale={locale}
-        singleEntry={(content as any).singleEntry}
-      />
+      </MenuVisualContextProvider>
       <div className="group relative">
         {bottomMenuId && (
           <LazyRender>

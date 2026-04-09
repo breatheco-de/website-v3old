@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { IS_SERVER } from "@/lib/initialData";
 import { useLocation } from "wouter";
@@ -16,6 +16,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LazyRender from "@/components/LazyRender";
 import MenuSlotPlaceholder from "@/components/editing/MenuSlotPlaceholder";
+import { MenuVisualContextProvider } from "@/contexts/MenuVisualContext";
+import { useMenuConfig } from "@/hooks/useMenuConfig";
 
 interface DatabaseSinglePageProps {
   contentType: string;
@@ -24,6 +26,7 @@ interface DatabaseSinglePageProps {
 export default function DatabaseSinglePage({ contentType }: DatabaseSinglePageProps) {
   const [location] = useLocation();
   const locale = location.startsWith("/es") ? "es" : "en";
+  const { menuConfig: defaultHeaderMenuConfig, isLoading: isDefaultHeaderLoading } = useMenuConfig("main-navbar", locale);
 
   const segments = location.split("?")[0].split("/").filter(Boolean);
   const slug = segments[segments.length - 1] || "";
@@ -73,6 +76,15 @@ export default function DatabaseSinglePage({ contentType }: DatabaseSinglePagePr
 
   useContentAutoRefresh(contentType, slug, locale, handleRefetch);
 
+  const [sectionBackgroundOverlapHeight, setSectionBackgroundOverlapHeight] = useState(300);
+  const {
+    topMenuId,
+    bottomMenuId,
+    topMenuConfig,
+    isTopMenuLoading,
+    sectionBackgroundOverlapsMenu,
+  } = useMenuConfig({ layout: (page as any)?.layout, locale });
+
   if (isLoading && !IS_SERVER) {
     return (
       <div
@@ -87,7 +99,7 @@ export default function DatabaseSinglePage({ contentType }: DatabaseSinglePagePr
   if (error || !page) {
     return (
       <div data-testid="error-database-single">
-        <Header />
+        <Header menuConfig={defaultHeaderMenuConfig} isLoading={isDefaultHeaderLoading} />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-foreground mb-2">
@@ -104,33 +116,31 @@ export default function DatabaseSinglePage({ contentType }: DatabaseSinglePagePr
     );
   }
 
-  const layoutMenu = (page as any).layout?.menu;
-  const topMenuId = layoutMenu?.top as string | null | undefined;
-  const bottomMenuId = layoutMenu?.bottom as string | null | undefined;
-
   return (
     <div data-testid={`page-${contentType}-${slug}`}>
-      <div className="group relative">
-        {topMenuId && <Header menuId={topMenuId} />}
-        <MenuSlotPlaceholder
-          position="top"
-          currentMenuId={topMenuId ?? null}
+      <MenuVisualContextProvider value={{ sectionBackgroundOverlapsMenu, sectionBackgroundOverlapHeight, setSectionBackgroundOverlapHeight }}>
+        <div className="group relative">
+          {topMenuId && <Header menuConfig={topMenuConfig} isLoading={isTopMenuLoading} />}
+          <MenuSlotPlaceholder
+            position="top"
+            currentMenuId={topMenuId ?? null}
+            contentType={contentType}
+            slug={slug}
+            locale={locale}
+            onMenuChange={() => refetch()}
+            isSharedTemplate
+          />
+        </div>
+        <SectionRenderer
+          sections={page.sections}
+          settings={page.settings}
           contentType={contentType}
           slug={slug}
           locale={locale}
-          onMenuChange={() => refetch()}
           isSharedTemplate
+          singleEntry={page.singleEntry}
         />
-      </div>
-      <SectionRenderer
-        sections={page.sections}
-        settings={page.settings}
-        contentType={contentType}
-        slug={slug}
-        locale={locale}
-        isSharedTemplate
-        singleEntry={page.singleEntry}
-      />
+      </MenuVisualContextProvider>
       <div className="group relative">
         {bottomMenuId && (
           <LazyRender>

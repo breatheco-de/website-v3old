@@ -1,40 +1,51 @@
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
-import { useQuery } from "@tanstack/react-query";
 import { Navbar, MobileNav, renderNavbarItem, type NavbarConfig } from "@/components/menus";
 import { TypewriterAnnouncement } from "@/components/menus/TypewriterAnnouncement";
+import { MenuVisualContextProvider, useMenuVisualContext } from "@/contexts/MenuVisualContext";
+import { useMenuConfig } from "@/hooks/useMenuConfig";
 
 interface HeaderProps {
   menuId?: string;
+  menuConfig?: NavbarConfig;
+  isLoading?: boolean;
 }
 
-export default function Header({ menuId = "main-navbar" }: HeaderProps) {
+export default function Header({ menuId = "main-navbar", menuConfig: injectedMenuConfig, isLoading: injectedIsLoading }: HeaderProps) {
   const { i18n } = useTranslation();
+  const floatingChromeRef = useRef<HTMLDivElement | null>(null);
+  const hasMeasuredTopOverlapRef = useRef(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isPastThreshold, setIsPastThreshold] = useState(false);
+  const [isTopZone, setIsTopZone] = useState(true);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : false);
   const locale = i18n.language || 'en';
+  const { sectionBackgroundOverlapsMenu, setSectionBackgroundOverlapHeight } = useMenuVisualContext();
 
-  const { data: menuResponse, isLoading } = useQuery<{ name: string; data: NavbarConfig }>({
-    queryKey: ["/api/menus", menuId, locale],
-    queryFn: async () => {
-      const response = await fetch(`/api/menus/${menuId}?locale=${locale}`);
-      if (!response.ok) throw new Error("Failed to load menu");
-      return response.json();
-    },
-  });
-
-  const menuConfig = menuResponse?.data;
+  const hasInjectedMenuState = injectedMenuConfig !== undefined || injectedIsLoading !== undefined;
+  const { menuConfig: queriedMenuConfig, isLoading: queriedIsLoading } = useMenuConfig(
+    menuId,
+    locale,
+    !hasInjectedMenuState,
+  );
+  const menuConfig = hasInjectedMenuState ? injectedMenuConfig : queriedMenuConfig;
+  const isLoading = hasInjectedMenuState ? !!injectedIsLoading : queriedIsLoading;
 
   const logoItem = menuConfig?.navbar?.items?.find(item => item.component === "Logo");
   const langItem = menuConfig?.navbar?.items?.find(item => item.component === "LanguageSwitcher");
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
+      const y = window.scrollY;
+      setIsScrolled(y > 0);
       setIsPastThreshold(prev => {
-        if (window.scrollY > 150) return true;
-        if (window.scrollY < 50) return false;
+        if (y > 20) return true;
+        if (y < 10) return false;
+        return prev;
+      });
+      setIsTopZone(prev => {
+        if (y > 20) return false;
+        if (y < 10) return true;
         return prev;
       });
     };
@@ -61,14 +72,19 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
 
   const stickyEnabled = menuConfig?.navbar?.sticky ?? true;
   const headerSlideOut = !stickyEnabled && isPastThreshold;
+  const subtleAtTopEnabled = menuConfig?.navbar?.subtle_at_top ?? false;
+  const useSubtleAtTop = subtleAtTopEnabled && isTopZone;
+  const floatingEnabled = menuConfig?.navbar?.floating ?? false;
+  const useFloatingChrome = floatingEnabled && !useSubtleAtTop;
 
   const marquee = menuConfig?.navbar?.marquee;
   const showMarquee = !!(marquee?.enabled && marquee?.texts && marquee.texts.length > 0);
-  const marqueeHeight = 49;
+  const marqueeHeight = 35;
   const marqueeSticky = marquee?.sticky ?? false;
   const marqueeCollapsed = isPastThreshold && !marqueeSticky;
   const marqueePosition = marquee?.position ?? "below";
   const marqueeShowOn = marquee?.show_on ?? "";
+  const hasVisibleMarquee = showMarquee && !marqueeCollapsed;
 
   const marqueeVisibilityClass =
     marqueeShowOn === "mobile" ? "md:hidden" :
@@ -77,17 +93,24 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
 
   const marqueeHeightDesktop = showMarquee && marqueeShowOn !== "mobile" ? marqueeHeight : 0;
   const marqueeHeightMobile = showMarquee && marqueeShowOn !== "desktop" ? marqueeHeight : 0;
+  const floatingVisualOffset = useFloatingChrome ? 12 : 0;
   const totalHeightDesktop = navSize + marqueeHeightDesktop;
   const totalHeightMobile = navSize + marqueeHeightMobile;
 
   const marqueeStrip = showMarquee ? (
     <div
-      className={`${marqueeVisibilityClass} overflow-hidden transition-[max-height] duration-300 ease-in-out ${marqueeCollapsed ? "max-h-0" : "max-h-12"} ${marqueePosition === "below" ? "border-t" : "border-b"}`}
+      className={`${marqueeVisibilityClass} overflow-hidden transition-[max-height] duration-300 ease-in-out ${marqueeCollapsed ? "max-h-0" : "max-h-12"} ${
+        useFloatingChrome
+          ? marqueePosition === "above"
+            ? `rounded-t-2xl rounded-b-none ${hasVisibleMarquee ? "border border-border border-b-0" : ""}`
+            : `rounded-b-2xl rounded-t-none ${hasVisibleMarquee ? "border border-border border-t-0" : ""}`
+          : hasVisibleMarquee && marqueePosition === "below"
+            ? "border-t"
+            : ""
+      }`}
+      style={marquee?.background ? { background: marquee.background } : { background: "hsl(var(--primary) / 0.05)" }}
     >
-      <div
-        className={`${constrainClass} py-1`}
-        style={marquee?.background ? { background: marquee.background } : { background: "hsl(var(--primary) / 0.05)" }}
-      >
+      <div className={`${constrainClass} py-1`}>
         <TypewriterAnnouncement
           messages={marquee!.texts!}
           charDelay={marquee?.char_delay}
@@ -100,42 +123,92 @@ export default function Header({ menuId = "main-navbar" }: HeaderProps) {
 
   const totalHeight = isMobile ? totalHeightMobile : totalHeightDesktop;
 
+  useEffect(() => {
+    if (!sectionBackgroundOverlapsMenu) {
+      hasMeasuredTopOverlapRef.current = false;
+      setSectionBackgroundOverlapHeight(0);
+      return;
+    }
+
+    if (!useSubtleAtTop || hasMeasuredTopOverlapRef.current) {
+      return;
+    }
+
+    const node = floatingChromeRef.current;
+    if (!node) {
+      return;
+    }
+
+    const frameId = requestAnimationFrame(() => {
+      const rect = node.getBoundingClientRect();
+      hasMeasuredTopOverlapRef.current = true;
+      setSectionBackgroundOverlapHeight(Math.max(Math.ceil(rect.bottom), 0));
+    });
+
+    return () => {
+      cancelAnimationFrame(frameId);
+    };
+  }, [sectionBackgroundOverlapsMenu, setSectionBackgroundOverlapHeight, useSubtleAtTop]);
+
   return (
     <>
       <div aria-hidden="true" className="hidden md:block" style={{ height: `${totalHeightDesktop}px` }} />
       <div aria-hidden="true" className="md:hidden" style={{ height: `${totalHeightMobile}px` }} />
 
       <div
+        ref={floatingChromeRef}
         className="fixed left-0 right-0 z-50 transition-[top] duration-300 ease-in-out"
-        style={{ top: headerSlideOut ? `-${totalHeight}px` : '0px' }}
+        style={{ top: headerSlideOut ? `-${totalHeight + floatingVisualOffset}px` : '0px' }}
       >
-        <header className={`w-full bg-background ${isScrolled ? 'border-b' : 'border-b border-background'}`}>
+        <div
+          className={`relative transition-transform duration-150 ease-out ${
+            useFloatingChrome
+              ? "mx-3 translate-y-3 drop-shadow-[0_18px_22px_hsl(var(--foreground)/0.14)] md:mx-4"
+              : ""
+          }`}
+        >
           {marqueePosition === "above" && marqueeStrip}
-
-          <div className={`flex items-center gap-4 ${constrainClass}`} style={{ height: `${navSize}px` }}>
-            <div className="hidden md:flex flex-1">
-              {isLoading ? (
-                <div className="flex items-center gap-4">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <div key={i} className="h-4 w-20 bg-muted animate-pulse rounded" />
-                  ))}
+          <header
+            className={`relative z-10 w-full transition-[background-color,border-color] duration-150 ease-out ${
+              useSubtleAtTop
+                ? "bg-transparent border-b border-transparent"
+                : useFloatingChrome
+                  ? hasVisibleMarquee
+                    ? marqueePosition === "above"
+                      ? "rounded-b-2xl rounded-t-none border border-border border-t-0 bg-background"
+                      : "rounded-t-2xl rounded-b-none border border-border border-b-0 bg-background"
+                    : "rounded-2xl border border-border bg-background"
+                  : isScrolled
+                    ? "bg-background border-b"
+                    : "bg-background border-b border-background"
+            }`}
+          >
+            <MenuVisualContextProvider value={{ isCompact: useSubtleAtTop }}>
+              <div className={`flex items-center gap-4 ${constrainClass}`} style={{ height: `${navSize}px` }}>
+                <div className="hidden md:flex flex-1">
+                  {isLoading ? (
+                    <div className="flex items-center gap-4">
+                      {[1, 2, 3, 4, 5].map((i) => (
+                        <div key={i} className="h-4 w-20 bg-muted animate-pulse rounded" />
+                      ))}
+                    </div>
+                  ) : menuConfig ? (
+                    <Navbar config={menuConfig} />
+                  ) : null}
                 </div>
-              ) : menuConfig ? (
-                <Navbar config={menuConfig} />
-              ) : null}
-            </div>
 
-            <div className="flex md:hidden flex-1 items-center justify-between gap-3">
-              {logoItem && renderNavbarItem(logoItem, undefined, undefined, menuConfig?.navbar?.constrained_margin)}
-              <div className="flex items-center gap-3">
-                {langItem && renderNavbarItem(langItem)}
-                {menuConfig && <MobileNav config={menuConfig} />}
+                <div className="flex md:hidden flex-1 items-center justify-between gap-3">
+                  {logoItem && renderNavbarItem(logoItem, undefined, undefined, menuConfig?.navbar?.constrained_margin)}
+                  <div className="flex items-center gap-3">
+                    {langItem && renderNavbarItem(langItem)}
+                    {menuConfig && <MobileNav config={menuConfig} />}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-
+            </MenuVisualContextProvider>
+          </header>
           {marqueePosition === "below" && marqueeStrip}
-        </header>
+        </div>
       </div>
     </>
   );
