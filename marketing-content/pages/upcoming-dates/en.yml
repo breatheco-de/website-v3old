@@ -30,7 +30,7 @@ sections:
       - key: syllabus_version.name
         label: Program
         type: text
-        function: KHJvdykgPT4geyBjb25zdCBuYW1lID0gcm93LnN5bGxhYnVzX3ZlcnNpb24/Lm5hbWUgfHwgJyc7IGNvbnN0IGNsZWFuZWQgPSBuYW1lLnJlcGxhY2UoL1xkK1xzKncoa3xrcyk/XGIvZ2ksICcnKS5yZXBsYWNlKC9cYlxkK3dcYi9naSwgJycpLnRyaW0oKTsgcmV0dXJuIGNsZWFuZWQucmVwbGFjZSgvLSskLywnJykudHJpbSgpOyB9
+        function: KHJvdykgPT4geyBjb25zdCBuYW1lID0gcm93LnN5bGxhYnVzX3ZlcnNpb24/Lm5hbWUgfHwgJyc7IGNvbnN0IGNsZWFuZWQgPSBuYW1lLnJlcGxhY2UoL1xkK1xzKncoa3xrcyk/XGIvZ2ksICcnKS5yZXBsYWNlKC9cYlxkK3dcYi9naSwgJycpLnRyaW0oKTsgaWYgKG5hbWUuaW5jbHVkZXMoJ0FJIEVuZ2luZWVyIEZUJykpIHJldHVybiAnQUkgRW5naW5lZXIgRmFzdCBUcmFjayc7IHJldHVybiBjbGVhbmVkLnJlcGxhY2UoLy0rJC8sJycpLnRyaW0oKTsgfQ==
       - key: academy.name
         label: Location
         type: text
