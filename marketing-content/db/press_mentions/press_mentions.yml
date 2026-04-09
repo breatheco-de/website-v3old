@@ -7,7 +7,7 @@ press_mentions:
       choose lightly.
     priority: 1
     organization: Government of the Bahamas
-    year: '2018'
+    year: '2026'
     tags:
       - Harvard
       - Oxford
@@ -178,7 +178,8 @@ press_mentions:
     stat_value: 80%
     tags:
       - Mexico
-  - title: Chosen from 50+ Applicants to Train South Florida's Workforce Through a US Federal Government Grant
+  - locale: en
+    title: Chosen from 50+ Applicants to Train South Florida's Workforce Through a US Federal Government Grant
     category: University Partnerships
     excerpt: >
       Miami Dade College chose 4Geeks to deliver workforce training for underserved communities under a $10M federal EDA
@@ -189,7 +190,6 @@ press_mentions:
     stat_value: '116% '
     tags:
       - South Florida
-    locale: en
   - locale: es
     title: 4Geeks, Harvard, Oxford y Columbia elegidos para impartir educación en IA por el Gobierno de las Bahamas.
     category: Gobierno
