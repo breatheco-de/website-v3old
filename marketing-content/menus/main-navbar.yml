@@ -203,3 +203,5 @@ navbar:
           /home: '#list_press_mentions-w7r1sh'
     char_delay: 20
     display_time: 6500
+  floating: true
+  subtle_at_top: true
