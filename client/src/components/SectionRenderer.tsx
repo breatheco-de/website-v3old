@@ -76,6 +76,7 @@ function parseResponsiveSpacing(value: ResponsiveSpacing | undefined): {
 // Default spacing when YAML doesn't specify values
 const DEFAULT_SPACING = { top: "0px", bottom: "0px" };
 const DEFAULT_SPACING_X = { left: "0px", right: "0px" };
+const DEFAULT_INNER_PADDING_X = "0px";
 
 function parseResponsiveSpacingX(value: ResponsiveSpacing | undefined): {
   mobile: { left: string; right: string };
@@ -137,6 +138,23 @@ function parseResponsiveMaxWidth(value: ResponsiveSpacing | undefined): {
   };
 }
 
+function hasConstrainedMaxWidth(value: string): boolean {
+  return value !== "none" && value !== "100%";
+}
+
+function parseResponsiveInnerPaddingXFromMaxWidth(value: ResponsiveSpacing | undefined): {
+  mobile: string;
+  desktop: string;
+} | null {
+  const maxWidth = parseResponsiveMaxWidth(value);
+  if (!maxWidth) return null;
+
+  return {
+    mobile: hasConstrainedMaxWidth(maxWidth.mobile) ? "1rem" : DEFAULT_INNER_PADDING_X,
+    desktop: hasConstrainedMaxWidth(maxWidth.desktop) ? "1rem" : DEFAULT_INNER_PADDING_X,
+  };
+}
+
 // Semantic background tokens mapped to CSS variables
 const BACKGROUND_TOKENS: Record<string, string> = {
   background: "hsl(var(--background))",
@@ -167,6 +185,7 @@ function parseBackground(value: string | undefined): string | undefined {
 // paddingY/marginY/paddingX/marginX: Applied to wrapper
 // background: Applied to wrapper (semantic token or custom CSS)
 // maxWidth: stored as CSS vars (--section-mw-*) and applied on inner container
+// Inner gutter is auto-applied only when maxWidth constrains the content
 function getSectionWrapperStyles(section: Section): CSSProperties & Record<string, string> {
   const layoutSection = section as SectionLayout;
 
@@ -175,6 +194,7 @@ function getSectionWrapperStyles(section: Section): CSSProperties & Record<strin
   const paddingX = parseResponsiveSpacingX(layoutSection.paddingX);
   const marginX = parseResponsiveSpacingX(layoutSection.marginX);
   const maxWidth = parseResponsiveMaxWidth(layoutSection.maxWidth);
+  const innerPaddingX = parseResponsiveInnerPaddingXFromMaxWidth(layoutSection.maxWidth);
   const background = parseBackground(layoutSection.background);
 
   const styles: CSSProperties & Record<string, string> = {
@@ -208,6 +228,8 @@ function getSectionWrapperStyles(section: Section): CSSProperties & Record<strin
 
   styles['--section-mw-mobile'] = maxWidth?.mobile ?? "none";
   styles['--section-mw-desktop'] = maxWidth?.desktop ?? "none";
+  styles['--section-inner-px-mobile'] = innerPaddingX?.mobile ?? DEFAULT_INNER_PADDING_X;
+  styles['--section-inner-px-desktop'] = innerPaddingX?.desktop ?? DEFAULT_INNER_PADDING_X;
 
   if (background) {
     styles.background = background;
@@ -1054,8 +1076,8 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           marginLeft: "auto",
           marginRight: "auto",
           width: "100%",
-          paddingLeft: "1rem",
-          paddingRight: "1rem"
+          paddingLeft: "var(--section-inner-px)",
+          paddingRight: "var(--section-inner-px)"
         };
         const showOn = (rawSection as SectionLayout).showOn;
 
