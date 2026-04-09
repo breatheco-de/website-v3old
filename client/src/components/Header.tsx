@@ -80,6 +80,7 @@ export default function Header({ menuId = "main-navbar", menuConfig: injectedMen
   const marquee = menuConfig?.navbar?.marquee;
   const showMarquee = !!(marquee?.enabled && marquee?.texts && marquee.texts.length > 0);
   const marqueeHeight = 35;
+  const mobileMarqueeHeightBuffer = 40;
   const marqueeSticky = marquee?.sticky ?? false;
   const marqueeCollapsed = isPastThreshold && !marqueeSticky;
   const marqueePosition = marquee?.position ?? "below";
@@ -92,7 +93,7 @@ export default function Header({ menuId = "main-navbar", menuConfig: injectedMen
     "";
 
   const marqueeHeightDesktop = showMarquee && marqueeShowOn !== "mobile" ? marqueeHeight : 0;
-  const marqueeHeightMobile = showMarquee && marqueeShowOn !== "desktop" ? marqueeHeight : 0;
+  const marqueeHeightMobile = showMarquee && marqueeShowOn !== "desktop" ? marqueeHeight + mobileMarqueeHeightBuffer : 0;
   const floatingVisualOffset = useFloatingChrome ? 12 : 0;
   const totalHeightDesktop = navSize + marqueeHeightDesktop;
   const totalHeightMobile = navSize + marqueeHeightMobile;
