@@ -104,6 +104,8 @@ interface HighlightSlideshowProps {
   className?: string;
   reverseTextOrder?: boolean;
   style?: React.CSSProperties;
+  firstCharDelayMs?: number;
+  secondCharDelayMs?: number;
 }
 
 function HighlightSlideshow({
@@ -115,6 +117,8 @@ function HighlightSlideshow({
   className = "",
   reverseTextOrder,
   style = {},
+  firstCharDelayMs = 30,
+  secondCharDelayMs = 25,
 }: HighlightSlideshowProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -193,7 +197,7 @@ function HighlightSlideshow({
           const first = reverseTextOrder ? t2 : t1;
           const second = reverseTextOrder ? t1 : t2;
           const firstLen = hasHtmlTags(first) ? getTextLength(first) : first.length;
-          const firstDuration = firstLen * 30;
+          const firstDuration = firstLen * firstCharDelayMs;
           const secondStartDelay = 650 + firstDuration + 400;
 
           return (
@@ -207,7 +211,7 @@ function HighlightSlideshow({
                 <TypewriterText
                   text={first}
                   startDelayMs={650}
-                  charDelayMs={30}
+                  charDelayMs={firstCharDelayMs}
                   isActive={isActive && isVisible}
                   isEditMode={isEditMode}
                 />
@@ -216,7 +220,7 @@ function HighlightSlideshow({
                 <TypewriterText
                   text={second}
                   startDelayMs={secondStartDelay}
-                  charDelayMs={25}
+                  charDelayMs={secondCharDelayMs}
                   isActive={isActive && isVisible}
                   isEditMode={isEditMode}
                 />
@@ -381,6 +385,8 @@ export default function ImageRow({ data }: ImageRowProps) {
               isVisible={isVisible}
               className={`${highlightBg} px-6 py-8 md:px-8 md:py-12 rounded-card md:hidden`}
               reverseTextOrder={reverseTextOrder}
+              firstCharDelayMs={10}
+              secondCharDelayMs={5}
             />
           )}
 
@@ -452,6 +458,8 @@ export default function ImageRow({ data }: ImageRowProps) {
                   isVisible={isVisible}
                   className={`hidden md:flex ${highlightBg} px-6 py-8 md:px-8 md:py-12 rounded-card flex-col h-[var(--image-row-height-desktop)]`}
                   reverseTextOrder={reverseTextOrder}
+                  firstCharDelayMs={30}
+                  secondCharDelayMs={25}
                   style={{
                     flex: highlightWidth,
                     ...getAnimationStyle(highlightIndex),

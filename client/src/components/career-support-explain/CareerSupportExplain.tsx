@@ -10,6 +10,7 @@ import type {
 } from "@shared/schema";
 import * as TablerIcons from "@tabler/icons-react";
 import {
+  IconChevronDown,
   IconChevronLeft,
   IconChevronRight,
   IconFlag,
@@ -25,6 +26,11 @@ function getTablerIcon(name: string) {
 }
 
 function ThreeColumnsLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabIndex: number }) {
+  const [isMobileCol2Expanded, setIsMobileCol2Expanded] = useState(false);
+  const hasCol2Content = Boolean(
+    tab.col2_description || (tab.col2_bullets && tab.col2_bullets.length > 0),
+  );
+
   return (
     <div
       className="flex flex-col lg:flex-row gap-4 h-full"
@@ -90,44 +96,83 @@ function ThreeColumnsLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabIndex
           data-testid="col-2-bullets"
         >
           {tab.col2_heading && (
+            <button
+              type="button"
+              onClick={() => hasCol2Content && setIsMobileCol2Expanded((prev) => !prev)}
+              className={cn(
+                "flex md:hidden w-full items-center justify-between gap-3 text-left",
+                hasCol2Content ? "cursor-pointer" : "cursor-default",
+              )}
+              aria-expanded={hasCol2Content ? isMobileCol2Expanded : true}
+              data-testid="button-col2-mobile-toggle"
+            >
+              <span
+                className="text-lg font-semibold leading-snug text-primary"
+                data-testid="text-col2-heading-mobile"
+              >
+                {tab.col2_heading}
+              </span>
+              {hasCol2Content && (
+                <IconChevronDown
+                  className={cn(
+                    "h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-300",
+                    isMobileCol2Expanded && "rotate-180",
+                  )}
+                />
+              )}
+            </button>
+          )}
+
+          {tab.col2_heading && (
             <p
-              className="text-lg md:text-xl lg:text-2xl font-semibold text-primary mb-2 leading-snug text-foreground"
+              className="hidden md:block text-lg md:text-xl lg:text-2xl font-semibold text-primary mb-2 leading-snug"
               data-testid="text-col2-heading"
             >
               {tab.col2_heading}
             </p>
           )}
 
-          {tab.col2_description && (
-            <p
-              className="text-sm text-muted-foreground leading-relaxed mb-4"
-              data-testid="text-col2-description"
-            >
-              {tab.col2_description}
-            </p>
-          )}
+          <div
+            className={cn(
+              "overflow-hidden transition-all duration-300 ease-in-out md:overflow-visible",
+              tab.col2_heading
+                ? isMobileCol2Expanded
+                  ? "max-h-[600px] opacity-100 mt-3 md:mt-0"
+                  : "max-h-0 opacity-0 md:max-h-none md:opacity-100 md:mt-0"
+                : "max-h-[600px] opacity-100",
+            )}
+          >
+            {tab.col2_description && (
+              <p
+                className="text-sm text-muted-foreground leading-relaxed mb-4"
+                data-testid="text-col2-description"
+              >
+                {tab.col2_description}
+              </p>
+            )}
 
-          {tab.col2_bullets && tab.col2_bullets.length > 0 && (
-            <div className="flex flex-col gap-4" data-testid="bullets-col2">
-              {tab.col2_bullets.map((bullet, i) => {
-                const IconComp = bullet.icon ? getTablerIcon(bullet.icon) : null;
-                return (
-                  <div
-                    key={i}
-                    className="flex items-start gap-3"
-                    data-testid={`bullet-item-${i}`}
-                  >
-                    {IconComp && (
-                      <Card className="flex-shrink-0 p-1.5 !rounded-lg">
-                        <IconComp className="w-4 h-4 text-primary" />
-                      </Card>
-                    )}
-                    <span className="text-sm lg:text-base">{bullet.text}</span>
-                  </div>
-                );
-              })}
-            </div>
-          )}
+            {tab.col2_bullets && tab.col2_bullets.length > 0 && (
+              <div className="flex flex-col gap-4" data-testid="bullets-col2">
+                {tab.col2_bullets.map((bullet, i) => {
+                  const IconComp = bullet.icon ? getTablerIcon(bullet.icon) : null;
+                  return (
+                    <div
+                      key={i}
+                      className="flex items-start gap-3"
+                      data-testid={`bullet-item-${i}`}
+                    >
+                      {IconComp && (
+                        <Card className="flex-shrink-0 p-1.5 !rounded-lg">
+                          <IconComp className="w-4 h-4 text-primary" />
+                        </Card>
+                      )}
+                      <span className="text-sm lg:text-base">{bullet.text}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </Card>
 
         <div
@@ -155,6 +200,17 @@ function ThreeColumnsLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabIndex
 }
 
 function TwoColumnCardsLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabIndex: number }) {
+  const [isMobileRightExpanded, setIsMobileRightExpanded] = useState(false);
+  const rightBullets = tab.right_bullets ?? [];
+  const initialMobileRightBullets = rightBullets.slice(0, 2);
+  const extraMobileRightBullets = rightBullets.slice(2);
+  const hasMobileRightExpandableContent =
+    extraMobileRightBullets.length > 0 || (tab.right_logos?.length ?? 0) > 0;
+  const toggleMobileRightExpanded = useCallback(() => {
+    if (!hasMobileRightExpandableContent) return;
+    setIsMobileRightExpanded((prev) => !prev);
+  }, [hasMobileRightExpandableContent]);
+
   return (
     <div
       className="flex flex-col lg:flex-row gap-4 h-full items-center"
@@ -175,7 +231,7 @@ function TwoColumnCardsLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabInd
 
         <div className="lg:hidden flex flex-col flex-1">
           <p
-            className="text-muted-foreground mt-2 whitespace-pre-line"
+            className="text-sm md:text-base text-muted-foreground mt-2 whitespace-pre-line"
             data-testid="text-left-content-mobile"
           >
             {"Once your profile is ready, visibility becomes the focus."}
@@ -266,53 +322,159 @@ function TwoColumnCardsLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabInd
       </Card>
 
       <Card
-        className="flex flex-col flex-1 p-6 bg-primary/5 h-full"
+        className={cn(
+          "relative flex flex-col flex-1 p-6 bg-primary/5 h-full",
+          hasMobileRightExpandableContent && "cursor-pointer lg:cursor-default",
+        )}
+        onClick={toggleMobileRightExpanded}
+        onKeyDown={(event) => {
+          if (!hasMobileRightExpandableContent) return;
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            toggleMobileRightExpanded();
+          }
+        }}
+        role={hasMobileRightExpandableContent ? "button" : undefined}
+        tabIndex={hasMobileRightExpandableContent ? 0 : undefined}
+        aria-expanded={hasMobileRightExpandableContent ? isMobileRightExpanded : undefined}
         data-testid="card-right"
       >
-        {tab.right_bullets && tab.right_bullets.length > 0 && (
-          <div className="flex flex-col gap-4 mb-6" data-testid="bullets-right">
-            {tab.right_bullets.map((bullet, i) => {
-              const IconComp = bullet.icon ? getTablerIcon(bullet.icon) : null;
-              return (
-                <div
-                  key={i}
-                  className="flex items-start gap-3"
-                  data-testid={`right-bullet-${i}`}
-                >
-                  {IconComp && (
-                    <Card className="flex-shrink-0 p-1.5">
-                      <IconComp className="w-4 h-4 text-primary" />
-                    </Card>
-                  )}
-                  <span className="text- text-muted-foreground">
-                    {bullet.text}
-                  </span>
-                </div>
-              );
-            })}
+        {hasMobileRightExpandableContent && (
+          <div
+            className="absolute top-4 right-4 flex items-center justify-center lg:hidden pointer-events-none"
+            data-testid="button-card-right-mobile-toggle"
+          >
+            <IconChevronDown
+              className={cn(
+                "h-5 w-5 text-muted-foreground transition-transform duration-300",
+                isMobileRightExpanded && "rotate-180",
+              )}
+            />
           </div>
         )}
 
-        {tab.right_logos && tab.right_logos.length > 0 && (
-          <div className="mt-auto" data-testid="logos-right">
-            <div className="flex flex-wrap items-center gap-1 justify-center">
-              {tab.right_logos.map((logo, i) => (
-                <Card
-                  key={i}
-                  className="flex items-center border border-muted-foreground/10 shadow-none bg-opacity-0 rounded-lg p-1"
-                  style={{ height: logo.logoHeight || "40px" }}
-                  data-testid={`logo-right-${i}`}
-                >
-                  <UniversalImage
-                    id={logo.image_id}
-                    alt={logo.alt || ""}
-                    className="h-full w-auto object-contain"
-                  />
-                </Card>
-              ))}
+        <div
+          className="flex flex-col gap-4 pr-8 lg:hidden"
+          data-testid="bullets-right-mobile"
+        >
+          {initialMobileRightBullets.map((bullet, i) => {
+            const IconComp = bullet.icon ? getTablerIcon(bullet.icon) : null;
+            return (
+              <div
+                key={i}
+                className="flex items-start gap-3"
+                data-testid={`right-bullet-${i}`}
+              >
+                {IconComp && (
+                  <Card className="flex-shrink-0 p-1.5">
+                    <IconComp className="w-4 h-4 text-primary" />
+                  </Card>
+                )}
+                <span className="text- text-muted-foreground">
+                  {bullet.text}
+                </span>
+              </div>
+            );
+          })}
+
+          <div
+            className={cn(
+              "overflow-hidden transition-all duration-300 ease-in-out",
+              isMobileRightExpanded ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0",
+            )}
+          >
+            <div className="flex flex-col gap-4 pt-4">
+              {extraMobileRightBullets.map((bullet, i) => {
+                const IconComp = bullet.icon ? getTablerIcon(bullet.icon) : null;
+                const bulletIndex = i + initialMobileRightBullets.length;
+
+                return (
+                  <div
+                    key={bulletIndex}
+                    className="flex items-start gap-3"
+                    data-testid={`right-bullet-${bulletIndex}`}
+                  >
+                    {IconComp && (
+                      <Card className="flex-shrink-0 p-1.5">
+                        <IconComp className="w-4 h-4 text-primary" />
+                      </Card>
+                    )}
+                    <span className="text- text-muted-foreground">
+                      {bullet.text}
+                    </span>
+                  </div>
+                );
+              })}
+
+              {tab.right_logos && tab.right_logos.length > 0 && (
+                <div className="pt-2" data-testid="logos-right-mobile">
+                  <div className="flex flex-wrap items-center gap-1 justify-center">
+                    {tab.right_logos.map((logo, i) => (
+                      <Card
+                        key={i}
+                        className="flex h-10 items-center border border-muted-foreground/10 shadow-none bg-opacity-0 rounded-lg px-2 py-1"
+                        data-testid={`logo-right-mobile-${i}`}
+                      >
+                        <UniversalImage
+                          id={logo.image_id}
+                          alt={logo.alt || ""}
+                          className="h-full max-h-full w-auto max-w-full object-contain"
+                        />
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
-        )}
+        </div>
+
+        <div className="hidden lg:flex lg:flex-col lg:h-full">
+          {tab.right_bullets && tab.right_bullets.length > 0 && (
+            <div className="flex flex-col gap-4 mb-6" data-testid="bullets-right">
+              {tab.right_bullets.map((bullet, i) => {
+                const IconComp = bullet.icon ? getTablerIcon(bullet.icon) : null;
+                return (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3"
+                    data-testid={`right-bullet-${i}`}
+                  >
+                    {IconComp && (
+                      <Card className="flex-shrink-0 p-1.5">
+                        <IconComp className="w-4 h-4 text-primary" />
+                      </Card>
+                    )}
+                    <span className="text- text-muted-foreground">
+                      {bullet.text}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {tab.right_logos && tab.right_logos.length > 0 && (
+            <div className="mt-auto" data-testid="logos-right">
+              <div className="flex flex-wrap items-center gap-1 justify-center">
+                {tab.right_logos.map((logo, i) => (
+                  <Card
+                    key={i}
+                    className="flex h-10 md:h-[var(--logo-height)] items-center border border-muted-foreground/10 shadow-none bg-opacity-0 rounded-lg px-2 py-1"
+                    style={{ "--logo-height": logo.logoHeight || "40px" } as React.CSSProperties}
+                    data-testid={`logo-right-${i}`}
+                  >
+                    <UniversalImage
+                      id={logo.image_id}
+                      alt={logo.alt || ""}
+                      className="h-full max-h-full w-auto max-w-full object-contain"
+                    />
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </Card>
     </div>
   );
@@ -338,7 +500,7 @@ function TextAndImageLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabIndex
         )}
         {tab.left_description && (
           <div
-            className="text-muted-foreground leading-relaxed mb-6"
+            className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6"
             data-testid="text-left-description"
             dangerouslySetInnerHTML={{ __html: tab.left_description }}
           />
@@ -408,7 +570,7 @@ function TestimonialSlide({
       data-testid="testimonial-slide"
     >
       <div
-        className="sm:flex-1 rounded-lg overflow-hidden max-h-[250px] md:max-h-none"
+        className="sm:flex-1 rounded-lg overflow-hidden max-h-[190px] md:max-h-none"
         data-testid="testimonial-image-col"
       >
         {testimonial.image_id && (
@@ -420,7 +582,7 @@ function TestimonialSlide({
                 (testimonial.image_object_fit as React.CSSProperties["objectFit"]) ??
                 "cover",
               objectPosition: testimonial.image_object_position ?? "center",
-              minHeight: "200px",
+              minHeight: "160px",
             }}
             data-testid="testimonial-image"
             fieldContext={{ arrayPath: `tabs.${tabIndex}.testimonials`, index: testimonialIndex, srcField: "image_id" }}

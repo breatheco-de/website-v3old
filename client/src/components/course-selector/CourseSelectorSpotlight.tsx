@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CourseSelectorSection, CourseItem } from "@shared/schema";
 import { resolveColorVar, hslColor } from "./shared";
 import { getIcon } from "@/lib/icons";
@@ -6,11 +6,15 @@ import {
   IconClock,
   IconArrowRight,
   IconCheck,
+  IconChevronLeft,
+  IconChevronRight,
 } from "@tabler/icons-react";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { RichTextContent } from "@/components/ui/rich-text-content";
 import { useVariableText } from "@/components/editing/VariableHighlight";
 import type { ResolvedColor } from "./shared";
+import { DotsIndicator } from "@/components/DotsIndicator";
+import { Button } from "@/components/ui/button";
 
 interface CourseSelectorSpotlightProps {
   data: CourseSelectorSection;
@@ -70,16 +74,16 @@ function FeaturedCourseCard({ course }: { course: CourseItem }) {
         </div>
 
         <h3
-          className="text-3xl font-bold text-foreground leading-tight flex items-center gap-2.5"
+          className="text-[1.7rem] md:text-3xl font-bold text-foreground leading-tight"
           data-testid="text-course-title"
         >
           {Icon && (
             <Icon
-              className="w-6 h-6 shrink-0"
+              className="inline-block w-6 h-6 mr-2 align-middle"
               style={{ color: hslColor(resolved, 1) }}
             />
           )}
-          {vt(course.title)}
+          <span>{vt(course.title)}</span>
         </h3>
 
         {course.subtitle && (
@@ -114,7 +118,7 @@ function FeaturedCourseCard({ course }: { course: CourseItem }) {
         )}
 
         <p
-          className="text-base text-muted-foreground leading-relaxed flex-1"
+          className="text-sm md:text-base text-muted-foreground leading-relaxed flex-1"
           data-testid="text-description"
         >
           {vt(course.description)}
@@ -181,7 +185,7 @@ function SmallCourseCard({ course }: { course: CourseItem }) {
 
   return (
     <div
-      className="rounded-xl relative overflow-hidden flex flex-col"
+      className="rounded-xl relative overflow-hidden h-full flex flex-col"
       data-testid={`card-course-small-${course.name.toLowerCase().replace(/\s+/g, "-")}`}
     >
       <div
@@ -240,7 +244,7 @@ function SmallCourseCard({ course }: { course: CourseItem }) {
         )}
 
         <p
-          className="text-sm text-muted-foreground leading-relaxed line-clamp-2"
+          className="text-[13px] md:text-sm text-muted-foreground leading-relaxed line-clamp-3 md:line-clamp-2"
           data-testid="text-description"
         >
           {vt(course.description)}
@@ -297,8 +301,78 @@ export function CourseSelectorSpotlight({ data }: CourseSelectorSpotlightProps) 
   const courses = data.courses;
   const featured = courses[0];
   const rest = courses.slice(1);
+  const [activeMobileIndex, setActiveMobileIndex] = useState(0);
+  const mobileViewportRef = useRef<HTMLDivElement | null>(null);
+  const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
+  const swipeDeltaXRef = useRef(0);
+  const isHorizontalSwipeRef = useRef(false);
 
   if (!courses || courses.length === 0) return null;
+
+  const maxMobileIndex = courses.length - 1;
+
+  const goToCourse = useCallback((index: number) => {
+    const clampedIndex = Math.max(0, Math.min(index, maxMobileIndex));
+    setActiveMobileIndex(clampedIndex);
+  }, [maxMobileIndex]);
+
+  const resetTouchState = useCallback(() => {
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+    swipeDeltaXRef.current = 0;
+    isHorizontalSwipeRef.current = false;
+  }, []);
+
+  const handleTouchStart = useCallback((event: React.TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    if (!touch) return;
+
+    touchStartXRef.current = touch.clientX;
+    touchStartYRef.current = touch.clientY;
+    swipeDeltaXRef.current = 0;
+    isHorizontalSwipeRef.current = false;
+  }, []);
+
+  const handleTouchMove = useCallback((event: React.TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    if (!touch || touchStartXRef.current === null || touchStartYRef.current === null) return;
+
+    const deltaX = touch.clientX - touchStartXRef.current;
+    const deltaY = touch.clientY - touchStartYRef.current;
+
+    if (!isHorizontalSwipeRef.current) {
+      if (Math.abs(deltaX) < 8 && Math.abs(deltaY) < 8) return;
+      if (Math.abs(deltaX) <= Math.abs(deltaY)) return;
+      isHorizontalSwipeRef.current = true;
+    }
+
+    event.preventDefault();
+    swipeDeltaXRef.current = deltaX;
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    if (!isHorizontalSwipeRef.current) {
+      resetTouchState();
+      return;
+    }
+
+    const viewportWidth = mobileViewportRef.current?.offsetWidth ?? 0;
+    const swipeThreshold = Math.max(viewportWidth * 0.18, 48);
+    const finalOffset = swipeDeltaXRef.current;
+
+    if (finalOffset <= -swipeThreshold && activeMobileIndex < maxMobileIndex) {
+      goToCourse(activeMobileIndex + 1);
+    } else if (finalOffset >= swipeThreshold && activeMobileIndex > 0) {
+      goToCourse(activeMobileIndex - 1);
+    }
+
+    resetTouchState();
+  }, [activeMobileIndex, goToCourse, maxMobileIndex, resetTouchState]);
+
+  useEffect(() => {
+    setActiveMobileIndex(0);
+  }, [courses.length]);
 
   return (
     <section
@@ -326,9 +400,73 @@ export function CourseSelectorSpotlight({ data }: CourseSelectorSpotlightProps) 
           </div>
         )}
 
-        <div className="flex flex-col md:flex-row gap-5">
+        <div className="md:hidden">
+          <div
+            ref={mobileViewportRef}
+            className="-mx-4 overflow-hidden px-4 pb-2"
+            style={{ touchAction: "pan-y" }}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onTouchCancel={handleTouchEnd}
+            data-testid="mobile-course-selector-carousel"
+          >
+            <div
+              className="flex items-stretch transition-transform duration-300 ease-out"
+              style={{ transform: `translateX(-${activeMobileIndex * 100}%)` }}
+            >
+              {courses.map((course) => (
+                <div
+                  key={course.name}
+                  className="flex w-full shrink-0"
+                >
+                  <div className="mx-auto flex w-[88%] sm:w-[72%]">
+                    <FeaturedCourseCard course={course} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {courses.length > 1 && (
+            <div className="mt-4 flex items-center justify-center gap-3" data-testid="mobile-course-selector-controls">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-10 w-10 shrink-0 rounded-full border-0 shadow-none hover:bg-muted"
+                onClick={() => goToCourse(activeMobileIndex - 1)}
+                disabled={activeMobileIndex === 0}
+                aria-label="Previous course"
+                data-testid="button-course-selector-prev"
+              >
+                <IconChevronLeft className="h-4 w-4" />
+              </Button>
+
+              <DotsIndicator
+                count={courses.length}
+                activeIndex={activeMobileIndex}
+                onDotClick={goToCourse}
+                ariaLabel="Course selector indicators"
+              />
+
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-10 w-10 shrink-0 rounded-full border-0 shadow-none hover:bg-muted"
+                onClick={() => goToCourse(activeMobileIndex + 1)}
+                disabled={activeMobileIndex === courses.length - 1}
+                aria-label="Next course"
+                data-testid="button-course-selector-next"
+              >
+                <IconChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
+        </div>
+
+        <div className="hidden md:flex md:flex-row items-stretch gap-5">
           {featured && (
-            <div className="w-full md:w-[38%] shrink-0">
+            <div className="flex w-full md:w-[38%] shrink-0">
               <FeaturedCourseCard course={featured} />
             </div>
           )}
@@ -336,7 +474,9 @@ export function CourseSelectorSpotlight({ data }: CourseSelectorSpotlightProps) 
           {rest.length > 0 && (
             <div className="flex-1 flex flex-col gap-4">
               {rest.map((course) => (
-                <SmallCourseCard key={course.name} course={course} />
+                <div key={course.name} className="flex-1">
+                  <SmallCourseCard course={course} />
+                </div>
               ))}
             </div>
           )}
