@@ -466,7 +466,7 @@ sections:
     stats:
       - value: 86%
         label: Hiring rate
-        description: Graduate with a verified certificate, a live Python-powered AI portfolio, and a professional profile built to get you hired, not just qualified.
+        description: Graduate with a verified certificate, an AI-native portfolio, and a professional profile built to get you hired.
         benefits:
           - text: Certificate recognized by the Florida Department of Education
           - text: End-to-end AI-engineered company in your portfolio
