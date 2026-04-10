@@ -189,6 +189,7 @@ press_mentions:
     stat_value: '116% '
     tags:
       - South Florida
+    locale: en
   - title: Selected for the Texas Workforce Commission's Initiative to Train Dallas Residents
     category: U.S. State Government
     excerpt: >
