@@ -247,3 +247,15 @@ press_mentions:
     organization: Miami Dade College / EDA de EE.UU
     stat_label: metas federales alcanzadas
     stat_value: 116%
+  - locale: es
+    title: Seleccionados por el Gobierno de las Bahamas para educación nacional en IA, junto a Harvard, Oxford y Columbia
+    category: Gobierno
+    excerpt: >-
+      El gobierno de las Bahamas contrató a 4Geeks para reconvertir su fuerza laboral nacional hacia la economía de IA.
+      Primer despliegue caribeño de 4Geeks, en un país cuya industria tecnológica crece un 18% anual.
+    priority: 4
+    organization: Proyecto de Capacitación de las Bahamas
+    stat_label: crecimiento tech anual
+    stat_value: 18%
+    tags:
+      - Bahamas
