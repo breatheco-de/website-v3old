@@ -204,3 +204,20 @@ press_mentions:
     organization: Texas Workforce Commission · Lone Star Workforce of the Future
     stat_label: full scholarships for Dallas residents
     stat_value: '25'
+  - locale: es
+    title: 4Geeks, Harvard, Oxford y Columbia elegidos para impartir educación en IA por el Gobierno de las Bahamas.
+    category: Gobierno
+    excerpt: >-
+      Cuando instituciones con exigencias de debida diligencia y rendición de cuentas públicas eligen una escuela de
+      programación, no lo hacen a la ligera.
+    priority: 1
+    year: '2026'
+    tags:
+      - Harvard
+      - Oxford
+      - Columbia
+      - 4Geeks
+    link_url: >-
+      https://www.entnerd.com/startup-chilena-es-reclutada-por-bahamas-junto-a-oxford-columbia-y-harvard-para-dar-clases-gratuitas-online/
+    link_text: Leer artículo
+    image: https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80
