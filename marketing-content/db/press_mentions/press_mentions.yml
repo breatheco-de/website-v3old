@@ -235,3 +235,15 @@ press_mentions:
       - Costa Rica
       - Uruguay
       - Mexico
+  - locale: es
+    title: >-
+      Elegidos entre más de 50 postulantes para formar la fuerza laboral del sur de Florida mediante una subvención
+      federal de EE.UU.
+    category: Universidad
+    excerpt: >-
+      Miami Dade College eligió a 4Geeks para impartir formación laboral a comunidades desatendidas bajo una subvención
+      federal EDA de $10M. 74 graduados colocados en roles tecnológicos con un salario promedio de $74K anuales.
+    priority: 3
+    organization: Miami Dade College / EDA de EE.UU
+    stat_label: metas federales alcanzadas
+    stat_value: 116%
