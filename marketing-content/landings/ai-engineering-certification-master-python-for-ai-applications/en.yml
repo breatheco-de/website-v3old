@@ -20,35 +20,35 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: You Already Know Python. Now Make It Worth $95K–$135K.
+    title: Make Your Python Skills Worth $95K–$135K.
     brand_mark:
-      prefix: Turn Your Python Skills Into
-      highlight: an AI Engineering Career.
+      prefix: Break Your Career
+      highlight: Ceiling.
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\"><span>Python got you this far. AI Engineering is what gets you hired at the next level. In 24 weeks, you go from Python developer to AI Engineer: building agents, RAG systems, and fully automated AI pipelines that companies are urgently paying for. Get hired within 9 months or we refund your full tuition.</span></span>"
+    description: "<span style=\"font-size: 1.125rem;\">AI Engineering is the next level for Python developers. In 24 weeks, you go from Python to building agents, RAG systems, and automated AI pipelines — the skills companies are paying $95K–$135K+ for right now.</span>"
     bullets:
-      - text: "Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
-      - text: Build with the full AI stack — Python, OpenAI, LangChain, vector databases, and autonomous agents
-      - text: Flexible financing available, including zero upfront payment options
+      - text: "Add to your Python skills: RAG systems, vector databases, autonomous agents, and AI workflow automation"
+      - text: Unlimited 1:1 mentorship and career support that doesn't stop at graduation
+      - text: "Optional Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
     image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
           visible: true
           required: true
-          placeholder: Email Address
+          placeholder: Email address
         first_name:
           visible: true
           required: true
-          placeholder: First Name
+          placeholder: First name
         last_name:
           visible: true
           required: true
-          placeholder: Last Name
+          placeholder: Last name
         phone:
           visible: true
           required: true
@@ -57,20 +57,20 @@ sections:
           visible: true
           default: ai-engineering
       success:
-        message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
-        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe at any time.
+        sms_text: I agree to receive SMS messages about workshops, events, courses and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4-6 messages per month. We will never share your contact information.
         sms_usa_only: true
       show_terms: true
-    form_vertical_align: top
+    form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
-    form_card_title: Get the Full AI Engineering Program Details
-    form_card_subtitle: "Takes 2 minutes. Our admissions team will send you the complete program overview: curriculum, tech stack, pricing, and financing options."
+    form_card_title: Get the Full Program Details
+    form_card_subtitle: "Fill in your details and our admissions team will send you everything you need: program descriptions, requirements, and financing options. It only takes 2 minutes."
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: true
     awards_marquee:
