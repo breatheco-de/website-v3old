@@ -283,3 +283,15 @@ press_mentions:
     stat_value: $6,400
     tags:
       - Sur de Florida
+  - locale: es
+    title: Elegidos por Clark University para ejecutar el proyecto de desarrollo laboral de Miami
+    category: Universidad
+    excerpt: >-
+      Clark University otorgó becas de hasta $4,000 por estudiante, aplicadas directamente a la matrícula de 4Geeks,
+      para residentes desempleados de Miami-Dade. Cero costo inicial. Todas las metas fueron superadas.
+    priority: 7
+    organization: Clark University
+    stat_label: beca por estudiante
+    stat_value: $4,000
+    tags:
+      - Sur de Florida
