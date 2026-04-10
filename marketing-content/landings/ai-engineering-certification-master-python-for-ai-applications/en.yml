@@ -203,27 +203,38 @@ sections:
       desktop: md
     marginY:
       desktop: none xl
-  - type: two_column
-    proportions:
-      - 6
-      - 6
-    alignment: center
-    left:
-      video: https://www.youtube.com/watch?v=PWkgaAT8pHg
-      justify: center
-    right:
-      heading: "Gabriel Salazar: From Microsoft Support to Software Engineer"
-      sub_heading: 4Geeks Academy Graduate, Costa Rica
-      description: Gabriel was already working at Microsoft as a support specialist. He had the technical mindset but not the engineering role. He needed a structured path to level up, not a tutorial to learn the basics. After completing the program at 4Geeks, he moved into a Software Engineer position at Microsoft. Same company, different ceiling.
-      button:
-        text: See If You Qualify. It's Free
-        url: "#hero-nzpyph"
-        variant: primary
-        icon: Rocket
-    gap: "8"
+  - type: cards_deck
+    version: "1.0"
+    heading: Real Stories of Real Career Change
+    subtitle: Thousands of graduates have used our programs to break into tech. Here are just a few of their stories, from salary increases to total career reinventions.
+    cards:
+      - video:
+          url: https://youtu.be/ln3bQsV1BaQ
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
+        author_name: Hernán García
+        title: "\"I got offers from companies I wasn't expecting\""
+        description: Hernán landed a job in tech within one month of starting his job search.
+        alt: Geekforce
+      - video:
+          url: https://youtu.be/MBXqEnhodx0
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: Joao Henrique
+        title: "\"You'll always have support from the Academy\""
+        description: Joao shares his experience receiving coding mentorship as a student, after graduating, and in his current job.
+        alt: Geekpal
+      - video:
+          url: https://youtu.be/oeX_ocy6zv4
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: Jonathan Ferragut
+        title: "\"Taking a course like this benefits us in a lot of different ways\""
+        description: Jonathan shares how the program helped him build confidence and create projects from scratch.
+        alt: Geekpal
+    section_id: cards_deck-cnay6o
     marginY:
       desktop: none xl
-    section_id: two_column-gabriel
   - type: features_grid
     version: "1.0"
     variant: stats-text-card
