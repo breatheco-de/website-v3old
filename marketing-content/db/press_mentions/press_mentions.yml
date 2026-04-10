@@ -169,9 +169,10 @@ press_mentions:
   - locale: en
     title: Selected in Mexico to Deliver Tech Training for Women, with 90%  Funded  by Foundation
     category: 'Non-Profit '
-    excerpt: >
-      Fundación ACAPI selected 4Geeks and covered 90% of program costs, reserving 75% of seats for women entering tech.
-      Graduates achieved a 91% graduation rate, 80% employment rate, and an average salary increase of 53%.
+    excerpt: >-
+      Fundación ACAPI partnered with 4Geeks to deliver tech training reserving 75% of seats for women, with multiple
+      cohorts running since launch. Graduates achieved a 91% graduation rate, 80% employment rate, and an average salary
+      increase of 53%.
     priority: 10
     organization: Fundación ACAPI · Mexico
     stat_label: employment rate post-graduation
@@ -190,7 +191,8 @@ press_mentions:
     stat_value: '116% '
     tags:
       - South Florida
-  - title: Selected for the Texas Workforce Commission's Initiative to Train Dallas Residents
+  - locale: en
+    title: Selected for the Texas Workforce Commission's Initiative to Train Dallas Residents
     category: U.S. State Government
     excerpt: >
 
@@ -202,4 +204,3 @@ press_mentions:
     organization: Texas Workforce Commission · Lone Star Workforce of the Future
     stat_label: full scholarships for Dallas residents
     stat_value: '25'
-    locale: en
