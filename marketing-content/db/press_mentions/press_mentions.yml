@@ -271,3 +271,15 @@ press_mentions:
     stat_value: 400+
     tags:
       - Sur de Florida
+  - locale: es
+    title: La única escuela de programación elegida para la iniciativa laboral financiada por MacKenzie Scott en Miami
+    category: ONG
+    excerpt: >-
+      United Way Miami eligió a 4Geeks para recibir 100 becas completas para residentes de Miami-Dade que buscan cambiar
+      de carrera hacia la tecnología. Más de 1,000 personas aplicaron.
+    priority: 6
+    organization: United Way Miami
+    stat_label: estipendio máximo
+    stat_value: $6,400
+    tags:
+      - Sur de Florida
