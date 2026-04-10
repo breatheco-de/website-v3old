@@ -448,7 +448,7 @@ sections:
     show_logos: true
     dynamic_entries:
       database: press_mentions
-      limit: 10
+      limit: 11
       sort: priority
       permanent_filters:
         - item_property_slug: locale
