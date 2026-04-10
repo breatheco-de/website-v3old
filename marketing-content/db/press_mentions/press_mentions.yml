@@ -319,3 +319,13 @@ press_mentions:
     stat_value: 100%
     tags:
       - Costa Rica
+  - locale: es
+    title: Seleccionados en México para formación tecnológica para mujeres, con 90% financiado por fundación
+    category: ONG
+    excerpt: >-
+      Fundación ACAPI seleccionó a 4Geeks y cubrió el 90% de los costos del programa, reservando el 75% de los cupos
+      para mujeres. Tasa de graduación del 91%, empleo del 80% y aumento salarial promedio del 53%.
+    priority: 10
+    organization: Fundación ACAPI · México
+    stat_label: tasa de empleo
+    stat_value: 80%
