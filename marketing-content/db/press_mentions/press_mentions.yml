@@ -259,3 +259,15 @@ press_mentions:
     stat_value: 18%
     tags:
       - Bahamas
+  - locale: es
+    title: 8 años como socio de currículo tecnológico de una de las universidades más grandes de EE.UU.
+    category: Universidad
+    excerpt: >-
+      Miami Dade College atiende a más de 160.000 estudiantes al año. Más de 400 estudiantes han completado programas de
+      4Geeks a través de esta alianza, graduándose con doble certificación de ambas instituciones.
+    priority: 5
+    organization: Miami Dade College · Educación Continua
+    stat_label: graduados en 8 años
+    stat_value: 400+
+    tags:
+      - Sur de Florida
