@@ -178,7 +178,8 @@ press_mentions:
     stat_value: 80%
     tags:
       - Mexico
-  - title: Chosen from 50+ Applicants to Train South Florida's Workforce Through a US Federal Government Grant
+  - locale: en
+    title: Chosen from 50+ Applicants to Train South Florida's Workforce Through a US Federal Government Grant
     category: University Partnerships
     excerpt: >
       Miami Dade College chose 4Geeks to deliver workforce training for underserved communities under a $10M federal EDA
@@ -189,7 +190,6 @@ press_mentions:
     stat_value: '116% '
     tags:
       - South Florida
-    locale: en
   - title: Selected for the Texas Workforce Commission's Initiative to Train Dallas Residents
     category: U.S. State Government
     excerpt: >
@@ -202,3 +202,4 @@ press_mentions:
     organization: Texas Workforce Commission · Lone Star Workforce of the Future
     stat_label: full scholarships for Dallas residents
     stat_value: '25'
+    locale: en
