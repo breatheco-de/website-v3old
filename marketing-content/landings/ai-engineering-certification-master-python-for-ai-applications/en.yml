@@ -611,7 +611,7 @@ sections:
     version: "1.0"
     variant: product
     title: The Investment That Pays for Itself
-    subtitle: Flexible financing so nothing stands between you and a high-paying tech career.
+    subtitle: Flexible financing options so nothing stands between you and a high-paying tech career.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting below"
     financing_amount: $349
@@ -634,7 +634,7 @@ sections:
       - github
       - postman
       - n8n
-    features_title: Multiple ways to get started.
+    features_title: Choose the option that suits you best.
     features:
       - icon: IconCheck
         text: Full tuition is $14,999. Pay upfront and save 10%, or split into 6 interest-free monthly payments.
