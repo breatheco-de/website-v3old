@@ -305,3 +305,17 @@ press_mentions:
     organization: UTEC · Universidad Tecnológica del Uruguay
     stat_label: graduados desde 2021
     stat_value: 200+
+  - locale: es
+    title: >-
+      Seleccionados para ejecutar un programa de formación tecnológica para mujeres en zonas de alto desempleo en Costa
+      Rica
+    category: ONG
+    excerpt: >-
+      La Fundación CRUSA seleccionó a 4Geeks para impartir formación tecnológica orientada al empleo, dirigida a mujeres
+      de zonas de alto desempleo. Dos cohortes con tasa de graduación del 100% y contratación del 75%.
+    priority: 9
+    organization: Fundación CRUSA · Costa Rica
+    stat_label: tasa de graduación
+    stat_value: 100%
+    tags:
+      - Costa Rica
