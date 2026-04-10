@@ -295,3 +295,13 @@ press_mentions:
     stat_value: $4,000
     tags:
       - Sur de Florida
+  - locale: es
+    title: Elegidos por la universidad nacional de Uruguay para impartir programas tecnológicos en todo el país
+    category: Universidad
+    excerpt: >-
+      El BID financió a 4Geeks y UTEC para impartir programas de Full Stack e IA de forma remota y presencial, llegando
+      a comunidades en todo el país. Más de 200 graduados con programas en funcionamiento desde 2021.
+    priority: 8
+    organization: UTEC · Universidad Tecnológica del Uruguay
+    stat_label: graduados desde 2021
+    stat_value: 200+
