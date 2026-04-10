@@ -9325,6 +9325,41 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Newsweek_Logo.svg-1280w.webp"
         }
       ]
+    },
+    "upskillbahamas": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/UpskillBahamas.webp",
+      "alt": "Image: UpskillBahamas",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "10a1af069f2fdd9fb6942921453f46d1e39b345718dc51e511e48356aea8254e",
+      "width": 1500,
+      "height": 404,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960,
+        1280
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/UpskillBahamas-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/UpskillBahamas-960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/UpskillBahamas-1280w.webp"
+        }
+      ]
     }
   }
 }
