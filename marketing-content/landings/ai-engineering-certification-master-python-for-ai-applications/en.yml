@@ -470,7 +470,7 @@ sections:
         benefits:
           - text: Certificate recognized by the Florida Department of Education
           - text: End-to-end AI-engineered company in your portfolio
-          - text: Demonstrated experience with Python agents, RAG systems, and AI pipelines
+          - text: Demonstrated experience with agents, RAG systems, and AI pipelines
           - text: Optimized professional profile and job-search strategy
       - value: ~3 months
         label: Average time to get hired
