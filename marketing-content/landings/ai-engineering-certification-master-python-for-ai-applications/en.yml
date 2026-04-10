@@ -27,7 +27,7 @@ sections:
       color: primary
     description: "<span style=\"font-size: 1.125rem;\">AI Engineering is the next level for Python developers. In 24 weeks, you go from Python to building complete AI-native systems — agents, RAG, automated pipelines, and more — exactly the skills companies are actively hiring for.</span>"
     bullets:
-      - text: "Add to your Python skills: RAG systems, vector databases, autonomous agents, and AI workflow automation"
+      - text: Add vector databases, multi-agent systems, real-time AI, and workflow automation with n8n to your Python skills
       - text: Unlimited 1:1 mentorship and career support that doesn't stop at graduation
       - text: "Optional Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
     image_object_fit: none
