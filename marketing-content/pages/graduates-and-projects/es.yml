@@ -69,8 +69,8 @@ sections:
           default: auto
       success:
         message: Thanks! We'll be in touch within 24 hours.
-  - type: projects_showcase
-    section_id: projects_showcase-whj7u0
+  - type: project_showcase
+    section_id: project_showcase-whj7u0
     version: "1.0"
     items:
       - project_title: Raspberry Sky
