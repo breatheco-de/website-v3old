@@ -509,7 +509,7 @@ export function renderSection(section: Section, index: number): React.ReactNode 
     return null;
   }
 
-  const Component = typeRegistry[sectionVariant] ?? typeRegistry['default'];
+  const Component = typeRegistry[sectionVariant];
   if (!Component) {
     if (process.env.NODE_ENV === 'development') {
       console.warn(`[SectionRenderer] No component for type="${sectionType}" variant="${sectionVariant}"`);
