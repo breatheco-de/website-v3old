@@ -1,3 +1,5 @@
+export const variant = "productShowcase";
+
 import { useState, useEffect } from "react";
 import Marquee from "@/lib/marquee";
 import type {
@@ -26,7 +28,7 @@ interface HeroProductShowcaseProps {
   landingLocations?: string[];
 }
 
-export function HeroProductShowcase({
+export default function HeroProductShowcase({
   data,
   landingLocations,
 }: HeroProductShowcaseProps) {

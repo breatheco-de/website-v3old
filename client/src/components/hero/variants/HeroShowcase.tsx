@@ -1,3 +1,5 @@
+export const variant = "showcase";
+
 import { Button } from "@/components/ui/button";
 import { Avatar } from "@/components/ui/avatar";
 import { IconStarFilled, IconStar } from "@tabler/icons-react";
@@ -16,7 +18,7 @@ interface HeroShowcaseProps {
   data: HeroShowcase;
 }
 
-export function HeroShowcase({ data }: HeroShowcaseProps) {
+export default function HeroShowcase({ data }: HeroShowcaseProps) {
   const avatarIds = data.trust_bar?.avatars?.length ? data.trust_bar.avatars : DEFAULT_AVATAR_IDS;
   const handleLinkClick = useInternalNav();
 

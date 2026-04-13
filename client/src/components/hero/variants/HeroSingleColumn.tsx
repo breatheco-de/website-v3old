@@ -1,3 +1,5 @@
+export const variant = "singleColumn";
+
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar } from "@/components/ui/avatar";
@@ -22,7 +24,7 @@ interface HeroSingleColumnProps {
   data: HeroSingleColumn;
 }
 
-export function HeroSingleColumn({ data }: HeroSingleColumnProps) {
+export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
   const avatarIds = data.trust_bar?.avatars?.length ? data.trust_bar.avatars : DEFAULT_AVATAR_IDS;
   const handleLinkClick = useInternalNav();
 

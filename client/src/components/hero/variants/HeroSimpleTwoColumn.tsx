@@ -1,3 +1,5 @@
+export const variant = "simpleTwoColumn";
+
 import type { HeroSimpleTwoColumn as HeroSimpleTwoColumnType } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { RichTextContent } from "@/components/ui/rich-text-content";
@@ -13,7 +15,7 @@ interface HeroSimpleTwoColumnProps {
 const DEFAULT_IMAGE_SRC = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop";
 const DEFAULT_IMAGE_ALT = "Students learning together";
 
-export function HeroSimpleTwoColumn({ data }: HeroSimpleTwoColumnProps) {
+export default function HeroSimpleTwoColumn({ data }: HeroSimpleTwoColumnProps) {
   const handleLinkClick = useInternalNav();
   const fullData = data as HeroSimpleTwoColumnType & { video?: { url: string; ratio?: string; mobile_ratio?: string; muted?: boolean; autoplay?: boolean; loop?: boolean; preview_image_url?: string; with_shadow_border?: boolean } };
   const video = fullData.video ?? null;

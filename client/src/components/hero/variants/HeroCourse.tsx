@@ -1,3 +1,5 @@
+export const variant = "course";
+
 import type { HeroCourse as HeroCourseType } from "@shared/schema";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -21,7 +23,7 @@ interface HeroCourseProps {
   data: HeroCourseType;
 }
 
-export function HeroCourse({ data }: HeroCourseProps) {
+export default function HeroCourse({ data }: HeroCourseProps) {
   const handleLinkClick = useInternalNav();
   return (
     <section className="bg-background" data-testid="section-hero">

@@ -1,3 +1,5 @@
+export const variant = "simpleStacked";
+
 import type { HeroSimpleStacked as HeroSimpleStackedType } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { createElement } from "react";
@@ -8,7 +10,7 @@ interface HeroSimpleStackedProps {
   data: HeroSimpleStackedType;
 }
 
-export function HeroSimpleStacked({ data }: HeroSimpleStackedProps) {
+export default function HeroSimpleStacked({ data }: HeroSimpleStackedProps) {
   const handleLinkClick = useInternalNav();
   return (
     <section 

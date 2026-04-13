@@ -1,3 +1,5 @@
+export const variant = "credibility";
+
 import { createElement, useState, useEffect } from "react";
 import Marquee from "react-fast-marquee";
 import { Button } from "@/components/ui/button";
@@ -147,7 +149,7 @@ function WatermarkMarquee({ items, isStatic }: { items: { bold_text: string; lig
 
 // ─── HeroCredibility ──────────────────────────────────────────────────────────
 
-export function HeroCredibility({ data }: HeroCredibilityProps) {
+export default function HeroCredibility({ data }: HeroCredibilityProps) {
   const handleLinkClick = useInternalNav();
   const pills = data.pills ?? [];
   const showMarquee = data.show_marquee ?? true;
