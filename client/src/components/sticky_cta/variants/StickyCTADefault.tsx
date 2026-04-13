@@ -6,7 +6,7 @@ import { useEditModeOptional } from "@/contexts/EditModeContext";
 import type { LeadFormData } from "@shared/schema";
 import { useLocation } from "wouter";
 
-const LeadForm = lazy(() => import("@/components/LeadForm").then(m => ({ default: m.LeadForm })));
+const LeadForm = lazy(() => import("@/components/lead_form/variants/LeadFormDefault"));
 
 const INLINE_FORM_SELECTOR = "[data-hero-inline-form]";
 

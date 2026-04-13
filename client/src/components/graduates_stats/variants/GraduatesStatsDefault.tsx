@@ -7,11 +7,11 @@ import { DotsIndicator } from "@/components/DotsIndicator";
 import { Button } from "@/components/ui/button";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 
-interface GraduatesStatsStandardProps {
+interface GraduatesStatsDefaultProps {
   data: GraduatesStatsSection;
 }
 
-export default function GraduatesStatsStandard({ data }: GraduatesStatsStandardProps) {
+export default function GraduatesStatsDefault({ data }: GraduatesStatsDefaultProps) {
   const { heading, subheading, stats, collage_images, background } = data;
   const [activeMobileImageIndex, setActiveMobileImageIndex] = useState(0);
   const mobileViewportRef = useRef<HTMLDivElement | null>(null);

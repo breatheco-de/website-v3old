@@ -11,7 +11,7 @@ import {
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import type { LeadFormData } from "@shared/schema";
 
-const LeadForm = lazy(() => import("@/components/LeadForm").then(m => ({ default: m.LeadForm })));
+const LeadForm = lazy(() => import("@/components/lead_form/variants/LeadFormDefault"));
 
 export interface ModalData {
   type: "modal";

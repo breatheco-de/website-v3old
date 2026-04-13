@@ -12,11 +12,7 @@ import { RichTextContent } from "@/components/ui/rich-text-content";
 import { resolveTemplateFallback } from "@/lib/variable-manager";
 import { lazy, Suspense } from "react";
 
-const LeadForm = lazy(() =>
-  import("@/components/LeadForm").then((m) => ({
-    default: m.default || m.LeadForm,
-  })),
-);
+const LeadForm = lazy(() => import("@/components/lead_form/variants/LeadFormDefault"));
 
 interface HeroCourseProps {
   data: HeroCourseType;
