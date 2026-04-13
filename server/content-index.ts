@@ -1477,61 +1477,83 @@ class ContentIndex {
       removedSectionIds: string[];
     }> = [];
 
+    const processFile = (
+      absFilePath: string,
+      entryContentType: string,
+      slug: string,
+      fileKey: string
+    ) => {
+      if (!fs.existsSync(absFilePath)) return;
+      try {
+        const raw = fs.readFileSync(absFilePath, "utf-8");
+        const { escaped, map } = escapeTemplateVars(raw);
+        const parsed = yaml.load(escaped) as Record<string, unknown>;
+        if (!parsed || !Array.isArray(parsed.sections)) return;
+
+        const sections = parsed.sections as Record<string, unknown>[];
+        const removedIds: string[] = [];
+        const kept: Record<string, unknown>[] = [];
+
+        for (const section of sections) {
+          const sType = section.type as string | undefined;
+          const sVariant = section.variant as string | undefined;
+
+          if (
+            sType === componentType &&
+            sVariant &&
+            normalizeV(sVariant) === normalizedTarget
+          ) {
+            removedIds.push((section.section_id as string) || "");
+          } else {
+            kept.push(section);
+          }
+        }
+
+        if (removedIds.length === 0) return;
+
+        results.push({
+          contentType: entryContentType,
+          slug,
+          locale: fileKey,
+          filePath: absFilePath,
+          removedCount: removedIds.length,
+          removedSectionIds: removedIds.filter(Boolean),
+        });
+
+        if (!dryRun) {
+          parsed.sections = kept;
+          const { escaped: escapedOut, map: mapOut } = escapeObjectVars(parsed);
+          const dumped = yaml.dump(escapedOut, { lineWidth: 120, noRefs: true, sortKeys: false });
+          const yamlStr = unescapeYamlDump(dumped, mapOut);
+          fs.writeFileSync(absFilePath, yamlStr, "utf-8");
+        }
+      } catch (e) {
+        console.error(`Error processing ${absFilePath}:`, e);
+      }
+    };
+
     for (const entry of this.entries) {
       const entryContentType = entry.contentType.replace(/s$/, "");
+      const entryDir = path.join(process.cwd(), entry.directory);
+
+      // Process locale-specific files (en.yml, es.yml, etc.)
       for (const locale of entry.locales) {
-        if (locale.startsWith("_") || locale.includes(".")) continue;
-
-        const absFilePath = path.join(process.cwd(), entry.directory, `${locale}.yml`);
-        if (!fs.existsSync(absFilePath)) continue;
-
-        try {
-          const raw = fs.readFileSync(absFilePath, "utf-8");
-          const { escaped, map } = escapeTemplateVars(raw);
-          const parsed = yaml.load(escaped) as Record<string, unknown>;
-          if (!parsed || !Array.isArray(parsed.sections)) continue;
-
-          const sections = parsed.sections as Record<string, unknown>[];
-          const removedIds: string[] = [];
-          const kept: Record<string, unknown>[] = [];
-
-          for (const section of sections) {
-            const sType = section.type as string | undefined;
-            const sVariant = section.variant as string | undefined;
-
-            if (
-              sType === componentType &&
-              sVariant &&
-              normalizeV(sVariant) === normalizedTarget
-            ) {
-              removedIds.push((section.section_id as string) || "");
-            } else {
-              kept.push(section);
-            }
-          }
-
-          if (removedIds.length === 0) continue;
-
-          results.push({
-            contentType: entryContentType,
-            slug: entry.slug,
-            locale,
-            filePath: `${entry.directory}/${locale}.yml`,
-            removedCount: removedIds.length,
-            removedSectionIds: removedIds.filter(Boolean),
-          });
-
-          if (!dryRun) {
-            parsed.sections = kept;
-            const { escaped: escapedOut, map: mapOut } = escapeObjectVars(parsed);
-            const dumped = yaml.dump(escapedOut, { lineWidth: 120, noRefs: true, sortKeys: false });
-            const yamlStr = unescapeYamlDump(dumped, mapOut);
-            fs.writeFileSync(absFilePath, yamlStr, "utf-8");
-          }
-        } catch (e) {
-          console.error(`Error processing ${entry.directory}/${locale}.yml:`, e);
-        }
+        processFile(
+          path.join(entryDir, `${locale}.yml`),
+          entryContentType,
+          entry.slug,
+          locale
+        );
       }
+
+      // Also process _common.yml — sections here are inherited by all locales
+      // and must be cleaned too to avoid phantom variant uses
+      processFile(
+        path.join(entryDir, "_common.yml"),
+        entryContentType,
+        entry.slug,
+        "_common"
+      );
     }
 
     return results;

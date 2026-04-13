@@ -402,21 +402,61 @@ function resolveVariantTsxPath(componentType: string, variantName: string): stri
   return path.join(process.cwd(), "client", "src", "components", componentType, "variants", fileName);
 }
 
+function extractVariantFromRawFile(filePath: string, exampleName: string): string | null {
+  try {
+    const raw = fs.readFileSync(filePath, "utf-8");
+    const data = yaml.load(raw) as { name?: string; yaml?: string; variant?: string } | null;
+    const stem = path.basename(filePath).replace(/\.(yml|yaml)$/, "");
+    const nameMatch = data?.name === exampleName || stem === exampleName;
+    if (!nameMatch) return null;
+    if (data?.variant) return data.variant;
+    const yamlBlock = data?.yaml || raw;
+    // Try structured parse first (handles arrays like - type: hero / variant: credibility)
+    const inferred = extractVariantFromYaml(yamlBlock);
+    if (inferred) return inferred;
+    // Regex fallback for template-var-laden YAML that can't be parsed
+    const m = yamlBlock.match(/^\s*variant:\s*["']?([^"'\n]+)["']?\s*$/m);
+    if (m) return m[1].trim();
+  } catch {
+    // ignore
+  }
+  return null;
+}
+
 export function getVariantByExample(
   componentType: string,
   version: string,
   exampleName: string
 ): string | null {
+  // Try via loadExamples (already applies extractVariantFromYaml)
   const examples = loadExamples(componentType, version);
   const found = examples.find((e) => e.name === exampleName);
   if (found?.variant) return found.variant;
 
+  // Fallback: scan raw files for this version (handles YAML parse failures from template vars)
+  const vPath = path.join(REGISTRY_PATH, componentType, version, "examples");
+  if (fs.existsSync(vPath)) {
+    for (const file of fs.readdirSync(vPath).filter(f => f.endsWith(".yml") || f.endsWith(".yaml"))) {
+      const v = extractVariantFromRawFile(path.join(vPath, file), exampleName);
+      if (v) return v;
+    }
+  }
+
+  // Search other versions
   const allVersions = listVersions(componentType);
   for (const v of allVersions) {
     if (v === version) continue;
     const vExamples = loadExamples(componentType, v);
     const vFound = vExamples.find((e) => e.name === exampleName);
     if (vFound?.variant) return vFound.variant;
+    // Raw fallback for other versions too
+    const ovPath = path.join(REGISTRY_PATH, componentType, v, "examples");
+    if (fs.existsSync(ovPath)) {
+      for (const file of fs.readdirSync(ovPath).filter(f => f.endsWith(".yml") || f.endsWith(".yaml"))) {
+        const found2 = extractVariantFromRawFile(path.join(ovPath, file), exampleName);
+        if (found2) return found2;
+      }
+    }
   }
   return null;
 }

@@ -1445,7 +1445,11 @@ export default function ThemeEditor() {
                 try {
                   const params = new URLSearchParams({ version: entry.version, exampleName: entry.example });
                   const res = await fetch(`/api/component-registry/${entry.component}/variant-impact?${params}`);
-                  const data = await res.json();
+                  if (!res.ok) {
+                    const errBody = await res.json().catch(() => ({})) as { error?: string };
+                    throw new Error(errBody.error || "Failed to fetch variant impact");
+                  }
+                  const data = await res.json() as VariantImpact;
                   setDeleteModal((m) => ({ ...m, variantImpact: data, variantImpactLoading: false }));
                 } catch {
                   setDeleteModal((m) => ({ ...m, variantImpactLoading: false }));
