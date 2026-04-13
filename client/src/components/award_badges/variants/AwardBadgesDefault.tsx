@@ -26,19 +26,8 @@ export interface AwardBadgeItem {
   year?: string;
 }
 
-interface AwardBadgesProps {
-  items: AwardBadgeItem[];
-  variant?: "simple" | "detailed";
-  className?: string;
-  showBorder?: boolean;
-}
-
-export function AwardBadges({ 
-  items, 
-  variant = "simple",
-  className = "",
-  showBorder = false,
-}: AwardBadgesProps) {
+export function AwardBadges({ data }: { data: any }) {
+  const { items = [], variant = "simple", className = "", showBorder = false } = data;
   const handleLinkClick = useInternalNav();
   if (!items || items.length === 0) return null;
 

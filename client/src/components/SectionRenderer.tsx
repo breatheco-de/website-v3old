@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, ComponentType } from "react";
 import { useState, useCallback, useMemo, useRef, useEffect } from "react";
 import type { Section, EditOperation, SectionLayout, ResponsiveSpacing, ShowOn, PageSettings } from "@shared/schema";
 import { useSession } from "@/contexts/SessionContext";
@@ -9,15 +9,6 @@ import { resolveDeep } from "@/lib/variable-manager";
 import { SectionContextProvider } from "@/contexts/SectionContext";
 import { isSSRHydration } from "@/lib/initialData";
 
-
-// ============================================
-// Component Load Strategy Registry
-// ============================================
-// Eager: Above-the-fold, critical for first paint
-// Lazy: Below-the-fold, can load after initial render
-
-// EAGER components (imported directly)
-import { Hero } from "@/components/hero/Hero";
 
 // Spacing presets in pixels (top, bottom)
 const SPACING_PRESETS: Record<string, { top: string; bottom: string }> = {
@@ -254,65 +245,6 @@ function getSectionVisibilityClasses(showOn: ShowOn | undefined): string {
       return ''; // Visible on all breakpoints
   }
 }
-import { FeaturesGrid } from "@/components/features-grid/FeaturesGrid";
-import ListingCards from "@/components/ListingCards";
-import { AwardBadges } from "@/components/AwardBadges";
-import { AwardsMarquee } from "@/components/AwardsMarquee";
-import StatsSection from "@/components/StatsSection";
-import { SyllabusSection } from "./SyllabusSection";
-import { ProjectsSection } from "./ProjectsSection";
-import { AILearningSection } from "./AILearningSection";
-import { CertificateSection } from "./CertificateSection";
-import { WhyLearnAISection } from "./why-learn-ai/WhyLearnAI";
-import { PricingSection } from "./PricingSection";
-import { FAQSection } from "./FAQSection";
-import { TestimonialsSection } from "./TestimonialsSection";
-import { TrustCards } from "./trust-cards";
-import { WhosHiring } from "@/components/whos-hiring/WhosHiring";
-import { FooterSection } from "./FooterSection";
-import { TwoColumn } from "@/components/TwoColumn";
-import NumberedSteps from "@/components/NumberedSteps";
-import TestimonialsSlide from "@/components/TestimonialsSlide";
-import { TestimonialsGrid } from "@/components/TestimonialsGrid";
-import { DynamicTable } from "@/components/DynamicTable";
-import { ListPressMentions } from "@/components/press-mentions/ListPressMentions";
-import { ListSinglePressMention } from "@/components/ListSinglePressMention";
-import { ProgramsListSection } from "./ProgramsListSection";
-import { CredibilityStrip } from "@/components/credibility-strip/CredibilityStrip";
-import { CTABannerSection } from "./CTABannerSection";
-import { ProjectShowcase } from "@/components/ProjectShowcase";
-import { About } from "@/components/About";
-import { ComparisonTable } from "@/components/ComparisonTable";
-import { GeeksVsOthersComparison } from "@/components/GeeksVsOthersComparison";
-import { HorizontalBars } from "@/components/HorizontalBars";
-import { VerticalBarsCards } from "@/components/VerticalBarsCards";
-import { PieCharts } from "@/components/PieCharts";
-import { LeadForm } from "@/components/LeadForm";
-import { ApplyFormSection } from "@/components/ApplyFormSection";
-import { HumanAndAIDuo } from "@/components/HumanAndAIDuo";
-import { FeaturesQuad } from "@/components/features-quad";
-import { CommunitySupport } from "@/components/CommunitySupport";
-import { TwoColumnAccordionCard } from "@/components/two-column-accordion-card/TwoColumnAccordionCard";
-import { BulletTabsShowcase } from "@/components/BulletTabsShowcase";
-import { GraduatesStats } from "@/components/graduates_stats";
-import { ValueProofPanel } from "@/components/ValueProofPanel";
-import { SplitCards } from "@/components/SplitCards";
-import { StickyCallToAction } from "@/components/StickyCallToAction";
-import { BentoCards } from "@/components/bento-cards/BentoCards";
-import { Banner } from "@/components/Banner";
-import { FaqEditor } from "@/components/FaqEditor";
-import ImageRow from "@/components/sections/ImageRow";
-import { CourseSelector } from "@/components/course-selector/CourseSelector";
-import { Article as ArticleSection } from "@/components/Article";
-import { PartnershipCarousel } from "@/components/partnership-carousel/PartnershipCarousel";
-import CareerSupportExplain from "@/components/career-support-explain/CareerSupportExplain";
-import ProfilesCarousel from "@/components/profiles-carousel/ProfilesCarousel";
-import DoubleCTA from "@/components/double-cta/DoubleCTA";
-import { Modal } from "@/components/Modal";
-import { ContactUsInfo } from "@/components/contact-us-info/ContactUsInfo";
-import { CardsDeck } from "@/components/cards-deck/CardsDeck";
-import { ProgramsShowcase } from "@/components/programs_showcase";
-
 import { EditableSection } from "@/components/editing/EditableSection";
 import { AddSectionButton } from "@/components/editing/AddSectionButton";
 import ComponentPickerModal from "@/components/editing/ComponentPickerModal";
@@ -532,182 +464,58 @@ async function sendEditOperation(
   return response.json();
 }
 
-export function renderSection(section: Section, index: number, landingLocations?: string[], programSlug?: string): React.ReactNode {
-  const sectionType = (section as { type: string }).type;
+// === SECTION REGISTRY (auto-discovered via import.meta.glob) ===
+const _sectionModules = import.meta.glob('./*/variants/*.tsx', { eager: true }) as Record<
+  string,
+  { default: ComponentType<any> }
+>;
 
-  switch (sectionType) {
-    case "hero":
-      return <Hero key={index} data={section as Parameters<typeof Hero>[0]["data"]} landingLocations={landingLocations} />;
-    case "features_grid":
-      return <FeaturesGrid key={index} data={section as Parameters<typeof FeaturesGrid>[0]["data"]} />;
-    case "list_cards":
-      return <ListingCards key={index} data={section as any} />;
-    case "stats":
-      return <StatsSection key={index} data={section as Parameters<typeof StatsSection>[0]["data"]} />;
-    case "award_badges": {
-      const badgeSection = section as unknown as { items?: unknown[]; variant?: "simple" | "detailed"; showBorder?: boolean };
-      if (!Array.isArray(badgeSection.items) || badgeSection.items.length === 0) {
-        if (process.env.NODE_ENV === "development") {
-          console.warn("award_badges section missing required 'items' array");
-        }
-        return null;
-      }
-      const validItems = badgeSection.items.filter((item): item is Parameters<typeof AwardBadges>[0]["items"][number] => 
-        typeof item === "object" && item !== null && "id" in item && "alt" in item
-      );
-      if (validItems.length === 0) {
-        if (process.env.NODE_ENV === "development") {
-          console.warn("award_badges section has no valid items (each item requires 'id' and 'alt')");
-        }
-        return null;
-      }
-      return <AwardBadges key={index} items={validItems} variant={badgeSection.variant} showBorder={badgeSection.showBorder} />;
-    }
-    case "awards_marquee": {
-      const marqueeSection = section as unknown as { items?: unknown[]; speed?: number; gradient?: boolean; gradientWidth?: number; bottom_title?: string };
-      if (!Array.isArray(marqueeSection.items) || marqueeSection.items.length === 0) {
-        if (process.env.NODE_ENV === "development") {
-          console.warn("awards_marquee section missing required 'items' array");
-        }
-        return null;
-      }
-      const validItems = marqueeSection.items.filter((item): item is Parameters<typeof AwardsMarquee>[0]["items"][number] => 
-        typeof item === "object" && item !== null && "id" in item && "alt" in item
-      );
-      if (validItems.length === 0) {
-        if (process.env.NODE_ENV === "development") {
-          console.warn("awards_marquee section has no valid items (each item requires 'id' and 'alt')");
-        }
-        return null;
-      }
-      return (
-        <AwardsMarquee 
-          key={index} 
-          items={validItems} 
-          speed={marqueeSection.speed}
-          gradient={marqueeSection.gradient}
-          gradientWidth={marqueeSection.gradientWidth}
-          bottom_title={marqueeSection.bottom_title}
-          title={marqueeSection.title}
-          title_above_carousel={marqueeSection.title_above_carousel}
-        />
-      );
-    }
-    case "syllabus":
-      return <SyllabusSection data={section as Parameters<typeof SyllabusSection>[0]["data"]} />;
-    case "projects":
-      return <ProjectsSection data={section as Parameters<typeof ProjectsSection>[0]["data"]} />;
-    case "ai_learning":
-      return <AILearningSection data={section as Parameters<typeof AILearningSection>[0]["data"]} />;
-    case "certificate":
-      return <CertificateSection data={section as Parameters<typeof CertificateSection>[0]["data"]} />;
-    case "why_learn_ai":
-      return <WhyLearnAISection data={section as Parameters<typeof WhyLearnAISection>[0]["data"]} />;
-    case "pricing":
-      return <PricingSection data={section as Parameters<typeof PricingSection>[0]["data"]} />;
-    case "faq":
-      return <FAQSection data={section as Parameters<typeof FAQSection>[0]["data"]} programSlug={programSlug} />;
-    case "testimonials":
-      return <TestimonialsSection data={section as Parameters<typeof TestimonialsSection>[0]["data"]} />;
-    case "trust_cards":
-      return <TrustCards data={section as Parameters<typeof TrustCards>[0]["data"]} />;
-    case "whos_hiring":
-      return <WhosHiring data={section as Parameters<typeof WhosHiring>[0]["data"]} />;
-    case "footer":
-      return <FooterSection data={section as Parameters<typeof FooterSection>[0]["data"]} />;
-    case "two_column":
-      return <TwoColumn data={section as Parameters<typeof TwoColumn>[0]["data"]} />;
-    case "human_and_ai_duo":
-      return <HumanAndAIDuo data={section as Parameters<typeof HumanAndAIDuo>[0]["data"]} />;
-    case "features_quad":
-      return <FeaturesQuad data={section as Parameters<typeof FeaturesQuad>[0]["data"]} />;
-    case "community_support":
-      return <CommunitySupport data={section as Parameters<typeof CommunitySupport>[0]["data"]} />;
-    case "numbered_steps":
-      return <NumberedSteps data={section as Parameters<typeof NumberedSteps>[0]["data"]} />;
-    case "testimonials_slide":
-      return <TestimonialsSlide data={section as Parameters<typeof TestimonialsSlide>[0]["data"]} />;
-    case "testimonials_grid":
-      return <TestimonialsGrid data={section as Parameters<typeof TestimonialsGrid>[0]["data"]} />;
-    case "dynamic_table":
-      return <DynamicTable data={section as Parameters<typeof DynamicTable>[0]["data"]} />;
-    case "list_press_mentions":
-      return <ListPressMentions data={section as Parameters<typeof ListPressMentions>[0]["data"]} />;
-    case "list_single_press_mention":
-      return <ListSinglePressMention data={section as unknown as Parameters<typeof ListSinglePressMention>[0]["data"]} />;
-    case "credibility_strip":
-      return <CredibilityStrip data={section as Parameters<typeof CredibilityStrip>[0]["data"]} />;
-    case "programs_list":
-      return <ProgramsListSection data={section as Parameters<typeof ProgramsListSection>[0]["data"]} />;
-    case "cta_banner":
-      return <CTABannerSection data={section as Parameters<typeof CTABannerSection>[0]["data"]} landingLocations={landingLocations} />;
-    case "project_showcase":
-    case "projects_showcase":
-      return <ProjectShowcase data={section as Parameters<typeof ProjectShowcase>[0]["data"]} />;
-    case "about":
-      return <About data={section as Parameters<typeof About>[0]["data"]} />;
-    case "comparison_table":
-      return <ComparisonTable data={section as Parameters<typeof ComparisonTable>[0]["data"]} />;
-    case "geeks_vs_others_comparison":
-      return <GeeksVsOthersComparison data={section as Parameters<typeof GeeksVsOthersComparison>[0]["data"]} />;
-    case "horizontal_bars":
-      return <HorizontalBars data={section as Parameters<typeof HorizontalBars>[0]["data"]} />;
-    case "vertical_bars_cards":
-      return <VerticalBarsCards data={section as Parameters<typeof VerticalBarsCards>[0]["data"]} />;
-    case "pie_charts":
-      return <PieCharts data={section as Parameters<typeof PieCharts>[0]["data"]} />;
-    case "lead_form":
-      return <LeadForm data={section as Parameters<typeof LeadForm>[0]["data"]} landingLocations={landingLocations} />;
-    case "two_column_accordion_card":
-      return <TwoColumnAccordionCard data={section as Parameters<typeof TwoColumnAccordionCard>[0]["data"]} />;
-    case "bullet_tabs_showcase":
-      return <BulletTabsShowcase data={section as Parameters<typeof BulletTabsShowcase>[0]["data"]} />;
-    case "graduates_stats":
-      return <GraduatesStats data={section as Parameters<typeof GraduatesStats>[0]["data"]} />;
-    case "apply_form":
-      return <ApplyFormSection data={section as Parameters<typeof ApplyFormSection>[0]["data"]} landingLocations={landingLocations} />;
-    case "value_proof_panel":
-      return <ValueProofPanel data={section as Parameters<typeof ValueProofPanel>[0]["data"]} />;
-    case "split_cards":
-      return <SplitCards data={section as Parameters<typeof SplitCards>[0]["data"]} />;
-    case "sticky_cta":
-      return <StickyCallToAction data={section as Parameters<typeof StickyCallToAction>[0]["data"]} landingLocations={landingLocations} />;
-    case "bento_cards":
-      return <BentoCards data={section as Parameters<typeof BentoCards>[0]["data"]} />;
-    case "banner":
-      return <Banner data={section as Parameters<typeof Banner>[0]["data"]} />;
-    case "faq_editor":
-      return <FaqEditor data={section as Parameters<typeof FaqEditor>[0]["data"]} />;
-    case "image_row":
-      return <ImageRow data={section as Parameters<typeof ImageRow>[0]["data"]} />;
-    case "course_selector":
-      return <CourseSelector data={section as Parameters<typeof CourseSelector>[0]["data"]} />;
-    case "article":
-      return <ArticleSection data={section as Parameters<typeof ArticleSection>[0]["data"]} />;
-    case "partnership_carousel":
-      return <PartnershipCarousel data={section as any} />;
-    case "career_support_explain":
-      return <CareerSupportExplain data={section as Parameters<typeof CareerSupportExplain>[0]["data"]} />;
-    case "profiles_carousel":
-      return <ProfilesCarousel data={section as Parameters<typeof ProfilesCarousel>[0]["data"]} />;
-    case "double_cta":
-      return <DoubleCTA data={section as Parameters<typeof DoubleCTA>[0]["data"]} />;
-    case "modal":
-      return <Modal data={section as unknown as Parameters<typeof Modal>[0]["data"]} landingLocations={landingLocations} />;
-    case "contact_us_info":
-      return <ContactUsInfo data={section as Parameters<typeof ContactUsInfo>[0]["data"]} />;
-    case "cards_deck":
-      return <CardsDeck data={section as Parameters<typeof CardsDeck>[0]["data"]} />;
-    case "programs_showcase":
-      return <ProgramsShowcase data={section as Parameters<typeof ProgramsShowcase>[0]["data"]} />;
-    default: {
-      if (process.env.NODE_ENV === "development") {
-        console.warn(`Unknown section type: ${sectionType}`);
-      }
-      return null;
-    }
-  }
+function _snakeToPascal(str: string): string {
+  return str.split('_').map((s) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).join('');
 }
+
+function _deriveVariant(type: string, filenameBase: string): string {
+  const prefix = _snakeToPascal(type);
+  const remainder = filenameBase.slice(prefix.length);
+  if (!remainder) return 'default';
+  return remainder.charAt(0).toLowerCase() + remainder.slice(1);
+}
+
+const _sectionRegistry: Record<string, Record<string, ComponentType<any>>> = {};
+
+for (const [filePath, mod] of Object.entries(_sectionModules)) {
+  const match = filePath.match(/^\.\/([^/]+)\/variants\/([^/]+)\.tsx$/);
+  if (!match || !mod.default) continue;
+  const type = match[1];
+  const filenameBase = match[2];
+  const variantName = _deriveVariant(type, filenameBase);
+  if (!_sectionRegistry[type]) _sectionRegistry[type] = {};
+  _sectionRegistry[type][variantName] = mod.default;
+}
+
+export function renderSection(section: Section, index: number): React.ReactNode {
+  const sectionType = (section as { type: string }).type;
+  const sectionVariant = (section as { variant?: string }).variant ?? 'default';
+
+  const typeRegistry = _sectionRegistry[sectionType];
+  if (!typeRegistry) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(`[SectionRenderer] Unknown section type: "${sectionType}"`);
+    }
+    return null;
+  }
+
+  const Component = typeRegistry[sectionVariant] ?? typeRegistry['default'];
+  if (!Component) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(`[SectionRenderer] No component for type="${sectionType}" variant="${sectionVariant}"`);
+    }
+    return null;
+  }
+
+  return <Component key={index} data={section as any} />;
+}
+
 
 // Mobile Preview using real iframe for proper media query support
 function MobilePreviewFrame({ sections }: { sections: Section[] }) {
@@ -852,20 +660,6 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     );
     return data as Section[];
   }, [sections, isEditMode, varDefinitions, varContext, singleEntry]);
-
-  const renderSectionWithContext = useCallback((section: Section, index: number) => {
-    const sectionType = (section as { type: string }).type;
-
-    if (sectionType === "cta_banner") {
-      return <CTABannerSection data={section as Parameters<typeof CTABannerSection>[0]["data"]} programContext={programSlug} landingLocations={landingLocations} />;
-    }
-
-    if (sectionType === "lead_form") {
-      return <LeadForm data={section as Parameters<typeof LeadForm>[0]["data"]} programContext={programSlug} landingLocations={landingLocations} />;
-    }
-
-    return renderSection(section, index, landingLocations, programSlug);
-  }, [programSlug, landingLocations]);
 
   const handleMoveUp = useCallback(async (index: number) => {
     if (!contentType || !slug || !locale || index <= 0) return;
@@ -1069,7 +863,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
         const rawSection = sections[index];
         const sectionType = (section as { type: string }).type;
         const loadStrategy = isEditMode ? "eager" : resolveLoadStrategy(rawSection, index, settings);
-        const renderedContent = renderSectionWithContext(section, index);
+        const renderedContent = renderSection(section, index);
         const wrapperStyles = getSectionWrapperStyles(section);
         const innerStyles: CSSProperties = {
           maxWidth: "var(--section-mw)",

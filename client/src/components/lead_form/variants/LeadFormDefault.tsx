@@ -27,6 +27,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useSession, useLocation as useSessionLocation, useUTM } from "@/contexts/SessionContext";
+import { useSectionContext } from "@/contexts/SectionContext";
 import { apiRequest } from "@/lib/queryClient";
 import { IconLoader2, IconCheck } from "@tabler/icons-react";
 import { PhoneInput } from "@/components/ui/phone-input";
@@ -92,8 +93,6 @@ export interface LeadFormData {
 
 interface LeadFormProps {
   data: LeadFormData;
-  programContext?: string;
-  landingLocations?: string[];
   termsStyle?: React.CSSProperties;
 }
 
@@ -286,7 +285,10 @@ function ConsentSection({ consent, form, locale, formOptions, sessionLocation }:
   );
 }
 
-export default function LeadForm({ data, programContext, landingLocations, termsStyle }: LeadFormProps) {
+export default function LeadForm({ data, termsStyle }: LeadFormProps) {
+  const landingLocations: string[] | undefined = undefined;
+  const { slug, contentType } = useSectionContext();
+  const programContext = contentType === "program" ? slug : undefined;
   const { t, i18n } = useTranslation();
   const locale = i18n.language === "es" ? "es" : "en";
   const { session } = useSession();

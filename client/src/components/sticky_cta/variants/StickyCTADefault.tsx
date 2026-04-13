@@ -203,7 +203,6 @@ export function StickyCallToAction({ data, landingLocations }: StickyCallToActio
                     variant: data.form.variant || "inline",
                     className: cn(data.form.className, "max-w-2xl mx-auto"),
                   }}
-                  landingLocations={landingLocations}
                 />
               </Suspense>
             )}

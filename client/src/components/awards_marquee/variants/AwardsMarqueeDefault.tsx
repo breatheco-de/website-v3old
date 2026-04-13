@@ -17,29 +17,8 @@ export interface AwardsMarqueeItem {
   year?: string;
 }
 
-interface AwardsMarqueeProps {
-  items: AwardsMarqueeItem[];
-  speed?: number;
-  gradient?: boolean;
-  gradientColor?: string;
-  gradientWidth?: number;
-  bottom_title?: string;
-  className?: string;
-  title?: string;
-  title_above_carousel?: boolean;
-}
-
-export function AwardsMarquee({ 
-  items, 
-  speed = 40,
-  gradient = true,
-  gradientColor,
-  gradientWidth = 100,
-  bottom_title,
-  className = "",
-  title,
-  title_above_carousel = false,
-}: AwardsMarqueeProps) {
+export function AwardsMarquee({ data }: { data: any }) {
+  const { items = [], speed = 40, gradient = true, gradientColor, gradientWidth = 100, bottom_title, className = "", title, title_above_carousel = false } = data;
   const [isDesktop, setIsDesktop] = useState(false);
   
   useEffect(() => {

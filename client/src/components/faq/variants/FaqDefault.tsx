@@ -14,13 +14,15 @@ import { useQuery } from "@tanstack/react-query";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { filterFaqsByRelatedFeatures, faqItemKey, type FaqItem } from "@/lib/faqConstants";
 import { useSession } from "@/contexts/SessionContext";
+import { useSectionContext } from "@/contexts/SectionContext";
 
 interface FAQSectionProps {
   data: FAQSectionType;
-  programSlug?: string;
 }
 
-export function FAQSection({ data, programSlug }: FAQSectionProps) {
+export function FAQSection({ data }: FAQSectionProps) {
+  const { slug, contentType } = useSectionContext();
+  const programSlug = contentType === "program" ? slug : undefined;
   const handleLinkClick = useInternalNav();
   const [pathname] = useWouterLocation();
   const { i18n } = useTranslation();
@@ -162,3 +164,5 @@ export function FAQSection({ data, programSlug }: FAQSectionProps) {
     </section>
   );
 }
+
+export default FAQSection;

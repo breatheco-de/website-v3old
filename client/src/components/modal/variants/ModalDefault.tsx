@@ -133,7 +133,6 @@ export function Modal({ data, landingLocations }: ModalProps) {
                     ...data.form,
                     variant: data.form.variant || "stacked",
                   }}
-                  landingLocations={landingLocations}
                 />
               </Suspense>
             )}
@@ -169,7 +168,6 @@ export function Modal({ data, landingLocations }: ModalProps) {
                 ...data.form,
                 variant: data.form.variant || "stacked",
               }}
-              landingLocations={landingLocations}
             />
           </Suspense>
         )}

@@ -33,7 +33,7 @@ export function ApplyFormSection({ data, landingLocations }: ApplyFormSectionPro
           <div>
             <Card className="border shadow-sm" data-testid="card-apply-form">
               <CardContent className="p-6">
-                <LeadForm data={data.form} landingLocations={landingLocations} />
+                <LeadForm data={data.form} />
               </CardContent>
             </Card>
           </div>
