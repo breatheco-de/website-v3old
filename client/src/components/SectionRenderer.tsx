@@ -481,6 +481,10 @@ function _deriveVariant(type: string, filenameBase: string): string {
   return remainder.charAt(0).toLowerCase() + remainder.slice(1);
 }
 
+function _normalizeVariant(v: string): string {
+  return v.replace(/[-_]/g, '').replace(/[A-Z]/g, c => c.toLowerCase());
+}
+
 const _sectionRegistry: Record<string, Record<string, ComponentType<any>>> = {};
 
 for (const [filePath, mod] of Object.entries(_sectionModules)) {
@@ -488,14 +492,14 @@ for (const [filePath, mod] of Object.entries(_sectionModules)) {
   if (!match || !mod.default) continue;
   const type = match[1];
   const filenameBase = match[2];
-  const variantName = _deriveVariant(type, filenameBase);
+  const variantName = _normalizeVariant(_deriveVariant(type, filenameBase));
   if (!_sectionRegistry[type]) _sectionRegistry[type] = {};
   _sectionRegistry[type][variantName] = mod.default;
 }
 
 export function renderSection(section: Section, index: number): React.ReactNode {
   const sectionType = (section as { type: string }).type;
-  const sectionVariant = (section as { variant?: string }).variant ?? 'default';
+  const sectionVariant = _normalizeVariant((section as { variant?: string }).variant ?? 'default');
 
   const typeRegistry = _sectionRegistry[sectionType];
   if (!typeRegistry) {
