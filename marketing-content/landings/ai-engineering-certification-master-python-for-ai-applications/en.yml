@@ -720,7 +720,7 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: The fastest-growing job of 2026 is one step away.
-    subtitle: Leverage your Python with AI skills and land one of the highest-paying roles in tech. Apply in 2 minutes and our admissions team will be in touch shortly.
+    subtitle: Leverage your Python with AI skills and land one of the highest-paying roles in tech. Apply now and our admissions team will be in touch shortly.
     background: hsl(var(--primary))
     variant: form
     form:
