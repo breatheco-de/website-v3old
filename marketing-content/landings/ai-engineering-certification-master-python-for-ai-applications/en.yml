@@ -756,6 +756,8 @@ sections:
         marketing: true
         marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contac
     section_id: cta_banner-55y7oh
+    paddingY:
+      desktop: lg none
   - type: footer
     section_id: footer-eisseg
     version: "1.0"
