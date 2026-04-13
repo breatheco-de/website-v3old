@@ -1,6 +1,12 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, apiRequestWithAuth, queryClient } from "@/lib/queryClient";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { MoleculeRenderer, type MoleculeDefinition } from "@/components/MoleculeRenderer";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -20,6 +26,7 @@ import {
   IconMoon,
   IconDeviceFloppy,
   IconArrowBackUp,
+  IconArrowLeft,
   IconPalette,
   IconComponents,
   IconLayoutGrid,
@@ -75,6 +82,15 @@ interface ExampleItem {
   name: string;
   yaml: string;
 }
+
+interface VariantImpact {
+  variantName: string;
+  componentName: string;
+  examples: string[];
+  pages: Array<{ path: string; count: number; sectionIds: string[] }>;
+}
+
+type DeleteStep = "choose" | "confirm-example" | "confirm-variant";
 
 const TOKEN_GROUPS: { label: string; tokens: { id: string; label: string }[] }[] = [
   {
@@ -740,6 +756,55 @@ export default function ThemeEditor() {
   const iframeRefs = useRef<Map<number, HTMLIFrameElement>>(new Map());
   const colorsInitialized = useRef(false);
 
+  const [deleteModal, setDeleteModal] = useState<{
+    open: boolean;
+    entry: PreviewExample | null;
+    entryIdx: number;
+    step: DeleteStep;
+    variantImpact: VariantImpact | null;
+    variantImpactLoading: boolean;
+  }>({ open: false, entry: null, entryIdx: -1, step: "choose", variantImpact: null, variantImpactLoading: false });
+
+  const deleteExampleMutation = useMutation({
+    mutationFn: async ({ component, version, example }: { component: string; version: string; example: string }) => {
+      await apiRequest("DELETE", `/api/component-registry/${component}/versions/${version}/examples/${encodeURIComponent(example)}`);
+    },
+    onSuccess: () => {
+      const { entry, entryIdx } = deleteModal;
+      if (entry) {
+        const updated = confirmedExamples.filter((_, i) => i !== entryIdx);
+        setConfirmedExamples(updated);
+        savePreviewExamples(updated);
+      }
+      setDeleteModal((m) => ({ ...m, open: false }));
+      queryClient.invalidateQueries({ queryKey: ["/api/component-registry"] });
+      toast({ title: "Example deleted", description: "The example has been permanently removed." });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Delete failed", description: err.message, variant: "destructive" });
+    },
+  });
+
+  const deleteVariantMutation = useMutation({
+    mutationFn: async ({ component, variantName }: { component: string; variantName: string }) => {
+      await apiRequest("DELETE", `/api/component-registry/${component}/variants/${encodeURIComponent(variantName)}`);
+    },
+    onSuccess: () => {
+      const { entry, entryIdx } = deleteModal;
+      if (entry) {
+        const updated = confirmedExamples.filter((_, i) => i !== entryIdx);
+        setConfirmedExamples(updated);
+        savePreviewExamples(updated);
+      }
+      setDeleteModal((m) => ({ ...m, open: false }));
+      queryClient.invalidateQueries({ queryKey: ["/api/component-registry"] });
+      toast({ title: "Variant deleted", description: "The component variant and all its examples have been permanently removed." });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Delete failed", description: err.message, variant: "destructive" });
+    },
+  });
+
   const [backgrounds, setBackgrounds] = useState<PaletteEntry[]>([]);
   const [textPalette, setTextPalette] = useState<PaletteEntry[]>([]);
   const [accents, setAccents] = useState<PaletteEntry[]>([]);
@@ -910,6 +975,7 @@ export default function ThemeEditor() {
   }, [moleculesData]);
 
   return (
+    <>
     <div className="flex h-screen bg-background overflow-hidden" data-testid="page-theme-editor">
       <div className="shrink-0 flex flex-col bg-card relative border-r border-border" style={{ width: sidebarWidth }}>
         <div className="px-4 py-3 border-b border-border">
@@ -1198,11 +1264,15 @@ export default function ThemeEditor() {
                       <Button
                         size="icon"
                         variant="ghost"
-                        onClick={async () => {
-                          const updated = confirmedExamples.filter((_, i) => i !== idx);
-                          setConfirmedExamples(updated);
-                          iframeRefs.current.delete(idx);
-                          await savePreviewExamples(updated);
+                        onClick={() => {
+                          setDeleteModal({
+                            open: true,
+                            entry,
+                            entryIdx: idx,
+                            step: "choose",
+                            variantImpact: null,
+                            variantImpactLoading: false,
+                          });
                         }}
                         data-testid={`button-delete-example-${idx}`}
                       >
@@ -1319,5 +1389,214 @@ export default function ThemeEditor() {
         </ScrollArea>
       </div>
     </div>
+
+    <Dialog
+      open={deleteModal.open}
+      onOpenChange={(open) => {
+        if (!open) setDeleteModal((m) => ({ ...m, open: false }));
+      }}
+    >
+      <DialogContent className="max-w-sm" data-testid="dialog-delete-example">
+        <DialogHeader>
+          <DialogTitle>
+            {deleteModal.step === "choose" && "Remove from preview"}
+            {deleteModal.step === "confirm-example" && "Delete example?"}
+            {deleteModal.step === "confirm-variant" && "Delete component variant?"}
+          </DialogTitle>
+        </DialogHeader>
+
+        {deleteModal.step === "choose" && deleteModal.entry && (
+          <div className="space-y-2 pt-1">
+            <button
+              className="w-full text-left px-4 py-3 rounded-md border border-border hover-elevate text-sm"
+              data-testid="button-remove-from-references"
+              onClick={async () => {
+                const updated = confirmedExamples.filter((_, i) => i !== deleteModal.entryIdx);
+                iframeRefs.current.delete(deleteModal.entryIdx);
+                setConfirmedExamples(updated);
+                await savePreviewExamples(updated);
+                setDeleteModal((m) => ({ ...m, open: false }));
+              }}
+            >
+              <p className="font-medium">Remove from references</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Remove from this preview list only. The example and component remain intact.
+              </p>
+            </button>
+
+            <button
+              className="w-full text-left px-4 py-3 rounded-md border border-amber-400 bg-amber-50 dark:bg-amber-950/30 hover-elevate text-sm"
+              data-testid="button-choose-delete-example"
+              onClick={() => setDeleteModal((m) => ({ ...m, step: "confirm-example" }))}
+            >
+              <p className="font-medium text-amber-800 dark:text-amber-300">Delete example</p>
+              <p className="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
+                Permanently delete this example YAML from the registry. No pages will be affected.
+              </p>
+            </button>
+
+            <button
+              className="w-full text-left px-4 py-3 rounded-md border border-destructive bg-destructive/5 hover-elevate text-sm"
+              data-testid="button-choose-delete-variant"
+              onClick={async () => {
+                const { entry } = deleteModal;
+                if (!entry) return;
+                setDeleteModal((m) => ({ ...m, variantImpactLoading: true, step: "confirm-variant" }));
+                try {
+                  const params = new URLSearchParams({ version: entry.version, exampleName: entry.example });
+                  const res = await fetch(`/api/component-registry/${entry.component}/variant-impact?${params}`);
+                  const data = await res.json();
+                  setDeleteModal((m) => ({ ...m, variantImpact: data, variantImpactLoading: false }));
+                } catch {
+                  setDeleteModal((m) => ({ ...m, variantImpactLoading: false }));
+                  toast({ title: "Failed to load impact info", variant: "destructive" });
+                }
+              }}
+            >
+              <p className="font-medium text-destructive">Delete variant</p>
+              <p className="text-xs text-destructive/80 mt-0.5">
+                Permanently delete the component variant, all its examples, and remove all its uses from pages.
+              </p>
+            </button>
+
+            <div className="flex justify-end pt-1">
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setDeleteModal((m) => ({ ...m, open: false }))}
+                data-testid="button-cancel-delete"
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {deleteModal.step === "confirm-example" && deleteModal.entry && (
+          <div className="space-y-4 pt-1">
+            <button
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover-elevate rounded px-1 py-0.5 -ml-1"
+              onClick={() => setDeleteModal((m) => ({ ...m, step: "choose" }))}
+              data-testid="button-back-to-choose"
+            >
+              <IconArrowLeft className="h-4 w-4" />
+              Back
+            </button>
+            <p className="text-sm">
+              Delete example <span className="font-semibold">"{deleteModal.entry.example}"</span>?
+            </p>
+            <p className="text-sm text-muted-foreground">
+              This action cannot be undone. No existing pages or components will be affected.
+            </p>
+            <div className="flex justify-end gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setDeleteModal((m) => ({ ...m, open: false }))}
+                data-testid="button-cancel-delete-example"
+              >
+                Cancel
+              </Button>
+              <Button
+                size="sm"
+                variant="destructive"
+                disabled={deleteExampleMutation.isPending}
+                onClick={() => {
+                  const { entry } = deleteModal;
+                  if (!entry) return;
+                  deleteExampleMutation.mutate({ component: entry.component, version: entry.version, example: entry.example });
+                }}
+                data-testid="button-confirm-delete-example"
+              >
+                {deleteExampleMutation.isPending ? "Deleting..." : "Delete example"}
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {deleteModal.step === "confirm-variant" && (
+          <div className="space-y-4 pt-1">
+            <button
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover-elevate rounded px-1 py-0.5 -ml-1"
+              onClick={() => setDeleteModal((m) => ({ ...m, step: "choose", variantImpact: null }))}
+              data-testid="button-back-to-choose-variant"
+            >
+              <IconArrowLeft className="h-4 w-4" />
+              Back
+            </button>
+
+            {deleteModal.variantImpactLoading ? (
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-3/4" />
+                <Skeleton className="h-4 w-1/2" />
+                <Skeleton className="h-4 w-2/3" />
+              </div>
+            ) : deleteModal.variantImpact ? (
+              <div className="space-y-3">
+                <p className="text-sm">
+                  This will permanently delete the component{" "}
+                  <span className="font-semibold">{deleteModal.variantImpact.componentName}</span>
+                  {deleteModal.variantImpact.pages.length > 0 && " and all its uses on the following pages:"}
+                </p>
+
+                {deleteModal.variantImpact.pages.length > 0 && (
+                  <div className="rounded-md bg-destructive/5 border border-destructive/20 px-3 py-2 space-y-1.5 max-h-36 overflow-y-auto">
+                    {deleteModal.variantImpact.pages.map((p) => (
+                      <div key={p.path} className="text-xs">
+                        <span className="font-medium font-mono">{p.path}</span>
+                        <span className="text-muted-foreground"> → {p.count} {p.count === 1 ? "use" : "uses"}</span>
+                        {p.sectionIds.length > 0 && (
+                          <div className="text-muted-foreground/70 font-mono pl-2 mt-0.5">
+                            [{p.sectionIds.join(", ")}]
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {deleteModal.variantImpact.examples.length > 0 && (
+                  <div className="space-y-1">
+                    <p className="text-xs font-medium text-muted-foreground">The following examples will be deleted as well:</p>
+                    <ul className="text-xs text-muted-foreground space-y-0.5 pl-3">
+                      {deleteModal.variantImpact.examples.map((ex) => (
+                        <li key={ex}>• {ex}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">Could not load impact info. Proceeding will still delete the variant.</p>
+            )}
+
+            <div className="flex justify-end gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setDeleteModal((m) => ({ ...m, open: false }))}
+                data-testid="button-cancel-delete-variant"
+              >
+                Cancel
+              </Button>
+              <Button
+                size="sm"
+                variant="destructive"
+                disabled={deleteVariantMutation.isPending || deleteModal.variantImpactLoading}
+                onClick={() => {
+                  const { entry, variantImpact } = deleteModal;
+                  if (!entry || !variantImpact) return;
+                  deleteVariantMutation.mutate({ component: entry.component, variantName: variantImpact.variantName });
+                }}
+                data-testid="button-confirm-delete-variant"
+              >
+                {deleteVariantMutation.isPending ? "Deleting..." : "Delete variant"}
+              </Button>
+            </div>
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
+    </>
   );
 }

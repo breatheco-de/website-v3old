@@ -385,6 +385,151 @@ export function saveExample(
   }
 }
 
+function normalizeVariantName(v: string): string {
+  return v.toLowerCase().replace(/[-_\s]/g, "");
+}
+
+function toPascalCase(str: string): string {
+  return str
+    .replace(/[-_](.)/g, (_, c: string) => c.toUpperCase())
+    .replace(/^(.)/, (c: string) => c.toUpperCase());
+}
+
+function resolveVariantTsxPath(componentType: string, variantName: string): string {
+  const typePascal = toPascalCase(componentType);
+  const variantPascal = toPascalCase(variantName);
+  const fileName = `${typePascal}${variantPascal}.tsx`;
+  return path.join(process.cwd(), "client", "src", "components", componentType, "variants", fileName);
+}
+
+export function getVariantByExample(
+  componentType: string,
+  version: string,
+  exampleName: string
+): string | null {
+  const examples = loadExamples(componentType, version);
+  const found = examples.find((e) => e.name === exampleName);
+  if (found?.variant) return found.variant;
+
+  const allVersions = listVersions(componentType);
+  for (const v of allVersions) {
+    if (v === version) continue;
+    const vExamples = loadExamples(componentType, v);
+    const vFound = vExamples.find((e) => e.name === exampleName);
+    if (vFound?.variant) return vFound.variant;
+  }
+  return null;
+}
+
+export function getVariantExamples(
+  componentType: string,
+  variantName: string
+): Array<{ version: string; name: string }> {
+  const result: Array<{ version: string; name: string }> = [];
+  const versions = listVersions(componentType);
+  const normalizedTarget = normalizeVariantName(variantName);
+
+  for (const v of versions) {
+    const examples = loadExamples(componentType, v);
+    for (const ex of examples) {
+      if (ex.variant && normalizeVariantName(ex.variant) === normalizedTarget) {
+        result.push({ version: v, name: ex.name });
+      }
+    }
+  }
+  return result;
+}
+
+export function deleteExample(
+  componentType: string,
+  version: string,
+  exampleName: string
+): { success: boolean; error?: string } {
+  try {
+    const examplesPath = path.join(REGISTRY_PATH, componentType, version, "examples");
+    if (!fs.existsSync(examplesPath)) {
+      return { success: false, error: `Examples path not found for ${componentType}/${version}` };
+    }
+
+    const exampleFiles = fs.readdirSync(examplesPath).filter(
+      (file) => file.endsWith(".yml") || file.endsWith(".yaml")
+    );
+
+    let targetFile: string | null = null;
+    for (const file of exampleFiles) {
+      const filePath = path.join(examplesPath, file);
+      const content = fs.readFileSync(filePath, "utf8");
+      const data = yaml.load(content) as { name?: string };
+      if (data.name === exampleName) {
+        targetFile = file;
+        break;
+      }
+    }
+
+    if (!targetFile) {
+      return { success: false, error: `Example "${exampleName}" not found` };
+    }
+
+    fs.unlinkSync(path.join(examplesPath, targetFile));
+    return { success: true };
+  } catch (error) {
+    console.error(`Error deleting example ${exampleName} for ${componentType}/${version}:`, error);
+    return { success: false, error: String(error) };
+  }
+}
+
+function deleteVariantExamples(
+  componentType: string,
+  variantName: string
+): { deleted: string[]; errors: string[] } {
+  const deleted: string[] = [];
+  const errors: string[] = [];
+  const versions = listVersions(componentType);
+  const normalizedTarget = normalizeVariantName(variantName);
+
+  for (const v of versions) {
+    const examplesPath = path.join(REGISTRY_PATH, componentType, v, "examples");
+    if (!fs.existsSync(examplesPath)) continue;
+
+    const exampleFiles = fs.readdirSync(examplesPath).filter(
+      (file) => file.endsWith(".yml") || file.endsWith(".yaml")
+    );
+
+    for (const file of exampleFiles) {
+      const filePath = path.join(examplesPath, file);
+      try {
+        const content = fs.readFileSync(filePath, "utf8");
+        const data = yaml.load(content) as { name?: string; variant?: string; yaml?: string };
+        const exVariant = data.variant || extractVariantFromYaml(data.yaml || "");
+        if (exVariant && normalizeVariantName(exVariant) === normalizedTarget) {
+          fs.unlinkSync(filePath);
+          deleted.push(data.name || file);
+        }
+      } catch (e) {
+        errors.push(`${v}/${file}: ${String(e)}`);
+      }
+    }
+  }
+  return { deleted, errors };
+}
+
+export function deleteVariant(
+  componentType: string,
+  variantName: string
+): { success: boolean; deletedExamples: string[]; error?: string } {
+  try {
+    const tsxPath = resolveVariantTsxPath(componentType, variantName);
+    if (fs.existsSync(tsxPath)) {
+      fs.unlinkSync(tsxPath);
+    }
+    const { deleted } = deleteVariantExamples(componentType, variantName);
+    return { success: true, deletedExamples: deleted };
+  } catch (error) {
+    console.error(`Error deleting variant ${variantName} for ${componentType}:`, error);
+    return { success: false, deletedExamples: [], error: String(error) };
+  }
+}
+
 let _sectionDefaultsCache: Record<string, Record<string, unknown>> | null = null;
 
 export function applyComponentSectionDefaults(sections: unknown[]): void {

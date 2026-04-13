@@ -47,6 +47,10 @@ import {
   saveExample,
   loadAllFieldEditors,
   applyComponentSectionDefaults,
+  getVariantByExample,
+  getVariantExamples,
+  deleteExample,
+  deleteVariant,
 } from "./component-registry";
 import {
   editContent,
@@ -6388,6 +6392,85 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
       res.json({ success: true });
     },
+  );
+
+  app.get(
+    "/api/component-registry/:componentType/variant-impact",
+    (req, res) => {
+      const { componentType } = req.params;
+      const { version, exampleName } = req.query as { version?: string; exampleName?: string };
+
+      if (!version || !exampleName) {
+        res.status(400).json({ error: "version and exampleName are required" });
+        return;
+      }
+
+      const variantName = getVariantByExample(componentType, version, exampleName);
+      if (!variantName) {
+        res.status(404).json({ error: `Could not determine variant for example "${exampleName}"` });
+        return;
+      }
+
+      const toPascal = (s: string) =>
+        s.replace(/[-_](.)/g, (_, c: string) => c.toUpperCase()).replace(/^(.)/, (c: string) => c.toUpperCase());
+      const componentName = `${toPascal(componentType)}${toPascal(variantName)}`;
+
+      const examples = getVariantExamples(componentType, variantName).map((e) => e.name);
+
+      const pagesRaw = contentIndex.removeAllVariantSectionsFromPages(componentType, variantName, true);
+      const pagesMap = new Map<string, { count: number; sectionIds: string[] }>();
+      for (const p of pagesRaw) {
+        const key = `/${p.locale}/${p.slug}`;
+        const existing = pagesMap.get(key);
+        if (existing) {
+          existing.count += p.removedCount;
+          existing.sectionIds.push(...p.removedSectionIds);
+        } else {
+          pagesMap.set(key, { count: p.removedCount, sectionIds: p.removedSectionIds });
+        }
+      }
+      const pages = Array.from(pagesMap.entries()).map(([path, data]) => ({
+        path,
+        count: data.count,
+        sectionIds: data.sectionIds,
+      }));
+
+      res.json({ variantName, componentName, examples, pages });
+    }
+  );
+
+  app.delete(
+    "/api/component-registry/:componentType/versions/:version/examples/:exampleName",
+    (req, res) => {
+      const { componentType, version, exampleName } = req.params;
+      const result = deleteExample(componentType, version, decodeURIComponent(exampleName));
+      if (!result.success) {
+        res.status(400).json({ error: result.error });
+        return;
+      }
+      res.json({ success: true });
+    }
+  );
+
+  app.delete(
+    "/api/component-registry/:componentType/variants/:variantName",
+    (req, res) => {
+      const { componentType, variantName } = req.params;
+
+      const variantResult = deleteVariant(componentType, decodeURIComponent(variantName));
+      if (!variantResult.success) {
+        res.status(400).json({ error: variantResult.error });
+        return;
+      }
+
+      const pagesAffected = contentIndex.removeAllVariantSectionsFromPages(componentType, decodeURIComponent(variantName));
+
+      res.json({
+        success: true,
+        deletedExamples: variantResult.deletedExamples,
+        pagesAffected: pagesAffected.length,
+      });
+    }
   );
 
   app.get("/api/content/folder-files", (req, res) => {

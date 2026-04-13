@@ -3,7 +3,7 @@ import { UniversalImage } from "@/components/UniversalImage";
 import { StatCard, type StatCardProps } from "@/components/StatCard";
 import { SyllabusModuleCard, type SyllabusModuleCardProps } from "@/components/syllabus/SyllabusModuleCard";
 import { TechMolecule } from "@/components/TechMolecule";
-import { CertificateDisplay } from "@/components/CertificateDisplay";
+import { CertificateDisplay } from "@/components/certificate/CertificateDisplay";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label";
 import SolidCard from "@/components/SolidCard";
 import { DotsIndicator } from "@/components/DotsIndicator";
 import StatsCard from "@/components/StatsCard";
-import { Banner } from "@/components/Banner";
+import { Banner } from "@/components/banner/variants/BannerDefault";
 import { SimpleLink } from "@/components/menus/SimpleLink";
 import type { ImageRef } from "@shared/schema";
 import {
