@@ -113,3 +113,5 @@ export function ProgramsListSection({ data }: ProgramsListSectionProps) {
     </section>
   );
 }
+
+export default ProgramsListSection;

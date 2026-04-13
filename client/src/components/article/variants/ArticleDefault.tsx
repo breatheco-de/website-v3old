@@ -403,3 +403,5 @@ function extractTextFromChildren(children: ReactNode): string {
   }
   return "";
 }
+
+export default Article;

@@ -540,3 +540,5 @@ export function FaqEditor({ data }: FaqEditorProps) {
     </section>
   );
 }
+
+export default FaqEditor;

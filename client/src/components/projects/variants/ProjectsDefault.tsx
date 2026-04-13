@@ -207,3 +207,5 @@ export function ProjectsSection({ data }: ProjectsSectionProps) {
     </section>
   );
 }
+
+export default ProjectsSection;

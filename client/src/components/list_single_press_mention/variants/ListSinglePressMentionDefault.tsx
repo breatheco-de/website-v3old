@@ -99,3 +99,5 @@ export function ListSinglePressMention({ data }: ListSinglePressMentionProps) {
     </section>
   );
 }
+
+export default ListSinglePressMention;

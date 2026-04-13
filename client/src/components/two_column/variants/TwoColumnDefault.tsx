@@ -592,3 +592,5 @@ export function TwoColumn({ data }: TwoColumnProps) {
     </section>
   );
 }
+
+export default TwoColumn;

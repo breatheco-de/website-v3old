@@ -307,3 +307,5 @@ export function HumanAndAIDuo({ data }: HumanAndAIDuoProps) {
 }
 
 export type { HumanAndAIDuoData };
+
+export default HumanAndAIDuo;

@@ -202,3 +202,5 @@ export function CommunitySupport({ data }: CommunitySupportProps) {
 }
 
 export type { CommunitySupportData };
+
+export default CommunitySupport;

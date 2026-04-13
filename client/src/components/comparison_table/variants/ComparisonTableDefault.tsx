@@ -289,3 +289,5 @@ export function ComparisonTable({ data }: ComparisonTableProps) {
     </section>
   );
 }
+
+export default ComparisonTable;

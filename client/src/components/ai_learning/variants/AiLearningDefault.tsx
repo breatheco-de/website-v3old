@@ -410,3 +410,5 @@ export function AILearningSection({ data }: AILearningSectionProps) {
   
   return null;
 }
+
+export default AILearningSection;

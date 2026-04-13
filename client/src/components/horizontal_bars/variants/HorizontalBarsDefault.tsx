@@ -164,3 +164,5 @@ export function HorizontalBars({ data }: HorizontalBarsProps) {
     </section>
   );
 }
+
+export default HorizontalBars;

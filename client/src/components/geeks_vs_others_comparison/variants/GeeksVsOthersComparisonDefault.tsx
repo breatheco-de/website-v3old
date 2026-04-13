@@ -226,3 +226,4 @@ export function GeeksVsOthersComparison({ data }: ComparisonTableProps) {
     </section>
   );
 }
+export default GeeksVsOthersComparison;

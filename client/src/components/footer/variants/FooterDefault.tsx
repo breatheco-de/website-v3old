@@ -21,3 +21,5 @@ export function FooterSection({ data }: FooterSectionProps) {
     </footer>
   );
 }
+
+export default FooterSection;

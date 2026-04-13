@@ -262,3 +262,5 @@ export function CertificateSection({ data }: CertificateSectionProps) {
     </section>
   );
 }
+
+export default CertificateSection;

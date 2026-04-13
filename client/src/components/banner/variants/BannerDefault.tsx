@@ -180,3 +180,5 @@ export function Banner({ data }: BannerProps) {
     </section>
   );
 }
+
+export default Banner;

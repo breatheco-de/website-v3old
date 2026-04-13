@@ -72,3 +72,5 @@ export function About({ data }: AboutProps) {
     </section>
   );
 }
+
+export default About;

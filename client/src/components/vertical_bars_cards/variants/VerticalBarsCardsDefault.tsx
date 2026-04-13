@@ -335,3 +335,5 @@ export function VerticalBarsCards({ data }: VerticalBarsCardsProps) {
     </section>
   );
 }
+
+export default VerticalBarsCards;

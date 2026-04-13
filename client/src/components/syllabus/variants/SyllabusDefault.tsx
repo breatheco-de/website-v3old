@@ -707,3 +707,5 @@ export function SyllabusSection({ data }: SyllabusSectionProps) {
   // Default accordion variant
   return <SyllabusDefault data={data as SyllabusDefault} />;
 }
+
+export default SyllabusSection;

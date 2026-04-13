@@ -231,3 +231,5 @@ export function ProjectShowcase({ data }: ProjectShowcaseProps) {
     />
   );
 }
+
+export default ProjectShowcase;
