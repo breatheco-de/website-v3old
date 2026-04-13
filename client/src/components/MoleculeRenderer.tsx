@@ -1,7 +1,7 @@
 import { UniversalVideo, type VideoConfig } from "@/components/UniversalVideo";
 import { UniversalImage } from "@/components/UniversalImage";
 import { StatCard, type StatCardProps } from "@/components/StatCard";
-import { SyllabusModuleCard, type SyllabusModuleCardProps } from "@/components/SyllabusModuleCard";
+import { SyllabusModuleCard, type SyllabusModuleCardProps } from "@/components/syllabus/SyllabusModuleCard";
 import { TechMolecule } from "@/components/TechMolecule";
 import { CertificateDisplay } from "@/components/CertificateDisplay";
 import { Button } from "@/components/ui/button";
