@@ -7,7 +7,7 @@ interface MentorshipSectionProps {
   data: MentorshipSectionType;
 }
 
-export function MentorshipSection({ data }: MentorshipSectionProps) {
+export default function MentorshipDefault({ data }: MentorshipSectionProps) {
   const getIcon = (iconName: string) => {
     const icons = TablerIcons as unknown as Record<string, ComponentType<{ size?: number; className?: string }>>;
     const IconComponent = icons[`Icon${iconName}`];
