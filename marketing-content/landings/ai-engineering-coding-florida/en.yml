@@ -20,35 +20,35 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Build with AI. Get Hired in Florida.
+    title: Build with AI.
     brand_mark:
       prefix: Break Your Career
       highlight: Ceiling.
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\"><span>Become an AI Engineer: the fastest-growing job of 2026. 1.3M new roles. 42× growth since 2023. In 24 weeks, that's you — landing roles in Miami, Orlando, and Tampa paying $95K–$135K+.</span></span>"
+    description: "<span style=\"font-size: 1.125rem;\">AI Engineering is the fastest-growing job of 2026. 1.3M new roles. 42× growth since 2023. Build the skills with our intensive 24-week program and land roles paying $95K–$135K+ in Florida, one of the fastest-growing AI job markets in the US.</span>"
     bullets:
-      - text: "Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
-      - text: Build a complete AI-native system across 10 milestones
+      - text: Engineer a complete AI-native business across 10 real-world milestones
       - text: Unlimited 1:1 mentorship and career support that doesn't stop at graduation
+      - text: "Job Guarantee option: get hired within 9 months or we'll refund your tuition"
     image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
           visible: true
           required: true
-          placeholder: Email Address
+          placeholder: Email address
         first_name:
           visible: true
           required: true
-          placeholder: First Name
+          placeholder: First name
         last_name:
           visible: true
           required: true
-          placeholder: Last Name
+          placeholder: Last name
         phone:
           visible: true
           required: true
@@ -57,20 +57,20 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
-        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe at any time.
+        sms_text: I agree to receive SMS messages about workshops, events, courses and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4-6 messages per month. We will never share your contact information.
         sms_usa_only: true
       show_terms: true
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
-    form_card_title: Get the Full AI Engineering Program Details
-    form_card_subtitle: "Takes 2 minutes. Our admissions team will send you the complete program overview: curriculum, pricing, and financing options."
+    form_card_title: Get the Full AI Engineering Program Overview
+    form_card_subtitle: "Fill in your details and our admissions team will send you everything you need: curriculum, pricing, and financing options. It only takes 2 minutes."
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: true
     awards_marquee:
