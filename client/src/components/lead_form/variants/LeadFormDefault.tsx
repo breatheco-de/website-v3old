@@ -286,6 +286,7 @@ function ConsentSection({ consent, form, locale, formOptions, sessionLocation }:
 }
 
 export default function LeadForm({ data, termsStyle }: LeadFormProps) {
+  const landingLocations: string[] | undefined = undefined;
   const { slug, contentType } = useSectionContext();
   const programContext = contentType === "program" ? slug : undefined;
   const { t, i18n } = useTranslation();
@@ -312,15 +313,26 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
   const consent = data.consent || {};
   const showTerms = data.show_terms !== false;
 
-  const hasLandingLocations = false;
-  const singleLandingLocation: string | null = null;
-  const multipleLandingLocations: string[] | null = null;
-  const singleLandingRegion: string | null = null;
-  const multipleLandingRegions: string[] | null = null;
+  const hasLandingLocations = landingLocations && landingLocations.length > 0;
+  const singleLandingLocation = hasLandingLocations && landingLocations.length === 1 ? landingLocations[0] : null;
+  const multipleLandingLocations = hasLandingLocations && landingLocations.length > 1 ? landingLocations : null;
 
   const { data: formOptions } = useQuery<FormOptions>({
     queryKey: ["/api/form-options", locale],
   });
+
+  const landingRegions = useMemo(() => {
+    if (!hasLandingLocations || !formOptions?.locations) return null;
+    const regionSlugs = new Set<string>();
+    for (const locSlug of landingLocations!) {
+      const found = formOptions.locations.find(l => l.slug === locSlug);
+      if (found) regionSlugs.add(found.region);
+    }
+    return regionSlugs.size > 0 ? Array.from(regionSlugs) : null;
+  }, [hasLandingLocations, landingLocations, formOptions?.locations]);
+
+  const singleLandingRegion = landingRegions && landingRegions.length === 1 ? landingRegions[0] : null;
+  const multipleLandingRegions = landingRegions && landingRegions.length > 1 ? landingRegions : null;
 
   const getFieldConfig = (fieldName: keyof NonNullable<LeadFormData["fields"]>): FieldConfig => {
     const defaults: Record<string, FieldConfig> = {

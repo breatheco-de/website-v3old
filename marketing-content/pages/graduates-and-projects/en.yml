@@ -70,8 +70,8 @@ sections:
           default: null
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
-  - type: project_showcase
-    section_id: project_showcase-upoo68
+  - type: projects_showcase
+    section_id: projects_showcase-upoo68
     version: "1.0"
     items:
       - project_title: Raspberry Sky
