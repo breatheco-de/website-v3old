@@ -1546,26 +1546,28 @@ export default function ThemeEditor() {
                 <p className="text-sm">
                   This will permanently delete the component{" "}
                   <span className="font-semibold">{deleteModal.variantImpact.componentName}</span>
-                  {deleteModal.variantImpact.pages.length > 0 && " and all its uses on the following pages:"}
                 </p>
-                <p className="text-xs text-muted-foreground font-mono bg-muted/50 rounded px-2 py-1">
+                <p className="text-xs text-muted-foreground font-mono bg-muted/50 rounded px-2 py-1 break-all">
                   {deleteModal.variantImpact.tsxPath}
                 </p>
 
                 {deleteModal.variantImpact.pages.length > 0 && (
-                  <div className="rounded-md bg-destructive/5 border border-destructive/20 px-3 py-2 space-y-1.5 max-h-36 overflow-y-auto">
-                    {deleteModal.variantImpact.pages.map((p) => (
-                      <div key={p.path} className="text-xs">
-                        <span className="font-medium font-mono">{p.path}</span>
-                        <span className="text-muted-foreground"> → {p.count} {p.count === 1 ? "use" : "uses"}</span>
-                        {p.sectionIds.length > 0 && (
-                          <div className="text-muted-foreground/70 font-mono pl-2 mt-0.5">
-                            [{p.sectionIds.join(", ")}]
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
+                  <>
+                    <p className="text-sm">...and all its uses on the following pages:</p>
+                    <div className="rounded-md bg-destructive/5 border border-destructive/20 px-3 py-2 space-y-1.5 max-h-36 overflow-y-auto">
+                      {deleteModal.variantImpact.pages.map((p) => (
+                        <div key={p.path} className="text-xs">
+                          <span className="font-medium font-mono">{p.path}</span>
+                          <span className="text-muted-foreground"> → {p.count} {p.count === 1 ? "use" : "uses"}</span>
+                          {p.sectionIds.length > 0 && (
+                            <div className="text-muted-foreground/70 font-mono pl-2 mt-0.5">
+                              [{p.sectionIds.join(", ")}]
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </>
                 )}
 
                 {deleteModal.variantImpact.examples.length > 0 && (
