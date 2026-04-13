@@ -542,11 +542,6 @@ export function deleteVariant(
         if (fs.existsSync(componentDir) && fs.readdirSync(componentDir).length === 0) {
           fs.rmSync(componentDir, { recursive: true, force: true });
         }
-        // Remove the entire registry folder for this component type
-        const registryDir = path.join(REGISTRY_PATH, componentType);
-        if (fs.existsSync(registryDir)) {
-          fs.rmSync(registryDir, { recursive: true, force: true });
-        }
       }
     }
 
