@@ -1477,12 +1477,36 @@ class ContentIndex {
       removedSectionIds: string[];
     }> = [];
 
-    const processFile = (
-      absFilePath: string,
-      entryContentType: string,
-      slug: string,
-      fileKey: string
-    ) => {
+    if (dryRun) {
+      // For impact preview: use loadMergedContent per locale so inherited _common.yml
+      // sections are reported under real page paths (/en/slug, /es/slug) not /_common/slug
+      for (const entry of this.entries) {
+        for (const locale of entry.locales) {
+          const { data } = this.loadMergedContent(entry.contentType, entry.slug, locale);
+          if (!data || !Array.isArray(data.sections)) continue;
+          const sections = data.sections as Record<string, unknown>[];
+          const matching = sections.filter((s) => {
+            const sType = s.type as string | undefined;
+            const sVariant = s.variant as string | undefined;
+            return sType === componentType && sVariant && normalizeV(sVariant) === normalizedTarget;
+          });
+          if (matching.length === 0) continue;
+          results.push({
+            contentType: entry.contentType,
+            slug: entry.slug,
+            locale,
+            filePath: `${entry.directory}/${locale}.yml`,
+            removedCount: matching.length,
+            removedSectionIds: matching.map((s) => (s.section_id as string) || "").filter(Boolean),
+          });
+        }
+      }
+      return results;
+    }
+
+    // Actual deletion: scan and modify underlying files directly
+    // (locale files + _common.yml, since _common is not in entry.locales)
+    const processFile = (absFilePath: string, entryContentType: string, slug: string) => {
       if (!fs.existsSync(absFilePath)) return;
       try {
         const raw = fs.readFileSync(absFilePath, "utf-8");
@@ -1497,12 +1521,7 @@ class ContentIndex {
         for (const section of sections) {
           const sType = section.type as string | undefined;
           const sVariant = section.variant as string | undefined;
-
-          if (
-            sType === componentType &&
-            sVariant &&
-            normalizeV(sVariant) === normalizedTarget
-          ) {
+          if (sType === componentType && sVariant && normalizeV(sVariant) === normalizedTarget) {
             removedIds.push((section.section_id as string) || "");
           } else {
             kept.push(section);
@@ -1514,46 +1533,27 @@ class ContentIndex {
         results.push({
           contentType: entryContentType,
           slug,
-          locale: fileKey,
+          locale: path.basename(absFilePath).replace(/\.(yml|yaml)$/, ""),
           filePath: absFilePath,
           removedCount: removedIds.length,
           removedSectionIds: removedIds.filter(Boolean),
         });
 
-        if (!dryRun) {
-          parsed.sections = kept;
-          const { escaped: escapedOut, map: mapOut } = escapeObjectVars(parsed);
-          const dumped = yaml.dump(escapedOut, { lineWidth: 120, noRefs: true, sortKeys: false });
-          const yamlStr = unescapeYamlDump(dumped, mapOut);
-          fs.writeFileSync(absFilePath, yamlStr, "utf-8");
-        }
+        parsed.sections = kept;
+        const { escaped: escapedOut, map: mapOut } = escapeObjectVars(parsed);
+        const dumped = yaml.dump(escapedOut, { lineWidth: 120, noRefs: true, sortKeys: false });
+        fs.writeFileSync(absFilePath, unescapeYamlDump(dumped, mapOut), "utf-8");
       } catch (e) {
         console.error(`Error processing ${absFilePath}:`, e);
       }
     };
 
     for (const entry of this.entries) {
-      const entryContentType = entry.contentType.replace(/s$/, "");
       const entryDir = path.join(process.cwd(), entry.directory);
-
-      // Process locale-specific files (en.yml, es.yml, etc.)
       for (const locale of entry.locales) {
-        processFile(
-          path.join(entryDir, `${locale}.yml`),
-          entryContentType,
-          entry.slug,
-          locale
-        );
+        processFile(path.join(entryDir, `${locale}.yml`), entry.contentType, entry.slug);
       }
-
-      // Also process _common.yml — sections here are inherited by all locales
-      // and must be cleaned too to avoid phantom variant uses
-      processFile(
-        path.join(entryDir, "_common.yml"),
-        entryContentType,
-        entry.slug,
-        "_common"
-      );
+      processFile(path.join(entryDir, "_common.yml"), entry.contentType, entry.slug);
     }
 
     return results;

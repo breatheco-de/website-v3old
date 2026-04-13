@@ -86,6 +86,7 @@ interface ExampleItem {
 interface VariantImpact {
   variantName: string;
   componentName: string;
+  tsxPath: string;
   examples: string[];
   pages: Array<{ path: string; count: number; sectionIds: string[] }>;
 }
@@ -1452,7 +1453,7 @@ export default function ThemeEditor() {
                   const data = await res.json() as VariantImpact;
                   setDeleteModal((m) => ({ ...m, variantImpact: data, variantImpactLoading: false }));
                 } catch {
-                  setDeleteModal((m) => ({ ...m, variantImpactLoading: false }));
+                  setDeleteModal((m) => ({ ...m, variantImpactLoading: false, step: "choose" }));
                   toast({ title: "Failed to load impact info", variant: "destructive" });
                 }
               }}
@@ -1542,6 +1543,9 @@ export default function ThemeEditor() {
                   <span className="font-semibold">{deleteModal.variantImpact.componentName}</span>
                   {deleteModal.variantImpact.pages.length > 0 && " and all its uses on the following pages:"}
                 </p>
+                <p className="text-xs text-muted-foreground font-mono bg-muted/50 rounded px-2 py-1">
+                  {deleteModal.variantImpact.tsxPath}
+                </p>
 
                 {deleteModal.variantImpact.pages.length > 0 && (
                   <div className="rounded-md bg-destructive/5 border border-destructive/20 px-3 py-2 space-y-1.5 max-h-36 overflow-y-auto">
@@ -1570,9 +1574,7 @@ export default function ThemeEditor() {
                   </div>
                 )}
               </div>
-            ) : (
-              <p className="text-sm text-muted-foreground">Could not load impact info. Proceeding will still delete the variant.</p>
-            )}
+            ) : null}
 
             <div className="flex justify-end gap-2">
               <Button

@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
+import { escapeTemplateVars } from "../shared/templateVars";
 
 const REGISTRY_PATH = path.join(process.cwd(), "marketing-content", "component-registry");
 
@@ -109,7 +110,8 @@ export function loadSchema(componentType: string, version: string): ComponentSch
 
 function extractVariantFromYaml(yamlContent: string): string | undefined {
   try {
-    const parsed = yaml.load(yamlContent);
+    const { escaped } = escapeTemplateVars(yamlContent);
+    const parsed = yaml.load(escaped);
     if (Array.isArray(parsed) && parsed.length > 0 && parsed[0]?.variant) {
       return parsed[0].variant as string;
     }
@@ -134,7 +136,8 @@ export function loadExamples(componentType: string, version: string): ComponentE
     return exampleFiles.map(file => {
       const filePath = path.join(examplesPath, file);
       const content = fs.readFileSync(filePath, "utf8");
-      const data = yaml.load(content) as { name?: string; description?: string; yaml?: string; variant?: string };
+      const { escaped } = escapeTemplateVars(content);
+      const data = yaml.load(escaped) as { name?: string; description?: string; yaml?: string; variant?: string };
       
       const yamlContent = data.yaml || content;
       const inferredVariant = extractVariantFromYaml(yamlContent);
@@ -402,61 +405,21 @@ function resolveVariantTsxPath(componentType: string, variantName: string): stri
   return path.join(process.cwd(), "client", "src", "components", componentType, "variants", fileName);
 }
 
-function extractVariantFromRawFile(filePath: string, exampleName: string): string | null {
-  try {
-    const raw = fs.readFileSync(filePath, "utf-8");
-    const data = yaml.load(raw) as { name?: string; yaml?: string; variant?: string } | null;
-    const stem = path.basename(filePath).replace(/\.(yml|yaml)$/, "");
-    const nameMatch = data?.name === exampleName || stem === exampleName;
-    if (!nameMatch) return null;
-    if (data?.variant) return data.variant;
-    const yamlBlock = data?.yaml || raw;
-    // Try structured parse first (handles arrays like - type: hero / variant: credibility)
-    const inferred = extractVariantFromYaml(yamlBlock);
-    if (inferred) return inferred;
-    // Regex fallback for template-var-laden YAML that can't be parsed
-    const m = yamlBlock.match(/^\s*variant:\s*["']?([^"'\n]+)["']?\s*$/m);
-    if (m) return m[1].trim();
-  } catch {
-    // ignore
-  }
-  return null;
-}
-
 export function getVariantByExample(
   componentType: string,
   version: string,
   exampleName: string
 ): string | null {
-  // Try via loadExamples (already applies extractVariantFromYaml)
+  // loadExamples already applies escapeTemplateVars + extractVariantFromYaml
   const examples = loadExamples(componentType, version);
   const found = examples.find((e) => e.name === exampleName);
   if (found?.variant) return found.variant;
 
-  // Fallback: scan raw files for this version (handles YAML parse failures from template vars)
-  const vPath = path.join(REGISTRY_PATH, componentType, version, "examples");
-  if (fs.existsSync(vPath)) {
-    for (const file of fs.readdirSync(vPath).filter(f => f.endsWith(".yml") || f.endsWith(".yaml"))) {
-      const v = extractVariantFromRawFile(path.join(vPath, file), exampleName);
-      if (v) return v;
-    }
-  }
-
-  // Search other versions
-  const allVersions = listVersions(componentType);
-  for (const v of allVersions) {
+  // Search other versions as fallback
+  for (const v of listVersions(componentType)) {
     if (v === version) continue;
-    const vExamples = loadExamples(componentType, v);
-    const vFound = vExamples.find((e) => e.name === exampleName);
+    const vFound = loadExamples(componentType, v).find((e) => e.name === exampleName);
     if (vFound?.variant) return vFound.variant;
-    // Raw fallback for other versions too
-    const ovPath = path.join(REGISTRY_PATH, componentType, v, "examples");
-    if (fs.existsSync(ovPath)) {
-      for (const file of fs.readdirSync(ovPath).filter(f => f.endsWith(".yml") || f.endsWith(".yaml"))) {
-        const found2 = extractVariantFromRawFile(path.join(ovPath, file), exampleName);
-        if (found2) return found2;
-      }
-    }
   }
   return null;
 }

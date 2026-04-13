@@ -6414,6 +6414,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const toPascal = (s: string) =>
         s.replace(/[-_](.)/g, (_, c: string) => c.toUpperCase()).replace(/^(.)/, (c: string) => c.toUpperCase());
       const componentName = `${toPascal(componentType)}${toPascal(variantName)}`;
+      const tsxPath = `client/src/components/${componentType}/variants/${componentName}.tsx`;
 
       const examples = getVariantExamples(componentType, variantName).map((e) => e.name);
 
@@ -6435,7 +6436,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         sectionIds: data.sectionIds,
       }));
 
-      res.json({ variantName, componentName, examples, pages });
+      res.json({ variantName, componentName, tsxPath, examples, pages });
     }
   );
 
