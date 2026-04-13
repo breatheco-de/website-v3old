@@ -127,7 +127,7 @@ sections:
     marginY:
       desktop: none
     maxWidth:
-      desktop: 6xl
+      desktop: full
     paddingY:
       desktop: md none
   - type: features_grid
