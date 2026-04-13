@@ -416,7 +416,7 @@ export function getVariantByExample(
   // If the example exists in the requested version, use that result only.
   // Don't fall back to other versions — this is a destructive action and
   // picking a different version's variant could delete the wrong thing.
-  if (found) return found.variant ?? null;
+  if (found) return found.variant ?? "default";
 
   // Example not found in specified version — search other versions
   for (const v of listVersions(componentType)) {
@@ -438,7 +438,8 @@ export function getVariantExamples(
   for (const v of versions) {
     const examples = loadExamples(componentType, v);
     for (const ex of examples) {
-      if (ex.variant && normalizeVariantName(ex.variant) === normalizedTarget) {
+      const exVariant = ex.variant || "default";
+      if (normalizeVariantName(exVariant) === normalizedTarget) {
         result.push({ version: v, name: ex.name });
       }
     }
@@ -506,8 +507,8 @@ function deleteVariantExamples(
       try {
         const content = fs.readFileSync(filePath, "utf8");
         const data = yaml.load(content) as { name?: string; variant?: string; yaml?: string };
-        const exVariant = data.variant || extractVariantFromYaml(data.yaml || "");
-        if (exVariant && normalizeVariantName(exVariant) === normalizedTarget) {
+        const exVariant = data.variant || extractVariantFromYaml(data.yaml || "") || "default";
+        if (normalizeVariantName(exVariant) === normalizedTarget) {
           fs.unlinkSync(filePath);
           deleted.push(data.name || file);
         }
@@ -529,6 +530,26 @@ export function deleteVariant(
       fs.unlinkSync(tsxPath);
     }
     const { deleted } = deleteVariantExamples(componentType, variantName);
+
+    // If no variant TSX files remain, clean up the orphaned directories
+    const variantsDir = path.join(process.cwd(), "client", "src", "components", componentType, "variants");
+    if (fs.existsSync(variantsDir)) {
+      const remaining = fs.readdirSync(variantsDir).filter((f) => f.endsWith(".tsx") || f.endsWith(".ts"));
+      if (remaining.length === 0) {
+        fs.rmSync(variantsDir, { recursive: true, force: true });
+        // Also remove the parent component folder if it's now empty
+        const componentDir = path.join(process.cwd(), "client", "src", "components", componentType);
+        if (fs.existsSync(componentDir) && fs.readdirSync(componentDir).length === 0) {
+          fs.rmSync(componentDir, { recursive: true, force: true });
+        }
+        // Remove the entire registry folder for this component type
+        const registryDir = path.join(REGISTRY_PATH, componentType);
+        if (fs.existsSync(registryDir)) {
+          fs.rmSync(registryDir, { recursive: true, force: true });
+        }
+      }
+    }
+
     return { success: true, deletedExamples: deleted };
   } catch (error) {
     console.error(`Error deleting variant ${variantName} for ${componentType}:`, error);

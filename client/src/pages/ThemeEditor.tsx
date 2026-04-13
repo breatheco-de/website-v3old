@@ -1402,7 +1402,7 @@ export default function ThemeEditor() {
         if (!open) setDeleteModal((m) => ({ ...m, open: false }));
       }}
     >
-      <DialogContent className="max-w-sm" data-testid="dialog-delete-example">
+      <DialogContent className="max-w-lg" data-testid="dialog-delete-example">
         <DialogHeader>
           <DialogTitle>
             {deleteModal.step === "choose" && "Remove from preview"}
