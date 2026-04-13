@@ -791,9 +791,14 @@ export default function ThemeEditor() {
       await apiRequest("DELETE", `/api/component-registry/${component}/variants/${encodeURIComponent(variantName)}`);
     },
     onSuccess: () => {
-      const { entry, entryIdx } = deleteModal;
+      const { entry, variantImpact } = deleteModal;
       if (entry) {
-        const updated = confirmedExamples.filter((_, i) => i !== entryIdx);
+        // Remove all preview entries for this variant (not just the clicked one),
+        // since the variant and all its examples are gone
+        const deletedExamples = new Set(variantImpact?.examples ?? []);
+        const updated = confirmedExamples.filter(
+          (ex) => ex.component !== entry.component || !deletedExamples.has(ex.example)
+        );
         setConfirmedExamples(updated);
         savePreviewExamples(updated);
       }

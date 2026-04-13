@@ -413,9 +413,12 @@ export function getVariantByExample(
   // loadExamples already applies escapeTemplateVars + extractVariantFromYaml
   const examples = loadExamples(componentType, version);
   const found = examples.find((e) => e.name === exampleName);
-  if (found?.variant) return found.variant;
+  // If the example exists in the requested version, use that result only.
+  // Don't fall back to other versions — this is a destructive action and
+  // picking a different version's variant could delete the wrong thing.
+  if (found) return found.variant ?? null;
 
-  // Search other versions as fallback
+  // Example not found in specified version — search other versions
   for (const v of listVersions(componentType)) {
     if (v === version) continue;
     const vFound = loadExamples(componentType, v).find((e) => e.name === exampleName);
