@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import * as TablerIcons from "@tabler/icons-react";
 import type { TwoColumnSection as TwoColumnSectionType, TwoColumnColumn, BenefitItem } from "@shared/schema";
 import type { ComponentType, CSSProperties } from "react";
-import { UniversalVideo } from "./UniversalVideo";
+import { UniversalVideo } from "@/components/UniversalVideo";
 import { useInternalNav } from "@/hooks/useInternalNav";
 
 export type { TwoColumnSectionType };

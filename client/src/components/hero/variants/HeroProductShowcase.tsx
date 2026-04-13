@@ -10,8 +10,8 @@ import { UniversalImage } from "@/components/UniversalImage";
 import { Button } from "@/components/ui/button";
 import { IconStarFilled, IconArrowRight, IconCheck } from "@tabler/icons-react";
 import { resolveTemplateFallback } from "@/lib/variable-manager";
-import { LeadForm, type LeadFormData } from "@/components/LeadForm";
-import { AwardsMarquee } from "@/components/AwardsMarquee";
+import LeadForm, { type LeadFormData } from "@/components/lead_form/variants/LeadFormDefault";
+import { AwardsMarquee } from "@/components/awards_marquee/variants/AwardsMarqueeDefault";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { Card } from "@/components/ui/card";
 import { RichTextContent } from "@/components/ui/rich-text-content";
@@ -453,11 +453,13 @@ export default function HeroProductShowcase({
               {showAwardsMarquee && awardsMarqueeAtLeft && awardsMarquee?.items && awardsMarquee.items.length > 0 && (
                 <div className="w-full max-w-xl mt-6 overflow-hidden" data-testid="hero-awards-marquee-left">
                   <AwardsMarquee
-                    className="!px-0"
-                    items={awardsMarquee.items}
-                    speed={awardsMarquee.speed}
-                    gradient={awardsMarquee.gradient}
-                    gradientWidth={awardsMarquee.gradientWidth}
+                    data={{
+                      className: "!px-0",
+                      items: awardsMarquee.items,
+                      speed: awardsMarquee.speed,
+                      gradient: awardsMarquee.gradient,
+                      gradientWidth: awardsMarquee.gradientWidth,
+                    }}
                   />
                 </div>
               )}
@@ -504,10 +506,12 @@ export default function HeroProductShowcase({
                       data-testid="hero-awards-marquee"
                     >
                       <AwardsMarquee
-                        items={awardsMarquee.items}
-                        speed={awardsMarquee.speed}
-                        gradient={awardsMarquee.gradient}
-                        gradientWidth={awardsMarquee.gradientWidth}
+                        data={{
+                          items: awardsMarquee.items,
+                          speed: awardsMarquee.speed,
+                          gradient: awardsMarquee.gradient,
+                          gradientWidth: awardsMarquee.gradientWidth,
+                        }}
                       />
                     </div>
                   )}
@@ -588,10 +592,12 @@ export default function HeroProductShowcase({
                       data-testid="hero-awards-marquee"
                     >
                       <AwardsMarquee
-                        items={awardsMarquee.items}
-                        speed={awardsMarquee.speed}
-                        gradient={awardsMarquee.gradient}
-                        gradientWidth={awardsMarquee.gradientWidth}
+                        data={{
+                          items: awardsMarquee.items,
+                          speed: awardsMarquee.speed,
+                          gradient: awardsMarquee.gradient,
+                          gradientWidth: awardsMarquee.gradientWidth,
+                        }}
                       />
                     </div>
                   )}

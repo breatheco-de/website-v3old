@@ -1,6 +1,6 @@
 
 import type { ContactUsInfoSection, ContactLocation } from "@shared/schema";
-import { LeadForm } from "@/components/LeadForm";
+import LeadForm from "@/components/lead_form/variants/LeadFormDefault";
 import { Badge } from "@/components/ui/badge";
 import { IconMail, IconPhone, IconMapPin } from "@tabler/icons-react";
 

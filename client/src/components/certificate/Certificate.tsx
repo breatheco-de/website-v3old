@@ -1,4 +1,4 @@
-import SolidCard from "./SolidCard";
+import SolidCard from "../SolidCard";
 import UniversalImage from "@/components/UniversalImage";
 
 interface CertificateProps {

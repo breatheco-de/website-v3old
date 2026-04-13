@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { IconArrowRight } from "@tabler/icons-react";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { useSession } from "@/contexts/SessionContext";
-import { LeadForm } from "@/components/LeadForm";
+import LeadForm from "@/components/lead_form/variants/LeadFormDefault";
 
 interface CTABannerSectionProps {
   data: CTABannerSectionType;

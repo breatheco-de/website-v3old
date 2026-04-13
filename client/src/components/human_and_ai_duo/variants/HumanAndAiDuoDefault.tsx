@@ -4,7 +4,7 @@ import type { ComponentType, CSSProperties } from "react";
 import { getCustomIcon } from "@/components/custom-icons";
 import UniversalImage from "@/components/UniversalImage";
 import type { HumanAndAIDuoSection } from "@shared/schema";
-import { UniversalVideo } from "./UniversalVideo";
+import { UniversalVideo } from "@/components/UniversalVideo";
 
 // Image type for styling
 interface StyledImageProps {

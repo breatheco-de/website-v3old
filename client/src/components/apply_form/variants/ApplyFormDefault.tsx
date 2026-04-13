@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { LeadForm, type LeadFormData } from "@/components/LeadForm";
+import LeadForm, { type LeadFormData } from "@/components/lead_form/variants/LeadFormDefault";
 
 interface ApplyFormSectionData {
   type: "apply_form";
