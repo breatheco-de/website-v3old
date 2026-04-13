@@ -1,4 +1,3 @@
-export const variant = "standard";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { UniversalImage } from "@/components/UniversalImage";

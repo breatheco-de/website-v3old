@@ -1,4 +1,3 @@
-export const variant = "default";
 
 import { useState, useMemo, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";

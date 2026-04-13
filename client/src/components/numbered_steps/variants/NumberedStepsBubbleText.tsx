@@ -1,4 +1,3 @@
-export const variant = "bubbleText";
 
 import { useState } from "react";
 import type { NumberedStepsBubbleTextSection } from "@shared/schema";

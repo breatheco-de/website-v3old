@@ -1,4 +1,3 @@
-export const variant = "stats-text-card";
 
 import { useState, useEffect, useRef } from "react";
 import type { FeaturesGridStatsTextCardSection } from "@shared/schema";

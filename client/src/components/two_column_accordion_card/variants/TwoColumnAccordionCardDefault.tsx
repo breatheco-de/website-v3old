@@ -1,4 +1,3 @@
-export const variant = "default";
 
 import { Card, CardContent } from "@/components/ui/card";
 import {

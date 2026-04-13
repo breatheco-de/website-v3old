@@ -1,4 +1,3 @@
-export const variant = "credibility";
 
 import { createElement, useState, useEffect } from "react";
 import Marquee from "react-fast-marquee";

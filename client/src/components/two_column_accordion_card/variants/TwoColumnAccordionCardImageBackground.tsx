@@ -1,4 +1,3 @@
-export const variant = "image_background";
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";

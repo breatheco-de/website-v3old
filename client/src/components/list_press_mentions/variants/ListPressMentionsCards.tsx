@@ -1,4 +1,3 @@
-export const variant = "cards";
 
 import type { ListPressMentionsSection } from "@shared/schema";
 import { UniversalImage } from "@/components/UniversalImage";

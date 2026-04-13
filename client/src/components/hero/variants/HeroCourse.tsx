@@ -1,4 +1,3 @@
-export const variant = "course";
 
 import type { HeroCourse as HeroCourseType } from "@shared/schema";
 import { Card } from "@/components/ui/card";

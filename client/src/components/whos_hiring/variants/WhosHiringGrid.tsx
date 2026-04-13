@@ -1,4 +1,3 @@
-export const variant = "grid";
 
 import { useState, useCallback, useEffect } from "react";
 import { Card } from "@/components/ui/card";

@@ -1,4 +1,3 @@
-export const variant = "default";
 
 import { useState, useEffect, type CSSProperties } from "react";
 import { useImageRegistry } from "@/components/UniversalImage";

@@ -1,4 +1,3 @@
-export const variant = "default";
 
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useEditModeOptional } from "@/contexts/EditModeContext";

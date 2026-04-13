@@ -1,4 +1,3 @@
-export const variant = "verticalCards";
 
 import * as TablerIcons from "@tabler/icons-react";
 import type { ComponentType } from "react";

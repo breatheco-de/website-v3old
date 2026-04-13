@@ -1,4 +1,3 @@
-export const variant = "stats-cards";
 
 import type { FeaturesGridStatsCardsSection } from "@shared/schema";
 import { StatCard } from "@/components/StatCard";

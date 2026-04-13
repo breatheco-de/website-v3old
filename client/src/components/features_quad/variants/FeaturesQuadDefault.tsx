@@ -1,4 +1,3 @@
-export const variant = "default";
 
 import type { FeatureQuadSection } from "@shared/schema";
 import { UniversalImage } from "@/components/UniversalImage";

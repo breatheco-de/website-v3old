@@ -1,4 +1,3 @@
-export const variant = "productShowcase";
 
 import { useState, useEffect } from "react";
 import Marquee from "@/lib/marquee";

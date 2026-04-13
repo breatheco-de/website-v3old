@@ -1,4 +1,3 @@
-export const variant = "default";
 
 import { Button } from "@/components/ui/button";
 import type { WhyLearnAISection as WhyLearnAISectionType } from "@shared/schema";

@@ -1,4 +1,3 @@
-export const variant = "asymmetric";
 
 import { UniversalImage } from "@/components/UniversalImage";
 import type { GraduatesStatsAsymmetric as GraduatesStatsAsymmetricType } from "@shared/schema";

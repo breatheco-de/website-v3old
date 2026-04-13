@@ -1,4 +1,3 @@
-export const variant = "split-card";
 
 import { useState, useCallback, useEffect, useRef, useMemo } from "react";
 import {

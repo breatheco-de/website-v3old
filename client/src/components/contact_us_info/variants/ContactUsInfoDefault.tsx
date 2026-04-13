@@ -1,4 +1,3 @@
-export const variant = "default";
 
 import type { ContactUsInfoSection, ContactLocation } from "@shared/schema";
 import { LeadForm } from "@/components/LeadForm";

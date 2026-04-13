@@ -1,4 +1,3 @@
-export const variant = "spotlight";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CourseSelectorSection, CourseItem } from "@shared/schema";

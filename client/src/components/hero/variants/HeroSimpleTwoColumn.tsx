@@ -1,4 +1,3 @@
-export const variant = "simpleTwoColumn";
 
 import type { HeroSimpleTwoColumn as HeroSimpleTwoColumnType } from "@shared/schema";
 import { Button } from "@/components/ui/button";

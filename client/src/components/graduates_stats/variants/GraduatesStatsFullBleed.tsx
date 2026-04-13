@@ -1,4 +1,3 @@
-export const variant = "fullBleed";
 
 import { UniversalImage } from "@/components/UniversalImage";
 import type { GraduatesStatsSection, GraduatesCollageImage, GraduatesFeaturedImage } from "@shared/schema";

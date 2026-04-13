@@ -1,4 +1,3 @@
-export const variant = "spotlight_with_list";
 
 import type { ProgramsShowcaseSection, ProgramItem } from "@shared/schema";
 import { getIcon } from "@/lib/icons";

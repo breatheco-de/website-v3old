@@ -1,4 +1,3 @@
-export const variant = "stats-text";
 
 import { useState } from "react";
 import type { FeaturesGridStatsTextSection } from "@shared/schema";

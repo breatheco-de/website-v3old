@@ -1,4 +1,3 @@
-export const variant = "grid";
 
 import type { ProgramsShowcaseSection, ProgramItem } from "@shared/schema";
 import { getIcon } from "@/lib/icons";

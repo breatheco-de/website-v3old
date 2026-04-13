@@ -1,4 +1,3 @@
-export const variant = "carousel";
 
 import { useState, useEffect, useMemo } from "react";
 import Marquee from "@/lib/marquee";

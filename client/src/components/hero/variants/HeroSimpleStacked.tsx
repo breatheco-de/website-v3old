@@ -1,4 +1,3 @@
-export const variant = "simpleStacked";
 
 import type { HeroSimpleStacked as HeroSimpleStackedType } from "@shared/schema";
 import { Button } from "@/components/ui/button";

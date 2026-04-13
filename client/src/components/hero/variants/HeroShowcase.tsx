@@ -1,4 +1,3 @@
-export const variant = "showcase";
 
 import { Button } from "@/components/ui/button";
 import { Avatar } from "@/components/ui/avatar";

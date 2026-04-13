@@ -1,4 +1,3 @@
-export const variant = "textOnly";
 
 import type { FeaturesGridTextOnlySection, FeaturesGridTextOnlyItem } from "@shared/schema";
 import { Card } from "@/components/ui/card";

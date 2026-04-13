@@ -1,4 +1,3 @@
-export const variant = "laptopEdge";
 
 import type { FeatureQuadSection } from "@shared/schema";
 import { UniversalImage, useImageRegistry } from "@/components/UniversalImage";

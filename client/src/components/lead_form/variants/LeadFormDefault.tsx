@@ -1,4 +1,3 @@
-export const variant = "default";
 
 import { useState, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";

@@ -1,4 +1,3 @@
-export const variant = "spotlight";
 
 import { useState, useEffect, useRef, useCallback, type KeyboardEvent } from "react";
 import type { FeaturesGridSpotlightSection, FeaturesGridHighlightItem } from "@shared/schema";

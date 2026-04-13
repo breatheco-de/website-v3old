@@ -1,4 +1,3 @@
-export const variant = "highlight";
 
 import type { FeaturesGridHighlightSection, FeaturesGridHighlightItem } from "@shared/schema";
 import { Card } from "@/components/ui/card";

@@ -1,4 +1,3 @@
-export const variant = "featured_showcase";
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Star, ChevronLeft, ChevronRight, ChevronDown, ArrowRight } from "lucide-react";

@@ -1,4 +1,3 @@
-export const variant = "solid";
 
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import type { CourseSelectorSection, CourseItem } from "@shared/schema";

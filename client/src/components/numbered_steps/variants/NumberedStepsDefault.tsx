@@ -1,4 +1,3 @@
-export const variant = "default";
 
 import { useState } from "react";
 import * as TablerIcons from "@tabler/icons-react";

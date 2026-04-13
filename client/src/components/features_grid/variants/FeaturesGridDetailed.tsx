@@ -1,4 +1,3 @@
-export const variant = "detailed";
 
 import { useState } from "react";
 import type { FeaturesGridDetailedSection, FeaturesGridDetailedItem } from "@shared/schema";

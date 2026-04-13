@@ -1,4 +1,3 @@
-export const variant = "default";
 
 import { Card } from "@/components/ui/card";
 import * as TablerIcons from "@tabler/icons-react";
