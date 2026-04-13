@@ -719,14 +719,14 @@ sections:
     background: hsl(var(--secondary))
   - type: cta_banner
     version: "1.0"
-    title: Your Python skills won't become an AI Engineering career on their own.
-    subtitle: Every week you wait is a week someone else with the same Python background gets hired as an AI Engineer first. Apply in 2 minutes. It's free.
+    title: The fastest-growing job of 2026 is one step away.
+    subtitle: Leverage your Python with AI skills and land one of the highest-paying roles in tech. Apply in 2 minutes and our admissions team will be in touch shortly.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
@@ -750,21 +750,12 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       consent:
         email: true
         marketing: true
-        marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe at any time.
-      show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
-      terms_className: text-white/80
+        marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contac
     section_id: cta_banner-55y7oh
-    marginY:
-      mobile: md none
-      desktop: md none
-    paddingY:
-      mobile: lg
-      desktop: lg
   - type: footer
     section_id: footer-eisseg
     version: "1.0"
