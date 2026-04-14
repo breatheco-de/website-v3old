@@ -1,0 +1,27 @@
+name: "Stats Charts"
+description: "Three data visualization cards: a bar chart comparing displaced vs. created AI jobs, a circle gauge showing workforce readiness, and a trend line showing AI role growth"
+yaml: |
+  - type: features_grid
+    version: "1.0"
+    variant: stats-charts
+    title: The AI Skills Gap Is Real
+    subtitle: Market Intelligence
+    description: The data is clear — AI is transforming the job market faster than the workforce can adapt. Those who develop AI skills now will lead the next decade.
+    background: bg-slate-950
+    card1:
+      badge: Market Shift
+      stat_value: "+340%"
+      stat_label: net new AI roles created since 2021
+      displaced_label: Displaced
+      created_label: Created by AI
+    card2:
+      badge: Readiness Gap
+      gauge_percentage: 3
+      gauge_label: qualified
+      bar1_label: Traditional workforce
+      bar2_label: AI-ready professionals
+    card3:
+      badge: Projection
+      stat_value: "1.3M"
+      stat_label: new AI roles expected by 2027
+      end_label: "1.3M · 2027"
