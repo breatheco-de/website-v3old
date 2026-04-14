@@ -1531,7 +1531,7 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Florida's AI job market is growing fast. Your skills should too.
-    subtitle: Our admissions team will walk you through everything — curriculum, financing, and whether this program is the right fit for you.
+    subtitle: Don't miss the opportunity. Get the full picture from our admissions team — curriculum, financing, and everything else you need to get started.
     background: hsl(var(--primary))
     variant: form
     form:
