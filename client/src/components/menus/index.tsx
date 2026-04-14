@@ -88,7 +88,7 @@ function LogoItem({ imageId, imageAlt, href, constrained_margin }: { imageId?: s
       <UniversalImage
         id={logoId}
         alt={imageAlt || t('nav.brand')}
-        className={`transition-all duration-150 ease-out ${isCompact ? "h-6" : "h-8"}`}
+        className={`transition-all duration-150 ease-out ${isCompact ? "h-6" : "h-6 lg:h-8"}`}
         loading="eager"
         style={{ objectFit: "contain", width: "auto", height: "100%" }}
       />
