@@ -15,6 +15,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import yaml from "js-yaml";
+import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
 import {
   Accordion,
   AccordionContent,
@@ -47,12 +51,32 @@ interface PreviewExample {
   component: string;
   version: string;
   example: string;
-  pageUrl?: string; // if set, renders the page directly (session-only, no registry file)
+  /** @deprecated legacy: full-page iframe; prefer importYaml */
+  pageUrl?: string;
+  /** Imported section YAML used to render this preview. */
+  importYaml?: string;
+  /** True when this row maps to an example that exists in component registry. */
+  registryPersisted?: boolean;
+}
+
+function parseImportedSections(importYaml?: string): unknown[] {
+  if (!importYaml?.trim()) return [];
+  try {
+    const { escaped, map } = escapeTemplateVars(importYaml);
+    const parsed = unescapeObjectVars(yaml.load(escaped), map);
+    if (Array.isArray(parsed)) return parsed;
+    if (parsed && typeof parsed === "object") return [parsed];
+  } catch {
+    // Ignore invalid YAML
+  }
+  return [];
 }
 
 interface SitemapEntry {
   loc: string;
   label: string;
+  /** Present on dynamic sitemap entries; required for correct /api/page-sections locale. */
+  locale?: string;
 }
 
 interface RemoteSectionWithYaml {
@@ -734,31 +758,90 @@ interface ImportExampleDialogProps {
   onClose: () => void;
   registryData: { components: { type: string; name: string; versions: string[] }[] } | undefined;
   onImport: (entry: PreviewExample) => void;
+  previewMode: "light" | "dark";
+  themeVars: Record<string, string>;
 }
 
 function extractPath(url: string): string {
   try { return new URL(url).pathname; } catch { return url; }
 }
 
-function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportExampleDialogProps) {
+/** Match server normalizeUrl / getCanonicalUrl path shape. */
+function normalizePagePath(path: string): string {
+  let p = path.startsWith("/") ? path : `/${path}`;
+  p = p.toLowerCase();
+  if (p.length > 1 && p.endsWith("/")) p = p.slice(0, -1);
+  return p;
+}
+
+interface SiteLocaleSettings {
+  default_locale: string;
+  supported_locales: { code: string; label: string }[];
+}
+
+/** Prefer sitemap entry.locale; else first path segment if it is a supported locale; else settings default. */
+function resolveLocaleForPageSections(
+  entry: SitemapEntry,
+  pagePath: string,
+  settings: SiteLocaleSettings | undefined,
+): string {
+  if (entry.locale && /^[a-z]{2}$/i.test(entry.locale)) {
+    return entry.locale.toLowerCase();
+  }
+  const codes = new Set(
+    (settings?.supported_locales ?? []).map((l) => l.code.toLowerCase()),
+  );
+  const first = normalizePagePath(pagePath).split("/").filter(Boolean)[0]?.toLowerCase();
+  if (first && codes.has(first)) {
+    return first;
+  }
+  return (settings?.default_locale ?? "en").toLowerCase();
+}
+
+function sitemapRowKey(entry: SitemapEntry, index: number): string {
+  return `${entry.loc}::${entry.locale ?? "—"}::${index}`;
+}
+
+function ImportExampleDialog({ open, onClose, registryData, onImport, previewMode, themeVars }: ImportExampleDialogProps) {
   const { toast } = useToast();
+  const [importDialogContentEl, setImportDialogContentEl] = useState<HTMLDivElement | null>(null);
   const [componentType, setComponentType] = useState("");
-  const [expandedPagePath, setExpandedPagePath] = useState<string | null>(null);
-  const [selectedPage, setSelectedPage] = useState<{ path: string; label: string } | null>(null);
+  const [expandedPage, setExpandedPage] = useState<{ path: string; locale: string } | null>(null);
+  const [selectedPage, setSelectedPage] = useState<{
+    path: string;
+    label: string;
+    locale: string;
+  } | null>(null);
   const [selectedSection, setSelectedSection] = useState<RemoteSectionWithYaml | null>(null);
   const [saveToRegistry, setSaveToRegistry] = useState(false);
+  const [registryExampleName, setRegistryExampleName] = useState("");
+  const [registryExampleDescription, setRegistryExampleDescription] = useState("");
   const [pickerOpen, setPickerOpen] = useState(false);
   const [pageSearch, setPageSearch] = useState("");
   const [saving, setSaving] = useState(false);
+  const [previewKey, setPreviewKey] = useState(0);
+
+  const registryVersionForType = useCallback(
+    (type: string) => registryData?.components.find((c) => c.type === type)?.versions[0] ?? "v1.0",
+    [registryData]
+  );
+
+  const friendlyComponentName = useCallback(
+    (type: string) => registryData?.components.find((c) => c.type === type)?.name ?? type,
+    [registryData]
+  );
 
   useEffect(() => {
     if (open) {
       setComponentType("");
-      setExpandedPagePath(null);
+      setExpandedPage(null);
       setSelectedPage(null);
       setSelectedSection(null);
       setSaveToRegistry(false);
+      setRegistryExampleName("");
+      setRegistryExampleDescription("");
       setPageSearch("");
+      setPreviewKey(0);
     }
   }, [open]);
 
@@ -772,14 +855,30 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
     enabled: pickerOpen,
   });
 
-  const { data: sectionsData, isLoading: sectionsLoading } = useQuery<{ sections: RemoteSectionWithYaml[] }>({
-    queryKey: ["/api/page-sections", expandedPagePath, "withYaml"],
+  const { data: localeSettings } = useQuery<SiteLocaleSettings>({
+    queryKey: ["/api/settings/locales"],
     queryFn: async () => {
-      const res = await fetch(`/api/page-sections?path=${encodeURIComponent(expandedPagePath!)}&includeYaml=true`);
+      const res = await fetch("/api/settings/locales");
+      if (!res.ok) throw new Error("Failed to load locales");
+      return res.json();
+    },
+    enabled: pickerOpen,
+  });
+
+  const { data: sectionsData, isLoading: sectionsLoading } = useQuery<{ sections: RemoteSectionWithYaml[] }>({
+    queryKey: ["/api/page-sections", expandedPage?.path, expandedPage?.locale, "withYaml"],
+    queryFn: async () => {
+      const ep = expandedPage!;
+      const q = new URLSearchParams({
+        path: ep.path,
+        locale: ep.locale,
+        includeYaml: "true",
+      });
+      const res = await fetch(`/api/page-sections?${q.toString()}`);
       if (!res.ok) throw new Error("Failed to load sections");
       return res.json();
     },
-    enabled: !!expandedPagePath,
+    enabled: !!expandedPage,
   });
 
   const filteredSections = useMemo(() => {
@@ -795,12 +894,13 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
   }, [sitemapUrls, pageSearch]);
 
   const handlePageClick = (entry: SitemapEntry) => {
-    const pagePath = extractPath(entry.loc);
-    if (expandedPagePath === pagePath) {
-      setExpandedPagePath(null);
+    const pagePath = normalizePagePath(extractPath(entry.loc));
+    const locale = resolveLocaleForPageSections(entry, pagePath, localeSettings);
+    if (expandedPage?.path === pagePath && expandedPage.locale === locale) {
+      setExpandedPage(null);
     } else {
-      setExpandedPagePath(pagePath);
-      setSelectedPage({ path: pagePath, label: entry.label });
+      setExpandedPage({ path: pagePath, locale });
+      setSelectedPage({ path: pagePath, label: entry.label, locale });
       setSelectedSection(null);
     }
   };
@@ -809,10 +909,20 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
     setSelectedSection(section);
     setComponentType(section.type);
     setPickerOpen(false);
+    try {
+      const { escaped, map } = escapeTemplateVars(section.yamlContent ?? "");
+      const parsed = unescapeObjectVars(yaml.load(escaped), map);
+      const sections = Array.isArray(parsed) ? parsed : parsed && typeof parsed === "object" ? [parsed] : [];
+      sessionStorage.setItem("preview-sections", JSON.stringify(sections));
+    } catch {
+      sessionStorage.removeItem("preview-sections");
+    }
+    setPreviewKey((k) => k + 1);
   };
 
   const handleUse = async () => {
     if (!selectedSection || !selectedPage) return;
+    if (saveToRegistry && !registryExampleName.trim()) return;
     setSaving(true);
     try {
       const version =
@@ -822,18 +932,30 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
         const res = await apiRequest(
           "POST",
           `/api/component-registry/${componentType}/${version}/examples`,
-          { yamlContent: selectedSection.yamlContent ?? "", sectionId: selectedSection.section_id ?? undefined }
+          {
+            yamlContent: selectedSection.yamlContent ?? "",
+            sectionId: selectedSection.section_id ?? undefined,
+            name: registryExampleName.trim(),
+            description: registryExampleDescription.trim() || undefined,
+          }
         );
         const data = (await res.json()) as { exampleName: string };
         queryClient.invalidateQueries({ queryKey: ["/api/component-registry"] });
-        onImport({ component: componentType, version, example: data.exampleName });
+        onImport({
+          component: componentType,
+          version,
+          example: data.exampleName,
+          importYaml: selectedSection.yamlContent ?? "",
+          registryPersisted: true,
+        });
         toast({ title: "Example saved", description: `Saved as "${data.exampleName}" in the registry.` });
       } else {
         onImport({
           component: componentType,
           version,
           example: selectedSection.label,
-          pageUrl: selectedPage.path,
+          importYaml: selectedSection.yamlContent ?? "",
+          registryPersisted: false,
         });
       }
       onClose();
@@ -853,7 +975,8 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
   return (
     <Dialog open={open} onOpenChange={(o) => { if (!o) onClose(); }}>
       <DialogContent
-        className="max-w-5xl h-[85vh] flex flex-col gap-0 p-0 overflow-hidden"
+        ref={(node) => setImportDialogContentEl(node)}
+        className="max-w-7xl h-[85vh] flex flex-col gap-0 p-0 overflow-hidden"
         data-testid="dialog-import-example"
       >
         <DialogHeader className="px-6 pt-5 pb-4 border-b flex-shrink-0">
@@ -883,20 +1006,9 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
                   </button>
                 </PopoverTrigger>
                 <PopoverContent
-                  className="w-80 p-0 z-[10001]"
+                  className="w-80 p-0 z-[10001] pointer-events-auto"
                   align="start"
-                  onPointerDownOutside={(e) => {
-                    const target = e.target as Element | null;
-                    if (target?.closest('[data-testid="dialog-import-example"]')) {
-                      e.preventDefault();
-                    }
-                  }}
-                  onInteractOutside={(e) => {
-                    const target = e.target as Element | null;
-                    if (target?.closest('[data-testid="dialog-import-example"]')) {
-                      e.preventDefault();
-                    }
-                  }}
+                  container={importDialogContentEl ?? undefined}
                 >
                   <div className="p-2 border-b">
                     <div className="relative">
@@ -921,10 +1033,17 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
                     ) : (
                       <div className="p-1">
                         {filteredPages.map((entry, idx) => {
-                          const pagePath = extractPath(entry.loc);
-                          const isExpanded = expandedPagePath === pagePath;
+                          const pagePath = normalizePagePath(extractPath(entry.loc));
+                          const rowLocale = resolveLocaleForPageSections(
+                            entry,
+                            pagePath,
+                            localeSettings,
+                          );
+                          const isExpanded =
+                            expandedPage?.path === pagePath &&
+                            expandedPage.locale === rowLocale;
                           return (
-                            <div key={entry.loc}>
+                            <div key={sitemapRowKey(entry, idx)}>
                               <button
                                 onClick={() => handlePageClick(entry)}
                                 className={cn(
@@ -952,23 +1071,43 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
                                       No sections found on this page
                                     </div>
                                   ) : (
-                                    filteredSections.map((section, sIdx) => (
-                                      <button
-                                        key={sIdx}
-                                        onClick={() => handleSectionClick(section)}
-                                        className={cn(
-                                          "w-full text-left px-2 py-1.5 rounded-md text-xs hover-elevate flex items-center gap-1.5",
-                                          selectedSection?.label === section.label &&
-                                            selectedPage?.path === pagePath &&
-                                            "bg-primary/10 text-primary"
-                                        )}
-                                        data-testid={`button-import-section-${idx}-${sIdx}`}
-                                      >
-                                        <IconLayoutGrid className="h-3.5 w-3.5 flex-shrink-0" />
-                                        <span className="flex-1 min-w-0 truncate">{section.label}</span>
-                                        <span className="text-muted-foreground opacity-60 font-mono text-[10px] flex-shrink-0">{section.type}</span>
-                                      </button>
-                                    ))
+                                    filteredSections.map((section, sIdx) => {
+                                      const friendly = friendlyComponentName(section.type);
+                                      return (
+                                        <button
+                                          key={
+                                            section.section_id
+                                              ? `${section.section_id}-${sIdx}`
+                                              : `${section.type}-${sIdx}-${section.label}`
+                                          }
+                                          onClick={() => handleSectionClick(section)}
+                                          className={cn(
+                                            "w-full text-left px-2 py-1.5 rounded-md text-xs hover-elevate flex items-start gap-2",
+                                            selectedSection?.label === section.label &&
+                                              selectedPage?.path === pagePath &&
+                                              selectedPage?.locale === rowLocale &&
+                                              "bg-primary/10 text-primary"
+                                          )}
+                                          data-testid={`button-import-section-${idx}-${sIdx}`}
+                                        >
+                                          <IconLayoutGrid className="h-3.5 w-3.5 flex-shrink-0 mt-0.5" />
+                                          <div className="flex-1 min-w-0">
+                                            <div className="flex items-baseline justify-between gap-2">
+                                              <span className="truncate font-medium text-foreground">{section.label}</span>
+                                              <span
+                                                className="text-[10px] text-muted-foreground shrink-0 max-w-[42%] truncate text-right"
+                                                title={friendly}
+                                              >
+                                                {friendly}
+                                              </span>
+                                            </div>
+                                            <div className="text-[10px] font-mono text-muted-foreground/80 truncate mt-0.5">
+                                              {section.type}
+                                            </div>
+                                          </div>
+                                        </button>
+                                      );
+                                    })
                                   )}
                                 </div>
                               )}
@@ -982,18 +1121,17 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
               </Popover>
             </div>
 
-            {/* Selected section info */}
             {selectedSection && (
               <div className="rounded-md border border-border bg-muted/30 px-3 py-2 space-y-0.5">
                 <p className="text-xs font-medium">{selectedSection.label}</p>
                 <p className="text-xs text-muted-foreground">{selectedPage?.path}</p>
-                <p className="text-xs text-muted-foreground font-mono">{selectedSection.type}</p>
+                <p className="text-xs text-muted-foreground">
+                  {friendlyComponentName(selectedSection.type)}
+                  <span className="font-mono text-[10px] opacity-70 ml-1">({selectedSection.type})</span>
+                </p>
               </div>
             )}
 
-            <div className="flex-1" />
-
-            {/* Checkbox */}
             <label className="flex items-start gap-2.5 cursor-pointer">
               <Checkbox
                 checked={saveToRegistry}
@@ -1010,8 +1148,47 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
               </div>
             </label>
 
+            {saveToRegistry && (
+              <div className="space-y-3 rounded-md border border-border bg-muted/20 p-3">
+                <div className="space-y-1.5">
+                  <Label htmlFor="import-registry-example-name" className="text-xs">
+                    Example name <span className="text-destructive">*</span>
+                  </Label>
+                  <Input
+                    id="import-registry-example-name"
+                    value={registryExampleName}
+                    onChange={(e) => setRegistryExampleName(e.target.value)}
+                    placeholder="e.g. Homepage hero spotlight"
+                    className="h-9 text-sm"
+                    data-testid="input-import-registry-example-name"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="import-registry-example-description" className="text-xs">
+                    Description
+                  </Label>
+                  <Textarea
+                    id="import-registry-example-description"
+                    value={registryExampleDescription}
+                    onChange={(e) => setRegistryExampleDescription(e.target.value)}
+                    placeholder="What this example demonstrates…"
+                    rows={3}
+                    className="text-sm resize-y min-h-[72px]"
+                    data-testid="input-import-registry-example-description"
+                  />
+                </div>
+              </div>
+            )}
+
+            <div className="flex-1 min-h-2" />
+
             <Button
-              disabled={!selectedSection || saving}
+              disabled={
+                !selectedSection ||
+                !selectedPage ||
+                saving ||
+                (saveToRegistry && !registryExampleName.trim())
+              }
               onClick={handleUse}
               data-testid="button-use-this-section"
             >
@@ -1019,19 +1196,26 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
             </Button>
           </div>
 
-          {/* Right panel - iframe */}
-          <div className="flex-1 min-h-0 bg-muted/20">
-            {selectedPage ? (
+          {/* Right panel — component preview (not full page) */}
+          <div className="flex-1 min-h-0 bg-muted/20 flex flex-col">
+            {selectedSection ? (
               <iframe
-                src={selectedPage.path}
-                className="w-full h-full border-none"
-                title={`Preview: ${selectedPage.label}`}
+                key={`${selectedSection.type}-${previewKey}`}
+                src={`/private/component-showcase/${encodeURIComponent(selectedSection.type)}/preview?debug=false&version=${encodeURIComponent(registryVersionForType(selectedSection.type))}&_=${previewKey}`}
+                className="w-full flex-1 min-h-0 border-none bg-background"
+                title={`Preview: ${friendlyComponentName(selectedSection.type)}`}
                 data-testid="iframe-import-preview"
+                onLoad={(e) => {
+                  const win = (e.currentTarget as HTMLIFrameElement).contentWindow;
+                  if (win) {
+                    win.postMessage({ type: "theme-vars-update", vars: themeVars, mode: previewMode }, "*");
+                  }
+                }}
               />
             ) : (
-              <div className="flex flex-col items-center justify-center h-full gap-2 text-muted-foreground">
+              <div className="flex flex-col items-center justify-center h-full gap-2 text-muted-foreground px-4 text-center">
                 <IconLayoutGrid className="h-10 w-10 opacity-20" />
-                <p className="text-sm">Select a page to preview it here</p>
+                <p className="text-sm">Expand a page and choose a section to preview that component here</p>
               </div>
             )}
           </div>
@@ -1083,6 +1267,7 @@ export default function ThemeEditor() {
   }, [sidebarWidth]);
 
   const [confirmedExamples, setConfirmedExamples] = useState<PreviewExample[]>([]);
+  const confirmedExamplesRef = useRef<PreviewExample[]>([]);
   const [addRow, setAddRow] = useState<{ component: string; version: string; example: string } | null>(null);
   const [importDialogOpen, setImportDialogOpen] = useState(false);
   const iframeRefs = useRef<Map<number, HTMLIFrameElement>>(new Map());
@@ -1176,6 +1361,10 @@ export default function ThemeEditor() {
   });
 
   useEffect(() => {
+    confirmedExamplesRef.current = confirmedExamples;
+  }, [confirmedExamples]);
+
+  useEffect(() => {
     if (themeData?.colors && !colorsInitialized.current) {
       setLightColors(themeData.colors.light || {});
       setDarkColors(themeData.colors.dark || {});
@@ -1201,6 +1390,27 @@ export default function ThemeEditor() {
       toast({ title: "Save failed", description: "Could not save preview examples.", variant: "destructive" });
     }
   }, [toast]);
+
+  useEffect(() => {
+    const onPreviewReady = (event: MessageEvent) => {
+      if (event.data?.type !== "preview-ready") return;
+      const sourceWin = event.source as Window | null;
+      if (!sourceWin) return;
+
+      confirmedExamplesRef.current.forEach((entry, idx) => {
+        if (!entry.importYaml?.trim()) return;
+        const iframeWin = iframeRefs.current.get(idx)?.contentWindow;
+        if (iframeWin !== sourceWin) return;
+        sourceWin.postMessage(
+          { type: "preview-update", sections: parseImportedSections(entry.importYaml) },
+          "*",
+        );
+      });
+    };
+
+    window.addEventListener("message", onPreviewReady);
+    return () => window.removeEventListener("message", onPreviewReady);
+  }, []);
 
   useEffect(() => {
     const activeColors = previewMode === "light" ? lightColors : darkColors;
@@ -1592,18 +1802,21 @@ export default function ThemeEditor() {
           {activeSection === "examples" && (
             <div className="p-6 space-y-6" data-testid="preview-examples">
               {confirmedExamples.map((entry, idx) => {
-                const iframeSrc = entry.pageUrl
-                  ? entry.pageUrl
-                  : `/private/component-showcase/${entry.component}/preview?debug=false&version=${encodeURIComponent(entry.version)}&example=${encodeURIComponent(entry.example)}`;
+                const isSessionImport = !!(entry.importYaml || entry.pageUrl);
+                const iframeSrc = entry.importYaml
+                  ? `/private/component-showcase/${encodeURIComponent(entry.component)}/preview?debug=false&version=${encodeURIComponent(entry.version)}&embed=theme`
+                  : entry.pageUrl
+                    ? entry.pageUrl
+                    : `/private/component-showcase/${encodeURIComponent(entry.component)}/preview?debug=false&version=${encodeURIComponent(entry.version)}&example=${encodeURIComponent(entry.example)}`;
                 return (
                   <div key={idx} className="space-y-2">
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-1.5 min-w-0">
-                        {entry.pageUrl && (
+                        {isSessionImport && (
                           <Badge variant="secondary" className="text-xs flex-shrink-0">imported</Badge>
                         )}
                         <p className="text-sm font-medium truncate">
-                          {entry.pageUrl
+                          {isSessionImport
                             ? `${entry.component} — ${entry.example}`
                             : `${entry.component} — ${entry.version} — ${entry.example}`}
                         </p>
@@ -1642,6 +1855,15 @@ export default function ThemeEditor() {
                           if (win) {
                             const colors = previewMode === "light" ? lightColors : darkColors;
                             win.postMessage({ type: "theme-vars-update", vars: colors, mode: previewMode }, "*");
+                            if (entry.importYaml?.trim()) {
+                              const msg = {
+                                type: "preview-update" as const,
+                                sections: parseImportedSections(entry.importYaml),
+                              };
+                              win.postMessage(msg, "*");
+                              setTimeout(() => win.postMessage(msg, "*"), 50);
+                              setTimeout(() => win.postMessage(msg, "*"), 200);
+                            }
                           }
                         }}
                       />
@@ -1756,7 +1978,11 @@ export default function ThemeEditor() {
         if (!open) setDeleteModal((m) => ({ ...m, open: false }));
       }}
     >
-      <DialogContent className="max-w-lg" data-testid="dialog-delete-example">
+      <DialogContent
+        className="max-w-3xl max-h-[90dvh] flex flex-col overflow-hidden gap-0 p-0"
+        data-testid="dialog-delete-example"
+      >
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-6 pr-12 flex flex-col gap-4">
         <DialogHeader>
           <DialogTitle>
             {deleteModal.step === "choose" && "Remove from preview"}
@@ -1784,7 +2010,7 @@ export default function ThemeEditor() {
               </p>
             </button>
 
-            {!deleteModal.entry?.pageUrl && (
+            {!deleteModal.entry?.pageUrl && (deleteModal.entry?.registryPersisted ?? !deleteModal.entry?.importYaml) && (
               <button
                 className="w-full text-left px-4 py-3 rounded-md border border-amber-400 bg-amber-50 dark:bg-amber-950/30 hover-elevate text-sm"
                 data-testid="button-choose-delete-example"
@@ -1797,7 +2023,7 @@ export default function ThemeEditor() {
               </button>
             )}
 
-            {!deleteModal.entry?.pageUrl && (
+            {!deleteModal.entry?.pageUrl && (deleteModal.entry?.registryPersisted ?? !deleteModal.entry?.importYaml) && (
               <button
                 className="w-full text-left px-4 py-3 rounded-md border border-destructive bg-destructive/5 hover-elevate text-sm"
                 data-testid="button-choose-delete-variant"
@@ -1851,10 +2077,10 @@ export default function ThemeEditor() {
               Back
             </button>
             <p className="text-sm">
-              Delete example <span className="font-semibold">"{deleteModal.entry.example}"</span>?
+              Delete the example <span className="font-semibold">"{deleteModal.entry.example}"</span>?
             </p>
             <p className="text-sm text-muted-foreground">
-              This action cannot be undone. No existing pages or components will be affected.
+              This will no longer appear when you choose an example for this component variant. This action cannot be undone. No existing pages or components will be affected.
             </p>
             <div className="flex justify-end gap-2">
               <Button
@@ -1912,14 +2138,31 @@ export default function ThemeEditor() {
                 {deleteModal.variantImpact.pages.length > 0 && (
                   <>
                     <p className="text-sm">...and all its uses on the following pages:</p>
-                    <div className="rounded-md bg-destructive/5 border border-destructive/20 px-3 py-2 space-y-1.5 max-h-36 overflow-y-auto">
+                    <div className="rounded-md bg-destructive/5 border border-destructive/20 px-3 py-2 space-y-2 max-h-[250px] overflow-y-auto">
                       {deleteModal.variantImpact.pages.map((p) => (
-                        <div key={p.path} className="text-xs">
-                          <span className="font-medium font-mono">{p.path}</span>
-                          <span className="text-muted-foreground"> → {p.count} {p.count === 1 ? "use" : "uses"}</span>
+                        <div key={p.path} className="text-xs border-b border-destructive/10 last:border-0 last:pb-0 pb-2 last:mb-0">
+                          <div>
+                            <span className="font-medium font-mono">{p.path}</span>
+                            <span className="text-muted-foreground">
+                              {" "}
+                              → {p.count} {p.count === 1 ? "use" : "uses"}
+                            </span>
+                          </div>
                           {p.sectionIds.length > 0 && (
-                            <div className="text-muted-foreground/70 font-mono pl-2 mt-0.5">
-                              [{p.sectionIds.join(", ")}]
+                            <div className="mt-1.5 pl-0">
+                              <p className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground mb-1">
+                                Section IDs
+                              </p>
+                              <ul className="space-y-0.5 pl-0">
+                                {p.sectionIds.map((id) => (
+                                  <li
+                                    key={id}
+                                    className="font-mono text-[11px] text-muted-foreground/90 break-all pl-3 border-l-2 border-muted-foreground/25"
+                                  >
+                                    {id}
+                                  </li>
+                                ))}
+                              </ul>
                             </div>
                           )}
                         </div>
@@ -1930,7 +2173,7 @@ export default function ThemeEditor() {
 
                 {deleteModal.variantImpact.examples.length > 0 && (
                   <div className="space-y-1">
-                    <p className="text-xs font-medium text-muted-foreground">The following examples will be deleted as well:</p>
+                    <p className="text-sm">The following examples will be deleted from the registry as well:</p>
                     <ul className="text-xs text-muted-foreground space-y-0.5 pl-3">
                       {deleteModal.variantImpact.examples.map((ex) => (
                         <li key={ex}>• {ex}</li>
@@ -1966,6 +2209,7 @@ export default function ThemeEditor() {
             </div>
           </div>
         )}
+        </div>
       </DialogContent>
     </Dialog>
 
@@ -1973,6 +2217,8 @@ export default function ThemeEditor() {
       open={importDialogOpen}
       onClose={() => setImportDialogOpen(false)}
       registryData={registryData}
+      previewMode={previewMode}
+      themeVars={previewMode === "light" ? lightColors : darkColors}
       onImport={async (entry) => {
         const updated = [...confirmedExamples, entry];
         setConfirmedExamples(updated);

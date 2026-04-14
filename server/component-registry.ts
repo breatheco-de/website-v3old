@@ -541,7 +541,8 @@ export function createExample(
   componentType: string,
   version: string,
   yamlContent: string,
-  sectionId?: string
+  sectionId?: string,
+  options?: { displayName?: string; description?: string }
 ): { success: boolean; filename?: string; exampleName?: string; error?: string } {
   try {
     const examplesPath = path.join(REGISTRY_PATH, componentType, version, "examples");
@@ -549,9 +550,21 @@ export function createExample(
       fs.mkdirSync(examplesPath, { recursive: true });
     }
 
-    const base = sectionId
-      ? sectionId.replace(/[^a-z0-9_-]/gi, "_").toLowerCase()
-      : `${componentType}_${Date.now()}`;
+    const trimmedName = options?.displayName?.trim();
+    let base: string;
+    if (trimmedName) {
+      base = trimmedName
+        .replace(/[^a-z0-9_-]+/gi, "_")
+        .replace(/^_+|_+$/g, "")
+        .toLowerCase();
+      if (!base) {
+        base = `${componentType}_${Date.now()}`;
+      }
+    } else if (sectionId) {
+      base = sectionId.replace(/[^a-z0-9_-]/gi, "_").toLowerCase();
+    } else {
+      base = `${componentType}_${Date.now()}`;
+    }
 
     let filename = `${base}.yml`;
     let counter = 1;
@@ -559,15 +572,24 @@ export function createExample(
       filename = `${base}_${counter++}.yml`;
     }
 
-    const exampleName = filename.replace(/\.ya?ml$/, "").replace(/_/g, " ");
+    const yamlTitle = trimmedName || filename.replace(/\.ya?ml$/, "").replace(/_/g, " ");
+    const payload: Record<string, unknown> = {
+      name: yamlTitle,
+      yaml: yamlContent,
+    };
+    const trimmedDesc = options?.description?.trim();
+    if (trimmedDesc) {
+      payload.description = trimmedDesc;
+    }
 
-    const fileContent = safeYamlDump(
-      { name: exampleName, yaml: yamlContent },
-      { lineWidth: -1, quotingType: '"', forceQuotes: false }
-    );
+    const fileContent = safeYamlDump(payload, {
+      lineWidth: -1,
+      quotingType: '"',
+      forceQuotes: false,
+    });
 
     fs.writeFileSync(path.join(examplesPath, filename), fileContent);
-    return { success: true, filename, exampleName };
+    return { success: true, filename, exampleName: yamlTitle };
   } catch (error) {
     console.error(`Error creating example for ${componentType}/${version}:`, error);
     return { success: false, error: String(error) };
