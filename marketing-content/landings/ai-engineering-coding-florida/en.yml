@@ -184,16 +184,16 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text-card
-    title: Why AI Engineering in Florida Now
-    subtitle: Florida's tech market is exploding. Miami, Orlando, and Tampa are hiring AI engineers right now.
-    description: Florida has become one of the fastest-growing tech hubs in the US. Miami's financial tech corridor, Orlando's simulation and defense ecosystem, and Tampa's cybersecurity and healthcare tech sector are all actively recruiting AI engineers. Demand is outpacing supply — and only 3% of the workforce has the skills to fill these roles. That gap is your opportunity.
+    title: Why AI Engineering. Why Florida. Why Now.
+    subtitle: The demand is real, the talent gap is wide, and Florida is at the center of it.
+    description: Florida has become one of the fastest-growing tech hubs in the US. Miami's fintech and AI startup ecosystem, Orlando's simulation and defense sector, and Tampa's cybersecurity corridor are all actively recruiting AI engineers. Demand is outpacing supply — and only 3% of the workforce has the skills to fill these roles. That gap is your opportunity.
     card_color: bg-background
     background: hsl(var(--card))
     items:
       - value: 42x
         title: Growth in Forward-Deployed Engineering since 2023
-      - value: 70%
-        title: YoY growth in US jobs requiring AI skills
+      - value: 14,000+
+        title: New tech jobs Florida will add in 2026, according to CompTIA
       - value: 3%
         title: Of the workforce currently qualified to fill these roles
     section_id: features_grid-o2kd1x
