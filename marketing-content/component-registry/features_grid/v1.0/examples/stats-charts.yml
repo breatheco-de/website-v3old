@@ -8,19 +8,22 @@ yaml: |
     subtitle: Market Intelligence
     description: The data is clear — AI is transforming the job market faster than the workforce can adapt. Those who develop AI skills now will lead the next decade.
     background: bg-slate-950
-    card1:
+    card_bars_accent: "#3b82f6"
+    card_gauge_accent: "#f59e0b"
+    card_trend_accent: "#34d399"
+    card_bars:
       badge: Market Shift
       stat_value: "+340%"
       stat_label: net new AI roles created since 2021
       displaced_label: Displaced
       created_label: Created by AI
-    card2:
+    card_gauge:
       badge: Readiness Gap
       gauge_percentage: 3
       gauge_label: qualified
       bar1_label: Traditional workforce
       bar2_label: AI-ready professionals
-    card3:
+    card_trend:
       badge: Projection
       stat_value: "1.3M"
       stat_label: new AI roles expected by 2027

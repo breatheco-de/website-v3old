@@ -316,9 +316,9 @@ export type {
   FeaturesGridStatsCardsItem,
   SpotlightConfig,
   FeaturesGridStatsChartsSection,
-  FeaturesGridStatsChartsCard1,
-  FeaturesGridStatsChartsCard2,
-  FeaturesGridStatsChartsCard3,
+  FeaturesGridStatsChartsCardBars,
+  FeaturesGridStatsChartsCardGauge,
+  FeaturesGridStatsChartsCardTrend,
 } from "../marketing-content/component-registry/features_grid/v1.0/schema";
 
 // ============================================

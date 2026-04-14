@@ -3,6 +3,7 @@ interface TrendLineChartProps {
   years?: string[];
   values?: number[];
   endLabel?: string;
+  accentColor?: string;
 }
 
 const DEFAULT_YEARS  = ["2020","2021","2022","2023","2024","2025","2026","2027"];
@@ -24,13 +25,21 @@ function buildPath(pts: { x: number; y: number }[]): string {
   return d;
 }
 
+function hexToRgba(hex: string, alpha: number): string {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  if (!result) return `rgba(100,100,100,${alpha})`;
+  return `rgba(${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(result[3], 16)},${alpha})`;
+}
+
 export function TrendLineChart({
-  years    = DEFAULT_YEARS,
-  values   = DEFAULT_VALUES,
-  endLabel = "1.3M · 2027",
+  years       = DEFAULT_YEARS,
+  values      = DEFAULT_VALUES,
+  endLabel    = "1.3M · 2027",
+  accentColor = "#34d399",
 }: TrendLineChartProps) {
-  const innerW = W - PAD.left - PAD.right;
-  const innerH = H - PAD.top  - PAD.bottom;
+  const innerW  = W - PAD.left - PAD.right;
+  const innerH  = H - PAD.top  - PAD.bottom;
+  const gradId  = `trendArea_${accentColor.replace(/[^a-zA-Z0-9]/g, "")}`;
 
   const points = values.map((v, i) => ({
     x: PAD.left + (i / (values.length - 1)) * innerW,
@@ -52,9 +61,9 @@ export function TrendLineChart({
         className="overflow-visible"
       >
         <defs>
-          <linearGradient id="trendAreaGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"   stopColor="#34d399" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#34d399" stopOpacity="0.02" />
+          <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stopColor={accentColor} stopOpacity="0.3" />
+            <stop offset="100%" stopColor={accentColor} stopOpacity="0.02" />
           </linearGradient>
         </defs>
 
@@ -70,9 +79,9 @@ export function TrendLineChart({
           />
         ))}
 
-        <path d={areaD} fill="url(#trendAreaGrad)" />
-        <path d={pathD} fill="none" stroke="#34d399" strokeWidth="2" strokeLinecap="round" />
-        <circle cx={lastPt.x} cy={lastPt.y} r="4" fill="#34d399" />
+        <path d={areaD} fill={`url(#${gradId})`} />
+        <path d={pathD} fill="none" stroke={accentColor} strokeWidth="2" strokeLinecap="round" />
+        <circle cx={lastPt.x} cy={lastPt.y} r="4" fill={accentColor} />
 
         {years.map((y, i) => {
           if (i % 2 !== 0) return null;
@@ -90,7 +99,14 @@ export function TrendLineChart({
           className="absolute flex flex-col items-end"
           style={{ right: 0, top: (1 - values[values.length - 1]) * innerH + PAD.top - 24 }}
         >
-          <span className="text-xs font-bold text-emerald-400 bg-emerald-900/50 border border-emerald-700/40 rounded-full px-2 py-0.5">
+          <span
+            className="text-xs font-bold rounded-full px-2 py-0.5"
+            style={{
+              color: accentColor,
+              background: hexToRgba(accentColor, 0.15),
+              border: `1px solid ${hexToRgba(accentColor, 0.35)}`,
+            }}
+          >
             {endLabel}
           </span>
         </div>

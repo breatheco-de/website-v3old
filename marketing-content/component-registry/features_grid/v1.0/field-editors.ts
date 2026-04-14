@@ -15,7 +15,7 @@ export const fieldEditors: Record<string, EditorType> = {
   "stats-cards:description": "rich-text-editor",
   "highlight:subtitle": "rich-text-editor",
   "cta.url": "link-picker",
-  "stats-charts:card1.card_color": "color-picker",
-  "stats-charts:card2.card_color": "color-picker",
-  "stats-charts:card3.card_color": "color-picker",
+  "stats-charts:card_bars_accent": "color-picker",
+  "stats-charts:card_gauge_accent": "color-picker",
+  "stats-charts:card_trend_accent": "color-picker",
 };

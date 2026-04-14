@@ -8,12 +8,37 @@ interface Props {
   data: FeaturesGridStatsChartsSection;
 }
 
-const CARD1_DEFAULT_COLOR = "bg-gradient-to-br from-blue-950/80 to-slate-900 border border-blue-800/30";
-const CARD2_DEFAULT_COLOR = "bg-gradient-to-br from-amber-950/40 to-slate-900 border border-amber-700/25";
-const CARD3_DEFAULT_COLOR = "bg-gradient-to-br from-emerald-950/50 to-slate-900 border border-emerald-700/25";
+const DEFAULT_BARS_ACCENT  = "#3b82f6";
+const DEFAULT_GAUGE_ACCENT = "#f59e0b";
+const DEFAULT_TREND_ACCENT = "#34d399";
+
+function hexToRgba(hex: string, alpha: number): string {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  if (!result) return `rgba(100,100,100,${alpha})`;
+  return `rgba(${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(result[3], 16)},${alpha})`;
+}
+
+function cardStyles(accent: string) {
+  return {
+    background: hexToRgba(accent, 0.08),
+    border: `1px solid ${hexToRgba(accent, 0.22)}`,
+  };
+}
+
+function badgeStyles(accent: string) {
+  return {
+    color: accent,
+    background: hexToRgba(accent, 0.12),
+    border: `1px solid ${hexToRgba(accent, 0.3)}`,
+  };
+}
 
 export default function FeaturesGridStatsCharts({ data }: Props) {
-  const { card1, card2, card3 } = data;
+  const { card_bars, card_gauge, card_trend } = data;
+
+  const barsAccent  = data.card_bars_accent  || DEFAULT_BARS_ACCENT;
+  const gaugeAccent = data.card_gauge_accent || DEFAULT_GAUGE_ACCENT;
+  const trendAccent = data.card_trend_accent || DEFAULT_TREND_ACCENT;
 
   return (
     <section
@@ -26,21 +51,28 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
             <div>
               {data.subtitle && (
-                <p className="text-sm font-semibold uppercase tracking-wider text-primary mb-2"
-                   data-testid="text-stats-charts-subtitle">
+                <p
+                  className="text-sm font-semibold uppercase tracking-wider mb-2"
+                  style={{ color: barsAccent }}
+                  data-testid="text-stats-charts-subtitle"
+                >
                   {data.subtitle}
                 </p>
               )}
               {data.title && (
-                <h2 className="text-h2 text-foreground leading-tight"
-                    data-testid="text-stats-charts-title">
+                <h2
+                  className="text-h2 text-foreground leading-tight"
+                  data-testid="text-stats-charts-title"
+                >
                   {data.title}
                 </h2>
               )}
             </div>
             {data.description && (
-              <p className="text-base text-muted-foreground leading-relaxed self-end"
-                 data-testid="text-stats-charts-description">
+              <p
+                className="text-base text-muted-foreground leading-relaxed self-end"
+                data-testid="text-stats-charts-description"
+              >
                 {data.description}
               </p>
             )}
@@ -49,77 +81,105 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
+          {/* Card Bars */}
           <div
-            className={`rounded-2xl p-6 flex flex-col gap-4 shadow-xl ${card1?.card_color || CARD1_DEFAULT_COLOR}`}
-            data-testid="card-stats-charts-1"
+            className="rounded-2xl p-6 flex flex-col gap-4 shadow-xl"
+            style={cardStyles(barsAccent)}
+            data-testid="card-stats-charts-bars"
           >
-            {card1?.badge && (
-              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/20 tracking-wide uppercase self-start">
-                {card1.badge}
+            {card_bars?.badge && (
+              <span
+                className="text-xs font-semibold px-2.5 py-1 rounded-full tracking-wide uppercase self-start"
+                style={badgeStyles(barsAccent)}
+              >
+                {card_bars.badge}
               </span>
             )}
-            {card1?.stat_value && (
+            {card_bars?.stat_value && (
               <div>
-                <div className="text-4xl font-black text-white tracking-tight leading-none"
-                     data-testid="text-stats-charts-card1-value">
-                  {card1.stat_value}
+                <div
+                  className="text-4xl font-black tracking-tight leading-none text-white"
+                  data-testid="text-stats-charts-bars-value"
+                >
+                  {card_bars.stat_value}
                 </div>
-                {card1.stat_label && (
-                  <p className="text-sm text-slate-400 mt-1.5 leading-snug"
-                     data-testid="text-stats-charts-card1-label">
-                    {card1.stat_label}
+                {card_bars.stat_label && (
+                  <p
+                    className="text-sm text-slate-400 mt-1.5 leading-snug"
+                    data-testid="text-stats-charts-bars-label"
+                  >
+                    {card_bars.stat_label}
                   </p>
                 )}
               </div>
             )}
             <BarChart
-              years={card1?.years}
-              displacedLabel={card1?.displaced_label}
-              createdLabel={card1?.created_label}
+              years={card_bars?.years}
+              displacedLabel={card_bars?.displaced_label}
+              createdLabel={card_bars?.created_label}
+              accentColor={barsAccent}
             />
           </div>
 
+          {/* Card Gauge */}
           <div
-            className={`rounded-2xl p-6 flex flex-col gap-4 shadow-xl ${card2?.card_color || CARD2_DEFAULT_COLOR}`}
-            data-testid="card-stats-charts-2"
+            className="rounded-2xl p-6 flex flex-col gap-4 shadow-xl"
+            style={cardStyles(gaugeAccent)}
+            data-testid="card-stats-charts-gauge"
           >
-            {card2?.badge && (
-              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/20 tracking-wide uppercase self-start">
-                {card2.badge}
+            {card_gauge?.badge && (
+              <span
+                className="text-xs font-semibold px-2.5 py-1 rounded-full tracking-wide uppercase self-start"
+                style={badgeStyles(gaugeAccent)}
+              >
+                {card_gauge.badge}
               </span>
             )}
             <CircleGauge
-              percentage={card2?.gauge_percentage}
-              gaugeLabel={card2?.gauge_label}
-              bar1Label={card2?.bar1_label}
-              bar2Label={card2?.bar2_label}
+              percentage={card_gauge?.gauge_percentage}
+              gaugeLabel={card_gauge?.gauge_label}
+              bar1Label={card_gauge?.bar1_label}
+              bar2Label={card_gauge?.bar2_label}
+              accentColor={gaugeAccent}
             />
           </div>
 
+          {/* Card Trend */}
           <div
-            className={`rounded-2xl p-6 flex flex-col gap-4 shadow-xl ${card3?.card_color || CARD3_DEFAULT_COLOR}`}
-            data-testid="card-stats-charts-3"
+            className="rounded-2xl p-6 flex flex-col gap-4 shadow-xl"
+            style={cardStyles(trendAccent)}
+            data-testid="card-stats-charts-trend"
           >
-            {card3?.badge && (
-              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/20 tracking-wide uppercase self-start">
-                {card3.badge}
+            {card_trend?.badge && (
+              <span
+                className="text-xs font-semibold px-2.5 py-1 rounded-full tracking-wide uppercase self-start"
+                style={badgeStyles(trendAccent)}
+              >
+                {card_trend.badge}
               </span>
             )}
-            {card3?.stat_value && (
+            {card_trend?.stat_value && (
               <div>
-                <div className="text-4xl font-black text-white tracking-tight leading-none"
-                     data-testid="text-stats-charts-card3-value">
-                  {card3.stat_value}
+                <div
+                  className="text-4xl font-black text-white tracking-tight leading-none"
+                  data-testid="text-stats-charts-trend-value"
+                >
+                  {card_trend.stat_value}
                 </div>
-                {card3.stat_label && (
-                  <p className="text-sm text-slate-400 mt-1.5 leading-snug"
-                     data-testid="text-stats-charts-card3-label">
-                    {card3.stat_label}
+                {card_trend.stat_label && (
+                  <p
+                    className="text-sm text-slate-400 mt-1.5 leading-snug"
+                    data-testid="text-stats-charts-trend-label"
+                  >
+                    {card_trend.stat_label}
                   </p>
                 )}
               </div>
             )}
-            <TrendLineChart endLabel={card3?.end_label} />
+            <TrendLineChart
+              endLabel={card_trend?.end_label}
+              accentColor={trendAccent}
+            />
           </div>
 
         </div>
