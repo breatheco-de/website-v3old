@@ -25,12 +25,6 @@ function buildPath(pts: { x: number; y: number }[]): string {
   return d;
 }
 
-function hexToRgba(hex: string, alpha: number): string {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (!result) return `rgba(100,100,100,${alpha})`;
-  return `rgba(${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(result[3], 16)},${alpha})`;
-}
-
 export function TrendLineChart({
   years       = DEFAULT_YEARS,
   values      = DEFAULT_VALUES,
@@ -57,7 +51,7 @@ export function TrendLineChart({
       <svg
         viewBox={`0 0 ${W} ${H}`}
         width="100%"
-        height="auto"
+        style={{ height: "auto" }}
         className="overflow-visible"
       >
         <defs>
@@ -103,8 +97,8 @@ export function TrendLineChart({
             className="text-xs font-bold rounded-full px-2 py-0.5"
             style={{
               color: accentColor,
-              background: hexToRgba(accentColor, 0.15),
-              border: `1px solid ${hexToRgba(accentColor, 0.35)}`,
+              background: `color-mix(in srgb, ${accentColor} 15%, transparent)`,
+              border: `1px solid color-mix(in srgb, ${accentColor} 35%, transparent)`,
             }}
           >
             {endLabel}

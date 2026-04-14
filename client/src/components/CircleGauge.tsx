@@ -7,11 +7,9 @@ interface CircleGaugeProps {
   accentColor?: string;
 }
 
-function hexToRgba(hex: string, alpha: number): string {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (!result) return `rgba(100,100,100,${alpha})`;
-  return `rgba(${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(result[3], 16)},${alpha})`;
-}
+const TRACK = "#1e293b";
+const GAUGE_SIZE = 88;
+const STROKE_WIDTH = 3.6;
 
 export function CircleGauge({
   percentage  = 3,
@@ -21,38 +19,44 @@ export function CircleGauge({
   accentColor = "#f59e0b",
 }: CircleGaugeProps) {
   const pct     = Math.min(100, Math.max(0, percentage));
-  const filled  = `${pct}%`;
-  const empty   = `${100 - pct}%`;
   const inverse = 100 - pct;
-  const track   = "#1e293b";
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-4">
-        <div className="relative shrink-0" style={{ width: 88, height: 88 }}>
-          <div
-            className="rounded-full"
-            style={{
-              width: 88,
-              height: 88,
-              background: `conic-gradient(
-                ${accentColor} ${filled},
-                ${track} ${filled} ${empty},
-                ${track}
-              )`,
-            }}
-          />
-          <div
-            className="absolute inset-0 rounded-full flex flex-col items-center justify-center bg-slate-900"
-            style={{ margin: 9 }}
+        {/* SVG donut ring — center is transparent */}
+        <div className="relative shrink-0" style={{ width: GAUGE_SIZE, height: GAUGE_SIZE }}>
+          <svg
+            viewBox="0 0 36 36"
+            width={GAUGE_SIZE}
+            height={GAUGE_SIZE}
+            style={{ transform: "rotate(-90deg)" }}
           >
-            <span
-              className="text-base font-black leading-none"
-              style={{ color: accentColor }}
-            >
+            {/* Track */}
+            <circle
+              cx="18" cy="18" r="15.9"
+              fill="none"
+              stroke={TRACK}
+              strokeWidth={STROKE_WIDTH}
+            />
+            {/* Filled arc */}
+            <circle
+              cx="18" cy="18" r="15.9"
+              fill="none"
+              stroke={accentColor}
+              strokeWidth={STROKE_WIDTH}
+              strokeDasharray={`${pct} ${100 - pct}`}
+              strokeLinecap="round"
+            />
+          </svg>
+          {/* Center label — rotated back upright */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className="text-sm font-black leading-none" style={{ color: accentColor }}>
               {pct}%
             </span>
-            <span className="text-[9px] text-slate-500 mt-0.5 leading-none">{gaugeLabel}</span>
+            <span className="text-[9px] text-slate-500 mt-0.5 leading-none text-center px-1">
+              {gaugeLabel}
+            </span>
           </div>
         </div>
 
@@ -75,7 +79,10 @@ export function CircleGauge({
           <div className="h-1.5 rounded-full bg-slate-800 overflow-hidden">
             <div
               className="h-full rounded-full"
-              style={{ width: `${inverse}%`, background: hexToRgba(accentColor, 0.3) }}
+              style={{
+                width: `${inverse}%`,
+                background: `color-mix(in srgb, ${accentColor} 30%, transparent)`,
+              }}
             />
           </div>
         </div>

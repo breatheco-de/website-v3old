@@ -12,12 +12,6 @@ const DEFAULT_YEARS     = ["2021", "2022", "2023", "2024", "2025"];
 const DEFAULT_DISPLACED = [12, 15, 19, 23, 27];
 const DEFAULT_CREATED   = [14, 24, 38, 54, 72];
 
-function hexToRgba(hex: string, alpha: number): string {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (!result) return `rgba(100,100,100,${alpha})`;
-  return `rgba(${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(result[3], 16)},${alpha})`;
-}
-
 export function BarChart({
   years          = DEFAULT_YEARS,
   displaced      = DEFAULT_DISPLACED,
@@ -26,8 +20,8 @@ export function BarChart({
   createdLabel   = "Created by AI",
   accentColor    = "#3b82f6",
 }: BarChartProps) {
-  const maxVal       = Math.max(...displaced, ...created);
-  const accentFaint  = hexToRgba(accentColor, 0.35);
+  const maxVal      = Math.max(...displaced, ...created);
+  const faintColor  = `color-mix(in srgb, ${accentColor} 35%, transparent)`;
 
   return (
     <div className="flex flex-col gap-3">
@@ -39,7 +33,7 @@ export function BarChart({
                 className="flex-1 rounded-t-sm transition-all"
                 style={{
                   height: `${((displaced[i] ?? 0) / maxVal) * 100}%`,
-                  background: accentFaint,
+                  background: faintColor,
                 }}
               />
               <div
@@ -59,7 +53,7 @@ export function BarChart({
         <div className="flex items-center gap-1.5">
           <span
             className="w-2.5 h-2.5 rounded-sm shrink-0"
-            style={{ background: accentFaint }}
+            style={{ background: faintColor }}
           />
           <span className="text-xs text-slate-400">{displacedLabel}</span>
         </div>

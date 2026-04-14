@@ -1,4 +1,5 @@
 
+import type { CSSProperties } from "react";
 import type { FeaturesGridStatsChartsSection } from "@shared/schema";
 import { BarChart } from "@/components/BarChart";
 import { CircleGauge } from "@/components/CircleGauge";
@@ -12,24 +13,15 @@ const DEFAULT_BARS_ACCENT  = "#3b82f6";
 const DEFAULT_GAUGE_ACCENT = "#f59e0b";
 const DEFAULT_TREND_ACCENT = "#34d399";
 
-function hexToRgba(hex: string, alpha: number): string {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (!result) return `rgba(100,100,100,${alpha})`;
-  return `rgba(${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(result[3], 16)},${alpha})`;
+function cardBg(accent: string) {
+  return `color-mix(in srgb, ${accent} 10%, transparent)`;
 }
 
-function cardStyles(accent: string) {
-  return {
-    background: hexToRgba(accent, 0.08),
-    border: `1px solid ${hexToRgba(accent, 0.22)}`,
-  };
-}
-
-function badgeStyles(accent: string) {
+function badgeStyles(accent: string): CSSProperties {
   return {
     color: accent,
-    background: hexToRgba(accent, 0.12),
-    border: `1px solid ${hexToRgba(accent, 0.3)}`,
+    background: `color-mix(in srgb, ${accent} 15%, transparent)`,
+    border: `1px solid color-mix(in srgb, ${accent} 30%, transparent)`,
   };
 }
 
@@ -83,8 +75,8 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
 
           {/* Card Bars */}
           <div
-            className="rounded-2xl p-6 flex flex-col gap-4 shadow-xl"
-            style={cardStyles(barsAccent)}
+            className="rounded-2xl p-6 flex flex-col gap-4"
+            style={{ background: cardBg(barsAccent) }}
             data-testid="card-stats-charts-bars"
           >
             {card_bars?.badge && (
@@ -123,8 +115,8 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
 
           {/* Card Gauge */}
           <div
-            className="rounded-2xl p-6 flex flex-col gap-4 shadow-xl"
-            style={cardStyles(gaugeAccent)}
+            className="rounded-2xl p-6 flex flex-col gap-4"
+            style={{ background: cardBg(gaugeAccent) }}
             data-testid="card-stats-charts-gauge"
           >
             {card_gauge?.badge && (
@@ -146,8 +138,8 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
 
           {/* Card Trend */}
           <div
-            className="rounded-2xl p-6 flex flex-col gap-4 shadow-xl"
-            style={cardStyles(trendAccent)}
+            className="rounded-2xl p-6 flex flex-col gap-4"
+            style={{ background: cardBg(trendAccent) }}
             data-testid="card-stats-charts-trend"
           >
             {card_trend?.badge && (
