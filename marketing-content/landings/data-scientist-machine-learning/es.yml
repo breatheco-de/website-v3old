@@ -6,8 +6,6 @@ meta:
   og_image: /images/programs/full-stack-og.jpg
   priority: 0.9
   change_frequency: weekly
-  page_title: 
-  description: 
 schema:
   include:
     - organization
