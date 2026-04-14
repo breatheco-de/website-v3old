@@ -762,11 +762,6 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
     }
   }, [open]);
 
-  useEffect(() => {
-    setSelectedSection(null);
-    setExpandedPagePath(null);
-  }, [componentType]);
-
   const { data: sitemapUrls = [], isLoading: sitemapLoading } = useQuery<SitemapEntry[]>({
     queryKey: ["/api/sitemap-urls"],
     queryFn: async () => {
@@ -788,9 +783,8 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
   });
 
   const filteredSections = useMemo(() => {
-    if (!sectionsData?.sections || !componentType) return [];
-    return sectionsData.sections.filter((s) => s.type === componentType);
-  }, [sectionsData, componentType]);
+    return sectionsData?.sections ?? [];
+  }, [sectionsData]);
 
   const filteredPages = useMemo(() => {
     if (!pageSearch.trim()) return sitemapUrls;
@@ -813,6 +807,7 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
 
   const handleSectionClick = (section: RemoteSectionWithYaml) => {
     setSelectedSection(section);
+    setComponentType(section.type);
     setPickerOpen(false);
   };
 
@@ -867,30 +862,13 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
         <div className="flex flex-1 min-h-0">
           {/* Left panel */}
           <div className="w-[340px] flex-shrink-0 border-r flex flex-col p-4 gap-4 overflow-y-auto">
-            {/* Component type */}
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-muted-foreground">Component type</label>
-              <select
-                className="w-full text-sm rounded-md border border-input bg-background px-3 py-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                value={componentType}
-                onChange={(e) => setComponentType(e.target.value)}
-                data-testid="select-import-component-type"
-              >
-                <option value="">Select component...</option>
-                {(registryData?.components ?? []).map((c) => (
-                  <option key={c.type} value={c.type}>{c.name}</option>
-                ))}
-              </select>
-            </div>
-
             {/* Page & section picker */}
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-muted-foreground">Page &amp; section</label>
-              <Popover open={pickerOpen} onOpenChange={setPickerOpen}>
+              <Popover open={pickerOpen} onOpenChange={setPickerOpen} modal={false}>
                 <PopoverTrigger asChild>
                   <button
-                    disabled={!componentType}
-                    className="w-full text-left text-sm px-3 py-1.5 rounded-md border border-input bg-background flex items-center gap-2 disabled:opacity-50 hover-elevate"
+                    className="w-full text-left text-sm px-3 py-1.5 rounded-md border border-input bg-background flex items-center gap-2 hover-elevate"
                     data-testid="button-import-picker"
                   >
                     <IconSearch className="h-4 w-4 text-muted-foreground flex-shrink-0" />
@@ -904,7 +882,22 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
                     </span>
                   </button>
                 </PopoverTrigger>
-                <PopoverContent className="w-80 p-0 z-[10001]" align="start">
+                <PopoverContent
+                  className="w-80 p-0 z-[10001]"
+                  align="start"
+                  onPointerDownOutside={(e) => {
+                    const target = e.target as Element | null;
+                    if (target?.closest('[data-testid="dialog-import-example"]')) {
+                      e.preventDefault();
+                    }
+                  }}
+                  onInteractOutside={(e) => {
+                    const target = e.target as Element | null;
+                    if (target?.closest('[data-testid="dialog-import-example"]')) {
+                      e.preventDefault();
+                    }
+                  }}
+                >
                   <div className="p-2 border-b">
                     <div className="relative">
                       <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -956,7 +949,7 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
                                     <div className="py-2 px-2 text-xs text-muted-foreground">Loading sections...</div>
                                   ) : filteredSections.length === 0 ? (
                                     <div className="py-2 px-2 text-xs text-muted-foreground">
-                                      No sections of this type found on this page
+                                      No sections found on this page
                                     </div>
                                   ) : (
                                     filteredSections.map((section, sIdx) => (
@@ -972,7 +965,8 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
                                         data-testid={`button-import-section-${idx}-${sIdx}`}
                                       >
                                         <IconLayoutGrid className="h-3.5 w-3.5 flex-shrink-0" />
-                                        <span className="truncate">{section.label}</span>
+                                        <span className="flex-1 min-w-0 truncate">{section.label}</span>
+                                        <span className="text-muted-foreground opacity-60 font-mono text-[10px] flex-shrink-0">{section.type}</span>
                                       </button>
                                     ))
                                   )}
@@ -993,6 +987,7 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
               <div className="rounded-md border border-border bg-muted/30 px-3 py-2 space-y-0.5">
                 <p className="text-xs font-medium">{selectedSection.label}</p>
                 <p className="text-xs text-muted-foreground">{selectedPage?.path}</p>
+                <p className="text-xs text-muted-foreground font-mono">{selectedSection.type}</p>
               </div>
             )}
 
