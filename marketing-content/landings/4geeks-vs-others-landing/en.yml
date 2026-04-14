@@ -386,17 +386,6 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
-  - type: faq
-    version: v1.0
-    title: Real Questions. Honest Answers
-    related_features:
-      - job-guarantee
-      - outcomes
-      - career-support
-    section_id: faq-qubzh4
-    background: hsl(var(--sidebar-background))
-    marginY:
-      desktop: none lg
   - type: whos_hiring
     variant: carousel
     pretitle: Job Placement
@@ -430,6 +419,17 @@ sections:
     section_id: whos_hiring-vyd58o
     paddingY:
       desktop: none md
+  - type: faq
+    version: v1.0
+    title: Real Questions. Honest Answers
+    related_features:
+      - job-guarantee
+      - outcomes
+      - career-support
+    section_id: faq-qubzh4
+    background: hsl(var(--sidebar-background))
+    marginY:
+      desktop: none lg
   - type: cta_banner
     version: "1.0"
     title: You've Done the Research. 4Geeks Is the Answer.
