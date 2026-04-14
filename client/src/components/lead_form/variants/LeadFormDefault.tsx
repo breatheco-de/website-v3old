@@ -393,6 +393,8 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
   const programFieldSlugs = getFieldConfig("program").slugs;
   const visiblePrograms = useMemo(() => {
     if (!formOptions?.programs) return [];
+    // An empty slugs array is treated the same as "not configured" — show all programs.
+    // This avoids an empty dropdown when slugs is accidentally set to [].
     if (!programFieldSlugs || programFieldSlugs.length === 0) return formOptions.programs;
     return programFieldSlugs
       .map(slug => formOptions.programs.find(p => p.slug === slug || p.bc_slug === slug))
