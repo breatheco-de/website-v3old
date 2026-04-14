@@ -165,6 +165,8 @@ export const featuresGridCardHeaderSectionSchema = z.object({
 
 export const featuresGridStatsChartsCardBarsSchema = z.object({
   badge: z.string().optional(),
+  title: z.string().optional(),
+  description: z.string().optional(),
   stat_value: z.string().optional(),
   stat_label: z.string().optional(),
   years: z.array(z.string()).optional(),
@@ -174,6 +176,8 @@ export const featuresGridStatsChartsCardBarsSchema = z.object({
 
 export const featuresGridStatsChartsCardGaugeSchema = z.object({
   badge: z.string().optional(),
+  title: z.string().optional(),
+  description: z.string().optional(),
   stat_value: z.string().optional(),
   stat_label: z.string().optional(),
   gauge_percentage: z.number().optional(),
@@ -184,6 +188,8 @@ export const featuresGridStatsChartsCardGaugeSchema = z.object({
 
 export const featuresGridStatsChartsCardTrendSchema = z.object({
   badge: z.string().optional(),
+  title: z.string().optional(),
+  description: z.string().optional(),
   stat_value: z.string().optional(),
   stat_label: z.string().optional(),
   end_label: z.string().optional(),

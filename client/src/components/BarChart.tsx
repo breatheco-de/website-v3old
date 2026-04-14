@@ -22,10 +22,10 @@ export function BarChart({
   createdLabel   = "Created by AI",
   accentColor    = "hsl(var(--color-green))",
 }: BarChartProps) {
-  const resolved    = resolveColorVar(accentColor);
-  const accentCss   = hslColorRaw(resolved);
-  const faintColor  = hslColor(resolved, 0.35);
-  const maxVal      = Math.max(...displaced, ...created);
+  const resolved   = resolveColorVar(accentColor);
+  const accentCss  = hslColorRaw(resolved);
+  const faintColor = hslColor(resolved, 0.35);
+  const maxVal     = Math.max(...displaced, ...created);
 
   return (
     <div className="flex flex-col gap-3">

@@ -14,15 +14,15 @@ const GAUGE_SIZE   = 88;
 const STROKE_WIDTH = 3.6;
 
 export function CircleGauge({
-  percentage   = 3,
-  gaugeLabel   = "qualified",
+  percentage    = 3,
+  gaugeLabel    = "qualified",
   gaugeSubLabel = "not ready for AI roles today",
-  bar1Label    = "Traditional workforce",
-  bar2Label    = "AI-ready professionals",
-  accentColor  = "hsl(var(--color-orange))",
+  bar1Label     = "Traditional workforce",
+  bar2Label     = "AI-ready professionals",
+  accentColor   = "hsl(var(--color-orange))",
 }: CircleGaugeProps) {
-  const pct      = Math.min(100, Math.max(0, percentage));
-  const inverse  = 100 - pct;
+  const pct     = Math.min(100, Math.max(0, percentage));
+  const inverse = 100 - pct;
 
   const resolved   = resolveColorVar(accentColor);
   const accentCss  = hslColorRaw(resolved);
@@ -32,7 +32,6 @@ export function CircleGauge({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-4">
-        {/* SVG donut ring — center is transparent */}
         <div className="relative shrink-0" style={{ width: GAUGE_SIZE, height: GAUGE_SIZE }}>
           <svg
             viewBox="0 0 36 36"
@@ -40,13 +39,11 @@ export function CircleGauge({
             height={GAUGE_SIZE}
             style={{ transform: "rotate(-90deg)" }}
           >
-            {/* Track */}
             <circle
               cx="18" cy="18" r="15.9"
               fill="none"
               style={{ stroke: trackColor, strokeWidth: STROKE_WIDTH }}
             />
-            {/* Filled arc */}
             <circle
               cx="18" cy="18" r="15.9"
               fill="none"
@@ -55,7 +52,6 @@ export function CircleGauge({
               strokeLinecap="round"
             />
           </svg>
-          {/* Center label */}
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <span className="text-sm font-black leading-none" style={{ color: accentCss }}>
               {pct}%
@@ -67,7 +63,7 @@ export function CircleGauge({
         </div>
 
         <div>
-          <div className="text-4xl font-black text-white tracking-tight leading-none">
+          <div className="text-4xl font-black tracking-tight leading-none" style={{ color: accentCss }}>
             {inverse}%
           </div>
           <p className="text-sm text-slate-400 mt-1.5 leading-snug">

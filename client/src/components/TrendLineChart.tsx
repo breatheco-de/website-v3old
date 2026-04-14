@@ -37,16 +37,16 @@ export function TrendLineChart({
   const accentCss = hslColorRaw(resolved);
   const gradId    = `trendArea_${accentColor.replace(/[^a-zA-Z0-9]/g, "")}`;
 
-  const innerW  = W - PAD.left - PAD.right;
-  const innerH  = H - PAD.top  - PAD.bottom;
+  const innerW = W - PAD.left - PAD.right;
+  const innerH = H - PAD.top  - PAD.bottom;
 
   const points = values.map((v, i) => ({
     x: PAD.left + (i / (values.length - 1)) * innerW,
     y: PAD.top  + (1 - v) * innerH,
   }));
 
-  const pathD  = buildPath(points);
-  const areaD  = pathD
+  const pathD = buildPath(points);
+  const areaD = pathD
     + ` L ${points[points.length - 1].x} ${PAD.top + innerH}`
     + ` L ${PAD.left} ${PAD.top + innerH} Z`;
   const lastPt = points[points.length - 1];
