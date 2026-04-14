@@ -1980,7 +1980,9 @@ export default function ThemeEditor() {
       onImport={async (entry) => {
         const updated = [...confirmedExamples, entry];
         setConfirmedExamples(updated);
-        await savePreviewExamples(updated);
+        if (!entry.pageUrl) {
+          await savePreviewExamples(updated);
+        }
       }}
     />
     </>
