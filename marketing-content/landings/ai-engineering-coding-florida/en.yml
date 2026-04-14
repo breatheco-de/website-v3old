@@ -193,13 +193,13 @@ sections:
       - value: 42x
         title: Growth in Forward-Deployed Engineering since 2023
       - value: 14,000+
-        title: New tech jobs Florida will add in 2026
+        title: New tech jobs to be added in Florida in 2026
       - value: 3%
         title: Of the workforce currently qualified to fill AI roles
     section_id: features_grid-o2kd1x
     marginY:
       mobile: md none
-      desktop: md none
+      desktop: none
     paddingY:
       mobile: none md
       desktop: none md
@@ -1063,8 +1063,8 @@ sections:
     section_id: features_quad-ms7uox
   - type: syllabus
     variant: program-modules
-    program_title: What You'll Build in 24 Weeks
-    program_description: Every student picks one real company, their own, one they want to build, or one they want to transform. Across 10 milestones, you'll engineer it into a fully operational, AI-powered business. You graduate with a live system, not just a certificate.
+    program_title: Your 24-Week Path to an AI Engineering Career
+    program_description: Every student picks one real company to work on throughout the program. Across 10 milestones, you'll engineer it into a fully operational, AI-powered business. You graduate with a live system, not just a certificate.
     tech_logos:
       - name: OpenAI
         icon: openai
@@ -1213,6 +1213,178 @@ sections:
     paddingY:
       mobile: lg none
       desktop: md sm
+  - type: human_and_ai_duo
+    section_id: human_and_ai_duo-zg16oa
+    version: "1.0"
+    heading: Support Like Nowhere Else. Built for People Starting From Scratch.
+    description: Learning works best when support is tailored to your progress. At 4Geeks, unlimited 1:1 mentorship and AI-powered feedback from Rigobot combine to keep you unblocked and moving faster than you thought possible.
+    bullet_groups:
+      - title: "Unlimited 1:1 mentorship:"
+        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
+        bullets:
+          - text: Personalized guidance from senior engineers
+          - text: Live troubleshooting and bug fixing
+          - text: Industry insights from people working in tech
+          - text: Unlimited number of sessions. Available lifelong
+      - title: "Rigobot, your AI tutor:"
+        bullets:
+          - text: Instant feedback on your code, 24/7
+          - text: Adapts to your level and learning pace
+          - text: Keeps you unblocked at any hour
+          - text: Hundreds of hands-on coding exercises and tests
+    images:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
+        alt: Asian student learning to code
+        object_fit: cover
+        object_position: 40%20%
+        border_radius: 0.5rem
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
+        alt: Latino student working on a project
+        object_fit: cover
+        object_position: 50%30%
+        border_radius: 0.5rem
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
+        alt: African student collaborating with team
+        object_fit: cover
+        object_position: 50%15%
+        border_radius: 0.5rem
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
+        alt: Latina student celebrating success
+        object_fit: cover
+        object_position: 50%30%
+        border_radius: 0.5rem
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
+    image_alt: Woman working on laptop in cafe
+    background: hsl(210 100% 50% / 0.05)
+    paddingY:
+      mobile: sm none
+      desktop: md
+    marginY:
+      desktop: none md
+  - type: career_support_explain
+    maxWidth:
+      desktop: 6xl
+    version: v1.0
+    heading: Get Hired. Career Support That Doesn't Stop at Graduation.
+    description: AI-optimized profiles, direct access to a network of 400+ hiring partners, and hands-on support from first application to signed offer, and beyond.
+    background: hsl(var(--sidebar-background))
+    tabs:
+      - tab_label: Job-Ready, Faster
+        layout: three_columns
+        col1_subtitle: Build a Recruiter-Ready Profile, Smarter.
+        col1_description: |-
+          Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
+          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal impact.
+        col1_tagline: We'll help you create tailored job search materials
+        col1_boxes:
+          - icon: IconBrandLinkedin
+            text: LinkedIn
+          - icon: IconFileText
+            text: Resume
+          - icon: IconBriefcase
+            text: Portfolio
+          - icon: IconMail
+            text: Cover letter
+        col2_heading: Career Strategy, Built Around You
+        col2_bullets:
+          - icon: IconRobot
+            text: 24/7 feedback from RigoBot to audit your LinkedIn and resume
+          - icon: IconUsers
+            text: 1-on-1 career coaching and strategy sessions
+          - icon: IconMicrophone
+            text: Mock interviews and technical interview prep
+        col3_image_id: 4geeks_member
+        col3_object_fit: cover
+        col3_object_position: center
+      - tab_label: Real Hiring Access
+        layout: two_column_cards
+        title: Access the Hidden Job Market.
+        left_text: Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
+        left_image_id: career_team_women
+        left_image_object_fit: cover
+        left_image_object_position: center
+        left_stat:
+          value: 250+
+          label: companies in 4Geeks employer network
+        right_bullets:
+          - icon: IconUserPlus
+            text: Direct referrals to hiring partners
+          - icon: IconTargetArrow
+            text: Curated job matches based on your profile
+          - icon: IconMessageChatbot
+            text: Networking and recruiter conversation coaching
+        right_logos:
+          - image_id: logo_google
+            alt: Google
+          - image_id: logo_meta
+            alt: Meta
+          - image_id: logo_microsoft
+            alt: Microsoft
+          - image_id: logo_uber
+            alt: Uber
+          - image_id: logo_ebay
+            alt: eBay
+          - image_id: logo_kpmg
+            alt: KPMG
+      - tab_label: Proof That Converts
+        layout: text_and_image
+        title: Projects that Demonstrate Real Skill.
+        left_description: |-
+          Visibility gets attention. Proof closes the gap.
+          Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
+        left_bullets:
+          - icon: IconBriefcase
+            text: Industry-aligned, real-world projects
+          - icon: IconPresentation
+            text: A showcase-ready capstone project
+          - icon: IconBrandGithub
+            text: GitHub optimization and professional code review
+        right_image_id: geekforce_valentina_ancieta
+        right_image_object_fit: cover
+        right_image_object_position: center
+      - tab_label: Your Best-Fit Role
+        layout: text_with_testimonials_carousel
+        title: Turn Your Background into an Advantage.
+        left_description: |-
+          Once offers are on the table, we help you choose and negotiate with confidence.
+          Your previous experience matters. We map transferable skills, focus your job search on the right roles, and support you through salary negotiation and long-term growth.
+        left_bullets:
+          - icon: IconTransfer
+            text: Transferable skills mapping
+          - icon: IconMap
+            text: Personalized career roadmap
+          - icon: IconCoin
+            text: Salary negotiation coaching
+          - icon: IconUsers
+            text: Ongoing alumni career support
+        testimonials:
+          - image_id: mailinh_tran
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: clark_university
+            description: MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her endeavor.
+            achievement: She launched her own startup, is hiring new tech talent, and coordinates an entire team of developers.
+          - image_id: martin_coimbra
+            image_object_fit: cover
+            image_object_position: center top
+            contributor_logos:
+              - image_id: logo_utec
+            description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
+            achievement: He achieved a 100% salary increase.
+          - image_id: melanie_galaretto
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: logo_utec
+              - image_id: bid_logo
+            description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
+            achievement: She achieved a 100% salary increase.
+    section_id: career_support_explain-xpc3k2
+    marginY:
+      desktop: none xl
+    paddingY:
+      desktop: md none
   - type: cards_deck
     version: "1.0"
     heading: Real Stories of Real Career Change
@@ -1245,105 +1417,9 @@ sections:
     section_id: cards_deck-cnay6o
     marginY:
       desktop: none xl
-  - type: ai_learning
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: The Most Personalized Path to an AI Career
-    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support, every part of the experience is built around you.
-    features:
-      - icon: Robot
-        title: AI-powered feedback, available 24/7
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Instant feedback from Rigobot, our custom AI tutor
-          - text: Advice adjusted to your skill level and progress
-          - text: Instant help at any hour, day or night
-          - text: Hundreds of interactive coding exercises and tests
-        video_url: https://www.youtube.com/watch?v=NRuShbSLtg0
-      - icon: Headset
-        title: Unlimited 1:1 mentorship, for life
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Lifelong access to 1:1 technical mentorship
-          - text: "7:1 student-to-mentor ratio: so your mentor knows your name"
-          - text: Weekly check-ins and peer collaboration via Slack
-          - text: Dedicated channels for coding support, job boards, and career advice
-        video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
-      - icon: TrendingUp
-        title: Career support built for Florida's tech market
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Lifelong 1:1 career coaching focused on Florida tech employers
-          - text: Resume and portfolio built to pass AI-based screening
-          - text: Interview prep and salary negotiation
-          - text: Direct referrals to our 400+ employer network including Florida-based companies
-        video_url: https://youtu.be/-2ZvlgDnltc
-    section_id: ai_learning-xiuj75
-    marginY:
-      desktop: md
-    paddingY:
-      desktop: md sm
-    background: hsl(var(--secondary))
-  - type: certificate
-    title: Your Certificate. Your Career Leverage.
-    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Step into roles paying:"
-    benefits:
-      - text: "AI Engineer: $95K–$135K"
-      - text: "Forward-Deployed Engineer: $105K–$155K"
-      - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-      - text: "Workflow Automation Engineer: $85K–$120K"
-    card:
-      title: AI Engineer
-      subtitle: 4Geeks Academy Certificate
-      program_name: AI Engineering
-    stats:
-      - value: 86%
-        label: Hiring rate
-        description: Graduate with the credentials, portfolio, and professional profile to get hired by Florida employers actively recruiting right now.
-        benefits:
-          - text: Certificate recognized by the Florida Department of Education
-          - text: End-to-end AI-engineered company in your portfolio
-          - text: Demonstrated experience with agents, workflows, and AI systems
-          - text: Optimized professional profile and job-search strategy
-      - value: ~3 months
-        label: Average time to get hired
-        description: Most graduates land their first role in about 3 months. A structured 3-step career process turns your skills into offers fast.
-        benefits:
-          - text: Resume, portfolio, and profiles optimized to attract recruiters and pass AI-based screening
-          - text: Technical and behavioral interview preparation
-          - text: Personalized job-search strategy with access to Florida and national hiring networks
-      - value: 55%
-        label: Average salary increase
-        description: AI skills are exactly what Florida companies can't find enough of. Step into high-priority roles in Miami, Orlando, and Tampa with immediate growth and long-term upside.
-        benefits:
-          - text: "AI Engineer: $95K–$135K"
-          - text: "Forward-Deployed Engineer: $105K–$155K"
-          - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-          - text: "Workflow Automation Engineer: $85K–$120K"
-      - value: 400+
-        label: Hiring partners
-        description: 400+ companies actively hiring our graduates. Get exclusive access, priority referrals, and direct connections to the people making hiring decisions.
-        benefits:
-          - text: Exclusive job board access
-          - text: Priority referrals to partner companies
-          - text: Networking events with hiring managers
-          - text: Companies include Google, Meta, Amazon, Florida-based startups and enterprises
-    certificate_position: right
-    useSolidCard: true
-    section_id: certificate-yvgz4h
-    marginY:
-      mobile: none
-      desktop: none sm
-    paddingY:
-      mobile: lg
-      desktop: lg
-    background: hsl(var(--card))
   - type: testimonials_slide
-    title: They Made the Switch. Here's What Happened.
-    description: "Different backgrounds, one outcome: a career in tech that pays."
+    title: "Different Backgrounds. One Outcome: A Job in Tech."
+    description: They all made the switch from different starting points. Read their stories.
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
@@ -1495,7 +1571,7 @@ sections:
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work
-    subtitle: From Florida startups to global tech leaders, our alumni work at some of the most recognized companies worldwide.
+    subtitle: From local startups to global tech leaders, our alumni work at some of the most recognized companies worldwide.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
