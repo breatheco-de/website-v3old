@@ -7,7 +7,6 @@ interface CircleGaugeProps {
   accentColor?: string;
 }
 
-const TRACK = "#1e293b";
 const GAUGE_SIZE = 88;
 const STROKE_WIDTH = 3.6;
 
@@ -18,8 +17,9 @@ export function CircleGauge({
   bar2Label   = "AI-ready professionals",
   accentColor = "#f59e0b",
 }: CircleGaugeProps) {
-  const pct     = Math.min(100, Math.max(0, percentage));
-  const inverse = 100 - pct;
+  const pct      = Math.min(100, Math.max(0, percentage));
+  const inverse  = 100 - pct;
+  const trackColor = `color-mix(in srgb, ${accentColor} 22%, #334155)`;
 
   return (
     <div className="flex flex-col gap-4">
@@ -32,19 +32,17 @@ export function CircleGauge({
             height={GAUGE_SIZE}
             style={{ transform: "rotate(-90deg)" }}
           >
-            {/* Track */}
+            {/* Track — visible ring in accent-tinted slate */}
             <circle
               cx="18" cy="18" r="15.9"
               fill="none"
-              stroke={TRACK}
-              strokeWidth={STROKE_WIDTH}
+              style={{ stroke: trackColor, strokeWidth: STROKE_WIDTH }}
             />
             {/* Filled arc */}
             <circle
               cx="18" cy="18" r="15.9"
               fill="none"
-              stroke={accentColor}
-              strokeWidth={STROKE_WIDTH}
+              style={{ stroke: accentColor, strokeWidth: STROKE_WIDTH }}
               strokeDasharray={`${pct} ${100 - pct}`}
               strokeLinecap="round"
             />

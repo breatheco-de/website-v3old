@@ -44,6 +44,7 @@ sections:
       stat_label: new AI roles expected by 2027
       end_label: 1.3M · 2027
     section_id: features_grid-iry5m2
+    card_bars_accent: hsl(var(--color-green))
   - type: hero
     version: "1.0"
     variant: credibility
