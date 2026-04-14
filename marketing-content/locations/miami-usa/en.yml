@@ -155,7 +155,7 @@ sections:
     heading: Explore Our Programs
     subheading: Industry-aligned training designed to launch your career in tech
     courses:
-      - name: AI Engineering
+      - name: AI Engineering.
         icon: Brain
         duration: 24 weeks
         label: Updated in 2026
