@@ -956,7 +956,7 @@ function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportEx
                                     <div className="py-2 px-2 text-xs text-muted-foreground">Loading sections...</div>
                                   ) : filteredSections.length === 0 ? (
                                     <div className="py-2 px-2 text-xs text-muted-foreground">
-                                      No <em>{componentType}</em> sections on this page
+                                      No sections of this type found on this page
                                     </div>
                                   ) : (
                                     filteredSections.map((section, sIdx) => (
@@ -1199,7 +1199,8 @@ export default function ThemeEditor() {
 
   const savePreviewExamples = useCallback(async (examples: PreviewExample[]) => {
     try {
-      await apiRequest("PUT", "/api/theme/preview-examples", examples);
+      const toSave = examples.filter((e) => !e.pageUrl);
+      await apiRequest("PUT", "/api/theme/preview-examples", toSave);
       queryClient.invalidateQueries({ queryKey: ["/api/theme"] });
     } catch {
       toast({ title: "Save failed", description: "Could not save preview examples.", variant: "destructive" });
@@ -1980,9 +1981,7 @@ export default function ThemeEditor() {
       onImport={async (entry) => {
         const updated = [...confirmedExamples, entry];
         setConfirmedExamples(updated);
-        if (!entry.pageUrl) {
-          await savePreviewExamples(updated);
-        }
+        await savePreviewExamples(updated);
       }}
     />
     </>
