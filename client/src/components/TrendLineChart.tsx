@@ -1,4 +1,6 @@
 
+import { resolveColorVar, hslColor, hslColorRaw } from "@/components/course_selector/shared";
+
 interface TrendLineChartProps {
   years?: string[];
   values?: number[];
@@ -29,11 +31,14 @@ export function TrendLineChart({
   years       = DEFAULT_YEARS,
   values      = DEFAULT_VALUES,
   endLabel    = "1.3M · 2027",
-  accentColor = "#34d399",
+  accentColor = "hsl(var(--primary))",
 }: TrendLineChartProps) {
+  const resolved  = resolveColorVar(accentColor);
+  const accentCss = hslColorRaw(resolved);
+  const gradId    = `trendArea_${accentColor.replace(/[^a-zA-Z0-9]/g, "")}`;
+
   const innerW  = W - PAD.left - PAD.right;
   const innerH  = H - PAD.top  - PAD.bottom;
-  const gradId  = `trendArea_${accentColor.replace(/[^a-zA-Z0-9]/g, "")}`;
 
   const points = values.map((v, i) => ({
     x: PAD.left + (i / (values.length - 1)) * innerW,
@@ -56,8 +61,8 @@ export function TrendLineChart({
       >
         <defs>
           <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"   stopColor={accentColor} stopOpacity="0.3" />
-            <stop offset="100%" stopColor={accentColor} stopOpacity="0.02" />
+            <stop offset="0%"   style={{ stopColor: accentCss, stopOpacity: 0.3 }} />
+            <stop offset="100%" style={{ stopColor: accentCss, stopOpacity: 0.02 }} />
           </linearGradient>
         </defs>
 
@@ -74,8 +79,8 @@ export function TrendLineChart({
         ))}
 
         <path d={areaD} fill={`url(#${gradId})`} />
-        <path d={pathD} fill="none" stroke={accentColor} strokeWidth="2" strokeLinecap="round" />
-        <circle cx={lastPt.x} cy={lastPt.y} r="4" fill={accentColor} />
+        <path d={pathD} fill="none" style={{ stroke: accentCss }} strokeWidth="2" strokeLinecap="round" />
+        <circle cx={lastPt.x} cy={lastPt.y} r="4" style={{ fill: accentCss }} />
 
         {years.map((y, i) => {
           if (i % 2 !== 0) return null;
@@ -96,9 +101,9 @@ export function TrendLineChart({
           <span
             className="text-xs font-bold rounded-full px-2 py-0.5"
             style={{
-              color: accentColor,
-              background: `color-mix(in srgb, ${accentColor} 15%, transparent)`,
-              border: `1px solid color-mix(in srgb, ${accentColor} 35%, transparent)`,
+              color: accentCss,
+              background: hslColor(resolved, 0.15),
+              border: `1px solid ${hslColor(resolved, 0.35)}`,
             }}
           >
             {endLabel}

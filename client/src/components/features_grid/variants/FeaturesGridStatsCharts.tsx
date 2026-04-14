@@ -1,6 +1,7 @@
 
 import type { CSSProperties } from "react";
 import type { FeaturesGridStatsChartsSection } from "@shared/schema";
+import { resolveColorVar, hslColor, hslColorRaw } from "@/components/course_selector/shared";
 import { BarChart } from "@/components/BarChart";
 import { CircleGauge } from "@/components/CircleGauge";
 import { TrendLineChart } from "@/components/TrendLineChart";
@@ -9,19 +10,16 @@ interface Props {
   data: FeaturesGridStatsChartsSection;
 }
 
-const DEFAULT_BARS_ACCENT  = "#3b82f6";
-const DEFAULT_GAUGE_ACCENT = "#f59e0b";
-const DEFAULT_TREND_ACCENT = "#34d399";
-
-function cardBg(accent: string) {
-  return `color-mix(in srgb, ${accent} 10%, transparent)`;
-}
+const DEFAULT_BARS_ACCENT  = "hsl(var(--color-green))";
+const DEFAULT_GAUGE_ACCENT = "hsl(var(--color-orange))";
+const DEFAULT_TREND_ACCENT = "hsl(var(--primary))";
 
 function badgeStyles(accent: string): CSSProperties {
+  const r = resolveColorVar(accent);
   return {
-    color: accent,
-    background: `color-mix(in srgb, ${accent} 15%, transparent)`,
-    border: `1px solid color-mix(in srgb, ${accent} 30%, transparent)`,
+    color: hslColorRaw(r),
+    background: hslColor(r, 0.15),
+    border: `1px solid ${hslColor(r, 0.3)}`,
   };
 }
 
@@ -31,6 +29,10 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
   const barsAccent  = data.card_bars_accent  || DEFAULT_BARS_ACCENT;
   const gaugeAccent = data.card_gauge_accent || DEFAULT_GAUGE_ACCENT;
   const trendAccent = data.card_trend_accent || DEFAULT_TREND_ACCENT;
+
+  const barsR  = resolveColorVar(barsAccent);
+  const gaugeR = resolveColorVar(gaugeAccent);
+  const trendR = resolveColorVar(trendAccent);
 
   return (
     <section
@@ -45,7 +47,7 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
               {data.subtitle && (
                 <p
                   className="text-sm font-semibold uppercase tracking-wider mb-2"
-                  style={{ color: barsAccent }}
+                  style={{ color: hslColorRaw(barsR) }}
                   data-testid="text-stats-charts-subtitle"
                 >
                   {data.subtitle}
@@ -76,7 +78,7 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
           {/* Card Bars */}
           <div
             className="rounded-2xl p-6 flex flex-col gap-4"
-            style={{ background: cardBg(barsAccent) }}
+            style={{ background: hslColor(barsR, 0.1) }}
             data-testid="card-stats-charts-bars"
           >
             {card_bars?.badge && (
@@ -116,7 +118,7 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
           {/* Card Gauge */}
           <div
             className="rounded-2xl p-6 flex flex-col gap-4"
-            style={{ background: cardBg(gaugeAccent) }}
+            style={{ background: hslColor(gaugeR, 0.1) }}
             data-testid="card-stats-charts-gauge"
           >
             {card_gauge?.badge && (
@@ -130,6 +132,7 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
             <CircleGauge
               percentage={card_gauge?.gauge_percentage}
               gaugeLabel={card_gauge?.gauge_label}
+              gaugeSubLabel={card_gauge?.stat_label}
               bar1Label={card_gauge?.bar1_label}
               bar2Label={card_gauge?.bar2_label}
               accentColor={gaugeAccent}
@@ -139,7 +142,7 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
           {/* Card Trend */}
           <div
             className="rounded-2xl p-6 flex flex-col gap-4"
-            style={{ background: cardBg(trendAccent) }}
+            style={{ background: hslColor(trendR, 0.1) }}
             data-testid="card-stats-charts-trend"
           >
             {card_trend?.badge && (

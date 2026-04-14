@@ -1,4 +1,6 @@
 
+import { resolveColorVar, hslColor, hslColorRaw } from "@/components/course_selector/shared";
+
 interface BarChartProps {
   years?: string[];
   displaced?: number[];
@@ -18,10 +20,12 @@ export function BarChart({
   created        = DEFAULT_CREATED,
   displacedLabel = "Displaced",
   createdLabel   = "Created by AI",
-  accentColor    = "#3b82f6",
+  accentColor    = "hsl(var(--color-green))",
 }: BarChartProps) {
+  const resolved    = resolveColorVar(accentColor);
+  const accentCss   = hslColorRaw(resolved);
+  const faintColor  = hslColor(resolved, 0.35);
   const maxVal      = Math.max(...displaced, ...created);
-  const faintColor  = `color-mix(in srgb, ${accentColor} 35%, transparent)`;
 
   return (
     <div className="flex flex-col gap-3">
@@ -40,7 +44,7 @@ export function BarChart({
                 className="flex-1 rounded-t-sm transition-all"
                 style={{
                   height: `${((created[i] ?? 0) / maxVal) * 100}%`,
-                  background: accentColor,
+                  background: accentCss,
                 }}
               />
             </div>
@@ -60,7 +64,7 @@ export function BarChart({
         <div className="flex items-center gap-1.5">
           <span
             className="w-2.5 h-2.5 rounded-sm shrink-0"
-            style={{ background: accentColor }}
+            style={{ background: accentCss }}
           />
           <span className="text-xs text-slate-400">{createdLabel}</span>
         </div>
