@@ -1,6 +1,7 @@
 
 import type { CSSProperties } from "react";
 import type { FeaturesGridStatsChartsSection } from "@shared/schema";
+import { resolveColorVar, hslColor, hslColorRaw } from "@/components/course_selector/shared";
 import { BarChart } from "@/components/BarChart";
 import { CircleGauge } from "@/components/CircleGauge";
 import { TrendLineChart } from "@/components/TrendLineChart";
@@ -9,18 +10,16 @@ interface Props {
   data: FeaturesGridStatsChartsSection;
 }
 
-const DEFAULT_BARS_ACCENT  = "#3b82f6";
-const DEFAULT_GAUGE_ACCENT = "#f59e0b";
-const DEFAULT_TREND_ACCENT = "#34d399";
-
-function cardBg(accent: string) {
-  return `color-mix(in srgb, ${accent} 10%, transparent)`;
-}
+const DEFAULT_BARS_ACCENT  = "hsl(var(--color-green))";
+const DEFAULT_GAUGE_ACCENT = "hsl(var(--color-orange))";
+const DEFAULT_TREND_ACCENT = "hsl(var(--primary))";
 
 function badgeStyles(accent: string): CSSProperties {
+  const r = resolveColorVar(accent);
   return {
-    color: accent,
-    background: `color-mix(in srgb, ${accent} 15%, transparent)`,
+    color: hslColorRaw(r),
+    background: hslColor(r, 0.25),
+    border: `1px solid ${hslColor(r, 0.5)}`,
   };
 }
 
@@ -30,6 +29,10 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
   const barsAccent  = data.card_bars_accent  || DEFAULT_BARS_ACCENT;
   const gaugeAccent = data.card_gauge_accent || DEFAULT_GAUGE_ACCENT;
   const trendAccent = data.card_trend_accent || DEFAULT_TREND_ACCENT;
+
+  const barsR  = resolveColorVar(barsAccent);
+  const gaugeR = resolveColorVar(gaugeAccent);
+  const trendR = resolveColorVar(trendAccent);
 
   return (
     <section
@@ -44,7 +47,7 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
               {data.subtitle && (
                 <p
                   className="text-sm font-semibold uppercase tracking-wider mb-2"
-                  style={{ color: barsAccent }}
+                  style={{ color: hslColorRaw(barsR) }}
                   data-testid="text-stats-charts-subtitle"
                 >
                   {data.subtitle}
@@ -74,8 +77,8 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
 
           {/* Card Bars */}
           <div
-            className="rounded-2xl p-6 flex flex-col gap-4"
-            style={{ background: cardBg(barsAccent) }}
+            className="rounded-2xl p-6 flex flex-col gap-3"
+            style={{ background: hslColor(barsR, 0.1) }}
             data-testid="card-stats-charts-bars"
           >
             {card_bars?.badge && (
@@ -86,11 +89,28 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
                 {card_bars.badge}
               </span>
             )}
+            {card_bars?.title && (
+              <h3
+                className="text-base font-bold text-white leading-snug"
+                data-testid="text-stats-charts-bars-title"
+              >
+                {card_bars.title}
+              </h3>
+            )}
+            {card_bars?.description && (
+              <p
+                className="text-xs text-slate-500 leading-snug -mt-1"
+                data-testid="text-stats-charts-bars-description"
+              >
+                {card_bars.description}
+              </p>
+            )}
             {card_bars?.stat_value && (
               <div>
                 <div
-                  className="text-4xl  text-foreground font-extrabold tracking-tight leading-none"
-                  data-testid="text-stats-charts-bars-valuikkke"
+                  className="text-4xl font-black tracking-tight leading-none"
+                  style={{ color: hslColorRaw(barsR) }}
+                  data-testid="text-stats-charts-bars-value"
                 >
                   {card_bars.stat_value}
                 </div>
@@ -114,8 +134,8 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
 
           {/* Card Gauge */}
           <div
-            className="rounded-2xl p-6 flex flex-col gap-4"
-            style={{ background: cardBg(gaugeAccent) }}
+            className="rounded-2xl p-6 flex flex-col gap-3"
+            style={{ background: hslColor(gaugeR, 0.1) }}
             data-testid="card-stats-charts-gauge"
           >
             {card_gauge?.badge && (
@@ -126,9 +146,26 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
                 {card_gauge.badge}
               </span>
             )}
+            {card_gauge?.title && (
+              <h3
+                className="text-base font-bold text-white leading-snug"
+                data-testid="text-stats-charts-gauge-title"
+              >
+                {card_gauge.title}
+              </h3>
+            )}
+            {card_gauge?.description && (
+              <p
+                className="text-xs text-slate-500 leading-snug -mt-1"
+                data-testid="text-stats-charts-gauge-description"
+              >
+                {card_gauge.description}
+              </p>
+            )}
             <CircleGauge
               percentage={card_gauge?.gauge_percentage}
               gaugeLabel={card_gauge?.gauge_label}
+              gaugeSubLabel={card_gauge?.stat_label}
               bar1Label={card_gauge?.bar1_label}
               bar2Label={card_gauge?.bar2_label}
               accentColor={gaugeAccent}
@@ -137,8 +174,8 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
 
           {/* Card Trend */}
           <div
-            className="rounded-2xl p-6 flex flex-col gap-4"
-            style={{ background: cardBg(trendAccent) }}
+            className="rounded-2xl p-6 flex flex-col gap-3"
+            style={{ background: hslColor(trendR, 0.1) }}
             data-testid="card-stats-charts-trend"
           >
             {card_trend?.badge && (
@@ -149,10 +186,27 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
                 {card_trend.badge}
               </span>
             )}
+            {card_trend?.title && (
+              <h3
+                className="text-base font-bold text-white leading-snug"
+                data-testid="text-stats-charts-trend-title"
+              >
+                {card_trend.title}
+              </h3>
+            )}
+            {card_trend?.description && (
+              <p
+                className="text-xs text-slate-500 leading-snug -mt-1"
+                data-testid="text-stats-charts-trend-description"
+              >
+                {card_trend.description}
+              </p>
+            )}
             {card_trend?.stat_value && (
               <div>
                 <div
-                  className="text-4xl font-black text-white tracking-tight leading-none"
+                  className="text-4xl font-black tracking-tight leading-none"
+                  style={{ color: hslColorRaw(trendR) }}
                   data-testid="text-stats-charts-trend-value"
                 >
                   {card_trend.stat_value}
