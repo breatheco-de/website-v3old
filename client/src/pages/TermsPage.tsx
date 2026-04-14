@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { FooterSection } from "@/components/FooterSection";
+import { FooterSection } from "@/components/footer/variants/FooterDefault";
 
 export default function TermsPage() {
   const { i18n } = useTranslation();

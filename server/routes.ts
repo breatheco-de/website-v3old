@@ -45,8 +45,13 @@ import {
   createNewVersion,
   getExampleFilePath,
   saveExample,
+  createExample,
   loadAllFieldEditors,
   applyComponentSectionDefaults,
+  getVariantByExample,
+  getVariantExamples,
+  deleteExample,
+  deleteVariant,
 } from "./component-registry";
 import {
   editContent,
@@ -111,7 +116,7 @@ import {
 } from "./settings";
 import { variableManager } from "./variable-manager";
 import { getValidationService } from "../scripts/validation/service";
-import { getCanonicalUrl } from "../scripts/validation/shared/canonicalUrls";
+import { getCanonicalUrl, normalizeUrl } from "../scripts/validation/shared/canonicalUrls";
 import { gcs } from "./gcs";
 import { z } from "zod";
 import {
@@ -1670,60 +1675,90 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/page-sections", async (req, res) => {
     try {
       const pagePath = req.query.path as string;
-      const locale = (req.query.locale as string) || "en";
 
       if (!pagePath) {
         res.status(400).json({ error: "Missing path query parameter", sections: [] });
         return;
       }
 
-      const service = getValidationService();
-      let context = service.getContext();
-      if (!context) {
-        context = await service.buildContext();
+      const normalizedPath = normalizeUrl(pagePath);
+      const resolved = contentIndex.resolveUrl(normalizedPath);
+
+      let effectiveLocale = (req.query.locale as string) || "en";
+      if (resolved && !req.query.locale && resolved.patternLocale) {
+        effectiveLocale =
+          resolved.patternLocale === "default" ? "en" : resolved.patternLocale;
       }
 
-      const matchingFiles = (context.contentFiles as any[]).filter(
-        (f: any) => getCanonicalUrl(f) === pagePath,
-      );
+      let rawData: Record<string, unknown> | null = null;
 
-      const file =
-        matchingFiles.find((f: any) => f.locale === locale) ||
-        matchingFiles.find((f: any) => f.locale !== "_common") ||
-        matchingFiles[0] ||
-        null;
-
-      if (!file) {
-        res.json({ sections: [] });
-        return;
+      if (resolved && !resolved.fromDatabase) {
+        const merged = contentIndex.loadMergedContent(
+          resolved.contentType,
+          resolved.slug,
+          effectiveLocale,
+        );
+        if (merged.data) {
+          rawData = merged.data;
+        }
       }
 
-      let rawData: Record<string, unknown> = {};
-      try {
-        const commonPath = path.join(path.dirname(file.filePath), "_common.yml");
-        if (fs.existsSync(commonPath)) {
-          const commonData =
-            (safeYamlLoad(fs.readFileSync(commonPath, "utf-8")) as Record<string, unknown>) || {};
-          rawData = { ...commonData };
+      if (!rawData) {
+        const service = getValidationService();
+        let context = service.getContext();
+        if (!context) {
+          context = await service.buildContext();
         }
-        if (fs.existsSync(file.filePath)) {
-          const localeData =
-            (safeYamlLoad(fs.readFileSync(file.filePath, "utf-8")) as Record<string, unknown>) || {};
-          rawData = { ...rawData, ...localeData };
-        }
-      } catch {}
 
+        const matchingFiles = (context.contentFiles as any[]).filter(
+          (f: any) => normalizeUrl(getCanonicalUrl(f)) === normalizedPath,
+        );
+
+        const file =
+          matchingFiles.find((f: any) => f.locale === effectiveLocale) ||
+          matchingFiles.find((f: any) => f.locale !== "_common") ||
+          matchingFiles[0] ||
+          null;
+
+        if (!file) {
+          res.json({ sections: [] });
+          return;
+        }
+
+        rawData = {};
+        try {
+          const commonPath = path.join(path.dirname(file.filePath), "_common.yml");
+          if (fs.existsSync(commonPath)) {
+            const commonData =
+              (safeYamlLoad(fs.readFileSync(commonPath, "utf-8")) as Record<string, unknown>) || {};
+            rawData = { ...commonData };
+          }
+          if (fs.existsSync(file.filePath)) {
+            const localeData =
+              (safeYamlLoad(fs.readFileSync(file.filePath, "utf-8")) as Record<string, unknown>) || {};
+            rawData = { ...rawData, ...localeData };
+          }
+        } catch {}
+      }
+
+      const includeYaml = req.query.includeYaml === "true";
       const rawSections = (rawData.sections as any[]) || [];
       const sections = rawSections
         .filter((s: any) => s?.type)
-        .map((s: any, index: number) => ({
-          type: s.type as string,
-          section_id: (s.section_id as string) || null,
-          label:
-            (s.title as string) ||
-            (s.heading as string) ||
-            `${s.type} (section ${index + 1})`,
-        }));
+        .map((s: any, index: number) => {
+          const base: Record<string, unknown> = {
+            type: s.type as string,
+            section_id: (s.section_id as string) || null,
+            label:
+              (s.title as string) ||
+              (s.heading as string) ||
+              `${s.type} (section ${index + 1})`,
+          };
+          if (includeYaml) {
+            base.yamlContent = safeYamlDump([s], { lineWidth: -1 });
+          }
+          return base;
+        });
 
       res.json({ sections });
     } catch (e) {
@@ -6388,6 +6423,119 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
       res.json({ success: true });
     },
+  );
+
+  app.post(
+    "/api/component-registry/:componentType/:version/examples",
+    (req, res) => {
+      const { componentType, version } = req.params;
+      const { yamlContent, sectionId, name, description } = req.body as {
+        yamlContent?: string;
+        sectionId?: string;
+        name?: string;
+        description?: string;
+      };
+
+      if (!yamlContent) {
+        res.status(400).json({ error: "yamlContent is required" });
+        return;
+      }
+
+      const displayName = typeof name === "string" ? name : undefined;
+      const desc = typeof description === "string" ? description : undefined;
+
+      const result = createExample(componentType, version, yamlContent, sectionId, {
+        displayName,
+        description: desc,
+      });
+
+      if (!result.success) {
+        res.status(400).json({ error: result.error });
+        return;
+      }
+
+      res.json({ success: true, filename: result.filename, exampleName: result.exampleName });
+    }
+  );
+
+  app.get(
+    "/api/component-registry/:componentType/variant-impact",
+    (req, res) => {
+      const { componentType } = req.params;
+      const { version, exampleName } = req.query as { version?: string; exampleName?: string };
+
+      if (!version || !exampleName) {
+        res.status(400).json({ error: "version and exampleName are required" });
+        return;
+      }
+
+      const variantName = getVariantByExample(componentType, version, exampleName);
+      if (!variantName) {
+        res.status(404).json({ error: `Could not determine variant for example "${exampleName}"` });
+        return;
+      }
+
+      const toPascal = (s: string) =>
+        s.replace(/[-_](.)/g, (_, c: string) => c.toUpperCase()).replace(/^(.)/, (c: string) => c.toUpperCase());
+      const componentName = `${toPascal(componentType)}${toPascal(variantName)}`;
+      const tsxPath = `client/src/components/${componentType}/variants/${componentName}.tsx`;
+
+      const examples = getVariantExamples(componentType, variantName).map((e) => e.name);
+
+      const pagesRaw = contentIndex.removeAllVariantSectionsFromPages(componentType, variantName, true);
+      const pagesMap = new Map<string, { count: number; sectionIds: string[] }>();
+      for (const p of pagesRaw) {
+        const key = `/${p.locale}/${p.slug}`;
+        const existing = pagesMap.get(key);
+        if (existing) {
+          existing.count += p.removedCount;
+          existing.sectionIds.push(...p.removedSectionIds);
+        } else {
+          pagesMap.set(key, { count: p.removedCount, sectionIds: p.removedSectionIds });
+        }
+      }
+      const pages = Array.from(pagesMap.entries()).map(([path, data]) => ({
+        path,
+        count: data.count,
+        sectionIds: data.sectionIds,
+      }));
+
+      res.json({ variantName, componentName, tsxPath, examples, pages });
+    }
+  );
+
+  app.delete(
+    "/api/component-registry/:componentType/versions/:version/examples/:exampleName",
+    (req, res) => {
+      const { componentType, version, exampleName } = req.params;
+      const result = deleteExample(componentType, version, decodeURIComponent(exampleName));
+      if (!result.success) {
+        res.status(400).json({ error: result.error });
+        return;
+      }
+      res.json({ success: true });
+    }
+  );
+
+  app.delete(
+    "/api/component-registry/:componentType/variants/:variantName",
+    (req, res) => {
+      const { componentType, variantName } = req.params;
+
+      const variantResult = deleteVariant(componentType, decodeURIComponent(variantName));
+      if (!variantResult.success) {
+        res.status(400).json({ error: variantResult.error });
+        return;
+      }
+
+      const pagesAffected = contentIndex.removeAllVariantSectionsFromPages(componentType, decodeURIComponent(variantName));
+
+      res.json({
+        success: true,
+        deletedExamples: variantResult.deletedExamples,
+        pagesAffected: pagesAffected.length,
+      });
+    }
   );
 
   app.get("/api/content/folder-files", (req, res) => {

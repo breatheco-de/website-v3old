@@ -4,8 +4,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { renderSection } from "@/components/SectionRenderer";
 import { apiFetch } from "@/lib/queryClient";
-import { ApplyFormSection } from "@/components/ApplyFormSection";
-import { FooterSection } from "@/components/FooterSection";
+import { ApplyFormSection } from "@/components/apply_form/variants/ApplyFormDefault";
+import { FooterSection } from "@/components/footer/variants/FooterDefault";
 
 interface ApplyPageData {
   slug: string;
@@ -66,7 +66,7 @@ export default function ApplyPage() {
           return (
             <ApplyFormSection
               key={index}
-              data={section as Parameters<typeof ApplyFormSection>[0]["data"]}
+              data={section as unknown as Parameters<typeof ApplyFormSection>[0]["data"]}
             />
           );
         }
@@ -74,7 +74,7 @@ export default function ApplyPage() {
           return (
             <FooterSection
               key={index}
-              data={section as Parameters<typeof FooterSection>[0]["data"]}
+              data={section as unknown as Parameters<typeof FooterSection>[0]["data"]}
             />
           );
         }

@@ -7,7 +7,7 @@ press_mentions:
       choose lightly.
     priority: 1
     organization: Government of the Bahamas
-    year: '2026'
+    year: '2018'
     tags:
       - Harvard
       - Oxford
@@ -101,7 +101,7 @@ press_mentions:
     excerpt: >-
       Full-stack developers create and troubleshoot both the back-end and front-end of websites and software—an
       indispensable skill set for companies across industries.
-    priority: 11
+    priority: 18
     logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
     link_url: https://www.forbes.com/advisor/education/bootcamps/best-full-stack-developer-bootcamp/
     link_text: Read Article
@@ -169,9 +169,10 @@ press_mentions:
   - locale: en
     title: Selected in Mexico to Deliver Tech Training for Women, with 90%  Funded  by Foundation
     category: 'Non-Profit '
-    excerpt: >
-      Fundación ACAPI selected 4Geeks and covered 90% of program costs, reserving 75% of seats for women entering tech.
-      Graduates achieved a 91% graduation rate, 80% employment rate, and an average salary increase of 53%.
+    excerpt: >-
+      Fundación ACAPI partnered with 4Geeks to deliver tech training reserving 75% of seats for women, with multiple
+      cohorts running since launch. Graduates achieved a 91% graduation rate, 80% employment rate, and an average salary
+      increase of 53%.
     priority: 10
     organization: Fundación ACAPI · Mexico
     stat_label: employment rate post-graduation
@@ -190,6 +191,19 @@ press_mentions:
     stat_value: '116% '
     tags:
       - South Florida
+  - locale: en
+    title: Selected for the Texas Workforce Commission's Initiative to Train Dallas Residents
+    category: U.S. State Government
+    excerpt: >
+
+
+      Description: Kosmos, a nonprofit focused on career readiness, chose 4Geeks to deliver fully funded tech training
+      for unemployed and underemployed Dallas residents as part of the Texas Workforce Commission's Lone Star Workforce
+      of the Future program.
+    priority: 11
+    organization: Texas Workforce Commission · Lone Star Workforce of the Future
+    stat_label: full scholarships for Dallas residents
+    stat_value: '25'
   - locale: es
     title: 4Geeks, Harvard, Oxford y Columbia elegidos para impartir educación en IA por el Gobierno de las Bahamas.
     category: Gobierno
@@ -197,7 +211,6 @@ press_mentions:
       Cuando instituciones con exigencias de debida diligencia y rendición de cuentas públicas eligen una escuela de
       programación, no lo hacen a la ligera.
     priority: 1
-    organization: Gobierno de las Bahamas
     year: '2026'
     tags:
       - Harvard
@@ -221,7 +234,7 @@ press_mentions:
     tags:
       - Costa Rica
       - Uruguay
-      - México
+      - Mexico
   - locale: es
     title: >-
       Elegidos entre más de 50 postulantes para formar la fuerza laboral del sur de Florida mediante una subvención
@@ -231,9 +244,9 @@ press_mentions:
       Miami Dade College eligió a 4Geeks para impartir formación laboral a comunidades desatendidas bajo una subvención
       federal EDA de $10M. 74 graduados colocados en roles tecnológicos con un salario promedio de $74K anuales.
     priority: 3
-    organization: Miami Dade College / EDA de EE.UU.
+    organization: Miami Dade College / EDA de EE.UU
     stat_label: metas federales alcanzadas
-    stat_value: '116% '
+    stat_value: 116%
   - locale: es
     title: Seleccionados por el Gobierno de las Bahamas para educación nacional en IA, junto a Harvard, Oxford y Columbia
     category: Gobierno
@@ -243,24 +256,21 @@ press_mentions:
     priority: 4
     organization: Proyecto de Capacitación de las Bahamas
     stat_label: crecimiento tech anual
-    stat_value: '18% '
+    stat_value: 18%
     tags:
-      - Full Stack
-      - Desarrollo Web
-      - IA Aplicada
+      - Bahamas
   - locale: es
     title: 8 años como socio de currículo tecnológico de una de las universidades más grandes de EE.UU.
     category: Universidad
     excerpt: >-
-      Miami Dade College atiende a más de 160,000 estudiantes al año. Más de 400 estudiantes han completado programas de
+      Miami Dade College atiende a más de 160.000 estudiantes al año. Más de 400 estudiantes han completado programas de
       4Geeks a través de esta alianza, graduándose con doble certificación de ambas instituciones.
     priority: 5
     organization: Miami Dade College · Educación Continua
     stat_label: graduados en 8 años
     stat_value: 400+
     tags:
-      - Totalmente financiado
-      - Estipendio de $8,400
+      - Sur de Florida
   - locale: es
     title: La única escuela de programación elegida para la iniciativa laboral financiada por MacKenzie Scott en Miami
     category: ONG
@@ -270,10 +280,9 @@ press_mentions:
     priority: 6
     organization: United Way Miami
     stat_label: estipendio máximo
-    stat_value: '$6,400 '
+    stat_value: $6,400
     tags:
-      - Mujeres en Tech
-      - Ciudad de México
+      - Sur de Florida
   - locale: es
     title: Elegidos por Clark University para ejecutar el proyecto de desarrollo laboral de Miami
     category: Universidad
@@ -285,7 +294,7 @@ press_mentions:
     stat_label: beca por estudiante
     stat_value: $4,000
     tags:
-      - Estudiantes desempleados
+      - Sur de Florida
   - locale: es
     title: Elegidos por la universidad nacional de Uruguay para impartir programas tecnológicos en todo el país
     category: Universidad
@@ -307,10 +316,9 @@ press_mentions:
     priority: 9
     organization: Fundación CRUSA · Costa Rica
     stat_label: tasa de graduación
-    stat_value: '100% '
+    stat_value: 100%
     tags:
-      - Miami Dade
-      - 74 graduados colocados
+      - Costa Rica
   - locale: es
     title: Seleccionados en México para formación tecnológica para mujeres, con 90% financiado por fundación
     category: ONG

@@ -1,9 +1,9 @@
 import { UniversalVideo, type VideoConfig } from "@/components/UniversalVideo";
 import { UniversalImage } from "@/components/UniversalImage";
 import { StatCard, type StatCardProps } from "@/components/StatCard";
-import { SyllabusModuleCard, type SyllabusModuleCardProps } from "@/components/SyllabusModuleCard";
+import { SyllabusModuleCard, type SyllabusModuleCardProps } from "@/components/syllabus/SyllabusModuleCard";
 import { TechMolecule } from "@/components/TechMolecule";
-import { CertificateDisplay } from "@/components/CertificateDisplay";
+import { CertificateDisplay } from "@/components/certificate/CertificateDisplay";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,7 +15,6 @@ import { Label } from "@/components/ui/label";
 import SolidCard from "@/components/SolidCard";
 import { DotsIndicator } from "@/components/DotsIndicator";
 import StatsCard from "@/components/StatsCard";
-import { Banner } from "@/components/Banner";
 import { SimpleLink } from "@/components/menus/SimpleLink";
 import type { ImageRef } from "@shared/schema";
 import {
@@ -218,20 +217,6 @@ interface StatsCardMolecule {
   props: { title: string; value: string | number; icon: string; trend?: string; trendUp?: boolean };
 }
 
-interface BannerMolecule {
-  id: string;
-  component: "Banner";
-  variant: string;
-  description?: string;
-  tags: string[];
-  props: {
-    title: string;
-    description?: string;
-    background?: "gradient" | "muted" | "card" | "background";
-    cta?: { text: string; url: string; variant: "primary" | "secondary" | "outline" };
-  };
-}
-
 export type MoleculeDefinition =
   | UniversalVideoMolecule
   | UniversalImageMolecule
@@ -250,8 +235,7 @@ export type MoleculeDefinition =
   | SimpleLinkMolecule
   | SolidCardMolecule
   | DotsIndicatorMolecule
-  | StatsCardMolecule
-  | BannerMolecule;
+  | StatsCardMolecule;
 
 interface MoleculeRendererProps {
   molecule: MoleculeDefinition;
@@ -415,18 +399,6 @@ export function MoleculeRenderer({ molecule }: MoleculeRendererProps) {
         />
       );
     }
-    case "Banner":
-      return (
-        <Banner
-          data={{
-            type: "banner",
-            title: molecule.props.title,
-            description: molecule.props.description,
-            background: molecule.props.background ?? "gradient",
-            cta: molecule.props.cta,
-          }}
-        />
-      );
     default:
       return (
         <div className="p-8 text-center text-muted-foreground bg-muted/30 rounded-lg">

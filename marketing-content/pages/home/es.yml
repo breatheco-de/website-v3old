@@ -46,6 +46,9 @@ sections:
           - image_id: cinde-removebg-preview
           - image_id: seal-of-the-united-states-economic-development-administration
           - image_id: austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview
+          - image_id: upskillbahamas
+            alt: "Image: UpskillBahamas"
+            id: upskillbahamas
         label: Gobiernos y grandes ONG confían en 4Geeks para sus proyectos formativos (+20M en becas)
       - category: Reconocimiento de la Industria
         logos:

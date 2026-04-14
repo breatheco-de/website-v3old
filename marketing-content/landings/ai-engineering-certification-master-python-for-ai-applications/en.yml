@@ -20,35 +20,35 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: You Already Know Python. Now Make It Worth $95K–$135K.
+    title: Make Your Python Skills Worth $95K–$135K.
     brand_mark:
-      prefix: Turn Your Python Skills Into
-      highlight: an AI Engineering Career.
+      prefix: Break Your Career
+      highlight: Ceiling.
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\"><span>Python got you this far. AI Engineering is what gets you hired at the next level. In 24 weeks, you go from Python developer to AI Engineer: building agents, RAG systems, and fully automated AI pipelines that companies are urgently paying for. Get hired within 9 months or we refund your full tuition.</span></span>"
+    description: "<span style=\"font-size: 1.125rem;\">AI Engineering is the next level for Python developers. With our intensive program you go from Python to building complete AI-native systems with agents, RAG, automated pipelines and more – exactly the skills companies are actively hiring for.</span>"
     bullets:
-      - text: "Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
-      - text: Build with the full AI stack — Python, OpenAI, LangChain, vector databases, and autonomous agents
-      - text: Flexible financing available, including zero upfront payment options
+      - text: Add vector databases, multi-agent systems, real-time AI, and workflow automation with n8n to your Python skills
+      - text: Unlimited 1:1 mentorship and career support that doesn't stop at graduation
+      - text: "Optional Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
     image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
           visible: true
           required: true
-          placeholder: Email Address
+          placeholder: Email address
         first_name:
           visible: true
           required: true
-          placeholder: First Name
+          placeholder: First name
         last_name:
           visible: true
           required: true
-          placeholder: Last Name
+          placeholder: Last name
         phone:
           visible: true
           required: true
@@ -57,20 +57,20 @@ sections:
           visible: true
           default: ai-engineering
       success:
-        message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
-        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe at any time.
+        sms_text: I agree to receive SMS messages about workshops, events, courses and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4-6 messages per month. We will never share your contact information.
         sms_usa_only: true
       show_terms: true
-    form_vertical_align: top
+    form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
-    form_card_title: Get the Full AI Engineering Program Details
-    form_card_subtitle: "Takes 2 minutes. Our admissions team will send you the complete program overview: curriculum, tech stack, pricing, and financing options."
+    form_card_title: Get the AI Engineering Program Overview
+    form_card_subtitle: Fill in your details and our admissions team will send you the program description, requirements, financing options and more. It only takes 2 minutes.
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: true
     awards_marquee:
@@ -203,27 +203,6 @@ sections:
       desktop: md
     marginY:
       desktop: none xl
-  - type: two_column
-    proportions:
-      - 6
-      - 6
-    alignment: center
-    left:
-      video: https://www.youtube.com/watch?v=PWkgaAT8pHg
-      justify: center
-    right:
-      heading: "Gabriel Salazar: From Microsoft Support to Software Engineer"
-      sub_heading: 4Geeks Academy Graduate, Costa Rica
-      description: Gabriel was already working at Microsoft as a support specialist. He had the technical mindset but not the engineering role. He needed a structured path to level up, not a tutorial to learn the basics. After completing the program at 4Geeks, he moved into a Software Engineer position at Microsoft. Same company, different ceiling.
-      button:
-        text: See If You Qualify. It's Free
-        url: "#hero-nzpyph"
-        variant: primary
-        icon: Rocket
-    gap: "8"
-    marginY:
-      desktop: none xl
-    section_id: two_column-gabriel
   - type: features_grid
     version: "1.0"
     variant: stats-text-card
@@ -398,11 +377,43 @@ sections:
     paddingY:
       mobile: lg none
       desktop: md sm
+  - type: cards_deck
+    version: "1.0"
+    heading: Real Stories of Real Career Change
+    subtitle: Thousands of graduates have used our programs to break into tech. Here are just a few of their stories, from salary increases to total career reinventions.
+    cards:
+      - video:
+          url: https://youtu.be/ln3bQsV1BaQ
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
+        author_name: Hernán García
+        title: "\"I got offers from companies I wasn't expecting\""
+        description: Hernán landed a job in tech within one month of starting his job search.
+        alt: Geekforce
+      - video:
+          url: https://youtu.be/MBXqEnhodx0
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: Joao Henrique
+        title: "\"You'll always have support from the Academy\""
+        description: Joao shares his experience receiving coding mentorship as a student, after graduating, and in his current job.
+        alt: Geekpal
+      - video:
+          url: https://youtu.be/oeX_ocy6zv4
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: Jonathan Ferragut
+        title: "\"Taking a course like this benefits us in a lot of different ways\""
+        description: Jonathan shares how the program helped him build confidence and create projects from scratch.
+        alt: Geekpal
+    section_id: cards_deck-cnay6o
+    marginY:
+      desktop: none xl
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
-    title: The Bootcamp That Doesn't End When You Graduate
-    description: Most programs hand you a certificate and walk away. At 4Geeks, graduation is when the career support starts. From AI-powered coding feedback to unlimited 1:1 mentorship and lifelong job placement support, the program is built around one outcome — you, hired as an AI Engineer, earning more with the Python skills you already have.
+    title: The Most Personalized Path to an AI Career
+    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support, every part of the experience is built around you.
     features:
       - icon: Robot
         title: AI-powered feedback, available 24/7
@@ -420,7 +431,7 @@ sections:
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 technical mentorship
-          - text: 7:1 student-to-mentor ratio so your mentor knows your name
+          - text: "7:1 student-to-mentor ratio: so your mentor knows your name"
           - text: Weekly check-ins and peer collaboration via Slack
           - text: Dedicated channels for coding support, job boards, and career advice
         video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
@@ -436,10 +447,9 @@ sections:
         video_url: https://youtu.be/-2ZvlgDnltc
     section_id: ai_learning-xiuj75
     marginY:
-      desktop: md lg
+      desktop: md none
     paddingY:
       desktop: md sm
-    background: hsl(var(--secondary))
   - type: certificate
     title: Your Certificate. Your Salary Leverage.
     description: "Earn an industry-recognized AI Engineering certificate from a Florida Department of Education accredited institution. Step into roles where Python and AI skills command:"
@@ -455,11 +465,11 @@ sections:
     stats:
       - value: 86%
         label: Hiring rate
-        description: Graduate with a verified certificate, a live Python-powered AI portfolio, and a professional profile built to get you hired, not just qualified.
+        description: Graduate with a verified certificate, an AI-native portfolio, and a professional profile built to get you hired.
         benefits:
           - text: Certificate recognized by the Florida Department of Education
           - text: End-to-end AI-engineered company in your portfolio
-          - text: Demonstrated experience with Python agents, RAG systems, and AI pipelines
+          - text: Demonstrated experience with agents, RAG systems, and AI pipelines
           - text: Optimized professional profile and job-search strategy
       - value: ~3 months
         label: Average time to get hired
@@ -610,15 +620,15 @@ sections:
     section_id: pricing-8pb379
     version: "1.0"
     variant: product
-    title: An Investment That Pays for Itself
-    subtitle: The average 4Geeks graduate sees a 55% salary increase. For a Python developer moving into AI Engineering, the program pays for itself within months of your first paycheck.
+    title: The Investment That Pays for Itself
+    subtitle: Flexible financing plans so nothing stands between you and a high-paying tech career.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting below"
     financing_amount: $349
     tech_icons:
-      - python
       - openai
       - claude
+      - python
       - pandas
       - numpy
       - scikitlearn
@@ -634,25 +644,24 @@ sections:
       - github
       - postman
       - n8n
-    features_title: Multiple ways to get started.
+    features_title: Choose the option that suits you best.
     features:
-      - icon: IconCheck
-        text: "Job Guarantee: get hired within 9 months of graduating or we refund your full tuition."
       - icon: IconCheck
         text: Full tuition is $14,999. Pay upfront and save 10%, or split into 6 interest-free monthly payments.
       - icon: IconCheck
         text: Finance over 24 to 60 months through our lending partners starting at $349/mo.
       - icon: IconCheck
         text: Partial scholarships available for highly qualified applicants.
+        use_rigobot_icon: true
+      - icon: IconCheck
+        text: "Add the Job Guarantee* for $2,000 : get hired within 9 months or get your full tuition back.<div><span style=\"font-size: 0.75rem;\">*Not available for all regions. Terms and Conditions Apply.</span></div>"
     cta:
-      text: See If You Qualify. It's Free
-      url: "#hero-nzpyph"
+      text: Start Your Application
+      url: "#hero-form"
       variant: primary
     paddingY:
       mobile: lg none
       desktop: lg none
-    marginY:
-      desktop: none lg
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work
@@ -708,65 +717,16 @@ sections:
     paddingY:
       desktop: none
     background: hsl(var(--secondary))
-  - type: numbered_steps
-    version: "1.0"
-    variant: bubbleText
-    title: How to Get Started in Under 48 Hours
-    description: Applying takes 2 minutes. The full admissions process is done in less than 48 hours. Here's exactly what happens next.
-    steps:
-      - icon: Optimization
-        title: Submit Your Application
-        text: Fill out the short form above. It takes 2 minutes. No payment required to apply.
-      - icon: Interview
-        title: Talk to Admissions
-        text: A member of our team reaches out within a few minutes to walk you through the program, confirm your Python background, and answer your questions about the AI Engineering curriculum.
-      - icon: JobSearch
-        title: Enroll and Start Building
-        text: Choose your payment or financing plan, lock in your start date, and get immediate access to prework. You start applying your Python skills to AI from day one.
-    background: hsl(var(--card))
-    section_id: numbered_steps-sgeuhk
-  - type: cards_deck
-    version: "1.0"
-    heading: Real Stories of Real Career Change
-    subtitle: Thousands of graduates have used this program to level up from developer to AI Engineer. Here are just a few of their stories.
-    cards:
-      - video:
-          url: https://youtu.be/ln3bQsV1BaQ
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
-        author_name: Hernán García
-        title: "\"I got offers from companies I wasn't expecting\""
-        description: Hernán landed a job in tech within one month of starting his job search.
-        alt: Geekforce
-      - video:
-          url: https://youtu.be/MBXqEnhodx0
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
-        author_name: Joao Henrique
-        title: "\"You'll always have support from the Academy\""
-        description: Joao shares his experience receiving coding mentorship as a student, after graduating, and in his current job.
-        alt: Geekpal
-      - video:
-          url: https://youtu.be/oeX_ocy6zv4
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
-        author_name: Jonathan Ferragut
-        title: "\"Taking a course like this benefits us in a lot of different ways\""
-        description: Jonathan shares how the program helped him build confidence and create projects from scratch.
-        alt: Geekpal
-    section_id: cards_deck-cnay6o
-    marginY:
-      desktop: none xl
   - type: cta_banner
     version: "1.0"
-    title: Your Python skills won't become an AI Engineering career on their own.
-    subtitle: Every week you wait is a week someone else with the same Python background gets hired as an AI Engineer first. Apply in 2 minutes. It's free.
+    title: The fastest-growing job of 2026 is one step away.
+    subtitle: Leverage your Python with AI skills and land one of the highest-paying roles in tech. Apply now and our admissions team will be in touch shortly.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
@@ -790,21 +750,14 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       consent:
         email: true
         marketing: true
-        marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe at any time.
-      show_terms: true
-      button_className: bg-white text-primary hover:bg-white/90 border-white
-      terms_className: text-white/80
+        marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contac
     section_id: cta_banner-55y7oh
-    marginY:
-      mobile: md none
-      desktop: md none
     paddingY:
-      mobile: lg
-      desktop: lg
+      desktop: lg none
   - type: footer
     section_id: footer-eisseg
     version: "1.0"

@@ -5,14 +5,28 @@ import { SectionRenderer } from "@/components/SectionRenderer";
 import type { Section } from "@shared/schema";
 import { IconRefresh, IconArrowLeft } from "@tabler/icons-react";
 
+function sanitizeSectionsForComponentPreview(input: unknown[]): Section[] {
+  return input
+    .filter((s): s is Record<string, unknown> => !!s && typeof s === "object")
+    .map((s) => {
+      const clone = { ...s };
+      // In component preview we don't want geo filters hiding the section.
+      delete (clone as { showOnLocations?: unknown }).showOnLocations;
+      delete (clone as { showOnRegions?: unknown }).showOnRegions;
+      return clone as Section;
+    });
+}
+
 export default function ComponentPreview() {
   const { componentType } = useParams<{ componentType: string }>();
   const searchString = useSearch();
   const searchParams = new URLSearchParams(searchString);
   
-  const version = searchParams.get("version") || "1.0";
+  const version = searchParams.get("version") || "v1.0";
   const exampleName = searchParams.get("example");
   const debug = searchParams.get("debug") !== "false";
+  /** Parent (e.g. Theme Editor) sends sections via postMessage; skip sessionStorage to avoid stale data. */
+  const embedTheme = searchParams.get("embed") === "theme";
   
   const [sections, setSections] = useState<Section[]>([]);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
@@ -38,7 +52,7 @@ export default function ComponentPreview() {
 
     const handleMessage = (event: MessageEvent) => {
       if (event.data?.type === 'preview-update') {
-        setSections(event.data.sections || []);
+        setSections(sanitizeSectionsForComponentPreview(event.data.sections || []));
         setIsLoading(false);
         setError(null);
       }
@@ -92,7 +106,8 @@ export default function ComponentPreview() {
       if (storedSections) {
         try {
           const parsed = JSON.parse(storedSections);
-          setSections(Array.isArray(parsed) ? parsed : [parsed]);
+          const sectionList = Array.isArray(parsed) ? parsed : [parsed];
+          setSections(sanitizeSectionsForComponentPreview(sectionList));
           if (storedTheme === 'dark' || storedTheme === 'light') {
             setTheme(storedTheme);
           }
@@ -121,9 +136,9 @@ export default function ComponentPreview() {
         try {
           const parsed = jsYaml.load(example.yaml);
           if (Array.isArray(parsed)) {
-            setSections(parsed as Section[]);
+            setSections(sanitizeSectionsForComponentPreview(parsed));
           } else if (parsed && typeof parsed === 'object') {
-            setSections([parsed as Section]);
+            setSections(sanitizeSectionsForComponentPreview([parsed]));
           }
         } catch {
           setError("Failed to parse example YAML");
