@@ -143,13 +143,20 @@ props:
           default:
             type: string
             required: false
-            description: Use 'auto' for page context detection or program slug
+            description: Use 'auto' for page context detection or program slug. When visible is true, pre-selects that slug in the dropdown.
           helper_text:
             type: string
             required: false
           placeholder:
             type: string
             required: false
+          slugs:
+            type: array
+            required: false
+            description: Limits the dropdown to only these program slugs, in the given order. When absent, all valid programs are shown.
+            example:
+              - full-stack-developer
+              - data-science
         description: Program selection dropdown
       region:
         type: object

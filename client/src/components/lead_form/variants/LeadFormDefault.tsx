@@ -44,6 +44,7 @@ interface FieldConfig {
   show_label?: boolean;
   label?: string;
   rows?: number;
+  slugs?: string[]; // For program field: limits which programs appear in the dropdown
 }
 
 export interface LeadFormData {
@@ -389,13 +390,27 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
     }
   };
 
+  const programFieldSlugs = getFieldConfig("program").slugs;
+  const visiblePrograms = useMemo(() => {
+    if (!formOptions?.programs) return [];
+    if (!programFieldSlugs || programFieldSlugs.length === 0) return formOptions.programs;
+    return programFieldSlugs
+      .map(slug => formOptions.programs.find(p => p.slug === slug || p.bc_slug === slug))
+      .filter((p): p is NonNullable<typeof p> => p !== undefined);
+  }, [formOptions?.programs, programFieldSlugs]);
+
+  const programDefaultValue = resolveDefault("program", getFieldConfig("program").default);
+  const resolvedProgramDefault = programFieldSlugs?.length
+    ? visiblePrograms.some(p => (p.bc_slug || p.slug) === programDefaultValue) ? programDefaultValue : ""
+    : programDefaultValue;
+
   const form = useForm<FormValues>({
     defaultValues: {
       email: "",
       first_name: resolveDefault("first_name", getFieldConfig("first_name").default),
       last_name: resolveDefault("last_name", getFieldConfig("last_name").default),
       phone: resolveDefault("phone", getFieldConfig("phone").default),
-      program: resolveDefault("program", getFieldConfig("program").default),
+      program: resolvedProgramDefault,
       region: resolveDefault("region", getFieldConfig("region").default),
       location: resolveDefault("location", getFieldConfig("location").default),
       coupon: resolveDefault("coupon", getFieldConfig("coupon").default),
@@ -424,6 +439,16 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
       form.setValue("program", programContext);
     }
   }, [sessionLocation, utm, programContext, form, singleLandingLocation, singleLandingRegion]);
+
+  useEffect(() => {
+    if (!programFieldSlugs?.length || !formOptions?.programs) return;
+    const currentValue = form.getValues("program");
+    if (!currentValue) return;
+    const isValid = visiblePrograms.some(p => (p.bc_slug || p.slug) === currentValue);
+    if (!isValid) {
+      form.setValue("program", "");
+    }
+  }, [visiblePrograms, programFieldSlugs, formOptions?.programs, form]);
 
   const submitMutation = useMutation({
     mutationFn: async (values: FormValues) => {
@@ -1035,7 +1060,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {formOptions?.programs.map((program) => (
+                        {visiblePrograms.map((program) => (
                           <SelectItem key={program.slug} value={program.bc_slug || program.slug}>
                             {program.title}
                           </SelectItem>
