@@ -433,7 +433,7 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: You've Done the Research. 4Geeks Is the Answer.
-    subtitle: Every week you wait is a week someone else gets hired first. Apply in 2 minutes and see which program fits your goals. It's free to apply.
+    subtitle: 84% of our graduates get hired. Fill in yoru details and our admissions team will be in touch shortly.
     background: hsl(var(--primary))
     variant: form
     form:
