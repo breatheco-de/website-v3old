@@ -19,110 +19,6 @@ schema:
     - organization
     - website
 sections:
-  - type: features_grid
-    version: "1.0"
-    variant: stats-charts
-    title: The AI Skills Gap Is Real
-    subtitle: Market Intelligence
-    description: The data is clear — AI is transforming the job market faster than the workforce can adapt. Those who develop AI skills now will lead the next decade.
-    background: bg-slate-950
-    card_bars_accent: hsl(var(--color-green))
-    card_gauge_accent: hsl(var(--color-orange))
-    card_trend_accent: hsl(var(--primary))
-    card_bars:
-      badge: Jobs Market
-      title: AI jobs created vs. displaced
-      description: "Annual delta · 2021-2025 · indexed"
-      stat_value: +340%
-      stat_label: net new AI roles created since 2021
-      displaced_label: Displaced
-      created_label: Created by AI
-    card_gauge:
-      badge: Workforce Readiness
-      title: Who's actually ready for AI roles?
-      description: "Global workforce · 2025 data"
-      gauge_percentage: 3
-      gauge_label: qualified
-      stat_label: of the workforce is not ready for AI roles today
-      bar1_label: Traditional workforce
-      bar2_label: AI-ready professionals
-    card_trend:
-      badge: Demand Curve
-      title: Demand for AI engineers
-      description: "Indexed job postings · 2020 → 2027 projected"
-      stat_value: 1.3M
-      stat_label: new AI roles expected by 2027
-      end_label: 1.3M · 2027
-    section_id: features_grid-j9i8g5
-  - type: features_grid
-    version: "1.0"
-    variant: stats-charts
-    title: The AI Skills Gap Is Real
-    subtitle: Market Intelligence
-    description: The data is clear — AI is transforming the job market faster than the workforce can adapt. Those who develop AI skills now will lead the next decade.
-    background: bg-slate-950
-    card_bars_accent: hsl(var(--color-green))
-    card_gauge_accent: hsl(var(--color-orange))
-    card_trend_accent: hsl(var(--primary))
-    card_bars:
-      badge: Jobs Market
-      title: AI jobs created vs. displaced
-      description: "Annual delta · 2021-2025 · indexed"
-      stat_value: +340%
-      stat_label: net new AI roles created since 2021
-      displaced_label: Displaced
-      created_label: Created by AI
-    card_gauge:
-      badge: Workforce Readiness
-      title: Who's actually ready for AI roles?
-      description: "Global workforce · 2025 data"
-      gauge_percentage: 3
-      gauge_label: qualified
-      stat_label: of the workforce is not ready for AI roles today
-      bar1_label: Traditional workforce
-      bar2_label: AI-ready professionals
-    card_trend:
-      badge: Demand Curve
-      title: Demand for AI engineers
-      description: "Indexed job postings · 2020 → 2027 projected"
-      stat_value: 1.3M
-      stat_label: new AI roles expected by 2027
-      end_label: 1.3M · 2027
-    section_id: features_grid-vcnaye
-  - type: features_grid
-    version: "1.0"
-    variant: stats-charts
-    title: The AI Skills Gap Is Real
-    subtitle: Market Intelligence
-    description: The data is clear — AI is transforming the job market faster than the workforce can adapt. Those who develop AI skills now will lead the next decade.
-    card_bars_accent: hsl(var(--color-green))
-    card_gauge_accent: hsl(var(--color-orange))
-    card_trend_accent: hsl(var(--primary))
-    card_bars:
-      badge: Jobs Market
-      title: AI jobs created vs. displaced
-      description: "Annual delta · 2021-2025 · indexed"
-      stat_value: +340%
-      stat_label: net new AI roles created since 2021
-      displaced_label: Displaced
-      created_label: Created by AI
-    card_gauge:
-      badge: Workforce Readiness
-      title: Who's actually ready for AI roles?
-      description: "Global workforce · 2025 data"
-      gauge_percentage: 3
-      gauge_label: qualified
-      stat_label: of the workforce is not ready for AI roles today
-      bar1_label: Traditional workforce
-      bar2_label: AI-ready professionals
-    card_trend:
-      badge: Demand Curve
-      title: Demand for AI engineers
-      description: "Indexed job postings · 2020 → 2027 projected"
-      stat_value: 1.3M
-      stat_label: new AI roles expected by 2027
-      end_label: 1.3M · 2027
-    section_id: features_grid-iry5m2
   - type: hero
     version: "1.0"
     variant: credibility
@@ -187,6 +83,68 @@ sections:
       desktop: none
     pills_url: "#list_press_mentions-w7r1sh"
     marquee_static: true
+  - type: features_grid
+    version: "1.0"
+    variant: stats-charts
+    subtitle: Market Intelligence
+    title: The AI Skills Gap Is Real
+    description: The data is clear — AI is transforming the job market faster than the workforce can adapt. Those who develop AI skills now will lead the next decade.
+    card_bars_accent: hsl(var(--color-green))
+    card_gauge_accent: hsl(var(--color-orange))
+    card_trend_accent: hsl(var(--primary))
+    card_bars:
+      badge: Jobs Market
+      title: AI jobs created vs. displaced
+      description: Annual delta · 2021-2025 · indexed
+      stat_value: +340%
+      stat_label: net new AI roles created since 2021
+      displaced_label: Displaced
+      created_label: Created by AI
+    card_gauge:
+      badge: Workforce Readiness
+      title: Who's actually ready for AI roles?
+      description: Global workforce · 2025 data
+      gauge_percentage: 3
+      gauge_label: qualified
+      stat_label: of the workforce is not ready for AI roles today
+      bar1_label: Traditional workforce
+      bar2_label: AI-ready professionals
+    card_trend:
+      badge: Demand Curve
+      title: Demand for AI engineers
+      description: Indexed job postings · 2020 → 2027 projected
+      stat_value: 1.3M
+      stat_label: new AI roles expected by 2027
+      end_label: 1.3M · 2027
+    section_id: features_grid-xxxxxxx
+  - type: features_grid
+    version: "1.0"
+    variant: stats-charts
+    title: The AI Skills Gap Is Real
+    subtitle: Market Intelligence
+    description: The data is clear — AI is transforming the job market faster than the workforce can adapt. Those who develop AI skills now will lead the next decade.
+    background: bg-slate-950
+    card_bars_accent: "#3b82f6"
+    card_gauge_accent: "#f59e0b"
+    card_trend_accent: "#34d399"
+    card_bars:
+      badge: Market Shift
+      stat_value: +340%
+      stat_label: net new AI roles created since 2021
+      displaced_label: Displaced
+      created_label: Created by AI
+    card_gauge:
+      badge: Readiness Gap
+      gauge_percentage: 3
+      gauge_label: qualified
+      bar1_label: Traditional workforce
+      bar2_label: AI-ready professionals
+    card_trend:
+      badge: Projection
+      stat_value: 1.3M
+      stat_label: new AI roles expected by 2027
+      end_label: 1.3M · 2027
+    section_id: features_grid-dxpu0g
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thiriving in tech.

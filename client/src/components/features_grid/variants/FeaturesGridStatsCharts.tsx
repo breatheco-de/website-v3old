@@ -17,9 +17,8 @@ const DEFAULT_TREND_ACCENT = "hsl(var(--primary))";
 function badgeStyles(accent: string): CSSProperties {
   const r = resolveColorVar(accent);
   return {
-    color: hslColorRaw(r),
-    background: hslColor(r, 0.25),
-    border: `1px solid ${hslColor(r, 0.5)}`,
+    color: "white",
+    background: hslColor(r, 0.5),
   };
 }
 
@@ -36,7 +35,7 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
 
   return (
     <section
-      className={`py-14 ${data.background || "bg-slate-950"}`}
+      className="py-14"
       data-testid="section-features-grid-stats-charts"
     >
       <div className="max-w-6xl mx-auto px-4 lg:px-6 flex flex-col gap-10">
@@ -91,7 +90,7 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
             )}
             {card_bars?.title && (
               <h3
-                className="text-base font-bold text-white leading-snug"
+                className="text-base font-bold text-foreground leading-snug"
                 data-testid="text-stats-charts-bars-title"
               >
                 {card_bars.title}
@@ -108,7 +107,7 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
             {card_bars?.stat_value && (
               <div>
                 <div
-                  className="text-4xl font-black tracking-tight leading-none"
+                  className="text-4xl text-foreground font-black tracking-tight leading-none"
                   style={{ color: hslColorRaw(barsR) }}
                   data-testid="text-stats-charts-bars-value"
                 >
@@ -116,7 +115,7 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
                 </div>
                 {card_bars.stat_label && (
                   <p
-                    className="text-sm text-slate-400 mt-1.5 leading-snug"
+                    className="text-sm text-muted-foreground mt-1.5 leading-snug"
                     data-testid="text-stats-charts-bars-label"
                   >
                     {card_bars.stat_label}
@@ -148,7 +147,7 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
             )}
             {card_gauge?.title && (
               <h3
-                className="text-base font-bold text-white leading-snug"
+                className="text-base font-bold text-foreground leading-snug"
                 data-testid="text-stats-charts-gauge-title"
               >
                 {card_gauge.title}
@@ -188,7 +187,7 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
             )}
             {card_trend?.title && (
               <h3
-                className="text-base font-bold text-white leading-snug"
+                className="text-base font-bold text-foreground leading-snug"
                 data-testid="text-stats-charts-trend-title"
               >
                 {card_trend.title}
@@ -213,7 +212,7 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
                 </div>
                 {card_trend.stat_label && (
                   <p
-                    className="text-sm text-slate-400 mt-1.5 leading-snug"
+                    className="text-sm text-muted-foreground mt-1.5 leading-snug"
                     data-testid="text-stats-charts-trend-label"
                   >
                     {card_trend.stat_label}

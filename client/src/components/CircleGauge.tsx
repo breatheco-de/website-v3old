@@ -24,10 +24,12 @@ export function CircleGauge({
   const pct     = Math.min(100, Math.max(0, percentage));
   const inverse = 100 - pct;
 
-  const resolved   = resolveColorVar(accentColor);
-  const accentCss  = hslColorRaw(resolved);
-  const trackColor = hslColor(resolved, 0.3);
-  const barFaint   = hslColor(resolved, 0.3);
+  const resolved    = resolveColorVar(accentColor);
+  const accentCss   = hslColorRaw(resolved);
+  const trackColor  = hslColor(resolved, 0.3);
+  const barFaint    = hslColor(resolved, 0.3);
+  const bar1Track   = hslColor(resolved, 0.1);
+  const bar2Track   = hslColor(resolved, 0.2);
 
   return (
     <div className="flex flex-col gap-4">
@@ -66,7 +68,7 @@ export function CircleGauge({
           <div className="text-4xl font-black tracking-tight leading-none" style={{ color: accentCss }}>
             {inverse}%
           </div>
-          <p className="text-sm text-slate-400 mt-1.5 leading-snug">
+          <p className="text-sm text-muted-foreground mt-1.5 leading-snug">
             {gaugeSubLabel}
           </p>
         </div>
@@ -78,7 +80,7 @@ export function CircleGauge({
             <span className="text-slate-400">{bar1Label}</span>
             <span className="text-slate-500">{inverse}%</span>
           </div>
-          <div className="h-1.5 rounded-full bg-slate-800 overflow-hidden">
+          <div className="h-1.5 rounded-full overflow-hidden" style={{ background: bar1Track }}>
             <div
               className="h-full rounded-full"
               style={{ width: `${inverse}%`, background: barFaint }}
@@ -90,7 +92,7 @@ export function CircleGauge({
             <span className="text-slate-400">{bar2Label}</span>
             <span style={{ color: accentCss }}>{pct}%</span>
           </div>
-          <div className="h-1.5 rounded-full bg-slate-800 overflow-hidden">
+          <div className="h-1.5 rounded-full overflow-hidden" style={{ background: bar2Track }}>
             <div
               className="h-full rounded-full"
               style={{ width: `${pct}%`, background: accentCss }}
