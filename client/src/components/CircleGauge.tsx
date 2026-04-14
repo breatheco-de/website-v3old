@@ -19,7 +19,7 @@ export function CircleGauge({
 }: CircleGaugeProps) {
   const pct      = Math.min(100, Math.max(0, percentage));
   const inverse  = 100 - pct;
-  const trackColor = `color-mix(in srgb, ${accentColor} 22%, #334155)`;
+  const trackColor = `color-mix(in srgb, ${accentColor} 30%, #64748b)`;
 
   return (
     <div className="flex flex-col gap-4">
