@@ -13,6 +13,8 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import {
   Accordion,
   AccordionContent,
@@ -21,6 +23,7 @@ import {
 } from "@/components/ui/accordion";
 import { useToast } from "@/hooks/use-toast";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import {
   IconSun,
   IconMoon,
@@ -36,12 +39,27 @@ import {
   IconChevronUp,
   IconChevronDown,
   IconAlertTriangle,
+  IconSearch,
+  IconFileImport,
 } from "@tabler/icons-react";
 
 interface PreviewExample {
   component: string;
   version: string;
   example: string;
+  pageUrl?: string; // if set, renders the page directly (session-only, no registry file)
+}
+
+interface SitemapEntry {
+  loc: string;
+  label: string;
+}
+
+interface RemoteSectionWithYaml {
+  type: string;
+  section_id: string | null;
+  label: string;
+  yamlContent?: string;
 }
 
 interface PaletteEntry {
@@ -711,6 +729,323 @@ function AtomGroups({ molecules }: { molecules: MoleculeDefinition[] }) {
   );
 }
 
+interface ImportExampleDialogProps {
+  open: boolean;
+  onClose: () => void;
+  registryData: { components: { type: string; name: string; versions: string[] }[] } | undefined;
+  onImport: (entry: PreviewExample) => void;
+}
+
+function extractPath(url: string): string {
+  try { return new URL(url).pathname; } catch { return url; }
+}
+
+function ImportExampleDialog({ open, onClose, registryData, onImport }: ImportExampleDialogProps) {
+  const { toast } = useToast();
+  const [componentType, setComponentType] = useState("");
+  const [expandedPagePath, setExpandedPagePath] = useState<string | null>(null);
+  const [selectedPage, setSelectedPage] = useState<{ path: string; label: string } | null>(null);
+  const [selectedSection, setSelectedSection] = useState<RemoteSectionWithYaml | null>(null);
+  const [saveToRegistry, setSaveToRegistry] = useState(false);
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const [pageSearch, setPageSearch] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    if (open) {
+      setComponentType("");
+      setExpandedPagePath(null);
+      setSelectedPage(null);
+      setSelectedSection(null);
+      setSaveToRegistry(false);
+      setPageSearch("");
+    }
+  }, [open]);
+
+  useEffect(() => {
+    setSelectedSection(null);
+    setExpandedPagePath(null);
+  }, [componentType]);
+
+  const { data: sitemapUrls = [], isLoading: sitemapLoading } = useQuery<SitemapEntry[]>({
+    queryKey: ["/api/sitemap-urls"],
+    queryFn: async () => {
+      const res = await fetch("/api/sitemap-urls");
+      if (!res.ok) throw new Error("Failed to load pages");
+      return res.json();
+    },
+    enabled: pickerOpen,
+  });
+
+  const { data: sectionsData, isLoading: sectionsLoading } = useQuery<{ sections: RemoteSectionWithYaml[] }>({
+    queryKey: ["/api/page-sections", expandedPagePath, "withYaml"],
+    queryFn: async () => {
+      const res = await fetch(`/api/page-sections?path=${encodeURIComponent(expandedPagePath!)}&includeYaml=true`);
+      if (!res.ok) throw new Error("Failed to load sections");
+      return res.json();
+    },
+    enabled: !!expandedPagePath,
+  });
+
+  const filteredSections = useMemo(() => {
+    if (!sectionsData?.sections || !componentType) return [];
+    return sectionsData.sections.filter((s) => s.type === componentType);
+  }, [sectionsData, componentType]);
+
+  const filteredPages = useMemo(() => {
+    if (!pageSearch.trim()) return sitemapUrls;
+    const q = pageSearch.toLowerCase();
+    return sitemapUrls.filter(
+      (e) => e.loc.toLowerCase().includes(q) || e.label.toLowerCase().includes(q)
+    );
+  }, [sitemapUrls, pageSearch]);
+
+  const handlePageClick = (entry: SitemapEntry) => {
+    const pagePath = extractPath(entry.loc);
+    if (expandedPagePath === pagePath) {
+      setExpandedPagePath(null);
+    } else {
+      setExpandedPagePath(pagePath);
+      setSelectedPage({ path: pagePath, label: entry.label });
+      setSelectedSection(null);
+    }
+  };
+
+  const handleSectionClick = (section: RemoteSectionWithYaml) => {
+    setSelectedSection(section);
+    setPickerOpen(false);
+  };
+
+  const handleUse = async () => {
+    if (!selectedSection || !selectedPage) return;
+    setSaving(true);
+    try {
+      const version =
+        registryData?.components.find((c) => c.type === componentType)?.versions[0] ?? "v1.0";
+
+      if (saveToRegistry) {
+        const res = await apiRequest(
+          "POST",
+          `/api/component-registry/${componentType}/${version}/examples`,
+          { yamlContent: selectedSection.yamlContent ?? "", sectionId: selectedSection.section_id ?? undefined }
+        );
+        const data = (await res.json()) as { exampleName: string };
+        queryClient.invalidateQueries({ queryKey: ["/api/component-registry"] });
+        onImport({ component: componentType, version, example: data.exampleName });
+        toast({ title: "Example saved", description: `Saved as "${data.exampleName}" in the registry.` });
+      } else {
+        onImport({
+          component: componentType,
+          version,
+          example: selectedSection.label,
+          pageUrl: selectedPage.path,
+        });
+      }
+      onClose();
+    } catch (err) {
+      toast({ title: "Failed to import", description: String(err), variant: "destructive" });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const pickerLabel = selectedSection
+    ? `${selectedPage?.label ?? ""} — ${selectedSection.label}`
+    : selectedPage
+      ? `${selectedPage.label} — pick a section`
+      : "Pick page & section";
+
+  return (
+    <Dialog open={open} onOpenChange={(o) => { if (!o) onClose(); }}>
+      <DialogContent
+        className="max-w-5xl h-[85vh] flex flex-col gap-0 p-0 overflow-hidden"
+        data-testid="dialog-import-example"
+      >
+        <DialogHeader className="px-6 pt-5 pb-4 border-b flex-shrink-0">
+          <DialogTitle>Import example from page</DialogTitle>
+        </DialogHeader>
+        <div className="flex flex-1 min-h-0">
+          {/* Left panel */}
+          <div className="w-[340px] flex-shrink-0 border-r flex flex-col p-4 gap-4 overflow-y-auto">
+            {/* Component type */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-medium text-muted-foreground">Component type</label>
+              <select
+                className="w-full text-sm rounded-md border border-input bg-background px-3 py-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                value={componentType}
+                onChange={(e) => setComponentType(e.target.value)}
+                data-testid="select-import-component-type"
+              >
+                <option value="">Select component...</option>
+                {(registryData?.components ?? []).map((c) => (
+                  <option key={c.type} value={c.type}>{c.name}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Page & section picker */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-medium text-muted-foreground">Page &amp; section</label>
+              <Popover open={pickerOpen} onOpenChange={setPickerOpen}>
+                <PopoverTrigger asChild>
+                  <button
+                    disabled={!componentType}
+                    className="w-full text-left text-sm px-3 py-1.5 rounded-md border border-input bg-background flex items-center gap-2 disabled:opacity-50 hover-elevate"
+                    data-testid="button-import-picker"
+                  >
+                    <IconSearch className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                    <span
+                      className={cn(
+                        "truncate",
+                        selectedSection ? "text-foreground" : "text-muted-foreground"
+                      )}
+                    >
+                      {pickerLabel}
+                    </span>
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className="w-80 p-0 z-[10001]" align="start">
+                  <div className="p-2 border-b">
+                    <div className="relative">
+                      <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        value={pageSearch}
+                        onChange={(e) => setPageSearch(e.target.value)}
+                        placeholder="Search pages..."
+                        className="h-8 pl-8 text-sm"
+                        autoFocus
+                        data-testid="input-import-page-search"
+                      />
+                    </div>
+                  </div>
+                  <ScrollArea className="h-[300px]">
+                    {sitemapLoading ? (
+                      <div className="p-4 text-sm text-muted-foreground text-center">Loading pages...</div>
+                    ) : filteredPages.length === 0 ? (
+                      <div className="p-4 text-sm text-muted-foreground text-center">
+                        {pageSearch ? "No pages found" : "No pages available"}
+                      </div>
+                    ) : (
+                      <div className="p-1">
+                        {filteredPages.map((entry, idx) => {
+                          const pagePath = extractPath(entry.loc);
+                          const isExpanded = expandedPagePath === pagePath;
+                          return (
+                            <div key={entry.loc}>
+                              <button
+                                onClick={() => handlePageClick(entry)}
+                                className={cn(
+                                  "w-full text-left px-2 py-1.5 rounded-md text-sm hover-elevate flex items-start gap-2",
+                                  isExpanded && "bg-primary/5"
+                                )}
+                                data-testid={`button-import-page-${idx}`}
+                              >
+                                <div className="flex-1 min-w-0">
+                                  <div className="font-medium text-foreground truncate text-xs">{entry.label}</div>
+                                  <div className="text-xs text-muted-foreground truncate">{pagePath}</div>
+                                </div>
+                                {isExpanded ? (
+                                  <IconChevronUp className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                                ) : (
+                                  <IconChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                                )}
+                              </button>
+                              {isExpanded && (
+                                <div className="ml-3 pl-2 border-l border-border pb-1">
+                                  {sectionsLoading ? (
+                                    <div className="py-2 px-2 text-xs text-muted-foreground">Loading sections...</div>
+                                  ) : filteredSections.length === 0 ? (
+                                    <div className="py-2 px-2 text-xs text-muted-foreground">
+                                      No <em>{componentType}</em> sections on this page
+                                    </div>
+                                  ) : (
+                                    filteredSections.map((section, sIdx) => (
+                                      <button
+                                        key={sIdx}
+                                        onClick={() => handleSectionClick(section)}
+                                        className={cn(
+                                          "w-full text-left px-2 py-1.5 rounded-md text-xs hover-elevate flex items-center gap-1.5",
+                                          selectedSection?.label === section.label &&
+                                            selectedPage?.path === pagePath &&
+                                            "bg-primary/10 text-primary"
+                                        )}
+                                        data-testid={`button-import-section-${idx}-${sIdx}`}
+                                      >
+                                        <IconLayoutGrid className="h-3.5 w-3.5 flex-shrink-0" />
+                                        <span className="truncate">{section.label}</span>
+                                      </button>
+                                    ))
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </ScrollArea>
+                </PopoverContent>
+              </Popover>
+            </div>
+
+            {/* Selected section info */}
+            {selectedSection && (
+              <div className="rounded-md border border-border bg-muted/30 px-3 py-2 space-y-0.5">
+                <p className="text-xs font-medium">{selectedSection.label}</p>
+                <p className="text-xs text-muted-foreground">{selectedPage?.path}</p>
+              </div>
+            )}
+
+            <div className="flex-1" />
+
+            {/* Checkbox */}
+            <label className="flex items-start gap-2.5 cursor-pointer">
+              <Checkbox
+                checked={saveToRegistry}
+                onCheckedChange={(v) => setSaveToRegistry(!!v)}
+                data-testid="checkbox-save-to-registry"
+                className="mt-0.5"
+              />
+              <div>
+                <p className="text-sm font-medium">Save as new registry example</p>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Persists this section as a reusable YAML file in the component registry.
+                  Leave unchecked to add as a session-only reference.
+                </p>
+              </div>
+            </label>
+
+            <Button
+              disabled={!selectedSection || saving}
+              onClick={handleUse}
+              data-testid="button-use-this-section"
+            >
+              {saving ? "Saving..." : "Use this section"}
+            </Button>
+          </div>
+
+          {/* Right panel - iframe */}
+          <div className="flex-1 min-h-0 bg-muted/20">
+            {selectedPage ? (
+              <iframe
+                src={selectedPage.path}
+                className="w-full h-full border-none"
+                title={`Preview: ${selectedPage.label}`}
+                data-testid="iframe-import-preview"
+              />
+            ) : (
+              <div className="flex flex-col items-center justify-center h-full gap-2 text-muted-foreground">
+                <IconLayoutGrid className="h-10 w-10 opacity-20" />
+                <p className="text-sm">Select a page to preview it here</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export default function ThemeEditor() {
   const { toast } = useToast();
   const [previewMode, setPreviewMode] = useState<"light" | "dark">("light");
@@ -754,6 +1089,7 @@ export default function ThemeEditor() {
 
   const [confirmedExamples, setConfirmedExamples] = useState<PreviewExample[]>([]);
   const [addRow, setAddRow] = useState<{ component: string; version: string; example: string } | null>(null);
+  const [importDialogOpen, setImportDialogOpen] = useState(false);
   const iframeRefs = useRef<Map<number, HTMLIFrameElement>>(new Map());
   const colorsInitialized = useRef(false);
 
@@ -1260,13 +1596,22 @@ export default function ThemeEditor() {
           {activeSection === "examples" && (
             <div className="p-6 space-y-6" data-testid="preview-examples">
               {confirmedExamples.map((entry, idx) => {
-                const iframeSrc = `/private/component-showcase/${entry.component}/preview?debug=false&version=${encodeURIComponent(entry.version)}&example=${encodeURIComponent(entry.example)}`;
+                const iframeSrc = entry.pageUrl
+                  ? entry.pageUrl
+                  : `/private/component-showcase/${entry.component}/preview?debug=false&version=${encodeURIComponent(entry.version)}&example=${encodeURIComponent(entry.example)}`;
                 return (
                   <div key={idx} className="space-y-2">
                     <div className="flex items-center justify-between gap-2">
-                      <p className="text-sm font-medium truncate">
-                        {entry.component} &mdash; {entry.version} &mdash; {entry.example}
-                      </p>
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        {entry.pageUrl && (
+                          <Badge variant="secondary" className="text-xs flex-shrink-0">imported</Badge>
+                        )}
+                        <p className="text-sm font-medium truncate">
+                          {entry.pageUrl
+                            ? `${entry.component} — ${entry.example}`
+                            : `${entry.component} — ${entry.version} — ${entry.example}`}
+                        </p>
+                      </div>
                       <Button
                         size="icon"
                         variant="ghost"
@@ -1379,17 +1724,30 @@ export default function ThemeEditor() {
                 </div>
               )}
 
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => setAddRow({ component: "", version: "", example: "" })}
-                disabled={addRow !== null}
-                data-testid="button-add-example"
-                className="flex items-center gap-1.5"
-              >
-                <IconPlus className="h-4 w-4" />
-                Add example
-              </Button>
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setAddRow({ component: "", version: "", example: "" })}
+                  disabled={addRow !== null}
+                  data-testid="button-add-example"
+                  className="flex items-center gap-1.5"
+                >
+                  <IconPlus className="h-4 w-4" />
+                  Add example
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setImportDialogOpen(true)}
+                  disabled={addRow !== null}
+                  data-testid="button-import-example"
+                  className="flex items-center gap-1.5"
+                >
+                  <IconFileImport className="h-4 w-4" />
+                  Import example from page
+                </Button>
+              </div>
             </div>
           )}
         </ScrollArea>
@@ -1430,20 +1788,23 @@ export default function ThemeEditor() {
               </p>
             </button>
 
-            <button
-              className="w-full text-left px-4 py-3 rounded-md border border-amber-400 bg-amber-50 dark:bg-amber-950/30 hover-elevate text-sm"
-              data-testid="button-choose-delete-example"
-              onClick={() => setDeleteModal((m) => ({ ...m, step: "confirm-example" }))}
-            >
-              <p className="font-medium text-amber-800 dark:text-amber-300">Delete example</p>
-              <p className="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
-                Permanently delete this example YAML from the registry. No pages will be affected.
-              </p>
-            </button>
+            {!deleteModal.entry?.pageUrl && (
+              <button
+                className="w-full text-left px-4 py-3 rounded-md border border-amber-400 bg-amber-50 dark:bg-amber-950/30 hover-elevate text-sm"
+                data-testid="button-choose-delete-example"
+                onClick={() => setDeleteModal((m) => ({ ...m, step: "confirm-example" }))}
+              >
+                <p className="font-medium text-amber-800 dark:text-amber-300">Delete example</p>
+                <p className="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
+                  Permanently delete this example YAML from the registry. No pages will be affected.
+                </p>
+              </button>
+            )}
 
-            <button
-              className="w-full text-left px-4 py-3 rounded-md border border-destructive bg-destructive/5 hover-elevate text-sm"
-              data-testid="button-choose-delete-variant"
+            {!deleteModal.entry?.pageUrl && (
+              <button
+                className="w-full text-left px-4 py-3 rounded-md border border-destructive bg-destructive/5 hover-elevate text-sm"
+                data-testid="button-choose-delete-variant"
               onClick={async () => {
                 const { entry } = deleteModal;
                 if (!entry) return;
@@ -1468,6 +1829,7 @@ export default function ThemeEditor() {
                 Permanently delete the component variant, all its examples, and remove all its uses from pages.
               </p>
             </button>
+            )}
 
             <div className="flex justify-end pt-1">
               <Button
@@ -1610,6 +1972,17 @@ export default function ThemeEditor() {
         )}
       </DialogContent>
     </Dialog>
+
+    <ImportExampleDialog
+      open={importDialogOpen}
+      onClose={() => setImportDialogOpen(false)}
+      registryData={registryData}
+      onImport={async (entry) => {
+        const updated = [...confirmedExamples, entry];
+        setConfirmedExamples(updated);
+        await savePreviewExamples(updated);
+      }}
+    />
     </>
   );
 }

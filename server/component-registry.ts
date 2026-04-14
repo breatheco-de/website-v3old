@@ -1,7 +1,24 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
-import { escapeTemplateVars } from "../shared/templateVars";
+import {
+  escapeTemplateVars,
+  unescapeObjectVars,
+  escapeObjectVars,
+  unescapeYamlDump,
+} from "../shared/templateVars";
+
+function safeYamlLoad(content: string): unknown {
+  const { escaped, map } = escapeTemplateVars(content);
+  const parsed = yaml.load(escaped);
+  return unescapeObjectVars(parsed, map);
+}
+
+function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
+  const { escaped, map } = escapeObjectVars(obj);
+  const dumped = yaml.dump(escaped, opts);
+  return unescapeYamlDump(dumped, map);
+}
 
 const REGISTRY_PATH = path.join(process.cwd(), "marketing-content", "component-registry");
 
@@ -344,8 +361,8 @@ export function saveExample(
     for (const file of exampleFiles) {
       const filePath = path.join(examplesPath, file);
       const content = fs.readFileSync(filePath, "utf8");
-      const data = yaml.load(content) as { name?: string };
-      
+      const data = safeYamlLoad(content) as { name?: string };
+
       if (data.name === exampleName) {
         targetFile = file;
         break;
@@ -358,7 +375,7 @@ export function saveExample(
     
     const filePath = path.join(examplesPath, targetFile);
     const existingContent = fs.readFileSync(filePath, "utf8");
-    const existingData = yaml.load(existingContent) as { name?: string; description?: string; variant?: string };
+    const existingData = safeYamlLoad(existingContent) as { name?: string; description?: string; variant?: string };
     
     // Preserve the example metadata and update the yaml content
     const newContent = {
@@ -373,7 +390,7 @@ export function saveExample(
       delete (newContent as { variant?: string }).variant;
     }
     
-    const yamlOutput = yaml.dump(newContent, { 
+    const yamlOutput = safeYamlDump(newContent, { 
       lineWidth: -1,
       quotingType: '"',
       forceQuotes: false,
@@ -466,7 +483,7 @@ export function deleteExample(
     for (const file of exampleFiles) {
       const filePath = path.join(examplesPath, file);
       const content = fs.readFileSync(filePath, "utf8");
-      const data = yaml.load(content) as { name?: string };
+      const data = safeYamlLoad(content) as { name?: string };
       if (data.name === exampleName) {
         targetFile = file;
         break;
@@ -506,7 +523,7 @@ function deleteVariantExamples(
       const filePath = path.join(examplesPath, file);
       try {
         const content = fs.readFileSync(filePath, "utf8");
-        const data = yaml.load(content) as { name?: string; variant?: string; yaml?: string };
+        const data = safeYamlLoad(content) as { name?: string; variant?: string; yaml?: string };
         const exVariant = data.variant || extractVariantFromYaml(data.yaml || "") || "default";
         if (normalizeVariantName(exVariant) === normalizedTarget) {
           fs.unlinkSync(filePath);
@@ -518,6 +535,43 @@ function deleteVariantExamples(
     }
   }
   return { deleted, errors };
+}
+
+export function createExample(
+  componentType: string,
+  version: string,
+  yamlContent: string,
+  sectionId?: string
+): { success: boolean; filename?: string; exampleName?: string; error?: string } {
+  try {
+    const examplesPath = path.join(REGISTRY_PATH, componentType, version, "examples");
+    if (!fs.existsSync(examplesPath)) {
+      fs.mkdirSync(examplesPath, { recursive: true });
+    }
+
+    const base = sectionId
+      ? sectionId.replace(/[^a-z0-9_-]/gi, "_").toLowerCase()
+      : `${componentType}_${Date.now()}`;
+
+    let filename = `${base}.yml`;
+    let counter = 1;
+    while (fs.existsSync(path.join(examplesPath, filename))) {
+      filename = `${base}_${counter++}.yml`;
+    }
+
+    const exampleName = filename.replace(/\.ya?ml$/, "").replace(/_/g, " ");
+
+    const fileContent = safeYamlDump(
+      { name: exampleName, yaml: yamlContent },
+      { lineWidth: -1, quotingType: '"', forceQuotes: false }
+    );
+
+    fs.writeFileSync(path.join(examplesPath, filename), fileContent);
+    return { success: true, filename, exampleName };
+  } catch (error) {
+    console.error(`Error creating example for ${componentType}/${version}:`, error);
+    return { success: false, error: String(error) };
+  }
 }
 
 export function deleteVariant(

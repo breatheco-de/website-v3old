@@ -45,6 +45,7 @@ import {
   createNewVersion,
   getExampleFilePath,
   saveExample,
+  createExample,
   loadAllFieldEditors,
   applyComponentSectionDefaults,
   getVariantByExample,
@@ -1717,17 +1718,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       } catch {}
 
+      const includeYaml = req.query.includeYaml === "true";
       const rawSections = (rawData.sections as any[]) || [];
       const sections = rawSections
         .filter((s: any) => s?.type)
-        .map((s: any, index: number) => ({
-          type: s.type as string,
-          section_id: (s.section_id as string) || null,
-          label:
-            (s.title as string) ||
-            (s.heading as string) ||
-            `${s.type} (section ${index + 1})`,
-        }));
+        .map((s: any, index: number) => {
+          const base: Record<string, unknown> = {
+            type: s.type as string,
+            section_id: (s.section_id as string) || null,
+            label:
+              (s.title as string) ||
+              (s.heading as string) ||
+              `${s.type} (section ${index + 1})`,
+          };
+          if (includeYaml) {
+            base.yamlContent = safeYamlDump([s], { lineWidth: -1 });
+          }
+          return base;
+        });
 
       res.json({ sections });
     } catch (e) {
@@ -6392,6 +6400,28 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
       res.json({ success: true });
     },
+  );
+
+  app.post(
+    "/api/component-registry/:componentType/:version/examples",
+    (req, res) => {
+      const { componentType, version } = req.params;
+      const { yamlContent, sectionId } = req.body;
+
+      if (!yamlContent) {
+        res.status(400).json({ error: "yamlContent is required" });
+        return;
+      }
+
+      const result = createExample(componentType, version, yamlContent, sectionId);
+
+      if (!result.success) {
+        res.status(400).json({ error: result.error });
+        return;
+      }
+
+      res.json({ success: true, filename: result.filename, exampleName: result.exampleName });
+    }
   );
 
   app.get(
