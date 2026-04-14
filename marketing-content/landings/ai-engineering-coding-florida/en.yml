@@ -199,7 +199,7 @@ sections:
     section_id: features_grid-o2kd1x
     marginY:
       mobile: md none
-      desktop: md none
+      desktop: sm none
     paddingY:
       mobile: none md
       desktop: none md
