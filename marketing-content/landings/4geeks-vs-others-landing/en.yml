@@ -66,7 +66,7 @@ sections:
       show_terms: true
     form_vertical_align: top
     form_card_text_color: hsl(var(--foreground))
-    form_card_title: Find Out Which Programs Fits You Best
+    form_card_title: Find Out About Our Programs
     form_card_subtitle: "Takes 2 minutes. Our admissions team will walk you through your options: programs, pricing, and financing."
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: true
