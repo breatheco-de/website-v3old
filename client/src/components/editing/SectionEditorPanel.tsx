@@ -4497,7 +4497,7 @@ export function SectionEditorPanel({
                       if (!current || typeof current !== "object") return false;
                       current = (current as Record<string, unknown>)[part];
                     }
-                    return current === true || current === "true";
+                    return current === true || current === "true" || (current === undefined && variant === "default-true");
                   };
                   const currentValue = getSimpleFieldValue();
                   const fieldLabel = getFieldLabel(fieldPath);

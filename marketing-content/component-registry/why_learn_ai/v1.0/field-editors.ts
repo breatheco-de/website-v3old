@@ -3,5 +3,5 @@ export type EditorType = "icon-picker" | "color-picker" | "image-picker" | "link
 export const fieldEditors: Record<string, EditorType> = {
   "description": "rich-text-editor",
   "cta.url": "link-picker",
-  "mobile_see_more": "boolean-toggle",
+  "mobile_see_more": "boolean-toggle:default-true",
 };
