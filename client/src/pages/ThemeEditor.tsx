@@ -1,12 +1,24 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, apiRequestWithAuth, queryClient } from "@/lib/queryClient";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { MoleculeRenderer, type MoleculeDefinition } from "@/components/MoleculeRenderer";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import yaml from "js-yaml";
+import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
 import {
   Accordion,
   AccordionContent,
@@ -15,11 +27,13 @@ import {
 } from "@/components/ui/accordion";
 import { useToast } from "@/hooks/use-toast";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import {
   IconSun,
   IconMoon,
   IconDeviceFloppy,
   IconArrowBackUp,
+  IconArrowLeft,
   IconPalette,
   IconComponents,
   IconLayoutGrid,
@@ -29,12 +43,47 @@ import {
   IconChevronUp,
   IconChevronDown,
   IconAlertTriangle,
+  IconSearch,
+  IconFileImport,
 } from "@tabler/icons-react";
 
 interface PreviewExample {
   component: string;
   version: string;
   example: string;
+  /** @deprecated legacy: full-page iframe; prefer importYaml */
+  pageUrl?: string;
+  /** Imported section YAML used to render this preview. */
+  importYaml?: string;
+  /** True when this row maps to an example that exists in component registry. */
+  registryPersisted?: boolean;
+}
+
+function parseImportedSections(importYaml?: string): unknown[] {
+  if (!importYaml?.trim()) return [];
+  try {
+    const { escaped, map } = escapeTemplateVars(importYaml);
+    const parsed = unescapeObjectVars(yaml.load(escaped), map);
+    if (Array.isArray(parsed)) return parsed;
+    if (parsed && typeof parsed === "object") return [parsed];
+  } catch {
+    // Ignore invalid YAML
+  }
+  return [];
+}
+
+interface SitemapEntry {
+  loc: string;
+  label: string;
+  /** Present on dynamic sitemap entries; required for correct /api/page-sections locale. */
+  locale?: string;
+}
+
+interface RemoteSectionWithYaml {
+  type: string;
+  section_id: string | null;
+  label: string;
+  yamlContent?: string;
 }
 
 interface PaletteEntry {
@@ -75,6 +124,16 @@ interface ExampleItem {
   name: string;
   yaml: string;
 }
+
+interface VariantImpact {
+  variantName: string;
+  componentName: string;
+  tsxPath: string;
+  examples: string[];
+  pages: Array<{ path: string; count: number; sectionIds: string[] }>;
+}
+
+type DeleteStep = "choose" | "confirm-example" | "confirm-variant";
 
 const TOKEN_GROUPS: { label: string; tokens: { id: string; label: string }[] }[] = [
   {
@@ -694,6 +753,478 @@ function AtomGroups({ molecules }: { molecules: MoleculeDefinition[] }) {
   );
 }
 
+interface ImportExampleDialogProps {
+  open: boolean;
+  onClose: () => void;
+  registryData: { components: { type: string; name: string; versions: string[] }[] } | undefined;
+  onImport: (entry: PreviewExample) => void;
+  previewMode: "light" | "dark";
+  themeVars: Record<string, string>;
+}
+
+function extractPath(url: string): string {
+  try { return new URL(url).pathname; } catch { return url; }
+}
+
+/** Match server normalizeUrl / getCanonicalUrl path shape. */
+function normalizePagePath(path: string): string {
+  let p = path.startsWith("/") ? path : `/${path}`;
+  p = p.toLowerCase();
+  if (p.length > 1 && p.endsWith("/")) p = p.slice(0, -1);
+  return p;
+}
+
+interface SiteLocaleSettings {
+  default_locale: string;
+  supported_locales: { code: string; label: string }[];
+}
+
+/** Prefer sitemap entry.locale; else first path segment if it is a supported locale; else settings default. */
+function resolveLocaleForPageSections(
+  entry: SitemapEntry,
+  pagePath: string,
+  settings: SiteLocaleSettings | undefined,
+): string {
+  if (entry.locale && /^[a-z]{2}$/i.test(entry.locale)) {
+    return entry.locale.toLowerCase();
+  }
+  const codes = new Set(
+    (settings?.supported_locales ?? []).map((l) => l.code.toLowerCase()),
+  );
+  const first = normalizePagePath(pagePath).split("/").filter(Boolean)[0]?.toLowerCase();
+  if (first && codes.has(first)) {
+    return first;
+  }
+  return (settings?.default_locale ?? "en").toLowerCase();
+}
+
+function sitemapRowKey(entry: SitemapEntry, index: number): string {
+  return `${entry.loc}::${entry.locale ?? "—"}::${index}`;
+}
+
+function ImportExampleDialog({ open, onClose, registryData, onImport, previewMode, themeVars }: ImportExampleDialogProps) {
+  const { toast } = useToast();
+  const [importDialogContentEl, setImportDialogContentEl] = useState<HTMLDivElement | null>(null);
+  const [componentType, setComponentType] = useState("");
+  const [expandedPage, setExpandedPage] = useState<{ path: string; locale: string } | null>(null);
+  const [selectedPage, setSelectedPage] = useState<{
+    path: string;
+    label: string;
+    locale: string;
+  } | null>(null);
+  const [selectedSection, setSelectedSection] = useState<RemoteSectionWithYaml | null>(null);
+  const [saveToRegistry, setSaveToRegistry] = useState(false);
+  const [registryExampleName, setRegistryExampleName] = useState("");
+  const [registryExampleDescription, setRegistryExampleDescription] = useState("");
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const [pageSearch, setPageSearch] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [previewKey, setPreviewKey] = useState(0);
+
+  const registryVersionForType = useCallback(
+    (type: string) => registryData?.components.find((c) => c.type === type)?.versions[0] ?? "v1.0",
+    [registryData]
+  );
+
+  const friendlyComponentName = useCallback(
+    (type: string) => registryData?.components.find((c) => c.type === type)?.name ?? type,
+    [registryData]
+  );
+
+  useEffect(() => {
+    if (open) {
+      setComponentType("");
+      setExpandedPage(null);
+      setSelectedPage(null);
+      setSelectedSection(null);
+      setSaveToRegistry(false);
+      setRegistryExampleName("");
+      setRegistryExampleDescription("");
+      setPageSearch("");
+      setPreviewKey(0);
+    }
+  }, [open]);
+
+  const { data: sitemapUrls = [], isLoading: sitemapLoading } = useQuery<SitemapEntry[]>({
+    queryKey: ["/api/sitemap-urls"],
+    queryFn: async () => {
+      const res = await fetch("/api/sitemap-urls");
+      if (!res.ok) throw new Error("Failed to load pages");
+      return res.json();
+    },
+    enabled: pickerOpen,
+  });
+
+  const { data: localeSettings } = useQuery<SiteLocaleSettings>({
+    queryKey: ["/api/settings/locales"],
+    queryFn: async () => {
+      const res = await fetch("/api/settings/locales");
+      if (!res.ok) throw new Error("Failed to load locales");
+      return res.json();
+    },
+    enabled: pickerOpen,
+  });
+
+  const { data: sectionsData, isLoading: sectionsLoading } = useQuery<{ sections: RemoteSectionWithYaml[] }>({
+    queryKey: ["/api/page-sections", expandedPage?.path, expandedPage?.locale, "withYaml"],
+    queryFn: async () => {
+      const ep = expandedPage!;
+      const q = new URLSearchParams({
+        path: ep.path,
+        locale: ep.locale,
+        includeYaml: "true",
+      });
+      const res = await fetch(`/api/page-sections?${q.toString()}`);
+      if (!res.ok) throw new Error("Failed to load sections");
+      return res.json();
+    },
+    enabled: !!expandedPage,
+  });
+
+  const filteredSections = useMemo(() => {
+    return sectionsData?.sections ?? [];
+  }, [sectionsData]);
+
+  const filteredPages = useMemo(() => {
+    if (!pageSearch.trim()) return sitemapUrls;
+    const q = pageSearch.toLowerCase();
+    return sitemapUrls.filter(
+      (e) => e.loc.toLowerCase().includes(q) || e.label.toLowerCase().includes(q)
+    );
+  }, [sitemapUrls, pageSearch]);
+
+  const handlePageClick = (entry: SitemapEntry) => {
+    const pagePath = normalizePagePath(extractPath(entry.loc));
+    const locale = resolveLocaleForPageSections(entry, pagePath, localeSettings);
+    if (expandedPage?.path === pagePath && expandedPage.locale === locale) {
+      setExpandedPage(null);
+    } else {
+      setExpandedPage({ path: pagePath, locale });
+      setSelectedPage({ path: pagePath, label: entry.label, locale });
+      setSelectedSection(null);
+    }
+  };
+
+  const handleSectionClick = (section: RemoteSectionWithYaml) => {
+    setSelectedSection(section);
+    setComponentType(section.type);
+    setPickerOpen(false);
+    try {
+      const { escaped, map } = escapeTemplateVars(section.yamlContent ?? "");
+      const parsed = unescapeObjectVars(yaml.load(escaped), map);
+      const sections = Array.isArray(parsed) ? parsed : parsed && typeof parsed === "object" ? [parsed] : [];
+      sessionStorage.setItem("preview-sections", JSON.stringify(sections));
+    } catch {
+      sessionStorage.removeItem("preview-sections");
+    }
+    setPreviewKey((k) => k + 1);
+  };
+
+  const handleUse = async () => {
+    if (!selectedSection || !selectedPage) return;
+    if (saveToRegistry && !registryExampleName.trim()) return;
+    setSaving(true);
+    try {
+      const version =
+        registryData?.components.find((c) => c.type === componentType)?.versions[0] ?? "v1.0";
+
+      if (saveToRegistry) {
+        const res = await apiRequest(
+          "POST",
+          `/api/component-registry/${componentType}/${version}/examples`,
+          {
+            yamlContent: selectedSection.yamlContent ?? "",
+            sectionId: selectedSection.section_id ?? undefined,
+            name: registryExampleName.trim(),
+            description: registryExampleDescription.trim() || undefined,
+          }
+        );
+        const data = (await res.json()) as { exampleName: string };
+        queryClient.invalidateQueries({ queryKey: ["/api/component-registry"] });
+        onImport({
+          component: componentType,
+          version,
+          example: data.exampleName,
+          importYaml: selectedSection.yamlContent ?? "",
+          registryPersisted: true,
+        });
+        toast({ title: "Example saved", description: `Saved as "${data.exampleName}" in the registry.` });
+      } else {
+        onImport({
+          component: componentType,
+          version,
+          example: selectedSection.label,
+          importYaml: selectedSection.yamlContent ?? "",
+          registryPersisted: false,
+        });
+      }
+      onClose();
+    } catch (err) {
+      toast({ title: "Failed to import", description: String(err), variant: "destructive" });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const pickerLabel = selectedSection
+    ? `${selectedPage?.label ?? ""} — ${selectedSection.label}`
+    : selectedPage
+      ? `${selectedPage.label} — pick a section`
+      : "Pick page & section";
+
+  return (
+    <Dialog open={open} onOpenChange={(o) => { if (!o) onClose(); }}>
+      <DialogContent
+        ref={(node) => setImportDialogContentEl(node)}
+        className="max-w-7xl h-[85vh] flex flex-col gap-0 p-0 overflow-hidden"
+        data-testid="dialog-import-example"
+      >
+        <DialogHeader className="px-6 pt-5 pb-4 border-b flex-shrink-0">
+          <DialogTitle>Import example from page</DialogTitle>
+        </DialogHeader>
+        <div className="flex flex-1 min-h-0">
+          {/* Left panel */}
+          <div className="w-[340px] flex-shrink-0 border-r flex flex-col p-4 gap-4 overflow-y-auto">
+            {/* Page & section picker */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-medium text-muted-foreground">Page &amp; section</label>
+              <Popover open={pickerOpen} onOpenChange={setPickerOpen} modal={false}>
+                <PopoverTrigger asChild>
+                  <button
+                    className="w-full text-left text-sm px-3 py-1.5 rounded-md border border-input bg-background flex items-center gap-2 hover-elevate"
+                    data-testid="button-import-picker"
+                  >
+                    <IconSearch className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                    <span
+                      className={cn(
+                        "truncate",
+                        selectedSection ? "text-foreground" : "text-muted-foreground"
+                      )}
+                    >
+                      {pickerLabel}
+                    </span>
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent
+                  className="w-80 p-0 z-[10001] pointer-events-auto"
+                  align="start"
+                  container={importDialogContentEl ?? undefined}
+                >
+                  <div className="p-2 border-b">
+                    <div className="relative">
+                      <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        value={pageSearch}
+                        onChange={(e) => setPageSearch(e.target.value)}
+                        placeholder="Search pages..."
+                        className="h-8 pl-8 text-sm"
+                        autoFocus
+                        data-testid="input-import-page-search"
+                      />
+                    </div>
+                  </div>
+                  <ScrollArea className="h-[300px]">
+                    {sitemapLoading ? (
+                      <div className="p-4 text-sm text-muted-foreground text-center">Loading pages...</div>
+                    ) : filteredPages.length === 0 ? (
+                      <div className="p-4 text-sm text-muted-foreground text-center">
+                        {pageSearch ? "No pages found" : "No pages available"}
+                      </div>
+                    ) : (
+                      <div className="p-1">
+                        {filteredPages.map((entry, idx) => {
+                          const pagePath = normalizePagePath(extractPath(entry.loc));
+                          const rowLocale = resolveLocaleForPageSections(
+                            entry,
+                            pagePath,
+                            localeSettings,
+                          );
+                          const isExpanded =
+                            expandedPage?.path === pagePath &&
+                            expandedPage.locale === rowLocale;
+                          return (
+                            <div key={sitemapRowKey(entry, idx)}>
+                              <button
+                                onClick={() => handlePageClick(entry)}
+                                className={cn(
+                                  "w-full text-left px-2 py-1.5 rounded-md text-sm hover-elevate flex items-start gap-2",
+                                  isExpanded && "bg-primary/5"
+                                )}
+                                data-testid={`button-import-page-${idx}`}
+                              >
+                                <div className="flex-1 min-w-0">
+                                  <div className="font-medium text-foreground truncate text-xs">{entry.label}</div>
+                                  <div className="text-xs text-muted-foreground truncate">{pagePath}</div>
+                                </div>
+                                {isExpanded ? (
+                                  <IconChevronUp className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                                ) : (
+                                  <IconChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                                )}
+                              </button>
+                              {isExpanded && (
+                                <div className="ml-3 pl-2 border-l border-border pb-1">
+                                  {sectionsLoading ? (
+                                    <div className="py-2 px-2 text-xs text-muted-foreground">Loading sections...</div>
+                                  ) : filteredSections.length === 0 ? (
+                                    <div className="py-2 px-2 text-xs text-muted-foreground">
+                                      No sections found on this page
+                                    </div>
+                                  ) : (
+                                    filteredSections.map((section, sIdx) => {
+                                      const friendly = friendlyComponentName(section.type);
+                                      return (
+                                        <button
+                                          key={
+                                            section.section_id
+                                              ? `${section.section_id}-${sIdx}`
+                                              : `${section.type}-${sIdx}-${section.label}`
+                                          }
+                                          onClick={() => handleSectionClick(section)}
+                                          className={cn(
+                                            "w-full text-left px-2 py-1.5 rounded-md text-xs hover-elevate flex items-start gap-2",
+                                            selectedSection?.label === section.label &&
+                                              selectedPage?.path === pagePath &&
+                                              selectedPage?.locale === rowLocale &&
+                                              "bg-primary/10 text-primary"
+                                          )}
+                                          data-testid={`button-import-section-${idx}-${sIdx}`}
+                                        >
+                                          <IconLayoutGrid className="h-3.5 w-3.5 flex-shrink-0 mt-0.5" />
+                                          <div className="flex-1 min-w-0">
+                                            <div className="flex items-baseline justify-between gap-2">
+                                              <span className="truncate font-medium text-foreground">{section.label}</span>
+                                              <span
+                                                className="text-[10px] text-muted-foreground shrink-0 max-w-[42%] truncate text-right"
+                                                title={friendly}
+                                              >
+                                                {friendly}
+                                              </span>
+                                            </div>
+                                            <div className="text-[10px] font-mono text-muted-foreground/80 truncate mt-0.5">
+                                              {section.type}
+                                            </div>
+                                          </div>
+                                        </button>
+                                      );
+                                    })
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </ScrollArea>
+                </PopoverContent>
+              </Popover>
+            </div>
+
+            {selectedSection && (
+              <div className="rounded-md border border-border bg-muted/30 px-3 py-2 space-y-0.5">
+                <p className="text-xs font-medium">{selectedSection.label}</p>
+                <p className="text-xs text-muted-foreground">{selectedPage?.path}</p>
+                <p className="text-xs text-muted-foreground">
+                  {friendlyComponentName(selectedSection.type)}
+                  <span className="font-mono text-[10px] opacity-70 ml-1">({selectedSection.type})</span>
+                </p>
+              </div>
+            )}
+
+            <label className="flex items-start gap-2.5 cursor-pointer">
+              <Checkbox
+                checked={saveToRegistry}
+                onCheckedChange={(v) => setSaveToRegistry(!!v)}
+                data-testid="checkbox-save-to-registry"
+                className="mt-0.5"
+              />
+              <div>
+                <p className="text-sm font-medium">Save as new registry example</p>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Persists this section as a reusable YAML file in the component registry.
+                  Leave unchecked to add as a session-only reference.
+                </p>
+              </div>
+            </label>
+
+            {saveToRegistry && (
+              <div className="space-y-3 rounded-md border border-border bg-muted/20 p-3">
+                <div className="space-y-1.5">
+                  <Label htmlFor="import-registry-example-name" className="text-xs">
+                    Example name <span className="text-destructive">*</span>
+                  </Label>
+                  <Input
+                    id="import-registry-example-name"
+                    value={registryExampleName}
+                    onChange={(e) => setRegistryExampleName(e.target.value)}
+                    placeholder="e.g. Homepage hero spotlight"
+                    className="h-9 text-sm"
+                    data-testid="input-import-registry-example-name"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="import-registry-example-description" className="text-xs">
+                    Description
+                  </Label>
+                  <Textarea
+                    id="import-registry-example-description"
+                    value={registryExampleDescription}
+                    onChange={(e) => setRegistryExampleDescription(e.target.value)}
+                    placeholder="What this example demonstrates…"
+                    rows={3}
+                    className="text-sm resize-y min-h-[72px]"
+                    data-testid="input-import-registry-example-description"
+                  />
+                </div>
+              </div>
+            )}
+
+            <div className="flex-1 min-h-2" />
+
+            <Button
+              disabled={
+                !selectedSection ||
+                !selectedPage ||
+                saving ||
+                (saveToRegistry && !registryExampleName.trim())
+              }
+              onClick={handleUse}
+              data-testid="button-use-this-section"
+            >
+              {saving ? "Saving..." : "Use this section"}
+            </Button>
+          </div>
+
+          {/* Right panel — component preview (not full page) */}
+          <div className="flex-1 min-h-0 bg-muted/20 flex flex-col">
+            {selectedSection ? (
+              <iframe
+                key={`${selectedSection.type}-${previewKey}`}
+                src={`/private/component-showcase/${encodeURIComponent(selectedSection.type)}/preview?debug=false&version=${encodeURIComponent(registryVersionForType(selectedSection.type))}&_=${previewKey}`}
+                className="w-full flex-1 min-h-0 border-none bg-background"
+                title={`Preview: ${friendlyComponentName(selectedSection.type)}`}
+                data-testid="iframe-import-preview"
+                onLoad={(e) => {
+                  const win = (e.currentTarget as HTMLIFrameElement).contentWindow;
+                  if (win) {
+                    win.postMessage({ type: "theme-vars-update", vars: themeVars, mode: previewMode }, "*");
+                  }
+                }}
+              />
+            ) : (
+              <div className="flex flex-col items-center justify-center h-full gap-2 text-muted-foreground px-4 text-center">
+                <IconLayoutGrid className="h-10 w-10 opacity-20" />
+                <p className="text-sm">Expand a page and choose a section to preview that component here</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export default function ThemeEditor() {
   const { toast } = useToast();
   const [previewMode, setPreviewMode] = useState<"light" | "dark">("light");
@@ -736,9 +1267,65 @@ export default function ThemeEditor() {
   }, [sidebarWidth]);
 
   const [confirmedExamples, setConfirmedExamples] = useState<PreviewExample[]>([]);
+  const confirmedExamplesRef = useRef<PreviewExample[]>([]);
   const [addRow, setAddRow] = useState<{ component: string; version: string; example: string } | null>(null);
+  const [importDialogOpen, setImportDialogOpen] = useState(false);
   const iframeRefs = useRef<Map<number, HTMLIFrameElement>>(new Map());
   const colorsInitialized = useRef(false);
+
+  const [deleteModal, setDeleteModal] = useState<{
+    open: boolean;
+    entry: PreviewExample | null;
+    entryIdx: number;
+    step: DeleteStep;
+    variantImpact: VariantImpact | null;
+    variantImpactLoading: boolean;
+  }>({ open: false, entry: null, entryIdx: -1, step: "choose", variantImpact: null, variantImpactLoading: false });
+
+  const deleteExampleMutation = useMutation({
+    mutationFn: async ({ component, version, example }: { component: string; version: string; example: string }) => {
+      await apiRequest("DELETE", `/api/component-registry/${component}/versions/${version}/examples/${encodeURIComponent(example)}`);
+    },
+    onSuccess: () => {
+      const { entry, entryIdx } = deleteModal;
+      if (entry) {
+        const updated = confirmedExamples.filter((_, i) => i !== entryIdx);
+        setConfirmedExamples(updated);
+        savePreviewExamples(updated);
+      }
+      setDeleteModal((m) => ({ ...m, open: false }));
+      queryClient.invalidateQueries({ queryKey: ["/api/component-registry"] });
+      toast({ title: "Example deleted", description: "The example has been permanently removed." });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Delete failed", description: err.message, variant: "destructive" });
+    },
+  });
+
+  const deleteVariantMutation = useMutation({
+    mutationFn: async ({ component, variantName }: { component: string; variantName: string }) => {
+      await apiRequest("DELETE", `/api/component-registry/${component}/variants/${encodeURIComponent(variantName)}`);
+    },
+    onSuccess: () => {
+      const { entry, variantImpact } = deleteModal;
+      if (entry) {
+        // Remove all preview entries for this variant (not just the clicked one),
+        // since the variant and all its examples are gone
+        const deletedExamples = new Set(variantImpact?.examples ?? []);
+        const updated = confirmedExamples.filter(
+          (ex) => ex.component !== entry.component || !deletedExamples.has(ex.example)
+        );
+        setConfirmedExamples(updated);
+        savePreviewExamples(updated);
+      }
+      setDeleteModal((m) => ({ ...m, open: false }));
+      queryClient.invalidateQueries({ queryKey: ["/api/component-registry"] });
+      toast({ title: "Variant deleted", description: "The component variant and all its examples have been permanently removed." });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Delete failed", description: err.message, variant: "destructive" });
+    },
+  });
 
   const [backgrounds, setBackgrounds] = useState<PaletteEntry[]>([]);
   const [textPalette, setTextPalette] = useState<PaletteEntry[]>([]);
@@ -774,6 +1361,10 @@ export default function ThemeEditor() {
   });
 
   useEffect(() => {
+    confirmedExamplesRef.current = confirmedExamples;
+  }, [confirmedExamples]);
+
+  useEffect(() => {
     if (themeData?.colors && !colorsInitialized.current) {
       setLightColors(themeData.colors.light || {});
       setDarkColors(themeData.colors.dark || {});
@@ -792,12 +1383,34 @@ export default function ThemeEditor() {
 
   const savePreviewExamples = useCallback(async (examples: PreviewExample[]) => {
     try {
-      await apiRequest("PUT", "/api/theme/preview-examples", examples);
+      const toSave = examples.filter((e) => !e.pageUrl);
+      await apiRequest("PUT", "/api/theme/preview-examples", toSave);
       queryClient.invalidateQueries({ queryKey: ["/api/theme"] });
     } catch {
       toast({ title: "Save failed", description: "Could not save preview examples.", variant: "destructive" });
     }
   }, [toast]);
+
+  useEffect(() => {
+    const onPreviewReady = (event: MessageEvent) => {
+      if (event.data?.type !== "preview-ready") return;
+      const sourceWin = event.source as Window | null;
+      if (!sourceWin) return;
+
+      confirmedExamplesRef.current.forEach((entry, idx) => {
+        if (!entry.importYaml?.trim()) return;
+        const iframeWin = iframeRefs.current.get(idx)?.contentWindow;
+        if (iframeWin !== sourceWin) return;
+        sourceWin.postMessage(
+          { type: "preview-update", sections: parseImportedSections(entry.importYaml) },
+          "*",
+        );
+      });
+    };
+
+    window.addEventListener("message", onPreviewReady);
+    return () => window.removeEventListener("message", onPreviewReady);
+  }, []);
 
   useEffect(() => {
     const activeColors = previewMode === "light" ? lightColors : darkColors;
@@ -910,6 +1523,7 @@ export default function ThemeEditor() {
   }, [moleculesData]);
 
   return (
+    <>
     <div className="flex h-screen bg-background overflow-hidden" data-testid="page-theme-editor">
       <div className="shrink-0 flex flex-col bg-card relative border-r border-border" style={{ width: sidebarWidth }}>
         <div className="px-4 py-3 border-b border-border">
@@ -1188,21 +1802,37 @@ export default function ThemeEditor() {
           {activeSection === "examples" && (
             <div className="p-6 space-y-6" data-testid="preview-examples">
               {confirmedExamples.map((entry, idx) => {
-                const iframeSrc = `/private/component-showcase/${entry.component}/preview?debug=false&version=${encodeURIComponent(entry.version)}&example=${encodeURIComponent(entry.example)}`;
+                const isSessionImport = !!(entry.importYaml || entry.pageUrl);
+                const iframeSrc = entry.importYaml
+                  ? `/private/component-showcase/${encodeURIComponent(entry.component)}/preview?debug=false&version=${encodeURIComponent(entry.version)}&embed=theme`
+                  : entry.pageUrl
+                    ? entry.pageUrl
+                    : `/private/component-showcase/${encodeURIComponent(entry.component)}/preview?debug=false&version=${encodeURIComponent(entry.version)}&example=${encodeURIComponent(entry.example)}`;
                 return (
                   <div key={idx} className="space-y-2">
                     <div className="flex items-center justify-between gap-2">
-                      <p className="text-sm font-medium truncate">
-                        {entry.component} &mdash; {entry.version} &mdash; {entry.example}
-                      </p>
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        {isSessionImport && (
+                          <Badge variant="secondary" className="text-xs flex-shrink-0">imported</Badge>
+                        )}
+                        <p className="text-sm font-medium truncate">
+                          {isSessionImport
+                            ? `${entry.component} — ${entry.example}`
+                            : `${entry.component} — ${entry.version} — ${entry.example}`}
+                        </p>
+                      </div>
                       <Button
                         size="icon"
                         variant="ghost"
-                        onClick={async () => {
-                          const updated = confirmedExamples.filter((_, i) => i !== idx);
-                          setConfirmedExamples(updated);
-                          iframeRefs.current.delete(idx);
-                          await savePreviewExamples(updated);
+                        onClick={() => {
+                          setDeleteModal({
+                            open: true,
+                            entry,
+                            entryIdx: idx,
+                            step: "choose",
+                            variantImpact: null,
+                            variantImpactLoading: false,
+                          });
                         }}
                         data-testid={`button-delete-example-${idx}`}
                       >
@@ -1225,6 +1855,15 @@ export default function ThemeEditor() {
                           if (win) {
                             const colors = previewMode === "light" ? lightColors : darkColors;
                             win.postMessage({ type: "theme-vars-update", vars: colors, mode: previewMode }, "*");
+                            if (entry.importYaml?.trim()) {
+                              const msg = {
+                                type: "preview-update" as const,
+                                sections: parseImportedSections(entry.importYaml),
+                              };
+                              win.postMessage(msg, "*");
+                              setTimeout(() => win.postMessage(msg, "*"), 50);
+                              setTimeout(() => win.postMessage(msg, "*"), 200);
+                            }
                           }
                         }}
                       />
@@ -1303,21 +1942,289 @@ export default function ThemeEditor() {
                 </div>
               )}
 
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => setAddRow({ component: "", version: "", example: "" })}
-                disabled={addRow !== null}
-                data-testid="button-add-example"
-                className="flex items-center gap-1.5"
-              >
-                <IconPlus className="h-4 w-4" />
-                Add example
-              </Button>
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setAddRow({ component: "", version: "", example: "" })}
+                  disabled={addRow !== null}
+                  data-testid="button-add-example"
+                  className="flex items-center gap-1.5"
+                >
+                  <IconPlus className="h-4 w-4" />
+                  Add example
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setImportDialogOpen(true)}
+                  disabled={addRow !== null}
+                  data-testid="button-import-example"
+                  className="flex items-center gap-1.5"
+                >
+                  <IconFileImport className="h-4 w-4" />
+                  Import example from page
+                </Button>
+              </div>
             </div>
           )}
         </ScrollArea>
       </div>
     </div>
+
+    <Dialog
+      open={deleteModal.open}
+      onOpenChange={(open) => {
+        if (!open) setDeleteModal((m) => ({ ...m, open: false }));
+      }}
+    >
+      <DialogContent
+        className="max-w-3xl max-h-[90dvh] flex flex-col overflow-hidden gap-0 p-0"
+        data-testid="dialog-delete-example"
+      >
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-6 pr-12 flex flex-col gap-4">
+        <DialogHeader>
+          <DialogTitle>
+            {deleteModal.step === "choose" && "Remove from preview"}
+            {deleteModal.step === "confirm-example" && "Delete example?"}
+            {deleteModal.step === "confirm-variant" && "Delete component variant?"}
+          </DialogTitle>
+        </DialogHeader>
+
+        {deleteModal.step === "choose" && deleteModal.entry && (
+          <div className="space-y-2 pt-1">
+            <button
+              className="w-full text-left px-4 py-3 rounded-md border border-border hover-elevate text-sm"
+              data-testid="button-remove-from-references"
+              onClick={async () => {
+                const updated = confirmedExamples.filter((_, i) => i !== deleteModal.entryIdx);
+                iframeRefs.current.delete(deleteModal.entryIdx);
+                setConfirmedExamples(updated);
+                await savePreviewExamples(updated);
+                setDeleteModal((m) => ({ ...m, open: false }));
+              }}
+            >
+              <p className="font-medium">Remove from references</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Remove from this preview list only. The example and component remain intact.
+              </p>
+            </button>
+
+            {!deleteModal.entry?.pageUrl && (deleteModal.entry?.registryPersisted ?? !deleteModal.entry?.importYaml) && (
+              <button
+                className="w-full text-left px-4 py-3 rounded-md border border-amber-400 bg-amber-50 dark:bg-amber-950/30 hover-elevate text-sm"
+                data-testid="button-choose-delete-example"
+                onClick={() => setDeleteModal((m) => ({ ...m, step: "confirm-example" }))}
+              >
+                <p className="font-medium text-amber-800 dark:text-amber-300">Delete example</p>
+                <p className="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
+                  Permanently delete this example YAML from the registry. No pages will be affected.
+                </p>
+              </button>
+            )}
+
+            {!deleteModal.entry?.pageUrl && (deleteModal.entry?.registryPersisted ?? !deleteModal.entry?.importYaml) && (
+              <button
+                className="w-full text-left px-4 py-3 rounded-md border border-destructive bg-destructive/5 hover-elevate text-sm"
+                data-testid="button-choose-delete-variant"
+              onClick={async () => {
+                const { entry } = deleteModal;
+                if (!entry) return;
+                setDeleteModal((m) => ({ ...m, variantImpactLoading: true, step: "confirm-variant" }));
+                try {
+                  const params = new URLSearchParams({ version: entry.version, exampleName: entry.example });
+                  const res = await fetch(`/api/component-registry/${entry.component}/variant-impact?${params}`);
+                  if (!res.ok) {
+                    const errBody = await res.json().catch(() => ({})) as { error?: string };
+                    throw new Error(errBody.error || "Failed to fetch variant impact");
+                  }
+                  const data = await res.json() as VariantImpact;
+                  setDeleteModal((m) => ({ ...m, variantImpact: data, variantImpactLoading: false }));
+                } catch {
+                  setDeleteModal((m) => ({ ...m, variantImpactLoading: false, step: "choose" }));
+                  toast({ title: "Failed to load impact info", variant: "destructive" });
+                }
+              }}
+            >
+              <p className="font-medium text-destructive">Delete variant</p>
+              <p className="text-xs text-destructive/80 mt-0.5">
+                Permanently delete the component variant, all its examples, and remove all its uses from pages.
+              </p>
+            </button>
+            )}
+
+            <div className="flex justify-end pt-1">
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setDeleteModal((m) => ({ ...m, open: false }))}
+                data-testid="button-cancel-delete"
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {deleteModal.step === "confirm-example" && deleteModal.entry && (
+          <div className="space-y-4 pt-1">
+            <button
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover-elevate rounded px-1 py-0.5 -ml-1"
+              onClick={() => setDeleteModal((m) => ({ ...m, step: "choose" }))}
+              data-testid="button-back-to-choose"
+            >
+              <IconArrowLeft className="h-4 w-4" />
+              Back
+            </button>
+            <p className="text-sm">
+              Delete the example <span className="font-semibold">"{deleteModal.entry.example}"</span>?
+            </p>
+            <p className="text-sm text-muted-foreground">
+              This will no longer appear when you choose an example for this component variant. This action cannot be undone. No existing pages or components will be affected.
+            </p>
+            <div className="flex justify-end gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setDeleteModal((m) => ({ ...m, open: false }))}
+                data-testid="button-cancel-delete-example"
+              >
+                Cancel
+              </Button>
+              <Button
+                size="sm"
+                variant="destructive"
+                disabled={deleteExampleMutation.isPending}
+                onClick={() => {
+                  const { entry } = deleteModal;
+                  if (!entry) return;
+                  deleteExampleMutation.mutate({ component: entry.component, version: entry.version, example: entry.example });
+                }}
+                data-testid="button-confirm-delete-example"
+              >
+                {deleteExampleMutation.isPending ? "Deleting..." : "Delete example"}
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {deleteModal.step === "confirm-variant" && (
+          <div className="space-y-4 pt-1">
+            <button
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover-elevate rounded px-1 py-0.5 -ml-1"
+              onClick={() => setDeleteModal((m) => ({ ...m, step: "choose", variantImpact: null }))}
+              data-testid="button-back-to-choose-variant"
+            >
+              <IconArrowLeft className="h-4 w-4" />
+              Back
+            </button>
+
+            {deleteModal.variantImpactLoading ? (
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-3/4" />
+                <Skeleton className="h-4 w-1/2" />
+                <Skeleton className="h-4 w-2/3" />
+              </div>
+            ) : deleteModal.variantImpact ? (
+              <div className="space-y-3">
+                <p className="text-sm">
+                  This will permanently delete the component{" "}
+                  <span className="font-semibold">{deleteModal.variantImpact.componentName}</span>
+                </p>
+                <p className="text-xs text-muted-foreground font-mono bg-muted/50 rounded px-2 py-1 break-all">
+                  {deleteModal.variantImpact.tsxPath}
+                </p>
+
+                {deleteModal.variantImpact.pages.length > 0 && (
+                  <>
+                    <p className="text-sm">...and all its uses on the following pages:</p>
+                    <div className="rounded-md bg-destructive/5 border border-destructive/20 px-3 py-2 space-y-2 max-h-[250px] overflow-y-auto">
+                      {deleteModal.variantImpact.pages.map((p) => (
+                        <div key={p.path} className="text-xs border-b border-destructive/10 last:border-0 last:pb-0 pb-2 last:mb-0">
+                          <div>
+                            <span className="font-medium font-mono">{p.path}</span>
+                            <span className="text-muted-foreground">
+                              {" "}
+                              → {p.count} {p.count === 1 ? "use" : "uses"}
+                            </span>
+                          </div>
+                          {p.sectionIds.length > 0 && (
+                            <div className="mt-1.5 pl-0">
+                              <p className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground mb-1">
+                                Section IDs
+                              </p>
+                              <ul className="space-y-0.5 pl-0">
+                                {p.sectionIds.map((id) => (
+                                  <li
+                                    key={id}
+                                    className="font-mono text-[11px] text-muted-foreground/90 break-all pl-3 border-l-2 border-muted-foreground/25"
+                                  >
+                                    {id}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
+
+                {deleteModal.variantImpact.examples.length > 0 && (
+                  <div className="space-y-1">
+                    <p className="text-sm">The following examples will be deleted from the registry as well:</p>
+                    <ul className="text-xs text-muted-foreground space-y-0.5 pl-3">
+                      {deleteModal.variantImpact.examples.map((ex) => (
+                        <li key={ex}>• {ex}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            ) : null}
+
+            <div className="flex justify-end gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setDeleteModal((m) => ({ ...m, open: false }))}
+                data-testid="button-cancel-delete-variant"
+              >
+                Cancel
+              </Button>
+              <Button
+                size="sm"
+                variant="destructive"
+                disabled={deleteVariantMutation.isPending || deleteModal.variantImpactLoading}
+                onClick={() => {
+                  const { entry, variantImpact } = deleteModal;
+                  if (!entry || !variantImpact) return;
+                  deleteVariantMutation.mutate({ component: entry.component, variantName: variantImpact.variantName });
+                }}
+                data-testid="button-confirm-delete-variant"
+              >
+                {deleteVariantMutation.isPending ? "Deleting..." : "Delete variant"}
+              </Button>
+            </div>
+          </div>
+        )}
+        </div>
+      </DialogContent>
+    </Dialog>
+
+    <ImportExampleDialog
+      open={importDialogOpen}
+      onClose={() => setImportDialogOpen(false)}
+      registryData={registryData}
+      previewMode={previewMode}
+      themeVars={previewMode === "light" ? lightColors : darkColors}
+      onImport={async (entry) => {
+        const updated = [...confirmedExamples, entry];
+        setConfirmedExamples(updated);
+        await savePreviewExamples(updated);
+      }}
+    />
+    </>
   );
 }

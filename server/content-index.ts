@@ -1451,6 +1451,114 @@ class ContentIndex {
     return current;
   }
 
+  removeAllVariantSectionsFromPages(
+    componentType: string,
+    variantName: string,
+    dryRun = false
+  ): Array<{
+    contentType: string;
+    slug: string;
+    locale: string;
+    filePath: string;
+    removedCount: number;
+    removedSectionIds: string[];
+  }> {
+    this.ensureInitialized();
+
+    const normalizeV = (v: string) => v.toLowerCase().replace(/[-_\s]/g, "");
+    const normalizedTarget = normalizeV(variantName);
+
+    const results: Array<{
+      contentType: string;
+      slug: string;
+      locale: string;
+      filePath: string;
+      removedCount: number;
+      removedSectionIds: string[];
+    }> = [];
+
+    if (dryRun) {
+      // For impact preview: use loadMergedContent per locale so inherited _common.yml
+      // sections are reported under real page paths (/en/slug, /es/slug) not /_common/slug
+      for (const entry of this.entries) {
+        for (const locale of entry.locales) {
+          const { data } = this.loadMergedContent(entry.contentType, entry.slug, locale);
+          if (!data || !Array.isArray(data.sections)) continue;
+          const sections = data.sections as Record<string, unknown>[];
+          const matching = sections.filter((s) => {
+            const sType = s.type as string | undefined;
+            const sVariant = s.variant as string | undefined;
+            return sType === componentType && sVariant && normalizeV(sVariant) === normalizedTarget;
+          });
+          if (matching.length === 0) continue;
+          results.push({
+            contentType: entry.contentType,
+            slug: entry.slug,
+            locale,
+            filePath: `${entry.directory}/${locale}.yml`,
+            removedCount: matching.length,
+            removedSectionIds: matching.map((s) => (s.section_id as string) || "").filter(Boolean),
+          });
+        }
+      }
+      return results;
+    }
+
+    // Actual deletion: scan and modify underlying files directly
+    // (locale files + _common.yml, since _common is not in entry.locales)
+    const processFile = (absFilePath: string, entryContentType: string, slug: string) => {
+      if (!fs.existsSync(absFilePath)) return;
+      try {
+        const raw = fs.readFileSync(absFilePath, "utf-8");
+        const { escaped, map } = escapeTemplateVars(raw);
+        const parsed = yaml.load(escaped) as Record<string, unknown>;
+        if (!parsed || !Array.isArray(parsed.sections)) return;
+
+        const sections = parsed.sections as Record<string, unknown>[];
+        const removedIds: string[] = [];
+        const kept: Record<string, unknown>[] = [];
+
+        for (const section of sections) {
+          const sType = section.type as string | undefined;
+          const sVariant = section.variant as string | undefined;
+          if (sType === componentType && sVariant && normalizeV(sVariant) === normalizedTarget) {
+            removedIds.push((section.section_id as string) || "");
+          } else {
+            kept.push(section);
+          }
+        }
+
+        if (removedIds.length === 0) return;
+
+        results.push({
+          contentType: entryContentType,
+          slug,
+          locale: path.basename(absFilePath).replace(/\.(yml|yaml)$/, ""),
+          filePath: absFilePath,
+          removedCount: removedIds.length,
+          removedSectionIds: removedIds.filter(Boolean),
+        });
+
+        parsed.sections = kept;
+        const { escaped: escapedOut, map: mapOut } = escapeObjectVars(parsed);
+        const dumped = yaml.dump(escapedOut, { lineWidth: 120, noRefs: true, sortKeys: false });
+        fs.writeFileSync(absFilePath, unescapeYamlDump(dumped, mapOut), "utf-8");
+      } catch (e) {
+        console.error(`Error processing ${absFilePath}:`, e);
+      }
+    };
+
+    for (const entry of this.entries) {
+      const entryDir = path.join(process.cwd(), entry.directory);
+      for (const locale of entry.locales) {
+        processFile(path.join(entryDir, `${locale}.yml`), entry.contentType, entry.slug);
+      }
+      processFile(path.join(entryDir, "_common.yml"), entry.contentType, entry.slug);
+    }
+
+    return results;
+  }
+
   private stripSectionIds(parsed: Record<string, unknown>): void {
     const sections = parsed.sections;
     if (Array.isArray(sections)) {

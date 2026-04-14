@@ -1,6 +1,24 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
+import {
+  escapeTemplateVars,
+  unescapeObjectVars,
+  escapeObjectVars,
+  unescapeYamlDump,
+} from "../shared/templateVars";
+
+function safeYamlLoad(content: string): unknown {
+  const { escaped, map } = escapeTemplateVars(content);
+  const parsed = yaml.load(escaped);
+  return unescapeObjectVars(parsed, map);
+}
+
+function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
+  const { escaped, map } = escapeObjectVars(obj);
+  const dumped = yaml.dump(escaped, opts);
+  return unescapeYamlDump(dumped, map);
+}
 
 const REGISTRY_PATH = path.join(process.cwd(), "marketing-content", "component-registry");
 
@@ -109,7 +127,8 @@ export function loadSchema(componentType: string, version: string): ComponentSch
 
 function extractVariantFromYaml(yamlContent: string): string | undefined {
   try {
-    const parsed = yaml.load(yamlContent);
+    const { escaped } = escapeTemplateVars(yamlContent);
+    const parsed = yaml.load(escaped);
     if (Array.isArray(parsed) && parsed.length > 0 && parsed[0]?.variant) {
       return parsed[0].variant as string;
     }
@@ -134,7 +153,8 @@ export function loadExamples(componentType: string, version: string): ComponentE
     return exampleFiles.map(file => {
       const filePath = path.join(examplesPath, file);
       const content = fs.readFileSync(filePath, "utf8");
-      const data = yaml.load(content) as { name?: string; description?: string; yaml?: string; variant?: string };
+      const { escaped } = escapeTemplateVars(content);
+      const data = yaml.load(escaped) as { name?: string; description?: string; yaml?: string; variant?: string };
       
       const yamlContent = data.yaml || content;
       const inferredVariant = extractVariantFromYaml(yamlContent);
@@ -341,8 +361,8 @@ export function saveExample(
     for (const file of exampleFiles) {
       const filePath = path.join(examplesPath, file);
       const content = fs.readFileSync(filePath, "utf8");
-      const data = yaml.load(content) as { name?: string };
-      
+      const data = safeYamlLoad(content) as { name?: string };
+
       if (data.name === exampleName) {
         targetFile = file;
         break;
@@ -355,7 +375,7 @@ export function saveExample(
     
     const filePath = path.join(examplesPath, targetFile);
     const existingContent = fs.readFileSync(filePath, "utf8");
-    const existingData = yaml.load(existingContent) as { name?: string; description?: string; variant?: string };
+    const existingData = safeYamlLoad(existingContent) as { name?: string; description?: string; variant?: string };
     
     // Preserve the example metadata and update the yaml content
     const newContent = {
@@ -370,7 +390,7 @@ export function saveExample(
       delete (newContent as { variant?: string }).variant;
     }
     
-    const yamlOutput = yaml.dump(newContent, { 
+    const yamlOutput = safeYamlDump(newContent, { 
       lineWidth: -1,
       quotingType: '"',
       forceQuotes: false,
@@ -382,6 +402,229 @@ export function saveExample(
   } catch (error) {
     console.error(`Error saving example for ${componentType}/${version}:`, error);
     return { success: false, error: String(error) };
+  }
+}
+
+function normalizeVariantName(v: string): string {
+  return v.toLowerCase().replace(/[-_\s]/g, "");
+}
+
+function toPascalCase(str: string): string {
+  return str
+    .replace(/[-_](.)/g, (_, c: string) => c.toUpperCase())
+    .replace(/^(.)/, (c: string) => c.toUpperCase());
+}
+
+function resolveVariantTsxPath(componentType: string, variantName: string): string {
+  const typePascal = toPascalCase(componentType);
+  const variantPascal = toPascalCase(variantName);
+  const fileName = `${typePascal}${variantPascal}.tsx`;
+  return path.join(process.cwd(), "client", "src", "components", componentType, "variants", fileName);
+}
+
+export function getVariantByExample(
+  componentType: string,
+  version: string,
+  exampleName: string
+): string | null {
+  // loadExamples already applies escapeTemplateVars + extractVariantFromYaml
+  const examples = loadExamples(componentType, version);
+  const found = examples.find((e) => e.name === exampleName);
+  // If the example exists in the requested version, use that result only.
+  // Don't fall back to other versions — this is a destructive action and
+  // picking a different version's variant could delete the wrong thing.
+  if (found) return found.variant ?? "default";
+
+  // Example not found in specified version — search other versions
+  for (const v of listVersions(componentType)) {
+    if (v === version) continue;
+    const vFound = loadExamples(componentType, v).find((e) => e.name === exampleName);
+    if (vFound?.variant) return vFound.variant;
+  }
+  return null;
+}
+
+export function getVariantExamples(
+  componentType: string,
+  variantName: string
+): Array<{ version: string; name: string }> {
+  const result: Array<{ version: string; name: string }> = [];
+  const versions = listVersions(componentType);
+  const normalizedTarget = normalizeVariantName(variantName);
+
+  for (const v of versions) {
+    const examples = loadExamples(componentType, v);
+    for (const ex of examples) {
+      const exVariant = ex.variant || "default";
+      if (normalizeVariantName(exVariant) === normalizedTarget) {
+        result.push({ version: v, name: ex.name });
+      }
+    }
+  }
+  return result;
+}
+
+export function deleteExample(
+  componentType: string,
+  version: string,
+  exampleName: string
+): { success: boolean; error?: string } {
+  try {
+    const examplesPath = path.join(REGISTRY_PATH, componentType, version, "examples");
+    if (!fs.existsSync(examplesPath)) {
+      return { success: false, error: `Examples path not found for ${componentType}/${version}` };
+    }
+
+    const exampleFiles = fs.readdirSync(examplesPath).filter(
+      (file) => file.endsWith(".yml") || file.endsWith(".yaml")
+    );
+
+    let targetFile: string | null = null;
+    for (const file of exampleFiles) {
+      const filePath = path.join(examplesPath, file);
+      const content = fs.readFileSync(filePath, "utf8");
+      const data = safeYamlLoad(content) as { name?: string };
+      if (data.name === exampleName) {
+        targetFile = file;
+        break;
+      }
+    }
+
+    if (!targetFile) {
+      return { success: false, error: `Example "${exampleName}" not found` };
+    }
+
+    fs.unlinkSync(path.join(examplesPath, targetFile));
+    return { success: true };
+  } catch (error) {
+    console.error(`Error deleting example ${exampleName} for ${componentType}/${version}:`, error);
+    return { success: false, error: String(error) };
+  }
+}
+
+function deleteVariantExamples(
+  componentType: string,
+  variantName: string
+): { deleted: string[]; errors: string[] } {
+  const deleted: string[] = [];
+  const errors: string[] = [];
+  const versions = listVersions(componentType);
+  const normalizedTarget = normalizeVariantName(variantName);
+
+  for (const v of versions) {
+    const examplesPath = path.join(REGISTRY_PATH, componentType, v, "examples");
+    if (!fs.existsSync(examplesPath)) continue;
+
+    const exampleFiles = fs.readdirSync(examplesPath).filter(
+      (file) => file.endsWith(".yml") || file.endsWith(".yaml")
+    );
+
+    for (const file of exampleFiles) {
+      const filePath = path.join(examplesPath, file);
+      try {
+        const content = fs.readFileSync(filePath, "utf8");
+        const data = safeYamlLoad(content) as { name?: string; variant?: string; yaml?: string };
+        const exVariant = data.variant || extractVariantFromYaml(data.yaml || "") || "default";
+        if (normalizeVariantName(exVariant) === normalizedTarget) {
+          fs.unlinkSync(filePath);
+          deleted.push(data.name || file);
+        }
+      } catch (e) {
+        errors.push(`${v}/${file}: ${String(e)}`);
+      }
+    }
+  }
+  return { deleted, errors };
+}
+
+export function createExample(
+  componentType: string,
+  version: string,
+  yamlContent: string,
+  sectionId?: string,
+  options?: { displayName?: string; description?: string }
+): { success: boolean; filename?: string; exampleName?: string; error?: string } {
+  try {
+    const examplesPath = path.join(REGISTRY_PATH, componentType, version, "examples");
+    if (!fs.existsSync(examplesPath)) {
+      fs.mkdirSync(examplesPath, { recursive: true });
+    }
+
+    const trimmedName = options?.displayName?.trim();
+    let base: string;
+    if (trimmedName) {
+      base = trimmedName
+        .replace(/[^a-z0-9_-]+/gi, "_")
+        .replace(/^_+|_+$/g, "")
+        .toLowerCase();
+      if (!base) {
+        base = `${componentType}_${Date.now()}`;
+      }
+    } else if (sectionId) {
+      base = sectionId.replace(/[^a-z0-9_-]/gi, "_").toLowerCase();
+    } else {
+      base = `${componentType}_${Date.now()}`;
+    }
+
+    let filename = `${base}.yml`;
+    let counter = 1;
+    while (fs.existsSync(path.join(examplesPath, filename))) {
+      filename = `${base}_${counter++}.yml`;
+    }
+
+    const yamlTitle = trimmedName || filename.replace(/\.ya?ml$/, "").replace(/_/g, " ");
+    const payload: Record<string, unknown> = {
+      name: yamlTitle,
+      yaml: yamlContent,
+    };
+    const trimmedDesc = options?.description?.trim();
+    if (trimmedDesc) {
+      payload.description = trimmedDesc;
+    }
+
+    const fileContent = safeYamlDump(payload, {
+      lineWidth: -1,
+      quotingType: '"',
+      forceQuotes: false,
+    });
+
+    fs.writeFileSync(path.join(examplesPath, filename), fileContent);
+    return { success: true, filename, exampleName: yamlTitle };
+  } catch (error) {
+    console.error(`Error creating example for ${componentType}/${version}:`, error);
+    return { success: false, error: String(error) };
+  }
+}
+
+export function deleteVariant(
+  componentType: string,
+  variantName: string
+): { success: boolean; deletedExamples: string[]; error?: string } {
+  try {
+    const tsxPath = resolveVariantTsxPath(componentType, variantName);
+    if (fs.existsSync(tsxPath)) {
+      fs.unlinkSync(tsxPath);
+    }
+    const { deleted } = deleteVariantExamples(componentType, variantName);
+
+    // If no variant TSX files remain, clean up the orphaned directories
+    const variantsDir = path.join(process.cwd(), "client", "src", "components", componentType, "variants");
+    if (fs.existsSync(variantsDir)) {
+      const remaining = fs.readdirSync(variantsDir).filter((f) => f.endsWith(".tsx") || f.endsWith(".ts"));
+      if (remaining.length === 0) {
+        fs.rmSync(variantsDir, { recursive: true, force: true });
+        // Also remove the parent component folder if it's now empty
+        const componentDir = path.join(process.cwd(), "client", "src", "components", componentType);
+        if (fs.existsSync(componentDir) && fs.readdirSync(componentDir).length === 0) {
+          fs.rmSync(componentDir, { recursive: true, force: true });
+        }
+      }
+    }
+
+    return { success: true, deletedExamples: deleted };
+  } catch (error) {
+    console.error(`Error deleting variant ${variantName} for ${componentType}:`, error);
+    return { success: false, deletedExamples: [], error: String(error) };
   }
 }
 
