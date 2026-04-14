@@ -1288,19 +1288,19 @@ sections:
       desktop: md sm
     background: hsl(var(--secondary))
   - type: career_support_explain
-    version: v1.0
     maxWidth:
       desktop: 6xl
-    heading: GeekForce Career Support
-    description: Our career support program is designed to help you land your first job in tech
-    background: hsl(var(--secondary))
+    version: v1.0
+    heading: Get Hired. Career Support That Doesn't Stop at Graduation.
+    description: AI-optimized profiles, direct access to a network of 400+ hiring partners, and hands-on support from first application to signed offer, and beyond.
+    background: hsl(var(--sidebar-background))
     tabs:
       - tab_label: Job-Ready, Faster
         layout: three_columns
-        col1_subtitle: Build a recruiter-ready profile, smarter.
+        col1_subtitle: Build a Recruiter-Ready Profile, Smarter.
         col1_description: |-
           Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
-          We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
+          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal impact.
         col1_tagline: We'll help you create tailored job search materials
         col1_boxes:
           - icon: IconBrandLinkedin
@@ -1311,7 +1311,7 @@ sections:
             text: Portfolio
           - icon: IconMail
             text: Cover letter
-        col2_heading: Professional Placement & Coaching
+        col2_heading: Career Strategy, Built Around You
         col2_bullets:
           - icon: IconRobot
             text: 24/7 feedback from RigoBot to audit your LinkedIn and resume
@@ -1324,8 +1324,8 @@ sections:
         col3_object_position: center
       - tab_label: Real Hiring Access
         layout: two_column_cards
-        title: Access the hidden job market.
-        left_text: We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
+        title: Access the Hidden Job Market.
+        left_text: Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
         left_image_id: career_team_women
         left_image_object_fit: cover
         left_image_object_position: center
@@ -1354,7 +1354,7 @@ sections:
             alt: KPMG
       - tab_label: Proof That Converts
         layout: text_and_image
-        title: Projects that demonstrate real skill.
+        title: Projects that Demonstrate Real Skill.
         left_description: |-
           Visibility gets attention. Proof closes the gap.
           Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
@@ -1370,7 +1370,7 @@ sections:
         right_image_object_position: center
       - tab_label: Your Best-Fit Role
         layout: text_with_testimonials_carousel
-        title: Turn your background into an advantage.
+        title: Turn Your Background into an Advantage.
         left_description: |-
           Once offers are on the table, we help you choose and negotiate with confidence.
           Your previous experience matters. We map transferable skills, focus your job search on the right roles, and support you through salary negotiation and long-term growth.
@@ -1390,7 +1390,7 @@ sections:
             contributor_logos:
               - image_id: clark_university
             description: MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her endeavor.
-            achievement: She has launched her startup, is capable of hiring new tech talent, and coordinates a dev team!
+            achievement: She launched her own startup, is hiring new tech talent, and coordinates an entire team of developers.
           - image_id: martin_coimbra
             image_object_fit: cover
             image_object_position: center top
@@ -1406,7 +1406,11 @@ sections:
               - image_id: bid_logo
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
-    section_id: career_support_explain-516z50
+    section_id: career_support_explain-xpc3k2
+    marginY:
+      desktop: none xl
+    paddingY:
+      desktop: md none
   - type: certificate
     title: Your Certificate. Your Career Leverage.
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Step into roles paying:"
