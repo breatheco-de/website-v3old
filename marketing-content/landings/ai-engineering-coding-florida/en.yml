@@ -1531,13 +1531,13 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Florida's AI job market is growing fast. Your skills should too.
-    subtitle: Apply in 2 minutes. Our admissions team will be in touch shortly with everything you need to know.
+    subtitle: Our admissions team will walk you through everything — curriculum, financing, and whether this program is the right fit for you.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Start Your Application
+      submit_label: Talk to Admissions
       tags: website-lead
       fields:
         email:
