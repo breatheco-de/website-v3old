@@ -2,11 +2,9 @@ slug: data-scientist-machine-learning
 title: Data Scientist Machine Learning
 locale: es
 meta:
-  og_image: /images/programs/ai-engineering-og.jpg
-  page_title: Programa Full Stack con IA en España | 4Geeks Academy
-  description: >-
-    Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando — en solo 24
-    semanas.
+  og_image: /images/programs/full-stack-og.jpg
+  page_title: Bootcamp Data Science y Machine Learning con IA en LATAM | 4Geeks Academy
+  description: "Conviértete en Científico de Datos con IA en 18 semanas. Mentoría ilimitada 1:1, apoyo en la búsqueda laboral y proyectos reales. "
   robots: index, follow
   priority: 0.9
   change_frequency: weekly
@@ -14,6 +12,6 @@ schema:
   include:
     - organization
     - website
-    - courses:ai-engineering
+    - courses:full-stack
 locations:
   - madrid-spain
