@@ -399,18 +399,13 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
       .filter((p): p is NonNullable<typeof p> => p !== undefined);
   }, [formOptions?.programs, programFieldSlugs]);
 
-  const programDefaultValue = resolveDefault("program", getFieldConfig("program").default);
-  const resolvedProgramDefault = programFieldSlugs?.length
-    ? visiblePrograms.some(p => (p.bc_slug || p.slug) === programDefaultValue) ? programDefaultValue : ""
-    : programDefaultValue;
-
   const form = useForm<FormValues>({
     defaultValues: {
       email: "",
       first_name: resolveDefault("first_name", getFieldConfig("first_name").default),
       last_name: resolveDefault("last_name", getFieldConfig("last_name").default),
       phone: resolveDefault("phone", getFieldConfig("phone").default),
-      program: resolvedProgramDefault,
+      program: resolveDefault("program", getFieldConfig("program").default),
       region: resolveDefault("region", getFieldConfig("region").default),
       location: resolveDefault("location", getFieldConfig("location").default),
       coupon: resolveDefault("coupon", getFieldConfig("coupon").default),
