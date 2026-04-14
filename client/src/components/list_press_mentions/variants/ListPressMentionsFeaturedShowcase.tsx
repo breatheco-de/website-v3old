@@ -292,7 +292,7 @@ export default function ListPressMentionsFeaturedShowcase({ data }: ListPressMen
               onTouchCancel={handleTouchEnd}
             >
               <div
-                className="flex transition-transform duration-500 ease-in-out"
+                className="flex items-start transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${currentPage * 100}%)` }}
               >
                 {pageGroups.map((group, pageIdx) => (

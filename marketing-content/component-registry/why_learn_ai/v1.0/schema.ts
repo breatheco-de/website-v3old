@@ -11,6 +11,8 @@ export const whyLearnAISectionSchema = z.object({
   subtitle: z.string(),
   description: z.string(),
   cta: ctaButtonSchema.optional(),
+  mobile_see_more: z.boolean().optional(),
+  mobile_see_more_label: z.string().optional(),
 });
 
 export type WhyLearnAISection = z.infer<typeof whyLearnAISectionSchema>;

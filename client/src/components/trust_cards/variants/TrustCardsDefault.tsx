@@ -17,18 +17,18 @@ function StarRating({ rating }: { rating: number }) {
           return (
             <IconStarFilled
               key={star}
-              className="h-5 w-5 text-yellow-500"
+              className="h-4 w-4 md:h-5 md:w-5 text-yellow-500"
             />
           );
         } else if (isHalfStar) {
           return (
-            <div key={star} className="relative h-5 w-5">
-              <IconStarFilled className="h-5 w-5 text-muted" />
+            <div key={star} className="relative h-4 w-4 md:h-5 md:w-5">
+              <IconStarFilled className="h-4 w-4 md:h-5 md:w-5 text-muted" />
               <div
                 className="absolute inset-0 overflow-hidden"
                 style={{ width: "50%" }}
               >
-                <IconStarFilled className="h-5 w-5 text-yellow-500" />
+                <IconStarFilled className="h-4 w-4 md:h-5 md:w-5 text-yellow-500" />
               </div>
             </div>
           );
@@ -77,10 +77,10 @@ export default function TrustCards({ data }: TrustCardsProps) {
         {data.items.map((item, index) => (
           <Card
             key={index}
-            className="flex flex-col items-center justify-between gap-3 p-4"
+            className="flex flex-col items-center justify-center gap-3 p-4"
             data-testid={`card-trust-${index}`}
           >
-            <div className="max-h-[50px] flex items-center justify-center mx-8">
+            <div className="max-h-[38px] md:max-h-[50px] flex items-center justify-center mx-8">
               <UniversalImage
                 id={item.image}
                 alt={item.trusted_text || `Review platform ${index + 1}`}
