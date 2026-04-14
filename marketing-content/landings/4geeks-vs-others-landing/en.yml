@@ -363,17 +363,6 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-dc7isf
-  - type: faq
-    version: v1.0
-    title: Real Questions. Honest Answers
-    related_features:
-      - job-guarantee
-      - outcomes
-      - career-support
-    section_id: faq-qubzh4
-    background: hsl(var(--sidebar-background))
-    marginY:
-      desktop: none lg
   - type: why_learn_ai
     variant: laptop-edge
     title: Get Hired Within 9 Months or Get Your Tuition Back
@@ -397,6 +386,17 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+  - type: faq
+    version: v1.0
+    title: Real Questions. Honest Answers
+    related_features:
+      - job-guarantee
+      - outcomes
+      - career-support
+    section_id: faq-qubzh4
+    background: hsl(var(--sidebar-background))
+    marginY:
+      desktop: none lg
   - type: whos_hiring
     variant: carousel
     pretitle: Job Placement
