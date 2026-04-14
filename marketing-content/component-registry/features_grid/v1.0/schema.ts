@@ -163,10 +163,53 @@ export const featuresGridCardHeaderSectionSchema = z.object({
   cards: z.array(featuresGridCardHeaderCardSchema),
 });
 
+export const featuresGridStatsChartsCard1Schema = z.object({
+  badge: z.string().optional(),
+  stat_value: z.string().optional(),
+  stat_label: z.string().optional(),
+  card_color: z.string().optional(),
+  years: z.array(z.string()).optional(),
+  displaced_label: z.string().optional(),
+  created_label: z.string().optional(),
+});
+
+export const featuresGridStatsChartsCard2Schema = z.object({
+  badge: z.string().optional(),
+  stat_value: z.string().optional(),
+  stat_label: z.string().optional(),
+  card_color: z.string().optional(),
+  gauge_percentage: z.number().optional(),
+  gauge_label: z.string().optional(),
+  bar1_label: z.string().optional(),
+  bar2_label: z.string().optional(),
+});
+
+export const featuresGridStatsChartsCard3Schema = z.object({
+  badge: z.string().optional(),
+  stat_value: z.string().optional(),
+  stat_label: z.string().optional(),
+  card_color: z.string().optional(),
+  end_label: z.string().optional(),
+});
+
+export const featuresGridStatsChartsSectionSchema = z.object({
+  type: z.literal("features_grid"),
+  version: z.string().optional(),
+  variant: z.literal("stats-charts"),
+  title: z.string().optional(),
+  subtitle: z.string().optional(),
+  description: z.string().optional(),
+  background: z.string().optional(),
+  card1: featuresGridStatsChartsCard1Schema.optional(),
+  card2: featuresGridStatsChartsCard2Schema.optional(),
+  card3: featuresGridStatsChartsCard3Schema.optional(),
+});
+
 export const featuresGridSectionSchema = z.union([
   featuresGridHighlightSectionSchema,
   featuresGridDetailedSectionSchema,
   featuresGridSpotlightSectionSchema,
+  featuresGridStatsChartsSectionSchema,
   featuresGridStatsCardsSectionSchema,
   featuresGridStatsTextCardSectionSchema,
   featuresGridStatsTextSectionSchema,
@@ -182,6 +225,10 @@ export type FeaturesGridCardHeaderCard = z.infer<typeof featuresGridCardHeaderCa
 export type FeaturesGridHighlightSection = z.infer<typeof featuresGridHighlightSectionSchema>;
 export type FeaturesGridDetailedSection = z.infer<typeof featuresGridDetailedSectionSchema>;
 export type FeaturesGridSpotlightSection = z.infer<typeof featuresGridSpotlightSectionSchema>;
+export type FeaturesGridStatsChartsSection = z.infer<typeof featuresGridStatsChartsSectionSchema>;
+export type FeaturesGridStatsChartsCard1 = z.infer<typeof featuresGridStatsChartsCard1Schema>;
+export type FeaturesGridStatsChartsCard2 = z.infer<typeof featuresGridStatsChartsCard2Schema>;
+export type FeaturesGridStatsChartsCard3 = z.infer<typeof featuresGridStatsChartsCard3Schema>;
 export type FeaturesGridStatsCardsSection = z.infer<typeof featuresGridStatsCardsSectionSchema>;
 export type FeaturesGridStatsTextCardSection = z.infer<typeof featuresGridStatsTextCardSectionSchema>;
 export type FeaturesGridStatsTextSection = z.infer<typeof featuresGridStatsTextSectionSchema>;
