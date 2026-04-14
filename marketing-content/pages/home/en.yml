@@ -534,7 +534,9 @@ sections:
         program:
           visible: true
           required: true
-          default: auto
+          slugs:
+            - full-stack
+            - datasciefnce-ml
       success:
         message: Thank you! We'll be in touch soon.
       consent:
