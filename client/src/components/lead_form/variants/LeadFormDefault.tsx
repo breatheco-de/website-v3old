@@ -44,6 +44,7 @@ interface FieldConfig {
   show_label?: boolean;
   label?: string;
   rows?: number;
+  slugs?: string[]; // For program field: limits which programs appear in the dropdown
 }
 
 export interface LeadFormData {
@@ -389,6 +390,17 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
     }
   };
 
+  const programFieldSlugs = getFieldConfig("program").slugs;
+  const visiblePrograms = useMemo(() => {
+    if (!formOptions?.programs) return [];
+    // An empty slugs array is treated the same as "not configured" — show all programs.
+    // This avoids an empty dropdown when slugs is accidentally set to [].
+    if (!programFieldSlugs || programFieldSlugs.length === 0) return formOptions.programs;
+    return programFieldSlugs
+      .map(slug => formOptions.programs.find(p => p.slug === slug || p.bc_slug === slug))
+      .filter((p): p is NonNullable<typeof p> => p !== undefined);
+  }, [formOptions?.programs, programFieldSlugs]);
+
   const form = useForm<FormValues>({
     defaultValues: {
       email: "",
@@ -424,6 +436,16 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
       form.setValue("program", programContext);
     }
   }, [sessionLocation, utm, programContext, form, singleLandingLocation, singleLandingRegion]);
+
+  useEffect(() => {
+    if (!programFieldSlugs?.length || !formOptions?.programs) return;
+    const currentValue = form.getValues("program");
+    if (!currentValue) return;
+    const isValid = visiblePrograms.some(p => (p.bc_slug || p.slug) === currentValue);
+    if (!isValid) {
+      form.setValue("program", "");
+    }
+  }, [visiblePrograms, programFieldSlugs, formOptions?.programs, form]);
 
   const submitMutation = useMutation({
     mutationFn: async (values: FormValues) => {
@@ -1035,7 +1057,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {formOptions?.programs.map((program) => (
+                        {visiblePrograms.map((program) => (
                           <SelectItem key={program.slug} value={program.bc_slug || program.slug}>
                             {program.title}
                           </SelectItem>

@@ -89,6 +89,7 @@ export const leadFormFieldConfigSchema = z.object({
   placeholder: z.string().optional(),
   show_label: z.boolean().optional(),
   label: z.string().optional(),
+  slugs: z.array(z.string()).optional(), // For program field: limits which programs appear in the dropdown
 });
 
 // Lead Form data schema
