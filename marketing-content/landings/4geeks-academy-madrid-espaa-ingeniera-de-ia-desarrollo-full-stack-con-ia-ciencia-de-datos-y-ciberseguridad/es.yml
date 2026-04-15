@@ -1,22 +1,68 @@
 sections:
-  - type: ai_learning
+  - type: hero
     version: "1.0"
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: Why Learn with 4Geeks?
-    description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
-    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
-    features:
-      - icon: Robot
-        title: Learn with AI
-        description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
-      - icon: Headset
-        title: Unlimited 1:1 mentoring sessions
-        description: Access unlimited mentorship sessions with our experts whenever you need guidance.
-      - icon: Users
-        title: Learn with the community
-        description: Learning alongside others is more fun and helps you progress faster. Join our active community.
-    section_id: ai_learning-i5ruqc
+    variant: credibility
+    description: "<!--StartFragment--><span style=\"font-size: 16px;\"><span style=\"font-size: 0.75rem;\"></span></span><span style=\"font-size: 0.75rem;\"><span style=\"color: hsl(var(--muted-foreground));\"><span><span></span></span><span style=\"font-size: 0.875rem;\"><span><span></span></span><span style=\"font-size: 0.75rem;\"><span><span>Programas inmersivos diseñados para lanzar carreras en IA.&nbsp;</span></span>Respaldados&nbsp;<div>por mentoría ilimitada de por vida, aprendizaje&nbsp;&nbsp;potenciado por IA y apoyo&nbsp;</div><div>profesional que te consigue empleo.</div></span><div></div></span><div></div></span></span><div><span style=\"font-size: 0.75rem; color: rgb(0, 7, 26);\"></span><div><!--EndFragment--><div bis_skin_checked=\"1\"><span><span></span></span><span></span><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"></div><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"></div></div></div></div></div></div></div></div>"
+    title: "<span><span style=\"font-size: 3.75rem;\"><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span style=\"font-size: 4.375rem;\"><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span><span style=\"font-size: 4.5rem;\"><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span><span><span style=\"font-size: 4.9375rem;\"><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span><span><span><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span><span><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span><span style=\"font-size: 4.5rem;\"><span><span style=\"font-size: 4.9375rem;\"><span><span><span><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span><span style=\"font-size: 4.5rem;\"><span><span style=\"font-size: 4.9375rem;\"><span><span><span><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span><span><span style=\"font-size: 4.5rem;\"><span><span style=\"font-size: 4.9375rem;\"><span><span><span><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style=\"font-size: 4.5625rem;\"><span><span><span><span style=\"line-height: 0.9;\"><span style=\"line-height: 1;\"><span style=\"line-height: 0.97;\"><span><span><span><span><span><span><span><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style=\"font-size: 4.125rem;\"><span style=\"line-height: 0.9;\"><span style=\"line-height: 1;\"><span style=\"line-height: 0.97;\"><span><span><span><span><span><span><span><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style=\"font-size: 4.375rem;\"><span><span><span><span><span><span style=\"line-height: 0.9;\"><span style=\"line-height: 1;\"><span style=\"line-height: 0.97;\"><span><span><span><span><span><span><span><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style=\"font-size: 4.6875rem;\"><span><span><span><span><span><span><span><span style=\"line-height: 0.9;\"><span style=\"line-height: 1;\"><span style=\"line-height: 0.97;\"><span><span><span><span><span><span><span><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\">1.3 millones<br>de <span style=\"color:#0084FF;font-style:italic\">roles en IA.</span><br></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style=\"letter-spacing: -2px;\"><b>Nosotros somos&nbsp;</b></span></span></span></span></span></span></span></span></span></span><div bis_skin_checked=\"1\"><span><span><span><span><span><b style=\"font-size: 79px; letter-spacing: -2px; color: rgb(0, 7, 26);\"><span>tu camino.</span></b></span></span></span></span></span></div></span></span></span><div bis_skin_checked=\"1\"><span><span><span><span><span><b style=\"font-size: 79px; letter-spacing: -2px; color: rgb(0, 7, 26);\"><span></span></b></span></span></span></span></span></div></span><div bis_skin_checked=\"1\"><span style=\"font-size: 4.5625rem;\"><span><span><span><span style=\"font-size: 4.125rem;\"><b style=\"font-size: 79px; letter-spacing: -2px; color: rgb(0, 7, 26);\"><span style=\"font-size: 4rem;\"></span></b></span><b style=\"font-size: 79px; letter-spacing: -2px; color: rgb(0, 7, 26);\"></b></span></span></span></span><b></b></div>"
+    cta_buttons:
+      - text: Comienza tu solicitud
+        url: /es/apply
+        variant: primary
+        icon: ChevronRight
+      - text: Explora nuestros programas
+        url: "#course_selector-4m5sh4"
+        variant: outline
+    pills:
+      - category: Alianzas Académicas
+        logos:
+          - image_id: clark_university
+          - image_id: miami-dade-college-logo
+            alt: "Image: Miami_Dade_College_logo"
+            id: miami-dade-college-logo
+          - image_id: 06-isologotipo-para-fondo-blanco-1
+          - image_id: logo-ucab-3
+        label: Hemos trabajado con más de 10 Universidades Top en el mundo
+      - category: Alianzas Institucionales
+        logos:
+          - image_id: bid_logo
+          - image_id: cinde-removebg-preview
+          - image_id: seal-of-the-united-states-economic-development-administration
+          - image_id: austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview
+          - image_id: upskillbahamas
+            alt: "Image: UpskillBahamas"
+            id: upskillbahamas
+        label: Gobiernos y grandes ONG confían en 4Geeks para sus proyectos formativos (+20M en becas)
+      - category: Reconocimiento de la Industria
+        logos:
+          - image_id: newsweek-logosvg
+            alt: "Image: Newsweek_Logo.svg"
+            id: newsweek-logosvg
+          - image_id: forbes_logo_award
+          - image_id: fortune_logo
+            alt: Fortune logo
+            id: fortune-logo
+          - image_id: logo_course_report
+            alt: Course Report logo
+            id: logo-course-report
+        label: Más 25 premios en los últimos 5 años (Mejor Escuela Tech según Forbes y muchos más
+    logo_rotation_ms_time: 2000
+    colored_logos: true
+    show_marquee: true
+    marquee_items:
+      - bold_text: Course Report
+        light_text: 4.9 ★
+      - bold_text: SwitchUp
+        light_text: 4.9 ★
+      - bold_text: Career Karma
+        light_text: 4.9 ★
+      - bold_text: Google
+        light_text: 4.8 ★
+    section_id: hero-tcvppl
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    paddingY:
+      desktop: none
+    pills_url: "#list_press_mentions-w7r1sh"
+    marquee_static: true
   - type: hero
     version: "1.0"
     variant: productShowcase
