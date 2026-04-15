@@ -154,6 +154,41 @@ sections:
       desktop: 6xl
     marginX:
       desktop: none
+  - type: features_grid
+    version: "1.0"
+    variant: stats-charts
+    subtitle: Market Intelligence
+    title: The AI Skills Gap Is Real
+    description: The data is clear — AI is transforming the job market faster than the workforce can adapt. Those who develop AI skills now will lead the next decade.
+    background: bg-slate-950
+    card_bars_accent: hsl(var(--color-green))
+    card_gauge_accent: hsl(var(--color-orange))
+    card_trend_accent: hsl(var(--primary))
+    card_bars:
+      badge: Jobs Market
+      title: AI jobs created vs. displaced
+      description: Annual delta · 2021-2025 · indexed
+      stat_value: +340%
+      stat_label: net new AI roles created since 2021
+      displaced_label: Displaced
+      created_label: Created by AI
+    card_gauge:
+      badge: Workforce Readiness
+      title: Who's actually ready for AI roles?
+      description: Global workforce · 2025 data
+      gauge_percentage: 3
+      gauge_label: qualified
+      stat_label: of the workforce is not ready for AI roles today
+      bar1_label: Traditional workforce
+      bar2_label: AI-ready professionals
+    card_trend:
+      badge: Demand Curve
+      title: Demand for AI engineers
+      description: Indexed job postings · 2020 → 2027 projected
+      stat_value: 1.3M
+      stat_label: new AI roles expected by 2027
+      end_label: 1.3M · 2027
+    section_id: features_grid-xxxxxxx
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
