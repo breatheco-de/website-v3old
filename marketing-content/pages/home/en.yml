@@ -197,7 +197,7 @@ sections:
     background: hsl(var(--background))
     section_id: image_row-z97kqt
     marginY:
-      desktop: none xl
+      desktop: sm xl
     paddingY:
       desktop: none
     maxWidth:
