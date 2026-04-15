@@ -7,9 +7,7 @@ sections:
       prefix: La IA está cambiando todos los empleos en España. Empieza tu carrera en
       highlight: tecnología con IA
       color: primary
-    description: >-
-      En 4Geeks no solo aprendes a programar. Te preparamos para conseguir trabajo. Mentorías ilimitadas de por vida,
-      herramientas de IA integradas en cada programa y apoyo de carrera hasta que firmes tu primer contrato.
+    description: En 4Geeks no solo aprendes a programar. Te preparamos para conseguir trabajo. Mentorías ilimitadas de por vida, herramientas de IA integradas en cada programa y apoyo de carrera hasta que firmes tu primer contrato.
     bullets:
       - text: Elige entre Full Stack, Ingeniería de IA, Data Science o Ciberseguridad según tus objetivos
       - text: La única academia que no termina cuando te gradúas, mentoría ilimitada de por vida incluida
@@ -41,31 +39,20 @@ sections:
           visible: true
           default: ai-engineering
       success:
-        message: >-
-          Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de
-          entrada.
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: >-
-          Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos,
-          cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja
-          fácilmente en cualquier momento.
-        sms_text: >-
-          Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden
-          aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta
-          4-6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja
-          fácilmente en cualquier momento.
+        marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
+        sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4-6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
         sms_usa_only: true
       show_terms: true
     form_vertical_align: top
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Recibe todos los detalles del programa
-    form_card_subtitle: >-
-      Tarda 2 minutos. Nuestro equipo de admisiones te enviará la información completa del programa que más te interese
-      en unos minutos.
+    form_card_subtitle: Tarda 2 minutos. Nuestro equipo de admisiones te enviará la información completa del programa que más te interese en unos minutos.
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: false
     awards_marquee:
@@ -145,34 +132,25 @@ sections:
     programs:
       - name: Ingeniería de IA
         icon: IconBrain
-        description: >-
-          Construye los sistemas de IA que las empresas contratan ahora mismo. Domina LLMs, agentes de IA y
-          automatización mientras transformas un caso de negocio real en un sistema completamente nativo de IA, capa por
-          capa.
+        description: Construye los sistemas de IA que las empresas contratan ahora mismo. Domina LLMs, agentes de IA y automatización mientras transformas un caso de negocio real en un sistema completamente nativo de IA, capa por capa.
         duration: 24 semanas
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ingenieria-ia
       - name: Desarrollo Full Stack con IA
         icon: IconCode
-        description: >-
-          Construye aplicaciones web modernas y listas para producción de frontend a backend usando las herramientas de
-          IA más demandadas del mercado.
+        description: Construye aplicaciones web modernas y listas para producción de frontend a backend usando las herramientas de IA más demandadas del mercado.
         duration: 20 semanas
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/desarrollo-full-stack
       - name: Ciencia de Datos y Machine Learning
         icon: IconChartBar
-        description: >-
-          Analiza datos complejos, construye modelos inteligentes y despliega soluciones de IA para problemas reales de
-          negocio.
+        description: Analiza datos complejos, construye modelos inteligentes y despliega soluciones de IA para problemas reales de negocio.
         duration: 18 semanas
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
       - name: Ciberseguridad
         icon: IconShield
-        description: >-
-          Protege los sistemas que la IA necesita. Los especialistas en ciberseguridad son críticos ahora que las
-          empresas escalan su infraestructura de IA.
+        description: Protege los sistemas que la IA necesita. Los especialistas en ciberseguridad son críticos ahora que las empresas escalan su infraestructura de IA.
         duration: 16 semanas
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciberseguridad
@@ -221,10 +199,7 @@ sections:
     right:
       heading: 'Diego Gómez González: cómo 4Geeks cambió su vida profesional'
       sub_heading: La experiencia de un estudiante de nuestro bootcamp
-      description: >-
-        Diego, uno de nuestros estudiantes, comparte su experiencia en 4Geeks Academy, donde cursó el bootcamp de
-        desarrollo Full Stack. Con un grado superior en desarrollo multiplataforma, Diego ya contaba con conocimientos
-        en programación, pero necesitaba reforzar su capacidad para conectar las distintas áreas del desarrollo.
+      description: Diego, uno de nuestros estudiantes, comparte su experiencia en 4Geeks Academy, donde cursó el bootcamp de desarrollo Full Stack. Con un grado superior en desarrollo multiplataforma, Diego ya contaba con conocimientos en programación, pero necesitaba reforzar su capacidad para conectar las distintas áreas del desarrollo.
       button:
         text: Solicita tu plaza
         url: '#bottom'
@@ -240,9 +215,7 @@ sections:
     section_id: ai_learning-b25qp9
     badge: ¿Por qué 4Geeks?
     title: La academia que no te abandona cuando te gradúas
-    description: >-
-      La mayoría de academias te dan un curso y te desean suerte. 4Geeks se queda contigo desde tu primera línea de
-      código hasta tu primera oferta de trabajo y más allá.
+    description: La mayoría de academias te dan un curso y te desean suerte. 4Geeks se queda contigo desde tu primera línea de código hasta tu primera oferta de trabajo y más allá.
     features:
       - icon: TrendingUp
         title: Apoyo de carrera construido para el mercado tech en España
@@ -290,9 +263,7 @@ sections:
     background: hsl(var(--secondary))
   - type: testimonials_slide
     title: Dieron el salto y esto es lo que pasó.
-    description: >-
-      Músicos, filósofos, especialistas de soporte y personas sin experiencia previa, ahora son desarrolladores con
-      empleos reales y salarios que no esperaban.
+    description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa, ahora son desarrolladores con empleos reales y salarios que no esperaban.
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
@@ -301,9 +272,7 @@ sections:
           name: United States of America
           iso: us
         contributor: United Way Miami
-        description: >-
-          Loretta joined in 2022 and graduated in 2023. She already found a job within the next few months and has
-          fulfilled the whole circle of skills+job that we all want to complete!
+        description: Loretta joined in 2022 and graduated in 2023. She already found a job within the next few months and has fulfilled the whole circle of skills+job that we all want to complete!
         achievement: She got a 45% increase in her salary
       - name: Rich Akers
         img: https://storage.googleapis.com/4geeks-academy-website/media/Akers_1764725327796.jpeg
@@ -312,9 +281,7 @@ sections:
           name: United States of America
           iso: us
         contributor: Clark University
-        description: >-
-          Richard is a great developer that just transitioned from a different background and is now working as a web
-          dev in the tech field.
+        description: Richard is a great developer that just transitioned from a different background and is now working as a web dev in the tech field.
         achievement: He got a 30% increase in his salary
       - name: MaiLinh Tran
         img: https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh_1764725334980.png
@@ -332,9 +299,7 @@ sections:
           name: Uruguay
           iso: uy
         contributor: UTEC-BID
-        description: >-
-          Martín joined the first program that we launched together with UTEC and IDB. He got a better paying job, a
-          career that he is passionate about and a new professional life.
+        description: Martín joined the first program that we launched together with UTEC and IDB. He got a better paying job, a career that he is passionate about and a new professional life.
         achievement: He got a 100% increase in his salary
       - name: Jean St. Cloud
         img: https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
@@ -343,9 +308,7 @@ sections:
           name: United States of America
           iso: us
         contributor: Clark
-        description: >-
-          Jean is transitioning from other industries (Music) and is finding his way into Tech. He got it with the
-          support of Clark University and is already performing as a developer and a Mentor.
+        description: Jean is transitioning from other industries (Music) and is finding his way into Tech. He got it with the support of Clark University and is already performing as a developer and a Mentor.
         achievement: He got a 100% increase in his salary
       - name: Alexandra Espinoza
         img: https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
@@ -354,9 +317,7 @@ sections:
           name: Costa Rica
           iso: cr
         contributor: CINDE-BID
-        description: >-
-          Alexandra came from a total different background is been a huge revelation for her and everyone around her.
-          She is now a successful and talented software developer in Costa Rica.
+        description: Alexandra came from a total different background is been a huge revelation for her and everyone around her. She is now a successful and talented software developer in Costa Rica.
         achievement: She got a 100% increase in her salary
       - name: Gabriel Salazar
         img: https://storage.googleapis.com/4geeks-academy-website/media/GabrielSalazar_1764725392872.jpeg
@@ -365,9 +326,7 @@ sections:
           name: Costa Rica
           iso: cr
         contributor: CINDE-BID
-        description: >-
-          Gabriel was already a support specialist at Microsoft and after completing the program he was able to achieve
-          a new position within Microsoft where he is now working as a Software Engineer.
+        description: Gabriel was already a support specialist at Microsoft and after completing the program he was able to achieve a new position within Microsoft where he is now working as a Software Engineer.
         achievement: He got a 50% increase in his salary
       - name: Laura Magallanes
         img: https://storage.googleapis.com/4geeks-academy-website/media/Laura_1764725397398.jpeg
@@ -376,9 +335,7 @@ sections:
           name: Uruguay
           iso: uy
         contributor: UTEC-BID
-        description: >-
-          Laura is just extraordinary. From a little town in Uruguay with no experience in Coding, she is now a woman
-          head of household, an Instructor and a Program Coordinator.
+        description: Laura is just extraordinary. From a little town in Uruguay with no experience in Coding, she is now a woman head of household, an Instructor and a Program Coordinator.
         achievement: She got a 120% increase in her salary
       - name: Melanie Galaretto
         img: https://storage.googleapis.com/4geeks-academy-website/media/MelamnieGalaretto_1764725408397.jpeg
@@ -387,9 +344,7 @@ sections:
           name: Uruguay
           iso: uy
         contributor: UTEC-BID
-        description: >-
-          Melanie is a young professional who is dreaming of achieving a life that now she owns. She is a resourceful
-          and committed software developer working for a software firm in her home country.
+        description: Melanie is a young professional who is dreaming of achieving a life that now she owns. She is a resourceful and committed software developer working for a software firm in her home country.
         achievement: She got a +100% increase in her salary
       - name: Natia Lombardo
         img: https://storage.googleapis.com/4geeks-academy-website/media/NatiaLombardo_1764725413363.jpeg
@@ -398,9 +353,7 @@ sections:
           name: Uruguay
           iso: uy
         contributor: UTEC-BID
-        description: >-
-          Natia is a philosopher and a software developer. Currently working as a QA Engineer of a huge and successful
-          International firm.
+        description: Natia is a philosopher and a software developer. Currently working as a QA Engineer of a huge and successful International firm.
       - name: Luis Larraburo
         img: https://storage.googleapis.com/4geeks-academy-website/media/LuisLarraburo_1764725418057.jpeg
         status: Graduated
@@ -408,9 +361,7 @@ sections:
           name: Costa Rica
           iso: cr
         contributor: CINDE-BID
-        description: >-
-          Luis came to the program without any previous experience. He is now a software developer working at a tech
-          firm in Costa Rica.
+        description: Luis came to the program without any previous experience. He is now a software developer working at a tech firm in Costa Rica.
         achievement: He got a 50% increase in his salary
       - name: Leandro Matonte
         img: https://storage.googleapis.com/4geeks-academy-website/media/Leandro_1764725403142.jpeg
@@ -419,18 +370,14 @@ sections:
           name: Uruguay
           iso: uy
         contributor: UTEC-BID
-        description: >-
-          Leandro got into the program with the expectation to achieve a better understanding and some coding skills.
-          Now he is a software developer at a tech firm in Uruguay.
+        description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-iyfy9s
   - type: cards_deck
     section_id: cards_deck-dxwe6a
     version: '1.0'
     heading: Historias reales de cambios de carrera
-    subtitle: >-
-      Miles de graduados han utilizado nuestros programas para entrar en el mundo de la tecnología. Estas son solo
-      algunas de sus historias, desde aumentos salariales hasta reinvenciones completas de carrera.
+    subtitle: Miles de graduados han utilizado nuestros programas para entrar en el mundo de la tecnología. Estas son solo algunas de sus historias, desde aumentos salariales hasta reinvenciones completas de carrera.
     cards:
       - video:
           url: https://www.youtube.com/watch?v=B01-eTfgqqc
@@ -438,9 +385,7 @@ sections:
         brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
         author_name: Mattia Tozzi
         title: '"4Geeks ha empujado mi futuro laboral"'
-        description: >-
-          Las tutorías ilimitadas de 4Geeks fueron clave para elegirlos. Con la ayuda de sus profesores y la comunidad,
-          pudo resolver todas sus dudas rápidamente y avanzar en su aprendizaje.
+        description: Las tutorías ilimitadas de 4Geeks fueron clave para elegirlos. Con la ayuda de sus profesores y la comunidad, pudo resolver todas sus dudas rápidamente y avanzar en su aprendizaje.
         alt: Geekpal
       - video:
           url: https://www.youtube.com/watch?v=XqyM_QSVcOs
@@ -448,9 +393,7 @@ sections:
         brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
         author_name: Ana Romero
         title: '"He superado mi miedo a programar"'
-        description: >-
-          Están ahí siempre para brindarte apoyo. Sus buenos mentores, guías de programación y las herramientas de
-          4Geeks son excelentes. La recomendaría un millón de veces.
+        description: Están ahí siempre para brindarte apoyo. Sus buenos mentores, guías de programación y las herramientas de 4Geeks son excelentes. La recomendaría un millón de veces.
         alt: Geekpal
       - video:
           url: https://www.youtube.com/watch?v=rtpfwwfE0yY
@@ -458,9 +401,7 @@ sections:
         brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
         author_name: Joshua Bravo
         title: '"De asistente de cocina a Desarrollador Full Stack"'
-        description: >-
-          Joshua pasó de trabajar en cocina y contabilidad a conseguir empleo como desarrollador en Regcheq, una startup
-          fintech en Chile, tras completar el bootcamp de 4Geeks.
+        description: Joshua pasó de trabajar en cocina y contabilidad a conseguir empleo como desarrollador en Regcheq, una startup fintech en Chile, tras completar el bootcamp de 4Geeks.
         alt: Geekforce
     marginY:
       desktop: none xl
@@ -530,9 +471,7 @@ sections:
           visible: true
           default: ai-engineering
       success:
-        message: >-
-          Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de
-          entrada.
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       consent:
         email: true
         marketing: true
@@ -548,5 +487,5 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-slug: 4geeks-academy-madrid-espaa-ingeniera-de-ia-desarrollo-full-stack-con-ia-ciencia-de-datos-y-ciberseguridad
+slug: 4geeks-academy-madrid-espana-ia-desarrollo-full-stack-ciencia-datos-ciberseguridad
 title: 4geeks academy Madrid España Ingeniería de IA, Desarrollo Full Stack con IA, Ciencia de Datos y Ciberseguridad
