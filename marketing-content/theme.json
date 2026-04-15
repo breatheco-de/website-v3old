@@ -629,5 +629,13 @@
       "value": "1.6px"
     }
   ],
-  "preview_examples": []
+  "preview_examples": [
+    {
+      "component": "ai_learning",
+      "version": "v1.0",
+      "example": "test2",
+      "importYaml": "- type: ai_learning\n  section_id: ai_learning-bohkbh\n  variant: feature-tabs\n  badge: Why 4Geeks?\n  title: How You’ll Learn at 4Geeks\n  description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.\n  features:\n    - icon: Robot\n      title: Progress faster with AI-powered tools\n      description: ''\n      show_rigobot_logo: true\n      bullets:\n        - text: Instant feedback from Rigobot, our custom AI tutor\n        - text: Advice adjusted to your skill level and progress\n        - text: 24/7 help with debugging and problem-solving\n        - text: Hundreds of interactive coding exercises and tests\n      video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4\n    - icon: TrendingUp\n      title: Thrive in tech with career support for the AI-Era\n      description: ''\n      show_rigobot_logo: true\n      bullets:\n        - text: Personalized 1:1 coaching\n        - text: AI-ready resumes and portfolios\n        - text: Interview prep and salary negotiation\n        - text: Lifelong access to support your growth\n      video_url: https://youtu.be/-2ZvlgDnltc\n    - icon: Headset\n      title: Unlimited 1:1 mentorship and an active community\n      description: ''\n      show_rigobot_logo: true\n      bullets:\n        - text: Lifelong access to 1:1 mentorship sessions\n        - text: {{ global.global_teacher_student_ratio | 7:1 }} student–teacher ratio for personalized guidance\n        - text: Peer collaboration through Slack channels and weekly check-ins\n        - text: Dedicated Slack channels for coding support, job boards, and career advice\n      image_id: community-support-cropped\n  marginY:\n    desktop: md none\n  paddingY:\n    desktop: md\n",
+      "registryPersisted": true
+    }
+  ]
 }
