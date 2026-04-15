@@ -1,4 +1,3 @@
-import { useRef, useEffect } from "react";
 import { Megaphone } from "lucide-react";
 import { useTypewriter } from "@/hooks/useTypewriter";
 import { getIcon } from "@/lib/icons";
@@ -23,19 +22,20 @@ export function TypewriterAnnouncement({
 }: TypewriterAnnouncementProps) {
   const { displayText, ctaLabel, ctaUrl, icon: msgIcon } = useTypewriter(messages, charDelay, startDelay, displayTime);
   const handleLinkClick = useInternalNav();
-  const textRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (textRef.current) {
-      textRef.current.scrollLeft = textRef.current.scrollWidth;
-    }
-  }, [displayText, ctaLabel]);
 
   const resolvedIconName = msgIcon || icon;
   const ResolvedIcon = resolvedIconName ? getIcon(resolvedIconName) : null;
   const Icon = ResolvedIcon ?? Megaphone;
 
   const safeMessages = messages && messages.length > 0 ? messages : [];
+  const widestDesktopMessage = safeMessages.reduce<MarqueeMessage>(
+    (widest, candidate) => {
+      const widestLength = (widest.text || "").length + (widest.cta_label || "").length;
+      const candidateLength = (candidate.text || "").length + (candidate.cta_label || "").length;
+      return candidateLength > widestLength ? candidate : widest;
+    },
+    safeMessages[0] || { text: "" },
+  );
 
   return (
     <div
@@ -73,27 +73,40 @@ export function TypewriterAnnouncement({
 
       {/* Desktop: typewriter — text scrolls to always show the end; cursor stays visible */}
       <div className="hidden lg:inline-flex items-center max-w-full gap-1">
-        <Icon className="w-5 h-5 text-primary shrink-0 my-1" />
-        <div
-          ref={textRef}
-          className="overflow-hidden inline-flex items-center text-muted-foreground leading-[20px] shrink min-w-0"
-        >
-          {displayText}
-          {ctaLabel && ctaUrl && (
-            <a
-              href={ctaUrl}
-              onClick={handleLinkClick}
-              className="text-primary hover:underline ml-1"
-              data-testid="typewriter-cta-link"
-            >
-              {ctaLabel}
-            </a>
-          )}
-          {ctaLabel && !ctaUrl && (
-            <span className="text-primary ml-1">{ctaLabel}</span>
-          )}
+        <div className="relative max-w-full min-w-0 shrink overflow-hidden">
+          {/* Reserve the widest message so typed characters don't grow the navbar. */}
+          <div
+            aria-hidden="true"
+            className="invisible inline-flex items-center gap-1.5 whitespace-nowrap text-muted-foreground leading-[20px]"
+          >
+            <Icon className="w-5 h-5 text-primary shrink-0 my-1" />
+            <span>{widestDesktopMessage.text}</span>
+            {widestDesktopMessage.cta_label && (
+              <span className="text-primary ml-1">{widestDesktopMessage.cta_label}</span>
+            )}
+            <span className="inline-block w-px h-4 ml-1 shrink-0" />
+          </div>
+          <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+            <div className="inline-flex max-w-full items-center overflow-hidden whitespace-nowrap gap-1 text-muted-foreground leading-[20px]">
+              <Icon className="w-5 h-5 text-primary shrink-0 my-1" />
+              <span>{displayText}</span>
+              {ctaLabel && ctaUrl && (
+                <a
+                  href={ctaUrl}
+                  onClick={handleLinkClick}
+                  className="text-primary hover:underline"
+                  data-testid="typewriter-cta-link"
+                >
+                  {ctaLabel}
+                </a>
+              )}
+              {ctaLabel && !ctaUrl && (
+                <span className="text-primary">{ctaLabel}</span>
+              )}
+              <span className="bg-primary inline-block w-px h-4 animate-blink shrink-0" />
+            </div>
+          </div>
         </div>
-        <span className="bg-primary inline-block w-px h-4 ml-[0.2px] animate-blink shrink-0" />
       </div>
     </div>
   );

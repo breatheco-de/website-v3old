@@ -922,7 +922,6 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           ? {
               ...innerStyles,
               position: "relative",
-              zIndex: 1,
             }
           : innerStyles;
         const sectionId = (rawSection as SectionLayout).section_id || `${sectionType}-${index}`;
