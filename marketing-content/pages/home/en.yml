@@ -496,6 +496,42 @@ sections:
       desktop: none
     maxWidth:
       desktop: none
+    showOn: desktop
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Land the Job. Or Your Money Back.
+    description: <span><span></span></span><span></span><span><span>Every program comes with the option of a Job Guarantee.*<div bis_skin_checked="1"><div bis_skin_checked="1">Not hired within 9 months?&nbsp;Full tuition refund.&nbsp;</div><div bis_skin_checked="1">That's how confident we are in what we built.</div><div bis_skin_checked="1"></div></div></span><span><span><span><span><div bis_skin_checked="1"><div bis_skin_checked="1"><br></div></div></span><div bis_skin_checked="1"><div bis_skin_checked="1"></div><div bis_skin_checked="1"><span><span><span></span></span></span></div><div bis_skin_checked="1"><span><span><span></span></span></span></div><div bis_skin_checked="1"><span><span></span></span></div><div bis_skin_checked="1">*The Job Guarantee is not available in all regions.&nbsp;<a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a></div></div></span></span></span><div bis_skin_checked="1"><div bis_skin_checked="1"><a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></div></div></span><div bis_skin_checked="1"><div bis_skin_checked="1"><a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"></a></div></div>
+    cta:
+      text: How It Works
+      url: /en/job-guarantee
+      variant: primary
+    section_id: why_learn_ai-9pbrek
+    marginY:
+      desktop: md lg
+    paddingY:
+      desktop: none
+    background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - costa-rica
+      - mexicocity-mexico
+    marginX:
+      desktop: none
+    maxWidth:
+      desktop: none
+    showOn: mobile
   - type: faq
     section_id: faq-31bv5t
     title: Frequently Asked Questions

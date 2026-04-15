@@ -215,6 +215,9 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-i0rkb2
     variant: laptop-edge
+    mobile_see_more: true
+    mobile_see_more_label: "Ver más"
+    mobile_see_less_label: "Ver menos"
     title: Por Qué Atlanta es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Un ecosistema tech floreciente con fuerte demanda de contratación
     description: "El ecosistema tecnológico de Atlanta florece con más de 850 empresas tecnológicas y más de 70,000 trabajadores de tecnología. Es un mercado con demanda real de talento técnico.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Grandes empresas tecnológicas como Google y Facebook han establecido locales atraídos por la diversa fuerza laboral de la ciudad</span></li><li>Atlanta compite por convertirse en un hub tech líder del Sur, con creciente demanda de conocimientos en programación de empresas en expansión</li><li>Fuerte demanda de habilidades en software, IA y datos en sectores como fintech, logística y empresas tech</li></ul></div><div>Desde nuestro campus en Atlanta, te conectamos con empleadores locales, socios de contratación y eventos tech—para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"

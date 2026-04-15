@@ -28,9 +28,9 @@ export default function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps
   const handleLinkClick = useInternalNav();
   const [isExpanded, setIsExpanded] = useState(false);
   const description = data.description || "";
-  const showSeeMore = data.mobile_see_more !== false;
-  const seeMoreLabel = data.mobile_see_more_label || "see more";
-  const seeLessLabel = "see less";
+  const showSeeMore = data.mobile_see_more === true;
+  const seeMoreLabel = data.mobile_see_more_label || "See more";
+  const seeLessLabel = data.mobile_see_less_label || "See less";
 
   return (
     <section 

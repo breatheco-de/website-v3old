@@ -270,6 +270,9 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-5f9dhj
     variant: laptop-edge
+    mobile_see_more: true
+    mobile_see_more_label: "Ver más"
+    mobile_see_less_label: "Ver menos"
     title: Por Qué Barcelona es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Un ecosistema tech dinámico y hub líder para startups
     description: "Barcelona tiene un ecosistema tecnológico dinámico y es un centro líder para las startups. La ciudad ha presenciado un rápido crecimiento de la necesidad de conocimientos en programación a medida que la tecnología desempeña un papel cada vez más integral en diversas industrias. Es un mercado con demanda real de talento técnico.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Los bootcamps de programación han surgido como una fuerza impulsora detrás de la promoción del talento en Barcelona</span></li><li>Educación en programación inmersiva y práctica para personas ansiosas por aprender a programar y dejar su huella en el próspero panorama tecnológico de la ciudad</li><li>Fuerte demanda de habilidades en software, IA y datos en sectores como fintech, edtech y tech sostenible</li></ul></div><div>Desde nuestro campus en Barcelona, te conectamos con empleadores locales, eventos tech y el próspero panorama tecnológico de la ciudad—para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"

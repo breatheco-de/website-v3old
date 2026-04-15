@@ -25,11 +25,11 @@ sections:
       prefix: Break Your Career
       highlight: Ceiling.
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\"><span>AI Engineering: the fastest-growing job of 2026. 1.3M new roles. 42× growth since 2023. In 24 weeks, that's your new career, with roles paying $95K–$135K+.</span></span>"
+    description: "<span style=\"font-size: 1.125rem;\">84% of our graduates get hired. AI Engineering is the fastest-growing job of 2026: 1.3M new roles, 42× growth since 2023. We get you the job.</span>"
     bullets:
-      - text: Learn to build a complete AI-native business, from intelligent agents and automation to real-time systems
-      - text: Unlimited 1:1 mentorship and career support that doesn't stop at graduation
-      - text: "Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
+      - text: Learn to build complete AI-native systems — exactly what companies are actively hiring for
+      - text: "Unlimited career support: resume building, interview practice, employer network, and coaching that continues for life"
+      - text: "Optional Job Guarantee: get hired within 9 months or we refund your full tuition"
     image_object_fit: none
     form:
       variant: stacked
@@ -40,21 +40,21 @@ sections:
         email:
           visible: true
           required: true
-          placeholder: Email Address
+          placeholder: Email address
         first_name:
           visible: true
           required: true
-          placeholder: First Name
+          placeholder: First name
         last_name:
           visible: true
           required: true
-          placeholder: Last Name
+          placeholder: Last name
         phone:
           visible: true
           required: true
           default_country: US
         program:
-          visible: true
+          visible: false
           default: ai-engineering
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
@@ -63,59 +63,20 @@ sections:
       consent:
         sms: true
         marketing: true
-        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
-        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe at any time.
+        sms_text: I agree to receive SMS messages about workshops, events, courses and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4-6 messages per month. We will never share your contact information.
         sms_usa_only: true
       show_terms: true
-    form_vertical_align: top
+    form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
-    form_card_title: Get the Full AI Engineering Program Details
-    form_card_subtitle: "Fill in your details and our admissions team will send you everything you need: program descriptions, requirements, and financing options. It only takes 2 minutes."
+    form_card_title: Get the AI Engineering Program Overview
+    form_card_subtitle: "Fill in your details and our admissions team will send you everything you need: curriculum, pricing, financing options and more. It only takes 2 minutes."
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+    show_awards_marquee: true
     awards_marquee:
       items:
         - id: switchup-2025
-          alt: SwitchUp - Best Coding Bootcamps 2025
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-          logoHeight: 55px
-        - id: course-report-2024
-          alt: Course Report - Best Coding Bootcamp 2024
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
-          logoHeight: 55px
-        - id: tech-hub
-          alt: South Florida Tech Hub
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
-          logoHeight: 55px
-        - id: ebootcamp
-          alt: eBootcamp Top
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
-          logoHeight: 55px
-        - id: premios-tecnologia
-          alt: Premios Tecnología Siglo XXI
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-          logoHeight: 55px
-        - id: newsweek
-          alt: Newsweek
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
-          logoHeight: 55px
-        - id: reviews-coursereport
-          alt: 4.9 Stars on Course Report Reviews
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-          logoHeight: 55px
-        - id: excelencia-educativa
-          alt: Educational Excellence - Institutional Quality
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
-          logoHeight: 55px
-    video_title: GeekForce Career Support
-    marginY:
-      desktop: none
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-    paddingY:
-      desktop: md none
-    marginX:
-      desktop: none
     section_id: hero-nzpyph
-    awards_marquee_at_left_column: true
   - type: sticky_cta
     section_id: sticky_cta-k7207r
     version: "1.0"
@@ -149,31 +110,52 @@ sections:
     paddingY:
       desktop: none sm
   - type: graduates_stats
-    maxWidth:
-      desktop: 6xl
-    heading: Real Career Outcomes
-    subheading: Over 6,000 graduates have made the switch to tech. Here's what happened after they completed the program.
+    heading: Our Graduates Get Hired. Fast.
+    subheading: 6,000+ graduates worldwide. Now thiriving in tech.
     stats:
       - value: 84%
         label: Average hiring rate
       - value: 55%
-        label: Average salary increase after graduation
-      - value: 3-6 months months
-        label: Average time to get hired in 2025
+        label: Average salary increase at new position
+      - value: 3-6 months
+        label: Average time to get hired
     collage_images:
-      - image_id: graduates_team_1
+      - image_id: group-7085-1
         col_span: 5
         row_span: 2
-      - image_id: graduates_team_2
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
+        id: gemini-generated-image-uwpyyruwpyyruwpy
+        object_scale: 1.1
+        object_position: 50% 30%
+      - image_id: group-7086-1
         col_span: 7
         row_span: 2
-      - image_id: graduates_coding
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
+        id: gemini-generated-image-pd2u4upd2u4upd2u
+        object_scale: 1
+        transform_origin: 50% 50%
+        object_position: 50% 60%
+      - image_id: group-7084-1
         col_span: 6
         row_span: 2
-      - image_id: graduates_friends
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
+        id: gemini-generated-image-dhko5mdhko5mdhko-1
+        object_scale: 1.05
+      - image_id: group-7087-1
         col_span: 6
         row_span: 2
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
+        id: gemini-generated-image-wpk4yvwpk4yvwpk4
+        object_scale: 1.05
+        transform_origin: 50% 50%
+        object_position: 50% 45%
     section_id: graduates_stats-cnxqbb
+    marginY:
+      desktop: none
+    maxWidth:
+      desktop: 6xl
+    paddingY:
+      desktop: sm none
   - type: trust_cards
     maxWidth:
       desktop: 6xl
@@ -198,13 +180,13 @@ sections:
     paddingY:
       desktop: md
     marginY:
-      desktop: none xl
+      desktop: none md
   - type: features_grid
     version: "1.0"
     variant: stats-text-card
     title: Why AI Engineering Now
     subtitle: The talent gap is real. This is your opportunity.
-    description: AI Engineers build intelligent systems, automate workflows, and deliver the AI-powered systems companies urgently need. Demand is exploding, but only 3% of the workforce has the skills to fill these roles. That's not a problem. That's your door into tech.
+    description: AI Engineers build intelligent systems, automate workflows, and deliver the AI-powered systems companies urgently need. Demand is exploding, but only 3% of the workforce has the skills to fill these roles. That's not a problem. That's your door to roles paying $95K–$150K..
     card_color: bg-background
     background: hsl(var(--card))
     items:
@@ -373,27 +355,6 @@ sections:
     paddingY:
       mobile: lg none
       desktop: md sm
-  - type: two_column
-    proportions:
-      - 6
-      - 6
-    alignment: center
-    left:
-      video: https://www.youtube.com/watch?v=PWkgaAT8pHg
-      justify: center
-    right:
-      heading: "Luisa Glum: From Auto Repair Shop to Full Stack Developer"
-      sub_heading: 4Geeks Academy Graduate, Boston
-      description: Luisa was working as a maintenance technician at a repair shop in Boston. She loved cars, but realized it was a hobby, not a long-term career. She needed a path into tech that came with real support, not just a course and good luck. After completing the Full Stack program at 4Geeks, she was referred directly to her first developer job by the academy. Today she builds software for a living.
-      button:
-        text: Start your Application
-        url: "#hero-nzpyph"
-        variant: primary
-        icon: Rocket
-    gap: "8"
-    marginY:
-      desktop: none xl
-    section_id: two_column-luisa
   - type: career_support_explain
     maxWidth:
       desktop: 6xl
@@ -678,49 +639,29 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-  - type: features_quad
-    version: "1.0"
-    heading: Who Can Add the Job Guarantee?
-    description: "The Job Guarantee is available to students who meet these four requirements:"
-    cards:
-      - icon: IconBriefcaseFilled
-        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
-      - icon: IconCircleDashedCheck
-        title: Complete All Program Requirements
-      - icon: IconBrain
-        title: Pass the Admissions Logic Test
-      - icon: IconArrowGuideFilled
-        title: Follow the Full Career Development Process
-    section_id: features_quad-ms7uox
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Get Hired Within 9 Months or Your Tuition Back
+    subtitle: A guarantee most bootcamps won't offer because they can't back it up
+    description: "<span style=\"font-size: 1.125rem;\">Add the Job Guarantee* at enrollment. Complete the program, follow the career process, and if you don't land a qualifying tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.</span><div><span style=\"font-size: 1.125rem;\">We offer this because we're confident in our results. 84% of our graduates get hired — and for those who don't, we make it right.</span></div><div><br><span style=\"font-size: 0.875rem;\">*Available in the US and Canada only. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"color: hsl(var(--primary));\">Terms and conditions apply.</a></span></div>"
+    section_id: why_learn_ai-wxbuh3
     marginY:
       desktop: none xl
     paddingY:
       desktop: none
-    background: hsl(var(--secondary))
-  - type: features_quad
-    version: "1.0"
-    variant: default
-    heading: Is This Program Right for You?
-    description: If you're nodding at all four, this is for you.
-    cards:
-      - icon: Clock
-        title: You're ready to commit
-        description: 20-24 hours/week for 24 weeks. Live classes, real projects, real intensity. You bring the commitment, we deliver the results.
-      - icon: IconBriefcase
-        title: You want a career, not a certificate
-        description: You're here to build with AI, land a high-paying role, and make a real career change. That's exactly what this program is built for.
-      - icon: Users
-        title: You want support that actually shows up
-        description: Clear milestones, expert instructors, and unlimited 1:1 mentorship every step of the way.
-      - icon: Sparkles
-        title: You're playing the long game
-        description: You're ready to move into one of the fastest-growing, highest-paying fields of the next decade and you want the skills to back it up.
-    background: hsl(210 100% 50% / 0.05)
-    marginY:
-      desktop: none lg
-    paddingY:
-      desktop: none
-    section_id: features_quad-xffhpo
+    background: hsl(var(--sidebar-background))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
@@ -736,73 +677,38 @@ sections:
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
     section_id: mentorship-clo9o1
-  - type: pricing
-    section_id: pricing-8pb379
+  - type: cards_deck
     version: "1.0"
-    variant: product
-    title: An Investment That Pays for Itself
-    subtitle: The average 4Geeks graduate sees a 55% salary increase. The program pays for itself within months of your first paycheck.
-    discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: "Credit-Based Financing: starting below"
-    financing_amount: $349
-    tech_icons:
-      - openai
-      - claude
-      - python
-      - pandas
-      - numpy
-      - scikitlearn
-      - pytorch
-      - matplotlib
-      - react
-      - nextjs
-      - tailwindcss
-      - nodejs
-      - vercel
-      - supabase
-      - git
-      - github
-      - postman
-      - n8n
-    features_title: Multiple ways to get started.
-    features:
-      - icon: IconCheck
-        text: "Job Guarantee: get hired within 9 months of graduating or we refund your full tuition."
-      - icon: IconCheck
-        text: Full tuition is $14,999. Pay upfront and save 10%, or split into 6 interest-free monthly payments.
-      - icon: IconCheck
-        text: Finance over 24 to 60 months through our lending partners starting at $349/mo.
-      - icon: IconCheck
-        text: Partial scholarships available for highly qualified applicants.
-    cta:
-      text: See If You Qualify. It's Free
-      url: "#hero-nzpyph"
-      variant: primary
-    paddingY:
-      mobile: lg none
-      desktop: lg none
+    heading: Real Stories of Real Career Change
+    subtitle: Thousands of graduates have used our programs to break into tech. Here are just a few of their stories, from salary increases to total career reinventions.
+    cards:
+      - video:
+          url: https://youtu.be/ln3bQsV1BaQ
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
+        author_name: Hernán García
+        title: "\"I got offers from companies I wasn't expecting\""
+        description: Hernán landed a job in tech within one month of starting his job search.
+        alt: Geekforce
+      - video:
+          url: https://youtu.be/MBXqEnhodx0
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: Joao Henrique
+        title: "\"You'll always have support from the Academy\""
+        description: Joao shares his experience receiving coding mentorship as a student, after graduating, and in his current job.
+        alt: Geekpal
+      - video:
+          url: https://youtu.be/oeX_ocy6zv4
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: Jonathan Ferragut
+        title: "\"Taking a course like this benefits us in a lot of different ways\""
+        description: Jonathan shares how the program helped him build confidence and create projects from scratch.
+        alt: Geekpal
+    section_id: cards_deck-cnay6o
     marginY:
-      desktop: none lg
-  - type: numbered_steps
-    version: "1.0"
-    variant: bubbleText
-    title: No Job Within 9 Months? Get Your Tuition Back.
-    description: Complete the program, meet the Job Guarantee requirements, and if you don't land a tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.
-    description_link:
-      text: Terms and conditions apply.
-      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
-    steps:
-      - icon: Optimization
-        title: Notify Us
-        text: Let us know you haven't landed a qualifying role within 9 months of graduation. That's all it takes to start the process.
-      - icon: Interview
-        title: We Review the Requirements
-        text: Our team confirms that all Job Guarantee requirements were completed during the program and job search period.
-      - icon: JobSearch
-        title: Full Refund, Within 30 Days
-        text: Verified and approved, your full tuition is refunded within 30 days.
-    background: hsl(var(--card))
-    section_id: numbered_steps-sgeuhk
+      desktop: none xl
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work
@@ -839,38 +745,6 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
-  - type: cards_deck
-    version: "1.0"
-    heading: Real Stories of Real Career Change
-    subtitle: Thousands of graduates have used our programs to break into tech. Here are just a few of their stories, from salary increases to total career reinventions.
-    cards:
-      - video:
-          url: https://youtu.be/ln3bQsV1BaQ
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
-        author_name: Hernán García
-        title: "\"I got offers from companies I wasn't expecting\""
-        description: Hernán landed a job in tech within one month of starting his job search.
-        alt: Geekforce
-      - video:
-          url: https://youtu.be/MBXqEnhodx0
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
-        author_name: Joao Henrique
-        title: "\"You'll always have support from the Academy\""
-        description: Joao shares his experience receiving coding mentorship as a student, after graduating, and in his current job.
-        alt: Geekpal
-      - video:
-          url: https://youtu.be/oeX_ocy6zv4
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
-        author_name: Jonathan Ferragut
-        title: "\"Taking a course like this benefits us in a lot of different ways\""
-        description: Jonathan shares how the program helped him build confidence and create projects from scratch.
-        alt: Geekpal
-    section_id: cards_deck-cnay6o
-    marginY:
-      desktop: none xl
   - type: cta_banner
     version: "1.0"
     title: 84% of Our Graduates Get Hired. Ready to Be Next?

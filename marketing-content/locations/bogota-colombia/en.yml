@@ -215,6 +215,9 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-fyhw36
     variant: laptop-edge
+    mobile_see_more: true
+    mobile_see_more_label: "See more"
+    mobile_see_less_label: "See less"
     title: Why Bogotá Is a Smart Place to Launch Your Tech Career
     subtitle: A thriving tech community with real hiring momentum
     description: "Bogotá, the capital city of Colombia, has been growing in its tech scene, attracting innovative companies and entrepreneurs. Coding plays a vital role in Bogotá's tech ecosystem, as it is essential for software development and technological innovation.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">High demand for coding skills across sectors</span></li><li>Numerous coding bootcamps, schools, and training programs to support career development</li><li>Thriving tech community and supportive infrastructure for aspiring coders</li></ul></div><div>From our Bogotá campus, we connect you with local employers, tech events, and a growing ecosystem so you build relationships that support your entry and long-term growth in tech.</div></div>"

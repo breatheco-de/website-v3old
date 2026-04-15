@@ -256,6 +256,9 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-f26gv2
     variant: laptop-edge
+    mobile_see_more: true
+    mobile_see_more_label: "Ver más"
+    mobile_see_less_label: "Ver menos"
     title: Por Qué Caracas es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Fuerte emprendimiento tecnológico con oportunidades de crecer localmente y globalmente
     description: "Caracas se encuentra como una de las ciudades con mayor emprendimiento tecnológico, con grandes oportunidades de crecer tanto dentro como fuera del país. Se ha convertido en una oportunidad para que las PYME puedan avanzar de manera rápida.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Acceso a internet de alta velocidad y oficina de primer nivel</span></li><li>Enfoque en habilidades prácticas y plan de estudios alineado con la industria</li><li>Demanda creciente de habilidades en software, IA y datos en todos los sectores</li></ul></div><div>Desde nuestro campus en Caracas, te conectamos con empleadores locales, eventos tech y un ecosistema en crecimiento para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech—tanto local como internacionalmente.</div></div>"

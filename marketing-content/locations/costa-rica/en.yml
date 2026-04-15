@@ -256,6 +256,9 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-unydig
     variant: laptop-edge
+    mobile_see_more: true
+    mobile_see_more_label: "See more"
+    mobile_see_less_label: "See less"
     title: Why Costa Rica Is a Smart Place to Launch Your Tech Career
     subtitle: Central America's leading tech ecosystem with strong nearshore demand
     description: "Costa Rica offers a supportive environment for startups and entrepreneurs, with a well-educated workforce and strong demand for technical talent. It's a market with real opportunities for developers.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Leading nearshore hub for US companies, with high demand for software, AI, and data skills</span></li><li>Incubators, accelerators, and co-working spaces provide support and networking for tech professionals</li><li>Universities and coding bootcamps nurture programming skills to bridge the tech talent gap</li></ul></div><div>From our Costa Rica campus, we connect you with local employers, regional opportunities, and a thriving ecosystem of startups and tech events—so you build relationships that support your entry and long-term growth in tech.</div></div>"

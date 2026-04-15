@@ -256,6 +256,9 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-1mra2r
     variant: laptop-edge
+    mobile_see_more: true
+    mobile_see_more_label: "Ver más"
+    mobile_see_less_label: "Ver menos"
     title: Por Qué Lima es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Un ecosistema tech en crecimiento con impulso de contratación real
     description: "El ecosistema de startups en Perú ha ganado impulso en los últimos años. Empresas innovadoras han atraído inversiones y reconocimiento local e internacionalmente, enfocándose en inclusión financiera, educación y agricultura sostenible mientras escalan globalmente.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Aumento en el número de startups innovadoras con inversiones y reconocimiento</span></li><li>Enfoque en desafíos locales—fintech, educación, agricultura sostenible—con ambición global</li><li>Demanda creciente de habilidades en software, IA y datos en todos los sectores</li></ul></div><div>Desde nuestro campus en Lima, te conectamos con empleadores locales, eventos tech y un ecosistema vibrante para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"

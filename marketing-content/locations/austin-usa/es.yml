@@ -215,6 +215,9 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-1112ft
     variant: laptop-edge
+    mobile_see_more: true
+    mobile_see_more_label: "Ver más"
+    mobile_see_less_label: "Ver menos"
     title: Por Qué Austin es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: La ciudad más innovadora de Texas con una comunidad tech próspera
     description: "La ciudad ha presenciado un crecimiento sustancial de la demanda de conocimientos en programación a medida que la tecnología se integra cada vez más en diversos sectores. Es un mercado con oportunidades reales para desarrolladores.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Crecimiento sustancial de demanda de conocimientos en programación en fintech, logística y sectores empresariales</span></li><li>Los bootcamps de programación han surgido como contribuyentes clave, ofreciendo capacitación accesible y integral para la creciente comunidad tech de Austin</li><li>Fuerte demanda de habilidades en software, IA y datos con empresas como IBM, Indeed y startups locales contratando activamente</li></ul></div><div>Desde nuestro campus en Austin, te conectamos con empleadores locales, eventos tech y una próspera comunidad de innovación—para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"
