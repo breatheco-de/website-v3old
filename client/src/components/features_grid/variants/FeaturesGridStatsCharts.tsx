@@ -17,7 +17,6 @@ const DEFAULT_TREND_ACCENT = "hsl(var(--primary))";
 function badgeStyles(accent: string): CSSProperties {
   const r = resolveColorVar(accent);
   return {
-    color: "black",
     background: hslColor(r, 0.5),
   };
 }
@@ -38,32 +37,30 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
       className="py-14"
       data-testid="section-features-grid-stats-charts"
     >
-      <div className="max-w-6xl mx-auto px-4 lg:px-6 flex flex-col gap-10">
-
-        {(data.title || data.subtitle || data.description) && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
+      <div className="max-w-6xl mx-auto px-4 lg:px-6 flex flex-col">
+        {data.subtitle && (
+          <p
+            className="text-sm font-semibold text-primary tracking-wider mb-2"
+            data-testid="text-stats-charts-subtitle"
+          >
+            {data.subtitle}
+          </p>
+        )}
+        {(data.title || data.description) && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 mb-8">
+            
             <div>
-              {data.subtitle && (
-                <p
-                  className="text-sm font-semibold tracking-wider mb-2"
-                  style={{ color: hslColorRaw(barsR) }}
-                  data-testid="text-stats-charts-subtitle"
-                >
-                  {data.subtitle}
-                </p>
-              )}
               {data.title && (
                 <h2
-                  className="text-h2 text-foreground leading-tight"
+                  className="text-5x font-900 text-foreground "
                   data-testid="text-stats-charts-title"
-                >
-                  {data.title}
-                </h2>
+                  dangerouslySetInnerHTML={{ __html: data.title || "" }}
+                />
               )}
             </div>
             {data.description && (
               <p
-                className="text-base text-muted-foreground leading-relaxed self-end"
+                className="text-base text-muted-foreground leading-relaxed"
                 data-testid="text-stats-charts-description"
               >
                 {data.description}
@@ -82,7 +79,7 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
           >
             {card_bars?.badge && (
               <span
-                className="text-xs font-semibold px-2.5 py-1 rounded-full self-start"
+                className="text-xs px-2.5 py-1 rounded-full self-start"
                 style={badgeStyles(barsAccent)}
                 data-testid="badge-stats-charts-bars"
               >
@@ -148,7 +145,7 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
           >
             {card_gauge?.badge && (
               <span
-                className="text-xs font-semibold px-2.5 py-1 rounded-full self-start"
+                className="text-xs px-2.5 py-1 rounded-full self-start"
                 style={badgeStyles(gaugeAccent)}
                 data-testid="badge-stats-charts-gauge"
               >
@@ -232,7 +229,7 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
           >
             {card_trend?.badge && (
               <span
-                className="text-xs font-semibold px-2.5 py-1 rounded-full self-start"
+                className="text-xs px-2.5 py-1 rounded-full self-start"
                 style={badgeStyles(trendAccent)}
                 data-testid="badge-stats-charts-trend"
               >

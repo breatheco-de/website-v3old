@@ -87,7 +87,7 @@ sections:
     version: "1.0"
     variant: stats-charts
     subtitle: Market Intelligence
-    title: The AI Skills Gap Is Real
+    title: AI is replacing jobs. It's also creating  new ones faster.
     description: The data is clear — AI is transforming the job market faster than the workforce can adapt. Those who develop AI skills now will lead the next decade.
     card_bars_accent: hsl(var(--color-green))
     card_gauge_accent: hsl(var(--color-orange))
