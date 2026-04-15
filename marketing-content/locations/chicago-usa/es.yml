@@ -215,6 +215,9 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-u9xd36
     variant: laptop-edge
+    mobile_see_more: true
+    mobile_see_more_label: "Ver más"
+    mobile_see_less_label: "Ver menos"
     title: Por Qué Chicago es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Una vibrante escena tech con impulso de contratación real
     description: "Chicago es conocida por su vibrante escena tecnológica y su ecosistema de startups floreciente. La ciudad se ha convertido en un imán para innovadores y entusiastas de la tecnología en diferentes industrias.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Alta demanda de conocimientos en programación en todos los sectores</span></li><li>Bootcamps de programación, academias de código y programas educativos en toda la ciudad</li><li>Compromiso para fomentar una comunidad diversa y capacitada en programación</li></ul></div><div>Desde nuestro campus en Chicago, te conectamos con empleadores locales, eventos tech y un ecosistema vibrante para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"

@@ -76,12 +76,19 @@ async function saveSyncStateToBucket(state: SyncStateWithConfig): Promise<void> 
  * Tracks YAML and JSON files in marketing-content directory.
  * Excludes component-registry, dot-prefixed state files, and image directories.
  */
-export function shouldTrackFile(filePath: string): boolean {
+export function shouldTrackFile(filePath: string, allowedExceptions?: Set<string>): boolean {
+  if (allowedExceptions instanceof Set && allowedExceptions.has(filePath)) return true;
+
   if (!filePath.startsWith('marketing-content/')) {
     return false;
   }
   
   if (filePath.includes('component-registry/')) {
+    // Only allow YML files inside the examples/ subfolder
+    // Pattern: component-registry/{type}/{version}/examples/{file}.yml
+    if (/component-registry\/[^/]+\/[^/]+\/examples\/[^/]+\.ya?ml$/.test(filePath)) {
+      return true;
+    }
     return false;
   }
 
@@ -236,12 +243,12 @@ export function saveSyncState(state: SyncState): void {
   });
 }
 
-let autoCommitCallback: ((filePath: string, author?: string) => void) | null = null;
+let autoCommitCallback: ((filePath: string, author?: string, allowedExceptions?: Set<string>) => void) | null = null;
 
 /**
  * Register the auto-commit callback. Called once during server init.
  */
-export function setAutoCommitCallback(cb: (filePath: string, author?: string) => void): void {
+export function setAutoCommitCallback(cb: (filePath: string, author?: string, allowedExceptions?: Set<string>) => void): void {
   autoCommitCallback = cb;
 }
 
@@ -252,7 +259,7 @@ export function setAutoCommitCallback(cb: (filePath: string, author?: string) =>
  * @param filePath - The file path to mark as modified
  * @param author - Optional author name who made the modification
  */
-export function markFileAsModified(filePath: string, author?: string): void {
+export function markFileAsModified(filePath: string, author?: string, allowedExceptions?: Set<string>): void {
   const cwd = process.cwd();
   let relativePath: string;
   
@@ -260,13 +267,13 @@ export function markFileAsModified(filePath: string, author?: string): void {
     relativePath = filePath.startsWith(cwd) 
       ? filePath.slice(cwd.length + 1)
       : filePath;
-  } else if (filePath.startsWith('marketing-content/')) {
+  } else if (filePath.startsWith('marketing-content/') || filePath.startsWith('client/')) {
     relativePath = filePath;
   } else {
     relativePath = `marketing-content/${filePath}`;
   }
   
-  if (!shouldTrackFile(relativePath)) {
+  if (!shouldTrackFile(relativePath, allowedExceptions)) {
     return;
   }
   
@@ -289,7 +296,7 @@ export function markFileAsModified(filePath: string, author?: string): void {
     saveSyncState(state);
 
     if (autoCommitCallback) {
-      autoCommitCallback(relativePath, author);
+      autoCommitCallback(relativePath, author, allowedExceptions);
     }
   } else if (state.files[relativePath]) {
     state.files[relativePath] = {
@@ -301,7 +308,11 @@ export function markFileAsModified(filePath: string, author?: string): void {
     saveSyncState(state);
 
     if (autoCommitCallback) {
-      autoCommitCallback(relativePath, author);
+      autoCommitCallback(relativePath, author, allowedExceptions);
+    }
+  } else if (allowedExceptions instanceof Set && allowedExceptions.has(relativePath)) {
+    if (autoCommitCallback) {
+      autoCommitCallback(relativePath, author, allowedExceptions);
     }
   }
 }

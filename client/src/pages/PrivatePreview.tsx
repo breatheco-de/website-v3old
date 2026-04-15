@@ -16,6 +16,7 @@ import LazyRender from "@/components/LazyRender";
 import MenuSlotPlaceholder from "@/components/editing/MenuSlotPlaceholder";
 import { MenuVisualContextProvider } from "@/contexts/MenuVisualContext";
 import { useMenuConfig } from "@/hooks/useMenuConfig";
+import { getMenuChromeHeights } from "@/lib/menuChrome";
 
 const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditorPanel"));
 
@@ -123,7 +124,6 @@ export default function PrivatePreview() {
     handleRefetch
   );
 
-  const [sectionBackgroundOverlapHeight, setSectionBackgroundOverlapHeight] = useState(300);
   const {
     topMenuId,
     bottomMenuId,
@@ -131,6 +131,7 @@ export default function PrivatePreview() {
     isTopMenuLoading,
     sectionBackgroundOverlapsMenu,
   } = useMenuConfig({ layout: (content as any)?.layout as { menu?: { top?: string | null; bottom?: string | null } } | undefined, locale });
+  const topChromeHeights = getMenuChromeHeights(topMenuConfig);
 
   if (typesLoading) {
     return (
@@ -213,7 +214,13 @@ export default function PrivatePreview() {
 
   return (
     <div data-testid={`preview-${contentType}-${slug}`}>
-      <MenuVisualContextProvider value={{ sectionBackgroundOverlapsMenu, sectionBackgroundOverlapHeight, setSectionBackgroundOverlapHeight }}>
+      <MenuVisualContextProvider
+        value={{
+          sectionBackgroundOverlapsMenu,
+          topChromeHeightDesktop: topChromeHeights.totalHeightDesktop,
+          topChromeHeightMobile: topChromeHeights.totalHeightMobile,
+        }}
+      >
         <div className="group relative">
           {topMenuId && <Header menuConfig={topMenuConfig} isLoading={isTopMenuLoading} />}
           <MenuSlotPlaceholder

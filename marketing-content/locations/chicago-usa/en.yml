@@ -210,6 +210,9 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-cjfrsb
     variant: laptop-edge
+    mobile_see_more: true
+    mobile_see_more_label: "See more"
+    mobile_see_less_label: "See less"
     title: Why Chicago Is a Smart Place to Launch Your Tech Career
     subtitle: A vibrant tech scene with real hiring momentum
     description: "Chicago is renowned for its vibrant tech scene and flourishing startup ecosystem. The city has become a magnet for innovators and tech enthusiasts across industries. Coding stands as a vital pillar in Chicago's tech landscape.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">High demand for coding proficiency across sectors</span></li><li>Coding bootcamps, academies, and educational programs throughout the city</li><li>Commitment to nurturing a diverse and skilled coding community</li></ul></div><div>From our Chicago campus, we connect you with local employers, tech events, and a thriving ecosystem so you build relationships that support your entry and long-term growth in tech.</div></div>"

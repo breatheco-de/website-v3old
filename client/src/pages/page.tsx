@@ -18,6 +18,7 @@ import MenuSlotPlaceholder from "@/components/editing/MenuSlotPlaceholder";
 import { Button } from "@/components/ui/button";
 import { MenuVisualContextProvider } from "@/contexts/MenuVisualContext";
 import { useMenuConfig } from "@/hooks/useMenuConfig";
+import { getMenuChromeHeights } from "@/lib/menuChrome";
 
 const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditorPanel"));
 
@@ -87,7 +88,6 @@ export default function Page() {
 
   useContentAutoRefresh("page", slug, locale, handleRefetch);
 
-  const [sectionBackgroundOverlapHeight, setSectionBackgroundOverlapHeight] = useState(300);
   const {
     topMenuId,
     bottomMenuId,
@@ -95,6 +95,7 @@ export default function Page() {
     isTopMenuLoading,
     sectionBackgroundOverlapsMenu,
   } = useMenuConfig({ layout: (page as any)?.layout, locale });
+  const topChromeHeights = getMenuChromeHeights(topMenuConfig);
 
   if (isLoading && !IS_SERVER) {
     return (
@@ -148,7 +149,13 @@ export default function Page() {
 
   return (
     <div data-testid={`page-${slug}`}>
-      <MenuVisualContextProvider value={{ sectionBackgroundOverlapsMenu, sectionBackgroundOverlapHeight, setSectionBackgroundOverlapHeight }}>
+      <MenuVisualContextProvider
+        value={{
+          sectionBackgroundOverlapsMenu,
+          topChromeHeightDesktop: topChromeHeights.totalHeightDesktop,
+          topChromeHeightMobile: topChromeHeights.totalHeightMobile,
+        }}
+      >
         <div className="group relative">
           {topMenuId && <Header menuConfig={topMenuConfig} isLoading={isTopMenuLoading} />}
           <MenuSlotPlaceholder

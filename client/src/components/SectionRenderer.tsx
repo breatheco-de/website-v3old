@@ -583,7 +583,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
   const isEditMode = editMode?.isEditMode ?? false;
   const previewBreakpoint = editMode?.previewBreakpoint;
   const { session } = useSession();
-  const { sectionBackgroundOverlapsMenu, sectionBackgroundOverlapHeight } = useMenuVisualContext();
+  const { sectionBackgroundOverlapsMenu, topChromeHeightDesktop, topChromeHeightMobile } = useMenuVisualContext();
   const sessionLocationSlug = session.location?.slug;
   const sessionLocationRegion = session.location?.region;
 
@@ -907,15 +907,23 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           hasAppliedTopCover = true;
         }
 
-        const sectionWrapperStyles = isFirstVisibleSection
+        const topCoverBackground = typeof wrapperStyles.background === "string" ? wrapperStyles.background : undefined;
+        const hasTopCover = isFirstVisibleSection
+          && sectionBackgroundOverlapsMenu
+          && !!topCoverBackground
+          && (topChromeHeightDesktop > 0 || topChromeHeightMobile > 0);
+        const sectionWrapperStyles = hasTopCover
           ? {
               ...wrapperStyles,
-              marginTop: `calc(var(--section-mt) - ${sectionBackgroundOverlapsMenu ? sectionBackgroundOverlapHeight : 0}px)`,
-              paddingTop: `calc(var(--section-pt) + ${sectionBackgroundOverlapsMenu ? sectionBackgroundOverlapHeight : 0}px)`,
+              background: "transparent",
             }
           : wrapperStyles;
-
-
+        const contentLayerStyles: CSSProperties = hasTopCover
+          ? {
+              ...innerStyles,
+              position: "relative",
+            }
+          : innerStyles;
         const sectionId = (rawSection as SectionLayout).section_id || `${sectionType}-${index}`;
         const isPriority = loadStrategy === "eager";
         const priorityWrapped = (
@@ -928,8 +936,38 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           : priorityWrapped;
 
         return (
-          <div key={index} id={sectionId} data-section-type={sectionType} className={`section-wrapper${sectionType !== "modal" ? " scroll-mt-20" : ""}${visibilityClasses ? " " + visibilityClasses : ""}`.trim()} style={sectionWrapperStyles}>
-            <div style={innerStyles}>
+          <div
+            key={index}
+            id={sectionId}
+            data-section-type={sectionType}
+            className={`section-wrapper${sectionType !== "modal" ? " scroll-mt-20" : ""}${hasTopCover ? " relative" : ""}${visibilityClasses ? " " + visibilityClasses : ""}`.trim()}
+            style={sectionWrapperStyles}
+          >
+            {hasTopCover && (
+              <>
+                {topChromeHeightDesktop > 0 && (
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 z-0 hidden md:block"
+                    style={{
+                      top: `${-topChromeHeightDesktop}px`,
+                      background: topCoverBackground,
+                    }}
+                  />
+                )}
+                {topChromeHeightMobile > 0 && (
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 z-0 md:hidden"
+                    style={{
+                      top: `${-topChromeHeightMobile}px`,
+                      background: topCoverBackground,
+                    }}
+                  />
+                )}
+              </>
+            )}
+            <div style={contentLayerStyles}>
               <EditableSection
                 section={rawSection}
                 index={index}

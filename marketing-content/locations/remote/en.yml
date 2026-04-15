@@ -215,6 +215,9 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-z8o804
     variant: laptop-edge
+    mobile_see_more: true
+    mobile_see_more_label: "See more"
+    mobile_see_less_label: "See less"
     title: Why Learn to Code with 4Geeks from Anywhere
     subtitle: Unlimited mentorship, global community, real results
     description: Learn online the real way—not by being told to 'watch the video and figure it out.' At 4Geeks Academy, you'll get unlimited 1-on-1 mentoring, live chat support 12 hours a day, hundreds of interactive exercises and videos, real-time streaming classes, and access to our global graduate network. When you learn with us remotely, you get access to our full platform and any of our locations worldwide.
