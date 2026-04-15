@@ -36,7 +36,7 @@ sections:
           visible: true
           required: true
         program:
-          visible: false
+          visible: true
           default: ai-engineering
       success:
         message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
