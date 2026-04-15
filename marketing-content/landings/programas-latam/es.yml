@@ -600,6 +600,10 @@ sections:
         program:
           visible: true
           required: true
+          slugs:
+            - datascience-ml
+            - ai-engineering
+            - cybersecurity
       success:
         message: Ya estás dentro. Alguien de nuestro equipo de admisiones se pondrá en contacto contigo en unos minutos por email. Revisa tu bandeja de entrada.
       consent:
