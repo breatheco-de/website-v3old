@@ -3,15 +3,15 @@ import { createContext, useContext, useMemo, type ReactNode } from "react";
 export interface MenuVisualContextValue {
   isCompact: boolean;
   sectionBackgroundOverlapsMenu: boolean;
-  sectionBackgroundOverlapHeight: number;
-  setSectionBackgroundOverlapHeight: (height: number) => void;
+  topChromeHeightDesktop: number;
+  topChromeHeightMobile: number;
 }
 
 const defaultValue: MenuVisualContextValue = {
   isCompact: false,
   sectionBackgroundOverlapsMenu: false,
-  sectionBackgroundOverlapHeight: 0,
-  setSectionBackgroundOverlapHeight: () => {},
+  topChromeHeightDesktop: 0,
+  topChromeHeightMobile: 0,
 };
 
 const MenuVisualContext = createContext<MenuVisualContextValue>(defaultValue);

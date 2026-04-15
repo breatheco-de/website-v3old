@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { IS_SERVER } from "@/lib/initialData";
 import { useTranslation } from "react-i18next";
@@ -16,6 +16,7 @@ import MenuSlotPlaceholder from "@/components/editing/MenuSlotPlaceholder";
 import { MenuVisualContextProvider } from "@/contexts/MenuVisualContext";
 import { getApiPath } from "@shared/api-paths";
 import { useMenuConfig } from "@/hooks/useMenuConfig";
+import { getMenuChromeHeights } from "@/lib/menuChrome";
 
 function capitalize(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
@@ -82,7 +83,6 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
 
   useContentAutoRefresh(type, slug, effectiveLocale, handleRefetch);
 
-  const [sectionBackgroundOverlapHeight, setSectionBackgroundOverlapHeight] = useState(300);
   const {
     topMenuId,
     bottomMenuId,
@@ -90,6 +90,7 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
     isTopMenuLoading,
     sectionBackgroundOverlapsMenu,
   } = useMenuConfig({ layout: data?.layout as { menu?: { top?: string | null; bottom?: string | null } } | undefined, locale: effectiveLocale });
+  const topChromeHeights = getMenuChromeHeights(topMenuConfig);
 
   if (isLoading && !IS_SERVER) {
     return (
@@ -125,7 +126,13 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
 
   return (
     <div data-testid={`page-${type}`}>
-      <MenuVisualContextProvider value={{ sectionBackgroundOverlapsMenu, sectionBackgroundOverlapHeight, setSectionBackgroundOverlapHeight }}>
+      <MenuVisualContextProvider
+        value={{
+          sectionBackgroundOverlapsMenu,
+          topChromeHeightDesktop: topChromeHeights.totalHeightDesktop,
+          topChromeHeightMobile: topChromeHeights.totalHeightMobile,
+        }}
+      >
         <div className="group relative">
           {topMenuId && <Header menuConfig={topMenuConfig} isLoading={isTopMenuLoading} />}
           <MenuSlotPlaceholder

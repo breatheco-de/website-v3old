@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navbar, MobileNav, renderNavbarItem, type NavbarConfig } from "@/components/menus";
 import { TypewriterAnnouncement } from "@/components/menus/TypewriterAnnouncement";
-import { MenuVisualContextProvider, useMenuVisualContext } from "@/contexts/MenuVisualContext";
+import { MenuVisualContextProvider } from "@/contexts/MenuVisualContext";
 import { useMenuConfig } from "@/hooks/useMenuConfig";
+import { getMenuChromeHeights } from "@/lib/menuChrome";
 
 interface HeaderProps {
   menuId?: string;
@@ -13,14 +14,11 @@ interface HeaderProps {
 
 export default function Header({ menuId = "main-navbar", menuConfig: injectedMenuConfig, isLoading: injectedIsLoading }: HeaderProps) {
   const { i18n } = useTranslation();
-  const floatingChromeRef = useRef<HTMLDivElement | null>(null);
-  const hasMeasuredTopOverlapRef = useRef(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isPastThreshold, setIsPastThreshold] = useState(false);
   const [isTopZone, setIsTopZone] = useState(true);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : false);
   const locale = i18n.language || 'en';
-  const { sectionBackgroundOverlapsMenu, setSectionBackgroundOverlapHeight } = useMenuVisualContext();
 
   const hasInjectedMenuState = injectedMenuConfig !== undefined || injectedIsLoading !== undefined;
   const { menuConfig: queriedMenuConfig, isLoading: queriedIsLoading } = useMenuConfig(
@@ -65,7 +63,8 @@ export default function Header({ menuId = "main-navbar", menuConfig: injectedMen
     return null;
   }
 
-  const navSize = menuConfig?.navbar?.size ?? 64;
+  const chromeHeights = getMenuChromeHeights(menuConfig);
+  const navSize = chromeHeights.navHeight;
   const constrainClass = menuConfig?.navbar?.constrained_margin
     ? "max-w-6xl mx-auto px-4"
     : "px-4 lg:px-6";
@@ -78,9 +77,7 @@ export default function Header({ menuId = "main-navbar", menuConfig: injectedMen
   const useFloatingChrome = floatingEnabled && !useSubtleAtTop;
 
   const marquee = menuConfig?.navbar?.marquee;
-  const showMarquee = !!(marquee?.enabled && marquee?.texts && marquee.texts.length > 0);
-  const marqueeHeight = 35;
-  const mobileMarqueeHeightBuffer = -30;
+  const showMarquee = chromeHeights.showMarquee;
   const marqueeSticky = marquee?.sticky ?? false;
   const marqueeCollapsed = isPastThreshold && !marqueeSticky;
   const marqueePosition = marquee?.position ?? "below";
@@ -92,11 +89,9 @@ export default function Header({ menuId = "main-navbar", menuConfig: injectedMen
     marqueeShowOn === "desktop" ? "hidden md:block" :
     "";
 
-  const marqueeHeightDesktop = showMarquee && marqueeShowOn !== "mobile" ? marqueeHeight : 0;
-  const marqueeHeightMobile = showMarquee && marqueeShowOn !== "desktop" ? marqueeHeight + mobileMarqueeHeightBuffer : 0;
   const floatingVisualOffset = useFloatingChrome ? 12 : 0;
-  const totalHeightDesktop = navSize + marqueeHeightDesktop;
-  const totalHeightMobile = navSize + marqueeHeightMobile;
+  const totalHeightDesktop = chromeHeights.totalHeightDesktop;
+  const totalHeightMobile = chromeHeights.totalHeightMobile;
 
   const marqueeStrip = showMarquee ? (
     <div
@@ -113,45 +108,24 @@ export default function Header({ menuId = "main-navbar", menuConfig: injectedMen
       }`}
       style={marquee?.background ? { background: marquee.background } : { background: "hsl(var(--primary) / 0.05)" }}
     >
-      <div className={`${constrainClass} py-1`}>
-        <TypewriterAnnouncement
-          messages={marquee!.texts!}
-          charDelay={marquee?.char_delay}
-          startDelay={marquee?.start_delay}
-          displayTime={marquee?.display_time}
-        />
+      <div className={`${constrainClass} flex h-10 items-center`}>
+        {isLoading ? (
+          <div className="flex w-full items-center justify-center">
+            <div className="h-4 w-48 animate-pulse rounded bg-muted" />
+          </div>
+        ) : (
+          <TypewriterAnnouncement
+            messages={marquee!.texts!}
+            charDelay={marquee?.char_delay}
+            startDelay={marquee?.start_delay}
+            displayTime={marquee?.display_time}
+          />
+        )}
       </div>
     </div>
   ) : null;
 
   const totalHeight = isMobile ? totalHeightMobile : totalHeightDesktop;
-
-  useEffect(() => {
-    if (!sectionBackgroundOverlapsMenu) {
-      hasMeasuredTopOverlapRef.current = false;
-      setSectionBackgroundOverlapHeight(0);
-      return;
-    }
-
-    if (!useSubtleAtTop || hasMeasuredTopOverlapRef.current) {
-      return;
-    }
-
-    const node = floatingChromeRef.current;
-    if (!node) {
-      return;
-    }
-
-    const frameId = requestAnimationFrame(() => {
-      const rect = node.getBoundingClientRect();
-      hasMeasuredTopOverlapRef.current = true;
-      setSectionBackgroundOverlapHeight(Math.max(Math.ceil(rect.bottom), 0));
-    });
-
-    return () => {
-      cancelAnimationFrame(frameId);
-    };
-  }, [sectionBackgroundOverlapsMenu, setSectionBackgroundOverlapHeight, useSubtleAtTop]);
 
   return (
     <>
@@ -159,7 +133,6 @@ export default function Header({ menuId = "main-navbar", menuConfig: injectedMen
       <div aria-hidden="true" className="md:hidden" style={{ height: `${totalHeightMobile}px` }} />
 
       <div
-        ref={floatingChromeRef}
         className="fixed left-0 right-0 z-50 transition-[top] duration-300 ease-in-out"
         style={{ top: headerSlideOut ? `-${totalHeight + floatingVisualOffset}px` : '0px' }}
       >
