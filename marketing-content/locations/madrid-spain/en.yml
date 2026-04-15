@@ -271,6 +271,9 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-0jgpa6
     variant: laptop-edge
+    mobile_see_more: true
+    mobile_see_more_label: "See more"
+    mobile_see_less_label: "See less"
     title: Why Madrid Is a Smart Place to Launch Your Tech Career
     subtitle: Europe's
     description: "Madrid has emerged as Spain's undisputed tech capital, surpassing Barcelona for the first time in total tech companies, startups, and scaleups. With over 2,100 tech startups and an ecosystem valued at 44 billion euros, the city offers unmatched opportunity for developers entering the market.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Madrid holds 47% of all tech jobs in Spain, with 25,000+ developer positions currently unfilled nationwide&nbsp;&nbsp;</span></li><li>Ranked #1 globally as an emerging startup ecosystem by Startup Genome, and #3 in Europe for engineering talent density&nbsp;&nbsp;</li><li>Strong demand for software, AI, and data skills across fintech, cybersecurity, travel tech, and enterprise software sectors&nbsp;&nbsp;</li></ul></div><div>Located in the heart of the city, our Madrid campus connects you with local employers, hiring partners, and tech events through South Summit, Google Campus Madrid, and a thriving network of accelerators and VCs.</div></div>"

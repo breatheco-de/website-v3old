@@ -213,6 +213,9 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-22c4th
     variant: laptop-edge
+    mobile_see_more: true
+    mobile_see_more_label: "See more"
+    mobile_see_less_label: "See less"
     title: Why Atlanta Is a Smart Place to Launch Your Tech Career
     subtitle: A flourishing tech ecosystem with strong hiring demand
     description: "Atlanta's tech ecosystem is flourishing with over 850 tech companies and 70,000+ tech workers. It's a market with real demand for technical talent.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Major tech firms like Google and Facebook have set up local outposts drawn by the city's diverse talent pool</span></li><li>Atlanta vies to become a leading Southern tech hub, with surging demand for coding expertise from expanding tech companies</li><li>Strong demand for software, AI, and data skills across fintech, logistics, and enterprise tech sectors</li></ul></div><div>From our Atlanta campus, we connect you with local employers, hiring partners, and tech events—helping you build relationships that support your entry and long-term growth in tech.</div></div>"

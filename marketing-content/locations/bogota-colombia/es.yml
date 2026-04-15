@@ -256,6 +256,9 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-zhkn2t
     variant: laptop-edge
+    mobile_see_more: true
+    mobile_see_more_label: "Ver más"
+    mobile_see_less_label: "Ver menos"
     title: Por Qué Bogotá es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Una comunidad tech próspera con impulso de contratación real
     description: "Bogotá, la capital de Colombia, ha estado creciendo en su escena tecnológica, atrayendo a empresas e innovadores emprendedores. La codificación desempeña un papel vital en el ecosistema tecnológico de Bogotá.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Alta demanda de habilidades en codificación en todos los sectores</span></li><li>Numerosos bootcamps, escuelas y programas de capacitación para apoyar tu desarrollo profesional</li><li>Comunidad tecnológica próspera e infraestructura de apoyo para aspirantes a codificar</li></ul></div><div>Desde nuestro campus en Bogotá, te conectamos con empleadores locales, eventos tech y un ecosistema en crecimiento para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"

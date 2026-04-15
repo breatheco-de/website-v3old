@@ -254,6 +254,9 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-qhgno2
     variant: laptop-edge
+    mobile_see_more: true
+    mobile_see_more_label: "Ver más"
+    mobile_see_less_label: "Ver menos"
     title: Por qué Santiago es un lugar estratégico para lanzar tu carrera tech
     subtitle: Un ecosistema tech en auge con momentum real de contratación
     description: Un ecosistema tecnológico en expansión, con oportunidades reales de contratación.<br><br>Santiago ha experimentado un crecimiento sostenido en la demanda de talento en programación y tecnología, impulsado por la digitalización de múltiples industrias. En este contexto, los bootcamps tech se han convertido en una vía efectiva para acelerar la inserción laboral en el sector.<br><div><div><ul><li>Creciente presencia de empresas tecnológicas y multinacionales con operaciones en Chile</li><li>Alta demanda de talento tech en industrias como fintech, retail, salud y startups</li><li>Necesidad creciente de habilidades en desarrollo de software, inteligencia artificial y análisis de datos en toda la región</li></ul></div><div>Desde nuestro campus en Santiago, te conectamos con empleadores locales, eventos de la comunidad tech y un ecosistema dinámico que te ayudará a construir redes profesionales y potenciar tu inserción y crecimiento a largo plazo en tecnología.</div></div>

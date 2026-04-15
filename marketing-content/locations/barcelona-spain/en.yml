@@ -218,6 +218,9 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-kfolzl
     variant: laptop-edge
+    mobile_see_more: true
+    mobile_see_more_label: "See more"
+    mobile_see_less_label: "See less"
     title: Why Barcelona Is a Smart Place to Launch Your Tech Career
     subtitle: A dynamic tech ecosystem and leading startup hub
     description: "Barcelona has a dynamic tech ecosystem and is a leading hub for startups. The city has witnessed a swift rise in the need for coding expertise, as technology plays an increasingly integral role in diverse industries. It's a market with real demand for technical talent.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Coding bootcamps have emerged as a driving force behind talent cultivation in Barcelona</span></li><li>Immersive and hands-on coding education for individuals eager to learn programming and make their mark in the city's tech landscape</li><li>Strong demand for software, AI, and data skills across fintech, edtech, and sustainable tech sectors</li></ul></div><div>From our Barcelona campus, we connect you with local employers, tech events, and the city's flourishing tech landscape—helping you build relationships that support your entry and long-term growth in tech.</div></div>"

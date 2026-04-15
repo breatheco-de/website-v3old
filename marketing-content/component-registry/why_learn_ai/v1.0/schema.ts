@@ -13,6 +13,7 @@ export const whyLearnAISectionSchema = z.object({
   cta: ctaButtonSchema.optional(),
   mobile_see_more: z.boolean().optional(),
   mobile_see_more_label: z.string().optional(),
+  mobile_see_less_label: z.string().optional(),
 });
 
 export type WhyLearnAISection = z.infer<typeof whyLearnAISectionSchema>;

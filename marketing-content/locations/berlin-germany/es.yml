@@ -269,6 +269,9 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-fvv0cq
     variant: laptop-edge
+    mobile_see_more: true
+    mobile_see_more_label: "Ver más"
+    mobile_see_less_label: "Ver menos"
     title: Por Qué Berlín es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: El principal hub de startups de Europa con impulso de contratación real
     description: "El ecosistema tecnológico de Berlín ha experimentado una rápida transformación, convirtiendo a la ciudad en un semillero de startups innovadoras. La comunidad de programadores en Berlín ha experimentado una notable expansión, influenciada en gran medida por la creciente demanda de bootcamps de programación.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Bootcamps de programación fomentando una diversa cantera de desarrolladores talentosos</span></li><li>Rápida transformación y expansión del ecosistema tecnológico</li><li>Creciente demanda de conocimientos en programación en todos los sectores</li></ul></div><div>Desde nuestro campus en Berlín, te conectamos con empleadores locales, eventos tech y un ecosistema vibrante para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"

@@ -215,6 +215,9 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-hn5j84
     variant: laptop-edge
+    mobile_see_more: true
+    mobile_see_more_label: "Ver más"
+    mobile_see_less_label: "Ver menos"
     title: Por Qué Toronto es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Un ecosistema tech en auge con momentum real de contratación
     description: "La ciudad ha presenciado un crecimiento sustancial de la demanda de conocimientos en programación, a medida que la tecnología se integra cada vez más en diversos sectores. Los bootcamps de programación han surgido como contribuyentes clave a esta tendencia.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Toronto-Fort Worth alberga numerosas empresas Fortune 500 y un sector tech en rápida expansión</span></li><li>Fuerte demanda de contratación en diversas industrias, desde energía y salud hasta startups</li><li>Demanda creciente de habilidades en software, IA y datos en toda la región</li></ul></div><div>Desde nuestro campus en Toronto, te conectamos con empleadores locales, eventos tech y un ecosistema vibrante para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"

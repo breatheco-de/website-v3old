@@ -268,6 +268,9 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-wggj5a
     variant: laptop-edge
+    mobile_see_more: true
+    mobile_see_more_label: "Ver más"
+    mobile_see_less_label: "Ver menos"
     title: Por Qué Miami es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Un ecosistema tech de rápido crecimiento con momentum real de contratación
     description: "Miami es uno de los hubs tech de más rápido crecimiento en EE.UU., con empresas contratando activamente en software, IA y roles de datos. Es un mercado con demanda real de talento técnico.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Miami ocupa el puesto 4 en EE.UU. en crecimiento de empleos tech, señalando una demanda fuerte y sostenida&nbsp;&nbsp;</span></li><li>Reconocido entre los top 30 ecosistemas de startups globales, con rápido crecimiento en capital de riesgo y relocalización de empresas&nbsp;&nbsp;</li><li>Fuerte demanda de habilidades en software, IA y datos en sectores como fintech, healthcare, logística y tech emergente&nbsp;&nbsp;</li></ul></div><div>Ubicado en Brickell, nuestro campus en Miami te conecta con empleadores locales, socios de contratación y eventos tech, para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"
