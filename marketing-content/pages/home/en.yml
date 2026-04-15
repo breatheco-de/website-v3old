@@ -33,7 +33,7 @@ sections:
         url: "#course_selector-4m5sh4"
         variant: outline
     pills:
-      - category: Academic Partnerships
+      - category: Academic Partnership
         logos:
           - image_id: clark_university
           - image_id: miami-dade-college-logo
