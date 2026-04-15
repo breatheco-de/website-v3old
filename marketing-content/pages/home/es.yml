@@ -153,36 +153,35 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-charts
-    subtitle: Market Intelligence
-    title: The AI Skills Gap Is Real
-    description: The data is clear — AI is transforming the job market faster than the workforce can adapt. Those who develop AI skills now will lead the next decade.
-    background: bg-slate-950
-    card_bars_accent: hsl(var(--color-green))
-    card_gauge_accent: hsl(var(--color-orange))
-    card_trend_accent: hsl(var(--primary))
+    subtitle: Esa es tu oportunidad.
+    title: "<!--StartFragment--><h2 class=\"text-2xl md:text-h2 mb-2 text-foreground\" data-testid=\"text-stats-text-title\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-family: Lato, &quot;Noto Color Emoji&quot;, sans-serif; --tw-text-opacity: 1;\">La IA está reemplazando empleos. También está creando nuevos, más rápido de lo que la fuerza laboral está preparada para ocuparlos.</h2><!--EndFragment-->"
+    description: Cada semana, las empresas publican roles en IA que no pueden cubrir. Necesitan ingenieros que construyan con IA, analistas que trabajen con IA y profesionales de seguridad que la defiendan. La brecha de talento es real y se está ampliando rápidamente.
+    card_bars_accent: hsl(var(--primary))
+    card_gauge_accent: hsl(var(--destructive) / 0.5)
+    card_trend_accent: hsl(var(--accent))
     card_bars:
-      badge: Jobs Market
-      title: AI jobs created vs. displaced
-      description: Annual delta · 2021-2025 · indexed
+      badge: Empleos de IA creados vs. desplazados
       stat_value: +340%
-      stat_label: net new AI roles created since 2021
-      displaced_label: Displaced
-      created_label: Created by AI
+      stat_label: nuevos roles netos de IA creados desde 2022
+      years:
+        - "2022"
+        - "2023"
+        - "2024"
+        - "2025"
+        - "2026"
+      displaced_label: Desplazados
+      created_label: Creados por la IA
     card_gauge:
-      badge: Workforce Readiness
-      title: Who's actually ready for AI roles?
-      description: Global workforce · 2025 data
+      badge: ¿Quién está realmente preparado para roles de IA?
       gauge_percentage: 3
-      gauge_label: qualified
-      stat_label: of the workforce is not ready for AI roles today
-      bar1_label: Traditional workforce
-      bar2_label: AI-ready professionals
+      gauge_label: calificados
+      stat_label: de la fuerza laboral no está preparada para roles de IA hoy
+      bar1_label: Fuerza laboral tradicional
+      bar2_label: Profesionales preparados para IA
     card_trend:
-      badge: Demand Curve
-      title: Demand for AI engineers
-      description: Indexed job postings · 2020 → 2027 projected
+      badge: Demanda de ingenieros de IA
       stat_value: 1.3M
-      stat_label: new AI roles expected by 2027
+      stat_label: nuevos roles de IA esperados para 2027
       end_label: 1.3M · 2027
     section_id: features_grid-xxxxxxx
   - type: image_row
