@@ -639,25 +639,29 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-  - type: features_quad
-    version: "1.0"
-    heading: Who Can Add the Job Guarantee?
-    description: "The Job Guarantee is available to students who meet these four requirements:"
-    cards:
-      - icon: IconBriefcaseFilled
-        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
-      - icon: IconCircleDashedCheck
-        title: Complete All Program Requirements
-      - icon: IconBrain
-        title: Pass the Admissions Logic Test
-      - icon: IconArrowGuideFilled
-        title: Follow the Full Career Development Process
-    section_id: features_quad-ms7uox
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Get Hired Within 9 Months or Get Your Tuition Back
+    subtitle: A guarantee most bootcamps won't offer because they can't back it up
+    description: "<span style=\"font-size: 1.125rem;\">Complete the program, follow the career process, and if you don't land a qualifying tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.</span><div><span style=\"font-size: 1.125rem;\">We offer this because 86% of our graduates get hired within 90 days. The guarantee exists for the other 14% — and it means our incentives are fully aligned with yours.</span></div><div><br><span style=\"font-size: 0.875rem;\">*Not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"color: hsl(var(--primary));\">Terms and conditions apply.</a></span></div>"
+    section_id: why_learn_ai-wxbuh3
     marginY:
       desktop: none xl
     paddingY:
       desktop: none
-    background: hsl(var(--secondary))
+    background: hsl(var(--sidebar-background))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
