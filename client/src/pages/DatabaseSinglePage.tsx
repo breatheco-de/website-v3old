@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { IS_SERVER } from "@/lib/initialData";
 import { useLocation } from "wouter";
@@ -18,6 +18,7 @@ import LazyRender from "@/components/LazyRender";
 import MenuSlotPlaceholder from "@/components/editing/MenuSlotPlaceholder";
 import { MenuVisualContextProvider } from "@/contexts/MenuVisualContext";
 import { useMenuConfig } from "@/hooks/useMenuConfig";
+import { getMenuChromeHeights } from "@/lib/menuChrome";
 
 interface DatabaseSinglePageProps {
   contentType: string;
@@ -76,7 +77,6 @@ export default function DatabaseSinglePage({ contentType }: DatabaseSinglePagePr
 
   useContentAutoRefresh(contentType, slug, locale, handleRefetch);
 
-  const [sectionBackgroundOverlapHeight, setSectionBackgroundOverlapHeight] = useState(300);
   const {
     topMenuId,
     bottomMenuId,
@@ -84,6 +84,7 @@ export default function DatabaseSinglePage({ contentType }: DatabaseSinglePagePr
     isTopMenuLoading,
     sectionBackgroundOverlapsMenu,
   } = useMenuConfig({ layout: (page as any)?.layout, locale });
+  const topChromeHeights = getMenuChromeHeights(topMenuConfig);
 
   if (isLoading && !IS_SERVER) {
     return (
@@ -118,7 +119,13 @@ export default function DatabaseSinglePage({ contentType }: DatabaseSinglePagePr
 
   return (
     <div data-testid={`page-${contentType}-${slug}`}>
-      <MenuVisualContextProvider value={{ sectionBackgroundOverlapsMenu, sectionBackgroundOverlapHeight, setSectionBackgroundOverlapHeight }}>
+      <MenuVisualContextProvider
+        value={{
+          sectionBackgroundOverlapsMenu,
+          topChromeHeightDesktop: topChromeHeights.totalHeightDesktop,
+          topChromeHeightMobile: topChromeHeights.totalHeightMobile,
+        }}
+      >
         <div className="group relative">
           {topMenuId && <Header menuConfig={topMenuConfig} isLoading={isTopMenuLoading} />}
           <MenuSlotPlaceholder
