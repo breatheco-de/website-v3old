@@ -169,6 +169,10 @@ sections:
         program:
           visible: true
           required: true
+          slugs:
+            - datascience-ml
+            - ai-engineering
+            - cybersecurity
       success:
         message: ¡Gracias! Nos pondremos en contacto contigo a la brevedad posible.
     section_id: sticky_cta-pohzm9
