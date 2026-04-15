@@ -63,6 +63,50 @@ sections:
       desktop: none
     pills_url: "#list_press_mentions-w7r1sh"
     marquee_static: true
+  - type: lead_form
+    version: "1.0"
+    variant: stacked
+    title: Unlock Your Tech Potential with 4Geeks Academy
+    subtitle: Discover how our programs can help you get hired in tech
+    submit_label: Get Started Today
+    tags: website-lead
+    automations: strong
+    fields:
+      email:
+        visible: true
+        required: true
+      first_name:
+        visible: true
+        required: true
+      last_name:
+        visible: true
+        required: false
+      phone:
+        visible: true
+        required: true
+      program:
+        visible: true
+        required: true
+        default: auto
+      location:
+        visible: true
+        required: false
+        default: auto
+      client_comments:
+        visible: true
+        required: false
+    success:
+      url: https://www.4geeksacademy.com/
+      message: Thanks for considering 4Geeks Academy! We'll be in touch within 24 hours to discuss your career goals.
+    terms_url: https://www.4geeksacademy.com/terms
+    privacy_url: https://www.4geeksacademy.com/privacy
+    consent:
+      email: true
+      sms: false
+      whatsapp: false
+    show_terms: true
+    className: lead-form
+    section_id: lead_form-4pidf1
   - type: hero
     version: "1.0"
     variant: productShowcase
