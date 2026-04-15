@@ -180,7 +180,7 @@ sections:
     paddingY:
       desktop: md
     marginY:
-      desktop: none xl
+      desktop: none md
   - type: features_grid
     version: "1.0"
     variant: stats-text-card
