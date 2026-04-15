@@ -36,7 +36,10 @@ sections:
         program:
           visible: true
           required: true
-          placeholder: Selecciona un programa
+          slugs:
+            - datascience-ml
+            - ai-engineering
+            - cybersecurity
       success:
         message: Alguien de nuestro equipo de admisiones se pondrá en contacto contigo en unos minutos por email. Revisa tu bandeja de entrada.
       terms_url: /terms-and-conditions

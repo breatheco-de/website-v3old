@@ -28,6 +28,9 @@ export default function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps
   const handleLinkClick = useInternalNav();
   const [isExpanded, setIsExpanded] = useState(false);
   const description = data.description || "";
+  const showSeeMore = data.mobile_see_more !== false;
+  const seeMoreLabel = data.mobile_see_more_label || "see more";
+  const seeLessLabel = "see less";
 
   return (
     <section 
@@ -65,7 +68,7 @@ export default function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps
           className="text-sm text-muted-foreground mb-6 leading-relaxed"
           data-testid="text-why-learn-description-mobile"
         >
-          {description.length > MOBILE_CHAR_LIMIT && !isExpanded ? (
+          {showSeeMore && description.length > MOBILE_CHAR_LIMIT && !isExpanded ? (
             <>
               <RichTextContent
                 html={truncateAtWordBoundary(description, MOBILE_CHAR_LIMIT) + "..."}
@@ -77,7 +80,7 @@ export default function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps
                 className="text-sm font-medium text-primary underline"
                 data-testid="button-see-more"
               >
-                see more
+                {seeMoreLabel}
               </button>
             </>
           ) : (
@@ -86,13 +89,13 @@ export default function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps
                 html={description}
                 className="text-sm text-muted-foreground"
               />
-              {description.length > MOBILE_CHAR_LIMIT && (
+              {showSeeMore && description.length > MOBILE_CHAR_LIMIT && isExpanded && (
                 <button
                   onClick={() => setIsExpanded(false)}
                   className="text-sm font-medium text-primary underline mt-1"
                   data-testid="button-see-less"
                 >
-                  see less
+                  {seeLessLabel}
                 </button>
               )}
             </>

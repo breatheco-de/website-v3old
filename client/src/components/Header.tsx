@@ -68,7 +68,7 @@ export default function Header({ menuId = "main-navbar", menuConfig: injectedMen
   const navSize = menuConfig?.navbar?.size ?? 64;
   const constrainClass = menuConfig?.navbar?.constrained_margin
     ? "max-w-6xl mx-auto px-4"
-    : "px-6";
+    : "px-4 lg:px-6";
 
   const stickyEnabled = menuConfig?.navbar?.sticky ?? true;
   const headerSlideOut = !stickyEnabled && isPastThreshold;

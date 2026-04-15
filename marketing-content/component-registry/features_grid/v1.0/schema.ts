@@ -163,10 +163,59 @@ export const featuresGridCardHeaderSectionSchema = z.object({
   cards: z.array(featuresGridCardHeaderCardSchema),
 });
 
+export const featuresGridStatsChartsCardBarsSchema = z.object({
+  badge: z.string().optional(),
+  title: z.string().optional(),
+  description: z.string().optional(),
+  stat_value: z.string().optional(),
+  stat_label: z.string().optional(),
+  years: z.array(z.string()).optional(),
+  displaced_label: z.string().optional(),
+  created_label: z.string().optional(),
+});
+
+export const featuresGridStatsChartsCardGaugeSchema = z.object({
+  badge: z.string().optional(),
+  title: z.string().optional(),
+  description: z.string().optional(),
+  stat_value: z.string().optional(),
+  stat_label: z.string().optional(),
+  gauge_percentage: z.number().optional(),
+  gauge_label: z.string().optional(),
+  bar1_label: z.string().optional(),
+  bar2_label: z.string().optional(),
+});
+
+export const featuresGridStatsChartsCardTrendSchema = z.object({
+  badge: z.string().optional(),
+  title: z.string().optional(),
+  description: z.string().optional(),
+  stat_value: z.string().optional(),
+  stat_label: z.string().optional(),
+  end_label: z.string().optional(),
+});
+
+export const featuresGridStatsChartsSectionSchema = z.object({
+  type: z.literal("features_grid"),
+  version: z.string().optional(),
+  variant: z.literal("stats-charts"),
+  title: z.string().optional(),
+  subtitle: z.string().optional(),
+  description: z.string().optional(),
+  background: z.string().optional(),
+  card_bars_accent: z.string().optional(),
+  card_gauge_accent: z.string().optional(),
+  card_trend_accent: z.string().optional(),
+  card_bars: featuresGridStatsChartsCardBarsSchema.optional(),
+  card_gauge: featuresGridStatsChartsCardGaugeSchema.optional(),
+  card_trend: featuresGridStatsChartsCardTrendSchema.optional(),
+});
+
 export const featuresGridSectionSchema = z.union([
   featuresGridHighlightSectionSchema,
   featuresGridDetailedSectionSchema,
   featuresGridSpotlightSectionSchema,
+  featuresGridStatsChartsSectionSchema,
   featuresGridStatsCardsSectionSchema,
   featuresGridStatsTextCardSectionSchema,
   featuresGridStatsTextSectionSchema,
@@ -182,6 +231,10 @@ export type FeaturesGridCardHeaderCard = z.infer<typeof featuresGridCardHeaderCa
 export type FeaturesGridHighlightSection = z.infer<typeof featuresGridHighlightSectionSchema>;
 export type FeaturesGridDetailedSection = z.infer<typeof featuresGridDetailedSectionSchema>;
 export type FeaturesGridSpotlightSection = z.infer<typeof featuresGridSpotlightSectionSchema>;
+export type FeaturesGridStatsChartsSection = z.infer<typeof featuresGridStatsChartsSectionSchema>;
+export type FeaturesGridStatsChartsCardBars = z.infer<typeof featuresGridStatsChartsCardBarsSchema>;
+export type FeaturesGridStatsChartsCardGauge = z.infer<typeof featuresGridStatsChartsCardGaugeSchema>;
+export type FeaturesGridStatsChartsCardTrend = z.infer<typeof featuresGridStatsChartsCardTrendSchema>;
 export type FeaturesGridStatsCardsSection = z.infer<typeof featuresGridStatsCardsSectionSchema>;
 export type FeaturesGridStatsTextCardSection = z.infer<typeof featuresGridStatsTextCardSectionSchema>;
 export type FeaturesGridStatsTextSection = z.infer<typeof featuresGridStatsTextSectionSchema>;

@@ -421,7 +421,7 @@ export function Dropdown({ label, href, dropdown, controlledOpen, onOpenChange }
     >
       <button
         type="button"
-        className="flex items-center gap-1 px-4 py-2 font-medium text-foreground hover-elevate rounded-md transition-all duration-150 ease-out no-default-hover-elevate no-default-active-elevate"
+        className="flex items-center gap-1 px-2 py-2 lg:px-4 font-medium text-foreground hover-elevate rounded-md transition-all duration-150 ease-out no-default-hover-elevate no-default-active-elevate"
         data-testid={`nav-dropdown-${label.toLowerCase().replace(/\s+/g, "-")}`}
       >
         {label}

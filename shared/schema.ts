@@ -315,6 +315,10 @@ export type {
   FeaturesGridCardHeaderSection,
   FeaturesGridStatsCardsItem,
   SpotlightConfig,
+  FeaturesGridStatsChartsSection,
+  FeaturesGridStatsChartsCardBars,
+  FeaturesGridStatsChartsCardGauge,
+  FeaturesGridStatsChartsCardTrend,
 } from "../marketing-content/component-registry/features_grid/v1.0/schema";
 
 // ============================================

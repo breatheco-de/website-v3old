@@ -82,13 +82,13 @@ function LogoItem({ imageId, imageAlt, href, constrained_margin }: { imageId?: s
     <a
       href={href}
       onClick={handleLinkClick}
-      className={`flex items-center hover-elevate rounded-md${constrained_margin ? "" : " px-3 py-2"}`}
+      className={`flex items-center hover-elevate rounded-md${constrained_margin ? "" : " px-3 md:px-0 md:ps-1  lg:ps-0 lg:px-3 py-2"}`}
       data-testid="link-home"
     >
       <UniversalImage
         id={logoId}
         alt={imageAlt || t('nav.brand')}
-        className={`transition-all duration-150 ease-out ${isCompact ? "h-6" : "h-8"}`}
+        className={`transition-all duration-150 ease-out ${isCompact ? "h-6" : "h-6 lg:h-8"}`}
         loading="eager"
         style={{ objectFit: "contain", width: "auto", height: "100%" }}
       />
@@ -163,11 +163,11 @@ export function Navbar({ config }: { config: NavbarConfig }) {
   const constrained_margin = config.navbar.constrained_margin;
 
   return (
-    <nav className="flex flex-wrap items-center justify-between w-full gap-1" data-testid="navbar">
+    <nav className="flex flex-wrap items-center justify-between w-full gap-0 lg:gap-1" data-testid="navbar">
       {logoItems.map((item) => renderNavbarItem(item, undefined, undefined, constrained_margin))}
       {announcementItems.map((item) => renderNavbarItem(item))}
       {navLinkItems.length > 0 && (
-        <div className={`flex items-center gap-1 transition-all duration-150 ease-out ${isCompact ? "text-xs" : "text-sm"}`} data-testid="navbar-links">
+        <div className={`flex items-center lg:gap-1 transition-all duration-150 ease-out ${isCompact ? "text-xs" : "text-xs lg:text-sm"}`} data-testid="navbar-links">
           {navLinkItems.map((item) => {
             if (item.component === "Dropdown") {
               return renderNavbarItem(item, activeDropdown === item.label, handleOpenChange(item.label));

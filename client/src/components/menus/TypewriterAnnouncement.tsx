@@ -43,7 +43,7 @@ export function TypewriterAnnouncement({
       data-testid="typewriter-announcement"
     >
       {/* Mobile: sliding ticker using react-fast-marquee */}
-      <div className="md:hidden flex-1 min-w-0 overflow-hidden">
+      <div className="lg:hidden flex-1 min-w-0 overflow-hidden">
         <Marquee speed={50} pauseOnHover={false} pauseOnClick={true} autoFill={true} gradient={false}>
           {safeMessages.map((msg, i) => {
             const msgIconName = msg.icon || icon;
@@ -72,7 +72,7 @@ export function TypewriterAnnouncement({
       </div>
 
       {/* Desktop: typewriter — text scrolls to always show the end; cursor stays visible */}
-      <div className="hidden md:inline-flex items-center max-w-full gap-1">
+      <div className="hidden lg:inline-flex items-center max-w-full gap-1">
         <Icon className="w-5 h-5 text-primary shrink-0 my-1" />
         <div
           ref={textRef}

@@ -15,14 +15,14 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Most Bootcamps Teach You to Code. 4Geeks Gets You Hired.
+    title: Most Bootcamps Teach Skills. 4Geeks Gets You Hired.
     brand_mark:
       prefix: Stop Paying for
       highlight: Courses That Don't Land Jobs.
       color: primary
     description: "<span style=\"font-size: 1.125rem;\"><span>86% of 4Geeks graduates get hired within 90 days. Unlimited 1:1 mentorship for life. A Job Guarantee that refunds your tuition if you don't land a tech role within 9 months. This is what a bootcamp looks like when it's built around your outcome, not your enrollment.</span></span>"
     bullets:
-      - text: "Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
+      - text: "Optional Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
       - text: Unlimited 1:1 mentorship and career support that does not stop at graduation
       - text: Flexible financing available, including zero upfront payment options
     image_object_fit: none
@@ -31,7 +31,7 @@ sections:
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
+      submit_label: Get more information
       tags: website-lead
       fields:
         email:
@@ -54,7 +54,7 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
+        message: Congratulations for taking the first step! Someone from our admissions team will email you shortly. Check your inbox.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
@@ -66,7 +66,7 @@ sections:
       show_terms: true
     form_vertical_align: top
     form_card_text_color: hsl(var(--foreground))
-    form_card_title: See Which Program Is Right for You
+    form_card_title: Find Out About Our Programs
     form_card_subtitle: "Takes 2 minutes. Our admissions team will walk you through your options: programs, pricing, and financing."
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: true
@@ -251,17 +251,29 @@ sections:
       desktop: md lg
     marginY:
       desktop: sm lg
-  - type: faq
-    version: v1.0
-    title: Real Questions. Honest Answers
-    related_features:
-      - job-guarantee
-      - outcomes
-      - career-support
-    section_id: faq-qubzh4
-    background: hsl(var(--sidebar-background))
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Get Hired Within 9 Months or Get Your Tuition Back
+    subtitle: A guarantee most bootcamps won't offer because they can't back it up
+    description: "<span style=\"font-size: 1.125rem;\">Complete the program, follow the career process, and if you don't land a qualifying tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.</span><div><span style=\"font-size: 1.125rem;\">We offer this because 86% of our graduates get hired within 90 days. The guarantee exists for the other 14% — and it means our incentives are fully aligned with yours.</span></div><div><br><span style=\"font-size: 0.875rem;\">*Not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"color: hsl(var(--primary));\">Terms and conditions apply.</a></span></div>"
+    section_id: why_learn_ai-wxbuh3
     marginY:
-      desktop: none lg
+      desktop: none xl
+    paddingY:
+      desktop: none
+    background: hsl(var(--sidebar-background))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
     description: A maintenance technician, a musician, a support specialist at Microsoft, a philosopher, and people with zero prior experience. All now working in tech.
@@ -374,29 +386,6 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-dc7isf
-  - type: why_learn_ai
-    variant: laptop-edge
-    title: Get Hired Within 9 Months or Get Your Tuition Back
-    subtitle: A guarantee most bootcamps won't offer because they can't back it up
-    description: "<span style=\"font-size: 1.125rem;\">Complete the program, follow the career process, and if you don't land a qualifying tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.</span><div><span style=\"font-size: 1.125rem;\">We offer this because 86% of our graduates get hired within 90 days. The guarantee exists for the other 14% — and it means our incentives are fully aligned with yours.</span></div><div><br><span style=\"font-size: 0.875rem;\">*Not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"color: hsl(var(--primary));\">Terms and conditions apply.</a></span></div>"
-    section_id: why_learn_ai-wxbuh3
-    marginY:
-      desktop: none xl
-    paddingY:
-      desktop: none
-    background: hsl(var(--sidebar-background))
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
   - type: whos_hiring
     variant: carousel
     pretitle: Job Placement
@@ -430,16 +419,27 @@ sections:
     section_id: whos_hiring-vyd58o
     paddingY:
       desktop: none md
+  - type: faq
+    version: v1.0
+    title: Real Questions. Honest Answers
+    related_features:
+      - job-guarantee
+      - outcomes
+      - career-support
+    section_id: faq-qubzh4
+    background: hsl(var(--sidebar-background))
+    marginY:
+      desktop: none lg
   - type: cta_banner
     version: "1.0"
     title: You've Done the Research. 4Geeks Is the Answer.
-    subtitle: Every week you wait is a week someone else gets hired first. Apply in 2 minutes and see which program fits your goals. It's free to apply.
+    subtitle: 84% of our graduates get hired. Fill in yoru details and our admissions team will be in touch shortly.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
