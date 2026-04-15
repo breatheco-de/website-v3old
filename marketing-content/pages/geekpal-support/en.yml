@@ -206,9 +206,7 @@ sections:
         program:
           visible: true
           required: true
-          slugs:
-            - full-stack
-            - data-science-ml
+          default: auto
       success:
         message: Thank you! We'll be in touch soon.
       consent:
