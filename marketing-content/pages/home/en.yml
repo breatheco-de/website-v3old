@@ -531,6 +531,7 @@ sections:
       desktop: none
     maxWidth:
       desktop: none
+    showOn: mobile
   - type: faq
     section_id: faq-31bv5t
     title: Frequently Asked Questions
