@@ -188,6 +188,21 @@ sections:
         col_span: 6
         row_span: 2
     section_id: graduates_stats-cnxqbb
+  - type: article
+    version: v1.0
+    content: |
+      # About Our Program
+
+      You're about to embark on a comprehensive learning experience designed to transform you into a job-ready professional in tech. Our curriculum is built by industry experts and updated regularly to reflect the latest trends and technologies.
+
+      ## What Makes Us Different
+
+      At 4Geeks Academy, we focus on real-world projects and personalized mentorship to ensure your success. With unlimited 1:1 mentorship for life, AI-powered learning with Rigobot tutor, and a Job Guarantee program (conditions apply), you'll never be alone in your learning journey. Our career support never expires, and you'll work on real-world projects from day one.
+
+      Our graduates have gone on to work at companies like Google, Meta, Amazon, and hundreds of innovative startups around the world. We're committed to helping you achieve your career goals in tech.
+    show_toc: false
+    max_width: md
+    section_id: article-985vqm
   - type: two_column
     proportions:
       - 6
