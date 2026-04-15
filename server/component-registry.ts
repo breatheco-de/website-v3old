@@ -546,7 +546,7 @@ export function createExample(
   yamlContent: string,
   sectionId?: string,
   options?: { displayName?: string; description?: string }
-): { success: boolean; filename?: string; exampleName?: string; error?: string } {
+): { success: boolean; filename?: string; exampleName?: string; filePath?: string; error?: string } {
   try {
     const examplesPath = path.join(REGISTRY_PATH, componentType, version, "examples");
     if (!fs.existsSync(examplesPath)) {
