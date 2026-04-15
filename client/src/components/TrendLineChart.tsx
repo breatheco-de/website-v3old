@@ -73,8 +73,8 @@ export function TrendLineChart({
             y1={PAD.top + (1 - t) * innerH}
             x2={PAD.left + innerW}
             y2={PAD.top + (1 - t) * innerH}
-            stroke="#1e293b"
-            strokeWidth="1"
+            stroke="rgba(148,163,184,0.2)"
+            strokeWidth="0.8"
           />
         ))}
 
