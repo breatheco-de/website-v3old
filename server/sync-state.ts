@@ -84,6 +84,11 @@ export function shouldTrackFile(filePath: string, allowedExceptions?: Set<string
   }
   
   if (filePath.includes('component-registry/')) {
+    // Only allow YML files inside the examples/ subfolder
+    // Pattern: component-registry/{type}/{version}/examples/{file}.yml
+    if (/component-registry\/[^/]+\/[^/]+\/examples\/[^/]+\.ya?ml$/.test(filePath)) {
+      return true;
+    }
     return false;
   }
 
