@@ -60,7 +60,7 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
             </div>
             {data.description && (
               <p
-                className="text-base text-muted-foreground leading-relaxed"
+                className="text-base text-muted-foreground leading-relaxed self-center"
                 data-testid="text-stats-charts-description"
               >
                 {data.description}
@@ -110,7 +110,7 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
               {card_bars?.stat_value && (
                 <div className="flex flex-col gap-1 flex-1 md:flex-none">
                   <div
-                    className="text-3xl md:text-4xl font-black tracking-tight leading-none"
+                    className="text-3xl md:text-4xl font-extrabold tracking-tight leading-none"
                     style={{ color: hslColorRaw(barsR) }}
                     data-testid="text-stats-charts-bars-value"
                   >
