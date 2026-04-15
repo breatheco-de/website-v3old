@@ -136,7 +136,6 @@ sections:
     subtitle: This is your opportunity.
     title: <!--StartFragment--><h2 class="text-2xl md:text-h2 mb-2 text-foreground" data-testid="text-stats-text-title">AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.</h2><!--EndFragment-->
     description: Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.
-    background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
     card_gauge_accent: hsl(var(--destructive) / 0.5)
     card_trend_accent: hsl(var(--accent))
