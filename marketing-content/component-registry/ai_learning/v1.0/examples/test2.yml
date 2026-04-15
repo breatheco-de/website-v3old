@@ -1,0 +1,44 @@
+name: test2
+yaml: |
+  - type: ai_learning
+    section_id: ai_learning-bohkbh
+    variant: feature-tabs
+    badge: Why 4Geeks?
+    title: How You’ll Learn at 4Geeks
+    description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.
+    features:
+      - icon: Robot
+        title: Progress faster with AI-powered tools
+        description: ''
+        show_rigobot_logo: true
+        bullets:
+          - text: Instant feedback from Rigobot, our custom AI tutor
+          - text: Advice adjusted to your skill level and progress
+          - text: 24/7 help with debugging and problem-solving
+          - text: Hundreds of interactive coding exercises and tests
+        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
+      - icon: TrendingUp
+        title: Thrive in tech with career support for the AI-Era
+        description: ''
+        show_rigobot_logo: true
+        bullets:
+          - text: Personalized 1:1 coaching
+          - text: AI-ready resumes and portfolios
+          - text: Interview prep and salary negotiation
+          - text: Lifelong access to support your growth
+        video_url: https://youtu.be/-2ZvlgDnltc
+      - icon: Headset
+        title: Unlimited 1:1 mentorship and an active community
+        description: ''
+        show_rigobot_logo: true
+        bullets:
+          - text: Lifelong access to 1:1 mentorship sessions
+          - text: {{ global.global_teacher_student_ratio | 7:1 }} student–teacher ratio for personalized guidance
+          - text: Peer collaboration through Slack channels and weekly check-ins
+          - text: Dedicated Slack channels for coding support, job boards, and career advice
+        image_id: community-support-cropped
+    marginY:
+      desktop: md none
+    paddingY:
+      desktop: md
+description: test333

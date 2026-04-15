@@ -850,6 +850,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const theme = JSON.parse(fs.readFileSync(themePath, "utf-8"));
       theme.colors = { light: light || {}, dark: dark || {} };
       fs.writeFileSync(themePath, JSON.stringify(theme, null, 2));
+      markFileAsModified('marketing-content/theme.json');
       res.json({ success: true });
     } catch (error) {
       console.error("Error saving theme colors:", error);
@@ -868,6 +869,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const theme = JSON.parse(fs.readFileSync(themePath, "utf-8"));
       theme.preview_examples = Array.isArray(examples) ? examples : [];
       fs.writeFileSync(themePath, JSON.stringify(theme, null, 2));
+      markFileAsModified('marketing-content/theme.json');
       res.json({ success: true });
     } catch (error) {
       console.error("Error saving preview examples:", error);
@@ -954,6 +956,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const tmpPath = path.join(themeDir, `.theme.${Date.now()}.tmp`);
       fs.writeFileSync(tmpPath, JSON.stringify(theme, null, 2));
       fs.renameSync(tmpPath, themePath);
+      markFileAsModified('marketing-content/theme.json');
 
       if (unknownVarWarnings.length > 0) {
         res.json({ ok: true, warnings: unknownVarWarnings });
@@ -6421,6 +6424,11 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         return;
       }
 
+      if (result.filePath) {
+        const relPath = path.relative(process.cwd(), result.filePath);
+        markFileAsModified(relPath, undefined, new Set([relPath]));
+      }
+
       res.json({ success: true });
     },
   );
@@ -6452,6 +6460,11 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       if (!result.success) {
         res.status(400).json({ error: result.error });
         return;
+      }
+
+      if (result.filePath) {
+        const relPath = path.relative(process.cwd(), result.filePath);
+        markFileAsModified(relPath, undefined, new Set([relPath]));
       }
 
       res.json({ success: true, filename: result.filename, exampleName: result.exampleName });
@@ -6513,6 +6526,10 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         res.status(400).json({ error: result.error });
         return;
       }
+      if (result.filePath) {
+        const relPath = path.relative(process.cwd(), result.filePath);
+        markFileAsModified(relPath, undefined, new Set([relPath]));
+      }
       res.json({ success: true });
     }
   );
@@ -6526,6 +6543,17 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       if (!variantResult.success) {
         res.status(400).json({ error: variantResult.error });
         return;
+      }
+
+      const cwd = process.cwd();
+      const allDeletedPaths = [
+        variantResult.tsxPath,
+        ...variantResult.deletedExamplePaths,
+      ];
+      const relPaths = allDeletedPaths.map((p) => path.relative(cwd, p));
+      const exceptions = new Set(relPaths);
+      for (const relPath of relPaths) {
+        markFileAsModified(relPath, undefined, exceptions);
       }
 
       const pagesAffected = contentIndex.removeAllVariantSectionsFromPages(componentType, decodeURIComponent(variantName));
