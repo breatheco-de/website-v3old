@@ -208,15 +208,21 @@ export default function HeroProductShowcase({
                 <h1 className="font-heading text-4xl md:text-h1 tracking-tight">
                   {data.brand_mark.prefix && (
                     <span className="text-foreground">
-                      {data.brand_mark.prefix}{" "}
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: `${data.brand_mark.prefix} `,
+                        }}
+                      />
                     </span>
                   )}
                   <span
                     style={{
                       color: colorMap[data.brand_mark.color || "primary"],
                     }}
+                    dangerouslySetInnerHTML={{
+                      __html: data.brand_mark.highlight || "",
+                    }}
                   >
-                    {data.brand_mark.highlight}
                   </span>
                   {data.brand_mark.suffix && (
                     <span className="text-foreground">
@@ -229,9 +235,8 @@ export default function HeroProductShowcase({
               <h2
                 className="text-4xl lg:text-5xl font-medium text-foreground mb-3 md:mb-0"
                 data-testid="text-hero-title"
-              >
-                {data.title}
-              </h2>
+                dangerouslySetInnerHTML={{ __html: data.title || "" }}
+              />
 
               {subtitle && (
                 <p

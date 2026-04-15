@@ -6,8 +6,6 @@ meta:
   og_image: /images/programs/full-stack-og.jpg
   priority: 0.9
   change_frequency: weekly
-  page_title: Bootcamp Full Stack con IA en LATAM | 4Geeks Academy
-  description: Conviértete en Desarrollador Full Stack con IA en 20 semanas. Mentoría ilimitada 1:1, Garantía de Empleo y proyectos reales. Salarios iniciales de $45K+.
 schema:
   include:
     - organization
