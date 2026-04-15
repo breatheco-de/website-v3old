@@ -25,11 +25,11 @@ sections:
       prefix: Break Your Career
       highlight: Ceiling.
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\"><span>AI Engineering: the fastest-growing job of 2026. 1.3M new roles. 42× growth since 2023. In 24 weeks, that's your new career, with roles paying $95K–$135K+.</span></span>"
+    description: "<span style=\"font-size: 1.125rem;\">84% of our graduates get hired. AI Engineering is the fastest-growing job of 2026: 1.3M new roles, 42× growth since 2023. We teach what the market needs, and get you hired.</span>"
     bullets:
-      - text: Learn to build a complete AI-native business, from intelligent agents and automation to real-time systems
-      - text: Unlimited 1:1 mentorship and career support that doesn't stop at graduation
-      - text: "Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
+      - text: Learn to build complete AI-native systems — exactly what companies are actively hiring for
+      - text: "GeekFORCE career support: resume, interviews, employer network, and coaching that continues for life"
+      - text: "Optional Job Guarantee: get hired within 9 months or we refund your full tuition"
     image_object_fit: none
     form:
       variant: stacked
@@ -40,82 +40,20 @@ sections:
         email:
           visible: true
           required: true
-          placeholder: Email Address
+          placeholder: Email address
         first_name:
           visible: true
           required: true
-          placeholder: First Name
+          placeholder: First name
         last_name:
           visible: true
           required: true
-          placeholder: Last Name
+          placeholder: Last name
         phone:
           visible: true
           required: true
           default_country: US
-        program:
-          visible: true
-          default: ai-engineering
-      success:
-        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
-      terms_url: /terms-and-conditions
-      privacy_url: /privacy-policy
-      consent:
-        sms: true
-        marketing: true
-        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
-        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
-        sms_usa_only: true
-      show_terms: true
-    form_vertical_align: top
-    form_card_text_color: hsl(var(--foreground))
-    form_card_title: Get the Full AI Engineering Program Details
-    form_card_subtitle: "Fill in your details and our admissions team will send you everything you need: program descriptions, requirements, and financing options. It only takes 2 minutes."
-    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-    awards_marquee:
-      items:
-        - id: switchup-2025
-          alt: SwitchUp - Best Coding Bootcamps 2025
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-          logoHeight: 55px
-        - id: course-report-2024
-          alt: Course Report - Best Coding Bootcamp 2024
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
-          logoHeight: 55px
-        - id: tech-hub
-          alt: South Florida Tech Hub
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
-          logoHeight: 55px
-        - id: ebootcamp
-          alt: eBootcamp Top
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
-          logoHeight: 55px
-        - id: premios-tecnologia
-          alt: Premios Tecnología Siglo XXI
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-          logoHeight: 55px
-        - id: newsweek
-          alt: Newsweek
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
-          logoHeight: 55px
-        - id: reviews-coursereport
-          alt: 4.9 Stars on Course Report Reviews
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-          logoHeight: 55px
-        - id: excelencia-educativa
-          alt: Educational Excellence - Institutional Quality
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
-          logoHeight: 55px
-    video_title: GeekForce Career Support
-    marginY:
-      desktop: none
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-    paddingY:
-      desktop: md none
-    marginX:
-      desktop: none
     section_id: hero-nzpyph
-    awards_marquee_at_left_column: true
   - type: sticky_cta
     section_id: sticky_cta-k7207r
     version: "1.0"
