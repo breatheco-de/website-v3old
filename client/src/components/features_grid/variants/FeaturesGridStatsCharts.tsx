@@ -34,7 +34,6 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
 
   return (
     <section
-      className="py-14"
       data-testid="section-features-grid-stats-charts"
     >
       <div className="max-w-6xl mx-auto px-4 lg:px-6 flex flex-col">
