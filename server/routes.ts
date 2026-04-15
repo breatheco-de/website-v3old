@@ -6421,6 +6421,11 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         return;
       }
 
+      if (result.filePath) {
+        const relPath = path.relative(process.cwd(), result.filePath);
+        markFileAsModified(relPath, undefined, new Set([relPath]));
+      }
+
       res.json({ success: true });
     },
   );
@@ -6452,6 +6457,11 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       if (!result.success) {
         res.status(400).json({ error: result.error });
         return;
+      }
+
+      if (result.filePath) {
+        const relPath = path.relative(process.cwd(), result.filePath);
+        markFileAsModified(relPath, undefined, new Set([relPath]));
       }
 
       res.json({ success: true, filename: result.filename, exampleName: result.exampleName });
@@ -6513,6 +6523,10 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         res.status(400).json({ error: result.error });
         return;
       }
+      if (result.filePath) {
+        const relPath = path.relative(process.cwd(), result.filePath);
+        markFileAsModified(relPath, undefined, new Set([relPath]));
+      }
       res.json({ success: true });
     }
   );
@@ -6526,6 +6540,17 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       if (!variantResult.success) {
         res.status(400).json({ error: variantResult.error });
         return;
+      }
+
+      const cwd = process.cwd();
+      const allDeletedPaths = [
+        variantResult.tsxPath,
+        ...variantResult.deletedExamplePaths,
+      ];
+      const relPaths = allDeletedPaths.map((p) => path.relative(cwd, p));
+      const exceptions = new Set(relPaths);
+      for (const relPath of relPaths) {
+        markFileAsModified(relPath, undefined, exceptions);
       }
 
       const pagesAffected = contentIndex.removeAllVariantSectionsFromPages(componentType, decodeURIComponent(variantName));

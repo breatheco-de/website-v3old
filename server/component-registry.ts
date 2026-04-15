@@ -344,7 +344,7 @@ export function saveExample(
   version: string, 
   exampleName: string, 
   yamlContent: string
-): { success: boolean; error?: string } {
+): { success: boolean; filePath?: string; error?: string } {
   try {
     const examplesPath = path.join(REGISTRY_PATH, componentType, version, "examples");
     
@@ -398,7 +398,7 @@ export function saveExample(
     
     fs.writeFileSync(filePath, yamlOutput);
     
-    return { success: true };
+    return { success: true, filePath };
   } catch (error) {
     console.error(`Error saving example for ${componentType}/${version}:`, error);
     return { success: false, error: String(error) };
@@ -468,7 +468,7 @@ export function deleteExample(
   componentType: string,
   version: string,
   exampleName: string
-): { success: boolean; error?: string } {
+): { success: boolean; filePath?: string; error?: string } {
   try {
     const examplesPath = path.join(REGISTRY_PATH, componentType, version, "examples");
     if (!fs.existsSync(examplesPath)) {
@@ -494,8 +494,9 @@ export function deleteExample(
       return { success: false, error: `Example "${exampleName}" not found` };
     }
 
-    fs.unlinkSync(path.join(examplesPath, targetFile));
-    return { success: true };
+    const deletedFilePath = path.join(examplesPath, targetFile);
+    fs.unlinkSync(deletedFilePath);
+    return { success: true, filePath: deletedFilePath };
   } catch (error) {
     console.error(`Error deleting example ${exampleName} for ${componentType}/${version}:`, error);
     return { success: false, error: String(error) };
@@ -505,8 +506,9 @@ export function deleteExample(
 function deleteVariantExamples(
   componentType: string,
   variantName: string
-): { deleted: string[]; errors: string[] } {
+): { deleted: string[]; deletedPaths: string[]; errors: string[] } {
   const deleted: string[] = [];
+  const deletedPaths: string[] = [];
   const errors: string[] = [];
   const versions = listVersions(componentType);
   const normalizedTarget = normalizeVariantName(variantName);
@@ -528,13 +530,14 @@ function deleteVariantExamples(
         if (normalizeVariantName(exVariant) === normalizedTarget) {
           fs.unlinkSync(filePath);
           deleted.push(data.name || file);
+          deletedPaths.push(filePath);
         }
       } catch (e) {
         errors.push(`${v}/${file}: ${String(e)}`);
       }
     }
   }
-  return { deleted, errors };
+  return { deleted, deletedPaths, errors };
 }
 
 export function createExample(
@@ -588,8 +591,9 @@ export function createExample(
       forceQuotes: false,
     });
 
-    fs.writeFileSync(path.join(examplesPath, filename), fileContent);
-    return { success: true, filename, exampleName: yamlTitle };
+    const fullFilePath = path.join(examplesPath, filename);
+    fs.writeFileSync(fullFilePath, fileContent);
+    return { success: true, filename, exampleName: yamlTitle, filePath: fullFilePath };
   } catch (error) {
     console.error(`Error creating example for ${componentType}/${version}:`, error);
     return { success: false, error: String(error) };
@@ -599,13 +603,13 @@ export function createExample(
 export function deleteVariant(
   componentType: string,
   variantName: string
-): { success: boolean; deletedExamples: string[]; error?: string } {
+): { success: boolean; deletedExamples: string[]; deletedExamplePaths: string[]; tsxPath: string; error?: string } {
   try {
     const tsxPath = resolveVariantTsxPath(componentType, variantName);
     if (fs.existsSync(tsxPath)) {
       fs.unlinkSync(tsxPath);
     }
-    const { deleted } = deleteVariantExamples(componentType, variantName);
+    const { deleted, deletedPaths } = deleteVariantExamples(componentType, variantName);
 
     // If no variant TSX files remain, clean up the orphaned directories
     const variantsDir = path.join(process.cwd(), "client", "src", "components", componentType, "variants");
@@ -621,10 +625,10 @@ export function deleteVariant(
       }
     }
 
-    return { success: true, deletedExamples: deleted };
+    return { success: true, deletedExamples: deleted, deletedExamplePaths: deletedPaths, tsxPath };
   } catch (error) {
     console.error(`Error deleting variant ${variantName} for ${componentType}:`, error);
-    return { success: false, deletedExamples: [], error: String(error) };
+    return { success: false, deletedExamples: [], deletedExamplePaths: [], tsxPath: resolveVariantTsxPath(componentType, variantName), error: String(error) };
   }
 }
 

@@ -97,7 +97,7 @@ function isContentTypeFile(filePath: string): boolean {
  * If auto-commit is disabled, does nothing.
  * Starts/resets the throttle timer.
  */
-export function queueFileChange(filePath: string, author?: string): void {
+export function queueFileChange(filePath: string, author?: string, allowedExceptions?: Set<string>): void {
   if (!isAutoCommitEnabled()) return;
 
   const cwd = process.cwd();
@@ -107,13 +107,13 @@ export function queueFileChange(filePath: string, author?: string): void {
     relativePath = filePath.startsWith(cwd)
       ? filePath.slice(cwd.length + 1)
       : filePath;
-  } else if (filePath.startsWith('marketing-content/')) {
+  } else if (filePath.startsWith('marketing-content/') || filePath.startsWith('client/')) {
     relativePath = filePath;
   } else {
     relativePath = `marketing-content/${filePath}`;
   }
 
-  if (!shouldTrackFile(relativePath)) return;
+  if (!shouldTrackFile(relativePath, allowedExceptions)) return;
 
   const resolvedAuthor = author || (isContentTypeFile(relativePath) ? 'Unknown' : 'System');
 
