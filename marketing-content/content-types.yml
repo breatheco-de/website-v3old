@@ -149,5 +149,5 @@ downloadable:
 outcome-report:
   directory: outcome-report
   url_pattern:
-    en: /en/outcome-report/:slug
-    es: /es/outcome-report/:slug
+    en: /en/outcomes-report/:slug
+    es: /es/informe-de-resultados/:slug
