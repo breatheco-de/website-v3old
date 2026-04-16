@@ -19,9 +19,9 @@ sections:
     variant: ApplyFormProductShowcase
     title: ""
     brand_mark:
-      prefix: Conviértete en
-      highlight: Ingeniero de IA
-      suffix: y construye sistemas reales, listos para producción.
+      prefix: De aprender a usar IA,
+      highlight: a construir con ella.
+      suffix: Conviertete en AI Engineer
       color: primary
     description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando, en 24 semanas.
     form:
