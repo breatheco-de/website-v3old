@@ -602,7 +602,7 @@ sections:
     variant: carousel
     pretitle: Job Placement
     title: Where Our Graduates Work
-    subtitle: 5,000+ alumni are already on the job. From funded startups to global tech leaders, here's where they landed.
+    subtitle: From funded startups to global tech leaders, our graduates work at some of the most recognized companies worldwide.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
