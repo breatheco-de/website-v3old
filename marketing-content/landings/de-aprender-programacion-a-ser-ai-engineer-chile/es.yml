@@ -219,7 +219,7 @@ sections:
     version: "1.0"
     variant: stats-text-card
     title: ¿Por qué aprender Ingeniería de IA ahora?
-    subtitle: El 87% de las empresas no encuentra los ingenieros que necesita. Tú puedes ser uno de ellos.
+    subtitle: El 87% de las empresas ya no busca programadores pero tampoco encuentra los ingenieros que necesitan. Tú puedes ser uno de ellos.
     description: La IA está transformando cómo operan las empresas, desde automatización hasta productos inteligentes en producción. Sin embargo, el talento especializado no está creciendo al mismo ritmo. Según McKinsey, el 87% de las empresas no encuentra ingenieros de IA preparados para liderar estos cambios. Esa brecha no es un riesgo. Es tu oportunidad si decides formarte hoy.
     card_color: bg-background
     background: hsl(var(--secondary))
