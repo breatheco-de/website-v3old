@@ -21,7 +21,6 @@ sections:
     brand_mark:
       prefix: De aprender Programación a convertite en
       highlight: Ingeniero de IA
-      suffix: antes de que sea demasiado tarde
       color: primary
     description: No se trata solo de aprender a programar, sino de construir soluciones con IA.
     form:
