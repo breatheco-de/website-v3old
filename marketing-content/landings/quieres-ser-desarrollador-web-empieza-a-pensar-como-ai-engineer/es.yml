@@ -19,8 +19,8 @@ sections:
     variant: ApplyFormProductShowcase
     title: ""
     brand_mark:
-      prefix: ¿Quieres ser Desarrollador Web?
-      highlight: Piensa como Ingeniero de IA
+      prefix: ¿Quieres ser Desarrollador Web? Mejor piensa como
+      highlight: Ingeniero de IA
       color: primary
     description: No se trata solo de aprender a programar, sino de construir soluciones con IA.
     form:
