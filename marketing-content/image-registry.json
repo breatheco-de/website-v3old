@@ -9386,6 +9386,19 @@
       "width": 700,
       "height": 380,
       "format": "webp"
+    },
+    "group-7087-1-680x392": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/group-7087-1-680x392.webp",
+      "alt": "Image: Group 7087 (1)",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 680,
+      "height": 392,
+      "format": "webp"
     }
   }
 }
