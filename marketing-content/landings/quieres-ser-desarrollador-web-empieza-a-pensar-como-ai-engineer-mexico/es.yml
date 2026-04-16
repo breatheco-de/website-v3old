@@ -22,7 +22,7 @@ sections:
       prefix: ¿Quieres ser Desarrollador Web? Mejor piensa como
       highlight: Ingeniero de IA
       color: primary
-    description: Programar es el inicio. Construir soluciones con IA es el siguiente nivel.
+    description: Construye soluciones con IA, no solo código. Incluye Full Stack, IA y automatización.
     form:
       variant: stacked
       conversion_name: student_application
