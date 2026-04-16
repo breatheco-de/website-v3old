@@ -87,7 +87,7 @@ sections:
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thiriving in tech.
     stats:
-      - value: 84%
+      - value: {{ global.global_job_placement_rate | 84% }}%
         label: Average hiring rate
       - value: 55%
         label: Average salary increase at new position
