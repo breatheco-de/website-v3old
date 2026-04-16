@@ -19,10 +19,10 @@ sections:
     variant: ApplyFormProductShowcase
     title: ""
     brand_mark:
-      prefix: Aprender Python, Data Science o ML ya no es suficiente.
+      prefix: Cursos de Python, Data o ML no alcanzan.
       highlight: Piensa en AI.
       color: primary
-    description: Programar es el inicio. Construir soluciones con IA es el siguiente nivel.
+    description: Data Science, analiza. AI Engineering, ejecuta. Convierte modelos en automatizaciones y sistemas con IA.
     form:
       variant: stacked
       conversion_name: student_application
