@@ -9413,6 +9413,20 @@
       "width": 695,
       "height": 382,
       "format": "webp"
+    },
+    "chatgpt-image-mar-26-2026-04-28-27-pm-170x500": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-170x500.webp",
+      "alt": "Image: ChatGPT Image Mar 26, 2026, 04_28_27 PM",
+      "focal_point": "center",
+      "tags": [
+        "avatar",
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 170,
+      "height": 500,
+      "format": "webp"
     }
   }
 }
