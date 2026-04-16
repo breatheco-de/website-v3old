@@ -1,0 +1,18 @@
+slug: 4geeks-academy-madrid-espaa-ingeniera-de-ia-desarrollo-full-stack-con-ia-ciencia-de-datos-y-ciberseguridad
+locale: es
+title: 4geeks academy Madrid España Ingeniería de IA, Desarrollo Full Stack con IA, Ciencia de Datos y Ciberseguridad
+meta:
+  page_title: Programas España| formación en AI Engineering, Data Science, Desarrollo de Software y Ciberseguridad.
+  description: >-
+    La Inteligencia Artificial ya está transformando el empleo. Prepárate para liderar el cambio con formación práctica
+    en AI Engineering, Data Science, Desarrollo de Software y Ciberseguridad.
+  robots: index, follow
+  og_image: /images/landing-og.jpg
+  priority: 0.9
+  change_frequency: weekly
+schema:
+  include:
+    - organization
+    - website
+locations:
+  - madrid-spain
