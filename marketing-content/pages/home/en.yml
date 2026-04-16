@@ -101,7 +101,7 @@ sections:
         id: gemini-generated-image-uwpyyruwpyyruwpy
         object_scale: 1.1
         object_position: 50% 30%
-      - image_id: group-7086-1
+      - image_id: group-7086-1-800x440
         col_span: 7
         row_span: 2
         alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
