@@ -1,0 +1,12 @@
+slug: de-aprender-programacion-a-ser-ai-engineer-mexico
+title: de aprender programacion a ser ai engineer mexico
+locale: es
+meta:
+  og_image: /images/programs/ai-engineering-og.jpg
+schema:
+  include:
+    - organization
+    - website
+    - courses:ai-engineering
+locations:
+  - mexicocity-mexico
