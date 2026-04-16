@@ -22,7 +22,7 @@ sections:
       prefix: ¿Quieres ser Desarrollador Web? Mejor piensa como
       highlight: Ingeniero de IA
       color: primary
-    description: No se trata solo de aprender a programar, sino de construir soluciones con IA.
+    description: Aprende a construir soluciones con IA, no solo a programar.
     form:
       variant: stacked
       conversion_name: student_application
