@@ -8,7 +8,7 @@ sections:
       color: primary
     description: "<span style=\"font-size: 1.125rem;\"><span>La IA está transformando el trabajo. Prepárate en menos de 6 meses para aplicar estas habilidades en el mundo real.</span></span>"
     bullets:
-      - text: Aprende las habilidades que las empresas tecnológicas contratan ahora mismo
+      - text: Aprende las habilidades que las empresas contratan ahora mismo
       - text: La única academia que no termina cuando te gradúas, mentoría ilimitada de por vida incluida
       - text: Opciones de financiación flexibles, tenemos planes de pago a 10, 12 y 18 meses
     image_object_fit: none
