@@ -15,10 +15,10 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Most Bootcamps Teach Skills. 4Geeks Gets You Hired.
+    title: 84% of Our Graduates Land Tech Jobs.
     brand_mark:
-      prefix: 84% of Our Graduates
-      highlight: Land Tech Jobs.
+      prefix: Most Bootcamps Teach Skills.
+      highlight: 4Geeks Gets You Hired.
       color: primary
     description: "<span style=\"font-size: 1.125rem;\">Learn the AI-driven skills the market needs, backed by a support system that gets you hired, across AI Engineering, Full Stack, Data Science, and Cybersecurity.</span>"
     bullets:
