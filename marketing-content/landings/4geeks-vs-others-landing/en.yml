@@ -15,9 +15,9 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Most Programs Teach Skills. 4Geeks Gets You Hired.
+    title: Bootcamps Teach Skills. 4Geeks Gets You Hired.
     brand_mark:
-      prefix: The Bootcamp That
+      prefix: The Program That
       highlight: Gets You Hired.
       color: primary
     description: "<span style=\"font-size: 1.125rem;\">84% of our graduates get hired. We launch careers with unlimited 1:1 mentorship, lifelong career support, and programs built for the AI-driven job market.</span>"
