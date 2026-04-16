@@ -10,8 +10,6 @@ import { createElement } from "react";
 import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
 
-const BLOG_IMAGE_FALLBACK = "https://storage.googleapis.com/4geeks-academy-website/media/Group-original_1765419144159.webp";
-
 const DEFAULT_AVATAR_IDS = [
   "woman-profile-headshot-1-608aff01",
   "man-profile-headshot-1-0850c276",
@@ -121,38 +119,18 @@ export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
       </div>
 
       {(data.image?.src || (data as any).image_id) && (
-        <div className={data.image_full_width ? "w-full mt-8 object-cover" : "max-w-6xl mx-auto px-4 mt-8 flex justify-center"}>
-          {data.image?.src ? (
-            <div className={`relative overflow-hidden ${data.image_full_width ? "max-h-[250px]" : ""} h-auto object-cover rounded-none`}>
-              <img
-                src={data.image.src}
-                alt={data.image.alt || ""}
-                loading="lazy"
-                className="w-full h-full object-cover"
-                style={{
-                  width: data.image_width || '100%',
-                  ...(data.image_full_width ? {} : { borderRadius: '0.8rem' }),
-                }}
-                onError={(e) => {
-                  e.currentTarget.src = data.image?.fallback ?? BLOG_IMAGE_FALLBACK;
-                  e.currentTarget.onerror = null;
-                }}
-                data-testid="img-hero-single-column"
-              />
-            </div>
-          ) : (
-            <UniversalImage
-              id={(data as any).image_id}
-              alt=""
-              className={`h-auto object-cover rounded-none ${data.image_full_width ? "max-h-[250px]" : ""}`}
-              style={{
-                width: data.image_width || '100%',
-                ...(data.image_full_width ? {} : { borderRadius: '0.8rem' }),
-              }}
-              data-testid="img-hero-single-column"
-              fieldContext={{ fieldPath: "image_id" }}
-            />
-          )}
+        <div className={data.image_full_width ? "w-full mt-8" : "max-w-6xl mx-auto px-4 mt-8 flex justify-center"}>
+          <UniversalImage
+            id={data.image?.src ?? (data as any).image_id}
+            alt={data.image?.alt || ""}
+            className={`h-auto rounded-none ${data.image_full_width ? "max-h-[250px]" : ""}`}
+            style={{
+              width: data.image_width || '100%',
+              ...(data.image_full_width ? {} : { borderRadius: '0.8rem' }),
+            }}
+            data-testid="img-hero-single-column"
+            fieldContext={(data as any).image_id ? { fieldPath: "image_id" } : undefined}
+          />
         </div>
       )}
     </section>
