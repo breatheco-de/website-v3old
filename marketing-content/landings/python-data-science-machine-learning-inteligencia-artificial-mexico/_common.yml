@@ -6,10 +6,8 @@ meta:
   robots: index, follow
   priority: 0.9
   change_frequency: weekly
-  page_title: De aprender Programación a ser AI Engineer | 4Geeks Academy
-  description: >-
-    Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando — en solo 24
-    semanas.
+  page_title: Bootcamp de Ingeniería de IA con Python en México | 4Geeks Academy
+  description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando — en solo 24 semanas.
 schema:
   include:
     - organization
