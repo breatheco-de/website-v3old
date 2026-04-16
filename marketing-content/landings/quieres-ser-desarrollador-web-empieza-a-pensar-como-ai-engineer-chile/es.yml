@@ -19,8 +19,8 @@ sections:
     variant: ApplyFormProductShowcase
     title: ""
     brand_mark:
-      prefix: ¿Quier ser Desarrollador Web? Empieza por
-      highlight: Ingeniería de IA
+      prefix: ¿Quieres ser Desarrollador Web? Mejor piensa como
+      highlight: Ingeniero de IA
       color: primary
     description: Construye soluciones con IA, no solo código. Incluye Full Stack, IA y automatización.
     form:
