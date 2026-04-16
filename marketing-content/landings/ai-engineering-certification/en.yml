@@ -126,7 +126,7 @@ sections:
     form:
       variant: inline
       conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
+      submit_label: Get in Touch
       tags: website-lead
       fields:
         email:
@@ -149,6 +149,7 @@ sections:
         message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
     paddingY:
       desktop: none sm
+    load: eager
   - type: graduates_stats
     maxWidth:
       desktop: 6xl
