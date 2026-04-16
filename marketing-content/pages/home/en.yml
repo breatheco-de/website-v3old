@@ -109,7 +109,7 @@ sections:
         object_scale: 1
         transform_origin: 50% 50%
         object_position: 50% 60%
-      - image_id: group-7084-1
+      - image_id: group-7084-1-695x382
         col_span: 6
         row_span: 2
         alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
