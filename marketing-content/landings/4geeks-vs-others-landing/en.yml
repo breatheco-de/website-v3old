@@ -238,7 +238,7 @@ sections:
     maxWidth:
       desktop: 6xl
     version: v1.0
-    heading: Get Hired. Career Support That Doesn't Stop at Graduation.
+    heading: Career Support That Never Ends
     description: AI-optimized profiles, direct access to a network of 400+ hiring partners, and hands-on support from first application to signed offer, and beyond.
     background: hsl(var(--sidebar-background))
     tabs:
