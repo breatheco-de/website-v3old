@@ -15,37 +15,37 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Most Bootcamps Teach Skills. 4Geeks Gets You Hired.
+    title: Most Programs Teach Skills. 4Geeks Gets You Hired.
     brand_mark:
-      prefix: Stop Paying for
-      highlight: Courses That Don't Land Jobs.
+      prefix: The Bootcamp That
+      highlight: Gets You Hired.
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\"><span>86% of 4Geeks graduates get hired within 90 days. Unlimited 1:1 mentorship for life. A Job Guarantee that refunds your tuition if you don't land a tech role within 9 months. This is what a bootcamp looks like when it's built around your outcome, not your enrollment.</span></span>"
+    description: "<span style=\"font-size: 1.125rem;\">84% of our graduates get hired. We launch careers with unlimited 1:1 mentorship, lifelong career support, and programs built for the AI-driven job market.</span>"
     bullets:
-      - text: "Optional Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
-      - text: Unlimited 1:1 mentorship and career support that does not stop at graduation
-      - text: Flexible financing available, including zero upfront payment options
+      - text: "Optional Job Guarantee: get hired within 9 months or we refund your full tuition"
+      - text: Unlimited 1:1 mentorship and career coaching, available for life
+      - text: 4.9/5 rating across 3,000+ reviews on Course Report, Google, and SwitchUp
     image_object_fit: none
     video_id: "-2ZvlgDnltc"
     video_ratio: "9:12"
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Get more information
+      submit_label: Talk to Admissions
       tags: website-lead
       fields:
         email:
           visible: true
           required: true
-          placeholder: Email Address
+          placeholder: Email address
         first_name:
           visible: true
           required: true
-          placeholder: First Name
+          placeholder: First name
         last_name:
           visible: true
           required: true
-          placeholder: Last Name
+          placeholder: Last name
         phone:
           visible: true
           required: true
@@ -54,20 +54,20 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Congratulations for taking the first step! Someone from our admissions team will email you shortly. Check your inbox.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
-        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe at any time.
+        sms_text: I agree to receive SMS messages about workshops, events, courses and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4-6 messages per month. We will never share your contact information.
         sms_usa_only: true
       show_terms: true
-    form_vertical_align: top
+    form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
-    form_card_title: Find Out About Our Programs
-    form_card_subtitle: "Takes 2 minutes. Our admissions team will walk you through your options: programs, pricing, and financing."
+    form_card_title: Find Out Which Program Is Right for You
+    form_card_subtitle: "Fill in your details and our admissions team will walk you through your options: programs, pricing, and financing. It only takes 2 minutes."
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: true
     awards_marquee:
