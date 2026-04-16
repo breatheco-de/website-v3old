@@ -97,12 +97,7 @@ sections:
     pills:
       - category: Institutional Backing
         logos:
-          - image_id: logo_razz
-            alt: Razz logo
-            id: logo-razz
-          - image_id: logo_overseas
-            alt: Overseas logo
-            id: logo-overseas
+          - image_id: forbes-logo-c8a5f1b2
         label: Chosen Partners of 12+ Universities
       - category: Graduate Outcomes
         logos:

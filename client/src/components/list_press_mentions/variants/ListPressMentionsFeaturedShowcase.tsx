@@ -141,7 +141,7 @@ export default function ListPressMentionsFeaturedShowcase({ data }: ListPressMen
       style={bgStyle}
       data-testid="section-press-mentions-showcase"
     >
-      <div className="flex flex-col gap-8">
+      <div className="max-w-6xl mx-auto px-4 flex flex-col gap-8">
 
         {/* Header */}
         {(data.title || data.subtitle) && (

@@ -834,7 +834,7 @@ export default function CareerSupportExplain({ data }: CareerSupportExplainProps
       style={data.background ? { background: data.background } : undefined}
       data-testid="section-career-support-explain"
     >
-      <div className="py-12 md:py-16">
+      <div className="max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-16">
         {(heading || description) && (
           <div className="text-center mb-10">
             {heading && (
@@ -931,7 +931,7 @@ export default function CareerSupportExplain({ data }: CareerSupportExplainProps
         )}
 
         <div
-          className="h-auto lg:h-[480px] px-6 md:px-[60px]"
+          className="h-auto lg:h-[480px] mx-2 md:mx-6 lg:mx-12"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
