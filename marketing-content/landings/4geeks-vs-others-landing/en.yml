@@ -22,7 +22,7 @@ sections:
       color: primary
     description: "<span style=\"font-size: 1.125rem;\">Learn the AI-driven skills the market needs, backed by a support system that gets you hired, across AI Engineering, Full Stack, Data Science, and Cybersecurity.</span>"
     bullets:
-      - text: "Optional Job Guarantee: get hired within 9 months or we refund your full tuition"
+      - text: "Optional Job Guarantee: get hired within 9 months or we refund your tuition"
       - text: Unlimited 1:1 mentorship and career coaching, available for life
       - text: 4.9/5 rating across 3,000+ reviews on Course Report, Google, and SwitchUp
     image_object_fit: none
