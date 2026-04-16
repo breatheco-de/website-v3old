@@ -22,7 +22,7 @@ sections:
       prefix: De aprender Programación a convertirte en
       highlight: Ingeniero de IA
       color: primary
-    description: Programar es el inicio. Construir soluciones con IA es el siguiente nivel. En 24 semanas estarás desarrollando las habilidades que las empresas en México y el mundo están intentando contratar.
+    description: Programar es el inicio. Construir soluciones con IA es el siguiente nivel.
     form:
       variant: stacked
       conversion_name: student_application
@@ -67,6 +67,7 @@ sections:
       muted: true
     section_id: hero-aawpfv
     bullets:
+      - text: En 24 semanas estarás desarrollando las habilidades que las empresas en México y el mundo están intentando contratar.
       - text: La única academia que no termina cuando te gradúas, mentoría ilimitada de por vida incluida
       - text: Opciones de financiación flexibles, con planes de pago a 10, 12 y 18 meses.
     paddingY:
