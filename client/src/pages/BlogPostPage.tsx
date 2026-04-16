@@ -179,7 +179,7 @@ export default function BlogPostPage() {
                   </a>
                 ),
                 img: ({ src, alt, ...props }) => (
-                  <img src={src} alt={alt || ""} className="h-64 w-auto max-w-full rounded-md" loading="lazy" {...props} />
+                  <img src={src} alt={alt || ""} className="rounded-md" loading="lazy" {...props} />
                 ),
               }}
             >
