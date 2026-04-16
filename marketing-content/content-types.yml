@@ -146,3 +146,8 @@ downloadable:
     menu:
       top: main-navbar
       bottom: main-footer
+outcome-report:
+  directory: outcome-report
+  url_pattern:
+    en: /en/outcome-report/:slug
+    es: /es/outcome-report/:slug
