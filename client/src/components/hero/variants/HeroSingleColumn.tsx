@@ -1,4 +1,5 @@
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar } from "@/components/ui/avatar";
@@ -9,6 +10,8 @@ import type { HeroSingleColumn } from "@shared/schema";
 import { createElement } from "react";
 import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
+
+const BLOG_IMAGE_FALLBACK = "https://storage.googleapis.com/4geeks-academy-website/media/Group-original_1765419144159.webp";
 
 const DEFAULT_AVATAR_IDS = [
   "woman-profile-headshot-1-608aff01",
@@ -24,6 +27,18 @@ interface HeroSingleColumnProps {
 export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
   const avatarIds = data.trust_bar?.avatars?.length ? data.trust_bar.avatars : DEFAULT_AVATAR_IDS;
   const handleLinkClick = useInternalNav();
+
+  const initialDirectSrc = data.image?.src;
+  const [heroDirectSrc, setHeroDirectSrc] = useState<string | undefined>(initialDirectSrc);
+
+  const handleHeroError = initialDirectSrc
+    ? () => {
+        const fallback = data.image?.fallback ?? BLOG_IMAGE_FALLBACK;
+        if (heroDirectSrc !== fallback) {
+          setHeroDirectSrc(fallback);
+        }
+      }
+    : undefined;
 
   return (
     <section 
@@ -118,16 +133,18 @@ export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
 
       </div>
 
-      {(data.image?.src || (data as any).image_id) && (
+      {(heroDirectSrc || (data as any).image_id) && (
         <div className={data.image_full_width ? "w-full mt-8" : "max-w-6xl mx-auto px-4 mt-8 flex justify-center"}>
           <UniversalImage
-            id={data.image?.src ?? (data as any).image_id}
+            key={heroDirectSrc ?? (data as any).image_id}
+            id={heroDirectSrc ?? (data as any).image_id}
             alt={data.image?.alt || ""}
             className={`h-auto rounded-none ${data.image_full_width ? "max-h-[250px]" : ""}`}
             style={{
               width: data.image_width || '100%',
               ...(data.image_full_width ? {} : { borderRadius: '0.8rem' }),
             }}
+            onError={handleHeroError}
             data-testid="img-hero-single-column"
             fieldContext={(data as any).image_id ? { fieldPath: "image_id" } : undefined}
           />
