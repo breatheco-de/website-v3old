@@ -674,25 +674,6 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
-  - type: features_quad
-    version: "1.0"
-    heading: Who Qualifies for the Job Guarantee?
-    description: "The Job Guarantee is available to certified graduates who meet all four of these requirements:"
-    cards:
-      - icon: IconBriefcaseFilled
-        title: Have U.S. work authorization
-      - icon: IconCircleDashedCheck
-        title: Complete All Program Requirements
-      - icon: IconBrain
-        title: Pass the Admissions Logic Test
-      - icon: IconArrowGuideFilled
-        title: Follow the Full Career Development Process
-    section_id: features_quad-ms7uox
-    marginY:
-      desktop: none xl
-    paddingY:
-      desktop: none
-    background: hsl(var(--secondary))
   - type: cards_deck
     version: "1.0"
     heading: Real Stories of Real Career Change
