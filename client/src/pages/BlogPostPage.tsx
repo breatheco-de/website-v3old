@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useParams } from "wouter";
 import { apiFetch } from "@/lib/queryClient";
@@ -7,7 +8,7 @@ import Header from "@/components/Header";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { UniversalImage } from "@/components/UniversalImage";
+import { UniversalImage, useImageRegistry } from "@/components/UniversalImage";
 import { SectionContextProvider } from "@/contexts/SectionContext";
 
 
@@ -55,6 +56,12 @@ export default function BlogPostPage() {
   });
 
   const markdownContent = post?.content || "";
+
+  const { registry } = useImageRegistry();
+  const srcToEntry = useMemo(() => {
+    if (!registry) return new Map();
+    return new Map(Object.values(registry.images).map((entry) => [entry.src, entry]));
+  }, [registry]);
 
   usePageMeta(
     post
@@ -178,9 +185,20 @@ export default function BlogPostPage() {
                     {children}
                   </a>
                 ),
-                img: ({ src, alt, ...props }) => (
-                  <img src={src} alt={alt || ""} className="rounded-md" loading="lazy" {...props} />
-                ),
+                img: ({ src, alt, ...props }) => {
+                  const entry = src ? srcToEntry.get(src) : undefined;
+                  return (
+                    <img
+                      src={src}
+                      alt={alt || ""}
+                      className="rounded-md"
+                      loading="lazy"
+                      {...(entry?.width ? { width: entry.width } : {})}
+                      {...(entry?.height ? { height: entry.height } : {})}
+                      {...props}
+                    />
+                  );
+                },
               }}
             >
               {markdownContent}

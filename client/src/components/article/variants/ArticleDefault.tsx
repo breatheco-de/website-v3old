@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { ArticleSection } from "@shared/schema";
 import { cn } from "@/lib/utils";
+import { useImageRegistry } from "@/components/UniversalImage";
 
 interface TocItem {
   id: string;
@@ -234,6 +235,12 @@ export function Article({ data }: ArticleProps) {
 }
 
 function MarkdownRenderer({ content, getHeadingId }: { content: string; getHeadingId: (text: string) => string }) {
+  const { registry } = useImageRegistry();
+  const srcToEntry = useMemo(() => {
+    if (!registry) return new Map();
+    return new Map(Object.values(registry.images).map((entry) => [entry.src, entry]));
+  }, [registry]);
+
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
@@ -373,15 +380,20 @@ function MarkdownRenderer({ content, getHeadingId }: { content: string; getHeadi
             {children}
           </td>
         ),
-        img: ({ src, alt, ...props }) => (
-          <img
-            src={src}
-            alt={alt}
-            className="my-4 max-w-full rounded-md"
-            loading="lazy"
-            {...props}
-          />
-        ),
+        img: ({ src, alt, ...props }) => {
+          const entry = src ? srcToEntry.get(src) : undefined;
+          return (
+            <img
+              src={src}
+              alt={alt}
+              className="my-4 max-w-full rounded-md"
+              loading="lazy"
+              {...(entry?.width ? { width: entry.width } : {})}
+              {...(entry?.height ? { height: entry.height } : {})}
+              {...props}
+            />
+          );
+        },
         strong: ({ children, ...props }) => (
           <strong className="font-semibold text-foreground" {...props}>
             {children}
