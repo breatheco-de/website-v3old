@@ -189,27 +189,26 @@ sections:
       desktop: md
     marginY:
       desktop: none xl
-  - type: two_column
-    proportions:
-      - 6
-      - 6
-    alignment: center
-    left:
-      video: https://www.youtube.com/watch?v=PWkgaAT8pHg
-      justify: center
-    right:
-      heading: "Luisa Glum: From Auto Repair Shop to Certified Developer"
-      sub_heading: 4Geeks Academy Graduate, Boston
-      description: Luisa was working as a maintenance technician at a repair shop in Boston. She needed a credential that would hold up in a job interview, not just a course completion badge. After earning her certificate at 4Geeks, she was referred directly to her first developer role by the academy. Today she builds software for a living.
-      button:
-        text: See If You Qualify. It's Free
-        url: "#hero-nzpyph"
-        variant: primary
-        icon: Rocket
-    gap: "8"
+  - type: list_press_mentions
+    version: v1.0
+    variant: featured_showcase
+    title: The World's Most Accountable Institutions Chose Us. Here's What We've Built.
+    subtitle: From the Inter-American Development Bank to governments across the Americas and universities on three continents, every institution that selected us to run their programs came with KPIs, public accountability, and high expectations. We delivered every time.
+    show_links: false
+    show_logos: true
+    dynamic_entries:
+      database: press_mentions
+      limit: 10
+      sort: priority
+      permanent_filters:
+        - item_property_slug: locale
+          value: en
+    section_id: list_press_mentions-w7r1sh
+    featured_background: hsl(var(--primary))
+    maxWidth:
+      desktop: 6xl
     marginY:
-      desktop: none xl
-    section_id: two_column-luisa
+      desktop: none md
   - type: features_grid
     version: "1.0"
     variant: stats-text-card
