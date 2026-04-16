@@ -33,6 +33,7 @@ export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
 
   useEffect(() => {
     setHeroDirectSrc(data.image?.src);
+    console.log("Hero image src:", data);
   }, [data.image?.src]);
 
   const handleHeroError = initialDirectSrc
@@ -143,6 +144,7 @@ export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
             key={heroDirectSrc ?? (data as any).image_id}
             id={heroDirectSrc ?? (data as any).image_id}
             alt={data.image?.alt || ""}
+            preset={data.image_full_width ? "full" : "hero-wide"}
             className={`h-auto rounded-none ${data.image_full_width ? "max-h-[250px]" : ""}`}
             style={{
               width: data.image_width || '100%',

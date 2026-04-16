@@ -377,7 +377,7 @@ function MarkdownRenderer({ content, getHeadingId }: { content: string; getHeadi
           <img
             src={src}
             alt={alt}
-            className="my-4 max-w-full rounded-md"
+            className="my-4 h-64 w-auto max-w-full rounded-md"
             loading="lazy"
             {...props}
           />

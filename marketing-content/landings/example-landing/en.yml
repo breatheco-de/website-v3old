@@ -16,6 +16,37 @@ schema:
     - organization
     - website
 sections:
+  - type: hero
+    version: "1.0"
+    variant: showcase
+    title: Launch Your Tech Career
+    subtitle: Join thousands of graduates who transformed their lives with our bootcamp
+    trust_bar:
+      rating: 4.9/5
+      rating_count: 3,000+
+      trusted_text: Rated by students worldwide
+      avatars:
+        - woman-profile-headshot-1-608aff01
+        - man-profile-headshot-1-0850c276
+        - woman-profile-headshot-2-a0ea2c29
+        - man-profile-headshot-2-516b72e4
+    cta_button:
+      text: Choose Your Path
+      url: /programs
+      variant: primary
+    left_images:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
+        alt: Career guidance placeholder
+        id: placeholder-career-guidance
+      - src: /images/happy-developer.webp
+        alt: Happy developer at work
+    right_images:
+      - src: /images/woman-coding.webp
+        alt: Woman coding on laptop
+      - src: /images/tech-team.webp
+        alt: Tech team group photo
+    show_arrow: true
+    section_id: hero-t1fva2
   - type: list_press_mentions
     version: v1.0
     variant: featured_showcase
