@@ -88,7 +88,7 @@ sections:
     section_id: sticky_cta-k7207r
     version: "1.0"
     heading: Ready to earn your AI Engineering certification?
-    button_label: See If You Qualify. It's Free
+    button_label: Get in Touch
     show_dismiss: false
     form:
       variant: inline
