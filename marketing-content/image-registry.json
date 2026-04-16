@@ -9360,6 +9360,19 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/UpskillBahamas-1280w.webp"
         }
       ]
+    },
+    "group-7086-1-800x440": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/group-7086-1-800x440.webp",
+      "alt": "Image: Group 7086 (1)",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 800,
+      "height": 440,
+      "format": "webp"
     }
   }
 }
