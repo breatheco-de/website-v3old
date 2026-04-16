@@ -634,13 +634,6 @@
       "component": "graduates_stats",
       "version": "v1.0",
       "example": "Full Bleed Career Outcomes"
-    },
-    {
-      "component": "graduates_stats",
-      "version": "v1.0",
-      "example": "Graduates Outcomes",
-      "importYaml": "- type: graduates_stats\n  heading: Our Graduates Get Hired. Fast.\n  subheading: 6,000+ graduates worldwide. Now thiriving in tech.\n  stats:\n    - value: {{ global.global_job_placement_rate | 84% }}%\n      label: Average hiring rate\n    - value: {{ global.global_salary_increase | 55% }}%\n      label: Average salary increase at new position\n    - value: 3-6 months\n      label: Average time to get hired\n  collage_images:\n    - image_id: group-7085-1\n      col_span: 5\n      row_span: 2\n      alt: 'Image: Gemini_Generated_Image_uwpyyruwpyyruwpy'\n      id: gemini-generated-image-uwpyyruwpyyruwpy\n      object_scale: 1.1\n      object_position: 50% 30%\n    - image_id: group-7086-1\n      col_span: 7\n      row_span: 2\n      alt: 'Image: Gemini_Generated_Image_pd2u4upd2u4upd2u'\n      id: gemini-generated-image-pd2u4upd2u4upd2u\n      object_scale: 1\n      transform_origin: 50% 50%\n      object_position: 50% 60%\n    - image_id: group-7084-1\n      col_span: 6\n      row_span: 2\n      alt: 'Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)'\n      id: gemini-generated-image-dhko5mdhko5mdhko-1\n      object_scale: 1.05\n    - image_id: group-7087-1\n      col_span: 6\n      row_span: 2\n      alt: 'Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4'\n      id: gemini-generated-image-wpk4yvwpk4yvwpk4\n      object_scale: 1.05\n      transform_origin: 50% 50%\n      object_position: 50% 45%\n  section_id: graduates_stats-cnxqbb\n  marginY:\n    desktop: none\n  maxWidth:\n    desktop: 6xl\n  paddingY:\n    desktop: md none\n",
-      "registryPersisted": true
     }
   ]
 }
