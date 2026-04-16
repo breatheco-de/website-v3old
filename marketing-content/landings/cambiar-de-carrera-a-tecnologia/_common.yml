@@ -12,4 +12,7 @@ schema:
   include:
     - organization
     - website
+    - courses:data-science
+    - courses:cybersecurity
+    - courses:ai-engineering
 locations: null
