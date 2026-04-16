@@ -693,23 +693,6 @@ sections:
     paddingY:
       desktop: none
     background: hsl(var(--secondary))
-  - type: numbered_steps
-    version: "1.0"
-    variant: bubbleText
-    title: How to Get Your Certification Started in Under 48 Hours
-    description: Applying takes 2 minutes. The full admissions process is done in less than 48 hours. Here's exactly what happens next.
-    steps:
-      - icon: Optimization
-        title: Submit Your Application
-        text: Fill out the short form above. It takes 2 minutes. No payment required to apply.
-      - icon: Interview
-        title: Talk to Admissions
-        text: A member of our team reaches out within a few minutes to walk you through the certification requirements, answer your questions, and confirm your eligibility.
-      - icon: JobSearch
-        title: Enroll and Start Building
-        text: Choose your payment or financing plan, lock in your start date, and get immediate access to prework. You start working toward your certification from day one.
-    background: hsl(var(--card))
-    section_id: numbered_steps-sgeuhk
   - type: cards_deck
     version: "1.0"
     heading: Real Stories of Real Career Change
