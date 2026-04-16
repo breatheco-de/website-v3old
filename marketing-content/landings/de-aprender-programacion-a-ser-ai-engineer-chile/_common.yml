@@ -1,0 +1,15 @@
+slug: de-aprender-programacion-a-ser-ai-engineer-chile
+title: De aprender programacion a ser AI Engineer-chile
+locale: es
+meta:
+  og_image: /images/programs/ai-engineering-og.jpg
+schema:
+  include:
+    - organization
+    - website
+    - courses:ai-engineering
+locations:
+  - santiago-chile
+layout:
+  menu:
+    top: main-footer
