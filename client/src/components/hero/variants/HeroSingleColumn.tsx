@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar } from "@/components/ui/avatar";
@@ -30,6 +30,10 @@ export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
 
   const initialDirectSrc = data.image?.src;
   const [heroDirectSrc, setHeroDirectSrc] = useState<string | undefined>(initialDirectSrc);
+
+  useEffect(() => {
+    setHeroDirectSrc(data.image?.src);
+  }, [data.image?.src]);
 
   const handleHeroError = initialDirectSrc
     ? () => {
