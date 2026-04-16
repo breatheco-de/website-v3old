@@ -33,7 +33,6 @@ sections:
     brand_mark:
       prefix: De aprender Programación a convertirte en
       highlight: Ingeniero de IA
-      suffix: y construye sistemas reales, listos para producción.
       color: primary
     description: No se trata solo de aprender a programar, sino de construir soluciones con IA.
     form:
