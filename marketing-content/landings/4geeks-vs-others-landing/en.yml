@@ -115,34 +115,52 @@ sections:
     section_id: hero-6ad8dh
     awards_marquee_at_left_column: true
   - type: graduates_stats
-    maxWidth:
-      desktop: 6xl
-    heading: Real Career Outcomes
-    subheading: 5,000+ graduates chose 4Geeks over every other option. Here's what that decision looked like 90 days later.
+    heading: Our Graduates Get Hired. Fast.
+    subheading: 6,000+ graduates worldwide. Now thiriving in tech.
     stats:
-      - value: 86%
-        label: Hiring rate, US graduates placed within 90 days
+      - value: 84%
+        label: Average hiring rate
       - value: 55%
-        label: Average salary increase after graduation
-      - value: ~3 months
-        label: Average time to get hired in 2025
-      - value: 5,000+
-        label: Graduates employed worldwide
+        label: Average salary increase at new position
+      - value: 3-6 months
+        label: Average time to get hired
     collage_images:
-      - image_id: graduates_team_1
+      - image_id: group-7085-1
         col_span: 5
         row_span: 2
-      - image_id: graduates_team_2
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
+        id: gemini-generated-image-uwpyyruwpyyruwpy
+        object_scale: 1.1
+        object_position: 50% 30%
+      - image_id: group-7086-1
         col_span: 7
         row_span: 2
-      - image_id: graduates_coding
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
+        id: gemini-generated-image-pd2u4upd2u4upd2u
+        object_scale: 1
+        transform_origin: 50% 50%
+        object_position: 50% 60%
+      - image_id: group-7084-1
         col_span: 6
         row_span: 2
-      - image_id: graduates_friends
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
+        id: gemini-generated-image-dhko5mdhko5mdhko-1
+        object_scale: 1.05
+      - image_id: group-7087-1
         col_span: 6
         row_span: 2
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
+        id: gemini-generated-image-wpk4yvwpk4yvwpk4
+        object_scale: 1.05
+        transform_origin: 50% 50%
+        object_position: 50% 45%
     section_id: graduates_stats-cnxqbb
-    value_size: text-3xl
+    marginY:
+      desktop: none
+    maxWidth:
+      desktop: 6xl
+    paddingY:
+      desktop: md none
   - type: trust_cards
     maxWidth:
       desktop: 6xl
