@@ -119,8 +119,8 @@ sections:
   - type: sticky_cta
     section_id: sticky_cta-myv9ty
     version: "1.0"
-    heading: Ready to take your Python skills into AI Engineering?
-    button_label: See If You Qualify. It's Free
+    heading: Ready to take your developer skills into AI Engineering?
+    button_label: Start your Application
     show_dismiss: false
     form:
       variant: inline
@@ -148,6 +148,7 @@ sections:
         message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
     paddingY:
       desktop: none sm
+    load: eager
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thiriving in tech.
