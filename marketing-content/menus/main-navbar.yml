@@ -192,6 +192,7 @@ navbar:
       href: '#'
       component: LanguageSwitcher
   marquee:
+    enabled: true
     position: above
     texts:
       - text: 4Geeks chosen to deliver AI education in the Bahamas alongside Harvard, Oxford, and Columbia.
