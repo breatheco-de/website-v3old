@@ -679,7 +679,7 @@ sections:
       variant: primary
     paddingY:
       mobile: lg none
-      desktop: lg none
+      desktop: lg md
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work
