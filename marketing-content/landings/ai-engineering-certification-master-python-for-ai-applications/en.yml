@@ -750,6 +750,7 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
+    background: hsl(var(--card))
   - type: cta_banner
     version: "1.0"
     title: The fastest-growing job of 2026 is one step away.
