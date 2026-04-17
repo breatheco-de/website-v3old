@@ -1,0 +1,18 @@
+slug: cambiar-de-carrera-a-tecnologia
+locale: es
+title: cambiar de carrera a tecnologia
+meta:
+  page_title: Cambiar de Carrera a Tech | 4Geeks Academy
+  description: "Programas 4Geeks Academy "
+  robots: index, follow
+  og_image: /images/landing-og.jpg
+  priority: 0.9
+  change_frequency: weekly
+schema:
+  include:
+    - organization
+    - website
+    - courses:data-science
+    - courses:cybersecurity
+    - courses:ai-engineering
+locations: null

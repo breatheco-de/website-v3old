@@ -157,11 +157,10 @@ export default function HeroProductShowcase({
                 style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.15)" }}
                 data-testid={`img-hero-left-${index}`}
               >
-                <img
-                  src={image.src}
+                <UniversalImage
+                  id={image.src}
                   alt={image.alt}
-                  className="w-full h-40 object-cover rounded-lg"
-                  loading="lazy"
+                  className="w-full h-40 rounded-lg"
                 />
               </div>
             ))}
@@ -184,11 +183,10 @@ export default function HeroProductShowcase({
                 style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.15)" }}
                 data-testid={`img-hero-right-${index}`}
               >
-                <img
-                  src={image.src}
+                <UniversalImage
+                  id={image.src}
                   alt={image.alt}
-                  className="w-full h-40 object-cover rounded-lg"
-                  loading="lazy"
+                  className="w-full h-40 rounded-lg"
                 />
               </div>
             ))}

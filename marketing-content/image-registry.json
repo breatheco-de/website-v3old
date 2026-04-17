@@ -6202,7 +6202,10 @@
       "tags": [
         "avatar",
         "photo",
-        "team"
+        "team",
+        "badge",
+        "illustration",
+        "award"
       ],
       "usage_count": 0,
       "hash": "ad8e9373e98cec7ddbee5d9c0c0610e0eda2b4a1ae41b0e4325ebb8af5698dbd",
@@ -9360,6 +9363,87 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/UpskillBahamas-1280w.webp"
         }
       ]
+    },
+    "group-7086-1-800x440": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/group-7086-1-800x440.webp",
+      "alt": "Image: Group 7086 (1)",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 800,
+      "height": 440,
+      "format": "webp"
+    },
+    "group-7085-1-700x380": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/group-7085-1-700x380.webp",
+      "alt": "Image: Group 7085 (1)",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 700,
+      "height": 380,
+      "format": "webp"
+    },
+    "group-7087-1-680x392": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/group-7087-1-680x392.webp",
+      "alt": "Image: Group 7087 (1)",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 680,
+      "height": 392,
+      "format": "webp"
+    },
+    "group-7084-1-695x382": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/group-7084-1-695x382.webp",
+      "alt": "Image: Group 7084 (1)",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team",
+        "testimonial"
+      ],
+      "usage_count": 0,
+      "width": 695,
+      "height": 382,
+      "format": "webp"
+    },
+    "chatgpt-image-mar-26-2026-04-28-27-pm-170x500": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-170x500.webp",
+      "alt": "Image: ChatGPT Image Mar 26, 2026, 04_28_27 PM",
+      "focal_point": "center",
+      "tags": [
+        "avatar",
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 170,
+      "height": 500,
+      "format": "webp"
+    },
+    "chatgpt-image-mar-26-2026-04-28-27-pm-1024x1536": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-1024x1536.webp",
+      "alt": "Image: ChatGPT Image Mar 26, 2026, 04_28_27 PM",
+      "focal_point": "center",
+      "tags": [
+        "avatar",
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 1024,
+      "height": 1536,
+      "format": "webp"
     }
   }
 }
