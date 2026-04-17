@@ -680,6 +680,7 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg md
+    background: hsl(var(--secondary))
   - type: why_learn_ai
     variant: laptop-edge
     title: Land the Job. Or Your Money Back.
