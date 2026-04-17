@@ -557,48 +557,42 @@ sections:
       desktop: md none
   - type: certificate
     title: Your Certificate. Your Salary Leverage.
-    description: "Earn an industry-recognized AI Engineering certification from a Florida Department of Education accredited institution. Step into roles paying:"
-    benefits:
-      - text: "AI Engineer: $95K–$135K"
-      - text: "Forward-Deployed Engineer: $105K–$155K"
-      - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-      - text: "Workflow Automation Engineer: $85K–$120K"
     card:
       title: AI Engineer
       subtitle: 4Geeks Academy Certificate
       program_name: AI Engineering
     stats:
-      - value: 84%
-        label: Hiring rate
-        description: Graduate with an accredited certification, a live portfolio, and a professional profile built to get you hired, not just qualified.
+      - value: Credential
+        label: The certification you earn
+        description: "The certificate you earn at graduation is issued by a Florida Department of Education accredited institution. Combined with a live AI portfolio built across 10 milestones, it gives employers two things most certifications don't: institutional credibility and demonstrated skills."
         benefits:
-          - text: Certification recognized by the Florida Department of Education
-          - text: End-to-end AI-engineered company in your portfolio
-          - text: Demonstrated experience with agents, workflows, and AI systems
-          - text: Optimized professional profile and job-search strategy
-      - value: ~3 months
-        label: Average time to get hired
-        description: Most certified graduates land their first role in about 3 months. A structured 3-step career process turns your credential into offers fast.
+          - text: Accredited by the Florida Department of Education
+          - text: Recognized by employers actively hiring 4Geeks graduates
+          - text: Issued upon completion of a rigorous, milestone-based program
+      - value: Portfolio
+        label: The work that backs it up
+        description: You don't just earn a certificate. You graduate with a fully operational, AI-powered company you built across 10 milestones, demonstrating your AI-native skills.
         benefits:
-          - text: Resume, portfolio, and profiles optimized to attract recruiters and pass AI-based screening
-          - text: Technical and behavioral interview preparation
-          - text: Personalized job-search strategy with access to relevant hiring networks
+          - text: End-to-end AI-engineered company built across 10 real milestones
+          - text: Demonstrated experience with agents, RAG systems, and AI workflows
+          - text: Hands-on experience with Python, React, Next.js, RAG systems, vector databases, autonomous agents, and n8n
+          - text: Showcase-ready capstone project
+      - value: Network
+        label: Your door to employers
+        description: Graduating means joining a global network of 6,000+ alumni, with exclusive access to hiring partners and direct connections to the people making hiring decisions.
+        benefits:
+          - text: Exclusive job board access
+          - text: Priority referrals to 400+ partner companies
+          - text: Networking events with hiring managers
+          - text: Companies include Google, Meta, Microsoft, and leading startups
       - value: 55%
         label: Average salary increase
-        description: AI skills are exactly what companies cannot find enough of. Your certification signals to employers that you can ship what they need on day one.
+        description: "A 55% average salary increase for graduates who make the switch. AI Engineering skills are exactly what companies can't find enough of — and they pay accordingly. Here's what certified graduates step into:"
         benefits:
           - text: "AI Engineer: $95K–$135K"
           - text: "Forward-Deployed Engineer: $105K–$155K"
           - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
           - text: "Workflow Automation Engineer: $85K–$120K"
-      - value: 5,000+
-        label: Graduates employed worldwide
-        description: Join a global alumni network of 5,000+ employed graduates. Get exclusive job board access, priority referrals, and direct connections to hiring managers.
-        benefits:
-          - text: Exclusive job board access
-          - text: Priority referrals to partner companies
-          - text: Networking events with hiring managers
-          - text: Companies include Google, Meta, Amazon, and leading startups
     certificate_position: right
     useSolidCard: true
     section_id: certificate-yvgz4h
