@@ -469,6 +469,7 @@ sections:
       desktop: md none
     paddingY:
       desktop: md sm
+    background: hsl(var(--secondary))
   - type: certificate
     title: Your Certificate. Your Salary Leverage.
     description: "Earn an industry-recognized AI Engineering certificate from a Florida Department of Education accredited institution. Step into roles where Python and AI skills command:"
