@@ -679,7 +679,7 @@ sections:
       variant: primary
     paddingY:
       mobile: lg none
-      desktop: lg md
+      desktop: lg xl
     background: hsl(var(--secondary))
   - type: why_learn_ai
     variant: laptop-edge
