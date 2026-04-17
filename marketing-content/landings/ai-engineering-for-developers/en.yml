@@ -19,15 +19,15 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Make Your Python Skills Worth $95K–$135K.
+    title: Make Your Developer Skills Worth $95K–$135K.
     brand_mark:
       prefix: Break Your Career
       highlight: Ceiling.
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\">AI Engineering is the next level for Python developers. With our intensive program you go from Python to building complete AI-native systems with agents, RAG, automated pipelines and more – exactly the skills companies are actively hiring for.</span>"
+    description: "<span style=\"font-size: 1.125rem;\">No way around it: AI Engineering is what development looks like now. With our intensive program you go from writing code to building complete AI-native systems with agents, RAG, automated pipelines and more — exactly the skills companies are actively hiring for.</span>"
     bullets:
-      - text: Add vector databases, multi-agent systems, real-time AI, and workflow automation with n8n to your Python skills
-      - text: Unlimited 1:1 mentorship and career support that doesn't stop at graduation
+      - text: "Add to your stack: RAG systems, vector databases, multi-agent systems, real-time AI, and workflow automation with n8n"
+      - text: Unlimited 1:1 mentorship and career support, available for life
       - text: "Optional Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
     image_object_fit: none
     form:
@@ -114,7 +114,7 @@ sections:
       desktop: md none
     marginX:
       desktop: none
-    section_id: hero-982lib
+    section_id: hero-nzpyph
     awards_marquee_at_left_column: true
   - type: sticky_cta
     section_id: sticky_cta-myv9ty
