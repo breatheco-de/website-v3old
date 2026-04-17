@@ -30,7 +30,7 @@ export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
 
   const [fallbackSrc, setFallbackSrc] = useState<string | undefined>();
 
-  const rawSrc = data.image?.src !== "undefined" ? data.image?.src : undefined;
+  const rawSrc = data.image?.src !== "undefined" ? data.image?.src : BLOG_IMAGE_FALLBACK;
   const imgSrc = fallbackSrc ?? rawSrc ?? (data as any).image_id;
 
   const handleHeroError = () => {
@@ -130,7 +130,7 @@ export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
 
       </div>
       {imgSrc && (
-        <div className={data.image_full_width ? "w-full mt-8" : "max-w-6xl mx-auto px-4 mt-8 flex justify-center"}>
+        <div className={data.image_full_width ? "w-full mt-8" : "max-w-3xl mx-auto px-4 mt-8 flex justify-center"}>
           <UniversalImage
             key={imgSrc}
             id={imgSrc}
