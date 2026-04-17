@@ -643,7 +643,7 @@ sections:
     variant: laptop-edge
     title: Get Hired Within 9 Months or Your Tuition Back
     subtitle: A guarantee most bootcamps won't offer because they can't back it up
-    description: "<span style=\"font-size: 1.125rem;\">Add the Job Guarantee* at enrollment. Complete the program, follow the career process, and if you don't land a qualifying tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.</span><div><span style=\"font-size: 1.125rem;\">We offer it because year after year, our results prove the effectiveness of our program.</span></div><div><br><span style=\"font-size: 0.875rem;\">*Available in the US and Canada only. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"color: hsl(var(--primary));\">Terms and conditions apply.</a></span></div>"
+    description: "<span style=\"font-size: 1.125rem;\">Add the Job Guarantee* at enrollment. Complete the program, follow the career process, and if you don't land a qualifying tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.</span><div><span style=\"font-size: 1.125rem;\">We offer it because our results prove the effectiveness of our program.</span></div><div><br><span style=\"font-size: 0.875rem;\">*Available in the US and Canada only. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"color: hsl(var(--primary));\">Terms and conditions apply.</a></span></div>"
     section_id: why_learn_ai-wxbuh3
     marginY:
       desktop: none xl
