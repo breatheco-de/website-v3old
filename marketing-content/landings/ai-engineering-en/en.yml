@@ -656,7 +656,7 @@ sections:
     marginY:
       desktop: md lg
     paddingY:
-      desktop: md none
+      desktop: sm none
     background: hsl(210 100% 50% / 0.05)
     showOnLocations:
       - atlanta-usa
