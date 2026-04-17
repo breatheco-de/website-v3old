@@ -562,7 +562,7 @@ sections:
       subtitle: 4Geeks Academy Certificate
       program_name: AI Engineering
     stats:
-      - value: Official Credential
+      - value: Certificate
         label: The certification you earn
         description: "The certificate you earn at graduation is issued by a Florida Department of Education accredited institution. Combined with a live AI portfolio built across 10 milestones, it gives employers two things most certifications don't: institutional credibility and demonstrated skills."
         benefits:
