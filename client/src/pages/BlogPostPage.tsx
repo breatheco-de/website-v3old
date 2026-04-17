@@ -9,6 +9,9 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { UniversalImage } from "@/components/UniversalImage";
 import { SectionContextProvider } from "@/contexts/SectionContext";
+import { useState, useEffect } from "react";
+
+const BLOG_IMAGE_FALLBACK = "https://storage.googleapis.com/4geeks-academy-website/media/Group-original_1765419144159.webp";
 
 
 function formatDate(dateStr: string, locale: string): string {
@@ -37,6 +40,7 @@ export default function BlogPostPage() {
   const segments = wildcard.split("/").filter(Boolean);
   const slug = segments[segments.length - 1] || "";
   const handleLinkClick = useInternalNav();
+  const [previewSrc, setPreviewSrc] = useState<string>("");
 
   const { data: org } = useQuery<Record<string, any>>({
     queryKey: ["/api/schema/organization"],
@@ -53,6 +57,10 @@ export default function BlogPostPage() {
     },
     enabled: !!slug,
   });
+
+  useEffect(() => {
+    if (post?.preview) setPreviewSrc(post.preview);
+  }, [post?.preview]);
 
   const markdownContent = post?.content || "";
 
@@ -155,14 +163,16 @@ export default function BlogPostPage() {
           )}
         </div>
 
-        {post.preview && (
+        {previewSrc && (
           <SectionContextProvider value={{ isPriority: true, sectionIndex: 0, contentType: "blog", slug: post.slug ?? "", locale: locale ?? "" }}>
             <div className="mb-10 rounded-md overflow-hidden" data-testid="img-blog-post-hero">
               <UniversalImage
-                id={post.preview}
+                key={previewSrc}
+                id={previewSrc}
                 preset="hero-wide"
                 alt={post.title}
                 className="w-full object-cover"
+                onError={() => setPreviewSrc(BLOG_IMAGE_FALLBACK)}
               />
             </div>
           </SectionContextProvider>
