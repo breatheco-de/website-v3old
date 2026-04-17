@@ -226,7 +226,7 @@ sections:
     variant: stats-text-card
     title: Why Developers Are Moving Into AI Engineering
     subtitle: Coding skills are your foundation. AI Engineering is how you turn them into a $95K–$135K career.
-    description: Knowing how to code is no longer enough. Companies are not hiring developers, they are looking for AI Engineers who build intelligent systems, RAG pipelines, and autonomous agents. Level up with our program and become the AI Engineer the job market is actively hiring for.
+    description: "AI Engineer is the #1 fastest-growing job according to LinkedIn. Knowing how to code is no longer enough — companies are not hiring developers, they are looking for AI Engineers who build intelligent systems, RAG pipelines, and autonomous agents. Level up with our program and become the AI Engineer the job market is actively hiring for."
     card_color: bg-background
     background: hsl(var(--card))
     items:
@@ -235,7 +235,7 @@ sections:
       - value: 70%
         title: Year-over-year growth in US jobs requiring AI skills
       - value: 3%
-        title: Of the workforce currently qualified to fill these ratio
+        title: Of the workforce currently qualified to fill these roles
     section_id: features_grid-zx9j5t
     marginY:
       mobile: md none
