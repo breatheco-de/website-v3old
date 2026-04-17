@@ -224,9 +224,9 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-text-card
-    title: Why Python Developers Are Moving Into AI Engineering
-    subtitle: Python is the language of AI. The engineers who know how to use it to build agents and intelligent systems are the ones getting hired at $95K–$135K.
-    description: Python is the most in-demand language for AI, but knowing Python is no longer enough. Companies are not hiring Python developers — they are hiring AI Engineers who use Python to build intelligent systems, RAG pipelines, and autonomous agents. That is the role this program prepares you for.
+    title: Why Developers Are Moving Into AI Engineering
+    subtitle: Coding skills are your foundation. AI Engineering is how you turn them into a $95K–$135K career.
+    description: Knowing how to code is no longer enough. Companies are not hiring developers, they are looking for AI Engineers who build intelligent systems, RAG pipelines, and autonomous agents. Level up with our program and become the AI Engineer the job market is actively hiring for.
     card_color: bg-background
     background: hsl(var(--card))
     items:
@@ -235,7 +235,7 @@ sections:
       - value: 70%
         title: Year-over-year growth in US jobs requiring AI skills
       - value: 3%
-        title: Of the workforce currently qualified to fill these roles
+        title: Of the workforce currently qualified to fill these ratio
     section_id: features_grid-zx9j5t
     marginY:
       mobile: md none
