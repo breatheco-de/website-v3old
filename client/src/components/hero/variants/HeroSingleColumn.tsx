@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar } from "@/components/ui/avatar";
@@ -28,21 +28,14 @@ export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
   const avatarIds = data.trust_bar?.avatars?.length ? data.trust_bar.avatars : DEFAULT_AVATAR_IDS;
   const handleLinkClick = useInternalNav();
 
-  const initialDirectSrc = data.image?.src;
-  const [heroDirectSrc, setHeroDirectSrc] = useState<string | undefined>(initialDirectSrc);
+  const [fallbackSrc, setFallbackSrc] = useState<string | undefined>();
 
-  useEffect(() => {
-    setHeroDirectSrc(data.image?.src);
-  }, [data.image?.src]);
+  const rawSrc = data.image?.src !== "undefined" ? data.image?.src : undefined;
+  const imgSrc = fallbackSrc ?? rawSrc ?? (data as any).image_id;
 
-  const handleHeroError = initialDirectSrc
-    ? () => {
-        const fallback = data.image?.fallback ?? BLOG_IMAGE_FALLBACK;
-        if (heroDirectSrc !== fallback) {
-          setHeroDirectSrc(fallback);
-        }
-      }
-    : undefined;
+  const handleHeroError = () => {
+    setFallbackSrc(data.image?.fallback ?? BLOG_IMAGE_FALLBACK);
+  };
 
   return (
     <section 
@@ -136,12 +129,11 @@ export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
         )}
 
       </div>
-
-      {(heroDirectSrc || (data as any).image_id) && (
+      {imgSrc && (
         <div className={data.image_full_width ? "w-full mt-8" : "max-w-6xl mx-auto px-4 mt-8 flex justify-center"}>
           <UniversalImage
-            key={heroDirectSrc ?? (data as any).image_id}
-            id={heroDirectSrc ?? (data as any).image_id}
+            key={imgSrc}
+            id={imgSrc}
             alt={data.image?.alt || ""}
             preset="hero-wide"
             className={`w-full rounded-none ${data.image_full_width ? "max-h-[250px]" : ""}`}
