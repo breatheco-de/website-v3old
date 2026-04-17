@@ -571,7 +571,7 @@ sections:
           - text: Issued upon completion of a rigorous, milestone-based program
       - value: AI Portfolio
         label: The work that backs it up
-        description: You don't just earn a certificate. You graduate with a fully operational, AI-powered company you built across 10 milestones, demonstrating your AI-native skills.
+        description: You don't just earn an official certificate. You graduate with a fully operational, AI-powered company you built across 10 milestones, demonstrating your AI-native skills.
         benefits:
           - text: End-to-end AI-engineered company built across 10 real milestones
           - text: Demonstrated experience with agents, RAG systems, and AI workflows
