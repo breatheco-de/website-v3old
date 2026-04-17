@@ -830,14 +830,14 @@ sections:
       desktop: none xl
   - type: cta_banner
     version: "1.0"
-    title: Your AI Engineering certification won't earn itself.
-    subtitle: Every week you wait is a week someone else gets certified and hired first. Apply in 2 minutes and add the Job Guarantee at enrollment. It's free to apply.
+    title: Ready to Earn a Certification That Gets You Hired?
+    subtitle: Apply and our admissions team will be in touch shortly with everything you need to know.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
@@ -861,7 +861,7 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       consent:
         email: true
         marketing: true
