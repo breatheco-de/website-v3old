@@ -681,6 +681,22 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
+  - type: bullet_tabs_showcase
+    version: "1.0"
+    heading: Ideate and specify what to build next
+    subheading: Transform your ideas into actionable tasks seamlessly
+    image_position: right
+    tabs:
+      - label: Collaborative documents
+        description: Work together on specifications and requirements in real-time
+        image_id: placeholder_career_guidance
+      - label: Inline comments
+        description: Add contextual feedback directly where it matters most
+        image_id: placeholder_mentorship
+      - label: Text-to-issue commands
+        description: Seamlessly move between ideation and execution
+        image_id: placeholder_strategies
+    section_id: bullet_tabs_showcase-fg0igk
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work
