@@ -121,7 +121,7 @@ sections:
     section_id: sticky_cta-k7207r
     version: "1.0"
     heading: Ready to take your Python skills into AI Engineering?
-    button_label: See If You Qualify. It's Free
+    button_label: Start your Application
     show_dismiss: false
     form:
       variant: inline
