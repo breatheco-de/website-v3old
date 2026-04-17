@@ -143,7 +143,8 @@ export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
             key={heroDirectSrc ?? (data as any).image_id}
             id={heroDirectSrc ?? (data as any).image_id}
             alt={data.image?.alt || ""}
-            className={`h-auto rounded-none ${data.image_full_width ? "max-h-[250px]" : ""}`}
+            preset="hero-wide"
+            className={`w-full rounded-none ${data.image_full_width ? "max-h-[250px]" : ""}`}
             style={{
               width: data.image_width || '100%',
               ...(data.image_full_width ? {} : { borderRadius: '0.8rem' }),
