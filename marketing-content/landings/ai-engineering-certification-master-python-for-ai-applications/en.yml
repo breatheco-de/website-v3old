@@ -680,7 +680,7 @@ sections:
       variant: primary
     paddingY:
       mobile: lg none
-      desktop: lg md
+      desktop: lg xl
     marginY:
       desktop: none md
     background: hsl(var(--secondary))
