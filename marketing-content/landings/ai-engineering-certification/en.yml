@@ -25,30 +25,30 @@ sections:
       prefix: Earn a Credential
       highlight: Employers Actually Recognize.
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\">Accredited by the Florida Department of Education. Built around the skills companies are actively hiring for. Recognized by Forbes, Course Report, and SwitchUp — rated 4.9/5 across 3,000+ reviews.</span>"
+    description: "<span style=\"font-size: 1.125rem;\"><span>Most certifications sit on your resume and do nothing. This one comes from a Florida Department of Education accredited institution, backed by a live AI-powered portfolio and a Job Guarantee. In 24 weeks, you are certified, portfolio-ready, and qualified for roles paying $95K–$135K+. Get hired within 9 months or we refund your full tuition.</span></span>"
     bullets:
+      - text: "Job Guarantee: get hired within 9 months of graduating or we refund your full tuition"
       - text: Accredited certification from a Florida Department of Education licensed institution
-      - text: Unlimited 1:1 mentorship and career support that's with you for life
-      - text: "Optional Job Guarantee: get hired within 9 months or we refund your full tuition"
+      - text: Flexible financing available, including zero upfront payment options
     image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Start Your Application
+      submit_label: See If You Qualify. It's Free
       tags: website-lead
       fields:
         email:
           visible: true
           required: true
-          placeholder: Email address
+          placeholder: Email Address
         first_name:
           visible: true
           required: true
-          placeholder: First name
+          placeholder: First Name
         last_name:
           visible: true
           required: true
-          placeholder: Last name
+          placeholder: Last Name
         phone:
           visible: true
           required: true
@@ -57,20 +57,20 @@ sections:
           visible: true
           default: ai-engineering
       success:
-        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
+        message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe at any time.
-        sms_text: I agree to receive SMS messages about workshops, events, courses and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4-6 messages per month. We will never share your contact information.
+        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
+        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
         sms_usa_only: true
       show_terms: true
     form_vertical_align: top
     form_card_text_color: hsl(var(--foreground))
-    form_card_title: Get the Full AI Engineering Program Overview
-    form_card_subtitle: "Fill in your details and our admissions team will send you everything you need: curriculum, pricing, financing options, and more. It only takes 2 minutes."
+    form_card_title: Get the Full AI Engineering Certification Details
+    form_card_subtitle: "Takes 2 minutes. Our admissions team will send you the complete program overview: certification requirements, curriculum, pricing, and financing options."
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: true
     awards_marquee:
@@ -81,19 +81,52 @@ sections:
           logoHeight: 55px
         - id: course-report-2024
           alt: Course Report - Best Coding Bootcamp 2024
-          logo: https://storage.g
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+          logoHeight: 55px
+        - id: tech-hub
+          alt: South Florida Tech Hub
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+          logoHeight: 55px
+        - id: ebootcamp
+          alt: eBootcamp Top
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+          logoHeight: 55px
+        - id: premios-tecnologia
+          alt: Premios Tecnología Siglo XXI
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+          logoHeight: 55px
+        - id: newsweek
+          alt: Newsweek
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+          logoHeight: 55px
+        - id: reviews-coursereport
+          alt: 4.9 Stars on Course Report Reviews
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+          logoHeight: 55px
+        - id: excelencia-educativa
+          alt: Educational Excellence - Institutional Quality
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+          logoHeight: 55px
+    video_title: GeekForce Career Support
+    marginY:
+      desktop: none
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    paddingY:
+      desktop: md none
+    marginX:
+      desktop: none
     section_id: hero-nzpyph
     awards_marquee_at_left_column: true
   - type: sticky_cta
     section_id: sticky_cta-k7207r
     version: "1.0"
     heading: Ready to earn your AI Engineering certification?
-    button_label: Get in Touch
+    button_label: See If You Qualify. It's Free
     show_dismiss: false
     form:
       variant: inline
       conversion_name: student_application
-      submit_label: Get in Touch
+      submit_label: See If You Qualify. It's Free
       tags: website-lead
       fields:
         email:
@@ -116,54 +149,35 @@ sections:
         message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
     paddingY:
       desktop: none sm
-    load: eager
   - type: graduates_stats
-    heading: Our Graduates Get Hired. Fast.
-    subheading: 6,000+ graduates worldwide. Now thiriving in tech.
-    stats:
-      - value: 84%
-        label: Average hiring rate
-      - value: 55%
-        label: Average salary increase at new position
-      - value: 3-6 months
-        label: Average time to get hired
-    collage_images:
-      - image_id: group-7085-1
-        col_span: 5
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
-        id: gemini-generated-image-uwpyyruwpyyruwpy
-        object_scale: 1.1
-        object_position: 50% 30%
-      - image_id: group-7086-1
-        col_span: 7
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
-        id: gemini-generated-image-pd2u4upd2u4upd2u
-        object_scale: 1
-        transform_origin: 50% 50%
-        object_position: 50% 60%
-      - image_id: group-7084-1
-        col_span: 6
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
-        id: gemini-generated-image-dhko5mdhko5mdhko-1
-        object_scale: 1.05
-      - image_id: group-7087-1
-        col_span: 6
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
-        id: gemini-generated-image-wpk4yvwpk4yvwpk4
-        object_scale: 1.05
-        transform_origin: 50% 50%
-        object_position: 50% 45%
-    section_id: graduates_stats-cnxqbb
-    marginY:
-      desktop: none
     maxWidth:
       desktop: 6xl
-    paddingY:
-      desktop: md none
+    heading: Real Career Outcomes
+    subheading: 5,000+ certified graduates have already made the switch. Here's what happened after they completed the program.
+    stats:
+      - value: 86%
+        label: Hiring rate, US graduates placed within 90 days
+      - value: 55%
+        label: Average salary increase after graduation
+      - value: ~3 months
+        label: Average time to get hired in 2025
+      - value: 5,000+
+        label: Graduates employed worldwide
+    collage_images:
+      - image_id: graduates_team_1
+        col_span: 5
+        row_span: 2
+      - image_id: graduates_team_2
+        col_span: 7
+        row_span: 2
+      - image_id: graduates_coding
+        col_span: 6
+        row_span: 2
+      - image_id: graduates_friends
+        col_span: 6
+        row_span: 2
+    section_id: graduates_stats-cnxqbb
+    value_size: text-3xl
   - type: trust_cards
     maxWidth:
       desktop: 6xl
@@ -189,25 +203,48 @@ sections:
       desktop: md
     marginY:
       desktop: none xl
-  - type: list_press_mentions
-    version: v1.0
-    variant: featured_showcase
-    title: The World's Most Accountable Institutions Chose Us. Here's What We've Built.
-    subtitle: From the Inter-American Development Bank to governments across the Americas and universities on three continents, every institution that selected us to run their programs came with KPIs, public accountability, and high expectations. We delivered every time.
-    show_links: false
-    show_logos: true
-    dynamic_entries:
-      database: press_mentions
-      limit: 10
-      sort: priority
-      permanent_filters:
-        - item_property_slug: locale
-          value: en
-    section_id: list_press_mentions-w7r1sh
-    featured_background: hsl(var(--primary))
-    maxWidth:
-      desktop: 6xl
+  - type: two_column
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    left:
+      video: https://www.youtube.com/watch?v=PWkgaAT8pHg
+      justify: center
+    right:
+      heading: "Luisa Glum: From Auto Repair Shop to Certified Developer"
+      sub_heading: 4Geeks Academy Graduate, Boston
+      description: Luisa was working as a maintenance technician at a repair shop in Boston. She needed a credential that would hold up in a job interview, not just a course completion badge. After earning her certificate at 4Geeks, she was referred directly to her first developer role by the academy. Today she builds software for a living.
+      button:
+        text: See If You Qualify. It's Free
+        url: "#hero-nzpyph"
+        variant: primary
+        icon: Rocket
+    gap: "8"
     marginY:
+      desktop: none xl
+    section_id: two_column-luisa
+  - type: features_grid
+    version: "1.0"
+    variant: stats-text-card
+    title: Why AI Engineering Now
+    subtitle: 87% of companies cannot find the AI Engineers they need. A certification is your way in.
+    description: AI Engineers build intelligent systems, automate workflows, and ship the AI-powered products companies can no longer wait for. Demand is at an all-time high, but only 3% of the workforce holds the skills to fill these roles. A verified certification is what separates your application from everyone else's.
+    card_color: bg-background
+    background: hsl(var(--card))
+    items:
+      - value: 42x
+        title: Growth in Forward-Deployed Engineering since 2023
+      - value: 70%
+        title: Year-over-year growth in US jobs requiring AI skills
+      - value: 3%
+        title: Of the workforce currently certified to fill these roles
+    section_id: features_grid-o2kd1x
+    marginY:
+      mobile: md none
+      desktop: md none
+    paddingY:
+      mobile: none md
       desktop: none md
   - type: syllabus
     variant: program-modules
@@ -361,200 +398,48 @@ sections:
     paddingY:
       mobile: lg none
       desktop: md sm
-  - type: features_grid
-    version: "1.0"
-    variant: stats-text-card
-    title: Why AI Engineering Now
-    subtitle: 87% of companies cannot find the AI Engineers they need. A certification is your way in.
-    description: AI Engineers build intelligent systems, automate workflows, and ship the AI-powered products companies can no longer wait for. Demand is at an all-time high, but only 3% of the workforce holds the skills to fill these roles. A verified certification is what separates your application from everyone else's.
-    card_color: bg-background
-    background: hsl(var(--card))
-    items:
-      - value: 42x
-        title: Growth in Forward-Deployed Engineering since 2023
-      - value: 70%
-        title: Year-over-year growth in US jobs requiring AI skills
-      - value: 3%
-        title: Of the workforce currently certified to fill these roles
-    section_id: features_grid-o2kd1x
-    marginY:
-      mobile: md none
-      desktop: md none
-    paddingY:
-      mobile: none md
-      desktop: none md
-  - type: human_and_ai_duo
-    section_id: human_and_ai_duo-zg16oa
-    version: "1.0"
-    heading: Support Like Nowhere Else. Built to Launch Careers.
-    description: Learning works best when support is tailored to your progress. At 4Geeks, unlimited 1:1 mentorship and AI-powered feedback from Rigobot combine to keep you unblocked and moving faster than you thought possible.
-    bullet_groups:
-      - title: "Unlimited 1:1 mentorship:"
-        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
+  - type: ai_learning
+    variant: feature-tabs
+    badge: Why 4Geeks?
+    title: The Bootcamp That Doesn't End When You Graduate
+    description: Most programs hand you a certificate and disappear. At 4Geeks, the certification is the starting line, not the finish. From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support, the program is built around one outcome — you, employed, earning more.
+    features:
+      - icon: Robot
+        title: AI-powered feedback, available 24/7
+        description: ""
+        show_rigobot_logo: true
         bullets:
-          - text: Personalized guidance from senior engineers
-          - text: Live troubleshooting and bug fixing
-          - text: Industry insights from people working in tech
-          - text: Unlimited number of sessions. Available lifelong
-      - title: "Rigobot, your AI tutor:"
+          - text: Instant feedback from Rigobot, our custom AI tutor
+          - text: Advice adjusted to your skill level and progress
+          - text: Instant help at any hour, day or night
+          - text: Hundreds of interactive coding exercises and tests
+        video_url: https://www.youtube.com/watch?v=NRuShbSLtg0
+      - icon: Headset
+        title: Unlimited 1:1 mentorship, for life
+        description: ""
+        show_rigobot_logo: true
         bullets:
-          - text: Instant feedback on your code, 24/7
-          - text: Adapts to your level and learning pace
-          - text: Keeps you unblocked at any hour
-          - text: Hundreds of hands-on coding exercises and tests
-    images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
-        alt: Asian student learning to code
-        object_fit: cover
-        object_position: 40%20%
-        border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
-        alt: Latino student working on a project
-        object_fit: cover
-        object_position: 50%30%
-        border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
-        alt: African student collaborating with team
-        object_fit: cover
-        object_position: 50%15%
-        border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
-        alt: Latina student celebrating success
-        object_fit: cover
-        object_position: 50%30%
-        border_radius: 0.5rem
-    image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
-    image_alt: Woman working on laptop in cafe
-    background: hsl(210 100% 50% / 0.05)
-    paddingY:
-      mobile: sm none
-      desktop: md
+          - text: Lifelong access to 1:1 technical mentorship
+          - text: 7:1 student-to-mentor ratio so your mentor knows your name
+          - text: Weekly check-ins and peer collaboration via Slack
+          - text: Dedicated channels for coding support, job boards, and career advice
+        video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
+      - icon: TrendingUp
+        title: Career support built for the AI job market
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Lifelong 1:1 career coaching
+          - text: Resume and portfolio built to pass AI-based screening
+          - text: Interview prep and salary negotiation
+          - text: Direct referrals to our 400+ employer network
+        video_url: https://youtu.be/-2ZvlgDnltc
+    section_id: ai_learning-xiuj75
     marginY:
-      desktop: none md
-  - type: career_support_explain
-    maxWidth:
-      desktop: 6xl
-    version: v1.0
-    heading: Career Support that Never Ends
-    description: AI-optimized profiles, direct access to a network of 400+ hiring partners, and hands-on support from first application to every career move you'll ever make.
-    background: hsl(var(--sidebar-background))
-    tabs:
-      - tab_label: Job-Ready, Faster
-        layout: three_columns
-        col1_subtitle: Build a Recruiter-Ready Profile, Smarter.
-        col1_description: |-
-          Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
-          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal impact.
-        col1_tagline: We'll help you create tailored job search materials
-        col1_boxes:
-          - icon: IconBrandLinkedin
-            text: LinkedIn
-          - icon: IconFileText
-            text: Resume
-          - icon: IconBriefcase
-            text: Portfolio
-          - icon: IconMail
-            text: Cover letter
-        col2_heading: Career Strategy, Built Around You
-        col2_bullets:
-          - icon: IconRobot
-            text: 24/7 feedback from RigoBot to audit your LinkedIn and resume
-          - icon: IconUsers
-            text: 1-on-1 career coaching and strategy sessions
-          - icon: IconMicrophone
-            text: Mock interviews and technical interview prep
-        col3_image_id: 4geeks_member
-        col3_object_fit: cover
-        col3_object_position: center
-      - tab_label: Real Hiring Access
-        layout: two_column_cards
-        title: Access the Hidden Job Market.
-        left_text: Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
-        left_image_id: career_team_women
-        left_image_object_fit: cover
-        left_image_object_position: center
-        left_stat:
-          value: 250+
-          label: companies in 4Geeks employer network
-        right_bullets:
-          - icon: IconUserPlus
-            text: Direct referrals to hiring partners
-          - icon: IconTargetArrow
-            text: Curated job matches based on your profile
-          - icon: IconMessageChatbot
-            text: Networking and recruiter conversation coaching
-        right_logos:
-          - image_id: logo_google
-            alt: Google
-          - image_id: logo_meta
-            alt: Meta
-          - image_id: logo_microsoft
-            alt: Microsoft
-          - image_id: logo_uber
-            alt: Uber
-          - image_id: logo_ebay
-            alt: eBay
-          - image_id: logo_kpmg
-            alt: KPMG
-      - tab_label: Proof That Converts
-        layout: text_and_image
-        title: Projects that Demonstrate Real Skill.
-        left_description: |-
-          Visibility gets attention. Proof closes the gap.
-          Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
-        left_bullets:
-          - icon: IconBriefcase
-            text: Industry-aligned, real-world projects
-          - icon: IconPresentation
-            text: A showcase-ready capstone project
-          - icon: IconBrandGithub
-            text: GitHub optimization and professional code review
-        right_image_id: geekforce_valentina_ancieta
-        right_image_object_fit: cover
-        right_image_object_position: center
-      - tab_label: Your Best-Fit Role
-        layout: text_with_testimonials_carousel
-        title: Turn Your Background into an Advantage.
-        left_description: |-
-          Once offers are on the table, we help you choose and negotiate with confidence.
-          Your previous experience matters. We map transferable skills, focus your job search on the right roles, and support you through salary negotiation and long-term growth.
-        left_bullets:
-          - icon: IconTransfer
-            text: Transferable skills mapping
-          - icon: IconMap
-            text: Personalized career roadmap
-          - icon: IconCoin
-            text: Salary negotiation coaching
-          - icon: IconUsers
-            text: Ongoing alumni career support
-        testimonials:
-          - image_id: mailinh_tran
-            image_object_fit: cover
-            image_object_position: center
-            contributor_logos:
-              - image_id: clark_university
-            description: MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her endeavor.
-            achievement: She launched her own startup, is hiring new tech talent, and coordinates an entire team of developers.
-          - image_id: martin_coimbra
-            image_object_fit: cover
-            image_object_position: center top
-            contributor_logos:
-              - image_id: logo_utec
-            description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
-            achievement: He achieved a 100% salary increase.
-          - image_id: melanie_galaretto
-            image_object_fit: cover
-            image_object_position: center
-            contributor_logos:
-              - image_id: logo_utec
-              - image_id: bid_logo
-            description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
-            achievement: She achieved a 100% salary increase.
-    section_id: career_support_explain-xpc3k2
-    marginY:
-      desktop: none xl
+      desktop: md lg
     paddingY:
-      desktop: md none
+      desktop: md sm
+    background: hsl(var(--secondary))
   - type: certificate
     title: Your Certificate. Your Salary Leverage.
     description: "Earn an industry-recognized AI Engineering certification from a Florida Department of Education accredited institution. Step into roles paying:"
@@ -568,7 +453,7 @@ sections:
       subtitle: 4Geeks Academy Certificate
       program_name: AI Engineering
     stats:
-      - value: 84%
+      - value: 86%
         label: Hiring rate
         description: Graduate with an accredited certification, a live portfolio, and a professional profile built to get you hired, not just qualified.
         benefits:
@@ -804,6 +689,42 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
+  - type: features_quad
+    version: "1.0"
+    heading: Who Qualifies for the Job Guarantee?
+    description: "The Job Guarantee is available to certified graduates who meet all four of these requirements:"
+    cards:
+      - icon: IconBriefcaseFilled
+        title: Have U.S. work authorization
+      - icon: IconCircleDashedCheck
+        title: Complete All Program Requirements
+      - icon: IconBrain
+        title: Pass the Admissions Logic Test
+      - icon: IconArrowGuideFilled
+        title: Follow the Full Career Development Process
+    section_id: features_quad-ms7uox
+    marginY:
+      desktop: none xl
+    paddingY:
+      desktop: none
+    background: hsl(var(--secondary))
+  - type: numbered_steps
+    version: "1.0"
+    variant: bubbleText
+    title: How to Get Your Certification Started in Under 48 Hours
+    description: Applying takes 2 minutes. The full admissions process is done in less than 48 hours. Here's exactly what happens next.
+    steps:
+      - icon: Optimization
+        title: Submit Your Application
+        text: Fill out the short form above. It takes 2 minutes. No payment required to apply.
+      - icon: Interview
+        title: Talk to Admissions
+        text: A member of our team reaches out within a few minutes to walk you through the certification requirements, answer your questions, and confirm your eligibility.
+      - icon: JobSearch
+        title: Enroll and Start Building
+        text: Choose your payment or financing plan, lock in your start date, and get immediate access to prework. You start working toward your certification from day one.
+    background: hsl(var(--card))
+    section_id: numbered_steps-sgeuhk
   - type: cards_deck
     version: "1.0"
     heading: Real Stories of Real Career Change
