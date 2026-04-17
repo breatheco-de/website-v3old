@@ -585,8 +585,8 @@ sections:
           - text: Priority referrals to 400+ partner companies
           - text: Networking events with hiring managers
           - text: Companies include Google, Meta, Microsoft, and leading startups
-      - value: 55%
-        label: Average salary increase
+      - value: 55% Increase
+        label: Average new salary
         description: "A 55% average salary increase for graduates who make the switch. AI Engineering skills are exactly what companies can't find enough of — and they pay accordingly. Here's what certified graduates step into:"
         benefits:
           - text: "AI Engineer: $95K–$135K"
