@@ -569,7 +569,7 @@ sections:
           - text: Accredited by the Florida Department of Education
           - text: Recognized by employers actively hiring 4Geeks graduates
           - text: Issued upon completion of a rigorous, milestone-based program
-      - value: Portfolio
+      - value: AI Portfolio
         label: The work that backs it up
         description: You don't just earn a certificate. You graduate with a fully operational, AI-powered company you built across 10 milestones, demonstrating your AI-native skills.
         benefits:
@@ -577,7 +577,7 @@ sections:
           - text: Demonstrated experience with agents, RAG systems, and AI workflows
           - text: Hands-on experience with Python, React, Next.js, RAG systems, vector databases, autonomous agents, and n8n
           - text: Showcase-ready capstone project
-      - value: Network
+      - value: Hiring Network
         label: Your door to employers
         description: Graduating means joining a global network of 6,000+ alumni, with exclusive access to hiring partners and direct connections to the people making hiring decisions.
         benefits:
