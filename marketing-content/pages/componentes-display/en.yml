@@ -1120,7 +1120,7 @@ sections:
           logoHeight: 55px
     video_title: GeekForce Career Support
     marginY:
-      desktop: none
+      desktop: none lg
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: md none
