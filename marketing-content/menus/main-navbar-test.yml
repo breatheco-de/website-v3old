@@ -41,7 +41,7 @@ navbar:
       component: Dropdown
       dropdown:
         type: columns
-        title: Why 4Geeks Academy
+        title: Why 4Geeks
         description: Launch your tech career with the unlimited support of expert mentors, AI-powered tools, and personalized career guidance. With strong outcomes and global recognition, we've helped thousands thrive in tech.
         icon: medal
         columns:

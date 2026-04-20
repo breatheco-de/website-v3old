@@ -5,7 +5,7 @@ meta:
   robots: noindex, nofollow
   priority: 0.8
   change_frequency: monthly
-  page_title: Testing Resource | 4Geeks Academy
+  page_title: Testing Resource | 4Geeks
   description: Internal testing resource for downloadable content. This page is not indexed and not intended for public visitors.
 schema:
   include:

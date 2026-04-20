@@ -5,7 +5,7 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Upcoming Program Dates | 4Geeks Academy
+  page_title: Upcoming Program Dates | 4Geeks
   description: Discover upcoming program dates for AI, Data Science, and Cybersecurity at 4Geeks Academy, and kickstart your tech career with hands-on training
   redirects:
     - /upcoming-dates

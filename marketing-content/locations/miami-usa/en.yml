@@ -43,7 +43,7 @@ schema:
         postalCode: "33131"
         addressCountry: US
 meta:
-  page_title: 4Geeks Academy Miami | Coding Bootcamp in Florida
+  page_title: 4Geeks Miami | Coding Bootcamp in Florida
   description: Join 4Geeks Miami coding bootcamp. Learn Full Stack Development, AI, or Data Science with unlimited mentorship and job guarantee.
   robots: index, follow
   og_image: /images/locations/miami-og.jpg

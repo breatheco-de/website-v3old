@@ -4,7 +4,7 @@ settings:
   loading:
     eager_count: 3
 meta:
-  page_title: Applied AI Course for Professionals | 4Geeks Academy
+  page_title: Applied AI Course for Professionals | 4Geeks
   description: Accelerate your career with our Applied AI course at 4Geeks Academy, designed for professionals seeking expert mentorship, AI skills and strong job outcomes.
   robots: index, follow
   og_image: /images/programs/ai-engineering-og.jpg

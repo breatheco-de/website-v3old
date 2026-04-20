@@ -1,11 +1,11 @@
 slug: contact-us
 template: default
-title: Contact 4Geeks Academy
+title: Contact 4Geeks
 meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Contact 4Geeks Academy | 4Geeks Academy
+  page_title: Contact 4Geeks | 4Geeks
   description: Contact 4Geeks Academy - Learn more about this topic at 4Geeks Academy.
   redirects:
     - /contact-us

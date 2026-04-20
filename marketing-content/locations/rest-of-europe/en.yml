@@ -1,5 +1,5 @@
 meta:
-  page_title: 4Geeks Academy | Rest of Europe Coding Bootcamp
+  page_title: 4Geeks | Rest of Europe Coding Bootcamp
   description: Learn to code in Europe from home with 4Geeks Academy. Unlimited 1:1 support, AI-powered learning, and lifetime career support. Full Stack, Data Science, or Cybersecurity.
   robots: index, follow
   og_image: /images/locations/rest-of-europe-og.jpg
@@ -77,7 +77,7 @@ sections:
       - https://randomuser.me/api/portraits/men/2.jpg
       - https://randomuser.me/api/portraits/women/3.jpg
       - https://randomuser.me/api/portraits/men/4.jpg
-    title: Your Tech Journey with 4Geeks Academy in Europe
+    title: Your Tech Journey with 4Geeks in Europe
     description: Develop your technology skills from anywhere in Europe. Interactive courses focused on essential technical skills for today's digital world, access to experienced instructors and a collaborative learning community, and preparation for real-world challenges and tech job opportunities across the region.
     background: gradient
     marginY:

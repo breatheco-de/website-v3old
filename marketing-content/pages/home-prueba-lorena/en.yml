@@ -8,7 +8,7 @@ meta:
   robots: noindex, nofollow
   priority: 1
   change_frequency: daily
-  page_title: Home Preview Test Page | 4Geeks Academy
+  page_title: Home Preview Test Page | 4Geeks
   description: Internal homepage preview for testing purposes. This page is not indexed and not intended for public visitors or search engines.
 schema:
   include:

@@ -5,7 +5,7 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Career Opportunities at 4Geeks Academy
+  page_title: Career Opportunities at 4Geeks
   description: Discover career opportunities and job openings at 4Geeks Academy, a top coding bootcamp for AI, Cybersecurity, Data Science and Full Stack Development.
   redirects:
     - /work-with-us

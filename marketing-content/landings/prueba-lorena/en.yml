@@ -3,7 +3,7 @@ settings:
     eager_count: 3
 meta:
   robots: noindex, nofollow
-  page_title: AI Engineering Landing Test Page | 4Geeks Academy
+  page_title: AI Engineering Landing Test Page | 4Geeks
   description: This is an internal test page for the AI Engineering landing. Not for public use or indexing by search engines.
 sections:
   - type: hero

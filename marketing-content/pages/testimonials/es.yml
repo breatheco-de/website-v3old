@@ -5,7 +5,7 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Testimonios de Estudiantes | 4Geeks Academy
+  page_title: Testimonios de Estudiantes | 4Geeks
   description: testimonials - Aprende más sobre este tema en 4Geeks Academy.
   redirects: []
 schema:
@@ -17,7 +17,7 @@ sections:
     section_id: hero-21rn0v
     version: "1.0"
     variant: singleColumn
-    title: Reseñas reales de graduados de 4Geeks Academy
+    title: Reseñas reales de graduados de 4Geeks
     subtitle: Nuestros graduados comparten cómo desarrollaron habilidades demandadas, ganaron confianza y lanzaron nuevas carreras en tecnología con el apoyo de la comunidad de 4Geeks.
     badge: Testimonios de estudiantes y resultados profesionales
     trust_bar:

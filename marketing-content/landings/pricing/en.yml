@@ -2,13 +2,13 @@ settings:
   loading:
     eager_count: 3
 meta:
-  page_title: 4Geeks Academy Pricing | Tuition & Payment Plans
+  page_title: 4Geeks Pricing | Tuition & Payment Plans
   description: Discover affordable coding bootcamp pricing with flexible payment plans and job guarantee at 4Geeks Academy, invest in your tech career today.
 sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: at 4Geeks Academy
+    title: at 4Geeks
     brand_mark:
       prefix: Your current job has a ceiling. Become an
       highlight: AI Engineer

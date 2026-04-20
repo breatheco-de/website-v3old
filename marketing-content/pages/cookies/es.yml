@@ -5,7 +5,7 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Política de Cookies | 4Geeks Academy
+  page_title: Política de Cookies | 4Geeks
   description: Descubre cómo 4Geeks Academy utiliza cookies para mejorar tu experiencia y ofrecerte contenidos personalizados en nuestros programas de AI, Full Stack y más.
   redirects:
     - /es/cookie

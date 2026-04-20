@@ -5,7 +5,7 @@ meta:
   robots: noindex, nofollow
   priority: 0.8
   change_frequency: weekly
-  page_title: sample page | 4Geeks Academy
+  page_title: sample page | 4Geeks
   description: sample page - Learn more about this topic at 4Geeks Academy.
   redirects:
     - /sample-page
@@ -18,7 +18,7 @@ sections:
     section_id: hero-gi7p0x
     version: "1.0"
     variant: course
-    title: "{{ global.sample_greeting | Welcome to 4Geeks Academy }}"
+    title: "{{ global.sample_greeting | Welcome to 4Geeks }}"
     subtitle: Boost your career, harness the power of Applied AI.
     students_enrolled:
       avatars:

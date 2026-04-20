@@ -1032,7 +1032,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: en 4Geeks Academy
+    title: en 4Geeks
     brand_mark:
       prefix: Conviértete en un
       highlight: Desarrollador Full Stack

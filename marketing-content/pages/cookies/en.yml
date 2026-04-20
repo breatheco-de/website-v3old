@@ -5,7 +5,7 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Cookie Policy | 4Geeks Academy
+  page_title: Cookie Policy | 4Geeks
   description: Discover how 4Geeks Academy protects your data with our transparent cookie policy and learn more about our programs.
   redirects:
     - /us/cookies

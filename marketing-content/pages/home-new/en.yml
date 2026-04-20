@@ -8,7 +8,7 @@ meta:
   robots: index, follow
   priority: 1
   change_frequency: daily
-  page_title: 4Geeks Academy | AI-Powered Coding Bootcamp
+  page_title: 4Geeks | AI-Powered Coding Bootcamp
   description: Join 4Geeks Academy to learn coding and AI skills with hands-on projects, unlimited mentorship, and a job guarantee to launch your tech career.
 schema:
   include:

@@ -8,7 +8,7 @@ meta:
   robots: noindex, nofollow
   priority: 1
   change_frequency: daily
-  page_title: Lumi Home Preview Page | 4Geeks Academy
+  page_title: Lumi Home Preview Page | 4Geeks
   description: Internal Lumi homepage preview for internal testing. Not indexed and not intended for public search engine visitors.
 schema:
   include:

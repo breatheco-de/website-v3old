@@ -6,7 +6,7 @@ meta:
   og_image: /images/landing-og.jpg
   priority: 0.9
   change_frequency: weekly
-  page_title: Full Stack con IA - Programa Intensivo | 4Geeks Academy
+  page_title: Full Stack con IA - Programa Intensivo | 4Geeks
   description: Learn full stack development with AI integration and launch your career with 4Geeks Academy's intensive program, job guarantee and hands-on training
 schema:
   include:
@@ -348,7 +348,7 @@ sections:
         link_text: Leer Artículo
         link_url: https://example.com/article-2
       - logo: https://storage.googleapis.com/4geeks-academy-website/media/cnn-chile-logo.png
-        title: Entrevista / 4Geeks Academy en CNN Chile
+        title: Entrevista / 4Geeks en CNN Chile
         excerpt: Gracias a nuestros amigos de CNN Chile por haber estado presentes en nuestro evento y publicar tan buen material sobre el futuro en educación que ofrecemos a la comunidad de Santiago a través de nuestro programa de
         link_text: Ver Entrevista
         link_url: https://example.com/interview
@@ -363,7 +363,7 @@ sections:
         link_text: Leer Artículo
         link_url: https://example.com/article-4
       - logo: https://storage.googleapis.com/4geeks-academy-website/media/eleconomistas-logo.png
-        title: 4Geeks Academy lanza un millón en becas para la formación de futuros programadores
+        title: 4Geeks lanza un millón en becas para la formación de futuros programadores
         excerpt: La academia de programación 4Geeks Academy ha anunciado el lanzamiento de un millón de dólares en becas para la formación de futuros programadores.
         link_text: Leer Artículo
         link_url: https://example.com/article-5

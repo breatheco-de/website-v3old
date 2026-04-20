@@ -1,11 +1,11 @@
 slug: contactanos
 template: default
-title: Contact 4Geeks Academy
+title: Contact 4Geeks
 meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Contáctanos en 4Geeks Academy para más info
+  page_title: Contáctanos en 4Geeks para más info
   description: Contact 4Geeks Academy - Aprende más sobre este tema en 4Geeks Academy.
   redirects:
     - /contactanos

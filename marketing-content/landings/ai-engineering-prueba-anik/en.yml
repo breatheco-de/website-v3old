@@ -3,7 +3,7 @@ settings:
     eager_count: 3
 meta:
   robots: noindex, nofollow
-  page_title: AI Engineering Preview Variant | 4Geeks Academy
+  page_title: AI Engineering Preview Variant | 4Geeks
   description: Internal preview variant for the AI Engineering landing page. Not for public visitors or search engines.
 sections:
   - type: hero

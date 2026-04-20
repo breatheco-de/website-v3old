@@ -8,7 +8,7 @@ meta:
   robots: noindex, nofollow
   priority: 1
   change_frequency: daily
-  page_title: Vista Previa de Inicio (Test) | 4Geeks Academy
+  page_title: Vista Previa de Inicio (Test) | 4Geeks
   description: Página de prueba interna del inicio. No está indexada ni es para visitantes públicos ni para motores de búsqueda.
 schema:
   include:

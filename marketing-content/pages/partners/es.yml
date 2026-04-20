@@ -1,11 +1,11 @@
 slug: alianzas
 template: default
-title: Aliados de 4Geeks Academy
+title: Aliados de 4Geeks
 meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Aliados de 4Geeks Academy | 4Geeks Academy
+  page_title: Aliados de 4Geeks | 4Geeks
   description: socios - Aprende más sobre este tema en 4Geeks Academy.
   redirects: []
 schema:
@@ -114,7 +114,7 @@ sections:
     slides:
       - image_id: united_way_event
         object_position: 100% 80%
-        title: United Way Miami y 4Geeks Academy
+        title: United Way Miami y 4Geeks
         subtitle: Lanzamiento del Proyecto de Fuerza Laboral de Miami
         description: United Way Miami se ha asociado con 4Geeks Academy para lanzar el Proyecto de Fuerza Laboral de Miami. Este programa transformador fue creado para brindar educación y capacitación de alta calidad a los residentes del condado de Miami-Dade, gracias a una donación multimillonaria de Mackenzie Scott. Los estudiantes admitidos recibirán capacitación en programación sin costos iniciales.
         stats:
@@ -144,7 +144,7 @@ sections:
           variant: primary
       - image_id: crusa_forte_scholarship
         object_position: 100% 80%
-        title: Costa Rica Forte y 4Geeks Academy
+        title: Costa Rica Forte y 4Geeks
         subtitle: Impulsando el desarrollo del talento en Costa Rica
         description: En colaboración con Forte y Crusa, 4Geeks Academy se ha asociado con el modelo FORTE para potenciar el desarrollo del talento en Costa Rica. Este programa ha capacitado a más de 35 estudiantes en tecnologías digitales de alta demanda, con enfoque en mujeres de áreas con alto desempleo. Los participantes reciben capacitación gratuita, lo que les permite acceder a mejores empleos en la industria 4.0 y contribuir al crecimiento económico del país.
         stats:
@@ -273,7 +273,7 @@ sections:
     slides:
       - image_id: student_coding_laptop
         object_position: 100% 80%
-        title: Beca talento digital y 4Geeks Academy
+        title: Beca talento digital y 4Geeks
         subtitle: Lanzando la Fundación ONCE
         description: La Fundación ONCE, a través de su programa Talento Digital, impulsa la formación en competencias tecnológicas a través de una beca parcial para mejorar la empleabilidad de personas con discapacidad. En colaboración con 4Geeks Academy, esta beca permite acceder a programas de formación intensiva en programación, ciencia de datos, inteligencia artificial y otras áreas digitales con alta demanda laboral.
         stats:
@@ -296,7 +296,7 @@ sections:
           variant: primary
       - image_id: united_way_event
         object_position: 100% 80%
-        title: United Way Miami y 4Geeks Academy
+        title: United Way Miami y 4Geeks
         subtitle: Lanzamiento del Proyecto de Fuerza Laboral de Miami
         description: United Way Miami se ha asociado con 4Geeks Academy para lanzar el Proyecto de Fuerza Laboral de Miami. Este programa transformador fue creado para brindar educación y capacitación de alta calidad a los residentes del condado de Miami-Dade, gracias a una donación multimillonaria de Mackenzie Scott. Los estudiantes admitidos recibirán capacitación en programación sin costos iniciales.
         stats:
@@ -326,7 +326,7 @@ sections:
           variant: primary
       - image_id: crusa_forte_scholarship
         object_position: 100% 80%
-        title: Costa Rica Forte y 4Geeks Academy
+        title: Costa Rica Forte y 4Geeks
         subtitle: Impulsando el desarrollo del talento en Costa Rica
         description: En colaboración con Forte y Crusa, 4Geeks Academy se ha asociado con el modelo FORTE para potenciar el desarrollo del talento en Costa Rica. Este programa ha capacitado a más de 35 estudiantes en tecnologías digitales de alta demanda, con enfoque en mujeres de áreas con alto desempleo. Los participantes reciben capacitación gratuita, lo que les permite acceder a mejores empleos en la industria 4.0 y contribuir al crecimiento económico del país.
         stats:
