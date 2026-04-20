@@ -650,6 +650,10 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-dc7isf
+    paddingY:
+      desktop: none sm
+    marginY:
+      desktop: none sm
   - type: whos_hiring
     variant: carousel
     pretitle: Job Placement
@@ -682,7 +686,9 @@ sections:
         alt: Jooble
     section_id: whos_hiring-vyd58o
     paddingY:
-      desktop: none md
+      desktop: sm md
+    marginY:
+      desktop: sm none
   - type: faq
     version: v1.0
     title: Real Questions. Honest Answers
