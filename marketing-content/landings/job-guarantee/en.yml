@@ -209,7 +209,7 @@ sections:
         cta_text: Get More Info
         cta_url: "#hero-nzpyph"
     section_id: programs_showcase-5wibqd
-    background: hsl(var(--card))
+    background: hsl(var(--secondary))
     paddingY:
       desktop: md lg
     marginY:
