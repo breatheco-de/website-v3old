@@ -9,8 +9,6 @@ meta:
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
   change_frequency: weekly
-  page_title: Python for AI Engineering | Turn Your Python Skills Into an AI Career | 4Geeks Academy
-  description: Already know Python? Turn it into an AI Engineering career. Build AI agents, RAG systems, and automated pipelines in 24 weeks. Job Guarantee included. Start earning $95K–$135K.
 schema:
   include:
     - organization
