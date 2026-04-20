@@ -1512,31 +1512,3 @@ sections:
     gap: lg
     rounded: true
     section_id: image_row-echjgj
-  - type: image_row
-    version: v1.0
-    images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
-        alt: Student learning to code
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
-        alt: Developer working on project
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
-        alt: Team collaboration session
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
-        alt: Graduate celebrating success
-    highlight:
-      slides:
-        - text_1: The 'average student' doesn't exist.
-          text_2: YOU DO—with your unique strengths, weaknesses and learning style.
-        - text_1: Learning shouldn't be one-size-fits-all.
-          text_2: Our AI adapts to how YOU learn best.
-        - text_1: Your success is our mission.
-          text_2: Join thousands who transformed their careers with 4Geeks.
-      background: primary
-      width: 2
-      autoplay_interval: 5000
-      show_indicators: true
-    height: 31rem
-    mobile_height: 24rem
-    gap: md
-    rounded: true
-    section_id: image_row-s8c0nh
