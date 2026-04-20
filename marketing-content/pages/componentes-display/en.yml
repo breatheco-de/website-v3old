@@ -1497,3 +1497,16 @@ sections:
     gap: md
     rounded: true
     section_id: image_row-s2ngvr
+  - type: image_row
+    version: v1.0
+    images:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
+        alt: Asian student learning to code
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
+        alt: Latino student working on a project
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
+        alt: African student collaborating with team
+    height: 20rem
+    gap: lg
+    rounded: true
+    section_id: image_row-echjgj
