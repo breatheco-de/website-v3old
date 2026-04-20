@@ -136,6 +136,7 @@ import {
 } from "./markdown";
 import { resolveDynamicEntries } from "./dynamic-entries";
 import { loadDatabaseSinglePage } from "./database-single-loader";
+import { getBaseUrl } from "./hreflang";
 
 const BREATHECODE_HOST =
   process.env.VITE_BREATHECODE_HOST || "https://breathecode.herokuapp.com";
@@ -237,6 +238,19 @@ function applyMetaFallback(data: Record<string, unknown>): void {
   if (!meta.description) {
     meta.description = "";
   }
+}
+
+function injectCanonicalIfMissing(
+  data: Record<string, unknown>,
+  contentType: string,
+  locale: string,
+): void {
+  if (!data.meta || typeof data.meta !== "object") return;
+  const meta = data.meta as Record<string, unknown>;
+  if (meta.canonical_url) return;
+  const urlPath = resolveContentTypeUrl(contentType, data, locale);
+  if (!urlPath) return;
+  meta.canonical_url = getBaseUrl() + urlPath;
 }
 
 function loadCareerProgram(slug: string, locale: string): CareerProgram | null {
@@ -1284,6 +1298,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const programRaw = contentIndex.loadMergedContent("program", slug, locale);
     const layout = resolveLayout("program", programRaw.data || {});
     const singleEntry = buildSingleEntryFromContent("program", programData);
+    injectCanonicalIfMissing(programData, "program", locale);
     const { layout: _stripLayout, ...rest } = programData;
     res.json({
       ...rest,
@@ -1381,6 +1396,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const rawMerged = contentIndex.loadMergedContent("landing", slug, locale);
     const layout = resolveLayout("landing", rawMerged.data || commonData || {});
     const singleEntry = buildSingleEntryFromContent("landing", landingData);
+    injectCanonicalIfMissing(landingData, "landing", locale);
     const { layout: _stripLayout, ...restLanding } = landingData;
     res.json({
       ...restLanding,
@@ -1420,6 +1436,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const locationRaw = contentIndex.loadMergedContent("location", slug, locale);
     const layout = resolveLayout("location", locationRaw.data || {});
     const singleEntry = buildSingleEntryFromContent("location", locationData);
+    injectCanonicalIfMissing(locationData, "location", locale);
     const { layout: _stripLayout, ...restLocation } = locationData;
     res.json({
       ...restLocation,
@@ -1449,6 +1466,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const cpPageData = page as unknown as Record<string, unknown>;
     const cpRaw = contentIndex.loadMergedContent("page", "career-programs", locale);
     const cpLayout = resolveLayout("page", cpRaw.data || {});
+    injectCanonicalIfMissing(cpPageData, "page", locale);
     const { layout: _cpStripLayout, ...cpRest } = cpPageData;
     res.json({ ...cpRest, layout: cpLayout });
   });
@@ -1467,7 +1485,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const commonData = contentIndex.loadCommonData("page", "apply");
     const applyRaw = contentIndex.loadMergedContent("page", "apply", locale);
     const layout = resolveLayout("page", applyRaw.data || {});
-    const { layout: _stripLayout, ...restApply } = page as unknown as Record<string, unknown>;
+    const applyData = page as unknown as Record<string, unknown>;
+    injectCanonicalIfMissing(applyData, "page", locale);
+    const { layout: _stripLayout, ...restApply } = applyData;
 
     res.json({
       ...restApply,
@@ -1558,6 +1578,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (singleEntry) {
       pageData.singleEntry = singleEntry;
     }
+    injectCanonicalIfMissing(pageData, "page", locale);
     const { layout: _stripLayout, ...restPage } = pageData;
     res.json({ ...restPage, layout });
   });
@@ -1588,6 +1609,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       const dbRaw = contentIndex.loadMergedContent(contentType, slug, locale);
       const dbLayout = resolveLayout(contentType, dbRaw.data || {});
+      injectCanonicalIfMissing(dbPageData, contentType, locale);
       const { layout: _dbStripLayout, ...dbRest } = dbPageData;
       res.json({ ...dbRest, layout: dbLayout });
       return;
@@ -1619,6 +1641,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const resolved = resolveSingleVars(genericPageData, singleEntry) as Record<string, unknown>;
       Object.assign(genericPageData, resolved);
     }
+    injectCanonicalIfMissing(genericPageData, contentType, locale);
     const { layout: _genericStripLayout, ...genericRest } = genericPageData;
     res.json({ ...genericRest, layout: genericLayout });
   });
@@ -1972,7 +1995,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const dbSingleRaw = contentIndex.loadMergedContent(contentType, slug, locale);
       const dbSingleLayout = resolveLayout(contentType, dbSingleRaw.data || (page as unknown as Record<string, unknown>));
-      const { layout: _dbSingleStripLayout, ...dbSingleRest } = page as unknown as Record<string, unknown>;
+      const dbSingleData = page as unknown as Record<string, unknown>;
+      injectCanonicalIfMissing(dbSingleData, contentType, locale);
+      const { layout: _dbSingleStripLayout, ...dbSingleRest } = dbSingleData;
       res.json({ ...dbSingleRest, layout: dbSingleLayout });
     } catch (error) {
       console.error("[DatabaseSingle] Error:", error);
