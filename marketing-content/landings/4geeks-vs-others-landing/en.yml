@@ -234,6 +234,8 @@ sections:
           - Entry tests or prior coding experience
     section_id: geeks_vs_others_comparison-1vx8lv
     background: hsl(210 100% 50% / 0.05)
+    paddingY:
+      desktop: lg none
   - type: career_support_explain
     maxWidth:
       desktop: 6xl
