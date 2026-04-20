@@ -782,3 +782,19 @@ sections:
       - value: $95K-$135K
         title: Average starting salary for AI Engineers
     section_id: features_grid-r890zf
+  - type: features_grid
+    version: "1.0"
+    variant: stats-text
+    title: Why AI Engineering Now
+    subtitle: The talent shortage is your opportunity
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    items:
+      - value: 3.5M
+        title: AI-related roles expected by 2026
+      - value: 47%
+        title: Year-over-year growth in AI job postings
+      - value: $95K-$135K
+        title: Average starting salary for AI Engineers
+    maxWidth:
+      desktop: 6xl
+    section_id: features_grid-hht45o
