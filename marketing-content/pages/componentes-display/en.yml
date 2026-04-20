@@ -1294,3 +1294,22 @@ sections:
     pills_url: "#list_press_mentions-w7r1sh"
     marquee_static: true
     section_id: hero-a68234
+  - type: hero
+    version: "1.0"
+    variant: simpleTwoColumn
+    title: Get into tech with our Job Guarantee
+    subtitle: Your success is our mission. Get hired within 9 months of graduation, or we will refund your tuition. Conditions apply.
+    image:
+      src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
+      alt: Students collaborating in a tech workspace
+    cta_buttons:
+      - text: Apply now
+        url: "#apply"
+        variant: primary
+        icon: Rocket
+      - text: Download Details
+        url: "#syllabus"
+        variant: outline
+        icon: Download
+    background: bg-gradient-to-b from-primary/5 to-background
+    section_id: hero-tr3wuj
