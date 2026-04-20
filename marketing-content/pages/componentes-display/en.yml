@@ -1294,6 +1294,8 @@ sections:
     pills_url: "#list_press_mentions-w7r1sh"
     marquee_static: true
     section_id: hero-a68234
+    marginY:
+      desktop: none lg
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
