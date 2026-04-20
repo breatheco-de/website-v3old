@@ -1549,6 +1549,8 @@ sections:
     success:
       message: Thanks! We'll contact you within 24 hours.
     section_id: lead_form-nsi9ec
+    marginY:
+      desktop: none lg
   - type: numbered_steps
     version: "1.0"
     title: How the Refund Works
