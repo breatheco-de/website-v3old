@@ -390,6 +390,8 @@ sections:
           url: https://4geeks.com
           variant: primary
     section_id: community_support-xsvnir
+    marginY:
+      desktop: none md
   - type: comparison_table
     version: "1.0"
     title: Framework Comparison
