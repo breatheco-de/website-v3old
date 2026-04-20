@@ -1476,3 +1476,24 @@ sections:
     footer_description: Together, human mentorship and AI-powered tools accelerate your learning.
     background: bg-background
     section_id: human_and_ai_duo-wwk7xq
+  - type: image_row
+    version: v1.0
+    images:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
+        alt: Student learning to code
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
+        alt: Developer working on project
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
+        alt: Team collaboration session
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
+        alt: Graduate celebrating success
+    highlight:
+      text_1: The 'average student' doesn't exist.
+      text_2: YOU DO—with your unique strengths, weaknesses and learning style.
+      background: primary
+      width: 2
+    height: 31rem
+    mobile_height: 24rem
+    gap: md
+    rounded: true
+    section_id: image_row-s2ngvr
