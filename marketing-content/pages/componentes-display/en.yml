@@ -1497,6 +1497,8 @@ sections:
     gap: md
     rounded: true
     section_id: image_row-s2ngvr
+    marginY:
+      desktop: none lg
   - type: image_row
     version: v1.0
     images:
