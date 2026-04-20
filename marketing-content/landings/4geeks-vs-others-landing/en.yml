@@ -358,47 +358,6 @@ sections:
       desktop: none xl
     paddingY:
       desktop: md none
-  - type: programs_showcase
-    version: v1.0
-    layout: spotlight_with_list
-    heading: Four Programs. All Built Around Getting You Hired.
-    subheading: Most bootcamps offer a curriculum. 4Geeks offers a job outcome backed by a guarantee. Pick the track that fits your goal.
-    featured_label: Featured Program
-    programs:
-      - name: AI Engineering
-        icon: IconBrain
-        description: The fastest-growing job of 2026. Build real AI systems using LLMs, agents, and automation — and graduate with a live AI-powered company in your portfolio. Roles paying $95K–$150K.
-        duration: 24 weeks
-        avg_salary: $95,000 – $150,000
-        cta_text: See Program Details
-        cta_url: /us/career-programs/ai-engineering
-      - name: Full Stack Development with AI
-        icon: IconCode
-        description: Build production-ready web applications from frontend to backend with the AI tools companies are hiring for today. Your portfolio ships real products, not exercises.
-        duration: 20 weeks
-        avg_salary: $65,000 – $105,000
-        cta_text: See Program Details
-        cta_url: /us/career-programs/full-stack
-      - name: Data Science and Machine Learning
-        icon: IconChartBar
-        description: Analyze real data, build predictive models, and deploy machine learning solutions companies are paying a premium for. Go beyond theory — every milestone is a deliverable.
-        duration: 16 weeks
-        avg_salary: $70,000 – $130,000
-        cta_text: See Program Details
-        cta_url: /us/career-programs/data-science-ml
-      - name: Cybersecurity
-        icon: IconShield
-        description: Protect the systems AI depends on. As companies scale their AI infrastructure, demand for cybersecurity specialists has never been higher. Build the skills to fill that gap.
-        duration: 16 weeks
-        avg_salary: $65,000 – $120,000
-        cta_text: See Program Details
-        cta_url: /us/career-programs/cybersecurity
-    section_id: programs_showcase-5wibqd
-    background: hsl(210 100% 50% / 0.05)
-    paddingY:
-      desktop: md lg
-    marginY:
-      desktop: sm lg
   - type: geeks_vs_others_comparison
     version: "1.0"
     title: Not All Programs Are Equal. Here's What Sets 4Geeks Apart.
@@ -446,6 +405,47 @@ sections:
           - None required
           - Entry tests or prior coding experience
     section_id: geeks_vs_others_comparison-1vx8lv
+  - type: programs_showcase
+    version: v1.0
+    layout: spotlight_with_list
+    heading: Four Programs. All Built Around Getting You Hired.
+    subheading: Most bootcamps offer a curriculum. 4Geeks offers a job outcome backed by a guarantee. Pick the track that fits your goal.
+    featured_label: Featured Program
+    programs:
+      - name: AI Engineering
+        icon: IconBrain
+        description: The fastest-growing job of 2026. Build real AI systems using LLMs, agents, and automation — and graduate with a live AI-powered company in your portfolio. Roles paying $95K–$150K.
+        duration: 24 weeks
+        avg_salary: $95,000 – $150,000
+        cta_text: See Program Details
+        cta_url: /us/career-programs/ai-engineering
+      - name: Full Stack Development with AI
+        icon: IconCode
+        description: Build production-ready web applications from frontend to backend with the AI tools companies are hiring for today. Your portfolio ships real products, not exercises.
+        duration: 20 weeks
+        avg_salary: $65,000 – $105,000
+        cta_text: See Program Details
+        cta_url: /us/career-programs/full-stack
+      - name: Data Science and Machine Learning
+        icon: IconChartBar
+        description: Analyze real data, build predictive models, and deploy machine learning solutions companies are paying a premium for. Go beyond theory — every milestone is a deliverable.
+        duration: 16 weeks
+        avg_salary: $70,000 – $130,000
+        cta_text: See Program Details
+        cta_url: /us/career-programs/data-science-ml
+      - name: Cybersecurity
+        icon: IconShield
+        description: Protect the systems AI depends on. As companies scale their AI infrastructure, demand for cybersecurity specialists has never been higher. Build the skills to fill that gap.
+        duration: 16 weeks
+        avg_salary: $65,000 – $120,000
+        cta_text: See Program Details
+        cta_url: /us/career-programs/cybersecurity
+    section_id: programs_showcase-5wibqd
+    background: hsl(210 100% 50% / 0.05)
+    paddingY:
+      desktop: md lg
+    marginY:
+      desktop: sm lg
   - type: cards_deck
     version: "1.0"
     heading: Real Stories of Real Career Change
