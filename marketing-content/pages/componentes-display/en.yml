@@ -312,3 +312,53 @@ sections:
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
     section_id: career_support_explain-damkgo
+  - type: certificate
+    version: v1.0
+    section_id: certificate-10xpo6
+    title: Industry Certifications and Career Outcomes
+    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Our program prepares you for:"
+    benefits:
+      - text: EJPT (eLearnSecurity Junior Penetration Tester)
+      - text: CEH (Certified Ethical Hacker) pathway
+      - text: CompTIA Security+ foundations
+      - text: Lifetime career support access
+    card:
+      title: Cybersecurity Specialist
+      subtitle: 4Geeks Academy Certificate
+      program_name: Cybersecurity Specialist
+    stats:
+      - value: __TPL_0__%
+        label: Hiring Rate
+        description: Graduate with the skills and global certifications that top-tier companies are actively seeking in 2026.
+        benefits:
+          - text: CompTIA Security+ Exam Readiness
+          - text: eJPT (Junior Penetration Tester) Prep
+          - text: CEH (Certified Ethical Hacker) Pathway
+          - text: Real-world labs with Nmap & Metasploit
+      - value: 3-6 months
+        label: Time to get hired
+        description: Land your first role within 3–6 months of graduation. With our structured 3-step career development process, your skills turn into job offers fast.
+        benefits:
+          - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
+          - text: Practice for technical and behavioral interviews
+          - text: Execute a personalized job-search strategy with access to relevant hiring networks
+      - value: __TPL_1__
+        label: Average starting salary
+        description: A career in cybersecurity isn't just a new job—it’s a new life trajectory. With an average salary jump of __TPL_2__%, our graduates unlock a level of stability and growth that few other industries can offer.
+        benefits:
+          - text: "Cybersecurity Analyst: __TPL_3__"
+          - text: "Penetration Tester: __TPL_4__"
+          - text: "Security Engineer: __TPL_5__"
+          - text: "Incident Responder: __TPL_6__"
+      - value: 400+
+        label: Hiring Partners
+        description: Our extensive network includes Fortune 500 companies, government agencies, and innovative startups actively seeking cybersecurity talent.
+        benefits:
+          - text: Direct referrals to partner companies
+          - text: Exclusive job board access
+          - text: Networking events with recruiters
+          - text: Alumni referral program
+    certificate_position: right
+    useSolidCard: true
+    paddingY:
+      desktop: none md
