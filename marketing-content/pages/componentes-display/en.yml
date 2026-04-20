@@ -466,6 +466,8 @@ sections:
           - "yes"
           - "yes"
     section_id: comparison_table-psj9xv
+    marginY:
+      desktop: none md
   - type: comparison_table
     version: "1.0"
     title: Feature Availability
