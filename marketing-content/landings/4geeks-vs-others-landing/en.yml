@@ -186,54 +186,56 @@ sections:
       desktop: md
     marginY:
       desktop: none lg
-  - type: human_and_ai_duo
-    section_id: human_and_ai_duo-zg16oa
+  - type: geeks_vs_others_comparison
     version: "1.0"
-    heading: Support Like Nowhere Else. Built to Launch Careers.
-    description: Learning works best when support is tailored to your progress. At 4Geeks, unlimited 1:1 mentorship and AI-powered feedback from Rigobot combine to keep you unblocked and moving faster than you thought possible.
-    bullet_groups:
-      - title: "Unlimited 1:1 mentorship:"
-        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
-        bullets:
-          - text: Personalized guidance from senior engineers
-          - text: Live troubleshooting and bug fixing
-          - text: Industry insights from people working in tech
-          - text: Unlimited number of sessions. Available lifelong
-      - title: "Rigobot, your AI tutor:"
-        bullets:
-          - text: Instant feedback on your code, 24/7
-          - text: Adapts to your level and learning pace
-          - text: Keeps you unblocked at any hour
-          - text: Hundreds of hands-on coding exercises and tests
-    images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
-        alt: Asian student learning to code
-        object_fit: cover
-        object_position: 40%20%
-        border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
-        alt: Latino student working on a project
-        object_fit: cover
-        object_position: 50%30%
-        border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
-        alt: African student collaborating with team
-        object_fit: cover
-        object_position: 50%15%
-        border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
-        alt: Latina student celebrating success
-        object_fit: cover
-        object_position: 50%30%
-        border_radius: 0.5rem
-    image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
-    image_alt: Woman working on laptop in cafe
+    title: Not All Programs Are Equal. Here's What Sets 4Geeks Apart.
+    subtitle: From curriculum to career support, here's how 4Geeks compares to the industry average.
+    columns:
+      - name: Feature
+      - name: 4Geeks Academy
+        highlight: true
+      - name: Industry Average / Competitors
+    rows:
+      - feature: Career Support
+        values:
+          - Personalized support for a lifetime
+          - Limited, ending with 1st job
+      - feature: Student to Mentor Ratio
+        values:
+          - "7:1"
+          - 10+:1
+      - feature: AI Tutor
+        values:
+          - Proprietary AI tutor built to accelerate your progress
+          - Generic AI tools or none
+      - feature: 1-on-1 Mentoring
+        values:
+          - Unlimited and for a lifetime
+          - Limited sessions
+      - feature: Curriculum
+        values:
+          - Constantly evolving with the AI job market
+          - Slow to adapt
+      - feature: Hiring Rate
+        values:
+          - 84% within 3-6 months
+          - Often unproven
+      - feature: Community
+        values:
+          - Strong local and global network
+          - Depends on school
+      - feature: Class Format
+        values:
+          - Online and in-person
+          - Usually only one format
+      - feature: Previous Knowledge/ Experience
+        values:
+          - None required
+          - Entry test or prior experience required
+    section_id: geeks_vs_others_comparison-1vx8lv
     background: hsl(210 100% 50% / 0.05)
     paddingY:
-      mobile: sm none
-      desktop: md
-    marginY:
-      desktop: none md
+      desktop: lg none
   - type: career_support_explain
     maxWidth:
       desktop: 6xl
@@ -358,6 +360,54 @@ sections:
       desktop: none xl
     paddingY:
       desktop: md none
+  - type: human_and_ai_duo
+    section_id: human_and_ai_duo-zg16oa
+    version: "1.0"
+    heading: Support Like Nowhere Else. Built to Launch Careers.
+    description: Learning works best when support is tailored to your progress. At 4Geeks, unlimited 1:1 mentorship and AI-powered feedback from Rigobot combine to keep you unblocked and moving faster than you thought possible.
+    bullet_groups:
+      - title: "Unlimited 1:1 mentorship:"
+        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
+        bullets:
+          - text: Personalized guidance from senior engineers
+          - text: Live troubleshooting and bug fixing
+          - text: Industry insights from people working in tech
+          - text: Unlimited number of sessions. Available lifelong
+      - title: "Rigobot, your AI tutor:"
+        bullets:
+          - text: Instant feedback on your code, 24/7
+          - text: Adapts to your level and learning pace
+          - text: Keeps you unblocked at any hour
+          - text: Hundreds of hands-on coding exercises and tests
+    images:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
+        alt: Asian student learning to code
+        object_fit: cover
+        object_position: 40%20%
+        border_radius: 0.5rem
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
+        alt: Latino student working on a project
+        object_fit: cover
+        object_position: 50%30%
+        border_radius: 0.5rem
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
+        alt: African student collaborating with team
+        object_fit: cover
+        object_position: 50%15%
+        border_radius: 0.5rem
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
+        alt: Latina student celebrating success
+        object_fit: cover
+        object_position: 50%30%
+        border_radius: 0.5rem
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
+    image_alt: Woman working on laptop in cafe
+    background: hsl(210 100% 50% / 0.05)
+    paddingY:
+      mobile: sm none
+      desktop: md
+    marginY:
+      desktop: none md
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
@@ -394,7 +444,6 @@ sections:
         cta_text: See Program Details
         cta_url: /us/career-programs/cybersecurity
     section_id: programs_showcase-5wibqd
-    background: hsl(var(--card))
     paddingY:
       desktop: md lg
     marginY:
@@ -431,6 +480,9 @@ sections:
     section_id: cards_deck-cnay6o
     marginY:
       desktop: none xl
+    background: hsl(var(--secondary))
+    paddingY:
+      desktop: md lg
   - type: list_press_mentions
     version: v1.0
     variant: featured_showcase
@@ -598,6 +650,10 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-dc7isf
+    paddingY:
+      desktop: none sm
+    marginY:
+      desktop: none sm
   - type: whos_hiring
     variant: carousel
     pretitle: Job Placement
@@ -630,7 +686,9 @@ sections:
         alt: Jooble
     section_id: whos_hiring-vyd58o
     paddingY:
-      desktop: none md
+      desktop: sm md
+    marginY:
+      desktop: sm none
   - type: faq
     version: v1.0
     title: Real Questions. Honest Answers
