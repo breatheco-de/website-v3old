@@ -649,7 +649,7 @@ sections:
       desktop: none xl
     paddingY:
       desktop: none
-    background: hsl(var(--sidebar-background))
+    background: hsl(var(--secondary))
     showOnLocations:
       - atlanta-usa
       - austin-usa
