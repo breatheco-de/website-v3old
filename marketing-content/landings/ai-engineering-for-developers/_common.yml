@@ -3,8 +3,13 @@ title: ai-engineering-for-developers
 locale: en
 meta:
   og_image: /images/programs/ai-engineering-og.jpg
+  robots: index, follow
+  priority: 0.9
+  change_frequency: weekly
+  page_title: Python for Developers | Turn Your Programming Skills Into an AI Career | 4Geeks Academy
+  description: Already a developer? Turn your coding skills  into an AI Engineering career. Build AI agents, RAG systems, and automated pipelines in 24 weeks. Job Guarantee offered. Start earning $95K–$135K.
 schema:
   include:
     - organization
     - website
-    - courses:ai-engineering
+locations: null
