@@ -1436,3 +1436,43 @@ sections:
     footer_description: Join thousands of students who have accelerated their learning with our hybrid support system.
     background: bg-muted/30
     section_id: human_and_ai_duo-6ywf38
+  - type: human_and_ai_duo
+    version: "1.0"
+    heading: "Human + AI: The Perfect Support Duo"
+    description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll have access to unlimited 1:1 mentorship plus AI-guided feedback from Rigobot.
+    images:
+      - src: https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400
+        alt: Professional mentor 1
+        object_fit: cover
+        object_position: center 30%
+        border_radius: 0.5rem
+      - src: https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400
+        alt: Professional mentor 2
+        object_fit: cover
+        object_position: center 25%
+        border_radius: 0.5rem
+      - src: https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400
+        alt: Professional mentor 3
+        object_fit: cover
+        object_position: center 20%
+        border_radius: 0.5rem
+      - src: https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400
+        alt: Professional mentor 4
+        object_fit: cover
+        object_position: center 35%
+        border_radius: 0.5rem
+    bullet_groups:
+      - title: "Our Team of Expert Mentors:"
+        image: https://randomuser.me/api/portraits/men/10.jpg
+        bullets:
+          - text: Provides personalized guidance on coding challenges
+          - text: Offers live troubleshooting and debugging support
+          - text: Expert bug fixing assistance
+      - title: "Rigobot + Learnpack:"
+        bullets:
+          - text: Provides instant feedback and tutoring while you code
+          - text: Tracks your skills and progress
+          - text: Helps with debugging and problem-solving tasks
+    footer_description: Together, human mentorship and AI-powered tools accelerate your learning.
+    background: bg-background
+    section_id: human_and_ai_duo-wwk7xq
