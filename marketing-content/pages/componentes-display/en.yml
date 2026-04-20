@@ -1883,6 +1883,8 @@ sections:
         - text: Our mentorship is unlimited and personalized
         - text: Our career support never expires
     section_id: split_cards-mbp98n
+    marginY:
+      desktop: none lg
   - type: syllabus
     version: "1.0"
     variant: program-modules
