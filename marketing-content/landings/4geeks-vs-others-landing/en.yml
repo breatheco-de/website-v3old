@@ -219,7 +219,7 @@ sections:
       - feature: Hiring Rate
         values:
           - 84% within 3-6 months
-          - Often unknown
+          - Often unproven
       - feature: Community
         values:
           - Strong local and global network
