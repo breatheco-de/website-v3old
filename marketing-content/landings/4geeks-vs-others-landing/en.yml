@@ -401,8 +401,8 @@ sections:
       desktop: sm lg
   - type: geeks_vs_others_comparison
     version: "1.0"
-    title: Launching Successful Tech Careers in the AI Era
-    subtitle: "Helping students build lasting tech careers is our mission. From an industry-aligned, future-proof syllabus to a lifelong support system, here's how we outperform the competition:"
+    title: Not All Programs Are Equal. Here's What Sets 4Geeks Apart.
+    subtitle: From curriculum to career support, here's how 4Geeks compares to the industry average.
     columns:
       - name: Feature
       - name: 4Geeks Academy
@@ -413,37 +413,37 @@ sections:
         values:
           - Personalized support for a lifetime
           - Limited, ending with 1st job
-      - feature: "Teacher: Student Ratio"
+      - feature: Student to Mentor Ratio
         values:
-          - "1:7"
-          - 1:10+
-      - feature: AI-Powered Feedback
+          - "7:1"
+          - 10:1+
+      - feature: AI Tutor
         values:
-          - Personalized to your progress
-          - Generic or non-existent
+          - Proprietary AI tutor built to accelerate your progress
+          - Generic AI tools or none
       - feature: 1-on-1 Mentoring
         values:
           - Unlimited and for a lifetime
           - Limited sessions
       - feature: Curriculum
         values:
-          - Continuously updated to match industry needs
+          - Constantly evolving with the AI job market
           - Slow to adapt
-      - feature: "% Hiring Rate"
+      - feature: Hiring Rate
         values:
-          - ~84% within 6 months
-          - Often Unknown
+          - 84% within 3-6 months
+          - Often unknown
       - feature: Community
         values:
-          - Strong local & global network
+          - Strong local and global network
           - Depends on school
       - feature: Class Format
         values:
-          - Online, in-person
+          - Online and in-person
           - Usually only one format
-      - feature: Previous Knowledge
+      - feature: Previous Knowledge Required
         values:
-          - None
+          - None required
           - Entry tests or prior coding experience
     section_id: geeks_vs_others_comparison-1vx8lv
   - type: cards_deck
