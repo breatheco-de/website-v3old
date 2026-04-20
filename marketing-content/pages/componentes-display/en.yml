@@ -1315,6 +1315,8 @@ sections:
         icon: Download
     background: bg-gradient-to-b from-primary/5 to-background
     section_id: hero-tr3wuj
+    marginY:
+      desktop: none lg
   - type: hero
     version: "1.0"
     variant: course
