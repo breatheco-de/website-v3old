@@ -2190,35 +2190,6 @@ sections:
       bullet_icon: Check
       font_size: base
     section_id: two_column-7onvn2
-  - type: two_column
-    version: v1.0
-    proportions:
-      - 8
-      - 4
-    alignment: center
-    gap: "12"
-    left:
-      heading: Transform Your Career in Tech
-      sub_heading: Join thousands of successful graduates
-      description: Our intensive bootcamp program combines hands-on projects, expert mentorship, and career support to help you break into the tech industry. Whether you're a complete beginner or looking to upskill, our curriculum adapts to your learning pace while maintaining industry-standard rigor.
-      bullets:
-        - heading: Personalized Learning
-          text: Adaptive curriculum that meets you where you are
-        - heading: Real Projects
-          text: Build a portfolio employers actually want to see
-        - heading: Career Services
-          text: Resume reviews, mock interviews, and job placement support
-      bullet_icon: IconArrowRight
-      bullet_icon_color: text-primary
-      cta:
-        text: Start Your Journey
-        url: /apply
-        variant: default
-    right:
-      image: https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=500&fit=crop
-      image_alt: Graduate celebrating success
-      justify: center
-    section_id: two_column-b52bnx
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
