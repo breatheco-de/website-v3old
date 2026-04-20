@@ -427,47 +427,126 @@ sections:
     section_id: cards_deck-5bvyft
     marginY:
       desktop: none xl
-  - type: ai_learning
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: The Most Personalized Path to an AI Career
-    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support, every part of the experience is built around you.
-    features:
-      - icon: Robot
-        title: AI-powered feedback, available 24/7
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Instant feedback from Rigobot, our custom AI tutor
-          - text: Advice adjusted to your skill level and progress
-          - text: Instant help at any hour, day or night
-          - text: Hundreds of interactive coding exercises and tests
-        video_url: https://www.youtube.com/watch?v=NRuShbSLtg0
-      - icon: Headset
-        title: Unlimited 1:1 mentorship, for life
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Lifelong access to 1:1 technical mentorship
-          - text: "7:1 student-to-mentor ratio: so your mentor knows your name"
-          - text: Weekly check-ins and peer collaboration via Slack
-          - text: Dedicated channels for coding support, job boards, and career advice
-        video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
-      - icon: TrendingUp
-        title: Career support built for the AI job market
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Lifelong 1:1 career coaching
-          - text: Resume and portfolio built to pass AI-based screening
-          - text: Interview prep and salary negotiation
-          - text: Direct referrals to our 400+ employer network
-        video_url: https://youtu.be/-2ZvlgDnltc
-    section_id: ai_learning-ibcxrc
+  - type: career_support_explain
+    version: v1.0
+    heading: How We Get You Hired. From First Day to Signed Offer.
+    description: A complete system that takes you from enrolled to employed. AI-optimized profiles, direct access to 400+ hiring partners, and 1:1 support that's with you beyond landing your first role.
+    background: hsl(var(--sidebar-background))
+    tabs:
+      - tab_label: Job-Ready, Faster
+        layout: three_columns
+        col1_subtitle: Build a Recruiter-Ready Profile, Smarter.
+        col1_description: |-
+          Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
+          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal impact.
+        col1_tagline: We'll help you create tailored job search materials
+        col1_boxes:
+          - icon: IconBrandLinkedin
+            text: LinkedIn
+          - icon: IconFileText
+            text: Resume
+          - icon: IconBriefcase
+            text: Portfolio
+          - icon: IconMail
+            text: Cover letter
+        col2_heading: Career Strategy, Built Around You
+        col2_bullets:
+          - icon: IconRobot
+            text: 24/7 feedback from RigoBot to audit your LinkedIn and resume
+          - icon: IconUsers
+            text: 1-on-1 career coaching and strategy sessions
+          - icon: IconMicrophone
+            text: Mock interviews and technical interview prep
+        col3_image_id: 4geeks_member
+        col3_object_fit: cover
+        col3_object_position: center
+      - tab_label: Real Hiring Access
+        layout: two_column_cards
+        title: Access the Hidden Job Market.
+        left_text: Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
+        left_image_id: career_team_women
+        left_image_object_fit: cover
+        left_image_object_position: center
+        left_stat:
+          value: {{ global.number_of_hiring_partners_aprox | 250 }}+
+          label: companies in 4Geeks employer network
+        right_bullets:
+          - icon: IconUserPlus
+            text: Direct referrals to hiring partners
+          - icon: IconTargetArrow
+            text: Curated job matches based on your profile
+          - icon: IconMessageChatbot
+            text: Networking and recruiter conversation coaching
+        right_logos:
+          - image_id: logo_google
+            alt: Google
+          - image_id: logo_meta
+            alt: Meta
+          - image_id: logo_microsoft
+            alt: Microsoft
+          - image_id: logo_uber
+            alt: Uber
+          - image_id: logo_ebay
+            alt: eBay
+          - image_id: logo_kpmg
+            alt: KPMG
+      - tab_label: Proof That Converts
+        layout: text_and_image
+        title: Projects that Demonstrate Real Skill.
+        left_description: |-
+          Visibility gets attention. Proof closes the gap.
+          Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
+        left_bullets:
+          - icon: IconBriefcase
+            text: Industry-aligned, real-world projects
+          - icon: IconPresentation
+            text: A showcase-ready capstone project
+          - icon: IconBrandGithub
+            text: GitHub optimization and professional code review
+        right_image_id: geekforce_valentina_ancieta
+        right_image_object_fit: cover
+        right_image_object_position: center
+      - tab_label: Your Best-Fit Role
+        layout: text_with_testimonials_carousel
+        title: Turn Your Background into an Advantage.
+        left_description: Your previous experience matters. We map your transferable skills, focus your search on the right roles, and when offers come, help you negotiate with confidence and choose the right one.
+        left_bullets:
+          - icon: IconTransfer
+            text: Transferable skills mapping
+          - icon: IconMap
+            text: Personalized career roadmap
+          - icon: IconCoin
+            text: Salary negotiation coaching
+          - icon: IconUsers
+            text: Ongoing alumni career support
+        testimonials:
+          - image_id: mailinh_tran
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: clark_university
+            description: MaiLinh came to 4Geeks with an entrepreneurial vision and no technical background. Today she runs her own tech startup and leads a team of developers.
+            achievement: She launched her own business and is now hiring the talent she once wanted to become.
+          - image_id: martin_coimbra
+            image_object_fit: cover
+            image_object_position: center top
+            contributor_logos:
+              - image_id: logo_utec
+            description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
+            achievement: His salary doubled. And he finally does work he loves.
+          - image_id: melanie_galaretto
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: logo_utec
+              - image_id: bid_logo
+            description: Melanie retrained as a software developer and now works remotely for a tech company, from home, in a career she chose.
+            achievement: Her salary doubled. And she works remotely, on her own terms.
+    section_id: career_support_explain-xpc3k2
+    maxWidth:
+      desktop: 6xl
     marginY:
-      desktop: md none
-    paddingY:
-      desktop: md sm
+      desktop: none md
   - type: certificate
     title: Your Certificate. Your Salary Leverage.
     description: "Earn an industry-recognized AI Engineering certificate from a Florida Department of Education accredited institution. Step into roles where Python and AI skills command:"
