@@ -1168,6 +1168,8 @@ sections:
       url: https://www.youtube.com/watch?v=-2ZvlgDnltc
       ratio: "3:4"
     section_id: hero-nziw9v
+    marginY:
+      desktop: none lg
   - type: hero
     version: "1.0"
     variant: course
