@@ -228,7 +228,7 @@ sections:
         values:
           - Online and in-person
           - Usually only one format
-      - feature: Previous Knowledge Required
+      - feature: Previous Knowledge/ Experience
         values:
           - None required
           - Entry tests or prior coding experience
