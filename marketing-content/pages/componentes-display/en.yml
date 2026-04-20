@@ -1549,13 +1549,3 @@ sections:
     success:
       message: Thanks! We'll contact you within 24 hours.
     section_id: lead_form-nsi9ec
-  - type: list_press_mentions
-    version: v1.0
-    variant: cards
-    title: Featured in the Press
-    columns: 3
-    dynamic_entries:
-      database: press_mentions
-      limit: 6
-      sort: priority
-    section_id: list_press_mentions-gjy6n8
