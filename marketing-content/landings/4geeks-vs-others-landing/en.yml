@@ -478,6 +478,7 @@ sections:
     section_id: cards_deck-cnay6o
     marginY:
       desktop: none xl
+    background: hsl(var(--secondary))
   - type: list_press_mentions
     version: v1.0
     variant: featured_showcase
