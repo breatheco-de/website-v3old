@@ -231,7 +231,7 @@ sections:
       - feature: Previous Knowledge/ Experience
         values:
           - None required
-          - Entry tests or prior coding experience
+          - Entry test or prior experience required
     section_id: geeks_vs_others_comparison-1vx8lv
     background: hsl(210 100% 50% / 0.05)
     paddingY:
