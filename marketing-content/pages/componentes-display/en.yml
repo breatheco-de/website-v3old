@@ -428,6 +428,8 @@ sections:
           - "yes"
           - "yes"
     section_id: comparison_table-6hhcz7
+    marginY:
+      desktop: none lg
   - type: comparison_table
     version: "1.0"
     title: Plan Features Comparison
