@@ -5,8 +5,9 @@ settings:
   loading:
     eager_count: 3
 meta:
-  page_title: Become an AI Engineer in 20 Weeks | 4Geeks Academy
-  description: Launch your AI career with hands-on training, unlimited 1:1 mentorship, and job guarantee. Start earning $95K-$135K as an AI Engineer.
+  robots: noindex, nofollow
+  page_title: AI Engineering Test Sandbox | 4Geeks Academy
+  description: Internal test sandbox page for AI Engineering content. Not indexed and not intended for public visitors or search engines.
 sections:
   - type: hero
     version: "1.0"

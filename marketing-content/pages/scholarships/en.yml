@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: scholarships | 4Geeks Academy
-  description: scholarships - Aprende más sobre este tema en 4Geeks Academy.
+  page_title: Tech Scholarships & Financial Aid | 4Geeks Academy
+  description: Find scholarships and financial aid opportunities to fund your tech education at 4Geeks Academy, making coding bootcamps more accessible for everyone.
   redirects:
     - /scholarships
     - /us/20-million

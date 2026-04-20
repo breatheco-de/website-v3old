@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.9
   change_frequency: weekly
-  page_title: Why 4Geeks Academy | Proven Outcomes, Lifelong Support, Job Guarantee | 4Geeks Academy
-  description: Most bootcamps disappear after demo day. 4Geeks stays with you until you land the job. 86% hired within 90 days, unlimited 1:1 mentorship for life, and a Job Guarantee. See what makes the difference.
+  page_title: 4Geeks Academy: Top Coding Bootcamp
+  description: Get hired with 4Geeks Academy's job guarantee, lifelong mentorship and proven outcomes, launch your career today
 schema:
   include:
     - organization

@@ -6,8 +6,8 @@ meta:
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
   change_frequency: weekly
-  page_title: Bootcamp de Ingeniería de IA en Chile | 4Geeks Academy
-  description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando — en solo 24 semanas.
+  page_title: Ingeniería de IA en Chile | 4Geeks Academy
+  description: Desarrolla soluciones de IA con nuestro bootcamp en Chile, con prácticas y garantía de trabajo en 4Geeks Academy.
 schema:
   include:
     - organization

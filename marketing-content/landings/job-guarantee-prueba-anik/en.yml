@@ -2,7 +2,7 @@ slug: job-guarantee-prueba-anik
 title: job-guarantee-prueba-anik
 locale: en
 meta:
-  robots: index, follow
+  robots: noindex, nofollow
   og_image: /images/programs/job-guarantee-og.jpg
   priority: 0.9
   change_frequency: weekly

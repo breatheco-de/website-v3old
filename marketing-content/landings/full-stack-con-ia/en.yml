@@ -7,7 +7,7 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Full Stack con IA - Programa Intensivo | 4Geeks Academy
-  description: This is an example landing page demonstrating the various section types and layouts available.
+  description: Learn full stack development with AI integration and launch your career with 4Geeks Academy's intensive program, job guarantee and hands-on training
 schema:
   include:
     - organization

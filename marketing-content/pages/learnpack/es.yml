@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: LearnPack - Herramienta de Aprendizaje Interactivo | 4Geeks Academy
-  description: learnpack - Aprende más sobre este tema en 4Geeks Academy.
+  page_title: Aprende programación con 4Geeks Academy
+  description: Desarrolla habilidades en programación con nuestros cursos y garantía de empleo en 4Geeks Academy, ¡aprende más!
   redirects: []
 schema:
   include:

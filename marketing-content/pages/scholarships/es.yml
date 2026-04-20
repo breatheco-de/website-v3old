@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Becas | 4Geeks Academy
-  description: scholarships - Aprende más sobre este tema en 4Geeks Academy.
+  page_title: Becas y Ayuda Financiera Tech | 4Geeks Academy
+  description: Descubre becas y opciones de ayuda financiera para financiar tu educación tecnológica en 4Geeks Academy y hacer accesible el aprendizaje en IA y programación.
   redirects:
     - /es/20-millones
 schema:

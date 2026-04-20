@@ -2,13 +2,11 @@ slug: testing
 template: default
 title: Awards
 meta:
-  robots: index, follow
+  robots: noindex, nofollow
   priority: 0.8
   change_frequency: monthly
   page_title: Testing Resource | 4Geeks Academy
-  description: >-
-    Discover why 4Geeks Academy is a top-rated coding bootcamp. See our awards from Forbes, Newsweek, Course Report,
-    SwitchUp, and more.
+  description: Internal testing resource for downloadable content. This page is not indexed and not intended for public visitors.
 schema:
   include:
     - organization

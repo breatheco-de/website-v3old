@@ -8,10 +8,8 @@ meta:
   robots: index, follow
   priority: 1
   change_frequency: daily
-  page_title: 4Geeks Academy | La Plataforma de Recapacitación con IA
-  description: >-
-    Transforma tu carrera con aprendizaje potenciado por IA. Obtén educación personalizada, mentoría experta y apoyo
-    profesional para lanzar tu carrera tecnológica.
+  page_title: 4Geeks Academy | Nueva Plataforma IA de Aprendizaje
+  description: Descubre la nueva plataforma de aprendizaje potenciado con IA de 4Geeks Academy, con programas de tecnología de alta demanda y mentoría experta personalizada.
 schema:
   include:
     - organization

@@ -2,7 +2,8 @@ slug: sample-outcome-report
 title: Outcome Report
 
 meta:
-  page_title: "Outcome Report | 4Geeks"
+  robots: noindex, nofollow
+  page_title: "Informe de Resultados | 4Geeks"
   description: "Sample outcome-report entry for es locale."
 
 sections: []

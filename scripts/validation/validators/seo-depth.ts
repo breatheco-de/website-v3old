@@ -21,7 +21,6 @@ export const seoDepthValidator: Validator = {
     for (const file of context.contentFiles) {
       const pageTitle = file.meta?.page_title;
       const description = file.meta?.description;
-
       if (pageTitle) {
         if (pageTitle.length < 30) {
           warnings.push({

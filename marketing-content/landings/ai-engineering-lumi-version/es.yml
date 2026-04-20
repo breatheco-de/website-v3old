@@ -2,7 +2,7 @@ slug: ai-engineering-lumi-version
 title: Programa de Ingeniería de IA
 locale: es
 meta:
-  robots: index, follow
+  robots: noindex, nofollow
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
   change_frequency: weekly

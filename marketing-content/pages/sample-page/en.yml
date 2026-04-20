@@ -2,7 +2,7 @@ slug: sample-page
 template: default
 title: sample page
 meta:
-  robots: index, follow
+  robots: noindex, nofollow
   priority: 0.8
   change_frequency: weekly
   page_title: sample page | 4Geeks Academy

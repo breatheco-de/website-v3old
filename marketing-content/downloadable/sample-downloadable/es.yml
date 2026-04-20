@@ -2,6 +2,7 @@ slug: sample-downloadable
 title: Downloadable
 
 meta:
+  robots: noindex, nofollow
   page_title: "Recurso Descargable de Ejemplo | 4Geeks"
   description: "Sample downloadable entry for es locale."
 
