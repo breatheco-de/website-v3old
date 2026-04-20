@@ -1512,6 +1512,8 @@ sections:
     gap: lg
     rounded: true
     section_id: image_row-echjgj
+    marginY:
+      desktop: none lg
   - type: lead_form
     version: "1.0"
     variant: stacked
