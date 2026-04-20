@@ -1389,3 +1389,15 @@ sections:
       alt: Students coding at computers in a classroom
     image_full_width: true
     section_id: hero-bppiv1
+  - type: horizontal_bars
+    version: "1.0"
+    title: Average Salary Increase by Region
+    subtitle: Percentage increase after graduation
+    items:
+      - label: LATAM
+        value: 233
+      - label: U.S.
+        value: 55
+      - label: Spain
+        value: 30
+    section_id: horizontal_bars-7v7qlz
