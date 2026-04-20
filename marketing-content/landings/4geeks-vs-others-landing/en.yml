@@ -186,6 +186,53 @@ sections:
       desktop: md
     marginY:
       desktop: none lg
+  - type: geeks_vs_others_comparison
+    version: "1.0"
+    title: Not All Programs Are Equal. Here's What Sets 4Geeks Apart.
+    subtitle: From curriculum to career support, here's how 4Geeks compares to the industry average.
+    columns:
+      - name: Feature
+      - name: 4Geeks Academy
+        highlight: true
+      - name: Industry Average / Competitors
+    rows:
+      - feature: Career Support
+        values:
+          - Personalized support for a lifetime
+          - Limited, ending with 1st job
+      - feature: Student to Mentor Ratio
+        values:
+          - "7:1"
+          - 10:1+
+      - feature: AI Tutor
+        values:
+          - Proprietary AI tutor built to accelerate your progress
+          - Generic AI tools or none
+      - feature: 1-on-1 Mentoring
+        values:
+          - Unlimited and for a lifetime
+          - Limited sessions
+      - feature: Curriculum
+        values:
+          - Constantly evolving with the AI job market
+          - Slow to adapt
+      - feature: Hiring Rate
+        values:
+          - 84% within 3-6 months
+          - Often unknown
+      - feature: Community
+        values:
+          - Strong local and global network
+          - Depends on school
+      - feature: Class Format
+        values:
+          - Online and in-person
+          - Usually only one format
+      - feature: Previous Knowledge Required
+        values:
+          - None required
+          - Entry tests or prior coding experience
+    section_id: geeks_vs_others_comparison-1vx8lv
   - type: human_and_ai_duo
     section_id: human_and_ai_duo-zg16oa
     version: "1.0"
@@ -234,53 +281,6 @@ sections:
       desktop: md
     marginY:
       desktop: none md
-  - type: geeks_vs_others_comparison
-    version: "1.0"
-    title: Not All Programs Are Equal. Here's What Sets 4Geeks Apart.
-    subtitle: From curriculum to career support, here's how 4Geeks compares to the industry average.
-    columns:
-      - name: Feature
-      - name: 4Geeks Academy
-        highlight: true
-      - name: Industry Average / Competitors
-    rows:
-      - feature: Career Support
-        values:
-          - Personalized support for a lifetime
-          - Limited, ending with 1st job
-      - feature: Student to Mentor Ratio
-        values:
-          - "7:1"
-          - 10:1+
-      - feature: AI Tutor
-        values:
-          - Proprietary AI tutor built to accelerate your progress
-          - Generic AI tools or none
-      - feature: 1-on-1 Mentoring
-        values:
-          - Unlimited and for a lifetime
-          - Limited sessions
-      - feature: Curriculum
-        values:
-          - Constantly evolving with the AI job market
-          - Slow to adapt
-      - feature: Hiring Rate
-        values:
-          - 84% within 3-6 months
-          - Often unknown
-      - feature: Community
-        values:
-          - Strong local and global network
-          - Depends on school
-      - feature: Class Format
-        values:
-          - Online and in-person
-          - Usually only one format
-      - feature: Previous Knowledge Required
-        values:
-          - None required
-          - Entry tests or prior coding experience
-    section_id: geeks_vs_others_comparison-1vx8lv
   - type: career_support_explain
     maxWidth:
       desktop: 6xl
