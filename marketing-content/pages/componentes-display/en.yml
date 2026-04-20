@@ -1413,3 +1413,26 @@ sections:
       - label: 2025 (Mid-Year)
         value: 82
     section_id: horizontal_bars-0nzz9s
+  - type: human_and_ai_duo
+    version: v1.0
+    heading: Learn with AI-Powered Support
+    description: Our unique combination of human mentors and AI assistance ensures you never get stuck. Get instant help from Rigobot AI while having access to real mentors when you need deeper guidance.
+    video: https://youtu.be/4n-ZAUPIxJI
+    bullet_groups:
+      - icon: Robot
+        title: AI-Powered Learning
+        description: Get instant answers and code feedback 24/7 with Rigobot.
+        bullets:
+          - text: Instant code reviews and suggestions
+          - text: Personalized learning recommendations
+          - text: Available around the clock
+      - icon: Users
+        title: Human Mentorship
+        description: Connect with experienced developers for deeper guidance.
+        bullets:
+          - text: One-on-one mentoring sessions
+          - text: Career advice and portfolio reviews
+          - text: Real-world project feedback
+    footer_description: Join thousands of students who have accelerated their learning with our hybrid support system.
+    background: bg-muted/30
+    section_id: human_and_ai_duo-6ywf38
