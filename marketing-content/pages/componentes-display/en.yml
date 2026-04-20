@@ -349,9 +349,9 @@ sections:
         description: A career in cybersecurity isn't just a new job—it’s a new life trajectory. With an average salary jump of {{ global.price_datascience | 299$ }}%, our graduates unlock a level of stability and growth that few other industries can offer.
         benefits:
           - text: "Cybersecurity Analyst: {{ global.price_cybersecurity | 299$ }}"
-          - text: "Penetration Tester: __TPL_4__"
-          - text: "Security Engineer: __TPL_5__"
-          - text: "Incident Responder: __TPL_6__"
+          - text: "Penetration Tester: {{ global.price_ai_engineering | $349 }}"
+          - text: "Security Engineer: {{ global.price_fullstack | $299 }}"
+          - text: "Incident Responder: {{ global.price_datascience | 299$ }}"
       - value: 400+
         label: Hiring Partners
         description: Our extensive network includes Fortune 500 companies, government agencies, and innovative startups actively seeking cybersecurity talent.
@@ -566,71 +566,6 @@ sections:
         name: Venezuela
         email: venezuela@4GeeksAcademy.com
     section_id: contact_us_info-7q8xw4
-  - type: course_selector
-    version: "1.0"
-    variant: spotlight
-    heading: Choose Your Path
-    subheading: Pick the program that fits your career goals
-    courses:
-      - name: AI Automation
-        icon: Bolt
-        duration: 4 months part-time
-        label: Most Popular
-        title: AI Automation
-        badges:
-          - icon: Bolt
-            text: AI tools for business
-          - icon: Rocket
-            text: No coding required
-        description: Connect AI tools to enterprise platforms and business data. Optimize existing solutions or build new ones. Eliminate resource bottlenecks and transform operations.
-        price: $328
-        price_period: /mo
-        original_price: $442
-        price_info: with 4Geeks Installments
-        cta_text: Discover program
-        cta_url: /en/ai-automation
-        course_background: accent
-      - name: Machine Learning
-        icon: Brain
-        duration: 9 months part-time
-        label: Updated in 2025
-        title: AI and Machine Learning
-        badges:
-          - icon: Brain
-            text: LLMs & Generative AI
-        description: Build systems that learn from data and improve over time without being explicitly programmed.
-        price: $439
-        price_period: /mo
-        cta_text: Discover program
-        cta_url: /en/ai-machine-learning
-        course_background: primary
-      - name: Full Stack Dev
-        icon: Code
-        duration: 9 months part-time
-        title: Full Stack Software Development
-        badges:
-          - icon: Code
-            text: React, Node.js & Python
-        description: Master modern web development from frontend to backend. Build production-ready applications.
-        price: $439
-        price_period: /mo
-        cta_text: Discover program
-        cta_url: /en/full-stack
-        course_background: secondary
-      - name: Data Science
-        icon: ChartBar
-        duration: 6 months part-time
-        title: Data Science & Analytics
-        badges:
-          - icon: ChartBar
-            text: Python & SQL
-        description: Turn raw data into meaningful insights. Learn to analyze, visualize, and communicate data-driven decisions.
-        price: $399
-        price_period: /mo
-        cta_text: Discover program
-        cta_url: /en/data-science
-        course_background: destructive
-    section_id: course_selector-4a54lm
   - type: course_selector
     version: "1.0"
     name: Course Selector - Spotlight With Original Copy
