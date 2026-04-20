@@ -233,6 +233,7 @@ sections:
           - None required
           - Entry tests or prior coding experience
     section_id: geeks_vs_others_comparison-1vx8lv
+    background: hsl(210 100% 50% / 0.05)
   - type: human_and_ai_duo
     section_id: human_and_ai_duo-zg16oa
     version: "1.0"
