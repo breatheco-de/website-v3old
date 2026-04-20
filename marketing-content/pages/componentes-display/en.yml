@@ -362,3 +362,15 @@ sections:
     useSolidCard: true
     paddingY:
       desktop: none md
+  - type: certificate
+    version: v1.0
+    title: Certificate & Career Network
+    description: Graduate with a recognized certificate and join our global alumni network of over 5,000 developers working at top companies.
+    benefits:
+      - text: Internationally recognized certificate
+      - text: Access to exclusive job board with 300+ partner companies
+      - text: Lifetime membership in our alumni community
+    card:
+      title: Full Stack Developer
+      subtitle: 4Geeks Academy Certificate
+    section_id: certificate-hj4rlj
