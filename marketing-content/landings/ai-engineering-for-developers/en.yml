@@ -24,7 +24,7 @@ sections:
       prefix: Break Your Career
       highlight: Ceiling.
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\">No way around it: AI Engineering is what development looks like now. In our intensive program you learn to build complete AI-native systems, exactly the skills companies are actively hiring for.</span>"
+    description: "<span style=\"font-size: 1.125rem;\">No way around it: AI Engineering is what development looks like now. In our intensive program you learn to build complete AI-native systems end-to-end, exactly the skills companies are actively hiring for.</span>"
     bullets:
       - text: "Add to your stack: RAG systems, vector databases, multi-agent systems, real-time AI, workflow automation with n8n and more"
       - text: Unlimited 1:1 mentorship and career support, available for life
