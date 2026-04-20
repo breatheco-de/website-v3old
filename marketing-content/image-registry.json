@@ -7145,7 +7145,7 @@
       "source_url": "https://breathecode.herokuapp.com/v1/media/file/programmer-at-night-2-jpg",
       "usage_count": 0,
       "source_item": "cuanto-gana-un-ingeniero-informatico-en-espana",
-      "failed_at": "2026-04-19T07:21:47.990Z"
+      "queued_at": "2026-04-20T07:22:30.486Z"
     },
     "blog_posts-b39e46434a2e57b03efe488bedced0256ec8fedc-b1cd7ffe": {
       "src": "https://storage.googleapis.com/media-breathecode/b39e46434a2e57b03efe488bedced0256ec8fedc88e5cf13514152d170f32e45",
@@ -7318,7 +7318,7 @@
       "source_url": "https://4geeksacademy.com/static/e87935aadbb3844e3734315214b5f032/9298b/madrid-3.webp",
       "usage_count": 0,
       "source_item": "bootcamp-programacion-barcelona",
-      "failed_at": "2026-04-19T07:21:47.965Z"
+      "queued_at": "2026-04-20T07:22:30.495Z"
     },
     "blog_posts-career-support-img-jpg-c87249c5": {
       "src": "https://breathecode.herokuapp.com/v1/media/file/career-support-img-jpg",
@@ -7797,7 +7797,7 @@
       "source_url": "https://4GeeksAcademy.com/images/4geeks-main.jpg",
       "usage_count": 0,
       "source_item": "carrera-de-programacion-es",
-      "failed_at": "2026-04-19T07:21:47.971Z"
+      "queued_at": "2026-04-20T07:22:30.512Z"
     },
     "blog_posts-double-exposure-abstract-programming-lan-68101a76": {
       "src": "https://breathecode.herokuapp.com/v1/media/file/double-exposure-abstract-programming-language-interface-new-york-city-skyscrapers-background-research-development-concept-jpg?",
@@ -8330,7 +8330,7 @@
       "source_url": "https://4GeeksAcademy.com/wp-content/uploads/2017/08/Miami-Dade.jpg",
       "usage_count": 0,
       "source_item": "full-stack-web-development-at-miami-dade-college",
-      "failed_at": "2026-04-19T07:21:47.959Z"
+      "queued_at": "2026-04-20T07:22:30.535Z"
     },
     "blog_posts-diana-ma-png-4df6a9fe": {
       "src": "https://breathecode.herokuapp.com/v1/media/file/diana-ma-png",
@@ -8359,7 +8359,7 @@
       "source_url": "https://4geeksacademy.com/images/why2.jpg",
       "usage_count": 0,
       "source_item": "4geeks-academy-history",
-      "failed_at": "2026-04-19T07:21:47.992Z"
+      "queued_at": "2026-04-20T07:22:30.536Z"
     },
     "blog_posts-martes-1-dacdee7e": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/blog/2016/01/Martes-1-640w.webp",
