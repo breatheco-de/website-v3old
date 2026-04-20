@@ -711,8 +711,8 @@ sections:
     section_id: pricing-f91972
     version: "1.0"
     variant: product
-    title: The Investment That Pays for Itself
-    subtitle: Flexible financing plans so nothing stands between you and a high-paying tech career.
+    title: Add AI Engineering Skills. Launch a Career That Pays.
+    subtitle: The average 4Geeks graduate sees a 55% salary increase. Flexible financing means you can start now and let your new salary cover the rest.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting below"
     financing_amount: $349
@@ -742,18 +742,7 @@ sections:
       - icon: IconCheck
         text: Finance over 24 to 60 months through our lending partners starting at $349/mo.
       - icon: IconCheck
-        text: Partial scholarships available for highly qualified applicants.
-        use_rigobot_icon: true
-      - icon: IconCheck
-        text: "Add the Job Guarantee* for $2,000 : get hired within 9 months or get your full tuition back.<div><span style=\"font-size: 0.75rem;\">*Not available for all regions. Terms and Conditions Apply.</span></div>"
-    cta:
-      text: Start Your Application
-      url: "#hero-form"
-      variant: primary
-    paddingY:
-      mobile: lg none
-      desktop: lg xl
-    background: hsl(var(--secondary))
+        text: Partial scholarships available for highly qualified a
   - type: why_learn_ai
     variant: laptop-edge
     title: Land the Job. Or Your Money Back.
