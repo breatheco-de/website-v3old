@@ -479,6 +479,8 @@ sections:
     marginY:
       desktop: none xl
     background: hsl(var(--secondary))
+    paddingY:
+      desktop: md none
   - type: list_press_mentions
     version: v1.0
     variant: featured_showcase
