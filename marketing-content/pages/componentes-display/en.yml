@@ -160,6 +160,8 @@ sections:
         description: Seamlessly move between ideation and execution
         image_id: placeholder_strategies
     section_id: bullet_tabs_showcase-v1unip
+    marginY:
+      desktop: none lg
   - type: cards_deck
     version: "1.0"
     heading: Real Stories of Real Career Change
