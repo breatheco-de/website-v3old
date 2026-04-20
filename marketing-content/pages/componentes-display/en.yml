@@ -1512,3 +1512,38 @@ sections:
     gap: lg
     rounded: true
     section_id: image_row-echjgj
+  - type: lead_form
+    version: "1.0"
+    variant: stacked
+    title: Start Your Tech Career Today
+    subtitle: Get free information about our programs
+    submit_label: Get Information
+    tags: website-lead
+    automations: strong
+    fields:
+      email:
+        visible: true
+        required: true
+      first_name:
+        visible: true
+        required: true
+      last_name:
+        visible: true
+        required: false
+      phone:
+        visible: true
+        required: true
+      program:
+        visible: true
+        required: true
+        default: auto
+      location:
+        visible: true
+        required: false
+        default: auto
+      client_comments:
+        visible: true
+        required: false
+    success:
+      message: Thanks! We'll contact you within 24 hours.
+    section_id: lead_form-nsi9ec
