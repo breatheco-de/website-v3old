@@ -2223,6 +2223,29 @@ sections:
     image: https://storage.googleapis.com/4geeks-academy-website/media/feliz-empresario-laptop_1765406479465.png
     image_alt: Student working on AI project
     section_id: two_column_accordion_card-6zoicn
+  - type: value_proof_panel
+    version: v1.0
+    stacked_header: true
+    title: Recognized Globally for Excellence
+    subtitle: We don't just say we deliver — recognition from trusted sources proves our worth.
+    background: bg-muted/30
+    evidence_items:
+      - icon: Trophy
+        title: Top 5 Coding Bootcamps Worldwide
+        source: Newsweek, Forbes, SwitchUp, Course Report
+      - icon: Award
+        title: Best Student Support & Best Value
+        source: Course Report, SwitchUp
+      - icon: Users
+        title: 35,000+ Graduates Across 20+ Countries
+        description: A global community of successful tech professionals
+    media:
+      type: image
+      src: /images/students-learning.jpg
+      alt: Students collaborating in classroom
+      aspect_ratio: "4:3"
+      style: rounded
+    section_id: value_proof_panel-ot1yqw
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
