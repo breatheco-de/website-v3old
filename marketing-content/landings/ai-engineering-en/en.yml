@@ -2,7 +2,7 @@ settings:
   loading:
     eager_count: 3
 meta:
-  page_title: Become an AI Engineer in 20 Weeks | 4Geeks Academy
+  page_title: Become an AI Engineer in 20 Weeks | 4Geeks
   description: Launch your AI career with hands-on training, unlimited 1:1 mentorship, and job guarantee. Start earning $95K-$135K as an AI Engineer.
 sections:
   - type: hero
@@ -107,7 +107,7 @@ sections:
   - type: sticky_cta
     section_id: sticky_cta-k7207r
     version: "1.0"
-    heading: Ready to start your tech career?
+    heading: Ready to start your AI career?
     button_label: Apply Now
     show_dismiss: false
     form:
@@ -135,6 +135,7 @@ sections:
         message: Thanks! We'll be in touch within 24 hours.
     paddingY:
       desktop: none sm
+    load: eager
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thiriving in tech.
@@ -181,7 +182,7 @@ sections:
     maxWidth:
       desktop: 6xl
     paddingY:
-      desktop: md none
+      desktop: sm none
   - type: features_grid
     version: "1.0"
     variant: stats-text-card
@@ -606,8 +607,8 @@ sections:
     section_id: pricing-8pb379
     version: "1.0"
     variant: product
-    title: The Investment That Pays for Itself
-    subtitle: Flexible financing so nothing stands between you and a high-paying tech career.
+    title: Learn AI Engineering. Launch a Career That Pays.
+    subtitle: The average 4Geeks graduate sees a 55% salary increase. Flexible financing means nothing stands between you and an AI Engineering career.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting below"
     financing_amount: $349
@@ -647,7 +648,70 @@ sections:
       variant: primary
     paddingY:
       mobile: lg none
-      desktop: lg none
+      desktop: lg
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Land the Job. Or Your Money Back.
+    description: "<span style=\"font-size: 1.5rem;\"><span><span></span></span></span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span><span style=\"line-height: 1.625;\"><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span></span><span style=\"line-height: 1.625;\"><span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\">Our AI engineering program comes with the option of adding a Job Guarantee.*</span></span></span></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Not hired within 9 months?&nbsp;</span><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Full tuition refund.&nbsp;</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">That's how confident we are in what we built.</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span></span></span></div></span><span style=\"line-height: 1.1;\"><span><span><span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"><br></span></div></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span><span></span></span></span></div><div><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">*The Job Guarantee is not available in all regions.&nbsp;</span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\">Terms and conditions apply.</a></div></div></span></span></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div>"
+    section_id: why_learn_ai-9pbrek
+    marginY:
+      desktop: md lg
+    paddingY:
+      desktop: sm none
+    background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - costa-rica
+      - mexicocity-mexico
+    marginX:
+      desktop: none
+    maxWidth:
+      desktop: none
+    showOn: desktop
+  - type: cards_deck
+    version: "1.0"
+    heading: Real Stories of Real Career Change
+    subtitle: Thousands of graduates have used our programs to break into tech. Here are just a few of their stories, from salary increases to total career reinventions.
+    cards:
+      - video:
+          url: https://youtu.be/ln3bQsV1BaQ
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
+        author_name: Hernán García
+        title: "\"I got offers from companies I wasn't expecting\""
+        description: Hernán landed a job in tech within one month of starting his job search.
+        alt: Geekforce
+      - video:
+          url: https://youtu.be/MBXqEnhodx0
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: Joao Henrique
+        title: "\"You'll always have support from the Academy\""
+        description: Joao shares his experience receiving coding mentorship as a student, after graduating, and in his current job.
+        alt: Geekpal
+      - video:
+          url: https://youtu.be/oeX_ocy6zv4
+        image: ""
+        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
+        author_name: Jonathan Ferragut
+        title: "\"Taking a course like this benefits us in a lot of different ways\""
+        description: Jonathan shares how the program helped him build confidence and create projects from scratch.
+        alt: Geekpal
+    section_id: cards_deck-cnay6o
+    marginY:
+      desktop: none xl
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work
@@ -684,38 +748,6 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
-  - type: cards_deck
-    version: "1.0"
-    heading: Real Stories of Real Career Change
-    subtitle: Thousands of graduates have used our programs to break into tech. Here are just a few of their stories, from salary increases to total career reinventions.
-    cards:
-      - video:
-          url: https://youtu.be/ln3bQsV1BaQ
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
-        author_name: Hernán García
-        title: "\"I got offers from companies I wasn't expecting\""
-        description: Hernán landed a job in tech within one month of starting his job search.
-        alt: Geekforce
-      - video:
-          url: https://youtu.be/MBXqEnhodx0
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
-        author_name: Joao Henrique
-        title: "\"You'll always have support from the Academy\""
-        description: Joao shares his experience receiving coding mentorship as a student, after graduating, and in his current job.
-        alt: Geekpal
-      - video:
-          url: https://youtu.be/oeX_ocy6zv4
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
-        author_name: Jonathan Ferragut
-        title: "\"Taking a course like this benefits us in a lot of different ways\""
-        description: Jonathan shares how the program helped him build confidence and create projects from scratch.
-        alt: Geekpal
-    section_id: cards_deck-cnay6o
-    marginY:
-      desktop: none xl
   - type: cta_banner
     version: "1.0"
     title: Ready to build your AI career?

@@ -9,8 +9,8 @@ meta:
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
   change_frequency: weekly
-  page_title: AI Engineering Certification | Accredited Program with Job Guarantee | 4Geeks Academy
-  description: Earn an accredited AI Engineering certification from a Florida Department of Education-licensed institution. Graduate with a live AI-powered portfolio, unlimited mentorship, and a Job Guarantee. Start earning $95K–$135K.
+  page_title: AI Engineer Certification with Job Guarantee | 4Geeks
+  description: Transform your career with AI Engineering training and job guarantee at 4Geeks Academy, launching careers in tech
   redirects: []
 schema:
   include:
@@ -20,10 +20,10 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: The AI Engineering Certification That Gets You Hired.
+    title: The AI Engineering Program That Gets You Hired.
     brand_mark:
-      prefix: Earn a Credential
-      highlight: Employers Actually Recognize.
+      prefix: Earn a Certification Employers
+      highlight: Actually Recognize.
       color: primary
     description: "<span style=\"font-size: 1.125rem;\">Accredited by the Florida Department of Education. Built around the skills companies are actively hiring for. Recognized by Forbes, Course Report, and SwitchUp — rated 4.9/5 across 3,000+ reviews.</span>"
     bullets:
@@ -557,48 +557,41 @@ sections:
       desktop: md none
   - type: certificate
     title: Your Certificate. Your Salary Leverage.
-    description: "Earn an industry-recognized AI Engineering certification from a Florida Department of Education accredited institution. Step into roles paying:"
-    benefits:
-      - text: "AI Engineer: $95K–$135K"
-      - text: "Forward-Deployed Engineer: $105K–$155K"
-      - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
-      - text: "Workflow Automation Engineer: $85K–$120K"
     card:
       title: AI Engineer
       subtitle: 4Geeks Academy Certificate
       program_name: AI Engineering
     stats:
-      - value: 84%
-        label: Hiring rate
-        description: Graduate with an accredited certification, a live portfolio, and a professional profile built to get you hired, not just qualified.
+      - value: Certificate
+        label: The certification you earn
+        description: "The certificate you earn at graduation is issued by a Florida Department of Education accredited institution. Combined with a live AI portfolio built across 10 milestones, it gives employers two things most certifications don't: institutional credibility and demonstrated skills."
         benefits:
-          - text: Certification recognized by the Florida Department of Education
-          - text: End-to-end AI-engineered company in your portfolio
-          - text: Demonstrated experience with agents, workflows, and AI systems
-          - text: Optimized professional profile and job-search strategy
-      - value: ~3 months
-        label: Average time to get hired
-        description: Most certified graduates land their first role in about 3 months. A structured 3-step career process turns your credential into offers fast.
+          - text: Accredited by the Florida Department of Education
+          - text: Recognized by employers actively hiring 4Geeks graduates
+          - text: Issued upon completion of a rigorous, milestone-based program
+      - value: AI Portfolio
+        label: Proof of your skills
+        description: You don't just earn an official certificate. You graduate with a fully operational, AI-powered company you built across 10 milestones, demonstrating your AI-native skills.
         benefits:
-          - text: Resume, portfolio, and profiles optimized to attract recruiters and pass AI-based screening
-          - text: Technical and behavioral interview preparation
-          - text: Personalized job-search strategy with access to relevant hiring networks
-      - value: 55%
-        label: Average salary increase
-        description: AI skills are exactly what companies cannot find enough of. Your certification signals to employers that you can ship what they need on day one.
+          - text: End-to-end AI-engineered company built across 10 real milestones
+          - text: Demonstrated experience with agents, RAG systems, and AI workflows
+          - text: Hands-on experience with Python, React, Next.js, RAG systems, vector databases, autonomous agents, and n8n
+      - value: Hiring Network
+        label: Your door to employers
+        description: Graduating means joining a global network of 6,000+ alumni, with exclusive access to hiring partners and direct connections to the people making hiring decisions.
+        benefits:
+          - text: Exclusive job board access
+          - text: Priority referrals to 400+ partner companies
+          - text: Networking events with hiring managers
+          - text: Companies include Google, Meta, Microsoft, and leading startups
+      - value: 55% Increase
+        label: Average new salary
+        description: "A 55% average salary increase for graduates who make the switch. AI Engineering skills are exactly what companies can't find enough of — and they pay accordingly. Here's what certified graduates step into:"
         benefits:
           - text: "AI Engineer: $95K–$135K"
           - text: "Forward-Deployed Engineer: $105K–$155K"
           - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
           - text: "Workflow Automation Engineer: $85K–$120K"
-      - value: 5,000+
-        label: Graduates employed worldwide
-        description: Join a global alumni network of 5,000+ employed graduates. Get exclusive job board access, priority referrals, and direct connections to hiring managers.
-        benefits:
-          - text: Exclusive job board access
-          - text: Priority referrals to partner companies
-          - text: Networking events with hiring managers
-          - text: Companies include Google, Meta, Amazon, and leading startups
     certificate_position: right
     useSolidCard: true
     section_id: certificate-yvgz4h
@@ -725,8 +718,8 @@ sections:
     section_id: pricing-8pb379
     version: "1.0"
     variant: product
-    title: An Investment That Pays for Itself
-    subtitle: The average 4Geeks graduate sees a 55% salary increase. The certification pays for itself within months of your first paycheck.
+    title: The Investment That Pays for Itself
+    subtitle: Flexible financing so nothing stands between you and a high-paying tech career.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting below"
     financing_amount: $349
@@ -752,22 +745,21 @@ sections:
     features_title: Multiple ways to get started.
     features:
       - icon: IconCheck
-        text: "Job Guarantee: get hired within 9 months of graduating or we refund your full tuition."
-      - icon: IconCheck
         text: Full tuition is $14,999. Pay upfront and save 10%, or split into 6 interest-free monthly payments.
       - icon: IconCheck
         text: Finance over 24 to 60 months through our lending partners starting at $349/mo.
       - icon: IconCheck
         text: Partial scholarships available for highly qualified applicants.
+        use_rigobot_icon: true
+      - icon: IconCheck
+        text: "Add the Job Guarantee* for $2,000 : get hired within 9 months or get your full tuition back.<div><span style=\"font-size: 0.75rem;\">*Not available for all regions. Terms and Conditions Apply.</span></div>"
     cta:
-      text: See If You Qualify. It's Free
-      url: "#hero-nzpyph"
+      text: Start Your Application
+      url: "#hero-form"
       variant: primary
     paddingY:
       mobile: lg none
       desktop: lg none
-    marginY:
-      desktop: none lg
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work
@@ -838,14 +830,14 @@ sections:
       desktop: none xl
   - type: cta_banner
     version: "1.0"
-    title: Your AI Engineering certification won't earn itself.
-    subtitle: Every week you wait is a week someone else gets certified and hired first. Apply in 2 minutes and add the Job Guarantee at enrollment. It's free to apply.
+    title: Ready to Earn a Certification That Gets You Hired?
+    subtitle: Apply and our admissions team will be in touch shortly with everything you need to know.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
@@ -869,7 +861,7 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       consent:
         email: true
         marketing: true

@@ -5060,7 +5060,27 @@
         "avatar"
       ],
       "usage_count": 0,
-      "hash": "d4b603273260084aefeeabbe7dfe91375822deab8b52c794664170073aac0d1b"
+      "hash": "d4b603273260084aefeeabbe7dfe91375822deab8b52c794664170073aac0d1b",
+      "width": 219,
+      "height": 219,
+      "preset": [
+        "avatar"
+      ],
+      "widths_generated": [
+        64,
+        128
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/partners_enrique_infanzon_1770843887140-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/partners_enrique_infanzon_1770843887140-128w.webp"
+        }
+      ]
     },
     "juancarlos_navarro": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/partners_juancarlos_navarro_1770843889351.webp",
@@ -5072,7 +5092,32 @@
         "avatar"
       ],
       "usage_count": 0,
-      "hash": "72a58c7f066865ee4c5edb72cc2f281d15f3835550eb3347a7ca4c27068bec87"
+      "hash": "72a58c7f066865ee4c5edb72cc2f281d15f3835550eb3347a7ca4c27068bec87",
+      "width": 380,
+      "height": 381,
+      "preset": [
+        "avatar"
+      ],
+      "widths_generated": [
+        64,
+        128,
+        256
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/partners_juancarlos_navarro_1770843889351-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/partners_juancarlos_navarro_1770843889351-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/partners_juancarlos_navarro_1770843889351-256w.webp"
+        }
+      ]
     },
     "ariana_sanchez": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/ariana-sanchez_1770845254732.webp",
@@ -5084,7 +5129,32 @@
         "avatar"
       ],
       "usage_count": 0,
-      "hash": "2fe81ec159220e8b341d850eed4b5853569741f38dc9e0b4c0fdc18077614566"
+      "hash": "2fe81ec159220e8b341d850eed4b5853569741f38dc9e0b4c0fdc18077614566",
+      "width": 384,
+      "height": 512,
+      "preset": [
+        "avatar"
+      ],
+      "widths_generated": [
+        64,
+        128,
+        256
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ariana-sanchez_1770845254732-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ariana-sanchez_1770845254732-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ariana-sanchez_1770845254732-256w.webp"
+        }
+      ]
     },
     "career_team_women": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/IMG_3662_1770849949826.jpg",
@@ -5096,7 +5166,22 @@
         "team"
       ],
       "usage_count": 0,
-      "hash": "ccb55b3eb07b5e8f6b8ad4a570bf954238c79a3017383f81ac35b591d6bc873a"
+      "hash": "ccb55b3eb07b5e8f6b8ad4a570bf954238c79a3017383f81ac35b591d6bc873a",
+      "width": 847,
+      "height": 565,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/IMG_3662_1770849949826-640w.webp"
+        }
+      ]
     },
     "geekforce_valentina_ancieta": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/geekforce_valentina_ancieta.webp",
@@ -5108,7 +5193,32 @@
         "avatar"
       ],
       "usage_count": 0,
-      "hash": "7b393b438834344d6e03aa7d0822c636676bcd7764a36d5cfb93a2f8e8ad5613"
+      "hash": "7b393b438834344d6e03aa7d0822c636676bcd7764a36d5cfb93a2f8e8ad5613",
+      "width": 771,
+      "height": 693,
+      "preset": [
+        "avatar"
+      ],
+      "widths_generated": [
+        64,
+        128,
+        256
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/geekforce_valentina_ancieta-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/geekforce_valentina_ancieta-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/geekforce_valentina_ancieta-256w.webp"
+        }
+      ]
     },
     "mailinh_tran": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp",
@@ -5120,7 +5230,22 @@
         "graduate"
       ],
       "usage_count": 0,
-      "hash": "82ff4d4056bc462b88211e5972295f68d9ac254c19f2638fc473ba3e2a47ac44"
+      "hash": "82ff4d4056bc462b88211e5972295f68d9ac254c19f2638fc473ba3e2a47ac44",
+      "width": 512,
+      "height": 512,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        512
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 512,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817-512w.webp"
+        }
+      ]
     },
     "martin_coimbra": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/jorge-martin-coimbra_1770856856628.webp",
@@ -5132,7 +5257,22 @@
         "graduate"
       ],
       "usage_count": 0,
-      "hash": "c00f65c88d6df1c0f823a81a9c76966142e2c8750bb46ccf8f68d5bf1e66ecbd"
+      "hash": "c00f65c88d6df1c0f823a81a9c76966142e2c8750bb46ccf8f68d5bf1e66ecbd",
+      "width": 512,
+      "height": 512,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        512
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 512,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/jorge-martin-coimbra_1770856856628-512w.webp"
+        }
+      ]
     },
     "melanie_galaretto": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/MelamnieGalaretto2_1770857254721.webp",
@@ -5144,7 +5284,22 @@
         "graduate"
       ],
       "usage_count": 0,
-      "hash": "48f9aa57df9886bdaaf7af9ba0f6d5c3ded8d792b2fad52127d7d4b612fdffee"
+      "hash": "48f9aa57df9886bdaaf7af9ba0f6d5c3ded8d792b2fad52127d7d4b612fdffee",
+      "width": 400,
+      "height": 400,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        400
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 400,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/MelamnieGalaretto2_1770857254721-400w.webp"
+        }
+      ]
     },
     "loop-1": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/loop-1.mp4",
@@ -5163,7 +5318,15 @@
         "portrait"
       ],
       "usage_count": 0,
-      "hash": ""
+      "hash": "",
+      "width": 128,
+      "height": 128,
+      "preset": [
+        "avatar"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "avatar-man-2": {
       "src": "https://randomuser.me/api/portraits/men/2.jpg",
@@ -5174,7 +5337,15 @@
         "portrait"
       ],
       "usage_count": 0,
-      "hash": ""
+      "hash": "",
+      "width": 128,
+      "height": 128,
+      "preset": [
+        "avatar"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "avatar-woman-3": {
       "src": "https://randomuser.me/api/portraits/women/3.jpg",
@@ -7145,7 +7316,7 @@
       "source_url": "https://breathecode.herokuapp.com/v1/media/file/programmer-at-night-2-jpg",
       "usage_count": 0,
       "source_item": "cuanto-gana-un-ingeniero-informatico-en-espana",
-      "failed_at": "2026-04-16T07:20:07.601Z"
+      "failed_at": "2026-04-21T07:23:07.955Z"
     },
     "blog_posts-b39e46434a2e57b03efe488bedced0256ec8fedc-b1cd7ffe": {
       "src": "https://storage.googleapis.com/media-breathecode/b39e46434a2e57b03efe488bedced0256ec8fedc88e5cf13514152d170f32e45",
@@ -7318,7 +7489,7 @@
       "source_url": "https://4geeksacademy.com/static/e87935aadbb3844e3734315214b5f032/9298b/madrid-3.webp",
       "usage_count": 0,
       "source_item": "bootcamp-programacion-barcelona",
-      "failed_at": "2026-04-16T07:20:07.622Z"
+      "failed_at": "2026-04-20T16:08:30.253Z"
     },
     "blog_posts-career-support-img-jpg-c87249c5": {
       "src": "https://breathecode.herokuapp.com/v1/media/file/career-support-img-jpg",
@@ -7797,7 +7968,7 @@
       "source_url": "https://4GeeksAcademy.com/images/4geeks-main.jpg",
       "usage_count": 0,
       "source_item": "carrera-de-programacion-es",
-      "failed_at": "2026-04-16T07:20:07.506Z"
+      "failed_at": "2026-04-21T07:23:07.943Z"
     },
     "blog_posts-double-exposure-abstract-programming-lan-68101a76": {
       "src": "https://breathecode.herokuapp.com/v1/media/file/double-exposure-abstract-programming-language-interface-new-york-city-skyscrapers-background-research-development-concept-jpg?",
@@ -8330,7 +8501,7 @@
       "source_url": "https://4GeeksAcademy.com/wp-content/uploads/2017/08/Miami-Dade.jpg",
       "usage_count": 0,
       "source_item": "full-stack-web-development-at-miami-dade-college",
-      "failed_at": "2026-04-16T07:20:07.590Z"
+      "failed_at": "2026-04-21T07:23:07.947Z"
     },
     "blog_posts-diana-ma-png-4df6a9fe": {
       "src": "https://breathecode.herokuapp.com/v1/media/file/diana-ma-png",
@@ -8359,7 +8530,7 @@
       "source_url": "https://4geeksacademy.com/images/why2.jpg",
       "usage_count": 0,
       "source_item": "4geeks-academy-history",
-      "failed_at": "2026-04-16T07:20:07.596Z"
+      "failed_at": "2026-04-20T16:08:30.255Z"
     },
     "blog_posts-martes-1-dacdee7e": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/blog/2016/01/Martes-1-640w.webp",

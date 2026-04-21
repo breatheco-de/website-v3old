@@ -2,7 +2,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Bootcamp de Programación de 4Geeks Academy y Carné Joven
+    title: Bootcamp de Programación de 4Geeks y Carné Joven
     brand_mark:
       prefix: Obtén
       highlight: 50% de descuento

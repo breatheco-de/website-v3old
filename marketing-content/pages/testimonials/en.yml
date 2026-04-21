@@ -5,7 +5,7 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Student Testimonials & Reviews | 4Geeks Academy
+  page_title: Student Testimonials & Reviews | 4Geeks
   description: testimonials - Learn more about this topic at 4Geeks Academy.
   redirects:
     - /testimonials
@@ -18,7 +18,7 @@ sections:
     section_id: hero-ch3r4v
     version: "1.0"
     variant: singleColumn
-    title: Real Reviews from 4Geeks Academy Graduates
+    title: Real Reviews from 4Geeks Graduates
     subtitle: Our graduates share how they built in-demand skills, gained confidence, and launched new careers in tech with the support of the 4Geeks community.
     badge: Student Testimonials & Career Outcomes
     trust_bar:

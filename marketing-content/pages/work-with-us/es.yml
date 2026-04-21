@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Trabaja con Nosotros | 4Geeks Academy
-  description: Únete al equipo de 4Geeks Academy. Conoce más sobre las oportunidades laborales en una academia global de programación reconocida por su calidad, impacto e innovación.
+  page_title: Trabaja con Nosotros | 4Geeks
+  description: Desarrolla tu carrera con nosotros, oportunidades laborales en programación y más en 4Geeks Academy.
   redirects:
     - /trabaja-con-nosotros
 schema:

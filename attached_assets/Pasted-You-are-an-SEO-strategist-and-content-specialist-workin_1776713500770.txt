@@ -1,0 +1,1457 @@
+You are an SEO strategist and content specialist working on a YAML-based CMS for a coding bootcamp. You understand funnel stages (awareness → consideration → transaction → post-enrollment), topic clusters, pillar pages, and on-page SEO best practices.
+
+---
+
+## Repository context
+- Content root: /home/runner/workspace/marketing-content/
+- Files use YAML format (.yml)
+- Merge chain (each level overrides the parent):
+    _common.single.yml  →  {slug}/_common.yml  →  {slug}/{locale}.yml
+- Editing rule: fix the most specific locale file unless the change should
+  apply to all locales, in which case edit _common.yml instead.
+- Never modify _common.single.yml unless explicitly instructed.
+
+---
+
+## Run summary
+- Validators run: 1
+- Failed: 1
+- Warnings: 0
+- Total issues: 472
+
+---
+
+## Validator: seo-depth
+
+Validates SEO depth: title/description length, OG image, canonical URL, and duplicates
+
+### Errors (39)
+- [DUPLICATE_TITLE] Duplicate page_title "AI Engineer Career Program | 4Geeks" used by 2 files
+  File: /home/runner/workspace/marketing-content/programs/ai-engineering/en.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/programs/applied-ai-course/en.yml
+- [DUPLICATE_TITLE] Duplicate page_title "Full Stack Developer Career Program | 4Geeks" used by 3 files
+  File: /home/runner/workspace/marketing-content/programs/full-stack/en.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/bootcamp-full-stack/en.yml, /home/runner/workspace/marketing-content/landings/espaa-programa-de-desarrollo-full-stack-con-ia/en.yml
+- [DUPLICATE_TITLE] Duplicate page_title "Programa de Carrera Desarrollador Full Stack | 4Geeks" used by 4 files
+  File: /home/runner/workspace/marketing-content/programs/full-stack/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/bootcamp-full-stack/es.yml, /home/runner/workspace/marketing-content/landings/bootcamp-full-stack-santiago/es.yml, /home/runner/workspace/marketing-content/landings/espaa-programa-de-desarrollo-full-stack-con-ia/es.yml
+- [DUPLICATE_TITLE] Duplicate page_title "Programas España| formación en AI Engineering, Data Science, Desarrollo de Software y Ciberseguridad." used by 2 files
+  File: /home/runner/workspace/marketing-content/landings/4geeks-academy-madrid-espaa-ingeniera-de-ia-desarrollo-full-stack-con-ia-ciencia-de-datos-y-ciberseguridad/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/es-programas-espaa/es.yml
+- [DUPLICATE_TITLE] Duplicate page_title "4Geeks vs Otros Bootcamps | 4Geeks Academy" used by 2 files
+  File: /home/runner/workspace/marketing-content/landings/4geeks-vs-others-landing/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/pages/geeks-vs-others/es.yml
+- [DUPLICATE_TITLE] Duplicate page_title "Become a Certified AI Engineer with Job Guarantee | 4Geeks Academy" used by 2 files
+  File: /home/runner/workspace/marketing-content/landings/ai-bootcamp-with-job-placement/en.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/from-developer-to-certified-ai-engineer-with-job-guarantee/en.yml
+- [DUPLICATE_TITLE] Duplicate page_title "Bootcamp de Ingeniería de IA en Chile | 4Geeks Academy" used by 4 files
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-chile/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/de-aprender-programacion-a-ser-ai-engineer-chile/es.yml, /home/runner/workspace/marketing-content/landings/python-data-science-machine-learning-inteligencia-artificial-chile/es.yml, /home/runner/workspace/marketing-content/landings/quieres-ser-desarrollador-web-empieza-a-pensar-como-ai-engineer-chile/es.yml
+- [DUPLICATE_TITLE] Duplicate page_title "Become an AI Engineer in 20 Weeks | 4Geeks Academy" used by 5 files
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-en/en.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/ai-engineering-prueba-anik/en.yml, /home/runner/workspace/marketing-content/landings/pricing/en.yml, /home/runner/workspace/marketing-content/landings/prueba-lorena/en.yml, /home/runner/workspace/marketing-content/pages/prueba/en.yml
+- [DUPLICATE_TITLE] Duplicate page_title "Conviértete en Ingeniero de IA en 24 Semanas | 4Geeks Academy" used by 8 files
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-es/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/anlisis-de-datos/es.yml, /home/runner/workspace/marketing-content/landings/aprender-inteligencia-artificial/es.yml, /home/runner/workspace/marketing-content/landings/de-aprender-programacion-a-ingeniero-de-ia/es.yml, /home/runner/workspace/marketing-content/landings/herramientas-de-ia-para-programar/es.yml, /home/runner/workspace/marketing-content/landings/mejor-bootcamps-programacin/es.yml, /home/runner/workspace/marketing-content/landings/python-data-science-machine-learning-inteligencia-artificial/es.yml, /home/runner/workspace/marketing-content/landings/quieres-ser-desarrollador-web-empieza-a-pensar-como-ai-engineer/es.yml
+- [DUPLICATE_TITLE] Duplicate page_title "Bootcamp de Ingeniería de IA en México | 4Geeks Academy" used by 4 files
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-mexico/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/de-aprender-programacion-a-ser-ai-engineer-mexico/es.yml, /home/runner/workspace/marketing-content/landings/python-data-science-machine-learning-inteligencia-artificial-mexico/es.yml, /home/runner/workspace/marketing-content/landings/quieres-ser-desarrollador-web-empieza-a-pensar-como-ai-engineer-mexico/es.yml
+- [DUPLICATE_TITLE] Duplicate page_title "AI Engineering Bootcamp Florida | 4Geeks Academy" used by 3 files
+  File: /home/runner/workspace/marketing-content/landings/ai-native-automation/en.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/ai-native-automation/es.yml, /home/runner/workspace/marketing-content/landings/from-data-scientist-to-certified-ai-engineer/en.yml
+- [DUPLICATE_TITLE] Duplicate page_title "programas latam | 4Geeks Academy" used by 3 files
+  File: /home/runner/workspace/marketing-content/landings/carne-joven/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/full-stack-con-ia/es.yml, /home/runner/workspace/marketing-content/landings/trabajo-garantizado/es.yml
+- [DUPLICATE_TITLE] Duplicate page_title "Desarrollo de Full Stack con IA | 4Geeks Academy" used by 2 files
+  File: /home/runner/workspace/marketing-content/landings/desarrollo-full-stack-con-ia/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/desarrollo-full-stack-con-ia-mexico/es.yml
+- [DUPLICATE_TITLE] Duplicate page_title "Job Guarantee Bootcamp | Get Hired or Your Tuition Back | 4Geeks Academy" used by 2 files
+  File: /home/runner/workspace/marketing-content/landings/job-guarantee/en.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/job-guarantee-prueba-anik/en.yml
+- [DUPLICATE_TITLE] Duplicate page_title "Programas | 4Geeks Academy" used by 2 files
+  File: /home/runner/workspace/marketing-content/landings/programas-latam/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/prueba-jt/es.yml
+- [DUPLICATE_TITLE] Duplicate page_title "4Geeks Academy | The AI Reskilling Platform" used by 5 files
+  File: /home/runner/workspace/marketing-content/pages/home/en.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/pages/home-copia-prueba/en.yml, /home/runner/workspace/marketing-content/pages/home-copia-prueba/es.yml, /home/runner/workspace/marketing-content/pages/home-prueba-lorena/en.yml, /home/runner/workspace/marketing-content/pages/lumi-home/en.yml
+- [DUPLICATE_TITLE] Duplicate page_title "4Geeks Academy | La Plataforma de Recapacitación con IA" used by 4 files
+  File: /home/runner/workspace/marketing-content/pages/home/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/pages/home-new/es.yml, /home/runner/workspace/marketing-content/pages/home-prueba-lorena/es.yml, /home/runner/workspace/marketing-content/pages/lumi-home/es.yml
+- [DUPLICATE_TITLE] Duplicate page_title "Recurso Descargable de Ejemplo | 4Geeks" used by 3 files
+  File: /home/runner/workspace/marketing-content/downloadable/guia-de-html-css/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/downloadable/guia-de-js/es.yml, /home/runner/workspace/marketing-content/downloadable/sample-downloadable/es.yml
+- [DUPLICATE_TITLE] Duplicate page_title "Outcome Report | 4Geeks" used by 2 files
+  File: /home/runner/workspace/marketing-content/outcome-report/sample-outcome-report/en.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/outcome-report/sample-outcome-report/es.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 2 files: "Become an AI Engineer in 20 weeks with unlimited 1:1 mentors..."
+  File: /home/runner/workspace/marketing-content/programs/ai-engineering/en.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/programs/applied-ai-course/en.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 3 files: "Become a Full Stack Developer with unlimited 1:1 mentorship,..."
+  File: /home/runner/workspace/marketing-content/programs/full-stack/en.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/bootcamp-full-stack/en.yml, /home/runner/workspace/marketing-content/landings/espaa-programa-de-desarrollo-full-stack-con-ia/en.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 4 files: "Conviértete en Desarrollador Full Stack con mentoría ilimita..."
+  File: /home/runner/workspace/marketing-content/programs/full-stack/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/bootcamp-full-stack/es.yml, /home/runner/workspace/marketing-content/landings/bootcamp-full-stack-santiago/es.yml, /home/runner/workspace/marketing-content/landings/espaa-programa-de-desarrollo-full-stack-con-ia/es.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 2 files: "La Inteligencia Artificial ya está transformando el empleo. ..."
+  File: /home/runner/workspace/marketing-content/landings/4geeks-academy-madrid-espaa-ingeniera-de-ia-desarrollo-full-stack-con-ia-ciencia-de-datos-y-ciberseguridad/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/es-programas-espaa/es.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 2 files: "Compara 4Geeks Academy con otros coding bootcamps. Descubre ..."
+  File: /home/runner/workspace/marketing-content/landings/4geeks-vs-others-landing/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/pages/geeks-vs-others/es.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 2 files: "Launch your AI career with hands-on training, unlimited 1:1 ..."
+  File: /home/runner/workspace/marketing-content/landings/ai-bootcamp-with-job-placement/en.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/from-developer-to-certified-ai-engineer-with-job-guarantee/en.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 9 files: "Aprende a desarrollar, integrar y desplegar soluciones de IA..."
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-chile/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/ai-engineering-mexico/es.yml, /home/runner/workspace/marketing-content/landings/ai-engineering-spain/es.yml, /home/runner/workspace/marketing-content/landings/de-aprender-programacion-a-ser-ai-engineer-chile/es.yml, /home/runner/workspace/marketing-content/landings/de-aprender-programacion-a-ser-ai-engineer-mexico/es.yml, /home/runner/workspace/marketing-content/landings/python-data-science-machine-learning-inteligencia-artificial-chile/es.yml, /home/runner/workspace/marketing-content/landings/python-data-science-machine-learning-inteligencia-artificial-mexico/es.yml, /home/runner/workspace/marketing-content/landings/quieres-ser-desarrollador-web-empieza-a-pensar-como-ai-engineer-chile/es.yml, /home/runner/workspace/marketing-content/landings/quieres-ser-desarrollador-web-empieza-a-pensar-como-ai-engineer-mexico/es.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 8 files: "Launch your AI career with hands-on training, unlimited 1:1 ..."
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-en/en.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/ai-engineering-prueba-anik/en.yml, /home/runner/workspace/marketing-content/landings/ai-native-automation/en.yml, /home/runner/workspace/marketing-content/landings/ai-native-automation/es.yml, /home/runner/workspace/marketing-content/landings/from-data-scientist-to-certified-ai-engineer/en.yml, /home/runner/workspace/marketing-content/landings/pricing/en.yml, /home/runner/workspace/marketing-content/landings/prueba-lorena/en.yml, /home/runner/workspace/marketing-content/pages/prueba/en.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 9 files: "Aprende a desarrollar, integrar y desplegar soluciones de IA..."
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-es/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/ai-engineering-lumi-version/es.yml, /home/runner/workspace/marketing-content/landings/anlisis-de-datos/es.yml, /home/runner/workspace/marketing-content/landings/aprender-inteligencia-artificial/es.yml, /home/runner/workspace/marketing-content/landings/de-aprender-programacion-a-ingeniero-de-ia/es.yml, /home/runner/workspace/marketing-content/landings/herramientas-de-ia-para-programar/es.yml, /home/runner/workspace/marketing-content/landings/mejor-bootcamps-programacin/es.yml, /home/runner/workspace/marketing-content/landings/python-data-science-machine-learning-inteligencia-artificial/es.yml, /home/runner/workspace/marketing-content/landings/quieres-ser-desarrollador-web-empieza-a-pensar-como-ai-engineer/es.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 3 files: "Programas 4Geeks Academy ..."
+  File: /home/runner/workspace/marketing-content/landings/cambiar-de-carrera-a-tecnologia/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/programas-latam/es.yml, /home/runner/workspace/marketing-content/landings/prueba-jt/es.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 3 files: "programas latam - Learn more at 4Geeks Academy...."
+  File: /home/runner/workspace/marketing-content/landings/carne-joven/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/full-stack-con-ia/es.yml, /home/runner/workspace/marketing-content/landings/trabajo-garantizado/es.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 2 files: "Desarrollo de Full Stack con IA.  Únete a 4Geeks Academy...."
+  File: /home/runner/workspace/marketing-content/landings/desarrollo-full-stack-con-ia/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/desarrollo-full-stack-con-ia-mexico/es.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 2 files: "Conviértete en Desarrollador Full Stack con IA en 20 semanas..."
+  File: /home/runner/workspace/marketing-content/landings/desarrollo-full-stack-con-ia-venezuela/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/es-programa-de-desarrollo-full-stack-con-ia/es.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 2 files: "This is an example landing page demonstrating the various se..."
+  File: /home/runner/workspace/marketing-content/landings/example-landing/en.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/full-stack-con-ia/en.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 2 files: "Get hired within 9 months of graduating or get your tuition ..."
+  File: /home/runner/workspace/marketing-content/landings/job-guarantee/en.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/landings/job-guarantee-prueba-anik/en.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 2 files: "Discover why 4Geeks Academy is a top-rated coding bootcamp. ..."
+  File: /home/runner/workspace/marketing-content/pages/awards/en.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/downloadable/testing/en.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 5 files: "Transform your career with AI-powered learning. Get personal..."
+  File: /home/runner/workspace/marketing-content/pages/home/en.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/pages/home-copia-prueba/en.yml, /home/runner/workspace/marketing-content/pages/home-copia-prueba/es.yml, /home/runner/workspace/marketing-content/pages/home-prueba-lorena/en.yml, /home/runner/workspace/marketing-content/pages/lumi-home/en.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 4 files: "Transforma tu carrera con aprendizaje potenciado por IA. Obt..."
+  File: /home/runner/workspace/marketing-content/pages/home/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/pages/home-new/es.yml, /home/runner/workspace/marketing-content/pages/home-prueba-lorena/es.yml, /home/runner/workspace/marketing-content/pages/lumi-home/es.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 2 files: "scholarships - Aprende más sobre este tema en 4Geeks Academy..."
+  File: /home/runner/workspace/marketing-content/pages/scholarships/en.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/pages/scholarships/es.yml
+- [DUPLICATE_DESCRIPTION] Duplicate description used by 3 files: "Sample downloadable entry for es locale...."
+  File: /home/runner/workspace/marketing-content/downloadable/guia-de-html-css/es.yml
+  Fix: Also used in: /home/runner/workspace/marketing-content/downloadable/guia-de-js/es.yml, /home/runner/workspace/marketing-content/downloadable/sample-downloadable/es.yml
+
+### Warnings (433)
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/programs/ai-engineering/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (176 chars)
+  File: /home/runner/workspace/marketing-content/programs/ai-engineering/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/programs/ai-engineering/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/programs/applied-ai-course/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (186 chars)
+  File: /home/runner/workspace/marketing-content/programs/applied-ai-course/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/programs/applied-ai-course/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (194 chars)
+  File: /home/runner/workspace/marketing-content/programs/cybersecurity/en.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/programs/cybersecurity/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (219 chars)
+  File: /home/runner/workspace/marketing-content/programs/cybersecurity/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/programs/cybersecurity/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (177 chars)
+  File: /home/runner/workspace/marketing-content/programs/data-science-ml/en.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/programs/data-science-ml/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (190 chars)
+  File: /home/runner/workspace/marketing-content/programs/data-science-ml/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/programs/data-science-ml/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/programs/full-stack/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (166 chars)
+  File: /home/runner/workspace/marketing-content/programs/full-stack/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/programs/full-stack/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/programs/n8n-automations/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/programs/n8n-automations/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/programs/n8n-automations/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/programs/n8n-automations/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/atlanta-usa/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/atlanta-usa/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/austin-usa/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/austin-usa/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/barcelona-spain/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (61 chars): "4Geeks Academy Barcelona | Bootcamp de Programación en Españ..."
+  File: /home/runner/workspace/marketing-content/locations/barcelona-spain/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/barcelona-spain/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/berlin-germany/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/berlin-germany/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/bogota-colombia/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/bogota-colombia/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/buenosaires-argentina/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (67 chars): "4Geeks Academy Buenos Aires | Bootcamp de Programación en Ar..."
+  File: /home/runner/workspace/marketing-content/locations/buenosaires-argentina/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/buenosaires-argentina/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/caracas-venezuela/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (62 chars): "4Geeks Academy Caracas | Bootcamp de Programación en Venezue..."
+  File: /home/runner/workspace/marketing-content/locations/caracas-venezuela/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/caracas-venezuela/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/chicago-usa/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (61 chars): "4Geeks Academy Chicago | Bootcamp de Programación en Illinoi..."
+  File: /home/runner/workspace/marketing-content/locations/chicago-usa/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/chicago-usa/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/costa-rica/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (64 chars): "4Geeks Academy Costa Rica | Bootcamp de Programación en San ..."
+  File: /home/runner/workspace/marketing-content/locations/costa-rica/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/costa-rica/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/dallas-usa/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/dallas-usa/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/dublin-ireland/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/dublin-ireland/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/hamburg-germany/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (62 chars): "4Geeks Academy Hamburgo | Bootcamp de Programación en Aleman..."
+  File: /home/runner/workspace/marketing-content/locations/hamburg-germany/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/hamburg-germany/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/houston-usa/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/houston-usa/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/lapaz-bolivia/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/lapaz-bolivia/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/lima-peru/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/lima-peru/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/lisbon-portugal/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/lisbon-portugal/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/losangeles-usa/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (67 chars): "4Geeks Academy Los Ángeles | Bootcamp de Programación en Cal..."
+  File: /home/runner/workspace/marketing-content/locations/losangeles-usa/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/losangeles-usa/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (171 chars)
+  File: /home/runner/workspace/marketing-content/locations/madrid-spain/en.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/madrid-spain/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/madrid-spain/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/malaga-spain/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/malaga-spain/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/mexicocity-mexico/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (68 chars): "4Geeks Academy Ciudad de México | Bootcamp de Programación e..."
+  File: /home/runner/workspace/marketing-content/locations/mexicocity-mexico/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/mexicocity-mexico/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/miami-usa/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/miami-usa/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/milan-italy/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/milan-italy/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/montevideo-uruguay/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (63 chars): "4Geeks Academy Montevideo | Bootcamp de Programación en Urug..."
+  File: /home/runner/workspace/marketing-content/locations/montevideo-uruguay/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/montevideo-uruguay/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/munich-germany/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/munich-germany/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/newyork-usa/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/newyork-usa/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/orlando-usa/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/orlando-usa/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/panamacity-panama/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (68 chars): "4Geeks Academy Ciudad de Panamá | Bootcamp de Programación e..."
+  File: /home/runner/workspace/marketing-content/locations/panamacity-panama/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/panamacity-panama/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/quito-ecuador/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/quito-ecuador/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (189 chars)
+  File: /home/runner/workspace/marketing-content/locations/remote/en.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/remote/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (211 chars)
+  File: /home/runner/workspace/marketing-content/locations/remote/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/remote/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/locations/rest-of-america/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/rest-of-america/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/locations/rest-of-america/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/rest-of-america/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (171 chars)
+  File: /home/runner/workspace/marketing-content/locations/rest-of-europe/en.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/rest-of-europe/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (63 chars): "4Geeks Academy | Bootcamp de Programación en el Resto de Eur..."
+  File: /home/runner/workspace/marketing-content/locations/rest-of-europe/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_LONG] Description is too long (180 chars)
+  File: /home/runner/workspace/marketing-content/locations/rest-of-europe/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/rest-of-europe/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/rome-italy/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/rome-italy/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/santiago-chile/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/santiago-chile/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/tampa-usa/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/tampa-usa/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/toronto-canada/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/toronto-canada/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/valencia-spain/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/locations/valencia-spain/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (101 chars): "Programas España| formación en AI Engineering, Data Science,..."
+  File: /home/runner/workspace/marketing-content/landings/4geeks-academy-madrid-espaa-ingeniera-de-ia-desarrollo-full-stack-con-ia-ciencia-de-datos-y-ciberseguridad/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_LONG] Description is too long (189 chars)
+  File: /home/runner/workspace/marketing-content/landings/4geeks-academy-madrid-espaa-ingeniera-de-ia-desarrollo-full-stack-con-ia-ciencia-de-datos-y-ciberseguridad/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/4geeks-academy-madrid-espaa-ingeniera-de-ia-desarrollo-full-stack-con-ia-ciencia-de-datos-y-ciberseguridad/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (86 chars): "Why 4Geeks Academy | Proven Outcomes, Lifelong Support, Job ..."
+  File: /home/runner/workspace/marketing-content/landings/4geeks-vs-others-landing/en.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_LONG] Description is too long (199 chars)
+  File: /home/runner/workspace/marketing-content/landings/4geeks-vs-others-landing/en.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/landings/4geeks-vs-others-landing/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/4geeks-vs-others-landing/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/landings/4geeks-vs-others-landing/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/4geeks-vs-others-landing/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (66 chars): "Become a Certified AI Engineer with Job Guarantee | 4Geeks A..."
+  File: /home/runner/workspace/marketing-content/landings/ai-bootcamp-with-job-placement/en.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_LONG] Description is too long (186 chars)
+  File: /home/runner/workspace/marketing-content/landings/ai-bootcamp-with-job-placement/en.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/ai-bootcamp-with-job-placement/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (85 chars): "AI Engineering Certification | Accredited Program with Job G..."
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-certification/en.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_LONG] Description is too long (220 chars)
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-certification/en.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-certification/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (86 chars): "Python for AI Engineering | Turn Your Python Skills Into an ..."
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-certification-master-python-for-ai-applications/en.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_LONG] Description is too long (176 chars)
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-certification-master-python-for-ai-applications/en.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-certification-master-python-for-ai-applications/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-chile/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (197 chars)
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-coding-florida/en.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-coding-florida/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-en/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (61 chars): "Conviértete en Ingeniero de IA en 24 Semanas | 4Geeks Academ..."
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-es/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_LONG] Description is too long (170 chars)
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-es/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-es/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (170 chars)
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-lumi-version/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-lumi-version/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-mexico/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-prueba-anik/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/ai-engineering-spain/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/ai-native-automation/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/ai-native-automation/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (61 chars): "Conviértete en Ingeniero de IA en 24 Semanas | 4Geeks Academ..."
+  File: /home/runner/workspace/marketing-content/landings/anlisis-de-datos/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_LONG] Description is too long (170 chars)
+  File: /home/runner/workspace/marketing-content/landings/anlisis-de-datos/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/anlisis-de-datos/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (61 chars): "Conviértete en Ingeniero de IA en 24 Semanas | 4Geeks Academ..."
+  File: /home/runner/workspace/marketing-content/landings/aprender-inteligencia-artificial/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_LONG] Description is too long (170 chars)
+  File: /home/runner/workspace/marketing-content/landings/aprender-inteligencia-artificial/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/aprender-inteligencia-artificial/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/bootcamp-full-stack/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (166 chars)
+  File: /home/runner/workspace/marketing-content/landings/bootcamp-full-stack/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/bootcamp-full-stack/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (166 chars)
+  File: /home/runner/workspace/marketing-content/landings/bootcamp-full-stack-santiago/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/bootcamp-full-stack-santiago/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (25 chars)
+  File: /home/runner/workspace/marketing-content/landings/cambiar-de-carrera-a-tecnologia/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/cambiar-de-carrera-a-tecnologia/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (47 chars)
+  File: /home/runner/workspace/marketing-content/landings/carne-joven/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/carne-joven/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (73 chars): "Bootcamp Data Science y Machine Learning con IA en LATAM | 4..."
+  File: /home/runner/workspace/marketing-content/landings/data-scientist-machine-learning/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/data-scientist-machine-learning/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (61 chars): "Conviértete en Ingeniero de IA en 24 Semanas | 4Geeks Academ..."
+  File: /home/runner/workspace/marketing-content/landings/de-aprender-programacion-a-ingeniero-de-ia/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_LONG] Description is too long (170 chars)
+  File: /home/runner/workspace/marketing-content/landings/de-aprender-programacion-a-ingeniero-de-ia/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/de-aprender-programacion-a-ingeniero-de-ia/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/de-aprender-programacion-a-ser-ai-engineer-chile/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/de-aprender-programacion-a-ser-ai-engineer-mexico/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (57 chars)
+  File: /home/runner/workspace/marketing-content/landings/desarrollo-full-stack-con-ia/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/desarrollo-full-stack-con-ia/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (57 chars)
+  File: /home/runner/workspace/marketing-content/landings/desarrollo-full-stack-con-ia-mexico/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/desarrollo-full-stack-con-ia-mexico/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/desarrollo-full-stack-con-ia-venezuela/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/es-programa-de-desarrollo-full-stack-con-ia/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (101 chars): "Programas España| formación en AI Engineering, Data Science,..."
+  File: /home/runner/workspace/marketing-content/landings/es-programas-espaa/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_LONG] Description is too long (189 chars)
+  File: /home/runner/workspace/marketing-content/landings/es-programas-espaa/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/es-programas-espaa/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/espaa-programa-de-desarrollo-full-stack-con-ia/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (166 chars)
+  File: /home/runner/workspace/marketing-content/landings/espaa-programa-de-desarrollo-full-stack-con-ia/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/espaa-programa-de-desarrollo-full-stack-con-ia/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/example-landing/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/from-data-scientist-to-certified-ai-engineer/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (66 chars): "Become a Certified AI Engineer with Job Guarantee | 4Geeks A..."
+  File: /home/runner/workspace/marketing-content/landings/from-developer-to-certified-ai-engineer-with-job-guarantee/en.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_LONG] Description is too long (186 chars)
+  File: /home/runner/workspace/marketing-content/landings/from-developer-to-certified-ai-engineer-with-job-guarantee/en.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/from-developer-to-certified-ai-engineer-with-job-guarantee/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/full-stack-con-ia/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (47 chars)
+  File: /home/runner/workspace/marketing-content/landings/full-stack-con-ia/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/full-stack-con-ia/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (61 chars): "Conviértete en Ingeniero de IA en 24 Semanas | 4Geeks Academ..."
+  File: /home/runner/workspace/marketing-content/landings/herramientas-de-ia-para-programar/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_LONG] Description is too long (170 chars)
+  File: /home/runner/workspace/marketing-content/landings/herramientas-de-ia-para-programar/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/herramientas-de-ia-para-programar/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (72 chars): "Job Guarantee Bootcamp | Get Hired or Your Tuition Back | 4G..."
+  File: /home/runner/workspace/marketing-content/landings/job-guarantee/en.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_LONG] Description is too long (200 chars)
+  File: /home/runner/workspace/marketing-content/landings/job-guarantee/en.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/job-guarantee/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (72 chars): "Job Guarantee Bootcamp | Get Hired or Your Tuition Back | 4G..."
+  File: /home/runner/workspace/marketing-content/landings/job-guarantee-prueba-anik/en.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_LONG] Description is too long (200 chars)
+  File: /home/runner/workspace/marketing-content/landings/job-guarantee-prueba-anik/en.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/job-guarantee-prueba-anik/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (61 chars): "Conviértete en Ingeniero de IA en 24 Semanas | 4Geeks Academ..."
+  File: /home/runner/workspace/marketing-content/landings/mejor-bootcamps-programacin/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_LONG] Description is too long (170 chars)
+  File: /home/runner/workspace/marketing-content/landings/mejor-bootcamps-programacin/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/mejor-bootcamps-programacin/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/landings/pricing/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/pricing/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_SHORT] Page title is too short (26 chars): "Programas | 4Geeks Academy"
+  File: /home/runner/workspace/marketing-content/landings/programas-latam/es.yml
+  Hint: Aim for a page title between 30-60 characters for optimal SEO
+- [DESCRIPTION_TOO_SHORT] Description is too short (25 chars)
+  File: /home/runner/workspace/marketing-content/landings/programas-latam/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/programas-latam/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_SHORT] Page title is too short (26 chars): "Programas | 4Geeks Academy"
+  File: /home/runner/workspace/marketing-content/landings/prueba-jt/es.yml
+  Hint: Aim for a page title between 30-60 characters for optimal SEO
+- [DESCRIPTION_TOO_SHORT] Description is too short (25 chars)
+  File: /home/runner/workspace/marketing-content/landings/prueba-jt/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/prueba-jt/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/prueba-lorena/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/landings/prueba2/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/prueba2/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (61 chars): "Conviértete en Ingeniero de IA en 24 Semanas | 4Geeks Academ..."
+  File: /home/runner/workspace/marketing-content/landings/python-data-science-machine-learning-inteligencia-artificial/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_LONG] Description is too long (170 chars)
+  File: /home/runner/workspace/marketing-content/landings/python-data-science-machine-learning-inteligencia-artificial/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/python-data-science-machine-learning-inteligencia-artificial/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/python-data-science-machine-learning-inteligencia-artificial-chile/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/python-data-science-machine-learning-inteligencia-artificial-mexico/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (61 chars): "Conviértete en Ingeniero de IA en 24 Semanas | 4Geeks Academ..."
+  File: /home/runner/workspace/marketing-content/landings/quieres-ser-desarrollador-web-empieza-a-pensar-como-ai-engineer/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_LONG] Description is too long (170 chars)
+  File: /home/runner/workspace/marketing-content/landings/quieres-ser-desarrollador-web-empieza-a-pensar-como-ai-engineer/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/quieres-ser-desarrollador-web-empieza-a-pensar-como-ai-engineer/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/quieres-ser-desarrollador-web-empieza-a-pensar-como-ai-engineer-chile/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/quieres-ser-desarrollador-web-empieza-a-pensar-como-ai-engineer-mexico/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (50 chars)
+  File: /home/runner/workspace/marketing-content/landings/test-example-check/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/test-example-check/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (47 chars)
+  File: /home/runner/workspace/marketing-content/landings/trabajo-garantizado/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/landings/trabajo-garantizado/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (179 chars)
+  File: /home/runner/workspace/marketing-content/pages/apply/en.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/apply/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/apply/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (211 chars)
+  File: /home/runner/workspace/marketing-content/pages/apply/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/apply/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/apply/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/awards/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/awards/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/awards/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/awards/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_SHORT] Page title is too short (21 chars): "Blog | 4Geeks Academy"
+  File: /home/runner/workspace/marketing-content/pages/blog/en.yml
+  Hint: Aim for a page title between 30-60 characters for optimal SEO
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/blog/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/blog/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/blog/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/blog/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (64 chars)
+  File: /home/runner/workspace/marketing-content/pages/coding-bootcamp/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/coding-bootcamp/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/coding-bootcamp/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (64 chars)
+  File: /home/runner/workspace/marketing-content/pages/coding-bootcamp/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/coding-bootcamp/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/coding-bootcamp/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/coding-bootcamp-in-spanish/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/coding-bootcamp-in-spanish/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/coding-bootcamp-in-spanish/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/coding-bootcamp-in-spanish/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (51 chars)
+  File: /home/runner/workspace/marketing-content/pages/component-test/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/component-test/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/component-test/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/contact-us/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/contact-us/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_SHORT] Page title is too short (28 chars): "Contáctanos | 4Geeks Academy"
+  File: /home/runner/workspace/marketing-content/pages/contact-us/es.yml
+  Hint: Aim for a page title between 30-60 characters for optimal SEO
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/contact-us/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/contact-us/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (56 chars)
+  File: /home/runner/workspace/marketing-content/pages/cookies/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/cookies/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/cookies/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (56 chars)
+  File: /home/runner/workspace/marketing-content/pages/cookies/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/cookies/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/cookies/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_SHORT] Page title is too short (24 chars): "ejemplo | 4Geeks Academy"
+  File: /home/runner/workspace/marketing-content/pages/ejemplo/es.yml
+  Hint: Aim for a page title between 30-60 characters for optimal SEO
+- [DESCRIPTION_TOO_SHORT] Description is too short (56 chars)
+  File: /home/runner/workspace/marketing-content/pages/ejemplo/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/ejemplo/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/ejemplo/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/faq/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/faq/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/faq/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/faq/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_SHORT] Page title is too short (27 chars): "financials | 4Geeks Academy"
+  File: /home/runner/workspace/marketing-content/pages/financials/en.yml
+  Hint: Aim for a page title between 30-60 characters for optimal SEO
+- [DESCRIPTION_TOO_SHORT] Description is too short (59 chars)
+  File: /home/runner/workspace/marketing-content/pages/financials/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/financials/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/financials/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (63 chars)
+  File: /home/runner/workspace/marketing-content/pages/financials/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/financials/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/financials/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (167 chars)
+  File: /home/runner/workspace/marketing-content/pages/geekforce-career-support/en.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/geekforce-career-support/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/geekforce-career-support/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (200 chars)
+  File: /home/runner/workspace/marketing-content/pages/geekforce-career-support/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/geekforce-career-support/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/geekforce-career-support/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/geekpal-support/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/geekpal-support/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (195 chars)
+  File: /home/runner/workspace/marketing-content/pages/geekpal-support/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/geekpal-support/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/geekpal-support/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/geeks-vs-others/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/geeks-vs-others/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/geeks-vs-others/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/geeks-vs-others/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (163 chars)
+  File: /home/runner/workspace/marketing-content/pages/graduates-and-projects/en.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/graduates-and-projects/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/graduates-and-projects/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (176 chars)
+  File: /home/runner/workspace/marketing-content/pages/graduates-and-projects/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/graduates-and-projects/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/graduates-and-projects/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/home/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/home/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/home/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/home/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/home-copia-prueba/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/home-copia-prueba/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/home-copia-prueba/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/home-copia-prueba/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/home-new/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/home-new/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/home-prueba-lorena/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/home-prueba-lorena/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/home-prueba-lorena/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/home-prueba-lorena/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/job-guarantee/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/job-guarantee/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/job-guarantee/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/job-guarantee/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (58 chars)
+  File: /home/runner/workspace/marketing-content/pages/learnpack/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/learnpack/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/learnpack/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (67 chars): "LearnPack - Herramienta de Aprendizaje Interactivo | 4Geeks ..."
+  File: /home/runner/workspace/marketing-content/pages/learnpack/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [DESCRIPTION_TOO_SHORT] Description is too short (58 chars)
+  File: /home/runner/workspace/marketing-content/pages/learnpack/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/learnpack/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/learnpack/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/lumi-home/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/lumi-home/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/lumi-home/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/lumi-home/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (64 chars)
+  File: /home/runner/workspace/marketing-content/pages/online-platform/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/online-platform/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/online-platform/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (64 chars)
+  File: /home/runner/workspace/marketing-content/pages/online-platform/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/online-platform/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/online-platform/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/outcomes/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/outcomes/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_LONG] Page title is too long (68 chars): "Informe de Resultados de 4Geeks Academy | Datos de Éxito Pro..."
+  File: /home/runner/workspace/marketing-content/pages/outcomes/es.yml
+  Hint: Keep page title under 60 characters to avoid truncation in search results
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/outcomes/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/outcomes/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_SHORT] Page title is too short (25 chars): "partners | 4Geeks Academy"
+  File: /home/runner/workspace/marketing-content/pages/partners/en.yml
+  Hint: Aim for a page title between 30-60 characters for optimal SEO
+- [DESCRIPTION_TOO_SHORT] Description is too short (57 chars)
+  File: /home/runner/workspace/marketing-content/pages/partners/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/partners/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/partners/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (55 chars)
+  File: /home/runner/workspace/marketing-content/pages/partners/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/partners/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/partners/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (54 chars)
+  File: /home/runner/workspace/marketing-content/pages/press/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/press/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/press/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (54 chars)
+  File: /home/runner/workspace/marketing-content/pages/press/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/press/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/press/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (63 chars)
+  File: /home/runner/workspace/marketing-content/pages/privacy-policy/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/privacy-policy/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/privacy-policy/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (63 chars)
+  File: /home/runner/workspace/marketing-content/pages/privacy-policy/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/privacy-policy/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/privacy-policy/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (67 chars)
+  File: /home/runner/workspace/marketing-content/pages/program-comparison/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/program-comparison/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/program-comparison/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (67 chars)
+  File: /home/runner/workspace/marketing-content/pages/program-comparison/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/program-comparison/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/program-comparison/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/prueba/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/rigobot-ai-coding-mentor/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/rigobot-ai-coding-mentor/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/rigobot-ai-coding-mentor/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/rigobot-ai-coding-mentor/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_SHORT] Page title is too short (28 chars): "sample page | 4Geeks Academy"
+  File: /home/runner/workspace/marketing-content/pages/sample-page/en.yml
+  Hint: Aim for a page title between 30-60 characters for optimal SEO
+- [DESCRIPTION_TOO_SHORT] Description is too short (60 chars)
+  File: /home/runner/workspace/marketing-content/pages/sample-page/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/sample-page/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/sample-page/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_SHORT] Page title is too short (29 chars): "scholarships | 4Geeks Academy"
+  File: /home/runner/workspace/marketing-content/pages/scholarships/en.yml
+  Hint: Aim for a page title between 30-60 characters for optimal SEO
+- [DESCRIPTION_TOO_SHORT] Description is too short (61 chars)
+  File: /home/runner/workspace/marketing-content/pages/scholarships/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/scholarships/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/scholarships/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_SHORT] Page title is too short (22 chars): "Becas | 4Geeks Academy"
+  File: /home/runner/workspace/marketing-content/pages/scholarships/es.yml
+  Hint: Aim for a page title between 30-60 characters for optimal SEO
+- [DESCRIPTION_TOO_SHORT] Description is too short (61 chars)
+  File: /home/runner/workspace/marketing-content/pages/scholarships/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/scholarships/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/scholarships/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (65 chars)
+  File: /home/runner/workspace/marketing-content/pages/terms-conditions/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/terms-conditions/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/terms-conditions/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (65 chars)
+  File: /home/runner/workspace/marketing-content/pages/terms-conditions/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/terms-conditions/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/terms-conditions/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (61 chars)
+  File: /home/runner/workspace/marketing-content/pages/testimonials/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/testimonials/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/testimonials/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (61 chars)
+  File: /home/runner/workspace/marketing-content/pages/testimonials/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/testimonials/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/testimonials/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_SHORT] Page title is too short (28 chars): "The Academy | 4Geeks Academy"
+  File: /home/runner/workspace/marketing-content/pages/the-academy/en.yml
+  Hint: Aim for a page title between 30-60 characters for optimal SEO
+- [DESCRIPTION_TOO_SHORT] Description is too short (60 chars)
+  File: /home/runner/workspace/marketing-content/pages/the-academy/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/the-academy/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/the-academy/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (47 chars)
+  File: /home/runner/workspace/marketing-content/pages/the-academy/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/the-academy/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/the-academy/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (63 chars)
+  File: /home/runner/workspace/marketing-content/pages/upcoming-dates/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/upcoming-dates/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/upcoming-dates/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (63 chars)
+  File: /home/runner/workspace/marketing-content/pages/upcoming-dates/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/upcoming-dates/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/upcoming-dates/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_SHORT] Page title is too short (29 chars): "work-with-us | 4Geeks Academy"
+  File: /home/runner/workspace/marketing-content/pages/work-with-us/en.yml
+  Hint: Aim for a page title between 30-60 characters for optimal SEO
+- [DESCRIPTION_TOO_SHORT] Description is too short (61 chars)
+  File: /home/runner/workspace/marketing-content/pages/work-with-us/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/work-with-us/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/work-with-us/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_LONG] Description is too long (167 chars)
+  File: /home/runner/workspace/marketing-content/pages/work-with-us/es.yml
+  Hint: Keep meta description under 160 characters to avoid truncation
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/pages/work-with-us/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/pages/work-with-us/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (40 chars)
+  File: /home/runner/workspace/marketing-content/downloadable/guia-de-html-css/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/downloadable/guia-de-html-css/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/downloadable/guia-de-html-css/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (40 chars)
+  File: /home/runner/workspace/marketing-content/downloadable/guia-de-js/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/downloadable/guia-de-js/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/downloadable/guia-de-js/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (40 chars)
+  File: /home/runner/workspace/marketing-content/downloadable/sample-downloadable/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/downloadable/sample-downloadable/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/downloadable/sample-downloadable/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [DESCRIPTION_TOO_SHORT] Description is too short (40 chars)
+  File: /home/runner/workspace/marketing-content/downloadable/sample-downloadable/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/downloadable/sample-downloadable/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/downloadable/sample-downloadable/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/downloadable/testing/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/downloadable/testing/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_SHORT] Page title is too short (23 chars): "Outcome Report | 4Geeks"
+  File: /home/runner/workspace/marketing-content/outcome-report/sample-outcome-report/en.yml
+  Hint: Aim for a page title between 30-60 characters for optimal SEO
+- [DESCRIPTION_TOO_SHORT] Description is too short (42 chars)
+  File: /home/runner/workspace/marketing-content/outcome-report/sample-outcome-report/en.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/outcome-report/sample-outcome-report/en.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/outcome-report/sample-outcome-report/en.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+- [TITLE_TOO_SHORT] Page title is too short (23 chars): "Outcome Report | 4Geeks"
+  File: /home/runner/workspace/marketing-content/outcome-report/sample-outcome-report/es.yml
+  Hint: Aim for a page title between 30-60 characters for optimal SEO
+- [DESCRIPTION_TOO_SHORT] Description is too short (42 chars)
+  File: /home/runner/workspace/marketing-content/outcome-report/sample-outcome-report/es.yml
+  Hint: Aim for a meta description between 70-160 characters
+- [MISSING_OG_IMAGE] Missing og_image in meta
+  File: /home/runner/workspace/marketing-content/outcome-report/sample-outcome-report/es.yml
+  Hint: Add an og_image for better social media sharing appearance
+- [MISSING_CANONICAL] Missing canonical_url in meta
+  File: /home/runner/workspace/marketing-content/outcome-report/sample-outcome-report/es.yml
+  Hint: Add a canonical_url to avoid duplicate content issues
+
+---
+
+## Your task
+For every error listed above:
+1. Open the file at the exact path shown.
+2. Provide the minimal YAML edit that resolves the issue.
+3. Show the changed lines with 3–5 lines of surrounding context so the
+   location is unambiguous (use a unified-diff style or "before / after" blocks).
+4. Do not change anything that is not listed as an error or warning.
+5. After all edits, briefly explain why each change fixes the issue.

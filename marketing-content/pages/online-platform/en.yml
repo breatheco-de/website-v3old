@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Online Learning Platform | 4Geeks Academy
-  description: online-platform - Learn more about this topic at 4Geeks Academy.
+  page_title: Online Learning Platform | 4Geeks
+  description: Transform your career with our online learning platform, expert training, and career support at 4Geeks Academy, start learning today!
   redirects:
     - /online-platform
 schema:

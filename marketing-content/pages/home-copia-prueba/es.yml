@@ -5,13 +5,11 @@ settings:
   loading:
     eager_count: 3
 meta:
-  robots: index, follow
+  robots: noindex, nofollow
   priority: 1
   change_frequency: daily
-  page_title: 4Geeks Academy | The AI Reskilling Platform
-  description: >-
-    Transform your career with AI-powered learning. Get personalized education, expert mentorship, and career support to
-    launch your tech career.
+  page_title: Copia de Prueba del Inicio | 4Geeks
+  description: Copia interna de la página de inicio para pruebas. No indexada ni destinada a visitantes públicos o motores de búsqueda.
 schema:
   include:
     - organization

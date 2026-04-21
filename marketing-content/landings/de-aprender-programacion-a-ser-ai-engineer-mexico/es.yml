@@ -6,8 +6,8 @@ meta:
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
   change_frequency: weekly
-  page_title: Bootcamp de Ingeniería de IA en México | 4Geeks Academy
-  description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando — en solo 24 semanas.
+  page_title: 4Geeks: Aprende IA
+  description: Desarrolla soluciones de inteligencia artificial en 24 semanas con garantía de empleo en 4Geeks Academy México
 schema:
   include:
     - organization

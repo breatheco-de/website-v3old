@@ -1,4 +1,5 @@
 import type { Validator, ValidatorResult, ValidationContext, ValidationIssue } from "../shared/types";
+import { resolveContentTypeUrl } from "../../../server/content-types";
 
 export const seoDepthValidator: Validator = {
   name: "seo-depth",
@@ -20,7 +21,6 @@ export const seoDepthValidator: Validator = {
     for (const file of context.contentFiles) {
       const pageTitle = file.meta?.page_title;
       const description = file.meta?.description;
-
       if (pageTitle) {
         if (pageTitle.length < 30) {
           warnings.push({
@@ -84,13 +84,24 @@ export const seoDepthValidator: Validator = {
       }
 
       if (!file.meta?.canonical_url) {
-        warnings.push({
-          type: "warning",
-          code: "MISSING_CANONICAL",
-          message: "Missing canonical_url in meta",
-          file: file.filePath,
-          suggestion: "Add a canonical_url to avoid duplicate content issues",
-        });
+        const resolvedPath = resolveContentTypeUrl(
+          file.type,
+          { slug: file.slug },
+          file.locale,
+        );
+        const isResolvable =
+          resolvedPath !== null &&
+          !resolvedPath.includes(":") &&
+          !resolvedPath.includes("undefined");
+        if (!isResolvable) {
+          warnings.push({
+            type: "warning",
+            code: "MISSING_CANONICAL",
+            message: "Missing canonical_url in meta",
+            file: file.filePath,
+            suggestion: "Add a canonical_url to avoid duplicate content issues",
+          });
+        }
       }
     }
 

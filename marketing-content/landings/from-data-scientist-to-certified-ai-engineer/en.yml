@@ -6,8 +6,8 @@ meta:
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
   change_frequency: weekly
-  page_title: AI Engineering Bootcamp Florida | 4Geeks Academy
-  description: Launch your AI career with hands-on training, unlimited 1:1 mentorship, and job guarantee. Start earning $95K-$135K as an AI Engineer.
+  page_title: 4Geeks AI Engineer
+  description: Transform from Data Scientist to Certified AI Engineer with 4Geeks Academy's hands-on training and mentorship, unlocking $95K-$135K career opportunities.
 schema:
   include:
     - organization

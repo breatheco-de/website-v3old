@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Becas | 4Geeks Academy
-  description: scholarships - Aprende más sobre este tema en 4Geeks Academy.
+  page_title: Becas y Ayuda Financiera Tech | 4Geeks
+  description: Descubre becas y opciones de ayuda financiera para financiar tu educación tecnológica en 4Geeks Academy y hacer accesible el aprendizaje en IA y programación.
   redirects:
     - /es/20-millones
 schema:
@@ -59,7 +59,7 @@ sections:
     slides:
       - image_id: united_way_event
         object_position: 100% 80%
-        title: United Way Miami y 4Geeks Academy
+        title: United Way Miami y 4Geeks
         subtitle: Lanzando el Miami Workforce Project
         description: United Way Miami se asoció con 4Geeks Academy para lanzar el Miami Workforce Project. Este programa transformador fue creado para ofrecer educación y formación de alta calidad a los residentes del condado de Miami-Dade y es posible gracias a una donación multimillonaria de la filántropa Mackenzie Scott. Los estudiantes admitidos reciben formación en programación sin costos iniciales.
         stats:
@@ -86,7 +86,7 @@ sections:
           variant: primary
       - image_id: crusa_forte_scholarship
         object_position: 100% 80%
-        title: Costa Rica Forte y 4Geeks Academy
+        title: Costa Rica Forte y 4Geeks
         subtitle: Impulsando el desarrollo de talento en Costa Rica
         description: En colaboración con Forte y Crusa, 4Geeks Academy se unió al modelo FORTE para impulsar el desarrollo de talento en Costa Rica. Este programa ha formado a más de 35 estudiantes en tecnologías digitales de alta demanda, enfocándose en mujeres de zonas con alto desempleo. A través del programa, las participantes reciben formación gratuita que les permite acceder a mejores empleos en la industria 4.0 y contribuir al crecimiento económico del país.
         stats:
@@ -214,7 +214,7 @@ sections:
     slides:
       - image_id: student_coding_laptop
         object_position: 100% 80%
-        title: Beca Talento Digital y 4Geeks Academy
+        title: Beca Talento Digital y 4Geeks
         subtitle: Lanzando por la Fundación ONCE
         description: La Fundación ONCE, a través de su programa Talento Digital, impulsa la formación en competencias tecnológicas a través de una beca parcial para mejorar la empleabilidad de personas con discapacidad. En colaboración con 4Geeks Academy, esta beca permite acceder a programas de formación intensiva en programación, ciencia de datos, inteligencia artificial y otras áreas digitales con alta demanda laboral.
         stats:
@@ -237,7 +237,7 @@ sections:
           variant: primary
       - image_id: united_way_event
         object_position: 100% 80%
-        title: United Way Miami y 4Geeks Academy
+        title: United Way Miami y 4Geeks
         subtitle: Lanzando el Miami Workforce Project
         description: United Way Miami se asoció con 4Geeks Academy para lanzar el Miami Workforce Project. Este programa transformador fue creado para ofrecer educación y formación de alta calidad a los residentes del condado de Miami-Dade y es posible gracias a una donación multimillonaria de la filántropa Mackenzie Scott. Los estudiantes admitidos reciben formación en programación sin costos iniciales.
         stats:
@@ -264,7 +264,7 @@ sections:
           variant: primary
       - image_id: crusa_forte_scholarship
         object_position: 100% 80%
-        title: Costa Rica Forte y 4Geeks Academy
+        title: Costa Rica Forte y 4Geeks
         subtitle: Impulsando el desarrollo de talento en Costa Rica
         description: En colaboración con Forte y Crusa, 4Geeks Academy se unió al modelo FORTE para impulsar el desarrollo de talento en Costa Rica. Este programa ha formado a más de 35 estudiantes en tecnologías digitales de alta demanda, enfocándose en mujeres de zonas con alto desempleo. A través del programa, las participantes reciben formación gratuita que les permite acceder a mejores empleos en la industria 4.0 y contribuir al crecimiento económico del país.
         stats:

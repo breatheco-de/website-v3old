@@ -39,7 +39,7 @@ schema:
         postalCode: "00186"
         addressCountry: IT
 meta:
-  page_title: 4Geeks Academy Roma | Bootcamp de Programación en Italia
+  page_title: 4Geeks Roma | Bootcamp de Programación en Italia
   description: Únete al bootcamp de programación 4Geeks en Roma. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con mentoría ilimitada y garantía de empleo.
   robots: index, follow
   og_image: /images/locations/rome-og.jpg

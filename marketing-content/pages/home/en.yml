@@ -8,7 +8,7 @@ meta:
   robots: index, follow
   priority: 1
   change_frequency: daily
-  page_title: 4Geeks Academy | The AI Reskilling Platform
+  page_title: 4Geeks | The AI Reskilling Platform
   description: Transform your career with AI-powered learning. Get personalized education, expert mentorship, and career support to launch your tech career.
   redirects:
     - /home

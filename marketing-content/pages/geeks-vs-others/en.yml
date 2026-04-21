@@ -5,7 +5,7 @@ meta:
   robots: index, follow
   priority: 0.9
   change_frequency: weekly
-  page_title: 4Geeks vs Other Bootcamps | 4Geeks Academy
+  page_title: 4Geeks vs Other Bootcamps | 4Geeks
   description: >-
     Compare 4Geeks Academy with other coding bootcamps. See why our unlimited mentorship, career support, and proven
     outcomes set us apart.
@@ -20,7 +20,7 @@ sections:
   - type: hero
     version: '1.0'
     variant: simpleTwoColumn
-    title: 4Geeks Academy vs Other Programs
+    title: 4Geeks vs Other Programs
     subtitle: >-
       See why our graduates succeed in tech. From AI-powered learning and hands-on projects to personalized mentorship
       and lifetime career support, everything we do is designed to help you launch a thriving career.

@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: The Academy | 4Geeks Academy
-  description: The Academy - Learn more about this topic at 4Geeks Academy.
+  page_title: Coding Bootcamp | 4Geeks Education
+  description: Transform your career with hands-on coding training and job placement support at 4Geeks Academy, learn to code and launch your tech journey.
   redirects:
     - /the-academy
 schema:
