@@ -2246,6 +2246,8 @@ sections:
       aspect_ratio: "4:3"
       style: rounded
     section_id: value_proof_panel-ot1yqw
+    marginY:
+      desktop: none lg
   - type: value_proof_panel
     version: v1.0
     title: Officially Certified & Accredited
