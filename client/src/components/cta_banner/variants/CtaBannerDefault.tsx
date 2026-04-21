@@ -30,7 +30,6 @@ export function CTABannerSection({ data }: CTABannerSectionProps) {
       <section 
         className="px-4"
         data-testid="section-cta-banner"
-        className="max-w-6xl mx-auto px-4"
       >
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col lg:flex-row lg:items-center lg:gap-12">
