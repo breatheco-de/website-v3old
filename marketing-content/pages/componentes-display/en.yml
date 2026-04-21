@@ -2341,6 +2341,17 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
     section_id: whos_hiring-yskufg
+  - type: why_learn_ai
+    version: "1.0"
+    variant: laptop-edge
+    title: Why Should I Learn to Build and Code with AI?
+    subtitle: Software Development as You Know It Will Cease to Exist
+    description: Coding with AI will become a new standard, but it's a very different profession from traditional software development. The developers who embrace AI tools now will have a significant advantage in the job market.
+    cta:
+      text: Join now!
+      url: /signup
+      variant: primary
+    section_id: why_learn_ai-brt6sr
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
