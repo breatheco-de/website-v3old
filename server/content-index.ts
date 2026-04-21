@@ -635,7 +635,7 @@ class ContentIndex {
   private extractLocales(files: string[], _contentType: string): string[] {
     return files
       .map(f => f.replace(/\.(yml|yaml)$/, ""))
-      .filter(name => /^[a-z]{2}$/.test(name));
+      .filter(name => /^[a-z]{2}(-[a-z]{2})?$/.test(name));
   }
 
   private ensureInitialized(): void {
@@ -874,6 +874,35 @@ class ContentIndex {
       }
     }
 
+    // Fallback: handle regional locale URLs like /es-mx/slug or /es-mx/programas-de-carrera/slug
+    // by stripping the regional locale prefix and matching the remainder against locale-stripped patterns.
+    const regionalLocalePrefix = cleanUrl.match(/^\/([a-z]{2}-[a-z]{2})(\/.*)?$/);
+    if (regionalLocalePrefix) {
+      const regionalLocale = regionalLocalePrefix[1]; // e.g. "es-mx"
+      const urlRemainder = regionalLocalePrefix[2] || "/"; // e.g. "/mi-pagina"
+
+      // Try matching the remainder against all content type patterns with locale prefix stripped
+      for (const [contentType2, config2] of Object.entries(this.contentTypeConfigs)) {
+        if (!config2?.url_pattern) continue;
+        for (const [, pattern2] of Object.entries(config2.url_pattern)) {
+          // Strip the leading locale segment from the pattern (e.g. /en/ or /es/ or /es-mx/)
+          const strippedPattern = pattern2.replace(/^\/[a-z]{2}(?:-[a-z]{2})?\//, "/");
+          if (strippedPattern === pattern2) continue; // pattern had no locale prefix to strip
+          const params = this.extractUrlParams(strippedPattern, urlRemainder);
+          if (params) {
+            const slug = this.getLastParamValue(params, strippedPattern);
+            return { contentType: contentType2, slug, locale: regionalLocale, params };
+          }
+        }
+      }
+
+      // Simple fallback: treat as a page with the first path segment as slug
+      const simpleMatch = urlRemainder.match(/^\/([^/]+)\/?$/);
+      if (simpleMatch) {
+        return { contentType: "page", slug: simpleMatch[1], locale: regionalLocale };
+      }
+    }
+
     const bareMatch = cleanUrl.match(/^\/([^/]+)$/);
     if (bareMatch) {
       return { contentType: "page", slug: bareMatch[1], locale: "en" };
@@ -917,6 +946,26 @@ class ContentIndex {
         }
       }
     }
+
+    // Fallback: handle regional locale URLs like /es-mx/slug or /es-mx/programas-de-carrera/slug
+    const regionalPrefix2 = cleanUrl.match(/^\/([a-z]{2}-[a-z]{2})(\/.*)?$/);
+    if (regionalPrefix2) {
+      const urlRemainder2 = regionalPrefix2[2] || "/";
+      for (const [contentType2, config2] of Object.entries(this.contentTypeConfigs)) {
+        if (!config2?.url_pattern) continue;
+        for (const [localeKey2, pattern2] of Object.entries(config2.url_pattern)) {
+          const strippedPattern2 = pattern2.replace(/^\/[a-z]{2}(?:-[a-z]{2})?\//, "/");
+          if (strippedPattern2 === pattern2) continue;
+          const params2 = this.extractUrlParams(strippedPattern2, urlRemainder2);
+          if (params2) {
+            const slug2 = this.getLastParamValue(params2, strippedPattern2);
+            const found2 = this.findBySlug(slug2, { contentType: contentType2 });
+            if (found2.length > 0) return { contentType: contentType2, slug: slug2, entry: found2[0], params: params2, patternLocale: localeKey2 };
+          }
+        }
+      }
+    }
+
     return null;
   }
 

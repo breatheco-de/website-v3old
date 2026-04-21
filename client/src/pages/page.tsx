@@ -25,9 +25,11 @@ const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditor
 export default function Page() {
   const [location, setLocation] = useLocation();
   const { i18n } = useTranslation();
-  const locale = location.startsWith("/es/") || location.startsWith("/es") ? "es" : "en";
+  const localeMatch = location.split("?")[0].match(/^\/([a-z]{2}(?:-[a-z]{2})?)\//i);
+  const locale = localeMatch ? localeMatch[1].toLowerCase() : "en";
+  const i18nLocale = locale.split("-")[0];
   const params = useParams<{ slug: string }>();
-  const slugFromPath = location.split("?")[0].replace(/^\/(?:en|es)\//, "").split("/")[0] || "";
+  const slugFromPath = location.split("?")[0].replace(/^\/[a-z]{2}(?:-[a-z]{2})?\//i, "").split("/")[0] || "";
 
   const { data: homePageSettings } = useQuery<{ type: string; slug: string }>({
     queryKey: ["/api/settings/home-page"],
@@ -39,10 +41,10 @@ export default function Page() {
   const [showRawEditor, setShowRawEditor] = useState(false);
 
   useEffect(() => {
-    if (i18n.language !== locale) {
-      i18n.changeLanguage(locale);
+    if (i18n.language !== i18nLocale) {
+      i18n.changeLanguage(i18nLocale);
     }
-  }, [locale, i18n]);
+  }, [i18nLocale, i18n]);
 
   const { data: page, isLoading, error, refetch } = useQuery<TemplatePage>({
     queryKey: ["/api/pages", slug, locale],

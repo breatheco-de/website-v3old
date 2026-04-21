@@ -213,13 +213,6 @@ function getCurrentDate(): string {
   return new Date().toISOString().split("T")[0];
 }
 
-function resolveTemplatePageUrl(slug: string, locale: string): string {
-  // Use slug directly for URL path
-  return locale === "es"
-    ? `${getBaseUrl()}/es/${slug}`
-    : `${getBaseUrl()}/en/${slug}`;
-}
-
 function formatLocaleLabel(locale: string): string {
   return locale === "es" ? "ES" : "EN";
 }
@@ -308,7 +301,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
     }
 
     entries.push({
-      loc: resolveTemplatePageUrl(page.slug, page.locale),
+      loc: `${getBaseUrl()}${contentIndex.buildUrl("page", page.locale, page.slug)}`,
       lastmod: today,
       changefreq: page.meta.change_frequency || "weekly",
       priority: page.meta.priority || 0.8,
