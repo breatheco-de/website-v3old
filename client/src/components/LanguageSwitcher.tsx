@@ -10,51 +10,71 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useQuery } from "@tanstack/react-query";
 
-const languages = [
-  { code: "en", name: "English" },
-  { code: "es", name: "Español" },
-];
+interface LocaleEntry {
+  code: string;
+  label: string;
+}
 
 export default function LanguageSwitcher() {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const [location, setLocation] = useLocation();
+
+  const { data: settingsLocales } = useQuery<LocaleEntry[]>({
+    queryKey: ["/api/settings/locales"],
+    queryFn: async () => {
+      const res = await fetch("/api/settings/locales");
+      if (!res.ok) return [];
+      const data = await res.json();
+      return data.supported_locales ?? [];
+    },
+    staleTime: Infinity,
+  });
 
   const { data: localeUrls } = useQuery<{ urls: Record<string, string>; contentType: string; slug: string }>({
     queryKey: ["/api/locale-urls", location],
     queryFn: async () => {
+      if (!location || location === "/" || location === "/en" || location === "/es" || location === "/en/" || location === "/es/") return null;
       const res = await fetch(`/api/locale-urls?url=${encodeURIComponent(location)}`);
       if (!res.ok) return null;
       return res.json();
     },
-    enabled: location !== "/" && location !== "/en" && location !== "/es" && location !== "/en/" && location !== "/es/",
+    enabled: !!location,
     staleTime: 60000,
   });
 
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-    document.documentElement.lang = lng;
+  const availableUrls = localeUrls?.urls ?? {};
 
-    if (
-      location === "/" ||
-      location === "/en/" ||
-      location === "/es/" ||
-      location === "/en" ||
-      location === "/es"
-    ) {
-      setLocation(`/${lng}/`);
+  const visibleLocales: LocaleEntry[] = (settingsLocales ?? []).filter((entry) => {
+    if (!localeUrls) return true;
+    return Object.prototype.hasOwnProperty.call(availableUrls, entry.code);
+  });
+
+  const currentLocaleCode = (() => {
+    const match = location.split("?")[0].match(/^\/([a-z]{2}(?:-[a-z]{2})?)\//i);
+    return match ? match[1].toLowerCase() : "en";
+  })();
+
+  const currentLocale = visibleLocales.find((l) => l.code === currentLocaleCode)
+    ?? settingsLocales?.find((l) => l.code === currentLocaleCode)
+    ?? { code: currentLocaleCode, label: currentLocaleCode.toUpperCase() };
+
+  const changeLanguage = (code: string) => {
+    const baseCode = code.split("-")[0];
+    i18n.changeLanguage(baseCode);
+    document.documentElement.lang = baseCode;
+
+    if (!location || location === "/" || location === "/en/" || location === "/es/" || location === "/en" || location === "/es") {
+      setLocation(`/${code}/`);
       return;
     }
 
-    if (localeUrls?.urls?.[lng]) {
-      setLocation(localeUrls.urls[lng]);
+    if (availableUrls[code]) {
+      setLocation(availableUrls[code]);
       return;
     }
 
-    setLocation(`/${lng}/`);
+    setLocation(`/${code}/`);
   };
-
-  const currentLanguage =
-    languages.find((lang) => lang.code === i18n.language) || languages[0];
 
   return (
     <DropdownMenu>
@@ -63,24 +83,23 @@ export default function LanguageSwitcher() {
           variant="ghost"
           size="sm"
           data-testid="button-language-switcher"
-          aria-label={t("nav.changeLanguage")}
           className="gap-1 px-2"
         >
-          <span className="text-xs font-semibold">{currentLanguage.code.toUpperCase()}</span>
+          <span className="text-xs font-semibold">{currentLocale.code.toUpperCase()}</span>
           <IconWorld className="h-5 w-5" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {languages.map((language) => (
+        {visibleLocales.map((entry) => (
           <DropdownMenuItem
-            key={language.code}
-            onClick={() => changeLanguage(language.code)}
-            data-testid={`menu-item-language-${language.code}`}
+            key={entry.code}
+            onClick={() => changeLanguage(entry.code)}
+            data-testid={`menu-item-language-${entry.code}`}
             className="cursor-pointer"
           >
-            <span className="font-medium">{language.code.toUpperCase()}</span>
-            <span className="ml-2">{language.name}</span>
-            {currentLanguage.code === language.code && (
+            <span className="font-medium">{entry.code.toUpperCase()}</span>
+            <span className="ml-2">{entry.label}</span>
+            {currentLocaleCode === entry.code && (
               <span className="ml-auto text-primary font-bold">✓</span>
             )}
           </DropdownMenuItem>

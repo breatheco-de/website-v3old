@@ -131,8 +131,8 @@ export function updateLocaleSettings(input: {
   }
 
   for (const entry of supported_locales) {
-    if (typeof entry.code !== "string" || !/^[a-z]{2,3}$/.test(entry.code)) {
-      throw new Error(`Invalid locale code: "${entry.code}" — must be 2-3 lowercase letters`);
+    if (typeof entry.code !== "string" || !/^[a-z]{2,3}(-[A-Za-z]{2})?$/.test(entry.code)) {
+      throw new Error(`Invalid locale code: "${entry.code}" — must be 2-3 lowercase letters, optionally followed by a region tag (e.g. es-MX)`);
     }
     if (typeof entry.label !== "string" || !entry.label.trim()) {
       throw new Error(`Locale "${entry.code}" must have a non-empty label`);

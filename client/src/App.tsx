@@ -184,6 +184,21 @@ function Router() {
         <Route path="/politica-privacidad" component={PrivacyPage} />
         <Route path="/en/:slug" component={TemplatePage} />
         <Route path="/es/:slug" component={TemplatePage} />
+        <Route path="/:locale/programas-de-carrera/:slug">
+          {(params) => /^[a-z]{2}-[a-z]{2}$/.test(params.locale || "") ? (
+            <ContentTypeDetail type="program" slug={params.slug || ""} locale={params.locale || ""} />
+          ) : <NotFound />}
+        </Route>
+        <Route path="/:locale/career-programs/:slug">
+          {(params) => /^[a-z]{2}-[a-z]{2}$/.test(params.locale || "") ? (
+            <ContentTypeDetail type="program" slug={params.slug || ""} locale={params.locale || ""} />
+          ) : <NotFound />}
+        </Route>
+        <Route path="/:locale/:slug">
+          {(params) => /^[a-z]{2}-[a-z]{2}$/.test(params.locale || "") ? (
+            <TemplatePage />
+          ) : <NotFound />}
+        </Route>
         {dynamicRoutesLoading ? (
           <Route>{() => <LoadingFallback />}</Route>
         ) : (

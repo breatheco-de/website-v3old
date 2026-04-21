@@ -635,7 +635,7 @@ class ContentIndex {
   private extractLocales(files: string[], _contentType: string): string[] {
     return files
       .map(f => f.replace(/\.(yml|yaml)$/, ""))
-      .filter(name => /^[a-z]{2}$/.test(name));
+      .filter(name => /^[a-z]{2}(-[a-z]{2})?$/.test(name));
   }
 
   private ensureInitialized(): void {
