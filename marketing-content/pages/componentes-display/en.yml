@@ -2246,6 +2246,25 @@ sections:
       aspect_ratio: "4:3"
       style: rounded
     section_id: value_proof_panel-ot1yqw
+  - type: value_proof_panel
+    version: v1.0
+    title: Officially Certified & Accredited
+    subtitle: Our programs meet rigorous industry standards and partner requirements.
+    evidence_items:
+      - icon: ShieldCheck
+        title: State-Licensed Institution
+        description: Fully licensed to operate as an educational institution
+        source: 12+ U.S. State Education Departments
+      - icon: BuildingBank
+        title: VA Approved for GI Bill
+        description: Veterans can use their GI Bill benefits for our programs
+        source: U.S. Department of Veterans Affairs
+      - icon: Briefcase
+        title: WIOA Eligible Provider
+        description: Approved for workforce development funding assistance
+        source: Department of Labor
+    reverse_layout: true
+    section_id: value_proof_panel-oenyof
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
