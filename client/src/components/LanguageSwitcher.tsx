@@ -15,20 +15,30 @@ interface LocaleEntry {
   label: string;
 }
 
+interface LocaleSettings {
+  default_locale: string;
+  supported_locales: LocaleEntry[];
+}
+
 export default function LanguageSwitcher() {
   const { i18n } = useTranslation();
   const [location, setLocation] = useLocation();
 
-  const { data: settingsLocales } = useQuery<LocaleEntry[]>({
+  const { data: localeSettings } = useQuery<LocaleSettings>({
     queryKey: ["/api/settings/locales"],
     queryFn: async () => {
       const res = await fetch("/api/settings/locales");
-      if (!res.ok) return [];
-      const data = await res.json();
-      return data.supported_locales ?? [];
+      if (!res.ok) {
+        return {
+          default_locale: "en",
+          supported_locales: [],
+        };
+      }
+      return res.json();
     },
     staleTime: Infinity,
   });
+  const settingsLocales = localeSettings?.supported_locales ?? [];
 
   const { data: localeUrls } = useQuery<{ urls: Record<string, string>; contentType: string; slug: string }>({
     queryKey: ["/api/locale-urls", location],
@@ -48,6 +58,7 @@ export default function LanguageSwitcher() {
     if (!localeUrls) return true;
     return Object.prototype.hasOwnProperty.call(availableUrls, entry.code);
   });
+  const maxCodeChars = Math.max(2, ...visibleLocales.map((entry) => entry.code.length));
 
   const currentLocaleCode = (() => {
     const match = location.split("?")[0].match(/^\/([a-z]{2}(?:-[a-z]{2})?)\//i);
@@ -97,11 +108,18 @@ export default function LanguageSwitcher() {
             data-testid={`menu-item-language-${entry.code}`}
             className="cursor-pointer"
           >
-            <span className="font-medium">{entry.code.toUpperCase()}</span>
-            <span className="ml-2">{entry.label}</span>
-            {currentLocaleCode === entry.code && (
-              <span className="ml-auto text-primary font-bold">✓</span>
-            )}
+            <div className="w-full flex items-center gap-x-3">
+              <span
+                className="shrink-0 whitespace-nowrap text-center font-medium me-1"
+                style={{ width: `${maxCodeChars}ch` }}
+              >
+                {entry.code.toUpperCase()}
+              </span>
+              <span className="min-w-0">{entry.label}</span>
+              {currentLocaleCode === entry.code && (
+                <span className="ml-auto text-primary font-bold">✓</span>
+              )}
+            </div>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
