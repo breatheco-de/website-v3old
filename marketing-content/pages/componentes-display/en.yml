@@ -2207,6 +2207,22 @@ sections:
     image_alt: Student learning with mentor support
     reverse: true
     section_id: two_column_accordion_card-7mie6y
+  - type: two_column_accordion_card
+    version: "1.0"
+    variant: image_background
+    title: Master AI Engineering Skills
+    description: "Our comprehensive program prepares you for the future of technology:"
+    bullets:
+      - heading: Hands-on Projects
+        text: Build real-world AI applications from day one. Work with cutting-edge tools and frameworks used by industry leaders.
+      - heading: Expert-Led Curriculum
+        text: Learn from practitioners who work with AI daily. Our curriculum is continuously updated to reflect the latest advancements.
+      - heading: Career Acceleration
+        text: Get personalized career support including resume reviews, interview prep, and direct connections to hiring partners.
+    footer: Join thousands of graduates now working at top tech companies.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/feliz-empresario-laptop_1765406479465.png
+    image_alt: Student working on AI project
+    section_id: two_column_accordion_card-6zoicn
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
