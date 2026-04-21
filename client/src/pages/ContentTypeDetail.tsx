@@ -54,8 +54,11 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
     : (requestLocale || (i18n.language as string) || "en");
 
   useEffect(() => {
-    if (effectiveLocale && i18n.language !== effectiveLocale) {
-      i18n.changeLanguage(effectiveLocale);
+    // For i18n, always use the base language (e.g. "es" for "es-mx") since translation
+    // bundles only exist for base languages; regional variants share the same translations.
+    const i18nLocale = effectiveLocale.split("-")[0];
+    if (i18nLocale && i18n.language !== i18nLocale) {
+      i18n.changeLanguage(i18nLocale);
     }
   }, [effectiveLocale, i18n]);
 

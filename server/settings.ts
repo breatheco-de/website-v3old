@@ -114,9 +114,25 @@ export function normalizeLocale(locale: string | undefined | null): string {
   const defaultLocale = getDefaultLocale();
   if (!locale) return defaultLocale;
 
-  const normalized = locale.toLowerCase().split("-")[0].split("_")[0];
-  const supported = getSupportedLocales();
-  if (supported.includes(normalized)) return normalized;
+  const lower = locale.toLowerCase().replace("_", "-");
+  const supported = getSupportedLocales().map(c => c.toLowerCase());
+
+  // Exact match first (handles both "es" and "es-mx" if explicitly in supported_locales)
+  if (supported.includes(lower)) return lower;
+
+  // If it's a regional locale (xx-xx), check if the base language is supported.
+  // When the base is supported, preserve the full regional code so content loaders
+  // can find es-mx.yml instead of falling back to es.yml.
+  const dashIdx = lower.indexOf("-");
+  if (dashIdx > 0) {
+    const base = lower.slice(0, dashIdx);
+    if (supported.includes(base)) return lower;
+  }
+
+  // Fall back to the base language alone
+  const base = lower.split("-")[0];
+  if (supported.includes(base)) return base;
+
   return defaultLocale;
 }
 
