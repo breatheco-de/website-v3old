@@ -5,7 +5,7 @@ meta:
   robots: index, follow
   priority: 0.9
   change_frequency: weekly
-  page_title: Proyectos de Graduados y Alumni | 4Geeks Academy
+  page_title: Proyectos de Graduados y Alumni | 4Geeks
   description: "Explora proyectos finales de graduados de 4Geeks Academy: apps reales y soluciones que muestran las habilidades, creatividad y talento listo para el mercado de nuestros alumni."
   redirects:
     - /es/alumnos-y-proyectos
@@ -149,7 +149,7 @@ sections:
     section_id: about-bvkaqq
     version: "1.0"
     height: 420px
-    title: Más Sobre 4Geeks Academy
+    title: Más Sobre 4Geeks
     description: 4Geeks Academy fue fundada en 2015. Lo que comenzó como un proyecto interno para entrenar desarrolladores se ha convertido en nuestra pasión. 4Geeks es hoy un Coding Bootcamp en USA que busca construir un nuevo marco para la Educación en Código. 4Geeks Academy tiene ubicaciones en 12 ciudades, 13 campus activos y más de 600 graduados.
     link_text: Leer Más
     link_url: /es/sobre-la-academia

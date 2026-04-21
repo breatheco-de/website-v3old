@@ -2,11 +2,11 @@ slug: job-guarantee-prueba-anik
 title: job-guarantee-prueba-anik
 locale: en
 meta:
-  robots: index, follow
+  robots: noindex, nofollow
   og_image: /images/programs/job-guarantee-og.jpg
   priority: 0.9
   change_frequency: weekly
-  page_title: Job Guarantee Bootcamp | Get Hired or Your Tuition Back | 4Geeks Academy
+  page_title: Job Guarantee Bootcamp | Get Hired or Your Tuition Back | 4Geeks
   description: >-
     Get hired within 9 months of graduating or get your tuition back. 4Geeks Academy's Job Guarantee program combines
     real skills, unlimited mentorship, and career support until you sign your first offer.

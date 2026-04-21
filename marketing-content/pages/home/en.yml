@@ -8,7 +8,7 @@ meta:
   robots: index, follow
   priority: 1
   change_frequency: daily
-  page_title: 4Geeks Academy | The AI Reskilling Platform
+  page_title: 4Geeks | The AI Reskilling Platform
   description: Transform your career with AI-powered learning. Get personalized education, expert mentorship, and career support to launch your tech career.
   redirects:
     - /home
@@ -87,21 +87,21 @@ sections:
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thiriving in tech.
     stats:
-      - value: 84%
+      - value: {{ global.global_job_placement_rate | 84% }}%
         label: Average hiring rate
-      - value: 55%
+      - value: {{ global.global_salary_increase | 55% }}%
         label: Average salary increase at new position
       - value: 3-6 months
         label: Average time to get hired
     collage_images:
-      - image_id: group-7085-1
+      - image_id: group-7085-1-700x380
         col_span: 5
         row_span: 2
         alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
         id: gemini-generated-image-uwpyyruwpyyruwpy
         object_scale: 1.1
         object_position: 50% 30%
-      - image_id: group-7086-1
+      - image_id: group-7086-1-800x440
         col_span: 7
         row_span: 2
         alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
@@ -109,13 +109,13 @@ sections:
         object_scale: 1
         transform_origin: 50% 50%
         object_position: 50% 60%
-      - image_id: group-7084-1
+      - image_id: group-7084-1-695x382
         col_span: 6
         row_span: 2
         alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
         id: gemini-generated-image-dhko5mdhko5mdhko-1
         object_scale: 1.05
-      - image_id: group-7087-1
+      - image_id: group-7087-1-680x392
         col_span: 6
         row_span: 2
         alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
@@ -132,28 +132,38 @@ sections:
       desktop: md none
   - type: features_grid
     version: "1.0"
-    variant: stats-text
-    title: AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.
-    subtitle: That's your opportunity.
+    variant: stats-charts
+    subtitle: This is your opportunity.
+    title: <!--StartFragment--><h2 class="text-2xl md:text-h2 mb-2 text-foreground" data-testid="text-stats-text-title">AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.</h2><!--EndFragment-->
     description: Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.
-    background: hsl(var(--secondary))
-    items:
-      - id: "1"
-        value: 7x
-        title: Growth in demand for AI-fluent workers since 2023
-      - id: "2"
-        value: 3%
-        title: Of the workforce qualifies for AI roles
-      - id: "3"
-        value: 56%
-        title: Salary premium for workers with AI skills
-    section_id: features_grid-142xko
-    marginY:
-      desktop: sm xl
-    maxWidth:
-      desktop: 6xl
-    marginX:
-      desktop: none
+    card_bars_accent: hsl(var(--primary))
+    card_gauge_accent: hsl(var(--destructive) / 0.5)
+    card_trend_accent: hsl(var(--accent))
+    card_bars:
+      badge: AI jobs created vs. displaced
+      stat_value: +340%
+      stat_label: net new AI roles created since 2022
+      years:
+        - "2022"
+        - "2023"
+        - "2024"
+        - "2025"
+        - "2026"
+      displaced_label: Displaced
+      created_label: Created by AI
+    card_gauge:
+      badge: Who's actually ready for AI roles?
+      gauge_percentage: 3
+      gauge_label: qualified
+      stat_label: of the workforce is not ready for AI roles today
+      bar1_label: Traditional workforce
+      bar2_label: AI-ready professionals
+    card_trend:
+      badge: Demand for AI engineers
+      stat_value: 1.3M
+      stat_label: new AI roles expected by 2027
+      end_label: 1.3M · 2027
+    section_id: features_grid-xxxxxxx
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
@@ -186,7 +196,7 @@ sections:
     background: hsl(var(--background))
     section_id: image_row-z97kqt
     marginY:
-      desktop: none xl
+      desktop: xl
     paddingY:
       desktop: none
     maxWidth:

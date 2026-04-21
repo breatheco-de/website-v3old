@@ -8,7 +8,7 @@ meta:
   robots: index, follow
   priority: 1
   change_frequency: daily
-  page_title: 4Geeks Academy | La Plataforma de Recapacitación con IA
+  page_title: 4Geeks | La Plataforma de Recapacitación con IA
   description: Transforma tu carrera con aprendizaje potenciado por IA. Obtén educación personalizada, mentoría experta y apoyo profesional para lanzar tu carrera tecnológica.
   redirects:
     - /inicio
@@ -128,28 +128,38 @@ sections:
       desktop: 6xl
   - type: features_grid
     version: "1.0"
-    variant: stats-text
-    title: La IA está reemplazando empleos. También está creando nuevos, más rápido de lo que la fuerza laboral está preparada para ocuparlos.
+    variant: stats-charts
     subtitle: Esa es tu oportunidad.
+    title: "<!--StartFragment--><h2 class=\"text-2xl md:text-h2 mb-2 text-foreground\" data-testid=\"text-stats-text-title\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-family: Lato, &quot;Noto Color Emoji&quot;, sans-serif; --tw-text-opacity: 1;\">La IA está reemplazando empleos. También está creando nuevos, más rápido de lo que la fuerza laboral está preparada para ocuparlos.</h2><!--EndFragment-->"
     description: Cada semana, las empresas publican roles en IA que no pueden cubrir. Necesitan ingenieros que construyan con IA, analistas que trabajen con IA y profesionales de seguridad que la defiendan. La brecha de talento es real y se está ampliando rápidamente.
-    background: hsl(var(--secondary))
-    items:
-      - id: "1"
-        value: 7x
-        title: Crecimiento en la demanda de trabajadores con fluidez en IA desde 2023
-      - id: "2"
-        value: 3%
-        title: De la fuerza laboral califica para roles de IA
-      - id: "3"
-        value: +56%
-        title: De salario para trabajadores con habilidades en IA
-    section_id: features_grid-142xko
-    marginY:
-      desktop: sm xl
-    maxWidth:
-      desktop: 6xl
-    marginX:
-      desktop: none
+    card_bars_accent: hsl(var(--primary))
+    card_gauge_accent: hsl(var(--destructive) / 0.5)
+    card_trend_accent: hsl(var(--accent))
+    card_bars:
+      badge: Empleos de IA creados vs. desplazados
+      stat_value: +340%
+      stat_label: nuevos roles netos de IA creados desde 2022
+      years:
+        - "2022"
+        - "2023"
+        - "2024"
+        - "2025"
+        - "2026"
+      displaced_label: Desplazados
+      created_label: Creados por la IA
+    card_gauge:
+      badge: ¿Quién está realmente preparado para roles de IA?
+      gauge_percentage: 3
+      gauge_label: calificados
+      stat_label: de la fuerza laboral no está preparada para roles de IA hoy
+      bar1_label: Fuerza laboral tradicional
+      bar2_label: Profesionales preparados para IA
+    card_trend:
+      badge: Demanda de ingenieros de IA
+      stat_value: 1.3M
+      stat_label: nuevos roles de IA esperados para 2027
+      end_label: 1.3M · 2027
+    section_id: features_grid-xxxxxxx
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
@@ -182,7 +192,7 @@ sections:
     background: hsl(var(--background))
     section_id: image_row-z97kqt
     marginY:
-      desktop: none xl
+      desktop: xl
     paddingY:
       desktop: none
     maxWidth:

@@ -631,18 +631,19 @@
   ],
   "preview_examples": [
     {
-      "component": "ai_learning",
+      "component": "graduates_stats",
       "version": "v1.0",
-      "example": "test2",
-      "importYaml": "- type: ai_learning\n  section_id: ai_learning-bohkbh\n  variant: feature-tabs\n  badge: Why 4Geeks?\n  title: How You’ll Learn at 4Geeks\n  description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.\n  features:\n    - icon: Robot\n      title: Progress faster with AI-powered tools\n      description: ''\n      show_rigobot_logo: true\n      bullets:\n        - text: Instant feedback from Rigobot, our custom AI tutor\n        - text: Advice adjusted to your skill level and progress\n        - text: 24/7 help with debugging and problem-solving\n        - text: Hundreds of interactive coding exercises and tests\n      video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4\n    - icon: TrendingUp\n      title: Thrive in tech with career support for the AI-Era\n      description: ''\n      show_rigobot_logo: true\n      bullets:\n        - text: Personalized 1:1 coaching\n        - text: AI-ready resumes and portfolios\n        - text: Interview prep and salary negotiation\n        - text: Lifelong access to support your growth\n      video_url: https://youtu.be/-2ZvlgDnltc\n    - icon: Headset\n      title: Unlimited 1:1 mentorship and an active community\n      description: ''\n      show_rigobot_logo: true\n      bullets:\n        - text: Lifelong access to 1:1 mentorship sessions\n        - text: {{ global.global_teacher_student_ratio | 7:1 }} student–teacher ratio for personalized guidance\n        - text: Peer collaboration through Slack channels and weekly check-ins\n        - text: Dedicated Slack channels for coding support, job boards, and career advice\n      image_id: community-support-cropped\n  marginY:\n    desktop: md none\n  paddingY:\n    desktop: md\n",
-      "registryPersisted": true
+      "example": "Full Bleed Career Outcomes"
     },
     {
-      "component": "certificate",
+      "component": "graduates_stats",
       "version": "v1.0",
-      "example": "test2",
-      "importYaml": "- type: certificate\n  section_id: certificate-10xpo6\n  title: Industry Certifications and Career Outcomes\n  description: 'Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Our program prepares you for:'\n  benefits:\n    - text: EJPT (eLearnSecurity Junior Penetration Tester)\n    - text: CEH (Certified Ethical Hacker) pathway\n    - text: CompTIA Security+ foundations\n    - text: Lifetime career support access\n  card:\n    title: Cybersecurity Specialist\n    subtitle: 4Geeks Academy Certificate\n    program_name: Cybersecurity Specialist\n  stats:\n    - value: {{ global.global_job_placement_rate | 84 }}%\n      label: Hiring Rate\n      description: Graduate with the skills and global certifications that top-tier companies are actively seeking in 2026.\n      benefits:\n        - text: CompTIA Security+ Exam Readiness\n        - text: eJPT (Junior Penetration Tester) Prep\n        - text: CEH (Certified Ethical Hacker) Pathway\n        - text: Real-world labs with Nmap & Metasploit\n    - value: 3-6 months\n      label: Time to get hired\n      description: Land your first role within 3–6 months of graduation. With our structured 3-step career development process, your skills turn into job offers fast.\n      benefits:\n        - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening\n        - text: Practice for technical and behavioral interviews\n        - text: Execute a personalized job-search strategy with access to relevant hiring networks\n    - value: {{ global.average_salary_cybersecurity_short | $85 }}\n      label: Average starting salary\n      description: A career in cybersecurity isn't just a new job—it’s a new life trajectory. With an average salary jump of {{ global.global_salary_increase | 55 }}%, our graduates unlock a level of stability and growth that few other industries can offer.\n      benefits:\n        - text: 'Cybersecurity Analyst: {{ global.global_salary_cybersecurity_analist | $75K–$120K }}'\n        - text: 'Penetration Tester: {{ global.global_salary_penetration_tester | $90K–$150K }}'\n        - text: 'Security Engineer: {{ global.global_salary_security_engineer | $100K–$165K }}'\n        - text: 'Incident Responder: {{ global.global_salary_incident_responder | $85K–$140K }}'\n    - value: 400+\n      label: Hiring Partners\n      description: Our extensive network includes Fortune 500 companies, government agencies, and innovative startups actively seeking cybersecurity talent.\n      benefits:\n        - text: Direct referrals to partner companies\n        - text: Exclusive job board access\n        - text: Networking events with recruiters\n        - text: Alumni referral program\n  certificate_position: right\n  useSolidCard: true\n  paddingY:\n    desktop: none md\n",
-      "registryPersisted": true
+      "example": "Basic Graduates Stats"
+    },
+    {
+      "component": "hero",
+      "version": "v1.0",
+      "example": "Product Showcase"
     }
   ]
 }

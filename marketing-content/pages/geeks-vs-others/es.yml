@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.9
   change_frequency: weekly
-  page_title: 4Geeks vs Otros Bootcamps | 4Geeks Academy
-  description: Compara 4Geeks Academy con otros coding bootcamps. Descubre por qué nuestra mentoría ilimitada, apoyo profesional y resultados probados nos distinguen.
+  page_title: 4Geeks vs Competidores | ¿Por qué Elegirnos?
+  description: Descubre por qué 4Geeks Academy supera a otros bootcamps con mentoría ilimitada, garantía de empleo y resultados comprobados entre nuestros graduados.
   redirects: []
 schema:
   include:
@@ -16,7 +16,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: simpleTwoColumn
-    title: 4Geeks Academy vs otros programas
+    title: 4Geeks vs otros programas
     subtitle: Descubre por qué nuestros graduados triunfan en tech. Desde aprendizaje impulsado por IA y proyectos prácticos hasta mentoría personalizada y soporte profesional de por vida, todo está diseñado para ayudarte a lanzar una carrera exitosa y duradera.
     badge: Por qué 4Geeks destaca
     image:

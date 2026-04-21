@@ -7,6 +7,8 @@ import Header from "@/components/Header";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { UniversalImage } from "@/components/UniversalImage";
+import { SectionContextProvider } from "@/contexts/SectionContext";
 
 
 function formatDate(dateStr: string, locale: string): string {
@@ -154,14 +156,16 @@ export default function BlogPostPage() {
         </div>
 
         {post.preview && (
-          <div className="mb-10 rounded-md overflow-hidden">
-            <img
-              src={post.preview}
-              alt={post.title}
-              className="w-full object-cover"
-              data-testid="img-blog-post-hero"
-            />
-          </div>
+          <SectionContextProvider value={{ isPriority: true, sectionIndex: 0, contentType: "blog", slug: post.slug ?? "", locale: locale ?? "" }}>
+            <div className="mb-10 rounded-md overflow-hidden" data-testid="img-blog-post-hero">
+              <UniversalImage
+                id={post.preview}
+                preset="hero-wide"
+                alt={post.title}
+                className="w-full object-cover"
+              />
+            </div>
+          </SectionContextProvider>
         )}
 
         <div className="prose prose-neutral dark:prose-invert max-w-none" data-testid="content-blog-post-body">

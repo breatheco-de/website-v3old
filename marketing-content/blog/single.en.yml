@@ -1,5 +1,5 @@
 meta:
-  page_title: {{ single.title }} | 4Geeks Academy
+  page_title: {{ single.title }} | 4Geeks
   description: {{ single.description }}
   og_image: {{ single.image }}
 sections:

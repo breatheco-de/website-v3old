@@ -40,7 +40,7 @@ schema:
         addressLocality: Bogotá
         addressCountry: CO
 meta:
-  page_title: 4Geeks Academy Bogotá | Bootcamp de Programación en Colombia
+  page_title: 4Geeks Bogotá | Bootcamp de Programación en Colombia
   description: Únete al bootcamp de programación 4Geeks en Bogotá. Aprende Desarrollo Full Stack, IA o Ciencia de Datos con mentoría ilimitada y garantía de empleo.
   robots: index, follow
   og_image: /images/locations/bogota-og.jpg

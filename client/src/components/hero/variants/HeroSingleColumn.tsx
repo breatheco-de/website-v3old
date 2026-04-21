@@ -1,4 +1,5 @@
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar } from "@/components/ui/avatar";
@@ -26,6 +27,15 @@ interface HeroSingleColumnProps {
 export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
   const avatarIds = data.trust_bar?.avatars?.length ? data.trust_bar.avatars : DEFAULT_AVATAR_IDS;
   const handleLinkClick = useInternalNav();
+
+  const [fallbackSrc, setFallbackSrc] = useState<string | undefined>();
+
+  const rawSrc = data.image?.src !== "undefined" ? data.image?.src : BLOG_IMAGE_FALLBACK;
+  const imgSrc = fallbackSrc ?? rawSrc ?? (data as any).image_id;
+
+  const handleHeroError = () => {
+    setFallbackSrc(data.image?.fallback ?? BLOG_IMAGE_FALLBACK);
+  };
 
   return (
     <section 
@@ -119,40 +129,22 @@ export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
         )}
 
       </div>
-
-      {(data.image?.src || (data as any).image_id) && (
-        <div className={data.image_full_width ? "w-full mt-8 object-cover" : "max-w-6xl mx-auto px-4 mt-8 flex justify-center"}>
-          {data.image?.src ? (
-            <div className={`relative overflow-hidden ${data.image_full_width ? "max-h-[250px]" : ""} h-auto object-cover rounded-none`}>
-              <img
-                src={data.image.src}
-                alt={data.image.alt || ""}
-                loading="lazy"
-                className="w-full h-full object-cover"
-                style={{
-                  width: data.image_width || '100%',
-                  ...(data.image_full_width ? {} : { borderRadius: '0.8rem' }),
-                }}
-                onError={(e) => {
-                  e.currentTarget.src = data.image?.fallback ?? BLOG_IMAGE_FALLBACK;
-                  e.currentTarget.onerror = null;
-                }}
-                data-testid="img-hero-single-column"
-              />
-            </div>
-          ) : (
-            <UniversalImage
-              id={(data as any).image_id}
-              alt=""
-              className={`h-auto object-cover rounded-none ${data.image_full_width ? "max-h-[250px]" : ""}`}
-              style={{
-                width: data.image_width || '100%',
-                ...(data.image_full_width ? {} : { borderRadius: '0.8rem' }),
-              }}
-              data-testid="img-hero-single-column"
-              fieldContext={{ fieldPath: "image_id" }}
-            />
-          )}
+      {imgSrc && (
+        <div className={data.image_full_width ? "w-full mt-8" : "max-w-3xl mx-auto px-4 mt-8 flex justify-center"}>
+          <UniversalImage
+            key={imgSrc}
+            id={imgSrc}
+            alt={data.image?.alt || ""}
+            preset="hero-wide"
+            className={`w-full rounded-none ${data.image_full_width ? "max-h-[250px]" : ""}`}
+            style={{
+              width: data.image_width || '100%',
+              ...(data.image_full_width ? {} : { borderRadius: '0.8rem' }),
+            }}
+            onError={handleHeroError}
+            data-testid="img-hero-single-column"
+            fieldContext={(data as any).image_id ? { fieldPath: "image_id" } : undefined}
+          />
         </div>
       )}
     </section>

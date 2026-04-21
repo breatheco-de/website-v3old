@@ -41,7 +41,7 @@ navbar:
       component: Dropdown
       dropdown:
         type: columns
-        title: Por Qué 4Geeks Academy
+        title: Por Qué 4Geeks
         description: Lanza tu carrera tecnológica con el apoyo ilimitado de mentores expertos, herramientas potenciadas por IA y orientación profesional personalizada. Con resultados sólidos y reconocimiento global, hemos ayudado a miles a prosperar en tecnología.
         icon: medal
         columns:

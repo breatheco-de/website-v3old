@@ -5,7 +5,7 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Prensa y Medios | 4Geeks Academy
+  page_title: Prensa y Medios | 4Geeks
   description: press - Aprende más sobre este tema en 4Geeks Academy.
   redirects: []
 schema:
@@ -64,12 +64,12 @@ sections:
         link_text: Leer Artículo
         link_url: https://www.forbes.com/advisor/education/bootcamps/best-full-stack-developer-bootcamp/
       - logo: cnn-logo
-        title: Entrevista / 4Geeks Academy en CNN Chile
+        title: Entrevista / 4Geeks en CNN Chile
         excerpt: "Gracias a nuestros amigos de CNN Chile por haber estado presentes en nuestro evento y publicar tan buen material sobre el futuro en educación que ofrecemos a la comunidad de Santiago a través de nuestro programa de #Bootcamp de #Programación."
         link_text: Ver Entrevista
         link_url: https://www.facebook.com/4GeeksAcademyCL/videos/492034597993382/
       - logo: economista-logo
-        title: 4Geeks Academy lanza un millón en becas para la formación de futuros programadores
+        title: 4Geeks lanza un millón en becas para la formación de futuros programadores
         excerpt: La escuela de programadores 4Geeks Academy apuesta por acercar el mundo de la programación a todos los públicos. La compañía lanza más de 300 becas con un valor de un millón de euros en todo el mundo a través del Marketplace Landing.Jobs.
         link_text: Ver Entrevista
         link_url: https://www.eleconomista.es/ecoaula/noticias/11389106/09/21/4Geeks-Academy-lanza-un-millon-en-becas-para-la-formacion-de-futuros-programadores.html

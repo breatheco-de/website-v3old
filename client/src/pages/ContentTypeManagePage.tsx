@@ -107,6 +107,67 @@ interface DatabaseListItem {
   source_type: string;
 }
 
+interface LocaleEntry {
+  code: string;
+  label: string;
+}
+
+interface LocaleSettings {
+  default_locale: string;
+  supported_locales: LocaleEntry[];
+}
+
+function detectPatternMode(urlPattern: Record<string, string>): {
+  mode: "non-localized" | "shorthand" | "per-locale";
+  nonLocalizedPattern: string;
+  shorthandPattern: string;
+  localePatterns: { locale: string; path: string }[];
+} {
+  const keys = Object.keys(urlPattern);
+
+  if (keys.length === 1 && keys[0] === "default") {
+    return {
+      mode: "non-localized",
+      nonLocalizedPattern: urlPattern.default,
+      shorthandPattern: "",
+      localePatterns: [],
+    };
+  }
+
+  const localeKeys = keys.filter(k => k !== "default");
+  if (localeKeys.length > 0) {
+    const suffixes = localeKeys.map(locale => {
+      const val = urlPattern[locale];
+      const prefix = `/${locale}`;
+      return val.startsWith(prefix) ? val.slice(prefix.length) : null;
+    });
+    const allValid = suffixes.every(s => s !== null);
+    const allSame = allValid && suffixes.every(s => s === suffixes[0]);
+
+    if (allSame && suffixes[0] !== null) {
+      return {
+        mode: "shorthand",
+        nonLocalizedPattern: "",
+        shorthandPattern: suffixes[0] as string,
+        localePatterns: localeKeys.map((locale, i) => ({ locale, path: suffixes[i] as string })),
+      };
+    }
+
+    return {
+      mode: "per-locale",
+      nonLocalizedPattern: "",
+      shorthandPattern: "",
+      localePatterns: localeKeys.map(locale => {
+        const val = urlPattern[locale];
+        const prefix = `/${locale}`;
+        return { locale, path: val.startsWith(prefix) ? val.slice(prefix.length) : val };
+      }),
+    };
+  }
+
+  return { mode: "shorthand", nonLocalizedPattern: "", shorthandPattern: "", localePatterns: [] };
+}
+
 function formatDate(dateStr: string | null | undefined): string {
   if (!dateStr) return "—";
   try {
@@ -1866,10 +1927,14 @@ function SeoSettingsDialog({
   open,
   onOpenChange,
   contentType,
+  staticCount,
+  dbCount,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   contentType: string;
+  staticCount: number;
+  dbCount: number;
 }) {
   const { toast } = useToast();
   const [saving, setSaving] = useState(false);
@@ -1881,69 +1946,182 @@ function SeoSettingsDialog({
     enabled: open,
   });
 
-  const [pattern, setPattern] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
+  const { data: localeSettings } = useQuery<LocaleSettings>({
+    queryKey: ["/api/settings/locales"],
+    staleTime: Infinity,
+    enabled: open,
+  });
+
+  const availableLocales = useMemo(
+    () => localeSettings?.supported_locales ?? [
+      { code: "en", label: "English" },
+      { code: "es", label: "Spanish" },
+    ],
+    [localeSettings]
+  );
+
+  const [patternMode, setPatternMode] = useState<"non-localized" | "shorthand" | "per-locale">("shorthand");
+  const [nonLocalizedPattern, setNonLocalizedPattern] = useState("");
+  const [shorthandPattern, setShorthandPattern] = useState("");
+  const [localePatterns, setLocalePatterns] = useState<{ locale: string; path: string }[]>([]);
+  const [activeLocaleIndex, setActiveLocaleIndex] = useState(0);
+
+  const nonLocalizedRef = useRef<HTMLInputElement>(null);
+  const shorthandRef = useRef<HTMLInputElement>(null);
+  const localeRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
-    if (config) {
-      const existing = config.url_pattern?.en || config.url_pattern?.default || "";
-      setPattern(existing.replace(/^\/(en|es)\//, "/:locale/"));
-    }
-  }, [config]);
+    if (!open || !config?.url_pattern) return;
+    const detected = detectPatternMode(config.url_pattern);
+    setPatternMode(detected.mode);
+    setNonLocalizedPattern(detected.nonLocalizedPattern);
+    setShorthandPattern(detected.shorthandPattern);
+    const detectedCodes = new Set(detected.localePatterns.map(lp => lp.locale));
+    const extraFromAvailable = availableLocales
+      .filter(l => !detectedCodes.has(l.code))
+      .map(l => ({ locale: l.code, path: "" }));
+    setLocalePatterns([...detected.localePatterns, ...extraFromAvailable]);
+  }, [open, config]);
+
+  useEffect(() => {
+    setLocalePatterns(prev => {
+      const existingMap = Object.fromEntries(prev.map(lp => [lp.locale, lp.path]));
+      const next = availableLocales.map(l => ({ locale: l.code, path: existingMap[l.code] ?? "" }));
+      const changed = next.length !== prev.length || next.some((lp, i) => lp.locale !== prev[i]?.locale || lp.path !== prev[i]?.path);
+      return changed ? next : prev;
+    });
+  }, [availableLocales]);
 
   const URL_SAFE_FIELDS = new Set(["slug", "category", "lang", "status", "tags"]);
 
   const mappedKeys = useMemo(() => {
-    const keys = ["locale"];
-    if (!config?.field_mapping) {
-      keys.push("slug");
-      return keys;
-    }
+    const keys: string[] = ["slug"];
+    if (!config?.field_mapping) return keys;
     const fromMapping = Object.entries(config.field_mapping)
       .filter(([k, v]) => v != null && !k.startsWith("_") && URL_SAFE_FIELDS.has(k))
       .map(([k]) => k);
-    return [...keys, ...fromMapping];
+    return Array.from(new Set([...keys, ...fromMapping]));
   }, [config]);
 
-  const usedInPattern = useMemo(() => {
-    const matches = pattern.match(/:([a-z_]+)/g) || [];
-    return matches.map((m) => m.slice(1));
-  }, [pattern]);
+  function normalizePathInput(raw: string): string {
+    const trimmed = raw.trim();
+    if (trimmed && !trimmed.startsWith("/")) return "/" + trimmed;
+    return trimmed;
+  }
+
+  function validatePattern(p: string): string {
+    if (!p) return "";
+    const normalized = normalizePathInput(p);
+    if (!normalized.includes(":slug")) return "Must include :slug";
+    return "";
+  }
+
+  const nonLocalizedError = nonLocalizedPattern ? validatePattern(nonLocalizedPattern) : "";
+  const shorthandError = shorthandPattern ? validatePattern(shorthandPattern) : "";
+  const localeErrors = localePatterns.map(lp => lp.path ? validatePattern(lp.path) : "");
+  const hasLocaleErrors = localeErrors.some(e => e !== "");
+  const allLocalesFilled = localePatterns.length > 0 && localePatterns.every(lp => lp.path.trim() !== "");
+
+  const canSubmit =
+    patternMode === "non-localized"
+      ? nonLocalizedPattern.trim() !== "" && !nonLocalizedError
+      : patternMode === "shorthand"
+        ? shorthandPattern.trim() !== "" && !shorthandError
+        : allLocalesFilled && !hasLocaleErrors;
+
+  const activePattern =
+    patternMode === "non-localized"
+      ? nonLocalizedPattern
+      : patternMode === "shorthand"
+        ? shorthandPattern
+        : (localePatterns[activeLocaleIndex]?.path ?? "");
 
   const unknownVars = useMemo(() => {
-    return usedInPattern.filter((v) => !mappedKeys.includes(v));
-  }, [usedInPattern, mappedKeys]);
+    const patternsToCheck =
+      patternMode === "per-locale"
+        ? localePatterns.map(lp => lp.path)
+        : [activePattern];
+    const allVars = patternsToCheck.flatMap(p => (p.match(/:([a-z_]+)/g) || []).map(m => m.slice(1)));
+    const unique = Array.from(new Set(allVars));
+    return unique.filter(v => !mappedKeys.includes(v));
+  }, [activePattern, patternMode, localePatterns, mappedKeys]);
 
   const sampleItem = { slug: "sample-item", category: { slug: "general" } };
 
   const insertVariable = (varName: string) => {
-    const el = inputRef.current;
-    if (!el) {
-      setPattern((prev) => prev + `:${varName}`);
-      return;
+    if (patternMode === "non-localized") {
+      const el = nonLocalizedRef.current;
+      const token = `:${varName}`;
+      if (!el) { setNonLocalizedPattern(prev => prev + token); return; }
+      const start = el.selectionStart ?? nonLocalizedPattern.length;
+      const end = el.selectionEnd ?? nonLocalizedPattern.length;
+      const next = nonLocalizedPattern.slice(0, start) + token + nonLocalizedPattern.slice(end);
+      setNonLocalizedPattern(next);
+      requestAnimationFrame(() => { el.focus(); el.setSelectionRange(start + token.length, start + token.length); });
+    } else if (patternMode === "shorthand") {
+      const el = shorthandRef.current;
+      const token = `:${varName}`;
+      if (!el) { setShorthandPattern(prev => prev + token); return; }
+      const start = el.selectionStart ?? shorthandPattern.length;
+      const end = el.selectionEnd ?? shorthandPattern.length;
+      const next = shorthandPattern.slice(0, start) + token + shorthandPattern.slice(end);
+      setShorthandPattern(next);
+      requestAnimationFrame(() => { el.focus(); el.setSelectionRange(start + token.length, start + token.length); });
+    } else {
+      const idx = activeLocaleIndex;
+      const el = localeRefs.current[idx];
+      const current = localePatterns[idx]?.path ?? "";
+      const token = `:${varName}`;
+      if (!el) {
+        setLocalePatterns(prev => prev.map((lp, i) => i === idx ? { ...lp, path: lp.path + token } : lp));
+        return;
+      }
+      const start = el.selectionStart ?? current.length;
+      const end = el.selectionEnd ?? current.length;
+      const next = current.slice(0, start) + token + current.slice(end);
+      setLocalePatterns(prev => prev.map((lp, i) => i === idx ? { ...lp, path: next } : lp));
+      requestAnimationFrame(() => { el.focus(); el.setSelectionRange(start + token.length, start + token.length); });
     }
-    const start = el.selectionStart ?? pattern.length;
-    const end = el.selectionEnd ?? pattern.length;
-    const token = `:${varName}`;
-    const next = pattern.slice(0, start) + token + pattern.slice(end);
-    setPattern(next);
-    requestAnimationFrame(() => {
-      el.focus();
-      const pos = start + token.length;
-      el.setSelectionRange(pos, pos);
-    });
   };
+
+  const previewItems = useMemo(() => {
+    if (patternMode === "non-localized") {
+      const p = normalizePathInput(nonLocalizedPattern);
+      return p ? [{ label: "URL", pattern: p, locale: "en" }] : [];
+    } else if (patternMode === "shorthand") {
+      const suffix = normalizePathInput(shorthandPattern);
+      if (!suffix) return [];
+      return availableLocales.map(l => ({
+        label: l.code.toUpperCase(),
+        pattern: `/${l.code}${suffix}`,
+        locale: l.code,
+      }));
+    } else {
+      return localePatterns
+        .filter(lp => lp.path.trim())
+        .map(lp => ({
+          label: lp.locale.toUpperCase(),
+          pattern: `/${lp.locale}${normalizePathInput(lp.path)}`,
+          locale: lp.locale,
+        }));
+    }
+  }, [patternMode, nonLocalizedPattern, shorthandPattern, localePatterns, availableLocales]);
 
   const handleSave = async () => {
     setSaving(true);
     try {
-      const payload = {
-        url_pattern: {
-          en: pattern.replace(/:locale/g, "en"),
-          es: pattern.replace(/:locale/g, "es"),
-        },
-      };
-      await apiRequest("PUT", `/api/content-types/${contentType}/config`, payload);
+      let url_pattern: Record<string, string>;
+      if (patternMode === "non-localized") {
+        url_pattern = { default: normalizePathInput(nonLocalizedPattern) };
+      } else if (patternMode === "shorthand") {
+        const suffix = normalizePathInput(shorthandPattern);
+        url_pattern = Object.fromEntries(availableLocales.map(l => [l.code, `/${l.code}${suffix}`]));
+      } else {
+        url_pattern = Object.fromEntries(
+          localePatterns.map(lp => [lp.locale, `/${lp.locale}${normalizePathInput(lp.path)}`])
+        );
+      }
+      await apiRequest("PUT", `/api/content-types/${contentType}/config`, { url_pattern });
       queryClient.invalidateQueries({ queryKey: ["/api/content-types", contentType, "config"] });
       toast({ title: "URL pattern saved" });
       onOpenChange(false);
@@ -1954,9 +2132,11 @@ function SeoSettingsDialog({
     }
   };
 
+  const totalEntries = staticCount + dbCount;
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[480px]">
+      <DialogContent className="sm:max-w-[520px]">
         <DialogHeader>
           <DialogTitle>{label} URL Settings</DialogTitle>
         </DialogHeader>
@@ -1968,23 +2148,122 @@ function SeoSettingsDialog({
           </div>
         ) : (
           <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="url-pattern" className="text-sm">URL Pattern</Label>
-              <Input
-                ref={inputRef}
-                id="url-pattern"
-                value={pattern}
-                onChange={(e) => setPattern(e.target.value)}
-                placeholder={`/:locale/${contentType}/:slug`}
-                className="font-mono text-sm"
-                data-testid="input-url-pattern"
-              />
-              {unknownVars.length > 0 && (
-                <p className="text-xs text-destructive" data-testid="text-unknown-vars-warning">
-                  Unknown variable{unknownVars.length > 1 ? "s" : ""}: {unknownVars.map((v) => `:${v}`).join(", ")}
+            {totalEntries > 0 && (
+              <div className="flex items-start gap-2.5 rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2.5" data-testid="banner-url-change-warning">
+                <IconAlertTriangle className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
+                <p className="text-xs text-destructive leading-relaxed">
+                  <span className="font-medium">Changing the URL pattern may break existing URLs.</span>{" "}
+                  This content type has {totalEntries} existing {totalEntries === 1 ? "entry" : "entries"} already indexed by search engines and sitemaps. You will need to set up redirections manually.
                 </p>
+              </div>
+            )}
+
+            <div className="space-y-2">
+              <Label>URL Pattern</Label>
+              <div className="flex rounded-md border overflow-visible" data-testid="segmented-url-pattern-mode">
+                {([
+                  { value: "non-localized" as const, label: "No locale prefix" },
+                  { value: "shorthand" as const, label: "Use locale prefix" },
+                  { value: "per-locale" as const, label: "Customized" },
+                ]).map((opt) => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    className={`flex-1 text-xs py-1.5 px-1 transition-colors ${
+                      patternMode === opt.value
+                        ? "bg-primary text-primary-foreground font-medium"
+                        : "text-muted-foreground hover-elevate"
+                    } ${opt.value === "non-localized" ? "rounded-l-md" : ""} ${opt.value === "per-locale" ? "rounded-r-md" : ""}`}
+                    onClick={() => setPatternMode(opt.value)}
+                    data-testid={`button-pattern-mode-${opt.value}`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+
+              {patternMode === "non-localized" && (
+                <div className="space-y-1">
+                  <Input
+                    ref={nonLocalizedRef}
+                    placeholder={`/${contentType}/:slug`}
+                    value={nonLocalizedPattern}
+                    onChange={(e) => setNonLocalizedPattern(e.target.value)}
+                    className="font-mono text-sm"
+                    data-testid="input-url-pattern-non-localized"
+                  />
+                  {nonLocalizedError && (
+                    <p className="text-xs text-destructive" data-testid="text-non-localized-error">{nonLocalizedError}</p>
+                  )}
+                  <p className="text-xs text-muted-foreground">A single URL for all locales, no language prefix.</p>
+                </div>
+              )}
+
+              {patternMode === "shorthand" && (
+                <div className="space-y-1">
+                  <div className="flex items-center">
+                    <span
+                      className="inline-flex items-center rounded-l-md border border-r-0 bg-muted px-2 py-2 text-xs text-muted-foreground flex-shrink-0"
+                      data-testid="label-locale-prefix"
+                    >
+                      /:locale
+                    </span>
+                    <Input
+                      ref={shorthandRef}
+                      placeholder={`/${contentType}/:slug`}
+                      value={shorthandPattern}
+                      onChange={(e) => setShorthandPattern(e.target.value)}
+                      className="rounded-l-none font-mono text-sm"
+                      data-testid="input-url-pattern-shorthand"
+                    />
+                  </div>
+                  {shorthandError && (
+                    <p className="text-xs text-destructive" data-testid="text-shorthand-error">{shorthandError}</p>
+                  )}
+                </div>
+              )}
+
+              {patternMode === "per-locale" && (
+                <div className="space-y-2">
+                  {localePatterns.map((lp, i) => (
+                    <div key={lp.locale} className="space-y-1">
+                      <div className="flex items-center">
+                        <span className="inline-flex items-center rounded-l-md border border-r-0 bg-muted px-2 py-2 text-xs text-muted-foreground flex-shrink-0">
+                          /{lp.locale}
+                        </span>
+                        <Input
+                          ref={el => { localeRefs.current[i] = el; }}
+                          placeholder={`/${contentType}/:slug`}
+                          value={lp.path}
+                          onChange={(e) => setLocalePatterns(prev => prev.map((p, j) => j === i ? { ...p, path: e.target.value } : p))}
+                          onFocus={() => setActiveLocaleIndex(i)}
+                          className="rounded-l-none font-mono text-sm"
+                          data-testid={`input-url-pattern-${lp.locale}`}
+                        />
+                      </div>
+                      {localeErrors[i] && (
+                        <p className="text-xs text-destructive" data-testid={`text-pattern-error-${lp.locale}`}>{localeErrors[i]}</p>
+                      )}
+                    </div>
+                  ))}
+                  <Link
+                    href="/private/settings"
+                    className="text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
+                    onClick={() => onOpenChange(false)}
+                    data-testid="link-manage-locales"
+                  >
+                    Manage locales
+                    <IconExternalLink className="h-3 w-3" />
+                  </Link>
+                </div>
               )}
             </div>
+
+            {unknownVars.length > 0 && (
+              <p className="text-xs text-destructive" data-testid="text-unknown-vars-warning">
+                Unknown variable{unknownVars.length > 1 ? "s" : ""}: {unknownVars.map(v => `:${v}`).join(", ")}
+              </p>
+            )}
 
             <div className="space-y-1.5" data-testid="section-available-variables">
               <Label className="text-xs text-muted-foreground">Click to insert a variable</Label>
@@ -2003,15 +2282,14 @@ function SeoSettingsDialog({
               </div>
             </div>
 
-            {pattern && (
+            {previewItems.length > 0 && (
               <div className="rounded-md bg-muted px-3 py-2 space-y-1" data-testid="section-url-previews">
                 <Label className="text-xs text-muted-foreground">Preview</Label>
-                <p className="text-xs text-muted-foreground font-mono" data-testid="text-url-preview-en">
-                  EN: {buildItemUrl(pattern.replace(/:locale/g, "en"), sampleItem, "en")}
-                </p>
-                <p className="text-xs text-muted-foreground font-mono" data-testid="text-url-preview-es">
-                  ES: {buildItemUrl(pattern.replace(/:locale/g, "es"), sampleItem, "es")}
-                </p>
+                {previewItems.map(({ label: lbl, pattern, locale }) => (
+                  <p key={locale} className="text-xs text-muted-foreground font-mono" data-testid={`text-url-preview-${locale}`}>
+                    {lbl}: {buildItemUrl(pattern, sampleItem, locale)}
+                  </p>
+                ))}
               </div>
             )}
           </div>
@@ -2021,7 +2299,7 @@ function SeoSettingsDialog({
           <Button variant="outline" onClick={() => onOpenChange(false)} data-testid="button-cancel-seo">
             Cancel
           </Button>
-          <Button onClick={handleSave} disabled={saving || isLoading || !pattern} data-testid="button-save-seo">
+          <Button onClick={handleSave} disabled={saving || isLoading || !canSubmit} data-testid="button-save-seo">
             {saving ? "Saving..." : "Save"}
           </Button>
         </DialogFooter>
@@ -2728,7 +3006,13 @@ export default function ContentTypeManagePage() {
 
       <DataSourceDialog open={dsDialogOpen} onOpenChange={setDsDialogOpen} contentType={contentType} />
       <FieldMappingDialog open={mappingDialogOpen} onOpenChange={setMappingDialogOpen} contentType={contentType} />
-      <SeoSettingsDialog open={seoDialogOpen} onOpenChange={setSeoDialogOpen} contentType={contentType} />
+      <SeoSettingsDialog
+        open={seoDialogOpen}
+        onOpenChange={setSeoDialogOpen}
+        contentType={contentType}
+        staticCount={staticEntriesData?.count ?? 0}
+        dbCount={allItemsData?.count ?? 0}
+      />
       <DeletePageModal
         open={deleteModalOpen}
         onOpenChange={(open) => {

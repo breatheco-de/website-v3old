@@ -377,12 +377,27 @@ export function saveExample(
     const existingContent = fs.readFileSync(filePath, "utf8");
     const existingData = safeYamlLoad(existingContent) as { name?: string; description?: string; variant?: string };
     
+    // Strip section_id before saving — it's page-specific and meaningless in a registry example
+    let cleanYamlContent = yamlContent;
+    try {
+      const parsed = safeYamlLoad(yamlContent);
+      if (Array.isArray(parsed)) {
+        parsed.forEach((item: Record<string, unknown>) => { delete item.section_id; });
+        cleanYamlContent = safeYamlDump(parsed, { lineWidth: -1, quotingType: '"', forceQuotes: false });
+      } else if (parsed && typeof parsed === 'object') {
+        delete (parsed as Record<string, unknown>).section_id;
+        cleanYamlContent = safeYamlDump(parsed, { lineWidth: -1, quotingType: '"', forceQuotes: false });
+      }
+    } catch {
+      // If parsing fails, keep the original content
+    }
+
     // Preserve the example metadata and update the yaml content
     const newContent = {
       name: existingData.name || exampleName,
       description: existingData.description || '',
       variant: existingData.variant,
-      yaml: yamlContent,
+      yaml: cleanYamlContent,
     };
     
     // Remove undefined variant
@@ -576,9 +591,25 @@ export function createExample(
     }
 
     const yamlTitle = trimmedName || filename.replace(/\.ya?ml$/, "").replace(/_/g, " ");
+    // Strip section_id from the YAML content before saving — it's page-specific
+    // and has no meaning in a reusable registry example
+    let cleanYamlContent = yamlContent;
+    try {
+      const parsed = safeYamlLoad(yamlContent);
+      if (Array.isArray(parsed)) {
+        parsed.forEach((item: Record<string, unknown>) => { delete item.section_id; });
+        cleanYamlContent = safeYamlDump(parsed, { lineWidth: -1, quotingType: '"', forceQuotes: false });
+      } else if (parsed && typeof parsed === 'object') {
+        delete (parsed as Record<string, unknown>).section_id;
+        cleanYamlContent = safeYamlDump(parsed, { lineWidth: -1, quotingType: '"', forceQuotes: false });
+      }
+    } catch {
+      // If parsing fails, keep the original content
+    }
+
     const payload: Record<string, unknown> = {
       name: yamlTitle,
-      yaml: yamlContent,
+      yaml: cleanYamlContent,
     };
     const trimmedDesc = options?.description?.trim();
     if (trimmedDesc) {

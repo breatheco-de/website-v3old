@@ -2,7 +2,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: en 4Geeks Academy
+    title: en 4Geeks
     brand_mark:
       prefix: La IA está cambiando todos los empleos en España. Empieza tu carrera en
       highlight: tecnología con IA
@@ -17,7 +17,7 @@ sections:
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Comprueba si cumples los requisitos. Es gratis
+      submit_label: Solicita información
       tags: website-lead
       fields:
         email:
@@ -36,7 +36,7 @@ sections:
           visible: true
           required: true
         program:
-          visible: false
+          visible: true
           default: ai-engineering
       success:
         message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
@@ -98,73 +98,6 @@ sections:
     marginX:
       desktop: none
     section_id: hero-l4c46u
-  - type: awards_marquee
-    version: v1.0
-    speed: 40
-    gradient: true
-    gradientWidth: 100
-    items:
-      - id: switchup-2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        alt: SwitchUp - Best Coding Bootcamps 2025
-        logoHeight: 56px
-      - id: course-report-2024
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
-        alt: Course Report - Best Coding Bootcamp 2024
-        logoHeight: 56px
-      - id: tech-hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
-        alt: South Florida Tech Hub
-        logoHeight: 56px
-      - id: ebootcamp
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
-        alt: eBootcamp Top
-        logoHeight: 56px
-      - id: premios-tecnologia
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-        alt: Premios Tecnologia Siglo XXI
-        logoHeight: 56px
-      - id: newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
-        alt: Newsweek
-        logoHeight: 56px
-      - id: reviews-coursereport
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-        alt: 4.9 on Course Report Reviews
-        logoHeight: 56px
-      - id: excelencia-educativa
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
-        alt: Excelencia Educativa - Institutional Quality
-        logoHeight: 56px
-    section_id: awards_marquee-yinel0
-  - type: graduates_stats
-    maxWidth:
-      desktop: 6xl
-    heading: Resultados profesionales reales
-    subheading: Más de 6.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
-    stats:
-      - value: 81%
-        label: Tasa de inserción laboral
-      - value: 40%
-        label: Aumento salarial medio tras graduarse
-      - value: 3 - 6 meses
-        label: Tiempo medio para conseguir empleo en 2025
-      - value: 5.000+
-        label: Graduados empleados en todo el mundo
-    collage_images:
-      - image_id: graduates_team_1
-        col_span: 5
-        row_span: 2
-      - image_id: graduates_team_2
-        col_span: 7
-        row_span: 2
-      - image_id: graduates_coding
-        col_span: 6
-        row_span: 2
-      - image_id: graduates_friends
-        col_span: 6
-        row_span: 2
-    section_id: graduates_stats-cnxqbb
   - type: trust_cards
     maxWidth:
       desktop: 6xl
@@ -227,6 +160,34 @@ sections:
       desktop: md lg
     marginY:
       desktop: none lg
+  - type: graduates_stats
+    maxWidth:
+      desktop: 6xl
+    heading: Resultados profesionales reales
+    subheading: Más de 6.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
+    stats:
+      - value: 81%
+        label: Tasa de inserción laboral
+      - value: 40%
+        label: Aumento salarial medio tras graduarse
+      - value: 3 - 6 meses
+        label: Tiempo medio para conseguir empleo en 2025
+      - value: 5.000+
+        label: Graduados empleados en todo el mundo
+    collage_images:
+      - image_id: graduates_team_1
+        col_span: 5
+        row_span: 2
+      - image_id: graduates_team_2
+        col_span: 7
+        row_span: 2
+      - image_id: graduates_coding
+        col_span: 6
+        row_span: 2
+      - image_id: graduates_friends
+        col_span: 6
+        row_span: 2
+    section_id: graduates_stats-cnxqbb
   - type: two_column
     proportions:
       - 6

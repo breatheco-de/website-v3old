@@ -1,0 +1,17 @@
+slug: python-data-science-machine-learning-inteligencia-artificial-mexico
+title: python-data-science-machine-learning-inteligencia-artificial-mexico
+locale: es
+meta:
+  og_image: /images/programs/ai-engineering-og.jpg
+  robots: index, follow
+  priority: 0.9
+  change_frequency: weekly
+  page_title: Bootcamp de Ingeniería de IA con Python en México | 4Geeks
+  description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando — en solo 24 semanas.
+schema:
+  include:
+    - organization
+    - website
+    - courses:ai-engineering
+locations:
+  - mexicocity-mexico

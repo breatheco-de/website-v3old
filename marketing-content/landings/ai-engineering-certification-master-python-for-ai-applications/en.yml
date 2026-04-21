@@ -9,8 +9,8 @@ meta:
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
   change_frequency: weekly
-  page_title: Python for AI Engineering | Turn Your Python Skills Into an AI Career | 4Geeks Academy
-  description: Already know Python? Turn it into an AI Engineering career. Build AI agents, RAG systems, and automated pipelines in 24 weeks. Job Guarantee included. Start earning $95K–$135K.
+  page_title: AI Engineering | 4Geeks
+  description: Transform your career with AI Engineering training and job guarantee, earning $95K-$135K at 4Geeks Academy.
   redirects: []
 schema:
   include:
@@ -121,12 +121,12 @@ sections:
     section_id: sticky_cta-k7207r
     version: "1.0"
     heading: Ready to take your Python skills into AI Engineering?
-    button_label: See If You Qualify. It's Free
+    button_label: Start your Application
     show_dismiss: false
     form:
       variant: inline
       conversion_name: student_application
-      submit_label: See If You Qualify. It's Free
+      submit_label: Start your Application
       tags: website-lead
       fields:
         email:
@@ -149,35 +149,54 @@ sections:
         message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
     paddingY:
       desktop: none sm
+    load: eager
   - type: graduates_stats
-    maxWidth:
-      desktop: 6xl
-    heading: Real Career Outcomes
-    subheading: 5,000+ graduates have already made the move from developer to AI Engineer. Here's what happened after they completed the program.
+    heading: Our Graduates Get Hired. Fast.
+    subheading: 6,000+ graduates worldwide. Now thiriving in tech.
     stats:
-      - value: 86%
-        label: Hiring rate, US graduates placed within 90 days
+      - value: 84%
+        label: Average hiring rate
       - value: 55%
-        label: Average salary increase after graduation
-      - value: ~3 months
-        label: Average time to get hired in 2025
-      - value: 5,000+
-        label: Graduates employed worldwide
+        label: Average salary increase at new position
+      - value: 3-6 months
+        label: Average time to get hired
     collage_images:
-      - image_id: graduates_team_1
+      - image_id: group-7085-1
         col_span: 5
         row_span: 2
-      - image_id: graduates_team_2
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
+        id: gemini-generated-image-uwpyyruwpyyruwpy
+        object_scale: 1.1
+        object_position: 50% 30%
+      - image_id: group-7086-1
         col_span: 7
         row_span: 2
-      - image_id: graduates_coding
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
+        id: gemini-generated-image-pd2u4upd2u4upd2u
+        object_scale: 1
+        transform_origin: 50% 50%
+        object_position: 50% 60%
+      - image_id: group-7084-1
         col_span: 6
         row_span: 2
-      - image_id: graduates_friends
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
+        id: gemini-generated-image-dhko5mdhko5mdhko-1
+        object_scale: 1.05
+      - image_id: group-7087-1
         col_span: 6
         row_span: 2
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
+        id: gemini-generated-image-wpk4yvwpk4yvwpk4
+        object_scale: 1.05
+        transform_origin: 50% 50%
+        object_position: 50% 45%
     section_id: graduates_stats-cnxqbb
-    value_size: text-3xl
+    marginY:
+      desktop: none
+    maxWidth:
+      desktop: 6xl
+    paddingY:
+      desktop: md none
   - type: trust_cards
     maxWidth:
       desktop: 6xl
@@ -450,6 +469,7 @@ sections:
       desktop: md none
     paddingY:
       desktop: md sm
+    background: hsl(var(--secondary))
   - type: certificate
     title: Your Certificate. Your Salary Leverage.
     description: "Earn an industry-recognized AI Engineering certificate from a Florida Department of Education accredited institution. Step into roles where Python and AI skills command:"
@@ -620,8 +640,8 @@ sections:
     section_id: pricing-8pb379
     version: "1.0"
     variant: product
-    title: The Investment That Pays for Itself
-    subtitle: Flexible financing plans so nothing stands between you and a high-paying tech career.
+    title: Add AI Engineering Skills. Launch a Career That Pays.
+    subtitle: 4Geeks graduates see an average 55% salary increase. Flexible financing means nothing stands between you and an AI Engineering career.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting below"
     financing_amount: $349
@@ -661,7 +681,41 @@ sections:
       variant: primary
     paddingY:
       mobile: lg none
-      desktop: lg none
+      desktop: lg xl
+    marginY:
+      desktop: none md
+    background: hsl(var(--secondary))
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Land the Job. Or Your Money Back.
+    description: "<span style=\"font-size: 1.5rem;\"><span><span></span></span></span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span><span style=\"line-height: 1.625;\"><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span></span><span style=\"line-height: 1.625;\"><span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\">Our AI engineering program comes with the option of adding a Job Guarantee.*</span></span></span></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Not hired within 9 months?&nbsp;</span><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Full tuition refund.&nbsp;</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">That's how confident we are in what we built.</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span></span></span></div></span><span style=\"line-height: 1.1;\"><span><span><span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"><br></span></div></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span><span></span></span></span></div><div><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">*The Job Guarantee is not available in all regions.&nbsp;</span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\">Terms and conditions apply.</a></div></div></span></span></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div>"
+    section_id: why_learn_ai-9pbrek
+    marginY:
+      desktop: none sm
+    paddingY:
+      desktop: none
+    background: hsl(var(--card))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - costa-rica
+      - mexicocity-mexico
+    marginX:
+      desktop: none
+    maxWidth:
+      desktop: none
+    showOn: desktop
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work
@@ -697,26 +751,8 @@ sections:
       desktop: none xl
     paddingY:
       mobile: lg none
-      desktop: lg none
-  - type: features_quad
-    version: "1.0"
-    heading: Who Qualifies for the Job Guarantee?
-    description: "The Job Guarantee is available to graduates who meet all four of these requirements:"
-    cards:
-      - icon: IconBriefcaseFilled
-        title: Have U.S. work authorization
-      - icon: IconCircleDashedCheck
-        title: Complete All Program Requirements
-      - icon: IconBrain
-        title: Pass the Admissions Logic Test
-      - icon: IconArrowGuideFilled
-        title: Follow the Full Career Development Process
-    section_id: features_quad-ms7uox
-    marginY:
-      desktop: none xl
-    paddingY:
-      desktop: none
-    background: hsl(var(--secondary))
+      desktop: sm none
+    background: hsl(var(--card))
   - type: cta_banner
     version: "1.0"
     title: The fastest-growing job of 2026 is one step away.

@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.9
   change_frequency: weekly
-  page_title: Soporte GeekPAL | 4Geeks Academy
-  description: Obtén mentoría ilimitada 1:1 en programación y acompañamiento con IA de Rigobot 24/7. Nunca programes solo, recibe retroalimentación instantánea y únete a una comunidad global de desarrolladores.
+  page_title: Soporte GeekPAL | 4Geeks
+  description: Recibe ayuda en programación con mentoría y acompañamiento personalizado en todas nuestras carreras, incluyendo IA, desarrollo full stack y más en 4Geeks Academ
   redirects:
     - /es/geekpal
 schema:
