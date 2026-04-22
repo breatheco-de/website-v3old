@@ -9,8 +9,10 @@ import {
   IconX,
   IconLink,
   IconInfoCircle,
+  IconPhoto,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
+import { ImagePickerDialog } from "@/components/editing/ImagePickerDialog";
 import {
   Dialog,
   DialogContent,
@@ -121,9 +123,11 @@ export function SeoModal({
   const [seoVisibilityExpanded, setSeoVisibilityExpanded] = useState(false);
   const [seoRedirectsExpanded, setSeoRedirectsExpanded] = useState(false);
   const [ogImageError, setOgImageError] = useState(false);
+  const [imagePickerOpen, setImagePickerOpen] = useState(false);
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <>
+    <Dialog open={open} onOpenChange={(isOpen) => { if (!isOpen) setImagePickerOpen(false); onOpenChange(isOpen); }}>
       <DialogContent className="sm:max-w-2xl max-h-[85vh] overflow-y-auto overflow-x-hidden">
         <DialogHeader>
           <DialogTitle>SEO & Meta Tags</DialogTitle>
@@ -503,18 +507,30 @@ export function SeoModal({
                     <label className="text-xs font-medium text-foreground" htmlFor="seo-og-image">
                       Social Image (og:image)
                     </label>
-                    <input
-                      id="seo-og-image"
-                      type="url"
-                      value={seoMeta.og_image}
-                      onChange={(e) => {
-                        setSeoMeta({ ...seoMeta, og_image: e.target.value });
-                        setOgImageError(false);
-                      }}
-                      placeholder="e.g. https://4geeks.com/images/social-preview.jpg"
-                      className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                      data-testid="input-seo-og-image"
-                    />
+                    <div className="flex gap-2">
+                      <input
+                        id="seo-og-image"
+                        type="url"
+                        value={seoMeta.og_image}
+                        onChange={(e) => {
+                          setSeoMeta({ ...seoMeta, og_image: e.target.value });
+                          setOgImageError(false);
+                        }}
+                        placeholder="e.g. https://4geeks.com/images/social-preview.jpg"
+                        className="flex-1 px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                        data-testid="input-seo-og-image"
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setImagePickerOpen(true)}
+                        data-testid="button-seo-og-image-picker"
+                      >
+                        <IconPhoto className="h-4 w-4 mr-1.5" />
+                        Choose from gallery
+                      </Button>
+                    </div>
                     <p className="text-xs text-muted-foreground">
                       Image shown when the page is shared on social media. Recommended size: 1200×630 px.
                     </p>
@@ -855,5 +871,17 @@ export function SeoModal({
         </DialogFooter>
       </DialogContent>
     </Dialog>
+
+    <ImagePickerDialog
+      open={imagePickerOpen}
+      onOpenChange={setImagePickerOpen}
+      title="Choose Social Image"
+      initialSrc={seoMeta.og_image}
+      onSave={(src) => {
+        setSeoMeta({ ...seoMeta, og_image: src });
+        setOgImageError(false);
+      }}
+    />
+    </>
   );
 }
