@@ -288,21 +288,15 @@ export function DebugBubble() {
     redirects: string[];
   }>({ page_title: "", description: "", og_image: "", canonical_url: "", robots: "", priority: "", change_frequency: "", redirects: [] });
   const [seoSaving, setSeoSaving] = useState(false);
-  const [seoFaqExpanded, setSeoFaqExpanded] = useState(true);
-  const [seoSchemaExpanded, setSeoSchemaExpanded] = useState(false);
   const [seoSchemaInclude, setSeoSchemaInclude] = useState<string[]>([]);
   const [seoSchemaOverrides, setSeoSchemaOverrides] = useState<Record<string, string>>({});
   const [seoSchemaOverridesErrors, setSeoSchemaOverridesErrors] = useState<Record<string, string>>({});
   const [availableSchemaKeys, setAvailableSchemaKeys] = useState<string[]>([]);
-  const [seoSchemaIncludeExpanded, setSeoSchemaIncludeExpanded] = useState(false);
-  const [seoSchemaOverridesExpanded, setSeoSchemaOverridesExpanded] = useState(false);
   const [seoLocations, setSeoLocations] = useState<string[]>([]);
   const [seoAvailableLocations, setSeoAvailableLocations] = useState<Array<{ slug: string; name: string; city: string; country: string }>>([]);
-  const [seoLocationsExpanded, setSeoLocationsExpanded] = useState(true);
   const [seoLocationSearch, setSeoLocationSearch] = useState("");
   
   // Slug rename state
-  const [slugEditorExpanded, setSlugEditorExpanded] = useState(false);
   const [newSlugValue, setNewSlugValue] = useState("");
   const [slugCheckStatus, setSlugCheckStatus] = useState<"idle" | "checking" | "available" | "taken">("idle");
   const [slugCheckReason, setSlugCheckReason] = useState<string | null>(null);
@@ -333,7 +327,6 @@ export function DebugBubble() {
   const contentInfo = useMemo(() => detectContentInfo(pathname, contentTypesMap, homePageSettings ?? null), [pathname, contentTypesMap, homePageSettings]);
 
   useEffect(() => {
-    setSlugEditorExpanded(false);
     setNewSlugValue("");
     setSlugCheckStatus("idle");
     setSlugCheckReason(null);
@@ -342,6 +335,15 @@ export function DebugBubble() {
     setSlugOldUrl("");
     setSlugNewUrl("");
   }, [contentInfo.slug]);
+
+  useEffect(() => {
+    if (seoModalOpen) {
+      setNewSlugValue(contentInfo.slug || "");
+      setSlugCheckStatus("idle");
+      setSlugCheckReason(null);
+      setSlugRedirectPrompt(false);
+    }
+  }, [seoModalOpen, contentInfo.slug]);
 
   // Check if location is currently overridden via query string
   const currentLocationOverride = typeof window !== "undefined" 
@@ -861,7 +863,6 @@ export function DebugBubble() {
         description: `${result.oldSlug} → ${result.newSlug}${createRedirect ? " (redirect created)" : ""}`,
       });
       setSeoModalOpen(false);
-      setSlugEditorExpanded(false);
       setNewSlugValue("");
       const isPreview = pathname.startsWith("/private/preview/");
       if (isPreview) {
@@ -1879,14 +1880,6 @@ export function DebugBubble() {
         seoData={seoData}
         seoMeta={seoMeta}
         setSeoMeta={setSeoMeta}
-        seoFaqExpanded={seoFaqExpanded}
-        setSeoFaqExpanded={setSeoFaqExpanded}
-        seoSchemaExpanded={seoSchemaExpanded}
-        setSeoSchemaExpanded={setSeoSchemaExpanded}
-        seoSchemaIncludeExpanded={seoSchemaIncludeExpanded}
-        setSeoSchemaIncludeExpanded={setSeoSchemaIncludeExpanded}
-        seoSchemaOverridesExpanded={seoSchemaOverridesExpanded}
-        setSeoSchemaOverridesExpanded={setSeoSchemaOverridesExpanded}
         seoSchemaInclude={seoSchemaInclude}
         setSeoSchemaInclude={setSeoSchemaInclude}
         seoSchemaOverrides={seoSchemaOverrides}
@@ -1901,8 +1894,6 @@ export function DebugBubble() {
         setSeoLocationSearch={setSeoLocationSearch}
         seoSaving={seoSaving}
         handleSeoSave={handleSeoSave}
-        slugEditorExpanded={slugEditorExpanded}
-        setSlugEditorExpanded={setSlugEditorExpanded}
         newSlugValue={newSlugValue}
         setNewSlugValue={setNewSlugValue}
         slugCheckStatus={slugCheckStatus}
@@ -1913,8 +1904,6 @@ export function DebugBubble() {
         handleSlugRenameClick={handleSlugRenameClick}
         handleSlugRename={handleSlugRename}
         currentLocaleSlug={currentLocaleSlug}
-        setSlugCheckStatus={setSlugCheckStatus}
-        setSlugCheckReason={setSlugCheckReason}
         slugCheckReason={slugCheckReason}
         setSlugRedirectPrompt={setSlugRedirectPrompt}
       />
