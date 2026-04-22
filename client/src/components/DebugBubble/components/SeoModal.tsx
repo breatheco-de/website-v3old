@@ -7,8 +7,8 @@ import {
   IconArrowRight,
   IconMapPin,
   IconX,
-  IconPlus,
   IconLink,
+  IconInfoCircle,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -120,7 +120,6 @@ export function SeoModal({
   const [seoSearchSnippetExpanded, setSeoSearchSnippetExpanded] = useState(false);
   const [seoVisibilityExpanded, setSeoVisibilityExpanded] = useState(false);
   const [seoRedirectsExpanded, setSeoRedirectsExpanded] = useState(false);
-  const [newRedirectValue, setNewRedirectValue] = useState("");
   const [ogImageError, setOgImageError] = useState(false);
 
   return (
@@ -699,56 +698,17 @@ export function SeoModal({
                     </div>
                   )}
 
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      value={newRedirectValue}
-                      onChange={(e) => setNewRedirectValue(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          const val = newRedirectValue.trim().startsWith("/")
-                            ? newRedirectValue.trim()
-                            : newRedirectValue.trim() ? `/${newRedirectValue.trim()}` : "";
-                          if (val && !seoMeta.redirects.includes(val)) {
-                            setSeoMeta({ ...seoMeta, redirects: [...seoMeta.redirects, val] });
-                            setNewRedirectValue("");
-                          }
-                        }
-                      }}
-                      placeholder="/old-page-slug"
-                      className="flex-1 px-3 py-2 text-sm font-mono rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                      data-testid="input-new-redirect"
-                    />
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => {
-                        const val = newRedirectValue.trim().startsWith("/")
-                          ? newRedirectValue.trim()
-                          : newRedirectValue.trim() ? `/${newRedirectValue.trim()}` : "";
-                        if (val && !seoMeta.redirects.includes(val)) {
-                          setSeoMeta({ ...seoMeta, redirects: [...seoMeta.redirects, val] });
-                        }
-                        setNewRedirectValue("");
-                      }}
-                      disabled={!newRedirectValue.trim() || seoMeta.redirects.includes(
-                        newRedirectValue.trim().startsWith("/") ? newRedirectValue.trim() : `/${newRedirectValue.trim()}`
-                      )}
-                      data-testid="button-add-redirect"
+                  <p className="flex items-center gap-1.5 text-xs text-muted-foreground" data-testid="text-redirects-note">
+                    <IconInfoCircle className="h-3.5 w-3.5 shrink-0" />
+                    To add or update redirects, visit the{" "}
+                    <a
+                      href="/private/redirects"
+                      className="underline underline-offset-2 hover:text-foreground transition-colors"
+                      data-testid="link-redirects-page"
                     >
-                      <IconPlus className="h-3.5 w-3.5 mr-1" />
-                      Add
-                    </Button>
-                  </div>
-                  {(() => {
-                    const val = newRedirectValue.trim().startsWith("/")
-                      ? newRedirectValue.trim()
-                      : newRedirectValue.trim() ? `/${newRedirectValue.trim()}` : "";
-                    if (val && seoMeta.redirects.includes(val)) {
-                      return <p className="text-xs text-destructive" data-testid="text-redirect-duplicate">This redirect already exists.</p>;
-                    }
-                    return null;
-                  })()}
+                      Redirects page
+                    </a>.
+                  </p>
                 </div>
               )}
             </div>
