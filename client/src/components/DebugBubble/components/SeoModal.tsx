@@ -115,6 +115,8 @@ export function SeoModal({
   setSlugRedirectPrompt,
 }: SeoModalProps) {
   const [seoLocationsExpanded, setSeoLocationsExpanded] = useState(true);
+  const [seoSearchSnippetExpanded, setSeoSearchSnippetExpanded] = useState(false);
+  const [seoVisibilityExpanded, setSeoVisibilityExpanded] = useState(false);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -434,64 +436,178 @@ export function SeoModal({
               </div>
             )}
 
-            <div className="space-y-3">
-              <h4 className="text-sm font-semibold">Meta Tags</h4>
-              <p className="text-xs text-muted-foreground">
-                Edit these fields to improve how the page appears in search results and social media.
-              </p>
-              
-              <div className="space-y-3">
-                <div className="space-y-1.5">
-                  <label className="text-xs font-medium text-foreground" htmlFor="seo-page-title">
-                    Page Title
-                  </label>
-                  <input
-                    id="seo-page-title"
-                    type="text"
-                    value={seoMeta.page_title}
-                    onChange={(e) => setSeoMeta({ ...seoMeta, page_title: e.target.value })}
-                    placeholder="e.g. Full Stack Developer Program | 4Geeks"
-                    className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                    data-testid="input-seo-page-title"
-                  />
+            <div className="space-y-2">
+              <button
+                onClick={() => setSeoSearchSnippetExpanded(!seoSearchSnippetExpanded)}
+                className="flex items-center gap-2 w-full text-left"
+                data-testid="button-toggle-search-snippet"
+              >
+                {seoSearchSnippetExpanded ? (
+                  <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                ) : (
+                  <IconChevronRight className="h-4 w-4 text-muted-foreground" />
+                )}
+                <h4 className="text-sm font-semibold">Search Snippet</h4>
+                {seoMeta.page_title && (
+                  <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium truncate max-w-[200px]">
+                    {seoMeta.page_title}
+                  </span>
+                )}
+              </button>
+              {seoSearchSnippetExpanded && (
+                <div className="space-y-3 pl-6">
                   <p className="text-xs text-muted-foreground">
-                    {seoMeta.page_title.length}/60 characters (recommended)
+                    Edit these fields to improve how the page appears in search results and social media.
                   </p>
-                </div>
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-medium text-foreground" htmlFor="seo-page-title">
+                      Page Title
+                    </label>
+                    <input
+                      id="seo-page-title"
+                      type="text"
+                      value={seoMeta.page_title}
+                      onChange={(e) => setSeoMeta({ ...seoMeta, page_title: e.target.value })}
+                      placeholder="e.g. Full Stack Developer Program | 4Geeks"
+                      className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                      data-testid="input-seo-page-title"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      {seoMeta.page_title.length}/60 characters (recommended)
+                    </p>
+                  </div>
 
-                <div className="space-y-1.5">
-                  <label className="text-xs font-medium text-foreground" htmlFor="seo-description">
-                    Description
-                  </label>
-                  <textarea
-                    id="seo-description"
-                    value={seoMeta.description}
-                    onChange={(e) => setSeoMeta({ ...seoMeta, description: e.target.value })}
-                    placeholder="e.g. Learn full stack development with unlimited mentorship..."
-                    rows={3}
-                    className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring resize-none"
-                    data-testid="input-seo-description"
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    {seoMeta.description.length}/160 characters (recommended)
-                  </p>
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-medium text-foreground" htmlFor="seo-description">
+                      Description
+                    </label>
+                    <textarea
+                      id="seo-description"
+                      value={seoMeta.description}
+                      onChange={(e) => setSeoMeta({ ...seoMeta, description: e.target.value })}
+                      placeholder="e.g. Learn full stack development with unlimited mentorship..."
+                      rows={3}
+                      className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring resize-none"
+                      data-testid="input-seo-description"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      {seoMeta.description.length}/160 characters (recommended)
+                    </p>
+                  </div>
                 </div>
+              )}
+            </div>
 
-                <div className="space-y-1.5">
-                  <label className="text-xs font-medium text-foreground" htmlFor="seo-canonical-url">
-                    Canonical URL
-                  </label>
-                  <input
-                    id="seo-canonical-url"
-                    type="text"
-                    value={seoMeta.canonical_url}
-                    onChange={(e) => setSeoMeta({ ...seoMeta, canonical_url: e.target.value })}
-                    placeholder="e.g. https://4geeks.com/en/career-programs/full-stack"
-                    className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                    data-testid="input-seo-canonical-url"
-                  />
+            <div className="space-y-1.5">
+              <label className="text-xs font-medium text-foreground" htmlFor="seo-canonical-url">
+                Canonical URL
+              </label>
+              <input
+                id="seo-canonical-url"
+                type="text"
+                value={seoMeta.canonical_url}
+                onChange={(e) => setSeoMeta({ ...seoMeta, canonical_url: e.target.value })}
+                placeholder="e.g. https://4geeks.com/en/career-programs/full-stack"
+                className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                data-testid="input-seo-canonical-url"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <button
+                onClick={() => setSeoVisibilityExpanded(!seoVisibilityExpanded)}
+                className="flex items-center gap-2 w-full text-left"
+                data-testid="button-toggle-visibility"
+              >
+                {seoVisibilityExpanded ? (
+                  <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                ) : (
+                  <IconChevronRight className="h-4 w-4 text-muted-foreground" />
+                )}
+                <h4 className="text-sm font-semibold">Visibility</h4>
+                <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
+                  {seoMeta.robots || "index, follow"}
+                </span>
+              </button>
+              {seoVisibilityExpanded && (
+                <div className="space-y-3 pl-6">
+                  <div className="space-y-1.5">
+                    <p className="text-xs font-medium text-foreground">Robots</p>
+                    <div className="space-y-1.5" data-testid="select-seo-robots">
+                      {([
+                        { value: "", label: "index, follow", description: "Show in search results and follow all links on this page. Recommended for most pages." },
+                        { value: "noindex", label: "noindex", description: "Hide from search results but still follow links. Useful for private or duplicate pages." },
+                        { value: "noindex, nofollow", label: "noindex, nofollow", description: "Hide from search results and don't follow any links. Use for pages you never want crawled." },
+                      ] as const).map(({ value, label, description }) => (
+                        <label
+                          key={value}
+                          className={`flex items-start gap-2.5 rounded-md border px-3 py-2 cursor-pointer hover-elevate ${(seoMeta.robots === value) ? "border-ring bg-muted/50" : ""}`}
+                          data-testid={`option-seo-robots-${value || "default"}`}
+                        >
+                          <input
+                            type="radio"
+                            name="seo-robots"
+                            value={value}
+                            checked={seoMeta.robots === value}
+                            onChange={() => setSeoMeta({ ...seoMeta, robots: value })}
+                            className="mt-0.5 shrink-0"
+                          />
+                          <div className="space-y-0.5">
+                            <p className="text-xs font-mono font-medium text-foreground leading-none">{label}{value === "" && <span className="ml-1.5 text-muted-foreground font-sans font-normal">(default)</span>}</p>
+                            <p className="text-xs text-muted-foreground">{description}</p>
+                          </div>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-medium text-foreground" htmlFor="seo-priority">
+                      Priority
+                    </label>
+                    <input
+                      id="seo-priority"
+                      type="number"
+                      min={0}
+                      max={1}
+                      step={0.1}
+                      value={seoMeta.priority}
+                      onChange={(e) => setSeoMeta({ ...seoMeta, priority: e.target.value })}
+                      placeholder="e.g. 0.8"
+                      className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                      data-testid="input-seo-priority"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Sitemap crawl priority (0.0–1.0). Leave empty to use the default.
+                    </p>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-medium text-foreground" htmlFor="seo-change-frequency">
+                      Change Frequency
+                    </label>
+                    <select
+                      id="seo-change-frequency"
+                      value={seoMeta.change_frequency}
+                      onChange={(e) => setSeoMeta({ ...seoMeta, change_frequency: e.target.value })}
+                      className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                      data-testid="select-seo-change-frequency"
+                    >
+                      <option value="">Default</option>
+                      <option value="always">always</option>
+                      <option value="hourly">hourly</option>
+                      <option value="daily">daily</option>
+                      <option value="weekly">weekly</option>
+                      <option value="monthly">monthly</option>
+                      <option value="yearly">yearly</option>
+                      <option value="never">never</option>
+                    </select>
+                    <p className="text-xs text-muted-foreground">
+                      How frequently the page content is likely to change. Used in the sitemap.
+                    </p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {contentInfo.type === "landing" && seoAvailableLocations.length > 0 && (

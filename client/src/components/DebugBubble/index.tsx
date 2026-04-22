@@ -281,7 +281,10 @@ export function DebugBubble() {
     page_title: string;
     description: string;
     canonical_url: string;
-  }>({ page_title: "", description: "", canonical_url: "" });
+    robots: string;
+    priority: string;
+    change_frequency: string;
+  }>({ page_title: "", description: "", canonical_url: "", robots: "", priority: "", change_frequency: "" });
   const [seoSaving, setSeoSaving] = useState(false);
   const [seoFaqExpanded, setSeoFaqExpanded] = useState(true);
   const [seoSchemaExpanded, setSeoSchemaExpanded] = useState(false);
@@ -764,6 +767,9 @@ export function DebugBubble() {
         page_title: (data.meta?.page_title as string) || "",
         description: (data.meta?.description as string) || "",
         canonical_url: (data.meta?.canonical_url as string) || "",
+        robots: (data.meta?.robots as string) || "",
+        priority: (data.meta?.priority as string) || "",
+        change_frequency: (data.meta?.change_frequency as string) || "",
       });
       setAvailableSchemaKeys(schemaKeysRes.available || []);
       setSeoSchemaInclude(data.schemaInclude || []);
@@ -890,7 +896,7 @@ export function DebugBubble() {
       const apiContentType = contentInfo.type;
       
       const existingMeta = { ...(seoData?.meta || {}) };
-      const editableKeys = ["page_title", "description", "canonical_url"] as const;
+      const editableKeys = ["page_title", "description", "canonical_url", "robots", "priority", "change_frequency"] as const;
       for (const key of editableKeys) {
         if (seoMeta[key]) {
           existingMeta[key] = seoMeta[key];

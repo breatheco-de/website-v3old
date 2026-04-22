@@ -210,6 +210,9 @@ export interface SeoMeta {
   page_title: string;
   description: string;
   canonical_url: string;
+  robots: string;
+  priority: string;
+  change_frequency: string;
 }
 
 export interface SeoLocation {
