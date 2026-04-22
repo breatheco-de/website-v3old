@@ -280,11 +280,13 @@ export function DebugBubble() {
   const [seoMeta, setSeoMeta] = useState<{
     page_title: string;
     description: string;
+    og_image: string;
     canonical_url: string;
     robots: string;
     priority: string;
     change_frequency: string;
-  }>({ page_title: "", description: "", canonical_url: "", robots: "", priority: "", change_frequency: "" });
+    redirects: string[];
+  }>({ page_title: "", description: "", og_image: "", canonical_url: "", robots: "", priority: "", change_frequency: "", redirects: [] });
   const [seoSaving, setSeoSaving] = useState(false);
   const [seoFaqExpanded, setSeoFaqExpanded] = useState(true);
   const [seoSchemaExpanded, setSeoSchemaExpanded] = useState(false);
@@ -766,10 +768,14 @@ export function DebugBubble() {
       setSeoMeta({
         page_title: (data.meta?.page_title as string) || "",
         description: (data.meta?.description as string) || "",
+        og_image: (data.meta?.og_image as string) || "",
         canonical_url: (data.meta?.canonical_url as string) || "",
         robots: (data.meta?.robots as string) || "",
         priority: (data.meta?.priority as string) || "",
         change_frequency: (data.meta?.change_frequency as string) || "",
+        redirects: ((data.meta?.redirects as Array<string | { path: string; status?: number }>) || [])
+          .map((r) => (typeof r === "string" ? r : r?.path))
+          .filter((r): r is string => Boolean(r)),
       });
       setAvailableSchemaKeys(schemaKeysRes.available || []);
       setSeoSchemaInclude(data.schemaInclude || []);
@@ -896,13 +902,18 @@ export function DebugBubble() {
       const apiContentType = contentInfo.type;
       
       const existingMeta = { ...(seoData?.meta || {}) };
-      const editableKeys = ["page_title", "description", "canonical_url", "robots", "priority", "change_frequency"] as const;
+      const editableKeys = ["page_title", "description", "og_image", "canonical_url", "robots", "priority", "change_frequency"] as const;
       for (const key of editableKeys) {
         if (seoMeta[key]) {
           existingMeta[key] = seoMeta[key];
         } else {
           delete existingMeta[key];
         }
+      }
+      if (seoMeta.redirects.length > 0) {
+        existingMeta.redirects = seoMeta.redirects;
+      } else {
+        delete existingMeta.redirects;
       }
       
       const hasOverrideErrors = Object.keys(seoSchemaOverridesErrors).length > 0;

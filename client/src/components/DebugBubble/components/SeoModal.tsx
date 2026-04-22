@@ -7,6 +7,8 @@ import {
   IconArrowRight,
   IconMapPin,
   IconX,
+  IconPlus,
+  IconLink,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -117,6 +119,9 @@ export function SeoModal({
   const [seoLocationsExpanded, setSeoLocationsExpanded] = useState(true);
   const [seoSearchSnippetExpanded, setSeoSearchSnippetExpanded] = useState(false);
   const [seoVisibilityExpanded, setSeoVisibilityExpanded] = useState(false);
+  const [seoRedirectsExpanded, setSeoRedirectsExpanded] = useState(false);
+  const [newRedirectValue, setNewRedirectValue] = useState("");
+  const [ogImageError, setOgImageError] = useState(false);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -494,6 +499,44 @@ export function SeoModal({
                       {seoMeta.description.length}/160 characters (recommended)
                     </p>
                   </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-medium text-foreground" htmlFor="seo-og-image">
+                      Social Image (og:image)
+                    </label>
+                    <input
+                      id="seo-og-image"
+                      type="url"
+                      value={seoMeta.og_image}
+                      onChange={(e) => {
+                        setSeoMeta({ ...seoMeta, og_image: e.target.value });
+                        setOgImageError(false);
+                      }}
+                      placeholder="e.g. https://4geeks.com/images/social-preview.jpg"
+                      className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                      data-testid="input-seo-og-image"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Image shown when the page is shared on social media. Recommended size: 1200×630 px.
+                    </p>
+                    {seoMeta.og_image && (
+                      <div className="mt-1.5 rounded-md border bg-muted max-h-[120px] flex items-center justify-center overflow-hidden" style={{ aspectRatio: "1200/630" }}>
+                        {ogImageError ? (
+                          <p className="text-xs text-muted-foreground px-4 text-center" data-testid="text-og-image-error">
+                            Could not load image — check that the URL is publicly accessible.
+                          </p>
+                        ) : (
+                          <img
+                            src={seoMeta.og_image}
+                            alt="og:image preview"
+                            className="object-cover w-full h-full"
+                            onError={() => setOgImageError(true)}
+                            data-testid="img-og-image-preview"
+                          />
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
@@ -606,6 +649,106 @@ export function SeoModal({
                       How frequently the page content is likely to change. Used in the sitemap.
                     </p>
                   </div>
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <button
+                onClick={() => setSeoRedirectsExpanded(!seoRedirectsExpanded)}
+                className="flex items-center gap-2 w-full text-left"
+                data-testid="button-toggle-redirects"
+              >
+                {seoRedirectsExpanded ? (
+                  <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                ) : (
+                  <IconChevronRight className="h-4 w-4 text-muted-foreground" />
+                )}
+                <IconLink className="h-4 w-4 text-muted-foreground" />
+                <h4 className="text-sm font-semibold">Redirects</h4>
+                {seoMeta.redirects.length > 0 && (
+                  <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
+                    {seoMeta.redirects.length} redirect{seoMeta.redirects.length !== 1 ? "s" : ""}
+                  </span>
+                )}
+              </button>
+              {seoRedirectsExpanded && (
+                <div className="space-y-3 pl-6">
+                  <p className="text-xs text-muted-foreground">
+                    Old URL paths that should redirect to this page (301). Each entry is a path relative to the site root, e.g. <code className="font-mono bg-muted px-1 rounded">/old-page-slug</code>.
+                  </p>
+
+                  {seoMeta.redirects.length > 0 && (
+                    <div className="space-y-1.5">
+                      {seoMeta.redirects.map((redirect, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-center gap-2 px-2.5 py-1.5 rounded-md border bg-muted/40 text-sm font-mono"
+                          data-testid={`row-redirect-${idx}`}
+                        >
+                          <span className="flex-1 truncate text-xs">{redirect}</span>
+                          <button
+                            onClick={() => setSeoMeta({ ...seoMeta, redirects: seoMeta.redirects.filter((_, i) => i !== idx) })}
+                            className="shrink-0 rounded-sm hover-elevate"
+                            data-testid={`button-remove-redirect-${idx}`}
+                          >
+                            <IconX className="h-3.5 w-3.5 text-muted-foreground" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={newRedirectValue}
+                      onChange={(e) => setNewRedirectValue(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          const val = newRedirectValue.trim().startsWith("/")
+                            ? newRedirectValue.trim()
+                            : newRedirectValue.trim() ? `/${newRedirectValue.trim()}` : "";
+                          if (val && !seoMeta.redirects.includes(val)) {
+                            setSeoMeta({ ...seoMeta, redirects: [...seoMeta.redirects, val] });
+                            setNewRedirectValue("");
+                          }
+                        }
+                      }}
+                      placeholder="/old-page-slug"
+                      className="flex-1 px-3 py-2 text-sm font-mono rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                      data-testid="input-new-redirect"
+                    />
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        const val = newRedirectValue.trim().startsWith("/")
+                          ? newRedirectValue.trim()
+                          : newRedirectValue.trim() ? `/${newRedirectValue.trim()}` : "";
+                        if (val && !seoMeta.redirects.includes(val)) {
+                          setSeoMeta({ ...seoMeta, redirects: [...seoMeta.redirects, val] });
+                        }
+                        setNewRedirectValue("");
+                      }}
+                      disabled={!newRedirectValue.trim() || seoMeta.redirects.includes(
+                        newRedirectValue.trim().startsWith("/") ? newRedirectValue.trim() : `/${newRedirectValue.trim()}`
+                      )}
+                      data-testid="button-add-redirect"
+                    >
+                      <IconPlus className="h-3.5 w-3.5 mr-1" />
+                      Add
+                    </Button>
+                  </div>
+                  {(() => {
+                    const val = newRedirectValue.trim().startsWith("/")
+                      ? newRedirectValue.trim()
+                      : newRedirectValue.trim() ? `/${newRedirectValue.trim()}` : "";
+                    if (val && seoMeta.redirects.includes(val)) {
+                      return <p className="text-xs text-destructive" data-testid="text-redirect-duplicate">This redirect already exists.</p>;
+                    }
+                    return null;
+                  })()}
                 </div>
               )}
             </div>

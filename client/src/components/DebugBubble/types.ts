@@ -209,10 +209,12 @@ export interface SeoData {
 export interface SeoMeta {
   page_title: string;
   description: string;
+  og_image: string;
   canonical_url: string;
   robots: string;
   priority: string;
   change_frequency: string;
+  redirects: string[];
 }
 
 export interface SeoLocation {
