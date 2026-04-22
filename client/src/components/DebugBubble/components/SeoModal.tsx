@@ -9,6 +9,11 @@ import {
   IconX,
   IconInfoCircle,
   IconPhoto,
+  IconFileText,
+  IconCode,
+  IconEye,
+  IconEyeOff,
+  IconArrowsRightLeft,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { ImagePickerDialog } from "@/components/editing/ImagePickerDialog";
@@ -129,10 +134,26 @@ export function SeoModal({
         ) : seoData ? (
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="w-full grid grid-cols-4" data-testid="tabs-seo-nav">
-              <TabsTrigger value="general" data-testid="tab-general">General</TabsTrigger>
-              <TabsTrigger value="schema" data-testid="tab-schema">Schema</TabsTrigger>
-              <TabsTrigger value="visibility" data-testid="tab-visibility">Visibility</TabsTrigger>
-              <TabsTrigger value="redirects" data-testid="tab-redirects">Redirects</TabsTrigger>
+              <TabsTrigger value="general" data-testid="tab-general" className="flex items-center gap-1.5">
+                <IconFileText className="h-3.5 w-3.5 shrink-0" />
+                General
+              </TabsTrigger>
+              <TabsTrigger value="schema" data-testid="tab-schema" className="flex items-center gap-1.5">
+                <IconCode className="h-3.5 w-3.5 shrink-0" />
+                Schema
+              </TabsTrigger>
+              <TabsTrigger value="visibility" data-testid="tab-visibility" className="flex items-center gap-1.5">
+                {seoMeta.robots && seoMeta.robots.includes("noindex") ? (
+                  <IconEyeOff className="h-3.5 w-3.5 shrink-0 text-destructive" />
+                ) : (
+                  <IconEye className="h-3.5 w-3.5 shrink-0" />
+                )}
+                Visibility
+              </TabsTrigger>
+              <TabsTrigger value="redirects" data-testid="tab-redirects" className="flex items-center gap-1.5">
+                <IconArrowsRightLeft className="h-3.5 w-3.5 shrink-0" />
+                Redirects
+              </TabsTrigger>
             </TabsList>
 
             {/* ── General tab ────────────────────────────────────────── */}
