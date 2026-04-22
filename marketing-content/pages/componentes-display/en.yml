@@ -217,18 +217,16 @@ sections:
     section_id: cards_deck-toeetc
   - type: career_support_explain
     version: v1.0
-    maxWidth:
-      desktop: 6xl
-    heading: GeekForce Career Support
-    description: Our career support program is designed to help you land your first job in tech
-    background: hsl(var(--secondary))
+    heading: How We Get You Hired. From First Day to Signed Offer.
+    description: A complete system that takes you from enrolled to employed. AI-optimized profiles, direct access to 400+ hiring partners, and 1:1 support that's with you beyond landing your first role.
+    background: hsl(var(--sidebar-background))
     tabs:
       - tab_label: Job-Ready, Faster
         layout: three_columns
-        col1_subtitle: Build a recruiter-ready profile, smarter.
+        col1_subtitle: Build a Recruiter-Ready Profile, Smarter.
         col1_description: |-
           Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
-          We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
+          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal impact.
         col1_tagline: We'll help you create tailored job search materials
         col1_boxes:
           - icon: IconBrandLinkedin
@@ -239,7 +237,7 @@ sections:
             text: Portfolio
           - icon: IconMail
             text: Cover letter
-        col2_heading: Professional Placement & Coaching
+        col2_heading: Career Strategy, Built Around You
         col2_bullets:
           - icon: IconRobot
             text: 24/7 feedback from RigoBot to audit your LinkedIn and resume
@@ -252,13 +250,13 @@ sections:
         col3_object_position: center
       - tab_label: Real Hiring Access
         layout: two_column_cards
-        title: Access the hidden job market.
-        left_text: We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
+        title: Access the Hidden Job Market.
+        left_text: Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
         left_image_id: career_team_women
         left_image_object_fit: cover
         left_image_object_position: center
         left_stat:
-          value: 250+
+          value: {{ global.number_of_hiring_partners_aprox | 250 }}+
           label: companies in 4Geeks employer network
         right_bullets:
           - icon: IconUserPlus
@@ -282,7 +280,7 @@ sections:
             alt: KPMG
       - tab_label: Proof That Converts
         layout: text_and_image
-        title: Projects that demonstrate real skill.
+        title: Projects that Demonstrate Real Skill.
         left_description: |-
           Visibility gets attention. Proof closes the gap.
           Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
@@ -298,10 +296,8 @@ sections:
         right_image_object_position: center
       - tab_label: Your Best-Fit Role
         layout: text_with_testimonials_carousel
-        title: Turn your background into an advantage.
-        left_description: |-
-          Once offers are on the table, we help you choose and negotiate with confidence.
-          Your previous experience matters. We map transferable skills, focus your job search on the right roles, and support you through salary negotiation and long-term growth.
+        title: Turn Your Background into an Advantage.
+        left_description: Your previous experience matters. We map your transferable skills, focus your search on the right roles, and when offers come, help you negotiate with confidence and choose the right one.
         left_bullets:
           - icon: IconTransfer
             text: Transferable skills mapping
@@ -317,24 +313,26 @@ sections:
             image_object_position: center
             contributor_logos:
               - image_id: clark_university
-            description: MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her endeavor.
-            achievement: She has launched her startup, is capable of hiring new tech talent, and coordinates a dev team!
+            description: MaiLinh came to 4Geeks with an entrepreneurial vision and no technical background. Today she runs her own tech startup and leads a team of developers.
+            achievement: She launched her own business and is now hiring the talent she once wanted to become.
           - image_id: martin_coimbra
             image_object_fit: cover
             image_object_position: center top
             contributor_logos:
               - image_id: logo_utec
             description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
-            achievement: He achieved a 100% salary increase.
+            achievement: His salary doubled. And he finally does work he loves.
           - image_id: melanie_galaretto
             image_object_fit: cover
             image_object_position: center
             contributor_logos:
               - image_id: logo_utec
               - image_id: bid_logo
-            description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
-            achievement: She achieved a 100% salary increase.
-    section_id: career_support_explain-damkgo
+            description: Melanie retrained as a software developer and now works remotely for a tech company, from home, in a career she chose.
+            achievement: Her salary doubled. And she works remotely, on her own terms.
+    section_id: career_support_explain-xpc3k2
+    maxWidth:
+      desktop: 6xl
     marginY:
       desktop: none md
   - type: certificate
