@@ -123,6 +123,7 @@ export function SeoModal({
   const [seoVisibilityExpanded, setSeoVisibilityExpanded] = useState(false);
   const [seoRedirectsExpanded, setSeoRedirectsExpanded] = useState(false);
   const [ogImageError, setOgImageError] = useState(false);
+  const [ogImageTooSmall, setOgImageTooSmall] = useState(false);
   const [imagePickerOpen, setImagePickerOpen] = useState(false);
 
   return (
@@ -515,6 +516,7 @@ export function SeoModal({
                         onChange={(e) => {
                           setSeoMeta({ ...seoMeta, og_image: e.target.value });
                           setOgImageError(false);
+                          setOgImageTooSmall(false);
                         }}
                         placeholder="e.g. https://4geeks.com/images/social-preview.jpg"
                         className="flex-1 px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
@@ -535,21 +537,33 @@ export function SeoModal({
                       Image shown when the page is shared on social media. Recommended size: 1200×630 px.
                     </p>
                     {seoMeta.og_image && (
-                      <div className="mt-1.5 rounded-md border bg-muted max-h-[120px] flex items-center justify-center overflow-hidden" style={{ aspectRatio: "1200/630" }}>
-                        {ogImageError ? (
-                          <p className="text-xs text-muted-foreground px-4 text-center" data-testid="text-og-image-error">
-                            Could not load image — check that the URL is publicly accessible.
+                      <>
+                        <div className="mt-1.5 rounded-md border bg-muted max-h-[120px] flex items-center justify-center overflow-hidden" style={{ aspectRatio: "1200/630" }}>
+                          {ogImageError ? (
+                            <p className="text-xs text-muted-foreground px-4 text-center" data-testid="text-og-image-error">
+                              Could not load image — check that the URL is publicly accessible.
+                            </p>
+                          ) : (
+                            <img
+                              src={seoMeta.og_image}
+                              alt="og:image preview"
+                              className="object-cover w-full h-full"
+                              onError={() => { setOgImageError(true); setOgImageTooSmall(false); }}
+                              onLoad={(e) => {
+                                const img = e.currentTarget;
+                                setOgImageTooSmall(img.naturalWidth < 1200 || img.naturalHeight < 630);
+                              }}
+                              data-testid="img-og-image-preview"
+                            />
+                          )}
+                        </div>
+                        {ogImageTooSmall && !ogImageError && (
+                          <p className="text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1 mt-1" data-testid="text-og-image-too-small">
+                            <IconAlertTriangle className="h-3 w-3 flex-shrink-0" />
+                            Image is smaller than the recommended 1200×630 px — it may appear blurry or cropped when shared on social media.
                           </p>
-                        ) : (
-                          <img
-                            src={seoMeta.og_image}
-                            alt="og:image preview"
-                            className="object-cover w-full h-full"
-                            onError={() => setOgImageError(true)}
-                            data-testid="img-og-image-preview"
-                          />
                         )}
-                      </div>
+                      </>
                     )}
                   </div>
                 </div>
@@ -880,6 +894,7 @@ export function SeoModal({
       onSave={(src) => {
         setSeoMeta({ ...seoMeta, og_image: src });
         setOgImageError(false);
+        setOgImageTooSmall(false);
       }}
     />
     </>
