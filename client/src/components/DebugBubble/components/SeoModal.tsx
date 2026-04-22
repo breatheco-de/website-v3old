@@ -178,32 +178,36 @@ export function SeoModal({
 
               {/* Page Slug */}
               {contentInfo.type && (
-                <div className="space-y-3">
-                  <div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
                     <h4 className="text-sm font-semibold">Page Slug</h4>
-                    <p className="text-xs text-muted-foreground mt-0.5">
-                      Change the slug (URL identifier) for this locale. The folder name stays the same; only this locale's URL changes.
-                    </p>
+                    <code className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded text-muted-foreground">{currentLocaleSlug}</code>
                   </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-foreground" htmlFor="slug-editor-input">
-                      New Slug
-                    </label>
-                    <input
-                      id="slug-editor-input"
-                      type="text"
-                      value={newSlugValue}
-                      onChange={(e) => setNewSlugValue(e.target.value.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, ""))}
-                      placeholder="e.g. my-new-page-slug"
-                      className={`w-full px-3 py-2 text-sm font-mono rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring ${slugCheckStatus === "taken" ? "border-destructive" : slugCheckStatus === "available" ? "border-green-500" : ""}`}
-                      data-testid="input-slug-editor"
-                      disabled={slugRenaming}
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      Current: <code className="font-mono bg-muted px-1 rounded">{currentLocaleSlug}</code>
-                    </p>
+                  <div className="space-y-1">
+                    <div className="flex gap-2">
+                      <input
+                        id="slug-editor-input"
+                        type="text"
+                        value={newSlugValue}
+                        onChange={(e) => setNewSlugValue(e.target.value.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, ""))}
+                        placeholder={currentLocaleSlug}
+                        className={`flex-1 min-w-0 px-3 py-2 text-sm font-mono rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring ${slugCheckStatus === "taken" ? "border-destructive" : slugCheckStatus === "available" ? "border-green-500" : ""}`}
+                        data-testid="input-slug-editor"
+                        disabled={slugRenaming}
+                      />
+                      {newSlugValue && newSlugValue !== currentLocaleSlug && !slugRedirectPrompt && (
+                        <Button
+                          size="sm"
+                          onClick={handleSlugRenameClick}
+                          disabled={slugCheckStatus !== "available" || slugRenaming}
+                          data-testid="button-rename-slug"
+                        >
+                          {slugRenaming ? "Renaming…" : "Apply"}
+                        </Button>
+                      )}
+                    </div>
                     {slugCheckStatus === "checking" && (
-                      <p className="text-xs text-muted-foreground">Checking availability...</p>
+                      <p className="text-xs text-muted-foreground">Checking availability…</p>
                     )}
                     {slugCheckStatus === "available" && (
                       <p className="text-xs text-green-600">Slug is available</p>
@@ -211,21 +215,9 @@ export function SeoModal({
                     {slugCheckStatus === "taken" && slugCheckReason && (
                       <p className="text-xs text-destructive">{slugCheckReason}</p>
                     )}
-                    {newSlugValue === currentLocaleSlug && newSlugValue && (
-                      <p className="text-xs text-muted-foreground">Same as current slug</p>
-                    )}
                   </div>
 
-                  {!slugRedirectPrompt ? (
-                    <Button
-                      size="sm"
-                      onClick={handleSlugRenameClick}
-                      disabled={slugCheckStatus !== "available" || slugRenaming || !newSlugValue || newSlugValue === currentLocaleSlug}
-                      data-testid="button-rename-slug"
-                    >
-                      {slugRenaming ? "Renaming..." : "Change Slug"}
-                    </Button>
-                  ) : (
+                  {slugRedirectPrompt && (
                     <div className="space-y-3 rounded-md border p-3">
                       <p className="text-sm font-medium">Create a redirect?</p>
                       <p className="text-xs text-muted-foreground">
