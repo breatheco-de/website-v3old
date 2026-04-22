@@ -14,6 +14,8 @@ import {
   IconEye,
   IconEyeOff,
   IconArrowsRightLeft,
+  IconPencil,
+  IconSearch,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { ImagePickerDialog } from "@/components/editing/ImagePickerDialog";
@@ -114,6 +116,21 @@ export function SeoModal({
   const [ogImageError, setOgImageError] = useState(false);
   const [ogImageTooSmall, setOgImageTooSmall] = useState(false);
   const [imagePickerOpen, setImagePickerOpen] = useState(false);
+  const [snippetEditing, setSnippetEditing] = useState(false);
+
+  const snippetUrl = seoMeta.canonical_url || (typeof window !== "undefined" ? `${window.location.origin}/${contentInfo.slug || ""}` : "");
+  const snippetBreadcrumb = (() => {
+    try {
+      const u = new URL(snippetUrl);
+      const parts = (u.hostname + u.pathname).replace(/\/$/, "").split("/");
+      return parts.join(" › ");
+    } catch {
+      return snippetUrl;
+    }
+  })();
+  const snippetDomain = (() => {
+    try { return new URL(snippetUrl).hostname; } catch { return ""; }
+  })();
 
   return (
     <>
@@ -256,89 +273,52 @@ export function SeoModal({
 
               {/* Search Snippet */}
               <div className="space-y-3">
-                <div>
-                  <h4 className="text-sm font-semibold">Search Snippet</h4>
-                  <p className="text-xs text-muted-foreground mt-0.5">
-                    Edit these fields to improve how the page appears in search results and social media.
-                  </p>
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-xs font-medium text-foreground" htmlFor="seo-page-title">
-                    Page Title
-                  </label>
-                  <input
-                    id="seo-page-title"
-                    type="text"
-                    value={seoMeta.page_title}
-                    onChange={(e) => setSeoMeta({ ...seoMeta, page_title: e.target.value })}
-                    placeholder="e.g. Full Stack Developer Program | 4Geeks"
-                    className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                    data-testid="input-seo-page-title"
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    {seoMeta.page_title.length}/60 characters (recommended)
-                  </p>
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-xs font-medium text-foreground" htmlFor="seo-description">
-                    Description
-                  </label>
-                  <textarea
-                    id="seo-description"
-                    value={seoMeta.description}
-                    onChange={(e) => setSeoMeta({ ...seoMeta, description: e.target.value })}
-                    placeholder="e.g. Learn full stack development with unlimited mentorship..."
-                    rows={3}
-                    className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring resize-none"
-                    data-testid="input-seo-description"
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    {seoMeta.description.length}/160 characters (recommended)
-                  </p>
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-xs font-medium text-foreground" htmlFor="seo-og-image">
-                    Social Image (og:image)
-                  </label>
-                  <div className="flex gap-2 flex-wrap">
-                    <input
-                      id="seo-og-image"
-                      type="url"
-                      value={seoMeta.og_image}
-                      onChange={(e) => {
-                        setSeoMeta({ ...seoMeta, og_image: e.target.value });
-                        setOgImageError(false);
-                        setOgImageTooSmall(false);
-                      }}
-                      placeholder="e.g. https://4geeks.com/images/social-preview.jpg"
-                      className="flex-1 min-w-0 px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                      data-testid="input-seo-og-image"
-                    />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setImagePickerOpen(true)}
-                      data-testid="button-seo-og-image-picker"
-                    >
-                      <IconPhoto className="h-4 w-4 mr-1.5" />
-                      Choose from gallery
-                    </Button>
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <IconSearch className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                    <h4 className="text-sm font-semibold">Search Snippet</h4>
                   </div>
-                  <p className="text-xs text-muted-foreground">
-                    Image shown when the page is shared on social media. Recommended size: 1200×630 px.
-                  </p>
-                  {seoMeta.og_image && (
-                    <>
-                      <div className="mt-1.5 rounded-md border bg-muted max-h-[120px] flex items-center justify-center overflow-hidden" style={{ aspectRatio: "1200/630" }}>
-                        {ogImageError ? (
-                          <p className="text-xs text-muted-foreground px-4 text-center" data-testid="text-og-image-error">
-                            Could not load image — check that the URL is publicly accessible.
-                          </p>
-                        ) : (
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    onClick={() => setSnippetEditing(e => !e)}
+                    data-testid="button-toggle-snippet-edit"
+                    title={snippetEditing ? "Show preview" : "Edit snippet"}
+                  >
+                    <IconPencil className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
+
+                {!snippetEditing ? (
+                  /* ── Preview card ── */
+                  <div className="space-y-3">
+                    {/* Google SERP preview */}
+                    <div
+                      className="rounded-md border bg-background px-4 py-3 space-y-0.5 cursor-pointer hover-elevate"
+                      onClick={() => setSnippetEditing(true)}
+                      data-testid="card-serp-preview"
+                      title="Click to edit"
+                    >
+                      <p className="text-[11px] text-[#0d652d] dark:text-[#81c995] truncate" data-testid="text-serp-breadcrumb">
+                        {snippetBreadcrumb || "your-site.com"}
+                      </p>
+                      <p className="text-sm font-medium text-[#1558d6] dark:text-[#8ab4f8] leading-snug line-clamp-1" data-testid="text-serp-title">
+                        {seoMeta.page_title || <span className="text-muted-foreground italic font-normal">No title set — click to edit</span>}
+                      </p>
+                      <p className="text-xs text-[#4d5156] dark:text-[#bdc1c6] line-clamp-2 leading-relaxed" data-testid="text-serp-description">
+                        {seoMeta.description || <span className="italic">No description set — click to edit</span>}
+                      </p>
+                    </div>
+
+                    {/* Social / OG card preview */}
+                    <div
+                      className="rounded-md border overflow-hidden cursor-pointer hover-elevate"
+                      onClick={() => setSnippetEditing(true)}
+                      data-testid="card-og-preview"
+                      title="Click to edit social image"
+                    >
+                      <div className="bg-muted flex items-center justify-center overflow-hidden" style={{ aspectRatio: "1200/630", maxHeight: "140px" }}>
+                        {seoMeta.og_image && !ogImageError ? (
                           <img
                             src={seoMeta.og_image}
                             alt="og:image preview"
@@ -350,17 +330,143 @@ export function SeoModal({
                             }}
                             data-testid="img-og-image-preview"
                           />
+                        ) : (
+                          <div className="flex flex-col items-center gap-1.5 text-muted-foreground">
+                            <IconPhoto className="h-6 w-6" />
+                            <p className="text-xs">{ogImageError ? "Could not load image" : "No social image set"}</p>
+                          </div>
                         )}
                       </div>
-                      {ogImageTooSmall && !ogImageError && (
-                        <p className="text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1 mt-1" data-testid="text-og-image-too-small">
-                          <IconAlertTriangle className="h-3 w-3 flex-shrink-0" />
-                          Image is smaller than the recommended 1200×630 px — it may appear blurry or cropped when shared on social media.
+                      <div className="px-3 py-2 border-t bg-muted/40">
+                        <p className="text-[10px] text-muted-foreground uppercase tracking-wider">{snippetDomain || "your-site.com"}</p>
+                        <p className="text-xs font-medium line-clamp-1 text-foreground mt-0.5" data-testid="text-og-card-title">
+                          {seoMeta.page_title || <span className="text-muted-foreground italic font-normal">No title</span>}
                         </p>
+                        <p className="text-[11px] text-muted-foreground line-clamp-1 mt-0.5" data-testid="text-og-card-description">
+                          {seoMeta.description || ""}
+                        </p>
+                      </div>
+                    </div>
+                    {ogImageTooSmall && !ogImageError && seoMeta.og_image && (
+                      <p className="text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1" data-testid="text-og-image-too-small">
+                        <IconAlertTriangle className="h-3 w-3 flex-shrink-0" />
+                        Social image is smaller than 1200×630 px — it may appear blurry or cropped.
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  /* ── Edit form ── */
+                  <div className="space-y-3">
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-medium text-foreground" htmlFor="seo-page-title">
+                        Page Title
+                      </label>
+                      <input
+                        id="seo-page-title"
+                        type="text"
+                        value={seoMeta.page_title}
+                        onChange={(e) => setSeoMeta({ ...seoMeta, page_title: e.target.value })}
+                        placeholder="e.g. Full Stack Developer Program | 4Geeks"
+                        className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                        data-testid="input-seo-page-title"
+                        autoFocus
+                      />
+                      <p className={`text-xs ${seoMeta.page_title.length > 60 ? "text-amber-600 dark:text-amber-400" : "text-muted-foreground"}`}>
+                        {seoMeta.page_title.length}/60 characters (recommended)
+                      </p>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-medium text-foreground" htmlFor="seo-description">
+                        Description
+                      </label>
+                      <textarea
+                        id="seo-description"
+                        value={seoMeta.description}
+                        onChange={(e) => setSeoMeta({ ...seoMeta, description: e.target.value })}
+                        placeholder="e.g. Learn full stack development with unlimited mentorship..."
+                        rows={3}
+                        className="w-full px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring resize-none"
+                        data-testid="input-seo-description"
+                      />
+                      <p className={`text-xs ${seoMeta.description.length > 160 ? "text-amber-600 dark:text-amber-400" : "text-muted-foreground"}`}>
+                        {seoMeta.description.length}/160 characters (recommended)
+                      </p>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-medium text-foreground" htmlFor="seo-og-image">
+                        Social Image (og:image)
+                      </label>
+                      <div className="flex gap-2 flex-wrap">
+                        <input
+                          id="seo-og-image"
+                          type="url"
+                          value={seoMeta.og_image}
+                          onChange={(e) => {
+                            setSeoMeta({ ...seoMeta, og_image: e.target.value });
+                            setOgImageError(false);
+                            setOgImageTooSmall(false);
+                          }}
+                          placeholder="e.g. https://4geeks.com/images/social-preview.jpg"
+                          className="flex-1 min-w-0 px-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                          data-testid="input-seo-og-image"
+                        />
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setImagePickerOpen(true)}
+                          data-testid="button-seo-og-image-picker"
+                        >
+                          <IconPhoto className="h-4 w-4 mr-1.5" />
+                          Choose from gallery
+                        </Button>
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Recommended size: 1200×630 px.
+                      </p>
+                      {seoMeta.og_image && (
+                        <>
+                          <div className="mt-1.5 rounded-md border bg-muted max-h-[120px] flex items-center justify-center overflow-hidden" style={{ aspectRatio: "1200/630" }}>
+                            {ogImageError ? (
+                              <p className="text-xs text-muted-foreground px-4 text-center" data-testid="text-og-image-error">
+                                Could not load image — check that the URL is publicly accessible.
+                              </p>
+                            ) : (
+                              <img
+                                src={seoMeta.og_image}
+                                alt="og:image preview"
+                                className="object-cover w-full h-full"
+                                onError={() => { setOgImageError(true); setOgImageTooSmall(false); }}
+                                onLoad={(e) => {
+                                  const img = e.currentTarget;
+                                  setOgImageTooSmall(img.naturalWidth < 1200 || img.naturalHeight < 630);
+                                }}
+                                data-testid="img-og-image-preview"
+                              />
+                            )}
+                          </div>
+                          {ogImageTooSmall && !ogImageError && (
+                            <p className="text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1 mt-1" data-testid="text-og-image-too-small">
+                              <IconAlertTriangle className="h-3 w-3 flex-shrink-0" />
+                              Image is smaller than the recommended 1200×630 px — it may appear blurry or cropped when shared on social media.
+                            </p>
+                          )}
+                        </>
                       )}
-                    </>
-                  )}
-                </div>
+                    </div>
+
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => setSnippetEditing(false)}
+                      data-testid="button-snippet-done"
+                    >
+                      Done editing
+                    </Button>
+                  </div>
+                )}
               </div>
 
               {/* Canonical URL */}
