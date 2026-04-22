@@ -104,7 +104,7 @@ export function FAQSection({ data }: FAQSectionProps) {
       data-testid="section-faq"
       className="max-w-6xl mx-auto px-4"
     >
-      <div >
+      <div className="max-w-6xl mx-auto px-4">
         <h2 
           className="mb-8 text-center text-foreground text-[36px]"
           data-testid="text-faq-title"

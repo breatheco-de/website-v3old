@@ -240,15 +240,15 @@ sections:
       - 6
     alignment: center
     left:
-      video: https://www.youtube.com/watch?v=PWkgaAT8pHg
+      video: https://www.youtube.com/watch?v=ImB1Xdv9XVs
       justify: center
-      image_alt: "Image: Luisa-Glum-shares-her-4Geeks-experience-Income-Share-Agreement-YouTube-03-18-2026_12_21_PM"
+      image_alt: "Image: James shares his 4Geeks experience and Job Guarantee"
     right:
-      heading: "Luisa Glum: From Auto Repair Shop to Full Stack Developer"
-      sub_heading: 4Geeks Academy Graduate, Boston
-      description: Luisa was working as a maintenance technician at a repair shop in Boston. She loved cars, but realized it was a hobby, not a long-term career. She needed a path into tech that came with real support, not just a course and good luck. After completing the Full Stack program at 4Geeks, she was referred directly to her first developer job by the academy. Today she builds software for a living.
+      heading: "James: From Career Change to Tech Job, Backed by the Guarantee"
+      sub_heading: 4Geeks Academy Graduate, Miami
+      description: James had always been passionate about tech but didn't have a degree. When he decided to make the switch, he knew he needed more than a program teaching skills. He needed personalized attention, real career support, and a guarantee that his investment would pay off. He followed the process and got hired.
       button:
-        text: Start Your Application
+        text: Take the First Step
         url: "#hero-nzpyph"
         variant: primary
         icon: Rocket

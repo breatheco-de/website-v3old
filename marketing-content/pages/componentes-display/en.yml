@@ -1,23 +1,46 @@
 slug: componentes-display
 sections:
   - type: ai_learning
-    version: "1.0"
     variant: feature-tabs
     badge: Why 4Geeks?
-    title: Why Learn with 4Geeks?
-    description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
-    video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
+    title: The Most Personalized Path to an AI Career
+    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support, every part of the experience is built around you.
     features:
       - icon: Robot
-        title: Learn with AI
-        description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
+        title: AI-powered feedback, available 24/7
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Instant feedback from Rigobot, our custom AI tutor
+          - text: Advice adjusted to your skill level and progress
+          - text: Instant help at any hour, day or night
+          - text: Hundreds of interactive coding exercises and tests
+        video_url: https://www.youtube.com/watch?v=NRuShbSLtg0
       - icon: Headset
-        title: Unlimited 1:1 mentoring sessions
-        description: Access unlimited mentorship sessions with our experts whenever you need guidance.
-      - icon: Users
-        title: Learn with the community
-        description: Learning alongside others is more fun and helps you progress faster. Join our active community.
-    section_id: ai_learning-me0rqy
+        title: Unlimited 1:1 mentorship, for life
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Lifelong access to 1:1 technical mentorship
+          - text: "7:1 student-to-mentor ratio: so your mentor knows your name"
+          - text: Weekly check-ins and peer collaboration via Slack
+          - text: Dedicated channels for coding support, job boards, and career advice
+        video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
+      - icon: TrendingUp
+        title: Career support built for the AI job market
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Lifelong 1:1 career coaching
+          - text: Resume and portfolio built to pass AI-based screening
+          - text: Interview prep and salary negotiation
+          - text: Direct referrals to our 400+ employer network
+        video_url: https://youtu.be/-2ZvlgDnltc
+    section_id: ai_learning-xiuj75
+    marginY:
+      desktop: md none
+    paddingY:
+      desktop: md sm
   - type: apply_form
     version: "1.0"
     hero:
@@ -194,18 +217,16 @@ sections:
     section_id: cards_deck-toeetc
   - type: career_support_explain
     version: v1.0
-    maxWidth:
-      desktop: 6xl
-    heading: GeekForce Career Support
-    description: Our career support program is designed to help you land your first job in tech
-    background: hsl(var(--secondary))
+    heading: How We Get You Hired. From First Day to Signed Offer.
+    description: A complete system that takes you from enrolled to employed. AI-optimized profiles, direct access to 400+ hiring partners, and 1:1 support that's with you beyond landing your first role.
+    background: hsl(var(--sidebar-background))
     tabs:
       - tab_label: Job-Ready, Faster
         layout: three_columns
-        col1_subtitle: Build a recruiter-ready profile, smarter.
+        col1_subtitle: Build a Recruiter-Ready Profile, Smarter.
         col1_description: |-
           Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
-          We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
+          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal impact.
         col1_tagline: We'll help you create tailored job search materials
         col1_boxes:
           - icon: IconBrandLinkedin
@@ -216,7 +237,7 @@ sections:
             text: Portfolio
           - icon: IconMail
             text: Cover letter
-        col2_heading: Professional Placement & Coaching
+        col2_heading: Career Strategy, Built Around You
         col2_bullets:
           - icon: IconRobot
             text: 24/7 feedback from RigoBot to audit your LinkedIn and resume
@@ -229,13 +250,13 @@ sections:
         col3_object_position: center
       - tab_label: Real Hiring Access
         layout: two_column_cards
-        title: Access the hidden job market.
-        left_text: We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
+        title: Access the Hidden Job Market.
+        left_text: Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
         left_image_id: career_team_women
         left_image_object_fit: cover
         left_image_object_position: center
         left_stat:
-          value: 250+
+          value: {{ global.number_of_hiring_partners_aprox | 250 }}+
           label: companies in 4Geeks employer network
         right_bullets:
           - icon: IconUserPlus
@@ -259,7 +280,7 @@ sections:
             alt: KPMG
       - tab_label: Proof That Converts
         layout: text_and_image
-        title: Projects that demonstrate real skill.
+        title: Projects that Demonstrate Real Skill.
         left_description: |-
           Visibility gets attention. Proof closes the gap.
           Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
@@ -275,10 +296,8 @@ sections:
         right_image_object_position: center
       - tab_label: Your Best-Fit Role
         layout: text_with_testimonials_carousel
-        title: Turn your background into an advantage.
-        left_description: |-
-          Once offers are on the table, we help you choose and negotiate with confidence.
-          Your previous experience matters. We map transferable skills, focus your job search on the right roles, and support you through salary negotiation and long-term growth.
+        title: Turn Your Background into an Advantage.
+        left_description: Your previous experience matters. We map your transferable skills, focus your search on the right roles, and when offers come, help you negotiate with confidence and choose the right one.
         left_bullets:
           - icon: IconTransfer
             text: Transferable skills mapping
@@ -294,24 +313,26 @@ sections:
             image_object_position: center
             contributor_logos:
               - image_id: clark_university
-            description: MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her endeavor.
-            achievement: She has launched her startup, is capable of hiring new tech talent, and coordinates a dev team!
+            description: MaiLinh came to 4Geeks with an entrepreneurial vision and no technical background. Today she runs her own tech startup and leads a team of developers.
+            achievement: She launched her own business and is now hiring the talent she once wanted to become.
           - image_id: martin_coimbra
             image_object_fit: cover
             image_object_position: center top
             contributor_logos:
               - image_id: logo_utec
             description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
-            achievement: He achieved a 100% salary increase.
+            achievement: His salary doubled. And he finally does work he loves.
           - image_id: melanie_galaretto
             image_object_fit: cover
             image_object_position: center
             contributor_logos:
               - image_id: logo_utec
               - image_id: bid_logo
-            description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
-            achievement: She achieved a 100% salary increase.
-    section_id: career_support_explain-damkgo
+            description: Melanie retrained as a software developer and now works remotely for a tech company, from home, in a career she chose.
+            achievement: Her salary doubled. And she works remotely, on her own terms.
+    section_id: career_support_explain-xpc3k2
+    maxWidth:
+      desktop: 6xl
     marginY:
       desktop: none md
   - type: certificate
@@ -1512,6 +1533,8 @@ sections:
     gap: lg
     rounded: true
     section_id: image_row-echjgj
+    marginY:
+      desktop: none lg
   - type: lead_form
     version: "1.0"
     variant: stacked
@@ -1547,3 +1570,836 @@ sections:
     success:
       message: Thanks! We'll contact you within 24 hours.
     section_id: lead_form-nsi9ec
+    marginY:
+      desktop: none lg
+  - type: numbered_steps
+    version: "1.0"
+    title: How the Refund Works
+    description: Our commitment to your success is backed by a simple, transparent refund policy. If you've put in the work and followed our proven methodology, but haven't landed a job within 180 days of graduation, you're eligible for a full tuition refund.
+    description_link:
+      text: Conditions Apply.
+      url: /terms-and-conditions
+    background: bg-muted/30
+    steps:
+      - icon: School
+        text: Complete our intensive coding bootcamp and graduate within 180 days of your program start date.
+      - icon: Briefcase
+        text: Actively apply for jobs using our career services, attend all coaching sessions, and follow our job search methodology.
+      - icon: Cash
+        text: If you haven't received a qualifying job offer within 180 days of graduation, request your full tuition refund.
+    section_id: numbered_steps-pegmvh
+  - type: numbered_steps
+    version: "1.0"
+    variant: verticalCards
+    title: How the Refund Works
+    description: "We've made it simple: if you complete all the required steps, and you don't land a qualifying job within 9 months after graduation, we'll refund 100% of your tuition."
+    description_link:
+      text: Conditions Apply.
+      url: /terms
+    background: bg-muted/30
+    bullet_icon: Check
+    bullet_icon_color: text-primary
+    steps:
+      - icon: ClipboardX
+        title: Not Hired Within 9 Months
+        text: You were not hired into a qualifying role within 9 months of graduation.
+      - icon: UserSearch
+        title: Requirements Verified
+        text: Our team verifies that you met all Job Guarantee requirements.
+        bullets:
+          - Completed all coursework and projects
+          - Attended all career sessions
+          - Applied to minimum required jobs
+      - icon: CashBanknote
+        title: Receive Your Refund
+        text: Once verified, we process your 100% tuition refund within 30 days.
+    section_id: numbered_steps-odmxtc
+  - type: partnership_carousel
+    version: v1.0
+    variant: split-card
+    vertical_cards: true
+    heading: Our Global Partnerships
+    subtitle: Collaborating with leading institutions to bring coding education worldwide
+    background: bg-primary/5
+    slides:
+      - image_id: costa_rica_city
+        object_position: 100% 80%
+        title: CRUSA Forte Scholarship
+        subtitle: Empowering Costa Rican talent through tech education
+        description: United Wkforce Project=nd training to Miami-Dade County residents and is made possible by a multi-million gift from philanthropist Mackenzie Scott. Admitted students will receive coding training with no upfront costs.
+        stats:
+          - value: 200+
+            label: Scholarships awarded
+          - value: 85%
+            label: Employment rate
+        institution_logos:
+          - image_id: logo_crusa
+            alt: CRUSA Foundation
+            logo_height: 50px
+          - image_id: logo_utec
+            alt: CRUSA Foundation
+            logo_height: 50px
+          - image_id: bid_logo
+            alt: BID logo
+            logo_height: 50px
+        press_references:
+          - url: https://example.com/article-1
+            source: La Nación
+          - text: 4Geeks Academy and CRUSA Foundation partner to bring tech education to Costa Rica
+            url: https://example.com/article-1
+            source: La Nación
+        cta:
+          text: Learn More
+          url: /en/costa-rica
+          variant: primary
+      - image_id: united_way_event
+        object_position: 100% 80%
+        title: CRUSA Forte Scholarship
+        subtitle: Empowering Costa Rican talent through tech education
+        description: In colith hi In collaboration with Forte and Crusa, 4Geeks As, focusing on women from areas with hi In collaboration with Forte and Crusa, 4Geeks As, focusing on women from areas with hi from areas with hi on women from areas with high unemployment. Through the program, participants receive free training, enabling them to access better jobs in the 4.0 industry and contribute to the country's economic growth.
+        stats:
+          - value: 200+
+            label: Scholarships awarded
+          - value: 85%
+            label: Employment rate
+        institution_logos:
+          - image_id: logo_crusa
+            alt: CRUSA Foundation
+            logo_height: 50px
+          - image_id: logo_utec
+            alt: CRUSA Foundation
+            logo_height: 50px
+          - image_id: bid_logo
+            alt: BID logo
+            logo_height: 50px
+        press_references:
+          - text: 4Geeks Academy and CRUSA Foundation partner to bring tech education to Costa Rica
+            url: https://example.com/article-1
+            source: La Nación
+          - text: 4Geeks Academy and CRUSA Foundation partner to bring tech education to Costa Rica
+            url: https://example.com/article-1
+            source: La Nación
+        cta:
+          text: Learn More
+          url: /en/costa-rica
+          variant: primary
+      - image_id: uruguay_city
+        object_position: 10% 80%
+        title: Uruguay Tech Initiative
+        subtitle: Expanding coding education across Latin America
+        description: Our expansion to Uruguay brings world-class coding education to Montevideo, partnering with local institutions to develop a thriving tech ecosystem in the region.
+        stats:
+          - value: "3"
+            label: Campuses
+          - value: 500+
+            label: Graduates
+        institution_logos:
+          - image_id: united_way_event
+            alt: United Way Miami
+            logo_height: 40px
+        press_references:
+          - text: United Way and 4Geeks bring free coding bootcamp to underserved communities
+            url: https://example.com/article-2
+            source: Miami Herald
+        cta:
+          text: Explore Uruguay
+          url: /en/uruguay
+          variant: outline
+    section_id: partnership_carousel-dinmgc
+  - type: pricing
+    version: "1.0"
+    variant: product
+    title: Finance Your Investment
+    subtitle: We offer multiple ways to fund your enrollment. Choose the option that works best for you.
+    discount_text: "Full Payment Discount: Save 10% with upfront payment."
+    financing_text: "Credit-Based Financing: starting below"
+    financing_amount: $299
+    tech_icons:
+      - html
+      - css
+      - javascript
+      - react
+      - python
+      - nodejs
+      - git
+      - bootstrap
+      - api
+      - settings
+    features_title: Access hundreds of exercises, projects tutorials and courses
+    features:
+      - icon: certificate
+        text: Build your portfolio with hundreds of real-world projects.
+      - icon: cloud
+        text: Thousands of cloud-based coding challenges (no setup needed).
+      - text: AI-powered feedback as you code.
+        icon: RigobotIconTiny
+      - icon: certificate
+        text: Course certificates
+      - icon: certificate
+        text: Earn certificates from a USA certified school.
+    cta:
+      text: Apply Now
+      url: /apply
+      variant: primary
+    section_id: pricing-63b6ag
+  - type: profiles_carousel
+    version: v1.0
+    heading: What Our Partners Say
+    image_round: true
+    profiles:
+      - name: Enrique Infanzon
+        role: Dean Continuing Education @ Miami Dade College
+        image_id: enrique_infanzon
+        description: 4Geeks has been a great partner of us for the last 7 years. We have launched full-stack, web development, and AI programs successfully and we have helped more than 400 students already.
+        linkedin_url: https://www.linkedin.com/in/enriqueinfanzon
+      - name: Antonio Delgado
+        role: VP of Innovation and Technology @ Miami Dade College
+        image_id: antonio_delgado
+        description: We have recently launched the Miami Tech Coalition and 4Geeks is again showing up with a program and dedication that allows everyone involved to rely on their experience and program quality.
+        linkedin_url: https://www.linkedin.com/in/antoniodelgadofornaguera
+      - name: Vanessa Benavides
+        role: Vice-President @ United Way Miami
+        description: Together with 4Geeks we have successfully launched the Miami Workforce Project for the benefit of Miami-Dade County residents and we have created a great and positive impact.
+        linkedin_url: https://www.linkedin.com/in/vanessa-benavides-2a78849/
+      - name: Dug Jones
+        role: Program Director for Workforce Grants @ Clark University
+        image_id: dug_jones
+        description: We have a solid partnership focused on providing partial scholarships for students unemployed or underemployed, and we have exceeded by far the expectation we set at the beginning.
+        linkedin_url: https://www.linkedin.com/in/dugjones/
+      - name: Juan Carlos Navarro
+        role: Principal Leader of Science and Technology @ IDB
+        image_id: juancarlos_navarro
+        description: 4Geeks has been awarded by the IDB as the Coding School designated to carry on the responsibility of providing top-quality coding programs in Costa Rica and Uruguay.
+        linkedin_url: https://www.linkedin.com/in/juan-carlos-navarro-08948a8/
+      - name: Anahí Lacava
+        role: Bootcamp Project Leader in Digital Skills @ UTEC
+        image_id: anahi_lacava
+        description: Since 2021 we have been working on full-stack software development programs and on the launch of the first Artificial Intelligence and Machine Learning program in all of Latin America.
+        linkedin_url: https://www.linkedin.com/in/anah%C3%AD-lacava-melgratti/
+    section_id: profiles_carousel-h8j182
+  - type: profiles_carousel
+    version: v1.0
+    heading: Meet the Geeks
+    description: Our team is dedicated, highly skilled, and always ready to support you on your journey into tech. They provide all the guidance and encouragement you need to launch a successful new career.
+    image_round: false
+    profiles:
+      - name: Alejandro Sánchez
+        role: Co-Founder & Technology Director
+        image_id: alejandro_sanchez
+        linkedin_url: https://www.linkedin.com/in/alesanchezr/
+      - name: Marcelo Ricigliano
+        role: Co-founder & CEO
+        image_id: marcelo_ricigliano
+        linkedin_url: https://www.linkedin.com/in/marcelo-ricigliano-32440379/
+      - name: Alissa Landra
+        role: Campus & Growth Manager USA
+        image_id: alissalandra
+        linkedin_url: https://www.linkedin.com/in/alissalandra/
+      - name: Victor Manuel Gómez Pérez
+        role: Regional Manager Europe
+        image_id: victor_gomez
+        linkedin_url: https://www.linkedin.com/in/victormgomezp/
+      - name: Pablo Bullor
+        role: Program Manager LATAM
+        image_id: pablo_bullor
+        linkedin_url: https://www.linkedin.com/in/pablobullor/
+      - name: Laura Magallanes
+        role: Program Manager USA
+        image_id: laura
+        linkedin_url: https://www.linkedin.com/in/laura-magallanes-dev/
+      - name: Valentina Ancieta
+        role: Workforce Development Manager USA & LATAM
+        image_id: valentina_ancieta
+        linkedin_url: https://www.linkedin.com/in/valentinaancieta/
+      - name: Valentina Botana
+        role: Career Support Coordinator USA & LATAM
+        image_id: valentina_botana
+        linkedin_url: https://www.linkedin.com/in/valentina-botana/
+      - name: Martha López
+        role: Culture & Recruitment Analyst
+        image_id: martha_lopez
+        linkedin_url: https://www.linkedin.com/in/martha-lópez-929b55145/
+      - name: Ariana Sánchez
+        role: Culture & Talent Leader
+        image_id: ariana_sanchez
+        linkedin_url: https://www.linkedin.com/in/ariana-sánchez-7720aa78/
+    section_id: profiles_carousel-03nr0h
+  - type: project_showcase
+    version: "1.0"
+    project_title: WonderTracker
+    description: A platform capable of keeping your travel information and documents saved in an absolute secure system. It also lets you track places where you have been, and gather information that you thought was important to save for as long as you want - all in just one place.
+    creators:
+      - name: Fernando Funes
+        github_url: https://github.com/fernandofunes
+      - name: George Mihov
+        github_url: https://github.com/georgemihov
+        linkedin_url: https://linkedin.com/in/georgemihov
+    media:
+      - type: video
+        src: OZfv9kYl0_o
+      - type: image
+        src: https://storage.googleapis.com/4geeks-academy-website/media/Screenshot_2023-05-11_at_5.59_1_1765310496047.png
+        alt: Project screenshot
+      - type: image
+        src: https://storage.googleapis.com/4geeks-academy-website/media/image_1765310359129.png
+        alt: Project demo
+    media_position: left
+    section_id: project_showcase-fwdusb
+  - type: projects
+    version: "1.0"
+    title: Learn by building **real-life projects**
+    subtitle: "When learning at your own pace, having access to video tutorials, code examples, and continuous, real-time feedback is crucial to succeed. The tasks you'll tackle will closely resemble those encountered in a real-world tech position. Here's a glimpse of what you'll be working on:"
+    items:
+      - title: Machine Learning Final Project
+        description: "Learn to build your own end-to-end Machine Learning project: define a real-world problem, collect and process data, train and optimize a model, and deploy a web app to showcase it. Work collaboratively, apply your skills, and present your solution like a pro!"
+        image: ml-final-project
+        tags:
+          - HEROKU.COM
+          - DATA SCIENCE
+          - SQL
+          - SEABORN
+          - STREAMLIT
+          - SCIKIT-LEARN
+          - MATPLOTLIB
+          - WEB SCRAPING
+          - MACHINE LEARNING
+          - RENDER
+        duration: 2 HOURS
+        date: 16/1/2023
+        difficulty: easy
+      - title: ML web app using Streamlit tutorial
+        description: Use Streamlit to build an interactive web application that integrates a machine learning model. This will allow users to input data, make predictions, and visualize results in a user-friendly interface.
+        image: streamlit-render
+        tags:
+          - DATA SCIENCE
+          - MACHINE LEARNING
+        duration: 1 HOURS
+        date: 16/1/2023
+        difficulty: easy
+      - title: ML web app using Flask tutorial
+        description: Learn how to train and optimize a machine learning model, build a Flask web app to interact with it, and deploy the full application on Render. This hands-on project walks you through data exploration, model creation, app development, and cloud deployment step by step.
+        image: flask-render
+        tags:
+          - DATA SCIENCE
+          - SCIKIT-LEARN
+          - MACHINE LEARNING
+          - RENDER
+          - TENSORFLOW
+          - KERAS
+        duration: 1 HOURS
+        date: 8/2/2023
+        difficulty: easy
+    section_id: projects-23tof5
+  - type: split_cards
+    version: v1.0
+    variant: primary-left
+    background: muted
+    primary:
+      badge: Results-Backed Promise
+      heading: The Confidence of a Job Guarantee
+      description: "The strongest proof that we believe in our model? We back it with a Job Guarantee. Most schools promise \"career support.\" At 4Geeks, we promise results: get hired within 9 months, or we refund your tuition in full. Conditions apply."
+    secondary:
+      benefits:
+        - text: Our curriculum is industry-aligned and AI-ready
+        - text: Our mentorship is unlimited and personalized
+        - text: Our career support never expires
+    section_id: split_cards-mbp98n
+    marginY:
+      desktop: none lg
+  - type: syllabus
+    version: "1.0"
+    variant: program-modules
+    program_title: What You'll Build
+    program_description: From day one, you'll work on real projects that prepare you for a career in tech.
+    tech_logos:
+      - name: React
+        icon: react
+      - name: Python
+        icon: python
+      - name: Node.js
+        icon: nodejs
+      - name: Git
+        icon: git
+    module_cards:
+      - title: Foundation
+        duration: Weeks 1-4
+        objectives:
+          - HTML & CSS fundamentals
+          - JavaScript basics
+          - Version control with Git
+        projects: Build your first responsive website
+        orientation: vertical
+        icon: IconRocket
+      - title: Frontend Mastery
+        duration: Weeks 5-8
+        objectives:
+          - React component architecture
+          - State management
+          - API integration
+        projects: Create a full React application
+        orientation: horizontal
+        icon: IconLayoutDashboard
+      - title: Backend Development
+        duration: Weeks 9-12
+        objectives:
+          - Python fundamentals
+          - REST API design
+          - Database integration
+        projects: Build a complete API server
+        orientation: vertical
+        icon: IconServer
+      - title: Full Stack Integration
+        duration: Weeks 13-16
+        objectives:
+          - Connect frontend to backend
+          - Authentication flows
+          - Deployment strategies
+        projects: Launch your capstone project
+        orientation: horizontal
+        icon: IconStack2
+    section_id: syllabus-29bmnv
+  - type: testimonials
+    version: v1.0
+    title: What Our Students Say
+    subtitle: Real stories from graduates who transformed their careers
+    rating_summary:
+      average: "4.9"
+      count: 2,847
+    items:
+      - name: Maria Rodriguez
+        role: Software Engineer
+        company: Google
+        rating: 5
+        comment: This program changed my life. I went from zero coding experience to landing my dream job in 6 months.
+        outcome: Hired in 4 months
+      - name: James Chen
+        role: Full Stack Developer
+        company: Spotify
+        rating: 5
+        comment: The mentorship was incredible. Having unlimited access to senior developers made all the difference.
+        outcome: 3x salary increase
+      - name: Sarah Williams
+        role: Frontend Developer
+        company: Meta
+        rating: 5
+        comment: The AI-powered learning tools helped me understand complex concepts faster than any other course I've tried.
+        outcome: Career change at 35
+      - name: Carlos Mendez
+        role: Backend Engineer
+        company: Amazon
+        rating: 4
+        comment: Practical projects and real-world scenarios prepared me better than my computer science degree.
+        outcome: Remote work achieved
+      - name: Emily Thompson
+        role: DevOps Engineer
+        company: Netflix
+        rating: 5
+        comment: The career support team helped me negotiate a 50% higher salary than I expected.
+        outcome: 50% salary boost
+      - name: David Kim
+        role: Tech Lead
+        company: Uber
+        rating: 5
+        comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
+        outcome: Promoted in 1 year
+    section_id: testimonials-7rt1dj
+  - type: testimonials_slide
+    version: "1.0"
+    title: Real Careers Start Here — Just Ask Our Students
+    description: Our grads are in high demand, with over 84% hired within six months of finishing the program.
+    testimonials:
+      - name: Loretta Thompson
+        img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
+        status: Graduated
+        country:
+          name: United States of America
+          iso: us
+        contributor: United Way Miami
+        description: Loretta joined in 2022 and graduated in 2023. She already found a job within the next few months and has fulfilled the whole circle of skills+job that we all want to complete!
+        achievement: She got a 45% increase in her salary
+      - name: Rich Akers
+        img: https://storage.googleapis.com/4geeks-academy-website/media/Akers_1764725327796.jpeg
+        status: Graduated
+        country:
+          name: United States of America
+          iso: us
+        contributor: Clark University
+        description: Richard is a great developer that just transitioned from a different background and is now working as a web dev in the tech field.
+        achievement: He got a 30% increase in his salary
+      - name: MaiLinh Tran
+        img: https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh_1764725334980.png
+        status: Graduated
+        country:
+          name: United States of America
+          iso: us
+        contributor: Clark University
+        description: An entrepreneur with a passion for technology is now focusing on the dev side of their endeavour.
+        achievement: She has launched her startup, is capable of hiring new tech talent and coordinates a dev team!
+      - name: Jorge Martín Coimbra
+        img: https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        status: Graduated
+        country:
+          name: Uruguay
+          iso: uy
+        contributor: UTEC-BID
+        description: Martín joined the first program that we launched together with UTEC and IDB. He got a better paying job, a career that he is passionate about and a new professional life.
+        achievement: He got a 100% increase in his salary
+      - name: Jean St. Cloud
+        img: https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        status: Graduated
+        country:
+          name: United States of America
+          iso: us
+        contributor: Clark
+        description: Jean is transitioning from other industries (Music) and is finding his way into Tech. He got it with the support of Clark University and is already performing as a developer and a Mentor.
+        achievement: He got a 100% increase in his salary
+      - name: Alexandra Espinoza
+        img: https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+        status: Graduated
+        country:
+          name: Costa Rica
+          iso: cr
+        contributor: CINDE-BID
+        description: Alexandra came from a total different background is been a huge revelation for her and everyone around her. She is now a successful and talented software developer in Costa Rica.
+        achievement: She got a 100% increase in her salary
+      - name: Gabriel Salazar
+        img: https://storage.googleapis.com/4geeks-academy-website/media/GabrielSalazar_1764725392872.jpeg
+        status: Graduated
+        country:
+          name: Costa Rica
+          iso: cr
+        contributor: CINDE-BID
+        description: Gabriel was already a support specialist at Microsoft and after completing the program he was able to achieve a new position within Microsoft where he is now working as a Software Engineer.
+        achievement: He got a 50% increase in his salary
+      - name: Laura Magallanes
+        img: https://storage.googleapis.com/4geeks-academy-website/media/Laura_1764725397398.jpeg
+        status: Graduated
+        country:
+          name: Uruguay
+          iso: uy
+        contributor: UTEC-BID
+        description: Laura is just extraordinary. From a little town in Uruguay with no experience in Coding, she is now a woman head of household, an Instructor and a Program Coordinator.
+        achievement: She got a 120% increase in her salary
+      - name: Melanie Galaretto
+        img: https://storage.googleapis.com/4geeks-academy-website/media/MelamnieGalaretto_1764725408397.jpeg
+        status: Graduated
+        country:
+          name: Uruguay
+          iso: uy
+        contributor: UTEC-BID
+        description: Melanie is a young professional who is dreaming of achieving a life that now she owns. She is a resourceful and committed software developer working for a software firm in her home country.
+        achievement: She got a +100% increase in her salary
+      - name: Natia Lombardo
+        img: https://storage.googleapis.com/4geeks-academy-website/media/NatiaLombardo_1764725413363.jpeg
+        status: Graduated
+        country:
+          name: Uruguay
+          iso: uy
+        contributor: UTEC-BID
+        description: Natia is a philosopher and a software developer. Currently working as a QA Engineer of a huge and successful International firm.
+      - name: Luis Larraburo
+        img: https://storage.googleapis.com/4geeks-academy-website/media/LuisLarraburo_1764725418057.jpeg
+        status: Graduated
+        country:
+          name: Costa Rica
+          iso: cr
+        contributor: CINDE-BID
+        description: Luis came to the program without any previous experience, He is now a software developer working on a tech firm in Costa Rica.
+        achievement: He got a 50% increase in his salary
+      - name: Leandro Matonte
+        img: https://storage.googleapis.com/4geeks-academy-website/media/Leandro_1764725403142.jpeg
+        status: Graduated
+        country:
+          name: Uruguay
+          iso: uy
+        contributor: UTEC-BID
+        description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
+        achievement: He got a 60% increase in his salary
+    section_id: testimonials_slide-l0mnon
+  - type: trust_cards
+    version: v1.0
+    title: Trusted by Students Worldwide
+    items:
+      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+        rating: 4.9
+        review_count: 2,847 reviews
+        trusted_text: Verified Reviews
+      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        rating: 4.8
+        review_count: 1,523 reviews
+        trusted_text: Top Rated Program
+      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        rating: 4.9
+        review_count: 987 reviews
+        trusted_text: Verified Reviews
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 987 reviews
+        trusted_text: Verified Reviews
+    name: Default Trust Cards
+    description: Four review platform cards with ratings
+    section_id: trust_cards-8rsngq
+  - type: two_column
+    version: v1.0
+    variant: benefitCards
+    stacked_header: true
+    background: bg-muted/30
+    title: Making Tech Careers Accessible
+    subtitle: "Tech careers change lives, and we believe finances should never hold anyone back. That's why we've built some of the most flexible, student-friendly options in the industry:"
+    benefit_items:
+      - icon: CurrencyDollar
+        title: Affordable Tuition
+        description: Among the most affordable tuition of any top-ranked bootcamp (recognized by Forbes).
+      - icon: CreditCard
+        title: Flexible Financing
+        description: Financing options start at $150/month with 0% interest available for qualified applicants.
+      - icon: Briefcase
+        title: Pay After You Get Hired
+        description: Our Income Share Agreement lets you pay only after landing a job making $40k+/year.
+      - icon: Gift
+        title: Scholarships Available
+        description: Merit and need-based scholarships available for qualifying students.
+    right:
+      image: /images/students-learning.jpg
+      image_alt: Students learning in classroom
+    cta_button:
+      text: Explore Financing Options
+      url: /financing
+      variant: primary
+    section_id: two_column-d8z8pe
+  - type: two_column
+    version: v1.0
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    gap: "8"
+    left:
+      video: "-2ZvlgDnltc"
+      justify: center
+    right:
+      heading: See It In Action
+      sub_heading: Watch how our platform transforms careers
+      description: Our AI-powered learning platform adapts to your pace and style, providing personalized guidance every step of the way.
+      button:
+        text: Start Free Trial
+        url: /signup
+        variant: primary
+        icon: Rocket
+    section_id: two_column-i4u5kf
+  - type: two_column
+    version: v1.0
+    proportions:
+      - 5
+      - 7
+    background: bg-muted/30
+    alignment: center
+    gap: "12"
+    reverse_on_mobile: true
+    left:
+      image: https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop
+      image_alt: Team collaborating on a project
+      justify: center
+    right:
+      heading: Why Choose Us
+      description: We provide comprehensive support for your learning journey from day one to career success.
+      bullets:
+        - text: Personalized mentorship from industry experts
+        - text: Flexible learning schedule that fits your life
+        - text: Real-world projects to build your portfolio
+        - text: Career support that lasts a lifetime
+      bullet_icon: Check
+      font_size: base
+    section_id: two_column-7onvn2
+  - type: two_column_accordion_card
+    version: "1.0"
+    variant: image_background
+    title: Transform Your Career
+    description: "Start your journey into tech with our proven approach:"
+    bullets:
+      - heading: No Experience Required
+        text: Our curriculum is designed for complete beginners. We'll teach you everything from the fundamentals up.
+      - heading: Real-World Projects
+        text: Build a professional portfolio with projects that showcase your skills to potential employers.
+      - heading: Lifetime Access
+        text: Keep access to all course materials and community support even after you graduate.
+    footer: Over 10,000 graduates have launched new careers with us.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/community-support-2_1765406601448.webp
+    image_alt: Student learning with mentor support
+    reverse: true
+    section_id: two_column_accordion_card-7mie6y
+  - type: two_column_accordion_card
+    version: "1.0"
+    variant: image_background
+    title: Master AI Engineering Skills
+    description: "Our comprehensive program prepares you for the future of technology:"
+    bullets:
+      - heading: Hands-on Projects
+        text: Build real-world AI applications from day one. Work with cutting-edge tools and frameworks used by industry leaders.
+      - heading: Expert-Led Curriculum
+        text: Learn from practitioners who work with AI daily. Our curriculum is continuously updated to reflect the latest advancements.
+      - heading: Career Acceleration
+        text: Get personalized career support including resume reviews, interview prep, and direct connections to hiring partners.
+    footer: Join thousands of graduates now working at top tech companies.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/feliz-empresario-laptop_1765406479465.png
+    image_alt: Student working on AI project
+    section_id: two_column_accordion_card-6zoicn
+  - type: value_proof_panel
+    version: v1.0
+    stacked_header: true
+    title: Recognized Globally for Excellence
+    subtitle: We don't just say we deliver — recognition from trusted sources proves our worth.
+    background: bg-muted/30
+    evidence_items:
+      - icon: Trophy
+        title: Top 5 Coding Bootcamps Worldwide
+        source: Newsweek, Forbes, SwitchUp, Course Report
+      - icon: Award
+        title: Best Student Support & Best Value
+        source: Course Report, SwitchUp
+      - icon: Users
+        title: 35,000+ Graduates Across 20+ Countries
+        description: A global community of successful tech professionals
+    media:
+      type: image
+      src: /images/students-learning.jpg
+      alt: Students collaborating in classroom
+      aspect_ratio: "4:3"
+      style: rounded
+    section_id: value_proof_panel-ot1yqw
+    marginY:
+      desktop: none lg
+  - type: value_proof_panel
+    version: v1.0
+    title: Officially Certified & Accredited
+    subtitle: Our programs meet rigorous industry standards and partner requirements.
+    evidence_items:
+      - icon: ShieldCheck
+        title: State-Licensed Institution
+        description: Fully licensed to operate as an educational institution
+        source: 12+ U.S. State Education Departments
+      - icon: BuildingBank
+        title: VA Approved for GI Bill
+        description: Veterans can use their GI Bill benefits for our programs
+        source: U.S. Department of Veterans Affairs
+      - icon: Briefcase
+        title: WIOA Eligible Provider
+        description: Approved for workforce development funding assistance
+        source: Department of Labor
+    reverse_layout: true
+    section_id: value_proof_panel-oenyof
+  - type: vertical_bars_cards
+    version: "1.0"
+    title: Graduate Success Metrics
+    subtitle: Tracking our graduates' career outcomes across recent years
+    metrics:
+      - title: Job Placement Rate
+        unit: Graduates hired within 6 months
+        years:
+          - year: "2023"
+            value: 86
+            displayValue: 86%
+          - year: "2024"
+            value: 84
+            displayValue: 84%
+          - year: Mid 2025
+            value: 82
+            displayValue: 82%
+      - title: Average Salary Increase
+        unit: Compared to pre-bootcamp salary
+        years:
+          - year: "2023"
+            value: 12500
+            displayValue: $12.5k
+          - year: "2024"
+            value: 14200
+            displayValue: $14.2k
+          - year: Mid 2025
+            value: 15800
+            displayValue: $15.8k
+      - title: Days to First Job
+        unit: Average time from graduation to offer
+        years:
+          - year: "2023"
+            value: 52
+            displayValue: 52 days
+          - year: "2024"
+            value: 48
+            displayValue: 48 days
+          - year: Mid 2025
+            value: 45
+            displayValue: 45 days
+    section_id: vertical_bars_cards-ufrw26
+  - type: whos_hiring
+    version: v1.0
+    variant: carousel
+    pretitle: Customer Stories
+    title: Trusted by the world's most innovative companies
+    subtitle: See how 4Geeks empowers graduates of all backgrounds to accelerate their career growth.
+    logos:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
+        alt: Microsoft
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
+        alt: Google Developers
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
+        alt: Boats Group
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
+        alt: Meta
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
+        alt: eBay
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
+        alt: National Geographic
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
+        alt: Evernote
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
+        alt: Telefonica
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
+        alt: Twilio
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
+        alt: Uber
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
+        alt: Neo9
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
+        alt: Jooble
+    section_id: whos_hiring-yskufg
+  - type: why_learn_ai
+    version: "1.0"
+    variant: laptop-edge
+    title: Why Should I Learn to Build and Code with AI?
+    subtitle: Software Development as You Know It Will Cease to Exist
+    description: Coding with AI will become a new standard, but it's a very different profession from traditional software development. The developers who embrace AI tools now will have a significant advantage in the job market.
+    cta:
+      text: Join now!
+      url: /signup
+      variant: primary
+    section_id: why_learn_ai-brt6sr
+  - type: mentorship
+    version: v1.0
+    title: Mentorship & Support
+    subtitle: You're never alone in your learning journey
+    cards:
+      - icon: user
+        title: 1-on-1 Mentorship
+        description: Weekly sessions with experienced developers who guide you through challenges and help you grow professionally.
+      - icon: users
+        title: Career Coaching
+        description: Dedicated career coaches help you build your resume, prepare for interviews, and connect with hiring partners.
+      - icon: headset
+        title: 24/7 Community Support
+        description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
+    section_id: mentorship-iqxgbk
+  - type: mentorship
+    version: v1.0
+    title: Mentorship & Support
+    subtitle: You're never alone in your learning journey
+    cards:
+      - icon: user
+        title: 1-on-1 Mentorship
+        description: Weekly sessions with experienced developers who guide you through challenges and help you grow professionally.
+      - icon: users
+        title: Career Coaching
+        description: Dedicated career coaches help you build your resume, prepare for interviews, and connect with hiring partners.
+      - icon: headset
+        title: 24/7 Community Support
+        description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
+    section_id: mentorship-qoxgr8

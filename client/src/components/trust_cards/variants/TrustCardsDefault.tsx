@@ -51,7 +51,7 @@ interface TrustCardsProps {
 
 export default function TrustCards({ data }: TrustCardsProps) {
   return (
-    <section data-testid="section-trust-cards">
+    <section data-testid="section-trust-cards" className="max-w-6xl mx-auto px-4">
       {(data.title || data.subtitle) && (
         <div className="text-center mb-8">
           {data.title && (

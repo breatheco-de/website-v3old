@@ -107,7 +107,7 @@ sections:
   - type: sticky_cta
     section_id: sticky_cta-k7207r
     version: "1.0"
-    heading: Ready to start your tech career?
+    heading: Ready to start your AI career?
     button_label: Apply Now
     show_dismiss: false
     form:
@@ -135,6 +135,7 @@ sections:
         message: Thanks! We'll be in touch within 24 hours.
     paddingY:
       desktop: none sm
+    load: eager
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thiriving in tech.

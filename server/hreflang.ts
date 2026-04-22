@@ -1,6 +1,14 @@
 import { contentIndex } from "./content-index";
 import { getContentTypeConfig, resolveUrlPatternWithMapping } from "./content-types";
 
+function toBcp47(locale: string): string {
+  const parts = locale.split("-");
+  if (parts.length === 2) {
+    return `${parts[0]}-${parts[1].toUpperCase()}`;
+  }
+  return locale;
+}
+
 export function getBaseUrl(): string {
   if (process.env.SITE_URL) return process.env.SITE_URL.replace(/\/$/, "");
   if (process.env.REPLIT_DEV_DOMAIN) return `https://${process.env.REPLIT_DEV_DOMAIN}`;
@@ -21,7 +29,7 @@ export function generateHreflangTags(
     if (localeUrls && Object.keys(localeUrls).length >= 2) {
       const tags: string[] = [];
       for (const [locale, urlPath] of Object.entries(localeUrls)) {
-        tags.push(`<link rel="alternate" hreflang="${locale}" href="${baseUrl}${urlPath}" />`);
+        tags.push(`<link rel="alternate" hreflang="${toBcp47(locale)}" href="${baseUrl}${urlPath}" />`);
       }
       const defaultUrl = localeUrls["en"] || localeUrls[currentLocale] || Object.values(localeUrls)[0];
       if (defaultUrl) {
@@ -56,7 +64,7 @@ export function generateHreflangTags(
       }
 
       urls[locale] = resolvedUrl;
-      tags.push(`<link rel="alternate" hreflang="${locale}" href="${baseUrl}${resolvedUrl}" />`);
+      tags.push(`<link rel="alternate" hreflang="${toBcp47(locale)}" href="${baseUrl}${resolvedUrl}" />`);
     }
 
     const defaultUrl = urls["en"] || urls[currentLocale] || Object.values(urls)[0];
@@ -90,7 +98,7 @@ export function generateListingHreflangTags(
       if (!pattern) continue;
       const listingUrl = pattern.replace(/\/:[a-zA-Z_]+/g, "").replace(/\/+$/, "") || "/";
       urls[locale] = listingUrl;
-      tags.push(`<link rel="alternate" hreflang="${locale}" href="${baseUrl}${listingUrl}" />`);
+      tags.push(`<link rel="alternate" hreflang="${toBcp47(locale)}" href="${baseUrl}${listingUrl}" />`);
     }
 
     const defaultUrl = urls["en"] || urls[currentLocale] || Object.values(urls)[0];
