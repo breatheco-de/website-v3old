@@ -196,14 +196,25 @@ export function SeoModal({
                         disabled={slugRenaming}
                       />
                       {newSlugValue && newSlugValue !== currentLocaleSlug && !slugRedirectPrompt && (
-                        <Button
-                          size="sm"
-                          onClick={handleSlugRenameClick}
-                          disabled={slugCheckStatus !== "available" || slugRenaming}
-                          data-testid="button-rename-slug"
-                        >
-                          {slugRenaming ? "Renaming…" : "Apply"}
-                        </Button>
+                        <>
+                          <Button
+                            size="sm"
+                            onClick={handleSlugRenameClick}
+                            disabled={slugCheckStatus !== "available" || slugRenaming}
+                            data-testid="button-rename-slug"
+                          >
+                            {slugRenaming ? "Renaming…" : "Apply"}
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => setNewSlugValue(currentLocaleSlug)}
+                            disabled={slugRenaming}
+                            data-testid="button-reset-slug"
+                          >
+                            Reset
+                          </Button>
+                        </>
                       )}
                     </div>
                     {slugCheckStatus === "checking" && (
