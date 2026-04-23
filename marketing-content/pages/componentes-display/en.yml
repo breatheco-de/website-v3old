@@ -28,7 +28,6 @@ sections:
       - icon: TrendingUp
         title: Career support built for the AI job market
         description: ""
-        show_rigobot_logo: null
         bullets:
           - text: Lifelong 1:1 career coaching
           - text: Resume and portfolio built to pass AI-based screening
