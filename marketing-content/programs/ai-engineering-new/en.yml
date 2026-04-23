@@ -5,9 +5,7 @@ settings:
     eager_count: 3
 meta:
   page_title: AI Engineer Career Program | 4Geeks
-  description: >-
-    Become an AI Engineer in 20 weeks with unlimited 1:1 mentorship, career guidance, and hands-on projects. Launch a
-    career with $95K-$135K starting salaries.
+  description: Become an AI Engineer in 20 weeks with unlimited 1:1 mentorship, career guidance, and hands-on projects. Launch a career with $95K-$135K starting salaries.
   robots: index, follow
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
@@ -19,13 +17,11 @@ schema:
     - courses:ai-engineering
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: course
     title: AI Engineering
     title_highlight: AI Engineering
-    subtitle: >-
-      AI Engineer is the fastest-growing job of 2026. Our intensive program trains you for what the market demands,
-      backed by unlimited 1:1 mentorship and career support that doesn't stop at graduation.
+    subtitle: AI Engineer is the fastest-growing job of 2026. Our intensive program trains you for what the market demands, backed by unlimited 1:1 mentorship and career support that doesn't stop at graduation.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -44,10 +40,8 @@ sections:
       - name: Rigo
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: 'Your tutors:'
-    description: >-
-      Graduate job-ready for one of tech's fastest-growing roles — with the skills and support to land positions paying
-      $95K–$135K+.
+    tutors_label: "Your tutors:"
+    description: Graduate job-ready for one of tech's fastest-growing roles — with the skills and support to land positions paying $95K–$135K+.
     media:
       type: video
       src: https://www.youtube.com/shorts/sSxJnelPJT8
@@ -55,12 +49,10 @@ sections:
       alt: AI Engineering program introduction
     signup_card:
       title: Get the Full Program Overview
-      description: >-
-        Receive the complete 10-milestone syllabus, program structure, schedule options, tuition details, and career
-        support framework.
+      description: Receive the complete 10-milestone syllabus, program structure, schedule options, tuition details, and career support framework.
       cta_button:
         text: Send Me the Details
-        url: '#modal-ubwgcj'
+        url: "#modal-ubwgcj"
         variant: primary
       login_link:
         text: Already a student? Login here.
@@ -98,13 +90,11 @@ sections:
       - tampa-usa
       - toronto-canada
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: course
     title: AI Engineering
     title_highlight: AI Engineering
-    subtitle: >-
-      AI Engineer is the fastest-growing job of 2026. In 24 weeks, that's you — with unlimited 1:1 mentorship and career
-      support that doesn't stop at graduation.
+    subtitle: AI Engineer is the fastest-growing job of 2026. In 24 weeks, that's you — with unlimited 1:1 mentorship and career support that doesn't stop at graduation.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -123,10 +113,8 @@ sections:
       - name: Rigo
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: 'Your tutors:'
-    description: >-
-      Graduate job-ready for one of tech's fastest-growing roles — with the skills and support to land positions paying
-      $95K–$135K+.
+    tutors_label: "Your tutors:"
+    description: Graduate job-ready for one of tech's fastest-growing roles — with the skills and support to land positions paying $95K–$135K+.
     media:
       type: video
       src: https://www.youtube.com/shorts/sSxJnelPJT8
@@ -134,12 +122,10 @@ sections:
       alt: AI Engineering program introduction
     signup_card:
       title: Get the Full Program Overview
-      description: >-
-        Receive the complete 10-milestone syllabus, program structure, schedule options, tuition details, and career
-        support framework.
+      description: Receive the complete 10-milestone syllabus, program structure, schedule options, tuition details, and career support framework.
       cta_button:
         text: Send me the details
-        url: '#modal-ubwgcj'
+        url: "#modal-ubwgcj"
         variant: primary
       login_link:
         text: Already a student? Login here.
@@ -186,12 +172,10 @@ sections:
       - santiago-chile
       - quito-ecuador
   - type: modal
-    version: '1.0'
+    version: "1.0"
     section_id: modal-ubwgcj
     heading: Request Program Details
-    description: >-
-      Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and
-      support framework.
+    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
     show_close: true
     size: md
     form:
@@ -258,36 +242,45 @@ sections:
     marginY:
       desktop: md lg
   - type: features_grid
-    version: '1.0'
-    variant: stats-text
-    maxWidth:
-      desktop: 6xl
+    version: "1.0"
+    variant: stats-charts
+    subtitle: The demand is there. The talent isn't.
     title: Why AI Engineering Now
-    subtitle: The gap is real. The window is open.
-    description: >-
-      In the past two years, AI has created 1.3 million new roles globally — and only 3% of the workforce has the skills
-      to fill them. LinkedIn ranks AI Engineer among the fastest-growing jobs of 2026. The demand is there. The talent
-      isn't. Yet.
-    background: bg-muted/30
-    items:
-      - id: '1'
-        value: 42x
-        title: Growth in Forward-Deployed Engineering since 2023
-      - id: '2'
-        value: 70%
-        title: YoY growth in US jobs requiring AI skills
-      - id: '3'
-        value: {{ global.average_salary_ai_engineer | $95K-$135K }}
-        title: Average starting salary for AI Engineers
-    section_id: features_grid-mvr39c
+    description: AI has created 1.3 million new roles globally in two years. LinkedIn ranks AI Engineer the fastest-growing job of 2026. Only 3% of the workforce is qualified to fill them. That gap is your opportunity.
+    background: bg-slate-950
+    card_bars_accent: hsl(var(--color-green))
+    card_gauge_accent: hsl(var(--color-orange))
+    card_trend_accent: hsl(var(--primary))
+    card_bars:
+      badge: Jobs Market
+      title: AI jobs created vs. displaced
+      description: Annual delta · 2021-2025 · indexed
+      stat_value: +340%
+      stat_label: net new AI roles created since 2021
+      displaced_label: Displaced
+      created_label: Created by AI
+    card_gauge:
+      badge: Workforce Readiness
+      title: Who's actually ready for AI roles?
+      description: Global workforce · 2025 data
+      gauge_percentage: 3
+      gauge_label: qualified
+      stat_label: of the workforce is not ready for AI roles today
+      bar1_label: Traditional workforce
+      bar2_label: AI-ready professionals
+    card_trend:
+      badge: Demand Curve
+      title: Demand for AI engineers
+      description: Indexed job postings · 2020 → 2027 projected
+      stat_value: 1.3M
+      stat_label: new AI roles created globally in two years
+      end_label: 1.3M · 2027
+    section_id: features_grid-hudxi9
   - type: syllabus
     section_id: syllabus-7efuv7
     variant: program-modules
     program_title: AI Engineering Program Overview
-    program_description: >-
-      Learn by building and scaling a single AI-native business across 10 milestones. Graduate with a fully operational,
-      AI-powered company that reflects the skills and workflows used by modern engineering teams. Choose between a
-      24-week evening schedule and a 15-week accelerated morning track.
+    program_description: Learn by building and scaling a single AI-native business across 10 milestones. Graduate with a fully operational, AI-powered company that reflects the skills and workflows used by modern engineering teams. Choose between a 24-week evening schedule and a 15-week accelerated morning track.
     tech_logos:
       - name: React
         icon: react
@@ -424,13 +417,11 @@ sections:
     variant: feature-tabs
     badge: Why 4Geeks?
     title: The Most Personalized Path to an AI Career
-    description: >-
-      From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support — every part of the experience is
-      built around you, not a classroom of thirty.
+    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support — every part of the experience is built around you, not a classroom of thirty.
     features:
       - icon: Robot
         title: AI-powered feedback that never sleeps
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Instant feedback from Rigobot, our custom AI tutor
@@ -440,7 +431,7 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
       - icon: Headset
         title: Unlimited 1:1 mentorship, for life
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 technical mentorship
@@ -450,7 +441,7 @@ sections:
         image_id: community-support-cropped
       - icon: TrendingUp
         title: Career support built for the AI job market
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Personalized 1:1 career coaching
@@ -465,14 +456,12 @@ sections:
       desktop: md
   - type: certificate
     title: Career Outcomes
-    description: >-
-      Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Step into
-      roles paying:
+    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Step into roles paying:"
     benefits:
-      - text: 'AI Engineer: $95K–$135K'
-      - text: 'Forward-Deployed Engineer: $105K–$155K'
-      - text: 'Full-Stack Engineer (AI-Fluent): $100K–$145K'
-      - text: 'Workflow Automation Engineer: $85K–$120K'
+      - text: "AI Engineer: $95K–$135K"
+      - text: "Forward-Deployed Engineer: $105K–$155K"
+      - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
+      - text: "Workflow Automation Engineer: $85K–$120K"
     card:
       title: AI Engineer
       subtitle: 4Geeks Academy Certificate
@@ -488,28 +477,22 @@ sections:
           - text: Optimized professional profile and job-search strategy
       - value: 3-6 months
         label: Time to get hired
-        description: >-
-          Most graduates land their first role within 3–6 months. A structured 3-step career process turns your skills
-          into offers fast.
+        description: Most graduates land their first role within 3–6 months. A structured 3-step career process turns your skills into offers fast.
         benefits:
           - text: Resume, portfolio, and profiles optimized to attract recruiters and pass AI-based screening
           - text: Technical and behavioral interview preparation
           - text: Personalized job-search strategy with access to relevant hiring networks
       - value: {{ global.global_salary_increase | 55 }}%
         label: Average salary increase
-        description: >-
-          AI skills are exactly what companies can't find enough of. Step into high-priority roles with immediate growth
-          and long-term upside.
+        description: AI skills are exactly what companies can't find enough of. Step into high-priority roles with immediate growth and long-term upside.
         benefits:
-          - text: 'AI Software Engineer: {{ global.average_salary_ai_engineer | $115K–$165K }}'
-          - text: 'Forward-Deployed Engineer: {{ global.average_salary_ai_fluent_software_developer | $125K–$185K }}'
-          - text: 'Agentic Systems Engineer: {{ global.average_salary_agent_engineer | $140K–$210K }}'
-          - text: 'Workflow Automation Engineer: {{ global.average_salary_workflow_automation_engineer | $95K–$145K }}'
+          - text: "AI Software Engineer: {{ global.average_salary_ai_engineer | $115K–$165K }}"
+          - text: "Forward-Deployed Engineer: {{ global.average_salary_ai_fluent_software_developer | $125K–$185K }}"
+          - text: "Agentic Systems Engineer: {{ global.average_salary_agent_engineer | $140K–$210K }}"
+          - text: "Workflow Automation Engineer: {{ global.average_salary_workflow_automation_engineer | $95K–$145K }}"
       - value: 400+
         label: Hiring partners
-        description: >-
-          400+ companies actively hiring our graduates. Get exclusive access, priority referrals, and direct connections
-          to the people making hiring decisions.
+        description: 400+ companies actively hiring our graduates. Get exclusive access, priority referrals, and direct connections to the people making hiring decisions.
         benefits:
           - text: Exclusive job board access
           - text: Priority referrals to partner companies
@@ -528,12 +511,7 @@ sections:
   - type: features_grid
     variant: highlight
     title: Get Hired. Or Your Money Back.
-    subtitle: >-
-      Add our optional Job Guarantee* to your payment plan and graduate with total confidence. Complete the program,
-      follow the GeekFORCE career process, and if you're not hired within 9 months — we refund you.&nbsp;<div><span
-      style="font-size: 0.875rem;">*The Job Guarantee is not available in all regions. <a
-      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
-      conditions apply.</a></span></div>
+    subtitle: "Add our optional Job Guarantee* to your payment plan and graduate with total confidence. Complete the program, follow the GeekFORCE career process, and if you're not hired within 9 months — we refund you.&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
     items:
       - icon: Star
         title: Add the Job Guarantee to your payment plan
@@ -542,7 +520,7 @@ sections:
       - icon: Award
         title: Get hired within 9 months — or we refund you
     columns: 3
-    icon_color: '#0097CD'
+    icon_color: "#0097CD"
     background: hsl(var(--secondary))
     section_id: features_grid-8rz4b6
     paddingY:
@@ -567,12 +545,12 @@ sections:
       - montevideo-uruguay
       - panamacity-panama
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Tuition & Financing Options
     subtitle: Investing in a new career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: 'Full Payment Discount: Save 10% with upfront payment.'
-    financing_text: 'Credit-Based Financing: starting below'
+    discount_text: "Full Payment Discount: Save 10% with upfront payment."
+    financing_text: "Credit-Based Financing: starting below"
     financing_amount: {{ global.price_ai_engineering | $349 }}
     tech_icons:
       - openai
@@ -588,16 +566,12 @@ sections:
       - icon: IconCheck
         text: Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
-        text: >-
-          Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money
-          back.&nbsp;<div>*Not available in all regions. <a
-          href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
-          conditions apply</a>.</div>
+        text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
       - icon: IconCheck
         text: Finance your tuition with 18-month plans.
     cta:
       text: Get more info
-      url: '#modal-ubwgcj'
+      url: "#modal-ubwgcj"
       variant: primary
     section_id: pricing-oyjnax
     marginY:
@@ -628,14 +602,12 @@ sections:
       - santiago-chile
       - mexicocity-mexico
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Tuition and Financing Options
     subtitle: Investing in a new career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: 'Full payment discount: Save 10% with early payment.'
-    financing_text: >-
-      Estimated installment of €140/month financing €5,750 over 48 months (7.75% APR), after a €500 deposit and subject
-      to lender approval.*
+    discount_text: "Full payment discount: Save 10% with early payment."
+    financing_text: Estimated installment of €140/month financing €5,750 over 48 months (7.75% APR), after a €500 deposit and subject to lender approval.*
     financing_amount: 140€
     tech_icons:
       - python
@@ -650,15 +622,11 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: >-
-          Pay upfront to get a better price with an additional discount, or split your payments into 6 interest-free
-          installments through our partners.
+        text: Pay upfront to get a better price with an additional discount, or split your payments into 6 interest-free installments through our partners.
       - icon: IconCheck
         text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
       - icon: IconCheck
-        text: >-
-          We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not
-          your fees.
+        text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
     cta:
       text: Get more information
       url: /es/apply
@@ -692,49 +660,37 @@ sections:
         role: AI Engineer
         company: Google
         rating: 5
-        comment: >-
-          This course completely transformed my career. The instructors are incredibly knowledgeable and the curriculum
-          is perfectly structured for real-world AI applications.
+        comment: This course completely transformed my career. The instructors are incredibly knowledgeable and the curriculum is perfectly structured for real-world AI applications.
         outcome: +55% salary increase
       - name: Michael Chen
         role: ML Engineer
         company: Meta
         rating: 5
-        comment: >-
-          Best investment I ever made. Got a job offer before even finishing the program! The mentorship and career
-          support were invaluable.
+        comment: Best investment I ever made. Got a job offer before even finishing the program! The mentorship and career support were invaluable.
         outcome: Hired in 4 months
       - name: Emily Rodriguez
         role: AI Engineer
         company: Amazon
         rating: 5
-        comment: >-
-          Excellent content and great support from mentors. The projects were challenging but rewarding, and now I'm
-          working on cutting-edge AI.
+        comment: Excellent content and great support from mentors. The projects were challenging but rewarding, and now I'm working on cutting-edge AI.
         outcome: +100% salary increase
       - name: David Kim
         role: AI Developer
         company: Startup
         rating: 5
-        comment: >-
-          From zero AI knowledge to landing my dream job in 5 months. The structured curriculum and hands-on projects
-          made all the difference.
+        comment: From zero AI knowledge to landing my dream job in 5 months. The structured curriculum and hands-on projects made all the difference.
         outcome: Career change success
       - name: Jessica Martinez
         role: AI Engineer
         company: Spotify
         rating: 4
-        comment: >-
-          Great course with practical, real-world projects. The community is supportive and the instructors are always
-          available to help.
+        comment: Great course with practical, real-world projects. The community is supportive and the instructors are always available to help.
         outcome: +45% salary increase
       - name: Ryan Thompson
         role: ML Engineer
         company: Tech Startup
         rating: 5
-        comment: >-
-          The best online learning experience I've had. Clear explanations, practical exercises, and excellent career
-          guidance throughout.
+        comment: The best online learning experience I've had. Clear explanations, practical exercises, and excellent career guidance throughout.
         outcome: Landed first tech job
     paddingY:
       desktop: md
@@ -743,43 +699,31 @@ sections:
     title: FAQ
     items:
       - question: What prerequisites do I need for AI Engineering?
-        answer: >-
-          Basic programming knowledge is recommended but not required. Our program starts with foundational concepts and
-          builds up to advanced AI engineering. If you're new to coding, we have preparatory materials to help you get
-          started.
+        answer: Basic programming knowledge is recommended but not required. Our program starts with foundational concepts and builds up to advanced AI engineering. If you're new to coding, we have preparatory materials to help you get started.
         locations:
           - all
         related_features: []
         priority: 0
       - question: How long does the program take?
-        answer: >-
-          The AI Engineering program is designed to be completed in 20 weeks. However, as a self-paced program, you can
-          accelerate or take more time based on your schedule and learning pace.
+        answer: The AI Engineering program is designed to be completed in 20 weeks. However, as a self-paced program, you can accelerate or take more time based on your schedule and learning pace.
         locations:
           - all
         related_features: []
         priority: 0
       - question: What kind of projects will I build?
-        answer: >-
-          You'll build production-ready AI applications including RAG systems, multi-agent orchestrators, real-time AI
-          applications, and a full capstone project. All projects use real-world technologies and patterns used by top
-          companies.
+        answer: You'll build production-ready AI applications including RAG systems, multi-agent orchestrators, real-time AI applications, and a full capstone project. All projects use real-world technologies and patterns used by top companies.
         locations:
           - all
         related_features: []
         priority: 0
       - question: Do I need expensive hardware for AI development?
-        answer: >-
-          No! All exercises and projects run in the cloud. We provide access to cloud-based development environments and
-          AI APIs, so you can learn with just a laptop and internet connection.
+        answer: No! All exercises and projects run in the cloud. We provide access to cloud-based development environments and AI APIs, so you can learn with just a laptop and internet connection.
         locations:
           - all
         related_features: []
         priority: 0
       - question: Is the certificate recognized by employers?
-        answer: >-
-          Yes! Our certificate is recognized by employers worldwide. We're licensed by the Florida Department of
-          Education and have been featured by Forbes, Newsweek, and Course Report as one of the top coding bootcamps.
+        answer: Yes! Our certificate is recognized by employers worldwide. We're licensed by the Florida Department of Education and have been featured by Forbes, Newsweek, and Course Report as one of the top coding bootcamps.
         locations:
           - all
         related_features: []
@@ -804,7 +748,7 @@ sections:
           - rome-italy
           - valencia-spain
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Ready to Become an {{ single.job_role | AI Engineer }}?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
@@ -848,7 +792,7 @@ sections:
     section_id: cta_banner-h3e30q
   - type: sticky_cta
     section_id: sticky_cta-nmcllq
-    version: '1.0'
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
