@@ -839,7 +839,7 @@ sections:
       created_label: Created by AI
     card_gauge:
       badge: Workforce Readiness
-      title: Who's Ready for AI Roles?
+      title: Who's Qualified for AI Roles?
       description: Global workforce · 2025 data
       gauge_percentage: 3
       gauge_label: qualified
