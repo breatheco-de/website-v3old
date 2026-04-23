@@ -140,7 +140,7 @@ sections:
     card_gauge_accent: hsl(var(--destructive) / 0.5)
     card_trend_accent: hsl(var(--accent))
     card_bars:
-      badge: AI jobs created vs. displaced
+      badge: More New AI Roles Than Job Losses
       stat_value: +340%
       stat_label: net new AI roles created since 2022
       years:
