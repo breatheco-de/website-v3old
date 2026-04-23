@@ -19,7 +19,6 @@ sections:
       - icon: Headset
         title: Unlimited 1:1 mentorship, for life
         description: ""
-        show_rigobot_logo: null
         bullets:
           - text: Lifelong access to 1:1 technical mentorship
           - text: "7:1 student-to-mentor ratio: so your mentor knows your name"
@@ -29,7 +28,7 @@ sections:
       - icon: TrendingUp
         title: Career support built for the AI job market
         description: ""
-        show_rigobot_logo: true
+        show_rigobot_logo: null
         bullets:
           - text: Lifelong 1:1 career coaching
           - text: Resume and portfolio built to pass AI-based screening
