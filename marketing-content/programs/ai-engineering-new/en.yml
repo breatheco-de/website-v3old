@@ -695,6 +695,7 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
+    background: hsl(var(--secondary))
   - type: features_grid
     variant: highlight
     title: Get Hired. Or Your Money Back.
