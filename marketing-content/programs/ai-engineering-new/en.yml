@@ -259,7 +259,7 @@ sections:
       displaced_label: Displaced
       created_label: Created by AI
     card_gauge:
-      title: Who's qualified for AI roles?
+      title: Who's Qualified for AI Roles?
       description: Global workforce · 2025 data
       gauge_percentage: 3
       gauge_label: qualified
@@ -267,7 +267,7 @@ sections:
       bar1_label: Traditional workforce
       bar2_label: AI-ready professionals
     card_trend:
-      title: Demand is accelerating
+      title: Demand is Accelerating
       description: Indexed job postings · 2020 → 2027 projected
       stat_value: 1.3M
       stat_label: new AI roles created globally in two years
