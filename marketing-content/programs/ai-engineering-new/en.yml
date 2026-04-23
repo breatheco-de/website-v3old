@@ -708,7 +708,7 @@ sections:
         title: Get hired within 9 months, or we refund your tuition
     columns: 3
     icon_color: "#0097CD"
-    background: hsl(var(--background))
+    background: hsl(var(--secondary))
     section_id: features_grid-8rz4b6
     paddingY:
       desktop: lg none
