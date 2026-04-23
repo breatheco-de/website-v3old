@@ -824,12 +824,12 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Ready to Become an {{ single.job_role | AI Engineer }}?
-    subtitle: Limited spots available. Start your transformation today.
+    subtitle: AI Engineer is the fastest-growing job of 2026. This is your window. Join the next cohort.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply now
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
@@ -849,7 +849,7 @@ sections:
           required: true
           default: ai-engineering
       success:
-        message: Thank you! We'll be in touch soon.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       consent:
         email: true
         marketing: true
