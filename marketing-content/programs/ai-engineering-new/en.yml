@@ -731,45 +731,40 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
-  - type: credibility_strip
-    version: v1.0
-    cta: /partners
-    item_badge_shape: true
-    item_background_color: hsl(var(--muted))
-    logo_rotation_ms_time: 2000
-    items:
-      - label: University Partners
-        logos:
-          - image_id: premios_tecnologia
-            alt: Technology Awards XXI Century
-            id: premios-tecnologia
-          - image_id: logo_razz
-            alt: Razz logo
-            id: logo-razz
-          - image_id: ebootcamp_top
-            alt: eBootcamp Top Award
-            id: ebootcamp-top
-      - label: Government Programs
-        logos:
-          - image_id: bid_logo
-          - image_id: logo_jooble
-            alt: Jooble logo
-            id: logo-jooble
-          - image_id: logo_course_report
-            alt: Course Report logo
-            id: logo-course-report
-      - label: Top Ranked, Every Year
-        logos:
-          - image_id: logo_overseas
-            alt: Overseas logo
-            id: logo-overseas
-          - image_id: logo_telefonica
-            alt: Telefonica logo
-            id: logo-telefonica
-          - image_id: logo_twilio
-            alt: Twilio logo
-            id: logo-twilio
-    section_id: credibility_strip-vcpur5
+  - type: whos_hiring
+    section_id: whos_hiring-6ml5ey
+    variant: carousel
+    title: Where Our Graduates Work
+    subtitle: From startups to global tech leaders, our graduates work at some of the most recognized companies worldwide.
+    logos:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
+        alt: Microsoft
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
+        alt: Google Developers
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
+        alt: Boats Group
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
+        alt: Meta
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
+        alt: eBay
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
+        alt: National Geographic
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
+        alt: Evernote
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
+        alt: Telefonica
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
+        alt: Twilio
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
+        alt: Uber
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
+        alt: Neo9
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
+        alt: Jooble
+    marginY:
+      desktop: none xl
+    paddingY:
+      desktop: none
   - type: faq
     section_id: faq-rj0tg6
     title: FAQ
