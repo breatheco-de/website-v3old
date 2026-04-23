@@ -698,7 +698,7 @@ sections:
   - type: features_grid
     variant: highlight
     title: Get Hired. Or Your Money Back.
-    subtitle: "Add our optional Job Guarantee* to your payment plan and enroll knowing your investment is protected.&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
+    subtitle: "<span style=\"font-size: 1.125rem;\"><span style=\"color: hsl(var(--foreground));\">Add our optional Job Guarantee* to your payment plan and enroll knowing your investment is protected.&nbsp;</span></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
     items:
       - icon: Star
         title: Add the Job Guarantee to your payment plan
