@@ -19,7 +19,7 @@ sections:
       - icon: Headset
         title: Unlimited 1:1 mentorship, for life
         description: ""
-        show_rigobot_logo: true
+        show_rigobot_logo: null
         bullets:
           - text: Lifelong access to 1:1 technical mentorship
           - text: "7:1 student-to-mentor ratio: so your mentor knows your name"
