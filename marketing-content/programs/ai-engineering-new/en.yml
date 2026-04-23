@@ -455,8 +455,8 @@ sections:
     version: "1.0"
     variant: stats-cards
     title: The Roles You Can Land. And the Salaries That Follow.
-    subtitle: Four roles. All in high demand.
-    description: Graduates enter the job market ready for the fastest-growing roles in tech. These are the positions our hiring partners are actively filling.
+    subtitle: High demand. High salaries.
+    description: AI Engineering roles are among the fastest-growing and highest-paying in tech right now. Companies are hiring urgently and paying a premium for engineers who can build with AI. LinkedIn reports 42x growth in Forward-Deployed Engineering alone since 2023. These are some of the roles our graduates are landing.
     card_color: bg-background
     items:
       - value: $105K–$155K
