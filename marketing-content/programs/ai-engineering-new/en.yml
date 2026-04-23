@@ -267,7 +267,7 @@ sections:
       bar1_label: Traditional workforce
       bar2_label: AI-ready professionals
     card_trend:
-      title: Demand is Accelerating
+      title: Demand Is Accelerating
       description: Indexed job postings · 2020 → 2027 projected
       stat_value: 1.3M
       stat_label: new AI roles created globally in two years
