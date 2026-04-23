@@ -508,7 +508,7 @@ sections:
     variant: feature-tabs
     badge: Why 4Geeks?
     title: The Most Personalized Path to an AI Career
-    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support — every part of the experience is built around you, not a classroom of thirty.
+    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support, built around your pace, your goals, your career.
     features:
       - icon: Robot
         title: AI-powered feedback that never sleeps
@@ -523,7 +523,7 @@ sections:
       - icon: Headset
         title: Unlimited 1:1 mentorship, for life
         description: ""
-        show_rigobot_logo: true
+        show_rigobot_logo: false
         bullets:
           - text: Lifelong access to 1:1 technical mentorship
           - text: {{ global.global_teacher_student_ratio | 7:1 }} student-to-instructor ratio
@@ -533,7 +533,7 @@ sections:
       - icon: TrendingUp
         title: Career support built for the AI job market
         description: ""
-        show_rigobot_logo: true
+        show_rigobot_logo: false
         bullets:
           - text: Personalized 1:1 career coaching
           - text: Resume and portfolio built to pass AI-based screening
