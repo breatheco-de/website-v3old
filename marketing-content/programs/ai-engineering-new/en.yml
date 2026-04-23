@@ -252,8 +252,8 @@ sections:
     card_gauge_accent: hsl(var(--color-orange))
     card_trend_accent: hsl(var(--primary))
     card_bars:
-      badge: Jobs Market
-      title: AI jobs created vs. displaced
+      badge: Job Market
+      title: AI is creating jobs
       description: Annual delta · 2021-2025 · indexed
       stat_value: +340%
       stat_label: net new AI roles created since 2021
@@ -261,7 +261,7 @@ sections:
       created_label: Created by AI
     card_gauge:
       badge: Workforce Readiness
-      title: Who's actually ready for AI roles?
+      title: Who's ready for AI roles?
       description: Global workforce · 2025 data
       gauge_percentage: 3
       gauge_label: qualified
@@ -269,8 +269,8 @@ sections:
       bar1_label: Traditional workforce
       bar2_label: AI-ready professionals
     card_trend:
-      badge: Demand Curve
-      title: Demand for AI engineers
+      badge: Growth Curve
+      title: Demand is accelerating
       description: Indexed job postings · 2020 → 2027 projected
       stat_value: 1.3M
       stat_label: new AI roles created globally in two years
