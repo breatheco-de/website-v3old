@@ -765,6 +765,7 @@ sections:
       desktop: none xl
     paddingY:
       desktop: none
+    background: hsl(var(--background))
   - type: faq
     section_id: faq-rj0tg6
     title: FAQ
