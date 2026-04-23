@@ -152,7 +152,7 @@ sections:
       displaced_label: Displaced
       created_label: Created by AI
     card_gauge:
-      badge: Who's actually ready for AI roles?
+      badge: Who's ready for AI roles?
       gauge_percentage: 3
       gauge_label: qualified
       stat_label: of the workforce is not ready for AI roles today
