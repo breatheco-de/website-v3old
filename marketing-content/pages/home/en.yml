@@ -159,7 +159,7 @@ sections:
       bar1_label: Traditional workforce
       bar2_label: AI-ready professionals
     card_trend:
-      badge: Demand for AI engineers
+      badge: Demand Is Accelerating
       stat_value: 1.3M
       stat_label: new AI roles expected by 2027
       end_label: 1.3M · 2027
