@@ -830,7 +830,7 @@ sections:
     card_gauge_accent: hsl(var(--color-orange))
     card_trend_accent: hsl(var(--primary))
     card_bars:
-      badge: Jobs Market
+      badge: AI jobs created vs. displaced
       description: Annual delta · 2021-2025 · indexed
       stat_value: +340%
       stat_label: net new AI roles created since 2021
