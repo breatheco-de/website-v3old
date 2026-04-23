@@ -648,42 +648,6 @@ sections:
       - quito-ecuador
       - santiago-chile
       - mexicocity-mexico
-  - type: features_grid
-    variant: highlight
-    title: Get Hired. Or Your Money Back.
-    subtitle: "Add our optional Job Guarantee* to your payment plan and graduate with total confidence. Complete the program, follow the GeekFORCE career process, and if you're not hired within 9 months — we refund you.&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
-    items:
-      - icon: Star
-        title: Add the Job Guarantee to your payment plan
-      - icon: Users
-        title: Complete the program and follow the GeekFORCE career process
-      - icon: Award
-        title: Get hired within 9 months — or we refund you
-    columns: 3
-    icon_color: "#0097CD"
-    background: hsl(var(--secondary))
-    section_id: features_grid-8rz4b6
-    paddingY:
-      desktop: lg none
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
   - type: pricing
     version: "1.0"
     variant: product
@@ -731,6 +695,42 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
+  - type: features_grid
+    variant: highlight
+    title: Get Hired. Or Your Money Back.
+    subtitle: "Add our optional Job Guarantee* to your payment plan and graduate with total confidence. Complete the program, follow the GeekFORCE career process, and if you're not hired within 9 months — we refund you.&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
+    items:
+      - icon: Star
+        title: Add the Job Guarantee to your payment plan
+      - icon: Users
+        title: Complete the program and follow the GeekFORCE career process
+      - icon: Award
+        title: Get hired within 9 months — or we refund you
+    columns: 3
+    icon_color: "#0097CD"
+    background: hsl(var(--secondary))
+    section_id: features_grid-8rz4b6
+    paddingY:
+      desktop: lg none
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
   - type: faq
     section_id: faq-rj0tg6
     title: FAQ
