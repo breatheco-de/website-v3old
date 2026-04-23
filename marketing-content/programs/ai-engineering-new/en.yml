@@ -320,6 +320,10 @@ sections:
       stat_label: new AI roles created globally in two years
       end_label: 1.3M · 2027
     section_id: features_grid-hudxi9
+    paddingY:
+      desktop: none lg
+    marginY:
+      desktop: none lg
   - type: syllabus
     section_id: syllabus-7efuv7
     variant: program-modules
@@ -454,9 +458,9 @@ sections:
         orientation: horizontal
         icon: IconCode
     marginY:
-      desktop: md none
+      desktop: lg none
     paddingY:
-      desktop: md
+      desktop: lg md
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
