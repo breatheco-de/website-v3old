@@ -240,7 +240,7 @@ sections:
     paddingY:
       desktop: none
     marginY:
-      desktop: md lg
+      desktop: md
   - type: graduates_stats
     heading: Real Outcomes. Real Numbers.
     subheading: 6,000+ graduates. Strong outcomes across the board.
@@ -295,9 +295,9 @@ sections:
     title: Why AI Engineering Now
     description: AI has created 1.3 million new roles globally in two years. LinkedIn ranks AI Engineer the fastest-growing job of 2026. Only 3% of the workforce is qualified to fill them. That gap is your opportunity.
     background: bg-slate-950
-    card_bars_accent: hsl(var(--color-green))
-    card_gauge_accent: hsl(var(--color-orange))
-    card_trend_accent: hsl(var(--primary))
+    card_bars_accent: hsl(var(--primary))
+    card_gauge_accent: hsl(var(--destructive) / 0.5)
+    card_trend_accent: hsl(var(--accent))
     card_bars:
       title: More New AI Roles Than Job Losses
       description: Annual delta · 2021-2025 · indexed
@@ -323,7 +323,7 @@ sections:
     paddingY:
       desktop: none lg
     marginY:
-      desktop: md lg
+      desktop: md
   - type: syllabus
     section_id: syllabus-7efuv7
     variant: program-modules
@@ -458,9 +458,9 @@ sections:
         orientation: horizontal
         icon: IconCode
     marginY:
-      desktop: lg none
+      desktop: md xl
     paddingY:
-      desktop: lg md
+      desktop: lg
   - type: trust_cards
     version: v1.0
     title: Top rated across all major platforms.
@@ -481,7 +481,7 @@ sections:
     description: Four review platform cards with ratings
     section_id: trust_cards-eslgbu
     paddingY:
-      desktop: sm md
+      desktop: md lg
     marginY:
       desktop: md lg
     background: hsl(var(--secondary))
@@ -503,7 +503,10 @@ sections:
         title: AI-Fluent Full Stack Engineer
     section_id: features_grid-r890zf
     marginY:
-      desktop: none lg
+      desktop: none xl
+    paddingY:
+      desktop: md none
+    background: hsl(var(--card))
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
@@ -517,34 +520,35 @@ sections:
         bullets:
           - text: Instant feedback from Rigobot, our custom AI tutor
           - text: Advice adjusted to your skill level and progress
-          - text: 24/7 help with debugging and problem-solving
+          - text: Instant help at any hour, day or night
           - text: Hundreds of interactive coding exercises and tests
-        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
+        video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
       - icon: Headset
         title: Unlimited 1:1 mentorship, for life
         description: ""
-        show_rigobot_logo: false
+        show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 technical mentorship
           - text: {{ global.global_teacher_student_ratio | 7:1 }} student-to-instructor ratio
           - text: Weekly check-ins and peer collaboration via Slack
           - text: Dedicated channels for coding support, job boards, and career advice
-        image_id: community-support-cropped
+        video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
       - icon: TrendingUp
         title: Career support built for the AI job market
         description: ""
-        show_rigobot_logo: false
+        show_rigobot_logo: true
         bullets:
-          - text: Personalized 1:1 career coaching
+          - text: Lifelong 1:1 career coaching
           - text: Resume and portfolio built to pass AI-based screening
           - text: Interview prep and salary negotiation
-          - text: Lifelong access to career coaching and job support
+          - text: Direct referrals to our 400+ employer network
         video_url: https://youtu.be/-2ZvlgDnltc
-    section_id: ai_learning-v0unlb
+    section_id: ai_learning-xiuj75
     marginY:
-      desktop: md none
+      desktop: md xl
     paddingY:
-      desktop: md
+      desktop: md sm
+    background: hsl(210 100% 50% / 0.05)
   - type: testimonials
     section_id: testimonials-uastb3
     title: The People Behind the Numbers.
@@ -590,7 +594,9 @@ sections:
         comment: The best online learning experience I've had. Clear explanations, practical exercises, and excellent career guidance throughout.
         outcome: Landed first tech job
     paddingY:
-      desktop: md
+      desktop: md lg
+    marginY:
+      desktop: none md
   - type: pricing
     version: "1.0"
     variant: product
@@ -624,7 +630,7 @@ sections:
     marginY:
       desktop: lg md
     paddingY:
-      desktop: none md
+      desktop: md
     showOnLocations:
       - atlanta-usa
       - austin-usa
@@ -681,7 +687,7 @@ sections:
       variant: primary
     section_id: pricing-4zx54o
     marginY:
-      desktop: none md
+      desktop: md xl
     paddingY:
       desktop: lg md
     showOnLocations:
@@ -697,6 +703,41 @@ sections:
       - munich-germany
       - rome-italy
     background: hsl(var(--secondary))
+  - type: why_learn_ai
+    variant: laptop-edge
+    title: Land the Job. Or Your Money Back.
+    description: "<span style=\"font-size: 1.5rem;\"><span><span></span></span></span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span><span style=\"line-height: 1.625;\"><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span></span><span style=\"line-height: 1.625;\"><span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\">Every program comes with the option of a Job Guarantee.*</span></span></span></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Not hired within 9 months?&nbsp;</span><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Full tuition refund.&nbsp;</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">That's how confident we are in what we built.</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span></span></span></div></span><span style=\"line-height: 1.1;\"><span><span><span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"><br></span></div></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span><span></span></span></span></div><div><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">*The Job Guarantee is not available in all regions.&nbsp;</span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\">Terms and conditions apply.</a></div></div></span></span></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div>"
+    cta:
+      text: How It Works
+      url: /en/job-guarantee
+      variant: primary
+    section_id: why_learn_ai-9pbrek
+    marginY:
+      desktop: lg
+    paddingY:
+      desktop: none
+    background: hsl(var(--card))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - costa-rica
+      - mexicocity-mexico
+    marginX:
+      desktop: none
+    maxWidth:
+      desktop: none
+    showOn: desktop
   - type: features_grid
     variant: highlight
     title: Get Hired. Or Your Money Back.
@@ -770,7 +811,7 @@ sections:
     background: hsl(var(--background))
   - type: faq
     section_id: faq-rj0tg6
-    title: FAQ
+    title: Frequently Asked Questions
     items:
       - question: What prerequisites do I need for AI Engineering?
         answer: Basic programming knowledge is recommended but not required. Our program starts with foundational concepts and builds up to advanced AI engineering. If you're new to coding, we have preparatory materials to help you get started.
@@ -806,7 +847,7 @@ sections:
       desktop: none
     paddingY:
       desktop: md
-    background: hsl(var(--muted))
+    background: hsl(var(--card))
     item_overrides:
       how-long-does-the-program-take:
         hideOnLocations:
@@ -824,12 +865,12 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Ready to Become an {{ single.job_role | AI Engineer }}?
-    subtitle: Limited spots available. Start your transformation today.
+    subtitle: The fastest-growing job of 2026 is a click away. This is your window. Join the next cohort.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply now
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
@@ -849,7 +890,7 @@ sections:
           required: true
           default: ai-engineering
       success:
-        message: Thank you! We'll be in touch soon.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       consent:
         email: true
         marketing: true

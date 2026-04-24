@@ -37,7 +37,7 @@
     confidence and practical skills.'
 - student_name: Peter Schwarck
   priority: 3
-  student_thumb: ../../../../static/images/testimonials/peter-schwarck.jpeg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/peter-schwarck.jpeg
   linkedin_url: https://www.linkedin.com/in/peter-schwarck/
   related_features:
   - job-guarantee
@@ -45,7 +45,7 @@
   - career-support
 - student_name: Azam Abdul Malik
   priority: 3
-  student_thumb: ../../../../static/images/testimonials/azam.jpeg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/azam.jpeg
   linkedin_url: https://www.linkedin.com/in/azamjiva
   related_features:
   - job-guarantee
@@ -53,7 +53,7 @@
   - career-support
 - student_name: Rebecca Willett
   priority: 3
-  student_thumb: ../../../../static/images/testimonials/rebecca-willett.jpeg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/rebecca-willett.jpeg
   linkedin_url: https://www.linkedin.com/in/willettrebecca/
   related_features:
   - job-guarantee
@@ -61,7 +61,7 @@
   - full-stack
 - student_name: João Henrique Xavier
   priority: 3
-  student_thumb: ../../../../static/images/testimonials/joao-xavier.jpeg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/joao-xavier.jpeg
   linkedin_url: https://www.linkedin.com/in/joao-henrique-xavier/
   related_features:
   - job-guarantee
@@ -69,7 +69,7 @@
   - career-support
 - student_name: Florencia Viera
   priority: 3
-  student_thumb: ../../../../static/images/testimonials/florencia-viera.jpeg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/florencia-viera.jpeg
   linkedin_url: https://www.linkedin.com/in/floviera
   related_features:
   - full-stack
@@ -78,7 +78,7 @@
 - student_name: James Dugard
   priority: 1
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/james-testimonial.png
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/james-testimonial.png
   student_video: https://www.youtube.com/watch?v=ImB1Xdv9XVs
   related_features:
   - job-guarantee
@@ -99,7 +99,7 @@
 - student_name: Jonathan Ferragut
   priority: 1
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/jonathan-ferragut.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/jonathan-ferragut.jpg
   student_video: https://www.youtube.com/watch?v=oeX_ocy6zv4
   linkedin_url: https://www.linkedin.com/in/jonnycodes/
   related_features:
@@ -121,7 +121,7 @@
 - student_name: Diego Gómez González
   priority: 2
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/diego-gomez-testimonial.webp
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/diego-gomez-testimonial.webp
   linkedin_url: https://www.linkedin.com/in/diego-g%C3%B3mez-gonz%C3%A1lez-372017199/
   related_features:
   - full-stack
@@ -143,7 +143,7 @@
 - student_name: Fidel Enrique Vera
   priority: 2
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/fidel-vera-testimonial.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/fidel-vera-testimonial.jpg
   linkedin_url: https://www.linkedin.com/in/fverachourio/
   related_features:
   - data-science
@@ -172,7 +172,7 @@
 - student_name: Joshua Bravo
   priority: 3
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/joshua-bravo.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/joshua-bravo.jpg
   linkedin_url: https://www.linkedin.com/in/joshua-bravo-leon/
   related_features:
   - job-guarantee
@@ -187,7 +187,7 @@
 - student_name: Ana Romero
   priority: 2
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/ana-romero.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/ana-romero.jpg
   related_features:
   - mentors-and-teachers
   - full-stack
@@ -204,7 +204,7 @@
 - student_name: Kevin Soria
   priority: 1
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/kevin-soria.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/kevin-soria.jpg
   student_video: https://www.youtube.com/watch?v=JcZpQkKwP4E
   linkedin_url: https://www.linkedin.com/in/kevin-soria/
   related_features:
@@ -223,7 +223,7 @@
 - student_name: Virginia Martinez
   priority: 3
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/virginia-martinez.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/virginia-martinez.jpg
   linkedin_url: https://www.linkedin.com/in/virginiakmartinez
   related_features:
   - career-support
@@ -238,7 +238,7 @@
 - student_name: Fernando Villanueva
   priority: 2
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/fernando-manrique-villanueva.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/fernando-manrique-villanueva.jpg
   linkedin_url: https://www.linkedin.com/in/fernando-m-544ba12b4/
   related_features:
   - content-and-syllabus
@@ -259,7 +259,7 @@
 - student_name: Carlos Avila
   priority: 2
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/carlos-avila.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/carlos-avila.jpg
   linkedin_url: https://www.linkedin.com/in/carlos-e-avila/
   related_features:
   - career-support
@@ -277,7 +277,7 @@
 - student_name: Alan Gaston Sosa
   priority: 2
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/alan-gaston-sosa.webp
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/alan-gaston-sosa.webp
   linkedin_url: https://www.linkedin.com/in/gaston-sosa-458658269/
   related_features:
   - career-support
@@ -298,7 +298,7 @@
 - student_name: Olson Dimache
   priority: 1
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/olson-dimanche.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/olson-dimanche.jpg
   student_video: https://www.youtube.com/watch?v=dQrMEb8iiyM
   linkedin_url: https://www.linkedin.com/in/jdimanche/
   related_features:
@@ -317,7 +317,7 @@
 - student_name: Ibai Fernández
   priority: 2
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/ibai-fernandez.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/ibai-fernandez.jpg
   linkedin_url: https://www.linkedin.com/in/ibaifernandez/
   related_features:
   - career-support
@@ -338,7 +338,7 @@
 - student_name: Veronica Larrondo
   priority: 2
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/veronica-larrondo.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/veronica-larrondo.jpg
   linkedin_url: https://www.linkedin.com/in/vmlarrondo/
   related_features:
   - outcomes
@@ -356,7 +356,7 @@
 - student_name: Naila Kaliyeva
   priority: 1
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/naila-kaliyeva.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/naila-kaliyeva.jpg
   student_video: https://www.youtube.com/watch?v=OZfv9kYl0_o
   linkedin_url: https://www.linkedin.com/in/naila-kaliyeva-a8863a181/
   related_features:
@@ -382,7 +382,7 @@
 - student_name: Azul Botaya
   priority: 2
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/azul-botaya.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/azul-botaya.jpg
   linkedin_url: https://www.linkedin.com/in/azul-botaya-31669b151/
   related_features:
   - career-support
@@ -411,7 +411,7 @@
 - student_name: Hernán García
   priority: 1
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/hernan-garcia.jpeg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/hernan-garcia.jpeg
   student_video: https://www.youtube.com/watch?v=ln3bQsV1BaQ
   linkedin_url: https://www.linkedin.com/in/hernan-garcia/
   related_features:
@@ -435,7 +435,7 @@
 - student_name: Charles Fabricius
   priority: 2
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/charles-fabricius.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/charles-fabricius.jpg
   linkedin_url: https://www.linkedin.com/in/charles-fabricius/
   related_features:
   - mentors-and-teachers
@@ -460,7 +460,7 @@
 - student_name: Gabriela Rodriguez
   priority: 1
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/gabriela-rodrigez.webp
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/gabriela-rodrigez.webp
   student_video: https://www.youtube.com/watch?v=l0OgTgDIMnM
   related_features:
   - price
@@ -482,7 +482,7 @@
 - student_name: Fernando Funez
   priority: 2
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/fernando-funez.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/fernando-funez.jpg
   linkedin_url: https://www.linkedin.com/in/fernando-funezdev/
   related_features:
   - mentors-and-teachers
@@ -505,7 +505,7 @@
 - student_name: Salvador Desravines
   priority: 2
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/salvador-desravines.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/salvador-desravines.jpg
   linkedin_url: https://www.linkedin.com/in/salvador-desravines-b85b4a196/
   related_features:
   - job-guarantee
@@ -526,7 +526,7 @@
 - student_name: Francisco Correa
   priority: 2
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/francisco-correa-testimonial.webp
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/francisco-correa-testimonial.webp
   linkedin_url: https://www.linkedin.com/in/francisco-javier-correa-fernandez/
   related_features:
   - content-and-syllabus
@@ -553,7 +553,7 @@
 - student_name: Jorge Montes
   priority: 2
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/jorge-montes.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/jorge-montes.jpg
   related_features:
   - mentors-and-teachers
   - content-and-syllabus
@@ -570,7 +570,7 @@
 - student_name: Guensie Grecy
   priority: 1
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/guensie-grecy.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/guensie-grecy.jpg
   student_video: https://www.youtube.com/watch?v=LvnxLyqaQDo
   linkedin_url: https://www.linkedin.com/in/guensiegrecy/
   related_features:
@@ -594,7 +594,7 @@
 - student_name: Diego Fernández
   priority: 2
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/diego-fernandez-testimonial.webp
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/diego-fernandez-testimonial.webp
   linkedin_url: https://www.linkedin.com/in/fergodie/
   related_features:
   - mentors-and-teachers
@@ -615,7 +615,7 @@
 - student_name: Javier Murillo
   priority: 2
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/javier-murillo-testimonial.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/javier-murillo-testimonial.jpg
   linkedin_url: https://www.linkedin.com/in/javiermurilloromero
   related_features:
   - content-and-syllabus
@@ -638,7 +638,7 @@
 - student_name: Joao Henrique Xavier
   priority: 1
   rating: 5
-  student_thumb: ../../../../static/images/staff/joao.png
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/joao.png
   student_video: https://www.youtube.com/watch?v=MBXqEnhodx0
   linkedin_url: https://www.linkedin.com/in/joao-henrique-xavier/
   related_features:
@@ -664,7 +664,7 @@
 - student_name: Mattia Tozzi
   priority: 2
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/Mattia-Tozzi-testimonial.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/Mattia-Tozzi-testimonial.jpg
   linkedin_url: https://www.linkedin.com/in/mattia-tozzi/
   related_features:
   - mentors-and-teachers
@@ -689,7 +689,7 @@
 - student_name: Fidel Rosell
   priority: 2
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/fidel-rosell.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/fidel-rosell.jpg
   linkedin_url: https://www.linkedin.com/in/fidelrosell/
   related_features:
   - mentors-and-teachers
@@ -712,7 +712,7 @@
 - student_name: Josh Lewis
   priority: 1
   rating: 5
-  student_thumb: ../../../../static/images/testimonials/josh-lewis.jpg
+  student_thumb: https://storage.googleapis.com/4geeks-academy-website/media/josh-lewis.jpg
   student_video: https://www.youtube.com/watch?v=ZlyVlif9jts
   related_features:
   - price
