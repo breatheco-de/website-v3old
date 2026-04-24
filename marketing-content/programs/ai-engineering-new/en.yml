@@ -483,7 +483,7 @@ sections:
     paddingY:
       desktop: md lg
     marginY:
-      desktop: md
+      desktop: md lg
     background: hsl(var(--secondary))
     maxWidth:
       desktop: 6xl
