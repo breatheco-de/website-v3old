@@ -484,7 +484,7 @@ sections:
       desktop: md lg
     marginY:
       desktop: md lg
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--muted))
     maxWidth:
       desktop: 6xl
   - type: features_grid
