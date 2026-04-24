@@ -594,7 +594,7 @@ sections:
         comment: The best online learning experience I've had. Clear explanations, practical exercises, and excellent career guidance throughout.
         outcome: Landed first tech job
     paddingY:
-      desktop: md
+      desktop: md lg
   - type: pricing
     version: "1.0"
     variant: product
