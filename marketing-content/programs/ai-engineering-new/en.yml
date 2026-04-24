@@ -595,6 +595,8 @@ sections:
         outcome: Landed first tech job
     paddingY:
       desktop: md lg
+    marginY:
+      desktop: none md
   - type: pricing
     version: "1.0"
     variant: product
