@@ -504,6 +504,8 @@ sections:
     section_id: features_grid-r890zf
     marginY:
       desktop: none lg
+    paddingY:
+      desktop: md none
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
