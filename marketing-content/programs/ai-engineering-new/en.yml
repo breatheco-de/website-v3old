@@ -506,6 +506,7 @@ sections:
       desktop: none lg
     paddingY:
       desktop: md none
+    background: hsl(var(--card))
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
