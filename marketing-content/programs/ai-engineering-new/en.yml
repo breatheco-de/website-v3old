@@ -503,7 +503,7 @@ sections:
         title: AI-Fluent Full Stack Engineer
     section_id: features_grid-r890zf
     marginY:
-      desktop: none lg
+      desktop: none md
     paddingY:
       desktop: md none
     background: hsl(var(--card))
