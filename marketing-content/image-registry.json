@@ -7316,7 +7316,7 @@
       "source_url": "https://breathecode.herokuapp.com/v1/media/file/programmer-at-night-2-jpg",
       "usage_count": 0,
       "source_item": "cuanto-gana-un-ingeniero-informatico-en-espana",
-      "queued_at": "2026-04-24T07:26:16.379Z"
+      "failed_at": "2026-04-24T07:26:39.708Z"
     },
     "blog_posts-b39e46434a2e57b03efe488bedced0256ec8fedc-b1cd7ffe": {
       "src": "https://storage.googleapis.com/media-breathecode/b39e46434a2e57b03efe488bedced0256ec8fedc88e5cf13514152d170f32e45",
@@ -7968,7 +7968,7 @@
       "source_url": "https://4GeeksAcademy.com/images/4geeks-main.jpg",
       "usage_count": 0,
       "source_item": "carrera-de-programacion-es",
-      "queued_at": "2026-04-24T07:26:16.390Z"
+      "failed_at": "2026-04-24T07:26:39.620Z"
     },
     "blog_posts-double-exposure-abstract-programming-lan-68101a76": {
       "src": "https://breathecode.herokuapp.com/v1/media/file/double-exposure-abstract-programming-language-interface-new-york-city-skyscrapers-background-research-development-concept-jpg?",
@@ -8501,7 +8501,7 @@
       "source_url": "https://4GeeksAcademy.com/wp-content/uploads/2017/08/Miami-Dade.jpg",
       "usage_count": 0,
       "source_item": "full-stack-web-development-at-miami-dade-college",
-      "queued_at": "2026-04-24T07:26:16.401Z"
+      "failed_at": "2026-04-24T07:26:39.626Z"
     },
     "blog_posts-diana-ma-png-4df6a9fe": {
       "src": "https://breathecode.herokuapp.com/v1/media/file/diana-ma-png",
