@@ -687,7 +687,7 @@ sections:
       variant: primary
     section_id: pricing-4zx54o
     marginY:
-      desktop: md
+      desktop: md lg
     paddingY:
       desktop: lg md
     showOnLocations:
@@ -713,7 +713,7 @@ sections:
       variant: primary
     section_id: why_learn_ai-9pbrek
     marginY:
-      desktop: md lg
+      desktop: lg
     paddingY:
       desktop: none
     background: hsl(var(--card))
