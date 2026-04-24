@@ -323,7 +323,7 @@ sections:
     paddingY:
       desktop: none lg
     marginY:
-      desktop: md lg
+      desktop: md
   - type: syllabus
     section_id: syllabus-7efuv7
     variant: program-modules
