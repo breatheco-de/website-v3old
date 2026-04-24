@@ -529,7 +529,7 @@ sections:
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 technical mentorship
-          - text: {{ global.global_teacher_student_ratio | 7:1 }} student-to-instructor ratio
+          - text: {{ global.global_teacher_student_ratio | 7:1 }}student-to-instructor ratio
           - text: Weekly check-ins and peer collaboration via Slack
           - text: Dedicated channels for coding support, job boards, and career advice
         video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
