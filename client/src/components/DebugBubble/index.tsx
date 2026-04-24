@@ -280,24 +280,23 @@ export function DebugBubble() {
   const [seoMeta, setSeoMeta] = useState<{
     page_title: string;
     description: string;
+    og_image: string;
     canonical_url: string;
-  }>({ page_title: "", description: "", canonical_url: "" });
+    robots: string;
+    priority: string;
+    change_frequency: string;
+    redirects: string[];
+  }>({ page_title: "", description: "", og_image: "", canonical_url: "", robots: "", priority: "", change_frequency: "", redirects: [] });
   const [seoSaving, setSeoSaving] = useState(false);
-  const [seoFaqExpanded, setSeoFaqExpanded] = useState(true);
-  const [seoSchemaExpanded, setSeoSchemaExpanded] = useState(false);
   const [seoSchemaInclude, setSeoSchemaInclude] = useState<string[]>([]);
   const [seoSchemaOverrides, setSeoSchemaOverrides] = useState<Record<string, string>>({});
   const [seoSchemaOverridesErrors, setSeoSchemaOverridesErrors] = useState<Record<string, string>>({});
   const [availableSchemaKeys, setAvailableSchemaKeys] = useState<string[]>([]);
-  const [seoSchemaIncludeExpanded, setSeoSchemaIncludeExpanded] = useState(false);
-  const [seoSchemaOverridesExpanded, setSeoSchemaOverridesExpanded] = useState(false);
   const [seoLocations, setSeoLocations] = useState<string[]>([]);
   const [seoAvailableLocations, setSeoAvailableLocations] = useState<Array<{ slug: string; name: string; city: string; country: string }>>([]);
-  const [seoLocationsExpanded, setSeoLocationsExpanded] = useState(true);
   const [seoLocationSearch, setSeoLocationSearch] = useState("");
   
   // Slug rename state
-  const [slugEditorExpanded, setSlugEditorExpanded] = useState(false);
   const [newSlugValue, setNewSlugValue] = useState("");
   const [slugCheckStatus, setSlugCheckStatus] = useState<"idle" | "checking" | "available" | "taken">("idle");
   const [slugCheckReason, setSlugCheckReason] = useState<string | null>(null);
@@ -328,7 +327,6 @@ export function DebugBubble() {
   const contentInfo = useMemo(() => detectContentInfo(pathname, contentTypesMap, homePageSettings ?? null), [pathname, contentTypesMap, homePageSettings]);
 
   useEffect(() => {
-    setSlugEditorExpanded(false);
     setNewSlugValue("");
     setSlugCheckStatus("idle");
     setSlugCheckReason(null);
@@ -337,6 +335,15 @@ export function DebugBubble() {
     setSlugOldUrl("");
     setSlugNewUrl("");
   }, [contentInfo.slug]);
+
+  useEffect(() => {
+    if (seoModalOpen) {
+      setNewSlugValue(contentInfo.slug || "");
+      setSlugCheckStatus("idle");
+      setSlugCheckReason(null);
+      setSlugRedirectPrompt(false);
+    }
+  }, [seoModalOpen, contentInfo.slug]);
 
   // Check if location is currently overridden via query string
   const currentLocationOverride = typeof window !== "undefined" 
@@ -763,7 +770,14 @@ export function DebugBubble() {
       setSeoMeta({
         page_title: (data.meta?.page_title as string) || "",
         description: (data.meta?.description as string) || "",
+        og_image: (data.meta?.og_image as string) || "",
         canonical_url: (data.meta?.canonical_url as string) || "",
+        robots: (data.meta?.robots as string) || "",
+        priority: (data.meta?.priority as string) || "",
+        change_frequency: (data.meta?.change_frequency as string) || "",
+        redirects: ((data.meta?.redirects as Array<string | { path: string; status?: number }>) || [])
+          .map((r) => (typeof r === "string" ? r : r?.path))
+          .filter((r): r is string => Boolean(r)),
       });
       setAvailableSchemaKeys(schemaKeysRes.available || []);
       setSeoSchemaInclude(data.schemaInclude || []);
@@ -849,7 +863,6 @@ export function DebugBubble() {
         description: `${result.oldSlug} → ${result.newSlug}${createRedirect ? " (redirect created)" : ""}`,
       });
       setSeoModalOpen(false);
-      setSlugEditorExpanded(false);
       setNewSlugValue("");
       const isPreview = pathname.startsWith("/private/preview/");
       if (isPreview) {
@@ -890,13 +903,18 @@ export function DebugBubble() {
       const apiContentType = contentInfo.type;
       
       const existingMeta = { ...(seoData?.meta || {}) };
-      const editableKeys = ["page_title", "description", "canonical_url"] as const;
+      const editableKeys = ["page_title", "description", "og_image", "canonical_url", "robots", "priority", "change_frequency"] as const;
       for (const key of editableKeys) {
         if (seoMeta[key]) {
           existingMeta[key] = seoMeta[key];
         } else {
           delete existingMeta[key];
         }
+      }
+      if (seoMeta.redirects.length > 0) {
+        existingMeta.redirects = seoMeta.redirects;
+      } else {
+        delete existingMeta.redirects;
       }
       
       const hasOverrideErrors = Object.keys(seoSchemaOverridesErrors).length > 0;
@@ -1862,14 +1880,6 @@ export function DebugBubble() {
         seoData={seoData}
         seoMeta={seoMeta}
         setSeoMeta={setSeoMeta}
-        seoFaqExpanded={seoFaqExpanded}
-        setSeoFaqExpanded={setSeoFaqExpanded}
-        seoSchemaExpanded={seoSchemaExpanded}
-        setSeoSchemaExpanded={setSeoSchemaExpanded}
-        seoSchemaIncludeExpanded={seoSchemaIncludeExpanded}
-        setSeoSchemaIncludeExpanded={setSeoSchemaIncludeExpanded}
-        seoSchemaOverridesExpanded={seoSchemaOverridesExpanded}
-        setSeoSchemaOverridesExpanded={setSeoSchemaOverridesExpanded}
         seoSchemaInclude={seoSchemaInclude}
         setSeoSchemaInclude={setSeoSchemaInclude}
         seoSchemaOverrides={seoSchemaOverrides}
@@ -1884,8 +1894,6 @@ export function DebugBubble() {
         setSeoLocationSearch={setSeoLocationSearch}
         seoSaving={seoSaving}
         handleSeoSave={handleSeoSave}
-        slugEditorExpanded={slugEditorExpanded}
-        setSlugEditorExpanded={setSlugEditorExpanded}
         newSlugValue={newSlugValue}
         setNewSlugValue={setNewSlugValue}
         slugCheckStatus={slugCheckStatus}
@@ -1896,8 +1904,6 @@ export function DebugBubble() {
         handleSlugRenameClick={handleSlugRenameClick}
         handleSlugRename={handleSlugRename}
         currentLocaleSlug={currentLocaleSlug}
-        setSlugCheckStatus={setSlugCheckStatus}
-        setSlugCheckReason={setSlugCheckReason}
         slugCheckReason={slugCheckReason}
         setSlugRedirectPrompt={setSlugRedirectPrompt}
       />

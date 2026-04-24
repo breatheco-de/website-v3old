@@ -140,7 +140,7 @@ sections:
     card_gauge_accent: hsl(var(--destructive) / 0.5)
     card_trend_accent: hsl(var(--accent))
     card_bars:
-      badge: AI jobs created vs. displaced
+      badge: More New AI Roles Than Job Losses
       stat_value: +340%
       stat_label: net new AI roles created since 2022
       years:
@@ -152,14 +152,14 @@ sections:
       displaced_label: Displaced
       created_label: Created by AI
     card_gauge:
-      badge: Who's actually ready for AI roles?
+      badge: Who's ready for AI roles?
       gauge_percentage: 3
       gauge_label: qualified
       stat_label: of the workforce is not ready for AI roles today
       bar1_label: Traditional workforce
       bar2_label: AI-ready professionals
     card_trend:
-      badge: Demand for AI engineers
+      badge: Demand Is Accelerating
       stat_value: 1.3M
       stat_label: new AI roles expected by 2027
       end_label: 1.3M · 2027
