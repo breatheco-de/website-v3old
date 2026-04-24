@@ -514,7 +514,7 @@ sections:
     description: Progress faster than ever before, with a support system built around your pace, your goals, your career.
     features:
       - icon: Robot
-        title: AI-powered feedback, available 24/7
+        title: AI-powered feedback that never sleeps
         description: ""
         show_rigobot_logo: true
         bullets:
