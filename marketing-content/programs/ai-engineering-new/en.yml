@@ -548,6 +548,7 @@ sections:
       desktop: md none
     paddingY:
       desktop: md sm
+    background: hsl(210 100% 50% / 0.05)
   - type: testimonials
     section_id: testimonials-uastb3
     title: The People Behind the Numbers.
