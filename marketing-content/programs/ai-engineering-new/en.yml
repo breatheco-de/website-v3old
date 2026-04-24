@@ -460,7 +460,7 @@ sections:
     marginY:
       desktop: md xl
     paddingY:
-      desktop: lg md
+      desktop: lg
   - type: trust_cards
     version: v1.0
     title: Top rated across all major platforms.
