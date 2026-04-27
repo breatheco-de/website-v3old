@@ -516,46 +516,12 @@ sections:
     section_id: testimonials-50frx2
     title: Your New Career Starts Here
     subtitle: Our programs deliver life-changing results. More than {{ global.global_review_count | 700 }} verified reviews prove it
+    related_features:
+      - data-science
+      - content-and-syllabus
     rating_summary:
       average: {{ global.global_review_rating | 4.9 }}
       count: {{ global.global_review_count | 700+ }}
-    items:
-      - name: Gabriel Salazar
-        role: Software Engineer
-        company: Microsoft
-        rating: 5
-        comment: I was already a support specialist at Microsoft and after completing the program I was able to achieve a new position where I'm now working as a Software Engineer.
-        outcome: +50% salary increase
-      - name: Laura Magallanes
-        role: Program Coordinator
-        company: 4Geeks
-        rating: 5
-        comment: From a little town in Uruguay with no experience in coding, I'm now a woman head of household, an Instructor and a Program Coordinator. This course changed my life.
-        outcome: +120% salary increase
-      - name: Alexandra Espinoza
-        role: Software Developer
-        company: Tech Startup
-        rating: 5
-        comment: Coming from a totally different background has been a huge revelation for me and everyone around me. I'm now a successful and talented software developer in Costa Rica.
-        outcome: +100% salary increase
-      - name: Loretta Thompson
-        role: Data Analyst
-        company: United Way Miami
-        rating: 5
-        comment: I joined in 2022 and graduated in 2023. I already found a job within the next few months and have fulfilled the whole circle of skills+job that we all want to complete!
-        outcome: +45% salary increase
-      - name: Melanie Galaretto
-        role: Software Developer
-        company: Tech Firm
-        rating: 5
-        comment: I'm a young professional who is dreaming of achieving a life that now I own. I'm a resourceful and committed software developer working for a firm in my home country.
-        outcome: +100% salary increase
-      - name: Jean St. Cloud
-        role: Developer & Mentor
-        company: Clark University
-        rating: 4
-        comment: Transitioning from the music industry into tech was challenging but 4Geeks made it possible. Now I'm performing as a developer and a Mentor, helping others achieve the same dream.
-        outcome: +100% salary increase
     marginY:
       desktop: md
     paddingY:

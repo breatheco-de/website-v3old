@@ -195,6 +195,8 @@ sections:
     title: Proven Paths to Tech Careers
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
     background: bg-sidebar
+    related_features:
+      - career-support
   - type: split_cards
     variant: primary-left
     primary:
@@ -236,13 +238,6 @@ sections:
       - icon: headset
         title: Tailor-Made Career Support
         description: Customized advice, guidance, and training based on each job opportunity and your unique profile.
-  - type: testimonials
-    section_id: testimonials-kyhytz
-    version: "1.0"
-    title: Europe Graduate Success Stories
-    filter_by_location: rest-of-europe
-    marginY:
-      desktop: none lg
   - type: testimonials
     section_id: testimonials-7rry6o
     version: v1.0

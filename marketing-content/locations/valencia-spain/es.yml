@@ -290,13 +290,6 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
-    section_id: testimonials-r58vgo
-    version: "1.0"
-    title: Historias de Éxito de Graduados de Valencia
-    filter_by_location: valencia-spain
-    marginY:
-      desktop: none lg
-  - type: testimonials
     section_id: testimonials-1upb90
     version: v1.0
     title: Lo que Dicen Nuestros Estudiantes

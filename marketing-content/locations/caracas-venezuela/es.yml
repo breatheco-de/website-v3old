@@ -293,13 +293,6 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
-    section_id: testimonials-m1pkke
-    version: "1.0"
-    title: Historias de Éxito de Graduados de Caracas
-    filter_by_location: caracas-venezuela
-    marginY:
-      desktop: none lg
-  - type: testimonials
     section_id: testimonials-webhma
     version: v1.0
     title: Lo que Dicen Nuestros Estudiantes

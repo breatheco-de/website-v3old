@@ -513,46 +513,12 @@ sections:
     section_id: testimonials-q929xd
     title: Éxito profesional comprobado
     subtitle: “Más de {{ global.global_total_alumni | 5,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.”
+    related_features:
+      - data-science
+      - content-and-syllabus
     rating_summary:
       average: {{ global.global_review_rating | 4.9 }}
       count: {{ global.global_review_count | 1,294 }}
-    items:
-      - name: Gabriel Salazar
-        role: Ingeniero de Software
-        company: Microsoft
-        rating: 5
-        comment: Ya era especialista de soporte en Microsoft y después de completar el programa logré una nueva posición donde ahora trabajo como Ingeniero de Software.
-        outcome: +50% aumento salarial
-      - name: Laura Magallanes
-        role: Coordinadora de Programa
-        company: 4Geeks
-        rating: 5
-        comment: De un pequeño pueblo en Uruguay sin experiencia en programación, ahora soy una mujer jefa de hogar, Instructora y Coordinadora de Programa. Este curso cambió mi vida.
-        outcome: +120% aumento salarial
-      - name: Alexandra Espinoza
-        role: Desarrolladora de Software
-        company: Tech Startup
-        rating: 5
-        comment: Venir de un trasfondo totalmente diferente ha sido una gran revelación para mí y todos a mi alrededor. Ahora soy una desarrolladora de software exitosa y talentosa en Costa Rica.
-        outcome: +100% aumento salarial
-      - name: Loretta Thompson
-        role: Analista de Datos
-        company: United Way Miami
-        rating: 5
-        comment: Me uní en 2022 y me gradué en 2023. Ya encontré trabajo en los siguientes meses y completé todo el círculo de habilidades+trabajo que todos queremos lograr.
-        outcome: +45% aumento salarial
-      - name: Melanie Galaretto
-        role: Desarrolladora de Software
-        company: Tech Firm
-        rating: 5
-        comment: Soy una joven profesional que sueña con lograr una vida que ahora poseo. Soy una desarrolladora de software ingeniosa y comprometida trabajando para una empresa en mi país.
-        outcome: +100% aumento salarial
-      - name: Jean St. Cloud
-        role: Desarrollador y Mentor
-        company: Clark University
-        rating: 4
-        comment: La transición de la industria musical a tech fue desafiante pero 4Geeks lo hizo posible. Ahora trabajo como desarrollador y Mentor, ayudando a otros a lograr el mismo sueño.
-        outcome: +100% aumento salarial
     marginY:
       desktop: md lg
     paddingY:

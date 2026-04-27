@@ -543,46 +543,11 @@ sections:
     section_id: testimonials-6umllb
     title: Real Students. Real Careers.
     subtitle: {{ global.global_total_alumni | 6,500 }}+ graduates and {{ global.global_verified_reviews_count | 700 }} verified reviews prove our programs deliver life-changing results.
+    related_features:
+      - content-and-syllabus
     rating_summary:
       average: {{ global.global_review_rating | 4.9 }}
       count: {{ global.global_review_count | 700 }}
-    items:
-      - name: Sarah Johnson
-        role: Software Engineer
-        company: Google
-        rating: 5
-        comment: This course completely transformed my career. The instructors are incredibly knowledgeable and the curriculum is perfectly structured for real-world applications.
-        outcome: +55% salary increase
-      - name: Michael Chen
-        role: Data Analyst
-        company: Meta
-        rating: 5
-        comment: Best investment I ever made. Got a job offer before even finishing the program! The mentorship and career support were invaluable.
-        outcome: Hired in 4 months
-      - name: Emily Rodriguez
-        role: Security Analyst
-        company: Amazon
-        rating: 5
-        comment: Excellent content and great support from mentors. The hands-on labs were challenging but rewarding, and now I'm working on enterprise security.
-        outcome: +100% salary increase
-      - name: David Kim
-        role: Penetration Tester
-        company: Security Startup
-        rating: 5
-        comment: From IT support to penetration testing in 4 months. The structured curriculum and hands-on projects made all the difference.
-        outcome: Career change success
-      - name: Jessica Martinez
-        role: SOC Analyst
-        company: Fortune 500
-        rating: 4
-        comment: Great course with practical, real-world scenarios. The community is supportive and the instructors are always available to help.
-        outcome: +45% salary increase
-      - name: Ryan Thompson
-        role: Security Engineer
-        company: Tech Startup
-        rating: 5
-        comment: The best online learning experience I've had. Clear explanations, practical exercises, and excellent career guidance throughout.
-        outcome: Landed first security job
     paddingY:
       desktop: md
   - type: faq

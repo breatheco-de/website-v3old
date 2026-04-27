@@ -545,28 +545,12 @@ sections:
     section_id: testimonials-0aycww
     title: Resultados reales de graduados reales
     subtitle: Únete a miles que han transformado sus carreras
+    related_features:
+      - data-science
+      - content-and-syllabus
     rating_summary:
       average: "4.7"
       count: 1,294
-    items:
-      - name: Sara García
-        role: Ingeniera de IA
-        company: Google
-        rating: 5
-        comment: Este curso transformó completamente mi carrera. Los instructores son increíblemente conocedores y el currículo es perfecto para aplicaciones de IA del mundo real.
-        outcome: +55% aumento salarial
-      - name: Miguel Chen
-        role: Ingeniero ML
-        company: Meta
-        rating: 5
-        comment: La mejor inversión que he hecho. Recibí una oferta antes de terminar el programa.
-        outcome: Contratado en 4 meses
-      - name: Elena Rodríguez
-        role: Ingeniera de IA
-        company: Amazon
-        rating: 5
-        comment: Excelente contenido y gran apoyo de mentores. Ahora trabajo en IA de vanguardia.
-        outcome: +100% aumento salarial
   - type: numbered_steps
     section_id: numbered_steps-w29fi1
     version: "1.0"

@@ -437,6 +437,8 @@ sections:
     title: Real Graduates, Real Career Results
     description: See how our graduates transformed their careers with personalized learning and career support.
     background: hsl(var(--card))
+    related_features:
+      - content-and-syllabus
     marginY:
       desktop: none
     paddingY:

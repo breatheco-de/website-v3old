@@ -529,46 +529,12 @@ sections:
     section_id: testimonials-i7wm9o
     title: Real Students. Real Careers.
     subtitle: {{ global.global_total_alumni | 4,000 }}+ graduates and {{ global.global_verified_reviews_count | 1,000 }}+ verified reviews prove our programs deliver life-changing results.
+    related_features:
+      - full-stack
+      - content-and-syllabus
     rating_summary:
       average: {{ global.global_review_rating | 4.8 }}
       count: {{ global.global_review_count | 1,294 }}
-    items:
-      - name: Sarah Johnson
-        role: AI Engineer
-        company: Google
-        rating: 5
-        comment: This course completely transformed my career. The instructors are incredibly knowledgeable and the curriculum is perfectly structured for real-world AI applications.
-        outcome: +55% salary increase
-      - name: Michael Chen
-        role: ML Engineer
-        company: Meta
-        rating: 5
-        comment: Best investment I ever made. Got a job offer before even finishing the program! The mentorship and career support were invaluable.
-        outcome: Hired in 4 months
-      - name: Emily Rodriguez
-        role: AI Engineer
-        company: Amazon
-        rating: 5
-        comment: Excellent content and great support from mentors. The projects were challenging but rewarding, and now I'm working on cutting-edge AI.
-        outcome: +100% salary increase
-      - name: David Kim
-        role: AI Developer
-        company: Startup
-        rating: 5
-        comment: From zero AI knowledge to landing my dream job in 5 months. The structured curriculum and hands-on projects made all the difference.
-        outcome: Career change success
-      - name: Jessica Martinez
-        role: AI Engineer
-        company: Spotify
-        rating: 4
-        comment: Great course with practical, real-world projects. The community is supportive and the instructors are always available to help.
-        outcome: +45% salary increase
-      - name: Ryan Thompson
-        role: ML Engineer
-        company: Tech Startup
-        rating: 5
-        comment: The best online learning experience I've had. Clear explanations, practical exercises, and excellent career guidance throughout.
-        outcome: Landed first tech job
     paddingY:
       desktop: md
   - type: faq

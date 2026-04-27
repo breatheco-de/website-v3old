@@ -307,13 +307,6 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
-    section_id: testimonials-1e9o1u
-    version: "1.0"
-    title: Historias de Éxito de Graduados de Barcelona
-    filter_by_location: barcelona-spain
-    marginY:
-      desktop: none lg
-  - type: testimonials
     section_id: testimonials-vyjehj
     version: v1.0
     title: Lo que Dicen Nuestros Estudiantes

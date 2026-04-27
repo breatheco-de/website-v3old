@@ -467,46 +467,12 @@ sections:
     section_id: testimonials-d2m23b
     title: Éxito profesional comprobado
     subtitle: Más de {{ global.global_total_alumni | 5,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.
+    related_features:
+      - full-stack
+      - content-and-syllabus
     rating_summary:
       average: {{ global.global_review_rating | 4.8 }}
       count: 1,294
-    items:
-      - name: Sarah Johnson
-        role: AI Engineer
-        company: Google
-        rating: 5
-        comment: Este curso transformó completamente mi carrera. Los instructores son increíblemente conocedores y el currículo está perfectamente estructurado para aplicaciones de IA del mundo real.
-        outcome: +55% aumento salarial
-      - name: Michael Chen
-        role: ML Engineer
-        company: Meta
-        rating: 5
-        comment: La mejor inversión que he hecho. ¡Recibí una oferta de trabajo antes de terminar el programa! La mentoría y el apoyo profesional fueron invaluables.
-        outcome: Contratado en 4 meses
-      - name: Emily Rodriguez
-        role: AI Engineer
-        company: Amazon
-        rating: 5
-        comment: Excelente contenido y gran apoyo de los mentores. Los proyectos fueron desafiantes pero gratificantes, y ahora trabajo en IA de vanguardia.
-        outcome: +100% aumento salarial
-      - name: David Kim
-        role: AI Developer
-        company: Startup
-        rating: 5
-        comment: De cero conocimiento en IA a conseguir mi trabajo soñado en 5 meses. El currículo estructurado y los proyectos prácticos marcaron la diferencia.
-        outcome: Cambio de carrera exitoso
-      - name: Jessica Martinez
-        role: AI Engineer
-        company: Spotify
-        rating: 4
-        comment: Excelente curso con proyectos prácticos del mundo real. La comunidad es solidaria y los instructores siempre están disponibles para ayudar.
-        outcome: +45% aumento salarial
-      - name: Ryan Thompson
-        role: ML Engineer
-        company: Tech Startup
-        rating: 5
-        comment: La mejor experiencia de aprendizaje en línea que he tenido. Explicaciones claras, ejercicios prácticos y excelente orientación profesional en todo momento.
-        outcome: Primer trabajo en tech
     paddingY:
       desktop: md
   - type: faq

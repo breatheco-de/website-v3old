@@ -342,6 +342,8 @@ sections:
     title: They Were Exactly Where You Are Now.
     description: "Different backgrounds, different programs, one result: a career in tech they didn't think was possible. These are real 4Geeks graduates with real numbers to back it up."
     background: hsl(var(--card))
+    related_features:
+      - content-and-syllabus
     section_id: testimonials_slide-6fuyi4
     marginY:
       desktop: none

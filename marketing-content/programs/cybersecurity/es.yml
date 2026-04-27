@@ -532,46 +532,11 @@ sections:
     section_id: testimonials-znljtt
     title: Éxito profesional comprobado
     subtitle: “Más de {{ global.global_total_alumni | 4,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras tecnológicas.”
+    related_features:
+      - content-and-syllabus
     rating_summary:
       average: {{ global.global_review_rating | 4.5 }}
       count: {{ global.global_review_count | 1,294 }}
-    items:
-      - name: Sarah Johnson
-        role: Ingeniera de Software
-        company: Google
-        rating: 5
-        comment: Este curso transformó completamente mi carrera. Los instructores son increíblemente conocedores y el currículo está perfectamente estructurado para aplicaciones del mundo real.
-        outcome: +55% aumento salarial
-      - name: Michael Chen
-        role: Analista de Datos
-        company: Meta
-        rating: 5
-        comment: La mejor inversión que he hecho. ¡Recibí una oferta de trabajo antes de terminar el programa! La mentoría y el soporte de carrera fueron invaluables.
-        outcome: Contratado en 4 meses
-      - name: Emily Rodriguez
-        role: Analista de Seguridad
-        company: Amazon
-        rating: 5
-        comment: Excelente contenido y gran apoyo de los mentores. Los laboratorios prácticos fueron desafiantes pero gratificantes, y ahora trabajo en seguridad empresarial.
-        outcome: +100% aumento salarial
-      - name: David Kim
-        role: Penetration Tester
-        company: Security Startup
-        rating: 5
-        comment: De soporte de TI a pruebas de penetración en 4 meses. El currículo estructurado y los proyectos prácticos hicieron toda la diferencia.
-        outcome: Cambio de carrera exitoso
-      - name: Jessica Martinez
-        role: Analista SOC
-        company: Fortune 500
-        rating: 4
-        comment: Gran curso con escenarios prácticos del mundo real. La comunidad es solidaria y los instructores siempre están disponibles para ayudar.
-        outcome: +45% aumento salarial
-      - name: Ryan Thompson
-        role: Ingeniero de Seguridad
-        company: Tech Startup
-        rating: 5
-        comment: La mejor experiencia de aprendizaje en línea que he tenido. Explicaciones claras, ejercicios prácticos y excelente orientación de carrera durante todo el programa.
-        outcome: Primer empleo en seguridad
     paddingY:
       desktop: md
   - type: faq

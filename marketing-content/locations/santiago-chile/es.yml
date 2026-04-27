@@ -291,13 +291,6 @@ sections:
         title: Soporte Comunitario 24/7
         description: Únete a nuestra comunidad Slack de estudiantes y alumni. Obtén ayuda en cualquier momento de pares que entienden tu journey.
   - type: testimonials
-    section_id: testimonials-eiaq2h
-    version: "1.0"
-    title: Historias de Éxito de Graduados de Santiago
-    filter_by_location: santiago-chile
-    marginY:
-      desktop: none lg
-  - type: testimonials
     section_id: testimonials-b3v25k
     version: v1.0
     title: Graduados que hoy trabajan en tecnología

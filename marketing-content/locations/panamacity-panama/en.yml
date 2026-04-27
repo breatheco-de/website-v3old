@@ -195,6 +195,8 @@ sections:
     title: Proven Paths to Tech Careers
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
     background: bg-sidebar
+    related_features:
+      - career-support
   - type: split_cards
     variant: primary-left
     primary:
@@ -251,13 +253,6 @@ sections:
       - icon: headset
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
-  - type: testimonials
-    section_id: testimonials-utobqu
-    version: "1.0"
-    title: Panama City Graduate Success Stories
-    filter_by_location: panamacity-panama
-    marginY:
-      desktop: none lg
   - type: testimonials
     section_id: testimonials-j3ed1t
     version: v1.0

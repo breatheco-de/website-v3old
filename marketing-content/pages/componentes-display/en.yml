@@ -2005,6 +2005,8 @@ sections:
     version: "1.0"
     title: Real Careers Start Here — Just Ask Our Students
     description: Our grads are in high demand, with over 84% hired within six months of finishing the program.
+    related_features:
+      - content-and-syllabus
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg

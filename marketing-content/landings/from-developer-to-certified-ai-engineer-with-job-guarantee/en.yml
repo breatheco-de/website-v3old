@@ -574,6 +574,9 @@ sections:
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
     description: "Different backgrounds, one outcome: a career in tech that pays."
+    related_features:
+      - job-guarantee
+      - outcomes
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
