@@ -455,6 +455,7 @@ export async function resolveInitialData(
     cleanUrl === "/es/blog/";
 
   const pageQuery = await resolvePageQuery(url);
+  const parsedUrl = contentIndex.parseContentUrl(cleanUrl);
 
   const variablesQuery: SingleQuery = {
     queryKey: ["/api/variables"],
@@ -464,6 +465,27 @@ export async function resolveInitialData(
   const queries: SingleQuery[] = [];
   if (pageQuery) queries.push(pageQuery);
   queries.push(variablesQuery);
+
+  // If SSR resolved a canonical/base slug but the current URL uses a localized
+  // alias slug, hydrate both keys to avoid first-render cache miss on client.
+  if (pageQuery && parsedUrl?.slug) {
+    const key = pageQuery.queryKey;
+    if (Array.isArray(key)) {
+      const key0 = key[0];
+      if (typeof key0 === "string") {
+        if (
+          typeof key[1] === "string" &&
+          getApiPath(parsedUrl.contentType) === key0 &&
+          key[1] !== parsedUrl.slug
+        ) {
+          const aliasKey = [key0, parsedUrl.slug, key[2]];
+          if (!queries.some((q) => q.queryKey.length === aliasKey.length && q.queryKey.every((v, i) => v === aliasKey[i]))) {
+            queries.push({ queryKey: aliasKey, data: pageQuery.data });
+          }
+        }
+      }
+    }
+  }
 
   if (isBlogListing) {
     const locale = cleanUrl.startsWith("/es") ? "es" : "en";
