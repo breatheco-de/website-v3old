@@ -54,6 +54,21 @@ props:
     required: false
     description: Label for collapse control on mobile
     example: See less
+  laptop_image:
+    type: object
+    required: false
+    description: Optional laptop/code-editor image for the laptop-edge variant. When omitted, a default image is used.
+    properties:
+      image_id:
+        type: string
+        required: true
+        description: Image ID from the image registry
+        example: "243f0f155c3d1683ecfaa1020801b365ad23092d-1769656566581"
+      alt:
+        type: string
+        required: false
+        description: Alt text for the laptop image
+        example: Code editor on laptop
   cta:
     type: object
     required: false

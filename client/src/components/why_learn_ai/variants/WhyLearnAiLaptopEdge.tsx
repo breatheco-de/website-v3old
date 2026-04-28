@@ -6,7 +6,7 @@ import { RichTextContent } from "@/components/ui/rich-text-content";
 import { useImageRegistry } from "@/components/UniversalImage";
 import { useInternalNav } from "@/hooks/useInternalNav";
 
-const LAPTOP_IMAGE_ID = "243f0f155c3d1683ecfaa1020801b365ad23092d-1769656566581";
+const DEFAULT_LAPTOP_IMAGE_ID = "243f0f155c3d1683ecfaa1020801b365ad23092d-1769656566581";
 
 const MOBILE_CHAR_LIMIT = 150;
 
@@ -24,7 +24,8 @@ interface WhyLearnAILaptopEdgeProps {
 
 export default function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps) {
   const { registry } = useImageRegistry();
-  const laptopCodeEditor = registry?.images?.[LAPTOP_IMAGE_ID]?.src ?? "https://storage.googleapis.com/4geeks-academy-website/media/laptop.png";
+  const laptopImageId = data.laptop_image?.image_id ?? DEFAULT_LAPTOP_IMAGE_ID;
+  const laptopCodeEditor = registry?.images?.[laptopImageId]?.src ?? "https://storage.googleapis.com/4geeks-academy-website/media/laptop.png";
   const handleLinkClick = useInternalNav();
   const [isExpanded, setIsExpanded] = useState(false);
   const description = data.description || "";
@@ -118,7 +119,7 @@ export default function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps
           <div className="flex justify-center">
             <img 
               src={laptopCodeEditor}
-              alt="Code editor on laptop"
+              alt={data.laptop_image?.alt ?? "Code editor on laptop"}
               className="w-[90%] max-w-[400px] h-auto object-contain"
               loading="lazy"
               data-testid="img-why-learn-ai-mobile"
@@ -169,7 +170,7 @@ export default function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps
         {laptopCodeEditor && (
           <img 
             src={laptopCodeEditor}
-            alt="Code editor on laptop"
+            alt={data.laptop_image?.alt ?? "Code editor on laptop"}
             className="w-[90%] max-w-none h-auto object-contain object-left"
             loading="lazy"
             data-testid="img-why-learn-ai"

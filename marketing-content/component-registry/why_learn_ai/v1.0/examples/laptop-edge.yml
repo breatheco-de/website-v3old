@@ -7,6 +7,9 @@ yaml: |
     title: "Why Should I Learn to Build and Code with AI?"
     subtitle: "Software Development as You Know It Will Cease to Exist"
     description: "Coding with AI will become a new standard, but it's a very different profession from traditional software development. The developers who embrace AI tools now will have a significant advantage in the job market."
+    laptop_image:
+      image_id: "243f0f155c3d1683ecfaa1020801b365ad23092d-1769656566581"
+      alt: "Code editor on laptop"
     cta:
       text: "Join now!"
       url: "/signup"
