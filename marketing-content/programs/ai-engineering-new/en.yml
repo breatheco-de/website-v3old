@@ -704,27 +704,41 @@ sections:
     maxWidth:
       desktop: none
     showOn: desktop
-  - type: human_and_ai_duo
+  - type: numbered_steps
     version: "1.0"
-    heading: "Human + AI: The Perfect Support Duo"
-    description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll have access to unlimited 1:1 mentorship plus AI-guided feedback from Rigobot, so every step is tailored to your learning journey.
-    bullet_groups:
-      - title: "Our Team of Expert Mentors:"
-        image: https://randomuser.me/api/portraits/men/10.jpg
-        bullets:
-          - text: Provides personalized guidance on coding challenges and best practices
-          - text: Offers live troubleshooting and debugging support
-          - text: Expert bug fixing assistance
-          - text: Shares industry insights, career advice, and learning strategies
-      - title: "Rigobot + Learnpack:"
-        bullets:
-          - text: Provides instant feedback and tutoring while you code
-          - text: Tracks your skills and progress
-          - text: Helps with debugging and problem-solving tasks
-          - text: Hundreds of hands-on coding exercises and structured practice on Learnpack
-    footer_description: Together, human mentorship and AI-powered tools accelerate your learning, keep you engaged, and empower you to tackle challenges with confidence.
-    background: bg-background
-    section_id: human_and_ai_duo-xtpn0b
+    title: Get Hired. Or Your Money Back.
+    description: Add our optional Job Guarantee* to your payment plan and enroll knowing your investment is protected.
+    description_link:
+      text: "*Not available in all regions. Terms and conditions apply."
+      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
+    background: bg-muted/30
+    steps:
+      - icon: School
+        text: Add the Job Guarantee to your payment plan.
+      - icon: Briefcase
+        text: Complete the program and follow the GeekForce career process.
+      - icon: Cash
+        text: Get hired within 9 months, or we refund your tuition.
+    section_id: numbered_steps-pegmvh
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
   - type: features_grid
     variant: highlight
     title: Get Hired. Or Your Money Back.
