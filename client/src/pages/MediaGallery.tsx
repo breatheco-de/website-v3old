@@ -57,12 +57,21 @@ interface BulkDeleteResult {
   message: string;
 }
 
+interface ValidationFixHint {
+  type: "api" | "script" | "llm" | "manual";
+  label: string;
+  fixerName?: string;
+  command?: string;
+  url?: string;
+}
+
 interface ValidationIssue {
   type: "error" | "warning";
   code: string;
   message: string;
   file?: string;
   suggestion?: string;
+  fix?: ValidationFixHint;
 }
 
 interface ValidatorResult {
@@ -969,11 +978,23 @@ export default function MediaGallery() {
                   {issueCount > 0 && (
                     <div className="max-h-40 overflow-y-auto space-y-1 pl-5">
                       {[...v.errors, ...v.warnings].slice(0, 20).map((issue, i) => (
-                        <div key={i} className="text-xs">
+                        <div key={i} className="flex flex-wrap items-center gap-1.5 text-xs">
                           <span className={issue.type === "error" ? "text-destructive" : "text-amber-600 dark:text-amber-400"}>
                             [{issue.code}]
                           </span>
-                          <span className="text-muted-foreground ml-1.5">{issue.message}</span>
+                          <span className="text-muted-foreground">{issue.message}</span>
+                          {issue.fix?.type === "manual" && issue.fix.url && (
+                            <a
+                              href={issue.fix.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-0.5 text-primary hover:underline"
+                              data-testid={`link-goto-section-gallery-${i}`}
+                            >
+                              <IconLink className="h-3 w-3" />
+                              Go to section
+                            </a>
+                          )}
                         </div>
                       ))}
                       {issueCount > 20 && (

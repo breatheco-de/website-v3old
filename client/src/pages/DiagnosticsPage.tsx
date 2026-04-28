@@ -242,6 +242,7 @@ function StatusBadge({ status }: { status: "passed" | "failed" | "warning" }) {
 
 function IssueRow({ issue, onResolve }: { issue: ValidatorIssue; onResolve?: (issue: ValidatorIssue) => void }) {
   const conflict = useMemo(() => parseRedirectConflict(issue), [issue]);
+  const navUrl = issue.fix?.type === "manual" && issue.fix?.url ? issue.fix.url : null;
 
   return (
     <div className="flex flex-wrap items-start gap-2 py-2 border-b last:border-b-0" data-testid={`issue-${issue.code}`}>
@@ -262,6 +263,20 @@ function IssueRow({ issue, onResolve }: { issue: ValidatorIssue; onResolve?: (is
           <p className="text-xs text-muted-foreground mt-1 italic">{issue.suggestion}</p>
         )}
       </div>
+      {navUrl && (
+        <Button
+          variant="outline"
+          size="sm"
+          className="flex-shrink-0 gap-1"
+          asChild
+          data-testid={`link-goto-section-${issue.code}`}
+        >
+          <a href={navUrl} target="_blank" rel="noopener noreferrer">
+            <IconArrowRight className="h-3.5 w-3.5" />
+            Go to section
+          </a>
+        </Button>
+      )}
       {conflict && onResolve && (
         <Button
           variant="outline"

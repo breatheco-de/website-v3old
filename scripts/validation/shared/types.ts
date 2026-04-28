@@ -11,6 +11,7 @@ export interface FixHint {
   fixerName?: string;
   command?: string;
   promptTemplate?: string;
+  url?: string;
 }
 
 export interface ValidationIssue {

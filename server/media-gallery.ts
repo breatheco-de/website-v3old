@@ -96,10 +96,20 @@ function isScreenshot(filename: string): boolean {
   return SCREENSHOT_PATTERNS.some(pattern => pattern.test(filename));
 }
 
+export interface ImageRefLocation {
+  yamlFile: string;
+  contentType: string;
+  slug: string;
+  locale: string;
+  sectionIndex: number;
+  sectionType: string;
+}
+
 export interface ImageReferenceScan {
   imageIds: Set<string>;
   srcValues: Set<string>;
   byRef: Map<string, Set<string>>;
+  imageIdLocations: Map<string, ImageRefLocation[]>;
 }
 
 class MediaGallery {
@@ -165,6 +175,7 @@ class MediaGallery {
     const imageIds = new Set<string>();
     const srcValues = new Set<string>();
     const byRef = new Map<string, Set<string>>();
+    const imageIdLocations = new Map<string, ImageRefLocation[]>();
 
     const addRef = (ref: string, filePath: string) => {
       if (!ref) return;
@@ -173,6 +184,15 @@ class MediaGallery {
         existing.add(filePath);
       } else {
         byRef.set(ref, new Set([filePath]));
+      }
+    };
+
+    const addImageIdLocation = (imageId: string, loc: ImageRefLocation) => {
+      const existing = imageIdLocations.get(imageId);
+      if (existing) {
+        existing.push(loc);
+      } else {
+        imageIdLocations.set(imageId, [loc]);
       }
     };
 
@@ -223,6 +243,43 @@ class MediaGallery {
       }
     };
 
+    // Parse a YAML file's relative path into content type, slug and locale.
+    // Expected pattern: marketing-content/{contentType}/{slug}/{locale}.yml
+    const parseYamlFilePath = (relPath: string): { contentType: string; slug: string; locale: string } | null => {
+      const match = relPath.match(/^marketing-content\/([^/]+)\/([^/]+)\/([^/.]+)\.ya?ml$/);
+      if (!match) return null;
+      return { contentType: match[1], slug: match[2], locale: match[3] };
+    };
+
+    // Walk a single section object collecting every image_id key.
+    const collectImageIdsInObj = (
+      obj: unknown,
+      sectionIndex: number,
+      sectionType: string,
+      relPath: string,
+      meta: { contentType: string; slug: string; locale: string }
+    ): void => {
+      if (!obj || typeof obj !== "object") return;
+      if (Array.isArray(obj)) {
+        obj.forEach(item => collectImageIdsInObj(item, sectionIndex, sectionType, relPath, meta));
+        return;
+      }
+      for (const [key, val] of Object.entries(obj as Record<string, unknown>)) {
+        if (key === "image_id" && typeof val === "string" && val) {
+          addImageIdLocation(val, {
+            yamlFile: relPath,
+            contentType: meta.contentType,
+            slug: meta.slug,
+            locale: meta.locale,
+            sectionIndex,
+            sectionType,
+          });
+        } else {
+          collectImageIdsInObj(val, sectionIndex, sectionType, relPath, meta);
+        }
+      }
+    };
+
     const walkDir = (dir: string) => {
       if (!fs.existsSync(dir)) return;
       const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -239,6 +296,21 @@ class MediaGallery {
             if (parsed && typeof parsed === "object") {
               const relPath = path.relative(process.cwd(), fullPath);
               extractRefs(parsed, "", relPath);
+
+              // Additionally track per-section locations for image_id fields
+              const meta = parseYamlFilePath(relPath);
+              if (meta) {
+                const sections = (parsed as Record<string, unknown>).sections;
+                if (Array.isArray(sections)) {
+                  sections.forEach((section: unknown, idx: number) => {
+                    if (!section || typeof section !== "object") return;
+                    const sectionType = typeof (section as Record<string, unknown>).type === "string"
+                      ? String((section as Record<string, unknown>).type)
+                      : "unknown";
+                    collectImageIdsInObj(section, idx, sectionType, relPath, meta);
+                  });
+                }
+              }
             }
           } catch {}
         }
@@ -274,7 +346,7 @@ class MediaGallery {
     scanSourceDir(path.join(process.cwd(), "server"));
     scanSourceDir(path.join(process.cwd(), "shared"));
 
-    this.imageRefCache = { imageIds, srcValues, byRef };
+    this.imageRefCache = { imageIds, srcValues, byRef, imageIdLocations };
     return this.imageRefCache;
   }
 
