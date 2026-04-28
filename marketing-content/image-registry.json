@@ -10852,6 +10852,30 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/virginia-martinez-1280w.webp"
         }
       ]
+    },
+    "caracas_graduates-470x315": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-470x315.webp",
+      "alt": "Caracas graduates celebration",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "graduates",
+        "location",
+        "hero",
+        "logo",
+        "card",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
+      ],
+      "usage_count": 0,
+      "width": 470,
+      "height": 315,
+      "format": "webp"
     }
   }
 }
