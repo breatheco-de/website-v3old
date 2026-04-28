@@ -23,6 +23,13 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import type { ImageRegistry } from "@shared/schema";
 
@@ -35,7 +42,18 @@ export interface ImagePickerDialogProps {
   tagFilter?: string;
   onSave: (src: string, alt: string, registryId: string | undefined) => Promise<void> | void;
   onRemove?: () => void;
+  renderPreset?: string;
+  renderedSize?: { width: number; height: number };
 }
+
+const ASPECT_RATIO_MAP: Record<string, number> = {
+  "16:9": 16 / 9,
+  "9:16": 9 / 16,
+  "4:3": 4 / 3,
+  "3:4": 3 / 4,
+  "1:1": 1,
+  "21:9": 21 / 9,
+};
 
 export function ImagePickerDialog({
   open,
@@ -46,6 +64,8 @@ export function ImagePickerDialog({
   tagFilter,
   onSave,
   onRemove,
+  renderPreset,
+  renderedSize,
 }: ImagePickerDialogProps) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -84,6 +104,50 @@ export function ImagePickerDialog({
   const [cropAspectLock, setCropAspectLock] = useState(false);
   const [cropQuality, setCropQuality] = useState(85);
   const [cropProcessing, setCropProcessing] = useState(false);
+
+  const cropSizeSuggestions = useMemo(() => {
+    const suggestions: Array<{ value: string; label: string; width: number; height: number }> = [];
+    const seen = new Set<string>();
+
+    const addPresetSuggestion = (presetName: string) => {
+      if (!imageRegistry?.presets) return;
+      const presetConfig = (imageRegistry.presets as Record<string, { widths: number[]; aspect_ratio: string | null; description?: string }>)[presetName];
+      if (!presetConfig) return;
+      const maxWidth = Math.max(...presetConfig.widths);
+      const ar = presetConfig.aspect_ratio ? ASPECT_RATIO_MAP[presetConfig.aspect_ratio] : null;
+      const height = ar ? Math.round(maxWidth / ar) : 0;
+      const key = `${maxWidth}x${height}`;
+      if (seen.has(key)) return;
+      seen.add(key);
+      const label = height > 0
+        ? `${presetName} — ${maxWidth} × ${height} px`
+        : `${presetName} — ${maxWidth} px wide`;
+      suggestions.push({ value: key, label, width: maxWidth, height: height > 0 ? height : cropTargetHeight });
+    };
+
+    if (renderPreset) addPresetSuggestion(renderPreset);
+
+    if (selectedRegistryId && imageRegistry?.images?.[selectedRegistryId]?.preset) {
+      for (const p of imageRegistry.images[selectedRegistryId].preset!) {
+        if (p !== renderPreset) addPresetSuggestion(p);
+      }
+    }
+
+    if (renderedSize && renderedSize.width > 0 && renderedSize.height > 0) {
+      const key = `${renderedSize.width}x${renderedSize.height}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        suggestions.push({
+          value: key,
+          label: `Current size on screen — ${renderedSize.width} × ${renderedSize.height} px`,
+          width: renderedSize.width,
+          height: renderedSize.height,
+        });
+      }
+    }
+
+    return suggestions;
+  }, [imageRegistry, selectedRegistryId, renderPreset, renderedSize, cropTargetHeight]);
 
   useEffect(() => {
     if (open) {
@@ -576,6 +640,35 @@ export function ImagePickerDialog({
                   />
                 </ReactCrop>
               </div>
+
+              {cropSizeSuggestions.length > 0 && (
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-muted-foreground">
+                    Size Preset
+                  </label>
+                  <Select
+                    onValueChange={(val) => {
+                      const s = cropSizeSuggestions.find((s) => s.value === val);
+                      if (s) {
+                        setCropTargetWidth(s.width);
+                        setCropTargetHeight(s.height);
+                      }
+                    }}
+                    data-testid="select-crop-size-preset"
+                  >
+                    <SelectTrigger data-testid="trigger-crop-size-preset">
+                      <SelectValue placeholder="Choose a preset size…" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {cropSizeSuggestions.map((s) => (
+                        <SelectItem key={s.value} value={s.value} data-testid={`option-crop-size-${s.value}`}>
+                          {s.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">

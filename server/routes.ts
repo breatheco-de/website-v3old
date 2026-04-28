@@ -9483,9 +9483,30 @@ sections: []
         width: targetWidth,
         height: targetHeight,
         format: "webp",
+        parentId: imageId,
       });
 
       console.log(`[CropResize] Created "${uniqueId}" (${targetWidth}x${targetHeight}) from "${imageId}"`);
+
+      (async () => {
+        try {
+          const { processImageFromSrc } = await import("./image-optimizer");
+          const registry2 = mediaGallery.getRegistry();
+          if (!registry2) return;
+          const newEntry = registry2.images[uniqueId];
+          if (!newEntry) return;
+          const result = await processImageFromSrc(uniqueId, newEntry, registry2.presets as Record<string, import("./image-optimizer").Preset>);
+          if (result) {
+            newEntry.preset = result.preset;
+            newEntry.widths_generated = result.widths_generated;
+            newEntry.srcset = result.srcset;
+            mediaGallery.persistRegistry();
+            console.log(`[CropResize] Optimization complete for "${uniqueId}"`);
+          }
+        } catch (err) {
+          console.error(`[CropResize] Background optimization failed for "${uniqueId}":`, err);
+        }
+      })();
 
       res.json({ id: uniqueId, src: newSrc, width: targetWidth, height: targetHeight });
     } catch (error: any) {

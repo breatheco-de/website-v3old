@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { ImageRef, ImageEntry, ImagePreset } from "@shared/schema";
 import SolidCard from "./SolidCard";
@@ -110,6 +110,15 @@ export function UniversalImage({
     onError?.();
   };
 
+  const srcIndex = useMemo(() => {
+    if (!registry?.images) return new Map<string, string>();
+    const m = new Map<string, string>();
+    for (const [entryId, entry] of Object.entries(registry.images)) {
+      if (entry.src) m.set(entry.src, entryId);
+    }
+    return m;
+  }, [registry?.images]);
+
   if (registryLoading || !registry || !registry.images) {
     return (
       <div
@@ -123,13 +132,25 @@ export function UniversalImage({
     return null;
   }
 
-  const imageEntry = registry.images[id];
   const isDirectPath =
-    !imageEntry &&
-    (id.startsWith("/") ||
-      id.startsWith("http://") ||
-      id.startsWith("https://") ||
-      id.startsWith("data:"));
+    id.startsWith("/") ||
+    id.startsWith("http://") ||
+    id.startsWith("https://") ||
+    id.startsWith("data:");
+
+  let imageEntry = registry.images[id];
+
+  if (!imageEntry && isDirectPath) {
+    const resolvedId = srcIndex.get(id);
+    if (resolvedId) {
+      imageEntry = registry.images[resolvedId];
+      if (import.meta.env.DEV) {
+        console.warn(
+          `[UniversalImage] "${id}" matched by src fallback (use id="${resolvedId}" instead)`
+        );
+      }
+    }
+  }
 
   if (!imageEntry && !isDirectPath) {
     return null;
@@ -278,6 +299,10 @@ export function UniversalImage({
     </div>
   );
 
+  const renderedSize = imgRef.current
+    ? { width: Math.round(imgRef.current.getBoundingClientRect().width), height: Math.round(imgRef.current.getBoundingClientRect().height) }
+    : undefined;
+
   const pickerDialog = canReplace ? (
     <ImagePickerDialog
       open={pickerOpen}
@@ -286,6 +311,8 @@ export function UniversalImage({
       initialSrc={src}
       initialAlt={finalAlt}
       onSave={handlePickerSave}
+      renderPreset={preset !== "full" ? preset : undefined}
+      renderedSize={renderedSize}
     />
   ) : null;
 

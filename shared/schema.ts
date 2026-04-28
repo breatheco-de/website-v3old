@@ -438,6 +438,7 @@ export const imageEntrySchema = z.object({
   failed_at: z.string().optional(),
   queued_at: z.string().optional(),
   source_item: z.string().optional(),
+  parentId: z.string().optional(),
 });
 
 export const tagDefinitionSchema = z.object({
