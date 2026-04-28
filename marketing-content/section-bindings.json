@@ -1858,6 +1858,190 @@
       ],
       "createdAt": "2026-04-28T21:58:33.548Z",
       "name": "two_column on location page (everything you need to succeed)"
+    },
+    {
+      "id": "bind_moj665e7_x0msxd",
+      "component": "two_column_accordion_card",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "location",
+          "slug": "miami-usa",
+          "sectionId": "two_column_accordion_card-tbipjz"
+        },
+        {
+          "contentType": "location",
+          "slug": "atlanta-usa",
+          "sectionId": "two_column_accordion_card-ynhqf0"
+        },
+        {
+          "contentType": "location",
+          "slug": "austin-usa",
+          "sectionId": "two_column_accordion_card-tm36ei"
+        },
+        {
+          "contentType": "location",
+          "slug": "barcelona-spain",
+          "sectionId": "two_column_accordion_card-pdrxol"
+        },
+        {
+          "contentType": "location",
+          "slug": "berlin-germany",
+          "sectionId": "two_column_accordion_card-t1g9r6"
+        },
+        {
+          "contentType": "location",
+          "slug": "bogota-colombia",
+          "sectionId": "two_column_accordion_card-rpwbzp"
+        },
+        {
+          "contentType": "location",
+          "slug": "buenosaires-argentina",
+          "sectionId": "two_column_accordion_card-hhbvpt"
+        },
+        {
+          "contentType": "location",
+          "slug": "caracas-venezuela",
+          "sectionId": "two_column_accordion_card-rt90az"
+        },
+        {
+          "contentType": "location",
+          "slug": "chicago-usa",
+          "sectionId": "two_column_accordion_card-00lrik"
+        },
+        {
+          "contentType": "location",
+          "slug": "costa-rica",
+          "sectionId": "two_column_accordion_card-uq42os"
+        },
+        {
+          "contentType": "location",
+          "slug": "dallas-usa",
+          "sectionId": "two_column_accordion_card-upqggp"
+        },
+        {
+          "contentType": "location",
+          "slug": "dublin-ireland",
+          "sectionId": "two_column_accordion_card-ei47rj"
+        },
+        {
+          "contentType": "location",
+          "slug": "hamburg-germany",
+          "sectionId": "two_column_accordion_card-qdmkni"
+        },
+        {
+          "contentType": "location",
+          "slug": "houston-usa",
+          "sectionId": "two_column_accordion_card-b62w1v"
+        },
+        {
+          "contentType": "location",
+          "slug": "lapaz-bolivia",
+          "sectionId": "two_column_accordion_card-rgvxa6"
+        },
+        {
+          "contentType": "location",
+          "slug": "lima-peru",
+          "sectionId": "two_column_accordion_card-fx45pg"
+        },
+        {
+          "contentType": "location",
+          "slug": "lisbon-portugal",
+          "sectionId": "two_column_accordion_card-ake30d"
+        },
+        {
+          "contentType": "location",
+          "slug": "losangeles-usa",
+          "sectionId": "two_column_accordion_card-6dm6bp"
+        },
+        {
+          "contentType": "location",
+          "slug": "madrid-spain",
+          "sectionId": "two_column_accordion_card-2xah19"
+        },
+        {
+          "contentType": "location",
+          "slug": "malaga-spain",
+          "sectionId": "two_column_accordion_card-2jhoax"
+        },
+        {
+          "contentType": "location",
+          "slug": "mexicocity-mexico",
+          "sectionId": "two_column_accordion_card-hm7k3f"
+        },
+        {
+          "contentType": "location",
+          "slug": "milan-italy",
+          "sectionId": "two_column_accordion_card-1cxz5o"
+        },
+        {
+          "contentType": "location",
+          "slug": "montevideo-uruguay",
+          "sectionId": "two_column_accordion_card-cnbc15"
+        },
+        {
+          "contentType": "location",
+          "slug": "munich-germany",
+          "sectionId": "two_column_accordion_card-2euh5j"
+        },
+        {
+          "contentType": "location",
+          "slug": "newyork-usa",
+          "sectionId": "two_column_accordion_card-g8svaq"
+        },
+        {
+          "contentType": "location",
+          "slug": "orlando-usa",
+          "sectionId": "two_column_accordion_card-anks4l"
+        },
+        {
+          "contentType": "location",
+          "slug": "panamacity-panama",
+          "sectionId": "two_column_accordion_card-q2cgdm"
+        },
+        {
+          "contentType": "location",
+          "slug": "quito-ecuador",
+          "sectionId": "two_column_accordion_card-0cu9p2"
+        },
+        {
+          "contentType": "location",
+          "slug": "remote",
+          "sectionId": "two_column_accordion_card-y3ybck"
+        },
+        {
+          "contentType": "location",
+          "slug": "rest-of-europe",
+          "sectionId": "two_column_accordion_card-6mbt5i"
+        },
+        {
+          "contentType": "location",
+          "slug": "rome-italy",
+          "sectionId": "two_column_accordion_card-wwiajy"
+        },
+        {
+          "contentType": "location",
+          "slug": "santiago-chile",
+          "sectionId": "two_column_accordion_card-fboieb"
+        },
+        {
+          "contentType": "location",
+          "slug": "tampa-usa",
+          "sectionId": "two_column_accordion_card-cgmomh"
+        },
+        {
+          "contentType": "location",
+          "slug": "toronto-canada",
+          "sectionId": "two_column_accordion_card-xxm9rj"
+        },
+        {
+          "contentType": "location",
+          "slug": "valencia-spain",
+          "sectionId": "two_column_accordion_card-ejvcr3"
+        }
+      ],
+      "createdAt": "2026-04-28T22:00:08.143Z",
+      "name": "two column en locations, \"todo lo que necesitas...\""
     }
   ]
 }
