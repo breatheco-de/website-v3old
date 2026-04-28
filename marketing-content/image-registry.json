@@ -10909,6 +10909,38 @@
           "url": "/marketing-content/images/laptop-1920w.webp"
         }
       ]
+    },
+    "laptop-1280w": {
+      "src": "/marketing-content/images/laptop-1280w.webp",
+      "alt": "TODO: Add alt text for laptop-1280w.webp",
+      "focal_point": "center",
+      "tags": [],
+      "usage_count": 0,
+      "hash": "8133a484e4ffb1374787be972ee2c7d3de18b240bf77e26811b8fe49c9b525c6"
+    },
+    "laptop-1920w": {
+      "src": "/marketing-content/images/laptop-1920w.webp",
+      "alt": "TODO: Add alt text for laptop-1920w.webp",
+      "focal_point": "center",
+      "tags": [],
+      "usage_count": 0,
+      "hash": "562d84f9a881beb8795653060df3eccc0a55f05c1f49a0a1d19a0b8f31156b38"
+    },
+    "laptop-640w": {
+      "src": "/marketing-content/images/laptop-640w.webp",
+      "alt": "TODO: Add alt text for laptop-640w.webp",
+      "focal_point": "center",
+      "tags": [],
+      "usage_count": 0,
+      "hash": "ef1cba89e42ef96c1fa2c4931d0955f5590159ff0bd10f0a6d75545e566d67be"
+    },
+    "laptop-960w": {
+      "src": "/marketing-content/images/laptop-960w.webp",
+      "alt": "TODO: Add alt text for laptop-960w.webp",
+      "focal_point": "center",
+      "tags": [],
+      "usage_count": 0,
+      "hash": "d28829d25a611602ca0cf206215a12b9189ec111851c8defd459c2cd8cd910a9"
     }
   }
 }
