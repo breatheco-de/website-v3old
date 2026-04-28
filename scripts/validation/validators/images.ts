@@ -63,7 +63,7 @@ export const imagesValidator: Validator = {
         const locations = imageIdLocations.get(id) ?? [];
         if (locations.length > 0) {
           for (const loc of locations) {
-            const editUrl = `/private/preview/${loc.contentType}/${loc.slug}?locale=${loc.locale}#${loc.sectionType}-${loc.sectionIndex}`;
+            const editUrl = `/private/preview/${loc.contentType}/${loc.slug}?locale=${loc.locale}&edit=1#${loc.sectionType}-${loc.sectionIndex}`;
             errors.push({
               type: "error",
               code: "IMAGE_ID_NOT_IN_REGISTRY",

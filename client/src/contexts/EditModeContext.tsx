@@ -83,10 +83,10 @@ interface EditModeProviderProps {
   children: React.ReactNode;
 }
 
-// Check if edit_mode=true is in URL params
+// Check if edit_mode=true or edit=1 is in URL params
 function shouldAutoEnableEditMode(): boolean {
   const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get('edit_mode') === 'true';
+  return urlParams.get('edit_mode') === 'true' || urlParams.get('edit') === '1';
 }
 
 export function EditModeProvider({ children }: EditModeProviderProps) {
