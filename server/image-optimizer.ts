@@ -170,10 +170,12 @@ export async function processImageBuffer(
 
   const origExt = srcExtension(src);
   const { sharpFormat, ext: outExt, registryFormat } = outputFormat(origExt);
-  const originalKey = gcsKeyFromSrc(src) ?? (gcs.available ? localKeyFromSrc(src) : null);
+  const gcsKey = gcsKeyFromSrc(src);
+  const localKey = localKeyFromSrc(src);
+  const originalKey = gcsKey ?? localKey;
 
   if (!originalKey && !dryRun) {
-    console.log(`[ImageOptimizer] ${id}: skipping optimization — local provider does not support variant generation (src: ${src})`);
+    console.log(`[ImageOptimizer] ${id}: skipping optimization — cannot determine storage key for src: ${src}`);
     return {
       width: intrinsicWidth,
       height: intrinsicHeight,
@@ -191,7 +193,7 @@ export async function processImageBuffer(
     const vKey = originalKey ? variantKey(originalKey, w, outExt) : `media/${id}-${w}w${outExt}`;
 
     if (dryRun) {
-      const vUrl = gcs.getPublicUrl(vKey);
+      const vUrl = gcsKey ? gcs.getPublicUrl(vKey) : `/${vKey}`;
       srcset.push({ w, url: vUrl });
       widthsGenerated.push(w);
       continue;
@@ -204,7 +206,19 @@ export async function processImageBuffer(
         .toBuffer({ resolveWithObject: true });
 
       const actualWidth = info.width;
-      const vUrl = await gcs.upload(vKey, resized, contentTypeForExt(outExt));
+      let vUrl: string;
+
+      if (gcsKey) {
+        vUrl = await gcs.upload(vKey, resized, contentTypeForExt(outExt));
+      } else {
+        const diskPath = path.resolve(process.cwd(), vKey);
+        const dir = path.dirname(diskPath);
+        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+        fs.writeFileSync(diskPath, resized);
+        vUrl = `/${vKey}`;
+        console.log(`[ImageOptimizer] ${id}: wrote local variant ${vUrl} (${actualWidth}w)`);
+      }
+
       srcset.push({ w: actualWidth, url: vUrl });
       widthsGenerated.push(actualWidth);
     } catch (err) {

@@ -22,10 +22,17 @@ interface WhyLearnAILaptopEdgeProps {
   data: WhyLearnAISectionType;
 }
 
+function buildSrcset(srcset: Array<{ w: number; url: string }> | undefined): string | undefined {
+  if (!srcset || srcset.length === 0) return undefined;
+  return srcset.map(s => `${s.url} ${s.w}w`).join(", ");
+}
+
 export default function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps) {
   const { registry } = useImageRegistry();
   const laptopImageId = data.laptop_image?.image_id ?? DEFAULT_LAPTOP_IMAGE_ID;
-  const laptopCodeEditor = registry?.images?.[laptopImageId]?.src ?? "/marketing-content/images/laptop.png";
+  const laptopEntry = registry?.images?.[laptopImageId];
+  const laptopCodeEditor = laptopEntry?.src ?? "/marketing-content/images/laptop.webp";
+  const laptopSrcset = buildSrcset(laptopEntry?.srcset);
   const handleLinkClick = useInternalNav();
   const [isExpanded, setIsExpanded] = useState(false);
   const description = data.description || "";
@@ -119,6 +126,8 @@ export default function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps
           <div className="flex justify-center">
             <img 
               src={laptopCodeEditor}
+              srcSet={laptopSrcset}
+              sizes="(max-width: 444px) 90vw, 400px"
               alt={data.laptop_image?.alt ?? "Code editor on laptop"}
               className="w-[90%] max-w-[400px] h-auto object-contain"
               loading="lazy"
@@ -170,6 +179,8 @@ export default function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps
         {laptopCodeEditor && (
           <img 
             src={laptopCodeEditor}
+            srcSet={laptopSrcset}
+            sizes="700px"
             alt={data.laptop_image?.alt ?? "Code editor on laptop"}
             className="w-full h-full object-contain object-left"
             loading="lazy"
