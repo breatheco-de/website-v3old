@@ -707,7 +707,7 @@ sections:
   - type: numbered_steps
     version: "1.0"
     title: Get Hired. Or Your Money Back.
-    description: Add our optional Job Guarantee* to your payment plan and enroll knowing your investment is protected.
+    description: Get hired within 9 months, or we refund your full tuition. That's how confident we are in what we built.
     description_link:
       text: "*Not available in all regions. Terms and conditions apply."
       url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
@@ -718,7 +718,7 @@ sections:
       - icon: Briefcase
         text: Complete the program and follow the GeekForce career process.
       - icon: Cash
-        text: Get hired within 9 months, or we refund your tuition.
+        text: Get hired within 9 months, or we refund your full tuition.
     section_id: numbered_steps-pegmvh
     showOnLocations:
       - atlanta-usa
