@@ -2,6 +2,12 @@ import * as fs from "fs";
 import * as path from "path";
 import type { ImageEntry, ImageRegistry } from "@shared/schema";
 import { mediaGallery } from "./media-gallery";
+import {
+  getQueueState,
+  setQueueState,
+  clearQueueState,
+  getAllQueueState,
+} from "./image-queue-state";
 
 const REGISTRY_PATH = path.join(process.cwd(), "marketing-content", "image-registry.json");
 
@@ -75,8 +81,9 @@ export function resolveBySourceUrl(url: string): string | null {
   const registry = mediaGallery.getRegistry();
   if (!registry) return null;
 
-  for (const entry of Object.values(registry.images)) {
-    if (entry.source_url === url && !entry.failed_at) {
+  for (const [id, entry] of Object.entries(registry.images)) {
+    const { failed_at } = getQueueState(id);
+    if (entry.source_url === url && !failed_at) {
       return entry.src;
     }
   }
@@ -108,23 +115,24 @@ export function enqueueExternalImage(
   for (const [id, entry] of Object.entries(registry.images)) {
     if (entry.source_url !== sourceUrl) continue;
 
+    const qs = getQueueState(id);
+
     // Always backfill source_item on any existing entry that's missing it
     if (sourceItem && !entry.source_item) {
       entry.source_item = sourceItem;
     }
 
     // Already successfully cached — skip
-    if (entry.src && !entry.failed_at) return null;
+    if (entry.src && !qs.failed_at) return null;
     // Already pending in the queue — skip
-    if (entry.queued_at && !entry.failed_at) return null;
+    if (qs.queued_at && !qs.failed_at) return null;
     // Failed recently — skip
-    if (entry.failed_at) {
-      const ageMs = Date.now() - new Date(entry.failed_at).getTime();
+    if (qs.failed_at) {
+      const ageMs = Date.now() - new Date(qs.failed_at).getTime();
       if (ageMs < RETRY_FAILED_AFTER_MS) return null;
     }
     // Retry after 24h: clear failed state and re-queue
-    entry.queued_at = new Date().toISOString();
-    delete entry.failed_at;
+    setQueueState(id, { queued_at: new Date().toISOString() });
     // Clear src so getPendingExternalImages can pick this entry up
     entry.src = "";
     return id;
@@ -138,11 +146,11 @@ export function enqueueExternalImage(
     alt: `Image from ${dbName}`,
     tags,
     source_url: sourceUrl,
-    queued_at: new Date().toISOString(),
     usage_count: 0,
     ...(sourceItem ? { source_item: sourceItem } : {}),
   };
   registry.images[id] = newEntry;
+  setQueueState(id, { queued_at: new Date().toISOString() });
   return id;
 }
 
@@ -159,9 +167,10 @@ export function getPendingExternalImages(
   const results: Array<{ id: string } & ImageEntry> = [];
   for (const [id, entry] of Object.entries(registry.images)) {
     if (!entry.source_url) continue;
-    if (!entry.queued_at) continue;
+    const qs = getQueueState(id);
+    if (!qs.queued_at) continue;
     if (entry.src) continue;
-    if (entry.failed_at) continue;
+    if (qs.failed_at) continue;
     results.push({ id, ...entry });
     if (results.length >= limit) break;
   }
@@ -183,8 +192,7 @@ export function markExternalImageDone(
   if (!entry) return;
 
   Object.assign(entry, metadata, { src });
-  delete entry.queued_at;
-  delete entry.failed_at;
+  clearQueueState(id);
 }
 
 /**
@@ -201,7 +209,7 @@ export function enqueueOptimization(id: string): void {
   const hasSrcset = Array.isArray(entry.srcset) && entry.srcset.length > 0;
   if (hasSrcset) return;
 
-  entry.queued_at = new Date().toISOString();
+  setQueueState(id, { queued_at: new Date().toISOString() });
 }
 
 /**
@@ -216,7 +224,8 @@ export function getPendingOptimizations(
   const results: Array<{ id: string } & ImageEntry> = [];
   for (const [id, entry] of Object.entries(registry.images)) {
     if (!entry.src) continue;
-    if (!entry.queued_at) continue;
+    const qs = getQueueState(id);
+    if (!qs.queued_at) continue;
     const hasSrcset = Array.isArray(entry.srcset) && entry.srcset.length > 0;
     if (hasSrcset) continue;
     results.push({ id, ...entry });
@@ -236,8 +245,7 @@ export function markJobDone(id: string, updates: Partial<ImageEntry>): void {
   if (!entry) return;
 
   Object.assign(entry, updates);
-  delete entry.queued_at;
-  delete entry.failed_at;
+  clearQueueState(id);
 }
 
 /**
@@ -250,8 +258,7 @@ export function markJobFailed(id: string, message: string): void {
   const entry = registry.images[id];
   if (!entry) return;
 
-  entry.failed_at = new Date().toISOString();
-  delete entry.queued_at;
+  setQueueState(id, { failed_at: new Date().toISOString() });
   console.warn(`[ImageRegistry] Job failed for "${id}": ${message}`);
 }
 
@@ -264,15 +271,17 @@ export function getFailedEntries(
   const registry = mediaGallery.getRegistry();
   if (!registry) return [];
 
+  const allState = getAllQueueState();
   const results = [];
   for (const [id, entry] of Object.entries(registry.images)) {
-    if (!entry.failed_at) continue;
+    const qs = allState[id];
+    if (!qs?.failed_at) continue;
     if (!entry.source_url) continue;
     if (tag && !(entry.tags ?? []).includes(tag)) continue;
     results.push({
       id,
       source_url: entry.source_url,
-      failed_at: entry.failed_at,
+      failed_at: qs.failed_at,
       tags: entry.tags ?? [],
       ...(entry.source_item ? { source_item: entry.source_item } : {}),
     });
@@ -288,15 +297,16 @@ export function retryFailedImages(tag?: string): number {
   const registry = mediaGallery.getRegistry();
   if (!registry) return 0;
 
+  const allState = getAllQueueState();
   let count = 0;
-  for (const entry of Object.values(registry.images)) {
-    if (!entry.failed_at) continue;
+  for (const [id, entry] of Object.entries(registry.images)) {
+    const qs = allState[id];
+    if (!qs?.failed_at) continue;
     if (!entry.source_url) continue;
     if (tag && !(entry.tags ?? []).includes(tag)) continue;
-    entry.queued_at = new Date().toISOString();
+    setQueueState(id, { queued_at: new Date().toISOString() });
     // Clear src so getPendingExternalImages picks it up
     entry.src = "";
-    delete entry.failed_at;
     count++;
   }
   return count;
@@ -309,16 +319,18 @@ export function getQueueStats(tag?: string): { queued: number; cached: number; f
   const registry = mediaGallery.getRegistry();
   if (!registry) return { queued: 0, cached: 0, failed: 0 };
 
+  const allState = getAllQueueState();
   let queued = 0;
   let cached = 0;
   let failed = 0;
 
-  for (const entry of Object.values(registry.images)) {
+  for (const [id, entry] of Object.entries(registry.images)) {
     if (tag && !(entry.tags ?? []).includes(tag)) continue;
 
-    if (entry.failed_at) {
+    const qs = allState[id];
+    if (qs?.failed_at) {
       failed++;
-    } else if (entry.queued_at) {
+    } else if (qs?.queued_at) {
       queued++;
     } else if (entry.src) {
       cached++;

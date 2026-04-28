@@ -8,6 +8,7 @@ import { media } from "./media";
 import { markFileAsModified } from "./sync-state";
 import { processImageBuffer } from "./image-optimizer";
 import type { Preset } from "./image-optimizer";
+import { importMigrated } from "./image-queue-state";
 
 const MARKETING_CONTENT_DIR = path.join(process.cwd(), "marketing-content");
 const MARKETING_IMAGES_DIR = path.join(MARKETING_CONTENT_DIR, "images");
@@ -117,8 +118,32 @@ class MediaGallery {
       }
 
       const content = fs.readFileSync(REGISTRY_PATH, "utf8");
-      this.registryCache = JSON.parse(content) as ImageRegistry;
-      this.lastModified = currentModified;
+      const raw = JSON.parse(content) as ImageRegistry;
+
+      // Migrate any legacy failed_at / queued_at still present in the JSON
+      const toMigrate: Record<string, { failed_at?: string; queued_at?: string }> = {};
+      for (const [id, entry] of Object.entries(raw.images)) {
+        const e = entry as ImageEntry & { failed_at?: string; queued_at?: string };
+        if (e.failed_at || e.queued_at) {
+          toMigrate[id] = {
+            ...(e.failed_at ? { failed_at: e.failed_at } : {}),
+            ...(e.queued_at ? { queued_at: e.queued_at } : {}),
+          };
+          delete e.failed_at;
+          delete e.queued_at;
+        }
+      }
+      if (Object.keys(toMigrate).length > 0) {
+        importMigrated(toMigrate);
+        console.log(`[MediaGallery] Migrated queue state for ${Object.keys(toMigrate).length} entries to .image-queue-state.json`);
+        // Write the cleaned registry back to disk immediately so the fields
+        // are never committed to version control again.
+        fs.writeFileSync(REGISTRY_PATH, JSON.stringify(raw, null, 2) + "\n", "utf8");
+        markFileAsModified("marketing-content/image-registry.json");
+      }
+
+      this.registryCache = raw;
+      this.lastModified = fs.statSync(REGISTRY_PATH).mtimeMs;
 
       console.log(`[MediaGallery] Loaded ${Object.keys(this.registryCache.images).length} images, ${Object.keys(this.registryCache.presets).length} presets`);
       return this.registryCache;
@@ -1117,7 +1142,22 @@ class MediaGallery {
   }
 
   private saveRegistry(registry: ImageRegistry): void {
-    fs.writeFileSync(REGISTRY_PATH, JSON.stringify(registry, null, 2) + "\n", "utf8");
+    // Strip transient queue-state fields before persisting to the tracked file
+    const clean: ImageRegistry = {
+      ...registry,
+      images: Object.fromEntries(
+        Object.entries(registry.images).map(([id, entry]) => {
+          const { failed_at, queued_at, ...rest } = entry as ImageEntry & {
+            failed_at?: string;
+            queued_at?: string;
+          };
+          void failed_at;
+          void queued_at;
+          return [id, rest as ImageEntry];
+        })
+      ),
+    };
+    fs.writeFileSync(REGISTRY_PATH, JSON.stringify(clean, null, 2) + "\n", "utf8");
     markFileAsModified("marketing-content/image-registry.json");
     this.clearCache();
   }
