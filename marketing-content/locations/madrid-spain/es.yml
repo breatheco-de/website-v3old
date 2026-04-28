@@ -211,25 +211,25 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-0yz19z
   - type: two_column_accordion_card
-    section_id: two_column_accordion_card-2xah19
     variant: image_background
     version: "1.0"
-    title: Todo lo que necesitas para triunfar en una industria impulsada por IA
-    description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
+    title: Todo lo que necesitas para crecer en la industria tech de hoy
+    description: Formación orientada a IA, mentoría experta y acompañamiento continuo para avanzar tu carrera en el ecosistema tech actual.
     bullets:
-      - heading: Mentoría 1:1 ilimitada y de por Vida
-        text: Obtén orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores experimentados durante el programa y continúa recibiendo soporte mucho después de graduarte.
-      - heading: Soporte de aprendizaje impulsado por IA
-        text: Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y mejora continuamente con guía adaptada a tu camino de aprendizaje.
-      - heading: Soporte profesional ilimitado y de por vida
-        text: Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
-      - heading: Una comunidad tech global activa
-        text: Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte oportunidades y mantente conectado a una red global mucho más allá de la graduación.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
-    image_alt: Estudiante trabajando en proyecto de IA
+      - heading: Mentoría 1:1 ilimitada y de por vida
+        text: Recibe orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores expertos durante el programa y continúa recibiendo apoyo incluso después de graduarte.
+      - heading: Aprendizaje potenciado por IA
+        text: Obtén feedback inmediato de Rigobot, nuestro tutor de IA integrado. Practica, haz debugging y mejora de forma continua con guía adaptada a tu progreso.
+      - heading: Acompañamiento profesional ilimitado y de por vida
+        text: Recibe coaching de carrera personalizado enfocado en que consigas empleo. Desde estrategia y posicionamiento profesional hasta entrevistas y negociación salarial, el acompañamiento evoluciona contigo y con tus metas.
+      - heading: Comunidad tech global activa
+        text: Únete a nuestra comunidad en Slack de estudiantes, mentores y graduados. Haz preguntas, comparte oportunidades y mantente conectado a una red global incluso después de graduarte.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-470x315.webp
+    image_alt: Estudiante trabajando en un proyecto de IA
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-2xah19
   - type: testimonials_slide
     section_id: testimonials_slide-j4b9ms
     title: Caminos probados hacia carreras tech
@@ -268,8 +268,8 @@ sections:
     section_id: why_learn_ai-bjamed
     variant: laptop-edge
     mobile_see_more: true
-    mobile_see_more_label: "Ver más"
-    mobile_see_less_label: "Ver menos"
+    mobile_see_more_label: Ver más
+    mobile_see_less_label: Ver menos
     title: Por qué Madrid es el lugar para lanzar tu carrera tech
     subtitle: El ecosistema emergente de startups nº 1 de Europa
     description: "Madrid se ha consolidado como la capital tech indiscutible de España, superando a Barcelona por primera vez en número total de empresas tech, startups y scaleups. Con más de 2.100 startups tech y un ecosistema valorado en 44.000 millones de euros, la ciudad ofrece oportunidades únicas para desarrolladores que entran al mercado.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Madrid concentra el 47% de todos los empleos tech de España, con más de 25.000 plazas de desarrollador sin cubrir en todo el país&nbsp;&nbsp;</span></li><li>Ocupa el puesto nº 1 globalmente como ecosistema emergente de startups según Startup Genome, y nº 3 en Europa en densidad de talento de ingeniería&nbsp;&nbsp;</li><li>Fuerte demanda de habilidades en software, IA y datos en fintech, ciberseguridad, travel tech y software empresarial&nbsp;&nbsp;</li></ul></div><div>Ubicado en el corazón de la ciudad, nuestro campus de Madrid te conecta con empleadores locales, socios de contratación y eventos tech a través de South Summit, Google Campus Madrid y una red vibrante de aceleradoras y fondos de inversión.</div></div>"

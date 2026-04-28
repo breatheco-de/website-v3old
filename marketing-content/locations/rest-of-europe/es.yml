@@ -219,25 +219,25 @@ sections:
         cta_url: /es/cybersecurity
         course_background: hsl(var(--color-pink))
   - type: two_column_accordion_card
-    section_id: two_column_accordion_card-6mbt5i
     variant: image_background
     version: "1.0"
-    title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
-    description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
+    title: Todo lo que necesitas para crecer en la industria tech de hoy
+    description: Formación orientada a IA, mentoría experta y acompañamiento continuo para avanzar tu carrera en el ecosistema tech actual.
     bullets:
-      - heading: Mentoría 1:1 Ilimitada y de por Vida
-        text: Obtén orientación técnica personalizada cuando la necesites. En línea y en persona, por el resto de tu vida, incluso para dudas laborales de programación.
-      - heading: Soporte de Aprendizaje Impulsado por IA
-        text: Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y mejora continuamente con guía adaptada a tu camino de aprendizaje.
-      - heading: Soporte Profesional a la Medida
-        text: Recibe coaching profesional personalizado basado en cada oportunidad laboral y tu perfil único.
-      - heading: Una Comunidad Tech Global Activa
-        text: Cuando aprendes a programar online con 4Geeks en Europa no solo tienes acceso a nuestra plataforma; también tendrás disponible cualquiera de nuestras ubicaciones a nivel mundial.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
-    image_alt: Estudiante trabajando en proyecto de IA
+      - heading: Mentoría 1:1 ilimitada y de por vida
+        text: Recibe orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores expertos durante el programa y continúa recibiendo apoyo incluso después de graduarte.
+      - heading: Aprendizaje potenciado por IA
+        text: Obtén feedback inmediato de Rigobot, nuestro tutor de IA integrado. Practica, haz debugging y mejora de forma continua con guía adaptada a tu progreso.
+      - heading: Acompañamiento profesional ilimitado y de por vida
+        text: Recibe coaching de carrera personalizado enfocado en que consigas empleo. Desde estrategia y posicionamiento profesional hasta entrevistas y negociación salarial, el acompañamiento evoluciona contigo y con tus metas.
+      - heading: Comunidad tech global activa
+        text: Únete a nuestra comunidad en Slack de estudiantes, mentores y graduados. Haz preguntas, comparte oportunidades y mantente conectado a una red global incluso después de graduarte.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-470x315.webp
+    image_alt: Estudiante trabajando en un proyecto de IA
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-6mbt5i
   - type: testimonials_slide
     section_id: testimonials_slide-4rw1nl
     title: Caminos Probados hacia Carreras Tech
@@ -263,8 +263,8 @@ sections:
     section_id: why_learn_ai-yzx1g3
     variant: laptop-edge
     mobile_see_more: true
-    mobile_see_more_label: "Ver más"
-    mobile_see_less_label: "Ver menos"
+    mobile_see_more_label: Ver más
+    mobile_see_less_label: Ver menos
     title: Por Qué Aprender a Programar con 4Geeks desde Cualquier Lugar
     subtitle: Mentoría ilimitada, comunidad global, resultados reales
     description: Aprende online de verdad—no te decimos 'mira el video y resuélvelo'. En 4Geeks Academy tendrás mentoría 1:1 ilimitada, soporte por chat en vivo 12 horas al día, cientos de ejercicios y videos interactivos, clases en streaming en tiempo real y acceso a nuestra red global de graduados. Cuando aprendes con nosotros en remoto, tienes acceso a nuestra plataforma completa y a cualquiera de nuestras ubicaciones a nivel mundial.

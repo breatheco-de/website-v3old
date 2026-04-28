@@ -167,7 +167,6 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-ikfusn
   - type: two_column_accordion_card
-    section_id: two_column_accordion_card-fca7ic
     variant: image_background
     version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
@@ -181,11 +180,12 @@ sections:
         text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
       - heading: An Active Global Tech Community
         text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-470x315.webp
     image_alt: Student working on AI project
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-fca7ic
   - type: testimonials_slide
     section_id: testimonials_slide-nf0epg
     title: Proven Paths to Tech Careers
@@ -214,8 +214,8 @@ sections:
     section_id: why_learn_ai-nholex
     variant: laptop-edge
     mobile_see_more: true
-    mobile_see_more_label: "See more"
-    mobile_see_less_label: "See less"
+    mobile_see_more_label: See more
+    mobile_see_less_label: See less
     title: Why Austin Is a Smart Place to Launch Your Tech Career
     subtitle: Texas's most innovative city with a thriving tech community
     description: "Austin has witnessed substantial growth in the demand for coding proficiency as technology becomes increasingly integrated into diverse sectors. It's a market with real opportunities for developers.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Substantial growth in demand for coding proficiency across fintech, logistics, and enterprise sectors</span></li><li>Coding bootcamps have emerged as key contributors, offering accessible and comprehensive training for Austin's expanding tech community</li><li>Strong demand for software, AI, and data skills with companies like IBM, Indeed, and local startups actively hiring</li></ul></div><div>From our Austin campus, we connect you with local employers, tech events, and a thriving innovation community—helping you build relationships that support your entry and long-term growth in tech.</div></div>"

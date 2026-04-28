@@ -169,7 +169,6 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-386shs
   - type: two_column_accordion_card
-    section_id: two_column_accordion_card-0xi3y2
     variant: image_background
     version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
@@ -183,11 +182,12 @@ sections:
         text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
       - heading: An Active Global Tech Community
         text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-470x315.webp
     image_alt: Student working on AI project
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-0xi3y2
   - type: testimonials_slide
     section_id: testimonials_slide-xs1e4l
     title: Proven Paths to Tech Careers
@@ -216,8 +216,8 @@ sections:
     section_id: why_learn_ai-22c4th
     variant: laptop-edge
     mobile_see_more: true
-    mobile_see_more_label: "See more"
-    mobile_see_less_label: "See less"
+    mobile_see_more_label: See more
+    mobile_see_less_label: See less
     title: Why Atlanta Is a Smart Place to Launch Your Tech Career
     subtitle: A flourishing tech ecosystem with strong hiring demand
     description: "Atlanta's tech ecosystem is flourishing with over 850 tech companies and 70,000+ tech workers. It's a market with real demand for technical talent.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Major tech firms like Google and Facebook have set up local outposts drawn by the city's diverse talent pool</span></li><li>Atlanta vies to become a leading Southern tech hub, with surging demand for coding expertise from expanding tech companies</li><li>Strong demand for software, AI, and data skills across fintech, logistics, and enterprise tech sectors</li></ul></div><div>From our Atlanta campus, we connect you with local employers, hiring partners, and tech events—helping you build relationships that support your entry and long-term growth in tech.</div></div>"

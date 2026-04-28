@@ -171,7 +171,6 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-ikj1ag
   - type: two_column_accordion_card
-    section_id: two_column_accordion_card-uf1wpq
     variant: image_background
     version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
@@ -185,11 +184,12 @@ sections:
         text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
       - heading: An Active Global Tech Community
         text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-470x315.webp
     image_alt: Student working on AI project
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-uf1wpq
   - type: testimonials_slide
     section_id: testimonials_slide-eu8um9
     title: Proven Paths to Tech Careers
@@ -218,8 +218,8 @@ sections:
     section_id: why_learn_ai-8dcgsl
     variant: laptop-edge
     mobile_see_more: true
-    mobile_see_more_label: "See more"
-    mobile_see_less_label: "See less"
+    mobile_see_more_label: See more
+    mobile_see_less_label: See less
     title: Why Caracas Is a Smart Place to Launch Your Tech Career
     subtitle: Strong technological entrepreneurship with opportunities to grow locally and globally
     description: "Caracas is one of the cities with the greatest technological entrepreneurship, with great opportunities to grow both inside and outside the country. It has become an opportunity for SMEs to move forward quickly.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">High speed internet access and first class office space</span></li><li>Strong focus on practical skills and industry-aligned curriculum</li><li>Growing demand for software, AI, and data skills across sectors</li></ul></div><div>From our Caracas campus, we connect you with local employers, tech events, and a growing ecosystem so you build relationships that support your entry and long-term growth in tech—both locally and internationally.</div></div>"

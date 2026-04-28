@@ -171,7 +171,6 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-5z63ye
   - type: two_column_accordion_card
-    section_id: two_column_accordion_card-pyf5zu
     variant: image_background
     version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
@@ -185,11 +184,12 @@ sections:
         text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
       - heading: An Active Global Tech Community
         text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-470x315.webp
     image_alt: Student working on AI project
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-pyf5zu
   - type: testimonials_slide
     section_id: testimonials_slide-9a68lh
     title: Proven Paths to Tech Careers
@@ -218,8 +218,8 @@ sections:
     section_id: why_learn_ai-attfjt
     variant: laptop-edge
     mobile_see_more: true
-    mobile_see_more_label: "See more"
-    mobile_see_less_label: "See less"
+    mobile_see_more_label: See more
+    mobile_see_less_label: See less
     title: Why Buenos Aires Is a Smart Place to Launch Your Tech Career
     subtitle: A vibrant startup ecosystem with real hiring momentum
     description: "Buenos Aires encourages innovation and entrepreneurship through various initiatives and events. The city hosts tech conferences, startup competitions, and entrepreneurship programs that provide opportunities for startups to showcase their ideas and connect with investors.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Rising number of innovative startups attracting investment and gaining recognition</span></li><li>Strong focus on e-commerce, edtech, agritech, and mobility solutions with global ambition</li><li>Growing demand for software, AI, and data skills across sectors</li></ul></div><div>From our Buenos Aires campus, we connect you with local employers, tech events, and a thriving ecosystem so you build relationships that support your entry and long-term growth in tech.</div></div>"

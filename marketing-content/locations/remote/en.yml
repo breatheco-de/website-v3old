@@ -171,25 +171,25 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-t8ms10
   - type: two_column_accordion_card
-    section_id: two_column_accordion_card-rwjt2o
     variant: image_background
     version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
     description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
     bullets:
       - heading: 1:1 Mentorship, Unlimited and for Life
-        text: Get personalized technical guidance whenever you need it. Our expert mentors are available online, ready to help you from day one to forever.
+        text: Get personalized technical guidance whenever you need it. Work one-on-one with experienced mentors during the program and continue receiving support long after you graduate.
       - heading: AI-Powered Learning Support
         text: Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve continuously with guidance tailored to your learning path.
       - heading: Career Support, Unlimited and for Life
         text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
       - heading: An Active Global Tech Community
         text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-470x315.webp
     image_alt: Student working on AI project
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-rwjt2o
   - type: testimonials_slide
     section_id: testimonials_slide-i5wgzg
     title: Proven Paths to Tech Careers
@@ -218,8 +218,8 @@ sections:
     section_id: why_learn_ai-z8o804
     variant: laptop-edge
     mobile_see_more: true
-    mobile_see_more_label: "See more"
-    mobile_see_less_label: "See less"
+    mobile_see_more_label: See more
+    mobile_see_less_label: See less
     title: Why Learn to Code with 4Geeks from Anywhere
     subtitle: Unlimited mentorship, global community, real results
     description: Learn online the real way—not by being told to 'watch the video and figure it out.' At 4Geeks Academy, you'll get unlimited 1-on-1 mentoring, live chat support 12 hours a day, hundreds of interactive exercises and videos, real-time streaming classes, and access to our global graduate network. When you learn with us remotely, you get access to our full platform and any of our locations worldwide.

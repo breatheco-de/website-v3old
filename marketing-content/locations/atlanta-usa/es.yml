@@ -171,25 +171,25 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-h57rya
   - type: two_column_accordion_card
-    section_id: two_column_accordion_card-ynhqf0
     variant: image_background
     version: "1.0"
-    title: Todo lo que Necesitas para Triunfar en una Industria Impulsada por IA
-    description: Capacitación lista para IA, guía experta y soporte a largo plazo diseñado para el panorama tech moderno.
+    title: Todo lo que necesitas para crecer en la industria tech de hoy
+    description: Formación orientada a IA, mentoría experta y acompañamiento continuo para avanzar tu carrera en el ecosistema tech actual.
     bullets:
-      - heading: Mentoría 1:1 Ilimitada y de por Vida
-        text: Obtén orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores experimentados durante el programa y continúa recibiendo soporte mucho después de graduarte.
-      - heading: Soporte de Aprendizaje Impulsado por IA
-        text: Recibe feedback instantáneo de RigoBot, nuestro asistente de aprendizaje IA integrado. Practica, depura y mejora continuamente con guía adaptada a tu camino de aprendizaje.
-      - heading: Soporte Profesional Ilimitado y de por Vida
-        text: Recibe coaching profesional personalizado enfocado en conseguirte empleo. Desde estrategia laboral y posicionamiento hasta entrevistas y negociación, el soporte evoluciona con tus metas y experiencia.
-      - heading: Una Comunidad Tech Global Activa
-        text: Únete a nuestra comunidad Slack de apoyo con estudiantes, mentores y alumni. Haz preguntas, comparte oportunidades y mantente conectado a una red global mucho más allá de la graduación.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
-    image_alt: Estudiante trabajando en proyecto de IA
+      - heading: Mentoría 1:1 ilimitada y de por vida
+        text: Recibe orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores expertos durante el programa y continúa recibiendo apoyo incluso después de graduarte.
+      - heading: Aprendizaje potenciado por IA
+        text: Obtén feedback inmediato de Rigobot, nuestro tutor de IA integrado. Practica, haz debugging y mejora de forma continua con guía adaptada a tu progreso.
+      - heading: Acompañamiento profesional ilimitado y de por vida
+        text: Recibe coaching de carrera personalizado enfocado en que consigas empleo. Desde estrategia y posicionamiento profesional hasta entrevistas y negociación salarial, el acompañamiento evoluciona contigo y con tus metas.
+      - heading: Comunidad tech global activa
+        text: Únete a nuestra comunidad en Slack de estudiantes, mentores y graduados. Haz preguntas, comparte oportunidades y mantente conectado a una red global incluso después de graduarte.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-470x315.webp
+    image_alt: Estudiante trabajando en un proyecto de IA
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-ynhqf0
   - type: testimonials_slide
     section_id: testimonials_slide-oxpg5h
     title: Caminos Probados hacia Carreras Tech
@@ -216,8 +216,8 @@ sections:
     section_id: why_learn_ai-i0rkb2
     variant: laptop-edge
     mobile_see_more: true
-    mobile_see_more_label: "Ver más"
-    mobile_see_less_label: "Ver menos"
+    mobile_see_more_label: Ver más
+    mobile_see_less_label: Ver menos
     title: Por Qué Atlanta es un Lugar Inteligente para Lanzar tu Carrera Tech
     subtitle: Un ecosistema tech floreciente con fuerte demanda de contratación
     description: "El ecosistema tecnológico de Atlanta florece con más de 850 empresas tecnológicas y más de 70,000 trabajadores de tecnología. Es un mercado con demanda real de talento técnico.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Grandes empresas tecnológicas como Google y Facebook han establecido locales atraídos por la diversa fuerza laboral de la ciudad</span></li><li>Atlanta compite por convertirse en un hub tech líder del Sur, con creciente demanda de conocimientos en programación de empresas en expansión</li><li>Fuerte demanda de habilidades en software, IA y datos en sectores como fintech, logística y empresas tech</li></ul></div><div>Desde nuestro campus en Atlanta, te conectamos con empleadores locales, socios de contratación y eventos tech—para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.</div></div>"

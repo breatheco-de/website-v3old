@@ -176,7 +176,6 @@ sections:
     background: hsl(var(--muted))
     section_id: course_selector-sua2q0
   - type: two_column_accordion_card
-    section_id: two_column_accordion_card-tbauc2
     variant: image_background
     version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
@@ -190,11 +189,12 @@ sections:
         text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
       - heading: An Active Global Tech Community
         text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-470x315.webp
     image_alt: Student working on AI project
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-tbauc2
   - type: testimonials_slide
     section_id: testimonials_slide-1girqf
     title: Proven Paths to Tech Careers
@@ -223,8 +223,8 @@ sections:
     section_id: why_learn_ai-bnend6
     variant: laptop-edge
     mobile_see_more: true
-    mobile_see_more_label: "See more"
-    mobile_see_less_label: "See less"
+    mobile_see_more_label: See more
+    mobile_see_less_label: See less
     title: Why Mexico City Is a Smart Place to Launch Your Tech Career
     subtitle: A thriving tech ecosystem with real hiring momentum
     description: "Mexico City's tech ecosystem is thriving with a growing number of tech companies and startups. The city has become a hub for innovation and technology, with major corporations establishing their presence.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Mexico City-Fort Worth is home to numerous Fortune 500 companies and a rapidly expanding tech sector</span></li><li>Strong hiring demand across diverse industries, from energy and healthcare to startups</li><li>Growing demand for software, AI, and data skills across the region</li></ul></div><div>From our Mexico City campus, we connect you with local employers, tech events, and a thriving ecosystem so you build relationships that support your entry and long-term growth in tech.</div></div>"

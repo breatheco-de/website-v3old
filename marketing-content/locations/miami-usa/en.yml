@@ -235,7 +235,7 @@ sections:
         text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
       - heading: An Active Global Tech Community
         text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-470x315.webp
     image_alt: Student working on AI project
     image_object_fit: cover
     paddingY:
@@ -268,8 +268,8 @@ sections:
     section_id: why_learn_ai-itu7b0
     variant: laptop-edge
     mobile_see_more: true
-    mobile_see_more_label: "See more"
-    mobile_see_less_label: "See less"
+    mobile_see_more_label: See more
+    mobile_see_less_label: See less
     title: Why Miami Is a Smart Place to Launch Your Tech Career
     subtitle: A fast-growing tech ecosystem with real hiring momentum
     description: "Miami is one of the fastest-growing tech hubs in the U.S., with companies actively hiring across software, AI, and data roles. It’s a market with real demand for technical talent.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">Miami ranks 4th in the U.S. for tech job growth, signaling strong and sustained hiring demand&nbsp;&nbsp;</span></li><li>Recognized among the top 30 global startup ecosystems, with rapid growth in venture capital and company relocations&nbsp;&nbsp;</li><li>Strong demand for software, AI, and data skills across fintech, healthcare, logistics, and emerging tech sectors&nbsp;&nbsp;</li></ul></div><div>Located in Brickell, our Miami campus connects you with local employers, hiring partners, and tech events, so you build relationships that support your entry and&nbsp; long-term growth in tech.</div></div>"

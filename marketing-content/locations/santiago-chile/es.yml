@@ -211,25 +211,25 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-ggfjpb
   - type: two_column_accordion_card
-    section_id: two_column_accordion_card-fboieb
     variant: image_background
     version: "1.0"
-    title: Todo lo que necesitas para triunfar en una industria impulsada por la IA
-    description: Formación preparada para la era de la IA, mentoría experta y soporte continuo diseñados para el entorno tech actual.
+    title: Todo lo que necesitas para crecer en la industria tech de hoy
+    description: Formación orientada a IA, mentoría experta y acompañamiento continuo para avanzar tu carrera en el ecosistema tech actual.
     bullets:
       - heading: Mentoría 1:1 ilimitada y de por vida
-        text: Obtén orientación técnica personalizada cuando la necesites. Trabaja directamente con mentores con experiencia en la industria durante el programa y sigue recibiendo apoyo incluso después de graduarte.
-      - heading: Soporte de aprendizaje impulsado por IA
-        text: Recibe feedback inmediato de RigoBot, nuestro asistente de aprendizaje con IA integrado. Practica, depura y mejora de forma continua con una guía adaptada a tu ritmo y objetivos.
-      - heading: Soporte profesional ilimitado y de por vida
-        text: Accede a coaching profesional personalizado enfocado en tu empleabilidad. Desde estrategia de búsqueda laboral y posicionamiento profesional hasta preparación de entrevistas, el acompañamiento evoluciona contigo y tu experiencia.
-      - heading: Una comunidad tech global y activa
-        text: Únete a nuestra comunidad en Slack con estudiantes, mentores y egresados. Resuelve dudas, comparte oportunidades y mantente conectado a una red global que te acompaña más allá de la graduación.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
-    image_alt: Estudiante trabajando en proyecto de IA
+        text: Recibe orientación técnica personalizada cuando la necesites. Trabaja uno a uno con mentores expertos durante el programa y continúa recibiendo apoyo incluso después de graduarte.
+      - heading: Aprendizaje potenciado por IA
+        text: Obtén feedback inmediato de Rigobot, nuestro tutor de IA integrado. Practica, haz debugging y mejora de forma continua con guía adaptada a tu progreso.
+      - heading: Acompañamiento profesional ilimitado y de por vida
+        text: Recibe coaching de carrera personalizado enfocado en que consigas empleo. Desde estrategia y posicionamiento profesional hasta entrevistas y negociación salarial, el acompañamiento evoluciona contigo y con tus metas.
+      - heading: Comunidad tech global activa
+        text: Únete a nuestra comunidad en Slack de estudiantes, mentores y graduados. Haz preguntas, comparte oportunidades y mantente conectado a una red global incluso después de graduarte.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-470x315.webp
+    image_alt: Estudiante trabajando en un proyecto de IA
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-fboieb
   - type: testimonials_slide
     section_id: testimonials_slide-ezy7z3
     title: Caminos Probados hacia Carreras Tech
@@ -255,8 +255,8 @@ sections:
     section_id: why_learn_ai-qhgno2
     variant: laptop-edge
     mobile_see_more: true
-    mobile_see_more_label: "Ver más"
-    mobile_see_less_label: "Ver menos"
+    mobile_see_more_label: Ver más
+    mobile_see_less_label: Ver menos
     title: Por qué Santiago es un lugar estratégico para lanzar tu carrera tech
     subtitle: Un ecosistema tech en auge con momentum real de contratación
     description: Un ecosistema tecnológico en expansión, con oportunidades reales de contratación.<br><br>Santiago ha experimentado un crecimiento sostenido en la demanda de talento en programación y tecnología, impulsado por la digitalización de múltiples industrias. En este contexto, los bootcamps tech se han convertido en una vía efectiva para acelerar la inserción laboral en el sector.<br><div><div><ul><li>Creciente presencia de empresas tecnológicas y multinacionales con operaciones en Chile</li><li>Alta demanda de talento tech en industrias como fintech, retail, salud y startups</li><li>Necesidad creciente de habilidades en desarrollo de software, inteligencia artificial y análisis de datos en toda la región</li></ul></div><div>Desde nuestro campus en Santiago, te conectamos con empleadores locales, eventos de la comunidad tech y un ecosistema dinámico que te ayudará a construir redes profesionales y potenciar tu inserción y crecimiento a largo plazo en tecnología.</div></div>
