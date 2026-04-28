@@ -704,6 +704,10 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
+    paddingY:
+      desktop: none md
+    marginY:
+      desktop: none md
   - type: whos_hiring
     section_id: whos_hiring-6ml5ey
     variant: carousel
@@ -735,7 +739,7 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
     marginY:
-      desktop: none xl
+      desktop: md xl
     paddingY:
       desktop: none
     background: hsl(var(--background))
