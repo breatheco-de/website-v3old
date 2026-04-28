@@ -293,11 +293,11 @@ sections:
     variant: stats-charts
     subtitle: The demand is there. The talent isn't.
     title: Why AI Engineering Now
-    description: AI has created 1.3 million new roles globally in two years. LinkedIn ranks AI Engineer the fastest-growing job of 2026. Only 3% of the workforce is qualified to fill them. That gap is your opportunity.
+    description: AI has created 1.3 million new roles globally in two years. LinkedIn ranks AI Engineer the fastest-growing job of 2026. Only 3% of the workforce is qualified to fill them. The gap is your opportunity.
     background: bg-slate-950
-    card_bars_accent: hsl(var(--primary))
-    card_gauge_accent: hsl(var(--destructive) / 0.5)
-    card_trend_accent: hsl(var(--accent))
+    card_bars_accent: hsl(var(--color-green))
+    card_gauge_accent: hsl(var(--color-orange))
+    card_trend_accent: hsl(var(--primary))
     card_bars:
       title: More New AI Roles Than Job Losses
       description: Annual delta · 2021-2025 · indexed
@@ -323,7 +323,7 @@ sections:
     paddingY:
       desktop: none lg
     marginY:
-      desktop: md
+      desktop: md lg
   - type: syllabus
     section_id: syllabus-7efuv7
     variant: program-modules
