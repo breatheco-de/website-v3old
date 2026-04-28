@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef, lazy, Suspense, useMemo } from "react";
-import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye, IconLink, IconLinkOff, IconSpacingHorizontal, IconDotsVertical, IconClockHour3, IconHistory } from "@tabler/icons-react";
+import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye, IconLink, IconLinkOff, IconSpacingHorizontal, IconDotsVertical, IconClockHour3, IconHistory, IconAlertTriangle } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import type { Section, SectionLayout, ShowOn, ResponsiveSpacing } from "@shared/schema";
 import { Label } from "@/components/ui/label";
@@ -28,6 +28,23 @@ function deslugify(str: string): string {
     .replace(/[-_]/g, ' ')
     .replace(/([a-z])([A-Z])/g, '$1 $2')
     .replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function collectImageIds(obj: unknown, ids: string[] = []): string[] {
+  if (!obj || typeof obj !== "object") return ids;
+  if (Array.isArray(obj)) {
+    for (const item of obj) collectImageIds(item, ids);
+    return ids;
+  }
+  const record = obj as Record<string, unknown>;
+  for (const [key, value] of Object.entries(record)) {
+    if ((key === "image_id" || key.endsWith("_image_id")) && typeof value === "string" && value.trim()) {
+      ids.push(value.trim());
+    } else {
+      collectImageIds(value, ids);
+    }
+  }
+  return ids;
 }
 
 function CountryFlag({ code, className = "h-3 w-4 rounded-[1px]" }: { code: string; className?: string }) {
@@ -359,6 +376,18 @@ export function EditableSection({ children, section, index, sectionType, content
     staleTime: 30_000,
   });
   const isBound = !!bindingData?.group;
+
+  const { data: imageRegistry } = useQuery<{ images: Record<string, unknown> }>({
+    queryKey: ["/api/image-registry"],
+    staleTime: 60_000,
+    enabled: !!editMode?.isEditMode,
+  });
+
+  const brokenImageIds = useMemo(() => {
+    if (!imageRegistry?.images) return [];
+    const ids = collectImageIds(section);
+    return Array.from(new Set(ids.filter(id => !(id in imageRegistry.images))));
+  }, [section, imageRegistry]);
   const boundSiblingCount = isBound ? (bindingData.group!.members.length - 1) : 0;
   const boundSiblings = (bindingData?.group?.members ?? [])
     .filter((m) => {
@@ -1467,14 +1496,50 @@ export function EditableSection({ children, section, index, sectionType, content
       })()}
 
       
-      {/* Section labels - top left */}
-      <div 
-        className={`
-          absolute top-2 left-2 z-30 flex flex-col md:flex-row items-start md:items-center gap-1 md:gap-1.5
-          transition-opacity duration-150
-          ${isEditorOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100"}
-        `}
-      >
+      {/* Top-left row: broken image badge (always visible) + section labels (on hover) */}
+      <div className="absolute top-2 left-2 z-30 flex flex-row flex-wrap items-center gap-1.5">
+        {brokenImageIds.length > 0 && (
+          <Popover>
+            <PopoverTrigger asChild>
+              <button
+                className="flex items-center gap-1 px-2 py-1 bg-destructive/90 text-destructive-foreground rounded text-xs font-medium shadow-lg hover-elevate"
+                title="Broken image references"
+                data-testid={`badge-broken-images-${index}`}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <IconAlertTriangle className="h-3.5 w-3.5 shrink-0" />
+                <span className="hidden md:inline">{brokenImageIds.length} broken image{brokenImageIds.length !== 1 ? "s" : ""}</span>
+              </button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto max-w-xs p-3" side="bottom" align="start" onClick={(e) => e.stopPropagation()}>
+              <div className="space-y-2">
+                <p className="text-xs font-medium flex items-center gap-1.5 text-destructive">
+                  <IconAlertTriangle className="h-3.5 w-3.5 shrink-0" />
+                  Missing image {brokenImageIds.length !== 1 ? "references" : "reference"}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {brokenImageIds.length !== 1 ? "These image IDs are" : "This image ID is"} not found in the image registry. Open the section editor to fix {brokenImageIds.length !== 1 ? "them" : "it"}.
+                </p>
+                <ul className="space-y-1">
+                  {brokenImageIds.map(id => (
+                    <li key={id} className="flex items-center gap-1.5">
+                      <span className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-destructive">{id}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </PopoverContent>
+          </Popover>
+        )}
+
+        {/* Section labels (visible on hover or when editor is open) */}
+        <div 
+          className={`
+            flex flex-col md:flex-row items-start md:items-center gap-1 md:gap-1.5
+            transition-opacity duration-150
+            ${isEditorOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100"}
+          `}
+        >
         <Popover>
           <PopoverTrigger asChild>
             <button
@@ -1493,6 +1558,7 @@ export function EditableSection({ children, section, index, sectionType, content
         <span className="px-2 py-1 bg-muted/90 backdrop-blur-sm rounded text-xs text-muted-foreground">
           Variant: {deslugify((currentSection as { variant?: string }).variant || "default")}
         </span>
+        </div>
       </div>
       
       {/* Content with pointer events enabled - show preview section when cycling variants */}
