@@ -166,7 +166,6 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-p4y1cf
   - type: two_column_accordion_card
-    section_id: two_column_accordion_card-1ab4d8
     variant: image_background
     version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
@@ -180,11 +179,12 @@ sections:
         text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
       - heading: An Active Global Tech Community
         text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-470x315.webp
     image_alt: Student working on AI project
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-1ab4d8
   - type: testimonials_slide
     section_id: testimonials_slide-6z78wx
     title: Proven Paths to Tech Careers
@@ -213,8 +213,8 @@ sections:
     section_id: why_learn_ai-436if8
     variant: laptop-edge
     mobile_see_more: true
-    mobile_see_more_label: "See more"
-    mobile_see_less_label: "See less"
+    mobile_see_more_label: See more
+    mobile_see_less_label: See less
     title: Why New York Is a Strategic Place to Build a Tech Career
     subtitle: One of the largest and most dynamic tech ecosystems in the United States
     description: "<span style=\"color: hsl(var(--muted-foreground));\">New York City is home to one of the largest technology ecosystems in the U.S., with a strong concentration of startups, global tech companies, and innovation-driven industries. From fintech and media technology to AI, cybersecurity, and data-driven enterprises, demand for skilled tech professionals continues to expand across the region.<br><div><ul><li>New York ranks among the top U.S. cities for tech employment and startup activity.</li><li>Strong hiring demand across fintech, media, healthcare, AI, and enterprise technology.</li><li>Growing need for professionals trained in software development, data science, cybersecurity, and AI engineering.</li></ul></div><div>From our New York campus, students gain access to a global network, structured mentorship, and career support aligned with the demands of New York’s competitive tech job market.</div></span><div></div>"

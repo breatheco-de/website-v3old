@@ -171,7 +171,6 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-rmx7hh
   - type: two_column_accordion_card
-    section_id: two_column_accordion_card-r5fqd9
     variant: image_background
     version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
@@ -185,11 +184,12 @@ sections:
         text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
       - heading: An Active Global Tech Community
         text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-470x315.webp
     image_alt: Student working on AI project
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-r5fqd9
   - type: testimonials_slide
     section_id: testimonials_slide-34ima7
     title: Proven Paths to Tech Careers
@@ -218,8 +218,8 @@ sections:
     section_id: why_learn_ai-fyhw36
     variant: laptop-edge
     mobile_see_more: true
-    mobile_see_more_label: "See more"
-    mobile_see_less_label: "See less"
+    mobile_see_more_label: See more
+    mobile_see_less_label: See less
     title: Why Bogotá Is a Smart Place to Launch Your Tech Career
     subtitle: A thriving tech community with real hiring momentum
     description: "Bogotá, the capital city of Colombia, has been growing in its tech scene, attracting innovative companies and entrepreneurs. Coding plays a vital role in Bogotá's tech ecosystem, as it is essential for software development and technological innovation.<br><div><div><ul><li><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">High demand for coding skills across sectors</span></li><li>Numerous coding bootcamps, schools, and training programs to support career development</li><li>Thriving tech community and supportive infrastructure for aspiring coders</li></ul></div><div>From our Bogotá campus, we connect you with local employers, tech events, and a growing ecosystem so you build relationships that support your entry and long-term growth in tech.</div></div>"
