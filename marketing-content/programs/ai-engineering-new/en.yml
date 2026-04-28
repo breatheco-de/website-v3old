@@ -76,7 +76,7 @@ sections:
       alt: AI Engineering program introduction
     signup_card:
       title: Get the Full Program Overview
-      description: Receive the complete 10-milestone syllabus, program structure, schedule options, tuition details, and career support framework.
+      description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, financing options and more. It takes 2 minutes."
       cta_button:
         text: Send me the details
         url: "#modal-ubwgcj"
