@@ -5,6 +5,7 @@ import { UniversalVideo } from "@/components/UniversalVideo";
 import { Button } from "@/components/ui/button";
 import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
+import { useSectionContext } from "@/contexts/SectionContext";
 
 const LAPTOP_IMAGE_ID = "243f0f155c3d1683ecfaa1020801b365ad23092d-1769656566581";
 
@@ -138,6 +139,7 @@ function normalizeVideo(
 
 export default function FeaturesQuadLaptopEdge({ data }: FeaturesQuadLaptopEdgeProps) {
   const { registry } = useImageRegistry();
+  const { isPriority } = useSectionContext();
   const laptopCodeEditor = registry?.images?.[LAPTOP_IMAGE_ID]?.src ?? "https://storage.googleapis.com/4geeks-academy-website/media/laptop.png";
   const isCompact = data.compact !== null ? data.compact : false;
   const CardComponent = isCompact ? CompactCard : FullCard;
@@ -407,7 +409,8 @@ export default function FeaturesQuadLaptopEdge({ data }: FeaturesQuadLaptopEdgeP
           src={laptopCodeEditor}
           alt="Code editor on laptop"
           className="w-[90%] max-w-none h-auto object-contain object-left"
-          loading="lazy"
+          loading={isPriority ? "eager" : "lazy"}
+          {...{ fetchpriority: isPriority ? "high" : "auto" }}
           data-testid="img-features-quad-laptop"
         />
       </div>

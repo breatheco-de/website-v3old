@@ -120,7 +120,7 @@ export function UniversalImage({
     id.startsWith("https://") ||
     id.startsWith("data:");
 
-  if (!isDirectUrl && (registryLoading || !registry || !registry.images)) {
+  if (!isDirectUrl && !isEager && (registryLoading || !registry || !registry.images)) {
     return (
       <div
         className={`bg-muted animate-pulse ${className}`}

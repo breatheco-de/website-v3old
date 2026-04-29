@@ -314,7 +314,7 @@ export default function HeroProductShowcase({
                               height: parseLogoHeight(item.logoHeight) || 48,
                             }}
                             className="w-auto object-contain"
-                            loading="lazy"
+                            loading="eager"
                           />
                         ) : (
                           <div className="flex flex-col items-center text-center">

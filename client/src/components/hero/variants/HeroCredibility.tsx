@@ -24,6 +24,7 @@ function PillLogo({ imageId, colored }: { imageId: string; colored: boolean }) {
       alt={entry.alt || ""}
       className="max-w-full max-h-full object-contain"
       style={{ filter: colored ? "none" : "grayscale(100%) opacity(0.85)" }}
+      loading="eager"
     />
   );
 }
