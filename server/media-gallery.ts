@@ -741,6 +741,8 @@ class MediaGallery {
       ...(entry.width ? { width: entry.width } : {}),
       ...(entry.height ? { height: entry.height } : {}),
       ...(entry.format ? { format: entry.format } : {}),
+      ...(entry.parentId ? { parentId: entry.parentId } : {}),
+      ...(entry.quality_override != null ? { quality_override: entry.quality_override } : {}),
     };
 
     this.saveRegistry(registry);
