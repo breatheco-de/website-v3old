@@ -321,12 +321,6 @@ export default function MediaGallery() {
     }
   };
 
-  const handleDismissOptimization = () => {
-    setOptimizing(false);
-    setOptimizeDone(false);
-    setOptimizeProgress(null);
-  };
-
   const startOptimizationPoller = useCallback((initialFallback: number) => {
     if (optimizePollerRef.current) clearInterval(optimizePollerRef.current);
     optimizePollerRef.current = setInterval(async () => {
