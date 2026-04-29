@@ -29,11 +29,13 @@ function getIcon(iconName: string, className?: string, color?: string) {
 function DetailedCard({ 
   item, 
   collapsible,
-  iconColor
+  iconColor,
+  itemIndex
 }: { 
   item: FeaturesGridDetailedItem; 
   collapsible: boolean;
   iconColor?: string;
+  itemIndex: number;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const handleLinkClick = useInternalNav();
@@ -48,6 +50,7 @@ function DetailedCard({
             id={item.image!.src}
             alt={item.image!.alt}
             className="max-w-full max-h-full object-contain"
+            fieldContext={{ arrayPath: "items", index: itemIndex, srcField: "image.src" }}
             data-testid={`img-feature-${itemId}`}
           />
         </div>
@@ -164,6 +167,7 @@ export default function FeaturesGridDetailed({ data }: FeaturesGridDetailedProps
               item={item} 
               collapsible={collapsible}
               iconColor={item.icon_color || data.icon_color}
+              itemIndex={index}
             />
           ))}
         </div>

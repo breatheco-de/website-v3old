@@ -81,6 +81,7 @@ export default function FeaturesGridCardHeader({ data }: FeaturesGridCardHeaderP
                       id={data.image}
                       alt={data.image_alt || ""}
                       className="w-full max-w-[220px] md:max-w-[280px] object-contain"
+                      fieldContext={{ fieldPath: "image" }}
                       data-testid="img-features-grid-main"
                     />
                   </div>

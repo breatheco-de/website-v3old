@@ -28,6 +28,7 @@ export default function HeroSimpleTwoColumn({ data }: HeroSimpleTwoColumnProps) 
     : (data.image?.alt || data.image_alt || DEFAULT_IMAGE_ALT);
   const imageObjectFit = data.image_object_fit || "cover";
   const imageObjectPosition = data.image_object_position || "center";
+  const imageFieldPath = typeof data.image === "string" ? "image" : "image.src";
   
   return (
     <section 
@@ -57,6 +58,7 @@ export default function HeroSimpleTwoColumn({ data }: HeroSimpleTwoColumnProps) 
                 alt={imageAlt}
                 className="w-full h-auto rounded-card shadow-card"
                 style={{ objectFit: imageObjectFit as "cover" | "contain" | "fill", objectPosition: imageObjectPosition }}
+                fieldContext={{ fieldPath: imageFieldPath }}
                 data-testid="img-hero"
               />
             )}
@@ -123,6 +125,7 @@ export default function HeroSimpleTwoColumn({ data }: HeroSimpleTwoColumnProps) 
                   alt={imageAlt}
                   className="w-full h-auto rounded-card shadow-card"
                   style={{ objectFit: imageObjectFit as "cover" | "contain" | "fill", objectPosition: imageObjectPosition }}
+                  fieldContext={{ fieldPath: imageFieldPath }}
                   data-testid="img-hero"
                 />
               )}

@@ -111,6 +111,7 @@ export function CommunitySupport({ data }: CommunitySupportProps) {
                             id={group.image}
                             alt="Group icon"
                             className="w-full h-full object-cover"
+                            fieldContext={{ arrayPath: "bullet_groups", index: groupIndex, srcField: "image" }}
                           />
                         </div>
                       ) : null}
