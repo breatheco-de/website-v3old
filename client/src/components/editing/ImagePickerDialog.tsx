@@ -20,6 +20,11 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -31,7 +36,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import type { ImageRegistry } from "@shared/schema";
+import type { ImageRegistry, ImageEntry } from "@shared/schema";
 
 export interface ImagePickerDialogProps {
   open: boolean;
@@ -170,12 +175,25 @@ export function ImagePickerDialog({
     setVisibleCount(48);
   }, [search, open]);
 
+  const childrenByParent = useMemo(() => {
+    const map: Record<string, Array<[string, ImageEntry]>> = {};
+    if (!imageRegistry?.images) return map;
+    for (const [id, img] of Object.entries(imageRegistry.images)) {
+      if (img.parentId) {
+        if (!map[img.parentId]) map[img.parentId] = [];
+        map[img.parentId].push([id, img]);
+      }
+    }
+    return map;
+  }, [imageRegistry]);
+
   const filteredImages = useMemo(() => {
     if (!imageRegistry?.images) return [];
     const searchLower = search.toLowerCase();
     const tagLower = tagFilter?.toLowerCase();
     return Object.entries(imageRegistry.images)
       .filter(([id, img]) => {
+        if (img.parentId) return false;
         if (tagLower && !img.tags?.some((t) => t.toLowerCase() === tagLower)) {
           return false;
         }
@@ -406,26 +424,107 @@ export function ImagePickerDialog({
 
                 <div className="flex-1 overflow-y-auto min-h-0">
                   <div className="columns-4 sm:columns-5 md:columns-6 gap-2">
-                    {filteredImages.slice(0, visibleCount).map(([id, img]) => (
-                      <button
-                        key={id}
-                        type="button"
-                        onClick={() => {
-                          setSelectedSrc(img.src);
-                          setSelectedAlt(img.alt || "");
-                          setSelectedRegistryId(id);
-                        }}
-                        className={`mb-2 rounded-md overflow-hidden bg-muted border-2 transition-colors block w-full ${
-                          selectedSrc === img.src || selectedSrc === id
-                            ? "border-primary"
-                            : "border-transparent hover:border-muted-foreground/50"
-                        }`}
-                        title={img.alt}
-                        data-testid={`gallery-image-${id}`}
-                      >
-                        <img src={img.src} alt={img.alt} className="w-full h-auto" loading="lazy" />
-                      </button>
-                    ))}
+                    {filteredImages.slice(0, visibleCount).map(([id, img]) => {
+                      const variants = childrenByParent[id] || [];
+                      const hasVariants = variants.length > 0;
+                      const isSelected = selectedRegistryId === id
+                        || variants.some(([childId, c]) => selectedRegistryId === childId || selectedSrc === c.src);
+                      const borderClass = isSelected
+                        ? "border-primary"
+                        : "border-transparent hover:border-muted-foreground/50";
+
+                      const cardContent = (
+                        <div className="relative">
+                          <img src={img.src} alt={img.alt} className="w-full h-auto" loading="lazy" />
+                          {hasVariants && (
+                            <div className="absolute bottom-1 right-1 bg-black/60 text-white rounded px-1 py-0.5" style={{ fontSize: 9 }}>
+                              {variants.length}v
+                            </div>
+                          )}
+                        </div>
+                      );
+
+                      if (!hasVariants) {
+                        return (
+                          <button
+                            key={id}
+                            type="button"
+                            onClick={() => {
+                              setSelectedSrc(img.src);
+                              setSelectedAlt(img.alt || "");
+                              setSelectedRegistryId(id);
+                            }}
+                            className={`mb-2 rounded-md overflow-hidden bg-muted border-2 transition-colors block w-full ${borderClass}`}
+                            title={img.alt}
+                            data-testid={`gallery-image-${id}`}
+                          >
+                            {cardContent}
+                          </button>
+                        );
+                      }
+
+                      return (
+                        <Popover key={id}>
+                          <PopoverTrigger asChild>
+                            <button
+                              type="button"
+                              className={`mb-2 rounded-md overflow-hidden bg-muted border-2 transition-colors block w-full ${borderClass}`}
+                              title={img.alt}
+                              data-testid={`gallery-image-${id}`}
+                            >
+                              {cardContent}
+                            </button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-60 p-2" side="right" align="start">
+                            <p className="text-xs font-medium text-muted-foreground px-1 pb-1.5">Variantes recortadas</p>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedSrc(img.src);
+                                setSelectedAlt(img.alt || "");
+                                setSelectedRegistryId(id);
+                              }}
+                              className={`w-full flex items-center gap-2 rounded-md p-1.5 text-left hover-elevate ${selectedSrc === img.src || selectedSrc === id ? "bg-muted" : ""}`}
+                              data-testid={`variant-original-${id}`}
+                            >
+                              <img src={img.src} alt={img.alt} className="w-10 h-8 object-cover rounded flex-shrink-0" />
+                              <div className="flex-1 min-w-0">
+                                <p className="text-xs font-medium">Original</p>
+                                {img.width && img.height && (
+                                  <p className="text-[10px] text-muted-foreground">{img.width} × {img.height}</p>
+                                )}
+                              </div>
+                            </button>
+                            {variants.map(([childId, childImg]) => {
+                              const childSelected = selectedSrc === childImg.src || selectedSrc === childId;
+                              return (
+                                <button
+                                  key={childId}
+                                  type="button"
+                                  onClick={() => {
+                                    setSelectedSrc(childImg.src);
+                                    setSelectedAlt(childImg.alt || img.alt || "");
+                                    setSelectedRegistryId(childId);
+                                  }}
+                                  className={`w-full flex items-center gap-2 rounded-md p-1.5 text-left hover-elevate ${childSelected ? "bg-muted" : ""}`}
+                                  data-testid={`variant-child-${childId}`}
+                                >
+                                  <img src={childImg.src} alt={childImg.alt} className="w-10 h-8 object-cover rounded flex-shrink-0" />
+                                  <div className="flex-1 min-w-0">
+                                    <p className="text-xs font-medium truncate">{childImg.width} × {childImg.height}</p>
+                                    <div className="flex items-center gap-1 flex-wrap">
+                                      {childImg.quality_override !== undefined && (
+                                        <span className="text-[10px] bg-muted rounded px-1">q{childImg.quality_override}</span>
+                                      )}
+                                    </div>
+                                  </div>
+                                </button>
+                              );
+                            })}
+                          </PopoverContent>
+                        </Popover>
+                      );
+                    })}
                   </div>
                   {visibleCount < filteredImages.length && (
                     <div className="py-3 flex justify-center">

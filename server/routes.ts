@@ -9479,6 +9479,13 @@ sections: []
         newSrc = await defaultProvider.upload(derivedFilename, processedBuffer, "image/webp");
       }
 
+      const registryPresets = registry.presets as Record<string, { quality?: number }>;
+      const parentPresets = (entry.preset || []) as string[];
+      const presetDefaultQuality = parentPresets.length > 0
+        ? Math.max(...parentPresets.map((p) => registryPresets[p]?.quality ?? 85))
+        : 85;
+      const qualityToSave = quality !== presetDefaultQuality ? quality : undefined;
+
       mediaGallery.register(uniqueId, {
         src: newSrc,
         alt: entry.alt,
@@ -9487,7 +9494,7 @@ sections: []
         height: targetHeight,
         format: "webp",
         parentId: imageId,
-        quality_override: quality,
+        quality_override: qualityToSave,
       });
 
       console.log(`[CropResize] Created "${uniqueId}" (${targetWidth}x${targetHeight}) from "${imageId}"`);
