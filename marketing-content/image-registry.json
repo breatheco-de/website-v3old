@@ -11227,6 +11227,32 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_team_2-288x210-288w.webp"
         }
       ]
+    },
+    "graduates_team_2-288x210-288x210": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_team_2-288x210-288x210.webp",
+      "alt": "Large group of 4Geeks graduates celebrating with certificates",
+      "focal_point": "center",
+      "tags": [
+        "graduates",
+        "team",
+        "celebration"
+      ],
+      "usage_count": 0,
+      "width": 288,
+      "height": 210,
+      "format": "webp",
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        288
+      ],
+      "srcset": [
+        {
+          "w": 288,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_team_2-288x210-288x210-288w.webp"
+        }
+      ]
     }
   }
 }
