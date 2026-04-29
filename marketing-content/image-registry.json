@@ -11300,6 +11300,71 @@
           "url": "/marketing-content/images/graduates_team_2-288x210-288x210-288w.webp"
         }
       ]
+    },
+    "graduates_coding-456x215": {
+      "src": "/marketing-content/images/graduates_coding-456x215.webp",
+      "alt": "Student coding at a desk with multiple monitors",
+      "focal_point": "center",
+      "tags": [
+        "graduates",
+        "coding",
+        "workspace",
+        "hero",
+        "logo",
+        "card",
+        "photo",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
+      ],
+      "usage_count": 0,
+      "width": 456,
+      "height": 215,
+      "format": "webp",
+      "parentId": "graduates_coding",
+      "preset": [
+        "hero-wide",
+        "logo",
+        "icon"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128,
+        240,
+        320
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "/marketing-content/images/graduates_coding-456x215-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "/marketing-content/images/graduates_coding-456x215-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "/marketing-content/images/graduates_coding-456x215-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "/marketing-content/images/graduates_coding-456x215-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "/marketing-content/images/graduates_coding-456x215-240w.webp"
+        },
+        {
+          "w": 320,
+          "url": "/marketing-content/images/graduates_coding-456x215-320w.webp"
+        }
+      ]
     }
   }
 }
