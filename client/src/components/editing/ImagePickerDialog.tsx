@@ -139,7 +139,7 @@ export function ImagePickerDialog({
         seen.add(key);
         suggestions.push({
           value: key,
-          label: `Current size (retina-ready) — ${renderedSize.width} × ${renderedSize.height} px`,
+          label: `Match displayed size on retina screens — ${renderedSize.width} × ${renderedSize.height} px`,
           width: renderedSize.width,
           height: renderedSize.height,
         });
@@ -153,11 +153,17 @@ export function ImagePickerDialog({
     if (open) {
       setSelectedSrc(initialSrc);
       setSelectedAlt(initialAlt);
-      setSelectedRegistryId(undefined);
+      let resolvedId: string | undefined;
+      if (initialSrc && imageRegistry?.images) {
+        resolvedId = Object.entries(imageRegistry.images).find(
+          ([, entry]) => entry.src === initialSrc
+        )?.[0];
+      }
+      setSelectedRegistryId(resolvedId);
       setSearch("");
       setPickerMode("browse");
     }
-  }, [open, initialSrc, initialAlt]);
+  }, [open, initialSrc, initialAlt, imageRegistry]);
 
   useEffect(() => {
     setVisibleCount(48);
@@ -641,35 +647,6 @@ export function ImagePickerDialog({
                 </ReactCrop>
               </div>
 
-              {cropSizeSuggestions.length > 0 && (
-                <div className="space-y-1">
-                  <label className="text-xs font-medium text-muted-foreground">
-                    Size Preset
-                  </label>
-                  <Select
-                    onValueChange={(val) => {
-                      const s = cropSizeSuggestions.find((s) => s.value === val);
-                      if (s) {
-                        setCropTargetWidth(s.width);
-                        setCropTargetHeight(s.height);
-                      }
-                    }}
-                    data-testid="select-crop-size-preset"
-                  >
-                    <SelectTrigger data-testid="trigger-crop-size-preset">
-                      <SelectValue placeholder="Choose a preset size…" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {cropSizeSuggestions.map((s) => (
-                        <SelectItem key={s.value} value={s.value} data-testid={`option-crop-size-${s.value}`}>
-                          {s.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              )}
-
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">
                   <label className="text-xs font-medium text-muted-foreground">
@@ -698,6 +675,35 @@ export function ImagePickerDialog({
                   />
                 </div>
               </div>
+
+              {cropSizeSuggestions.length > 0 && (
+                <div className="space-y-1">
+                  <label className="text-xs text-muted-foreground">
+                    Suggested size presets
+                  </label>
+                  <Select
+                    onValueChange={(val) => {
+                      const s = cropSizeSuggestions.find((s) => s.value === val);
+                      if (s) {
+                        setCropTargetWidth(s.width);
+                        setCropTargetHeight(s.height);
+                      }
+                    }}
+                    data-testid="select-crop-size-preset"
+                  >
+                    <SelectTrigger data-testid="trigger-crop-size-preset">
+                      <SelectValue placeholder="Choose a preset size…" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {cropSizeSuggestions.map((s) => (
+                        <SelectItem key={s.value} value={s.value} data-testid={`option-crop-size-${s.value}`}>
+                          {s.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
 
               <div className="flex items-center gap-3">
                 <Switch

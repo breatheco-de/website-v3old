@@ -292,7 +292,7 @@ export function UniversalImage({
     </div>
   );
 
-  const dpr = window.devicePixelRatio || 1;
+  const dpr = typeof window !== "undefined" ? (window.devicePixelRatio || 1) : 1;
   const renderedSize = imgRef.current
     ? { width: Math.round(imgRef.current.getBoundingClientRect().width * dpr), height: Math.round(imgRef.current.getBoundingClientRect().height * dpr) }
     : undefined;
