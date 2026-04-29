@@ -163,7 +163,8 @@ export function ImagePickerDialog({
       setSearch("");
       setPickerMode("browse");
     }
-  }, [open, initialSrc, initialAlt, imageRegistry]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, initialSrc, initialAlt]);
 
   useEffect(() => {
     setVisibleCount(48);
