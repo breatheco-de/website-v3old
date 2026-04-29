@@ -110,7 +110,17 @@ export function UniversalImage({
     onError?.();
   };
 
-  if (registryLoading || !registry || !registry.images) {
+  if (!id || !id.trim()) {
+    return null;
+  }
+
+  const isDirectUrl =
+    id.startsWith("/") ||
+    id.startsWith("http://") ||
+    id.startsWith("https://") ||
+    id.startsWith("data:");
+
+  if (!isDirectUrl && (registryLoading || !registry || !registry.images)) {
     return (
       <div
         className={`bg-muted animate-pulse ${className}`}
@@ -119,23 +129,14 @@ export function UniversalImage({
     );
   }
 
-  if (!id || !id.trim()) {
-    return null;
-  }
-
-  const imageEntry = registry.images[id];
-  const isDirectPath =
-    !imageEntry &&
-    (id.startsWith("/") ||
-      id.startsWith("http://") ||
-      id.startsWith("https://") ||
-      id.startsWith("data:"));
+  const imageEntry = registry?.images?.[id];
+  const isDirectPath = !imageEntry && isDirectUrl;
 
   if (!imageEntry && !isDirectPath) {
     return null;
   }
 
-  const presetConfig = registry.presets[preset];
+  const presetConfig = registry?.presets?.[preset];
   const aspectRatio = presetConfig?.aspect_ratio
     ? ASPECT_RATIOS[presetConfig.aspect_ratio]
     : undefined;
