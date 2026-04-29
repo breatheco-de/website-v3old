@@ -8,6 +8,7 @@ import { media } from "./media";
 import { markFileAsModified } from "./sync-state";
 import { processImageBuffer } from "./image-optimizer";
 import type { Preset } from "./image-optimizer";
+import { importMigrated } from "./image-queue-state";
 
 const MARKETING_CONTENT_DIR = path.join(process.cwd(), "marketing-content");
 const MARKETING_IMAGES_DIR = path.join(MARKETING_CONTENT_DIR, "images");
@@ -95,10 +96,20 @@ function isScreenshot(filename: string): boolean {
   return SCREENSHOT_PATTERNS.some(pattern => pattern.test(filename));
 }
 
+export interface ImageRefLocation {
+  yamlFile: string;
+  contentType: string;
+  slug: string;
+  locale: string;
+  sectionIndex: number;
+  sectionType: string;
+}
+
 export interface ImageReferenceScan {
   imageIds: Set<string>;
   srcValues: Set<string>;
   byRef: Map<string, Set<string>>;
+  imageIdLocations: Map<string, ImageRefLocation[]>;
 }
 
 class MediaGallery {
@@ -117,8 +128,32 @@ class MediaGallery {
       }
 
       const content = fs.readFileSync(REGISTRY_PATH, "utf8");
-      this.registryCache = JSON.parse(content) as ImageRegistry;
-      this.lastModified = currentModified;
+      const raw = JSON.parse(content) as ImageRegistry;
+
+      // Migrate any legacy failed_at / queued_at still present in the JSON
+      const toMigrate: Record<string, { failed_at?: string; queued_at?: string }> = {};
+      for (const [id, entry] of Object.entries(raw.images)) {
+        const e = entry as ImageEntry & { failed_at?: string; queued_at?: string };
+        if (e.failed_at || e.queued_at) {
+          toMigrate[id] = {
+            ...(e.failed_at ? { failed_at: e.failed_at } : {}),
+            ...(e.queued_at ? { queued_at: e.queued_at } : {}),
+          };
+          delete e.failed_at;
+          delete e.queued_at;
+        }
+      }
+      if (Object.keys(toMigrate).length > 0) {
+        importMigrated(toMigrate);
+        console.log(`[MediaGallery] Migrated queue state for ${Object.keys(toMigrate).length} entries to .image-queue-state.json`);
+        // Write the cleaned registry back to disk immediately so the fields
+        // are never committed to version control again.
+        fs.writeFileSync(REGISTRY_PATH, JSON.stringify(raw, null, 2) + "\n", "utf8");
+        markFileAsModified("marketing-content/image-registry.json");
+      }
+
+      this.registryCache = raw;
+      this.lastModified = fs.statSync(REGISTRY_PATH).mtimeMs;
 
       console.log(`[MediaGallery] Loaded ${Object.keys(this.registryCache.images).length} images, ${Object.keys(this.registryCache.presets).length} presets`);
       return this.registryCache;
@@ -140,6 +175,7 @@ class MediaGallery {
     const imageIds = new Set<string>();
     const srcValues = new Set<string>();
     const byRef = new Map<string, Set<string>>();
+    const imageIdLocations = new Map<string, ImageRefLocation[]>();
 
     const addRef = (ref: string, filePath: string) => {
       if (!ref) return;
@@ -148,6 +184,15 @@ class MediaGallery {
         existing.add(filePath);
       } else {
         byRef.set(ref, new Set([filePath]));
+      }
+    };
+
+    const addImageIdLocation = (imageId: string, loc: ImageRefLocation) => {
+      const existing = imageIdLocations.get(imageId);
+      if (existing) {
+        existing.push(loc);
+      } else {
+        imageIdLocations.set(imageId, [loc]);
       }
     };
 
@@ -198,6 +243,43 @@ class MediaGallery {
       }
     };
 
+    // Parse a YAML file's relative path into content type, slug and locale.
+    // Expected pattern: marketing-content/{contentType}/{slug}/{locale}.yml
+    const parseYamlFilePath = (relPath: string): { contentType: string; slug: string; locale: string } | null => {
+      const match = relPath.match(/^marketing-content\/([^/]+)\/([^/]+)\/([^/.]+)\.ya?ml$/);
+      if (!match) return null;
+      return { contentType: match[1], slug: match[2], locale: match[3] };
+    };
+
+    // Walk a single section object collecting every image_id key.
+    const collectImageIdsInObj = (
+      obj: unknown,
+      sectionIndex: number,
+      sectionType: string,
+      relPath: string,
+      meta: { contentType: string; slug: string; locale: string }
+    ): void => {
+      if (!obj || typeof obj !== "object") return;
+      if (Array.isArray(obj)) {
+        obj.forEach(item => collectImageIdsInObj(item, sectionIndex, sectionType, relPath, meta));
+        return;
+      }
+      for (const [key, val] of Object.entries(obj as Record<string, unknown>)) {
+        if (key === "image_id" && typeof val === "string" && val) {
+          addImageIdLocation(val, {
+            yamlFile: relPath,
+            contentType: meta.contentType,
+            slug: meta.slug,
+            locale: meta.locale,
+            sectionIndex,
+            sectionType,
+          });
+        } else {
+          collectImageIdsInObj(val, sectionIndex, sectionType, relPath, meta);
+        }
+      }
+    };
+
     const walkDir = (dir: string) => {
       if (!fs.existsSync(dir)) return;
       const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -214,6 +296,21 @@ class MediaGallery {
             if (parsed && typeof parsed === "object") {
               const relPath = path.relative(process.cwd(), fullPath);
               extractRefs(parsed, "", relPath);
+
+              // Additionally track per-section locations for image_id fields
+              const meta = parseYamlFilePath(relPath);
+              if (meta) {
+                const sections = (parsed as Record<string, unknown>).sections;
+                if (Array.isArray(sections)) {
+                  sections.forEach((section: unknown, idx: number) => {
+                    if (!section || typeof section !== "object") return;
+                    const sectionType = typeof (section as Record<string, unknown>).type === "string"
+                      ? String((section as Record<string, unknown>).type)
+                      : "unknown";
+                    collectImageIdsInObj(section, idx, sectionType, relPath, meta);
+                  });
+                }
+              }
             }
           } catch {}
         }
@@ -249,7 +346,7 @@ class MediaGallery {
     scanSourceDir(path.join(process.cwd(), "server"));
     scanSourceDir(path.join(process.cwd(), "shared"));
 
-    this.imageRefCache = { imageIds, srcValues, byRef };
+    this.imageRefCache = { imageIds, srcValues, byRef, imageIdLocations };
     return this.imageRefCache;
   }
 
@@ -1117,7 +1214,22 @@ class MediaGallery {
   }
 
   private saveRegistry(registry: ImageRegistry): void {
-    fs.writeFileSync(REGISTRY_PATH, JSON.stringify(registry, null, 2) + "\n", "utf8");
+    // Strip transient queue-state fields before persisting to the tracked file
+    const clean: ImageRegistry = {
+      ...registry,
+      images: Object.fromEntries(
+        Object.entries(registry.images).map(([id, entry]) => {
+          const { failed_at, queued_at, ...rest } = entry as ImageEntry & {
+            failed_at?: string;
+            queued_at?: string;
+          };
+          void failed_at;
+          void queued_at;
+          return [id, rest as ImageEntry];
+        })
+      ),
+    };
+    fs.writeFileSync(REGISTRY_PATH, JSON.stringify(clean, null, 2) + "\n", "utf8");
     markFileAsModified("marketing-content/image-registry.json");
     this.clearCache();
   }

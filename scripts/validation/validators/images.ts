@@ -54,23 +54,41 @@ export const imagesValidator: Validator = {
     }
 
     const images = registry.images || {};
-    const { imageIds: referencedIds, srcValues } = mediaGallery.collectImageReferences();
+    const { imageIds: referencedIds, srcValues, imageIdLocations } = mediaGallery.collectImageReferences();
 
     let missingFromRegistry = 0;
     referencedIds.forEach((id) => {
       if (!images[id]) {
         missingFromRegistry++;
-        errors.push({
-          type: "error",
-          code: "IMAGE_ID_NOT_IN_REGISTRY",
-          message: `Referenced image_id "${id}" not found in image registry`,
-          suggestion: "Add this image to marketing-content/image-registry.json or fix the reference",
-          fix: {
-            type: "api",
-            label: "Sync image registry (scan for new images)",
-            fixerName: "image-registry-sync",
-          },
-        });
+        const locations = imageIdLocations.get(id) ?? [];
+        if (locations.length > 0) {
+          for (const loc of locations) {
+            const editUrl = `/private/preview/${loc.contentType}/${loc.slug}?locale=${loc.locale}&edit=1#${loc.sectionType}-${loc.sectionIndex}`;
+            errors.push({
+              type: "error",
+              code: "IMAGE_ID_NOT_IN_REGISTRY",
+              message: `Referenced image_id "${id}" not found in image registry — used in ${loc.yamlFile} (${loc.sectionType} section, index ${loc.sectionIndex})`,
+              file: loc.yamlFile,
+              suggestion: editUrl,
+              fix: {
+                type: "manual",
+                label: "Go to section",
+                url: editUrl,
+              },
+            });
+          }
+        } else {
+          errors.push({
+            type: "error",
+            code: "IMAGE_ID_NOT_IN_REGISTRY",
+            message: `Referenced image_id "${id}" not found in image registry`,
+            suggestion: "Add this image to marketing-content/image-registry.json or fix the reference",
+            fix: {
+              type: "manual",
+              label: "Fix manually",
+            },
+          });
+        }
       }
     });
 

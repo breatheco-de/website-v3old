@@ -21,7 +21,7 @@ sections:
     variant: course
     title: AI Engineering
     title_highlight: AI Engineering
-    subtitle: AI Engineer is the fastest-growing job of 2026. Our intensive program trains you for what the market demands, backed by unlimited 1:1 mentorship and career support that doesn't stop at graduation.
+    subtitle: AI Engineer is the fastest-growing job of 2026. Our intensive program is built to get you hired, backed by an AI-first methodology, unlimited 1:1 mentorship, and lifelong career support.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -30,9 +30,9 @@ sections:
         - https://randomuser.me/api/portraits/men/4.jpg
       count: +6000 graduates
     bullet_points:
-      - Build a fully AI-native system end-to-end across 10 real-world milestones.
-      - Ship AI-integrated software that connects intelligent models to live users and data.
-      - Work with AI coding agents to build and deliver production-ready software faster.
+      - Build a fully AI-native company from scratch, end to end.
+      - Work with AI agents, models, and data pipelines, the way AI-first engineers do.
+      - Graduate with the production-ready portfolio employers are looking for.
     tutors:
       - name: Marco Gonzalo
         role: Main Instructor
@@ -41,7 +41,7 @@ sections:
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
-    description: Graduate job-ready for one of tech's fastest-growing roles — with the skills and support to land positions paying $95K–$135K+.
+    description: Get job-ready for $95K–$135K+ AI Engineering roles.
     media:
       type: video
       src: https://www.youtube.com/shorts/sSxJnelPJT8
@@ -49,7 +49,7 @@ sections:
       alt: AI Engineering program introduction
     signup_card:
       title: Get the Full Program Overview
-      description: Receive the complete 10-milestone syllabus, program structure, schedule options, tuition details, and career support framework.
+      description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, financing options and more. It takes 2 minutes."
       cta_button:
         text: Send Me the Details
         url: "#modal-ubwgcj"
@@ -62,16 +62,12 @@ sections:
           text: 24-Week or 15-Week Accelerated Morning Track
         - icon: IconShield
           text: Optional Job Guarantee (available as add-on)
-        - icon: IconBriefcase
-          text: Employment-First Curriculum
-        - icon: IconRobot
-          text: AI-Powered Learning & Feedback
         - icon: IconUsers
           text: {{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
           text: Unlimited 1:1 Mentorship
-        - icon: book
-          text: Production-Grade Portfolio
+        - icon: IconRobot
+          text: AI-Powered Learning & Feedback
     section_id: hero-tznhhe
     paddingY:
       desktop: md
@@ -94,7 +90,7 @@ sections:
     variant: course
     title: AI Engineering
     title_highlight: AI Engineering
-    subtitle: AI Engineer is the fastest-growing job of 2026. In 24 weeks, that's you — with unlimited 1:1 mentorship and career support that doesn't stop at graduation.
+    subtitle: AI Engineer is the fastest-growing job of 2026. Our intensive program is built to get you hired, backed by an AI-first methodology, unlimited 1:1 mentorship, and lifelong career support.
     students_enrolled:
       avatars:
         - https://randomuser.me/api/portraits/women/1.jpg
@@ -103,9 +99,9 @@ sections:
         - https://randomuser.me/api/portraits/men/4.jpg
       count: +6000 graduates
     bullet_points:
-      - Build a fully AI-native system end-to-end across 10 real-world milestones.
-      - Ship AI-integrated software that connects intelligent models to live users and data.
-      - Work with AI coding agents to build and deliver production-ready software faster.
+      - Build a fully AI-native company from scratch, end to end.
+      - Work with AI agents, models, and data pipelines, the way AI-first engineers do.
+      - Graduate with the production-ready portfolio employers are looking for.
     tutors:
       - name: Marco Gonzalo
         role: Main Instructor
@@ -122,7 +118,7 @@ sections:
       alt: AI Engineering program introduction
     signup_card:
       title: Get the Full Program Overview
-      description: Receive the complete 10-milestone syllabus, program structure, schedule options, tuition details, and career support framework.
+      description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, financing options and more. It takes 2 minutes."
       cta_button:
         text: Send me the details
         url: "#modal-ubwgcj"
@@ -295,9 +291,9 @@ sections:
     title: Why AI Engineering Now
     description: AI has created 1.3 million new roles globally in two years. LinkedIn ranks AI Engineer the fastest-growing job of 2026. Only 3% of the workforce is qualified to fill them. That gap is your opportunity.
     background: bg-slate-950
-    card_bars_accent: hsl(var(--primary))
-    card_gauge_accent: hsl(var(--destructive) / 0.5)
-    card_trend_accent: hsl(var(--accent))
+    card_bars_accent: hsl(var(--color-green))
+    card_gauge_accent: hsl(var(--color-orange))
+    card_trend_accent: hsl(var(--primary))
     card_bars:
       title: More New AI Roles Than Job Losses
       description: Annual delta · 2021-2025 · indexed
@@ -323,7 +319,7 @@ sections:
     paddingY:
       desktop: none lg
     marginY:
-      desktop: md
+      desktop: md lg
   - type: syllabus
     section_id: syllabus-7efuv7
     variant: program-modules
@@ -514,7 +510,7 @@ sections:
     description: Progress faster than ever before, with a support system built around your pace, your goals, your career.
     features:
       - icon: Robot
-        title: AI-powered feedback that never sleeps
+        title: AI-powered feedback 24/7
         description: ""
         show_rigobot_logo: true
         bullets:
@@ -669,58 +665,22 @@ sections:
       - munich-germany
       - rome-italy
     background: hsl(var(--secondary))
-  - type: why_learn_ai
-    variant: laptop-edge
-    title: Land the Job. Or Your Money Back.
-    description: "<span style=\"font-size: 1.5rem;\"><span><span></span></span></span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span><span style=\"line-height: 1.625;\"><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span></span><span style=\"line-height: 1.625;\"><span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\">Every program comes with the option of a Job Guarantee.*</span></span></span></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Not hired within 9 months?&nbsp;</span><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Full tuition refund.&nbsp;</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">That's how confident we are in what we built.</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span></span></span></div></span><span style=\"line-height: 1.1;\"><span><span><span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"><br></span></div></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span><span></span></span></span></div><div><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">*The Job Guarantee is not available in all regions.&nbsp;</span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\">Terms and conditions apply.</a></div></div></span></span></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div>"
-    cta:
-      text: How It Works
-      url: /en/job-guarantee
-      variant: primary
-    section_id: why_learn_ai-9pbrek
-    marginY:
-      desktop: lg
-    paddingY:
-      desktop: none
-    background: hsl(var(--card))
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - costa-rica
-      - mexicocity-mexico
-    marginX:
-      desktop: none
-    maxWidth:
-      desktop: none
-    showOn: desktop
-  - type: features_grid
-    variant: highlight
+  - type: numbered_steps
+    version: "1.0"
     title: Get Hired. Or Your Money Back.
-    subtitle: "<span style=\"font-size: 1.25rem;\"><span><span style=\"color: hsl(var(--foreground));\">Add our optional Job Guarantee* to your payment plan and enroll knowing your investment is protected.&nbsp;</span></span></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
-    items:
-      - icon: Star
-        title: Add the Job Guarantee to your payment plan
-      - icon: Users
-        title: Complete the program and follow the GeekFORCE career process
-      - icon: Award
-        title: Get hired within 9 months, or we refund your tuition
-    columns: 3
-    icon_color: "#0097CD"
-    background: hsl(var(--background))
-    section_id: features_grid-8rz4b6
-    paddingY:
-      desktop: lg none
+    description: Get hired within 9 months, or we refund your full tuition. That's how confident we are in what we built.
+    description_link:
+      text: "*Not available in all regions. Terms and conditions apply."
+      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
+    background: bg-muted/30
+    steps:
+      - icon: School
+        text: Add the Job Guarantee to your payment plan.
+      - icon: Briefcase
+        text: Complete the program and follow the GeekForce career process.
+      - icon: Cash
+        text: Get hired within 9 months, or receive a full tuition refund.
+    section_id: numbered_steps-pegmvh
     showOnLocations:
       - atlanta-usa
       - austin-usa
@@ -740,6 +700,10 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
+    paddingY:
+      desktop: none md
+    marginY:
+      desktop: none md
   - type: whos_hiring
     section_id: whos_hiring-6ml5ey
     variant: carousel
@@ -771,7 +735,7 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
         alt: Jooble
     marginY:
-      desktop: none xl
+      desktop: md xl
     paddingY:
       desktop: none
     background: hsl(var(--background))

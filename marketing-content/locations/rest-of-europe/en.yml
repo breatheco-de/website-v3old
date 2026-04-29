@@ -171,25 +171,25 @@ sections:
         course_background: hsl(var(--secondary-foreground))
     section_id: course_selector-i7pdmx
   - type: two_column_accordion_card
-    section_id: two_column_accordion_card-eecppy
     variant: image_background
     version: "1.0"
     title: Everything You Need to Succeed in an AI-Driven Industry
     description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
     bullets:
       - heading: 1:1 Mentorship, Unlimited and for Life
-        text: Get personalized technical guidance whenever you need it. Our expert mentors are available online, ready to help you from day one to forever—including for job-related coding questions.
+        text: Get personalized technical guidance whenever you need it. Work one-on-one with experienced mentors during the program and continue receiving support long after you graduate.
       - heading: AI-Powered Learning Support
         text: Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve continuously with guidance tailored to your learning path.
       - heading: Career Support, Unlimited and for Life
-        text: Receive expert, personalized career coaching focused on getting you hired. Tailor-made advice and training for your unique profile and specific job offers.
+        text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
       - heading: An Active Global Tech Community
-        text: When you learn online with 4Geeks in Europe, you get access to our full platform and any of our locations worldwide.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
+        text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-470x315.webp
     image_alt: Student working on AI project
     image_object_fit: cover
     paddingY:
       desktop: md none
+    section_id: two_column_accordion_card-eecppy
   - type: testimonials_slide
     section_id: testimonials_slide-dzbu7t
     title: Proven Paths to Tech Careers
@@ -218,8 +218,8 @@ sections:
     section_id: why_learn_ai-vbagri
     variant: laptop-edge
     mobile_see_more: true
-    mobile_see_more_label: "See more"
-    mobile_see_less_label: "See less"
+    mobile_see_more_label: See more
+    mobile_see_less_label: See less
     title: Why Learn to Code with 4Geeks in Europe
     subtitle: All programs are taught online, hybrid, or in person
     description: Learning to code online is challenging—but not alone. Join our European community and get support to learn and to land a job for life. When you learn with 4Geeks online in Europe, you get access to our full platform and any of our locations worldwide.
