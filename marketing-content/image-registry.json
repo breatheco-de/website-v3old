@@ -11149,6 +11149,32 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-548x299-548w.webp"
         }
       ]
+    },
+    "students_collaborating-548x299-380x207": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-548x299-380x207.webp",
+      "alt": "Students collaborating in workspace",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "students",
+        "hero"
+      ],
+      "usage_count": 0,
+      "width": 380,
+      "height": 207,
+      "format": "webp",
+      "preset": [
+        "hero-wide"
+      ],
+      "widths_generated": [
+        380
+      ],
+      "srcset": [
+        {
+          "w": 380,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-548x299-380x207-380w.webp"
+        }
+      ]
     }
   }
 }
