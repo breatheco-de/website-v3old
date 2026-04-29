@@ -135,13 +135,13 @@ async function processOptimizeEntry(entry: { id: string; src: string }): Promise
         widths_generated: result.widths_generated,
         format: result.format,
         srcset: result.srcset,
-      });
+      }, "optimize");
       console.log(`[ImageQueueWorker] Optimized image "${id}"`);
     } else {
-      markJobFailed(id, `processImageFromSrc returned null for "${id}"`);
+      markJobFailed(id, `processImageFromSrc returned null for "${id}"`, "optimize");
     }
   } catch (err) {
-    markJobFailed(id, String(err));
+    markJobFailed(id, String(err), "optimize");
     console.error(`[ImageQueueWorker] Error optimizing "${id}":`, err);
   }
 }
@@ -172,6 +172,10 @@ async function tick(): Promise<void> {
   } finally {
     tickRunning = false;
   }
+}
+
+export function runNow(): void {
+  void tick();
 }
 
 export function start(): void {

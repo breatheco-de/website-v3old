@@ -10,6 +10,7 @@ const QUEUE_STATE_PATH = path.join(
 export interface QueueStateEntry {
   failed_at?: string;
   queued_at?: string;
+  error?: string;
 }
 
 type QueueState = Record<string, QueueStateEntry>;

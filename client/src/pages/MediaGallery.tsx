@@ -113,7 +113,15 @@ export default function MediaGallery() {
   const [deduplicating, setDeduplicating] = useState(false);
   const [validationResult, setValidationResult] = useState<ValidationRunResult | null>(null);
   const [optimizing, setOptimizing] = useState(false);
-  const [optimizeProgress, setOptimizeProgress] = useState<{ total: number; processed: number } | null>(null);
+  const [optimizeProgress, setOptimizeProgress] = useState<{
+    initial: number;
+    processed: number;
+    failed: number;
+    remaining: number;
+    failedEntries: Array<{ id: string; error: string }>;
+  } | null>(null);
+  const [optimizeDone, setOptimizeDone] = useState(false);
+  const [optimizeFailedOpen, setOptimizeFailedOpen] = useState(false);
   const [fixingHeroTags, setFixingHeroTags] = useState(false);
   const optimizePollerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [migrating, setMigrating] = useState(false);
@@ -232,37 +240,51 @@ export default function MediaGallery() {
 
   const handleTriggerOptimization = async () => {
     setOptimizing(true);
+    setOptimizeDone(false);
     setOptimizeProgress(null);
     try {
       const res = await apiRequest("POST", "/api/image-registry/optimize-batch", {});
       const data = await res.json();
-      toast({
-        title: "Optimization started",
-        description: data.message || `Queued ${data.queued} image(s) for processing`,
-      });
       if (data.queued > 0) {
-        setOptimizeProgress({ total: data.queued, processed: 0 });
+        setOptimizeProgress({ initial: data.queued, processed: 0, failed: 0, remaining: data.queued, failedEntries: [] });
         if (optimizePollerRef.current) clearInterval(optimizePollerRef.current);
         optimizePollerRef.current = setInterval(async () => {
           try {
             const statusRes = await fetch("/api/image-registry/optimize-status");
             const status = await statusRes.json();
-            setOptimizeProgress({ total: status.total, processed: status.processed });
+            setOptimizeProgress({
+              initial: status.initial || data.queued,
+              processed: status.processed,
+              failed: status.failed,
+              remaining: status.remaining,
+              failedEntries: status.failedEntries ?? [],
+            });
             if (!status.active) {
               if (optimizePollerRef.current) clearInterval(optimizePollerRef.current);
               optimizePollerRef.current = null;
               setOptimizing(false);
-              setOptimizeProgress(null);
+              setOptimizeDone(true);
+              const succeeded = (status.initial || data.queued) - status.failed;
+              toast({
+                title: "Optimization complete",
+                description: status.failed > 0
+                  ? `${succeeded} succeeded, ${status.failed} failed`
+                  : `${succeeded} image(s) optimized successfully`,
+                variant: status.failed > 0 ? "destructive" : "default",
+              });
             }
           } catch {
             if (optimizePollerRef.current) clearInterval(optimizePollerRef.current);
             optimizePollerRef.current = null;
             setOptimizing(false);
-            setOptimizeProgress(null);
           }
-        }, 2500);
+        }, 1500);
       } else {
         setOptimizing(false);
+        toast({
+          title: "Nothing to optimize",
+          description: data.message || "All images are already optimized",
+        });
       }
     } catch {
       toast({ title: "Optimization failed", description: "Could not start batch optimization", variant: "destructive" });
@@ -963,25 +985,16 @@ export default function MediaGallery() {
                       <span className="text-xs text-muted-foreground">{v.description}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      {v.name === "image-optimization" && issueCount > 0 && (
+                      {v.name === "image-optimization" && issueCount > 0 && !optimizing && !optimizeDone && (
                         <Button
                           size="sm"
                           variant="outline"
                           onClick={handleTriggerOptimization}
-                          disabled={optimizing || mediaStatus?.defaultProvider !== "gcs"}
+                          disabled={mediaStatus?.defaultProvider !== "gcs"}
                           title={mediaStatus?.defaultProvider !== "gcs" ? "GCS provider required for optimization" : undefined}
                           data-testid="button-trigger-optimization"
                         >
-                          {optimizing ? (
-                            <>
-                              <IconLoader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />
-                              {optimizeProgress
-                                ? `${optimizeProgress.total - optimizeProgress.processed} / ${optimizeProgress.total} remaining`
-                                : "Starting..."}
-                            </>
-                          ) : (
-                            "Trigger optimization"
-                          )}
+                          Trigger optimization
                         </Button>
                       )}
                       {v.name === "hero-image-tags" && issueCount > 0 && (
@@ -1005,6 +1018,73 @@ export default function MediaGallery() {
                       <span className="text-xs text-muted-foreground">{v.duration}ms</span>
                     </div>
                   </div>
+
+                  {v.name === "image-optimization" && (optimizing || optimizeDone) && optimizeProgress && (
+                    <div className="mt-2 pl-5 space-y-2" data-testid="panel-optimization-progress">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-xs text-muted-foreground">
+                          {optimizeDone
+                            ? "Complete"
+                            : optimizeProgress.processed === 0
+                              ? "Starting…"
+                              : optimizeProgress.remaining === 0
+                                ? "Finishing up…"
+                                : "Optimizing…"}
+                        </span>
+                        <div className="flex items-center gap-2">
+                          {optimizeProgress.failed > 0 && (
+                            <Badge
+                              variant="outline"
+                              className="text-amber-600 dark:text-amber-400 border-amber-400 dark:border-amber-600 text-xs"
+                              data-testid="badge-optimization-failed-count"
+                            >
+                              {optimizeProgress.failed} failed
+                            </Badge>
+                          )}
+                          <span className="text-xs text-muted-foreground" data-testid="text-optimization-count">
+                            {optimizeProgress.processed} of {optimizeProgress.initial} optimized
+                          </span>
+                          {optimizeDone && (
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={handleDismissOptimization}
+                              data-testid="button-dismiss-optimization"
+                            >
+                              Dismiss
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                      <Progress
+                        value={optimizeProgress.initial > 0 ? (optimizeProgress.processed / optimizeProgress.initial) * 100 : 0}
+                        className="h-1.5"
+                        data-testid="progress-optimization"
+                      />
+                      {optimizeProgress.failedEntries.length > 0 && (
+                        <div className="space-y-1">
+                          <button
+                            type="button"
+                            className="text-xs text-amber-600 dark:text-amber-400 hover:underline cursor-pointer"
+                            onClick={() => setOptimizeFailedOpen(o => !o)}
+                            data-testid="button-toggle-failed-entries"
+                          >
+                            {optimizeFailedOpen ? "Hide" : "Show"} failed images ({optimizeProgress.failedEntries.length})
+                          </button>
+                          {optimizeFailedOpen && (
+                            <div className="max-h-32 overflow-y-auto space-y-1" data-testid="list-failed-entries">
+                              {optimizeProgress.failedEntries.map((entry) => (
+                                <div key={entry.id} className="text-xs flex gap-2 items-start">
+                                  <span className="font-mono text-muted-foreground shrink-0">{entry.id}</span>
+                                  <span className="text-destructive">{entry.error}</span>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {v.artifacts && (
                     <div className="flex flex-wrap gap-3 text-xs text-muted-foreground pl-5">

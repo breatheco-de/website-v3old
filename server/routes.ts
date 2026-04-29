@@ -1,7 +1,10 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { getQueueStats, enqueueOptimization, getPendingOptimizations, getFailedEntries, retryFailedImages } from "./image-registry";
+import { getQueueStats, enqueueOptimization, getPendingOptimizations, getFailedEntries, retryFailedImages, resetOptimizeSession, getOptimizeSession } from "./image-registry";
+import { getAllQueueState } from "./image-queue-state";
+
+let workerRunNow: (() => void) | null = null;
 
 import * as fs from "fs";
 import * as path from "path";
@@ -9539,6 +9542,9 @@ sections: []
       }
       mediaGallery.persistRegistry();
 
+      resetOptimizeSession(targetIds.length);
+      if (workerRunNow) workerRunNow();
+
       console.log(`[OptimizeBatch] Enqueued ${targetIds.length} image(s) for background optimization`);
       res.json({ queued: targetIds.length, message: `Queued ${targetIds.length} image(s) for background optimization` });
     } catch (error: any) {
@@ -9547,13 +9553,29 @@ sections: []
   });
 
   app.get("/api/image-registry/optimize-status", (_req, res) => {
-    const pending = getPendingOptimizations(10000);
-    const remaining = pending.length;
+    const session = getOptimizeSession();
+    const allState = getAllQueueState();
+
+    const remainingEntries = getPendingOptimizations(10000);
+    const remaining = remainingEntries.length;
+
+    const failedEntries: Array<{ id: string; error: string }> = [];
+    for (const [id, entry] of Object.entries(allState)) {
+      if (entry.failed_at) {
+        failedEntries.push({ id, error: entry.error ?? "Unknown error" });
+        if (failedEntries.length >= 20) break;
+      }
+    }
+
+    const active = remaining > 0 || (session.initial > 0 && session.processed < session.initial);
+
     res.json({
-      active: remaining > 0,
-      total: remaining,
-      processed: 0,
-      failed: 0,
+      active,
+      initial: session.initial,
+      processed: session.processed,
+      failed: failedEntries.length,
+      remaining,
+      failedEntries,
     });
   });
 
@@ -11573,7 +11595,10 @@ sections: []
   const httpServer = createServer(app);
 
   // Start the background image queue worker
-  import("./image-queue-worker").then(({ start }) => start()).catch((err) => {
+  import("./image-queue-worker").then(({ start, runNow }) => {
+    workerRunNow = runNow;
+    start();
+  }).catch((err) => {
     console.error("[ImageQueueWorker] Failed to start:", err);
   });
 
