@@ -81,4 +81,4 @@ BREATHECODE_TOKEN = "c6fe193405438832e2790dfb1d6253200fe16775"
 
 [postMerge]
 path = "scripts/post-merge.sh"
-timeoutMs = 20000
+timeoutMs = 60000

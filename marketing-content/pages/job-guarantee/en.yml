@@ -30,7 +30,7 @@ sections:
     title: Get Into Tech With Our Job Guarantee*
     subtitle: "&nbsp;Built to give you extra confidence as you invest in your career. Get hired within 9 months of graduation, or we'll refund 100% of your tuition.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span><span>*Not available in all regions.&nbsp;<a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span><span><span><span>Terms and conditions apply.</span></span></span></span></a></span></span></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"font-size: 1rem;\"><span><span style=\"font-size: 0.875rem;\"><span></span></span></span></span></a></div>"
     image:
-      src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
+      src: https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-548x299.webp
       alt: Students collaborating in a tech workspace
     cta_buttons:
       - text: Get more info
@@ -47,7 +47,7 @@ sections:
     variant: cardHeader
     heading: Why The Job Guarantee
     description: The Job Guarantee is based on real outcomes and a hiring-focused model. Our programs, teaching approach, and career support are designed around how people actually get hired in today’s tech job market. Over the years, we’ve helped more than 3,500 graduates launch their tech careers across roles and industries.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/placeholder_career_guidance-350x255.webp
     image_alt: 4Geeks Academy community support
     background: bg-primary/5
     cards:
@@ -78,7 +78,7 @@ sections:
         row_span: 2
         col_start: 6
         row_start: 1
-      - image_id: graduates_team_2
+      - image_id: graduates_team_2-288x210
         col_span: 3
         row_span: 2
         col_start: 10

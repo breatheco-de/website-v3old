@@ -196,6 +196,25 @@ export function markExternalImageDone(
 }
 
 /**
+ * In-memory session for the current optimization batch.
+ * Reset when a new batch is triggered. Not durable across restarts.
+ */
+interface OptimizeSession {
+  initial: number;
+  processed: number;
+}
+
+let optimizeSession: OptimizeSession = { initial: 0, processed: 0 };
+
+export function resetOptimizeSession(initial: number): void {
+  optimizeSession = { initial, processed: 0 };
+}
+
+export function getOptimizeSession(): OptimizeSession {
+  return optimizeSession;
+}
+
+/**
  * Mark existing entries that have src but no srcset as pending optimization.
  */
 export function enqueueOptimization(id: string): void {
@@ -236,8 +255,9 @@ export function getPendingOptimizations(
 
 /**
  * Generic: merge updates into entry, clear queued_at and failed_at.
+ * For optimize-type jobs, increments the in-memory session counter.
  */
-export function markJobDone(id: string, updates: Partial<ImageEntry>): void {
+export function markJobDone(id: string, updates: Partial<ImageEntry>, jobType: "optimize" | "external" = "external"): void {
   const registry = mediaGallery.getRegistry();
   if (!registry) return;
 
@@ -246,20 +266,29 @@ export function markJobDone(id: string, updates: Partial<ImageEntry>): void {
 
   Object.assign(entry, updates);
   clearQueueState(id);
+
+  if (jobType === "optimize") {
+    optimizeSession.processed += 1;
+  }
 }
 
 /**
- * Mark a job as failed.
+ * Mark a job as failed, storing the error message.
+ * For optimize-type jobs, increments the in-memory session counter.
  */
-export function markJobFailed(id: string, message: string): void {
+export function markJobFailed(id: string, message: string, jobType: "optimize" | "external" = "external"): void {
   const registry = mediaGallery.getRegistry();
   if (!registry) return;
 
   const entry = registry.images[id];
   if (!entry) return;
 
-  setQueueState(id, { failed_at: new Date().toISOString() });
+  setQueueState(id, { failed_at: new Date().toISOString(), error: message });
   console.warn(`[ImageRegistry] Job failed for "${id}": ${message}`);
+
+  if (jobType === "optimize") {
+    optimizeSession.processed += 1;
+  }
 }
 
 /**

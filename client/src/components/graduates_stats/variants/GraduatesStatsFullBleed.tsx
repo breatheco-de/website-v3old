@@ -34,7 +34,6 @@ export default function GraduatesStatsFullBleed({ data }: GraduatesStatsFullBlee
             preset="card"
             className="w-full h-full object-cover shadow-sm rounded-lg"
             alt={`Graduate photo ${index + 1}`}
-            loading="lazy"
             style={{
               objectPosition: img.object_position ?? "center center",
               transform: `scale(${img.object_scale ?? 1})`,

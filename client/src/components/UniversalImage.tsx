@@ -21,16 +21,18 @@ export function useImageRegistry() {
     staleTime: Infinity,
   });
 
-  const reverseIndex = useMemo<Record<string, string>>(() => {
-    if (!data?.images) return {};
-    const idx: Record<string, string> = {};
-    for (const [key, entry] of Object.entries(data.images)) {
-      if (entry.src) idx[entry.src] = key;
-    }
-    return idx;
-  }, [data]);
+  const registry = data ?? null;
 
-  return { registry: data ?? null, loading: isLoading, reverseIndex };
+  const reverseMap = useMemo<Map<string, ImageEntry>>(() => {
+    if (!registry?.images) return new Map();
+    const map = new Map<string, ImageEntry>();
+    for (const entry of Object.values(registry.images)) {
+      if (entry.src) map.set(entry.src, entry);
+    }
+    return map;
+  }, [registry?.images]);
+
+  return { registry, loading: isLoading, reverseMap };
 }
 
 interface FieldContext {
@@ -76,7 +78,7 @@ export function UniversalImage({
   style,
   fieldContext,
 }: UniversalImageProps) {
-  const { registry, loading: registryLoading, reverseIndex } = useImageRegistry();
+  const { registry, loading: registryLoading, reverseMap } = useImageRegistry();
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
@@ -119,7 +121,17 @@ export function UniversalImage({
     onError?.();
   };
 
-  if (registryLoading || !registry || !registry.images) {
+  if (!id || !id.trim()) {
+    return null;
+  }
+
+  const isDirectUrl =
+    id.startsWith("/") ||
+    id.startsWith("http://") ||
+    id.startsWith("https://") ||
+    id.startsWith("data:");
+
+  if (!isDirectUrl && !isEager && (registryLoading || !registry || !registry.images)) {
     return (
       <div
         className={`bg-muted animate-pulse ${className}`}
@@ -128,28 +140,14 @@ export function UniversalImage({
     );
   }
 
-  if (!id || !id.trim()) {
-    return null;
-  }
-
-  const isDirectPath =
-    id.startsWith("/") ||
-    id.startsWith("http://") ||
-    id.startsWith("https://") ||
-    id.startsWith("data:");
-
-  let imageEntry = registry.images[id];
-
-  if (!imageEntry && isDirectPath) {
-    const resolvedKey = reverseIndex[id];
-    if (resolvedKey) imageEntry = registry.images[resolvedKey];
-  }
+  const imageEntry = registry?.images?.[id] ?? (isDirectUrl ? reverseMap.get(id) : undefined) ?? undefined;
+  const isDirectPath = !imageEntry && isDirectUrl;
 
   if (!imageEntry && !isDirectPath) {
     return null;
   }
 
-  const presetConfig = registry.presets[preset];
+  const presetConfig = registry?.presets?.[preset];
   const aspectRatio = presetConfig?.aspect_ratio
     ? ASPECT_RATIOS[presetConfig.aspect_ratio]
     : undefined;
@@ -214,8 +212,6 @@ export function UniversalImage({
       throw new Error("No field path configured");
     }
 
-    // For _id fields (e.g. image_id in graduates_stats), save the registry ID.
-    // For src/url fields, save the resolved URL.
     const isIdField = fieldContext?.srcField?.endsWith("_id") ?? false;
     const valueToSave = isIdField && registryId ? registryId : pickedSrc;
 
