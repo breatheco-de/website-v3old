@@ -188,6 +188,7 @@ export default function MediaGallery() {
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeTagFilter, setActiveTagFilter] = useState<string | null>(null);
+  const [showDerived, setShowDerived] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
@@ -527,6 +528,9 @@ export default function MediaGallery() {
 
   const filteredImages = registry?.images
     ? Object.entries(registry.images).filter(([id, img]) => {
+        if (!showDerived && (img as { parentId?: string }).parentId) {
+          return false;
+        }
         if (activeTagFilter && !img.tags?.includes(activeTagFilter)) {
           return false;
         }
@@ -899,21 +903,27 @@ export default function MediaGallery() {
                   <IconSettings className="h-4 w-4" />
                 </Button>
               </div>
-              {registry?.tagDefinitions && (
-                <div className="flex flex-wrap gap-1.5 justify-end">
-                  {Object.entries(registry.tagDefinitions).map(([key, tagDef]) => (
-                    <Badge
-                      key={key}
-                      variant={activeTagFilter === key ? "default" : "outline"}
-                      className="cursor-pointer text-xs"
-                      onClick={() => setActiveTagFilter(activeTagFilter === key ? null : key)}
-                      data-testid={`badge-tag-${key}`}
-                    >
-                      {tagDef.label}
-                    </Badge>
-                  ))}
-                </div>
-              )}
+              <div className="flex flex-wrap gap-1.5 justify-end items-center">
+                {registry?.tagDefinitions && Object.entries(registry.tagDefinitions).map(([key, tagDef]) => (
+                  <Badge
+                    key={key}
+                    variant={activeTagFilter === key ? "default" : "outline"}
+                    className="cursor-pointer text-xs"
+                    onClick={() => setActiveTagFilter(activeTagFilter === key ? null : key)}
+                    data-testid={`badge-tag-${key}`}
+                  >
+                    {tagDef.label}
+                  </Badge>
+                ))}
+                <Badge
+                  variant={showDerived ? "default" : "outline"}
+                  className="cursor-pointer text-xs"
+                  onClick={() => setShowDerived((v) => !v)}
+                  data-testid="badge-show-derived"
+                >
+                  Derived
+                </Badge>
+              </div>
             </div>
           </div>
         </div>

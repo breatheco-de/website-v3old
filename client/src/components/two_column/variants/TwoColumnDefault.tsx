@@ -4,6 +4,7 @@ import * as TablerIcons from "@tabler/icons-react";
 import type { TwoColumnSection as TwoColumnSectionType, TwoColumnColumn, BenefitItem } from "@shared/schema";
 import type { ComponentType, CSSProperties } from "react";
 import { UniversalVideo } from "@/components/UniversalVideo";
+import { UniversalImage } from "@/components/UniversalImage";
 import { useInternalNav } from "@/hooks/useInternalNav";
 
 export type { TwoColumnSectionType };
@@ -196,7 +197,7 @@ function BulletGroups({
   );
 }
 
-function ColumnContent({ column, defaultBulletIcon, hideHeadingOnTablet }: { column: TwoColumnColumn; defaultBulletIcon?: string; hideHeadingOnTablet?: boolean }) {
+function ColumnContent({ column, defaultBulletIcon, hideHeadingOnTablet, columnKey }: { column: TwoColumnColumn; defaultBulletIcon?: string; hideHeadingOnTablet?: boolean; columnKey?: "left" | "right" }) {
   const handleLinkClick = useInternalNav();
   const [bulletsExpanded, setBulletsExpanded] = useState(false);
   const [expandedBullets, setExpandedBullets] = useState<Record<number, boolean>>({});
@@ -382,18 +383,19 @@ function ColumnContent({ column, defaultBulletIcon, hideHeadingOnTablet }: { col
                 }
               }
             `}</style>
-            <img 
-              id={imageId}
-              src={column.image} 
-              alt={column.image_alt || "Section image"}
-              className="rounded-md w-full h-auto"
-              style={{
-                objectFit: (column.image_object_fit as React.CSSProperties["objectFit"]) || "cover",
-                objectPosition: column.image_object_position || "center center",
-              }}
-              loading="lazy"
-              data-testid="img-two-column"
-            />
+            <div id={imageId}>
+              <UniversalImage
+                id={column.image}
+                alt={column.image_alt || "Section image"}
+                className="rounded-md w-full h-auto"
+                style={{
+                  objectFit: (column.image_object_fit as React.CSSProperties["objectFit"]) || "cover",
+                  objectPosition: column.image_object_position || "center center",
+                }}
+                fieldContext={columnKey ? { fieldPath: `${columnKey}.image` } : undefined}
+                data-testid="img-two-column"
+              />
+            </div>
           </div>
         );
       })()}
@@ -519,11 +521,11 @@ function BenefitCardsVariant({ data }: TwoColumnProps) {
                   })()}
                 </div>
               ) : data.right?.image ? (
-                <img 
-                  src={data.right.image}
+                <UniversalImage
+                  id={data.right.image}
                   alt={data.right.image_alt || "Section image"}
                   className="rounded-md w-full h-auto max-w-md"
-                  loading="lazy"
+                  fieldContext={{ fieldPath: "right.image" }}
                   data-testid="img-benefit-cards"
                 />
               ) : null}
@@ -578,13 +580,13 @@ export function TwoColumn({ data }: TwoColumnProps) {
         <div className={`grid grid-cols-1 md:grid-cols-12 ${columnGapClass} ${alignmentClass}`}>
           {data.left && (
             <div className={`col-span-1 ${leftColClass} ${data.reverse_on_mobile ? "order-2 md:order-1" : ""}`}>
-              <ColumnContent column={data.left} hideHeadingOnTablet={headingAboveOnMd && leftHasHeading} />
+              <ColumnContent column={data.left} hideHeadingOnTablet={headingAboveOnMd && leftHasHeading} columnKey="left" />
             </div>
           )}
           
           {data.right && (
             <div className={`col-span-1 ${rightColClass} ${data.reverse_on_mobile ? "order-1 md:order-2" : ""}`}>
-              <ColumnContent column={data.right} hideHeadingOnTablet={headingAboveOnMd && rightHasHeading} />
+              <ColumnContent column={data.right} hideHeadingOnTablet={headingAboveOnMd && rightHasHeading} columnKey="right" />
             </div>
           )}
         </div>

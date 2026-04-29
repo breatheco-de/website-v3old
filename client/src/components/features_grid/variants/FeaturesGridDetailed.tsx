@@ -7,6 +7,7 @@ import { getCustomIcon } from "@/components/custom-icons";
 import type { ComponentType } from "react";
 import { AIWorkflowDiagram } from "@/components/AIWorkflowDiagram";
 import { useInternalNav } from "@/hooks/useInternalNav";
+import { UniversalImage } from "@/components/UniversalImage";
 
 function getIcon(iconName: string, className?: string, color?: string) {
   const CustomIcon = getCustomIcon(iconName);
@@ -28,11 +29,13 @@ function getIcon(iconName: string, className?: string, color?: string) {
 function DetailedCard({ 
   item, 
   collapsible,
-  iconColor
+  iconColor,
+  itemIndex
 }: { 
   item: FeaturesGridDetailedItem; 
   collapsible: boolean;
   iconColor?: string;
+  itemIndex: number;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const handleLinkClick = useInternalNav();
@@ -43,11 +46,11 @@ function DetailedCard({
     <Card className="p-4 md:p-6 hover-elevate" data-testid={`card-feature-${itemId}`}>
       {hasImage && (
         <div className="mb-4 flex items-center justify-center h-32 md:h-40">
-          <img 
-            src={item.image!.src} 
-            alt={item.image!.alt} 
+          <UniversalImage
+            id={item.image!.src}
+            alt={item.image!.alt}
             className="max-w-full max-h-full object-contain"
-            loading="lazy"
+            fieldContext={{ arrayPath: "items", index: itemIndex, srcField: "image.src" }}
             data-testid={`img-feature-${itemId}`}
           />
         </div>
@@ -164,6 +167,7 @@ export default function FeaturesGridDetailed({ data }: FeaturesGridDetailedProps
               item={item} 
               collapsible={collapsible}
               iconColor={item.icon_color || data.icon_color}
+              itemIndex={index}
             />
           ))}
         </div>

@@ -288,6 +288,11 @@ export function UniversalImage({
     </div>
   );
 
+  const dpr = typeof window !== "undefined" ? (window.devicePixelRatio || 1) : 1;
+  const renderedSize = imgRef.current
+    ? { width: Math.round(imgRef.current.getBoundingClientRect().width * dpr), height: Math.round(imgRef.current.getBoundingClientRect().height * dpr) }
+    : undefined;
+
   const pickerDialog = canReplace ? (
     <ImagePickerDialog
       open={pickerOpen}
@@ -296,6 +301,8 @@ export function UniversalImage({
       initialSrc={src}
       initialAlt={finalAlt}
       onSave={handlePickerSave}
+      renderPreset={preset !== "full" ? preset : undefined}
+      renderedSize={renderedSize}
     />
   ) : null;
 

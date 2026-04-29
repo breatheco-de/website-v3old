@@ -4,6 +4,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { IconChevronDown, IconArrowRight } from "@tabler/icons-react";
 import { useState } from "react";
 import type { Icon } from "@tabler/icons-react";
+import { UniversalImage } from "@/components/UniversalImage";
 
 interface Feature {
   title: string;
@@ -175,7 +176,7 @@ export default function FeatureSection({
             <CardHeader>
               {feature.icon && (
                 <div className="mb-2">
-                  <img src={feature.icon} alt="" className="h-12 w-12" />
+                  <UniversalImage id={feature.icon} alt="" className="h-12 w-12" />
                 </div>
               )}
               <CardTitle className="text-body font-bold">{feature.title}</CardTitle>

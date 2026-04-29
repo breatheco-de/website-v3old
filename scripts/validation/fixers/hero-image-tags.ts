@@ -11,6 +11,9 @@ import * as path from "path";
 import * as jsYaml from "js-yaml";
 import type { Fixer, FixerContext, FixerResult } from "./types";
 import { escapeTemplateVars } from "../../../shared/templateVars";
+import { mediaGallery } from "../../../server/media-gallery";
+import { processImageFromSrc } from "../../../server/image-optimizer";
+import type { Preset } from "../../../server/image-optimizer";
 
 const MARKETING_CONTENT_DIR = path.join(process.cwd(), "marketing-content");
 const REGISTRY_PATH = path.join(MARKETING_CONTENT_DIR, "image-registry.json");
@@ -147,6 +150,7 @@ export const heroImageTagsFixer: Fixer = {
     let fixed = 0;
     let alreadyTagged = 0;
     let notInRegistry = 0;
+    const fixedIds: string[] = [];
 
     for (const src of heroSrcs) {
       const isUrl = src.startsWith("http://") || src.startsWith("https://");
@@ -159,16 +163,49 @@ export const heroImageTagsFixer: Fixer = {
       if (!entry.tags) entry.tags = [];
       entry.tags.push("hero");
       fixed++;
+      fixedIds.push(registryId);
     }
 
     if (fixed > 0) {
       fs.writeFileSync(REGISTRY_PATH, JSON.stringify(registry, null, 2) + "\n");
+      mediaGallery.clearCache();
+
+      (async () => {
+        try {
+          const liveRegistry = mediaGallery.getRegistry();
+          if (!liveRegistry) return;
+          const presets = liveRegistry.presets as Record<string, Preset>;
+          let optimized = 0;
+          for (const id of fixedIds) {
+            const entry = liveRegistry.images[id];
+            if (!entry) continue;
+            try {
+              const result = await processImageFromSrc(id, entry, presets);
+              if (result) {
+                entry.preset = result.preset;
+                entry.widths_generated = result.widths_generated;
+                entry.format = result.format;
+                entry.srcset = result.srcset;
+                if (result.width) entry.width = result.width;
+                if (result.height) entry.height = result.height;
+                optimized++;
+              }
+            } catch (err) {
+              console.error(`[Fixer:hero-image-tags] Optimization failed for "${id}":`, err);
+            }
+          }
+          if (optimized > 0) mediaGallery.persistRegistry();
+          console.log(`[Fixer:hero-image-tags] Optimization complete: ${optimized}/${fixedIds.length} images processed`);
+        } catch (err) {
+          console.error("[Fixer:hero-image-tags] Background optimization error:", err);
+        }
+      })();
     }
 
     return {
       ok: true,
       message: fixed > 0
-        ? `Added "hero" tag to ${fixed} registry entry(ies)`
+        ? `Added "hero" tag to ${fixed} registry entry(ies) — optimization started in background`
         : "No missing hero tags found — registry is up to date",
       details: { fixed, alreadyTagged, notInRegistry, heroImagesScanned: heroSrcs.size },
     };

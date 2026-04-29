@@ -4,13 +4,12 @@ hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
 
 [nix]
 channel = "stable-24_05"
-packages = ["unzip", "imagemagick", "libwebp"]
+packages = ["imagemagick", "libwebp", "unzip"]
 
 [deployment]
 deploymentTarget = "autoscale"
 build = ["npm", "run", "build"]
 run = ["npm", "run", "start"]
-publicDir = "dist/public"
 
 [[ports]]
 localPort = 5000
@@ -82,4 +81,4 @@ BREATHECODE_TOKEN = "c6fe193405438832e2790dfb1d6253200fe16775"
 
 [postMerge]
 path = "scripts/post-merge.sh"
-timeoutMs = 20000
+timeoutMs = 60000
