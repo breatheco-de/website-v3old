@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { ImageRef, ImageEntry, ImagePreset } from "@shared/schema";
 import SolidCard from "./SolidCard";
@@ -21,7 +21,16 @@ export function useImageRegistry() {
     staleTime: Infinity,
   });
 
-  return { registry: data ?? null, loading: isLoading };
+  const reverseIndex = useMemo<Record<string, string>>(() => {
+    if (!data?.images) return {};
+    const idx: Record<string, string> = {};
+    for (const [key, entry] of Object.entries(data.images)) {
+      if (entry.src) idx[entry.src] = key;
+    }
+    return idx;
+  }, [data]);
+
+  return { registry: data ?? null, loading: isLoading, reverseIndex };
 }
 
 interface FieldContext {
@@ -67,7 +76,7 @@ export function UniversalImage({
   style,
   fieldContext,
 }: UniversalImageProps) {
-  const { registry, loading: registryLoading } = useImageRegistry();
+  const { registry, loading: registryLoading, reverseIndex } = useImageRegistry();
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
@@ -130,6 +139,11 @@ export function UniversalImage({
     id.startsWith("data:");
 
   let imageEntry = registry.images[id];
+
+  if (!imageEntry && isDirectPath) {
+    const resolvedKey = reverseIndex[id];
+    if (resolvedKey) imageEntry = registry.images[resolvedKey];
+  }
 
   if (!imageEntry && !isDirectPath) {
     return null;

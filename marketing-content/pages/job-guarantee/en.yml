@@ -30,7 +30,7 @@ sections:
     title: Get Into Tech With Our Job Guarantee*
     subtitle: "&nbsp;Built to give you extra confidence as you invest in your career. Get hired within 9 months of graduation, or we'll refund 100% of your tuition.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span><span>*Not available in all regions.&nbsp;<a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span><span><span><span>Terms and conditions apply.</span></span></span></span></a></span></span></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"font-size: 1rem;\"><span><span style=\"font-size: 0.875rem;\"><span></span></span></span></span></a></div>"
     image:
-      src: /marketing-content/images/students_collaborating-548x299.webp
+      src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Students collaborating in a tech workspace
     cta_buttons:
       - text: Get more info
@@ -47,7 +47,7 @@ sections:
     variant: cardHeader
     heading: Why The Job Guarantee
     description: The Job Guarantee is based on real outcomes and a hiring-focused model. Our programs, teaching approach, and career support are designed around how people actually get hired in today’s tech job market. Over the years, we’ve helped more than 3,500 graduates launch their tech careers across roles and industries.
-    image: /marketing-content/images/placeholder_career_guidance-350x255.webp
+    image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
     image_alt: 4Geeks Academy community support
     background: bg-primary/5
     cards:
@@ -57,6 +57,57 @@ sections:
         text: Strong and ongoing demand for skilled tech professionals
       - icon: ChalkboardTeacher
         text: Structured training paired with hands-on, ongoing career support
+  - type: graduates_stats
+    section_id: graduates_stats-rdqav1
+    version: v1.0
+    variant: fullBleed
+    heading: Results That Back Our Job Guarantee
+    subheading: "These numbers reflect real graduates and real hires. Our Job Guarantee is built around one outcome: succesfully launching your tech career."
+    stats:
+      - value: {{ global.global_job_placement_rate | 84 }}
+        unit: "%"
+        label: Job placement rate
+      - value: 3-6
+        unit: months
+        label: Average time to get hired
+      - value: {{ global.global_salary_increase | 55 }}%
+        label: Salary increase after graduation
+    collage_images:
+      - image_id: graduates_team_1
+        col_span: 4
+        row_span: 2
+        col_start: 6
+        row_start: 1
+      - image_id: graduates_team_2
+        col_span: 3
+        row_span: 2
+        col_start: 10
+        row_start: 1
+      - image_id: graduates_coding
+        col_span: 5
+        row_span: 2
+        col_start: 4
+        row_start: 3
+      - image_id: graduates_friends
+        col_span: 4
+        row_span: 2
+        col_start: 9
+        row_start: 3
+    featured_images:
+      - image_id: graduates_celebration
+        col_span: 5
+        row_span: 2
+        col_start: 1
+        row_start: 1
+      - image_id: graduates_workspace
+        col_span: 3
+        row_span: 2
+        col_start: 1
+        row_start: 3
+    background: bg-muted/30
+    image_bordered: true
+    paddingY:
+      desktop: none
   - type: course_selector
     section_id: course_selector-92t02r
     version: "1.0"
