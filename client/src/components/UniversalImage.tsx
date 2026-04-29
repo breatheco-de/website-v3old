@@ -212,8 +212,6 @@ export function UniversalImage({
       throw new Error("No field path configured");
     }
 
-    // For _id fields (e.g. image_id in graduates_stats), save the registry ID.
-    // For src/url fields, save the resolved URL.
     const isIdField = fieldContext?.srcField?.endsWith("_id") ?? false;
     const valueToSave = isIdField && registryId ? registryId : pickedSrc;
 
@@ -290,6 +288,11 @@ export function UniversalImage({
     </div>
   );
 
+  const dpr = typeof window !== "undefined" ? (window.devicePixelRatio || 1) : 1;
+  const renderedSize = imgRef.current
+    ? { width: Math.round(imgRef.current.getBoundingClientRect().width * dpr), height: Math.round(imgRef.current.getBoundingClientRect().height * dpr) }
+    : undefined;
+
   const pickerDialog = canReplace ? (
     <ImagePickerDialog
       open={pickerOpen}
@@ -298,6 +301,8 @@ export function UniversalImage({
       initialSrc={src}
       initialAlt={finalAlt}
       onSave={handlePickerSave}
+      renderPreset={preset !== "full" ? preset : undefined}
+      renderedSize={renderedSize}
     />
   ) : null;
 

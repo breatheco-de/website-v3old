@@ -292,6 +292,12 @@ export default function MediaGallery() {
     }
   };
 
+  const handleDismissOptimization = () => {
+    setOptimizing(false);
+    setOptimizeDone(false);
+    setOptimizeProgress(null);
+  };
+
   const handleFixHeroTags = async () => {
     setFixingHeroTags(true);
     try {
