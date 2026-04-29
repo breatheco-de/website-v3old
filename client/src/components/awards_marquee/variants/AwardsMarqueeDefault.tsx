@@ -1,5 +1,6 @@
 import Marquee from "@/lib/marquee";
 import { useState, useEffect } from "react";
+import { UniversalImage } from "@/components/UniversalImage";
 
 function parseLogoHeight(value?: string): number | undefined {
   if (!value) return undefined;
@@ -19,11 +20,12 @@ export interface AwardsMarqueeItem {
 
 export function AwardsMarquee({ data }: { data: any }) {
   const { items = [], speed = 40, gradient = true, gradientColor, gradientWidth = 100, bottom_title, className = "", title, title_above_carousel = false } = data;
-  const [isDesktop, setIsDesktop] = useState(false);
-  
+  const [isDesktop, setIsDesktop] = useState(
+    () => typeof window !== "undefined" && window.matchMedia('(min-width: 768px)').matches
+  );
+
   useEffect(() => {
     const mediaQuery = window.matchMedia('(min-width: 768px)');
-    setIsDesktop(mediaQuery.matches);
     const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
     mediaQuery.addEventListener('change', handler);
     return () => mediaQuery.removeEventListener('change', handler);
@@ -58,13 +60,14 @@ export function AwardsMarquee({ data }: { data: any }) {
               data-testid={`marquee-item-${index}`}
             >
               {item.logo ? (
-                <img 
-                  src={item.logo} 
-                  alt={item.alt}
-                  style={{ height: parseLogoHeight(item.logoHeight) || 48 }}
-                  className="w-auto object-contain"
-                  loading="lazy"
-                />
+                <div style={{ height: parseLogoHeight(item.logoHeight) || 48 }} className="flex items-center">
+                  <UniversalImage
+                    id={item.logo}
+                    alt={item.alt}
+                    className="h-full w-auto"
+                    style={{ objectFit: "contain" }}
+                  />
+                </div>
               ) : (
                 <div className="flex flex-col items-center text-center">
                   <span className="text-xs text-muted-foreground uppercase tracking-wide">
