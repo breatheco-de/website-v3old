@@ -3,6 +3,8 @@
     "hero-wide": {
       "aspect_ratio": "16:9",
       "widths": [
+        320,
+        480,
         640,
         960,
         1280,

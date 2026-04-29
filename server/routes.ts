@@ -9487,6 +9487,7 @@ sections: []
         height: targetHeight,
         format: "webp",
         parentId: imageId,
+        quality_override: quality,
       });
 
       console.log(`[CropResize] Created "${uniqueId}" (${targetWidth}x${targetHeight}) from "${imageId}"`);
@@ -9498,7 +9499,7 @@ sections: []
           if (!registry2) return;
           const newEntry = registry2.images[uniqueId];
           if (!newEntry) return;
-          const result = await processImageFromSrc(uniqueId, newEntry, registry2.presets as Record<string, import("./image-optimizer").Preset>);
+          const result = await processImageFromSrc(uniqueId, newEntry, registry2.presets as Record<string, import("./image-optimizer").Preset>, false, newEntry.quality_override);
           if (result) {
             newEntry.preset = result.preset;
             newEntry.widths_generated = result.widths_generated;
