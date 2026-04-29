@@ -10941,6 +10941,57 @@
       "tags": [],
       "usage_count": 0,
       "hash": "d28829d25a611602ca0cf206215a12b9189ec111851c8defd459c2cd8cd910a9"
+    },
+    "students_collaborating-630x400": {
+      "src": "/marketing-content/images/students_collaborating-630x400.webp",
+      "alt": "Students collaborating in workspace",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "students",
+        "hero"
+      ],
+      "usage_count": 0,
+      "width": 630,
+      "height": 400,
+      "format": "webp",
+      "preset": [
+        "hero-wide"
+      ],
+      "widths_generated": [
+        630
+      ],
+      "srcset": [
+        {
+          "w": 630,
+          "url": "/marketing-content/images/students_collaborating-630x400-630w.webp"
+        }
+      ]
+    },
+    "placeholder_career_guidance-280x204": {
+      "src": "/marketing-content/images/placeholder_career_guidance-280x204.webp",
+      "alt": "Career guidance placeholder",
+      "focal_point": "center",
+      "tags": [
+        "placeholder",
+        "career"
+      ],
+      "usage_count": 0,
+      "width": 280,
+      "height": 204,
+      "format": "webp",
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        280
+      ],
+      "srcset": [
+        {
+          "w": 280,
+          "url": "/marketing-content/images/placeholder_career_guidance-280x204-280w.webp"
+        }
+      ]
     }
   }
 }

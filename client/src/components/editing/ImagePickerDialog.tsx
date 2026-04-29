@@ -139,7 +139,7 @@ export function ImagePickerDialog({
         seen.add(key);
         suggestions.push({
           value: key,
-          label: `Current size on screen — ${renderedSize.width} × ${renderedSize.height} px`,
+          label: `Current size (retina-ready) — ${renderedSize.width} × ${renderedSize.height} px`,
           width: renderedSize.width,
           height: renderedSize.height,
         });
