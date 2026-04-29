@@ -11229,6 +11229,77 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_team_2-288x210-288w.webp"
         }
       ]
+    },
+    "students_collaborating-548x299-1096x598": {
+      "src": "/marketing-content/images/students_collaborating-548x299-1096x598.webp",
+      "alt": "Students collaborating in workspace",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "students",
+        "hero"
+      ],
+      "usage_count": 0,
+      "width": 1096,
+      "height": 598,
+      "format": "webp",
+      "parentId": "students_collaborating-548x299",
+      "quality_override": 70,
+      "preset": [
+        "hero-wide"
+      ],
+      "widths_generated": [
+        320,
+        480,
+        640,
+        960
+      ],
+      "srcset": [
+        {
+          "w": 320,
+          "url": "/marketing-content/images/students_collaborating-548x299-1096x598-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "/marketing-content/images/students_collaborating-548x299-1096x598-480w.webp"
+        },
+        {
+          "w": 640,
+          "url": "/marketing-content/images/students_collaborating-548x299-1096x598-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "/marketing-content/images/students_collaborating-548x299-1096x598-960w.webp"
+        }
+      ]
+    },
+    "graduates_team_2-288x210-288x210": {
+      "src": "/marketing-content/images/graduates_team_2-288x210-288x210.webp",
+      "alt": "Large group of 4Geeks graduates celebrating with certificates",
+      "focal_point": "center",
+      "tags": [
+        "graduates",
+        "team",
+        "celebration"
+      ],
+      "usage_count": 0,
+      "width": 288,
+      "height": 210,
+      "format": "webp",
+      "parentId": "graduates_team_2-288x210",
+      "quality_override": 65,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        288
+      ],
+      "srcset": [
+        {
+          "w": 288,
+          "url": "/marketing-content/images/graduates_team_2-288x210-288x210-288w.webp"
+        }
+      ]
     }
   }
 }
