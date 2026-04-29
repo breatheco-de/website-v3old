@@ -1,6 +1,7 @@
 import { memo } from "react";
 import type { ValueProofPanelSection, EvidenceItem } from "@shared/schema";
 import { UniversalVideo } from "@/components/UniversalVideo";
+import UniversalImage from "@/components/UniversalImage";
 import {
   IconTrophy,
   IconHeadset,
@@ -129,16 +130,12 @@ function MediaFrame({
           className="w-full h-full object-cover"
         />
       ) : (
-        <img
-          src={media.src}
-          alt={media.alt || ""}
-          className="w-full h-full"
-          style={{
-            objectFit: media.object_fit || "cover",
-            objectPosition: media.object_position || "center center",
-          }}
-          loading="lazy"
-        />
+      <UniversalImage
+        id={media.image_id || media.src || ""}
+        alt={media.alt || ""}
+        className="w-full h-full object-cover"
+        focalPoint={media.object_position as any || "center"}
+      />
       )}
     </div>
   );

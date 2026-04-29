@@ -7,6 +7,7 @@ import { getCustomIcon } from "@/components/custom-icons";
 import type { ComponentType } from "react";
 import { AIWorkflowDiagram } from "@/components/AIWorkflowDiagram";
 import { useInternalNav } from "@/hooks/useInternalNav";
+import { UniversalImage } from "@/components/UniversalImage";
 
 function getIcon(iconName: string, className?: string, color?: string) {
   const CustomIcon = getCustomIcon(iconName);
@@ -43,11 +44,10 @@ function DetailedCard({
     <Card className="p-4 md:p-6 hover-elevate" data-testid={`card-feature-${itemId}`}>
       {hasImage && (
         <div className="mb-4 flex items-center justify-center h-32 md:h-40">
-          <img 
-            src={item.image!.src} 
-            alt={item.image!.alt} 
+          <UniversalImage
+            id={item.image!.src}
+            alt={item.image!.alt}
             className="max-w-full max-h-full object-contain"
-            loading="lazy"
             data-testid={`img-feature-${itemId}`}
           />
         </div>

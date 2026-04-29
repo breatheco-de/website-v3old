@@ -2,6 +2,7 @@ import { useState } from "react";
 import * as TablerIcons from "@tabler/icons-react";
 import type { ComponentType } from "react";
 import { getCustomIcon } from "@/components/custom-icons";
+import { UniversalImage } from "@/components/UniversalImage";
 
 interface BulletItem {
   text: string;
@@ -106,9 +107,9 @@ export function CommunitySupport({ data }: CommunitySupportProps) {
                         </span>
                       ) : group.image ? (
                         <div className="flex-shrink-0 w-10 h-10 rounded-full overflow-hidden">
-                          <img 
-                            src={group.image} 
-                            alt="Group icon" 
+                          <UniversalImage
+                            id={group.image}
+                            alt="Group icon"
                             className="w-full h-full object-cover"
                           />
                         </div>

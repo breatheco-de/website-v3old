@@ -4,6 +4,7 @@ import * as TablerIcons from "@tabler/icons-react";
 import type { TwoColumnSection as TwoColumnSectionType, TwoColumnColumn, BenefitItem } from "@shared/schema";
 import type { ComponentType, CSSProperties } from "react";
 import { UniversalVideo } from "@/components/UniversalVideo";
+import { UniversalImage } from "@/components/UniversalImage";
 import { useInternalNav } from "@/hooks/useInternalNav";
 
 export type { TwoColumnSectionType };
@@ -382,18 +383,18 @@ function ColumnContent({ column, defaultBulletIcon, hideHeadingOnTablet }: { col
                 }
               }
             `}</style>
-            <img 
-              id={imageId}
-              src={column.image} 
-              alt={column.image_alt || "Section image"}
-              className="rounded-md w-full h-auto"
-              style={{
-                objectFit: (column.image_object_fit as React.CSSProperties["objectFit"]) || "cover",
-                objectPosition: column.image_object_position || "center center",
-              }}
-              loading="lazy"
-              data-testid="img-two-column"
-            />
+            <div id={imageId}>
+              <UniversalImage
+                id={column.image}
+                alt={column.image_alt || "Section image"}
+                className="rounded-md w-full h-auto"
+                style={{
+                  objectFit: (column.image_object_fit as React.CSSProperties["objectFit"]) || "cover",
+                  objectPosition: column.image_object_position || "center center",
+                }}
+                data-testid="img-two-column"
+              />
+            </div>
           </div>
         );
       })()}
@@ -519,11 +520,10 @@ function BenefitCardsVariant({ data }: TwoColumnProps) {
                   })()}
                 </div>
               ) : data.right?.image ? (
-                <img 
-                  src={data.right.image}
+                <UniversalImage
+                  id={data.right.image}
                   alt={data.right.image_alt || "Section image"}
                   className="rounded-md w-full h-auto max-w-md"
-                  loading="lazy"
                   data-testid="img-benefit-cards"
                 />
               ) : null}

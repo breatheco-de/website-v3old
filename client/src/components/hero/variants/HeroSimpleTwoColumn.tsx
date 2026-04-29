@@ -3,6 +3,7 @@ import type { HeroSimpleTwoColumn as HeroSimpleTwoColumnType } from "@shared/sch
 import { Button } from "@/components/ui/button";
 import { RichTextContent } from "@/components/ui/rich-text-content";
 import { UniversalVideo } from "@/components/UniversalVideo";
+import { UniversalImage } from "@/components/UniversalImage";
 import { createElement } from "react";
 import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
@@ -51,8 +52,8 @@ export default function HeroSimpleTwoColumn({ data }: HeroSimpleTwoColumnProps) 
                 data-testid="video-hero"
               />
             ) : (
-              <img 
-                src={imageSrc}
+              <UniversalImage
+                id={imageSrc}
                 alt={imageAlt}
                 className="w-full h-auto rounded-card shadow-card"
                 style={{ objectFit: imageObjectFit as "cover" | "contain" | "fill", objectPosition: imageObjectPosition }}
@@ -117,8 +118,8 @@ export default function HeroSimpleTwoColumn({ data }: HeroSimpleTwoColumnProps) 
                   data-testid="video-hero-mobile"
                 />
               ) : (
-                <img 
-                  src={imageSrc}
+                <UniversalImage
+                  id={imageSrc}
                   alt={imageAlt}
                   className="w-full h-auto rounded-card shadow-card"
                   style={{ objectFit: imageObjectFit as "cover" | "contain" | "fill", objectPosition: imageObjectPosition }}
