@@ -282,9 +282,14 @@ export function ImagePickerDialog({
       const entry = imageRegistry.images[selectedRegistryId];
       setCropTargetWidth(entry.width ?? 800);
       setCropTargetHeight(entry.height ?? 600);
+      const presetQuality = entry.preset?.[0]
+        ? (imageRegistry.presets as Record<string, { quality?: number }>)?.[entry.preset[0]]?.quality
+        : undefined;
+      setCropQuality(entry.quality_override ?? presetQuality ?? 85);
     } else {
       setCropTargetWidth(800);
       setCropTargetHeight(600);
+      setCropQuality(85);
     }
     setCropPanelOpen(true);
   }, [selectedRegistryId, imageRegistry]);

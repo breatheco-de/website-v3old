@@ -59,6 +59,7 @@ export default function HeroSimpleTwoColumn({ data }: HeroSimpleTwoColumnProps) 
                 className="w-full h-auto rounded-card shadow-card"
                 style={{ objectFit: imageObjectFit as "cover" | "contain" | "fill", objectPosition: imageObjectPosition }}
                 fieldContext={{ fieldPath: imageFieldPath }}
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 42vw, 480px"
                 data-testid="img-hero"
               />
             )}
@@ -126,6 +127,7 @@ export default function HeroSimpleTwoColumn({ data }: HeroSimpleTwoColumnProps) 
                   className="w-full h-auto rounded-card shadow-card"
                   style={{ objectFit: imageObjectFit as "cover" | "contain" | "fill", objectPosition: imageObjectPosition }}
                   fieldContext={{ fieldPath: imageFieldPath }}
+                  sizes="100vw"
                   data-testid="img-hero"
                 />
               )}
