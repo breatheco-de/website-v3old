@@ -10046,7 +10046,10 @@
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/azul-botaya.jpg",
       "alt": "TODO: Add alt text for azul-botaya.jpg",
       "focal_point": "center",
-      "tags": [],
+      "tags": [
+        "photo",
+        "testimonial"
+      ],
       "usage_count": 0,
       "hash": "f10d23724c6dafcb0d98703f11b5766dc634c09f322c7590c2c7631b462ee342",
       "width": 800,
@@ -11046,7 +11049,10 @@
       "src": "/marketing-content/images/laptop-960w.webp",
       "alt": "TODO: Add alt text for laptop-960w.webp",
       "focal_point": "center",
-      "tags": [],
+      "tags": [
+        "photo",
+        "hero"
+      ],
       "usage_count": 0,
       "hash": "d28829d25a611602ca0cf206215a12b9189ec111851c8defd459c2cd8cd910a9",
       "width": 960,
