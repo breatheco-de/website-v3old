@@ -11123,6 +11123,32 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/placeholder_career_guidance-350x255-350w.webp"
         }
       ]
+    },
+    "students_collaborating-548x299": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-548x299.webp",
+      "alt": "Students collaborating in workspace",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "students",
+        "hero"
+      ],
+      "usage_count": 0,
+      "width": 548,
+      "height": 299,
+      "format": "webp",
+      "preset": [
+        "hero-wide"
+      ],
+      "widths_generated": [
+        548
+      ],
+      "srcset": [
+        {
+          "w": 548,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-548x299-548w.webp"
+        }
+      ]
     }
   }
 }
