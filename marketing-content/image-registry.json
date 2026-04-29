@@ -2110,7 +2110,8 @@
       "focal_point": "center",
       "tags": [
         "photo",
-        "about"
+        "about",
+        "hero"
       ],
       "usage_count": 2,
       "hash": "65483ba2b18185e177885071f24b2306146e2bc7d77c65dbcf5f6055c17a6bae",
@@ -3699,7 +3700,8 @@
         "coding",
         "students",
         "academy",
-        "header"
+        "header",
+        "hero"
       ],
       "usage_count": 0,
       "hash": "803d667d074feb643ca03678edfc76a0cf95dd092f30812dde92b101b7886e1d",
@@ -3743,7 +3745,8 @@
         "coding",
         "laptop",
         "classroom",
-        "photo"
+        "photo",
+        "hero"
       ],
       "usage_count": 0,
       "hash": "4232fe583648f471363699f33512ecf5ad55ff96a7494db3cf0cdfe1eebdccf9",
