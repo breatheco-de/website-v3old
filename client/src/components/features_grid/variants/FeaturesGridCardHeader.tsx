@@ -6,6 +6,7 @@ import * as TablerIcons from "@tabler/icons-react";
 import { getCustomIcon } from "@/components/custom-icons";
 import type { FeaturesGridCardHeaderSection } from "@shared/schema";
 import { useInternalNav } from "@/hooks/useInternalNav";
+import { UniversalImage } from "@/components/UniversalImage";
 
 const { IconCheck } = TablerIcons;
 
@@ -76,8 +77,8 @@ export default function FeaturesGridCardHeader({ data }: FeaturesGridCardHeaderP
                 </div>
                 {data.image && (
                   <div className="md:col-span-4 flex items-center justify-center p-6 md:p-8">
-                    <img
-                      src={data.image}
+                    <UniversalImage
+                      id={data.image}
                       alt={data.image_alt || ""}
                       className="w-full max-w-[220px] md:max-w-[280px] object-contain"
                       data-testid="img-features-grid-main"
