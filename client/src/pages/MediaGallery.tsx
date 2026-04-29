@@ -114,6 +114,7 @@ export default function MediaGallery() {
   const [validationResult, setValidationResult] = useState<ValidationRunResult | null>(null);
   const [optimizing, setOptimizing] = useState(false);
   const [optimizeProgress, setOptimizeProgress] = useState<{ total: number; processed: number } | null>(null);
+  const [fixingHeroTags, setFixingHeroTags] = useState(false);
   const optimizePollerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [migrating, setMigrating] = useState(false);
   const [autoTagging, setAutoTagging] = useState(false);
@@ -266,6 +267,28 @@ export default function MediaGallery() {
     } catch {
       toast({ title: "Optimization failed", description: "Could not start batch optimization", variant: "destructive" });
       setOptimizing(false);
+    }
+  };
+
+  const handleFixHeroTags = async () => {
+    setFixingHeroTags(true);
+    try {
+      const res = await apiRequest("POST", "/api/validation/fix/hero-image-tags");
+      const data = await res.json();
+      toast({
+        title: "Hero tags fixed",
+        description: data.message || "Hero image tags have been updated",
+      });
+      const validationRes = await apiRequest("POST", "/api/validation/run", {
+        validators: ["images", "hero-image-tags", "image-optimization"],
+        includeArtifacts: true,
+      });
+      const validationData: ValidationRunResult = await validationRes.json();
+      setValidationResult(validationData);
+    } catch {
+      toast({ title: "Fix failed", description: "Could not fix hero image tags", variant: "destructive" });
+    } finally {
+      setFixingHeroTags(false);
     }
   };
 
@@ -958,6 +981,24 @@ export default function MediaGallery() {
                             </>
                           ) : (
                             "Trigger optimization"
+                          )}
+                        </Button>
+                      )}
+                      {v.name === "hero-image-tags" && issueCount > 0 && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={handleFixHeroTags}
+                          disabled={fixingHeroTags}
+                          data-testid="button-fix-hero-tags"
+                        >
+                          {fixingHeroTags ? (
+                            <>
+                              <IconLoader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />
+                              Fixing...
+                            </>
+                          ) : (
+                            "Fix hero tags"
                           )}
                         </Button>
                       )}
