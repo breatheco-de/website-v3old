@@ -11098,6 +11098,31 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_group_collaboration-565x375-565w.webp"
         }
       ]
+    },
+    "placeholder_career_guidance-350x255": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/placeholder_career_guidance-350x255.webp",
+      "alt": "Career guidance placeholder",
+      "focal_point": "center",
+      "tags": [
+        "placeholder",
+        "career"
+      ],
+      "usage_count": 0,
+      "width": 350,
+      "height": 255,
+      "format": "webp",
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        350
+      ],
+      "srcset": [
+        {
+          "w": 350,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/placeholder_career_guidance-350x255-350w.webp"
+        }
+      ]
     }
   }
 }
