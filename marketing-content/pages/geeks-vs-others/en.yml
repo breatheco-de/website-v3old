@@ -130,11 +130,11 @@ sections:
   - type: testimonials_slide
     title: Real Careers Start Here — Just Ask Our Students
     description: >-
+      With 84% of our graduates hired within six months, their stories show how hands-on learning, personalized
+      mentorship, and career support launch careers in tech.
     related_features:
       - outcomes
       - career-support
-      With 84% of our graduates hired within six months, their stories show how hands-on learning, personalized
-      mentorship, and career support launch careers in tech.
     section_id: testimonials_slide-i66btv
   - type: value_proof_panel
     title: Recognized Globally for Excellence
