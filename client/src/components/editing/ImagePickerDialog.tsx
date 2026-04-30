@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useMemo, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import ReactCrop from "react-image-crop";
 import type { Crop } from "react-image-crop";
@@ -96,7 +97,8 @@ export function ImagePickerDialog({
   const [dragOver, setDragOver] = useState(false);
   const [saving, setSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const popoverContainerRef = useRef<HTMLDivElement>(null);
+  const floatingPanelRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const [cropPanelOpen, setCropPanelOpen] = useState(false);
   const [cropState, setCropState] = useState<Crop>({ unit: "%", x: 0, y: 0, width: 100, height: 100 });
@@ -105,7 +107,7 @@ export function ImagePickerDialog({
   const [cropAspectLock, setCropAspectLock] = useState(false);
   const [cropQuality, setCropQuality] = useState(85);
   const [cropProcessing, setCropProcessing] = useState(false);
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [floatingPanel, setFloatingPanel] = useState<{ id: string; rect: DOMRect } | null>(null);
 
   const cropSizeSuggestions = useMemo(() => {
     const suggestions: Array<{ value: string; label: string; width: number; height: number }> = [];
@@ -171,6 +173,32 @@ export function ImagePickerDialog({
   useEffect(() => {
     setVisibleCount(48);
   }, [search, open]);
+
+  useEffect(() => {
+    if (!floatingPanel) return;
+    const handleMouseDown = (e: MouseEvent) => {
+      if (floatingPanelRef.current && !floatingPanelRef.current.contains(e.target as Node)) {
+        setFloatingPanel(null);
+      }
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setFloatingPanel(null);
+    };
+    document.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [floatingPanel]);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    const handleScroll = () => setFloatingPanel(null);
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const childrenByParent = useMemo(() => {
     const map: Record<string, Array<[string, ImageEntry]>> = {};
@@ -419,12 +447,12 @@ export function ImagePickerDialog({
                   />
                 </div>
 
-                <div className="flex-1 overflow-y-auto min-h-0">
+                <div className="flex-1 overflow-y-auto min-h-0" ref={scrollContainerRef}>
                   <div className="columns-4 sm:columns-5 md:columns-6 gap-2">
                     {filteredImages.slice(0, visibleCount).map(([id, img]) => {
                       const variants = childrenByParent[id] || [];
                       const hasVariants = variants.length > 0;
-                      const isExpanded = expandedId === id;
+                      const isPanelOpen = floatingPanel?.id === id;
                       const isSelected = selectedRegistryId === id
                         || variants.some(([childId, c]) => selectedRegistryId === childId || selectedSrc === c.src);
                       const borderClass = isSelected
@@ -432,76 +460,31 @@ export function ImagePickerDialog({
                         : "border-transparent hover:border-muted-foreground/50";
 
                       return (
-                        <div key={id} className="mb-2 break-inside-avoid">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setSelectedSrc(img.src);
-                              setSelectedAlt(img.alt || "");
-                              setSelectedRegistryId(id);
-                              if (hasVariants) setExpandedId(isExpanded ? null : id);
-                            }}
-                            className={`rounded-md overflow-hidden bg-muted border-2 transition-colors block w-full ${borderClass}`}
-                            title={img.alt}
-                            data-testid={`gallery-image-${id}`}
-                          >
-                            <div className="relative">
-                              <img src={img.src} alt={img.alt} className="w-full h-auto" loading="lazy" />
-                              {hasVariants && (
-                                <div className="absolute bottom-1 right-1 bg-black/70 text-white rounded text-[10px] font-semibold px-1.5 py-0.5 leading-none">
-                                  {variants.length}v
-                                </div>
-                              )}
-                            </div>
-                          </button>
-
-                          {hasVariants && isExpanded && (
-                            <div className="mt-1 rounded-md border bg-background p-1 space-y-0.5">
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setSelectedSrc(img.src);
-                                  setSelectedAlt(img.alt || "");
-                                  setSelectedRegistryId(id);
-                                }}
-                                className={`w-full flex items-center gap-1.5 rounded p-1 text-left hover-elevate ${selectedRegistryId === id ? "bg-muted" : ""}`}
-                                data-testid={`variant-original-${id}`}
-                              >
-                                <img src={img.src} alt={img.alt} className="w-8 h-6 object-cover rounded flex-shrink-0" />
-                                <div className="flex-1 min-w-0">
-                                  <p className="text-[10px] font-medium leading-tight">Original</p>
-                                  {img.width && img.height && (
-                                    <p className="text-[9px] text-muted-foreground leading-tight">{img.width}×{img.height}</p>
-                                  )}
-                                </div>
-                              </button>
-                              {variants.map(([childId, childImg]) => {
-                                const childSelected = selectedRegistryId === childId || selectedSrc === childImg.src;
-                                return (
-                                  <button
-                                    key={childId}
-                                    type="button"
-                                    onClick={() => {
-                                      setSelectedSrc(childImg.src);
-                                      setSelectedAlt(childImg.alt || img.alt || "");
-                                      setSelectedRegistryId(childId);
-                                    }}
-                                    className={`w-full flex items-center gap-1.5 rounded p-1 text-left hover-elevate ${childSelected ? "bg-muted" : ""}`}
-                                    data-testid={`variant-child-${childId}`}
-                                  >
-                                    <img src={childImg.src} alt={childImg.alt} className="w-8 h-6 object-cover rounded flex-shrink-0" />
-                                    <div className="flex-1 min-w-0">
-                                      <p className="text-[10px] font-medium leading-tight">{childImg.width}×{childImg.height}</p>
-                                      {childImg.quality_override !== undefined && (
-                                        <p className="text-[9px] text-muted-foreground leading-tight">q{childImg.quality_override}</p>
-                                      )}
-                                    </div>
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          )}
-                        </div>
+                        <button
+                          key={id}
+                          type="button"
+                          onClick={(e) => {
+                            setSelectedSrc(img.src);
+                            setSelectedAlt(img.alt || "");
+                            setSelectedRegistryId(id);
+                            if (hasVariants) {
+                              const rect = (e.currentTarget as HTMLButtonElement).getBoundingClientRect();
+                              setFloatingPanel(isPanelOpen ? null : { id, rect });
+                            }
+                          }}
+                          className={`mb-2 break-inside-avoid rounded-md overflow-hidden bg-muted border-2 transition-colors block w-full ${borderClass}`}
+                          title={img.alt}
+                          data-testid={`gallery-image-${id}`}
+                        >
+                          <div className="relative">
+                            <img src={img.src} alt={img.alt} className="w-full h-auto" loading="lazy" />
+                            {hasVariants && (
+                              <div className="absolute bottom-1 right-1 bg-black/80 text-white rounded text-[11px] font-bold px-1.5 py-0.5 leading-none">
+                                {variants.length}v
+                              </div>
+                            )}
+                          </div>
+                        </button>
                       );
                     })}
                   </div>
@@ -846,6 +829,80 @@ export function ImagePickerDialog({
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {floatingPanel && imageRegistry?.images?.[floatingPanel.id] && (() => {
+        const panelId = floatingPanel.id;
+        const panelImg = imageRegistry.images[panelId];
+        const panelVariants = childrenByParent[panelId] || [];
+        const { top, right, left } = floatingPanel.rect;
+        const panelWidth = 240;
+        const margin = 8;
+        const spaceRight = window.innerWidth - right - margin;
+        const panelStyle: React.CSSProperties = {
+          position: "fixed",
+          top: Math.min(top, window.innerHeight - 320),
+          zIndex: 9999,
+          width: panelWidth,
+          ...(spaceRight >= panelWidth
+            ? { left: right + margin }
+            : { right: window.innerWidth - left + margin }),
+        };
+        return createPortal(
+          <div
+            ref={floatingPanelRef}
+            style={panelStyle}
+            className="rounded-md border bg-popover shadow-lg p-2 space-y-1"
+            data-testid="floating-variant-panel"
+          >
+            <p className="text-xs font-semibold text-muted-foreground px-1 pb-0.5">Variantes</p>
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedSrc(panelImg.src);
+                setSelectedAlt(panelImg.alt || "");
+                setSelectedRegistryId(panelId);
+                setFloatingPanel(null);
+              }}
+              className={`w-full flex items-center gap-2 rounded-md p-1.5 text-left hover-elevate ${selectedRegistryId === panelId ? "bg-muted" : ""}`}
+              data-testid={`variant-original-${panelId}`}
+            >
+              <img src={panelImg.src} alt={panelImg.alt} className="w-12 h-9 object-cover rounded flex-shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold leading-tight">Original</p>
+                {panelImg.width && panelImg.height && (
+                  <p className="text-[11px] text-muted-foreground leading-tight">{panelImg.width} × {panelImg.height}</p>
+                )}
+              </div>
+            </button>
+            {panelVariants.map(([childId, childImg]) => {
+              const childSelected = selectedRegistryId === childId || selectedSrc === childImg.src;
+              return (
+                <button
+                  key={childId}
+                  type="button"
+                  onClick={() => {
+                    setSelectedSrc(childImg.src);
+                    setSelectedAlt(childImg.alt || panelImg.alt || "");
+                    setSelectedRegistryId(childId);
+                    setFloatingPanel(null);
+                  }}
+                  className={`w-full flex items-center gap-2 rounded-md p-1.5 text-left hover-elevate ${childSelected ? "bg-muted" : ""}`}
+                  data-testid={`variant-child-${childId}`}
+                >
+                  <img src={childImg.src} alt={childImg.alt} className="w-12 h-9 object-cover rounded flex-shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-medium leading-tight">{childImg.width} × {childImg.height}</p>
+                    {childImg.quality_override !== undefined && (
+                      <p className="text-[11px] text-muted-foreground leading-tight">Calidad: {childImg.quality_override}</p>
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+          </div>,
+          document.body
+        );
+      })()}
     </>
   );
 }
