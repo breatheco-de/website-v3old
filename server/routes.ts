@@ -9508,10 +9508,20 @@ sections: []
 
       const parentTags = entry.tags || [];
 
+      const registryPresets = registry.presets as Record<string, { quality?: number }>;
+      const parentPresets = (entry.preset || []) as string[];
+      const presetDefaultQuality = parentPresets.length > 0
+        ? Math.max(...parentPresets.map((p) => registryPresets[p]?.quality ?? 85))
+        : 85;
+      const qualityToSave = quality !== presetDefaultQuality ? quality : undefined;
+
       const existingEntry = registry.images[baseId];
       if (existingEntry && existingEntry.parentId === rootId &&
           existingEntry.width === targetWidth && existingEntry.height === targetHeight) {
-        return res.json({ id: baseId, src: existingEntry.src, width: targetWidth, height: targetHeight });
+        const existingEffectiveQuality = existingEntry.quality_override ?? presetDefaultQuality;
+        if (existingEffectiveQuality === quality) {
+          return res.json({ id: baseId, src: existingEntry.src, width: targetWidth, height: targetHeight });
+        }
       }
 
       const uniqueId = baseId;
@@ -9530,13 +9540,6 @@ sections: []
       } else {
         newSrc = await defaultProvider.upload(derivedFilename, processedBuffer, "image/webp");
       }
-
-      const registryPresets = registry.presets as Record<string, { quality?: number }>;
-      const parentPresets = (entry.preset || []) as string[];
-      const presetDefaultQuality = parentPresets.length > 0
-        ? Math.max(...parentPresets.map((p) => registryPresets[p]?.quality ?? 85))
-        : 85;
-      const qualityToSave = quality !== presetDefaultQuality ? quality : undefined;
 
       mediaGallery.register(uniqueId, {
         src: newSrc,
