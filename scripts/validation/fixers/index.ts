@@ -10,6 +10,7 @@ import { imageOptimizationFixer } from "./image-optimization";
 import { heroImageTagsFixer } from "./hero-image-tags";
 import { imageRegistrySyncFixer } from "./image-registry-sync";
 import { imageAutoTagsFixer } from "./image-auto-tags";
+import { invalidImageTagsFixer } from "./invalid-image-tags";
 
 export type { Fixer, FixerContext, FixerResult } from "./types";
 
@@ -18,6 +19,7 @@ const fixers: Fixer[] = [
   heroImageTagsFixer,
   imageRegistrySyncFixer,
   imageAutoTagsFixer,
+  invalidImageTagsFixer,
 ];
 
 export const fixerMap = new Map<string, Fixer>(fixers.map((f) => [f.name, f]));

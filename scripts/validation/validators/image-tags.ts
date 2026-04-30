@@ -105,7 +105,12 @@ export const imageTagsValidator: Validator = {
             type: "warning",
             code: "TAG_NOT_IN_DEFINITIONS",
             message: `Image "${imageId}" has tag "${tag}" which is not in tagDefinitions`,
-            suggestion: `Add "${tag}" to tagDefinitions or replace with a canonical tag`,
+            suggestion: `Remove the invalid tag — it was likely assigned incorrectly by the auto-tagger`,
+            fix: {
+              type: "api",
+              label: "Remove all invalid tags from images",
+              fixerName: "invalid-image-tags",
+            },
           });
         }
       }

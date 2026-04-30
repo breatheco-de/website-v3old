@@ -82,6 +82,7 @@ async function processExternalEntry(entry: { id: string; source_url?: string; ta
   }
 
   const presets = registry.presets as Record<string, Preset>;
+  const tagDefinitions = registry.tagDefinitions as Record<string, { presets?: string[] }> | undefined;
   const dbName = entry.tags?.[0] ?? "external";
 
   let result = null;
@@ -89,7 +90,7 @@ async function processExternalEntry(entry: { id: string; source_url?: string; ta
     if (attempt > 0) {
       await new Promise<void>((r) => setTimeout(r, Math.pow(2, attempt - 1) * 1000));
     }
-    result = await processImageBuffer(id, buffer, url, entry.tags ?? [dbName], presets);
+    result = await processImageBuffer(id, buffer, url, entry.tags ?? [dbName], presets, false, undefined, tagDefinitions);
     if (result) break;
   }
 
@@ -124,9 +125,10 @@ async function processOptimizeEntry(entry: { id: string; src: string }): Promise
   if (!entryData) return;
 
   const presets = registry.presets as Record<string, Preset>;
+  const tagDefinitions = registry.tagDefinitions as Record<string, { presets?: string[] }> | undefined;
 
   try {
-    const result = await processImageFromSrc(id, entryData, presets);
+    const result = await processImageFromSrc(id, entryData, presets, false, undefined, tagDefinitions);
     if (result) {
       markJobDone(id, {
         width: result.width,

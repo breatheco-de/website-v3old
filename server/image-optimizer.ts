@@ -16,22 +16,16 @@ export interface Preset {
   description: string;
 }
 
-const TAG_TO_PRESET: Record<string, string> = {
-  logo: "logo",
-  avatar: "avatar",
-  icon: "icon",
-  badge: "icon",
-  certification: "icon",
-  award: "icon",
-  hero: "hero-wide",
-};
-
-export function inferPresets(tags: string[], presets: Record<string, Preset>): string[] {
+export function inferPresets(
+  tags: string[],
+  presets: Record<string, Preset>,
+  tagDefinitions?: Record<string, { presets?: string[] }>,
+): string[] {
   const matched = new Set<string>();
   for (const tag of tags) {
-    const preset = TAG_TO_PRESET[tag];
-    if (preset && presets[preset]) {
-      matched.add(preset);
+    const defPresets = tagDefinitions?.[tag]?.presets ?? [];
+    for (const p of defPresets) {
+      if (presets[p]) matched.add(p);
     }
   }
   if (matched.size === 0) {
@@ -144,6 +138,7 @@ export async function processImageBuffer(
   presets: Record<string, Preset>,
   dryRun: boolean = false,
   qualityOverride?: number,
+  tagDefinitions?: Record<string, { presets?: string[] }>,
 ): Promise<ProcessImageResult | null> {
   let metadata: sharp.Metadata;
   try {
@@ -161,7 +156,7 @@ export async function processImageBuffer(
     return null;
   }
 
-  const presetNames = inferPresets(tags, presets);
+  const presetNames = inferPresets(tags, presets, tagDefinitions);
   const { widths, quality } = mergeWidths(presetNames, presets, qualityOverride);
 
   const filteredWidths = widths.filter(w => w <= intrinsicWidth);
@@ -247,6 +242,7 @@ export async function processImageFromSrc(
   presets: Record<string, Preset>,
   dryRun: boolean = false,
   qualityOverride?: number,
+  tagDefinitions?: Record<string, { presets?: string[] }>,
 ): Promise<ProcessImageResult | null> {
   const buffer = await downloadImage(entry.src);
   if (!buffer) {
@@ -255,5 +251,5 @@ export async function processImageFromSrc(
   }
 
   const resolvedQuality = qualityOverride ?? entry.quality_override;
-  return processImageBuffer(id, buffer, entry.src, entry.tags || [], presets, dryRun, resolvedQuality);
+  return processImageBuffer(id, buffer, entry.src, entry.tags || [], presets, dryRun, resolvedQuality, tagDefinitions);
 }
