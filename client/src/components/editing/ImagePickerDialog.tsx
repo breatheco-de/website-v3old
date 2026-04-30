@@ -120,6 +120,7 @@ export function ImagePickerDialog({
   const [saving, setSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const popoverContainerRef = useRef<HTMLDivElement>(null);
 
   const [cropPanelOpen, setCropPanelOpen] = useState(false);
   const [cropState, setCropState] = useState<Crop>({ unit: "%", x: 0, y: 0, width: 100, height: 100 });
@@ -523,6 +524,7 @@ export function ImagePickerDialog({
         }}
       >
         <DialogContent className="sm:max-w-2xl max-h-[80vh] flex flex-col">
+          <div ref={popoverContainerRef} />
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
           </DialogHeader>
@@ -612,6 +614,7 @@ export function ImagePickerDialog({
                               side="right"
                               sideOffset={8}
                               className="z-[10001] w-60 p-2 space-y-1"
+                              container={popoverContainerRef.current ?? undefined}
                               data-testid="floating-variant-panel"
                             >
                               <p className="text-xs font-semibold text-muted-foreground px-1 pb-0.5">Variantes</p>
