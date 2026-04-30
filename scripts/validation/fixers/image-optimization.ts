@@ -1,9 +1,12 @@
 /**
  * Fixer: image-optimization
  *
- * Queues all unoptimized raster images in the registry for srcset/dimensions
- * generation via the shared image-optimizer module. Processing runs in the
- * background; the fixer returns immediately with the count queued.
+ * Processes raster images in the registry that need optimization, covering two cases:
+ *   1. Images with no srcset yet (first-time optimization).
+ *   2. Images whose stored preset does not match what tagDefinitions requires for
+ *      their current tags (re-optimization to apply the correct preset/widths).
+ *
+ * Processing runs in the background; the fixer returns immediately with the count queued.
  */
 
 import type { Fixer, FixerContext, FixerResult } from "./types";
@@ -22,9 +25,39 @@ function getExt(src: string): string {
   }
 }
 
+function expectedPresets(
+  tags: string[],
+  tagDefinitions: Record<string, { presets?: string[] }>,
+): Set<string> {
+  const result = new Set<string>();
+  for (const tag of tags) {
+    const def = tagDefinitions[tag];
+    if (def?.presets) {
+      for (const p of def.presets) result.add(p);
+    }
+  }
+  return result;
+}
+
+function hasPresetMismatch(
+  entry: { tags?: string[]; preset?: string[] },
+  tagDefinitions: Record<string, { presets?: string[] }>,
+): boolean {
+  const tags = entry.tags ?? [];
+  if (tags.length === 0) return false;
+  const expected = expectedPresets(tags, tagDefinitions);
+  if (expected.size === 0) return false;
+  const stored = new Set(entry.preset ?? []);
+  for (const p of Array.from(expected)) {
+    if (!stored.has(p)) return true;
+  }
+  return false;
+}
+
 export const imageOptimizationFixer: Fixer = {
   name: "image-optimization",
-  description: "Queues unoptimized raster images for background srcset generation",
+  description:
+    "Optimizes raster images that are missing srcset variants or whose preset does not match their tag definitions",
 
   async run(_ctx: FixerContext): Promise<FixerResult> {
     const registry = mediaGallery.getRegistry();
@@ -33,16 +66,39 @@ export const imageOptimizationFixer: Fixer = {
     }
 
     const presets = registry.presets as Record<string, Preset>;
+    const tagDefinitions = (registry.tagDefinitions ?? {}) as Record<
+      string,
+      { presets?: string[] }
+    >;
+
+    let noSrcsetCount = 0;
+    let mismatchCount = 0;
+
+    type ImageEntry = { src: string; srcset?: unknown[]; tags?: string[]; preset?: string[] };
 
     const targetIds = Object.entries(registry.images)
       .filter(([_id, entry]) => {
-        if (!RASTER_EXTENSIONS.has(getExt(entry.src))) return false;
-        return !(Array.isArray(entry.srcset) && entry.srcset.length > 0);
+        const e = entry as ImageEntry;
+        if (!RASTER_EXTENSIONS.has(getExt(e.src))) return false;
+        const hasSrcset = Array.isArray(e.srcset) && e.srcset.length > 0;
+        if (!hasSrcset) {
+          noSrcsetCount++;
+          return true;
+        }
+        if (hasPresetMismatch(e, tagDefinitions)) {
+          mismatchCount++;
+          return true;
+        }
+        return false;
       })
       .map(([id]) => id);
 
     if (targetIds.length === 0) {
-      return { ok: true, message: "All raster images are already optimized", details: { queued: 0 } };
+      return {
+        ok: true,
+        message: "All raster images are optimized and presets match tag definitions",
+        details: { queued: 0, noSrcset: 0, presetMismatch: 0 },
+      };
     }
 
     (async () => {
@@ -52,7 +108,7 @@ export const imageOptimizationFixer: Fixer = {
         const entry = registry.images[id];
         if (!entry) continue;
         try {
-          const result = await processImageFromSrc(id, entry, presets);
+          const result = await processImageFromSrc(id, entry, presets, false, undefined, tagDefinitions);
           if (result) {
             entry.width = result.width;
             entry.height = result.height;
@@ -79,8 +135,8 @@ export const imageOptimizationFixer: Fixer = {
 
     return {
       ok: true,
-      message: `Queued ${targetIds.length} image(s) for background optimization`,
-      details: { queued: targetIds.length },
+      message: `Queued ${targetIds.length} image(s) for background optimization (${noSrcsetCount} without srcset, ${mismatchCount} with preset mismatch)`,
+      details: { queued: targetIds.length, noSrcset: noSrcsetCount, presetMismatch: mismatchCount },
     };
   },
 };
