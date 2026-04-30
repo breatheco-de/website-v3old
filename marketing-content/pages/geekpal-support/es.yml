@@ -72,7 +72,7 @@ sections:
           - text: Soporte para debugging y resolución de problemas
           - text: Cientos de ejercicios prácticos y pruebas de programación
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp
         alt: Estudiante asiático aprendiendo a programar
         object_fit: cover
         object_position: 40%20%

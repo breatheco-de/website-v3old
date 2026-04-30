@@ -378,7 +378,7 @@ sections:
       desktop: none xl
     section_id: two_column-luisa
   - images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp
         alt: Asian student learning to code
         object_fit: cover
         object_position: 40% 20%
@@ -419,7 +419,7 @@ sections:
           - text: Keeps you unblocked at any hour
           - text: Hundreds of hands-on coding exercises and tests
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp
         alt: Asian student learning to code
         object_fit: cover
         object_position: 40% 20%
