@@ -20,7 +20,7 @@ sections:
     title: LearnPack Crea enseña aprende
     subtitle: LearnPack transforma cualquier tema en cursos interactivos con autoevaluación en minutos usando IA. Crea currículos completos con lecciones, quizzes y ejercicios, sin necesidad de programar.
     image:
-      src: https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-1096x598-1096x598.webp
+      src: https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-1096x598.webp
       alt: Estudiantes colaborando en un espacio tecnológico
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
