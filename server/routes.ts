@@ -9503,7 +9503,8 @@ sections: []
         .webp({ quality })
         .toBuffer();
 
-      const baseId = `${imageId}-${targetWidth}x${targetHeight}`;
+      const rootId = entry.parentId ?? imageId;
+      const baseId = `${rootId}-${targetWidth}x${targetHeight}`;
 
       const parentTags = entry.tags || [];
       let uniqueId = baseId;
@@ -9543,11 +9544,11 @@ sections: []
         width: targetWidth,
         height: targetHeight,
         format: "webp",
-        parentId: imageId,
+        parentId: rootId,
         quality_override: qualityToSave,
       });
 
-      console.log(`[CropResize] Created "${uniqueId}" (${targetWidth}x${targetHeight}) from "${imageId}"`);
+      console.log(`[CropResize] Created "${uniqueId}" (${targetWidth}x${targetHeight}) from "${rootId}"`);
 
       (async () => {
         try {
