@@ -21,7 +21,7 @@ sections:
     title: Learnpack Build Teach Learn
     subtitle: LearnPack transforms any topic into interactive, auto-graded courses in minutes using AI. Create comprehensive curricula with lessons, quizzes, and exercises—no coding required
     image:
-      src: https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-1096x598.webp
+      src: https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-479x280.webp
       alt: Students collaborating in a tech workspace
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
