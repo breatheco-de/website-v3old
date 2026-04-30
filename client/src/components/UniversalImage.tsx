@@ -279,6 +279,15 @@ export function UniversalImage({
     if (result.success) {
       emitContentUpdated({ contentType: sectionContentType, slug: sectionSlug, locale: sectionLocale });
       toast({ title: "Image updated" });
+
+      // Auto-enqueue external URLs for WebP optimization if not already in the registry
+      if (!registryId && /^https?:\/\//.test(valueToSave)) {
+        fetch("/api/image-registry/enqueue-external", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: valueToSave, tag: "manual" }),
+        }).catch(() => {});
+      }
     } else {
       throw new Error(result.error ?? "Save failed");
     }

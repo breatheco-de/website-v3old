@@ -1,7 +1,7 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { getQueueStats, enqueueOptimization, getPendingOptimizations, getFailedEntries, retryFailedImages, resetOptimizeSession, getOptimizeSession } from "./image-registry";
+import { getQueueStats, enqueueOptimization, getPendingOptimizations, getFailedEntries, retryFailedImages, resetOptimizeSession, getOptimizeSession, enqueueExternalImage } from "./image-registry";
 import { getAllQueueState } from "./image-queue-state";
 
 let workerRunNow: (() => void) | null = null;
@@ -9038,6 +9038,20 @@ sections: []
     const count = retryFailedImages(tag);
     if (count > 0) mediaGallery.persistRegistry();
     res.json({ retried: count });
+  });
+
+  app.post("/api/image-registry/enqueue-external", (req, res) => {
+    const { url, tag } = req.body as { url?: string; tag?: string };
+    if (!url || !/^https?:\/\//.test(url)) {
+      res.status(400).json({ error: "A valid http/https url is required" });
+      return;
+    }
+    const dbName = tag || "manual";
+    const id = enqueueExternalImage(url, dbName);
+    if (id) {
+      mediaGallery.persistRegistry();
+    }
+    res.json({ queued: !!id, id: id ?? null });
   });
 
   app.get("/api/image-registry", (_req, res) => {
