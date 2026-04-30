@@ -23,7 +23,7 @@ import {
   getSitemapCacheStatus,
   getSitemapUrls,
 } from "./sitemap";
-import { markFileAsModified, addFileModifiedListener } from "./sync-state";
+import { markFileAsModified } from "./sync-state";
 import { deepMerge } from "./utils/deepMerge";
 import { regenerateSectionIds } from "./utils/regenerateSectionIds";
 import { databaseManager } from "./database";
@@ -459,9 +459,6 @@ function detectLanguageFromRequest(req: Request): "en" | "es" {
 export async function registerRoutes(app: Express): Promise<Server> {
   media.initFromEnv();
 
-  // Clear image reference cache whenever any tracked file is modified,
-  // so the bulk replace modal always reflects the current state.
-  addFileModifiedListener(() => mediaGallery.clearImageRefCache());
 
   const { loadSyncLog, logSync, getInstanceId } = await import("./sync-log");
   const { loadSyncStateFromBucket } = await import("./sync-state");
@@ -9089,6 +9086,7 @@ sections: []
     }
     try {
       const result = mediaGallery.bulkReplaceUsage(fileReplacements);
+      mediaGallery.clearImageRefCache();
       res.json(result);
     } catch (err: any) {
       res.status(500).json({ error: err.message || "Bulk replace failed" });
