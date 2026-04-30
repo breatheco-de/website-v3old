@@ -459,6 +459,7 @@ function detectLanguageFromRequest(req: Request): "en" | "es" {
 export async function registerRoutes(app: Express): Promise<Server> {
   media.initFromEnv();
 
+
   const { loadSyncLog, logSync, getInstanceId } = await import("./sync-log");
   const { loadSyncStateFromBucket } = await import("./sync-state");
 
@@ -9048,6 +9049,55 @@ sections: []
     res.json(registry);
   });
 
+  app.get("/api/image-registry/family-usage", (req, res) => {
+    const raw = req.query.ids;
+    const ids: string[] = Array.isArray(raw)
+      ? (raw as string[]).filter(Boolean)
+      : typeof raw === "string" && raw
+        ? [raw]
+        : [];
+    if (!ids.length) {
+      res.json([]);
+      return;
+    }
+    try {
+      const results = mediaGallery.getFamilyUsage(ids);
+      const enriched = results.map(r => ({
+        ...r,
+        hasBinding: r.sectionId
+          ? !!bindingManager.findGroupForSection(r.contentType, r.slug, r.sectionId, r.locale)
+          : r.sectionIndex >= 0
+            ? !!bindingManager.findGroupForSectionByIndex(r.contentType, r.slug, r.sectionIndex, r.locale)
+            : false,
+      }));
+      res.json(enriched);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message || "Failed to get family usage" });
+    }
+  });
+
+  app.post("/api/image-registry/clear-ref-cache", (_req, res) => {
+    mediaGallery.clearImageRefCache();
+    res.json({ ok: true });
+  });
+
+  app.post("/api/image-registry/bulk-replace-usage", (req, res) => {
+    const { fileReplacements } = req.body as {
+      fileReplacements?: Array<{ filePath: string; fromId: string; fromSrc: string; toId: string; toSrc: string }>;
+    };
+    if (!Array.isArray(fileReplacements) || fileReplacements.length === 0) {
+      res.status(400).json({ error: "Missing or empty 'fileReplacements' array" });
+      return;
+    }
+    try {
+      const result = mediaGallery.bulkReplaceUsage(fileReplacements);
+      mediaGallery.clearImageRefCache();
+      res.json(result);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message || "Bulk replace failed" });
+    }
+  });
+
   app.delete("/api/image-registry/:id", async (req, res) => {
     try {
       const result = await mediaGallery.unregister(req.params.id);
@@ -9479,6 +9529,13 @@ sections: []
         newSrc = await defaultProvider.upload(derivedFilename, processedBuffer, "image/webp");
       }
 
+      const registryPresets = registry.presets as Record<string, { quality?: number }>;
+      const parentPresets = (entry.preset || []) as string[];
+      const presetDefaultQuality = parentPresets.length > 0
+        ? Math.max(...parentPresets.map((p) => registryPresets[p]?.quality ?? 85))
+        : 85;
+      const qualityToSave = quality !== presetDefaultQuality ? quality : undefined;
+
       mediaGallery.register(uniqueId, {
         src: newSrc,
         alt: entry.alt,
@@ -9487,6 +9544,7 @@ sections: []
         height: targetHeight,
         format: "webp",
         parentId: imageId,
+        quality_override: qualityToSave,
       });
 
       console.log(`[CropResize] Created "${uniqueId}" (${targetWidth}x${targetHeight}) from "${imageId}"`);
@@ -9498,7 +9556,7 @@ sections: []
           if (!registry2) return;
           const newEntry = registry2.images[uniqueId];
           if (!newEntry) return;
-          const result = await processImageFromSrc(uniqueId, newEntry, registry2.presets as Record<string, import("./image-optimizer").Preset>);
+          const result = await processImageFromSrc(uniqueId, newEntry, registry2.presets as Record<string, import("./image-optimizer").Preset>, false, newEntry.quality_override);
           if (result) {
             newEntry.preset = result.preset;
             newEntry.widths_generated = result.widths_generated;

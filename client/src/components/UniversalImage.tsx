@@ -50,6 +50,7 @@ interface UniversalImageProps extends ImageRef {
   bordered?: boolean;
   style?: React.CSSProperties;
   fieldContext?: FieldContext;
+  sizes?: string;
 }
 
 const ASPECT_RATIOS: Record<string, number> = {
@@ -77,6 +78,7 @@ export function UniversalImage({
   bordered = false,
   style,
   fieldContext,
+  sizes: sizesProp,
 }: UniversalImageProps) {
   const { registry, loading: registryLoading, reverseMap } = useImageRegistry();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -165,7 +167,7 @@ export function UniversalImage({
       : undefined;
 
 
-  const sizesString = presetConfig?.sizes || (srcsetString ? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" : undefined);
+  const sizesString = sizesProp ?? presetConfig?.sizes ?? (srcsetString ? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" : undefined);
 
   const intrinsicWidth = imageEntry?.width;
   const intrinsicHeight = imageEntry?.height;

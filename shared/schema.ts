@@ -439,6 +439,7 @@ export const imageEntrySchema = z.object({
   queued_at: z.string().optional(),
   source_item: z.string().optional(),
   parentId: z.string().optional(),
+  quality_override: z.number().optional(),
 });
 
 export const tagDefinitionSchema = z.object({

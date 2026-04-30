@@ -40,7 +40,7 @@ export function inferPresets(tags: string[], presets: Record<string, Preset>): s
   return Array.from(matched);
 }
 
-export function mergeWidths(presetNames: string[], presets: Record<string, Preset>): { widths: number[]; quality: number } {
+export function mergeWidths(presetNames: string[], presets: Record<string, Preset>, qualityOverride?: number): { widths: number[]; quality: number } {
   const allWidths = new Set<number>();
   let maxQuality = 80;
   for (const name of presetNames) {
@@ -52,7 +52,7 @@ export function mergeWidths(presetNames: string[], presets: Record<string, Prese
   }
   return {
     widths: Array.from(allWidths).sort((a, b) => a - b),
-    quality: maxQuality,
+    quality: qualityOverride ?? maxQuality,
   };
 }
 
@@ -143,6 +143,7 @@ export async function processImageBuffer(
   tags: string[],
   presets: Record<string, Preset>,
   dryRun: boolean = false,
+  qualityOverride?: number,
 ): Promise<ProcessImageResult | null> {
   let metadata: sharp.Metadata;
   try {
@@ -161,7 +162,7 @@ export async function processImageBuffer(
   }
 
   const presetNames = inferPresets(tags, presets);
-  const { widths, quality } = mergeWidths(presetNames, presets);
+  const { widths, quality } = mergeWidths(presetNames, presets, qualityOverride);
 
   const filteredWidths = widths.filter(w => w <= intrinsicWidth);
   if (filteredWidths.length === 0) {
@@ -242,9 +243,10 @@ export async function processImageBuffer(
 
 export async function processImageFromSrc(
   id: string,
-  entry: { src: string; tags?: string[] },
+  entry: { src: string; tags?: string[]; quality_override?: number },
   presets: Record<string, Preset>,
   dryRun: boolean = false,
+  qualityOverride?: number,
 ): Promise<ProcessImageResult | null> {
   const buffer = await downloadImage(entry.src);
   if (!buffer) {
@@ -252,5 +254,6 @@ export async function processImageFromSrc(
     return null;
   }
 
-  return processImageBuffer(id, buffer, entry.src, entry.tags || [], presets, dryRun);
+  const resolvedQuality = qualityOverride ?? entry.quality_override;
+  return processImageBuffer(id, buffer, entry.src, entry.tags || [], presets, dryRun, resolvedQuality);
 }

@@ -252,6 +252,7 @@ export function setAutoCommitCallback(cb: (filePath: string, author?: string, al
   autoCommitCallback = cb;
 }
 
+
 /**
  * Mark a file as modified (dirty) after an edit.
  * Tracks YAML and JSON files in marketing-content directory.

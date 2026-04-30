@@ -103,6 +103,7 @@ export interface ImageRefLocation {
   locale: string;
   sectionIndex: number;
   sectionType: string;
+  sectionId?: string;
 }
 
 export interface ImageReferenceScan {
@@ -257,11 +258,12 @@ class MediaGallery {
       sectionIndex: number,
       sectionType: string,
       relPath: string,
-      meta: { contentType: string; slug: string; locale: string }
+      meta: { contentType: string; slug: string; locale: string },
+      sectionId?: string
     ): void => {
       if (!obj || typeof obj !== "object") return;
       if (Array.isArray(obj)) {
-        obj.forEach(item => collectImageIdsInObj(item, sectionIndex, sectionType, relPath, meta));
+        obj.forEach(item => collectImageIdsInObj(item, sectionIndex, sectionType, relPath, meta, sectionId));
         return;
       }
       for (const [key, val] of Object.entries(obj as Record<string, unknown>)) {
@@ -273,9 +275,10 @@ class MediaGallery {
             locale: meta.locale,
             sectionIndex,
             sectionType,
+            sectionId,
           });
         } else {
-          collectImageIdsInObj(val, sectionIndex, sectionType, relPath, meta);
+          collectImageIdsInObj(val, sectionIndex, sectionType, relPath, meta, sectionId);
         }
       }
     };
@@ -304,10 +307,10 @@ class MediaGallery {
                 if (Array.isArray(sections)) {
                   sections.forEach((section: unknown, idx: number) => {
                     if (!section || typeof section !== "object") return;
-                    const sectionType = typeof (section as Record<string, unknown>).type === "string"
-                      ? String((section as Record<string, unknown>).type)
-                      : "unknown";
-                    collectImageIdsInObj(section, idx, sectionType, relPath, meta);
+                    const sec = section as Record<string, unknown>;
+                    const sectionType = typeof sec.type === "string" ? String(sec.type) : "unknown";
+                    const sectionId = typeof sec.section_id === "string" ? sec.section_id : undefined;
+                    collectImageIdsInObj(section, idx, sectionType, relPath, meta, sectionId);
                   });
                 }
               }
@@ -392,6 +395,175 @@ class MediaGallery {
       }
     }
     return Array.from(files);
+  }
+
+  clearImageRefCache(): void {
+    this.imageRefCache = null;
+  }
+
+  getFamilyUsage(ids: string[]): Array<{
+    filePath: string; slug: string; contentType: string; locale: string;
+    sectionIndex: number; sectionType: string; sectionId?: string; currentSrc: string; currentId: string;
+    title?: string; isNoindex: boolean;
+  }> {
+    const registry = this.getRegistry();
+    if (!registry || !ids.length) return [];
+
+    const refs = this.collectImageReferences();
+    const results: Array<{
+      filePath: string; slug: string; contentType: string; locale: string;
+      sectionIndex: number; sectionType: string; sectionId?: string; currentSrc: string; currentId: string;
+    }> = [];
+    const seen = new Set<string>();
+
+    const parseYamlPath = (fp: string) => {
+      const m = fp.match(/^marketing-content\/([^/]+)\/([^/]+)\/([^/.]+)\.ya?ml$/);
+      return m ? { contentType: m[1], slug: m[2], locale: m[3] } : null;
+    };
+
+    for (const id of ids) {
+      const entry = registry.images[id];
+      if (!entry) continue;
+
+      // 1. Use imageIdLocations for section-level info (image_id field references)
+      const locations = refs.imageIdLocations.get(id) ?? [];
+      for (const loc of locations) {
+        const key = `${loc.yamlFile}::${loc.sectionIndex}::${id}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        results.push({
+          filePath: loc.yamlFile, slug: loc.slug, contentType: loc.contentType,
+          locale: loc.locale, sectionIndex: loc.sectionIndex, sectionType: loc.sectionType,
+          sectionId: loc.sectionId,
+          currentSrc: entry.src, currentId: id,
+        });
+      }
+
+      // 2. Handle src-based references not already captured by imageIdLocations
+      const allFiles = new Set<string>();
+      (refs.byRef.get(entry.src) ?? new Set()).forEach(f => allFiles.add(f));
+      (refs.byRef.get(id) ?? new Set()).forEach(f => allFiles.add(f));
+
+      for (const filePath of allFiles) {
+        if (!filePath.endsWith(".yml") && !filePath.endsWith(".yaml")) continue;
+        const meta = parseYamlPath(filePath);
+        if (!meta) continue;
+        // skip if all sections already covered by imageIdLocations
+        if (locations.some(loc => loc.yamlFile === filePath)) continue;
+
+        try {
+          const fullPath = path.join(process.cwd(), filePath);
+          const content = fs.readFileSync(fullPath, "utf8");
+          const { escaped, map } = escapeTemplateVars(content);
+          const parsed = unescapeObjectVars(yaml.load(escaped) as object, map) as Record<string, unknown>;
+          if (!parsed) continue;
+
+          const sections = parsed.sections;
+          if (Array.isArray(sections)) {
+            let foundInSection = false;
+            (sections as unknown[]).forEach((section: unknown, idx: number) => {
+              const sectionStr = JSON.stringify(section);
+              if (!sectionStr.includes(entry.src) && !sectionStr.includes(id)) return;
+              const key = `${filePath}::${idx}::${id}`;
+              if (seen.has(key)) return;
+              seen.add(key);
+              foundInSection = true;
+              results.push({
+                filePath, ...meta, sectionIndex: idx,
+                sectionType: (typeof (section as Record<string, unknown>)?.type === "string"
+                  ? String((section as Record<string, unknown>).type) : "unknown"),
+                currentSrc: entry.src, currentId: id,
+              });
+            });
+            if (!foundInSection) {
+              const key = `${filePath}::-1::${id}`;
+              if (!seen.has(key)) {
+                seen.add(key);
+                results.push({ filePath, ...meta, sectionIndex: -1, sectionType: "unknown", currentSrc: entry.src, currentId: id });
+              }
+            }
+          } else {
+            const key = `${filePath}::-1::${id}`;
+            if (!seen.has(key)) {
+              seen.add(key);
+              results.push({ filePath, ...meta, sectionIndex: -1, sectionType: "unknown", currentSrc: entry.src, currentId: id });
+            }
+          }
+        } catch {}
+      }
+    }
+
+    // Enrich results with page title and noindex flag (read each unique file once)
+    const titleByFile = new Map<string, string | undefined>();
+    const noindexByFile = new Map<string, boolean>();
+    const uniqueFiles = [...new Set(results.map(r => r.filePath))];
+    for (const fp of uniqueFiles) {
+      try {
+        const fullPath = path.join(process.cwd(), fp);
+        const content = fs.readFileSync(fullPath, "utf8");
+        const { escaped, map } = escapeTemplateVars(content);
+        const parsed = unescapeObjectVars(yaml.load(escaped) as object, map) as Record<string, unknown>;
+        const metaObj = parsed?.meta as Record<string, unknown> | undefined;
+        const t = (metaObj?.title ?? parsed?.title) as string | undefined;
+        titleByFile.set(fp, typeof t === "string" && t ? t : undefined);
+        const robotsStr = ((metaObj?.robots ?? parsed?.robots) as string | undefined) ?? "";
+        noindexByFile.set(fp, robotsStr.toLowerCase().includes("noindex"));
+      } catch {
+        titleByFile.set(fp, undefined);
+        noindexByFile.set(fp, false);
+      }
+    }
+
+    return results.map(r => ({
+      ...r,
+      title: titleByFile.get(r.filePath),
+      isNoindex: noindexByFile.get(r.filePath) ?? false,
+    }));
+  }
+
+  bulkReplaceUsage(
+    fileReplacements: Array<{ filePath: string; fromId: string; fromSrc: string; toId: string; toSrc: string }>
+  ): { filesUpdated: number; files: string[] } {
+    if (!fileReplacements.length) return { filesUpdated: 0, files: [] };
+
+    // Group replacements by filePath so each file is written only once
+    const byFile = new Map<string, Array<{ fromId: string; fromSrc: string; toId: string; toSrc: string }>>();
+    for (const r of fileReplacements) {
+      if (!r.filePath || !r.fromId || !r.toId || r.fromId === r.toId) continue;
+      const list = byFile.get(r.filePath) ?? [];
+      list.push(r);
+      byFile.set(r.filePath, list);
+    }
+
+    const updatedFiles: string[] = [];
+    for (const [relPath, pairs] of byFile) {
+      try {
+        const fullPath = path.join(process.cwd(), relPath);
+        if (!fs.existsSync(fullPath)) continue;
+        let content = fs.readFileSync(fullPath, "utf8");
+        let changed = false;
+        for (const { fromId, fromSrc, toId, toSrc } of pairs) {
+          // Replace the src URL first (it's always a unique full URL, safe to replace globally in file)
+          if (fromSrc && toSrc && fromSrc !== toSrc && content.includes(fromSrc)) {
+            content = content.split(fromSrc).join(toSrc);
+            changed = true;
+          }
+          // Replace the image_id: after the src replacement to avoid double-suffix on variant paths
+          if (fromId !== toId && content.includes(fromId)) {
+            content = content.split(fromId).join(toId);
+            changed = true;
+          }
+        }
+        if (changed) {
+          fs.writeFileSync(fullPath, content, "utf8");
+          markFileAsModified(relPath);
+          updatedFiles.push(relPath);
+        }
+      } catch {}
+    }
+
+    this.imageRefCache = null;
+    return { filesUpdated: updatedFiles.length, files: updatedFiles };
   }
 
   private async checkExists(src: string): Promise<boolean> {
@@ -741,6 +913,8 @@ class MediaGallery {
       ...(entry.width ? { width: entry.width } : {}),
       ...(entry.height ? { height: entry.height } : {}),
       ...(entry.format ? { format: entry.format } : {}),
+      ...(entry.parentId ? { parentId: entry.parentId } : {}),
+      ...(entry.quality_override != null ? { quality_override: entry.quality_override } : {}),
     };
 
     this.saveRegistry(registry);

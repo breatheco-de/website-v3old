@@ -20,9 +20,12 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -31,7 +34,30 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import type { ImageRegistry } from "@shared/schema";
+import type { ImageRegistry, ImageEntry } from "@shared/schema";
+
+interface FamilyUsageEntry {
+  filePath: string;
+  slug: string;
+  contentType: string;
+  locale: string;
+  sectionIndex: number;
+  sectionType: string;
+  currentSrc: string;
+  currentId: string;
+  title?: string;
+  hasBinding?: boolean;
+  isNoindex?: boolean;
+}
+
+const CONTENT_TYPE_LABELS: Record<string, string> = {
+  landings: "Landing",
+  pages: "Página",
+  bootcamps: "Programa",
+  locations: "Ubicación",
+  articles: "Artículo",
+  events: "Evento",
+};
 
 export interface ImagePickerDialogProps {
   open: boolean;
@@ -96,6 +122,8 @@ export function ImagePickerDialog({
   const [dragOver, setDragOver] = useState(false);
   const [saving, setSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const popoverContainerRef = useRef<HTMLDivElement>(null);
 
   const [cropPanelOpen, setCropPanelOpen] = useState(false);
   const [cropState, setCropState] = useState<Crop>({ unit: "%", x: 0, y: 0, width: 100, height: 100 });
@@ -104,6 +132,14 @@ export function ImagePickerDialog({
   const [cropAspectLock, setCropAspectLock] = useState(false);
   const [cropQuality, setCropQuality] = useState(85);
   const [cropProcessing, setCropProcessing] = useState(false);
+  const [openPanelId, setOpenPanelId] = useState<string | null>(null);
+  const [bulkModal, setBulkModal] = useState<{
+    open: boolean;
+    usages: FamilyUsageEntry[];
+    checking: boolean;
+    applying: boolean;
+    selectedIndices: Set<number>;
+  }>({ open: false, usages: [], checking: false, applying: false, selectedIndices: new Set() });
 
   const cropSizeSuggestions = useMemo(() => {
     const suggestions: Array<{ value: string; label: string; width: number; height: number }> = [];
@@ -153,6 +189,7 @@ export function ImagePickerDialog({
     if (open) {
       setSelectedSrc(initialSrc);
       setSelectedAlt(initialAlt);
+      setOpenPanelId(null);
       let resolvedId: string | undefined;
       if (initialSrc && imageRegistry?.images) {
         resolvedId = Object.entries(imageRegistry.images).find(
@@ -162,12 +199,35 @@ export function ImagePickerDialog({
       setSelectedRegistryId(resolvedId);
       setSearch("");
       setPickerMode("browse");
+    } else {
+      setOpenPanelId(null);
     }
-  }, [open, initialSrc, initialAlt, imageRegistry]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, initialSrc, initialAlt]);
 
   useEffect(() => {
     setVisibleCount(48);
   }, [search, open]);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    const handleScroll = () => setOpenPanelId(null);
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const childrenByParent = useMemo(() => {
+    const map: Record<string, Array<[string, ImageEntry]>> = {};
+    if (!imageRegistry?.images) return map;
+    for (const [id, img] of Object.entries(imageRegistry.images)) {
+      if (img.parentId) {
+        if (!map[img.parentId]) map[img.parentId] = [];
+        map[img.parentId].push([id, img]);
+      }
+    }
+    return map;
+  }, [imageRegistry]);
 
   const filteredImages = useMemo(() => {
     if (!imageRegistry?.images) return [];
@@ -175,6 +235,7 @@ export function ImagePickerDialog({
     const tagLower = tagFilter?.toLowerCase();
     return Object.entries(imageRegistry.images)
       .filter(([id, img]) => {
+        if (img.parentId) return false;
         if (tagLower && !img.tags?.some((t) => t.toLowerCase() === tagLower)) {
           return false;
         }
@@ -266,6 +327,111 @@ export function ImagePickerDialog({
     }
   }, [onSave, selectedSrc, selectedAlt, selectedRegistryId, onOpenChange, toast]);
 
+  const checkFamilyAndSave = useCallback(async () => {
+    if (!imageRegistry?.images || !selectedRegistryId) {
+      await handleSave();
+      return;
+    }
+
+    const selectedEntry = imageRegistry.images[selectedRegistryId];
+    if (!selectedEntry) {
+      await handleSave();
+      return;
+    }
+
+    const effectiveParentId = selectedEntry.parentId ?? selectedRegistryId;
+    const children = childrenByParent[effectiveParentId] ?? [];
+    const isFamily = !!selectedEntry.parentId || children.length > 0;
+    if (!isFamily) {
+      await handleSave();
+      return;
+    }
+
+    // Collect all family member IDs
+    const familyIds = [effectiveParentId, ...children.map(([id]) => id)];
+
+    setBulkModal({ open: true, usages: [], checking: true, applying: false, selectedIndices: new Set() });
+    try {
+      await fetch("/api/image-registry/clear-ref-cache", { method: "POST" });
+      const params = new URLSearchParams();
+      familyIds.forEach(id => params.append("ids[]", id));
+      const resp = await fetch(`/api/image-registry/family-usage?${params.toString()}`);
+      if (!resp.ok) {
+        const errData = (await resp.json().catch(() => ({}))) as { error?: string };
+        throw new Error(errData.error ?? `Server error ${resp.status}`);
+      }
+      const usages: FamilyUsageEntry[] = await resp.json();
+
+      // Only show usages from OTHER family members (not the one we're currently saving)
+      // and exclude noindex/sample pages
+      const otherUsages = usages.filter(u => u.currentId !== selectedRegistryId && !u.isNoindex);
+
+      if (!otherUsages.length) {
+        setBulkModal({ open: false, usages: [], checking: false, applying: false, selectedIndices: new Set() });
+        await handleSave();
+        return;
+      }
+
+      // Pre-select all non-binding rows
+      const initialSelected = new Set(
+        otherUsages.map((u, i) => i).filter(i => !otherUsages[i].hasBinding)
+      );
+      setBulkModal({ open: true, usages: otherUsages, checking: false, applying: false, selectedIndices: initialSelected });
+    } catch (err) {
+      setBulkModal({ open: false, usages: [], checking: false, applying: false, selectedIndices: new Set() });
+      toast({
+        title: "No se pudo verificar el uso de la imagen",
+        description: err instanceof Error ? err.message : "Error desconocido",
+        variant: "destructive",
+      });
+      await handleSave();
+    }
+  }, [imageRegistry, selectedRegistryId, childrenByParent, handleSave, toast]);
+
+  const handleBulkReplaceAndSave = useCallback(async () => {
+    if (!selectedRegistryId || !selectedSrc) return;
+
+    // Build per-file replacements only for selected, non-binding usages
+    const fileReplacements = bulkModal.usages
+      .filter((u, i) => bulkModal.selectedIndices.has(i) && !u.hasBinding)
+      .map(u => ({
+        filePath: u.filePath,
+        fromId: u.currentId,
+        fromSrc: u.currentSrc,
+        toId: selectedRegistryId,
+        toSrc: selectedSrc,
+      }));
+
+    setBulkModal(prev => ({ ...prev, applying: true }));
+    try {
+      const resp = await fetch("/api/image-registry/bulk-replace-usage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fileReplacements }),
+      });
+      if (!resp.ok) {
+        const errData = (await resp.json().catch(() => ({}))) as { error?: string };
+        throw new Error(errData.error ?? `Server error ${resp.status}`);
+      }
+      const result = (await resp.json()) as { filesUpdated: number };
+      setBulkModal({ open: false, usages: [], checking: false, applying: false, selectedIndices: new Set() });
+      await handleSave();
+      if (result.filesUpdated > 0) {
+        toast({
+          title: `${result.filesUpdated} ${result.filesUpdated === 1 ? "page updated" : "pages updated"}`,
+          description: "Changes applied to all selected pages.",
+        });
+      }
+    } catch (err) {
+      setBulkModal(prev => ({ ...prev, applying: false }));
+      toast({
+        title: "Error al reemplazar",
+        description: err instanceof Error ? err.message : "Error desconocido",
+        variant: "destructive",
+      });
+    }
+  }, [bulkModal.usages, bulkModal.selectedIndices, selectedRegistryId, selectedSrc, handleSave, toast]);
+
   const handleClose = () => {
     onOpenChange(false);
   };
@@ -281,9 +447,14 @@ export function ImagePickerDialog({
       const entry = imageRegistry.images[selectedRegistryId];
       setCropTargetWidth(entry.width ?? 800);
       setCropTargetHeight(entry.height ?? 600);
+      const presetQuality = entry.preset?.[0]
+        ? (imageRegistry.presets as Record<string, { quality?: number }>)?.[entry.preset[0]]?.quality
+        : undefined;
+      setCropQuality(entry.quality_override ?? presetQuality ?? 85);
     } else {
       setCropTargetWidth(800);
       setCropTargetHeight(600);
+      setCropQuality(85);
     }
     setCropPanelOpen(true);
   }, [selectedRegistryId, imageRegistry]);
@@ -354,6 +525,7 @@ export function ImagePickerDialog({
         }}
       >
         <DialogContent className="sm:max-w-2xl max-h-[80vh] flex flex-col">
+          <div ref={popoverContainerRef} />
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
           </DialogHeader>
@@ -398,28 +570,104 @@ export function ImagePickerDialog({
                   />
                 </div>
 
-                <div className="flex-1 overflow-y-auto min-h-0">
+                <div className="flex-1 overflow-y-auto min-h-0" ref={scrollContainerRef}>
                   <div className="columns-4 sm:columns-5 md:columns-6 gap-2">
-                    {filteredImages.slice(0, visibleCount).map(([id, img]) => (
-                      <button
-                        key={id}
-                        type="button"
-                        onClick={() => {
-                          setSelectedSrc(img.src);
-                          setSelectedAlt(img.alt || "");
-                          setSelectedRegistryId(id);
-                        }}
-                        className={`mb-2 rounded-md overflow-hidden bg-muted border-2 transition-colors block w-full ${
-                          selectedSrc === img.src || selectedSrc === id
-                            ? "border-primary"
-                            : "border-transparent hover:border-muted-foreground/50"
-                        }`}
-                        title={img.alt}
-                        data-testid={`gallery-image-${id}`}
-                      >
-                        <img src={img.src} alt={img.alt} className="w-full h-auto" loading="lazy" />
-                      </button>
-                    ))}
+                    {filteredImages.slice(0, visibleCount).map(([id, img]) => {
+                      const variants = childrenByParent[id] || [];
+                      const hasVariants = variants.length > 0;
+                      const isPanelOpen = openPanelId === id;
+                      const isSelected = selectedRegistryId === id
+                        || variants.some(([childId, c]) => selectedRegistryId === childId || selectedSrc === c.src);
+                      const borderClass = isSelected
+                        ? "border-primary"
+                        : "border-transparent hover:border-muted-foreground/50";
+
+                      return (
+                        <Popover
+                          key={id}
+                          open={isPanelOpen}
+                          onOpenChange={(isOpen) => setOpenPanelId(isOpen ? id : null)}
+                        >
+                          <PopoverTrigger asChild>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedSrc(img.src);
+                                setSelectedAlt(img.alt || "");
+                                setSelectedRegistryId(id);
+                              }}
+                              className={`mb-2 break-inside-avoid rounded-md overflow-hidden bg-muted border-2 transition-colors block w-full ${borderClass}`}
+                              title={img.alt}
+                              data-testid={`gallery-image-${id}`}
+                            >
+                              <div className="relative">
+                                <img src={img.src} alt={img.alt} className="w-full h-auto" loading="lazy" />
+                                {hasVariants && (
+                                  <div className="absolute bottom-1 right-1 bg-black/80 text-white rounded text-[11px] font-bold px-1.5 py-0.5 leading-none">
+                                    {variants.length}v
+                                  </div>
+                                )}
+                              </div>
+                            </button>
+                          </PopoverTrigger>
+                          {hasVariants && (
+                            <PopoverContent
+                              side="right"
+                              sideOffset={8}
+                              className="z-[10001] w-60 p-2 space-y-1"
+                              container={popoverContainerRef.current ?? undefined}
+                              data-testid="floating-variant-panel"
+                            >
+                              <p className="text-xs font-semibold text-muted-foreground px-1 pb-0.5">Variantes</p>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setSelectedSrc(img.src);
+                                  setSelectedAlt(img.alt || "");
+                                  setSelectedRegistryId(id);
+                                  setOpenPanelId(null);
+                                }}
+                                className={`w-full flex items-center gap-2 rounded-md p-1.5 text-left hover-elevate ${selectedRegistryId === id ? "bg-muted" : ""}`}
+                                data-testid={`variant-original-${id}`}
+                              >
+                                <img src={img.src} alt={img.alt} className="w-12 h-9 object-cover rounded flex-shrink-0" />
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-xs font-semibold leading-tight">Original</p>
+                                  {img.width && img.height && (
+                                    <p className="text-[11px] text-muted-foreground leading-tight">{img.width} × {img.height}</p>
+                                  )}
+                                </div>
+                              </button>
+                              {variants.map(([childId, childImg]) => {
+                                const childSelected = selectedRegistryId === childId || selectedSrc === childImg.src;
+                                return (
+                                  <button
+                                    key={childId}
+                                    type="button"
+                                    onClick={() => {
+                                      setSelectedSrc(childImg.src);
+                                      setSelectedAlt(childImg.alt || img.alt || "");
+                                      setSelectedRegistryId(childId);
+                                      setOpenPanelId(null);
+                                    }}
+                                    className={`w-full flex items-center gap-2 rounded-md p-1.5 text-left hover-elevate ${childSelected ? "bg-muted" : ""}`}
+                                    data-testid={`variant-child-${childId}`}
+                                  >
+                                    <img src={childImg.src} alt={childImg.alt} className="w-12 h-9 object-cover rounded flex-shrink-0" />
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-xs font-medium leading-tight">{childImg.width} × {childImg.height}</p>
+                                      {childImg.quality_override !== undefined && (
+                                        <p className="text-[11px] text-muted-foreground leading-tight">Quality: {childImg.quality_override}</p>
+                                      )}
+                                    </div>
+                                  </button>
+                                );
+                              })}
+                            </PopoverContent>
+                          )}
+                        </Popover>
+                      );
+                    })}
                   </div>
                   {visibleCount < filteredImages.length && (
                     <div className="py-3 flex justify-center">
@@ -601,11 +849,11 @@ export function ImagePickerDialog({
               </Button>
               <Button
                 type="button"
-                onClick={handleSave}
-                disabled={!selectedSrc || saving}
+                onClick={checkFamilyAndSave}
+                disabled={!selectedSrc || saving || bulkModal.checking}
                 data-testid="button-image-save"
               >
-                {saving ? (
+                {saving || bulkModal.checking ? (
                   <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
                 ) : (
                   <IconCheck className="h-4 w-4 mr-2" />
@@ -758,6 +1006,156 @@ export function ImagePickerDialog({
                 <IconCrop className="h-4 w-4 mr-2" />
               )}
               Apply
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={bulkModal.open}
+        onOpenChange={(isOpen) => {
+          if (!isOpen && !bulkModal.applying) {
+            setBulkModal({ open: false, usages: [], checking: false, applying: false, selectedIndices: new Set() });
+          }
+        }}
+      >
+        <DialogContent className="sm:max-w-lg max-h-[85vh] flex flex-col">
+          <DialogHeader>
+            <DialogTitle>Apply to other pages</DialogTitle>
+            <DialogDescription>
+              {bulkModal.checking
+                ? "Searching for references in content…"
+                : (() => {
+                    const total = bulkModal.usages.length;
+                    const selectedCount = bulkModal.selectedIndices.size;
+                    return `${total} other ${total === 1 ? "page is" : "pages are"} using a different version of this image. Do you want to replace it with this version on those pages too?${selectedCount === 0 ? " (none selected)" : ""}`;
+                  })()}
+            </DialogDescription>
+          </DialogHeader>
+
+          {bulkModal.checking ? (
+            <div className="flex items-center justify-center py-8">
+              <IconLoader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+            </div>
+          ) : (
+            <>
+              {bulkModal.usages.some(u => !u.hasBinding) && (
+                <div className="flex items-center gap-2 px-2 py-1 border-b">
+                  <Checkbox
+                    id="bulk-select-all"
+                    data-testid="checkbox-bulk-select-all"
+                    checked={
+                      bulkModal.usages.every((u, i) => u.hasBinding || bulkModal.selectedIndices.has(i))
+                    }
+                    onCheckedChange={(checked) => {
+                      setBulkModal(prev => {
+                        const next = new Set(prev.selectedIndices);
+                        prev.usages.forEach((u, i) => {
+                          if (!u.hasBinding) {
+                            if (checked) next.add(i);
+                            else next.delete(i);
+                          }
+                        });
+                        return { ...prev, selectedIndices: next };
+                      });
+                    }}
+                    disabled={bulkModal.applying}
+                  />
+                  <label htmlFor="bulk-select-all" className="text-sm text-muted-foreground cursor-pointer select-none">
+                    Select all
+                  </label>
+                </div>
+              )}
+              <div className="flex-1 overflow-y-auto min-h-0 space-y-1 py-1">
+                {bulkModal.usages.map((usage, i) => {
+                  const entry = imageRegistry?.images?.[usage.currentId];
+                  const isVariant = !!entry?.parentId;
+                  const typeLabel = CONTENT_TYPE_LABELS[usage.contentType] ?? usage.contentType;
+                  const displayTitle = usage.title || usage.slug;
+                  const isDisabled = !!usage.hasBinding || bulkModal.applying;
+                  const isSelected = bulkModal.selectedIndices.has(i);
+                  return (
+                    <div
+                      key={i}
+                      className={`flex items-start gap-2 rounded-md px-2 py-1.5 text-sm ${usage.hasBinding ? "opacity-50" : ""}`}
+                      data-testid={`bulk-usage-row-${i}`}
+                    >
+                      <Checkbox
+                        data-testid={`checkbox-bulk-row-${i}`}
+                        checked={isSelected && !usage.hasBinding}
+                        disabled={isDisabled}
+                        onCheckedChange={(checked) => {
+                          setBulkModal(prev => {
+                            const next = new Set(prev.selectedIndices);
+                            if (checked) next.add(i);
+                            else next.delete(i);
+                            return { ...prev, selectedIndices: next };
+                          });
+                        }}
+                        className="mt-0.5 shrink-0"
+                      />
+                      <Badge variant="outline" className="shrink-0 text-[10px] mt-0.5">
+                        {typeLabel}
+                      </Badge>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium leading-tight truncate">
+                          {displayTitle}
+                          {usage.locale && <span className="text-muted-foreground ml-1 text-xs">({usage.locale})</span>}
+                        </p>
+                        {usage.title && usage.title !== usage.slug && (
+                          <p className="text-xs text-muted-foreground truncate leading-tight">{usage.slug}</p>
+                        )}
+                        {(usage.sectionType !== "unknown" || usage.sectionIndex >= 0) && (
+                          <p className="text-xs text-muted-foreground leading-tight">
+                            {usage.sectionType !== "unknown" ? usage.sectionType : ""}
+                            {usage.sectionIndex >= 0 && ` · section ${usage.sectionIndex + 1}`}
+                          </p>
+                        )}
+                        {usage.hasBinding && (
+                          <p className="text-xs text-muted-foreground leading-tight italic">
+                            Has a binding — update via the binding panel
+                          </p>
+                        )}
+                      </div>
+                      <Badge variant="secondary" className="shrink-0 text-[10px] leading-tight">
+                        {isVariant
+                          ? `${entry?.width ?? "?"} × ${entry?.height ?? "?"}${entry?.quality_override !== undefined ? ` · Quality: ${entry.quality_override}` : ""}`
+                          : "Original"}
+                      </Badge>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
+
+          <DialogFooter className="flex-row gap-2 sm:justify-between mt-2">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                setBulkModal({ open: false, usages: [], checking: false, applying: false, selectedIndices: new Set() });
+                void handleSave();
+              }}
+              disabled={bulkModal.applying || bulkModal.checking}
+              data-testid="button-bulk-skip"
+            >
+              Save this section only
+            </Button>
+            <Button
+              type="button"
+              onClick={handleBulkReplaceAndSave}
+              disabled={bulkModal.applying || bulkModal.checking || bulkModal.selectedIndices.size === 0}
+              data-testid="button-bulk-confirm"
+            >
+              {bulkModal.applying ? (
+                <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+              ) : (
+                <IconCheck className="h-4 w-4 mr-2" />
+              )}
+              {bulkModal.selectedIndices.size === 0
+                ? "None selected"
+                : `Update ${bulkModal.selectedIndices.size} ${bulkModal.selectedIndices.size === 1 ? "page" : "pages"}`}
             </Button>
           </DialogFooter>
         </DialogContent>
