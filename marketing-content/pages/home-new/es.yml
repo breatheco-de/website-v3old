@@ -81,7 +81,7 @@ sections:
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp
         alt: Estudiante aprendiendo a programar
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latin_male-133x500.webp
         alt: Desarrollador trabajando en un proyecto
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
         alt: Sesión de colaboración en equipo

@@ -1500,7 +1500,7 @@ sections:
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp
         alt: Student learning to code
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latin_male-133x500.webp
         alt: Developer working on project
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
         alt: Team collaboration session
@@ -1523,7 +1523,7 @@ sections:
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp
         alt: Asian student learning to code
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latin_male-133x500.webp
         alt: Latino student working on a project
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
         alt: African student collaborating with team
