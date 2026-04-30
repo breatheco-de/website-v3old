@@ -552,7 +552,7 @@ sections:
     background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
-    title: Ready to Become an {{ single.job_role | AI Engineer }}?
+    title: Ready to Become a Data Scientist?
     subtitle: Limited spots available. Start your transformation today.
     variant: form
     form:
