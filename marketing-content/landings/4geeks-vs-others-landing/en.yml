@@ -385,7 +385,7 @@ sections:
         object_fit: cover
         object_position: 40%20%
         border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latin_male-133x500.webp
         alt: Latino student working on a project
         object_fit: cover
         object_position: 50%30%
