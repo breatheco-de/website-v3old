@@ -9076,6 +9076,11 @@ sections: []
     }
   });
 
+  app.post("/api/image-registry/clear-ref-cache", (_req, res) => {
+    mediaGallery.clearImageRefCache();
+    res.json({ ok: true });
+  });
+
   app.post("/api/image-registry/bulk-replace-usage", (req, res) => {
     const { fileReplacements } = req.body as {
       fileReplacements?: Array<{ filePath: string; fromId: string; fromSrc: string; toId: string; toSrc: string }>;

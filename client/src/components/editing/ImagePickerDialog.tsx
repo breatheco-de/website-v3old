@@ -352,6 +352,7 @@ export function ImagePickerDialog({
 
     setBulkModal({ open: true, usages: [], checking: true, applying: false, selectedIndices: new Set() });
     try {
+      await fetch("/api/image-registry/clear-ref-cache", { method: "POST" });
       const params = new URLSearchParams();
       familyIds.forEach(id => params.append("ids[]", id));
       const resp = await fetch(`/api/image-registry/family-usage?${params.toString()}`);
@@ -1025,9 +1026,9 @@ export function ImagePickerDialog({
               {bulkModal.checking
                 ? "Searching for references in content…"
                 : (() => {
-                    const selectableCount = bulkModal.usages.filter(u => !u.hasBinding).length;
+                    const total = bulkModal.usages.length;
                     const selectedCount = bulkModal.selectedIndices.size;
-                    return `${selectableCount} other ${selectableCount === 1 ? "page uses" : "pages use"} an image from the same family. Select which ones to update with your new selection.${selectedCount === 0 ? " (none selected)" : ""}`;
+                    return `${total} other ${total === 1 ? "page is" : "pages are"} using a different version of this image. Do you want to replace it with this version on those pages too?${selectedCount === 0 ? " (none selected)" : ""}`;
                   })()}
             </DialogDescription>
           </DialogHeader>

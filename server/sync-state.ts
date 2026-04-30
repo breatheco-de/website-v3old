@@ -252,15 +252,6 @@ export function setAutoCommitCallback(cb: (filePath: string, author?: string, al
   autoCommitCallback = cb;
 }
 
-const fileModifiedListeners: Array<(filePath: string) => void> = [];
-
-/**
- * Register a listener that fires whenever any tracked file is marked as modified.
- * Used to invalidate caches that depend on file content.
- */
-export function addFileModifiedListener(cb: (filePath: string) => void): void {
-  fileModifiedListeners.push(cb);
-}
 
 /**
  * Mark a file as modified (dirty) after an edit.
@@ -308,7 +299,6 @@ export function markFileAsModified(filePath: string, author?: string, allowedExc
     if (autoCommitCallback) {
       autoCommitCallback(relativePath, author, allowedExceptions);
     }
-    fileModifiedListeners.forEach(cb => cb(relativePath));
   } else if (state.files[relativePath]) {
     state.files[relativePath] = {
       ...state.files[relativePath],
@@ -321,12 +311,10 @@ export function markFileAsModified(filePath: string, author?: string, allowedExc
     if (autoCommitCallback) {
       autoCommitCallback(relativePath, author, allowedExceptions);
     }
-    fileModifiedListeners.forEach(cb => cb(relativePath));
   } else if (allowedExceptions instanceof Set && allowedExceptions.has(relativePath)) {
     if (autoCommitCallback) {
       autoCommitCallback(relativePath, author, allowedExceptions);
     }
-    fileModifiedListeners.forEach(cb => cb(relativePath));
   }
 }
 
