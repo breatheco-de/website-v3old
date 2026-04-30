@@ -1498,13 +1498,13 @@ sections:
   - type: image_row
     version: v1.0
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_1_asian.webp
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian.webp
         alt: Student learning to code
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latin_male.webp
         alt: Developer working on project
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_african.webp
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_african.png
         alt: Team collaboration session
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latina_female.webp
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latina_female.png
         alt: Graduate celebrating success
     highlight:
       text_1: The 'average student' doesn't exist.
