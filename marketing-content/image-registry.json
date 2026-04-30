@@ -2,12 +2,7 @@
   "presets": {
     "hero-wide": {
       "aspect_ratio": "16:9",
-      "widths": [
-        640,
-        960,
-        1280,
-        1920
-      ],
+      "widths": [320, 480, 640, 720, 960, 1280, 1920],
       "quality": 85,
       "description": "Full-width hero images"
     },

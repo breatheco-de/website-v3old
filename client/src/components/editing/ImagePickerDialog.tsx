@@ -1140,7 +1140,7 @@ export function ImagePickerDialog({
               disabled={bulkModal.applying || bulkModal.checking}
               data-testid="button-bulk-skip"
             >
-              Save this field only
+              Save this section only
             </Button>
             <Button
               type="button"
