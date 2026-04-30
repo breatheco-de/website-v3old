@@ -9068,7 +9068,7 @@ sections: []
   });
 
   app.post("/api/image-registry/bulk-replace-usage", (req, res) => {
-    const { replacements } = req.body as { replacements?: Array<{ from: string; to: string }> };
+    const { replacements } = req.body as { replacements?: Array<{ fromSrc: string; toSrc: string }> };
     if (!Array.isArray(replacements) || replacements.length === 0) {
       res.status(400).json({ error: "Missing or empty 'replacements' array" });
       return;

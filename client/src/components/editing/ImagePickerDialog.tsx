@@ -359,6 +359,10 @@ export function ImagePickerDialog({
       const params = new URLSearchParams();
       familyIds.forEach(id => params.append("ids[]", id));
       const resp = await fetch(`/api/image-registry/family-usage?${params.toString()}`);
+      if (!resp.ok) {
+        const errData = (await resp.json().catch(() => ({}))) as { error?: string };
+        throw new Error(errData.error ?? `Server error ${resp.status}`);
+      }
       const usages: FamilyUsageEntry[] = await resp.json();
 
       if (!usages.length) {
@@ -368,11 +372,16 @@ export function ImagePickerDialog({
       }
 
       setBulkModal({ open: true, usages, checking: false, applying: false });
-    } catch {
+    } catch (err) {
       setBulkModal({ open: false, usages: [], checking: false, applying: false });
+      toast({
+        title: "No se pudo verificar el uso de la imagen",
+        description: err instanceof Error ? err.message : "Error desconocido",
+        variant: "destructive",
+      });
       await handleSave();
     }
-  }, [imageRegistry, selectedRegistryId, childrenByParent, handleSave]);
+  }, [imageRegistry, selectedRegistryId, childrenByParent, handleSave, toast]);
 
   const handleBulkReplaceAndSave = useCallback(async () => {
     if (!imageRegistry?.images || !selectedRegistryId) return;
@@ -387,13 +396,13 @@ export function ImagePickerDialog({
       ...children,
     ].filter(([, e]) => !!e) as Array<[string, typeof selectedEntry]>;
 
-    const replacements: Array<{ from: string; to: string }> = [];
+    const replacements: Array<{ fromSrc: string; toSrc: string }> = [];
     for (const [id, entry] of allFamilyEntries) {
       if (entry.src && entry.src !== selectedSrc) {
-        replacements.push({ from: entry.src, to: selectedSrc });
+        replacements.push({ fromSrc: entry.src, toSrc: selectedSrc });
       }
       if (id && id !== selectedRegistryId) {
-        replacements.push({ from: id, to: selectedRegistryId });
+        replacements.push({ fromSrc: id, toSrc: selectedRegistryId });
       }
     }
 
@@ -404,6 +413,10 @@ export function ImagePickerDialog({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ replacements }),
       });
+      if (!resp.ok) {
+        const errData = (await resp.json().catch(() => ({}))) as { error?: string };
+        throw new Error(errData.error ?? `Server error ${resp.status}`);
+      }
       const result = (await resp.json()) as { filesUpdated: number };
       setBulkModal({ open: false, usages: [], checking: false, applying: false });
       await handleSave();

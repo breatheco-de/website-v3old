@@ -487,8 +487,15 @@ class MediaGallery {
     return results;
   }
 
-  bulkReplaceUsage(replacements: Array<{ from: string; to: string }>): { filesUpdated: number; files: string[] } {
+  bulkReplaceUsage(replacements: Array<{ fromSrc: string; toSrc: string }>): { filesUpdated: number; files: string[] } {
     if (!replacements.length) return { filesUpdated: 0, files: [] };
+    // Deduplicate: skip pairs where fromSrc === toSrc or are exact duplicates
+    const uniquePairs = replacements.filter(
+      (r, i, arr) =>
+        r.fromSrc && r.toSrc && r.fromSrc !== r.toSrc &&
+        arr.findIndex(p => p.fromSrc === r.fromSrc && p.toSrc === r.toSrc) === i
+    );
+    if (!uniquePairs.length) return { filesUpdated: 0, files: [] };
     const updatedFiles: string[] = [];
 
     const walkAndReplace = (dir: string) => {
@@ -502,9 +509,9 @@ class MediaGallery {
           try {
             let content = fs.readFileSync(fullPath, "utf8");
             let changed = false;
-            for (const { from, to } of replacements) {
-              if (from && to && from !== to && content.includes(from)) {
-                content = content.split(from).join(to);
+            for (const { fromSrc, toSrc } of uniquePairs) {
+              if (content.includes(fromSrc)) {
+                content = content.split(fromSrc).join(toSrc);
                 changed = true;
               }
             }
