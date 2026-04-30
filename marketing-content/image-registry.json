@@ -2,7 +2,15 @@
   "presets": {
     "hero-wide": {
       "aspect_ratio": "16:9",
-      "widths": [320, 480, 640, 720, 960, 1280, 1920],
+      "widths": [
+        320,
+        480,
+        640,
+        720,
+        960,
+        1280,
+        1920
+      ],
       "quality": 85,
       "description": "Full-width hero images"
     },
@@ -11252,6 +11260,34 @@
         {
           "w": 288,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_team_2-288x210-288x210-288w.webp"
+        }
+      ]
+    },
+    "graduates_friends-288x210": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210.webp",
+      "alt": "4Geeks students laughing and enjoying time together",
+      "focal_point": "center",
+      "tags": [
+        "graduates",
+        "friends",
+        "community"
+      ],
+      "usage_count": 0,
+      "width": 288,
+      "height": 210,
+      "format": "webp",
+      "parentId": "graduates_friends",
+      "quality_override": 65,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        288
+      ],
+      "srcset": [
+        {
+          "w": 288,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210-288w.webp"
         }
       ]
     }
