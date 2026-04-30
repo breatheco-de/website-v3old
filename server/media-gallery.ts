@@ -1221,8 +1221,9 @@ class MediaGallery {
     if (!registry) return;
 
     const presets = registry.presets as Record<string, Preset>;
+    const tagDefinitions = registry.tagDefinitions as Record<string, { presets?: string[] }> | undefined;
 
-    processImageBuffer(id, buffer, src, tags, presets)
+    processImageBuffer(id, buffer, src, tags, presets, false, undefined, tagDefinitions)
       .then((result) => {
         if (!result) {
           console.log(`[MediaGallery] Background optimization produced no variants for "${id}"`);

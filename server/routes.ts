@@ -9558,7 +9558,8 @@ sections: []
           if (!registry2) return;
           const newEntry = registry2.images[uniqueId];
           if (!newEntry) return;
-          const result = await processImageFromSrc(uniqueId, newEntry, registry2.presets as Record<string, import("./image-optimizer").Preset>, false, newEntry.quality_override);
+          const tagDefs = registry2.tagDefinitions as Record<string, { presets?: string[] }> | undefined;
+          const result = await processImageFromSrc(uniqueId, newEntry, registry2.presets as Record<string, import("./image-optimizer").Preset>, false, newEntry.quality_override, tagDefs);
           if (result) {
             newEntry.preset = result.preset;
             newEntry.widths_generated = result.widths_generated;
