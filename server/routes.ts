@@ -2354,6 +2354,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/content-types/:type/single-template-sections", (req, res) => {
+    try {
+      const { type } = req.params;
+      const locale = ((req.query.locale as string) || "en").replace(/[^a-z-]/g, "");
+      if (!isValidType(type)) {
+        res.status(404).json({ error: `Unknown content type: ${type}` });
+        return;
+      }
+      if (!hasDatabaseSingle(type)) {
+        res.status(400).json({ error: `Content type "${type}" does not use a single template` });
+        return;
+      }
+      const folder = getFolder(type);
+      let templatePath = path.join(process.cwd(), "marketing-content", folder, `single.${locale}.yml`);
+      if (!fs.existsSync(templatePath)) {
+        templatePath = path.join(process.cwd(), "marketing-content", folder, "single.en.yml");
+      }
+      if (!fs.existsSync(templatePath)) {
+        res.status(404).json({ error: "Single template not found" });
+        return;
+      }
+      const raw = fs.readFileSync(templatePath, "utf-8");
+      const parsed = safeYamlLoad(raw) as Record<string, unknown>;
+      if (!parsed || !Array.isArray(parsed.sections)) {
+        res.status(404).json({ error: "No sections array in single template" });
+        return;
+      }
+      const sectionYamls = (parsed.sections as unknown[]).map((s) =>
+        safeYamlDump(s, { lineWidth: -1, noRefs: true }),
+      );
+      res.json({ sections: sectionYamls });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
   app.get("/api/content-types/:type/entry-fields", (req, res) => {
     try {
       const { type } = req.params;

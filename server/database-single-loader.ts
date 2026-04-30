@@ -24,12 +24,14 @@ function extractVariableFields(
 ): Record<string, string> {
   const result: Record<string, string> = {};
   if (typeof obj !== "object" || obj === null) return result;
-  for (const [key, value] of Object.entries(obj as Record<string, unknown>)) {
-    if (key.startsWith("_")) continue;
+  const entries: Array<[string, unknown]> = Array.isArray(obj)
+    ? obj.map((v, i) => [String(i), v] as [string, unknown])
+    : Object.entries(obj as Record<string, unknown>).filter(([k]) => !k.startsWith("_"));
+  for (const [key, value] of entries) {
     const dotPath = prefix ? `${prefix}.${key}` : key;
     if (typeof value === "string" && TEMPLATE_EXPR_RE.test(value)) {
       result[dotPath] = value.trim();
-    } else if (typeof value === "object" && value !== null && !Array.isArray(value)) {
+    } else if (typeof value === "object" && value !== null) {
       Object.assign(result, extractVariableFields(value, dotPath));
     }
   }

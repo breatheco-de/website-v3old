@@ -589,6 +589,21 @@ export function SectionEditorPanel({
     return () => registerEditorDirtyCheck(null);
   }, []);
 
+  const hasVariableFields = !!(section as Record<string, unknown>)._variableFields;
+
+  const { data: templateSectionsData } = useQuery<{ sections: string[] }>({
+    queryKey: ["/api/content-types", contentType, "single-template-sections", locale],
+    enabled: hasVariableFields && !!contentType,
+  });
+
+  useEffect(() => {
+    if (!templateSectionsData) return;
+    const templateYaml = templateSectionsData.sections?.[sectionIndex];
+    if (!templateYaml || hasChangesRef.current) return;
+    setYamlContent(templateYaml);
+    initialYamlRef.current = templateYaml;
+  }, [templateSectionsData, sectionIndex]);
+
   // Binding state
   const bindingQueryClient = useQueryClient();
   const [bindingDialogOpen, setBindingDialogOpen] = useState(false);
