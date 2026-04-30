@@ -855,7 +855,7 @@ sections:
         object_fit: cover
         object_position: center 20%
         border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_african-133x500.webp
         alt: African student collaborating with team
         object_fit: cover
         object_position: center top
@@ -915,7 +915,7 @@ sections:
         height: 40rem
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latin_male-133x500.webp
         alt: Latino student working on a project
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_african-133x500.webp
         alt: African student collaborating with team
     height: 20rem
     gap: lg
