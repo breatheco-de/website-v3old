@@ -417,8 +417,8 @@ export function ImagePickerDialog({
       await handleSave();
       if (result.filesUpdated > 0) {
         toast({
-          title: `${result.filesUpdated} ${result.filesUpdated === 1 ? "página actualizada" : "páginas actualizadas"}`,
-          description: "Los cambios se aplicaron en todos los archivos.",
+          title: `${result.filesUpdated} ${result.filesUpdated === 1 ? "page updated" : "pages updated"}`,
+          description: "Changes applied to all selected pages.",
         });
       }
     } catch (err) {
@@ -656,7 +656,7 @@ export function ImagePickerDialog({
                                     <div className="flex-1 min-w-0">
                                       <p className="text-xs font-medium leading-tight">{childImg.width} × {childImg.height}</p>
                                       {childImg.quality_override !== undefined && (
-                                        <p className="text-[11px] text-muted-foreground leading-tight">Calidad: {childImg.quality_override}</p>
+                                        <p className="text-[11px] text-muted-foreground leading-tight">Quality: {childImg.quality_override}</p>
                                       )}
                                     </div>
                                   </button>
@@ -1020,14 +1020,14 @@ export function ImagePickerDialog({
       >
         <DialogContent className="sm:max-w-lg max-h-[85vh] flex flex-col">
           <DialogHeader>
-            <DialogTitle>Aplicar a otras páginas</DialogTitle>
+            <DialogTitle>Apply to other pages</DialogTitle>
             <DialogDescription>
               {bulkModal.checking
-                ? "Buscando referencias en el contenido…"
+                ? "Searching for references in content…"
                 : (() => {
                     const selectableCount = bulkModal.usages.filter(u => !u.hasBinding).length;
                     const selectedCount = bulkModal.selectedIndices.size;
-                    return `${selectableCount} ${selectableCount === 1 ? "página usa" : "páginas usan"} imágenes de esta familia. Seleccioná las que querés actualizar.${selectedCount === 0 ? " (ninguna seleccionada)" : ""}`;
+                    return `${selectableCount} other ${selectableCount === 1 ? "page uses" : "pages use"} an image from the same family. Select which ones to update with your new selection.${selectedCount === 0 ? " (none selected)" : ""}`;
                   })()}
             </DialogDescription>
           </DialogHeader>
@@ -1061,7 +1061,7 @@ export function ImagePickerDialog({
                     disabled={bulkModal.applying}
                   />
                   <label htmlFor="bulk-select-all" className="text-sm text-muted-foreground cursor-pointer select-none">
-                    Seleccionar todas
+                    Select all
                   </label>
                 </div>
               )}
@@ -1107,18 +1107,18 @@ export function ImagePickerDialog({
                         {(usage.sectionType !== "unknown" || usage.sectionIndex >= 0) && (
                           <p className="text-xs text-muted-foreground leading-tight">
                             {usage.sectionType !== "unknown" ? usage.sectionType : ""}
-                            {usage.sectionIndex >= 0 && ` · sección ${usage.sectionIndex + 1}`}
+                            {usage.sectionIndex >= 0 && ` · section ${usage.sectionIndex + 1}`}
                           </p>
                         )}
                         {usage.hasBinding && (
                           <p className="text-xs text-muted-foreground leading-tight italic">
-                            Tiene un binding — cambiá desde el binding directamente
+                            Has a binding — update via the binding panel
                           </p>
                         )}
                       </div>
                       <Badge variant="secondary" className="shrink-0 text-[10px] leading-tight">
                         {isVariant
-                          ? `${entry?.width ?? "?"} × ${entry?.height ?? "?"}${entry?.quality_override !== undefined ? ` · Calidad: ${entry.quality_override}` : ""}`
+                          ? `${entry?.width ?? "?"} × ${entry?.height ?? "?"}${entry?.quality_override !== undefined ? ` · Quality: ${entry.quality_override}` : ""}`
                           : "Original"}
                       </Badge>
                     </div>
@@ -1139,7 +1139,7 @@ export function ImagePickerDialog({
               disabled={bulkModal.applying || bulkModal.checking}
               data-testid="button-bulk-skip"
             >
-              Solo guardar este campo
+              Save this field only
             </Button>
             <Button
               type="button"
@@ -1153,8 +1153,8 @@ export function ImagePickerDialog({
                 <IconCheck className="h-4 w-4 mr-2" />
               )}
               {bulkModal.selectedIndices.size === 0
-                ? "Ninguna seleccionada"
-                : `Reemplazar en ${bulkModal.selectedIndices.size} ${bulkModal.selectedIndices.size === 1 ? "página" : "páginas"}`}
+                ? "None selected"
+                : `Update ${bulkModal.selectedIndices.size} ${bulkModal.selectedIndices.size === 1 ? "page" : "pages"}`}
             </Button>
           </DialogFooter>
         </DialogContent>

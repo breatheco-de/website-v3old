@@ -103,6 +103,7 @@ export interface ImageRefLocation {
   locale: string;
   sectionIndex: number;
   sectionType: string;
+  sectionId?: string;
 }
 
 export interface ImageReferenceScan {
@@ -257,11 +258,12 @@ class MediaGallery {
       sectionIndex: number,
       sectionType: string,
       relPath: string,
-      meta: { contentType: string; slug: string; locale: string }
+      meta: { contentType: string; slug: string; locale: string },
+      sectionId?: string
     ): void => {
       if (!obj || typeof obj !== "object") return;
       if (Array.isArray(obj)) {
-        obj.forEach(item => collectImageIdsInObj(item, sectionIndex, sectionType, relPath, meta));
+        obj.forEach(item => collectImageIdsInObj(item, sectionIndex, sectionType, relPath, meta, sectionId));
         return;
       }
       for (const [key, val] of Object.entries(obj as Record<string, unknown>)) {
@@ -273,9 +275,10 @@ class MediaGallery {
             locale: meta.locale,
             sectionIndex,
             sectionType,
+            sectionId,
           });
         } else {
-          collectImageIdsInObj(val, sectionIndex, sectionType, relPath, meta);
+          collectImageIdsInObj(val, sectionIndex, sectionType, relPath, meta, sectionId);
         }
       }
     };
@@ -304,10 +307,10 @@ class MediaGallery {
                 if (Array.isArray(sections)) {
                   sections.forEach((section: unknown, idx: number) => {
                     if (!section || typeof section !== "object") return;
-                    const sectionType = typeof (section as Record<string, unknown>).type === "string"
-                      ? String((section as Record<string, unknown>).type)
-                      : "unknown";
-                    collectImageIdsInObj(section, idx, sectionType, relPath, meta);
+                    const sec = section as Record<string, unknown>;
+                    const sectionType = typeof sec.type === "string" ? String(sec.type) : "unknown";
+                    const sectionId = typeof sec.section_id === "string" ? sec.section_id : undefined;
+                    collectImageIdsInObj(section, idx, sectionType, relPath, meta, sectionId);
                   });
                 }
               }
@@ -394,9 +397,13 @@ class MediaGallery {
     return Array.from(files);
   }
 
+  clearImageRefCache(): void {
+    this.imageRefCache = null;
+  }
+
   getFamilyUsage(ids: string[]): Array<{
     filePath: string; slug: string; contentType: string; locale: string;
-    sectionIndex: number; sectionType: string; currentSrc: string; currentId: string;
+    sectionIndex: number; sectionType: string; sectionId?: string; currentSrc: string; currentId: string;
     title?: string; isNoindex: boolean;
   }> {
     const registry = this.getRegistry();
@@ -405,7 +412,7 @@ class MediaGallery {
     const refs = this.collectImageReferences();
     const results: Array<{
       filePath: string; slug: string; contentType: string; locale: string;
-      sectionIndex: number; sectionType: string; currentSrc: string; currentId: string;
+      sectionIndex: number; sectionType: string; sectionId?: string; currentSrc: string; currentId: string;
     }> = [];
     const seen = new Set<string>();
 
@@ -427,6 +434,7 @@ class MediaGallery {
         results.push({
           filePath: loc.yamlFile, slug: loc.slug, contentType: loc.contentType,
           locale: loc.locale, sectionIndex: loc.sectionIndex, sectionType: loc.sectionType,
+          sectionId: loc.sectionId,
           currentSrc: entry.src, currentId: id,
         });
       }
