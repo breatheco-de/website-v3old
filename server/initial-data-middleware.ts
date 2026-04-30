@@ -466,6 +466,15 @@ export async function resolveInitialData(
   if (pageQuery) queries.push(pageQuery);
   queries.push(variablesQuery);
 
+  // Seed main-navbar and main-footer unconditionally so the header and footer
+  // are always present in the server-rendered HTML, even when pageQuery is null
+  // (e.g. database-backed pages where the DB query failed or returned no result).
+  const defaultLocale = cleanUrl.startsWith("/es") ? "es" : "en";
+  const defaultNavbarQuery = resolveMenuQuery("main-navbar", defaultLocale);
+  if (defaultNavbarQuery) queries.push(defaultNavbarQuery);
+  const defaultFooterQuery = resolveMenuQuery("main-footer", defaultLocale);
+  if (defaultFooterQuery) queries.push(defaultFooterQuery);
+
   // If SSR resolved a canonical/base slug but the current URL uses a localized
   // alias slug, hydrate both keys to avoid first-render cache miss on client.
   if (pageQuery && parsedUrl?.slug) {
