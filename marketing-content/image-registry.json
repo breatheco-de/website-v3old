@@ -11523,6 +11523,42 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/student_african-133x500-133w.webp"
         }
       ]
+    },
+    "student_latina_female-133x500": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/student_latina_female-133x500.webp",
+      "alt": "Latina student celebrating success",
+      "focal_point": "center",
+      "tags": [
+        "student",
+        "portrait",
+        "diversity",
+        "photo",
+        "testimonial",
+        "avatar"
+      ],
+      "usage_count": 0,
+      "width": 133,
+      "height": 500,
+      "format": "webp",
+      "parentId": "student_latina_female",
+      "quality_override": 65,
+      "preset": [
+        "avatar"
+      ],
+      "widths_generated": [
+        64,
+        128
+      ],
+      "srcset": [
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/student_latina_female-133x500-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/student_latina_female-133x500-128w.webp"
+        }
+      ]
     }
   }
 }
