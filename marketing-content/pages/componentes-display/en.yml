@@ -1498,7 +1498,7 @@ sections:
   - type: image_row
     version: v1.0
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500-133x500-133x500.webp
         alt: Student learning to code
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
         alt: Developer working on project
@@ -1521,7 +1521,7 @@ sections:
   - type: image_row
     version: v1.0
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500-133x500-133x500.webp
         alt: Asian student learning to code
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
         alt: Latino student working on a project
