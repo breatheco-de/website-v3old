@@ -101,7 +101,7 @@ sections:
         id: gemini-generated-image-uwpyyruwpyyruwpy
         object_scale: 1.1
         object_position: 50% 30%
-      - image_id: group-7086-1-800x440
+      - image_id: ebootcamp_top
         col_span: 7
         row_span: 2
         alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
@@ -115,7 +115,7 @@ sections:
         alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
         id: gemini-generated-image-dhko5mdhko5mdhko-1
         object_scale: 1.05
-      - image_id: group-7087-1-680x392
+      - image_id: graduates_coding
         col_span: 6
         row_span: 2
         alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"

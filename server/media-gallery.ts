@@ -397,6 +397,7 @@ class MediaGallery {
   getFamilyUsage(ids: string[]): Array<{
     filePath: string; slug: string; contentType: string; locale: string;
     sectionIndex: number; sectionType: string; currentSrc: string; currentId: string;
+    title?: string;
   }> {
     const registry = this.getRegistry();
     if (!registry || !ids.length) return [];
@@ -484,7 +485,24 @@ class MediaGallery {
       }
     }
 
-    return results;
+    // Enrich results with page title (read each unique file once)
+    const titleByFile = new Map<string, string | undefined>();
+    const uniqueFiles = [...new Set(results.map(r => r.filePath))];
+    for (const fp of uniqueFiles) {
+      try {
+        const fullPath = path.join(process.cwd(), fp);
+        const content = fs.readFileSync(fullPath, "utf8");
+        const { escaped, map } = escapeTemplateVars(content);
+        const parsed = unescapeObjectVars(yaml.load(escaped) as object, map) as Record<string, unknown>;
+        const metaObj = parsed?.meta as Record<string, unknown> | undefined;
+        const t = (metaObj?.title ?? parsed?.title) as string | undefined;
+        titleByFile.set(fp, typeof t === "string" && t ? t : undefined);
+      } catch {
+        titleByFile.set(fp, undefined);
+      }
+    }
+
+    return results.map(r => ({ ...r, title: titleByFile.get(r.filePath) }));
   }
 
   bulkReplaceUsage(replacements: Array<{ fromSrc: string; toSrc: string }>): { filesUpdated: number; files: string[] } {

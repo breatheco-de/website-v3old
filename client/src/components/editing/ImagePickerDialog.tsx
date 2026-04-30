@@ -44,7 +44,17 @@ interface FamilyUsageEntry {
   sectionType: string;
   currentSrc: string;
   currentId: string;
+  title?: string;
 }
+
+const CONTENT_TYPE_LABELS: Record<string, string> = {
+  landings: "Landing",
+  pages: "Página",
+  bootcamps: "Programa",
+  locations: "Ubicación",
+  articles: "Artículo",
+  events: "Evento",
+};
 
 export interface ImagePickerDialogProps {
   open: boolean;
@@ -365,13 +375,16 @@ export function ImagePickerDialog({
       }
       const usages: FamilyUsageEntry[] = await resp.json();
 
-      if (!usages.length) {
+      // Only show usages from OTHER family members (not the one we're currently saving)
+      const otherUsages = usages.filter(u => u.currentId !== selectedRegistryId);
+
+      if (!otherUsages.length) {
         setBulkModal({ open: false, usages: [], checking: false, applying: false });
         await handleSave();
         return;
       }
 
-      setBulkModal({ open: true, usages, checking: false, applying: false });
+      setBulkModal({ open: true, usages: otherUsages, checking: false, applying: false });
     } catch (err) {
       setBulkModal({ open: false, usages: [], checking: false, applying: false });
       toast({
@@ -589,14 +602,19 @@ export function ImagePickerDialog({
                         <button
                           key={id}
                           type="button"
-                          onClick={(e) => {
-                            setSelectedSrc(img.src);
-                            setSelectedAlt(img.alt || "");
-                            setSelectedRegistryId(id);
+                          onMouseDown={(e) => {
                             if (hasVariants) {
+                              // Stop propagation so the document mousedown handler
+                              // (which closes the floating panel) doesn't interfere.
+                              e.stopPropagation();
                               const rect = (e.currentTarget as HTMLButtonElement).getBoundingClientRect();
                               setFloatingPanel(isPanelOpen ? null : { id, rect });
                             }
+                          }}
+                          onClick={() => {
+                            setSelectedSrc(img.src);
+                            setSelectedAlt(img.alt || "");
+                            setSelectedRegistryId(id);
                           }}
                           className={`mb-2 break-inside-avoid rounded-md overflow-hidden bg-muted border-2 transition-colors block w-full ${borderClass}`}
                           title={img.alt}
@@ -1059,21 +1077,31 @@ export function ImagePickerDialog({
               {bulkModal.usages.map((usage, i) => {
                 const entry = imageRegistry?.images?.[usage.currentId];
                 const isVariant = !!entry?.parentId;
+                const typeLabel = CONTENT_TYPE_LABELS[usage.contentType] ?? usage.contentType;
+                const displayTitle = usage.title || usage.slug;
                 return (
                   <div
                     key={i}
-                    className="flex items-start gap-3 rounded-md px-2 py-1.5 text-sm"
+                    className="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm"
                     data-testid={`bulk-usage-row-${i}`}
                   >
+                    <Badge variant="outline" className="shrink-0 text-[10px] mt-0.5">
+                      {typeLabel}
+                    </Badge>
                     <div className="flex-1 min-w-0">
                       <p className="font-medium leading-tight truncate">
-                        {usage.slug}
+                        {displayTitle}
                         {usage.locale && <span className="text-muted-foreground ml-1 text-xs">({usage.locale})</span>}
                       </p>
-                      <p className="text-xs text-muted-foreground leading-tight mt-0.5">
-                        {usage.sectionType !== "unknown" ? usage.sectionType : usage.contentType}
-                        {usage.sectionIndex >= 0 && ` · sección ${usage.sectionIndex + 1}`}
-                      </p>
+                      {usage.title && usage.title !== usage.slug && (
+                        <p className="text-xs text-muted-foreground truncate leading-tight">{usage.slug}</p>
+                      )}
+                      {(usage.sectionType !== "unknown" || usage.sectionIndex >= 0) && (
+                        <p className="text-xs text-muted-foreground leading-tight">
+                          {usage.sectionType !== "unknown" ? usage.sectionType : ""}
+                          {usage.sectionIndex >= 0 && ` · sección ${usage.sectionIndex + 1}`}
+                        </p>
+                      )}
                     </div>
                     <Badge variant="secondary" className="shrink-0 text-[10px] leading-tight">
                       {isVariant
