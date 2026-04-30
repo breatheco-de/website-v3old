@@ -11432,6 +11432,34 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-479x280-479x280-320w.webp"
         }
       ]
+    },
+    "student_asian-133x500": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp",
+      "alt": "Asian student learning to code",
+      "focal_point": "center",
+      "tags": [
+        "student",
+        "portrait",
+        "diversity"
+      ],
+      "usage_count": 0,
+      "width": 133,
+      "height": 500,
+      "format": "webp",
+      "parentId": "student_asian",
+      "quality_override": 65,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        133
+      ],
+      "srcset": [
+        {
+          "w": 133,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500-133w.webp"
+        }
+      ]
     }
   }
 }
