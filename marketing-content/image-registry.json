@@ -11343,6 +11343,50 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-1096x598-960w.webp"
         }
       ]
+    },
+    "students_collaborating-479x280": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-479x280.webp",
+      "alt": "Students collaborating in workspace",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "students",
+        "hero",
+        "logo",
+        "card",
+        "partner",
+        "press",
+        "illustration",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 479,
+      "height": 280,
+      "format": "webp",
+      "parentId": "students_collaborating",
+      "preset": [
+        "hero-wide",
+        "logo"
+      ],
+      "widths_generated": [
+        120,
+        240,
+        320
+      ],
+      "srcset": [
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-479x280-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-479x280-240w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-479x280-320w.webp"
+        }
+      ]
     }
   }
 }
