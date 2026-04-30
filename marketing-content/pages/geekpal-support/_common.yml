@@ -1,7 +1,15 @@
-# Common properties shared across all language variants
-slug: "geekpal-support"
-title: "GeekPAL Support"
-
+slug: geekpal-support
+title: GeekPAL Support
 meta:
   priority: 0.9
-  change_frequency: "weekly"
+  change_frequency: weekly
+  robots: index, follow
+  page_title: GeekPAL Support | 4Geeks
+  description: The mentorship support that keeps 4Geeks students from quitting. Unlimited 1:1 coding mentorship, 24/7 AI tutoring from Rigobot, and a global dev community. Lifelong access.
+  redirects:
+    - /geekpal-support
+    - /us/geekpal-support
+schema:
+  include:
+    - organization
+    - website
