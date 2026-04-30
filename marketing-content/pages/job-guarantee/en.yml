@@ -30,7 +30,7 @@ sections:
     title: Get Into Tech With Our Job Guarantee*
     subtitle: "&nbsp;Built to give you extra confidence as you invest in your career. Get hired within 9 months of graduation, or we'll refund 100% of your tuition.&nbsp;<div bis_skin_checked=\"1\"><span style=\"font-size: 0.75rem;\"><span><span>*Not available in all regions.&nbsp;<a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span><span><span><span>Terms and conditions apply.</span></span></span></span></a></span></span></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"font-size: 1rem;\"><span><span style=\"font-size: 0.875rem;\"><span></span></span></span></span></a></div>"
     image:
-      src: /marketing-content/images/students_collaborating-548x299-400x244.web
+      src: https://storage.googleapis.com/4geeks-academy-website/media/generated_images/Students_collaborating_workspace_d1560810.webp
       alt: Students collaborating in a tech workspace
     cta_buttons:
       - text: Get more info
@@ -41,6 +41,7 @@ sections:
       desktop: lg none
     marginY:
       desktop: none md
+    image_alt: Students collaborating in a tech workspace
   - type: features_grid
     section_id: features_grid-aay8s3
     version: "1.0"
