@@ -38,6 +38,34 @@ function extractVariableFields(
   return result;
 }
 
+export function mergeSingleTemplate(
+  contentType: string,
+  locale: string,
+): Record<string, unknown> | null {
+  const folder = getFolder(contentType);
+  const templateDir = path.join(process.cwd(), "marketing-content", folder);
+  const singleCommonPath = path.join(templateDir, "_common.single.yml");
+  const commonPath = path.join(templateDir, "_common.yml");
+  let localePath = path.join(templateDir, `single.${locale}.yml`);
+  if (!fs.existsSync(localePath)) {
+    localePath = path.join(templateDir, "single.en.yml");
+  }
+  if (!fs.existsSync(localePath)) return null;
+
+  let baseData: Record<string, unknown> = {};
+  if (fs.existsSync(singleCommonPath)) {
+    const parsed = contentIndex.safeYamlLoad(fs.readFileSync(singleCommonPath, "utf-8"));
+    if (parsed) baseData = parsed;
+  }
+  if (fs.existsSync(commonPath)) {
+    const parsed = contentIndex.safeYamlLoad(fs.readFileSync(commonPath, "utf-8"));
+    if (parsed) baseData = Object.keys(baseData).length > 0 ? deepMerge(baseData, parsed) : parsed;
+  }
+  const localeData = contentIndex.safeYamlLoad(fs.readFileSync(localePath, "utf-8"));
+  if (!localeData) return null;
+  return Object.keys(baseData).length > 0 ? deepMerge(baseData, localeData) : { ...localeData };
+}
+
 export async function loadDatabaseSinglePage(
   contentType: string,
   slug: string,
@@ -45,44 +73,15 @@ export async function loadDatabaseSinglePage(
 ): Promise<TemplatePage | null> {
   const dbName = getDatabaseName(contentType);
   if (!dbName) return null;
-  const folder = getFolder(contentType);
 
-  const templateDir = path.join(process.cwd(), "marketing-content", folder);
-  const singleCommonPath = path.join(templateDir, "_common.single.yml");
-  const commonPath = path.join(templateDir, "_common.yml");
-  const localePath = path.join(templateDir, `single.${locale}.yml`);
+  const merged = mergeSingleTemplate(contentType, locale);
 
-  if (!fs.existsSync(localePath)) {
+  if (!merged) {
     console.error(
       `[DatabaseSingle] Template not found: single.${locale}.yml for ${contentType}`,
     );
     return null;
   }
-
-  let baseData: Record<string, unknown> = {};
-  if (fs.existsSync(singleCommonPath)) {
-    const singleRaw = fs.readFileSync(singleCommonPath, "utf-8");
-    const parsed = contentIndex.safeYamlLoad(singleRaw);
-    if (parsed) baseData = parsed;
-  }
-
-  if (fs.existsSync(commonPath)) {
-    const commonRaw = fs.readFileSync(commonPath, "utf-8");
-    const parsed = contentIndex.safeYamlLoad(commonRaw);
-    if (parsed) {
-      baseData = Object.keys(baseData).length > 0
-        ? deepMerge(baseData, parsed)
-        : parsed;
-    }
-  }
-
-  const localeRaw = fs.readFileSync(localePath, "utf-8");
-  const localeData = contentIndex.safeYamlLoad(localeRaw);
-  if (!localeData) return null;
-
-  const merged = Object.keys(baseData).length > 0
-    ? deepMerge(baseData, localeData)
-    : { ...localeData };
 
   if (!databaseManager.exists(dbName)) {
     console.error(`[DatabaseSingle] Database "${dbName}" not found`);

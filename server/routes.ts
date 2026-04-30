@@ -138,7 +138,7 @@ import {
   clearMarkdownCacheByUrl,
 } from "./markdown";
 import { resolveDynamicEntries } from "./dynamic-entries";
-import { loadDatabaseSinglePage } from "./database-single-loader";
+import { loadDatabaseSinglePage, mergeSingleTemplate } from "./database-single-loader";
 import { getBaseUrl } from "./hreflang";
 
 const BREATHECODE_HOST =
@@ -2366,33 +2366,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         res.status(400).json({ error: `Content type "${type}" does not use a single template` });
         return;
       }
-      const folder = getFolder(type);
-      const templateDir = path.join(process.cwd(), "marketing-content", folder);
-      const singleCommonPath = path.join(templateDir, "_common.single.yml");
-      const commonPath = path.join(templateDir, "_common.yml");
-      let localePath = path.join(templateDir, `single.${locale}.yml`);
-      if (!fs.existsSync(localePath)) {
-        localePath = path.join(templateDir, "single.en.yml");
-      }
-      if (!fs.existsSync(localePath)) {
+      const merged = mergeSingleTemplate(type, locale);
+      if (!merged) {
         res.status(404).json({ error: "Single template not found" });
         return;
       }
-      let baseData: Record<string, unknown> = {};
-      if (fs.existsSync(singleCommonPath)) {
-        const parsed = safeYamlLoad(fs.readFileSync(singleCommonPath, "utf-8")) as Record<string, unknown>;
-        if (parsed) baseData = parsed;
-      }
-      if (fs.existsSync(commonPath)) {
-        const parsed = safeYamlLoad(fs.readFileSync(commonPath, "utf-8")) as Record<string, unknown>;
-        if (parsed) baseData = Object.keys(baseData).length > 0 ? deepMerge(baseData, parsed) : parsed;
-      }
-      const localeData = safeYamlLoad(fs.readFileSync(localePath, "utf-8")) as Record<string, unknown>;
-      if (!localeData) {
-        res.status(404).json({ error: "Failed to parse single template" });
-        return;
-      }
-      const merged = Object.keys(baseData).length > 0 ? deepMerge(baseData, localeData) : { ...localeData };
       if (!Array.isArray(merged.sections)) {
         res.status(404).json({ error: "No sections array in single template" });
         return;
