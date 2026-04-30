@@ -397,7 +397,7 @@ class MediaGallery {
   getFamilyUsage(ids: string[]): Array<{
     filePath: string; slug: string; contentType: string; locale: string;
     sectionIndex: number; sectionType: string; currentSrc: string; currentId: string;
-    title?: string;
+    title?: string; isNoindex: boolean;
   }> {
     const registry = this.getRegistry();
     if (!registry || !ids.length) return [];
@@ -485,8 +485,9 @@ class MediaGallery {
       }
     }
 
-    // Enrich results with page title (read each unique file once)
+    // Enrich results with page title and noindex flag (read each unique file once)
     const titleByFile = new Map<string, string | undefined>();
+    const noindexByFile = new Map<string, boolean>();
     const uniqueFiles = [...new Set(results.map(r => r.filePath))];
     for (const fp of uniqueFiles) {
       try {
@@ -497,54 +498,62 @@ class MediaGallery {
         const metaObj = parsed?.meta as Record<string, unknown> | undefined;
         const t = (metaObj?.title ?? parsed?.title) as string | undefined;
         titleByFile.set(fp, typeof t === "string" && t ? t : undefined);
+        const robotsStr = ((metaObj?.robots ?? parsed?.robots) as string | undefined) ?? "";
+        noindexByFile.set(fp, robotsStr.toLowerCase().includes("noindex"));
       } catch {
         titleByFile.set(fp, undefined);
+        noindexByFile.set(fp, false);
       }
     }
 
-    return results.map(r => ({ ...r, title: titleByFile.get(r.filePath) }));
+    return results.map(r => ({
+      ...r,
+      title: titleByFile.get(r.filePath),
+      isNoindex: noindexByFile.get(r.filePath) ?? false,
+    }));
   }
 
-  bulkReplaceUsage(replacements: Array<{ fromSrc: string; toSrc: string }>): { filesUpdated: number; files: string[] } {
-    if (!replacements.length) return { filesUpdated: 0, files: [] };
-    // Deduplicate: skip pairs where fromSrc === toSrc or are exact duplicates
-    const uniquePairs = replacements.filter(
-      (r, i, arr) =>
-        r.fromSrc && r.toSrc && r.fromSrc !== r.toSrc &&
-        arr.findIndex(p => p.fromSrc === r.fromSrc && p.toSrc === r.toSrc) === i
-    );
-    if (!uniquePairs.length) return { filesUpdated: 0, files: [] };
+  bulkReplaceUsage(
+    fileReplacements: Array<{ filePath: string; fromId: string; fromSrc: string; toId: string; toSrc: string }>
+  ): { filesUpdated: number; files: string[] } {
+    if (!fileReplacements.length) return { filesUpdated: 0, files: [] };
+
+    // Group replacements by filePath so each file is written only once
+    const byFile = new Map<string, Array<{ fromId: string; fromSrc: string; toId: string; toSrc: string }>>();
+    for (const r of fileReplacements) {
+      if (!r.filePath || !r.fromId || !r.toId || r.fromId === r.toId) continue;
+      const list = byFile.get(r.filePath) ?? [];
+      list.push(r);
+      byFile.set(r.filePath, list);
+    }
+
     const updatedFiles: string[] = [];
-
-    const walkAndReplace = (dir: string) => {
-      if (!fs.existsSync(dir)) return;
-      const entries = fs.readdirSync(dir, { withFileTypes: true });
-      for (const entry of entries) {
-        const fullPath = path.join(dir, entry.name);
-        if (entry.isDirectory()) {
-          walkAndReplace(fullPath);
-        } else if (entry.name.endsWith(".yml") || entry.name.endsWith(".yaml")) {
-          try {
-            let content = fs.readFileSync(fullPath, "utf8");
-            let changed = false;
-            for (const { fromSrc, toSrc } of uniquePairs) {
-              if (content.includes(fromSrc)) {
-                content = content.split(fromSrc).join(toSrc);
-                changed = true;
-              }
-            }
-            if (changed) {
-              fs.writeFileSync(fullPath, content, "utf8");
-              const relPath = path.relative(process.cwd(), fullPath);
-              markFileAsModified(relPath);
-              updatedFiles.push(relPath);
-            }
-          } catch {}
+    for (const [relPath, pairs] of byFile) {
+      try {
+        const fullPath = path.join(process.cwd(), relPath);
+        if (!fs.existsSync(fullPath)) continue;
+        let content = fs.readFileSync(fullPath, "utf8");
+        let changed = false;
+        for (const { fromId, fromSrc, toId, toSrc } of pairs) {
+          // Replace the src URL first (it's always a unique full URL, safe to replace globally in file)
+          if (fromSrc && toSrc && fromSrc !== toSrc && content.includes(fromSrc)) {
+            content = content.split(fromSrc).join(toSrc);
+            changed = true;
+          }
+          // Replace the image_id: after the src replacement to avoid double-suffix on variant paths
+          if (fromId !== toId && content.includes(fromId)) {
+            content = content.split(fromId).join(toId);
+            changed = true;
+          }
         }
-      }
-    };
+        if (changed) {
+          fs.writeFileSync(fullPath, content, "utf8");
+          markFileAsModified(relPath);
+          updatedFiles.push(relPath);
+        }
+      } catch {}
+    }
 
-    walkAndReplace(MARKETING_CONTENT_DIR);
     this.imageRefCache = null;
     return { filesUpdated: updatedFiles.length, files: updatedFiles };
   }

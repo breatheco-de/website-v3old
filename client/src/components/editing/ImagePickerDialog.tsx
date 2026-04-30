@@ -25,6 +25,7 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -45,6 +46,8 @@ interface FamilyUsageEntry {
   currentSrc: string;
   currentId: string;
   title?: string;
+  hasBinding?: boolean;
+  isNoindex?: boolean;
 }
 
 const CONTENT_TYPE_LABELS: Record<string, string> = {
@@ -135,7 +138,8 @@ export function ImagePickerDialog({
     usages: FamilyUsageEntry[];
     checking: boolean;
     applying: boolean;
-  }>({ open: false, usages: [], checking: false, applying: false });
+    selectedIndices: Set<number>;
+  }>({ open: false, usages: [], checking: false, applying: false, selectedIndices: new Set() });
 
   const cropSizeSuggestions = useMemo(() => {
     const suggestions: Array<{ value: string; label: string; width: number; height: number }> = [];
@@ -346,7 +350,7 @@ export function ImagePickerDialog({
     // Collect all family member IDs
     const familyIds = [effectiveParentId, ...children.map(([id]) => id)];
 
-    setBulkModal({ open: true, usages: [], checking: true, applying: false });
+    setBulkModal({ open: true, usages: [], checking: true, applying: false, selectedIndices: new Set() });
     try {
       const params = new URLSearchParams();
       familyIds.forEach(id => params.append("ids[]", id));
@@ -358,17 +362,22 @@ export function ImagePickerDialog({
       const usages: FamilyUsageEntry[] = await resp.json();
 
       // Only show usages from OTHER family members (not the one we're currently saving)
-      const otherUsages = usages.filter(u => u.currentId !== selectedRegistryId);
+      // and exclude noindex/sample pages
+      const otherUsages = usages.filter(u => u.currentId !== selectedRegistryId && !u.isNoindex);
 
       if (!otherUsages.length) {
-        setBulkModal({ open: false, usages: [], checking: false, applying: false });
+        setBulkModal({ open: false, usages: [], checking: false, applying: false, selectedIndices: new Set() });
         await handleSave();
         return;
       }
 
-      setBulkModal({ open: true, usages: otherUsages, checking: false, applying: false });
+      // Pre-select all non-binding rows
+      const initialSelected = new Set(
+        otherUsages.map((u, i) => i).filter(i => !otherUsages[i].hasBinding)
+      );
+      setBulkModal({ open: true, usages: otherUsages, checking: false, applying: false, selectedIndices: initialSelected });
     } catch (err) {
-      setBulkModal({ open: false, usages: [], checking: false, applying: false });
+      setBulkModal({ open: false, usages: [], checking: false, applying: false, selectedIndices: new Set() });
       toast({
         title: "No se pudo verificar el uso de la imagen",
         description: err instanceof Error ? err.message : "Error desconocido",
@@ -379,41 +388,32 @@ export function ImagePickerDialog({
   }, [imageRegistry, selectedRegistryId, childrenByParent, handleSave, toast]);
 
   const handleBulkReplaceAndSave = useCallback(async () => {
-    if (!imageRegistry?.images || !selectedRegistryId) return;
+    if (!selectedRegistryId || !selectedSrc) return;
 
-    const selectedEntry = imageRegistry.images[selectedRegistryId];
-    if (!selectedEntry) return;
-
-    const effectiveParentId = selectedEntry.parentId ?? selectedRegistryId;
-    const children = childrenByParent[effectiveParentId] ?? [];
-    const allFamilyEntries: Array<[string, typeof selectedEntry]> = [
-      [effectiveParentId, imageRegistry.images[effectiveParentId]],
-      ...children,
-    ].filter(([, e]) => !!e) as Array<[string, typeof selectedEntry]>;
-
-    const replacements: Array<{ fromSrc: string; toSrc: string }> = [];
-    for (const [id, entry] of allFamilyEntries) {
-      if (entry.src && entry.src !== selectedSrc) {
-        replacements.push({ fromSrc: entry.src, toSrc: selectedSrc });
-      }
-      if (id && id !== selectedRegistryId) {
-        replacements.push({ fromSrc: id, toSrc: selectedRegistryId });
-      }
-    }
+    // Build per-file replacements only for selected, non-binding usages
+    const fileReplacements = bulkModal.usages
+      .filter((u, i) => bulkModal.selectedIndices.has(i) && !u.hasBinding)
+      .map(u => ({
+        filePath: u.filePath,
+        fromId: u.currentId,
+        fromSrc: u.currentSrc,
+        toId: selectedRegistryId,
+        toSrc: selectedSrc,
+      }));
 
     setBulkModal(prev => ({ ...prev, applying: true }));
     try {
       const resp = await fetch("/api/image-registry/bulk-replace-usage", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ replacements }),
+        body: JSON.stringify({ fileReplacements }),
       });
       if (!resp.ok) {
         const errData = (await resp.json().catch(() => ({}))) as { error?: string };
         throw new Error(errData.error ?? `Server error ${resp.status}`);
       }
       const result = (await resp.json()) as { filesUpdated: number };
-      setBulkModal({ open: false, usages: [], checking: false, applying: false });
+      setBulkModal({ open: false, usages: [], checking: false, applying: false, selectedIndices: new Set() });
       await handleSave();
       if (result.filesUpdated > 0) {
         toast({
@@ -429,7 +429,7 @@ export function ImagePickerDialog({
         variant: "destructive",
       });
     }
-  }, [imageRegistry, selectedRegistryId, selectedSrc, childrenByParent, handleSave, toast]);
+  }, [bulkModal.usages, bulkModal.selectedIndices, selectedRegistryId, selectedSrc, handleSave, toast]);
 
   const handleClose = () => {
     onOpenChange(false);
@@ -1014,17 +1014,21 @@ export function ImagePickerDialog({
         open={bulkModal.open}
         onOpenChange={(isOpen) => {
           if (!isOpen && !bulkModal.applying) {
-            setBulkModal({ open: false, usages: [], checking: false, applying: false });
+            setBulkModal({ open: false, usages: [], checking: false, applying: false, selectedIndices: new Set() });
           }
         }}
       >
         <DialogContent className="sm:max-w-lg max-h-[85vh] flex flex-col">
           <DialogHeader>
-            <DialogTitle>Aplicar a todas las páginas</DialogTitle>
+            <DialogTitle>Aplicar a otras páginas</DialogTitle>
             <DialogDescription>
               {bulkModal.checking
                 ? "Buscando referencias en el contenido…"
-                : `${bulkModal.usages.length} ${bulkModal.usages.length === 1 ? "página usa" : "páginas usan"} imágenes de esta familia. ¿Quieres reemplazar todas esas referencias con la nueva selección?`}
+                : (() => {
+                    const selectableCount = bulkModal.usages.filter(u => !u.hasBinding).length;
+                    const selectedCount = bulkModal.selectedIndices.size;
+                    return `${selectableCount} ${selectableCount === 1 ? "página usa" : "páginas usan"} imágenes de esta familia. Seleccioná las que querés actualizar.${selectedCount === 0 ? " (ninguna seleccionada)" : ""}`;
+                  })()}
             </DialogDescription>
           </DialogHeader>
 
@@ -1033,45 +1037,95 @@ export function ImagePickerDialog({
               <IconLoader2 className="h-6 w-6 animate-spin text-muted-foreground" />
             </div>
           ) : (
-            <div className="flex-1 overflow-y-auto min-h-0 space-y-1 py-1">
-              {bulkModal.usages.map((usage, i) => {
-                const entry = imageRegistry?.images?.[usage.currentId];
-                const isVariant = !!entry?.parentId;
-                const typeLabel = CONTENT_TYPE_LABELS[usage.contentType] ?? usage.contentType;
-                const displayTitle = usage.title || usage.slug;
-                return (
-                  <div
-                    key={i}
-                    className="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm"
-                    data-testid={`bulk-usage-row-${i}`}
-                  >
-                    <Badge variant="outline" className="shrink-0 text-[10px] mt-0.5">
-                      {typeLabel}
-                    </Badge>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium leading-tight truncate">
-                        {displayTitle}
-                        {usage.locale && <span className="text-muted-foreground ml-1 text-xs">({usage.locale})</span>}
-                      </p>
-                      {usage.title && usage.title !== usage.slug && (
-                        <p className="text-xs text-muted-foreground truncate leading-tight">{usage.slug}</p>
-                      )}
-                      {(usage.sectionType !== "unknown" || usage.sectionIndex >= 0) && (
-                        <p className="text-xs text-muted-foreground leading-tight">
-                          {usage.sectionType !== "unknown" ? usage.sectionType : ""}
-                          {usage.sectionIndex >= 0 && ` · sección ${usage.sectionIndex + 1}`}
+            <>
+              {bulkModal.usages.some(u => !u.hasBinding) && (
+                <div className="flex items-center gap-2 px-2 py-1 border-b">
+                  <Checkbox
+                    id="bulk-select-all"
+                    data-testid="checkbox-bulk-select-all"
+                    checked={
+                      bulkModal.usages.every((u, i) => u.hasBinding || bulkModal.selectedIndices.has(i))
+                    }
+                    onCheckedChange={(checked) => {
+                      setBulkModal(prev => {
+                        const next = new Set(prev.selectedIndices);
+                        prev.usages.forEach((u, i) => {
+                          if (!u.hasBinding) {
+                            if (checked) next.add(i);
+                            else next.delete(i);
+                          }
+                        });
+                        return { ...prev, selectedIndices: next };
+                      });
+                    }}
+                    disabled={bulkModal.applying}
+                  />
+                  <label htmlFor="bulk-select-all" className="text-sm text-muted-foreground cursor-pointer select-none">
+                    Seleccionar todas
+                  </label>
+                </div>
+              )}
+              <div className="flex-1 overflow-y-auto min-h-0 space-y-1 py-1">
+                {bulkModal.usages.map((usage, i) => {
+                  const entry = imageRegistry?.images?.[usage.currentId];
+                  const isVariant = !!entry?.parentId;
+                  const typeLabel = CONTENT_TYPE_LABELS[usage.contentType] ?? usage.contentType;
+                  const displayTitle = usage.title || usage.slug;
+                  const isDisabled = !!usage.hasBinding || bulkModal.applying;
+                  const isSelected = bulkModal.selectedIndices.has(i);
+                  return (
+                    <div
+                      key={i}
+                      className={`flex items-start gap-2 rounded-md px-2 py-1.5 text-sm ${usage.hasBinding ? "opacity-50" : ""}`}
+                      data-testid={`bulk-usage-row-${i}`}
+                    >
+                      <Checkbox
+                        data-testid={`checkbox-bulk-row-${i}`}
+                        checked={isSelected && !usage.hasBinding}
+                        disabled={isDisabled}
+                        onCheckedChange={(checked) => {
+                          setBulkModal(prev => {
+                            const next = new Set(prev.selectedIndices);
+                            if (checked) next.add(i);
+                            else next.delete(i);
+                            return { ...prev, selectedIndices: next };
+                          });
+                        }}
+                        className="mt-0.5 shrink-0"
+                      />
+                      <Badge variant="outline" className="shrink-0 text-[10px] mt-0.5">
+                        {typeLabel}
+                      </Badge>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium leading-tight truncate">
+                          {displayTitle}
+                          {usage.locale && <span className="text-muted-foreground ml-1 text-xs">({usage.locale})</span>}
                         </p>
-                      )}
+                        {usage.title && usage.title !== usage.slug && (
+                          <p className="text-xs text-muted-foreground truncate leading-tight">{usage.slug}</p>
+                        )}
+                        {(usage.sectionType !== "unknown" || usage.sectionIndex >= 0) && (
+                          <p className="text-xs text-muted-foreground leading-tight">
+                            {usage.sectionType !== "unknown" ? usage.sectionType : ""}
+                            {usage.sectionIndex >= 0 && ` · sección ${usage.sectionIndex + 1}`}
+                          </p>
+                        )}
+                        {usage.hasBinding && (
+                          <p className="text-xs text-muted-foreground leading-tight italic">
+                            Tiene un binding — cambiá desde el binding directamente
+                          </p>
+                        )}
+                      </div>
+                      <Badge variant="secondary" className="shrink-0 text-[10px] leading-tight">
+                        {isVariant
+                          ? `${entry?.width ?? "?"} × ${entry?.height ?? "?"}${entry?.quality_override !== undefined ? ` · Calidad: ${entry.quality_override}` : ""}`
+                          : "Original"}
+                      </Badge>
                     </div>
-                    <Badge variant="secondary" className="shrink-0 text-[10px] leading-tight">
-                      {isVariant
-                        ? `${entry?.width ?? "?"} × ${entry?.height ?? "?"}${entry?.quality_override !== undefined ? ` · Calidad: ${entry.quality_override}` : ""}`
-                        : "Original"}
-                    </Badge>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            </>
           )}
 
           <DialogFooter className="flex-row gap-2 sm:justify-between mt-2">
@@ -1079,7 +1133,7 @@ export function ImagePickerDialog({
               type="button"
               variant="outline"
               onClick={() => {
-                setBulkModal({ open: false, usages: [], checking: false, applying: false });
+                setBulkModal({ open: false, usages: [], checking: false, applying: false, selectedIndices: new Set() });
                 void handleSave();
               }}
               disabled={bulkModal.applying || bulkModal.checking}
@@ -1090,7 +1144,7 @@ export function ImagePickerDialog({
             <Button
               type="button"
               onClick={handleBulkReplaceAndSave}
-              disabled={bulkModal.applying || bulkModal.checking}
+              disabled={bulkModal.applying || bulkModal.checking || bulkModal.selectedIndices.size === 0}
               data-testid="button-bulk-confirm"
             >
               {bulkModal.applying ? (
@@ -1098,7 +1152,9 @@ export function ImagePickerDialog({
               ) : (
                 <IconCheck className="h-4 w-4 mr-2" />
               )}
-              Reemplazar en {bulkModal.usages.length} {bulkModal.usages.length === 1 ? "página" : "páginas"}
+              {bulkModal.selectedIndices.size === 0
+                ? "Ninguna seleccionada"
+                : `Reemplazar en ${bulkModal.selectedIndices.size} ${bulkModal.selectedIndices.size === 1 ? "página" : "páginas"}`}
             </Button>
           </DialogFooter>
         </DialogContent>

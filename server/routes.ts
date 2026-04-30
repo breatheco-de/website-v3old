@@ -9061,20 +9061,28 @@ sections: []
     }
     try {
       const results = mediaGallery.getFamilyUsage(ids);
-      res.json(results);
+      const enriched = results.map(r => ({
+        ...r,
+        hasBinding: r.sectionIndex >= 0
+          ? !!bindingManager.findGroupForSectionByIndex(r.contentType, r.slug, r.sectionIndex, r.locale)
+          : false,
+      }));
+      res.json(enriched);
     } catch (err: any) {
       res.status(500).json({ error: err.message || "Failed to get family usage" });
     }
   });
 
   app.post("/api/image-registry/bulk-replace-usage", (req, res) => {
-    const { replacements } = req.body as { replacements?: Array<{ fromSrc: string; toSrc: string }> };
-    if (!Array.isArray(replacements) || replacements.length === 0) {
-      res.status(400).json({ error: "Missing or empty 'replacements' array" });
+    const { fileReplacements } = req.body as {
+      fileReplacements?: Array<{ filePath: string; fromId: string; fromSrc: string; toId: string; toSrc: string }>;
+    };
+    if (!Array.isArray(fileReplacements) || fileReplacements.length === 0) {
+      res.status(400).json({ error: "Missing or empty 'fileReplacements' array" });
       return;
     }
     try {
-      const result = mediaGallery.bulkReplaceUsage(replacements);
+      const result = mediaGallery.bulkReplaceUsage(fileReplacements);
       res.json(result);
     } catch (err: any) {
       res.status(500).json({ error: err.message || "Bulk replace failed" });
