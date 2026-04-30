@@ -1,7 +1,14 @@
-# Common properties shared across all language variants
-slug: "geekpal-support"
-title: "GeekPAL Support"
-
+slug: geekpal-support
+title: GeekPAL Support
 meta:
   priority: 0.9
-  change_frequency: "weekly"
+  change_frequency: weekly
+  robots: index, follow
+  page_title: GeekPAL Support | 4Geeks
+  redirects:
+    - /geekpal-support
+    - /us/geekpal-support
+schema:
+  include:
+    - organization
+    - website

@@ -11447,7 +11447,7 @@
       "height": 500,
       "format": "webp",
       "parentId": "student_asian",
-      "quality_override": 65,
+      "quality_override": 71,
       "preset": [
         "full"
       ],
@@ -11477,7 +11477,7 @@
       "height": 500,
       "format": "webp",
       "parentId": "student_latin_male",
-      "quality_override": 65,
+      "quality_override": 84,
       "preset": [
         "avatar"
       ],
@@ -11510,7 +11510,7 @@
       "height": 500,
       "format": "webp",
       "parentId": "student_african",
-      "quality_override": 65,
+      "quality_override": 72,
       "preset": [
         "full"
       ],
@@ -11541,7 +11541,7 @@
       "height": 500,
       "format": "webp",
       "parentId": "student_latina_female",
-      "quality_override": 65,
+      "quality_override": 73,
       "preset": [
         "avatar"
       ],

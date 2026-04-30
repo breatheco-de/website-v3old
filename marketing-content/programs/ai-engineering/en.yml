@@ -5,7 +5,7 @@ settings:
     eager_count: 3
 meta:
   page_title: AI Engineer Career Program | 4Geeks
-  description: Become an AI Engineer in 20 weeks with unlimited 1:1 mentorship, career guidance, and hands-on projects. Launch a career with $95K-$135K starting salaries.
+  description: Become an AI Engineer in 24 weeks. 84% hiring rate, $95K–$135K salaries. Unlimited mentorship and career support designed to get you hired. 4Geeks Academy.
   robots: index, follow
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
@@ -654,37 +654,8 @@ sections:
   - type: faq
     section_id: faq-dm78m2
     title: FAQ
-    items:
-      - question: What prerequisites do I need for AI Engineering?
-        answer: Basic programming knowledge is recommended but not required. Our program starts with foundational concepts and builds up to advanced AI engineering. If you're new to coding, we have preparatory materials to help you get started.
-        locations:
-          - all
-        related_features: []
-        priority: 0
-      - question: How long does the program take?
-        answer: The AI Engineering program is designed to be completed in 20 weeks. However, as a self-paced program, you can accelerate or take more time based on your schedule and learning pace.
-        locations:
-          - all
-        related_features: []
-        priority: 0
-      - question: What kind of projects will I build?
-        answer: You'll build production-ready AI applications including RAG systems, multi-agent orchestrators, real-time AI applications, and a full capstone project. All projects use real-world technologies and patterns used by top companies.
-        locations:
-          - all
-        related_features: []
-        priority: 0
-      - question: Do I need expensive hardware for AI development?
-        answer: No! All exercises and projects run in the cloud. We provide access to cloud-based development environments and AI APIs, so you can learn with just a laptop and internet connection.
-        locations:
-          - all
-        related_features: []
-        priority: 0
-      - question: Is the certificate recognized by employers?
-        answer: Yes! Our certificate is recognized by employers worldwide. We're licensed by the Florida Department of Education and have been featured by Forbes, Newsweek, and Course Report as one of the top coding bootcamps.
-        locations:
-          - all
-        related_features: []
-        priority: 0
+    related_features:
+      - ai-engineering
     marginY:
       desktop: none
     paddingY:
