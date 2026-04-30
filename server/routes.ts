@@ -9503,16 +9503,18 @@ sections: []
         .webp({ quality })
         .toBuffer();
 
-      const baseId = `${imageId}-${targetWidth}x${targetHeight}`;
+      const rootId = entry.parentId ?? imageId;
+      const baseId = `${rootId}-${targetWidth}x${targetHeight}`;
 
       const parentTags = entry.tags || [];
-      let uniqueId = baseId;
-      let counter = 1;
-      while (registry.images[uniqueId]) {
-        uniqueId = `${baseId}-${counter}`;
-        counter++;
+
+      const existingEntry = registry.images[baseId];
+      if (existingEntry && existingEntry.parentId === rootId &&
+          existingEntry.width === targetWidth && existingEntry.height === targetHeight) {
+        return res.json({ id: baseId, src: existingEntry.src, width: targetWidth, height: targetHeight });
       }
 
+      const uniqueId = baseId;
       const derivedFilename = `${uniqueId}.webp`;
       const defaultProvider = media.getDefaultProvider();
       let newSrc: string;
@@ -9543,11 +9545,11 @@ sections: []
         width: targetWidth,
         height: targetHeight,
         format: "webp",
-        parentId: imageId,
+        parentId: rootId,
         quality_override: qualityToSave,
       });
 
-      console.log(`[CropResize] Created "${uniqueId}" (${targetWidth}x${targetHeight}) from "${imageId}"`);
+      console.log(`[CropResize] Created "${uniqueId}" (${targetWidth}x${targetHeight}) from "${rootId}"`);
 
       (async () => {
         try {

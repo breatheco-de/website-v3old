@@ -165,7 +165,7 @@ sections:
       - image_id: graduates_coding
         col_span: 6
         row_span: 2
-      - image_id: graduates_friends
+      - image_id: graduates_friends-288x210
         col_span: 6
         row_span: 2
     section_id: graduates_stats-cnxqbb

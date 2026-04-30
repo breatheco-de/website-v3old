@@ -2,7 +2,15 @@
   "presets": {
     "hero-wide": {
       "aspect_ratio": "16:9",
-      "widths": [320, 480, 640, 720, 960, 1280, 1920],
+      "widths": [
+        320,
+        480,
+        640,
+        720,
+        960,
+        1280,
+        1920
+      ],
       "quality": 85,
       "description": "Full-width hero images"
     },
@@ -1418,7 +1426,13 @@
       "tags": [
         "photo",
         "students",
-        "hero"
+        "hero",
+        "logo",
+        "card",
+        "partner",
+        "press",
+        "illustration",
+        "team"
       ],
       "usage_count": 2,
       "hash": "b1e14f407d3a074bc12747adb03bdd1c233b82657cf8d7f3074efc2fcea7cef1",
@@ -11252,6 +11266,198 @@
         {
           "w": 288,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_team_2-288x210-288x210-288w.webp"
+        }
+      ]
+    },
+    "graduates_friends-288x210": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210.webp",
+      "alt": "4Geeks students laughing and enjoying time together",
+      "focal_point": "center",
+      "tags": [
+        "graduates",
+        "friends",
+        "community"
+      ],
+      "usage_count": 0,
+      "width": 288,
+      "height": 210,
+      "format": "webp",
+      "parentId": "graduates_friends",
+      "quality_override": 65,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        288
+      ],
+      "srcset": [
+        {
+          "w": 288,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210-288w.webp"
+        }
+      ]
+    },
+    "students_collaborating-1096x598": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-1096x598.webp",
+      "alt": "Students collaborating in workspace",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "students",
+        "hero"
+      ],
+      "usage_count": 0,
+      "width": 1096,
+      "height": 598,
+      "format": "webp",
+      "parentId": "students_collaborating",
+      "preset": [
+        "hero-wide"
+      ],
+      "widths_generated": [
+        320,
+        480,
+        640,
+        720,
+        960
+      ],
+      "srcset": [
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-1096x598-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-1096x598-480w.webp"
+        },
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-1096x598-640w.webp"
+        },
+        {
+          "w": 720,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-1096x598-720w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-1096x598-960w.webp"
+        }
+      ]
+    },
+    "students_collaborating-479x280": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-479x280.webp",
+      "alt": "Students collaborating in workspace",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "students",
+        "hero",
+        "logo",
+        "card",
+        "partner",
+        "press",
+        "illustration",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 479,
+      "height": 280,
+      "format": "webp",
+      "parentId": "students_collaborating",
+      "preset": [
+        "hero-wide",
+        "logo"
+      ],
+      "widths_generated": [
+        120,
+        240,
+        320
+      ],
+      "srcset": [
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-479x280-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-479x280-240w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-479x280-320w.webp"
+        }
+      ]
+    },
+    "students_collaborating-479x280-479x280": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-479x280-479x280.webp",
+      "alt": "Students collaborating in workspace",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "students",
+        "hero",
+        "logo",
+        "card",
+        "partner",
+        "press",
+        "illustration",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 479,
+      "height": 280,
+      "format": "webp",
+      "parentId": "students_collaborating-479x280",
+      "quality_override": 70,
+      "preset": [
+        "hero-wide",
+        "logo"
+      ],
+      "widths_generated": [
+        120,
+        240,
+        320
+      ],
+      "srcset": [
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-479x280-479x280-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-479x280-479x280-240w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/students_collaborating-479x280-479x280-320w.webp"
+        }
+      ]
+    },
+    "student_asian-133x500": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp",
+      "alt": "Asian student learning to code",
+      "focal_point": "center",
+      "tags": [
+        "student",
+        "portrait",
+        "diversity"
+      ],
+      "usage_count": 0,
+      "width": 133,
+      "height": 500,
+      "format": "webp",
+      "parentId": "student_asian",
+      "quality_override": 65,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        133
+      ],
+      "srcset": [
+        {
+          "w": 133,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500-133w.webp"
         }
       ]
     }
