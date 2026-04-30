@@ -5,7 +5,6 @@ meta:
   change_frequency: weekly
   robots: index, follow
   page_title: GeekPAL Support | 4Geeks
-  description: The mentorship support that means you'll never get stuck. Unlimited 1:1 coding mentorship, 24/7 AI tutoring from Rigobot, and a global dev community. Lifelong access.
   redirects:
     - /geekpal-support
     - /us/geekpal-support
