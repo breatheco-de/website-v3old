@@ -115,8 +115,9 @@ function safeYamlDump(obj: unknown, opts?: yamlParser.DumpOptions): string {
 function stripTransientDynamicKeys(section: unknown): unknown {
   if (!section || typeof section !== "object") return section;
   const sec = section as Record<string, unknown>;
-  if (!sec.dynamic_entries) return section;
-  const { items: _items, _dynamic_meta: _meta, ...authored } = sec;
+  const { _variableFields: _vf, ...withoutVF } = sec;
+  if (!withoutVF.dynamic_entries) return withoutVF;
+  const { items: _items, _dynamic_meta: _meta, ...authored } = withoutVF;
   return authored;
 }
 import { usePageHistoryOptional } from "@/contexts/PageHistoryContext";

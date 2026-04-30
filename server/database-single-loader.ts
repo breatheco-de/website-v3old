@@ -16,6 +16,26 @@ import { fetchMarkdownContent } from "./markdown";
 import { applyComponentSectionDefaults } from "./component-registry";
 import type { TemplatePage } from "@shared/schema";
 
+const TEMPLATE_EXPR_RE = /\{\{[\s\S]*?\}\}/;
+
+function extractVariableFields(
+  obj: unknown,
+  prefix = "",
+): Record<string, string> {
+  const result: Record<string, string> = {};
+  if (typeof obj !== "object" || obj === null) return result;
+  for (const [key, value] of Object.entries(obj as Record<string, unknown>)) {
+    if (key.startsWith("_")) continue;
+    const dotPath = prefix ? `${prefix}.${key}` : key;
+    if (typeof value === "string" && TEMPLATE_EXPR_RE.test(value)) {
+      result[dotPath] = value.trim();
+    } else if (typeof value === "object" && value !== null && !Array.isArray(value)) {
+      Object.assign(result, extractVariableFields(value, dotPath));
+    }
+  }
+  return result;
+}
+
 export async function loadDatabaseSinglePage(
   contentType: string,
   slug: string,
@@ -135,6 +155,14 @@ export async function loadDatabaseSinglePage(
     const singleItem = { ...matchItem, content };
 
     const sections = (merged.sections as TemplatePage["sections"]) || [];
+
+    for (const section of sections as unknown[]) {
+      const variableFields = extractVariableFields(section);
+      if (Object.keys(variableFields).length > 0) {
+        (section as Record<string, unknown>)._variableFields = variableFields;
+      }
+    }
+
     applyComponentSectionDefaults(sections as unknown[]);
 
     const page: TemplatePage = {
