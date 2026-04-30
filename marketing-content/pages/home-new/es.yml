@@ -79,7 +79,7 @@ sections:
     maxWidth:
       desktop: 6xl
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500-133x500.webp
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Estudiante aprendiendo a programar
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
         alt: Desarrollador trabajando en un proyecto

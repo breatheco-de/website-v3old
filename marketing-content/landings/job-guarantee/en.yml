@@ -403,7 +403,7 @@ sections:
           - text: Keeps you unblocked at any hour
           - text: Hundreds of hands-on coding exercises and tests
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500-133x500.webp
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Asian student learning to code
         object_fit: cover
         object_position: 40%20%
