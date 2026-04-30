@@ -20,11 +20,6 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -110,6 +105,7 @@ export function ImagePickerDialog({
   const [cropAspectLock, setCropAspectLock] = useState(false);
   const [cropQuality, setCropQuality] = useState(85);
   const [cropProcessing, setCropProcessing] = useState(false);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const cropSizeSuggestions = useMemo(() => {
     const suggestions: Array<{ value: string; label: string; width: number; height: number }> = [];
@@ -428,107 +424,84 @@ export function ImagePickerDialog({
                     {filteredImages.slice(0, visibleCount).map(([id, img]) => {
                       const variants = childrenByParent[id] || [];
                       const hasVariants = variants.length > 0;
+                      const isExpanded = expandedId === id;
                       const isSelected = selectedRegistryId === id
                         || variants.some(([childId, c]) => selectedRegistryId === childId || selectedSrc === c.src);
                       const borderClass = isSelected
                         ? "border-primary"
                         : "border-transparent hover:border-muted-foreground/50";
 
-                      const cardContent = (
-                        <div className="relative">
-                          <img src={img.src} alt={img.alt} className="w-full h-auto" loading="lazy" />
-                          {hasVariants && (
-                            <div className="absolute bottom-1 right-1 bg-black/60 text-white rounded px-1 py-0.5" style={{ fontSize: 9 }}>
-                              {variants.length}v
-                            </div>
-                          )}
-                        </div>
-                      );
-
-                      if (!hasVariants) {
-                        return (
+                      return (
+                        <div key={id} className="mb-2 break-inside-avoid">
                           <button
-                            key={id}
                             type="button"
                             onClick={() => {
                               setSelectedSrc(img.src);
                               setSelectedAlt(img.alt || "");
                               setSelectedRegistryId(id);
+                              if (hasVariants) setExpandedId(isExpanded ? null : id);
                             }}
-                            className={`mb-2 rounded-md overflow-hidden bg-muted border-2 transition-colors block w-full ${borderClass}`}
+                            className={`rounded-md overflow-hidden bg-muted border-2 transition-colors block w-full ${borderClass}`}
                             title={img.alt}
                             data-testid={`gallery-image-${id}`}
                           >
-                            {cardContent}
+                            <div className="relative">
+                              <img src={img.src} alt={img.alt} className="w-full h-auto" loading="lazy" />
+                              {hasVariants && (
+                                <div className="absolute bottom-1 right-1 bg-black/70 text-white rounded text-[10px] font-semibold px-1.5 py-0.5 leading-none">
+                                  {variants.length}v
+                                </div>
+                              )}
+                            </div>
                           </button>
-                        );
-                      }
 
-                      return (
-                        <Popover key={id} modal={false}>
-                          <PopoverTrigger asChild>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setSelectedSrc(img.src);
-                                setSelectedAlt(img.alt || "");
-                                setSelectedRegistryId(id);
-                              }}
-                              className={`mb-2 rounded-md overflow-hidden bg-muted border-2 transition-colors block w-full ${borderClass}`}
-                              title={img.alt}
-                              data-testid={`gallery-image-${id}`}
-                            >
-                              {cardContent}
-                            </button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-60 p-2 z-[9999]" side="right" align="start">
-                            <p className="text-xs font-medium text-muted-foreground px-1 pb-1.5">Variantes recortadas</p>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setSelectedSrc(img.src);
-                                setSelectedAlt(img.alt || "");
-                                setSelectedRegistryId(id);
-                              }}
-                              className={`w-full flex items-center gap-2 rounded-md p-1.5 text-left hover-elevate ${selectedSrc === img.src || selectedSrc === id ? "bg-muted" : ""}`}
-                              data-testid={`variant-original-${id}`}
-                            >
-                              <img src={img.src} alt={img.alt} className="w-10 h-8 object-cover rounded flex-shrink-0" />
-                              <div className="flex-1 min-w-0">
-                                <p className="text-xs font-medium">Original</p>
-                                {img.width && img.height && (
-                                  <p className="text-[10px] text-muted-foreground">{img.width} × {img.height}</p>
-                                )}
-                              </div>
-                            </button>
-                            {variants.map(([childId, childImg]) => {
-                              const childSelected = selectedSrc === childImg.src || selectedSrc === childId;
-                              return (
-                                <button
-                                  key={childId}
-                                  type="button"
-                                  onClick={() => {
-                                    setSelectedSrc(childImg.src);
-                                    setSelectedAlt(childImg.alt || img.alt || "");
-                                    setSelectedRegistryId(childId);
-                                  }}
-                                  className={`w-full flex items-center gap-2 rounded-md p-1.5 text-left hover-elevate ${childSelected ? "bg-muted" : ""}`}
-                                  data-testid={`variant-child-${childId}`}
-                                >
-                                  <img src={childImg.src} alt={childImg.alt} className="w-10 h-8 object-cover rounded flex-shrink-0" />
-                                  <div className="flex-1 min-w-0">
-                                    <p className="text-xs font-medium truncate">{childImg.width} × {childImg.height}</p>
-                                    <div className="flex items-center gap-1 flex-wrap">
+                          {hasVariants && isExpanded && (
+                            <div className="mt-1 rounded-md border bg-background p-1 space-y-0.5">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setSelectedSrc(img.src);
+                                  setSelectedAlt(img.alt || "");
+                                  setSelectedRegistryId(id);
+                                }}
+                                className={`w-full flex items-center gap-1.5 rounded p-1 text-left hover-elevate ${selectedRegistryId === id ? "bg-muted" : ""}`}
+                                data-testid={`variant-original-${id}`}
+                              >
+                                <img src={img.src} alt={img.alt} className="w-8 h-6 object-cover rounded flex-shrink-0" />
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-[10px] font-medium leading-tight">Original</p>
+                                  {img.width && img.height && (
+                                    <p className="text-[9px] text-muted-foreground leading-tight">{img.width}×{img.height}</p>
+                                  )}
+                                </div>
+                              </button>
+                              {variants.map(([childId, childImg]) => {
+                                const childSelected = selectedRegistryId === childId || selectedSrc === childImg.src;
+                                return (
+                                  <button
+                                    key={childId}
+                                    type="button"
+                                    onClick={() => {
+                                      setSelectedSrc(childImg.src);
+                                      setSelectedAlt(childImg.alt || img.alt || "");
+                                      setSelectedRegistryId(childId);
+                                    }}
+                                    className={`w-full flex items-center gap-1.5 rounded p-1 text-left hover-elevate ${childSelected ? "bg-muted" : ""}`}
+                                    data-testid={`variant-child-${childId}`}
+                                  >
+                                    <img src={childImg.src} alt={childImg.alt} className="w-8 h-6 object-cover rounded flex-shrink-0" />
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-[10px] font-medium leading-tight">{childImg.width}×{childImg.height}</p>
                                       {childImg.quality_override !== undefined && (
-                                        <span className="text-[10px] bg-muted rounded px-1">q{childImg.quality_override}</span>
+                                        <p className="text-[9px] text-muted-foreground leading-tight">q{childImg.quality_override}</p>
                                       )}
                                     </div>
-                                  </div>
-                                </button>
-                              );
-                            })}
-                          </PopoverContent>
-                        </Popover>
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
                       );
                     })}
                   </div>
