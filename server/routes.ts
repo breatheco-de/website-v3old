@@ -9504,7 +9504,6 @@ sections: []
         .toBuffer();
 
       const rootId = entry.parentId ?? imageId;
-      const baseId = `${rootId}-${targetWidth}x${targetHeight}`;
 
       const parentTags = entry.tags || [];
 
@@ -9514,14 +9513,12 @@ sections: []
         ? Math.max(...parentPresets.map((p) => registryPresets[p]?.quality ?? 85))
         : 85;
       const qualityToSave = quality !== presetDefaultQuality ? quality : undefined;
+      const qualitySuffix = qualityToSave !== undefined ? `-q${quality}` : "";
+      const baseId = `${rootId}-${targetWidth}x${targetHeight}${qualitySuffix}`;
 
       const existingEntry = registry.images[baseId];
-      if (existingEntry && existingEntry.parentId === rootId &&
-          existingEntry.width === targetWidth && existingEntry.height === targetHeight) {
-        const existingEffectiveQuality = existingEntry.quality_override ?? presetDefaultQuality;
-        if (existingEffectiveQuality === quality) {
-          return res.json({ id: baseId, src: existingEntry.src, width: targetWidth, height: targetHeight });
-        }
+      if (existingEntry) {
+        return res.json({ id: baseId, src: existingEntry.src, width: targetWidth, height: targetHeight });
       }
 
       const uniqueId = baseId;

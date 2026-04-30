@@ -982,7 +982,7 @@ export function ImagePickerDialog({
                   data-testid="slider-crop-quality"
                 />
                 <p className="text-[11px] text-muted-foreground">
-                  If dimensions match an existing crop, only the quality will be updated on the same file.
+                  Non-default quality generates a separate file (e.g. <code>-q68</code>). Same dimensions + same quality reuses the existing file.
                 </p>
               </div>
             </div>
