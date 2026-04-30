@@ -521,6 +521,79 @@ class MediaGallery {
     }));
   }
 
+  /**
+   * Given a variable name like "single.image", look up the content type and DB field
+   * in content-types.yml. Returns { dbSlug, dbField } or null if not found.
+   */
+  private resolveContentTypeField(variableName: string): { dbSlug: string; dbField: string } | null {
+    try {
+      const contentTypesPath = path.join(MARKETING_CONTENT_DIR, "content-types.yml");
+      if (!fs.existsSync(contentTypesPath)) return null;
+      const raw = yaml.load(fs.readFileSync(contentTypesPath, "utf8")) as Record<string, any>;
+      // variableName is like "single.image" — the field key is the part after "single."
+      const fieldKey = variableName.startsWith("single.") ? variableName.slice("single.".length) : variableName;
+      for (const [, ctDef] of Object.entries(raw)) {
+        if (!ctDef || typeof ctDef !== "object") continue;
+        const dbSlug = ctDef.database?.slug as string | undefined;
+        if (!dbSlug) continue;
+        const fieldMapping = ctDef.field_mapping as Record<string, string> | undefined;
+        if (!fieldMapping) continue;
+        if (Object.prototype.hasOwnProperty.call(fieldMapping, fieldKey)) {
+          const dbField = fieldMapping[fieldKey];
+          return { dbSlug, dbField };
+        }
+      }
+    } catch {}
+    return null;
+  }
+
+  /**
+   * Ensure `cache_images: true` is set on a DB field in its config.yml.
+   * Returns true if the flag is already set or was successfully enabled.
+   */
+  private ensureCacheImagesEnabled(dbSlug: string, dbField: string): boolean {
+    try {
+      const configPath = path.join(MARKETING_CONTENT_DIR, "db", dbSlug, "config.yml");
+      if (!fs.existsSync(configPath)) return false;
+      const raw = yaml.load(fs.readFileSync(configPath, "utf8")) as Record<string, any>;
+      if (!raw || typeof raw !== "object") return false;
+      if (!raw.editor || typeof raw.editor !== "object") raw.editor = {};
+      if (!raw.editor[dbField] || typeof raw.editor[dbField] !== "object") raw.editor[dbField] = {};
+      if (raw.editor[dbField].cache_images === true) return true;
+      raw.editor[dbField].cache_images = true;
+      fs.writeFileSync(configPath, yaml.dump(raw, { lineWidth: -1 }), "utf8");
+      markFileAsModified(`marketing-content/db/${dbSlug}/config.yml`);
+      return true;
+    } catch {}
+    return false;
+  }
+
+  /**
+   * Update the image-registry.json entry whose src or source_url matches fromSrc,
+   * setting its src to toSrc. Returns true if the registry was updated.
+   */
+  private updateRegistrySrc(fromSrc: string, toSrc: string): boolean {
+    try {
+      const registry = this.getRegistry();
+      if (!registry) return false;
+      let updated = false;
+      for (const entry of Object.values(registry.images)) {
+        if (entry.src === fromSrc || entry.source_url === fromSrc) {
+          entry.src = toSrc;
+          updated = true;
+        }
+      }
+      if (updated) {
+        fs.writeFileSync(REGISTRY_PATH, JSON.stringify(registry, null, 2) + "\n", "utf8");
+        markFileAsModified("marketing-content/image-registry.json");
+        this.registryCache = null;
+        this.lastModified = 0;
+      }
+      return updated;
+    } catch {}
+    return false;
+  }
+
   bulkReplaceUsage(
     fileReplacements: Array<{ filePath: string; fromId: string; fromSrc: string; toId: string; toSrc: string }>
   ): { filesUpdated: number; files: string[] } {
@@ -543,10 +616,47 @@ class MediaGallery {
         let content = fs.readFileSync(fullPath, "utf8");
         let changed = false;
         for (const { fromId, fromSrc, toId, toSrc } of pairs) {
-          // Replace the src URL first (it's always a unique full URL, safe to replace globally in file)
           if (fromSrc && toSrc && fromSrc !== toSrc && content.includes(fromSrc)) {
-            content = content.split(fromSrc).join(toSrc);
-            changed = true;
+            // For each occurrence of fromSrc, determine whether it is inside a {{ ... }}
+            // placeholder expression. Placeholder occurrences → registry update only.
+            // Non-placeholder occurrences → normal text substitution.
+            const escapedSrc = fromSrc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const srcPattern = new RegExp(escapedSrc, 'g');
+            let hasPlaceholderOccurrence = false;
+            let firstPlaceholderVarName: string | null = null;
+            const newContent = content.replace(srcPattern, (match, offset) => {
+              // Find the last {{ that appears at or before this offset
+              const openIdx = content.lastIndexOf('{{', offset);
+              if (openIdx === -1) return toSrc; // not inside {{ }}
+              // Find the }} that closes that {{ block — it must end at or after our match
+              const closeIdx = content.indexOf('}}', openIdx + 2);
+              if (closeIdx === -1 || closeIdx < offset + match.length) return toSrc;
+              // This occurrence is inside a {{ ... }} placeholder
+              if (!hasPlaceholderOccurrence) {
+                // Extract the variable name once: "single.image" from "{{ single.image | https://... }}"
+                const inner = content.slice(openIdx + 2, closeIdx).trim();
+                firstPlaceholderVarName = inner.split('|')[0].trim();
+              }
+              hasPlaceholderOccurrence = true;
+              return match; // preserve the placeholder — do not replace in YAML
+            });
+            if (newContent !== content) {
+              content = newContent;
+              changed = true;
+            }
+            if (hasPlaceholderOccurrence) {
+              // Resolve content type/field and confirm cache_images is (or can be) enabled
+              const resolved = firstPlaceholderVarName
+                ? this.resolveContentTypeField(firstPlaceholderVarName)
+                : null;
+              const cacheEnabled = resolved
+                ? this.ensureCacheImagesEnabled(resolved.dbSlug, resolved.dbField)
+                : false;
+              // Only update the registry if we confirmed cache_images is enabled
+              if (cacheEnabled) {
+                this.updateRegistrySrc(fromSrc, toSrc);
+              }
+            }
           }
           // Replace bare ID references (e.g. image_id: field) only when the ID is not followed
           // by characters that would indicate it's part of a longer ID or URL path (-_alphanum)
