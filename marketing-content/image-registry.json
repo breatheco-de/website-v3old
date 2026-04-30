@@ -11559,6 +11559,31 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/student_latina_female-133x500-128w.webp"
         }
       ]
+    },
+    "blog_posts-changes-in-code-jpg-0f007c1f-640x462": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-changes-in-code-jpg-0f007c1f-640x462.webp",
+      "alt": "Image from blog_posts",
+      "focal_point": "center",
+      "tags": [
+        "blog_posts"
+      ],
+      "usage_count": 0,
+      "width": 640,
+      "height": 462,
+      "format": "webp",
+      "parentId": "blog_posts-changes-in-code-jpg-0f007c1f",
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640
+      ],
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-changes-in-code-jpg-0f007c1f-640x462-640w.webp"
+        }
+      ]
     }
   }
 }
