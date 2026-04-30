@@ -9048,6 +9048,39 @@ sections: []
     res.json(registry);
   });
 
+  app.get("/api/image-registry/family-usage", (req, res) => {
+    const raw = req.query.ids;
+    const ids: string[] = Array.isArray(raw)
+      ? (raw as string[]).filter(Boolean)
+      : typeof raw === "string" && raw
+        ? [raw]
+        : [];
+    if (!ids.length) {
+      res.json([]);
+      return;
+    }
+    try {
+      const results = mediaGallery.getFamilyUsage(ids);
+      res.json(results);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message || "Failed to get family usage" });
+    }
+  });
+
+  app.post("/api/image-registry/bulk-replace-usage", (req, res) => {
+    const { replacements } = req.body as { replacements?: Array<{ from: string; to: string }> };
+    if (!Array.isArray(replacements) || replacements.length === 0) {
+      res.status(400).json({ error: "Missing or empty 'replacements' array" });
+      return;
+    }
+    try {
+      const result = mediaGallery.bulkReplaceUsage(replacements);
+      res.json(result);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message || "Bulk replace failed" });
+    }
+  });
+
   app.delete("/api/image-registry/:id", async (req, res) => {
     try {
       const result = await mediaGallery.unregister(req.params.id);

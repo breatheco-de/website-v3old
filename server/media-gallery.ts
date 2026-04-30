@@ -394,6 +394,136 @@ class MediaGallery {
     return Array.from(files);
   }
 
+  getFamilyUsage(ids: string[]): Array<{
+    filePath: string; slug: string; contentType: string; locale: string;
+    sectionIndex: number; sectionType: string; currentSrc: string; currentId: string;
+  }> {
+    const registry = this.getRegistry();
+    if (!registry || !ids.length) return [];
+
+    const refs = this.collectImageReferences();
+    const results: Array<{
+      filePath: string; slug: string; contentType: string; locale: string;
+      sectionIndex: number; sectionType: string; currentSrc: string; currentId: string;
+    }> = [];
+    const seen = new Set<string>();
+
+    const parseYamlPath = (fp: string) => {
+      const m = fp.match(/^marketing-content\/([^/]+)\/([^/]+)\/([^/.]+)\.ya?ml$/);
+      return m ? { contentType: m[1], slug: m[2], locale: m[3] } : null;
+    };
+
+    for (const id of ids) {
+      const entry = registry.images[id];
+      if (!entry) continue;
+
+      // 1. Use imageIdLocations for section-level info (image_id field references)
+      const locations = refs.imageIdLocations.get(id) ?? [];
+      for (const loc of locations) {
+        const key = `${loc.yamlFile}::${loc.sectionIndex}::${id}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        results.push({
+          filePath: loc.yamlFile, slug: loc.slug, contentType: loc.contentType,
+          locale: loc.locale, sectionIndex: loc.sectionIndex, sectionType: loc.sectionType,
+          currentSrc: entry.src, currentId: id,
+        });
+      }
+
+      // 2. Handle src-based references not already captured by imageIdLocations
+      const allFiles = new Set<string>();
+      (refs.byRef.get(entry.src) ?? new Set()).forEach(f => allFiles.add(f));
+      (refs.byRef.get(id) ?? new Set()).forEach(f => allFiles.add(f));
+
+      for (const filePath of allFiles) {
+        if (!filePath.endsWith(".yml") && !filePath.endsWith(".yaml")) continue;
+        const meta = parseYamlPath(filePath);
+        if (!meta) continue;
+        // skip if all sections already covered by imageIdLocations
+        if (locations.some(loc => loc.yamlFile === filePath)) continue;
+
+        try {
+          const fullPath = path.join(process.cwd(), filePath);
+          const content = fs.readFileSync(fullPath, "utf8");
+          const { escaped, map } = escapeTemplateVars(content);
+          const parsed = unescapeObjectVars(yaml.load(escaped) as object, map) as Record<string, unknown>;
+          if (!parsed) continue;
+
+          const sections = parsed.sections;
+          if (Array.isArray(sections)) {
+            let foundInSection = false;
+            (sections as unknown[]).forEach((section: unknown, idx: number) => {
+              const sectionStr = JSON.stringify(section);
+              if (!sectionStr.includes(entry.src) && !sectionStr.includes(id)) return;
+              const key = `${filePath}::${idx}::${id}`;
+              if (seen.has(key)) return;
+              seen.add(key);
+              foundInSection = true;
+              results.push({
+                filePath, ...meta, sectionIndex: idx,
+                sectionType: (typeof (section as Record<string, unknown>)?.type === "string"
+                  ? String((section as Record<string, unknown>).type) : "unknown"),
+                currentSrc: entry.src, currentId: id,
+              });
+            });
+            if (!foundInSection) {
+              const key = `${filePath}::-1::${id}`;
+              if (!seen.has(key)) {
+                seen.add(key);
+                results.push({ filePath, ...meta, sectionIndex: -1, sectionType: "unknown", currentSrc: entry.src, currentId: id });
+              }
+            }
+          } else {
+            const key = `${filePath}::-1::${id}`;
+            if (!seen.has(key)) {
+              seen.add(key);
+              results.push({ filePath, ...meta, sectionIndex: -1, sectionType: "unknown", currentSrc: entry.src, currentId: id });
+            }
+          }
+        } catch {}
+      }
+    }
+
+    return results;
+  }
+
+  bulkReplaceUsage(replacements: Array<{ from: string; to: string }>): { filesUpdated: number; files: string[] } {
+    if (!replacements.length) return { filesUpdated: 0, files: [] };
+    const updatedFiles: string[] = [];
+
+    const walkAndReplace = (dir: string) => {
+      if (!fs.existsSync(dir)) return;
+      const entries = fs.readdirSync(dir, { withFileTypes: true });
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+          walkAndReplace(fullPath);
+        } else if (entry.name.endsWith(".yml") || entry.name.endsWith(".yaml")) {
+          try {
+            let content = fs.readFileSync(fullPath, "utf8");
+            let changed = false;
+            for (const { from, to } of replacements) {
+              if (from && to && from !== to && content.includes(from)) {
+                content = content.split(from).join(to);
+                changed = true;
+              }
+            }
+            if (changed) {
+              fs.writeFileSync(fullPath, content, "utf8");
+              const relPath = path.relative(process.cwd(), fullPath);
+              markFileAsModified(relPath);
+              updatedFiles.push(relPath);
+            }
+          } catch {}
+        }
+      }
+    };
+
+    walkAndReplace(MARKETING_CONTENT_DIR);
+    this.imageRefCache = null;
+    return { filesUpdated: updatedFiles.length, files: updatedFiles };
+  }
+
   private async checkExists(src: string): Promise<boolean> {
     const cached = this.existenceCache.get(src);
     const now = Date.now();

@@ -24,6 +24,7 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
@@ -33,6 +34,17 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import type { ImageRegistry, ImageEntry } from "@shared/schema";
+
+interface FamilyUsageEntry {
+  filePath: string;
+  slug: string;
+  contentType: string;
+  locale: string;
+  sectionIndex: number;
+  sectionType: string;
+  currentSrc: string;
+  currentId: string;
+}
 
 export interface ImagePickerDialogProps {
   open: boolean;
@@ -108,6 +120,12 @@ export function ImagePickerDialog({
   const [cropQuality, setCropQuality] = useState(85);
   const [cropProcessing, setCropProcessing] = useState(false);
   const [floatingPanel, setFloatingPanel] = useState<{ id: string; rect: DOMRect } | null>(null);
+  const [bulkModal, setBulkModal] = useState<{
+    open: boolean;
+    usages: FamilyUsageEntry[];
+    checking: boolean;
+    applying: boolean;
+  }>({ open: false, usages: [], checking: false, applying: false });
 
   const cropSizeSuggestions = useMemo(() => {
     const suggestions: Array<{ value: string; label: string; width: number; height: number }> = [];
@@ -312,6 +330,98 @@ export function ImagePickerDialog({
       setSaving(false);
     }
   }, [onSave, selectedSrc, selectedAlt, selectedRegistryId, onOpenChange, toast]);
+
+  const checkFamilyAndSave = useCallback(async () => {
+    if (!imageRegistry?.images || !selectedRegistryId) {
+      await handleSave();
+      return;
+    }
+
+    const selectedEntry = imageRegistry.images[selectedRegistryId];
+    if (!selectedEntry) {
+      await handleSave();
+      return;
+    }
+
+    const effectiveParentId = selectedEntry.parentId ?? selectedRegistryId;
+    const children = childrenByParent[effectiveParentId] ?? [];
+    const isFamily = !!selectedEntry.parentId || children.length > 0;
+    if (!isFamily) {
+      await handleSave();
+      return;
+    }
+
+    // Collect all family member IDs
+    const familyIds = [effectiveParentId, ...children.map(([id]) => id)];
+
+    setBulkModal({ open: true, usages: [], checking: true, applying: false });
+    try {
+      const params = new URLSearchParams();
+      familyIds.forEach(id => params.append("ids[]", id));
+      const resp = await fetch(`/api/image-registry/family-usage?${params.toString()}`);
+      const usages: FamilyUsageEntry[] = await resp.json();
+
+      if (!usages.length) {
+        setBulkModal({ open: false, usages: [], checking: false, applying: false });
+        await handleSave();
+        return;
+      }
+
+      setBulkModal({ open: true, usages, checking: false, applying: false });
+    } catch {
+      setBulkModal({ open: false, usages: [], checking: false, applying: false });
+      await handleSave();
+    }
+  }, [imageRegistry, selectedRegistryId, childrenByParent, handleSave]);
+
+  const handleBulkReplaceAndSave = useCallback(async () => {
+    if (!imageRegistry?.images || !selectedRegistryId) return;
+
+    const selectedEntry = imageRegistry.images[selectedRegistryId];
+    if (!selectedEntry) return;
+
+    const effectiveParentId = selectedEntry.parentId ?? selectedRegistryId;
+    const children = childrenByParent[effectiveParentId] ?? [];
+    const allFamilyEntries: Array<[string, typeof selectedEntry]> = [
+      [effectiveParentId, imageRegistry.images[effectiveParentId]],
+      ...children,
+    ].filter(([, e]) => !!e) as Array<[string, typeof selectedEntry]>;
+
+    const replacements: Array<{ from: string; to: string }> = [];
+    for (const [id, entry] of allFamilyEntries) {
+      if (entry.src && entry.src !== selectedSrc) {
+        replacements.push({ from: entry.src, to: selectedSrc });
+      }
+      if (id && id !== selectedRegistryId) {
+        replacements.push({ from: id, to: selectedRegistryId });
+      }
+    }
+
+    setBulkModal(prev => ({ ...prev, applying: true }));
+    try {
+      const resp = await fetch("/api/image-registry/bulk-replace-usage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ replacements }),
+      });
+      const result = (await resp.json()) as { filesUpdated: number };
+      setBulkModal({ open: false, usages: [], checking: false, applying: false });
+      await handleSave();
+      if (result.filesUpdated > 0) {
+        toast({
+          title: `${result.filesUpdated} ${result.filesUpdated === 1 ? "página actualizada" : "páginas actualizadas"}`,
+          description: "Los cambios se aplicaron en todos los archivos.",
+        });
+      }
+    } catch (err) {
+      setBulkModal(prev => ({ ...prev, applying: false }));
+      toast({
+        title: "Error al reemplazar",
+        description: err instanceof Error ? err.message : "Error desconocido",
+        variant: "destructive",
+      });
+    }
+  }, [imageRegistry, selectedRegistryId, selectedSrc, childrenByParent, handleSave, toast]);
 
   const handleClose = () => {
     onOpenChange(false);
@@ -671,11 +781,11 @@ export function ImagePickerDialog({
               </Button>
               <Button
                 type="button"
-                onClick={handleSave}
-                disabled={!selectedSrc || saving}
+                onClick={checkFamilyAndSave}
+                disabled={!selectedSrc || saving || bulkModal.checking}
                 data-testid="button-image-save"
               >
-                {saving ? (
+                {saving || bulkModal.checking ? (
                   <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
                 ) : (
                   <IconCheck className="h-4 w-4 mr-2" />
@@ -908,6 +1018,90 @@ export function ImagePickerDialog({
           document.body
         );
       })()}
+
+      <Dialog
+        open={bulkModal.open}
+        onOpenChange={(isOpen) => {
+          if (!isOpen && !bulkModal.applying) {
+            setBulkModal({ open: false, usages: [], checking: false, applying: false });
+          }
+        }}
+      >
+        <DialogContent className="sm:max-w-lg max-h-[85vh] flex flex-col">
+          <DialogHeader>
+            <DialogTitle>Aplicar a todas las páginas</DialogTitle>
+            <DialogDescription>
+              {bulkModal.checking
+                ? "Buscando referencias en el contenido…"
+                : `${bulkModal.usages.length} ${bulkModal.usages.length === 1 ? "página usa" : "páginas usan"} imágenes de esta familia. ¿Quieres reemplazar todas esas referencias con la nueva selección?`}
+            </DialogDescription>
+          </DialogHeader>
+
+          {bulkModal.checking ? (
+            <div className="flex items-center justify-center py-8">
+              <IconLoader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+            </div>
+          ) : (
+            <div className="flex-1 overflow-y-auto min-h-0 space-y-1 py-1">
+              {bulkModal.usages.map((usage, i) => {
+                const entry = imageRegistry?.images?.[usage.currentId];
+                const isVariant = !!entry?.parentId;
+                return (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3 rounded-md px-2 py-1.5 text-sm"
+                    data-testid={`bulk-usage-row-${i}`}
+                  >
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium leading-tight truncate">
+                        {usage.slug}
+                        {usage.locale && <span className="text-muted-foreground ml-1 text-xs">({usage.locale})</span>}
+                      </p>
+                      <p className="text-xs text-muted-foreground leading-tight mt-0.5">
+                        {usage.sectionType !== "unknown" ? usage.sectionType : usage.contentType}
+                        {usage.sectionIndex >= 0 && ` · sección ${usage.sectionIndex + 1}`}
+                      </p>
+                    </div>
+                    <Badge variant="secondary" className="shrink-0 text-[10px] leading-tight">
+                      {isVariant
+                        ? `${entry?.width ?? "?"} × ${entry?.height ?? "?"}${entry?.quality_override !== undefined ? ` · Calidad: ${entry.quality_override}` : ""}`
+                        : "Original"}
+                    </Badge>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          <DialogFooter className="flex-row gap-2 sm:justify-between mt-2">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                setBulkModal({ open: false, usages: [], checking: false, applying: false });
+                void handleSave();
+              }}
+              disabled={bulkModal.applying || bulkModal.checking}
+              data-testid="button-bulk-skip"
+            >
+              Solo guardar este campo
+            </Button>
+            <Button
+              type="button"
+              onClick={handleBulkReplaceAndSave}
+              disabled={bulkModal.applying || bulkModal.checking}
+              data-testid="button-bulk-confirm"
+            >
+              {bulkModal.applying ? (
+                <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+              ) : (
+                <IconCheck className="h-4 w-4 mr-2" />
+              )}
+              Reemplazar en {bulkModal.usages.length} {bulkModal.usages.length === 1 ? "página" : "páginas"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
