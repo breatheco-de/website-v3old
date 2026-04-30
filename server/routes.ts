@@ -9507,13 +9507,14 @@ sections: []
       const baseId = `${rootId}-${targetWidth}x${targetHeight}`;
 
       const parentTags = entry.tags || [];
-      let uniqueId = baseId;
-      let counter = 1;
-      while (registry.images[uniqueId]) {
-        uniqueId = `${baseId}-${counter}`;
-        counter++;
+
+      const existingEntry = registry.images[baseId];
+      if (existingEntry && existingEntry.parentId === rootId &&
+          existingEntry.width === targetWidth && existingEntry.height === targetHeight) {
+        return res.json({ id: baseId, src: existingEntry.src, width: targetWidth, height: targetHeight });
       }
 
+      const uniqueId = baseId;
       const derivedFilename = `${uniqueId}.webp`;
       const defaultProvider = media.getDefaultProvider();
       let newSrc: string;
