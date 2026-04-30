@@ -592,7 +592,13 @@ export function SectionEditorPanel({
   const hasVariableFields = !!(section as Record<string, unknown>)._variableFields;
 
   const { data: templateSectionsData } = useQuery<{ sections: string[] }>({
-    queryKey: ["/api/content-types", contentType, "single-template-sections", locale],
+    queryKey: ["/api/content-types", contentType, "single-template-sections", locale ?? "en"],
+    queryFn: async () => {
+      const params = new URLSearchParams({ locale: locale ?? "en" });
+      const res = await fetch(`/api/content-types/${contentType}/single-template-sections?${params}`);
+      if (!res.ok) throw new Error(await res.text());
+      return res.json() as Promise<{ sections: string[] }>;
+    },
     enabled: hasVariableFields && !!contentType,
   });
 
