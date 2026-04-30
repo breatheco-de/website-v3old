@@ -1251,7 +1251,7 @@ sections:
         object_fit: cover
         object_position: 50%15%
         border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-4-lady-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latina_female-133x500.webp
         alt: Latina student celebrating success
         object_fit: cover
         object_position: 50%30%
