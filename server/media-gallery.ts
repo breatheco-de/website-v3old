@@ -548,10 +548,15 @@ class MediaGallery {
             content = content.split(fromSrc).join(toSrc);
             changed = true;
           }
-          // Replace the image_id: after the src replacement to avoid double-suffix on variant paths
-          if (fromId !== toId && content.includes(fromId)) {
-            content = content.split(fromId).join(toId);
-            changed = true;
+          // Replace bare ID references (e.g. image_id: field) only when the ID is not followed
+          // by characters that would indicate it's part of a longer ID or URL path (-_alphanum)
+          if (fromId !== toId) {
+            const idPattern = new RegExp(fromId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?![a-zA-Z0-9_-])', 'g');
+            const newContent = content.replace(idPattern, toId);
+            if (newContent !== content) {
+              content = newContent;
+              changed = true;
+            }
           }
         }
         if (changed) {
