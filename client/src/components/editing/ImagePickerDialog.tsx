@@ -157,6 +157,7 @@ export function ImagePickerDialog({
     if (open) {
       setSelectedSrc(initialSrc);
       setSelectedAlt(initialAlt);
+      setFloatingPanel(null);
       let resolvedId: string | undefined;
       if (initialSrc && imageRegistry?.images) {
         resolvedId = Object.entries(imageRegistry.images).find(
@@ -166,6 +167,8 @@ export function ImagePickerDialog({
       setSelectedRegistryId(resolvedId);
       setSearch("");
       setPickerMode("browse");
+    } else {
+      setFloatingPanel(null);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, initialSrc, initialAlt]);
@@ -838,14 +841,16 @@ export function ImagePickerDialog({
         const panelWidth = 240;
         const margin = 8;
         const spaceRight = window.innerWidth - right - margin;
+        const spaceLeft = left - margin;
+        const useLeftSide = spaceLeft > spaceRight && spaceLeft >= panelWidth;
         const panelStyle: React.CSSProperties = {
           position: "fixed",
           top: Math.min(top, window.innerHeight - 320),
           zIndex: 9999,
           width: panelWidth,
-          ...(spaceRight >= panelWidth
-            ? { left: right + margin }
-            : { right: window.innerWidth - left + margin }),
+          ...(useLeftSide
+            ? { right: window.innerWidth - left + margin }
+            : { left: right + margin }),
         };
         return createPortal(
           <div
