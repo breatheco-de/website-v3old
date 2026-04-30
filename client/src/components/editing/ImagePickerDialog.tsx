@@ -101,6 +101,7 @@ export function ImagePickerDialog({
   const [dragOver, setDragOver] = useState(false);
   const [saving, setSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const popoverContainerRef = useRef<HTMLDivElement>(null);
 
   const [cropPanelOpen, setCropPanelOpen] = useState(false);
   const [cropState, setCropState] = useState<Crop>({ unit: "%", x: 0, y: 0, width: 100, height: 100 });
@@ -464,10 +465,15 @@ export function ImagePickerDialog({
                       }
 
                       return (
-                        <Popover key={id}>
+                        <Popover key={id} modal={false}>
                           <PopoverTrigger asChild>
                             <button
                               type="button"
+                              onClick={() => {
+                                setSelectedSrc(img.src);
+                                setSelectedAlt(img.alt || "");
+                                setSelectedRegistryId(id);
+                              }}
                               className={`mb-2 rounded-md overflow-hidden bg-muted border-2 transition-colors block w-full ${borderClass}`}
                               title={img.alt}
                               data-testid={`gallery-image-${id}`}
@@ -475,7 +481,7 @@ export function ImagePickerDialog({
                               {cardContent}
                             </button>
                           </PopoverTrigger>
-                          <PopoverContent className="w-60 p-2" side="right" align="start">
+                          <PopoverContent className="w-60 p-2 z-[9999]" side="right" align="start">
                             <p className="text-xs font-medium text-muted-foreground px-1 pb-1.5">Variantes recortadas</p>
                             <button
                               type="button"
