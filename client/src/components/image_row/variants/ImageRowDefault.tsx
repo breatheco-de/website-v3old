@@ -435,6 +435,7 @@ export default function ImageRow({ data }: ImageRowProps) {
                       src={image.src}
                       alt={image.alt}
                       className="w-full h-full"
+                      sizes="(max-width: 768px) 67vw, 320px"
                       style={{
                         objectFit: image.object_fit || "cover",
                         objectPosition:
