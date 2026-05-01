@@ -7746,7 +7746,9 @@
     "blog_posts-photo-1573495627361-d9b87960b12d-f5d5b2bf": {
       "src": "https://images.unsplash.com/photo-1573495627361-d9b87960b12d?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://images.unsplash.com/photo-1573495627361-d9b87960b12d?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "usage_count": 0,
       "source_item": "software-engineer-your-path-to-success",
@@ -7762,7 +7764,9 @@
     "blog_posts-photo-1516321497487-e288fb19713f-50ed938b": {
       "src": "https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "usage_count": 0,
       "source_item": "unlocking-your-tech-career",
@@ -7778,7 +7782,10 @@
     "blog_posts-06f6778346fe13005de62fb6040116bf406be1b7-2ea6d359": {
       "src": "https://storage.googleapis.com/media-breathecode/06f6778346fe13005de62fb6040116bf406be1b7eae4577aed2542c512f93e12",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/06f6778346fe13005de62fb6040116bf406be1b7eae4577aed2542c512f93e12",
       "usage_count": 0,
       "source_item": "how-long-does-it-take-to-learn-python",
@@ -7810,7 +7817,9 @@
     "blog_posts-photo-1616531770192-6eaea74c2456-8ab8c03f": {
       "src": "https://images.unsplash.com/photo-1616531770192-6eaea74c2456?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://images.unsplash.com/photo-1616531770192-6eaea74c2456?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "usage_count": 0,
       "source_item": "best-online-machine-learning-course",
@@ -7826,7 +7835,10 @@
     "blog_posts-photo-1580894908361-967195033215-59b75761": {
       "src": "https://images.unsplash.com/photo-1580894908361-967195033215?auto=format&fit=crop&q=80&w=1740&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "team"
+      ],
       "source_url": "https://images.unsplash.com/photo-1580894908361-967195033215?auto=format&fit=crop&q=80&w=1740&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "usage_count": 0,
       "source_item": "is-python-hard-to-learn",
@@ -7842,7 +7854,9 @@
     "blog_posts-photo-1599658880436-c61792e70672-10c51cf6": {
       "src": "https://images.unsplash.com/photo-1599658880436-c61792e70672?auto=format&fit=crop&q=80&w=1740&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://images.unsplash.com/photo-1599658880436-c61792e70672?auto=format&fit=crop&q=80&w=1740&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "usage_count": 0,
       "source_item": "que-es-data-science",
@@ -7858,7 +7872,9 @@
     "blog_posts-photo-1617240016072-d92174e44171-5aaf7078": {
       "src": "https://images.unsplash.com/photo-1617240016072-d92174e44171?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://images.unsplash.com/photo-1617240016072-d92174e44171?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
       "usage_count": 0,
       "source_item": "desarrollo-de-software-en-latam",
@@ -7874,7 +7890,10 @@
     "blog_posts-photo-1627398242454-45a1465c2479-5dbcca06": {
       "src": "https://images.unsplash.com/photo-1627398242454-45a1465c2479?auto=format&fit=crop&q=80&w=1674&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "illustration"
+      ],
       "source_url": "https://images.unsplash.com/photo-1627398242454-45a1465c2479?auto=format&fit=crop&q=80&w=1674&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "usage_count": 0,
       "source_item": "learn-javascript",
