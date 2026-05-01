@@ -4,12 +4,19 @@ import type { ImageRef, ImageEntry, ImagePreset } from "@shared/schema";
 import SolidCard from "./SolidCard";
 import { useSectionContext } from "@/contexts/SectionContext";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
-import { Pencil, CheckCircle2, Clock, AlertCircle, Unlink, ExternalLink, ShieldCheck, Shield } from "lucide-react";
+import { Pencil, CheckCircle2, Clock, AlertCircle, Unlink, ExternalLink, ShieldCheck, Shield, ChevronDown } from "lucide-react";
 import { ImagePickerDialog } from "@/components/editing/ImagePickerDialog";
 import { editContent } from "@/lib/contentApi";
 import { emitContentUpdated } from "@/lib/contentEvents";
 import { useToast } from "@/hooks/use-toast";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { queryClient } from "@/lib/queryClient";
 
 interface ImageRegistryData {
   presets: Record<string, ImagePreset>;
@@ -353,6 +360,29 @@ export function UniversalImage({
     }
   };
 
+  const handleResetOverride = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!sectionContentType || !sectionSlug || !templateKey) return;
+    try {
+      const res = await fetch(
+        `/api/content-types/${sectionContentType}/db-overrides/${sectionSlug}?field=${encodeURIComponent(templateKey)}`,
+        { method: "DELETE" }
+      );
+      if (!res.ok) throw new Error(await res.text());
+      await queryClient.invalidateQueries({
+        queryKey: ["/api/content-types", sectionContentType, "db-overrides", sectionSlug],
+      });
+      emitContentUpdated({ contentType: sectionContentType, slug: sectionSlug, locale: sectionLocale ?? "" });
+      toast({ title: "Image reset to original" });
+    } catch (err) {
+      toast({
+        title: "Reset failed",
+        description: err instanceof Error ? err.message : "Unknown error",
+        variant: "destructive",
+      });
+    }
+  };
+
   const editOverlay = canReplace ? (
     <div
       className="absolute inset-0 z-20 flex items-center justify-center invisible group-hover/editimg:visible"
@@ -360,29 +390,78 @@ export function UniversalImage({
     >
       <div className="absolute inset-0 bg-black/40" />
       <div className="relative z-10 flex items-center gap-2">
-        <button
-          type="button"
-          onClick={handleEditClick}
-          className="flex items-center gap-1.5 bg-white/90 text-gray-900 rounded-md px-2.5 py-1.5 text-xs font-medium shadow-md cursor-pointer"
-          data-testid={`button-edit-image-${id}`}
-          aria-label="Replace image"
-        >
-          <Pencil className="h-3 w-3" />
-          Replace
-        </button>
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            window.open(src, "_blank", "noopener,noreferrer");
-          }}
-          className="flex items-center gap-1.5 bg-white/90 text-gray-900 rounded-md px-2.5 py-1.5 text-xs font-medium shadow-md cursor-pointer"
-          data-testid={`button-open-image-${id}`}
-          aria-label="Open image"
-        >
-          <ExternalLink className="h-3 w-3" />
-          Open
-        </button>
+        {/* Replace dropdown */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button
+              type="button"
+              className="flex items-center gap-1.5 bg-white/90 text-gray-900 rounded-md px-2.5 py-1.5 text-xs font-medium shadow-md cursor-pointer"
+              data-testid={`button-edit-image-${id}`}
+              aria-label="Replace image"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Pencil className="h-3 w-3" />
+              Replace
+              <ChevronDown className="h-3 w-3" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent onClick={(e) => e.stopPropagation()}>
+            <DropdownMenuItem
+              data-testid={`menu-item-choose-image-${id}`}
+              onSelect={(e) => {
+                (e as unknown as React.MouseEvent).stopPropagation?.();
+                setPickerOpen(true);
+              }}
+            >
+              Choose new image
+            </DropdownMenuItem>
+            {isOverridden && (
+              <DropdownMenuItem
+                data-testid={`menu-item-reset-image-${id}`}
+                onSelect={(e) => {
+                  handleResetOverride(e as unknown as React.MouseEvent);
+                }}
+              >
+                Reset to original
+              </DropdownMenuItem>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        {/* Open dropdown */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button
+              type="button"
+              className="flex items-center gap-1.5 bg-white/90 text-gray-900 rounded-md px-2.5 py-1.5 text-xs font-medium shadow-md cursor-pointer"
+              data-testid={`button-open-image-${id}`}
+              aria-label="Open image"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <ExternalLink className="h-3 w-3" />
+              Open
+              <ChevronDown className="h-3 w-3" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent onClick={(e) => e.stopPropagation()}>
+            <DropdownMenuItem
+              data-testid={`menu-item-open-original-${id}`}
+              onSelect={() => window.open(src, "_blank", "noopener,noreferrer")}
+            >
+              Open original image
+            </DropdownMenuItem>
+            {isOverridden && (
+              <DropdownMenuItem
+                data-testid={`menu-item-open-override-${id}`}
+                onSelect={() =>
+                  window.open(String(dbOverrides[templateKey!]), "_blank", "noopener,noreferrer")
+                }
+              >
+                Open override version
+              </DropdownMenuItem>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   ) : null;
