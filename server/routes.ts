@@ -2917,13 +2917,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const templateKey = reverseMap[dbKey] ?? dbKey;
         overrides[templateKey] = value;
       }
-      // Return originals: the raw (pre-override) field values for each overridden key
+      // Return originals: the raw (pre-override) field values for each overridden key.
+      // The fm (content-types registry field mapping) maps templateKey → dbConfigFieldName,
+      // which is the key that exists in the DB-config-mapped item from getOriginalMappedItem.
       const lookupKey = getLookupKey(type) || "slug";
       const originalItem = databaseManager.getOriginalMappedItem(dbName, slug, lookupKey);
       const originals: Record<string, unknown> = {};
       if (originalItem) {
         for (const templateKey of Object.keys(overrides)) {
-          const raw = originalItem[templateKey];
+          // fm[templateKey] gives the DB config field name (e.g. "preview_image" for "image")
+          const dbConfigField = fm?.[templateKey] ?? templateKey;
+          const raw = originalItem[dbConfigField] ?? originalItem[templateKey];
           if (raw !== undefined && raw !== null) originals[templateKey] = raw;
         }
       }
