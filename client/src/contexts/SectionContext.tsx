@@ -6,6 +6,7 @@ export interface SectionContextValue {
   contentType: string;
   slug: string;
   locale: string;
+  variableFields?: Record<string, string>;
 }
 
 const defaultValue: SectionContextValue = {
@@ -14,6 +15,7 @@ const defaultValue: SectionContextValue = {
   contentType: "",
   slug: "",
   locale: "",
+  variableFields: undefined,
 };
 
 const SectionContext = createContext<SectionContextValue>(defaultValue);

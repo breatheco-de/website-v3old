@@ -4,7 +4,7 @@ import type { ImageRef, ImageEntry, ImagePreset } from "@shared/schema";
 import SolidCard from "./SolidCard";
 import { useSectionContext } from "@/contexts/SectionContext";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
-import { Pencil, CheckCircle2, Clock, AlertCircle, Unlink, ExternalLink } from "lucide-react";
+import { Pencil, CheckCircle2, Clock, AlertCircle, Unlink, ExternalLink, ShieldCheck, Shield } from "lucide-react";
 import { ImagePickerDialog } from "@/components/editing/ImagePickerDialog";
 import { editContent } from "@/lib/contentApi";
 import { emitContentUpdated } from "@/lib/contentEvents";
@@ -41,6 +41,7 @@ interface FieldContext {
   arrayPath?: string;
   index?: number;
   srcField?: string;
+  templateKey?: string;
 }
 
 interface UniversalImageProps extends ImageRef {
@@ -86,10 +87,42 @@ export function UniversalImage({
   const [hasError, setHasError] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
-  const { isPriority: isPrioritySection, sectionIndex, contentType: sectionContentType, slug: sectionSlug, locale: sectionLocale } = useSectionContext();
+  const { isPriority: isPrioritySection, sectionIndex, contentType: sectionContentType, slug: sectionSlug, locale: sectionLocale, variableFields } = useSectionContext();
   const editModeCtx = useEditModeOptional();
   const isEditMode = editModeCtx?.isEditMode ?? false;
   const { toast } = useToast();
+
+  // Derive the template key from fieldContext + the section's _variableFields map from context.
+  // Explicit fieldContext.templateKey takes priority; otherwise auto-derive from the field path.
+  const templateKey: string | undefined = (() => {
+    if (fieldContext?.templateKey) return fieldContext.templateKey;
+    if (!variableFields) return undefined;
+    let lookupPath: string | undefined;
+    if (fieldContext?.fieldPath) {
+      lookupPath = fieldContext.fieldPath;
+    } else if (fieldContext?.arrayPath !== undefined && fieldContext?.index !== undefined && fieldContext?.srcField) {
+      lookupPath = `${fieldContext.arrayPath}.${fieldContext.index}.${fieldContext.srcField}`;
+    }
+    if (!lookupPath) return undefined;
+    const expr = variableFields[lookupPath];
+    if (!expr) return undefined;
+    const match = /\{\{\s*single\.([^|}\s]+)/.exec(expr);
+    return match ? match[1].trim() : undefined;
+  })();
+
+  const { data: dbOverridesData } = useQuery<{ overrides: Record<string, unknown> }>({
+    queryKey: ["/api/content-types", sectionContentType, "db-overrides", sectionSlug],
+    queryFn: async () => {
+      const res = await fetch(`/api/content-types/${sectionContentType}/db-overrides/${sectionSlug}`);
+      if (!res.ok) throw new Error(await res.text());
+      return res.json() as Promise<{ overrides: Record<string, unknown> }>;
+    },
+    enabled: isEditMode && !!templateKey && !!sectionContentType && !!sectionSlug,
+    staleTime: 0,
+    refetchOnMount: false,
+  });
+  const dbOverrides = dbOverridesData?.overrides ?? {};
+  const isOverridden = !!templateKey && templateKey in dbOverrides;
 
   const resolvedLoadingEarly: "lazy" | "eager" =
     loadingProp !== undefined
@@ -242,6 +275,34 @@ export function UniversalImage({
     </Tooltip>
   ) : null;
 
+  const overrideBadge = isEditMode && !!templateKey ? (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <div
+          className={`absolute top-1 left-1 z-10 flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-medium shadow-sm ${
+            isOverridden
+              ? "bg-green-600/90 text-white"
+              : "bg-muted/90 text-muted-foreground"
+          }`}
+          data-testid={`badge-override-status-${id}`}
+          aria-label={isOverridden ? "Image overridden by editor" : "Image using template default"}
+        >
+          {isOverridden ? (
+            <ShieldCheck className="h-3 w-3 shrink-0" />
+          ) : (
+            <Shield className="h-3 w-3 shrink-0" />
+          )}
+          {isOverridden ? "Overridden" : "Default"}
+        </div>
+      </TooltipTrigger>
+      <TooltipContent side="bottom" className="text-xs">
+        {isOverridden
+          ? `Custom image set by an editor (key: ${templateKey})`
+          : `Still using the template default (key: ${templateKey})`}
+      </TooltipContent>
+    </Tooltip>
+  ) : null;
+
   const handleEditClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -364,6 +425,7 @@ export function UniversalImage({
         }}
         data-testid={`img-${id}`}
       />
+      {overrideBadge}
       {statusBadge}
       {editOverlay}
     </div>
