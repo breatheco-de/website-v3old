@@ -6972,7 +6972,9 @@
     "blog_posts-91065a5e3735905a77ee3ce6c31b0f8ee258c408-cb51a136": {
       "src": "https://storage.googleapis.com/media-breathecode/91065a5e3735905a77ee3ce6c31b0f8ee258c408c1b8db6362ea49d7412f0a5e",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/91065a5e3735905a77ee3ce6c31b0f8ee258c408c1b8db6362ea49d7412f0a5e",
       "usage_count": 0,
       "source_item": "cuanto-gana-un-programador-en-uruguay",
@@ -7004,7 +7006,10 @@
     "blog_posts-79b62e96272891d9f197915fb1404d3f29343ebc-888519f4": {
       "src": "https://storage.googleapis.com/media-breathecode/79b62e96272891d9f197915fb1404d3f29343ebca4e452c6632c6a5893441282",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/79b62e96272891d9f197915fb1404d3f29343ebca4e452c6632c6a5893441282",
       "usage_count": 0,
       "source_item": "cuanto-gana-un-programador-en-chile",
@@ -7020,7 +7025,10 @@
     "blog_posts-34c146a5d91a4c2803d41c5ba087b42ebdaec50d-9a60fc0e": {
       "src": "https://storage.googleapis.com/media-breathecode/34c146a5d91a4c2803d41c5ba087b42ebdaec50d88630d1404748b09a273d3dc",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "team"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/34c146a5d91a4c2803d41c5ba087b42ebdaec50d88630d1404748b09a273d3dc",
       "usage_count": 0,
       "source_item": "cuanto-gana-un-programador-en-colombia",
@@ -7036,7 +7044,10 @@
     "blog_posts-deb418f6fc4423de0a01a200e1ded583fcbf73a4-91d9eeea": {
       "src": "https://storage.googleapis.com/media-breathecode/deb418f6fc4423de0a01a200e1ded583fcbf73a4770c8cfc72513678cf2a8610",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "team"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/deb418f6fc4423de0a01a200e1ded583fcbf73a4770c8cfc72513678cf2a8610",
       "usage_count": 0,
       "source_item": "talento-ti-para-impulsar-tu-equipo",
@@ -7052,7 +7063,9 @@
     "blog_posts-0e879061038abbe820750270ae01c88615c228a8-ca382f4a": {
       "src": "https://storage.googleapis.com/media-breathecode/0e879061038abbe820750270ae01c88615c228a83c4ee5093d52fefc0c194525",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/0e879061038abbe820750270ae01c88615c228a83c4ee5093d52fefc0c194525",
       "usage_count": 0,
       "source_item": "boston-coding-bootcamp",
@@ -7068,7 +7081,10 @@
     "blog_posts-6c91e2aaebdb4e09e8019acdcbd9156a461d421b-06951167": {
       "src": "https://storage.googleapis.com/media-breathecode/6c91e2aaebdb4e09e8019acdcbd9156a461d421b57237a51449fd84173285e25",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/6c91e2aaebdb4e09e8019acdcbd9156a461d421b57237a51449fd84173285e25",
       "usage_count": 0,
       "source_item": "machine-learning-course-syllabus",
@@ -7084,7 +7100,9 @@
     "blog_posts-258e871daa48e5cee28dfbd4a4814e79a75bcd4d-c17c0be0": {
       "src": "https://storage.googleapis.com/media-breathecode/258e871daa48e5cee28dfbd4a4814e79a75bcd4de48f6fd715a63ac58f67685f",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/258e871daa48e5cee28dfbd4a4814e79a75bcd4de48f6fd715a63ac58f67685f",
       "usage_count": 0,
       "source_item": "part-time-data-science-bootcamp",
@@ -7100,7 +7118,10 @@
     "blog_posts-ebe5d1388162a15b17079e53d6380f39618bdb73-2269fb22": {
       "src": "https://storage.googleapis.com/media-breathecode/ebe5d1388162a15b17079e53d6380f39618bdb731c401ebee79610229b83efe4",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/ebe5d1388162a15b17079e53d6380f39618bdb731c401ebee79610229b83efe4",
       "usage_count": 0,
       "source_item": "cursos-desarrollador-fullstack",
@@ -7116,7 +7137,9 @@
     "blog_posts-f09133dae309659c7a8b34670411793ab702385a-adde854f": {
       "src": "https://storage.googleapis.com/media-breathecode/f09133dae309659c7a8b34670411793ab702385a95fb34d648be05bf7428ef83",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/f09133dae309659c7a8b34670411793ab702385a95fb34d648be05bf7428ef83",
       "usage_count": 0,
       "source_item": "remoteandtalent-and-4geeksacademy",
