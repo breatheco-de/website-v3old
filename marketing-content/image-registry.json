@@ -14594,6 +14594,32 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/the-miami-herald-logo-551w.webp"
         }
       ]
+    },
+    "newsweek-logo": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/newsweek-logo.png",
+      "alt": "Image: newsweek-logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "press"
+      ],
+      "usage_count": 0,
+      "hash": "b8a7d9cb21e3cb436fec7ab3c017f04c1b848f183a6e75baa6730d5aab897b31",
+      "width": 443,
+      "height": 114,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        443
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 443,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/newsweek-logo-443w.webp"
+        }
+      ]
     }
   }
 }
