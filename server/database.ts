@@ -48,6 +48,19 @@ interface CacheEntry {
 
 const VALID_DB_NAME = /^[a-z0-9_-]+$/;
 
+function setValueByPath(obj: Record<string, unknown>, dotPath: string, value: unknown): void {
+  const parts = dotPath.split(".");
+  let current: Record<string, unknown> = obj;
+  for (let i = 0; i < parts.length - 1; i++) {
+    const part = parts[i];
+    if (current[part] === null || current[part] === undefined || typeof current[part] !== "object") {
+      current[part] = {};
+    }
+    current = current[part] as Record<string, unknown>;
+  }
+  current[parts[parts.length - 1]] = value;
+}
+
 function applyFieldMapping(
   item: Record<string, unknown>,
   mapping: Record<string, string>
@@ -680,6 +693,63 @@ export class DatabaseManager {
       return entry;
     } catch {
       return null;
+    }
+  }
+
+  patchDbEntry(
+    dbName: string,
+    lookupKey: string,
+    slugValue: string,
+    mappedUpdates: Record<string, unknown>,
+    fieldMapping: Record<string, string> | null = null
+  ): boolean {
+    try {
+      const readCache = (raw: boolean): CacheEntry | null => {
+        const suffix = raw ? "-raw" : "";
+        const cachePath = path.join(CACHE_DIR, `db-${dbName}${suffix}.json`);
+        if (!fs.existsSync(cachePath)) return null;
+        try {
+          return JSON.parse(fs.readFileSync(cachePath, "utf-8")) as CacheEntry;
+        } catch {
+          return null;
+        }
+      };
+
+      let patchedIdx = -1;
+
+      const mappedEntry = readCache(false);
+      if (mappedEntry) {
+        const idx = mappedEntry.items.findIndex(
+          (i) => String(i[lookupKey]) === String(slugValue)
+        );
+        if (idx !== -1) {
+          patchedIdx = idx;
+          Object.assign(mappedEntry.items[idx], mappedUpdates);
+          this.saveFileCache(dbName, mappedEntry, false);
+        }
+      }
+
+      if (fieldMapping && patchedIdx !== -1) {
+        const rawEntry = readCache(true);
+        if (rawEntry && rawEntry.items[patchedIdx]) {
+          for (const [templateKey, newValue] of Object.entries(mappedUpdates)) {
+            const rawPath = fieldMapping[templateKey];
+            if (rawPath) {
+              setValueByPath(
+                rawEntry.items[patchedIdx] as Record<string, unknown>,
+                rawPath,
+                newValue
+              );
+            }
+          }
+          this.saveFileCache(dbName, rawEntry, true);
+        }
+      }
+
+      this.memoryCache.delete(dbName);
+      return patchedIdx !== -1;
+    } catch {
+      return false;
     }
   }
 

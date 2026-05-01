@@ -13,6 +13,9 @@ import { normalizeLocale } from "./settings";
 import { markFileAsModified } from "./sync-state";
 import { contentIndex } from "./content-index";
 import { deepMerge } from "./utils/deepMerge";
+import { mergeSingleTemplate, extractVariableFields, TEMPLATE_EXPR_RE } from "./database-single-loader";
+import { getDatabaseName, getLookupKey, getFieldMapping } from "./content-types";
+import { databaseManager } from "./database";
 
 interface ContentEditRequest {
   contentType: string;
@@ -151,11 +154,18 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
   }
   
   try {
-    const { data: localeData, filePath, error: loadError } = contentIndex.loadLocaleData(contentType, slug, locale, variant, version);
+    const { data: localeData, filePath, error: loadError, isSharedTemplate } = contentIndex.loadLocaleData(contentType, slug, locale, variant, version);
     if (!localeData || loadError) {
       return { success: false, error: loadError || `Content file not found` };
     }
-    
+
+    // For DB-backed single pages the localeData points at the shared template.
+    // We must NOT write variable-field changes back to that shared file — instead
+    // we patch only the specific entry in the database file cache.
+    if (isSharedTemplate) {
+      return handleSharedTemplateEdit({ contentType, slug, locale, operations, localeData });
+    }
+
     // Apply all operations to the locale data (this is what gets saved)
     for (const operation of operations) {
       applyOperation(localeData, operation);
@@ -187,6 +197,110 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
     console.error("Content edit error:", error);
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
+}
+
+/**
+ * Handles section/field saves for DB-backed single-page templates (e.g. blog posts,
+ * programs). Instead of writing to the shared `single.en.yml` template, we identify
+ * which changed fields are template variable expressions (`{{ single.X | ... }}`),
+ * extract the target DB field name `X`, and patch only that entry's row in the
+ * database file cache. The shared template YAML is never touched.
+ */
+function handleSharedTemplateEdit(opts: {
+  contentType: string;
+  slug: string;
+  locale: string;
+  operations: EditOperation[];
+  localeData: Record<string, unknown>;
+}): { success: boolean; error?: string; warning?: string; updatedSections?: unknown[] } {
+  const { contentType, slug, locale, operations, localeData } = opts;
+
+  const dbName = getDatabaseName(contentType);
+  const lookupKey = getLookupKey(contentType) || "slug";
+  const fieldMapping = getFieldMapping(contentType);
+
+  // Load the raw template to read the original `{{ }}` expressions
+  const template = mergeSingleTemplate(contentType, locale);
+  const templateSections = Array.isArray(template?.sections)
+    ? (template!.sections as Record<string, unknown>[])
+    : [];
+
+  // Pre-compute variable fields for each template section (index → fieldPath → expr)
+  const sectionVarFields: Record<number, Record<string, string>> = {};
+  for (let i = 0; i < templateSections.length; i++) {
+    const vf = extractVariableFields(templateSections[i]);
+    if (Object.keys(vf).length > 0) sectionVarFields[i] = vf;
+  }
+
+  // Collect DB field updates from all operations
+  const dbUpdates: Record<string, unknown> = {};
+
+  for (const operation of operations) {
+    if (operation.action === "update_section") {
+      const varFields = sectionVarFields[operation.index] ?? {};
+      const newSection = (operation.section ?? {}) as Record<string, unknown>;
+      for (const [fieldPath, templateExpr] of Object.entries(varFields)) {
+        const newValue = getValueAtPath(newSection, fieldPath);
+        if (
+          newValue !== undefined &&
+          newValue !== templateExpr &&
+          typeof newValue === "string" &&
+          !TEMPLATE_EXPR_RE.test(newValue)
+        ) {
+          const templateKey = parseTemplateKey(templateExpr);
+          if (templateKey) dbUpdates[templateKey] = newValue;
+        }
+      }
+    } else if (operation.action === "update_field") {
+      // Handle paths like "sections.2.image" or "sections.2.background.src"
+      const m = operation.path.match(/^sections\.(\d+)\.(.+)$/);
+      if (m) {
+        const sectionIdx = parseInt(m[1], 10);
+        const fieldPath = m[2];
+        const varFields = sectionVarFields[sectionIdx] ?? {};
+        const templateExpr = varFields[fieldPath];
+        if (
+          templateExpr !== undefined &&
+          operation.value !== undefined &&
+          operation.value !== templateExpr &&
+          typeof operation.value === "string" &&
+          !TEMPLATE_EXPR_RE.test(operation.value)
+        ) {
+          const templateKey = parseTemplateKey(templateExpr);
+          if (templateKey) dbUpdates[templateKey] = operation.value;
+        }
+      }
+    }
+  }
+
+  if (Object.keys(dbUpdates).length > 0 && dbName) {
+    const patched = databaseManager.patchDbEntry(dbName, lookupKey, slug, dbUpdates, fieldMapping);
+    if (!patched) {
+      console.warn(`[editContent] patchDbEntry found no matching entry for ${dbName}/${slug}`);
+    }
+  }
+
+  // Apply operations to localeData in-memory so the returned sections reflect
+  // what the client expects to see immediately (the resolved new values).
+  for (const operation of operations) {
+    try { applyOperation(localeData, operation); } catch { /* ignore */ }
+  }
+
+  const updatedSections = (localeData.sections as unknown[]) || [];
+  return { success: true, updatedSections };
+}
+
+/**
+ * Parses the template variable name from an expression like `{{ single.thumbnail | default.jpg }}`.
+ * Returns the field key after "single." (e.g. "thumbnail"), or null if not a `single.*` variable.
+ */
+function parseTemplateKey(expr: string): string | null {
+  const inner = expr.replace(/^\{\{/, "").replace(/\}\}$/, "").trim();
+  const varName = inner.split("|")[0].trim(); // "single.thumbnail"
+  if (varName.startsWith("single.")) {
+    return varName.slice("single.".length);
+  }
+  return null;
 }
 
 interface CommonEditRequest {

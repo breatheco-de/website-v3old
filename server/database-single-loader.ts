@@ -16,9 +16,9 @@ import { fetchMarkdownContent } from "./markdown";
 import { applyComponentSectionDefaults } from "./component-registry";
 import type { TemplatePage } from "@shared/schema";
 
-const TEMPLATE_EXPR_RE = /\{\{[\s\S]*?\}\}/;
+export const TEMPLATE_EXPR_RE = /\{\{[\s\S]*?\}\}/;
 
-function extractVariableFields(
+export function extractVariableFields(
   obj: unknown,
   prefix = "",
 ): Record<string, string> {
