@@ -7533,11 +7533,14 @@
       "width": 402,
       "height": 77,
       "preset": [
-        "logo"
+        "logo",
+        "full",
+        "card"
       ],
       "widths_generated": [
         120,
-        240
+        240,
+        320
       ],
       "format": "webp",
       "srcset": [
@@ -7548,6 +7551,10 @@
         {
           "w": 240,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new-240w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new-320w.webp"
         }
       ]
     },
@@ -7564,15 +7571,42 @@
       "width": 1281,
       "height": 762,
       "preset": [
-        "full"
+        "full",
+        "card",
+        "avatar"
       ],
       "widths_generated": [
+        64,
+        128,
+        256,
+        320,
+        480,
         640,
         960,
         1280
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/community_support_cropped-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/community_support_cropped-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/community_support_cropped-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/community_support_cropped-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/community_support_cropped-480w.webp"
+        },
         {
           "w": 640,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/community_support_cropped-640w.webp"
@@ -7600,12 +7634,19 @@
       "width": 1387,
       "height": 775,
       "preset": [
+        "full",
+        "card",
         "avatar"
       ],
       "widths_generated": [
         64,
         128,
-        256
+        256,
+        320,
+        480,
+        640,
+        960,
+        1280
       ],
       "format": "webp",
       "srcset": [
@@ -7620,6 +7661,26 @@
         {
           "w": 256,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-120742-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-120742-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-120742-480w.webp"
+        },
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-120742-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-120742-960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-120742-1280w.webp"
         }
       ]
     },
@@ -7636,15 +7697,42 @@
       "width": 1384,
       "height": 781,
       "preset": [
-        "full"
+        "full",
+        "card",
+        "avatar"
       ],
       "widths_generated": [
+        64,
+        128,
+        256,
+        320,
+        480,
         640,
         960,
         1280
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165452-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165452-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165452-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165452-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165452-480w.webp"
+        },
         {
           "w": 640,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165452-640w.webp"
@@ -7672,15 +7760,42 @@
       "width": 1385,
       "height": 707,
       "preset": [
-        "full"
+        "full",
+        "card",
+        "avatar"
       ],
       "widths_generated": [
+        64,
+        128,
+        256,
+        320,
+        480,
         640,
         960,
         1280
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165808-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165808-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165808-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165808-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165808-480w.webp"
+        },
         {
           "w": 640,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-09-165808-640w.webp"
@@ -7708,15 +7823,42 @@
       "width": 1383,
       "height": 784,
       "preset": [
-        "full"
+        "full",
+        "card",
+        "avatar"
       ],
       "widths_generated": [
+        64,
+        128,
+        256,
+        320,
+        480,
         640,
         960,
         1280
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-10-120305-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-10-120305-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-10-120305-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-10-120305-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-10-120305-480w.webp"
+        },
         {
           "w": 640,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-10-120305-640w.webp"
@@ -7889,16 +8031,38 @@
       "width": 639,
       "height": 639,
       "preset": [
-        "full"
+        "full",
+        "card",
+        "avatar"
       ],
       "widths_generated": [
-        639
+        64,
+        128,
+        256,
+        320,
+        480
       ],
       "format": "webp",
       "srcset": [
         {
-          "w": 639,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-13-145607-639w.webp"
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-13-145607-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-13-145607-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-13-145607-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-13-145607-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-13-145607-480w.webp"
         }
       ]
     },
@@ -7914,16 +8078,21 @@
       "width": 359,
       "height": 82,
       "preset": [
-        "full"
+        "logo"
       ],
       "widths_generated": [
-        359
+        120,
+        240
       ],
       "format": "webp",
       "srcset": [
         {
-          "w": 359,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433-359w.webp"
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433-240w.webp"
         }
       ]
     },
@@ -7940,14 +8109,41 @@
       "width": 1242,
       "height": 689,
       "preset": [
-        "full"
+        "full",
+        "card",
+        "avatar"
       ],
       "widths_generated": [
+        64,
+        128,
+        256,
+        320,
+        480,
         640,
         960
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Bootcamp-de-Ingenier-a-de-IA-en-Espa-a-4Geeks-Academy-03-17-2026_09_17_AM-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Bootcamp-de-Ingenier-a-de-IA-en-Espa-a-4Geeks-Academy-03-17-2026_09_17_AM-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Bootcamp-de-Ingenier-a-de-IA-en-Espa-a-4Geeks-Academy-03-17-2026_09_17_AM-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Bootcamp-de-Ingenier-a-de-IA-en-Espa-a-4Geeks-Academy-03-17-2026_09_17_AM-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Bootcamp-de-Ingenier-a-de-IA-en-Espa-a-4Geeks-Academy-03-17-2026_09_17_AM-480w.webp"
+        },
         {
           "w": 640,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Bootcamp-de-Ingenier-a-de-IA-en-Espa-a-4Geeks-Academy-03-17-2026_09_17_AM-640w.webp"
@@ -7970,31 +8166,21 @@
       "width": 2506,
       "height": 1294,
       "preset": [
-        "full"
+        "logo"
       ],
       "widths_generated": [
-        640,
-        960,
-        1280,
-        1920
+        120,
+        240
       ],
       "format": "webp",
       "srcset": [
         {
-          "w": 640,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40-640w.webp"
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40-120w.webp"
         },
         {
-          "w": 960,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40-960w.webp"
-        },
-        {
-          "w": 1280,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40-1280w.webp"
-        },
-        {
-          "w": 1920,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40-1920w.webp"
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40-240w.webp"
         }
       ]
     },
