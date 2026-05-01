@@ -8479,7 +8479,10 @@
     "blog_posts-52b91cb95745cdcb02f51da2c0d8129d0a356122-a68a25db": {
       "src": "https://storage.googleapis.com/media-breathecode/52b91cb95745cdcb02f51da2c0d8129d0a3561228b5c242a27dd5f15e2f11503",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "illustration",
+        "photo"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/52b91cb95745cdcb02f51da2c0d8129d0a3561228b5c242a27dd5f15e2f11503",
       "usage_count": 0,
       "source_item": "estudiar-en-un-bootcamp-de-programacion",
@@ -8495,7 +8498,10 @@
     "blog_posts-770041986984bad40251d3ca8137dc2048a82946-76bb7950": {
       "src": "https://storage.googleapis.com/media-breathecode/770041986984bad40251d3ca8137dc2048a829468ed1969c81713a0ce59bc962",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/770041986984bad40251d3ca8137dc2048a829468ed1969c81713a0ce59bc962",
       "usage_count": 0,
       "source_item": "coding-bootcamp-in-berlin",
@@ -8511,7 +8517,9 @@
     "blog_posts-68142ae0f78a4ef794b7bf0d26b7e4d7c0c2c665-e8821a6d": {
       "src": "https://storage.googleapis.com/media-breathecode/68142ae0f78a4ef794b7bf0d26b7e4d7c0c2c66570346195a342f5f57f94e50b",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/68142ae0f78a4ef794b7bf0d26b7e4d7c0c2c66570346195a342f5f57f94e50b",
       "usage_count": 0,
       "source_item": "software-engineer-portfolio",
@@ -8527,7 +8535,9 @@
     "blog_posts-miami-dade-50bd6ebf": {
       "src": "",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://4GeeksAcademy.com/wp-content/uploads/2017/08/Miami-Dade.jpg",
       "usage_count": 0,
       "source_item": "full-stack-web-development-at-miami-dade-college"
@@ -8559,7 +8569,9 @@
     "blog_posts-martes-1-dacdee7e": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/blog/2016/01/Martes-1-640w.webp",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/4geeks-academy-website/blog/2016/01/Martes-1.png",
       "usage_count": 0,
       "source_item": "why-become-a-web-developer-in-miami-dade-in-2016",
@@ -8582,7 +8594,9 @@
     "blog_posts-screen-shot-2018-01-16-at-11-58-32-pm-06b5f2c0": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/blog/2018/01/Screen-Shot-2018-01-16-at-11.58.32-PM-640w.webp",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/4geeks-academy-website/blog/2018/01/Screen-Shot-2018-01-16-at-11.58.32-PM.png",
       "usage_count": 0,
       "source_item": "women-in-tech-2017",
@@ -8605,7 +8619,10 @@
     "blog_posts-wyncode4geeksironhack-75287535": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/blog/2016/01/wyncode4geeksironhack-400w.webp",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "illustration",
+        "logo"
+      ],
       "source_url": "https://storage.googleapis.com/4geeks-academy-website/blog/2016/01/wyncode4geeksironhack.jpeg",
       "usage_count": 0,
       "source_item": "wyncode-ironhack-and-4geeks-academy-comparison",
@@ -8628,7 +8645,10 @@
     "blog_posts-ad1403f19a9299b4ce4001ea2e1dfbdbc1c5e2dc-575c54f7": {
       "src": "https://storage.googleapis.com/media-breathecode/ad1403f19a9299b4ce4001ea2e1dfbdbc1c5e2dc7d040ddc9696e56ae3678fff-600x352",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "team"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/ad1403f19a9299b4ce4001ea2e1dfbdbc1c5e2dc7d040ddc9696e56ae3678fff-600x352",
       "usage_count": 0,
       "source_item": "aprender-a-programar-desde-cero",
