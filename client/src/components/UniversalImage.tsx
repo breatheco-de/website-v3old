@@ -4,7 +4,7 @@ import type { ImageRef, ImageEntry, ImagePreset } from "@shared/schema";
 import SolidCard from "./SolidCard";
 import { useSectionContext } from "@/contexts/SectionContext";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
-import { Pencil, CheckCircle2, Clock, AlertCircle, Unlink } from "lucide-react";
+import { Pencil, CheckCircle2, Clock, AlertCircle, Unlink, ExternalLink } from "lucide-react";
 import { ImagePickerDialog } from "@/components/editing/ImagePickerDialog";
 import { editContent } from "@/lib/contentApi";
 import { emitContentUpdated } from "@/lib/contentEvents";
@@ -294,20 +294,37 @@ export function UniversalImage({
   };
 
   const editOverlay = canReplace ? (
-    <button
-      type="button"
-      onClick={handleEditClick}
-      className="absolute inset-0 z-20 flex items-center justify-center invisible group-hover/editimg:visible cursor-pointer w-full"
+    <div
+      className="absolute inset-0 z-20 flex items-center justify-center invisible group-hover/editimg:visible"
       data-edit-overlay="true"
-      data-testid={`button-edit-image-${id}`}
-      aria-label="Replace image"
     >
       <div className="absolute inset-0 bg-black/40" />
-      <span className="relative z-10 flex items-center gap-1.5 bg-white/90 text-gray-900 rounded-md px-2.5 py-1.5 text-xs font-medium shadow-md">
-        <Pencil className="h-3 w-3" />
-        Replace
-      </span>
-    </button>
+      <div className="relative z-10 flex items-center gap-2">
+        <button
+          type="button"
+          onClick={handleEditClick}
+          className="flex items-center gap-1.5 bg-white/90 text-gray-900 rounded-md px-2.5 py-1.5 text-xs font-medium shadow-md cursor-pointer"
+          data-testid={`button-edit-image-${id}`}
+          aria-label="Replace image"
+        >
+          <Pencil className="h-3 w-3" />
+          Replace
+        </button>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            window.open(src, "_blank", "noopener,noreferrer");
+          }}
+          className="flex items-center gap-1.5 bg-white/90 text-gray-900 rounded-md px-2.5 py-1.5 text-xs font-medium shadow-md cursor-pointer"
+          data-testid={`button-open-image-${id}`}
+          aria-label="Open image"
+        >
+          <ExternalLink className="h-3 w-3" />
+          Open
+        </button>
+      </div>
+    </div>
   ) : null;
 
   const imageContent = (
