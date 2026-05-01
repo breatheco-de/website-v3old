@@ -27,6 +27,23 @@ import {
   SheetDescription,
   SheetFooter,
 } from "@/components/ui/sheet";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Link } from "wouter";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -273,6 +290,26 @@ export default function MediaGallery() {
   });
 
   const [overridesOpen, setOverridesOpen] = useState(false);
+  const [selectedDb, setSelectedDb] = useState<string>("all");
+  const [confirmResetDb, setConfirmResetDb] = useState<string | null>(null);
+  const [resettingDb, setResettingDb] = useState(false);
+
+  const handleResetAllForDb = async (contentType: string) => {
+    setResettingDb(true);
+    try {
+      const entries = activeOverrides.filter((e) => e.contentType === contentType);
+      for (const entry of entries) {
+        await apiRequest("DELETE", `/api/content-types/${entry.contentType}/db-overrides/${encodeURIComponent(entry.slug)}`);
+      }
+      await queryClient.invalidateQueries({ queryKey: ["/api/db-overrides"] });
+      toast({ title: "Overrides cleared", description: `All overrides for "${contentType}" have been reset.` });
+    } catch (err: unknown) {
+      toast({ title: "Reset failed", description: err instanceof Error ? err.message : "Unknown error", variant: "destructive" });
+    } finally {
+      setResettingDb(false);
+      setConfirmResetDb(null);
+    }
+  };
 
   interface RedundantImage { id: string; cloudUrl: string; localPath: string; }
   const { data: redundantData } = useQuery<{ count: number; images: RedundantImage[] }>({
@@ -2064,9 +2101,38 @@ export default function MediaGallery() {
               </div>
             )}
 
-            {!overridesLoading && activeOverrides.length > 0 && (
-              <div className="space-y-3" data-testid="list-overrides">
-                {activeOverrides.map((entry) => {
+            {!overridesLoading && activeOverrides.length > 0 && (() => {
+              const uniqueDbs = [...new Set(activeOverrides.map((e) => e.contentType))];
+              const filteredOverrides = selectedDb === "all"
+                ? activeOverrides
+                : activeOverrides.filter((e) => e.contentType === selectedDb);
+              return (
+                <>
+                  <div className="flex items-center gap-2" data-testid="overrides-db-filter-row">
+                    <Select value={selectedDb} onValueChange={setSelectedDb}>
+                      <SelectTrigger className="flex-1" data-testid="select-db-filter">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All databases</SelectItem>
+                        {uniqueDbs.map((db) => (
+                          <SelectItem key={db} value={db}>{db}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      disabled={resettingDb || selectedDb === "all"}
+                      onClick={() => setConfirmResetDb(selectedDb)}
+                      data-testid="button-reset-all-db"
+                    >
+                      Reset all
+                    </Button>
+                  </div>
+
+                  <div className="space-y-3" data-testid="list-overrides">
+                    {filteredOverrides.map((entry) => {
                   const fieldKeys = Object.keys(entry.fields);
                   return (
                     <div key={`${entry.contentType}-${entry.slug}`} className="rounded-md border p-3 space-y-2" data-testid={`override-entry-${entry.contentType}-${entry.slug}`}>
@@ -2123,12 +2189,37 @@ export default function MediaGallery() {
                       </div>
                     </div>
                   );
-                })}
-              </div>
-            )}
+                    })}
+                  </div>
+                </>
+              );
+            })()}
           </div>
         </SheetContent>
       </Sheet>
+
+      <AlertDialog open={confirmResetDb !== null} onOpenChange={(open) => { if (!open) setConfirmResetDb(null); }}>
+        <AlertDialogContent data-testid="dialog-confirm-reset-db">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Reset all overrides?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to reset all image overrides for{" "}
+              <span className="font-semibold text-foreground">{confirmResetDb}</span>?{" "}
+              All entries in this database will revert to their original images. This cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel data-testid="button-confirm-cancel">Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => confirmResetDb && handleResetAllForDb(confirmResetDb)}
+              disabled={resettingDb}
+              data-testid="button-confirm-reset-db"
+            >
+              {resettingDb ? "Resetting…" : "Reset all"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       <Sheet open={scriptsOpen} onOpenChange={(open) => { if (!open) setScriptsOpen(false); }}>
         <SheetContent side="right" className="sm:max-w-lg overflow-y-auto">
