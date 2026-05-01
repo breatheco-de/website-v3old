@@ -11484,24 +11484,54 @@
       ]
     },
     "blog_posts-blog_posts-launch-your-career-png-0ee32b-3985dd31": {
-      "src": "",
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-launch-your-career-png-0ee32b0a-736x491-640w.webp",
       "alt": "Image from blog_posts",
       "tags": [
         "blog_posts"
       ],
       "source_url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-launch-your-career-png-0ee32b0a-736x491.webp",
       "usage_count": 0,
-      "source_item": "geekforce-the-career-launch-engine"
+      "source_item": "geekforce-the-career-launch-engine",
+      "width": 736,
+      "height": 491,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-launch-your-career-png-0ee32b0a-736x491-640w.webp"
+        }
+      ]
     },
     "blog_posts-blog_posts-600000-png-f6968952-736x491-7d46199c": {
-      "src": "",
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-600000-png-f6968952-736x491-640w.webp",
       "alt": "Image from blog_posts",
       "tags": [
         "blog_posts"
       ],
       "source_url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-600000-png-f6968952-736x491.webp",
       "usage_count": 0,
-      "source_item": "the-600000-job-crisis"
+      "source_item": "the-600000-job-crisis",
+      "width": 736,
+      "height": 491,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-600000-png-f6968952-736x491-640w.webp"
+        }
+      ]
     }
   }
 }
