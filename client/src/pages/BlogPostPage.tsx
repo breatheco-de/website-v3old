@@ -163,6 +163,7 @@ export default function BlogPostPage() {
                 preset="hero-wide"
                 alt={post.title}
                 className="w-full object-cover"
+                fieldContext={{ templateKey: "image" }}
               />
             </div>
           </SectionContextProvider>
