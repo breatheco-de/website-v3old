@@ -14202,6 +14202,71 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-600000-png-f6968952-736x491-640w.webp"
         }
       ]
+    },
+    "nbc-logosvg": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/NBC_logo.svg.png",
+      "alt": "Image: NBC_logo.svg",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "440fc6f9f2481b23564bdda1a69c7ef489946c356ba474230f743147dc933bb2",
+      "width": 500,
+      "height": 493,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        500
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 500,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/NBC_logo.svg-500w.webp"
+        }
+      ]
+    },
+    "nbc-logo": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/nbc-logo.png",
+      "alt": "Image: nbc-logo",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "7b04e455e71b0a72ad5c9234e496515f777ffef41c1c3f6606f45a201c37c413",
+      "width": 3840,
+      "height": 2160,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960,
+        1280,
+        1920
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/nbc-logo-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/nbc-logo-960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/nbc-logo-1280w.webp"
+        },
+        {
+          "w": 1920,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/nbc-logo-1920w.webp"
+        }
+      ]
     }
   }
 }
