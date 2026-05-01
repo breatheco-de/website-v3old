@@ -106,8 +106,10 @@ export const imageOptimizationFixer: Fixer = {
     let skipped = 0;
     let failed = 0;
     for (const id of targetIds) {
-      const entry = registry.images[id];
-      if (!entry) {
+      // Always re-read registry after each persist, because persistRegistry() clears MediaGallery cache.
+      const currentRegistry = mediaGallery.getRegistry();
+      const entry = currentRegistry?.images[id];
+      if (!currentRegistry || !entry) {
         ctx.onProgress?.({
           type: "item",
           id,
