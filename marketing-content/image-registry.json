@@ -7909,7 +7909,9 @@
     "blog_posts-photo-1527689368864-3a821dbccc34-bf440ec7": {
       "src": "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
       "usage_count": 0,
       "source_item": "full-stack-developer-interview-questions",
@@ -7925,7 +7927,9 @@
     "blog_posts-photo-1587620962725-abab7fe55159-8d9d4809": {
       "src": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1631&q=80",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1631&q=80",
       "usage_count": 0,
       "source_item": "cursos-de-programacion-marcan-diferencia",
@@ -7941,7 +7945,9 @@
     "blog_posts-photo-1504384308090-c894fdcc538d-637d7582": {
       "src": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
       "usage_count": 0,
       "source_item": "angelhack",
@@ -7957,7 +7963,10 @@
     "blog_posts-desarrollador-full-stack-chileno-e6334bd3": {
       "src": "https://raw.githubusercontent.com/marcelovaldebenito/website-v2/master/static/images/blog/desarrollador-full-stack-chileno.jpg",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "team"
+      ],
       "source_url": "https://raw.githubusercontent.com/marcelovaldebenito/website-v2/master/static/images/blog/desarrollador-full-stack-chileno.jpg",
       "usage_count": 0,
       "source_item": "cuanto-gana-un-desarrollador-full-stack",
