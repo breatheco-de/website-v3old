@@ -2802,6 +2802,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/db-overrides", async (_req, res) => {
+    try {
+      const allConfigs = getAllConfigs();
+      const IMAGE_EXT_RE = /\.(jpe?g|png|webp|gif|svg|avif|tiff?|bmp|ico)(\?[^)]*)?$/i;
+      const result: Array<{ contentType: string; dbName: string; slug: string; fields: Record<string, unknown> }> = [];
+      for (const [contentType, config] of Object.entries(allConfigs)) {
+        const dbName = config.database?.slug;
+        if (!dbName) continue;
+        const overrides = databaseManager.listOverrides(dbName);
+        for (const { slug, fields } of overrides) {
+          const imageFields: Record<string, unknown> = {};
+          for (const [key, value] of Object.entries(fields)) {
+            if (typeof value === "string" && IMAGE_EXT_RE.test(value)) {
+              imageFields[key] = value;
+            }
+          }
+          if (Object.keys(imageFields).length > 0) {
+            result.push({ contentType, dbName, slug, fields: imageFields });
+          }
+        }
+      }
+      res.json({ overrides: result });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
   app.delete("/api/content-types/:type/db-overrides/:slug", async (req, res) => {
     try {
       const { type, slug } = req.params;

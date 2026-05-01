@@ -843,6 +843,12 @@ export class DatabaseManager {
     }
   }
 
+  listOverrides(dbName: string): { slug: string; fields: Record<string, unknown> }[] {
+    const overridesFile = this.loadOverridesFile(dbName);
+    if (!overridesFile) return [];
+    return Object.entries(overridesFile.entries).map(([slug, fields]) => ({ slug, fields }));
+  }
+
   clearDbOverride(
     dbName: string,
     slugValue: string,

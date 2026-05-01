@@ -244,6 +244,36 @@ export default function MediaGallery() {
     queryKey: ["/api/image-registry"],
   });
 
+  interface DbOverrideEntry {
+    contentType: string;
+    dbName: string;
+    slug: string;
+    fields: Record<string, string>;
+  }
+
+  const { data: overridesData, isLoading: overridesLoading } = useQuery<{ overrides: DbOverrideEntry[] }>({
+    queryKey: ["/api/db-overrides"],
+  });
+  const activeOverrides = overridesData?.overrides ?? [];
+
+  const resetOverrideMutation = useMutation({
+    mutationFn: ({ contentType, slug, field }: { contentType: string; slug: string; field?: string }) => {
+      const url = field
+        ? `/api/content-types/${contentType}/db-overrides/${encodeURIComponent(slug)}?field=${encodeURIComponent(field)}`
+        : `/api/content-types/${contentType}/db-overrides/${encodeURIComponent(slug)}`;
+      return apiRequest("DELETE", url).then(r => r.json());
+    },
+    onSuccess: (data) => {
+      toast({ title: "Override reset", description: data.message });
+      queryClient.invalidateQueries({ queryKey: ["/api/db-overrides"] });
+    },
+    onError: (err: any) => {
+      toast({ title: "Reset failed", description: err.message || "Could not reset override", variant: "destructive" });
+    },
+  });
+
+  const [overridesExpanded, setOverridesExpanded] = useState(true);
+
   interface RedundantImage { id: string; cloudUrl: string; localPath: string; }
   const { data: redundantData } = useQuery<{ count: number; images: RedundantImage[] }>({
     queryKey: ["/api/image-registry/redundant"],
@@ -1224,6 +1254,126 @@ export default function MediaGallery() {
                 </div>
               );
             })}
+          </div>
+        )}
+
+        {!overridesLoading && (
+          <div className="mb-6 rounded-lg border p-4 space-y-3" data-testid="panel-db-overrides">
+            <div className="flex items-center justify-between gap-2">
+              <button
+                type="button"
+                className="flex items-center gap-2 text-sm font-semibold hover:text-foreground/80 transition-colors"
+                onClick={() => setOverridesExpanded(v => !v)}
+                data-testid="button-toggle-overrides-panel"
+              >
+                <span>DB Image Overrides</span>
+                {activeOverrides.length > 0 && (
+                  <Badge variant="secondary" className="text-xs" data-testid="badge-overrides-count">
+                    {activeOverrides.reduce((sum, e) => sum + Object.keys(e.fields).length, 0)} active
+                  </Badge>
+                )}
+              </button>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setOverridesExpanded(v => !v)}
+                data-testid="button-collapse-overrides"
+              >
+                {overridesExpanded ? "Hide" : "Show"}
+              </Button>
+            </div>
+
+            {overridesExpanded && activeOverrides.length === 0 && (
+              <div className="space-y-2 text-sm text-muted-foreground" data-testid="overrides-empty-state">
+                <p>
+                  <span className="font-medium text-foreground">No active overrides.</span>{" "}
+                  All DB-backed entries are currently using their default images.
+                </p>
+                <p>
+                  <span className="font-medium text-foreground">What are overrides?</span>{" "}
+                  Some pages on this site (blog posts, programs, courses) are powered by a database. When an editor
+                  replaces an image on one of those pages — for example swapping the hero photo on a specific blog post —
+                  the new image is not written back to the database directly. Instead, it is saved as an <em>override</em>:
+                  a small record stored in <code className="text-xs bg-muted px-1 rounded">marketing-content/db/&lt;name&gt;/overrides.json</code> that
+                  says "for this particular slug, use this image instead."
+                </p>
+                <p>
+                  <span className="font-medium text-foreground">Why overrides?</span>{" "}
+                  This keeps the database clean and lets editors customise individual entries without touching the
+                  source data. Overrides are applied automatically at render time, so visitors always see the
+                  correct image — but the original database record is left intact and can be restored at any moment.
+                </p>
+                <p>
+                  <span className="font-medium text-foreground">What this panel does.</span>{" "}
+                  Once an override exists, it will appear here with a thumbnail, the content type, the entry slug, and
+                  the overridden field name. You can reset any individual field — or every override for an entry at once —
+                  without leaving the gallery.
+                </p>
+              </div>
+            )}
+
+            {overridesExpanded && activeOverrides.length > 0 && (
+              <div className="space-y-3" data-testid="list-overrides">
+                {activeOverrides.map((entry) => {
+                  const fieldKeys = Object.keys(entry.fields);
+                  return (
+                    <div key={`${entry.contentType}-${entry.slug}`} className="rounded-md border p-3 space-y-2" data-testid={`override-entry-${entry.contentType}-${entry.slug}`}>
+                      <div className="flex items-center justify-between gap-2 flex-wrap">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <Badge variant="outline" className="text-xs capitalize" data-testid={`badge-override-type-${entry.contentType}`}>
+                            {entry.contentType}
+                          </Badge>
+                          <span className="text-sm font-mono text-foreground" data-testid={`text-override-slug-${entry.slug}`}>
+                            {entry.slug}
+                          </span>
+                        </div>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => resetOverrideMutation.mutate({ contentType: entry.contentType, slug: entry.slug })}
+                          disabled={resetOverrideMutation.isPending}
+                          data-testid={`button-reset-all-${entry.contentType}-${entry.slug}`}
+                        >
+                          Reset all
+                        </Button>
+                      </div>
+                      <div className="space-y-2">
+                        {fieldKeys.map((field) => {
+                          const url = entry.fields[field];
+                          return (
+                            <div key={field} className="flex items-center gap-3 flex-wrap" data-testid={`override-field-${entry.contentType}-${entry.slug}-${field}`}>
+                              <img
+                                src={url}
+                                alt={`Override for ${field}`}
+                                className="h-10 w-16 object-cover rounded-md border shrink-0"
+                                data-testid={`img-override-${entry.contentType}-${entry.slug}-${field}`}
+                              />
+                              <div className="flex-1 min-w-0">
+                                <div className="text-xs font-mono text-muted-foreground truncate" data-testid={`text-override-field-${field}`}>
+                                  {field}
+                                </div>
+                                <div className="text-xs text-muted-foreground truncate" title={url} data-testid={`text-override-url-${field}`}>
+                                  {url}
+                                </div>
+                              </div>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => resetOverrideMutation.mutate({ contentType: entry.contentType, slug: entry.slug, field })}
+                                disabled={resetOverrideMutation.isPending}
+                                data-testid={`button-reset-field-${entry.contentType}-${entry.slug}-${field}`}
+                              >
+                                Reset
+                              </Button>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         )}
 
