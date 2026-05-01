@@ -14468,6 +14468,74 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210-q75-256w.webp"
         }
       ]
+    },
+    "664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-5000x3000": {
+      "src": "/marketing-content/images/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-5000x3000.webp",
+      "alt": "Image: 664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf",
+      "focal_point": "center",
+      "tags": [
+        "team",
+        "photo"
+      ],
+      "usage_count": 0,
+      "width": 5000,
+      "height": 3000,
+      "format": "webp",
+      "parentId": "664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf",
+      "preset": [
+        "avatar",
+        "card",
+        "full"
+      ],
+      "widths_generated": [
+        64,
+        128,
+        256,
+        320,
+        480,
+        640,
+        960,
+        1280,
+        1920
+      ],
+      "srcset": [
+        {
+          "w": 64,
+          "url": "/marketing-content/images/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-5000x3000-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "/marketing-content/images/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-5000x3000-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "/marketing-content/images/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-5000x3000-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "/marketing-content/images/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-5000x3000-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "/marketing-content/images/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-5000x3000-480w.webp"
+        },
+        {
+          "w": 640,
+          "url": "/marketing-content/images/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-5000x3000-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "/marketing-content/images/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-5000x3000-960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "/marketing-content/images/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-5000x3000-1280w.webp"
+        },
+        {
+          "w": 1920,
+          "url": "/marketing-content/images/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-5000x3000-1920w.webp"
+        }
+      ]
     }
   }
 }

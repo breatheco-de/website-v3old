@@ -443,7 +443,7 @@ export default function ImageRow({ data }: ImageRowProps) {
                         willChange: "transform",
                       }}
                       loading="lazy"
-                      {...(srcsetString ? { srcSet: srcsetString, sizes: "100vw" } : {})}
+                      {...(srcsetString ? { srcSet: srcsetString } : {})}
                       data-testid={`img-image-row-${index}`}
                     />
                   </div>
