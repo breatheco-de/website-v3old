@@ -7501,7 +7501,9 @@
     "blog_posts-hfl-01-58513a02": {
       "src": "https://raw.githubusercontent.com/marcelovaldebenito/website-v2/master/static/images/blog/hfl-01.png",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "illustration"
+      ],
       "source_url": "https://raw.githubusercontent.com/marcelovaldebenito/website-v2/master/static/images/blog/hfl-01.png",
       "usage_count": 0,
       "source_item": "habilidades-desarrollador-full-stack",
@@ -7517,7 +7519,9 @@
     "blog_posts-photo-1681215918800-3d9fdf67688c-6ff840bb": {
       "src": "https://images.unsplash.com/photo-1681215918800-3d9fdf67688c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://images.unsplash.com/photo-1681215918800-3d9fdf67688c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
       "usage_count": 0,
       "source_item": "cuanto-gana-un-programador-en-espana",
@@ -7549,7 +7553,9 @@
     "blog_posts-madrid-3-cc244880": {
       "src": "",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://4geeksacademy.com/static/e87935aadbb3844e3734315214b5f032/9298b/madrid-3.webp",
       "usage_count": 0,
       "source_item": "bootcamp-programacion-barcelona"
@@ -7573,7 +7579,9 @@
     "blog_posts-photo-1531498860502-7c67cf02f657-6270a4de": {
       "src": "https://images.unsplash.com/photo-1531498860502-7c67cf02f657?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://images.unsplash.com/photo-1531498860502-7c67cf02f657?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
       "usage_count": 0,
       "source_item": "how-much-is-a-coding-bootcamp",
@@ -7669,7 +7677,9 @@
     "blog_posts-photo-1423666639041-f56000c27a9a-209a46cb": {
       "src": "https://images.unsplash.com/photo-1423666639041-f56000c27a9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://images.unsplash.com/photo-1423666639041-f56000c27a9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80",
       "usage_count": 0,
       "source_item": "desbloquea-tu-carrera-tecnologica-auge-fin-2023",
@@ -7685,7 +7695,10 @@
     "blog_posts-web-developer-4fb5b2b8": {
       "src": "https://raw.githubusercontent.com/4geeksacademy/website-v2/master/static/images/blog/web-developer.jpeg",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "illustration"
+      ],
       "source_url": "https://raw.githubusercontent.com/4geeksacademy/website-v2/master/static/images/blog/web-developer.jpeg",
       "usage_count": 0,
       "source_item": "web-developer-earn-the-salary-you-deserve",
