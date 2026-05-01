@@ -8377,7 +8377,10 @@
     "blog_posts-393b27cbeea2af046fe296a4ed7ba53bcef3c0e9-b67bb8c1": {
       "src": "https://storage.googleapis.com/media-breathecode/393b27cbeea2af046fe296a4ed7ba53bcef3c0e936372b3385bc307a3fcd7d01",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "team"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/393b27cbeea2af046fe296a4ed7ba53bcef3c0e936372b3385bc307a3fcd7d01",
       "usage_count": 0,
       "source_item": "coding-bootcamp-miami",
@@ -8457,7 +8460,10 @@
     "blog_posts-c88e8cfc3c5f849d40dd0ed9c6bc18c6c113a05b-6b243f90": {
       "src": "https://storage.googleapis.com/media-breathecode/c88e8cfc3c5f849d40dd0ed9c6bc18c6c113a05b4d2665a8d8816898c804c41d",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/c88e8cfc3c5f849d40dd0ed9c6bc18c6c113a05b4d2665a8d8816898c804c41d",
       "usage_count": 0,
       "source_item": "full-stack-developer-portfolio",
