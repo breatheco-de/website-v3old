@@ -8664,7 +8664,10 @@
     "blog_posts-5f894df794f23842d72f19d7605aa55d352f2f13-d99daffa": {
       "src": "https://storage.googleapis.com/media-breathecode/5f894df794f23842d72f19d7605aa55d352f2f13283d515899330e1a0518da6f",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "logo"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/5f894df794f23842d72f19d7605aa55d352f2f13283d515899330e1a0518da6f",
       "usage_count": 0,
       "source_item": "software-engineer-in-berlin",
@@ -8680,7 +8683,10 @@
     "blog_posts-7991579cd7b70d0d10d3100aeb59c55dff7038dd-4a4887cd": {
       "src": "https://storage.googleapis.com/media-breathecode/7991579cd7b70d0d10d3100aeb59c55dff7038dd4f4e12d6243d9372f6d1354d-600x900",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/7991579cd7b70d0d10d3100aeb59c55dff7038dd4f4e12d6243d9372f6d1354d-600x900",
       "usage_count": 0,
       "source_item": "curso-online-de-programacion",
@@ -8712,7 +8718,9 @@
     "blog_posts-595c45af06bbc4a1f4f765cd17709e2ae5636b90-e6fe77eb": {
       "src": "https://storage.googleapis.com/media-breathecode/595c45af06bbc4a1f4f765cd17709e2ae5636b907356d67d6e7e046592c8e6a6",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/595c45af06bbc4a1f4f765cd17709e2ae5636b907356d67d6e7e046592c8e6a6",
       "usage_count": 0,
       "source_item": "software-engineer-salary-germany",
@@ -8728,7 +8736,9 @@
     "blog_posts-jsandpython-768x552-16b49437": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/blog/2019/11/JSandPython-768x552-640w.webp",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/4geeks-academy-website/blog/2019/11/JSandPython-768x552.jpg",
       "usage_count": 0,
       "source_item": "javascript-and-python",
@@ -8751,7 +8761,10 @@
     "blog_posts-a24f6b4e26045262adf8179c4ed521262c853d82-3b5d886b": {
       "src": "https://storage.googleapis.com/media-breathecode/a24f6b4e26045262adf8179c4ed521262c853d82683cf4f77a8cd9e8b8bc6b5b",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "illustration",
+        "photo"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/a24f6b4e26045262adf8179c4ed521262c853d82683cf4f77a8cd9e8b8bc6b5b",
       "usage_count": 0,
       "source_item": "cuanto-gana-un-programador-en-mexico",
@@ -8767,7 +8780,9 @@
     "blog_posts-39f693dbea2efbb78bd671bbc15ff5b6624a4756-f0833bd1": {
       "src": "https://storage.googleapis.com/media-breathecode/39f693dbea2efbb78bd671bbc15ff5b6624a47560c08bc9faf5581e35fd85fc4",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/39f693dbea2efbb78bd671bbc15ff5b6624a47560c08bc9faf5581e35fd85fc4",
       "usage_count": 0,
       "source_item": "software-engineer-salary-florida",
@@ -8783,7 +8798,9 @@
     "blog_posts-photo-1507146153580-69a1fe6d8aa1-1082e60c": {
       "src": "https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80",
       "usage_count": 0,
       "source_item": "all-you-need-to-know-about-artificial-intelligence",
@@ -8799,7 +8816,9 @@
     "blog_posts-e0fcf07b87888357e974b6fd5384a07eff940432-a0ef911b": {
       "src": "https://storage.googleapis.com/media-breathecode/e0fcf07b87888357e974b6fd5384a07eff94043269c15a1b6b9e5194b4dd89ee",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/e0fcf07b87888357e974b6fd5384a07eff94043269c15a1b6b9e5194b4dd89ee",
       "usage_count": 0,
       "source_item": "how-to-pay-a-coding-bootcamp-2022",
@@ -8815,7 +8834,9 @@
     "blog_posts-4geeks-portraits-39-1-jpg-e023a61f": {
       "src": "https://breathecode.herokuapp.com/v1/media/file/4geeks-portraits-39-1-jpg",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "avatar"
+      ],
       "source_url": "https://breathecode.herokuapp.com/v1/media/file/4geeks-portraits-39-1-jpg",
       "usage_count": 0,
       "source_item": "historia-de-4geeks-academy",
