@@ -49,7 +49,12 @@ export function resolveSingleVars(data: unknown, singleItem: Record<string, unkn
   if (data !== null && typeof data === "object") {
     const result: Record<string, unknown> = {};
     for (const [key, value] of Object.entries(data as Record<string, unknown>)) {
-      result[key] = resolveSingleVars(value, singleItem);
+      // Skip internal _ keys (e.g. _variableFields) so template expressions are preserved
+      if (key.startsWith("_")) {
+        result[key] = value;
+      } else {
+        result[key] = resolveSingleVars(value, singleItem);
+      }
     }
     return result;
   }
