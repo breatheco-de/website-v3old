@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope, IconLink, IconLoader2, IconTerminal, IconEye, IconWand, IconTool } from "@tabler/icons-react";
+import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope, IconLink, IconLoader2, IconTerminal, IconEye, IconWand, IconTool, IconListCheck } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -441,6 +441,20 @@ export default function MediaGallery() {
 
   const { data: registry, isLoading, error } = useQuery<ImageRegistry>({
     queryKey: ["/api/image-registry"],
+  });
+
+  const { data: fixerList = [] } = useQuery<FixerMeta[]>({
+    queryKey: ["/api/validation/fixers"],
+  });
+
+  const hasFixerInFlight = Object.values(runningFixers).some(Boolean) || autoTagging;
+  const { data: runQueueRuns = [], refetch: refetchRunQueueRuns } = useQuery<RunQueueItem[]>({
+    queryKey: ["/api/validation/runs"],
+    enabled: runQueueActivated || runQueueOpen,
+    refetchInterval: (query) => {
+      const runs = (query.state.data as RunQueueItem[] | undefined) ?? [];
+      return hasFixerInFlight || runs.some((run) => run.running) ? 1500 : false;
+    },
   });
 
   interface DbOverrideEntry {
@@ -1185,18 +1199,6 @@ export default function MediaGallery() {
                   {autoTagging ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconWand className="h-4 w-4" />}
                 </Button>
                 <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => {
-                    setRunQueueActivated(true);
-                    setRunQueueOpen(true);
-                  }}
-                  data-testid="button-open-run-queue"
-                >
-                  <IconChecks className="h-4 w-4 mr-1.5" />
-                  Fixers runs
-                </Button>
-                <Button
                   size="icon"
                   variant="ghost"
                   onClick={() => setScriptsOpen(true)}
@@ -1217,6 +1219,19 @@ export default function MediaGallery() {
                       {activeOverrides.reduce((sum, e) => sum + Object.keys(e.fields).length, 0)}
                     </Badge>
                   )}
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    setRunQueueActivated(true);
+                    setRunQueueOpen(true);
+                  }}
+                  data-testid="button-open-run-queue"
+                  className="gap-1.5"
+                >
+                  <IconListCheck className="h-4 w-4" />
+                  Fixers runs
                 </Button>
                 <Button
                   size="icon"
