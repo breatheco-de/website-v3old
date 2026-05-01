@@ -10500,34 +10500,6 @@
         }
       ]
     },
-    "student_latin_male-115x180": {
-      "src": "https://storage.googleapis.com/4geeks-academy-website/media/student_latin_male-115x180.webp",
-      "alt": "Latino student working on a project",
-      "focal_point": "center",
-      "tags": [
-        "photo",
-        "avatar"
-      ],
-      "usage_count": 0,
-      "width": 115,
-      "height": 180,
-      "format": "webp",
-      "parentId": "student_latin_male",
-      "preset": [
-        "full",
-        "card",
-        "avatar"
-      ],
-      "widths_generated": [
-        64
-      ],
-      "srcset": [
-        {
-          "w": 64,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/student_latin_male-115x180-64w.webp"
-        }
-      ]
-    },
     "blog_posts-blog_posts-launch-your-career-png-0ee32b-3985dd31": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-launch-your-career-png-0ee32b0a-736x491-640w.webp",
       "alt": "Image from blog_posts",
