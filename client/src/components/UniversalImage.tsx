@@ -87,16 +87,17 @@ export function UniversalImage({
   const [hasError, setHasError] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
-  const { isPriority: isPrioritySection, sectionIndex, contentType: sectionContentType, slug: sectionSlug, locale: sectionLocale, variableFields } = useSectionContext();
+  const { isPriority: isPrioritySection, sectionIndex, contentType: sectionContentType, slug: sectionSlug, locale: sectionLocale, variableFields, variableKeys } = useSectionContext();
   const editModeCtx = useEditModeOptional();
   const isEditMode = editModeCtx?.isEditMode ?? false;
   const { toast } = useToast();
 
-  // Derive the template key from fieldContext + the section's _variableFields map from context.
+  // Derive the template key from fieldContext + the section's _variableKeys map from context.
+  // _variableKeys maps dotPath → templateKey (e.g. "image.src" → "image").
   // Explicit fieldContext.templateKey takes priority; otherwise auto-derive from the field path.
   const templateKey: string | undefined = (() => {
     if (fieldContext?.templateKey) return fieldContext.templateKey;
-    if (!variableFields) return undefined;
+    if (!variableKeys) return undefined;
     let lookupPath: string | undefined;
     if (fieldContext?.fieldPath) {
       lookupPath = fieldContext.fieldPath;
@@ -104,10 +105,7 @@ export function UniversalImage({
       lookupPath = `${fieldContext.arrayPath}.${fieldContext.index}.${fieldContext.srcField}`;
     }
     if (!lookupPath) return undefined;
-    const expr = variableFields[lookupPath];
-    if (!expr) return undefined;
-    const match = /\{\{\s*single\.([^|}\s]+)/.exec(expr);
-    return match ? match[1].trim() : undefined;
+    return variableKeys[lookupPath];
   })();
 
   const { data: dbOverridesData } = useQuery<{ overrides: Record<string, unknown> }>({

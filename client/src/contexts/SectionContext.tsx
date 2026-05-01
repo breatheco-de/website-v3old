@@ -7,6 +7,7 @@ export interface SectionContextValue {
   slug: string;
   locale: string;
   variableFields?: Record<string, string>;
+  variableKeys?: Record<string, string>;
 }
 
 const defaultValue: SectionContextValue = {
@@ -16,6 +17,7 @@ const defaultValue: SectionContextValue = {
   slug: "",
   locale: "",
   variableFields: undefined,
+  variableKeys: undefined,
 };
 
 const SectionContext = createContext<SectionContextValue>(defaultValue);

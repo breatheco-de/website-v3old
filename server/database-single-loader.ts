@@ -161,6 +161,17 @@ export async function loadDatabaseSinglePage(
       const variableFields = extractVariableFields(section);
       if (Object.keys(variableFields).length > 0) {
         (section as Record<string, unknown>)._variableFields = variableFields;
+        // Build a dotPath→templateKey map (e.g. "image.src" → "image") for client badge logic.
+        // Values are plain strings so resolveSingleVars won't alter them.
+        const variableKeys: Record<string, string> = {};
+        const keyRe = /\{\{\s*single\.([^|}\s]+)/;
+        for (const [dotPath, expr] of Object.entries(variableFields)) {
+          const m = keyRe.exec(expr);
+          if (m) variableKeys[dotPath] = m[1].trim();
+        }
+        if (Object.keys(variableKeys).length > 0) {
+          (section as Record<string, unknown>)._variableKeys = variableKeys;
+        }
       }
     }
 

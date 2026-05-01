@@ -965,8 +965,9 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
         const sectionId = (rawSection as SectionLayout).section_id || `${sectionType}-${index}`;
         const isPriority = loadStrategy === "eager";
         const sectionVariableFields = (rawSection as Record<string, unknown>)._variableFields as Record<string, string> | undefined;
+        const sectionVariableKeys = (rawSection as Record<string, unknown>)._variableKeys as Record<string, string> | undefined;
         const priorityWrapped = (
-          <SectionContextProvider value={{ isPriority, sectionIndex: index, contentType: contentType ?? "", slug: slug ?? "", locale: locale ?? "", variableFields: sectionVariableFields }}>
+          <SectionContextProvider value={{ isPriority, sectionIndex: index, contentType: contentType ?? "", slug: slug ?? "", locale: locale ?? "", variableFields: sectionVariableFields, variableKeys: sectionVariableKeys }}>
             {renderedContent}
           </SectionContextProvider>
         );
