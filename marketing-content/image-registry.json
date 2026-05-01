@@ -14374,6 +14374,36 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_team_2-288x210-q75-256w.webp"
         }
       ]
+    },
+    "4geeks-devs-logo-1763162063433-240x82": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo-1763162063433-240x82.webp",
+      "alt": "Image: 4geeks-devs-logo_1763162063433",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "width": 240,
+      "height": 82,
+      "format": "webp",
+      "parentId": "4geeks-devs-logo-1763162063433",
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        120,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo-1763162063433-240x82-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo-1763162063433-240x82-240w.webp"
+        }
+      ]
     }
   }
 }
