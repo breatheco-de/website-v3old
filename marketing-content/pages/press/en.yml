@@ -39,7 +39,7 @@ sections:
     title: Featured in the press
     columns: 3
     items:
-      - logo: global-miami-logo
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/global-miami-logo.jpg
         title: The future Workforce
         excerpt: Since tech training boot camps are skills-based and shorter than an academic degree program, they can be an effective way to reach the incumbet workforce.
         link_text: Read Article
