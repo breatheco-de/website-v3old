@@ -14543,6 +14543,31 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/businesswire-logo-224w.webp"
         }
       ]
+    },
+    "refresh-miami-logo": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/refresh-miami-logo.png",
+      "alt": "Image: refresh-miami-logo",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "72d57751e7140fde8278f1f6a37010903128083f749b88df52aadc81f2b881b3",
+      "width": 212,
+      "height": 80,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        212
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 212,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/refresh-miami-logo-212w.webp"
+        }
+      ]
     }
   }
 }
