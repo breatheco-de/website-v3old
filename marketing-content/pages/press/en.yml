@@ -61,11 +61,13 @@ sections:
         link_url: https://www.businesswire.com/news/home/20210519005401/en/Global-Coding-Bootcamp-Market-2021-2025---Low-Cost-of-Bootcamps-and-an-Increase-in-Student-Enrollments-to-Drive-Growth---ResearchAndMarkets.com
         alt: "Image: businesswire-logo"
         id: businesswire-logo
-      - logo: refresh-miami-logo
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/refresh-miami-logo.png
         title: Miami-based coding school 4Geeks is breaking down the barriers to becoming a software developer
         excerpt: Miami-based Marcelo Ricigliano is helping South Floridians hope on these trends and change their lives. Ricigliano is the CEO of coding school 4Geeks Academy, which aims to lower the barrier to entry to tech jobs.
         link_text: See Interview
         link_url: https://refreshmiami.com/miami-based-coding-school-4geeks-is-breaking-down-the-barriers-to-becoming-a-software-developer/
+        alt: "Image: refresh-miami-logo"
+        id: refresh-miami-logo
       - logo: the-miami-herald-logo
         title: Learn to Code Scholarships
         excerpt: After a lot of hard word we were able to partner with United Way to offer 100 schollarships in minority populations to become a software engineer or software developer
