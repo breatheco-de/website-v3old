@@ -14202,6 +14202,31 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-600000-png-f6968952-736x491-640w.webp"
         }
       ]
+    },
+    "nbc-logosvg": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/NBC_logo.svg.png",
+      "alt": "Image: NBC_logo.svg",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "440fc6f9f2481b23564bdda1a69c7ef489946c356ba474230f743147dc933bb2",
+      "width": 500,
+      "height": 493,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        500
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 500,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/NBC_logo.svg-500w.webp"
+        }
+      ]
     }
   }
 }
