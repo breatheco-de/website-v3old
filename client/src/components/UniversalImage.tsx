@@ -116,18 +116,19 @@ export function UniversalImage({
   })();
 
 
-  const { data: dbOverridesData } = useQuery<{ overrides: Record<string, unknown> }>({
+  const { data: dbOverridesData } = useQuery<{ overrides: Record<string, unknown>; originals?: Record<string, unknown> }>({
     queryKey: ["/api/content-types", sectionContentType, "db-overrides", sectionSlug],
     queryFn: async () => {
       const res = await fetch(`/api/content-types/${sectionContentType}/db-overrides/${sectionSlug}`);
       if (!res.ok) throw new Error(await res.text());
-      return res.json() as Promise<{ overrides: Record<string, unknown> }>;
+      return res.json() as Promise<{ overrides: Record<string, unknown>; originals?: Record<string, unknown> }>;
     },
     enabled: isEditMode && !!templateKey && !!sectionContentType && !!sectionSlug,
     staleTime: 0,
     refetchOnMount: false,
   });
   const dbOverrides = dbOverridesData?.overrides ?? {};
+  const dbOriginals = dbOverridesData?.originals ?? {};
   const isOverridden = !!templateKey && templateKey in dbOverrides;
 
   const resolvedLoadingEarly: "lazy" | "eager" =
@@ -446,7 +447,12 @@ export function UniversalImage({
           <DropdownMenuContent onClick={(e) => e.stopPropagation()}>
             <DropdownMenuItem
               data-testid={`menu-item-open-original-${id}`}
-              onSelect={() => window.open(src, "_blank", "noopener,noreferrer")}
+              onSelect={() => {
+                const originalUrl = isOverridden && templateKey && dbOriginals[templateKey]
+                  ? String(dbOriginals[templateKey])
+                  : src;
+                window.open(originalUrl, "_blank", "noopener,noreferrer");
+              }}
             >
               Open original image
             </DropdownMenuItem>

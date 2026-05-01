@@ -709,6 +709,22 @@ export class DatabaseManager {
     return null;
   }
 
+  getOriginalMappedItem(
+    name: string,
+    slug: string,
+    lookupKey: string,
+  ): Record<string, unknown> | null {
+    const rawItems = this.getRawItems(name);
+    if (!rawItems) return null;
+    const config = this.configs.get(name);
+    const mappedItems = config?.field_mapping
+      ? rawItems.map((item) =>
+          applyFieldMapping(item as Record<string, unknown>, config.field_mapping!)
+        )
+      : (rawItems as Record<string, unknown>[]);
+    return mappedItems.find((item) => String(item[lookupKey] ?? "") === slug) ?? null;
+  }
+
   getRawFields(name: string): string[] {
     const rawItems = this.getRawItems(name);
     if (!rawItems || rawItems.length === 0) return [];

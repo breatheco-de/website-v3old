@@ -2898,7 +2898,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       const rawOverrides = databaseManager.getDbOverridesForEntry(dbName, slug);
       if (!rawOverrides) {
-        res.json({ overrides: {} });
+        res.json({ overrides: {}, originals: {} });
         return;
       }
       // Build a reverse map: dbPath -> templateKey using the field mapping
@@ -2917,7 +2917,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const templateKey = reverseMap[dbKey] ?? dbKey;
         overrides[templateKey] = value;
       }
-      res.json({ overrides });
+      // Return originals: the raw (pre-override) field values for each overridden key
+      const lookupKey = getLookupKey(type) || "slug";
+      const originalItem = databaseManager.getOriginalMappedItem(dbName, slug, lookupKey);
+      const originals: Record<string, unknown> = {};
+      if (originalItem) {
+        for (const templateKey of Object.keys(overrides)) {
+          const raw = originalItem[templateKey];
+          if (raw !== undefined && raw !== null) originals[templateKey] = raw;
+        }
+      }
+      res.json({ overrides, originals });
     } catch (err) {
       res.status(500).json({ error: String(err) });
     }
