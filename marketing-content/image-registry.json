@@ -14429,6 +14429,45 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo-1763162063433-158x36-120w.webp"
         }
       ]
+    },
+    "graduates_friends-288x210-q75": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210-q75.webp",
+      "alt": "4Geeks students laughing and enjoying time together",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 288,
+      "height": 210,
+      "format": "webp",
+      "parentId": "graduates_friends",
+      "quality_override": 75,
+      "preset": [
+        "full",
+        "card",
+        "avatar"
+      ],
+      "widths_generated": [
+        64,
+        128,
+        256
+      ],
+      "srcset": [
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210-q75-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210-q75-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210-q75-256w.webp"
+        }
+      ]
     }
   }
 }
