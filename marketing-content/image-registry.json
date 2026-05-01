@@ -8054,7 +8054,10 @@
     "blog_posts-d6c96c44d1dfe6606741d82ebe707a323414a726-b52a674d": {
       "src": "https://storage.googleapis.com/media-breathecode/d6c96c44d1dfe6606741d82ebe707a323414a726d616a518d58f8aa296d84035",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/d6c96c44d1dfe6606741d82ebe707a323414a726d616a518d58f8aa296d84035",
       "usage_count": 0,
       "source_item": "bootcamp-data-science-toronto",
@@ -8070,7 +8073,10 @@
     "blog_posts-portrait-young-it-development-team-discu-d9368272": {
       "src": "https://breathecode.herokuapp.com/v1/media/file/portrait-young-it-development-team-discussing-software-production-with-code-computer-screen-foreground-copy-space-jpg?",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "avatar",
+        "team"
+      ],
       "source_url": "https://breathecode.herokuapp.com/v1/media/file/portrait-young-it-development-team-discussing-software-production-with-code-computer-screen-foreground-copy-space-jpg?",
       "usage_count": 0,
       "source_item": "new-york-coding-bootcamp",
@@ -8086,7 +8092,10 @@
     "blog_posts-e9fdd2c91c3cf41720cad009ca41213980ed9cb6-16883da0": {
       "src": "https://storage.googleapis.com/media-breathecode/e9fdd2c91c3cf41720cad009ca41213980ed9cb63e6d2ee078bb0fe291a05b00",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "illustration",
+        "photo"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/e9fdd2c91c3cf41720cad009ca41213980ed9cb63e6d2ee078bb0fe291a05b00",
       "usage_count": 0,
       "source_item": "how-to-become-a-full-stack-developer",
@@ -8118,7 +8127,10 @@
     "blog_posts-19b711ae27afad70dfecfae42b9f5ce562a3adad-43cac2cd": {
       "src": "https://storage.googleapis.com/screenshots-breathecode/19b711ae27afad70dfecfae42b9f5ce562a3adad16eaf4e5a83b9d8ff06875a5",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "hero",
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/screenshots-breathecode/19b711ae27afad70dfecfae42b9f5ce562a3adad16eaf4e5a83b9d8ff06875a5",
       "usage_count": 0,
       "source_item": "alkemy-partnership",
@@ -8166,7 +8178,10 @@
     "blog_posts-african-american-developer-51e9ef24": {
       "src": "https://storage.googleapis.com/screenshots-breathecode/african-american-developer.jpg",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "team"
+      ],
       "source_url": "https://storage.googleapis.com/screenshots-breathecode/african-american-developer.jpg",
       "usage_count": 0,
       "source_item": "is-software-engineering-hard",
@@ -8182,7 +8197,10 @@
     "blog_posts-ea4fd897823186161355bdfce8b2d4f443a1effd-577eb6fb": {
       "src": "https://storage.googleapis.com/media-breathecode/ea4fd897823186161355bdfce8b2d4f443a1effdc17d84c7b00c14e3de85c5aa",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "team"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/ea4fd897823186161355bdfce8b2d4f443a1effdc17d84c7b00c14e3de85c5aa",
       "usage_count": 0,
       "source_item": "4geeks-chile-vs-otros",
