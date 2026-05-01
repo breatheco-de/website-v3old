@@ -68,11 +68,13 @@ sections:
         link_url: https://refreshmiami.com/miami-based-coding-school-4geeks-is-breaking-down-the-barriers-to-becoming-a-software-developer/
         alt: "Image: refresh-miami-logo"
         id: refresh-miami-logo
-      - logo: the-miami-herald-logo
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/the-miami-herald-logo.png
         title: Learn to Code Scholarships
         excerpt: After a lot of hard word we were able to partner with United Way to offer 100 schollarships in minority populations to become a software engineer or software developer
         link_text: See Interview
         link_url: https://www.miamiherald.com/news/business/article263937731.html
+        alt: "Image: the-miami-herald-logo"
+        id: the-miami-herald-logo
       - logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
         title: Web Development Coding Bootcamp
         excerpt: On a research made and published by Forbes while specified all the possible ways you can become a web developer in the USA.
