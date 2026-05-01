@@ -8852,7 +8852,10 @@
     "blog_posts-welcome-1-a0a3dd8d": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/blog/2016/01/welcome-1-540w.webp",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/4geeks-academy-website/blog/2016/01/welcome-1.jpg",
       "usage_count": 0,
       "source_item": "pre-work-phase-free-open-everybody",
@@ -8875,7 +8878,9 @@
     "blog_posts-online-blog-es-cursos-de-programacion-bf47371a": {
       "src": "https://storage.googleapis.com/screenshots-breathecode/online-blog-es-cursos-de-programacion.png",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "hero"
+      ],
       "source_url": "https://storage.googleapis.com/screenshots-breathecode/online-blog-es-cursos-de-programacion.png",
       "usage_count": 0,
       "source_item": "cursos-de-programacion",
@@ -8907,7 +8912,10 @@
     "blog_posts-c6e877f3ecd26e33efadba13b9a1487dded55bfa-e1299809": {
       "src": "https://storage.googleapis.com/media-breathecode/c6e877f3ecd26e33efadba13b9a1487dded55bfa4d64185b1fbdb8b8e5c409b0",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "team"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/c6e877f3ecd26e33efadba13b9a1487dded55bfa4d64185b1fbdb8b8e5c409b0",
       "usage_count": 0,
       "source_item": "are-coding-bootcamp-worth-it",
@@ -9313,7 +9321,10 @@
     "press_mentions-photo-1504711434969-e33886168f5c-68696be7": {
       "src": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80",
       "alt": "Image from press_mentions",
-      "tags": [],
+      "tags": [
+        "photo",
+        "press"
+      ],
       "source_url": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80",
       "usage_count": 0,
       "source_item": "4Geeks, Harvard, Oxford, and Columbia chosen to deliver AI education by the Government of the Bahamas.",
@@ -9329,7 +9340,11 @@
     "press_mentions-forbes-logo-award_1764709625651-e9e1744c": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651-640w.webp",
       "alt": "Image from press_mentions",
-      "tags": [],
+      "tags": [
+        "logo",
+        "press",
+        "award"
+      ],
       "source_url": "https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp",
       "usage_count": 0,
       "source_item": "5 Best Online Full-Stack Bootcamps Of 2024",
@@ -10513,7 +10528,19 @@
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/placeholder_career_guidance-350x255.webp",
       "alt": "Career guidance placeholder",
       "focal_point": "center",
-      "tags": [],
+      "tags": [
+        "logo",
+        "card",
+        "photo",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award",
+        "hero"
+      ],
       "usage_count": 0,
       "width": 350,
       "height": 255,
@@ -10559,7 +10586,11 @@
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210.webp",
       "alt": "4Geeks students laughing and enjoying time together",
       "focal_point": "center",
-      "tags": [],
+      "tags": [
+        "photo",
+        "team",
+        "testimonial"
+      ],
       "usage_count": 0,
       "width": 288,
       "height": 210,
