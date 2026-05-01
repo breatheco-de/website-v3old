@@ -14404,6 +14404,31 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo-1763162063433-240x82-240w.webp"
         }
       ]
+    },
+    "4geeks-devs-logo-1763162063433-158x36": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo-1763162063433-158x36.webp",
+      "alt": "Image: 4geeks-devs-logo_1763162063433",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "width": 158,
+      "height": 36,
+      "format": "webp",
+      "parentId": "4geeks-devs-logo-1763162063433",
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        120
+      ],
+      "srcset": [
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo-1763162063433-158x36-120w.webp"
+        }
+      ]
     }
   }
 }
