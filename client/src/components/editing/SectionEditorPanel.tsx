@@ -756,6 +756,12 @@ export function SectionEditorPanel({
   const [visibleVideoCount, setVisibleVideoCount] = useState(48);
   const editorViewRef = useRef<EditorView | null>(null);
 
+  useEffect(() => {
+    return () => {
+      editorViewRef.current = null;
+    };
+  }, [slug, sectionIndex]);
+
   const handleUndoRedoRestore = useCallback(
     (content: string) => {
       setYamlContent(content);
@@ -1118,6 +1124,18 @@ export function SectionEditorPanel({
   // Initialize YAML content from section. Also re-initializes when slug changes so
   // navigating between DB-backed single pages (e.g. blog posts) resets stale state.
   useEffect(() => {
+    // When the template data is already cached (same content-type, same locale),
+    // both this effect and the template effect above fire in the same React flush.
+    // Effects run in definition order, so the template effect runs first and sets
+    // the correct {{ }} variable YAML. If we then overwrite it here with the plain
+    // serialised section, the variable highlights are lost — which is exactly the
+    // bug reported. Skip setYamlContent in that case and let the template effect
+    // own the content; we still clear hasChanges so the editor shows no dirty state.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (hasVariableFields && templateSectionsData) {
+      setHasChanges(false);
+      return;
+    }
     try {
       const sectionForEditor = stripTransientDynamicKeys(section);
       const yamlStr = safeYamlDump(sectionForEditor, {
@@ -1130,7 +1148,7 @@ export function SectionEditorPanel({
     } catch (error) {
       console.error("Error converting section to YAML:", error);
     }
-  }, [section, slug]);
+  }, [section, slug]); // intentionally excludes templateSectionsData — see comment above
 
   const handleYamlChange = useCallback(
     (value: string) => {
@@ -2055,6 +2073,7 @@ export function SectionEditorPanel({
         >
           <div className="flex-1 min-h-0" data-section-index={sectionIndex}>
             <CodeMirror
+              key={`${slug}-${sectionIndex}`}
               value={yamlContent}
               height="100%"
               extensions={[yaml(), variableHighlightPlugin]}
