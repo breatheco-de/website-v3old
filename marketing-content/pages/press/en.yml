@@ -85,11 +85,13 @@ sections:
         excerpt: Victor Fitchhorn, who has autism, is learning how to code at Miami-based 4Geeks Academy, a coding bootcamp. NBC 6's Ari Odzer reports.
         link_text: Watch Video
         link_url: https://www.nbcmiami.com/on-air/as-seen-on/students-with-autism-learn-to-code_miami/159640/
-      - logo: newsweek-logo
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek-logo.png
         title: A Coding Career and You  - Top Coding Schools 2017
         excerpt: Profundizamos a un nivel avanzado principios específicos de desarrollo, llevando tu carrera a otro nivel.
         link_text: Read Article
         link_url: https://www.newsweek.com/insights/coding-career-and-you-top-coding-schools-2017/4geeks-academy
+        alt: "Image: newsweek-logo"
+        id: newsweek-logo
     paddingY:
       desktop: none md
   - type: value_proof_panel
