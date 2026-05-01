@@ -608,7 +608,7 @@ export function SectionEditorPanel({
     if (!templateYaml || hasChangesRef.current) return;
     setYamlContent(templateYaml);
     initialYamlRef.current = templateYaml;
-  }, [templateSectionsData, sectionIndex]);
+  }, [templateSectionsData, sectionIndex, slug]);
 
   // Binding state
   const bindingQueryClient = useQueryClient();
@@ -750,7 +750,7 @@ export function SectionEditorPanel({
   // Store initial state when section loads for undo capability
   const initialYamlRef = useRef<string | null>(null);
 
-  // Clear undo history and store initial state when section changes
+  // Clear undo history and store initial state when section or slug changes
   useEffect(() => {
     clearUndoHistory();
     // Store the initial YAML so we can undo back to it
@@ -765,7 +765,7 @@ export function SectionEditorPanel({
     } catch {
       initialYamlRef.current = null;
     }
-  }, [sectionIndex, section, clearUndoHistory]);
+  }, [sectionIndex, section, slug, clearUndoHistory]);
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -1074,7 +1074,8 @@ export function SectionEditorPanel({
   const currentShowOnLocations =
     (parsedSection?.showOnLocations as string[]) || [];
 
-  // Initialize YAML content from section
+  // Initialize YAML content from section. Also re-initializes when slug changes so
+  // navigating between DB-backed single pages (e.g. blog posts) resets stale state.
   useEffect(() => {
     try {
       const sectionForEditor = stripTransientDynamicKeys(section);
@@ -1088,7 +1089,7 @@ export function SectionEditorPanel({
     } catch (error) {
       console.error("Error converting section to YAML:", error);
     }
-  }, [section]);
+  }, [section, slug]);
 
   const handleYamlChange = useCallback(
     (value: string) => {
