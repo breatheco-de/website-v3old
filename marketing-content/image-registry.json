@@ -14468,6 +14468,31 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210-q75-256w.webp"
         }
       ]
+    },
+    "global-miami-logo": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/global-miami-logo.jpg",
+      "alt": "Image: global-miami-logo",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "1a56f103b539ba3e80e4d372658b985867b178ac4ec13fa968bbd459c82616f1",
+      "width": 132,
+      "height": 72,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        132
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 132,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/global-miami-logo-132w.webp"
+        }
+      ]
     }
   }
 }
