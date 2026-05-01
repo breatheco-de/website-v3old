@@ -288,11 +288,13 @@ export function VariableHighlightProvider({
   children,
   sectionIndex,
   contentType,
+  hasSingleVars,
 }: {
   children: ReactNode;
   variables?: unknown[];
   sectionIndex: number;
   contentType?: string;
+  hasSingleVars?: boolean;
 }) {
   const editMode = useEditModeOptional();
   const isEditMode = editMode?.isEditMode ?? false;
@@ -311,12 +313,14 @@ export function VariableHighlightProvider({
   const rescanRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const observerRef = useRef<MutationObserver | null>(null);
 
+  const hasVars = hasSingleVars || (definitions != null && Object.keys(definitions).length > 0);
+
   const observeContainer = useCallback(() => {
     if (!wrapperRef.current || observerRef.current) return;
     const observer = new MutationObserver(() => {
       if (rescanRef.current) clearTimeout(rescanRef.current);
       rescanRef.current = setTimeout(() => {
-        if (!wrapperRef.current || !definitions || Object.keys(definitions).length === 0) return;
+        if (!wrapperRef.current || !hasVars) return;
         if (observerRef.current) {
           observerRef.current.disconnect();
           observerRef.current = null;
@@ -327,7 +331,7 @@ export function VariableHighlightProvider({
         }
         cleanupRef.current = highlightDomVariables(
           wrapperRef.current!,
-          definitions,
+          definitions || {},
           varContext,
           isEditMode,
           contentType,
@@ -340,14 +344,14 @@ export function VariableHighlightProvider({
       subtree: true,
     });
     observerRef.current = observer;
-  }, [definitions, varContext, isEditMode, contentType]);
+  }, [definitions, varContext, isEditMode, contentType, hasVars]);
 
   useLayoutEffect(() => {
     if (cleanupRef.current) {
       cleanupRef.current();
       cleanupRef.current = null;
     }
-    if (!wrapperRef.current || !definitions || Object.keys(definitions).length === 0) {
+    if (!wrapperRef.current || !hasVars) {
       return;
     }
     if (observerRef.current) {
@@ -356,7 +360,7 @@ export function VariableHighlightProvider({
     }
     cleanupRef.current = highlightDomVariables(
       wrapperRef.current,
-      definitions,
+      definitions || {},
       varContext,
       isEditMode,
       contentType,
@@ -377,7 +381,7 @@ export function VariableHighlightProvider({
         cleanupRef.current = null;
       }
     };
-  }, [definitions, varContext, isEditMode, children, observeContainer]);
+  }, [definitions, varContext, isEditMode, children, observeContainer, hasVars]);
 
   return (
     <VariableHighlightContext.Provider value={contextValue}>

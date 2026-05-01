@@ -143,7 +143,13 @@ export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
             }}
             onError={handleHeroError}
             data-testid="img-hero-single-column"
-            fieldContext={(data as any).image_id ? { fieldPath: "image_id" } : undefined}
+            fieldContext={
+              (data as any).image_id
+                ? { fieldPath: "image_id" }
+                : data.image?.src
+                  ? { fieldPath: "image.src" }
+                  : undefined
+            }
           />
         </div>
       )}

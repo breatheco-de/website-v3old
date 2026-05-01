@@ -5,7 +5,7 @@ import { useSession } from "@/contexts/SessionContext";
 import { useMenuVisualContext } from "@/contexts/MenuVisualContext";
 import { VariableHighlightProvider } from "@/components/editing/VariableHighlight";
 import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
-import { resolveDeep } from "@/lib/variable-manager";
+import { resolveDeep, resolveTemplateString, type VariableContext } from "@/lib/variable-manager";
 import { SectionContextProvider } from "@/contexts/SectionContext";
 import { isSSRHydration } from "@/lib/initialData";
 
@@ -577,6 +577,32 @@ function MobilePreviewFrame({ sections }: { sections: Section[] }) {
   );
 }
 
+function setAtDotPath(obj: Record<string, unknown>, dotPath: string, value: unknown): void {
+  const parts = dotPath.split(".");
+  let cur = obj;
+  for (let i = 0; i < parts.length - 1; i++) {
+    const k = parts[i];
+    const next = cur[k];
+    cur[k] = Array.isArray(next) ? [...next] : (typeof next === "object" && next !== null ? { ...(next as Record<string, unknown>) } : {});
+    cur = cur[k] as Record<string, unknown>;
+  }
+  cur[parts[parts.length - 1]] = value;
+}
+
+function patchVariableFieldHighlights(
+  section: Record<string, unknown>,
+  variableFields: Record<string, string>,
+  singleEntry: Record<string, unknown>,
+  context: VariableContext,
+): Record<string, unknown> {
+  const patched: Record<string, unknown> = { ...section };
+  for (const [dotPath, templateExpr] of Object.entries(variableFields)) {
+    const { text } = resolveTemplateString(templateExpr, {}, context, { preserveTemplate: true, singleEntry });
+    setAtDotPath(patched, dotPath, text);
+  }
+  return patched;
+}
+
 export function SectionRenderer({ sections, settings, contentType, slug, locale, programSlug, landingLocations, isSharedTemplate, singleEntry }: SectionRendererProps) {
   const { toast } = useToast();
   const editMode = useEditModeOptional();
@@ -662,7 +688,21 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
         singleEntry,
       },
     );
-    return data as Section[];
+    let result = data as Section[];
+    if (isEditMode && singleEntry) {
+      result = result.map((resolvedSection, i) => {
+        const rawSection = sections[i] as Record<string, unknown>;
+        const variableFields = rawSection?._variableFields as Record<string, string> | undefined;
+        if (!variableFields || !Object.keys(variableFields).length) return resolvedSection;
+        return patchVariableFieldHighlights(
+          resolvedSection as Record<string, unknown>,
+          variableFields,
+          singleEntry,
+          varContext,
+        ) as Section;
+      });
+    }
+    return result;
   }, [sections, isEditMode, varDefinitions, varContext, singleEntry]);
 
   const handleMoveUp = useCallback(async (index: number) => {
@@ -980,7 +1020,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
                 onDelete={handleDelete}
                 onDuplicate={handleDuplicate}
               >
-                <VariableHighlightProvider sectionIndex={index} contentType={contentType}>
+                <VariableHighlightProvider sectionIndex={index} contentType={contentType} hasSingleVars={!!singleEntry}>
                   {renderedSection}
                 </VariableHighlightProvider>
               </EditableSection>

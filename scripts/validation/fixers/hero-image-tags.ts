@@ -4,6 +4,7 @@
  * Scans all hero sections across pages/landings YAML files, locates registry
  * entries that are missing the "hero" tag, and adds the tag then saves the
  * registry. Equivalent to running `audit-hero-image-tags.ts --fix`.
+ *
  */
 
 import * as fs from "fs";

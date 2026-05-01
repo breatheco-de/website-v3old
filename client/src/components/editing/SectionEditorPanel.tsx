@@ -23,6 +23,8 @@ import {
   IconLink,
   IconLinkOff,
   IconInfoCircle,
+  IconRefresh,
+  IconDatabase,
 } from "@tabler/icons-react";
 import { IconQuestionMark } from "@tabler/icons-react";
 import { BindingConfirmDialog } from "./BindingConfirmDialog";
@@ -115,8 +117,9 @@ function safeYamlDump(obj: unknown, opts?: yamlParser.DumpOptions): string {
 function stripTransientDynamicKeys(section: unknown): unknown {
   if (!section || typeof section !== "object") return section;
   const sec = section as Record<string, unknown>;
-  if (!sec.dynamic_entries) return section;
-  const { items: _items, _dynamic_meta: _meta, ...authored } = sec;
+  const { _variableFields: _vf, ...withoutVF } = sec;
+  if (!withoutVF.dynamic_entries) return withoutVF;
+  const { items: _items, _dynamic_meta: _meta, ...authored } = withoutVF;
   return authored;
 }
 import { usePageHistoryOptional } from "@/contexts/PageHistoryContext";
@@ -588,6 +591,66 @@ export function SectionEditorPanel({
     return () => registerEditorDirtyCheck(null);
   }, []);
 
+  const hasVariableFields = !!(section as Record<string, unknown>)._variableFields;
+
+  // Map from section field path → template key (e.g. "image.src" → "thumbnail")
+  const variableFieldToTemplateKey = useMemo(() => {
+    const vf = (section as Record<string, unknown>)._variableFields as Record<string, string> | undefined;
+    if (!vf) return {} as Record<string, string>;
+    const result: Record<string, string> = {};
+    for (const [fieldPath, templateExpr] of Object.entries(vf)) {
+      // Parse expressions like {{ single.thumbnail }} or {{ single.thumbnail | default.jpg }}
+      const match = /\{\{\s*single\.([^|}\s]+)/.exec(templateExpr);
+      if (match) {
+        result[fieldPath] = match[1].trim();
+      }
+    }
+    return result;
+  }, [section]);
+
+  // Set of template keys that are currently overridden in the DB
+  const { data: dbOverridesData, refetch: refetchDbOverrides } = useQuery<{ overrides: Record<string, unknown> }>({
+    queryKey: ["/api/content-types", contentType, "db-overrides", slug],
+    queryFn: async () => {
+      const res = await fetch(`/api/content-types/${contentType}/db-overrides/${slug}`);
+      if (!res.ok) throw new Error(await res.text());
+      return res.json() as Promise<{ overrides: Record<string, unknown> }>;
+    },
+    enabled: hasVariableFields && !!contentType && !!slug,
+    staleTime: 0,
+  });
+
+  const dbOverrides = dbOverridesData?.overrides ?? {};
+  const hasDbOverrides = Object.keys(dbOverrides).length > 0;
+
+  // Check if a specific field path has a DB override
+  const fieldHasOverride = useCallback((fieldPath: string): boolean => {
+    const templateKey = variableFieldToTemplateKey[fieldPath];
+    return !!templateKey && templateKey in dbOverrides;
+  }, [variableFieldToTemplateKey, dbOverrides]);
+
+  // Track which template key is currently being reset (to disable button and show spinner)
+  const [resettingField, setResettingField] = useState<string | null>(null);
+
+  const { data: templateSectionsData } = useQuery<{ sections: string[] }>({
+    queryKey: ["/api/content-types", contentType, "single-template-sections", locale ?? "en"],
+    queryFn: async () => {
+      const params = new URLSearchParams({ locale: locale ?? "en" });
+      const res = await fetch(`/api/content-types/${contentType}/single-template-sections?${params}`);
+      if (!res.ok) throw new Error(await res.text());
+      return res.json() as Promise<{ sections: string[] }>;
+    },
+    enabled: hasVariableFields && !!contentType,
+  });
+
+  useEffect(() => {
+    if (!templateSectionsData) return;
+    const templateYaml = templateSectionsData.sections?.[sectionIndex];
+    if (!templateYaml || hasChangesRef.current) return;
+    setYamlContent(templateYaml);
+    initialYamlRef.current = templateYaml;
+  }, [templateSectionsData, sectionIndex, slug]);
+
   // Binding state
   const bindingQueryClient = useQueryClient();
   const [bindingDialogOpen, setBindingDialogOpen] = useState(false);
@@ -728,7 +791,7 @@ export function SectionEditorPanel({
   // Store initial state when section loads for undo capability
   const initialYamlRef = useRef<string | null>(null);
 
-  // Clear undo history and store initial state when section changes
+  // Clear undo history and store initial state when section or slug changes
   useEffect(() => {
     clearUndoHistory();
     // Store the initial YAML so we can undo back to it
@@ -743,7 +806,7 @@ export function SectionEditorPanel({
     } catch {
       initialYamlRef.current = null;
     }
-  }, [sectionIndex, section, clearUndoHistory]);
+  }, [sectionIndex, section, slug, clearUndoHistory]);
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -1052,7 +1115,8 @@ export function SectionEditorPanel({
   const currentShowOnLocations =
     (parsedSection?.showOnLocations as string[]) || [];
 
-  // Initialize YAML content from section
+  // Initialize YAML content from section. Also re-initializes when slug changes so
+  // navigating between DB-backed single pages (e.g. blog posts) resets stale state.
   useEffect(() => {
     try {
       const sectionForEditor = stripTransientDynamicKeys(section);
@@ -1066,7 +1130,7 @@ export function SectionEditorPanel({
     } catch (error) {
       console.error("Error converting section to YAML:", error);
     }
-  }, [section]);
+  }, [section, slug]);
 
   const handleYamlChange = useCallback(
     (value: string) => {
@@ -2014,6 +2078,89 @@ export function SectionEditorPanel({
           className="flex-1 overflow-auto p-4 mt-0 data-[state=inactive]:hidden"
         >
           <div className="space-y-6">
+            {/* DB Entry Overrides Panel */}
+            {hasVariableFields && hasDbOverrides && (
+              <div
+                className="rounded-md border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/30 p-3 space-y-3"
+                data-testid="panel-db-overrides"
+              >
+                <div className="flex items-center gap-2">
+                  <IconDatabase className="h-4 w-4 text-amber-600 dark:text-amber-400 flex-shrink-0" />
+                  <span className="text-sm font-medium text-amber-800 dark:text-amber-200">
+                    Active entry overrides
+                  </span>
+                  <Badge
+                    variant="secondary"
+                    className="ml-auto text-xs bg-amber-200 dark:bg-amber-800 text-amber-800 dark:text-amber-200"
+                    data-testid="badge-override-count"
+                  >
+                    {Object.keys(dbOverrides).length}
+                  </Badge>
+                </div>
+                <p className="text-xs text-amber-700 dark:text-amber-300">
+                  These fields have been customised for this entry and override the original API value.
+                </p>
+                <div className="space-y-2">
+                  {Object.entries(dbOverrides).map(([templateKey, value]) => (
+                    <div
+                      key={templateKey}
+                      className="flex items-center gap-2 bg-background/60 rounded-md px-2 py-1.5"
+                      data-testid={`override-row-${templateKey}`}
+                    >
+                      <span className="font-mono text-xs text-muted-foreground flex-shrink-0">
+                        {templateKey}
+                      </span>
+                      <span
+                        className="text-xs text-foreground truncate flex-1"
+                        title={String(value)}
+                      >
+                        {typeof value === "string" && (value.startsWith("/") || value.startsWith("http"))
+                          ? value.split("/").pop() || value
+                          : String(value)}
+                      </span>
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        className="flex-shrink-0 text-amber-700 dark:text-amber-300"
+                        title={`Reset "${templateKey}" to original API value`}
+                        data-testid={`button-reset-override-${templateKey}`}
+                        disabled={resettingField === templateKey}
+                        onClick={async () => {
+                          if (resettingField) return;
+                          setResettingField(templateKey);
+                          try {
+                            const res = await fetch(
+                              `/api/content-types/${contentType}/db-overrides/${slug}?field=${encodeURIComponent(templateKey)}`,
+                              { method: "DELETE" }
+                            );
+                            if (!res.ok) {
+                              const data = await res.json().catch(() => ({})) as { error?: string };
+                              toast({ title: "Failed to reset override", description: data.error || res.statusText, variant: "destructive" });
+                              return;
+                            }
+                            await refetchDbOverrides();
+                            if (contentType && slug && locale) {
+                              emitContentUpdated({ contentType, slug, locale });
+                            }
+                            toast({ title: "Override reset", description: `"${templateKey}" reverted to original value.` });
+                          } catch (err) {
+                            toast({ title: "Error", description: String(err), variant: "destructive" });
+                          } finally {
+                            setResettingField(null);
+                          }
+                        }}
+                      >
+                        {resettingField === templateKey
+                          ? <IconLoader2 className="h-3.5 w-3.5 animate-spin" />
+                          : <IconRefresh className="h-3.5 w-3.5" />
+                        }
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <ShowOnLocationsPicker
               value={currentShowOnLocations}
               onChange={(value) =>
@@ -2538,11 +2685,23 @@ export function SectionEditorPanel({
                   ? currentValue
                   : currentValue.split("/").pop() || currentValue;
 
+                const isOverridden = fieldHasOverride(fieldPath);
                 return (
                   <div key={fieldPath} className="space-y-2 mt-3">
-                    <Label className="text-sm font-medium">
-                      {fieldLabel}
-                    </Label>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <Label className="text-sm font-medium">
+                        {fieldLabel}
+                      </Label>
+                      {isOverridden && (
+                        <Badge
+                          variant="secondary"
+                          className="text-[10px] px-1.5 py-0 bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-700"
+                          data-testid={`badge-override-${fieldPath}`}
+                        >
+                          overridden
+                        </Badge>
+                      )}
+                    </div>
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
@@ -2556,7 +2715,7 @@ export function SectionEditorPanel({
                           });
                           setImagePickerOpen(true);
                         }}
-                        className="relative w-16 h-16 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group"
+                        className={`relative w-16 h-16 rounded-md border bg-muted/50 hover:bg-muted transition-colors overflow-hidden group ${isOverridden ? "border-amber-400 dark:border-amber-600" : "border-input"}`}
                         data-testid={`props-image-${fieldLabel}`}
                         title={`Change ${fieldLabel}`}
                       >

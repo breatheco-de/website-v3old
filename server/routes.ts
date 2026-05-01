@@ -1,7 +1,7 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { getQueueStats, enqueueOptimization, getPendingOptimizations, getFailedEntries, retryFailedImages, resetOptimizeSession, getOptimizeSession } from "./image-registry";
+import { getQueueStats, enqueueOptimization, getPendingOptimizations, getFailedEntries, retryFailedImages, resetOptimizeSession, getOptimizeSession, enqueueExternalImage } from "./image-registry";
 import { getAllQueueState } from "./image-queue-state";
 
 let workerRunNow: (() => void) | null = null;
@@ -144,7 +144,7 @@ import {
   clearMarkdownCacheByUrl,
 } from "./markdown";
 import { resolveDynamicEntries } from "./dynamic-entries";
-import { loadDatabaseSinglePage } from "./database-single-loader";
+import { loadDatabaseSinglePage, mergeSingleTemplate } from "./database-single-loader";
 import { getBaseUrl } from "./hreflang";
 
 const BREATHECODE_HOST =
@@ -2475,6 +2475,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/content-types/:type/single-template-sections", (req, res) => {
+    try {
+      const { type } = req.params;
+      const locale = ((req.query.locale as string) || "en").replace(/[^a-z-]/g, "");
+      if (!isValidType(type)) {
+        res.status(404).json({ error: `Unknown content type: ${type}` });
+        return;
+      }
+      if (!hasDatabaseSingle(type)) {
+        res.status(400).json({ error: `Content type "${type}" does not use a single template` });
+        return;
+      }
+      const merged = mergeSingleTemplate(type, locale);
+      if (!merged) {
+        res.status(404).json({ error: "Single template not found" });
+        return;
+      }
+      if (!Array.isArray(merged.sections)) {
+        res.status(404).json({ error: "No sections array in single template" });
+        return;
+      }
+      const sectionYamls = (merged.sections as unknown[]).map((s) =>
+        safeYamlDump(s, { lineWidth: -1, noRefs: true }),
+      );
+      res.json({ sections: sectionYamls });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
   app.get("/api/content-types/:type/entry-fields", (req, res) => {
     try {
       const { type } = req.params;
@@ -2848,6 +2878,110 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       clearMarkdownCache(slug);
       res.json({ success: true, message: `Cache cleared for "${slug}"` });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.get("/api/content-types/:type/db-overrides/:slug", (req, res) => {
+    try {
+      const { type, slug } = req.params;
+      const config = getContentTypeConfig(type);
+      if (!config?.database?.slug) {
+        res.status(400).json({ error: `Content type "${type}" has no database configured` });
+        return;
+      }
+      const dbName = config.database.slug;
+      if (!databaseManager.exists(dbName)) {
+        res.status(404).json({ error: `Database "${dbName}" not found` });
+        return;
+      }
+      const rawOverrides = databaseManager.getDbOverridesForEntry(dbName, slug);
+      if (!rawOverrides) {
+        res.json({ overrides: {} });
+        return;
+      }
+      // Build a reverse map: dbPath -> templateKey using the field mapping
+      const fm = getFieldMapping(type);
+      const reverseMap: Record<string, string> = {};
+      if (fm) {
+        for (const [templateKey, dbPath] of Object.entries(fm)) {
+          if (typeof dbPath === "string" && !dbPath.startsWith("function:") && !templateKey.startsWith("_")) {
+            reverseMap[dbPath] = templateKey;
+          }
+        }
+      }
+      // Return overrides keyed by template key (falling back to DB key if no reverse mapping)
+      const overrides: Record<string, unknown> = {};
+      for (const [dbKey, value] of Object.entries(rawOverrides)) {
+        const templateKey = reverseMap[dbKey] ?? dbKey;
+        overrides[templateKey] = value;
+      }
+      res.json({ overrides });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.get("/api/db-overrides", async (_req, res) => {
+    try {
+      const allConfigs = getAllConfigs();
+      const IMAGE_EXT_RE = /\.(jpe?g|png|webp|gif|svg|avif|tiff?|bmp|ico)(\?[^)]*)?$/i;
+      const result: Array<{ contentType: string; dbName: string; slug: string; fields: Record<string, unknown> }> = [];
+      for (const [contentType, config] of Object.entries(allConfigs)) {
+        const dbName = config.database?.slug;
+        if (!dbName) continue;
+        const overrides = databaseManager.listOverrides(dbName);
+        for (const { slug, fields } of overrides) {
+          const imageFields: Record<string, unknown> = {};
+          for (const [key, value] of Object.entries(fields)) {
+            if (typeof value === "string" && IMAGE_EXT_RE.test(value)) {
+              imageFields[key] = value;
+            }
+          }
+          if (Object.keys(imageFields).length > 0) {
+            result.push({ contentType, dbName, slug, fields: imageFields });
+          }
+        }
+      }
+      res.json({ overrides: result });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.delete("/api/content-types/:type/db-overrides/:slug", async (req, res) => {
+    try {
+      const { type, slug } = req.params;
+      const rawFieldKey = req.query.field as string | undefined;
+      const config = getContentTypeConfig(type);
+      if (!config?.database?.slug) {
+        res.status(400).json({ error: `Content type "${type}" has no database configured` });
+        return;
+      }
+      const dbName = config.database.slug;
+      if (!databaseManager.exists(dbName)) {
+        res.status(404).json({ error: `Database "${dbName}" not found` });
+        return;
+      }
+      let fieldKey = rawFieldKey;
+      if (rawFieldKey) {
+        const fm = getFieldMapping(type);
+        const mappedPath = fm ? fm[rawFieldKey] : undefined;
+        if (mappedPath && typeof mappedPath === "string" && !mappedPath.startsWith("function:")) {
+          fieldKey = mappedPath;
+        }
+      }
+      const cleared = databaseManager.clearDbOverride(dbName, slug, fieldKey);
+      res.json({
+        success: true,
+        cleared,
+        message: cleared
+          ? rawFieldKey
+            ? `Override for field "${rawFieldKey}" on "${slug}" cleared`
+            : `All overrides for "${slug}" cleared`
+          : `No override found for "${slug}"${rawFieldKey ? ` field "${rawFieldKey}"` : ""}`,
+      });
     } catch (err) {
       res.status(500).json({ error: String(err) });
     }
@@ -9159,6 +9293,20 @@ sections: []
     const count = retryFailedImages(tag);
     if (count > 0) mediaGallery.persistRegistry();
     res.json({ retried: count });
+  });
+
+  app.post("/api/image-registry/enqueue-external", (req, res) => {
+    const { url, tag } = req.body as { url?: string; tag?: string };
+    if (!url || !/^https?:\/\//.test(url)) {
+      res.status(400).json({ error: "A valid http/https url is required" });
+      return;
+    }
+    const dbName = tag || "manual";
+    const id = enqueueExternalImage(url, dbName);
+    if (id) {
+      mediaGallery.persistRegistry();
+    }
+    res.json({ queued: !!id, id: id ?? null });
   });
 
   app.get("/api/image-registry", (_req, res) => {

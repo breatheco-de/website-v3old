@@ -16,6 +16,56 @@ import { fetchMarkdownContent } from "./markdown";
 import { applyComponentSectionDefaults } from "./component-registry";
 import type { TemplatePage } from "@shared/schema";
 
+export const TEMPLATE_EXPR_RE = /\{\{[\s\S]*?\}\}/;
+
+export function extractVariableFields(
+  obj: unknown,
+  prefix = "",
+): Record<string, string> {
+  const result: Record<string, string> = {};
+  if (typeof obj !== "object" || obj === null) return result;
+  const entries: Array<[string, unknown]> = Array.isArray(obj)
+    ? obj.map((v, i) => [String(i), v] as [string, unknown])
+    : Object.entries(obj as Record<string, unknown>).filter(([k]) => !k.startsWith("_"));
+  for (const [key, value] of entries) {
+    const dotPath = prefix ? `${prefix}.${key}` : key;
+    if (typeof value === "string" && TEMPLATE_EXPR_RE.test(value)) {
+      result[dotPath] = value.trim();
+    } else if (typeof value === "object" && value !== null) {
+      Object.assign(result, extractVariableFields(value, dotPath));
+    }
+  }
+  return result;
+}
+
+export function mergeSingleTemplate(
+  contentType: string,
+  locale: string,
+): Record<string, unknown> | null {
+  const folder = getFolder(contentType);
+  const templateDir = path.join(process.cwd(), "marketing-content", folder);
+  const singleCommonPath = path.join(templateDir, "_common.single.yml");
+  const commonPath = path.join(templateDir, "_common.yml");
+  let localePath = path.join(templateDir, `single.${locale}.yml`);
+  if (!fs.existsSync(localePath)) {
+    localePath = path.join(templateDir, "single.en.yml");
+  }
+  if (!fs.existsSync(localePath)) return null;
+
+  let baseData: Record<string, unknown> = {};
+  if (fs.existsSync(singleCommonPath)) {
+    const parsed = contentIndex.safeYamlLoad(fs.readFileSync(singleCommonPath, "utf-8"));
+    if (parsed) baseData = parsed;
+  }
+  if (fs.existsSync(commonPath)) {
+    const parsed = contentIndex.safeYamlLoad(fs.readFileSync(commonPath, "utf-8"));
+    if (parsed) baseData = Object.keys(baseData).length > 0 ? deepMerge(baseData, parsed) : parsed;
+  }
+  const localeData = contentIndex.safeYamlLoad(fs.readFileSync(localePath, "utf-8"));
+  if (!localeData) return null;
+  return Object.keys(baseData).length > 0 ? deepMerge(baseData, localeData) : { ...localeData };
+}
+
 export async function loadDatabaseSinglePage(
   contentType: string,
   slug: string,
@@ -23,44 +73,15 @@ export async function loadDatabaseSinglePage(
 ): Promise<TemplatePage | null> {
   const dbName = getDatabaseName(contentType);
   if (!dbName) return null;
-  const folder = getFolder(contentType);
 
-  const templateDir = path.join(process.cwd(), "marketing-content", folder);
-  const singleCommonPath = path.join(templateDir, "_common.single.yml");
-  const commonPath = path.join(templateDir, "_common.yml");
-  const localePath = path.join(templateDir, `single.${locale}.yml`);
+  const merged = mergeSingleTemplate(contentType, locale);
 
-  if (!fs.existsSync(localePath)) {
+  if (!merged) {
     console.error(
       `[DatabaseSingle] Template not found: single.${locale}.yml for ${contentType}`,
     );
     return null;
   }
-
-  let baseData: Record<string, unknown> = {};
-  if (fs.existsSync(singleCommonPath)) {
-    const singleRaw = fs.readFileSync(singleCommonPath, "utf-8");
-    const parsed = contentIndex.safeYamlLoad(singleRaw);
-    if (parsed) baseData = parsed;
-  }
-
-  if (fs.existsSync(commonPath)) {
-    const commonRaw = fs.readFileSync(commonPath, "utf-8");
-    const parsed = contentIndex.safeYamlLoad(commonRaw);
-    if (parsed) {
-      baseData = Object.keys(baseData).length > 0
-        ? deepMerge(baseData, parsed)
-        : parsed;
-    }
-  }
-
-  const localeRaw = fs.readFileSync(localePath, "utf-8");
-  const localeData = contentIndex.safeYamlLoad(localeRaw);
-  if (!localeData) return null;
-
-  const merged = Object.keys(baseData).length > 0
-    ? deepMerge(baseData, localeData)
-    : { ...localeData };
 
   if (!databaseManager.exists(dbName)) {
     console.error(`[DatabaseSingle] Database "${dbName}" not found`);
@@ -135,6 +156,14 @@ export async function loadDatabaseSinglePage(
     const singleItem = { ...matchItem, content };
 
     const sections = (merged.sections as TemplatePage["sections"]) || [];
+
+    for (const section of sections as unknown[]) {
+      const variableFields = extractVariableFields(section);
+      if (Object.keys(variableFields).length > 0) {
+        (section as Record<string, unknown>)._variableFields = variableFields;
+      }
+    }
+
     applyComponentSectionDefaults(sections as unknown[]);
 
     const page: TemplatePage = {

@@ -299,11 +299,11 @@ export function EditableSection({ children, section, index, sectionType, content
   const [currentSection, setCurrentSection] = useState<Section>(section);
   const [wasLocallyUpdated, setWasLocallyUpdated] = useState(false);
   
-  // Sync currentSection when the prop changes (e.g., after refetch)
+  // Sync currentSection when the prop changes (e.g., after refetch or slug navigation)
   useEffect(() => {
     setCurrentSection(section);
     setWasLocallyUpdated(false);
-  }, [section]);
+  }, [section, slug]);
   
   const canMoveUp = index > 0;
   const canMoveDown = totalSections > 0 && index < totalSections - 1;

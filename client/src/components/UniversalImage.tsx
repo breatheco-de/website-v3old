@@ -4,11 +4,12 @@ import type { ImageRef, ImageEntry, ImagePreset } from "@shared/schema";
 import SolidCard from "./SolidCard";
 import { useSectionContext } from "@/contexts/SectionContext";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
-import { Pencil } from "lucide-react";
+import { Pencil, CheckCircle2, Clock, AlertCircle, Unlink } from "lucide-react";
 import { ImagePickerDialog } from "@/components/editing/ImagePickerDialog";
 import { editContent } from "@/lib/contentApi";
 import { emitContentUpdated } from "@/lib/contentEvents";
 import { useToast } from "@/hooks/use-toast";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface ImageRegistryData {
   presets: Record<string, ImagePreset>;
@@ -190,6 +191,57 @@ export function UniversalImage({
   );
   const canReplace = isEditMode && hasFieldContext && sectionIndex >= 0;
 
+  type CacheStatus = "cached" | "pending" | "failed" | "untracked";
+  const cacheStatus: CacheStatus = isDirectPath
+    ? "untracked"
+    : imageEntry?.failed_at
+      ? "failed"
+      : !imageEntry?.src && imageEntry?.source_url
+        ? "pending"
+        : imageEntry?.src
+          ? "cached"
+          : "untracked";
+
+  const cacheStatusConfig: Record<CacheStatus, { icon: React.ReactNode; label: string; classes: string }> = {
+    cached: {
+      icon: <CheckCircle2 className="h-3 w-3" />,
+      label: "Cached in registry",
+      classes: "bg-green-600/90 text-white",
+    },
+    pending: {
+      icon: <Clock className="h-3 w-3" />,
+      label: "Pending download",
+      classes: "bg-amber-500/90 text-white",
+    },
+    failed: {
+      icon: <AlertCircle className="h-3 w-3" />,
+      label: "Download failed",
+      classes: "bg-red-600/90 text-white",
+    },
+    untracked: {
+      icon: <Unlink className="h-3 w-3" />,
+      label: "Not in image registry",
+      classes: "bg-gray-500/90 text-white",
+    },
+  };
+
+  const statusBadge = isEditMode ? (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <div
+          className={`absolute bottom-1 right-1 z-10 flex items-center justify-center rounded-full p-1 shadow-sm ${cacheStatusConfig[cacheStatus].classes}`}
+          data-testid={`badge-cache-status-${id}`}
+          aria-label={cacheStatusConfig[cacheStatus].label}
+        >
+          {cacheStatusConfig[cacheStatus].icon}
+        </div>
+      </TooltipTrigger>
+      <TooltipContent side="top" className="text-xs">
+        {cacheStatusConfig[cacheStatus].label}
+      </TooltipContent>
+    </Tooltip>
+  ) : null;
+
   const handleEditClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -227,6 +279,15 @@ export function UniversalImage({
     if (result.success) {
       emitContentUpdated({ contentType: sectionContentType, slug: sectionSlug, locale: sectionLocale });
       toast({ title: "Image updated" });
+
+      // Auto-enqueue external URLs for WebP optimization if not already in the registry
+      if (!registryId && /^https?:\/\//.test(valueToSave)) {
+        fetch("/api/image-registry/enqueue-external", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: valueToSave, tag: "manual" }),
+        }).catch(() => {});
+      }
     } else {
       throw new Error(result.error ?? "Save failed");
     }
@@ -236,7 +297,7 @@ export function UniversalImage({
     <button
       type="button"
       onClick={handleEditClick}
-      className="absolute inset-0 flex items-center justify-center invisible group-hover/editimg:visible cursor-pointer w-full"
+      className="absolute inset-0 z-20 flex items-center justify-center invisible group-hover/editimg:visible cursor-pointer w-full"
       data-edit-overlay="true"
       data-testid={`button-edit-image-${id}`}
       aria-label="Replace image"
@@ -286,6 +347,7 @@ export function UniversalImage({
         }}
         data-testid={`img-${id}`}
       />
+      {statusBadge}
       {editOverlay}
     </div>
   );
