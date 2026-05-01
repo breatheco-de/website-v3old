@@ -308,7 +308,6 @@ sections:
     features:
       - icon: TrendingUp
         title: Apoyo de carrera construido para el mercado tech en España
-        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Coaching 1:1 enfocado en conseguir roles de Ingeniería de IA específicamente
