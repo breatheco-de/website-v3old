@@ -283,7 +283,11 @@ function handleSharedTemplateEdit(opts: {
   // Apply operations to localeData in-memory so the returned sections reflect
   // what the client expects to see immediately (the resolved new values).
   for (const operation of operations) {
-    try { applyOperation(localeData, operation); } catch { /* ignore */ }
+    try {
+      applyOperation(localeData, operation);
+    } catch (err) {
+      console.warn("[editContent] Skipping invalid operation on shared template:", operation.action, err instanceof Error ? err.message : err);
+    }
   }
 
   const updatedSections = (localeData.sections as unknown[]) || [];
