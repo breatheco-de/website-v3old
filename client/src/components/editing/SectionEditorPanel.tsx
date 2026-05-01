@@ -23,6 +23,8 @@ import {
   IconLink,
   IconLinkOff,
   IconInfoCircle,
+  IconRefresh,
+  IconDatabase,
 } from "@tabler/icons-react";
 import { IconQuestionMark } from "@tabler/icons-react";
 import { BindingConfirmDialog } from "./BindingConfirmDialog";
@@ -590,6 +592,45 @@ export function SectionEditorPanel({
   }, []);
 
   const hasVariableFields = !!(section as Record<string, unknown>)._variableFields;
+
+  // Map from section field path → template key (e.g. "image.src" → "thumbnail")
+  const variableFieldToTemplateKey = useMemo(() => {
+    const vf = (section as Record<string, unknown>)._variableFields as Record<string, string> | undefined;
+    if (!vf) return {} as Record<string, string>;
+    const result: Record<string, string> = {};
+    for (const [fieldPath, templateExpr] of Object.entries(vf)) {
+      // Parse expressions like {{ single.thumbnail }} or {{ single.thumbnail | default.jpg }}
+      const match = /\{\{\s*single\.([^|}\s]+)/.exec(templateExpr);
+      if (match) {
+        result[fieldPath] = match[1].trim();
+      }
+    }
+    return result;
+  }, [section]);
+
+  // Set of template keys that are currently overridden in the DB
+  const { data: dbOverridesData, refetch: refetchDbOverrides } = useQuery<{ overrides: Record<string, unknown> }>({
+    queryKey: ["/api/content-types", contentType, "db-overrides", slug],
+    queryFn: async () => {
+      const res = await fetch(`/api/content-types/${contentType}/db-overrides/${slug}`);
+      if (!res.ok) throw new Error(await res.text());
+      return res.json() as Promise<{ overrides: Record<string, unknown> }>;
+    },
+    enabled: hasVariableFields && !!contentType && !!slug,
+    staleTime: 0,
+  });
+
+  const dbOverrides = dbOverridesData?.overrides ?? {};
+  const hasDbOverrides = Object.keys(dbOverrides).length > 0;
+
+  // Check if a specific field path has a DB override
+  const fieldHasOverride = useCallback((fieldPath: string): boolean => {
+    const templateKey = variableFieldToTemplateKey[fieldPath];
+    return !!templateKey && templateKey in dbOverrides;
+  }, [variableFieldToTemplateKey, dbOverrides]);
+
+  // Track which template key is currently being reset (to disable button and show spinner)
+  const [resettingField, setResettingField] = useState<string | null>(null);
 
   const { data: templateSectionsData } = useQuery<{ sections: string[] }>({
     queryKey: ["/api/content-types", contentType, "single-template-sections", locale ?? "en"],
@@ -2037,6 +2078,89 @@ export function SectionEditorPanel({
           className="flex-1 overflow-auto p-4 mt-0 data-[state=inactive]:hidden"
         >
           <div className="space-y-6">
+            {/* DB Entry Overrides Panel */}
+            {hasVariableFields && hasDbOverrides && (
+              <div
+                className="rounded-md border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/30 p-3 space-y-3"
+                data-testid="panel-db-overrides"
+              >
+                <div className="flex items-center gap-2">
+                  <IconDatabase className="h-4 w-4 text-amber-600 dark:text-amber-400 flex-shrink-0" />
+                  <span className="text-sm font-medium text-amber-800 dark:text-amber-200">
+                    Active entry overrides
+                  </span>
+                  <Badge
+                    variant="secondary"
+                    className="ml-auto text-xs bg-amber-200 dark:bg-amber-800 text-amber-800 dark:text-amber-200"
+                    data-testid="badge-override-count"
+                  >
+                    {Object.keys(dbOverrides).length}
+                  </Badge>
+                </div>
+                <p className="text-xs text-amber-700 dark:text-amber-300">
+                  These fields have been customised for this entry and override the original API value.
+                </p>
+                <div className="space-y-2">
+                  {Object.entries(dbOverrides).map(([templateKey, value]) => (
+                    <div
+                      key={templateKey}
+                      className="flex items-center gap-2 bg-background/60 rounded-md px-2 py-1.5"
+                      data-testid={`override-row-${templateKey}`}
+                    >
+                      <span className="font-mono text-xs text-muted-foreground flex-shrink-0">
+                        {templateKey}
+                      </span>
+                      <span
+                        className="text-xs text-foreground truncate flex-1"
+                        title={String(value)}
+                      >
+                        {typeof value === "string" && (value.startsWith("/") || value.startsWith("http"))
+                          ? value.split("/").pop() || value
+                          : String(value)}
+                      </span>
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        className="flex-shrink-0 text-amber-700 dark:text-amber-300"
+                        title={`Reset "${templateKey}" to original API value`}
+                        data-testid={`button-reset-override-${templateKey}`}
+                        disabled={resettingField === templateKey}
+                        onClick={async () => {
+                          if (resettingField) return;
+                          setResettingField(templateKey);
+                          try {
+                            const res = await fetch(
+                              `/api/content-types/${contentType}/db-overrides/${slug}?field=${encodeURIComponent(templateKey)}`,
+                              { method: "DELETE" }
+                            );
+                            if (!res.ok) {
+                              const data = await res.json().catch(() => ({})) as { error?: string };
+                              toast({ title: "Failed to reset override", description: data.error || res.statusText, variant: "destructive" });
+                              return;
+                            }
+                            await refetchDbOverrides();
+                            if (contentType && slug && locale) {
+                              emitContentUpdated({ contentType, slug, locale });
+                            }
+                            toast({ title: "Override reset", description: `"${templateKey}" reverted to original value.` });
+                          } catch (err) {
+                            toast({ title: "Error", description: String(err), variant: "destructive" });
+                          } finally {
+                            setResettingField(null);
+                          }
+                        }}
+                      >
+                        {resettingField === templateKey
+                          ? <IconLoader2 className="h-3.5 w-3.5 animate-spin" />
+                          : <IconRefresh className="h-3.5 w-3.5" />
+                        }
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <ShowOnLocationsPicker
               value={currentShowOnLocations}
               onChange={(value) =>
@@ -2561,11 +2685,23 @@ export function SectionEditorPanel({
                   ? currentValue
                   : currentValue.split("/").pop() || currentValue;
 
+                const isOverridden = fieldHasOverride(fieldPath);
                 return (
                   <div key={fieldPath} className="space-y-2 mt-3">
-                    <Label className="text-sm font-medium">
-                      {fieldLabel}
-                    </Label>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <Label className="text-sm font-medium">
+                        {fieldLabel}
+                      </Label>
+                      {isOverridden && (
+                        <Badge
+                          variant="secondary"
+                          className="text-[10px] px-1.5 py-0 bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-700"
+                          data-testid={`badge-override-${fieldPath}`}
+                        >
+                          overridden
+                        </Badge>
+                      )}
+                    </div>
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
@@ -2579,7 +2715,7 @@ export function SectionEditorPanel({
                           });
                           setImagePickerOpen(true);
                         }}
-                        className="relative w-16 h-16 rounded-md border border-input bg-muted/50 hover:bg-muted transition-colors overflow-hidden group"
+                        className={`relative w-16 h-16 rounded-md border bg-muted/50 hover:bg-muted transition-colors overflow-hidden group ${isOverridden ? "border-amber-400 dark:border-amber-600" : "border-input"}`}
                         data-testid={`props-image-${fieldLabel}`}
                         title={`Change ${fieldLabel}`}
                       >

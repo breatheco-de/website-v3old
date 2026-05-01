@@ -827,6 +827,22 @@ export class DatabaseManager {
     }
   }
 
+  getDbOverridesForEntry(
+    dbName: string,
+    slugValue: string
+  ): Record<string, unknown> | null {
+    try {
+      this.validateName(dbName);
+      const overridesFile = this.loadOverridesFile(dbName);
+      if (!overridesFile) return null;
+      const entryOverrides = overridesFile.entries[slugValue];
+      if (!entryOverrides || Object.keys(entryOverrides).length === 0) return null;
+      return { ...entryOverrides };
+    } catch {
+      return null;
+    }
+  }
+
   clearDbOverride(
     dbName: string,
     slugValue: string,

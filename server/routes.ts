@@ -2762,6 +2762,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/content-types/:type/db-overrides/:slug", (req, res) => {
+    try {
+      const { type, slug } = req.params;
+      const config = getContentTypeConfig(type);
+      if (!config?.database?.slug) {
+        res.status(400).json({ error: `Content type "${type}" has no database configured` });
+        return;
+      }
+      const dbName = config.database.slug;
+      if (!databaseManager.exists(dbName)) {
+        res.status(404).json({ error: `Database "${dbName}" not found` });
+        return;
+      }
+      const rawOverrides = databaseManager.getDbOverridesForEntry(dbName, slug);
+      if (!rawOverrides) {
+        res.json({ overrides: {} });
+        return;
+      }
+      // Build a reverse map: dbPath -> templateKey using the field mapping
+      const fm = getFieldMapping(type);
+      const reverseMap: Record<string, string> = {};
+      if (fm) {
+        for (const [templateKey, dbPath] of Object.entries(fm)) {
+          if (typeof dbPath === "string" && !dbPath.startsWith("function:") && !templateKey.startsWith("_")) {
+            reverseMap[dbPath] = templateKey;
+          }
+        }
+      }
+      // Return overrides keyed by template key (falling back to DB key if no reverse mapping)
+      const overrides: Record<string, unknown> = {};
+      for (const [dbKey, value] of Object.entries(rawOverrides)) {
+        const templateKey = reverseMap[dbKey] ?? dbKey;
+        overrides[templateKey] = value;
+      }
+      res.json({ overrides });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
   app.delete("/api/content-types/:type/db-overrides/:slug", async (req, res) => {
     try {
       const { type, slug } = req.params;
