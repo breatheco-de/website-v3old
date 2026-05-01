@@ -8,7 +8,7 @@ yaml: |
   subheading: Yes, and we've got the numbers to back it up.
   tall_image: graduates_celebration
   stacked_images:
-    - graduates_workspace
+    - caracas_graduates
     - graduates_team_1
   stats:
     - value: "84"

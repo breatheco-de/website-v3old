@@ -523,12 +523,12 @@ sections:
         description: |-
           Focused on career outcomes: 
            Want AI-native skills that unlock in-demand, high-paying roles.
-        image_id: placeholder_mentorship
+        image_id: placeholder_career_guidance
       - label: Text-to-issue commands
         description: |-
           Motivated by structure: 
            Prefer clear milestones, expert instructors, and a supportive cohort.
-        image_id: placeholder_strategies
+        image_id: students_collaborating
     image_position: right
     marginY:
       mobile: xl lg

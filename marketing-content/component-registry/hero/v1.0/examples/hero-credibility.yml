@@ -17,16 +17,16 @@ yaml: |
     pills:
       - category: "Institutional Backing"
         logos:
-          - image_id: "forbes-logo-c8a5f1b2"
+          - image_id: "forbes_logo_award"
         label: "Chosen Partners of 12+ Universities"
       - category: "Graduate Outcomes"
         logos:
-          - image_id: "switchup-logo-d3e2a7f0"
+          - image_id: "logo_switchup"
         label: "Trusted with $20M+ in Government Funding"
       - category: "Student Ratings"
         logos:
-          - image_id: "course-report-logo-9b4c1e82"
-          - image_id: "forbes-logo-c8a5f1b2"
+          - image_id: "course_report_badge"
+          - image_id: "forbes_logo_award"
         label: "Best Bootcamp Awards by Forbes, Course Report and more."
     logo_rotation_ms_time: 2000
     colored_logos: true

@@ -97,15 +97,15 @@ sections:
     pills:
       - category: Institutional Backing
         logos:
-          - image_id: forbes-logo-c8a5f1b2
+          - image_id: forbes_logo_award
         label: Chosen Partners of 12+ Universities
       - category: Graduate Outcomes
         logos:
-          - image_id: switchup-logo-d3e2a7f0
+          - image_id: logo_switchup
         label: Trusted with $20M+ in Government Funding
       - category: Student Ratings
         logos:
-          - image_id: course-report-logo-9b4c1e82
+          - image_id: course_report_badge
         label: Best Bootcamp Awards by Forbes, Course Report and more.
     show_marquee: true
     marquee_items:
@@ -548,7 +548,7 @@ sections:
     video_title: GeekForce Career Support
   - type: image_row
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png-133x500.webp
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp
         alt: Student learning to code
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latin_male-133x500.webp
         alt: Developer working on project
@@ -884,7 +884,7 @@ sections:
           text: 16 weeks full-time or 36 weeks part-time
         - icon: IconRocket
           text: Fastest-growing career track in tech
-      image_id: placeholder_strategies
+      image_id: students_collaborating
       image_object_fit: cover
       image_object_position: center
       cta_text: Explore AI Engineering
@@ -925,28 +925,28 @@ sections:
     profiles:
       - name: Alejandro Sánchez
         role: Co-Founder & Technology Director
-        image_id: student-1-asian.png
+        image_id: student_asian
         linkedin_url: https://linkedin.com/in/example
       - name: Marcelo Ricigliano
         role: Co-founder & CEO
-        image_id: student-1-asian.png
+        image_id: student_asian
         linkedin_url: https://linkedin.com/in/example
       - name: Alissa Landra
         role: Campus & Growth Manager USA
-        image_id: student-1-asian.png
+        image_id: student_asian
         description: Passionate about growing tech education across the US.
         linkedin_url: https://linkedin.com/in/example
       - name: Victor Gómez
         role: Regional Manager Europe
-        image_id: student-1-asian.png
+        image_id: student_asian
       - name: Sofia Torres
         role: Head of Education
-        image_id: student-1-asian.png
+        image_id: student_asian
         description: Leading curriculum development for AI-driven programs.
         linkedin_url: https://linkedin.com/in/example
       - name: Laura Méndez
         role: Career Coach
-        image_id: student-1-asian.png
+        image_id: student_asian
         linkedin_url: https://linkedin.com/in/example
   - type: hero
     section_id: hero-k4dkgj
@@ -1281,25 +1281,25 @@ sections:
         name: Alejandro Sánchez
         role: Program Director for Workforce Grants @ Clark University
         linkedin_url: https://linkedin.com/in/example
-      - image_id: student-1-asian.png
+      - image_id: student_asian
         name: Marcelo Ricigliano
         role: Co-founder & CEO
         description: asasasaasasasaasasasaasasasa asasasaasasasaasasasaasasasa asasasaasasasaasasasaasasasa asasasaasasasaasasasaasasasa asasasa asasasa
         linkedin_url: https://linkedin.com/in/example
-      - image_id: student-1-asian.png
+      - image_id: student_asian
         name: Alissa Landra
         role: Campus & Growth Manager USA
         description: Passionate about growing tech education across the US.
         linkedin_url: https://linkedin.com/in/example
-      - image_id: student-1-asian.png
+      - image_id: student_asian
         name: Victor Gómez
         role: Regional Manager Europe
-      - image_id: student-1-asian.png
+      - image_id: student_asian
         name: Sofia Torres
         role: Head of Education
         description: Leading curriculum development for AI-driven programs.
         linkedin_url: https://linkedin.com/in/example
-      - image_id: student-1-asian.png
+      - image_id: student_asian
         name: Sofia Torres
         role: Head of Education
         description: Leading curriculum development for AI-driven programs.
@@ -1431,24 +1431,24 @@ sections:
         name: Alejandro Sánchez
         role: Co-Founder & Technology Director
         linkedin_url: https://linkedin.com/in/example
-      - image_id: student-1-asian.png
+      - image_id: student_asian
         name: Marcelo Ricigliano
         role: Co-founder & CEO
         linkedin_url: https://linkedin.com/in/example
-      - image_id: student-1-asian.png
+      - image_id: student_asian
         name: Alissa Landra
         role: Campus & Growth Manager USA
         description: Passionate about growing tech education across the US.
         linkedin_url: https://linkedin.com/in/example
-      - image_id: student-1-asian.png
+      - image_id: student_asian
         name: Victor Gómez
         role: Regional Manager Europe
-      - image_id: student-1-asian.png
+      - image_id: student_asian
         name: Sofia Torres
         role: Head of Education
         description: Leading curriculum development for AI-driven programs.
         linkedin_url: https://linkedin.com/in/example
-      - image_id: student-1-asian.png
+      - image_id: student_asian
         name: Laura Méndez
         role: Career Coach
         linkedin_url: https://linkedin.com/in/example
@@ -1481,7 +1481,7 @@ sections:
             icon: Code
     footer_description: Together, human mentorship and AI-powered tools accelerate your learning, keep you engaged, and empower you to tackle challenges with confidence.
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png-133x500.webp
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp
         alt: Asian student learning to code
         object_fit: cover
         object_position: center top
@@ -1515,10 +1515,10 @@ sections:
         image_id: feliz_empresario_laptop
       - label: Inline comments
         description: Add contextual feedback directly where it matters most
-        image_id: placeholder_mentorship
+        image_id: placeholder_career_guidance
       - label: Text-to-issue commands
         description: Seamlessly move between ideation and execution
-        image_id: placeholder_strategies
+        image_id: students_collaborating
       - label: Text-to-issue commands
         description: Seamlessly move between ideation and execution
         image_id: logo_uber
@@ -1544,7 +1544,7 @@ sections:
     maxWidth:
       desktop: 6xl
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png-133x500.webp
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp
         alt: Asian student learning to code
         object_fit: cover
         object_position: center 10%
@@ -1616,15 +1616,15 @@ sections:
     heading: Why Choose Our AI Engineering Program?
     description: Get the skills, support, and job placement assistance you need to launch your career in AI engineering.
     images:
-      - image_id: student-1
+      - image_id: student_asian
         alt: Student 1
-      - image_id: student-2
+      - image_id: student_latin_male
         alt: Student 2
-      - image_id: student-3
+      - image_id: student_african
         alt: Student 3
-      - image_id: student-4
+      - image_id: student_latina_female
         alt: Student 4
-      - image_id: student-4
+      - image_id: student_latina_female
         alt: Student 4
     cards:
       - icon: Trophy

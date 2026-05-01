@@ -167,7 +167,7 @@ sections:
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
         alt: Student learning to code
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.pngtin.png
         alt: Developer working on project
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
         alt: Team collaboration session

@@ -7,11 +7,11 @@ yaml: |
     heading: "Master AI Development Tools"
     description: "Learn to build production-ready AI applications with industry-standard tools and frameworks."
     images:
-      - image_id: "student-1"
+      - image_id: "student_asian"
         alt: "Student 1"
-      - image_id: "student-2"
+      - image_id: "student_latin_male"
         alt: "Student 2"
-      - image_id: "student-3"
+      - image_id: "student_african"
         alt: "Student 3"
     cards:
       - icon: "Code"

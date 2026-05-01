@@ -18,7 +18,7 @@ yaml: |
       - image_id: "graduates_celebration"
         col_span: 7
         row_span: 2
-      - image_id: "graduates_workspace"
+      - image_id: "caracas_graduates"
         col_span: 5
         row_span: 2
       - image_id: "graduates_team_1"

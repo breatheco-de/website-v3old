@@ -99,7 +99,7 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/image_1765318600261.png
         alt: Feature illustration
         id: image-feature-5
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.pngtin.png
         alt: Latino student working on a project
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
         alt: African student collaborating with team

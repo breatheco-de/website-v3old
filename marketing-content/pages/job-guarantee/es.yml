@@ -82,7 +82,7 @@ sections:
         row_span: 2
         col_start: 1
         row_start: 1
-      - image_id: graduates_workspace
+      - image_id: caracas_graduates
         col_span: 3
         row_span: 2
         col_start: 1

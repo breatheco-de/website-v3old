@@ -17,6 +17,6 @@ primary:
         bottom: "20%"
         right: "5%"
 secondary:
-  image_id: campus-miami-background
+  image_id: miami_people_graduation
   object_fit: cover
   object_position: center center
