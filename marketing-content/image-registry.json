@@ -5784,16 +5784,51 @@
       "width": 400,
       "height": 400,
       "preset": [
+        "logo",
+        "avatar",
+        "card",
+        "card-wide",
+        "icon",
         "full"
       ],
       "widths_generated": [
-        400
+        32,
+        64,
+        120,
+        128,
+        240,
+        256,
+        320
       ],
       "format": "webp",
       "srcset": [
         {
-          "w": 400,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/MelamnieGalaretto_1764725408397-400w.webp"
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/MelamnieGalaretto_1764725408397-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/MelamnieGalaretto_1764725408397-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/MelamnieGalaretto_1764725408397-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/MelamnieGalaretto_1764725408397-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/MelamnieGalaretto_1764725408397-240w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/MelamnieGalaretto_1764725408397-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/MelamnieGalaretto_1764725408397-320w.webp"
         }
       ]
     },
@@ -5820,16 +5855,51 @@
       "width": 400,
       "height": 400,
       "preset": [
+        "logo",
+        "avatar",
+        "card",
+        "card-wide",
+        "icon",
         "full"
       ],
       "widths_generated": [
-        400
+        32,
+        64,
+        120,
+        128,
+        240,
+        256,
+        320
       ],
       "format": "webp",
       "srcset": [
         {
-          "w": 400,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/NatiaLombardo_1764725413363-400w.webp"
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/NatiaLombardo_1764725413363-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/NatiaLombardo_1764725413363-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/NatiaLombardo_1764725413363-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/NatiaLombardo_1764725413363-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/NatiaLombardo_1764725413363-240w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/NatiaLombardo_1764725413363-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/NatiaLombardo_1764725413363-320w.webp"
         }
       ]
     },
@@ -5856,16 +5926,56 @@
       "width": 512,
       "height": 512,
       "preset": [
+        "logo",
+        "avatar",
+        "card",
+        "card-wide",
+        "icon",
         "full"
       ],
       "widths_generated": [
-        512
+        32,
+        64,
+        120,
+        128,
+        240,
+        256,
+        320,
+        480
       ],
       "format": "webp",
       "srcset": [
         {
-          "w": 512,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501-512w.webp"
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501-240w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501-480w.webp"
         }
       ]
     },
@@ -5882,21 +5992,48 @@
       "width": 516,
       "height": 98,
       "preset": [
-        "logo"
+        "logo",
+        "avatar",
+        "card"
       ],
       "widths_generated": [
+        64,
         120,
-        240
+        128,
+        240,
+        256,
+        320,
+        480
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/images-removebg-preview_1767642331872-64w.webp"
+        },
         {
           "w": 120,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/images-removebg-preview_1767642331872-120w.webp"
         },
         {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/images-removebg-preview_1767642331872-128w.webp"
+        },
+        {
           "w": 240,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/images-removebg-preview_1767642331872-240w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/images-removebg-preview_1767642331872-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/images-removebg-preview_1767642331872-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/images-removebg-preview_1767642331872-480w.webp"
         }
       ]
     },
@@ -5914,13 +6051,31 @@
       "width": 687,
       "height": 410,
       "preset": [
-        "hero-wide"
+        "hero-wide",
+        "hero-tall",
+        "full",
+        "card"
       ],
       "widths_generated": [
+        320,
+        360,
+        480,
         640
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/outcomes_1765562850573-320w.webp"
+        },
+        {
+          "w": 360,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/outcomes_1765562850573-360w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/outcomes_1765562850573-480w.webp"
+        },
         {
           "w": 640,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/outcomes_1765562850573-640w.webp"
@@ -5941,12 +6096,16 @@
       "width": 500,
       "height": 500,
       "preset": [
-        "avatar"
+        "avatar",
+        "full",
+        "card"
       ],
       "widths_generated": [
         64,
         128,
-        256
+        256,
+        320,
+        480
       ],
       "format": "webp",
       "srcset": [
@@ -5961,6 +6120,14 @@
         {
           "w": 256,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734-480w.webp"
         }
       ]
     },
@@ -5977,7 +6144,9 @@
       "width": 60,
       "height": 60,
       "preset": [
-        "logo"
+        "logo",
+        "full",
+        "card"
       ],
       "widths_generated": [
         60
@@ -6003,12 +6172,15 @@
       "width": 400,
       "height": 400,
       "preset": [
-        "avatar"
+        "avatar",
+        "full",
+        "card"
       ],
       "widths_generated": [
         64,
         128,
-        256
+        256,
+        320
       ],
       "format": "webp",
       "srcset": [
@@ -6023,6 +6195,10 @@
         {
           "w": 256,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100-320w.webp"
         }
       ]
     },
@@ -6100,16 +6276,37 @@
       "width": 512,
       "height": 512,
       "preset": [
-        "full"
+        "avatar",
+        "card"
       ],
       "widths_generated": [
-        512
+        64,
+        128,
+        256,
+        320,
+        480
       ],
       "format": "webp",
       "srcset": [
         {
-          "w": 512,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks_member-512w.webp"
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks_member-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks_member-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks_member-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks_member-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks_member-480w.webp"
         }
       ]
     },
@@ -6127,12 +6324,18 @@
       "width": 1024,
       "height": 683,
       "preset": [
+        "full",
+        "card",
         "avatar"
       ],
       "widths_generated": [
         64,
         128,
-        256
+        256,
+        320,
+        480,
+        640,
+        960
       ],
       "format": "webp",
       "srcset": [
@@ -6147,6 +6350,22 @@
         {
           "w": 256,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/alejandrosanchez-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/alejandrosanchez-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/alejandrosanchez-480w.webp"
+        },
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/alejandrosanchez-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/alejandrosanchez-960w.webp"
         }
       ]
     },
