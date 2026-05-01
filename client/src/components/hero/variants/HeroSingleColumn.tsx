@@ -33,6 +33,11 @@ export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
   const rawSrc = data.image?.src !== "undefined" ? data.image?.src : BLOG_IMAGE_FALLBACK;
   const imgSrc = fallbackSrc ?? rawSrc ?? (data as any).image_id;
 
+  // Read _variableKeys directly from the section data so templateKey reaches UniversalImage
+  // regardless of whether SectionContext variableKeys propagation is working.
+  const sectionVarKeys = (data as any)._variableKeys as Record<string, string> | undefined;
+  const imageTemplateKey = sectionVarKeys?.["image.src"];
+
   const handleHeroError = () => {
     setFallbackSrc(data.image?.fallback ?? BLOG_IMAGE_FALLBACK);
   };
@@ -145,9 +150,9 @@ export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
             data-testid="img-hero-single-column"
             fieldContext={
               (data as any).image_id
-                ? { fieldPath: "image_id" }
+                ? { fieldPath: "image_id", templateKey: imageTemplateKey }
                 : data.image?.src
-                  ? { fieldPath: "image.src" }
+                  ? { fieldPath: "image.src", templateKey: imageTemplateKey }
                   : undefined
             }
           />

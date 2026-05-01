@@ -108,6 +108,7 @@ export function UniversalImage({
     return variableKeys[lookupPath];
   })();
 
+
   const { data: dbOverridesData } = useQuery<{ overrides: Record<string, unknown> }>({
     queryKey: ["/api/content-types", sectionContentType, "db-overrides", sectionSlug],
     queryFn: async () => {
