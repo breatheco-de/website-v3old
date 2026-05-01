@@ -54,11 +54,13 @@ sections:
         excerpt: Current and prospective tech professionals can complete data science bootcamps to sharpen their existing skills, change fields or advance in their current careers.
         link_text: Read Article
         link_url: https://www.forbes.com/advisor/education/bootcamps/best-data-science-bootcamps/
-      - logo: businesswire-logo
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/businesswire-logo.png
         title: Global Coding Bootcamp Market 2021-2025
         excerpt: The publisher's robust vendor analysis is designed to help clients improve their market position, and in line with this, this report provides a detailed analysis of several leading coding bootcamp market vendors that include 4Geeks Academy LLC
         link_text: Read Article
         link_url: https://www.businesswire.com/news/home/20210519005401/en/Global-Coding-Bootcamp-Market-2021-2025---Low-Cost-of-Bootcamps-and-an-Increase-in-Student-Enrollments-to-Drive-Growth---ResearchAndMarkets.com
+        alt: "Image: businesswire-logo"
+        id: businesswire-logo
       - logo: refresh-miami-logo
         title: Miami-based coding school 4Geeks is breaking down the barriers to becoming a software developer
         excerpt: Miami-based Marcelo Ricigliano is helping South Floridians hope on these trends and change their lives. Ricigliano is the CEO of coding school 4Geeks Academy, which aims to lower the barrier to entry to tech jobs.
