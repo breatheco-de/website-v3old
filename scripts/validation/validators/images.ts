@@ -1,6 +1,11 @@
 import * as fs from "fs";
 import * as path from "path";
 import type { Validator, ValidatorResult, ValidationContext, ValidationIssue } from "../shared/types";
+import {
+  isNonLocalFilesystemSrc,
+  buildRegistrySrcToIdMap,
+  resolveRegistryReference,
+} from "../shared/imageRegistrySrc";
 import { mediaGallery } from "../../../server/media-gallery";
 
 const REGISTRY_PATH = path.join(process.cwd(), "marketing-content", "image-registry.json");
@@ -11,6 +16,10 @@ interface ImageRegistryEntry {
   focal_point?: string;
   tags?: string[];
   usage_count?: number;
+  protected?: boolean;
+  source_url?: string;
+  source_item?: string;
+  srcset?: Array<{ url: string; w: number }>;
 }
 
 interface ImageRegistry {
@@ -54,49 +63,57 @@ export const imagesValidator: Validator = {
     }
 
     const images = registry.images || {};
-    const { imageIds: referencedIds, srcValues, imageIdLocations } = mediaGallery.collectImageReferences();
+    const { imageIds: referencedIds, imageIdLocations } = mediaGallery.collectImageReferences();
+    const srcToId = buildRegistrySrcToIdMap(images);
 
     let missingFromRegistry = 0;
-    referencedIds.forEach((id) => {
-      if (!images[id]) {
-        missingFromRegistry++;
-        const locations = imageIdLocations.get(id) ?? [];
-        if (locations.length > 0) {
-          for (const loc of locations) {
-            const editUrl = `/private/preview/${loc.contentType}/${loc.slug}?locale=${loc.locale}&edit=1#${loc.sectionType}-${loc.sectionIndex}`;
-            errors.push({
-              type: "error",
-              code: "IMAGE_ID_NOT_IN_REGISTRY",
-              message: `Referenced image_id "${id}" not found in image registry — used in ${loc.yamlFile} (${loc.sectionType} section, index ${loc.sectionIndex})`,
-              file: loc.yamlFile,
-              suggestion: editUrl,
-              fix: {
-                type: "manual",
-                label: "Go to section",
-                url: editUrl,
-              },
-            });
-          }
-        } else {
+    referencedIds.forEach((ref) => {
+      if (resolveRegistryReference(ref, images, srcToId) !== null) {
+        return;
+      }
+      missingFromRegistry++;
+      const locations = imageIdLocations.get(ref) ?? [];
+      if (locations.length > 0) {
+        for (const loc of locations) {
+          const editUrl = `/private/preview/${loc.contentType}/${loc.slug}?locale=${loc.locale}&edit=1#${loc.sectionType}-${loc.sectionIndex}`;
           errors.push({
             type: "error",
-            code: "IMAGE_ID_NOT_IN_REGISTRY",
-            message: `Referenced image_id "${id}" not found in image registry`,
-            suggestion: "Add this image to marketing-content/image-registry.json or fix the reference",
+            code: "IMAGE_REFERENCE_NOT_IN_REGISTRY",
+            message: `Referenced image "${ref}" not found in image registry (no matching id or src) — used in ${loc.yamlFile} (${loc.sectionType} section, index ${loc.sectionIndex})`,
+            file: loc.yamlFile,
+            suggestion: editUrl,
             fix: {
               type: "manual",
-              label: "Fix manually",
+              label: "Go to section",
+              url: editUrl,
             },
           });
         }
+      } else {
+        errors.push({
+          type: "error",
+          code: "IMAGE_REFERENCE_NOT_IN_REGISTRY",
+          message: `Referenced image "${ref}" not found in image registry (no matching id or src)`,
+          suggestion: "Add this image to marketing-content/image-registry.json or fix the reference",
+          fix: {
+            type: "manual",
+            label: "Fix manually",
+          },
+        });
       }
+    });
+
+    const resolvedReferencedIds = new Set<string>();
+    referencedIds.forEach((ref) => {
+      const resolved = resolveRegistryReference(ref, images, srcToId);
+      if (resolved !== null) resolvedReferencedIds.add(resolved);
     });
 
     let missingFromDisk = 0;
     let placeholderAlts = 0;
     let missingAlts = 0;
     for (const [id, entry] of Object.entries(images)) {
-      if (entry.src) {
+      if (entry.src && !isNonLocalFilesystemSrc(entry.src)) {
         const srcPath = path.join(process.cwd(), entry.src);
         if (!fs.existsSync(srcPath)) {
           missingFromDisk++;
@@ -137,14 +154,19 @@ export const imagesValidator: Validator = {
     }
 
     let orphanedEntries = 0;
+    let externalSourceSkipped = 0;
     for (const [id, entry] of Object.entries(images)) {
-      const referencedById = referencedIds.has(id);
-      const src = entry.src || "";
-      const normalizedSrc = src.startsWith("/") ? src : `/${src}`;
-      const normalizedSrcNoSlash = src.startsWith("/") ? src.slice(1) : src;
-      const referencedBySrc = srcValues.has(src) || srcValues.has(normalizedSrc) || srcValues.has(normalizedSrcNoSlash);
-
-      if (!referencedById && !referencedBySrc) {
+      if (entry.source_url || entry.source_item) {
+        externalSourceSkipped++;
+        continue;
+      }
+      if (entry.protected) {
+        continue;
+      }
+      const srcsetUrls = Array.isArray(entry.srcset) ? entry.srcset.map((s) => s.url) : [];
+      const usage = mediaGallery.getUsage(id, entry.src, srcsetUrls);
+      const isUsed = usage.length > 0 || resolvedReferencedIds.has(id);
+      if (!isUsed) {
         orphanedEntries++;
         warnings.push({
           type: "warning",
@@ -152,6 +174,11 @@ export const imagesValidator: Validator = {
           message: `Registry image "${id}" is not referenced by any content file`,
           file: REGISTRY_PATH,
           suggestion: "Consider removing unused registry entries or adding references in content",
+          fix: {
+            type: "api",
+            label: "Remove orphaned images",
+            fixerName: "orphaned-images-cleanup",
+          },
         });
       }
     }
@@ -171,6 +198,7 @@ export const imagesValidator: Validator = {
         missingFromDisk,
         placeholderAlts,
         orphanedEntries,
+        externalSourceSkipped,
       },
     };
   },

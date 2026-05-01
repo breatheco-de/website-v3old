@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope, IconLink, IconLoader2, IconTerminal, IconEye, IconWand } from "@tabler/icons-react";
+import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope, IconLink, IconLoader2, IconTerminal, IconEye, IconWand, IconTool } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -32,7 +32,9 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";
 import type { ImageRegistry } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
+import { cn } from "@/lib/utils";
 import { getSessionHeaders } from "@/lib/sessionHeaders";
+import RunQueueSidebar, { type RunQueueItem } from "@/components/RunQueueSidebar";
 
 interface DuplicateGroup {
   hash: string;
@@ -95,12 +97,178 @@ interface ValidationRunResult {
   validators: ValidatorResult[];
 }
 
+interface FixerMeta {
+  name: string;
+  description: string;
+}
+
 interface OptimizeProgressData {
   initial: number;
   processed: number;
   failed: number;
   remaining: number;
   failedEntries: Array<{ id: string; error: string }>;
+}
+
+const IMAGE_HEALTH_VALIDATORS = ["images", "image-tags", "hero-image-tags", "image-optimization"];
+
+/** Dedupe API fix hints from validator issues (same pattern as Diagnostics). */
+function collectApiFixesFromValidator(v: ValidatorResult): Array<{ name: string; label: string; count: number }> {
+  const map = new Map<string, { label: string; count: number }>();
+  for (const issue of [...v.errors, ...v.warnings]) {
+    if (issue.fix?.type === "api" && issue.fix.fixerName) {
+      const fixerName = issue.fix.fixerName;
+      const existing = map.get(fixerName);
+      if (existing) {
+        existing.count += 1;
+      } else {
+        map.set(fixerName, { label: issue.fix.label?.trim() || fixerName, count: 1 });
+      }
+    }
+  }
+  return Array.from(map.entries()).map(([name, { label, count }]) => ({ name, label, count }));
+}
+
+type HealthIssueFixFilter = "all" | "api" | "manual" | "none" | "other";
+
+function summarizeIssueFixKinds(v: ValidatorResult): {
+  api: number;
+  manual: number;
+  script: number;
+  llm: number;
+  none: number;
+} {
+  const out = { api: 0, manual: 0, script: 0, llm: 0, none: 0 };
+  for (const issue of [...v.errors, ...v.warnings]) {
+    const t = issue.fix?.type;
+    if (!t) out.none += 1;
+    else if (t === "api") out.api += 1;
+    else if (t === "manual") out.manual += 1;
+    else if (t === "script") out.script += 1;
+    else if (t === "llm") out.llm += 1;
+    else out.none += 1;
+  }
+  return out;
+}
+
+function issueMatchesHealthFixFilter(issue: ValidationIssue, filter: HealthIssueFixFilter): boolean {
+  if (filter === "all") return true;
+  const t = issue.fix?.type;
+  if (filter === "api") return t === "api";
+  if (filter === "manual") return t === "manual";
+  if (filter === "none") return !t;
+  if (filter === "other") return t === "script" || t === "llm";
+  return true;
+}
+
+function issueMatchesHealthSearch(issue: ValidationIssue, query: string): boolean {
+  const q = query.trim().toLowerCase();
+  if (!q) return true;
+  const hay = [issue.code, issue.message, issue.suggestion, issue.file, issue.fix?.label]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+  return hay.includes(q);
+}
+
+/** Same surface colors as Image Health filter chips (primary/5, secondary, destructive/5, teal). */
+function healthIssueLogBadgeClassName(issue: ValidationIssue): string {
+  const t = issue.fix?.type;
+  const base =
+    "no-default-hover-elevate shrink-0 border font-normal text-[10px] px-1.5 py-0 shadow-none";
+  if (t === "api") {
+    return cn(base, "border-primary/25 bg-primary/5 text-foreground");
+  }
+  if (t === "manual") {
+    return cn(base, "border-border bg-secondary text-secondary-foreground");
+  }
+  if (t === "script" || t === "llm") {
+    return cn(
+      base,
+      "border-teal-500 bg-teal-200 text-teal-950 dark:border-teal-600 dark:bg-teal-950 dark:text-teal-100",
+    );
+  }
+  return cn(base, "border-destructive/5 bg-destructive/5 text-destructive");
+}
+
+/** How to show each artifact key in Image Health (stats vs alert styling). */
+type ArtifactShowKind = "stat" | "alert-error" | "alert-warning";
+
+const VALIDATOR_ARTIFACT_PRESENTATION: Partial<
+  Record<string, Partial<Record<string, ArtifactShowKind>>>
+> = {
+  images: {
+    registryEntries: "stat",
+    referencedIds: "stat",
+    missingFromRegistry: "alert-error",
+    missingFromDisk: "alert-error",
+    placeholderAlts: "alert-warning",
+    orphanedEntries: "alert-warning",
+  },
+  "image-tags": {
+    totalImages: "stat",
+    canonicalTagCount: "stat",
+    untaggedCount: "alert-warning",
+    invalidTagCount: "alert-warning",
+    missingPresetCount: "alert-warning",
+  },
+  "image-optimization": {
+    totalImages: "stat",
+    optimized: "stat",
+    skipped: "stat",
+    needsOptimization: "alert-warning",
+  },
+  "hero-image-tags": {
+    yamlFilesScanned: "stat",
+    heroSectionsFound: "stat",
+    uniqueHeroImages: "stat",
+    correct: "stat",
+    missingFromRegistry: "alert-warning",
+    missingHeroTag: "alert-warning",
+    missingHeroPreset: "alert-warning",
+    parseErrors: "alert-error",
+  },
+};
+
+function formatArtifactLabel(key: string): string {
+  return key.replace(/([A-Z])/g, " $1").replace(/^./, (s) => s.toUpperCase());
+}
+
+function isZeroArtifactValue(value: unknown): boolean {
+  if (typeof value === "number") return value === 0;
+  if (typeof value === "string") {
+    const n = Number(value);
+    return Number.isFinite(n) && n === 0;
+  }
+  return false;
+}
+
+function partitionArtifacts(
+  validatorName: string,
+  artifacts: Record<string, unknown>,
+): {
+  stats: Array<[string, unknown]>;
+  alertErrors: Array<[string, unknown]>;
+  alertWarnings: Array<[string, unknown]>;
+} {
+  const stats: Array<[string, unknown]> = [];
+  const alertErrors: Array<[string, unknown]> = [];
+  const alertWarnings: Array<[string, unknown]> = [];
+  const presentation = VALIDATOR_ARTIFACT_PRESENTATION[validatorName];
+
+  for (const entry of Object.entries(artifacts)) {
+    const [key, value] = entry;
+    const kind = presentation?.[key];
+    if (kind === "alert-error") {
+      alertErrors.push(entry);
+    } else if (kind === "alert-warning") {
+      alertWarnings.push(entry);
+    } else {
+      stats.push(entry);
+    }
+  }
+
+  return { stats, alertErrors, alertWarnings };
 }
 
 function OptimizationProgressPanel({
@@ -206,7 +374,6 @@ export default function MediaGallery() {
   const [optimizeProgress, setOptimizeProgress] = useState<OptimizeProgressData | null>(null);
   const [optimizeDone, setOptimizeDone] = useState(false);
   const [optimizeFailedOpen, setOptimizeFailedOpen] = useState(false);
-  const [fixingHeroTags, setFixingHeroTags] = useState(false);
   const optimizePollerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [migrating, setMigrating] = useState(false);
   const [autoTagging, setAutoTagging] = useState(false);
@@ -224,9 +391,24 @@ export default function MediaGallery() {
   const [scriptMigrateOutput, setScriptMigrateOutput] = useState<{ message: string; results: Array<{ id: string; oldSrc?: string; newSrc?: string; status: string }> } | null>(null);
   const [scriptRemoveUnusedDryRun, setScriptRemoveUnusedDryRun] = useState(true);
   const [scriptRemoveUnusedRunning, setScriptRemoveUnusedRunning] = useState(false);
-  const [scriptRemoveUnusedOutput, setScriptRemoveUnusedOutput] = useState<{ message: string; removedCount: number; skippedCount: number; results: Array<{ id: string; src: string; status: string; reason?: string }> } | null>(null);
+  const [scriptRemoveUnusedOutput, setScriptRemoveUnusedOutput] = useState<{
+    message: string;
+    removedCount: number;
+    skippedCount: number;
+    cleanupErrorCount?: number;
+    externalSkippedCount?: number;
+    results: Array<{ id: string; src: string; status: string; reason?: string }>;
+  } | null>(null);
   const [scriptRemoveUnusedProgress, setScriptRemoveUnusedProgress] = useState<{ processed: number; total: number } | null>(null);
   const [scriptRemoveUnusedStreamError, setScriptRemoveUnusedStreamError] = useState<string | null>(null);
+  const [runningFixers, setRunningFixers] = useState<Record<string, boolean>>({});
+  const [fixResultByFixer, setFixResultByFixer] = useState<Record<string, { ok: boolean; message: string }>>({});
+  /** Per-validator row: filter issues by suggested fix type (Image Health Checks). */
+  const [healthIssueFixFilter, setHealthIssueFixFilter] = useState<Record<string, HealthIssueFixFilter>>({});
+  const [healthIssueSearchOpen, setHealthIssueSearchOpen] = useState<Record<string, boolean>>({});
+  const [healthIssueSearchText, setHealthIssueSearchText] = useState<Record<string, string>>({});
+  const [runQueueOpen, setRunQueueOpen] = useState(false);
+  const [runQueueActivated, setRunQueueActivated] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -242,6 +424,20 @@ export default function MediaGallery() {
 
   const { data: registry, isLoading, error } = useQuery<ImageRegistry>({
     queryKey: ["/api/image-registry"],
+  });
+
+  const { data: fixerList = [] } = useQuery<FixerMeta[]>({
+    queryKey: ["/api/validation/fixers"],
+  });
+
+  const hasFixerInFlight = Object.values(runningFixers).some(Boolean) || autoTagging;
+  const { data: runQueueRuns = [], refetch: refetchRunQueueRuns } = useQuery<RunQueueItem[]>({
+    queryKey: ["/api/validation/runs"],
+    enabled: runQueueActivated || runQueueOpen,
+    refetchInterval: (query) => {
+      const runs = (query.state.data as RunQueueItem[] | undefined) ?? [];
+      return hasFixerInFlight || runs.some((run) => run.running) ? 1500 : false;
+    },
   });
 
   interface RedundantImage { id: string; cloudUrl: string; localPath: string; }
@@ -303,11 +499,15 @@ export default function MediaGallery() {
     setScanning(true);
     setScanResult(null);
     setValidationResult(null);
+    setFixResultByFixer({});
+    setHealthIssueFixFilter({});
+    setHealthIssueSearchOpen({});
+    setHealthIssueSearchText({});
     try {
       const [scanRes, validationRes] = await Promise.all([
         apiRequest("POST", "/api/image-registry/scan"),
         apiRequest("POST", "/api/validation/run", {
-          validators: ["images", "hero-image-tags", "image-optimization"],
+          validators: IMAGE_HEALTH_VALIDATORS,
           includeArtifacts: true,
         }),
       ]);
@@ -321,6 +521,15 @@ export default function MediaGallery() {
       setScanning(false);
     }
   };
+
+  const rerunImageHealthChecks = useCallback(async () => {
+    const validationRes = await apiRequest("POST", "/api/validation/run", {
+      validators: IMAGE_HEALTH_VALIDATORS,
+      includeArtifacts: true,
+    });
+    const validationData: ValidationRunResult = await validationRes.json();
+    setValidationResult(validationData);
+  }, []);
 
   const startOptimizationPoller = useCallback((initialFallback: number) => {
     if (optimizePollerRef.current) clearInterval(optimizePollerRef.current);
@@ -384,54 +593,83 @@ export default function MediaGallery() {
     })();
   }, [startOptimizationPoller]);
 
-  const handleTriggerOptimization = async () => {
-    setOptimizing(true);
-    setOptimizeDone(false);
-    setOptimizeProgress(null);
-    try {
-      const res = await apiRequest("POST", "/api/image-registry/optimize-batch", {});
-      const data = await res.json();
-      if (data.queued > 0) {
-        setOptimizeProgress({ initial: data.queued, processed: 0, failed: 0, remaining: data.queued, failedEntries: [] });
-        startOptimizationPoller(data.queued);
-      } else {
-        setOptimizing(false);
-        toast({
-          title: "Nothing to optimize",
-          description: data.message || "All images are already optimized",
-        });
-      }
-    } catch {
-      toast({ title: "Optimization failed", description: "Could not start batch optimization", variant: "destructive" });
-      setOptimizing(false);
-    }
-  };
-
   const handleDismissOptimization = () => {
     setOptimizing(false);
     setOptimizeDone(false);
     setOptimizeProgress(null);
   };
 
-  const handleFixHeroTags = async () => {
-    setFixingHeroTags(true);
+  const handleRunApiFixer = async (fixerName: string) => {
+    setRunQueueActivated(true);
+    setRunQueueOpen(true);
+    setRunningFixers((prev) => ({ ...prev, [fixerName]: true }));
+    void refetchRunQueueRuns();
     try {
-      const res = await apiRequest("POST", "/api/validation/fix/hero-image-tags");
+      const res = await apiRequest("POST", `/api/validation/fix/${fixerName}`);
       const data = await res.json();
-      toast({
-        title: "Hero tags fixed",
-        description: data.message || "Hero image tags have been updated",
-      });
-      const validationRes = await apiRequest("POST", "/api/validation/run", {
-        validators: ["images", "hero-image-tags", "image-optimization"],
-        includeArtifacts: true,
-      });
-      const validationData: ValidationRunResult = await validationRes.json();
-      setValidationResult(validationData);
+      if (Array.isArray(data.runIds) && data.runIds.length > 0) {
+        queryClient.setQueryData<RunQueueItem[]>(["/api/validation/runs"], (prev = []) => {
+          const existingById = new Map(prev.map((run) => [run.runId, run]));
+          const next = [...prev];
+          data.runIds.forEach((runId: string, index: number) => {
+            if (existingById.has(runId)) return;
+            next.unshift({
+              runId,
+              pipelineRoot: fixerName,
+              fixerName: Array.isArray(data.pipeline) ? (data.pipeline[index] ?? fixerName) : fixerName,
+              running: false,
+              total: 0,
+              processed: 0,
+              ok: 0,
+              skipped: 0,
+              failed: 0,
+              startedAt: Date.now(),
+              completedAt: Date.now(),
+              message: data.message || "Fixer completed",
+              log: [],
+            });
+          });
+          return next;
+        });
+      }
+      setFixResultByFixer((prev) => ({
+        ...prev,
+        [fixerName]: {
+          ok: Boolean(data.ok),
+          message: data.message || "Fixer completed",
+        },
+      }));
+      toast({ title: data.ok ? "Fix completed" : "Fix completed with errors", description: data.message || fixerName });
+      await rerunImageHealthChecks();
+      await queryClient.invalidateQueries({ queryKey: ["/api/validation/runs"] });
+      await refetchRunQueueRuns();
     } catch {
-      toast({ title: "Fix failed", description: "Could not fix hero image tags", variant: "destructive" });
+      setFixResultByFixer((prev) => ({
+        ...prev,
+        [fixerName]: { ok: false, message: "Could not run fixer" },
+      }));
+      toast({ title: "Fix failed", description: "Could not run fixer", variant: "destructive" });
     } finally {
-      setFixingHeroTags(false);
+      setRunningFixers((prev) => ({ ...prev, [fixerName]: false }));
+    }
+  };
+
+  const handleClearRunQueue = async () => {
+    try {
+      const res = await apiRequest("POST", "/api/validation/runs/clear");
+      const data = await res.json();
+      await queryClient.invalidateQueries({ queryKey: ["/api/validation/runs"] });
+      await refetchRunQueueRuns();
+      toast({
+        title: "Runs cleared",
+        description: `Cleared ${data.cleared ?? 0} run(s) from memory`,
+      });
+    } catch {
+      toast({
+        title: "Could not clear runs",
+        description: "Try again in a moment",
+        variant: "destructive",
+      });
     }
   };
 
@@ -702,9 +940,11 @@ export default function MediaGallery() {
             receivedCompletion = true;
             setScriptRemoveUnusedProgress(null);
             setScriptRemoveUnusedOutput({
-              message: `Removed ${event.summary.removed} unused image(s), skipped ${event.summary.skipped}, failed ${event.summary.failed} (${event.total} total unused)`,
+            message: `Removed ${event.summary.removed} unused image(s), skipped ${event.summary.skipped}, failed ${event.summary.failed}, cleanup warnings ${event.summary.cleanupWarnings ?? 0}, ignored external-source ${event.summary.externalSkipped ?? 0} (${event.total} total unused)`,
               removedCount: event.summary.removed,
-              skippedCount: event.summary.skipped,
+            skippedCount: event.summary.skipped,
+            cleanupErrorCount: event.summary.cleanupWarnings ?? 0,
+            externalSkippedCount: event.summary.externalSkipped ?? 0,
               results: allResults,
             });
             if (event.summary.removed > 0) {
@@ -715,7 +955,7 @@ export default function MediaGallery() {
 
           if (event.batch) {
             allResults = [...allResults, ...event.batch];
-            if (event.batch.some((r: { status: string }) => r.status === "removed")) {
+            if (event.batch.some((r: { status: string }) => r.status === "removed" || r.status === "removed-with-cleanup-errors")) {
               hadRemovals = true;
             }
             setScriptRemoveUnusedProgress({ processed: event.processed, total: event.total });
@@ -867,6 +1107,9 @@ export default function MediaGallery() {
                   variant="ghost"
                   onClick={async () => {
                     setAutoTagging(true);
+                    setRunQueueActivated(true);
+                    setRunQueueOpen(true);
+                    void refetchRunQueueRuns();
                     try {
                       const res = await apiRequest("POST", "/api/validation/fix/image-auto-tags");
                       const data = await res.json();
@@ -875,6 +1118,8 @@ export default function MediaGallery() {
                         description: data.message,
                       });
                       queryClient.invalidateQueries({ queryKey: ["/api/image-registry"] });
+                      queryClient.invalidateQueries({ queryKey: ["/api/validation/runs"] });
+                      void refetchRunQueueRuns();
                     } catch {
                       toast({ title: "Auto-tag failed", description: "Could not auto-tag images", variant: "destructive" });
                     } finally {
@@ -885,6 +1130,18 @@ export default function MediaGallery() {
                   data-testid="button-auto-tag"
                 >
                   {autoTagging ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconWand className="h-4 w-4" />}
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    setRunQueueActivated(true);
+                    setRunQueueOpen(true);
+                  }}
+                  data-testid="button-open-run-queue"
+                >
+                  <IconChecks className="h-4 w-4 mr-1.5" />
+                  Fixers runs
                 </Button>
                 <Button
                   size="icon"
@@ -1096,13 +1353,30 @@ export default function MediaGallery() {
         {validationResult && validationResult.validators.length > 0 && (
           <div className="mb-6 rounded-lg border p-4 space-y-4" data-testid="validation-results">
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-sm">Image Health Checks</h3>
+              <h3
+                className={cn(
+                  "font-semibold text-sm",
+                  validationResult.summary.failed > 0
+                    ? "text-destructive"
+                    : validationResult.summary.warnings > 0
+                      ? "text-amber-600 dark:text-amber-400"
+                      : "text-green-600 dark:text-green-400",
+                )}
+              >
+                Image Health Checks
+              </h3>
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <span>{validationResult.summary.total} check(s) in {validationResult.summary.duration}ms</span>
                 <Button
                   size="sm"
                   variant="ghost"
-                  onClick={() => setValidationResult(null)}
+                  onClick={() => {
+                    setValidationResult(null);
+                    setFixResultByFixer({});
+                    setHealthIssueFixFilter({});
+                    setHealthIssueSearchOpen({});
+                    setHealthIssueSearchText({});
+                  }}
                   data-testid="button-dismiss-validation"
                 >
                   Dismiss
@@ -1112,6 +1386,16 @@ export default function MediaGallery() {
 
             {validationResult.validators.map((v) => {
               const issueCount = v.errors.length + v.warnings.length;
+              const apiFixes = collectApiFixesFromValidator(v);
+              const allIssues = [...v.errors, ...v.warnings];
+              const fixKinds = summarizeIssueFixKinds(v);
+              const otherCount = fixKinds.script + fixKinds.llm;
+              const fixFilter = healthIssueFixFilter[v.name] ?? "all";
+              const issueSearchOpen = healthIssueSearchOpen[v.name] ?? false;
+              const issueSearchText = healthIssueSearchText[v.name] ?? "";
+              const filteredIssues = allIssues
+                .filter((issue) => issueMatchesHealthFixFilter(issue, fixFilter))
+                .filter((issue) => issueMatchesHealthSearch(issue, issueSearchText));
               const statusColor =
                 v.status === "passed"
                   ? "text-green-600 dark:text-green-400"
@@ -1130,36 +1414,6 @@ export default function MediaGallery() {
                       <span className="text-xs text-muted-foreground">{v.description}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      {v.name === "image-optimization" && issueCount > 0 && !optimizing && !optimizeDone && (
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={handleTriggerOptimization}
-                          disabled={mediaStatus?.defaultProvider !== "gcs"}
-                          title={mediaStatus?.defaultProvider !== "gcs" ? "GCS provider required for optimization" : undefined}
-                          data-testid="button-trigger-optimization"
-                        >
-                          Trigger optimization
-                        </Button>
-                      )}
-                      {v.name === "hero-image-tags" && issueCount > 0 && (
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={handleFixHeroTags}
-                          disabled={fixingHeroTags}
-                          data-testid="button-fix-hero-tags"
-                        >
-                          {fixingHeroTags ? (
-                            <>
-                              <IconLoader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />
-                              Fixing...
-                            </>
-                          ) : (
-                            "Fix hero tags"
-                          )}
-                        </Button>
-                      )}
                       <span className="text-xs text-muted-foreground">{v.duration}ms</span>
                     </div>
                   </div>
@@ -1176,41 +1430,296 @@ export default function MediaGallery() {
                     </div>
                   )}
 
-                  {v.artifacts && (
-                    <div className="flex flex-wrap gap-3 text-xs text-muted-foreground pl-5">
-                      {Object.entries(v.artifacts).map(([key, value]) => (
-                        <span key={key}>
-                          {key.replace(/([A-Z])/g, " $1").replace(/^./, s => s.toUpperCase())}: <strong className="text-foreground">{String(value)}</strong>
-                        </span>
-                      ))}
-                    </div>
-                  )}
+                  {v.artifacts && Object.keys(v.artifacts).length > 0 && (() => {
+                    const { stats, alertErrors, alertWarnings } = partitionArtifacts(v.name, v.artifacts);
+                    return (
+                      <div className="flex flex-wrap gap-x-3 gap-y-1 pl-5 text-xs">
+                        {stats.map(([key, value]) => (
+                          <span key={key} className="text-muted-foreground">
+                            {formatArtifactLabel(key)}:{" "}
+                            <strong className="text-foreground tabular-nums">{String(value)}</strong>
+                          </span>
+                        ))}
+                        {alertErrors.map(([key, value]) => {
+                          const isZero = isZeroArtifactValue(value);
+                          return (
+                          <span key={key}>
+                            <span className={isZero ? "text-green-600 dark:text-green-400" : "text-destructive"}>
+                              {formatArtifactLabel(key)}:
+                            </span>{" "}
+                            <strong className={isZero ? "text-green-700 dark:text-green-300 tabular-nums" : "text-destructive tabular-nums"}>
+                              {String(value)}
+                            </strong>
+                          </span>
+                          );
+                        })}
+                        {alertWarnings.map(([key, value]) => {
+                          const isZero = isZeroArtifactValue(value);
+                          return (
+                          <span key={key}>
+                            <span className={isZero ? "text-green-600 dark:text-green-400" : "text-amber-600 dark:text-amber-400"}>
+                              {formatArtifactLabel(key)}:
+                            </span>{" "}
+                            <strong className={isZero ? "text-green-700 dark:text-green-300 tabular-nums" : "text-amber-700 dark:text-amber-300 tabular-nums"}>
+                              {String(value)}
+                            </strong>
+                          </span>
+                          );
+                        })}
+                      </div>
+                    );
+                  })()}
 
                   {issueCount > 0 && (
-                    <div className="max-h-40 overflow-y-auto space-y-1 pl-5">
-                      {[...v.errors, ...v.warnings].slice(0, 20).map((issue, i) => (
-                        <div key={i} className="flex flex-wrap items-center gap-1.5 text-xs">
-                          <span className={issue.type === "error" ? "text-destructive" : "text-amber-600 dark:text-amber-400"}>
-                            [{issue.code}]
-                          </span>
-                          <span className="text-muted-foreground">{issue.message}</span>
-                          {issue.fix?.type === "manual" && issue.fix.url && (
-                            <a
-                              href={issue.fix.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-0.5 text-primary hover:underline"
-                              data-testid={`link-goto-section-gallery-${i}`}
+                    <div className="pl-5 space-y-2">
+                      <ScrollArea className="max-h-96 rounded-md border">
+                        <div className="sticky top-0 z-10 space-y-2 border-b bg-background/95 px-2 pb-2 pt-2 backdrop-blur supports-[backdrop-filter]:bg-background/85">
+                          <p className="text-xs text-muted-foreground leading-relaxed">
+                            <span className="font-medium text-foreground">Suggested fixes in issues:</span>{" "}
+                            {(() => {
+                              const parts: string[] = [];
+                              if (fixKinds.api > 0) parts.push(`${fixKinds.api} can run an API fix`);
+                              if (fixKinds.manual > 0) parts.push(`${fixKinds.manual} need a manual fix (link or editor)`);
+                              if (fixKinds.none > 0) parts.push(`${fixKinds.none} have no suggested fix`);
+                              if (fixKinds.script > 0) parts.push(`${fixKinds.script} script`);
+                              if (fixKinds.llm > 0) parts.push(`${fixKinds.llm} LLM prompt`);
+                              return parts.length > 0 ? parts.join(" · ") : "—";
+                            })()}
+                          </p>
+
+                          <div className="flex flex-wrap items-center gap-2">
+                            <div className="flex flex-wrap gap-1.5 flex-1 min-w-0">
+                              <Button
+                                type="button"
+                                size="sm"
+                                variant="ghost"
+                                className={cn(
+                                  "no-default-hover-elevate no-default-active-elevate h-7 shrink-0 border px-2 text-xs font-medium shadow-none ring-offset-background",
+                                  fixFilter === "all"
+                                    ? "border-stone-500 bg-stone-300 text-stone-950 ring-1 ring-stone-400/40 ring-offset-1 dark:border-stone-400 dark:bg-stone-600 dark:text-stone-50 dark:ring-stone-500/30"
+                                    : "border-stone-400 bg-stone-200 text-stone-900 hover:bg-stone-300 dark:border-stone-500 dark:bg-stone-800 dark:text-stone-100 dark:hover:bg-stone-700",
+                                )}
+                                onClick={() =>
+                                  setHealthIssueFixFilter((prev) => ({ ...prev, [v.name]: "all" }))
+                                }
+                                data-testid={`button-health-filter-all-${v.name}`}
+                              >
+                                All issues ({issueCount})
+                              </Button>
+                              <Button
+                                type="button"
+                                size="sm"
+                                variant="ghost"
+                                className={cn(
+                                  "no-default-hover-elevate no-default-active-elevate h-7 shrink-0 border px-2 text-xs font-medium shadow-none ring-offset-background",
+                                  fixFilter === "api"
+                                    ? "border-primary/45 bg-primary/5 text-foreground ring-1 ring-primary/20 ring-offset-1"
+                                    : "border-primary/25 bg-primary/5 text-foreground hover:bg-primary/10",
+                                )}
+                                onClick={() =>
+                                  setHealthIssueFixFilter((prev) => ({ ...prev, [v.name]: "api" }))
+                                }
+                                data-testid={`button-health-filter-api-${v.name}`}
+                              >
+                                API fix ({fixKinds.api})
+                              </Button>
+                              <Button
+                                type="button"
+                                size="sm"
+                                variant="ghost"
+                                className={cn(
+                                  "no-default-hover-elevate no-default-active-elevate h-7 shrink-0 border px-2 text-xs font-medium shadow-none ring-offset-background",
+                                  fixFilter === "manual"
+                                    ? "border-secondary-border bg-secondary text-secondary-foreground ring-1 ring-secondary/25 ring-offset-1"
+                                    : "border-border bg-secondary/80 text-secondary-foreground hover:bg-secondary",
+                                )}
+                                onClick={() =>
+                                  setHealthIssueFixFilter((prev) => ({ ...prev, [v.name]: "manual" }))
+                                }
+                                data-testid={`button-health-filter-manual-${v.name}`}
+                              >
+                                Manual fix ({fixKinds.manual})
+                              </Button>
+                              <Button
+                                type="button"
+                                size="sm"
+                                variant="ghost"
+                                className={cn(
+                                  "no-default-hover-elevate no-default-active-elevate h-7 shrink-0 border px-2 text-xs font-medium shadow-none ring-offset-background",
+                                  fixFilter === "none"
+                                    ? "border-destructive/35 bg-5 text-destructive ring-1 ring-destructive/12 ring-offset-1"
+                                    : "border-destructive/20 bg-destructive/5 text-destructive hover:bg-destructive/10",
+                                )}
+                                onClick={() =>
+                                  setHealthIssueFixFilter((prev) => ({ ...prev, [v.name]: "none" }))
+                                }
+                                data-testid={`button-health-filter-none-${v.name}`}
+                              >
+                                No fix ({fixKinds.none})
+                              </Button>
+                              {otherCount > 0 && (
+                                <Button
+                                  type="button"
+                                  size="sm"
+                                  variant="ghost"
+                                  className={cn(
+                                    "no-default-hover-elevate no-default-active-elevate h-7 shrink-0 border px-2 text-xs font-medium shadow-none ring-offset-background",
+                                    fixFilter === "other"
+                                      ? "border-teal-600 bg-teal-300 text-teal-950 ring-1 ring-teal-500/35 ring-offset-1 dark:border-teal-400 dark:bg-teal-700 dark:text-teal-50 dark:ring-teal-400/25"
+                                      : "border-teal-500 bg-teal-200 text-teal-950 hover:bg-teal-300 dark:border-teal-600 dark:bg-teal-950 dark:text-teal-100 dark:hover:bg-teal-900",
+                                  )}
+                                  onClick={() =>
+                                    setHealthIssueFixFilter((prev) => ({ ...prev, [v.name]: "other" }))
+                                  }
+                                  data-testid={`button-health-filter-other-${v.name}`}
+                                >
+                                  Script / LLM ({otherCount})
+                                </Button>
+                              )}
+                            </div>
+                            <Button
+                              type="button"
+                              size="icon"
+                              variant="ghost"
+                              className="h-7 w-7 shrink-0"
+                              onClick={() =>
+                                setHealthIssueSearchOpen((prev) => ({
+                                  ...prev,
+                                  [v.name]: !issueSearchOpen,
+                                }))
+                              }
+                              aria-label="Search issues"
+                              data-testid={`button-health-issue-search-${v.name}`}
                             >
-                              <IconLink className="h-3 w-3" />
-                              Go to section
-                            </a>
+                              <IconSearch className="h-3.5 w-3.5" />
+                            </Button>
+                          </div>
+
+                          {issueSearchOpen && (
+                            <div className="relative max-w-full pr-0.5">
+                              <IconSearch className="absolute left-2 top-1/2 z-[1] h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+                              <Input
+                                autoFocus
+                                value={issueSearchText}
+                                onChange={(e) =>
+                                  setHealthIssueSearchText((prev) => ({
+                                    ...prev,
+                                    [v.name]: e.target.value,
+                                  }))
+                                }
+                                placeholder="Search issues by code, message, file…"
+                                className="h-8 pl-8 pr-8 text-xs"
+                                data-testid={`input-health-issue-search-${v.name}`}
+                              />
+                              {issueSearchText.length > 0 && (
+                                <button
+                                  type="button"
+                                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                                  onClick={() =>
+                                    setHealthIssueSearchText((prev) => ({ ...prev, [v.name]: "" }))
+                                  }
+                                  aria-label="Clear search"
+                                >
+                                  <IconX className="h-3.5 w-3.5" />
+                                </button>
+                              )}
+                            </div>
                           )}
                         </div>
-                      ))}
-                      {issueCount > 20 && (
-                        <div className="text-xs text-muted-foreground">
-                          ...and {issueCount - 20} more issue(s)
+
+                        <div className="space-y-1.5 p-2 pb-3">
+                          {filteredIssues.length === 0 ? (
+                            <p className="text-xs text-muted-foreground py-2">
+                              No issues match the current filter or search.
+                            </p>
+                          ) : (
+                            filteredIssues.map((issue, i) => {
+                              const fixType = issue.fix?.type;
+                              const fixBadge =
+                                fixType === "api"
+                                  ? "API fix"
+                                  : fixType === "manual"
+                                    ? "Manual fix"
+                                    : fixType === "script"
+                                      ? "Script"
+                                      : fixType === "llm"
+                                        ? "LLM"
+                                        : "No fix";
+                              return (
+                                <div
+                                  key={`${v.name}-${issue.code}-${i}-${issue.message?.slice(0, 24)}`}
+                                  className="flex flex-wrap items-center gap-1.5 text-xs"
+                                >
+                                  <Badge variant="outline" className={healthIssueLogBadgeClassName(issue)}>
+                                    {fixBadge}
+                                  </Badge>
+                                  <span className={issue.type === "error" ? "text-destructive" : "text-amber-600 dark:text-amber-400"}>
+                                    [{issue.code}]
+                                  </span>
+                                  <span className="text-muted-foreground">{issue.message}</span>
+                                  {issue.fix?.type === "manual" && issue.fix.url && (
+                                    <a
+                                      href={issue.fix.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="inline-flex items-center gap-0.5 text-primary hover:underline"
+                                      data-testid={`link-goto-section-gallery-${v.name}-${i}`}
+                                    >
+                                      <IconLink className="h-3 w-3" />
+                                      {issue.fix.label || "Go to section"}
+                                    </a>
+                                  )}
+                                  {issue.fix?.type === "manual" && !issue.fix.url && issue.fix.label && (
+                                    <span className="text-muted-foreground italic">({issue.fix.label})</span>
+                                  )}
+                                </div>
+                              );
+                            })
+                          )}
+                        </div>
+                      </ScrollArea>
+
+                      {apiFixes.length > 0 && (
+                        <div className="space-y-2">
+                          {apiFixes.map((fx) => {
+                            const fixerMeta = fixerList.find((fixer) => fixer.name === fx.name);
+                            const isFixerRunning = runningFixers[fx.name];
+                            const fixResult = fixResultByFixer[fx.name];
+                            return (
+                              <div key={fx.name} className="space-y-1.5">
+                                <div className="flex flex-wrap items-center gap-2">
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() => handleRunApiFixer(fx.name)}
+                                    disabled={isFixerRunning}
+                                    data-testid={`button-fix-${v.name}-${fx.name}`}
+                                  >
+                                    {isFixerRunning ? (
+                                      <>
+                                        <IconLoader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />
+                                        Running...
+                                      </>
+                                    ) : (
+                                      <>
+                                        <IconTool className="h-3.5 w-3.5 mr-1.5" />
+                                        {fx.label}
+                                        <Badge variant="secondary" className="ml-1.5">{fx.count}</Badge>
+                                      </>
+                                    )}
+                                  </Button>
+                                  {fixResult && (
+                                    <span className={fixResult.ok ? "text-xs text-green-600 dark:text-green-400" : "text-xs text-destructive"}>
+                                      {fixResult.message}
+                                    </span>
+                                  )}
+                                </div>
+                                {fixerMeta && (
+                                  <p className="text-xs text-muted-foreground">{fixerMeta.description}</p>
+                                )}
+                              </div>
+                            );
+                          })}
                         </div>
                       )}
                     </div>
@@ -2110,8 +2619,20 @@ export default function MediaGallery() {
                     <ScrollArea className="max-h-48 rounded-md border bg-muted/30 p-2">
                       <div className="text-xs font-mono space-y-0.5">
                         {scriptRemoveUnusedOutput.results.map((r, i) => (
-                          <div key={i} className={r.status === "error" ? "text-destructive" : ""} data-testid={`result-row-${i}`}>
-                            [{r.status}] {r.id}: {r.status === "error" ? (r.reason || r.src) : r.src}
+                          <div
+                            key={i}
+                            className={
+                              r.status === "error"
+                                ? "text-destructive"
+                                : r.status === "removed-with-cleanup-errors"
+                                  ? "text-amber-700 dark:text-amber-300"
+                                  : r.status === "skipped-external-source"
+                                    ? "text-muted-foreground"
+                                    : ""
+                            }
+                            data-testid={`result-row-${i}`}
+                          >
+                            [{r.status}] {r.id}: {(r.reason || r.src)}
                           </div>
                         ))}
                       </div>
@@ -2124,8 +2645,20 @@ export default function MediaGallery() {
                   <ScrollArea className="max-h-48 rounded-md border bg-muted/30 p-2">
                     <div className="text-xs font-mono space-y-0.5">
                       {scriptRemoveUnusedOutput.results.map((r, i) => (
-                        <div key={i} className={r.status === "error" ? "text-destructive" : ""} data-testid={`result-row-streaming-${i}`}>
-                          [{r.status}] {r.id}: {r.status === "error" ? (r.reason || r.src) : r.src}
+                        <div
+                          key={i}
+                          className={
+                            r.status === "error"
+                              ? "text-destructive"
+                              : r.status === "removed-with-cleanup-errors"
+                                ? "text-amber-700 dark:text-amber-300"
+                                : r.status === "skipped-external-source"
+                                  ? "text-muted-foreground"
+                                  : ""
+                          }
+                          data-testid={`result-row-streaming-${i}`}
+                        >
+                          [{r.status}] {r.id}: {(r.reason || r.src)}
                         </div>
                       ))}
                     </div>
@@ -2152,6 +2685,13 @@ export default function MediaGallery() {
           </SheetFooter>
         </SheetContent>
       </Sheet>
+
+      <RunQueueSidebar
+        open={runQueueOpen}
+        onOpenChange={setRunQueueOpen}
+        runs={runQueueRuns}
+        onClearRuns={handleClearRunQueue}
+      />
     </div>
   );
 }

@@ -2,72 +2,123 @@ import * as path from "path";
 import { fileURLToPath } from "url";
 import { mediaGallery } from "../../server/media-gallery";
 import { media } from "../../server/media";
+import {
+  buildRegistrySrcToIdMap,
+  resolveRegistryReference,
+} from "../validation/shared/imageRegistrySrc";
 
 const MARKETING_CONTENT_DIR = path.join(process.cwd(), "marketing-content");
 const REGISTRY_PATH = path.join(MARKETING_CONTENT_DIR, "image-registry.json");
 
-export async function removeUnusedImages(options: { dryRun?: boolean } = {}): Promise<{
+export async function removeUnusedImages(options: {
+  dryRun?: boolean;
+  onProgress?: (event: { type: "start"; total: number } | { type: "item"; id: string; status: "ok" | "skipped" | "failed"; message: string }) => void;
+} = {}): Promise<{
   message: string;
   removedCount: number;
   skippedCount: number;
-  results: Array<{ id: string; src: string; status: string }>;
+  cleanupErrorCount: number;
+  externalSkippedCount: number;
+  results: Array<{ id: string; src: string; status: string; reason?: string }>;
 }> {
-  const { dryRun = false } = options;
+  const { dryRun = false, onProgress } = options;
   const registry = mediaGallery.getRegistry();
   if (!registry) {
-    return { message: "Failed to load registry", removedCount: 0, skippedCount: 0, results: [] };
+    return {
+      message: "Failed to load registry",
+      removedCount: 0,
+      skippedCount: 0,
+      cleanupErrorCount: 0,
+      externalSkippedCount: 0,
+      results: [],
+    };
   }
 
-  const { imageIds, srcValues } = mediaGallery.collectImageReferences();
+  const { imageIds } = mediaGallery.collectImageReferences();
+  const srcToId = buildRegistrySrcToIdMap(registry.images);
+  const resolvedReferencedIds = new Set<string>();
+  imageIds.forEach((ref) => {
+    const resolved = resolveRegistryReference(ref, registry.images, srcToId);
+    if (resolved !== null) resolvedReferencedIds.add(resolved);
+  });
 
   const allImageIds = Object.keys(registry.images);
-  const results: Array<{ id: string; src: string; status: string }> = [];
+  const candidates: Array<{ id: string; src: string }> = [];
+  let ignoredExternalCount = 0;
+  for (const [id, entry] of Object.entries(registry.images)) {
+    if (entry.source_url || entry.source_item) {
+      ignoredExternalCount++;
+      continue;
+    }
+    if (entry.protected) {
+      continue;
+    }
+    const srcsetUrls = Array.isArray(entry.srcset) ? entry.srcset.map((s) => s.url) : [];
+    const usage = mediaGallery.getUsage(id, entry.src, srcsetUrls);
+    const isUsed = usage.length > 0 || resolvedReferencedIds.has(id);
+    if (!isUsed) {
+      candidates.push({ id, src: entry.src });
+    }
+  }
+
+  onProgress?.({ type: "start", total: candidates.length });
+  const results: Array<{ id: string; src: string; status: string; reason?: string }> = [];
   let removedCount = 0;
   let skippedCount = 0;
+  let cleanupErrorCount = 0;
+  const externalSkippedCount = ignoredExternalCount;
 
-  for (const id of allImageIds) {
-    const entry = registry.images[id];
-    const src = entry?.src || "";
-
-    if (entry?.protected) {
-      continue;
-    }
-
-    const referencedById = imageIds.has(id);
-    const normalizedSrc = src.startsWith("/") ? src : `/${src}`;
-    const normalizedSrcNoSlash = src.startsWith("/") ? src.slice(1) : src;
-    const referencedBySrc = srcValues.has(src) || srcValues.has(normalizedSrc) || srcValues.has(normalizedSrcNoSlash);
-
-    if (referencedById || referencedBySrc) {
-      continue;
-    }
+  for (const candidate of candidates) {
+    const { id, src } = candidate;
 
     if (dryRun) {
       results.push({ id, src, status: "would-remove" });
       removedCount++;
+      onProgress?.({ type: "item", id, status: "ok", message: "would-remove" });
       continue;
     }
 
     try {
       const result = await mediaGallery.unregister(id);
       if (result.success) {
-        results.push({ id, src, status: "removed" });
+        if (result.cleanupErrors && result.cleanupErrors.length > 0) {
+          results.push({
+            id,
+            src,
+            status: "removed-with-cleanup-errors",
+            reason: result.cleanupErrors.join("; "),
+          });
+          cleanupErrorCount++;
+          onProgress?.({
+            type: "item",
+            id,
+            status: "failed",
+            message: `removed-with-cleanup-errors: ${result.cleanupErrors.join("; ")}`,
+          });
+        } else {
+          results.push({ id, src, status: "removed" });
+          onProgress?.({ type: "item", id, status: "ok", message: "removed" });
+        }
         removedCount++;
       } else {
-        results.push({ id, src, status: `skipped: ${result.error || "unknown"}` });
+        const message = `skipped: ${result.error || "unknown"}`;
+        results.push({ id, src, status: message });
         skippedCount++;
+        onProgress?.({ type: "item", id, status: "skipped", message });
       }
     } catch (err: any) {
-      results.push({ id, src, status: `error: ${err.message || "unknown"}` });
+      const message = `error: ${err.message || "unknown"}`;
+      results.push({ id, src, status: message });
       skippedCount++;
+      onProgress?.({ type: "item", id, status: "failed", message });
     }
   }
 
   const message = dryRun
     ? `Dry run: ${removedCount} unused image(s) would be removed out of ${allImageIds.length} total`
-    : `Removed ${removedCount} unused image(s), skipped ${skippedCount} (${allImageIds.length} total in registry)`;
+    : `Removed ${removedCount} unused image(s), skipped ${skippedCount}, cleanup warnings ${cleanupErrorCount} (${externalSkippedCount} external-source ignored, ${allImageIds.length} total in registry)`;
 
-  return { message, removedCount, skippedCount, results };
+  return { message, removedCount, skippedCount, cleanupErrorCount, externalSkippedCount, results };
 }
 
 const __filename = fileURLToPath(import.meta.url);

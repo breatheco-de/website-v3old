@@ -161,7 +161,7 @@ Validates image references across the entire content system.
 **Checks:**
 | Code | Severity | Rule |
 |------|----------|------|
-| `IMAGE_ID_NOT_IN_REGISTRY` | error | YAML uses image_id that doesn't exist in image-registry.json |
+| `IMAGE_REFERENCE_NOT_IN_REGISTRY` | error | YAML references an image id or src URL that does not match image-registry.json (no id key and no entry.src match) |
 | `IMAGE_SRC_FILE_MISSING` | error | Registry entry points to file that doesn't exist on disk |
 | `IMAGE_ALT_MISSING` | error | Registry entry has no alt text |
 | `IMAGE_ALT_PLACEHOLDER` | warning | Alt text contains "TODO" or is auto-generated placeholder |

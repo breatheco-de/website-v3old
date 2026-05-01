@@ -59,7 +59,7 @@ export const imageOptimizationFixer: Fixer = {
   description:
     "Optimizes raster images that are missing srcset variants or whose preset does not match their tag definitions",
 
-  async run(_ctx: FixerContext): Promise<FixerResult> {
+  async run(ctx: FixerContext): Promise<FixerResult> {
     const registry = mediaGallery.getRegistry();
     if (!registry) {
       return { ok: false, message: "Failed to load image registry" };
@@ -101,42 +101,82 @@ export const imageOptimizationFixer: Fixer = {
       };
     }
 
-    (async () => {
-      let processed = 0;
-      let failed = 0;
-      for (const id of targetIds) {
-        const entry = registry.images[id];
-        if (!entry) continue;
-        try {
-          const result = await processImageFromSrc(id, entry, presets, false, undefined, tagDefinitions);
-          if (result) {
-            entry.width = result.width;
-            entry.height = result.height;
-            entry.preset = result.preset;
-            entry.widths_generated = result.widths_generated;
-            entry.format = result.format;
-            entry.srcset = result.srcset;
-            processed++;
-            if (processed % 10 === 0) {
-              mediaGallery.persistRegistry();
-              console.log(`[Fixer:image-optimization] Progress: ${processed}/${targetIds.length} processed, ${failed} failed`);
-            }
-          } else {
-            failed++;
-          }
-        } catch (err) {
-          failed++;
-          console.error(`[Fixer:image-optimization] Error on ${id}:`, err);
-        }
+    ctx.onProgress?.({ type: "start", total: targetIds.length });
+    let optimized = 0;
+    let skipped = 0;
+    let failed = 0;
+    for (const id of targetIds) {
+      const entry = registry.images[id];
+      if (!entry) {
+        ctx.onProgress?.({
+          type: "item",
+          id,
+          status: "skipped",
+          message: "image entry missing in registry",
+        });
+        continue;
       }
-      mediaGallery.persistRegistry();
-      console.log(`[Fixer:image-optimization] Complete: ${processed} processed, ${failed} failed of ${targetIds.length} total`);
-    })().catch(err => console.error("[Fixer:image-optimization] Background error:", err));
+      try {
+        const result = await processImageFromSrc(id, entry, presets, false, undefined, tagDefinitions);
+        if (result) {
+          entry.width = result.width;
+          entry.height = result.height;
+          entry.preset = result.preset;
+          entry.widths_generated = result.widths_generated;
+          entry.format = result.format;
+          entry.srcset = result.srcset;
+          if (result.widths_generated.length > 0) {
+            optimized++;
+            ctx.onProgress?.({
+              type: "item",
+              id,
+              status: "ok",
+              message: `optimized: preset=${result.preset.join("/")}, widths=${result.widths_generated.join("/")}`,
+            });
+          } else {
+            skipped++;
+            ctx.onProgress?.({
+              type: "item",
+              id,
+              status: "skipped",
+              message: `skipped: cannot determine storage key for src: ${entry.src}`,
+            });
+          }
+          if (optimized % 10 === 0 && optimized > 0) {
+            mediaGallery.persistRegistry();
+            console.log(`[Fixer:image-optimization] Progress: ${optimized} optimized, ${skipped} skipped, ${failed} failed of ${targetIds.length}`);
+          }
+        } else {
+          skipped++;
+          ctx.onProgress?.({
+            type: "item",
+            id,
+            status: "skipped",
+            message: "skipped: external URL or unsupported image source",
+          });
+        }
+      } catch (err) {
+        failed++;
+        const errorMessage = err instanceof Error ? err.message : String(err);
+        ctx.onProgress?.({
+          type: "item",
+          id,
+          status: "failed",
+          message: `failed: ${errorMessage}`,
+        });
+        console.error(`[Fixer:image-optimization] Error on ${id}:`, err);
+      }
+    }
+    mediaGallery.persistRegistry();
+    console.log(`[Fixer:image-optimization] Complete: ${optimized} optimized, ${skipped} skipped, ${failed} failed of ${targetIds.length} total`);
 
     return {
-      ok: true,
-      message: `Queued ${targetIds.length} image(s) for background optimization (${noSrcsetCount} without srcset, ${mismatchCount} with preset mismatch)`,
-      details: { queued: targetIds.length, noSrcset: noSrcsetCount, presetMismatch: mismatchCount },
+      ok: failed === 0,
+      message:
+        failed > 0
+          ? `Optimized ${optimized} image(s), skipped ${skipped}, failed ${failed} (${noSrcsetCount} without srcset, ${mismatchCount} with preset mismatch)`
+          : `Optimized ${optimized} image(s), skipped ${skipped} (${noSrcsetCount} without srcset, ${mismatchCount} with preset mismatch)`,
+      details: { queued: targetIds.length, optimized, skipped, failed, noSrcset: noSrcsetCount, presetMismatch: mismatchCount },
     };
   },
 };

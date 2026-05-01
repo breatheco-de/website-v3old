@@ -120,6 +120,12 @@ import {
 import { variableManager } from "./variable-manager";
 import { getValidationService } from "../scripts/validation/service";
 import { getCanonicalUrl, normalizeUrl } from "../scripts/validation/shared/canonicalUrls";
+import {
+  isNonLocalFilesystemSrc,
+  buildRegistrySrcToIdMap,
+  resolveRegistryReference,
+} from "../scripts/validation/shared/imageRegistrySrc";
+import type { ProgressEvent } from "../scripts/validation/fixers/types";
 import { gcs } from "./gcs";
 import { z } from "zod";
 import {
@@ -172,6 +178,121 @@ function coerceStringValue(value: string): unknown {
   if (value === "true") return true;
   if (value === "false") return false;
   return value;
+}
+
+type FixerItemStatus = "ok" | "skipped" | "failed";
+
+interface ValidationFixRunLogEntry {
+  at: number;
+  imageId: string;
+  status: FixerItemStatus;
+  message: string;
+}
+
+interface ValidationFixRunState {
+  runId: string;
+  pipelineRoot: string;
+  fixerName: string;
+  running: boolean;
+  total: number;
+  processed: number;
+  ok: number;
+  skipped: number;
+  failed: number;
+  startedAt: number;
+  completedAt?: number;
+  message?: string;
+  log: ValidationFixRunLogEntry[];
+}
+
+const MAX_VALIDATION_RUNS = 10;
+const MAX_RUN_LOG_ENTRIES = 1000;
+const validationRuns = new Map<string, ValidationFixRunState>();
+const validationRunOrder: string[] = [];
+
+function createValidationFixRun(pipelineRoot: string, fixerName: string): ValidationFixRunState {
+  const runId = `fix-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  const run: ValidationFixRunState = {
+    runId,
+    pipelineRoot,
+    fixerName,
+    running: false,
+    total: 0,
+    processed: 0,
+    ok: 0,
+    skipped: 0,
+    failed: 0,
+    startedAt: Date.now(),
+    log: [],
+  };
+  validationRuns.set(runId, run);
+  validationRunOrder.unshift(runId);
+  while (validationRunOrder.length > MAX_VALIDATION_RUNS) {
+    const toRemove = validationRunOrder.pop();
+    if (toRemove) {
+      validationRuns.delete(toRemove);
+    }
+  }
+  return run;
+}
+
+function appendValidationRunLog(run: ValidationFixRunState, entry: ValidationFixRunLogEntry): void {
+  run.log.push(entry);
+  if (run.log.length > MAX_RUN_LOG_ENTRIES) {
+    run.log.splice(0, run.log.length - MAX_RUN_LOG_ENTRIES);
+  }
+}
+
+function applyFixerProgress(run: ValidationFixRunState, event: ProgressEvent): void {
+  if (event.type === "start") {
+    run.total = event.total;
+    run.processed = 0;
+    run.ok = 0;
+    run.skipped = 0;
+    run.failed = 0;
+    return;
+  }
+
+  run.processed += 1;
+  if (event.status === "ok") run.ok += 1;
+  if (event.status === "skipped") run.skipped += 1;
+  if (event.status === "failed") run.failed += 1;
+  appendValidationRunLog(run, {
+    at: Date.now(),
+    imageId: event.id,
+    status: event.status,
+    message: event.message,
+  });
+}
+
+function resolveFixerPipeline(
+  rootFixerName: string,
+  getFixerByName: (name: string) => { runAfter?: string[] } | undefined,
+): string[] {
+  const ordered: string[] = [];
+  const visiting = new Set<string>();
+  const visited = new Set<string>();
+
+  const visit = (name: string): void => {
+    if (visited.has(name)) return;
+    if (visiting.has(name)) {
+      throw new Error(`Circular fixer dependency detected at "${name}"`);
+    }
+    const fixer = getFixerByName(name);
+    if (!fixer) {
+      throw new Error(`Fixer "${name}" not found`);
+    }
+    visiting.add(name);
+    for (const dep of fixer.runAfter ?? []) {
+      visit(dep);
+    }
+    visiting.delete(name);
+    visited.add(name);
+    ordered.push(name);
+  };
+
+  visit(rootFixerName);
+  return ordered;
 }
 
 // Schema for career-programs listing page (custom page type)
@@ -9288,20 +9409,30 @@ sections: []
         return;
       }
 
-      const { imageIds, srcValues } = mediaGallery.collectImageReferences();
+      const { imageIds } = mediaGallery.collectImageReferences();
+      const srcToId = buildRegistrySrcToIdMap(registry.images);
+      const resolvedReferencedIds = new Set<string>();
+      imageIds.forEach((ref) => {
+        const resolved = resolveRegistryReference(ref, registry.images, srcToId);
+        if (resolved !== null) resolvedReferencedIds.add(resolved);
+      });
 
       const allImageIds = Object.keys(registry.images);
       const unusedItems: Array<{ id: string; src: string }> = [];
-
-      for (const id of allImageIds) {
-        const entry = registry.images[id];
-        const src = entry?.src || "";
-        const referencedById = imageIds.has(id);
-        const normalizedSrc = src.startsWith("/") ? src : `/${src}`;
-        const normalizedSrcNoSlash = src.startsWith("/") ? src.slice(1) : src;
-        const referencedBySrc = srcValues.has(src) || srcValues.has(normalizedSrc) || srcValues.has(normalizedSrcNoSlash);
-        if (!referencedById && !referencedBySrc) {
-          unusedItems.push({ id, src });
+      let externalSkipped = 0;
+      for (const [id, entry] of Object.entries(registry.images)) {
+        if (entry.source_url || entry.source_item) {
+          externalSkipped++;
+          continue;
+        }
+        if (entry.protected) {
+          continue;
+        }
+        const srcsetUrls = Array.isArray(entry.srcset) ? entry.srcset.map((s) => s.url) : [];
+        const usage = mediaGallery.getUsage(id, entry.src, srcsetUrls);
+        const isUsed = usage.length > 0 || resolvedReferencedIds.has(id);
+        if (!isUsed) {
+          unusedItems.push({ id, src: entry.src });
         }
       }
 
@@ -9323,6 +9454,7 @@ sections: []
       let removed = 0;
       let skipped = 0;
       let failed = 0;
+      let cleanupWarnings = 0;
 
       try {
         for (let i = 0; i < total; i += BATCH_SIZE) {
@@ -9333,7 +9465,17 @@ sections: []
             try {
               const result = await mediaGallery.unregister(item.id);
               if (result.success) {
-                batchResults.push({ id: item.id, src: item.src, status: "removed" });
+                if (result.cleanupErrors && result.cleanupErrors.length > 0) {
+                  batchResults.push({
+                    id: item.id,
+                    src: item.src,
+                    status: "removed-with-cleanup-errors",
+                    reason: result.cleanupErrors.join("; "),
+                  });
+                  cleanupWarnings++;
+                } else {
+                  batchResults.push({ id: item.id, src: item.src, status: "removed" });
+                }
                 removed++;
               } else {
                 batchResults.push({ id: item.id, src: item.src, status: "skipped", reason: result.error || "unknown" });
@@ -9350,7 +9492,18 @@ sections: []
           res.write(JSON.stringify(event) + "\n");
         }
 
-        const doneEvent = { done: true, processed, total, summary: { removed, skipped, failed } };
+        const doneEvent = {
+          done: true,
+          processed,
+          total,
+          summary: {
+            removed,
+            skipped,
+            failed,
+            cleanupWarnings,
+            externalSkipped,
+          },
+        };
         res.write(JSON.stringify(doneEvent) + "\n");
         res.end();
       } catch (fatalErr: any) {
@@ -9942,13 +10095,60 @@ sections: []
     try {
       const { fixerName } = req.params;
       const { getFixer } = await import("../scripts/validation/fixers/index");
-      const fixer = getFixer(fixerName);
-      if (!fixer) {
+      if (!getFixer(fixerName)) {
         res.status(404).json({ error: `Fixer "${fixerName}" not found` });
         return;
       }
-      const result = await fixer.run(req.body || {});
-      res.json(result);
+      const pipeline = resolveFixerPipeline(
+        fixerName,
+        (name) => getFixer(name) as { runAfter?: string[] } | undefined,
+      );
+      const createdRuns = pipeline.map((name) => createValidationFixRun(fixerName, name));
+      let finalResult = {
+        ok: true,
+        message: `Completed ${pipeline.length} fixer(s)`,
+      };
+
+      for (let i = 0; i < pipeline.length; i++) {
+        const currentFixerName = pipeline[i];
+        const run = createdRuns[i];
+        const currentFixer = getFixer(currentFixerName);
+        if (!currentFixer) {
+          run.running = false;
+          run.completedAt = Date.now();
+          run.message = `Fixer "${currentFixerName}" not found`;
+          finalResult = { ok: false, message: run.message };
+          break;
+        }
+
+        run.running = true;
+        try {
+          const result = await currentFixer.run({
+            ...(req.body || {}),
+            onProgress: (event: ProgressEvent) => applyFixerProgress(run, event),
+          });
+          run.running = false;
+          run.completedAt = Date.now();
+          run.message = result.message;
+          finalResult = { ok: result.ok, message: result.message };
+          if (!result.ok) {
+            break;
+          }
+        } catch (error) {
+          run.running = false;
+          run.completedAt = Date.now();
+          run.failed += 1;
+          run.message = error instanceof Error ? error.message : "Unknown fixer error";
+          finalResult = { ok: false, message: run.message };
+          break;
+        }
+      }
+
+      res.json({
+        ...finalResult,
+        runIds: createdRuns.map((run) => run.runId),
+        pipeline,
+      });
     } catch (error) {
       console.error("Fixer error:", error);
       res.status(500).json({
@@ -9966,6 +10166,21 @@ sections: []
     } catch (error) {
       res.status(500).json({ error: "Failed to list fixers" });
     }
+  });
+
+  app.get("/api/validation/runs", (_req, res) => {
+    const runs = validationRunOrder
+      .map((runId) => validationRuns.get(runId))
+      .filter((run): run is ValidationFixRunState => Boolean(run))
+      .sort((a, b) => b.startedAt - a.startedAt);
+    res.json(runs);
+  });
+
+  app.post("/api/validation/runs/clear", (_req, res) => {
+    const cleared = validationRunOrder.length;
+    validationRuns.clear();
+    validationRunOrder.length = 0;
+    res.json({ ok: true, cleared });
   });
 
   // ============================================
@@ -10168,14 +10383,20 @@ sections: []
 
       const missingFromRegistry: string[] = [];
       const missingFromDisk: string[] = [];
-      imageIds.forEach((id) => {
-        if (id.startsWith("http://") || id.startsWith("https://")) return;
-        if (!registryImages[id]) {
-          missingFromRegistry.push(id);
-        } else if (registryImages[id].src) {
-          const srcPath = path.join(process.cwd(), registryImages[id].src);
-          if (!fs.existsSync(srcPath)) {
-            missingFromDisk.push(id);
+      const srcToId = buildRegistrySrcToIdMap(registryImages);
+      imageIds.forEach((ref) => {
+        const resolved = resolveRegistryReference(ref, registryImages, srcToId);
+        if (resolved === null) {
+          missingFromRegistry.push(ref);
+          return;
+        }
+        if (registryImages[resolved].src) {
+          const src = String(registryImages[resolved].src);
+          if (!isNonLocalFilesystemSrc(src)) {
+            const srcPath = path.join(process.cwd(), src);
+            if (!fs.existsSync(srcPath)) {
+              missingFromDisk.push(resolved);
+            }
           }
         }
       });

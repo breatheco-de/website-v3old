@@ -18,7 +18,7 @@ export const invalidImageTagsFixer: Fixer = {
   name: "invalid-image-tags",
   description: "Removes tags from images that are not defined in tagDefinitions",
 
-  async run(_ctx: FixerContext): Promise<FixerResult> {
+  async run(ctx: FixerContext): Promise<FixerResult> {
     let registry: { tagDefinitions?: Record<string, unknown>; images: Record<string, { tags?: string[]; [key: string]: unknown }> };
     try {
       registry = JSON.parse(fs.readFileSync(REGISTRY_PATH, "utf-8"));
@@ -34,13 +34,29 @@ export const invalidImageTagsFixer: Fixer = {
     let removedCount = 0;
     let affectedImages = 0;
 
-    for (const [_id, entry] of Object.entries(registry.images)) {
+    const imageEntries = Object.entries(registry.images);
+    ctx.onProgress?.({ type: "start", total: imageEntries.length });
+
+    for (const [id, entry] of imageEntries) {
       const before = entry.tags ?? [];
       const after = before.filter((t) => canonicalTags.has(t));
       if (after.length < before.length) {
         entry.tags = after;
         removedCount += before.length - after.length;
         affectedImages++;
+        ctx.onProgress?.({
+          type: "item",
+          id,
+          status: "ok",
+          message: `removed ${before.length - after.length} invalid tag(s)`,
+        });
+      } else {
+        ctx.onProgress?.({
+          type: "item",
+          id,
+          status: "skipped",
+          message: "no invalid tags found",
+        });
       }
     }
 

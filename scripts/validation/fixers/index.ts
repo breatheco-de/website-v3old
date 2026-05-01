@@ -11,8 +11,9 @@ import { heroImageTagsFixer } from "./hero-image-tags";
 import { imageRegistrySyncFixer } from "./image-registry-sync";
 import { imageAutoTagsFixer } from "./image-auto-tags";
 import { invalidImageTagsFixer } from "./invalid-image-tags";
+import { orphanedImagesCleanupFixer } from "./orphaned-images-cleanup";
 
-export type { Fixer, FixerContext, FixerResult } from "./types";
+export type { Fixer, FixerContext, FixerResult, ProgressEvent } from "./types";
 
 const fixers: Fixer[] = [
   imageOptimizationFixer,
@@ -20,6 +21,7 @@ const fixers: Fixer[] = [
   imageRegistrySyncFixer,
   imageAutoTagsFixer,
   invalidImageTagsFixer,
+  orphanedImagesCleanupFixer,
 ];
 
 export const fixerMap = new Map<string, Fixer>(fixers.map((f) => [f.name, f]));

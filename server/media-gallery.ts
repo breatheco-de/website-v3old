@@ -198,13 +198,43 @@ class MediaGallery {
     };
 
     const URL_PATTERN = /(?:https?:\/\/[^\s"']+|\/attached_assets\/[^\s"']+|\/marketing-content\/images\/[^\s"']+)/g;
+    const isLikelyRegistryId = (value: string): boolean =>
+      /^[a-z0-9][a-z0-9-]{3,}$/.test(value) &&
+      !value.includes("/") &&
+      !value.includes(":") &&
+      !value.includes(".");
+
+    /** Last YAML key segment from keyPath like "sections[0].col3_image_id" → "col3_image_id" */
+    const lastKeySegment = (keyPath: string): string => {
+      const afterDot = keyPath.includes(".") ? keyPath.slice(keyPath.lastIndexOf(".") + 1) : keyPath;
+      return afterDot.replace(/\[\d+\]$/, "");
+    };
+
+    const isRegistryImageIdKeyPath = (keyPath: string): boolean => {
+      const seg = lastKeySegment(keyPath);
+      return (
+        seg === "image_id" ||
+        seg === "imageId" ||
+        /_image_id$/i.test(seg) ||
+        /^[a-z][a-z0-9]*[Ii]mage[Ii]d$/.test(seg)
+      );
+    };
+
+    const isLogoKeyPath = (keyPath: string): boolean => lastKeySegment(keyPath) === "logo";
 
     const extractRefs = (obj: unknown, keyPath: string, filePath: string): void => {
       if (obj === null || obj === undefined) return;
       if (typeof obj === "string") {
-        if (/image_id(?:\[\d+\])?$/.test(keyPath) || /\.avatars\[\d+\]$/.test(keyPath) || /^avatars\[\d+\]$/.test(keyPath)) {
-          imageIds.add(obj);
-          addRef(obj, filePath);
+        if (
+          isRegistryImageIdKeyPath(keyPath) ||
+          isLogoKeyPath(keyPath) ||
+          /\.avatars\[\d+\]$/.test(keyPath) ||
+          /^avatars\[\d+\]$/.test(keyPath)
+        ) {
+          if (!isLogoKeyPath(keyPath) || isLikelyRegistryId(obj)) {
+            imageIds.add(obj);
+            addRef(obj, filePath);
+          }
         }
         srcValues.add(obj);
         if (
@@ -267,7 +297,13 @@ class MediaGallery {
         return;
       }
       for (const [key, val] of Object.entries(obj as Record<string, unknown>)) {
-        if (key === "image_id" && typeof val === "string" && val) {
+        const isImageIdLikeKey =
+          key === "image_id" ||
+          key === "imageId" ||
+          /_image_id$/i.test(key) ||
+          /^[a-z][a-z0-9]*[Ii]mage[Ii]d$/.test(key);
+        if ((isImageIdLikeKey || key === "logo") && typeof val === "string" && val) {
+          if (key !== "logo" || isLikelyRegistryId(val)) {
           addImageIdLocation(val, {
             yamlFile: relPath,
             contentType: meta.contentType,
@@ -277,6 +313,7 @@ class MediaGallery {
             sectionType,
             sectionId,
           });
+          }
         } else {
           collectImageIdsInObj(val, sectionIndex, sectionType, relPath, meta, sectionId);
         }
@@ -1409,7 +1446,18 @@ class MediaGallery {
         })
       ),
     };
-    fs.writeFileSync(REGISTRY_PATH, JSON.stringify(clean, null, 2) + "\n", "utf8");
+    const nextContent = JSON.stringify(clean, null, 2) + "\n";
+    const currentContent = fs.existsSync(REGISTRY_PATH)
+      ? fs.readFileSync(REGISTRY_PATH, "utf8")
+      : null;
+
+    // Avoid triggering auto-commit when persisted content is identical.
+    if (currentContent === nextContent) {
+      this.clearCache();
+      return;
+    }
+
+    fs.writeFileSync(REGISTRY_PATH, nextContent, "utf8");
     markFileAsModified("marketing-content/image-registry.json");
     this.clearCache();
   }
