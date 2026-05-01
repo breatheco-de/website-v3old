@@ -8,6 +8,7 @@ import { Pencil, CheckCircle2, Clock, AlertCircle, Unlink, ExternalLink, ShieldC
 import { ImagePickerDialog } from "@/components/editing/ImagePickerDialog";
 import { editContent } from "@/lib/contentApi";
 import { emitContentUpdated } from "@/lib/contentEvents";
+import { resolveTemplateFallback } from "@/lib/variable-manager";
 import { useToast } from "@/hooks/use-toast";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import {
@@ -164,15 +165,22 @@ export function UniversalImage({
     onError?.();
   };
 
-  if (!id || !id.trim()) {
+  // In edit mode, patchVariableFieldHighlights rewrites template fields as
+  // "{{ single.field | resolvedUrl }}" strings. If such a string reaches UniversalImage
+  // as the `id` prop it is not a direct URL and not in the registry, so the component
+  // returns null (silently hiding both the image and the override badge).
+  // resolveTemplateFallback strips the {{ … }} wrapper and returns only the embedded URL.
+  const resolvedId = resolveTemplateFallback(id ?? "");
+
+  if (!resolvedId || !resolvedId.trim()) {
     return null;
   }
 
   const isDirectUrl =
-    id.startsWith("/") ||
-    id.startsWith("http://") ||
-    id.startsWith("https://") ||
-    id.startsWith("data:");
+    resolvedId.startsWith("/") ||
+    resolvedId.startsWith("http://") ||
+    resolvedId.startsWith("https://") ||
+    resolvedId.startsWith("data:");
 
   if (!isDirectUrl && !isEager && (registryLoading || !registry || !registry.images)) {
     return (
@@ -183,7 +191,7 @@ export function UniversalImage({
     );
   }
 
-  const imageEntry = registry?.images?.[id] ?? (isDirectUrl ? reverseMap.get(id) : undefined) ?? undefined;
+  const imageEntry = registry?.images?.[resolvedId] ?? (isDirectUrl ? reverseMap.get(resolvedId) : undefined) ?? undefined;
   const isDirectPath = !imageEntry && isDirectUrl;
 
   if (!imageEntry && !isDirectPath) {
@@ -195,8 +203,8 @@ export function UniversalImage({
     ? ASPECT_RATIOS[presetConfig.aspect_ratio]
     : undefined;
 
-  const finalAlt = altOverride || (imageEntry ? imageEntry.alt : id);
-  const src = imageEntry ? imageEntry.src : id;
+  const finalAlt = altOverride || (imageEntry ? imageEntry.alt : resolvedId);
+  const src = imageEntry ? imageEntry.src : resolvedId;
 
   const resolvedLoading = resolvedLoadingEarly;
   const fetchPriority: "high" | "auto" = isPrioritySection ? "high" : "auto";

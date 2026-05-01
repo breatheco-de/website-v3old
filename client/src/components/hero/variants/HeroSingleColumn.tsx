@@ -10,6 +10,7 @@ import type { HeroSingleColumn } from "@shared/schema";
 import { createElement } from "react";
 import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
+import { resolveTemplateFallback } from "@/lib/variable-manager";
 
 const BLOG_IMAGE_FALLBACK = "https://storage.googleapis.com/4geeks-academy-website/media/Group-original_1765419144159.webp";
 
@@ -31,7 +32,13 @@ export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
   const [fallbackSrc, setFallbackSrc] = useState<string | undefined>();
 
   const rawSrc = data.image?.src !== "undefined" ? data.image?.src : BLOG_IMAGE_FALLBACK;
-  const imgSrc = fallbackSrc ?? rawSrc ?? (data as any).image_id;
+  // In edit mode, patchVariableFieldHighlights stores "{{ single.image | resolvedUrl }}" in
+  // data.image.src (a template string, not a real URL). resolveTemplateFallback extracts the
+  // embedded resolved URL so UniversalImage receives a valid URL it can actually render.
+  // Without this, id="{{...}}" causes UniversalImage to return null (not a direct URL / registry
+  // entry), silently hiding both the image AND the override badge.
+  const resolvedRawSrc = resolveTemplateFallback(rawSrc ?? "");
+  const imgSrc = fallbackSrc ?? resolvedRawSrc ?? (data as any).image_id;
 
   // Read _variableKeys directly from the section data so templateKey reaches UniversalImage
   // regardless of whether SectionContext variableKeys propagation is working.

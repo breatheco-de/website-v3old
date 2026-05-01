@@ -5,6 +5,7 @@ import { createElement } from "react";
 import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { UniversalImage } from "@/components/UniversalImage";
+import { resolveTemplateFallback } from "@/lib/variable-manager";
 
 interface HeroSimpleStackedProps {
   data: HeroSimpleStackedType;
@@ -67,7 +68,7 @@ export default function HeroSimpleStacked({ data }: HeroSimpleStackedProps) {
 
           <div className="w-full max-w-md">
             <UniversalImage
-              id={data.image.src}
+              id={resolveTemplateFallback(data.image.src ?? "")}
               alt={data.image.alt}
               className="w-full h-auto rounded-card shadow-card"
               fieldContext={{ fieldPath: "image.src" }}
