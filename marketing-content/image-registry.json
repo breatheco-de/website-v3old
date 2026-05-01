@@ -8216,7 +8216,10 @@
     "blog_posts-7d3fc3e598d700991e7a986568adb9553a173eac-c889d01b": {
       "src": "https://storage.googleapis.com/media-breathecode/7d3fc3e598d700991e7a986568adb9553a173eac1232c4945ecbddf9b0fbf21a",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "team"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/7d3fc3e598d700991e7a986568adb9553a173eac1232c4945ecbddf9b0fbf21a",
       "usage_count": 0,
       "source_item": "python-bootcamp-online",
@@ -8232,7 +8235,10 @@
     "blog_posts-f4c341892dfbdffe60f39938cccf109b6c080334-8199e037": {
       "src": "https://storage.googleapis.com/media-breathecode/f4c341892dfbdffe60f39938cccf109b6c08033405f05598c2f065e9feba057e",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "team"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/f4c341892dfbdffe60f39938cccf109b6c08033405f05598c2f065e9feba057e",
       "usage_count": 0,
       "source_item": "colab-partnership",
@@ -8248,7 +8254,9 @@
     "blog_posts-online-blog-us-best-machine-learning-cou-8a9cafe1": {
       "src": "https://storage.googleapis.com/screenshots-breathecode/online-blog-us-best-machine-learning-course.png",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "hero"
+      ],
       "source_url": "https://storage.googleapis.com/screenshots-breathecode/online-blog-us-best-machine-learning-course.png",
       "usage_count": 0,
       "source_item": "best-machine-learning-course",
@@ -8264,7 +8272,10 @@
     "blog_posts-5f61ab9ff0469e09a881195d637e3c9dae9756f8-8c0edf05": {
       "src": "https://storage.googleapis.com/media-breathecode/5f61ab9ff0469e09a881195d637e3c9dae9756f802c8e0ce33bf47489a34e101",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "team"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/5f61ab9ff0469e09a881195d637e3c9dae9756f802c8e0ce33bf47489a34e101",
       "usage_count": 0,
       "source_item": "data-science-bootcamp",
@@ -8280,7 +8291,10 @@
     "blog_posts-24f22f313d9f5b790bdc42dba7522d42949c8b7c-fe4a9be2": {
       "src": "https://storage.googleapis.com/media-breathecode/24f22f313d9f5b790bdc42dba7522d42949c8b7c7be396f67599d71b0f44173c",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "team"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/24f22f313d9f5b790bdc42dba7522d42949c8b7c7be396f67599d71b0f44173c",
       "usage_count": 0,
       "source_item": "best-online-coding-bootcamp",
@@ -8296,7 +8310,10 @@
     "blog_posts-6abbff4c2707ec743d6ae40a1135e98aa9e7509b-4bd3332b": {
       "src": "https://storage.googleapis.com/media-breathecode/6abbff4c2707ec743d6ae40a1135e98aa9e7509bac039ff2d07a12f67e3bd061",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "team"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/6abbff4c2707ec743d6ae40a1135e98aa9e7509bac039ff2d07a12f67e3bd061",
       "usage_count": 0,
       "source_item": "machine-learning-bootcamp",
