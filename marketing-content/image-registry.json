@@ -7171,7 +7171,10 @@
     "blog_posts-694c53198ef8bd1732a6afff1eb3078040940518-bedef487": {
       "src": "https://storage.googleapis.com/media-breathecode/694c53198ef8bd1732a6afff1eb30780409405189e6795612b4d0a80f84a041b",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "illustration",
+        "hero"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/694c53198ef8bd1732a6afff1eb30780409405189e6795612b4d0a80f84a041b",
       "usage_count": 0,
       "source_item": "cuanto-gana-un-programador-en-venezuela",
@@ -7187,7 +7190,10 @@
     "blog_posts-7ef05079a3ba128ee1fcf9a1359d5d0281533e57-0fd29eb4": {
       "src": "https://storage.googleapis.com/media-breathecode/7ef05079a3ba128ee1fcf9a1359d5d0281533e57438cda41f115ebe5cb3a64a3",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/7ef05079a3ba128ee1fcf9a1359d5d0281533e57438cda41f115ebe5cb3a64a3",
       "usage_count": 0,
       "source_item": "celebrating-forbes-doble-recognition",
@@ -7203,7 +7209,9 @@
     "blog_posts-ec15fb38540ee8f73df44af994a0a2c6cbbf571c-fb9d5699": {
       "src": "https://storage.googleapis.com/media-breathecode/ec15fb38540ee8f73df44af994a0a2c6cbbf571ce1b0b00e669d4ee946177c12",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/ec15fb38540ee8f73df44af994a0a2c6cbbf571ce1b0b00e669d4ee946177c12",
       "usage_count": 0,
       "source_item": "cuanto-gana-un-programador-en-argentina",
@@ -7235,7 +7243,9 @@
     "blog_posts-748059f21efcbc4a885e214cc52a42b79827aa64-cb53a3a0": {
       "src": "https://storage.googleapis.com/media-breathecode/748059f21efcbc4a885e214cc52a42b79827aa64565304b490b995eaa3767fa6",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/748059f21efcbc4a885e214cc52a42b79827aa64565304b490b995eaa3767fa6",
       "usage_count": 0,
       "source_item": "4geeks-academy-location-atlanta-and-houston",
@@ -7251,7 +7261,9 @@
     "blog_posts-7aedee7716518a8055b1cdba05d66f126660b3dc-5be45107": {
       "src": "https://storage.googleapis.com/media-breathecode/7aedee7716518a8055b1cdba05d66f126660b3dcbee06d015ead8f24d56b04d2",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/7aedee7716518a8055b1cdba05d66f126660b3dcbee06d015ead8f24d56b04d2",
       "usage_count": 0,
       "source_item": "encuentra-tu-proximo-trabajo-en-chile",
@@ -7379,7 +7391,9 @@
     "blog_posts-programmer-at-night-2-jpg-35b58415": {
       "src": "",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://breathecode.herokuapp.com/v1/media/file/programmer-at-night-2-jpg",
       "usage_count": 0,
       "source_item": "cuanto-gana-un-ingeniero-informatico-en-espana"
@@ -7387,7 +7401,9 @@
     "blog_posts-b39e46434a2e57b03efe488bedced0256ec8fedc-b1cd7ffe": {
       "src": "https://storage.googleapis.com/media-breathecode/b39e46434a2e57b03efe488bedced0256ec8fedc88e5cf13514152d170f32e45",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/b39e46434a2e57b03efe488bedced0256ec8fedc88e5cf13514152d170f32e45",
       "usage_count": 0,
       "source_item": "python-or-java",
@@ -7419,7 +7435,9 @@
     "blog_posts-a002c7d38904575a9a2e14f459c6743d5b0bb2af-a41a3294": {
       "src": "https://storage.googleapis.com/media-breathecode/a002c7d38904575a9a2e14f459c6743d5b0bb2af1b2d031823872d358a7f253b",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/a002c7d38904575a9a2e14f459c6743d5b0bb2af1b2d031823872d358a7f253b",
       "usage_count": 0,
       "source_item": "aprende-a-programacion-desde-cero",
