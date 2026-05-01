@@ -213,7 +213,7 @@ sections:
       - image_id: graduates_coding
         col_span: 6
         row_span: 2
-      - image_id: graduates_friends-288x210
+      - image_id: graduates_friends-288x210-q75
         col_span: 6
         row_span: 2
   - type: numbered_steps
