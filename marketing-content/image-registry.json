@@ -14568,6 +14568,32 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/refresh-miami-logo-212w.webp"
         }
       ]
+    },
+    "the-miami-herald-logo": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/the-miami-herald-logo.png",
+      "alt": "Image: the-miami-herald-logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "press"
+      ],
+      "usage_count": 0,
+      "hash": "64a3976a48806490e88c134f96e2f64a64879c886dfe96425d5111b02e770e46",
+      "width": 551,
+      "height": 91,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        551
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 551,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/the-miami-herald-logo-551w.webp"
+        }
+      ]
     }
   }
 }
