@@ -4885,7 +4885,10 @@
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks_member.webp",
       "alt": "4Geeks Member",
       "focal_point": "center",
-      "tags": [],
+      "tags": [
+        "avatar",
+        "team"
+      ],
       "usage_count": 0,
       "hash": "09a79b303279c3887bbd826466f79298d90c390056fd2e5a8d489c4152f3e49b",
       "width": 512,
@@ -6761,7 +6764,9 @@
     "blog_posts-learnpack-logo-jpg-d58de33d": {
       "src": "https://breathecode.herokuapp.com/v1/media/file/learnpack-logo-jpg",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "logo"
+      ],
       "source_url": "https://breathecode.herokuapp.com/v1/media/file/learnpack-logo-jpg",
       "usage_count": 0,
       "source_item": "learnpack-build-teach-learn",
@@ -6825,7 +6830,9 @@
     "blog_posts-rigobot-icon-jpg-3d52fa18": {
       "src": "https://breathecode.herokuapp.com/v1/media/file/rigobot-icon-jpg",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "icon"
+      ],
       "source_url": "https://breathecode.herokuapp.com/v1/media/file/rigobot-icon-jpg",
       "usage_count": 0,
       "source_item": "unlock-your-coding-potential",
@@ -6841,7 +6848,9 @@
     "blog_posts-ai-mentor-png-21ef8918": {
       "src": "https://breathecode.herokuapp.com/v1/media/file/ai-mentor-png",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "team"
+      ],
       "source_url": "https://breathecode.herokuapp.com/v1/media/file/ai-mentor-png",
       "usage_count": 0,
       "source_item": "4geeks-in-the-ai-era",
@@ -6857,7 +6866,9 @@
     "blog_posts-rigo-mentor-jpg-581fcc55": {
       "src": "https://breathecode.herokuapp.com/v1/media/file/rigo-mentor-jpg",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "team"
+      ],
       "source_url": "https://breathecode.herokuapp.com/v1/media/file/rigo-mentor-jpg",
       "usage_count": 0,
       "source_item": "rigobot-ai-mentor",
@@ -6905,7 +6916,10 @@
     "blog_posts-8f0b4d1de8e2879a1756a55e401e2f6736d1e9dd-7894e1ca": {
       "src": "https://storage.googleapis.com/media-breathecode/8f0b4d1de8e2879a1756a55e401e2f6736d1e9dde25ba9c30d04f553e5e9055b",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "team"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/8f0b4d1de8e2879a1756a55e401e2f6736d1e9dde25ba9c30d04f553e5e9055b",
       "usage_count": 0,
       "source_item": "4geeks-bctecnologia-transformacion-digital",
@@ -6921,7 +6935,9 @@
     "blog_posts-partnership-4geeks-academy-jpg-3eeaf29c": {
       "src": "https://breathecode.herokuapp.com/v1/media/file/partnership-4geeks-academy-jpg",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "partner"
+      ],
       "source_url": "https://breathecode.herokuapp.com/v1/media/file/partnership-4geeks-academy-jpg",
       "usage_count": 0,
       "source_item": "moveapps-4geeks-transformacion-digital-chiles",
@@ -6937,7 +6953,10 @@
     "blog_posts-4dff8e8ae1a0936fe65e94542387ac565903941f-907b48c3": {
       "src": "https://storage.googleapis.com/media-breathecode/4dff8e8ae1a0936fe65e94542387ac565903941f6456492f898cd7a5ad903bd6",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "photo",
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/media-breathecode/4dff8e8ae1a0936fe65e94542387ac565903941f6456492f898cd7a5ad903bd6",
       "usage_count": 0,
       "source_item": "cuanto-gana-un-programador",
