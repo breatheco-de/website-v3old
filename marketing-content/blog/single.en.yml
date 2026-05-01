@@ -12,7 +12,7 @@ sections:
     subtitle: {{ single.description | blog subtitle }}
     image_full_width: false
     image:
-      src: {{ single.image | https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-changes-in-code-jpg-0f007c1f-640x462.webp }}
+      src: https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-learnpack-logo-jpg-d58de33d-736x414.webp
   - type: article
     section_id: article-2i1h11
     show_toc: true

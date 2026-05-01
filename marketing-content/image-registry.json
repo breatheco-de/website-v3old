@@ -11479,6 +11479,29 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-changes-in-code-jpg-0f007c1f-640x462-640w.webp"
         }
       ]
+    },
+    "blog_posts-learnpack-logo-jpg-d58de33d-736x414": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-learnpack-logo-jpg-d58de33d-736x414.webp",
+      "alt": "Image from blog_posts",
+      "focal_point": "center",
+      "tags": [],
+      "usage_count": 0,
+      "width": 736,
+      "height": 414,
+      "format": "webp",
+      "parentId": "blog_posts-learnpack-logo-jpg-d58de33d",
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640
+      ],
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-learnpack-logo-jpg-d58de33d-736x414-640w.webp"
+        }
+      ]
     }
   }
 }
