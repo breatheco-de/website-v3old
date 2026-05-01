@@ -2762,6 +2762,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.delete("/api/content-types/:type/db-overrides/:slug", async (req, res) => {
+    try {
+      const { type, slug } = req.params;
+      const rawFieldKey = req.query.field as string | undefined;
+      const config = getContentTypeConfig(type);
+      if (!config?.database?.slug) {
+        res.status(400).json({ error: `Content type "${type}" has no database configured` });
+        return;
+      }
+      const dbName = config.database.slug;
+      if (!databaseManager.exists(dbName)) {
+        res.status(404).json({ error: `Database "${dbName}" not found` });
+        return;
+      }
+      let fieldKey = rawFieldKey;
+      if (rawFieldKey) {
+        const fm = getFieldMapping(type);
+        const mappedPath = fm ? fm[rawFieldKey] : undefined;
+        if (mappedPath && typeof mappedPath === "string" && !mappedPath.startsWith("function:")) {
+          fieldKey = mappedPath;
+        }
+      }
+      const cleared = databaseManager.clearDbOverride(dbName, slug, fieldKey);
+      res.json({
+        success: true,
+        cleared,
+        message: cleared
+          ? rawFieldKey
+            ? `Override for field "${rawFieldKey}" on "${slug}" cleared`
+            : `All overrides for "${slug}" cleared`
+          : `No override found for "${slug}"${rawFieldKey ? ` field "${rawFieldKey}"` : ""}`,
+      });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
   app.post("/api/content-types/:type/entries/:slug/migrate-legacy", async (req, res) => {
     try {
       const { type, slug } = req.params;

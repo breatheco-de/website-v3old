@@ -289,9 +289,56 @@ function applyContentTypeMapping(
   });
 }
 
+interface OverridesFile {
+  lookup_key: string;
+  entries: Record<string, Record<string, unknown>>;
+}
+
 export class DatabaseManager {
   private configs = new Map<string, DatabaseConfig>();
   private memoryCache = new Map<string, { data: CacheEntry; expires: number }>();
+
+  private overridesPath(dbName: string): string {
+    return path.join(DB_DIR, dbName, "overrides.json");
+  }
+
+  private loadOverridesFile(dbName: string): OverridesFile | null {
+    const filePath = this.overridesPath(dbName);
+    if (!fs.existsSync(filePath)) return null;
+    try {
+      const parsed = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+      if (!parsed || typeof parsed !== "object") return null;
+      const lookup_key = typeof parsed.lookup_key === "string" ? parsed.lookup_key : "slug";
+      const entries =
+        parsed.entries && typeof parsed.entries === "object" && !Array.isArray(parsed.entries)
+          ? (parsed.entries as Record<string, Record<string, unknown>>)
+          : {};
+      return { lookup_key, entries };
+    } catch {
+      return null;
+    }
+  }
+
+  private saveOverridesFile(dbName: string, file: OverridesFile): void {
+    const filePath = this.overridesPath(dbName);
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(filePath, JSON.stringify(file, null, 2));
+  }
+
+  private applyOverridesToItems(
+    items: Record<string, unknown>[],
+    lookupKey: string,
+    entries: Record<string, Record<string, unknown>>
+  ): Record<string, unknown>[] {
+    if (Object.keys(entries).length === 0) return items;
+    return items.map((item) => {
+      const slugVal = String(item[lookupKey] ?? "");
+      const itemOverrides = entries[slugVal];
+      if (!itemOverrides || Object.keys(itemOverrides).length === 0) return item;
+      return { ...item, ...itemOverrides };
+    });
+  }
 
   constructor() {
     this.reload();
@@ -438,7 +485,7 @@ export class DatabaseManager {
     };
     this.saveFileCache(name, rawEntry, true);
 
-    const items = config.field_mapping
+    let items = config.field_mapping
       ? rawItems.map((item) =>
           applyFieldMapping(
             item as Record<string, unknown>,
@@ -446,6 +493,12 @@ export class DatabaseManager {
           )
         )
       : (rawItems as Record<string, unknown>[]);
+
+    const overridesFile = this.loadOverridesFile(name);
+    if (overridesFile && Object.keys(overridesFile.entries).length > 0) {
+      items = this.applyOverridesToItems(items, overridesFile.lookup_key, overridesFile.entries);
+      console.log(`[DatabaseManager] Applied persistent overrides to ${name} (${Object.keys(overridesFile.entries).length} slug(s))`);
+    }
 
     const entry: CacheEntry = {
       fetched_at: fetchedAt,
@@ -715,6 +768,16 @@ export class DatabaseManager {
         }
       };
 
+      const dbKeyedOverrides: Record<string, unknown> = {};
+      for (const [templateKey, newValue] of Object.entries(mappedUpdates)) {
+        const mappedPath = fieldMapping ? fieldMapping[templateKey] : undefined;
+        const dbKey =
+          mappedPath && typeof mappedPath === "string" && !mappedPath.startsWith("function:")
+            ? mappedPath
+            : templateKey;
+        dbKeyedOverrides[dbKey] = newValue;
+      }
+
       let patchedIdx = -1;
 
       const mappedEntry = readCache(false);
@@ -724,7 +787,7 @@ export class DatabaseManager {
         );
         if (idx !== -1) {
           patchedIdx = idx;
-          Object.assign(mappedEntry.items[idx], mappedUpdates);
+          Object.assign(mappedEntry.items[idx], dbKeyedOverrides);
           this.saveFileCache(dbName, mappedEntry, false);
         }
       }
@@ -746,8 +809,52 @@ export class DatabaseManager {
         }
       }
 
+      const overridesFile = this.loadOverridesFile(dbName) ?? {
+        lookup_key: lookupKey,
+        entries: {},
+      };
+      overridesFile.lookup_key = lookupKey;
+      overridesFile.entries[slugValue] = {
+        ...(overridesFile.entries[slugValue] ?? {}),
+        ...dbKeyedOverrides,
+      };
+      this.saveOverridesFile(dbName, overridesFile);
+
       this.memoryCache.delete(dbName);
       return patchedIdx !== -1;
+    } catch {
+      return false;
+    }
+  }
+
+  clearDbOverride(
+    dbName: string,
+    slugValue: string,
+    fieldKey?: string
+  ): boolean {
+    try {
+      this.validateName(dbName);
+      const overridesFile = this.loadOverridesFile(dbName);
+      if (!overridesFile) return false;
+
+      if (fieldKey !== undefined) {
+        if (!overridesFile.entries[slugValue]) return false;
+        delete overridesFile.entries[slugValue][fieldKey];
+        if (Object.keys(overridesFile.entries[slugValue]).length === 0) {
+          delete overridesFile.entries[slugValue];
+        }
+      } else {
+        if (!overridesFile.entries[slugValue]) return false;
+        delete overridesFile.entries[slugValue];
+      }
+
+      this.saveOverridesFile(dbName, overridesFile);
+
+      this.memoryCache.delete(dbName);
+      const mappedCachePath = path.join(CACHE_DIR, `db-${dbName}.json`);
+      if (fs.existsSync(mappedCachePath)) fs.unlinkSync(mappedCachePath);
+
+      return true;
     } catch {
       return false;
     }
