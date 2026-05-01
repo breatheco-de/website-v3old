@@ -170,14 +170,21 @@ export function ImagePickerDialog({
     }
 
     if (renderedSize && renderedSize.width > 0 && renderedSize.height > 0) {
-      const key = `${renderedSize.width}x${renderedSize.height}`;
+      const imgEntry = selectedRegistryId ? imageRegistry?.images?.[selectedRegistryId] : undefined;
+      const targetWidth = renderedSize.width;
+      // Use the image's natural aspect ratio so resizing never distorts it.
+      // Fall back to the rendered container height only when dimensions are unknown.
+      const targetHeight = (imgEntry?.width && imgEntry?.height)
+        ? Math.round(targetWidth * (imgEntry.height / imgEntry.width))
+        : renderedSize.height;
+      const key = `${targetWidth}x${targetHeight}`;
       if (!seen.has(key)) {
         seen.add(key);
         suggestions.push({
           value: key,
-          label: `Match displayed size on retina screens — ${renderedSize.width} × ${renderedSize.height} px`,
-          width: renderedSize.width,
-          height: renderedSize.height,
+          label: `Match displayed size on retina screens — ${targetWidth} × ${targetHeight} px`,
+          width: targetWidth,
+          height: targetHeight,
         });
       }
     }
