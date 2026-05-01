@@ -2,7 +2,7 @@
 import { createElement, useState, useEffect } from "react";
 import Marquee from "react-fast-marquee";
 import { Button } from "@/components/ui/button";
-import { useImageRegistry } from "@/components/UniversalImage";
+import UniversalImage from "@/components/UniversalImage";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { getIcon } from "@/lib/icons";
 import type { HeroCredibility as HeroCredibilityData, HeroCredibilityPill } from "@shared/schema";
@@ -14,14 +14,9 @@ interface HeroCredibilityProps {
 // ─── PillLogo ─────────────────────────────────────────────────────────────────
 
 function PillLogo({ imageId, colored }: { imageId: string; colored: boolean }) {
-  const { registry, loading } = useImageRegistry();
-  if (loading || !registry) return null;
-  const entry = registry.images?.[imageId];
-  if (!entry) return null;
   return (
-    <img
-      src={entry.src}
-      alt={entry.alt || ""}
+    <UniversalImage
+      id={imageId}
       className="max-w-full max-h-full object-contain"
       style={{ filter: colored ? "none" : "grayscale(100%) opacity(0.85)" }}
       loading="eager"
