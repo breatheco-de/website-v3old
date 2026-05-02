@@ -39,7 +39,7 @@ sections:
     title: Featured in the press
     columns: 3
     items:
-      - logo: global-miami-logo
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/global-miami-logo.jpg
         title: The future Workforce
         excerpt: Since tech training boot camps are skills-based and shorter than an academic degree program, they can be an effective way to reach the incumbet workforce.
         link_text: Read Article
@@ -54,21 +54,27 @@ sections:
         excerpt: Current and prospective tech professionals can complete data science bootcamps to sharpen their existing skills, change fields or advance in their current careers.
         link_text: Read Article
         link_url: https://www.forbes.com/advisor/education/bootcamps/best-data-science-bootcamps/
-      - logo: businesswire-logo
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/businesswire-logo.png
         title: Global Coding Bootcamp Market 2021-2025
         excerpt: The publisher's robust vendor analysis is designed to help clients improve their market position, and in line with this, this report provides a detailed analysis of several leading coding bootcamp market vendors that include 4Geeks Academy LLC
         link_text: Read Article
         link_url: https://www.businesswire.com/news/home/20210519005401/en/Global-Coding-Bootcamp-Market-2021-2025---Low-Cost-of-Bootcamps-and-an-Increase-in-Student-Enrollments-to-Drive-Growth---ResearchAndMarkets.com
-      - logo: refresh-miami-logo
+        alt: "Image: businesswire-logo"
+        id: businesswire-logo
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/refresh-miami-logo.png
         title: Miami-based coding school 4Geeks is breaking down the barriers to becoming a software developer
         excerpt: Miami-based Marcelo Ricigliano is helping South Floridians hope on these trends and change their lives. Ricigliano is the CEO of coding school 4Geeks Academy, which aims to lower the barrier to entry to tech jobs.
         link_text: See Interview
         link_url: https://refreshmiami.com/miami-based-coding-school-4geeks-is-breaking-down-the-barriers-to-becoming-a-software-developer/
-      - logo: the-miami-herald-logo
+        alt: "Image: refresh-miami-logo"
+        id: refresh-miami-logo
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/the-miami-herald-logo.png
         title: Learn to Code Scholarships
         excerpt: After a lot of hard word we were able to partner with United Way to offer 100 schollarships in minority populations to become a software engineer or software developer
         link_text: See Interview
         link_url: https://www.miamiherald.com/news/business/article263937731.html
+        alt: "Image: the-miami-herald-logo"
+        id: the-miami-herald-logo
       - logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
         title: Web Development Coding Bootcamp
         excerpt: On a research made and published by Forbes while specified all the possible ways you can become a web developer in the USA.
@@ -79,11 +85,13 @@ sections:
         excerpt: Victor Fitchhorn, who has autism, is learning how to code at Miami-based 4Geeks Academy, a coding bootcamp. NBC 6's Ari Odzer reports.
         link_text: Watch Video
         link_url: https://www.nbcmiami.com/on-air/as-seen-on/students-with-autism-learn-to-code_miami/159640/
-      - logo: newsweek-logo
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek-logo.png
         title: A Coding Career and You  - Top Coding Schools 2017
         excerpt: Profundizamos a un nivel avanzado principios específicos de desarrollo, llevando tu carrera a otro nivel.
         link_text: Read Article
         link_url: https://www.newsweek.com/insights/coding-career-and-you-top-coding-schools-2017/4geeks-academy
+        alt: "Image: newsweek-logo"
+        id: newsweek-logo
     paddingY:
       desktop: none md
   - type: value_proof_panel
