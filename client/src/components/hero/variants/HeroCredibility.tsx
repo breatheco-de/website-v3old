@@ -13,20 +13,35 @@ interface HeroCredibilityProps {
 
 // ─── PillLogo ─────────────────────────────────────────────────────────────────
 
-function PillLogo({ imageId, colored }: { imageId: string; colored: boolean }) {
+function PillLogo({ imageId, colored, pillIndex, logoIndex }: { 
+  imageId: string; 
+  colored: boolean;
+  pillIndex: number;
+  logoIndex: number;
+}) {
   return (
     <UniversalImage
       id={imageId}
       className="max-w-full max-h-full object-contain"
       style={{ filter: colored ? "none" : "grayscale(100%) opacity(0.85)" }}
       loading="eager"
+      fieldContext={{
+        arrayPath: `pills.${pillIndex}.logos`,
+        index: logoIndex,
+        srcField: "image_id",
+      }}
     />
   );
 }
 
 // ─── CredibilityPill ──────────────────────────────────────────────────────────
 
-function CredibilityPill({ pill, tick, colored }: { pill: HeroCredibilityPill; tick: number; colored: boolean }) {
+function CredibilityPill({ pill, tick, colored, pillIndex }: { 
+  pill: HeroCredibilityPill; 
+  tick: number; 
+  colored: boolean;
+  pillIndex: number;
+}) {
   const logos = pill.logos ?? [];
   const activeIdx = logos.length > 0 ? tick % logos.length : 0;
 
@@ -48,7 +63,12 @@ function CredibilityPill({ pill, tick, colored }: { pill: HeroCredibilityPill; t
               className="absolute inset-0 flex items-center justify-center transition-opacity duration-300"
               style={{ opacity: i === activeIdx ? 1 : 0 }}
             >
-              <PillLogo imageId={logo.image_id} colored={colored} />
+              <PillLogo 
+                imageId={logo.image_id} 
+                colored={colored}
+                pillIndex={pillIndex}
+                logoIndex={i}
+              />
             </div>
           ))}
         </div>
@@ -251,7 +271,7 @@ export default function HeroCredibility({ data }: HeroCredibilityProps) {
                 )}
                 <div className="relative z-10 flex flex-col gap-3 lg:gap-5">
                   {pills.map((pill, i) => (
-                    <CredibilityPill key={i} pill={pill} tick={tick} colored={coloredLogos} />
+                    <CredibilityPill key={i} pill={pill} tick={tick} colored={coloredLogos} pillIndex={i} />
                   ))}
                 </div>
               </div>
