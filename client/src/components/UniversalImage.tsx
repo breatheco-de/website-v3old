@@ -168,7 +168,7 @@ export function UniversalImage({
       : undefined;
 
 
-  const sizesString = sizesProp ?? presetConfig?.sizes ?? (srcsetString ? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" : undefined);
+  const sizesString = sizesProp ?? presetConfig?.sizes ?? (srcsetString ? "(max-width: 768px) 48px, 64px" : undefined);
 
   const intrinsicWidth = imageEntry?.width;
   const intrinsicHeight = imageEntry?.height;

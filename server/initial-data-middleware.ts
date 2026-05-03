@@ -348,7 +348,7 @@ export function resolvePreloadHints(
       if (entry.srcset && entry.srcset.length > 0) {
         hint.srcset = entry.srcset.map((s) => `${s.url} ${s.w}w`).join(", ");
         const presetConfig = preset ? registryData.presets?.[preset] : undefined;
-        hint.sizes = presetConfig?.sizes ?? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
+        hint.sizes = presetConfig?.sizes ?? "(max-width: 768px) 48px, 64px";
       }
       hints.push(hint);
     }
@@ -361,7 +361,7 @@ export function resolvePreloadHints(
       const hint: PreloadHint = { src: url };
       if (entry?.srcset && entry.srcset.length > 0) {
         hint.srcset = entry.srcset.map((s) => `${s.url} ${s.w}w`).join(", ");
-        hint.sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
+        hint.sizes = "(max-width: 768px) 48px, 64px";
       }
       hints.push(hint);
     }
