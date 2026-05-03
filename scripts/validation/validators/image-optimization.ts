@@ -16,9 +16,37 @@ function getExtension(src: string): string {
   }
 }
 
+type RegistryPreset = { widths: number[]; quality: number };
+
+function expectedWidthsForPresets(
+  presetNames: string[],
+  presets: Record<string, RegistryPreset>,
+): number[] {
+  const all = new Set<number>();
+  for (const name of presetNames) {
+    const p = presets[name];
+    if (p) {
+      for (const w of p.widths) all.add(w);
+    }
+  }
+  return Array.from(all).sort((a, b) => a - b);
+}
+
+function missingWidths(
+  presetNames: string[],
+  widthsGenerated: number[],
+  presets: Record<string, RegistryPreset>,
+  intrinsicWidth: number,
+): number[] {
+  const expected = expectedWidthsForPresets(presetNames, presets)
+    .filter(w => w <= intrinsicWidth);
+  const stored = new Set(widthsGenerated);
+  return expected.filter(w => !stored.has(w));
+}
+
 export const imageOptimizationValidator: Validator = {
   name: "image-optimization",
-  description: "Checks image registry for raster images missing srcset, width, or height optimization data",
+  description: "Checks image registry for raster images missing srcset, width, or height optimization data, or whose srcset is missing widths added to their preset",
   apiExposed: true,
   estimatedDuration: "fast",
   category: "content",
@@ -28,7 +56,21 @@ export const imageOptimizationValidator: Validator = {
     const errors: ValidationIssue[] = [];
     const warnings: ValidationIssue[] = [];
 
-    let registry: { images: Record<string, { src: string; srcset?: { w: number; url: string }[]; width?: number; height?: number; tags?: string[] }> };
+    type RegistryEntry = {
+      src: string;
+      srcset?: { w: number; url: string }[];
+      width?: number;
+      height?: number;
+      tags?: string[];
+      preset?: string[];
+      widths_generated?: number[];
+    };
+
+    let registry: {
+      images: Record<string, RegistryEntry>;
+      presets?: Record<string, RegistryPreset>;
+    };
+
     try {
       const raw = fs.readFileSync(REGISTRY_PATH, "utf-8");
       registry = JSON.parse(raw);
@@ -51,8 +93,10 @@ export const imageOptimizationValidator: Validator = {
     }
 
     const images = registry.images || {};
+    const presets = (registry.presets ?? {}) as Record<string, RegistryPreset>;
     let optimized = 0;
     let needsOptimization = 0;
+    let widthsOutdated = 0;
     let skipped = 0;
 
     for (const [id, entry] of Object.entries(images)) {
@@ -72,29 +116,55 @@ export const imageOptimizationValidator: Validator = {
       const hasWidth = typeof entry.width === "number" && entry.width > 0;
       const hasHeight = typeof entry.height === "number" && entry.height > 0;
 
-      if (hasSrcset && hasWidth && hasHeight) {
-        optimized++;
+      if (!hasSrcset || !hasWidth || !hasHeight) {
+        needsOptimization++;
+        const missing: string[] = [];
+        if (!hasSrcset) missing.push("srcset");
+        if (!hasWidth) missing.push("width");
+        if (!hasHeight) missing.push("height");
+
+        warnings.push({
+          type: "warning",
+          code: "IMAGE_NOT_OPTIMIZED",
+          message: `Image "${id}" is missing optimization data: ${missing.join(", ")}`,
+          file: REGISTRY_PATH,
+          suggestion: "Run the backfill script or trigger batch optimization to generate responsive variants",
+          fix: {
+            type: "api",
+            label: "Optimize all unoptimized images",
+            fixerName: "image-optimization",
+          },
+        });
         continue;
       }
 
-      needsOptimization++;
-      const missing: string[] = [];
-      if (!hasSrcset) missing.push("srcset");
-      if (!hasWidth) missing.push("width");
-      if (!hasHeight) missing.push("height");
+      const presetNames = entry.preset ?? [];
+      if (presetNames.length > 0 && Object.keys(presets).length > 0) {
+        const missing = missingWidths(
+          presetNames,
+          entry.widths_generated ?? [],
+          presets,
+          entry.width,
+        );
+        if (missing.length > 0) {
+          widthsOutdated++;
+          warnings.push({
+            type: "warning",
+            code: "IMAGE_WIDTHS_OUTDATED",
+            message: `Image "${id}" is missing srcset widths added to its preset (${presetNames.join(", ")}): ${missing.join(", ")}px`,
+            file: REGISTRY_PATH,
+            suggestion: "Run the image optimization fixer to generate the missing width variants",
+            fix: {
+              type: "api",
+              label: "Re-optimize images with outdated widths",
+              fixerName: "image-optimization",
+            },
+          });
+          continue;
+        }
+      }
 
-      warnings.push({
-        type: "warning",
-        code: "IMAGE_NOT_OPTIMIZED",
-        message: `Image "${id}" is missing optimization data: ${missing.join(", ")}`,
-        file: REGISTRY_PATH,
-        suggestion: "Run the backfill script or trigger batch optimization to generate responsive variants",
-        fix: {
-          type: "api",
-          label: "Optimize all unoptimized images",
-          fixerName: "image-optimization",
-        },
-      });
+      optimized++;
     }
 
     const duration = Date.now() - startTime;
@@ -109,6 +179,7 @@ export const imageOptimizationValidator: Validator = {
         totalImages: Object.keys(images).length,
         optimized,
         needsOptimization,
+        widthsOutdated,
         skipped,
       },
     };
