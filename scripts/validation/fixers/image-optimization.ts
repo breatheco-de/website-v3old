@@ -81,7 +81,7 @@ export const imageOptimizationFixer: Fixer = {
       return { ok: false, message: "Failed to load image registry" };
     }
 
-    const presets = registry.presets as Record<string, Preset>;
+    const presets = (registry.presets ?? {}) as Record<string, Preset>;
     const tagDefinitions = (registry.tagDefinitions ?? {}) as Record<
       string,
       { presets?: string[] }

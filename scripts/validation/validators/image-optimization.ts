@@ -1,6 +1,8 @@
 import * as fs from "fs";
 import * as path from "path";
 import type { Validator, ValidatorResult, ValidationContext, ValidationIssue } from "../shared/types";
+import { mergeWidths } from "../../../server/image-optimizer";
+import type { Preset } from "../../../server/image-optimizer";
 
 const REGISTRY_PATH = path.join(process.cwd(), "marketing-content", "image-registry.json");
 
@@ -16,32 +18,16 @@ function getExtension(src: string): string {
   }
 }
 
-type RegistryPreset = { widths: number[]; quality: number };
-
-function expectedWidthsForPresets(
-  presetNames: string[],
-  presets: Record<string, RegistryPreset>,
-): number[] {
-  const all = new Set<number>();
-  for (const name of presetNames) {
-    const p = presets[name];
-    if (p) {
-      for (const w of p.widths) all.add(w);
-    }
-  }
-  return Array.from(all).sort((a, b) => a - b);
-}
-
 function missingWidths(
   presetNames: string[],
   widthsGenerated: number[],
-  presets: Record<string, RegistryPreset>,
+  presets: Record<string, Preset>,
   intrinsicWidth: number,
 ): number[] {
-  const expected = expectedWidthsForPresets(presetNames, presets)
-    .filter(w => w <= intrinsicWidth);
+  const { widths: expected } = mergeWidths(presetNames, presets);
+  const filtered = expected.filter(w => w <= intrinsicWidth);
   const stored = new Set(widthsGenerated);
-  return expected.filter(w => !stored.has(w));
+  return filtered.filter(w => !stored.has(w));
 }
 
 export const imageOptimizationValidator: Validator = {
@@ -68,7 +54,7 @@ export const imageOptimizationValidator: Validator = {
 
     let registry: {
       images: Record<string, RegistryEntry>;
-      presets?: Record<string, RegistryPreset>;
+      presets?: Record<string, Preset>;
     };
 
     try {
@@ -93,7 +79,7 @@ export const imageOptimizationValidator: Validator = {
     }
 
     const images = registry.images || {};
-    const presets = (registry.presets ?? {}) as Record<string, RegistryPreset>;
+    const presets = (registry.presets ?? {}) as Record<string, Preset>;
     let optimized = 0;
     let needsOptimization = 0;
     let widthsOutdated = 0;
