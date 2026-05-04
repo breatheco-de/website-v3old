@@ -1613,7 +1613,7 @@ sections:
     section_id: features_quad-pz3u2r
     version: "1.0"
     variant: default
-    heading: Why Choose Our AI Engineering Program?
+    heading: Why Choose Our AI Engineering Program? test
     description: Get the skills, support, and job placement assistance you need to launch your career in AI engineering.
     images:
       - image_id: student_asian
