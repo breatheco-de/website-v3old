@@ -13107,47 +13107,6 @@
         }
       ]
     },
-    "kevin-soria": {
-      "src": "https://storage.googleapis.com/4geeks-academy-website/media/kevin-soria.jpg",
-      "alt": "Testimonial from Kevin Soria",
-      "focal_point": "center",
-      "tags": [
-        "testimonial"
-      ],
-      "usage_count": 0,
-      "hash": "b5d74576ddcd83829af0fb43d51654c40f5ec712112c2b75a2a7a6e0016ccf37",
-      "width": 338,
-      "height": 299,
-      "preset": [
-        "avatar",
-        "card"
-      ],
-      "widths_generated": [
-        64,
-        128,
-        256,
-        320
-      ],
-      "format": "webp",
-      "srcset": [
-        {
-          "w": 64,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/kevin-soria-64w.webp"
-        },
-        {
-          "w": 128,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/kevin-soria-128w.webp"
-        },
-        {
-          "w": 256,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/kevin-soria-256w.webp"
-        },
-        {
-          "w": 320,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/kevin-soria-320w.webp"
-        }
-      ]
-    },
     "naila-kaliyeva": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/naila-kaliyeva.jpg",
       "alt": "Testimonial from Naila Kaliyeva",
@@ -13247,68 +13206,6 @@
         {
           "w": 640,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/olson-dimanche-640w.webp"
-        }
-      ]
-    },
-    "peter-schwarck": {
-      "src": "https://storage.googleapis.com/4geeks-academy-website/media/peter-schwarck.jpeg",
-      "alt": "Testimonial from Peter Schwarck",
-      "focal_point": "center",
-      "tags": [
-        "testimonial"
-      ],
-      "usage_count": 0,
-      "hash": "168a18d0b78abda49f31fedf985d33bfe8c60c21772653f1b734febee96e785c",
-      "width": 200,
-      "height": 200,
-      "preset": [
-        "avatar",
-        "card"
-      ],
-      "widths_generated": [
-        64,
-        128
-      ],
-      "format": "webp",
-      "srcset": [
-        {
-          "w": 64,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/peter-schwarck-64w.webp"
-        },
-        {
-          "w": 128,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/peter-schwarck-128w.webp"
-        }
-      ]
-    },
-    "rebecca-willett": {
-      "src": "https://storage.googleapis.com/4geeks-academy-website/media/rebecca-willett.jpeg",
-      "alt": "Testimonial from Rebecca Willett",
-      "focal_point": "center",
-      "tags": [
-        "testimonial"
-      ],
-      "usage_count": 0,
-      "hash": "1db4aa4daefa9036b50663ae9c8e9d4802ac8fe2e30183f80484d3b34db0c0b4",
-      "width": 200,
-      "height": 200,
-      "preset": [
-        "avatar",
-        "card"
-      ],
-      "widths_generated": [
-        64,
-        128
-      ],
-      "format": "webp",
-      "srcset": [
-        {
-          "w": 64,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/rebecca-willett-64w.webp"
-        },
-        {
-          "w": 128,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/rebecca-willett-128w.webp"
         }
       ]
     },
@@ -13656,81 +13553,6 @@
         {
           "w": 320,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/placeholder_career_guidance-350x255-320w.webp"
-        }
-      ]
-    },
-    "graduates_team_2-288x210-288x210": {
-      "src": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_team_2-288x210-288x210.webp",
-      "alt": "Large group of 4Geeks graduates celebrating with certificates",
-      "focal_point": "center",
-      "tags": [
-        "team"
-      ],
-      "usage_count": 0,
-      "width": 288,
-      "height": 210,
-      "format": "webp",
-      "preset": [
-        "avatar",
-        "card"
-      ],
-      "widths_generated": [
-        64,
-        128,
-        256
-      ],
-      "srcset": [
-        {
-          "w": 64,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_team_2-288x210-288x210-64w.webp"
-        },
-        {
-          "w": 128,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_team_2-288x210-288x210-128w.webp"
-        },
-        {
-          "w": 256,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_team_2-288x210-288x210-256w.webp"
-        }
-      ]
-    },
-    "graduates_friends-288x210": {
-      "src": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210.webp",
-      "alt": "4Geeks students laughing and enjoying time together",
-      "focal_point": "center",
-      "tags": [
-        "photo",
-        "team",
-        "testimonial"
-      ],
-      "usage_count": 0,
-      "width": 288,
-      "height": 210,
-      "format": "webp",
-      "parentId": "graduates_friends",
-      "quality_override": 65,
-      "preset": [
-        "full",
-        "card",
-        "avatar"
-      ],
-      "widths_generated": [
-        64,
-        128,
-        256
-      ],
-      "srcset": [
-        {
-          "w": 64,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210-64w.webp"
-        },
-        {
-          "w": 128,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210-128w.webp"
-        },
-        {
-          "w": 256,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210-256w.webp"
         }
       ]
     },
