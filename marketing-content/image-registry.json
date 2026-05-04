@@ -15654,6 +15654,31 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72-240w.webp"
         }
       ]
+    },
+    "google": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/google.webp",
+      "alt": "Image: google",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "bac2c526eaeb0263255aaaafd3577fd7443101f4bcfef3d3a2d88c67c22169c4",
+      "width": 583,
+      "height": 196,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        583
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 583,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/google-583w.webp"
+        }
+      ]
     }
   }
 }
