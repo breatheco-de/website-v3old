@@ -12,9 +12,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import CodeMirror from "@uiw/react-codemirror";
-import { yaml as yamlLang } from "@codemirror/lang-yaml";
-import { oneDark } from "@codemirror/theme-one-dark";
 import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { useContentTypes, getFolderFromType } from "@/hooks/useContentTypes";
 import { useToast } from "@/hooks/use-toast";
@@ -23,6 +20,8 @@ import { renderSection } from "@/components/SectionRenderer";
 import yaml from "js-yaml";
 import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
 import * as CountryFlags from "country-flag-icons/react/3x2";
+
+const LazyYamlEditor = lazy(() => import("./YamlEditor"));
 
 function deslugify(str: string): string {
   return str
@@ -1683,18 +1682,14 @@ export function EditableSection({ children, section, index, sectionType, content
             </DialogTitle>
           </DialogHeader>
           <div className="flex-1 overflow-auto rounded border">
-            <CodeMirror
-              value={currentExample?.yaml || ""}
-              extensions={[yamlLang()]}
-              theme={oneDark}
-              readOnly
-              basicSetup={{
-                lineNumbers: true,
-                foldGutter: true,
-                highlightActiveLine: false,
-              }}
-              className="text-sm"
-            />
+            <Suspense fallback={<div className="flex items-center justify-center h-40"><Loader2 className="h-5 w-5 animate-spin text-muted-foreground" /></div>}>
+              <LazyYamlEditor
+                value={currentExample?.yaml || ""}
+                readOnly
+                highlightActiveLine={false}
+                className="text-sm"
+              />
+            </Suspense>
           </div>
         </DialogContent>
       </Dialog>
@@ -1712,18 +1707,14 @@ export function EditableSection({ children, section, index, sectionType, content
             Review and edit the YAML below. Fix any issues before applying.
           </p>
           <div className="flex-1 overflow-auto rounded border min-h-[300px]">
-            <CodeMirror
-              value={reviewCodeYaml}
-              onChange={(value) => setReviewCodeYaml(value)}
-              extensions={[yamlLang()]}
-              theme={oneDark}
-              basicSetup={{
-                lineNumbers: true,
-                foldGutter: true,
-                highlightActiveLine: true,
-              }}
-              className="text-sm"
-            />
+            <Suspense fallback={<div className="flex items-center justify-center h-40"><Loader2 className="h-5 w-5 animate-spin text-muted-foreground" /></div>}>
+              <LazyYamlEditor
+                value={reviewCodeYaml}
+                onChange={(value) => setReviewCodeYaml(value)}
+                highlightActiveLine
+                className="text-sm"
+              />
+            </Suspense>
           </div>
           {reviewCodeError && (
             <div className="rounded border border-destructive bg-destructive/10 p-3 text-sm text-destructive max-h-[150px] overflow-auto" data-testid={`error-review-code-${index}`}>
