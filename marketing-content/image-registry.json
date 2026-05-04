@@ -15720,6 +15720,70 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79-240w.webp"
         }
       ]
+    },
+    "austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80.webp",
+      "alt": "Image: austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview",
+      "focal_point": "center",
+      "tags": [
+        "testimonial",
+        "logo"
+      ],
+      "usage_count": 0,
+      "width": 509,
+      "height": 490,
+      "format": "webp",
+      "parentId": "austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview",
+      "quality_override": 80,
+      "preset": [
+        "avatar",
+        "card",
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128,
+        240,
+        256,
+        320,
+        480
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80-240w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80-480w.webp"
+        }
+      ]
     }
   }
 }
