@@ -351,7 +351,7 @@ sections:
     version: v1.0
     title: Top rated across all major platforms.
     items:
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/course-report-800x600-q75.webp
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72.webp
         rating: 4.9
         review_count: 4.9 on Course Report
       - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
