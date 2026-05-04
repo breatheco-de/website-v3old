@@ -33,10 +33,10 @@ sections:
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
-      - https://randomuser.me/api/portraits/women/1.jpg
-      - https://randomuser.me/api/portraits/men/2.jpg
-      - https://randomuser.me/api/portraits/women/3.jpg
-      - https://randomuser.me/api/portraits/men/4.jpg
+      - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+      - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+      - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+      - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
     title: Tu Carrera Tech Empieza Aquí—Donde Sea
     description: No importa dónde vivas, 4Geeks Academy te da acceso a mentoría en vivo, aprendizaje real y coaching profesional. Nuestro horario flexible y plan de estudios enfocado en el futuro te ayudan a crecer desde cualquier lugar. Únete a miles de graduados que han construido nuevos futuros en tech.
     background: gradient

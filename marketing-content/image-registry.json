@@ -528,6 +528,32 @@
     }
   },
   "images": {
+    "410890": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/410890.jpg",
+      "alt": "Image: 410890",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "hash": "361ac5fbf662187311b040c2488627c5b8bc5495334c5035053e2737102cea0d",
+      "width": 460,
+      "height": 460,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        460
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 460,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/410890-460w.webp"
+        }
+      ]
+    },
     "clark_university": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png",
       "alt": "Clark University Logo",
@@ -15836,6 +15862,31 @@
         {
           "w": 480,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/group-7085-1-700x380-600x326-q80-480w.webp"
+        }
+      ]
+    },
+    "daniela-maisi": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/daniela-maisi.jpg",
+      "alt": "Image: daniela-maisi",
+      "focal_point": "center",
+      "tags": [
+        "photo"
+      ],
+      "usage_count": 0,
+      "hash": "bf75da7ab0e51eccbcd244ff5b850c467972f8209d3519cbce59cc669e235a25",
+      "width": 460,
+      "height": 460,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        460
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 460,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/daniela-maisi-460w.webp"
         }
       ]
     }

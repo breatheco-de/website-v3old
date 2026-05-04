@@ -29,10 +29,10 @@ sections:
       reales de producción.
     students_enrolled:
       avatars:
-        - https://randomuser.me/api/portraits/women/1.jpg
-        - https://randomuser.me/api/portraits/men/2.jpg
-        - https://randomuser.me/api/portraits/women/3.jpg
-        - https://randomuser.me/api/portraits/men/4.jpg
+        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduados
     bullet_points:
       - Transforma un Caso de Empresa completo en un sistema totalmente nativo de IA, nivel por nivel.
@@ -41,7 +41,7 @@ sections:
     tutors:
       - name: Marco Gonzalo
         role: Instructor Principal
-        image: https://avatars.githubusercontent.com/u/410890?v=4&w=256&q=100
+        image: https://storage.googleapis.com/4geeks-academy-website/media/410890.jpg
       - name: Rigo
         role: Tutor de IA
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
@@ -103,10 +103,10 @@ sections:
       reales de producción.
     students_enrolled:
       avatars:
-        - https://randomuser.me/api/portraits/women/1.jpg
-        - https://randomuser.me/api/portraits/men/2.jpg
-        - https://randomuser.me/api/portraits/women/3.jpg
-        - https://randomuser.me/api/portraits/men/4.jpg
+        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduados
     bullet_points:
       - Transforma un Caso de Empresa completo en un sistema totalmente nativo de IA, nivel por nivel.
@@ -115,7 +115,7 @@ sections:
     tutors:
       - name: Marco Gonzalo
         role: Instructor Principal
-        image: https://avatars.githubusercontent.com/u/410890?v=4&w=256&q=100
+        image: https://storage.googleapis.com/4geeks-academy-website/media/410890.jpg
       - name: Rigo
         role: Tutor de IA
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp

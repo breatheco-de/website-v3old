@@ -68,10 +68,10 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
     students_enrolled:
       avatars:
-        - https://randomuser.me/api/portraits/women/1.jpg
-        - https://randomuser.me/api/portraits/men/2.jpg
-        - https://randomuser.me/api/portraits/women/3.jpg
-        - https://randomuser.me/api/portraits/men/4.jpg
+        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: Más de 1.000 estudiantes en LATAM y EE. UU.
     bullet_points:
       - Domina el desarrollo frontend moderno con HTML, CSS, JavaScript y React

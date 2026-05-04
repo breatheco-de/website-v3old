@@ -26,10 +26,10 @@ sections:
     subtitle: Domina las habilidades que impulsan la revolución de la IA. Aprende a analizar datos y construir modelos que impulsan decisiones en el mundo real.
     students_enrolled:
       avatars:
-        - https://randomuser.me/api/portraits/women/1.jpg
-        - https://randomuser.me/api/portraits/men/2.jpg
-        - https://randomuser.me/api/portraits/women/3.jpg
-        - https://randomuser.me/api/portraits/men/4.jpg
+        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +500 estudiantes inscritos
     bullet_points:
       - Transforma datos crudos en insights claros y modelos predictivos, paso a paso.

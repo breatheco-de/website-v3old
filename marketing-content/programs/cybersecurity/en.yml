@@ -27,10 +27,10 @@ sections:
     subtitle: Defend systems, respond to threats, and launch a high-paying cybersecurity career in {{ global.cybersecurity_week_duration | 16 }} weeks.
     students_enrolled:
       avatars:
-        - https://randomuser.me/api/portraits/women/1.jpg
-        - https://randomuser.me/api/portraits/men/2.jpg
-        - https://randomuser.me/api/portraits/women/3.jpg
-        - https://randomuser.me/api/portraits/men/4.jpg
+        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +2,500 students enrolled
     bullet_points:
       - Work with real-world cyber threats and security defenses
@@ -40,7 +40,7 @@ sections:
     tutors:
       - name: Daniela Maisi
         role: Main Instructor
-        image: https://avatars.githubusercontent.com/u/16064310?v=4
+        image: https://storage.googleapis.com/4geeks-academy-website/media/daniela-maisi.jpg
       - name: Rigo
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp

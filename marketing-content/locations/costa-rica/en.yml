@@ -114,10 +114,10 @@ sections:
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
-      - https://randomuser.me/api/portraits/women/1.jpg
-      - https://randomuser.me/api/portraits/men/2.jpg
-      - https://randomuser.me/api/portraits/women/3.jpg
-      - https://randomuser.me/api/portraits/men/4.jpg
+      - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+      - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+      - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+      - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
     title: At the Center of Costa Rica's Tech Momentum
     description: Costa Rica is Central America's leading tech and nearshore hub, and 4Geeks Academy is at the center of its growth. From our Costa Rica campus, we connect students with local employers, regional opportunities, and a thriving ecosystem of startups, incubators, and tech events—helping you build relationships that support your entry and long-term growth in tech.
     background: gradient

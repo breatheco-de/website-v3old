@@ -73,10 +73,10 @@ sections:
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
-      - https://randomuser.me/api/portraits/women/1.jpg
-      - https://randomuser.me/api/portraits/men/2.jpg
-      - https://randomuser.me/api/portraits/women/3.jpg
-      - https://randomuser.me/api/portraits/men/4.jpg
+      - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+      - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+      - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+      - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
     title: At the Center of Caracas' Tech Momentum
     description: Caracas is one of the cities with the greatest technological entrepreneurship, with great opportunities to grow both inside and outside the country. It has become an opportunity for SMEs to move forward quickly. You will have high speed internet access and a first class office. From our Caracas campus, we connect you with local employers, tech events, and a growing ecosystem—helping you build relationships that support your entry and long-term growth in tech.
     background: gradient
