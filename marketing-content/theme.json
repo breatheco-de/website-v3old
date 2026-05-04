@@ -631,16 +631,6 @@
   ],
   "preview_examples": [
     {
-      "component": "graduates_stats",
-      "version": "v1.0",
-      "example": "Basic Graduates Stats"
-    },
-    {
-      "component": "hero",
-      "version": "v1.0",
-      "example": "Product Showcase"
-    },
-    {
       "component": "ai_learning",
       "version": "v1.0",
       "example": "test",
