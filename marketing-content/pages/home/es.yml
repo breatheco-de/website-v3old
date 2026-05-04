@@ -162,20 +162,20 @@ sections:
     section_id: features_grid-xxxxxxx
   - type: image_row
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-800x1200-q72.webp
         alt: "Image: ChatGPT Image Mar 26, 2026, 04_28_27 PM"
-        id: chatgpt-image-mar-26-2026-04-28-27-pm
+        id: chatgpt-image-mar-26-2026-04-28-27-pm-800x1200-q72
         object_position: 60%90%
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_26_00-PM.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-900x1350-q70.webp
         alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
-        id: chatgpt-image-mar-26-2026-04-26-00-pm
+        id: chatgpt-image-mar-26-2026-04-26-00-pm-900x1350-q70
         object_position: 40% 80%
       - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina_brightened.png
         alt: "Image: valentina_brightened"
         id: valentina-brightened
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf.jpg
-        alt: "Image: 664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf"
-        id: 664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74.webp
+        alt: "Image: 664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74"
+        id: 664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74
         object_position: 38% 100%
         object_scale: 1.45
     highlight:
