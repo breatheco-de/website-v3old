@@ -8680,25 +8680,10 @@
         "logo"
       ],
       "widths_generated": [
-        32,
-        64,
-        120,
         240
       ],
       "format": "webp",
       "srcset": [
-        {
-          "w": 32,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433-32w.webp"
-        },
-        {
-          "w": 64,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433-64w.webp"
-        },
-        {
-          "w": 120,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433-120w.webp"
-        },
         {
           "w": 240,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433-240w.webp"
