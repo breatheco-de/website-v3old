@@ -15229,6 +15229,116 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/bid_logo-616x616-240w.webp"
         }
       ]
+    },
+    "global-miami-logo-1": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/global-miami-logo.jpg",
+      "alt": "Image: global-miami-logo",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "380f37d62b9e9b22a865f838b7636a404f10c7a42e229c6dfc1a80510422ef2a",
+      "width": 600,
+      "height": 72,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        600
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 600,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/global-miami-logo-600w.webp"
+        }
+      ]
+    },
+    "cnn-logo": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/cnn-logo.png",
+      "alt": "Image: cnn-logo",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "00b77ba6ed08e69715bd8c542016170040cda7d2ad18b29140226105424e2b56",
+      "width": 326,
+      "height": 155,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        326
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 326,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/cnn-logo-326w.webp"
+        }
+      ]
+    },
+    "economista-logo": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/economista-logo.png",
+      "alt": "Image: economista-logo",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "c59f0d56eb92e75cb204684d94453198e8d371f3604d31c5b4f484dc5b4413e6",
+      "width": 600,
+      "height": 57,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        600
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 600,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/economista-logo-600w.webp"
+        }
+      ]
+    },
+    "global-miami-logo-2": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/global-miami-logo.jpg",
+      "alt": "Image: global-miami-logo",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "ab3c5fb2ea941c847bdb91703a7a38d2e128b0cd5e0b4b413d139533fa000250",
+      "width": 1381,
+      "height": 153,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960,
+        1280
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/global-miami-logo-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/global-miami-logo-960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/global-miami-logo-1280w.webp"
+        }
+      ]
     }
   }
 }
