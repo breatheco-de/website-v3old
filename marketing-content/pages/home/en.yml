@@ -51,7 +51,7 @@ sections:
           - image_id: bid_logo-616x616
             alt: BID logo
             id: bid-logo-616x616
-          - image_id: austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview
+          - image_id: austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80
           - image_id: upskillbahamas
             alt: "Image: UpskillBahamas"
             id: upskillbahamas
@@ -98,7 +98,7 @@ sections:
       - value: 3-6 months
         label: Average time to get hired
     collage_images:
-      - image_id: group-7085-1-700x380
+      - image_id: group-7085-1-700x380-600x326-q80
         col_span: 5
         row_span: 2
         alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
@@ -351,13 +351,13 @@ sections:
     version: v1.0
     title: Top rated across all major platforms.
     items:
-      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72.webp
         rating: 4.9
         review_count: 4.9 on Course Report
-      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79.webp
         rating: 4.8
         review_count: 4.8 on Google
-      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/CareerKarma_logo.png
         rating: 4.9
         review_count: 4.9 on Career Karma
       - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
