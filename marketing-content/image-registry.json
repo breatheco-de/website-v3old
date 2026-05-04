@@ -15532,6 +15532,32 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74-640w.webp"
         }
       ]
+    },
+    "course-report": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/course-report.webp",
+      "alt": "Image: course-report",
+      "focal_point": "center",
+      "tags": [
+        "award",
+        "badge"
+      ],
+      "usage_count": 0,
+      "hash": "34a8242e82726a4f9779c8fa7d9680708035d9efc12ac4098de5e3a59958dd92",
+      "width": 537,
+      "height": 252,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        537
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 537,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-537w.webp"
+        }
+      ]
     }
   }
 }
