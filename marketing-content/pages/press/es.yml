@@ -75,7 +75,6 @@ sections:
         link_url: https://www.eleconomista.es/ecoaula/noticias/11389106/09/21/4Geeks-Academy-lanza-un-millon-en-becas-para-la-formacion-de-futuros-programadores.html
     paddingY:
       desktop: none md
-  
   - type: value_proof_panel
     section_id: value_proof_panel-z4hasv
     title: Reconocidos globalmente por la excelencia
