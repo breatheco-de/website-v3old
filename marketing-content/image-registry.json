@@ -15305,6 +15305,41 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/economista-logo-600w.webp"
         }
       ]
+    },
+    "global-miami-logo-2": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/global-miami-logo.jpg",
+      "alt": "Image: global-miami-logo",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "ab3c5fb2ea941c847bdb91703a7a38d2e128b0cd5e0b4b413d139533fa000250",
+      "width": 1381,
+      "height": 153,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960,
+        1280
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/global-miami-logo-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/global-miami-logo-960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/global-miami-logo-1280w.webp"
+        }
+      ]
     }
   }
 }
