@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState, useMemo } from "react";
 import { Link } from "wouter";
+import { SitemapSearch } from "@/components/menus/SitemapSearch";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -154,7 +155,11 @@ function getCategoryBadgeVariant(cat: string): "default" | "secondary" | "destru
 }
 
 export default function SyncLogPage() {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("search") || "";
+  });
+  const [sitemapPage, setSitemapPage] = useState("");
   const [activeCategories, setActiveCategories] = useState<Set<Category>>(
     new Set([])
   );
@@ -405,53 +410,89 @@ export default function SyncLogPage() {
               )}
             </div>
 
-            {uniquePersons.length > 1 && (
-              <div className="flex items-center gap-2 flex-wrap">
-                <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                  <IconUser className="h-3.5 w-3.5" />
-                  <span>Person:</span>
-                </div>
-                {uniquePersons.map((person) => {
-                  const slug = person.toLowerCase().replace(/\s+/g, "-");
-                  const isActive = activePersons.has(person);
-                  return (
-                    <Badge
-                      key={person}
-                      variant={isActive ? "secondary" : "outline"}
-                      className={`cursor-pointer select-none ${!isActive ? "opacity-50" : ""}`}
-                      onClick={() => {
-                        setActivePersons((prev) => {
-                          const next = new Set(prev);
-                          if (next.has(person)) next.delete(person);
-                          else next.add(person);
-                          return next;
-                        });
-                      }}
-                      onDoubleClick={() => setActivePersons(new Set([person]))}
-                      data-testid={`badge-person-${slug}`}
-                    >
-                      {person}
-                    </Badge>
-                  );
-                })}
-                {activePersons.size > 0 && (
-                  <button
-                    onClick={() => setActivePersons(new Set([]))}
-                    className="text-xs text-muted-foreground hover:text-foreground transition-colors underline"
-                    data-testid="button-clear-person-filters"
-                  >
-                    Clear
-                  </button>
-                )}
+            <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                <IconUser className="h-3.5 w-3.5" />
+                <span>Person:</span>
               </div>
-            )}
+              {uniquePersons.length === 0 ? (
+                <span className="text-xs text-muted-foreground italic">No authors recorded yet</span>
+              ) : (
+                <>
+                  {uniquePersons.map((person) => {
+                    const slug = person.toLowerCase().replace(/\s+/g, "-");
+                    const isActive = activePersons.has(person);
+                    return (
+                      <Badge
+                        key={person}
+                        variant={isActive ? "secondary" : "outline"}
+                        className={`cursor-pointer select-none ${!isActive ? "opacity-50" : ""}`}
+                        onClick={() => {
+                          setActivePersons((prev) => {
+                            const next = new Set(prev);
+                            if (next.has(person)) next.delete(person);
+                            else next.add(person);
+                            return next;
+                          });
+                        }}
+                        onDoubleClick={() => setActivePersons(new Set([person]))}
+                        data-testid={`badge-person-${slug}`}
+                      >
+                        {person}
+                      </Badge>
+                    );
+                  })}
+                  {activePersons.size > 0 && (
+                    <button
+                      onClick={() => setActivePersons(new Set([]))}
+                      className="text-xs text-muted-foreground hover:text-foreground transition-colors underline"
+                      data-testid="button-clear-person-filters"
+                    >
+                      Clear
+                    </button>
+                  )}
+                </>
+              )}
+            </div>
+
+            <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                <IconSearch className="h-3.5 w-3.5" />
+                <span>Page:</span>
+              </div>
+              <SitemapSearch
+                value={sitemapPage}
+                onChange={(url) => {
+                  setSitemapPage(url);
+                  if (url) {
+                    const LOCALE_PREFIXES = new Set(["en", "es", "us"]);
+                    const parts = url.split("/").filter(Boolean);
+                    const contentParts = parts.length > 0 && LOCALE_PREFIXES.has(parts[0]) ? parts.slice(1) : parts;
+                    setSearch(contentParts[contentParts.length - 1] || "");
+                  } else {
+                    setSearch("");
+                  }
+                }}
+                placeholder="Pick a page..."
+                testId="sitemap-search-sync-log"
+              />
+              {sitemapPage && (
+                <button
+                  onClick={() => { setSitemapPage(""); setSearch(""); }}
+                  className="text-xs text-muted-foreground hover:text-foreground transition-colors underline"
+                  data-testid="button-clear-page-filter"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
 
             <div className="relative">
               <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search log entries..."
+                placeholder="Search by page slug, message, date..."
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => { setSearch(e.target.value); setSitemapPage(""); }}
                 className="pl-9"
                 data-testid="input-search-sync-log"
               />

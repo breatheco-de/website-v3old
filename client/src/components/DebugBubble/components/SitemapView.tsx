@@ -14,6 +14,7 @@ import {
   IconExternalLink,
   IconClipboard,
   IconCode,
+  IconHistory,
 } from "@tabler/icons-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
@@ -70,6 +71,14 @@ export function SitemapView({
   const copyUrl = async (loc: string) => {
     await navigator.clipboard.writeText(loc);
     toast({ title: "Copied", description: loc, duration: 2000 });
+  };
+
+  const LOCALE_PREFIXES = new Set(["en", "es", "us"]);
+
+  const extractSlug = (loc: string): string => {
+    const parts = new URL(loc).pathname.split('/').filter(Boolean);
+    const contentParts = parts.length > 0 && LOCALE_PREFIXES.has(parts[0]) ? parts.slice(1) : parts;
+    return contentParts[contentParts.length - 1] || '';
   };
 
   const isBlogUrl = (loc: string): boolean => {
@@ -234,6 +243,14 @@ export function SitemapView({
                                       <IconCode className="h-3.5 w-3.5 mr-2" />
                                       Edit YAML
                                     </DropdownMenuItem>
+                                    <DropdownMenuItem
+                                      onClick={() => { window.location.href = `/private/sync-log?search=${encodeURIComponent(extractSlug(url.loc))}`; }}
+                                      className="text-[13px]"
+                                      data-testid={`menu-changelog-${url.label.toLowerCase().replace(/\s+/g, '-')}`}
+                                    >
+                                      <IconHistory className="h-3.5 w-3.5 mr-2" />
+                                      View Change Log
+                                    </DropdownMenuItem>
                                     <DropdownMenuItem onClick={() => handleDeletePage(url)} className="text-[13px] text-destructive" data-testid={`menu-delete-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
                                       <IconTrash className="h-3.5 w-3.5 mr-2" />
                                       Delete
@@ -296,6 +313,14 @@ export function SitemapView({
                             <DropdownMenuItem onClick={() => handleEditYaml(url)} className="text-[13px]" data-testid={`menu-edit-yaml-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
                               <IconCode className="h-3.5 w-3.5 mr-2" />
                               Edit YAML
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                              onClick={() => { window.location.href = `/private/sync-log?search=${encodeURIComponent(extractSlug(url.loc))}`; }}
+                              className="text-[13px]"
+                              data-testid={`menu-changelog-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}
+                            >
+                              <IconHistory className="h-3.5 w-3.5 mr-2" />
+                              View Change Log
                             </DropdownMenuItem>
                             <DropdownMenuItem onClick={() => handleDeletePage(url)} className="text-[13px] text-destructive" data-testid={`menu-delete-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
                               <IconTrash className="h-3.5 w-3.5 mr-2" />
