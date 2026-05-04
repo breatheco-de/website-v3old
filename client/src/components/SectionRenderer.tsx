@@ -966,8 +966,6 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
         const isPriority = loadStrategy === "eager";
         const sectionVariableFields = (rawSection as Record<string, unknown>)._variableFields as Record<string, string> | undefined;
         const sectionVariableKeys = (rawSection as Record<string, unknown>)._variableKeys as Record<string, string> | undefined;
-        const priorityWrapped = (
-          <SectionContextProvider value={{ isPriority, sectionIndex: index, contentType: contentType ?? "", slug: slug ?? "", locale: locale ?? "", variableFields: sectionVariableFields, variableKeys: sectionVariableKeys }}>
         const imageSizes =
           ((rawSection as Record<string, unknown>)._imageSizes as Record<string, string> | undefined) ??
           {};
@@ -980,6 +978,8 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
               slug: slug ?? "",
               locale: locale ?? "",
               imageSizes,
+              variableFields: sectionVariableFields,
+              variableKeys: sectionVariableKeys,
             }}
           >
             {renderedContent}
