@@ -3,7 +3,8 @@ import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { hasHtmlTags, getTextLength, sliceHtml } from "@/lib/htmlTypewriter";
 import { useTypewriter } from "@/hooks/useTypewriter";
-import { useImageRegistry } from "@/components/UniversalImage";
+import { UniversalImage } from "@/components/UniversalImage";
+import { useSectionContext } from "@/contexts/SectionContext";
 import type {
   ImageRowSection,
   ImageRowSlide,
@@ -255,9 +256,6 @@ function HighlightSlideshow({
 const PARALLAX_FACTOR = 0.08;
 const PARALLAX_MAX_PX = 40;
 
-function buildSrcsetString(srcset: Array<{ w: number; url: string }>): string {
-  return srcset.map((s) => `${s.url} ${s.w}w`).join(", ");
-}
 
 export default function ImageRow({ data }: ImageRowProps) {
   const {
@@ -270,7 +268,7 @@ export default function ImageRow({ data }: ImageRowProps) {
     background,
   } = data;
 
-  const { registry } = useImageRegistry();
+  const { imageSizes } = useSectionContext();
   const editModeContext = useEditModeOptional();
   const isEditMode = editModeContext?.isEditMode ?? false;
   const sectionRef = useRef<HTMLElement>(null);
@@ -404,13 +402,6 @@ export default function ImageRow({ data }: ImageRowProps) {
             <div className="contents" style={{ display: "contents" }}>
               {images.map((image, index) => {
                 const imageHeight = image.height || undefined;
-                const registryEntry = registry
-                  ? Object.values(registry.images).find((e) => e.src === image.src)
-                  : undefined;
-                const srcsetString =
-                  registryEntry?.srcset && registryEntry.srcset.length > 0
-                    ? buildSrcsetString(registryEntry.srcset)
-                    : undefined;
                 return (
                   <div
                     key={image.src || `image-${index}`}
@@ -428,23 +419,20 @@ export default function ImageRow({ data }: ImageRowProps) {
                         }
                       }
                     `}</style>
-                    <img
-                      ref={(el) => {
-                        imageRefsRef.current[index] = el;
-                      }}
-                      src={image.src}
+                    <UniversalImage
+                      id={image.src}
                       alt={image.alt}
                       className="w-full h-full"
                       style={{
                         objectFit: image.object_fit || "cover",
-                        objectPosition:
-                          image.object_position || "center center",
+                        objectPosition: image.object_position || "center center",
                         transform: "translateY(0px) scale(1.15)",
                         willChange: "transform",
                       }}
                       loading="lazy"
-                      {...(srcsetString ? { srcSet: srcsetString } : {})}
-                      data-testid={`img-image-row-${index}`}
+                      sizes={imageSizes["images"]}
+                      fieldContext={{ arrayPath: "images", index, srcField: "src" }}
+                      onImgRef={(el) => { imageRefsRef.current[index] = el; }}
                     />
                   </div>
                 );

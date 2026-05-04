@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { ImageRef, ImageEntry, ImagePreset } from "@shared/schema";
 import SolidCard from "./SolidCard";
@@ -62,6 +62,7 @@ interface UniversalImageProps extends ImageRef {
   loading?: "lazy" | "eager";
   onLoad?: () => void;
   onError?: () => void;
+  onImgRef?: (el: HTMLImageElement | null) => void;
   useSolidCard?: boolean;
   bordered?: boolean;
   style?: React.CSSProperties;
@@ -90,6 +91,7 @@ export function UniversalImage({
   loading: loadingProp,
   onLoad,
   onError,
+  onImgRef,
   useSolidCard = false,
   bordered = false,
   style,
@@ -101,6 +103,10 @@ export function UniversalImage({
   const [hasError, setHasError] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
+  const imgRefCallback = useCallback((el: HTMLImageElement | null) => {
+    (imgRef as React.MutableRefObject<HTMLImageElement | null>).current = el;
+    onImgRef?.(el);
+  }, [onImgRef]);
   const {
     isPriority: isPrioritySection,
     sectionIndex,
@@ -358,7 +364,7 @@ export function UniversalImage({
         />
       )}
       <img
-        ref={imgRef}
+        ref={imgRefCallback}
         src={src}
         alt={finalAlt}
         loading={resolvedLoading}
