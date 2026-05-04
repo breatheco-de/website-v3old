@@ -44,6 +44,8 @@ sections:
         excerpt: Since tech training boot camps are skills-based and shorter than an academic degree program, they can be an effective way to reach the incumbet workforce.
         link_text: Read Article
         link_url: https://issuu.com/coralgablesmagazine.com/docs/gm_jan-feb_2024_fullissue/74?ff
+        alt: "Image: global-miami-logo"
+        id: global-miami-logo-1
       - logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
         title: 5 Best Online Full-Stack Bootcamps Of 2024
         excerpt: Full-stack developers create and troubleshoot both the back-end and front-end of websites and software—an indispensable skill set for companies across industries.
