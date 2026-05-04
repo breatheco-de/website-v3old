@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { ChevronDown, ChevronUp, Filter, Pencil, Plus, Save, Search, Trash2, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -9,7 +10,6 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { IconPlus, IconTrash, IconEdit, IconDeviceFloppy, IconX, IconSearch, IconFilter, IconChevronUp, IconChevronDown } from "@tabler/icons-react";
 import { useToast } from "@/hooks/use-toast";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
@@ -339,14 +339,14 @@ export function FaqEditor({ data }: FaqEditorProps) {
               </p>
             </div>
             <Button onClick={handleAddFaq} data-testid="button-add-faq">
-              <IconPlus className="w-4 h-4 mr-2" />
+              <Plus className="w-4 h-4 mr-2" />
               Add FAQ
             </Button>
           </div>
 
           <div className="flex flex-col md:flex-row gap-4">
             <div className="relative flex-1">
-              <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
                 placeholder="Search FAQs..."
                 value={searchTerm}
@@ -357,7 +357,7 @@ export function FaqEditor({ data }: FaqEditorProps) {
             </div>
             <Select value={filterFeature} onValueChange={setFilterFeature}>
               <SelectTrigger className="w-full md:w-[200px]" data-testid="select-filter-feature">
-                <IconFilter className="w-4 h-4 mr-2" />
+                <Filter className="w-4 h-4 mr-2" />
                 <SelectValue placeholder="Filter by feature" />
               </SelectTrigger>
               <SelectContent>
@@ -400,7 +400,7 @@ export function FaqEditor({ data }: FaqEditorProps) {
                         onClick={() => handleEditFaq(faq, originalIndex)}
                         data-testid={`button-edit-faq-${originalIndex}`}
                       >
-                        <IconEdit className="w-4 h-4" />
+                        <Pencil className="w-4 h-4" />
                       </Button>
                       <Button
                         size="icon"
@@ -408,7 +408,7 @@ export function FaqEditor({ data }: FaqEditorProps) {
                         onClick={() => handleDeleteFaq(originalIndex)}
                         data-testid={`button-delete-faq-${originalIndex}`}
                       >
-                        <IconTrash className="w-4 h-4" />
+                        <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
                   </div>
@@ -523,7 +523,7 @@ export function FaqEditor({ data }: FaqEditorProps) {
 
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsDialogOpen(false)} data-testid="button-cancel-faq">
-              <IconX className="w-4 h-4 mr-2" />
+              <X className="w-4 h-4 mr-2" />
               Cancel
             </Button>
             <Button
@@ -531,7 +531,7 @@ export function FaqEditor({ data }: FaqEditorProps) {
               disabled={!editingFaq?.question || !editingFaq?.answer || saveMutation.isPending}
               data-testid="button-save-faq"
             >
-              <IconDeviceFloppy className="w-4 h-4 mr-2" />
+              <Save className="w-4 h-4 mr-2" />
               {saveMutation.isPending ? "Saving..." : "Save FAQ"}
             </Button>
           </DialogFooter>

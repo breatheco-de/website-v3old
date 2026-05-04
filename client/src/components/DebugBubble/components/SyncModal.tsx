@@ -1,21 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
+import { AlertTriangle, ArrowDown, ArrowUp, ChevronDown, ChevronRight, ExternalLink, Github, Pencil, RefreshCw, Save, Trash2, Undo2, Webhook, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import {
-  IconBrandGithub,
-  IconAlertTriangle,
-  IconRefresh,
-  IconArrowUp,
-  IconArrowDown,
-  IconChevronRight,
-  IconChevronDown,
-  IconX,
-  IconDeviceFloppy,
-  IconTrash,
-  IconArrowBackUp,
-  IconPencil,
-  IconExternalLink,
-  IconWebhook,
-} from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -174,7 +159,7 @@ export function SyncModal({
       <DialogContent className="!inset-0 !top-0 !left-0 !translate-x-0 !translate-y-0 !w-screen !max-w-full rounded-none overflow-y-auto sm:!inset-auto sm:!left-[50%] sm:!top-[50%] sm:!translate-x-[-50%] sm:!translate-y-[-50%] sm:!w-full sm:max-w-lg sm:!h-auto sm:max-h-[90vh] sm:rounded-lg">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <IconBrandGithub className="h-5 w-5" />
+            <Github className="h-5 w-5" />
             GitHub Sync
           </DialogTitle>
           <DialogDescription>
@@ -185,7 +170,7 @@ export function SyncModal({
         <div className="space-y-4 py-2">
           {autoCommitStatus && (!autoCommitStatus.githubConfigured || autoCommitStatus.lastError) && (
             <div className="flex items-start gap-2 p-3 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800">
-              <IconAlertTriangle className="h-4 w-4 text-red-600 dark:text-red-400 mt-0.5 shrink-0" />
+              <AlertTriangle className="h-4 w-4 text-red-600 dark:text-red-400 mt-0.5 shrink-0" />
               <div className="text-sm">
                 {!autoCommitStatus.githubConfigured ? (
                   <p className="text-red-700 dark:text-red-300">
@@ -218,7 +203,7 @@ export function SyncModal({
                 onClick={() => setAutoPushExpanded(v => !v)}
                 data-testid="button-toggle-auto-push"
               >
-                {autoPushExpanded ? <IconChevronDown className="h-3 w-3 text-muted-foreground shrink-0" /> : <IconChevronRight className="h-3 w-3 text-muted-foreground shrink-0" />}
+                {autoPushExpanded ? <ChevronDown className="h-3 w-3 text-muted-foreground shrink-0" /> : <ChevronRight className="h-3 w-3 text-muted-foreground shrink-0" />}
                 <div className={`h-1.5 w-1.5 rounded-full shrink-0 ${
                   autoCommitStatus?.enabled && autoCommitStatus.githubConfigured
                     ? autoCommitStatus.isCommitting ? 'bg-amber-500 animate-pulse' : 'bg-green-500'
@@ -266,7 +251,7 @@ export function SyncModal({
                                 data-testid="button-edit-sync-interval"
                               >
                                 <span>every {autoCommitStatus.commitIntervalSeconds}s</span>
-                                <IconPencil className="h-3 w-3" />
+                                <Pencil className="h-3 w-3" />
                               </button>
                             </PopoverTrigger>
                             <PopoverContent side="bottom" align="start" className="w-72 text-xs space-y-2 z-[10001]">
@@ -301,7 +286,7 @@ export function SyncModal({
                           disabled={isFlushing || isCommitting}
                           data-testid="button-flush-auto-commit"
                         >
-                          {isFlushing ? <IconRefresh className="h-3 w-3 animate-spin" /> : 'Push now'}
+                          {isFlushing ? <RefreshCw className="h-3 w-3 animate-spin" /> : 'Push now'}
                         </Button>
                       )}
                     </div>
@@ -318,7 +303,7 @@ export function SyncModal({
                 onClick={() => setAutoPullExpanded(v => !v)}
                 data-testid="button-toggle-auto-pull"
               >
-                {autoPullExpanded ? <IconChevronDown className="h-3 w-3 text-muted-foreground shrink-0" /> : <IconChevronRight className="h-3 w-3 text-muted-foreground shrink-0" />}
+                {autoPullExpanded ? <ChevronDown className="h-3 w-3 text-muted-foreground shrink-0" /> : <ChevronRight className="h-3 w-3 text-muted-foreground shrink-0" />}
                 <div className={`h-1.5 w-1.5 rounded-full shrink-0 ${
                   githubSyncStatus?.autoPullEnabled ? 'bg-green-500' : 'bg-muted-foreground/30'
                 }`} />
@@ -351,9 +336,9 @@ export function SyncModal({
                         className="inline-flex items-center gap-1 text-[11px] text-primary hover:underline"
                         data-testid="link-webhook-settings"
                       >
-                        <IconWebhook className="h-3 w-3 shrink-0" />
+                        <Webhook className="h-3 w-3 shrink-0" />
                         <span>Webhook #{webhookId}</span>
-                        <IconExternalLink className="h-2.5 w-2.5 shrink-0" />
+                        <ExternalLink className="h-2.5 w-2.5 shrink-0" />
                       </a>
                     )}
                     {recentPullLogs.length > 0 && (
@@ -399,7 +384,7 @@ export function SyncModal({
                                 }}
                                 data-testid={`button-resolve-upload-${idx}`}
                               >
-                                <IconArrowUp className="h-3 w-3" />
+                                <ArrowUp className="h-3 w-3" />
                               </Button>
                             </TooltipTrigger>
                             <TooltipContent side="top"><p>Upload my version</p></TooltipContent>
@@ -415,7 +400,7 @@ export function SyncModal({
                                 }}
                                 data-testid={`button-resolve-download-${idx}`}
                               >
-                                <IconArrowDown className="h-3 w-3" />
+                                <ArrowDown className="h-3 w-3" />
                               </Button>
                             </TooltipTrigger>
                             <TooltipContent side="top"><p>Download remote version</p></TooltipContent>
@@ -429,7 +414,7 @@ export function SyncModal({
                                 onClick={() => handleClearConflict(filePath)}
                                 data-testid={`button-clear-conflict-${idx}`}
                               >
-                                <IconX className="h-3 w-3" />
+                                <X className="h-3 w-3" />
                               </Button>
                             </TooltipTrigger>
                             <TooltipContent side="top"><p>Dismiss conflict</p></TooltipContent>
@@ -471,9 +456,9 @@ export function SyncModal({
                 data-testid="button-toggle-manual-actions"
               >
                 {manualActionsOpen ? (
-                  <IconChevronDown className="h-3.5 w-3.5" />
+                  <ChevronDown className="h-3.5 w-3.5" />
                 ) : (
-                  <IconChevronRight className="h-3.5 w-3.5" />
+                  <ChevronRight className="h-3.5 w-3.5" />
                 )}
                 Commit Queue
                 {pendingChanges.length > 0 && (
@@ -490,9 +475,9 @@ export function SyncModal({
                   data-testid="button-push-all-local"
                 >
                   {isPushingAllLocal ? (
-                    <><IconRefresh className="h-3 w-3 animate-spin mr-1" />Pushing...</>
+                    <><RefreshCw className="h-3 w-3 animate-spin mr-1" />Pushing...</>
                   ) : (
-                    <><IconArrowUp className="h-3 w-3 mr-1" />Push all</>
+                    <><ArrowUp className="h-3 w-3 mr-1" />Push all</>
                   )}
                 </Button>
               )}
@@ -507,7 +492,7 @@ export function SyncModal({
                 <div className="space-y-2">
                   {pendingChangesLoading ? (
                     <div className="flex items-center justify-center py-4">
-                      <IconRefresh className="h-5 w-5 animate-spin text-muted-foreground" />
+                      <RefreshCw className="h-5 w-5 animate-spin text-muted-foreground" />
                     </div>
                   ) : pendingChanges.length === 0 ? (
                     <p className="text-xs text-muted-foreground py-2">
@@ -556,9 +541,9 @@ export function SyncModal({
                                     data-testid={`button-confirm-file-commit-${index}`}
                                   >
                                     {fileCommitting === change.file ? (
-                                      <IconRefresh className="h-3 w-3 animate-spin" />
+                                      <RefreshCw className="h-3 w-3 animate-spin" />
                                     ) : (
-                                      <><IconArrowUp className="h-3 w-3 mr-1" />Commit</>
+                                      <><ArrowUp className="h-3 w-3 mr-1" />Commit</>
                                     )}
                                   </Button>
                                   <Button
@@ -649,7 +634,7 @@ export function SyncModal({
                                         }}
                                         data-testid={`button-backup-file-${index}`}
                                       >
-                                        <IconDeviceFloppy className="h-3 w-3" />
+                                        <Save className="h-3 w-3" />
                                       </Button>
                                     </TooltipTrigger>
                                     <TooltipContent side="top"><p>Download backup</p></TooltipContent>
@@ -667,7 +652,7 @@ export function SyncModal({
                                           }}
                                           data-testid={`button-commit-file-${index}`}
                                         >
-                                          <IconArrowUp className="h-3 w-3" />
+                                          <ArrowUp className="h-3 w-3" />
                                         </Button>
                                       </TooltipTrigger>
                                       <TooltipContent side="top"><p>Upload to remote</p></TooltipContent>
@@ -685,9 +670,9 @@ export function SyncModal({
                                           data-testid={`button-drop-file-${index}`}
                                         >
                                           {filePulling === change.file ? (
-                                            <IconRefresh className="h-3 w-3 animate-spin" />
+                                            <RefreshCw className="h-3 w-3 animate-spin" />
                                           ) : (
-                                            <IconArrowBackUp className="h-3 w-3" />
+                                            <Undo2 className="h-3 w-3" />
                                           )}
                                         </Button>
                                       </TooltipTrigger>
@@ -706,9 +691,9 @@ export function SyncModal({
                                           data-testid={`button-pull-file-${index}`}
                                         >
                                           {filePulling === change.file ? (
-                                            <IconRefresh className="h-3 w-3 animate-spin" />
+                                            <RefreshCw className="h-3 w-3 animate-spin" />
                                           ) : (
-                                            <IconArrowDown className="h-3 w-3" />
+                                            <ArrowDown className="h-3 w-3" />
                                           )}
                                         </Button>
                                       </TooltipTrigger>
@@ -737,9 +722,9 @@ export function SyncModal({
               data-testid="button-toggle-advanced-actions"
             >
               {advancedOptionsOpen ? (
-                <IconChevronDown className="h-3.5 w-3.5" />
+                <ChevronDown className="h-3.5 w-3.5" />
               ) : (
-                <IconChevronRight className="h-3.5 w-3.5" />
+                <ChevronRight className="h-3.5 w-3.5" />
               )}
               Advanced Actions
             </button>
@@ -758,9 +743,9 @@ export function SyncModal({
                     data-testid="button-ignore-all-changes"
                   >
                     {isIgnoringAllChanges ? (
-                      <><IconRefresh className="h-3.5 w-3.5 mr-1.5 animate-spin" />Resetting...</>
+                      <><RefreshCw className="h-3.5 w-3.5 mr-1.5 animate-spin" />Resetting...</>
                     ) : (
-                      <><IconTrash className="h-3.5 w-3.5 mr-1.5" />Ignore all local changes</>
+                      <><Trash2 className="h-3.5 w-3.5 mr-1.5" />Ignore all local changes</>
                     )}
                   </Button>
                 </div>
@@ -790,7 +775,7 @@ export function SyncModal({
       <DialogContent className="w-full max-w-full rounded-none sm:rounded-lg sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <IconArrowDown className="h-5 w-5" />
+            <ArrowDown className="h-5 w-5" />
             Download Remote Files
           </DialogTitle>
         </DialogHeader>
@@ -826,9 +811,9 @@ export function SyncModal({
             data-testid="button-pull-all"
           >
             {isBulkPulling ? (
-              <><IconRefresh className="h-4 w-4 mr-2 animate-spin" />Downloading...</>
+              <><RefreshCw className="h-4 w-4 mr-2 animate-spin" />Downloading...</>
             ) : (
-              <><IconArrowDown className="h-4 w-4 mr-2" />Download all ({nonConflictIncoming.length})</>
+              <><ArrowDown className="h-4 w-4 mr-2" />Download all ({nonConflictIncoming.length})</>
             )}
           </Button>
         </DialogFooter>
@@ -839,7 +824,7 @@ export function SyncModal({
       <DialogContent className="w-full max-w-full rounded-none sm:rounded-lg sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <IconArrowUp className="h-5 w-5" />
+            <ArrowUp className="h-5 w-5" />
             Push local files to GitHub
           </DialogTitle>
           <DialogDescription>
@@ -891,9 +876,9 @@ export function SyncModal({
             data-testid="button-push-all-confirm"
           >
             {isPushingAllLocal ? (
-              <><IconRefresh className="h-4 w-4 mr-2 animate-spin" />Pushing...</>
+              <><RefreshCw className="h-4 w-4 mr-2 animate-spin" />Pushing...</>
             ) : (
-              <><IconArrowUp className="h-4 w-4 mr-2" />Push {localOnlyFiles.length} file{localOnlyFiles.length !== 1 ? "s" : ""}</>
+              <><ArrowUp className="h-4 w-4 mr-2" />Push {localOnlyFiles.length} file{localOnlyFiles.length !== 1 ? "s" : ""}</>
             )}
           </Button>
         </DialogFooter>

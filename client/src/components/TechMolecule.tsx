@@ -1,4 +1,3 @@
-import { IconBrain, IconCode, IconDatabase, IconCloud, IconCpu, IconTerminal2 } from "@tabler/icons-react";
 
 interface TechMoleculeProps {
   className?: string;
@@ -13,42 +12,42 @@ export function TechMolecule({ className = "" }: TechMoleculeProps) {
           {/* Central node - AI Brain */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
             <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center animate-pulse-slow">
-              <IconBrain className="w-7 h-7 md:w-8 md:h-8 text-primary" />
+              <Brain className="w-7 h-7 md:w-8 md:h-8 text-primary" />
             </div>
           </div>
 
           {/* Node 1 - Code (top left) */}
           <div className="absolute left-[15%] top-[20%]">
             <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-muted border border-border flex items-center justify-center molecule-node">
-              <IconCode className="w-5 h-5 md:w-6 md:h-6 text-muted-foreground" />
+              <Code className="w-5 h-5 md:w-6 md:h-6 text-muted-foreground" />
             </div>
           </div>
 
           {/* Node 2 - Database (top right) */}
           <div className="absolute right-[15%] top-[15%]">
             <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-muted border border-border flex items-center justify-center molecule-node" style={{ animationDelay: "0.3s" }}>
-              <IconDatabase className="w-5 h-5 md:w-6 md:h-6 text-muted-foreground" />
+              <Database className="w-5 h-5 md:w-6 md:h-6 text-muted-foreground" />
             </div>
           </div>
 
           {/* Node 3 - Cloud (right) */}
           <div className="absolute right-[5%] top-[55%]">
             <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-muted border border-border flex items-center justify-center molecule-node" style={{ animationDelay: "0.6s" }}>
-              <IconCloud className="w-5 h-5 md:w-6 md:h-6 text-muted-foreground" />
+              <Cloud className="w-5 h-5 md:w-6 md:h-6 text-muted-foreground" />
             </div>
           </div>
 
           {/* Node 4 - Terminal (bottom right) */}
           <div className="absolute right-[25%] bottom-[10%]">
             <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-muted border border-border flex items-center justify-center molecule-node" style={{ animationDelay: "0.9s" }}>
-              <IconTerminal2 className="w-5 h-5 md:w-6 md:h-6 text-muted-foreground" />
+              <Terminal className="w-5 h-5 md:w-6 md:h-6 text-muted-foreground" />
             </div>
           </div>
 
           {/* Node 5 - CPU (bottom left) */}
           <div className="absolute left-[20%] bottom-[15%]">
             <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-muted border border-border flex items-center justify-center molecule-node" style={{ animationDelay: "1.2s" }}>
-              <IconCpu className="w-5 h-5 md:w-6 md:h-6 text-muted-foreground" />
+              <Cpu className="w-5 h-5 md:w-6 md:h-6 text-muted-foreground" />
             </div>
           </div>
 
@@ -80,3 +79,4 @@ export function TechMolecule({ className = "" }: TechMoleculeProps) {
     </div>
   );
 }
+import { Brain, Cloud, Code, Cpu, Database, Terminal } from "lucide-react";

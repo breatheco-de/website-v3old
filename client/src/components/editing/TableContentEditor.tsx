@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useMemo, useEffect } from "react";
-import { IconSend, IconLoader2, IconArrowUp, IconArrowDown, IconCode, IconChevronDown, IconX, IconFilter, IconTable } from "@tabler/icons-react";
+import { ArrowDown, ArrowUp, ChevronDown, Code, Filter, Loader2, Send, Table, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
@@ -170,7 +170,7 @@ function PreviewTable({ config, sampleData, filterFunction, filterCtx }: Preview
     <div className="overflow-x-auto rounded-[0.8rem] border" data-testid="editor-preview-table-container">
       {filterFunction && (
         <div className="px-3 py-1.5 bg-muted/40 border-b flex items-center gap-2">
-          <IconFilter className="w-3 h-3 text-muted-foreground" />
+          <Filter className="w-3 h-3 text-muted-foreground" />
           <span className="text-[10px] text-muted-foreground">
             Filter active — {displayData.length} of {sampleData.length} rows match
           </span>
@@ -191,9 +191,9 @@ function PreviewTable({ config, sampleData, filterFunction, filterCtx }: Preview
                   {col.label}
                   {sortKey === col.key && (
                     sortDir === "asc" ? (
-                      <IconArrowUp className="w-2.5 h-2.5" />
+                      <ArrowUp className="w-2.5 h-2.5" />
                     ) : (
-                      <IconArrowDown className="w-2.5 h-2.5" />
+                      <ArrowDown className="w-2.5 h-2.5" />
                     )
                   )}
                 </div>
@@ -239,7 +239,7 @@ function PreviewTable({ config, sampleData, filterFunction, filterCtx }: Preview
               className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
               data-testid="button-editor-toggle-rows"
             >
-              <IconChevronDown className={`w-3 h-3 transition-transform ${expanded ? "rotate-180" : ""}`} />
+              <ChevronDown className={`w-3 h-3 transition-transform ${expanded ? "rotate-180" : ""}`} />
               {expanded ? "Show less" : `Show all ${displayData.length}`}
             </button>
           )}
@@ -250,7 +250,7 @@ function PreviewTable({ config, sampleData, filterFunction, filterCtx }: Preview
               className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
               data-testid="button-editor-toggle-functions"
             >
-              <IconCode className="w-3 h-3" />
+              <Code className="w-3 h-3" />
               {showFunctions ? "Hide" : "Show"} functions
             </button>
           )}
@@ -437,17 +437,17 @@ export function TableContentEditor({
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            {mode === "content" ? <IconTable className="w-4 h-4" /> : <IconFilter className="w-4 h-4" />}
+            {mode === "content" ? <Table className="w-4 h-4" /> : <Filter className="w-4 h-4" />}
             <span className="text-sm font-medium text-foreground">
               {mode === "content" ? "Edit Table Content" : "Global Filter"}
             </span>
           </div>
           <Button size="icon" variant="ghost" onClick={onClose} data-testid="button-close-editor">
-            <IconX className="w-4 h-4" />
+            <X className="w-4 h-4" />
           </Button>
         </div>
         <div className="flex items-center gap-2 text-sm text-muted-foreground p-3">
-          <IconLoader2 className="w-4 h-4 animate-spin" />
+          <Loader2 className="w-4 h-4 animate-spin" />
           Loading endpoint data...
         </div>
       </div>
@@ -459,13 +459,13 @@ export function TableContentEditor({
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            {mode === "content" ? <IconTable className="w-4 h-4" /> : <IconFilter className="w-4 h-4" />}
+            {mode === "content" ? <Table className="w-4 h-4" /> : <Filter className="w-4 h-4" />}
             <span className="text-sm font-medium text-foreground">
               {mode === "content" ? "Edit Table Content" : "Global Filter"}
             </span>
           </div>
           <Button size="icon" variant="ghost" onClick={onClose} data-testid="button-close-editor">
-            <IconX className="w-4 h-4" />
+            <X className="w-4 h-4" />
           </Button>
         </div>
         {error && <p className="text-xs text-destructive">{error}</p>}
@@ -480,13 +480,13 @@ export function TableContentEditor({
     <div className="space-y-3" data-testid={`table-${mode}-editor`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          {isContentMode ? <IconTable className="w-4 h-4" /> : <IconFilter className="w-4 h-4" />}
+          {isContentMode ? <Table className="w-4 h-4" /> : <Filter className="w-4 h-4" />}
           <span className="text-sm font-medium text-foreground">
             {isContentMode ? "Edit Table Content" : "Global Filter"}
           </span>
         </div>
         <Button size="icon" variant="ghost" onClick={onClose} data-testid="button-close-editor">
-          <IconX className="w-4 h-4" />
+          <X className="w-4 h-4" />
         </Button>
       </div>
 
@@ -508,12 +508,12 @@ export function TableContentEditor({
 
       {!isContentMode && activeFilter && (
         <div className="flex items-center gap-2 p-2 rounded-md bg-muted/30 border">
-          <IconFilter className="w-3 h-3 text-muted-foreground flex-shrink-0" />
+          <Filter className="w-3 h-3 text-muted-foreground flex-shrink-0" />
           <code className="text-[10px] text-muted-foreground font-mono flex-1 truncate">
             {decodeBase64(activeFilter)}
           </code>
           <Button size="icon" variant="ghost" onClick={handleRemoveFilter} className="h-6 w-6" data-testid="button-remove-filter">
-            <IconX className="w-3 h-3" />
+            <X className="w-3 h-3" />
           </Button>
         </div>
       )}
@@ -555,7 +555,7 @@ export function TableContentEditor({
           {sending && (
             <div className="flex justify-start">
               <div className="bg-muted rounded-md px-2.5 py-1.5">
-                <IconLoader2 className="w-3.5 h-3.5 animate-spin text-muted-foreground" />
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-muted-foreground" />
               </div>
             </div>
           )}
@@ -585,7 +585,7 @@ export function TableContentEditor({
             disabled={sending || !input.trim()}
             data-testid="button-editor-chat-send"
           >
-            {sending ? <IconLoader2 className="w-3.5 h-3.5 animate-spin" /> : <IconSend className="w-3.5 h-3.5" />}
+            {sending ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
           </Button>
         </div>
       </div>

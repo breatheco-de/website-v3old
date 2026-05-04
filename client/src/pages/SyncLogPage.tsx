@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { ArrowLeft, Check, ChevronDown, Filter, Github, Loader2, RefreshCw, Search, Server, Trash2, User, Webhook, X } from "lucide-react";
 import { useState, useMemo, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { SitemapSearch } from "@/components/menus/SitemapSearch";
@@ -21,21 +22,6 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-import {
-  IconArrowLeft,
-  IconRefresh,
-  IconSearch,
-  IconFilter,
-  IconServer,
-  IconWebhook,
-  IconCheck,
-  IconX,
-  IconBrandGithub,
-  IconTrash,
-  IconLoader2,
-  IconChevronDown,
-  IconUser,
-} from "@tabler/icons-react";
 import { apiRequest } from "@/lib/queryClient";
 
 const CATEGORIES = [
@@ -327,11 +313,11 @@ export default function SyncLogPage() {
         <div className="flex items-center gap-3 flex-wrap">
           <Link href="/private/diagnostics">
             <Button variant="ghost" size="icon" data-testid="button-back-from-sync-log">
-              <IconArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
           <div className="flex items-center gap-2">
-            <IconBrandGithub className="h-5 w-5" />
+            <Github className="h-5 w-5" />
             <h1 className="text-xl font-semibold" data-testid="text-sync-log-title">
               GitHub Sync Log
             </h1>
@@ -340,7 +326,7 @@ export default function SyncLogPage() {
             {syncInfo && (
               <div className="flex items-center gap-3 text-sm text-muted-foreground mr-2">
                 <span className="flex items-center gap-1.5">
-                  <IconServer className="h-3.5 w-3.5" />
+                  <Server className="h-3.5 w-3.5" />
                   <code className="text-xs bg-muted px-1.5 py-0.5 rounded" data-testid="text-instance-id">
                     {syncInfo.instanceId} · checkpoint {syncInfo.replitCheckpoint}
                     {syncInfo.githubCommit && (
@@ -364,14 +350,14 @@ export default function SyncLogPage() {
                   </code>
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <IconWebhook className="h-3.5 w-3.5" />
+                  <Webhook className="h-3.5 w-3.5" />
                   {syncInfo.webhook.active ? (
                     <button
                       className="flex items-center gap-1 text-green-600 dark:text-green-400 hover:underline"
                       onClick={() => { setWebhookRetryResult(null); setWebhookRetryOpen(true); }}
                       data-testid="button-webhook-active"
                     >
-                      <IconCheck className="h-3 w-3" />
+                      <Check className="h-3 w-3" />
                       Active
                     </button>
                   ) : (
@@ -380,7 +366,7 @@ export default function SyncLogPage() {
                       onClick={() => { setWebhookRetryResult(null); setWebhookRetryOpen(true); }}
                       data-testid="button-webhook-inactive"
                     >
-                      <IconX className="h-3 w-3" />
+                      <X className="h-3 w-3" />
                       Inactive
                     </button>
                   )}
@@ -394,7 +380,7 @@ export default function SyncLogPage() {
               disabled={logLoading}
               data-testid="button-refresh-sync-log"
             >
-              <IconRefresh className={`h-3.5 w-3.5 mr-1.5 ${logLoading ? "animate-spin" : ""}`} />
+              <RefreshCw className={`h-3.5 w-3.5 mr-1.5 ${logLoading ? "animate-spin" : ""}`} />
               Refresh
             </Button>
             <DropdownMenu>
@@ -405,9 +391,9 @@ export default function SyncLogPage() {
                   disabled={clearMutation.isPending}
                   data-testid="button-clear-sync-log"
                 >
-                  <IconTrash className="h-3.5 w-3.5 mr-1.5" />
+                  <Trash2 className="h-3.5 w-3.5 mr-1.5" />
                   Clear
-                  <IconChevronDown className="h-3 w-3 ml-1" />
+                  <ChevronDown className="h-3 w-3 ml-1" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
@@ -426,7 +412,7 @@ export default function SyncLogPage() {
           <CardContent className="p-4 space-y-3">
             <div className="flex items-center gap-3 flex-wrap">
               <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                <IconFilter className="h-3.5 w-3.5" />
+                <Filter className="h-3.5 w-3.5" />
                 <span>Filter:</span>
               </div>
               {CATEGORIES.map((cat) => (
@@ -457,7 +443,7 @@ export default function SyncLogPage() {
 
             <div className="flex items-center gap-2 flex-wrap">
               <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                <IconUser className="h-3.5 w-3.5" />
+                <User className="h-3.5 w-3.5" />
                 <span>Person:</span>
               </div>
               {uniquePersons.length === 0 ? (
@@ -502,7 +488,7 @@ export default function SyncLogPage() {
 
             <div className="flex items-center gap-2 flex-wrap">
               <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                <IconSearch className="h-3.5 w-3.5" />
+                <Search className="h-3.5 w-3.5" />
                 <span>Page:</span>
               </div>
               <SitemapSearch
@@ -533,7 +519,7 @@ export default function SyncLogPage() {
             </div>
 
             <div className="relative">
-              <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search by page slug, message, date..."
                 value={search}
@@ -558,7 +544,7 @@ export default function SyncLogPage() {
 
             {logLoading && entries.length === 0 ? (
               <div className="flex items-center justify-center py-12">
-                <IconRefresh className="h-5 w-5 animate-spin text-muted-foreground" />
+                <RefreshCw className="h-5 w-5 animate-spin text-muted-foreground" />
               </div>
             ) : filtered.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-muted-foreground" data-testid="text-no-entries">
@@ -601,7 +587,7 @@ export default function SyncLogPage() {
                         </span>
                         {entry.person && (
                           <span className="text-muted-foreground shrink-0 flex items-center gap-1">
-                            <IconUser className="h-3 w-3" />
+                            <User className="h-3 w-3" />
                             {entry.person}
                           </span>
                         )}
@@ -649,7 +635,7 @@ export default function SyncLogPage() {
         {syncInfo?.webhook.active && (
           <div className="space-y-2 text-sm">
             <div className="flex items-center gap-2 p-3 rounded-md bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-900">
-              <IconCheck className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0" />
+              <Check className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0" />
               <span className="text-green-700 dark:text-green-300 font-medium">Webhook #{syncInfo.webhook.id} is active</span>
             </div>
             <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5 text-muted-foreground px-1">
@@ -664,7 +650,7 @@ export default function SyncLogPage() {
             </div>
             {cleanupResult !== null && (
               <div className="flex items-center gap-2 p-2.5 rounded-md bg-muted border text-xs text-muted-foreground">
-                <IconCheck className="h-3.5 w-3.5 flex-shrink-0 text-green-600 dark:text-green-400" />
+                <Check className="h-3.5 w-3.5 flex-shrink-0 text-green-600 dark:text-green-400" />
                 {cleanupResult.deleted === 0
                   ? "No duplicate webhooks found — already clean."
                   : `Deleted ${cleanupResult.deleted} duplicate webhook${cleanupResult.deleted !== 1 ? "s" : ""} (#${cleanupResult.ids.join(", #")}).`
@@ -677,8 +663,8 @@ export default function SyncLogPage() {
         {!syncInfo?.webhook.active && webhookRetryResult ? (
           <div className={`flex items-start gap-2 p-3 rounded-md border text-sm ${webhookRetryResult.success ? "bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-900" : "bg-destructive/10 border-destructive/20"}`}>
             {webhookRetryResult.success
-              ? <IconCheck className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
-              : <IconX className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
+              ? <Check className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+              : <X className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
             }
             <p className={webhookRetryResult.success ? "text-green-700 dark:text-green-300" : "text-destructive"}>
               {webhookRetryResult.message}
@@ -703,8 +689,8 @@ export default function SyncLogPage() {
               className="text-destructive border-destructive/40 hover:border-destructive"
             >
               {cleanupMutation.isPending
-                ? <><IconLoader2 className="h-4 w-4 mr-2 animate-spin" />Deleting...</>
-                : <><IconTrash className="h-4 w-4 mr-2" />Delete inactive webhooks</>
+                ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Deleting...</>
+                : <><Trash2 className="h-4 w-4 mr-2" />Delete inactive webhooks</>
               }
             </Button>
           )}
@@ -715,8 +701,8 @@ export default function SyncLogPage() {
               data-testid="button-retry-webhook"
             >
               {webhookSetupMutation.isPending
-                ? <><IconLoader2 className="h-4 w-4 mr-2 animate-spin" />Retrying...</>
-                : <><IconWebhook className="h-4 w-4 mr-2" />Retry</>
+                ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Retrying...</>
+                : <><Webhook className="h-4 w-4 mr-2" />Retry</>
               }
             </Button>
           )}

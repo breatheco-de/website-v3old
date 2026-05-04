@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { ArrowLeft, RefreshCw } from "lucide-react";
 import { useSearch, useParams } from "wouter";
 import jsYaml from "js-yaml";
 import { SectionRenderer } from "@/components/SectionRenderer";
 import type { Section } from "@shared/schema";
-import { IconRefresh, IconArrowLeft } from "@tabler/icons-react";
 
 function sanitizeSectionsForComponentPreview(input: unknown[]): Section[] {
   return input
@@ -179,7 +179,7 @@ export default function ComponentPreview() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[200px] bg-background">
-        <IconRefresh className="h-8 w-8 animate-spin text-muted-foreground" />
+        <RefreshCw className="h-8 w-8 animate-spin text-muted-foreground" />
       </div>
     );
   }
@@ -201,7 +201,7 @@ export default function ComponentPreview() {
             className="flex items-center gap-2 px-3 py-2 text-sm bg-background/80 backdrop-blur border rounded-md shadow-lg hover:bg-muted transition-colors"
             data-testid="button-back-from-preview"
           >
-            <IconArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4" />
             Back to Showcase
           </button>
         </div>

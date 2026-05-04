@@ -1,5 +1,5 @@
-import { IconFlag } from "@tabler/icons-react";
 import Marquee from "@/lib/marquee";
+import { Flag } from "lucide-react";
 import { useState, useRef, useCallback, useEffect, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import { useLocation } from "wouter";
@@ -358,7 +358,7 @@ function MasonryCard({
       
       {testimonial.achievement && (
         <div className="bg-primary/10 rounded-md px-2.5 py-1.5 inline-flex items-center gap-1.5">
-          <IconFlag className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+          <Flag className="w-3.5 h-3.5 text-primary flex-shrink-0" />
           <span className="text-xs font-medium text-primary">
             {testimonial.achievement}
           </span>

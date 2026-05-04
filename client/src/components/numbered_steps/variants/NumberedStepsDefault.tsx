@@ -1,7 +1,7 @@
 
 import { useState } from "react";
-import * as TablerIcons from "@tabler/icons-react";
-import { IconChevronDown } from "@tabler/icons-react";
+import { Check, ChevronDown, Circle } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 import type { ComponentType } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
@@ -36,14 +36,14 @@ interface NumberedStepsProps {
 }
 
 const getIcon = (iconName: string, className?: string) => {
-  const icons = TablerIcons as unknown as Record<string, ComponentType<{ size?: number; className?: string }>>;
-  const IconComponent = icons[`Icon${iconName}`];
+  const icons = LucideIcons as unknown as Record<string, ComponentType<{ size?: number; className?: string }>>;
+  const IconComponent = icons[iconName.charAt(0).toUpperCase() + iconName.slice(1) as keyof typeof LucideIcons];
   return IconComponent ? <IconComponent size={24} className={className || "text-primary"} /> : null;
 };
 
 const getBulletIcon = (iconName: string, colorClass: string) => {
-  const icons = TablerIcons as unknown as Record<string, ComponentType<{ className?: string }>>;
-  const IconComponent = icons[`Icon${iconName}`];
+  const icons = LucideIcons as unknown as Record<string, ComponentType<{ className?: string }>>;
+  const IconComponent = icons[iconName.charAt(0).toUpperCase() + iconName.slice(1) as keyof typeof LucideIcons];
   return IconComponent ? <IconComponent className={`w-4 h-4 ${colorClass} flex-shrink-0 mt-0.5`} /> : null;
 };
 
@@ -163,7 +163,7 @@ export default function NumberedSteps({ data }: NumberedStepsProps) {
                         <h3 className="text-base font-semibold text-foreground flex-1 text-left">
                           {step.title}
                         </h3>
-                        <IconChevronDown 
+                        <ChevronDown 
                           className={`w-5 h-5 text-muted-foreground transition-transform ${isExpanded ? 'rotate-180' : ''}`} 
                         />
                       </div>

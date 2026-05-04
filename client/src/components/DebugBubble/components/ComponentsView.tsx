@@ -1,12 +1,5 @@
-import {
-  IconArrowLeft,
-  IconSearch,
-  IconX,
-  IconRefresh,
-  IconComponents,
-  IconExternalLink,
-} from "@tabler/icons-react";
 import type { MenuView } from "../types";
+import { ArrowLeft, Blocks, ExternalLink, RefreshCw, Search, X } from "lucide-react";
 
 interface ComponentsViewProps {
   componentSearch: string;
@@ -39,11 +32,11 @@ export function ComponentsView({
               className="p-1 rounded-md hover-elevate"
               data-testid="button-back-to-main"
             >
-              <IconArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-4 w-4" />
             </button>
             {showComponentSearch ? (
               <div className="relative flex-1">
-                <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <input
                   type="text"
                   placeholder="Search components..."
@@ -68,7 +61,7 @@ export function ComponentsView({
               title="Cancel search"
               data-testid="button-cancel-component-search"
             >
-              <IconX className="h-4 w-4 text-muted-foreground" />
+              <X className="h-4 w-4 text-muted-foreground" />
             </button>
           ) : (
             <div className="flex items-center gap-1">
@@ -78,7 +71,7 @@ export function ComponentsView({
                 title="Open Component Showcase"
                 data-testid="link-component-showcase"
               >
-                <IconExternalLink className="h-4 w-4 text-muted-foreground" />
+                <ExternalLink className="h-4 w-4 text-muted-foreground" />
               </a>
               <button
                 onClick={() => setShowComponentSearch(true)}
@@ -86,7 +79,7 @@ export function ComponentsView({
                 title="Search components"
                 data-testid="button-toggle-component-search"
               >
-                <IconSearch className="h-4 w-4 text-muted-foreground" />
+                <Search className="h-4 w-4 text-muted-foreground" />
               </button>
             </div>
           )}
@@ -97,7 +90,7 @@ export function ComponentsView({
         <div className="p-2 space-y-1">
           {!componentRegistryData ? (
             <div className="flex items-center justify-center py-8">
-              <IconRefresh className="h-5 w-5 animate-spin text-muted-foreground" />
+              <RefreshCw className="h-5 w-5 animate-spin text-muted-foreground" />
             </div>
           ) : filteredComponents.length === 0 ? (
             <div className="text-center py-8 text-sm text-muted-foreground">
@@ -105,7 +98,7 @@ export function ComponentsView({
             </div>
           ) : (
             filteredComponents.map((component) => {
-              const Icon = componentIconMap[component.type] || IconComponents;
+              const Icon = componentIconMap[component.type] || Blocks;
               return (
                 <a
                   key={component.type}

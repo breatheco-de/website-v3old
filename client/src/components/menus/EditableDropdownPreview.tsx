@@ -1,11 +1,5 @@
 import { useState } from "react";
-import { ChevronRight, Code, BarChart3, Shield, Brain, Medal, GraduationCap, Building, GripVertical } from "lucide-react";
-import {
-  IconPencil,
-  IconPlus,
-  IconTrash,
-  IconLink,
-} from "@tabler/icons-react";
+import { BarChart3, Brain, Building, ChevronRight, Code, GraduationCap, GripVertical, Link, Medal, Pencil, Plus, Shield, Trash2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -83,7 +77,7 @@ export function EditableText({ value, onChange, placeholder, className, as: Tag 
           data-testid={testId}
         >
           {value || <span className="text-muted-foreground italic">{placeholder}</span>}
-          <IconPencil className="h-3 w-3 text-primary opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+          <Pencil className="h-3 w-3 text-primary opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
         </Tag>
       </PopoverTrigger>
       <PopoverContent className="w-64 p-2" align="start">
@@ -152,7 +146,7 @@ export function EditableLinkItem({ label, href, onLabelChange, onHrefChange, onS
           >
             <span className="flex items-center gap-1">
               {label || <span className="text-muted-foreground italic">Item label</span>}
-              <IconPencil className="h-3 w-3 text-primary opacity-0 group-hover/item:opacity-100 transition-opacity" />
+              <Pencil className="h-3 w-3 text-primary opacity-0 group-hover/item:opacity-100 transition-opacity" />
             </span>
             <ChevronRight className="w-4 h-4 text-muted-foreground" />
           </button>
@@ -191,7 +185,7 @@ export function EditableLinkItem({ label, href, onLabelChange, onHrefChange, onS
           className="p-1 rounded-md text-destructive opacity-0 group-hover/item:opacity-100 transition-opacity"
           data-testid={`${testIdPrefix}-delete`}
         >
-          <IconTrash className="h-3 w-3" />
+          <Trash2 className="h-3 w-3" />
         </button>
       )}
     </div>
@@ -218,10 +212,10 @@ function EditableIcon({ value, onChange, testId }: EditableIconProps) {
           {IconComponent ? (
             <IconComponent className="w-6 h-6" />
           ) : (
-            <IconPlus className="w-6 h-6 opacity-50" />
+            <Plus className="w-6 h-6 opacity-50" />
           )}
           <div className="absolute inset-0 flex items-center justify-center bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
-            <IconPencil className="h-4 w-4 text-primary" />
+            <Pencil className="h-4 w-4 text-primary" />
           </div>
         </div>
       </PopoverTrigger>
@@ -346,7 +340,7 @@ function EditableCardItem({
           className="absolute top-1 right-1 p-1 rounded-md bg-destructive/10 text-destructive opacity-0 group-hover/card:opacity-100 transition-opacity"
           data-testid={`editable-card-${index}-delete`}
         >
-          <IconTrash className="h-3 w-3" />
+          <Trash2 className="h-3 w-3" />
         </button>
       )}
       
@@ -554,7 +548,7 @@ function EditableCardsPreview({
                 className="flex flex-col items-center justify-center rounded-lg p-4 border-2 border-dashed border-muted-foreground/30 hover:border-primary/50 hover:bg-primary/5 transition-colors min-h-[200px]"
                 data-testid="editable-cards-add"
               >
-                <IconPlus className="h-8 w-8 text-muted-foreground mb-2" />
+                <Plus className="h-8 w-8 text-muted-foreground mb-2" />
                 <span className="text-sm text-muted-foreground">Add Card</span>
               </button>
             )}
@@ -646,7 +640,7 @@ function EditableSimpleListPreview({
           className="w-full mt-2 flex items-center justify-center gap-2 px-3 py-2 rounded-md border-2 border-dashed border-muted-foreground/30 hover:border-primary/50 hover:bg-primary/5 transition-colors text-sm text-muted-foreground"
           data-testid="editable-simple-list-add"
         >
-          <IconPlus className="h-4 w-4" />
+          <Plus className="h-4 w-4" />
           Add Item
         </button>
       )}
@@ -750,7 +744,7 @@ function EditableColumnsPreview({
                 className="absolute -top-2 -right-2 p-1 rounded-md bg-destructive/10 text-destructive opacity-0 group-hover/col:opacity-100 transition-opacity z-10"
                 data-testid={`editable-column-${colIndex}-delete`}
               >
-                <IconTrash className="h-3 w-3" />
+                <Trash2 className="h-3 w-3" />
               </button>
             )}
             
@@ -785,7 +779,7 @@ function EditableColumnsPreview({
                     className="flex items-center gap-1 text-sm text-muted-foreground/50 hover:text-primary"
                     data-testid={`editable-column-${colIndex}-add-item`}
                   >
-                    <IconPlus className="h-3 w-3" />
+                    <Plus className="h-3 w-3" />
                     Add item
                   </button>
                 </li>
@@ -800,7 +794,7 @@ function EditableColumnsPreview({
             className="flex flex-col items-center justify-center rounded-lg p-4 border-2 border-dashed border-muted-foreground/30 hover:border-primary/50 hover:bg-primary/5 transition-colors min-h-[120px]"
             data-testid="editable-columns-add-column"
           >
-            <IconPlus className="h-6 w-6 text-muted-foreground mb-1" />
+            <Plus className="h-6 w-6 text-muted-foreground mb-1" />
             <span className="text-xs text-muted-foreground">Add Column</span>
           </button>
         )}
@@ -924,7 +918,7 @@ function EditableGroupedListPreview({
                   className="absolute right-0 p-1 text-destructive opacity-0 group-hover/tab:opacity-100"
                   data-testid={`editable-group-${index}-delete`}
                 >
-                  <IconTrash className="h-3 w-3" />
+                  <Trash2 className="h-3 w-3" />
                 </button>
               )}
             </div>
@@ -935,7 +929,7 @@ function EditableGroupedListPreview({
               className="w-full flex items-center justify-center gap-1 px-3 py-2 text-xs text-muted-foreground border-2 border-dashed border-muted-foreground/30 rounded-md hover:border-primary/50"
               data-testid="editable-grouped-list-add-group"
             >
-              <IconPlus className="h-3 w-3" />
+              <Plus className="h-3 w-3" />
               Add
             </button>
           )}
@@ -964,7 +958,7 @@ function EditableGroupedListPreview({
                   className="flex items-center gap-1 py-1.5 text-sm text-muted-foreground/50 hover:text-primary"
                   data-testid={`editable-group-${activeGroup}-add-item`}
                 >
-                  <IconPlus className="h-3 w-3" />
+                  <Plus className="h-3 w-3" />
                   Add item
                 </button>
               )}

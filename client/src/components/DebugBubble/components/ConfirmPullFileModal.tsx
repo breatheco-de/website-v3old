@@ -7,7 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { IconCloudDownload, IconFile, IconRefresh } from "@tabler/icons-react";
+import { CloudDownload, File, RefreshCw } from "lucide-react";
 
 interface ConfirmPullFileModalProps {
   confirmPullFile: string | null;
@@ -30,7 +30,7 @@ export function ConfirmPullFileModal(props: ConfirmPullFileModalProps) {
         <DialogHeader>
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-full bg-amber-100 dark:bg-amber-900/30">
-              <IconCloudDownload className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+              <CloudDownload className="h-5 w-5 text-amber-600 dark:text-amber-400" />
             </div>
             <div>
               <DialogTitle>Download and Override Local File?</DialogTitle>
@@ -43,7 +43,7 @@ export function ConfirmPullFileModal(props: ConfirmPullFileModalProps) {
         
         <div className="py-4">
           <div className="flex items-center gap-2 p-3 bg-muted rounded-md">
-            <IconFile className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+            <File className="h-4 w-4 text-muted-foreground flex-shrink-0" />
             <span 
               className="font-mono text-sm truncate" 
               title={confirmPullFile || ''}
@@ -74,12 +74,12 @@ export function ConfirmPullFileModal(props: ConfirmPullFileModalProps) {
           >
             {filePulling === confirmPullFile ? (
               <>
-                <IconRefresh className="h-4 w-4 mr-2 animate-spin" />
+                <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
                 Downloading...
               </>
             ) : (
               <>
-                <IconCloudDownload className="h-4 w-4 mr-2" />
+                <CloudDownload className="h-4 w-4 mr-2" />
                 Download and Override mine
               </>
             )}

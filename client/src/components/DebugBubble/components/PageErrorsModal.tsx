@@ -7,8 +7,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { IconAlertTriangle } from "@tabler/icons-react";
 import type { PageDiagnostics } from "../types";
+import { AlertTriangle } from "lucide-react";
 
 interface PageErrorsModalProps {
   open: boolean;
@@ -28,7 +28,7 @@ export function PageErrorsModal(props: PageErrorsModalProps) {
       <DialogContent className="sm:max-w-lg max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <IconAlertTriangle className="h-5 w-5 text-destructive" />
+            <AlertTriangle className="h-5 w-5 text-destructive" />
             Page Diagnostics
           </DialogTitle>
           <DialogDescription>

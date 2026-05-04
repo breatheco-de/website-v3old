@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef, lazy, Suspense, useMemo } from "react";
-import { IconPencil, IconArrowsExchange, IconTrash, IconArrowUp, IconArrowDown, IconChevronLeft, IconChevronRight, IconCheck, IconLoader2, IconX, IconSparkles, IconDeviceDesktop, IconDeviceMobile, IconCopy, IconCode, IconEye, IconLink, IconLinkOff, IconSpacingHorizontal, IconDotsVertical, IconClockHour3, IconHistory, IconAlertTriangle } from "@tabler/icons-react";
+import { AlertTriangle, ArrowDown, ArrowLeftRight, ArrowUp, Check, ChevronLeft, ChevronRight, Clock3, Code, Copy, Eye, History, Link, Loader2, Monitor, MoreVertical, Pencil, Smartphone, Sparkles, Trash2, Unlink, X } from "lucide-react";
+import { MdSpaceBar } from "react-icons/md";
 import { useQuery } from "@tanstack/react-query";
 import type { Section, SectionLayout, ShowOn, ResponsiveSpacing } from "@shared/schema";
 import { Label } from "@/components/ui/label";
@@ -237,7 +238,7 @@ function XSpacingGroup({
               onClick={onToggleLink}
               data-testid={`${testIdPrefix}-link-toggle`}
             >
-              {linked ? <IconLink className="h-3.5 w-3.5" /> : <IconLinkOff className="h-3.5 w-3.5 text-muted-foreground" />}
+              {linked ? <Link className="h-3.5 w-3.5" /> : <Unlink className="h-3.5 w-3.5 text-muted-foreground" />}
             </Button>
           </TooltipTrigger>
           <TooltipContent side="top">
@@ -940,7 +941,7 @@ export function EditableSection({ children, section, index, sectionType, content
           className="p-2 bg-primary text-primary-foreground rounded-md shadow-lg hover-elevate flex items-center gap-1.5"
           data-testid={`button-edit-section-${index}`}
         >
-          <IconPencil className="h-4 w-4" />
+          <Pencil className="h-4 w-4" />
           <span className="hidden md:inline text-xs font-medium">{sectionType}</span>
         </button>
         <button
@@ -955,11 +956,11 @@ export function EditableSection({ children, section, index, sectionType, content
         >
           {isBound ? (
             <>
-              <IconLink className="h-4 w-4" />
+              <Link className="h-4 w-4" />
               <span className="text-xs font-medium">{boundSiblingCount}</span>
             </>
           ) : (
-            <IconLinkOff className="h-4 w-4" />
+            <Unlink className="h-4 w-4" />
           )}
         </button>
         {onMoveUp && (
@@ -970,7 +971,7 @@ export function EditableSection({ children, section, index, sectionType, content
             data-testid={`button-move-up-section-${index}`}
             title="Move section up"
           >
-            <IconArrowUp className="h-4 w-4" />
+            <ArrowUp className="h-4 w-4" />
           </button>
         )}
         {onMoveDown && (
@@ -981,7 +982,7 @@ export function EditableSection({ children, section, index, sectionType, content
             data-testid={`button-move-down-section-${index}`}
             title="Move section down"
           >
-            <IconArrowDown className="h-4 w-4" />
+            <ArrowDown className="h-4 w-4" />
           </button>
         )}
         {onDelete && (
@@ -991,7 +992,7 @@ export function EditableSection({ children, section, index, sectionType, content
             data-testid={`button-delete-section-${index}`}
             title="Delete section"
           >
-            <IconTrash className="h-4 w-4" />
+            <Trash2 className="h-4 w-4" />
           </button>
         )}
         {onDuplicate && (
@@ -1001,7 +1002,7 @@ export function EditableSection({ children, section, index, sectionType, content
             data-testid={`button-duplicate-section-${index}`}
             title="Duplicate section"
           >
-            <IconCopy className="h-4 w-4" />
+            <Copy className="h-4 w-4" />
           </button>
         )}
         <Popover open={xSpacingOpen} onOpenChange={handleXSpacingOpen}>
@@ -1011,7 +1012,7 @@ export function EditableSection({ children, section, index, sectionType, content
               title="Horizontal spacing"
               data-testid={`button-x-spacing-section-${index}`}
             >
-              <IconSpacingHorizontal className="h-4 w-4" />
+              <MdSpaceBar className="h-4 w-4" />
             </button>
           </PopoverTrigger>
           <PopoverContent className="w-auto min-w-[340px] p-3" onClick={(e) => e.stopPropagation()}>
@@ -1026,7 +1027,7 @@ export function EditableSection({ children, section, index, sectionType, content
                     onClick={() => setXSpacingBreakpoint("desktop")}
                     data-testid={`x-spacing-bp-desktop-${index}`}
                   >
-                    <IconDeviceDesktop className="h-3.5 w-3.5 mr-1" />
+                    <Monitor className="h-3.5 w-3.5 mr-1" />
                     <span className="text-xs">Desktop</span>
                   </Button>
                   <Button
@@ -1036,7 +1037,7 @@ export function EditableSection({ children, section, index, sectionType, content
                     onClick={() => setXSpacingBreakpoint("mobile")}
                     data-testid={`x-spacing-bp-mobile-${index}`}
                   >
-                    <IconDeviceMobile className="h-3.5 w-3.5 mr-1" />
+                    <Smartphone className="h-3.5 w-3.5 mr-1" />
                     <span className="text-xs">Mobile</span>
                   </Button>
                 </div>
@@ -1096,7 +1097,7 @@ export function EditableSection({ children, section, index, sectionType, content
                   disabled={xSaving}
                   data-testid={`x-spacing-apply-${index}`}
                 >
-                  {xSaving ? <IconLoader2 className="h-3.5 w-3.5 animate-spin mr-1" /> : null}
+                  {xSaving ? <Loader2 className="h-3.5 w-3.5 animate-spin mr-1" /> : null}
                   Apply
                 </Button>
               </div>
@@ -1110,7 +1111,7 @@ export function EditableSection({ children, section, index, sectionType, content
               title="More actions"
               data-testid={`button-section-more-${index}`}
             >
-              <IconDotsVertical className="h-4 w-4" />
+              <MoreVertical className="h-4 w-4" />
             </button>
           </PopoverTrigger>
           <PopoverContent className="w-auto min-w-[160px] p-1" align="end" onClick={(e) => e.stopPropagation()}>
@@ -1122,7 +1123,7 @@ export function EditableSection({ children, section, index, sectionType, content
                 }`}
                 data-testid={`button-binding-indicator-mobile-${index}`}
               >
-                {isBound ? <IconLink className="h-4 w-4" /> : <IconLinkOff className="h-4 w-4" />}
+                {isBound ? <Link className="h-4 w-4" /> : <Unlink className="h-4 w-4" />}
                 {isBound ? `Bindings (${boundSiblingCount})` : "Bindings"}
               </button>
               {onDelete && (
@@ -1131,7 +1132,7 @@ export function EditableSection({ children, section, index, sectionType, content
                   className="flex items-center gap-2 px-3 py-2 text-sm text-destructive rounded-md hover-elevate"
                   data-testid={`button-delete-section-mobile-${index}`}
                 >
-                  <IconTrash className="h-4 w-4" />
+                  <Trash2 className="h-4 w-4" />
                   Delete
                 </button>
               )}
@@ -1141,7 +1142,7 @@ export function EditableSection({ children, section, index, sectionType, content
                   className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground rounded-md hover-elevate"
                   data-testid={`button-duplicate-section-mobile-${index}`}
                 >
-                  <IconCopy className="h-4 w-4" />
+                  <Copy className="h-4 w-4" />
                   Duplicate
                 </button>
               )}
@@ -1150,7 +1151,7 @@ export function EditableSection({ children, section, index, sectionType, content
                 className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground rounded-md hover-elevate"
                 data-testid={`button-x-spacing-section-mobile-${index}`}
               >
-                <IconSpacingHorizontal className="h-4 w-4" />
+                <MdSpaceBar className="h-4 w-4" />
                 Horizontal spacing
               </button>
               {contentType && slug && locale && (
@@ -1173,7 +1174,7 @@ export function EditableSection({ children, section, index, sectionType, content
                   className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground rounded-md hover-elevate"
                   data-testid={`button-time-machine-mobile-${index}`}
                 >
-                  <IconClockHour3 className="h-4 w-4" />
+                  <Clock3 className="h-4 w-4" />
                   Time Machine
                 </button>
               )}
@@ -1206,13 +1207,13 @@ export function EditableSection({ children, section, index, sectionType, content
                 title="Section history"
                 data-testid={`button-history-section-${index}`}
               >
-                <IconClockHour3 className="h-4 w-4" />
+                <Clock3 className="h-4 w-4" />
               </button>
             </PopoverTrigger>
             <PopoverContent className="w-[min(500px,calc(100vw-1rem))] p-2" onClick={(e) => e.stopPropagation()}>
               {historyLoading ? (
                 <div className="flex items-center justify-center py-3 px-4">
-                  <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground mr-2" />
+                  <Loader2 className="h-4 w-4 animate-spin text-muted-foreground mr-2" />
                   <span className="text-xs text-muted-foreground">Loading history...</span>
                 </div>
               ) : historyEntries.length === 0 ? (
@@ -1221,7 +1222,7 @@ export function EditableSection({ children, section, index, sectionType, content
                 <div className="space-y-1">
                   <div className="flex items-center justify-between px-2 pb-1 border-b">
                     <span className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
-                      <IconHistory className="h-3.5 w-3.5" />
+                      <History className="h-3.5 w-3.5" />
                       File history — select a version to preview
                     </span>
                     {historyPreviewSha && (
@@ -1238,7 +1239,7 @@ export function EditableSection({ children, section, index, sectionType, content
                           }}
                           data-testid={`button-history-cancel-${index}`}
                         >
-                          <IconX className="h-3 w-3 mr-1" />
+                          <X className="h-3 w-3 mr-1" />
                           Cancel
                         </Button>
                         <Button
@@ -1255,7 +1256,7 @@ export function EditableSection({ children, section, index, sectionType, content
                           disabled={!historyPreviewSection}
                           data-testid={`button-history-restore-${index}`}
                         >
-                          <IconCheck className="h-3 w-3 mr-1" />
+                          <Check className="h-3 w-3 mr-1" />
                           Restore
                         </Button>
                       </div>
@@ -1303,7 +1304,7 @@ export function EditableSection({ children, section, index, sectionType, content
                           data-testid={`button-history-entry-${entry.sha.slice(0, 7)}-${index}`}
                         >
                           {isLoading ? (
-                            <IconLoader2 className="h-3.5 w-3.5 animate-spin text-muted-foreground shrink-0 mt-0.5" />
+                            <Loader2 className="h-3.5 w-3.5 animate-spin text-muted-foreground shrink-0 mt-0.5" />
                           ) : (
                             <code className="text-[10px] text-muted-foreground shrink-0 mt-0.5">{entry.sha.slice(0, 7)}</code>
                           )}
@@ -1327,13 +1328,13 @@ export function EditableSection({ children, section, index, sectionType, content
               title="Swap variant"
               data-testid={`button-swap-section-${index}`}
             >
-              <IconArrowsExchange className="h-4 w-4" />
+              <ArrowLeftRight className="h-4 w-4" />
             </button>
           </PopoverTrigger>
           <PopoverContent className="w-auto min-w-[500px] max-w-[700px] p-2" onClick={(e) => e.stopPropagation()}>
             {isLoadingSwap ? (
               <div className="flex items-center justify-center py-2 px-4" data-testid={`loader-swap-section-${index}`}>
-                <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground mr-2" />
+                <Loader2 className="h-4 w-4 animate-spin text-muted-foreground mr-2" />
                 <span className="text-xs text-muted-foreground">Loading variants...</span>
               </div>
             ) : versions.length === 0 ? (
@@ -1354,7 +1355,7 @@ export function EditableSection({ children, section, index, sectionType, content
                     data-testid={`badge-version-${index}`}
                   >
                     {selectedVersion || versions[0] || ""}
-                    {versions.length > 1 && <IconPencil className="h-3 w-3" />}
+                    {versions.length > 1 && <Pencil className="h-3 w-3" />}
                   </span>
                 </div>
                 
@@ -1365,7 +1366,7 @@ export function EditableSection({ children, section, index, sectionType, content
                 {variants.length > 0 ? (
                   <div className="flex items-center gap-1 min-w-0 flex-1">
                     <Button size="icon" variant="ghost" className="h-7 w-7 shrink-0" onClick={() => cycleVariant(-1)} disabled={variants.length <= 1} data-testid={`button-variant-prev-${index}`}>
-                      <IconChevronLeft className="h-4 w-4" />
+                      <ChevronLeft className="h-4 w-4" />
                     </Button>
                     <span className="text-xs font-medium truncate min-w-[80px] text-center" data-testid={`text-variant-${index}`}>
                       {deslugify(selectedVariant || "default")}
@@ -1374,7 +1375,7 @@ export function EditableSection({ children, section, index, sectionType, content
                       )}
                     </span>
                     <Button size="icon" variant="ghost" className="h-7 w-7 shrink-0" onClick={() => cycleVariant(1)} disabled={variants.length <= 1} data-testid={`button-variant-next-${index}`}>
-                      <IconChevronRight className="h-4 w-4" />
+                      <ChevronRight className="h-4 w-4" />
                     </Button>
                     {/* Example navigation (only if multiple examples in variant) */}
                     {examplesForCurrentVariant.length > 1 && (
@@ -1384,10 +1385,10 @@ export function EditableSection({ children, section, index, sectionType, content
                           <span className="text-[9px] text-muted-foreground uppercase tracking-wide">Examples</span>
                           <div className="flex items-center">
                             <Button size="icon" variant="ghost" className="h-6 w-6" onClick={() => cycleExample(-1)} data-testid={`button-example-prev-${index}`}>
-                              <IconChevronLeft className="h-3 w-3" />
+                              <ChevronLeft className="h-3 w-3" />
                             </Button>
                             <Button size="icon" variant="ghost" className="h-6 w-6" onClick={() => cycleExample(1)} data-testid={`button-example-next-${index}`}>
-                              <IconChevronRight className="h-3 w-3" />
+                              <ChevronRight className="h-3 w-3" />
                             </Button>
                           </div>
                         </div>
@@ -1396,7 +1397,7 @@ export function EditableSection({ children, section, index, sectionType, content
                     {/* View YAML source - always visible */}
                     <div className="w-px h-4 bg-border/50 shrink-0" />
                     <Button size="icon" variant="ghost" className="h-6 w-6 shrink-0" onClick={() => setShowYamlModal(true)} title="View YAML source" data-testid={`button-view-yaml-${index}`}>
-                      <IconCode className="h-3 w-3" />
+                      <Code className="h-3 w-3" />
                     </Button>
                   </div>
                 ) : (
@@ -1409,19 +1410,19 @@ export function EditableSection({ children, section, index, sectionType, content
                 {/* Right: Action buttons */}
                 <div className="flex items-center gap-1.5 shrink-0">
                   <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => { setSwapPopoverOpen(false); setAdaptedSection(null); setHasAdapted(false); }} data-testid={`button-cancel-swap-${index}`} title="Cancel">
-                    <IconX className="h-4 w-4" />
+                    <X className="h-4 w-4" />
                   </Button>
                   {hasAdapted ? (
                     <Button size="sm" className="h-7 px-3" onClick={handleOpenReviewCode} disabled={!adaptedSection} data-testid={`button-review-code-${index}`}>
-                      <IconCode className="h-3 w-3 mr-1" />
+                      <Code className="h-3 w-3 mr-1" />
                       Review Code
                     </Button>
                   ) : (
                     <Button size="sm" className="h-7 px-3" onClick={handleAdaptWithAI} disabled={!previewSection || isAdapting} data-testid={`button-adapt-ai-${index}`}>
                       {isAdapting ? (
-                        <IconLoader2 className="h-3 w-3 animate-spin mr-1" />
+                        <Loader2 className="h-3 w-3 animate-spin mr-1" />
                       ) : (
-                        <IconSparkles className="h-3 w-3 mr-1" />
+                        <Sparkles className="h-3 w-3 mr-1" />
                       )}
                       {isAdapting ? 'Adapting...' : 'Adapt'}
                     </Button>
@@ -1472,13 +1473,13 @@ export function EditableSection({ children, section, index, sectionType, content
             data-testid={`badge-visibility-${index}`}
           >
             <div className="flex items-center gap-1.5">
-              <IconEye className="h-3.5 w-3.5" />
+              <Eye className="h-3.5 w-3.5" />
               <span className="hidden md:inline">Special Visibility Conditions</span>
               <span className="md:hidden">Visibility</span>
               {hasDeviceFilter && (
                 showOn === 'desktop' 
-                  ? <IconDeviceDesktop className="h-3.5 w-3.5" /> 
-                  : <IconDeviceMobile className="h-3.5 w-3.5" />
+                  ? <Monitor className="h-3.5 w-3.5" /> 
+                  : <Smartphone className="h-3.5 w-3.5" />
               )}
               {flagRows.length > 0 && flagRows[0].map((code) => (
                 <CountryFlag key={code} code={code} />
@@ -1507,14 +1508,14 @@ export function EditableSection({ children, section, index, sectionType, content
                 data-testid={`badge-broken-images-${index}`}
                 onClick={(e) => e.stopPropagation()}
               >
-                <IconAlertTriangle className="h-3.5 w-3.5 shrink-0" />
+                <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
                 <span className="hidden md:inline">{brokenImageIds.length} broken image{brokenImageIds.length !== 1 ? "s" : ""}</span>
               </button>
             </PopoverTrigger>
             <PopoverContent className="w-auto max-w-xs p-3" side="bottom" align="start" onClick={(e) => e.stopPropagation()}>
               <div className="space-y-2">
                 <p className="text-xs font-medium flex items-center gap-1.5 text-destructive">
-                  <IconAlertTriangle className="h-3.5 w-3.5 shrink-0" />
+                  <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
                   Missing image {brokenImageIds.length !== 1 ? "references" : "reference"}
                 </p>
                 <p className="text-xs text-muted-foreground">
@@ -1570,19 +1571,19 @@ export function EditableSection({ children, section, index, sectionType, content
               <span className="font-medium flex items-center gap-2">
                 {historyPreviewLoading ? (
                   <>
-                    <IconLoader2 className="h-3 w-3 animate-spin" />
+                    <Loader2 className="h-3 w-3 animate-spin" />
                     Loading historical version...
                   </>
                 ) : historyPreviewSection ? (
                   <>
-                    <IconClockHour3 className="h-3 w-3" />
+                    <Clock3 className="h-3 w-3" />
                     {historyPreviewDate
                       ? `Version from ${new Date(historyPreviewDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}${historyPreviewAuthor ? ` by ${historyPreviewAuthor}` : ''} — read only`
                       : "Historical version — read only"}
                   </>
                 ) : (
                   <>
-                    <IconX className="h-3 w-3" />
+                    <X className="h-3 w-3" />
                     Section did not exist at this point in history
                   </>
                 )}
@@ -1595,7 +1596,7 @@ export function EditableSection({ children, section, index, sectionType, content
                 <>
                   {renderedContent}
                   <div className="absolute inset-0 bg-background/50 flex items-center justify-center">
-                    <IconLoader2 className="h-8 w-8 animate-spin text-primary" />
+                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
                   </div>
                 </>
               ) : (
@@ -1610,17 +1611,17 @@ export function EditableSection({ children, section, index, sectionType, content
               <span className="font-medium flex items-center gap-2">
                 {isLoadingSwap ? (
                   <>
-                    <IconLoader2 className="h-3 w-3 animate-spin" />
+                    <Loader2 className="h-3 w-3 animate-spin" />
                     Loading preview...
                   </>
                 ) : isAdapting ? (
                   <>
-                    <IconLoader2 className="h-3 w-3 animate-spin" />
+                    <Loader2 className="h-3 w-3 animate-spin" />
                     Adapting content with AI...
                   </>
                 ) : hasAdapted ? (
                   <>
-                    <IconSparkles className="h-3 w-3" />
+                    <Sparkles className="h-3 w-3" />
                     AI Adapted: {selectedVariant || "default"}{examplesForCurrentVariant.length > 1 && currentExample?.name ? ` - ${currentExample.name}` : ""}
                   </>
                 ) : (
@@ -1640,7 +1641,7 @@ export function EditableSection({ children, section, index, sectionType, content
                   {(isLoadingSwap || isAdapting) && (
                     <div className="absolute inset-0 bg-background/50 flex items-center justify-center">
                       <div className="flex flex-col items-center gap-2">
-                        <IconLoader2 className="h-8 w-8 animate-spin text-primary" />
+                        <Loader2 className="h-8 w-8 animate-spin text-primary" />
                         {isAdapting && <span className="text-sm text-muted-foreground">Adapting with AI...</span>}
                       </div>
                     </div>
@@ -1677,7 +1678,7 @@ export function EditableSection({ children, section, index, sectionType, content
         <DialogContent className="max-w-3xl max-h-[80vh] overflow-hidden flex flex-col">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <IconCode className="h-5 w-5" />
+              <Code className="h-5 w-5" />
               {currentExample?.name || selectedVariant || "Variant"} - YAML Source
             </DialogTitle>
           </DialogHeader>
@@ -1703,7 +1704,7 @@ export function EditableSection({ children, section, index, sectionType, content
         <DialogContent className="max-w-4xl max-h-[85vh] overflow-hidden flex flex-col">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <IconSparkles className="h-5 w-5" />
+              <Sparkles className="h-5 w-5" />
               Review AI-Generated Code
             </DialogTitle>
           </DialogHeader>
@@ -1736,9 +1737,9 @@ export function EditableSection({ children, section, index, sectionType, content
             </Button>
             <Button onClick={handleApplyReviewedCode} disabled={isConfirming} data-testid={`button-apply-review-${index}`}>
               {isConfirming ? (
-                <IconLoader2 className="h-4 w-4 animate-spin mr-2" />
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
               ) : (
-                <IconCheck className="h-4 w-4 mr-2" />
+                <Check className="h-4 w-4 mr-2" />
               )}
               Apply Changes
             </Button>
@@ -1797,7 +1798,7 @@ export function EditableSection({ children, section, index, sectionType, content
               }
             }}
             confirmLabel="Apply to all"
-            confirmIcon={<IconSparkles className="h-4 w-4 mr-2" />}
+            confirmIcon={<Sparkles className="h-4 w-4 mr-2" />}
           />
         </Suspense>
       )}

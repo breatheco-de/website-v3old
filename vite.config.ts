@@ -64,9 +64,6 @@ export default defineConfig(async ({ isSsrBuild }) => ({
           if (id.includes('@tanstack')) {
             return 'tanstack';
           }
-          if (id.includes('@tabler/icons-react')) {
-            return 'icons-tabler';
-          }
           if (id.includes('react-icons')) {
             return 'icons-react';
           }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconPlus } from "@tabler/icons-react";
+import { Plus } from "lucide-react";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import ComponentPickerModal from "./ComponentPickerModal";
 import { SpacingControlPopover } from "./SpacingControlPopover";
@@ -51,7 +51,7 @@ export function AddSectionButton({
               className="flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full border border-dashed border-primary text-primary bg-background shadow-sm hover:bg-primary/10 hover:px-4 hover:py-2 hover:gap-2 transition-all duration-200"
               data-testid={`button-add-section-${insertIndex}`}
             >
-              <IconPlus className="h-4 w-4" />
+              <Plus className="h-4 w-4" />
               <span className="text-xs font-medium">Add</span>
             </button>
             <SpacingControlPopover

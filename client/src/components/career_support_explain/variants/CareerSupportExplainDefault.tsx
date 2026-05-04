@@ -1,5 +1,6 @@
 
 import { useState, useCallback, useRef } from "react";
+import { ChevronDown, ChevronLeft, ChevronRight, Circle, Flag } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -9,21 +10,15 @@ import type {
   CareerSupportTab,
   CareerSupportTestimonial,
 } from "@shared/schema";
-import * as TablerIcons from "@tabler/icons-react";
-import {
-  IconChevronDown,
-  IconChevronLeft,
-  IconChevronRight,
-  IconFlag,
-} from "@tabler/icons-react";
+import * as LucideIcons from "lucide-react";
 
 interface CareerSupportExplainProps {
   data: CareerSupportExplainSection;
 }
 
 function getTablerIcon(name: string) {
-  const icons = TablerIcons as Record<string, any>;
-  return icons[name] || TablerIcons.IconCircle;
+  const icons = LucideIcons as Record<string, any>;
+  return icons[name] || Circle;
 }
 
 function ThreeColumnsLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabIndex: number }) {
@@ -114,7 +109,7 @@ function ThreeColumnsLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabIndex
                 {tab.col2_heading}
               </span>
               {hasCol2Content && (
-                <IconChevronDown
+                <ChevronDown
                   className={cn(
                     "h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-300",
                     isMobileCol2Expanded && "rotate-180",
@@ -345,7 +340,7 @@ function TwoColumnCardsLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabInd
             className="absolute top-4 right-4 flex items-center justify-center lg:hidden pointer-events-none"
             data-testid="button-card-right-mobile-toggle"
           >
-            <IconChevronDown
+            <ChevronDown
               className={cn(
                 "h-5 w-5 text-muted-foreground transition-transform duration-300",
                 isMobileRightExpanded && "rotate-180",
@@ -627,7 +622,7 @@ function TestimonialSlide({
 
         {testimonial.achievement && (
           <Card className="p-4 mt-auto" data-testid="testimonial-achievement">
-            <IconFlag className="w-4 h-4 text-primary mb-1" />
+            <Flag className="w-4 h-4 text-primary mb-1" />
 
             <span className="font-medium text-foreground flex inline-flex items-end">
               {testimonial.achievement}
@@ -737,7 +732,7 @@ function TextWithTestimonialsCarouselLayout({
                   onClick={goPrev}
                   data-testid="button-carousel-prev"
                 >
-                  <IconChevronLeft className="w-4 h-4" />
+                  <ChevronLeft className="w-4 h-4" />
                 </Button>
 
                 <div
@@ -766,7 +761,7 @@ function TextWithTestimonialsCarouselLayout({
                   onClick={goNext}
                   data-testid="button-carousel-next"
                 >
-                  <IconChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-4 h-4" />
                 </Button>
               </div>
             )}
@@ -892,7 +887,7 @@ export default function CareerSupportExplain({ data }: CareerSupportExplainProps
                   }
                   data-testid="button-tab-prev-mobile"
                 >
-                  <IconChevronLeft className="w-4 h-4 text-primary-foreground" />
+                  <ChevronLeft className="w-4 h-4 text-primary-foreground" />
                 </Button>
                 <span className="text-primary-foreground font-extrabold rounded-lg px-4 py-1 text-lg font-medium">
                   {tabs[activeTab]?.tab_label}
@@ -904,7 +899,7 @@ export default function CareerSupportExplain({ data }: CareerSupportExplainProps
                   onClick={() => setActiveTab((activeTab + 1) % tabs.length)}
                   data-testid="button-tab-next-mobile"
                 >
-                  <IconChevronRight className="w-4 h-4 text-primary-foreground" />
+                  <ChevronRight className="w-4 h-4 text-primary-foreground" />
                 </Button>
               </div>
             </div>

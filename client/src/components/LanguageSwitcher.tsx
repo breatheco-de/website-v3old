@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
+import { Globe } from "lucide-react";
 import { useLocation } from "wouter";
-import { IconWorld } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -97,7 +97,7 @@ export default function LanguageSwitcher() {
           className="gap-1 px-2"
         >
           <span className="text-xs font-semibold">{currentLocale.code.toUpperCase()}</span>
-          <IconWorld className="h-5 w-5" />
+          <Globe className="h-5 w-5" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

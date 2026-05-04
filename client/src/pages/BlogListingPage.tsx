@@ -1,9 +1,9 @@
 import { useState, useMemo, useCallback } from "react";
+import { ArrowRight, Calendar, ChevronLeft, ChevronRight, Loader2, Search, User } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { IS_SERVER } from "@/lib/initialData";
 import { useLocation, useSearch } from "wouter";
 import { apiFetch } from "@/lib/queryClient";
-import { IconLoader2, IconSearch, IconCalendar, IconUser, IconArrowRight, IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import Header from "@/components/Header";
 import { Card } from "@/components/ui/card";
@@ -178,7 +178,7 @@ export default function BlogListingPage() {
   if (isLoading && !IS_SERVER) {
     return (
       <div className="min-h-screen flex items-center justify-center" data-testid="loading-blog">
-        <IconLoader2 className="w-8 h-8 animate-spin text-primary" />
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -213,7 +213,7 @@ export default function BlogListingPage() {
                 : "Articles, tutorials and news about coding and technology"}
             </p>
             <div className="relative max-w-md md:w-72 shrink-0">
-              <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
                 placeholder={locale === "es" ? "Buscar artículos..." : "Search articles..."}
                 value={searchQuery}
@@ -306,17 +306,17 @@ export default function BlogListingPage() {
                         </p>
                         <div className="flex items-center gap-3 text-xs text-muted-foreground flex-wrap">
                           <span className="flex items-center gap-1">
-                            <IconUser className="w-3 h-3" />
+                            <User className="w-3 h-3" />
                             {getAuthorName(post.author, siteName)}
                           </span>
                           <span className="flex items-center gap-1">
-                            <IconCalendar className="w-3 h-3" />
+                            <Calendar className="w-3 h-3" />
                             {formatDate(post.published_at || post.created_at, locale)}
                           </span>
                         </div>
                         <div className="mt-4 flex items-center gap-1 text-sm text-primary font-medium">
                           {locale === "es" ? "Leer más" : "Read more"}
-                          <IconArrowRight className="w-4 h-4" />
+                          <ArrowRight className="w-4 h-4" />
                         </div>
                       </div>
                     </Card>
@@ -341,7 +341,7 @@ export default function BlogListingPage() {
                     disabled={!data?.hasPrev}
                     data-testid="button-page-prev"
                   >
-                    <IconChevronLeft className="w-4 h-4" />
+                    <ChevronLeft className="w-4 h-4" />
                   </Button>
                 </a>
                 {pageNumbers.map((p, i) =>
@@ -382,7 +382,7 @@ export default function BlogListingPage() {
                     disabled={!data?.hasNext}
                     data-testid="button-page-next"
                   >
-                    <IconChevronRight className="w-4 h-4" />
+                    <ChevronRight className="w-4 h-4" />
                   </Button>
                 </a>
               </nav>

@@ -1,6 +1,6 @@
 
 import { Card } from "@/components/ui/card";
-import { IconStarFilled } from "@tabler/icons-react";
+import { Star } from "lucide-react";
 import { UniversalImage } from "@/components/UniversalImage";
 import type { TrustCardsSection } from "@shared/schema";
 
@@ -15,28 +15,28 @@ function StarRating({ rating }: { rating: number }) {
 
         if (star <= fullStars) {
           return (
-            <IconStarFilled
+            <Star
               key={star}
-              className="h-4 w-4 md:h-5 md:w-5 text-yellow-500"
+              className="fill-current h-4 w-4 md:h-5 md:w-5 text-yellow-500"
             />
           );
         } else if (isHalfStar) {
           return (
             <div key={star} className="relative h-4 w-4 md:h-5 md:w-5">
-              <IconStarFilled className="h-4 w-4 md:h-5 md:w-5 text-muted" />
+              <Star className="fill-current h-4 w-4 md:h-5 md:w-5 text-muted" />
               <div
                 className="absolute inset-0 overflow-hidden"
                 style={{ width: "50%" }}
               >
-                <IconStarFilled className="h-4 w-4 md:h-5 md:w-5 text-yellow-500" />
+                <Star className="fill-current h-4 w-4 md:h-5 md:w-5 text-yellow-500" />
               </div>
             </div>
           );
         } else {
           return (
-            <IconStarFilled
+            <Star
               key={star}
-              className="h-5 w-5 text-muted"
+              className="fill-current h-5 w-5 text-muted"
             />
           );
         }

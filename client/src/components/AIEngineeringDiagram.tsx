@@ -1,17 +1,11 @@
 import { useState, useMemo } from "react";
-import { 
-  IconBrain, 
-  IconDatabase, 
-  IconCloud, 
-  IconApps,
-  IconChartDots3
-} from "@tabler/icons-react";
+import { Brain, Cloud, Database, LayoutGrid, ScatterChart } from "lucide-react";
 
 interface DiagramNode {
   id: string;
   label: string;
   description: string;
-  icon: typeof IconBrain;
+  icon: typeof Brain;
   position: { x: number; y: number };
 }
 
@@ -24,28 +18,28 @@ const nodes: DiagramNode[] = [
     id: "models",
     label: "Models",
     description: "LLMs, training pipelines, inference optimization, and model fine-tuning",
-    icon: IconBrain,
+    icon: Brain,
     position: { x: 15, y: 20 },
   },
   {
     id: "data",
     label: "Data",
     description: "Vector stores, data pipelines, embeddings, and retrieval systems",
-    icon: IconDatabase,
+    icon: Database,
     position: { x: 70, y: 20 },
   },
   {
     id: "infrastructure",
     label: "Infrastructure",
     description: "Cloud deployment, scaling, monitoring, and production systems",
-    icon: IconCloud,
+    icon: Cloud,
     position: { x: 15, y: 70 },
   },
   {
     id: "applications",
     label: "Applications",
     description: "AI agents, automation workflows, and intelligent products",
-    icon: IconApps,
+    icon: LayoutGrid,
     position: { x: 70, y: 70 },
   },
 ];

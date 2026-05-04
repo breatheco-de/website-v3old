@@ -1,9 +1,9 @@
 import type { z } from "zod";
+import { ArrowRight, Code, Loader2 } from "lucide-react";
 import type { programsListSectionSchema } from "@shared/schema";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { IconArrowRight, IconCode, IconLoader2 } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { useInternalNav } from "@/hooks/useInternalNav";
 
@@ -68,7 +68,7 @@ export function ProgramsListSection({ data }: ProgramsListSectionProps) {
 
         {isLoading ? (
           <div className="flex justify-center py-8">
-            <IconLoader2 className="w-8 h-8 animate-spin text-primary" />
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
           </div>
         ) : programs && programs.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -80,7 +80,7 @@ export function ProgramsListSection({ data }: ProgramsListSectionProps) {
               >
                 <CardContent className="p-6">
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                    <IconCode className="w-6 h-6 text-primary" />
+                    <Code className="w-6 h-6 text-primary" />
                   </div>
                   <h3 
                     className="text-xl font-semibold text-foreground mb-4"
@@ -95,7 +95,7 @@ export function ProgramsListSection({ data }: ProgramsListSectionProps) {
                       data-testid={`button-program-learn-more-${index}`}
                     >
                       {locale === "es" ? "Ver Programa" : "Learn More"}
-                      <IconArrowRight className="w-4 h-4 ml-2" />
+                      <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                   </a>
                 </CardContent>

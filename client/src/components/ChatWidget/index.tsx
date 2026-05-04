@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { MessageCircle, X } from "lucide-react";
 import { useLocation } from "wouter";
-import { IconMessageCircle, IconX } from "@tabler/icons-react";
 import { ChatPanel } from "@/components/ChatPanel";
 
 interface ChatConfig {
@@ -197,9 +197,9 @@ export function ChatWidget() {
         data-testid="button-chat-bubble"
       >
         {isOpen ? (
-          <IconX className="h-6 w-6" />
+          <X className="h-6 w-6" />
         ) : (
-          <IconMessageCircle className="h-6 w-6" />
+          <MessageCircle className="h-6 w-6" />
         )}
       </button>
     </>

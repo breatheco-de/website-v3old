@@ -1,30 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { AlertTriangle, ArrowLeft, ArrowRight, ChevronRight, ChevronUp, CircleCheck, CircleX, Code, Eye, Folder, Info, Laptop, List, Maximize, Monitor, Plus, RefreshCw, Save, Smartphone, Tablet, TestTube, X } from "lucide-react";
 import { useSearch, useParams, Link, useLocation } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { 
-  IconCode, 
-  IconEye, 
-  IconArrowLeft, 
-  IconArrowRight, 
-  IconList, 
-  IconRefresh, 
-  IconAlertTriangle,
-  IconPlus,
-  IconFolder,
-  IconInfoCircle,
-  IconDeviceMobile,
-  IconDeviceTablet,
-  IconDeviceLaptop,
-  IconDeviceDesktop,
-  IconChevronUp,
-  IconChevronRight,
-  IconArrowsMaximize,
-  IconX,
-  IconTestPipe,
-  IconCircleCheck,
-  IconCircleX,
-  IconDeviceFloppy
-} from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -497,7 +474,7 @@ function ComponentCard({
                   ))}
                 </SelectContent>
                 </Select>
-                <IconChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                 <Select 
                   value={selectedExample || (examples.length > 0 ? examples[0].name : '__default__')} 
                   onValueChange={handleExampleChange}
@@ -544,7 +521,7 @@ function ComponentCard({
                     })()}
                     <SelectItem value="__add_new__" className="text-primary mt-2 border-t border-border/50 pt-2">
                       <div className="flex items-center gap-1">
-                        <IconPlus className="w-3 h-3" />
+                        <Plus className="w-3 h-3" />
                         Add new example
                       </div>
                     </SelectItem>
@@ -565,7 +542,7 @@ function ComponentCard({
                         className="h-8 w-8"
                         data-testid={`button-example-info-mobile-${componentType}`}
                       >
-                        <IconInfoCircle className="w-4 h-4 text-muted-foreground" />
+                        <Info className="w-4 h-4 text-muted-foreground" />
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-64 text-sm">
@@ -585,7 +562,7 @@ function ComponentCard({
                     className="h-8 px-2 text-xs"
                     data-testid={`button-test-integrity-mobile-${componentType}`}
                   >
-                    <IconTestPipe className="w-4 h-4 mr-1" />
+                    <TestTube className="w-4 h-4 mr-1" />
                     {isValidating ? 'Testing...' : 'Test'}
                   </Button>
                 </PopoverTrigger>
@@ -600,7 +577,7 @@ function ComponentCard({
                       </div>
                       {validationResult.issues.length === 0 ? (
                         <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
-                          <IconCircleCheck className="w-4 h-4" />
+                          <CircleCheck className="w-4 h-4" />
                           <span>All checks passed!</span>
                         </div>
                       ) : (
@@ -608,9 +585,9 @@ function ComponentCard({
                           {validationResult.issues.map((issue, idx) => (
                             <div key={idx} className={`flex items-start gap-2 text-xs ${issue.type === 'error' ? 'text-destructive' : 'text-yellow-600 dark:text-yellow-400'}`}>
                               {issue.type === 'error' ? (
-                                <IconCircleX className="w-3 h-3 flex-shrink-0 mt-0.5" />
+                                <CircleX className="w-3 h-3 flex-shrink-0 mt-0.5" />
                               ) : (
-                                <IconAlertTriangle className="w-3 h-3 flex-shrink-0 mt-0.5" />
+                                <AlertTriangle className="w-3 h-3 flex-shrink-0 mt-0.5" />
                               )}
                               <div>
                                 <p>{issue.message}</p>
@@ -633,7 +610,7 @@ function ComponentCard({
                 title="Reload examples"
                 data-testid={`button-reload-examples-mobile-${componentType}`}
               >
-                <IconRefresh className="w-4 h-4" />
+                <RefreshCw className="w-4 h-4" />
               </Button>
             </div>
             {/* Desktop-only buttons */}
@@ -650,7 +627,7 @@ function ComponentCard({
                       className="h-8 w-8"
                       data-testid={`button-example-info-${componentType}`}
                     >
-                      <IconInfoCircle className="w-4 h-4 text-muted-foreground" />
+                      <Info className="w-4 h-4 text-muted-foreground" />
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-64 text-sm">
@@ -670,7 +647,7 @@ function ComponentCard({
                   className="h-8 px-2 text-xs"
                   data-testid={`button-test-integrity-${componentType}`}
                 >
-                  <IconTestPipe className="w-4 h-4 mr-1" />
+                  <TestTube className="w-4 h-4 mr-1" />
                   {isValidating ? 'Testing...' : 'Test'}
                 </Button>
               </PopoverTrigger>
@@ -685,7 +662,7 @@ function ComponentCard({
                     </div>
                     {validationResult.issues.length === 0 ? (
                       <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
-                        <IconCircleCheck className="w-4 h-4" />
+                        <CircleCheck className="w-4 h-4" />
                         <span>All checks passed!</span>
                       </div>
                     ) : (
@@ -693,9 +670,9 @@ function ComponentCard({
                         {validationResult.issues.map((issue, idx) => (
                           <div key={idx} className={`flex items-start gap-2 text-xs ${issue.type === 'error' ? 'text-destructive' : 'text-yellow-600 dark:text-yellow-400'}`}>
                             {issue.type === 'error' ? (
-                              <IconCircleX className="w-3 h-3 flex-shrink-0 mt-0.5" />
+                              <CircleX className="w-3 h-3 flex-shrink-0 mt-0.5" />
                             ) : (
-                              <IconAlertTriangle className="w-3 h-3 flex-shrink-0 mt-0.5" />
+                              <AlertTriangle className="w-3 h-3 flex-shrink-0 mt-0.5" />
                             )}
                             <div>
                               <p>{issue.message}</p>
@@ -718,7 +695,7 @@ function ComponentCard({
               title="Reload examples"
               data-testid={`button-reload-examples-${componentType}`}
             >
-              <IconRefresh className="w-4 h-4" />
+              <RefreshCw className="w-4 h-4" />
             </Button>
             </div>
           </div>
@@ -734,7 +711,7 @@ function ComponentCard({
             className="w-full"
             data-testid={`button-show-yaml-${componentType}`}
           >
-            <IconCode className="w-4 h-4 mr-2" />
+            <Code className="w-4 h-4 mr-2" />
             Show YAML Editor
           </Button>
         </div>
@@ -756,7 +733,7 @@ function ComponentCard({
                       className="h-6 px-2 text-xs"
                       data-testid={`button-save-yaml-${componentType}`}
                     >
-                      <IconDeviceFloppy className="w-3 h-3 mr-1" />
+                      <Save className="w-3 h-3 mr-1" />
                       {saveExampleMutation.isPending ? "Saving..." : "Save"}
                     </Button>
                     <Button
@@ -766,7 +743,7 @@ function ComponentCard({
                       className="h-6 px-2 text-xs"
                       data-testid={`button-reset-yaml-${componentType}`}
                     >
-                      <IconRefresh className="w-3 h-3 mr-1" />
+                      <RefreshCw className="w-3 h-3 mr-1" />
                       Reset
                     </Button>
                     <Button
@@ -776,7 +753,7 @@ function ComponentCard({
                       className="h-6 px-2 text-xs"
                       data-testid={`button-collapse-yaml-${componentType}`}
                     >
-                      <IconChevronUp className="w-3 h-3 mr-1" />
+                      <ChevronUp className="w-3 h-3 mr-1" />
                       Collapse
                     </Button>
                   </div>
@@ -799,7 +776,7 @@ function ComponentCard({
                 />
                 {parseError && (
                   <div className="flex items-start gap-2 px-3 py-2 bg-destructive/10 border-t border-destructive/20 text-destructive text-xs">
-                    <IconAlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                    <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" />
                     <span className="font-mono">{parseError}</span>
                   </div>
                 )}
@@ -828,7 +805,7 @@ function ComponentCard({
                   title="Mobile (375 × 667)"
                   data-testid={`button-viewport-mobile-${componentType}`}
                 >
-                  <IconDeviceMobile className="w-4 h-4" />
+                  <Smartphone className="w-4 h-4" />
                 </Button>
                 <Button
                   variant={previewViewport === 'tablet' ? 'default' : 'ghost'}
@@ -838,7 +815,7 @@ function ComponentCard({
                   title="Tablet (768 × 1024)"
                   data-testid={`button-viewport-tablet-${componentType}`}
                 >
-                  <IconDeviceTablet className="w-4 h-4" />
+                  <Tablet className="w-4 h-4" />
                 </Button>
                 <Button
                   variant={previewViewport === 'laptop' ? 'default' : 'ghost'}
@@ -848,7 +825,7 @@ function ComponentCard({
                   title="Laptop (1280 × 800)"
                   data-testid={`button-viewport-laptop-${componentType}`}
                 >
-                  <IconDeviceLaptop className="w-4 h-4" />
+                  <Laptop className="w-4 h-4" />
                 </Button>
                 <Button
                   variant={previewViewport === 'desktop' ? 'default' : 'ghost'}
@@ -858,7 +835,7 @@ function ComponentCard({
                   title="Desktop (1440 × 900)"
                   data-testid={`button-viewport-desktop-${componentType}`}
                 >
-                  <IconDeviceDesktop className="w-4 h-4" />
+                  <Monitor className="w-4 h-4" />
                 </Button>
                 <div className="w-px h-4 bg-border mx-1" />
                 <Button
@@ -877,7 +854,7 @@ function ComponentCard({
                   title="Full page preview"
                   data-testid={`button-fullpage-preview-${componentType}`}
                 >
-                  <IconArrowsMaximize className="w-4 h-4" />
+                  <Maximize className="w-4 h-4" />
                 </Button>
               </div>
             </div>
@@ -920,7 +897,7 @@ function ComponentCard({
         <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <IconFolder className="w-5 h-5" />
+              <Folder className="w-5 h-5" />
               Add New Example for {schema?.name || componentType}
             </DialogTitle>
             <DialogDescription>
@@ -1087,7 +1064,7 @@ export default function ComponentShowcase() {
               </p>
               <Link href="/private/component-showcase">
                 <Button variant="outline" data-testid="link-back-to-showcase">
-                  <IconList className="w-4 h-4 mr-2" />
+                  <List className="w-4 h-4 mr-2" />
                   View All Components
                 </Button>
               </Link>

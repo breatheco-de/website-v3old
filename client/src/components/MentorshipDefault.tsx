@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import * as TablerIcons from "@tabler/icons-react";
+import * as LucideIcons from "lucide-react";
 import type { MentorshipSection as MentorshipSectionType } from "@shared/schema";
 import type { ComponentType } from "react";
 
@@ -9,8 +9,8 @@ interface MentorshipSectionProps {
 
 export default function MentorshipDefault({ data }: MentorshipSectionProps) {
   const getIcon = (iconName: string) => {
-    const icons = TablerIcons as unknown as Record<string, ComponentType<{ size?: number; className?: string }>>;
-    const IconComponent = icons[`Icon${iconName}`];
+    const icons = LucideIcons as unknown as Record<string, ComponentType<{ size?: number; className?: string }>>;
+    const IconComponent = icons[(iconName).charAt(0).toUpperCase() + (iconName).slice(1) as keyof typeof LucideIcons];
     return IconComponent ? <IconComponent size={32} className="text-primary" /> : null;
   };
 

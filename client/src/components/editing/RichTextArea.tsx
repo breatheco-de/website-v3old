@@ -1,21 +1,6 @@
 import { useRef, useCallback, useEffect, useMemo, useState } from "react";
+import { AlignJustify, Bold, CaseUpper, Eraser, ExternalLink, Italic, Link, LinkOff, List, Loader2, Palette, Search, Space, Type } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import {
-  IconBold,
-  IconItalic,
-  IconList,
-  IconLink,
-  IconLinkOff,
-  IconPalette,
-  IconLoader2,
-  IconSearch,
-  IconExternalLink,
-  IconTextSize,
-  IconLineHeight,
-  IconEraser,
-  IconLetterCase,
-  IconLetterSpacing,
-} from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -959,7 +944,7 @@ export function RichTextArea({
           title="Bold"
           data-testid={testId ? `${testId}-bold` : undefined}
         >
-          <IconBold className="h-4 w-4" />
+          <Bold className="h-4 w-4" />
         </Button>
         <Button
           type="button"
@@ -970,7 +955,7 @@ export function RichTextArea({
           title="Italic"
           data-testid={testId ? `${testId}-italic` : undefined}
         >
-          <IconItalic className="h-4 w-4" />
+          <Italic className="h-4 w-4" />
         </Button>
         <Button
           type="button"
@@ -981,7 +966,7 @@ export function RichTextArea({
           title="Bullet list"
           data-testid={testId ? `${testId}-bullet-list` : undefined}
         >
-          <IconList className="h-4 w-4" />
+          <List className="h-4 w-4" />
         </Button>
         <Button
           type="button"
@@ -992,7 +977,7 @@ export function RichTextArea({
           title="Remove formatting"
           data-testid={testId ? `${testId}-remove-formatting` : undefined}
         >
-          <IconEraser className="h-4 w-4" />
+          <Eraser className="h-4 w-4" />
         </Button>
 
         <Popover open={linkOpen} onOpenChange={handleLinkPopoverOpen}>
@@ -1006,13 +991,13 @@ export function RichTextArea({
               title="Insert link"
               data-testid={testId ? `${testId}-link` : undefined}
             >
-              <IconLink className="h-4 w-4" />
+              <Link className="h-4 w-4" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-80 p-0 z-[10000]" align="start">
             <div className="p-2 border-b">
               <div className="relative">
-                <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   value={linkSearchQuery}
                   onChange={(e) => {
@@ -1099,7 +1084,7 @@ export function RichTextArea({
                     className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-sm text-muted-foreground hover:bg-muted/50"
                     data-testid={testId ? `${testId}-link-custom-toggle` : undefined}
                   >
-                    <IconExternalLink className="h-4 w-4" />
+                    <ExternalLink className="h-4 w-4" />
                     <span>Use custom URL</span>
                   </button>
                 </div>
@@ -1119,13 +1104,13 @@ export function RichTextArea({
               title="Text color"
               data-testid={testId ? `${testId}-color-trigger` : undefined}
             >
-              <IconPalette className="h-4 w-4" />
+              <Palette className="h-4 w-4" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-2 z-[10000]" align="start">
             {themeLoading ? (
               <div className="flex items-center justify-center h-12 w-32">
-                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
               </div>
             ) : (
               <div className="flex flex-wrap gap-1.5">
@@ -1164,13 +1149,13 @@ export function RichTextArea({
               title="Font size"
               data-testid={testId ? `${testId}-fontsize-trigger` : undefined}
             >
-              <IconTextSize className="h-4 w-4" />
+              <Type className="h-4 w-4" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-1 z-[10000]" align="start" onFocusOutside={(e) => e.preventDefault()}>
             {themeLoading ? (
               <div className="flex items-center justify-center h-12 w-32">
-                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
               </div>
             ) : (
               <div className="flex flex-col gap-0.5">
@@ -1229,13 +1214,13 @@ export function RichTextArea({
               title="Line height"
               data-testid={testId ? `${testId}-lineheight-trigger` : undefined}
             >
-              <IconLineHeight className="h-4 w-4" />
+              <AlignJustify className="h-4 w-4" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-1 z-[10000]" align="start" onFocusOutside={(e) => e.preventDefault()}>
             {themeLoading ? (
               <div className="flex items-center justify-center h-12 w-32">
-                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
               </div>
             ) : (
               <div className="flex flex-col gap-0.5">
@@ -1293,13 +1278,13 @@ export function RichTextArea({
               title="Font weight"
               data-testid={testId ? `${testId}-fontweight-trigger` : undefined}
             >
-              <IconLetterCase className="h-4 w-4" />
+              <CaseUpper className="h-4 w-4" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-1 z-[10000]" align="start" onFocusOutside={(e) => e.preventDefault()}>
             {themeLoading ? (
               <div className="flex items-center justify-center h-12 w-32">
-                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
               </div>
             ) : (
               <div className="flex flex-col gap-0.5">
@@ -1358,13 +1343,13 @@ export function RichTextArea({
               title="Letter spacing"
               data-testid={testId ? `${testId}-letterspacing-trigger` : undefined}
             >
-              <IconLetterSpacing className="h-4 w-4" />
+              <Space className="h-4 w-4" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-1 z-[10000]" align="start" onFocusOutside={(e) => e.preventDefault()}>
             {themeLoading ? (
               <div className="flex items-center justify-center h-12 w-32">
-                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
               </div>
             ) : (
               <div className="flex flex-col gap-0.5">
@@ -1448,7 +1433,7 @@ export function RichTextArea({
               className="flex items-center gap-1.5 rounded-sm px-2 py-1 text-xs font-medium text-foreground hover:bg-muted"
               title="Remove link"
             >
-              <IconLinkOff className="h-3.5 w-3.5" />
+              <LinkOff className="h-3.5 w-3.5" />
               Remove link
             </button>
           </div>

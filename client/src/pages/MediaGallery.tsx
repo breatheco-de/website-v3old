@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {AlertTriangle, ArrowLeft, Check, CheckCheck, Cloud, Copy, Eye, Folder, Image, ListChecks, Loader2, MoreHorizontal, Search, Settings, Square, SquareCheck, Stethoscope, Terminal, Trash2, Wand2, Wrench, X} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { IconPhoto, IconSearch, IconArrowLeft, IconCopy, IconCheck, IconAlertTriangle, IconDots, IconTrash, IconSquareCheck, IconSquare, IconX, IconChecks, IconSettings, IconCloud, IconFolder, IconStethoscope, IconLink, IconLoader2, IconTerminal, IconEye, IconWand, IconTool, IconListCheck } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -1106,11 +1106,11 @@ export default function MediaGallery() {
             <div className="flex items-center gap-3">
               <Link href="/">
                 <Button variant="ghost" size="icon" data-testid="button-back-home">
-                  <IconArrowLeft className="h-5 w-5" />
+                  <ArrowLeft className="h-5 w-5" />
                 </Button>
               </Link>
               <div className="flex items-center gap-2">
-                <IconPhoto className="h-5 w-5 text-primary" />
+                <Image className="h-5 w-5 text-primary" />
                 <h1 className="text-lg font-semibold" data-testid="text-page-title">Media Gallery</h1>
                 <span className="text-sm text-muted-foreground hidden sm:inline">
                   ({filteredImages.length}{search ? " found" : ""})
@@ -1122,7 +1122,7 @@ export default function MediaGallery() {
                 {searchOpen ? (
                   <div className="relative w-64 flex items-center gap-1">
                     <div className="relative flex-1">
-                      <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Input
                         ref={searchInputRef}
                         placeholder="Search..."
@@ -1144,7 +1144,7 @@ export default function MediaGallery() {
                       onClick={() => { setSearch(""); setSearchOpen(false); }}
                       data-testid="button-close-search"
                     >
-                      <IconX className="h-4 w-4" />
+                      <X className="h-4 w-4" />
                     </Button>
                   </div>
                 ) : (
@@ -1157,7 +1157,7 @@ export default function MediaGallery() {
                     }}
                     data-testid="button-open-search"
                   >
-                    <IconSearch className="h-4 w-4" />
+                    <Search className="h-4 w-4" />
                   </Button>
                 )}
                 <Button
@@ -1167,7 +1167,7 @@ export default function MediaGallery() {
                   disabled={scanning}
                   data-testid="button-scan-registry"
                 >
-                  {scanning ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconStethoscope className="h-4 w-4" />}
+                  {scanning ? <Loader2 className="h-4 w-4 animate-spin" /> : <Stethoscope className="h-4 w-4" />}
                 </Button>
                 <Button
                   size="icon"
@@ -1196,7 +1196,7 @@ export default function MediaGallery() {
                   disabled={autoTagging}
                   data-testid="button-auto-tag"
                 >
-                  {autoTagging ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconWand className="h-4 w-4" />}
+                  {autoTagging ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wand2 className="h-4 w-4" />}
                 </Button>
                 <Button
                   size="icon"
@@ -1204,7 +1204,7 @@ export default function MediaGallery() {
                   onClick={() => setScriptsOpen(true)}
                   data-testid="button-admin-scripts"
                 >
-                  <IconTerminal className="h-4 w-4" />
+                  <Terminal className="h-4 w-4" />
                 </Button>
                 <Button
                   variant="ghost"
@@ -1230,7 +1230,7 @@ export default function MediaGallery() {
                   data-testid="button-open-run-queue"
                   className="gap-1.5"
                 >
-                  <IconListCheck className="h-4 w-4" />
+                  <ListChecks className="h-4 w-4" />
                   Fixers runs
                 </Button>
                 <Button
@@ -1239,7 +1239,7 @@ export default function MediaGallery() {
                   onClick={() => setSettingsOpen(true)}
                   data-testid="button-media-settings"
                 >
-                  <IconSettings className="h-4 w-4" />
+                  <Settings className="h-4 w-4" />
                 </Button>
               </div>
               <div className="flex flex-wrap gap-1.5 justify-end items-center">
@@ -1330,7 +1330,7 @@ export default function MediaGallery() {
             {scanResult.brokenReferences.length > 0 && (
               <div className="space-y-1.5">
                 <div className="flex items-center gap-1.5 text-sm font-medium text-destructive">
-                  <IconAlertTriangle className="h-4 w-4" />
+                  <AlertTriangle className="h-4 w-4" />
                   {scanResult.brokenReferences.length} broken reference(s)
                 </div>
                 <p className="text-xs text-muted-foreground pl-6">
@@ -1410,7 +1410,7 @@ export default function MediaGallery() {
 
             {scanResult.summary.new === 0 && scanResult.summary.updated === 0 && scanResult.summary.broken === 0 && scanResult.summary.duplicates === 0 && (
               <div className="flex items-center gap-2 text-sm text-green-600 dark:text-green-400">
-                <IconCheck className="h-4 w-4" />
+                <Check className="h-4 w-4" />
                 All image references are valid
               </div>
             )}
@@ -1490,7 +1490,7 @@ export default function MediaGallery() {
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
                       <span className={`text-sm font-medium ${statusColor}`}>
-                        {v.status === "passed" ? <IconCheck className="inline h-3.5 w-3.5 mr-1" /> : <IconAlertTriangle className="inline h-3.5 w-3.5 mr-1" />}
+                        {v.status === "passed" ? <Check className="inline h-3.5 w-3.5 mr-1" /> : <AlertTriangle className="inline h-3.5 w-3.5 mr-1" />}
                         {v.name}
                       </span>
                       <span className="text-xs text-muted-foreground">{v.description}</span>
@@ -1673,13 +1673,13 @@ export default function MediaGallery() {
                               aria-label="Search issues"
                               data-testid={`button-health-issue-search-${v.name}`}
                             >
-                              <IconSearch className="h-3.5 w-3.5" />
+                              <Search className="h-3.5 w-3.5" />
                             </Button>
                           </div>
 
                           {issueSearchOpen && (
                             <div className="relative max-w-full pr-0.5">
-                              <IconSearch className="absolute left-2 top-1/2 z-[1] h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+                              <Search className="absolute left-2 top-1/2 z-[1] h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground pointer-events-none" />
                               <Input
                                 autoFocus
                                 value={issueSearchText}
@@ -1702,7 +1702,7 @@ export default function MediaGallery() {
                                   }
                                   aria-label="Clear search"
                                 >
-                                  <IconX className="h-3.5 w-3.5" />
+                                  <X className="h-3.5 w-3.5" />
                                 </button>
                               )}
                             </div>
@@ -1747,7 +1747,7 @@ export default function MediaGallery() {
                                       className="inline-flex items-center gap-0.5 text-primary hover:underline"
                                       data-testid={`link-goto-section-gallery-${v.name}-${i}`}
                                     >
-                                      <IconLink className="h-3 w-3" />
+                                      <LinkIcon className="h-3 w-3" />
                                       {issue.fix.label || "Go to section"}
                                     </a>
                                   )}
@@ -1779,12 +1779,12 @@ export default function MediaGallery() {
                                   >
                                     {isFixerRunning ? (
                                       <>
-                                        <IconLoader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />
+                                        <Loader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />
                                         Running...
                                       </>
                                     ) : (
                                       <>
-                                        <IconTool className="h-3.5 w-3.5 mr-1.5" />
+                                        <Wrench className="h-3.5 w-3.5 mr-1.5" />
                                         {fx.label}
                                         <Badge variant="secondary" className="ml-1.5">{fx.count}</Badge>
                                       </>
@@ -1859,7 +1859,7 @@ export default function MediaGallery() {
                       {failedImages.has(id) ? (
                         <div className="aspect-video flex items-center justify-center bg-muted">
                           <div className="text-center p-4">
-                            <IconPhoto className="h-8 w-8 mx-auto text-muted-foreground mb-2" />
+                            <Image className="h-8 w-8 mx-auto text-muted-foreground mb-2" />
                             <p className="text-xs text-muted-foreground">Not found</p>
                           </div>
                         </div>
@@ -1874,9 +1874,9 @@ export default function MediaGallery() {
                       )}
                       <div className={`absolute top-2 left-2 transition-opacity ${isSelected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
                         {isSelected ? (
-                          <IconSquareCheck className="h-5 w-5 text-primary drop-shadow-md" />
+                          <SquareCheck className="h-5 w-5 text-primary drop-shadow-md" />
                         ) : (
-                          <IconSquare className="h-5 w-5 text-white drop-shadow-md" />
+                          <Square className="h-5 w-5 text-white drop-shadow-md" />
                         )}
                       </div>
                     </div>
@@ -1894,9 +1894,9 @@ export default function MediaGallery() {
                               data-testid={`button-menu-${id}`}
                             >
                               {copiedId === id ? (
-                                <IconCheck className="h-3 w-3 text-green-600" />
+                                <Check className="h-3 w-3 text-green-600" />
                               ) : (
-                                <IconDots className="h-3 w-3" />
+                                <MoreHorizontal className="h-3 w-3" />
                               )}
                             </Button>
                           </DropdownMenuTrigger>
@@ -1905,14 +1905,14 @@ export default function MediaGallery() {
                               onClick={() => setDetailImageId(id)}
                               data-testid={`button-details-${id}`}
                             >
-                              <IconEye className="h-4 w-4 mr-2" />
+                              <Eye className="h-4 w-4 mr-2" />
                               Details
                             </DropdownMenuItem>
                             <DropdownMenuItem
                               onClick={() => handleCopyId(id)}
                               data-testid={`button-copy-${id}`}
                             >
-                              <IconCopy className="h-4 w-4 mr-2" />
+                              <Copy className="h-4 w-4 mr-2" />
                               Copy ID
                             </DropdownMenuItem>
                             <DropdownMenuItem
@@ -1924,7 +1924,7 @@ export default function MediaGallery() {
                               }}
                               data-testid={`button-copy-url-${id}`}
                             >
-                              <IconLink className="h-4 w-4 mr-2" />
+                              <LinkIcon className="h-4 w-4 mr-2" />
                               Copy URL
                             </DropdownMenuItem>
                             <DropdownMenuItem
@@ -1932,7 +1932,7 @@ export default function MediaGallery() {
                               onClick={() => handleDelete(id)}
                               data-testid={`button-delete-${id}`}
                             >
-                              <IconTrash className="h-4 w-4 mr-2" />
+                              <Trash2 className="h-4 w-4 mr-2" />
                               Delete
                             </DropdownMenuItem>
                           </DropdownMenuContent>
@@ -1941,9 +1941,9 @@ export default function MediaGallery() {
                       <div className="flex items-center gap-1.5 mb-1 flex-wrap">
                         <Badge variant="secondary" className="text-xs px-1.5 py-0 no-default-active-elevate" data-testid={`badge-storage-${id}`}>
                           {img.src.startsWith("http") ? (
-                            <><IconCloud className="h-3 w-3 mr-1" />Google Bucket</>
+                            <><Cloud className="h-3 w-3 mr-1" />Google Bucket</>
                           ) : (
-                            <><IconFolder className="h-3 w-3 mr-1" />Local</>
+                            <><Folder className="h-3 w-3 mr-1" />Local</>
                           )}
                         </Badge>
                         {img.srcset && img.srcset.length > 0 ? (
@@ -1998,7 +1998,7 @@ export default function MediaGallery() {
 
             {filteredImages.length === 0 && !isLoading && (
               <div className="text-center py-16">
-                <IconPhoto className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                <Image className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
                 <p className="text-muted-foreground" data-testid="text-no-results">
                   {search ? "No images match your search" : "No images in registry"}
                 </p>
@@ -2013,7 +2013,7 @@ export default function MediaGallery() {
           <div className="container mx-auto px-4 pl-20 max-w-7xl">
             <div className="flex items-center justify-between py-3 gap-4">
               <div className="flex items-center gap-3">
-                <IconChecks className="h-5 w-5 text-primary" />
+                <CheckCheck className="h-5 w-5 text-primary" />
                 <span className="text-sm font-medium" data-testid="text-selected-count">
                   {selectedImages.size} image{selectedImages.size !== 1 ? 's' : ''} selected
                 </span>
@@ -2034,7 +2034,7 @@ export default function MediaGallery() {
                   disabled={bulkDeleting}
                   data-testid="button-bulk-delete"
                 >
-                  <IconTrash className="h-4 w-4 mr-1.5" />
+                  <Trash2 className="h-4 w-4 mr-1.5" />
                   {bulkDeleting ? "Deleting..." : `Delete Selected`}
                 </Button>
                 <Button
@@ -2043,7 +2043,7 @@ export default function MediaGallery() {
                   onClick={handleClearSelection}
                   data-testid="button-clear-selection"
                 >
-                  <IconX className="h-4 w-4 mr-1.5" />
+                  <X className="h-4 w-4 mr-1.5" />
                   Clear
                 </Button>
               </div>
@@ -2061,9 +2061,9 @@ export default function MediaGallery() {
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 {mediaStatus?.defaultProvider === "gcs" ? (
-                  <IconCloud className="h-5 w-5 text-primary" />
+                  <Cloud className="h-5 w-5 text-primary" />
                 ) : (
-                  <IconFolder className="h-5 w-5 text-primary" />
+                  <Folder className="h-5 w-5 text-primary" />
                 )}
                 <div>
                   <p className="text-sm font-medium" data-testid="text-default-provider">
@@ -2102,7 +2102,7 @@ export default function MediaGallery() {
               {settingsProviderView === "local" && (
                 <div className="rounded-md border p-3 space-y-3">
                   <div className="flex items-center gap-2">
-                    <IconFolder className="h-4 w-4 text-muted-foreground" />
+                    <Folder className="h-4 w-4 text-muted-foreground" />
                     <p className="text-sm font-medium">Local Filesystem</p>
                   </div>
                   <div className="text-xs text-muted-foreground space-y-2">
@@ -2121,7 +2121,7 @@ export default function MediaGallery() {
                     </div>
                   </div>
                   <div className="flex items-start gap-2 p-2 rounded bg-muted/50 border border-dashed">
-                    <IconAlertTriangle className="h-4 w-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                    <AlertTriangle className="h-4 w-4 text-amber-500 flex-shrink-0 mt-0.5" />
                     <p className="text-xs text-muted-foreground">
                       Always delete images through the gallery (not manually from the filesystem). Manual deletion can leave broken references in YAML content files and the image registry.
                     </p>
@@ -2139,7 +2139,7 @@ export default function MediaGallery() {
                         disabled={migrating}
                         data-testid="button-migrate-to-cloud"
                       >
-                        <IconCloud className="h-4 w-4 mr-2" />
+                        <Cloud className="h-4 w-4 mr-2" />
                         {migrating ? "Migrating..." : `Migrate ${localImageCount} image${localImageCount !== 1 ? "s" : ""} to ${cloudProviderLabel}`}
                       </Button>
                     </div>
@@ -2154,7 +2154,7 @@ export default function MediaGallery() {
                           onClick={() => { setRedundantOpen(true); setRedundantResult(null); }}
                           data-testid="button-redundant-images"
                         >
-                          <IconAlertTriangle className="h-3.5 w-3.5 mr-1.5 text-amber-500" />
+                          <AlertTriangle className="h-3.5 w-3.5 mr-1.5 text-amber-500" />
                           {redundantCount} Redundant {redundantCount === 1 ? "image" : "images"}
                         </Button>
                       )}
@@ -2166,7 +2166,7 @@ export default function MediaGallery() {
               {settingsProviderView === "gcs" && !mediaStatus?.gcs && (
                 <div className="rounded-md border border-dashed p-3 space-y-2">
                   <div className="flex items-center gap-2">
-                    <IconCloud className="h-4 w-4 text-muted-foreground" />
+                    <Cloud className="h-4 w-4 text-muted-foreground" />
                     <p className="text-sm font-medium">Google Cloud Storage</p>
                     <Badge variant="outline" className="text-xs">Not configured</Badge>
                   </div>
@@ -2179,7 +2179,7 @@ export default function MediaGallery() {
               {settingsProviderView === "gcs" && mediaStatus?.gcs && (
                 <div className="rounded-md border p-3 space-y-2">
                   <div className="flex items-center gap-2">
-                    <IconCloud className="h-4 w-4 text-muted-foreground" />
+                    <Cloud className="h-4 w-4 text-muted-foreground" />
                     <p className="text-sm font-medium">Google Cloud Storage</p>
                     <Badge variant="outline" className="text-xs bg-primary/10 text-primary border-primary/20">Active</Badge>
                   </div>
@@ -2294,7 +2294,7 @@ export default function MediaGallery() {
           </DialogHeader>
           <div className="space-y-3">
             <div className="flex items-start gap-2 p-3 rounded bg-destructive/10 border border-destructive/20">
-              <IconAlertTriangle className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
+              <AlertTriangle className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
               <div className="text-xs space-y-1.5">
                 <p className="font-medium text-destructive">This action is not reversible</p>
                 <p className="text-muted-foreground">
@@ -2311,7 +2311,7 @@ export default function MediaGallery() {
               Cancel
             </Button>
             <Button variant="destructive" onClick={handleMigrate} data-testid="button-confirm-migrate">
-              <IconCloud className="h-4 w-4 mr-2" />
+              <Cloud className="h-4 w-4 mr-2" />
               Migrate {localImageCount} image{localImageCount !== 1 ? "s" : ""} to {cloudProviderLabel}
             </Button>
           </DialogFooter>
@@ -2394,12 +2394,12 @@ export default function MediaGallery() {
                       <p className="text-xs font-mono font-medium text-foreground truncate" data-testid={`text-redundant-id-${img.id}`}>{img.id}</p>
                       <div className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 items-start">
                         <div className="flex items-center gap-1 pt-px">
-                          <IconCloud className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                          <Cloud className="h-3 w-3 text-muted-foreground flex-shrink-0" />
                           <span className="text-xs text-muted-foreground">Cloud</span>
                         </div>
                         <a href={img.cloudUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-muted-foreground break-all leading-relaxed hover:underline" data-testid={`link-cloud-${img.id}`}>{img.cloudUrl}</a>
                         <div className="flex items-center gap-1 pt-px">
-                          <IconFolder className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                          <Folder className="h-3 w-3 text-muted-foreground flex-shrink-0" />
                           <span className="text-xs text-muted-foreground">Local</span>
                         </div>
                         <a href={img.localPath} target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-muted-foreground break-all leading-relaxed hover:underline" data-testid={`link-local-${img.id}`}>{img.localPath}</a>
@@ -2433,8 +2433,8 @@ export default function MediaGallery() {
                     data-testid="button-delete-local-redundant"
                   >
                     {resolveRedundancyMutation.isPending && resolveRedundancyMutation.variables === "delete-local"
-                      ? <IconLoader2 className="h-4 w-4 animate-spin" />
-                      : <IconFolder className="h-4 w-4 text-muted-foreground" />
+                      ? <Loader2 className="h-4 w-4 animate-spin" />
+                      : <Folder className="h-4 w-4 text-muted-foreground" />
                     }
                     <span className="flex flex-col items-start text-left">
                       <span className="text-xs font-medium">Delete local</span>
@@ -2449,8 +2449,8 @@ export default function MediaGallery() {
                     data-testid="button-delete-cloud-redundant"
                   >
                     {resolveRedundancyMutation.isPending && resolveRedundancyMutation.variables === "delete-cloud"
-                      ? <IconLoader2 className="h-4 w-4 animate-spin" />
-                      : <IconCloud className="h-4 w-4 text-muted-foreground" />
+                      ? <Loader2 className="h-4 w-4 animate-spin" />
+                      : <Cloud className="h-4 w-4 text-muted-foreground" />
                     }
                     <span className="flex flex-col items-start text-left">
                       <span className="text-xs font-medium">Delete cloud</span>
@@ -2494,7 +2494,7 @@ export default function MediaGallery() {
         <SheetContent side="right" className="sm:max-w-md overflow-y-auto">
           <SheetHeader>
             <SheetTitle className="flex items-center gap-2">
-              <IconPhoto className="h-5 w-5" />
+              <Image className="h-5 w-5" />
               Image Details
             </SheetTitle>
             <SheetDescription>
@@ -2508,7 +2508,7 @@ export default function MediaGallery() {
                 <div className="rounded-lg overflow-hidden border bg-muted">
                   {failedImages.has(detailImageId) ? (
                     <div className="aspect-video flex items-center justify-center">
-                      <IconPhoto className="h-12 w-12 text-muted-foreground" />
+                      <Image className="h-12 w-12 text-muted-foreground" />
                     </div>
                   ) : (
                     <img
@@ -2590,7 +2590,7 @@ export default function MediaGallery() {
           <div className="flex-1 overflow-y-auto py-4 space-y-4" data-testid="panel-db-overrides">
             {overridesLoading && (
               <div className="flex items-center justify-center py-8">
-                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
               </div>
             )}
 
@@ -2726,7 +2726,7 @@ export default function MediaGallery() {
         <SheetContent side="right" className="sm:max-w-lg overflow-y-auto">
           <SheetHeader>
             <SheetTitle className="flex items-center gap-2">
-              <IconTerminal className="h-5 w-5" />
+              <Terminal className="h-5 w-5" />
               Admin Scripts
             </SheetTitle>
             <SheetDescription>
@@ -2780,7 +2780,7 @@ export default function MediaGallery() {
                   disabled={scriptMigrateRunning || scriptMigrateFrom === scriptMigrateTo}
                   data-testid="button-run-migrate"
                 >
-                  {scriptMigrateRunning ? <IconLoader2 className="h-3.5 w-3.5 animate-spin mr-1.5" /> : null}
+                  {scriptMigrateRunning ? <Loader2 className="h-3.5 w-3.5 animate-spin mr-1.5" /> : null}
                   {scriptMigrateRunning ? "Running..." : "Run"}
                 </Button>
               </div>
@@ -2821,7 +2821,7 @@ export default function MediaGallery() {
                   disabled={scriptRemoveUnusedRunning}
                   data-testid="button-run-remove-unused"
                 >
-                  {scriptRemoveUnusedRunning && !scriptRemoveUnusedProgress ? <IconLoader2 className="h-3.5 w-3.5 animate-spin mr-1.5" /> : null}
+                  {scriptRemoveUnusedRunning && !scriptRemoveUnusedProgress ? <Loader2 className="h-3.5 w-3.5 animate-spin mr-1.5" /> : null}
                   {scriptRemoveUnusedRunning
                     ? scriptRemoveUnusedProgress
                       ? `${scriptRemoveUnusedProgress.processed} / ${scriptRemoveUnusedProgress.total} processed`

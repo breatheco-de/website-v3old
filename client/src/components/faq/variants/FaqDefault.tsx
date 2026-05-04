@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { MessageCircle } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -6,7 +7,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { IconMessageCircle } from "@tabler/icons-react";
 import type { FAQSection as FAQSectionType } from "@shared/schema";
 import { useLocation as useWouterLocation } from "wouter";
 import { useTranslation } from "react-i18next";
@@ -145,7 +145,7 @@ export function FAQSection({ data }: FAQSectionProps) {
           >
             <div className="flex justify-center mb-4">
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <IconMessageCircle size={24} className="text-primary" />
+                <MessageCircle size={24} className="text-primary" />
               </div>
             </div>
             {data.cta.text && (

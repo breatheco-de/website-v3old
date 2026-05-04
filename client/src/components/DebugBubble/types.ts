@@ -1,4 +1,3 @@
-import type { Icon } from "@tabler/icons-react";
 
 export type MenuView = "main" | "components" | "sitemap" | "experiments" | "menus" | "databases" | "content-types";
 
@@ -64,7 +63,7 @@ export interface VariantsResponse {
 export interface ComponentItem {
   type: string;
   label: string;
-  icon: Icon;
+  icon: LucideIcon;
   description: string;
 }
 
@@ -157,7 +156,7 @@ export interface MenuData {
 }
 
 export interface MenuItemProps {
-  icon: typeof import("@tabler/icons-react").IconComponents;
+  icon: LucideIcon;
   label: string;
   onClick?: () => void;
   href?: string;
@@ -169,7 +168,7 @@ export interface MenuItemProps {
 }
 
 export interface ExpandableMenuItemProps {
-  icon: typeof import("@tabler/icons-react").IconComponents;
+  icon: LucideIcon;
   label: string;
   expanded: boolean;
   onToggle: () => void;
@@ -226,3 +225,4 @@ export interface SeoLocation {
 
 export type SlugCheckStatus = 'idle' | 'checking' | 'available' | 'taken';
 export type ContentTypeValue = string;
+import { LucideIcon } from "lucide-react";

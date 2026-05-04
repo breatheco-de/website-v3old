@@ -1,10 +1,5 @@
-import {
-  IconArrowLeft,
-  IconRefresh,
-  IconFlask,
-  IconPlus,
-} from "@tabler/icons-react";
 import { deslugify } from "../utils/debugHelpers";
+import { ArrowLeft, FlaskConical, Plus, RefreshCw } from "lucide-react";
 import type { MenuView, ContentInfo, ExperimentsResponse } from "../types";
 
 interface ExperimentsViewProps {
@@ -32,7 +27,7 @@ export function ExperimentsView({
               className="p-1 rounded-md hover-elevate"
               data-testid="button-back-to-main-experiments"
             >
-              <IconArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-4 w-4" />
             </button>
             <div>
               <h3 className="font-semibold text-sm">Experiments</h3>
@@ -46,7 +41,7 @@ export function ExperimentsView({
             title="Create new experiment"
             data-testid="button-create-experiment"
           >
-            <IconPlus className="h-4 w-4 text-muted-foreground" />
+            <Plus className="h-4 w-4 text-muted-foreground" />
           </button>
         </div>
       </div>
@@ -55,11 +50,11 @@ export function ExperimentsView({
         <div className="p-2 space-y-1">
           {experimentsLoading ? (
             <div className="flex items-center justify-center py-8">
-              <IconRefresh className="h-5 w-5 animate-spin text-muted-foreground" />
+              <RefreshCw className="h-5 w-5 animate-spin text-muted-foreground" />
             </div>
           ) : !experimentsData?.hasExperimentsFile ? (
             <div className="text-center py-8 px-4">
-              <IconFlask className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+              <FlaskConical className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
               <p className="text-sm text-muted-foreground mb-2">No experiments file found</p>
               <p className="text-xs text-muted-foreground">
                 Create <code className="bg-muted px-1 rounded">experiments.yml</code> in the content folder
@@ -67,7 +62,7 @@ export function ExperimentsView({
             </div>
           ) : experimentsData.experiments.length === 0 ? (
             <div className="text-center py-8 px-4">
-              <IconFlask className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+              <FlaskConical className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
               <p className="text-sm text-muted-foreground">No experiments defined</p>
             </div>
           ) : (

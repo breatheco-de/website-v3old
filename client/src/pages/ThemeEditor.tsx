@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import { AlertTriangle, ArrowLeft, Blocks, ChevronDown, ChevronUp, FileInput, LayoutGrid, Link, Moon, Palette, Plus, Save, Search, Sun, Trash2, Undo2 } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, apiRequestWithAuth, queryClient } from "@/lib/queryClient";
 import {
@@ -28,24 +29,6 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import {
-  IconSun,
-  IconMoon,
-  IconDeviceFloppy,
-  IconArrowBackUp,
-  IconArrowLeft,
-  IconPalette,
-  IconComponents,
-  IconLayoutGrid,
-  IconLink,
-  IconTrash,
-  IconPlus,
-  IconChevronUp,
-  IconChevronDown,
-  IconAlertTriangle,
-  IconSearch,
-  IconFileImport,
-} from "@tabler/icons-react";
 
 interface PreviewExample {
   component: string;
@@ -503,7 +486,7 @@ function PaletteEntryRow({
           className="text-muted-foreground disabled:opacity-30 hover-elevate p-0.5 rounded"
           data-testid={`button-move-up-${index}`}
         >
-          <IconChevronUp className="h-3.5 w-3.5" />
+          <ChevronUp className="h-3.5 w-3.5" />
         </button>
         <button
           type="button"
@@ -512,7 +495,7 @@ function PaletteEntryRow({
           className="text-muted-foreground disabled:opacity-30 hover-elevate p-0.5 rounded"
           data-testid={`button-move-down-${index}`}
         >
-          <IconChevronDown className="h-3.5 w-3.5" />
+          <ChevronDown className="h-3.5 w-3.5" />
         </button>
         <button
           type="button"
@@ -520,7 +503,7 @@ function PaletteEntryRow({
           className="text-muted-foreground hover:text-destructive hover-elevate p-0.5 rounded"
           data-testid={`button-delete-entry-${index}`}
         >
-          <IconTrash className="h-3.5 w-3.5" />
+          <Trash2 className="h-3.5 w-3.5" />
         </button>
       </div>
 
@@ -536,7 +519,7 @@ function PaletteEntryRow({
           />
           {isUnknownVar && (
             <Badge variant="outline" className="text-xs text-amber-600 border-amber-400 gap-1 shrink-0">
-              <IconAlertTriangle className="h-3 w-3" />
+              <AlertTriangle className="h-3 w-3" />
               Unknown var
             </Badge>
           )}
@@ -683,7 +666,7 @@ function PaletteAccordion({ palette, label, entries, knownCssVars, previewMode, 
               className="w-full gap-1.5"
               data-testid={`button-add-entry-${palette}`}
             >
-              <IconPlus className="h-3.5 w-3.5" />
+              <Plus className="h-3.5 w-3.5" />
               Add entry
             </Button>
           </div>
@@ -994,7 +977,7 @@ function ImportExampleDialog({ open, onClose, registryData, onImport, previewMod
                     className="w-full text-left text-sm px-3 py-1.5 rounded-md border border-input bg-background flex items-center gap-2 hover-elevate"
                     data-testid="button-import-picker"
                   >
-                    <IconSearch className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                    <Search className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                     <span
                       className={cn(
                         "truncate",
@@ -1012,7 +995,7 @@ function ImportExampleDialog({ open, onClose, registryData, onImport, previewMod
                 >
                   <div className="p-2 border-b">
                     <div className="relative">
-                      <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Input
                         value={pageSearch}
                         onChange={(e) => setPageSearch(e.target.value)}
@@ -1057,9 +1040,9 @@ function ImportExampleDialog({ open, onClose, registryData, onImport, previewMod
                                   <div className="text-xs text-muted-foreground truncate">{pagePath}</div>
                                 </div>
                                 {isExpanded ? (
-                                  <IconChevronUp className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                                  <ChevronUp className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
                                 ) : (
-                                  <IconChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                                  <ChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
                                 )}
                               </button>
                               {isExpanded && (
@@ -1090,7 +1073,7 @@ function ImportExampleDialog({ open, onClose, registryData, onImport, previewMod
                                           )}
                                           data-testid={`button-import-section-${idx}-${sIdx}`}
                                         >
-                                          <IconLayoutGrid className="h-3.5 w-3.5 flex-shrink-0 mt-0.5" />
+                                          <LayoutGrid className="h-3.5 w-3.5 flex-shrink-0 mt-0.5" />
                                           <div className="flex-1 min-w-0">
                                             <div className="flex items-baseline justify-between gap-2">
                                               <span className="truncate font-medium text-foreground">{section.label}</span>
@@ -1214,7 +1197,7 @@ function ImportExampleDialog({ open, onClose, registryData, onImport, previewMod
               />
             ) : (
               <div className="flex flex-col items-center justify-center h-full gap-2 text-muted-foreground px-4 text-center">
-                <IconLayoutGrid className="h-10 w-10 opacity-20" />
+                <LayoutGrid className="h-10 w-10 opacity-20" />
                 <p className="text-sm">Expand a page and choose a section to preview that component here</p>
               </div>
             )}
@@ -1528,7 +1511,7 @@ export default function ThemeEditor() {
       <div className="shrink-0 flex flex-col bg-card relative border-r border-border" style={{ width: sidebarWidth }}>
         <div className="px-4 py-3 border-b border-border">
           <div className="flex items-center gap-2 mb-3">
-            <IconPalette className="h-4 w-4 text-primary" />
+            <Palette className="h-4 w-4 text-primary" />
             <h1 className="text-sm font-semibold">Theme Editor</h1>
           </div>
           <div className="flex rounded-md border border-border overflow-hidden">
@@ -1537,7 +1520,7 @@ export default function ThemeEditor() {
               className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-medium transition-colors ${previewMode === "light" ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover-elevate"}`}
               data-testid="button-mode-light"
             >
-              <IconSun className="h-3.5 w-3.5" />
+              <Sun className="h-3.5 w-3.5" />
               Light
             </button>
             <button
@@ -1545,7 +1528,7 @@ export default function ThemeEditor() {
               className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-medium transition-colors ${previewMode === "dark" ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover-elevate"}`}
               data-testid="button-mode-dark"
             >
-              <IconMoon className="h-3.5 w-3.5" />
+              <Moon className="h-3.5 w-3.5" />
               Dark
             </button>
           </div>
@@ -1662,7 +1645,7 @@ export default function ThemeEditor() {
                 className="flex-1"
                 data-testid="button-reset-theme"
               >
-                <IconArrowBackUp className="h-3.5 w-3.5" />
+                <Undo2 className="h-3.5 w-3.5" />
                 Reset
               </Button>
               <Button
@@ -1672,7 +1655,7 @@ export default function ThemeEditor() {
                 className="flex-1"
                 data-testid="button-save-theme"
               >
-                <IconDeviceFloppy className="h-3.5 w-3.5" />
+                <Save className="h-3.5 w-3.5" />
                 {isSaving ? "Saving..." : "Save"}
               </Button>
             </div>
@@ -1728,7 +1711,7 @@ export default function ThemeEditor() {
                 className="flex-1"
                 data-testid="button-reset-palettes"
               >
-                <IconArrowBackUp className="h-3.5 w-3.5" />
+                <Undo2 className="h-3.5 w-3.5" />
                 Reset
               </Button>
               <Button
@@ -1738,7 +1721,7 @@ export default function ThemeEditor() {
                 className="flex-1"
                 data-testid="button-save-palettes"
               >
-                <IconDeviceFloppy className="h-3.5 w-3.5" />
+                <Save className="h-3.5 w-3.5" />
                 {isPaletteSaving ? "Saving..." : "Save"}
               </Button>
             </div>
@@ -1759,7 +1742,7 @@ export default function ThemeEditor() {
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${activeSection === "atoms" ? "bg-muted text-foreground" : "text-muted-foreground hover-elevate"}`}
             data-testid="tab-atoms"
           >
-            <IconComponents className="h-4 w-4" />
+            <Blocks className="h-4 w-4" />
             Atoms & Molecules
           </button>
           <button
@@ -1767,7 +1750,7 @@ export default function ThemeEditor() {
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${activeSection === "examples" ? "bg-muted text-foreground" : "text-muted-foreground hover-elevate"}`}
             data-testid="tab-examples"
           >
-            <IconLayoutGrid className="h-4 w-4" />
+            <LayoutGrid className="h-4 w-4" />
             Examples
           </button>
           <div className="ml-auto flex items-center gap-1.5 text-xs text-muted-foreground">
@@ -1836,7 +1819,7 @@ export default function ThemeEditor() {
                         }}
                         data-testid={`button-delete-example-${idx}`}
                       >
-                        <IconTrash className="h-4 w-4" />
+                        <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
                     <div className="rounded-md border border-border overflow-hidden">
@@ -1951,7 +1934,7 @@ export default function ThemeEditor() {
                   data-testid="button-add-example"
                   className="flex items-center gap-1.5"
                 >
-                  <IconPlus className="h-4 w-4" />
+                  <Plus className="h-4 w-4" />
                   Add example
                 </Button>
                 <Button
@@ -1962,7 +1945,7 @@ export default function ThemeEditor() {
                   data-testid="button-import-example"
                   className="flex items-center gap-1.5"
                 >
-                  <IconFileImport className="h-4 w-4" />
+                  <FileInput className="h-4 w-4" />
                   Import example from page
                 </Button>
               </div>
@@ -2073,7 +2056,7 @@ export default function ThemeEditor() {
               onClick={() => setDeleteModal((m) => ({ ...m, step: "choose" }))}
               data-testid="button-back-to-choose"
             >
-              <IconArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-4 w-4" />
               Back
             </button>
             <p className="text-sm">
@@ -2115,7 +2098,7 @@ export default function ThemeEditor() {
               onClick={() => setDeleteModal((m) => ({ ...m, step: "choose", variantImpact: null }))}
               data-testid="button-back-to-choose-variant"
             >
-              <IconArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-4 w-4" />
               Back
             </button>
 

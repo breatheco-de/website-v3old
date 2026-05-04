@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import { ArrowRight, Check, Star } from "lucide-react";
 import Marquee from "@/lib/marquee";
 import type {
   HeroProductShowcase as HeroProductShowcaseType,
@@ -8,7 +9,6 @@ import type {
 import { UniversalVideo } from "@/components/UniversalVideo";
 import { UniversalImage } from "@/components/UniversalImage";
 import { Button } from "@/components/ui/button";
-import { IconStarFilled, IconArrowRight, IconCheck } from "@tabler/icons-react";
 import { resolveTemplateFallback } from "@/lib/variable-manager";
 import LeadForm, { type LeadFormData } from "@/components/lead_form/variants/LeadFormDefault";
 import { AwardsMarquee } from "@/components/awards_marquee/variants/AwardsMarqueeDefault";
@@ -269,7 +269,7 @@ export default function HeroProductShowcase({
                         className="flex items-start gap-1 md:gap-3 text-foreground"
                         data-testid={`hero-bullet-${index}`}
                       >
-                        <IconCheck className="h-5 w-5 mt-0.5 text-primary flex-shrink-0" />
+                        <Check className="h-5 w-5 mt-0.5 text-primary flex-shrink-0" />
                         <span className="text-body leading-relaxed text-left">
                           {bullet.text}
                         </span>
@@ -366,7 +366,7 @@ export default function HeroProductShowcase({
                   >
                     <a href={data.cta_button.url} onClick={handleLinkClick}>
                       {data.cta_button.text}
-                      <IconArrowRight className="ml-2 h-4 w-4" />
+                      <ArrowRight className="ml-2 h-4 w-4" />
                     </a>
                   </Button>
                 </div>
@@ -392,28 +392,28 @@ export default function HeroProductShowcase({
 
                               if (star <= fullStars) {
                                 return (
-                                  <IconStarFilled
+                                  <Star
                                     key={star}
-                                    className="h-6 w-6 text-yellow-500"
+                                    className="fill-current h-6 w-6 text-yellow-500"
                                   />
                                 );
                               } else if (isHalfStar) {
                                 return (
                                   <div key={star} className="relative h-6 w-6">
-                                    <IconStarFilled className="h-6 w-6 text-muted" />
+                                    <Star className="fill-current h-6 w-6 text-muted" />
                                     <div
                                       className="absolute inset-0 overflow-hidden"
                                       style={{ width: "50%" }}
                                     >
-                                      <IconStarFilled className="h-6 w-6 text-yellow-500" />
+                                      <Star className="fill-current h-6 w-6 text-yellow-500" />
                                     </div>
                                   </div>
                                 );
                               } else {
                                 return (
-                                  <IconStarFilled
+                                  <Star
                                     key={star}
-                                    className="h-6 w-6 text-muted"
+                                    className="fill-current h-6 w-6 text-muted"
                                   />
                                 );
                               }

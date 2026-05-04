@@ -1,6 +1,6 @@
 import { useCallback, useState, useEffect, useMemo } from "react";
+import { Loader2, Palette } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { IconLoader2, IconPalette } from "@tabler/icons-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
@@ -118,7 +118,7 @@ export function ColorPicker({
       <div className="space-y-3">
         <Label className="text-sm font-medium">{label || defaultLabel}</Label>
         <div className="flex items-center justify-center h-24 bg-muted/30 rounded-md">
-          <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+          <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
         </div>
       </div>
     );
@@ -175,7 +175,7 @@ export function ColorPicker({
             data-testid={`${testIdPrefix}-custom-toggle`}
             title="Custom CSS value"
           >
-            <IconPalette className="w-4 h-4 text-muted-foreground" />
+            <Palette className="w-4 h-4 text-muted-foreground" />
           </button>
         )}
       </div>

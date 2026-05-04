@@ -1,7 +1,7 @@
 
 import type { ProgramsShowcaseSection, ProgramItem } from "@shared/schema";
+import { ArrowRight, Clock, TrendingUp } from "lucide-react";
 import { getIcon } from "@/lib/icons";
-import { IconClock, IconTrendingUp, IconArrowRight } from "@tabler/icons-react";
 import { resolveColorVar, hslColor } from "../shared";
 import { RichTextContent } from "@/components/ui/rich-text-content";
 
@@ -20,7 +20,7 @@ function ProgramCard({
 }) {
   const resolved = resolveColorVar(program.color);
   const Icon = program.icon ? getIcon(program.icon) : null;
-  const BadgeIcon = program.badge_icon ? getIcon(program.badge_icon) : IconTrendingUp;
+  const BadgeIcon = program.badge_icon ? getIcon(program.badge_icon) : TrendingUp;
   const ctaText = program.cta?.text ?? program.cta_text;
   const ctaUrl = program.cta?.url ?? program.cta_url ?? "#";
 
@@ -89,7 +89,7 @@ function ProgramCard({
             </div>
           ) : program.duration ? (
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-sans">
-              <IconClock className="w-3.5 h-3.5" />
+              <Clock className="w-3.5 h-3.5" />
               <span>{program.duration}</span>
             </div>
           ) : null}
@@ -101,7 +101,7 @@ function ProgramCard({
               data-testid={`link-cta-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
             >
               {ctaText}
-              <IconArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
             </a>
           )}
         </div>

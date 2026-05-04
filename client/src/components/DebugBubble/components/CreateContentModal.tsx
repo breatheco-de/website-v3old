@@ -1,18 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
+import { AlertTriangle, Check, ChevronDown, Copy, Info, Pencil, Plus, RefreshCw, Trash2, Undo2, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import {
-  IconCopy,
-  IconPlus,
-  IconPencil,
-  IconRefresh,
-  IconCheck,
-  IconX,
-  IconInfoCircle,
-  IconChevronDown,
-  IconTrash,
-  IconArrowBackUp,
-  IconAlertTriangle,
-} from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -238,7 +226,7 @@ function FunctionCodePopover({ rawCode }: { rawCode: string }) {
           title="View calculation formula"
           data-testid="button-function-info"
         >
-          <IconInfoCircle className="w-3.5 h-3.5" />
+          <Info className="w-3.5 h-3.5" />
         </button>
       </PopoverTrigger>
       <PopoverContent className="w-80 p-3 z-[10001]" align="end">
@@ -627,17 +615,17 @@ export function CreateContentModal({
 
   const confirmButtonLabel = isCreatingContent ? (
     <>
-      <IconRefresh className="h-4 w-4 mr-2 animate-spin" />
+      <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
       {duplicatingPage ? "Duplicating..." : "Creating..."}
     </>
   ) : duplicatingPage ? (
     <>
-      <IconCopy className="h-4 w-4 mr-2" />
+      <Copy className="h-4 w-4 mr-2" />
       Duplicate {createContentType.charAt(0).toUpperCase() + createContentType.slice(1)}
     </>
   ) : (
     <>
-      <IconPlus className="h-4 w-4 mr-2" />
+      <Plus className="h-4 w-4 mr-2" />
       Create {createContentType.charAt(0).toUpperCase() + createContentType.slice(1)}
     </>
   );
@@ -649,12 +637,12 @@ export function CreateContentModal({
           <DialogTitle className="flex items-center gap-2">
             {duplicatingPage ? (
               <>
-                <IconCopy className="h-5 w-5" />
+                <Copy className="h-5 w-5" />
                 Duplicate Page
               </>
             ) : (
               <>
-                <IconPlus className="h-5 w-5" />
+                <Plus className="h-5 w-5" />
                 Create New Content
               </>
             )}
@@ -705,7 +693,7 @@ export function CreateContentModal({
 
             {isTypeChanged && (
               <div className="flex gap-2 p-3 rounded-md bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 text-xs" data-testid="warning-type-change">
-                <IconAlertTriangle className="h-4 w-4 mt-0.5 shrink-0 text-amber-600 dark:text-amber-400" />
+                <AlertTriangle className="h-4 w-4 mt-0.5 shrink-0 text-amber-600 dark:text-amber-400" />
                 <div className="space-y-1">
                   <p className="text-amber-800 dark:text-amber-200">
                     This will change the content type from <strong>{duplicatingPage!.contentType}</strong> to <strong>{createContentType}</strong>.
@@ -860,7 +848,7 @@ export function CreateContentModal({
                       className="text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
                       data-testid="button-include-other-locales"
                     >
-                      <IconPlus className="h-3 w-3" />
+                      <Plus className="h-3 w-3" />
                       Include other locales
                     </button>
                   )}
@@ -876,7 +864,7 @@ export function CreateContentModal({
                       className="text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
                       data-testid="button-only-primary-locale"
                     >
-                      <IconX className="h-3 w-3" />
+                      <X className="h-3 w-3" />
                       Show only {supportedLocales.find((l) => l.code === primaryLocale)?.label ?? primaryLocale}
                     </button>
                   )}
@@ -941,7 +929,7 @@ export function CreateContentModal({
                                   title={`Edit ${supportedLocales[0]?.label ?? loc0} slug`}
                                   data-testid="button-edit-slug-en"
                                 >
-                                  <IconPencil className="h-3 w-3 text-muted-foreground" />
+                                  <Pencil className="h-3 w-3 text-muted-foreground" />
                                 </button>
                               )}
                               {visibleLocales.length > 1 && (
@@ -954,22 +942,22 @@ export function CreateContentModal({
                                   data-testid="button-toggle-locale-en"
                                 >
                                   {loc0Excluded ? (
-                                    <IconArrowBackUp className="h-3 w-3 text-muted-foreground" />
+                                    <Undo2 className="h-3 w-3 text-muted-foreground" />
                                   ) : (
-                                    <IconTrash className="h-3 w-3 text-muted-foreground" />
+                                    <Trash2 className="h-3 w-3 text-muted-foreground" />
                                   )}
                                 </button>
                               )}
                               {!loc0Excluded && (
                                 <div className="w-4">
                                   {createContentSlugEnStatus === "checking" && (
-                                    <IconRefresh className="h-4 w-4 animate-spin text-muted-foreground" />
+                                    <RefreshCw className="h-4 w-4 animate-spin text-muted-foreground" />
                                   )}
                                   {createContentSlugEnStatus === "available" && !slugsConflict && (
-                                    <IconCheck className="h-4 w-4 text-green-600" />
+                                    <Check className="h-4 w-4 text-green-600" />
                                   )}
                                   {(createContentSlugEnStatus === "taken" || (createContentSlugEnStatus === "available" && slugsConflict)) && (
-                                    <IconX className="h-4 w-4 text-red-600" />
+                                    <X className="h-4 w-4 text-red-600" />
                                   )}
                                 </div>
                               )}
@@ -1035,7 +1023,7 @@ export function CreateContentModal({
                                   title={`Edit ${supportedLocales[1]?.label ?? loc1} slug`}
                                   data-testid="button-edit-slug-es"
                                 >
-                                  <IconPencil className="h-3 w-3 text-muted-foreground" />
+                                  <Pencil className="h-3 w-3 text-muted-foreground" />
                                 </button>
                               )}
                               {visibleLocales.length > 1 && (
@@ -1048,22 +1036,22 @@ export function CreateContentModal({
                                   data-testid="button-toggle-locale-es"
                                 >
                                   {loc1Excluded ? (
-                                    <IconArrowBackUp className="h-3 w-3 text-muted-foreground" />
+                                    <Undo2 className="h-3 w-3 text-muted-foreground" />
                                   ) : (
-                                    <IconTrash className="h-3 w-3 text-muted-foreground" />
+                                    <Trash2 className="h-3 w-3 text-muted-foreground" />
                                   )}
                                 </button>
                               )}
                               {!loc1Excluded && (
                                 <div className="w-4">
                                   {createContentSlugEsStatus === "checking" && (
-                                    <IconRefresh className="h-4 w-4 animate-spin text-muted-foreground" />
+                                    <RefreshCw className="h-4 w-4 animate-spin text-muted-foreground" />
                                   )}
                                   {createContentSlugEsStatus === "available" && !slugsConflict && (
-                                    <IconCheck className="h-4 w-4 text-green-600" />
+                                    <Check className="h-4 w-4 text-green-600" />
                                   )}
                                   {(createContentSlugEsStatus === "taken" || (createContentSlugEsStatus === "available" && slugsConflict)) && (
-                                    <IconX className="h-4 w-4 text-red-600" />
+                                    <X className="h-4 w-4 text-red-600" />
                                   )}
                                 </div>
                               )}
@@ -1077,7 +1065,7 @@ export function CreateContentModal({
 
                       {slugsConflict && (
                         <div className="flex gap-2 p-2 rounded-md bg-destructive/10 border border-destructive/30 text-xs text-destructive" data-testid="warning-slug-conflict">
-                          <IconAlertTriangle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+                          <AlertTriangle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
                           <span>
                             This content type uses the same URL for all locales. Each locale must have a unique slug, or exclude one locale.
                           </span>
@@ -1091,7 +1079,7 @@ export function CreateContentModal({
                           className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover-elevate rounded"
                           data-testid="button-toggle-files"
                         >
-                          <IconChevronDown className={`h-3 w-3 transition-transform ${showFiles ? "" : "-rotate-90"}`} />
+                          <ChevronDown className={`h-3 w-3 transition-transform ${showFiles ? "" : "-rotate-90"}`} />
                           Files that will be created
                         </button>
                         {showFiles && (
@@ -1133,7 +1121,7 @@ export function CreateContentModal({
                 <PopoverContent className="w-64 p-3 space-y-2 z-[10001]" align="end">
                   {exampleLoading ? (
                     <div className="flex items-center gap-2 py-1">
-                      <IconRefresh className="h-3.5 w-3.5 animate-spin text-muted-foreground" />
+                      <RefreshCw className="h-3.5 w-3.5 animate-spin text-muted-foreground" />
                       <span className="text-xs text-muted-foreground">Loading…</span>
                     </div>
                   ) : !exampleData?.slug ? (
@@ -1191,7 +1179,7 @@ export function CreateContentModal({
                   className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover-elevate rounded py-0.5"
                   data-testid="button-toggle-additional"
                 >
-                  <IconChevronDown
+                  <ChevronDown
                     className={`h-3 w-3 transition-transform ${showNonUnique ? "" : "-rotate-90"}`}
                   />
                   Additional values
@@ -1316,7 +1304,7 @@ export function CreateContentModal({
         <DialogContent className="sm:max-w-lg" data-testid="modal-type-change-details">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <IconAlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+              <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
               Content Type Conversion Details
             </DialogTitle>
             <DialogDescription>

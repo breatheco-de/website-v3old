@@ -1,13 +1,8 @@
 import { useState, useEffect } from "react";
+import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useInternalNav } from "@/hooks/useInternalNav";
-import {
-  IconBrandLinkedin,
-  IconBrandFacebook,
-  IconBrandX,
-  IconBrandInstagram,
-} from "@tabler/icons-react";
 
 import { useImageRegistry } from "@/components/UniversalImage";
 
@@ -37,11 +32,11 @@ interface FooterConfig {
   subscribe_text: string;
 }
 
-const socialIconMap: Record<string, typeof IconBrandLinkedin> = {
-  linkedin: IconBrandLinkedin,
-  facebook: IconBrandFacebook,
-  "x-logo": IconBrandX,
-  instagram: IconBrandInstagram,
+const socialIconMap: Record<string, typeof Linkedin> = {
+  linkedin: Linkedin,
+  facebook: Facebook,
+  "x-logo": Twitter,
+  instagram: Instagram,
 };
 
 interface FooterProps {

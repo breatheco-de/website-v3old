@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
+import { ArrowLeft, Calendar, Clock, Loader2, User } from "lucide-react";
 import { useLocation, useParams } from "wouter";
 import { apiFetch } from "@/lib/queryClient";
-import { IconLoader2, IconCalendar, IconUser, IconArrowLeft, IconClock } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import Header from "@/components/Header";
 import { useInternalNav } from "@/hooks/useInternalNav";
@@ -69,7 +69,7 @@ export default function BlogPostPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center" data-testid="loading-blog-post">
-        <IconLoader2 className="w-8 h-8 animate-spin text-primary" />
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -94,7 +94,7 @@ export default function BlogPostPage() {
               className="text-primary hover:underline flex items-center justify-center gap-1"
               data-testid="link-back-to-blog"
             >
-              <IconArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="w-4 h-4" />
               {locale === "es" ? "Volver al blog" : "Back to blog"}
             </a>
           </div>
@@ -114,7 +114,7 @@ export default function BlogPostPage() {
             className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
             data-testid="link-back-to-blog"
           >
-            <IconArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4" />
             {locale === "es" ? "Volver al blog" : "Back to blog"}
           </a>
 
@@ -140,16 +140,16 @@ export default function BlogPostPage() {
 
         <div className="flex items-center gap-4 text-sm text-muted-foreground mb-8 flex-wrap">
           <span className="flex items-center gap-1" data-testid="text-blog-author">
-            <IconUser className="w-4 h-4" />
+            <User className="w-4 h-4" />
             {getAuthorName(post.author, siteName)}
           </span>
           <span className="flex items-center gap-1" data-testid="text-blog-date">
-            <IconCalendar className="w-4 h-4" />
+            <Calendar className="w-4 h-4" />
             {formatDate(post.published_at || post.created_at, locale)}
           </span>
           {post.duration > 0 && (
             <span className="flex items-center gap-1" data-testid="text-blog-duration">
-              <IconClock className="w-4 h-4" />
+              <Clock className="w-4 h-4" />
               {post.duration} min
             </span>
           )}

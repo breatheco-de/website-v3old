@@ -1,4 +1,5 @@
 import { useState, useMemo, useRef, useCallback } from "react";
+import { AlertTriangle, Check, Loader2, Plus, Search, X } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -9,7 +10,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { IconCheck, IconSearch, IconLoader2, IconAlertTriangle, IconPlus, IconX } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 
@@ -217,7 +217,7 @@ export function SingleVariablePickerModal({
         <div className="space-y-3 mt-2">
           <div className="flex items-center gap-2">
             <div className="relative flex-1">
-              <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
                 placeholder="Search fields..."
                 value={search}
@@ -240,7 +240,7 @@ export function SingleVariablePickerModal({
                 }}
                 data-testid="button-add-new-field"
               >
-                {showAddForm ? <IconX className="w-4 h-4" /> : <IconPlus className="w-4 h-4" />}
+                {showAddForm ? <X className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
               </Button>
             )}
           </div>
@@ -286,7 +286,7 @@ export function SingleVariablePickerModal({
                           }}
                           data-testid={`source-option-${key}`}
                         >
-                          <IconCheck className="w-3 h-3 text-green-600 flex-shrink-0" />
+                          <Check className="w-3 h-3 text-green-600 flex-shrink-0" />
                           <span className="font-mono text-xs">{key}</span>
                           <span className="text-[10px] text-muted-foreground ml-auto">all entries</span>
                         </button>
@@ -299,7 +299,7 @@ export function SingleVariablePickerModal({
                           className="w-full text-left px-3 py-1.5 flex items-center gap-2 text-sm opacity-50 cursor-not-allowed border-b last:border-b-0"
                           data-testid={`source-option-${p.key}`}
                         >
-                          <IconAlertTriangle className="w-3 h-3 text-amber-500 flex-shrink-0" />
+                          <AlertTriangle className="w-3 h-3 text-amber-500 flex-shrink-0" />
                           <span className="font-mono text-xs">{p.key}</span>
                           <span className="text-[10px] text-muted-foreground ml-auto">{p.count}/{p.total}</span>
                         </button>
@@ -348,7 +348,7 @@ export function SingleVariablePickerModal({
                   disabled={!canAdd || addingSaving}
                   data-testid="button-confirm-add-field"
                 >
-                  {addingSaving ? <IconLoader2 className="w-3.5 h-3.5 animate-spin mr-1" /> : null}
+                  {addingSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin mr-1" /> : null}
                   Add Field
                 </Button>
               </div>
@@ -375,7 +375,7 @@ export function SingleVariablePickerModal({
                 >
                   <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
                     {selectedField === field.key && (
-                      <IconCheck className="w-4 h-4 text-primary" />
+                      <Check className="w-4 h-4 text-primary" />
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -389,13 +389,13 @@ export function SingleVariablePickerModal({
                   {selectedField === field.key && !isDbBacked && (
                     <div className="flex-shrink-0">
                       {validation === "loading" && (
-                        <IconLoader2 className="w-3.5 h-3.5 animate-spin text-muted-foreground" />
+                        <Loader2 className="w-3.5 h-3.5 animate-spin text-muted-foreground" />
                       )}
                       {validation && validation !== "loading" && validation.valid && (
-                        <IconCheck className="w-3.5 h-3.5 text-green-600" />
+                        <Check className="w-3.5 h-3.5 text-green-600" />
                       )}
                       {validation && validation !== "loading" && !validation.valid && (
-                        <IconAlertTriangle className="w-3.5 h-3.5 text-destructive" />
+                        <AlertTriangle className="w-3.5 h-3.5 text-destructive" />
                       )}
                     </div>
                   )}

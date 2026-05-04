@@ -1,5 +1,5 @@
-import { IconAlertTriangle, IconLink } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
+import { AlertTriangle, Link } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -36,7 +36,7 @@ export function BindingConfirmDialog({
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <IconAlertTriangle className="h-5 w-5 text-amber-500" />
+            <AlertTriangle className="h-5 w-5 text-amber-500" />
             Synced Section
           </DialogTitle>
         </DialogHeader>
@@ -47,7 +47,7 @@ export function BindingConfirmDialog({
           <ul className="space-y-1 max-h-48 overflow-y-auto">
             {boundSiblings.map((sibling, i) => (
               <li key={i} className="flex items-center gap-2 text-sm px-2 py-1.5 rounded-md bg-muted">
-                <IconLink className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+                <Link className="h-3.5 w-3.5 text-amber-500 shrink-0" />
                 <span className="font-medium">{sibling.slug}</span>
                 <span className="text-muted-foreground">({sibling.contentType}, section {sibling.sectionIndex + 1})</span>
               </li>

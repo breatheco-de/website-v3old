@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { ArrowLeft, BookOpen, Brain, Check, ChevronDown, ChevronRight, Cpu, Eye, EyeOff, Image, Loader2, Pencil, Plus, Search, Send, Trash2, Upload, User, Wrench, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
@@ -11,7 +12,6 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { IconArrowLeft, IconPlus, IconTrash, IconLoader2, IconCheck, IconEye, IconEyeOff, IconPhoto, IconSearch, IconUser, IconPencil, IconX, IconChevronDown, IconChevronRight, IconBrain, IconUpload, IconTool, IconBooks, IconSend, IconCpu } from "@tabler/icons-react";
 import { Link, useLocation } from "wouter";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 import { ChatPanel } from "@/components/ChatPanel";
@@ -103,7 +103,7 @@ function TracePanel({ trace, index }: { trace: AgentTrace; index: number }) {
         className="flex items-center gap-1 text-[11px] text-muted-foreground hover-elevate rounded px-1.5 py-0.5"
         data-testid={`button-toggle-trace-${index}`}
       >
-        {open ? <IconChevronDown className="h-3 w-3" /> : <IconChevronRight className="h-3 w-3" />}
+        {open ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
         <span>Trace</span>
         <span className="opacity-70">({trace.totalTokens} tokens)</span>
       </button>
@@ -124,7 +124,7 @@ function TracePanel({ trace, index }: { trace: AgentTrace; index: number }) {
                     className="w-full flex items-center gap-1.5 px-2 py-1 text-left hover-elevate"
                     data-testid={`button-toggle-tool-${index}-${tcIdx}`}
                   >
-                    {expandedTools.has(tcIdx) ? <IconChevronDown className="h-3 w-3 shrink-0" /> : <IconChevronRight className="h-3 w-3 shrink-0" />}
+                    {expandedTools.has(tcIdx) ? <ChevronDown className="h-3 w-3 shrink-0" /> : <ChevronRight className="h-3 w-3 shrink-0" />}
                     <span className="font-semibold">{tc.name}</span>
                   </button>
                   {expandedTools.has(tcIdx) && (
@@ -456,7 +456,7 @@ export default function AIKnowledge() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <IconLoader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
       </div>
     );
   }
@@ -469,7 +469,7 @@ export default function AIKnowledge() {
         <div className="max-w-4xl mx-auto flex items-center gap-3 px-6 py-3">
           <Link href="/">
             <Button size="icon" variant="ghost" data-testid="button-back-knowledge">
-              <IconArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
           <div className="flex items-center gap-3 flex-1">
@@ -477,7 +477,7 @@ export default function AIKnowledge() {
               {agentIcon ? (
                 <img src={agentIcon} alt="Agent" className="w-full h-full object-cover" />
               ) : (
-                <IconUser className="h-5 w-5 text-muted-foreground" />
+                <User className="h-5 w-5 text-muted-foreground" />
               )}
             </div>
             <div>
@@ -497,7 +497,7 @@ export default function AIKnowledge() {
               onClick={() => setIdentityCoreOpen(true)}
               data-testid="button-open-identity-core"
             >
-              <IconBrain className="h-4 w-4" />
+              <Brain className="h-4 w-4" />
               <span className="text-xs font-medium">Identity Core</span>
               <span className="text-[11px] text-muted-foreground">{agentName || "Not configured"}</span>
             </Button>
@@ -507,7 +507,7 @@ export default function AIKnowledge() {
               onClick={() => setVisibilityOpen(true)}
               data-testid="button-open-visibility"
             >
-              <IconEye className="h-4 w-4" />
+              <Eye className="h-4 w-4" />
               <span className="text-xs font-medium">Visibility</span>
               <span className="text-[11px] text-muted-foreground">{bubbleEnabled ? "Visible" : "Hidden"}</span>
             </Button>
@@ -517,7 +517,7 @@ export default function AIKnowledge() {
               onClick={() => setToolsOpen(true)}
               data-testid="button-open-tools"
             >
-              <IconTool className="h-4 w-4" />
+              <Wrench className="h-4 w-4" />
               <span className="text-xs font-medium">Tools</span>
               <span className="text-[11px] text-muted-foreground">{enabledToolCount} enabled</span>
             </Button>
@@ -527,7 +527,7 @@ export default function AIKnowledge() {
               onClick={() => navigate("/private/ai-knowledge-blocks")}
               data-testid="button-open-knowledge-blocks"
             >
-              <IconBooks className="h-4 w-4" />
+              <BookOpen className="h-4 w-4" />
               <span className="text-xs font-medium">Knowledge Blocks</span>
               <span className="text-[11px] text-muted-foreground">{data?.custom_knowledge?.length || 0} blocks</span>
             </Button>
@@ -537,7 +537,7 @@ export default function AIKnowledge() {
               onClick={() => setModelsOpen(true)}
               data-testid="button-open-models"
             >
-              <IconCpu className="h-4 w-4" />
+              <Cpu className="h-4 w-4" />
               <span className="text-xs font-medium">Models</span>
               <span className="text-[11px] text-muted-foreground truncate max-w-full">{modelDefault || "Not set"}</span>
             </Button>
@@ -573,7 +573,7 @@ export default function AIKnowledge() {
           </DialogHeader>
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-2 border rounded-md px-3 py-2 flex-1">
-              <IconSearch className="h-4 w-4 text-muted-foreground shrink-0" />
+              <Search className="h-4 w-4 text-muted-foreground shrink-0" />
               <input
                 type="text"
                 value={iconSearch}
@@ -591,8 +591,8 @@ export default function AIKnowledge() {
               data-testid="button-upload-icon"
             >
               {uploadingIcon
-                ? <IconLoader2 className="h-4 w-4 animate-spin mr-1" />
-                : <IconUpload className="h-4 w-4 mr-1" />}
+                ? <Loader2 className="h-4 w-4 animate-spin mr-1" />
+                : <Upload className="h-4 w-4 mr-1" />}
               Upload
             </Button>
             <input
@@ -667,7 +667,7 @@ export default function AIKnowledge() {
                         <p className="text-xs text-muted-foreground truncate">{draftAgentName || "No name set"}</p>
                       )}
                     </div>
-                    <IconPencil className="h-4 w-4 text-muted-foreground shrink-0" />
+                    <Pencil className="h-4 w-4 text-muted-foreground shrink-0" />
                   </button>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="pt-3 space-y-3">
@@ -681,10 +681,10 @@ export default function AIKnowledge() {
                       {draftAgentIcon ? (
                         <img src={draftAgentIcon} alt="Agent icon" className="w-full h-full object-cover" />
                       ) : (
-                        <IconUser className="h-7 w-7 text-muted-foreground" />
+                        <User className="h-7 w-7 text-muted-foreground" />
                       )}
                       <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <IconPhoto className="h-5 w-5 text-white" />
+                        <Image className="h-5 w-5 text-white" />
                       </div>
                     </button>
                     <div className="flex-1 space-y-1.5">
@@ -714,7 +714,7 @@ export default function AIKnowledge() {
                         <p className="text-xs text-muted-foreground truncate">{draftPromptRole || "Not configured"}</p>
                       )}
                     </div>
-                    <IconPencil className="h-4 w-4 text-muted-foreground shrink-0" />
+                    <Pencil className="h-4 w-4 text-muted-foreground shrink-0" />
                   </button>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="pt-3 space-y-2">
@@ -741,7 +741,7 @@ export default function AIKnowledge() {
                         <p className="text-xs text-muted-foreground truncate">{draftPromptPersonality || "Not configured"}</p>
                       )}
                     </div>
-                    <IconPencil className="h-4 w-4 text-muted-foreground shrink-0" />
+                    <Pencil className="h-4 w-4 text-muted-foreground shrink-0" />
                   </button>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="pt-3 space-y-2">
@@ -768,7 +768,7 @@ export default function AIKnowledge() {
                         <p className="text-xs text-muted-foreground truncate">{draftPromptInstructions || "Not configured"}</p>
                       )}
                     </div>
-                    <IconPencil className="h-4 w-4 text-muted-foreground shrink-0" />
+                    <Pencil className="h-4 w-4 text-muted-foreground shrink-0" />
                   </button>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="pt-3 space-y-2">
@@ -795,7 +795,7 @@ export default function AIKnowledge() {
                         <p className="text-xs text-muted-foreground truncate">{draftPromptFallback || "Not configured"}</p>
                       )}
                     </div>
-                    <IconPencil className="h-4 w-4 text-muted-foreground shrink-0" />
+                    <Pencil className="h-4 w-4 text-muted-foreground shrink-0" />
                   </button>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="pt-3 space-y-2">
@@ -817,7 +817,7 @@ export default function AIKnowledge() {
               Cancel
             </Button>
             <Button onClick={handleIdentityCoreSave} disabled={savingIdentity} data-testid="button-identity-core-save">
-              {savingIdentity ? <IconLoader2 className="h-4 w-4 animate-spin mr-1" /> : <IconCheck className="h-4 w-4 mr-1" />}
+              {savingIdentity ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : <Check className="h-4 w-4 mr-1" />}
               Save
             </Button>
           </DialogFooter>
@@ -869,7 +869,7 @@ export default function AIKnowledge() {
                         className="p-1 text-muted-foreground hover-elevate rounded-md"
                         data-testid={`button-expand-tool-${tool.name}`}
                       >
-                        {isExpanded ? <IconChevronDown className="h-4 w-4" /> : <IconChevronRight className="h-4 w-4" />}
+                        {isExpanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
                       </button>
                     )}
                   </div>
@@ -918,7 +918,7 @@ export default function AIKnowledge() {
               Cancel
             </Button>
             <Button onClick={handleToolsSave} disabled={savingTools} data-testid="button-tools-save">
-              {savingTools ? <IconLoader2 className="h-4 w-4 animate-spin mr-1" /> : <IconCheck className="h-4 w-4 mr-1" />}
+              {savingTools ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : <Check className="h-4 w-4 mr-1" />}
               Save
             </Button>
           </DialogFooter>
@@ -960,7 +960,7 @@ export default function AIKnowledge() {
               Cancel
             </Button>
             <Button onClick={handleModelsSave} disabled={savingModels} data-testid="button-models-save">
-              {savingModels ? <IconLoader2 className="h-4 w-4 animate-spin mr-1" /> : <IconCheck className="h-4 w-4 mr-1" />}
+              {savingModels ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : <Check className="h-4 w-4 mr-1" />}
               Save
             </Button>
           </DialogFooter>
@@ -978,8 +978,8 @@ export default function AIKnowledge() {
               <div className="flex items-center gap-4">
                 <div className={`rounded-full p-3 ${draftBubbleEnabled ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"}`}>
                   {draftBubbleEnabled
-                    ? <IconEye className="h-6 w-6" />
-                    : <IconEyeOff className="h-6 w-6" />
+                    ? <Eye className="h-6 w-6" />
+                    : <EyeOff className="h-6 w-6" />
                   }
                 </div>
                 <div>
@@ -1007,7 +1007,7 @@ export default function AIKnowledge() {
                         <p className="text-xs text-muted-foreground">Show the chat agent only on specific groups of URLs</p>
                       )}
                     </div>
-                    <IconChevronDown className={`h-4 w-4 text-muted-foreground shrink-0 transition-transform duration-200 ${urlPatternsOpen ? "rotate-180" : ""}`} />
+                    <ChevronDown className={`h-4 w-4 text-muted-foreground shrink-0 transition-transform duration-200 ${urlPatternsOpen ? "rotate-180" : ""}`} />
                   </button>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="pt-3 space-y-1">
@@ -1039,23 +1039,23 @@ export default function AIKnowledge() {
                           setDraftPagePatterns(updated);
                           setEditingPatternIdx(null);
                         }} data-testid={`button-confirm-pattern-${i}`}>
-                          <IconCheck className="h-4 w-4" />
+                          <Check className="h-4 w-4" />
                         </Button>
                         <Button size="icon" variant="ghost" onClick={() => {
                           if (!pattern) setDraftPagePatterns(prev => prev.filter((_, j) => j !== i));
                           setEditingPatternIdx(null);
                         }} data-testid={`button-cancel-pattern-${i}`}>
-                          <IconX className="h-4 w-4" />
+                          <X className="h-4 w-4" />
                         </Button>
                       </div>
                     ) : (
                       <div key={i} className="flex items-center gap-1.5">
                         <code className="flex-1 min-w-0 truncate text-xs bg-muted px-2.5 py-1.5 rounded-md font-mono" data-testid={`text-pattern-${i}`}>{pattern || <span className="text-muted-foreground italic">empty</span>}</code>
                         <Button size="icon" variant="ghost" onClick={() => { setEditingPatternIdx(i); setEditingPatternVal(pattern); }} data-testid={`button-edit-pattern-${i}`}>
-                          <IconPencil className="h-4 w-4" />
+                          <Pencil className="h-4 w-4" />
                         </Button>
                         <Button size="icon" variant="ghost" onClick={() => setDraftPagePatterns(prev => prev.filter((_, j) => j !== i))} data-testid={`button-delete-pattern-${i}`}>
-                          <IconTrash className="h-4 w-4" />
+                          <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
                     )
@@ -1071,7 +1071,7 @@ export default function AIKnowledge() {
                     }}
                     data-testid="button-add-pattern"
                   >
-                    <IconPlus className="h-4 w-4 mr-1" />
+                    <Plus className="h-4 w-4 mr-1" />
                     Add Pattern
                   </Button>
                 </CollapsibleContent>
@@ -1095,7 +1095,7 @@ export default function AIKnowledge() {
                         className="ml-0.5 rounded-sm opacity-70 hover:opacity-100"
                         data-testid={`button-delete-content-type-${i}`}
                       >
-                        <IconX className="h-3 w-3" />
+                        <X className="h-3 w-3" />
                       </button>
                     </Badge>
                   );
@@ -1111,7 +1111,7 @@ export default function AIKnowledge() {
                     }}
                   >
                     <SelectTrigger className="h-6 w-auto gap-1 px-2 text-xs border-dashed" data-testid="select-add-content-type">
-                      <IconPlus className="h-3 w-3" />
+                      <Plus className="h-3 w-3" />
                       <SelectValue placeholder="Add type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -1133,7 +1133,7 @@ export default function AIKnowledge() {
               Cancel
             </Button>
             <Button onClick={handleVisibilitySave} disabled={savingVisibility} data-testid="button-visibility-save">
-              {savingVisibility ? <IconLoader2 className="h-4 w-4 animate-spin mr-1" /> : <IconCheck className="h-4 w-4 mr-1" />}
+              {savingVisibility ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : <Check className="h-4 w-4 mr-1" />}
               Save
             </Button>
           </DialogFooter>

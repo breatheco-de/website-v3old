@@ -2,7 +2,8 @@
 import { useState, useEffect, useRef, useCallback, type KeyboardEvent } from "react";
 import type { FeaturesGridSpotlightSection, FeaturesGridHighlightItem } from "@shared/schema";
 import { Card } from "@/components/ui/card";
-import * as TablerIcons from "@tabler/icons-react";
+import * as LucideIcons from "lucide-react";
+import { Box } from "lucide-react";
 import { getCustomIcon } from "@/components/custom-icons";
 import { DotsIndicator } from "@/components/DotsIndicator";
 import type { ComponentType } from "react";
@@ -14,14 +15,14 @@ function getIcon(iconName: string, className?: string, color?: string) {
   }
   
   // Handle both "IconRocket" and "Rocket" formats
-  const tablerName = iconName.startsWith("Icon") ? iconName : `Icon${iconName}`;
-  const IconComponent = TablerIcons[tablerName as keyof typeof TablerIcons] as ComponentType<{ className?: string; style?: React.CSSProperties }>;
+  const tablerName = iconName.startsWith("Icon") ? iconName.slice(4) : iconName; const lucideName = tablerName.charAt(0).toUpperCase() + tablerName.slice(1);
+  const IconComponent = LucideIcons[lucideName as keyof typeof LucideIcons] as ComponentType<{ className?: string; style?: React.CSSProperties }>;
   if (IconComponent) {
     const style = color ? { color } : undefined;
     return <IconComponent className={className || "w-full h-full text-primary"} style={style} />;
   }
   const style = color ? { color } : undefined;
-  return <TablerIcons.IconBox className={className || "w-full h-full text-primary"} style={style} />;
+  return <Box className={className || "w-full h-full text-primary"} style={style} />;
 }
 
 interface SpotlightCardProps {

@@ -1,8 +1,8 @@
 
 import { useState, useMemo, useEffect, useCallback } from "react";
+import { ChevronLeft, ChevronRight, Linkedin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { UniversalImage } from "@/components/UniversalImage";
-import { IconChevronLeft, IconChevronRight, IconBrandLinkedin } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import type { ProfilesCarouselSection, ProfileCard } from "@shared/schema";
 
@@ -85,7 +85,7 @@ function ProfileCardItem({ profile, isRound, profileIndex }: { profile: ProfileC
             className="mt-2 text-muted-foreground transition-colors hover:text-foreground h-full flex items-end justify-center"
             data-testid="link-profile-linkedin"
           >
-            <IconBrandLinkedin className="w-5 h-5" />
+            <Linkedin className="w-5 h-5" />
           </a>
         )}
       </div>
@@ -127,7 +127,7 @@ function ProfileCardItem({ profile, isRound, profileIndex }: { profile: ProfileC
           className="mt-2 text-muted-foreground transition-colors hover:text-foreground"
           data-testid="link-profile-linkedin"
         >
-          <IconBrandLinkedin className="w-5 h-5" />
+          <Linkedin className="w-5 h-5" />
         </a>
       )}
     </div>
@@ -208,7 +208,7 @@ export default function ProfilesCarousel({ data }: ProfilesCarouselProps) {
               className="flex-shrink-0"
               data-testid="button-page-prev"
             >
-              <IconChevronLeft className="!w-7 !h-7" />
+              <ChevronLeft className="!w-7 !h-7" />
             </Button>
           )}
 
@@ -244,7 +244,7 @@ export default function ProfilesCarousel({ data }: ProfilesCarouselProps) {
               className="flex-shrink-0"
               data-testid="button-page-next"
             >
-              <IconChevronRight className="!w-7 !h-7" />
+              <ChevronRight className="!w-7 !h-7" />
             </Button>
           )}
         </div>
