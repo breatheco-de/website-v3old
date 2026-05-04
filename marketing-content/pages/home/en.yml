@@ -357,7 +357,7 @@ sections:
       - image: https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79.webp
         rating: 4.8
         review_count: 4.8 on Google
-      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/CareerKarma_logo.png
         rating: 4.9
         review_count: 4.9 on Career Karma
       - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
