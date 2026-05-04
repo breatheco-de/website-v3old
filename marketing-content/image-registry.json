@@ -15606,6 +15606,54 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-800x600-q75-240w.webp"
         }
       ]
+    },
+    "course-report-537x252-q72": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72.webp",
+      "alt": "Image: course-report",
+      "focal_point": "center",
+      "tags": [
+        "award",
+        "badge"
+      ],
+      "usage_count": 0,
+      "width": 537,
+      "height": 252,
+      "format": "webp",
+      "parentId": "course-report",
+      "quality_override": 72,
+      "preset": [
+        "icon",
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72-240w.webp"
+        }
+      ]
     }
   }
 }
