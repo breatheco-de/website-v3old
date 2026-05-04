@@ -166,9 +166,9 @@ sections:
         alt: "Image: ChatGPT Image Mar 26, 2026, 04_28_27 PM"
         id: chatgpt-image-mar-26-2026-04-28-27-pm-800x1200-q72
         object_position: 60%90%
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_26_00-PM.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-900x1350-q70.webp
         alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
-        id: chatgpt-image-mar-26-2026-04-26-00-pm
+        id: chatgpt-image-mar-26-2026-04-26-00-pm-900x1350-q70
         object_position: 40% 80%
       - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina_brightened.png
         alt: "Image: valentina_brightened"
