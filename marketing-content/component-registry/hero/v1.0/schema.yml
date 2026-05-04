@@ -12,6 +12,8 @@ when_to_use: |
 
 image_sizes:
   singleColumn.image.src: "(min-width: 768px) 800px, 100vw"
+  credibility.pills[].logos[].image_id: "(min-width: 768px) 45px, 30px"
+
   
 variants:
   singleColumn:
