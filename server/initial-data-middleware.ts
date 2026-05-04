@@ -118,11 +118,11 @@ async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
       const data = result.data as any;
       if (data.sections && Array.isArray(data.sections)) {
         applyComponentSectionDefaults(data.sections);
-        applyComponentImageSizes(data.sections);
         data.sections = (await resolveDynamicEntries(
           data.sections,
           locale,
         )) as any;
+        applyComponentImageSizes(data.sections);
       }
       const pageRaw = contentIndex.loadMergedContent("page", slug, locale);
       const layout = resolveLayout("page", pageRaw.data || {});
@@ -188,11 +188,11 @@ async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
       const data = result.data as any;
       if (data.sections && Array.isArray(data.sections)) {
         applyComponentSectionDefaults(data.sections);
-        applyComponentImageSizes(data.sections);
         data.sections = (await resolveDynamicEntries(
           data.sections,
           locale,
         )) as any;
+        applyComponentImageSizes(data.sections);
       }
       const rawContent = contentIndex.loadMergedContent(
         contentType,

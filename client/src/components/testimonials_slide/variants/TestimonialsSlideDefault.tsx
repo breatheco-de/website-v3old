@@ -25,6 +25,7 @@ export interface TestimonialsSlideData {
   description: string;
   background?: string;
   testimonials?: TestimonialsSlideTestimonial[];
+  items?: BankTestimonial[];
   related_features?: string[];
   limit?: number;
 }
@@ -442,13 +443,21 @@ export default function TestimonialsSlide({ data }: TestimonialsSlideProps) {
 
   const relatedFeatures = data.related_features || [];
   const limitVal = Math.min(data.limit || 20, 30);
-  const useBankData = relatedFeatures.length > 0;
+  const hasServerItems = !!(data.items && data.items.length > 0);
+  const useBankData = !hasServerItems && relatedFeatures.length > 0;
 
   const { data: bankData } = useQuery<{ testimonials: BankTestimonial[] }>({
     queryKey: ["/api/testimonials", locale],
     staleTime: 5 * 60 * 1000,
     enabled: useBankData,
   });
+
+  const serverItems: TestimonialsSlideTestimonial[] = useMemo(() => {
+    if (!hasServerItems) return [];
+    const valid = (data.items || []).filter(isValidBankForSlide);
+    const sorted = sortBankForSlide(valid, relatedFeatures);
+    return sorted.slice(0, limitVal).map(mapBankToSlideItem);
+  }, [hasServerItems, data.items, relatedFeatures, limitVal]);
 
   const bankItems: TestimonialsSlideTestimonial[] = useMemo(() => {
     if (!useBankData || !bankData?.testimonials) return [];
@@ -498,8 +507,12 @@ export default function TestimonialsSlide({ data }: TestimonialsSlideProps) {
   const defaultFallback = isSpanish ? DEFAULT_TESTIMONIALS_ES : DEFAULT_TESTIMONIALS;
   const hasYamlTestimonials = !!(data.testimonials && data.testimonials.length > 0);
   const hardcodedTestimonials = hasYamlTestimonials ? data.testimonials! : defaultFallback;
-  const useYamlIndices = hasYamlTestimonials && !(useBankData && bankItems.length > 0);
-  const testimonials = useBankData && bankItems.length > 0 ? bankItems : hardcodedTestimonials;
+  const useYamlIndices = hasYamlTestimonials && !hasServerItems && !(useBankData && bankItems.length > 0);
+  const testimonials = hasServerItems
+    ? serverItems
+    : useBankData && bankItems.length > 0
+      ? bankItems
+      : hardcodedTestimonials;
   const masonryColumns = createMasonryColumns(testimonials, useYamlIndices);
 
   return (

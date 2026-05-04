@@ -117,9 +117,11 @@ function safeYamlDump(obj: unknown, opts?: yamlParser.DumpOptions): string {
 function stripTransientDynamicKeys(section: unknown): unknown {
   if (!section || typeof section !== "object") return section;
   const sec = section as Record<string, unknown>;
-  const { _variableFields: _vf, ...withoutVF } = sec;
-  if (!withoutVF.dynamic_entries) return withoutVF;
-  const { items: _items, _dynamic_meta: _meta, ...authored } = withoutVF;
+  const withoutPrivate = Object.fromEntries(
+    Object.entries(sec).filter(([k]) => !k.startsWith("_"))
+  );
+  if (!withoutPrivate.dynamic_entries) return withoutPrivate;
+  const { items: _items, ...authored } = withoutPrivate;
   return authored;
 }
 import { usePageHistoryOptional } from "@/contexts/PageHistoryContext";
