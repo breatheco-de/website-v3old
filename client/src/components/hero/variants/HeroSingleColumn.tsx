@@ -154,6 +154,7 @@ export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
               ...(data.image_full_width ? {} : { borderRadius: '0.8rem' }),
             }}
             onError={handleHeroError}
+            loading="eager"
             data-testid="img-hero-single-column"
             fieldContext={
               (data as any).image_id

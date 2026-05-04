@@ -207,8 +207,8 @@ export function UniversalImage({
   const src = imageEntry ? imageEntry.src : resolvedId;
 
   const resolvedLoading = resolvedLoadingEarly;
-  const fetchPriority: "high" | "auto" = isPrioritySection ? "high" : "auto";
-  const decoding: "sync" | "async" = isPrioritySection ? "sync" : "async";
+  const fetchPriority: "high" | "auto" = (isPrioritySection || isEager) ? "high" : "auto";
+  const decoding: "sync" | "async" = (isPrioritySection || isEager) ? "sync" : "async";
 
   const srcsetString =
     imageEntry?.srcset && imageEntry.srcset.length > 0

@@ -72,6 +72,7 @@ export default function HeroSimpleStacked({ data }: HeroSimpleStackedProps) {
               alt={data.image.alt}
               className="w-full h-auto rounded-card shadow-card"
               fieldContext={{ fieldPath: "image.src" }}
+              loading="eager"
               data-testid="img-hero"
             />
           </div>
