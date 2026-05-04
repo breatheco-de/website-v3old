@@ -8,7 +8,7 @@ when_to_use: |
   Pair with highlight.slides for rotating testimonials or messaging; omit highlight for a simple image band.
 
 image_sizes:
-  default.images[].src: "(min-width: 768px) 300px, 100vw"
+  default.images[].src: "(min-width: 768px) 300px, 300px"
 
 variants:
   default:
