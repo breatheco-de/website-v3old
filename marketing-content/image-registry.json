@@ -13310,6 +13310,7 @@
         "card"
       ],
       "widths_generated": [
+        32,
         64,
         128,
         256,
@@ -13319,6 +13320,10 @@
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/diego-gomez-testimonial-32w.webp"
+        },
         {
           "w": 64,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/diego-gomez-testimonial-64w.webp"
@@ -13361,6 +13366,7 @@
         "card"
       ],
       "widths_generated": [
+        32,
         64,
         128,
         256,
@@ -13370,6 +13376,10 @@
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/fernando-manrique-villanueva-32w.webp"
+        },
         {
           "w": 64,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/fernando-manrique-villanueva-64w.webp"
@@ -13412,6 +13422,7 @@
         "card"
       ],
       "widths_generated": [
+        32,
         64,
         128,
         256,
@@ -13421,6 +13432,10 @@
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/fidel-rosell-32w.webp"
+        },
         {
           "w": 64,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/fidel-rosell-64w.webp"
@@ -13463,6 +13478,7 @@
         "card"
       ],
       "widths_generated": [
+        32,
         64,
         128,
         256,
@@ -13472,6 +13488,10 @@
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/fidel-vera-testimonial-32w.webp"
+        },
         {
           "w": 64,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/fidel-vera-testimonial-64w.webp"
@@ -13514,6 +13534,7 @@
         "card"
       ],
       "widths_generated": [
+        32,
         64,
         128,
         256,
@@ -13523,6 +13544,10 @@
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/francisco-correa-testimonial-32w.webp"
+        },
         {
           "w": 64,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/francisco-correa-testimonial-64w.webp"
@@ -13565,6 +13590,7 @@
         "card"
       ],
       "widths_generated": [
+        32,
         64,
         128,
         256,
@@ -13574,6 +13600,10 @@
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/gabriela-rodrigez-32w.webp"
+        },
         {
           "w": 64,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/gabriela-rodrigez-64w.webp"
@@ -13616,6 +13646,7 @@
         "card"
       ],
       "widths_generated": [
+        32,
         64,
         128,
         256,
@@ -13625,6 +13656,10 @@
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/guensie-grecy-32w.webp"
+        },
         {
           "w": 64,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/guensie-grecy-64w.webp"
@@ -13667,6 +13702,7 @@
         "card"
       ],
       "widths_generated": [
+        32,
         64,
         128,
         256,
@@ -13676,6 +13712,10 @@
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ibai-fernandez-32w.webp"
+        },
         {
           "w": 64,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/ibai-fernandez-64w.webp"
@@ -13718,6 +13758,7 @@
         "card"
       ],
       "widths_generated": [
+        32,
         64,
         128,
         256,
@@ -13727,6 +13768,10 @@
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/james-testimonial-32w.webp"
+        },
         {
           "w": 64,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/james-testimonial-64w.webp"
@@ -13769,6 +13814,7 @@
         "card"
       ],
       "widths_generated": [
+        32,
         64,
         128,
         256,
@@ -13778,6 +13824,10 @@
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/javier-murillo-testimonial-32w.webp"
+        },
         {
           "w": 64,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/javier-murillo-testimonial-64w.webp"
