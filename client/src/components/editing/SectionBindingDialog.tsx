@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { AlertTriangle, ArrowRight, Check, Link, LinkOff, Loader2, Pencil, Plus, Search, Trash2, X } from "lucide-react";
+import { AlertTriangle, ArrowRight, Check, Link, Unlink, Loader2, Pencil, Plus, Search, Trash2, X } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import {
@@ -862,7 +862,7 @@ export function SectionBindingDialog({
                     disabled={isPending}
                     data-testid="button-leave-group"
                   >
-                    <LinkOff className="h-3.5 w-3.5" />
+                    <Unlink className="h-3.5 w-3.5" />
                     Leave group
                   </Button>
                   <Button

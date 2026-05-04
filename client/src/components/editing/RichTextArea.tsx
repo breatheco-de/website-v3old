@@ -1,5 +1,5 @@
 import { useRef, useCallback, useEffect, useMemo, useState } from "react";
-import { AlignJustify, Bold, CaseUpper, Eraser, ExternalLink, Italic, Link, LinkOff, List, Loader2, Palette, Search, Space, Type } from "lucide-react";
+import { AlignJustify, Bold, CaseUpper, Eraser, ExternalLink, Italic, Link, Unlink, List, Loader2, Palette, Search, Space, Type } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -1433,7 +1433,7 @@ export function RichTextArea({
               className="flex items-center gap-1.5 rounded-sm px-2 py-1 text-xs font-medium text-foreground hover:bg-muted"
               title="Remove link"
             >
-              <LinkOff className="h-3.5 w-3.5" />
+              <Unlink className="h-3.5 w-3.5" />
               Remove link
             </button>
           </div>

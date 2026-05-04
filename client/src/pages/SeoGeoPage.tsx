@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AlertTriangle, ArrowLeft, Brain, Check, Crosshair, Globe, Info, Network, Sitemap, Star } from "lucide-react";
+import { AlertTriangle, ArrowLeft, Brain, Check, Crosshair, Globe, Info, Network, Star } from "lucide-react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -103,7 +103,7 @@ function SeoTab({ data }: { data: SeoOverview }) {
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3" data-testid="seo-totals-grid">
-        <StatCard label="Total Pages" value={data.totals.totalPages} icon={<Sitemap className="h-4 w-4" />} />
+        <StatCard label="Total Pages" value={data.totals.totalPages} icon={<Network className="h-4 w-4" />} />
         <StatCard label="With Intent" value={data.totals.withIntent} total={data.totals.totalPages} icon={<Crosshair className="h-4 w-4" />} />
         <StatCard label="Clustered" value={data.totals.withPillar} total={data.totals.totalPages} icon={<Network className="h-4 w-4" />} />
         <StatCard label="Focus Features" value={data.totals.withFocusFeatures} total={data.totals.totalPages} icon={<Star className="h-4 w-4" />} />
