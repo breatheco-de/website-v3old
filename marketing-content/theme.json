@@ -629,21 +629,5 @@
       "value": "1.6px"
     }
   ],
-  "preview_examples": [
-    {
-      "component": "graduates_stats",
-      "version": "v1.0",
-      "example": "Full Bleed Career Outcomes"
-    },
-    {
-      "component": "graduates_stats",
-      "version": "v1.0",
-      "example": "Basic Graduates Stats"
-    },
-    {
-      "component": "hero",
-      "version": "v1.0",
-      "example": "Product Showcase"
-    }
-  ]
+  "preview_examples": []
 }
