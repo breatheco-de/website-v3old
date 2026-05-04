@@ -68,11 +68,13 @@ sections:
         excerpt: "Gracias a nuestros amigos de CNN Chile por haber estado presentes en nuestro evento y publicar tan buen material sobre el futuro en educación que ofrecemos a la comunidad de Santiago a través de nuestro programa de #Bootcamp de #Programación."
         link_text: Ver Entrevista
         link_url: https://www.facebook.com/4GeeksAcademyCL/videos/492034597993382/
-      - logo: economista-logo
+      - logo: https://storage.googleapis.com/4geeks-academy-website/media/economista-logo.png
         title: 4Geeks lanza un millón en becas para la formación de futuros programadores
         excerpt: La escuela de programadores 4Geeks Academy apuesta por acercar el mundo de la programación a todos los públicos. La compañía lanza más de 300 becas con un valor de un millón de euros en todo el mundo a través del Marketplace Landing.Jobs.
         link_text: Ver Entrevista
         link_url: https://www.eleconomista.es/ecoaula/noticias/11389106/09/21/4Geeks-Academy-lanza-un-millon-en-becas-para-la-formacion-de-futuros-programadores.html
+        alt: "Image: economista-logo"
+        id: economista-logo
     paddingY:
       desktop: none md
   - type: value_proof_panel
