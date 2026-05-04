@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { SitemapSearch } from "@/components/menus/SitemapSearch";
 import { Badge } from "@/components/ui/badge";
@@ -154,17 +154,62 @@ function getCategoryBadgeVariant(cat: string): "default" | "secondary" | "destru
   }
 }
 
+interface SitemapEntry {
+  loc: string;
+  label: string;
+}
+
+function extractPath(url: string): string {
+  try {
+    const parsed = new URL(url);
+    return parsed.pathname;
+  } catch {
+    return url;
+  }
+}
+
 export default function SyncLogPage() {
-  const [search, setSearch] = useState(() => {
-    const params = new URLSearchParams(window.location.search);
-    return params.get("search") || "";
-  });
+  const initialSearch = useRef(
+    new URLSearchParams(window.location.search).get("search") || ""
+  );
+  const [search, setSearch] = useState(initialSearch.current);
   const [sitemapPage, setSitemapPage] = useState("");
   const [activeCategories, setActiveCategories] = useState<Set<Category>>(
     new Set([])
   );
   const [activePersons, setActivePersons] = useState<Set<string>>(new Set([]));
   const qc = useQueryClient();
+
+  const { data: sitemapUrls = [] } = useQuery<SitemapEntry[]>({
+    queryKey: ["/api/sitemap-urls"],
+    queryFn: async () => {
+      const res = await fetch("/api/sitemap-urls");
+      if (!res.ok) throw new Error("Failed to load sitemap URLs");
+      return res.json();
+    },
+  });
+
+  const initialFillDone = useRef(false);
+
+  useEffect(() => {
+    if (initialFillDone.current || !initialSearch.current || sitemapUrls.length === 0) return;
+    initialFillDone.current = true;
+
+    const slug = initialSearch.current;
+    const LOCALE_PREFIXES = new Set(["en", "es", "us"]);
+
+    const match = sitemapUrls.find((entry) => {
+      const pathname = extractPath(entry.loc);
+      const parts = pathname.split("/").filter(Boolean);
+      const contentParts =
+        parts.length > 0 && LOCALE_PREFIXES.has(parts[0]) ? parts.slice(1) : parts;
+      return contentParts[contentParts.length - 1] === slug;
+    });
+
+    if (match) {
+      setSitemapPage(extractPath(match.loc));
+    }
+  }, [sitemapUrls]);
 
   const clearMutation = useMutation({
     mutationFn: (mode: "all" | "2days") => apiRequest("DELETE", `/api/github/sync-log?mode=${mode}`),
