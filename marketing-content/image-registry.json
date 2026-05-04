@@ -15679,6 +15679,47 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/google-583w.webp"
         }
       ]
+    },
+    "google-583x196-q79": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79.webp",
+      "alt": "Image: google",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "width": 583,
+      "height": 196,
+      "format": "webp",
+      "parentId": "google",
+      "quality_override": 79,
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79-240w.webp"
+        }
+      ]
     }
   }
 }
