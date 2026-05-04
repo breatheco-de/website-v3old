@@ -15189,6 +15189,47 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/newsweek-logo-240w.webp"
         }
       ]
+    },
+    "bid_logo-616x616": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/bid_logo-616x616.webp",
+      "alt": "BID logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner"
+      ],
+      "usage_count": 0,
+      "width": 616,
+      "height": 616,
+      "format": "webp",
+      "parentId": "bid_logo",
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/bid_logo-616x616-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/bid_logo-616x616-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/bid_logo-616x616-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/bid_logo-616x616-240w.webp"
+        }
+      ]
     }
   }
 }
