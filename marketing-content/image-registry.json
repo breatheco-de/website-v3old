@@ -13765,7 +13765,9 @@
     "blog_posts-blog_posts-launch-your-career-png-0ee32b-3985dd31": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-launch-your-career-png-0ee32b0a-736x491-640w.webp",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "illustration"
+      ],
       "source_url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-launch-your-career-png-0ee32b0a-736x491.webp",
       "usage_count": 0,
       "source_item": "geekforce-the-career-launch-engine",
@@ -13788,7 +13790,10 @@
     "blog_posts-blog_posts-600000-png-f6968952-736x491-7d46199c": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-600000-png-f6968952-736x491-640w.webp",
       "alt": "Image from blog_posts",
-      "tags": [],
+      "tags": [
+        "illustration",
+        "hero"
+      ],
       "source_url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-600000-png-f6968952-736x491.webp",
       "usage_count": 0,
       "source_item": "the-600000-job-crisis",
