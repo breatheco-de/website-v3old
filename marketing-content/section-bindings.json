@@ -2042,6 +2042,80 @@
       ],
       "createdAt": "2026-04-28T22:00:08.143Z",
       "name": "two column en locations, \"todo lo que necesitas...\""
+    },
+    {
+      "id": "bind_moro4awv_mnydkw",
+      "component": "syllabus",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "program",
+          "slug": "ai-engineering",
+          "sectionId": "syllabus-5hjjcl"
+        },
+        {
+          "contentType": "landing",
+          "slug": "ai-bootcamp-with-job-placement",
+          "sectionId": "syllabus-sj3ism"
+        },
+        {
+          "contentType": "landing",
+          "slug": "ai-engineering-certification",
+          "sectionId": "syllabus-sj3ism"
+        },
+        {
+          "contentType": "landing",
+          "slug": "ai-engineering-certification-master-python-for-ai-applications",
+          "sectionId": "syllabus-sj3ism"
+        },
+        {
+          "contentType": "landing",
+          "slug": "ai-engineering-coding-florida",
+          "sectionId": "syllabus-sj3ism"
+        },
+        {
+          "contentType": "landing",
+          "slug": "ai-engineering-en",
+          "sectionId": "syllabus-sj3ism"
+        },
+        {
+          "contentType": "landing",
+          "slug": "ai-engineering-for-developers",
+          "sectionId": "syllabus-dmjn96"
+        },
+        {
+          "contentType": "landing",
+          "slug": "ai-engineering-prueba-anik",
+          "sectionId": "syllabus-ulpobb"
+        },
+        {
+          "contentType": "landing",
+          "slug": "from-data-scientist-to-certified-ai-engineer",
+          "sectionId": "syllabus-8novey"
+        },
+        {
+          "contentType": "landing",
+          "slug": "from-developer-to-certified-ai-engineer-with-job-guarantee",
+          "sectionId": "syllabus-sj3ism"
+        },
+        {
+          "contentType": "landing",
+          "slug": "pricing",
+          "sectionId": "syllabus-sj3ism"
+        },
+        {
+          "contentType": "landing",
+          "slug": "prueba-lorena",
+          "sectionId": "syllabus-sj3ism"
+        },
+        {
+          "contentType": "page",
+          "slug": "componentes-display",
+          "sectionId": "syllabus-29bmnv"
+        }
+      ],
+      "createdAt": "2026-05-04T20:44:44.479Z",
+      "name": "always updated syllabus for ai engineering"
     }
   ]
 }
