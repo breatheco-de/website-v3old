@@ -9,7 +9,9 @@ when_to_use: |
   Great for career pages, outcomes sections, or testimonial areas.
 
 image_sizes:
-  default.featured_images[].image_id: "(min-width: 768px) 310px, 100vw"
+  default.collage_images[].image_id: "(min-width: 768px) 350px, 50vw"
+  fullBleed.featured_images[].image_id: "(min-width: 768px) 500px, 100vw"
+  fullBleed.collage_images[].image_id: "(min-width: 768px) 350px, 50vw"
   
 variants:
   standard:

@@ -7,9 +7,6 @@ when_to_use: |
   Use to showcase people (students, team), photo strips, or brand imagery alongside a short value proposition.
   Pair with highlight.slides for rotating testimonials or messaging; omit highlight for a simple image band.
 
-image_sizes:
-  default.images[].src: "(min-width: 768px) 256px, 25vw"
-
 variants:
   default:
     description: Row of images with optional highlight slideshow above on mobile and beside images on desktop
