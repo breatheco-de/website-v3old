@@ -42,6 +42,7 @@ export default function HeroShowcase({ data }: HeroShowcaseProps) {
                 className="w-full h-48 rounded-lg"
                 style={{ objectFit: "cover" }}
                 fieldContext={{ arrayPath: "left_images", index, srcField: "src" }}
+                loading={index === 0 ? "eager" : "lazy"}
               />
             </div>
           ))}
@@ -152,6 +153,7 @@ export default function HeroShowcase({ data }: HeroShowcaseProps) {
                 className="w-full h-48 rounded-lg"
                 style={{ objectFit: "cover" }}
                 fieldContext={{ arrayPath: "right_images", index, srcField: "src" }}
+                loading={index === 0 ? "eager" : "lazy"}
               />
             </div>
           ))}

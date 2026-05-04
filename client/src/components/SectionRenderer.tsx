@@ -964,6 +964,8 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           : innerStyles;
         const sectionId = (rawSection as SectionLayout).section_id || `${sectionType}-${index}`;
         const isPriority = loadStrategy === "eager";
+        const sectionVariableFields = (rawSection as Record<string, unknown>)._variableFields as Record<string, string> | undefined;
+        const sectionVariableKeys = (rawSection as Record<string, unknown>)._variableKeys as Record<string, string> | undefined;
         const imageSizes =
           ((rawSection as Record<string, unknown>)._imageSizes as Record<string, string> | undefined) ??
           {};
@@ -976,6 +978,8 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
               slug: slug ?? "",
               locale: locale ?? "",
               imageSizes,
+              variableFields: sectionVariableFields,
+              variableKeys: sectionVariableKeys,
             }}
           >
             {renderedContent}

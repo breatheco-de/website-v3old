@@ -150,3 +150,4 @@ props:
     required: false
     description: Optional section wrapper background; uses semantic keys (primary, accent, muted, card, background) when recognized
     example: muted
+    

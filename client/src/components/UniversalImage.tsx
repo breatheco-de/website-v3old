@@ -4,12 +4,20 @@ import type { ImageRef, ImageEntry, ImagePreset } from "@shared/schema";
 import SolidCard from "./SolidCard";
 import { useSectionContext } from "@/contexts/SectionContext";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
-import { Pencil, CheckCircle2, Clock, AlertCircle, Unlink } from "lucide-react";
+import { Pencil, CheckCircle2, Clock, AlertCircle, Unlink, ExternalLink, ShieldCheck, Shield, ChevronDown } from "lucide-react";
 import { ImagePickerDialog } from "@/components/editing/ImagePickerDialog";
 import { editContent } from "@/lib/contentApi";
 import { emitContentUpdated } from "@/lib/contentEvents";
+import { resolveTemplateFallback } from "@/lib/variable-manager";
 import { useToast } from "@/hooks/use-toast";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { queryClient } from "@/lib/queryClient";
 
 const DEFAULT_SRCSET_SIZES =
   "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
@@ -56,6 +64,7 @@ interface FieldContext {
   arrayPath?: string;
   index?: number;
   srcField?: string;
+  templateKey?: string;
 }
 
 interface UniversalImageProps extends ImageRef {
@@ -114,10 +123,43 @@ export function UniversalImage({
     slug: sectionSlug,
     locale: sectionLocale,
     imageSizes: sectionImageSizes,
+    variableFields, variableKeys
   } = useSectionContext();
   const editModeCtx = useEditModeOptional();
   const isEditMode = editModeCtx?.isEditMode ?? false;
   const { toast } = useToast();
+
+  // Derive the template key from fieldContext + the section's _variableKeys map from context.
+  // _variableKeys maps dotPath → templateKey (e.g. "image.src" → "image").
+  // Explicit fieldContext.templateKey takes priority; otherwise auto-derive from the field path.
+  const templateKey: string | undefined = (() => {
+    if (fieldContext?.templateKey) return fieldContext.templateKey;
+    if (!variableKeys) return undefined;
+    let lookupPath: string | undefined;
+    if (fieldContext?.fieldPath) {
+      lookupPath = fieldContext.fieldPath;
+    } else if (fieldContext?.arrayPath !== undefined && fieldContext?.index !== undefined && fieldContext?.srcField) {
+      lookupPath = `${fieldContext.arrayPath}.${fieldContext.index}.${fieldContext.srcField}`;
+    }
+    if (!lookupPath) return undefined;
+    return variableKeys[lookupPath];
+  })();
+
+
+  const { data: dbOverridesData } = useQuery<{ overrides: Record<string, unknown>; originals?: Record<string, unknown> }>({
+    queryKey: ["/api/content-types", sectionContentType, "db-overrides", sectionSlug],
+    queryFn: async () => {
+      const res = await fetch(`/api/content-types/${sectionContentType}/db-overrides/${sectionSlug}`);
+      if (!res.ok) throw new Error(await res.text());
+      return res.json() as Promise<{ overrides: Record<string, unknown>; originals?: Record<string, unknown> }>;
+    },
+    enabled: isEditMode && !!templateKey && !!sectionContentType && !!sectionSlug,
+    staleTime: 0,
+    refetchOnMount: false,
+  });
+  const dbOverrides = dbOverridesData?.overrides ?? {};
+  const dbOriginals = dbOverridesData?.originals ?? {};
+  const isOverridden = !!templateKey && templateKey in dbOverrides;
 
   const resolvedLoadingEarly: "lazy" | "eager" =
     loadingProp !== undefined
@@ -152,15 +194,22 @@ export function UniversalImage({
     onError?.();
   };
 
-  if (!id || !id.trim()) {
+  // In edit mode, patchVariableFieldHighlights rewrites template fields as
+  // "{{ single.field | resolvedUrl }}" strings. If such a string reaches UniversalImage
+  // as the `id` prop it is not a direct URL and not in the registry, so the component
+  // returns null (silently hiding both the image and the override badge).
+  // resolveTemplateFallback strips the {{ … }} wrapper and returns only the embedded URL.
+  const resolvedId = resolveTemplateFallback(id ?? "");
+
+  if (!resolvedId || !resolvedId.trim()) {
     return null;
   }
 
   const isDirectUrl =
-    id.startsWith("/") ||
-    id.startsWith("http://") ||
-    id.startsWith("https://") ||
-    id.startsWith("data:");
+    resolvedId.startsWith("/") ||
+    resolvedId.startsWith("http://") ||
+    resolvedId.startsWith("https://") ||
+    resolvedId.startsWith("data:");
 
   if (!isDirectUrl && !isEager && (registryLoading || !registry || !registry.images)) {
     return (
@@ -171,7 +220,7 @@ export function UniversalImage({
     );
   }
 
-  const imageEntry = registry?.images?.[id] ?? (isDirectUrl ? reverseMap.get(id) : undefined) ?? undefined;
+  const imageEntry = registry?.images?.[resolvedId] ?? (isDirectUrl ? reverseMap.get(resolvedId) : undefined) ?? undefined;
   const isDirectPath = !imageEntry && isDirectUrl;
 
   if (!imageEntry && !isDirectPath) {
@@ -183,12 +232,12 @@ export function UniversalImage({
     ? ASPECT_RATIOS[presetConfig.aspect_ratio]
     : undefined;
 
-  const finalAlt = altOverride || (imageEntry ? imageEntry.alt : id);
-  const src = imageEntry ? imageEntry.src : id;
+  const finalAlt = altOverride || (imageEntry ? imageEntry.alt : resolvedId);
+  const src = imageEntry ? imageEntry.src : resolvedId;
 
   const resolvedLoading = resolvedLoadingEarly;
-  const fetchPriority: "high" | "auto" = isPrioritySection ? "high" : "auto";
-  const decoding: "sync" | "async" = isPrioritySection ? "sync" : "async";
+  const fetchPriority: "high" | "auto" = (isPrioritySection || isEager) ? "high" : "auto";
+  const decoding: "sync" | "async" = (isPrioritySection || isEager) ? "sync" : "async";
 
   const srcsetString =
     imageEntry?.srcset && imageEntry.srcset.length > 0
@@ -283,6 +332,34 @@ export function UniversalImage({
     </Tooltip>
   ) : null;
 
+  const overrideBadge = isEditMode && !!templateKey ? (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <div
+          className={`absolute top-1 left-1 z-10 flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-medium shadow-sm ${
+            isOverridden
+              ? "bg-green-600/90 text-white"
+              : "bg-muted/90 text-muted-foreground"
+          }`}
+          data-testid={`badge-override-status-${id}`}
+          aria-label={isOverridden ? "Image overridden by editor" : "Image using template default"}
+        >
+          {isOverridden ? (
+            <ShieldCheck className="h-3 w-3 shrink-0" />
+          ) : (
+            <Shield className="h-3 w-3 shrink-0" />
+          )}
+          {isOverridden ? "Overridden" : "Default"}
+        </div>
+      </TooltipTrigger>
+      <TooltipContent side="bottom" className="text-xs">
+        {isOverridden
+          ? `Custom image set by an editor (key: ${templateKey})`
+          : `Still using the template default (key: ${templateKey})`}
+      </TooltipContent>
+    </Tooltip>
+  ) : null;
+
   const handleEditClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -334,21 +411,115 @@ export function UniversalImage({
     }
   };
 
+  const handleResetOverride = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!sectionContentType || !sectionSlug || !templateKey) return;
+    try {
+      const res = await fetch(
+        `/api/content-types/${sectionContentType}/db-overrides/${sectionSlug}?field=${encodeURIComponent(templateKey)}`,
+        { method: "DELETE" }
+      );
+      if (!res.ok) throw new Error(await res.text());
+      await queryClient.invalidateQueries({
+        queryKey: ["/api/content-types", sectionContentType, "db-overrides", sectionSlug],
+      });
+      emitContentUpdated({ contentType: sectionContentType, slug: sectionSlug, locale: sectionLocale ?? "" });
+      toast({ title: "Image reset to original" });
+    } catch (err) {
+      toast({
+        title: "Reset failed",
+        description: err instanceof Error ? err.message : "Unknown error",
+        variant: "destructive",
+      });
+    }
+  };
+
   const editOverlay = canReplace ? (
-    <button
-      type="button"
-      onClick={handleEditClick}
-      className="absolute inset-0 z-20 flex items-center justify-center invisible group-hover/editimg:visible cursor-pointer w-full"
+    <div
+      className="absolute inset-0 z-20 flex items-center justify-center invisible group-hover/editimg:visible"
       data-edit-overlay="true"
-      data-testid={`button-edit-image-${id}`}
-      aria-label="Replace image"
     >
       <div className="absolute inset-0 bg-black/40" />
-      <span className="relative z-10 flex items-center gap-1.5 bg-white/90 text-gray-900 rounded-md px-2.5 py-1.5 text-xs font-medium shadow-md">
-        <Pencil className="h-3 w-3" />
-        Replace
-      </span>
-    </button>
+      <div className="relative z-10 flex items-center gap-2">
+        {/* Replace dropdown */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button
+              type="button"
+              className="flex items-center gap-1.5 bg-white/90 text-gray-900 rounded-md px-2.5 py-1.5 text-xs font-medium shadow-md cursor-pointer"
+              data-testid={`button-edit-image-${id}`}
+              aria-label="Replace image"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Pencil className="h-3 w-3" />
+              Replace
+              <ChevronDown className="h-3 w-3" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent onClick={(e) => e.stopPropagation()}>
+            <DropdownMenuItem
+              data-testid={`menu-item-choose-image-${id}`}
+              onSelect={(e) => {
+                (e as unknown as React.MouseEvent).stopPropagation?.();
+                setPickerOpen(true);
+              }}
+            >
+              Choose new image
+            </DropdownMenuItem>
+            {isOverridden && (
+              <DropdownMenuItem
+                data-testid={`menu-item-reset-image-${id}`}
+                onSelect={(e) => {
+                  handleResetOverride(e as unknown as React.MouseEvent);
+                }}
+              >
+                Reset to original
+              </DropdownMenuItem>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        {/* Open dropdown */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button
+              type="button"
+              className="flex items-center gap-1.5 bg-white/90 text-gray-900 rounded-md px-2.5 py-1.5 text-xs font-medium shadow-md cursor-pointer"
+              data-testid={`button-open-image-${id}`}
+              aria-label="Open image"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <ExternalLink className="h-3 w-3" />
+              Open
+              <ChevronDown className="h-3 w-3" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent onClick={(e) => e.stopPropagation()}>
+            <DropdownMenuItem
+              data-testid={`menu-item-open-original-${id}`}
+              onSelect={() => {
+                const originalUrl = isOverridden && templateKey && dbOriginals[templateKey]
+                  ? String(dbOriginals[templateKey])
+                  : src;
+                window.open(originalUrl, "_blank", "noopener,noreferrer");
+              }}
+            >
+              Open original image
+            </DropdownMenuItem>
+            {isOverridden && (
+              <DropdownMenuItem
+                data-testid={`menu-item-open-override-${id}`}
+                onSelect={() =>
+                  window.open(String(dbOverrides[templateKey!]), "_blank", "noopener,noreferrer")
+                }
+              >
+                Open override version
+              </DropdownMenuItem>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </div>
   ) : null;
 
   const imageContent = (
@@ -388,6 +559,7 @@ export function UniversalImage({
         }}
         data-testid={`img-${id}`}
       />
+      {overrideBadge}
       {statusBadge}
       {editOverlay}
     </div>

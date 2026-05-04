@@ -2655,15 +2655,6 @@ export default function MediaGallery() {
                             {entry.slug}
                           </span>
                         </div>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => resetOverrideMutation.mutate({ contentType: entry.contentType, slug: entry.slug })}
-                          disabled={resetOverrideMutation.isPending}
-                          data-testid={`button-reset-all-${entry.contentType}-${entry.slug}`}
-                        >
-                          Reset all
-                        </Button>
                       </div>
                       <div className="space-y-2">
                         {fieldKeys.map((field) => {
