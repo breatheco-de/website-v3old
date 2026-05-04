@@ -15280,6 +15280,31 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/cnn-logo-326w.webp"
         }
       ]
+    },
+    "economista-logo": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/economista-logo.png",
+      "alt": "Image: economista-logo",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "c59f0d56eb92e75cb204684d94453198e8d371f3604d31c5b4f484dc5b4413e6",
+      "width": 600,
+      "height": 57,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        600
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 600,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/economista-logo-600w.webp"
+        }
+      ]
     }
   }
 }
