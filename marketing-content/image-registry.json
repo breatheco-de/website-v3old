@@ -15864,6 +15864,31 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/group-7085-1-700x380-600x326-q80-480w.webp"
         }
       ]
+    },
+    "daniela-maisi": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/daniela-maisi.jpg",
+      "alt": "Image: daniela-maisi",
+      "focal_point": "center",
+      "tags": [
+        "photo"
+      ],
+      "usage_count": 0,
+      "hash": "bf75da7ab0e51eccbcd244ff5b850c467972f8209d3519cbce59cc669e235a25",
+      "width": 460,
+      "height": 460,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        460
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 460,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/daniela-maisi-460w.webp"
+        }
+      ]
     }
   }
 }
