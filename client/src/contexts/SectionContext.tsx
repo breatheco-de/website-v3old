@@ -6,6 +6,8 @@ export interface SectionContextValue {
   contentType: string;
   slug: string;
   locale: string;
+  /** From server `section._imageSizes` (schema `image_sizes` for this variant). */
+  imageSizes: Record<string, string>;
 }
 
 const defaultValue: SectionContextValue = {
@@ -14,6 +16,7 @@ const defaultValue: SectionContextValue = {
   contentType: "",
   slug: "",
   locale: "",
+  imageSizes: {},
 };
 
 const SectionContext = createContext<SectionContextValue>(defaultValue);

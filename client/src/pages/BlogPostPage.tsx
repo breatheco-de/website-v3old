@@ -156,7 +156,16 @@ export default function BlogPostPage() {
         </div>
 
         {post.preview && (
-          <SectionContextProvider value={{ isPriority: true, sectionIndex: 0, contentType: "blog", slug: post.slug ?? "", locale: locale ?? "" }}>
+          <SectionContextProvider
+            value={{
+              isPriority: true,
+              sectionIndex: 0,
+              contentType: "blog",
+              slug: post.slug ?? "",
+              locale: locale ?? "",
+              imageSizes: {},
+            }}
+          >
             <div className="mb-10 rounded-md overflow-hidden" data-testid="img-blog-post-hero">
               <UniversalImage
                 id={post.preview}
