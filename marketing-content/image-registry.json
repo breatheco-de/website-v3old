@@ -15784,6 +15784,60 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80-480w.webp"
         }
       ]
+    },
+    "group-7085-1-700x380-600x326-q80": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/group-7085-1-700x380-600x326-q80.webp",
+      "alt": "Image: Group 7085 (1)",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 600,
+      "height": 326,
+      "format": "webp",
+      "parentId": "group-7085-1-700x380",
+      "quality_override": 80,
+      "preset": [
+        "full",
+        "card",
+        "avatar"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        128,
+        256,
+        320,
+        480
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/group-7085-1-700x380-600x326-q80-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/group-7085-1-700x380-600x326-q80-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/group-7085-1-700x380-600x326-q80-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/group-7085-1-700x380-600x326-q80-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/group-7085-1-700x380-600x326-q80-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/group-7085-1-700x380-600x326-q80-480w.webp"
+        }
+      ]
     }
   }
 }
