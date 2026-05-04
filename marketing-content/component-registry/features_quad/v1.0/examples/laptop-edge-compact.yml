@@ -8,9 +8,9 @@ yaml: |
     heading: "What You'll Learn"
     description: "Master the essential skills for AI engineering."
     images:
-      - image_id: "student-1"
+      - image_id: "student_asian"
         alt: "Student 1"
-      - image_id: "student-2"
+      - image_id: "student_latin_male"
         alt: "Student 2"
     cards:
       - icon: "Code"

@@ -19,6 +19,21 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { queryClient } from "@/lib/queryClient";
 
+const DEFAULT_SRCSET_SIZES =
+  "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
+
+function firstPresetSizesFromImageEntry(
+  imageEntry: { preset?: string[] } | null | undefined,
+  presets: Record<string, { sizes?: string }> | undefined,
+): string | undefined {
+  if (!imageEntry?.preset?.length || !presets) return undefined;
+  for (const name of imageEntry.preset) {
+    const s = presets[name]?.sizes;
+    if (typeof s === "string" && s.trim()) return s;
+  }
+  return undefined;
+}
+
 interface ImageRegistryData {
   presets: Record<string, ImagePreset>;
   images: Record<string, ImageEntry>;
@@ -95,7 +110,15 @@ export function UniversalImage({
   const [hasError, setHasError] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
-  const { isPriority: isPrioritySection, sectionIndex, contentType: sectionContentType, slug: sectionSlug, locale: sectionLocale, variableFields, variableKeys } = useSectionContext();
+  const {
+    isPriority: isPrioritySection,
+    sectionIndex,
+    contentType: sectionContentType,
+    slug: sectionSlug,
+    locale: sectionLocale,
+    imageSizes: sectionImageSizes,
+    variableFields, variableKeys
+  } = useSectionContext();
   const editModeCtx = useEditModeOptional();
   const isEditMode = editModeCtx?.isEditMode ?? false;
   const { toast } = useToast();
@@ -216,7 +239,20 @@ export function UniversalImage({
       : undefined;
 
 
-  const sizesString = sizesProp ?? presetConfig?.sizes ?? (srcsetString ? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" : undefined);
+  const fromSchema =
+    (fieldContext?.fieldPath && sectionImageSizes[fieldContext.fieldPath]) ||
+    (fieldContext?.arrayPath && sectionImageSizes[fieldContext.arrayPath]) ||
+    undefined;
+  const fromRegistryImagePresets = firstPresetSizesFromImageEntry(
+    imageEntry,
+    registry?.presets,
+  );
+  const sizesString =
+    sizesProp ??
+    fromSchema ??
+    fromRegistryImagePresets ??
+    presetConfig?.sizes ??
+    (srcsetString ? DEFAULT_SRCSET_SIZES : undefined);
 
   const intrinsicWidth = imageEntry?.width;
   const intrinsicHeight = imageEntry?.height;

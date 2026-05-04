@@ -1,17 +1,20 @@
 /**
  * Fixer: image-optimization
  *
- * Processes raster images in the registry that need optimization, covering two cases:
+ * Processes raster images in the registry that need optimization, covering three cases:
  *   1. Images with no srcset yet (first-time optimization).
  *   2. Images whose stored preset does not match what tagDefinitions requires for
  *      their current tags (re-optimization to apply the correct preset/widths).
+ *   3. Images whose widths_generated is a strict subset of the widths defined by
+ *      their current preset(s) — i.e. new widths were added to the preset after
+ *      the image was last optimized.
  *
  * Processing runs in the background; the fixer returns immediately with the count queued.
  */
 
 import type { Fixer, FixerContext, FixerResult } from "./types";
 import { mediaGallery } from "../../../server/media-gallery";
-import { processImageFromSrc } from "../../../server/image-optimizer";
+import { processImageFromSrc, mergeWidths } from "../../../server/image-optimizer";
 import type { Preset } from "../../../server/image-optimizer";
 import * as path from "path";
 
@@ -54,10 +57,23 @@ function hasPresetMismatch(
   return false;
 }
 
+function hasWidthsOutdated(
+  entry: { preset?: string[]; widths_generated?: number[]; width?: number },
+  presets: Record<string, Preset>,
+): boolean {
+  const presetNames = entry.preset ?? [];
+  if (presetNames.length === 0) return false;
+  const storedWidths = new Set(entry.widths_generated ?? []);
+  const intrinsicWidth = entry.width ?? Infinity;
+  const { widths: expectedWidths } = mergeWidths(presetNames, presets);
+  const filtered = expectedWidths.filter(w => w <= intrinsicWidth);
+  return filtered.some(w => !storedWidths.has(w));
+}
+
 export const imageOptimizationFixer: Fixer = {
   name: "image-optimization",
   description:
-    "Optimizes raster images that are missing srcset variants or whose preset does not match their tag definitions",
+    "Optimizes raster images that are missing srcset variants, whose preset does not match their tag definitions, or whose srcset is missing widths added to their preset",
 
   async run(ctx: FixerContext): Promise<FixerResult> {
     const registry = mediaGallery.getRegistry();
@@ -65,7 +81,7 @@ export const imageOptimizationFixer: Fixer = {
       return { ok: false, message: "Failed to load image registry" };
     }
 
-    const presets = registry.presets as Record<string, Preset>;
+    const presets = (registry.presets ?? {}) as Record<string, Preset>;
     const tagDefinitions = (registry.tagDefinitions ?? {}) as Record<
       string,
       { presets?: string[] }
@@ -73,8 +89,16 @@ export const imageOptimizationFixer: Fixer = {
 
     let noSrcsetCount = 0;
     let mismatchCount = 0;
+    let widthsOutdatedCount = 0;
 
-    type ImageEntry = { src: string; srcset?: unknown[]; tags?: string[]; preset?: string[] };
+    type ImageEntry = {
+      src: string;
+      srcset?: unknown[];
+      tags?: string[];
+      preset?: string[];
+      widths_generated?: number[];
+      width?: number;
+    };
 
     const targetIds = Object.entries(registry.images)
       .filter(([_id, entry]) => {
@@ -89,6 +113,10 @@ export const imageOptimizationFixer: Fixer = {
           mismatchCount++;
           return true;
         }
+        if (hasWidthsOutdated(e, presets)) {
+          widthsOutdatedCount++;
+          return true;
+        }
         return false;
       })
       .map(([id]) => id);
@@ -97,7 +125,7 @@ export const imageOptimizationFixer: Fixer = {
       return {
         ok: true,
         message: "All raster images are optimized and presets match tag definitions",
-        details: { queued: 0, noSrcset: 0, presetMismatch: 0 },
+        details: { queued: 0, noSrcset: 0, presetMismatch: 0, widthsOutdated: 0 },
       };
     }
 
@@ -176,9 +204,17 @@ export const imageOptimizationFixer: Fixer = {
       ok: failed === 0,
       message:
         failed > 0
-          ? `Optimized ${optimized} image(s), skipped ${skipped}, failed ${failed} (${noSrcsetCount} without srcset, ${mismatchCount} with preset mismatch)`
-          : `Optimized ${optimized} image(s), skipped ${skipped} (${noSrcsetCount} without srcset, ${mismatchCount} with preset mismatch)`,
-      details: { queued: targetIds.length, optimized, skipped, failed, noSrcset: noSrcsetCount, presetMismatch: mismatchCount },
+          ? `Optimized ${optimized} image(s), skipped ${skipped}, failed ${failed} (${noSrcsetCount} without srcset, ${mismatchCount} with preset mismatch, ${widthsOutdatedCount} with outdated widths)`
+          : `Optimized ${optimized} image(s), skipped ${skipped} (${noSrcsetCount} without srcset, ${mismatchCount} with preset mismatch, ${widthsOutdatedCount} with outdated widths)`,
+      details: {
+        queued: targetIds.length,
+        optimized,
+        skipped,
+        failed,
+        noSrcset: noSrcsetCount,
+        presetMismatch: mismatchCount,
+        widthsOutdated: widthsOutdatedCount,
+      },
     };
   },
 };

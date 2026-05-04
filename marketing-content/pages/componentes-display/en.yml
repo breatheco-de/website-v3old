@@ -176,10 +176,10 @@ sections:
         image_id: placeholder_career_guidance
       - label: Inline comments
         description: Add contextual feedback directly where it matters most
-        image_id: placeholder_mentorship
+        image_id: placeholder_career_guidance
       - label: Text-to-issue commands
         description: Seamlessly move between ideation and execution
-        image_id: placeholder_strategies
+        image_id: students_collaborating
     section_id: bullet_tabs_showcase-v1unip
     marginY:
       desktop: none lg
@@ -860,13 +860,13 @@ sections:
     heading: Why Choose Our AI Engineering Program?
     description: Get the skills, support, and job placement assistance you need to launch your career in AI engineering.
     images:
-      - image_id: student-1
+      - image_id: student_asian
         alt: Student 1
-      - image_id: student-2
+      - image_id: student_latin_male
         alt: Student 2
-      - image_id: student-3
+      - image_id: student_african
         alt: Student 3
-      - image_id: student-4
+      - image_id: student_latina_female
         alt: Student 4
     cards:
       - icon: Trophy
@@ -963,7 +963,7 @@ sections:
         row_span: 2
         col_start: 1
         row_start: 1
-      - image_id: graduates_workspace
+      - image_id: caracas_graduates
         col_span: 3
         row_span: 2
         col_start: 1
@@ -993,7 +993,7 @@ sections:
         row_span: 2
         col_start: 4
         row_start: 3
-      - image_id: graduates_friends-288x210
+      - image_id: graduates_friends-288x210-q75
         col_span: 4
         row_span: 2
         col_start: 9
@@ -1498,9 +1498,9 @@ sections:
   - type: image_row
     version: v1.0
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-1-asian.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian
         alt: Student learning to code
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/student-2-latin.pngtin.png
         alt: Developer working on project
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student-3-african.png
         alt: Team collaboration session

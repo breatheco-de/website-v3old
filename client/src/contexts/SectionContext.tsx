@@ -8,6 +8,7 @@ export interface SectionContextValue {
   locale: string;
   variableFields?: Record<string, string>;
   variableKeys?: Record<string, string>;
+  imageSizes: Record<string, string>;
 }
 
 const defaultValue: SectionContextValue = {
@@ -18,6 +19,7 @@ const defaultValue: SectionContextValue = {
   locale: "",
   variableFields: undefined,
   variableKeys: undefined,
+  imageSizes: {},
 };
 
 const SectionContext = createContext<SectionContextValue>(defaultValue);

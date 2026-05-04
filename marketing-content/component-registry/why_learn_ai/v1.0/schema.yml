@@ -63,7 +63,7 @@ props:
         type: string
         required: true
         description: Image ID from the image registry
-        example: "243f0f155c3d1683ecfaa1020801b365ad23092d-1769656566581"
+        example: "image_feature_5"
       alt:
         type: string
         required: false

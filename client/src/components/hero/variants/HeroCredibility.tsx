@@ -2,7 +2,7 @@
 import { createElement, useState, useEffect } from "react";
 import Marquee from "react-fast-marquee";
 import { Button } from "@/components/ui/button";
-import { useImageRegistry } from "@/components/UniversalImage";
+import UniversalImage from "@/components/UniversalImage";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { getIcon } from "@/lib/icons";
 import type { HeroCredibility as HeroCredibilityData, HeroCredibilityPill } from "@shared/schema";
@@ -13,25 +13,40 @@ interface HeroCredibilityProps {
 
 // ─── PillLogo ─────────────────────────────────────────────────────────────────
 
-function PillLogo({ imageId, colored }: { imageId: string; colored: boolean }) {
-  const { registry, loading } = useImageRegistry();
-  if (loading || !registry) return null;
-  const entry = registry.images?.[imageId];
-  if (!entry) return null;
+function PillLogo({ imageId, colored, pillIndex, logoIndex }: { 
+  imageId: string; 
+  colored: boolean;
+  pillIndex: number;
+  logoIndex: number;
+}) {
   return (
-    <img
-      src={entry.src}
-      alt={entry.alt || ""}
+    <div>
+    <UniversalImage
+      id={imageId}
       className="max-w-full max-h-full object-contain"
-      style={{ filter: colored ? "none" : "grayscale(100%) opacity(0.85)" }}
+      style={{ 
+        objectFit: "contain",
+        filter: colored ? "none" : "grayscale(100%) opacity(0.85)" 
+      }}
       loading="eager"
+      fieldContext={{
+        arrayPath: `pills.${pillIndex}.logos`,
+        index: logoIndex,
+        srcField: "image_id",
+      }}
     />
+    </div>
   );
 }
 
 // ─── CredibilityPill ──────────────────────────────────────────────────────────
 
-function CredibilityPill({ pill, tick, colored }: { pill: HeroCredibilityPill; tick: number; colored: boolean }) {
+function CredibilityPill({ pill, tick, colored, pillIndex }: { 
+  pill: HeroCredibilityPill; 
+  tick: number; 
+  colored: boolean;
+  pillIndex: number;
+}) {
   const logos = pill.logos ?? [];
   const activeIdx = logos.length > 0 ? tick % logos.length : 0;
 
@@ -46,14 +61,19 @@ function CredibilityPill({ pill, tick, colored }: { pill: HeroCredibilityPill; t
     >
       {/* Logo area with rotation */}
       {logos.length > 0 && (
-        <div className="relative w-12 h-7 md:w-16 md:h-9 flex-shrink-0 flex items-center justify-center">
+        <div className="relative w-12 h-8 md:w-14 md:h-6 flex-shrink-0 flex items-center justify-center">
           {logos.map((logo, i) => (
             <div
               key={logo.image_id + i}
               className="absolute inset-0 flex items-center justify-center transition-opacity duration-300"
               style={{ opacity: i === activeIdx ? 1 : 0 }}
             >
-              <PillLogo imageId={logo.image_id} colored={colored} />
+              <PillLogo 
+                imageId={logo.image_id} 
+                colored={colored}
+                pillIndex={pillIndex}
+                logoIndex={i}
+              />
             </div>
           ))}
         </div>
@@ -256,7 +276,7 @@ export default function HeroCredibility({ data }: HeroCredibilityProps) {
                 )}
                 <div className="relative z-10 flex flex-col gap-3 lg:gap-5">
                   {pills.map((pill, i) => (
-                    <CredibilityPill key={i} pill={pill} tick={tick} colored={coloredLogos} />
+                    <CredibilityPill key={i} pill={pill} tick={tick} colored={coloredLogos} pillIndex={i} />
                   ))}
                 </div>
               </div>
