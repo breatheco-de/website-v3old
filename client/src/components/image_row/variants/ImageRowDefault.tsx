@@ -268,7 +268,6 @@ export default function ImageRow({ data }: ImageRowProps) {
     background,
   } = data;
 
-  const { imageSizes } = useSectionContext();
   const editModeContext = useEditModeOptional();
   const isEditMode = editModeContext?.isEditMode ?? false;
   const sectionRef = useRef<HTMLElement>(null);
@@ -430,7 +429,6 @@ export default function ImageRow({ data }: ImageRowProps) {
                         willChange: "transform",
                       }}
                       loading="lazy"
-                      sizes={imageSizes["images"]}
                       fieldContext={{ arrayPath: "images", index, srcField: "src" }}
                       onImgRef={(el) => { imageRefsRef.current[index] = el; }}
                     />

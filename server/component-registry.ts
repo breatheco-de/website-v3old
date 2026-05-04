@@ -206,9 +206,9 @@ function expandImageSizesBracketPattern(
 /** Resolves `image_sizes` for this section: literals + `[]` patterns expanded to concrete paths. */
 export function resolveSectionImageSizes(section: Record<string, unknown>): Record<string, string> {
   const type = section.type as string | undefined;
-  const variant = section.variant as string | undefined;
+  const variant = (section.variant as string | undefined) ?? "default";
   const out: Record<string, string> = {};
-  if (!type || !variant) return out;
+  if (!type) return out;
 
   const folder = resolveSchemaFolderForSection(type, section.version);
   if (!folder) return out;
