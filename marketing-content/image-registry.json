@@ -13808,31 +13808,6 @@
         }
       ]
     },
-    "nbc-logosvg": {
-      "src": "https://storage.googleapis.com/4geeks-academy-website/media/NBC_logo.svg.png",
-      "alt": "Image: NBC_logo.svg",
-      "focal_point": "center",
-      "tags": [
-        "logo"
-      ],
-      "usage_count": 0,
-      "hash": "440fc6f9f2481b23564bdda1a69c7ef489946c356ba474230f743147dc933bb2",
-      "width": 500,
-      "height": 493,
-      "preset": [
-        "full"
-      ],
-      "widths_generated": [
-        500
-      ],
-      "format": "webp",
-      "srcset": [
-        {
-          "w": 500,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/NBC_logo.svg-500w.webp"
-        }
-      ]
-    },
     "nbc-logo": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/nbc-logo.png",
       "alt": "Image: nbc-logo",
@@ -13984,61 +13959,6 @@
         }
       ]
     },
-    "4geeks-devs-logo-1763162063433-240x82": {
-      "src": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo-1763162063433-240x82.webp",
-      "alt": "Image: 4geeks-devs-logo_1763162063433",
-      "focal_point": "center",
-      "tags": [
-        "logo"
-      ],
-      "usage_count": 0,
-      "width": 240,
-      "height": 82,
-      "format": "webp",
-      "parentId": "4geeks-devs-logo-1763162063433",
-      "preset": [
-        "logo"
-      ],
-      "widths_generated": [
-        120,
-        240
-      ],
-      "srcset": [
-        {
-          "w": 120,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo-1763162063433-240x82-120w.webp"
-        },
-        {
-          "w": 240,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo-1763162063433-240x82-240w.webp"
-        }
-      ]
-    },
-    "4geeks-devs-logo-1763162063433-158x36": {
-      "src": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo-1763162063433-158x36.webp",
-      "alt": "Image: 4geeks-devs-logo_1763162063433",
-      "focal_point": "center",
-      "tags": [
-        "logo"
-      ],
-      "usage_count": 0,
-      "width": 158,
-      "height": 36,
-      "format": "webp",
-      "parentId": "4geeks-devs-logo-1763162063433",
-      "preset": [
-        "logo"
-      ],
-      "widths_generated": [
-        120
-      ],
-      "srcset": [
-        {
-          "w": 120,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo-1763162063433-158x36-120w.webp"
-        }
-      ]
-    },
     "graduates_friends-288x210-q75": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210-q75.webp",
       "alt": "4Geeks students laughing and enjoying time together",
@@ -14100,31 +14020,6 @@
         {
           "w": 132,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/global-miami-logo-132w.webp"
-        }
-      ]
-    },
-    "global-miami-logo-1": {
-      "src": "https://storage.googleapis.com/4geeks-academy-website/media/global-miami-logo.png",
-      "alt": "Image: global-miami-logo",
-      "focal_point": "center",
-      "tags": [
-        "logo"
-      ],
-      "usage_count": 0,
-      "hash": "13fc035b2800540a372574107498af3af381d180ae69150422fc1145f490e518",
-      "width": 225,
-      "height": 225,
-      "preset": [
-        "full"
-      ],
-      "widths_generated": [
-        225
-      ],
-      "format": "webp",
-      "srcset": [
-        {
-          "w": 225,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/global-miami-logo-225w.webp"
         }
       ]
     },
