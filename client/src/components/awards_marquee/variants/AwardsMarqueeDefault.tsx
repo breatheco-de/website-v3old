@@ -66,6 +66,7 @@ export function AwardsMarquee({ data }: { data: any }) {
                     alt={item.alt}
                     className="h-full w-auto"
                     style={{ objectFit: "contain" }}
+                    fieldContext={{ arrayPath: "items", index, srcField: "logo" }}
                   />
                 </div>
               ) : (
