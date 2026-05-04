@@ -651,6 +651,11 @@
       "example": "test",
       "importYaml": "- type: ai_learning\n  variant: feature-tabs\n  badge: Why 4Geeks?\n  title: The Most Personalized Path to an AI Career\n  description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support, every part of the experience is built around you.\n  features:\n    - icon: Robot\n      title: AI-powered feedback, available 24/7\n      description: ''\n      show_rigobot_logo: true\n      bullets:\n        - text: Instant feedback from Rigobot, our custom AI tutor\n        - text: Advice adjusted to your skill level and progress\n        - text: Instant help at any hour, day or night\n        - text: Hundreds of interactive coding exercises and tests\n      video_url: https://www.youtube.com/watch?v=NRuShbSLtg0\n    - icon: Headset\n      title: Unlimited 1:1 mentorship, for life\n      description: ''\n      bullets:\n        - text: Lifelong access to 1:1 technical mentorship\n        - text: '7:1 student-to-mentor ratio: so your mentor knows your name'\n        - text: Weekly check-ins and peer collaboration via Slack\n        - text: Dedicated channels for coding support, job boards, and career advice\n      video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o\n    - icon: TrendingUp\n      title: Career support built for the AI job market\n      description: ''\n      bullets:\n        - text: Lifelong 1:1 career coaching\n        - text: Resume and portfolio built to pass AI-based screening\n        - text: Interview prep and salary negotiation\n        - text: Direct referrals to our 400+ employer network\n      video_url: https://youtu.be/-2ZvlgDnltc\n  section_id: ai_learning-xiuj75\n  marginY:\n    desktop: md none\n  paddingY:\n    desktop: md sm\n",
       "registryPersisted": true
+    },
+    {
+      "component": "ai_learning",
+      "version": "v1.0",
+      "example": "test"
     }
   ]
 }
