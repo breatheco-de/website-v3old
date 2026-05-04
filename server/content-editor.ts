@@ -116,6 +116,9 @@ function applyOperation(content: Record<string, unknown>, operation: EditOperati
         delete sectionToSave.items;
         delete sectionToSave._dynamic_meta;
       }
+      if (sectionToSave && typeof sectionToSave === "object") {
+        delete sectionToSave._imageSizes;
+      }
       const existingId = (sections[operation.index] as Record<string, unknown>)?.section_id;
       sections[operation.index] = sectionToSave;
       if (existingId && !sectionToSave.section_id) {
@@ -129,9 +132,11 @@ function applyOperation(content: Record<string, unknown>, operation: EditOperati
       content.sections = (operation.sections as Record<string, unknown>[]).map((sec) => {
         if (sec && typeof sec === "object" && sec.dynamic_entries) {
           const { items: _items, _dynamic_meta: _meta, ...authored } = sec;
+          delete (authored as Record<string, unknown>)._imageSizes;
           if (!authored.section_id) authored.section_id = generateSectionId((authored.type as string) || "section");
           return authored;
         }
+        if (sec && typeof sec === "object") delete sec._imageSizes;
         if (!sec.section_id) sec.section_id = generateSectionId((sec.type as string) || "section");
         return sec;
       });

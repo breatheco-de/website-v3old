@@ -13,7 +13,7 @@ import {
 } from "./content-types";
 import { resolveFieldValue, applyTransformIfNeeded } from "./transform";
 import { fetchMarkdownContent } from "./markdown";
-import { applyComponentSectionDefaults } from "./component-registry";
+import { applyComponentSectionDefaults, applyComponentImageSizes } from "./component-registry";
 import type { TemplatePage } from "@shared/schema";
 
 export const TEMPLATE_EXPR_RE = /\{\{[\s\S]*?\}\}/;
@@ -165,6 +165,7 @@ export async function loadDatabaseSinglePage(
     }
 
     applyComponentSectionDefaults(sections as unknown[]);
+    applyComponentImageSizes(sections as unknown[]);
 
     const page: TemplatePage = {
       slug: (merged.slug as string) || slug,

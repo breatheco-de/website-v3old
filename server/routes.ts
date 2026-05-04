@@ -51,6 +51,7 @@ import {
   createExample,
   loadAllFieldEditors,
   applyComponentSectionDefaults,
+  applyComponentImageSizes,
   getVariantByExample,
   getVariantExamples,
   deleteExample,
@@ -392,6 +393,7 @@ function loadCareerProgram(slug: string, locale: string): CareerProgram | null {
   applyMetaFallback(result.data as Record<string, unknown>);
   if (result.data.sections) {
     applyComponentSectionDefaults(result.data.sections as unknown[]);
+    applyComponentImageSizes(result.data.sections as unknown[]);
   }
   return result.data;
 }
@@ -435,6 +437,7 @@ function loadLandingPage(slug: string, locale?: string): LandingPage | null {
   applyMetaFallback(result.data as Record<string, unknown>);
   if (result.data.sections) {
     applyComponentSectionDefaults(result.data.sections as unknown[]);
+    applyComponentImageSizes(result.data.sections as unknown[]);
   }
   return result.data;
 }
@@ -478,6 +481,7 @@ function loadLocationPage(slug: string, locale: string): LocationPage | null {
   applyMetaFallback(result.data as Record<string, unknown>);
   if (result.data.sections) {
     applyComponentSectionDefaults(result.data.sections as unknown[]);
+    applyComponentImageSizes(result.data.sections as unknown[]);
   }
   return result.data;
 }
@@ -530,6 +534,7 @@ function loadTemplatePage(slug: string, locale: string): TemplatePage | null {
   applyMetaFallback(result.data as Record<string, unknown>);
   if (result.data.sections) {
     applyComponentSectionDefaults(result.data.sections as unknown[]);
+    applyComponentImageSizes(result.data.sections as unknown[]);
   }
   return result.data;
 }
@@ -1516,6 +1521,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     if (landing.sections && Array.isArray(landing.sections)) {
       (landing as any).sections = await resolveDynamicEntries(landing.sections as any, locale);
+      applyComponentImageSizes((landing as any).sections as unknown[]);
     }
 
     const rawMerged = contentIndex.loadMergedContent("landing", slug, locale);
@@ -1694,6 +1700,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         locale,
       )) as any;
       applyComponentSectionDefaults(page.sections);
+      applyComponentImageSizes(page.sections);
     }
 
     const pageData = page as unknown as Record<string, unknown>;
@@ -1725,6 +1732,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       if (page.sections && Array.isArray(page.sections)) {
         page.sections = (await resolveDynamicEntries(page.sections, locale)) as any;
+        applyComponentImageSizes(page.sections as unknown[]);
       }
       const dbPageData = page as unknown as Record<string, unknown>;
       const dbSingleEntry = (dbPageData.singleEntry as Record<string, unknown>) || {};
@@ -1755,6 +1763,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     if (page.sections && Array.isArray(page.sections)) {
       page.sections = (await resolveDynamicEntries(page.sections, locale)) as any;
+      applyComponentImageSizes(page.sections as unknown[]);
     }
 
     const genericPageData = page as unknown as Record<string, unknown>;

@@ -964,8 +964,20 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           : innerStyles;
         const sectionId = (rawSection as SectionLayout).section_id || `${sectionType}-${index}`;
         const isPriority = loadStrategy === "eager";
+        const imageSizes =
+          ((rawSection as Record<string, unknown>)._imageSizes as Record<string, string> | undefined) ??
+          {};
         const priorityWrapped = (
-          <SectionContextProvider value={{ isPriority, sectionIndex: index, contentType: contentType ?? "", slug: slug ?? "", locale: locale ?? "" }}>
+          <SectionContextProvider
+            value={{
+              isPriority,
+              sectionIndex: index,
+              contentType: contentType ?? "",
+              slug: slug ?? "",
+              locale: locale ?? "",
+              imageSizes,
+            }}
+          >
             {renderedContent}
           </SectionContextProvider>
         );

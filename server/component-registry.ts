@@ -22,6 +22,14 @@ function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
 
 const REGISTRY_PATH = path.join(process.cwd(), "marketing-content", "component-registry");
 
+/**
+ * Root of `schema.yml` for a component version.
+ *
+ * Optional `image_sizes`: keys are `"variantName.fieldOrArrayPath"` (first segment = section
+ * `variant`, rest = dotted path under the section object). The path after the first dot must
+ * match `fieldContext.fieldPath` or `fieldContext.arrayPath` from the variant TSX. Use `[]`
+ * for array wildcards (e.g. `credibility.pills[].logos` → `pills.0.logos`, `pills.1.logos`, …).
+ */
 export interface ComponentSchema {
   name: string;
   version: string;
@@ -30,6 +38,7 @@ export interface ComponentSchema {
   description: string;
   when_to_use: string;
   section_defaults?: Record<string, unknown>;
+  image_sizes?: Record<string, string>;
   props: Record<string, unknown>;
 }
 
@@ -122,6 +131,196 @@ export function loadSchema(componentType: string, version: string): ComponentSch
   } catch (error) {
     console.error(`Error loading schema for ${componentType}/${version}:`, error);
     return null;
+  }
+}
+
+function normalizeRegistryFolderVersion(raw: unknown): string | null {
+  if (typeof raw !== "string" || !raw.trim()) return null;
+  const t = raw.trim();
+  if (t.startsWith("v")) return t;
+  return `v${t}`;
+}
+
+function resolveSchemaFolderForSection(componentType: string, sectionVersion: unknown): string | null {
+  const normalized = normalizeRegistryFolderVersion(sectionVersion);
+  if (normalized) {
+    const schemaPath = path.join(REGISTRY_PATH, componentType, normalized, "schema.yml");
+    if (fs.existsSync(schemaPath)) return normalized;
+  }
+  const versions = listVersions(componentType);
+  return versions.length > 0 ? versions[0]! : null;
+}
+
+function getNestedFromRoot(root: unknown, dottedPath: string): unknown {
+  if (!dottedPath || root === null || root === undefined || typeof root !== "object") return undefined;
+  const parts = dottedPath.split(".");
+  let cur: unknown = root;
+  for (const p of parts) {
+    if (cur === null || cur === undefined || typeof cur !== "object") return undefined;
+    cur = (cur as Record<string, unknown>)[p];
+  }
+  return cur;
+}
+
+/**
+ * Expands one `image_sizes` suffix that contains `[]` against section data.
+ * Produces concrete paths (e.g. `pills.0.logos`) for `UniversalImage` / preload lookup.
+ */
+function expandImageSizesBracketPattern(
+  section: Record<string, unknown>,
+  suffixWithBrackets: string,
+  sizes: string,
+): Record<string, string> {
+  const out: Record<string, string> = {};
+
+  function walk(node: unknown, suffix: string, pathParts: string[]): void {
+    const idx = suffix.indexOf("[]");
+    if (idx === -1) {
+      const tail = suffix;
+      if (!tail) return;
+      const fullPath = [...pathParts, ...tail.split(".").filter(Boolean)].join(".");
+      const leafMatch =
+        /(^|\.)(image_id|img|src|logo)$/.test(tail) || /\.[\w]+_id$/.test(`.${tail}`);
+      if (leafMatch && pathParts.length >= 2) {
+        out[pathParts.slice(0, -1).join(".")] = sizes;
+      } else {
+        out[fullPath] = sizes;
+      }
+      return;
+    }
+    const pathToArr = suffix.slice(0, idx);
+    const after = suffix.slice(idx + 2).replace(/^\./, "");
+    if (!pathToArr) return;
+    const arr = getNestedFromRoot(node, pathToArr);
+    if (!Array.isArray(arr)) return;
+    const baseParts = [...pathParts, ...pathToArr.split(".")];
+    for (let i = 0; i < arr.length; i++) {
+      walk(arr[i], after, [...baseParts, String(i)]);
+    }
+  }
+
+  walk(section, suffixWithBrackets, []);
+  return out;
+}
+
+/** Resolves `image_sizes` for this section: literals + `[]` patterns expanded to concrete paths. */
+export function resolveSectionImageSizes(section: Record<string, unknown>): Record<string, string> {
+  const type = section.type as string | undefined;
+  const variant = section.variant as string | undefined;
+  const out: Record<string, string> = {};
+  if (!type || !variant) return out;
+
+  const folder = resolveSchemaFolderForSection(type, section.version);
+  if (!folder) return out;
+
+  const schema = loadSchema(type, folder);
+  const full = schema?.image_sizes;
+  if (!full || typeof full !== "object") return out;
+
+  const prefix = `${variant}.`;
+  for (const [key, val] of Object.entries(full)) {
+    if (typeof val !== "string" || !val.trim()) continue;
+    if (!key.startsWith(prefix)) continue;
+    const suffix = key.slice(prefix.length);
+    if (!suffix) continue;
+    if (suffix.includes("[]")) {
+      Object.assign(out, expandImageSizesBracketPattern(section, suffix, val));
+    } else {
+      out[suffix] = val;
+    }
+  }
+  return out;
+}
+
+/** Literals only (keys without `[]`); does not expand wildcards. */
+export function getImageSizesForVariant(
+  componentType: string,
+  variant: string | undefined,
+  sectionVersion?: unknown,
+): Record<string, string> {
+  if (!componentType || !variant) return {};
+  const folder = resolveSchemaFolderForSection(componentType, sectionVersion);
+  if (!folder) return {};
+  const schema = loadSchema(componentType, folder);
+  const full = schema?.image_sizes;
+  if (!full || typeof full !== "object") return {};
+  const prefix = `${variant}.`;
+  const out: Record<string, string> = {};
+  for (const [key, val] of Object.entries(full)) {
+    if (typeof val !== "string" || !val.trim()) continue;
+    if (!key.startsWith(prefix)) continue;
+    const suffix = key.slice(prefix.length);
+    if (suffix && !suffix.includes("[]")) out[suffix] = val;
+  }
+  return out;
+}
+
+export function getValueAtSectionPath(section: Record<string, unknown>, fieldPath: string): unknown {
+  if (!fieldPath) return undefined;
+  const parts = fieldPath.split(".");
+  let cur: unknown = section;
+  for (const p of parts) {
+    if (cur === null || cur === undefined || typeof cur !== "object") return undefined;
+    cur = (cur as Record<string, unknown>)[p];
+  }
+  return cur;
+}
+
+function hasImageRefShape(o: Record<string, unknown>): boolean {
+  return (
+    typeof o.id === "string" &&
+    (typeof o.alt === "string" ||
+      typeof o.preset === "string" ||
+      typeof o.src === "string")
+  );
+}
+
+const IMAGE_ID_KEY_FOR_SIZES = /(?:^|_)image_id$/;
+
+function collectRegistryImageIdsWithSizes(value: unknown, sizes: string, into: Map<string, string>): void {
+  if (value === null || value === undefined) return;
+  if (Array.isArray(value)) {
+    for (const item of value) collectRegistryImageIdsWithSizes(item, sizes, into);
+    return;
+  }
+  if (typeof value !== "object") return;
+  const obj = value as Record<string, unknown>;
+  if (hasImageRefShape(obj)) into.set(obj.id as string, sizes);
+  if (typeof obj.image === "object" && obj.image !== null) {
+    const img = obj.image as Record<string, unknown>;
+    if (typeof img.id === "string") into.set(img.id, sizes);
+  }
+  for (const [k, v] of Object.entries(obj)) {
+    if (typeof v === "string" && IMAGE_ID_KEY_FOR_SIZES.test(k)) into.set(v, sizes);
+    else if (v && typeof v === "object") collectRegistryImageIdsWithSizes(v, sizes, into);
+  }
+}
+
+export function buildImageIdToSchemaSizesMap(section: Record<string, unknown>): Map<string, string> {
+  const into = new Map<string, string>();
+  const type = section.type as string | undefined;
+  const variant = section.variant as string | undefined;
+  if (!type || !variant) return into;
+
+  const pathToSizes = resolveSectionImageSizes(section);
+  for (const [fieldPath, sizesStr] of Object.entries(pathToSizes)) {
+    const node = getValueAtSectionPath(section, fieldPath);
+    collectRegistryImageIdsWithSizes(node, sizesStr, into);
+  }
+  return into;
+}
+
+export function applyComponentImageSizes(sections: unknown[]): void {
+  for (const section of sections) {
+    if (!section || typeof section !== "object") continue;
+    const s = section as Record<string, unknown>;
+    const type = s.type as string | undefined;
+    const variant = s.variant as string | undefined;
+    if (!type || !variant) {
+      s._imageSizes = {};
+      continue;
+    }
+    s._imageSizes = resolveSectionImageSizes(s);
   }
 }
 

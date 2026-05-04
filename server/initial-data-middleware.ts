@@ -5,7 +5,11 @@ import type { Request, Response, NextFunction } from "express";
 import { contentIndex } from "./content-index";
 import { resolveDynamicEntries } from "./dynamic-entries";
 import { resolveLayout, getAllConfigs, getLabel, getLayout, getLocaleKey, getContentTypeConfig } from "./content-types";
-import { applyComponentSectionDefaults } from "./component-registry";
+import {
+  applyComponentSectionDefaults,
+  applyComponentImageSizes,
+  buildImageIdToSchemaSizesMap,
+} from "./component-registry";
 import { variableManager } from "./variable-manager";
 import { loadImageRegistry } from "./image-registry";
 import { getDefaultLocale, normalizeLocale } from "./settings";
@@ -14,6 +18,21 @@ import { loadDatabaseSinglePage } from "./database-single-loader";
 import { resolveSingleVars } from "./single-resolver";
 import { databaseManager } from "./database";
 import { applyNonBlockingCss } from "./utils/html-transforms";
+
+const DEFAULT_SRCSET_SIZES =
+  "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
+
+function firstPresetSizesFromImageEntry(
+  imageEntry: { preset?: string[] } | null | undefined,
+  presets: Record<string, { sizes?: string }> | undefined,
+): string | undefined {
+  if (!imageEntry?.preset?.length || !presets) return undefined;
+  for (const name of imageEntry.preset) {
+    const s = presets[name]?.sizes;
+    if (typeof s === "string" && s.trim()) return s;
+  }
+  return undefined;
+}
 
 interface SingleQuery {
   queryKey: unknown[];
@@ -99,6 +118,7 @@ async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
       const data = result.data as any;
       if (data.sections && Array.isArray(data.sections)) {
         applyComponentSectionDefaults(data.sections);
+        applyComponentImageSizes(data.sections);
         data.sections = (await resolveDynamicEntries(
           data.sections,
           locale,
@@ -168,6 +188,7 @@ async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
       const data = result.data as any;
       if (data.sections && Array.isArray(data.sections)) {
         applyComponentSectionDefaults(data.sections);
+        applyComponentImageSizes(data.sections);
         data.sections = (await resolveDynamicEntries(
           data.sections,
           locale,
@@ -289,16 +310,21 @@ function extractImageRefsFromValue(value: unknown, refs: ImageRefs, parentKey?: 
   }
 }
 
+type PreloadRegistryPayload = {
+  presets?: Record<string, { sizes?: string }>;
+  images: Record<
+    string,
+    { src: string; preset?: string[]; srcset?: Array<{ w: number; url: string }> }
+  >;
+};
+
 export function resolvePreloadHints(
   payload: InitialDataPayload | null,
 ): PreloadHint[] {
   if (!payload) return [];
 
   let pageData: Record<string, unknown> | null = null;
-  let registryData: {
-    presets?: Record<string, { sizes?: string }>;
-    images: Record<string, { src: string; srcset?: Array<{ w: number; url: string }> }>;
-  } | null = null;
+  let registryData: PreloadRegistryPayload | null = null;
 
   const knownPageApiPaths = new Set(
     Object.keys(getAllConfigs()).map((type) => getApiPath(type)),
@@ -314,7 +340,7 @@ export function resolvePreloadHints(
       pageData = q.data as Record<string, unknown>;
     }
     if (key0 === "/api/image-registry") {
-      registryData = q.data as typeof registryData;
+      registryData = q.data as PreloadRegistryPayload;
     }
   }
 
@@ -332,10 +358,23 @@ export function resolvePreloadHints(
     extractImageRefsFromValue(section, refs);
   }
 
+  const schemaIdToSizes = new Map<string, string>();
+  for (const section of prioritySections) {
+    if (!section || typeof section !== "object") continue;
+    const s = section as Record<string, unknown>;
+    const fromSchema = buildImageIdToSchemaSizesMap(s);
+    fromSchema.forEach((sz, id) => {
+      schemaIdToSizes.set(id, sz);
+    });
+  }
+
   const hints: PreloadHint[] = [];
   const seen = new Set<string>();
 
-  const srcToEntry = new Map<string, { src: string; srcset?: Array<{ w: number; url: string }> }>();
+  const srcToEntry = new Map<
+    string,
+    { src: string; preset?: string[]; srcset?: Array<{ w: number; url: string }> }
+  >();
   for (const entry of Object.values(registryData.images)) {
     if (entry.src) srcToEntry.set(entry.src, entry);
   }
@@ -346,9 +385,15 @@ export function resolvePreloadHints(
       seen.add(entry.src);
       const hint: PreloadHint = { src: entry.src };
       if (entry.srcset && entry.srcset.length > 0) {
-        hint.srcset = entry.srcset.map((s) => `${s.url} ${s.w}w`).join(", ");
+        hint.srcset = entry.srcset.map((s: { w: number; url: string }) => `${s.url} ${s.w}w`).join(", ");
         const presetConfig = preset ? registryData.presets?.[preset] : undefined;
-        hint.sizes = presetConfig?.sizes ?? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
+        const schemaSizes = schemaIdToSizes.get(id);
+        const fromImagePresets = firstPresetSizesFromImageEntry(entry, registryData.presets);
+        hint.sizes =
+          schemaSizes ??
+          fromImagePresets ??
+          presetConfig?.sizes ??
+          DEFAULT_SRCSET_SIZES;
       }
       hints.push(hint);
     }
@@ -360,8 +405,10 @@ export function resolvePreloadHints(
       const entry = srcToEntry.get(url);
       const hint: PreloadHint = { src: url };
       if (entry?.srcset && entry.srcset.length > 0) {
-        hint.srcset = entry.srcset.map((s) => `${s.url} ${s.w}w`).join(", ");
-        hint.sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
+        hint.srcset = entry.srcset.map((s: { w: number; url: string }) => `${s.url} ${s.w}w`).join(", ");
+        hint.sizes =
+          firstPresetSizesFromImageEntry(entry, registryData.presets) ??
+          DEFAULT_SRCSET_SIZES;
       }
       hints.push(hint);
     }
