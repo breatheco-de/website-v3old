@@ -15255,6 +15255,31 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/global-miami-logo-600w.webp"
         }
       ]
+    },
+    "cnn-logo": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/cnn-logo.png",
+      "alt": "Image: cnn-logo",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "00b77ba6ed08e69715bd8c542016170040cda7d2ad18b29140226105424e2b56",
+      "width": 326,
+      "height": 155,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        326
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 326,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/cnn-logo-326w.webp"
+        }
+      ]
     }
   }
 }
