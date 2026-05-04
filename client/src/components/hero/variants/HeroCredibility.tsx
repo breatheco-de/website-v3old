@@ -20,10 +20,14 @@ function PillLogo({ imageId, colored, pillIndex, logoIndex }: {
   logoIndex: number;
 }) {
   return (
+    <div>
     <UniversalImage
       id={imageId}
       className="max-w-full max-h-full object-contain"
-      style={{ filter: colored ? "none" : "grayscale(100%) opacity(0.85)" }}
+      style={{ 
+        objectFit: "contain",
+        filter: colored ? "none" : "grayscale(100%) opacity(0.85)" 
+      }}
       loading="eager"
       fieldContext={{
         arrayPath: `pills.${pillIndex}.logos`,
@@ -31,6 +35,7 @@ function PillLogo({ imageId, colored, pillIndex, logoIndex }: {
         srcField: "image_id",
       }}
     />
+    </div>
   );
 }
 
@@ -56,7 +61,7 @@ function CredibilityPill({ pill, tick, colored, pillIndex }: {
     >
       {/* Logo area with rotation */}
       {logos.length > 0 && (
-        <div className="relative w-12 h-7 md:w-16 md:h-9 flex-shrink-0 flex items-center justify-center">
+        <div className="relative w-12 h-8 md:w-14 md:h-6 flex-shrink-0 flex items-center justify-center">
           {logos.map((logo, i) => (
             <div
               key={logo.image_id + i}
