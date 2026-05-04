@@ -2116,6 +2116,65 @@
       ],
       "createdAt": "2026-05-04T20:44:44.479Z",
       "name": "always updated syllabus for ai engineering"
+    },
+    {
+      "id": "bind_morpndzo_qm9ip5",
+      "component": "syllabus",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "program",
+          "slug": "ai-engineering",
+          "sectionId": "syllabus-voteq8"
+        },
+        {
+          "contentType": "landing",
+          "slug": "ai-engineering-chile",
+          "sectionId": "syllabus-tyek1h"
+        },
+        {
+          "contentType": "landing",
+          "slug": "ai-engineering-es",
+          "sectionId": "syllabus-4x0ck1"
+        },
+        {
+          "contentType": "landing",
+          "slug": "ai-engineering-mexico",
+          "sectionId": "syllabus-tyek1h"
+        },
+        {
+          "contentType": "landing",
+          "slug": "ai-engineering-spain",
+          "sectionId": "syllabus-tyek1h"
+        },
+        {
+          "contentType": "landing",
+          "slug": "de-aprender-programacion-a-ingeniero-de-ia",
+          "sectionId": "syllabus-xv2dct"
+        },
+        {
+          "contentType": "landing",
+          "slug": "de-aprender-programacion-a-ser-ai-engineer-chile",
+          "sectionId": "syllabus-v5bjmg"
+        },
+        {
+          "contentType": "landing",
+          "slug": "de-aprender-programacion-a-ser-ai-engineer-mexico",
+          "sectionId": "syllabus-1d3afu"
+        },
+        {
+          "contentType": "landing",
+          "slug": "herramientas-de-ia-para-programar",
+          "sectionId": "syllabus-o2a57c"
+        },
+        {
+          "contentType": "landing",
+          "slug": "mejor-bootcamps-programacin",
+          "sectionId": "syllabus-yxjg2f"
+        }
+      ],
+      "createdAt": "2026-05-04T21:27:34.548Z",
+      "name": "syllabus sincronizado con ai-engineering"
     }
   ]
 }
