@@ -12238,52 +12238,6 @@
         }
       ]
     },
-    "ana-romero": {
-      "src": "https://storage.googleapis.com/4geeks-academy-website/media/ana-romero.jpg",
-      "alt": "Testimonial from Ana Romero",
-      "focal_point": "center",
-      "tags": [
-        "testimonial"
-      ],
-      "usage_count": 0,
-      "hash": "47d8231d236cf208a2035f79f7ced159d0173b52e3ca0653630efecf7ddd5b8e",
-      "width": 588,
-      "height": 468,
-      "preset": [
-        "avatar",
-        "card"
-      ],
-      "widths_generated": [
-        64,
-        128,
-        256,
-        320,
-        480
-      ],
-      "format": "webp",
-      "srcset": [
-        {
-          "w": 64,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ana-romero-64w.webp"
-        },
-        {
-          "w": 128,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ana-romero-128w.webp"
-        },
-        {
-          "w": 256,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ana-romero-256w.webp"
-        },
-        {
-          "w": 320,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ana-romero-320w.webp"
-        },
-        {
-          "w": 480,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ana-romero-480w.webp"
-        }
-      ]
-    },
     "azam": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/azam.jpeg",
       "alt": "Testimonial from Azam",
