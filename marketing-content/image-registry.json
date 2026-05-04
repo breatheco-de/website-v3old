@@ -8585,6 +8585,7 @@
         "avatar"
       ],
       "widths_generated": [
+        32,
         64,
         128,
         256
@@ -8592,16 +8593,20 @@
       "format": "webp",
       "srcset": [
         {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/man-profile-headshot-2-32w.webp"
+        },
+        {
           "w": 64,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/marketing-content/images/man-profile-headshot-2-64w.webp"
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/man-profile-headshot-2-64w.webp"
         },
         {
           "w": 128,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/marketing-content/images/man-profile-headshot-2-128w.webp"
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/man-profile-headshot-2-128w.webp"
         },
         {
           "w": 256,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/marketing-content/images/man-profile-headshot-2-256w.webp"
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/man-profile-headshot-2-256w.webp"
         }
       ]
     },
@@ -8624,6 +8629,7 @@
         "avatar"
       ],
       "widths_generated": [
+        32,
         64,
         128,
         256,
@@ -8632,6 +8638,10 @@
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-13-145607-32w.webp"
+        },
         {
           "w": 64,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-13-145607-64w.webp"
@@ -8669,11 +8679,21 @@
         "logo"
       ],
       "widths_generated": [
+        32,
+        64,
         120,
         240
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433-64w.webp"
+        },
         {
           "w": 120,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433-120w.webp"
@@ -8702,6 +8722,7 @@
         "avatar"
       ],
       "widths_generated": [
+        32,
         64,
         128,
         256,
@@ -8712,6 +8733,10 @@
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Bootcamp-de-Ingenier-a-de-IA-en-Espa-a-4Geeks-Academy-03-17-2026_09_17_AM-32w.webp"
+        },
         {
           "w": 64,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Bootcamp-de-Ingenier-a-de-IA-en-Espa-a-4Geeks-Academy-03-17-2026_09_17_AM-64w.webp"
@@ -8757,11 +8782,21 @@
         "logo"
       ],
       "widths_generated": [
+        32,
+        64,
         120,
         240
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40-64w.webp"
+        },
         {
           "w": 120,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40-120w.webp"
@@ -8790,6 +8825,7 @@
         "full"
       ],
       "widths_generated": [
+        32,
         64,
         128,
         256,
@@ -8802,6 +8838,10 @@
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/455d950c2e110ad696cc73e69098a00345dcbd1f730afe8f155a927d0fd08672-2--32w.webp"
+        },
         {
           "w": 64,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/455d950c2e110ad696cc73e69098a00345dcbd1f730afe8f155a927d0fd08672-2--64w.webp"
@@ -8897,11 +8937,21 @@
         "logo"
       ],
       "widths_generated": [
+        32,
+        64,
         120,
         240
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-2--32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-2--64w.webp"
+        },
         {
           "w": 120,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-2--120w.webp"
@@ -8927,10 +8977,20 @@
         "logo"
       ],
       "widths_generated": [
+        32,
+        64,
         120
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-3--32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-3--64w.webp"
+        },
         {
           "w": 120,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-3--120w.webp"
@@ -8952,10 +9012,20 @@
         "logo"
       ],
       "widths_generated": [
+        32,
+        64,
         120
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-4--32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-4--64w.webp"
+        },
         {
           "w": 120,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-4--120w.webp"
@@ -8977,11 +9047,21 @@
         "logo"
       ],
       "widths_generated": [
+        32,
+        64,
         120,
         240
       ],
       "format": "webp",
       "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-4--32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-4--64w.webp"
+        },
         {
           "w": 120,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/download-4--120w.webp"
