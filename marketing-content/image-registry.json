@@ -64,6 +64,7 @@
         240
       ],
       "quality": 90,
+      "sizes": "(min-width: 768px) 45px, 30px",
       "description": "Company logos, preserves original aspect ratio"
     },
     "icon": {
