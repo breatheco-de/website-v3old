@@ -62,8 +62,6 @@ sections:
         program:
           visible: false
           default: ai-engineering
-        location:
-          visible: true
       success:
         message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
       terms_url: /terminos-condiciones
