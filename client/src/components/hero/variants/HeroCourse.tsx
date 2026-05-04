@@ -2,9 +2,9 @@
 import type { HeroCourse as HeroCourseType } from "@shared/schema";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { IconCheck, IconBook, IconStarFilled } from "@tabler/icons-react";
 import { UniversalVideo } from "@/components/UniversalVideo";
+import { UniversalImage } from "@/components/UniversalImage";
 import { getIcon } from "@/lib/icons";
 import { cn } from "@/lib/utils";
 import { useInternalNav } from "@/hooks/useInternalNav";
@@ -68,18 +68,17 @@ export default function HeroCourse({ data }: HeroCourseProps) {
                       {data.students_enrolled.avatars
                         .slice(0, 4)
                         .map((avatar, index) => (
-                          <Avatar
+                          <div
                             key={index}
-                            className="w-8 h-8 border-2 border-background"
+                            className="w-8 h-8 rounded-full overflow-hidden border-2 border-background shrink-0"
                           >
-                            <AvatarImage
-                              src={avatar}
+                            <UniversalImage
+                              id={avatar}
                               alt={`Student ${index + 1}`}
+                              className="w-full h-full"
+                              fieldContext={{ arrayPath: "students_enrolled.avatars", index, srcField: "src" }}
                             />
-                            <AvatarFallback className="text-xs">
-                              S{index + 1}
-                            </AvatarFallback>
-                          </Avatar>
+                          </div>
                         ))}
                     </div>
                   )}
@@ -175,10 +174,14 @@ export default function HeroCourse({ data }: HeroCourseProps) {
                       key={index}
                       className="flex items-center gap-3 bg-muted rounded-lg px-3 py-2"
                     >
-                      <Avatar className="w-10 h-10">
-                        <AvatarImage src={tutor.image} alt={tutor.name} />
-                        <AvatarFallback>{tutor.name.charAt(0)}</AvatarFallback>
-                      </Avatar>
+                      <div className="w-10 h-10 rounded-full overflow-hidden shrink-0">
+                        <UniversalImage
+                          id={tutor.image}
+                          alt={tutor.name}
+                          className="w-full h-full"
+                          fieldContext={{ arrayPath: "tutors", index, srcField: "image" }}
+                        />
+                      </div>
                       <div>
                         <p className="font-medium text-sm text-primary">
                           {tutor.name}

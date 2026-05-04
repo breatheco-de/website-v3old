@@ -28,10 +28,10 @@ sections:
     subtitle: Master the skills powering the AI revolution. Learn to analyze data and build models that drive real-world decisions.
     students_enrolled:
       avatars:
-        - https://randomuser.me/api/portraits/women/1.jpg
-        - https://randomuser.me/api/portraits/men/2.jpg
-        - https://randomuser.me/api/portraits/women/3.jpg
-        - https://randomuser.me/api/portraits/men/4.jpg
+        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +500 students enrolled
     bullet_points:
       - Transform raw data into clear insights and predictive models, step by step.

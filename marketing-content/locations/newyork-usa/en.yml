@@ -73,10 +73,10 @@ sections:
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
-      - https://randomuser.me/api/portraits/women/1.jpg
-      - https://randomuser.me/api/portraits/men/2.jpg
-      - https://randomuser.me/api/portraits/women/3.jpg
-      - https://randomuser.me/api/portraits/men/4.jpg
+      - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+      - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+      - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+      - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
     title: Train for Tech Careers in One of the World’s Most Competitive Markets
     description: New York is home to one of the largest technology job markets in the United States. Our AI-native programs and structured mentorship prepare you to compete in a fast-moving environment where software, data, cybersecurity, and AI skills are in constant demand.
     background: gradient

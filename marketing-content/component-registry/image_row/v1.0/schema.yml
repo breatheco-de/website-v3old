@@ -8,7 +8,7 @@ when_to_use: |
   Pair with highlight.slides for rotating testimonials or messaging; omit highlight for a simple image band.
 
 image_sizes:
-  default.images[].src: "(min-width: 768px) 300px, 300px"
+  default.images[].src: "(min-width: 768px) 500px, 300px"
 
 variants:
   default:
@@ -150,4 +150,4 @@ props:
     required: false
     description: Optional section wrapper background; uses semantic keys (primary, accent, muted, card, background) when recognized
     example: muted
-
+    

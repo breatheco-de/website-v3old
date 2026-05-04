@@ -528,6 +528,32 @@
     }
   },
   "images": {
+    "410890": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/410890.jpg",
+      "alt": "Image: 410890",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "hash": "361ac5fbf662187311b040c2488627c5b8bc5495334c5035053e2737102cea0d",
+      "width": 460,
+      "height": 460,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        460
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 460,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/410890-460w.webp"
+        }
+      ]
+    },
     "clark_university": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png",
       "alt": "Clark University Logo",
@@ -15530,6 +15556,337 @@
         {
           "w": 640,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74-640w.webp"
+        }
+      ]
+    },
+    "course-report": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/course-report.webp",
+      "alt": "Image: course-report",
+      "focal_point": "center",
+      "tags": [
+        "award",
+        "badge"
+      ],
+      "usage_count": 0,
+      "hash": "34a8242e82726a4f9779c8fa7d9680708035d9efc12ac4098de5e3a59958dd92",
+      "width": 537,
+      "height": 252,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        537
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 537,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-537w.webp"
+        }
+      ]
+    },
+    "course-report-800x600-q75": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-800x600-q75.webp",
+      "alt": "Image: course-report",
+      "focal_point": "center",
+      "tags": [
+        "award",
+        "badge"
+      ],
+      "usage_count": 0,
+      "width": 800,
+      "height": 600,
+      "format": "webp",
+      "parentId": "course-report",
+      "quality_override": 75,
+      "preset": [
+        "icon",
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-800x600-q75-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-800x600-q75-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-800x600-q75-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-800x600-q75-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-800x600-q75-240w.webp"
+        }
+      ]
+    },
+    "course-report-537x252-q72": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72.webp",
+      "alt": "Image: course-report",
+      "focal_point": "center",
+      "tags": [
+        "award",
+        "badge"
+      ],
+      "usage_count": 0,
+      "width": 537,
+      "height": 252,
+      "format": "webp",
+      "parentId": "course-report",
+      "quality_override": 72,
+      "preset": [
+        "icon",
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72-240w.webp"
+        }
+      ]
+    },
+    "google": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/google.webp",
+      "alt": "Image: google",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "bac2c526eaeb0263255aaaafd3577fd7443101f4bcfef3d3a2d88c67c22169c4",
+      "width": 583,
+      "height": 196,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        583
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 583,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/google-583w.webp"
+        }
+      ]
+    },
+    "google-583x196-q79": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79.webp",
+      "alt": "Image: google",
+      "focal_point": "center",
+      "tags": [
+        "logo"
+      ],
+      "usage_count": 0,
+      "width": 583,
+      "height": 196,
+      "format": "webp",
+      "parentId": "google",
+      "quality_override": 79,
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79-240w.webp"
+        }
+      ]
+    },
+    "austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80.webp",
+      "alt": "Image: austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview",
+      "focal_point": "center",
+      "tags": [
+        "testimonial",
+        "logo"
+      ],
+      "usage_count": 0,
+      "width": 509,
+      "height": 490,
+      "format": "webp",
+      "parentId": "austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview",
+      "quality_override": 80,
+      "preset": [
+        "avatar",
+        "card",
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128,
+        240,
+        256,
+        320,
+        480
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80-240w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80-480w.webp"
+        }
+      ]
+    },
+    "group-7085-1-700x380-600x326-q80": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/group-7085-1-700x380-600x326-q80.webp",
+      "alt": "Image: Group 7085 (1)",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 600,
+      "height": 326,
+      "format": "webp",
+      "parentId": "group-7085-1-700x380",
+      "quality_override": 80,
+      "preset": [
+        "full",
+        "card",
+        "avatar"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        128,
+        256,
+        320,
+        480
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/group-7085-1-700x380-600x326-q80-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/group-7085-1-700x380-600x326-q80-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/group-7085-1-700x380-600x326-q80-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/group-7085-1-700x380-600x326-q80-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/group-7085-1-700x380-600x326-q80-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/group-7085-1-700x380-600x326-q80-480w.webp"
+        }
+      ]
+    },
+    "daniela-maisi": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/daniela-maisi.jpg",
+      "alt": "Image: daniela-maisi",
+      "focal_point": "center",
+      "tags": [
+        "photo"
+      ],
+      "usage_count": 0,
+      "hash": "bf75da7ab0e51eccbcd244ff5b850c467972f8209d3519cbce59cc669e235a25",
+      "width": 460,
+      "height": 460,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        460
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 460,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/daniela-maisi-460w.webp"
         }
       ]
     }

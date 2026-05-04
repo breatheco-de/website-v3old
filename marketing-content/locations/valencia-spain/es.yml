@@ -113,10 +113,10 @@ sections:
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
-      - https://randomuser.me/api/portraits/women/1.jpg
-      - https://randomuser.me/api/portraits/men/2.jpg
-      - https://randomuser.me/api/portraits/women/3.jpg
-      - https://randomuser.me/api/portraits/men/4.jpg
+      - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+      - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+      - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+      - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
     title: En el Centro del Impulso Tech de Valencia
     description: El ecosistema tecnológico de Valencia está en auge con un número creciente de empresas tecnológicas y startups. La ciudad se ha convertido en un centro de innovación y tecnología, con grandes corporaciones estableciendo su presencia. A medida que Valencia continúa expandiendo su sector tecnológico, te conectamos con empleadores locales, eventos tech y socios de contratación para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.
     background: gradient
