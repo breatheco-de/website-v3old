@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AlertTriangle, ArrowLeft, ArrowRight, Blocks, Book, Brain, Check, ChevronRight, CloudDownload, Cookie, Database, Github, Image, Languages, Map, MapPin, Menu, MessageCircle, Monitor, Moon, Palette, Pencil, Plus, RefreshCw, Settings, Smartphone, Stethoscope, Sun, X } from "lucide-react";
+import { AlertTriangle, ArrowLeft, ArrowRight, Blocks, Book, Brain, Check, ChevronRight, CloudDownload, Cookie, Database, FlaskConical, Github, Image, Languages, Map, MapPin, Menu, MessageCircle, Monitor, Moon, Palette, Pencil, Plus, RefreshCw, Route, Settings, Smartphone, Stethoscope, Sun, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -496,7 +496,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                 testId="button-sitemap-all-urls"
               />
               <MenuItem
-                icon={IconRoute}
+                icon={Route}
                 label="Redirects"
                 href="/private/redirects"
                 indicator="arrow"
@@ -605,7 +605,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
 
             {props.contentInfo.type && props.contentInfo.slug && (
               <MenuItem
-                icon={IconFlask}
+                icon={FlaskConical}
                 label="Experiments"
                 onClick={() => props.setMenuView("experiments")}
                 indicator="chevron"

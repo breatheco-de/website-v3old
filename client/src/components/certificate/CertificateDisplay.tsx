@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Briefcase, Building2, ChevronDown, Coins, Crown, FileText, Globe, Infinity, MessageCircle, MessageSquare, Mic, Rocket, Star, Target, TrendingUp, UserRound, Users } from "lucide-react";
+import { Briefcase, Building2, ChevronDown, Coins, Crown, FileText, Globe, HeartHandshake, Infinity, MessageCircle, MessageSquare, Mic, Rocket, Star, Target, TrendingUp, UserRound, Users } from "lucide-react";
 import { Certificate } from "./Certificate";
 import { Button } from "@/components/ui/button";
 
@@ -51,7 +51,7 @@ export function CertificateDisplay({
         <div className="flex flex-col justify-center gap-3">
           {benefits.map((benefit, index) => {
             const iconSets = [
-              [UserRound, FileText, Mic, IconHeartHandshake],
+              [UserRound, FileText, Mic, HeartHandshake],
               [Target, Coins, Infinity, Users],
               [TrendingUp, Rocket, Crown, Briefcase],
               [Building2, Star, MessageCircle, Globe]
