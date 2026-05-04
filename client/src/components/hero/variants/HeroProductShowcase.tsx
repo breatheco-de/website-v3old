@@ -161,7 +161,7 @@ export default function HeroProductShowcase({
                   id={image.src}
                   alt={image.alt}
                   className="w-full h-40 rounded-lg"
-                  loading="eager"
+                  loading={index === 0 ? "eager" : "lazy"}
                 />
               </div>
             ))}
@@ -188,7 +188,7 @@ export default function HeroProductShowcase({
                   id={image.src}
                   alt={image.alt}
                   className="w-full h-40 rounded-lg"
-                  loading="eager"
+                  loading={index === 0 ? "eager" : "lazy"}
                 />
               </div>
             ))}
