@@ -315,8 +315,7 @@ export function applyComponentImageSizes(sections: unknown[]): void {
     if (!section || typeof section !== "object") continue;
     const s = section as Record<string, unknown>;
     const type = s.type as string | undefined;
-    const variant = s.variant as string | undefined;
-    if (!type || !variant) {
+    if (!type) {
       s._imageSizes = {};
       continue;
     }
