@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
+import { ChevronDown, Star } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { IconChevronDown, IconStarFilled } from "@tabler/icons-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Label } from "@/components/ui/label";
 import { ColorPicker } from "@/components/ui/color-picker";
@@ -169,14 +169,14 @@ function TestimonialItemRow({ item, style, locale, onUpdateStyle, readOnly = fal
           <div className="flex items-center gap-1 flex-shrink-0">
             {item.rating && (
               <div className="flex items-center gap-0.5">
-                <IconStarFilled className="w-3 h-3 text-yellow-500" />
+                <Star className="fill-current w-3 h-3 text-yellow-500" />
                 <span className="text-[10px] text-muted-foreground">{item.rating}</span>
               </div>
             )}
             {hasCustomStyle && (
               <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
             )}
-            <IconChevronDown
+            <ChevronDown
               className={`w-3.5 h-3.5 text-muted-foreground transition-transform ${isOpen ? "rotate-180" : ""}`}
             />
           </div>

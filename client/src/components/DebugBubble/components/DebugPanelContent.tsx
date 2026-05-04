@@ -1,38 +1,6 @@
 import { useState } from "react";
+import { AlertTriangle, ArrowLeft, ArrowRight, Blocks, Book, Brain, Check, ChevronRight, CloudDownload, Cookie, Database, Github, Image, Languages, Map, MapPin, Menu, MessageCircle, Monitor, Moon, Palette, Pencil, Plus, RefreshCw, Settings, Smartphone, Stethoscope, Sun, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import {
-  IconAlertTriangle,
-  IconArrowLeft,
-  IconArrowRight,
-  IconBook,
-  IconBrain,
-  IconBrandGithub,
-  IconCheck,
-  IconChevronRight,
-  IconCloudDownload,
-  IconComponents,
-  IconCookie,
-  IconDatabase,
-  IconDeviceDesktop,
-  IconDeviceMobile,
-  IconFlask,
-  IconLanguage,
-  IconMap,
-  IconMapPin,
-  IconMenu2,
-  IconMessageCircle,
-  IconMoon,
-  IconPalette,
-  IconPencil,
-  IconPhoto,
-  IconPlus,
-  IconRefresh,
-  IconRoute,
-  IconSettings,
-  IconStethoscope,
-  IconSun,
-  IconX,
-} from "@tabler/icons-react";
 import { badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -167,8 +135,8 @@ function MenuItem({ icon: Icon, label, onClick, href, testId, rightContent, indi
       {hasRightSide && (
         <div className="flex items-center gap-1.5">
           {rightContent}
-          {indicator === "chevron" && <IconChevronRight className="h-4 w-4 text-muted-foreground" />}
-          {indicator === "arrow" && <IconArrowRight className="h-4 w-4 text-muted-foreground" />}
+          {indicator === "chevron" && <ChevronRight className="h-4 w-4 text-muted-foreground" />}
+          {indicator === "arrow" && <ArrowRight className="h-4 w-4 text-muted-foreground" />}
         </div>
       )}
     </>
@@ -197,7 +165,7 @@ function ExpandableMenuItem({ icon: Icon, label, expanded, onToggle, testId, act
         >
           <Icon className="h-4 w-4 text-muted-foreground" />
           <span>{label}</span>
-          <IconChevronRight className={`h-3.5 w-3.5 text-muted-foreground transition-transform ${expanded ? "rotate-90" : ""}`} />
+          <ChevronRight className={`h-3.5 w-3.5 text-muted-foreground transition-transform ${expanded ? "rotate-90" : ""}`} />
         </button>
         {actions}
       </div>
@@ -219,7 +187,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
       <div className="p-4 pl-[8px] pr-[8px]">
         <div className="flex items-start gap-3">
           <div className="p-2 rounded-full bg-amber-100 dark:bg-amber-900 flex-shrink-0">
-            <IconAlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+            <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
           </div>
           <div className="flex-1">
             <h3 className="font-semibold text-sm mb-1">No token detected</h3>
@@ -261,7 +229,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                 data-testid="button-validate-token"
               >
                 {props.isLoading ? (
-                  <IconRefresh className="h-4 w-4 animate-spin" />
+                  <RefreshCw className="h-4 w-4 animate-spin" />
                 ) : (
                   "Validate"
                 )}
@@ -269,7 +237,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
             </div>
             {props.breathecodeHost && !props.breathecodeHost.isDefault && (
               <div className="flex items-start gap-1.5 mt-2 text-amber-600 dark:text-amber-400">
-                <IconAlertTriangle className="h-3.5 w-3.5 flex-shrink-0 mt-0.5" />
+                <AlertTriangle className="h-3.5 w-3.5 flex-shrink-0 mt-0.5" />
                 <div className="text-xs">
                   <div>The host is pointing to</div>
                   <div className="font-mono break-all">{props.breathecodeHost.host}</div>
@@ -287,7 +255,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
       <div className="p-4">
         <div className="flex items-start gap-3">
           <div className="p-2 rounded-full bg-amber-100 dark:bg-amber-900">
-            <IconAlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+            <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
           </div>
           <div className="flex-1">
             <h3 className="font-semibold text-sm mb-1">Limited access</h3>
@@ -304,10 +272,10 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                 data-testid="button-retry-validation"
               >
                 {props.isLoading ? (
-                  <IconRefresh className="h-4 w-4 animate-spin" />
+                  <RefreshCw className="h-4 w-4 animate-spin" />
                 ) : (
                   <>
-                    <IconRefresh className="h-4 w-4 mr-1" />
+                    <RefreshCw className="h-4 w-4 mr-1" />
                     Retry
                   </>
                 )}
@@ -319,7 +287,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                 disabled={props.isLoading}
                 data-testid="button-clear-token"
               >
-                <IconX className="h-4 w-4 mr-1" />
+                <X className="h-4 w-4 mr-1" />
                 Clear
               </Button>
             </div>
@@ -334,7 +302,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
       {props.githubSyncStatus?.syncEnabled && props.githubSyncStatus.status === 'invalid-credentials' && (
         <div className="p-3 bg-red-100 dark:bg-red-900/50 border-b border-red-200 dark:border-red-800">
           <div className="flex items-start gap-2">
-            <IconAlertTriangle className="h-4 w-4 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+            <AlertTriangle className="h-4 w-4 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="text-xs font-medium text-red-800 dark:text-red-200">
                 Invalid GitHub Credentials for Sync
@@ -350,7 +318,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
       {props.githubSyncStatus && !props.githubSyncStatus.syncEnabled && props.githubSyncStatus.configured && (
         <div className="p-3 bg-muted/50 border-b border-border">
           <div className="flex items-start gap-2">
-            <IconBrandGithub className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+            <Github className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="text-xs font-medium text-foreground">
                 GitHub Sync is Disabled
@@ -366,7 +334,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
       {props.githubSyncStatus && (props.githubSyncStatus.status === 'behind' || props.githubSyncStatus.status === 'diverged') && (
         <div className="p-3 bg-amber-100 dark:bg-amber-900/50 border-b border-amber-200 dark:border-amber-800">
           <div className="flex items-start gap-2">
-            <IconAlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+            <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="text-xs font-medium text-amber-800 dark:text-amber-200">
                 {props.githubSyncStatus.status === 'behind'
@@ -466,7 +434,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   data-testid="button-preview-desktop"
                   title="Preview desktop view"
                 >
-                  <IconDeviceDesktop className="h-3.5 w-3.5" />
+                  <Monitor className="h-3.5 w-3.5" />
                 </button>
                 <button
                   onClick={(e) => {
@@ -482,7 +450,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   data-testid="button-preview-mobile"
                   title="Preview mobile view"
                 >
-                  <IconDeviceMobile className="h-3.5 w-3.5" />
+                  <Smartphone className="h-3.5 w-3.5" />
                 </button>
               </div>
             )}
@@ -494,7 +462,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
         <>
           <div className="p-2 space-y-1">
             <ExpandableMenuItem
-              icon={IconMap}
+              icon={Map}
               label="Sitemap"
               expanded={props.sitemapExpanded}
               onToggle={() => {
@@ -511,17 +479,17 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   title="Clear sitemap cache"
                 >
                   {props.cacheClearStatus === "loading" ? (
-                    <IconRefresh className="h-3.5 w-3.5 animate-spin" />
+                    <RefreshCw className="h-3.5 w-3.5 animate-spin" />
                   ) : props.cacheClearStatus === "success" ? (
-                    <IconCheck className="h-3.5 w-3.5 text-chart-3" />
+                    <Check className="h-3.5 w-3.5 text-chart-3" />
                   ) : (
-                    <IconRefresh className="h-3.5 w-3.5" />
+                    <RefreshCw className="h-3.5 w-3.5" />
                   )}
                 </button>
               }
             >
               <MenuItem
-                icon={IconMap}
+                icon={Map}
                 label="All URLs"
                 onClick={() => props.setMenuView("sitemap")}
                 indicator="chevron"
@@ -536,7 +504,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                 rightContent={<span className="text-xs text-muted-foreground">{props.redirectsList.length || '...'}</span>}
               />
               <MenuItem
-                icon={IconBook}
+                icon={Book}
                 label="Content Types"
                 onClick={() => props.setMenuView("content-types")}
                 indicator="chevron"
@@ -545,7 +513,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
             </ExpandableMenuItem>
 
             <ExpandableMenuItem
-              icon={IconComponents}
+              icon={Blocks}
               label="Components"
               expanded={props.componentsExpanded}
               onToggle={() => {
@@ -555,14 +523,14 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               testId="button-components-toggle"
             >
               <MenuItem
-                icon={IconComponents}
+                icon={Blocks}
                 label="Component Gallery"
                 onClick={() => props.setMenuView("components")}
                 indicator="chevron"
                 testId="button-gallery-registry"
               />
               <MenuItem
-                icon={IconMenu2}
+                icon={Menu}
                 label="Menus"
                 onClick={() => props.setMenuView("menus")}
                 indicator="chevron"
@@ -571,7 +539,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
             </ExpandableMenuItem>
 
             <ExpandableMenuItem
-              icon={IconBrain}
+              icon={Brain}
               label="AI & Agents"
               expanded={props.aiAgentsExpanded}
               onToggle={() => {
@@ -580,14 +548,14 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               testId="button-ai-agents-toggle"
             >
               <MenuItem
-                icon={IconPencil}
+                icon={Pencil}
                 label="Knowledge Editor"
                 href="/private/ai-knowledge"
                 indicator="arrow"
                 testId="link-ai-knowledge"
               />
               <MenuItem
-                icon={IconMessageCircle}
+                icon={MessageCircle}
                 label="Conversation Review"
                 href="/private/ai-conversations"
                 indicator="arrow"
@@ -596,7 +564,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
             </ExpandableMenuItem>
 
             <MenuItem
-              icon={IconPhoto}
+              icon={Image}
               label="Media Gallery"
               href="/private/media-gallery"
               indicator="arrow"
@@ -604,7 +572,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
             />
 
             <MenuItem
-              icon={IconPalette}
+              icon={Palette}
               label="Theme Editor"
               href="/private/theme-editor"
               indicator="arrow"
@@ -612,7 +580,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
             />
 
             <MenuItem
-              icon={IconDatabase}
+              icon={Database}
               label="Databases"
               onClick={() => props.setMenuView("databases")}
               indicator="arrow"
@@ -620,7 +588,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
             />
 
             <MenuItem
-              icon={IconStethoscope}
+              icon={Stethoscope}
               label="Diagnostics"
               href="/private/diagnostics"
               indicator="arrow"
@@ -628,7 +596,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
             />
 
             <MenuItem
-              icon={IconSettings}
+              icon={Settings}
               label="Settings"
               href="/private/settings"
               indicator="arrow"
@@ -648,7 +616,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
 
             <div className="flex items-center justify-between w-full px-3 py-2 rounded-md text-sm">
               <div className="flex items-center gap-3">
-                <IconBrandGithub className="h-4 w-4 text-muted-foreground" />
+                <Github className="h-4 w-4 text-muted-foreground" />
                 <span>GitHub Sync</span>
                 {props.githubSyncStatus && !props.githubSyncStatus.syncEnabled && (
                   <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
@@ -659,18 +627,18 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               <div className="flex items-center gap-2">
                 <SyncStatusPopover>
                   {props.syncStatusLoading ? (
-                    <IconRefresh className="h-3.5 w-3.5 animate-spin text-muted-foreground" />
+                    <RefreshCw className="h-3.5 w-3.5 animate-spin text-muted-foreground" />
                   ) : props.githubSyncStatus ? (
                     <>
                       {props.githubSyncStatus.status === 'in-sync' && (
                         <span className="text-xs text-green-600 dark:text-green-400 flex items-center gap-1">
-                          <IconCheck className="h-3.5 w-3.5" />
+                          <Check className="h-3.5 w-3.5" />
                           In sync
                         </span>
                       )}
                       {props.githubSyncStatus.status === 'behind' && (
                         <span className="text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1">
-                          <IconCloudDownload className="h-3.5 w-3.5" />
+                          <CloudDownload className="h-3.5 w-3.5" />
                           {props.githubSyncStatus.behindBy} behind
                         </span>
                       )}
@@ -681,13 +649,13 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                       )}
                       {props.githubSyncStatus.status === 'diverged' && (
                         <span className="text-xs text-red-600 dark:text-red-400 flex items-center gap-1">
-                          <IconAlertTriangle className="h-3.5 w-3.5" />
+                          <AlertTriangle className="h-3.5 w-3.5" />
                           Diverged
                         </span>
                       )}
                       {props.githubSyncStatus.status === 'invalid-credentials' && (
                         <span className="text-xs text-red-600 dark:text-red-400 flex items-center gap-1 font-medium">
-                          <IconAlertTriangle className="h-3.5 w-3.5" />
+                          <AlertTriangle className="h-3.5 w-3.5" />
                           Invalid Credentials
                         </span>
                       )}
@@ -711,7 +679,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   data-testid="button-refresh-sync-status"
                   title="Refresh sync status"
                 >
-                  <IconRefresh className={`h-3.5 w-3.5 ${props.syncStatusLoading ? 'animate-spin' : ''}`} />
+                  <RefreshCw className={`h-3.5 w-3.5 ${props.syncStatusLoading ? 'animate-spin' : ''}`} />
                 </button>
                 {props.githubSyncStatus?.syncEnabled && (
                   <button
@@ -725,7 +693,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                     data-testid="button-open-sync-modal"
                     title="Manage file sync"
                   >
-                    <IconCloudDownload className="h-3.5 w-3.5" />
+                    <CloudDownload className="h-3.5 w-3.5" />
                   </button>
                 )}
               </div>
@@ -735,7 +703,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
           <div className="border-t p-2 space-y-1">
               <div className="flex items-center justify-between px-3 py-1.5">
                 <div className="flex items-center gap-2">
-                  <IconCookie className="h-3.5 w-3.5 text-muted-foreground" />
+                  <Cookie className="h-3.5 w-3.5 text-muted-foreground" />
                   <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Session</span>
                   {!props.hasToken && (
                     <span className="text-xs text-amber-600 dark:text-amber-400">(no auth)</span>
@@ -751,7 +719,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                     data-testid="button-location-override"
                     title={props.currentLocationOverride ? `Location override: ${props.currentLocationOverride}` : 'Click to override location'}
                   >
-                    <IconMapPin className="h-3 w-3" />
+                    <MapPin className="h-3 w-3" />
                     <span className="max-w-[80px] truncate">{props.session.location?.name || 'Detecting...'}</span>
                   </button>
                   <button
@@ -760,7 +728,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                     data-testid="button-toggle-language"
                     title="Click to toggle language"
                   >
-                    <IconLanguage className="h-3 w-3" />
+                    <Languages className="h-3 w-3" />
                     <span>{props.currentLang.toUpperCase()}</span>
                   </button>
                   <button
@@ -770,8 +738,8 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                     title="Click to toggle theme"
                   >
                     {props.theme === "light"
-                      ? <IconSun className="h-3 w-3" />
-                      : <IconMoon className="h-3 w-3" />}
+                      ? <Sun className="h-3 w-3" />
+                      : <Moon className="h-3 w-3" />}
                     <span className="capitalize">{props.theme}</span>
                   </button>
                   <button
@@ -781,7 +749,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                     data-testid="button-session-refresh"
                     title="Check session validity"
                   >
-                    <IconRefresh className={`h-3.5 w-3.5 text-muted-foreground ${props.isCheckingSession ? 'animate-spin' : ''}`} />
+                    <RefreshCw className={`h-3.5 w-3.5 text-muted-foreground ${props.isCheckingSession ? 'animate-spin' : ''}`} />
                   </button>
                   <button
                     onClick={() => props.setSessionModalOpen(true)}
@@ -789,7 +757,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                     data-testid="button-session-view"
                     title="View session data"
                   >
-                    <IconPencil className="h-3.5 w-3.5 text-muted-foreground" />
+                    <Pencil className="h-3.5 w-3.5 text-muted-foreground" />
                   </button>
                 </div>
               </div>
@@ -824,7 +792,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   className="p-1 rounded-md hover-elevate"
                   data-testid="button-back-to-main-menus"
                 >
-                  <IconArrowLeft className="h-4 w-4" />
+                  <ArrowLeft className="h-4 w-4" />
                 </button>
                 <div>
                   <h3 className="font-semibold text-sm">Menus</h3>
@@ -837,7 +805,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                 title="Create new menu"
                 data-testid="button-create-menu"
               >
-                <IconPlus className="h-4 w-4 text-muted-foreground" />
+                <Plus className="h-4 w-4 text-muted-foreground" />
               </button>
             </div>
           </div>

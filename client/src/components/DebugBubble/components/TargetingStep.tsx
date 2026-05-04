@@ -1,5 +1,5 @@
-import { IconWorld, IconDeviceMobile, IconDeviceDesktop, IconMapPin } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
+import { Globe, MapPin, Monitor, Smartphone } from "lucide-react";
 import { locations } from "@/lib/locations";
 import { TagInput } from "./TagInput";
 import { deslugify } from "../utils/debugHelpers";
@@ -25,7 +25,7 @@ export function TargetingStep({
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <label className="text-sm font-medium flex items-center gap-2">
-            <IconWorld className="h-4 w-4" />
+            <Globe className="h-4 w-4" />
             Regions
           </label>
           <div className="flex flex-wrap gap-2">
@@ -52,7 +52,7 @@ export function TargetingStep({
         
         <div className="space-y-2">
           <label className="text-sm font-medium flex items-center gap-2">
-            <IconDeviceMobile className="h-4 w-4" />
+            <Smartphone className="h-4 w-4" />
             Devices
           </label>
           <div className="flex flex-wrap gap-2">
@@ -71,8 +71,8 @@ export function TargetingStep({
                 }}
                 data-testid={`button-device-${device}`}
               >
-                {device === 'mobile' && <IconDeviceMobile className="h-3 w-3 mr-1" />}
-                {device === 'desktop' && <IconDeviceDesktop className="h-3 w-3 mr-1" />}
+                {device === 'mobile' && <Smartphone className="h-3 w-3 mr-1" />}
+                {device === 'desktop' && <Monitor className="h-3 w-3 mr-1" />}
                 {device.charAt(0).toUpperCase() + device.slice(1)}
               </Button>
             ))}
@@ -82,7 +82,7 @@ export function TargetingStep({
       
       <div className="space-y-2">
         <label className="text-sm font-medium flex items-center gap-2">
-          <IconMapPin className="h-4 w-4" />
+          <MapPin className="h-4 w-4" />
           Campus Locations
         </label>
         <TagInput

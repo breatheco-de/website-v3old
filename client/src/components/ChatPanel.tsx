@@ -1,5 +1,5 @@
 import { useRef, useEffect, type ReactNode, type RefObject } from "react";
-import { IconMessageCircle, IconSend, IconLoader2 } from "@tabler/icons-react";
+import { Loader2, MessageCircle, Send } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -53,7 +53,7 @@ export function ChatPanel<T extends ChatMessage = ChatMessage>({
           {agentIcon ? (
             <img src={agentIcon} alt={agentName || "Agent"} className="h-6 w-6 rounded-full object-cover" />
           ) : (
-            <IconMessageCircle className="h-5 w-5" />
+            <MessageCircle className="h-5 w-5" />
           )}
           <span className="font-semibold text-sm">{agentName || "Chat with us"}</span>
         </div>
@@ -104,7 +104,7 @@ export function ChatPanel<T extends ChatMessage = ChatMessage>({
         {isLoading && (
           <div className="flex justify-start" data-testid="chat-typing-indicator">
             <div className="bg-muted rounded-md px-3 py-2 text-sm flex items-center gap-2 text-muted-foreground">
-              <IconLoader2 className="h-4 w-4 animate-spin" />
+              <Loader2 className="h-4 w-4 animate-spin" />
               <span>Typing...</span>
             </div>
           </div>
@@ -137,7 +137,7 @@ export function ChatPanel<T extends ChatMessage = ChatMessage>({
             className="p-2 rounded-md bg-primary text-primary-foreground disabled:opacity-50 transition-colors"
             data-testid="button-send-chat"
           >
-            <IconSend className="h-4 w-4" />
+            <Send className="h-4 w-4" />
           </button>
         </div>
       </div>

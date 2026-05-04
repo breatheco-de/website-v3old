@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconX } from "@tabler/icons-react";
+import { X } from "lucide-react";
 import type { TagInputProps } from "../types";
 
 export function TagInput({ tags, setTags, placeholder, suggestions, testId, transform }: TagInputProps) {
@@ -59,7 +59,7 @@ export function TagInput({ tags, setTags, placeholder, suggestions, testId, tran
               onClick={() => removeTag(tag)}
               className="hover:text-destructive"
             >
-              <IconX className="h-3 w-3" />
+              <X className="h-3 w-3" />
             </button>
           </span>
         ))}

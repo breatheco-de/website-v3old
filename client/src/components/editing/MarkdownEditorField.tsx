@@ -1,13 +1,5 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
-import {
-  IconMarkdown,
-  IconEdit,
-  IconX,
-  IconDeviceFloppy,
-  IconList,
-  IconMaximize,
-  IconMinimize,
-} from "@tabler/icons-react";
+import { FileCode, List, Maximize2, Minimize2, Pencil, Save, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -83,7 +75,7 @@ export function MarkdownEditorField({
       >
         <div className="flex items-center justify-between gap-2 border-b border-input bg-muted/30 px-3 py-2">
           <div className="flex items-center gap-2">
-            <IconMarkdown className="h-4 w-4 text-muted-foreground" />
+            <FileCode className="h-4 w-4 text-muted-foreground" />
             <span className="text-sm font-medium">{label}</span>
           </div>
           <Button
@@ -93,7 +85,7 @@ export function MarkdownEditorField({
             onClick={() => setModalOpen(true)}
             data-testid="button-edit-markdown"
           >
-            <IconEdit className="mr-1.5 h-3.5 w-3.5" />
+            <Pencil className="mr-1.5 h-3.5 w-3.5" />
             Edit Markdown
           </Button>
         </div>
@@ -128,7 +120,7 @@ export function MarkdownEditorField({
             </Badge>
             {tocItems.length > 0 && (
               <Badge variant="secondary" className="text-xs font-normal">
-                <IconList className="mr-1 h-3 w-3" />
+                <List className="mr-1 h-3 w-3" />
                 {tocItems.length} heading{tocItems.length !== 1 ? "s" : ""}
               </Badge>
             )}
@@ -249,7 +241,7 @@ function MarkdownEditorModal({
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <DialogTitle className="flex items-center gap-2">
-                <IconMarkdown className="h-5 w-5" />
+                <FileCode className="h-5 w-5" />
                 Markdown Editor
               </DialogTitle>
               <div className="flex items-center gap-2">
@@ -276,12 +268,12 @@ function MarkdownEditorModal({
               >
                 {showPreview ? (
                   <>
-                    <IconMinimize className="mr-1.5 h-3.5 w-3.5" />
+                    <Minimize2 className="mr-1.5 h-3.5 w-3.5" />
                     Hide Preview
                   </>
                 ) : (
                   <>
-                    <IconMaximize className="mr-1.5 h-3.5 w-3.5" />
+                    <Maximize2 className="mr-1.5 h-3.5 w-3.5" />
                     Show Preview
                   </>
                 )}
@@ -339,7 +331,7 @@ function MarkdownEditorModal({
                 onClick={handleCancel}
                 data-testid="button-markdown-cancel"
               >
-                <IconX className="mr-1.5 h-3.5 w-3.5" />
+                <X className="mr-1.5 h-3.5 w-3.5" />
                 Cancel
               </Button>
               <Button
@@ -348,7 +340,7 @@ function MarkdownEditorModal({
                 onClick={handleSave}
                 data-testid="button-markdown-save"
               >
-                <IconDeviceFloppy className="mr-1.5 h-3.5 w-3.5" />
+                <Save className="mr-1.5 h-3.5 w-3.5" />
                 Save
               </Button>
             </div>

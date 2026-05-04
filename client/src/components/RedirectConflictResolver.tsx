@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
+import { Check, Wrench, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -9,7 +10,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { IconTool, IconCheck, IconX } from "@tabler/icons-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { getDebugUserName } from "@/hooks/useDebugAuth";
@@ -214,7 +214,7 @@ export function RedirectConflictResolverModal({
       <DialogContent className="sm:max-w-md" style={{ borderRadius: "0.8rem" }}>
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <IconTool className="h-5 w-5" />
+            <Wrench className="h-5 w-5" />
             {getConflictTitle(conflict.code)}
           </DialogTitle>
           <DialogDescription>
@@ -244,7 +244,7 @@ export function RedirectConflictResolverModal({
                     disabled={resolving}
                     data-testid="button-resolve-remove"
                   >
-                    <IconX className="h-4 w-4 text-destructive flex-shrink-0" />
+                    <X className="h-4 w-4 text-destructive flex-shrink-0" />
                     <span className="truncate text-left">Remove from {formatFileName(conflict.files[0])}</span>
                   </Button>
                 </div>
@@ -266,7 +266,7 @@ export function RedirectConflictResolverModal({
                         disabled={resolving}
                         data-testid={`button-keep-${file}`}
                       >
-                        <IconCheck className="h-4 w-4 text-chart-3 flex-shrink-0" />
+                        <Check className="h-4 w-4 text-chart-3 flex-shrink-0" />
                         <span className="truncate text-left">Keep in {formatFileName(file)}</span>
                       </Button>
                     );
@@ -287,7 +287,7 @@ export function RedirectConflictResolverModal({
                       disabled={resolving || localeFiles.length === 0}
                       data-testid="button-keep-common"
                     >
-                      <IconCheck className="h-4 w-4 text-chart-3 flex-shrink-0" />
+                      <Check className="h-4 w-4 text-chart-3 flex-shrink-0" />
                       <span className="truncate text-left">Keep in _common.yml (all languages)</span>
                     </Button>
                   )}
@@ -302,7 +302,7 @@ export function RedirectConflictResolverModal({
                       disabled={resolving || !commonFile}
                       data-testid={`button-keep-locale-${file}`}
                     >
-                      <IconCheck className="h-4 w-4 text-chart-3 flex-shrink-0" />
+                      <Check className="h-4 w-4 text-chart-3 flex-shrink-0" />
                       <span className="truncate text-left">Keep in {formatFileName(file)} only</span>
                     </Button>
                   ))}

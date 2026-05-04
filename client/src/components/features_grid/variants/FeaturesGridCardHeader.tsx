@@ -2,13 +2,14 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import * as TablerIcons from "@tabler/icons-react";
+import * as LucideIcons from "lucide-react";
+import { Check, LucideIcon } from "lucide-react";
 import { getCustomIcon } from "@/components/custom-icons";
 import type { FeaturesGridCardHeaderSection } from "@shared/schema";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { UniversalImage } from "@/components/UniversalImage";
 
-const { IconCheck } = TablerIcons;
+
 
 interface FeaturesGridCardHeaderProps {
   data: FeaturesGridCardHeaderSection;
@@ -94,8 +95,8 @@ export default function FeaturesGridCardHeader({ data }: FeaturesGridCardHeaderP
         <div className="grid md:grid-cols-3 gap-4">
           {data.cards.map((card, index) => {
             const CustomIcon = card.icon ? getCustomIcon(card.icon) : null;
-            const iconName = card.icon ? `Icon${card.icon}` : "IconCheck";
-            const TablerIcon = (TablerIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[iconName] || IconCheck;
+            const iconName = card.icon ? `Icon${card.icon}` : "Check";
+            const LucideIcon = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[iconName] || Check;
             
             return (
               <Card 
@@ -107,7 +108,7 @@ export default function FeaturesGridCardHeader({ data }: FeaturesGridCardHeaderP
                   {CustomIcon ? (
                     <CustomIcon width="32" height="32" className="w-8 h-8" />
                   ) : (
-                    <TablerIcon className="w-8 h-8 text-primary" />
+                    <LucideIcon className="w-8 h-8 text-primary" />
                   )}
                   <p className="text-foreground text-sm md:text-base">
                     {card.text}

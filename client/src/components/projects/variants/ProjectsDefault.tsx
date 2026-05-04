@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { Calendar, ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { IconChevronLeft, IconChevronRight, IconClock, IconCalendar } from "@tabler/icons-react";
 import SolidCard from "@/components/SolidCard";
 import UniversalImage from "@/components/UniversalImage";
 import type { ProjectsSection as ProjectsSectionType } from "@shared/schema";
@@ -116,13 +116,13 @@ export function ProjectsSection({ data }: ProjectsSectionProps) {
                     )}
                     {currentProject.duration && (
                       <span className="flex items-center gap-1">
-                        <IconClock size={14} />
+                        <Clock size={14} />
                         {currentProject.duration}
                       </span>
                     )}
                     {currentProject.date && (
                       <span className="flex items-center gap-1">
-                        <IconCalendar size={14} />
+                        <Calendar size={14} />
                         {currentProject.date}
                       </span>
                     )}
@@ -173,7 +173,7 @@ export function ProjectsSection({ data }: ProjectsSectionProps) {
               className="rounded-full border"
               data-testid="button-projects-prev"
             >
-              <IconChevronLeft size={24} />
+              <ChevronLeft size={24} />
             </Button>
 
             <div className="flex items-center gap-2">
@@ -199,7 +199,7 @@ export function ProjectsSection({ data }: ProjectsSectionProps) {
               className="rounded-full border"
               data-testid="button-projects-next"
             >
-              <IconChevronRight size={24} />
+              <ChevronRight size={24} />
             </Button>
           </div>
         </div>

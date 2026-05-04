@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { ArrowLeft, Check, Loader2, Plus, Trash2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
@@ -7,7 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { IconArrowLeft, IconPlus, IconTrash, IconLoader2, IconCheck } from "@tabler/icons-react";
 import { Link } from "wouter";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 
@@ -72,7 +72,7 @@ export default function AIKnowledgeBlocks() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <IconLoader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
       </div>
     );
   }
@@ -83,7 +83,7 @@ export default function AIKnowledgeBlocks() {
         <div className="flex items-center gap-3">
           <Link href="/private/ai-knowledge">
             <Button size="icon" variant="ghost" data-testid="button-back-knowledge-blocks">
-              <IconArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
           <div className="flex-1">
@@ -96,7 +96,7 @@ export default function AIKnowledgeBlocks() {
               onClick={() => setCustomKnowledge(prev => [...prev, { content: "", tag: "" }])}
               data-testid="button-add-knowledge-block"
             >
-              <IconPlus className="h-4 w-4 mr-2" />
+              <Plus className="h-4 w-4 mr-2" />
               Add Block
             </Button>
             <Button
@@ -104,7 +104,7 @@ export default function AIKnowledgeBlocks() {
               disabled={savingKnowledge}
               data-testid="button-save-knowledge"
             >
-              {savingKnowledge ? <IconLoader2 className="h-4 w-4 animate-spin mr-2" /> : <IconCheck className="h-4 w-4 mr-2" />}
+              {savingKnowledge ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Check className="h-4 w-4 mr-2" />}
               Save All
             </Button>
           </div>
@@ -182,7 +182,7 @@ export default function AIKnowledgeBlocks() {
                   onClick={() => setCustomKnowledge(prev => prev.filter((_, j) => j !== idx))}
                   data-testid={`button-delete-knowledge-${idx}`}
                 >
-                  <IconTrash className="h-4 w-4" />
+                  <Trash2 className="h-4 w-4" />
                 </Button>
               </div>
               <Textarea

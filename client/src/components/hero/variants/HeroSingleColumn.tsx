@@ -1,11 +1,11 @@
 
 import { useState } from "react";
+import { Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar } from "@/components/ui/avatar";
 import UniversalImage from "@/components/UniversalImage";
 import { RichTextContent } from "@/components/ui/rich-text-content";
-import { IconStarFilled, IconStar } from "@tabler/icons-react";
 import type { HeroSingleColumn } from "@shared/schema";
 import { createElement } from "react";
 import { getIcon } from "@/lib/icons";
@@ -105,12 +105,12 @@ export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
                   <span className="font-semibold text-foreground">{data.trust_bar.rating || ""}</span>
                   <div className="flex">
                     {[1, 2, 3, 4].map((i) => (
-                      <IconStarFilled
+                      <Star
                         key={i}
-                        className="text-yellow-500 w-4 h-4"
+                        className="fill-current text-yellow-500 w-4 h-4"
                       />
                     ))}
-                    <IconStar className="text-yellow-500 w-4 h-4" />
+                    <Star className="text-yellow-500 w-4 h-4" />
                   </div>
                 </div>
               )}

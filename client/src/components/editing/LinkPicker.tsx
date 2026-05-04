@@ -1,13 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
+import { ArrowDown, Check, ExternalLink, Link, PanelBottom, Search } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import {
-  IconLink,
-  IconExternalLink,
-  IconLayoutBottombar,
-  IconArrowDown,
-  IconSearch,
-  IconCheck,
-} from "@tabler/icons-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -211,11 +204,11 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
     setOpen(false);
   };
 
-  const typeOptions: { type: LinkType; icon: typeof IconLink; label: string }[] = [
-    { type: "internal", icon: IconLink, label: "Page" },
-    { type: "external", icon: IconExternalLink, label: "External" },
-    { type: "modal", icon: IconLayoutBottombar, label: "Modal" },
-    { type: "scroll", icon: IconArrowDown, label: "Section" },
+  const typeOptions: { type: LinkType; icon: typeof Link; label: string }[] = [
+    { type: "internal", icon: Link, label: "Page" },
+    { type: "external", icon: ExternalLink, label: "External" },
+    { type: "modal", icon: PanelBottom, label: "Modal" },
+    { type: "scroll", icon: ArrowDown, label: "Section" },
   ];
 
   const displayValue = value || "No link set";
@@ -223,10 +216,10 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
   const isHash = value?.startsWith("#");
 
   const displayIcon = isExternal
-    ? IconExternalLink
+    ? ExternalLink
     : isHash
-      ? (modals.some(m => `#${m.id}` === value) ? IconLayoutBottombar : IconArrowDown)
-      : IconLink;
+      ? (modals.some(m => `#${m.id}` === value) ? PanelBottom : ArrowDown)
+      : Link;
 
   const DisplayIconComponent = displayIcon;
 
@@ -280,7 +273,7 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
           <>
             <div className="p-2 border-b">
               <div className="relative">
-                <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -317,7 +310,7 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
                           <div className="text-xs text-muted-foreground truncate">{path}</div>
                         </div>
                         {value === path && (
-                          <IconCheck className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                          <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                         )}
                       </button>
                     );
@@ -399,13 +392,13 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
                       )}
                       data-testid={`${testId}-modal-option-${index}`}
                     >
-                      <IconLayoutBottombar className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                      <PanelBottom className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
                       <div className="flex-1 min-w-0">
                         <div className="font-medium text-foreground truncate text-xs">{modal.label}</div>
                         <div className="text-xs text-muted-foreground truncate">{hashValue}</div>
                       </div>
                       {value === hashValue && (
-                        <IconCheck className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                        <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                       )}
                     </button>
                   );
@@ -440,7 +433,7 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
                       )}
                       data-testid={`${testId}-scroll-option-${index}`}
                     >
-                      <IconArrowDown className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                      <ArrowDown className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
                       <div className="flex-1 min-w-0">
                         <div className="font-medium text-foreground truncate text-xs">{section.label}</div>
                         <div className="text-xs text-muted-foreground truncate">
@@ -449,7 +442,7 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
                         </div>
                       </div>
                       {value === hashValue && (
-                        <IconCheck className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                        <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                       )}
                     </button>
                   );

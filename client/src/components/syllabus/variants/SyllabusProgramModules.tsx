@@ -1,13 +1,13 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import type { SyllabusSection as SyllabusSectionType, SyllabusDefault, SyllabusLanding, SyllabusProgramModules } from "@shared/schema";
-import { ChevronDown } from "lucide-react";
+import { Box, Check, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DotsIndicator } from "@/components/DotsIndicator";
 import { SyllabusModuleCard } from "@/components/syllabus/SyllabusModuleCard";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
-import * as TablerIcons from "@tabler/icons-react";
+import * as LucideIcons from "lucide-react";
 import type { ComponentType } from "react";
 import { SiGit, SiPython, SiReact, SiNodedotjs, SiOpenai, SiFlask, SiBootstrap, SiJavascript, SiHtml5, SiCss3, SiGithub, SiTailwindcss, SiPandas, SiNumpy, SiScikitlearn, SiPytorch, SiPostman, SiN8N, SiTensorflow, SiLinux, SiDocker, SiMongodb, SiPostgresql, SiTypescript, SiAmazonwebservices, SiDjango, SiKeras, SiJupyter, SiGooglecolab, SiSelenium, SiWireshark } from "react-icons/si";
 import { TiHtml5 } from "react-icons/ti";
@@ -33,11 +33,11 @@ interface ModuleAccordionProps {
 }
 
 function getIcon(iconName: string, className?: string) {
-  const IconComponent = TablerIcons[`Icon${iconName}` as keyof typeof TablerIcons] as ComponentType<{ className?: string }>;
+  const IconComponent = LucideIcons[iconName as keyof typeof LucideIcons] as ComponentType<{ className?: string }>;
   if (IconComponent) {
     return <IconComponent className={className || "w-5 h-5 text-primary"} />;
   }
-  return <TablerIcons.IconBox className={className || "w-5 h-5 text-primary"} />;
+  return <Box className={className || "w-5 h-5 text-primary"} />;
 }
 
 function ModuleAccordion({ title, description, isOpen, onToggle, testId, expandLabel, collapseLabel }: ModuleAccordionProps) {
@@ -610,7 +610,7 @@ function SyllabusProgramModulesVariant({ data }: { data: SyllabusProgramModules 
                     aria-label="Previous milestone"
                     data-testid="button-prev-milestone"
                   >
-                    <TablerIcons.IconChevronLeft className="w-6 h-6 text-primary" />
+                    <ChevronLeft className="w-6 h-6 text-primary" />
                   </Button>
                   <Button
                     variant="outline"
@@ -621,7 +621,7 @@ function SyllabusProgramModulesVariant({ data }: { data: SyllabusProgramModules 
                     aria-label="Next milestone"
                     data-testid="button-next-milestone"
                   >
-                    <TablerIcons.IconChevronRight className="w-6 h-6 text-primary" />
+                    <ChevronRight className="w-6 h-6 text-primary" />
                   </Button>
                 </div>
               </div>

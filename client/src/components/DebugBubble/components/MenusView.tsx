@@ -1,15 +1,7 @@
 import { useState } from "react";
+import { ChevronDown, ChevronRight, Menu, MoreVertical, Pencil, RefreshCw, Trash2 } from "lucide-react";
 import { useLocation } from "wouter";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  IconRefresh,
-  IconMenu2,
-  IconChevronDown,
-  IconChevronRight,
-  IconPencil,
-  IconDotsVertical,
-  IconTrash,
-} from "@tabler/icons-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -101,11 +93,11 @@ export function MenusView() {
     <>
       {isLoading ? (
         <div className="flex items-center justify-center py-8">
-          <IconRefresh className="h-5 w-5 animate-spin text-muted-foreground" />
+          <RefreshCw className="h-5 w-5 animate-spin text-muted-foreground" />
         </div>
       ) : menus.length === 0 ? (
         <div className="text-center py-8 px-4">
-          <IconMenu2 className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+          <Menu className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
           <p className="text-sm text-muted-foreground mb-2">No menus found</p>
           <p className="text-xs text-muted-foreground">
             Add <code className="bg-muted px-1 rounded">.yml</code> files to{" "}
@@ -123,13 +115,13 @@ export function MenusView() {
                 data-testid={`button-menu-${menu.name}`}
               >
                 {isMenuLoading && expandedMenu === menu.name ? (
-                  <IconRefresh className="h-4 w-4 text-muted-foreground animate-spin flex-shrink-0" />
+                  <RefreshCw className="h-4 w-4 text-muted-foreground animate-spin flex-shrink-0" />
                 ) : expandedMenu === menu.name ? (
-                  <IconChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <ChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                 ) : (
-                  <IconChevronRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <ChevronRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                 )}
-                <IconMenu2 className="h-4 w-4 text-primary flex-shrink-0" />
+                <Menu className="h-4 w-4 text-primary flex-shrink-0" />
                 <span className="font-medium">{menu.name}</span>
                 <span className="text-xs text-muted-foreground ml-auto">{menu.file}</span>
               </button>
@@ -141,7 +133,7 @@ export function MenusView() {
                     onClick={(e) => e.stopPropagation()}
                     data-testid={`button-menu-options-${menu.name}`}
                   >
-                    <IconDotsVertical className="h-3 w-3 text-muted-foreground" />
+                    <MoreVertical className="h-3 w-3 text-muted-foreground" />
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-36">
@@ -150,7 +142,7 @@ export function MenusView() {
                     className="text-[13px]"
                     data-testid={`menu-edit-${menu.name}`}
                   >
-                    <IconPencil className="h-3.5 w-3.5 mr-2" />
+                    <Pencil className="h-3.5 w-3.5 mr-2" />
                     Edit
                   </DropdownMenuItem>
                   <DropdownMenuItem
@@ -158,7 +150,7 @@ export function MenusView() {
                     className="text-[13px] text-destructive"
                     data-testid={`menu-delete-${menu.name}`}
                   >
-                    <IconTrash className="h-3.5 w-3.5 mr-2" />
+                    <Trash2 className="h-3.5 w-3.5 mr-2" />
                     Delete
                   </DropdownMenuItem>
                 </DropdownMenuContent>

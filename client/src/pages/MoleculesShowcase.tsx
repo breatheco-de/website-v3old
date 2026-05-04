@@ -1,10 +1,10 @@
 import { useState, useMemo } from "react";
+import { Atom, Box, Code, Tag, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { MoleculeRenderer, type MoleculeDefinition } from "@/components/MoleculeRenderer";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { IconAtom, IconX, IconTag, IconBox, IconCode } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -102,7 +102,7 @@ export default function MoleculesShowcase() {
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center gap-3 mb-4">
-            <IconAtom className="w-8 h-8 text-primary" />
+            <Atom className="w-8 h-8 text-primary" />
             <div>
               <h1 className="text-2xl font-bold text-foreground">
                 Molecules Showcase
@@ -122,7 +122,7 @@ export default function MoleculesShowcase() {
                     size="icon"
                     data-testid="button-open-tag-filter"
                   >
-                    <IconTag className="w-4 h-4" />
+                    <Tag className="w-4 h-4" />
                   </Button>
                 </DialogTrigger>
                 <DialogContent>
@@ -156,7 +156,7 @@ export default function MoleculesShowcase() {
                     data-testid={`badge-active-tag-${tag}`}
                   >
                     {tag}
-                    <IconX className="w-3 h-3 ml-1" />
+                    <X className="w-3 h-3 ml-1" />
                   </Badge>
                 ))
               )}
@@ -170,7 +170,7 @@ export default function MoleculesShowcase() {
                     size="icon"
                     data-testid="button-open-component-filter"
                   >
-                    <IconBox className="w-4 h-4" />
+                    <Box className="w-4 h-4" />
                   </Button>
                 </DialogTrigger>
                 <DialogContent>
@@ -204,7 +204,7 @@ export default function MoleculesShowcase() {
                     data-testid={`badge-active-component-${component}`}
                   >
                     {component}
-                    <IconX className="w-3 h-3 ml-1" />
+                    <X className="w-3 h-3 ml-1" />
                   </Badge>
                 ))
               )}
@@ -217,7 +217,7 @@ export default function MoleculesShowcase() {
                 onClick={clearFilters}
                 data-testid="button-clear-filters"
               >
-                <IconX className="w-4 h-4 mr-1" />
+                <X className="w-4 h-4 mr-1" />
                 Clear all
               </Button>
             )}
@@ -242,7 +242,7 @@ export default function MoleculesShowcase() {
                             className="gap-1 h-7 px-2"
                             data-testid={`button-tags-${molecule.id}`}
                           >
-                            <IconTag className="w-3 h-3" />
+                            <Tag className="w-3 h-3" />
                             {molecule.tags.length}
                           </Button>
                         </PopoverTrigger>
@@ -268,7 +268,7 @@ export default function MoleculesShowcase() {
                             className="h-7 w-7 p-0"
                             data-testid={`button-props-${molecule.id}`}
                           >
-                            <IconCode className="w-3 h-3" />
+                            <Code className="w-3 h-3" />
                           </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-80 p-0">

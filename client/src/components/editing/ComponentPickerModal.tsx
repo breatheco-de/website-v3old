@@ -1,40 +1,8 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
+import { ArrowRight, Award, BarChart2, Blocks, Book, Brain, Building2, Check, ClipboardList, Columns, Columns2, CreditCard, FolderCode, HelpCircle, Image, List, ListFilter, MessageSquare, MousePointerClick, PanelBottom, RefreshCw, Rocket, ScatterChart, Search, Sparkles, Star, Table, Trophy, Users, Wand2, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import jsYaml from "js-yaml";
 import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
-import { 
-  IconX, 
-  IconRefresh,
-  IconRocket,
-  IconLayoutColumns,
-  IconArrowRight,
-  IconBrain,
-  IconUsers,
-  IconCreditCard,
-  IconFolderCode,
-  IconBook,
-  IconSparkles,
-  IconCertificate,
-  IconBuildingSkyscraper,
-  IconMessage,
-  IconQuestionMark,
-  IconLayoutBottombar,
-  IconChartBar,
-  IconTable,
-  IconCheck,
-  IconWand,
-  IconComponents,
-  IconListDetails,
-  IconAward,
-  IconPhoto,
-  IconForms,
-  IconChartDots,
-  IconChartBar as IconVerticalBars,
-  IconHandClick,
-  IconColumns,
-  IconSearch,
-  IconStarFilled,
-} from "@tabler/icons-react";
 import {
   Dialog,
   DialogContent,
@@ -113,41 +81,41 @@ interface RegistryOverview {
 }
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  hero: IconRocket,
-  two_column: IconLayoutColumns,
-  two_column_accordion_card: IconColumns,
-  comparison_table: IconTable,
-  features_grid: IconLayoutColumns,
-  numbered_steps: IconArrowRight,
-  ai_learning: IconBrain,
-  mentorship: IconUsers,
-  pricing: IconCreditCard,
-  projects: IconFolderCode,
-  project_showcase: IconChartBar,
-  syllabus: IconBook,
-  why_learn_ai: IconSparkles,
-  certificate: IconCertificate,
-  whos_hiring: IconBuildingSkyscraper,
-  testimonials: IconMessage,
-  testimonials_slide: IconMessage,
-  faq: IconQuestionMark,
-  cta_banner: IconHandClick,
-  footer: IconLayoutBottombar,
-  award_badges: IconCertificate,
-  awards_marquee: IconAward,
-  bullet_tabs_showcase: IconListDetails,
-  apply_form: IconForms,
-  lead_form: IconForms,
-  graduates_stats: IconChartDots,
-  horizontal_bars: IconChartBar,
-  vertical_bars_cards: IconVerticalBars,
-  human_and_ai_duo: IconUsers,
-  community_support: IconUsers,
-  article: IconBook,
-  dynamic_table: IconTable,
-  modal: IconHandClick,
-  cards_deck: IconLayoutColumns,
-  trust_cards: IconStarFilled,
+  hero: Rocket,
+  two_column: Columns2,
+  two_column_accordion_card: Columns,
+  comparison_table: Table,
+  features_grid: Columns2,
+  numbered_steps: ArrowRight,
+  ai_learning: Brain,
+  mentorship: Users,
+  pricing: CreditCard,
+  projects: FolderCode,
+  project_showcase: BarChart2,
+  syllabus: Book,
+  why_learn_ai: Sparkles,
+  certificate: Award,
+  whos_hiring: Building2,
+  testimonials: MessageSquare,
+  testimonials_slide: MessageSquare,
+  faq: HelpCircle,
+  cta_banner: MousePointerClick,
+  footer: PanelBottom,
+  award_badges: Award,
+  awards_marquee: Trophy,
+  bullet_tabs_showcase: ListFilter,
+  apply_form: ClipboardList,
+  lead_form: ClipboardList,
+  graduates_stats: ScatterChart,
+  horizontal_bars: BarChart2,
+  vertical_bars_cards: BarChart2,
+  human_and_ai_duo: Users,
+  community_support: Users,
+  article: Book,
+  dynamic_table: Table,
+  modal: MousePointerClick,
+  cards_deck: Columns2,
+  trust_cards: Star,
 };
 
 const variantLabels: Record<string, string> = {
@@ -232,7 +200,7 @@ export default function ComponentPickerModal({
       .map((comp) => ({
         type: comp.type,
         label: comp.name,
-        icon: iconMap[comp.type] || IconComponents,
+        icon: iconMap[comp.type] || Blocks,
         description: comp.description || "",
       }));
   }, [registryData]);
@@ -607,7 +575,7 @@ export default function ComponentPickerModal({
           <div className="flex-1 flex flex-col overflow-hidden">
             <div className="px-4 pt-2 pb-3 flex-shrink-0">
               <div className="relative">
-                <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <input
                   type="text"
                   placeholder="Search components..."
@@ -621,7 +589,7 @@ export default function ComponentPickerModal({
             <ScrollArea className="flex-1 px-4 pb-4">
               {isLoadingRegistry ? (
                 <div className="flex items-center justify-center h-full py-12">
-                  <IconRefresh className="h-8 w-8 animate-spin text-muted-foreground" />
+                  <RefreshCw className="h-8 w-8 animate-spin text-muted-foreground" />
                 </div>
               ) : filteredComponentsList.length === 0 ? (
                 <div className="flex items-center justify-center h-full py-12 text-muted-foreground">
@@ -719,7 +687,7 @@ export default function ComponentPickerModal({
                       htmlFor="ai-adaptation" 
                       className="flex items-center gap-1 text-sm cursor-pointer"
                     >
-                      <IconWand className="h-4 w-4" />
+                      <Wand2 className="h-4 w-4" />
                       AI Adapt
                     </Label>
                   </div>
@@ -736,17 +704,17 @@ export default function ComponentPickerModal({
               >
                 {isAdapting ? (
                   <>
-                    <IconWand className="h-4 w-4 mr-2 animate-pulse" />
+                    <Wand2 className="h-4 w-4 mr-2 animate-pulse" />
                     Adapting...
                   </>
                 ) : isAdding ? (
                   <>
-                    <IconRefresh className="h-4 w-4 mr-2 animate-spin" />
+                    <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
                     Adding...
                   </>
                 ) : (
                   <>
-                    <IconCheck className="h-4 w-4 mr-2" />
+                    <Check className="h-4 w-4 mr-2" />
                     Add Section
                   </>
                 )}
@@ -756,7 +724,7 @@ export default function ComponentPickerModal({
             <div className="flex-1 overflow-hidden bg-muted/30">
               {isLoading ? (
                 <div className="flex items-center justify-center h-full">
-                  <IconRefresh className="h-8 w-8 animate-spin text-muted-foreground" />
+                  <RefreshCw className="h-8 w-8 animate-spin text-muted-foreground" />
                 </div>
               ) : previewUrl ? (
                 <iframe

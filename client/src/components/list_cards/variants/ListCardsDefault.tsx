@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback } from "react";
+import { ArrowRight, Calendar, ChevronLeft, ChevronRight, Search, User } from "lucide-react";
 import { useLocation, useSearch } from "wouter";
-import { IconSearch, IconCalendar, IconUser, IconArrowRight, IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -261,7 +261,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
 
               {userFilters.filter(f => f.component_renderer === "text-input").map(uf => (
                 <div key={uf.item_property_slug} className="relative max-w-md md:w-64 shrink-0">
-                  <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     placeholder={uf.all_label || "Search..."}
                     value={userFilterValues[uf.item_property_slug] || ""}
@@ -274,7 +274,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
 
               {showSearch && (
                 <div className="relative max-w-md md:w-72 shrink-0">
-                  <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     placeholder={searchPlaceholder}
                     value={searchQuery}
@@ -386,13 +386,13 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
                       <div className="flex items-center gap-3 text-xs text-muted-foreground flex-wrap">
                         {metaLeft && (
                           <span className="flex items-center gap-1">
-                            <IconUser className="w-3 h-3" />
+                            <User className="w-3 h-3" />
                             {metaLeft}
                           </span>
                         )}
                         {metaRight && (
                           <span className="flex items-center gap-1">
-                            <IconCalendar className="w-3 h-3" />
+                            <Calendar className="w-3 h-3" />
                             {metaRight}
                           </span>
                         )}
@@ -401,7 +401,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
                     {item.cta_text && (
                       <div className="mt-4 flex items-center gap-1 text-sm text-primary font-medium">
                         {String(item.cta_text)}
-                        <IconArrowRight className="w-4 h-4" />
+                        <ArrowRight className="w-4 h-4" />
                       </div>
                     )}
                   </div>
@@ -447,7 +447,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
                     disabled={currentPage <= 1}
                     data-testid="button-page-prev"
                   >
-                    <IconChevronLeft className="w-4 h-4" />
+                    <ChevronLeft className="w-4 h-4" />
                   </Button>
                 </a>
                 {pageNumbers.map((p, i) =>
@@ -488,7 +488,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
                     disabled={currentPage >= totalPages}
                     data-testid="button-page-next"
                   >
-                    <IconChevronRight className="w-4 h-4" />
+                    <ChevronRight className="w-4 h-4" />
                   </Button>
                 </a>
               </nav>

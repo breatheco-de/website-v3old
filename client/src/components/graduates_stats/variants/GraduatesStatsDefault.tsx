@@ -1,11 +1,11 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { UniversalImage } from "@/components/UniversalImage";
 import type { GraduatesStatsSection } from "@shared/schema";
 import { cn } from "@/lib/utils";
 import { DotsIndicator } from "@/components/DotsIndicator";
 import { Button } from "@/components/ui/button";
-import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 
 interface GraduatesStatsDefaultProps {
   data: GraduatesStatsSection;
@@ -179,7 +179,7 @@ export default function GraduatesStatsDefault({ data }: GraduatesStatsDefaultPro
               aria-label="Previous graduate image"
               data-testid="button-graduates-stats-prev"
             >
-              <IconChevronLeft className="h-4 w-4" />
+              <ChevronLeft className="h-4 w-4" />
             </Button>
 
             <DotsIndicator
@@ -198,7 +198,7 @@ export default function GraduatesStatsDefault({ data }: GraduatesStatsDefaultPro
               aria-label="Next graduate image"
               data-testid="button-graduates-stats-next"
             >
-              <IconChevronRight className="h-4 w-4" />
+              <ChevronRight className="h-4 w-4" />
             </Button>
           </div>
         )}

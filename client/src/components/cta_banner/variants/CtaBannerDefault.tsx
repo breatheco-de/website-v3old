@@ -1,6 +1,6 @@
 import type { CTABannerSection as CTABannerSectionType, CtaBannerDefault, CtaBannerForm, CtaButton } from "@shared/schema";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { IconArrowRight } from "@tabler/icons-react";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { useSession } from "@/contexts/SessionContext";
 import LeadForm from "@/components/lead_form/variants/LeadFormDefault";
@@ -142,7 +142,7 @@ export function CTABannerSection({ data }: CTABannerSectionProps) {
                 data-testid="button-cta-banner-action"
               >
                 {data.cta_text}
-                <IconArrowRight className="w-5 h-5 ml-2" />
+                <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </a>
           ) : null}

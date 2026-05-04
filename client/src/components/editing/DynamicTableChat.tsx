@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from "react";
-import { IconSend, IconLoader2, IconRefresh } from "@tabler/icons-react";
+import { Loader2, RefreshCw, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
@@ -200,7 +200,7 @@ export function DynamicTableChat({
   if (dataLoading) {
     return (
       <div className="flex items-center gap-2 text-sm text-muted-foreground p-3">
-        <IconLoader2 className="w-4 h-4 animate-spin" />
+        <Loader2 className="w-4 h-4 animate-spin" />
         Loading endpoint data...
       </div>
     );
@@ -211,7 +211,7 @@ export function DynamicTableChat({
       <div className="space-y-2 p-3">
         {error && <p className="text-xs text-destructive">{error}</p>}
         <Button size="sm" variant="outline" onClick={fetchData} data-testid="button-retry-fetch">
-          <IconRefresh className="w-4 h-4 mr-1" />
+          <RefreshCw className="w-4 h-4 mr-1" />
           Retry loading data
         </Button>
       </div>
@@ -281,7 +281,7 @@ export function DynamicTableChat({
           {sending && (
             <div className="flex justify-start">
               <div className="bg-muted rounded-md px-2.5 py-1.5">
-                <IconLoader2 className="w-3.5 h-3.5 animate-spin text-muted-foreground" />
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-muted-foreground" />
               </div>
             </div>
           )}
@@ -312,7 +312,7 @@ export function DynamicTableChat({
             disabled={sending || !input.trim()}
             data-testid="button-table-chat-send"
           >
-            {sending ? <IconLoader2 className="w-3.5 h-3.5 animate-spin" /> : <IconSend className="w-3.5 h-3.5" />}
+            {sending ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
           </Button>
         </div>
       </div>

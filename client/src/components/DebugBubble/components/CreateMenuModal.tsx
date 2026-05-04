@@ -1,13 +1,7 @@
 import { useState } from "react";
+import { AlertTriangle, ArrowRight, Menu, RefreshCw, X } from "lucide-react";
 import { useLocation } from "wouter";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import {
-  IconAlertTriangle,
-  IconArrowRight,
-  IconMenu2,
-  IconRefresh,
-  IconX,
-} from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -139,7 +133,7 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <IconMenu2 className="h-5 w-5" />
+            <Menu className="h-5 w-5" />
             Create new menu
           </DialogTitle>
         </DialogHeader>
@@ -286,7 +280,7 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
                           <span className="text-sm font-medium flex-1 truncate">
                             {label}
                           </span>
-                          <IconArrowRight className="h-3 w-3 text-muted-foreground shrink-0" />
+                          <ArrowRight className="h-3 w-3 text-muted-foreground shrink-0" />
                           <span className="text-xs text-muted-foreground shrink-0">
                             Top
                             {existingTop && (
@@ -302,7 +296,7 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
                             disabled={createMutation.isPending}
                             data-testid={`remove-assignment-${ctName}-top`}
                           >
-                            <IconX className="h-3 w-3" />
+                            <X className="h-3 w-3" />
                           </Button>
                         </div>
                       );
@@ -317,7 +311,7 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
                           <span className="text-sm font-medium flex-1 truncate">
                             {label}
                           </span>
-                          <IconArrowRight className="h-3 w-3 text-muted-foreground shrink-0" />
+                          <ArrowRight className="h-3 w-3 text-muted-foreground shrink-0" />
                           <span className="text-xs text-muted-foreground shrink-0">
                             Bottom
                             {existingBottom && (
@@ -333,7 +327,7 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
                             disabled={createMutation.isPending}
                             data-testid={`remove-assignment-${ctName}-bottom`}
                           >
-                            <IconX className="h-3 w-3" />
+                            <X className="h-3 w-3" />
                           </Button>
                         </div>
                       );
@@ -347,7 +341,7 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
 
           {error && (
             <div className="flex items-start gap-2 p-3 rounded-md bg-destructive/10 text-destructive text-sm">
-              <IconAlertTriangle className="h-4 w-4 flex-shrink-0 mt-0.5" />
+              <AlertTriangle className="h-4 w-4 flex-shrink-0 mt-0.5" />
               <span>{error}</span>
             </div>
           )}
@@ -369,7 +363,7 @@ export function CreateMenuModal({ open, onOpenChange }: CreateMenuModalProps) {
           >
             {createMutation.isPending ? (
               <>
-                <IconRefresh className="h-4 w-4 mr-1.5 animate-spin" />
+                <RefreshCw className="h-4 w-4 mr-1.5 animate-spin" />
                 Creating…
               </>
             ) : (

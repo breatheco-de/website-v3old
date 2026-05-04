@@ -1,9 +1,6 @@
 import { useState, useMemo } from "react";
+import { ChevronDown, Image } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import {
-  IconPhoto,
-  IconChevronDown,
-} from "@tabler/icons-react";
 import {
   Collapsible,
   CollapsibleContent,
@@ -101,12 +98,12 @@ export function ImageWithStylePicker({
                 <img src={displaySrc} alt={alt || label} className="w-full h-full object-cover" />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <IconPhoto className="h-4 w-4 text-muted-foreground" />
+                  <Image className="h-4 w-4 text-muted-foreground" />
                 </div>
               )}
             </div>
             <span className="flex-1 text-left text-sm font-medium">{label}</span>
-            <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+            <ChevronDown className="h-4 w-4 text-muted-foreground" />
           </button>
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -124,12 +121,12 @@ export function ImageWithStylePicker({
                   <>
                     <img src={displaySrc} alt={alt} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <IconPhoto className="h-5 w-5 text-white" />
+                      <Image className="h-5 w-5 text-white" />
                     </div>
                   </>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <IconPhoto className="h-6 w-6 text-muted-foreground" />
+                    <Image className="h-6 w-6 text-muted-foreground" />
                   </div>
                 )}
               </button>

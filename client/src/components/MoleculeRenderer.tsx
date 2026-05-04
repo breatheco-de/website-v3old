@@ -1,4 +1,5 @@
 import { UniversalVideo, type VideoConfig } from "@/components/UniversalVideo";
+import { BarChart2, Brain, Briefcase, Code, LucideIcon, Rocket, Star, Users, UsersRound } from "lucide-react";
 import { UniversalImage } from "@/components/UniversalImage";
 import { StatCard, type StatCardProps } from "@/components/StatCard";
 import { SyllabusModuleCard, type SyllabusModuleCardProps } from "@/components/syllabus/SyllabusModuleCard";
@@ -17,25 +18,15 @@ import { DotsIndicator } from "@/components/DotsIndicator";
 import StatsCard from "@/components/StatsCard";
 import { SimpleLink } from "@/components/menus/SimpleLink";
 import type { ImageRef } from "@shared/schema";
-import {
-  IconUsersGroup,
-  IconChartBar,
-  IconRocket,
-  IconStar,
-  IconBrain,
-  IconCode,
-  IconBriefcase,
-  type Icon as TablerIcon,
-} from "@tabler/icons-react";
 
-const STATS_ICON_MAP: Record<string, TablerIcon> = {
-  "people-group": IconUsersGroup,
-  "chart-bar": IconChartBar,
-  "rocket": IconRocket,
-  "star": IconStar,
-  "brain": IconBrain,
-  "code": IconCode,
-  "briefcase": IconBriefcase,
+const STATS_ICON_MAP: Record<string, LucideIcon> = {
+  "people-group": UsersRound,
+  "chart-bar": BarChart2,
+  "rocket": Rocket,
+  "star": Star,
+  "brain": Brain,
+  "code": Code,
+  "briefcase": Briefcase,
 };
 
 interface UniversalVideoMolecule {
@@ -388,7 +379,7 @@ export function MoleculeRenderer({ molecule }: MoleculeRendererProps) {
         <DotsIndicator count={molecule.props.count} activeIndex={molecule.props.activeIndex} />
       );
     case "StatsCard": {
-      const IconComponent = STATS_ICON_MAP[molecule.props.icon] || IconChartBar;
+      const IconComponent = STATS_ICON_MAP[molecule.props.icon] || BarChart2;
       return (
         <StatsCard
           title={molecule.props.title}

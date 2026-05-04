@@ -1,4 +1,5 @@
 import { useParams, useLocation } from "wouter";
+import { ArrowLeft, Braces, Check, ChevronDown, ChevronRight, Code, ExternalLink, FileCode, GripVertical, Info, Link as LinkIcon, Megaphone, Menu, Plus, RefreshCw, Save, Search, Trash2 } from "lucide-react";
 import { getDebugUserName } from "@/hooks/useDebugAuth";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
@@ -35,26 +36,6 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import {
-  IconArrowLeft,
-  IconDeviceFloppy,
-  IconRefresh,
-  IconPlus,
-  IconTrash,
-  IconChevronDown,
-  IconChevronRight,
-  IconGripVertical,
-  IconMenu2,
-  IconLink,
-  IconCode,
-  IconFileCode,
-  IconVariable,
-  IconInfoCircle,
-  IconSpeakerphone,
-  IconExternalLink,
-  IconSearch,
-  IconCheck,
-} from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -273,10 +254,10 @@ function SortableMenuItemEditor({
               {...listeners}
               data-testid={`button-drag-item-${index}`}
             >
-              <IconGripVertical className="h-4 w-4 text-muted-foreground" />
+              <GripVertical className="h-4 w-4 text-muted-foreground" />
             </button>
           ) : (
-            <IconGripVertical className="h-4 w-4 text-muted-foreground/30" />
+            <GripVertical className="h-4 w-4 text-muted-foreground/30" />
           )}
           <button
             onClick={() => onToggleExpand(index)}
@@ -284,11 +265,11 @@ function SortableMenuItemEditor({
             data-testid={`button-expand-item-${index}`}
           >
             {isExpanded ? (
-              <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+              <ChevronDown className="h-4 w-4 text-muted-foreground" />
             ) : (
-              <IconChevronRight className="h-4 w-4 text-muted-foreground" />
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
             )}
-            <IconMenu2 className="h-4 w-4 text-primary" />
+            <Menu className="h-4 w-4 text-primary" />
             <span className="font-medium">{item.label || "Untitled"}</span>
           </button>
           <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
@@ -302,7 +283,7 @@ function SortableMenuItemEditor({
               className="h-8 w-8 text-destructive hover:text-destructive"
               data-testid={`button-delete-item-${index}`}
             >
-              <IconTrash className="h-4 w-4" />
+              <Trash2 className="h-4 w-4" />
             </Button>
           )}
         </div>
@@ -323,7 +304,7 @@ function SortableMenuItemEditor({
             <div className="space-y-2">
               <Label htmlFor={`href-${index}`}>URL</Label>
               <div className="relative">
-                <IconLink className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <LinkIcon className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   id={`href-${index}`}
                   value={item.href}
@@ -361,7 +342,7 @@ function SortableMenuItemEditor({
                   {componentOptions.map((opt) => (
                     <SelectItem key={opt.value} value={opt.value}>
                       <div className="flex items-center gap-2">
-                        <IconCode className="h-4 w-4" />
+                        <Code className="h-4 w-4" />
                         {opt.label}
                       </div>
                     </SelectItem>
@@ -405,7 +386,7 @@ function SortableMenuItemEditor({
           {item.component === "Dropdown" && item.dropdown && (
             <div className="border-t pt-4 mt-4">
               <div className="flex items-center gap-2 mb-4">
-                <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                <ChevronDown className="h-4 w-4 text-muted-foreground" />
                 <span className="font-medium text-sm">Dropdown Preview</span>
                 <span className="text-xs text-muted-foreground">(Click elements to edit)</span>
               </div>
@@ -460,7 +441,7 @@ function SortableMenuItemEditor({
                     onClick={() => onUpdate(index, { ...item, messages: [...(item.messages ?? []), { text: "" }] })}
                     data-testid={`button-add-tw-message-${index}`}
                   >
-                    <IconPlus className="h-3 w-3 mr-1" />
+                    <Plus className="h-3 w-3 mr-1" />
                     Add message
                   </Button>
                 </div>
@@ -597,7 +578,7 @@ function SortableFooterItem({
         {...listeners}
         data-testid={`button-drag-footer-column-${colIndex}-item-${itemIndex}`}
       >
-        <IconGripVertical className="h-3 w-3 text-muted-foreground" />
+        <GripVertical className="h-3 w-3 text-muted-foreground" />
       </button>
       <div className="flex-1 min-w-0">
         <EditableLinkItem
@@ -663,7 +644,7 @@ function SortableFooterColumn({
           {...listeners}
           data-testid={`button-drag-footer-column-${colIndex}`}
         >
-          <IconGripVertical className="h-4 w-4 text-muted-foreground" />
+          <GripVertical className="h-4 w-4 text-muted-foreground" />
         </button>
         <EditableText
           value={column.title}
@@ -678,7 +659,7 @@ function SortableFooterColumn({
           className="p-1 rounded-md bg-destructive/10 text-destructive opacity-0 group-hover/col:opacity-100 transition-opacity"
           data-testid={`footer-column-${colIndex}-delete`}
         >
-          <IconTrash className="h-3 w-3" />
+          <Trash2 className="h-3 w-3" />
         </button>
       </div>
       <SortableContext
@@ -705,7 +686,7 @@ function SortableFooterColumn({
               className="flex items-center gap-1 text-sm text-muted-foreground/50 hover:text-primary py-1"
               data-testid={`footer-column-${colIndex}-add-item`}
             >
-              <IconPlus className="h-3 w-3" />
+              <Plus className="h-3 w-3" />
               Add item
             </button>
           </li>
@@ -761,14 +742,14 @@ function PagePickerPopover({
           className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-md border border-input bg-background hover-elevate truncate max-w-[140px]"
           data-testid={testId}
         >
-          <IconLink className="h-3 w-3 shrink-0 text-muted-foreground" />
+          <LinkIcon className="h-3 w-3 shrink-0 text-muted-foreground" />
           <span className="truncate">{value || "Select page…"}</span>
         </button>
       </PopoverTrigger>
       <PopoverContent className="w-72 p-0 z-[10001]" align="start">
         <div className="p-2 border-b">
           <div className="relative">
-            <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
             <Input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -801,7 +782,7 @@ function PagePickerPopover({
                       <div className="text-xs font-medium truncate">{entry.label}</div>
                       <div className="text-xs text-muted-foreground truncate">{path}</div>
                     </div>
-                    {value === path && <IconCheck className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" />}
+                    {value === path && <Check className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" />}
                   </button>
                 );
               })}
@@ -852,9 +833,9 @@ function SortableMarqueeMessageRow({
   const MsgIcon = (() => {
     if (msg.icon) {
       const Ic = getIcon(msg.icon);
-      return Ic ?? IconSpeakerphone;
+      return Ic ?? Megaphone;
     }
-    return IconSpeakerphone;
+    return Megaphone;
   })();
 
   return (
@@ -866,7 +847,7 @@ function SortableMarqueeMessageRow({
           {...listeners}
           data-testid={`button-drag-marquee-msg-${index}`}
         >
-          <IconGripVertical className="h-4 w-4 text-muted-foreground" />
+          <GripVertical className="h-4 w-4 text-muted-foreground" />
         </button>
         <Input
           className="flex-1 text-sm"
@@ -883,7 +864,7 @@ function SortableMarqueeMessageRow({
           className="text-muted-foreground"
           data-testid={`button-marquee-msg-expand-${index}`}
         >
-          <IconChevronDown className={cn("h-3.5 w-3.5 transition-transform", expanded && "rotate-180")} />
+          <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", expanded && "rotate-180")} />
         </Button>
         <Button
           variant="ghost"
@@ -892,7 +873,7 @@ function SortableMarqueeMessageRow({
           className="text-destructive"
           data-testid={`button-delete-marquee-msg-${index}`}
         >
-          <IconTrash className="h-3.5 w-3.5" />
+          <Trash2 className="h-3.5 w-3.5" />
         </Button>
       </div>
 
@@ -919,7 +900,7 @@ function SortableMarqueeMessageRow({
                 onClick={() => onUpdate({ icon: undefined })}
                 data-testid={`button-marquee-msg-icon-clear-${index}`}
               >
-                <IconTrash className="h-3.5 w-3.5 text-destructive" />
+                <Trash2 className="h-3.5 w-3.5 text-destructive" />
               </Button>
             )}
           </div>
@@ -969,7 +950,7 @@ function SortableMarqueeMessageRow({
                 onClick={() => onUpdate({ cta_url_overrides: { ...(msg.cta_url_overrides ?? {}), "": "" } })}
                 data-testid={`button-marquee-msg-add-override-${index}`}
               >
-                <IconPlus className="h-3 w-3 mr-1" />
+                <Plus className="h-3 w-3 mr-1" />
                 Add
               </Button>
             </div>
@@ -1017,7 +998,7 @@ function SortableMarqueeMessageRow({
                         }}
                         data-testid={`button-override-delete-${index}-${i}`}
                       >
-                        <IconTrash className="h-3 w-3 text-destructive" />
+                        <Trash2 className="h-3 w-3 text-destructive" />
                       </Button>
                     </div>
                   </div>
@@ -1062,7 +1043,7 @@ function MenuUsageInfo({ menuName }: { menuName: string }) {
   if (!hasDefaults && !hasOverrides) {
     return (
       <div className="bg-muted rounded-md p-4 mb-6 flex items-start gap-3" data-testid="menu-usage-empty">
-        <IconInfoCircle className="h-5 w-5 text-muted-foreground shrink-0 mt-0.5" />
+        <Info className="h-5 w-5 text-muted-foreground shrink-0 mt-0.5" />
         <span className="text-sm text-muted-foreground">
           This menu is not currently assigned to any content.
         </span>
@@ -1074,7 +1055,7 @@ function MenuUsageInfo({ menuName }: { menuName: string }) {
 
   return (
     <div className="bg-muted rounded-md p-4 mb-6 flex items-start gap-3" data-testid="menu-usage-info">
-      <IconInfoCircle className="h-5 w-5 text-muted-foreground shrink-0 mt-0.5" />
+      <Info className="h-5 w-5 text-muted-foreground shrink-0 mt-0.5" />
       <span className="text-sm text-muted-foreground">
         {hasDefaults && (
           <>
@@ -1528,7 +1509,7 @@ export default function MenuEditor() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <IconRefresh className="h-8 w-8 animate-spin text-muted-foreground" />
+        <RefreshCw className="h-8 w-8 animate-spin text-muted-foreground" />
       </div>
     );
   }
@@ -1557,11 +1538,11 @@ export default function MenuEditor() {
               onClick={() => navigate("/")}
               data-testid="button-back"
             >
-              <IconArrowLeft className="h-5 w-5" />
+              <ArrowLeft className="h-5 w-5" />
             </Button>
             <div>
               <h1 className="text-lg font-semibold flex items-center gap-2">
-                <IconMenu2 className="h-5 w-5 text-primary" />
+                <Menu className="h-5 w-5 text-primary" />
                 {menuName}
               </h1>
               <p className="text-sm text-muted-foreground">Menu Editor</p>
@@ -1604,7 +1585,7 @@ export default function MenuEditor() {
               onClick={() => setShowSourceSidebar(true)}
               data-testid="button-view-source"
             >
-              <IconFileCode className="h-4 w-4 mr-2" />
+              <FileCode className="h-4 w-4 mr-2" />
               View Source
             </Button>
             <Button
@@ -1613,9 +1594,9 @@ export default function MenuEditor() {
               data-testid="button-save-menu"
             >
               {saveMutation.isPending ? (
-                <IconRefresh className="h-4 w-4 animate-spin mr-2" />
+                <RefreshCw className="h-4 w-4 animate-spin mr-2" />
               ) : (
-                <IconDeviceFloppy className="h-4 w-4 mr-2" />
+                <Save className="h-4 w-4 mr-2" />
               )}
               Save Changes
             </Button>
@@ -1629,7 +1610,7 @@ export default function MenuEditor() {
             <Card className="mb-6 border-destructive">
               <CardContent className="py-4">
                 <div className="flex items-center gap-2 text-destructive">
-                  <IconCode className="h-5 w-5" />
+                  <Code className="h-5 w-5" />
                   <span className="font-medium">YAML Error</span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-2 font-mono">{yamlError}</p>
@@ -1652,7 +1633,7 @@ export default function MenuEditor() {
                     onClick={handleAddItem}
                     data-testid="button-add-item"
                   >
-                    <IconPlus className="h-4 w-4 mr-2" />
+                    <Plus className="h-4 w-4 mr-2" />
                     Add Item
                   </Button>
                 )}
@@ -1689,10 +1670,10 @@ export default function MenuEditor() {
                 </DndContext>
                 {menuData.navbar!.items.length === 0 && isEnglish && (
                   <div className="text-center py-12">
-                    <IconMenu2 className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                    <Menu className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                     <p className="text-muted-foreground mb-4">No menu items yet</p>
                     <Button onClick={handleAddItem} data-testid="button-add-first-item">
-                      <IconPlus className="h-4 w-4 mr-2" />
+                      <Plus className="h-4 w-4 mr-2" />
                       Add First Item
                     </Button>
                   </div>
@@ -1721,8 +1702,8 @@ export default function MenuEditor() {
                         })()}
                       </span>
                       {navbarSettingsOpen
-                        ? <IconChevronDown className="h-4 w-4 text-muted-foreground" />
-                        : <IconChevronRight className="h-4 w-4 text-muted-foreground" />}
+                        ? <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                        : <ChevronRight className="h-4 w-4 text-muted-foreground" />}
                     </div>
                   </button>
 
@@ -1838,7 +1819,7 @@ export default function MenuEditor() {
                                   onClick={addMarqueeMessage}
                                   data-testid="button-add-marquee-message"
                                 >
-                                  <IconPlus className="h-3 w-3 mr-1" />
+                                  <Plus className="h-3 w-3 mr-1" />
                                   Add message
                                 </Button>
                               </div>
@@ -2001,7 +1982,7 @@ export default function MenuEditor() {
                       onClick={addFooterColumn}
                       data-testid="button-add-footer-column"
                     >
-                      <IconPlus className="h-4 w-4 mr-2" />
+                      <Plus className="h-4 w-4 mr-2" />
                       Add Column
                     </Button>
                   </div>
@@ -2048,7 +2029,7 @@ export default function MenuEditor() {
                         onClick={addFooterSocial}
                         data-testid="button-add-footer-social"
                       >
-                        <IconPlus className="h-4 w-4 mr-2" />
+                        <Plus className="h-4 w-4 mr-2" />
                         Add Social
                       </Button>
                     )}
@@ -2091,7 +2072,7 @@ export default function MenuEditor() {
                             <div className="space-y-1">
                               <Label className="text-xs">URL</Label>
                               <div className="relative">
-                                <IconLink className="absolute left-2 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground" />
+                                <LinkIcon className="absolute left-2 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground" />
                                 <Input
                                   value={social.link}
                                   onChange={(e) => updateFooterSocial(index, { link: e.target.value })}
@@ -2110,7 +2091,7 @@ export default function MenuEditor() {
                               className="text-destructive hover:text-destructive flex-shrink-0"
                               data-testid={`footer-social-${index}-delete`}
                             >
-                              <IconTrash className="h-4 w-4" />
+                              <Trash2 className="h-4 w-4" />
                             </Button>
                           )}
                         </div>
@@ -2130,7 +2111,7 @@ export default function MenuEditor() {
                       onClick={addFooterLegalLink}
                       data-testid="button-add-footer-legal"
                     >
-                      <IconPlus className="h-4 w-4 mr-2" />
+                      <Plus className="h-4 w-4 mr-2" />
                       Add Link
                     </Button>
                   </div>
@@ -2185,7 +2166,7 @@ export default function MenuEditor() {
                     onClick={() => { activeEditorRef.current = "main"; setVarModalOpen(true); }}
                     data-testid="button-insert-variable-main"
                   >
-                    <IconVariable className="h-4 w-4 mr-1" />
+                    <Braces className="h-4 w-4 mr-1" />
                     Convert to Variable
                   </Button>
                   <p className="text-xs text-muted-foreground">
@@ -2213,7 +2194,7 @@ export default function MenuEditor() {
         <SheetContent className="w-[600px] sm:max-w-[600px] flex flex-col p-0">
           <div className="px-4 pt-4 pb-2 flex items-center justify-between border-b">
             <div className="flex items-center gap-2">
-              <IconFileCode className="h-5 w-5 text-primary" />
+              <FileCode className="h-5 w-5 text-primary" />
               <span className="font-semibold">YAML Source</span>
             </div>
             <div className="flex items-center gap-2">
@@ -2224,7 +2205,7 @@ export default function MenuEditor() {
                 onClick={() => { activeEditorRef.current = "sidebar"; setVarModalOpen(true); }}
                 data-testid="button-insert-variable-sidebar"
               >
-                <IconVariable className="h-4 w-4 mr-1" />
+                <Braces className="h-4 w-4 mr-1" />
                 Convert to Variable
               </Button>
               {yamlError && (

@@ -1,11 +1,11 @@
 
 import { useState, useEffect, useRef } from "react";
+import { ChevronDown } from "lucide-react";
 import type { FeaturesGridStatsTextCardSection } from "@shared/schema";
 import { StatCard } from "@/components/StatCard";
 import { Card } from "@/components/ui/card";
 import { AIWorkflowDiagram } from "@/components/AIWorkflowDiagram";
 import { Button } from "@/components/ui/button";
-import { IconChevronDown } from "@tabler/icons-react";
 
 interface FeaturesGridStatsTextCardProps {
   data: FeaturesGridStatsTextCardSection;
@@ -134,7 +134,7 @@ export default function FeaturesGridStatsTextCard({
                     data-testid="button-toggle-description"
                   >
                     {isExpanded ? "See less" : "See more"}
-                    <IconChevronDown
+                    <ChevronDown
                       className={`w-5 h-5 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
                     />
                   </Button>

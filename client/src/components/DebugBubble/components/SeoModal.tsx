@@ -1,22 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  IconRefresh,
-  IconAlertTriangle,
-  IconChevronRight,
-  IconChevronDown,
-  IconArrowRight,
-  IconMapPin,
-  IconX,
-  IconInfoCircle,
-  IconPhoto,
-  IconFileText,
-  IconCode,
-  IconEye,
-  IconEyeOff,
-  IconArrowsRightLeft,
-  IconPencil,
-  IconSearch,
-} from "@tabler/icons-react";
+import { AlertTriangle, ArrowLeftRight, ArrowRight, ChevronDown, ChevronRight, Code, Eye, EyeOff, FileText, Image, Info, MapPin, Pencil, RefreshCw, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ImagePickerDialog } from "@/components/editing/ImagePickerDialog";
 import {
@@ -145,30 +128,30 @@ export function SeoModal({
 
         {seoLoading ? (
           <div className="flex flex-col items-center justify-center py-12 gap-3">
-            <IconRefresh className="h-6 w-6 animate-spin text-muted-foreground" />
+            <RefreshCw className="h-6 w-6 animate-spin text-muted-foreground" />
             <p className="text-sm text-muted-foreground">Loading SEO data...</p>
           </div>
         ) : seoData ? (
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="w-full grid grid-cols-4" data-testid="tabs-seo-nav">
               <TabsTrigger value="general" data-testid="tab-general" className="flex items-center gap-1.5">
-                <IconFileText className="h-3.5 w-3.5 shrink-0" />
+                <FileText className="h-3.5 w-3.5 shrink-0" />
                 General
               </TabsTrigger>
               <TabsTrigger value="schema" data-testid="tab-schema" className="flex items-center gap-1.5">
-                <IconCode className="h-3.5 w-3.5 shrink-0" />
+                <Code className="h-3.5 w-3.5 shrink-0" />
                 Schema
               </TabsTrigger>
               <TabsTrigger value="visibility" data-testid="tab-visibility" className="flex items-center gap-1.5">
                 {seoMeta.robots && seoMeta.robots.includes("noindex") ? (
-                  <IconEyeOff className="h-3.5 w-3.5 shrink-0 text-destructive" />
+                  <EyeOff className="h-3.5 w-3.5 shrink-0 text-destructive" />
                 ) : (
-                  <IconEye className="h-3.5 w-3.5 shrink-0" />
+                  <Eye className="h-3.5 w-3.5 shrink-0" />
                 )}
                 Visibility
               </TabsTrigger>
               <TabsTrigger value="redirects" data-testid="tab-redirects" className="flex items-center gap-1.5">
-                <IconArrowsRightLeft className="h-3.5 w-3.5 shrink-0" />
+                <ArrowLeftRight className="h-3.5 w-3.5 shrink-0" />
                 Redirects
               </TabsTrigger>
             </TabsList>
@@ -237,7 +220,7 @@ export function SeoModal({
                       <div className="space-y-1.5">
                         <div className="flex items-center gap-2 text-xs font-mono">
                           <code className="bg-muted px-1.5 py-0.5 rounded truncate">{slugOldUrl}</code>
-                          <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                          <ArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
                           <code className="bg-muted px-1.5 py-0.5 rounded truncate">{slugNewUrl}</code>
                         </div>
                       </div>
@@ -278,7 +261,7 @@ export function SeoModal({
               <div className="space-y-3">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <IconSearch className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                    <Search className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
                     <h4 className="text-sm font-semibold">Search Snippet</h4>
                   </div>
                   <Button
@@ -288,7 +271,7 @@ export function SeoModal({
                     data-testid="button-toggle-snippet-edit"
                     title={snippetEditing ? "Show preview" : "Edit snippet"}
                   >
-                    <IconPencil className="h-3.5 w-3.5" />
+                    <Pencil className="h-3.5 w-3.5" />
                   </Button>
                 </div>
 
@@ -335,7 +318,7 @@ export function SeoModal({
                           />
                         ) : (
                           <div className="flex flex-col items-center gap-1.5 text-muted-foreground">
-                            <IconPhoto className="h-6 w-6" />
+                            <Image className="h-6 w-6" />
                             <p className="text-xs">{ogImageError ? "Could not load image" : "No social image set"}</p>
                           </div>
                         )}
@@ -352,7 +335,7 @@ export function SeoModal({
                     </div>
                     {ogImageTooSmall && !ogImageError && seoMeta.og_image && (
                       <p className="text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1" data-testid="text-og-image-too-small">
-                        <IconAlertTriangle className="h-3 w-3 flex-shrink-0" />
+                        <AlertTriangle className="h-3 w-3 flex-shrink-0" />
                         Social image is smaller than 1200×630 px — it may appear blurry or cropped.
                       </p>
                     )}
@@ -422,7 +405,7 @@ export function SeoModal({
                           onClick={() => setImagePickerOpen(true)}
                           data-testid="button-seo-og-image-picker"
                         >
-                          <IconPhoto className="h-4 w-4 mr-1.5" />
+                          <Image className="h-4 w-4 mr-1.5" />
                           Choose from gallery
                         </Button>
                       </div>
@@ -452,7 +435,7 @@ export function SeoModal({
                           </div>
                           {ogImageTooSmall && !ogImageError && (
                             <p className="text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1 mt-1" data-testid="text-og-image-too-small">
-                              <IconAlertTriangle className="h-3 w-3 flex-shrink-0" />
+                              <AlertTriangle className="h-3 w-3 flex-shrink-0" />
                               Image is smaller than the recommended 1200×630 px — it may appear blurry or cropped when shared on social media.
                             </p>
                           )}
@@ -501,9 +484,9 @@ export function SeoModal({
                     data-testid="button-toggle-faq-schema"
                   >
                     {seoFaqExpanded ? (
-                      <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                      <ChevronDown className="h-4 w-4 text-muted-foreground" />
                     ) : (
-                      <IconChevronRight className="h-4 w-4 text-muted-foreground" />
+                      <ChevronRight className="h-4 w-4 text-muted-foreground" />
                     )}
                     <h4 className="text-sm font-semibold">FAQ Schema</h4>
                     <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
@@ -640,9 +623,9 @@ export function SeoModal({
                     data-testid="button-toggle-schema-org"
                   >
                     {seoSchemaExpanded ? (
-                      <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                      <ChevronDown className="h-4 w-4 text-muted-foreground" />
                     ) : (
-                      <IconChevronRight className="h-4 w-4 text-muted-foreground" />
+                      <ChevronRight className="h-4 w-4 text-muted-foreground" />
                     )}
                     <h4 className="text-sm font-semibold">Schema.org Preview</h4>
                     <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
@@ -783,7 +766,7 @@ export function SeoModal({
                               className="ml-0.5 rounded-sm hover-elevate"
                               data-testid={`button-remove-location-${locSlug}`}
                             >
-                              <IconX className="h-3.5 w-3.5 text-muted-foreground" />
+                              <X className="h-3.5 w-3.5 text-muted-foreground" />
                             </button>
                           </span>
                         );
@@ -825,7 +808,7 @@ export function SeoModal({
                             className="flex items-center gap-2 w-full text-left px-3 py-1.5 text-sm hover-elevate"
                             data-testid={`button-add-location-${loc.slug}`}
                           >
-                            <IconMapPin className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+                            <MapPin className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
                             <span>{loc.city}, {loc.country}</span>
                             <span className="text-xs text-muted-foreground ml-auto">{loc.slug}</span>
                           </button>
@@ -873,7 +856,7 @@ export function SeoModal({
                         className="shrink-0 rounded-sm hover-elevate"
                         data-testid={`button-remove-redirect-${idx}`}
                       >
-                        <IconX className="h-3.5 w-3.5 text-muted-foreground" />
+                        <X className="h-3.5 w-3.5 text-muted-foreground" />
                       </button>
                     </div>
                   ))}
@@ -881,7 +864,7 @@ export function SeoModal({
               ) : null}
 
               <p className="flex items-center gap-1.5 text-xs text-muted-foreground" data-testid="text-redirects-note">
-                <IconInfoCircle className="h-3.5 w-3.5 shrink-0" />
+                <Info className="h-3.5 w-3.5 shrink-0" />
                 To add or update redirects, visit the{" "}
                 <a
                   href="/private/redirects"
@@ -895,7 +878,7 @@ export function SeoModal({
           </Tabs>
         ) : (
           <div className="flex flex-col items-center justify-center py-12 gap-3">
-            <IconAlertTriangle className="h-6 w-6 text-muted-foreground" />
+            <AlertTriangle className="h-6 w-6 text-muted-foreground" />
             <p className="text-sm text-muted-foreground">Could not load SEO data for this page.</p>
           </div>
         )}
@@ -915,7 +898,7 @@ export function SeoModal({
           >
             {seoSaving ? (
               <>
-                <IconRefresh className="h-4 w-4 mr-2 animate-spin" />
+                <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
                 Saving...
               </>
             ) : (

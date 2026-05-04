@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { IconAlertCircle } from "@tabler/icons-react";
+import { AlertCircle } from "lucide-react";
 
 export default function NotFound() {
   return (
@@ -8,7 +8,7 @@ export default function NotFound() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex mb-4 gap-2">
-              <IconAlertCircle className="h-8 w-8 text-destructive" />
+              <AlertCircle className="h-8 w-8 text-destructive" />
               <h1 className="text-2xl font-bold text-foreground" data-testid="text-404-title">404 Page Not Found</h1>
             </div>
 

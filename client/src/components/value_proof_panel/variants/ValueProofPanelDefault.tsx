@@ -1,39 +1,27 @@
 import { memo } from "react";
+import { Award, Briefcase, Check, Headset, Landmark, LucideIcon, ShieldCheck, Star, Trophy, Users } from "lucide-react";
 import type { ValueProofPanelSection, EvidenceItem } from "@shared/schema";
 import { UniversalVideo } from "@/components/UniversalVideo";
 import UniversalImage from "@/components/UniversalImage";
-import {
-  IconTrophy,
-  IconHeadset,
-  IconUsers,
-  IconCertificate,
-  IconShieldCheck,
-  IconBuildingBank,
-  IconBriefcase,
-  IconAward,
-  IconStar,
-  IconCheck,
-  type Icon as TablerIconType,
-} from "@tabler/icons-react";
 
 interface ValueProofPanelProps {
   data: ValueProofPanelSection;
 }
 
-const iconMap: Record<string, TablerIconType> = {
-  Trophy: IconTrophy,
-  Headset: IconHeadset,
-  Users: IconUsers,
-  Certificate: IconCertificate,
-  ShieldCheck: IconShieldCheck,
-  BuildingBank: IconBuildingBank,
-  Briefcase: IconBriefcase,
-  Award: IconAward,
-  Star: IconStar,
-  Check: IconCheck,
+const iconMap: Record<string, LucideIcon> = {
+  Trophy: Trophy,
+  Headset: Headset,
+  Users: Users,
+  Certificate: Award,
+  ShieldCheck: ShieldCheck,
+  BuildingBank: Landmark,
+  Briefcase: Briefcase,
+  Award: Trophy,
+  Star: Star,
+  Check: Check,
 };
 
-function getIcon(iconName?: string): TablerIconType | null {
+function getIcon(iconName?: string): LucideIcon | null {
   if (!iconName) return null;
   return iconMap[iconName] || null;
 }

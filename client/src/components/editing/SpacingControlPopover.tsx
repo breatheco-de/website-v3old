@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
-import { IconSpacingVertical, IconArrowUp, IconArrowDown, IconInfoCircle, IconDeviceMobile, IconDeviceDesktop } from "@tabler/icons-react";
+import { ArrowDown, ArrowUp, Info, Monitor, Smartphone } from "lucide-react";
+import { TbSpacingVertical } from "react-icons/tb";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -199,7 +200,7 @@ function BreakpointToggle({
         }`}
         data-testid="toggle-breakpoint-mobile"
       >
-        <IconDeviceMobile className="h-4 w-4" />
+        <Smartphone className="h-4 w-4" />
       </button>
       <button
         onClick={() => onChange("desktop")}
@@ -210,7 +211,7 @@ function BreakpointToggle({
         }`}
         data-testid="toggle-breakpoint-desktop"
       >
-        <IconDeviceDesktop className="h-4 w-4" />
+        <Monitor className="h-4 w-4" />
       </button>
     </div>
   );
@@ -384,7 +385,7 @@ export function SpacingControlPopover({
           className="flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full border border-dashed border-primary text-primary bg-background shadow-sm hover:bg-primary/10 hover:px-4 hover:py-2 hover:gap-2 transition-all duration-200"
           data-testid={`button-spacing-${insertIndex}`}
         >
-          <IconSpacingVertical className="h-4 w-4" />
+          <TbSpacingVertical className="h-4 w-4" />
           <span className="text-xs font-medium">Spacing</span>
         </button>
       </PopoverTrigger>
@@ -399,7 +400,7 @@ export function SpacingControlPopover({
               />
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <IconInfoCircle className="h-4 w-4 text-muted-foreground cursor-help" />
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
                 </TooltipTrigger>
                 <TooltipContent className="max-w-xs text-xs">
                   <p className="mb-1"><strong>Padding:</strong> Adds space inside the section (may break full-bleed backgrounds)</p>
@@ -413,7 +414,7 @@ export function SpacingControlPopover({
           {sectionAbove && (
             <div className="space-y-3 p-3 rounded-lg bg-muted/50 border">
               <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-                <IconArrowUp className="h-3.5 w-3.5" />
+                <ArrowUp className="h-3.5 w-3.5" />
                 <span>Section Above ({sectionAbove.type})</span>
               </div>
               <SpacingPresetButtons
@@ -432,7 +433,7 @@ export function SpacingControlPopover({
           {sectionBelow && (
             <div className="space-y-3 p-3 rounded-lg bg-muted/50 border">
               <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-                <IconArrowDown className="h-3.5 w-3.5" />
+                <ArrowDown className="h-3.5 w-3.5" />
                 <span>Section Below ({sectionBelow.type})</span>
               </div>
               <SpacingPresetButtons

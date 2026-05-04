@@ -1,15 +1,10 @@
 
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import { ArrowRight, Check, ChevronDown, Clock } from "lucide-react";
 import type { CourseSelectorSection, CourseItem } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { resolveColorVar, hslColor } from "../shared";
 import { getIcon } from "@/lib/icons";
-import {
-  IconArrowRight,
-  IconClock,
-  IconCheck,
-  IconChevronDown,
-} from "@tabler/icons-react";
 import type { ResolvedColor } from "../shared";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { RichTextContent } from "@/components/ui/rich-text-content";
@@ -83,7 +78,7 @@ export function CourseContent({
           className="inline-flex items-center gap-1.5 text-sm md:text-base text-muted-foreground"
           data-testid="text-duration"
         >
-          <IconClock className="w-4 h-4" />
+          <Clock className="w-4 h-4" />
           {vt(course.duration)}
         </span>
         {course.label && (
@@ -94,7 +89,7 @@ export function CourseContent({
             className="inline-flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full border border-border bg-background "
             data-testid="badge-label"
           >
-            <IconCheck className="w-3.5 h-3.5" />
+            <Check className="w-3.5 h-3.5" />
             {vt(course.label)}
           </span>
         )}
@@ -156,7 +151,7 @@ export function CourseContent({
             data-testid="button-see-more"
           >
             See more
-            <IconChevronDown className="w-3.5 h-3.5" />
+            <ChevronDown className="w-3.5 h-3.5" />
           </button>
         )}
       </div>
@@ -201,7 +196,7 @@ export function CourseContent({
         >
           <Button variant="outline" className="gap-2 w-full md:w-auto">
             {vt(course.cta_text)}
-            <IconArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4" />
           </Button>
         </a>
       </div>
@@ -282,7 +277,7 @@ export default function CourseSelectorSolid({ data }: CourseSelectorSolidProps) 
                 >
                   <span className="text-sm md:text-lg">{course.name}</span>
                   {isActive && (
-                    <IconArrowRight className="w-4 h-4 shrink-0 hidden md:block" />
+                    <ArrowRight className="w-4 h-4 shrink-0 hidden md:block" />
                   )}
                 </button>
               );

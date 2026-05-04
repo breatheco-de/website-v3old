@@ -1,13 +1,9 @@
 import { useState, type ComponentType } from "react";
+import { Award, Flame, School } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { RichTextContent } from "@/components/ui/rich-text-content";
-import {
-  IconFlame,
-  IconCertificate,
-  IconSchool,
-} from "@tabler/icons-react";
 import {
   SiGit,
   SiPython,
@@ -187,7 +183,7 @@ export function PricingSection({ data }: PricingSectionProps) {
                   data-testid="button-get-plan"
                 >
                   <a href={data.cta?.url} onClick={handleLinkClick} className="flex items-center justify-center gap-2">
-                    <IconSchool size={24} className="text-[#061258]" />
+                    <School size={24} className="text-[#061258]" />
                     {data.cta?.text}
                   </a>
                 </Button>
@@ -262,7 +258,7 @@ export function PricingSection({ data }: PricingSectionProps) {
                         {FeatureIcon ? (
                           <FeatureIcon width="22px" height="22px" size={22} className="text-primary" />
                         ) : (
-                          <IconCertificate size={22} className="text-primary" />
+                          <Award size={22} className="text-primary" />
                         )}
                       </div>
                       <RichTextContent
@@ -337,7 +333,7 @@ export function PricingSection({ data }: PricingSectionProps) {
             data-testid="badge-discount"
           >
             <div className="flex items-center justify-center p-1.5 bg-[#BE0000] border-2 border-[#EB5757] rounded-full z-10">
-              <IconFlame size={28} className="text-[#FFB718]" style={{ filter: 'drop-shadow(0 0 4px rgba(255, 183, 24, 0.5))' }} />
+              <Flame size={28} className="text-[#FFB718]" style={{ filter: 'drop-shadow(0 0 4px rgba(255, 183, 24, 0.5))' }} />
             </div>
             <div className="flex items-center justify-center bg-[#EB5757] rounded-full px-3 py-1 -ml-2">
               <span className="text-[#FFBEBE] text-sm font-normal">
@@ -402,7 +398,7 @@ export function PricingSection({ data }: PricingSectionProps) {
                 data-testid="button-get-plan"
               >
                 <a href={data.cta?.url} onClick={handleLinkClick} className="flex items-center justify-center gap-2">
-                  <IconSchool size={24} className="text-[#061258]" />
+                  <School size={24} className="text-[#061258]" />
                   {data.cta?.text}
                 </a>
               </Button>
@@ -476,7 +472,7 @@ export function PricingSection({ data }: PricingSectionProps) {
                       {IconComponent ? (
                         <IconComponent width="22px" height="22px" size={22} className="text-primary" />
                       ) : (
-                        <IconCertificate size={22} className="text-primary" />
+                        <Award size={22} className="text-primary" />
                       )}
                     </div>
                     <RichTextContent

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import * as TablerIcons from "@tabler/icons-react";
+import * as LucideIcons from "lucide-react";
+import { Check, ChevronDown, ChevronUp } from "lucide-react";
 import type { TwoColumnSection as TwoColumnSectionType, TwoColumnColumn, BenefitItem } from "@shared/schema";
 import type { ComponentType, CSSProperties } from "react";
 import { UniversalVideo } from "@/components/UniversalVideo";
@@ -14,8 +15,8 @@ interface TwoColumnProps {
 }
 
 const getIcon = (iconName: string, className?: string) => {
-  const icons = TablerIcons as unknown as Record<string, ComponentType<{ className?: string; size?: number }>>;
-  const IconComponent = icons[`Icon${iconName}`];
+  const icons = LucideIcons as unknown as Record<string, ComponentType<{ className?: string; size?: number }>>;
+  const IconComponent = icons[(iconName).charAt(0).toUpperCase() + (iconName).slice(1) as keyof typeof LucideIcons];
   return IconComponent ? <IconComponent className={className} size={20} /> : null;
 };
 
@@ -465,7 +466,7 @@ function BenefitCardsVariant({ data }: TwoColumnProps) {
             {data.benefit_items && data.benefit_items.length > 0 && (
               <div className="flex flex-col gap-6 mb-8">
                 {data.benefit_items.map((item, index) => {
-                  const IconComponent = (TablerIcons as unknown as Record<string, ComponentType<{ className?: string; size?: number }>>)[`Icon${item.icon}`];
+                  const IconComponent = (LucideIcons as unknown as Record<string, ComponentType<{ className?: string; size?: number }>>)[`Icon${item.icon}`];
                   return (
                     <div 
                       key={index}

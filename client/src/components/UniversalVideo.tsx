@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconPlayerPlayFilled, IconX } from "@tabler/icons-react";
+import { Play, X } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import SolidCard from './SolidCard';
@@ -168,7 +168,7 @@ export function UniversalVideo({
             className="absolute top-2 right-2 z-10 w-8 h-8 rounded-full bg-black/60 flex items-center justify-center hover:bg-black/80 transition-colors"
             data-testid="button-close-inline-video"
           >
-            <IconX className="w-4 h-4 text-white" />
+            <X className="w-4 h-4 text-white" />
           </button>
         </div>
       </>
@@ -198,7 +198,7 @@ export function UniversalVideo({
           />
           <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
             <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-              <IconPlayerPlayFilled className="w-8 h-8 md:w-10 md:h-10 text-primary-foreground ml-1" />
+              <Play className="fill-current w-8 h-8 md:w-10 md:h-10 text-primary-foreground ml-1" />
             </div>
           </div>
         </div>
@@ -218,7 +218,7 @@ export function UniversalVideo({
         >
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
           <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-primary/80 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-            <IconPlayerPlayFilled className="w-8 h-8 md:w-10 md:h-10 text-primary-foreground ml-1" />
+            <Play className="fill-current w-8 h-8 md:w-10 md:h-10 text-primary-foreground ml-1" />
           </div>
           <p className="text-sm text-muted-foreground text-center px-4">
             Video preview not available

@@ -1,17 +1,10 @@
 import { useState, useMemo } from "react";
+import { Check, ChevronDown, ChevronUp, EyeOff, MapPin, Search } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import {
-  IconMapPin,
-  IconSearch,
-  IconChevronDown,
-  IconChevronUp,
-  IconEyeOff,
-  IconCheck,
-} from "@tabler/icons-react";
 import { locations as allLocations } from "@/lib/locations";
 import { filterFaqsByRelatedFeatures, faqItemKey, type FaqItem } from "@/lib/faqConstants";
 import { getDebugToken } from "@/hooks/useDebugAuth";
@@ -92,7 +85,7 @@ function ItemLocationPicker({
               className={hasOverrides ? "border-amber-400 dark:border-amber-600" : ""}
               data-testid={`button-faq-item-locations-${itemKey}`}
             >
-              <IconMapPin className="h-3.5 w-3.5 mr-1" />
+              <MapPin className="h-3.5 w-3.5 mr-1" />
               {hasOverrides ? (
                 <span className="text-xs">{hideOnLocations.length} hidden</span>
               ) : (
@@ -103,7 +96,7 @@ function ItemLocationPicker({
           <PopoverContent className="w-72 p-0 z-[10000]" align="end">
             <div className="p-2 border-b">
               <div className="relative">
-                <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
                 <input
                   type="text"
                   placeholder="Search locations..."
@@ -136,7 +129,7 @@ function ItemLocationPicker({
                               : "border-muted-foreground/30"
                           }`}
                         >
-                          {isHidden && <IconEyeOff className="h-3 w-3" />}
+                          {isHidden && <EyeOff className="h-3 w-3" />}
                         </div>
                         <span className={isHidden ? "text-muted-foreground line-through" : ""}>
                           {loc.name}
@@ -162,7 +155,7 @@ function ItemLocationPicker({
                   }}
                   data-testid={`button-clear-faq-locations-${itemKey}`}
                 >
-                  <IconCheck className="h-3.5 w-3.5 mr-1" />
+                  <Check className="h-3.5 w-3.5 mr-1" />
                   Show on all locations
                 </Button>
               </div>
@@ -182,7 +175,7 @@ function ItemLocationPicker({
                 onClick={() => toggleLocation(slug)}
                 data-testid={`badge-hidden-loc-${itemKey}-${slug}`}
               >
-                <IconEyeOff className="h-2.5 w-2.5 mr-0.5" />
+                <EyeOff className="h-2.5 w-2.5 mr-0.5" />
                 {loc?.name || slug}
               </Badge>
             );
@@ -256,7 +249,7 @@ export function FaqItemsVisibility({
         data-testid="button-toggle-faq-items-visibility"
       >
         <Label className="text-sm font-medium flex items-center gap-1.5 cursor-pointer">
-          <IconEyeOff className="h-3.5 w-3.5" />
+          <EyeOff className="h-3.5 w-3.5" />
           FAQ visibility by location
           {overrideCount > 0 && (
             <Badge variant="secondary" className="text-[10px] ml-1">
@@ -265,9 +258,9 @@ export function FaqItemsVisibility({
           )}
         </Label>
         {expanded ? (
-          <IconChevronUp className="h-4 w-4 text-muted-foreground" />
+          <ChevronUp className="h-4 w-4 text-muted-foreground" />
         ) : (
-          <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+          <ChevronDown className="h-4 w-4 text-muted-foreground" />
         )}
       </button>
 

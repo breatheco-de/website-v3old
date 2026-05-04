@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, lazy, Suspense } from "react";
-import { IconX } from "@tabler/icons-react";
+import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -85,11 +85,11 @@ export function Modal({ data, landingLocations }: ModalProps) {
       >
         <div className="max-w-4xl mx-auto border-2 border-dashed border-muted-foreground/30 rounded-lg p-6 bg-muted/20">
           <div className="flex items-center justify-center gap-3 text-muted-foreground">
-            <IconX className="h-5 w-5" />
+            <X className="h-5 w-5" />
             <span className="text-sm font-medium">
               This section represents a modal dialog that opens when visiting <code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">#{sectionId}</code>
             </span>
-            <IconX className="h-5 w-5" />
+            <X className="h-5 w-5" />
           </div>
           <div className="mt-4 flex flex-col items-center gap-2 text-sm">
             {data.heading && (

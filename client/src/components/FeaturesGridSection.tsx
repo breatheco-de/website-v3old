@@ -1,7 +1,8 @@
 import type { z } from "zod";
 import type { featuresGridSectionSchema } from "@shared/schema";
 import { Card, CardContent } from "@/components/ui/card";
-import * as TablerIcons from "@tabler/icons-react";
+import * as LucideIcons from "lucide-react";
+import { Star } from "lucide-react";
 
 type FeaturesGridSectionData = z.infer<typeof featuresGridSectionSchema>;
 
@@ -10,8 +11,8 @@ interface FeaturesGridSectionProps {
 }
 
 function getIcon(iconName: string) {
-  const IconComponent = (TablerIcons as Record<string, unknown>)[`Icon${iconName}`] as React.ComponentType<{ className?: string }>;
-  return IconComponent || TablerIcons.IconStar;
+  const IconComponent = (LucideIcons as Record<string, unknown>)[(iconName).charAt(0).toUpperCase() + (iconName).slice(1)] as React.ComponentType<{ className?: string }>;
+  return IconComponent || Star;
 }
 
 export function FeaturesGridSection({ data }: FeaturesGridSectionProps) {

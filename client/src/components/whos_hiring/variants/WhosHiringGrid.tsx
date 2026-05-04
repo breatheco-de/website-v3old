@@ -1,8 +1,8 @@
 
 import { useState, useCallback, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import type { WhosHiringSection as WhosHiringSectionType } from "@shared/schema";
 
 interface WhosHiringGridProps {
@@ -105,7 +105,7 @@ export default function WhosHiringGrid({ data }: WhosHiringGridProps) {
                 className="rounded-full border"
                 data-testid="button-carousel-prev"
               >
-                <IconChevronLeft size={24} />
+                <ChevronLeft size={24} />
               </Button>
 
               <div className="flex items-center gap-2">
@@ -131,7 +131,7 @@ export default function WhosHiringGrid({ data }: WhosHiringGridProps) {
                 className="rounded-full border"
                 data-testid="button-carousel-next"
               >
-                <IconChevronRight size={24} />
+                <ChevronRight size={24} />
               </Button>
             </div>
           )}

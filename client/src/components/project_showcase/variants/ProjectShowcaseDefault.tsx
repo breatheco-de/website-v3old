@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
+import { ChevronLeft, ChevronRight, Github, Linkedin } from "lucide-react";
 import type { ProjectShowcaseSection, ProjectsShowcaseSection, ProjectShowcaseItem } from "@shared/schema";
-import { IconBrandGithub, IconBrandLinkedin, IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
@@ -87,7 +87,7 @@ function SingleProjectShowcase({ item, background = "bg-background", alternateBa
                     aria-label={`${creator.name}'s GitHub`}
                     data-testid={`link-github-${index}`}
                   >
-                    <IconBrandGithub size={20} />
+                    <Github size={20} />
                   </a>
                 )}
                 {creator.linkedin_url && (
@@ -99,7 +99,7 @@ function SingleProjectShowcase({ item, background = "bg-background", alternateBa
                     aria-label={`${creator.name}'s LinkedIn`}
                     data-testid={`link-linkedin-${index}`}
                   >
-                    <IconBrandLinkedin size={20} />
+                    <Linkedin size={20} />
                   </a>
                 )}
               </div>
@@ -152,7 +152,7 @@ function SingleProjectShowcase({ item, background = "bg-background", alternateBa
                     className="rounded-full border"
                     data-testid="button-carousel-prev"
                   >
-                    <IconChevronLeft size={24} />
+                    <ChevronLeft size={24} />
                   </Button>
 
                   <div className="flex items-center gap-2">
@@ -178,7 +178,7 @@ function SingleProjectShowcase({ item, background = "bg-background", alternateBa
                     className="rounded-full border"
                     data-testid="button-carousel-next"
                   >
-                    <IconChevronRight size={24} />
+                    <ChevronRight size={24} />
                   </Button>
                 </div>
               )}

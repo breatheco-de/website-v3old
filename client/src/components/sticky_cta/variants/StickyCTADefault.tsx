@@ -1,5 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from "react";
-import { IconX, IconChevronUp, IconChevronDown } from "@tabler/icons-react";
+import { ChevronDown, ChevronUp, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
@@ -121,11 +121,11 @@ export function StickyCallToAction({ data, landingLocations }: StickyCallToActio
       >
         <div className="max-w-4xl mx-auto border-2 border-dashed border-muted-foreground/30 rounded-lg p-6 bg-muted/20">
           <div className="flex items-center justify-center gap-3 text-muted-foreground">
-            <IconChevronUp className="h-5 w-5" />
+            <ChevronUp className="h-5 w-5" />
             <span className="text-sm font-medium">
               This section represents the sticky CTA bar that follows users at the bottom of the screen
             </span>
-            <IconChevronUp className="h-5 w-5" />
+            <ChevronUp className="h-5 w-5" />
           </div>
           <div className="mt-4 flex items-center justify-center gap-4 text-sm">
             <span className="text-foreground font-medium">{data.heading}</span>
@@ -164,7 +164,7 @@ export function StickyCallToAction({ data, landingLocations }: StickyCallToActio
                 data-testid="sticky-cta-expand-button"
               >
                 {buttonLabel}
-                <IconChevronUp className="h-4 w-4 ml-1" />
+                <ChevronUp className="h-4 w-4 ml-1" />
               </Button>
               {data.show_dismiss && (
                 <Button
@@ -174,7 +174,7 @@ export function StickyCallToAction({ data, landingLocations }: StickyCallToActio
                   aria-label="Dismiss"
                   data-testid="sticky-cta-dismiss"
                 >
-                  <IconX className="h-4 w-4" />
+                  <X className="h-4 w-4" />
                 </Button>
               )}
             </div>
@@ -191,7 +191,7 @@ export function StickyCallToAction({ data, landingLocations }: StickyCallToActio
                 onClick={() => setIsExpanded(false)}
                 data-testid="sticky-cta-collapse-button"
               >
-                <IconChevronDown className="h-4 w-4 mr-1" />
+                <ChevronDown className="h-4 w-4 mr-1" />
                 Collapse
               </Button>
             </div>

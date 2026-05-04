@@ -1,4 +1,5 @@
 import { useState, useMemo, useRef, useCallback, useEffect } from "react";
+import { HelpCircle, Loader2, Search } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -7,7 +8,6 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { IconSearch, IconQuestionMark, IconLoader2 } from "@tabler/icons-react";
 import { getIcon, getAllIconNames, getIconDisplayName, isCustomIcon } from "@/lib/icons";
 
 interface IconPickerModalProps {
@@ -89,7 +89,7 @@ export function IconPickerModal({
 
   const renderIcon = (iconName: string) => {
     const IconComponent = getIcon(iconName);
-    if (!IconComponent) return <IconQuestionMark className="h-5 w-5 text-muted-foreground" />;
+    if (!IconComponent) return <HelpCircle className="h-5 w-5 text-muted-foreground" />;
     return <IconComponent className="h-5 w-5" />;
   };
 
@@ -109,7 +109,7 @@ export function IconPickerModal({
         </DialogHeader>
 
         <div className="relative">
-          <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="Buscar iconos..."
             value={search}
@@ -151,7 +151,7 @@ export function IconPickerModal({
           {hasMore && (
             <div className="flex items-center justify-center py-4">
               {isLoadingMore ? (
-                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
               ) : (
                 <span className="text-xs text-muted-foreground">
                   Desplázate para cargar más...

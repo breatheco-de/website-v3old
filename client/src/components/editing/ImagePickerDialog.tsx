@@ -1,17 +1,9 @@
 import { useState, useRef, useCallback, useMemo, useEffect } from "react";
+import { Check, CloudUpload, Crop as CropIcon, Loader2, Search, Upload, X } from "lucide-react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import ReactCrop from "react-image-crop";
 import type { Crop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-import {
-  IconSearch,
-  IconUpload,
-  IconCloudUpload,
-  IconLoader2,
-  IconCheck,
-  IconX,
-  IconCrop,
-} from "@tabler/icons-react";
 import {
   Dialog,
   DialogContent,
@@ -547,7 +539,7 @@ export function ImagePickerDialog({
                 onClick={() => setPickerMode("browse")}
                 data-testid="button-picker-browse"
               >
-                <IconSearch className="h-4 w-4 mr-1.5" />
+                <Search className="h-4 w-4 mr-1.5" />
                 Browse
               </Button>
               <div className="w-px bg-border" />
@@ -559,7 +551,7 @@ export function ImagePickerDialog({
                 onClick={() => setPickerMode("upload")}
                 data-testid="button-picker-upload"
               >
-                <IconUpload className="h-4 w-4 mr-1.5" />
+                <Upload className="h-4 w-4 mr-1.5" />
                 Upload
               </Button>
             </div>
@@ -567,7 +559,7 @@ export function ImagePickerDialog({
             {pickerMode === "browse" ? (
               <>
                 <div className="relative">
-                  <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     placeholder="Search images..."
                     value={search}
@@ -732,12 +724,12 @@ export function ImagePickerDialog({
                     >
                       {uploading ? (
                         <div className="flex flex-col items-center gap-2">
-                          <IconLoader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
                           <p className="text-sm text-muted-foreground">Uploading...</p>
                         </div>
                       ) : (
                         <div className="flex flex-col items-center gap-2">
-                          <IconCloudUpload className="h-8 w-8 text-muted-foreground" />
+                          <CloudUpload className="h-8 w-8 text-muted-foreground" />
                           <p className="text-sm font-medium">
                             Drop an image here or click to browse
                           </p>
@@ -760,7 +752,7 @@ export function ImagePickerDialog({
                   </>
                 ) : (
                   <div className="text-center space-y-3 p-4">
-                    <IconUpload className="h-8 w-8 text-muted-foreground mx-auto" />
+                    <Upload className="h-8 w-8 text-muted-foreground mx-auto" />
                     <p className="text-sm font-medium">No storage provider configured</p>
                     <p className="text-sm text-muted-foreground">
                       Drop images directly into the{" "}
@@ -809,7 +801,7 @@ export function ImagePickerDialog({
                         onClick={handleOpenCrop}
                         data-testid="button-crop-resize"
                       >
-                        <IconCrop className="h-4 w-4 mr-1.5" />
+                        <CropIcon className="h-4 w-4 mr-1.5" />
                         Crop & Resize
                       </Button>
                     )}
@@ -839,7 +831,7 @@ export function ImagePickerDialog({
                 onClick={handleRemove}
                 data-testid="button-image-remove"
               >
-                <IconX className="h-4 w-4 mr-2" />
+                <X className="h-4 w-4 mr-2" />
                 Remove
               </Button>
             ) : (
@@ -861,9 +853,9 @@ export function ImagePickerDialog({
                 data-testid="button-image-save"
               >
                 {saving || bulkModal.checking ? (
-                  <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                 ) : (
-                  <IconCheck className="h-4 w-4 mr-2" />
+                  <Check className="h-4 w-4 mr-2" />
                 )}
                 Save
               </Button>
@@ -1011,9 +1003,9 @@ export function ImagePickerDialog({
               data-testid="button-crop-apply"
             >
               {cropProcessing ? (
-                <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
               ) : (
-                <IconCrop className="h-4 w-4 mr-2" />
+                <CropIcon className="h-4 w-4 mr-2" />
               )}
               Apply
             </Button>
@@ -1045,7 +1037,7 @@ export function ImagePickerDialog({
 
           {bulkModal.checking ? (
             <div className="flex items-center justify-center py-8">
-              <IconLoader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+              <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
             </div>
           ) : (
             <>
@@ -1159,9 +1151,9 @@ export function ImagePickerDialog({
               data-testid="button-bulk-confirm"
             >
               {bulkModal.applying ? (
-                <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
               ) : (
-                <IconCheck className="h-4 w-4 mr-2" />
+                <Check className="h-4 w-4 mr-2" />
               )}
               {bulkModal.selectedIndices.size === 0
                 ? "None selected"

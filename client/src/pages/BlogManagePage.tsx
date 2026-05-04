@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import {ArrowLeft, ArrowRight, Check, Clock, Database, ExternalLink, Eye, EyeOff, FileText, Globe, LayoutList, Loader2, MoreVertical, RefreshCw, Search, Settings, Trash2, Wand2, X} from "lucide-react";
 import { queryClient } from "@/lib/queryClient";
 import { useState, useMemo, useEffect, useRef } from "react";
 import { Link } from "wouter";
@@ -28,28 +29,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  IconArrowLeft,
-  IconArrowRight,
-  IconSearch,
-  IconArticle,
-  IconCheck,
-  IconClock,
-  IconEye,
-  IconEyeOff,
-  IconExternalLink,
-  IconRefresh,
-  IconWorld,
-  IconDatabase,
-  IconDotsVertical,
-  IconLink,
-  IconTrashX,
-  IconWand,
-  IconLoader2,
-  IconSettings,
-  IconLayoutList,
-  IconX,
-} from "@tabler/icons-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
@@ -98,25 +77,25 @@ function formatDate(dateStr: string | null | undefined): string {
 function StatusBadge({ status }: { status: string }) {
   const normalized = status?.toLowerCase() || "unknown";
   if (normalized === "published") {
-    return <Badge variant="default" data-testid="badge-status-published"><IconCheck className="h-3 w-3 mr-1" />Published</Badge>;
+    return <Badge variant="default" data-testid="badge-status-published"><Check className="h-3 w-3 mr-1" />Published</Badge>;
   }
   if (normalized === "draft") {
-    return <Badge variant="secondary" data-testid="badge-status-draft"><IconClock className="h-3 w-3 mr-1" />Draft</Badge>;
+    return <Badge variant="secondary" data-testid="badge-status-draft"><Clock className="h-3 w-3 mr-1" />Draft</Badge>;
   }
   return <Badge variant="outline" data-testid={`badge-status-${normalized}`}>{status}</Badge>;
 }
 
 function VisibilityIcon({ visibility }: { visibility: string }) {
   if (visibility?.toLowerCase() === "public") {
-    return <IconEye className="h-4 w-4 text-muted-foreground" />;
+    return <Eye className="h-4 w-4 text-muted-foreground" />;
   }
-  return <IconEyeOff className="h-4 w-4 text-muted-foreground" />;
+  return <EyeOff className="h-4 w-4 text-muted-foreground" />;
 }
 
 const WIZARD_STEPS = [
-  { id: "database", label: "Select Database", icon: IconDatabase },
-  { id: "settings", label: "Blog Settings", icon: IconSettings },
-  { id: "fields", label: "Field Mapping", icon: IconLayoutList },
+  { id: "database", label: "Select Database", icon: Database },
+  { id: "settings", label: "Blog Settings", icon: Settings },
+  { id: "fields", label: "Field Mapping", icon: LayoutList },
 ] as const;
 
 type WizardStep = typeof WIZARD_STEPS[number]["id"];
@@ -172,7 +151,7 @@ function StepIndicator({ steps, currentStep, completedSteps }: {
                 data-testid={`step-indicator-${step.id}`}
               >
                 {isCompleted || isPast ? (
-                  <IconCheck className="h-3.5 w-3.5" />
+                  <Check className="h-3.5 w-3.5" />
                 ) : (
                   <StepIcon className="h-3.5 w-3.5" />
                 )}
@@ -389,7 +368,7 @@ function DataSourceDialog({
 
         {isLoading ? (
           <div className="flex items-center justify-center py-8">
-            <IconLoader2 className="h-5 w-5 animate-spin" />
+            <Loader2 className="h-5 w-5 animate-spin" />
             <span className="ml-2 text-sm text-muted-foreground">Loading configuration...</span>
           </div>
         ) : (
@@ -515,7 +494,7 @@ function DataSourceDialog({
 
                 {loadingSample && (
                   <div className="flex items-center gap-2 py-2">
-                    <IconLoader2 className="h-4 w-4 animate-spin" />
+                    <Loader2 className="h-4 w-4 animate-spin" />
                     <span className="text-sm text-muted-foreground">Loading sample data from database...</span>
                   </div>
                 )}
@@ -528,9 +507,9 @@ function DataSourceDialog({
                     data-testid="button-ai-fields"
                   >
                     {aiMappingFields ? (
-                      <><IconLoader2 className="h-4 w-4 mr-2 animate-spin" />Analyzing fields...</>
+                      <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Analyzing fields...</>
                     ) : (
-                      <><IconWand className="h-4 w-4 mr-2" />Auto-detect Field Mapping</>
+                      <><Wand2 className="h-4 w-4 mr-2" />Auto-detect Field Mapping</>
                     )}
                   </Button>
                 )}
@@ -547,7 +526,7 @@ function DataSourceDialog({
                       onClick={() => loadSampleFromDb(selectedDb)}
                       data-testid="button-retry-sample"
                     >
-                      <IconRefresh className="h-3.5 w-3.5 mr-1" />
+                      <RefreshCw className="h-3.5 w-3.5 mr-1" />
                       Retry
                     </Button>
                   </div>
@@ -576,7 +555,7 @@ function DataSourceDialog({
                             <span className={`text-xs font-medium w-24 flex-shrink-0 text-right ${isRequired && !sourceField ? "text-destructive" : "text-muted-foreground"}`}>
                               {standardField}{isRequired ? <span className="text-destructive ml-0.5">*</span> : null}
                             </span>
-                            <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                            <ArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
                             {isCustom ? (
                               <>
                                 <Input
@@ -599,7 +578,7 @@ function DataSourceDialog({
                                   }}
                                   data-testid={`button-clear-custom-${standardField}`}
                                 >
-                                  <IconX className="h-3.5 w-3.5" />
+                                  <X className="h-3.5 w-3.5" />
                                 </Button>
                               </>
                             ) : (
@@ -699,7 +678,7 @@ function DataSourceDialog({
                       data-testid="button-confirm-fields"
                     >
                       {fieldMappingConfirmed ? (
-                        <><IconCheck className="h-3.5 w-3.5 mr-1" />Confirmed</>
+                        <><Check className="h-3.5 w-3.5 mr-1" />Confirmed</>
                       ) : (
                         "Confirm Field Mapping"
                       )}
@@ -715,7 +694,7 @@ function DataSourceDialog({
         <DialogFooter>
           {stepIndex > 0 && (
             <Button variant="outline" onClick={goBack} className="mr-auto" data-testid="button-wizard-back">
-              <IconArrowLeft className="h-4 w-4 mr-1" />
+              <ArrowLeft className="h-4 w-4 mr-1" />
               Back
             </Button>
           )}
@@ -737,7 +716,7 @@ function DataSourceDialog({
               data-testid="button-wizard-next"
             >
               Next
-              <IconArrowRight className="h-4 w-4 ml-1" />
+              <ArrowRight className="h-4 w-4 ml-1" />
             </Button>
           )}
         </DialogFooter>
@@ -1045,7 +1024,7 @@ export default function BlogManagePage() {
         <div className="flex items-center gap-3 flex-wrap">
           <Link href="/" className="inline-flex">
             <Button variant="ghost" size="icon" data-testid="button-back-home">
-              <IconArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
           <div className="flex-1 min-w-0">
@@ -1062,7 +1041,7 @@ export default function BlogManagePage() {
               disabled={clearing}
               data-testid="button-clear-cache"
             >
-              <IconRefresh className={`h-4 w-4 mr-1 ${clearing ? "animate-spin" : ""}`} />
+              <RefreshCw className={`h-4 w-4 mr-1 ${clearing ? "animate-spin" : ""}`} />
               Cache
               {cacheStatus?.exists && cacheStatus.age_hours != null && (
                 <span className="text-[10px] text-muted-foreground ml-1" data-testid="text-cache-age">
@@ -1076,7 +1055,7 @@ export default function BlogManagePage() {
               onClick={() => setDsDialogOpen(true)}
               data-testid="button-data-source"
             >
-              <IconDatabase className="h-4 w-4 mr-1" />
+              <Database className="h-4 w-4 mr-1" />
               Source
             </Button>
             <Button
@@ -1085,7 +1064,7 @@ export default function BlogManagePage() {
               onClick={() => setSeoDialogOpen(true)}
               data-testid="button-seo-settings"
             >
-              <IconLink className="h-4 w-4 mr-1" />
+              <LinkIcon className="h-4 w-4 mr-1" />
               SEO
             </Button>
           </div>
@@ -1095,7 +1074,7 @@ export default function BlogManagePage() {
           <Card data-testid="card-kpi-total">
             <CardHeader className="flex flex-row items-center justify-between gap-1 space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">Total Articles</CardTitle>
-              <IconArticle className="h-4 w-4 text-muted-foreground" />
+              <FileText className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold" data-testid="text-kpi-total">{allLoading ? "..." : kpis.total}</div>
@@ -1104,7 +1083,7 @@ export default function BlogManagePage() {
           <Card data-testid="card-kpi-published">
             <CardHeader className="flex flex-row items-center justify-between gap-1 space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">Published</CardTitle>
-              <IconCheck className="h-4 w-4 text-muted-foreground" />
+              <Check className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold" data-testid="text-kpi-published">{allLoading ? "..." : kpis.published}</div>
@@ -1113,7 +1092,7 @@ export default function BlogManagePage() {
           <Card data-testid="card-kpi-draft">
             <CardHeader className="flex flex-row items-center justify-between gap-1 space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">Drafts</CardTitle>
-              <IconClock className="h-4 w-4 text-muted-foreground" />
+              <Clock className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold" data-testid="text-kpi-draft">{allLoading ? "..." : kpis.draft}</div>
@@ -1122,7 +1101,7 @@ export default function BlogManagePage() {
           <Card data-testid="card-kpi-locale">
             <CardHeader className="flex flex-row items-center justify-between gap-1 space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">By Language</CardTitle>
-              <IconWorld className="h-4 w-4 text-muted-foreground" />
+              <Globe className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-3">
@@ -1144,7 +1123,7 @@ export default function BlogManagePage() {
           <CardHeader className="pb-3">
             <div className="flex items-center gap-3 flex-wrap">
               <div className="relative flex-1 min-w-[200px]">
-                <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   placeholder="Search articles by title, slug, or author..."
                   value={search}
@@ -1252,19 +1231,19 @@ export default function BlogManagePage() {
                             <DropdownMenu>
                               <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" size="icon" data-testid={`button-actions-${post.id}`}>
-                                  <IconDotsVertical className="h-4 w-4" />
+                                  <MoreVertical className="h-4 w-4" />
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent align="end">
                                 <DropdownMenuItem asChild>
                                   <a href={blogUrl} target="_blank" rel="noopener noreferrer" data-testid={`link-new-tab-${post.id}`}>
-                                    <IconExternalLink className="h-4 w-4 mr-2" />
+                                    <ExternalLink className="h-4 w-4 mr-2" />
                                     Open in new tab
                                   </a>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem asChild>
                                   <a href={blogUrl} data-testid={`link-same-tab-${post.id}`}>
-                                    <IconArrowLeft className="h-4 w-4 mr-2 rotate-180" />
+                                    <ArrowLeft className="h-4 w-4 mr-2 rotate-180" />
                                     Open in this tab
                                   </a>
                                 </DropdownMenuItem>
@@ -1280,7 +1259,7 @@ export default function BlogManagePage() {
                                   }}
                                   data-testid={`button-clear-cache-${post.id}`}
                                 >
-                                  <IconTrashX className="h-4 w-4 mr-2" />
+                                  <Trash2 className="h-4 w-4 mr-2" />
                                   Clear cache
                                 </DropdownMenuItem>
                               </DropdownMenuContent>

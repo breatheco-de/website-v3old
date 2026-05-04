@@ -1,4 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
+import { Code, Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { IS_SERVER } from "@/lib/initialData";
 import { useParams, useLocation } from "wouter";
@@ -6,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import { SectionRenderer } from "@/components/SectionRenderer";
 import { apiFetch } from "@/lib/queryClient";
 import type { TemplatePage } from "@shared/schema";
-import { IconCode, IconLoader2 } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
@@ -105,7 +105,7 @@ export default function Page() {
         className="min-h-screen flex items-center justify-center"
         data-testid="loading-page"
       >
-        <IconLoader2 className="w-8 h-8 animate-spin text-primary" />
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -128,7 +128,7 @@ export default function Page() {
             </p>
             {rawFileCheck?.exists && (
               <Button variant="outline" onClick={() => setShowRawEditor(true)} data-testid="button-edit-yaml">
-                <IconCode className="w-4 h-4 mr-2" />
+                <Code className="w-4 h-4 mr-2" />
                 Edit YAML
               </Button>
             )}

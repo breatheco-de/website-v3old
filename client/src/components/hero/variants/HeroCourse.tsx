@@ -1,8 +1,8 @@
 
 import type { HeroCourse as HeroCourseType } from "@shared/schema";
+import { Book, Check, Star } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { IconCheck, IconBook, IconStarFilled } from "@tabler/icons-react";
 import { UniversalVideo } from "@/components/UniversalVideo";
 import { UniversalImage } from "@/components/UniversalImage";
 import { getIcon } from "@/lib/icons";
@@ -92,7 +92,7 @@ export default function HeroCourse({ data }: HeroCourseProps) {
               <ul className="space-y-3">
                 {data.bullet_points.map((point, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <IconCheck className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                     <span className="text-foreground">{point}</span>
                   </li>
                 ))}
@@ -119,28 +119,28 @@ export default function HeroCourse({ data }: HeroCourseProps) {
 
                     if (star <= fullStars) {
                       return (
-                        <IconStarFilled
+                        <Star
                           key={star}
-                          className="h-5 w-5 text-yellow-500"
+                          className="fill-current h-5 w-5 text-yellow-500"
                         />
                       );
                     } else if (isHalfStar) {
                       return (
                         <div key={star} className="relative h-5 w-5">
-                          <IconStarFilled className="h-5 w-5 text-muted" />
+                          <Star className="fill-current h-5 w-5 text-muted" />
                           <div
                             className="absolute inset-0 overflow-hidden"
                             style={{ width: "50%" }}
                           >
-                            <IconStarFilled className="h-5 w-5 text-yellow-500" />
+                            <Star className="fill-current h-5 w-5 text-yellow-500" />
                           </div>
                         </div>
                       );
                     } else {
                       return (
-                        <IconStarFilled
+                        <Star
                           key={star}
-                          className="h-5 w-5 text-muted"
+                          className="fill-current h-5 w-5 text-muted"
                         />
                       );
                     }
@@ -309,7 +309,7 @@ export default function HeroCourse({ data }: HeroCourseProps) {
                 data.signup_card?.features.length > 0 && (
                   <div className="border-t pt-4 space-y-3">
                     {data.signup_card?.features.map((feature, index) => {
-                      const IconComponent = getIcon(feature.icon) || IconBook;
+                      const IconComponent = getIcon(feature.icon) || Book;
                       return (
                         <div
                           key={index}

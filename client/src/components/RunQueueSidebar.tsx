@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { IconChevronDown, IconChevronRight, IconSearch, IconX } from "@tabler/icons-react";
+import { ChevronDown, ChevronRight, Search, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -126,7 +126,7 @@ export default function RunQueueSidebar({ open, onOpenChange, runs, onClearRuns 
                     <div className="flex items-center gap-2">
                       <CollapsibleTrigger asChild>
                         <Button size="icon" variant="ghost" className="h-6 w-6">
-                          {isOpen ? <IconChevronDown className="h-4 w-4" /> : <IconChevronRight className="h-4 w-4" />}
+                          {isOpen ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
                         </Button>
                       </CollapsibleTrigger>
                       <span className="text-sm font-medium">{run.fixerName}</span>
@@ -195,14 +195,14 @@ export default function RunQueueSidebar({ open, onOpenChange, runs, onClearRuns 
                       }
                       data-testid={`button-toggle-log-search-${run.runId}`}
                     >
-                      <IconSearch className="h-3.5 w-3.5" />
+                      <Search className="h-3.5 w-3.5" />
                     </Button>
                   </div>
 
                   {runSearchOpen && (
                     <div className="flex items-center gap-2">
                       <div className="relative flex-1">
-                        <IconSearch className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+                        <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
                         <input
                           type="text"
                           value={runSearchText}
@@ -222,7 +222,7 @@ export default function RunQueueSidebar({ open, onOpenChange, runs, onClearRuns 
                             }
                             data-testid={`button-clear-log-search-${run.runId}`}
                           >
-                            <IconX className="h-3.5 w-3.5" />
+                            <X className="h-3.5 w-3.5" />
                           </button>
                         )}
                       </div>

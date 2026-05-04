@@ -1,18 +1,6 @@
 import { useState, useMemo } from "react";
+import { AlertTriangle, ArrowRight, Check, Link, LinkOff, Loader2, Pencil, Plus, Search, Trash2, X } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  IconLink,
-  IconLinkOff,
-  IconLoader2,
-  IconSearch,
-  IconCheck,
-  IconAlertTriangle,
-  IconPencil,
-  IconArrowRight,
-  IconTrash,
-  IconX,
-  IconPlus,
-} from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -455,7 +443,7 @@ export function SectionBindingDialog({
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <IconAlertTriangle className="h-5 w-5 text-destructive" />
+              <AlertTriangle className="h-5 w-5 text-destructive" />
               Confirm binding
             </DialogTitle>
           </DialogHeader>
@@ -472,7 +460,7 @@ export function SectionBindingDialog({
               </div>
 
               <div className="flex flex-col items-center justify-center shrink-0">
-                <IconArrowRight className="h-5 w-5 text-destructive" />
+                <ArrowRight className="h-5 w-5 text-destructive" />
               </div>
 
               <div className="flex-1 rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm" data-testid="card-destination-sections">
@@ -515,7 +503,7 @@ export function SectionBindingDialog({
             >
               {isPending ? (
                 <>
-                  <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                   Creating...
                 </>
               ) : (
@@ -534,7 +522,7 @@ export function SectionBindingDialog({
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <IconAlertTriangle className="h-5 w-5 text-destructive" />
+              <AlertTriangle className="h-5 w-5 text-destructive" />
               Confirm adding to group
             </DialogTitle>
           </DialogHeader>
@@ -547,7 +535,7 @@ export function SectionBindingDialog({
             </div>
 
             <div className="flex flex-col items-center justify-center shrink-0">
-              <IconArrowRight className="h-5 w-5 text-destructive" />
+              <ArrowRight className="h-5 w-5 text-destructive" />
             </div>
 
             <div className="flex-1 rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm" data-testid="card-add-destination">
@@ -574,7 +562,7 @@ export function SectionBindingDialog({
             >
               {isPending ? (
                 <>
-                  <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                   Adding...
                 </>
               ) : (
@@ -594,7 +582,7 @@ export function SectionBindingDialog({
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <IconAlertTriangle className="h-5 w-5 text-destructive" />
+              <AlertTriangle className="h-5 w-5 text-destructive" />
               Confirm adding {addMoreSelected.length} section{addMoreSelected.length !== 1 ? "s" : ""} to group
             </DialogTitle>
           </DialogHeader>
@@ -630,7 +618,7 @@ export function SectionBindingDialog({
             >
               {isPending ? (
                 <>
-                  <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                   Adding...
                 </>
               ) : (
@@ -650,7 +638,7 @@ export function SectionBindingDialog({
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <IconAlertTriangle className="h-5 w-5 text-destructive" />
+              <AlertTriangle className="h-5 w-5 text-destructive" />
               Join existing group
             </DialogTitle>
           </DialogHeader>
@@ -668,7 +656,7 @@ export function SectionBindingDialog({
               </div>
 
               <div className="flex flex-col items-center justify-center shrink-0">
-                <IconArrowRight className="h-5 w-5 text-destructive" />
+                <ArrowRight className="h-5 w-5 text-destructive" />
               </div>
 
               <div className="flex-1 rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm" data-testid="card-join-destination">
@@ -696,7 +684,7 @@ export function SectionBindingDialog({
             >
               {isPending ? (
                 <>
-                  <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                   Joining...
                 </>
               ) : (
@@ -714,7 +702,7 @@ export function SectionBindingDialog({
       <DialogContent className="sm:max-w-lg max-h-[80vh] flex flex-col">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <IconLink className="h-5 w-5" />
+            <Link className="h-5 w-5" />
             {existingGroup ? "Section is actively binded" : `Section Bindings in \`${locale}\``}
           </DialogTitle>
         </DialogHeader>
@@ -752,17 +740,17 @@ export function SectionBindingDialog({
                     data-testid="input-rename-group"
                   />
                   <Button size="icon" variant="ghost" onClick={handleSaveRename} disabled={renameGroupMutation.isPending} data-testid="button-save-rename">
-                    {renameGroupMutation.isPending ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconCheck className="h-4 w-4" />}
+                    {renameGroupMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
                   </Button>
                   <Button size="icon" variant="ghost" onClick={() => setEditingName(false)} disabled={renameGroupMutation.isPending} data-testid="button-cancel-rename">
-                    <IconX className="h-4 w-4" />
+                    <X className="h-4 w-4" />
                   </Button>
                 </div>
               ) : (
                 <div className="flex items-center gap-1 min-w-0">
                   <p className="font-medium text-sm truncate">{groupDisplayName}</p>
                   <Button size="icon" variant="ghost" className="shrink-0" onClick={handleStartRename} data-testid="button-edit-group-name">
-                    <IconPencil className="h-3 w-3" />
+                    <Pencil className="h-3 w-3" />
                   </Button>
                 </div>
               )}
@@ -818,7 +806,7 @@ export function SectionBindingDialog({
                       data-testid="button-leave-confirm"
                     >
                       {unbindCurrentMutation.isPending ? (
-                        <IconLoader2 className="h-3.5 w-3.5 animate-spin" />
+                        <Loader2 className="h-3.5 w-3.5 animate-spin" />
                       ) : (
                         "Confirm"
                       )}
@@ -846,7 +834,7 @@ export function SectionBindingDialog({
                       data-testid="button-dissolve-confirm"
                     >
                       {dissolveGroupMutation.isPending ? (
-                        <IconLoader2 className="h-3.5 w-3.5 animate-spin" />
+                        <Loader2 className="h-3.5 w-3.5 animate-spin" />
                       ) : (
                         "Confirm"
                       )}
@@ -863,7 +851,7 @@ export function SectionBindingDialog({
                     disabled={isPending || addMoreCandidates.length === 0}
                     data-testid="button-add-more-sections"
                   >
-                    <IconPlus className="h-3.5 w-3.5" />
+                    <Plus className="h-3.5 w-3.5" />
                     Add more sections
                   </Button>
                   <Button
@@ -874,7 +862,7 @@ export function SectionBindingDialog({
                     disabled={isPending}
                     data-testid="button-leave-group"
                   >
-                    <IconLinkOff className="h-3.5 w-3.5" />
+                    <LinkOff className="h-3.5 w-3.5" />
                     Leave group
                   </Button>
                   <Button
@@ -885,7 +873,7 @@ export function SectionBindingDialog({
                     disabled={isPending}
                     data-testid="button-dissolve-group"
                   >
-                    <IconTrash className="h-3.5 w-3.5" />
+                    <Trash2 className="h-3.5 w-3.5" />
                     Dissolve group
                   </Button>
                 </div>
@@ -896,7 +884,7 @@ export function SectionBindingDialog({
           {showAddMore && (
             <>
               <div className="relative mt-2">
-                <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   placeholder={`Search ${addMoreCandidates.length} possible sections...`}
                   value={search}
@@ -910,7 +898,7 @@ export function SectionBindingDialog({
               <ScrollArea className="flex-1 min-h-0 max-h-[250px]">
                 {loadingCandidates ? (
                   <div className="flex items-center justify-center py-6">
-                    <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                    <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
                   </div>
                 ) : filteredAddMoreCandidates.length === 0 ? (
                   <div className="text-center text-muted-foreground py-6 text-sm">
@@ -965,12 +953,12 @@ export function SectionBindingDialog({
                   >
                     {isPending ? (
                       <>
-                        <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                         Adding...
                       </>
                     ) : (
                       <>
-                        <IconPlus className="h-4 w-4 mr-2" />
+                        <Plus className="h-4 w-4 mr-2" />
                         Add {selectedCandidates.size} section{selectedCandidates.size !== 1 ? "s" : ""} to group
                       </>
                     )}
@@ -1017,7 +1005,7 @@ export function SectionBindingDialog({
               <ScrollArea className="flex-1 min-h-0 max-h-[300px]">
                 {loadingGroups ? (
                   <div className="flex items-center justify-center py-8">
-                    <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                    <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
                   </div>
                 ) : (
                   <div className="space-y-2 pr-3">
@@ -1058,7 +1046,7 @@ export function SectionBindingDialog({
               </ScrollArea>
             ) : loadingCandidates ? (
               <div className="flex items-center justify-center py-8">
-                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
               </div>
             ) : availableCandidates.length === 0 ? (
               <div className="text-center py-8 px-4" data-testid="text-no-candidates">
@@ -1081,7 +1069,7 @@ export function SectionBindingDialog({
             ) : (
               <>
                 <div className="relative">
-                  <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     placeholder={`Search ${selectableCandidates.length} possible sections...`}
                     value={search}
@@ -1164,12 +1152,12 @@ export function SectionBindingDialog({
             >
               {isPending ? (
                 <>
-                  <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                   Creating...
                 </>
               ) : (
                 <>
-                  <IconLink className="h-4 w-4 mr-2" />
+                  <Link className="h-4 w-4 mr-2" />
                   Bind {selectedCandidates.size + 1} sections
                 </>
               )}

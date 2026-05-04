@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
+import {AlertTriangle, ArrowLeft, ArrowLeftRight, ArrowRight, ArrowUpDown, Check, ChevronDown, ChevronUp, Clock, CloudUpload, Code, Database, Download, Eye, File, Image, Loader2, Pencil, Plus, RefreshCw, Save, Search, Server, Settings, SlidersHorizontal, Table, TestTube, Trash2, Upload, Wand2, X} from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRoute, Link, useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -23,43 +24,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  IconArrowLeft,
-  IconDatabase,
-  IconRefresh,
-  IconSearch,
-  IconTable,
-  IconApi,
-  IconClock,
-  IconArrowsSort,
-  IconChevronUp,
-  IconChevronDown,
-  IconLoader2,
-  IconPlus,
-  IconCheck,
-  IconX,
-  IconTestPipe,
-  IconTrash,
-  IconAlertTriangle,
-  IconSettings,
-  IconDownload,
-  IconDeviceFloppy,
-  IconEdit,
-  IconWand,
-  IconArrowRight,
-  IconTrashX,
-  IconPencil,
-  IconArrowsExchange,
-  IconEye,
-  IconCode,
-  IconUpload,
-  IconFile,
-  IconCloudUpload,
-  IconLink,
-  IconServer,
-  IconAdjustments,
-  IconPhoto,
-} from "@tabler/icons-react";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
@@ -244,7 +208,7 @@ function DatasetPickerDialog({
               onClick={() => setMode("browse")}
               data-testid="button-dataset-picker-browse"
             >
-              <IconSearch className="h-4 w-4 mr-1.5" />
+              <Search className="h-4 w-4 mr-1.5" />
               Browse
             </Button>
             <div className="w-px bg-border" />
@@ -256,7 +220,7 @@ function DatasetPickerDialog({
               onClick={() => setMode("upload")}
               data-testid="button-dataset-picker-upload"
             >
-              <IconUpload className="h-4 w-4 mr-1.5" />
+              <Upload className="h-4 w-4 mr-1.5" />
               Upload
             </Button>
           </div>
@@ -264,7 +228,7 @@ function DatasetPickerDialog({
           {mode === "browse" ? (
             <>
               <div className="relative">
-                <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   placeholder="Search files..."
                   value={search}
@@ -276,11 +240,11 @@ function DatasetPickerDialog({
               <div className="flex-1 overflow-y-auto min-h-0">
                 {loadingDatasets ? (
                   <div className="flex items-center justify-center py-8">
-                    <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                    <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
                   </div>
                 ) : filtered.length === 0 ? (
                   <div className="text-center py-8 space-y-2">
-                    <IconFile className="h-8 w-8 mx-auto text-muted-foreground/40" />
+                    <File className="h-8 w-8 mx-auto text-muted-foreground/40" />
                     <p className="text-sm text-muted-foreground">No dataset files found</p>
                     <p className="text-xs text-muted-foreground">
                       Switch to Upload to add a new file, or place files in{" "}
@@ -301,13 +265,13 @@ function DatasetPickerDialog({
                         }`}
                         data-testid={`dataset-file-${d.id}`}
                       >
-                        <IconFile className="h-4 w-4 text-muted-foreground shrink-0" />
+                        <File className="h-4 w-4 text-muted-foreground shrink-0" />
                         <div className="min-w-0 flex-1">
                           <p className="text-sm font-medium truncate">{d.filename}</p>
                           <p className="text-xs text-muted-foreground truncate">{d.path}</p>
                         </div>
                         <Badge variant="secondary" className="text-xs shrink-0">
-                          <IconServer className="h-3 w-3 mr-1" />
+                          <Server className="h-3 w-3 mr-1" />
                           local
                         </Badge>
                       </button>
@@ -347,12 +311,12 @@ function DatasetPickerDialog({
               >
                 {uploading ? (
                   <div className="flex flex-col items-center gap-2">
-                    <IconLoader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                    <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
                     <p className="text-sm text-muted-foreground">Uploading...</p>
                   </div>
                 ) : (
                   <div className="flex flex-col items-center gap-2">
-                    <IconCloudUpload className="h-8 w-8 text-muted-foreground" />
+                    <CloudUpload className="h-8 w-8 text-muted-foreground" />
                     <p className="text-sm font-medium">Drop a file here or click to browse</p>
                     <p className="text-xs text-muted-foreground">JSON, CSV, YAML (max 50 MB)</p>
                     <p className="text-xs text-muted-foreground mt-1">
@@ -386,7 +350,7 @@ function DatasetPickerDialog({
               }}
               data-testid="button-dataset-picker-select"
             >
-              <IconCheck className="h-4 w-4 mr-2" />
+              <Check className="h-4 w-4 mr-2" />
               Select
             </Button>
           )}
@@ -710,13 +674,13 @@ function CreateDatabaseDialog({
                   </SelectItem>
                   <SelectItem value="local">
                     <div className="flex items-center gap-2">
-                      <IconServer className="h-4 w-4" />
+                      <Server className="h-4 w-4" />
                       Local File
                     </div>
                   </SelectItem>
                   <SelectItem value="remote">
                     <div className="flex items-center gap-2">
-                      <IconLink className="h-4 w-4" />
+                      <LinkIcon className="h-4 w-4" />
                       Remote File
                     </div>
                   </SelectItem>
@@ -799,13 +763,13 @@ function CreateDatabaseDialog({
                       className="pr-8"
                     />
                     {localFileStatus === "checking" && (
-                      <IconLoader2 className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 animate-spin text-muted-foreground" />
+                      <Loader2 className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 animate-spin text-muted-foreground" />
                     )}
                     {localFileStatus === "found" && (
-                      <IconCheck className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-green-500" />
+                      <Check className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-green-500" />
                     )}
                     {localFileStatus === "not-found" && (
-                      <IconX className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-destructive" />
+                      <X className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-destructive" />
                     )}
                   </div>
                   <div className="rounded-md bg-muted/50 border px-3 py-2 text-xs text-muted-foreground space-y-1">
@@ -855,7 +819,7 @@ function CreateDatabaseDialog({
                       onClick={() => setDatasetPickerOpen(true)}
                       data-testid="button-db-pick-file-remote"
                     >
-                      <IconFile className="h-4 w-4 mr-1.5" />
+                      <File className="h-4 w-4 mr-1.5" />
                       Pick File
                     </Button>
                   </div>
@@ -892,9 +856,9 @@ function CreateDatabaseDialog({
                 data-testid="button-test-connection"
               >
                 {testing ? (
-                  <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+                  <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
                 ) : (
-                  <IconTestPipe className="h-3.5 w-3.5 mr-1" />
+                  <TestTube className="h-3.5 w-3.5 mr-1" />
                 )}
                 Test Connection
               </Button>
@@ -902,12 +866,12 @@ function CreateDatabaseDialog({
                 <Badge variant={testResult.success ? "secondary" : "destructive"}>
                   {testResult.success ? (
                     <>
-                      <IconCheck className="h-3 w-3 mr-1" />
+                      <Check className="h-3 w-3 mr-1" />
                       {testResult.item_count} items found
                     </>
                   ) : (
                     <>
-                      <IconX className="h-3 w-3 mr-1" />
+                      <X className="h-3 w-3 mr-1" />
                       Failed
                     </>
                   )}
@@ -973,7 +937,7 @@ function CreateDatabaseDialog({
 
             {!testResult && (
               <div className="text-center py-8">
-                <IconTestPipe className="h-8 w-8 mx-auto text-muted-foreground/40 mb-2" />
+                <TestTube className="h-8 w-8 mx-auto text-muted-foreground/40 mb-2" />
                 <p className="text-sm text-muted-foreground">
                   Test the connection to preview the data and configure field mappings.
                 </p>
@@ -1014,9 +978,9 @@ function CreateDatabaseDialog({
                 data-testid="button-create-database"
               >
                 {saving ? (
-                  <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+                  <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
                 ) : (
-                  <IconPlus className="h-3.5 w-3.5 mr-1" />
+                  <Plus className="h-3.5 w-3.5 mr-1" />
                 )}
                 Create Database
               </Button>
@@ -1063,7 +1027,7 @@ function KeyValueEditor({
           onClick={() => onChange([...pairs, { key: "", value: "" }])}
           data-testid={`button-add-${testIdPrefix}`}
         >
-          <IconPlus className="h-3 w-3 mr-1" />
+          <Plus className="h-3 w-3 mr-1" />
           Add
         </Button>
       </div>
@@ -1097,7 +1061,7 @@ function KeyValueEditor({
             onClick={() => onChange(pairs.filter((_, j) => j !== i))}
             data-testid={`button-remove-${testIdPrefix}-${i}`}
           >
-            <IconTrash className="h-3 w-3" />
+            <Trash2 className="h-3 w-3" />
           </Button>
         </div>
       ))}
@@ -1129,22 +1093,22 @@ function DatabaseList() {
     <>
       <div className="flex items-center justify-between gap-2 flex-wrap">
         <div className="flex items-center gap-3">
-          <IconDatabase className="h-6 w-6 text-primary" />
+          <Database className="h-6 w-6 text-primary" />
           <h1 className="text-2xl font-bold" data-testid="text-page-title">Databases</h1>
         </div>
         <Button size="sm" onClick={() => setCreateOpen(true)} data-testid="button-new-database">
-          <IconPlus className="h-4 w-4 mr-1" />
+          <Plus className="h-4 w-4 mr-1" />
           New Database
         </Button>
       </div>
 
       {isLoading ? (
         <div className="flex items-center justify-center py-20">
-          <IconLoader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+          <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
         </div>
       ) : !databases || databases.length === 0 ? (
         <div className="text-center py-20">
-          <IconDatabase className="h-12 w-12 mx-auto text-muted-foreground/40 mb-4" />
+          <Database className="h-12 w-12 mx-auto text-muted-foreground/40 mb-4" />
           <p className="text-muted-foreground">No databases configured yet.</p>
           <p className="text-xs text-muted-foreground mt-2">
             Click "New Database" to create your first one.
@@ -1157,7 +1121,7 @@ function DatabaseList() {
               <Card className="hover-elevate cursor-pointer h-full" data-testid={`card-database-${db.name}`}>
                 <CardHeader className="pb-2">
                   <div className="flex items-center gap-2">
-                    <IconDatabase className="h-4 w-4 text-primary flex-shrink-0" />
+                    <Database className="h-4 w-4 text-primary flex-shrink-0" />
                     <CardTitle className="text-base truncate">{db.label}</CardTitle>
                   </div>
                 </CardHeader>
@@ -1168,9 +1132,9 @@ function DatabaseList() {
                   <div className="flex items-center gap-2 flex-wrap">
                     <Badge variant="secondary" className="text-xs">
                       {db.source_type === "local" ? (
-                        <IconServer className="h-3 w-3 mr-1" />
+                        <Server className="h-3 w-3 mr-1" />
                       ) : db.source_type === "remote" ? (
-                        <IconLink className="h-3 w-3 mr-1" />
+                        <LinkIcon className="h-3 w-3 mr-1" />
                       ) : (
                         <IconApi className="h-3 w-3 mr-1" />
                       )}
@@ -1409,13 +1373,13 @@ function DatabaseConfigEditor({
               </SelectItem>
               <SelectItem value="local">
                 <div className="flex items-center gap-2">
-                  <IconServer className="h-4 w-4" />
+                  <Server className="h-4 w-4" />
                   Local File
                 </div>
               </SelectItem>
               <SelectItem value="remote">
                 <div className="flex items-center gap-2">
-                  <IconLink className="h-4 w-4" />
+                  <LinkIcon className="h-4 w-4" />
                   Remote File
                 </div>
               </SelectItem>
@@ -1510,13 +1474,13 @@ function DatabaseConfigEditor({
                 className="pr-8"
               />
               {localFileStatus === "checking" && (
-                <IconLoader2 className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 animate-spin text-muted-foreground" />
+                <Loader2 className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 animate-spin text-muted-foreground" />
               )}
               {localFileStatus === "found" && (
-                <IconCheck className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-green-500" />
+                <Check className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-green-500" />
               )}
               {localFileStatus === "not-found" && (
-                <IconX className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-destructive" />
+                <X className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-destructive" />
               )}
             </div>
             <div className="rounded-md bg-muted/50 border px-3 py-2 text-xs text-muted-foreground space-y-1">
@@ -1566,7 +1530,7 @@ function DatabaseConfigEditor({
                 onClick={() => setDatasetPickerOpen(true)}
                 data-testid="button-edit-pick-file-remote"
               >
-                <IconFile className="h-4 w-4 mr-1.5" />
+                <File className="h-4 w-4 mr-1.5" />
                 Pick File
               </Button>
             </div>
@@ -1597,9 +1561,9 @@ function DatabaseConfigEditor({
             data-testid="button-test-config"
           >
             {testing ? (
-              <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+              <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
             ) : (
-              <IconTestPipe className="h-3.5 w-3.5 mr-1" />
+              <TestTube className="h-3.5 w-3.5 mr-1" />
             )}
             Test Connection
           </Button>
@@ -1607,12 +1571,12 @@ function DatabaseConfigEditor({
             <Badge variant={testResult.success ? "secondary" : "destructive"}>
               {testResult.success ? (
                 <>
-                  <IconCheck className="h-3 w-3 mr-1" />
+                  <Check className="h-3 w-3 mr-1" />
                   {testResult.item_count} items found
                 </>
               ) : (
                 <>
-                  <IconX className="h-3 w-3 mr-1" />
+                  <X className="h-3 w-3 mr-1" />
                   Failed
                 </>
               )}
@@ -1626,7 +1590,7 @@ function DatabaseConfigEditor({
             onClick={() => setDeleteOpen(true)}
             data-testid="button-delete-database"
           >
-            <IconTrash className="h-3.5 w-3.5 mr-1" />
+            <Trash2 className="h-3.5 w-3.5 mr-1" />
             Delete
           </Button>
           <Button
@@ -1636,9 +1600,9 @@ function DatabaseConfigEditor({
             data-testid="button-save-config"
           >
             {saving ? (
-              <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+              <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
             ) : (
-              <IconDeviceFloppy className="h-3.5 w-3.5 mr-1" />
+              <Save className="h-3.5 w-3.5 mr-1" />
             )}
             Save
           </Button>
@@ -1681,9 +1645,9 @@ function DatabaseConfigEditor({
               data-testid="button-confirm-delete"
             >
               {deleting ? (
-                <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+                <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
               ) : (
-                <IconTrash className="h-3.5 w-3.5 mr-1" />
+                <Trash2 className="h-3.5 w-3.5 mr-1" />
               )}
               Delete
             </Button>
@@ -1869,7 +1833,7 @@ function FieldMappingEditor({
           disabled={rawFields.length === 0}
           data-testid="button-view-sample-data"
         >
-          <IconEye className="h-3.5 w-3.5 mr-1" />
+          <Eye className="h-3.5 w-3.5 mr-1" />
           Sample Data
         </Button>
         <Button
@@ -1880,9 +1844,9 @@ function FieldMappingEditor({
           data-testid="button-ai-analyze-fields"
         >
           {aiAnalyzing ? (
-            <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+            <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
           ) : (
-            <IconWand className="h-3.5 w-3.5 mr-1" />
+            <Wand2 className="h-3.5 w-3.5 mr-1" />
           )}
           {aiAnalyzing ? "Analyzing..." : "Auto-detect"}
         </Button>
@@ -1907,7 +1871,7 @@ function FieldMappingEditor({
                   <code className="text-xs font-medium w-28 flex-shrink-0 text-right text-muted-foreground truncate" title={normalizedKey}>
                     {normalizedKey}
                   </code>
-                  <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                  <ArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
                   {isFunction ? (
                     <div className="flex-1 space-y-1">
                       <p className="text-[10px] text-muted-foreground font-mono">(value, item) =&gt; ...</p>
@@ -1937,7 +1901,7 @@ function FieldMappingEditor({
                         onClick={() => setFieldMappingEntries((prev) => ({ ...prev, [normalizedKey]: null }))}
                         data-testid={`button-clear-custom-${normalizedKey}`}
                       >
-                        <IconX className="h-3.5 w-3.5" />
+                        <X className="h-3.5 w-3.5" />
                       </Button>
                     </>
                   ) : (
@@ -1978,7 +1942,7 @@ function FieldMappingEditor({
                     }}
                     data-testid={`button-delete-field-${normalizedKey}`}
                   >
-                    <IconTrashX className="h-3.5 w-3.5" />
+                    <Trash2 className="h-3.5 w-3.5" />
                   </Button>
                   <Button
                     variant="ghost"
@@ -1987,7 +1951,7 @@ function FieldMappingEditor({
                     title="Configure editor type"
                     data-testid={`button-hint-field-${normalizedKey}`}
                   >
-                    <IconAdjustments className="h-3.5 w-3.5 text-muted-foreground" />
+                    <SlidersHorizontal className="h-3.5 w-3.5 text-muted-foreground" />
                   </Button>
                   <Button
                     variant="ghost"
@@ -2001,7 +1965,7 @@ function FieldMappingEditor({
                     title={editorHints[normalizedKey]?.cache_images ? "Image caching enabled — click to disable" : "Enable image caching for this field"}
                     data-testid={`button-cache-images-${normalizedKey}`}
                   >
-                    <IconPhoto className={`h-3.5 w-3.5 ${editorHints[normalizedKey]?.cache_images ? "text-blue-500" : "text-muted-foreground"}`} />
+                    <Image className={`h-3.5 w-3.5 ${editorHints[normalizedKey]?.cache_images ? "text-blue-500" : "text-muted-foreground"}`} />
                   </Button>
                 </div>
                 {(editorHints[normalizedKey]?.type && editorHints[normalizedKey].type !== "text") || editorHints[normalizedKey]?.cache_images ? (
@@ -2044,7 +2008,7 @@ function FieldMappingEditor({
           }}
           data-testid="button-add-field"
         >
-          <IconPlus className="h-3.5 w-3.5 mr-1" />
+          <Plus className="h-3.5 w-3.5 mr-1" />
           Add
         </Button>
       </div>
@@ -2063,9 +2027,9 @@ function FieldMappingEditor({
           data-testid="button-save-mappings"
         >
           {saving ? (
-            <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+            <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
           ) : (
-            <IconDeviceFloppy className="h-3.5 w-3.5 mr-1" />
+            <Save className="h-3.5 w-3.5 mr-1" />
           )}
           Save Mappings
         </Button>
@@ -2082,7 +2046,7 @@ function FieldMappingEditor({
           <div className="flex-1 overflow-auto">
             {sampleLoading ? (
               <div className="flex items-center justify-center py-8">
-                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
               </div>
             ) : sampleData && sampleData.items.length > 0 ? (
               <div className="space-y-3">
@@ -2156,7 +2120,7 @@ function FieldMappingEditor({
                     disabled={!hintDialogNewOption.trim() || hintDialogOptions.includes(hintDialogNewOption.trim())}
                     data-testid="button-add-hint-option"
                   >
-                    <IconPlus className="h-3.5 w-3.5 mr-1" />
+                    <Plus className="h-3.5 w-3.5 mr-1" />
                     Add
                   </Button>
                 </div>
@@ -2171,7 +2135,7 @@ function FieldMappingEditor({
                           className="ml-2 text-muted-foreground hover:text-destructive"
                           data-testid={`button-remove-hint-option-${idx}`}
                         >
-                          <IconX className="h-3.5 w-3.5" />
+                          <X className="h-3.5 w-3.5" />
                         </button>
                       </div>
                     ))}
@@ -2209,7 +2173,7 @@ function FieldMappingEditor({
               onClick={saveHintDialog}
               data-testid="button-save-hint"
             >
-              <IconCheck className="h-3.5 w-3.5 mr-1" />
+              <Check className="h-3.5 w-3.5 mr-1" />
               Apply
             </Button>
           </DialogFooter>
@@ -2414,7 +2378,7 @@ function ItemEditModal({
                         variant={selected ? "default" : "outline"}
                         className={selected ? "" : "text-muted-foreground"}
                       >
-                        {selected && <IconCheck className="h-3 w-3 mr-1" />}
+                        {selected && <Check className="h-3 w-3 mr-1" />}
                         {opt}
                       </Badge>
                     </button>
@@ -2445,7 +2409,7 @@ function ItemEditModal({
                         onClick={() => setValue(key, tags.filter((t) => t !== tag))}
                         data-testid={`button-remove-custom-tag-${key}-${ti}`}
                       >
-                        <IconX className="h-3 w-3" />
+                        <X className="h-3 w-3" />
                       </button>
                     </Badge>
                   ))}
@@ -2476,7 +2440,7 @@ function ItemEditModal({
                     onClick={addTag}
                     data-testid={`button-add-tag-${key}`}
                   >
-                    <IconPlus className="h-3.5 w-3.5" />
+                    <Plus className="h-3.5 w-3.5" />
                   </Button>
                 </div>
               )}
@@ -2495,7 +2459,7 @@ function ItemEditModal({
                       onClick={() => setValue(key, tags.filter((_, i) => i !== ti))}
                       data-testid={`button-remove-tag-${key}-${ti}`}
                     >
-                      <IconX className="h-3 w-3" />
+                      <X className="h-3 w-3" />
                     </button>
                   </Badge>
                 ))}
@@ -2525,7 +2489,7 @@ function ItemEditModal({
                 onClick={addTag}
                 data-testid={`button-add-tag-${key}`}
               >
-                <IconPlus className="h-3.5 w-3.5" />
+                <Plus className="h-3.5 w-3.5" />
               </Button>
             </div>
           </div>
@@ -2590,9 +2554,9 @@ function ItemEditModal({
             data-testid="button-save-edit-item"
           >
             {saving ? (
-              <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+              <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
             ) : (
-              <IconDeviceFloppy className="h-3.5 w-3.5 mr-1" />
+              <Save className="h-3.5 w-3.5 mr-1" />
             )}
             Save
           </Button>
@@ -2640,7 +2604,7 @@ function CachedImagesKpiCard({ dbName }: { dbName: string }) {
         <CardContent className="pt-4 pb-3 space-y-1">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <IconPhoto className="h-3.5 w-3.5" />
+              <Image className="h-3.5 w-3.5" />
               <span>Cached Images</span>
             </div>
             <Button
@@ -2650,7 +2614,7 @@ function CachedImagesKpiCard({ dbName }: { dbName: string }) {
               disabled={isFetching}
               data-testid="button-refresh-cached-stats"
             >
-              <IconRefresh className={`h-3.5 w-3.5 ${isFetching ? "animate-spin" : ""}`} />
+              <RefreshCw className={`h-3.5 w-3.5 ${isFetching ? "animate-spin" : ""}`} />
             </Button>
           </div>
           <p className="text-sm font-medium" data-testid="text-cached-images-count">
@@ -2679,7 +2643,7 @@ function CachedImagesKpiCard({ dbName }: { dbName: string }) {
           <div className="max-h-80 overflow-y-auto space-y-1 py-1">
             {failedLoading ? (
               <div className="flex items-center justify-center py-8">
-                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
               </div>
             ) : failedData?.entries.length === 0 ? (
               <p className="text-sm text-muted-foreground text-center py-4">No failed entries.</p>
@@ -2716,7 +2680,7 @@ function CachedImagesKpiCard({ dbName }: { dbName: string }) {
               disabled={failedLoading}
               data-testid="button-refresh-failed-list"
             >
-              <IconRefresh className={`h-3.5 w-3.5 mr-1 ${failedLoading ? "animate-spin" : ""}`} />
+              <RefreshCw className={`h-3.5 w-3.5 mr-1 ${failedLoading ? "animate-spin" : ""}`} />
               Refresh
             </Button>
             <div className="flex items-center gap-2">
@@ -2730,9 +2694,9 @@ function CachedImagesKpiCard({ dbName }: { dbName: string }) {
                 data-testid="button-retry-all-failed"
               >
                 {retryMutation.isPending ? (
-                  <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+                  <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
                 ) : (
-                  <IconRefresh className="h-3.5 w-3.5 mr-1" />
+                  <RefreshCw className="h-3.5 w-3.5 mr-1" />
                 )}
                 Retry All
               </Button>
@@ -2947,7 +2911,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
       <div className="flex items-center gap-2 flex-wrap">
         <Link href="/private/databases">
           <Button variant="ghost" size="sm" data-testid="button-back-databases">
-            <IconArrowLeft className="h-4 w-4 mr-1" />
+            <ArrowLeft className="h-4 w-4 mr-1" />
             Back
           </Button>
         </Link>
@@ -2974,10 +2938,10 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                   onClick={() => saveInlineField("name", editNameValue.trim())}
                   data-testid="button-save-inline-name"
                 >
-                  {inlineSaving ? <IconLoader2 className="h-3.5 w-3.5 animate-spin" /> : <IconCheck className="h-3.5 w-3.5" />}
+                  {inlineSaving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Check className="h-3.5 w-3.5" />}
                 </Button>
                 <Button variant="ghost" size="icon" onClick={() => setEditingName(false)} data-testid="button-cancel-inline-name">
-                  <IconX className="h-3.5 w-3.5" />
+                  <X className="h-3.5 w-3.5" />
                 </Button>
               </div>
             ) : (
@@ -2995,7 +2959,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                   onClick={() => { setEditNameValue(config?.name || dbName); setEditingName(true); }}
                   data-testid="button-edit-name"
                 >
-                  <IconPencil className="h-3.5 w-3.5" />
+                  <Pencil className="h-3.5 w-3.5" />
                 </Button>
               </>
             )}
@@ -3023,10 +2987,10 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                   onClick={() => saveInlineField("description", editDescValue.trim())}
                   data-testid="button-save-inline-desc"
                 >
-                  {inlineSaving ? <IconLoader2 className="h-3 w-3 animate-spin" /> : <IconCheck className="h-3 w-3" />}
+                  {inlineSaving ? <Loader2 className="h-3 w-3 animate-spin" /> : <Check className="h-3 w-3" />}
                 </Button>
                 <Button variant="ghost" size="icon" onClick={() => setEditingDesc(false)} data-testid="button-cancel-inline-desc">
-                  <IconX className="h-3 w-3" />
+                  <X className="h-3 w-3" />
                 </Button>
               </div>
             ) : config?.description ? (
@@ -3039,7 +3003,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                   onClick={() => { setEditDescValue(config.description || ""); setEditingDesc(true); }}
                   data-testid="button-edit-description"
                 >
-                  <IconPencil className="h-3 w-3" />
+                  <Pencil className="h-3 w-3" />
                 </Button>
               </>
             ) : (
@@ -3061,9 +3025,9 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
             data-testid="button-toggle-settings"
           >
             {activePanel === "settings" ? (
-              <IconX className="h-3.5 w-3.5 mr-1" />
+              <X className="h-3.5 w-3.5 mr-1" />
             ) : (
-              <IconSettings className="h-3.5 w-3.5 mr-1" />
+              <Settings className="h-3.5 w-3.5 mr-1" />
             )}
             Settings
           </Button>
@@ -3074,9 +3038,9 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
             data-testid="button-toggle-mappings"
           >
             {activePanel === "mappings" ? (
-              <IconX className="h-3.5 w-3.5 mr-1" />
+              <X className="h-3.5 w-3.5 mr-1" />
             ) : (
-              <IconArrowsExchange className="h-3.5 w-3.5 mr-1" />
+              <ArrowLeftRight className="h-3.5 w-3.5 mr-1" />
             )}
             Mappings
           </Button>
@@ -3143,7 +3107,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
             <Card>
               <CardContent className="pt-4 pb-3 space-y-1">
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <IconTable className="h-3.5 w-3.5" />
+                  <Table className="h-3.5 w-3.5" />
                   <span>Items</span>
                 </div>
                 <p className="text-sm font-medium" data-testid="text-item-count">
@@ -3157,7 +3121,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
             <Card>
               <CardContent className="pt-4 pb-3 space-y-1">
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <IconClock className="h-3.5 w-3.5" />
+                  <Clock className="h-3.5 w-3.5" />
                   <span>Last Fetched</span>
                 </div>
                 <p className="text-sm font-medium" data-testid="text-fetched-at">
@@ -3195,7 +3159,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                       <code className="text-muted-foreground truncate">{p || "null"}</code>
                       {config?.editor?.[key]?.cache_images && (
                         <span className="inline-flex items-center gap-0.5 text-blue-500 shrink-0" title="Image caching enabled">
-                          <IconPhoto className="h-3 w-3" />
+                          <Image className="h-3 w-3" />
                           <span className="text-[10px] font-medium">cached</span>
                         </span>
                       )}
@@ -3205,7 +3169,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
               ) : (
                 <div className="border border-destructive/30 bg-destructive/5 rounded-md p-4 space-y-3" data-testid="field-mapping-error">
                   <div className="flex items-start gap-2">
-                    <IconAlertTriangle className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
+                    <AlertTriangle className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
                     <p className="text-sm text-destructive">
                       No field mapping configured. Raw source fields (potentially hundreds) will be cached as-is. Open Settings to define mappings or use AI to auto-detect them.
                     </p>
@@ -3216,7 +3180,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                     onClick={() => setActivePanel("mappings")}
                     data-testid="button-open-settings-mapping"
                   >
-                    <IconArrowsExchange className="h-3.5 w-3.5 mr-1" />
+                    <ArrowLeftRight className="h-3.5 w-3.5 mr-1" />
                     Edit Mappings
                   </Button>
                 </div>
@@ -3265,7 +3229,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                       onClick={() => setIsAddingItem(true)}
                       data-testid="button-add-item"
                     >
-                      <IconPlus className="h-3.5 w-3.5 mr-1" />
+                      <Plus className="h-3.5 w-3.5 mr-1" />
                       Add Item
                     </Button>
                   )}
@@ -3273,7 +3237,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                 <div className="flex items-center gap-2">
                   {(hasFetched || itemsData) && (
                     <div className="relative">
-                      <IconSearch className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+                      <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
                       <Input
                         placeholder="Search..."
                         value={search}
@@ -3291,9 +3255,9 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                     data-testid="button-fetch-data"
                   >
                     {isFetching || itemsLoading || rawItemsLoading ? (
-                      <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+                      <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
                     ) : (
-                      <IconDownload className="h-3.5 w-3.5 mr-1" />
+                      <Download className="h-3.5 w-3.5 mr-1" />
                     )}
                     Fetch Data
                   </Button>
@@ -3304,7 +3268,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                     disabled={isRefreshing}
                     data-testid="button-refresh-items"
                   >
-                    <IconRefresh className={`h-3.5 w-3.5 mr-1 ${isRefreshing ? "animate-spin" : ""}`} />
+                    <RefreshCw className={`h-3.5 w-3.5 mr-1 ${isRefreshing ? "animate-spin" : ""}`} />
                     Force Refresh
                   </Button>
                   {config?.source.type === "local" && (
@@ -3315,7 +3279,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                       disabled={!hasFetched && !itemsData}
                       data-testid="button-edit-items"
                     >
-                      <IconEdit className="h-3.5 w-3.5 mr-1" />
+                      <Pencil className="h-3.5 w-3.5 mr-1" />
                       {editMode ? "Done" : "Edit Items"}
                     </Button>
                   )}
@@ -3325,11 +3289,11 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
             <CardContent className="px-0 pb-0">
               {isFetching || itemsLoading || rawItemsLoading ? (
                 <div className="flex items-center justify-center py-12">
-                  <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                  <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
                 </div>
               ) : !hasFetched && !activeItems ? (
                 <div className="text-center py-12">
-                  <IconDownload className="h-8 w-8 mx-auto text-muted-foreground/40 mb-3" />
+                  <Download className="h-8 w-8 mx-auto text-muted-foreground/40 mb-3" />
                   <p className="text-sm text-muted-foreground mb-1">
                     Data has not been fetched yet.
                   </p>
@@ -3360,12 +3324,12 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                               {col}
                               {!editMode && sortKey === col ? (
                                 sortDir === "asc" ? (
-                                  <IconChevronUp className="h-3 w-3" />
+                                  <ChevronUp className="h-3 w-3" />
                                 ) : (
-                                  <IconChevronDown className="h-3 w-3" />
+                                  <ChevronDown className="h-3 w-3" />
                                 )
                               ) : !editMode ? (
-                                <IconArrowsSort className="h-3 w-3 opacity-30" />
+                                <ArrowUpDown className="h-3 w-3 opacity-30" />
                               ) : null}
                             </span>
                           </th>
@@ -3393,7 +3357,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                                   disabled={savingItems}
                                   data-testid={`button-edit-row-${i}`}
                                 >
-                                  <IconPencil className="h-3.5 w-3.5" />
+                                  <Pencil className="h-3.5 w-3.5" />
                                 </Button>
                                 <Button
                                   size="icon"
@@ -3402,7 +3366,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                                   disabled={savingItems}
                                   data-testid={`button-delete-row-${i}`}
                                 >
-                                  <IconTrash className="h-3.5 w-3.5 text-destructive" />
+                                  <Trash2 className="h-3.5 w-3.5 text-destructive" />
                                 </Button>
                               </div>
                             </td>
@@ -3460,9 +3424,9 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                 }}
               >
                 {savingItems ? (
-                  <IconLoader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+                  <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
                 ) : (
-                  <IconTrash className="h-3.5 w-3.5 mr-1" />
+                  <Trash2 className="h-3.5 w-3.5 mr-1" />
                 )}
                 Delete
               </Button>

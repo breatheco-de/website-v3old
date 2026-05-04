@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { IconCheck } from "@tabler/icons-react";
+import { Check } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -145,7 +145,7 @@ export function RelatedFeaturesPicker({ value, onChange, locale = "en", context 
               }`}
               data-testid={`props-feature-${feature}`}
             >
-              {isSelected && <IconCheck className="h-3 w-3" />}
+              {isSelected && <Check className="h-3 w-3" />}
               <span>{formatLabel(feature)}</span>
               <span className={`text-[10px] ${isSelected ? "opacity-75" : "opacity-50"}`}>
                 ({count})

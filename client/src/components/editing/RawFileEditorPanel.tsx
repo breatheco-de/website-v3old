@@ -1,8 +1,8 @@
 import { useState, useCallback, useEffect } from "react";
+import { AlertTriangle, File, Loader2, Save, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
-import { IconX, IconDeviceFloppy, IconLoader2, IconAlertTriangle, IconFile } from "@tabler/icons-react";
 import CodeMirror from "@uiw/react-codemirror";
 import { yaml } from "@codemirror/lang-yaml";
 import { oneDark } from "@codemirror/theme-one-dark";
@@ -154,7 +154,7 @@ export default function RawFileEditorPanel({ contentType, slug, locale, onClose,
           )}
         </div>
         <Button size="icon" variant="ghost" onClick={handleClose} data-testid="button-close-raw-editor">
-          <IconX className="h-4 w-4" />
+          <X className="h-4 w-4" />
         </Button>
       </div>
 
@@ -166,7 +166,7 @@ export default function RawFileEditorPanel({ contentType, slug, locale, onClose,
             onClick={() => setActiveFile("locale")}
             data-testid="tab-locale-file"
           >
-            <IconFile className="h-3.5 w-3.5 inline mr-1.5" />
+            <File className="h-3.5 w-3.5 inline mr-1.5" />
             {locale}.yml
           </button>
           <button
@@ -175,7 +175,7 @@ export default function RawFileEditorPanel({ contentType, slug, locale, onClose,
             onClick={() => setActiveFile("common")}
             data-testid="tab-common-file"
           >
-            <IconFile className="h-3.5 w-3.5 inline mr-1.5" />
+            <File className="h-3.5 w-3.5 inline mr-1.5" />
             _common.yml
           </button>
         </div>
@@ -184,11 +184,11 @@ export default function RawFileEditorPanel({ contentType, slug, locale, onClose,
       <div className="flex-1 min-h-0">
         {loading ? (
           <div className="flex items-center justify-center h-full" data-testid="loading-editor">
-            <IconLoader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
           </div>
         ) : error ? (
           <div className="flex flex-col items-center justify-center h-full gap-3 p-6" data-testid="error-editor">
-            <IconAlertTriangle className="h-8 w-8 text-destructive" />
+            <AlertTriangle className="h-8 w-8 text-destructive" />
             <p className="text-sm text-muted-foreground text-center">{error}</p>
           </div>
         ) : currentFile ? (
@@ -224,9 +224,9 @@ export default function RawFileEditorPanel({ contentType, slug, locale, onClose,
           </Button>
           <Button onClick={handleSave} disabled={!hasChanges || saving} data-testid="button-save-raw-editor">
             {saving ? (
-              <IconLoader2 className="h-4 w-4 animate-spin mr-2" />
+              <Loader2 className="h-4 w-4 animate-spin mr-2" />
             ) : (
-              <IconDeviceFloppy className="h-4 w-4 mr-2" />
+              <Save className="h-4 w-4 mr-2" />
             )}
             Save
           </Button>

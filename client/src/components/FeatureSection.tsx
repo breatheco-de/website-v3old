@@ -1,9 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ArrowRight, ChevronDown, LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { IconChevronDown, IconArrowRight } from "@tabler/icons-react";
 import { useState } from "react";
-import type { Icon } from "@tabler/icons-react";
 import { UniversalImage } from "@/components/UniversalImage";
 
 interface Feature {
@@ -15,7 +14,7 @@ interface Feature {
 interface FeatureAction {
   label: string;
   description: string;
-  icon?: Icon;
+  icon?: LucideIcon;
   color?: string;
   iconColor?: string;
   href?: string;
@@ -92,7 +91,7 @@ export default function FeatureSection({
                   data-testid="link-feature-cta"
                 >
                   {ctaLabel}
-                  {ctaIcon || <IconArrowRight className="w-4 h-4" />}
+                  {ctaIcon || <ArrowRight className="w-4 h-4" />}
                 </a>
               )}
             </div>
@@ -143,7 +142,7 @@ export default function FeatureSection({
                           <span className="text-sm font-medium">
                             {action.label}
                           </span>
-                          <IconChevronDown
+                          <ChevronDown
                             className={`w-4 h-4 flex-shrink-0 text-muted-foreground transition-transform ${isExpanded ? "rotate-180" : ""}`}
                           />
                         </div>

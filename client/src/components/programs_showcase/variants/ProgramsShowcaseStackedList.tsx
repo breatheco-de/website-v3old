@@ -1,7 +1,7 @@
 
 import type { ProgramsShowcaseSection, ProgramItem } from "@shared/schema";
+import { ArrowRight, Clock } from "lucide-react";
 import { getIcon } from "@/lib/icons";
-import { IconClock, IconArrowRight } from "@tabler/icons-react";
 import { resolveColorVar, hslColor } from "../shared";
 import { RichTextContent } from "@/components/ui/rich-text-content";
 
@@ -78,7 +78,7 @@ function StackedListItem({
                   fontWeight: 600,
                 }}
               >
-                <IconClock className="w-3.5 h-3.5" />
+                <Clock className="w-3.5 h-3.5" />
                 <span>{program.duration}</span>
               </div>
             )}
@@ -90,7 +90,7 @@ function StackedListItem({
               data-testid={`link-cta-${program.name.toLowerCase().replace(/\s+/g, "-")}`}
             >
               {program.cta_text}
-              <IconArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
             </a>
           </div>
         </div>

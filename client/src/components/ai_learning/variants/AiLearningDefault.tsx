@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import * as TablerIcons from "@tabler/icons-react";
+import * as LucideIcons from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import type { 
   AiLearningSection as AILearningSectionType,
   AiLearningFeatureTabsSection,
@@ -115,8 +116,8 @@ function getIcon(iconName: string, isRigobot: boolean = false, isLarge: boolean 
       />
     );
   }
-  const icons = TablerIcons as unknown as Record<string, ComponentType<{ size?: number; className?: string }>>;
-  const IconComponent = icons[`Icon${iconName}`];
+  const icons = LucideIcons as unknown as Record<string, ComponentType<{ size?: number; className?: string }>>;
+  const IconComponent = icons[(iconName).charAt(0).toUpperCase() + (iconName).slice(1) as keyof typeof LucideIcons];
   return IconComponent ? <IconComponent size={isLarge ? 32 : 24} className="text-primary" /> : null;
 }
 
@@ -271,7 +272,7 @@ function AILearningFeatureTabs({ data }: { data: AiLearningFeatureTabsSection })
                           .map((bullet: FeatureBullet, idx: number) => (
                           <li key={idx} className="flex items-start gap-3">
                             <span className="text-primary flex-shrink-0 mt-0.5">
-                              {bullet.icon ? getIcon(bullet.icon) : <TablerIcons.IconCheck size={20} />}
+                              {bullet.icon ? getIcon(bullet.icon) : <Check size={20} />}
                             </span>
                             <span className="text-muted-foreground">{bullet.text}</span>
                           </li>
@@ -283,7 +284,7 @@ function AILearningFeatureTabs({ data }: { data: AiLearningFeatureTabsSection })
                           className="text-primary text-sm font-medium mb-3 flex items-center gap-1 mb-4"
                           data-testid="button-see-more-bullets"
                         >
-                          See more <TablerIcons.IconChevronDown size={16} />
+                          See more <ChevronDown size={16} />
                         </button>
                       )}
                       <div className="mb-3" />
@@ -355,7 +356,7 @@ function AILearningHighlight({ data }: { data: AiLearningHighlightSection }) {
                   <div key={idx} className="flex items-center gap-3 ">
                     <div className="flex items-center gap-2">
                       <span className="text-primary flex-shrink-0">
-                        {bullet.icon ? getIcon(bullet.icon) : <TablerIcons.IconCheck size={20} />}
+                        {bullet.icon ? getIcon(bullet.icon) : <Check size={20} />}
                       </span>
                       <span className="text-muted-foreground">{bullet.text}</span>
                     </div>
