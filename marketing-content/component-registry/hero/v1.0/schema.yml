@@ -9,6 +9,10 @@ when_to_use: |
   - showcase: 3-column layout with images on sides (best for landing pages)
   - productShowcase: Text on left with video on right (best for product/service introductions)
   - simpleTwoColumn: Image on left, text with CTAs on right (best for promotions, announcements)
+
+image_sizes:
+  singleColumn.image.src: "(min-width: 768px) 800px, 100vw"
+  
 variants:
   singleColumn:
     description: Centered single column with badge, title, subtitle, CTAs, trust bar, and award badges

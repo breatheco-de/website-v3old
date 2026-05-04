@@ -2,6 +2,9 @@ name: Two Column Accordion Card
 description: A card-based section with two columns - one side has a title, description, and expandable accordion items, the other side displays an image. Great for detailed feature explanations or FAQ-style content.
 version: "1.0"
 
+image_sizes:
+  image_background.image: "(min-width: 768px) 500px, 100vw"
+
 schema:
   type: object
   required:

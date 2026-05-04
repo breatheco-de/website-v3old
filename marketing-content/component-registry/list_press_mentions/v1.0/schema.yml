@@ -13,6 +13,9 @@ variants:
     description: Full-width featured card (items[0]) + row of 3 supporting cards (items[1-3]) + footer stats bar.
     best_for: Institutional credibility sections, partnerships pages
 
+image_sizes:
+  default.items[].logo: "(min-width: 768px) 120px, 80px"
+
 props:
   variant:
     type: string

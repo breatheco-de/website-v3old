@@ -16,6 +16,9 @@ when_to_use: >
   
   Use "stats-text-card" for a two-column layout with stats on left and descriptive text in a card on right.
 
+image_sizes:
+  cardHeader.image: "(min-width: 768px) 280px, 100vw"
+
 variants:
   highlight:
     description: Stats/metrics cards with icons and large value numbers

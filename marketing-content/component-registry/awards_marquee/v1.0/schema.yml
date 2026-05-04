@@ -8,6 +8,8 @@ when_to_use:
   - Create visual movement and engagement on landing pages
   - Show certifications or accreditations from multiple sources
   - Build trust through animated third-party validation
+image_sizes:
+  default.items[].logo: "(min-width: 768px) 180px, 80px"
 props:
   speed:
     type: number

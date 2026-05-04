@@ -7,6 +7,12 @@ when_to_use: |
   Use for showcasing graduate outcomes, success metrics, or achievement statistics.
   The collage creates visual interest while stats communicate key results.
   Great for career pages, outcomes sections, or testimonial areas.
+
+image_sizes:
+  default.collage_images[].image_id: "(min-width: 768px) 350px, 50vw"
+  fullBleed.featured_images[].image_id: "(min-width: 768px) 500px, 100vw"
+  fullBleed.collage_images[].image_id: "(min-width: 768px) 350px, 50vw"
+  
 variants:
   standard:
     description: Default layout with image collage on left and stacked stats on right
