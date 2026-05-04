@@ -118,10 +118,10 @@ sections:
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
-      - https://randomuser.me/api/portraits/women/1.jpg
-      - https://randomuser.me/api/portraits/men/2.jpg
-      - https://randomuser.me/api/portraits/women/3.jpg
-      - https://randomuser.me/api/portraits/men/4.jpg
+      - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+      - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+      - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+      - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
     title: En el centro del crecimiento tecnológico de Miami
     description: Miami es uno de los mercados tecnológicos de mayor crecimiento en Estados Unidos, y 4Geeks Academy forma parte activa de su ecosistema. Desde nuestro campus en la ciudad, organizamos eventos técnicos, charlas especializadas y encuentros enfocados en empleabilidad que conectan a estudiantes con empresas locales y profesionales del sector en el sur de Florida.
     background: gradient

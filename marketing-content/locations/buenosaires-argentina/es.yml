@@ -114,10 +114,10 @@ sections:
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
-      - https://randomuser.me/api/portraits/women/1.jpg
-      - https://randomuser.me/api/portraits/men/2.jpg
-      - https://randomuser.me/api/portraits/women/3.jpg
-      - https://randomuser.me/api/portraits/men/4.jpg
+      - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+      - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+      - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+      - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
     title: En el Centro del Impulso Tech de Buenos Aires
     description: Buenos Aires es la capital de Argentina y un hub de startups vibrante con éxito en e-commerce, edtech y agritech. Desde nuestro campus en Buenos Aires, te conectamos con empleadores locales, eventos tech y un ecosistema en crecimiento para que construyas relaciones que apoyen tu entrada y crecimiento a largo plazo en tech.
     background: gradient
