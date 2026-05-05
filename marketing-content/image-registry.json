@@ -18368,7 +18368,32 @@
       "focal_point": "center",
       "tags": [],
       "usage_count": 0,
-      "hash": "5e243beca8f1795551fd2c686c6e4d52762ca58b21f8cdfbe5575c6687838042"
+      "hash": "5e243beca8f1795551fd2c686c6e4d52762ca58b21f8cdfbe5575c6687838042",
+      "width": 1500,
+      "height": 953,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960,
+        1280
+      ],
+      "format": "avif",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/laptop-640w.avif"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/laptop-960w.avif"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/laptop-1280w.avif"
+        }
+      ]
     }
   }
 }
