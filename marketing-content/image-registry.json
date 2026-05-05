@@ -18126,6 +18126,81 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70-240w.webp"
         }
       ]
+    },
+    "ebootcamp_top-601x488-q70": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp_top-601x488-q70.webp",
+      "alt": "eBootcamp Top Award",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "badge",
+        "award",
+        "card",
+        "photo",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 601,
+      "height": 488,
+      "format": "webp",
+      "parentId": "ebootcamp_top",
+      "quality_override": 70,
+      "preset": [
+        "logo",
+        "icon",
+        "card",
+        "card-wide",
+        "full",
+        "avatar"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128,
+        240,
+        256,
+        320,
+        480
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp_top-601x488-q70-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp_top-601x488-q70-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp_top-601x488-q70-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp_top-601x488-q70-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp_top-601x488-q70-240w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp_top-601x488-q70-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp_top-601x488-q70-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp_top-601x488-q70-480w.webp"
+        }
+      ]
     }
   }
 }
