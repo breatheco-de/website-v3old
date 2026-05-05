@@ -289,6 +289,8 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
+    laptop_image:
+      image_id: laptop
     heading: Quiénes califican?
     description: Podrás optar a la garantía de empleo si
     cards:

@@ -51,6 +51,8 @@ sections:
     section_id: features_quad-b7t650
     version: "1.0"
     variant: laptopEdge
+    laptop_image:
+      image_id: laptop
     heading: Qué nos hace diferentes
     cards:
       - icon: Trophy

@@ -158,6 +158,8 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-mc14hf
     variant: laptop-edge
+    laptop_image:
+      image_id: laptop
     title: Enroll with a Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
     description: Our optional job guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a href="/en/job-guarantee">Terms and conditions apply.</a></div>

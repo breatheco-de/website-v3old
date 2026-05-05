@@ -212,6 +212,8 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-hy7464
     variant: laptop-edge
+    laptop_image:
+      image_id: laptop
     mobile_see_more: true
     mobile_see_more_label: See more
     mobile_see_less_label: See less

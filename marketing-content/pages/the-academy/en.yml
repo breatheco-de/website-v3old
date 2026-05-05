@@ -52,6 +52,8 @@ sections:
     section_id: features_quad-qczodt
     version: "1.0"
     variant: laptopEdge
+    laptop_image:
+      image_id: laptop
     heading: What Makes Us Different
     cards:
       - icon: Trophy
