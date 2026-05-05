@@ -27,13 +27,13 @@ locations:
   - bogota-colombia
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: ApplyFormProductShowcase
-    title: ''
+    title: ""
     brand_mark:
-      prefix: Conviértete en
-      highlight: Ingeniero de IA
-      suffix: y construye sistemas reales, listos para producción.
+      prefix: ¿Estás viendo la ola de despidos?
+      highlight: Este es el único trabajo que hay esperando fuera
+      suffix: Ingeniero de IA
       color: primary
     description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando, en 24 semanas.
     form:
@@ -68,13 +68,8 @@ sections:
       consent:
         sms: true
         marketing: true
-        marketing_text: >-
-          Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales
-          de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        sms_text: >-
-          Acepto recibir SMS sobre talleres, eventos, cursos y materiales de marketing. Pueden aplicar cargos por
-          mensaje y datos. Responde STOP para cancelar, HELP para ayuda. Puedes recibir 4–6 mensajes al mes. Nunca
-          compartiremos tus datos y puedes darte de baja cuando quieras.
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        sms_text: Acepto recibir SMS sobre talleres, eventos, cursos y materiales de marketing. Pueden aplicar cargos por mensaje y datos. Responde STOP para cancelar, HELP para ayuda. Puedes recibir 4–6 mensajes al mes. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
         sms_usa_only: false
       show_terms: true
     cta_button:
@@ -84,7 +79,7 @@ sections:
       icon: Download
     video:
       url: https://youtube.com/shorts/-SpU1PWNBF4?si=Hf6pIB-aSDUHFgj2
-      ratio: '9:16'
+      ratio: "9:16"
       muted: true
     section_id: hero-0ptt7o
     bullets:
@@ -100,7 +95,7 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
   - type: sticky_cta
     section_id: sticky_cta-nuso5x
-    version: '1.0'
+    version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
     show_dismiss: false
@@ -134,7 +129,7 @@ sections:
     showOn: mobile
   - type: awards_marquee
     section_id: awards_marquee-o9ymal
-    version: '1.0'
+    version: "1.0"
     speed: 40
     gradient: true
     gradientWidth: 500
@@ -185,8 +180,7 @@ sections:
         logoHeight: h-10 md:h-14
       - id: logo-european-excellence-education
         alt: European Excellence Education
-        logo: >-
-          https://storage.googleapis.com/4geeks-academy-website/media/european-excellence-education-ealde_1_1770392145138.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/european-excellence-education-ealde_1_1770392145138.png
         logoHeight: h-10 md:h-14
       - id: logo-forbes-advisor-2025
         alt: Forbes Advisor Best of 2025 - Best for lifetime career support
@@ -204,14 +198,11 @@ sections:
       desktop: none lg
   - type: features_grid
     section_id: features_grid-jedyyp
-    version: '1.0'
+    version: "1.0"
     variant: stats-text-card
     title: ¿Por qué aprender ingeniería de IA ahora?
     subtitle: Porque el mercado laboral ya lo está exigiendo.
-    description: >-
-      Los ingenieros de IA construyen sistemas inteligentes, automatizan procesos y diseñan productos impulsados por IA.
-      Según McKinsey, el 87% de las empresas reportan que les falta talento en ingeniería de IA para transformar sus
-      operaciones. Esta brecha es tu oportunidad. La demanda existe, el desafío es estar preparado.
+    description: Los ingenieros de IA construyen sistemas inteligentes, automatizan procesos y diseñan productos impulsados por IA. Según McKinsey, el 87% de las empresas reportan que les falta talento en ingeniería de IA para transformar sus operaciones. Esta brecha es tu oportunidad. La demanda existe, el desafío es estar preparado.
     background: hsl(210 100% 50% / 0.05)
     items:
       - value: 800,000
@@ -229,11 +220,7 @@ sections:
   - type: syllabus
     variant: program-modules
     program_title: AI Native Full Stack — Módulos del programa
-    program_description: >-
-      Construye sistemas reales con IA desde el primer día. Este currículo se organiza en dos tracks — IA Central y
-      Agentes, e Infraestructura para IA — más un capstone que integra todo en una empresa completamente transformada y
-      desplegada. Apoyado por fundamentos complementarios en herramientas y prácticas de desarrollo moderno a lo largo
-      del programa.
+    program_description: Construye sistemas reales con IA desde el primer día. Este currículo se organiza en dos tracks — IA Central y Agentes, e Infraestructura para IA — más un capstone que integra todo en una empresa completamente transformada y desplegada. Apoyado por fundamentos complementarios en herramientas y prácticas de desarrollo moderno a lo largo del programa.
     tech_logos:
       - name: Python
         icon: python
@@ -251,9 +238,7 @@ sections:
         objectives:
           - Configurar un agente de IA de código abierto como asistente personal
           - Asignar tareas e integrar aplicaciones externas con el agente
-        projects: >-
-          Despliega y configura un asistente de IA autoalojado — tuyo, bajo tu control, sin depender de proveedores
-          externos.
+        projects: Despliega y configura un asistente de IA autoalojado — tuyo, bajo tu control, sin depender de proveedores externos.
         orientation: vertical
         icon: IconRobot
       - title: Asistentes Personales Avanzados con OpenClaw
@@ -272,9 +257,7 @@ sections:
           - Construir bancos de memoria y reglas de contexto desde una base de código existente
           - Escribir especificaciones ejecutables para agentes (agent specs)
           - Sintetizar habilidades reutilizables para que los agentes actúen con precisión
-        projects: >-
-          Construye bancos de memoria y reglas de contexto que conviertan un agente de código en un colaborador que
-          entiende tu base de código.
+        projects: Construye bancos de memoria y reglas de contexto que conviertan un agente de código en un colaborador que entiende tu base de código.
         orientation: vertical
         icon: IconCode
       - title: LLMs, Entrenamiento y RAG
@@ -295,9 +278,7 @@ sections:
           - Proveer herramientas al agente mediante CLIs optimizadas para IA
           - Extender las capacidades del agente con el Protocolo de Contexto de Modelo (MCP)
           - Dar memoria persistente a un agente
-        projects: >-
-          Construye agentes que llaman herramientas, acceden a sistemas externos vía MCPs y CLIs, y operan con memoria
-          persistente.
+        projects: Construye agentes que llaman herramientas, acceden a sistemas externos vía MCPs y CLIs, y operan con memoria persistente.
         orientation: vertical
         icon: IconBolt
       - title: Flujos de Trabajo Agénticos
@@ -316,9 +297,7 @@ sections:
           - Crear bucles de agente integrando LLMs con APIs
           - Implementar almacenamiento ligero y procesamiento de datos CSV
           - Construir y exponer APIs REST para frontends y agentes
-        projects: >-
-          Construye APIs robustas con FastAPI, implementa bucles de agente en Python y diseña arquitecturas backend
-          orientadas a casos de uso de IA.
+        projects: Construye APIs robustas con FastAPI, implementa bucles de agente en Python y diseña arquitecturas backend orientadas a casos de uso de IA.
         orientation: vertical
         icon: IconServer
       - title: Automatizaciones de Flujos de Trabajo
@@ -336,9 +315,7 @@ sections:
         objectives:
           - Manipular y preparar conjuntos de datos con Python
           - Construir pipelines de datos desde la aplicación hasta sistemas de análisis
-        projects: >-
-          Construye pipelines que toman datos crudos, los transforman y los dejan listos para alimentar modelos,
-          reportes o agentes.
+        projects: Construye pipelines que toman datos crudos, los transforman y los dejan listos para alimentar modelos, reportes o agentes.
         orientation: vertical
         icon: IconChartBar
       - title: Telemetría
@@ -357,9 +334,7 @@ sections:
           - Implementar procesamiento en segundo plano para tareas costosas
           - Gestionar colas de procesos con workers
           - Usar colas para delegar trabajo entre agentes y servicios
-        projects: >-
-          Implementa sistemas de procesamiento en segundo plano y colas que permiten a los agentes delegar trabajo
-          pesado sin bloquear a los usuarios.
+        projects: Implementa sistemas de procesamiento en segundo plano y colas que permiten a los agentes delegar trabajo pesado sin bloquear a los usuarios.
         orientation: vertical
         icon: IconServer
       - title: Tiempo Real
@@ -368,9 +343,7 @@ sections:
           - Construir chats de soporte con LLMs en tiempo real
           - Implementar streaming de respuestas con generadores (yield)
           - Integrar webhooks y pub/sub en aplicaciones de IA
-        projects: >-
-          Implementa comunicación en tiempo real entre usuarios y modelos de lenguaje usando streaming, WebSockets y
-          arquitecturas orientadas a eventos.
+        projects: Implementa comunicación en tiempo real entre usuarios y modelos de lenguaje usando streaming, WebSockets y arquitecturas orientadas a eventos.
         orientation: vertical
         icon: IconBolt
       - title: Autenticación de Aplicaciones Web
@@ -378,9 +351,7 @@ sections:
         objectives:
           - Implementar autenticación y restricciones de rutas en FastAPI
           - Construir flujos de autenticación completos (login, tokens, sesiones)
-        projects: >-
-          Implementa autenticación segura en FastAPI y construye flujos de login completos que definen lo que cada
-          usuario — y agente — puede hacer.
+        projects: Implementa autenticación segura en FastAPI y construye flujos de login completos que definen lo que cada usuario — y agente — puede hacer.
         orientation: vertical
         icon: IconCode
       - title: Manejo de Errores, Depuración y Testing
@@ -388,9 +359,7 @@ sections:
         objectives:
           - Entender y gestionar errores en tiempo de ejecución con control de flujo
           - Desarrollar suites de pruebas para aplicaciones robustas
-        projects: >-
-          Verifica el código generado por IA con manejo controlado de errores y suites de pruebas que validan el
-          comportamiento esperado.
+        projects: Verifica el código generado por IA con manejo controlado de errores y suites de pruebas que validan el comportamiento esperado.
         orientation: vertical
         icon: IconCode
       - title: Ciberseguridad en Aplicaciones de IA
@@ -399,9 +368,7 @@ sections:
           - Identificar y corregir las vulnerabilidades OWASP Top 10 en aplicaciones web
           - Implementar prácticas de seguridad específicas para integraciones de IA
           - Usar LLMs como herramienta de auditoría de ciberseguridad
-        projects: >-
-          Identifica vulnerabilidades críticas en aplicaciones de IA e implementa prácticas seguras en la integración de
-          modelos.
+        projects: Identifica vulnerabilidades críticas en aplicaciones de IA e implementa prácticas seguras en la integración de modelos.
         orientation: vertical
         icon: IconCode
       - title: Empresa Transformada por IA
@@ -414,9 +381,7 @@ sections:
           - Capa de conocimiento RAG
           - Agentes con llamadas a herramientas
           - Comunicación en tiempo real
-        projects: >-
-          Integra todo lo aprendido en un sistema funcional y desplegado — la transformación completa de una empresa a
-          través de la IA.
+        projects: Integra todo lo aprendido en un sistema funcional y desplegado — la transformación completa de una empresa a través de la IA.
         orientation: horizontal
         icon: IconCode
     paddingY:
@@ -457,13 +422,11 @@ sections:
     section_id: ai_learning-o6zujm
     badge: ¿Por qué 4Geeks?
     title: ¿Por qué aprender ingeniería de IA con 4Geeks?
-    description: >-
-      Porque te formas aplicando IA como lo hacen las empresas líderes, con herramientas inteligentes y un método de
-      aprendizaje hiperpersonalizado que acelera tu progreso.
+    description: Porque te formas aplicando IA como lo hacen las empresas líderes, con herramientas inteligentes y un método de aprendizaje hiperpersonalizado que acelera tu progreso.
     features:
       - icon: TrendingUp
         title: Destaca en tech con apoyo de carrera para la era de la IA
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Recibe coaching 1:1 personalizado
@@ -473,11 +436,11 @@ sections:
         video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
         cta:
           text: Empieza a aprender ahora
-          url: '#hero-form'
+          url: "#hero-form"
           variant: primary
       - icon: Robot
         title: Avanza más rápido con herramientas potenciadas por IA
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Obtén retroalimentación al instante con Rigobot, nuestro tutor de IA
@@ -487,11 +450,11 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
         cta:
           text: Empieza a aprender ahora
-          url: '#hero-form'
+          url: "#hero-form"
           variant: primary
       - icon: Headset
         title: Mentoría 1:1 ilimitada y una comunidad activa
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Acceso de por vida a sesiones de mentoría 1:1
@@ -504,14 +467,12 @@ sections:
       desktop: lg none
   - type: certificate
     title: Resultados de carrera
-    description: >-
-      Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de
-      Florida. Accede a roles bien pagados:
+    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
     benefits:
-      - text: 'Ingeniero de software IA: $25K–$45K'
-      - text: 'Ingeniero full-stack (IA): $20K–$40K'
-      - text: 'Ingeniero de agentes: $25K–$50K'
-      - text: 'Ingeniero de automatización de flujos: $18K–$40K'
+      - text: "Ingeniero de software IA: $25K–$45K"
+      - text: "Ingeniero full-stack (IA): $20K–$40K"
+      - text: "Ingeniero de agentes: $25K–$50K"
+      - text: "Ingeniero de automatización de flujos: $18K–$40K"
     card:
       title: Ingeniero de IA
       subtitle: Certificado 4Geeks Academy
@@ -527,30 +488,22 @@ sections:
           - text: Perfil profesional y estrategia de búsqueda optimizados
       - value: 3-6 meses
         label: Tiempo para conseguir empleo
-        description: >-
-          La mayoría de los graduados consiguen su primer rol en 3–6 meses gracias a nuestro proceso de desarrollo
-          profesional.
+        description: La mayoría de los graduados consiguen su primer rol en 3–6 meses gracias a nuestro proceso de desarrollo profesional.
         benefits:
-          - text: >-
-              Optimiza tu currículum, portafolio y perfil profesional para atraer recruiters y superar filtros
-              automatizados
+          - text: Optimiza tu currículum, portafolio y perfil profesional para atraer recruiters y superar filtros automatizados
           - text: Prepárate para entrevistas técnicas y de competencias con casos reales
           - text: Aplica una estrategia de búsqueda personalizada con acceso a redes de empresas contratantes
       - value: 40%
         label: Aumento salarial promedio
-        description: >-
-          Nuestros graduados ven un aumento salarial promedio del 40% al pasar a roles de ingeniería de IA. La inversión
-          se paga sola.
+        description: Nuestros graduados ven un aumento salarial promedio del 40% al pasar a roles de ingeniería de IA. La inversión se paga sola.
         benefits:
-          - text: 'Ingeniero de software IA: $20K–30K'
-          - text: 'Ingeniero full-stack (IA): $25K–$40K'
-          - text: 'Ingeniero de  de IA: $25K–$50K'
-          - text: 'Ingeniero de automatización de flujos (RAG, APIs, vector DBs): $25K–$60K'
+          - text: "Ingeniero de software IA: $20K–30K"
+          - text: "Ingeniero full-stack (IA): $25K–$40K"
+          - text: "Ingeniero de  de IA: $25K–$50K"
+          - text: "Ingeniero de automatización de flujos (RAG, APIs, vector DBs): $25K–$60K"
       - value: 400+
         label: Empresas que contratan nuestro talento
-        description: >-
-          Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de
-          selección prioritarios.
+        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
         benefits:
           - text: Acceso exclusivo a bolsa de empleo
           - text: Recomendaciones directas a empresas colaboradoras
@@ -567,7 +520,7 @@ sections:
     background: hsl(var(--muted))
   - type: bullet_tabs_showcase
     section_id: bullet_tabs_showcase-epdu28
-    version: '1.0'
+    version: "1.0"
     heading: ¿Este programa es para ti?
     tabs:
       - label: Compromiso intensivo
@@ -636,16 +589,14 @@ sections:
       - content-and-syllabus
       - career-support
     rating_summary:
-      average: '4.7'
+      average: "4.7"
       count: 1,294
   - type: numbered_steps
     section_id: numbered_steps-q4nouo
-    version: '1.0'
+    version: "1.0"
     variant: verticalCards
     title: Nuestro proceso de admisión
-    description: >-
-      Trabajamos con un proceso de admisión selectivo. La postulación no garantiza la inscripción: evaluamos cada
-      aplicación para asegurar compromiso y alineación con el programa..
+    description: "Trabajamos con un proceso de admisión selectivo. La postulación no garantiza la inscripción: evaluamos cada aplicación para asegurar compromiso y alineación con el programa.."
     description_link: null
     steps:
       - icon: ClipboardList
@@ -661,16 +612,14 @@ sections:
       - icon: ArrowRightCircle
         title: Selección y próximos pasos
         bullets:
-          - >-
-            Si tu perfil encaja, te compartimos la información completa para avanzar, incluyendo fechas, inversión y
-            expectativas
+          - Si tu perfil encaja, te compartimos la información completa para avanzar, incluyendo fechas, inversión y expectativas
           - Si no es el momento adecuado, te recomendamos alternativas alineadas a tu crecimiento profesional.
     background: bg-muted/30
     bullet_icon: Check
     bullet_icon_color: text-primary
     showOn: mobile
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: ¿Listo para convertirte en Ingeniero de IA?
     subtitle: Cupos limitados. Comienza tu transformación hoy.
     background: hsl(var(--primary))
@@ -720,7 +669,7 @@ sections:
       desktop: lg
   - type: footer
     section_id: footer-2ig6x4
-    version: '1.0'
+    version: "1.0"
     copyright_text: 2024 4Geeks. Todos los derechos reservados.
     paddingY:
       mobile: none
