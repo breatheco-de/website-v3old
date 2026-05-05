@@ -13,7 +13,7 @@ when_to_use: |
 image_sizes:
   singleColumn.image.src: "(min-width: 768px) 800px, 100vw"
   credibility.pills[].logos[].image_id: "(min-width: 768px) 45px, 60px"
-  course.students_enrolled.avatars[].src: "(min-width: 768px) 25px, 40px"
+  course.students_enrolled.avatars[].src: "40px"
   course.tutors[].image: "45px"
   
 variants:

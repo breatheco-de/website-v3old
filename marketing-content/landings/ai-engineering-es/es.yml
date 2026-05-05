@@ -219,151 +219,179 @@ sections:
       mobile: none md
       desktop: none md
   - type: syllabus
-    section_id: syllabus-4x0ck1
     variant: program-modules
-    program_title: Lo que construirás en 24 semanas
-    program_description: Desde el primer día eliges una empresa, ya sea la que quieres construir o una que quieras transformar. A lo largo de 10 hitos, la conviertes en un negocio totalmente operativo impulsado por IA.
+    program_title: AI Native Full Stack — Módulos del programa
+    program_description: Construye sistemas reales con IA desde el primer día. Este currículo se organiza en dos tracks — IA Central y Agentes, e Infraestructura para IA — más un capstone que integra todo en una empresa completamente transformada y desplegada. Apoyado por fundamentos complementarios en herramientas y prácticas de desarrollo moderno a lo largo del programa.
     tech_logos:
-      - name: OpenAI
-        icon: openai
-      - name: Claude
-        icon: claude
       - name: Python
         icon: python
-      - name: Pandas
-        icon: pandas
-      - name: NumPy
-        icon: numpy
-      - name: Scikit-learn
-        icon: scikitlearn
-      - name: PyTorch
-        icon: pytorch
-      - name: Matplotlib
-        icon: matplotlib
-      - name: React
-        icon: react
-      - name: Next.js
-        icon: nextjs
-      - name: Tailwind CSS
-        icon: tailwindcss
-      - name: Node.js
-        icon: nodejs
-      - name: Vercel
-        icon: vercel
-      - name: Supabase
-        icon: supabase
-      - name: Git
-        icon: git
-      - name: GitHub
-        icon: github
-      - name: Postman
-        icon: postman
+      - name: OpenAI
+        icon: openai
       - name: n8n
         icon: n8n
+      - name: Docker
+        icon: docker
+      - name: React
+        icon: react
     module_cards:
-      - title: Prework con enfoque en IA
-        duration: Hito 0
+      - title: Asistentes Personales con OpenClaw
+        duration: IA Central y Agentes
         objectives:
-          - Fundamentos YAML/JSON
-          - Control de versiones con Git
-          - Bases de JavaScript
-          - Fundamentos de internet
-          - Agentes de código
-        icon: IconRocket
-      - title: Fundamentos web
-        duration: Hito 1
-        objectives:
-          - HTML, CSS, Tailwind
-          - Mejores prácticas de accesibilidad
-          - Técnicas de maquetado
-        projects: Construye la primera página web de la empresa
-        icon: IconWorld
-      - title: Fundamentos de programación
-        duration: Hito 2
-        objectives:
-          - Algoritmos y estructuras de datos
-          - Stateflow vs controlflow
-          - Dominio de JavaScript
-        projects: Implementa pequeñas funcionalidades para la empresa
-        icon: IconCode
-      - title: UI con IA
-        duration: Hito 3
-        objectives:
-          - Prompting de visión a especificación
-          - Generación de componentes con IA
-        projects: Reconstruye la UI de la empresa con IA
-        icon: IconSparkles
-      - title: Fundamentos de React
-        duration: Hito 4
-        objectives:
-          - Arquitectura SPA
-          - Props, state y effects
-          - Técnicas de depuración
-        projects: Construye el frontend interactivo de la empresa
-        icon: IconBrandReact
-      - title: Backend para frontends con IA
-        duration: Hito 5
-        objectives:
-          - APIs y bases de datos
-          - Serialización y autenticación
-          - Funciones serverless
-        projects: Crea el backend de la empresa
-        icon: IconServer
-      - title: Telemetría y pipelines de datos
-        duration: Hito 6
-        objectives:
-          - Recopilar, transformar, agregar y reportar
-        projects: Construye la telemetría de la empresa
-        icon: IconChartLine
-      - title: RAG y memoria
-        duration: Hito 7
-        objectives:
-          - Chunking y embeddings
-          - Búsqueda vectorial
-        projects: Añade la capa de conocimiento de la empresa
-        icon: IconBrain
-      - title: Ingeniería de agentes
-        duration: Hito 8
-        objectives:
-          - Reglas y memoria
-          - Llamadas a herramientas
-          - Planificación multi-agente
-        projects: Construye los agentes de la empresa
+          - Configurar un agente de IA de código abierto como asistente personal
+          - Asignar tareas e integrar aplicaciones externas con el agente
+        projects: Despliega y configura un asistente de IA autoalojado — tuyo, bajo tu control, sin depender de proveedores externos.
+        orientation: vertical
         icon: IconRobot
-      - title: Generación de flujos agenticos
-        duration: Hito 9
+      - title: Asistentes Personales Avanzados con OpenClaw
+        duration: IA Central y Agentes
         objectives:
-          - Usar LLMs para analizar el caso de la empresa
-          - Generar y validar flujos internos
-          - Implementar pipelines de automatización
-        projects: Serverless, colas, cronjobs o n8n
-        icon: IconSitemap
-      - title: Sistemas en tiempo real
-        duration: Hito 10
+          - Identificar escenarios donde un agente resuelve problemas reales de negocio
+          - Desarrollar habilidades personalizadas para OpenClaw
+          - Implementar memoria contextual (episódica, semántica, procedimental)
+          - Configuración y extensión avanzada del agente
+        projects: Convierte tu asistente básico en una herramienta productiva con autonomía real en contextos de negocio.
+        orientation: vertical
+        icon: IconRobot
+      - title: Trabajar con Agentes de Código IA
+        duration: IA Central y Agentes
         objectives:
-          - Streaming y sockets
-          - Patrones pub/sub
-        projects: Habilita interacciones en tiempo real para datos, clientes, IA o empleados
+          - Construir bancos de memoria y reglas de contexto desde una base de código existente
+          - Escribir especificaciones ejecutables para agentes (agent specs)
+          - Sintetizar habilidades reutilizables para que los agentes actúen con precisión
+        projects: Construye bancos de memoria y reglas de contexto que conviertan un agente de código en un colaborador que entiende tu base de código.
+        orientation: vertical
+        icon: IconCode
+      - title: LLMs, Entrenamiento y RAG
+        duration: IA Central y Agentes
+        objectives:
+          - Preparar datos y seleccionar modelos para entrenamiento
+          - Implementar técnicas RAG en bases de conocimiento propietarias
+          - Trabajar con bases de datos vectoriales
+          - Evaluar, depurar e integrar modelos en producción
+        projects: Implementa RAG para que tu agente responda con conocimiento propietario y actualizado.
+        orientation: vertical
+        icon: IconDatabase
+      - title: Ingeniería Agéntica
+        duration: IA Central y Agentes
+        objectives:
+          - Construir agentes con llamadas a herramientas (function calls reales)
+          - Implementar guardrails como mecanismo de seguridad y control
+          - Proveer herramientas al agente mediante CLIs optimizadas para IA
+          - Extender las capacidades del agente con el Protocolo de Contexto de Modelo (MCP)
+          - Dar memoria persistente a un agente
+        projects: Construye agentes que llaman herramientas, acceden a sistemas externos vía MCPs y CLIs, y operan con memoria persistente.
+        orientation: vertical
         icon: IconBolt
-      - title: Empresa transformada por IA
+      - title: Flujos de Trabajo Agénticos
+        duration: IA Central y Agentes
+        objectives:
+          - Diseñar sistemas multi-agente con enrutamiento y arbitraje
+          - Implementar memoria compartida entre agentes
+          - Desplegar flujos de trabajo agénticos con funciones serverless y durables
+        projects: Diseña sistemas donde múltiples agentes colaboran, distribuyen tareas y funcionan de forma autónoma a escala.
+        orientation: vertical
+        icon: IconLayoutKanban
+      - title: Desarrollo Backend con Agentes de Código
+        duration: Infraestructura para IA
+        objectives:
+          - Diseñar arquitecturas backend para soluciones potenciadas por IA
+          - Crear bucles de agente integrando LLMs con APIs
+          - Implementar almacenamiento ligero y procesamiento de datos CSV
+          - Construir y exponer APIs REST para frontends y agentes
+        projects: Construye APIs robustas con FastAPI, implementa bucles de agente en Python y diseña arquitecturas backend orientadas a casos de uso de IA.
+        orientation: vertical
+        icon: IconServer
+      - title: Automatizaciones de Flujos de Trabajo
+        duration: Infraestructura para IA
+        objectives:
+          - Modelar lógica de negocio con diagramas de flujo
+          - Implementar flujos básicos y avanzados en n8n
+          - Integrar LLMs y aplicaciones externas en automatizaciones
+          - Desplegar flujos mantenibles con manejo de errores
+        projects: Construye automatizaciones de negocio con IA en n8n que se ejecutan de forma autónoma sin intervención manual.
+        orientation: vertical
+        icon: IconCode
+      - title: Pipelines de Datos
+        duration: Infraestructura para IA
+        objectives:
+          - Manipular y preparar conjuntos de datos con Python
+          - Construir pipelines de datos desde la aplicación hasta sistemas de análisis
+        projects: Construye pipelines que toman datos crudos, los transforman y los dejan listos para alimentar modelos, reportes o agentes.
+        orientation: vertical
+        icon: IconChartBar
+      - title: Telemetría
+        duration: Infraestructura para IA
+        objectives:
+          - Optimizar el almacenamiento para reportes e integridad de datos
+          - Identificar oportunidades de recolección de datos en escenarios reales
+          - Recopilar telemetría y contexto del usuario desde la aplicación
+          - Construir reportes a partir de datos de telemetría
+        projects: Instrumenta aplicaciones para recopilar datos de comportamiento y tomar decisiones basadas en evidencia real.
+        orientation: vertical
+        icon: IconChartBar
+      - title: Procesamiento Asíncrono y Offloading
+        duration: Infraestructura para IA
+        objectives:
+          - Implementar procesamiento en segundo plano para tareas costosas
+          - Gestionar colas de procesos con workers
+          - Usar colas para delegar trabajo entre agentes y servicios
+        projects: Implementa sistemas de procesamiento en segundo plano y colas que permiten a los agentes delegar trabajo pesado sin bloquear a los usuarios.
+        orientation: vertical
+        icon: IconServer
+      - title: Tiempo Real
+        duration: Infraestructura para IA
+        objectives:
+          - Construir chats de soporte con LLMs en tiempo real
+          - Implementar streaming de respuestas con generadores (yield)
+          - Integrar webhooks y pub/sub en aplicaciones de IA
+        projects: Implementa comunicación en tiempo real entre usuarios y modelos de lenguaje usando streaming, WebSockets y arquitecturas orientadas a eventos.
+        orientation: vertical
+        icon: IconBolt
+      - title: Autenticación de Aplicaciones Web
+        duration: Infraestructura para IA
+        objectives:
+          - Implementar autenticación y restricciones de rutas en FastAPI
+          - Construir flujos de autenticación completos (login, tokens, sesiones)
+        projects: Implementa autenticación segura en FastAPI y construye flujos de login completos que definen lo que cada usuario — y agente — puede hacer.
+        orientation: vertical
+        icon: IconCode
+      - title: Manejo de Errores, Depuración y Testing
+        duration: Infraestructura para IA
+        objectives:
+          - Entender y gestionar errores en tiempo de ejecución con control de flujo
+          - Desarrollar suites de pruebas para aplicaciones robustas
+        projects: Verifica el código generado por IA con manejo controlado de errores y suites de pruebas que validan el comportamiento esperado.
+        orientation: vertical
+        icon: IconCode
+      - title: Ciberseguridad en Aplicaciones de IA
+        duration: Infraestructura para IA
+        objectives:
+          - Identificar y corregir las vulnerabilidades OWASP Top 10 en aplicaciones web
+          - Implementar prácticas de seguridad específicas para integraciones de IA
+          - Usar LLMs como herramienta de auditoría de ciberseguridad
+        projects: Identifica vulnerabilidades críticas en aplicaciones de IA e implementa prácticas seguras en la integración de modelos.
+        orientation: vertical
+        icon: IconCode
+      - title: Empresa Transformada por IA
         duration: Capstone
         objectives:
           - Frontend generado por IA
-          - API y autenticación
+          - API con autenticación completa
           - Pipeline de telemetría y reportes
-          - Automatización de flujos (generada por agentes)
+          - Flujos de trabajo automatizados generados por agentes
           - Capa de conocimiento RAG
           - Agentes con llamadas a herramientas
-          - Capa de comunicación en tiempo real
-        projects: Entrega la transformación completa de la empresa que elegiste
+          - Comunicación en tiempo real
+        projects: Integra todo lo aprendido en un sistema funcional y desplegado — la transformación completa de una empresa a través de la IA.
         orientation: horizontal
-        icon: IconTrophy
-    marginY:
-      mobile: none
-      desktop: none sm
+        icon: IconCode
     paddingY:
       mobile: lg none
       desktop: lg sm
+    marginY:
+      mobile: none
+      desktop: none sm
+    section_id: syllabus-4x0ck1
   - type: award_badges
     section_id: award_badges-0b4qye
     version: v1.0

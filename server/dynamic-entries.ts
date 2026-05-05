@@ -161,6 +161,9 @@ export async function resolveDynamicEntries(
               if (itemVal && typeof itemVal === "object" && "slug" in (itemVal as any)) {
                 return String((itemVal as any).slug) === String(v);
               }
+              if (Array.isArray(itemVal)) {
+                return itemVal.map(String).includes(String(v));
+              }
               return String(itemVal) === String(v);
             });
           });

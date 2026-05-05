@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import {AlertTriangle, ArrowLeft, Check, CheckCheck, Cloud, Copy, Eye, Folder, Image, ListChecks, Loader2, MoreHorizontal, Search, Settings, Square, SquareCheck, Stethoscope, Terminal, Trash2, Wand2, Wrench, X} from "lucide-react";
+import {AlertTriangle, ArrowLeft, Check, CheckCheck, Cloud, Copy, Eye, Folder, Image, Link as LinkIcon, ListChecks, Loader2, MoreHorizontal, Search, Settings, Square, SquareCheck, Stethoscope, Terminal, Trash2, Wand2, Wrench, X} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";

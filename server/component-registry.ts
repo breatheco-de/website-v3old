@@ -180,7 +180,7 @@ function expandImageSizesBracketPattern(
       if (!tail) return;
       const fullPath = [...pathParts, ...tail.split(".").filter(Boolean)].join(".");
       const leafMatch =
-        /(^|\.)(image_id|img|src|logo|image)$/.test(tail) || /\.[\w]+_id$/.test(`.${tail}`);
+        /(^|\.)(image_id|img|src|logo|image|thumb)$/.test(tail) || /\.[\w]+_(id|thumb)$/.test(`.${tail}`);
       if (leafMatch && pathParts.length >= 2) {
         out[pathParts.slice(0, -1).join(".")] = sizes;
       } else {
