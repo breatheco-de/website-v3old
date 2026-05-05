@@ -17864,6 +17864,83 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/unsplash_workspace-700x467-q65-640w.webp"
         }
       ]
+    },
+    "coimbra-1764725341501-512x512-q70": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp",
+      "alt": "Testimonial from Coimbra",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "avatar",
+        "card",
+        "icon",
+        "photo",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
+      ],
+      "usage_count": 0,
+      "width": 512,
+      "height": 512,
+      "format": "webp",
+      "parentId": "coimbra-1764725341501",
+      "quality_override": 70,
+      "preset": [
+        "logo",
+        "avatar",
+        "card",
+        "card-wide",
+        "icon",
+        "full"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128,
+        240,
+        256,
+        320,
+        480
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70-240w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70-480w.webp"
+        }
+      ]
     }
   }
 }
