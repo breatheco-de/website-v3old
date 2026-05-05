@@ -95,7 +95,7 @@ sections:
         col_start: 9
         row_start: 3
     featured_images:
-      - image_id: graduates_celebration-700x522-q100
+      - image_id: graduates_celebration-700x522-q70
         col_span: 5
         row_span: 2
         col_start: 1
