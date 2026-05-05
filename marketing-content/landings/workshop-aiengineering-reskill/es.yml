@@ -159,20 +159,6 @@ sections:
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
     showOn: mobile
-  - type: split_cards
-    version: v1.0
-    variant: primary-left
-    background: muted
-    primary:
-      badge: No es una percepción
-      heading: El mercado laboral está cambiando (y rápido)
-      description: Sectores reduciendo equipos, roles perdiendo valor, tareas siendo automatizadas y más incertidumbre laboral
-    secondary:
-      benefits:
-        - text: ¿El problema es que falte trabajo o que el tipo de trabajo cambió?
-        - text: Hoy las empresas buscan personas que puedan adaptarse rápido, usar tecnología a su favor y resolver problemas de forma eficiente.
-        - text: null
-    section_id: split_cards-jrgtg1
   - type: modal
     version: "1.0"
     section_id: apply-modal
