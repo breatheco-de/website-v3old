@@ -309,9 +309,14 @@ sections:
     section_id: testimonials_slide-7jjh6e
     title: The Stories Behind the Stats
     description: Discover how our graduates transformed their careers
-    related_features:
-      - career-support
-      - mentors-and-teachers
+    dynamic_entries:
+      database: testimonials_en
+      limit: 20
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - career-support
+            - mentors-and-teachers
   - type: faq
     section_id: faq-kf5oiw
     title: Frequently Asked Questions
