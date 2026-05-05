@@ -26,7 +26,7 @@ sections:
         url: "#apply-modal"
         variant: primary
         icon: Rocket
-    background: linear-gradient(to bottom right, hsl(var(--primary) / 0.05), transparent, hsl(var(--chart-2) / 0.05))
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     marginY:
       desktop: none lg
     paddingY:
