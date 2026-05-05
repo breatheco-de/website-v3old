@@ -19133,6 +19133,54 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-1000x668-q74-960w.webp"
         }
       ]
+    },
+    "caracas_graduates-100x668-q60": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-100x668-q60.webp",
+      "alt": "Caracas graduates celebration",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "hero",
+        "logo",
+        "card",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
+      ],
+      "usage_count": 0,
+      "width": 100,
+      "height": 668,
+      "format": "webp",
+      "parentId": "caracas_graduates",
+      "quality_override": 60,
+      "preset": [
+        "full",
+        "card",
+        "hero-wide",
+        "hero-tall",
+        "logo",
+        "card-wide",
+        "icon",
+        "avatar"
+      ],
+      "widths_generated": [
+        32,
+        64
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-100x668-q60-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-100x668-q60-64w.webp"
+        }
+      ]
     }
   }
 }
