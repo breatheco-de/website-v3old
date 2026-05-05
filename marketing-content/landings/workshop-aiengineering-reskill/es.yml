@@ -78,8 +78,8 @@ sections:
       show_terms: true
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
-    form_card_title: Apúntate a nuestro workshop
-    form_card_subtitle: Si estás aquí, probablemente ya lo estás notando, y no es una percepción, el mercado laboral está cambiando rápido.
+    form_card_title: Reserva tu plaza gratuita
+    form_card_subtitle: Sesión en directo · Jueves 21 de mayo · 20:00h (España)
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: false
     awards_marquee:
