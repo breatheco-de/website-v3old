@@ -151,6 +151,27 @@ sections:
           default: auto
       success:
         message: Thanks! We'll be in touch within 24 hours.
+  - type: human_and_ai_duo
+    version: "1.0"
+    heading: "Human + AI: The Perfect Support Duo"
+    description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll have access to unlimited 1:1 mentorship plus AI-guided feedback from Rigobot, so every step is tailored to your learning journey.
+    bullet_groups:
+      - title: "Our Team of Expert Mentors:"
+        image: https://randomuser.me/api/portraits/men/10.jpg
+        bullets:
+          - text: Provides personalized guidance on coding challenges and best practices
+          - text: Offers live troubleshooting and debugging support
+          - text: Expert bug fixing assistance
+          - text: Shares industry insights, career advice, and learning strategies
+      - title: "Rigobot + Learnpack:"
+        bullets:
+          - text: Provides instant feedback and tutoring while you code
+          - text: Tracks your skills and progress
+          - text: Helps with debugging and problem-solving tasks
+          - text: Hundreds of hands-on coding exercises and structured practice on Learnpack
+    footer_description: Together, human mentorship and AI-powered tools accelerate your learning, keep you engaged, and empower you to tackle challenges with confidence.
+    background: bg-background
+    section_id: human_and_ai_duo-pnpw76
   - type: awards_marquee
     section_id: awards_marquee-o9ymal
     version: "1.0"
@@ -220,27 +241,6 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
-  - type: human_and_ai_duo
-    version: "1.0"
-    heading: "Human + AI: The Perfect Support Duo"
-    description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll have access to unlimited 1:1 mentorship plus AI-guided feedback from Rigobot, so every step is tailored to your learning journey.
-    bullet_groups:
-      - title: "Our Team of Expert Mentors:"
-        image: https://randomuser.me/api/portraits/men/10.jpg
-        bullets:
-          - text: Provides personalized guidance on coding challenges and best practices
-          - text: Offers live troubleshooting and debugging support
-          - text: Expert bug fixing assistance
-          - text: Shares industry insights, career advice, and learning strategies
-      - title: "Rigobot + Learnpack:"
-        bullets:
-          - text: Provides instant feedback and tutoring while you code
-          - text: Tracks your skills and progress
-          - text: Helps with debugging and problem-solving tasks
-          - text: Hundreds of hands-on coding exercises and structured practice on Learnpack
-    footer_description: Together, human mentorship and AI-powered tools accelerate your learning, keep you engaged, and empower you to tackle challenges with confidence.
-    background: bg-background
-    section_id: human_and_ai_duo-pnpw76
   - type: features_grid
     section_id: features_grid-jedyyp
     version: "1.0"
