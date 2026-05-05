@@ -656,6 +656,11 @@
       "component": "hero",
       "version": "v1.0",
       "example": "Product Showcase with Image"
+    },
+    {
+      "component": "hero",
+      "version": "v1.0",
+      "example": "Simple Two Column"
     }
   ]
 }
