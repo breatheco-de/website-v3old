@@ -39,7 +39,7 @@ sections:
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Reserva tu plaza al workshop
+      submit_label: Me apunto GRATIS
       tags: website-lead
       fields:
         email:
