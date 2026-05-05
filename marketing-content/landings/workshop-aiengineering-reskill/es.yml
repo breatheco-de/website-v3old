@@ -169,7 +169,7 @@ sections:
           - text: Capacidad de automatizar procesos
           - text: Construir con Inteligencia Artificial
           - text: Resolver problemas, no solo ejecutar tareas
-    footer_description: El problema no es que falte trabajo. 👉 Es que el tipo de trabajo cambió
+    footer_description: El problema no es que falte trabajo 👉 Es que el tipo de trabajo cambió
     background: bg-background
     section_id: human_and_ai_duo-pnpw76
   - type: awards_marquee
