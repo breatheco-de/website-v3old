@@ -156,20 +156,20 @@ sections:
     heading: El mercado laboral ha cambiado
     description: Y no es una percepción, es un cambio en lo que las empresas necesitan hoy.
     bullet_groups:
-      - title: "Our Team of Expert Mentors:"
+      - title: Lo que está pasando
         image: https://randomuser.me/api/portraits/men/10.jpg
         bullets:
-          - text: Provides personalized guidance on coding challenges and best practices
-          - text: Offers live troubleshooting and debugging support
-          - text: Expert bug fixing assistance
-          - text: Shares industry insights, career advice, and learning strategies
-      - title: "Rigobot + Learnpack:"
+          - text: Menos estabilidad en roles tradicionales
+          - text: Sectores reduciendo equipos
+          - text: Tareas cada vez más automatizadas
+          - text: Experiencia ≠ seguridad laboral
+      - title: Lo que ahora se busca
         bullets:
-          - text: Provides instant feedback and tutoring while you code
-          - text: Tracks your skills and progress
-          - text: Helps with debugging and problem-solving tasks
-          - text: Hundreds of hands-on coding exercises and structured practice on Learnpack
-    footer_description: Together, human mentorship and AI-powered tools accelerate your learning, keep you engaged, and empower you to tackle challenges with confidence.
+          - text: Perfiles que trabajen con IA
+          - text: Capacidad de automatizar procesos
+          - text: Construir con Inteligencia Artificial
+          - text: Resolver problemas, no solo ejecutar tareas
+    footer_description: El problema no es que falte trabajo. 👉 Es que el tipo de trabajo cambió
     background: bg-background
     section_id: human_and_ai_duo-pnpw76
   - type: awards_marquee
