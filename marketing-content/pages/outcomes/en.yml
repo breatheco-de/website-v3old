@@ -16,7 +16,7 @@ sections:
     variant: simpleTwoColumn
     title: Real Career Outcomes, Backed by Data
     subtitle: We measure success by real results. Our graduates get hired in AI engineering, data science, and cybersecurity; the outcomes are backed by verified data.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/graduates_celebration-700x522-q100.webp
+    image: https://storage.googleapis.com/4geeks-academy-website/media/graduates_celebration-700x522-q70.webp
     cta_buttons:
       - text: Download Outcomes Report
         url: "#bottom"
