@@ -99,7 +99,7 @@ sections:
         alt: Premios Tecnología Siglo XXI
         logoHeight: 56px
       - id: newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q70.webp
         alt: Newsweek
         logoHeight: 56px
       - id: reviews-coursereport

@@ -84,7 +84,7 @@ sections:
           logoHeight: 55px
         - id: newsweek
           alt: Newsweek
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q70.webp
           logoHeight: 55px
         - id: reviews-coursereport
           alt: 4.9 Stars on Course Report Reviews
@@ -168,7 +168,7 @@ sections:
         logoHeight: 80px
       - id: newsweek
         alt: Newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q70.webp
         logoHeight: 64px
       - id: reviews-coursereport
         alt: 4.9 on Course Report Reviews
