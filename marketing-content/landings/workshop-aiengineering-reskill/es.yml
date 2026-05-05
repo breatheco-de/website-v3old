@@ -44,7 +44,7 @@ sections:
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Solicita más información
+      submit_label: ¡Quiero mi plaza!
       tags: website-lead
       fields:
         email:
