@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {AlertTriangle, ArrowLeft, ArrowRight, Check, ChevronDown, Clipboard, Code, Crosshair, FileText, Gauge, Globe, Image, Info, LayoutGrid, Loader2, Play, RefreshCw, Save, Search, Sparkles, Stethoscope, Wrench, X} from "lucide-react";
 import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
@@ -21,32 +22,6 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
-import {
-  IconStethoscope,
-  IconCheck,
-  IconAlertTriangle,
-  IconX,
-  IconSearch,
-  IconRefresh,
-  IconArrowLeft,
-  IconWorld,
-  IconPhoto,
-  IconCode,
-  IconFileText,
-  IconLayoutGrid,
-  IconPlayerPlay,
-  IconLink,
-  IconArrowRight,
-  IconTool,
-  IconChevronDown,
-  IconDeviceFloppy,
-  IconLoader2,
-  IconSparkles,
-  IconClipboard,
-  IconTargetArrow,
-  IconInfoCircle,
-  IconGauge,
-} from "@tabler/icons-react";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import {
   DropdownMenu,
@@ -181,7 +156,7 @@ function InfoPopover({ children, testId }: { children: React.ReactNode; testId?:
           className="ml-auto h-5 w-5 shrink-0"
           data-testid={testId ?? "button-info-popover"}
         >
-          <IconInfoCircle className="h-3.5 w-3.5 text-muted-foreground" />
+          <Info className="h-3.5 w-3.5 text-muted-foreground" />
         </Button>
       </PopoverTrigger>
       <PopoverContent align="end" className="w-80 space-y-2 text-sm text-muted-foreground">
@@ -218,7 +193,7 @@ function StatusBadge({ status }: { status: "passed" | "failed" | "warning" }) {
   if (status === "passed") {
     return (
       <Badge variant="secondary" className="gap-1" data-testid={`badge-status-${status}`}>
-        <IconCheck className="h-3 w-3" />
+        <Check className="h-3 w-3" />
         Passed
       </Badge>
     );
@@ -226,14 +201,14 @@ function StatusBadge({ status }: { status: "passed" | "failed" | "warning" }) {
   if (status === "warning") {
     return (
       <Badge variant="outline" className="gap-1" data-testid={`badge-status-${status}`}>
-        <IconAlertTriangle className="h-3 w-3" />
+        <AlertTriangle className="h-3 w-3" />
         Warning
       </Badge>
     );
   }
   return (
     <Badge variant="destructive" className="gap-1" data-testid={`badge-status-${status}`}>
-      <IconX className="h-3 w-3" />
+      <X className="h-3 w-3" />
       Failed
     </Badge>
   );
@@ -248,9 +223,9 @@ function IssueRow({ issue, onResolve }: { issue: ValidatorIssue; onResolve?: (is
     <div className="flex flex-wrap items-start gap-2 py-2 border-b last:border-b-0" data-testid={`issue-${issue.code}`}>
       <div className="flex-shrink-0 mt-0.5">
         {issue.type === "error" ? (
-          <IconX className="h-4 w-4 text-destructive" />
+          <X className="h-4 w-4 text-destructive" />
         ) : (
-          <IconAlertTriangle className="h-4 w-4 text-chart-2" />
+          <AlertTriangle className="h-4 w-4 text-chart-2" />
         )}
       </div>
       <Badge variant="outline" className="text-xs font-mono">{issue.code}</Badge>
@@ -272,7 +247,7 @@ function IssueRow({ issue, onResolve }: { issue: ValidatorIssue; onResolve?: (is
           data-testid={`link-goto-section-${issue.code}`}
         >
           <a href={navUrl} target="_blank" rel="noopener noreferrer">
-            <IconArrowRight className="h-3.5 w-3.5" />
+            <ArrowRight className="h-3.5 w-3.5" />
             Go to section
           </a>
         </Button>
@@ -285,7 +260,7 @@ function IssueRow({ issue, onResolve }: { issue: ValidatorIssue; onResolve?: (is
           onClick={() => onResolve(issue)}
           data-testid={`button-resolve-${issue.code}`}
         >
-          <IconTool className="h-3.5 w-3.5" />
+          <Wrench className="h-3.5 w-3.5" />
           Resolve
         </Button>
       )}
@@ -373,9 +348,9 @@ function AiPromptDialog({
             data-testid="button-copy-prompt"
           >
             {copied ? (
-              <IconCheck className="h-3.5 w-3.5" />
+              <Check className="h-3.5 w-3.5" />
             ) : (
-              <IconClipboard className="h-3.5 w-3.5" />
+              <Clipboard className="h-3.5 w-3.5" />
             )}
             {copied ? "Copied!" : "Copy to clipboard"}
           </Button>
@@ -508,13 +483,13 @@ function ValidatorCard({
           <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
             {v.errors.length > 0 && (
               <span className="flex items-center gap-1">
-                <IconX className="h-3 w-3 text-destructive" />
+                <X className="h-3 w-3 text-destructive" />
                 {v.errors.length} error{v.errors.length !== 1 ? "s" : ""}
               </span>
             )}
             {v.warnings.length > 0 && (
               <span className="flex items-center gap-1">
-                <IconAlertTriangle className="h-3 w-3 text-chart-2" />
+                <AlertTriangle className="h-3 w-3 text-chart-2" />
                 {v.warnings.length} warning{v.warnings.length !== 1 ? "s" : ""}
               </span>
             )}
@@ -578,9 +553,9 @@ function ValidatorCard({
                     data-testid={`button-fix-${name}`}
                   >
                     {fixPending[name] ? (
-                      <IconLoader2 className="h-3.5 w-3.5 animate-spin" />
+                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
                     ) : (
-                      <IconTool className="h-3.5 w-3.5" />
+                      <Wrench className="h-3.5 w-3.5" />
                     )}
                     {label}
                     <Badge variant="secondary" className="ml-1 text-xs">{count}</Badge>
@@ -606,7 +581,7 @@ function ValidatorCard({
                     className="cursor-pointer flex items-center gap-1 text-muted-foreground hover:text-foreground select-none"
                     data-testid={`summary-script-${v.name}`}
                   >
-                    <IconCode className="h-3.5 w-3.5" />
+                    <Code className="h-3.5 w-3.5" />
                     {label}
                     <Badge variant="secondary" className="ml-1">{count}</Badge>
                   </summary>
@@ -621,9 +596,9 @@ function ValidatorCard({
                       data-testid={`button-copy-cmd-${v.name}`}
                     >
                       {copiedCmd === command ? (
-                        <IconCheck className="h-3.5 w-3.5 text-chart-3" />
+                        <Check className="h-3.5 w-3.5 text-chart-3" />
                       ) : (
-                        <IconClipboard className="h-3.5 w-3.5" />
+                        <Clipboard className="h-3.5 w-3.5" />
                       )}
                     </Button>
                   </div>
@@ -641,7 +616,7 @@ function ValidatorCard({
                 onClick={handleOpenPrompt}
                 data-testid={`button-ai-prompt-${v.name}`}
               >
-                <IconSparkles className="h-3.5 w-3.5" />
+                <Sparkles className="h-3.5 w-3.5" />
                 AI Prompt
               </Button>
             )}
@@ -652,7 +627,7 @@ function ValidatorCard({
               disabled={runSingleMutation.isPending}
               data-testid={`button-run-${v.name}`}
             >
-              <IconPlayerPlay className="h-3.5 w-3.5" />
+              <Play className="h-3.5 w-3.5" />
               Run
             </Button>
           </div>
@@ -799,14 +774,14 @@ function GlobalHealthTab() {
               data-testid="button-run-all"
             >
               {runAllMutation.isPending ? (
-                <IconLoader2 className="h-4 w-4 animate-spin" />
+                <Loader2 className="h-4 w-4 animate-spin" />
               ) : saveReportMutation.isPending ? (
-                <IconLoader2 className="h-4 w-4 animate-spin" />
+                <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
-                <IconRefresh className="h-4 w-4" />
+                <RefreshCw className="h-4 w-4" />
               )}
               {runAllMutation.isPending ? "Running..." : saveReportMutation.isPending ? "Saving..." : "Run All"}
-              <IconChevronDown className="h-3 w-3 ml-1" />
+              <ChevronDown className="h-3 w-3 ml-1" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -814,7 +789,7 @@ function GlobalHealthTab() {
               onClick={() => runAllMutation.mutate()}
               data-testid="menu-item-run-validators"
             >
-              <IconRefresh className="h-4 w-4" />
+              <RefreshCw className="h-4 w-4" />
               Run validators
             </DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -822,7 +797,7 @@ function GlobalHealthTab() {
               onClick={() => saveReportMutation.mutate()}
               data-testid="menu-item-save-report"
             >
-              <IconDeviceFloppy className="h-4 w-4" />
+              <Save className="h-4 w-4" />
               Save JSON report
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -861,7 +836,7 @@ function GlobalHealthTab() {
       <div className="space-y-3">
         <div className="flex flex-wrap items-center gap-2">
           <div className="relative flex-1 min-w-[200px] max-w-sm">
-            <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Search validators..."
               value={search}
@@ -913,7 +888,7 @@ function GlobalHealthTab() {
       {!results && !runAllMutation.isPending && (
         <Card style={{ borderRadius: "0.8rem" }}>
           <CardContent className="p-8 text-center">
-            <IconStethoscope className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+            <Stethoscope className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
             <p className="text-muted-foreground mb-4">
               Click "Run All" to start the diagnostics check
             </p>
@@ -921,7 +896,7 @@ function GlobalHealthTab() {
               onClick={() => runAllMutation.mutate()}
               data-testid="button-run-all-empty"
             >
-              <IconRefresh className="h-4 w-4" />
+              <RefreshCw className="h-4 w-4" />
               Run All Validators
             </Button>
           </CardContent>
@@ -1006,7 +981,7 @@ function PageAnalysisTab() {
         <label className="text-sm font-medium text-foreground">Select a page to analyze</label>
         <div className="relative max-w-lg" ref={dropdownRef}>
           <div className="relative">
-            <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Search pages..."
               value={searchTerm}
@@ -1107,7 +1082,7 @@ function PageAnalysisTab() {
           {pageDiag.schemaValidation && !pageDiag.schemaValidation.valid && (
             <Card style={{ borderRadius: "0.8rem" }} data-testid="card-schema-validation">
               <CardHeader className="flex flex-row items-center gap-2 pb-2">
-                <IconAlertTriangle className="h-4 w-4 text-destructive" />
+                <AlertTriangle className="h-4 w-4 text-destructive" />
                 <CardTitle className="text-sm text-destructive">Schema Validation Errors</CardTitle>
                 <Badge variant="destructive" className="ml-auto text-xs">
                   {pageDiag.schemaValidation.errors.length} {pageDiag.schemaValidation.errors.length === 1 ? "error" : "errors"}
@@ -1142,7 +1117,7 @@ function PageAnalysisTab() {
           {pageDiag.issues && pageDiag.issues.length > 0 && (
             <Card style={{ borderRadius: "0.8rem" }} data-testid="card-issues">
               <CardHeader className="flex flex-row items-center gap-2 pb-2">
-                <IconAlertTriangle className="h-4 w-4 text-muted-foreground" />
+                <AlertTriangle className="h-4 w-4 text-muted-foreground" />
                 <CardTitle className="text-sm">Issues</CardTitle>
                 <InfoPopover testId="info-issues">
                   <p><strong className="text-foreground">Errors</strong> (red) indicate problems that likely break something — for example a missing required field or an invalid reference.</p>
@@ -1169,7 +1144,7 @@ function PageAnalysisTab() {
 
           <Card style={{ borderRadius: "0.8rem" }} data-testid="card-meta">
             <CardHeader className="flex flex-row items-center gap-2 pb-2">
-              <IconFileText className="h-4 w-4 text-muted-foreground" />
+              <FileText className="h-4 w-4 text-muted-foreground" />
               <CardTitle className="text-sm">Meta Information</CardTitle>
               <InfoPopover testId="info-meta">
                 <p>Reads from the <code className="bg-muted px-1 rounded text-foreground">meta:</code> block of the page's YAML.</p>
@@ -1216,7 +1191,7 @@ function PageAnalysisTab() {
 
           <Card style={{ borderRadius: "0.8rem" }} data-testid="card-schema">
             <CardHeader className="flex flex-row items-center gap-2 pb-2">
-              <IconCode className="h-4 w-4 text-muted-foreground" />
+              <Code className="h-4 w-4 text-muted-foreground" />
               <CardTitle className="text-sm">Schema / JSON-LD</CardTitle>
               <InfoPopover testId="info-schema">
                 <p>Schema.org structured data helps search engines and AI assistants understand page content beyond plain text.</p>
@@ -1230,11 +1205,11 @@ function PageAnalysisTab() {
                 <span className="text-xs text-muted-foreground">Configured:</span>
                 {pageDiag.schema.configured ? (
                   <Badge variant="secondary" className="gap-1">
-                    <IconCheck className="h-3 w-3" /> Yes
+                    <Check className="h-3 w-3" /> Yes
                   </Badge>
                 ) : (
                   <Badge variant="destructive" className="gap-1">
-                    <IconX className="h-3 w-3" /> No
+                    <X className="h-3 w-3" /> No
                   </Badge>
                 )}
               </div>
@@ -1263,7 +1238,7 @@ function PageAnalysisTab() {
 
           <Card style={{ borderRadius: "0.8rem" }} data-testid="card-sections">
             <CardHeader className="flex flex-row items-center gap-2 pb-2">
-              <IconLayoutGrid className="h-4 w-4 text-muted-foreground" />
+              <LayoutGrid className="h-4 w-4 text-muted-foreground" />
               <CardTitle className="text-sm">Sections</CardTitle>
               <InfoPopover testId="info-sections">
                 <p>Content blocks defined in the YAML <code className="bg-muted px-1 rounded text-foreground">sections:</code> array. Each block is rendered as a UI component.</p>
@@ -1276,9 +1251,9 @@ function PageAnalysisTab() {
                 <span className="text-muted-foreground">Count: <strong className="text-foreground">{pageDiag.sections.count}</strong></span>
                 <span className="text-muted-foreground">
                   FAQ: {pageDiag.sections.hasFaq ? (
-                    <Badge variant="secondary" className="ml-1 text-xs"><IconCheck className="h-3 w-3" /></Badge>
+                    <Badge variant="secondary" className="ml-1 text-xs"><Check className="h-3 w-3" /></Badge>
                   ) : (
-                    <Badge variant="outline" className="ml-1 text-xs"><IconX className="h-3 w-3" /></Badge>
+                    <Badge variant="outline" className="ml-1 text-xs"><X className="h-3 w-3" /></Badge>
                   )}
                 </span>
               </div>
@@ -1294,7 +1269,7 @@ function PageAnalysisTab() {
 
           <Card style={{ borderRadius: "0.8rem" }} data-testid="card-images">
             <CardHeader className="flex flex-row items-center gap-2 pb-2">
-              <IconPhoto className="h-4 w-4 text-muted-foreground" />
+              <Image className="h-4 w-4 text-muted-foreground" />
               <CardTitle className="text-sm">Images</CardTitle>
               <InfoPopover testId="info-images">
                 <p>Scans every <code className="bg-muted px-1 rounded text-foreground">image_id</code> and <code className="bg-muted px-1 rounded text-foreground">image</code> key anywhere in the page's merged YAML content and collects the referenced IDs.</p>
@@ -1320,7 +1295,7 @@ function PageAnalysisTab() {
                         className={`text-xs font-mono gap-1${isMissing ? " cursor-pointer" : " no-default-hover-elevate"}`}
                         data-testid={`badge-image-${id}`}
                       >
-                        {isMissing ? <IconX className="h-3 w-3" /> : <IconCheck className="h-3 w-3" />}
+                        {isMissing ? <X className="h-3 w-3" /> : <Check className="h-3 w-3" />}
                         {id}
                       </Badge>
                     );
@@ -1346,7 +1321,7 @@ function PageAnalysisTab() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card style={{ borderRadius: "0.8rem" }} data-testid="card-translations">
               <CardHeader className="flex flex-row items-center gap-2 pb-2">
-                <IconWorld className="h-4 w-4 text-muted-foreground" />
+                <Globe className="h-4 w-4 text-muted-foreground" />
                 <CardTitle className="text-sm">Translations</CardTitle>
                 <InfoPopover testId="info-translations">
                   <p>Detects the companion locale file for this page. 4Geeks content is published in <strong className="text-foreground">English (en)</strong> and <strong className="text-foreground">Spanish (es)</strong>.</p>
@@ -1358,7 +1333,7 @@ function PageAnalysisTab() {
                 <div className="flex flex-wrap gap-2">
                   {pageDiag.translations.availableLocales.map((loc) => (
                     <Badge key={loc} variant="secondary" className="gap-1">
-                      <IconCheck className="h-3 w-3" />
+                      <Check className="h-3 w-3" />
                       {loc.toUpperCase()}
                     </Badge>
                   ))}
@@ -1366,7 +1341,7 @@ function PageAnalysisTab() {
                 {pageDiag.translations.counterpartUrl && (
                   <Link href={`/private/diagnostics?url=${encodeURIComponent(pageDiag.translations.counterpartUrl)}`}>
                     <span className="text-sm text-primary flex items-center gap-1 cursor-pointer">
-                      <IconArrowRight className="h-3.5 w-3.5" />
+                      <ArrowRight className="h-3.5 w-3.5" />
                       {pageDiag.translations.counterpartUrl}
                     </span>
                   </Link>
@@ -1376,7 +1351,7 @@ function PageAnalysisTab() {
 
             <Card style={{ borderRadius: "0.8rem" }} data-testid="card-redirects">
               <CardHeader className="flex flex-row items-center gap-2 pb-2">
-                <IconLink className="h-4 w-4 text-muted-foreground" />
+                <LinkIcon className="h-4 w-4 text-muted-foreground" />
                 <CardTitle className="text-sm">Incoming Redirects</CardTitle>
                 <InfoPopover testId="info-redirects">
                   <p>Lists all redirect rules in the repository whose destination points to this page's URL.</p>
@@ -1403,7 +1378,7 @@ function PageAnalysisTab() {
       {!selectedUrl && !pagesLoading && (
         <Card style={{ borderRadius: "0.8rem" }}>
           <CardContent className="p-8 text-center">
-            <IconSearch className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+            <Search className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
             <p className="text-muted-foreground">Select a page above to view its diagnostics</p>
           </CardContent>
         </Card>
@@ -1421,11 +1396,11 @@ export default function DiagnosticsPage() {
             <div className="flex items-center gap-3">
               <Link href="/">
                 <Button variant="ghost" size="icon" data-testid="button-back-home">
-                  <IconArrowLeft className="h-5 w-5" />
+                  <ArrowLeft className="h-5 w-5" />
                 </Button>
               </Link>
               <div className="flex items-center gap-2">
-                <IconStethoscope className="h-5 w-5 text-primary" />
+                <Stethoscope className="h-5 w-5 text-primary" />
                 <h1 className="text-lg font-semibold text-foreground" data-testid="text-diagnostics-title">
                   Diagnostics
                 </h1>
@@ -1434,13 +1409,13 @@ export default function DiagnosticsPage() {
             <div className="flex items-center gap-2">
               <Link href="/private/diagnostics/seo-geo">
                 <Button variant="outline" size="sm" data-testid="button-seo-geo">
-                  <IconTargetArrow className="h-3.5 w-3.5" />
+                  <Crosshair className="h-3.5 w-3.5" />
                   SEO &amp; GEO
                 </Button>
               </Link>
               <Link href="/private/diagnostics/lighthouse">
                 <Button variant="outline" size="sm" data-testid="button-page-speed">
-                  <IconGauge className="h-3.5 w-3.5" />
+                  <Gauge className="h-3.5 w-3.5" />
                   Page Speed
                 </Button>
               </Link>

@@ -1,0 +1,39 @@
+> rest-express@1.0.0 build
+> vite build && vite build --ssr src/entry-server.tsx && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+
+vite v5.4.20 building for production...
+
+transforming...
+
+Browserslist: browsers data (caniuse-lite) is 7 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+
+
+A PostCSS plugin did not pass the `from` option to `postcss.parse`. This may cause imported assets to be incorrectly transformed. If you've recently added a PostCSS plugin that raised this warning, please contact the package author to fix the issue.
+
+✓ 2495 modules transformed.
+
+x Build failed in 9.46s
+
+error during build:
+client/src/components/editing/RichTextArea.tsx (2:76): "LinkOff" is not exported by "node_modules/lucide-react/dist/esm/lucide-react.js", imported by "client/src/components/editing/RichTextArea.tsx".
+file: /home/runner/workspace/client/src/components/editing/RichTextArea.tsx:2:76
+
+1: import { useRef, useCallback, useEffect, useMemo, useState } from "react";
+2: import { AlignJustify, Bold, CaseUpper, Eraser, ExternalLink, Italic, Link, LinkOff, List, Loader2, Palette, Search, ...
+                                                                               ^
+3: import { useQuery } from "@tanstack/react-query";
+4: import { Button } from "@/components/ui/button";
+
+    at getRollupError (file:///home/runner/workspace/node_modules/rollup/dist/es/shared/parseAst.js:396:41)
+    at error (file:///home/runner/workspace/node_modules/rollup/dist/es/shared/parseAst.js:392:42)
+    at Module.error (file:///home/runner/workspace/node_modules/rollup/dist/es/shared/node-entry.js:15588:16)
+    at Module.traceVariable (file:///home/runner/workspace/node_modules/rollup/dist/es/shared/node-entry.js:16037:29)
+    at ModuleScope.findVariable (file:///home/runner/workspace/node_modules/rollup/dist/es/shared/node-entry.js:13820:39)
+    at FunctionScope.findVariable (file:///home/runner/workspace/node_modules/rollup/dist/es/shared/node-entry.js:5283:38)
+    at FunctionBodyScope.findVariable (file:///home/runner/workspace/node_modules/rollup/dist/es/shared/node-entry.js:5283:38)
+    at Identifier.bind (file:///home/runner/workspace/node_modules/rollup/dist/es/shared/node-entry.js:5066:40)
+    at CallExpression.bind (file:///home/runner/workspace/node_modules/rollup/dist/es/shared/node-entry.js:2649:28)
+    at CallExpression.bind (file:///home/runner/workspace/node_modules/rollup/dist/es/shared/node-entry.js:11284:15)

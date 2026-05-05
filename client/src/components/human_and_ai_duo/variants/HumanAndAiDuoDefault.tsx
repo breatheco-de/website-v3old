@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
-import * as TablerIcons from "@tabler/icons-react";
+import * as LucideIcons from "lucide-react";
+import { Check } from "lucide-react";
 import type { ComponentType, CSSProperties } from "react";
 import { getCustomIcon } from "@/components/custom-icons";
 import UniversalImage from "@/components/UniversalImage";
@@ -83,7 +84,7 @@ const getIcon = (iconName: string, className?: string, size?: number, color?: st
     const sizeStr = size ? `${size}px` : "20px";
     return <CustomIcon width={sizeStr} height={sizeStr} className={className} color={color} />;
   }
-  const icons = TablerIcons as unknown as Record<string, ComponentType<{ className?: string; size?: number; color?: string }>>;
+  const icons = LucideIcons as unknown as Record<string, ComponentType<{ className?: string; size?: number; color?: string }>>;
   const IconComponent = icons[`Icon${iconName}`];
   return IconComponent ? <IconComponent className={className} size={size || 20} color={color} /> : null;
 };
@@ -187,7 +188,7 @@ export function HumanAndAIDuo({ data }: HumanAndAIDuoProps) {
                     <ul className="space-y-2">
                       {group.bullets.map((bullet, bulletIndex) => (
                         <li key={bulletIndex} className="flex items-start gap-2">
-                          <TablerIcons.IconCheck className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                          <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                           <span className="text-foreground text-sm">{bullet.text}</span>
                         </li>
                       ))}
@@ -237,7 +238,7 @@ export function HumanAndAIDuo({ data }: HumanAndAIDuoProps) {
                     <ul className="space-y-2">
                       {group.bullets.map((bullet, bulletIndex) => (
                         <li key={bulletIndex} className="flex items-start gap-2">
-                          <TablerIcons.IconCheck className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                          <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                           <span className="text-foreground text-sm">{bullet.text}</span>
                         </li>
                       ))}
@@ -287,7 +288,7 @@ export function HumanAndAIDuo({ data }: HumanAndAIDuoProps) {
                     <ul className="space-y-3">
                       {group.bullets.map((bullet, bulletIndex) => (
                         <li key={bulletIndex} className="flex items-start gap-3">
-                          <TablerIcons.IconCheck className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                          <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                           <span className="text-foreground text-base">{bullet.text}</span>
                         </li>
                       ))}

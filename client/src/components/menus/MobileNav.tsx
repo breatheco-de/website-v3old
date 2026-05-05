@@ -1,6 +1,6 @@
 import { useState } from "react";
+import { ChevronDown, ChevronRight, Menu } from "lucide-react";
 import { useInternalNav } from "@/hooks/useInternalNav";
-import { IconMenu2, IconChevronDown, IconChevronRight } from "@tabler/icons-react";
 import {
   Sheet,
   SheetContent,
@@ -42,7 +42,7 @@ function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProp
       <Collapsible open={isOpen} onOpenChange={() => { onToggle(); setOpenSubIndex(null); }}>
         <CollapsibleTrigger className="flex w-full items-center justify-between py-3 px-2 text-base font-medium text-foreground hover-elevate rounded-md">
           <span>{item.label}</span>
-          <IconChevronDown 
+          <ChevronDown 
             className={`h-4 w-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} 
           />
         </CollapsibleTrigger>
@@ -61,7 +61,7 @@ function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProp
                     <div className="font-medium text-foreground">{card.title}</div>
                     <div className="text-xs text-muted-foreground line-clamp-1">{card.description}</div>
                   </div>
-                  <IconChevronRight className="h-3 w-3 shrink-0 ml-2" />
+                  <ChevronRight className="h-3 w-3 shrink-0 ml-2" />
                 </a>
               ))}
             </div>
@@ -73,7 +73,7 @@ function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProp
                 <Collapsible key={colIndex} open={openSubIndex === colIndex} onOpenChange={() => handleSubToggle(colIndex)}>
                   <CollapsibleTrigger className="flex w-full items-center justify-between py-2 px-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider hover-elevate rounded-md">
                     <span>{column.title}</span>
-                    <IconChevronDown 
+                    <ChevronDown 
                       className={`h-3 w-3 transition-transform duration-200 ${openSubIndex === colIndex ? "rotate-180" : ""}`} 
                     />
                   </CollapsibleTrigger>
@@ -88,7 +88,7 @@ function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProp
                           data-testid={`mobile-nav-column-item-${(link.label || "item").toLowerCase().replace(/\s+/g, "-")}`}
                         >
                           <span>{link.label}</span>
-                          <IconChevronRight className="h-3 w-3 shrink-0 ml-2" />
+                          <ChevronRight className="h-3 w-3 shrink-0 ml-2" />
                         </a>
                       ))}
                     </div>
@@ -109,7 +109,7 @@ function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProp
                   data-testid={`mobile-nav-list-item-${(link.label || "item").toLowerCase().replace(/\s+/g, "-")}`}
                 >
                   <span>{link.label}</span>
-                  <IconChevronRight className="h-3 w-3 shrink-0 ml-2" />
+                  <ChevronRight className="h-3 w-3 shrink-0 ml-2" />
                 </a>
               ))}
             </div>
@@ -121,7 +121,7 @@ function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProp
                 <Collapsible key={groupIndex} open={openSubIndex === groupIndex} onOpenChange={() => handleSubToggle(groupIndex)}>
                   <CollapsibleTrigger className="flex w-full items-center justify-between py-2 px-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider hover-elevate rounded-md">
                     <span>{group.title}</span>
-                    <IconChevronDown 
+                    <ChevronDown 
                       className={`h-3 w-3 transition-transform duration-200 ${openSubIndex === groupIndex ? "rotate-180" : ""}`} 
                     />
                   </CollapsibleTrigger>
@@ -136,7 +136,7 @@ function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProp
                           data-testid={`mobile-nav-group-item-${(link.label || "item").toLowerCase().replace(/\s+/g, "-")}`}
                         >
                           <span>{link.label}</span>
-                          <IconChevronRight className="h-3 w-3 shrink-0 ml-2" />
+                          <ChevronRight className="h-3 w-3 shrink-0 ml-2" />
                         </a>
                       ))}
                     </div>
@@ -188,7 +188,7 @@ export function MobileNav({ config }: MobileNavProps) {
           className="md:hidden"
           data-testid="button-mobile-menu"
         >
-          <IconMenu2 className="h-5 w-5" />
+          <Menu className="h-5 w-5" />
           <span className="sr-only">Open menu</span>
         </Button>
       </SheetTrigger>

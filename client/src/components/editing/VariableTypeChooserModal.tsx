@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Database, Globe } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -8,7 +9,6 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { IconDatabase, IconWorld } from "@tabler/icons-react";
 import { useVariableDefinitions } from "@/hooks/useVariables";
 import { useQuery } from "@tanstack/react-query";
 
@@ -86,7 +86,7 @@ export function VariableTypeChooserModal({
             data-testid="chooser-option-single"
           >
             <div className="flex items-start gap-3">
-              <IconDatabase className="w-5 h-5 mt-0.5 flex-shrink-0 text-muted-foreground" />
+              <Database className="w-5 h-5 mt-0.5 flex-shrink-0 text-muted-foreground" />
               <div className="min-w-0">
                 <p className="text-sm font-medium text-foreground">
                   {label} entry variables
@@ -123,7 +123,7 @@ export function VariableTypeChooserModal({
             data-testid="chooser-option-global"
           >
             <div className="flex items-start gap-3">
-              <IconWorld className="w-5 h-5 mt-0.5 flex-shrink-0 text-muted-foreground" />
+              <Globe className="w-5 h-5 mt-0.5 flex-shrink-0 text-muted-foreground" />
               <div className="min-w-0">
                 <p className="text-sm font-medium text-foreground">
                   Global variables

@@ -1,17 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import { Bot, Brain, Code, Code2, Cpu, Database, Github, Server } from "lucide-react";
 import { cn } from "@/lib/utils";
-import {
-  IconBrandPython,
-  IconBrandReact,
-  IconBrandNodejs,
-  IconBrandGithub,
-  IconBrandVscode,
-  IconRobot,
-  IconBrain,
-  IconCode,
-  IconDatabase,
-  IconCpu
-} from "@tabler/icons-react";
 import Rigobot from "@/components/custom-icons/Rigobot.tsx"
 
 interface TechNode {
@@ -44,27 +33,27 @@ function TechIcon({ icon, className }: { icon: TechNode["icon"]; className?: str
   
   switch (icon) {
     case "python":
-      return <IconBrandPython className={iconClass} />;
+      return <Code className={iconClass} />;
     case "openai":
-      return <IconBrain className={iconClass} />;
+      return <Brain className={iconClass} />;
     case "rigobot":
       return <Rigobot className={iconClass} />;
     case "langchain":
-      return <IconCode className={iconClass} />;
+      return <Code className={iconClass} />;
     case "huggingface":
-      return <IconRobot className={iconClass} />;
+      return <Bot className={iconClass} />;
     case "github":
-      return <IconBrandGithub className={iconClass} />;
+      return <Github className={iconClass} />;
     case "react":
-      return <IconBrandReact className={iconClass} />;
+      return <Code className={iconClass} />;
     case "nodejs":
-      return <IconBrandNodejs className={iconClass} />;
+      return <Server className={iconClass} />;
     case "jupyter":
-      return <IconDatabase className={iconClass} />;
+      return <Database className={iconClass} />;
     case "vscode":
-      return <IconBrandVscode className={iconClass} />;
+      return <Code2 className={iconClass} />;
     default:
-      return <IconCpu className={iconClass} />;
+      return <Cpu className={iconClass} />;
   }
 }
 
@@ -376,7 +365,7 @@ export function AIWorkflowDiagram({ className, centerLabel = "AI Engineering" }:
               "absolute inset-0 rounded-2xl transition-colors duration-300",
               isCenterHovered ? "bg-primary/10" : "bg-transparent"
             )} />
-            <IconCpu className={cn(
+            <Cpu className={cn(
               "relative z-10 w-4 h-4 md:w-5 md:h-5 transition-colors duration-300",
               isCenterHovered ? "text-primary" : "text-primary/60"
             )} />

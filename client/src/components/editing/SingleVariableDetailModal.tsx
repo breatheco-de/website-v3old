@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ExternalLink, Info, Loader2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -9,7 +10,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useQuery } from "@tanstack/react-query";
-import { IconLoader2, IconExternalLink, IconInfoCircle } from "@tabler/icons-react";
 
 interface SingleVariableDetailModalProps {
   open: boolean;
@@ -112,7 +112,7 @@ export function SingleVariableDetailModal({
 
         <div className="flex-1 min-h-0 overflow-y-auto space-y-4 mt-2">
           <div className="flex items-start gap-2 p-3 rounded-md bg-muted/50 text-sm text-muted-foreground">
-            <IconInfoCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+            <Info className="w-4 h-4 mt-0.5 flex-shrink-0" />
             <div>
               <p>
                 <span className="font-medium text-foreground">Single variables</span> pull
@@ -134,7 +134,7 @@ export function SingleVariableDetailModal({
 
           {isLoading ? (
             <div className="flex items-center justify-center py-6 text-muted-foreground">
-              <IconLoader2 className="w-4 h-4 animate-spin mr-2" />
+              <Loader2 className="w-4 h-4 animate-spin mr-2" />
               Loading values...
             </div>
           ) : allEntries.length > 0 ? (
@@ -173,7 +173,7 @@ export function SingleVariableDetailModal({
                           title={`Go to ${entry.url}`}
                           data-testid={`link-entry-${entry.slug}`}
                         >
-                          <IconExternalLink className="w-3 h-3" />
+                          <ExternalLink className="w-3 h-3" />
                         </a>
                       )}
                     </Badge>

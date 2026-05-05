@@ -1,4 +1,5 @@
 import { createContext, useContext, useMemo, useRef, useLayoutEffect as _useLayoutEffect, useCallback, useState, useEffect } from "react";
+import { Braces } from "lucide-react";
 import type { ReactNode, CSSProperties, MouseEvent as ReactMouseEvent } from "react";
 import { createPortal } from "react-dom";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
@@ -13,7 +14,6 @@ import { VariableTypeChooserModal } from "./VariableTypeChooserModal";
 import { SingleVariablePickerModal } from "./SingleVariablePickerModal";
 import { SingleVariableDetailModal } from "./SingleVariableDetailModal";
 import { Button } from "@/components/ui/button";
-import { IconVariable } from "@tabler/icons-react";
 
 // On the server renderToString doesn't support useLayoutEffect — use useEffect instead
 const useLayoutEffect = typeof window !== "undefined" ? _useLayoutEffect : useEffect;
@@ -276,7 +276,7 @@ function SelectionFloatingButton({ sectionIndex, contentType }: { sectionIndex: 
         onClick={handleClick}
         className="shadow-lg whitespace-nowrap gap-1.5"
       >
-        <IconVariable className="w-3.5 h-3.5" />
+        <Braces className="w-3.5 h-3.5" />
         Convert to variable
       </Button>
     </div>,

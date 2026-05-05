@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { AlertTriangle, ArrowRight, Check, ChevronDown, ChevronUp, Filter, Pencil, Plus, Trash2, X } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -33,20 +34,6 @@ import { queryClient } from "@/lib/queryClient";
 import { checkEditorHasUnsavedChanges, emitContentUpdated } from "@/lib/contentEvents";
 import { normalizeContentType } from "@/hooks/useContentTypes";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import {
-  IconCheck,
-  IconX,
-  IconArrowRight,
-  IconEdit,
-  IconPlus,
-  IconTrash,
-  IconSelector,
-  IconChevronUp,
-  IconChevronDown,
-  IconFilter,
-  IconPencil,
-  IconAlertTriangle,
-} from "@tabler/icons-react";
 import {
   Popover,
   PopoverContent,
@@ -208,7 +195,7 @@ function ConditionForm({
                 onClick={() => removeQueryPair(idx)}
                 data-testid={`button-remove-query-pair-${idx}`}
               >
-                <IconX className="w-3.5 h-3.5" />
+                <X className="w-3.5 h-3.5" />
               </Button>
             )}
           </div>
@@ -219,7 +206,7 @@ function ConditionForm({
           onClick={addQueryPair}
           data-testid="button-add-query-pair"
         >
-          <IconPlus className="w-3 h-3 mr-1" />
+          <Plus className="w-3 h-3 mr-1" />
           Add key
         </Button>
       </div>
@@ -713,7 +700,7 @@ export function VariableDetailModal({
                                     }}
                                     data-testid={`variable-option-${name}`}
                                   >
-                                    <IconCheck
+                                    <Check
                                       className={`mr-2 h-4 w-4 ${existingVarName === name ? "opacity-100" : "opacity-0"}`}
                                     />
                                     <span className="font-mono text-sm">
@@ -746,9 +733,9 @@ export function VariableDetailModal({
                         {createName.trim() && nameAvailable !== null && (
                           <span className="absolute right-2 top-1/2 -translate-y-1/2">
                             {nameAvailable ? (
-                              <IconCheck className="h-4 w-4 text-chart-3" />
+                              <Check className="h-4 w-4 text-chart-3" />
                             ) : (
-                              <IconX className="h-4 w-4 text-destructive" />
+                              <X className="h-4 w-4 text-destructive" />
                             )}
                           </span>
                         )}
@@ -783,9 +770,9 @@ export function VariableDetailModal({
                     data-testid="button-toggle-create-mode"
                   >
                     {createSubMode === "existing" ? (
-                      <IconPlus className="h-4 w-4" />
+                      <Plus className="h-4 w-4" />
                     ) : (
-                      <IconX className="h-4 w-4" />
+                      <X className="h-4 w-4" />
                     )}
                   </Button>
                 </div>
@@ -931,7 +918,7 @@ export function VariableDetailModal({
                       <div key={i}>
                         {i > 0 && (
                           <div className="flex items-center justify-center py-1">
-                            <IconArrowRight className="w-3 h-3 text-muted-foreground/40 rotate-90" />
+                            <ArrowRight className="w-3 h-3 text-muted-foreground/40 rotate-90" />
                           </div>
                         )}
                         <div
@@ -947,11 +934,11 @@ export function VariableDetailModal({
                           <div className="flex items-center gap-3">
                             <div className="flex-shrink-0 w-5 h-5 flex items-center justify-center">
                               {isMatched ? (
-                                <IconCheck className="w-4 h-4 text-primary" />
+                                <Check className="w-4 h-4 text-primary" />
                               ) : isPastMatch ? (
                                 <div className="w-2 h-2 rounded-full bg-muted-foreground/30" />
                               ) : (
-                                <IconX className="w-4 h-4 text-muted-foreground" />
+                                <X className="w-4 h-4 text-muted-foreground" />
                               )}
                             </div>
                             <div className="flex-1 min-w-0">
@@ -982,7 +969,7 @@ export function VariableDetailModal({
 
                   {conditions.length > 0 && (
                     <div className="flex items-center justify-center py-1">
-                      <IconArrowRight className="w-3 h-3 text-muted-foreground/40 rotate-90" />
+                      <ArrowRight className="w-3 h-3 text-muted-foreground/40 rotate-90" />
                     </div>
                   )}
 
@@ -999,11 +986,11 @@ export function VariableDetailModal({
                     <div className="flex items-center gap-3">
                       <div className="flex-shrink-0 w-5 h-5 flex items-center justify-center">
                         {resolvedSource === "default" ? (
-                          <IconCheck className="w-4 h-4 text-primary" />
+                          <Check className="w-4 h-4 text-primary" />
                         ) : matchedConditionIndex >= 0 ? (
                           <div className="w-2 h-2 rounded-full bg-muted-foreground/30" />
                         ) : (
-                          <IconX className="w-4 h-4 text-muted-foreground" />
+                          <X className="w-4 h-4 text-muted-foreground" />
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
@@ -1032,7 +1019,7 @@ export function VariableDetailModal({
                   {inlineDefault && (
                     <>
                       <div className="flex items-center justify-center py-1">
-                        <IconArrowRight className="w-3 h-3 text-muted-foreground/40 rotate-90" />
+                        <ArrowRight className="w-3 h-3 text-muted-foreground/40 rotate-90" />
                       </div>
                       <div
                         className={`rounded-md overflow-visible px-3 py-2 ${
@@ -1045,7 +1032,7 @@ export function VariableDetailModal({
                         <div className="flex items-center gap-3">
                           <div className="flex-shrink-0 w-5 h-5 flex items-center justify-center">
                             {resolvedSource === "inline" ? (
-                              <IconCheck className="w-4 h-4 text-primary" />
+                              <Check className="w-4 h-4 text-primary" />
                             ) : (
                               <div className="w-2 h-2 rounded-full bg-muted-foreground/30" />
                             )}
@@ -1104,7 +1091,7 @@ export function VariableDetailModal({
                         onClick={() => handleSetDefault(editDefaultValue)}
                         data-testid="button-save-default"
                       >
-                        <IconCheck className="w-3.5 h-3.5 text-primary" />
+                        <Check className="w-3.5 h-3.5 text-primary" />
                       </Button>
                       <Button
                         size="icon"
@@ -1112,7 +1099,7 @@ export function VariableDetailModal({
                         onClick={() => setEditingDefault(false)}
                         data-testid="button-cancel-default"
                       >
-                        <IconX className="w-3.5 h-3.5" />
+                        <X className="w-3.5 h-3.5" />
                       </Button>
                     </div>
                   ) : (
@@ -1129,7 +1116,7 @@ export function VariableDetailModal({
                         }}
                         data-testid="button-edit-default"
                       >
-                        <IconEdit className="w-3.5 h-3.5" />
+                        <Pencil className="w-3.5 h-3.5" />
                       </Button>
                     </div>
                   )}
@@ -1138,7 +1125,7 @@ export function VariableDetailModal({
                 <div className="space-y-2">
                   <div className="flex items-center justify-between gap-2">
                     <h4 className="text-sm font-medium text-foreground flex items-center gap-1.5">
-                      <IconFilter className="w-3.5 h-3.5 text-muted-foreground" />
+                      <Filter className="w-3.5 h-3.5 text-muted-foreground" />
                       Conditions
                     </h4>
                     {!addingCondition && editingConditionIndex === null && (
@@ -1148,7 +1135,7 @@ export function VariableDetailModal({
                         onClick={() => setAddingCondition(true)}
                         data-testid="button-add-condition"
                       >
-                        <IconPlus className="w-3 h-3 mr-1" />
+                        <Plus className="w-3 h-3 mr-1" />
                         Add Condition
                       </Button>
                     )}
@@ -1195,7 +1182,7 @@ export function VariableDetailModal({
                               onClick={() => handleReorderCondition(i, i - 1)}
                               data-testid={`button-move-up-${i}`}
                             >
-                              <IconChevronUp className="w-3.5 h-3.5" />
+                              <ChevronUp className="w-3.5 h-3.5" />
                             </Button>
                             <Button
                               size="icon"
@@ -1204,7 +1191,7 @@ export function VariableDetailModal({
                               onClick={() => handleReorderCondition(i, i + 1)}
                               data-testid={`button-move-down-${i}`}
                             >
-                              <IconChevronDown className="w-3.5 h-3.5" />
+                              <ChevronDown className="w-3.5 h-3.5" />
                             </Button>
                             <Button
                               size="icon"
@@ -1212,7 +1199,7 @@ export function VariableDetailModal({
                               onClick={() => setEditingConditionIndex(i)}
                               data-testid={`button-edit-condition-${i}`}
                             >
-                              <IconEdit className="w-3.5 h-3.5" />
+                              <Pencil className="w-3.5 h-3.5" />
                             </Button>
                             <Button
                               size="icon"
@@ -1220,7 +1207,7 @@ export function VariableDetailModal({
                               onClick={() => handleDeleteCondition(i)}
                               data-testid={`button-delete-condition-${i}`}
                             >
-                              <IconTrash className="w-3.5 h-3.5 text-destructive" />
+                              <Trash2 className="w-3.5 h-3.5 text-destructive" />
                             </Button>
                           </div>
                         </div>
@@ -1261,9 +1248,9 @@ export function VariableDetailModal({
                     {renameTo.trim() && renameAvailable !== null && (
                       <span className="absolute right-2 top-1/2 -translate-y-1/2">
                         {renameAvailable ? (
-                          <IconCheck className="h-4 w-4 text-chart-3" />
+                          <Check className="h-4 w-4 text-chart-3" />
                         ) : (
-                          <IconX className="h-4 w-4 text-destructive" />
+                          <X className="h-4 w-4 text-destructive" />
                         )}
                       </span>
                     )}
@@ -1308,7 +1295,7 @@ export function VariableDetailModal({
                   )}
                   {usageData?.files && usageData.files.length > 0 && (
                     <div className="flex items-start gap-2 p-2 rounded-md bg-muted/50 text-xs text-muted-foreground">
-                      <IconAlertTriangle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
+                      <AlertTriangle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
                       <span>
                         All {"{{"} {effectiveVarName} {"}} "}
                         references in {usageData.files.length} file(s) will be renamed to{" "}

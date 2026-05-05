@@ -5,11 +5,14 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { UniversalImage } from "@/components/UniversalImage";
 import type { DoubleCTASection, DoubleCTABox } from "@shared/schema";
-import * as TablerIcons from "@tabler/icons-react";
+import * as LucideIcons from "lucide-react";
+import { CircleCheck } from "lucide-react";
 
 function getTablerIcon(name: string) {
-  const icons = TablerIcons as Record<string, any>;
-  return icons[name] || icons[`Icon${name}`] || TablerIcons.IconCircleCheck;
+  const icons = LucideIcons as Record<string, any>;
+  const normalized = name.startsWith("Icon") ? name.slice(4) : name;
+  const lucideName = normalized.charAt(0).toUpperCase() + normalized.slice(1);
+  return icons[name] || icons[lucideName] || CircleCheck;
 }
 
 type ActiveSide = "left" | "right";
@@ -50,7 +53,7 @@ function CTABox({
         {box.bullets!.map((bullet, i) => {
           const IconComp = bullet.icon
             ? getTablerIcon(bullet.icon)
-            : TablerIcons.IconCircleCheck;
+            : CircleCheck;
           return (
             <div
               key={i}

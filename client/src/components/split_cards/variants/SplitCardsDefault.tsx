@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { Bot, Check, Code, Code2, Figma, Github, LucideIcon, Sparkles } from "lucide-react";
 import type {
   SplitCardsSection,
   SplitCardsBenefit,
@@ -6,18 +7,7 @@ import type {
 } from "@shared/schema";
 import { UniversalImage } from "@/components/UniversalImage";
 import { RichTextContent } from "@/components/ui/rich-text-content";
-import * as TablerIcons from "@tabler/icons-react";
-import {
-  IconCheck,
-  IconBrandOpenai,
-  IconBrandFigma,
-  IconBrandGithub,
-  IconBrandVscode,
-  IconCode,
-  IconRobot,
-  IconSparkles,
-  type Icon as TablerIconType,
-} from "@tabler/icons-react";
+import * as LucideIcons from "lucide-react";
 
 interface SplitCardsProps {
   data: SplitCardsSection;
@@ -35,17 +25,17 @@ const iconSizeMap: Record<string, number> = {
   lg: 40,
 };
 
-const toolIconMap: Record<string, TablerIconType> = {
-  BrandOpenai: IconBrandOpenai,
-  BrandFigma: IconBrandFigma,
-  BrandGithub: IconBrandGithub,
-  BrandVscode: IconBrandVscode,
-  Code: IconCode,
-  Robot: IconRobot,
-  Sparkles: IconSparkles,
+const toolIconMap: Record<string, LucideIcon> = {
+  BrandOpenai: Sparkles,
+  BrandFigma: Figma,
+  BrandGithub: Github,
+  BrandVscode: Code2,
+  Code: Code,
+  Robot: Bot,
+  Sparkles: Sparkles,
 };
 
-function getToolIcon(iconName?: string): TablerIconType | null {
+function getToolIcon(iconName?: string): LucideIcon | null {
   if (!iconName) return null;
   return toolIconMap[iconName] || null;
 }
@@ -99,12 +89,11 @@ function BenefitRow({
   defaultIcon?: string;
 }) {
   const iconName = benefit.icon || defaultIcon;
-  const fullIconName = iconName ? `Icon${iconName}` : null;
-  const IconComponent = fullIconName
-    ? (TablerIcons as unknown as Record<string, TablerIconType>)[
-        fullIconName
-      ] || IconCheck
-    : IconCheck;
+  const lucideName = iconName ? (iconName.startsWith("Icon") ? iconName.slice(4) : iconName) : null;
+  const lucideKey = lucideName ? lucideName.charAt(0).toUpperCase() + lucideName.slice(1) : null;
+  const IconComponent = lucideKey
+    ? (LucideIcons as unknown as Record<string, LucideIcon>)[lucideKey] || Check
+    : Check;
 
   return (
     <div

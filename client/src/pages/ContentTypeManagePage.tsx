@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { AlertTriangle, ArrowLeft, ArrowRight, Check, Clock, Code, Database, ExternalLink, Eye, EyeOff, FileText, Folder, Globe, LayoutList, Link as LinkIcon, Loader2, MoreVertical, Plus, RefreshCw, Search, Shuffle, Trash2, Wand2, X } from "lucide-react";
 import { queryClient } from "@/lib/queryClient";
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { Link, useRoute } from "wouter";
@@ -29,33 +30,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  IconArrowLeft,
-  IconArrowRight,
-  IconSearch,
-  IconArticle,
-  IconCheck,
-  IconClock,
-  IconEye,
-  IconEyeOff,
-  IconExternalLink,
-  IconRefresh,
-  IconWorld,
-  IconDatabase,
-  IconDotsVertical,
-  IconFolder,
-  IconLink,
-  IconTrashX,
-  IconTrash,
-  IconWand,
-  IconLoader2,
-  IconLayoutList,
-  IconX,
-  IconCode,
-  IconTransform,
-  IconAlertTriangle,
-  IconPlus,
-} from "@tabler/icons-react";
 import { Textarea } from "@/components/ui/textarea";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -184,19 +158,19 @@ function formatDate(dateStr: string | null | undefined): string {
 function StatusBadge({ status }: { status: string }) {
   const normalized = status?.toLowerCase() || "unknown";
   if (normalized === "published") {
-    return <Badge variant="default" data-testid="badge-status-published"><IconCheck className="h-3 w-3 mr-1" />Published</Badge>;
+    return <Badge variant="default" data-testid="badge-status-published"><Check className="h-3 w-3 mr-1" />Published</Badge>;
   }
   if (normalized === "draft") {
-    return <Badge variant="secondary" data-testid="badge-status-draft"><IconClock className="h-3 w-3 mr-1" />Draft</Badge>;
+    return <Badge variant="secondary" data-testid="badge-status-draft"><Clock className="h-3 w-3 mr-1" />Draft</Badge>;
   }
   return <Badge variant="outline" data-testid={`badge-status-${normalized}`}>{status}</Badge>;
 }
 
 function VisibilityIcon({ visibility }: { visibility: string }) {
   if (visibility?.toLowerCase() === "public") {
-    return <IconEye className="h-4 w-4 text-muted-foreground" />;
+    return <Eye className="h-4 w-4 text-muted-foreground" />;
   }
-  return <IconEyeOff className="h-4 w-4 text-muted-foreground" />;
+  return <EyeOff className="h-4 w-4 text-muted-foreground" />;
 }
 
 function SearchableFieldSelect({
@@ -253,7 +227,7 @@ function SearchableFieldSelect({
         <span className={!value || value === "__none__" ? "text-muted-foreground" : ""}>
           {displayValue}
         </span>
-        <IconSearch className="h-3 w-3 text-muted-foreground ml-1 flex-shrink-0" />
+        <Search className="h-3 w-3 text-muted-foreground ml-1 flex-shrink-0" />
       </button>
       {open && (
         <div className="absolute z-[10002] top-full left-0 mt-1 w-full min-w-[240px] max-h-64 overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md">
@@ -288,7 +262,7 @@ function SearchableFieldSelect({
                     className={`px-2 py-1.5 text-xs font-mono cursor-pointer hover:bg-muted rounded-sm mx-1 my-0.5 flex items-center gap-1.5 ${value === f || value === `db.${f}` ? "bg-muted font-medium" : ""}`}
                     onClick={() => { onValueChange(f); setOpen(false); }}
                   >
-                    {(value === f || value === `db.${f}`) && <IconCheck className="h-3 w-3 flex-shrink-0" />}
+                    {(value === f || value === `db.${f}`) && <Check className="h-3 w-3 flex-shrink-0" />}
                     {f}
                   </div>
                 ))}
@@ -305,7 +279,7 @@ function SearchableFieldSelect({
                     className={`px-2 py-1.5 text-xs font-mono cursor-pointer hover:bg-muted rounded-sm mx-1 my-0.5 flex items-center gap-1.5 ${value === `raw.${f}` ? "bg-muted font-medium" : ""}`}
                     onClick={() => { onValueChange(`raw.${f}`); setOpen(false); }}
                   >
-                    {value === `raw.${f}` && <IconCheck className="h-3 w-3 flex-shrink-0" />}
+                    {value === `raw.${f}` && <Check className="h-3 w-3 flex-shrink-0" />}
                     <span className="text-muted-foreground">raw.</span>{f}
                   </div>
                 ))}
@@ -332,11 +306,11 @@ function SearchableFieldSelect({
 }
 
 const WIZARD_STEPS = [
-  { id: "database", label: "Database", icon: IconDatabase },
-  { id: "preview", label: "Inspect", icon: IconEye },
-  { id: "identity", label: "Identity", icon: IconLink },
-  { id: "mapping", label: "Mapping", icon: IconLayoutList },
-  { id: "indexes", label: "Indexes", icon: IconArticle },
+  { id: "database", label: "Database", icon: Database },
+  { id: "preview", label: "Inspect", icon: Eye },
+  { id: "identity", label: "Identity", icon: LinkIcon },
+  { id: "mapping", label: "Mapping", icon: LayoutList },
+  { id: "indexes", label: "Indexes", icon: FileText },
 ] as const;
 
 type WizardStep = typeof WIZARD_STEPS[number]["id"];
@@ -371,7 +345,7 @@ function StepIndicator({ steps, currentStep, completedSteps }: {
                 data-testid={`step-indicator-${step.id}`}
               >
                 {isCompleted || isPast ? (
-                  <IconCheck className="h-3.5 w-3.5" />
+                  <Check className="h-3.5 w-3.5" />
                 ) : (
                   <StepIcon className="h-3.5 w-3.5" />
                 )}
@@ -721,7 +695,7 @@ function DataSourceDialog({
 
         {isLoading ? (
           <div className="flex items-center justify-center py-8">
-            <IconLoader2 className="h-5 w-5 animate-spin" />
+            <Loader2 className="h-5 w-5 animate-spin" />
             <span className="ml-2 text-sm text-muted-foreground">Loading configuration...</span>
           </div>
         ) : (
@@ -793,7 +767,7 @@ function DataSourceDialog({
 
                 {loadingSample && (
                   <div className="flex items-center justify-center gap-2 py-6">
-                    <IconLoader2 className="h-5 w-5 animate-spin" />
+                    <Loader2 className="h-5 w-5 animate-spin" />
                     <span className="text-sm text-muted-foreground">Loading sample data from database...</span>
                   </div>
                 )}
@@ -819,7 +793,7 @@ function DataSourceDialog({
                         disabled={loadingSample}
                         data-testid="button-refresh-sample"
                       >
-                        <IconRefresh className="h-4 w-4" />
+                        <RefreshCw className="h-4 w-4" />
                       </Button>
                     </div>
 
@@ -844,9 +818,9 @@ function DataSourceDialog({
                       data-testid="button-ai-fields"
                     >
                       {aiMappingFields ? (
-                        <><IconLoader2 className="h-4 w-4 mr-2 animate-spin" />Analyzing fields...</>
+                        <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Analyzing fields...</>
                       ) : (
-                        <><IconWand className="h-4 w-4 mr-2" />Auto-detect Field Mapping</>
+                        <><Wand2 className="h-4 w-4 mr-2" />Auto-detect Field Mapping</>
                       )}
                     </Button>
 
@@ -869,7 +843,7 @@ function DataSourceDialog({
                       disabled={loadingSample}
                       data-testid="button-retry-sample"
                     >
-                      <IconRefresh className="h-4 w-4 mr-2" />
+                      <RefreshCw className="h-4 w-4 mr-2" />
                       Retry
                     </Button>
                   </div>
@@ -908,7 +882,7 @@ function DataSourceDialog({
                       }}
                       data-testid="button-toggle-slug-transform"
                     >
-                      <IconCode className="h-3.5 w-3.5" />
+                      <Code className="h-3.5 w-3.5" />
                     </Button>
                   </div>
                   {slugIsTransformer ? (
@@ -964,7 +938,7 @@ function DataSourceDialog({
                       }}
                       data-testid="button-toggle-locale-transform"
                     >
-                      <IconCode className="h-3.5 w-3.5" />
+                      <Code className="h-3.5 w-3.5" />
                     </Button>
                   </div>
                   {localeIsTransformer ? (
@@ -1059,7 +1033,7 @@ function DataSourceDialog({
                           <span className="text-xs font-medium w-24 flex-shrink-0 text-right text-muted-foreground">
                             {standardField}
                           </span>
-                          <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                          <ArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
                           {isFnMode ? (
                             <div className="flex-1 space-y-1">
                               <p className="text-[10px] text-muted-foreground font-mono">(value, item) =&gt; ...</p>
@@ -1091,7 +1065,7 @@ function DataSourceDialog({
                                 }}
                                 data-testid={`button-clear-custom-${standardField}`}
                               >
-                                <IconX className="h-3.5 w-3.5" />
+                                <X className="h-3.5 w-3.5" />
                               </Button>
                             </>
                           ) : (
@@ -1132,7 +1106,7 @@ function DataSourceDialog({
                             }}
                             data-testid={`button-toggle-transform-${standardField}`}
                           >
-                            <IconCode className="h-3.5 w-3.5" />
+                            <Code className="h-3.5 w-3.5" />
                           </Button>
                           <Button
                             variant="ghost"
@@ -1153,7 +1127,7 @@ function DataSourceDialog({
                             }}
                             data-testid={`button-delete-field-${standardField}`}
                           >
-                            <IconTrashX className="h-3.5 w-3.5" />
+                            <Trash2 className="h-3.5 w-3.5" />
                           </Button>
                         </div>
                       </div>
@@ -1200,7 +1174,7 @@ function DataSourceDialog({
                 <div className="flex items-center gap-2 flex-wrap" data-testid="section-index-badges">
                   {localeField && (
                     <Badge variant="default" className="text-xs cursor-default opacity-70 no-default-active-elevate" data-testid="badge-index-locale">
-                      <IconCheck className="h-3 w-3 mr-1" />
+                      <Check className="h-3 w-3 mr-1" />
                       {localeIsTransformer ? "locale (computed)" : localeField} (auto)
                     </Badge>
                   )}
@@ -1218,7 +1192,7 @@ function DataSourceDialog({
                         }}
                         data-testid={`badge-index-${field}`}
                       >
-                        {isIndexed && <IconCheck className="h-3 w-3 mr-1" />}
+                        {isIndexed && <Check className="h-3 w-3 mr-1" />}
                         {field}
                       </Badge>
                     );
@@ -1236,7 +1210,7 @@ function DataSourceDialog({
         <DialogFooter>
           {stepIndex > 0 && (
             <Button variant="outline" onClick={goBack} className="mr-auto" data-testid="button-wizard-back">
-              <IconArrowLeft className="h-4 w-4 mr-1" />
+              <ArrowLeft className="h-4 w-4 mr-1" />
               Back
             </Button>
           )}
@@ -1258,7 +1232,7 @@ function DataSourceDialog({
               data-testid="button-wizard-next"
             >
               Next
-              <IconArrowRight className="h-4 w-4 ml-1" />
+              <ArrowRight className="h-4 w-4 ml-1" />
             </Button>
           )}
         </DialogFooter>
@@ -1307,12 +1281,12 @@ type ValidationState = Record<string, FieldValidationResult | "loading" | null>;
 function FieldValidationIndicator({ result }: { result: FieldValidationResult | "loading" | null | undefined }) {
   if (!result) return null;
   if (result === "loading") {
-    return <IconLoader2 className="h-3.5 w-3.5 animate-spin text-muted-foreground flex-shrink-0" />;
+    return <Loader2 className="h-3.5 w-3.5 animate-spin text-muted-foreground flex-shrink-0" />;
   }
   if (result.valid) {
-    return <IconCheck className="h-3.5 w-3.5 text-green-600 dark:text-green-400 flex-shrink-0" data-testid="icon-validation-valid" />;
+    return <Check className="h-3.5 w-3.5 text-green-600 dark:text-green-400 flex-shrink-0" data-testid="icon-validation-valid" />;
   }
-  return <IconAlertTriangle className="h-3.5 w-3.5 text-destructive flex-shrink-0" data-testid="icon-validation-invalid" />;
+  return <AlertTriangle className="h-3.5 w-3.5 text-destructive flex-shrink-0" data-testid="icon-validation-invalid" />;
 }
 
 function FieldValidationMessage({ result, fieldKey, source }: { result: FieldValidationResult | "loading" | null | undefined; fieldKey: string; source?: string }) {
@@ -1568,7 +1542,7 @@ function FieldMappingDialog({
 
         {isLoading ? (
           <div className="flex items-center justify-center py-8">
-            <IconLoader2 className="h-5 w-5 animate-spin" />
+            <Loader2 className="h-5 w-5 animate-spin" />
             <span className="ml-2 text-sm text-muted-foreground">Loading...</span>
           </div>
         ) : (
@@ -1591,7 +1565,7 @@ function FieldMappingDialog({
                 {specialKeys.map((key) => (
                   <div key={key} className="flex items-center gap-2">
                     <Badge variant="outline" className="text-xs font-mono flex-shrink-0">{key}</Badge>
-                    <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                    <ArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
                     {transformerModes[key] ? (
                       <Textarea
                         value={mappings[key] || ""}
@@ -1615,7 +1589,7 @@ function FieldMappingDialog({
                       onClick={() => setTransformerModes((prev) => ({ ...prev, [key]: !prev[key] }))}
                       data-testid={`button-toggle-transform-${key}`}
                     >
-                      <IconCode className="h-3.5 w-3.5" />
+                      <Code className="h-3.5 w-3.5" />
                     </Button>
                   </div>
                 ))}
@@ -1635,7 +1609,7 @@ function FieldMappingDialog({
                           <span className="text-xs font-mono w-28 flex-shrink-0 text-right text-muted-foreground truncate" title={key}>
                             {key}
                           </span>
-                          <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                          <ArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
                           {isFn ? (
                             <Textarea
                               value={mappings[key] || ""}
@@ -1669,7 +1643,7 @@ function FieldMappingDialog({
                             }}
                             data-testid={`button-toggle-transform-${key}`}
                           >
-                            <IconCode className="h-3.5 w-3.5" />
+                            <Code className="h-3.5 w-3.5" />
                           </Button>
                           <Button
                             variant="ghost"
@@ -1678,7 +1652,7 @@ function FieldMappingDialog({
                             onClick={() => setPendingDeleteKey(key)}
                             data-testid={`button-delete-mapping-${key}`}
                           >
-                            <IconTrashX className="h-3.5 w-3.5" />
+                            <Trash2 className="h-3.5 w-3.5" />
                           </Button>
                         </div>
                         {pendingDeleteKey === key && (
@@ -1747,7 +1721,7 @@ function FieldMappingDialog({
                         autoFocus
                         data-testid="input-new-mapping-key"
                       />
-                      <IconArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                      <ArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
                       <div className="relative flex-1">
                         <Input
                           value={newValue}
@@ -1778,7 +1752,7 @@ function FieldMappingDialog({
                                 }}
                                 data-testid={`source-option-${k}`}
                               >
-                                <IconCheck className="w-3 h-3 text-green-600 flex-shrink-0" />
+                                <Check className="w-3 h-3 text-green-600 flex-shrink-0" />
                                 <span className="font-mono">{k}</span>
                                 <span className="text-[10px] text-muted-foreground ml-auto">all entries</span>
                               </button>
@@ -1791,7 +1765,7 @@ function FieldMappingDialog({
                                 className="w-full text-left px-2 py-1.5 flex items-center gap-2 text-xs opacity-50 cursor-not-allowed border-b last:border-b-0"
                                 data-testid={`source-option-${p.key}`}
                               >
-                                <IconAlertTriangle className="w-3 h-3 text-amber-500 flex-shrink-0" />
+                                <AlertTriangle className="w-3 h-3 text-amber-500 flex-shrink-0" />
                                 <span className="font-mono">{p.key}</span>
                                 <span className="text-[10px] text-muted-foreground ml-auto">{p.count}/{p.total}</span>
                               </button>
@@ -1807,7 +1781,7 @@ function FieldMappingDialog({
                         disabled={!newKey.trim() || newKey.trim() in mappings}
                         data-testid="button-add-mapping"
                       >
-                        <IconCheck className="h-3.5 w-3.5" />
+                        <Check className="h-3.5 w-3.5" />
                       </Button>
                       <Button
                         variant="ghost"
@@ -1815,7 +1789,7 @@ function FieldMappingDialog({
                         onClick={() => { setShowAddField(false); setNewKey(""); setNewValue(""); setNewValueValidation(null); }}
                         data-testid="button-cancel-add-field"
                       >
-                        <IconX className="h-3.5 w-3.5" />
+                        <X className="h-3.5 w-3.5" />
                       </Button>
                     </div>
                     {!isDbBacked && <FieldValidationMessage result={newValueValidation} fieldKey="__new" source={newValue.trim() || newKey.trim()} />}
@@ -1827,7 +1801,7 @@ function FieldMappingDialog({
                     onClick={() => setShowAddField(true)}
                     data-testid="button-show-add-field"
                   >
-                    <IconPlus className="h-3.5 w-3.5 mr-1.5" />
+                    <Plus className="h-3.5 w-3.5 mr-1.5" />
                     Add new field
                   </Button>
                 )}
@@ -1854,7 +1828,7 @@ function FieldMappingDialog({
                       }}
                       data-testid={`badge-index-toggle-${field}`}
                     >
-                      {isIndexed && <IconCheck className="h-3 w-3 mr-1" />}
+                      {isIndexed && <Check className="h-3 w-3 mr-1" />}
                       {field}
                     </Badge>
                   );
@@ -1876,7 +1850,7 @@ function FieldMappingDialog({
                   className="text-xs cursor-default no-default-active-elevate"
                   data-testid="badge-unique-toggle-slug"
                 >
-                  {uniqueFields.includes("slug") && <IconCheck className="h-3 w-3 mr-1" />}
+                  {uniqueFields.includes("slug") && <Check className="h-3 w-3 mr-1" />}
                   slug
                 </Badge>
                 {regularKeys.filter(f => f !== "slug").map((field) => {
@@ -1893,7 +1867,7 @@ function FieldMappingDialog({
                       }}
                       data-testid={`badge-unique-toggle-${field}`}
                     >
-                      {isUnique && <IconCheck className="h-3 w-3 mr-1" />}
+                      {isUnique && <Check className="h-3 w-3 mr-1" />}
                       {field}
                     </Badge>
                   );
@@ -2150,7 +2124,7 @@ function SeoSettingsDialog({
           <div className="space-y-4">
             {totalEntries > 0 && (
               <div className="flex items-start gap-2.5 rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2.5" data-testid="banner-url-change-warning">
-                <IconAlertTriangle className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
+                <AlertTriangle className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
                 <p className="text-xs text-destructive leading-relaxed">
                   <span className="font-medium">Changing the URL pattern may break existing URLs.</span>{" "}
                   This content type has {totalEntries} existing {totalEntries === 1 ? "entry" : "entries"} already indexed by search engines and sitemaps. You will need to set up redirections manually.
@@ -2253,7 +2227,7 @@ function SeoSettingsDialog({
                     data-testid="link-manage-locales"
                   >
                     Manage locales
-                    <IconExternalLink className="h-3 w-3" />
+                    <ExternalLink className="h-3 w-3" />
                   </Link>
                 </div>
               )}
@@ -2499,7 +2473,7 @@ export default function ContentTypeManagePage() {
         <div className="flex items-center gap-3 flex-wrap">
           <Link href="/" className="inline-flex">
             <Button variant="ghost" size="icon" data-testid="button-back-home">
-              <IconArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
           <div className="flex-1 min-w-0">
@@ -2516,7 +2490,7 @@ export default function ContentTypeManagePage() {
                   size="sm"
                   data-testid="button-data-source"
                 >
-                  <IconDatabase className="h-4 w-4 mr-1" />
+                  <Database className="h-4 w-4 mr-1" />
                   Database
                   {cacheStatus?.exists && cacheStatus.age_hours != null && (
                     <span className="text-[10px] text-muted-foreground ml-1" data-testid="text-cache-age">
@@ -2530,7 +2504,7 @@ export default function ContentTypeManagePage() {
                   onClick={() => setDsDialogOpen(true)}
                   data-testid="button-manage-connection"
                 >
-                  <IconDatabase className="h-4 w-4 mr-2" />
+                  <Database className="h-4 w-4 mr-2" />
                   Manage Connection
                 </DropdownMenuItem>
                 <DropdownMenuItem
@@ -2538,7 +2512,7 @@ export default function ContentTypeManagePage() {
                   disabled={clearing}
                   data-testid="button-clear-cache"
                 >
-                  <IconRefresh className={`h-4 w-4 mr-2 ${clearing ? "animate-spin" : ""}`} />
+                  <RefreshCw className={`h-4 w-4 mr-2 ${clearing ? "animate-spin" : ""}`} />
                   Clear Cache
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -2549,7 +2523,7 @@ export default function ContentTypeManagePage() {
               onClick={() => setMappingDialogOpen(true)}
               data-testid="button-field-mappings"
             >
-              <IconTransform className="h-4 w-4 mr-1" />
+              <Shuffle className="h-4 w-4 mr-1" />
               Mappings
             </Button>
             <Button
@@ -2558,7 +2532,7 @@ export default function ContentTypeManagePage() {
               onClick={() => setSeoDialogOpen(true)}
               data-testid="button-seo-settings"
             >
-              <IconLink className="h-4 w-4 mr-1" />
+              <LinkIcon className="h-4 w-4 mr-1" />
               URLs
             </Button>
           </div>
@@ -2568,7 +2542,7 @@ export default function ContentTypeManagePage() {
           <Card data-testid="card-kpi-total">
             <CardHeader className="flex flex-row items-center justify-between gap-1 space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">Total Entries</CardTitle>
-              <IconArticle className="h-4 w-4 text-muted-foreground" />
+              <FileText className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-3 flex-wrap">
@@ -2601,9 +2575,9 @@ export default function ContentTypeManagePage() {
                     {isLocale ? "Language" : idx.charAt(0).toUpperCase() + idx.slice(1)}
                   </CardTitle>
                   {isLocale ? (
-                    <IconWorld className="h-4 w-4 text-muted-foreground" />
+                    <Globe className="h-4 w-4 text-muted-foreground" />
                   ) : (
-                    <IconLayoutList className="h-4 w-4 text-muted-foreground" />
+                    <LayoutList className="h-4 w-4 text-muted-foreground" />
                   )}
                 </CardHeader>
                 <CardContent>
@@ -2662,7 +2636,7 @@ export default function ContentTypeManagePage() {
                   onClick={() => setViewMode("static")}
                   data-testid="button-view-static"
                 >
-                  <IconFolder className="h-4 w-4 mr-1" />
+                  <Folder className="h-4 w-4 mr-1" />
                   Static Entries
                 </Button>
                 <Button
@@ -2672,12 +2646,12 @@ export default function ContentTypeManagePage() {
                   onClick={() => setViewMode("db")}
                   data-testid="button-view-db"
                 >
-                  <IconDatabase className="h-4 w-4 mr-1" />
+                  <Database className="h-4 w-4 mr-1" />
                   DB Entries
                 </Button>
               </div>
               <div className="relative flex-1 min-w-[200px]">
-                <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   placeholder={`Search ${contentType} entries by title or slug...`}
                   value={search}
@@ -2759,7 +2733,7 @@ export default function ContentTypeManagePage() {
                               <div className="flex items-center gap-1 flex-wrap">
                                 {entry.locales.length === 0 ? (
                                   <span className="flex items-center gap-1 text-xs text-amber-600 dark:text-amber-400" title="Legacy format — click actions to migrate">
-                                    <IconAlertTriangle className="h-3.5 w-3.5 flex-shrink-0" />
+                                    <AlertTriangle className="h-3.5 w-3.5 flex-shrink-0" />
                                     Legacy
                                   </span>
                                 ) : (
@@ -2776,14 +2750,14 @@ export default function ContentTypeManagePage() {
                                 <DropdownMenu>
                                   <DropdownMenuTrigger asChild>
                                     <Button variant="ghost" size="icon" data-testid={`button-actions-${entry.slug}`}>
-                                      <IconDotsVertical className="h-4 w-4" />
+                                      <MoreVertical className="h-4 w-4" />
                                     </Button>
                                   </DropdownMenuTrigger>
                                   <DropdownMenuContent align="end">
                                     {Object.entries(entry.urls).map(([loc, url]) => (
                                       <DropdownMenuItem key={loc} asChild>
                                         <a href={url} target="_blank" rel="noopener noreferrer" data-testid={`link-${entry.slug}-${loc}`}>
-                                          <IconExternalLink className="h-4 w-4 mr-2" />
+                                          <ExternalLink className="h-4 w-4 mr-2" />
                                           Open ({loc.toUpperCase()})
                                         </a>
                                       </DropdownMenuItem>
@@ -2802,7 +2776,7 @@ export default function ContentTypeManagePage() {
                                         }}
                                         data-testid={`button-migrate-${entry.slug}`}
                                       >
-                                        <IconTransform className="h-4 w-4 mr-2" />
+                                        <Shuffle className="h-4 w-4 mr-2" />
                                         Migrate to standard format
                                       </DropdownMenuItem>
                                     )}
@@ -2816,7 +2790,7 @@ export default function ContentTypeManagePage() {
                                       className="text-destructive focus:text-destructive"
                                       data-testid={`button-delete-${entry.slug}`}
                                     >
-                                      <IconTrash className="h-4 w-4 mr-2" />
+                                      <Trash2 className="h-4 w-4 mr-2" />
                                       Delete
                                     </DropdownMenuItem>
                                   </DropdownMenuContent>
@@ -2838,7 +2812,7 @@ export default function ContentTypeManagePage() {
                 </div>
               ) : !hasDb ? (
                 <div className="text-center py-12 space-y-3" data-testid="text-no-database">
-                  <IconDatabase className="h-8 w-8 mx-auto text-muted-foreground/50" />
+                  <Database className="h-8 w-8 mx-auto text-muted-foreground/50" />
                   <p className="text-sm text-muted-foreground max-w-md mx-auto">
                     You can link a database to create more {label} entries dynamically. You will be able to configure how these dynamic entries look in a template.
                   </p>
@@ -2848,7 +2822,7 @@ export default function ContentTypeManagePage() {
                     onClick={() => setDsDialogOpen(true)}
                     data-testid="button-link-database"
                   >
-                    <IconDatabase className="h-4 w-4 mr-1" />
+                    <Database className="h-4 w-4 mr-1" />
                     Link to Database
                   </Button>
                 </div>
@@ -2944,7 +2918,7 @@ export default function ContentTypeManagePage() {
                               <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                   <Button variant="ghost" size="icon" data-testid={`button-actions-${item.id || item.slug}`}>
-                                    <IconDotsVertical className="h-4 w-4" />
+                                    <MoreVertical className="h-4 w-4" />
                                   </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
@@ -2952,13 +2926,13 @@ export default function ContentTypeManagePage() {
                                     <>
                                       <DropdownMenuItem asChild>
                                         <a href={itemUrl} target="_blank" rel="noopener noreferrer" data-testid={`link-new-tab-${item.id || item.slug}`}>
-                                          <IconExternalLink className="h-4 w-4 mr-2" />
+                                          <ExternalLink className="h-4 w-4 mr-2" />
                                           Open in new tab
                                         </a>
                                       </DropdownMenuItem>
                                       <DropdownMenuItem asChild>
                                         <a href={itemUrl} data-testid={`link-same-tab-${item.id || item.slug}`}>
-                                          <IconArrowLeft className="h-4 w-4 mr-2 rotate-180" />
+                                          <ArrowLeft className="h-4 w-4 mr-2 rotate-180" />
                                           Open in this tab
                                         </a>
                                       </DropdownMenuItem>
@@ -2976,7 +2950,7 @@ export default function ContentTypeManagePage() {
                                     }}
                                     data-testid={`button-clear-cache-${item.id || item.slug}`}
                                   >
-                                    <IconTrashX className="h-4 w-4 mr-2" />
+                                    <Trash2 className="h-4 w-4 mr-2" />
                                     Clear cache
                                   </DropdownMenuItem>
                                 </DropdownMenuContent>

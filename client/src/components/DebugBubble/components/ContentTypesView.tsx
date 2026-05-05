@@ -1,19 +1,9 @@
 import { useState, useMemo } from "react";
+import { ArrowLeft, ChevronDown, ChevronRight, Database, ExternalLink, FileText, Folder, Plus, RefreshCw } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import {
-  IconArrowLeft,
-  IconFileText,
-  IconExternalLink,
-  IconRefresh,
-  IconDatabase,
-  IconFolder,
-  IconPlus,
-  IconChevronDown,
-  IconChevronRight,
-} from "@tabler/icons-react";
 import {
   Dialog,
   DialogContent,
@@ -297,7 +287,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
                   data-testid="link-manage-locales"
                 >
                   Manage locales
-                  <IconExternalLink className="h-3 w-3" />
+                  <ExternalLink className="h-3 w-3" />
                 </Link>
               </div>
             )}
@@ -310,7 +300,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
               onClick={() => setShowAdvanced(!showAdvanced)}
               data-testid="button-toggle-advanced"
             >
-              {showAdvanced ? <IconChevronDown className="h-3 w-3" /> : <IconChevronRight className="h-3 w-3" />}
+              {showAdvanced ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
               Advanced
             </button>
             {showAdvanced && (
@@ -338,7 +328,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
                 className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover-elevate rounded"
                 data-testid="button-toggle-files-preview"
               >
-                <IconChevronDown className={`h-3 w-3 transition-transform ${showFiles ? '' : '-rotate-90'}`} />
+                <ChevronDown className={`h-3 w-3 transition-transform ${showFiles ? '' : '-rotate-90'}`} />
                 Files that will be created
               </button>
               {showFiles && filePreview && (
@@ -398,7 +388,7 @@ export function ContentTypesView({ setMenuView }: ContentTypesViewProps) {
               className="p-1 rounded-md hover-elevate"
               data-testid="button-back-to-main-content-types"
             >
-              <IconArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-4 w-4" />
             </button>
             <div>
               <h3 className="font-semibold text-sm">Content Types</h3>
@@ -412,7 +402,7 @@ export function ContentTypesView({ setMenuView }: ContentTypesViewProps) {
             className="p-1 rounded-md hover-elevate"
             data-testid="button-create-content-type"
           >
-            <IconPlus className="h-4 w-4" />
+            <Plus className="h-4 w-4" />
           </button>
         </div>
       </div>
@@ -421,7 +411,7 @@ export function ContentTypesView({ setMenuView }: ContentTypesViewProps) {
         <div className="p-2 space-y-1">
           {isLoading ? (
             <div className="flex items-center justify-center py-8">
-              <IconRefresh className="h-5 w-5 animate-spin text-muted-foreground" />
+              <RefreshCw className="h-5 w-5 animate-spin text-muted-foreground" />
             </div>
           ) : !data || data.length === 0 ? (
             <div className="text-center py-8 text-sm text-muted-foreground">
@@ -439,23 +429,23 @@ export function ContentTypesView({ setMenuView }: ContentTypesViewProps) {
                   className="flex items-center gap-3 flex-1 min-w-0 cursor-pointer hover-elevate rounded-md -ml-1 pl-1 py-0.5"
                   data-testid={`link-content-type-${ct.name}`}
                 >
-                  <IconFileText className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <FileText className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                   <div className="flex-1 min-w-0">
                     <div className="font-medium truncate">{ct.label}</div>
                     <div className="text-xs text-muted-foreground truncate flex items-center gap-2">
                       <span className="inline-flex items-center gap-0.5">
-                        <IconFolder className="h-3 w-3" />
+                        <Folder className="h-3 w-3" />
                         {ct.directory}/ · {ct.static_entry_count} static
                       </span>
                       {ct.has_database && (
                         <span className="inline-flex items-center gap-0.5">
-                          <IconDatabase className="h-3 w-3" />
+                          <Database className="h-3 w-3" />
                           {ct.database_slug}
                         </span>
                       )}
                     </div>
                   </div>
-                  <IconExternalLink className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+                  <ExternalLink className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
                 </a>
               </div>
             ))

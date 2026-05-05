@@ -1,11 +1,5 @@
 import { useState } from "react";
-import { 
-  IconUserHeart, IconFileDescription, IconMessageDots, IconInfinity,
-  IconTarget, IconBriefcase, IconMicrophone, IconHeartHandshake,
-  IconTrendingUp, IconCoin, IconRocket, IconCrown,
-  IconBuildingSkyscraper, IconStar, IconUsers, IconWorld,
-  IconChevronDown
-} from "@tabler/icons-react";
+import { Briefcase, Building2, ChevronDown, Coins, Crown, FileText, Globe, HeartHandshake, Infinity, MessageCircle, MessageSquare, Mic, Rocket, Star, Target, TrendingUp, UserRound, Users } from "lucide-react";
 import { Certificate } from "./Certificate";
 import { Button } from "@/components/ui/button";
 
@@ -57,10 +51,10 @@ export function CertificateDisplay({
         <div className="flex flex-col justify-center gap-3">
           {benefits.map((benefit, index) => {
             const iconSets = [
-              [IconUserHeart, IconFileDescription, IconMicrophone, IconHeartHandshake],
-              [IconTarget, IconCoin, IconInfinity, IconUsers],
-              [IconTrendingUp, IconRocket, IconCrown, IconBriefcase],
-              [IconBuildingSkyscraper, IconStar, IconMessageDots, IconWorld]
+              [UserRound, FileText, Mic, HeartHandshake],
+              [Target, Coins, Infinity, Users],
+              [TrendingUp, Rocket, Crown, Briefcase],
+              [Building2, Star, MessageCircle, Globe]
             ];
             const currentSet = iconSets[iconSetIndex % iconSets.length];
             const IconComponent = currentSet[index % currentSet.length];
@@ -90,7 +84,7 @@ export function CertificateDisplay({
               data-testid="button-see-more-benefits"
             >
               {isExpanded ? 'See less' : 'See more'}
-              <IconChevronDown 
+              <ChevronDown 
                 size={16} 
                 className={`ml-1 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
               />

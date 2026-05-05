@@ -1,13 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import {
-  IconArrowLeft,
-  IconDatabase,
-  IconExternalLink,
-  IconRefresh,
-  IconPlus,
-  IconDotsVertical,
-  IconSettings,
-} from "@tabler/icons-react";
+import { ArrowLeft, Database, ExternalLink, MoreVertical, Plus, RefreshCw, Settings } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -43,7 +35,7 @@ export function DatabasesView({ setMenuView }: DatabasesViewProps) {
               className="p-1 rounded-md hover-elevate"
               data-testid="button-back-to-main-databases"
             >
-              <IconArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-4 w-4" />
             </button>
             <div>
               <h3 className="font-semibold text-sm">Databases</h3>
@@ -59,7 +51,7 @@ export function DatabasesView({ setMenuView }: DatabasesViewProps) {
               title="Create Database"
               data-testid="link-create-database"
             >
-              <IconPlus className="h-4 w-4 text-muted-foreground" />
+              <Plus className="h-4 w-4 text-muted-foreground" />
             </a>
             <a
               href="/private/databases"
@@ -67,7 +59,7 @@ export function DatabasesView({ setMenuView }: DatabasesViewProps) {
               title="Open Databases Page"
               data-testid="link-databases-page"
             >
-              <IconExternalLink className="h-4 w-4 text-muted-foreground" />
+              <ExternalLink className="h-4 w-4 text-muted-foreground" />
             </a>
           </div>
         </div>
@@ -77,7 +69,7 @@ export function DatabasesView({ setMenuView }: DatabasesViewProps) {
         <div className="p-2 space-y-1">
           {isLoading ? (
             <div className="flex items-center justify-center py-8">
-              <IconRefresh className="h-5 w-5 animate-spin text-muted-foreground" />
+              <RefreshCw className="h-5 w-5 animate-spin text-muted-foreground" />
             </div>
           ) : !data || data.length === 0 ? (
             <div className="text-center py-8 text-sm text-muted-foreground">
@@ -95,7 +87,7 @@ export function DatabasesView({ setMenuView }: DatabasesViewProps) {
                   className="flex items-center gap-3 flex-1 min-w-0 cursor-pointer"
                   data-testid={`link-database-${db.name}`}
                 >
-                  <IconDatabase className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <Database className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                   <div className="flex-1 min-w-0">
                     <div className="font-medium truncate">{db.label}</div>
                     <div className="text-xs text-muted-foreground truncate">
@@ -109,13 +101,13 @@ export function DatabasesView({ setMenuView }: DatabasesViewProps) {
                       className="p-1 rounded flex-shrink-0"
                       data-testid={`button-database-menu-${db.name}`}
                     >
-                      <IconDotsVertical className="h-3.5 w-3.5 text-muted-foreground" />
+                      <MoreVertical className="h-3.5 w-3.5 text-muted-foreground" />
                     </button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="z-[10001]">
                     <DropdownMenuItem asChild>
                       <a href={`/private/databases/${db.name}`} data-testid={`link-manage-database-${db.name}`}>
-                        <IconSettings className="h-4 w-4 mr-2" />
+                        <Settings className="h-4 w-4 mr-2" />
                         Manage Database
                       </a>
                     </DropdownMenuItem>

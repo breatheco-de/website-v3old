@@ -1,4 +1,5 @@
 import { useParams, useLocation } from "wouter";
+import { ArrowLeft, Eye, FlaskConical, Globe, MapPin, Monitor, Pencil, RefreshCw, Save, Smartphone, Target, Users, X } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useState, useMemo, useRef } from "react";
 import { Button } from "@/components/ui/button";
@@ -26,23 +27,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  IconArrowLeft,
-  IconFlask,
-  IconDeviceFloppy,
-  IconRefresh,
-  IconEye,
-  IconPencil,
-  IconUsers,
-  IconPercentage,
-  IconTarget,
-  IconDeviceDesktop,
-  IconDeviceMobile,
-  IconLanguage,
-  IconWorld,
-  IconX,
-  IconMapPin,
-} from "@tabler/icons-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { getDebugToken } from "@/hooks/useDebugAuth";
@@ -197,7 +181,7 @@ function TagInput({ values, onChange, placeholder, transform, suggestions, "data
               className="ml-0.5 rounded-full hover:bg-muted-foreground/20 p-0.5"
               data-testid={`${testId}-remove-${index}`}
             >
-              <IconX className="h-3 w-3" />
+              <X className="h-3 w-3" />
             </button>
           </Badge>
         ))}
@@ -391,7 +375,7 @@ export default function ExperimentEditor() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <IconRefresh className="h-8 w-8 animate-spin text-muted-foreground" />
+        <RefreshCw className="h-8 w-8 animate-spin text-muted-foreground" />
       </div>
     );
   }
@@ -399,13 +383,13 @@ export default function ExperimentEditor() {
   if (error || !data?.experiment) {
     return (
       <div className="min-h-screen bg-background flex flex-col items-center justify-center gap-4">
-        <IconFlask className="h-12 w-12 text-muted-foreground" />
+        <FlaskConical className="h-12 w-12 text-muted-foreground" />
         <h1 className="text-xl font-semibold">Experiment not found</h1>
         <p className="text-muted-foreground">
           Could not find experiment "{experimentSlug}" for {contentType}/{contentSlug}
         </p>
         <Button onClick={() => navigate(backUrl)} variant="outline">
-          <IconArrowLeft className="h-4 w-4 mr-2" />
+          <ArrowLeft className="h-4 w-4 mr-2" />
           Go Back
         </Button>
       </div>
@@ -425,10 +409,10 @@ export default function ExperimentEditor() {
               onClick={() => navigate(backUrl)}
               data-testid="button-back"
             >
-              <IconArrowLeft className="h-5 w-5" />
+              <ArrowLeft className="h-5 w-5" />
             </Button>
             <div className="flex items-center gap-3">
-              <IconFlask className="h-5 w-5 text-primary" />
+              <FlaskConical className="h-5 w-5 text-primary" />
               <div>
                 <div className="flex items-center gap-1">
                   <h1 className="font-semibold text-sm" data-testid="text-experiment-title">
@@ -444,7 +428,7 @@ export default function ExperimentEditor() {
                     }}
                     data-testid="button-edit-title"
                   >
-                    <IconPencil className="h-3 w-3" />
+                    <Pencil className="h-3 w-3" />
                   </Button>
                 </div>
                 <p className="text-xs text-muted-foreground">
@@ -466,7 +450,7 @@ export default function ExperimentEditor() {
               className="flex items-center gap-2 text-sm text-muted-foreground border rounded-md px-2 py-1"
               data-testid="stat-visitors"
             >
-              <IconUsers className="h-4 w-4" />
+              <Users className="h-4 w-4" />
               <span className="font-medium text-foreground">
                 {experiment.unique_visitors || 0}
               </span>
@@ -508,7 +492,7 @@ export default function ExperimentEditor() {
                     data-testid={`badge-allocation-${variant.slug}`}
                   >
                     {variant.allocation}%
-                    <IconPencil className="h-2.5 w-2.5" />
+                    <Pencil className="h-2.5 w-2.5" />
                   </span>
                 </Button>
               ))}
@@ -519,7 +503,7 @@ export default function ExperimentEditor() {
               onClick={() => setTargetingDialogOpen(true)}
               data-testid="button-targeting"
             >
-              <IconTarget className="h-4 w-4 mr-1" />
+              <Target className="h-4 w-4 mr-1" />
               Targeting
             </Button>
             
@@ -699,7 +683,7 @@ export default function ExperimentEditor() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <IconTarget className="h-4 w-4" />
+              <Target className="h-4 w-4" />
               Targeting Rules
             </DialogTitle>
             <DialogDescription>
@@ -710,7 +694,7 @@ export default function ExperimentEditor() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
-                  <IconWorld className="h-4 w-4" />
+                  <Globe className="h-4 w-4" />
                   Regions
                 </Label>
                 <div className="flex flex-wrap gap-2">
@@ -740,7 +724,7 @@ export default function ExperimentEditor() {
 
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
-                  <IconDeviceMobile className="h-4 w-4" />
+                  <Smartphone className="h-4 w-4" />
                   Devices
                 </Label>
                 <div className="flex gap-2">
@@ -765,8 +749,8 @@ export default function ExperimentEditor() {
                       }}
                       data-testid={`button-device-${device}`}
                     >
-                      {device === "mobile" && <IconDeviceMobile className="h-3 w-3 mr-1" />}
-                      {device === "desktop" && <IconDeviceDesktop className="h-3 w-3 mr-1" />}
+                      {device === "mobile" && <Smartphone className="h-3 w-3 mr-1" />}
+                      {device === "desktop" && <Monitor className="h-3 w-3 mr-1" />}
                       {device.charAt(0).toUpperCase() + device.slice(1)}
                     </Button>
                   ))}
@@ -778,7 +762,7 @@ export default function ExperimentEditor() {
 
             <div className="space-y-2">
               <Label className="flex items-center gap-2">
-                <IconMapPin className="h-4 w-4" />
+                <MapPin className="h-4 w-4" />
                 Campus Locations
               </Label>
               <TagInput

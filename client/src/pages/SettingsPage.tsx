@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { ArrowLeft, CircleCheck, CircleX, FileCode, Info, Languages, Loader2, Play, Plus, Save, Star, Trash2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -8,21 +9,6 @@ import { Badge } from "@/components/ui/badge";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
-import {
-  IconArrowLeft,
-  IconLanguage,
-  IconPlus,
-  IconTrash,
-  IconStar,
-  IconStarFilled,
-  IconDeviceFloppy,
-  IconLoader2,
-  IconScript,
-  IconPlayerPlay,
-  IconInfoCircle,
-  IconCircleCheck,
-  IconCircleX,
-} from "@tabler/icons-react";
 
 interface LocaleEntry {
   code: string;
@@ -149,7 +135,7 @@ export default function SettingsPage() {
         <div className="flex items-center gap-3 mb-6">
           <Link href="/private/diagnostics">
             <Button variant="ghost" size="icon" data-testid="button-back-settings">
-              <IconArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
           <div>
@@ -161,7 +147,7 @@ export default function SettingsPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between gap-2 pb-4">
             <div className="flex items-center gap-2">
-              <IconLanguage className="h-5 w-5 text-muted-foreground" />
+              <Languages className="h-5 w-5 text-muted-foreground" />
               <CardTitle className="text-base">Internationalization</CardTitle>
             </div>
             <Button
@@ -171,9 +157,9 @@ export default function SettingsPage() {
               data-testid="button-save-locales"
             >
               {saving ? (
-                <IconLoader2 className="h-4 w-4 mr-1.5 animate-spin" />
+                <Loader2 className="h-4 w-4 mr-1.5 animate-spin" />
               ) : (
-                <IconDeviceFloppy className="h-4 w-4 mr-1.5" />
+                <Save className="h-4 w-4 mr-1.5" />
               )}
               Save
             </Button>
@@ -181,7 +167,7 @@ export default function SettingsPage() {
           <CardContent className="space-y-4">
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
-                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
               </div>
             ) : (
               <>
@@ -203,7 +189,7 @@ export default function SettingsPage() {
                       <span className="text-sm flex-1">{locale.label}</span>
                       {locale.code === defaultLocale ? (
                         <Badge variant="secondary" className="gap-1" data-testid={`badge-default-${locale.code}`}>
-                          <IconStarFilled className="h-3 w-3" />
+                          <Star className="fill-current h-3 w-3" />
                           Default
                         </Badge>
                       ) : (
@@ -214,7 +200,7 @@ export default function SettingsPage() {
                           title="Set as default"
                           data-testid={`button-set-default-${locale.code}`}
                         >
-                          <IconStar className="h-4 w-4 text-muted-foreground" />
+                          <Star className="h-4 w-4 text-muted-foreground" />
                         </Button>
                       )}
                       <Button
@@ -225,7 +211,7 @@ export default function SettingsPage() {
                         title="Remove locale"
                         data-testid={`button-remove-locale-${locale.code}`}
                       >
-                        <IconTrash className="h-4 w-4 text-muted-foreground" />
+                        <Trash2 className="h-4 w-4 text-muted-foreground" />
                       </Button>
                     </div>
                   ))}
@@ -259,7 +245,7 @@ export default function SettingsPage() {
                     disabled={!newCode.trim() || !newLabel.trim()}
                     data-testid="button-add-locale"
                   >
-                    <IconPlus className="h-4 w-4 mr-1.5" />
+                    <Plus className="h-4 w-4 mr-1.5" />
                     Add
                   </Button>
                 </div>
@@ -270,13 +256,13 @@ export default function SettingsPage() {
 
         <Card>
           <CardHeader className="flex flex-row items-center gap-2 pb-4">
-            <IconScript className="h-5 w-5 text-muted-foreground" />
+            <FileCode className="h-5 w-5 text-muted-foreground" />
             <CardTitle className="text-base">Migrations</CardTitle>
           </CardHeader>
           <CardContent>
             {migrationsLoading ? (
               <div className="flex items-center justify-center py-8">
-                <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
               </div>
             ) : !migrations || migrations.length === 0 ? (
               <p className="text-sm text-muted-foreground py-4 text-center">No migration scripts found.</p>
@@ -298,8 +284,8 @@ export default function SettingsPage() {
                           </code>
                           {result && (
                             result.success
-                              ? <IconCircleCheck className="h-4 w-4 text-green-500 shrink-0" />
-                              : <IconCircleX className="h-4 w-4 text-destructive shrink-0" />
+                              ? <CircleCheck className="h-4 w-4 text-green-500 shrink-0" />
+                              : <CircleX className="h-4 w-4 text-destructive shrink-0" />
                           )}
                           <Popover>
                             <PopoverTrigger asChild>
@@ -309,7 +295,7 @@ export default function SettingsPage() {
                                 title="About this migration"
                                 data-testid={`button-info-migration-${migration.filename}`}
                               >
-                                <IconInfoCircle className="h-4 w-4 text-muted-foreground" />
+                                <Info className="h-4 w-4 text-muted-foreground" />
                               </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-72 text-sm" side="left" align="start">
@@ -326,8 +312,8 @@ export default function SettingsPage() {
                             data-testid={`button-run-migration-${migration.filename}`}
                           >
                             {running
-                              ? <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground" />
-                              : <IconPlayerPlay className="h-4 w-4 text-muted-foreground" />
+                              ? <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                              : <Play className="h-4 w-4 text-muted-foreground" />
                             }
                           </Button>
                         </div>

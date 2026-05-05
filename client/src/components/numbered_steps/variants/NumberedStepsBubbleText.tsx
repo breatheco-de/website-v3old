@@ -1,8 +1,8 @@
 
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 import type { NumberedStepsBubbleTextSection } from "@shared/schema";
 import { Card, CardContent } from "@/components/ui/card";
-import { IconChevronDown } from "@tabler/icons-react";
 
 interface StepNumberProps {
   index: number;
@@ -117,7 +117,7 @@ export default function NumberedStepsBubbleText({ data }: NumberedStepsBubbleTex
                             {step.title}
                           </h3>
                         )}
-                        <IconChevronDown 
+                        <ChevronDown 
                           className={`w-5 h-5 text-muted-foreground transition-transform duration-200 flex-shrink-0 ${
                             expandedCard === index ? 'rotate-180' : ''
                           }`}

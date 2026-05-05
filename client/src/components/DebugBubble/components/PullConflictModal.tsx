@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { IconAlertTriangle, IconFile, IconArrowUp, IconCloudDownload } from "@tabler/icons-react";
+import { AlertTriangle, ArrowUp, CloudDownload, File } from "lucide-react";
 
 interface PullConflictModalProps {
   open: boolean;
@@ -33,7 +33,7 @@ export function PullConflictModal(props: PullConflictModalProps) {
         <DialogHeader>
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-full bg-amber-100 dark:bg-amber-900/30">
-              <IconAlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+              <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
             </div>
             <div>
               <DialogTitle>Conflicting Files Detected</DialogTitle>
@@ -49,7 +49,7 @@ export function PullConflictModal(props: PullConflictModalProps) {
             <div className="p-2 space-y-1">
               {pullConflictFiles.map((file, idx) => (
                 <div key={idx} className="flex items-center gap-2 px-2 py-1.5 text-sm">
-                  <IconFile className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <File className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                   <span 
                     className="font-mono text-xs truncate" 
                     title={file}
@@ -79,7 +79,7 @@ export function PullConflictModal(props: PullConflictModalProps) {
             onClick={onCommitFirst}
             data-testid="button-commit-first"
           >
-            <IconArrowUp className="h-4 w-4 mr-2" />
+            <ArrowUp className="h-4 w-4 mr-2" />
             Commit First
           </Button>
           <Button
@@ -87,7 +87,7 @@ export function PullConflictModal(props: PullConflictModalProps) {
             onClick={onPullAnyway}
             data-testid="button-pull-anyway"
           >
-            <IconCloudDownload className="h-4 w-4 mr-2" />
+            <CloudDownload className="h-4 w-4 mr-2" />
             Pull Anyway
           </Button>
         </DialogFooter>

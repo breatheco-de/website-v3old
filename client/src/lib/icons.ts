@@ -3,15 +3,16 @@
  * 
  * This utility provides a centralized way to render icons from:
  * 1. Custom icons (Rigobot, etc.) - checked first
- * 2. Tabler icons - fallback
+ * 2. Lucide icons - fallback
  * 
  * Usage:
  *   import { getIcon, getAllIconNames } from "@/lib/icons";
+import { Briefcase } from "lucide-react";
  *   const IconComponent = getIcon("Rigobot"); // Custom icon
- *   const IconComponent = getIcon("Rocket");  // Tabler icon
+ *   const IconComponent = getIcon("Rocket");  // Lucide icon
  */
 
-import * as TablerIcons from "@tabler/icons-react";
+import * as LucideIcons from "lucide-react";
 import { getCustomIcon } from "@/components/custom-icons";
 
 // Custom icon names available (from custom-icons/index.ts)
@@ -40,61 +41,197 @@ export const CUSTOM_ICON_NAMES = [
   "Target",
 ];
 
-// Common Tabler icons for the picker (curated list)
+// Mapping from old Tabler-style names (Icon-prefixed) to Lucide names
+// Used for backward compatibility when YAML data contains Tabler-style icon names
+const TABLER_TO_LUCIDE: Record<string, string> = {
+  "IconRocket": "Rocket",
+  "IconUsers": "Users",
+  "Briefcase": "Briefcase",
+  "IconShield": "Shield",
+  "IconMinus": "Minus",
+  "IconHeart": "Heart",
+  "IconHome": "Home",
+  "IconMap": "Map",
+  "IconGlobe": "Globe",
+  "IconDownload": "Download",
+  "IconShare": "Share2",
+  "IconLock": "Lock",
+  "IconLockOpen": "LockOpen",
+  "IconKey": "Key",
+  "IconUserPlus": "UserPlus",
+  "IconUserCheck": "UserCheck",
+  "IconCreditCard": "CreditCard",
+  "IconWallet": "Wallet",
+  "IconCash": "Banknote",
+  "IconCoin": "Coins",
+  "IconCurrency": "DollarSign",
+  "IconCurrencyDollar": "DollarSign",
+  "IconCurrencyEuro": "Euro",
+  "IconReceipt": "Receipt",
+  "IconCalculator": "Calculator",
+  "IconChart": "BarChart2",
+  "IconChartBar": "BarChart2",
+  "IconChartLine": "LineChart",
+  "IconChartPie": "PieChart",
+  "IconTrendingDown": "TrendingDown",
+  "IconTarget": "Target",
+  "IconAward": "Trophy",
+  "IconTrophy": "Trophy",
+  "IconMedal": "Medal",
+  "IconCertificate": "Award",
+  "IconBadge": "Badge",
+  "IconBookmark": "Bookmark",
+  "IconTags": "Tags",
+  "IconFileText": "FileText",
+  "IconClipboard": "Clipboard",
+  "IconNotes": "NotebookPen",
+  "IconArchive": "Archive",
+  "IconRotate": "RotateCw",
+  "IconRepeat": "Repeat",
+  "IconMenu": "Menu",
+  "IconSort": "ArrowUpDown",
+  "IconZoomIn": "ZoomIn",
+  "IconZoomOut": "ZoomOut",
+  "IconMaximize": "Maximize2",
+  "IconMinimize": "Minimize2",
+  "IconFullscreen": "Maximize",
+  "IconMessage": "MessageSquare",
+  "IconMessages": "MessagesSquare",
+  "IconBell": "Bell",
+  "IconBellRinging": "BellRing",
+  "IconHelp": "HelpCircle",
+  "IconBulb": "Lightbulb",
+  "IconLightbulb": "Lightbulb",
+  "IconFlame": "Flame",
+  "IconBolt": "Zap",
+  "IconZap": "Zap",
+  "IconServer": "Server",
+  "IconDevices": "Laptop",
+  "IconDeviceTablet": "Tablet",
+  "IconHeadphones": "Headphones",
+  "IconHeadset": "Headset",
+  "IconMicrophone": "Mic",
+  "IconVolume": "Volume2",
+  "IconVolumeOff": "VolumeX",
+  "IconWifi": "Wifi",
+  "IconSun": "Sun",
+  "IconMoon": "Moon",
+  "IconSchool": "School",
+  "IconNotebook": "Notebook",
+  "IconBackpack": "Backpack",
+  "IconGraduationCap": "GraduationCap",
+  "IconRobot": "Bot",
+  "IconActivity": "Activity",
+  "IconPulse": "Activity",
+  "IconApi": "Webhook",
+  "IconBrandPython": "Code",
+  "IconBrandJavascript": "Code",
+  "IconBrandTypescript": "Code",
+  "IconBrandHtml5": "Code",
+  "IconBrandCss3": "Code",
+  "IconBrandReact": "Code",
+  "IconBrandNextjs": "Code",
+  "IconBrandNodejs": "Server",
+  "IconBrandNpm": "Package",
+  "IconBrandBun": "Package",
+  "IconBrandTailwind": "Palette",
+  "IconBrandBootstrap": "Code",
+  "IconBrandSass": "Code",
+  "IconBrandVue": "Code",
+  "IconBrandAngular": "Code",
+  "IconBrandSvelte": "Code",
+  "IconBrandDeno": "Server",
+  "IconBrandRust": "Code",
+  "IconBrandGolang": "Code",
+  "IconBrandSwift": "Code",
+  "IconBrandKotlin": "Code",
+  "IconBrandPhp": "Code",
+  "IconBrandLaravel": "Code",
+  "IconBrandDjango": "Code",
+  "IconBrandFlask": "Code",
+  "IconBrandOpenai": "Sparkles",
+  "IconBrandAws": "Cloud",
+  "IconBrandAzure": "Cloud",
+  "IconBrandGoogleCloud": "Cloud",
+  "IconBrandFirebase": "Flame",
+  "IconBrandVercel": "Globe",
+  "IconBrandCloudflare": "Shield",
+  "IconBrandDigitalocean": "Cloud",
+  "IconBrandMongodb": "Database",
+  "IconBrandMysql": "Database",
+  "IconBrandSupabase": "Database",
+  "IconBrandPrisma": "Database",
+  "IconBrandGitlab": "GitBranch",
+  "IconBrandBitbucket": "GitBranch",
+  "IconBrandGit": "Git",
+  "IconBrandDocker": "Container",
+  "IconBrandKubernetes": "Cloud",
+  "IconBrandTerraform": "Layers",
+  "IconBrandVscode": "Code",
+  "IconBrandFigma": "Figma",
+  "IconBrandSketch": "PenTool",
+  "IconBrandNotion": "FileText",
+  "IconBrandTwitter": "Twitter",
+  "IconBrandX": "X",
+  "IconBrandFacebook": "Facebook",
+  "IconBrandInstagram": "Instagram",
+  "IconBrandYoutube": "Youtube",
+  "IconBrandTiktok": "Video",
+  "IconBrandDiscord": "MessageCircle",
+  "IconBrandSlack": "MessageSquare",
+  "IconBrandZoom": "Video",
+  "IconBrandTelegram": "Send",
+  "IconBrandWhatsapp": "MessageCircle",
+  "IconBrandSpotify": "Music",
+  "IconBrandReddit": "MessageSquare",
+  "IconBrandGoogle": "Globe",
+  "IconBrandApple": "Apple",
+  "IconBrandMicrosoft": "Monitor",
+  "IconBrandMeta": "Globe",
+  "IconBrandAmazon": "ShoppingCart",
+  "IconBrandNetflix": "Tv",
+  "IconBrandPaypal": "CreditCard",
+  "IconBrandStripe": "CreditCard",
+  "IconBrandShopify": "ShoppingBag",
+  "IconBrandWordpress": "Globe",
+  "IconBrandMedium": "FileText",
+};
+
+// Curated list of Lucide icon names for the picker
 export const TABLER_ICON_NAMES = [
   // General UI icons
-  "IconRocket", "IconUsers", "IconBriefcase", "IconShield", "IconCheck",
-  "IconX", "IconPlus", "IconMinus", "IconStar", "IconHeart",
-  "IconHome", "IconSettings", "IconSearch", "IconMail", "IconPhone",
-  "IconCalendar", "IconClock", "IconMap", "IconMapPin", "IconGlobe",
-  "IconWorld", "IconSend", "IconDownload", "IconUpload", "IconShare",
-  "IconLink", "IconExternalLink", "IconEye", "IconEyeOff", "IconLock",
-  "IconLockOpen", "IconKey", "IconUser", "IconUserPlus", "IconUserCheck",
-  "IconCreditCard", "IconWallet", "IconCash", "IconCoin", "IconCurrency",
-  "IconCurrencyDollar", "IconCurrencyEuro", "IconReceipt", "IconCalculator", "IconChart",
-  "IconChartBar", "IconChartLine", "IconChartPie", "IconTrendingUp", "IconTrendingDown",
-  "IconTarget", "IconAward", "IconTrophy", "IconMedal", "IconCertificate",
-  "IconBadge", "IconFlag", "IconBookmark", "IconTag", "IconTags",
-  "IconFolder", "IconFile", "IconFileText", "IconClipboard", "IconNotes",
-  "IconPencil", "IconEdit", "IconTrash", "IconArchive", "IconRefresh",
-  "IconRotate", "IconRepeat", "IconArrowUp", "IconArrowDown", "IconArrowLeft",
-  "IconArrowRight", "IconChevronUp", "IconChevronDown", "IconChevronLeft", "IconChevronRight",
-  "IconMenu", "IconDotsVertical", "IconDots", "IconFilter", "IconSort",
-  "IconZoomIn", "IconZoomOut", "IconMaximize", "IconMinimize", "IconFullscreen",
-  "IconCode", "IconTerminal",
-  "IconMessage", "IconMessageCircle", "IconMessages", "IconBell", "IconBellRinging",
-  "IconAlertCircle", "IconAlertTriangle", "IconInfoCircle", "IconHelp", "IconQuestionMark",
-  "IconBulb", "IconLightbulb", "IconFlame", "IconBolt", "IconZap",
-  "IconCloud", "IconCloudDownload", "IconCloudUpload", "IconDatabase", "IconServer",
-  "IconCpu", "IconDevices", "IconDeviceDesktop", "IconDeviceMobile", "IconDeviceTablet",
-  "IconHeadphones", "IconHeadset", "IconMicrophone", "IconVolume", "IconVolumeOff",
-  "IconWifi", "IconSun", "IconMoon",
-  "IconSchool", "IconBook", "IconBooks", "IconNotebook", "IconBackpack",
-  "IconGraduationCap", "IconRobot", "IconBrain", "IconActivity", "IconPulse",
-  "IconApi", "IconSparkles", "IconWand",
-  // Tech brand icons
-  "IconBrandPython", "IconBrandJavascript", "IconBrandTypescript", "IconBrandHtml5", "IconBrandCss3",
-  "IconBrandReact", "IconBrandNextjs", "IconBrandNodejs", "IconBrandNpm", "IconBrandBun",
-  "IconBrandTailwind", "IconBrandBootstrap", "IconBrandSass", "IconBrandVue", "IconBrandAngular",
-  "IconBrandSvelte", "IconBrandDeno", "IconBrandRust", "IconBrandGolang", "IconBrandSwift",
-  "IconBrandKotlin", "IconBrandPhp", "IconBrandLaravel", "IconBrandDjango", "IconBrandFlask",
-  // AI & Cloud brands
-  "IconBrandOpenai", "IconBrandAws", "IconBrandAzure", "IconBrandGoogleCloud",
-  "IconBrandFirebase", "IconBrandVercel", "IconBrandCloudflare", "IconBrandDigitalocean",
-  // Database brands
-  "IconBrandMongodb", "IconBrandMysql", "IconBrandSupabase", "IconBrandPrisma",
-  // Tools & DevOps brands
-  "IconBrandGithub", "IconBrandGitlab", "IconBrandBitbucket", "IconBrandGit",
-  "IconBrandDocker", "IconBrandKubernetes", "IconBrandTerraform",
-  "IconBrandVscode", "IconBrandFigma", "IconBrandSketch", "IconBrandNotion",
-  // Social & Communication brands
-  "IconBrandLinkedin", "IconBrandTwitter", "IconBrandX", "IconBrandFacebook", "IconBrandInstagram",
-  "IconBrandYoutube", "IconBrandTiktok", "IconBrandDiscord", "IconBrandSlack", "IconBrandZoom",
-  "IconBrandTelegram", "IconBrandWhatsapp", "IconBrandSpotify", "IconBrandReddit",
-  // Company brands
-  "IconBrandGoogle", "IconBrandApple", "IconBrandMicrosoft", "IconBrandMeta",
-  "IconBrandAmazon", "IconBrandNetflix", "IconBrandPaypal", "IconBrandStripe",
-  "IconBrandShopify", "IconBrandWordpress", "IconBrandMedium",
+  "Rocket", "Users", "Briefcase", "Shield", "Check",
+  "X", "Plus", "Minus", "Star", "Heart",
+  "Home", "Settings", "Search", "Mail", "Phone",
+  "Calendar", "Clock", "Map", "MapPin", "Globe",
+  "Send", "Download", "Upload", "Share2",
+  "Link", "ExternalLink", "Eye", "EyeOff", "Lock",
+  "LockOpen", "Key", "User", "UserPlus", "UserCheck",
+  "CreditCard", "Wallet", "Banknote", "Coins", "DollarSign",
+  "Euro", "Receipt", "Calculator",
+  "BarChart2", "LineChart", "PieChart", "TrendingUp", "TrendingDown",
+  "Target", "Trophy", "Medal", "Award",
+  "Badge", "Flag", "Bookmark", "Tag", "Tags",
+  "Folder", "File", "FileText", "Clipboard", "NotebookPen",
+  "Pencil", "Trash2", "Archive", "RefreshCw",
+  "RotateCw", "Repeat", "ArrowUp", "ArrowDown", "ArrowLeft",
+  "ArrowRight", "ChevronUp", "ChevronDown", "ChevronLeft", "ChevronRight",
+  "Menu", "MoreVertical", "MoreHorizontal", "Filter", "ArrowUpDown",
+  "ZoomIn", "ZoomOut", "Maximize2", "Minimize2", "Maximize",
+  "Code", "Terminal",
+  "MessageSquare", "MessageCircle", "MessagesSquare", "Bell", "BellRing",
+  "AlertCircle", "AlertTriangle", "Info", "HelpCircle",
+  "Lightbulb", "Flame", "Zap",
+  "Cloud", "CloudDownload", "CloudUpload", "Database", "Server",
+  "Cpu", "Laptop", "Monitor", "Smartphone", "Tablet",
+  "Headphones", "Mic", "Volume2", "VolumeX",
+  "Wifi", "Sun", "Moon",
+  "School", "Book", "BookOpen", "Notebook", "Backpack",
+  "GraduationCap", "Bot", "Brain", "Activity",
+  "Webhook", "Sparkles", "Wand2",
+  // Brand-like icons from Lucide
+  "Github", "Linkedin", "Twitter", "Youtube", "Facebook",
+  "Instagram", "Figma", "GitBranch", "Package",
 ];
 
 // Type for icon components
@@ -109,53 +246,52 @@ type IconComponent = React.ComponentType<{
 
 /**
  * Normalize icon name to handle various formats:
- * - "rocket" -> "IconRocket" (for Tabler)
- * - "Rocket" -> "IconRocket" (for Tabler) or "Rocket" (for custom)
- * - "IconRocket" -> "IconRocket" (already normalized)
+ * - "rocket" -> "Rocket" (Lucide PascalCase)
+ * - "Rocket" -> "Rocket" (already correct for Lucide)
+ * - "IconRocket" -> looks up in TABLER_TO_LUCIDE map -> "Rocket"
  * - "Rigobot" -> "Rigobot" (custom icon)
  */
-function normalizeIconName(name: string): { normalized: string; isTabler: boolean } {
-  if (!name) return { normalized: "", isTabler: false };
+function normalizeIconName(name: string): { normalized: string; isCustom: boolean } {
+  if (!name) return { normalized: "", isCustom: false };
   
   // Check if it's a known custom icon first
   const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
   if (CUSTOM_ICON_NAMES.includes(capitalizedName)) {
-    return { normalized: capitalizedName, isTabler: false };
+    return { normalized: capitalizedName, isCustom: true };
   }
   
-  // For Tabler icons, ensure "Icon" prefix
+  // Handle old Tabler-style "Icon" prefixed names
   if (name.startsWith("Icon")) {
-    return { normalized: name, isTabler: true };
+    const lucideName = TABLER_TO_LUCIDE[name];
+    if (lucideName) return { normalized: lucideName, isCustom: false };
+    // Try stripping the "Icon" prefix directly
+    return { normalized: name.slice(4), isCustom: false };
   }
   
-  // Capitalize and add Icon prefix for Tabler
-  return { 
-    normalized: `Icon${capitalizedName}`,
-    isTabler: true 
-  };
+  // Capitalize for Lucide (PascalCase)
+  return { normalized: capitalizedName, isCustom: false };
 }
 
 /**
  * Get an icon component by name.
- * Checks custom icons first, then falls back to Tabler.
+ * Checks custom icons first, then falls back to Lucide.
  * 
- * @param name Icon name (e.g., "Rigobot", "rocket", "IconRocket")
+ * @param name Icon name (e.g., "Rigobot", "rocket", "Rocket", "IconRocket")
  * @returns Icon component or null if not found
  */
 export function getIcon(name: string): IconComponent | null {
   if (!name) return null;
   
-  const { normalized, isTabler } = normalizeIconName(name);
+  const { normalized, isCustom } = normalizeIconName(name);
   
-  if (!isTabler) {
-    // Try custom icon
+  if (isCustom) {
     const customIcon = getCustomIcon(normalized);
     if (customIcon) return customIcon as IconComponent;
   }
   
-  // Try Tabler icon
-  const tablerIcon = (TablerIcons as unknown as Record<string, IconComponent>)[normalized];
-  if (tablerIcon) return tablerIcon;
+  // Try Lucide icon
+  const lucideIcon = (LucideIcons as unknown as Record<string, IconComponent>)[normalized];
+  if (lucideIcon) return lucideIcon;
   
   // Last resort: try custom icon even for unknown names
   const fallbackCustom = getCustomIcon(name);
@@ -165,25 +301,24 @@ export function getIcon(name: string): IconComponent | null {
 }
 
 /**
- * Get all Tabler icon names dynamically from the library.
- * This provides access to ALL 5000+ Tabler icons.
+ * Get all Lucide icon names dynamically from the library.
  */
 export function getAllTablerIconNames(): string[] {
-  return Object.keys(TablerIcons).filter(
-    (key) => key.startsWith("Icon") && key !== "Icon"
+  return Object.keys(LucideIcons).filter(
+    (key) => typeof (LucideIcons as Record<string, unknown>)[key] === "function" && /^[A-Z]/.test(key)
   );
 }
 
 /**
  * Get all available icon names for the picker.
- * Returns custom icons first, then ALL Tabler icons.
+ * Returns custom icons first, then Lucide icons.
  */
 export function getAllIconNames(): string[] {
   return [...CUSTOM_ICON_NAMES, ...getAllTablerIconNames()];
 }
 
 /**
- * Get display name for an icon (without "Icon" prefix for Tabler)
+ * Get display name for an icon
  */
 export function getIconDisplayName(name: string): string {
   if (name.startsWith("Icon")) {

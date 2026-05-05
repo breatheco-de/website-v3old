@@ -1,10 +1,6 @@
 
 import { useState, useCallback, useEffect, useRef, useMemo } from "react";
-import {
-  IconChevronLeft,
-  IconChevronRight,
-  IconExternalLink,
-} from "@tabler/icons-react";
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { UniversalImage } from "@/components/UniversalImage";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -253,7 +249,7 @@ function SlideRightCard({
                   )}
                   data-testid={ref.url ? `link-press-ref-${i}` : `text-press-ref-${i}`}
                 >
-                  <IconExternalLink className="w-4 h-4 flex-shrink-0 mt-0.5 text-foreground" />
+                  <ExternalLink className="w-4 h-4 flex-shrink-0 mt-0.5 text-foreground" />
                   <div className="flex flex-col">
                     {ref.source && (
                       <span className="text-sm font-bold text-foreground">
@@ -423,7 +419,7 @@ export default function PartnershipCarouselSplitCard({
           disabled={isTransitioning}
           data-testid="button-carousel-prev"
         >
-          <IconChevronLeft className="w-5 h-5" />
+          <ChevronLeft className="w-5 h-5" />
         </Button>
 
         <div
@@ -453,7 +449,7 @@ export default function PartnershipCarouselSplitCard({
           disabled={isTransitioning}
           data-testid="button-carousel-next"
         >
-          <IconChevronRight className="w-5 h-5" />
+          <ChevronRight className="w-5 h-5" />
         </Button>
       </div>
     );

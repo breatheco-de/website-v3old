@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
+import { ArrowDown, ArrowUp, Check, ChevronDown, ExternalLink, Image, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { IconExternalLink, IconPhoto, IconCheck, IconX, IconArrowUp, IconArrowDown, IconChevronDown } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -108,12 +108,12 @@ function CellValue({ value, type, hasFunction }: { value: unknown; type: string;
       return (
         <a href={str} target="_blank" rel="noopener noreferrer" className="text-foreground underline inline-flex items-center gap-1 text-sm">
           Link
-          <IconExternalLink className="w-3 h-3" />
+          <ExternalLink className="w-3 h-3" />
         </a>
       );
     }
     if (type === "boolean") {
-      return value ? <IconCheck className="w-4 h-4 text-green-600" /> : <IconX className="w-4 h-4 text-muted-foreground" />;
+      return value ? <Check className="w-4 h-4 text-green-600" /> : <X className="w-4 h-4 text-muted-foreground" />;
     }
     return <span className={type === "number" ? "tabular-nums" : "line-clamp-2"}>{str}</span>;
   }
@@ -125,7 +125,7 @@ function CellValue({ value, type, hasFunction }: { value: unknown; type: string;
           {typeof value === "string" && value ? (
             <img src={value} alt="" className="w-8 h-8 rounded object-cover" loading="lazy" />
           ) : (
-            <IconPhoto className="w-5 h-5 text-muted-foreground" />
+            <Image className="w-5 h-5 text-muted-foreground" />
           )}
         </div>
       );
@@ -138,16 +138,16 @@ function CellValue({ value, type, hasFunction }: { value: unknown; type: string;
           className="text-foreground underline inline-flex items-center gap-1 text-sm"
         >
           Link
-          <IconExternalLink className="w-3 h-3" />
+          <ExternalLink className="w-3 h-3" />
         </a>
       ) : (
         <span className="text-muted-foreground">-</span>
       );
     case "boolean":
       return value ? (
-        <IconCheck className="w-4 h-4 text-green-600" />
+        <Check className="w-4 h-4 text-green-600" />
       ) : (
-        <IconX className="w-4 h-4 text-muted-foreground" />
+        <X className="w-4 h-4 text-muted-foreground" />
       );
     case "number":
       return <span className="tabular-nums">{String(value)}</span>;
@@ -165,7 +165,7 @@ function CellValue({ value, type, hasFunction }: { value: unknown; type: string;
 
 function SortIcon({ sortKey, sortDir, colKey }: { sortKey: string | null; sortDir: "asc" | "desc"; colKey: string }) {
   if (sortKey !== colKey) return null;
-  return sortDir === "asc" ? <IconArrowUp className="w-3 h-3" /> : <IconArrowDown className="w-3 h-3" />;
+  return sortDir === "asc" ? <ArrowUp className="w-3 h-3" /> : <ArrowDown className="w-3 h-3" />;
 }
 
 function TableHeader({
@@ -260,7 +260,7 @@ function DefaultTableBody({
               <Button variant="outline" size="sm" asChild data-testid={`button-action-${idx}`}>
                 <a href={resolveTemplate(action.href, row)} target="_blank" rel="noopener noreferrer">
                   {action.label}
-                  <IconExternalLink className="w-3 h-3 ml-1" />
+                  <ExternalLink className="w-3 h-3 ml-1" />
                 </a>
               </Button>
             </td>
@@ -315,7 +315,7 @@ function CardsLayout({
                       <Button variant="outline" size="sm" asChild data-testid={`button-action-${idx}`}>
                         <a href={resolveTemplate(action.href, row)} target="_blank" rel="noopener noreferrer">
                           {action.label}
-                          <IconExternalLink className="w-3 h-3 ml-1" />
+                          <ExternalLink className="w-3 h-3 ml-1" />
                         </a>
                       </Button>
                     </td>
@@ -353,7 +353,7 @@ function CardsLayout({
                   <Button variant="outline" size="sm" className="w-full" asChild data-testid={`button-action-${idx}`}>
                     <a href={resolveTemplate(action.href, row)} target="_blank" rel="noopener noreferrer">
                       {action.label}
-                      <IconExternalLink className="w-3 h-3 ml-1" />
+                      <ExternalLink className="w-3 h-3 ml-1" />
                     </a>
                   </Button>
                 </div>
@@ -454,7 +454,7 @@ function ComparisonLayout({
                     <Button variant="outline" size="sm" asChild data-testid={`button-action-${idx}`}>
                       <a href={resolveTemplate(action.href, row)} target="_blank" rel="noopener noreferrer">
                         {action.label}
-                        <IconExternalLink className="w-3 h-3 ml-1" />
+                        <ExternalLink className="w-3 h-3 ml-1" />
                       </a>
                     </Button>
                   </div>
@@ -507,7 +507,7 @@ function ComparisonLayout({
                           <Button variant="outline" size="sm" className="w-full" asChild data-testid={`button-action-${idx}`}>
                             <a href={resolveTemplate(action.href, row)} target="_blank" rel="noopener noreferrer">
                               {action.label}
-                              <IconExternalLink className="w-3 h-3 ml-1" />
+                              <ExternalLink className="w-3 h-3 ml-1" />
                             </a>
                           </Button>
                         </div>
@@ -554,7 +554,7 @@ function TableFooter({
           data-testid="button-toggle-rows"
         >
           {expanded ? "Show less" : `Show all ${totalCount}`}
-          <IconChevronDown className={`w-4 h-4 ml-1 transition-transform ${expanded ? "rotate-180" : ""}`} />
+          <ChevronDown className={`w-4 h-4 ml-1 transition-transform ${expanded ? "rotate-180" : ""}`} />
         </Button>
       )}
     </div>

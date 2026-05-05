@@ -1,10 +1,6 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
-import {
-  IconChevronLeft,
-  IconChevronRight,
-  IconExternalLink,
-} from "@tabler/icons-react";
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { UniversalImage } from "@/components/UniversalImage";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -106,7 +102,7 @@ function SlideContent({ slide }: { slide: PartnershipSlide }) {
                     <span className="font-medium">{ref.source}:</span>
                   )}
                   <span>{ref.text}</span>
-                  <IconExternalLink className="w-3 h-3 flex-shrink-0" />
+                  <ExternalLink className="w-3 h-3 flex-shrink-0" />
                 </a>
               ) : (
                 <span data-testid={`text-press-ref-${i}`}>
@@ -305,7 +301,7 @@ export default function PartnershipCarouselDefault({ data }: PartnershipCarousel
                 disabled={isTransitioning}
                 data-testid="button-carousel-prev"
               >
-                <IconChevronLeft className="w-5 h-5" />
+                <ChevronLeft className="w-5 h-5" />
               </Button>
 
               <div
@@ -334,7 +330,7 @@ export default function PartnershipCarouselDefault({ data }: PartnershipCarousel
                 disabled={isTransitioning}
                 data-testid="button-carousel-next"
               >
-                <IconChevronRight className="w-5 h-5" />
+                <ChevronRight className="w-5 h-5" />
               </Button>
             </div>
           )}

@@ -1,32 +1,6 @@
 import { useCallback, useState, useEffect, useMemo, useRef } from "react";
+import { AlertTriangle, Check, ChevronDown, CloudUpload, Code, Database, ExternalLink, HelpCircle, Image, Info, Laptop, Link, Unlink, Loader2, MapPin, Monitor, Pencil, Plus, Redo2, RefreshCw, Save, Search, Settings, Smartphone, Trash2, Undo2, Upload, Video, X } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  IconX,
-  IconDeviceFloppy,
-  IconLoader2,
-  IconCode,
-  IconSettings,
-  IconDeviceDesktop,
-  IconDeviceMobile,
-  IconDevices,
-  IconCheck,
-  IconAlertTriangle,
-  IconPlus,
-  IconArrowBackUp,
-  IconArrowForwardUp,
-  IconPhoto,
-  IconChevronDown,
-  IconTrash,
-  IconPencil,
-  IconMapPin,
-  IconExternalLink,
-  IconLink,
-  IconLinkOff,
-  IconInfoCircle,
-  IconRefresh,
-  IconDatabase,
-} from "@tabler/icons-react";
-import { IconQuestionMark } from "@tabler/icons-react";
 import { BindingConfirmDialog } from "./BindingConfirmDialog";
 import { getIcon } from "@/lib/icons";
 import { Button } from "@/components/ui/button";
@@ -84,7 +58,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { IconSearch, IconUpload, IconCloudUpload, IconVideo } from "@tabler/icons-react";
 import CodeMirror from "@uiw/react-codemirror";
 import type { EditorView } from "@codemirror/view";
 import { yaml } from "@codemirror/lang-yaml";
@@ -186,9 +159,9 @@ interface ShowOnPickerProps {
 
 function ShowOnPicker({ value, onChange }: ShowOnPickerProps) {
   const options = [
-    { id: "all", label: "Both", icon: IconDevices },
-    { id: "desktop", label: "Desktop", icon: IconDeviceDesktop },
-    { id: "mobile", label: "Mobile", icon: IconDeviceMobile },
+    { id: "all", label: "Both", icon: Laptop },
+    { id: "desktop", label: "Desktop", icon: Monitor },
+    { id: "mobile", label: "Mobile", icon: Smartphone },
   ];
 
   const currentValue = value || "all";
@@ -286,7 +259,7 @@ function ShowOnLocationsPicker({
     <div className="space-y-2">
       <div className="flex items-center justify-between gap-3">
         <Label className="text-sm font-medium whitespace-nowrap flex items-center gap-1.5">
-          <IconMapPin className="h-3.5 w-3.5" />
+          <MapPin className="h-3.5 w-3.5" />
           Show on locations
         </Label>
         <Popover open={open} onOpenChange={setOpen}>
@@ -297,10 +270,10 @@ function ShowOnLocationsPicker({
               data-testid="button-edit-locations"
             >
               {hasLocations ? (
-                <IconPencil className="h-3.5 w-3.5" />
+                <Pencil className="h-3.5 w-3.5" />
               ) : (
                 <>
-                  <IconPlus className="h-3.5 w-3.5 mr-1" />
+                  <Plus className="h-3.5 w-3.5 mr-1" />
                   <span>Add filter</span>
                 </>
               )}
@@ -309,7 +282,7 @@ function ShowOnLocationsPicker({
           <PopoverContent className="w-72 p-0 z-[10000]" align="end">
             <div className="p-2 border-b">
               <div className="relative">
-                <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
                 <input
                   type="text"
                   placeholder="Search locations..."
@@ -349,7 +322,7 @@ function ShowOnLocationsPicker({
                             {loc.name}, {loc.country}
                           </span>
                           {isSelected && (
-                            <IconCheck className="h-3.5 w-3.5 text-primary flex-shrink-0" />
+                            <Check className="h-3.5 w-3.5 text-primary flex-shrink-0" />
                           )}
                         </button>
                       );
@@ -399,7 +372,7 @@ function ShowOnLocationsPicker({
                   className="ml-0.5 rounded-full p-0.5 hover:bg-muted"
                   data-testid={`button-remove-location-${slug}`}
                 >
-                  <IconX className="h-3 w-3" />
+                  <X className="h-3 w-3" />
                 </button>
               </Badge>
             );
@@ -1742,11 +1715,11 @@ export function SectionEditorPanel({
   // Render icon from name using shared icon utility
   const renderIconByName = useCallback((iconName: string) => {
     if (!iconName) {
-      return <IconQuestionMark className="h-5 w-5 text-muted-foreground" />;
+      return <HelpCircle className="h-5 w-5 text-muted-foreground" />;
     }
     const IconComponent = getIcon(iconName);
     if (!IconComponent) {
-      return <IconQuestionMark className="h-5 w-5 text-muted-foreground" />;
+      return <HelpCircle className="h-5 w-5 text-muted-foreground" />;
     }
     return <IconComponent className="h-5 w-5" />;
   }, []);
@@ -1990,7 +1963,7 @@ export function SectionEditorPanel({
             >
               {bindingGroup ? (
                 <>
-                  <IconLink className="h-4 w-4" />
+                  <Link className="h-4 w-4" />
                   <span
                     className="absolute -top-0.5 -right-0.5 flex items-center justify-center rounded-full bg-amber-400 text-[9px] font-bold text-amber-950 min-w-[16px] px-0.5 leading-none py-0.5"
                     data-testid="badge-binding-count"
@@ -1999,7 +1972,7 @@ export function SectionEditorPanel({
                   </span>
                 </>
               ) : (
-                <IconLinkOff className="h-4 w-4" />
+                <Unlink className="h-4 w-4" />
               )}
             </Button>
           )}
@@ -2011,7 +1984,7 @@ export function SectionEditorPanel({
             title="Deshacer (Ctrl+Z)"
             data-testid="button-undo"
           >
-            <IconArrowBackUp className="h-4 w-4" />
+            <Undo2 className="h-4 w-4" />
           </Button>
           <Button
             size="icon"
@@ -2021,7 +1994,7 @@ export function SectionEditorPanel({
             title="Rehacer (Ctrl+Shift+Z)"
             data-testid="button-redo"
           >
-            <IconArrowForwardUp className="h-4 w-4" />
+            <Redo2 className="h-4 w-4" />
           </Button>
           <Button
             size="icon"
@@ -2029,7 +2002,7 @@ export function SectionEditorPanel({
             onClick={handleClose}
             data-testid="button-close-editor"
           >
-            <IconX className="h-4 w-4" />
+            <X className="h-4 w-4" />
           </Button>
         </div>
       </div>
@@ -2041,7 +2014,7 @@ export function SectionEditorPanel({
           onClick={() => { refetchBinding(); setBindingDialogOpen(true); }}
           data-testid="binding-banner"
         >
-          <IconAlertTriangle className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+          <AlertTriangle className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
           <span className="text-amber-800 dark:text-amber-200">
             Synced with {boundSiblings.length} page{boundSiblings.length > 1 ? "s" : ""}: {boundSiblings.map(s => s.slug).join(", ")}
           </span>
@@ -2056,7 +2029,7 @@ export function SectionEditorPanel({
       >
         <TabsList className="mx-4 mt-2 grid w-auto grid-cols-2">
           <TabsTrigger value="code" className="gap-1.5" data-testid="tab-code">
-            <IconCode className="h-4 w-4" />
+            <Code className="h-4 w-4" />
             Code
           </TabsTrigger>
           <TabsTrigger
@@ -2064,7 +2037,7 @@ export function SectionEditorPanel({
             className="gap-1.5"
             data-testid="tab-props"
           >
-            <IconSettings className="h-4 w-4" />
+            <Settings className="h-4 w-4" />
             Props
           </TabsTrigger>
         </TabsList>
@@ -2106,7 +2079,7 @@ export function SectionEditorPanel({
                 data-testid="panel-db-overrides"
               >
                 <div className="flex items-center gap-2">
-                  <IconDatabase className="h-4 w-4 text-amber-600 dark:text-amber-400 flex-shrink-0" />
+                  <Database className="h-4 w-4 text-amber-600 dark:text-amber-400 flex-shrink-0" />
                   <span className="text-sm font-medium text-amber-800 dark:text-amber-200">
                     Active entry overrides
                   </span>
@@ -2172,8 +2145,8 @@ export function SectionEditorPanel({
                         }}
                       >
                         {resettingField === templateKey
-                          ? <IconLoader2 className="h-3.5 w-3.5 animate-spin" />
-                          : <IconRefresh className="h-3.5 w-3.5" />
+                          ? <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                          : <RefreshCw className="h-3.5 w-3.5" />
                         }
                       </Button>
                     </div>
@@ -2252,7 +2225,7 @@ export function SectionEditorPanel({
                   className="p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg flex items-start gap-2"
                   data-testid="alert-testimonials-edit-info"
                 >
-                  <IconAlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+                  <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
                   <p className="text-xs text-amber-800 dark:text-amber-200">
                     {locale === "es"
                       ? sectionType === "testimonials_grid"
@@ -2347,7 +2320,7 @@ export function SectionEditorPanel({
                     <div className="space-y-2 p-3 rounded-lg border bg-muted/20">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1.5">
-                          <IconExternalLink className="w-3.5 h-3.5 text-muted-foreground" />
+                          <ExternalLink className="w-3.5 h-3.5 text-muted-foreground" />
                           <span className="text-xs font-medium text-foreground">Action configured</span>
                         </div>
                         <Button
@@ -2370,7 +2343,7 @@ export function SectionEditorPanel({
                           }}
                           data-testid="button-remove-action"
                         >
-                          <IconTrash className="w-3.5 h-3.5" />
+                          <Trash2 className="w-3.5 h-3.5" />
                         </Button>
                       </div>
                       <div className="space-y-1.5">
@@ -2452,7 +2425,7 @@ export function SectionEditorPanel({
                       }}
                       data-testid="button-add-action"
                     >
-                      <IconPlus className="h-3.5 w-3.5 mr-1" />
+                      <Plus className="h-3.5 w-3.5 mr-1" />
                       Add Action Button
                     </Button>
                   )}
@@ -2472,7 +2445,7 @@ export function SectionEditorPanel({
                     data-testid="button-table-content-filter"
                   >
                     <div className="flex items-center gap-2 mb-1">
-                      <IconSettings className="h-4 w-4 text-foreground flex-shrink-0" />
+                      <Settings className="h-4 w-4 text-foreground flex-shrink-0" />
                       <span className="text-sm font-medium text-foreground">
                         Content Filter
                       </span>
@@ -2493,7 +2466,7 @@ export function SectionEditorPanel({
                     data-testid="button-table-global-filter"
                   >
                     <div className="flex items-center gap-2 mb-1">
-                      <IconCode className="h-4 w-4 text-foreground flex-shrink-0" />
+                      <Code className="h-4 w-4 text-foreground flex-shrink-0" />
                       <span className="text-sm font-medium text-foreground">
                         Global Filter
                       </span>
@@ -2748,12 +2721,12 @@ export function SectionEditorPanel({
                               className="w-full h-full object-cover"
                             />
                             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                              <IconPhoto className="h-5 w-5 text-white" />
+                              <Image className="h-5 w-5 text-white" />
                             </div>
                           </>
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <IconPhoto className="h-6 w-6 text-muted-foreground" />
+                            <Image className="h-6 w-6 text-muted-foreground" />
                           </div>
                         )}
                       </button>
@@ -2823,7 +2796,7 @@ export function SectionEditorPanel({
                         data-testid={`props-video-${fieldLabel}-trigger`}
                       >
                         <div className="w-10 h-10 rounded-md overflow-hidden bg-muted border flex-shrink-0 flex items-center justify-center">
-                          <IconVideo className={`h-5 w-5 ${currentValue ? "text-primary" : "text-muted-foreground"}`} />
+                          <Video className={`h-5 w-5 ${currentValue ? "text-primary" : "text-muted-foreground"}`} />
                         </div>
                         <div className="flex-1 text-left min-w-0">
                           <span className="text-sm font-medium capitalize block">
@@ -2835,7 +2808,7 @@ export function SectionEditorPanel({
                             </span>
                           )}
                         </div>
-                        <IconChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                        <ChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                       </button>
                     </CollapsibleTrigger>
                     <CollapsibleContent>
@@ -2858,15 +2831,15 @@ export function SectionEditorPanel({
                             {currentValue ? (
                               <>
                                 <div className="w-full h-full flex items-center justify-center bg-muted">
-                                  <IconVideo className="h-6 w-6 text-primary" />
+                                  <Video className="h-6 w-6 text-primary" />
                                 </div>
                                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                  <IconVideo className="h-5 w-5 text-white" />
+                                  <Video className="h-5 w-5 text-white" />
                                 </div>
                               </>
                             ) : (
                               <div className="w-full h-full flex items-center justify-center">
-                                <IconVideo className="h-6 w-6 text-muted-foreground" />
+                                <Video className="h-6 w-6 text-muted-foreground" />
                               </div>
                             )}
                           </button>
@@ -2907,12 +2880,12 @@ export function SectionEditorPanel({
                                     className="w-full h-full object-cover"
                                   />
                                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                    <IconPhoto className="h-4 w-4 text-white" />
+                                    <Image className="h-4 w-4 text-white" />
                                   </div>
                                 </>
                               ) : (
                                 <div className="w-full h-full flex items-center justify-center">
-                                  <IconPhoto className="h-5 w-5 text-muted-foreground" />
+                                  <Image className="h-5 w-5 text-muted-foreground" />
                                 </div>
                               )}
                             </button>
@@ -2929,7 +2902,7 @@ export function SectionEditorPanel({
                                     onClick={() => updateProperty(parentPrefix + "preview_image_url", "")}
                                     data-testid={`props-video-${fieldLabel}-preview-image-clear`}
                                   >
-                                    <IconX className="h-3 w-3" />
+                                    <X className="h-3 w-3" />
                                   </Button>
                                 </div>
                               ) : (
@@ -3284,7 +3257,7 @@ export function SectionEditorPanel({
                         }
                         data-testid={`props-grouped-add-${arrPath}`}
                       >
-                        <IconPlus className="h-4 w-4 mr-1" />
+                        <Plus className="h-4 w-4 mr-1" />
                         Agregar
                       </Button>
                     </div>
@@ -3337,7 +3310,7 @@ export function SectionEditorPanel({
                                 <span className="flex-1 text-left text-sm font-medium truncate">
                                   {itemLabel}
                                 </span>
-                                <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                                <ChevronDown className="h-4 w-4 text-muted-foreground" />
                               </button>
                             </CollapsibleTrigger>
                             <CollapsibleContent>
@@ -3352,7 +3325,7 @@ export function SectionEditorPanel({
                                     }
                                     data-testid={`props-grouped-delete-${arrPath}-${index}`}
                                   >
-                                    <IconTrash className="h-3.5 w-3.5 mr-1" />
+                                    <Trash2 className="h-3.5 w-3.5 mr-1" />
                                     Eliminar
                                   </Button>
                                 </div>
@@ -3479,12 +3452,12 @@ export function SectionEditorPanel({
                                                     className="w-full h-full object-cover"
                                                   />
                                                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                                    <IconPhoto className="h-4 w-4 text-white" />
+                                                    <Image className="h-4 w-4 text-white" />
                                                   </div>
                                                 </>
                                               ) : (
                                                 <div className="w-full h-full flex items-center justify-center">
-                                                  <IconPhoto className="h-5 w-5 text-muted-foreground" />
+                                                  <Image className="h-5 w-5 text-muted-foreground" />
                                                 </div>
                                               )}
                                             </button>
@@ -3821,7 +3794,7 @@ export function SectionEditorPanel({
                                 }
                                 data-testid={`props-nested-add-${resolvedArrPath}`}
                               >
-                                <IconPlus className="h-4 w-4 mr-1" />
+                                <Plus className="h-4 w-4 mr-1" />
                                 Agregar
                               </Button>
                             </div>
@@ -3869,7 +3842,7 @@ export function SectionEditorPanel({
                                         <span className="flex-1 text-left text-xs font-medium truncate">
                                           {itemLabel}
                                         </span>
-                                        <IconChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
+                                        <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
                                       </button>
                                     </CollapsibleTrigger>
                                     <CollapsibleContent>
@@ -3887,7 +3860,7 @@ export function SectionEditorPanel({
                                             }
                                             data-testid={`props-nested-delete-${resolvedArrPath}-${nestedIdx}`}
                                           >
-                                            <IconTrash className="h-3.5 w-3.5 mr-1" />
+                                            <Trash2 className="h-3.5 w-3.5 mr-1" />
                                             Eliminar
                                           </Button>
                                         </div>
@@ -3987,12 +3960,12 @@ export function SectionEditorPanel({
                                                           className="w-full h-full object-contain p-0.5"
                                                         />
                                                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                                          <IconPhoto className="h-3.5 w-3.5 text-white" />
+                                                          <Image className="h-3.5 w-3.5 text-white" />
                                                         </div>
                                                       </>
                                                     ) : (
                                                       <div className="w-full h-full flex items-center justify-center">
-                                                        <IconPhoto className="h-4 w-4 text-muted-foreground" />
+                                                        <Image className="h-4 w-4 text-muted-foreground" />
                                                       </div>
                                                     )}
                                                   </button>
@@ -4840,7 +4813,7 @@ export function SectionEditorPanel({
                                         <span className="text-xs text-muted-foreground">#{index + 1}</span>
                                       )}
                                     </div>
-                                    <IconChevronDown className="h-4 w-4 text-muted-foreground" />
+                                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
                                   </button>
                                 </CollapsibleTrigger>
                                 <CollapsibleContent>
@@ -4899,7 +4872,7 @@ export function SectionEditorPanel({
                                       >
                                         <div className="w-8 h-8 rounded border bg-background flex items-center justify-center flex-shrink-0">
                                           {btnIcon ? renderIconByName(btnIcon) : (
-                                            <IconPlus className="h-4 w-4 text-muted-foreground" />
+                                            <Plus className="h-4 w-4 text-muted-foreground" />
                                           )}
                                         </div>
                                         <span className="text-sm text-muted-foreground flex-1 text-left truncate">
@@ -5047,14 +5020,14 @@ export function SectionEditorPanel({
                                         />
                                       ) : (
                                         <div className="w-full h-full flex items-center justify-center">
-                                          <IconPhoto className="h-4 w-4 text-muted-foreground" />
+                                          <Image className="h-4 w-4 text-muted-foreground" />
                                         </div>
                                       )}
                                     </div>
                                     <span className="flex-1 text-left text-sm font-medium">
                                       {altValue || `Logo ${index + 1}`}
                                     </span>
-                                    <IconChevronDown className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                                    <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-180" />
                                   </button>
                                 </CollapsibleTrigger>
                                 <CollapsibleContent>
@@ -5085,12 +5058,12 @@ export function SectionEditorPanel({
                                               className="w-full h-full object-contain p-1"
                                             />
                                             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                              <IconPhoto className="h-5 w-5 text-white" />
+                                              <Image className="h-5 w-5 text-white" />
                                             </div>
                                           </>
                                         ) : (
                                           <div className="w-full h-full flex items-center justify-center">
-                                            <IconPhoto className="h-6 w-6 text-muted-foreground" />
+                                            <Image className="h-6 w-6 text-muted-foreground" />
                                           </div>
                                         )}
                                       </button>
@@ -5124,7 +5097,7 @@ export function SectionEditorPanel({
                                         data-testid={`props-logo-marquee-${index}-delete`}
                                         title="Remove logo"
                                       >
-                                        <IconTrash className="h-4 w-4" />
+                                        <Trash2 className="h-4 w-4" />
                                       </Button>
                                     </div>
                                     <div className="space-y-1">
@@ -5167,7 +5140,7 @@ export function SectionEditorPanel({
                             className="w-full"
                             data-testid="props-logo-marquee-add"
                           >
-                            <IconPlus className="h-4 w-4 mr-1" />
+                            <Plus className="h-4 w-4 mr-1" />
                             Add Logo
                           </Button>
                         </div>
@@ -5237,7 +5210,7 @@ export function SectionEditorPanel({
                           data-testid={`props-image-${arrayFieldLabel}-add`}
                           title="Add image"
                         >
-                          <IconPlus className="h-5 w-5 text-muted-foreground" />
+                          <Plus className="h-5 w-5 text-muted-foreground" />
                         </button>
                       </div>
                     </div>
@@ -5317,7 +5290,7 @@ export function SectionEditorPanel({
                             onClick={initializeDefaultImages}
                             data-testid="props-image-style-init"
                           >
-                            <IconPlus className="h-4 w-4 mr-1" />
+                            <Plus className="h-4 w-4 mr-1" />
                             Inicializar imágenes
                           </Button>
                         )}
@@ -5325,7 +5298,7 @@ export function SectionEditorPanel({
 
                       {!hasImages && !isTabsArray && (
                         <div className="p-4 border border-dashed rounded-md text-center text-sm text-muted-foreground">
-                          <IconPhoto className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                          <Image className="h-8 w-8 mx-auto mb-2 opacity-50" />
                           <p>Este componente usa imágenes por defecto.</p>
                           <p>
                             Haz clic en "Inicializar imágenes" para
@@ -5364,14 +5337,14 @@ export function SectionEditorPanel({
                                       />
                                     ) : (
                                       <div className="w-full h-full flex items-center justify-center">
-                                        <IconPhoto className="h-4 w-4 text-muted-foreground" />
+                                        <Image className="h-4 w-4 text-muted-foreground" />
                                       </div>
                                     )}
                                   </div>
                                   <span className="flex-1 text-left text-sm font-medium">
                                     Imagen {index + 1}
                                   </span>
-                                  <IconChevronDown className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                                  <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-180" />
                                 </button>
                               </CollapsibleTrigger>
                               <CollapsibleContent>
@@ -5403,12 +5376,12 @@ export function SectionEditorPanel({
                                             className="w-full h-full object-cover"
                                           />
                                           <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                            <IconPhoto className="h-5 w-5 text-white" />
+                                            <Image className="h-5 w-5 text-white" />
                                           </div>
                                         </>
                                       ) : (
                                         <div className="w-full h-full flex items-center justify-center">
-                                          <IconPhoto className="h-6 w-6 text-muted-foreground" />
+                                          <Image className="h-6 w-6 text-muted-foreground" />
                                         </div>
                                       )}
                                     </button>
@@ -5447,7 +5420,7 @@ export function SectionEditorPanel({
                                         data-testid={`props-image-style-${index}-delete`}
                                         title="Eliminar imagen"
                                       >
-                                        <IconTrash className="h-4 w-4" />
+                                        <Trash2 className="h-4 w-4" />
                                       </Button>
                                     )}
                                   </div>
@@ -5688,7 +5661,7 @@ export function SectionEditorPanel({
                               data-testid="props-image-style-add"
                               title="Añadir imagen"
                             >
-                              <IconPlus className="h-4 w-4" />
+                              <Plus className="h-4 w-4" />
                               Añadir imagen ({safeArrayData.length}/{MAX_IMAGES}
                               )
                             </button>
@@ -5742,7 +5715,7 @@ export function SectionEditorPanel({
                                   data-testid={`props-video-${arrayFieldLabel}-${index}-trigger`}
                                 >
                                   <div className="w-10 h-10 rounded-md overflow-hidden bg-muted border flex-shrink-0 flex items-center justify-center">
-                                    <IconVideo className={`h-5 w-5 ${currentUrl ? "text-primary" : "text-muted-foreground"}`} />
+                                    <Video className={`h-5 w-5 ${currentUrl ? "text-primary" : "text-muted-foreground"}`} />
                                   </div>
                                   <div className="flex-1 text-left min-w-0">
                                     <span className="text-sm font-medium block">
@@ -5754,7 +5727,7 @@ export function SectionEditorPanel({
                                       </span>
                                     )}
                                   </div>
-                                  <IconChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                                  <ChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                                 </button>
                               </CollapsibleTrigger>
                               <CollapsibleContent>
@@ -5779,15 +5752,15 @@ export function SectionEditorPanel({
                                       {currentUrl ? (
                                         <>
                                           <div className="w-full h-full flex items-center justify-center bg-muted">
-                                            <IconVideo className="h-6 w-6 text-primary" />
+                                            <Video className="h-6 w-6 text-primary" />
                                           </div>
                                           <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                            <IconVideo className="h-5 w-5 text-white" />
+                                            <Video className="h-5 w-5 text-white" />
                                           </div>
                                         </>
                                       ) : (
                                         <div className="w-full h-full flex items-center justify-center">
-                                          <IconVideo className="h-6 w-6 text-muted-foreground" />
+                                          <Video className="h-6 w-6 text-muted-foreground" />
                                         </div>
                                       )}
                                     </button>
@@ -5829,12 +5802,12 @@ export function SectionEditorPanel({
                                               className="w-full h-full object-cover"
                                             />
                                             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                              <IconPhoto className="h-4 w-4 text-white" />
+                                              <Image className="h-4 w-4 text-white" />
                                             </div>
                                           </>
                                         ) : (
                                           <div className="w-full h-full flex items-center justify-center">
-                                            <IconPhoto className="h-5 w-5 text-muted-foreground" />
+                                            <Image className="h-5 w-5 text-muted-foreground" />
                                           </div>
                                         )}
                                       </button>
@@ -5851,7 +5824,7 @@ export function SectionEditorPanel({
                                               onClick={() => updateArrayItemField(arrayPath, index, parentPrefix + "preview_image_url", "")}
                                               data-testid={`props-video-${arrayFieldLabel}-${index}-preview-image-clear`}
                                             >
-                                              <IconX className="h-3 w-3" />
+                                              <X className="h-3 w-3" />
                                             </Button>
                                           </div>
                                         ) : (
@@ -6092,12 +6065,12 @@ export function SectionEditorPanel({
           >
             {isSaving ? (
               <>
-                <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                 Saving...
               </>
             ) : (
               <>
-                <IconDeviceFloppy className="h-4 w-4 mr-2" />
+                <Save className="h-4 w-4 mr-2" />
                 Save
               </>
             )}
@@ -6139,7 +6112,7 @@ export function SectionEditorPanel({
                 onClick={() => setVideoPickerMode("url")}
                 data-testid="button-video-picker-url"
               >
-                <IconVideo className="h-4 w-4 mr-1.5" />
+                <Video className="h-4 w-4 mr-1.5" />
                 URL
               </Button>
               <div className="w-px bg-border" />
@@ -6151,7 +6124,7 @@ export function SectionEditorPanel({
                 onClick={() => setVideoPickerMode("browse")}
                 data-testid="button-video-picker-browse"
               >
-                <IconSearch className="h-4 w-4 mr-1.5" />
+                <Search className="h-4 w-4 mr-1.5" />
                 Browse
               </Button>
               <div className="w-px bg-border" />
@@ -6163,7 +6136,7 @@ export function SectionEditorPanel({
                 onClick={() => setVideoPickerMode("upload")}
                 data-testid="button-video-picker-upload"
               >
-                <IconUpload className="h-4 w-4 mr-1.5" />
+                <Upload className="h-4 w-4 mr-1.5" />
                 Upload
               </Button>
             </div>
@@ -6193,7 +6166,7 @@ export function SectionEditorPanel({
             {videoPickerMode === "browse" && (
               <>
                 <div className="relative">
-                  <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     placeholder="Search videos..."
                     value={videoGallerySearch}
@@ -6227,7 +6200,7 @@ export function SectionEditorPanel({
                           data-testid={`gallery-video-${id}`}
                         >
                           <div className="flex items-center gap-2">
-                            <IconVideo className="h-5 w-5 text-primary flex-shrink-0" />
+                            <Video className="h-5 w-5 text-primary flex-shrink-0" />
                             <div className="min-w-0">
                               <p className="text-xs font-medium truncate">{id}</p>
                               <p className="text-xs text-muted-foreground truncate">
@@ -6302,12 +6275,12 @@ export function SectionEditorPanel({
                     >
                       {videoUploading ? (
                         <div className="flex flex-col items-center gap-2">
-                          <IconLoader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
                           <p className="text-sm text-muted-foreground">Uploading video...</p>
                         </div>
                       ) : (
                         <div className="flex flex-col items-center gap-2">
-                          <IconCloudUpload className="h-8 w-8 text-muted-foreground" />
+                          <CloudUpload className="h-8 w-8 text-muted-foreground" />
                           <p className="text-sm font-medium">Drop a video here or click to browse</p>
                           <p className="text-xs text-muted-foreground">
                             MP4, WebM, MOV, OGG, M4V (max 100 MB)
@@ -6328,7 +6301,7 @@ export function SectionEditorPanel({
                   </>
                 ) : (
                   <div className="text-center space-y-3 p-4">
-                    <IconUpload className="h-8 w-8 text-muted-foreground mx-auto" />
+                    <Upload className="h-8 w-8 text-muted-foreground mx-auto" />
                     <p className="text-sm font-medium">No storage provider configured</p>
                     <p className="text-sm text-muted-foreground">
                       Configure a cloud provider in the Media Gallery settings, or place video files directly in the{" "}
@@ -6343,7 +6316,7 @@ export function SectionEditorPanel({
               <div className="flex items-center gap-3">
                 <div className="w-16 h-16 rounded-md overflow-hidden bg-muted border flex-shrink-0 flex items-center justify-center">
                   {videoPickerTarget?.currentUrl ? (
-                    <IconVideo className="h-6 w-6 text-primary" />
+                    <Video className="h-6 w-6 text-primary" />
                   ) : (
                     <div className="text-muted-foreground text-xs">None</div>
                   )}
@@ -6378,7 +6351,7 @@ export function SectionEditorPanel({
               }}
               data-testid="button-video-remove"
             >
-              <IconX className="h-4 w-4 mr-2" />
+              <X className="h-4 w-4 mr-2" />
               Remove
             </Button>
             <div className="flex gap-2">
@@ -6406,7 +6379,7 @@ export function SectionEditorPanel({
                 }}
                 data-testid="button-video-save"
               >
-                <IconCheck className="h-4 w-4 mr-2" />
+                <Check className="h-4 w-4 mr-2" />
                 Save
               </Button>
             </div>
@@ -6444,7 +6417,7 @@ export function SectionEditorPanel({
                 onClick={() => setImagePickerMode("browse")}
                 data-testid="button-picker-browse"
               >
-                <IconSearch className="h-4 w-4 mr-1.5" />
+                <Search className="h-4 w-4 mr-1.5" />
                 Browse
               </Button>
               <div className="w-px bg-border" />
@@ -6456,7 +6429,7 @@ export function SectionEditorPanel({
                 onClick={() => setImagePickerMode("upload")}
                 data-testid="button-picker-upload"
               >
-                <IconUpload className="h-4 w-4 mr-1.5" />
+                <Upload className="h-4 w-4 mr-1.5" />
                 Upload
               </Button>
             </div>
@@ -6464,7 +6437,7 @@ export function SectionEditorPanel({
             {imagePickerMode === "browse" ? (
               <>
                 <div className="relative">
-                  <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     placeholder="Search images..."
                     value={imageGallerySearch}
@@ -6580,14 +6553,14 @@ export function SectionEditorPanel({
                     >
                       {uploading ? (
                         <div className="flex flex-col items-center gap-2">
-                          <IconLoader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
                           <p className="text-sm text-muted-foreground">
                             Uploading...
                           </p>
                         </div>
                       ) : (
                         <div className="flex flex-col items-center gap-2">
-                          <IconCloudUpload className="h-8 w-8 text-muted-foreground" />
+                          <CloudUpload className="h-8 w-8 text-muted-foreground" />
                           <p className="text-sm font-medium">
                             Drop an image here or click to browse
                           </p>
@@ -6611,7 +6584,7 @@ export function SectionEditorPanel({
                   </>
                 ) : (
                   <div className="text-center space-y-3 p-4">
-                    <IconUpload className="h-8 w-8 text-muted-foreground mx-auto" />
+                    <Upload className="h-8 w-8 text-muted-foreground mx-auto" />
                     <p className="text-sm font-medium">
                       No storage provider configured
                     </p>
@@ -6689,7 +6662,7 @@ export function SectionEditorPanel({
                         }}
                         data-testid="button-crop-resize"
                       >
-                        <IconPhoto className="h-4 w-4 mr-1.5" />
+                        <Image className="h-4 w-4 mr-1.5" />
                         Crop & Resize
                       </Button>
                     )}
@@ -6765,7 +6738,7 @@ export function SectionEditorPanel({
               }}
               data-testid="button-image-remove"
             >
-              <IconX className="h-4 w-4 mr-2" />
+              <X className="h-4 w-4 mr-2" />
               Remove
             </Button>
             <div className="flex gap-2">
@@ -6890,7 +6863,7 @@ export function SectionEditorPanel({
                 }}
                 data-testid="button-image-save"
               >
-                <IconCheck className="h-4 w-4 mr-2" />
+                <Check className="h-4 w-4 mr-2" />
                 Save
               </Button>
             </div>
@@ -7054,12 +7027,12 @@ export function SectionEditorPanel({
             >
               {cropProcessing ? (
                 <>
-                  <IconLoader2 className="h-4 w-4 mr-2 animate-spin" />
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                   Processing...
                 </>
               ) : (
                 <>
-                  <IconCheck className="h-4 w-4 mr-2" />
+                  <Check className="h-4 w-4 mr-2" />
                   Process & Use
                 </>
               )}
@@ -7089,7 +7062,7 @@ export function SectionEditorPanel({
         boundSiblings={boundSiblings}
         onConfirm={executeSave}
         confirmLabel="Save to all"
-        confirmIcon={<IconDeviceFloppy className="h-4 w-4 mr-2" />}
+        confirmIcon={<Save className="h-4 w-4 mr-2" />}
       />
     </div>
   );

@@ -1,17 +1,5 @@
 import type { ComparisonTableSection } from "@shared/schema";
-import { 
-  IconCheck, 
-  IconX, 
-  IconBriefcase, 
-  IconUsers, 
-  IconSparkles, 
-  IconMessageCircle, 
-  IconBook, 
-  IconTrendingUp, 
-  IconWorld, 
-  IconDeviceDesktop, 
-  IconSchool 
-} from "@tabler/icons-react";
+import { Book, Briefcase, Check, Globe, MessageCircle, Monitor, School, Sparkles, TrendingUp, Users, X } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -23,34 +11,34 @@ interface ComparisonTableProps {
   data: ComparisonTableSection;
 }
 
-const featureIcons: Record<string, typeof IconBriefcase> = {
-  "Career Support": IconBriefcase,
-  "Teacher: Student Ratio": IconUsers,
-  "AI-Powered Feedback": IconSparkles,
-  "1-on-1 Mentoring": IconMessageCircle,
-  "Curriculum": IconBook,
-  "% Hiring Rate": IconTrendingUp,
-  "Community": IconWorld,
-  "Class Format": IconDeviceDesktop,
-  "Previous Knowledge": IconSchool,
+const featureIcons: Record<string, typeof Briefcase> = {
+  "Career Support": Briefcase,
+  "Teacher: Student Ratio": Users,
+  "AI-Powered Feedback": Sparkles,
+  "1-on-1 Mentoring": MessageCircle,
+  "Curriculum": Book,
+  "% Hiring Rate": TrendingUp,
+  "Community": Globe,
+  "Class Format": Monitor,
+  "Previous Knowledge": School,
 };
 
 function CellValue({ value, isHighlighted }: { value: string; isHighlighted?: boolean }) {
   if (value === "yes" || value === "Yes" || value === "✓") {
     return (
-      <IconCheck className="w-6 h-6 text-primary mx-auto" />
+      <Check className="w-6 h-6 text-primary mx-auto" />
     );
   }
   if (value === "no" || value === "No" || value === "✗") {
     return (
-      <IconX className="w-6 h-6 text-muted-foreground mx-auto" />
+      <X className="w-6 h-6 text-muted-foreground mx-auto" />
     );
   }
 
   if (isHighlighted) {
     return (
       <span className="flex items-center justify-center gap-2">
-        <IconCheck className="w-4 h-4 text-primary flex-shrink-0" />
+        <Check className="w-4 h-4 text-primary flex-shrink-0" />
         <span>{value}</span>
       </span>
     );
@@ -184,7 +172,7 @@ export function GeeksVsOthersComparison({ data }: ComparisonTableProps) {
                     <div className="bg-primary/5 rounded-card p-6 border-l-[3px] border-primary shadow-sm">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="bg-primary/10 rounded-full p-1">
-                          <IconCheck className="w-5 h-5 text-primary" />
+                          <Check className="w-5 h-5 text-primary" />
                         </span>
                         <p className="text-xs text-primary font-semibold">
                           {data.columns[1]?.name || "4Geeks Academy"}

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import * as TablerIcons from "@tabler/icons-react";
+import * as LucideIcons from "lucide-react";
+import { Check, ChevronDown, ChevronUp, Flag } from "lucide-react";
 
 export interface SyllabusModuleCardProps {
   duration: string;
@@ -23,14 +24,14 @@ export function SyllabusModuleCard({
   projects,
   isActive = true,
   orientation = "vertical",
-  icon = "IconFlag",
+  icon = "Flag",
   className,
   testId,
   hideExpandButton = false,
 }: SyllabusModuleCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const isVertical = orientation === "vertical";
-  const IconComponent = (TablerIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[icon] || TablerIcons.IconFlag;
+  const IconComponent = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[icon] || Flag;
   
   const hasMoreObjectives = objectives.length > 4;
   const displayedObjectives = isVertical && hasMoreObjectives && !isExpanded 
@@ -73,7 +74,7 @@ export function SyllabusModuleCard({
           <ul className="space-y-2.5 mb-5 text-sm text-foreground">
             {displayedObjectives.map((objective, objIndex) => (
               <li key={objIndex} className="flex items-start gap-2">
-                <TablerIcons.IconCheck className="text-primary mt-0.5 w-4 h-4 flex-shrink-0" />
+                <Check className="text-primary mt-0.5 w-4 h-4 flex-shrink-0" />
                 <span className="leading-relaxed">{objective}</span>
               </li>
             ))}
@@ -88,12 +89,12 @@ export function SyllabusModuleCard({
               {isExpanded ? (
                 <>
                   See less
-                  <TablerIcons.IconChevronUp className="w-4 h-4" />
+                  <ChevronUp className="w-4 h-4" />
                 </>
               ) : (
                 <>
                   See {objectives.length - 4} more
-                  <TablerIcons.IconChevronDown className="w-4 h-4" />
+                  <ChevronDown className="w-4 h-4" />
                 </>
               )}
             </button>
@@ -130,7 +131,7 @@ export function SyllabusModuleCard({
             <ul className="space-y-1 text-sm text-foreground w-max">
               {objectives.slice(0, 4).map((objective, objIndex) => (
                 <li key={objIndex} className="flex items-start gap-2">
-                  <TablerIcons.IconCheck className="text-primary mt-0.5 w-4 h-4 flex-shrink-0" />
+                  <Check className="text-primary mt-0.5 w-4 h-4 flex-shrink-0" />
                   <span className="leading-relaxed">{objective}</span>
                 </li>
               ))}
@@ -139,7 +140,7 @@ export function SyllabusModuleCard({
               <ul className="space-y-1 text-sm text-foreground w-max">
                 {objectives.slice(4).map((objective, objIndex) => (
                   <li key={objIndex + 4} className="flex items-start gap-2">
-                    <TablerIcons.IconCheck className="text-primary mt-0.5 w-4 h-4 flex-shrink-0" />
+                    <Check className="text-primary mt-0.5 w-4 h-4 flex-shrink-0" />
                     <span className="leading-relaxed">{objective}</span>
                   </li>
                 ))}

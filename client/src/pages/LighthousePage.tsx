@@ -1,17 +1,7 @@
 import { useState, useEffect, Fragment } from "react";
+import { AlertTriangle, ArrowLeft, ChevronDown, ChevronRight, ChevronUp, Gauge, Info, Loader2, Play } from "lucide-react";
 import { Link } from "wouter";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  IconArrowLeft,
-  IconGauge,
-  IconInfoCircle,
-  IconChevronDown,
-  IconChevronUp,
-  IconPlayerPlay,
-  IconLoader2,
-  IconAlertTriangle,
-  IconChevronRight,
-} from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -104,7 +94,7 @@ function DocsBanner({ config, open }: { config: LighthouseConfig; open: boolean 
         {forceOpen && (
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-semibold flex items-center gap-2 text-orange-600 dark:text-orange-400">
-              <IconAlertTriangle className="h-4 w-4" />
+              <AlertTriangle className="h-4 w-4" />
               SITE_BASE_URL is not configured — audits are disabled
             </CardTitle>
           </CardHeader>
@@ -204,7 +194,7 @@ function PagePicker({
           onClick={() => setOpen((v) => !v)}
           data-testid="button-select-pages"
         >
-          {open ? <IconChevronUp className="h-3.5 w-3.5" /> : <IconChevronDown className="h-3.5 w-3.5" />}
+          {open ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
           Select &amp; Run
         </Button>
         {open && (
@@ -258,12 +248,12 @@ function PagePicker({
             >
               {running ? (
                 <>
-                  <IconLoader2 className="h-3.5 w-3.5 animate-spin" />
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" />
                   Auditing {count} pages...
                 </>
               ) : (
                 <>
-                  <IconPlayerPlay className="h-3.5 w-3.5" />
+                  <Play className="h-3.5 w-3.5" />
                   Run audit ({count} pages · {estimatedLabel})
                 </>
               )}
@@ -309,7 +299,7 @@ function ResultsTable({ pages }: { pages: PageReport[] }) {
                 >
                   <td className="py-2 pr-4">
                     <div className="flex items-center gap-2">
-                      <IconChevronRight
+                      <ChevronRight
                         className={`h-3.5 w-3.5 text-muted-foreground transition-transform ${isExpanded ? "rotate-90" : ""}`}
                       />
                       <div>
@@ -465,11 +455,11 @@ export default function LighthousePage() {
           <div className="flex items-center gap-3">
             <Link href="/private/diagnostics">
               <Button variant="ghost" size="icon" data-testid="button-back-diagnostics">
-                <IconArrowLeft className="h-5 w-5" />
+                <ArrowLeft className="h-5 w-5" />
               </Button>
             </Link>
             <div className="flex items-center gap-2">
-              <IconGauge className="h-5 w-5 text-primary" />
+              <Gauge className="h-5 w-5 text-primary" />
               <h1 className="text-lg font-semibold text-foreground" data-testid="text-lighthouse-title">
                 Page Speed
               </h1>
@@ -482,7 +472,7 @@ export default function LighthousePage() {
                 data-testid="button-docs-toggle"
                 className={docsOpen ? "toggle-elevate toggle-elevated" : "toggle-elevate"}
               >
-                <IconInfoCircle className="h-4 w-4" />
+                <Info className="h-4 w-4" />
               </Button>
             )}
           </div>
@@ -553,7 +543,7 @@ export default function LighthousePage() {
                   </div>
                 ) : !hasReports && !reportPages ? (
                   <div className="text-center py-12" data-testid="empty-state">
-                    <IconGauge className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
+                    <Gauge className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
                     <p className="text-sm text-muted-foreground mb-4">No audit reports yet.</p>
                     <Button
                       variant="default"
@@ -568,9 +558,9 @@ export default function LighthousePage() {
                       data-testid="button-run-first-audit"
                     >
                       {runMutation.isPending ? (
-                        <IconLoader2 className="h-4 w-4 animate-spin mr-1" />
+                        <Loader2 className="h-4 w-4 animate-spin mr-1" />
                       ) : (
-                        <IconPlayerPlay className="h-4 w-4 mr-1" />
+                        <Play className="h-4 w-4 mr-1" />
                       )}
                       Run first audit
                     </Button>

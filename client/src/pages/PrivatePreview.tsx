@@ -1,11 +1,11 @@
 import { useCallback, useState, useEffect, lazy, Suspense } from "react";
+import { AlertTriangle, ArrowLeft, Code, Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearch } from "wouter";
 import { SectionRenderer } from "@/components/SectionRenderer";
 import { apiFetch } from "@/lib/queryClient";
 import { normalizeContentType, useContentTypesRaw } from "@/hooks/useContentTypes";
 import type { CareerProgram, LandingPage, LocationPage, TemplatePage } from "@shared/schema";
-import { IconLoader2, IconAlertTriangle, IconArrowLeft, IconCode } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
@@ -137,7 +137,7 @@ export default function PrivatePreview() {
     return (
       <div className="min-h-screen flex items-center justify-center" data-testid="loading-preview">
         <div className="text-center">
-          <IconLoader2 className="w-8 h-8 animate-spin text-primary mx-auto mb-4" />
+          <Loader2 className="w-8 h-8 animate-spin text-primary mx-auto mb-4" />
           <p className="text-sm text-muted-foreground">Loading preview...</p>
         </div>
       </div>
@@ -148,7 +148,7 @@ export default function PrivatePreview() {
     return (
       <div className="min-h-screen flex items-center justify-center" data-testid="error-invalid-type">
         <div className="text-center">
-          <IconAlertTriangle className="w-12 h-12 text-destructive mx-auto mb-4" />
+          <AlertTriangle className="w-12 h-12 text-destructive mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-foreground mb-2">Invalid Content Type</h1>
           <p className="text-muted-foreground mb-4">
             Content type "{contentType}" is not valid.
@@ -162,7 +162,7 @@ export default function PrivatePreview() {
     return (
       <div className="min-h-screen flex items-center justify-center" data-testid="loading-preview">
         <div className="text-center">
-          <IconLoader2 className="w-8 h-8 animate-spin text-primary mx-auto mb-4" />
+          <Loader2 className="w-8 h-8 animate-spin text-primary mx-auto mb-4" />
           <p className="text-sm text-muted-foreground">
             Loading {typeLabel.toLowerCase()} preview...
           </p>
@@ -176,7 +176,7 @@ export default function PrivatePreview() {
       <>
         <div className="min-h-screen flex items-center justify-center" data-testid="error-preview">
           <div className="text-center">
-            <IconAlertTriangle className="w-12 h-12 text-destructive mx-auto mb-4" />
+            <AlertTriangle className="w-12 h-12 text-destructive mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-foreground mb-2">
               {typeLabel} not found
             </h1>
@@ -185,12 +185,12 @@ export default function PrivatePreview() {
             </p>
             <div className="flex items-center justify-center gap-2 flex-wrap">
               <Button variant="outline" onClick={() => window.history.back()} data-testid="button-go-back">
-                <IconArrowLeft className="w-4 h-4 mr-2" />
+                <ArrowLeft className="w-4 h-4 mr-2" />
                 Go Back
               </Button>
               {rawFileCheck?.exists && (
                 <Button variant="outline" onClick={() => setShowRawEditor(true)} data-testid="button-edit-yaml">
-                  <IconCode className="w-4 h-4 mr-2" />
+                  <Code className="w-4 h-4 mr-2" />
                   Edit YAML
                 </Button>
               )}

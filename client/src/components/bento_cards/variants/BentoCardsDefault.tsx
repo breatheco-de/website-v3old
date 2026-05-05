@@ -1,6 +1,7 @@
 
 import { Card } from "@/components/ui/card";
-import * as TablerIcons from "@tabler/icons-react";
+import * as LucideIcons from "lucide-react";
+import { Box } from "lucide-react";
 import { getCustomIcon } from "@/components/custom-icons";
 import { useRef, useState, type ComponentType, type MouseEvent } from "react";
 import type { BentoCardsSection } from "@shared/schema";
@@ -11,13 +12,13 @@ function getIcon(iconName: string, className?: string, color?: string) {
     return <CustomIcon width="100%" height="100%" color={color} className={className} />;
   }
   
-  const IconComponent = TablerIcons[`Icon${iconName}` as keyof typeof TablerIcons] as ComponentType<{ className?: string; style?: React.CSSProperties }>;
+  const IconComponent = LucideIcons[iconName as keyof typeof LucideIcons] as ComponentType<{ className?: string; style?: React.CSSProperties }>;
   if (IconComponent) {
     const style = color ? { color } : undefined;
     return <IconComponent className={className || "w-full h-full text-primary"} style={style} />;
   }
   const style = color ? { color } : undefined;
-  return <TablerIcons.IconBox className={className || "w-full h-full text-primary"} style={style} />;
+  return <Box className={className || "w-full h-full text-primary"} style={style} />;
 }
 
 interface BentoCardsProps {

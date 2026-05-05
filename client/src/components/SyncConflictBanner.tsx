@@ -1,5 +1,5 @@
-import { IconAlertTriangle, IconBrandGithub } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
+import { AlertTriangle, Github } from "lucide-react";
 import { useSyncOptional } from "@/contexts/SyncContext";
 
 // Custom event to open the sync modal in DebugBubble
@@ -24,7 +24,7 @@ export function SyncConflictBanner() {
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 flex-wrap">
         <div className="flex items-center gap-3">
           <div className="p-1.5 rounded-full bg-destructive/20">
-            <IconAlertTriangle className="h-4 w-4 text-destructive" />
+            <AlertTriangle className="h-4 w-4 text-destructive" />
           </div>
           <div>
             <p className="text-sm font-medium text-foreground">
@@ -41,7 +41,7 @@ export function SyncConflictBanner() {
           onClick={() => openSyncModal()}
           data-testid="button-open-sync-modal"
         >
-          <IconBrandGithub className="h-4 w-4 mr-1" />
+          <Github className="h-4 w-4 mr-1" />
           Open sync modal
         </Button>
       </div>

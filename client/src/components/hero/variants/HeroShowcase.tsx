@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
+import { Star } from "lucide-react";
 import { Avatar } from "@/components/ui/avatar";
-import { IconStarFilled, IconStar } from "@tabler/icons-react";
 import type { HeroShowcase } from "@shared/schema";
 import UniversalImage from "@/components/UniversalImage";
 import { useInternalNav } from "@/hooks/useInternalNav";
@@ -87,16 +87,16 @@ export default function HeroShowcase({ data }: HeroShowcaseProps) {
                   <span className="font-semibold">{data.trust_bar.rating || ""}</span>
                   <div className="flex">
                     {[1, 2, 3, 4].map((i) => (
-                      <IconStarFilled
+                      <Star
                         key={i}
-                        className="text-yellow-500 w-5 h-5"
+                        className="fill-current text-yellow-500 w-5 h-5"
                       />
                     ))}
                     {/* Partially filled star for decimal rating (e.g., 4.9 = 90% filled) */}
                     <div className="relative w-5 h-5">
-                      <IconStar className="absolute text-yellow-500 w-5 h-5" />
+                      <Star className="absolute text-yellow-500 w-5 h-5" />
                       <div className="absolute overflow-hidden" style={{ width: '90%' }}>
-                        <IconStarFilled className="text-yellow-500 w-5 h-5" />
+                        <Star className="fill-current text-yellow-500 w-5 h-5" />
                       </div>
                     </div>
                   </div>

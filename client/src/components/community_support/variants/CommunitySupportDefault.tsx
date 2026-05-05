@@ -1,5 +1,6 @@
 import { useState } from "react";
-import * as TablerIcons from "@tabler/icons-react";
+import * as LucideIcons from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import type { ComponentType } from "react";
 import { getCustomIcon } from "@/components/custom-icons";
 import { UniversalImage } from "@/components/UniversalImage";
@@ -46,7 +47,7 @@ const getIcon = (iconName: string, className?: string, size?: number, color?: st
     const sizeStr = size ? `${size}px` : "20px";
     return <CustomIcon width={sizeStr} height={sizeStr} className={className} color={color} />;
   }
-  const icons = TablerIcons as unknown as Record<string, ComponentType<{ className?: string; size?: number; color?: string }>>;
+  const icons = LucideIcons as unknown as Record<string, ComponentType<{ className?: string; size?: number; color?: string }>>;
   const IconComponent = icons[`Icon${iconName}`];
   return IconComponent ? <IconComponent className={className} size={size || 20} color={color} /> : null;
 };

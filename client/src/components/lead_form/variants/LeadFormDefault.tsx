@@ -1,5 +1,6 @@
 
 import { useState, useEffect, useMemo } from "react";
+import { Check, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -29,7 +30,6 @@ import {
 import { useSession, useLocation as useSessionLocation, useUTM } from "@/contexts/SessionContext";
 import { useSectionContext } from "@/contexts/SectionContext";
 import { apiRequest } from "@/lib/queryClient";
-import { IconLoader2, IconCheck } from "@tabler/icons-react";
 import { PhoneInput } from "@/components/ui/phone-input";
 import type { Country } from "react-phone-number-input";
 import { trackFormSubmission, type ConversionName } from "@/lib/tracking";
@@ -664,7 +664,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
       return (
         <div className="flex items-center gap-2 mb-4" data-testid="lead-form-success">
           <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
-            <IconCheck className="w-4 h-4 text-green-500" />
+            <Check className="w-4 h-4 text-green-500" />
           </div>
           <p className="text-foreground text-sm" data-testid="text-success-message">
             {successMessage}
@@ -677,7 +677,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
     return (
       <div className="text-center" data-testid="lead-form-success">
         <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-green-500/20 flex items-center justify-center">
-          <IconCheck className="w-6 h-6 text-green-500" />
+          <Check className="w-6 h-6 text-green-500" />
         </div>
         <p className="text-foreground" data-testid="text-success-message">
           {successMessage}
@@ -754,7 +754,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
                 data-testid="button-submit"
               >
                 {submitMutation.isPending ? (
-                  <IconLoader2 className="w-4 h-4 animate-spin" />
+                  <Loader2 className="w-4 h-4 animate-spin" />
                 ) : (
                   data.submit_label || (locale === "es" ? "Enviar" : "Submit")
                 )}
@@ -1170,7 +1170,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
             data-testid="button-submit"
           >
             {submitMutation.isPending ? (
-              <IconLoader2 className="w-4 h-4 animate-spin" />
+              <Loader2 className="w-4 h-4 animate-spin" />
             ) : (
               data.submit_label || (locale === "es" ? "Enviar" : "Submit")
             )}

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Check, Copy } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -8,7 +9,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { IconCheck, IconCopy } from "@tabler/icons-react";
 
 interface SessionModalProps {
   open: boolean;
@@ -78,9 +78,9 @@ export function SessionModal(props: SessionModalProps) {
                   data-testid="button-copy-token"
                 >
                   {tokenCopied ? (
-                    <IconCheck className="h-4 w-4 text-green-600" />
+                    <Check className="h-4 w-4 text-green-600" />
                   ) : (
-                    <IconCopy className="h-4 w-4" />
+                    <Copy className="h-4 w-4" />
                   )}
                 </Button>
               </div>

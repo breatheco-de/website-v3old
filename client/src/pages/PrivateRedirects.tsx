@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { AlertTriangle, ArrowLeft, ArrowRight, ChevronDown, ChevronRight, ChevronUp, CircleCheck, ExternalLink, Info, Plus, Route, Search, ShieldCheck, TestTube, Trash2, Wrench, X } from "lucide-react";
 import { getDebugUserName } from "@/hooks/useDebugAuth";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -26,25 +27,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  IconArrowLeft,
-  IconArrowRight,
-  IconSearch,
-  IconRoute,
-  IconExternalLink,
-  IconChevronRight,
-  IconShieldCheck,
-  IconTestPipe,
-  IconAlertTriangle,
-  IconCircleCheck,
-  IconPlus,
-  IconX,
-  IconTrash,
-  IconTool,
-  IconChevronUp,
-  IconChevronDown,
-  IconInfoCircle,
-} from "@tabler/icons-react";
 import { Link } from "wouter";
 import { isDebugModeActive } from "@/hooks/useDebugAuth";
 import { apiRequest, queryClient } from "@/lib/queryClient";
@@ -563,7 +545,7 @@ export default function PrivateRedirects() {
           <CardContent>
             <Link href="/">
               <Button variant="outline" data-testid="link-back-home">
-                <IconArrowLeft className="w-4 h-4 mr-2" />
+                <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Home
               </Button>
             </Link>
@@ -585,12 +567,12 @@ export default function PrivateRedirects() {
                   size="icon"
                   data-testid="link-back-home"
                 >
-                  <IconArrowLeft className="w-4 h-4" />
+                  <ArrowLeft className="w-4 h-4" />
                 </Button>
               </Link>
               <div>
                 <h1 className="text-xl font-bold flex items-center gap-2">
-                  <IconRoute className="w-5 h-5" />
+                  <Route className="w-5 h-5" />
                   URL Redirects
                 </h1>
                 <p className="text-sm text-muted-foreground">
@@ -614,7 +596,7 @@ export default function PrivateRedirects() {
                           variant="secondary"
                           className="gap-1 cursor-pointer bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
                         >
-                          <IconCircleCheck className="h-3.5 w-3.5" />
+                          <CircleCheck className="h-3.5 w-3.5" />
                           Passed
                         </Badge>
                       </PopoverTrigger>
@@ -635,12 +617,12 @@ export default function PrivateRedirects() {
                     </Popover>
                   ) : validationResult.status === "warning" ? (
                     <Badge variant="outline" className="gap-1">
-                      <IconAlertTriangle className="h-3.5 w-3.5" />
+                      <AlertTriangle className="h-3.5 w-3.5" />
                       {totalIssues} warning{totalIssues !== 1 ? "s" : ""}
                     </Badge>
                   ) : (
                     <Badge variant="destructive" className="gap-1">
-                      <IconAlertTriangle className="h-3.5 w-3.5" />
+                      <AlertTriangle className="h-3.5 w-3.5" />
                       {totalIssues} issue{totalIssues !== 1 ? "s" : ""}
                     </Badge>
                   )}
@@ -657,7 +639,7 @@ export default function PrivateRedirects() {
                 {isValidating ? (
                   <div className="inline-block h-3.5 w-3.5 animate-spin rounded-full border-2 border-solid border-current border-r-transparent" />
                 ) : (
-                  <IconTestPipe className="h-4 w-4" />
+                  <TestTube className="h-4 w-4" />
                 )}
               </Button>
               <Button
@@ -671,7 +653,7 @@ export default function PrivateRedirects() {
                 }
                 data-testid="button-toggle-search"
               >
-                <IconSearch className="h-4 w-4" />
+                <Search className="h-4 w-4" />
               </Button>
               <Button
                 variant="default"
@@ -679,7 +661,7 @@ export default function PrivateRedirects() {
                 onClick={handleOpenAddDialog}
                 data-testid="button-add-redirect"
               >
-                <IconPlus className="h-3.5 w-3.5 mr-1" />
+                <Plus className="h-3.5 w-3.5 mr-1" />
                 Add redirect
               </Button>
             </div>
@@ -693,7 +675,7 @@ export default function PrivateRedirects() {
         >
           <div className="container mx-auto px-4 py-2">
             <div className="relative">
-              <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search redirects..."
                 value={search}
@@ -710,7 +692,7 @@ export default function PrivateRedirects() {
         <div className="container mx-auto px-4 py-3">
           <div className="flex flex-col gap-3">
             <div className="flex items-start gap-2 text-xs text-muted-foreground">
-              <IconInfoCircle className="h-3.5 w-3.5 mt-0.5 flex-shrink-0" />
+              <Info className="h-3.5 w-3.5 mt-0.5 flex-shrink-0" />
               <span>
                 Redirects take effect immediately — no server restart needed.
                 Browsers cache 301 redirects aggressively, so test changes in an incognito window if a redirect seems stuck.
@@ -718,7 +700,7 @@ export default function PrivateRedirects() {
             </div>
             <div className="space-y-2">
               <div className="relative">
-                <IconTestPipe className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <TestTube className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   placeholder="Test a URL — paste a full link or a path like /us/coding-bootcamp/some-article"
                   value={testRedirectUrl}
@@ -732,7 +714,7 @@ export default function PrivateRedirects() {
                     onClick={() => setTestRedirectUrl("")}
                     data-testid="button-clear-test-url"
                   >
-                    <IconX className="h-3.5 w-3.5" />
+                    <X className="h-3.5 w-3.5" />
                   </button>
                 )}
               </div>
@@ -748,9 +730,9 @@ export default function PrivateRedirects() {
                         className={`gap-1 ${testRedirectResult.destinationExists === false ? "" : "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"}`}
                       >
                         {testRedirectResult.destinationExists === false ? (
-                          <IconAlertTriangle className="h-3 w-3" />
+                          <AlertTriangle className="h-3 w-3" />
                         ) : (
-                          <IconCircleCheck className="h-3 w-3" />
+                          <CircleCheck className="h-3 w-3" />
                         )}
                         {testRedirectResult.destinationExists === false ? "Redirect found to a 404" : "Redirect found"}
                       </Badge>
@@ -779,7 +761,7 @@ export default function PrivateRedirects() {
                           className="p-0.5 rounded hover:bg-muted flex-shrink-0"
                           data-testid="link-test-redirect-destination"
                         >
-                          <IconExternalLink className="h-3 w-3 text-muted-foreground" />
+                          <ExternalLink className="h-3 w-3 text-muted-foreground" />
                         </a>
                       </div>
                       {testRedirectResult.captureGroups && testRedirectResult.captureGroups.length > 0 && (
@@ -824,7 +806,7 @@ export default function PrivateRedirects() {
                               className="p-0.5 rounded hover:bg-muted flex-shrink-0"
                               data-testid="link-test-page-destination"
                             >
-                              <IconExternalLink className="h-3 w-3 text-muted-foreground" />
+                              <ExternalLink className="h-3 w-3 text-muted-foreground" />
                             </a>
                           </div>
                         </>
@@ -852,10 +834,10 @@ export default function PrivateRedirects() {
               className="flex items-center gap-2 w-full text-left"
               data-testid="button-toggle-validation-details"
             >
-              <IconChevronRight
+              <ChevronRight
                 className={`h-4 w-4 text-muted-foreground transition-transform ${validationExpanded ? "rotate-90" : ""}`}
               />
-              <IconShieldCheck className="h-4 w-4 text-muted-foreground" />
+              <ShieldCheck className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm font-medium">Validation Results</span>
               <span className="text-xs text-muted-foreground">
                 ({validationResult.duration}ms)
@@ -863,7 +845,7 @@ export default function PrivateRedirects() {
               <div className="flex items-center gap-2 ml-auto">
                 {totalIssues === 0 ? (
                   <Badge variant="secondary" className="text-xs gap-1">
-                    <IconCircleCheck className="h-3 w-3" />
+                    <CircleCheck className="h-3 w-3" />
                     All passed
                   </Badge>
                 ) : (
@@ -888,7 +870,7 @@ export default function PrivateRedirects() {
               <div className="mt-3 space-y-2">
                 {totalIssues === 0 ? (
                   <div className="flex items-center gap-2 px-3 py-2 rounded-md border text-sm">
-                    <IconCircleCheck className="h-4 w-4 flex-shrink-0" />
+                    <CircleCheck className="h-4 w-4 flex-shrink-0" />
                     All redirect checks passed. No conflicts, loops, or
                     self-redirects found.
                   </div>
@@ -902,7 +884,7 @@ export default function PrivateRedirects() {
                           className="flex items-start gap-3 px-3 py-2 rounded-md border bg-destructive/5 border-destructive/20"
                           data-testid={`validation-error-${i}`}
                         >
-                          <IconAlertTriangle className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
+                          <AlertTriangle className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
                           <div className="min-w-0 flex-1">
                             <div className="flex items-center gap-2 flex-wrap">
                               <Badge variant="destructive" className="text-xs">
@@ -934,7 +916,7 @@ export default function PrivateRedirects() {
                                     onClick={() => handleRemoveFromFile(conflict.redirectUrl, file)}
                                     data-testid={`button-remove-from-${fi}-err-${i}`}
                                   >
-                                    <IconTrash className="h-3 w-3" />
+                                    <Trash2 className="h-3 w-3" />
                                     {removingFrom === `${conflict.redirectUrl}::${file}` ? "Removing..." : `Remove from ${stripContentPath(file).split("/").pop()}`}
                                   </Button>
                                 ))}
@@ -946,7 +928,7 @@ export default function PrivateRedirects() {
                                   onClick={() => handleRemoveFromBoth(conflict.redirectUrl, conflict.files)}
                                   data-testid={`button-remove-both-err-${i}`}
                                 >
-                                  <IconTrash className="h-3 w-3" />
+                                  <Trash2 className="h-3 w-3" />
                                   {removingFrom === `${conflict.redirectUrl}::both` ? "Removing..." : "Remove from both"}
                                 </Button>
                               </div>
@@ -961,7 +943,7 @@ export default function PrivateRedirects() {
                                   onClick={() => handleRemoveFromFile(conflict.redirectUrl, conflict.files[0])}
                                   data-testid={`button-remove-err-${i}`}
                                 >
-                                  <IconTrash className="h-3 w-3" />
+                                  <Trash2 className="h-3 w-3" />
                                   {removingFrom === `${conflict.redirectUrl}::${conflict.files[0]}` ? "Removing..." : `Remove from ${stripContentPath(conflict.files[0]).split("/").pop()}`}
                                 </Button>
                               </div>
@@ -981,7 +963,7 @@ export default function PrivateRedirects() {
                           }}
                           data-testid={`validation-warning-${i}`}
                         >
-                          <IconAlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
+                          <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
                           <div className="min-w-0 flex-1">
                             <div className="flex items-center gap-2 flex-wrap">
                               <Badge variant="secondary" className="text-xs">
@@ -1013,7 +995,7 @@ export default function PrivateRedirects() {
                                     onClick={() => handleRemoveFromFile(conflict.redirectUrl, file)}
                                     data-testid={`button-remove-from-${fi}-warn-${i}`}
                                   >
-                                    <IconTrash className="h-3 w-3" />
+                                    <Trash2 className="h-3 w-3" />
                                     {removingFrom === `${conflict.redirectUrl}::${file}` ? "Removing..." : `Remove from ${stripContentPath(file).split("/").pop()}`}
                                   </Button>
                                 ))}
@@ -1025,7 +1007,7 @@ export default function PrivateRedirects() {
                                   onClick={() => handleRemoveFromBoth(conflict.redirectUrl, conflict.files)}
                                   data-testid={`button-remove-both-warn-${i}`}
                                 >
-                                  <IconTrash className="h-3 w-3" />
+                                  <Trash2 className="h-3 w-3" />
                                   {removingFrom === `${conflict.redirectUrl}::both` ? "Removing..." : "Remove from both"}
                                 </Button>
                               </div>
@@ -1040,7 +1022,7 @@ export default function PrivateRedirects() {
                                   onClick={() => handleRemoveFromFile(conflict.redirectUrl, conflict.files[0])}
                                   data-testid={`button-remove-warn-${i}`}
                                 >
-                                  <IconTrash className="h-3 w-3" />
+                                  <Trash2 className="h-3 w-3" />
                                   {removingFrom === `${conflict.redirectUrl}::${conflict.files[0]}` ? "Removing..." : `Remove from ${stripContentPath(conflict.files[0]).split("/").pop()}`}
                                 </Button>
                               </div>
@@ -1080,7 +1062,7 @@ export default function PrivateRedirects() {
                     className="flex items-center gap-3 w-full px-4 py-3 rounded-md text-sm hover-elevate"
                     data-testid={`button-toggle-${type}`}
                   >
-                    <IconChevronRight
+                    <ChevronRight
                       className={`h-4 w-4 text-muted-foreground transition-transform ${isExpanded ? "rotate-90" : ""}`}
                     />
                     <Badge variant="secondary">{type}</Badge>
@@ -1116,7 +1098,7 @@ export default function PrivateRedirects() {
                                   disabled={isFirstCustom}
                                   data-testid={`button-move-up-${index}`}
                                 >
-                                  <IconChevronUp className="h-3.5 w-3.5" />
+                                  <ChevronUp className="h-3.5 w-3.5" />
                                 </button>
                                 <button
                                   className={`h-5 w-5 flex items-center justify-center text-muted-foreground${isLastCustom ? " opacity-30 pointer-events-none" : ""}`}
@@ -1124,7 +1106,7 @@ export default function PrivateRedirects() {
                                   disabled={isLastCustom}
                                   data-testid={`button-move-down-${index}`}
                                 >
-                                  <IconChevronDown className="h-3.5 w-3.5" />
+                                  <ChevronDown className="h-3.5 w-3.5" />
                                 </button>
                               </div>
                             )}
@@ -1153,7 +1135,7 @@ export default function PrivateRedirects() {
                                         }`}
                                       >
                                         {redirect.priority === "fallback" && (
-                                          <IconAlertTriangle className="h-2.5 w-2.5" />
+                                          <AlertTriangle className="h-2.5 w-2.5" />
                                         )}
                                         {redirect.priority === "fallback" ? "fallback" : "before"}
                                       </Badge>
@@ -1200,7 +1182,7 @@ export default function PrivateRedirects() {
                                 </Popover>
                               ) : redirect.priority === "fallback" ? (
                                 <Badge variant="outline" className="text-[10px] px-1.5 py-0 flex-shrink-0 gap-0.5">
-                                  <IconAlertTriangle className="h-2.5 w-2.5" />
+                                  <AlertTriangle className="h-2.5 w-2.5" />
                                   fallback
                                 </Badge>
                               ) : null}
@@ -1215,7 +1197,7 @@ export default function PrivateRedirects() {
                             >
                               {redirect.status}
                             </Badge>
-                            <IconArrowRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                            <ArrowRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                             <div className="flex-1 min-w-0 flex items-center gap-2">
                               {isLocaleMap(redirect.to) ? (
                                 <div className="flex-1 min-w-0 space-y-1">
@@ -1236,7 +1218,7 @@ export default function PrivateRedirects() {
                                           className="p-0.5 rounded hover:bg-muted flex-shrink-0"
                                           data-testid={`link-redirect-target-${type}-${index}-${locale}`}
                                         >
-                                          <IconExternalLink className="h-3 w-3 text-muted-foreground" />
+                                          <ExternalLink className="h-3 w-3 text-muted-foreground" />
                                         </a>
                                       </div>
                                     ),
@@ -1256,7 +1238,7 @@ export default function PrivateRedirects() {
                                       title="Open target URL"
                                       data-testid={`link-redirect-target-${type}-${index}`}
                                     >
-                                      <IconExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
+                                      <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
                                     </a>
                                   )}
                                 </>
@@ -1270,7 +1252,7 @@ export default function PrivateRedirects() {
                               title="Delete redirect"
                               data-testid={`button-delete-redirect-${type}-${index}`}
                             >
-                              <IconTrash className="h-3.5 w-3.5" />
+                              <Trash2 className="h-3.5 w-3.5" />
                             </Button>
                           </div>
                         );
@@ -1355,7 +1337,7 @@ export default function PrivateRedirects() {
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button variant="outline" size="icon" title="Test this pattern" data-testid="button-test-pattern">
-                        <IconTestPipe className="h-4 w-4" />
+                        <TestTube className="h-4 w-4" />
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-80" align="end" side="bottom" container={dialogRef.current}>
@@ -1674,7 +1656,7 @@ export default function PrivateRedirects() {
                         }}
                         data-testid="button-clear-destination"
                       >
-                        <IconX className="h-4 w-4" />
+                        <X className="h-4 w-4" />
                       </Button>
                     </div>
 

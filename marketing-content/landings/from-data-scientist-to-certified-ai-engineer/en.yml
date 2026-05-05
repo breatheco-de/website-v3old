@@ -15,7 +15,7 @@ schema:
     - courses:ai-engineering
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: ApplyFormProductShowcase
     title: For Developers, Data Scientists & Tech Professionals
     brand_mark:
@@ -65,7 +65,7 @@ sections:
       icon: Download
     video:
       url: https://www.youtube.com/shorts/sSxJnelPJT8
-      ratio: '9:16'
+      ratio: "9:16"
       muted: true
     section_id: hero-yeqkw4
     paddingY:
@@ -77,7 +77,7 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
   - type: sticky_cta
     section_id: sticky_cta-gjavb4
-    version: '1.0'
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
@@ -106,7 +106,7 @@ sections:
         message: Thanks! We'll be in touch within 24 hours.
   - type: awards_marquee
     section_id: awards_marquee-7tc46h
-    version: '1.0'
+    version: "1.0"
     speed: 40
     gradient: true
     gradientWidth: 500
@@ -160,7 +160,7 @@ sections:
       desktop: none lg
   - type: features_grid
     section_id: features_grid-0jz08u
-    version: '1.0'
+    version: "1.0"
     variant: stats-text-card
     title: Why AI Engineering Now
     subtitle: The talent shortage is your opportunity
@@ -181,151 +181,179 @@ sections:
       desktop: none md
     background: hsl(210 100% 50% / 0.05)
   - type: syllabus
-    section_id: syllabus-8novey
     variant: program-modules
-    program_title: What You'll Build in 24 Weeks
-    program_description: From day one, you'll choose one company. Yours, one you want to build, or one you want to reimagine. Over the course of 10 milestones, you'll transform it into a fully operational, AI-powered business.
+    program_title: AI Native Full Stack — Program Modules
+    program_description: Build real AI-powered systems from day one. This curriculum is organized around two tracks — Core AI and Agents, and Infrastructure for AI — plus a capstone that integrates everything into a fully transformed, deployed company. Supported by complementary foundations in modern development tools and practices throughout.
     tech_logos:
-      - name: OpenAI
-        icon: openai
-      - name: Claude
-        icon: claude
       - name: Python
         icon: python
-      - name: Pandas
-        icon: pandas
-      - name: NumPy
-        icon: numpy
-      - name: Scikit-learn
-        icon: scikitlearn
-      - name: PyTorch
-        icon: pytorch
-      - name: Matplotlib
-        icon: matplotlib
-      - name: React
-        icon: react
-      - name: Next.js
-        icon: nextjs
-      - name: Tailwind CSS
-        icon: tailwindcss
-      - name: Node.js
-        icon: nodejs
-      - name: Vercel
-        icon: vercel
-      - name: Supabase
-        icon: supabase
-      - name: Git
-        icon: git
-      - name: GitHub
-        icon: github
-      - name: Postman
-        icon: postman
+      - name: OpenAI
+        icon: openai
       - name: n8n
         icon: n8n
+      - name: Docker
+        icon: docker
+      - name: React
+        icon: react
     module_cards:
-      - title: AI-First Prework
-        duration: Milestone 0
+      - title: Personal Assistants with OpenClaw
+        duration: Core AI and Agents
         objectives:
-          - YAML/JSON fundamentals
-          - Git version control
-          - JS basics
-          - Internet fundamentals
-          - Coding agents
-        icon: IconRocket
-      - title: Web Foundations
-        duration: Milestone 1
-        objectives:
-          - HTML, CSS, Tailwind
-          - Accessibility best practices
-          - Layout techniques
-        projects: Build the company's first webpage
-        icon: IconWorld
-      - title: Programming Foundations
-        duration: Milestone 2
-        objectives:
-          - Algorithms and data structures
-          - Stateflow vs controlflow
-          - JavaScript mastery
-        projects: Implement small features for the company
-        icon: IconCode
-      - title: AI-Driven UI Engineering
-        duration: Milestone 3
-        objectives:
-          - Vision-to-Spec prompting
-          - Component generation with AI
-        projects: Rebuild the company's UI using AI
-        icon: IconSparkles
-      - title: React Fundamentals
-        duration: Milestone 4
-        objectives:
-          - SPA architecture
-          - Props, state, and effects
-          - Debugging techniques
-        projects: Build the company's interactive frontend
-        icon: IconBrandReact
-      - title: Backend for AI Frontends
-        duration: Milestone 5
-        objectives:
-          - APIs and DB basics
-          - Serialization and auth
-          - Serverless functions
-        projects: Create the company's backend
-        icon: IconServer
-      - title: Telemetry & Data Pipelines
-        duration: Milestone 6
-        objectives:
-          - Collect, transform, aggregate, report
-        projects: Build telemetry for the company
-        icon: IconChartLine
-      - title: RAG & Memory
-        duration: Milestone 7
-        objectives:
-          - Chunking and embeddings
-          - Vector search
-        projects: Add the company's knowledge layer
-        icon: IconBrain
-      - title: Agent Engineering
-        duration: Milestone 8
-        objectives:
-          - Rules and memory bank
-          - Tool calling
-          - Multi-agent planning
-        projects: Build the company's agents
+          - Configure an open-source AI agent as a personal assistant
+          - Assign tasks and integrate external applications with the agent
+        projects: Deploy and configure a self-hosted AI assistant — yours, under your control, without relying on external vendors.
+        orientation: vertical
         icon: IconRobot
-      - title: Agentic Workflow Generation
-        duration: Milestone 9
+      - title: Advanced Personal Assistants with OpenClaw
+        duration: Core AI and Agents
         objectives:
-          - Use LLMs to analyze company case
-          - Generate and validate internal workflows
-          - Implement automation pipelines
-        projects: Serverless, queues, cronjobs, or n8n
-        icon: IconSitemap
-      - title: Real-Time Systems
-        duration: Milestone 10
+          - Identify scenarios where an agent solves real business problems
+          - Develop custom skills for OpenClaw
+          - Implement contextual memory (episodic, semantic, procedural)
+          - Advanced configuration and extension of the agent
+        projects: Take your basic assistant agent to a productive tool with real autonomy in business contexts.
+        orientation: vertical
+        icon: IconRobot
+      - title: Working with AI Coding Agents
+        duration: Core AI and Agents
         objectives:
-          - Streaming and sockets
-          - Pub/sub patterns
-        projects: Enable real-time interactions for data, customers, AI or employees
+          - Build memory banks and context rules from an existing codebase
+          - Write executable specifications for agents (agent specs)
+          - Synthesize reusable skills so agents act with precision
+        projects: Build memory banks and context rules that turn a coding agent into a collaborator that understands your codebase.
+        orientation: vertical
+        icon: IconCode
+      - title: LLMs, Training & RAG
+        duration: Core AI and Agents
+        objectives:
+          - Prepare data and select models for training
+          - Implement RAG techniques on proprietary knowledge bases
+          - Work with vector databases
+          - Evaluate, debug, and integrate models in production
+        projects: Implement RAG so your agent answers with proprietary, up-to-date knowledge.
+        orientation: vertical
+        icon: IconDatabase
+      - title: Agentic Engineering
+        duration: Core AI and Agents
+        objectives:
+          - Build agents with tool calling (real function calls)
+          - Implement guardrails as a security and control mechanism
+          - Provide tools to the agent via CLIs optimized for AI
+          - Extend agent capabilities with the Model Context Protocol (MCP)
+          - Give an agent persistent memory
+        projects: Build agents that call tools, access external systems via MCPs and CLIs, and operate with persistent memory.
+        orientation: vertical
         icon: IconBolt
-      - title: Full AI-Transformed Company
+      - title: Agentic Workflows
+        duration: Core AI and Agents
+        objectives:
+          - Design multi-agent systems with routing and arbitration
+          - Implement shared memory across agents
+          - Deploy agentic workflows with serverless and durable functions
+        projects: Design systems where multiple agents collaborate, distribute tasks, and run autonomously at scale.
+        orientation: vertical
+        icon: IconLayoutKanban
+      - title: Backend Development with Coding Agents
+        duration: Infrastructure for AI
+        objectives:
+          - Design backend architectures for AI-powered solutions
+          - Create agent loops integrating LLMs with APIs
+          - Implement lightweight storage and CSV data processing
+          - Build and expose REST APIs for frontends and agents
+        projects: Build robust APIs with FastAPI, implement agent loops in Python, and design backend architectures for AI use cases.
+        orientation: vertical
+        icon: IconServer
+      - title: Workflow Automations
+        duration: Infrastructure for AI
+        objectives:
+          - Model business logic with workflow diagrams
+          - Implement basic and advanced flows in n8n
+          - Integrate LLMs and external apps in automations
+          - Deploy maintainable workflows with error handling
+        projects: Build AI-powered business automations in n8n that run autonomously without manual intervention.
+        orientation: vertical
+        icon: IconCode
+      - title: Data Pipelines
+        duration: Infrastructure for AI
+        objectives:
+          - Manipulate and prepare datasets with Python
+          - Build data pipelines from the application to analysis systems
+        projects: Build pipelines that take raw data, transform it, and leave it ready to feed models, reports, or agents.
+        orientation: vertical
+        icon: IconChartBar
+      - title: Telemetry
+        duration: Infrastructure for AI
+        objectives:
+          - Optimize storage for reporting and data integrity
+          - Identify data collection opportunities in real scenarios
+          - Collect telemetry and user context from the application
+          - Build reports from telemetry data
+        projects: Instrument applications to collect behavioral data and make decisions based on real evidence.
+        orientation: vertical
+        icon: IconChartBar
+      - title: Asynchronous Processing and Offloading
+        duration: Infrastructure for AI
+        objectives:
+          - Implement background processing for costly tasks
+          - Manage process queues with workers
+          - Use queues to delegate work between agents and services
+        projects: Implement background processing and queue systems that let agents delegate heavy work without blocking users.
+        orientation: vertical
+        icon: IconServer
+      - title: Real-Time
+        duration: Infrastructure for AI
+        objectives:
+          - Build support chats with LLMs in real time
+          - Implement response streaming with generators (yield)
+          - Integrate webhooks and pub/sub in AI applications
+        projects: Implement real-time communication between users and language models using streaming, WebSockets, and event-driven architectures.
+        orientation: vertical
+        icon: IconBolt
+      - title: Web Application Authentication
+        duration: Infrastructure for AI
+        objectives:
+          - Implement authentication and route restrictions in FastAPI
+          - Build complete authentication flows (login, tokens, sessions)
+        projects: Implement secure authentication in FastAPI and build complete login flows that define what each user — and agent — can do.
+        orientation: vertical
+        icon: IconCode
+      - title: Error Handling, Debugging and Testing
+        duration: Infrastructure for AI
+        objectives:
+          - Understand and manage runtime errors with flow control
+          - Develop test suites for robust applications
+        projects: Verify AI-generated code with controlled error handling and test suites that validate expected behavior.
+        orientation: vertical
+        icon: IconCode
+      - title: Cybersecurity in AI Applications
+        duration: Infrastructure for AI
+        objectives:
+          - Identify and fix OWASP Top 10 vulnerabilities in web applications
+          - Implement security practices specific to AI integrations
+          - Use LLMs as a cybersecurity auditing tool
+        projects: Identify critical vulnerabilities in AI applications and implement safe practices in model integration.
+        orientation: vertical
+        icon: IconCode
+      - title: AI-Transformed Company
         duration: Capstone
         objectives:
           - AI-generated frontend
-          - API + authentication
-          - Telemetry + reporting pipeline
-          - Workflow automation (agent-generated)
+          - API with full authentication
+          - Telemetry and reporting pipeline
+          - Agent-generated automated workflows
           - RAG knowledge layer
           - Agents with tool calling
-          - Real-time communication layer
-        projects: Deliver the complete transformation of your chosen company
+          - Real-time communication
+        projects: Integrate everything you have learned into a working, deployed system — a full transformation of a company through AI.
         orientation: horizontal
-        icon: IconTrophy
-    marginY:
-      mobile: none
-      desktop: none
+        icon: IconCode
     paddingY:
       mobile: lg none
       desktop: lg none
+    marginY:
+      mobile: none
+      desktop: none
+    section_id: syllabus-8novey
   - type: ai_learning
     section_id: ai_learning-rmuw7i
     badge: Why 4Geeks?
@@ -334,7 +362,7 @@ sections:
     features:
       - icon: TrendingUp
         title: Thrive in tech with career support for the AI-Era
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Get personalized 1:1 coaching
@@ -344,11 +372,11 @@ sections:
         video_url: https://youtu.be/-2ZvlgDnltc
         cta:
           text: Start learning now!
-          url: '#hero-form'
+          url: "#hero-form"
           variant: primary
       - icon: Robot
         title: Progress faster with AI-powered tools
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Get instant feedback from Rigobot, our custom AI tutor
@@ -358,11 +386,11 @@ sections:
         video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
         cta:
           text: Start learning now!
-          url: '#hero-form'
+          url: "#hero-form"
           variant: primary
       - icon: Headset
         title: Unlimited 1:1 mentorship and an active community
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 mentorship sessions
@@ -376,12 +404,12 @@ sections:
   - type: certificate
     section_id: certificate-dygol2
     title: Career Outcomes
-    description: 'Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:'
+    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
     benefits:
-      - text: 'AI Software Engineer: $95K–$135K'
-      - text: 'Full-Stack Engineer (AI-Fluent): $100K–$145K'
-      - text: 'Agent Engineer: $105K–$155K'
-      - text: 'Workflow Automation Engineer: $85K–$120K'
+      - text: "AI Software Engineer: $95K–$135K"
+      - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
+      - text: "Agent Engineer: $105K–$155K"
+      - text: "Workflow Automation Engineer: $85K–$120K"
     card:
       title: AI Engineer
       subtitle: 4Geeks Academy Certificate
@@ -406,10 +434,10 @@ sections:
         label: Average salary increase
         description: Our graduates see an average 55% salary increase after transitioning into AI engineering roles. The investment pays for itself.
         benefits:
-          - text: 'AI Software Engineer: $95K–$135K'
-          - text: 'Full-Stack Engineer (AI-Fluent): $100K–$145K'
-          - text: 'Agent Engineer: $105K–$155K'
-          - text: 'Workflow Automation Engineer: $85K–$120K'
+          - text: "AI Software Engineer: $95K–$135K"
+          - text: "Full-Stack Engineer (AI-Fluent): $100K–$145K"
+          - text: "Agent Engineer: $105K–$155K"
+          - text: "Workflow Automation Engineer: $85K–$120K"
       - value: 5,000+
         label: Hiring partners
         description: Access our network of 5,000+ hiring partners actively seeking AI talent. Get exclusive job opportunities and priority referrals.
@@ -429,12 +457,12 @@ sections:
     background: hsl(var(--muted))
   - type: pricing
     section_id: pricing-gjb9r0
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Finance Your Investment
     subtitle: Your future in tech is within reach.
-    discount_text: 'Full Payment Discount: Save 10% with upfront payment.'
-    financing_text: 'Credit-Based Financing: starting below'
+    discount_text: "Full Payment Discount: Save 10% with upfront payment."
+    financing_text: "Credit-Based Financing: starting below"
     financing_amount: $349
     tech_icons:
       - openai
@@ -468,7 +496,7 @@ sections:
         text: Enroll with a Job Guarantee for added confidence. Get hired within 9 months of graduation or your money back.
     cta:
       text: Get more info
-      url: '#hero-form'
+      url: "#hero-form"
       variant: primary
     paddingY:
       mobile: lg none
@@ -511,7 +539,7 @@ sections:
       desktop: lg none
   - type: bullet_tabs_showcase
     section_id: bullet_tabs_showcase-fkvg7y
-    version: '1.0'
+    version: "1.0"
     heading: Is This Program Right for You?
     tabs:
       - label: Collaborative documents
@@ -545,11 +573,11 @@ sections:
       - content-and-syllabus
       - career-support
     rating_summary:
-      average: '4.9'
+      average: "4.9"
       count: 2,847
   - type: cta_banner
     section_id: cta_banner-07yn29
-    version: '1.0'
+    version: "1.0"
     title: Ready to Become an AI Engineer?
     subtitle: Limited spots available. Start your transformation today.
     background: hsl(var(--primary))
@@ -596,7 +624,7 @@ sections:
       desktop: lg
   - type: footer
     section_id: footer-m9d55w
-    version: '1.0'
+    version: "1.0"
     copyright_text: 2024 4Geeks. All rights reserved.
     paddingY:
       mobile: none

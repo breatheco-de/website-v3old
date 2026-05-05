@@ -1,20 +1,11 @@
 import { useState, useRef, useEffect } from "react";
+import { ArrowLeft, Brain, ChevronDown, ChevronRight, Filter, Loader2, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import {
-  IconArrowLeft,
-  IconLoader2,
-  IconThumbUp,
-  IconThumbDown,
-  IconChevronDown,
-  IconChevronRight,
-  IconFilter,
-  IconBrain,
-} from "@tabler/icons-react";
 import { Link } from "wouter";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 
@@ -232,7 +223,7 @@ export default function AIConversations() {
         <div className="flex items-center gap-3">
           <Link href="/">
             <Button size="icon" variant="ghost" data-testid="button-back-conversations">
-              <IconArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
           <div className="flex-1">
@@ -247,9 +238,9 @@ export default function AIConversations() {
             className="flex items-center gap-2 w-full text-left"
             data-testid="button-toggle-filters"
           >
-            <IconFilter className="h-4 w-4" />
+            <Filter className="h-4 w-4" />
             <span className="font-semibold text-sm">Filters</span>
-            {filtersExpanded ? <IconChevronDown className="h-4 w-4" /> : <IconChevronRight className="h-4 w-4" />}
+            {filtersExpanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
           </button>
 
           {filtersExpanded && (
@@ -359,7 +350,7 @@ export default function AIConversations() {
 
         {isLoading ? (
           <div className="flex justify-center py-12">
-            <IconLoader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
           </div>
         ) : !data?.conversations?.length ? (
           <div className="text-center py-12 text-muted-foreground">
@@ -389,7 +380,7 @@ export default function AIConversations() {
                       {conv.messages.length} messages
                     </p>
                   </div>
-                  {expandedConvs.has(conv.id) ? <IconChevronDown className="h-4 w-4" /> : <IconChevronRight className="h-4 w-4" />}
+                  {expandedConvs.has(conv.id) ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
                 </button>
 
                 {expandedConvs.has(conv.id) && (
@@ -428,7 +419,7 @@ export default function AIConversations() {
                                   onClick={() => handleRate(conv.id, msg.id, "good")}
                                   data-testid={`button-rate-good-${msg.id}`}
                                 >
-                                  <IconThumbUp className="h-3.5 w-3.5" />
+                                  <ThumbsUp className="h-3.5 w-3.5" />
                                 </Button>
                                 <Button
                                   size="sm"
@@ -436,7 +427,7 @@ export default function AIConversations() {
                                   onClick={() => handleRate(conv.id, msg.id, "bad")}
                                   data-testid={`button-rate-bad-${msg.id}`}
                                 >
-                                  <IconThumbDown className="h-3.5 w-3.5" />
+                                  <ThumbsDown className="h-3.5 w-3.5" />
                                 </Button>
                               </>
                             )}
@@ -496,11 +487,11 @@ export default function AIConversations() {
         <Card className="p-4 space-y-3">
           <div className="flex items-center justify-between gap-2 flex-wrap">
             <div className="flex items-center gap-2">
-              <IconBrain className="h-5 w-5 text-muted-foreground" />
+              <Brain className="h-5 w-5 text-muted-foreground" />
               <h2 className="font-semibold text-lg" data-testid="text-cluster-heading">Question Clustering</h2>
             </div>
             <Button onClick={handleCluster} disabled={clusterLoading} data-testid="button-cluster">
-              {clusterLoading ? <IconLoader2 className="h-4 w-4 animate-spin mr-2" /> : <IconBrain className="h-4 w-4 mr-2" />}
+              {clusterLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Brain className="h-4 w-4 mr-2" />}
               Cluster Recent Questions
             </Button>
           </div>

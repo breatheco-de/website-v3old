@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { IconStarFilled, IconStar } from "@tabler/icons-react";
 import type { TestimonialsSection as TestimonialsSectionType } from "@shared/schema";
 import { DotsIndicator } from "@/components/DotsIndicator";
 import { useQuery } from "@tanstack/react-query";
@@ -529,7 +529,7 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
               className="flex items-center justify-center gap-2 mb-4"
               data-testid="rating-summary"
             >
-              <IconStarFilled className="w-7 h-7 text-yellow-500" />
+              <Star className="fill-current w-7 h-7 text-yellow-500" />
               <span className="text-2xl font-bold text-foreground">
                 {String(ratingSummary.average)}
               </span>
@@ -656,9 +656,9 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
         <div className="flex items-center gap-1 mb-3">
           {Array.from({ length: 5 }).map((_, i) =>
             i < testimonial.rating ? (
-              <IconStarFilled key={i} className="w-5 h-5 text-yellow-500" />
+              <Star key={i} className="fill-current w-5 h-5 text-yellow-500" />
             ) : (
-              <IconStar key={i} className="w-5 h-5 text-muted" />
+              <Star key={i} className="w-5 h-5 text-muted" />
             ),
           )}
         </div>

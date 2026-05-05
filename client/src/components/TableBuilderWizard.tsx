@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useMemo, useEffect } from "react";
-import { IconArrowRight, IconArrowLeft, IconLoader2, IconCheck, IconAlertTriangle, IconLink, IconChevronDown, IconChevronRight, IconSend, IconArrowUp, IconArrowDown, IconCode, IconExternalLink } from "@tabler/icons-react";
+import { AlertTriangle, ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Check, ChevronDown, ChevronRight, Code, ExternalLink, Link, Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -219,9 +219,9 @@ function PreviewTable({ config, sampleData, action }: PreviewTableProps) {
                   {col.label}
                   {sortKey === col.key && (
                     sortDir === "asc" ? (
-                      <IconArrowUp className="w-2.5 h-2.5" />
+                      <ArrowUp className="w-2.5 h-2.5" />
                     ) : (
-                      <IconArrowDown className="w-2.5 h-2.5" />
+                      <ArrowDown className="w-2.5 h-2.5" />
                     )
                   )}
                 </div>
@@ -256,7 +256,7 @@ function PreviewTable({ config, sampleData, action }: PreviewTableProps) {
                   <td className="px-3 py-2">
                     <span className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded border text-foreground">
                       {action.label}
-                      <IconExternalLink className="w-2.5 h-2.5" />
+                      <ExternalLink className="w-2.5 h-2.5" />
                     </span>
                   </td>
                 )}
@@ -278,7 +278,7 @@ function PreviewTable({ config, sampleData, action }: PreviewTableProps) {
               className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
               data-testid="button-toggle-rows"
             >
-              <IconChevronDown className={`w-3 h-3 transition-transform ${expanded ? "rotate-180" : ""}`} />
+              <ChevronDown className={`w-3 h-3 transition-transform ${expanded ? "rotate-180" : ""}`} />
               {expanded ? "Show less" : `Show all ${sampleData.length}`}
             </button>
           )}
@@ -289,7 +289,7 @@ function PreviewTable({ config, sampleData, action }: PreviewTableProps) {
               className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
               data-testid="button-toggle-functions"
             >
-              <IconCode className="w-3 h-3" />
+              <Code className="w-3 h-3" />
               {showFunctions ? "Hide" : "Show"} column functions
             </button>
           )}
@@ -564,7 +564,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
                 </Button>
               )}
               <Button onClick={handleFetchUrl} disabled={loading || !state.url.trim()} data-testid="button-fetch-url">
-                {loading ? <IconLoader2 className="w-4 h-4 animate-spin" /> : <IconArrowRight className="w-4 h-4" />}
+                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <ArrowRight className="w-4 h-4" />}
                 <span className="ml-1">Next</span>
               </Button>
             </div>
@@ -596,14 +596,14 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
                       <span className="font-medium text-foreground">{key}</span>
                       <span className="text-xs text-muted-foreground ml-2">({arr.length} items)</span>
                     </div>
-                    <IconArrowRight className="w-4 h-4 text-muted-foreground" />
+                    <ArrowRight className="w-4 h-4 text-muted-foreground" />
                   </button>
                 );
               })}
             </div>
             <div className="flex justify-start">
               <Button variant="outline" onClick={() => setStep("url")} data-testid="button-back-url">
-                <IconArrowLeft className="w-4 h-4 mr-1" />
+                <ArrowLeft className="w-4 h-4 mr-1" />
                 Back
               </Button>
             </div>
@@ -613,7 +613,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
         {step === "consistency" && (
           <div className="space-y-4">
             <div className="flex items-start gap-3 p-4 bg-destructive/10 rounded-md">
-              <IconAlertTriangle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
+              <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
               <div>
                 <h3 className="font-semibold text-foreground" data-testid="text-consistency-error">
                   Inconsistent data
@@ -625,7 +625,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
             </div>
             <div className="flex justify-start gap-2">
               <Button variant="outline" onClick={() => setStep("url")} data-testid="button-back-start">
-                <IconArrowLeft className="w-4 h-4 mr-1" />
+                <ArrowLeft className="w-4 h-4 mr-1" />
                 Start over
               </Button>
               <Button
@@ -634,7 +634,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
                 data-testid="button-continue-anyway"
               >
                 Continue anyway
-                <IconArrowRight className="w-4 h-4 ml-1" />
+                <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </div>
           </div>
@@ -659,7 +659,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
 
         {step === "ai-processing" && (
           <div className="flex flex-col items-center py-8 gap-4">
-            <IconLoader2 className="w-10 h-10 text-primary animate-spin" />
+            <Loader2 className="w-10 h-10 text-primary animate-spin" />
             <p className="text-sm text-muted-foreground" data-testid="text-ai-processing">
               AI is configuring your table columns...
             </p>
@@ -698,7 +698,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
                 {refining && (
                   <div className="flex justify-start">
                     <div className="bg-muted rounded-md px-3 py-2">
-                      <IconLoader2 className="w-4 h-4 animate-spin text-muted-foreground" />
+                      <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
                     </div>
                   </div>
                 )}
@@ -726,7 +726,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
                   disabled={refining || !state.refinementPrompt.trim()}
                   data-testid="button-refine"
                 >
-                  {refining ? <IconLoader2 className="w-4 h-4 animate-spin" /> : <IconSend className="w-4 h-4" />}
+                  {refining ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                 </Button>
               </div>
             </div>
@@ -738,7 +738,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
                 onClick={() => setStep("columns-prompt")}
                 data-testid="button-back-review"
               >
-                <IconArrowLeft className="w-4 h-4 mr-1" />
+                <ArrowLeft className="w-4 h-4 mr-1" />
                 Back
               </Button>
               <Button
@@ -746,7 +746,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
                 disabled={refining}
                 data-testid="button-accept-columns"
               >
-                <IconCheck className="w-4 h-4 mr-1" />
+                <Check className="w-4 h-4 mr-1" />
                 Looks good, continue
               </Button>
             </div>
@@ -807,7 +807,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
                   <div className="space-y-1">
                     <Label htmlFor="action-href">Link URL</Label>
                     <div className="flex items-center gap-2">
-                      <IconLink className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                      <Link className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                       <Input
                         id="action-href"
                         placeholder="https://example.com/detail/{id}"
@@ -845,7 +845,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
                 onClick={() => setStep("review")}
                 data-testid="button-back-action"
               >
-                <IconArrowLeft className="w-4 h-4 mr-1" />
+                <ArrowLeft className="w-4 h-4 mr-1" />
                 Back
               </Button>
               <Button
@@ -853,7 +853,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
                 disabled={state.addAction && !state.actionHref.trim()}
                 data-testid="button-finish"
               >
-                <IconCheck className="w-4 h-4 mr-1" />
+                <Check className="w-4 h-4 mr-1" />
                 Create table
               </Button>
             </div>
@@ -904,7 +904,7 @@ function DescribeStep({ state, error, sampleExpanded, onToggleSample, onAnalyze,
 
       {state.analysisLoading && (
         <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-md">
-          <IconLoader2 className="w-4 h-4 text-primary animate-spin flex-shrink-0" />
+          <Loader2 className="w-4 h-4 text-primary animate-spin flex-shrink-0" />
           <p className="text-xs text-muted-foreground" data-testid="text-analysis-loading">
             Analyzing your data for suggestions...
           </p>
@@ -954,7 +954,7 @@ function DescribeStep({ state, error, sampleExpanded, onToggleSample, onAnalyze,
             className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
             data-testid="button-toggle-sample"
           >
-            {sampleExpanded ? <IconChevronDown className="w-3.5 h-3.5" /> : <IconChevronRight className="w-3.5 h-3.5" />}
+            {sampleExpanded ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5" />}
             Sample item preview
           </button>
           {sampleExpanded && (
@@ -982,7 +982,7 @@ function DescribeStep({ state, error, sampleExpanded, onToggleSample, onAnalyze,
           onClick={onBack}
           data-testid="button-back-columns"
         >
-          <IconArrowLeft className="w-4 h-4 mr-1" />
+          <ArrowLeft className="w-4 h-4 mr-1" />
           Back
         </Button>
         <Button
@@ -990,7 +990,7 @@ function DescribeStep({ state, error, sampleExpanded, onToggleSample, onAnalyze,
           disabled={!state.columnsPrompt.trim()}
           data-testid="button-generate-columns"
         >
-          <IconArrowRight className="w-4 h-4 mr-1" />
+          <ArrowRight className="w-4 h-4 mr-1" />
           Generate table
         </Button>
       </div>
@@ -1022,7 +1022,7 @@ function StepIndicator({ current }: { current: WizardStep }) {
                   : "bg-muted text-muted-foreground"
             }`}
           >
-            {i < currentIdx ? <IconCheck className="w-3 h-3" /> : i + 1}
+            {i < currentIdx ? <Check className="w-3 h-3" /> : i + 1}
           </div>
           <span
             className={`text-xs ${
@@ -1041,7 +1041,7 @@ function StepIndicator({ current }: { current: WizardStep }) {
 function ErrorMessage({ message }: { message: string }) {
   return (
     <div className="flex items-start gap-2 p-3 bg-destructive/10 rounded-md text-sm" data-testid="text-error-message">
-      <IconAlertTriangle className="w-4 h-4 text-destructive flex-shrink-0 mt-0.5" />
+      <AlertTriangle className="w-4 h-4 text-destructive flex-shrink-0 mt-0.5" />
       <span className="text-destructive">{message}</span>
     </div>
   );

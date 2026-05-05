@@ -1,13 +1,6 @@
 import { useState } from "react";
+import { Check, ExternalLink, Github, Server, Webhook, X } from "lucide-react";
 import { useLocation } from "wouter";
-import {
-  IconBrandGithub,
-  IconWebhook,
-  IconCheck,
-  IconX,
-  IconExternalLink,
-  IconServer,
-} from "@tabler/icons-react";
 import {
   Popover,
   PopoverContent,
@@ -61,7 +54,7 @@ export function SyncStatusPopover({ children }: SyncStatusPopoverProps) {
       >
         <div className="p-3 border-b">
           <div className="flex items-center gap-2">
-            <IconBrandGithub className="h-4 w-4" />
+            <Github className="h-4 w-4" />
             <span className="font-semibold text-sm">GitHub Sync Status</span>
           </div>
         </div>
@@ -69,7 +62,7 @@ export function SyncStatusPopover({ children }: SyncStatusPopoverProps) {
         <div className="p-3 space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-sm">
-              <IconServer className="h-3.5 w-3.5 text-muted-foreground" />
+              <Server className="h-3.5 w-3.5 text-muted-foreground" />
               <span className="text-muted-foreground">Instance</span>
             </div>
             {syncInfo ? (
@@ -100,17 +93,17 @@ export function SyncStatusPopover({ children }: SyncStatusPopoverProps) {
 
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-sm">
-              <IconWebhook className="h-3.5 w-3.5 text-muted-foreground" />
+              <Webhook className="h-3.5 w-3.5 text-muted-foreground" />
               <span className="text-muted-foreground">Webhook</span>
             </div>
             {syncInfo?.webhook.active ? (
               <span className="text-xs text-green-600 dark:text-green-400 flex items-center gap-1">
-                <IconCheck className="h-3 w-3" />
+                <Check className="h-3 w-3" />
                 Active (#{syncInfo.webhook.id})
               </span>
             ) : (
               <span className="text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1">
-                <IconX className="h-3 w-3" />
+                <X className="h-3 w-3" />
                 Not configured
               </span>
             )}
@@ -158,7 +151,7 @@ export function SyncStatusPopover({ children }: SyncStatusPopoverProps) {
             className="flex items-center gap-2 w-full px-3 py-1.5 rounded-md text-sm hover-elevate"
             data-testid="button-open-sync-log"
           >
-            <IconExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
+            <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
             <span>Open Full Log</span>
           </button>
         </div>

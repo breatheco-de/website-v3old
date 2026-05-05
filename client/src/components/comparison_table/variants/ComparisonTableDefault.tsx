@@ -1,5 +1,5 @@
 import type { ComparisonTableSection, ComparisonTableCellValue, ComparisonTableCtaButton } from "@shared/schema";
-import { IconCheck, IconX } from "@tabler/icons-react";
+import { Check, X } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -53,16 +53,16 @@ function CellValue({ value, isHighlighted }: { value: string; isHighlighted?: bo
   const lowerValue = value.toLowerCase();
   
   if (lowerValue === "yes" || lowerValue === "true" || value === "✓" || value === "check") {
-    return <IconCheck className="w-6 h-6 text-primary mx-auto" />;
+    return <Check className="w-6 h-6 text-primary mx-auto" />;
   }
   if (lowerValue === "no" || lowerValue === "false" || value === "✗" || value === "x") {
-    return <IconX className="w-6 h-6 text-muted-foreground mx-auto" />;
+    return <X className="w-6 h-6 text-muted-foreground mx-auto" />;
   }
   
   if (isHighlighted) {
     return (
       <span className="flex items-center justify-center gap-2">
-        <IconCheck className="w-4 h-4 text-primary flex-shrink-0" />
+        <Check className="w-4 h-4 text-primary flex-shrink-0" />
         <span>{value}</span>
       </span>
     );

@@ -1,15 +1,15 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Icon } from "@tabler/icons-react";
+import { LucideIcon } from "lucide-react";
 
 interface StatsCardProps {
   title: string;
   value: string | number;
-  icon: Icon;
+  icon: LucideIcon;
   trend?: string;
   trendUp?: boolean;
 }
 
-export default function StatsCard({ title, value, icon: Icon, trend, trendUp }: StatsCardProps) {
+export default function StatsCard({ title, value, icon: LucideIcon, trend, trendUp }: StatsCardProps) {
   return (
     <Card data-testid={`card-stat-${title.toLowerCase().replace(/\s+/g, '-')}`}>
       <CardContent className="p-6">
@@ -26,7 +26,7 @@ export default function StatsCard({ title, value, icon: Icon, trend, trendUp }: 
             )}
           </div>
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-            <Icon className="h-6 w-6 text-primary" />
+            <LucideIcon className="h-6 w-6 text-primary" />
           </div>
         </div>
       </CardContent>

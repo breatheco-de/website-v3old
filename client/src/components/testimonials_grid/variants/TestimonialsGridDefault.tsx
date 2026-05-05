@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { IconStarFilled, IconStar, IconBrandLinkedin } from "@tabler/icons-react";
+import { Linkedin, Star } from "lucide-react";
 import type { TestimonialsGridSection as TestimonialsGridSectionType } from "@shared/schema";
 import { UniversalVideo } from "@/components/UniversalVideo";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -426,7 +426,7 @@ function TestimonialGridCard({
               style={linkedinColor ? { color: linkedinColor } : undefined}
               data-testid={`link-linkedin-${index}`}
             >
-              <IconBrandLinkedin size={20} />
+              <Linkedin size={20} />
             </a>
           )}
         </div>
@@ -443,14 +443,14 @@ function TestimonialGridCard({
           <div className="flex items-center gap-0.5">
             {Array.from({ length: 5 }).map((_, i) =>
               i < item.rating! ? (
-                <IconStarFilled
+                <Star
                   key={i}
-                  className="w-4 h-4 text-yellow-500"
+                  className="fill-current w-4 h-4 text-yellow-500"
                   style={starColor ? { color: starColor } : undefined}
                   data-testid={`icon-star-filled-${index}-${i}`}
                 />
               ) : (
-                <IconStar key={i} className="w-4 h-4 text-foreground/20" />
+                <Star key={i} className="w-4 h-4 text-foreground/20" />
               ),
             )}
           </div>

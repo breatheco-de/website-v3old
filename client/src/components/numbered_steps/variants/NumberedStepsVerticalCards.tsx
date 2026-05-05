@@ -1,5 +1,6 @@
 
-import * as TablerIcons from "@tabler/icons-react";
+import * as LucideIcons from "lucide-react";
+import { Check } from "lucide-react";
 import type { ComponentType } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import type { NumberedStepsVerticalCardsSection, NumberedStepsStep } from "@shared/schema";
@@ -9,14 +10,14 @@ interface NumberedStepsVerticalCardsProps {
 }
 
 const getIcon = (iconName: string, className?: string) => {
-  const icons = TablerIcons as unknown as Record<string, ComponentType<{ size?: number; className?: string }>>;
-  const IconComponent = icons[`Icon${iconName}`];
+  const icons = LucideIcons as unknown as Record<string, ComponentType<{ size?: number; className?: string }>>;
+  const IconComponent = icons[iconName.charAt(0).toUpperCase() + iconName.slice(1) as keyof typeof LucideIcons];
   return IconComponent ? <IconComponent size={24} className={className || "text-primary"} /> : null;
 };
 
 const getBulletIcon = (iconName: string, colorClass: string) => {
-  const icons = TablerIcons as unknown as Record<string, ComponentType<{ className?: string }>>;
-  const IconComponent = icons[`Icon${iconName}`];
+  const icons = LucideIcons as unknown as Record<string, ComponentType<{ className?: string }>>;
+  const IconComponent = icons[iconName.charAt(0).toUpperCase() + iconName.slice(1) as keyof typeof LucideIcons];
   return IconComponent ? <IconComponent className={`w-4 h-4 ${colorClass} flex-shrink-0 mt-0.5`} /> : null;
 };
 

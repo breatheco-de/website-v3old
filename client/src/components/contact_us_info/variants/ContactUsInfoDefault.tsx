@@ -1,8 +1,8 @@
 
 import type { ContactUsInfoSection, ContactLocation } from "@shared/schema";
+import { Mail, MapPin, Phone } from "lucide-react";
 import LeadForm from "@/components/lead_form/variants/LeadFormDefault";
 import { Badge } from "@/components/ui/badge";
-import { IconMail, IconPhone, IconMapPin } from "@tabler/icons-react";
 
 interface ContactUsInfoProps {
   data: ContactUsInfoSection;
@@ -33,7 +33,7 @@ function LocationCard({ location }: { location: ContactLocation }) {
 
         {location.address && (
           <span className="text-sm text-muted-foreground flex items-start gap-1.5">
-            <IconMapPin className="w-4 h-4 shrink-0 mt-0.5" />
+            <MapPin className="w-4 h-4 shrink-0 mt-0.5" />
             <span
               data-testid={`text-location-address-${location.code.toLowerCase()}`}
             >
@@ -43,7 +43,7 @@ function LocationCard({ location }: { location: ContactLocation }) {
         )}
         {location.phone && (
           <span className="text-sm text-muted-foreground flex items-center gap-1.5">
-            <IconPhone className="w-4 h-4 shrink-0" />
+            <Phone className="w-4 h-4 shrink-0" />
             <a
               href={`tel:${location.phone.replace(/[^\d+]/g, "")}`}
               className="hover:text-foreground transition-colors"
@@ -54,7 +54,7 @@ function LocationCard({ location }: { location: ContactLocation }) {
           </span>
         )}
         <span className="text-sm text-muted-foreground flex items-center gap-1.5">
-          <IconMail className="w-4 h-4 shrink-0" />
+          <Mail className="w-4 h-4 shrink-0" />
           <a
             href={`mailto:${location.email}`}
             className="hover:text-foreground transition-colors"

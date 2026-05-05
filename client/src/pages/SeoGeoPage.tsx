@@ -1,18 +1,7 @@
 import { useState } from "react";
+import { AlertTriangle, ArrowLeft, Brain, Check, Crosshair, Globe, Info, Network, Star } from "lucide-react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
-import {
-  IconArrowLeft,
-  IconTargetArrow,
-  IconNetwork,
-  IconBrain,
-  IconWorldSearch,
-  IconAlertTriangle,
-  IconCheck,
-  IconSitemap,
-  IconStar,
-  IconInfoCircle,
-} from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -114,16 +103,16 @@ function SeoTab({ data }: { data: SeoOverview }) {
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3" data-testid="seo-totals-grid">
-        <StatCard label="Total Pages" value={data.totals.totalPages} icon={<IconSitemap className="h-4 w-4" />} />
-        <StatCard label="With Intent" value={data.totals.withIntent} total={data.totals.totalPages} icon={<IconTargetArrow className="h-4 w-4" />} />
-        <StatCard label="Clustered" value={data.totals.withPillar} total={data.totals.totalPages} icon={<IconNetwork className="h-4 w-4" />} />
-        <StatCard label="Focus Features" value={data.totals.withFocusFeatures} total={data.totals.totalPages} icon={<IconStar className="h-4 w-4" />} />
+        <StatCard label="Total Pages" value={data.totals.totalPages} icon={<Network className="h-4 w-4" />} />
+        <StatCard label="With Intent" value={data.totals.withIntent} total={data.totals.totalPages} icon={<Crosshair className="h-4 w-4" />} />
+        <StatCard label="Clustered" value={data.totals.withPillar} total={data.totals.totalPages} icon={<Network className="h-4 w-4" />} />
+        <StatCard label="Focus Features" value={data.totals.withFocusFeatures} total={data.totals.totalPages} icon={<Star className="h-4 w-4" />} />
       </div>
 
       <Card>
         <CardHeader className="pb-3">
           <CardTitle className="text-sm font-semibold flex items-center gap-2">
-            <IconTargetArrow className="h-4 w-4" />
+            <Crosshair className="h-4 w-4" />
             Intent Distribution
           </CardTitle>
         </CardHeader>
@@ -174,7 +163,7 @@ function SeoTab({ data }: { data: SeoOverview }) {
       <Card>
         <CardHeader className="pb-3">
           <CardTitle className="text-sm font-semibold flex items-center gap-2">
-            <IconNetwork className="h-4 w-4" />
+            <Network className="h-4 w-4" />
             Cluster Map
             <Badge variant="secondary">{data.clusters.length} pillar{data.clusters.length !== 1 ? "s" : ""}</Badge>
           </CardTitle>
@@ -182,7 +171,7 @@ function SeoTab({ data }: { data: SeoOverview }) {
         <CardContent>
           {data.clusters.length === 0 ? (
             <div className="text-center py-8" data-testid="clusters-empty">
-              <IconNetwork className="h-8 w-8 mx-auto text-muted-foreground mb-2" />
+              <Network className="h-8 w-8 mx-auto text-muted-foreground mb-2" />
               <p className="text-sm text-muted-foreground">No pillar pages defined yet</p>
               <p className="text-xs text-muted-foreground mt-1">Set <code className="bg-muted px-1 rounded">seo.pillar</code> on pages to build topic clusters</p>
             </div>
@@ -216,7 +205,7 @@ function SeoTab({ data }: { data: SeoOverview }) {
         <Card className="col-span-12 md:col-span-5">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-semibold flex items-center gap-2">
-              <IconStar className="h-4 w-4" />
+              <Star className="h-4 w-4" />
               Focus Feature Coverage
             </CardTitle>
           </CardHeader>
@@ -240,7 +229,7 @@ function SeoTab({ data }: { data: SeoOverview }) {
         <Card className="col-span-12 md:col-span-7">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-semibold flex items-center gap-2">
-              <IconAlertTriangle className="h-4 w-4" />
+              <AlertTriangle className="h-4 w-4" />
               Orphan Pages
               {data.orphanPages.length > 0 && (
                 <Badge variant="destructive">{data.orphanPages.length}</Badge>
@@ -250,7 +239,7 @@ function SeoTab({ data }: { data: SeoOverview }) {
           <CardContent>
             {data.orphanPages.length === 0 ? (
               <div className="text-center py-6" data-testid="orphans-empty">
-                <IconCheck className="h-6 w-6 mx-auto text-chart-3 mb-2" />
+                <Check className="h-6 w-6 mx-auto text-chart-3 mb-2" />
                 <p className="text-sm text-muted-foreground">All pages are clustered</p>
               </div>
             ) : (
@@ -281,16 +270,16 @@ function GeoTab({ data, brand }: { data: SeoOverview; brand: BrandContext | null
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3" data-testid="geo-totals-grid">
-        <StatCard label="Total Pages" value={data.totals.totalPages} icon={<IconWorldSearch className="h-4 w-4" />} />
-        <StatCard label="With FAQ" value={data.totals.withFaq} total={data.totals.totalPages} icon={<IconBrain className="h-4 w-4" />} />
-        <StatCard label="With Schema" value={data.totals.withSchema} total={data.totals.totalPages} icon={<IconInfoCircle className="h-4 w-4" />} />
+        <StatCard label="Total Pages" value={data.totals.totalPages} icon={<Globe className="h-4 w-4" />} />
+        <StatCard label="With FAQ" value={data.totals.withFaq} total={data.totals.totalPages} icon={<Brain className="h-4 w-4" />} />
+        <StatCard label="With Schema" value={data.totals.withSchema} total={data.totals.totalPages} icon={<Info className="h-4 w-4" />} />
       </div>
 
       {brand && (
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-semibold flex items-center gap-2">
-              <IconBrain className="h-4 w-4" />
+              <Brain className="h-4 w-4" />
               Brand Context
             </CardTitle>
           </CardHeader>
@@ -361,7 +350,7 @@ function GeoTab({ data, brand }: { data: SeoOverview; brand: BrandContext | null
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-semibold flex items-center gap-2">
-              <IconBrain className="h-4 w-4" />
+              <Brain className="h-4 w-4" />
               FAQ Coverage
               <Badge variant="secondary">{data.faqCoverage.length} pages</Badge>
             </CardTitle>
@@ -393,7 +382,7 @@ function GeoTab({ data, brand }: { data: SeoOverview; brand: BrandContext | null
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-semibold flex items-center gap-2">
-              <IconInfoCircle className="h-4 w-4" />
+              <Info className="h-4 w-4" />
               Schema.org Distribution
             </CardTitle>
           </CardHeader>
@@ -438,11 +427,11 @@ export default function SeoGeoPage() {
             <div className="flex items-center gap-3">
               <Link href="/private/diagnostics">
                 <Button variant="ghost" size="icon" data-testid="button-back-diagnostics">
-                  <IconArrowLeft className="h-5 w-5" />
+                  <ArrowLeft className="h-5 w-5" />
                 </Button>
               </Link>
               <div className="flex items-center gap-2">
-                <IconTargetArrow className="h-5 w-5 text-primary" />
+                <Crosshair className="h-5 w-5 text-primary" />
                 <h1 className="text-lg font-semibold text-foreground" data-testid="text-seo-geo-title">
                   SEO &amp; GEO
                 </h1>

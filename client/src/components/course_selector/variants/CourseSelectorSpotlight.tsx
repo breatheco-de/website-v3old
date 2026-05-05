@@ -1,15 +1,9 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ArrowRight, Check, ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import type { CourseSelectorSection, CourseItem } from "@shared/schema";
 import { resolveColorVar, hslColor } from "../shared";
 import { getIcon } from "@/lib/icons";
-import {
-  IconClock,
-  IconArrowRight,
-  IconCheck,
-  IconChevronLeft,
-  IconChevronRight,
-} from "@tabler/icons-react";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { RichTextContent } from "@/components/ui/rich-text-content";
 import { useVariableText } from "@/components/editing/VariableHighlight";
@@ -59,7 +53,7 @@ function FeaturedCourseCard({ course }: { course: CourseItem }) {
             className="inline-flex items-center gap-1.5 text-xs text-muted-foreground"
             data-testid="text-duration"
           >
-            <IconClock className="w-3.5 h-3.5" />
+            <Clock className="w-3.5 h-3.5" />
             {vt(course.duration)}
           </span>
           {course.label && (
@@ -68,7 +62,7 @@ function FeaturedCourseCard({ course }: { course: CourseItem }) {
               style={{ backgroundColor: hslColor(resolved, 0.4) }}
               data-testid="badge-label"
             >
-              <IconCheck className="w-3 h-3" />
+              <Check className="w-3 h-3" />
               {vt(course.label)}
             </span>
           )}
@@ -167,7 +161,7 @@ function FeaturedCourseCard({ course }: { course: CourseItem }) {
             data-testid="link-cta"
           >
             {vt(course.cta_text)}
-            <IconArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </a>
         </div>
       </div>
@@ -213,7 +207,7 @@ function SmallCourseCard({ course }: { course: CourseItem }) {
               style={{ backgroundColor: hslColor(resolved, 0.4) }}
               data-testid="badge-label"
             >
-              <IconCheck className="w-3 h-3" />
+              <Check className="w-3 h-3" />
               {vt(course.label)}
             </span>
           )}
@@ -279,7 +273,7 @@ function SmallCourseCard({ course }: { course: CourseItem }) {
             className="inline-flex items-center gap-1 text-xs text-muted-foreground"
             data-testid="text-duration"
           >
-            <IconClock className="w-3.5 h-3.5" />
+            <Clock className="w-3.5 h-3.5" />
             {vt(course.duration)}
           </span>
           <a
@@ -290,7 +284,7 @@ function SmallCourseCard({ course }: { course: CourseItem }) {
             data-testid="link-cta"
           >
             {vt(course.cta_text)}
-            <IconArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </a>
         </div>
       </div>
@@ -440,7 +434,7 @@ export default function CourseSelectorSpotlight({ data }: CourseSelectorSpotligh
                 aria-label="Previous course"
                 data-testid="button-course-selector-prev"
               >
-                <IconChevronLeft className="h-4 w-4" />
+                <ChevronLeft className="h-4 w-4" />
               </Button>
 
               <DotsIndicator
@@ -459,7 +453,7 @@ export default function CourseSelectorSpotlight({ data }: CourseSelectorSpotligh
                 aria-label="Next course"
                 data-testid="button-course-selector-next"
               >
-                <IconChevronRight className="h-4 w-4" />
+                <ChevronRight className="h-4 w-4" />
               </Button>
             </div>
           )}

@@ -1,21 +1,5 @@
-import {
-  IconArrowLeft,
-  IconSearch,
-  IconX,
-  IconRefresh,
-  IconPlus,
-  IconChevronDown,
-  IconChevronRight,
-  IconFolder,
-  IconDotsVertical,
-  IconCopy,
-  IconDownload,
-  IconTrash,
-  IconExternalLink,
-  IconClipboard,
-  IconCode,
-} from "@tabler/icons-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { ArrowLeft, ChevronDown, ChevronRight, Clipboard, Code, Copy, Download, ExternalLink, Folder, History, MoreVertical, Plus, RefreshCw, Search, Trash2, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import type { MenuView, SitemapUrl } from "../types";
 
@@ -72,6 +56,14 @@ export function SitemapView({
     toast({ title: "Copied", description: loc, duration: 2000 });
   };
 
+  const LOCALE_PREFIXES = new Set(["en", "es", "us"]);
+
+  const extractSlug = (loc: string): string => {
+    const parts = new URL(loc).pathname.split('/').filter(Boolean);
+    const contentParts = parts.length > 0 && LOCALE_PREFIXES.has(parts[0]) ? parts.slice(1) : parts;
+    return contentParts[contentParts.length - 1] || '';
+  };
+
   const isBlogUrl = (loc: string): boolean => {
     const parts = new URL(loc).pathname.split('/').filter(Boolean);
     const hasLocale = parts[0] === 'en' || parts[0] === 'es' || parts[0] === 'us';
@@ -86,7 +78,7 @@ export function SitemapView({
           {showSitemapSearch ? (
             <div className="flex items-center gap-2 flex-1 min-w-0">
               <div className="relative flex-1 min-w-0">
-                <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <input
                   type="text"
                   placeholder="Search URLs..."
@@ -103,7 +95,7 @@ export function SitemapView({
                 title="Cancel search"
                 data-testid="button-cancel-sitemap-search"
               >
-                <IconX className="h-4 w-4 text-muted-foreground" />
+                <X className="h-4 w-4 text-muted-foreground" />
               </button>
             </div>
           ) : (
@@ -114,7 +106,7 @@ export function SitemapView({
                   className="p-1 rounded-md hover-elevate"
                   data-testid="button-back-to-main-sitemap"
                 >
-                  <IconArrowLeft className="h-4 w-4" />
+                  <ArrowLeft className="h-4 w-4" />
                 </button>
                 <div>
                   <h3 className="font-semibold text-sm">Sitemap URLs</h3>
@@ -128,7 +120,7 @@ export function SitemapView({
                   title="Create new content"
                   data-testid="button-create-content"
                 >
-                  <IconPlus className="h-4 w-4 text-muted-foreground" />
+                  <Plus className="h-4 w-4 text-muted-foreground" />
                 </button>
                 <button
                   onClick={() => setShowSitemapSearch(true)}
@@ -136,7 +128,7 @@ export function SitemapView({
                   title="Search"
                   data-testid="button-toggle-sitemap-search"
                 >
-                  <IconSearch className="h-4 w-4 text-muted-foreground" />
+                  <Search className="h-4 w-4 text-muted-foreground" />
                 </button>
                 <a
                   href="/sitemap.xml"
@@ -146,7 +138,7 @@ export function SitemapView({
                   title="Open sitemap.xml"
                   data-testid="link-sitemap-xml"
                 >
-                  <IconExternalLink className="h-4 w-4 text-muted-foreground" />
+                  <ExternalLink className="h-4 w-4 text-muted-foreground" />
                 </a>
               </div>
             </>
@@ -158,7 +150,7 @@ export function SitemapView({
         <div className="p-2 space-y-1">
           {sitemapLoading ? (
             <div className="flex items-center justify-center py-8">
-              <IconRefresh className="h-5 w-5 animate-spin text-muted-foreground" />
+              <RefreshCw className="h-5 w-5 animate-spin text-muted-foreground" />
             </div>
           ) : filteredSitemapUrls.length === 0 ? (
             <div className="text-center py-8 text-sm text-muted-foreground">
@@ -174,11 +166,11 @@ export function SitemapView({
                     data-testid={`button-folder-${folder.name.toLowerCase()}`}
                   >
                     {expandedFolders.has(folder.name) ? (
-                      <IconChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                      <ChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                     ) : (
-                      <IconChevronRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                      <ChevronRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                     )}
-                    <IconFolder className="h-4 w-4 text-primary flex-shrink-0" />
+                    <Folder className="h-4 w-4 text-primary flex-shrink-0" />
                     <span className="font-medium flex-1 min-w-0 truncate">{folder.name}</span>
                     <span className="text-xs text-muted-foreground ml-auto">
                       {folder.urls.length}
@@ -207,35 +199,43 @@ export function SitemapView({
                                   onClick={(e) => e.stopPropagation()}
                                   data-testid={`button-url-menu-${url.label.toLowerCase().replace(/\s+/g, '-')}`}
                                 >
-                                  <IconDotsVertical className="h-3 w-3 text-muted-foreground" />
+                                  <MoreVertical className="h-3 w-3 text-muted-foreground" />
                                 </button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent align="end" className="w-44">
                                 <DropdownMenuItem onClick={() => copyUrl(url.loc)} className="text-[13px]" data-testid={`menu-copy-url-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                                  <IconClipboard className="h-3.5 w-3.5 mr-2" />
+                                  <Clipboard className="h-3.5 w-3.5 mr-2" />
                                   Copy URL
                                 </DropdownMenuItem>
                                 {isBlogUrl(url.loc) ? (
                                   <DropdownMenuItem onClick={() => { window.location.href = '/private/type/blog'; }} className="text-[13px]" data-testid={`menu-blog-manager-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                                    <IconExternalLink className="h-3.5 w-3.5 mr-2" />
+                                    <ExternalLink className="h-3.5 w-3.5 mr-2" />
                                     Open Blog Manager
                                   </DropdownMenuItem>
                                 ) : (
                                   <>
                                     <DropdownMenuItem onClick={() => handleDuplicatePage(url)} className="text-[13px]" data-testid={`menu-duplicate-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                                      <IconCopy className="h-3.5 w-3.5 mr-2" />
+                                      <Copy className="h-3.5 w-3.5 mr-2" />
                                       Duplicate
                                     </DropdownMenuItem>
                                     <DropdownMenuItem onClick={() => handleDownloadYml(url)} className="text-[13px]" data-testid={`menu-download-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                                      <IconDownload className="h-3.5 w-3.5 mr-2" />
+                                      <Download className="h-3.5 w-3.5 mr-2" />
                                       Download YAML
                                     </DropdownMenuItem>
                                     <DropdownMenuItem onClick={() => handleEditYaml(url)} className="text-[13px]" data-testid={`menu-edit-yaml-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                                      <IconCode className="h-3.5 w-3.5 mr-2" />
+                                      <Code className="h-3.5 w-3.5 mr-2" />
                                       Edit YAML
                                     </DropdownMenuItem>
+                                    <DropdownMenuItem
+                                      onClick={() => { window.location.href = `/private/sync-log?search=${encodeURIComponent(extractSlug(url.loc))}`; }}
+                                      className="text-[13px]"
+                                      data-testid={`menu-changelog-${url.label.toLowerCase().replace(/\s+/g, '-')}`}
+                                    >
+                                      <History className="h-3.5 w-3.5 mr-2" />
+                                      View Change Log
+                                    </DropdownMenuItem>
                                     <DropdownMenuItem onClick={() => handleDeletePage(url)} className="text-[13px] text-destructive" data-testid={`menu-delete-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                                      <IconTrash className="h-3.5 w-3.5 mr-2" />
+                                      <Trash2 className="h-3.5 w-3.5 mr-2" />
                                       Delete
                                     </DropdownMenuItem>
                                   </>
@@ -270,35 +270,43 @@ export function SitemapView({
                           onClick={(e) => e.stopPropagation()}
                           data-testid={`button-url-menu-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}
                         >
-                          <IconDotsVertical className="h-3 w-3 text-muted-foreground" />
+                          <MoreVertical className="h-3 w-3 text-muted-foreground" />
                         </button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="w-44">
                         <DropdownMenuItem onClick={() => copyUrl(url.loc)} className="text-[13px]" data-testid={`menu-copy-url-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                          <IconClipboard className="h-3.5 w-3.5 mr-2" />
+                          <Clipboard className="h-3.5 w-3.5 mr-2" />
                           Copy URL
                         </DropdownMenuItem>
                         {isBlogUrl(url.loc) ? (
                           <DropdownMenuItem onClick={() => { window.location.href = '/private/type/blog'; }} className="text-[13px]" data-testid={`menu-blog-manager-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                            <IconExternalLink className="h-3.5 w-3.5 mr-2" />
+                            <ExternalLink className="h-3.5 w-3.5 mr-2" />
                             Open Blog Manager
                           </DropdownMenuItem>
                         ) : (
                           <>
                             <DropdownMenuItem onClick={() => handleDuplicatePage(url)} className="text-[13px]" data-testid={`menu-duplicate-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                              <IconCopy className="h-3.5 w-3.5 mr-2" />
+                              <Copy className="h-3.5 w-3.5 mr-2" />
                               Duplicate
                             </DropdownMenuItem>
                             <DropdownMenuItem onClick={() => handleDownloadYml(url)} className="text-[13px]" data-testid={`menu-download-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                              <IconDownload className="h-3.5 w-3.5 mr-2" />
+                              <Download className="h-3.5 w-3.5 mr-2" />
                               Download YAML
                             </DropdownMenuItem>
                             <DropdownMenuItem onClick={() => handleEditYaml(url)} className="text-[13px]" data-testid={`menu-edit-yaml-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                              <IconCode className="h-3.5 w-3.5 mr-2" />
+                              <Code className="h-3.5 w-3.5 mr-2" />
                               Edit YAML
                             </DropdownMenuItem>
+                            <DropdownMenuItem
+                              onClick={() => { window.location.href = `/private/sync-log?search=${encodeURIComponent(extractSlug(url.loc))}`; }}
+                              className="text-[13px]"
+                              data-testid={`menu-changelog-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}
+                            >
+                              <History className="h-3.5 w-3.5 mr-2" />
+                              View Change Log
+                            </DropdownMenuItem>
                             <DropdownMenuItem onClick={() => handleDeletePage(url)} className="text-[13px] text-destructive" data-testid={`menu-delete-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                              <IconTrash className="h-3.5 w-3.5 mr-2" />
+                              <Trash2 className="h-3.5 w-3.5 mr-2" />
                               Delete
                             </DropdownMenuItem>
                           </>

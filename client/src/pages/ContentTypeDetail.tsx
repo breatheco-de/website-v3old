@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo } from "react";
+import { Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { IS_SERVER } from "@/lib/initialData";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "wouter";
 import { SectionRenderer } from "@/components/SectionRenderer";
-import { IconLoader2 } from "@tabler/icons-react";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useSchemaOrg } from "@/hooks/useSchemaOrg";
 import { useContentAutoRefresh } from "@/hooks/useContentAutoRefresh";
@@ -101,7 +101,7 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
         className="min-h-screen flex items-center justify-center"
         data-testid={`loading-${type}`}
       >
-        <IconLoader2 className="w-8 h-8 animate-spin text-primary" />
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }

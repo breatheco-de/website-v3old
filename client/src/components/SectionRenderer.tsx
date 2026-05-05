@@ -1,4 +1,5 @@
 import type { CSSProperties, ComponentType } from "react";
+import { AlertTriangle, Link, Loader2, Trash2 } from "lucide-react";
 import { useState, useCallback, useMemo, useRef, useEffect } from "react";
 import type { Section, EditOperation, SectionLayout, ResponsiveSpacing, ShowOn, PageSettings } from "@shared/schema";
 import { useSession } from "@/contexts/SessionContext";
@@ -261,7 +262,6 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { IconAlertTriangle, IconTrash, IconLoader2, IconLink } from "@tabler/icons-react";
 import { useEditModeOptional, type PreviewBreakpoint } from "@/contexts/EditModeContext";
 
 // Check if a section should be visible based on showOn and current preview breakpoint
@@ -1073,7 +1073,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <IconAlertTriangle className="h-5 w-5 text-destructive" />
+              <AlertTriangle className="h-5 w-5 text-destructive" />
               Delete bound section
             </DialogTitle>
             <DialogDescription>
@@ -1084,7 +1084,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
             <p className="text-xs font-medium text-muted-foreground">Bound pages:</p>
             {deleteDialogSiblings.map((m, i) => (
               <div key={i} className="flex items-center gap-2 text-sm">
-                <IconLink className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                <Link className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
                 <Badge variant="outline" className="text-xs shrink-0">{m.contentType}</Badge>
                 <span className="truncate">{m.slug}</span>
                 <span className="text-muted-foreground text-xs shrink-0">section {m.sectionIndex}</span>
@@ -1099,7 +1099,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
               className="w-full justify-start gap-2"
               data-testid="button-delete-this-only"
             >
-              {deleteDialog.isDeleting ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconTrash className="h-4 w-4" />}
+              {deleteDialog.isDeleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
               Delete this section only (unbind)
             </Button>
             <Button
@@ -1109,7 +1109,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
               className="w-full justify-start gap-2"
               data-testid="button-delete-all-bound"
             >
-              {deleteDialog.isDeleting ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconTrash className="h-4 w-4" />}
+              {deleteDialog.isDeleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
               Delete from all {deleteDialogSiblings.length + 1} pages
             </Button>
             <Button

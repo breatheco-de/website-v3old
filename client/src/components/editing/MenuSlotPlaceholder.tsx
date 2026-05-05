@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
+import { ArrowLeftRight, Menu, Pencil, Plus, Trash2 } from "lucide-react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { IconMenu2, IconPlus, IconPencil, IconArrowsExchange, IconTrash } from "@tabler/icons-react";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { editCommonContent } from "@/lib/contentApi";
 import { apiRequest } from "@/lib/queryClient";
@@ -168,7 +168,7 @@ export default function MenuSlotPlaceholder({
             disabled={isSaving}
             data-testid={`button-edit-menu-${position}`}
           >
-            <IconPencil className="w-3.5 h-3.5" />
+            <Pencil className="w-3.5 h-3.5" />
             <span className="text-xs font-medium">{currentMenuId}</span>
           </button>
           <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -178,7 +178,7 @@ export default function MenuSlotPlaceholder({
                 disabled={isSaving}
                 data-testid={`button-change-menu-${position}`}
               >
-                <IconArrowsExchange className="w-3.5 h-3.5" />
+                <ArrowLeftRight className="w-3.5 h-3.5" />
               </button>
             </PopoverTrigger>
             <PopoverContent className="w-48 p-1" align="center">
@@ -192,7 +192,7 @@ export default function MenuSlotPlaceholder({
                     onClick={() => handleMenuOptionClick(id)}
                     data-testid={`menu-option-${position}-${id}`}
                   >
-                    <IconMenu2 className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
+                    <Menu className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
                     {id}
                   </Button>
                 ))}
@@ -205,7 +205,7 @@ export default function MenuSlotPlaceholder({
             disabled={isSaving}
             data-testid={`button-clear-menu-${position}`}
           >
-            <IconTrash className="w-3.5 h-3.5" />
+            <Trash2 className="w-3.5 h-3.5" />
           </button>
         </div>
       </>
@@ -222,7 +222,7 @@ export default function MenuSlotPlaceholder({
             disabled={isSaving}
             data-testid={`menu-slot-${position}-empty`}
           >
-            <IconPlus className="w-4 h-4 text-muted-foreground/50" />
+            <Plus className="w-4 h-4 text-muted-foreground/50" />
             <span className="text-xs text-muted-foreground/50">
               Add a menu on the {position} of your page (optional)
             </span>
@@ -239,7 +239,7 @@ export default function MenuSlotPlaceholder({
                 onClick={() => handleMenuOptionClick(id)}
                 data-testid={`menu-option-${position}-${id}`}
               >
-                <IconMenu2 className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
+                <Menu className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
                 {id}
               </Button>
             ))}

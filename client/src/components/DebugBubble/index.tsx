@@ -1,4 +1,5 @@
 import { useState, useEffect, lazy, Suspense, useMemo, useCallback, useRef } from "react";
+import { AlertTriangle, ArrowRight, ArrowUp, Award, BarChart2, Blocks, Book, Brain, Bug, Building2, Columns2, CreditCard, File, Folder, FolderCode, HelpCircle, Image, MessageSquare, PanelBottom, Rocket, Sparkles, Table, Users, X } from "lucide-react";
 import { subscribeToContentUpdates } from "@/lib/contentEvents";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "wouter";
@@ -6,34 +7,6 @@ import { useInternalNav } from "@/hooks/useInternalNav";
 import { useSession } from "@/contexts/SessionContext";
 import { normalizeLocale, buildContentUrlFromPattern } from "@/lib/locale";
 import { useContentTypes, getFolderFromType } from "@/hooks/useContentTypes";
-import {
-  IconBug,
-  IconMap,
-  IconComponents,
-  IconX,
-  IconAlertTriangle,
-  IconLayoutColumns,
-  IconRocket,
-  IconBrain,
-  IconUsers,
-  IconCertificate,
-  IconQuestionMark,
-  IconArrowRight,
-  IconLayoutBottombar,
-  IconMessage,
-  IconBuildingSkyscraper,
-  IconCreditCard,
-  IconFolderCode,
-  IconFolder,
-  IconBook,
-  IconSparkles,
-  IconChartBar,
-  IconTable,
-  IconUsersGroup,
-  IconArrowUp,
-  IconFile,
-  IconPhoto,
-} from "@tabler/icons-react";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useSyncOptional } from "@/contexts/SyncContext";
@@ -79,50 +52,50 @@ import { DeletePageModal } from "./components/DeletePageModal";
 import { CreateContentModal } from "./components/CreateContentModal";
 import { PageErrorsModal } from "./components/PageErrorsModal";
 import { SeoModal } from "./components/SeoModal";
-const componentIconMap: Record<string, typeof IconComponents> = {
-  hero: IconRocket,
-  two_column: IconLayoutColumns,
-  two_column_accordion_card: IconLayoutColumns,
-  comparison_table: IconTable,
-  features_grid: IconLayoutColumns,
-  features_quad: IconLayoutColumns,
-  numbered_steps: IconArrowRight,
-  ai_learning: IconBrain,
-  mentorship: IconUsers,
-  community_support: IconUsers,
-  pricing: IconCreditCard,
-  projects: IconFolderCode,
-  project_showcase: IconChartBar,
-  syllabus: IconBook,
-  why_learn_ai: IconSparkles,
-  certificate: IconCertificate,
-  whos_hiring: IconBuildingSkyscraper,
-  testimonials: IconMessage,
-  testimonials_slide: IconMessage,
-  testimonials_grid: IconMessage,
-  faq: IconQuestionMark,
-  cta_banner: IconArrowRight,
-  footer: IconLayoutBottombar,
-  award_badges: IconCertificate,
-  awards_marquee: IconCertificate,
-  horizontal_bars: IconChartBar,
-  vertical_bars_cards: IconChartBar,
-  graduates_stats: IconUsersGroup,
-  image_row: IconPhoto,
-  lead_form: IconFile,
-  apply_form: IconFile,
-  banner: IconRocket,
-  article: IconBook,
-  list_press_mentions: IconMessage,
-  split_cards: IconLayoutColumns,
-  course_selector: IconBook,
-  sticky_cta: IconArrowRight,
-  bento_cards: IconLayoutColumns,
-  value_proof_panel: IconChartBar,
-  partnership_carousel: IconBuildingSkyscraper,
-  human_and_ai_duo: IconBrain,
-  bullet_tabs_showcase: IconSparkles,
-  geeks_vs_others_comparison: IconTable,
+const componentIconMap: Record<string, typeof Blocks> = {
+  hero: Rocket,
+  two_column: Columns2,
+  two_column_accordion_card: Columns2,
+  comparison_table: Table,
+  features_grid: Columns2,
+  features_quad: Columns2,
+  numbered_steps: ArrowRight,
+  ai_learning: Brain,
+  mentorship: Users,
+  community_support: Users,
+  pricing: CreditCard,
+  projects: FolderCode,
+  project_showcase: BarChart2,
+  syllabus: Book,
+  why_learn_ai: Sparkles,
+  certificate: Award,
+  whos_hiring: Building2,
+  testimonials: MessageSquare,
+  testimonials_slide: MessageSquare,
+  testimonials_grid: MessageSquare,
+  faq: HelpCircle,
+  cta_banner: ArrowRight,
+  footer: PanelBottom,
+  award_badges: Award,
+  awards_marquee: Award,
+  horizontal_bars: BarChart2,
+  vertical_bars_cards: BarChart2,
+  graduates_stats: Users,
+  image_row: Image,
+  lead_form: File,
+  apply_form: File,
+  banner: Rocket,
+  article: Book,
+  list_press_mentions: MessageSquare,
+  split_cards: Columns2,
+  course_selector: Book,
+  sticky_cta: ArrowRight,
+  bento_cards: Columns2,
+  value_proof_panel: BarChart2,
+  partnership_carousel: Building2,
+  human_and_ai_duo: Brain,
+  bullet_tabs_showcase: Sparkles,
+  geeks_vs_others_comparison: Table,
 };
 
 export function DebugBubble() {
@@ -1677,7 +1650,7 @@ export function DebugBubble() {
               className="h-12 w-12 rounded-full shadow-lg"
               data-testid="button-debug-toggle"
             >
-              {open ? <IconX className="h-5 w-5" /> : <IconBug className="h-5 w-5" />}
+              {open ? <X className="h-5 w-5" /> : <Bug className="h-5 w-5" />}
             </Button>
             {/* Show "Commit" indicator when there are local changes that need uploading - only when logged in */}
             {githubSyncStatus?.syncEnabled && pendingChanges.some(c => c.source === 'local' || c.source === 'conflict') && !noTokenDetected && !tokenWithoutCapabilities && (
@@ -1695,7 +1668,7 @@ export function DebugBubble() {
                 data-testid="indicator-pending-changes"
                 title={`${pendingChanges.length} pending change${pendingChanges.length > 1 ? 's' : ''} - click to commit`}
               >
-                <IconArrowUp className="h-3 w-3" />
+                <ArrowUp className="h-3 w-3" />
                 <span>Commit</span>
               </button>
             )}
@@ -1715,7 +1688,7 @@ export function DebugBubble() {
                 data-testid="indicator-page-errors"
                 title={`${pageErrorCount} error${pageErrorCount !== 1 ? 's' : ''}, ${pageWarningCount} warning${pageWarningCount !== 1 ? 's' : ''} - click to view`}
               >
-                <IconAlertTriangle className="h-3 w-3" />
+                <AlertTriangle className="h-3 w-3" />
                 <span>Page errors</span>
               </button>
             )}
