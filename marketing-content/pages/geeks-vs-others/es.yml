@@ -20,7 +20,7 @@ sections:
     subtitle: Descubre por qué nuestros graduados triunfan en tech. Desde aprendizaje impulsado por IA y proyectos prácticos hasta mentoría personalizada y soporte profesional de por vida, todo está diseñado para ayudarte a lanzar una carrera exitosa y duradera.
     badge: Por qué 4Geeks destaca
     image:
-      src: https://storage.googleapis.com/4geeks-academy-website/media/unsplash_workspace-1920x1281-q75.webp
+      src: https://storage.googleapis.com/4geeks-academy-website/media/unsplash_workspace-700x467-q75.webp
       alt: Estudiantes programando juntos en una mesa con laptops
     background: hsl(210 100% 50% / 0.05)
     paddingY:
