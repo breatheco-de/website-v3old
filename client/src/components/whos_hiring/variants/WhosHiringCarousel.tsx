@@ -2,6 +2,7 @@
 import { useState, useEffect, useMemo } from "react";
 import Marquee from "@/lib/marquee";
 import type { WhosHiringSection as WhosHiringSectionType } from "@shared/schema";
+import UniversalImage from "@/components/UniversalImage";
 
 interface WhosHiringCarouselProps {
   data: WhosHiringSectionType;
@@ -73,11 +74,13 @@ function LogoCard({
       {isHero ? (
         <div className="flex flex-col items-center justify-center h-full text-center">
           <div className="flex items-center justify-center mb-6 w-full">
-            <img
-              src={logo.src}
+            <UniversalImage
+              id={logo.src}
               alt={logo.alt}
-              className="max-h-16 max-w-[180px] object-contain logo-grayscale"
+              className="w-full h-full max-h-16 max-w-[180px] logo-grayscale flex items-center justify-center"
+              style={{ objectFit: 'contain', objectPosition: 'center' }}
               loading="lazy"
+              fieldContext={{ arrayPath: "logos", index: 0, srcField: "src" }}
             />
           </div>
           <p className="text-sm text-muted-foreground/70 leading-relaxed max-w-[280px]">
@@ -85,15 +88,17 @@ function LogoCard({
           </p>
         </div>
       ) : (
-        <img
-          src={logo.src}
+        <UniversalImage
+          id={logo.src}
           alt={logo.alt}
-          className={`object-contain logo-grayscale ${
+          className={`w-full h-full logo-grayscale flex items-center justify-center ${
             isSmall 
               ? (isMobile ? "max-h-8 max-w-[90px]" : "max-h-10 max-w-[140px]")
               : (isMobile ? "max-h-10 max-w-[120px]" : "max-h-12 max-w-[180px]")
           }`}
+          style={{ objectFit: 'contain', objectPosition: 'center' }}
           loading="lazy"
+          fieldContext={{ arrayPath: "logos", index: 0, srcField: "src" }}
         />
       )}
     </div>

@@ -72,11 +72,11 @@ sections:
           logoHeight: 55px
         - id: tech-hub
           alt: South Florida Tech Hub
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70.webp
           logoHeight: 55px
         - id: ebootcamp
           alt: eBootcamp Top
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp_top-601x488-q70.webp
           logoHeight: 55px
         - id: premios-tecnologia
           alt: Premios Tecnología Siglo XXI
@@ -84,7 +84,7 @@ sections:
           logoHeight: 55px
         - id: newsweek
           alt: Newsweek
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
           logoHeight: 55px
         - id: reviews-coursereport
           alt: 4.9 Stars on Course Report Reviews
@@ -92,7 +92,7 @@ sections:
           logoHeight: 55px
         - id: excelencia-educativa
           alt: Educational Excellence - Institutional Quality
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
           logoHeight: 55px
     video_title: GeekForce Career Support
     marginY:
@@ -148,7 +148,7 @@ sections:
         logoHeight: 64px
       - id: excelencia-educativa
         alt: Excelencia Educativa - Institutional Quality Online Education
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
         logoHeight: 64px
       - id: course-report-2024
         alt: Course Report - Best Coding Bootcamp 2024
@@ -156,11 +156,11 @@ sections:
         logoHeight: 64px
       - id: tech-hub
         alt: South Florida Tech Hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70.webp
         logoHeight: 64px
       - id: ebootcamp
         alt: eBootcamp Top
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp_top-601x488-q70.webp
         logoHeight: 64px
       - id: premios-tecnologia
         alt: Premios Tecnologia Siglo XXI
@@ -168,7 +168,7 @@ sections:
         logoHeight: 80px
       - id: newsweek
         alt: Newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
         logoHeight: 64px
       - id: reviews-coursereport
         alt: 4.9 on Course Report Reviews
@@ -507,8 +507,13 @@ sections:
   - type: testimonials_slide
     title: They gpl sss a Made the Switch. Here's What Happened.
     description: From musicians, philosophers, and support specialists to software engineers and AI developers. Real people, real salary increases, real careers.
-    related_features:
-      - price
+    dynamic_entries:
+      database: testimonials_en
+      limit: 30
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - price
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg

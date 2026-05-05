@@ -5,7 +5,7 @@ settings:
     eager_count: 3
 meta:
   page_title: AI Engineer Career Program | 4Geeks
-  description: Become an AI Engineer in 24 weeks. 84% hiring rate, $95K–$135K salaries. Unlimited mentorship and career support designed to get you hired. 4Geeks Academy.
+  description: "AI Engineer: fastest-growing job of 2026. Get job-ready in 24 weeks. 84% hiring rate, $95K–$135K salaries. Lifelong mentorship and career support. 4Geeks Academy."
   robots: index, follow
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
@@ -30,9 +30,9 @@ sections:
     subtitle: AI Engineer is the fastest-growing job of 2026. Our intensive program trains you for what the market demands, backed by unlimited 1:1 mentorship and career support that doesn't stop at graduation.
     students_enrolled:
       avatars:
-        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
-        - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduates
     bullet_points:
@@ -103,9 +103,9 @@ sections:
     subtitle: AI Engineer is the fastest-growing job of 2026. In 24 weeks, that's you — with unlimited 1:1 mentorship and career support that doesn't stop at graduation.
     students_enrolled:
       avatars:
-        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
-        - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduates
     bullet_points:
@@ -221,11 +221,11 @@ sections:
         logoHeight: 64px
       - id: tech-hub
         alt: South Florida Tech Hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70.webp
         logoHeight: 64px
       - id: ebootcamp
         alt: eBootcamp Top
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp_top-601x488-q70.webp
         logoHeight: 64px
       - id: premios-tecnologia
         alt: Premios Tecnologia Siglo XXI
@@ -233,7 +233,7 @@ sections:
         logoHeight: 64px
       - id: newsweek
         alt: Newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
         logoHeight: 64px
       - id: reviews-coursereport
         alt: 4.9 on Course Report Reviews
@@ -241,7 +241,7 @@ sections:
         logoHeight: 64px
       - id: excelencia-educativa
         alt: Excelencia Educativa - Institutional Quality
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
         logoHeight: 64px
     paddingY:
       desktop: none

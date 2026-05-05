@@ -5,7 +5,7 @@ settings:
     eager_count: 3
 meta:
   page_title: AI Engineer Career Program | 4Geeks
-  description: Become an AI Engineer in 24 weeks. 84% hiring rate, $95K–$135K salaries. Unlimited mentorship and career support designed to get you hired. 4Geeks Academy
+  description: "AI Engineer: fastest-growing job of 2026. Get job-ready in 24 weeks. 84% hiring rate, $95K–$135K salaries. Lifelong mentorship and career support. 4Geeks Academy."
   robots: index, follow
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
@@ -24,15 +24,15 @@ sections:
     subtitle: AI Engineer is the fastest-growing job of 2026. Our intensive program is built to get you hired, backed by an AI-first methodology, unlimited 1:1 mentorship, and lifelong career support.
     students_enrolled:
       avatars:
-        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
-        - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduates
     bullet_points:
-      - Build a fully AI-native company from scratch, end to end.
-      - Work with AI agents, models, and data pipelines, the way AI-first engineers do.
-      - Graduate with the production-ready portfolio employers are looking for.
+      - Build a complete AI-native company end to end, with agents, pipelines, and real-time data.
+      - Work with AI coding agents to build and deliver production-ready software faster.
+      - Leave with a portfolio that gets you in the door at top tech companies.
     tutors:
       - name: Marco Gonzalo
         role: Main Instructor
@@ -41,7 +41,7 @@ sections:
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
-    description: Get job-ready for $95K–$135K+ AI Engineering roles.
+    description: Graduate with the skills to land positions paying $95K–$135K+.
     media:
       type: video
       src: https://www.youtube.com/shorts/sSxJnelPJT8
@@ -93,9 +93,9 @@ sections:
     subtitle: AI Engineer is the fastest-growing job of 2026. Our intensive program is built to get you hired, backed by an AI-first methodology, unlimited 1:1 mentorship, and lifelong career support.
     students_enrolled:
       avatars:
-        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
-        - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduates
     bullet_points:
@@ -211,11 +211,11 @@ sections:
         logoHeight: 64px
       - id: tech-hub
         alt: South Florida Tech Hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70.webp
         logoHeight: 64px
       - id: ebootcamp
         alt: eBootcamp Top
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp_top-601x488-q70.webp
         logoHeight: 64px
       - id: premios-tecnologia
         alt: Premios Tecnologia Siglo XXI
@@ -223,7 +223,7 @@ sections:
         logoHeight: 64px
       - id: newsweek
         alt: Newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
         logoHeight: 64px
       - id: reviews-coursereport
         alt: 4.9 on Course Report Reviews
@@ -231,7 +231,7 @@ sections:
         logoHeight: 64px
       - id: excelencia-educativa
         alt: Excelencia Educativa - Institutional Quality
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
         logoHeight: 64px
     paddingY:
       desktop: none
@@ -289,7 +289,7 @@ sections:
     variant: stats-charts
     subtitle: The demand is there. The talent isn't.
     title: Why AI Engineering Now
-    description: AI has created 1.3 million new roles globally in two years. LinkedIn ranks AI Engineer the fastest-growing job of 2026. Only 3% of the workforce is qualified to fill them. That gap is your opportunity.
+    description: In the past two years, AI has created 1.3 million new roles globally — and only 3% of the workforce has the skills to fill them. LinkedIn ranks AI Engineer among the fastest-growing jobs of 2026. The demand is there. The talent isn't. That's your opportunity.
     background: bg-slate-950
     card_bars_accent: hsl(var(--color-green))
     card_gauge_accent: hsl(var(--color-orange))

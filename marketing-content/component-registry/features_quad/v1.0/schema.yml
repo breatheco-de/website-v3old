@@ -10,7 +10,8 @@ when_to_use: >
   Use this component when you need to display exactly 4 feature cards in a visually appealing grid layout.
   The default variant shows feature cards with optional header images.
   The laptopEdge variant displays a laptop mockup with the feature cards.
-
+image_sizes:
+  laptopEdge.laptop_image.image_id: "100vw"
 variants:
   default:
     description: Standard 4-card grid with optional header images on the right
@@ -67,3 +68,15 @@ props:
     required: false
     description: Whether to display the description with a background color
     example: false
+  laptop_image:
+    type: object
+    required: false
+    description: Optional laptop image override for the laptopEdge variant. If not set, uses the default laptop image.
+    properties:
+      image_id:
+        type: string
+        description: Image ID from the image registry
+      alt:
+        type: string
+        required: false
+        description: Alt text for the laptop image

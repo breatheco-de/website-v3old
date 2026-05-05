@@ -261,9 +261,15 @@ sections:
     section_id: testimonials_slide-1gorsq
     title: The Stories Behind the Stats
     description: Real people, real jobs, real salary increases. Here's what happened after they finished.
-    related_features:
-      - job-guarantee
-      - outcomes
+    dynamic_entries:
+      database: testimonials_en
+      limit: 30
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - job-guarantee
+            - outcomes
+
   - type: numbered_steps
     version: "1.0"
     variant: bubbleText
@@ -300,6 +306,8 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
+    laptop_image:
+      image_id: laptop
     heading: Who Can Add the Job Guarantee?
     description: "The Job Guarantee is available to students who meet these four requirements:"
     cards:

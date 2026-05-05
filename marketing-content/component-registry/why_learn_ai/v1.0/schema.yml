@@ -6,6 +6,8 @@ description: Compelling section about the importance of learning AI-powered deve
 when_to_use: |
   Use to motivate students about the future of AI in software development.
   Creates urgency and explains why this skill set matters.
+image_sizes:
+  laptop-edge.laptop_image.image_id: "100vw"
 variants:
   default:
     description: Original design with man-with-laptop illustration

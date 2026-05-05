@@ -95,7 +95,7 @@ sections:
         alt: Course Report - Best Coding Bootcamp 2024
         logoHeight: 56px
       - id: tech-hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70.webp
         alt: South Florida Tech Hub
         logoHeight: 56px
       - id: ebootcamp
@@ -115,7 +115,7 @@ sections:
         alt: 4.9 on Course Report Reviews
         logoHeight: 56px
       - id: excelencia-educativa
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
     section_id: awards_marquee-ex9avk
@@ -654,6 +654,73 @@ sections:
     section_id: course_selector-4m5sh4
   - type: course_selector
     version: "1.0"
+    name: Course Selector - Spotlight With Original Copy
+    description: "Course selector with spotlight layout: first course as large featured card on the left, remaining courses stacked as smaller cards on the right. Each card has its own color via course_background."
+    variant: spotlight
+    maxWidth:
+      desktop: 6xl
+    heading: Find Your Path
+    subheading: Four programs. All built around getting you hired, not just trained.
+    courses:
+      - name: AI Engineering
+        icon: Bolt
+        duration: 24 weeks, or 15-week accelerated track
+        label: Most Popular
+        title: AI Engineering
+        badges:
+          - icon: Bolt
+            text: AI tools for business
+        description: Build the AI systems companies are hiring for right now. Master LLMs, AI agents, and automation while transforming a real business case into a fully AI-native system, layer by layer.
+        price: {{ global.price_ai_engineering | $349 }}
+        price_period: /mo
+        price_info: or less depending on your plan
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/ai-engineering
+        course_background: accent
+      - name: Full Stack Development with AI
+        icon: IconCode
+        original_price: $442
+        duration: 20 weeks
+        label: Updated in 2026
+        title: Full Stack Development with AI
+        badges:
+          - icon: Brain
+            text: LLMs & Generative AI
+        description: Build modern, production-ready web applications from frontend to backend, with AI integrated at every layer, not added on top.
+        price: {{ global.price_fullstack | $299 }}
+        price_period: /mo
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/full-stack
+        course_background: primary
+      - name: Data Science and Machine Learning
+        icon: IconChartBar
+        duration: 18 weeks
+        title: Data Science and Machine Learning
+        badges:
+          - icon: Code
+            text: React, Node.js & Python
+        description: Master the skills behind AI-driven decisions. Build models, analyze data at scale, and deploy solutions that companies in every industry are actively hiring for.
+        price: {{ global.price_datascience | 299$ }}
+        price_period: /mo
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/data-science-ml
+        course_background: hsl(var(--muted-foreground))
+      - name: Cybersecurity
+        icon: IconShield
+        duration: 16 weeks
+        title: Cybersecurity
+        badges:
+          - icon: ChartBar
+            text: Python & SQL
+        description: Protect the systems AI depends on. Every company scaling AI infrastructure needs specialists who can secure it. That demand isn't slowing down.
+        price: {{ global.price_cybersecurity | 299$ }}
+        price_period: /mo
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/cybersecurity
+        course_background: destructive
+    section_id: course_selector-4m5sh4
+  - type: course_selector
+    version: "1.0"
     variant: solid
     heading: Choose Your Path
     subheading: Pick the program that fits your goals
@@ -854,6 +921,34 @@ sections:
       stat_label: new AI roles created globally in two years
       end_label: 1.3M · 2027
     section_id: features_grid-0m2y93
+  - type: features_quad
+    version: "1.0"
+    variant: laptopEdge
+    laptop_image:
+      image_id: laptop
+
+    compact: true
+    heading: What You'll Learn
+    description: Master the essential skills for AI engineering.
+    images:
+      - image_id: student_asian
+        alt: Student 1
+      - image_id: student_latin_male
+        alt: Student 2
+    cards:
+      - icon: Code
+        title: Hands-On Coding
+        description: Build real projects
+      - icon: Brain
+        title: Deep Learning
+        description: Neural networks
+      - icon: Cloud
+        title: Cloud Deployment
+        description: AWS, GCP, Azure
+      - icon: Rocket
+        title: Fast-Track Career
+        description: Job-ready portfolio
+    section_id: features_quad-zwm9kn
   - type: features_quad
     version: "1.0"
     variant: default
@@ -1115,7 +1210,7 @@ sections:
           logoHeight: 55px
         - id: tech-hub
           alt: South Florida Tech Hub
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70.webp
           logoHeight: 55px
         - id: ebootcamp
           alt: eBootcamp Top
@@ -1135,7 +1230,7 @@ sections:
           logoHeight: 55px
         - id: excelencia-educativa
           alt: Excelencia Educativa - Calidad Institucional
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
           logoHeight: 55px
     video_title: GeekForce Career Support
     marginY:
@@ -1197,9 +1292,9 @@ sections:
     subtitle: Gain the AI skills to stay competitive and advance your career in just 6 weeks. Learn to apply AI at work for greater efficiency, creativity, and impact.
     students_enrolled:
       avatars:
-        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
-        - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduates
     bullet_points:
@@ -1344,9 +1439,9 @@ sections:
     subtitle: Train for high-demand software development roles with an AI-powered full stack curriculum, personalized mentorship, and proven career outcomes.
     students_enrolled:
       avatars:
-        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
-        - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: 1,000+ students enrolled across LATAM and the U.S.
     bullet_points:
@@ -2121,8 +2216,13 @@ sections:
     version: "1.0"
     title: Real Careers Start Here — Just Ask Our Students
     description: Our grads are in high demand, with over 84% hired within six months of finishing the program.
-    related_features:
-      - content-and-syllabus
+    dynamic_entries:
+      database: testimonials_en
+      limit: 30
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - content-and-syllabus
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
@@ -2152,7 +2252,7 @@ sections:
         description: An entrepreneur with a passion for technology is now focusing on the dev side of their endeavour.
         achievement: She has launched her startup, is capable of hiring new tech talent and coordinates a dev team!
       - name: Jorge Martín Coimbra
-        img: https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        img: https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         status: Graduated
         country:
           name: Uruguay
@@ -2161,7 +2261,7 @@ sections:
         description: Martín joined the first program that we launched together with UTEC and IDB. He got a better paying job, a career that he is passionate about and a new professional life.
         achievement: He got a 100% increase in his salary
       - name: Jean St. Cloud
-        img: https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        img: https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         status: Graduated
         country:
           name: United States of America
@@ -2481,6 +2581,8 @@ sections:
   - type: why_learn_ai
     version: "1.0"
     variant: laptop-edge
+    laptop_image:
+      image_id: laptop
     title: Why Should I Learn to Build and Code with AI?
     subtitle: Software Development as You Know It Will Cease to Exist
     description: Coding with AI will become a new standard, but it's a very different profession from traditional software development. The developers who embrace AI tools now will have a significant advantage in the job market.

@@ -43,11 +43,11 @@ sections:
         alt: Course Report - Mejor Coding Bootcamp 2024
         logoHeight: 56px
       - id: tech-hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70.webp
         alt: South Florida Tech Hub
         logoHeight: 56px
       - id: ebootcamp
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp_top-601x488-q70.webp
         alt: eBootcamp Top
         logoHeight: 56px
       - id: premios-tecnologia
@@ -55,7 +55,7 @@ sections:
         alt: Premios Tecnología Siglo XXI
         logoHeight: 56px
       - id: newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
         alt: Newsweek
         logoHeight: 56px
       - id: reviews-coursereport
@@ -63,7 +63,7 @@ sections:
         alt: 4.9 en Reseñas de Course Report
         logoHeight: 56px
       - id: excelencia-educativa
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
         alt: Excelencia Educativa - Calidad Institucional
         logoHeight: 56px
     marginY:
@@ -215,6 +215,8 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-wdxudn
     variant: laptop-edge
+    laptop_image:
+      image_id: laptop
     mobile_see_more: true
     mobile_see_more_label: Ver más
     mobile_see_less_label: Ver menos

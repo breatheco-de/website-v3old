@@ -140,9 +140,14 @@ sections:
     section_id: testimonials_slide-rrnpaj
     title: Real Careers Start Here
     description: See how our alumni achieved their goals
-    related_features:
-      - career-support
-      - mentors-and-teachers
+    dynamic_entries:
+      database: testimonials_en
+      limit: 30
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - career-support
+            - mentors-and-teachers
     marginY:
       desktop: none
     paddingY:

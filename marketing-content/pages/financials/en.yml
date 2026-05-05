@@ -6,7 +6,7 @@ meta:
   priority: 0.8
   change_frequency: weekly
   page_title: financials | 4Geeks
-  description: financials - Learn more about this topic at 4Geeks Academy.
+  description: "Finance your 4Geeks Academy tech career program from $349/month. Flexible payment plans designed for one goal: a tech career where graduates earn 55% more on average."
   redirects: []
 schema:
   include:
@@ -493,6 +493,8 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-63m5rp
     variant: laptop-edge
+    laptop_image:
+      image_id: laptop
     title: Optional Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
     description: "<span style=\"font-size: 1.125rem;\"><span><span>For an additional {{ global.job_guarantee_price | $2,000 }}, you can add our Job Guarantee. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"color: hsl(var(--primary));\">Terms and conditions apply.</span></a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"

@@ -281,6 +281,8 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-8djag6
     variant: laptop-edge
+    laptop_image:
+      image_id: laptop
     title: Optional Job Guarantee* for Extra Confidence
     subtitle: Back your career outcome with a stronger commitment
     description: "<span style=\"font-size: 1.125rem;\"><span><span>For an additional $2,000, you can add our Job Guarantee. If you don’t land a qualifying job within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"color: hsl(var(--primary));\">Terms and conditions apply.</span></a></span></span></span></div></span></span></span><div><span style=\"font-size: 0.875rem;\"><span style=\"font-size: 1rem;\"></span></span></div>"
@@ -309,9 +311,14 @@ sections:
     section_id: testimonials_slide-7jjh6e
     title: The Stories Behind the Stats
     description: Discover how our graduates transformed their careers
-    related_features:
-      - career-support
-      - mentors-and-teachers
+    dynamic_entries:
+      database: testimonials_en
+      limit: 20
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - career-support
+            - mentors-and-teachers
   - type: faq
     section_id: faq-kf5oiw
     title: Frequently Asked Questions

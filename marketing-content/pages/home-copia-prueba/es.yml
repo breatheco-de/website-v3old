@@ -437,6 +437,8 @@ sections:
       desktop: none lg
   - type: why_learn_ai
     variant: laptop-edge
+    laptop_image:
+      image_id: laptop
     title: Get Hired. Or Your Money Back.
     subtitle: Most bootcamps hope you get a job. We guarantee it.
     description: >-

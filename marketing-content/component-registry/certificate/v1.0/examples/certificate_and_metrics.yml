@@ -1,9 +1,9 @@
-name: test2
+name: certificate and metrics
 yaml: |
   - type: certificate
-    section_id: certificate-10xpo6
+    version: v1.0
     title: Industry Certifications and Career Outcomes
-    description: 'Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Our program prepares you for:'
+    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Our program prepares you for:"
     benefits:
       - text: EJPT (eLearnSecurity Junior Penetration Tester)
       - text: CEH (Certified Ethical Hacker) pathway
@@ -14,7 +14,7 @@ yaml: |
       subtitle: 4Geeks Academy Certificate
       program_name: Cybersecurity Specialist
     stats:
-      - value: {{ global.global_job_placement_rate | 84 }}%
+      - value: {{ global.price_ai_engineering | $349 }}%
         label: Hiring Rate
         description: Graduate with the skills and global certifications that top-tier companies are actively seeking in 2026.
         benefits:
@@ -29,14 +29,14 @@ yaml: |
           - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
           - text: Practice for technical and behavioral interviews
           - text: Execute a personalized job-search strategy with access to relevant hiring networks
-      - value: {{ global.average_salary_cybersecurity_short | $85 }}
+      - value: {{ global.price_fullstack | $299 }}
         label: Average starting salary
-        description: A career in cybersecurity isn't just a new job—it’s a new life trajectory. With an average salary jump of {{ global.global_salary_increase | 55 }}%, our graduates unlock a level of stability and growth that few other industries can offer.
+        description: A career in cybersecurity isn't just a new job—it’s a new life trajectory. With an average salary jump of {{ global.price_datascience | 299$ }}%, our graduates unlock a level of stability and growth that few other industries can offer.
         benefits:
-          - text: 'Cybersecurity Analyst: {{ global.global_salary_cybersecurity_analist | $75K–$120K }}'
-          - text: 'Penetration Tester: {{ global.global_salary_penetration_tester | $90K–$150K }}'
-          - text: 'Security Engineer: {{ global.global_salary_security_engineer | $100K–$165K }}'
-          - text: 'Incident Responder: {{ global.global_salary_incident_responder | $85K–$140K }}'
+          - text: "Cybersecurity Analyst: {{ global.price_cybersecurity | 299$ }}"
+          - text: "Penetration Tester: {{ global.price_ai_engineering | $349 }}"
+          - text: "Security Engineer: {{ global.price_fullstack | $299 }}"
+          - text: "Incident Responder: {{ global.price_datascience | 299$ }}"
       - value: 400+
         label: Hiring Partners
         description: Our extensive network includes Fortune 500 companies, government agencies, and innovative startups actively seeking cybersecurity talent.
@@ -49,4 +49,3 @@ yaml: |
     useSolidCard: true
     paddingY:
       desktop: none md
-description: teststt
