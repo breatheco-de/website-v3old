@@ -618,9 +618,14 @@ sections:
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
     description: A Microsoft support specialist, a maintenance technician, a musician, and people with no prior experience. All now working in tech, all earning more.
-    related_features:
-      - full-stack
-      - content-and-syllabus
+    dynamic_entries:
+      database: testimonials_en
+      limit: 30
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - full-stack
+            - content-and-syllabus
     testimonials:
       - name: Gabriel Salazar
         img: https://storage.googleapis.com/4geeks-academy-website/media/GabrielSalazar_1764725392872.jpeg

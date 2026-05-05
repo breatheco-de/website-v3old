@@ -627,9 +627,14 @@ sections:
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
     description: A maintenance technician, a musician, a support specialist at Microsoft, a philosopher, and people with zero coding experience. All certified. All employed.
-    related_features:
-      - content-and-syllabus
-      - career-support
+    dynamic_entries:
+      database: testimonials_en
+      limit: 30
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - content-and-syllabus
+            - career-support
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg

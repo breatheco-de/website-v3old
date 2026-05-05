@@ -377,8 +377,13 @@ sections:
     section_id: testimonials_slide-k2y8py
     title: Where Access Turns Into Real Careers
     description: Our graduates launch careers in high-growth tech roles, with over 84% hired within six months.
-    related_features:
-      - price
+    dynamic_entries:
+      database: testimonials_en
+      limit: 30
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - price
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
