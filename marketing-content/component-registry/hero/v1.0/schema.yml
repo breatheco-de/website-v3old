@@ -15,7 +15,7 @@ image_sizes:
   credibility.pills[].logos[].image_id: "(min-width: 768px) 45px, 60px"
   course.students_enrolled.avatars[].src: "40px"
   course.tutors[].image: "45px"
-  simpleTwoColumn.image.src: "(min-width: 768px) 400px, 500px"
+  simpleTwoColumn.image.src: "(min-width: 768px) 500px, 300px"
   
 variants:
   singleColumn:
