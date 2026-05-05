@@ -154,7 +154,7 @@ sections:
   - type: human_and_ai_duo
     version: "1.0"
     heading: El mercado laboral ha cambiado
-    description: Y no es una percepción, es un cambio en lo que las empresas necesitan hoy.
+    description: Si sientes que tu experiencia ya no te da la seguridad de antes, no es casualidad. El mercado está dejando atrás los perfiles tradicionales y empezando a priorizar nuevas formas de trabajar con tecnología.
     bullet_groups:
       - title: Lo que está pasando
         image: https://randomuser.me/api/portraits/men/10.jpg
