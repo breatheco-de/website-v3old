@@ -19181,6 +19181,30 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-100x668-q60-64w.webp"
         }
       ]
+    },
+    "caracas_graduates-1000x665-q60": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-1000x665-q60.webp",
+      "alt": "Caracas graduates celebration",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "hero",
+        "logo",
+        "card",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
+      ],
+      "usage_count": 0,
+      "width": 1000,
+      "height": 665,
+      "format": "webp",
+      "parentId": "caracas_graduates",
+      "quality_override": 60
     }
   }
 }
