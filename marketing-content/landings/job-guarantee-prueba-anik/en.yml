@@ -300,6 +300,8 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: laptopEdge
+    laptop_image:
+      image_id: laptop
     heading: Who Can Add the Job Guarantee?
     description: "The Job Guarantee is available to students who meet these four requirements:"
     cards:

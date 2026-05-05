@@ -490,6 +490,8 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-on6rj7
     variant: laptop-edge
+    laptop_image:
+      image_id: laptop
     title: Garantía de Empleo opcional*
     subtitle: Respalda tu resultado profesional con un compromiso más fuerte
     description: "Por un adicional de $2,000, puedes agregar nuestra Garantía de Empleo. Si no consigues un empleo calificado en 9 meses después de graduarte, recibirás reembolso completo de la matrícula.&nbsp;<div><span style=\"font-size: 0.875rem;\">* No aplica para todos los mercados, países o estados donde opera 4Geeks. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\">Condiciones aplican.</a></span></div>"

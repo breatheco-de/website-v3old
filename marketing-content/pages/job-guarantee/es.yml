@@ -252,6 +252,8 @@ sections:
     section_id: features_quad-abmlon
     version: "1.0"
     variant: laptopEdge
+    laptop_image:
+      image_id: laptop
     heading: ¿Quién es elegible?
     description: "Calificas para la Garantía de Empleo si:"
     cards:

@@ -267,6 +267,8 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-46zxqb
     variant: laptop-edge
+    laptop_image:
+      image_id: laptop
     mobile_see_more: true
     mobile_see_more_label: Ver más
     mobile_see_less_label: Ver menos

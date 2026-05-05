@@ -372,6 +372,8 @@ sections:
   - type: why_learn_ai
     section_id: why_learn_ai-rgieav
     variant: laptop-edge
+    laptop_image:
+      image_id: laptop
     title: Garantía de Empleo* opcional
     subtitle: Respalda tu resultado profesional con un compromiso más fuerte
     description: >-
