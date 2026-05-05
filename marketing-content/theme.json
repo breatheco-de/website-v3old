@@ -629,11 +629,5 @@
       "value": "1.6px"
     }
   ],
-  "preview_examples": [
-    {
-      "component": "certificate",
-      "version": "v1.0",
-      "example": "test2"
-    }
-  ]
+  "preview_examples": []
 }
