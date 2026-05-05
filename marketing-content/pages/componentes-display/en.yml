@@ -1289,7 +1289,7 @@ sections:
     subtitle: Gain the AI skills to stay competitive and advance your career in just 6 weeks. Learn to apply AI at work for greater efficiency, creativity, and impact.
     students_enrolled:
       avatars:
-        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
         - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
@@ -1436,7 +1436,7 @@ sections:
     subtitle: Train for high-demand software development roles with an AI-powered full stack curriculum, personalized mentorship, and proven career outcomes.
     students_enrolled:
       avatars:
-        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
         - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
@@ -2244,7 +2244,7 @@ sections:
         description: An entrepreneur with a passion for technology is now focusing on the dev side of their endeavour.
         achievement: She has launched her startup, is capable of hiring new tech talent and coordinates a dev team!
       - name: Jorge Martín Coimbra
-        img: https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        img: https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         status: Graduated
         country:
           name: Uruguay
