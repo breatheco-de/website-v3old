@@ -36,9 +36,10 @@ sections:
       color: primary
     description: Entiende qué está pasando en el mercado laboral y si AI Engineering es una opción real para ti, incluso sin experiencia previa.
     bullets:
-      - text: Aprende a programar desde cero hasta ser un profesional
-      - text: ¡Somos el único bootcamp que no finaliza cuando te gradúas! En 4Geeks dispones de mentorías ilimitadas y de por vida
-      - text: Contamos con diferentes opciones de financiamiento puedes financiar el importe en 6, 9, 12 y 18 meses
+      - text: Hacia dónde va el mercado tech (sin humo)
+      - text: Qué es AI Engineering realmente
+      - text: Entiende si puedes empezar desde cero
+      - text: Qué camino tiene sentido según el caso
     image_object_fit: none
     form:
       variant: stacked
