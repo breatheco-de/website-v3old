@@ -193,7 +193,7 @@ export function UniversalVideo({
             data-testid="video-preview"
           >
           <UniversalImage
-            imageId={thumbnailUrl}
+            id={thumbnailUrl}
             alt="Video preview"
             className="absolute inset-0 w-full h-full object-cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 800px"
