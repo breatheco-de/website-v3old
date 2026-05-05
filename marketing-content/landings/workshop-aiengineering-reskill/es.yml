@@ -154,7 +154,7 @@ sections:
   - type: human_and_ai_duo
     version: "1.0"
     heading: El mercado laboral ha cambiado
-    description: Y no es una percepción, es un cambio en lo que las empresas necesitan hoy.
+    description: Si sientes que tu experiencia ya no te da la seguridad de antes, no es casualidad. El mercado está dejando atrás los perfiles tradicionales y empezando a priorizar nuevas formas de trabajar con tecnología.
     bullet_groups:
       - title: Lo que está pasando
         image: https://randomuser.me/api/portraits/men/10.jpg
@@ -165,10 +165,10 @@ sections:
           - text: Experiencia ≠ seguridad laboral
       - title: Lo que ahora se busca
         bullets:
-          - text: Perfiles que trabajen con IA
-          - text: Capacidad de automatizar procesos
-          - text: Construir con Inteligencia Artificial
-          - text: Resolver problemas, no solo ejecutar tareas
+          - text: Diseñar soluciones utilizando IA
+          - text: Construir automatizaciones y workflows completos
+          - text: Integrar herramientas, APIs y modelos de IA
+          - text: Crear sistemas que resuelvan problemas reales de negocio
     footer_description: El problema no es que falte trabajo 👉 Es que el tipo de trabajo ha cambiado.
     background: bg-background
     section_id: human_and_ai_duo-pnpw76
