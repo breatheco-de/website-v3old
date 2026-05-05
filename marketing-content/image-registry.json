@@ -18766,6 +18766,94 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_celebration-700x522-q82-640w.webp"
         }
       ]
+    },
+    "graduates_celebration-700x522-q100": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_celebration-700x522-q100.webp",
+      "alt": "4Geeks Academy graduates celebrating with their certificates",
+      "focal_point": "center",
+      "tags": [
+        "hero",
+        "logo",
+        "card",
+        "photo",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
+      ],
+      "usage_count": 0,
+      "width": 700,
+      "height": 522,
+      "format": "webp",
+      "parentId": "graduates_celebration",
+      "quality_override": 100,
+      "preset": [
+        "hero-wide",
+        "hero-tall",
+        "logo",
+        "card",
+        "card-wide",
+        "full",
+        "icon",
+        "avatar"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128,
+        240,
+        256,
+        320,
+        360,
+        480,
+        640
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_celebration-700x522-q100-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_celebration-700x522-q100-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_celebration-700x522-q100-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_celebration-700x522-q100-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_celebration-700x522-q100-240w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_celebration-700x522-q100-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_celebration-700x522-q100-320w.webp"
+        },
+        {
+          "w": 360,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_celebration-700x522-q100-360w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_celebration-700x522-q100-480w.webp"
+        },
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_celebration-700x522-q100-640w.webp"
+        }
+      ]
     }
   }
 }
