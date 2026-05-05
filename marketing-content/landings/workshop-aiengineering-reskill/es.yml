@@ -40,6 +40,7 @@ sections:
       - text: Qué es AI Engineering realmente
       - text: Entiende si puedes empezar desde cero
       - text: Qué camino tiene sentido según el caso
+        description: No es una clase técnica. Es una sesión para ayudarte a tomar una decisión profesional.
     image_object_fit: none
     form:
       variant: stacked
