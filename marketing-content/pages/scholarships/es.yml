@@ -21,7 +21,7 @@ sections:
     title: Becas que abren puertas a carreras en tecnología
     subtitle: Explora oportunidades de becas diseñadas para apoyar tu transición hacia carreras tech de alto crecimiento.
     image:
-      src: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-800x534-q85.webp
+      src: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-1000x668-q74.webp
       alt: Estudiantes colaborando en un espacio de trabajo tecnológico
     cta_buttons:
       - text: {{ global.call_to_action_apply | Aplica ahora }}

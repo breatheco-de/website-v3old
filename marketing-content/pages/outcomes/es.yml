@@ -237,7 +237,7 @@ sections:
         description: Credenciales que los empleadores confían y valoran
     media:
       type: image
-      src: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-800x534-q85.webp
+      src: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-1000x668-q74.webp
       alt: Estudiantes colaborando en el aula
       aspect_ratio: "4:3"
       style: rounded
