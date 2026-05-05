@@ -636,6 +636,11 @@
       "example": "metrics with charts",
       "importYaml": "- type: features_grid\n  version: '1.0'\n  variant: stats-charts\n  subtitle: This is your opportunity.\n  title: <!--StartFragment--><h2 class=\"text-2xl md:text-h2 mb-2 text-foreground\" data-testid=\"text-stats-text-title\">AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.</h2><!--EndFragment-->\n  description: Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.\n  card_bars_accent: hsl(var(--primary))\n  card_gauge_accent: hsl(var(--destructive) / 0.5)\n  card_trend_accent: hsl(var(--accent))\n  card_bars:\n    badge: More New AI Roles Than Job Losses\n    stat_value: +340%\n    stat_label: net new AI roles created since 2022\n    years:\n      - '2022'\n      - '2023'\n      - '2024'\n      - '2025'\n      - '2026'\n    displaced_label: Displaced\n    created_label: Created by AI\n  card_gauge:\n    badge: Who's ready for AI roles?\n    gauge_percentage: 3\n    gauge_label: qualified\n    stat_label: of the workforce is not ready for AI roles today\n    bar1_label: Traditional workforce\n    bar2_label: AI-ready professionals\n  card_trend:\n    badge: Demand Is Accelerating\n    stat_value: 1.3M\n    stat_label: new AI roles expected by 2027\n    end_label: 1.3M · 2027\n  section_id: features_grid-xxxxxxx\n",
       "registryPersisted": true
+    },
+    {
+      "component": "features_grid",
+      "version": "v1.0",
+      "example": "stats-charts"
     }
   ]
 }
