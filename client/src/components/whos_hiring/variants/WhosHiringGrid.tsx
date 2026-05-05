@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import type { WhosHiringSection as WhosHiringSectionType } from "@shared/schema";
+import UniversalImage from "@/components/UniversalImage";
 
 interface WhosHiringGridProps {
   data: WhosHiringSectionType;
@@ -86,11 +87,12 @@ export default function WhosHiringGrid({ data }: WhosHiringGridProps) {
                 className="p-3 lg:p-6 flex items-center justify-center h-20 sm:h-40"
                 data-testid={`card-logo-${currentPage * LOGOS_PER_PAGE + index}`}
               >
-                <img
-                  src={logo.src}
+                <UniversalImage
+                  id={logo.src}
                   alt={logo.alt}
                   className="max-h-16 max-w-full object-contain"
                   loading="lazy"
+                  fieldContext={{ arrayPath: "logos", index: currentPage * LOGOS_PER_PAGE + index, srcField: "src" }}
                 />
               </Card>
             ))}

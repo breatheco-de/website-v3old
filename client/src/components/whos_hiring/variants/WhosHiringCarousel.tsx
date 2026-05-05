@@ -2,6 +2,7 @@
 import { useState, useEffect, useMemo } from "react";
 import Marquee from "@/lib/marquee";
 import type { WhosHiringSection as WhosHiringSectionType } from "@shared/schema";
+import UniversalImage from "@/components/UniversalImage";
 
 interface WhosHiringCarouselProps {
   data: WhosHiringSectionType;
@@ -73,11 +74,12 @@ function LogoCard({
       {isHero ? (
         <div className="flex flex-col items-center justify-center h-full text-center">
           <div className="flex items-center justify-center mb-6 w-full">
-            <img
-              src={logo.src}
+            <UniversalImage
+              id={logo.src}
               alt={logo.alt}
               className="max-h-16 max-w-[180px] object-contain logo-grayscale"
               loading="lazy"
+              fieldContext={{ arrayPath: "logos", index: 0, srcField: "src" }}
             />
           </div>
           <p className="text-sm text-muted-foreground/70 leading-relaxed max-w-[280px]">
@@ -85,8 +87,8 @@ function LogoCard({
           </p>
         </div>
       ) : (
-        <img
-          src={logo.src}
+        <UniversalImage
+          id={logo.src}
           alt={logo.alt}
           className={`object-contain logo-grayscale ${
             isSmall 
@@ -94,6 +96,7 @@ function LogoCard({
               : (isMobile ? "max-h-10 max-w-[120px]" : "max-h-12 max-w-[180px]")
           }`}
           loading="lazy"
+          fieldContext={{ arrayPath: "logos", index: 0, srcField: "src" }}
         />
       )}
     </div>
