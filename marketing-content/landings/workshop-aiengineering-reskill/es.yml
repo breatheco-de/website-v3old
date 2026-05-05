@@ -153,8 +153,8 @@ sections:
         message: Thanks! We'll be in touch within 24 hours.
   - type: human_and_ai_duo
     version: "1.0"
-    heading: "Human + AI: The Perfect Support Duo"
-    description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll have access to unlimited 1:1 mentorship plus AI-guided feedback from Rigobot, so every step is tailored to your learning journey.
+    heading: El mercado laboral ha cambiado
+    description: Y no es una percepción, es un cambio en lo que las empresas necesitan hoy.
     bullet_groups:
       - title: "Our Team of Expert Mentors:"
         image: https://randomuser.me/api/portraits/men/10.jpg
