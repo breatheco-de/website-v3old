@@ -629,11 +629,5 @@
       "value": "1.6px"
     }
   ],
-  "preview_examples": [
-    {
-      "component": "comparison_table",
-      "version": "v1.0",
-      "example": "Basic Comparison"
-    }
-  ]
+  "preview_examples": []
 }
