@@ -17,6 +17,11 @@ export const featureQuadImageSchema = z.object({
   alt: z.string().optional().describe("Alt text for the image"),
 });
 
+export const featureQuadLaptopImageSchema = z.object({
+  image_id: z.string().describe("Image ID from the image registry"),
+  alt: z.string().optional().describe("Alt text for the laptop image"),
+});
+
 export const featureQuadSectionSchema = z.object({
   type: z.literal("features_quad"),
   version: z.string().optional().default("1.0"),
@@ -29,9 +34,11 @@ export const featureQuadSectionSchema = z.object({
   footer_description: z.string().optional().describe("Optional footer text (italic)"),
   background: z.string().optional().describe("Background CSS class (e.g., 'bg-muted/30')"),
   video: videoConfigSchema.optional().describe("Video configuration - when provided, replaces images with video"),
-description_with_background: z.boolean().optional().describe("If true, the description and title will have a background color on carousel variant")
+  description_with_background: z.boolean().optional().describe("If true, the description and title will have a background color on carousel variant"),
+  laptop_image: featureQuadLaptopImageSchema.optional().describe("Optional laptop image override for the laptopEdge variant"),
 });
 
 export type FeatureQuadCard = z.infer<typeof featureQuadCardSchema>;
 export type FeatureQuadImage = z.infer<typeof featureQuadImageSchema>;
+export type FeatureQuadLaptopImage = z.infer<typeof featureQuadLaptopImageSchema>;
 export type FeatureQuadSection = z.infer<typeof featureQuadSectionSchema>;

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { WhyLearnAISection as WhyLearnAISectionType } from "@shared/schema";
 import { RichTextContent } from "@/components/ui/rich-text-content";
-import { useImageRegistry } from "@/components/UniversalImage";
+import UniversalImage from "@/components/UniversalImage";
 import { useInternalNav } from "@/hooks/useInternalNav";
 
 const DEFAULT_LAPTOP_IMAGE_ID = "laptop";
@@ -22,17 +22,8 @@ interface WhyLearnAILaptopEdgeProps {
   data: WhyLearnAISectionType;
 }
 
-function buildSrcset(srcset: Array<{ w: number; url: string }> | undefined): string | undefined {
-  if (!srcset || srcset.length === 0) return undefined;
-  return srcset.map(s => `${s.url} ${s.w}w`).join(", ");
-}
-
 export default function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps) {
-  const { registry } = useImageRegistry();
   const laptopImageId = data.laptop_image?.image_id ?? DEFAULT_LAPTOP_IMAGE_ID;
-  const laptopEntry = registry?.images?.[laptopImageId];
-  const laptopCodeEditor = laptopEntry?.src ?? "/marketing-content/images/laptop.webp";
-  const laptopSrcset = buildSrcset(laptopEntry?.srcset);
   const handleLinkClick = useInternalNav();
   const [isExpanded, setIsExpanded] = useState(false);
   const description = data.description || "";
@@ -122,19 +113,17 @@ export default function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps
         )}
 
         {/* Laptop image centered below content */}
-        {laptopCodeEditor && (
-          <div className="flex justify-center">
-            <img 
-              src={laptopCodeEditor}
-              srcSet={laptopSrcset}
-              sizes="(max-width: 444px) 90vw, 400px"
-              alt={data.laptop_image?.alt ?? "Code editor on laptop"}
-              className="w-[90%] max-w-[400px] h-auto object-contain"
-              loading="lazy"
-              data-testid="img-why-learn-ai-mobile"
-            />
-          </div>
-        )}
+        <div className="flex justify-center">
+          <UniversalImage
+            id={laptopImageId}
+            alt={data.laptop_image?.alt ?? "Code editor on laptop"}
+            className="w-[90%] max-w-[400px] h-auto object-contain"
+            loading="lazy"
+            sizes="(max-width: 444px) 90vw, 400px"
+            data-testid="img-why-learn-ai-mobile"
+            fieldContext={{ fieldPath: "laptop_image.image_id" }}
+          />
+        </div>
       </div>
 
       {/* ===== DESKTOP LAYOUT ===== */}
@@ -176,17 +165,15 @@ export default function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps
 
       {/* Laptop image - hidden on mobile only, visible from md */}
       <div className="hidden md:flex absolute md:right-[-480px] lg:right-[-400px] xl:right-[-307px] top-0 bottom-0 w-[700px] items-center pointer-events-none">
-        {laptopCodeEditor && (
-          <img 
-            src={laptopCodeEditor}
-            srcSet={laptopSrcset}
-            sizes="700px"
-            alt={data.laptop_image?.alt ?? "Code editor on laptop"}
-            className="w-full h-full object-contain object-left"
-            loading="lazy"
-            data-testid="img-why-learn-ai"
-          />
-        )}
+        <UniversalImage
+          id={laptopImageId}
+          alt={data.laptop_image?.alt ?? "Code editor on laptop"}
+          className="w-full h-full object-contain object-left"
+          loading="lazy"
+          sizes="700px"
+          data-testid="img-why-learn-ai"
+          fieldContext={{ fieldPath: "laptop_image.image_id" }}
+        />
       </div>
     </section>
   );

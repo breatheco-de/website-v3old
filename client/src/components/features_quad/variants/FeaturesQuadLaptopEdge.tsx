@@ -1,13 +1,13 @@
 
 import type { FeatureQuadSection } from "@shared/schema";
-import { UniversalImage, useImageRegistry } from "@/components/UniversalImage";
+import UniversalImage from "@/components/UniversalImage";
 import { UniversalVideo } from "@/components/UniversalVideo";
 import { Button } from "@/components/ui/button";
 import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { useSectionContext } from "@/contexts/SectionContext";
 
-const LAPTOP_IMAGE_ID = "243f0f155c3d1683ecfaa1020801b365ad23092d-1769656566581";
+const LAPTOP_IMAGE_FALLBACK_ID = "243f0f155c3d1683ecfaa1020801b365ad23092d-1769656566581";
 
 function getButtonVariant(
   variant?: string,
@@ -138,9 +138,8 @@ function normalizeVideo(
 }
 
 export default function FeaturesQuadLaptopEdge({ data }: FeaturesQuadLaptopEdgeProps) {
-  const { registry } = useImageRegistry();
   const { isPriority } = useSectionContext();
-  const laptopCodeEditor = registry?.images?.[LAPTOP_IMAGE_ID]?.src ?? "https://storage.googleapis.com/4geeks-academy-website/media/laptop.png";
+  const laptopImageId = data.laptop_image?.image_id ?? LAPTOP_IMAGE_FALLBACK_ID;
   const isCompact = data.compact !== null ? data.compact : false;
   const CardComponent = isCompact ? CompactCard : FullCard;
   const images = data.images || [];
@@ -405,13 +404,13 @@ export default function FeaturesQuadLaptopEdge({ data }: FeaturesQuadLaptopEdgeP
 
       {/* Laptop image - desktop only */}
       <div className="hidden lg:flex absolute lg:right-[-400px] xl:right-[-270px] top-0 bottom-0 w-[700px] items-center pointer-events-none">
-        <img
-          src={laptopCodeEditor}
-          alt="Code editor on laptop"
+        <UniversalImage
+          id={laptopImageId}
+          alt={data.laptop_image?.alt ?? "Code editor on laptop"}
           className="w-[90%] max-w-none h-auto object-contain object-left"
-          loading={isPriority ? "eager" : "lazy"}
-          {...{ fetchpriority: isPriority ? "high" : "auto" }}
+          sizes="700px"
           data-testid="img-features-quad-laptop"
+          fieldContext={{ fieldPath: "laptop_image.image_id" }}
         />
       </div>
     </section>
