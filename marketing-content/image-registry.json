@@ -18077,6 +18077,55 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70-480w.webp"
         }
       ]
+    },
+    "exelencia_educativa-544x226-q70": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp",
+      "alt": "Excelencia Educativa award",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "badge",
+        "award"
+      ],
+      "usage_count": 0,
+      "width": 544,
+      "height": 226,
+      "format": "webp",
+      "parentId": "exelencia_educativa",
+      "quality_override": 70,
+      "preset": [
+        "logo",
+        "icon"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70-240w.webp"
+        }
+      ]
     }
   }
 }
