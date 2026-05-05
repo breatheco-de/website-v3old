@@ -25,7 +25,6 @@ sections:
       - text: Join our partnership network
         url: "#apply-modal"
         variant: primary
-        icon: Rocket
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     marginY:
       desktop: none lg
