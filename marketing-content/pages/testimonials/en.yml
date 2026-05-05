@@ -52,7 +52,7 @@ sections:
         alt: Course Report - Best Coding Bootcamp 2024
         logoHeight: 56px
       - id: tech-hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70.webp
         alt: South Florida Tech Hub
         logoHeight: 56px
       - id: ebootcamp
