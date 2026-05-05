@@ -61,7 +61,7 @@ sections:
       - image_id: group_original
         alt: Original group illustration
         id: group-original
-      - image_id: unsplash_workspace
+      - image_id: unsplash_workspace-700x467-q65
         alt: Workspace image
         id: unsplash-workspace
     cards:
