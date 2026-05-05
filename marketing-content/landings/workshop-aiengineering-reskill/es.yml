@@ -164,14 +164,14 @@ sections:
     variant: primary-left
     background: muted
     primary:
-      badge: Results-Backed Promise
-      heading: The Confidence of a Job Guarantee
-      description: "The strongest proof that we believe in our model? We back it with a Job Guarantee. Most schools promise \"career support.\" At 4Geeks, we promise results: get hired within 9 months, or we refund your tuition in full. Conditions apply."
+      badge: No es una percepción
+      heading: El mercado laboral está cambiando (y rápido)
+      description: Sectores reduciendo equipos, roles perdiendo valor, tareas siendo automatizadas y más incertidumbre laboral
     secondary:
       benefits:
-        - text: Our curriculum is industry-aligned and AI-ready
-        - text: Our mentorship is unlimited and personalized
-        - text: Our career support never expires
+        - text: ¿El problema es que falte trabajo o que el tipo de trabajo cambió?
+        - text: Hoy las empresas buscan personas que puedan adaptarse rápido, usar tecnología a su favor y resolver problemas de forma eficiente.
+        - text: null
     section_id: split_cards-jrgtg1
   - type: awards_marquee
     section_id: awards_marquee-o9ymal
