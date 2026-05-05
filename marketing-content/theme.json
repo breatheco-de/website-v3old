@@ -629,5 +629,11 @@
       "value": "1.6px"
     }
   ],
-  "preview_examples": []
+  "preview_examples": [
+    {
+      "component": "features_grid",
+      "version": "v1.0",
+      "example": "Card Header Layout"
+    }
+  ]
 }
