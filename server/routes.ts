@@ -1552,7 +1552,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json(locations);
   });
 
-  app.get("/api/locations/:slug", (req, res) => {
+  app.get("/api/locations/:slug", async (req, res) => {
     const { slug } = req.params;
     const locale = normalizeLocale(req.query.locale as string);
 
@@ -1564,6 +1564,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
 
     const locationData = location as unknown as Record<string, unknown>;
+    if (locationData.sections && Array.isArray(locationData.sections)) {
+      applyComponentSectionDefaults(locationData.sections);
+      locationData.sections = await resolveDynamicEntries(locationData.sections as any, locale) as any;
+      applyComponentImageSizes(locationData.sections);
+    }
     const locationRaw = contentIndex.loadMergedContent("location", slug, locale);
     const layout = resolveLayout("location", locationRaw.data || {});
     const singleEntry = buildSingleEntryFromContent("location", locationData);
