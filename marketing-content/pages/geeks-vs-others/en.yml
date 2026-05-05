@@ -22,7 +22,7 @@ sections:
     subtitle: See why our graduates succeed in tech. From AI-powered learning and hands-on projects to personalized mentorship and lifetime career support, everything we do is designed to help you launch a thriving career.
     badge: Why 4Geeks stands out
     image:
-      src: https://storage.googleapis.com/4geeks-academy-website/media/unsplash_workspace-700x467-q75.webp
+      src: https://storage.googleapis.com/4geeks-academy-website/media/unsplash_workspace-700x467-q65.webp
       alt: Students coding together at a table with laptops
     background: hsl(210 100% 50% / 0.05)
     paddingY:
