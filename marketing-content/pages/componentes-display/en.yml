@@ -1291,7 +1291,7 @@ sections:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
-        - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduates
     bullet_points:
@@ -1438,7 +1438,7 @@ sections:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
-        - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: 1,000+ students enrolled across LATAM and the U.S.
     bullet_points:
@@ -2253,7 +2253,7 @@ sections:
         description: Martín joined the first program that we launched together with UTEC and IDB. He got a better paying job, a career that he is passionate about and a new professional life.
         achievement: He got a 100% increase in his salary
       - name: Jean St. Cloud
-        img: https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        img: https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         status: Graduated
         country:
           name: United States of America
