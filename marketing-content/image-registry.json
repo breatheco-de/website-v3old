@@ -18361,6 +18361,14 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55-640w.webp"
         }
       ]
+    },
+    "laptop": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/laptop.avif",
+      "alt": "Image: laptop",
+      "focal_point": "center",
+      "tags": [],
+      "usage_count": 0,
+      "hash": "5e243beca8f1795551fd2c686c6e4d52762ca58b21f8cdfbe5575c6687838042"
     }
   }
 }
