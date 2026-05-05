@@ -408,7 +408,6 @@ export default function FeaturesQuadLaptopEdge({ data }: FeaturesQuadLaptopEdgeP
           id={laptopImageId}
           alt={data.laptop_image?.alt ?? "Code editor on laptop"}
           className="w-[90%] max-w-none h-auto object-contain object-left"
-          sizes="700px"
           data-testid="img-features-quad-laptop"
           fieldContext={{ fieldPath: "laptop_image.image_id" }}
         />

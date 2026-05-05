@@ -119,7 +119,6 @@ export default function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps
             alt={data.laptop_image?.alt ?? "Code editor on laptop"}
             className="w-[90%] max-w-[400px] h-auto object-contain"
             loading="lazy"
-            sizes="(max-width: 444px) 90vw, 400px"
             data-testid="img-why-learn-ai-mobile"
             fieldContext={{ fieldPath: "laptop_image.image_id" }}
           />
@@ -168,9 +167,8 @@ export default function WhyLearnAILaptopEdge({ data }: WhyLearnAILaptopEdgeProps
         <UniversalImage
           id={laptopImageId}
           alt={data.laptop_image?.alt ?? "Code editor on laptop"}
-          className="w-full h-full object-contain object-left"
+          className="w-full h-[90%] object-contain object-left"
           loading="lazy"
-          sizes="700px"
           data-testid="img-why-learn-ai"
           fieldContext={{ fieldPath: "laptop_image.image_id" }}
         />
