@@ -10,7 +10,7 @@ when_to_use: >-
   achievements. Best for career support and program pages where social proof is important.
 
 image_sizes:
-  default.items[].avatar: "(min-width: 768px) 120px, 80px"
+  default.items[].student_thumb: "40px"
 props:
   title:
     type: string

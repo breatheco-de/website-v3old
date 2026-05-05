@@ -317,12 +317,19 @@ function MasonryCard({
   testimonial, 
   size = "medium",
   yamlIndex,
+  serverIndex,
 }: { 
   testimonial: TestimonialsSlideTestimonial; 
   size?: CardSize;
   yamlIndex?: number;
+  serverIndex?: number;
 }) {
   const config = sizeConfig[size];
+  const fieldContext = serverIndex !== undefined
+    ? { arrayPath: "items", index: serverIndex, srcField: "student_thumb" }
+    : yamlIndex !== undefined
+      ? { arrayPath: "testimonials", index: yamlIndex, srcField: "img" }
+      : undefined;
   
   return (
     <div 
@@ -338,7 +345,7 @@ function MasonryCard({
           alt={testimonial.name}
           className="w-10 h-10 rounded-full flex-shrink-0"
           style={{ objectFit: "cover" }}
-          fieldContext={yamlIndex !== undefined ? { arrayPath: "testimonials", index: yamlIndex, srcField: "img" } : undefined}
+          fieldContext={fieldContext}
         />
         <div className="min-w-0 flex-1">
           <h4 className="font-semibold text-foreground text-sm leading-tight truncate">
@@ -370,10 +377,14 @@ function MasonryCard({
 }
 
 interface MasonryColumn {
-  cards: { testimonial: TestimonialsSlideTestimonial; size: CardSize; yamlIndex?: number }[];
+  cards: { testimonial: TestimonialsSlideTestimonial; size: CardSize; yamlIndex?: number; serverIndex?: number }[];
 }
 
-function createMasonryColumns(testimonials: TestimonialsSlideTestimonial[], includeYamlIndices: boolean = false): MasonryColumn[] {
+function createMasonryColumns(
+  testimonials: TestimonialsSlideTestimonial[],
+  includeYamlIndices: boolean = false,
+  includeServerIndices: boolean = false,
+): MasonryColumn[] {
   const twoCardPatterns: CardSize[][] = [
     ["large", "small"],
     ["small", "large"],
@@ -393,6 +404,7 @@ function createMasonryColumns(testimonials: TestimonialsSlideTestimonial[], incl
       testimonial: testimonials[i],
       size: pattern[0],
       yamlIndex: includeYamlIndices ? i : undefined,
+      serverIndex: includeServerIndices ? i : undefined,
     });
     
     if (i + 1 < testimonials.length) {
@@ -400,6 +412,7 @@ function createMasonryColumns(testimonials: TestimonialsSlideTestimonial[], incl
         testimonial: testimonials[i + 1],
         size: pattern[1],
         yamlIndex: includeYamlIndices ? i + 1 : undefined,
+        serverIndex: includeServerIndices ? i + 1 : undefined,
       });
     } else if (columns.length > 0) {
       const lastColumn = columns[columns.length - 1];
@@ -407,6 +420,7 @@ function createMasonryColumns(testimonials: TestimonialsSlideTestimonial[], incl
         testimonial: testimonials[i],
         size: "medium",
         yamlIndex: includeYamlIndices ? i : undefined,
+        serverIndex: includeServerIndices ? i : undefined,
       });
       continue;
     }
@@ -426,6 +440,7 @@ function MasonryColumnComponent({ column }: { column: MasonryColumn }) {
           testimonial={card.testimonial} 
           size={card.size}
           yamlIndex={card.yamlIndex}
+          serverIndex={card.serverIndex}
         />
       ))}
     </div>
@@ -513,7 +528,7 @@ export default function TestimonialsSlide({ data }: TestimonialsSlideProps) {
     : useBankData && bankItems.length > 0
       ? bankItems
       : hardcodedTestimonials;
-  const masonryColumns = createMasonryColumns(testimonials, useYamlIndices);
+  const masonryColumns = createMasonryColumns(testimonials, useYamlIndices, hasServerItems);
 
   return (
     <section 
