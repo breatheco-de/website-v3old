@@ -115,7 +115,7 @@ sections:
         alt: 4.9 on Course Report Reviews
         logoHeight: 56px
       - id: excelencia-educativa
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
     section_id: awards_marquee-ex9avk
@@ -1227,7 +1227,7 @@ sections:
           logoHeight: 55px
         - id: excelencia-educativa
           alt: Excelencia Educativa - Calidad Institucional
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
           logoHeight: 55px
     video_title: GeekForce Career Support
     marginY:

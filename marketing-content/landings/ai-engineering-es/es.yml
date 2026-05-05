@@ -141,7 +141,7 @@ sections:
         logoHeight: h-10 md:h-16
       - id: excelencia-educativa
         alt: Excelencia Educativa - Calidad Institucional en Educación Online
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
         logoHeight: h-10 md:h-16
       - id: course-report-badge
         alt: Course Report Badge 2025
