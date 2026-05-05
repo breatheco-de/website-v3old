@@ -8,7 +8,6 @@ description: >-
 when_to_use: >-
   Use this component for showcasing multiple student testimonials with rich content including photos, country info, and
   achievements. Best for career support and program pages where social proof is important.
-
 image_sizes:
   default.items[].student_thumb: "60px"
 props:
