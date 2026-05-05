@@ -660,6 +660,11 @@
       "component": "course_selector",
       "version": "v1.0",
       "example": "Course Selector - Spotlight Variant"
+    },
+    {
+      "component": "course_selector",
+      "version": "v1.0",
+      "example": "Course Selector - Badges and Tags"
     }
   ]
 }
