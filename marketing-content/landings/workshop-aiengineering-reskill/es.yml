@@ -35,7 +35,7 @@ sections:
       highlight: Este es el único trabajo que hay esperando fuera
       suffix: Ingeniero de IA
       color: primary
-    description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando, en 24 semanas.
+    description: El mercado laboral ha cambiado. Y está dejando atrás a muchos perfiles. En esta sesión en directo entenderás qué está pasando y por qué AI Engineering se está convirtiendo en una de las pocas vías reales de reconversión profesional.
     form:
       variant: stacked
       conversion_name: student_application
