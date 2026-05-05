@@ -18023,6 +18023,60 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70-640w.webp"
         }
       ]
+    },
+    "south_florida_tech_hub-512x288-q70": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70.webp",
+      "alt": "South Florida Tech Hub",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "photo"
+      ],
+      "usage_count": 0,
+      "width": 512,
+      "height": 288,
+      "format": "webp",
+      "parentId": "south_florida_tech_hub",
+      "quality_override": 70,
+      "preset": [
+        "logo",
+        "full",
+        "card"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        240,
+        320,
+        480
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70-240w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70-480w.webp"
+        }
+      ]
     }
   }
 }
