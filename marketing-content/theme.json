@@ -641,16 +641,6 @@
       "component": "image_row",
       "version": "v1.0",
       "example": "with_highlight"
-    },
-    {
-      "component": "image_row",
-      "version": "v1.0",
-      "example": "with_single_highlight"
-    },
-    {
-      "component": "image_row",
-      "version": "v1.0",
-      "example": "images_only"
     }
   ]
 }
