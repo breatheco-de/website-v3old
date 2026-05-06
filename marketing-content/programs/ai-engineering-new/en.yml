@@ -566,7 +566,7 @@ sections:
     subtitle: Investing in a new career matters. We make it easier with multiple ways to fund your enrollment.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting below"
-    financing_amount: {{ global.price_ai_engineering | $349 }}
+    financing_amount: {{ global.price_ai_engineering | $399 }}
     tech_icons:
       - openai
       - python
