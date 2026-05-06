@@ -171,12 +171,12 @@ sections:
     background: bg-background
     section_id: human_and_ai_duo-pnpw76
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/reservation-es_1764814854635.webp
-        alt: Reservation form illustration
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Mujer-estudiando.png
+        alt: "Image: Mujer estudiando"
         object_fit: cover
         object_position: center top
         border_radius: 0.5rem
-        id: reservation-form
+        id: mujer-estudiando
       - src: https://storage.googleapis.com/4geeks-academy-website/media/fernando-funez_1765315920677.jpg
         alt: Fernando Funez testimonial
         object_fit: cover
