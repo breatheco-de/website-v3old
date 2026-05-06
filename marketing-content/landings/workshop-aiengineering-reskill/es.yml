@@ -183,12 +183,12 @@ sections:
         object_position: center top
         border_radius: 0.5rem
         id: hombre-con-laptop
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/feliz-empresario-laptop_1765406479465.png
-        alt: Happy professional with laptop
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Mujer-AI-Workflow.png
+        alt: "Image: Mujer AI Workflow"
         object_fit: cover
         object_position: center top
         border_radius: 0.5rem
-        id: feliz-empresario-laptop
+        id: mujer-ai-workflow
       - src: https://storage.googleapis.com/4geeks-academy-website/media/community-support-2_1765406601448.webp
         alt: Community support image
         object_fit: cover
