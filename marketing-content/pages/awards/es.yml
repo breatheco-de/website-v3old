@@ -21,7 +21,7 @@ sections:
     subtitle: 4Geeks Academy recibe los más altos reconocimientos de Forbes, SwitchUp y líderes de la industria por nuestros programas prácticos y enfocados en la carrera profesional.
     badge: Premios y reconocimientos
     image:
-      src: https://storage.googleapis.com/4geeks-academy-website/media/the-academy-header_1770614327963.png
+      src: https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q80.webp
       alt: Estudiantes programando en computadoras en un aula
     image_full_width: true
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)

@@ -21,7 +21,7 @@ sections:
     subtitle: 4Geeks Academy es un coding bootcamp internacional con 8 campus en EE. UU., Latinoamérica y Europa. Formamos estudiantes en Ingeniería en IA, Data Science & Machine Learning y Ciberseguridad — con un camino claro hacia el empleo.
     badge: 10+ años lanzando carreras en tecnología
     image:
-      src: https://storage.googleapis.com/4geeks-academy-website/media/the-academy-header_1770614327963.png
+      src: https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q80.webp
       alt: Estudiantes programando en computadoras en un aula
     image_full_width: false
     marginY:
