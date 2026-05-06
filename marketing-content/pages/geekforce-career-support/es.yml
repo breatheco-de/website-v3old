@@ -37,7 +37,7 @@ sections:
           logoHeight: 48px
         - id: logo-telefonica
           alt: Logo de Telefónica
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70.webp
           logoHeight: 48px
         - id: logo-twilio
           alt: Logo de Twilio
@@ -263,7 +263,7 @@ sections:
         alt: National Geographic
       - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
         alt: Evernote
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70.webp
         alt: Telefónica
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft

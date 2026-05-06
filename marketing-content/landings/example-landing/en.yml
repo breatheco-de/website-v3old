@@ -252,7 +252,7 @@ sections:
           - image_id: logo_overseas
             alt: Overseas logo
             id: logo-overseas
-          - image_id: logo_telefonica
+          - image_id: logo_telefonica-300x73-q70
             alt: Telefonica logo
             id: logo-telefonica
           - image_id: logo_twilio-684x200-q70
