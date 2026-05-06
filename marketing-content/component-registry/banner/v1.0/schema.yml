@@ -5,3 +5,46 @@ file: client/src/components/Banner.tsx
 description: A centered banner layout with optional avatars on top border, title, description, and CTA button. Supports different background styles including gradient.
 image_sizes:
   default.avatars: "30px"
+when_to_use:
+  - Highlight a key call-to-action with social proof avatars
+  - Create urgency around enrollment or sign-up deadlines
+  - Showcase trust signals with a gradient or branded background
+
+image_sizes:
+  default.avatars: "56px"
+
+props:
+  title:
+    type: string
+    required: true
+    description: Main heading text
+  description:
+    type: string
+    required: false
+    description: Supporting text below the title
+  logo:
+    type: string
+    required: false
+    description: Image registry ID for the logo shown in the avatar ring
+  avatars:
+    type: array
+    required: false
+    description: Array of image registry IDs shown as overlapping circular avatars
+    items:
+      type: string
+  cta:
+    type: object
+    required: false
+    properties:
+      text:
+        type: string
+        required: true
+        description: Button label
+      url:
+        type: string
+        required: true
+        description: Button destination URL
+  background:
+    type: string
+    required: false
+    description: "Background style: 'gradient' (default), 'primary', 'secondary', 'muted'"

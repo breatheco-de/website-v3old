@@ -94,6 +94,7 @@ export default function HeroSingleColumn({ data }: HeroSingleColumnProps) {
                     alt={`Student ${index + 1}`}
                     className="h-full w-full"
                     style={{ objectFit: "cover" }}
+                    fieldContext={{ arrayPath: "trust_bar.avatars", index }}
                   />
                 </Avatar>
               ))}
