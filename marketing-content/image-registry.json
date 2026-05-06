@@ -20551,6 +20551,37 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/image-2--640w.webp"
         }
       ]
+    },
+    "mujer-estudiando": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Mujer-estudiando.png",
+      "alt": "Image: Mujer estudiando",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "hash": "541e191ba5b2e5ae468f94e5207e2d4011d95b85505ac00fdc530d32923e287b",
+      "width": 1024,
+      "height": 1536,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Mujer-estudiando-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Mujer-estudiando-960w.webp"
+        }
+      ]
     }
   }
 }
