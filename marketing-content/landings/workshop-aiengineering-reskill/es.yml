@@ -239,7 +239,7 @@ sections:
       desktop: none lg
   - type: profiles_carousel
     version: v1.0
-    heading: onoce a quienes liderarán la sesión
+    heading: Conoce a quienes liderarán la sesión
     description: Conoce a quienes liderarán la sesión
     image_round: false
     profiles:
