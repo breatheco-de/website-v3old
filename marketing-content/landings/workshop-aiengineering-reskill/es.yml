@@ -178,11 +178,12 @@ sections:
         object_position: center top
         border_radius: 0.5rem
         id: image-3
-      - src: ""
-        alt: Student 2
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/image-2-.png
+        alt: "Image: image (2)"
         object_fit: cover
         object_position: center top
         border_radius: 0.5rem
+        id: image-2
       - src: ""
         alt: Student 3
         object_fit: cover
