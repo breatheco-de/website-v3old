@@ -640,11 +640,6 @@
     {
       "component": "hero",
       "version": "v1.0",
-      "example": "Product Showcase with Background"
-    },
-    {
-      "component": "hero",
-      "version": "v1.0",
       "example": "Product Showcase with Bullets"
     },
     {
