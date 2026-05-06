@@ -548,7 +548,7 @@ sections:
         right_logos:
           - image_id: logo_google
             alt: Google
-          - image_id: logo_meta
+          - image_id: logo_meta-761x243-q70
             alt: Meta
           - image_id: logo_microsoft
             alt: Microsoft
@@ -815,7 +815,7 @@ sections:
         alt: Google Developers
       - src: https://storage.googleapis.com/4geeks-academy-website/media/images-removebg-preview_1767642331872.png
         alt: Boats Group
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70.webp
         alt: Meta
       - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70.webp
         alt: eBay

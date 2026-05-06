@@ -271,7 +271,7 @@ sections:
         right_logos:
           - image_id: logo_google
             alt: Google
-          - image_id: logo_meta
+          - image_id: logo_meta-761x243-q70
             alt: Meta
           - image_id: logo_microsoft
             alt: Microsoft
