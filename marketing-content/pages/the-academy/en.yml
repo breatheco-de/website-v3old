@@ -22,7 +22,7 @@ sections:
     subtitle: 4Geeks Academy is an international tech academy with campuses across the U.S., Latin America, and Europe. We deliver AI-native programs in AI Engineering, Data Science and Machine Learning, Software Development, and Cybersecurity designed to prepare professionals for high-demand roles in today’s AI-driven economy.
     badge: 10+ Years of Career Outcomes in Tech
     image:
-      src: https://storage.googleapis.com/4geeks-academy-website/media/the-academy-header_1770614327963.png
+      src: https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q80.webp
       alt: Students coding at computers in a classroom
     image_full_width: false
     marginY:
