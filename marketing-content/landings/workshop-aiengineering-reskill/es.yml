@@ -171,6 +171,28 @@ sections:
     footer_description: El problema no es que falte trabajo 👉 Es que el tipo de trabajo ha cambiado.
     background: bg-background
     section_id: human_and_ai_duo-pnpw76
+    images:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
+        alt: Microsoft logo
+        object_fit: cover
+        object_position: center top
+        border_radius: 0.5rem
+        id: logo-microsoft
+      - src: ""
+        alt: Student 2
+        object_fit: cover
+        object_position: center top
+        border_radius: 0.5rem
+      - src: ""
+        alt: Student 3
+        object_fit: cover
+        object_position: center top
+        border_radius: 0.5rem
+      - src: ""
+        alt: Student 4
+        object_fit: cover
+        object_position: center top
+        border_radius: 0.5rem
   - type: awards_marquee
     section_id: awards_marquee-o9ymal
     version: "1.0"
