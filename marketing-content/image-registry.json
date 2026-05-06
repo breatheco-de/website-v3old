@@ -1135,7 +1135,14 @@
       "alt": "Community support image",
       "focal_point": "center",
       "tags": [
-        "photo"
+        "photo",
+        "hero",
+        "logo",
+        "card",
+        "partner",
+        "press",
+        "illustration",
+        "team"
       ],
       "usage_count": 2,
       "hash": "4da18614cf7218f8511ae924f48a08e65cab8cb5998ae2d90f3cbe8ac6efd034",
