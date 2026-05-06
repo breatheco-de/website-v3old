@@ -484,53 +484,6 @@ sections:
         linkText: Leer reviews
     paddingY:
       desktop: none
-  - type: ai_learning
-    section_id: ai_learning-o6zujm
-    badge: ¿Por qué 4Geeks?
-    title: ¿Por qué aprender ingeniería de IA con 4Geeks?
-    description: Porque te formas aplicando IA como lo hacen las empresas líderes, con herramientas inteligentes y un método de aprendizaje hiperpersonalizado que acelera tu progreso.
-    features:
-      - icon: TrendingUp
-        title: Destaca en tech con apoyo de carrera para la era de la IA
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Recibe coaching 1:1 personalizado
-          - text: Construye tu currículum y portafolio listos para IA
-          - text: Prepárate para entrevistas y negociación salarial
-          - text: Sigue creciendo con acceso de por vida al apoyo de carrera
-        video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
-        cta:
-          text: Empieza a aprender ahora
-          url: "#hero-form"
-          variant: primary
-      - icon: Robot
-        title: Avanza más rápido con herramientas potenciadas por IA
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Obtén retroalimentación al instante con Rigobot, nuestro tutor de IA
-          - text: Recibe consejos adaptados a tu nivel y progreso
-          - text: Ayuda 24/7 con depuración y resolución de problemas
-          - text: Accede a cientos de ejercicios de código en Learnpack, nuestra plataforma educativa
-        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-        cta:
-          text: Empieza a aprender ahora
-          url: "#hero-form"
-          variant: primary
-      - icon: Headset
-        title: Mentoría 1:1 ilimitada y una comunidad activa
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Acceso de por vida a sesiones de mentoría 1:1
-          - text: Ratio 7:1 estudiantes–profesor para una guía personalizada
-          - text: Colaboración entre pares en canales de Slack y check-ins semanales
-          - text: Canales de Slack dedicados a soporte técnico, ofertas de empleo y carrera
-        image_id: community-support-cropped-800x476-q70
-    paddingY:
-      mobile: lg none
-      desktop: lg none
   - type: bullet_tabs_showcase
     section_id: bullet_tabs_showcase-epdu28
     version: "1.0"
