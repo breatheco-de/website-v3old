@@ -629,11 +629,5 @@
       "value": "1.6px"
     }
   ],
-  "preview_examples": [
-    {
-      "component": "syllabus",
-      "version": "v1.0",
-      "example": "Program Modules"
-    }
-  ]
+  "preview_examples": []
 }
