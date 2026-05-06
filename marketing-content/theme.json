@@ -629,16 +629,5 @@
       "value": "1.6px"
     }
   ],
-  "preview_examples": [
-    {
-      "component": "testimonials",
-      "version": "v1.0",
-      "example": "minimal_no_summary"
-    },
-    {
-      "component": "testimonials",
-      "version": "v1.0",
-      "example": "full_with_ratings"
-    }
-  ]
+  "preview_examples": []
 }
