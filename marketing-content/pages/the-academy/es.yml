@@ -124,7 +124,7 @@ sections:
         logoHeight: 65px
       - id: logo-miami-tech-works
         alt: Logo Miami Tech Works
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/miamitech-logo-sidetext_1770608261416.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/logo_miami_tech_works-400x221-q60.webp
         logoHeight: 65px
       - id: tech-hub
         alt: South Florida Tech Hub
