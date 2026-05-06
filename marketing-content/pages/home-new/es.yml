@@ -33,7 +33,7 @@ sections:
     left_images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
         alt: Ilustración de comunidad
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/caracas-graduates_1765387638222.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-1000x665-q60.webp
         alt: Celebración de graduados en Caracas
     right_images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/fernando-funez_1765315920677.jpg

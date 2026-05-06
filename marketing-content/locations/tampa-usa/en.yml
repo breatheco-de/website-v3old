@@ -190,8 +190,14 @@ sections:
     title: Proven Paths to Tech Careers
     description: These student journeys show how structured learning, AI-powered support, and expert career coaching lead to real outcomes.
     background: bg-sidebar
-    related_features:
-      - career-support
+    dynamic_entries:
+      database: testimonials_en
+      limit: 30
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - career-support
+
   - type: split_cards
     section_id: split_cards-5zfzlx
     variant: primary-left

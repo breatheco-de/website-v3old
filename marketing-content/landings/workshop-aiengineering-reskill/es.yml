@@ -125,40 +125,53 @@ sections:
     marginX:
       desktop: none
     section_id: hero-0dpkdy
-  - type: sticky_cta
-    section_id: sticky_cta-nuso5x
+  - type: modal
     version: "1.0"
-    heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Aplicar ahora
-    show_dismiss: false
+    section_id: apply-modal
+    heading: Start Your Application
+    description: Fill out the form below and we'll get back to you within 24 hours.
+    show_close: true
+    size: md
     form:
-      variant: inline
-      conversion_name: student_application
-      submit_label: Enviar solicitud
-      tags: website-lead
+      variant: stacked
+      submit_label: Submit Application
       fields:
         email:
           visible: true
           required: true
-          placeholder: Correo Electrónico
         first_name:
           visible: true
           required: true
-          placeholder: Nombre
-        last_name:
-          visible: true
-          required: true
-          placeholder: Apellido
         phone:
           visible: true
-          required: true
-          default_country: VE
+          required: false
         program:
-          visible: false
-          default: ai-engineering
+          visible: true
+          required: true
+          default: auto
       success:
-        message: ¡Gracias! Nos pondremos en contacto en 24 horas.
-    showOn: mobile
+        message: Thanks! We'll be in touch within 24 hours.
+  - type: human_and_ai_duo
+    version: "1.0"
+    heading: El mercado laboral ha cambiado
+    description: Si sientes que tu experiencia ya no te da la seguridad de antes, no es casualidad. El mercado está dejando atrás los perfiles tradicionales y empezando a priorizar nuevas formas de trabajar con tecnología.
+    bullet_groups:
+      - title: Lo que está pasando
+        image: https://randomuser.me/api/portraits/men/10.jpg
+        bullets:
+          - text: Menos estabilidad en roles tradicionales
+          - text: Sectores reduciendo equipos
+          - text: Tareas cada vez más automatizadas
+          - text: Experiencia ≠ seguridad laboral
+      - title: Lo que ahora se busca
+        bullets:
+          - text: Diseñar soluciones utilizando IA
+          - text: Construir automatizaciones y workflows completos
+          - text: Integrar herramientas, APIs y modelos de IA
+          - text: Crear sistemas que resuelvan problemas reales de negocio
+    footer_description: El problema no es que falte trabajo 👉 Es que el tipo de trabajo ha cambiado.
+    background: bg-background
+    section_id: human_and_ai_duo-pnpw76
   - type: awards_marquee
     section_id: awards_marquee-o9ymal
     version: "1.0"
