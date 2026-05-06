@@ -43,7 +43,7 @@ sections:
         - text: Industry-aligned, AI-integrated curriculum
         - text: Unlimited personalized mentorship
         - text: Lifetime career support
-      image_id: what_is_4geeks
+      image_id: https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75.webp
       image_object_fit: cover
       image_object_position: 60% 100%
     marginY:
