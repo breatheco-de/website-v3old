@@ -22,7 +22,7 @@ sections:
     subtitle: 4Geeks Academy earns top honors from Forbes, SwitchUp, Course Report and global industry leaders for our hands-on, career-focused programs.
     badge: Awards & recognitions
     image:
-      src: https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q80.webp
+      src: https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90.webp
       alt: Students coding at computers in a classroom
     image_full_width: true
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
