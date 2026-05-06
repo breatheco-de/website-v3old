@@ -18887,6 +18887,50 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Team-work-IA-960w.webp"
         }
       ]
+    },
+    "graduates_friends-288x210-q87": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210-q87.webp",
+      "alt": "4Geeks students laughing and enjoying time together",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 288,
+      "height": 210,
+      "format": "webp",
+      "parentId": "graduates_friends",
+      "quality_override": 87,
+      "preset": [
+        "full",
+        "card",
+        "avatar"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        128,
+        256
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210-q87-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210-q87-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210-q87-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210-q87-256w.webp"
+        }
+      ]
     }
   }
 }
