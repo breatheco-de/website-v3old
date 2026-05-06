@@ -20144,6 +20144,48 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/clark_university-500x156-q60-240w.webp"
         }
       ]
+    },
+    "logo_miami_tech_works-400x221-q60": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/logo_miami_tech_works-400x221-q60.webp",
+      "alt": "Miami Tech Works logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner"
+      ],
+      "usage_count": 0,
+      "width": 400,
+      "height": 221,
+      "format": "webp",
+      "parentId": "logo_miami_tech_works",
+      "quality_override": 60,
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_miami_tech_works-400x221-q60-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_miami_tech_works-400x221-q60-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_miami_tech_works-400x221-q60-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_miami_tech_works-400x221-q60-240w.webp"
+        }
+      ]
     }
   }
 }
