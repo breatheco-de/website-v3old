@@ -20243,6 +20243,63 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q60-128w.webp"
         }
       ]
+    },
+    "logo_jooble-200x167-q70": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp",
+      "alt": "Jooble logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner",
+        "avatar",
+        "card",
+        "icon",
+        "photo",
+        "badge",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
+      ],
+      "usage_count": 0,
+      "width": 200,
+      "height": 167,
+      "format": "webp",
+      "parentId": "logo_jooble",
+      "quality_override": 70,
+      "preset": [
+        "logo",
+        "avatar",
+        "card",
+        "card-wide",
+        "icon",
+        "full"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70-128w.webp"
+        }
+      ]
     }
   }
 }
