@@ -31,7 +31,7 @@ sections:
       variant: primary
       icon: ''
     left_images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/community-1000x667-q70.webp
         alt: Ilustración de comunidad
       - src: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-1000x665-q60.webp
         alt: Celebración de graduados en Caracas
@@ -124,7 +124,7 @@ sections:
           competitivo y crecer a medida que evoluciona tu carrera.
       - heading: Currículum y herramientas de aprendizaje integradas con IA
         text: Domina las herramientas más actuales y los flujos de trabajo con IA que los empleadores están buscando.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/community-1000x667-q70.webp
     image_alt: Estudiante aprendiendo con apoyo de mentor
     video:
       url: https://storage.googleapis.com/4geeks-academy-website/media/loop-1.mp4
