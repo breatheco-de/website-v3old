@@ -140,7 +140,7 @@ sections:
       - image_id: graduates_coding
         col_span: 6
         row_span: 2
-      - image_id: graduates_friends-288x210-q75
+      - image_id: graduates_friends-288x210-q87
         col_span: 6
         row_span: 2
     section_id: graduates_stats-sua7l5
