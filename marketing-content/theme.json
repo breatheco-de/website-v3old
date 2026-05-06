@@ -634,6 +634,11 @@
       "component": "two_column",
       "version": "v1.0",
       "example": "Image Left, Text Right with Bullets"
+    },
+    {
+      "component": "two_column",
+      "version": "v1.0",
+      "example": "Image Left, Text with Bullets Right"
     }
   ]
 }
