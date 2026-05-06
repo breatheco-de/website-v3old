@@ -20613,6 +20613,37 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Hombre-con-laptop-960w.webp"
         }
       ]
+    },
+    "mujer-ai-workflow": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Mujer-AI-Workflow.png",
+      "alt": "Image: Mujer AI Workflow",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "illustration"
+      ],
+      "usage_count": 0,
+      "hash": "c53e68ac5e7fdad0b000f08285fed4a6e9a8d974cbe0df94969631c65d036859",
+      "width": 1023,
+      "height": 1537,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Mujer-AI-Workflow-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Mujer-AI-Workflow-960w.webp"
+        }
+      ]
     }
   }
 }
