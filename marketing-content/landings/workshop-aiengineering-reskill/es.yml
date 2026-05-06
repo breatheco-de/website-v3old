@@ -239,11 +239,11 @@ sections:
       desktop: none lg
   - type: profiles_carousel
     version: v1.0
-    heading: Meet the Geeks
+    heading: onoce a quienes liderarán la sesión
     description: Conoce a quienes liderarán la sesión
     image_round: false
     profiles:
-      - name: AMarcelo Ricigliano
+      - name: Marcelo Ricigliano
         role: Co-founder & CEO
         image_id: image-3
         linkedin_url: https://www.linkedin.com/in/alesanchezr/
