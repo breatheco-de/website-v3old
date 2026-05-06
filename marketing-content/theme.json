@@ -629,11 +629,5 @@
       "value": "1.6px"
     }
   ],
-  "preview_examples": [
-    {
-      "component": "hero",
-      "version": "v1.0",
-      "example": "test"
-    }
-  ]
+  "preview_examples": []
 }
