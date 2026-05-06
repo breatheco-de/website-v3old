@@ -603,11 +603,6 @@ sections:
         image_id: image-2
         alt: "Image: image (2)"
         id: image-2
-      - label: Motivado por la estructura
-        description: |-
-          Motivado por la estructura:
-          Prefieres hitos claros, instructores expertos y una cohorte que te apoye.
-        image_id: student_coding_laptop
     image_position: right
     marginY:
       mobile: xl lg
