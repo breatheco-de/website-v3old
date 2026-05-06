@@ -262,27 +262,6 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
-  - type: features_grid
-    section_id: features_grid-jedyyp
-    version: "1.0"
-    variant: stats-text-card
-    title: ¿Por qué aprender ingeniería de IA ahora?
-    subtitle: Porque el mercado laboral ya lo está exigiendo.
-    description: Los ingenieros de IA construyen sistemas inteligentes, automatizan procesos y diseñan productos impulsados por IA. Según McKinsey, el 87% de las empresas reportan que les falta talento en ingeniería de IA para transformar sus operaciones. Esta brecha es tu oportunidad. La demanda existe, el desafío es estar preparado.
-    background: hsl(210 100% 50% / 0.05)
-    items:
-      - value: 800,000
-        title: Roles relacionados con IA previstos para 2027
-      - value: ~30%
-        title: Crecimiento interanual en ofertas de trabajo en IA
-      - value: $20K-$60K USD
-        title: Salario anual promedio para ingenieros de IA
-    marginY:
-      mobile: md none
-      desktop: none
-    paddingY:
-      mobile: none md
-      desktop: none md
   - type: award_badges
     section_id: award_badges-92ljjy
     version: v1.0
