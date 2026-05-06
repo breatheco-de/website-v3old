@@ -240,7 +240,7 @@ sections:
   - type: profiles_carousel
     version: v1.0
     heading: Conoce a quienes liderarán la sesión
-    description: Conoce a quienes liderarán la sesión
+    description: null
     image_round: false
     profiles:
       - name: Marcelo Ricigliano
