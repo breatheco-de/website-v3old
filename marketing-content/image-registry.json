@@ -18931,6 +18931,48 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_friends-288x210-q87-256w.webp"
         }
       ]
+    },
+    "graduates_team_2-288x210-q87": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_team_2-288x210-q87.webp",
+      "alt": "Large group of 4Geeks graduates celebrating with certificates",
+      "focal_point": "center",
+      "tags": [
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 288,
+      "height": 210,
+      "format": "webp",
+      "parentId": "graduates_team_2",
+      "quality_override": 87,
+      "preset": [
+        "avatar",
+        "card"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        128,
+        256
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_team_2-288x210-q87-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_team_2-288x210-q87-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_team_2-288x210-q87-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_team_2-288x210-q87-256w.webp"
+        }
+      ]
     }
   }
 }
