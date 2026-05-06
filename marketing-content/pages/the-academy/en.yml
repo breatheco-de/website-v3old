@@ -165,7 +165,7 @@ sections:
       4Geeks graduates are hired by leading tech companies across the U.S., Latin America, and Europe. Employers consistently highlight their technical depth, practical experience, and ability to contribute from day one.
       'I’m continually impressed by the depth of knowledge possessed by 4Geeks students. One of my hires went on to become a team leader.' - CodeNinjas
     logos:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70.webp
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70.webp
         alt: Microsoft
       - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
         alt: Google Developers
@@ -173,7 +173,7 @@ sections:
         alt: Boats Group
       - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
         alt: Meta
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70.webp
         alt: eBay
       - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
         alt: National Geographic
