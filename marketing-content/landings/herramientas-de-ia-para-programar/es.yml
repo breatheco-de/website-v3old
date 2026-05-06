@@ -449,7 +449,7 @@ sections:
           - text: Ratio 7:1 estudiantes–profesor para una guía personalizada
           - text: Colaboración entre pares en canales de Slack y check-ins semanales
           - text: Canales de Slack dedicados a soporte técnico, ofertas de empleo y carrera
-        image_id: community-support-cropped
+        image_id: community-support-cropped-800x476-q70
     paddingY:
       mobile: lg none
       desktop: lg none

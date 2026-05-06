@@ -280,7 +280,7 @@ sections:
           - text: Proporción {{ global.global_teacher_student_ratio | 1:8 }} de estudiante–profesor para una orientación personalizada
           - text: Trabajo colaborativo y revisiones en grupo
           - text: Canales dedicados de Slack para soporte de código, bolsa de trabajo y consejos de carrera
-        image_id: community-support-cropped
+        image_id: community-support-cropped-800x476-q70
         cta:
           text: ¡Empieza a aprender ahora!
           url: /es/aplica

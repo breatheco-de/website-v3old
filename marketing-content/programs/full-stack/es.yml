@@ -427,7 +427,7 @@ sections:
           - text: Relación 7:1 de estudiante a profesor, garantizando una atención personalizada
           - text: Colaboración entre compañeros a través de canales de Slack y check-ins semanales
           - text: Canales dedicados de Slack para soporte técnico, bolsas de trabajo y consejos de carrera
-        image_id: community-support-cropped
+        image_id: community-support-cropped-800x476-q70
     paddingY:
       desktop: md none
   - type: certificate

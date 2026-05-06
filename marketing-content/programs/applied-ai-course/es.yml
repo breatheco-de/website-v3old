@@ -275,7 +275,7 @@ sections:
           - text: Proporción {{ global.global_teacher_student_ratio | 7:1 }} de estudiante–profesor para orientación personalizada
           - text: Colaboración entre pares a través de canales de Slack y revisiones semanales
           - text: Canales dedicados de Slack para soporte de código, bolsa de trabajo y consejos de carrera
-        image_id: community-support-cropped
+        image_id: community-support-cropped-800x476-q70
     marginY:
       desktop: md none
     paddingY:
