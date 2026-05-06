@@ -171,28 +171,30 @@ sections:
     background: bg-background
     section_id: human_and_ai_duo-pnpw76
     images:
-      - src: ""
-        alt: "Image: image (3)"
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/reservation-es_1764814854635.webp
+        alt: Reservation form illustration
         object_fit: cover
         object_position: center top
         border_radius: 0.5rem
-        id: image-3
-      - src: ""
-        alt: "Image: image (2)"
+        id: reservation-form
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/fernando-funez_1765315920677.jpg
+        alt: Fernando Funez testimonial
         object_fit: cover
         object_position: center top
         border_radius: 0.5rem
-        id: image-2
-      - src: ""
-        alt: Student 3
+        id: fernando-funez
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/feliz-empresario-laptop_1765406479465.png
+        alt: Happy professional with laptop
         object_fit: cover
         object_position: center top
         border_radius: 0.5rem
-      - src: ""
-        alt: Student 4
+        id: feliz-empresario-laptop
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/community-support-2_1765406601448.webp
+        alt: Community support image
         object_fit: cover
         object_position: center top
         border_radius: 0.5rem
+        id: community-support
   - type: awards_marquee
     section_id: awards_marquee-o9ymal
     version: "1.0"
