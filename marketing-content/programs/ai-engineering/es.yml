@@ -667,7 +667,7 @@ sections:
         alt: Uber
       - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70.webp
         alt: Neo9
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-488x408-q70.webp
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
         alt: Jooble
     marginY:
       desktop: none md

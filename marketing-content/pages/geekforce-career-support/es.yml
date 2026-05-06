@@ -251,7 +251,7 @@ sections:
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
         alt: Twilio
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-488x408-q70.webp
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
         alt: Jooble
       - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70.webp
         alt: Meta
