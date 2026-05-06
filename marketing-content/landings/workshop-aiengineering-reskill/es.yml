@@ -657,55 +657,6 @@ sections:
     rating_summary:
       average: "4.7"
       count: 1,294
-  - type: cta_banner
-    version: "1.0"
-    title: ¿Listo para convertirte en Ingeniero de IA?
-    subtitle: Cupos limitados. Comienza tu transformación hoy.
-    background: hsl(var(--primary))
-    variant: form
-    form:
-      variant: stacked
-      conversion_name: student_application
-      submit_label: Aplicar ahora
-      tags: website-lead
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Correo electrónico
-        first_name:
-          visible: true
-          required: true
-          placeholder: Nombre
-        last_name:
-          visible: true
-          required: true
-          placeholder: Apellido
-        phone:
-          visible: true
-          required: true
-          default_country: VE
-          placeholder: Teléfono
-        program:
-          visible: false
-          default: ai-engineering
-      success:
-        message: ¡Gracias! Nos pondremos en contacto pronto.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
-      show_terms: true
-      button_className: bg-primary border-white
-    form_background: hsl(var(--card))
-    terms_color: hsl(var(--primary))
-    section_id: cta_banner-4p23sy
-    marginY:
-      mobile: md none
-      desktop: md none
-    paddingY:
-      mobile: lg
-      desktop: lg
   - type: footer
     section_id: footer-2ig6x4
     version: "1.0"
