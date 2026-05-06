@@ -38,7 +38,7 @@ sections:
     variant: cardHeader
     heading: Available Funding Opportunities
     description: We offer scholarships across select programs and regions to help make tech education more accessible. Opportunities vary by location and program, and can include institutional partnerships, sponsored awards, or merit-based support.
-    image: https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485.png
+    image: https://storage.googleapis.com/4geeks-academy-website/media/community-support-cropped-800x476-q70.webp
     image_alt: Students supported through scholarship opportunities
     background: bg-primary/5
     cards:
