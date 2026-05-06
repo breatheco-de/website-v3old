@@ -86,6 +86,7 @@ export function Banner({ data }: BannerProps) {
                 alt=""
                 className="w-full h-full"
                 style={{ objectFit: "cover" }}
+                fieldContext={{ arrayPath: "avatars", index }}
               />
             </div>
           ))}

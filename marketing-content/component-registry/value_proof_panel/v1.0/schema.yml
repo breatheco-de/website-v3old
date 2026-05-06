@@ -10,7 +10,8 @@ when_to_use: |
   Avoid using generic two_column layouts for credibility content - use this instead.
   The media is decorative and supportive, not explanatory.
   Evidence items should read like cited claims, not marketing feature cards.
-
+image_sizes:
+  default.media.src: "(min-width: 768px) 500px, 300px"
 props:
   type:
     type: string

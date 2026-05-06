@@ -95,12 +95,12 @@ sections:
         col_start: 9
         row_start: 3
     featured_images:
-      - image_id: graduates_celebration
+      - image_id: graduates_celebration-700x522-q70
         col_span: 5
         row_span: 2
         col_start: 1
         row_start: 1
-      - image_id: caracas_graduates
+      - image_id: caracas_graduates-1000x665-q60
         col_span: 3
         row_span: 2
         col_start: 1

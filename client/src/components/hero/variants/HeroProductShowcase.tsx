@@ -309,15 +309,15 @@ export default function HeroProductShowcase({
                         data-testid={`hero-marquee-item-${index}`}
                       >
                         {item.logo ? (
-                          <img
-                            src={item.logo}
-                            alt={item.alt}
-                            style={{
-                              height: parseLogoHeight(item.logoHeight) || 48,
-                            }}
-                            className="w-auto object-contain"
-                            loading="eager"
-                          />
+                          <div style={{ height: parseLogoHeight(item.logoHeight) || 48 }} className="flex items-center">
+                            <UniversalImage
+                              id={item.logo}
+                              alt={item.alt}
+                              className="h-full w-auto"
+                              style={{ objectFit: "contain" }}
+                              fieldContext={{ arrayPath: "marquee.items", index, srcField: "logo" }}
+                            />
+                          </div>
                         ) : (
                           <div className="flex flex-col items-center text-center">
                             <span className="text-xs text-muted-foreground uppercase tracking-wide">
@@ -432,11 +432,13 @@ export default function HeroProductShowcase({
                         <div className="flex items-center gap-3">
                           {data.trust_bar.review_logos.map((logo, index) =>
                             logo.logo ? (
-                              <img
+                              <UniversalImage
                                 key={index}
-                                src={logo.logo}
+                                id={logo.logo}
                                 alt={logo.name}
-                                className="h-10 object-contain"
+                                className="h-10"
+                                style={{ objectFit: "contain" }}
+                                fieldContext={{ arrayPath: "trust_bar.review_logos", index, srcField: "logo" }}
                                 data-testid={`img-review-logo-${index}`}
                               />
                             ) : (

@@ -122,7 +122,7 @@ function MediaFrame({
         id={media.image_id || media.src || ""}
         alt={media.alt || ""}
         className="w-full h-full object-cover"
-        focalPoint={media.object_position as any || "center"}
+        fieldContext={{ fieldPath: "media.image_id" }}
       />
       )}
     </div>
