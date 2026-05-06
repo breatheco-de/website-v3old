@@ -127,7 +127,7 @@ sections:
   - type: human_and_ai_duo
     version: "1.0"
     heading: El mercado laboral ha cambiado
-    description: Si sientes que tu experiencia ya no te da la seguridad de antes, no es casualidad. El mercado está dejando atrás los perfiles tradicionales y empezando a priorizar nuevas formas de trabajar con tecnología.
+    description: Si sientes que tu experiencia ya no te da la seguridad de antes, no es casualidad. El mercado está dejando atrás los perfiles tradicionales y empezando a priorizar nuevas formas de trabajar con tecnología. El problema no es que falte trabajo 👉 Es que el tipo de trabajo ha cambiado.
     bullet_groups:
       - title: Lo que está pasando
         bullets:
@@ -141,7 +141,7 @@ sections:
           - text: Construir automatizaciones y workflows completos
           - text: Integrar herramientas, APIs y modelos de IA
           - text: Crear sistemas que resuelvan problemas reales de negocio
-    footer_description: El problema no es que falte trabajo 👉 Es que el tipo de trabajo ha cambiado.
+    footer_description: null
     background: bg-background
     section_id: human_and_ai_duo-pnpw76
     images:
