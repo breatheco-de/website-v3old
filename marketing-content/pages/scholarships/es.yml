@@ -84,7 +84,7 @@ sections:
           text: Conviértete en partner
           url: /en/partners
           variant: primary
-      - image_id: crusa_forte_scholarship
+      - image_id: crusa_forte_scholarship-800x800-q60
         object_position: 100% 80%
         title: Costa Rica Forte y 4Geeks
         subtitle: Impulsando el desarrollo de talento en Costa Rica
@@ -262,7 +262,7 @@ sections:
           text: Conviértete en partner
           url: /en/partners
           variant: primary
-      - image_id: crusa_forte_scholarship
+      - image_id: crusa_forte_scholarship-800x800-q60
         object_position: 100% 80%
         title: Costa Rica Forte y 4Geeks
         subtitle: Impulsando el desarrollo de talento en Costa Rica
