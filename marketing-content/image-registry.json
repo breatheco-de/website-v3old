@@ -20352,6 +20352,86 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90-960w.webp"
         }
       ]
+    },
+    "what_is_4geeks-700x438-q75": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75.webp",
+      "alt": "What is 4Geeks Academy",
+      "focal_point": "center",
+      "tags": [
+        "hero",
+        "logo",
+        "card",
+        "photo",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "award"
+      ],
+      "usage_count": 0,
+      "width": 700,
+      "height": 438,
+      "format": "webp",
+      "parentId": "what_is_4geeks",
+      "quality_override": 75,
+      "preset": [
+        "hero-wide",
+        "hero-tall",
+        "logo",
+        "card",
+        "card-wide",
+        "full",
+        "icon"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128,
+        240,
+        320,
+        360,
+        480,
+        640
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-240w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-320w.webp"
+        },
+        {
+          "w": 360,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-360w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-480w.webp"
+        },
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-640w.webp"
+        }
+      ]
     }
   }
 }
