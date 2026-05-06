@@ -189,12 +189,12 @@ sections:
         object_position: center top
         border_radius: 0.5rem
         id: mujer-ai-workflow
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/community-support-2_1765406601448.webp
-        alt: Community support image
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Team-work-IA.png
+        alt: "Image: Team work IA"
         object_fit: cover
         object_position: center top
         border_radius: 0.5rem
-        id: community-support
+        id: team-work-ia
   - type: awards_marquee
     section_id: awards_marquee-o9ymal
     version: "1.0"
