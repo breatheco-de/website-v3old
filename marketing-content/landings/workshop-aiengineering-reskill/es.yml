@@ -271,10 +271,10 @@ sections:
       - avatar-man-2
       - avatar-woman-3
       - avatar-man-4
-    title: Lorem ipsum dolor sit amet
+    title: ¿Te lo vas a perder?
     description: Solo los asistentes recibirán acceso a formaciones gratuitas de 4Geeks Academy
     cta:
-      text: Learn More
+      text: ¡Reserva tu lugar!
       url: "#"
       variant: primary
     background: gradient
