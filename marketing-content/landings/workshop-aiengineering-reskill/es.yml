@@ -171,13 +171,13 @@ sections:
     background: bg-background
     section_id: human_and_ai_duo-pnpw76
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/image-3-.png
+      - src: ""
         alt: "Image: image (3)"
         object_fit: cover
         object_position: center top
         border_radius: 0.5rem
         id: image-3
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/image-2-.png
+      - src: ""
         alt: "Image: image (2)"
         object_fit: cover
         object_position: center top
