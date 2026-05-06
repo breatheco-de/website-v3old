@@ -629,5 +629,13 @@
       "value": "1.6px"
     }
   ],
-  "preview_examples": []
+  "preview_examples": [
+    {
+      "component": "human_and_ai_duo",
+      "version": "v1.0",
+      "example": "human + AI with images",
+      "importYaml": "- type: human_and_ai_duo\n  section_id: human_and_ai_duo-zg16oa\n  version: '1.0'\n  heading: 'Human + AI: The Perfect Support Duo'\n  description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll progress faster and smarter through unlimited 1:1 mentorship and AI-powered support from Rigobot.\n  bullet_groups:\n    - title: 'Our team of expert mentors:'\n      image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp\n      bullets:\n        - text: Personalized guidance\n        - text: Live troubleshooting\n        - text: Expert bug fixing assistance\n        - text: Industry insights and career advice\n    - title: 'Rigobot + Learnpack:'\n      image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress\n      bullets:\n        - text: Instant feedback and tutoring 24/7\n        - text: Adjusts advice to your skills and progress\n        - text: Debugging and problem-solving support\n        - text: Hundreds of hands-on coding exercises and tests\n  images:\n    - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp\n      alt: Asian student learning to code\n      object_fit: cover\n      object_position: 40%20%\n      border_radius: 0.5rem\n    - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latin_male-133x500.webp\n      alt: Latino student working on a project\n      object_fit: cover\n      object_position: 50%30%\n      border_radius: 0.5rem\n    - src: https://storage.googleapis.com/4geeks-academy-website/media/student_african-133x500.webp\n      alt: African student collaborating with team\n      object_fit: cover\n      object_position: 50%15%\n      border_radius: 0.5rem\n    - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latina_female-133x500.webp\n      alt: Latina student celebrating success\n      object_fit: cover\n      object_position: 50%30%\n      border_radius: 0.5rem\n  image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png\n  image_alt: Woman working on laptop in cafe\n  background: bg-background\n  paddingY:\n    mobile: sm none\n    desktop: md none\n",
+      "registryPersisted": true
+    }
+  ]
 }
