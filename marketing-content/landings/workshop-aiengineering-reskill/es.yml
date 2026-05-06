@@ -177,12 +177,12 @@ sections:
         object_position: center top
         border_radius: 0.5rem
         id: mujer-estudiando
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/fernando-funez_1765315920677.jpg
-        alt: Fernando Funez testimonial
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Hombre-con-laptop.png
+        alt: "Image: Hombre con laptop"
         object_fit: cover
         object_position: center top
         border_radius: 0.5rem
-        id: fernando-funez
+        id: hombre-con-laptop
       - src: https://storage.googleapis.com/4geeks-academy-website/media/feliz-empresario-laptop_1765406479465.png
         alt: Happy professional with laptop
         object_fit: cover
