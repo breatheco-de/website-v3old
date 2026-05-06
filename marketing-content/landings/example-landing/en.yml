@@ -241,7 +241,7 @@ sections:
       - label: Government Programs
         logos:
           - image_id: bid_logo
-          - image_id: logo_jooble
+          - image_id: logo_jooble-488x408-q70
             alt: Jooble logo
             id: logo-jooble
           - image_id: logo_course_report
