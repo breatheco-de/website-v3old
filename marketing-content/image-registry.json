@@ -19465,6 +19465,973 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/community-1000x667-q70-960w.webp"
         }
       ]
+    },
+    "logo_neo9-500x200-q70": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70.webp",
+      "alt": "Neo9 logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner"
+      ],
+      "usage_count": 0,
+      "width": 500,
+      "height": 200,
+      "format": "webp",
+      "parentId": "logo_neo9",
+      "quality_override": 70,
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70-240w.webp"
+        }
+      ]
+    },
+    "logo_ebay-400x160-q70": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70.webp",
+      "alt": "eBay logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner"
+      ],
+      "usage_count": 0,
+      "width": 400,
+      "height": 160,
+      "format": "webp",
+      "parentId": "logo_ebay",
+      "quality_override": 70,
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70-240w.webp"
+        }
+      ]
+    },
+    "logo_jooble-488x408-q70": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-488x408-q70.webp",
+      "alt": "Jooble logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner",
+        "avatar",
+        "card",
+        "icon",
+        "photo",
+        "badge",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
+      ],
+      "usage_count": 0,
+      "width": 488,
+      "height": 408,
+      "format": "webp",
+      "parentId": "logo_jooble",
+      "quality_override": 70,
+      "preset": [
+        "logo",
+        "avatar",
+        "card",
+        "card-wide",
+        "icon",
+        "full"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128,
+        240,
+        256,
+        320,
+        480
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-488x408-q70-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-488x408-q70-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-488x408-q70-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-488x408-q70-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-488x408-q70-240w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-488x408-q70-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-488x408-q70-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-488x408-q70-480w.webp"
+        }
+      ]
+    },
+    "logo_google_developers-300x68-q70": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70.webp",
+      "alt": "Google Developers logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner"
+      ],
+      "usage_count": 0,
+      "width": 300,
+      "height": 68,
+      "format": "webp",
+      "parentId": "logo_google_developers",
+      "quality_override": 70,
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70-240w.webp"
+        }
+      ]
+    },
+    "logo_utec-545x305-q70": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/logo_utec-545x305-q70.webp",
+      "alt": "UTEC Universidad Tecnológica logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner"
+      ],
+      "usage_count": 0,
+      "width": 545,
+      "height": 305,
+      "format": "webp",
+      "parentId": "logo_utec",
+      "quality_override": 70,
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_utec-545x305-q70-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_utec-545x305-q70-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_utec-545x305-q70-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_utec-545x305-q70-240w.webp"
+        }
+      ]
+    },
+    "logo_twilio-684x200-q70": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp",
+      "alt": "Twilio logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner",
+        "press"
+      ],
+      "usage_count": 0,
+      "width": 684,
+      "height": 200,
+      "format": "webp",
+      "parentId": "logo_twilio",
+      "quality_override": 70,
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70-240w.webp"
+        }
+      ]
+    },
+    "logo_meta-761x243-q70": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70.webp",
+      "alt": "Meta logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner"
+      ],
+      "usage_count": 0,
+      "width": 761,
+      "height": 243,
+      "format": "webp",
+      "parentId": "logo_meta",
+      "quality_override": 70,
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70-240w.webp"
+        }
+      ]
+    },
+    "logo_telefonica-300x73-q70": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70.webp",
+      "alt": "Telefonica logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner",
+        "press"
+      ],
+      "usage_count": 0,
+      "width": 300,
+      "height": 73,
+      "format": "webp",
+      "parentId": "logo_telefonica",
+      "quality_override": 70,
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70-240w.webp"
+        }
+      ]
+    },
+    "crusa_forte_scholarship-800x800-q60": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-800x800-q60.webp",
+      "alt": "CRUSA Forte Scholarship group photo with colorful dome",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "avatar",
+        "card",
+        "icon",
+        "photo",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
+      ],
+      "usage_count": 0,
+      "width": 800,
+      "height": 800,
+      "format": "webp",
+      "parentId": "crusa_forte_scholarship",
+      "quality_override": 60,
+      "preset": [
+        "logo",
+        "avatar",
+        "card",
+        "card-wide",
+        "icon",
+        "full"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128,
+        240,
+        256,
+        320,
+        480,
+        640
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-800x800-q60-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-800x800-q60-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-800x800-q60-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-800x800-q60-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-800x800-q60-240w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-800x800-q60-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-800x800-q60-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-800x800-q60-480w.webp"
+        },
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-800x800-q60-640w.webp"
+        }
+      ]
+    },
+    "crusa_forte_scholarship-600x600-q60": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-600x600-q60.webp",
+      "alt": "CRUSA Forte Scholarship group photo with colorful dome",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "avatar",
+        "card",
+        "icon",
+        "photo",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
+      ],
+      "usage_count": 0,
+      "width": 600,
+      "height": 600,
+      "format": "webp",
+      "parentId": "crusa_forte_scholarship",
+      "quality_override": 60,
+      "preset": [
+        "logo",
+        "avatar",
+        "card",
+        "card-wide",
+        "icon",
+        "full"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128,
+        240,
+        256,
+        320,
+        480
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-600x600-q60-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-600x600-q60-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-600x600-q60-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-600x600-q60-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-600x600-q60-240w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-600x600-q60-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-600x600-q60-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-600x600-q60-480w.webp"
+        }
+      ]
+    },
+    "academy_header_coding-1000x749-q80": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x749-q80.webp",
+      "alt": "Students coding at computers in a classroom",
+      "focal_point": "center",
+      "tags": [
+        "hero"
+      ],
+      "usage_count": 0,
+      "width": 1000,
+      "height": 749,
+      "format": "webp",
+      "parentId": "academy_header_coding",
+      "quality_override": 80,
+      "preset": [
+        "hero-wide",
+        "hero-tall"
+      ],
+      "widths_generated": [
+        320,
+        360,
+        480,
+        640,
+        720,
+        960
+      ],
+      "srcset": [
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x749-q80-320w.webp"
+        },
+        {
+          "w": 360,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x749-q80-360w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x749-q80-480w.webp"
+        },
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x749-q80-640w.webp"
+        },
+        {
+          "w": 720,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x749-q80-720w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x749-q80-960w.webp"
+        }
+      ]
+    },
+    "academy_header_coding-1000x247-q80": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q80.webp",
+      "alt": "Students coding at computers in a classroom",
+      "focal_point": "center",
+      "tags": [
+        "hero"
+      ],
+      "usage_count": 0,
+      "width": 1000,
+      "height": 247,
+      "format": "webp",
+      "parentId": "academy_header_coding",
+      "quality_override": 80,
+      "preset": [
+        "hero-wide",
+        "hero-tall"
+      ],
+      "widths_generated": [
+        320,
+        360,
+        480,
+        640,
+        720,
+        960
+      ],
+      "srcset": [
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q80-320w.webp"
+        },
+        {
+          "w": 360,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q80-360w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q80-480w.webp"
+        },
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q80-640w.webp"
+        },
+        {
+          "w": 720,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q80-720w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q80-960w.webp"
+        }
+      ]
+    },
+    "clark_university-500x156-q60": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/clark_university-500x156-q60.webp",
+      "alt": "Clark University Logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner",
+        "press"
+      ],
+      "usage_count": 0,
+      "width": 500,
+      "height": 156,
+      "format": "webp",
+      "parentId": "clark_university",
+      "quality_override": 60,
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/clark_university-500x156-q60-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/clark_university-500x156-q60-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/clark_university-500x156-q60-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/clark_university-500x156-q60-240w.webp"
+        }
+      ]
+    },
+    "logo_miami_tech_works-400x221-q60": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/logo_miami_tech_works-400x221-q60.webp",
+      "alt": "Miami Tech Works logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner"
+      ],
+      "usage_count": 0,
+      "width": 400,
+      "height": 221,
+      "format": "webp",
+      "parentId": "logo_miami_tech_works",
+      "quality_override": 60,
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_miami_tech_works-400x221-q60-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_miami_tech_works-400x221-q60-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_miami_tech_works-400x221-q60-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_miami_tech_works-400x221-q60-240w.webp"
+        }
+      ]
+    },
+    "logo_jooble-200x167-q60": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q60.webp",
+      "alt": "Jooble logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner",
+        "avatar",
+        "card",
+        "icon",
+        "photo",
+        "badge",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
+      ],
+      "usage_count": 0,
+      "width": 200,
+      "height": 167,
+      "format": "webp",
+      "parentId": "logo_jooble",
+      "quality_override": 60,
+      "preset": [
+        "logo",
+        "avatar",
+        "card",
+        "card-wide",
+        "icon",
+        "full"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q60-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q60-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q60-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q60-128w.webp"
+        }
+      ]
+    },
+    "logo_jooble-200x167-q70": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp",
+      "alt": "Jooble logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner",
+        "avatar",
+        "card",
+        "icon",
+        "photo",
+        "badge",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
+      ],
+      "usage_count": 0,
+      "width": 200,
+      "height": 167,
+      "format": "webp",
+      "parentId": "logo_jooble",
+      "quality_override": 70,
+      "preset": [
+        "logo",
+        "avatar",
+        "card",
+        "card-wide",
+        "icon",
+        "full"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70-128w.webp"
+        }
+      ]
+    },
+    "academy_header_coding-1000x247-q90": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90.webp",
+      "alt": "Students coding at computers in a classroom",
+      "focal_point": "center",
+      "tags": [
+        "hero"
+      ],
+      "usage_count": 0,
+      "width": 1000,
+      "height": 247,
+      "format": "webp",
+      "parentId": "academy_header_coding",
+      "quality_override": 90,
+      "preset": [
+        "hero-wide",
+        "hero-tall"
+      ],
+      "widths_generated": [
+        320,
+        360,
+        480,
+        640,
+        720,
+        960
+      ],
+      "srcset": [
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90-320w.webp"
+        },
+        {
+          "w": 360,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90-360w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90-480w.webp"
+        },
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90-640w.webp"
+        },
+        {
+          "w": 720,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90-720w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90-960w.webp"
+        }
+      ]
+    },
+    "what_is_4geeks-700x438-q75": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75.webp",
+      "alt": "What is 4Geeks Academy",
+      "focal_point": "center",
+      "tags": [
+        "hero",
+        "logo",
+        "card",
+        "photo",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "award"
+      ],
+      "usage_count": 0,
+      "width": 700,
+      "height": 438,
+      "format": "webp",
+      "parentId": "what_is_4geeks",
+      "quality_override": 75,
+      "preset": [
+        "hero-wide",
+        "hero-tall",
+        "logo",
+        "card",
+        "card-wide",
+        "full",
+        "icon"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128,
+        240,
+        320,
+        360,
+        480,
+        640
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-240w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-320w.webp"
+        },
+        {
+          "w": 360,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-360w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-480w.webp"
+        },
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-640w.webp"
+        }
+      ]
     }
   }
 }

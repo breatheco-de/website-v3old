@@ -22,7 +22,7 @@ sections:
     subtitle: Únete a una academia global de programación reconocida por su calidad, impacto e innovación. Forma parte de un equipo dinámico y global que ayuda a miles de estudiantes en todo el mundo a lanzar carreras en ingeniería de IA, ciencia de datos y ciberseguridad.
     badge: Oportunidades Laborales
     image:
-      src: https://storage.googleapis.com/4geeks-academy-website/media/the-academy-header_1770614327963.png
+      src: https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90.webp
       alt: Estudiantes programando en computadoras en un aula
     image_full_width: false
   - type: two_column

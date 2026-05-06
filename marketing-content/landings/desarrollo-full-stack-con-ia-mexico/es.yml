@@ -336,27 +336,27 @@ sections:
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70.webp
         alt: Google Developers
       - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
         alt: Boats Group
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70.webp
         alt: Meta
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70.webp
         alt: eBay
       - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
         alt: National Geographic
       - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
         alt: Evernote
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70.webp
         alt: Telefonica
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
         alt: Twilio
       - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
         alt: Uber
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70.webp
         alt: Neo9
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
         alt: Jooble
     marginY:
       desktop: none md

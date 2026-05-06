@@ -514,13 +514,13 @@ sections:
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoftmeses de graduarse.
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70.webp
         alt: Google Developers
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70.webp
         alt: Meta
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70.webp
         alt: eBay
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70.webp
         alt: Telefonica
       - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
         alt: Uber

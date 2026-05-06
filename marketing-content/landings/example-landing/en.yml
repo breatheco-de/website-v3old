@@ -241,7 +241,7 @@ sections:
       - label: Government Programs
         logos:
           - image_id: bid_logo
-          - image_id: logo_jooble
+          - image_id: logo_jooble-200x167-q70
             alt: Jooble logo
             id: logo-jooble
           - image_id: logo_course_report
@@ -252,10 +252,10 @@ sections:
           - image_id: logo_overseas
             alt: Overseas logo
             id: logo-overseas
-          - image_id: logo_telefonica
+          - image_id: logo_telefonica-300x73-q70
             alt: Telefonica logo
             id: logo-telefonica
-          - image_id: logo_twilio
+          - image_id: logo_twilio-684x200-q70
             alt: Twilio logo
             id: logo-twilio
     section_id: credibility_strip-vcpur5
@@ -394,13 +394,13 @@ sections:
         right_logos:
           - image_id: logo_google
             alt: Google
-          - image_id: logo_meta
+          - image_id: logo_meta-761x243-q70
             alt: Meta
           - image_id: logo_microsoft
             alt: Microsoft
           - image_id: logo_uber
             alt: Uber
-          - image_id: logo_ebay
+          - image_id: logo_ebay-400x160-q70
             alt: eBay
           - image_id: logo_kpmg
             alt: KPMG
@@ -440,21 +440,21 @@ sections:
             image_object_fit: cover
             image_object_position: center
             contributor_logos:
-              - image_id: clark_university
+              - image_id: clark_university-500x156-q60
             description: MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her endeavor.
             achievement: She has launched her startup, is capable of hiring new tech talent, and coordinates a dev team!
           - image_id: martin_coimbra
             image_object_fit: cover
             image_object_position: center top
             contributor_logos:
-              - image_id: logo_utec
+              - image_id: logo_utec-545x305-q70
             description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
             achievement: He achieved a 100% salary increase.
           - image_id: melanie_galaretto
             image_object_fit: cover
             image_object_position: center
             contributor_logos:
-              - image_id: logo_utec
+              - image_id: logo_utec-545x305-q70
               - image_id: bid_logo
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
@@ -1097,7 +1097,7 @@ sections:
           - image_id: logo_crusa
             alt: CRUSA Foundation
             logo_height: 50px
-          - image_id: logo_utec
+          - image_id: logo_utec-545x305-q70
             alt: CRUSA Foundation
             logo_height: 50px
           - image_id: bid_logo
@@ -1127,7 +1127,7 @@ sections:
           - image_id: logo_crusa
             alt: CRUSA Foundation
             logo_height: 50px
-          - image_id: logo_utec
+          - image_id: logo_utec-545x305-q70
             alt: CRUSA Foundation
             logo_height: 50px
           - image_id: bid_logo
@@ -1322,13 +1322,13 @@ sections:
           - value: 85%
             label: Geeks benefited
         institution_logos:
-          - image_id: logo_utec
+          - image_id: logo_utec-545x305-q70
             alt: CRUSA Foundation
             text: Interamerican Development Bank
-          - image_id: logo_utec
+          - image_id: logo_utec-545x305-q70
             alt: CRUSA Foundation
             text: UTEC
-          - image_id: logo_utec
+          - image_id: logo_utec-545x305-q70
             alt: CRUSA Foundation
             text: 4Geeks Academy
         press_references:

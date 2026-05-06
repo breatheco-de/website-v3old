@@ -21,7 +21,7 @@ sections:
     subtitle: 4Geeks Academy es un coding bootcamp internacional con 8 campus en EE. UU., Latinoamérica y Europa. Formamos estudiantes en Ingeniería en IA, Data Science & Machine Learning y Ciberseguridad — con un camino claro hacia el empleo.
     badge: 10+ años lanzando carreras en tecnología
     image:
-      src: https://storage.googleapis.com/4geeks-academy-website/media/the-academy-header_1770614327963.png
+      src: https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90.webp
       alt: Estudiantes programando en computadoras en un aula
     image_full_width: false
     marginY:
@@ -42,7 +42,7 @@ sections:
         - text: Currículo alineado con la industria e integrado con IA
         - text: Mentoría personalizada ilimitada
         - text: Soporte de carrera de por vida
-      image_id: what_is_4geeks
+      image_id: what_is_4geeks-700x438-q75
       image_object_fit: cover
       image_object_position: 60% 100%
     marginY:
@@ -97,7 +97,7 @@ sections:
     background: hsl(var(--muted))
     alignment: center
     left:
-      image: https://storage.googleapis.com/4geeks-academy-website/media/crusa-forte-scholarship_1770606829241.webp
+      image: https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-600x600-q60.webp
       image_alt: Estudiante programando en una laptop
       image_object_fit: cover
       image_object_position: 10% 80%
@@ -124,7 +124,7 @@ sections:
         logoHeight: 65px
       - id: logo-miami-tech-works
         alt: Logo Miami Tech Works
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/miamitech-logo-sidetext_1770608261416.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/logo_miami_tech_works-400x221-q60.webp
         logoHeight: 65px
       - id: tech-hub
         alt: South Florida Tech Hub
@@ -152,7 +152,7 @@ sections:
         logoHeight: 56px
       - id: logo-utec
         alt: Logo UTEC Universidad Tecnológica
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/utec_1770608159144.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/logo_utec-545x305-q70.webp
         logoHeight: 56px
     paddingY:
       desktop: lg none
@@ -166,27 +166,27 @@ sections:
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70.webp
         alt: Google Developers
       - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
         alt: Boats Group
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70.webp
         alt: Meta
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70.webp
         alt: eBay
       - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
         alt: National Geographic
       - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
         alt: Evernote
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70.webp
         alt: Telefónica
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
         alt: Twilio
       - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
         alt: Uber
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70.webp
         alt: Neo9
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
         alt: Jooble
     marginY:
       desktop: lg none

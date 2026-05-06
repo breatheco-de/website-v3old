@@ -133,7 +133,7 @@ sections:
           text: Become a partner
           url: "#bottom"
           variant: primary
-      - image_id: crusa_forte_scholarship
+      - image_id: crusa_forte_scholarship-600x600-q60
         object_position: 100% 80%
         title: Costa Rica Forte and 4Geeks
         subtitle: Boosting talent development in Costa Rica
@@ -209,7 +209,7 @@ sections:
         institution_logos:
           - image_id: bid_logo
             alt: Interamerican Development Bank logo
-          - image_id: logo_utec
+          - image_id: logo_utec-545x305-q70
             alt: UTEC logo
           - image_id: 4geeks_academy_logo
             alt: 4Geeks Academy logo
@@ -312,7 +312,7 @@ sections:
           text: Become a partner
           url: "#bottom"
           variant: primary
-      - image_id: crusa_forte_scholarship
+      - image_id: crusa_forte_scholarship-600x600-q60
         object_position: 100% 80%
         title: Costa Rica Forte and 4Geeks
         subtitle: Boosting talent development in Costa Rica
@@ -388,7 +388,7 @@ sections:
         institution_logos:
           - image_id: bid_logo
             alt: Interamerican Development Bank logo
-          - image_id: logo_utec
+          - image_id: logo_utec-545x305-q70
             alt: UTEC logo
           - image_id: 4geeks_academy_logo
             alt: 4Geeks Academy logo

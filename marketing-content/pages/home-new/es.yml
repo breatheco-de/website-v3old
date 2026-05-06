@@ -62,7 +62,7 @@ sections:
         linkText: Ver más
       - id: clark-university
         alt: Logo de Clark University
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark_university-500x156-q60.webp
         logoHeight: 64px
         description: Certificado por universidades reconocidas
       - id: careerkarma-detailed
@@ -215,13 +215,13 @@ sections:
         right_logos:
           - image_id: logo_google
             alt: Google
-          - image_id: logo_meta
+          - image_id: logo_meta-761x243-q70
             alt: Meta
           - image_id: logo_microsoft
             alt: Microsoft
           - image_id: logo_uber
             alt: Uber
-          - image_id: logo_ebay
+          - image_id: logo_ebay-400x160-q70
             alt: eBay
           - image_id: logo_kpmg
             alt: KPMG
@@ -266,7 +266,7 @@ sections:
             image_object_fit: cover
             image_object_position: center
             contributor_logos:
-              - image_id: clark_university
+              - image_id: clark_university-500x156-q60
             description: >-
               MaiLinh Tran es una emprendedora apasionada por la tecnología, ahora enfocada en el lado de desarrollo de
               su proyecto.
@@ -275,7 +275,7 @@ sections:
             image_object_fit: cover
             image_object_position: center top
             contributor_logos:
-              - image_id: logo_utec
+              - image_id: logo_utec-545x305-q70
             description: >-
               Martín se unió al primer programa que lanzamos junto con UTEC e IDB. Consiguió un empleo mejor remunerado,
               una carrera que le apasiona y toda una nueva vida profesional.
@@ -284,7 +284,7 @@ sections:
             image_object_fit: cover
             image_object_position: center
             contributor_logos:
-              - image_id: logo_utec
+              - image_id: logo_utec-545x305-q70
               - image_id: bid_logo
             description: >-
               Melanie es una joven profesional que soñaba con lograr la vida que ahora tiene. Es una desarrolladora de

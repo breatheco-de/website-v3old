@@ -142,7 +142,7 @@ sections:
           text: Saber más
           url: "#"
           variant: primary
-      - image_id: crusa_forte_scholarship
+      - image_id: crusa_forte_scholarship-600x600-q60
         object_position: 100% 80%
         title: Costa Rica Forte y 4Geeks
         subtitle: Impulsando el desarrollo del talento en Costa Rica
@@ -218,7 +218,7 @@ sections:
         institution_logos:
           - image_id: bid_logo
             alt: Logo del Banco Interamericano de Desarrollo
-          - image_id: logo_utec
+          - image_id: logo_utec-545x305-q70
             alt: Logo de UTEC
           - image_id: 4geeks_academy_logo
             alt: Logo de 4Geeks Academy
@@ -324,7 +324,7 @@ sections:
           text: Saber más
           url: "#"
           variant: primary
-      - image_id: crusa_forte_scholarship
+      - image_id: crusa_forte_scholarship-600x600-q60
         object_position: 100% 80%
         title: Costa Rica Forte y 4Geeks
         subtitle: Impulsando el desarrollo del talento en Costa Rica
@@ -400,7 +400,7 @@ sections:
         institution_logos:
           - image_id: bid_logo
             alt: Logo del Banco Interamericano de Desarrollo
-          - image_id: logo_utec
+          - image_id: logo_utec-545x305-q70
             alt: Logo de UTEC
           - image_id: 4geeks_academy_logo
             alt: Logo de 4Geeks Academy
@@ -440,7 +440,7 @@ sections:
       - 7
     alignment: center
     left:
-      image: https://storage.googleapis.com/4geeks-academy-website/media/what-is-4geeks.jpg
+      image: https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75.webp
       image_alt: Equipo colaborando en un proyecto
       justify: center
     right:
