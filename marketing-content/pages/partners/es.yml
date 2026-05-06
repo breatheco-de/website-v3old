@@ -142,7 +142,7 @@ sections:
           text: Saber más
           url: "#"
           variant: primary
-      - image_id: crusa_forte_scholarship-800x800-q60
+      - image_id: crusa_forte_scholarship-600x600-q60
         object_position: 100% 80%
         title: Costa Rica Forte y 4Geeks
         subtitle: Impulsando el desarrollo del talento en Costa Rica
@@ -324,7 +324,7 @@ sections:
           text: Saber más
           url: "#"
           variant: primary
-      - image_id: crusa_forte_scholarship-800x800-q60
+      - image_id: crusa_forte_scholarship-600x600-q60
         object_position: 100% 80%
         title: Costa Rica Forte y 4Geeks
         subtitle: Impulsando el desarrollo del talento en Costa Rica
