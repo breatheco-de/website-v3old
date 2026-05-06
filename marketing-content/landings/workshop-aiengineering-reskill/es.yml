@@ -31,8 +31,8 @@ sections:
     variant: productShowcase
     title: El único trabajo que hay esperando fuera.
     brand_mark:
-      prefix: ¿Estás viendo la ola de despidos?
-      highlight: AI Engineering
+      prefix: Despidos, cambio y una salida real.
+      highlight: Reinvéntate como AI Engineering
       color: primary
     description: Entiende qué está pasando en el mercado laboral y si AI Engineering es una opción real para ti, incluso sin experiencia previa.
     bullets:
