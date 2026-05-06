@@ -19668,6 +19668,48 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70-240w.webp"
         }
       ]
+    },
+    "logo_utec-545x305-q70": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/logo_utec-545x305-q70.webp",
+      "alt": "UTEC Universidad Tecnológica logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner"
+      ],
+      "usage_count": 0,
+      "width": 545,
+      "height": 305,
+      "format": "webp",
+      "parentId": "logo_utec",
+      "quality_override": 70,
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_utec-545x305-q70-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_utec-545x305-q70-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_utec-545x305-q70-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_utec-545x305-q70-240w.webp"
+        }
+      ]
     }
   }
 }
