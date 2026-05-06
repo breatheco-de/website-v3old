@@ -589,17 +589,17 @@ sections:
     version: "1.0"
     heading: Conoce a quienes liderarán la sesión
     tabs:
-      - label: Compromiso intensivo
+      - label: Marcelo Ricigliano
         description: |-
           Marcelo Ricigliano:
           Co-founder&CEO
         image_id: image-3
         alt: "Image: image (3)"
         id: image-3
-      - label: Enfocado en carrera
+      - label: Susana Rodríguez
         description: |-
-          Enfocado en resultados de carrera:
-          Quieres habilidades en IA que abran roles bien pagados y demandados.
+          Susana Rodríguez:
+          Profesora de Inteligencia Articificial en la EOI, Ex Microsoft, Fundadora de SeniorIT 2000
         image_id: image-2
         alt: "Image: image (2)"
         id: image-2
