@@ -531,59 +531,6 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
-  - type: certificate
-    title: Resultados de carrera
-    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
-    benefits:
-      - text: "Ingeniero de software IA: $25K–$45K"
-      - text: "Ingeniero full-stack (IA): $20K–$40K"
-      - text: "Ingeniero de agentes: $25K–$50K"
-      - text: "Ingeniero de automatización de flujos: $18K–$40K"
-    card:
-      title: Ingeniero de IA
-      subtitle: Certificado 4Geeks Academy
-      program_name: Ingeniería de IA
-    stats:
-      - value: 84%
-        label: Tasa de contratación
-        description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores buscan.
-        benefits:
-          - text: Certificado reconocido por el Departamento de Educación de Florida
-          - text: Empresa completa con IA en tu portafolio
-          - text: Experiencia demostrada con agentes, flujos y sistemas de IA
-          - text: Perfil profesional y estrategia de búsqueda optimizados
-      - value: 3-6 meses
-        label: Tiempo para conseguir empleo
-        description: La mayoría de los graduados consiguen su primer rol en 3–6 meses gracias a nuestro proceso de desarrollo profesional.
-        benefits:
-          - text: Optimiza tu currículum, portafolio y perfil profesional para atraer recruiters y superar filtros automatizados
-          - text: Prepárate para entrevistas técnicas y de competencias con casos reales
-          - text: Aplica una estrategia de búsqueda personalizada con acceso a redes de empresas contratantes
-      - value: 40%
-        label: Aumento salarial promedio
-        description: Nuestros graduados ven un aumento salarial promedio del 40% al pasar a roles de ingeniería de IA. La inversión se paga sola.
-        benefits:
-          - text: "Ingeniero de software IA: $20K–30K"
-          - text: "Ingeniero full-stack (IA): $25K–$40K"
-          - text: "Ingeniero de  de IA: $25K–$50K"
-          - text: "Ingeniero de automatización de flujos (RAG, APIs, vector DBs): $25K–$60K"
-      - value: 400+
-        label: Empresas que contratan nuestro talento
-        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
-        benefits:
-          - text: Acceso exclusivo a bolsa de empleo
-          - text: Recomendaciones directas a empresas colaboradoras
-          - text: Eventos de networking con recruiters y responsables de selección
-    certificate_position: right
-    useSolidCard: true
-    section_id: certificate-zymo7m
-    marginY:
-      mobile: none
-      desktop: none
-    paddingY:
-      mobile: lg
-      desktop: lg
-    background: hsl(var(--muted))
   - type: bullet_tabs_showcase
     section_id: bullet_tabs_showcase-epdu28
     version: "1.0"
