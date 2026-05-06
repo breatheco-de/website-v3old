@@ -286,7 +286,7 @@ sections:
             alt: Microsoft
           - image_id: logo_uber
             alt: Uber
-          - image_id: logo_ebay
+          - image_id: logo_ebay-400x160-q70
             alt: eBay
           - image_id: logo_kpmg
             alt: KPMG
