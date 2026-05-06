@@ -629,11 +629,5 @@
       "value": "1.6px"
     }
   ],
-  "preview_examples": [
-    {
-      "component": "human_and_ai_duo",
-      "version": "v1.0",
-      "example": "With Custom Images"
-    }
-  ]
+  "preview_examples": []
 }
