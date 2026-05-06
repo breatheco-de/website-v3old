@@ -42,7 +42,7 @@ sections:
           logoHeight: 48px
         - id: logo-twilio
           alt: Twilio logo
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
           logoHeight: 48px
         - id: logo-evernote
           alt: Evernote logo
@@ -250,7 +250,7 @@ sections:
     title: Top Tech Companies Hiring 4Geeks Graduates
     description: 4Geeks alumni are hired by leading tech companies and innovative teams across AI engineering, software development, data science, and cybersecurity.
     logos:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
         alt: Twilio
       - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-488x408-q70.webp
         alt: Jooble

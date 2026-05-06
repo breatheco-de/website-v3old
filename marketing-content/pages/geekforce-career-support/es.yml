@@ -41,7 +41,7 @@ sections:
           logoHeight: 48px
         - id: logo-twilio
           alt: Logo de Twilio
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
           logoHeight: 48px
         - id: logo-evernote
           alt: Logo de Evernote
@@ -249,7 +249,7 @@ sections:
     title: Principales empresas tecnológicas que contratan graduados de 4Geeks
     description: Los graduados de 4Geeks son contratados por compañías líderes en tecnología y equipos innovadores en ingeniería de IA, desarrollo de software, ciencia de datos y ciberseguridad.
     logos:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
         alt: Twilio
       - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-488x408-q70.webp
         alt: Jooble

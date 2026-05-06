@@ -255,7 +255,7 @@ sections:
           - image_id: logo_telefonica
             alt: Telefonica logo
             id: logo-telefonica
-          - image_id: logo_twilio
+          - image_id: logo_twilio-684x200-q70
             alt: Twilio logo
             id: logo-twilio
     section_id: credibility_strip-vcpur5
