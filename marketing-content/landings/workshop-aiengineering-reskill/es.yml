@@ -256,32 +256,6 @@ sections:
         alt: "Image: image (2)"
         id: image-2
     section_id: profiles_carousel-31wit2
-  - type: bullet_tabs_showcase
-    section_id: bullet_tabs_showcase-epdu28
-    version: "1.0"
-    heading: Conoce a quienes liderarán la sesión
-    tabs:
-      - label: Marcelo Ricigliano
-        description: |-
-          Marcelo Ricigliano:
-          Co-founder&CEO 4Geeks Academy
-        image_id: image-3
-        alt: "Image: image (3)"
-        id: image-3
-      - label: Susana Rodríguez
-        description: |-
-          Susana Rodríguez:
-          Profesora de Inteligencia Articificial en la EOI, Ex Microsoft, Fundadora de SeniorIT 2000
-        image_id: image-2
-        alt: "Image: image (2)"
-        id: image-2
-    image_position: right
-    marginY:
-      mobile: xl lg
-      desktop: lg
-    paddingY:
-      mobile: none
-      desktop: none
   - type: banner
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
