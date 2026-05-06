@@ -29,9 +29,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: null
     brand_mark:
-      prefix: Despidos, cambio y una salida real.
+      prefix: Despidos, cambio y una salida.
       highlight: Reinvéntate como AI Engineering
       color: primary
     description: Entiende qué está pasando en el mercado laboral y si AI Engineering es una opción real para ti, incluso sin experiencia previa.
