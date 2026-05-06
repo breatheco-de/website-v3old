@@ -145,7 +145,7 @@ sections:
         logoHeight: 56px
       - id: clark-university
         alt: Clark University Logo
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark_university-500x156-q60.webp
         logoHeight: 56px
       - id: logo-cinde
         alt: CINDE Invest in Costa Rica logo
