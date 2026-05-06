@@ -591,7 +591,7 @@ sections:
     tabs:
       - label: Compromiso intensivo
         description: |-
-          Marcelo Ricigliano
+          Marcelo Ricigliano:
           Co-founder&CEO
         image_id: image-3
         alt: "Image: image (3)"
