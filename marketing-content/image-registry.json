@@ -20101,6 +20101,49 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q80-960w.webp"
         }
       ]
+    },
+    "clark_university-500x156-q60": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/clark_university-500x156-q60.webp",
+      "alt": "Clark University Logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner",
+        "press"
+      ],
+      "usage_count": 0,
+      "width": 500,
+      "height": 156,
+      "format": "webp",
+      "parentId": "clark_university",
+      "quality_override": 60,
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/clark_university-500x156-q60-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/clark_university-500x156-q60-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/clark_university-500x156-q60-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/clark_university-500x156-q60-240w.webp"
+        }
+      ]
     }
   }
 }
