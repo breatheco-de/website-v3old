@@ -629,11 +629,5 @@
       "value": "1.6px"
     }
   ],
-  "preview_examples": [
-    {
-      "component": "syllabus",
-      "version": "v1.0",
-      "example": "Landing Syllabus"
-    }
-  ]
+  "preview_examples": []
 }
