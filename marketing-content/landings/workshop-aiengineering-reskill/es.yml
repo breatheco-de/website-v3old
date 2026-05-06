@@ -171,6 +171,12 @@ sections:
     background: bg-background
     section_id: human_and_ai_duo-pnpw76
     images:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/Team-work-IA.png
+        alt: "Image: Team work IA"
+        object_fit: cover
+        object_position: center top
+        border_radius: 0.5rem
+        id: team-work-ia
       - src: https://storage.googleapis.com/4geeks-academy-website/media/Mujer-estudiando.png
         alt: "Image: Mujer estudiando"
         object_fit: cover
@@ -189,12 +195,6 @@ sections:
         object_position: center top
         border_radius: 0.5rem
         id: mujer-ai-workflow
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/Team-work-IA.png
-        alt: "Image: Team work IA"
-        object_fit: cover
-        object_position: center top
-        border_radius: 0.5rem
-        id: team-work-ia
   - type: awards_marquee
     section_id: awards_marquee-o9ymal
     version: "1.0"
