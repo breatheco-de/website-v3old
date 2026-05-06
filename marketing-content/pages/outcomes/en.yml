@@ -3,7 +3,7 @@ template: default
 title: Outcomes
 meta:
   page_title: 4Geeks Outcomes Report | Career Success Data
-  description: "84% of 4Geeks graduates get hired in 3-6 months. 55% average salary increase. Verified outcomes across AI Engineering, Data Science, Cybersecurity, and Full Stack. See the data."
+  description: description: "84% of 4Geeks graduates get hired in 3-6 months. 55% avg salary increase. Verified outcomes across AI Engineering, Data Science, Cybersecurity, and Full Stack."
   robots: index, follow
 schema:
   include:
