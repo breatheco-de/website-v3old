@@ -20518,6 +20518,32 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/image-3--640w.webp"
         }
       ]
+    },
+    "image-2": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/image-2-.png",
+      "alt": "Image: image (2)",
+      "focal_point": "center",
+      "tags": [
+        "avatar",
+        "team"
+      ],
+      "usage_count": 0,
+      "hash": "501c1b5199d5f632cdda74f66c446063d4d6ccabae71f613bb3ef9faca12271d",
+      "width": 800,
+      "height": 800,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/image-2--640w.webp"
+        }
+      ]
     }
   }
 }
