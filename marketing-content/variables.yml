@@ -103,7 +103,7 @@ global.price_ai_engineering:
   conditions:
     - query:
         region: "usa-canada"
-      value: "$349"
+      value: "$399"
     - query:
         region: "europe"
       value: "140€"
