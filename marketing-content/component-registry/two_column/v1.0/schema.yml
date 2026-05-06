@@ -7,6 +7,10 @@ when_to_use: |
   Use for side-by-side content layouts like feature explanations, eligibility criteria,
   or any content that benefits from image/text pairing. Great for breaking up
   long-form content and creating visual interest.
+
+image_sizes:
+  left.image: "300px"
+  right.image: "300px"
 props:
   proportions:
     type: array

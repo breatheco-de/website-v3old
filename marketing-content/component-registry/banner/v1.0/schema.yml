@@ -3,3 +3,5 @@ version: "1.0"
 component: Banner
 file: client/src/components/Banner.tsx
 description: A centered banner layout with optional avatars on top border, title, description, and CTA button. Supports different background styles including gradient.
+image_sizes:
+  default.avatars: "30px"

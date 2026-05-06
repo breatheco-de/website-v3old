@@ -9,8 +9,8 @@ variants:
     description: "Primary card on the right, secondary on the left"
 
 image_sizes:
-  primary-left.secondary.image_id: "(min-width: 768px) 300px, 100vw"
-
+  primary-left.secondary.image_id: "(min-width: 768px) 300px, 300px"
+  primary-right.secondary.image_id: "(min-width: 768px) 300px, 300px"
 properties:
   variant:
     type: string
