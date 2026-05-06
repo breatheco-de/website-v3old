@@ -20300,6 +20300,58 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70-128w.webp"
         }
       ]
+    },
+    "academy_header_coding-1000x247-q90": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90.webp",
+      "alt": "Students coding at computers in a classroom",
+      "focal_point": "center",
+      "tags": [
+        "hero"
+      ],
+      "usage_count": 0,
+      "width": 1000,
+      "height": 247,
+      "format": "webp",
+      "parentId": "academy_header_coding",
+      "quality_override": 90,
+      "preset": [
+        "hero-wide",
+        "hero-tall"
+      ],
+      "widths_generated": [
+        320,
+        360,
+        480,
+        640,
+        720,
+        960
+      ],
+      "srcset": [
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90-320w.webp"
+        },
+        {
+          "w": 360,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90-360w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90-480w.webp"
+        },
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90-640w.webp"
+        },
+        {
+          "w": 720,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90-720w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90-960w.webp"
+        }
+      ]
     }
   }
 }
