@@ -2,7 +2,8 @@ import { useMemo } from "react";
 import { Linkedin, Star } from "lucide-react";
 import type { TestimonialsGridSection as TestimonialsGridSectionType } from "@shared/schema";
 import { UniversalVideo } from "@/components/UniversalVideo";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import UniversalImage from "@/components/UniversalImage";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 
@@ -381,24 +382,35 @@ function TestimonialGridCard({
               className="w-full"
             />
           ) : (
-            <img
-              src={item.media.url}
-              alt={`${item.name} testimonial`}
-              className="w-full h-auto object-cover"
-              loading="lazy"
-              data-testid={`img-media-${index}`}
-            />
+            <div className="w-full aspect-video">
+              <UniversalImage
+                id={item.media.url}
+                alt={`${item.name} testimonial`}
+                className="w-full h-full"
+                style={{ objectFit: "cover" }}
+                data-testid={`img-media-${index}`}
+              />
+            </div>
           )}
         </div>
       )}
 
       <div className="p-5">
         <div className="flex items-center gap-3 mb-3">
-          <Avatar className="w-10 h-10 flex-shrink-0" data-testid={`img-avatar-${index}`}>
-            {item.avatar && <AvatarImage src={item.avatar} alt={item.name} />}
-            <AvatarFallback className="bg-foreground/10 text-foreground/70 text-sm font-semibold">
-              {getInitials(item.name)}
-            </AvatarFallback>
+          <Avatar className="w-10 h-10 flex-shrink-0 overflow-hidden" data-testid={`img-avatar-${index}`}>
+            {item.avatar ? (
+              <UniversalImage
+                id={item.avatar}
+                alt={item.name}
+                className="w-full h-full"
+                style={{ objectFit: "cover" }}
+                fieldContext={{ arrayPath: "items", index, srcField: "avatar" }}
+              />
+            ) : (
+              <AvatarFallback className="bg-foreground/10 text-foreground/70 text-sm font-semibold">
+                {getInitials(item.name)}
+              </AvatarFallback>
+            )}
           </Avatar>
           <div className="flex-1 min-w-0">
             <p
