@@ -629,5 +629,11 @@
       "value": "1.6px"
     }
   ],
-  "preview_examples": []
+  "preview_examples": [
+    {
+      "component": "two_column",
+      "version": "v1.0",
+      "example": "benefit_cards_with_stacked_header"
+    }
+  ]
 }
