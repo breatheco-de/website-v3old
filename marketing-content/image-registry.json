@@ -19626,6 +19626,48 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-488x408-q70-480w.webp"
         }
       ]
+    },
+    "logo_google_developers-300x68-q70": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70.webp",
+      "alt": "Google Developers logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner"
+      ],
+      "usage_count": 0,
+      "width": 300,
+      "height": 68,
+      "format": "webp",
+      "parentId": "logo_google_developers",
+      "quality_override": 70,
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70-240w.webp"
+        }
+      ]
     }
   }
 }
