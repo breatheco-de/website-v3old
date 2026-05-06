@@ -29,7 +29,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: El único trabajo que hay esperando fuera.
+    title: null
     brand_mark:
       prefix: Despidos, cambio y una salida real.
       highlight: Reinvéntate como AI Engineering
