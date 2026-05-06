@@ -20644,6 +20644,36 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Mujer-AI-Workflow-960w.webp"
         }
       ]
+    },
+    "team-work-ia": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Team-work-IA.png",
+      "alt": "Image: Team work IA",
+      "focal_point": "center",
+      "tags": [
+        "team"
+      ],
+      "usage_count": 0,
+      "hash": "8874d71b0a0afb6f24900cb3e88b021500a5c71bd1d93da04f6b250ec147869a",
+      "width": 1023,
+      "height": 1537,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Team-work-IA-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Team-work-IA-960w.webp"
+        }
+      ]
     }
   }
 }
