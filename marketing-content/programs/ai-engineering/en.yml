@@ -594,7 +594,7 @@ sections:
       - icon: IconCheck
         text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
       - icon: IconCheck
-        text: Finance your tuition with 18-month plans.
+        text: Finance your tuition in monthly installments, with term lengths of up to 48 months depending on your region.
     cta:
       text: Get more info
       url: "#apply-modal"
