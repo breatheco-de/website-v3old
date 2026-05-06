@@ -647,16 +647,6 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
-  - type: testimonials
-    section_id: testimonials-yr5wys
-    title: Resultados reales de graduados reales
-    subtitle: Únete a miles que han transformado sus carreras
-    related_features:
-      - content-and-syllabus
-      - career-support
-    rating_summary:
-      average: "4.7"
-      count: 1,294
   - type: footer
     section_id: footer-2ig6x4
     version: "1.0"
