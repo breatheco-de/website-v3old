@@ -2269,6 +2269,26 @@ sections:
         orientation: horizontal
         icon: IconCode
     section_id: syllabus-29bmnv
+  - type: syllabus
+    version: "1.0"
+    variant: landing-syllabus
+    title: What You'll Learn
+    description: Our comprehensive curriculum covers everything you need to launch your tech career.
+    emphasis: Real-world skills, real-world projects.
+    focus_areas:
+      - title: Frontend Development
+        icon: IconCode
+      - title: Backend APIs
+        icon: IconServer
+      - title: Database Design
+        icon: IconDatabase
+      - title: Cloud Deployment
+        icon: IconCloud
+      - title: Version Control
+        icon: IconGitBranch
+      - title: Agile Workflow
+        icon: IconLayoutKanban
+    section_id: syllabus-qwddtt
   - type: testimonials
     version: v1.0
     title: What Our Students Say
