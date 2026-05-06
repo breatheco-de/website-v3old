@@ -62,7 +62,7 @@ sections:
         linkText: Ver más
       - id: clark-university
         alt: Logo de Clark University
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark_university-500x156-q60.webp
         logoHeight: 64px
         description: Certificado por universidades reconocidas
       - id: careerkarma-detailed
@@ -266,7 +266,7 @@ sections:
             image_object_fit: cover
             image_object_position: center
             contributor_logos:
-              - image_id: clark_university
+              - image_id: clark_university-500x156-q60
             description: >-
               MaiLinh Tran es una emprendedora apasionada por la tecnología, ahora enfocada en el lado de desarrollo de
               su proyecto.

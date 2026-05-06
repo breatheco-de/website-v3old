@@ -33,7 +33,7 @@ sections:
     pills:
       - category: Alianzas Académicas
         logos:
-          - image_id: clark_university
+          - image_id: clark_university-500x156-q60
           - image_id: miami-dade-college-logo
             alt: "Image: Miami_Dade_College_logo"
             id: miami-dade-college-logo
@@ -315,7 +315,7 @@ sections:
             image_object_fit: cover
             image_object_position: center
             contributor_logos:
-              - image_id: clark_university
+              - image_id: clark_university-500x156-q60
             description: MaiLinh llegó a 4Geeks con una visión emprendedora y sin conocimientos técnicos. Hoy dirige su propia startup tecnológica y lidera un equipo de desarrolladores.
             achievement: Lanzó su propio negocio y ahora contrata el talento que ella misma quería llegar a ser.
           - image_id: martin_coimbra

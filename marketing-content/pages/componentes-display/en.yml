@@ -310,7 +310,7 @@ sections:
             image_object_fit: cover
             image_object_position: center
             contributor_logos:
-              - image_id: clark_university
+              - image_id: clark_university-500x156-q60
             description: MaiLinh came to 4Geeks with an entrepreneurial vision and no technical background. Today she runs her own tech startup and leads a team of developers.
             achievement: She launched her own business and is now hiring the talent she once wanted to become.
           - image_id: martin_coimbra
@@ -1360,7 +1360,7 @@ sections:
     pills:
       - category: Academic Partnership
         logos:
-          - image_id: clark_university
+          - image_id: clark_university-500x156-q60
           - image_id: miami-dade-college-logo
             alt: "Image: Miami_Dade_College_logo"
             id: miami-dade-college-logo
