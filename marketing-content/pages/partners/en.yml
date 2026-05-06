@@ -209,7 +209,7 @@ sections:
         institution_logos:
           - image_id: bid_logo
             alt: Interamerican Development Bank logo
-          - image_id: logo_utec
+          - image_id: logo_utec-545x305-q70
             alt: UTEC logo
           - image_id: 4geeks_academy_logo
             alt: 4Geeks Academy logo
@@ -388,7 +388,7 @@ sections:
         institution_logos:
           - image_id: bid_logo
             alt: Interamerican Development Bank logo
-          - image_id: logo_utec
+          - image_id: logo_utec-545x305-q70
             alt: UTEC logo
           - image_id: 4geeks_academy_logo
             alt: 4Geeks Academy logo

@@ -317,14 +317,14 @@ sections:
             image_object_fit: cover
             image_object_position: center top
             contributor_logos:
-              - image_id: logo_utec
+              - image_id: logo_utec-545x305-q70
             description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
             achievement: His salary doubled. And he finally does work he loves.
           - image_id: melanie_galaretto
             image_object_fit: cover
             image_object_position: center
             contributor_logos:
-              - image_id: logo_utec
+              - image_id: logo_utec-545x305-q70
               - image_id: bid_logo
             description: Melanie retrained as a software developer and now works remotely for a tech company, from home, in a career she chose.
             achievement: Her salary doubled. And she works remotely, on her own terms.
@@ -1729,7 +1729,7 @@ sections:
           - image_id: logo_crusa
             alt: CRUSA Foundation
             logo_height: 50px
-          - image_id: logo_utec
+          - image_id: logo_utec-545x305-q70
             alt: CRUSA Foundation
             logo_height: 50px
           - image_id: bid_logo
@@ -1759,7 +1759,7 @@ sections:
           - image_id: logo_crusa
             alt: CRUSA Foundation
             logo_height: 50px
-          - image_id: logo_utec
+          - image_id: logo_utec-545x305-q70
             alt: CRUSA Foundation
             logo_height: 50px
           - image_id: bid_logo

@@ -367,14 +367,14 @@ sections:
             image_object_fit: cover
             image_object_position: center top
             contributor_logos:
-              - image_id: logo_utec
+              - image_id: logo_utec-545x305-q70
             description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
             achievement: He achieved a 100% salary increase.
           - image_id: melanie_galaretto
             image_object_fit: cover
             image_object_position: center
             contributor_logos:
-              - image_id: logo_utec
+              - image_id: logo_utec-545x305-q70
               - image_id: bid_logo
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
