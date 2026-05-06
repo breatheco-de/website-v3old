@@ -440,7 +440,7 @@ sections:
       - 7
     alignment: center
     left:
-      image: https://storage.googleapis.com/4geeks-academy-website/media/what-is-4geeks.jpg
+      image: https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75.webp
       image_alt: Equipo colaborando en un proyecto
       justify: center
     right:
