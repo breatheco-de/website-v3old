@@ -240,7 +240,7 @@ sections:
   - type: profiles_carousel
     version: v1.0
     heading: Meet the Geeks
-    description: Our team is dedicated, highly skilled, and always ready to support you on your journey into tech. They provide all the guidance and encouragement you need to launch a successful new career.
+    description: Conoce a quienes liderarán la sesión
     image_round: false
     profiles:
       - name: AMarcelo Ricigliano
