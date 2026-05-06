@@ -19997,6 +19997,58 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-600x600-q60-480w.webp"
         }
       ]
+    },
+    "academy_header_coding-1000x749-q80": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x749-q80.webp",
+      "alt": "Students coding at computers in a classroom",
+      "focal_point": "center",
+      "tags": [
+        "hero"
+      ],
+      "usage_count": 0,
+      "width": 1000,
+      "height": 749,
+      "format": "webp",
+      "parentId": "academy_header_coding",
+      "quality_override": 80,
+      "preset": [
+        "hero-wide",
+        "hero-tall"
+      ],
+      "widths_generated": [
+        320,
+        360,
+        480,
+        640,
+        720,
+        960
+      ],
+      "srcset": [
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x749-q80-320w.webp"
+        },
+        {
+          "w": 360,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x749-q80-360w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x749-q80-480w.webp"
+        },
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x749-q80-640w.webp"
+        },
+        {
+          "w": 720,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x749-q80-720w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x749-q80-960w.webp"
+        }
+      ]
     }
   }
 }
