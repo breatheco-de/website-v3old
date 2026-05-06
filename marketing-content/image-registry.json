@@ -20582,6 +20582,37 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Mujer-estudiando-960w.webp"
         }
       ]
+    },
+    "hombre-con-laptop": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Hombre-con-laptop.png",
+      "alt": "Image: Hombre con laptop",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "hash": "1b1f76e2b13ccb27b480559c48fa59a7192b5f5fad5adc2aa8ac48fce37c24b8",
+      "width": 1023,
+      "height": 1537,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Hombre-con-laptop-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Hombre-con-laptop-960w.webp"
+        }
+      ]
     }
   }
 }
