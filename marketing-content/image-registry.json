@@ -20432,6 +20432,65 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75-640w.webp"
         }
       ]
+    },
+    "community-support-cropped-800x476-q70": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/community-support-cropped-800x476-q70.webp",
+      "alt": "Image: community_support_cropped",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 800,
+      "height": 476,
+      "format": "webp",
+      "parentId": "community-support-cropped",
+      "quality_override": 70,
+      "preset": [
+        "full",
+        "card",
+        "avatar"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        128,
+        256,
+        320,
+        480,
+        640
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/community-support-cropped-800x476-q70-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/community-support-cropped-800x476-q70-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/community-support-cropped-800x476-q70-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/community-support-cropped-800x476-q70-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/community-support-cropped-800x476-q70-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/community-support-cropped-800x476-q70-480w.webp"
+        },
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/community-support-cropped-800x476-q70-640w.webp"
+        }
+      ]
     }
   }
 }
