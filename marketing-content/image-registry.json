@@ -19795,6 +19795,49 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70-240w.webp"
         }
       ]
+    },
+    "logo_telefonica-300x73-q70": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70.webp",
+      "alt": "Telefonica logo",
+      "focal_point": "center",
+      "tags": [
+        "logo",
+        "partner",
+        "press"
+      ],
+      "usage_count": 0,
+      "width": 300,
+      "height": 73,
+      "format": "webp",
+      "parentId": "logo_telefonica",
+      "quality_override": 70,
+      "preset": [
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        240
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70-120w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70-240w.webp"
+        }
+      ]
     }
   }
 }
