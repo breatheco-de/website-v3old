@@ -98,7 +98,7 @@ sections:
     background: hsl(var(--muted))
     alignment: center
     left:
-      image: https://storage.googleapis.com/4geeks-academy-website/media/crusa-forte-scholarship_1770606829241.webp
+      image: https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-800x800-q60.webp
       image_alt: Student coding on laptop
       image_object_fit: cover
       image_object_position: 10% 80%
