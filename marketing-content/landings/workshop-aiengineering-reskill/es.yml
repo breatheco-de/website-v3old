@@ -657,33 +657,6 @@ sections:
     rating_summary:
       average: "4.7"
       count: 1,294
-  - type: numbered_steps
-    section_id: numbered_steps-q4nouo
-    version: "1.0"
-    variant: verticalCards
-    title: Nuestro proceso de admisión
-    description: "Trabajamos con un proceso de admisión selectivo. La postulación no garantiza la inscripción: evaluamos cada aplicación para asegurar compromiso y alineación con el programa.."
-    description_link: null
-    steps:
-      - icon: ClipboardList
-        title: Aplicación al programa
-        bullets:
-          - Completas el formulario inicial para iniciar tu postulación.
-          - Serás contactado por WhatsApp para conversar y analizar tu perfil, experiencia y objetivos profesionales.
-      - icon: UserCheck
-        title: Evaluación del perfil
-        bullets:
-          - Analizamos tu motivación, disponibilidad y encaje con el enfoque de nuestra academia.
-          - Identificamos candidatos con el nivel de compromiso que requiere el programa.
-      - icon: ArrowRightCircle
-        title: Selección y próximos pasos
-        bullets:
-          - Si tu perfil encaja, te compartimos la información completa para avanzar, incluyendo fechas, inversión y expectativas
-          - Si no es el momento adecuado, te recomendamos alternativas alineadas a tu crecimiento profesional.
-    background: bg-muted/30
-    bullet_icon: Check
-    bullet_icon_color: text-primary
-    showOn: mobile
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para convertirte en Ingeniero de IA?
