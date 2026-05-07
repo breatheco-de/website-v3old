@@ -629,5 +629,11 @@
       "value": "1.6px"
     }
   ],
-  "preview_examples": []
+  "preview_examples": [
+    {
+      "component": "value_proof_panel",
+      "version": "v1.0",
+      "example": "01_awards_recognition"
+    }
+  ]
 }
