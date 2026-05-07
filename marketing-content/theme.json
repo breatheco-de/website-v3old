@@ -636,11 +636,6 @@
       "example": "two column accordion right image",
       "importYaml": "- type: two_column_accordion_card\n  section_id: two_column_accordion_card-quibap\n  variant: image_background\n  version: '1.0'\n  title: Everything You Need to Succeed in an AI-Driven Industry\n  description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.\n  bullets:\n    - heading: 1:1 Mentorship, Unlimited and for Life\n      text: Get personalized technical guidance whenever you need it. Work one-on-one with experienced mentors during the program and continue receiving support long after you graduate.\n    - heading: AI-Powered Learning Support\n      text: Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve continuously with guidance tailored to your learning path.\n    - heading: Career Support, Unlimited and for Life\n      text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.\n    - heading: An Active Global Tech Community\n      text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.\n  image: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-470x315.webp\n  image_alt: Student working on AI project\n  image_object_fit: cover\n  paddingY:\n    desktop: md none\n",
       "registryPersisted": true
-    },
-    {
-      "component": "two_column",
-      "version": "v1.0",
-      "example": "Image Left, Text Right with Bullets"
     }
   ]
 }
