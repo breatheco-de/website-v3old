@@ -430,7 +430,7 @@ sections:
     alignment: center
     left:
       image: https://4geeksacademy.com/static/0e206e6ab1ae7f4ca09668b2d287baa7/56f2e/alejandrosanchez.webp
-      image_alt: 4Geeks Academy student coding on laptop wearing branded t-shirt
+      image_alt: Community illustration
       justify: center
     right:
       heading: Become a Partner
