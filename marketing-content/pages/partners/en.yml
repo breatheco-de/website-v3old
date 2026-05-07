@@ -429,8 +429,8 @@ sections:
     background: bg-muted/30
     alignment: center
     left:
-      image: https://4geeksacademy.com/static/0e206e6ab1ae7f4ca09668b2d287baa7/56f2e/alejandrosanchez.webp
-      image_alt: Community illustration
+      image: https://storage.googleapis.com/4geeks-academy-website/media/alejandrosanchez.webp
+      image_alt: GeekPal support illustration
       justify: center
     right:
       heading: Become a Partner
