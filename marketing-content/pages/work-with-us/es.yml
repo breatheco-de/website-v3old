@@ -33,7 +33,7 @@ sections:
     background: hsl(210 100% 50% / 0.05)
     alignment: center
     left:
-      image: https://storage.googleapis.com/4geeks-academy-website/media/community-1000x667-q70.webp
+      image: https://storage.googleapis.com/4geeks-academy-website/media/community_1764717588840.png
       image_alt: Equipo colaborando en un proyecto
       justify: center
     right:
