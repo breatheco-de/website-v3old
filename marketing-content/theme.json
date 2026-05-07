@@ -641,11 +641,6 @@
       "component": "two_column_accordion_card",
       "version": "v1.0",
       "example": "Image Background Style (Reversed)"
-    },
-    {
-      "component": "two_column_accordion_card",
-      "version": "v1.0",
-      "example": "Personalized Learning Features"
     }
   ]
 }
