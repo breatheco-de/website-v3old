@@ -93,7 +93,7 @@ sections:
       desktop: lg none
     marginY:
       mobile: none
-      desktop: none
+      desktop: none md
   - type: two_column
     version: v1.0
     proportions:
