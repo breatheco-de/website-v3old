@@ -79,6 +79,26 @@ sections:
       mobile: none
       desktop: none
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
+  - type: two_column
+    version: v1.0
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    gap: "8"
+    left:
+      video: "-2ZvlgDnltc"
+      justify: center
+    right:
+      heading: See It In Action
+      sub_heading: Watch how our platform transforms careers
+      description: Our AI-powered learning platform adapts to your pace and style, providing personalized guidance every step of the way.
+      button:
+        text: Start Free Trial
+        url: /signup
+        variant: primary
+        icon: Rocket
+    section_id: two_column-r882vr
   - - type: hero
       version: "1.0"
       variant: productShowcase
