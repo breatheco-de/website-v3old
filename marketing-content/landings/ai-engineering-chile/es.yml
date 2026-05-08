@@ -232,6 +232,7 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none lg
+    title_above_carousel: true
   - type: features_grid
     section_id: features_grid-0cm8zn
     version: "1.0"
