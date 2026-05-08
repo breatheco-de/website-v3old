@@ -233,6 +233,7 @@ sections:
       mobile: none lg
       desktop: none lg
     title_above_carousel: true
+    title: Reconocidos por
   - type: features_grid
     section_id: features_grid-0cm8zn
     version: "1.0"
