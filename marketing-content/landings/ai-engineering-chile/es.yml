@@ -612,7 +612,7 @@ sections:
         icon: Rocket
     gap: "8"
     marginY:
-      desktop: none xl
+      desktop: none md
     section_id: ai_learning-2hqf27
     background: hsl(210 100% 50% / 0.05)
     paddingY:
