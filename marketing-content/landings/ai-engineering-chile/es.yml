@@ -418,6 +418,7 @@ sections:
     paddingY:
       mobile: none md
       desktop: none md
+    background: hsl(var(--card))
   - type: syllabus
     variant: program-modules
     program_title: AI Native Full Stack — Módulos del programa
