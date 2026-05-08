@@ -188,34 +188,85 @@ sections:
     paddingY:
       mobile: none lg
       desktop: none sm
-  - type: graduates_stats
-    maxWidth:
-      desktop: 6xl
-    heading: Career Outcomes
-    subheading: Real results from 5,000+ graduates. Here's what happens after you complete the program.
-    stats:
-      - value: 86%
-        label: Hiring rate, US graduates placed within 90 days
-      - value: 55%
-        label: Average salary increase after graduation
-      - value: ~3 months
-        label: Average time to get hired in 2025
-      - value: 5,000+
-        label: Graduates employed worldwide
-    collage_images:
-      - image_id: graduates_team_1
-        col_span: 5
-        row_span: 2
-      - image_id: graduates_team_2-288x210-q87
-        col_span: 7
-        row_span: 2
-      - image_id: graduates_coding
-        col_span: 6
-        row_span: 2
-      - image_id: graduates_friends-288x210-q87
-        col_span: 6
-        row_span: 2
-    section_id: graduates_stats-cnxqbb
+  - - type: hero
+      version: "1.0"
+      variant: productShowcase
+      title: ""
+      brand_mark:
+        prefix: Conviértete en
+        highlight: Ingeniero de IA
+        color: primary
+      description: La IA está cambiando todos los trabajos. En 24 semanas pasas de donde estás hoy a desarrollar e integrar sistemas de IA reales que las empresas en Chile llevan meses intentando contratar.
+      bullets:
+        - text: Mentoría ilimitada de por vida, no solo mientras estudias
+        - text: Opciones de financiación flexibles a 10, 12 y 18 meses
+      form:
+        variant: stacked
+        conversion_name: student_application
+        submit_label: Iniciar mi aplicación
+        tags: website-lead
+        fields:
+          email:
+            visible: true
+            required: true
+            placeholder: Correo electrónico
+          first_name:
+            visible: true
+            required: true
+            placeholder: Nombre
+          last_name:
+            visible: true
+            required: true
+            placeholder: Apellido
+          phone:
+            visible: true
+            required: true
+            default_country: CL
+          program:
+            visible: false
+            default: ai-engineering
+        success:
+          message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
+        terms_url: /terminos-condiciones
+        privacy_url: /politica-privacidad
+        consent:
+          marketing: true
+          marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+        show_terms: true
+      form_card_title: Obtén la guía completa del programa
+      form_card_subtitle: Te enviamos el programa completo con plan de estudios, opciones de financiación y más. Solo toma 2 minutos.
+      show_awards_marquee: true
+      awards_marquee:
+        items:
+          - id: switchup-2025
+            alt: SwitchUp - Best Coding Bootcamps 2025
+            logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+            logoHeight: 55px
+          - id: course-report-2024
+            alt: Course Report - Best Coding Bootcamp 2024
+            logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+            logoHeight: 55px
+          - id: newsweek
+            alt: Newsweek
+            logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+            logoHeight: 55px
+          - id: reviews-coursereport
+            alt: 4.9 Stars on Course Report Reviews
+            logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+            logoHeight: 55px
+          - id: excelencia-educativa
+            alt: Educational Excellence
+            logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+            logoHeight: 55px
+      awards_marquee_at_left_column: true
+      section_id: hero-lt4ge6
+      background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
+      paddingY:
+        mobile: md none
+        desktop: lg none
+      marginY:
+        mobile: none
+        desktop: none
   - type: features_grid
     version: "1.0"
     variant: stats-text-card
