@@ -44,7 +44,8 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: ¡Reservar mi lugar!
-      tags: website-lead
+      tags: webinar-ibero
+      automations: webinar
       fields:
         email:
           visible: true
