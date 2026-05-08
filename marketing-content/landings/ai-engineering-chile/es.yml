@@ -614,7 +614,7 @@ sections:
     marginY:
       desktop: none xl
     section_id: ai_learning-2hqf27
-    background: hsl(var(--secondary))
+    background: hsl(210 100% 50% / 0.05)
     paddingY:
       desktop: lg
   - type: trust_cards
