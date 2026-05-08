@@ -64,7 +64,7 @@ sections:
           required: true
         program:
           visible: false
-          default: full-stack
+          default: ai-engineering
       success:
         message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
       terms_url: /terms-and-conditions
