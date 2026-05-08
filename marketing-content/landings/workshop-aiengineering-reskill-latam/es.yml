@@ -27,15 +27,13 @@ locations:
   - bogota-colombia
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: productShowcase
     brand_mark:
       prefix: Despidos, cambio y una salida.
       highlight: Reinvéntate como AI Engineer
       color: primary
-    description: >-
-      La pregunta no es si te va a afectar, es cuándo. Tu trabajo puede cambiar, o desaparecer. Descubre en este webinar
-      cómo dar el salto a uno de los perfiles con más futuro:"AI Engineering".
+    description: La pregunta no es si te va a afectar, es cuándo. Tu trabajo puede cambiar, o desaparecer. Descubre en este webinar cómo dar el salto a uno de los perfiles con más futuro:"AI Engineering".
     bullets:
       - text: Qué trabajos están en riesgo
       - text: Qué perfiles están creciendo (y por qué)
@@ -68,29 +66,20 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: >-
-          Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a
-          través de un correo electrónico.
+        message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: >-
-          Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos,
-          cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja
-          fácilmente en cualquier momento.
-        sms_text: >-
-          Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden
-          aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta
-          4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja
-          fácilmente en cualquier momento.
+        marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
+        sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
         sms_usa_only: true
       show_terms: true
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Reserva tu plaza gratuita
-    form_card_subtitle: Jueves 21 de mayo · 11:00h ó 18:00h · Directo por YouTube
+    form_card_subtitle: Jueves 21 de mayo · México 18:00h | Colombia 19:00h | Venezuela / Chile 20:00h | Argentina / Uruguay 21:00h · Directo por YouTube
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: false
     awards_marquee:
@@ -137,12 +126,9 @@ sections:
       desktop: none
     section_id: hero-9v1ywg
   - type: human_and_ai_duo
-    version: '1.0'
+    version: "1.0"
     heading: El mercado laboral ha cambiado
-    description: >-
-      Si sientes que tu experiencia ya no te da la seguridad de antes, no es casualidad. El mercado está dejando atrás
-      los perfiles tradicionales y empezando a priorizar nuevas formas de trabajar con tecnología. El problema no es que
-      falte trabajo 👉 Es que el tipo de trabajo ha cambiado.
+    description: Si sientes que tu experiencia ya no te da la seguridad de antes, no es casualidad. El mercado está dejando atrás los perfiles tradicionales y empezando a priorizar nuevas formas de trabajar con tecnología. El problema no es que falte trabajo 👉 Es que el tipo de trabajo ha cambiado.
     bullet_groups:
       - title: Lo que está pasando
         bullets:
@@ -160,32 +146,32 @@ sections:
     section_id: human_and_ai_duo-ljstr8
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/Team-work-IA.png
-        alt: 'Image: Team work IA'
+        alt: "Image: Team work IA"
         object_fit: cover
         object_position: center top
         border_radius: 0.5rem
         id: team-work-ia
       - src: https://storage.googleapis.com/4geeks-academy-website/media/Mujer-estudiando.png
-        alt: 'Image: Mujer estudiando'
+        alt: "Image: Mujer estudiando"
         object_fit: cover
         object_position: center top
         border_radius: 0.5rem
         id: mujer-estudiando
       - src: https://storage.googleapis.com/4geeks-academy-website/media/Hombre-con-laptop.png
-        alt: 'Image: Hombre con laptop'
+        alt: "Image: Hombre con laptop"
         object_fit: cover
         object_position: center top
         border_radius: 0.5rem
         id: hombre-con-laptop
       - src: https://storage.googleapis.com/4geeks-academy-website/media/Mujer-AI-Workflow.png
-        alt: 'Image: Mujer AI Workflow'
+        alt: "Image: Mujer AI Workflow"
         object_fit: cover
         object_position: center top
         border_radius: 0.5rem
         id: mujer-ai-workflow
   - type: awards_marquee
     section_id: awards_marquee-tusr9t
-    version: '1.0'
+    version: "1.0"
     speed: 40
     gradient: true
     gradientWidth: 500
@@ -236,8 +222,7 @@ sections:
         logoHeight: h-10 md:h-14
       - id: logo-european-excellence-education
         alt: European Excellence Education
-        logo: >-
-          https://storage.googleapis.com/4geeks-academy-website/media/european-excellence-education-ealde_1_1770392145138.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/european-excellence-education-ealde_1_1770392145138.png
         logoHeight: h-10 md:h-14
       - id: logo-forbes-advisor-2025
         alt: Forbes Advisor Best of 2025 - Best for lifetime career support
@@ -262,17 +247,17 @@ sections:
         role: Co-founder & CEO
         image_id: image-3
         linkedin_url: https://www.linkedin.com/in/marcelo-ricigliano-32440379/
-        alt: 'Image: image (3)'
+        alt: "Image: image (3)"
         id: image-3
       - name: Susana Rodríguez
         role: Profesora de Inteligencia Artificial en la EOI, Ex Microsoft, Fundadora de SeniorIT 2000
         image_id: image-2
         linkedin_url: https://www.linkedin.com/in/susanarr/
-        alt: 'Image: image (2)'
+        alt: "Image: image (2)"
         id: image-2
     section_id: profiles_carousel-gix825
   - type: banner
-    version: '1.0'
+    version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
       - avatar-woman-1
@@ -283,7 +268,7 @@ sections:
     description: Solo los asistentes recibirán acceso a formaciones gratuitas de 4Geeks Academy
     cta:
       text: ¡Reserva tu lugar!
-      url: '#hero-9v1ywg'
+      url: "#hero-9v1ywg"
       variant: primary
     background: gradient
     section_id: banner-6npypv
@@ -307,23 +292,15 @@ sections:
     title: Preguntas Frecuentes
     items:
       - question: ¿Necesito experiencia previa?
-        answer: >-
-          No. Pero sí necesitas compromiso y mentalidad de aprendizaje. Lo importante es tener interés en aprender y
-          aplicar tecnología a problemas reales.
+        answer: No. Pero sí necesitas compromiso y mentalidad de aprendizaje. Lo importante es tener interés en aprender y aplicar tecnología a problemas reales.
       - question: ¿Esto me garantiza empleo?
-        answer: >-
-          No, no hay garantías. Pero sí te posiciona en una de las áreas con mayor crecimiento y demanda actual. El
-          objetivo es ayudarte a entender si este camino puede mejorar tu empleabilidad.
+        answer: No, no hay garantías. Pero sí te posiciona en una de las áreas con mayor crecimiento y demanda actual. El objetivo es ayudarte a entender si este camino puede mejorar tu empleabilidad.
       - question: ¿Es técnico el webinar?
         answer: No. Es una sesión estratégica para entender el cambio del mercado y ayudarte a tomar una decisión informada.
       - question: ¿Cuánto tiempo necesito para reconvertirme?
-        answer: >-
-          No es inmediato, pero tampoco es un proceso de años. Con una formación estructurada, en unos meses puedes
-          adquirir las bases necesarias para empezar a construir proyectos y posicionarte en este nuevo mercado.
+        answer: No es inmediato, pero tampoco es un proceso de años. Con una formación estructurada, en unos meses puedes adquirir las bases necesarias para empezar a construir proyectos y posicionarte en este nuevo mercado.
       - question: ¿Y si no estoy seguro de querer cambiar de carrera?
-        answer: >-
-          Este webinar es justo para esto. Para que puedas entender el contexto actual y decidir con información si este
-          camino tiene sentido para ti o no.
+        answer: Este webinar es justo para esto. Para que puedas entender el contexto actual y decidir con información si este camino tiene sentido para ti o no.
     section_id: faq-sxh4nl
   - type: whos_hiring
     section_id: whos_hiring-56qa9a
@@ -363,7 +340,7 @@ sections:
       desktop: lg none
   - type: footer
     section_id: footer-qjxpsb
-    version: '1.0'
+    version: "1.0"
     copyright_text: 2024 4Geeks. Todos los derechos reservados.
     paddingY:
       mobile: none
