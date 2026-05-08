@@ -272,7 +272,7 @@ sections:
     variant: productShowcase
     title: ""
     brand_mark:
-      prefix: "Conviértete en<b><br><!--StartFragment--></b><i><span style=\"color: hsl(var(--primary));\"><b><span style=\"font-size: 1.125rem;\">Ingeniero de IA</span></b></span></i><!--EndFragment-->"
+      prefix: "Conviértete en<b><br><!--StartFragment--></b><span style=\"color: hsl(var(--primary));\"><b style=\"\"><span style=\"font-size: 1.125rem;\">Ingeniero de IA</span></b></span><!--EndFragment-->"
       color: primary
       suffix: <br>
     description: La IA está cambiando todos los trabajos. En 24 semanas pasas de donde estás hoy a desarrollar e integrar sistemas de IA reales que las empresas en Chile llevan meses intentando contratar.
