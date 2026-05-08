@@ -30,7 +30,7 @@ sections:
       items:
         - id: logo-google-developers
           alt: Google Developers logo
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70.webp
           logoHeight: 48px
         - id: logo-uber
           alt: Uber logo
@@ -38,11 +38,11 @@ sections:
           logoHeight: 48px
         - id: logo-telefonica
           alt: Telefonica logo
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70.webp
           logoHeight: 48px
         - id: logo-twilio
           alt: Twilio logo
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
           logoHeight: 48px
         - id: logo-evernote
           alt: Evernote logo
@@ -58,7 +58,7 @@ sections:
           logoHeight: 48px
         - id: logo-ebay
           alt: eBay logo
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70.webp
           logoHeight: 48px
       speed: 40
       gradient: true
@@ -126,13 +126,13 @@ sections:
         right_logos:
           - image_id: logo_google
             alt: Google
-          - image_id: logo_meta
+          - image_id: logo_meta-761x243-q70
             alt: Meta
           - image_id: logo_microsoft
             alt: Microsoft
           - image_id: logo_uber
             alt: Uber
-          - image_id: logo_ebay
+          - image_id: logo_ebay-400x160-q70
             alt: eBay
           - image_id: logo_kpmg
             alt: KPMG
@@ -172,21 +172,21 @@ sections:
             image_object_fit: cover
             image_object_position: center
             contributor_logos:
-              - image_id: clark_university
+              - image_id: clark_university-500x156-q60
             description: MaiLinh Tran is an entrepreneur with a passion for technology, now focusing on the dev side of her endeavor.
             achievement: She has launched her startup, is capable of hiring new tech talent, and coordinates a dev team!
           - image_id: martin_coimbra
             image_object_fit: cover
             image_object_position: center top
             contributor_logos:
-              - image_id: logo_utec
+              - image_id: logo_utec-545x305-q70
             description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
             achievement: He achieved a 100% salary increase.
           - image_id: melanie_galaretto
             image_object_fit: cover
             image_object_position: center
             contributor_logos:
-              - image_id: logo_utec
+              - image_id: logo_utec-545x305-q70
               - image_id: bid_logo
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
@@ -207,13 +207,13 @@ sections:
       - image_id: graduates_team_1
         col_span: 5
         row_span: 2
-      - image_id: graduates_team_2
+      - image_id: graduates_team_2-288x210-q87
         col_span: 7
         row_span: 2
       - image_id: graduates_coding
         col_span: 6
         row_span: 2
-      - image_id: graduates_friends-288x210-q75
+      - image_id: graduates_friends-288x210-q87
         col_span: 6
         row_span: 2
   - type: numbered_steps
@@ -250,29 +250,29 @@ sections:
     title: Top Tech Companies Hiring 4Geeks Graduates
     description: 4Geeks alumni are hired by leading tech companies and innovative teams across AI engineering, software development, data science, and cybersecurity.
     logos:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
         alt: Twilio
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
         alt: Jooble
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70.webp
         alt: Meta
       - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
         alt: Boats Group
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70.webp
         alt: eBay
       - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
         alt: National Geographic
       - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
         alt: Evernote
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70.webp
         alt: Telefonica
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
       - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
         alt: Uber
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70.webp
         alt: Neo9
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70.webp
         alt: Google Developers
     paddingY:
       desktop: sm none

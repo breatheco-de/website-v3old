@@ -9,7 +9,7 @@ meta:
   priority: 1
   change_frequency: daily
   page_title: 4Geeks | The AI Reskilling Platform
-  description: "4Geeks Academy: intensive AI Engineering, Data Science, Cybersecurity, and Full Stack programs. 84% hiring rate, 55% avg salary increase. Unlimited mentorship, lifelong career support."
+  description: "4Geeks: intensive AI Engineering, Data Science and Cybersecurity programs. 84% hiring rate, 55% salary increase. Unlimited mentorship, lifelong career support."
   redirects:
     - /home
     - /us/index
@@ -35,7 +35,7 @@ sections:
     pills:
       - category: Academic Partnership
         logos:
-          - image_id: clark_university
+          - image_id: clark_university-500x156-q60
           - image_id: miami-dade-college-logo
             alt: "Image: Miami_Dade_College_logo"
             id: miami-dade-college-logo
@@ -280,13 +280,13 @@ sections:
         right_logos:
           - image_id: logo_google
             alt: Google
-          - image_id: logo_meta
+          - image_id: logo_meta-761x243-q70
             alt: Meta
           - image_id: logo_microsoft
             alt: Microsoft
           - image_id: logo_uber
             alt: Uber
-          - image_id: logo_ebay
+          - image_id: logo_ebay-400x160-q70
             alt: eBay
           - image_id: logo_kpmg
             alt: KPMG
@@ -324,21 +324,21 @@ sections:
             image_object_fit: cover
             image_object_position: center
             contributor_logos:
-              - image_id: clark_university
+              - image_id: clark_university-500x156-q60
             description: MaiLinh came to 4Geeks with an entrepreneurial vision and no technical background. Today she runs her own tech startup and leads a team of developers.
             achievement: She launched her own business and is now hiring the talent she once wanted to become.
           - image_id: martin_coimbra
             image_object_fit: cover
             image_object_position: center top
             contributor_logos:
-              - image_id: logo_utec
+              - image_id: logo_utec-545x305-q70
             description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
             achievement: His salary doubled. And he finally does work he loves.
           - image_id: melanie_galaretto
             image_object_fit: cover
             image_object_position: center
             contributor_logos:
-              - image_id: logo_utec
+              - image_id: logo_utec-545x305-q70
               - image_id: bid_logo
             description: Melanie retrained as a software developer and now works remotely for a tech company, from home, in a career she chose.
             achievement: Her salary doubled. And she works remotely, on her own terms.

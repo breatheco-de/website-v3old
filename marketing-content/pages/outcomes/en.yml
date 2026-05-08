@@ -3,7 +3,7 @@ template: default
 title: Outcomes
 meta:
   page_title: 4Geeks Outcomes Report | Career Success Data
-  description: Discover the career outcomes of 4Geeks Academy graduates. See employment rates, salary increases, and success stories from our coding bootcamp alumni.
+  description: "84% of 4Geeks graduates get hired in 3-6 months. 55% avg salary increase. Verified outcomes across AI Engineering, Data Science, Cybersecurity, and Full Stack."
   robots: index, follow
 schema:
   include:
@@ -238,7 +238,7 @@ sections:
         description: Credentials that employers trust and value
     media:
       type: image
-      src: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-1000x665-q60.webp
+      src: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-1000x668-q74.webp
       alt: Students collaborating in classroom
       aspect_ratio: "4:3"
       style: rounded

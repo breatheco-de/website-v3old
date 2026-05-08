@@ -22,7 +22,7 @@ sections:
     subtitle: 4Geeks Academy is an international tech academy with campuses across the U.S., Latin America, and Europe. We deliver AI-native programs in AI Engineering, Data Science and Machine Learning, Software Development, and Cybersecurity designed to prepare professionals for high-demand roles in today’s AI-driven economy.
     badge: 10+ Years of Career Outcomes in Tech
     image:
-      src: https://storage.googleapis.com/4geeks-academy-website/media/the-academy-header_1770614327963.png
+      src: https://storage.googleapis.com/4geeks-academy-website/media/academy_header_coding-1000x247-q90.webp
       alt: Students coding at computers in a classroom
     image_full_width: false
     marginY:
@@ -43,7 +43,7 @@ sections:
         - text: Industry-aligned, AI-integrated curriculum
         - text: Unlimited personalized mentorship
         - text: Lifetime career support
-      image_id: what_is_4geeks
+      image_id: https://storage.googleapis.com/4geeks-academy-website/media/what_is_4geeks-700x438-q75.webp
       image_object_fit: cover
       image_object_position: 60% 100%
     marginY:
@@ -98,7 +98,7 @@ sections:
     background: hsl(var(--muted))
     alignment: center
     left:
-      image: https://storage.googleapis.com/4geeks-academy-website/media/crusa-forte-scholarship_1770606829241.webp
+      image: https://storage.googleapis.com/4geeks-academy-website/media/crusa_forte_scholarship-600x600-q60.webp
       image_alt: Student coding on laptop
       image_object_fit: cover
       image_object_position: 10% 80%
@@ -125,7 +125,7 @@ sections:
         logoHeight: 65px
       - id: logo-miami-tech-works
         alt: Miami Tech Works logo
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/miamitech-logo-sidetext_1770608261416.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/logo_miami_tech_works-400x221-q60.webp
         logoHeight: 65px
       - id: tech-hub
         alt: South Florida Tech Hub
@@ -145,7 +145,7 @@ sections:
         logoHeight: 56px
       - id: clark-university
         alt: Clark University Logo
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark-university_1769653206336.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/clark_university-500x156-q60.webp
         logoHeight: 56px
       - id: logo-cinde
         alt: CINDE Invest in Costa Rica logo
@@ -153,7 +153,7 @@ sections:
         logoHeight: 56px
       - id: logo-utec
         alt: UTEC Universidad Tecnológica logo
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/utec_1770608159144.png
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/logo_utec-545x305-q70.webp
         logoHeight: 56px
     paddingY:
       desktop: lg none
@@ -165,29 +165,29 @@ sections:
       4Geeks graduates are hired by leading tech companies across the U.S., Latin America, and Europe. Employers consistently highlight their technical depth, practical experience, and ability to contribute from day one.
       'I’m continually impressed by the depth of knowledge possessed by 4Geeks students. One of my hires went on to become a team leader.' - CodeNinjas
     logos:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
         alt: Microsoft
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70.webp
         alt: Google Developers
       - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
         alt: Boats Group
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70.webp
         alt: Meta
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70.webp
         alt: eBay
       - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
         alt: National Geographic
       - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
         alt: Evernote
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70.webp
         alt: Telefonica
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
         alt: Twilio
       - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
         alt: Uber
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/Neo9_1764720006347.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70.webp
         alt: Neo9
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/jooble_1764720010702.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
         alt: Jooble
     marginY:
       desktop: lg none

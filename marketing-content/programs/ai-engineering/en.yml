@@ -464,7 +464,7 @@ sections:
           - text: {{ global.global_teacher_student_ratio | 7:1 }} student-to-instructor ratio
           - text: Weekly check-ins and peer collaboration via Slack
           - text: Dedicated channels for coding support, job boards, and career advice
-        image_id: community-support-cropped
+        image_id: community-support-cropped-800x476-q70
       - icon: TrendingUp
         title: Career support built for the AI job market
         description: ""
@@ -576,8 +576,8 @@ sections:
     title: Tuition & Financing Options
     subtitle: Investing in a new career matters. We make it easier with multiple ways to fund your enrollment.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: "Credit-Based Financing: starting below"
-    financing_amount: {{ global.price_ai_engineering | $349 }}
+    financing_text: "Credit-Based Financing: starting at"
+    financing_amount: {{ global.price_ai_engineering | $399 }}
     tech_icons:
       - openai
       - python
@@ -594,7 +594,7 @@ sections:
       - icon: IconCheck
         text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
       - icon: IconCheck
-        text: Finance your tuition with 18-month plans.
+        text: Finance your tuition in monthly installments, with term lengths of up to 48 months depending on your region.
     cta:
       text: Get more info
       url: "#apply-modal"

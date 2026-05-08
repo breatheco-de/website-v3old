@@ -459,7 +459,7 @@ sections:
           - image_id: logo_crusa
             alt: CRUSA Foundation
             logo_height: 50px
-          - image_id: logo_utec
+          - image_id: logo_utec-545x305-q70
             alt: CRUSA Foundation
             logo_height: 50px
           - image_id: bid_logo
@@ -489,7 +489,7 @@ sections:
           - image_id: logo_crusa
             alt: CRUSA Foundation
             logo_height: 50px
-          - image_id: logo_utec
+          - image_id: logo_utec-545x305-q70
             alt: CRUSA Foundation
             logo_height: 50px
           - image_id: bid_logo
@@ -686,13 +686,13 @@ sections:
           - value: 85%
             label: Geeks benefited
         institution_logos:
-          - image_id: logo_utec
+          - image_id: logo_utec-545x305-q70
             alt: CRUSA Foundation
             text: Interamerican Development Bank
-          - image_id: logo_utec
+          - image_id: logo_utec-545x305-q70
             alt: CRUSA Foundation
             text: UTEC
-          - image_id: logo_utec
+          - image_id: logo_utec-545x305-q70
             alt: CRUSA Foundation
             text: 4Geeks Academy
         press_references:

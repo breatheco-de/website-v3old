@@ -61,7 +61,7 @@ sections:
         row_span: 2
         col_start: 6
         row_start: 1
-      - image_id: graduates_team_2
+      - image_id: graduates_team_2-288x210-q87
         col_span: 3
         row_span: 2
         col_start: 10
@@ -71,7 +71,7 @@ sections:
         row_span: 2
         col_start: 4
         row_start: 3
-      - image_id: graduates_friends-288x210-q75
+      - image_id: graduates_friends-288x210-q87
         col_span: 4
         row_span: 2
         col_start: 9
@@ -82,7 +82,7 @@ sections:
         row_span: 2
         col_start: 1
         row_start: 1
-      - image_id: caracas_graduates-1000x665-q60
+      - image_id: caracas_graduates-1000x668-q74
         col_span: 3
         row_span: 2
         col_start: 1

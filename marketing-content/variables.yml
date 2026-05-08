@@ -99,11 +99,11 @@ global.price_full_datascience:
         region: "latam"
       value: "3250 USD"
 global.price_ai_engineering:
-  default: "$349"
+  default: "$399"
   conditions:
     - query:
         region: "usa-canada"
-      value: "$349"
+      value: "$399"
     - query:
         region: "europe"
       value: "140€"
