@@ -657,10 +657,6 @@ sections:
           - text: Preparación para entrevistas técnicas y negociación salarial
           - text: Apoyo de carrera de por vida, no solo hasta que te gradúas
         video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
-        cta:
-          text: Comprueba si cumples los requisitos
-          url: "#hero-lt4ge6"
-          variant: primary
       - icon: Robot
         title: Aprende más rápido con un tutor de IA que sabe dónde te has atascado
         show_rigobot_logo: true
@@ -670,10 +666,6 @@ sections:
           - text: Desbloquéate a las 2 de la madrugada sin perder el hilo
           - text: Cientos de ejercicios interactivos en Learnpack, nuestra plataforma de aprendizaje
         video_url: https://youtu.be/NRuShbSLtg0
-        cta:
-          text: Comprueba si cumples los requisitos
-          url: "#hero-lt4ge6"
-          variant: primary
       - icon: Headset
         title: Mentoría 1:1 ilimitada de por vida, no solo mientras estudias
         show_rigobot_logo: true
