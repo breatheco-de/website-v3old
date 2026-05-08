@@ -119,25 +119,24 @@ sections:
       show_terms: true
     load: eager
   - type: graduates_stats
-    version: v1.0
-    heading: Our Graduates Get Hired. Fast.
-    subheading: 6,000+ graduates worldwide. Now thiriving in tech.
+    heading: Nuestros Graduados Consiguen Empleo. Rápido.
+    subheading: Más de 6,000 graduados en todo el mundo. Ahora prosperando en tecnología.
     stats:
-      - value: __TPL_0__%
-        label: Average hiring rate
-      - value: __TPL_1__%
-        label: Average salary increase at new position
-      - value: 3-6 months
-        label: Average time to get hired
+      - value: {{ global.global_job_placement_rate | 84% }}%
+        label: Tasa de contratación promedio
+      - value: {{ global.global_salary_increase | 55% }}%
+        label: Aumento salarial promedio en el nuevo puesto
+      - value: 3-6 meses
+        label: Tiempo promedio para conseguir empleo
     collage_images:
-      - image_id: group-7085-1-700x380-600x326-q80
+      - image_id: group-7085-1
         col_span: 5
         row_span: 2
         alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
         id: gemini-generated-image-uwpyyruwpyyruwpy
         object_scale: 1.1
         object_position: 50% 30%
-      - image_id: group-7086-1-800x440
+      - image_id: group-7086-1
         col_span: 7
         row_span: 2
         alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
@@ -145,13 +144,13 @@ sections:
         object_scale: 1
         transform_origin: 50% 50%
         object_position: 50% 60%
-      - image_id: group-7084-1-695x382
+      - image_id: group-7084-1
         col_span: 6
         row_span: 2
         alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
         id: gemini-generated-image-dhko5mdhko5mdhko-1
         object_scale: 1.05
-      - image_id: group-7087-1-680x392
+      - image_id: group-7087-1
         col_span: 6
         row_span: 2
         alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
@@ -159,13 +158,11 @@ sections:
         object_scale: 1.05
         transform_origin: 50% 50%
         object_position: 50% 45%
+    section_id: graduates_stats-cnxqbb
     marginY:
       desktop: none
     maxWidth:
       desktop: 6xl
-    paddingY:
-      desktop: md none
-    section_id: graduates_stats-qj1uh8
   - type: graduates_stats
     maxWidth:
       desktop: 6xl
