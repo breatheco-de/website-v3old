@@ -677,10 +677,10 @@ sections:
         video_url: https://youtu.be/Zoxxw5jP7xA
     paddingY:
       mobile: lg none
-      desktop: lg md
+      desktop: lg none
     background: hsl(var(--card))
     marginY:
-      desktop: none xl
+      desktop: none
   - type: certificate
     section_id: certificate-e3th63
     title: Tu certificado. Tu ventaja salarial.
@@ -729,10 +729,10 @@ sections:
     useSolidCard: true
     marginY:
       mobile: none
-      desktop: md lg
+      desktop: none lg
     paddingY:
       mobile: lg
-      desktop: md
+      desktop: none md
   - type: testimonials_slide
     title: Dieron el salto y esto es lo que pasó.
     description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa de Chile, Uruguay y Costa Rica. Ahora son desarrolladores con empleos reales y salarios que no esperaban.
