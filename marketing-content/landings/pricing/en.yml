@@ -275,7 +275,7 @@ sections:
       prefix: Conviértete en
       highlight: <br>
       color: primary
-      suffix: Ingeniero de IA
+      suffix: "<b><span style=\"color: hsl(var(--primary));\">Ingeniero de IA</span></b>"
     description: La IA está cambiando todos los trabajos. En 24 semanas pasas de donde estás hoy a desarrollar e integrar sistemas de IA reales que las empresas en Chile llevan meses intentando contratar.
     bullets:
       - text: Mentoría ilimitada de por vida con ingenieros senior, incluso después de graduarte
