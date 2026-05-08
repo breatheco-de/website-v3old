@@ -89,6 +89,7 @@ sections:
     left:
       video: https://www.youtube.com/shorts/-SpU1PWNBF4?feature=share
       justify: center
+      image_alt: Fernando Funez testimonial
     right:
       heading: See It In Action
       sub_heading: Watch how our platform transforms careers
