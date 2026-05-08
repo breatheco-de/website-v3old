@@ -151,7 +151,7 @@ sections:
         icon: Rocket
     section_id: two_column-r882vr
     marginY:
-      desktop: none xl
+      desktop: none md
     paddingY:
       desktop: lg
     background: hsl(var(--secondary))
