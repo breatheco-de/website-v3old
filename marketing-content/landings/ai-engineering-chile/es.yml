@@ -414,7 +414,7 @@ sections:
         title: Salario promedio anual para ingenieros de IA en Chile
     marginY:
       mobile: md none
-      desktop: lg
+      desktop: none lg
     paddingY:
       mobile: none md
       desktop: none md
