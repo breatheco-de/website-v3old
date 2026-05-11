@@ -639,7 +639,7 @@ sections:
     subtitle: The average 4Geeks graduate sees a 55% salary increase. Flexible financing means nothing stands between you and an AI Engineering career.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting below"
-    financing_amount: $349
+    financing_amount: $399
     tech_icons:
       - openai
       - claude
@@ -664,7 +664,7 @@ sections:
       - icon: IconCheck
         text: Full tuition is $14,999. Pay upfront and save 10%, or split into 6 interest-free monthly payments.
       - icon: IconCheck
-        text: Finance over 24 to 60 months through our lending partners starting at $349/mo.
+        text: Finance over 24 to 60 months through our lending partners starting at $399/mo.
       - icon: IconCheck
         text: Partial scholarships available for highly qualified applicants.
         use_rigobot_icon: true
