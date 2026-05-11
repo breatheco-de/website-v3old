@@ -141,75 +141,31 @@ sections:
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
     showOn: mobile
-  - type: awards_marquee
-    section_id: awards_marquee-hgjjgi
-    version: "1.0"
-    speed: 40
-    gradient: true
-    gradientWidth: 500
-    items:
-      - id: logo-switchup-best-bootcamps-2025
-        alt: SwitchUp Best Bootcamps 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
-        logoHeight: h-10 md:h-16
-      - id: excelencia-educativa
-        alt: Excelencia Educativa - Calidad Institucional en Educación Online
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
-        logoHeight: h-10 md:h-16
-      - id: course-report-badge
-        alt: Course Report Badge 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-        logoHeight: 64px
-      - id: tech-hub
-        alt: South Florida Tech Hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70.webp
-        logoHeight: h-10 md:h-16
-      - id: logo-ebootcamp-top-2025
-        alt: ebootcamp Top Bootcamp Programación 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1_1770392737758.png
-        logoHeight: h-10 md:h-16
-      - id: premios-tecnologia
-        alt: Premios Tecnologia Siglo XXI
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-        logoHeight: 80px
-      - id: newsweek
-        alt: Newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
-        logoHeight: 64px
-      - id: reviews-coursereport
-        alt: 4.9 en reseñas de Course Report
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-        logoHeight: 64px
-      - id: forbes-1
-        alt: Forbes - Top Coding Bootcamp
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
-        logoHeight: 64px
-      - id: fortune-1
-        alt: Fortune - Mejor Empresa de Educación
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/fortune-logo_1764709618095.webp
-        logoHeight: h-10 md:h-16
-      - id: logo-coursereport-best-bootcamp-2025
-        alt: CourseReport Best European Bootcamp 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/CourseReport-best-bootcamp_-2025_1770392145137.png
-        logoHeight: h-10 md:h-14
-      - id: logo-european-excellence-education
-        alt: European Excellence Education
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/european-excellence-education-ealde_1_1770392145138.png
-        logoHeight: h-10 md:h-14
-      - id: logo-forbes-advisor-2025
-        alt: Forbes Advisor Best of 2025 - Best for lifetime career support
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/Forbes-Advisor_1770392260031.png
-        logoHeight: h-10 md:h-14
-      - id: logo-premios-excelencia-educativa
-        alt: 17 Premios Excelencia Educativa
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios-excelencia-educativa-17_1770392145139.png
-        logoHeight: h-10 md:h-14
+  - type: two_column
+    version: v1.0
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    gap: "8"
+    left:
+      video: https://www.youtube.com/shorts/-SpU1PWNBF4?feature=share
+      justify: center
+    right:
+      heading: Por qué Ingeniería de IA es la carrera más importante de esta década
+      sub_heading: Y por qué el mercado necesita ingenieros ahora mismo
+      description: El 87% de las empresas no encuentra los ingenieros de IA que necesita. La demanda crece un 30% cada año y los salarios de entrada superan los $20K USD. Este programa existe para que seas tú quien cubra esa demanda.
+      button:
+        text: Iniciar mi aplicación
+        url: "#hero-byj387"
+        variant: primary
+        icon: Rocket
+    section_id: two_column-r882vr
     marginY:
-      mobile: md none
-      desktop: md none
+      desktop: none sm
     paddingY:
-      mobile: none lg
-      desktop: none lg
+      desktop: lg
+    background: hsl(var(--secondary))
   - type: features_grid
     section_id: features_grid-alnt5t
     version: "1.0"
