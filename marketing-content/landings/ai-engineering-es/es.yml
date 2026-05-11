@@ -166,33 +166,31 @@ sections:
     paddingY:
       desktop: lg
     background: hsl(var(--secondary))
-  - type: award_badges
+  - type: two_column
     version: v1.0
-    variant: detailed
-    showBorder: false
-    items:
-      - id: coursereport-detailed
-        logo: /images/awards/course-report.svg
-        alt: Course Report - Best Coding Bootcamp
-        logoHeight: 64px
-        description: Recognized as one of the best coding bootcamps worldwide
-        link: https://www.coursereport.com
-        linkText: Read reviews
-      - id: switchup-detailed
-        logo: /images/awards/switchup.svg
-        alt: SwitchUp - Top Bootcamp
-        logoHeight: 64px
-        description: Top-rated bootcamp based on verified student reviews
-        link: https://www.switchup.org
-        linkText: See rankings
-      - id: careerkarma-detailed
-        logo: /images/awards/career-karma.svg
-        alt: Career Karma - Best Value
-        logoHeight: 64px
-        description: Best value for career changers and beginners
-        link: https://careerkarma.com
-        linkText: Learn more
-    section_id: award_badges-c29j63
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    gap: "8"
+    left:
+      video: https://www.youtube.com/shorts/-SpU1PWNBF4?feature=share
+      justify: center
+    right:
+      heading: Por qué Ingeniería de IA es la carrera más importante de esta década
+      sub_heading: Y por qué el mercado necesita ingenieros ahora mismo
+      description: El 87% de las empresas no encuentra los ingenieros de IA que necesita. La demanda crece un 30% cada año y los salarios de entrada superan los $20K USD. Este programa existe para que seas tú quien cubra esa demanda.
+      button:
+        text: Iniciar mi aplicación
+        url: "#hero-byj387"
+        variant: primary
+        icon: Rocket
+    section_id: two_column-r882vr
+    marginY:
+      desktop: none sm
+    paddingY:
+      desktop: lg
+    background: hsl(var(--secondary))
   - type: features_grid
     section_id: features_grid-alnt5t
     version: "1.0"
