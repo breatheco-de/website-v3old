@@ -494,7 +494,7 @@ sections:
       desktop: lg md
     background: hsl(var(--card))
     marginY:
-      desktop: none lg
+      desktop: none sm
   - type: certificate
     title: Resultados de carrera
     description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien pagados:"
