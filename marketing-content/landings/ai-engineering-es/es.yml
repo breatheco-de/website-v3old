@@ -427,7 +427,7 @@ sections:
     marginY:
       desktop: none md
     section_id: ai_learning-2hqf27
-    background: hsl(var(--secondary))
+    background: hsl(var(--card))
     paddingY:
       desktop: lg
   - type: ai_learning
