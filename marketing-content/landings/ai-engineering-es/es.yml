@@ -29,24 +29,26 @@ locations:
 sections:
   - type: hero
     version: "1.0"
-    variant: ApplyFormProductShowcase
+    variant: productShowcase
     title: ""
     brand_mark:
       prefix: Conviértete en
       highlight: Ingeniero de IA
-      suffix: y construye sistemas reales, listos para producción.
       color: primary
-    description: Aprende a desarrollar, integrar y desplegar soluciones de IA que las empresas ya están contratando, en 24 semanas.
+    description: La IA está cambiando todos los trabajos. En 24 semanas pasas de donde estás hoy a desarrollar e integrar sistemas de IA reales que las empresas llevan meses intentando contratar.
+    bullets:
+      - text: Mentoría ilimitada de por vida con ingenieros senior, incluso después de graduarte
+      - text: Paga en 10, 12 o 18 cuotas mensuales sin dejar tu trabajo actual
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Aplicar ahora
+      submit_label: Iniciar mi aplicación
       tags: website-lead
       fields:
         email:
           visible: true
           required: true
-          placeholder: Correo Electrónico
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
@@ -63,37 +65,48 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       terms_url: /terminos-condiciones
       privacy_url: /politica-privacidad
       consent:
-        sms: true
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        sms_text: Acepto recibir SMS sobre talleres, eventos, cursos y materiales de marketing. Pueden aplicar cargos por mensaje y datos. Responde STOP para cancelar, HELP para ayuda. Puedes recibir 4–6 mensajes al mes. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        sms_usa_only: false
       show_terms: true
-    cta_button:
-      text: Descargar programa
-      url: /programa/ai-engineering
-      variant: outline
-      icon: Download
-    video:
-      url: https://youtube.com/shorts/-SpU1PWNBF4?si=Hf6pIB-aSDUHFgj2
-      ratio: "9:16"
-      muted: true
+    form_card_title: Obtén la guía completa del programa
+    form_card_subtitle: Te enviamos el programa completo con plan de estudios, opciones de financiación y más. Solo toma 2 minutos.
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+    show_awards_marquee: true
+    awards_marquee:
+      items:
+        - id: switchup-2025
+          alt: SwitchUp Best Bootcamps 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
+          logoHeight: 64px
+        - id: excelencia-educativa
+          alt: Excelencia Educativa - Calidad Institucional en Educación Online
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
+          logoHeight: 64px
+        - id: course-report-badge
+          alt: Course Report Badge 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+          logoHeight: 64px
+        - id: newsweek
+          alt: Newsweek
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
+          logoHeight: 64px
+        - id: reviews-coursereport
+          alt: 4.9 en reseñas de Course Report
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+          logoHeight: 64px
+    awards_marquee_at_left_column: true
     section_id: hero-byj387
-    bullets:
-      - text: Aprende las habilidades en ingeniería de IA que hoy buscan las empresas tecnológicas.
-      - text: Accede a mentorías 1:1 ilimitadas y a una comunidad profesional de por vida.
-      - text: Fórmate en grupos reducidos, con acompañamiento continuo incluso después de graduarte.
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
     paddingY:
       mobile: md none
-      desktop: lg none
+      desktop: md none
     marginY:
       mobile: none
-      desktop: none
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
+      desktop: none xl
   - type: sticky_cta
     section_id: sticky_cta-c666dm
     version: "1.0"
