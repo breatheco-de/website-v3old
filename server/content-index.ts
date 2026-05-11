@@ -6,8 +6,7 @@ import type { ZodSchema } from "zod";
 import { escapeTemplateVars, unescapeObjectVars, escapeObjectVars, unescapeYamlDump } from "../shared/templateVars";
 import { deepMerge } from "./utils/deepMerge";
 import { regenerateSectionIds } from "./utils/regenerateSectionIds";
-import { normalizeUrlPattern, getAllConfigs, getFieldMapping } from "./content-types";
-import { regenerateSectionIds } from "./utils/regenerateSectionIds";
+import { normalizeUrlPattern, getAllConfigs, getFieldMapping, resolveUrlPatternWithMapping, getFullFieldMapping } from "./content-types";
 
 export const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
 
@@ -105,6 +104,8 @@ class ContentIndex {
   private menuUsage: Map<string, { contentType: string; slug: string; source: string; position: "top" | "bottom" }[]> = new Map();
   private seoIndex: Map<string, SeoEntry> = new Map();
   private clusterIndex: Map<string, string[]> = new Map();
+  private byUrl: Map<string, { contentType: string; slug: string; entry: ContentEntry; params: Record<string, string>; patternLocale: string }> = new Map();
+  private dbIndexedTypes: Set<string> = new Set();
   private initialized = false;
 
   private static instance: ContentIndex;
@@ -205,6 +206,8 @@ class ContentIndex {
     this.menuUsage = new Map();
     this.seoIndex = new Map();
     this.clusterIndex = new Map();
+    this.byUrl = new Map();
+    this.dbIndexedTypes = new Set();
 
     for (const contentType of contentTypes) {
       const diskFolder = this.contentTypeConfigs[contentType]?.directory || contentType;
@@ -274,6 +277,39 @@ class ContentIndex {
 
     this.scanCustomRedirects(baseDir);
     this.autoCreateSingleTemplates(baseDir);
+
+    // Build URL index for DB-backed content types from their mapped cache
+    const cacheDir = path.join(process.cwd(), ".cache");
+    for (const [contentType, config] of Object.entries(this.contentTypeConfigs)) {
+      if (!config?.database?.slug || !config?.url_pattern) continue;
+      const cachePath = path.join(cacheDir, `db-${config.database.slug}.json`);
+      if (!fs.existsSync(cachePath)) continue;
+      try {
+        const cached = JSON.parse(fs.readFileSync(cachePath, "utf-8")) as { items?: Record<string, unknown>[] };
+        const items = cached.items || [];
+        if (items.length === 0) continue;
+        const fieldMapping = getFullFieldMapping(contentType);
+        const templateEntry: ContentEntry = {
+          slug: contentType,
+          contentType,
+          directory: `marketing-content/${config.directory || contentType}`,
+          files: [],
+          locales: [],
+        };
+        for (const item of items) {
+          const slug = String(item.slug || "");
+          if (!slug) continue;
+          for (const [localeKey, pattern] of Object.entries(config.url_pattern)) {
+            const locale = localeKey === "default" ? "en" : localeKey;
+            const url = resolveUrlPatternWithMapping(pattern, item, locale, fieldMapping);
+            if (!url) continue;
+            const params = this.extractUrlParams(pattern, url) || {};
+            this.byUrl.set(url, { contentType, slug, entry: templateEntry, params, patternLocale: localeKey });
+          }
+        }
+        this.dbIndexedTypes.add(contentType);
+      } catch {}
+    }
 
     this.warnMissingSlugMappings();
 
@@ -915,6 +951,12 @@ class ContentIndex {
     this.ensureInitialized();
     const cleanUrl = url.split("?")[0].split("#")[0];
 
+    // For DB-backed content types: use exact URL index (prevents duplicate URLs and false positives)
+    const dbMatch = this.byUrl.get(cleanUrl);
+    if (dbMatch) {
+      return { contentType: dbMatch.contentType, slug: dbMatch.slug, entry: dbMatch.entry, fromDatabase: true, params: dbMatch.params, patternLocale: dbMatch.patternLocale };
+    }
+
     for (const [contentType, config] of Object.entries(this.contentTypeConfigs)) {
       if (!config?.url_pattern) continue;
       for (const [localeKey, pattern] of Object.entries(config.url_pattern)) {
@@ -922,16 +964,10 @@ class ContentIndex {
         if (params) {
           const slug = this.getLastParamValue(params, pattern);
 
-          const found = this.findBySlug(slug, { contentType });
-          if (found.length > 0) return { contentType, slug, entry: found[0], params, patternLocale: localeKey };
-
-          const resolvedSlug = this.resolveBaseSlug(slug, contentType);
-          if (resolvedSlug !== slug) {
-            const foundResolved = this.findBySlug(resolvedSlug, { contentType });
-            if (foundResolved.length > 0) return { contentType, slug: resolvedSlug, entry: foundResolved[0], params, patternLocale: localeKey };
-          }
-
+          // DB-backed: if indexed (cache was loaded), exact URL check already failed above → 404
+          // If not indexed (empty/missing cache), fall back to fromDatabase for resilience
           if (config.database?.slug) {
+            if (this.dbIndexedTypes.has(contentType)) return null;
             return {
               contentType,
               slug,
@@ -940,6 +976,15 @@ class ContentIndex {
               params,
               patternLocale: localeKey,
             };
+          }
+
+          const found = this.findBySlug(slug, { contentType });
+          if (found.length > 0) return { contentType, slug, entry: found[0], params, patternLocale: localeKey };
+
+          const resolvedSlug = this.resolveBaseSlug(slug, contentType);
+          if (resolvedSlug !== slug) {
+            const foundResolved = this.findBySlug(resolvedSlug, { contentType });
+            if (foundResolved.length > 0) return { contentType, slug: resolvedSlug, entry: foundResolved[0], params, patternLocale: localeKey };
           }
 
           return null;
