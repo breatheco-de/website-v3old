@@ -245,7 +245,7 @@ sections:
     image_round: false
     profiles:
       - name: Marcelo Ricigliano
-        role: Co-founder & CEO
+        role: Co-founder & CEO 4Geeks Academy
         image_id: image-3
         linkedin_url: https://www.linkedin.com/in/marcelo-ricigliano-32440379/
         alt: "Image: image (3)"
