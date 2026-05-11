@@ -6,7 +6,7 @@ meta:
   priority: 0.8
   change_frequency: weekly
   page_title: Rigo - AI Coding Mentor | 4Geeks
-  description: "Rigobot is 4Geeks Academy's AI coding mentor: real-time feedback, personalized coaching, and 24/7 support built into every course. Learn faster, code smarter, get hired."
+  description: "Rigobot: 4Geeks Academy's AI coding mentor. Real-time feedback, personalized coaching, and 24/7 support built into every course. Learn faster, code smarter."
   redirects:
     - /rigobot-ai-coding-mentor
 schema:

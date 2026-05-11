@@ -5,8 +5,8 @@ meta:
   robots: noindex, nofollow
   priority: 0.8
   change_frequency: weekly
-  page_title: sample page | 4Geeks
-  description: sample page - Learn more about this topic at 4Geeks Academy.
+  page_title: "Sample Page | 4Geeks Academy Pro"
+  description: "Sample page - Learn more about this topic and related resources at 4Geeks Academy."
   redirects:
     - /sample-page
 schema:

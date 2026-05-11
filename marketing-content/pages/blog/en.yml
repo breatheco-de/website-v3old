@@ -2,7 +2,7 @@ slug: blog
 template: default
 title: Blog
 meta:
-  page_title: Coding Blog | Learn at 4Geeks
+  page_title: "Coding Blog | Learn at 4Geeks Academy"
   description: Read the latest news, tutorials and articles about coding, technology and education at 4Geeks Academy.
   robots: index, follow
   priority: 0.9

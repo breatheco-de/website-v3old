@@ -5,7 +5,7 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Privacy Policy | 4Geeks
+  page_title: "Official Privacy Policy | 4Geeks"
   description: Discover how 4Geeks Academy protects your data with our comprehensive privacy policy, ensuring transparency and security for all users and students.
   redirects:
     - /privacy-policy

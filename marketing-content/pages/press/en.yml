@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Press & Media | 4Geeks
-  description: press - Learn more about this topic at 4Geeks Academy.
+  page_title: "4Geeks Academy Press and Media. Forbes, Newsweek and More."
+  description: "4Geeks Academy in the press: Forbes, Newsweek, NBC, Miami Herald and more. Top 5 coding bootcamp. Rated 4.9/5 across 2,500+ verified reviews."
   redirects:
     - /press
 schema:
