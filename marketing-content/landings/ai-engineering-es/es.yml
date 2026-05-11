@@ -548,16 +548,6 @@ sections:
       mobile: lg
       desktop: lg
     background: hsl(var(--muted))
-  - type: testimonials
-    section_id: testimonials-5drx5y
-    title: Resultados reales de graduados reales
-    subtitle: Únete a miles que han transformado sus carreras
-    related_features:
-      - content-and-syllabus
-      - career-support
-    rating_summary:
-      average: "4.7"
-      count: 1,294
   - type: numbered_steps
     section_id: numbered_steps-yrlztc
     version: "1.0"
