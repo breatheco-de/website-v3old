@@ -562,28 +562,6 @@ sections:
       desktop: 6xl
     marginY:
       desktop: none md
-  - type: features_grid
-    version: "1.0"
-    variant: stats-text-card
-    title: Why AI Engineering Now
-    subtitle: The demand is there. The talent isn't.
-    description: AI Engineers build intelligent systems, automate workflows, and deliver the AI-powered systems companies urgently need. Demand is exploding, but only 3% of the workforce has the skills to fill these roles. That's not a problem. That's your opening.
-    card_color: bg-background
-    background: hsl(var(--secondary))
-    items:
-      - value: 42x
-        title: Growth in Forward-Deployed Engineering since 2023
-      - value: 70%
-        title: YoY growth in US jobs requiring AI skills
-      - value: $95K-$135K
-        title: Starting salary range for AI Engineering roles in the US
-    section_id: features_grid-o2kd1x
-    marginY:
-      mobile: md none
-      desktop: md none
-    paddingY:
-      mobile: none md
-      desktop: none md
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
