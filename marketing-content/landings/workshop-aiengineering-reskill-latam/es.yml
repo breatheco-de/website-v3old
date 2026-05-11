@@ -291,9 +291,9 @@ sections:
     version: v1.0
     title: Preguntas Frecuentes
     items:
-      - question: ¿Necesito experiencia previa?
+      - question: ¿Necesito experiencia previa para realizar la formación en AI Engineering?
         answer: No. Pero sí necesitas compromiso y mentalidad de aprendizaje. Lo importante es tener interés en aprender y aplicar tecnología a problemas reales.
-      - question: ¿Esto me garantiza empleo?
+      - question: ¿Realizar la formación en AI Engineering me garantiza empleo?
         answer: No, no hay garantías. Pero sí te posiciona en una de las áreas con mayor crecimiento y demanda actual. El objetivo es ayudarte a entender si este camino puede mejorar tu empleabilidad.
       - question: ¿Es técnico el webinar?
         answer: No. Es una sesión estratégica para entender el cambio del mercado y ayudarte a tomar una decisión informada.
