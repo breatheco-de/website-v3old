@@ -406,33 +406,30 @@ sections:
       mobile: none
       desktop: none sm
     section_id: syllabus-4x0ck1
-  - type: award_badges
-    section_id: award_badges-0b4qye
-    version: v1.0
-    variant: detailed
-    showBorder: false
-    items:
-      - id: coursereport-detailed
-        alt: Course Report Badge 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-        logoHeight: h-16
-        description: Reconocida como una de las mejores academias tecnológicas a nivel mundial
-        link: https://www.coursereport.com
-        linkText: Leer reviews
-      - id: logo-premios-excelencia-educativa
-        alt: 17 Premios Excelencia Educativa
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios-excelencia-educativa-17_1770392145139.png
-        logoHeight: h-16
-        description: La mejor inversión para quienes empiezan de cero o buscan un cambio de carrera
-      - id: logo-switchup-best-bootcamps-2025
-        alt: SwitchUp Best Bootcamps 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
-        logoHeight: h-16
-        description: La academia tecnológica mejor valorada, en base a reseñas verificadas de alumnos
-        link: https://www.switchup.org
-        linkText: Leer reviews
+  - type: two_column
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    left:
+      video: https://www.youtube.com/watch?v=rtpfwwfE0yY
+      justify: center
+    right:
+      heading: "Joshua Bravo: de asistente de cocina a desarrollador Full Stack en una fintech"
+      sub_heading: Graduado de 4Geeks Academy, Chile
+      description: Joshua trabajaba como asistente de cocina y contable mientras intentaba aprender a programar solo con tutoriales de YouTube. Sabía que necesitaba algo más estructurado para dar el salto real. Tras completar el bootcamp de Full Stack en 4Geeks, construyó aplicaciones web completas de cero y consiguió empleo como desarrollador en Regcheq, una startup fintech. Hoy hace lo que le apasiona.
+      button:
+        text: Comprueba si cumples los requisitos
+        url: "#hero-lt4ge6"
+        variant: primary
+        icon: Rocket
+    gap: "8"
+    marginY:
+      desktop: none md
+    section_id: ai_learning-2hqf27
+    background: hsl(var(--secondary))
     paddingY:
-      desktop: none
+      desktop: lg
   - type: ai_learning
     section_id: ai_learning-n6biuo
     badge: ¿Por qué 4Geeks?
