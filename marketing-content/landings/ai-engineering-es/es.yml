@@ -548,42 +548,6 @@ sections:
       mobile: lg
       desktop: lg
     background: hsl(var(--muted))
-  - type: whos_hiring
-    section_id: whos_hiring-bgkh82
-    variant: carousel
-    title: Empresas líderes confían en nuestro talento
-    subtitle: Nuestros graduados trabajan en empresas líderes de tecnología.
-    logos:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
-        alt: Jooble
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/images-removebg-preview_1767642331872.png
-        alt: Boats Group
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
-        alt: Microsoft
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
-        alt: National Geographic
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70.webp
-        alt: eBay
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70.webp
-        alt: Meta
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
-        alt: Evernote
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70.webp
-        alt: Telefonica
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
-        alt: Uber
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
-        alt: Twilio
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70.webp
-        alt: Neo9
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70.webp
-        alt: Google Developers
-    marginY:
-      mobile: none xl
-      desktop: none xl
-    paddingY:
-      mobile: lg none
-      desktop: lg none
   - type: testimonials
     section_id: testimonials-5drx5y
     title: Resultados reales de graduados reales
