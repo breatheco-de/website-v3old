@@ -166,31 +166,51 @@ sections:
     paddingY:
       desktop: lg
     background: hsl(var(--secondary))
-  - type: two_column
-    version: v1.0
-    proportions:
-      - 6
-      - 6
-    alignment: center
-    gap: "8"
-    left:
-      video: https://www.youtube.com/shorts/-SpU1PWNBF4?feature=share
-      justify: center
-    right:
-      heading: Por qué Ingeniería de IA es la carrera más importante de esta década
-      sub_heading: Y por qué el mercado necesita ingenieros ahora mismo
-      description: El 87% de las empresas no encuentra los ingenieros de IA que necesita. La demanda crece un 30% cada año y los salarios de entrada superan los $20K USD. Este programa existe para que seas tú quien cubra esa demanda.
-      button:
-        text: Iniciar mi aplicación
-        url: "#hero-byj387"
-        variant: primary
-        icon: Rocket
-    section_id: two_column-r882vr
+  - type: graduates_stats
+    heading: Nuestros Graduados Consiguen Empleo. Rápido.
+    subheading: Más de 6,000 graduados en todo el mundo. Ahora prosperando en tecnología.
+    stats:
+      - value: {{ global.global_job_placement_rate | 84% }}%
+        label: Tasa de contratación promedio
+      - value: {{ global.global_salary_increase | 55% }}%
+        label: Aumento salarial promedio en el nuevo puesto
+      - value: 3-6 meses
+        label: Tiempo promedio para conseguir empleo
+    collage_images:
+      - image_id: group-7085-1
+        col_span: 5
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
+        id: gemini-generated-image-uwpyyruwpyyruwpy
+        object_scale: 1.1
+        object_position: 50% 30%
+      - image_id: group-7086-1
+        col_span: 7
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
+        id: gemini-generated-image-pd2u4upd2u4upd2u
+        object_scale: 1
+        transform_origin: 50% 50%
+        object_position: 50% 60%
+      - image_id: group-7084-1
+        col_span: 6
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
+        id: gemini-generated-image-dhko5mdhko5mdhko-1
+        object_scale: 1.05
+      - image_id: group-7087-1
+        col_span: 6
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
+        id: gemini-generated-image-wpk4yvwpk4yvwpk4
+        object_scale: 1.05
+        transform_origin: 50% 50%
+        object_position: 50% 45%
+    section_id: graduates_stats-cnxqbb
     marginY:
-      desktop: none sm
-    paddingY:
-      desktop: lg
-    background: hsl(var(--secondary))
+      desktop: none
+    maxWidth:
+      desktop: 6xl
   - type: features_grid
     section_id: features_grid-alnt5t
     version: "1.0"
