@@ -1,5 +1,5 @@
-slug: workshop-aiengineering-reskill
-title: workshop-aiengineering-reskill
+slug: workshop-aiengineering-reskill-latam
+title: workshop-aiengineering-reskill-latam
 locale: es
 meta:
   robots: index, follow
@@ -62,7 +62,6 @@ sections:
         phone:
           visible: true
           required: true
-          default_country: ES
         program:
           visible: false
           default: ai-engineering
@@ -80,7 +79,7 @@ sections:
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Reserva tu plaza gratuita
-    form_card_subtitle: Jueves 21 de mayo · 11:00h ó 18:00h · Directo por YouTube
+    form_card_subtitle: Jueves 21 de mayo · México 18:00h | Colombia 19:00h | Venezuela / Chile 20:00h | Argentina / Uruguay 21:00h · Directo por YouTube
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: false
     awards_marquee:
@@ -125,7 +124,7 @@ sections:
       desktop: md none
     marginX:
       desktop: none
-    section_id: hero-0dpkdy
+    section_id: hero-9v1ywg
   - type: human_and_ai_duo
     version: "1.0"
     heading: El mercado laboral ha cambiado
@@ -144,7 +143,7 @@ sections:
           - text: Integrar herramientas, APIs y modelos de IA
           - text: Crear sistemas que resuelvan problemas reales de negocio
     background: bg-background
-    section_id: human_and_ai_duo-pnpw76
+    section_id: human_and_ai_duo-ljstr8
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/Team-work-IA.png
         alt: "Image: Team work IA"
@@ -171,7 +170,7 @@ sections:
         border_radius: 0.5rem
         id: mujer-ai-workflow
   - type: awards_marquee
-    section_id: awards_marquee-o9ymal
+    section_id: awards_marquee-tusr9t
     version: "1.0"
     speed: 40
     gradient: true
@@ -256,7 +255,7 @@ sections:
         linkedin_url: https://www.linkedin.com/in/susanarr/
         alt: "Image: image (2)"
         id: image-2
-    section_id: profiles_carousel-31wit2
+    section_id: profiles_carousel-gix825
   - type: banner
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
@@ -269,10 +268,10 @@ sections:
     description: Solo los asistentes recibirán acceso a formaciones gratuitas de 4Geeks Academy
     cta:
       text: ¡Reserva tu lugar!
-      url: "#hero-0dpkdy"
+      url: "#hero-9v1ywg"
       variant: primary
     background: gradient
-    section_id: banner-19dbvk
+    section_id: banner-6npypv
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
@@ -287,14 +286,14 @@ sections:
       - icon: headset
         title: 24/7 Community Support
         description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
-    section_id: mentorship-39a3fa
+    section_id: mentorship-dv5fgt
   - type: faq
     version: v1.0
     title: Preguntas Frecuentes
     items:
-      - question: ¿Necesito experiencia previa para hacer la formación en AI Engineering?
+      - question: ¿Necesito experiencia previa para realizar la formación en AI Engineering?
         answer: No. Pero sí necesitas compromiso y mentalidad de aprendizaje. Lo importante es tener interés en aprender y aplicar tecnología a problemas reales.
-      - question: ¿La formación en AI Engineering me garantiza empleo?
+      - question: ¿Realizar la formación en AI Engineering me garantiza empleo?
         answer: No, no hay garantías. Pero sí te posiciona en una de las áreas con mayor crecimiento y demanda actual. El objetivo es ayudarte a entender si este camino puede mejorar tu empleabilidad.
       - question: ¿Es técnico el webinar?
         answer: No. Es una sesión estratégica para entender el cambio del mercado y ayudarte a tomar una decisión informada.
@@ -302,9 +301,9 @@ sections:
         answer: No es inmediato, pero tampoco es un proceso de años. Con una formación estructurada, en unos meses puedes adquirir las bases necesarias para empezar a construir proyectos y posicionarte en este nuevo mercado.
       - question: ¿Y si no estoy seguro de querer cambiar de carrera?
         answer: Este webinar es justo para esto. Para que puedas entender el contexto actual y decidir con información si este camino tiene sentido para ti o no.
-    section_id: faq-4w2e25
+    section_id: faq-sxh4nl
   - type: whos_hiring
-    section_id: whos_hiring-3quxfr
+    section_id: whos_hiring-56qa9a
     variant: carousel
     title: Empresas líderes confían en nuestro talento
     subtitle: Nuestros graduados trabajan en empresas líderes de tecnología.
@@ -340,7 +339,7 @@ sections:
       mobile: lg none
       desktop: lg none
   - type: footer
-    section_id: footer-2ig6x4
+    section_id: footer-qjxpsb
     version: "1.0"
     copyright_text: 2024 4Geeks. Todos los derechos reservados.
     paddingY:
