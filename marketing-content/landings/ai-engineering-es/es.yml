@@ -574,9 +574,8 @@ sections:
     bullet_icon: Check
     bullet_icon_color: text-primary
   - type: testimonials_slide
-    version: "1.0"
-    title: Real Careers Start Here — Just Ask Our Students
-    description: Our grads are in high demand, with over 84% hired within six months of finishing the program.
+    title: Dieron el salto y esto es lo que pasó.
+    description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa de Chile, Uruguay y Costa Rica. Ahora son desarrolladores con empleos reales y salarios que no esperaban.
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
@@ -674,7 +673,7 @@ sections:
           name: Costa Rica
           iso: cr
         contributor: CINDE-BID
-        description: Luis came to the program without any previous experience, He is now a software developer working on a tech firm in Costa Rica.
+        description: Luis came to the program without any previous experience. He is now a software developer working at a tech firm in Costa Rica.
         achievement: He got a 50% increase in his salary
       - name: Leandro Matonte
         img: https://storage.googleapis.com/4geeks-academy-website/media/Leandro_1764725403142.jpeg
@@ -683,9 +682,10 @@ sections:
           name: Uruguay
           iso: uy
         contributor: UTEC-BID
-        description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
+        description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
-    section_id: testimonials_slide-v4wez7
+    section_id: testimonials_slide-731ujk
+    background: hsl(var(--card))
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para convertirte en Ingeniero de IA?
