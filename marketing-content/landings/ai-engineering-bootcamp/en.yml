@@ -8,7 +8,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: "24 Weeks. Production-Ready Skills. A Career That Pays."
+    title: 24 Weeks. Production-Ready Skills. A Career That Pays.
     brand_mark:
       prefix: The AI Engineering
       highlight: Bootcamp That Delivers.
@@ -483,7 +483,7 @@ sections:
         left_image_object_fit: cover
         left_image_object_position: center
         left_stat:
-          value: "{{ global.number_of_hiring_partners_aprox | 250 }}+"
+          value: {{ global.number_of_hiring_partners_aprox | 250 }}+
           label: companies in 4Geeks employer network
         right_bullets:
           - icon: IconUserPlus
@@ -575,7 +575,7 @@ sections:
         title: Growth in Forward-Deployed Engineering since 2023
       - value: 70%
         title: YoY growth in US jobs requiring AI skills
-      - value: "$95K-$135K"
+      - value: $95K-$135K
         title: Starting salary range for AI Engineering roles in the US
     section_id: features_grid-o2kd1x
     marginY:
@@ -765,39 +765,6 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg
-  - type: why_learn_ai
-    variant: laptop-edge
-    laptop_image:
-      image_id: laptop
-    title: Land the Job. Or Your Money Back.
-    description: "<span style=\"font-size: 1.5rem;\"><span><span></span></span></span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span><span style=\"line-height: 1.625;\"><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span></span><span style=\"line-height: 1.625;\"><span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\">Our AI engineering bootcamp comes with the option of adding a Job Guarantee.*</span></span></span></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Not hired within 9 months?&nbsp;</span><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Full tuition refund.&nbsp;</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">That's how confident we are in what we built.</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span></span></span></div></span><span style=\"line-height: 1.1;\"><span><span><span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"><br></span></div></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span><span></span></span></span></div><div><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">*The Job Guarantee is not available in all regions.&nbsp;</span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem;\">Terms and conditions apply.</a></div></div></span></span></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem;\"></a></div></div></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem;\"></a></div></div>"
-    section_id: why_learn_ai-9pbrek
-    marginY:
-      desktop: md lg
-    paddingY:
-      desktop: sm none
-    background: hsl(210 100% 50% / 0.05)
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - costa-rica
-      - mexicocity-mexico
-    marginX:
-      desktop: none
-    maxWidth:
-      desktop: none
-    showOn: desktop
   - type: cards_deck
     version: "1.0"
     heading: Real Stories of Real Career Change
