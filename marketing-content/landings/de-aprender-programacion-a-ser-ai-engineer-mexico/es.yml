@@ -193,7 +193,6 @@ sections:
     paddingY:
       desktop: lg
     background: hsl(var(--secondary))
-    showOn: desktop
   - type: graduates_stats
     heading: Nuestros Graduados Consiguen Empleo. Rápido.
     subheading: Más de 6,000 graduados en todo el mundo. Ahora prosperando en tecnología.
