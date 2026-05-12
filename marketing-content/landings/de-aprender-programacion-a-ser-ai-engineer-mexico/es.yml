@@ -193,6 +193,7 @@ sections:
     paddingY:
       desktop: lg
     background: hsl(var(--secondary))
+    showOn: desktop
   - type: two_column
     version: v1.0
     proportions:
