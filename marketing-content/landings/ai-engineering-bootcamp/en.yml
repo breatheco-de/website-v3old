@@ -964,36 +964,105 @@ sections:
     paddingY:
       desktop: none sm
     load: eager
-  - type: cards_deck
+  - type: hero
     version: "1.0"
-    heading: Real Stories of Real Career Change
-    subtitle: Thousands of graduates have used our programs to break into tech. Here are just a few of their stories, from salary increases to total career reinventions.
-    cards:
-      - video:
-          url: https://youtu.be/ln3bQsV1BaQ
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
-        author_name: Hernán García
-        title: "\"I got offers from companies I wasn't expecting\""
-        description: Hernán landed a job in tech within one month of starting his job search.
-        alt: Geekforce
-      - video:
-          url: https://youtu.be/MBXqEnhodx0
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
-        author_name: Joao Henrique
-        title: "\"You'll always have support from the Academy\""
-        description: Joao shares his experience receiving coding mentorship as a student, after graduating, and in his current job.
-        alt: Geekpal
-      - video:
-          url: https://youtu.be/oeX_ocy6zv4
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
-        author_name: Jonathan Ferragut
-        title: "\"Taking a course like this benefits us in a lot of different ways\""
-        description: Jonathan shares how the program helped him build confidence and create projects from scratch.
-        alt: Geekpal
-    section_id: cards_deck-p33ah5
+    variant: productShowcase
+    title: 24 Weeks. Production-Ready Skills. A Career That Pays.
+    brand_mark:
+      prefix: The AI Engineering
+      highlight: Bootcamp That Delivers.
+      color: primary
+    description: "<span style=\"font-size: 1.125rem;\">AI Engineer is the fastest-growing job of 2026, and only 3% of the workforce is qualified to fill these roles. Our intensive bootcamp trains you for exactly what the market demands, with unlimited mentorship and lifelong career support. Graduates land roles paying $95K-$135K+.</span>"
+    bullets:
+      - text: "Build a complete AI-native business: frontend, agents, pipelines, RAG, and automation integrated in a single system"
+      - text: Unlimited 1:1 mentorship and lifelong career support, yours from day one
+      - text: "Job Guarantee option: get hired within 9 months or we refund your full tuition*"
+    image_object_fit: none
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Start Your Application
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Email Address
+        first_name:
+          visible: true
+          required: true
+          placeholder: First Name
+        last_name:
+          visible: true
+          required: true
+          placeholder: Last Name
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: Check your inbox! Your syllabus is on the way.
+      terms_url: /terms-and-conditions
+      privacy_url: /privacy-policy
+      consent:
+        sms: true
+        marketing: true
+        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.
+        sms_text: I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4-6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.
+        sms_usa_only: true
+      show_terms: true
+    form_vertical_align: bottom
+    form_card_text_color: hsl(var(--foreground))
+    form_card_title: Get the Full AI Engineering Bootcamp Curriculum
+    form_card_subtitle: "Fill in your details and we'll send you the complete program overview: curriculum, pricing, financing options and more. It only takes 2 minutes."
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+    show_awards_marquee: true
+    awards_marquee:
+      items:
+        - id: switchup-2025
+          alt: SwitchUp - Best Coding Bootcamps 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+          logoHeight: 55px
+        - id: course-report-2024
+          alt: Course Report - Best Coding Bootcamp 2024
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+          logoHeight: 55px
+        - id: tech-hub
+          alt: South Florida Tech Hub
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+          logoHeight: 55px
+        - id: ebootcamp
+          alt: eBootcamp Top
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+          logoHeight: 55px
+        - id: premios-tecnologia
+          alt: Premios Tecnología Siglo XXI
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+          logoHeight: 55px
+        - id: newsweek
+          alt: Newsweek
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+          logoHeight: 55px
+        - id: reviews-coursereport
+          alt: 4.9 Stars on Course Report Reviews
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+          logoHeight: 55px
+        - id: excelencia-educativa
+          alt: Educational Excellence - Institutional Quality
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+          logoHeight: 55px
+    video_title: GeekForce Career Support
+    marginY:
+      desktop: none
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    paddingY:
+      desktop: md none
+    marginX:
+      desktop: none
+    section_id: hero-nzpyph
+    awards_marquee_at_left_column: true
   - settings:
       loading:
         eager_count: 3
