@@ -453,7 +453,7 @@ sections:
         icon: Rocket
     gap: "8"
     marginY:
-      desktop: none xl
+      desktop: none md
     section_id: two_column-1hmc9c
     background: hsl(var(--card))
     paddingY:
