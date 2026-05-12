@@ -485,14 +485,13 @@ sections:
       desktop: none lg
     background: hsl(var(--secondary))
   - type: ai_learning
-    section_id: ai_learning-ojmt1j
+    section_id: ai_learning-qmjitd
     badge: ¿Por qué 4Geeks?
     title: La academia que no te abandona cuando te gradúas
     description: La mayoría de academias te dan un curso y te desean suerte. 4Geeks se queda contigo desde tu primera línea de código hasta tu primera oferta de trabajo y más allá.
     features:
       - icon: TrendingUp
-        title: Apoyo de carrera construido para el mercado tech en México
-        description: ""
+        title: Apoyo de carrera construido para el mercado tech
         show_rigobot_logo: true
         bullets:
           - text: Coaching 1:1 enfocado en conseguir roles de Ingeniería de IA específicamente
@@ -500,27 +499,17 @@ sections:
           - text: Preparación para entrevistas técnicas y negociación salarial
           - text: Apoyo de carrera de por vida, no solo hasta que te gradúas
         video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
-        cta:
-          text: Comprueba si cumples los requisitos
-          url: "#hero-aawpfv"
-          variant: primary
       - icon: Robot
         title: Aprende más rápido con un tutor de IA que sabe dónde te has atascado
-        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Rigobot te da feedback instantáneo sobre tu código sin esperar a que haya un humano disponible
           - text: Adapta las explicaciones a tu nivel exacto y ritmo de aprendizaje
           - text: Desbloquéate a las 2 de la madrugada sin perder el hilo
           - text: Cientos de ejercicios interactivos en Learnpack, nuestra plataforma de aprendizaje
-        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-        cta:
-          text: Comprueba si cumples los requisitos
-          url: "#hero-aawpfv"
-          variant: primary
+        video_url: https://youtu.be/NRuShbSLtg0
       - icon: Headset
         title: Mentoría 1:1 ilimitada de por vida, no solo mientras estudias
-        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Reserva sesiones 1:1 ilimitadas con ingenieros senior incluso después de graduarte
@@ -533,7 +522,7 @@ sections:
       desktop: lg md
     background: hsl(var(--card))
     marginY:
-      desktop: none xl
+      desktop: none
   - type: certificate
     section_id: certificate-k9yuxj
     title: Tu certificado. Tu ventaja salarial.
