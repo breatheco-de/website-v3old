@@ -103,7 +103,7 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
     paddingY:
       mobile: md none
-      desktop: md none
+      desktop: none
     marginY:
       mobile: none
       desktop: none xl
