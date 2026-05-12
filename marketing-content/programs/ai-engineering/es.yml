@@ -1,0 +1,821 @@
+slug: ingenieria-ia
+title: Ingeniería de Inteligencia Artificial
+job_role: Ingeniero de Inteligencia Artificial
+settings:
+  loading:
+    eager_count: 3
+meta:
+  page_title: Programa de Carrera Ingeniero de IA | 4Geeks
+  description: Conviértete en Ingeniero de IA en 24 semanas con mentoría ilimitada 1:1, orientación profesional y proyectos prácticos. Inicia una carrera con salarios iniciales de $95K-$135K.
+  robots: index, follow
+  og_image: /images/programs/ai-engineering-og.jpg
+  priority: 0.9
+  change_frequency: weekly
+  redirects:
+    - /bootcamp/ai-engineering-es
+    - /programas/ingeniero-ia
+    - /cursos/ingenieria-ia
+schema:
+  include:
+    - organization
+    - website
+    - courses:ai-engineering
+sections:
+  - type: hero
+    section_id: hero-gckpm4
+    version: "1.3"
+    variant: course
+    title: Ingeniería de Inteligencia Artificial
+    subtitle: Aprende a diseñar, desarrollar y desplegar sistemas completos de Inteligencia Artificial utilizados en entornos reales de producción.
+    students_enrolled:
+      avatars:
+        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
+        - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
+        - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
+      count: +6000 graduados
+    bullet_points:
+      - Transforma un Caso de Empresa completo en un sistema totalmente nativo de IA, nivel por nivel.
+      - Integra modelos inteligentes en software real, conectando datos, arquitectura y usuarios.
+      - Utiliza herramientas modernas de IA y agentes de código para construir y lanzar software más rápido.
+    tutors:
+      - name: Marco Gonzalo
+        role: Instructor Principal
+        image: https://storage.googleapis.com/4geeks-academy-website/media/410890.jpg
+      - name: Rigo
+        role: Tutor de IA
+        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
+    tutors_label: "Tus mentores:"
+    description: Construye sistemas reales listos para producción en nuestro programa de Ingeniería en IA, con mentoría 1:1 ilimitada y orientación profesional enfocada en empleabilidad. Conviértete en el profesional que las empresas están buscando.
+    signup_card:
+      title: Recibe el Plan de Estudios Completo
+      description: Accede a la hoja de ruta de 10 hitos y descubre nuestra Metodología de Caso de Empresa.
+      cta_button:
+        text: Recibir el Plan de Estudios
+        url: "#apply-modal"
+        variant: primary
+      login_link:
+        text: ¿Ya eres estudiante? Inicia sesión.
+        url: https://4geeks.com/es/login
+        media: null
+      type: video
+      src: https://www.youtube.com/shorts/sSxJnelPJT8
+      thumbnail: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
+      alt: AI Engineering program introduction
+      features:
+        - icon: calendar
+          text: Programa de {{ global.ai_engineering_week_duration | 24 }} semanas o versión acelerada de 12 semanas
+        - icon: IconBriefcase
+          text: Contenido orientado a la práctica
+        - icon: IconRobot
+          text: Aprendizaje y feedback con IA
+        - icon: IconUsers
+          text: Proporción {{ global.global_teacher_student_ratio | 1:8 }} de estudiante–profesor
+        - icon: IconUserCheck
+          text: Mentoría 1:1 ilimitada
+        - icon: book
+          text: Portafolio listo para producción
+    paddingY:
+      desktop: md
+    marginY:
+      desktop: none
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+  - type: hero
+    version: "1.3"
+    variant: course
+    title: Ingeniería de Inteligencia Artificial
+    subtitle: Aprende a diseñar, desarrollar y desplegar sistemas completos de Inteligencia Artificial utilizados en entornos reales de producción.
+    students_enrolled:
+      avatars:
+        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
+        - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
+        - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
+      count: +6000 graduados
+    bullet_points:
+      - Transforma un Caso de Empresa completo en un sistema totalmente nativo de IA, nivel por nivel.
+      - Integra modelos inteligentes en software real, conectando datos, arquitectura y usuarios.
+      - Utiliza herramientas modernas de IA y agentes de código para construir y lanzar software más rápido.
+    tutors:
+      - name: Marco Gonzalo
+        role: Instructor Principal
+        image: https://storage.googleapis.com/4geeks-academy-website/media/410890.jpg
+      - name: Rigo
+        role: Tutor de IA
+        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
+    tutors_label: "Tus mentores:"
+    description: Construye sistemas reales listos para producción en nuestro programa de Ingeniería en IA, con mentoría 1:1 ilimitada y orientación profesional enfocada en empleabilidad. Conviértete en el profesional que las empresas están buscando.
+    signup_card:
+      title: Recibe el plan de estudios completo
+      description: Accede a la hoja de ruta de 10 hitos y descubre nuestra Metodología de Caso de Empresa.
+      cta_button:
+        text: Recibir el plan de estudios
+        url: "#apply-modal"
+        variant: primary
+      login_link:
+        text: ¿Ya eres estudiante? Inicia sesión.
+        url: https://4geeks.com/es/login
+      features:
+        - icon: calendar
+          text: Programa de {{ global.ai_engineering_week_duration | 24 }} semanas
+        - icon: IconBriefcase
+          text: Contenido orientado a la práctica
+        - icon: IconRobot
+          text: Aprendizaje y feedback con IA
+        - icon: IconUsers
+          text: Proporción {{ global.global_teacher_student_ratio | 1:8 }} de estudiante–profesor
+        - icon: IconUserCheck
+          text: Mentoría 1:1 ilimitada
+        - icon: book
+          text: Portafolio listo para producción
+    section_id: hero-fd5q96
+    paddingY:
+      desktop: md
+    marginY:
+      desktop: none
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
+    video:
+      url: https://www.youtube.com/watch?v=hUgwkBtYtUI
+      preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-10-120305.png
+  - type: modal
+    version: "1.0"
+    section_id: apply-modal
+    heading: Recibir el Plan de Estudios
+    description: Completa el siguiente formulario y nos comunicaremos contigo dentro de 24 horas.
+    show_close: true
+    size: md
+    form:
+      variant: stacked
+      submit_label: Obtener
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          required: true
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
+  - type: awards_marquee
+    section_id: awards_marquee-qmu9oy
+    version: v1.0
+    speed: 40
+    gradient: true
+    gradientWidth: 400
+    items:
+      - id: switchup-2025
+        alt: SwitchUp - Mejores Bootcamps de Código 2025
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        logoHeight: 64px
+      - id: course-report-2024
+        alt: Course Report - Mejor Bootcamp de Código 2024
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+        logoHeight: 64px
+      - id: tech-hub
+        alt: South Florida Tech Hub
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70.webp
+        logoHeight: 64px
+      - id: ebootcamp
+        alt: eBootcamp Top
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp_top-601x488-q70.webp
+        logoHeight: 64px
+      - id: premios-tecnologia
+        alt: Premios Tecnología Siglo XXI
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+        logoHeight: 64px
+      - id: newsweek
+        alt: Newsweek
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
+        logoHeight: 64px
+      - id: reviews-coursereport
+        alt: 4.9 en Reseñas de Course Report
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+        logoHeight: 64px
+      - id: excelencia-educativa
+        alt: Excelencia Educativa - Calidad Institucional
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
+        logoHeight: 64px
+    paddingY:
+      desktop: none
+    marginY:
+      desktop: md lg
+  - type: features_grid
+    section_id: features_grid-k2kav6
+    version: "1.2"
+    variant: stats-text
+    maxWidth:
+      desktop: 6xl
+    title: Por qué estudiar Ingeniería de IA ahora
+    subtitle: El mercado laboral de inteligencia artificial está creciendo más rápido que la disponibilidad de talento cualificado.
+    description: Informes de Microsoft y LinkedIn destacan que las habilidades en inteligencia artificial se han convertido en una prioridad estratégica para las empresas, impulsadas por la adopción masiva de herramientas de IA generativa. Formarte ahora te posiciona en el centro de una transformación tecnológica que está redefiniendo industrias enteras.
+    background: bg-muted/30
+    items:
+      - id: "1"
+        value: "800.000"
+        title: Roles relacionados con IA proyectados para 2027
+      - id: "2"
+        value: ~30%
+        title: Crecimiento anual en vacantes de IA
+      - id: "3"
+        value: {{ global.average_salary_ai_engineer | $95K–$135K }}
+        title: Rango salarial para Ingenieros de IA
+  - type: syllabus
+    section_id: syllabus-voteq8
+    variant: program-modules
+    program_title: AI Native Full Stack — Módulos del programa
+    program_description: Construye sistemas reales con IA desde el primer día. Este currículo se organiza en dos tracks — IA Central y Agentes, e Infraestructura para IA — más un capstone que integra todo en una empresa completamente transformada y desplegada. Apoyado por fundamentos complementarios en herramientas y prácticas de desarrollo moderno a lo largo del programa.
+    tech_logos:
+      - name: Python
+        icon: python
+      - name: OpenAI
+        icon: openai
+      - name: n8n
+        icon: n8n
+      - name: Docker
+        icon: docker
+      - name: React
+        icon: react
+    module_cards:
+      - title: Asistentes Personales con OpenClaw
+        duration: IA Central y Agentes
+        objectives:
+          - Configurar un agente de IA de código abierto como asistente personal
+          - Asignar tareas e integrar aplicaciones externas con el agente
+        projects: Despliega y configura un asistente de IA autoalojado — tuyo, bajo tu control, sin depender de proveedores externos.
+        orientation: vertical
+        icon: IconRobot
+      - title: Asistentes Personales Avanzados con OpenClaw
+        duration: IA Central y Agentes
+        objectives:
+          - Identificar escenarios donde un agente resuelve problemas reales de negocio
+          - Desarrollar habilidades personalizadas para OpenClaw
+          - Implementar memoria contextual (episódica, semántica, procedimental)
+          - Configuración y extensión avanzada del agente
+        projects: Convierte tu asistente básico en una herramienta productiva con autonomía real en contextos de negocio.
+        orientation: vertical
+        icon: IconRobot
+      - title: Trabajar con Agentes de Código IA
+        duration: IA Central y Agentes
+        objectives:
+          - Construir bancos de memoria y reglas de contexto desde una base de código existente
+          - Escribir especificaciones ejecutables para agentes (agent specs)
+          - Sintetizar habilidades reutilizables para que los agentes actúen con precisión
+        projects: Construye bancos de memoria y reglas de contexto que conviertan un agente de código en un colaborador que entiende tu base de código.
+        orientation: vertical
+        icon: IconCode
+      - title: LLMs, Entrenamiento y RAG
+        duration: IA Central y Agentes
+        objectives:
+          - Preparar datos y seleccionar modelos para entrenamiento
+          - Implementar técnicas RAG en bases de conocimiento propietarias
+          - Trabajar con bases de datos vectoriales
+          - Evaluar, depurar e integrar modelos en producción
+        projects: Implementa RAG para que tu agente responda con conocimiento propietario y actualizado.
+        orientation: vertical
+        icon: IconDatabase
+      - title: Ingeniería Agéntica
+        duration: IA Central y Agentes
+        objectives:
+          - Construir agentes con llamadas a herramientas (function calls reales)
+          - Implementar guardrails como mecanismo de seguridad y control
+          - Proveer herramientas al agente mediante CLIs optimizadas para IA
+          - Extender las capacidades del agente con el Protocolo de Contexto de Modelo (MCP)
+          - Dar memoria persistente a un agente
+        projects: Construye agentes que llaman herramientas, acceden a sistemas externos vía MCPs y CLIs, y operan con memoria persistente.
+        orientation: vertical
+        icon: IconBolt
+      - title: Flujos de Trabajo Agénticos
+        duration: IA Central y Agentes
+        objectives:
+          - Diseñar sistemas multi-agente con enrutamiento y arbitraje
+          - Implementar memoria compartida entre agentes
+          - Desplegar flujos de trabajo agénticos con funciones serverless y durables
+        projects: Diseña sistemas donde múltiples agentes colaboran, distribuyen tareas y funcionan de forma autónoma a escala.
+        orientation: vertical
+        icon: IconLayoutKanban
+      - title: Desarrollo Backend con Agentes de Código
+        duration: Infraestructura para IA
+        objectives:
+          - Diseñar arquitecturas backend para soluciones potenciadas por IA
+          - Crear bucles de agente integrando LLMs con APIs
+          - Implementar almacenamiento ligero y procesamiento de datos CSV
+          - Construir y exponer APIs REST para frontends y agentes
+        projects: Construye APIs robustas con FastAPI, implementa bucles de agente en Python y diseña arquitecturas backend orientadas a casos de uso de IA.
+        orientation: vertical
+        icon: IconServer
+      - title: Automatizaciones de Flujos de Trabajo
+        duration: Infraestructura para IA
+        objectives:
+          - Modelar lógica de negocio con diagramas de flujo
+          - Implementar flujos básicos y avanzados en n8n
+          - Integrar LLMs y aplicaciones externas en automatizaciones
+          - Desplegar flujos mantenibles con manejo de errores
+        projects: Construye automatizaciones de negocio con IA en n8n que se ejecutan de forma autónoma sin intervención manual.
+        orientation: vertical
+        icon: IconCode
+      - title: Pipelines de Datos
+        duration: Infraestructura para IA
+        objectives:
+          - Manipular y preparar conjuntos de datos con Python
+          - Construir pipelines de datos desde la aplicación hasta sistemas de análisis
+        projects: Construye pipelines que toman datos crudos, los transforman y los dejan listos para alimentar modelos, reportes o agentes.
+        orientation: vertical
+        icon: IconChartBar
+      - title: Telemetría
+        duration: Infraestructura para IA
+        objectives:
+          - Optimizar el almacenamiento para reportes e integridad de datos
+          - Identificar oportunidades de recolección de datos en escenarios reales
+          - Recopilar telemetría y contexto del usuario desde la aplicación
+          - Construir reportes a partir de datos de telemetría
+        projects: Instrumenta aplicaciones para recopilar datos de comportamiento y tomar decisiones basadas en evidencia real.
+        orientation: vertical
+        icon: IconChartBar
+      - title: Procesamiento Asíncrono y Offloading
+        duration: Infraestructura para IA
+        objectives:
+          - Implementar procesamiento en segundo plano para tareas costosas
+          - Gestionar colas de procesos con workers
+          - Usar colas para delegar trabajo entre agentes y servicios
+        projects: Implementa sistemas de procesamiento en segundo plano y colas que permiten a los agentes delegar trabajo pesado sin bloquear a los usuarios.
+        orientation: vertical
+        icon: IconServer
+      - title: Tiempo Real
+        duration: Infraestructura para IA
+        objectives:
+          - Construir chats de soporte con LLMs en tiempo real
+          - Implementar streaming de respuestas con generadores (yield)
+          - Integrar webhooks y pub/sub en aplicaciones de IA
+        projects: Implementa comunicación en tiempo real entre usuarios y modelos de lenguaje usando streaming, WebSockets y arquitecturas orientadas a eventos.
+        orientation: vertical
+        icon: IconBolt
+      - title: Autenticación de Aplicaciones Web
+        duration: Infraestructura para IA
+        objectives:
+          - Implementar autenticación y restricciones de rutas en FastAPI
+          - Construir flujos de autenticación completos (login, tokens, sesiones)
+        projects: Implementa autenticación segura en FastAPI y construye flujos de login completos que definen lo que cada usuario — y agente — puede hacer.
+        orientation: vertical
+        icon: IconCode
+      - title: Manejo de Errores, Depuración y Testing
+        duration: Infraestructura para IA
+        objectives:
+          - Entender y gestionar errores en tiempo de ejecución con control de flujo
+          - Desarrollar suites de pruebas para aplicaciones robustas
+        projects: Verifica el código generado por IA con manejo controlado de errores y suites de pruebas que validan el comportamiento esperado.
+        orientation: vertical
+        icon: IconCode
+      - title: Ciberseguridad en Aplicaciones de IA
+        duration: Infraestructura para IA
+        objectives:
+          - Identificar y corregir las vulnerabilidades OWASP Top 10 en aplicaciones web
+          - Implementar prácticas de seguridad específicas para integraciones de IA
+          - Usar LLMs como herramienta de auditoría de ciberseguridad
+        projects: Identifica vulnerabilidades críticas en aplicaciones de IA e implementa prácticas seguras en la integración de modelos.
+        orientation: vertical
+        icon: IconCode
+      - title: Empresa Transformada por IA
+        duration: Capstone
+        objectives:
+          - Frontend generado por IA
+          - API con autenticación completa
+          - Pipeline de telemetría y reportes
+          - Flujos de trabajo automatizados generados por agentes
+          - Capa de conocimiento RAG
+          - Agentes con llamadas a herramientas
+          - Comunicación en tiempo real
+        projects: Integra todo lo aprendido en un sistema funcional y desplegado — la transformación completa de una empresa a través de la IA.
+        orientation: horizontal
+        icon: IconCode
+    marginY:
+      desktop: md none
+    paddingY:
+      desktop: md
+  - type: ai_learning
+    section_id: ai_learning-31ea7c
+    variant: feature-tabs
+    badge: ¿Por qué 4Geeks?
+    title: El Modelo de aprendizaje 4Geeks
+    description: Combina herramientas de IA, mentoría estructurada y acompañamiento profesional para avanzar con mayor claridad y resultados medibles.
+    features:
+      - icon: Robot
+        title: Aprende más rápido con herramientas de IA
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Feedback instantáneo de Rigobot, nuestro tutor de IA
+          - text: Orientación adaptada a tu nivel y progreso
+          - text: Soporte 24/7 para depuración y resolución de errores
+          - text: Cientos de ejercicios prácticos y evaluaciones técnicas
+        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
+      - icon: TrendingUp
+        title: Acompañamiento profesional enfocado en tech
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Coaching personalizado 1:1
+          - text: CVs y portafolios optimizados para filtros de IA
+          - text: Preparación para entrevistas y negociación salarial
+          - text: Acceso de por vida para apoyar tu crecimiento
+        video_url: https://youtu.be/-2ZvlgDnltc
+        cta:
+          text: ¡Empieza a aprender ahora!
+          url: /es/aplica
+          variant: primary
+      - icon: Headset
+        title: Mentoría 1:1 ilimitada y una comunidad activa
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Sesiones ilimitadas con mentores técnicos
+          - text: Proporción {{ global.global_teacher_student_ratio | 1:8 }} de estudiante–profesor para una orientación personalizada
+          - text: Trabajo colaborativo y revisiones en grupo
+          - text: Canales dedicados de Slack para soporte de código, bolsa de trabajo y consejos de carrera
+        image_id: community-support-cropped-800x476-q70
+        cta:
+          text: ¡Empieza a aprender ahora!
+          url: /es/aplica
+          variant: primary
+    marginY:
+      desktop: md none
+    paddingY:
+      desktop: md none
+  - type: certificate
+    section_id: certificate-hmh8cc
+    title: Empleabilidad y salarios reales en Ingeniería de IA
+    description: "Obtén un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida. Accede a roles bien remunerados:"
+    benefits:
+      - text: "Ingeniero de Software IA: $95K–$135K"
+      - text: "Ingeniero Full-Stack (Fluente en IA): $100K–$145K"
+      - text: "Ingeniero de Agentes: $105K–$150K"
+      - text: "Ingeniero de Automatización de Flujos: $85K–$120K"
+    card:
+      title: Ingeniero de IA
+      subtitle: Certificado de 4Geeks Academy
+      program_name: Ingeniería de IA
+    stats:
+      - value: {{ global.global_job_placement_rate | 84 }}%
+        label: Tasa de contratación
+        description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores están buscando.
+        benefits:
+          - text: Certificado reconocido por el Departamento de Educación de Florida
+          - text: Empresa de extremo a extremo diseñada con IA en tu portafolio
+          - text: Experiencia demostrada con agentes, flujos de trabajo y sistemas de IA
+          - text: Perfil profesional y estrategia de búsqueda de empleo optimizados
+      - value: 3-6 meses
+        label: Tiempo para ser contratado
+        description: Consigue tu primer rol en 3–6 meses después de graduarte. Con nuestro proceso estructurado de desarrollo profesional en 3 pasos, tus habilidades se convierten en ofertas de trabajo rápidamente.
+        benefits:
+          - text: Optimiza tu CV, portafolio y perfiles en línea para atraer reclutadores y pasar filtros basados en IA
+          - text: Practica para entrevistas técnicas y conductuales
+          - text: Ejecuta una estrategia personalizada de búsqueda de empleo con acceso a redes de contratación relevantes
+      - value: {{ global.global_salary_increase | 55 }}%
+        label: Aumento Salarial Promedio
+        description: Domina las habilidades de IA que las empresas luchan por encontrar. A medida que los negocios se orientan hacia la automatización, estarás listo para ocupar roles de alta prioridad que ofrecen crecimiento inmediato y estabilidad a largo plazo.
+        benefits:
+          - text: Ingeniero de IA {{ global.average_salary_ai_engineer | 22.000€ - 30.000€ }}
+          - text: Ingeniero Full Stack (Fluente en IA) {{ global.average_salary_ai_fluent_software_developer | $100K–$145K }}
+          - text: Ingeniero de Agentes {{ global.average_salary_agent_engineer | $105K–$155K }}
+          - text: Ingeniero de Automatización de Flujos {{ global.average_salary_workflow_automation_engineer | $85K–$120K }}
+      - value: {{ global.number_of_hiring_partners_aprox | 500 }}+
+        label: Empresas que contratan nuestro talento
+        description: Accede a nuestra red de más de {{ global.number_of_hiring_partners_aprox | 400 }} empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
+        benefits:
+          - text: Acceso exclusivo a bolsa de trabajo
+          - text: Recomendaciones directas a empresas colaboradoras
+          - text: Eventos de networking con recruiters y responsables de selección
+    certificate_position: right
+    useSolidCard: true
+    marginY:
+      mobile: none
+      desktop: none md
+    paddingY:
+      mobile: lg
+      desktop: lg md
+    background: hsl(var(--muted))
+  - type: pricing
+    section_id: pricing-dbj56r
+    version: "1.0"
+    variant: product
+    title: Matrícula y opciones de financiamiento
+    subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
+    discount_text: "Descuento por pago completo: Ahorra 10% pagando de una sola vez."
+    financing_text: "Financiamiento basado en crédito: desde"
+    financing_amount: {{ global.price_ai_engineering | default: '$349' }}
+    tech_icons:
+      - openai
+      - python
+      - react
+      - nodejs
+      - api
+      - brain
+      - robot
+      - settings
+    features_title: Elige la opción que mejor se adapte a ti.
+    features:
+      - icon: IconCheck
+        text: Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
+      - icon: IconCheck
+        text: Trabajamos con socios de confianza para ofrecer financiamiento flexible y asequible, para que puedas enfocarte en tu futuro, no en tus tarifas.
+      - icon: IconCheck
+        text: Tenemos financiamientos disponibles, planes de pago de hasta 18 meses.
+    cta:
+      text: Recibir más información
+      url: "#apply-modal"
+      variant: primary
+    marginY:
+      desktop: none md
+    paddingY:
+      desktop: none
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - newyork-usa
+      - losangeles-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
+  - type: pricing
+    section_id: pricing-wfbzh7
+    version: "1.0"
+    variant: product
+    title: Matrícula y opciones de financiamiento
+    subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
+    discount_text: "Descuento por Pago Completo: Ahorra 10% con pago anticipado."
+    financing_text: Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
+    financing_amount: {{ global.price_ai_engineering | 140€ }}
+    tech_icons:
+      - python
+      - tensorflow
+      - pandas
+      - numpy
+      - sql
+      - git
+      - jupyter
+      - api
+    static_icons: true
+    features_title: Elige la opción que mejor se adapte a ti.
+    features:
+      - icon: IconCheck
+        text: Paga de contado para obtener un mejor precio con un descuento adicional o distribuye los pagos de 6 cuotas hasta 24 con nuestros partners.
+      - icon: IconCheck
+        text: 2–3 becas basadas en mérito disponibles por cohorte para solicitantes altamente calificados.
+      - icon: IconCheck
+        text: Trabajamos con socios de confianza para ofrecer financiamiento flexible y asequible, para que puedas enfocarte en tu futuro, no en tus tarifas.
+    cta:
+      text: Obtener más información
+      url: /es/apply
+      variant: primary
+    marginY:
+      desktop: none md
+    paddingY:
+      desktop: lg md
+    showOnLocations:
+      - barcelona-spain
+      - madrid-spain
+      - malaga-spain
+      - valencia-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - milan-italy
+      - munich-germany
+      - rome-italy
+  - type: whos_hiring
+    section_id: whos_hiring-750hsj
+    variant: carousel
+    title: Empresas que contratan a nuestros graduados
+    subtitle: Nuestros ingenieros de IA trabajan en compañías líderes a nivel global
+    logos:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
+        alt: Microsoft
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70.webp
+        alt: Google Developers
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
+        alt: Boats Group
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70.webp
+        alt: Meta
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70.webp
+        alt: eBay
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
+        alt: National Geographic
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
+        alt: Evernote
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70.webp
+        alt: Telefonica
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
+        alt: Twilio
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
+        alt: Uber
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70.webp
+        alt: Neo9
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
+        alt: Jooble
+    marginY:
+      desktop: none md
+    paddingY:
+      desktop: none
+  - type: testimonials
+    section_id: testimonials-cu66oj
+    title: Éxito profesional comprobado
+    subtitle: “Más de {{ global.global_total_alumni | 4,000 }} graduados y {{ global.global_verified_reviews_count | 3,000 }}+ reseñas verificadas respaldan nuestro impacto en carreras de Ingeniería de IA.”
+    related_features:
+      - content-and-syllabus
+      - career-support
+    rating_summary:
+      average: {{ global.global_review_rating | 4.8 }}
+      count: {{ global.global_review_count | 1,294 }}
+    paddingY:
+      desktop: md
+  - type: faq
+    section_id: faq-36q8sv
+    title: Preguntas frecuentes
+    items:
+      - question: ¿Qué requisitos previos necesito para Ingeniería de IA?
+        answer: Se recomienda conocimiento básico de programación, pero no es obligatorio. Nuestro programa comienza con conceptos fundamentales y avanza hasta ingeniería de IA avanzada. Si eres nuevo en programación, tenemos materiales preparatorios para ayudarte a comenzar.
+        locations:
+          - all
+        related_features: []
+        priority: 0
+      - question: ¿Cuánto dura el programa?
+        answer: El programa de Ingeniería de IA está diseñado para completarse en 20 semanas. Sin embargo, al ser un programa a tu ritmo, puedes acelerar o tomarte más tiempo según tu horario y ritmo de aprendizaje.
+        locations:
+          - all
+        related_features: []
+        priority: 0
+      - question: ¿Qué tipo de proyectos construiré?
+        answer: Construirás aplicaciones de IA listas para producción incluyendo sistemas RAG, orquestadores multi-agente, aplicaciones de IA en tiempo real y un proyecto final completo. Todos los proyectos utilizan tecnologías y patrones del mundo real usados por empresas líderes.
+        locations:
+          - all
+        related_features: []
+        priority: 0
+      - question: ¿Necesito hardware costoso para desarrollo de IA?
+        answer: ¡No! Todos los ejercicios y proyectos se ejecutan en la nube. Proporcionamos acceso a entornos de desarrollo en la nube y APIs de IA, así que puedes aprender solo con un portátil y conexión a internet.
+        locations:
+          - all
+        related_features: []
+        priority: 0
+      - question: ¿El certificado es reconocido por los empleadores?
+        answer: ¡Sí! Nuestro certificado es reconocido por empleadores en todo el mundo. Estamos licenciados por el Departamento de Educación de Florida y hemos sido destacados por Forbes, Newsweek y Course Report como uno de los mejores bootcamps de código.
+        locations:
+          - all
+        related_features: []
+        priority: 0
+    item_overrides:
+      cunto-dura-el-programa:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: md
+    background: hsl(var(--muted))
+  - type: cta_banner
+    section_id: cta_banner-85f972
+    version: "1.0"
+    title: ¿Listo para convertirte en Ingeniero de IA?
+    subtitle: Plazas limitadas disponibles. Comienza tu transformación hoy.
+    background: hsl(var(--primary))
+    variant: form
+    form:
+      variant: stacked
+      submit_label: {{ global.call_to_action_apply | Aplicar ahora }}
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Tu correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        phone:
+          visible: true
+          required: true
+          placeholder: Número de teléfono
+        program:
+          visible: false
+          required: true
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
+      button_className: bg-primary
+      terms_className: text-white/80
+    form_background: hsl(var(--card))
+    terms_color: hsl(var(--primary))
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: md
+  - type: sticky_cta
+    section_id: sticky_cta-xuvhfr
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Enviar solicitud
+      tags: website-lead
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        last_name:
+          visible: true
+          required: false
+        phone:
+          visible: true
+          required: true
+          placeholder: Número telefónico
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: ¡Gracias! Nos pondremos en contacto pronto.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
