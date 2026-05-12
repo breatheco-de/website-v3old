@@ -455,7 +455,7 @@ sections:
     marginY:
       desktop: none xl
     section_id: two_column-1hmc9c
-    background: hsl(var(--secondary))
+    background: hsl(var(--card))
     paddingY:
       desktop: lg
   - type: trust_cards
