@@ -19,7 +19,7 @@ sections:
     variant: productShowcase
     title: ""
     brand_mark:
-      prefix: "Conviértete en<div><!--StartFragment--><span style=\"font-size: 1.125rem; color: hsl(var(--primary));\"><span><span>Ingeniero de IA</span></span></span><!--EndFragment--></div>"
+      prefix: "Conviértete en<div><!--StartFragment--><span style=\"font-size: 1.125rem; color: hsl(var(--primary));\"><span><span><span style=\"font-size: 3.75rem;\">Ingeniero de IA</span></span></span></span><!--EndFragment--></div>"
       highlight: <br>
       color: primary
     description: La IA está cambiando todos los trabajos. En 24 semanas pasas de donde estás hoy a desarrollar e integrar sistemas de IA reales que las empresas en México llevan meses intentando contratar.
