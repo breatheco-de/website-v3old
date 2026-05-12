@@ -416,18 +416,18 @@ sections:
       justify: center
     right:
       heading: "Joshua Bravo: de asistente de cocina a desarrollador Full Stack en una fintech"
-      sub_heading: Graduado de 4Geeks Academy, Chile
+      sub_heading: Graduado de 4Geeks Academy, ahora trabajando en tecnología
       description: Joshua trabajaba como asistente de cocina y contable mientras intentaba aprender a programar solo con tutoriales de YouTube. Sabía que necesitaba algo más estructurado para dar el salto real. Tras completar el bootcamp de Full Stack en 4Geeks, construyó aplicaciones web completas de cero y consiguió empleo como desarrollador en Regcheq, una startup fintech. Hoy hace lo que le apasiona.
       button:
-        text: Comprueba si cumples los requisitos
-        url: "#hero-lt4ge6"
+        text: Iniciar mi aplicación
+        url: "#hero-aawpfv"
         variant: primary
         icon: Rocket
     gap: "8"
     marginY:
-      desktop: none md
-    section_id: ai_learning-2hqf27
-    background: hsl(var(--card))
+      desktop: none xl
+    section_id: two_column-1hmc9c
+    background: hsl(var(--secondary))
     paddingY:
       desktop: lg
   - type: trust_cards
