@@ -19,7 +19,7 @@ sections:
     variant: productShowcase
     title: ""
     brand_mark:
-      prefix: "Conviértete en<span style=\"font-size: 3.75rem; color: hsl(var(--primary));\">Ingeniero de IA</span>"
+      prefix: "Conviértete en<div><span style=\"font-size: 3.75rem; color: hsl(var(--primary));\"><span style=\"font-size: 2.25rem;\">Ingeniero de IA</span></span></div>"
       highlight: <br>
       color: primary
     description: La IA está cambiando todos los trabajos. En 24 semanas pasas de donde estás hoy a desarrollar e integrar sistemas de IA reales que las empresas en México llevan meses intentando contratar.
