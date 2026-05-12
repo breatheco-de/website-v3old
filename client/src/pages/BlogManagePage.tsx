@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import {ArrowLeft, ArrowRight, Check, Clock, Database, ExternalLink, Eye, EyeOff, FileText, Globe, LayoutList, Loader2, MoreVertical, RefreshCw, Search, Settings, Trash2, Wand2, X} from "lucide-react";
+import {ArrowLeft, ArrowRight, Check, Clock, Database, ExternalLink, Eye, EyeOff, FileText, Globe, LayoutList, Link as LinkIcon, Loader2, MoreVertical, RefreshCw, Search, Settings, Trash2, Wand2, X} from "lucide-react";
 import { queryClient } from "@/lib/queryClient";
 import { useState, useMemo, useEffect, useRef } from "react";
 import { Link } from "wouter";
