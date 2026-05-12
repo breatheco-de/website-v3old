@@ -527,17 +527,12 @@ sections:
     section_id: certificate-k9yuxj
     title: Tu certificado. Tu ventaja salarial.
     description: Gradúate con un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida y las credenciales para negociar tu primer salario como Ingeniero de IA desde una posición de fuerza.
-    benefits:
-      - text: "Ingeniero de Software con IA: $45K–$70K"
-      - text: "AI Engineer Full Stack: $55K–$85K"
-      - text: "Ingeniero de Agentes: $55K–$85K"
-      - text: "Ingeniero de Automatización: $40K–$65K"
     card:
       title: Ingeniero de IA
       subtitle: Certificado 4Geeks Academy
       program_name: Ingeniería de IA
     stats:
-      - value: 81%
+      - value: 84%
         label: Tasa de inserción laboral
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores en México están contratando activamente ahora mismo.
         benefits:
@@ -547,7 +542,7 @@ sections:
           - text: Perfil profesional optimizado para pasar los filtros automáticos de los recruiters
       - value: ~3 meses
         label: Tiempo medio para conseguir empleo
-        description: La mayoría de graduados consiguen su primer rol en unos 3-6 meses. Nuestro proceso de desarrollo profesional en 3 pasos convierte tus habilidades técnicas en ofertas de trabajo rápidamente.
+        description: La mayoría de graduados consiguen su primer rol en unos 3 meses. Nuestro proceso de desarrollo profesional convierte tus habilidades técnicas en ofertas de trabajo rápidamente.
         benefits:
           - text: CV, portfolio y LinkedIn construidos para atraer recruiters en México
           - text: Preparación para entrevistas técnicas y conductuales con feedback real de ingenieros
@@ -556,13 +551,13 @@ sections:
         label: Aumento salarial medio
         description: Los graduados reportan un aumento salarial medio del 40% tras incorporarse a roles de Ingeniería de IA. El programa se paga solo en pocos meses de trabajo.
         benefits:
-          - text: "Ingeniero de Software con IA: $45K–$70K"
-          - text: "AI Engineer Full Stack: $55K–$85K"
-          - text: "Ingeniero de Agentes: $55K–$85K"
-          - text: "Ingeniero de Automatización: $40K–$65K"
-      - value: 400+
-        label: Empresas que contratan nuestro talento
-        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
+          - text: "Ingeniero de Software con IA: $45K–$70K USD"
+          - text: "AI Engineer Full Stack: $55K–$85K USD"
+          - text: "Ingeniero de Agentes: $55K–$85K USD"
+          - text: "Ingeniero de Automatización: $40K–$65K USD"
+      - value: 5,000+
+        label: Graduados empleados en todo el mundo
+        description: Accede a nuestra red de empresas que buscan talento. Recibe orientación personalizada y acceso a procesos de selección prioritarios.
         benefits:
           - text: Acceso exclusivo a bolsa de trabajo
           - text: Recomendaciones directas a empresas colaboradoras
