@@ -5,7 +5,7 @@
  * No local Chrome install needed — PSI runs Lighthouse on Google's servers.
  *
  * Env vars:
- *   SITE_BASE_URL       — required, e.g. https://4geeks.com
+ *   SITE_URL            — required for audits, e.g. https://www.4geeksacademy.com
  *   GOOGLE_PSI_API_KEY  — optional, raises rate limit from 400 to 25 000 req/day
  */
 
@@ -238,13 +238,13 @@ export const lighthouseValidator: Validator = {
     const errors: ValidationIssue[] = [];
     const warnings: ValidationIssue[] = [];
 
-    const siteBaseUrl = process.env.SITE_BASE_URL?.replace(/\/$/, "");
+    const siteBaseUrl = process.env.SITE_URL?.replace(/\/$/, "");
     if (!siteBaseUrl) {
       warnings.push({
         type: "warning",
         code: "PSI_NO_BASE_URL",
         message:
-          "SITE_BASE_URL is not set — skipping Lighthouse audit. Set it to your deployed URL (e.g. https://4geeks.com).",
+          "SITE_URL is not set — skipping Lighthouse audit. Set it to your deployed public URL (e.g. https://www.4geeksacademy.com).",
       });
       return {
         name: "lighthouse",

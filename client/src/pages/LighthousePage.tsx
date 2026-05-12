@@ -20,7 +20,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
 interface LighthouseConfig {
-  hasSiteBaseUrl: boolean;
+  hasSiteUrl: boolean;
   hasApiKey: boolean;
   gcsAvailable: boolean;
 }
@@ -85,7 +85,7 @@ function formatMs(ms: number): string {
 }
 
 function DocsBanner({ config, open }: { config: LighthouseConfig; open: boolean }) {
-  const forceOpen = !config.hasSiteBaseUrl;
+  const forceOpen = !config.hasSiteUrl;
   const isOpen = forceOpen || open;
 
   return (
@@ -95,7 +95,7 @@ function DocsBanner({ config, open }: { config: LighthouseConfig; open: boolean 
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-semibold flex items-center gap-2 text-orange-600 dark:text-orange-400">
               <AlertTriangle className="h-4 w-4" />
-              SITE_BASE_URL is not configured — audits are disabled
+              SITE_URL is not configured — audits are disabled
             </CardTitle>
           </CardHeader>
         )}
@@ -108,7 +108,7 @@ function DocsBanner({ config, open }: { config: LighthouseConfig; open: boolean 
             <div>
               <p className="font-medium text-foreground mb-1">Required environment variable:</p>
               <div className="font-mono text-xs bg-muted rounded p-2 space-y-1">
-                <p><span className="text-foreground">SITE_BASE_URL</span> &nbsp; Public URL of your site, e.g. https://4geeks.com</p>
+                <p><span className="text-foreground">SITE_URL</span> &nbsp; Public URL of your site, e.g. https://www.4geeksacademy.com</p>
               </div>
             </div>
             <div>
@@ -414,7 +414,7 @@ export default function LighthousePage() {
 
   const { data: pages = [], isLoading: pagesLoading } = useQuery<AuditablePage[]>({
     queryKey: ["/api/admin/lighthouse/pages"],
-    enabled: config?.hasSiteBaseUrl === true,
+    enabled: config?.hasSiteUrl === true,
   });
 
   const { data: reportsData, isLoading: reportsLoading } = useQuery<ReportsResponse>({
@@ -446,7 +446,7 @@ export default function LighthousePage() {
   });
 
   const hasReports = (reportsData?.runs?.length ?? 0) > 0;
-  const forceDocsOpen = config ? !config.hasSiteBaseUrl : false;
+  const forceDocsOpen = config ? !config.hasSiteUrl : false;
 
   return (
     <div className="min-h-screen bg-background">
@@ -501,7 +501,7 @@ export default function LighthousePage() {
 
         {config && <DocsBanner config={config} open={docsOpen} />}
 
-        {config?.hasSiteBaseUrl && (
+        {config?.hasSiteUrl && (
           <>
             {pagesLoading ? (
               <Skeleton className="h-10 w-40" />

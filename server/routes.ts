@@ -10885,16 +10885,16 @@ sections: []
 
   app.get("/api/admin/lighthouse/config", (_req, res) => {
     res.json({
-      hasSiteBaseUrl: !!process.env.SITE_BASE_URL,
+      hasSiteUrl: !!process.env.SITE_URL,
       hasApiKey: !!process.env.GOOGLE_PSI_API_KEY,
       gcsAvailable: gcs.available,
     });
   });
 
   app.get("/api/admin/lighthouse/pages", async (_req, res) => {
-    const siteBaseUrl = process.env.SITE_BASE_URL?.replace(/\/$/, "");
+    const siteBaseUrl = process.env.SITE_URL?.replace(/\/$/, "");
     if (!siteBaseUrl) {
-      res.status(400).json({ error: "SITE_BASE_URL is not set" });
+      res.status(400).json({ error: "SITE_URL is not set" });
       return;
     }
     try {
@@ -10993,9 +10993,9 @@ sections: []
   app.post("/api/admin/lighthouse/run", async (req, res) => {
     req.setTimeout(180_000);
     try {
-      const siteBaseUrl = process.env.SITE_BASE_URL?.replace(/\/$/, "");
+      const siteBaseUrl = process.env.SITE_URL?.replace(/\/$/, "");
       if (!siteBaseUrl) {
-        res.status(400).json({ error: "SITE_BASE_URL is not set" });
+        res.status(400).json({ error: "SITE_URL is not set" });
         return;
       }
       const apiKey = process.env.GOOGLE_PSI_API_KEY;
