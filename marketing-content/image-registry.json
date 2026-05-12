@@ -18808,6 +18808,31 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduates_team_2-288x210-q87-256w.webp"
         }
       ]
+    },
+    "blog_posts-blog_posts-web-developer-4fb5b2b8-920x61-40fc4726": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-web-developer-4fb5b2b8-920x614-640w.webp",
+      "alt": "Image from blog_posts",
+      "tags": [
+        "blog_posts"
+      ],
+      "source_url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-web-developer-4fb5b2b8-920x614.webp",
+      "usage_count": 0,
+      "source_item": "web-developer-earn-the-salary-you-deserve",
+      "width": 920,
+      "height": 614,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-web-developer-4fb5b2b8-920x614-640w.webp"
+        }
+      ]
     }
   }
 }
