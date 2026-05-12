@@ -16,17 +16,19 @@ schema:
 sections:
   - type: hero
     version: "1.0"
-    variant: ApplyFormProductShowcase
+    variant: productShowcase
     title: ""
     brand_mark:
-      prefix: De aprender Programación a convertirte en
-      highlight: Ingeniero de IA
+      prefix: "Conviértete en<b><br><!--StartFragment--></b><span style=\"color: hsl(var(--primary));\"><span style=\"font-size: 1.125rem;\"><b><span style=\"font-size: 3.75rem;\">Ingeniero de IA</span></b></span></span><!--EndFragment-->"
       color: primary
-    description: Programar es el inicio. Construir soluciones con IA es el siguiente nivel.
+    description: La IA está cambiando todos los trabajos. En 24 semanas pasas de donde estás hoy a desarrollar e integrar sistemas de IA reales que las empresas en Chile llevan meses intentando contratar.
+    bullets:
+      - text: Mentoría ilimitada de por vida con ingenieros senior, incluso después de graduarte
+      - text: Paga en 10, 12 o 18 cuotas mensuales sin dejar tu trabajo actual
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Comprueba si cumples los requisitos.
+      submit_label: Iniciar mi aplicación
       tags: website-lead
       fields:
         email:
@@ -49,34 +51,84 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       terms_url: /terminos-condiciones
       privacy_url: /politica-privacidad
       consent:
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
-    cta_button:
-      text: Descargar programa
-      url: /programa/ai-engineering
-      variant: outline
-      icon: Download
-    video:
-      url: https://www.youtube.com/shorts/-SpU1PWNBF4
-      ratio: "9:16"
-      muted: true
-    section_id: hero-aawpfv
-    bullets:
-      - text: En 24 semanas estarás desarrollando las habilidades que las empresas en México y el mundo están intentando contratar.
-      - text: La única academia que no termina cuando te gradúas, mentoría ilimitada de por vida incluida
-      - text: Opciones de financiación flexibles, con planes de pago a 10, 12 y 18 meses.
+    form_card_title: Obtén la guía completa del programa
+    form_card_subtitle: Te enviamos el programa completo con plan de estudios, opciones de financiación y más. Solo toma 2 minutos.
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+    show_awards_marquee: true
+    awards_marquee:
+      items:
+        - id: logo-switchup-best-bootcamps-2025
+          alt: SwitchUp Best Bootcamps 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
+          logoHeight: 64px
+        - id: excelencia-educativa
+          alt: Excelencia Educativa - Calidad Institucional en Educación Online
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
+          logoHeight: 64px
+        - id: course-report-badge
+          alt: Course Report Badge 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+          logoHeight: 64px
+        - id: tech-hub
+          alt: South Florida Tech Hub
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70.webp
+          logoHeight: 64px
+        - id: logo-ebootcamp-top-2025
+          alt: ebootcamp Top Bootcamp Programación 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1_1770392737758.png
+          logoHeight: 64px
+        - id: premios-tecnologia
+          alt: Premios Tecnologia Siglo XXI
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+          logoHeight: 80px
+        - id: newsweek
+          alt: Newsweek
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
+          logoHeight: 64px
+        - id: reviews-coursereport
+          alt: 4.9 en reseñas de Course Report
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+          logoHeight: 64px
+        - id: forbes-1
+          alt: Forbes - Top Coding Bootcamp
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
+          logoHeight: 64px
+        - id: fortune-1
+          alt: Fortune - Mejor Empresa de Educación
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/fortune-logo_1764709618095.webp
+          logoHeight: 64px
+        - id: logo-coursereport-best-bootcamp-2025
+          alt: CourseReport Best European Bootcamp 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/CourseReport-best-bootcamp_-2025_1770392145137.png
+          logoHeight: 56px
+        - id: logo-european-excellence-education
+          alt: European Excellence Education
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/european-excellence-education-ealde_1_1770392145138.png
+          logoHeight: 56px
+        - id: logo-forbes-advisor-2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/Forbes-Advisor_1770392260031.png
+          alt: Forbes Advisor Best of 2025 - Best for lifetime career support
+          logoHeight: 56px
+        - id: logo-premios-excelencia-educativa
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/premios-excelencia-educativa-17_1770392145139.png
+          alt: 17 Premios Excelencia Educativa
+          logoHeight: 56px
+    awards_marquee_at_left_column: true
+    section_id: hero-lt4ge6
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
     paddingY:
       mobile: md none
-      desktop: lg none
+      desktop: md none
     marginY:
       mobile: none
-      desktop: none
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
+      desktop: none xl
   - type: sticky_cta
     section_id: sticky_cta-3yvaj8
     version: "1.0"
@@ -116,123 +168,95 @@ sections:
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
     load: eager
+  - type: two_column
+    version: v1.0
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    gap: "8"
+    left:
+      video: https://www.youtube.com/shorts/-SpU1PWNBF4?feature=share
+      justify: center
+    right:
+      heading: Por qué Ingeniería de IA es la carrera más importante de esta década
+      sub_heading: Y por qué México necesita ingenieros ahora mismo
+      description: El 87% de las empresas no encuentra los ingenieros de IA que necesita. En México, la demanda crece un 30% cada año y los salarios de entrada superan los $45K USD. Este programa existe para que seas tú quien cubra esa demanda.
+      button:
+        text: Iniciar mi aplicación
+        url: "#hero-aawpfv"
+        variant: primary
+        icon: Rocket
+    section_id: two_column-r882vr
+    marginY:
+      desktop: none sm
+    paddingY:
+      desktop: lg
+    background: hsl(var(--secondary))
   - type: graduates_stats
-    maxWidth:
-      desktop: 6xl
-    heading: Resultados profesionales reales
-    subheading: Más de 5.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
+    heading: Nuestros Graduados Consiguen Empleo. Rápido.
+    subheading: Más de 6,000 graduados en todo el mundo. Ahora prosperando en tecnología.
     stats:
-      - value: 81%
-        label: Tasa de inserción laboral
-      - value: 40%
-        label: Aumento salarial medio tras graduarse
+      - value: {{ global.global_job_placement_rate | 84% }}%
+        label: Tasa de contratación promedio
+      - value: {{ global.global_salary_increase | 55% }}%
+        label: Aumento salarial promedio en el nuevo puesto
       - value: 3-6 meses
-        label: Tiempo medio para conseguir empleo en 2025
-      - value: 5.000+
-        label: Graduados en todo el mundo
+        label: Tiempo promedio para conseguir empleo
     collage_images:
-      - image_id: graduates_team_1
+      - image_id: group-7085-1
         col_span: 5
         row_span: 2
-      - image_id: graduates_team_2-288x210-q87
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
+        id: gemini-generated-image-uwpyyruwpyyruwpy
+        object_scale: 1.1
+        object_position: 50% 30%
+      - image_id: group-7086-1
         col_span: 7
         row_span: 2
-      - image_id: graduates_coding
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
+        id: gemini-generated-image-pd2u4upd2u4upd2u
+        object_scale: 1
+        transform_origin: 50% 50%
+        object_position: 50% 60%
+      - image_id: group-7084-1
         col_span: 6
         row_span: 2
-      - image_id: graduates_friends-288x210-q87
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
+        id: gemini-generated-image-dhko5mdhko5mdhko-1
+        object_scale: 1.05
+      - image_id: group-7087-1
         col_span: 6
         row_span: 2
-    section_id: graduates_stats-hisyap
-    value_size: text-3xl
-  - type: awards_marquee
-    section_id: awards_marquee-0mvcwq
-    version: "1.0"
-    speed: 40
-    gradient: true
-    gradientWidth: 500
-    items:
-      - id: logo-switchup-best-bootcamps-2025
-        alt: SwitchUp Best Bootcamps 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
-        logoHeight: 64px
-      - id: excelencia-educativa
-        alt: Excelencia Educativa - Calidad Institucional en Educación Online
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
-        logoHeight: 64px
-      - id: course-report-badge
-        alt: Course Report Badge 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-        logoHeight: 64px
-      - id: tech-hub
-        alt: South Florida Tech Hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70.webp
-        logoHeight: 64px
-      - id: logo-ebootcamp-top-2025
-        alt: ebootcamp Top Bootcamp Programación 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1_1770392737758.png
-        logoHeight: 64px
-      - id: premios-tecnologia
-        alt: Premios Tecnologia Siglo XXI
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-        logoHeight: 80px
-      - id: newsweek
-        alt: Newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
-        logoHeight: 64px
-      - id: reviews-coursereport
-        alt: 4.9 en reseñas de Course Report
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-        logoHeight: 64px
-      - id: forbes-1
-        alt: Forbes - Top Coding Bootcamp
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
-        logoHeight: 64px
-      - id: fortune-1
-        alt: Fortune - Mejor Empresa de Educación
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/fortune-logo_1764709618095.webp
-        logoHeight: 64px
-      - id: logo-coursereport-best-bootcamp-2025
-        alt: CourseReport Best European Bootcamp 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/CourseReport-best-bootcamp_-2025_1770392145137.png
-        logoHeight: 56px
-      - id: logo-european-excellence-education
-        alt: European Excellence Education
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/european-excellence-education-ealde_1_1770392145138.png
-        logoHeight: 56px
-      - id: logo-forbes-advisor-2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/Forbes-Advisor_1770392260031.png
-        alt: Forbes Advisor Best of 2025 - Best for lifetime career support
-        logoHeight: 56px
-      - id: logo-premios-excelencia-educativa
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios-excelencia-educativa-17_1770392145139.png
-        alt: 17 Premios Excelencia Educativa
-        logoHeight: 56px
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
+        id: gemini-generated-image-wpk4yvwpk4yvwpk4
+        object_scale: 1.05
+        transform_origin: 50% 50%
+        object_position: 50% 45%
+    section_id: graduates_stats-cnxqbb
     marginY:
-      mobile: md none
-      desktop: sm md
-    paddingY:
-      mobile: none lg
-      desktop: none lg
+      desktop: none
+    maxWidth:
+      desktop: 6xl
   - type: features_grid
     section_id: features_grid-e2a79q
     version: "1.0"
     variant: stats-text-card
     title: ¿Por qué aprender Ingeniería de IA ahora?
-    subtitle: El 87% de las empresas ya no busca programadores pero tampoco encuentra los ingenieros que necesita. Tú puedes ser uno de ellos.
+    subtitle: El 87% de las empresas no encuentra los ingenieros que necesita. Tú puedes ser uno de ellos.
     description: La IA está transformando cómo operan las empresas, desde automatización hasta productos inteligentes en producción. Sin embargo, el talento especializado no está creciendo al mismo ritmo. Según McKinsey, el 87% de las empresas no encuentra ingenieros de IA preparados para liderar estos cambios. Esa brecha no es un riesgo. Es tu oportunidad si decides formarte hoy.
     card_color: bg-background
-    background: hsl(var(--secondary))
+    background: hsl(var(--muted))
     items:
       - value: "800.000"
         title: Roles relacionados con IA previstos para 2027
       - value: ~30%
         title: Crecimiento interanual en ofertas de trabajo en IA
       - value: $45K–$85K
-        title: Salario promedio para ingenieros de IA en México
+        title: Salario promedio anual para ingenieros de IA en México
     marginY:
       mobile: md none
-      desktop: lg
+      desktop: none md
     paddingY:
       mobile: none md
       desktop: none md
@@ -408,7 +432,7 @@ sections:
       desktop: lg md
     marginY:
       mobile: none
-      desktop: none xl
+      desktop: none md
     section_id: syllabus-1d3afu
   - type: two_column
     proportions:
@@ -420,18 +444,18 @@ sections:
       justify: center
     right:
       heading: "Joshua Bravo: de asistente de cocina a desarrollador Full Stack en una fintech"
-      sub_heading: Graduado de 4Geeks Academy, Chile — disponible en México
+      sub_heading: Graduado de 4Geeks Academy, ahora trabajando en tecnología
       description: Joshua trabajaba como asistente de cocina y contable mientras intentaba aprender a programar solo con tutoriales de YouTube. Sabía que necesitaba algo más estructurado para dar el salto real. Tras completar el bootcamp de Full Stack en 4Geeks, construyó aplicaciones web completas de cero y consiguió empleo como desarrollador en Regcheq, una startup fintech. Hoy hace lo que le apasiona.
       button:
-        text: Comprueba si cumples los requisitos
+        text: Iniciar mi aplicación
         url: "#hero-aawpfv"
         variant: primary
         icon: Rocket
     gap: "8"
     marginY:
-      desktop: none xl
+      desktop: none md
     section_id: two_column-1hmc9c
-    background: hsl(var(--secondary))
+    background: hsl(var(--card))
     paddingY:
       desktop: lg
   - type: trust_cards
@@ -458,16 +482,16 @@ sections:
     paddingY:
       desktop: md
     marginY:
-      desktop: none xl
+      desktop: none lg
+    background: hsl(var(--secondary))
   - type: ai_learning
-    section_id: ai_learning-ojmt1j
+    section_id: ai_learning-qmjitd
     badge: ¿Por qué 4Geeks?
     title: La academia que no te abandona cuando te gradúas
     description: La mayoría de academias te dan un curso y te desean suerte. 4Geeks se queda contigo desde tu primera línea de código hasta tu primera oferta de trabajo y más allá.
     features:
       - icon: TrendingUp
-        title: Apoyo de carrera construido para el mercado tech en México
-        description: ""
+        title: Apoyo de carrera construido para el mercado tech
         show_rigobot_logo: true
         bullets:
           - text: Coaching 1:1 enfocado en conseguir roles de Ingeniería de IA específicamente
@@ -475,27 +499,17 @@ sections:
           - text: Preparación para entrevistas técnicas y negociación salarial
           - text: Apoyo de carrera de por vida, no solo hasta que te gradúas
         video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
-        cta:
-          text: Comprueba si cumples los requisitos
-          url: "#hero-aawpfv"
-          variant: primary
       - icon: Robot
         title: Aprende más rápido con un tutor de IA que sabe dónde te has atascado
-        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Rigobot te da feedback instantáneo sobre tu código sin esperar a que haya un humano disponible
           - text: Adapta las explicaciones a tu nivel exacto y ritmo de aprendizaje
           - text: Desbloquéate a las 2 de la madrugada sin perder el hilo
           - text: Cientos de ejercicios interactivos en Learnpack, nuestra plataforma de aprendizaje
-        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-        cta:
-          text: Comprueba si cumples los requisitos
-          url: "#hero-aawpfv"
-          variant: primary
+        video_url: https://youtu.be/NRuShbSLtg0
       - icon: Headset
         title: Mentoría 1:1 ilimitada de por vida, no solo mientras estudias
-        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Reserva sesiones 1:1 ilimitadas con ingenieros senior incluso después de graduarte
@@ -506,24 +520,19 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg md
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--card))
     marginY:
-      desktop: none xl
+      desktop: none
   - type: certificate
     section_id: certificate-k9yuxj
     title: Tu certificado. Tu ventaja salarial.
     description: Gradúate con un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida y las credenciales para negociar tu primer salario como Ingeniero de IA desde una posición de fuerza.
-    benefits:
-      - text: "Ingeniero de Software con IA: $45K–$70K"
-      - text: "AI Engineer Full Stack: $55K–$85K"
-      - text: "Ingeniero de Agentes: $55K–$85K"
-      - text: "Ingeniero de Automatización: $40K–$65K"
     card:
       title: Ingeniero de IA
       subtitle: Certificado 4Geeks Academy
       program_name: Ingeniería de IA
     stats:
-      - value: 81%
+      - value: 84%
         label: Tasa de inserción laboral
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores en México están contratando activamente ahora mismo.
         benefits:
@@ -533,7 +542,7 @@ sections:
           - text: Perfil profesional optimizado para pasar los filtros automáticos de los recruiters
       - value: ~3 meses
         label: Tiempo medio para conseguir empleo
-        description: La mayoría de graduados consiguen su primer rol en unos 3-6 meses. Nuestro proceso de desarrollo profesional en 3 pasos convierte tus habilidades técnicas en ofertas de trabajo rápidamente.
+        description: La mayoría de graduados consiguen su primer rol en unos 3 meses. Nuestro proceso de desarrollo profesional convierte tus habilidades técnicas en ofertas de trabajo rápidamente.
         benefits:
           - text: CV, portfolio y LinkedIn construidos para atraer recruiters en México
           - text: Preparación para entrevistas técnicas y conductuales con feedback real de ingenieros
@@ -542,13 +551,13 @@ sections:
         label: Aumento salarial medio
         description: Los graduados reportan un aumento salarial medio del 40% tras incorporarse a roles de Ingeniería de IA. El programa se paga solo en pocos meses de trabajo.
         benefits:
-          - text: "Ingeniero de Software con IA: $45K–$70K"
-          - text: "AI Engineer Full Stack: $55K–$85K"
-          - text: "Ingeniero de Agentes: $55K–$85K"
-          - text: "Ingeniero de Automatización: $40K–$65K"
-      - value: 400+
-        label: Empresas que contratan nuestro talento
-        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
+          - text: "Ingeniero de Software con IA: $45K–$70K USD"
+          - text: "AI Engineer Full Stack: $55K–$85K USD"
+          - text: "Ingeniero de Agentes: $55K–$85K USD"
+          - text: "Ingeniero de Automatización: $40K–$65K USD"
+      - value: 5,000+
+        label: Graduados empleados en todo el mundo
+        description: Accede a nuestra red de empresas que buscan talento. Recibe orientación personalizada y acceso a procesos de selección prioritarios.
         benefits:
           - text: Acceso exclusivo a bolsa de trabajo
           - text: Recomendaciones directas a empresas colaboradoras
@@ -561,6 +570,7 @@ sections:
     paddingY:
       mobile: lg
       desktop: md
+    background: hsl(210 100% 50% / 0.05)
   - type: testimonials_slide
     title: Dieron el salto y esto es lo que pasó.
     description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa de México, Uruguay y Costa Rica. Ahora son desarrolladores con empleos reales y salarios que no esperaban.
@@ -673,7 +683,7 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-265uov
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--card))
   - type: numbered_steps
     section_id: numbered_steps-lqbb4v
     version: "1.0"

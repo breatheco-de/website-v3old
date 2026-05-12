@@ -6,7 +6,7 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Graduate Projects & Alumni | 4Geeks
-  description: "Explore final projects from 4Geeks Academy graduates: real apps and solutions that showcase the skills, creativity, and career-ready talent of our bootcamp alumni."
+  description: "See what 4Geeks graduates build: AI systems, full-stack apps, data pipelines and more. Production-ready projects that prove the skills employers are hiring for."
   redirects:
     - /graduates-and-projects
     - /us/graduates

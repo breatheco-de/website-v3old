@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Program Comparison | 4Geeks
-  description: program comparison - Learn more about this topic at 4Geeks Academy.
+  page_title: "Compare Tech Career Programs | 4Geeks Academy"
+  description: "Compare 4Geeks Academy programs side by side: AI Engineering, Data Science, Cybersecurity, and Full Stack. Salaries, durations, costs, and job titles all in one place."
   redirects:
     - /program-comparison
     - /compare-programs

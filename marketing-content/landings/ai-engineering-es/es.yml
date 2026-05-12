@@ -103,10 +103,10 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
     paddingY:
       mobile: md none
-      desktop: md none
+      desktop: none
     marginY:
       mobile: none
-      desktop: none xl
+      desktop: none
   - type: sticky_cta
     section_id: sticky_cta-c666dm
     version: "1.0"
@@ -218,17 +218,17 @@ sections:
     title: ¿Por qué aprender ingeniería de IA ahora?
     subtitle: Porque el mercado laboral ya lo está exigiendo.
     description: Los ingenieros de IA construyen sistemas inteligentes, automatizan procesos y diseñan productos impulsados por IA. Según McKinsey, el 87% de las empresas reportan que les falta talento en ingeniería de IA para transformar sus operaciones. Esta brecha es tu oportunidad. La demanda existe, el desafío es estar preparado.
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--secondary))
     items:
       - value: 800,000
         title: Roles relacionados con IA previstos para 2027
       - value: ~30%
         title: Crecimiento interanual en ofertas de trabajo en IA
-      - value: $20K-$60K USD
+      - value: $20K-$60K
         title: Salario anual promedio para ingenieros de IA
     marginY:
       mobile: md none
-      desktop: none
+      desktop: none md
     paddingY:
       mobile: none md
       desktop: none md
@@ -416,17 +416,17 @@ sections:
       justify: center
     right:
       heading: "Joshua Bravo: de asistente de cocina a desarrollador Full Stack en una fintech"
-      sub_heading: Graduado de 4Geeks Academy, Chile
+      sub_heading: Graduado de 4Geeks Academy, ahora trabajando en tecnología
       description: Joshua trabajaba como asistente de cocina y contable mientras intentaba aprender a programar solo con tutoriales de YouTube. Sabía que necesitaba algo más estructurado para dar el salto real. Tras completar el bootcamp de Full Stack en 4Geeks, construyó aplicaciones web completas de cero y consiguió empleo como desarrollador en Regcheq, una startup fintech. Hoy hace lo que le apasiona.
       button:
-        text: Comprueba si cumples los requisitos
-        url: "#hero-lt4ge6"
+        text: Iniciar mi aplicación
+        url: "#hero-aawpfv"
         variant: primary
         icon: Rocket
     gap: "8"
     marginY:
-      desktop: none md
-    section_id: ai_learning-2hqf27
+      desktop: none xl
+    section_id: two_column-1hmc9c
     background: hsl(var(--card))
     paddingY:
       desktop: lg

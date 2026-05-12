@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: partners | 4Geeks
-  description: partners - Learn more about this topic at 4Geeks Academy.
+  page_title: "4Geeks Academy Partners and Collaborators"
+  description: "4Geeks partners with universities, governments, and nonprofits to expand tech education. $20M+ in grants awarded. 6,000+ students trained. Join our network."
   redirects:
     - /partners
 schema:

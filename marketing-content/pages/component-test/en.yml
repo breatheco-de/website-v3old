@@ -6,8 +6,8 @@ template: "default"
 title: "Component Test"
 
 meta:
-  page_title: "Component Test | 4Geeks"
-  description: "Testing the SplitCards component with both variants"
+  page_title: "Component Test Page | 4Geeks Pro"
+  description: "Testing the SplitCards component with both variants and validating layout behavior across different content states."
   robots: "noindex, nofollow"
 
 sections:

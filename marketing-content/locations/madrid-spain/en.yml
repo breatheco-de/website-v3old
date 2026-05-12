@@ -43,7 +43,7 @@ schema:
         addressCountry: ES
 meta:
   page_title: 4Geeks Madrid | Coding Bootcamp in Spain
-  description: Join 4Geeks Madrid coding bootcamp. Learn Full Stack Development, AI, or Data Science with unlimited mentorship and career support in Europe's top emerging tech ecosystem.
+  description: "Join 4Geeks Madrid coding bootcamp. Learn Full Stack Development, AI, or Data Science with unlimited mentorship and career support in Madrid's tech ecosystem."
   robots: index, follow
   og_image: /images/locations/madrid-og.jpg
   priority: 0.8
