@@ -7,7 +7,7 @@ channel = "stable-24_05"
 packages = ["imagemagick", "libwebp", "unzip"]
 
 [deployment]
-deploymentTarget = "autoscale"
+deploymentTarget = "gce"
 build = ["npm", "run", "build"]
 run = ["npm", "run", "start"]
 
@@ -78,6 +78,7 @@ MEDIA_DEFAULT_PROVIDER = "gcs"
 EDIT_TOKEN = "61bb7963aa6a49d10b953c5e14fce3161688a6de"
 OPENAI_BASE_URL = "https://api.groq.com/openai/v1"
 BREATHECODE_TOKEN = "c6fe193405438832e2790dfb1d6253200fe16775"
+SITE_URL = "https://4geeksacademy.com"
 
 [postMerge]
 path = "scripts/post-merge.sh"
