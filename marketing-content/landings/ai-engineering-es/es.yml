@@ -228,7 +228,7 @@ sections:
         title: Salario anual promedio para ingenieros de IA
     marginY:
       mobile: md none
-      desktop: none sm
+      desktop: none md
     paddingY:
       mobile: none md
       desktop: none md
