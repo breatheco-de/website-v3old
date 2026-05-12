@@ -204,7 +204,7 @@ sections:
       video: https://www.youtube.com/shorts/-SpU1PWNBF4?feature=share
       justify: center
     right:
-      heading: Por qué Ingeniería de IA es la carrera más importante de esta década
+      heading: Por qué Ingeniería de IA es la carrera más importante de esta décadaa
       sub_heading: Y por qué México necesita ingenieros ahora mismo
       description: El 87% de las empresas no encuentra los ingenieros de IA que necesita. En México, la demanda crece un 30% cada año y los salarios de entrada superan los $45K USD. Este programa existe para que seas tú quien cubra esa demanda.
       button:
@@ -218,7 +218,7 @@ sections:
     paddingY:
       desktop: lg
     background: hsl(var(--secondary))
-    _imageSizes: {}
+    showOn: mobile
   - type: graduates_stats
     heading: Nuestros Graduados Consiguen Empleo. Rápido.
     subheading: Más de 6,000 graduados en todo el mundo. Ahora prosperando en tecnología.
