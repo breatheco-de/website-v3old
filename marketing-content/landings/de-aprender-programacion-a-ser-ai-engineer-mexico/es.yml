@@ -158,75 +158,51 @@ sections:
     paddingY:
       desktop: lg
     background: hsl(var(--secondary))
-  - type: awards_marquee
-    section_id: awards_marquee-0mvcwq
-    version: "1.0"
-    speed: 40
-    gradient: true
-    gradientWidth: 500
-    items:
-      - id: logo-switchup-best-bootcamps-2025
-        alt: SwitchUp Best Bootcamps 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
-        logoHeight: 64px
-      - id: excelencia-educativa
-        alt: Excelencia Educativa - Calidad Institucional en Educación Online
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
-        logoHeight: 64px
-      - id: course-report-badge
-        alt: Course Report Badge 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-        logoHeight: 64px
-      - id: tech-hub
-        alt: South Florida Tech Hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70.webp
-        logoHeight: 64px
-      - id: logo-ebootcamp-top-2025
-        alt: ebootcamp Top Bootcamp Programación 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1_1770392737758.png
-        logoHeight: 64px
-      - id: premios-tecnologia
-        alt: Premios Tecnologia Siglo XXI
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-        logoHeight: 80px
-      - id: newsweek
-        alt: Newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
-        logoHeight: 64px
-      - id: reviews-coursereport
-        alt: 4.9 en reseñas de Course Report
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-        logoHeight: 64px
-      - id: forbes-1
-        alt: Forbes - Top Coding Bootcamp
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
-        logoHeight: 64px
-      - id: fortune-1
-        alt: Fortune - Mejor Empresa de Educación
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/fortune-logo_1764709618095.webp
-        logoHeight: 64px
-      - id: logo-coursereport-best-bootcamp-2025
-        alt: CourseReport Best European Bootcamp 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/CourseReport-best-bootcamp_-2025_1770392145137.png
-        logoHeight: 56px
-      - id: logo-european-excellence-education
-        alt: European Excellence Education
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/european-excellence-education-ealde_1_1770392145138.png
-        logoHeight: 56px
-      - id: logo-forbes-advisor-2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/Forbes-Advisor_1770392260031.png
-        alt: Forbes Advisor Best of 2025 - Best for lifetime career support
-        logoHeight: 56px
-      - id: logo-premios-excelencia-educativa
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios-excelencia-educativa-17_1770392145139.png
-        alt: 17 Premios Excelencia Educativa
-        logoHeight: 56px
+  - type: graduates_stats
+    heading: Nuestros Graduados Consiguen Empleo. Rápido.
+    subheading: Más de 6,000 graduados en todo el mundo. Ahora prosperando en tecnología.
+    stats:
+      - value: {{ global.global_job_placement_rate | 84% }}%
+        label: Tasa de contratación promedio
+      - value: {{ global.global_salary_increase | 55% }}%
+        label: Aumento salarial promedio en el nuevo puesto
+      - value: 3-6 meses
+        label: Tiempo promedio para conseguir empleo
+    collage_images:
+      - image_id: group-7085-1
+        col_span: 5
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
+        id: gemini-generated-image-uwpyyruwpyyruwpy
+        object_scale: 1.1
+        object_position: 50% 30%
+      - image_id: group-7086-1
+        col_span: 7
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
+        id: gemini-generated-image-pd2u4upd2u4upd2u
+        object_scale: 1
+        transform_origin: 50% 50%
+        object_position: 50% 60%
+      - image_id: group-7084-1
+        col_span: 6
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
+        id: gemini-generated-image-dhko5mdhko5mdhko-1
+        object_scale: 1.05
+      - image_id: group-7087-1
+        col_span: 6
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
+        id: gemini-generated-image-wpk4yvwpk4yvwpk4
+        object_scale: 1.05
+        transform_origin: 50% 50%
+        object_position: 50% 45%
+    section_id: graduates_stats-cnxqbb
     marginY:
-      mobile: md none
-      desktop: sm md
-    paddingY:
-      mobile: none lg
-      desktop: none lg
+      desktop: none
+    maxWidth:
+      desktop: 6xl
   - type: features_grid
     section_id: features_grid-e2a79q
     version: "1.0"
