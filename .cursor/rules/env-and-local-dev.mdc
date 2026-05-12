@@ -35,4 +35,4 @@ Document local setup: `npm install`, `cp .env.example .env`, set `DATABASE_URL` 
 
 ## URL Configuration
 
-Use `process.env.SITE_URL` (or equivalent) for sitemap/canonical URLs instead of `REPLIT_DEV_DOMAIN`. Replace hardcoded `replit.app` URLs (e.g. in [SchemaOrg](client/src/components/SchemaOrg.tsx)) with configurable base URL.
+Use `SITE_URL` for sitemap, canonical URLs, hreflang, the Lighthouse admin tool (`/api/admin/lighthouse/*`), and instead of relying on `REPLIT_DEV_DOMAIN` for public URLs. Replace hardcoded `replit.app` URLs (e.g. in [SchemaOrg](client/src/components/SchemaOrg.tsx)) with this configurable base URL.
