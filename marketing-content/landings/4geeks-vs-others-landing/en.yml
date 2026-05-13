@@ -29,38 +29,35 @@ sections:
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Talk to Admissions
       tags: website-lead
       fields:
         email:
           visible: true
           required: true
-          placeholder: Email address
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
-          placeholder: First name
+          placeholder: Nombre
         last_name:
           visible: true
           required: true
-          placeholder: Last name
+          placeholder: Apellido
         phone:
           visible: true
           required: true
-          default_country: US
+          default_country: MX
         program:
           visible: false
           default: ai-engineering
       success:
-        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
+        message: Revisa tu bandeja de entrada. Nuestro equipo de admisiones se pondrá en contacto contigo en breve para proporcionarte toda la información que necesitas.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe at any time.
-        sms_text: I agree to receive SMS messages about workshops, events, courses and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4-6 messages per month. We will never share your contact information.
-        sms_usa_only: true
+        marketing_text: Acepto recibir información por correo electrónico, WhatsApp y otros canales sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tus datos de contacto y puedes darte de baja en cualquier momento.
       show_terms: true
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
