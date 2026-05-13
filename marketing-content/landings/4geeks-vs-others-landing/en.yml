@@ -15,7 +15,6 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: El 84% de nuestros graduados consigue un empleo en el sector tech.
     brand_mark:
       prefix: La mayoría de los bootcamps enseñan habilidades.
       highlight: 4Geeks te ayuda a conseguir trabajo.
