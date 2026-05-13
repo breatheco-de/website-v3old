@@ -652,7 +652,7 @@ sections:
     marginY:
       desktop: md xl
     paddingY:
-      desktop: lg md
+      desktop: lg
     showOnLocations:
       - barcelona-spain
       - madrid-spain
