@@ -128,7 +128,7 @@ sections:
     section_id: hero-0dpkdy
   - type: human_and_ai_duo
     version: "1.0"
-    heading: El mercado laboral ha
+    heading: El mercado laboral ha cambiado
     description: Si sientes que tu experiencia ya no te da la seguridad de antes, no es casualidad. El mercado está dejando atrás los perfiles tradicionales y empezando a priorizar nuevas formas de trabajar con tecnología. El problema no es que falte trabajo 👉 Es que el tipo de trabajo ha cambiado.
     bullet_groups:
       - title: Lo que está pasando
