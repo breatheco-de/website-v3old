@@ -90,7 +90,7 @@ sections:
       description: Joshua trabajaba como asistente de cocina y contable mientras intentaba aprender a programar solo con tutoriales de YouTube. Sabía que necesitaba algo más estructurado para dar el salto real. Tras completar el bootcamp de Full Stack en 4Geeks, construyó aplicaciones web completas de cero y consiguió empleo como desarrollador en Regcheq, una startup fintech. Hoy hace lo que le apasiona.
       button:
         text: Iniciar mi aplicación
-        url: "#hero-aawpfv"
+        url: https://4geeksacademy.com/landing/herramientas-de-ia-para-programar
         variant: primary
         icon: Rocket
     gap: "8"
