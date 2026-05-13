@@ -51,6 +51,30 @@ sections:
     paddingY:
       desktop: lg
     background: hsl(var(--secondary))
+  - type: two_column
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    left:
+      video: https://www.youtube.com/watch?v=rtpfwwfE0yY
+      justify: center
+    right:
+      heading: "Joshua Bravo: de asistente de cocina a desarrollador Full Stack en una fintech"
+      sub_heading: Graduado de 4Geeks Academy, ahora trabajando en tecnología
+      description: Joshua trabajaba como asistente de cocina y contable mientras intentaba aprender a programar solo con tutoriales de YouTube. Sabía que necesitaba algo más estructurado para dar el salto real. Tras completar el bootcamp de Full Stack en 4Geeks, construyó aplicaciones web completas de cero y consiguió empleo como desarrollador en Regcheq, una startup fintech. Hoy hace lo que le apasiona.
+      button:
+        text: Iniciar mi aplicación
+        url: "#hero-aawpfv"
+        variant: primary
+        icon: Rocket
+    gap: "8"
+    marginY:
+      desktop: none xl
+    section_id: two_column-5ioq6d
+    background: hsl(var(--card))
+    paddingY:
+      desktop: lg
   - type: syllabus
     variant: program-modules
     program_title: AI Native Full Stack — Módulos del programa
@@ -225,30 +249,6 @@ sections:
       mobile: none
       desktop: none sm
     section_id: syllabus-sfg81c
-  - type: two_column
-    proportions:
-      - 6
-      - 6
-    alignment: center
-    left:
-      video: https://www.youtube.com/watch?v=rtpfwwfE0yY
-      justify: center
-    right:
-      heading: "Joshua Bravo: de asistente de cocina a desarrollador Full Stack en una fintech"
-      sub_heading: Graduado de 4Geeks Academy, ahora trabajando en tecnología
-      description: Joshua trabajaba como asistente de cocina y contable mientras intentaba aprender a programar solo con tutoriales de YouTube. Sabía que necesitaba algo más estructurado para dar el salto real. Tras completar el bootcamp de Full Stack en 4Geeks, construyó aplicaciones web completas de cero y consiguió empleo como desarrollador en Regcheq, una startup fintech. Hoy hace lo que le apasiona.
-      button:
-        text: Iniciar mi aplicación
-        url: "#hero-aawpfv"
-        variant: primary
-        icon: Rocket
-    gap: "8"
-    marginY:
-      desktop: none xl
-    section_id: two_column-5ioq6d
-    background: hsl(var(--card))
-    paddingY:
-      desktop: lg
   - type: numbered_steps
     section_id: numbered_steps-v2sl9u
     version: "1.0"
