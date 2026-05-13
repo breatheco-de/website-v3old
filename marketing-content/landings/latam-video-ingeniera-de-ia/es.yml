@@ -42,7 +42,7 @@ sections:
       description: El 87% de las empresas no encuentra los ingenieros de IA que necesita. La demanda crece un 30% cada año y los salarios de entrada superan los $20K USD. Este programa existe para que seas tú quien cubra esa demanda.
       button:
         text: Iniciar mi aplicación
-        url: "#hero-xyqok9"
+        url: https://4geeksacademy.com/landing/herramientas-de-ia-para-programar
         variant: primary
         icon: Rocket
     section_id: two_column-vs20nh
