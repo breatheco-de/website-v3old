@@ -6,9 +6,7 @@ settings:
     eager_count: 3
 meta:
   page_title: Programa de Carrera Ingeniero de IA | 4Geeks
-  description: >-
-    Conviértete en Ingeniero de IA en 24 semanas con mentoría ilimitada 1:1, orientación profesional y proyectos
-    prácticos. Inicia una carrera con salarios iniciales de $95K-$135K.
+  description: Conviértete en Ingeniero de IA en 24 semanas con mentoría ilimitada 1:1, orientación profesional y proyectos prácticos. Inicia una carrera con salarios iniciales de $95K-$135K.
   robots: index, follow
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
@@ -52,7 +50,7 @@ sections:
       alt: Introducción al programa de Ingeniería de IA
     signup_card:
       title: Recibe el Plan de Estudios Completo
-      description: "Deja tus datos y el equipo de admisiones te enviará el temario, la estructura del programa, opciones de horario, información sobre matrícula y financiación. Te lleva 2 minutos."
+      description: Deja tus datos y el equipo de admisiones te enviará el temario, la estructura del programa, opciones de horario, información sobre matrícula y financiación. Te lleva 2 minutos.
       cta_button:
         text: Recibir el Plan de Estudios
         url: "#modal-ubwgcj"
@@ -121,7 +119,7 @@ sections:
       alt: Introducción al programa de Ingeniería de IA
     signup_card:
       title: Recibe el Plan de Estudios Completo
-      description: "Deja tus datos y el equipo de admisiones te enviará el temario, la estructura del programa, opciones de horario, información sobre matrícula y financiación. Te lleva 2 minutos."
+      description: Deja tus datos y el equipo de admisiones te enviará el temario, la estructura del programa, opciones de horario, información sobre matrícula y financiación. Te lleva 2 minutos.
       cta_button:
         text: Recibir el plan de estudios
         url: "#modal-ubwgcj"
@@ -294,8 +292,8 @@ sections:
     title: Por qué Ingeniería de IA ahora
     description: En los últimos dos años, la IA ha generado 1,3 millones de nuevos empleos en el mundo, y solo el 3 % de la población activa tiene las habilidades para cubrirlos. LinkedIn sitúa al Ingeniero de IA entre los roles de más rápido crecimiento en 2026. La demanda existe. El talento, no. Ahí está tu oportunidad.
     background: bg-slate-950
-    card_bars_accent: hsl(var(--color-green))
-    card_gauge_accent: hsl(var(--color-orange))
+    card_bars_accent: hsl(var(--destructive) / 0.5)
+    card_gauge_accent: hsl(var(--accent))
     card_trend_accent: hsl(var(--primary))
     card_bars:
       title: Más empleos nuevos en IA que puestos perdidos
@@ -528,7 +526,7 @@ sections:
         show_rigobot_logo: true
         bullets:
           - text: Acceso de por vida a mentoría técnica 1:1
-          - text: "Proporción {{ global.global_teacher_student_ratio | 7:1 }} estudiante–profesor para orientación personalizada"
+          - text: Proporción {{ global.global_teacher_student_ratio | 7:1 }} estudiante–profesor para orientación personalizada
           - text: Check-ins semanales y colaboración entre pares vía Slack
           - text: Canales dedicados de Slack para soporte de código, bolsa de trabajo y consejos de carrera
         video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
