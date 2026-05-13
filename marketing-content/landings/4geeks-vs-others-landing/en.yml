@@ -15,59 +15,54 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: 84% of Our Graduates Land Tech Jobs.
     brand_mark:
-      prefix: Most Bootcamps Teach Skills.
-      highlight: 4Geeks Gets You Hired.
+      prefix: La mayoría de los bootcamps enseñan habilidades.
+      highlight: 4Geeks te ayuda a conseguir trabajo.
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\">Learn the AI-driven skills the market needs, backed by a support system that gets you hired, across AI Engineering, Full Stack, Data Science, and Cybersecurity.</span>"
+    description: "<span style=\"font-size: 1.125rem;\">El 84% de nuestros graduados consigue un empleo en el sector tech.</span>"
     bullets:
-      - text: Unlimited 1:1 mentorship and career coaching, available for life
-      - text: "Optional Job Guarantee: get hired within 9 months or we refund your tuition"
-      - text: 4.9/5 rating across 3,000+ reviews on Course Report, Google, and SwitchUp
+      - text: Mentoría ilimitada de por vida con ingenieros senior, incluso después de graduarte.
+      - text: Paga en 10, 12 o 18 cuotas mensuales sin dejar tu trabajo actual
     image_object_fit: none
     video_id: "-2ZvlgDnltc"
     video_ratio: "9:12"
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Talk to Admissions
       tags: website-lead
       fields:
         email:
           visible: true
           required: true
-          placeholder: Email address
+          placeholder: Correo electrónico
         first_name:
           visible: true
           required: true
-          placeholder: First name
+          placeholder: Nombre
         last_name:
           visible: true
           required: true
-          placeholder: Last name
+          placeholder: Apellido
         phone:
           visible: true
           required: true
-          default_country: US
+          default_country: MX
         program:
           visible: false
           default: ai-engineering
       success:
-        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
+        message: Revisa tu bandeja de entrada. Nuestro equipo de admisiones se pondrá en contacto contigo en breve para proporcionarte toda la información que necesitas.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe at any time.
-        sms_text: I agree to receive SMS messages about workshops, events, courses and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4-6 messages per month. We will never share your contact information.
-        sms_usa_only: true
+        marketing_text: Acepto recibir información por correo electrónico, WhatsApp y otros canales sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tus datos de contacto y puedes darte de baja en cualquier momento.
       show_terms: true
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
-    form_card_title: Want to Find the Right Program?
-    form_card_subtitle: "Fill in your details and our admissions team will walk you through your options: programs, pricing, and financing. It only takes 2 minutes."
+    form_card_title: Obtén el programa adecuado para ti
+    form_card_subtitle: "Rellena tus datos y nuestro equipo de admisiones te explicará todas las opciones disponibles: programas, precios y financiación. Solo te llevará 2 minutos."
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: true
     awards_marquee:
