@@ -185,7 +185,7 @@ sections:
     paddingY:
       desktop: md
     marginY:
-      desktop: none lg
+      desktop: none md
   - type: geeks_vs_others_comparison
     version: "1.0"
     title: Not All Programs Are Equal. Here's What Sets 4Geeks Apart.
@@ -235,7 +235,7 @@ sections:
     section_id: geeks_vs_others_comparison-1vx8lv
     background: hsl(210 100% 50% / 0.05)
     paddingY:
-      desktop: lg none
+      desktop: md none
   - type: career_support_explain
     maxWidth:
       desktop: 6xl
