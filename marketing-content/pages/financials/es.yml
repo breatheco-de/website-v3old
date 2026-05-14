@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Financiaciones | 4Geeks
-  description: Financiaciones - Aprende más sobre este tema en 4Geeks Academy.
+  page_title: "Opciones de Financiación | 4Geeks"
+  description: "Conoce las opciones de financiación y pago en 4Geeks Academy. Becas, cuotas y planes accesibles para que empieces a estudiar hoy."
   redirects:
     - /es/financiacion
 schema:

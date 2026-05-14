@@ -6,7 +6,7 @@ meta:
   priority: 0.8
   change_frequency: weekly
   page_title: Testimonios de Estudiantes | 4Geeks
-  description: testimonials - Aprende más sobre este tema en 4Geeks Academy.
+  description: "Lee las historias de éxito de nuestros egresados. Descubre cómo 4Geeks Academy transformó sus carreras en tecnología."
   redirects: []
 schema:
   include:

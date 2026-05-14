@@ -5,7 +5,7 @@ meta:
   robots: index, follow
   priority: 0.9
   change_frequency: weekly
-  page_title: Soporte GeekPAL | 4Geeks
+  page_title: "Soporte GeekPAL | 4Geeks Academy"
   description: Recibe ayuda en programación con mentoría y acompañamiento personalizado en todas nuestras carreras, incluyendo IA, desarrollo full stack y más en 4Geeks Academ
   redirects:
     - /es/geekpal

@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Prensa y Medios | 4Geeks
-  description: press - Aprende más sobre este tema en 4Geeks Academy.
+  page_title: "Prensa y Medios en 4Geeks Academy"
+  description: "Lee las últimas noticias y apariciones en medios sobre 4Geeks Academy. Cobertura de prensa, entrevistas y menciones destacadas."
   redirects: []
 schema:
   include:

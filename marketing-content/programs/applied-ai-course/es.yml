@@ -6,7 +6,7 @@ settings:
     eager_count: 3
 meta:
   page_title: Programa de IA Aplicada para Profesionales | 4Geeks
-  description: Domina las habilidades de IA para seguir siendo competitivo y avanzar en tu carrera en solo 6 semanas. Aprende a aplicar la IA en el trabajo para mayor eficiencia, creatividad e impacto.
+  description: "Domina las habilidades de IA para seguir siendo competitivo y avanzar en tu carrera en solo 6 semanas. Aprende a aplicar la IA para mayor eficiencia e impacto."
   robots: index, follow
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9

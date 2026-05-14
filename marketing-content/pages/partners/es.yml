@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Aliados de 4Geeks | 4Geeks
-  description: socios - Aprende más sobre este tema en 4Geeks Academy.
+  page_title: "Conoce a nuestros aliados de 4Geeks"
+  description: "Conoce las empresas e instituciones aliadas de 4Geeks Academy y cómo colaboramos para transformar la educación tecnológica."
   redirects: []
 schema:
   include:
