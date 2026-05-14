@@ -279,6 +279,7 @@ export function CreateContentModal({
   const [showFiles, setShowFiles] = useState(false);
   const [excludedLocales, setExcludedLocales] = useState<Set<string>>(new Set());
   const [showAllLocales, setShowAllLocales] = useState(false);
+  const [agnosticLocale, setAgnosticLocale] = useState<string | null>(null);
   const [showTypeChangeDetails, setShowTypeChangeDetails] = useState(false);
   const [uniqueFieldValues, setUniqueFieldValues] = useState<Record<string, string>>({});
   const [localeTitles, setLocaleTitles] = useState<Record<string, string>>({});
@@ -480,6 +481,7 @@ export function CreateContentModal({
       setDuplicatingPage(null);
       setExcludedLocales(new Set());
       setShowAllLocales(false);
+      setAgnosticLocale(null);
       setShowTypeChangeDetails(false);
       setUniqueFieldValues({});
       setStep(1);
@@ -495,10 +497,10 @@ export function CreateContentModal({
   const isLocaleAgnosticPattern =
     !!urlPattern?.["default"] && !urlPattern?.[loc0] && !urlPattern?.[loc1];
 
-  const hiddenLocales = isLocaleAgnosticPattern && !showAllLocales;
-  const primaryLocale = sourceLocale ?? loc0;
+  const primaryLocale = agnosticLocale ?? (sourceLocale ?? loc0);
+  const effectiveSingleLocale = agnosticLocale ?? primaryLocale;
   const isLocaleVisible = (loc: string) => {
-    if (hiddenLocales) return loc === primaryLocale;
+    if (isLocaleAgnosticPattern) return loc === effectiveSingleLocale;
     return true;
   };
 
@@ -543,7 +545,7 @@ export function CreateContentModal({
           type: createContentType,
           slugEn: (excludedLocales.has(loc0) || !isLocaleVisible(loc0)) ? undefined : createContentSlugEn,
           slugEs: (excludedLocales.has(loc1) || !isLocaleVisible(loc1)) ? undefined : createContentSlugEs,
-          title: createContentTitle || createContentSlugEn,
+          title: createContentTitle || localeTitles[effectiveSingleLocale] || createContentSlugEn || createContentSlugEs,
           ...(author ? { author } : {}),
           ...(duplicatingPage ? { sourceUrl: duplicatingPage.loc } : {}),
           ...(() => {
@@ -668,6 +670,7 @@ export function CreateContentModal({
                 onValueChange={(v) => {
                   setCreateContentType(v);
                   setExcludedLocales(new Set());
+                  setAgnosticLocale(null);
                   if (createContentSlugEn) {
                     setCreateContentSlugEnStatus("checking");
                     checkSlug(v, createContentSlugEn, loc0, setCreateContentSlugEnStatus, setSlugEnConflictReason);
@@ -731,8 +734,6 @@ export function CreateContentModal({
                   return next;
                 });
               };
-              const hasHiddenLocales = isLocaleAgnosticPattern && !showAllLocales && supportedLocales.length > 1;
-
               const deriveSlug = (t: string) =>
                 t.toLowerCase().trim()
                   .replace(/[^a-z0-9\s-]/g, "")
@@ -742,6 +743,40 @@ export function CreateContentModal({
 
               return (
                 <div className="space-y-3 p-3 bg-muted/50 rounded-md">
+                  {isLocaleAgnosticPattern && supportedLocales.length > 1 && (
+                    <div className="space-y-1.5">
+                      <p className="text-xs font-medium text-muted-foreground">Language:</p>
+                      <div className="flex gap-1">
+                        {supportedLocales.map((loc) => (
+                          <button
+                            key={loc.code}
+                            type="button"
+                            onClick={() => {
+                              setAgnosticLocale(loc.code);
+                              setExcludedLocales(new Set(supportedLocales.map(l => l.code).filter(c => c !== loc.code)));
+                              setCreateContentTitle("");
+                              setCreateContentSlugEn("");
+                              setCreateContentSlugEs("");
+                              setCreateContentSlugEnStatus("idle");
+                              setCreateContentSlugEsStatus("idle");
+                              setSlugEnConflictReason(null);
+                              setSlugEsConflictReason(null);
+                              setLocaleTitles({});
+                              setManualTitleLocales(new Set());
+                            }}
+                            className={`px-3 py-1 text-xs rounded border ${
+                              effectiveSingleLocale === loc.code
+                                ? "bg-primary text-primary-foreground border-primary"
+                                : "bg-background text-muted-foreground border-border hover-elevate"
+                            }`}
+                            data-testid={`button-locale-${loc.code}`}
+                          >
+                            {loc.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                   <div className="space-y-1.5">
                     <p className="text-xs font-medium text-muted-foreground">
                       {visibleLocales.length > 1
@@ -838,36 +873,6 @@ export function CreateContentModal({
                     ))}
                   </div>
 
-                  {hasHiddenLocales && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setShowAllLocales(true);
-                        setExcludedLocales(new Set());
-                      }}
-                      className="text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
-                      data-testid="button-include-other-locales"
-                    >
-                      <Plus className="h-3 w-3" />
-                      Include other locales
-                    </button>
-                  )}
-
-                  {isLocaleAgnosticPattern && showAllLocales && supportedLocales.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setShowAllLocales(false);
-                        const others = supportedLocales.map((l) => l.code).filter((c) => c !== primaryLocale);
-                        setExcludedLocales(new Set(others));
-                      }}
-                      className="text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
-                      data-testid="button-only-primary-locale"
-                    >
-                      <X className="h-3 w-3" />
-                      Show only {supportedLocales.find((l) => l.code === primaryLocale)?.label ?? primaryLocale}
-                    </button>
-                  )}
 
                   {(isLocaleVisible(loc0) ? createContentSlugEn : createContentSlugEs) && (
                     <>

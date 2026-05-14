@@ -6,7 +6,7 @@ settings:
     eager_count: 3
 meta:
   page_title: Programa de Carrera Ingeniero de IA | 4Geeks
-  description: Conviértete en Ingeniero de IA en 24 semanas con mentoría ilimitada 1:1, orientación profesional y proyectos prácticos. Inicia una carrera con salarios iniciales de $95K-$135K.
+  description: "Conviértete en Ingeniero de IA en 24 semanas con mentoría 1:1, orientación profesional y proyectos prácticos. Inicia una carrera con salarios de $95K-$135K."
   robots: index, follow
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9

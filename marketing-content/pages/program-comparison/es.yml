@@ -6,7 +6,7 @@ meta:
   priority: 0.8
   change_frequency: weekly
   page_title: Comparación de Programas | 4Geeks
-  description: program comparison - Aprende más sobre este tema en 4Geeks Academy.
+  description: "Compara todos los programas de 4Geeks Academy: AI Engineering, Data Science, AI Full Stack y Ciberseguridad. Encuentra el que mejor se adapta a ti."
   redirects:
     - /comparar-programas
     - /es/programas
