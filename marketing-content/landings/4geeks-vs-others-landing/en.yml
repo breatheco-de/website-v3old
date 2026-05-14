@@ -230,7 +230,7 @@ sections:
     section_id: geeks_vs_others_comparison-1vx8lv
     background: hsl(var(--secondary))
     paddingY:
-      desktop: lg none
+      desktop: lg md
   - type: career_support_explain
     maxWidth:
       desktop: 6xl
