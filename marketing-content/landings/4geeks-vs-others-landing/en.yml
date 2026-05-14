@@ -183,7 +183,7 @@ sections:
     description: Four review platform cards with ratings
     section_id: trust_cards-eslgbu
     paddingY:
-      desktop: md
+      desktop: sm md
     marginY:
       desktop: none lg
   - type: geeks_vs_others_comparison
