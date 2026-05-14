@@ -15,54 +15,59 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
+    title: 84% of Our Graduates Land Tech Jobs.
     brand_mark:
-      prefix: La mayoría de los bootcamps enseñan habilidades.
-      highlight: 4Geeks te ayuda a conseguir trabajo.
+      prefix: Most Bootcamps Teach Skills.
+      highlight: 4Geeks Gets You Hired.
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\">El 84% de nuestros graduados consigue un empleo en el sector tech.</span>"
+    description: "<span style=\"font-size: 1.125rem;\">Learn the AI-driven skills the market needs, backed by a support system that gets you hired, across AI Engineering, Full Stack, Data Science, and Cybersecurity.</span>"
     bullets:
-      - text: Mentoría ilimitada de por vida con ingenieros senior, incluso después de graduarte.
-      - text: Paga en 10, 12 o 18 cuotas mensuales sin dejar tu trabajo actual
+      - text: Unlimited 1:1 mentorship and career coaching, available for life
+      - text: "Optional Job Guarantee: get hired within 9 months or we refund your tuition"
+      - text: 4.9/5 rating across 3,000+ reviews on Course Report, Google, and SwitchUp
     image_object_fit: none
     video_id: "-2ZvlgDnltc"
     video_ratio: "9:12"
     form:
       variant: stacked
       conversion_name: student_application
+      submit_label: Talk to Admissions
       tags: website-lead
       fields:
         email:
           visible: true
           required: true
-          placeholder: Correo electrónico
+          placeholder: Email address
         first_name:
           visible: true
           required: true
-          placeholder: Nombre
+          placeholder: First name
         last_name:
           visible: true
           required: true
-          placeholder: Apellido
+          placeholder: Last name
         phone:
           visible: true
           required: true
-          default_country: MX
+          default_country: US
         program:
           visible: false
           default: ai-engineering
       success:
-        message: Revisa tu bandeja de entrada. Nuestro equipo de admisiones se pondrá en contacto contigo en breve para proporcionarte toda la información que necesitas.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
-        marketing_text: Acepto recibir información por correo electrónico, WhatsApp y otros canales sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tus datos de contacto y puedes darte de baja en cualquier momento.
+        marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe at any time.
+        sms_text: I agree to receive SMS messages about workshops, events, courses and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4-6 messages per month. We will never share your contact information.
+        sms_usa_only: true
       show_terms: true
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
-    form_card_title: Obtén el programa adecuado para ti
-    form_card_subtitle: "Rellena tus datos y nuestro equipo de admisiones te explicará todas las opciones disponibles: programas, precios y financiación. Solo te llevará 2 minutos."
+    form_card_title: Want to Find the Right Program?
+    form_card_subtitle: "Fill in your details and our admissions team will walk you through your options: programs, pricing, and financing. It only takes 2 minutes."
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: true
     awards_marquee:
@@ -155,7 +160,7 @@ sections:
     maxWidth:
       desktop: 6xl
     paddingY:
-      desktop: none
+      desktop: md none
   - type: trust_cards
     maxWidth:
       desktop: 6xl
@@ -228,9 +233,9 @@ sections:
           - None required
           - Entry test or prior experience required
     section_id: geeks_vs_others_comparison-1vx8lv
-    background: hsl(var(--secondary))
+    background: hsl(210 100% 50% / 0.05)
     paddingY:
-      desktop: md
+      desktop: lg none
   - type: career_support_explain
     maxWidth:
       desktop: 6xl
@@ -352,7 +357,7 @@ sections:
             achievement: She achieved a 100% salary increase.
     section_id: career_support_explain-xpc3k2
     marginY:
-      desktop: none lg
+      desktop: none xl
     paddingY:
       desktop: md none
   - type: human_and_ai_duo
@@ -369,7 +374,6 @@ sections:
           - text: Industry insights from people working in tech
           - text: Unlimited number of sessions. Available lifelong
       - title: "Rigobot, your AI tutor:"
-        image: data:image/png;base64,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
         bullets:
           - text: Instant feedback on your code, 24/7
           - text: Adapts to your level and learning pace
@@ -404,79 +408,46 @@ sections:
       desktop: md
     marginY:
       desktop: none md
-  - type: course_selector
-    version: "1.0"
-    variant: spotlight
-    heading: Find Your Path
-    subheading: Four programs. All built around getting you hired, not just trained.
-    courses:
+  - type: programs_showcase
+    version: v1.0
+    layout: spotlight_with_list
+    heading: Four Programs. All Built Around Getting You Hired.
+    subheading: Most bootcamps offer a curriculum. 4Geeks offers a job outcome backed by a guarantee. Pick the track that fits your goal.
+    featured_label: Featured Program
+    programs:
       - name: AI Engineering
-        icon: Bolt
-        duration: 24 weeks, or 15-week accelerated track
-        label: Updated in 2026
-        title: AI Engineering
-        badges:
-          - icon: Bolt
-            text: RAG & Vector Search
-          - icon: Bolt
-            text: AI Agents
-          - icon: Bolt
-            text: Python
-        description: Transform a real business case into a fully AI-native system, layer by layer. Master the agents, RAG systems, and automation pipelines that companies are hiring for right now.
-        cta_text: Get Program Details
-        cta_url: /en/career-programs/ai-engineering
-        course_background: accent
-      - name: Data Science and Machine Learning
-        icon: IconChartBar
-        duration: 18 weeks
-        label: Updated in 2026
-        title: Data Science and Machine Learning
-        badges:
-          - icon: ChartBar
-            text: Python & Pandas
-          - icon: ChartBar
-            text: TensorFlow
-          - icon: ChartBar
-            text: Data Visualization
-        description: Master the skills behind AI-driven decisions. Build models, analyze data at scale, and deploy solutions that companies in every industry are actively hiring for.
-        cta_text: Get Program Details
-        cta_url: /en/career-programs/data-science-ml
-        course_background: hsl(var(--muted-foreground))
-      - name: Cybersecurity
-        icon: IconShield
-        duration: 16 weeks
-        label: Updated in 2026
-        title: Cybersecurity
-        badges:
-          - icon: Shield
-            text: Ethical Hacking & Pentesting
-          - icon: Shield
-            text: NIST Framework
-        description: Detect threats, protect systems, and secure the data every organization depends on. One of the fastest-growing careers in tech, with a global shortage of skilled professionals that shows no signs of slowing.
-        cta_text: Get Program Details
-        cta_url: /en/career-programs/cybersecurity
-        course_background: destructive
+        icon: IconBrain
+        description: The fastest-growing job of 2026. Build real AI systems using LLMs, agents, and automation — and graduate with a live AI-powered company in your portfolio. Roles paying $95K–$150K.
+        duration: 24 weeks
+        avg_salary: $95,000 – $150,000
+        cta_text: See Program Details
+        cta_url: /us/career-programs/ai-engineering
       - name: Full Stack Development with AI
         icon: IconCode
+        description: Build production-ready web applications from frontend to backend with the AI tools companies are hiring for today. Your portfolio ships real products, not exercises.
         duration: 20 weeks
-        label: Updated in 2026
-        title: Full Stack Development with AI
-        badges:
-          - icon: Code
-            text: React & Next.js
-          - icon: Code
-            text: Python & APIs
-          - icon: Code
-            text: AI Integration
-        description: Build modern, production-ready web applications from frontend to backend, with AI integrated into your development process from day one.
-        cta_text: Get Program Details
-        cta_url: /en/career-programs/full-stack
-        course_background: primary
-    maxWidth:
-      desktop: 6xl
+        avg_salary: $65,000 – $105,000
+        cta_text: See Program Details
+        cta_url: /us/career-programs/full-stack
+      - name: Data Science and Machine Learning
+        icon: IconChartBar
+        description: Analyze real data, build predictive models, and deploy machine learning solutions companies are paying a premium for. Go beyond theory — every milestone is a deliverable.
+        duration: 16 weeks
+        avg_salary: $70,000 – $130,000
+        cta_text: See Program Details
+        cta_url: /us/career-programs/data-science-ml
+      - name: Cybersecurity
+        icon: IconShield
+        description: Protect the systems AI depends on. As companies scale their AI infrastructure, demand for cybersecurity specialists has never been higher. Build the skills to fill that gap.
+        duration: 16 weeks
+        avg_salary: $65,000 – $120,000
+        cta_text: See Program Details
+        cta_url: /us/career-programs/cybersecurity
+    section_id: programs_showcase-5wibqd
+    paddingY:
+      desktop: md lg
     marginY:
-      desktop: none lg
-    section_id: course_selector-i095ma
+      desktop: sm lg
   - type: cards_deck
     version: "1.0"
     heading: Real Stories of Real Career Change
@@ -508,7 +479,7 @@ sections:
         alt: Geekpal
     section_id: cards_deck-cnay6o
     marginY:
-      desktop: none lg
+      desktop: none xl
     background: hsl(var(--secondary))
     paddingY:
       desktop: md lg
@@ -690,9 +661,44 @@ sections:
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-dc7isf
     paddingY:
-      desktop: none
+      desktop: none sm
     marginY:
-      desktop: none
+      desktop: none sm
+  - type: whos_hiring
+    variant: carousel
+    pretitle: Job Placement
+    title: Where Our Graduates Work
+    subtitle: From funded startups to global tech leaders, our graduates work at some of the most recognized companies worldwide.
+    logos:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
+        alt: Microsoft
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70.webp
+        alt: Google Developers
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
+        alt: Boats Group
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70.webp
+        alt: Meta
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70.webp
+        alt: eBay
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
+        alt: National Geographic
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
+        alt: Evernote
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70.webp
+        alt: Telefonica
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
+        alt: Twilio
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
+        alt: Uber
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70.webp
+        alt: Neo9
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
+        alt: Jooble
+    section_id: whos_hiring-vyd58o
+    paddingY:
+      desktop: sm md
+    marginY:
+      desktop: sm none
   - type: faq
     version: v1.0
     title: Real Questions. Honest Answers
