@@ -8514,7 +8514,12 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
                   parsed[fieldName] = coerceToOriginalType(newValue, parsed[fieldName]);
                 }
               } else if (file === "en.yml" || file === "es.yml") {
-                parsed.title = localeTitles[fileLocale] || title;
+                const locTitle = localeTitles[fileLocale] || title;
+                parsed.title = locTitle;
+                if (locTitle) {
+                  if (!parsed.meta || typeof parsed.meta !== "object") parsed.meta = {};
+                  (parsed.meta as Record<string, unknown>).page_title = locTitle;
+                }
               }
 
               parsedDupFiles.push({ file, parsed });
@@ -8540,7 +8545,12 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
                 }
                 cloned.slug = loc === "es" ? (esSlug || folderSlug!) : (enSlug || folderSlug!);
                 cloned.locale = loc;
-                cloned.title = localeTitles[loc] || title;
+                const clonedTitle = localeTitles[loc] || title;
+                cloned.title = clonedTitle;
+                if (clonedTitle) {
+                  if (!cloned.meta || typeof cloned.meta !== "object") cloned.meta = {};
+                  (cloned.meta as Record<string, unknown>).page_title = clonedTitle;
+                }
                 parsedDupFiles.push({ file: `${loc}.yml`, parsed: cloned });
               }
             }
@@ -8622,7 +8632,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const makeLocaleObj = (slug: string, loc: string) => {
         const obj: Record<string, unknown> = { slug, sections: [] };
         const localeTitle = localeTitles[loc];
+        const effectiveTitle = localeTitle || title;
         if (localeTitle) obj.title = localeTitle;
+        if (effectiveTitle) obj.meta = { page_title: effectiveTitle };
         return obj;
       };
       const enYml = yaml.dump(makeLocaleObj(enSlug || folderSlug!, "en"), { lineWidth: 120, noRefs: true, sortKeys: false });
