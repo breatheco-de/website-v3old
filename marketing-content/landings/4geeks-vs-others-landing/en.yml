@@ -228,7 +228,7 @@ sections:
           - None required
           - Entry test or prior experience required
     section_id: geeks_vs_others_comparison-1vx8lv
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--secondary))
     paddingY:
       desktop: lg none
   - type: career_support_explain
