@@ -497,7 +497,7 @@ export function CreateContentModal({
   const isLocaleAgnosticPattern =
     !!urlPattern?.["default"] && !urlPattern?.[loc0] && !urlPattern?.[loc1];
 
-  const primaryLocale = sourceLocale ?? loc0;
+  const primaryLocale = agnosticLocale ?? (sourceLocale ?? loc0);
   const effectiveSingleLocale = agnosticLocale ?? primaryLocale;
   const isLocaleVisible = (loc: string) => {
     if (isLocaleAgnosticPattern) return loc === effectiveSingleLocale;
@@ -545,7 +545,7 @@ export function CreateContentModal({
           type: createContentType,
           slugEn: (excludedLocales.has(loc0) || !isLocaleVisible(loc0)) ? undefined : createContentSlugEn,
           slugEs: (excludedLocales.has(loc1) || !isLocaleVisible(loc1)) ? undefined : createContentSlugEs,
-          title: createContentTitle || createContentSlugEn,
+          title: createContentTitle || localeTitles[effectiveSingleLocale] || createContentSlugEn || createContentSlugEs,
           ...(author ? { author } : {}),
           ...(duplicatingPage ? { sourceUrl: duplicatingPage.loc } : {}),
           ...(() => {
