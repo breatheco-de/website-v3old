@@ -475,7 +475,7 @@ sections:
     maxWidth:
       desktop: 6xl
     marginY:
-      desktop: none md
+      desktop: none lg
     section_id: course_selector-i095ma
   - type: cards_deck
     version: "1.0"
