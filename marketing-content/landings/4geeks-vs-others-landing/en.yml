@@ -690,9 +690,9 @@ sections:
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-dc7isf
     paddingY:
-      desktop: none sm
+      desktop: none
     marginY:
-      desktop: none sm
+      desktop: none
   - type: faq
     version: v1.0
     title: Real Questions. Honest Answers
