@@ -753,6 +753,7 @@ export function CreateContentModal({
                             type="button"
                             onClick={() => {
                               setAgnosticLocale(loc.code);
+                              setExcludedLocales(new Set(supportedLocales.map(l => l.code).filter(c => c !== loc.code)));
                               setCreateContentTitle("");
                               setCreateContentSlugEn("");
                               setCreateContentSlugEs("");
