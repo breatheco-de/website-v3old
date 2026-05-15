@@ -18833,6 +18833,86 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-web-developer-4fb5b2b8-920x614-640w.webp"
         }
       ]
+    },
+    "star-wars-1764729369149": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/star-wars_1764729369149.webp",
+      "alt": "Image: star-wars_1764729369149",
+      "focal_point": "center",
+      "tags": [
+        "illustration"
+      ],
+      "usage_count": 0,
+      "hash": "93a281d7d90484ae09f9be2332ede5decd800f7b758c81a7f1d286b6537f26c3",
+      "width": 589,
+      "height": 389,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        589
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 589,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/star-wars_1764729369149-589w.webp"
+        }
+      ]
+    },
+    "authentication-python-1764729364254": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/authentication-python_1764729364254.webp",
+      "alt": "Image: authentication-python_1764729364254",
+      "focal_point": "center",
+      "tags": [
+        "illustration"
+      ],
+      "usage_count": 0,
+      "hash": "337ee1545e601418315527ef0a44c675a9d62d4a763d5626717ce6dea2299d39",
+      "width": 960,
+      "height": 540,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/authentication-python_1764729364254-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/authentication-python_1764729364254-960w.webp"
+        }
+      ]
+    },
+    "final-project-applied-ai-1767880920613": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/final-project-applied-ai_1767880920613.webp",
+      "alt": "Image: final-project-applied-ai_1767880920613",
+      "focal_point": "center",
+      "tags": [
+        "illustration"
+      ],
+      "usage_count": 0,
+      "hash": "13fcd45eda24ae22bc5ce7ddb67c0b40290daa92bd36ae354a58b99e3115fa8f",
+      "width": 917,
+      "height": 512,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/final-project-applied-ai_1767880920613-640w.webp"
+        }
+      ]
     }
   }
 }

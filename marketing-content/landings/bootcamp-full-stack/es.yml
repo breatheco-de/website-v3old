@@ -259,7 +259,6 @@ sections:
     paddingY:
       desktop: md
   - type: projects
-    section_id: projects-eo7enm
     title: Aprende construyendo proyectos reales
     subtitle: "Las tareas que abordarás se asemejan a las que encontrarás en el mundo laboral real. Aquí tienes un vistazo de lo que trabajarás:"
     items:
@@ -282,17 +281,18 @@ sections:
         date: 20/01/2023
       - title: Proyecto Final Full-Stack
         description: Diseña y construye tu propia aplicación full-stack desde cero. Demuestra tus habilidades con React, Flask, SQLAlchemy e integraciones de APIs de terceros. Este proyecto final muestra todo lo que has aprendido.
-        image: final-project
+        image: final-project-applied-ai-1767880920613
         tags:
           - Full-Stack
           - Capstone
         duration: 40 HORAS
         difficulty: hard
         date: 01/03/2023
-    marginY:
-      desktop: none md
     paddingY:
       desktop: md sm
+    marginY:
+      desktop: none md
+    section_id: projects-eo7enm
   - type: ai_learning
     section_id: ai_learning-tla7rr
     variant: feature-tabs

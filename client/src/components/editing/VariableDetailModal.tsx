@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { AlertTriangle, ArrowRight, Check, ChevronDown, ChevronUp, Filter, Pencil, Plus, Trash2, X } from "lucide-react";
+import { AlertTriangle, ArrowRight, Check, ChevronDown, ChevronUp, ChevronsUpDown, Filter, Pencil, Plus, Trash2, X } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -674,7 +674,7 @@ export function VariableDetailModal({
                                 Choose a variable...
                               </span>
                             )}
-                            <IconSelector className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                           </Button>
                         </PopoverTrigger>
                         <PopoverContent

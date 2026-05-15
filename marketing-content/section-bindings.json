@@ -2171,10 +2171,78 @@
           "contentType": "landing",
           "slug": "mejor-bootcamps-programacin",
           "sectionId": "syllabus-yxjg2f"
+        },
+        {
+          "contentType": "program",
+          "slug": "ai-engineering-new",
+          "sectionId": "syllabus-7efuv7"
         }
       ],
       "createdAt": "2026-05-04T21:27:34.548Z",
-      "name": "syllabus sincronizado con ai-engineering"
+      "name": "syllabus sincronizado con ai-engineering",
+      "updatedAt": "2026-05-15T19:51:02.128Z"
+    },
+    {
+      "id": "bind_mp7d38vu_bedz0l",
+      "component": "syllabus",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "landing",
+          "slug": "bootcamp-full-stack",
+          "sectionId": "syllabus-oklk2y"
+        },
+        {
+          "contentType": "landing",
+          "slug": "bootcamp-full-stack",
+          "sectionId": "syllabus-oklk2y"
+        }
+      ],
+      "createdAt": "2026-05-15T20:20:18.234Z"
+    },
+    {
+      "id": "bind_mp7drxbk_jawfxf",
+      "component": "projects",
+      "locale": "es",
+      "members": [
+        {
+          "contentType": "program",
+          "slug": "full-stack",
+          "sectionId": "projects-shdm9o"
+        },
+        {
+          "contentType": "landing",
+          "slug": "bootcamp-full-stack",
+          "sectionId": "projects-eo7enm"
+        },
+        {
+          "contentType": "landing",
+          "slug": "desarrollo-full-stack-con-ia",
+          "sectionId": "projects-6nx1yx"
+        },
+        {
+          "contentType": "landing",
+          "slug": "desarrollo-full-stack-con-ia-mexico",
+          "sectionId": "projects-7js3hz"
+        },
+        {
+          "contentType": "landing",
+          "slug": "desarrollo-full-stack-con-ia-venezuela",
+          "sectionId": "projects-xqf89k"
+        },
+        {
+          "contentType": "landing",
+          "slug": "es-programa-de-desarrollo-full-stack-con-ia",
+          "sectionId": "projects-xqf89k"
+        },
+        {
+          "contentType": "landing",
+          "slug": "espaa-programa-de-desarrollo-full-stack-con-ia",
+          "sectionId": "projects-xqf89k"
+        }
+      ],
+      "createdAt": "2026-05-15T20:39:29.648Z",
+      "name": "Full stack projects carousel"
     }
   ]
 }
