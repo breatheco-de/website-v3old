@@ -290,7 +290,7 @@ sections:
         date: 20/01/2023
       - title: Full-Stack Final Project
         description: Design and build your own full-stack application from scratch. Demonstrate your skills with React, Flask, SQLAlchemy, and third-party API integrations. This capstone project showcases everything you've learned.
-        image: final-project
+        image: final-project-applied-ai-1767880920613
         tags:
           - Full-Stack
           - Capstone
