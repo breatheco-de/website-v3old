@@ -18858,6 +18858,36 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/star-wars_1764729369149-589w.webp"
         }
       ]
+    },
+    "authentication-python-1764729364254": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/authentication-python_1764729364254.webp",
+      "alt": "Image: authentication-python_1764729364254",
+      "focal_point": "center",
+      "tags": [
+        "illustration"
+      ],
+      "usage_count": 0,
+      "hash": "337ee1545e601418315527ef0a44c675a9d62d4a763d5626717ce6dea2299d39",
+      "width": 960,
+      "height": 540,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/authentication-python_1764729364254-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/authentication-python_1764729364254-960w.webp"
+        }
+      ]
     }
   }
 }
