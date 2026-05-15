@@ -18888,6 +18888,31 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/authentication-python_1764729364254-960w.webp"
         }
       ]
+    },
+    "final-project-applied-ai-1767880920613": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/final-project-applied-ai_1767880920613.webp",
+      "alt": "Image: final-project-applied-ai_1767880920613",
+      "focal_point": "center",
+      "tags": [
+        "illustration"
+      ],
+      "usage_count": 0,
+      "hash": "13fcd45eda24ae22bc5ce7ddb67c0b40290daa92bd36ae354a58b99e3115fa8f",
+      "width": 917,
+      "height": 512,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/final-project-applied-ai_1767880920613-640w.webp"
+        }
+      ]
     }
   }
 }
