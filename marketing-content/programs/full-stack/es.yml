@@ -7,7 +7,7 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Programa de Carrera Desarrollador Full Stack | 4Geeks
-  description: "Conviértete en Desarrollador Full Stack con mentoría ilimitada 1:1, orientación profesional y proyectos prácticos. Inicia una carrera con salarios de $65K+."
+  description: Conviértete en Desarrollador Full Stack con mentoría ilimitada 1:1, orientación profesional y proyectos prácticos. Inicia una carrera con salarios de $65K+.
   redirects:
     - /bootcamp/full-stack-es
     - /programas/desarrollador-fullstack
@@ -380,7 +380,7 @@ sections:
         date: 20/01/2023
       - title: Proyecto Final Full-Stack
         description: Diseña y construye tu propia aplicación full-stack desde cero. Demuestra tus habilidades con React, Flask, SQLAlchemy e integraciones de APIs de terceros. Este proyecto final muestra todo lo que has aprendido.
-        image: final-project
+        image: final-project-applied-ai-1767880920613
         tags:
           - Full-Stack
           - Capstone
