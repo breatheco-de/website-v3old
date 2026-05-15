@@ -231,10 +231,10 @@ sections:
         duration: 40 HORAS
         difficulty: hard
         date: 01/03/2023
-    marginY:
-      desktop: none md
     paddingY:
       desktop: md sm
+    marginY:
+      desktop: none md
     section_id: projects-7js3hz
   - type: ai_learning
     variant: feature-tabs

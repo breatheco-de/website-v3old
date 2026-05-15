@@ -318,9 +318,8 @@ sections:
     marginY:
       desktop: none lg
   - type: projects
-    section_id: projects-xqf89k
     title: Aprende construyendo proyectos reales
-    subtitle: Sin ejercicios de relleno. Proyectos que van directamente a tu portfolio y demuestran a cualquier empresa lo que sabes hacer.
+    subtitle: "Las tareas que abordarás se asemejan a las que encontrarás en el mundo laboral real. Aquí tienes un vistazo de lo que trabajarás:"
     items:
       - title: Construye una API REST de StarWars
         description: La API del Blog de StarWars te permitirá practicar la construcción de una API REST usando frameworks ligeros como Express (para node) o Flask (para python) con SQLAlchemy ORM y el lenguaje Python, mientras construyes un blog divertido. Ideal para juniors que buscan practicar desarrollo de APIs en Python.
@@ -340,15 +339,17 @@ sections:
         difficulty: medium
         date: 20/01/2023
       - title: Proyecto Final Full-Stack
-        description: Diseña y construye tu propia aplicación full-stack desde cero. Demuestra tus habilidades con React, Flask, SQLAlchemy e integraciones de APIs de terceros. Este proyecto final es lo que llevas a tus entrevistas.
+        description: Diseña y construye tu propia aplicación full-stack desde cero. Demuestra tus habilidades con React, Flask, SQLAlchemy e integraciones de APIs de terceros. Este proyecto final muestra todo lo que has aprendido.
         image: final-project
         tags:
           - Full-Stack
           - Capstone
         duration: 40 HORAS
         difficulty: hard
+        date: 01/03/2023
     marginY:
       desktop: none lg
+    section_id: projects-xqf89k
   - type: ai_learning
     section_id: ai_learning-qmjitd
     badge: ¿Por qué 4Geeks?

@@ -259,7 +259,6 @@ sections:
     paddingY:
       desktop: md
   - type: projects
-    section_id: projects-eo7enm
     title: Aprende construyendo proyectos reales
     subtitle: "Las tareas que abordarás se asemejan a las que encontrarás en el mundo laboral real. Aquí tienes un vistazo de lo que trabajarás:"
     items:
@@ -289,10 +288,11 @@ sections:
         duration: 40 HORAS
         difficulty: hard
         date: 01/03/2023
-    marginY:
-      desktop: none md
     paddingY:
       desktop: md sm
+    marginY:
+      desktop: none md
+    section_id: projects-eo7enm
   - type: ai_learning
     section_id: ai_learning-tla7rr
     variant: feature-tabs
