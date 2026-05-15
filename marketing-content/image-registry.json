@@ -18833,6 +18833,31 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-web-developer-4fb5b2b8-920x614-640w.webp"
         }
       ]
+    },
+    "star-wars-1764729369149": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/star-wars_1764729369149.webp",
+      "alt": "Image: star-wars_1764729369149",
+      "focal_point": "center",
+      "tags": [
+        "illustration"
+      ],
+      "usage_count": 0,
+      "hash": "93a281d7d90484ae09f9be2332ede5decd800f7b758c81a7f1d286b6537f26c3",
+      "width": 589,
+      "height": 389,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        589
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 589,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/star-wars_1764729369149-589w.webp"
+        }
+      ]
     }
   }
 }
