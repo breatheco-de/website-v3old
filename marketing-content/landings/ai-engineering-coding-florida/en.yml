@@ -77,6 +77,7 @@ sections:
       items:
         - id: switchup-2025
     section_id: hero-nzpyph
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: sticky_cta
     section_id: sticky_cta-k7207r
     version: "1.0"
