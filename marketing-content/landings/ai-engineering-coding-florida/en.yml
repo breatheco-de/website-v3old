@@ -522,10 +522,10 @@ sections:
     section_id: certificate-yvgz4h
     marginY:
       mobile: none
-      desktop: none sm
+      desktop: none
     paddingY:
       mobile: lg
-      desktop: lg
+      desktop: lg none
     background: hsl(var(--card))
   - type: numbered_steps
     version: "1.0"
