@@ -6,7 +6,7 @@ meta:
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
   change_frequency: weekly
-  page_title: "De Programador a AI Engineer en México | 4Geeks"
+  page_title: De Programador a AI Engineer en México | 4Geeks
   description: Desarrolla soluciones de inteligencia artificial en 24 semanas con garantía de empleo en 4Geeks Academy México
 schema:
   include:
@@ -432,7 +432,7 @@ sections:
       desktop: lg md
     marginY:
       mobile: none
-      desktop: none md
+      desktop: none sm
     section_id: syllabus-1d3afu
   - type: two_column
     proportions:
