@@ -391,20 +391,6 @@ sections:
     section_id: features_grid-ds-roles
     marginY:
       desktop: none lg
-  - type: testimonials
-    section_id: testimonials-50frx2
-    title: Your New Career Starts Here
-    subtitle: Our programs deliver life-changing results. More than {{ global.global_review_count | 700 }} verified reviews prove it
-    related_features:
-      - data-science
-      - content-and-syllabus
-    rating_summary:
-      average: {{ global.global_review_rating | 4.9 }}
-      count: {{ global.global_review_count | 700+ }}
-    marginY:
-      desktop: md
-    paddingY:
-      desktop: md none
   - type: pricing
     section_id: pricing-sb335o
     version: "1.0"
@@ -466,6 +452,20 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+  - type: testimonials
+    section_id: testimonials-50frx2
+    title: Your New Career Starts Here
+    subtitle: Our programs deliver life-changing results. More than {{ global.global_review_count | 700 }} verified reviews prove it
+    related_features:
+      - data-science
+      - content-and-syllabus
+    rating_summary:
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 700+ }}
+    marginY:
+      desktop: md
+    paddingY:
+      desktop: md none
   - type: pricing
     section_id: pricing-jkomcz
     version: "1.0"
