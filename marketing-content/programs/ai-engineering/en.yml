@@ -692,20 +692,6 @@ sections:
       - munich-germany
       - rome-italy
     background: hsl(var(--secondary))
-  - type: testimonials
-    section_id: testimonials-uastb3
-    title: The People Behind the Numbers.
-    subtitle: "Different backgrounds. One outcome: a career in tech."
-    related_features:
-      - content-and-syllabus
-      - career-support
-    rating_summary:
-      average: {{ global.global_review_rating | 4.9 }}
-      count: {{ global.global_review_count | 700 }}
-    paddingY:
-      desktop: md lg
-    marginY:
-      desktop: none md
   - type: numbered_steps
     version: "1.0"
     title: Get Hired. Or Your Money Back.
@@ -743,6 +729,20 @@ sections:
       - panamacity-panama
     paddingY:
       desktop: none md
+    marginY:
+      desktop: none md
+  - type: testimonials
+    section_id: testimonials-uastb3
+    title: The People Behind the Numbers.
+    subtitle: "Different backgrounds. One outcome: a career in tech."
+    related_features:
+      - content-and-syllabus
+      - career-support
+    rating_summary:
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 700 }}
+    paddingY:
+      desktop: md lg
     marginY:
       desktop: none md
   - type: whos_hiring
