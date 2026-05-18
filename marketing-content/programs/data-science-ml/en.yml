@@ -80,6 +80,34 @@ sections:
       desktop: md
     marginY:
       desktop: none
+  - type: modal
+    version: "1.0"
+    heading: Request Program Details
+    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
+    show_close: true
+    size: md
+    form:
+      variant: stacked
+      submit_label: Get the Full Overview
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          required: true
+          default: datascience-ml
+      success:
+        message: Thank you. A program advisor will reach out with the details within 24 hours.
+    section_id: apply-modal
   - type: awards_marquee
     version: v1.0
     speed: 40
@@ -119,34 +147,6 @@ sections:
         alt: Excelencia Educativa - Institutional Quality
         logoHeight: 56px
     section_id: awards_marquee-eh027z
-  - type: modal
-    version: "1.0"
-    heading: Request Program Details
-    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
-    show_close: true
-    size: md
-    form:
-      variant: stacked
-      submit_label: Get the Full Overview
-      tags: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        phone:
-          visible: true
-          required: true
-        program:
-          visible: false
-          required: true
-          default: datascience-ml
-      success:
-        message: Thank you. A program advisor will reach out with the details within 24 hours.
-    section_id: apply-modal
   - type: graduates_stats
     heading: Real Outcomes. Real Numbers.
     subheading: 6,000+ graduates. Strong outcomes across the board.
