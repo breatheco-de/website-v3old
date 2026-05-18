@@ -189,7 +189,7 @@ sections:
     subtitle: The demand is real, the talent gap is wide, and Florida is at the center of it.
     description: Florida has become one of the fastest-growing tech hubs in the US. Miami's fintech and AI startup ecosystem, Orlando's simulation and defense sector, and Tampa's cybersecurity corridor are all actively recruiting AI engineers. Demand is outpacing supply — and only 3% of the workforce has the skills to fill these roles. That gap is your opportunity.
     card_color: bg-background
-    background: hsl(var(--card))
+    background: hsl(var(--secondary))
     items:
       - value: 42x
         title: Growth in Forward-Deployed Engineering since 2023
