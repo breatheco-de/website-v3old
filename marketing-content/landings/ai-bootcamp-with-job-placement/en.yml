@@ -789,7 +789,6 @@ sections:
     version: "1.0"
     title: 84% of Our Graduates Get Hired. Ready to Be Next?
     subtitle: Companies are actively hiring AI Engineers right now. Apply and our admissions team will be in touch shortly.
-    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
@@ -825,3 +824,4 @@ sections:
     section_id: cta_banner-55y7oh
     paddingY:
       desktop: md none
+    background: hsl(var(--card))
