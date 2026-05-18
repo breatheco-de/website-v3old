@@ -500,7 +500,7 @@ sections:
     marginY:
       desktop: none xl
     paddingY:
-      desktop: md none
+      desktop: none
   - type: human_and_ai_duo
     section_id: human_and_ai_duo-zg16oa
     version: "1.0"
