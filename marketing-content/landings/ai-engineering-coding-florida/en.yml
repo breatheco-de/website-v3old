@@ -114,7 +114,6 @@ sections:
       desktop: md none
     marginY:
       desktop: none
-
   - type: sticky_cta
     section_id: sticky_cta-k7207r
     version: "1.0"
@@ -147,7 +146,6 @@ sections:
         message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
     paddingY:
       desktop: none
-
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thriving in tech.
@@ -191,7 +189,6 @@ sections:
       desktop: 6xl
     paddingY:
       desktop: none
-
   - type: trust_cards
     maxWidth:
       desktop: 6xl
@@ -215,7 +212,6 @@ sections:
       desktop: none md
     marginY:
       desktop: none lg
-
   - type: features_grid
     version: "1.0"
     variant: stats-text-card
@@ -238,7 +234,6 @@ sections:
     paddingY:
       mobile: none md
       desktop: none md
-
   - type: syllabus
     variant: program-modules
     program_title: What You'll Build in 24 Weeks
@@ -391,7 +386,6 @@ sections:
     paddingY:
       mobile: lg none
       desktop: md sm
-
   - type: two_column
     proportions:
       - 6
@@ -413,7 +407,6 @@ sections:
     marginY:
       desktop: none xl
     section_id: two_column-luisa
-
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
@@ -453,7 +446,6 @@ sections:
     paddingY:
       desktop: md sm
     background: hsl(var(--secondary))
-
   - type: human_and_ai_duo
     section_id: human_and_ai_duo-zg16oa
     version: "1.0"
@@ -496,13 +488,12 @@ sections:
         border_radius: 0.5rem
     image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
     image_alt: Woman working on laptop in cafe
-    background: hsl(var(--secondary))
+    background: hsl(var(--card))
     paddingY:
       mobile: sm none
       desktop: md
     marginY:
       desktop: none sm
-
   - type: certificate
     title: Your Certificate. Your Career Leverage.
     description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Step into roles paying:"
@@ -557,7 +548,6 @@ sections:
       mobile: lg
       desktop: lg
     background: hsl(var(--card))
-
   - type: features_quad
     version: "1.0"
     heading: Who Can Add the Job Guarantee?
@@ -577,7 +567,6 @@ sections:
     paddingY:
       desktop: none
     background: hsl(var(--secondary))
-
   - type: numbered_steps
     version: "1.0"
     variant: bubbleText
@@ -598,7 +587,6 @@ sections:
         text: Verified and approved, your full tuition is refunded within 30 days.
     background: hsl(var(--card))
     section_id: numbered_steps-sgeuhk
-
   - type: testimonials_slide
     title: "Different Backgrounds. One Outcome: A Job in Tech."
     description: They all made the switch from different starting points. Read their stories.
@@ -719,7 +707,6 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-
   - type: features_quad
     version: "1.0"
     variant: default
@@ -744,7 +731,6 @@ sections:
     paddingY:
       desktop: none
     section_id: features_quad-xffhpo
-
   - type: career_support_explain
     maxWidth:
       desktop: 6xl
@@ -869,7 +855,6 @@ sections:
       desktop: none md
     paddingY:
       desktop: md none
-
   - type: pricing
     section_id: pricing-8pb379
     version: "1.0"
@@ -917,7 +902,6 @@ sections:
       desktop: lg none
     marginY:
       desktop: none lg
-
   - type: why_learn_ai
     variant: laptop-edge
     laptop_image:
@@ -947,7 +931,6 @@ sections:
     maxWidth:
       desktop: none
     showOn: desktop
-
   - type: cards_deck
     version: "1.0"
     heading: Real Stories of Real Career Change
@@ -980,7 +963,6 @@ sections:
     section_id: cards_deck-cnay6o
     marginY:
       desktop: none xl
-
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work
@@ -1017,7 +999,6 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg none
-
   - type: cta_banner
     version: "1.0"
     title: Florida's AI job market is growing fast. Your skills should too.
@@ -1066,7 +1047,6 @@ sections:
     paddingY:
       mobile: lg
       desktop: md lg
-
   - type: footer
     section_id: footer-eisseg
     version: "1.0"
