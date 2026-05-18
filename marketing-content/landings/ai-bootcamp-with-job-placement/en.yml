@@ -548,7 +548,7 @@ sections:
       mobile: sm none
       desktop: md
     marginY:
-      desktop: none md
+      desktop: none
   - type: testimonials_slide
     title: They Made the Switch. Here's What Happened.
     description: "Different backgrounds, one outcome: a career in tech that pays."
