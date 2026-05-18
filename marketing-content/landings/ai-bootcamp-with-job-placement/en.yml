@@ -823,6 +823,6 @@ sections:
         marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materi
     section_id: cta_banner-55y7oh
     paddingY:
-      desktop: md none
+      desktop: md
     background: hsl(var(--primary))
     form_background: hsl(var(--card))
