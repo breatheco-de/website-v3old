@@ -586,20 +586,6 @@ sections:
     paddingY:
       desktop: md none
     background: hsl(var(--card))
-  - type: testimonials
-    section_id: testimonials-uastb3
-    title: The People Behind the Numbers.
-    subtitle: "Different backgrounds. One outcome: a career in tech."
-    related_features:
-      - content-and-syllabus
-      - career-support
-    rating_summary:
-      average: {{ global.global_review_rating | 4.9 }}
-      count: {{ global.global_review_count | 700 }}
-    paddingY:
-      desktop: md lg
-    marginY:
-      desktop: none md
   - type: pricing
     version: "1.0"
     variant: product
@@ -658,6 +644,20 @@ sections:
       - santiago-chile
       - mexicocity-mexico
     background: hsl(var(--secondary))
+  - type: testimonials
+    section_id: testimonials-uastb3
+    title: The People Behind the Numbers.
+    subtitle: "Different backgrounds. One outcome: a career in tech."
+    related_features:
+      - content-and-syllabus
+      - career-support
+    rating_summary:
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 700 }}
+    paddingY:
+      desktop: md lg
+    marginY:
+      desktop: none md
   - type: pricing
     version: "1.0"
     variant: product
