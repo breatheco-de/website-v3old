@@ -122,72 +122,127 @@ sections:
     paddingY:
       desktop: sm md
     marginY:
-      desktop: none lg
-  - type: programs_showcase
-    version: v1.0
-    layout: spotlight_with_list
-    heading: Elige tu camino profesional
-    subheading: Cuatro programas diseñados para las habilidades que las empresas en España están contratando ahora mismo.
-    featured_label: Programa Destacado
-    programs:
-      - name: Ingeniería de IA
-        icon: IconBrain
-        description: Construye los sistemas de IA que las empresas contratan ahora mismo. Domina LLMs, agentes de IA y automatización mientras transformas un caso de negocio real en un sistema completamente nativo de IA, capa por capa.
-        duration: 24 semanas
-        cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/ingenieria-ia
-      - name: Desarrollo Full Stack con IA
-        icon: IconCode
-        description: Construye aplicaciones web modernas y listas para producción de frontend a backend usando las herramientas de IA más demandadas del mercado.
-        duration: 20 semanas
-        cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/desarrollo-full-stack
-      - name: Ciencia de Datos y Machine Learning
+      desktop: none sm
+    background: hsl(var(--secondary))
+  - type: course_selector
+    version: "1.0"
+    variant: spotlight
+    heading: Find Your Path
+    subheading: Four programs. All built around getting you hired, not just trained.
+    courses:
+      - name: AI Engineering
+        icon: Bolt
+        duration: 24 weeks, or 15-week accelerated track
+        label: Updated in 2026
+        title: AI Engineering
+        badges:
+          - icon: Bolt
+            text: RAG & Vector Search
+          - icon: Bolt
+            text: AI Agents
+          - icon: Bolt
+            text: Python
+        description: Transform a real business case into a fully AI-native system, layer by layer. Master the agents, RAG systems, and automation pipelines that companies are hiring for right now.
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/ai-engineering
+        course_background: accent
+      - name: Data Science and Machine Learning
         icon: IconChartBar
-        description: Analiza datos complejos, construye modelos inteligentes y despliega soluciones de IA para problemas reales de negocio.
-        duration: 18 semanas
-        cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
-      - name: Ciberseguridad
+        duration: 18 weeks
+        label: Updated in 2026
+        title: Data Science and Machine Learning
+        badges:
+          - icon: ChartBar
+            text: Python & Pandas
+          - icon: ChartBar
+            text: TensorFlow
+          - icon: ChartBar
+            text: Data Visualization
+        description: Master the skills behind AI-driven decisions. Build models, analyze data at scale, and deploy solutions that companies in every industry are actively hiring for.
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/data-science-ml
+        course_background: hsl(var(--muted-foreground))
+      - name: Cybersecurity
         icon: IconShield
-        description: Protege los sistemas que la IA necesita. Los especialistas en ciberseguridad son críticos ahora que las empresas escalan su infraestructura de IA.
-        duration: 16 semanas
-        cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/ciberseguridad
-    section_id: programs_showcase-5wibqd
-    background: hsl(210 100% 50% / 0.05)
-    paddingY:
-      desktop: md lg
-    marginY:
-      desktop: none lg
-  - type: graduates_stats
+        duration: 16 weeks
+        label: Updated in 2026
+        title: Cybersecurity
+        badges:
+          - icon: Shield
+            text: Ethical Hacking & Pentesting
+          - icon: Shield
+            text: NIST Framework
+        description: Detect threats, protect systems, and secure the data every organization depends on. One of the fastest-growing careers in tech, with a global shortage of skilled professionals that shows no signs of slowing.
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/cybersecurity
+        course_background: destructive
+      - name: Full Stack Development with AI
+        icon: IconCode
+        duration: 20 weeks
+        label: Updated in 2026
+        title: Full Stack Development with AI
+        badges:
+          - icon: Code
+            text: React & Next.js
+          - icon: Code
+            text: Python & APIs
+          - icon: Code
+            text: AI Integration
+        description: Build modern, production-ready web applications from frontend to backend, with AI integrated into your development process from day one.
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/full-stack
+        course_background: primary
     maxWidth:
       desktop: 6xl
-    heading: Resultados profesionales reales
-    subheading: Más de 6.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
+    marginY:
+      desktop: none
+    section_id: course_selector-ut5wua
+    background: hsl(var(--card))
+  - type: graduates_stats
+    heading: Nuestros Graduados Consiguen Empleo. Rápido.
+    subheading: Más de 6,000 graduados en todo el mundo. Ahora prosperando en tecnología.
     stats:
-      - value: 81%
-        label: Tasa de inserción laboral
-      - value: 40%
-        label: Aumento salarial medio tras graduarse
-      - value: 3 - 6 meses
-        label: Tiempo medio para conseguir empleo en 2025
-      - value: 5.000+
-        label: Graduados empleados en todo el mundo
+      - value: {{ global.global_job_placement_rate | 84% }}%
+        label: Tasa de contratación promedio
+      - value: {{ global.global_salary_increase | 55% }}%
+        label: Aumento salarial promedio en el nuevo puesto
+      - value: 3-6 meses
+        label: Tiempo promedio para conseguir empleo
     collage_images:
-      - image_id: graduates_team_1
+      - image_id: group-7085-1
         col_span: 5
         row_span: 2
-      - image_id: graduates_team_2-288x210-q87
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
+        id: gemini-generated-image-uwpyyruwpyyruwpy
+        object_scale: 1.1
+        object_position: 50% 30%
+      - image_id: group-7086-1
         col_span: 7
         row_span: 2
-      - image_id: graduates_coding
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
+        id: gemini-generated-image-pd2u4upd2u4upd2u
+        object_scale: 1
+        transform_origin: 50% 50%
+        object_position: 50% 60%
+      - image_id: group-7084-1
         col_span: 6
         row_span: 2
-      - image_id: graduates_friends-288x210-q87
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
+        id: gemini-generated-image-dhko5mdhko5mdhko-1
+        object_scale: 1.05
+      - image_id: group-7087-1
         col_span: 6
         row_span: 2
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
+        id: gemini-generated-image-wpk4yvwpk4yvwpk4
+        object_scale: 1.05
+        transform_origin: 50% 50%
+        object_position: 50% 45%
     section_id: graduates_stats-cnxqbb
+    marginY:
+      desktop: none
+    maxWidth:
+      desktop: 6xl
   - type: two_column
     proportions:
       - 6
@@ -208,9 +263,10 @@ sections:
     gap: "8"
     section_id: ai_learning-gyglcr
     marginY:
-      desktop: none lg
+      desktop: none xl
     paddingY:
       desktop: md
+    background: hsl(var(--secondary))
   - type: ai_learning
     section_id: ai_learning-qmjitd
     badge: ¿Por qué 4Geeks?
@@ -218,8 +274,7 @@ sections:
     description: La mayoría de academias te dan un curso y te desean suerte. 4Geeks se queda contigo desde tu primera línea de código hasta tu primera oferta de trabajo y más allá.
     features:
       - icon: TrendingUp
-        title: Apoyo de carrera construido para el mercado tech en España
-        description: ""
+        title: Apoyo de carrera construido para el mercado tech en Chile
         show_rigobot_logo: true
         bullets:
           - text: Coaching 1:1 enfocado en conseguir roles de Ingeniería de IA específicamente
@@ -227,27 +282,17 @@ sections:
           - text: Preparación para entrevistas técnicas y negociación salarial
           - text: Apoyo de carrera de por vida, no solo hasta que te gradúas
         video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
-        cta:
-          text: Comprueba si cumples los requisitos
-          url: "#hero-lt4ge6"
-          variant: primary
       - icon: Robot
         title: Aprende más rápido con un tutor de IA que sabe dónde te has atascado
-        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Rigobot te da feedback instantáneo sobre tu código sin esperar a que haya un humano disponible
           - text: Adapta las explicaciones a tu nivel exacto y ritmo de aprendizaje
           - text: Desbloquéate a las 2 de la madrugada sin perder el hilo
           - text: Cientos de ejercicios interactivos en Learnpack, nuestra plataforma de aprendizaje
-        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-        cta:
-          text: Comprueba si cumples los requisitos
-          url: "#hero-lt4ge6"
-          variant: primary
+        video_url: https://youtu.be/NRuShbSLtg0
       - icon: Headset
         title: Mentoría 1:1 ilimitada de por vida, no solo mientras estudias
-        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Reserva sesiones 1:1 ilimitadas con ingenieros senior incluso después de graduarte
@@ -257,10 +302,10 @@ sections:
         video_url: https://youtu.be/Zoxxw5jP7xA
     paddingY:
       mobile: lg none
-      desktop: lg md
+      desktop: none
     marginY:
-      desktop: none md
-    background: hsl(var(--secondary))
+      desktop: none
+    background: hsl(var(--card))
   - type: testimonials_slide
     title: Dieron el salto y esto es lo que pasó.
     description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa, ahora son desarrolladores con empleos reales y salarios que no esperaban.
@@ -405,6 +450,7 @@ sections:
         alt: Geekforce
     marginY:
       desktop: none xl
+    background: hsl(var(--card))
   - type: whos_hiring
     variant: carousel
     title: Empresas que contratan a nuestros estudiantes
@@ -436,7 +482,7 @@ sections:
         alt: Jooble
     section_id: whos_hiring-ed05rj
     marginY:
-      desktop: none xl
+      desktop: none lg
     paddingY:
       desktop: none
   - type: cta_banner
