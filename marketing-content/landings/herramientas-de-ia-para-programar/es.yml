@@ -693,7 +693,7 @@ sections:
     terms_color: hsl(var(--primary))
     marginY:
       mobile: md none
-      desktop: md none
+      desktop: none
     paddingY:
       mobile: lg
       desktop: lg
