@@ -737,12 +737,3 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-  - type: footer
-    section_id: footer-mrlzkw
-    version: "1.0"
-    copyright_text: 2024 4Geeks. Todos los derechos reservados.
-    paddingY:
-      mobile: none
-      desktop: none
-    marginY:
-      desktop: sm none
