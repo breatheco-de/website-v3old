@@ -1,13 +1,13 @@
 slug: quieres-ser-desarrollador-web-empieza-a-pensar-como-ai-engineer-mexico
-title: quieres-ser-desarrollador-web-empieza-a-pensar-como-ai-engineer-mexico
+title: quieres ser desarrollador web empieza a pensar como ai engineer mexico
 locale: es
 meta:
   robots: index, follow
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
   change_frequency: weekly
-  page_title: 4Geeks | Desarrolla como AI Engineer
-  description: Desarrolla soluciones de IA con nuestro bootcamp en México, con garantía de empleo y prácticas hands-on en 4Geeks Academy.
+  page_title: ¿Quieres ser Desarrollador Web? Piensa como AI Engineer | 4Geeks México
+  description: Si quieres ser desarrollador web en México, el siguiente nivel ya es Ingeniería de IA. Aprende a construir sistemas reales con IA en 24 semanas con 4Geeks Academy.
 schema:
   include:
     - organization
@@ -16,17 +16,20 @@ schema:
 sections:
   - type: hero
     version: "1.0"
-    variant: ApplyFormProductShowcase
+    variant: productShowcase
     title: ""
     brand_mark:
       prefix: ¿Quieres ser Desarrollador Web? Mejor piensa como
       highlight: Ingeniero de IA
       color: primary
-    description: Construye soluciones con IA, no solo código. Incluye Full Stack, IA y automatización.
+    description: El desarrollo web ya no es suficiente. Las empresas en México quieren ingenieros que construyan con IA, no solo código. En 24 semanas pasas de querer programar a desplegar sistemas de IA reales que las empresas llevan meses intentando contratar.
+    bullets:
+      - text: Mentoría ilimitada de por vida con ingenieros senior, incluso después de graduarte
+      - text: Paga en 10, 12 o 18 cuotas mensuales sin dejar tu trabajo actual
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Comprueba si cumples los requisitos.
+      submit_label: Iniciar mi aplicación
       tags: website-lead
       fields:
         email:
@@ -49,44 +52,59 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       terms_url: /terminos-condiciones
       privacy_url: /politica-privacidad
       consent:
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
-    cta_button:
-      text: Descargar programa
-      url: /programa/ai-engineering
-      variant: outline
-      icon: Download
-    video:
-      url: https://www.youtube.com/shorts/-SpU1PWNBF4
-      ratio: "9:16"
-      muted: true
-    section_id: hero-i22nbv
-    bullets:
-      - text: Aprende las habilidades que hoy buscan las empresas tecnológicas.
-      - text: La única academia que no termina cuando te gradúas, mentoría ilimitada de por vida incluida
-      - text: Opciones de financiación flexibles, con planes de pago a 10, 12 y 18 meses.
+    form_card_title: Obtén la guía completa del programa
+    form_card_subtitle: Te enviamos el programa completo con plan de estudios, opciones de financiación y más. Solo toma 2 minutos.
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+    show_awards_marquee: true
+    awards_marquee:
+      items:
+        - id: logo-switchup-best-bootcamps-2025
+          alt: SwitchUp Best Bootcamps 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
+          logoHeight: 64px
+        - id: excelencia-educativa
+          alt: Excelencia Educativa - Calidad Institucional en Educación Online
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
+          logoHeight: 64px
+        - id: course-report-badge
+          alt: Course Report Badge 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+          logoHeight: 64px
+        - id: newsweek
+          alt: Newsweek
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
+          logoHeight: 64px
+        - id: reviews-coursereport
+          alt: 4.9 en reseñas de Course Report
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+          logoHeight: 64px
+    awards_marquee_at_left_column: true
+    section_id: hero-2qil4o
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
     paddingY:
       mobile: md none
-      desktop: lg none
+      desktop: md none
     marginY:
       mobile: none
-      desktop: none
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
+      desktop: none xl
+
   - type: sticky_cta
-    section_id: sticky_cta-dzeumc
+    section_id: sticky_cta-3yvaj8
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Aplicar ahora
+    button_label: Iniciar mi aplicación
     show_dismiss: false
     form:
       variant: inline
       conversion_name: student_application
-      submit_label: Aplicar ahora
+      submit_label: Iniciar mi aplicación
       tags: website-lead
       fields:
         email:
@@ -110,308 +128,57 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       consent:
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
     load: eager
+
   - type: graduates_stats
-    maxWidth:
-      desktop: 6xl
-    heading: Resultados profesionales reales
-    subheading: Más de 5.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
+    heading: Nuestros Graduados Consiguen Empleo. Rápido.
+    subheading: Más de 5,000 graduados en todo el mundo. Ahora prosperando en tecnología.
     stats:
-      - value: 81%
-        label: Tasa de inserción laboral
+      - value: 84%
+        label: Tasa de contratación promedio
       - value: 40%
-        label: Aumento salarial medio tras graduarse
-      - value: 3-6 meses
-        label: Tiempo medio para conseguir empleo en 2025
-      - value: 5.000+
-        label: Graduados en todo el mundo
+        label: Aumento salarial promedio tras graduarse
+      - value: ~3 meses
+        label: Tiempo promedio para conseguir empleo
+      - value: 5,000+
+        label: Graduados empleados en todo el mundo
     collage_images:
-      - image_id: graduates_team_1
+      - image_id: group-7085-1
         col_span: 5
         row_span: 2
-      - image_id: graduates_team_2
+        alt: Graduados de 4Geeks Academy
+        object_scale: 1.1
+        object_position: 50% 30%
+      - image_id: group-7086-1
         col_span: 7
         row_span: 2
-      - image_id: graduates_coding
+        alt: Graduados de 4Geeks Academy
+        object_scale: 1
+        transform_origin: 50% 50%
+        object_position: 50% 60%
+      - image_id: group-7084-1
         col_span: 6
         row_span: 2
-      - image_id: graduates_friends
+        alt: Graduados de 4Geeks Academy
+        object_scale: 1.05
+      - image_id: group-7087-1
         col_span: 6
         row_span: 2
-    section_id: graduates_stats-0ufdus
-    value_size: text-3xl
-  - type: awards_marquee
-    section_id: awards_marquee-qr4slz
-    version: "1.0"
-    speed: 40
-    gradient: true
-    gradientWidth: 500
-    items:
-      - id: logo-switchup-best-bootcamps-2025
-        alt: SwitchUp Best Bootcamps 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
-        logoHeight: 64px
-      - id: excelencia-educativa
-        alt: Excelencia Educativa - Calidad Institucional en Educación Online
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
-        logoHeight: 64px
-      - id: course-report-badge
-        alt: Course Report Badge 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-        logoHeight: 64px
-      - id: tech-hub
-        alt: South Florida Tech Hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70.webp
-        logoHeight: 64px
-      - id: logo-ebootcamp-top-2025
-        alt: ebootcamp Top Bootcamp Programación 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1_1770392737758.png
-        logoHeight: 64px
-      - id: premios-tecnologia
-        alt: Premios Tecnologia Siglo XXI
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-        logoHeight: 80px
-      - id: newsweek
-        alt: Newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
-        logoHeight: 64px
-      - id: reviews-coursereport
-        alt: 4.9 en reseñas de Course Report
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-        logoHeight: 64px
-      - id: forbes-1
-        alt: Forbes - Top Coding Bootcamp
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
-        logoHeight: 64px
-      - id: fortune-1
-        alt: Fortune - Mejor Empresa de Educación
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/fortune-logo_1764709618095.webp
-        logoHeight: 64px
-      - id: logo-coursereport-best-bootcamp-2025
-        alt: CourseReport Best European Bootcamp 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/CourseReport-best-bootcamp_-2025_1770392145137.png
-        logoHeight: 56px
-      - id: logo-european-excellence-education
-        alt: European Excellence Education
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/european-excellence-education-ealde_1_1770392145138.png
-        logoHeight: 56px
-      - id: logo-forbes-advisor-2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/Forbes-Advisor_1770392260031.png
-        alt: Forbes Advisor Best of 2025 - Best for lifetime career support
-        logoHeight: 56px
-      - id: logo-premios-excelencia-educativa
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios-excelencia-educativa-17_1770392145139.png
-        alt: 17 Premios Excelencia Educativa
-        logoHeight: 56px
+        alt: Graduados de 4Geeks Academy
+        object_scale: 1.05
+        transform_origin: 50% 50%
+        object_position: 50% 45%
+    section_id: graduates_stats-cnxqbb
     marginY:
-      mobile: md none
-      desktop: sm md
-    paddingY:
-      mobile: none lg
-      desktop: none lg
-  - type: features_grid
-    section_id: features_grid-w44zms
-    version: "1.0"
-    variant: stats-text-card
-    title: ¿Por qué aprender Ingeniería de IA ahora?
-    subtitle: El 87% de las empresas ya no busca programadores pero tampoco encuentra los ingenieros que necesita. Tú puedes ser uno de ellos.
-    description: La IA está transformando cómo operan las empresas, desde automatización hasta productos inteligentes en producción. Sin embargo, el talento especializado no está creciendo al mismo ritmo. Según McKinsey, el 87% de las empresas no encuentra ingenieros de IA preparados para liderar estos cambios. Esa brecha no es un riesgo. Es tu oportunidad si decides formarte hoy.
-    card_color: bg-background
-    background: hsl(var(--secondary))
-    items:
-      - value: "800.000"
-        title: Roles relacionados con IA previstos para 2027
-      - value: ~30%
-        title: Crecimiento interanual en ofertas de trabajo en IA
-      - value: $45K–$85K
-        title: Salario promedio para ingenieros de IA en México
-    marginY:
-      mobile: md none
-      desktop: lg
-    paddingY:
-      mobile: none md
-      desktop: none md
-  - type: syllabus
-    section_id: syllabus-gtnkc6
-    variant: program-modules
-    program_title: Lo que construirás en 24 semanas
-    program_description: Desde el primer día trabajas en una empresa real que evoluciona contigo. En cada hito desarrollas soluciones de IA aplicadas a problemas que las empresas enfrentan hoy. Te gradúas con un sistema de IA completo y funcionando, no solo con un certificado.
-    tech_logos:
-      - name: OpenAI
-        icon: openai
-      - name: Claude
-        icon: claude
-      - name: Python
-        icon: python
-      - name: Pandas
-        icon: pandas
-      - name: NumPy
-        icon: numpy
-      - name: Scikit-learn
-        icon: scikitlearn
-      - name: PyTorch
-        icon: pytorch
-      - name: Matplotlib
-        icon: matplotlib
-      - name: React
-        icon: react
-      - name: Next.js
-        icon: nextjs
-      - name: Tailwind CSS
-        icon: tailwindcss
-      - name: Node.js
-        icon: nodejs
-      - name: Vercel
-        icon: vercel
-      - name: Supabase
-        icon: supabase
-      - name: Git
-        icon: git
-      - name: GitHub
-        icon: github
-      - name: Postman
-        icon: postman
-      - name: n8n
-        icon: n8n
-    module_cards:
-      - title: Prework con enfoque en IA
-        duration: Hito 0
-        objectives:
-          - Fundamentos YAML/JSON
-          - Control de versiones con Git
-          - Bases de JavaScript
-          - Fundamentos de internet
-          - Agentes de código
-        projects: Configura tu entorno y entrega tu primer código asistido por IA
-        icon: IconRocket
-      - title: Fundamentos web
-        duration: Hito 1
-        objectives:
-          - HTML, CSS, Tailwind
-          - Mejores prácticas de accesibilidad
-          - Técnicas de maquetado
-        projects: Publica la primera página web real de la empresa, visible en internet desde el primer día
-        icon: IconWorld
-      - title: Fundamentos de programación
-        duration: Hito 2
-        objectives:
-          - Algoritmos y estructuras de datos
-          - Lógica y control de flujo
-          - Dominio de JavaScript
-        projects: Implementa funcionalidades reales para la empresa con código que tú escribiste
-        icon: IconCode
-      - title: UI con IA
-        duration: Hito 3
-        objectives:
-          - Prompting de visión a especificación
-          - Generación de componentes con IA
-          - Flujos de diseño asistidos por IA
-        projects: Reconstruye toda la UI de la empresa usando IA en una fracción del tiempo habitual
-        icon: IconSparkles
-      - title: Fundamentos de React
-        duration: Hito 4
-        objectives:
-          - Arquitectura SPA
-          - Props, state y effects
-          - Técnicas de depuración
-        projects: Construye el frontend interactivo de la empresa, dinámico, responsivo y listo para producción
-        icon: IconBrandReact
-      - title: Backend para frontends con IA
-        duration: Hito 5
-        objectives:
-          - APIs y bases de datos
-          - Serialización y autenticación
-          - Funciones serverless
-        projects: Crea el backend de la empresa, el motor que impulsa todo lo demás
-        icon: IconServer
-      - title: Telemetría y pipelines de datos
-        duration: Hito 6
-        objectives:
-          - Recopilación y transformación de datos
-          - Agregación y reporting
-          - Arquitectura de pipelines
-        projects: Construye la capa de datos de la empresa para saber en tiempo real qué está pasando
-        icon: IconChartLine
-      - title: RAG y memoria
-        duration: Hito 7
-        objectives:
-          - Embeddings y búsqueda vectorial
-          - Sistemas de recuperación de conocimiento
-          - Memoria a largo plazo para IA
-        projects: Dale un cerebro a la IA de la empresa, que aprende de sus propios datos
-        icon: IconBrain
-      - title: Ingeniería de agentes
-        duration: Hito 8
-        objectives:
-          - Llamadas a herramientas y planificación
-          - Coordinación multi-agente
-          - Reglas y memoria
-        projects: Construye agentes autónomos que trabajan para la empresa las 24 horas del día
-        icon: IconRobot
-      - title: Generación de flujos agenticos
-        duration: Hito 9
-        objectives:
-          - Análisis de casos con LLMs
-          - Implementación de pipelines de automatización
-          - Serverless, colas y cronjobs
-        projects: Automatiza las operaciones internas de la empresa con agentes que gestionan el negocio
-        icon: IconSitemap
-      - title: Sistemas en tiempo real
-        duration: Hito 10
-        objectives:
-          - Streaming y websockets
-          - Patrones pub/sub
-          - Arquitectura de datos en vivo
-        projects: Habilita interacciones en tiempo real para clientes, empleados y sistemas de IA
-        icon: IconBolt
-      - title: Empresa transformada por IA
-        duration: Capstone
-        objectives:
-          - Frontend generado por IA
-          - API y autenticación
-          - Pipeline de telemetría y reportes
-          - Automatización de flujos generada por agentes
-          - Capa de conocimiento RAG
-          - Agentes con llamadas a herramientas
-          - Capa de comunicación en tiempo real
-        projects: "Entrega la transformación completa de tu empresa elegida: un negocio operativo e impulsado por IA, construido íntegramente por ti"
-        orientation: horizontal
-        icon: IconTrophy
-    marginY:
-      mobile: none
-      desktop: none xl
-    paddingY:
-      mobile: lg none
-      desktop: lg md
-  - type: two_column
-    proportions:
-      - 6
-      - 6
-    alignment: center
-    left:
-      video: https://www.youtube.com/watch?v=rtpfwwfE0yY
-      justify: center
-    right:
-      heading: "Joshua Bravo: de asistente de cocina a desarrollador Full Stack en una fintech"
-      sub_heading: Graduado de 4Geeks Academy, Chile — disponible en México
-      description: Joshua trabajaba como asistente de cocina y contable mientras intentaba aprender a programar solo con tutoriales de YouTube. Sabía que necesitaba algo más estructurado para dar el salto real. Tras completar el bootcamp de Full Stack en 4Geeks, construyó aplicaciones web completas de cero y consiguió empleo como desarrollador en Regcheq, una startup fintech. Hoy hace lo que le apasiona.
-      button:
-        text: Comprueba si cumples los requisitos
-        url: "#hero-i22nbv"
-        variant: primary
-        icon: Rocket
-    gap: "8"
-    marginY:
-      desktop: none xl
-    section_id: two_column-mruk19
-    background: hsl(var(--secondary))
-    paddingY:
-      desktop: lg
+      desktop: none
+    maxWidth:
+      desktop: 6xl
+
   - type: trust_cards
     maxWidth:
       desktop: 6xl
@@ -430,22 +197,269 @@ sections:
       - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
         rating: 4.9
         review_count: 4.9 en SwitchUp
-    name: Default Trust Cards
-    description: Four review platform cards with ratings
-    section_id: trust_cards-mzumzh
+    section_id: trust_cards-nx370d
     paddingY:
       desktop: md
     marginY:
-      desktop: none xl
+      desktop: none md
+
+  - type: two_column
+    version: v1.0
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    gap: "8"
+    left:
+      video: https://www.youtube.com/shorts/-SpU1PWNBF4?feature=share
+      justify: center
+    right:
+      heading: Por qué el Desarrollo Web ya no es el techo, sino el punto de partida
+      sub_heading: El mercado en México ya no busca solo programadores
+      description: Saber hacer una web ya no diferencia. Las empresas en México buscan ingenieros que entiendan cómo integrar IA en productos reales. La demanda crece un 30% cada año y los salarios de entrada superan los $45K USD. Este programa existe para que llegues preparado al nivel que el mercado exige.
+      button:
+        text: Iniciar mi aplicación
+        url: "#hero-2qil4o"
+        variant: primary
+        icon: Rocket
+    section_id: two_column-r882vr
+    marginY:
+      desktop: none sm
+    paddingY:
+      desktop: lg
+    background: hsl(var(--secondary))
+
+  - type: features_grid
+    section_id: features_grid-e2a79q
+    version: "1.0"
+    variant: stats-text-card
+    title: ¿Por qué aprender Ingeniería de IA ahora?
+    subtitle: El 87% de las empresas no encuentra los ingenieros que necesita. Tú puedes ser uno de ellos.
+    description: La IA está transformando cómo operan las empresas, desde automatización hasta productos inteligentes en producción. Sin embargo, el talento especializado no está creciendo al mismo ritmo. Según McKinsey, el 87% de las empresas no encuentra ingenieros de IA preparados para liderar estos cambios. Esa brecha no es un riesgo. Es tu oportunidad si decides formarte hoy.
+    card_color: bg-background
+    background: hsl(var(--muted))
+    items:
+      - value: "800.000"
+        title: Roles relacionados con IA previstos para 2027
+      - value: ~30%
+        title: Crecimiento interanual en ofertas de trabajo en IA
+      - value: $45K–$85K USD
+        title: Salario promedio anual para ingenieros de IA en México
+    marginY:
+      mobile: md none
+      desktop: none md
+    paddingY:
+      mobile: none md
+      desktop: none md
+
+  - type: syllabus
+    variant: program-modules
+    program_title: AI Native Full Stack — Módulos del programa
+    program_description: Construye sistemas reales con IA desde el primer día. Este currículo se organiza en dos tracks — IA Central y Agentes, e Infraestructura para IA — más un capstone que integra todo en una empresa completamente transformada y desplegada. Apoyado por fundamentos complementarios en herramientas y prácticas de desarrollo moderno a lo largo del programa.
+    tech_logos:
+      - name: Python
+        icon: python
+      - name: OpenAI
+        icon: openai
+      - name: n8n
+        icon: n8n
+      - name: Docker
+        icon: docker
+      - name: React
+        icon: react
+    module_cards:
+      - title: Asistentes Personales con OpenClaw
+        duration: IA Central y Agentes
+        objectives:
+          - Configurar un agente de IA de código abierto como asistente personal
+          - Asignar tareas e integrar aplicaciones externas con el agente
+        projects: Despliega y configura un asistente de IA autoalojado — tuyo, bajo tu control, sin depender de proveedores externos.
+        orientation: vertical
+        icon: IconRobot
+      - title: Asistentes Personales Avanzados con OpenClaw
+        duration: IA Central y Agentes
+        objectives:
+          - Identificar escenarios donde un agente resuelve problemas reales de negocio
+          - Desarrollar habilidades personalizadas para OpenClaw
+          - Implementar memoria contextual (episódica, semántica, procedimental)
+          - Configuración y extensión avanzada del agente
+        projects: Convierte tu asistente básico en una herramienta productiva con autonomía real en contextos de negocio.
+        orientation: vertical
+        icon: IconRobot
+      - title: Trabajar con Agentes de Código IA
+        duration: IA Central y Agentes
+        objectives:
+          - Construir bancos de memoria y reglas de contexto desde una base de código existente
+          - Escribir especificaciones ejecutables para agentes (agent specs)
+          - Sintetizar habilidades reutilizables para que los agentes actúen con precisión
+        projects: Construye bancos de memoria y reglas de contexto que conviertan un agente de código en un colaborador que entiende tu base de código.
+        orientation: vertical
+        icon: IconCode
+      - title: LLMs, Entrenamiento y RAG
+        duration: IA Central y Agentes
+        objectives:
+          - Preparar datos y seleccionar modelos para entrenamiento
+          - Implementar técnicas RAG en bases de conocimiento propietarias
+          - Trabajar con bases de datos vectoriales
+          - Evaluar, depurar e integrar modelos en producción
+        projects: Implementa RAG para que tu agente responda con conocimiento propietario y actualizado.
+        orientation: vertical
+        icon: IconDatabase
+      - title: Ingeniería Agéntica
+        duration: IA Central y Agentes
+        objectives:
+          - Construir agentes con llamadas a herramientas (function calls reales)
+          - Implementar guardrails como mecanismo de seguridad y control
+          - Proveer herramientas al agente mediante CLIs optimizadas para IA
+          - Extender las capacidades del agente con el Protocolo de Contexto de Modelo (MCP)
+          - Dar memoria persistente a un agente
+        projects: Construye agentes que llaman herramientas, acceden a sistemas externos vía MCPs y CLIs, y operan con memoria persistente.
+        orientation: vertical
+        icon: IconBolt
+      - title: Flujos de Trabajo Agénticos
+        duration: IA Central y Agentes
+        objectives:
+          - Diseñar sistemas multi-agente con enrutamiento y arbitraje
+          - Implementar memoria compartida entre agentes
+          - Desplegar flujos de trabajo agénticos con funciones serverless y durables
+        projects: Diseña sistemas donde múltiples agentes colaboran, distribuyen tareas y funcionan de forma autónoma a escala.
+        orientation: vertical
+        icon: IconLayoutKanban
+      - title: Desarrollo Backend con Agentes de Código
+        duration: Infraestructura para IA
+        objectives:
+          - Diseñar arquitecturas backend para soluciones potenciadas por IA
+          - Crear bucles de agente integrando LLMs con APIs
+          - Implementar almacenamiento ligero y procesamiento de datos CSV
+          - Construir y exponer APIs REST para frontends y agentes
+        projects: Construye APIs robustas con FastAPI, implementa bucles de agente en Python y diseña arquitecturas backend orientadas a casos de uso de IA.
+        orientation: vertical
+        icon: IconServer
+      - title: Automatizaciones de Flujos de Trabajo
+        duration: Infraestructura para IA
+        objectives:
+          - Modelar lógica de negocio con diagramas de flujo
+          - Implementar flujos básicos y avanzados en n8n
+          - Integrar LLMs y aplicaciones externas en automatizaciones
+          - Desplegar flujos mantenibles con manejo de errores
+        projects: Construye automatizaciones de negocio con IA en n8n que se ejecutan de forma autónoma sin intervención manual.
+        orientation: vertical
+        icon: IconCode
+      - title: Pipelines de Datos
+        duration: Infraestructura para IA
+        objectives:
+          - Manipular y preparar conjuntos de datos con Python
+          - Construir pipelines de datos desde la aplicación hasta sistemas de análisis
+        projects: Construye pipelines que toman datos crudos, los transforman y los dejan listos para alimentar modelos, reportes o agentes.
+        orientation: vertical
+        icon: IconChartBar
+      - title: Telemetría
+        duration: Infraestructura para IA
+        objectives:
+          - Optimizar el almacenamiento para reportes e integridad de datos
+          - Identificar oportunidades de recolección de datos en escenarios reales
+          - Recopilar telemetría y contexto del usuario desde la aplicación
+          - Construir reportes a partir de datos de telemetría
+        projects: Instrumenta aplicaciones para recopilar datos de comportamiento y tomar decisiones basadas en evidencia real.
+        orientation: vertical
+        icon: IconChartBar
+      - title: Procesamiento Asíncrono y Offloading
+        duration: Infraestructura para IA
+        objectives:
+          - Implementar procesamiento en segundo plano para tareas costosas
+          - Gestionar colas de procesos con workers
+          - Usar colas para delegar trabajo entre agentes y servicios
+        projects: Implementa sistemas de procesamiento en segundo plano y colas que permiten a los agentes delegar trabajo pesado sin bloquear a los usuarios.
+        orientation: vertical
+        icon: IconServer
+      - title: Tiempo Real
+        duration: Infraestructura para IA
+        objectives:
+          - Construir chats de soporte con LLMs en tiempo real
+          - Implementar streaming de respuestas con generadores (yield)
+          - Integrar webhooks y pub/sub en aplicaciones de IA
+        projects: Implementa comunicación en tiempo real entre usuarios y modelos de lenguaje usando streaming, WebSockets y arquitecturas orientadas a eventos.
+        orientation: vertical
+        icon: IconBolt
+      - title: Autenticación de Aplicaciones Web
+        duration: Infraestructura para IA
+        objectives:
+          - Implementar autenticación y restricciones de rutas en FastAPI
+          - Construir flujos de autenticación completos (login, tokens, sesiones)
+        projects: Implementa autenticación segura en FastAPI y construye flujos de login completos que definen lo que cada usuario — y agente — puede hacer.
+        orientation: vertical
+        icon: IconCode
+      - title: Manejo de Errores, Depuración y Testing
+        duration: Infraestructura para IA
+        objectives:
+          - Entender y gestionar errores en tiempo de ejecución con control de flujo
+          - Desarrollar suites de pruebas para aplicaciones robustas
+        projects: Verifica el código generado por IA con manejo controlado de errores y suites de pruebas que validan el comportamiento esperado.
+        orientation: vertical
+        icon: IconCode
+      - title: Ciberseguridad en Aplicaciones de IA
+        duration: Infraestructura para IA
+        objectives:
+          - Identificar y corregir las vulnerabilidades OWASP Top 10 en aplicaciones web
+          - Implementar prácticas de seguridad específicas para integraciones de IA
+          - Usar LLMs como herramienta de auditoría de ciberseguridad
+        projects: Identifica vulnerabilidades críticas en aplicaciones de IA e implementa prácticas seguras en la integración de modelos.
+        orientation: vertical
+        icon: IconCode
+      - title: Empresa Transformada por IA
+        duration: Capstone
+        objectives:
+          - Frontend generado por IA
+          - API con autenticación completa
+          - Pipeline de telemetría y reportes
+          - Flujos de trabajo automatizados generados por agentes
+          - Capa de conocimiento RAG
+          - Agentes con llamadas a herramientas
+          - Comunicación en tiempo real
+        projects: Integra todo lo aprendido en un sistema funcional y desplegado — la transformación completa de una empresa a través de la IA.
+        orientation: horizontal
+        icon: IconCode
+    paddingY:
+      mobile: lg none
+      desktop: lg md
+    marginY:
+      mobile: none
+      desktop: none
+    section_id: syllabus-1d3afu
+
+  - type: two_column
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    left:
+      video: https://www.youtube.com/watch?v=rtpfwwfE0yY
+      justify: center
+    right:
+      heading: "Joshua Bravo: de asistente de cocina a desarrollador Full Stack en una fintech"
+      sub_heading: Graduado de 4Geeks Academy, ahora trabajando en tecnología
+      description: Joshua trabajaba como asistente de cocina y contable mientras intentaba aprender a programar solo con tutoriales de YouTube. Sabía que necesitaba algo más estructurado para dar el salto real. Tras completar el bootcamp de Full Stack en 4Geeks, construyó aplicaciones web completas de cero y consiguió empleo como desarrollador en Regcheq, una startup fintech. Hoy hace lo que le apasiona.
+      button:
+        text: Iniciar mi aplicación
+        url: "#hero-2qil4o"
+        variant: primary
+        icon: Rocket
+    gap: "8"
+    marginY:
+      desktop: none md
+    section_id: two_column-1hmc9c
+    background: hsl(var(--card))
+    paddingY:
+      desktop: lg
+
   - type: ai_learning
-    section_id: ai_learning-8e9oha
+    section_id: ai_learning-qmjitd
     badge: ¿Por qué 4Geeks?
     title: La academia que no te abandona cuando te gradúas
     description: La mayoría de academias te dan un curso y te desean suerte. 4Geeks se queda contigo desde tu primera línea de código hasta tu primera oferta de trabajo y más allá.
     features:
       - icon: TrendingUp
         title: Apoyo de carrera construido para el mercado tech en México
-        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Coaching 1:1 enfocado en conseguir roles de Ingeniería de IA específicamente
@@ -453,27 +467,17 @@ sections:
           - text: Preparación para entrevistas técnicas y negociación salarial
           - text: Apoyo de carrera de por vida, no solo hasta que te gradúas
         video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
-        cta:
-          text: Comprueba si cumples los requisitos
-          url: "#hero-i22nbv"
-          variant: primary
       - icon: Robot
         title: Aprende más rápido con un tutor de IA que sabe dónde te has atascado
-        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Rigobot te da feedback instantáneo sobre tu código sin esperar a que haya un humano disponible
           - text: Adapta las explicaciones a tu nivel exacto y ritmo de aprendizaje
           - text: Desbloquéate a las 2 de la madrugada sin perder el hilo
           - text: Cientos de ejercicios interactivos en Learnpack, nuestra plataforma de aprendizaje
-        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-        cta:
-          text: Comprueba si cumples los requisitos
-          url: "#hero-i22nbv"
-          variant: primary
+        video_url: https://youtu.be/NRuShbSLtg0
       - icon: Headset
         title: Mentoría 1:1 ilimitada de por vida, no solo mientras estudias
-        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Reserva sesiones 1:1 ilimitadas con ingenieros senior incluso después de graduarte
@@ -484,24 +488,20 @@ sections:
     paddingY:
       mobile: lg none
       desktop: lg md
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--card))
     marginY:
-      desktop: none xl
+      desktop: none
+
   - type: certificate
-    section_id: certificate-ik0m2x
+    section_id: certificate-k9yuxj
     title: Tu certificado. Tu ventaja salarial.
     description: Gradúate con un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida y las credenciales para negociar tu primer salario como Ingeniero de IA desde una posición de fuerza.
-    benefits:
-      - text: "Ingeniero de Software con IA: $45K–$70K"
-      - text: "AI Engineer Full Stack: $55K–$85K"
-      - text: "Ingeniero de Agentes: $55K–$85K"
-      - text: "Ingeniero de Automatización: $40K–$65K"
     card:
       title: Ingeniero de IA
       subtitle: Certificado 4Geeks Academy
       program_name: Ingeniería de IA
     stats:
-      - value: 81%
+      - value: 84%
         label: Tasa de inserción laboral
         description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores en México están contratando activamente ahora mismo.
         benefits:
@@ -511,7 +511,7 @@ sections:
           - text: Perfil profesional optimizado para pasar los filtros automáticos de los recruiters
       - value: ~3 meses
         label: Tiempo medio para conseguir empleo
-        description: La mayoría de graduados consiguen su primer rol en unos 3-6 meses. Nuestro proceso de desarrollo profesional en 3 pasos convierte tus habilidades técnicas en ofertas de trabajo rápidamente.
+        description: La mayoría de graduados consiguen su primer rol en unos 3 meses. Nuestro proceso de desarrollo profesional convierte tus habilidades técnicas en ofertas de trabajo rápidamente.
         benefits:
           - text: CV, portfolio y LinkedIn construidos para atraer recruiters en México
           - text: Preparación para entrevistas técnicas y conductuales con feedback real de ingenieros
@@ -520,13 +520,13 @@ sections:
         label: Aumento salarial medio
         description: Los graduados reportan un aumento salarial medio del 40% tras incorporarse a roles de Ingeniería de IA. El programa se paga solo en pocos meses de trabajo.
         benefits:
-          - text: "Ingeniero de Software con IA: $45K–$70K"
-          - text: "AI Engineer Full Stack: $55K–$85K"
-          - text: "Ingeniero de Agentes: $55K–$85K"
-          - text: "Ingeniero de Automatización: $40K–$65K"
-      - value: 400+
-        label: Empresas que contratan nuestro talento
-        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
+          - text: "Ingeniero de Software con IA: $45K–$70K USD"
+          - text: "AI Engineer Full Stack: $55K–$85K USD"
+          - text: "Ingeniero de Agentes: $55K–$85K USD"
+          - text: "Ingeniero de Automatización: $40K–$65K USD"
+      - value: 5,000+
+        label: Graduados empleados en todo el mundo
+        description: Accede a nuestra red de empresas que buscan talento. Recibe orientación personalizada y acceso a procesos de selección prioritarios.
         benefits:
           - text: Acceso exclusivo a bolsa de trabajo
           - text: Recomendaciones directas a empresas colaboradoras
@@ -535,10 +535,12 @@ sections:
     useSolidCard: true
     marginY:
       mobile: none
-      desktop: md lg
+      desktop: none md
     paddingY:
       mobile: lg
       desktop: md
+    background: hsl(210 100% 50% / 0.05)
+
   - type: testimonials_slide
     title: Dieron el salto y esto es lo que pasó.
     description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa de México, Uruguay y Costa Rica. Ahora son desarrolladores con empleos reales y salarios que no esperaban.
@@ -639,7 +641,7 @@ sections:
           name: Costa Rica
           iso: cr
         contributor: CINDE-BID
-        description: Luis came to the program without any previous experience. He is now a software developer working at a tech firm in Costa Rica.
+        description: Luis came to the program without any software experience. He is now a software developer working at a tech firm in Costa Rica.
         achievement: He got a 50% increase in his salary
       - name: Leandro Matonte
         img: https://storage.googleapis.com/4geeks-academy-website/media/Leandro_1764725403142.jpeg
@@ -650,10 +652,11 @@ sections:
         contributor: UTEC-BID
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
-    section_id: testimonials_slide-8f253d
-    background: hsl(210 100% 50% / 0.05)
+    section_id: testimonials_slide-265uov
+    background: hsl(var(--card))
+
   - type: numbered_steps
-    section_id: numbered_steps-vh61nx
+    section_id: numbered_steps-lqbb4v
     version: "1.0"
     variant: bubbleText
     title: Así funciona el proceso de admisión
@@ -666,11 +669,11 @@ sections:
           - Revisamos tu perfil, experiencia y objetivos profesionales.
           - Buscamos personas comprometidas con una transformación real en su carrera.
       - icon: Interview
-        title: Entrevista telefónica
+        title: Entrevista por WhatsApp
         bullets:
           - Nuestro equipo de admisiones te escribirá por WhatsApp.
           - Evaluamos tu motivación, disponibilidad y encaje con el programa.
-          - No es un examen técnico, es una conversación para entender si encajas en el perfil que buscamos y si este es el momento adecuado para ti.
+          - No es un examen técnico, es una conversación para entender si este es el momento adecuado para ti.
       - icon: Decision
         title: Selección y próximos pasos
         bullets:
@@ -678,17 +681,18 @@ sections:
           - Recibirás orientación clara sobre fechas, inversión y expectativas.
           - Si no es el mejor momento, te recomendamos alternativas para tu crecimiento profesional.
     background: bg-background
+
   - type: cta_banner
-    section_id: cta_banner-wo9j6t
+    section_id: cta_banner-sus9w3
     version: "1.0"
     title: Tu carrera como Ingeniero de IA no va a empezar sola.
-    subtitle: Cada semana que esperas es una semana que otro se lleva el trabajo. Aplica en 2 minutos. Es gratis.
+    subtitle: Cada semana que esperas es una semana que otro se lleva el trabajo. Aplica en 2 minutos.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Comprueba si cumples los requisitos. Es gratis
+      submit_label: Iniciar mi aplicación
       tags: website-lead
       fields:
         email:
@@ -727,8 +731,9 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
+
   - type: footer
-    section_id: footer-5bxvdo
+    section_id: footer-gyg9rp
     version: "1.0"
     copyright_text: 2024 4Geeks. Todos los derechos reservados.
     paddingY:
