@@ -375,7 +375,7 @@ sections:
       desktop: md sm
     marginY:
       mobile: none
-      desktop: lg
+      desktop: lg md
     section_id: syllabus-sj3ism
   - type: career_support_explain
     maxWidth:
