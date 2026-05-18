@@ -1291,7 +1291,7 @@ sections:
       mobile: sm none
       desktop: md
     marginY:
-      desktop: none md
+      desktop: none sm
   - type: career_support_explain
     maxWidth:
       desktop: 6xl
