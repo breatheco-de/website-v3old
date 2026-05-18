@@ -751,7 +751,7 @@ sections:
       variant: primary
     paddingY:
       mobile: lg none
-      desktop: lg none
+      desktop: none
     marginY:
       desktop: none lg
   - type: why_learn_ai
