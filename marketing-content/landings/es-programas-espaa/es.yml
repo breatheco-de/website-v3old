@@ -301,10 +301,10 @@ sections:
         video_url: https://youtu.be/Zoxxw5jP7xA
     paddingY:
       mobile: lg none
-      desktop: lg md
+      desktop: lg none
     background: hsl(var(--muted))
     marginY:
-      desktop: none lg
+      desktop: none
   - type: testimonials_slide
     title: Dieron el salto y esto es lo que pasó.
     description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa, ahora son desarrolladores con empleos reales y salarios que no esperaban.
