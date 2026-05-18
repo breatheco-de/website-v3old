@@ -566,7 +566,7 @@ sections:
     useSolidCard: true
     marginY:
       mobile: none
-      desktop: none
+      desktop: none md
     paddingY:
       mobile: lg
       desktop: md
