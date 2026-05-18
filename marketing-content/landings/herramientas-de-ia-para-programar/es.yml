@@ -508,7 +508,7 @@ sections:
     paddingY:
       mobile: lg
       desktop: md
-    background: hsl(var(--muted))
+    background: hsl(var(--card))
   - type: testimonials_slide
     title: Dieron el salto y esto es lo que pasó.
     description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa de Uruguay, Costa Rica, Chile y más. Ahora son desarrolladores con empleos reales y salarios que no esperaban.
