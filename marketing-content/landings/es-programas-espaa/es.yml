@@ -198,43 +198,6 @@ sections:
       desktop: none md
     section_id: course_selector-ut5wua
     background: hsl(var(--card))
-  - type: programs_showcase
-    version: v1.0
-    layout: spotlight_with_list
-    heading: Elige tu camino profesional
-    subheading: Cuatro programas diseñados para las habilidades que las empresas en España están contratando ahora mismo.
-    featured_label: Programa Destacado
-    programs:
-      - name: Ingeniería de IA
-        icon: IconBrain
-        description: Construye los sistemas de IA que las empresas contratan ahora mismo. Domina LLMs, agentes de IA y automatización mientras transformas un caso de negocio real en un sistema completamente nativo de IA, capa por capa.
-        duration: 24 semanas
-        cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/ingenieria-ia
-      - name: Desarrollo Full Stack con IA
-        icon: IconCode
-        description: Construye aplicaciones web modernas y listas para producción de frontend a backend usando las herramientas de IA más demandadas del mercado.
-        duration: 20 semanas
-        cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/desarrollo-full-stack
-      - name: Ciencia de Datos y Machine Learning
-        icon: IconChartBar
-        description: Analiza datos complejos, construye modelos inteligentes y despliega soluciones de IA para problemas reales de negocio.
-        duration: 18 semanas
-        cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
-      - name: Ciberseguridad
-        icon: IconShield
-        description: Protege los sistemas que la IA necesita. Los especialistas en ciberseguridad son críticos ahora que las empresas escalan su infraestructura de IA.
-        duration: 16 semanas
-        cta_text: Ver Detalles del Programa
-        cta_url: /es/programas-de-carrera/ciberseguridad
-    section_id: programs_showcase-5wibqd
-    background: hsl(210 100% 50% / 0.05)
-    paddingY:
-      desktop: md lg
-    marginY:
-      desktop: none lg
   - type: graduates_stats
     maxWidth:
       desktop: 6xl
