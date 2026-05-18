@@ -1619,7 +1619,7 @@ sections:
       - icon: Sparkles
         title: You're playing the long game
         description: You're ready to move into one of the fastest-growing, highest-paying fields of the next decade and you want the skills to back it up.
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--muted))
     marginY:
       desktop: none lg
     paddingY:
