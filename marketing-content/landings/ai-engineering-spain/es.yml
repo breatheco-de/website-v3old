@@ -510,6 +510,7 @@ sections:
       desktop: md
     marginY:
       desktop: none md
+    background: hsl(var(--secondary))
   - type: ai_learning
     section_id: ai_learning-qmjitd
     badge: ¿Por qué 4Geeks?
