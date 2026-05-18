@@ -825,3 +825,4 @@ sections:
     paddingY:
       desktop: md none
     background: hsl(var(--primary))
+    form_background: hsl(var(--card))
