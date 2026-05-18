@@ -824,4 +824,4 @@ sections:
     section_id: cta_banner-55y7oh
     paddingY:
       desktop: md none
-    background: hsl(var(--card))
+    background: hsl(var(--primary))
