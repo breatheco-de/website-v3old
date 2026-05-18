@@ -247,7 +247,7 @@ sections:
       desktop: none md
     paddingY:
       mobile: none md
-      desktop: none md
+      desktop: none
   - type: syllabus
     variant: program-modules
     program_title: AI Native Full Stack — Módulos del programa
