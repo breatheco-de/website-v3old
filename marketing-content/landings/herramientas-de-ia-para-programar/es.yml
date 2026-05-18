@@ -504,7 +504,7 @@ sections:
     section_id: certificate-cqz0qv
     marginY:
       mobile: none
-      desktop: md lg
+      desktop: md
     paddingY:
       mobile: lg
       desktop: md
