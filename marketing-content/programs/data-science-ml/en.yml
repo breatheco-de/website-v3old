@@ -409,6 +409,45 @@ sections:
     paddingY:
       mobile: lg
       desktop: none lg
+  - type: numbered_steps
+    version: "1.0"
+    title: Get Hired. Or Your Money Back.
+    description: Enroll with our optional Job Guarantee. Get hired within 9 months, or we refund your full tuition. That's how confident we are in what we built.
+    description_link:
+      text: "*Not available in all regions. Terms and conditions apply."
+      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
+    background: bg-muted/30
+    steps:
+      - icon: School
+        text: Add the Job Guarantee to your payment plan.
+      - icon: Briefcase
+        text: Complete the program and follow the GeekForce career process.
+      - icon: Cash
+        text: Get hired within 9 months, or receive a full tuition refund.
+    section_id: numbered_steps-pegmvh
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+    paddingY:
+      desktop: none md
+    marginY:
+      desktop: none md
   - type: pricing
     section_id: pricing-sb335o
     version: "1.0"
@@ -470,45 +509,6 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
-  - type: numbered_steps
-    version: "1.0"
-    title: Get Hired. Or Your Money Back.
-    description: Enroll with our optional Job Guarantee. Get hired within 9 months, or we refund your full tuition. That's how confident we are in what we built.
-    description_link:
-      text: "*Not available in all regions. Terms and conditions apply."
-      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
-    background: bg-muted/30
-    steps:
-      - icon: School
-        text: Add the Job Guarantee to your payment plan.
-      - icon: Briefcase
-        text: Complete the program and follow the GeekForce career process.
-      - icon: Cash
-        text: Get hired within 9 months, or receive a full tuition refund.
-    section_id: numbered_steps-pegmvh
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-    paddingY:
-      desktop: none md
-    marginY:
-      desktop: none md
   - type: pricing
     section_id: pricing-jkomcz
     version: "1.0"
