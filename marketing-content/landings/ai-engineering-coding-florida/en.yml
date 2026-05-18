@@ -761,7 +761,7 @@ sections:
     paddingY:
       mobile: lg
       desktop: md lg
-    form_background: hsl(var(--card))
+    form_background: hsl(var(--primary))
   - type: footer
     section_id: footer-eisseg
     version: "1.0"
