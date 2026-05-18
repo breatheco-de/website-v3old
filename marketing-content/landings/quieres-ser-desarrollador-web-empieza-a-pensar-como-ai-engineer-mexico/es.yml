@@ -135,39 +135,41 @@ sections:
     load: eager
   - type: graduates_stats
     heading: Nuestros Graduados Consiguen Empleo. Rápido.
-    subheading: Más de 5,000 graduados en todo el mundo. Ahora prosperando en tecnología.
+    subheading: Más de 6,000 graduados en todo el mundo. Ahora prosperando en tecnología.
     stats:
-      - value: 84%
+      - value: {{ global.global_job_placement_rate | 84% }}%
         label: Tasa de contratación promedio
-      - value: 40%
-        label: Aumento salarial promedio tras graduarse
-      - value: ~3 meses
+      - value: {{ global.global_salary_increase | 55% }}%
+        label: Aumento salarial promedio en el nuevo puesto
+      - value: 3-6 meses
         label: Tiempo promedio para conseguir empleo
-      - value: 5,000+
-        label: Graduados empleados en todo el mundo
     collage_images:
       - image_id: group-7085-1
         col_span: 5
         row_span: 2
-        alt: Graduados de 4Geeks Academy
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
+        id: gemini-generated-image-uwpyyruwpyyruwpy
         object_scale: 1.1
         object_position: 50% 30%
       - image_id: group-7086-1
         col_span: 7
         row_span: 2
-        alt: Graduados de 4Geeks Academy
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
+        id: gemini-generated-image-pd2u4upd2u4upd2u
         object_scale: 1
         transform_origin: 50% 50%
         object_position: 50% 60%
       - image_id: group-7084-1
         col_span: 6
         row_span: 2
-        alt: Graduados de 4Geeks Academy
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
+        id: gemini-generated-image-dhko5mdhko5mdhko-1
         object_scale: 1.05
       - image_id: group-7087-1
         col_span: 6
         row_span: 2
-        alt: Graduados de 4Geeks Academy
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
+        id: gemini-generated-image-wpk4yvwpk4yvwpk4
         object_scale: 1.05
         transform_origin: 50% 50%
         object_position: 50% 45%
