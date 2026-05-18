@@ -409,23 +409,22 @@ sections:
     paddingY:
       mobile: lg
       desktop: none lg
-  - type: features_grid
-    variant: highlight
+  - type: numbered_steps
+    version: "1.0"
     title: Get Hired. Or Your Money Back.
-    subtitle: "Add our optional Job Guarantee* to your payment plan and graduate with total confidence. Complete the program, follow the GeekFORCE career process, and if you're not hired within 9 months — we refund you.&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
-    items:
-      - icon: Star
-        title: Add the Job Guarantee to your payment plan
-      - icon: Users
-        title: Complete the program and follow the GeekFORCE career process
-      - icon: Award
-        title: Get hired within 9 months — or we refund you
-    columns: 3
-    icon_color: "#0097CD"
-    background: hsl(var(--secondary))
-    section_id: features_grid-k6g3d6
-    paddingY:
-      desktop: lg none
+    description: Enroll with our optional Job Guarantee. Get hired within 9 months, or we refund your full tuition. That's how confident we are in what we built.
+    description_link:
+      text: "*Not available in all regions. Terms and conditions apply."
+      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
+    background: bg-muted/30
+    steps:
+      - icon: School
+        text: Add the Job Guarantee to your payment plan.
+      - icon: Briefcase
+        text: Complete the program and follow the GeekForce career process.
+      - icon: Cash
+        text: Get hired within 9 months, or receive a full tuition refund.
+    section_id: numbered_steps-pegmvh
     showOnLocations:
       - atlanta-usa
       - austin-usa
@@ -445,6 +444,10 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
+    paddingY:
+      desktop: none md
+    marginY:
+      desktop: none md
   - type: pricing
     section_id: pricing-sb335o
     version: "1.0"

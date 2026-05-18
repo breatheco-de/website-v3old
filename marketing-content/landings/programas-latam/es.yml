@@ -2,159 +2,25 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
+    title: ""
     brand_mark:
       prefix: Construye una carrera en tecnología con
       highlight: Inteligencia Artificial
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\"><span>La IA está transformando el trabajo. Prepárate en menos de 6 meses para formar parte de ese cambio.</span></span>"
+    description: La IA está cambiando todos los trabajos. En menos de 6 meses pasas de donde estás hoy a desarrollar sistemas reales que las empresas en LATAM llevan meses intentando contratar.
     bullets:
-      - text: Aprende las habilidades que las empresas tecnológicas contratan ahora mismo
-      - text: La única academia que no termina cuando te gradúas, mentoría ilimitada de por vida incluida
-      - text: Opciones de financiación flexibles, tenemos planes de pago a 10, 12 y 18 meses
-    image_object_fit: none
+      - text: Mentoría ilimitada de por vida con ingenieros senior, incluso después de graduarte
+      - text: Paga en 10, 12 o 18 cuotas mensuales sin dejar tu trabajo actual
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Comprueba si cumples los requisitos.
+      submit_label: Iniciar mi aplicación
       tags: website-lead
       fields:
         email:
           visible: true
           required: true
           placeholder: Correo electrónico
-        first_name:
-          visible: true
-          required: true
-          placeholder: Nombre
-        last_name:
-          visible: true
-          required: true
-          placeholder: Apellidos
-        phone:
-          visible: true
-          required: true
-        program:
-          visible: true
-          required: true
-          slugs:
-            - datascience-ml
-            - ai-engineering
-            - cybersecurity
-      success:
-        message: Alguien de nuestro equipo de admisiones se pondrá en contacto contigo en unos minutos por email. Revisa tu bandeja de entrada.
-      terms_url: /terms-and-conditions
-      privacy_url: /privacy-policy
-      consent:
-        sms: true
-        marketing: true
-        marketing_text: Acepto recibir información a través de email, WhatsApp y otros canales sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
-        sms_text: Acepto recibir mensajes SMS sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4-6 mensajes al mes. Nunca compartiremos tu información de contacto.
-        sms_usa_only: true
-      show_terms: true
-    form_vertical_align: top
-    form_card_text_color: hsl(var(--foreground))
-    form_card_title: Obtén todos los detalles del programa
-    form_card_subtitle: "Tarda 2 minutos. Nuestro equipo de admisiones te enviará la información completa del programa: plan de estudios, precios y opciones de financiación en minutos."
-    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-    show_awards_marquee: true
-    awards_marquee:
-      items:
-        - id: switchup-2025
-          alt: SwitchUp - Best Coding Bootcamps 2025
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-          logoHeight: 55px
-        - id: course-report-2024
-          alt: Course Report - Best Coding Bootcamp 2024
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
-          logoHeight: 55px
-        - id: tech-hub
-          alt: South Florida Tech Hub
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
-          logoHeight: 55px
-        - id: ebootcamp
-          alt: eBootcamp Top
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
-          logoHeight: 55px
-        - id: premios-tecnologia
-          alt: Premios Tecnología Siglo XXI
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-          logoHeight: 55px
-        - id: newsweek
-          alt: Newsweek
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
-          logoHeight: 55px
-        - id: reviews-coursereport
-          alt: 4.9 Stars on Course Report Reviews
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-          logoHeight: 55px
-        - id: excelencia-educativa
-          alt: Educational Excellence - Institutional Quality
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
-          logoHeight: 55px
-    video_title: GeekForce Career Support
-    marginY:
-      desktop: none
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-    paddingY:
-      desktop: md none
-    marginX:
-      desktop: none
-    section_id: hero-nzpyph
-    awards_marquee_at_left_column: true
-  - type: modal
-    version: "1.0"
-    section_id: apply-modal
-    heading: Solicitar Detalles del Programa
-    description: Completa el siguiente formulario y nos comunicaremos contigo a la brevedad posible.
-    show_close: true
-    size: md
-    form:
-      variant: stacked
-      submit_label: Solicitar
-      tags: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Correo electrónico
-        first_name:
-          visible: true
-          required: true
-          placeholder: Nombre Completo
-        phone:
-          visible: true
-          required: true
-        program:
-          visible: true
-          required: true
-          slugs:
-            - datascience-ml
-            - ai-engineering
-            - cybersecurity
-      success:
-        message: ¡Gracias! Nos comunicaremos contigo a la brevedad posible.
-      terms_url: /terms-and-conditions
-      privacy_url: /privacy-policy
-      consent:
-        marketing: true
-        marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
-      show_terms: true
-  - type: sticky_cta
-    version: "1.0"
-    heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Solicitar información
-    show_dismiss: false
-    form:
-      variant: inline
-      conversion_name: student_application
-      submit_label: Solicitar información
-      tags: website-lead
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Correo Electrónico
         first_name:
           visible: true
           required: true
@@ -170,43 +36,140 @@ sections:
           visible: true
           required: true
           slugs:
-            - datascience-ml
             - ai-engineering
+            - datascience-ml
             - cybersecurity
+            - full-stack
       success:
-        message: ¡Gracias! Nos pondremos en contacto contigo a la brevedad posible.
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
+      terms_url: /terminos-condiciones
+      privacy_url: /politica-privacidad
+      consent:
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
+    form_card_title: Obtén la guía completa del programa
+    form_card_subtitle: Te enviamos el programa completo con plan de estudios, opciones de financiación y más. Solo toma 2 minutos.
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+    show_awards_marquee: true
+    awards_marquee:
+      items:
+        - id: switchup-2025
+          alt: SwitchUp Best Bootcamps 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
+          logoHeight: 64px
+        - id: excelencia-educativa
+          alt: Excelencia Educativa - Calidad Institucional en Educación Online
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
+          logoHeight: 64px
+        - id: course-report-badge
+          alt: Course Report Badge 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+          logoHeight: 64px
+        - id: newsweek
+          alt: Newsweek
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
+          logoHeight: 64px
+        - id: reviews-coursereport
+          alt: 4.9 en reseñas de Course Report
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+          logoHeight: 64px
+    awards_marquee_at_left_column: true
+    section_id: hero-nzpyph
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
+    paddingY:
+      mobile: md none
+      desktop: md none
+    marginY:
+      mobile: none
+      desktop: none sm
+  - type: sticky_cta
     section_id: sticky_cta-pohzm9
+    version: "1.0"
+    heading: ¿Listo para empezar tu carrera en tech?
+    button_label: Iniciar mi aplicación
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Iniciar mi aplicación
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        last_name:
+          visible: true
+          required: true
+          placeholder: Apellido
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: true
+          required: true
+          slugs:
+            - ai-engineering
+            - datascience-ml
+            - cybersecurity
+            - full-stack
+      success:
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
+      consent:
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
     load: eager
-    showOn: mobile
   - type: graduates_stats
-    maxWidth:
-      desktop: 6xl
-    heading: Resultados profesionales reales
-    subheading: Más de 5.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
+    heading: Nuestros Graduados Consiguen Empleo. Rápido.
+    subheading: Más de 6,000 graduados en todo el mundo. Ahora prosperando en tecnología.
     stats:
-      - value: 81%
-        label: Tasa de inserción laboral
-      - value: 40%
-        label: Aumento salarial medio tras graduarse
+      - value: {{ global.global_job_placement_rate | 84% }}%
+        label: Tasa de contratación promedio
+      - value: {{ global.global_salary_increase | 55% }}%
+        label: Aumento salarial promedio en el nuevo puesto
       - value: 3-6 meses
-        label: Tiempo medio para conseguir empleo en 2025
-      - value: 5.000+
-        label: Graduados en todo el mundo
+        label: Tiempo promedio para conseguir empleo
     collage_images:
-      - image_id: graduates_team_1
+      - image_id: group-7085-1
         col_span: 5
         row_span: 2
-      - image_id: graduates_team_2-288x210-q87
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
+        id: gemini-generated-image-uwpyyruwpyyruwpy
+        object_scale: 1.1
+        object_position: 50% 30%
+      - image_id: group-7086-1
         col_span: 7
         row_span: 2
-      - image_id: graduates_coding
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
+        id: gemini-generated-image-pd2u4upd2u4upd2u
+        object_scale: 1
+        transform_origin: 50% 50%
+        object_position: 50% 60%
+      - image_id: group-7084-1
         col_span: 6
         row_span: 2
-      - image_id: graduates_friends-288x210-q87
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
+        id: gemini-generated-image-dhko5mdhko5mdhko-1
+        object_scale: 1.05
+      - image_id: group-7087-1
         col_span: 6
         row_span: 2
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
+        id: gemini-generated-image-wpk4yvwpk4yvwpk4
+        object_scale: 1.05
+        transform_origin: 50% 50%
+        object_position: 50% 45%
     section_id: graduates_stats-cnxqbb
-    value_size: text-3xl
+    marginY:
+      desktop: none
+    maxWidth:
+      desktop: 6xl
   - type: trust_cards
     maxWidth:
       desktop: 6xl
@@ -225,65 +188,109 @@ sections:
       - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
         rating: 4.9
         review_count: 4.9 en SwitchUp
-    name: Default Trust Cards
-    description: Four review platform cards with ratings
     section_id: trust_cards-eslgbu
     paddingY:
-      desktop: md lg
+      desktop: none md
     marginY:
       desktop: none lg
-  - type: programs_showcase
-    version: v1.0
-    layout: spotlight_with_list
-    heading: Elige tu camino profesional
-    subheading: Cuatro programas diseñados para las habilidades que las empresas en LATAM están contratando ahora mismo.
-    featured_label: Programa Destacado
-    programs:
-      - name: Ingeniería de IA
-        icon: IconBrain
-        description: Construye los sistemas de IA que las empresas contratan ahora mismo. Domina LLMs, agentes de IA y automatización mientras transformas un caso de negocio real en un sistema completamente nativo de IA, capa por capa.
-        duration: 24 semanas
-        cta_text: Ver Detalles del Programa
-        cta_url: "#apply-modal"
-      - name: Ciencia de Datos y Machine Learning
-        icon: IconChartBar
-        description: Analiza datos complejos, construye modelos inteligentes y despliega soluciones de IA para problemas reales de negocio.
-        duration: 18 semanas
-        cta_text: Ver Detalles del Programa
-        cta_url: "#apply-modal"
-      - name: Ciberseguridad
-        icon: IconShield
-        description: Protege los sistemas que la IA necesita. Los especialistas en ciberseguridad son críticos ahora que las empresas escalan su infraestructura de IA.
-        duration: 16 semanas
-        cta_text: Ver Detalles del Programa
-        cta_url: "#apply-modal"
-    section_id: programs_showcase-5wibqd
-    background: hsl(210 100% 50% / 0.05)
-    paddingY:
-      desktop: md lg
-    marginY:
-      desktop: none xl
   - type: two_column
+    version: v1.0
     proportions:
       - 6
       - 6
     alignment: center
+    gap: "8"
     left:
-      video: https://www.youtube.com/watch?v=rtpfwwfE0yY
+      video: https://www.youtube.com/shorts/-SpU1PWNBF4?feature=share
       justify: center
     right:
-      heading: "Joshua Bravo: de asistente de cocina a desarrollador Full Stack en una fintech"
-      sub_heading: Graduado de 4Geeks Academy, Chile
-      description: Joshua trabajaba como asistente de cocina y contable mientras intentaba aprender a programar solo con tutoriales de YouTube. Sabía que necesitaba algo más estructurado para dar el salto real. Tras completar el bootcamp de Full Stack en 4Geeks, construyó aplicaciones web completas de cero y consiguió empleo como desarrollador en Regcheq, una startup fintech. Hoy hace lo que le apasiona.
+      heading: Por qué Ingeniería de IA es la carrera más importante de esta década
+      sub_heading: Y por qué el mercado necesita ingenieros ahora mismo
+      description: El 87% de las empresas no encuentra los ingenieros de IA que necesita. La demanda crece un 30% cada año y los salarios de entrada superan los $20K USD. Este programa existe para que seas tú quien cubra esa demanda.
       button:
-        text: Comprueba si cumples los requisitos
+        text: Iniciar mi aplicación
         url: "#hero-nzpyph"
         variant: primary
         icon: Rocket
-    gap: "8"
+    section_id: two_column-r882vr
     marginY:
-      desktop: none xl
-    section_id: ai_learning-2hqf27
+      desktop: md sm
+    paddingY:
+      desktop: lg
+    background: hsl(var(--secondary))
+  - type: course_selector
+    version: "1.0"
+    variant: spotlight
+    heading: Elige tu programa
+    subheading: Cuatro programas. Todos diseñados para conseguirte empleo, no solo formarte.
+    courses:
+      - name: Ingeniería de IA
+        icon: Bolt
+        duration: 24 semanas, o track acelerado de 15 semanas
+        label: Actualizado en 2026
+        title: Ingeniería de IA
+        badges:
+          - icon: Bolt
+            text: RAG y Búsqueda Vectorial
+          - icon: Bolt
+            text: Agentes de IA
+          - icon: Bolt
+            text: Python
+        description: Transforma un caso de negocio real en un sistema completamente nativo de IA, capa por capa. Domina los agentes, sistemas RAG y pipelines de automatización que las empresas están contratando ahora mismo.
+        cta_text: Obtener detalles del programa
+        cta_url: /es/career-programs/ai-engineering
+        course_background: accent
+      - name: Ciencia de Datos y Machine Learning
+        icon: IconChartBar
+        duration: 18 semanas
+        label: Actualizado en 2026
+        title: Ciencia de Datos y Machine Learning
+        badges:
+          - icon: ChartBar
+            text: Python y Pandas
+          - icon: ChartBar
+            text: TensorFlow
+          - icon: ChartBar
+            text: Visualización de Datos
+        description: Domina las habilidades detrás de las decisiones impulsadas por IA. Construye modelos, analiza datos a escala y despliega soluciones que empresas de todos los sectores están contratando activamente.
+        cta_text: Obtener detalles del programa
+        cta_url: /es/career-programs/data-science-ml
+        course_background: hsl(var(--muted-foreground))
+      - name: Ciberseguridad
+        icon: IconShield
+        duration: 16 semanas
+        label: Actualizado en 2026
+        title: Ciberseguridad
+        badges:
+          - icon: Shield
+            text: Hacking Ético y Pentesting
+          - icon: Shield
+            text: Marco NIST
+        description: Detecta amenazas, protege sistemas y asegura los datos de los que depende cada organización. Una de las carreras de mayor crecimiento en tecnología, con una escasez global de profesionales cualificados que no muestra señales de desaceleración.
+        cta_text: Obtener detalles del programa
+        cta_url: /es/career-programs/cybersecurity
+        course_background: destructive
+      - name: Desarrollo Full Stack con IA
+        icon: IconCode
+        duration: 20 semanas
+        label: Actualizado en 2026
+        title: Desarrollo Full Stack con IA
+        badges:
+          - icon: Code
+            text: React y Next.js
+          - icon: Code
+            text: Python y APIs
+          - icon: Code
+            text: Integración de IA
+        description: Construye aplicaciones web modernas y listas para producción de frontend a backend, con IA integrada en tu proceso de desarrollo desde el primer día.
+        cta_text: Obtener detalles del programa
+        cta_url: /es/career-programs/full-stack
+        course_background: primary
+    maxWidth:
+      desktop: 6xl
+    marginY:
+      desktop: none md
+    section_id: course_selector-586a0x
   - type: ai_learning
     section_id: ai_learning-qmjitd
     badge: ¿Por qué 4Geeks?
@@ -292,7 +299,6 @@ sections:
     features:
       - icon: TrendingUp
         title: Apoyo de carrera construido para el mercado tech en LATAM
-        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Coaching 1:1 enfocado en conseguir roles de tecnología específicamente
@@ -300,27 +306,17 @@ sections:
           - text: Preparación para entrevistas técnicas y negociación salarial
           - text: Apoyo de carrera de por vida, no solo hasta que te gradúas
         video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
-        cta:
-          text: Comprueba si cumples los requisitos
-          url: "#hero-nzpyph"
-          variant: primary
       - icon: Robot
         title: Aprende más rápido con un tutor de IA que sabe dónde te has atascado
-        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Rigobot te da feedback instantáneo sobre tu código sin esperar a que haya un humano disponible
           - text: Adapta las explicaciones a tu nivel exacto y ritmo de aprendizaje
           - text: Desbloquéate a las 2 de la madrugada sin perder el hilo
           - text: Cientos de ejercicios interactivos en Learnpack, nuestra plataforma de aprendizaje
-        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-        cta:
-          text: Comprueba si cumples los requisitos
-          url: "#hero-nzpyph"
-          variant: primary
+        video_url: https://youtu.be/NRuShbSLtg0
       - icon: Headset
         title: Mentoría 1:1 ilimitada de por vida, no solo mientras estudias
-        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Reserva sesiones 1:1 ilimitadas con ingenieros senior incluso después de graduarte
@@ -330,62 +326,10 @@ sections:
         video_url: https://youtu.be/Zoxxw5jP7xA
     paddingY:
       mobile: lg none
-      desktop: lg none
+      desktop: lg md
+    background: hsl(var(--muted))
     marginY:
-      desktop: none xl
-  - type: certificate
-    section_id: certificate-e3th63
-    title: Tu certificado. Tu ventaja salarial.
-    description: Gradúate con un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida y las credenciales para negociar tu primer salario en tecnología desde una posición de fuerza.
-    benefits:
-      - text: "Full Stack Developer: $45K–$85K"
-      - text: "Ingeniero de IA: $65K–$110K"
-      - text: "Científico de Datos: $55K–$95K"
-      - text: "Especialista en Ciberseguridad: $50K–$90K"
-    card:
-      title: Desarrollador de Tecnología con IA
-      subtitle: Certificado 4Geeks Academy
-      program_name: Tecnología con IA
-    stats:
-      - value: 81%
-        label: Tasa de inserción laboral
-        description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores en LATAM están contratando activamente ahora mismo.
-        benefits:
-          - text: Certificado acreditado por el Departamento de Educación de Florida
-          - text: Un portfolio de proyectos reales y listos para producción
-          - text: Experiencia demostrada con flujos de trabajo y herramientas de IA
-          - text: Perfil profesional optimizado para pasar los filtros automáticos de los recruiters
-      - value: ~4 meses
-        label: Tiempo medio para conseguir empleo
-        description: La mayoría de graduados consiguen su primer rol en unos 3-6 meses. Nuestro proceso de desarrollo profesional en 3 pasos convierte tus habilidades técnicas en ofertas de trabajo rápidamente.
-        benefits:
-          - text: CV, portfolio y LinkedIn construidos para atraer recruiters en LATAM
-          - text: Preparación para entrevistas técnicas y conductuales con feedback real de ingenieros
-          - text: Estrategia personalizada de búsqueda de empleo con acceso a redes de contratación activas
-      - value: 40%
-        label: Aumento salarial medio
-        description: Los graduados reportan un aumento salarial medio del 40% tras incorporarse a roles tech. El programa se paga solo en pocos meses de trabajo.
-        benefits:
-          - text: "Full Stack Developer: $45K–$85K"
-          - text: "Ingeniero de IA: $65K–$110K"
-          - text: "Científico de Datos: $55K–$95K"
-          - text: "Especialista en Ciberseguridad: $50K–$90K"
-      - value: 400+
-        label: Empresas que contratan nuestro talento
-        description: Accede a nuestra red de más de 400 empresas que buscan talento. Recibe ofertas exclusivas y procesos de selección prioritarios.
-        benefits:
-          - text: Acceso exclusivo a bolsa de empleo con roles de empresas colaboradoras
-          - text: Recomendaciones directas a empresas de nuestra red
-          - text: Eventos de networking con recruiters y responsables de selección
-    certificate_position: right
-    useSolidCard: true
-    marginY:
-      mobile: none
-      desktop: md lg
-    paddingY:
-      mobile: lg
-      desktop: md
-    background: hsl(var(--secondary))
+      desktop: none
   - type: testimonials_slide
     title: Dieron el salto. Esto es lo que pasó.
     description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa de Uruguay, Costa Rica, Chile y más. Ahora son desarrolladores con empleos reales y salarios que no esperaban.
@@ -498,81 +442,18 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-  - type: cards_deck
-    section_id: cards_deck-8jlm80
-    version: "1.0"
-    heading: Historias reales de cambios de carrera
-    subtitle: Miles de graduados han utilizado nuestros programas para entrar en el mundo de la tecnología. Estas son solo algunas de sus historias, desde aumentos salariales hasta reinvenciones completas de carrera.
-    cards:
-      - video:
-          url: https://www.youtube.com/watch?v=B01-eTfgqqc
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
-        author_name: Mattia Tozzi
-        title: "\"4Geeks ha empujado mi futuro laboral\""
-        description: Las tutorías ilimitadas de 4Geeks fueron clave para elegirlos. Con la ayuda de sus profesores y la comunidad, pudo resolver todas sus dudas rápidamente y avanzar en su aprendizaje.
-        alt: Geekpal
-      - video:
-          url: https://www.youtube.com/watch?v=XqyM_QSVcOs
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
-        author_name: Ana Romero
-        title: "\"He superado mi miedo a programar\""
-        description: Están ahí siempre para brindarte apoyo. Sus buenos mentores, guías de programación y las herramientas de 4Geeks son excelentes. La recomendaría un millón de veces.
-        alt: Geekpal
-      - video:
-          url: https://www.youtube.com/watch?v=9Vm_xD49MaU
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
-        author_name: Diego Gómez González
-        title: "\"4Geeks me dio las herramientas para conectar todo lo que sabía\""
-        description: Diego tenía conocimientos previos en programación pero necesitaba conectar todas las piezas. Tras graduarse del bootcamp Full Stack en 4Geeks, consiguió hacer exactamente eso.
-        alt: Geekpal
-    marginY:
-      desktop: none xl
-  - type: whos_hiring
-    variant: carousel
-    pretitle: ""
-    title: Empresas que contratan a nuestros estudiantes
-    subtitle: Nuestros graduados trabajan en compañías líderes a nivel global
-    logos:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
-        alt: Microsoft
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70.webp
-        alt: Google Developers
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
-        alt: Boats Group
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70.webp
-        alt: Meta
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70.webp
-        alt: eBay
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
-        alt: National Geographic
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
-        alt: Evernote
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70.webp
-        alt: Telefonica
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
-        alt: Twilio
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
-        alt: Uber
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70.webp
-        alt: Neo9
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
-        alt: Jooble
-    section_id: whos_hiring-1trdnb
-    marginY:
-      desktop: none lg
+    background: hsl(var(--card))
   - type: cta_banner
+    section_id: cta_banner-or97zl
     version: "1.0"
     title: Tu carrera en tecnología no va a empezar sola.
-    subtitle: Cada semana que esperas es una semana que otro se lleva el trabajo. Comprueba ahora si cumples los requisitos, es gratis y tarda 2 minutos.
+    subtitle: Cada semana que esperas es una semana que otro se lleva el trabajo. Aplica en 2 minutos.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Comprueba si cumples los requisitos. Es gratis
+      submit_label: Iniciar mi aplicación
       tags: website-lead
       fields:
         email:
@@ -595,23 +476,23 @@ sections:
           visible: true
           required: true
           slugs:
-            - datascience-ml
             - ai-engineering
+            - datascience-ml
             - cybersecurity
+            - full-stack
       success:
-        message: Ya estás dentro. Alguien de nuestro equipo de admisiones se pondrá en contacto contigo en unos minutos por email. Revisa tu bandeja de entrada.
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       consent:
-        email: true
         marketing: true
-        marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
       button_className: bg-primary border-white
+      terms_className: text-white/80
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
-    section_id: cta_banner-or97zl
     marginY:
       mobile: md none
-      desktop: md none
+      desktop: none
     paddingY:
       mobile: lg
       desktop: lg
