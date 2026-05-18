@@ -1672,7 +1672,7 @@ sections:
     section_id: whos_hiring-dvkv7b
     marginY:
       mobile: none xl
-      desktop: none xl
+      desktop: none lg
     paddingY:
       mobile: lg none
       desktop: lg none
@@ -1723,7 +1723,7 @@ sections:
       desktop: md none
     paddingY:
       mobile: lg
-      desktop: lg
+      desktop: md lg
   - type: footer
     section_id: footer-eisseg
     version: "1.0"
