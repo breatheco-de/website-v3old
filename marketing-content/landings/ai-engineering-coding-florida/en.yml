@@ -712,7 +712,7 @@ sections:
       desktop: none lg
     paddingY:
       mobile: lg none
-      desktop: lg none
+      desktop: none
   - type: cta_banner
     version: "1.0"
     title: Florida's AI job market is growing fast. Your skills should too.
