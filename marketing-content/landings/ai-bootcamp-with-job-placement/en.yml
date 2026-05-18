@@ -781,10 +781,10 @@ sections:
     section_id: whos_hiring-dvkv7b
     marginY:
       mobile: none xl
-      desktop: none xl
+      desktop: none md
     paddingY:
       mobile: lg none
-      desktop: lg none
+      desktop: lg md
   - type: cta_banner
     version: "1.0"
     title: 84% of Our Graduates Get Hired. Ready to Be Next?
@@ -823,6 +823,8 @@ sections:
         marketing: true
         marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materi
     section_id: cta_banner-55y7oh
+    paddingY:
+      desktop: md none
   - type: footer
     section_id: footer-eisseg
     version: "1.0"
