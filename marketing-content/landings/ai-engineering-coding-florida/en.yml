@@ -547,6 +547,35 @@ sections:
         text: Verified and approved, your full tuition is refunded within 30 days.
     background: hsl(var(--card))
     section_id: numbered_steps-sgeuhk
+  - type: why_learn_ai
+    variant: laptop-edge
+    laptop_image:
+      image_id: laptop
+    title: Land the Job. Or Your Money Back.
+    description: Our AI engineering program comes with the option of adding a Job Guarantee. Not hired within 9 months? Full tuition refund. That's how confident we are in what we built. *The Job Guarantee is not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a>
+    section_id: why_learn_ai-9pbrek
+    marginY:
+      desktop: md lg
+    paddingY:
+      desktop: sm none
+    background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+    marginX:
+      desktop: none
+    maxWidth:
+      desktop: none
+    showOn: desktop
   - type: testimonials_slide
     title: "Different Backgrounds. One Outcome: A Job in Tech."
     description: They all made the switch from different starting points. Read their stories.
@@ -667,35 +696,6 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-  - type: why_learn_ai
-    variant: laptop-edge
-    laptop_image:
-      image_id: laptop
-    title: Land the Job. Or Your Money Back.
-    description: Our AI engineering program comes with the option of adding a Job Guarantee. Not hired within 9 months? Full tuition refund. That's how confident we are in what we built. *The Job Guarantee is not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a>
-    section_id: why_learn_ai-9pbrek
-    marginY:
-      desktop: md lg
-    paddingY:
-      desktop: sm none
-    background: hsl(210 100% 50% / 0.05)
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-    marginX:
-      desktop: none
-    maxWidth:
-      desktop: none
-    showOn: desktop
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work
