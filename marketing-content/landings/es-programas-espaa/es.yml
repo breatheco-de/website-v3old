@@ -195,7 +195,7 @@ sections:
     maxWidth:
       desktop: 6xl
     marginY:
-      desktop: none md
+      desktop: none
     section_id: course_selector-ut5wua
     background: hsl(var(--card))
   - type: graduates_stats
