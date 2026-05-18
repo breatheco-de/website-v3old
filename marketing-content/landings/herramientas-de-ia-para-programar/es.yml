@@ -420,7 +420,7 @@ sections:
       desktop: none sm
     marginY:
       mobile: none
-      desktop: none md
+      desktop: none lg
     section_id: syllabus-o2a57c
   - type: ai_learning
     section_id: ai_learning-fw5xfb
