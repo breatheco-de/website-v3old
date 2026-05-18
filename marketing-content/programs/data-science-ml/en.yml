@@ -198,59 +198,6 @@ sections:
       desktop: md lg
     paddingY:
       desktop: none
-  - type: features_grid
-    section_id: features_grid-35e8wc
-    version: "1.0"
-    variant: stats-text
-    maxWidth:
-      desktop: 6xl
-    title: Why Data Science Now?
-    subtitle: Data fuels the AI revolution.
-    description: As companies shift toward autonomous operations, the demand for experts who can turn raw information into predictive intelligence has never been higher. Data Science and Machine Learning are not just about analyzing the past; they’re building the systems that predict the future. Leveraging modern AI tools, today’s data professionals are delivering the insights that are transforming every industry.
-    background: hsl(var(--background))
-    items:
-      - id: "1"
-        value: 36%
-        title: projected growth rate the next decade
-      - id: "3"
-        value: {{ global.salary_data_scientist | 22.000€ }}
-        title: Average starting salary for data scientists
-  - type: features_grid
-    version: "1.0"
-    variant: stats-charts
-    subtitle: The demand is there. The talent isn't.
-    title: Why Data Science Now
-    description: Data scientists and ML engineers are among the fastest-growing roles globally. The World Economic Forum identifies AI and big data specialists as the top emerging jobs through 2030. As AI is adopted across every industry, the demand for professionals who can turn data into intelligence has never been higher.
-    background: bg-slate-950
-    card_bars_accent: hsl(var(--color-green))
-    card_gauge_accent: hsl(var(--color-orange))
-    card_trend_accent: hsl(var(--primary))
-    card_bars:
-      title: More New AI Roles Than Job Losses
-      description: Annual delta · 2021-2025 · indexed
-      stat_value: +340%
-      stat_label: net new AI roles created since 2021
-      displaced_label: Displaced
-      created_label: Created by AI
-    card_gauge:
-      title: Demand Is Outpacing Supply
-      description: McKinsey Global Institute · 2026 projection
-      gauge_percentage: 50
-      gauge_label: supply gap
-      stat_label: demand for data scientists will exceed supply by over 50% in 2026
-      bar1_label: Available talent
-      bar2_label: Market demand
-    card_trend:
-      title: Data Science Jobs Are Growing Fast
-      description: BLS projection · 2023-2033
-      stat_value: 36%
-      stat_label: projected growth in data science jobs over the next decade
-      end_label: 36% · 2033
-    section_id: features_grid-REPLACE
-    marginY:
-      desktop: md lg
-    paddingY:
-      desktop: none lg
   - type: syllabus
     section_id: syllabus-skzl68
     variant: program-modules
