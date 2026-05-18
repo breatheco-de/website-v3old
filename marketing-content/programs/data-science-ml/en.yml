@@ -553,10 +553,10 @@ sections:
     paddingY:
       desktop: md none
   - type: whos_hiring
-    section_id: whos_hiring-hl63dc
+    section_id: whos_hiring-6ml5ey
     variant: carousel
-    title: Top Companies Hiring our Graduates
-    subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
+    title: Where Our Graduates Work
+    subtitle: From startups to global tech leaders, our graduates work at some of the most recognized companies worldwide
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
