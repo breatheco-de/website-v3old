@@ -495,4 +495,4 @@ sections:
       desktop: md none
     paddingY:
       mobile: lg
-      desktop: none lg
+      desktop: lg
