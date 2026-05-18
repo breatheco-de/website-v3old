@@ -14,86 +14,103 @@ schema:
     - website
     - courses:ai-engineering
 sections:
-  - type: hero
-    version: "1.0"
-    variant: productShowcase
-    title: ""
-    brand_mark:
-      prefix: "De usar herramientas de IA a<div><span style=\"color: hsl(var(--primary));\"><b><span style=\"font-size: 3.75rem;\"><i>Construir con ellas</i></span></b></span><!--EndFragment--></div>"
-      highlight: <br>
-      color: primary
-    description: La IA está cambiando todos los trabajos. En 24 semanas pasas de usar herramientas de IA a desarrollar e integrar sistemas reales que las empresas llevan meses intentando contratar.
-    bullets:
-      - text: Mentoría ilimitada de por vida con ingenieros senior, incluso después de graduarte
-      - text: Paga en 10, 12 o 18 cuotas mensuales sin dejar tu trabajo actual
-    form:
-      variant: stacked
-      conversion_name: student_application
-      submit_label: Iniciar mi aplicación
-      tags: website-lead
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Correo electrónico
-        first_name:
-          visible: true
-          required: true
-          placeholder: Nombre
-        last_name:
-          visible: true
-          required: true
-          placeholder: Apellido
-        phone:
-          visible: true
-          required: true
-          default_country: VE
-        program:
-          visible: false
-          default: ai-engineering
-      success:
-        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
-      terms_url: /terminos-condiciones
-      privacy_url: /politica-privacidad
-      consent:
-        marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-      show_terms: true
-    form_card_title: Obtén la guía completa del programa
-    form_card_subtitle: Te enviamos el programa completo con plan de estudios, opciones de financiación y más. Solo toma 2 minutos.
-    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-    show_awards_marquee: true
-    awards_marquee:
-      items:
-        - id: switchup-2025
-          alt: SwitchUp Best Bootcamps 2025
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
-          logoHeight: 64px
-        - id: excelencia-educativa
-          alt: Excelencia Educativa - Calidad Institucional en Educación Online
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
-          logoHeight: 64px
-        - id: course-report-badge
-          alt: Course Report Badge 2025
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-          logoHeight: 64px
-        - id: newsweek
-          alt: Newsweek
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
-          logoHeight: 64px
-        - id: reviews-coursereport
-          alt: 4.9 en reseñas de Course Report
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-          logoHeight: 64px
-    awards_marquee_at_left_column: true
+  - slug: herramientas-de-ia-para-programar
+    title: herramientas de IA para programar
+    locale: es
+    meta:
+      robots: index, follow
+      og_image: /images/programs/ai-engineering-og.jpg
+      priority: 0.9
+      change_frequency: weekly
+      page_title: Herramientas de IA para Programar | 4Geeks
+      description: Aprende a desarrollar soluciones de IA con nuestro programa de ingeniería de IA y conviértete en experto en 24 semanas con 4Geeks
+    schema:
+      include:
+        - organization
+        - website
+        - courses:ai-engineering
+    sections:
+      - type: hero
+        version: "1.0"
+        variant: productShowcase
+        title: ""
+        brand_mark:
+          prefix: De usar herramientas de IA
+          highlight: a construir con ellas
+          color: primary
+        description: La IA está cambiando todos los trabajos. En 24 semanas pasas de usar herramientas de IA a desarrollar e integrar sistemas reales que las empresas llevan meses intentando contratar.
+        bullets:
+          - text: Mentoría ilimitada de por vida con ingenieros senior, incluso después de graduarte
+          - text: Paga en 10, 12 o 18 cuotas mensuales sin dejar tu trabajo actual
+        form:
+          variant: stacked
+          conversion_name: student_application
+          submit_label: Iniciar mi aplicación
+          tags: website-lead
+          fields:
+            email:
+              visible: true
+              required: true
+              placeholder: Correo electrónico
+            first_name:
+              visible: true
+              required: true
+              placeholder: Nombre
+            last_name:
+              visible: true
+              required: true
+              placeholder: Apellido
+            phone:
+              visible: true
+              required: true
+              default_country: VE
+            program:
+              visible: false
+              default: ai-engineering
+          success:
+            message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
+          terms_url: /terminos-condiciones
+          privacy_url: /politica-privacidad
+          consent:
+            marketing: true
+            marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+          show_terms: true
+        form_card_title: Obtén la guía completa del programa
+        form_card_subtitle: Te enviamos el programa completo con plan de estudios, opciones de financiación y más. Solo toma 2 minutos.
+        form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+        show_awards_marquee: true
+        awards_marquee:
+          items:
+            - id: switchup-2025
+              alt: SwitchUp Best Bootcamps 2025
+              logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
+              logoHeight: 64px
+            - id: excelencia-educativa
+              alt: Excelencia Educativa - Calidad Institucional en Educación Online
+              logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
+              logoHeight: 64px
+            - id: course-report-badge
+              alt: Course Report Badge 2025
+              logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+              logoHeight: 64px
+            - id: newsweek
+              alt: Newsweek
+              logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
+              logoHeight: 64px
+            - id: reviews-coursereport
+              alt: 4.9 en reseñas de Course Report
+              logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+              logoHeight: 64px
+        awards_marquee_at_left_column: true
+        section_id: hero-yadtpk
+        background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
+        paddingY:
+          mobile: md none
+          desktop: md none
+        marginY:
+          mobile: none
+          desktop: none xl
     section_id: hero-yadtpk
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
-    paddingY:
-      mobile: md none
-      desktop: md none
-    marginY:
-      mobile: none
-      desktop: none xl
   - type: sticky_cta
     section_id: sticky_cta-cp6okd
     version: "1.0"
