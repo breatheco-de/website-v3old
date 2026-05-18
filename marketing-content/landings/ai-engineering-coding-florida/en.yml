@@ -535,7 +535,7 @@ sections:
     description: Our AI engineering program comes with the option of adding a Job Guarantee. Not hired within 9 months? Full tuition refund. That's how confident we are in what we built. *The Job Guarantee is not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply.</a>
     section_id: why_learn_ai-9pbrek
     marginY:
-      desktop: none lg
+      desktop: none md
     paddingY:
       desktop: none
     background: hsl(var(--secondary))
