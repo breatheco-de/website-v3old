@@ -825,12 +825,3 @@ sections:
     section_id: cta_banner-55y7oh
     paddingY:
       desktop: md none
-  - type: footer
-    section_id: footer-eisseg
-    version: "1.0"
-    copyright_text: 2024 4Geeks. All rights reserved.
-    paddingY:
-      mobile: none
-      desktop: none
-    marginY:
-      desktop: sm none
