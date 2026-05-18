@@ -220,7 +220,7 @@ sections:
     variant: stats-charts
     subtitle: The demand is there. The talent isn't.
     title: Why Data Science Now
-    description: Data scientists and ML engineers are among the fastest-growing roles globally. The World Economic Forum identifies AI and big data specialists as the top emerging jobs through 2030. As AI is adopted across every industry, the demand for professionals who can turn data into intelligence has never been higher.  That gap is your opportunity.
+    description: Data scientists and ML engineers are among the fastest-growing roles globally. The World Economic Forum identifies AI and big data specialists as the top emerging jobs through 2030. As AI is adopted across every industry, the demand for professionals who can turn data into intelligence has never been higher.
     background: bg-slate-950
     card_bars_accent: hsl(var(--color-green))
     card_gauge_accent: hsl(var(--color-orange))
