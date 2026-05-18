@@ -557,7 +557,7 @@ sections:
         video_url: https://youtu.be/Zoxxw5jP7xA
     paddingY:
       mobile: lg none
-      desktop: lg md
+      desktop: lg none
     background: hsl(var(--card))
     marginY:
       desktop: none
