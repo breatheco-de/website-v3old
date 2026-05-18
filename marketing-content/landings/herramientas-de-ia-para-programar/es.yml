@@ -417,7 +417,7 @@ sections:
         icon: IconCode
     paddingY:
       mobile: lg none
-      desktop: lg sm
+      desktop: none sm
     marginY:
       mobile: none
       desktop: none md
