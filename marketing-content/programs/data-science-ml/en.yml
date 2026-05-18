@@ -237,8 +237,8 @@ sections:
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
-    title: The Most Personalized Path to a Data Science Career
-    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support — every part of the experience is built around you, not a classroom of thirty.
+    title: The Most Personalized Path to Career in Data Science
+    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support, every part of the experience is built around you, not a classroom of thirty.
     features:
       - icon: Robot
         title: AI-powered feedback that never sleeps
