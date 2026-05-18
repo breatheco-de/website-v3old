@@ -6,7 +6,7 @@ meta:
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
   change_frequency: weekly
-  page_title: "Ingeniería en IA | Programa Online con 4Geeks"
+  page_title: Ingeniería en IA | Programa Online con 4Geeks
   description: Desarrolla soluciones de IA con mentoría y comunidad profesional en 4Geeks Academy, mejora tu carrera
   redirects: []
 schema:
@@ -425,7 +425,7 @@ sections:
         icon: Rocket
     gap: "8"
     marginY:
-      desktop: none xl
+      desktop: none md
     section_id: two_column-1hmc9c
     background: hsl(var(--card))
     paddingY:
