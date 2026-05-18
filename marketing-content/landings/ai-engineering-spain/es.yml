@@ -461,7 +461,7 @@ sections:
       desktop: lg md
     marginY:
       mobile: none
-      desktop: none xl
+      desktop: none lg
     section_id: syllabus-tyek1h
   - type: two_column
     proportions:
