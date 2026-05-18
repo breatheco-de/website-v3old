@@ -560,7 +560,7 @@ sections:
       desktop: lg md
     background: hsl(var(--card))
     marginY:
-      desktop: none xl
+      desktop: none
   - type: certificate
     section_id: certificate-e3th63
     title: Tu certificado. Tu ventaja salarial.
