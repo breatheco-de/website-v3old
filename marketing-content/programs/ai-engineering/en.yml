@@ -524,26 +524,6 @@ sections:
     background: hsl(var(--secondary))
     maxWidth:
       desktop: 6xl
-  - type: features_grid
-    version: "1.0"
-    variant: stats-cards
-    title: The Roles You Can Land. And the Salaries That Follow.
-    subtitle: High demand. High salaries.
-    description: AI Engineering roles are among the fastest-growing and highest-paying in tech right now. Companies are hiring urgently and paying a premium for engineers who can build with AI. LinkedIn reports 42x growth in Forward-Deployed Engineering alone since 2023. These are some of the roles our graduates are landing.
-    card_color: bg-background
-    items:
-      - value: $105K–$155K
-        title: Forward-Deployed Engineer
-      - value: $95K–$135K
-        title: AI Software Engineer
-      - value: $90K–$130K
-        title: AI-Fluent Full Stack Engineer
-    section_id: features_grid-r890zf
-    marginY:
-      desktop: none xl
-    paddingY:
-      desktop: md none
-    background: hsl(var(--card))
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
@@ -586,6 +566,26 @@ sections:
     paddingY:
       desktop: md sm
     background: hsl(210 100% 50% / 0.05)
+  - type: features_grid
+    version: "1.0"
+    variant: stats-cards
+    title: The Roles You Can Land. And the Salaries That Follow.
+    subtitle: High demand. High salaries.
+    description: AI Engineering roles are among the fastest-growing and highest-paying in tech right now. Companies are hiring urgently and paying a premium for engineers who can build with AI. LinkedIn reports 42x growth in Forward-Deployed Engineering alone since 2023. These are some of the roles our graduates are landing.
+    card_color: bg-background
+    items:
+      - value: $105K–$155K
+        title: Forward-Deployed Engineer
+      - value: $95K–$135K
+        title: AI Software Engineer
+      - value: $90K–$130K
+        title: AI-Fluent Full Stack Engineer
+    section_id: features_grid-r890zf
+    marginY:
+      desktop: none xl
+    paddingY:
+      desktop: md none
+    background: hsl(var(--card))
   - type: testimonials
     section_id: testimonials-uastb3
     title: The People Behind the Numbers.
