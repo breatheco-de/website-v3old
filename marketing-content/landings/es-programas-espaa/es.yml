@@ -196,7 +196,7 @@ sections:
     marginY:
       desktop: none md
     section_id: course_selector-ut5wua
-    background: hsl(var(--muted))
+    background: hsl(var(--card))
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
