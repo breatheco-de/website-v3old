@@ -365,8 +365,6 @@ sections:
       - value: $80K–$130K
         title: Data Scientist
       - value: $80K–$120K
-        title: Data Engineer
-      - value: $60K–$95K
         title: Data Analyst
     section_id: features_grid-ds-roles
     marginY:
