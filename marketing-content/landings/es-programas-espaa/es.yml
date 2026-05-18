@@ -122,7 +122,7 @@ sections:
     paddingY:
       desktop: sm md
     marginY:
-      desktop: none lg
+      desktop: none md
   - type: course_selector
     version: "1.0"
     variant: spotlight
