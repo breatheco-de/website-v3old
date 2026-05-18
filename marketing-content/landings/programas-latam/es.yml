@@ -190,7 +190,7 @@ sections:
         review_count: 4.9 en SwitchUp
     section_id: trust_cards-eslgbu
     paddingY:
-      desktop: md
+      desktop: none md
     marginY:
       desktop: none md
   - type: two_column
