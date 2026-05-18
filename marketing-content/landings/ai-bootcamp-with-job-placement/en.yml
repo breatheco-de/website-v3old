@@ -498,7 +498,7 @@ sections:
             achievement: She achieved a 100% salary increase.
     section_id: career_support_explain-xpc3k2
     marginY:
-      desktop: none xl
+      desktop: none md
     paddingY:
       desktop: none
   - type: human_and_ai_duo
