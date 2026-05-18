@@ -352,55 +352,24 @@ sections:
       desktop: md none
     paddingY:
       desktop: md lg
-  - type: certificate
-    section_id: certificate-nsji8x
-    title: Career Outcomes
-    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
-    benefits:
-      - text: "Data Scientist: {{ global.salary_data_scientist | {{ average_salary_ai_engineer | {{ average_salary_ai_engineer | {{ average_salary_ai_engineer | $80K–$130K }} }} }} }}"
-      - text: "Machine Learning Engineer: {{ global.average_salary_machine_learning_engineer }}"
-      - text: "Data Analyst: {{ global.average_salary_data_analyst | $60K–$95K }}"
-      - text: "AI Engineer: {{ global.average_salary_ai_engineer | $100K–$160K }}"
-    card:
-      title: Data Scientist
-      subtitle: 4Geeks Academy Certificate
-      program_name: Data Science & Machine Learning
-    stats:
-      - value: {{ global.global_job_placement_rate | 84 }}%
-        label: Hiring rate
-        description: Graduate with the skills, credentials, and professional profile employers are actively hiring for.
-        benefits:
-          - text: Certificate recognized by the Florida Department of Education
-          - text: Real-world data projects focused on analysis, insights, and decision-making
-          - text: Hands-on experience building and evaluating predictive machine learning models
-          - text: Optimized professional profile and job-search strategy
-      - value: 3-6 months
-        label: Time to get hired
-        description: Land your first role within 3–6 months of graduation. With our structured 3-step career development process, your skills turn into job offers fast.
-        benefits:
-          - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
-          - text: Practice for technical and behavioral interviews
-          - text: Execute a personalized job-search strategy with access to relevant hiring networks
-      - value: {{ global.global_salary_increase | 55 }}%
-        label: Average salary increase
-        description: Graduate ready to step into high-paying data science and machine learning positions, offering immediate growth and long-term stability.
-        benefits:
-          - text: "Data Scientist: {{ global.salary_data_scientist | $80K–$130K }}"
-          - text: "Machine Learning Engineer: {{ global.average_salary_machine_learning_engineer | $90K–$150K }}"
-          - text: "Data Analyst: {{ global.average_salary_data_analyst | $60K–$95K }}"
-          - text: "AI Engineer: {{ global.average_salary_ai_engineer | $100K–$160K }}"
-      - value: 400+
-        label: Hiring Partners
-        description: Access our network of 400+ hiring partners actively seeking data science talent. Get exclusive job opportunities and priority referrals.
-        benefits:
-          - text: Exclusive job board access
-          - text: Priority referrals to partner companies
-          - text: Networking events with hiring managers
-          - text: Companies include Google, Meta, Amazon, startups
-    certificate_position: right
-    useSolidCard: true
-    paddingY:
-      mobile: lg
+  - type: features_grid
+    version: "1.0"
+    variant: stats-cards
+    title: The Roles You Can Land. And the Salaries That Follow.
+    subtitle: High demand. High salaries.
+    description: Data science and ML roles are among the fastest-growing and highest-paying in tech. Companies across every industry are hiring urgently for professionals who can turn data into intelligence. These are some of the roles our graduates are landing, with entry-level salary ranges based on current US market data.
+    card_color: bg-background
+    items:
+      - value: $90K–$150K
+        title: ML Engineer
+      - value: $80K–$130K
+        title: Data Scientist
+      - value: $80K–$120K
+        title: Data Engineer
+      - value: $60K–$95K
+        title: Data Analyst
+    section_id: features_grid-ds-roles
+    marginY:
       desktop: none lg
   - type: numbered_steps
     version: "1.0"
