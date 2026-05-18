@@ -93,8 +93,7 @@ sections:
       desktop: md none
     marginY:
       mobile: none
-      desktop: none xl
-
+      desktop: none
   - type: sticky_cta
     section_id: sticky_cta-3yvaj8
     version: "1.0"
@@ -134,7 +133,6 @@ sections:
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
     load: eager
-
   - type: graduates_stats
     heading: Nuestros Graduados Consiguen Empleo. Rápido.
     subheading: Más de 5,000 graduados en todo el mundo. Ahora prosperando en tecnología.
@@ -178,7 +176,6 @@ sections:
       desktop: none
     maxWidth:
       desktop: 6xl
-
   - type: trust_cards
     maxWidth:
       desktop: 6xl
@@ -202,7 +199,6 @@ sections:
       desktop: md
     marginY:
       desktop: none md
-
   - type: two_column
     version: v1.0
     proportions:
@@ -228,7 +224,6 @@ sections:
     paddingY:
       desktop: lg
     background: hsl(var(--secondary))
-
   - type: features_grid
     section_id: features_grid-e2a79q
     version: "1.0"
@@ -251,7 +246,6 @@ sections:
     paddingY:
       mobile: none md
       desktop: none md
-
   - type: syllabus
     variant: program-modules
     program_title: AI Native Full Stack — Módulos del programa
@@ -426,7 +420,6 @@ sections:
       mobile: none
       desktop: none
     section_id: syllabus-1d3afu
-
   - type: two_column
     proportions:
       - 6
@@ -451,7 +444,6 @@ sections:
     background: hsl(var(--card))
     paddingY:
       desktop: lg
-
   - type: ai_learning
     section_id: ai_learning-qmjitd
     badge: ¿Por qué 4Geeks?
@@ -491,7 +483,6 @@ sections:
     background: hsl(var(--card))
     marginY:
       desktop: none
-
   - type: certificate
     section_id: certificate-k9yuxj
     title: Tu certificado. Tu ventaja salarial.
@@ -540,7 +531,6 @@ sections:
       mobile: lg
       desktop: md
     background: hsl(210 100% 50% / 0.05)
-
   - type: testimonials_slide
     title: Dieron el salto y esto es lo que pasó.
     description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa de México, Uruguay y Costa Rica. Ahora son desarrolladores con empleos reales y salarios que no esperaban.
@@ -654,7 +644,6 @@ sections:
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-265uov
     background: hsl(var(--card))
-
   - type: numbered_steps
     section_id: numbered_steps-lqbb4v
     version: "1.0"
@@ -681,7 +670,6 @@ sections:
           - Recibirás orientación clara sobre fechas, inversión y expectativas.
           - Si no es el mejor momento, te recomendamos alternativas para tu crecimiento profesional.
     background: bg-background
-
   - type: cta_banner
     section_id: cta_banner-sus9w3
     version: "1.0"
@@ -731,7 +719,6 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-
   - type: footer
     section_id: footer-gyg9rp
     version: "1.0"
