@@ -491,7 +491,7 @@ sections:
     background: hsl(var(--card))
     paddingY:
       mobile: sm none
-      desktop: md
+      desktop: md none
     marginY:
       desktop: none sm
   - type: certificate
