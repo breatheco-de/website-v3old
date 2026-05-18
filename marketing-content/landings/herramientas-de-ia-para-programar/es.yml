@@ -6,7 +6,7 @@ meta:
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
   change_frequency: weekly
-  page_title: "Herramientas de IA para Programar | 4Geeks"
+  page_title: Herramientas de IA para Programar | 4Geeks
   description: Aprende a desarrollar soluciones de IA con nuestro programa de ingeniería de IA y conviértete en experto en 24 semanas con 4Geeks
 schema:
   include:
@@ -19,8 +19,8 @@ sections:
     variant: productShowcase
     title: ""
     brand_mark:
-      prefix: De usar herramientas de IA
-      highlight: a construir con ellas
+      prefix: "De usar herramientas de IA<div><span style=\"color: hsl(var(--primary));\"><b>&nbsp;A <i>construir</i> con ellas</b></span><!--EndFragment--></div>"
+      highlight: <br>
       color: primary
     description: La IA está cambiando todos los trabajos. En 24 semanas pasas de usar herramientas de IA a desarrollar e integrar sistemas reales que las empresas llevan meses intentando contratar.
     bullets:
@@ -94,7 +94,6 @@ sections:
     marginY:
       mobile: none
       desktop: none xl
-
   - type: sticky_cta
     section_id: sticky_cta-cp6okd
     version: "1.0"
@@ -134,7 +133,6 @@ sections:
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
     load: eager
-
   - type: graduates_stats
     heading: Nuestros Graduados Consiguen Empleo. Rápido.
     subheading: Más de 5,000 graduados en todo el mundo. Ahora prosperando en tecnología.
@@ -178,7 +176,6 @@ sections:
       desktop: none
     maxWidth:
       desktop: 6xl
-
   - type: trust_cards
     maxWidth:
       desktop: 6xl
@@ -202,7 +199,6 @@ sections:
       desktop: md
     marginY:
       desktop: none md
-
   - type: two_column
     version: v1.0
     proportions:
@@ -228,7 +224,6 @@ sections:
     paddingY:
       desktop: lg
     background: hsl(var(--secondary))
-
   - type: features_grid
     section_id: features_grid-m4067q
     version: "1.0"
@@ -251,7 +246,6 @@ sections:
     paddingY:
       mobile: none md
       desktop: none md
-
   - type: syllabus
     variant: program-modules
     program_title: AI Native Full Stack — Módulos del programa
@@ -426,7 +420,6 @@ sections:
       mobile: none
       desktop: none sm
     section_id: syllabus-o2a57c
-
   - type: ai_learning
     section_id: ai_learning-fw5xfb
     badge: ¿Por qué 4Geeks?
@@ -466,7 +459,6 @@ sections:
     background: hsl(var(--muted))
     marginY:
       desktop: none lg
-
   - type: certificate
     title: Tu certificado. Tu ventaja salarial.
     description: Gradúate con un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida y las credenciales para negociar tu primer salario como Ingeniero de IA desde una posición de fuerza.
@@ -515,7 +507,6 @@ sections:
       mobile: lg
       desktop: md
     background: hsl(var(--muted))
-
   - type: testimonials_slide
     title: Dieron el salto y esto es lo que pasó.
     description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa de Uruguay, Costa Rica, Chile y más. Ahora son desarrolladores con empleos reales y salarios que no esperaban.
@@ -629,7 +620,6 @@ sections:
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
     background: hsl(var(--card))
-
   - type: numbered_steps
     section_id: numbered_steps-6iq7gf
     version: "1.0"
@@ -656,7 +646,6 @@ sections:
           - Recibirás orientación clara sobre fechas, inversión y expectativas.
           - Si no es el mejor momento, te recomendamos alternativas para tu crecimiento profesional.
     background: bg-background
-
   - type: cta_banner
     section_id: cta_banner-a8uwfx
     version: "1.0"
@@ -706,7 +695,6 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-
   - type: footer
     section_id: footer-e1g718
     version: "1.0"
