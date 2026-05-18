@@ -432,7 +432,7 @@ sections:
       desktop: lg md
     marginY:
       mobile: none
-      desktop: none sm
+      desktop: none
     section_id: syllabus-1d3afu
   - type: two_column
     proportions:
