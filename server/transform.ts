@@ -59,6 +59,9 @@ export function compileTransformer(prefixedValue: string): CompiledTransformer |
   }
 }
 
+const sharedSandbox: Record<string, unknown> = { __value__: undefined, __item__: undefined, __fn_expr__: undefined };
+const sharedVmContext = vm.createContext(sharedSandbox);
+
 export function runTransformer(
   compiled: CompiledTransformer,
   value: unknown,
@@ -66,9 +69,10 @@ export function runTransformer(
   context?: { contentType?: string; slug?: string; fieldPath?: string },
 ): unknown {
   try {
-    const sandbox = { __value__: value, __item__: item, __fn_expr__: undefined as unknown };
-    const vmContext = vm.createContext(sandbox);
-    return compiled.script.runInContext(vmContext, { timeout: 50 });
+    sharedSandbox.__value__ = value;
+    sharedSandbox.__item__ = item;
+    sharedSandbox.__fn_expr__ = undefined;
+    return compiled.script.runInContext(sharedVmContext, { timeout: 50 });
   } catch (err) {
     const contentType = context?.contentType ?? "unknown";
     const slug = context?.slug ?? "unknown";

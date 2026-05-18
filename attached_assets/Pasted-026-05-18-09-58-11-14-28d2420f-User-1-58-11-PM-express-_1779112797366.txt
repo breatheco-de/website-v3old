@@ -1,0 +1,80 @@
+026-05-18 09:58:11.14
+28d2420f
+User
+1:58:11 PM [express] GET /api/turnstile/site-key 200 in 0ms :: {"siteKey":"0x4AAAAAACHAvgUbuD5h5zC5"}
+2026-05-18 09:58:19.38
+28d2420f
+User
+1:58:19 PM [express] GET /api/locale-urls 200 in 7ms :: {"urls":{"es":"/landing/herramientas-de-ia-p…
+2026-05-18 09:58:19.39
+28d2420f
+User
+1:58:19 PM [express] GET /api/debug/redirects 200 in 14ms :: {"count":233,"redirects":[{"from":"/boo…
+2026-05-18 09:58:24.40
+28d2420f
+User
+[Transform] Runtime error in transformer (blog/lambda-school-alternative field=lang): Error: Script execution timed out after 50ms
+2026-05-18 09:58:27.90
+28d2420f
+User
+[Transform] Runtime error in transformer (blog/cuanto-gana-un-ingeniero-informatico-en-espana field=lang): Error: Script execution timed out after 50ms
+2026-05-18 09:58:30.12
+28d2420f
+User
+[Transform] Runtime error in transformer (blog/how-to-pay-a-coding-bootcamp-2022 field=lang): Error: Script execution timed out after 50ms
+2026-05-18 09:58:30.92
+28d2420f
+User
+1:58:30 PM [express] GET /api/variables 200 in 11536ms :: {"global.campus_phone":{"default":"+1 (786…
+2026-05-18 09:58:32.65
+28d2420f
+User
+[Transform] Runtime error in transformer (blog/como-pagar-bootcamp-de-programacion field=lang): Error: Script execution timed out after 50ms
+2026-05-18 09:58:33.90
+28d2420f
+User
+[Transform] Runtime error in transformer (blog/bootcamp-programacion-new-york field=lang): Error: Script execution timed out after 50ms
+2026-05-18 09:58:34.37
+28d2420f
+User
+[Transform] Runtime error in transformer (blog/how-to-become-a-full-stack-developer field=lang): Error: Script execution timed out after 50ms
+2026-05-18 09:58:37.62
+28d2420f
+User
+[Transform] Runtime error in transformer (blog/inside-4geeks-platform field=lang): Error: Script execution timed out after 50ms
+2026-05-18 09:58:38.12
+28d2420f
+User
+[Transform] Runtime error in transformer (blog/wyncode-ironhack-and-4geeks-academy-comparison field=lang): Error: Script execution timed out after 50ms
+2026-05-18 09:58:43.37
+28d2420f
+User
+[Transform] Runtime error in transformer (blog/python-bootcamp-online field=lang): Error: Script execution timed out after 50ms
+2026-05-18 09:58:43.37
+28d2420f
+User
+[Transform] Runtime error in transformer (blog/colab-partnership field=lang): Error: Script execution timed out after 50ms
+2026-05-18 09:58:44.41
+28d2420f
+User
+[Transform] Runtime error in transformer (blog/junior-software-engineer-salary field=lang): Error: Script execution timed out after 50ms
+2026-05-18 09:58:44.91
+28d2420f
+User
+[Transform] Runtime error in transformer (blog/senior-full-stack-developer-salary field=lang): Error: Script execution timed out after 50ms
+2026-05-18 09:58:46.62
+28d2420f
+User
+[Transform] Runtime error in transformer (blog/ventajas-de-trabajar-en-tecnologia field=lang): Error: Script execution timed out after 50ms
+2026-05-18 09:58:49.87
+28d2420f
+User
+[Transform] Runtime error in transformer (blog/are-coding-bootcamps-worth-it field=lang): Error: Script execution timed out after 50ms
+2026-05-18 09:58:50.37
+28d2420f
+User
+[Transform] Runtime error in transformer (blog/freelance-espana field=lang): Error: Script execution timed out after 50ms
+2026-05-18 09:58:50.37
+28d2420f
+User
+[Transform] Runtime error in transformer (blog/freelance-espana field=lang): Error: Script execution timed out after 50ms
