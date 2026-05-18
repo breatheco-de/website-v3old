@@ -198,109 +198,42 @@ sections:
       desktop: md lg
     paddingY:
       desktop: none
-  - type: syllabus
-    section_id: syllabus-skzl68
-    variant: program-modules
-    program_title: Data Science and Machine Learning Program Overview
-    program_description: Master the industry-standard toolkit used by modern data teams. Go beyond simple analysis to build production-ready systems—from engineering raw data to deploying the predictive models that companies use to drive innovation and scale.
-    tech_logos:
-      - name: Python
-        icon: python
-      - name: TensorFlow
-        icon: tensorflow
-      - name: Pandas
-        icon: pandas
-      - name: NumPy
-        icon: numpy
-      - name: SQL
-        icon: sql
-      - name: Git
-        icon: git
-    module_cards:
-      - title: Python Basics & Notebooks
-        duration: Weeks 1-3
-        objectives:
-          - Master Python fundamentals including conditionals, functions, and data structures
-          - Work with Jupyter notebooks for interactive data exploration
-          - Build a strong programming foundation for machine learning
-        projects: Complete Python exercises and create your first data analysis notebook
-        orientation: vertical
-        icon: IconBrandPython
-      - title: Data Analysis & Visualization
-        duration: Weeks 4-6
-        objectives:
-          - Analyze and manipulate data with Pandas
-          - Clean, normalize, and transform datasets
-          - Create impactful visualizations with Matplotlib and Seaborn
-        projects: Build interactive data dashboards and exploratory analysis reports
-        orientation: vertical
-        icon: IconChartBar
-      - title: Data Collection with SQL, Scraping & APIs
-        duration: Weeks 7-8
-        objectives:
-          - Write SQL queries to extract data from databases
-          - Scrape websites with BeautifulSoup
-          - Work with REST APIs to gather real-world data
-        projects: Build a data pipeline that collects and processes data from multiple sources
-        orientation: vertical
-        icon: IconDatabase
-      - title: Math & Probability Foundations
-        duration: Weeks 9-10
-        objectives:
-          - Master probability and statistics concepts
-          - Understand linear algebra fundamentals
-          - Learn matrix operations that power ML algorithms
-        projects: Apply statistical analysis to real-world datasets
-        orientation: vertical
-        icon: IconMath
-      - title: Applied Machine Learning
-        duration: Weeks 11-14
-        objectives:
-          - Build regression and classification models
-          - Implement decision trees, random forests, and boosting
-          - Master clustering and time series forecasting
-        projects: Train, evaluate, and optimize ML models for real-world problems
-        orientation: vertical
-        icon: IconBrain
-      - title: Deep Learning, NLP & Model Deployment
-        duration: Weeks 15-16
-        objectives:
-          - Build neural networks with TensorFlow and Keras
-          - Implement natural language processing techniques
-          - Deploy models to production environments
-        projects: Create and deploy a complete ML web application
-        orientation: vertical
-        icon: IconRocket
-    marginY:
-      desktop: md none
-    paddingY:
-      desktop: md lg
-  - type: trust_cards
-    version: v1.0
-    title: Top rated across all major platforms.
-    items:
-      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
-        rating: 4.9
-        review_count: 4.9 on Course Report
-      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
-        rating: 4.8
-        review_count: 4.8 on Google
-      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
-        rating: 4.9
-        review_count: 4.9 on Career Karma
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        rating: 4.9
-        review_count: 4.9 on SwitchUp
-    name: Default Trust Cards
-    description: Four review platform cards with ratings
-    section_id: trust_cards-eslgbu
-    paddingY:
-      desktop: md lg
+  - type: features_grid
+    version: "1.0"
+    variant: stats-charts
+    subtitle: The demand is there. The talent isn't.
+    title: Why Data Science Now
+    description: Data scientists and ML engineers are among the fastest-growing roles globally. The World Economic Forum identifies AI and big data specialists as the top emerging jobs through 2030. Only the professionals who can turn raw data into intelligent systems will lead what comes next. That gap is your opportunity.
+    background: bg-slate-950
+    card_bars_accent: hsl(var(--color-green))
+    card_gauge_accent: hsl(var(--color-orange))
+    card_trend_accent: hsl(var(--primary))
+    card_bars:
+      title: More New AI Roles Than Job Losses
+      description: Annual delta · 2021-2025 · indexed
+      stat_value: +340%
+      stat_label: net new AI roles created since 2021
+      displaced_label: Displaced
+      created_label: Created by AI
+    card_gauge:
+      title: Demand Is Outpacing Supply
+      description: McKinsey Global Institute · 2026 projection
+      gauge_percentage: 50
+      gauge_label: supply gap
+      stat_label: demand for data scientists will exceed supply by over 50% in 2026
+      bar1_label: Available talent
+      bar2_label: Market demand
+    card_trend:
+      title: Data Science Jobs Are Growing Fast
+      description: BLS projection · 2023-2033
+      stat_value: 36%
+      stat_label: projected growth in data science jobs over the next decade
+      end_label: 36% · 2033
+    section_id: features_grid-REPLACE
     marginY:
       desktop: md lg
-    background: hsl(var(--secondary))
-    maxWidth:
-      desktop: 6xl
+    paddingY:
+      desktop: none lg
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
