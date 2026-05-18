@@ -19,7 +19,7 @@ sections:
     variant: productShowcase
     title: ""
     brand_mark:
-      prefix: "De usar herramientas de IA<div><span style=\"color: hsl(var(--primary));\"><b>&nbsp;A <i>construir</i> con ellas</b></span><!--EndFragment--></div>"
+      prefix: "De usar herramientas de IA<div><span style=\"color: hsl(var(--primary));\"><b><span style=\"font-size: 3.75rem;\">&nbsp;A <i>construir</i> con ellas</span></b></span><!--EndFragment--></div>"
       highlight: <br>
       color: primary
     description: La IA está cambiando todos los trabajos. En 24 semanas pasas de usar herramientas de IA a desarrollar e integrar sistemas reales que las empresas llevan meses intentando contratar.
