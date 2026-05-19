@@ -7,9 +7,9 @@ channel = "stable-24_05"
 packages = ["imagemagick", "libwebp", "unzip"]
 
 [deployment]
-deploymentTarget = "gce"
-build = ["npm", "run", "build"]
-run = ["npm", "run", "start"]
+deploymentTarget = "vm"
+build = ["sh", "-c", "npm run build && node_modules/.bin/esbuild mcp-server/index.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/mcp-server.js"]
+run = ["sh", "-c", "node dist/mcp-server.js & node dist/index.js"]
 
 [[ports]]
 localPort = 3001
