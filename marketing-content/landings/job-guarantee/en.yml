@@ -176,8 +176,8 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: spotlight
-    heading: Find Your Path
-    subheading: Four programs. All built around getting you hired, not just trained.
+    heading: Every Program Comes With the Job Guarantee Option
+    subheading: Four programs. One promise. Get hired within 9 months, or get your tuition back.
     courses:
       - name: AI Engineering
         icon: Bolt
