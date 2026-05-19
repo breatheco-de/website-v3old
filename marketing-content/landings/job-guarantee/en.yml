@@ -683,13 +683,13 @@ sections:
     heading: Who Can Add the Job Guarantee?
     description: "The Job Guarantee is available to students who meet these four requirements:"
     cards:
-      - icon: IconBriefcaseFilled
+      - icon: Trophy
         title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
-      - icon: IconCircleDashedCheck
+      - icon: Trophy
         title: Complete All Program Requirements
-      - icon: IconBrain
+      - icon: Trophy
         title: Pass the Admissions Logic Test
-      - icon: IconArrowGuideFilled
+      - icon: Trophy
         title: Follow the Full Career Development Process
     section_id: features_quad-ms7uox
     marginY:
