@@ -620,7 +620,7 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
         alt: Jooble
     marginY:
-      desktop: none xl
+      desktop: none md
     paddingY:
       desktop: none
   - type: numbered_steps
