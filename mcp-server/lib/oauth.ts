@@ -214,7 +214,8 @@ interface AuthCode {
 }
 
 const authCodes = new Map<string, AuthCode>();
-const accessTokens = new Set<string>();
+// Maps access token → clientId so we can look up Breathecode user info later
+const accessTokens = new Map<string, string>();
 
 function purgeExpiredCodes(): void {
   const now = Date.now();
@@ -257,10 +258,26 @@ export function exchangeCode(
 
   authCodes.delete(code);
   const token = crypto.randomBytes(48).toString("hex");
-  accessTokens.add(token);
+  accessTokens.set(token, clientId);
   return token;
 }
 
 export function validateToken(token: string): boolean {
   return accessTokens.has(token);
+}
+
+/**
+ * Look up which client issued the given access token.
+ * Returns the client's Breathecode username as "firstname.lastname" (lowercase),
+ * or null if the token is unknown or the client has no Breathecode user attached.
+ */
+export function getTokenUsername(token: string): string | null {
+  const clientId = accessTokens.get(token);
+  if (!clientId) return null;
+  const client = clients.get(clientId);
+  if (!client) return null;
+  const first = client.breathecodeFirstName?.trim() || "";
+  const last = client.breathecodeLastName?.trim() || "";
+  if (!first && !last) return null;
+  return [first, last].filter(Boolean).join(".").toLowerCase();
 }

@@ -81,7 +81,7 @@ function getGitHubConfig(): GitHubConfig | null {
   return { token, owner: match[1], repo: match[2], branch };
 }
 
-function isAutoCommitEnabled(): boolean {
+export function isAutoCommitEnabled(): boolean {
   return process.env.GITHUB_SYNC_ENABLED === 'true' && process.env.GITHUB_AUTO_COMMIT_ENABLED === 'true';
 }
 
@@ -306,12 +306,16 @@ async function retryIndividualFiles(
       conflictedFiles.add(file.path);
       lastError = `Conflict on ${fileName}: ${result.error}`;
       console.warn(`[AutoCommit] Conflict on ${fileName}, marked as conflicted`);
+      const { logSync } = await import("./sync-log");
+      logSync('CONFLICT', `Conflict on ${fileName} by ${author}: ${result.error ?? 'push rejected'}`, author);
     }
   }
 
   for (const filePath of deletedFiles) {
     conflictedFiles.add(filePath);
     console.warn(`[AutoCommit] Skipping delete for conflicted file: ${filePath}`);
+    const { logSync } = await import("./sync-log");
+    logSync('CONFLICT', `Conflict on deleted file ${filePath.replace('marketing-content/', '')} by ${author}: push rejected`, author);
   }
 }
 

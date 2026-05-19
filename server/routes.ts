@@ -6129,7 +6129,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   // Commit and push pending changes to GitHub
   app.post("/api/github/commit", async (req, res) => {
     try {
-      const { message, force, author, files } = req.body;
+      const { message, force, author, files, queue } = req.body;
       if (
         !message ||
         typeof message !== "string" ||
@@ -6139,10 +6139,71 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         return;
       }
 
-      // Prepend author to commit message if provided
+      const authorName =
+        author && typeof author === "string" && author.trim()
+          ? author.trim()
+          : undefined;
+
+      // Queue mode: route through markFileAsModified → auto-commit queue.
+      // Used by MCP commits so they respect sequencing, attribution, and conflict handling.
+      if (queue === true) {
+        const { markFileAsModified, detectPendingChanges } = await import(
+          "./sync-state"
+        );
+        const { logSync } = await import("./sync-log");
+        const { isAutoCommitEnabled } = await import("./auto-commit");
+
+        if (!isAutoCommitEnabled()) {
+          // Auto-commit disabled — fall through to direct commit below
+          const finalMsg = authorName
+            ? `[Author: ${authorName}] ${message.trim()}`
+            : message.trim();
+          const { commitAndPush } = await import("./github");
+          const result = await commitAndPush(finalMsg, {
+            force: !!force,
+            files: Array.isArray(files) ? files : undefined,
+          });
+          if (result.success) {
+            res.json({ success: true, commitHash: result.commitHash });
+          } else {
+            res.status(400).json({ success: false, error: result.error });
+          }
+          return;
+        }
+
+        // Determine which files to queue
+        let filesToQueue: string[];
+        if (Array.isArray(files) && files.length > 0) {
+          filesToQueue = files as string[];
+        } else {
+          const pending = detectPendingChanges();
+          filesToQueue = pending.map((c) => c.file);
+        }
+
+        if (filesToQueue.length === 0) {
+          res
+            .status(400)
+            .json({ error: "No pending changes found to queue" });
+          return;
+        }
+
+        const effectiveAuthor = authorName || "MCP";
+        for (const filePath of filesToQueue) {
+          markFileAsModified(filePath, effectiveAuthor);
+          const shortPath = filePath.replace("marketing-content/", "");
+          logSync("EDIT", `MCP queued edit: ${shortPath}`, effectiveAuthor);
+        }
+
+        res
+          .status(202)
+          .json({ queued: true, files: filesToQueue, author: effectiveAuthor });
+        return;
+      }
+
+      // Direct-commit mode (existing path — used by DebugBubble / manual CMS commits)
       let finalMessage = message.trim();
-      if (author && typeof author === "string" && author.trim()) {
-        finalMessage = `[Author: ${author.trim()}] ${finalMessage}`;
+      if (authorName) {
+        finalMessage = `[Author: ${authorName}] ${finalMessage}`;
       }
 
       const { commitAndPush } = await import("./github");

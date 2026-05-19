@@ -10,6 +10,7 @@ import {
   generateCode,
   exchangeCode,
   validateToken,
+  getTokenUsername,
   createPendingAuth,
   consumePendingAuth,
   validateBreathecodeToken,
@@ -136,10 +137,10 @@ function renderAuthorizePage(opts: {
 
 // ─── MCP server factory ───────────────────────────────────────────────────────
 
-function createMcpServer(): McpServer {
+function createMcpServer(mcpAuthor?: string): McpServer {
   const mcp = new McpServer({ name: "content-pages", version: "1.0.0" });
-  registerPageTools(mcp);
-  registerComponentTools(mcp);
+  registerPageTools(mcp, mcpAuthor);
+  registerComponentTools(mcp, mcpAuthor);
   return mcp;
 }
 
@@ -431,7 +432,12 @@ app.all("/mcp", authMiddleware, async (req, res) => {
   const transport = new StreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
   });
-  const mcp = createMcpServer();
+  // Derive the authenticated Breathecode username from the bearer token.
+  // Falls back to undefined (tools will label commits as "mcp-agent [MCP]").
+  const authHeader = (req.headers["authorization"] as string | undefined) || "";
+  const bearerToken = authHeader.replace(/^Bearer\s+/i, "").trim();
+  const resolvedUsername = bearerToken ? getTokenUsername(bearerToken) ?? undefined : undefined;
+  const mcp = createMcpServer(resolvedUsername);
   try {
     await mcp.connect(transport);
     await transport.handleRequest(req, res, req.body);

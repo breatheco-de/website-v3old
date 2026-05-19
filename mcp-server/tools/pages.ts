@@ -16,7 +16,60 @@ import {
 } from "../lib/content.js";
 import { assertSafeSegment, assertSafeLocale, assertWithinBase } from "../lib/sanitize.js";
 
-export function registerPageTools(mcp: McpServer): void {
+const MAIN_SERVER_PORT = process.env.PORT || "5000";
+
+/**
+ * Check whether a file has a remote conflict before writing it.
+ * Returns conflict info (including remote content) if a conflict is detected,
+ * or null if it's safe to proceed.
+ */
+async function checkRemoteConflict(
+  filePath: string
+): Promise<{ conflict: true; remoteContent: string } | { conflict: false }> {
+  try {
+    const url = `http://localhost:${MAIN_SERVER_PORT}/api/github/file-status?file=${encodeURIComponent(filePath)}`;
+    const res = await fetch(url);
+    if (!res.ok) return { conflict: false };
+    const data = await res.json() as {
+      hasConflict?: boolean;
+      remoteContent?: string;
+    };
+    if (data.hasConflict && typeof data.remoteContent === "string") {
+      return { conflict: true, remoteContent: data.remoteContent };
+    }
+    return { conflict: false };
+  } catch {
+    return { conflict: false };
+  }
+}
+
+/** Build a structured conflict error including both remote and intended content. */
+function conflictError(opts: {
+  relativePath: string;
+  remoteContent: string;
+  intendedContent: string;
+  intendedChange?: Record<string, unknown>;
+}) {
+  return {
+    content: [{
+      type: "text" as const,
+      text: JSON.stringify({
+        error: "conflict",
+        message:
+          `Remote conflict detected on ${opts.relativePath}. ` +
+          "The remote has been modified since the last pull. " +
+          "Merge remoteContent with intendedContent and retry.",
+        conflictedFile: opts.relativePath,
+        remoteContent: opts.remoteContent,
+        intendedContent: opts.intendedContent,
+        ...(opts.intendedChange ? { intendedChange: opts.intendedChange } : {}),
+      }, null, 2),
+    }],
+    isError: true,
+  };
+}
+
+export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
   // list_pages
   mcp.tool(
     "list_pages",
@@ -54,14 +107,12 @@ export function registerPageTools(mcp: McpServer): void {
         return { content: [{ type: "text", text: `Locale '${locale}' not found for page '${slug}' (contentType: ${resolved.contentType})` }], isError: true };
       }
 
-      // Collect available locales from the page directory
       const pageDir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
       const dirFiles = fs.existsSync(pageDir) ? fs.readdirSync(pageDir) : [];
       const locales = dirFiles
         .map((f: string) => f.replace(/\.(yml|yaml)$/, ""))
         .filter((n: string) => /^[a-z]{2}(-[a-z]{2})?$/.test(n));
 
-      // Resolve per-locale URLs from url_pattern
       const urlPattern = resolved.config.url_pattern;
       let urls: Record<string, string> | undefined;
       if (urlPattern) {
@@ -113,9 +164,24 @@ export function registerPageTools(mcp: McpServer): void {
       if (locale !== "_common" && !fs.existsSync(filePath)) {
         return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${fileName}` }], isError: true };
       }
-      const data = (fs.existsSync(filePath) ? safeLoad(fs.readFileSync(filePath, "utf-8")) : null) || {};
-      setValueAtPath(data, fieldPath, value);
-      fs.writeFileSync(filePath, safeDump(data), "utf-8");
+
+      // Build intended content before the conflict check so we can include it in the error.
+      const currentData = (fs.existsSync(filePath) ? safeLoad(fs.readFileSync(filePath, "utf-8")) : null) || {};
+      setValueAtPath(currentData, fieldPath, value);
+      const intendedContent = safeDump(currentData);
+
+      const relativePath = `marketing-content/${getDirectory(resolved.contentType, resolved.config)}/${slug}/${fileName}`;
+      const conflictCheck = await checkRemoteConflict(relativePath);
+      if (conflictCheck.conflict) {
+        return conflictError({
+          relativePath,
+          remoteContent: conflictCheck.remoteContent,
+          intendedContent,
+          intendedChange: { fieldPath, value },
+        });
+      }
+
+      fs.writeFileSync(filePath, intendedContent, "utf-8");
       return { content: [{ type: "text", text: `Updated '${fieldPath}' in ${resolved.contentType}/${slug}/${fileName}` }] };
     }
   );
@@ -151,11 +217,26 @@ export function registerPageTools(mcp: McpServer): void {
       if (locale !== "_common" && !fs.existsSync(filePath)) {
         return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${fileName}` }], isError: true };
       }
-      const data = (fs.existsSync(filePath) ? safeLoad(fs.readFileSync(filePath, "utf-8")) : null) || {};
-      for (const [fieldPath, value] of Object.entries(fields)) {
-        setValueAtPath(data, fieldPath, value);
+
+      // Build intended content before the conflict check.
+      const currentData = (fs.existsSync(filePath) ? safeLoad(fs.readFileSync(filePath, "utf-8")) : null) || {};
+      for (const [fp, val] of Object.entries(fields)) {
+        setValueAtPath(currentData, fp, val);
       }
-      fs.writeFileSync(filePath, safeDump(data), "utf-8");
+      const intendedContent = safeDump(currentData);
+
+      const relativePath = `marketing-content/${getDirectory(resolved.contentType, resolved.config)}/${slug}/${fileName}`;
+      const conflictCheck = await checkRemoteConflict(relativePath);
+      if (conflictCheck.conflict) {
+        return conflictError({
+          relativePath,
+          remoteContent: conflictCheck.remoteContent,
+          intendedContent,
+          intendedChange: { fields },
+        });
+      }
+
+      fs.writeFileSync(filePath, intendedContent, "utf-8");
       const count = Object.keys(fields).length;
       return { content: [{ type: "text", text: `Updated ${count} field${count !== 1 ? "s" : ""} in ${resolved.contentType}/${slug}/${fileName}` }] };
     }
@@ -202,17 +283,14 @@ export function registerPageTools(mcp: McpServer): void {
 
       fs.mkdirSync(pageDir, { recursive: true });
 
-      // Write locale file
       const localeData: Record<string, unknown> = { slug, title };
       if (meta) localeData.meta = meta;
       const localeFilePath = path.join(pageDir, `${locale}.yml`);
       fs.writeFileSync(localeFilePath, safeDump(localeData), "utf-8");
 
-      // Seed _common.yml (always at least { slug })
       const commonData: Record<string, unknown> = { slug, ...(common || {}) };
       fs.writeFileSync(path.join(pageDir, "_common.yml"), safeDump(commonData), "utf-8");
 
-      // Resolve URLs
       const urlPattern = config.url_pattern;
       let urls: Record<string, string> | undefined;
       if (urlPattern) {
@@ -268,12 +346,27 @@ export function registerPageTools(mcp: McpServer): void {
       if (!fs.existsSync(localePath)) {
         return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${locale}.yml` }], isError: true };
       }
+
+      // Build intended content before the conflict check.
       const localeData = safeLoad(fs.readFileSync(localePath, "utf-8")) || {};
       if (!Array.isArray(localeData.sections)) localeData.sections = [];
       const sections = localeData.sections as Record<string, unknown>[];
       const insertAt = (index !== undefined && index >= 0 && index <= sections.length) ? index : sections.length;
       sections.splice(insertAt, 0, section as Record<string, unknown>);
-      fs.writeFileSync(localePath, safeDump(localeData), "utf-8");
+      const intendedContent = safeDump(localeData);
+
+      const relativePath = `marketing-content/${getDirectory(resolved.contentType, resolved.config)}/${slug}/${locale}.yml`;
+      const conflictCheck = await checkRemoteConflict(relativePath);
+      if (conflictCheck.conflict) {
+        return conflictError({
+          relativePath,
+          remoteContent: conflictCheck.remoteContent,
+          intendedContent,
+          intendedChange: { action: "add_section", index: insertAt, section },
+        });
+      }
+
+      fs.writeFileSync(localePath, intendedContent, "utf-8");
       return { content: [{ type: "text", text: `Section of type '${section.type}' added at index ${insertAt} in ${resolved.contentType}/${slug}/${locale}.yml` }] };
     }
   );
@@ -308,6 +401,8 @@ export function registerPageTools(mcp: McpServer): void {
       if (!fs.existsSync(localePath)) {
         return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${locale}.yml` }], isError: true };
       }
+
+      // Build intended content before the conflict check.
       const localeData = safeLoad(fs.readFileSync(localePath, "utf-8")) || {};
       if (!Array.isArray(localeData.sections)) {
         return { content: [{ type: "text", text: "Page has no sections array." }], isError: true };
@@ -317,7 +412,20 @@ export function registerPageTools(mcp: McpServer): void {
         return { content: [{ type: "text", text: `Index ${index} out of range (0–${sections.length - 1}).` }], isError: true };
       }
       const removed = sections.splice(index, 1)[0] as Record<string, unknown>;
-      fs.writeFileSync(localePath, safeDump(localeData), "utf-8");
+      const intendedContent = safeDump(localeData);
+
+      const relativePath = `marketing-content/${getDirectory(resolved.contentType, resolved.config)}/${slug}/${locale}.yml`;
+      const conflictCheck = await checkRemoteConflict(relativePath);
+      if (conflictCheck.conflict) {
+        return conflictError({
+          relativePath,
+          remoteContent: conflictCheck.remoteContent,
+          intendedContent,
+          intendedChange: { action: "remove_section", index, removedType: removed?.type ?? "unknown" },
+        });
+      }
+
+      fs.writeFileSync(localePath, intendedContent, "utf-8");
       return { content: [{ type: "text", text: `Removed section at index ${index} (type: ${removed?.type ?? "unknown"}) from ${resolved.contentType}/${slug}/${locale}.yml` }] };
     }
   );
@@ -352,6 +460,8 @@ export function registerPageTools(mcp: McpServer): void {
       if (!fs.existsSync(localePath)) {
         return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${locale}.yml` }], isError: true };
       }
+
+      // Validate permutation and build intended content before the conflict check.
       const localeData = safeLoad(fs.readFileSync(localePath, "utf-8")) || {};
       if (!Array.isArray(localeData.sections)) {
         return { content: [{ type: "text", text: "Page has no sections array." }], isError: true };
@@ -368,7 +478,20 @@ export function registerPageTools(mcp: McpServer): void {
         return { content: [{ type: "text", text: `Order must be a permutation of [0..${n - 1}] with no repeats. Got: [${order.join(", ")}]` }], isError: true };
       }
       localeData.sections = order.map(i => sections[i]);
-      fs.writeFileSync(localePath, safeDump(localeData), "utf-8");
+      const intendedContent = safeDump(localeData);
+
+      const relativePath = `marketing-content/${getDirectory(resolved.contentType, resolved.config)}/${slug}/${locale}.yml`;
+      const conflictCheck = await checkRemoteConflict(relativePath);
+      if (conflictCheck.conflict) {
+        return conflictError({
+          relativePath,
+          remoteContent: conflictCheck.remoteContent,
+          intendedContent,
+          intendedChange: { action: "reorder_sections", order },
+        });
+      }
+
+      fs.writeFileSync(localePath, intendedContent, "utf-8");
       return { content: [{ type: "text", text: `Sections reordered in ${resolved.contentType}/${slug}/${locale}.yml` }] };
     }
   );
