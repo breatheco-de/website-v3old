@@ -50,7 +50,13 @@ app.use(express.json({
     req.rawBody = buf;
   }
 }));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false,
+  verify: (req, _res, buf) => {
+    // Capture raw bytes for proxy forwarding (same pattern as express.json above)
+    if (!req.rawBody) req.rawBody = buf;
+  },
+}));
 
 app.use((req, res, next) => {
   const start = Date.now();
@@ -98,7 +104,19 @@ app.use((req, res, next) => {
     const bodyAlreadyParsed =
       req.body !== undefined &&
       ["POST", "PUT", "PATCH"].includes(req.method);
-    const bodyBuf = bodyAlreadyParsed ? Buffer.from(JSON.stringify(req.body)) : null;
+
+    // Forward the original raw body bytes so the MCP server's own parsers
+    // receive exactly what the client sent (avoids re-encoding mismatches).
+    let bodyBuf: Buffer | null = null;
+    if (bodyAlreadyParsed) {
+      const raw = req.rawBody;
+      if (Buffer.isBuffer(raw) && raw.length > 0) {
+        bodyBuf = raw;
+      } else {
+        // Fallback: re-encode the parsed body (JSON requests only reach here)
+        bodyBuf = Buffer.from(JSON.stringify(req.body));
+      }
+    }
 
     const headers: http.OutgoingHttpHeaders = { ...req.headers, host: `127.0.0.1:${MCP_PORT}` };
     // Remove hop-by-hop headers that conflict with our re-serialized body
@@ -106,6 +124,7 @@ app.use((req, res, next) => {
     delete headers["connection"];
     if (bodyBuf) {
       headers["content-length"] = bodyBuf.length;
+      // Only set a content-type fallback if none was forwarded
       headers["content-type"] = (headers["content-type"] as string) ?? "application/json";
     }
 

@@ -85,12 +85,10 @@ function authMiddleware(
     return;
   }
 
-  res
-    .status(401)
-    .json({
-      error:
-        "Unauthorized. Provide MCP_API_KEY via X-Api-Key header or Bearer token.",
-    });
+  res.status(401).json({
+    error:
+      "Unauthorized. Provide MCP_API_KEY via X-Api-Key header or Bearer token.",
+  });
 }
 
 // ─── Health ───────────────────────────────────────────────────────────────────
@@ -103,7 +101,8 @@ app.get("/health", (_req, res) => {
 
 app.get("/.well-known/oauth-authorization-server", (_req, res) => {
   const replitDomain = process.env.REPLIT_DEV_DOMAIN;
-  const base = process.env.PUBLIC_URL ||
+  const base =
+    process.env.PUBLIC_URL ||
     (replitDomain ? `https://${replitDomain}` : `http://localhost:${PORT}`);
   res.json({
     issuer: base,
@@ -127,12 +126,10 @@ app.post("/oauth/register", (req, res) => {
     ? body.redirect_uris
     : [];
   if (redirectUris.length === 0) {
-    res
-      .status(400)
-      .json({
-        error: "invalid_client_metadata",
-        error_description: "redirect_uris is required",
-      });
+    res.status(400).json({
+      error: "invalid_client_metadata",
+      error_description: "redirect_uris is required",
+    });
     return;
   }
 
@@ -140,12 +137,10 @@ app.post("/oauth/register", (req, res) => {
     try {
       new URL(uri);
     } catch {
-      res
-        .status(400)
-        .json({
-          error: "invalid_client_metadata",
-          error_description: `Invalid redirect_uri: ${uri}`,
-        });
+      res.status(400).json({
+        error: "invalid_client_metadata",
+        error_description: `Invalid redirect_uri: ${uri}`,
+      });
       return;
     }
   }
@@ -156,7 +151,8 @@ app.post("/oauth/register", (req, res) => {
   );
 
   const replitDomain = process.env.REPLIT_DEV_DOMAIN;
-  const base = process.env.PUBLIC_URL ||
+  const base =
+    process.env.PUBLIC_URL ||
     (replitDomain ? `https://${replitDomain}` : `http://localhost:${PORT}`);
   res.status(201).json({
     client_id: clientId,
@@ -181,25 +177,21 @@ app.get("/oauth/authorize", (req, res) => {
     return;
   }
   if (!client_id || !isValidClient(client_id)) {
-    res.status(400).json({ error: "invalid_client" });
+    res.status(400).json({ error: `invalid_client: ${client_id}` });
     return;
   }
   if (!redirect_uri) {
-    res
-      .status(400)
-      .json({
-        error: "invalid_request",
-        error_description: "redirect_uri is required",
-      });
+    res.status(400).json({
+      error: "invalid_request",
+      error_description: "redirect_uri is required",
+    });
     return;
   }
   if (!isAllowedRedirectUri(client_id, redirect_uri)) {
-    res
-      .status(400)
-      .json({
-        error: "invalid_request",
-        error_description: "redirect_uri not registered for this client",
-      });
+    res.status(400).json({
+      error: "invalid_request",
+      error_description: "redirect_uri not registered for this client",
+    });
     return;
   }
 
@@ -245,25 +237,21 @@ app.post("/oauth/authorize", (req, res) => {
   const { client_id, redirect_uri, state } = req.body as Record<string, string>;
 
   if (!client_id || !isValidClient(client_id)) {
-    res.status(400).json({ error: "invalid_client" });
+    res.status(400).json({ error: `invalid_client: ${client_id}` });
     return;
   }
   if (!redirect_uri) {
-    res
-      .status(400)
-      .json({
-        error: "invalid_request",
-        error_description: "redirect_uri is required",
-      });
+    res.status(400).json({
+      error: "invalid_request",
+      error_description: "redirect_uri is required",
+    });
     return;
   }
   if (!isAllowedRedirectUri(client_id, redirect_uri)) {
-    res
-      .status(400)
-      .json({
-        error: "invalid_request",
-        error_description: "redirect_uri not registered for this client",
-      });
+    res.status(400).json({
+      error: "invalid_request",
+      error_description: "redirect_uri not registered for this client",
+    });
     return;
   }
 
@@ -271,12 +259,10 @@ app.post("/oauth/authorize", (req, res) => {
   try {
     redirectUrl = new URL(redirect_uri);
   } catch {
-    res
-      .status(400)
-      .json({
-        error: "invalid_request",
-        error_description: "redirect_uri is not a valid URL",
-      });
+    res.status(400).json({
+      error: "invalid_request",
+      error_description: "redirect_uri is not a valid URL",
+    });
     return;
   }
 
