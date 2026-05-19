@@ -147,7 +147,7 @@ sections:
     maxWidth:
       desktop: 6xl
     paddingY:
-      desktop: sm md
+      desktop: sm none
   - type: trust_cards
     maxWidth:
       desktop: 6xl
