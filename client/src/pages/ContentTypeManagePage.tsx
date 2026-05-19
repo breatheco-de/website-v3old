@@ -2754,14 +2754,20 @@ export default function ContentTypeManagePage() {
                                     </Button>
                                   </DropdownMenuTrigger>
                                   <DropdownMenuContent align="end">
-                                    {Object.entries(entry.urls).map(([loc, url]) => (
-                                      <DropdownMenuItem key={loc} asChild>
-                                        <a href={url} target="_blank" rel="noopener noreferrer" data-testid={`link-${entry.slug}-${loc}`}>
+                                    {Object.entries(entry.urls).flatMap(([loc, url]) => [
+                                      <DropdownMenuItem key={`${loc}-new`} asChild>
+                                        <a href={url} target="_blank" rel="noopener noreferrer" data-testid={`link-new-tab-${entry.slug}-${loc}`}>
                                           <ExternalLink className="h-4 w-4 mr-2" />
+                                          Open in new tab ({loc.toUpperCase()})
+                                        </a>
+                                      </DropdownMenuItem>,
+                                      <DropdownMenuItem key={`${loc}-same`} asChild>
+                                        <a href={url} data-testid={`link-same-tab-${entry.slug}-${loc}`}>
+                                          <ArrowLeft className="h-4 w-4 mr-2 rotate-180" />
                                           Open ({loc.toUpperCase()})
                                         </a>
-                                      </DropdownMenuItem>
-                                    ))}
+                                      </DropdownMenuItem>,
+                                    ])}
                                     {entry.locales.length === 0 && (
                                       <DropdownMenuItem
                                         onClick={async () => {
