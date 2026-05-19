@@ -34,7 +34,7 @@ The MCP server starts automatically alongside the main app via the **MCP Server*
 |---|---|---|
 | `MCP_API_KEY` | _(none)_ | API key for auth. Required — server exits without it. |
 | `MCP_PORT` | `3001` | Port the MCP server listens on. |
-| `PUBLIC_URL` | `http://localhost:<port>` | Public base URL used in OAuth metadata. Set this to the deployed URL (e.g. `https://your-project.replit.app`). |
+| `PUBLIC_URL` | auto (`REPLIT_DEV_DOMAIN`) | Public base URL used in OAuth metadata. Automatically resolved from `REPLIT_DEV_DOMAIN` in Replit — only set this manually if deploying outside Replit. |
 | `OAUTH_CLIENT_ID` | _(none)_ | Optional static Client ID for the legacy pre-configured OAuth flow. Not needed when using dynamic registration (Claude.ai default). |
 | `OAUTH_CLIENT_SECRET` | _(none)_ | Optional static Client Secret for the legacy pre-configured OAuth flow. |
 

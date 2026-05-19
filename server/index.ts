@@ -9,6 +9,7 @@ import path from "path";
 import { setAutoCommitCallback } from "./sync-state";
 import { queueFileChange } from "./auto-commit";
 import { databaseManager } from "./database";
+import http from "http";
 // Note: gcs.initFromEnv() is called by media.initFromEnv() in routes.ts,
 // which happens before sync-state needs it.
 
@@ -84,6 +85,59 @@ app.use((req, res, next) => {
 (async () => {
   setAutoCommitCallback(queueFileChange);
   log('[AutoCommit] Auto-commit callback registered');
+
+  // ─── MCP server proxy ────────────────────────────────────────────────────────
+  // Port 3001 is firewalled. Proxy MCP and OAuth traffic through port 5000 so
+  // the server is reachable without publishing. Set PUBLIC_URL to the base URL
+  // of this server (no port suffix) so OAuth metadata advertises correct URLs.
+  const MCP_PORT = process.env.MCP_PORT || "3001";
+
+  function pipeToMcp(req: Request, res: Response) {
+    // Express body-parser may have already consumed the stream, so we detect
+    // that and re-serialize the parsed body rather than piping a dead stream.
+    const bodyAlreadyParsed =
+      req.body !== undefined &&
+      ["POST", "PUT", "PATCH"].includes(req.method);
+    const bodyBuf = bodyAlreadyParsed ? Buffer.from(JSON.stringify(req.body)) : null;
+
+    const headers: http.OutgoingHttpHeaders = { ...req.headers, host: `127.0.0.1:${MCP_PORT}` };
+    // Remove hop-by-hop headers that conflict with our re-serialized body
+    delete headers["transfer-encoding"];
+    delete headers["connection"];
+    if (bodyBuf) {
+      headers["content-length"] = bodyBuf.length;
+      headers["content-type"] = (headers["content-type"] as string) ?? "application/json";
+    }
+
+    const options: http.RequestOptions = {
+      hostname: "127.0.0.1",
+      port: MCP_PORT,
+      path: req.originalUrl,
+      method: req.method,
+      headers,
+    };
+
+    const proxy = http.request(options, (mcpRes) => {
+      res.writeHead(mcpRes.statusCode ?? 502, mcpRes.headers);
+      mcpRes.pipe(res, { end: true });
+    });
+    proxy.on("error", (err) => {
+      log(`[MCP proxy] error: ${err.message}`);
+      if (!res.headersSent) res.status(502).json({ error: "MCP server unavailable" });
+    });
+
+    if (bodyBuf) {
+      proxy.end(bodyBuf);
+    } else {
+      req.pipe(proxy, { end: true });
+    }
+  }
+
+  app.all("/mcp", pipeToMcp as any);
+  app.all("/mcp/*", pipeToMcp as any);
+  app.all("/oauth/*", pipeToMcp as any);
+  app.all("/.well-known/oauth-authorization-server", pipeToMcp as any);
+  // ─────────────────────────────────────────────────────────────────────────────
 
   const server = await registerRoutes(app);
 

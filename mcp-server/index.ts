@@ -102,9 +102,9 @@ app.get("/health", (_req, res) => {
 // ─── OAuth 2.0 endpoints ──────────────────────────────────────────────────────
 
 app.get("/.well-known/oauth-authorization-server", (_req, res) => {
-  const base =
-    process.env.PUBLIC_URL ||
-    `https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev:${PORT}`;
+  const replitDomain = process.env.REPLIT_DEV_DOMAIN;
+  const base = process.env.PUBLIC_URL ||
+    (replitDomain ? `https://${replitDomain}` : `http://localhost:${PORT}`);
   res.json({
     issuer: base,
     authorization_endpoint: `${base}/oauth/authorize`,
@@ -155,7 +155,9 @@ app.post("/oauth/register", (req, res) => {
     redirectUris,
   );
 
-  const base = process.env.PUBLIC_URL || `http://localhost:${PORT}`;
+  const replitDomain = process.env.REPLIT_DEV_DOMAIN;
+  const base = process.env.PUBLIC_URL ||
+    (replitDomain ? `https://${replitDomain}` : `http://localhost:${PORT}`);
   res.status(201).json({
     client_id: clientId,
     client_secret: clientSecret,
