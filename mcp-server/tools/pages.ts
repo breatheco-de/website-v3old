@@ -5,6 +5,8 @@ import { z } from "zod";
 import {
   MARKETING_CONTENT_PATH,
   getDirectory,
+  loadContentTypes,
+  isDbBacked,
   resolveContentType,
   scanPages,
   loadPage,
@@ -82,10 +84,10 @@ export function registerPageTools(mcp: McpServer): void {
   // update_field
   mcp.tool(
     "update_field",
-    "Update a single field in a page's locale YAML file using dot-notation field_path. E.g. field_path='meta.page_title', value='New Title'. contentType is optional — omit it and the server will auto-detect from slug.",
+    "Update a single field in a page's YAML file using dot-notation field_path. E.g. field_path='meta.page_title', value='New Title'. Use locale='_common' to write to _common.yml (locale-independent fields). contentType is optional — omit it and the server will auto-detect from slug.",
     {
       slug: z.string().describe("Page slug"),
-      locale: z.string().default("en").describe("Locale code"),
+      locale: z.string().default("en").describe("Locale code (e.g. 'en', 'es'), or '_common' to target _common.yml"),
       field_path: z.string().describe("Dot-notation field path, e.g. 'meta.page_title' or 'sections.0.title'"),
       value: z.unknown().describe("New value for the field"),
       contentType: z.string().optional().describe("Content type hint. Omit to auto-detect from slug."),
@@ -93,7 +95,7 @@ export function registerPageTools(mcp: McpServer): void {
     async ({ slug, locale, field_path: fieldPath, value, contentType }) => {
       try {
         assertSafeSegment(slug, "slug");
-        assertSafeLocale(locale);
+        if (locale !== "_common") assertSafeLocale(locale);
         if (contentType) assertSafeSegment(contentType, "contentType");
       } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
@@ -103,17 +105,135 @@ export function registerPageTools(mcp: McpServer): void {
         return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
       }
       const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
-      const localePath = path.join(dir, `${locale}.yml`);
-      try { assertWithinBase(localePath, MARKETING_CONTENT_PATH); } catch (e) {
+      const fileName = locale === "_common" ? "_common.yml" : `${locale}.yml`;
+      const filePath = path.join(dir, fileName);
+      try { assertWithinBase(filePath, MARKETING_CONTENT_PATH); } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
-      if (!fs.existsSync(localePath)) {
-        return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${locale}.yml` }], isError: true };
+      if (locale !== "_common" && !fs.existsSync(filePath)) {
+        return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${fileName}` }], isError: true };
       }
-      const localeData = safeLoad(fs.readFileSync(localePath, "utf-8")) || {};
-      setValueAtPath(localeData, fieldPath, value);
-      fs.writeFileSync(localePath, safeDump(localeData), "utf-8");
-      return { content: [{ type: "text", text: `Updated '${fieldPath}' in ${resolved.contentType}/${slug}/${locale}.yml` }] };
+      const data = (fs.existsSync(filePath) ? safeLoad(fs.readFileSync(filePath, "utf-8")) : null) || {};
+      setValueAtPath(data, fieldPath, value);
+      fs.writeFileSync(filePath, safeDump(data), "utf-8");
+      return { content: [{ type: "text", text: `Updated '${fieldPath}' in ${resolved.contentType}/${slug}/${fileName}` }] };
+    }
+  );
+
+  // update_fields
+  mcp.tool(
+    "update_fields",
+    "Update multiple fields in a page's YAML file in a single write. Accepts a 'fields' map of dot-notation paths to values. Use locale='_common' to target _common.yml. contentType is optional.",
+    {
+      slug: z.string().describe("Page slug"),
+      locale: z.string().default("en").describe("Locale code (e.g. 'en', 'es'), or '_common' to target _common.yml"),
+      fields: z.record(z.unknown()).describe("Map of dot-notation field paths to new values, e.g. { 'meta.page_title': 'New Title', 'meta.description': '...' }"),
+      contentType: z.string().optional().describe("Content type hint. Omit to auto-detect from slug."),
+    },
+    async ({ slug, locale, fields, contentType }) => {
+      try {
+        assertSafeSegment(slug, "slug");
+        if (locale !== "_common") assertSafeLocale(locale);
+        if (contentType) assertSafeSegment(contentType, "contentType");
+      } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
+      const resolved = resolveContentType(slug, contentType);
+      if (!resolved) {
+        return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
+      }
+      const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
+      const fileName = locale === "_common" ? "_common.yml" : `${locale}.yml`;
+      const filePath = path.join(dir, fileName);
+      try { assertWithinBase(filePath, MARKETING_CONTENT_PATH); } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
+      if (locale !== "_common" && !fs.existsSync(filePath)) {
+        return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${fileName}` }], isError: true };
+      }
+      const data = (fs.existsSync(filePath) ? safeLoad(fs.readFileSync(filePath, "utf-8")) : null) || {};
+      for (const [fieldPath, value] of Object.entries(fields)) {
+        setValueAtPath(data, fieldPath, value);
+      }
+      fs.writeFileSync(filePath, safeDump(data), "utf-8");
+      const count = Object.keys(fields).length;
+      return { content: [{ type: "text", text: `Updated ${count} field${count !== 1 ? "s" : ""} in ${resolved.contentType}/${slug}/${fileName}` }] };
+    }
+  );
+
+  // create_page
+  mcp.tool(
+    "create_page",
+    "Create a new YAML-driven page. Creates the page directory, writes the initial locale file, and seeds _common.yml. Returns the new page entry with slug, contentType, locales, and urls.",
+    {
+      slug: z.string().describe("URL-safe slug for the new page, e.g. 'machine-learning-bootcamp'"),
+      contentType: z.string().describe("Content type, e.g. 'program', 'page', 'landing', 'location'. Must match a non-DB-backed entry in content-types.yml."),
+      locale: z.string().default("en").describe("Initial locale to create, e.g. 'en'"),
+      title: z.string().describe("Page title"),
+      meta: z.record(z.unknown()).optional().describe("Optional meta fields, e.g. { page_title: '...', description: '...' }"),
+      common: z.record(z.unknown()).optional().describe("Optional extra fields for _common.yml (locale-independent data, e.g. bc_slug, job_role)"),
+    },
+    async ({ slug, contentType, locale, title, meta, common }) => {
+      try {
+        assertSafeSegment(slug, "slug");
+        assertSafeSegment(contentType, "contentType");
+        assertSafeLocale(locale);
+      } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
+
+      const configs = loadContentTypes();
+      const config = configs[contentType];
+      if (!config) {
+        const known = Object.keys(configs).filter(k => !isDbBacked(configs[k])).join(", ");
+        return { content: [{ type: "text", text: `Unknown contentType '${contentType}'. Known non-DB types: ${known}` }], isError: true };
+      }
+      if (isDbBacked(config)) {
+        return { content: [{ type: "text", text: `Content type '${contentType}' is database-backed and cannot be created via this tool.` }], isError: true };
+      }
+
+      const pageDir = path.join(MARKETING_CONTENT_PATH, getDirectory(contentType, config), slug);
+      try { assertWithinBase(pageDir, MARKETING_CONTENT_PATH); } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
+      if (fs.existsSync(pageDir)) {
+        return { content: [{ type: "text", text: `Page '${slug}' already exists for contentType '${contentType}'.` }], isError: true };
+      }
+
+      fs.mkdirSync(pageDir, { recursive: true });
+
+      // Write locale file
+      const localeData: Record<string, unknown> = { slug, title };
+      if (meta) localeData.meta = meta;
+      const localeFilePath = path.join(pageDir, `${locale}.yml`);
+      fs.writeFileSync(localeFilePath, safeDump(localeData), "utf-8");
+
+      // Seed _common.yml (always at least { slug })
+      const commonData: Record<string, unknown> = { slug, ...(common || {}) };
+      fs.writeFileSync(path.join(pageDir, "_common.yml"), safeDump(commonData), "utf-8");
+
+      // Resolve URLs
+      const urlPattern = config.url_pattern;
+      let urls: Record<string, string> | undefined;
+      if (urlPattern) {
+        const resolvedUrls: Record<string, string> = {};
+        if (urlPattern["default"]) {
+          resolvedUrls[locale] = urlPattern["default"].replace(":slug", slug);
+        } else if (urlPattern[locale]) {
+          resolvedUrls[locale] = urlPattern[locale].replace(":slug", slug);
+        }
+        if (Object.keys(resolvedUrls).length > 0) urls = resolvedUrls;
+      }
+
+      const entry = {
+        slug,
+        contentType,
+        directory: `marketing-content/${getDirectory(contentType, config)}/${slug}`,
+        locales: [locale],
+        title,
+        ...(urls ? { urls } : {}),
+      };
+      return { content: [{ type: "text", text: JSON.stringify(entry, null, 2) }] };
     }
   );
 
