@@ -29,7 +29,7 @@ export function registerPageTools(mcp: McpServer): void {
   // get_page
   mcp.tool(
     "get_page",
-    "Get the full merged content of a page (sections, meta, title). Merges _common.yml with the locale file. contentType is optional — omit it and the server will auto-detect it from the slug.",
+    "Get the full merged content of a page (sections, meta, title). Also returns locales (all available locale codes for this page) and urls (per-locale resolved paths). Merges _common.yml with the locale file. contentType is optional — omit it and the server will auto-detect it from the slug.",
     {
       slug: z.string().describe("Page slug (folder name), e.g. 'home' or 'full-stack-developer'"),
       locale: z.string().default("en").describe("Locale code, e.g. 'en' or 'es'"),
@@ -51,7 +51,31 @@ export function registerPageTools(mcp: McpServer): void {
       if (!result) {
         return { content: [{ type: "text", text: `Locale '${locale}' not found for page '${slug}' (contentType: ${resolved.contentType})` }], isError: true };
       }
-      return { content: [{ type: "text", text: JSON.stringify({ contentType: resolved.contentType, slug, locale, ...result.data }, null, 2) }] };
+
+      // Collect available locales from the page directory
+      const pageDir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
+      const dirFiles = fs.existsSync(pageDir) ? fs.readdirSync(pageDir) : [];
+      const locales = dirFiles
+        .map((f: string) => f.replace(/\.(yml|yaml)$/, ""))
+        .filter((n: string) => /^[a-z]{2}(-[a-z]{2})?$/.test(n));
+
+      // Resolve per-locale URLs from url_pattern
+      const urlPattern = resolved.config.url_pattern;
+      let urls: Record<string, string> | undefined;
+      if (urlPattern) {
+        const resolvedUrls: Record<string, string> = {};
+        if (urlPattern["default"]) {
+          const p = urlPattern["default"].replace(":slug", slug);
+          for (const l of locales) resolvedUrls[l] = p;
+        } else {
+          for (const l of locales) {
+            if (urlPattern[l]) resolvedUrls[l] = urlPattern[l].replace(":slug", slug);
+          }
+        }
+        if (Object.keys(resolvedUrls).length > 0) urls = resolvedUrls;
+      }
+
+      return { content: [{ type: "text", text: JSON.stringify({ contentType: resolved.contentType, slug, locale, locales, ...(urls ? { urls } : {}), ...result.data }, null, 2) }] };
     }
   );
 
