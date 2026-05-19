@@ -4,8 +4,6 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import {
   MARKETING_CONTENT_PATH,
-  loadContentTypes,
-  isDbBacked,
   getDirectory,
   resolveContentType,
   scanPages,
@@ -98,34 +96,33 @@ export function registerPageTools(mcp: McpServer): void {
   // add_section
   mcp.tool(
     "add_section",
-    "Add a new section to a page. Inserts at the given index (or appends if omitted). Section must include a 'type' field matching a component type.",
+    "Add a new section to a page. Inserts at the given index (or appends if omitted). Section must include a 'type' field matching a component type. contentType is optional — omit it and the server will auto-detect it from the slug.",
     {
-      contentType: z.string().describe("Content type"),
       slug: z.string().describe("Page slug"),
       locale: z.string().default("en").describe("Locale code"),
       section: z.record(z.unknown()).describe("Section object with at minimum a 'type' field"),
       index: z.number().int().optional().describe("Position to insert (0-based). Omit to append."),
+      contentType: z.string().optional().describe("Content type hint (e.g. 'page', 'program'). Omit to auto-detect from slug."),
     },
     async ({ contentType, slug, locale, section, index }) => {
       try {
-        assertSafeSegment(contentType, "contentType");
         assertSafeSegment(slug, "slug");
         assertSafeLocale(locale);
+        if (contentType) assertSafeSegment(contentType, "contentType");
       } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
-      const configs = loadContentTypes();
-      const config = configs[contentType];
-      if (!config || isDbBacked(config)) {
-        return { content: [{ type: "text", text: `Content type '${contentType}' not found or is database-backed.` }], isError: true };
+      const resolved = resolveContentType(slug, contentType);
+      if (!resolved) {
+        return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
       }
-      const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(contentType, config), slug);
+      const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
       const localePath = path.join(dir, `${locale}.yml`);
       try { assertWithinBase(localePath, MARKETING_CONTENT_PATH); } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
       if (!fs.existsSync(localePath)) {
-        return { content: [{ type: "text", text: `Locale file not found: ${contentType}/${slug}/${locale}.yml` }], isError: true };
+        return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${locale}.yml` }], isError: true };
       }
       const localeData = safeLoad(fs.readFileSync(localePath, "utf-8")) || {};
       if (!Array.isArray(localeData.sections)) localeData.sections = [];
@@ -133,40 +130,39 @@ export function registerPageTools(mcp: McpServer): void {
       const insertAt = (index !== undefined && index >= 0 && index <= sections.length) ? index : sections.length;
       sections.splice(insertAt, 0, section as Record<string, unknown>);
       fs.writeFileSync(localePath, safeDump(localeData), "utf-8");
-      return { content: [{ type: "text", text: `Section of type '${section.type}' added at index ${insertAt} in ${contentType}/${slug}/${locale}.yml` }] };
+      return { content: [{ type: "text", text: `Section of type '${section.type}' added at index ${insertAt} in ${resolved.contentType}/${slug}/${locale}.yml` }] };
     }
   );
 
   // remove_section
   mcp.tool(
     "remove_section",
-    "Remove a section from a page by its index.",
+    "Remove a section from a page by its index. contentType is optional — omit it and the server will auto-detect it from the slug.",
     {
-      contentType: z.string().describe("Content type"),
       slug: z.string().describe("Page slug"),
       locale: z.string().default("en").describe("Locale code"),
       index: z.number().int().describe("0-based index of the section to remove"),
+      contentType: z.string().optional().describe("Content type hint (e.g. 'page', 'program'). Omit to auto-detect from slug."),
     },
     async ({ contentType, slug, locale, index }) => {
       try {
-        assertSafeSegment(contentType, "contentType");
         assertSafeSegment(slug, "slug");
         assertSafeLocale(locale);
+        if (contentType) assertSafeSegment(contentType, "contentType");
       } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
-      const configs = loadContentTypes();
-      const config = configs[contentType];
-      if (!config || isDbBacked(config)) {
-        return { content: [{ type: "text", text: `Content type '${contentType}' not found or is database-backed.` }], isError: true };
+      const resolved = resolveContentType(slug, contentType);
+      if (!resolved) {
+        return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
       }
-      const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(contentType, config), slug);
+      const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
       const localePath = path.join(dir, `${locale}.yml`);
       try { assertWithinBase(localePath, MARKETING_CONTENT_PATH); } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
       if (!fs.existsSync(localePath)) {
-        return { content: [{ type: "text", text: `Locale file not found: ${contentType}/${slug}/${locale}.yml` }], isError: true };
+        return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${locale}.yml` }], isError: true };
       }
       const localeData = safeLoad(fs.readFileSync(localePath, "utf-8")) || {};
       if (!Array.isArray(localeData.sections)) {
@@ -178,40 +174,39 @@ export function registerPageTools(mcp: McpServer): void {
       }
       const removed = sections.splice(index, 1)[0] as Record<string, unknown>;
       fs.writeFileSync(localePath, safeDump(localeData), "utf-8");
-      return { content: [{ type: "text", text: `Removed section at index ${index} (type: ${removed?.type ?? "unknown"}) from ${contentType}/${slug}/${locale}.yml` }] };
+      return { content: [{ type: "text", text: `Removed section at index ${index} (type: ${removed?.type ?? "unknown"}) from ${resolved.contentType}/${slug}/${locale}.yml` }] };
     }
   );
 
   // reorder_sections
   mcp.tool(
     "reorder_sections",
-    "Reorder sections by supplying a new order as an array of current indices. E.g. [2, 0, 1] moves the third section to the front.",
+    "Reorder sections by supplying a new order as an array of current indices. E.g. [2, 0, 1] moves the third section to the front. contentType is optional — omit it and the server will auto-detect it from the slug.",
     {
-      contentType: z.string().describe("Content type"),
       slug: z.string().describe("Page slug"),
       locale: z.string().default("en").describe("Locale code"),
       order: z.array(z.number().int()).describe("Array of current section indices in desired order — must be a permutation with no repeats"),
+      contentType: z.string().optional().describe("Content type hint (e.g. 'page', 'program'). Omit to auto-detect from slug."),
     },
     async ({ contentType, slug, locale, order }) => {
       try {
-        assertSafeSegment(contentType, "contentType");
         assertSafeSegment(slug, "slug");
         assertSafeLocale(locale);
+        if (contentType) assertSafeSegment(contentType, "contentType");
       } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
-      const configs = loadContentTypes();
-      const config = configs[contentType];
-      if (!config || isDbBacked(config)) {
-        return { content: [{ type: "text", text: `Content type '${contentType}' not found or is database-backed.` }], isError: true };
+      const resolved = resolveContentType(slug, contentType);
+      if (!resolved) {
+        return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
       }
-      const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(contentType, config), slug);
+      const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
       const localePath = path.join(dir, `${locale}.yml`);
       try { assertWithinBase(localePath, MARKETING_CONTENT_PATH); } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
       if (!fs.existsSync(localePath)) {
-        return { content: [{ type: "text", text: `Locale file not found: ${contentType}/${slug}/${locale}.yml` }], isError: true };
+        return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${locale}.yml` }], isError: true };
       }
       const localeData = safeLoad(fs.readFileSync(localePath, "utf-8")) || {};
       if (!Array.isArray(localeData.sections)) {
@@ -230,7 +225,7 @@ export function registerPageTools(mcp: McpServer): void {
       }
       localeData.sections = order.map(i => sections[i]);
       fs.writeFileSync(localePath, safeDump(localeData), "utf-8");
-      return { content: [{ type: "text", text: `Sections reordered in ${contentType}/${slug}/${locale}.yml` }] };
+      return { content: [{ type: "text", text: `Sections reordered in ${resolved.contentType}/${slug}/${locale}.yml` }] };
     }
   );
 }
