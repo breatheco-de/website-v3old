@@ -292,7 +292,7 @@ sections:
     marginY:
       desktop: none lg
     section_id: two_column-joshua
-    background: hsl(var(--secondary))
+    background: hsl(var(--card))
     paddingY:
       desktop: md
   - type: career_support_explain
