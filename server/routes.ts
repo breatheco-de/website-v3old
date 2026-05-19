@@ -2856,6 +2856,63 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/content-types/:type/seo-entries", async (req, res) => {
+    try {
+      const { type } = req.params;
+      const config = getContentTypeConfig(type);
+      if (!config?.database?.slug) {
+        res.status(400).json({ error: `Content type "${type}" has no database configured` });
+        return;
+      }
+      const dbName = config.database.slug;
+      if (!databaseManager.exists(dbName)) {
+        res.status(404).json({ error: `Database "${dbName}" not found` });
+        return;
+      }
+
+      const items = await databaseManager.fetchMappedItems(type);
+      const localeKey = getLocaleKey(type) || "lang";
+      const cacheInfo = databaseManager.getCacheInfo(dbName);
+      const cacheAgeHours = cacheInfo?.fetched_at
+        ? Math.round((Date.now() - new Date(cacheInfo.fetched_at).getTime()) / (60 * 60 * 1000) * 10) / 10
+        : null;
+
+      const uniqueLocales = [...new Set(items.map(item => String(item[localeKey] || "en")))];
+      const templates: Record<string, Record<string, unknown> | null> = {};
+      for (const locale of uniqueLocales) {
+        templates[locale] = mergeSingleTemplate(type, locale);
+      }
+
+      const urlPattern = config.url_pattern as Record<string, string> | undefined;
+
+      const entries = items.map(item => {
+        const locale = String(item[localeKey] || "en");
+        const template = templates[locale];
+        const resolvedMeta = resolveSingleVars(template?.meta ?? {}, item) as Record<string, unknown>;
+
+        let url: string | null = null;
+        if (urlPattern && typeof item.slug === "string") {
+          const tpl = urlPattern[locale] || urlPattern["default"] || null;
+          if (tpl) url = tpl.replace(":slug", item.slug as string);
+        }
+
+        return {
+          slug: item.slug ?? null,
+          contentType: type,
+          locale,
+          url,
+          title: item.title ?? null,
+          meta: resolvedMeta,
+          schema: template?.schema ?? null,
+        };
+      });
+
+      res.json({ contentType: type, cache_age_hours: cacheAgeHours, count: entries.length, entries });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
   app.post("/api/content-types/:type/clear-cache", async (req, res) => {
     try {
       const { type } = req.params;

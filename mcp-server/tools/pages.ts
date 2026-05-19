@@ -495,4 +495,91 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
       return { content: [{ type: "text", text: `Sections reordered in ${resolved.contentType}/${slug}/${locale}.yml` }] };
     }
   );
+
+  // list_seo
+  mcp.tool(
+    "list_seo",
+    "Return SEO-relevant fields (meta, title, schema, url) for all pages — both YAML-driven (pages, programs, landings, etc.) and DB-backed (blog, etc.). " +
+    "For DB-backed types, template variables like {{ single.title }} are fully resolved against each entry's data via the main server. " +
+    "Sections and full content are never returned. " +
+    "Optional filters: contentType (e.g. 'blog'), locale (e.g. 'en'), slugs (specific list).",
+    {
+      contentType: z.string().optional().describe("Restrict to one content type, e.g. 'blog' or 'program'"),
+      locale: z.string().optional().describe("Restrict to one locale, e.g. 'en' or 'es'"),
+      slugs: z.array(z.string()).optional().describe("Restrict to specific slugs"),
+    },
+    async ({ contentType, locale, slugs }) => {
+      try {
+        const configs = loadContentTypes();
+        const results: unknown[] = [];
+
+        // ── YAML-driven types ──────────────────────────────────────────────────
+        const yamlPages = scanPages();
+        for (const page of yamlPages) {
+          if (contentType && page.contentType !== contentType) continue;
+          if (slugs && !slugs.includes(page.slug)) continue;
+
+          const localesToScan = locale ? [locale] : page.locales;
+          for (const loc of localesToScan) {
+            const loaded = loadPage(page.contentType, page.slug, loc);
+            if (!loaded) continue;
+            const { data } = loaded;
+            results.push({
+              slug: page.slug,
+              contentType: page.contentType,
+              locale: loc,
+              url: page.urls?.[loc] ?? null,
+              title: typeof data.title === "string" ? data.title : (page.title ?? null),
+              meta: (data.meta as Record<string, unknown>) ?? {},
+              schema: (data.schema as Record<string, unknown>) ?? null,
+            });
+          }
+        }
+
+        // ── DB-backed types ────────────────────────────────────────────────────
+        for (const [ct, config] of Object.entries(configs)) {
+          if (!isDbBacked(config)) continue;
+          if (contentType && ct !== contentType) continue;
+
+          let url: string;
+          try {
+            url = `http://localhost:${MAIN_SERVER_PORT}/api/content-types/${encodeURIComponent(ct)}/seo-entries`;
+            const res = await fetch(url);
+            if (!res.ok) {
+              results.push({ contentType: ct, error: `seo-entries returned ${res.status}` });
+              continue;
+            }
+            const body = await res.json() as {
+              cache_age_hours: number | null;
+              entries: Array<{
+                slug: unknown; contentType: string; locale: string;
+                url: string | null; title: unknown;
+                meta: Record<string, unknown>; schema: unknown;
+              }>;
+            };
+            for (const entry of body.entries) {
+              if (locale && entry.locale !== locale) continue;
+              if (slugs && !slugs.includes(String(entry.slug))) continue;
+              results.push({ ...entry, cache_age_hours: body.cache_age_hours });
+            }
+          } catch (err) {
+            results.push({ contentType: ct, error: `Failed to reach seo-entries: ${err}` });
+          }
+        }
+
+        // Sort: contentType → slug → locale
+        (results as Array<Record<string, unknown>>).sort((a, b) => {
+          const ct = String(a.contentType ?? "").localeCompare(String(b.contentType ?? ""));
+          if (ct !== 0) return ct;
+          const sl = String(a.slug ?? "").localeCompare(String(b.slug ?? ""));
+          if (sl !== 0) return sl;
+          return String(a.locale ?? "").localeCompare(String(b.locale ?? ""));
+        });
+
+        return { content: [{ type: "text", text: JSON.stringify({ count: results.length, entries: results }, null, 2) }] };
+      } catch (err) {
+        return { content: [{ type: "text", text: String(err) }], isError: true };
+      }
+    }
+  );
 }
