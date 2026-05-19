@@ -10,6 +10,10 @@ import {
   generateCode,
   exchangeCode,
   validateToken,
+  createPendingAuth,
+  consumePendingAuth,
+  validateBreathecodeToken,
+  updateClientBreathecodeUser,
 } from "./lib/oauth.js";
 
 const PORT = parseInt(process.env.MCP_PORT || "3001", 10);
@@ -46,6 +50,88 @@ function isAllowedRedirectUri(clientId: string, redirectUri: string): boolean {
     return registered.redirectUris.includes(redirectUri);
   }
   return true;
+}
+
+function getBase(): string {
+  const replitDomain = process.env.REPLIT_DEV_DOMAIN;
+  return (
+    process.env.PUBLIC_URL ||
+    (replitDomain ? `https://${replitDomain}` : `http://localhost:${PORT}`)
+  );
+}
+
+function renderAuthorizePage(opts: {
+  nonce: string;
+  clientId: string;
+  redirectUri: string;
+  error?: string;
+}): string {
+  const base = getBase();
+  const breathecodeLoginUrl = `https://breathecode.herokuapp.com/v1/auth/view/login?url=${encodeURIComponent(
+    `${base}/oauth/callback?nonce=${opts.nonce}`,
+  )}`;
+
+  const errorHtml = opts.error
+    ? `<div class="error">${escapeHtml(opts.error)}</div>`
+    : "";
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authorize MCP Access</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; max-width: 480px; margin: 80px auto; padding: 0 1rem; color: #1a1a1a; }
+    h1 { font-size: 1.4rem; margin-bottom: 0.4rem; }
+    .subtitle { color: #555; margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .card { border: 1px solid #e0e0e0; border-radius: 8px; padding: 1.5rem; background: #fafafa; margin-bottom: 1rem; }
+    .card h2 { font-size: 1rem; margin: 0 0 0.75rem; }
+    label { display: block; font-size: 0.9rem; color: #444; margin-bottom: 0.3rem; }
+    input[type="text"] {
+      width: 100%; padding: 0.5rem 0.7rem; border: 1px solid #ccc; border-radius: 6px;
+      font-size: 0.95rem; margin-bottom: 0.75rem; font-family: monospace;
+    }
+    input[type="text"]:focus { outline: none; border-color: #5046e5; box-shadow: 0 0 0 2px rgba(80,70,229,0.15); }
+    button {
+      background: #5046e5; color: #fff; border: none; border-radius: 6px;
+      padding: 0.6rem 1.4rem; font-size: 1rem; cursor: pointer;
+    }
+    button:hover { background: #3d35c4; }
+    .divider { text-align: center; color: #aaa; font-size: 0.85rem; margin: 0.25rem 0; }
+    .login-link {
+      display: block; text-align: center; background: #f0f0f0; border: 1px solid #ddd;
+      border-radius: 6px; padding: 0.65rem 1.4rem; font-size: 0.95rem; color: #1a1a1a;
+      text-decoration: none; font-weight: 500;
+    }
+    .login-link:hover { background: #e4e4e4; }
+    .error { background: #fff0f0; border: 1px solid #f5c6c6; color: #c0392b; border-radius: 6px; padding: 0.65rem 1rem; margin-bottom: 1rem; font-size: 0.9rem; }
+    .cancel { display: block; text-align: center; margin-top: 0.75rem; color: #888; font-size: 0.85rem; text-decoration: none; }
+    .cancel:hover { color: #555; }
+  </style>
+</head>
+<body>
+  <h1>Authorize MCP Access</h1>
+  <p class="subtitle">Verify your Breathecode identity to grant MCP server access.</p>
+  ${errorHtml}
+  <div class="card">
+    <h2>Option 1 — Paste your Breathecode token</h2>
+    <form method="POST" action="/oauth/authorize">
+      <input type="hidden" name="nonce" value="${escapeHtml(opts.nonce)}">
+      <label for="token">Breathecode API token</label>
+      <input type="text" id="token" name="token" placeholder="Paste your token here" autocomplete="off" required>
+      <button type="submit">Verify &amp; Authorize</button>
+    </form>
+  </div>
+  <div class="divider">or</div>
+  <div class="card">
+    <h2>Option 2 — Log in with Breathecode</h2>
+    <a class="login-link" href="${escapeHtml(breathecodeLoginUrl)}">Log in on Breathecode</a>
+  </div>
+  <a class="cancel" href="${escapeHtml(opts.redirectUri)}?error=access_denied">Cancel</a>
+</body>
+</html>`;
 }
 
 // ─── MCP server factory ───────────────────────────────────────────────────────
@@ -100,10 +186,7 @@ app.get("/health", (_req, res) => {
 // ─── OAuth 2.0 endpoints ──────────────────────────────────────────────────────
 
 app.get("/.well-known/oauth-authorization-server", (_req, res) => {
-  const replitDomain = process.env.REPLIT_DEV_DOMAIN;
-  const base =
-    process.env.PUBLIC_URL ||
-    (replitDomain ? `https://${replitDomain}` : `http://localhost:${PORT}`);
+  const base = getBase();
   res.json({
     issuer: base,
     authorization_endpoint: `${base}/oauth/authorize`,
@@ -150,10 +233,7 @@ app.post("/oauth/register", (req, res) => {
     redirectUris,
   );
 
-  const replitDomain = process.env.REPLIT_DEV_DOMAIN;
-  const base =
-    process.env.PUBLIC_URL ||
-    (replitDomain ? `https://${replitDomain}` : `http://localhost:${PORT}`);
+  const base = getBase();
   res.status(201).json({
     client_id: clientId,
     client_secret: clientSecret,
@@ -195,80 +275,123 @@ app.get("/oauth/authorize", (req, res) => {
     return;
   }
 
-  const stateField = state
-    ? `<input type="hidden" name="state" value="${escapeHtml(state)}">`
-    : "";
+  const nonce = createPendingAuth(client_id, redirect_uri, state);
 
   res.setHeader("Content-Type", "text/html; charset=utf-8");
-  res.send(`<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Authorize Claude.ai</title>
-  <style>
-    body { font-family: system-ui, sans-serif; max-width: 480px; margin: 80px auto; padding: 0 1rem; color: #1a1a1a; }
-    h1 { font-size: 1.4rem; margin-bottom: 0.5rem; }
-    p { color: #555; margin-bottom: 1.5rem; }
-    .card { border: 1px solid #e0e0e0; border-radius: 8px; padding: 1.5rem; background: #fafafa; }
-    button { background: #5046e5; color: #fff; border: none; border-radius: 6px; padding: 0.6rem 1.4rem; font-size: 1rem; cursor: pointer; }
-    button:hover { background: #3d35c4; }
-    .cancel { margin-left: 1rem; color: #888; font-size: 0.9rem; text-decoration: none; }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h1>Allow Claude.ai to connect</h1>
-    <p>Claude.ai is requesting access to your content site via the MCP server. Click <strong>Allow</strong> to grant access.</p>
-    <form method="POST" action="/oauth/authorize">
-      <input type="hidden" name="client_id" value="${escapeHtml(client_id)}">
-      <input type="hidden" name="redirect_uri" value="${escapeHtml(redirect_uri)}">
-      <input type="hidden" name="response_type" value="code">
-      ${stateField}
-      <button type="submit">Allow</button>
-      <a class="cancel" href="${escapeHtml(redirect_uri)}?error=access_denied">Cancel</a>
-    </form>
-  </div>
-</body>
-</html>`);
+  res.send(renderAuthorizePage({ nonce, clientId: client_id, redirectUri: redirect_uri }));
 });
 
-app.post("/oauth/authorize", (req, res) => {
-  const { client_id, redirect_uri, state } = req.body as Record<string, string>;
+app.post("/oauth/authorize", async (req, res) => {
+  const { token, nonce } = req.body as Record<string, string>;
 
-  if (!client_id || !isValidClient(client_id)) {
-    res.status(400).json({ error: `invalid_client: ${client_id}` });
+  if (!nonce) {
+    res.status(400).json({ error: "invalid_request", error_description: "nonce is required" });
     return;
   }
-  if (!redirect_uri) {
-    res.status(400).json({
-      error: "invalid_request",
-      error_description: "redirect_uri is required",
-    });
+
+  const pending = consumePendingAuth(nonce);
+  if (!pending) {
+    res.status(400).json({ error: "invalid_request", error_description: "Invalid or expired session. Please start the authorization flow again." });
     return;
   }
-  if (!isAllowedRedirectUri(client_id, redirect_uri)) {
-    res.status(400).json({
-      error: "invalid_request",
-      error_description: "redirect_uri not registered for this client",
-    });
+
+  if (!token || !token.trim()) {
+    const freshNonce = createPendingAuth(pending.clientId, pending.redirectUri, pending.state);
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.send(renderAuthorizePage({
+      nonce: freshNonce,
+      clientId: pending.clientId,
+      redirectUri: pending.redirectUri,
+      error: "Please paste your Breathecode token.",
+    }));
+    return;
+  }
+
+  const validation = await validateBreathecodeToken(token.trim());
+  if (!validation.valid) {
+    const freshNonce = createPendingAuth(pending.clientId, pending.redirectUri, pending.state);
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.send(renderAuthorizePage({
+      nonce: freshNonce,
+      clientId: pending.clientId,
+      redirectUri: pending.redirectUri,
+      error: validation.error || "Token validation failed. Please check your token and try again.",
+    }));
+    return;
+  }
+
+  if (validation.userId !== undefined) {
+    updateClientBreathecodeUser(
+      pending.clientId,
+      validation.userId,
+      validation.firstName ?? "",
+      validation.lastName ?? "",
+    );
+  }
+
+  let redirectUrl: URL;
+  try {
+    redirectUrl = new URL(pending.redirectUri);
+  } catch {
+    res.status(400).json({ error: "invalid_request", error_description: "redirect_uri is not a valid URL" });
+    return;
+  }
+
+  const code = generateCode(pending.clientId, pending.redirectUri);
+  redirectUrl.searchParams.set("code", code);
+  if (pending.state) redirectUrl.searchParams.set("state", pending.state);
+
+  res.redirect(redirectUrl.toString());
+});
+
+app.get("/oauth/callback", async (req, res) => {
+  const { token, nonce } = req.query as Record<string, string>;
+
+  if (!nonce) {
+    res.status(400).json({ error: "invalid_request", error_description: "nonce is required" });
+    return;
+  }
+
+  const pending = consumePendingAuth(nonce);
+  if (!pending) {
+    res.status(400).json({ error: "invalid_request", error_description: "Invalid or expired session" });
     return;
   }
 
   let redirectUrl: URL;
   try {
-    redirectUrl = new URL(redirect_uri);
+    redirectUrl = new URL(pending.redirectUri);
   } catch {
-    res.status(400).json({
-      error: "invalid_request",
-      error_description: "redirect_uri is not a valid URL",
-    });
+    res.status(400).json({ error: "invalid_request", error_description: "redirect_uri is not a valid URL" });
     return;
   }
 
-  const code = generateCode(client_id, redirect_uri);
+  if (!token || !token.trim()) {
+    redirectUrl.searchParams.set("error", "access_denied");
+    res.redirect(redirectUrl.toString());
+    return;
+  }
+
+  const validation = await validateBreathecodeToken(token.trim());
+  if (!validation.valid) {
+    console.warn("[MCP] OAuth callback: token validation failed —", validation.error);
+    redirectUrl.searchParams.set("error", "access_denied");
+    res.redirect(redirectUrl.toString());
+    return;
+  }
+
+  if (validation.userId !== undefined) {
+    updateClientBreathecodeUser(
+      pending.clientId,
+      validation.userId,
+      validation.firstName ?? "",
+      validation.lastName ?? "",
+    );
+  }
+
+  const code = generateCode(pending.clientId, pending.redirectUri);
   redirectUrl.searchParams.set("code", code);
-  if (state) redirectUrl.searchParams.set("state", state);
+  if (pending.state) redirectUrl.searchParams.set("state", pending.state);
 
   res.redirect(redirectUrl.toString());
 });
