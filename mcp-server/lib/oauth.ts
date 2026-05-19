@@ -160,15 +160,7 @@ export async function validateBreathecodeToken(
       return { valid: false, error: `Token check failed (HTTP ${tokenRes.status})` };
     }
 
-    // Step 2 — verify the user holds the webmaster capability
-    const capRes = await fetch(`${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`, {
-      headers: { Authorization: `Token ${token}` },
-    });
-    if (!capRes.ok) {
-      return { valid: false, error: "Token does not have webmaster capability" };
-    }
-
-    // Step 3 — fetch user profile to store on the registered client
+    // Step 2 — fetch user profile; also provides the academy memberships we need for Step 3
     const meRes = await fetch(`${BREATHECODE_HOST}/v1/auth/user/me`, {
       headers: { Authorization: `Token ${token}` },
     });
@@ -179,8 +171,37 @@ export async function validateBreathecodeToken(
       id?: number;
       first_name?: string;
       last_name?: string;
+      roles?: Array<{ academy?: { id?: number } }>;
       [key: string]: unknown;
     };
+
+    // Step 3 — check webmaster capability. The endpoint requires an Academy header
+    // (capabilities are per-academy), so we try each of the user's academies in turn
+    // and accept as soon as any one returns 200.
+    const academyIds = (meData.roles ?? [])
+      .map(r => r.academy?.id)
+      .filter((id): id is number => typeof id === "number");
+
+    // Optional override: check a specific academy first (or exclusively) via env var
+    const configuredId = process.env.BREATHECODE_ACADEMY_ID
+      ? parseInt(process.env.BREATHECODE_ACADEMY_ID, 10)
+      : null;
+    const idsToCheck = configuredId ? [configuredId] : academyIds.slice(0, 20);
+
+    let hasWebmaster = false;
+    for (const academyId of idsToCheck) {
+      const capRes = await fetch(`${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`, {
+        headers: { Authorization: `Token ${token}`, Academy: String(academyId) },
+      });
+      if (capRes.ok) {
+        hasWebmaster = true;
+        break;
+      }
+    }
+
+    if (!hasWebmaster) {
+      return { valid: false, error: "Token does not have webmaster capability" };
+    }
 
     return {
       valid: true,
