@@ -91,6 +91,48 @@ A typical editing session looks like this:
    Call reorder_sections to move the new section earlier.
    ```
 
+## Transport
+
+The server uses the **MCP Streamable HTTP transport** on a single `/mcp` endpoint. This satisfies the "HTTP + SSE" intent from the original design: the client sends a JSON-RPC POST and the server responds either as plain JSON or as a Server-Sent Events stream depending on what the client's `Accept` header requests. Both modes work through the same URL — no separate SSE endpoint is needed.
+
+Clients must include both `application/json` and `text/event-stream` in their `Accept` header, which all MCP-compatible clients do automatically.
+
+## Smoke test (curl)
+
+Use these commands to verify auth and basic read/write behaviour. Replace `$KEY` with your `MCP_API_KEY` value.
+
+```bash
+# Health (no auth required)
+curl http://localhost:3001/health
+
+# Auth enforcement — should return 401
+curl -X POST http://localhost:3001/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -d '{"jsonrpc":"2.0","method":"tools/list","id":1}'
+
+# List all pages (read tool)
+curl -X POST http://localhost:3001/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -H "X-Api-Key: $KEY" \
+  -d '{"jsonrpc":"2.0","method":"tools/call","id":2,"params":{"name":"list_pages","arguments":{}}}'
+
+# Get a specific page by slug only (contentType auto-detected)
+curl -X POST http://localhost:3001/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -H "X-Api-Key: $KEY" \
+  -d '{"jsonrpc":"2.0","method":"tools/call","id":3,"params":{"name":"get_page","arguments":{"slug":"home","locale":"en"}}}'
+
+# Update a field (write tool)
+curl -X POST http://localhost:3001/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -H "X-Api-Key: $KEY" \
+  -d '{"jsonrpc":"2.0","method":"tools/call","id":4,"params":{"name":"update_field","arguments":{"slug":"home","locale":"en","field_path":"meta.page_title","value":"My New Title"}}}'
+```
+
 ## Health check
 
 ```
