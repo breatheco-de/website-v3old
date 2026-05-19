@@ -674,7 +674,7 @@ sections:
         alt: Geekpal
     section_id: cards_deck-cnay6o
     marginY:
-      desktop: none sm
+      desktop: none md
     background: hsl(210 100% 50% / 0.05)
     paddingY:
       desktop: md lg
