@@ -14,6 +14,35 @@ const CONTENT_TYPES_PATH = path.join(MARKETING_CONTENT_PATH, "content-types.yml"
 const PORT = parseInt(process.env.MCP_PORT || "3001", 10);
 const API_KEY = process.env.MCP_API_KEY || "";
 
+if (!API_KEY) {
+  console.error("[MCP] FATAL: MCP_API_KEY environment variable is not set. Set it before starting the server.");
+  process.exit(1);
+}
+
+// ─── Input sanitization ───────────────────────────────────────────────────────
+
+const SAFE_SEGMENT_RE = /^[a-zA-Z0-9_\-]+$/;
+const SAFE_LOCALE_RE = /^[a-z]{2}(-[a-z]{2})?$/;
+
+function assertSafeSegment(value: string, label: string): void {
+  if (!SAFE_SEGMENT_RE.test(value)) {
+    throw new Error(`Invalid ${label}: '${value}'. Only alphanumerics, hyphens, and underscores are allowed.`);
+  }
+}
+
+function assertSafeLocale(value: string): void {
+  if (!SAFE_LOCALE_RE.test(value)) {
+    throw new Error(`Invalid locale: '${value}'. Expected a BCP-47 code like 'en' or 'es'.`);
+  }
+}
+
+function assertWithinBase(resolvedPath: string, basePath: string): void {
+  const rel = path.relative(basePath, resolvedPath);
+  if (rel.startsWith("..") || path.isAbsolute(rel)) {
+    throw new Error(`Path traversal detected: '${resolvedPath}' is outside '${basePath}'.`);
+  }
+}
+
 // ─── YAML helpers ────────────────────────────────────────────────────────────
 
 function safeLoad(raw: string): Record<string, unknown> | null {
@@ -284,6 +313,13 @@ function createMcpServer(): McpServer {
       locale: z.string().default("en").describe("Locale code, e.g. 'en' or 'es'"),
     },
     async ({ contentType, slug, locale }) => {
+      try {
+        assertSafeSegment(contentType, "contentType");
+        assertSafeSegment(slug, "slug");
+        assertSafeLocale(locale);
+      } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
       const result = loadPage(contentType, slug, locale);
       if (!result) {
         return { content: [{ type: "text", text: `Page not found: ${contentType}/${slug}/${locale}` }], isError: true };
@@ -295,15 +331,22 @@ function createMcpServer(): McpServer {
   // update_field
   mcp.tool(
     "update_field",
-    "Update a single field in a page's locale YAML file using dot-notation path. E.g. path='meta.page_title', value='New Title'",
+    "Update a single field in a page's locale YAML file using dot-notation path. E.g. field_path='meta.page_title', value='New Title'",
     {
       contentType: z.string().describe("Content type"),
       slug: z.string().describe("Page slug"),
       locale: z.string().default("en").describe("Locale code"),
-      path: z.string().describe("Dot-notation field path, e.g. 'meta.page_title' or 'sections.0.title'"),
+      field_path: z.string().describe("Dot-notation field path, e.g. 'meta.page_title' or 'sections.0.title'"),
       value: z.unknown().describe("New value for the field"),
     },
-    async ({ contentType, slug, locale, path: fieldPath, value }) => {
+    async ({ contentType, slug, locale, field_path: fieldPath, value }) => {
+      try {
+        assertSafeSegment(contentType, "contentType");
+        assertSafeSegment(slug, "slug");
+        assertSafeLocale(locale);
+      } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
       const configs = loadContentTypes();
       const config = configs[contentType];
       if (!config || isDbBacked(config)) {
@@ -311,8 +354,11 @@ function createMcpServer(): McpServer {
       }
       const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(contentType, config), slug);
       const localePath = path.join(dir, `${locale}.yml`);
+      try { assertWithinBase(localePath, MARKETING_CONTENT_PATH); } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
       if (!fs.existsSync(localePath)) {
-        return { content: [{ type: "text", text: `Locale file not found: ${localePath}` }], isError: true };
+        return { content: [{ type: "text", text: `Locale file not found: ${contentType}/${slug}/${locale}.yml` }], isError: true };
       }
       const localeData = safeLoad(fs.readFileSync(localePath, "utf-8")) || {};
       setValueAtPath(localeData, fieldPath, value);
@@ -333,6 +379,13 @@ function createMcpServer(): McpServer {
       index: z.number().int().optional().describe("Position to insert (0-based). Omit to append."),
     },
     async ({ contentType, slug, locale, section, index }) => {
+      try {
+        assertSafeSegment(contentType, "contentType");
+        assertSafeSegment(slug, "slug");
+        assertSafeLocale(locale);
+      } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
       const configs = loadContentTypes();
       const config = configs[contentType];
       if (!config || isDbBacked(config)) {
@@ -340,8 +393,11 @@ function createMcpServer(): McpServer {
       }
       const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(contentType, config), slug);
       const localePath = path.join(dir, `${locale}.yml`);
+      try { assertWithinBase(localePath, MARKETING_CONTENT_PATH); } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
       if (!fs.existsSync(localePath)) {
-        return { content: [{ type: "text", text: `Locale file not found: ${localePath}` }], isError: true };
+        return { content: [{ type: "text", text: `Locale file not found: ${contentType}/${slug}/${locale}.yml` }], isError: true };
       }
       const localeData = safeLoad(fs.readFileSync(localePath, "utf-8")) || {};
       if (!Array.isArray(localeData.sections)) localeData.sections = [];
@@ -364,6 +420,13 @@ function createMcpServer(): McpServer {
       index: z.number().int().describe("0-based index of the section to remove"),
     },
     async ({ contentType, slug, locale, index }) => {
+      try {
+        assertSafeSegment(contentType, "contentType");
+        assertSafeSegment(slug, "slug");
+        assertSafeLocale(locale);
+      } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
       const configs = loadContentTypes();
       const config = configs[contentType];
       if (!config || isDbBacked(config)) {
@@ -371,8 +434,11 @@ function createMcpServer(): McpServer {
       }
       const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(contentType, config), slug);
       const localePath = path.join(dir, `${locale}.yml`);
+      try { assertWithinBase(localePath, MARKETING_CONTENT_PATH); } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
       if (!fs.existsSync(localePath)) {
-        return { content: [{ type: "text", text: `Locale file not found: ${localePath}` }], isError: true };
+        return { content: [{ type: "text", text: `Locale file not found: ${contentType}/${slug}/${locale}.yml` }], isError: true };
       }
       const localeData = safeLoad(fs.readFileSync(localePath, "utf-8")) || {};
       if (!Array.isArray(localeData.sections)) {
@@ -396,9 +462,16 @@ function createMcpServer(): McpServer {
       contentType: z.string().describe("Content type"),
       slug: z.string().describe("Page slug"),
       locale: z.string().default("en").describe("Locale code"),
-      order: z.array(z.number().int()).describe("Array of current section indices in desired order"),
+      order: z.array(z.number().int()).describe("Array of current section indices in desired order — must be a permutation with no repeats"),
     },
     async ({ contentType, slug, locale, order }) => {
+      try {
+        assertSafeSegment(contentType, "contentType");
+        assertSafeSegment(slug, "slug");
+        assertSafeLocale(locale);
+      } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
       const configs = loadContentTypes();
       const config = configs[contentType];
       if (!config || isDbBacked(config)) {
@@ -406,16 +479,26 @@ function createMcpServer(): McpServer {
       }
       const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(contentType, config), slug);
       const localePath = path.join(dir, `${locale}.yml`);
+      try { assertWithinBase(localePath, MARKETING_CONTENT_PATH); } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
       if (!fs.existsSync(localePath)) {
-        return { content: [{ type: "text", text: `Locale file not found: ${localePath}` }], isError: true };
+        return { content: [{ type: "text", text: `Locale file not found: ${contentType}/${slug}/${locale}.yml` }], isError: true };
       }
       const localeData = safeLoad(fs.readFileSync(localePath, "utf-8")) || {};
       if (!Array.isArray(localeData.sections)) {
         return { content: [{ type: "text", text: "Page has no sections array." }], isError: true };
       }
       const sections = localeData.sections as unknown[];
-      if (order.length !== sections.length || !order.every(i => i >= 0 && i < sections.length)) {
-        return { content: [{ type: "text", text: `Order array must contain every index from 0 to ${sections.length - 1} exactly once.` }], isError: true };
+      const n = sections.length;
+      const seen = new Set<number>();
+      const isPermutation = order.length === n && order.every(i => {
+        if (i < 0 || i >= n || seen.has(i)) return false;
+        seen.add(i);
+        return true;
+      });
+      if (!isPermutation) {
+        return { content: [{ type: "text", text: `Order must be a permutation of [0..${n - 1}] with no repeats. Got: [${order.join(", ")}]` }], isError: true };
       }
       localeData.sections = order.map(i => sections[i]);
       fs.writeFileSync(localePath, safeDump(localeData), "utf-8");
@@ -465,7 +548,6 @@ app.use(cors());
 app.use(express.json());
 
 function authMiddleware(req: express.Request, res: express.Response, next: express.NextFunction): void {
-  if (!API_KEY) { next(); return; }
   const header = req.headers["x-api-key"] || req.headers["authorization"]?.replace(/^Bearer\s+/i, "");
   if (header !== API_KEY) {
     res.status(401).json({ error: "Unauthorized. Provide MCP_API_KEY via X-Api-Key header or Bearer token." });
