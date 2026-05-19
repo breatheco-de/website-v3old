@@ -47,7 +47,7 @@ yaml: |
           text: 6-Week Professional AI Program
         - icon: IconRobot
           text: Practical AI Skills for Real Work
-        - icon: IconBriefcase
+        - icon: briefcase-business
           text: Career-Relevant, Productivity-Focused Training
         - icon: IconUsers
           text: Hyper-Personalized Learning Experience

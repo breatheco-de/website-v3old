@@ -392,7 +392,7 @@ sections:
     title: The Most Personalized Path to an AI Career
     description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support, every part of the experience is built around you.
     features:
-      - icon: Robot
+      - icon: bot
         title: AI-powered feedback, available 24/7
         show_rigobot_logo: true
         bullets:

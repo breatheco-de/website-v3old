@@ -257,13 +257,13 @@ sections:
     heading: ¿Quién es elegible?
     description: "Calificas para la Garantía de Empleo si:"
     cards:
-      - icon: IconBriefcaseFilled
+      - icon: briefcase-business
         title: Tienes autorización para trabajar en tu país de residencia.
-      - icon: IconCircleDashedCheck
+      - icon: badge-check
         title: Completas el curso satisfactoriamente.
       - icon: IconBrain
         title: Apruebas todos los proyectos.
-      - icon: IconArrowGuideFilled
+      - icon: trending-up
         title: Sigues nuestro proceso de desarrollo profesional.
     background: hsl(var(--muted))
     marginY:
@@ -299,11 +299,11 @@ sections:
     image_alt: Soporte comunitario de 4Geeks Academy
     background: bg-primary/5
     cards:
-      - icon: BriefcaseFilled
+      - icon: briefcase-business
         text: Alta tasa de contratación de nuestros graduados
-      - icon: BrandStackshare
+      - icon: share-2
         text: Alta demanda de talento tech calificado
-      - icon: ChalkboardTeacher
+      - icon: school
         text: Formación estructurada con acompañamiento práctico y continuo
   - type: faq
     section_id: faq-5lon20

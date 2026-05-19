@@ -6,7 +6,7 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: GeekForce Career Support | 4Geeks
-  description: "The career support that gets 84% of 4Geeks graduates hired. Lifelong coaching, 400+ hiring partners, resume building, interview prep, and salary negotiation."
+  description: The career support that gets 84% of 4Geeks graduates hired. Lifelong coaching, 400+ hiring partners, resume building, interview prep, and salary negotiation.
   redirects:
     - /geekforce-career-support
 schema:
@@ -91,7 +91,7 @@ sections:
             text: LinkedIn
           - icon: IconFileText
             text: Resume
-          - icon: IconBriefcase
+          - icon: briefcase-business
             text: Portfolio
           - icon: IconMail
             text: Cover letter
@@ -119,9 +119,9 @@ sections:
         right_bullets:
           - icon: IconUserPlus
             text: Direct referrals to hiring partners
-          - icon: IconTargetArrow
+          - icon: target
             text: Curated job matches based on your profile
-          - icon: IconMessageChatbot
+          - icon: bot-message-square
             text: Networking and recruiter conversation coaching
         right_logos:
           - image_id: logo_google
@@ -143,11 +143,11 @@ sections:
           Visibility gets attention. Proof closes the gap.
           Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
         left_bullets:
-          - icon: IconBriefcase
+          - icon: briefcase-business
             text: Industry-aligned, real-world projects
           - icon: IconPresentation
             text: A showcase-ready capstone project
-          - icon: IconBrandGithub
+          - icon: github
             text: GitHub optimization and professional code review
         right_image_id: geekforce_valentina_ancieta
         right_image_object_fit: cover
@@ -159,7 +159,7 @@ sections:
           Once offers are on the table, we help you choose and negotiate with confidence.
           Your previous experience matters. We map transferable skills, focus your job search on the right roles, and support you through salary negotiation and long-term growth.
         left_bullets:
-          - icon: IconTransfer
+          - icon: folder-sync
             text: Transferable skills mapping
           - icon: IconMap
             text: Personalized career roadmap

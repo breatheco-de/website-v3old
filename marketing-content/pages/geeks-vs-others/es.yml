@@ -184,13 +184,13 @@ sections:
     heading: Volviendo accesibles las carreras en tech
     description: Las carreras tech pueden transformar vidas y las finanzas nunca deberían ser un obstáculo. Por eso ofrecemos algunas de las opciones de pago y becas más flexibles y amigables para estudiantes en la industria.
     cards:
-      - icon: CurrencyDollar
+      - icon: dollar-sign
         title: Matrícula asequible
         description: Entre las matrículas más asequibles de cualquier programa top-ranked (reconocido por Forbes).
       - icon: CreditCard
         title: Financiamiento flexible
         description: Opciones de financiamiento desde {{ global.lowest_monthly_financing_option | $299 }}/mes, para que aprendas sin estrés financiero.
-      - icon: Coin
+      - icon: coins
         title: Pago basado en ingresos
         description: Comienza a aprender ahora y solo paga una vez que estés ganando en tech.
       - icon: School

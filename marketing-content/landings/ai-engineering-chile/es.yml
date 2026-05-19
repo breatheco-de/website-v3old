@@ -653,11 +653,12 @@ sections:
         show_rigobot_logo: true
         bullets:
           - text: Coaching 1:1 enfocado en conseguir roles de Ingeniería de IA específicamente
+            icon: key-round
           - text: CV y portfolio optimizados para pasar los filtros automáticos de los recruiters
           - text: Preparación para entrevistas técnicas y negociación salarial
           - text: Apoyo de carrera de por vida, no solo hasta que te gradúas
         video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
-      - icon: Robot
+      - icon: bot
         title: Aprende más rápido con un tutor de IA que sabe dónde te has atascado
         show_rigobot_logo: true
         bullets:

@@ -10,15 +10,14 @@ import type {
   CareerSupportTab,
   CareerSupportTestimonial,
 } from "@shared/schema";
-import * as LucideIcons from "lucide-react";
+import { getIcon } from "@/lib/icons";
 
 interface CareerSupportExplainProps {
   data: CareerSupportExplainSection;
 }
 
-function getTablerIcon(name: string) {
-  const icons = LucideIcons as Record<string, any>;
-  return icons[name] || Circle;
+function resolveIcon(name: string) {
+  return getIcon(name) ?? Circle;
 }
 
 function ThreeColumnsLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabIndex: number }) {
@@ -64,7 +63,7 @@ function ThreeColumnsLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabIndex
               )}
               <div className="flex flex-wrap gap-2" data-testid="boxes-col1">
                 {tab.col1_boxes.map((box, i) => {
-                  const IconComp = box.icon ? getTablerIcon(box.icon) : null;
+                  const IconComp = box.icon ? resolveIcon(box.icon) : null;
                   return (
                     <span
                       key={i}
@@ -150,7 +149,7 @@ function ThreeColumnsLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabIndex
             {tab.col2_bullets && tab.col2_bullets.length > 0 && (
               <div className="flex flex-col gap-4" data-testid="bullets-col2">
                 {tab.col2_bullets.map((bullet, i) => {
-                  const IconComp = bullet.icon ? getTablerIcon(bullet.icon) : null;
+                  const IconComp = bullet.icon ? resolveIcon(bullet.icon) : null;
                   return (
                     <div
                       key={i}
@@ -354,7 +353,7 @@ function TwoColumnCardsLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabInd
           data-testid="bullets-right-mobile"
         >
           {initialMobileRightBullets.map((bullet, i) => {
-            const IconComp = bullet.icon ? getTablerIcon(bullet.icon) : null;
+            const IconComp = bullet.icon ? resolveIcon(bullet.icon) : null;
             return (
               <div
                 key={i}
@@ -381,7 +380,7 @@ function TwoColumnCardsLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabInd
           >
             <div className="flex flex-col gap-4 pt-4">
               {extraMobileRightBullets.map((bullet, i) => {
-                const IconComp = bullet.icon ? getTablerIcon(bullet.icon) : null;
+                const IconComp = bullet.icon ? resolveIcon(bullet.icon) : null;
                 const bulletIndex = i + initialMobileRightBullets.length;
 
                 return (
@@ -429,7 +428,7 @@ function TwoColumnCardsLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabInd
           {tab.right_bullets && tab.right_bullets.length > 0 && (
             <div className="flex flex-col gap-4 mb-6" data-testid="bullets-right">
               {tab.right_bullets.map((bullet, i) => {
-                const IconComp = bullet.icon ? getTablerIcon(bullet.icon) : null;
+                const IconComp = bullet.icon ? resolveIcon(bullet.icon) : null;
                 return (
                   <div
                     key={i}
@@ -504,7 +503,7 @@ function TextAndImageLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabIndex
         {tab.left_bullets && tab.left_bullets.length > 0 && (
           <div className="flex flex-col gap-3" data-testid="bullets-left">
             {tab.left_bullets.map((bullet, i) => {
-              const IconComp = bullet.icon ? getTablerIcon(bullet.icon) : null;
+              const IconComp = bullet.icon ? resolveIcon(bullet.icon) : null;
               return (
                 <div
                   key={i}
@@ -680,7 +679,7 @@ function TextWithTestimonialsCarouselLayout({
             data-testid="bullets-testimonials"
           >
             {tab.left_bullets.map((bullet, i) => {
-              const IconComp = bullet.icon ? getTablerIcon(bullet.icon) : null;
+              const IconComp = bullet.icon ? resolveIcon(bullet.icon) : null;
               return (
                 <div
                   key={i}

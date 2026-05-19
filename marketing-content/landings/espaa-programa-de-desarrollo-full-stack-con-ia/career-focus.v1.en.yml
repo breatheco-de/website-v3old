@@ -120,7 +120,7 @@ sections:
     description: We don't just teach you to code - we help you get hired with dedicated career services and job placement support.
     video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
     features:
-      - icon: Briefcase
+      - icon: briefcase-business
         title: Career Coaching
         description: Work with career coaches who help you with resume writing, interview prep, and job search strategy.
       - icon: Users

@@ -67,7 +67,7 @@ sections:
         - icon: briefcase
           text: Interactive Projects
           count: "8"
-        - icon: robot
+        - icon: bot
           text: Real Time AI Feedback
         - icon: calendar
           text: Workshops every week

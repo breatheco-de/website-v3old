@@ -73,7 +73,7 @@ sections:
           text: Modalidad intensiva de 12 semanas (mañanas)
         - icon: code
           text: +100 ejercicios interactivos de programación
-        - icon: robot
+        - icon: bot
           text: Feedback con IA en tiempo real
         - icon: calendar
           text: Ratio {{ global.global_teacher_student_ratio | 1:7 }} estudiante–profesor
@@ -137,7 +137,7 @@ sections:
           text: Programa de {{ global.fullstack_week_duration | 20 }} semanas
         - icon: code
           text: +100 ejercicios interactivos de programación
-        - icon: robot
+        - icon: bot
           text: Feedback con IA en tiempo real
         - icon: calendar
           text: Ratio 1:7 estudiante–profesor
@@ -398,7 +398,7 @@ sections:
     title: Todo lo que necesitas para lanzar tu carrera en tecnología
     description: Avanza más rápido y mantente motivado con nuestras herramientas de IA y método de enseñanza hiperpersonalizado.
     features:
-      - icon: Robot
+      - icon: bot
         title: Progresa más rápido con herramientas de IA
         description: ""
         show_rigobot_logo: true

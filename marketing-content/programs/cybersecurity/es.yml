@@ -62,7 +62,7 @@ sections:
       features:
         - icon: calendar
           text: Programa intensivo de {{ global.cybersecurity_week_duration | 16 }} Semanas
-        - icon: IconBriefcase
+        - icon: briefcase-business
           text: Programa orientado a la práctica
         - icon: IconRobot
           text: Aprendizaje y feedback con IA
@@ -284,7 +284,7 @@ sections:
     title: Todo lo que necesitas para lanzar tu carrera en tecnología
     description: Avanza más rápido y mantente motivado con nuestras herramientas de IA y método de enseñanza hiperpersonalizado.
     features:
-      - icon: Robot
+      - icon: bot
         title: Progresa más rápido con herramientas de IA
         description: ""
         show_rigobot_logo: true

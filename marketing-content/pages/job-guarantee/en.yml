@@ -52,11 +52,11 @@ sections:
     image_alt: 4Geeks Academy community support
     background: bg-primary/5
     cards:
-      - icon: BriefcaseFilled
+      - icon: briefcase-business
         text: Consistent hiring outcomes across our graduate community
-      - icon: BrandStackshare
+      - icon: share-2
         text: Strong and ongoing demand for skilled tech professionals
-      - icon: ChalkboardTeacher
+      - icon: school
         text: Structured training paired with hands-on, ongoing career support
   - type: graduates_stats
     section_id: graduates_stats-rdqav1
@@ -200,13 +200,13 @@ sections:
     heading: Who's Eligible?
     description: "You'll qualify for the Job Guarantee if you:"
     cards:
-      - icon: IconBriefcaseFilled
+      - icon: briefcase-business
         title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
-      - icon: IconCircleDashedCheck
+      - icon: badge-check
         title: Complete all coursework and projects
       - icon: IconBrain
         title: Pass our logic test
-      - icon: IconArrowGuideFilled
+      - icon: trending-up
         title: Follow our career development process
     background: hsl(var(--muted))
     marginY:

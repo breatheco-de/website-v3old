@@ -59,7 +59,7 @@ sections:
       features:
         - icon: calendar
           text: {{ global.cybersecurity_week_duration | 16 }}-week intensive program
-        - icon: IconBriefcase
+        - icon: briefcase-business
           text: Employment-first curriculum
         - icon: IconRobot
           text: AI-Powered learning & feedback
@@ -279,7 +279,7 @@ sections:
     title: The Most Personalized Path to a Cybersecurity Career
     description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support — every part of the experience is built around you, not a classroom of thirty.
     features:
-      - icon: Robot
+      - icon: bot
         title: AI-powered feedback that never sleeps
         description: ""
         show_rigobot_logo: true

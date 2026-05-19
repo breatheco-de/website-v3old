@@ -252,11 +252,11 @@ sections:
           RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal impact.
         col1_tagline: We'll help you create tailored job search materials
         col1_boxes:
-          - icon: IconBrandLinkedin
+          - icon: linkedin
             text: LinkedIn
           - icon: IconFileText
             text: Resume
-          - icon: IconBriefcase
+          - icon: briefcase-business
             text: Portfolio
           - icon: IconMail
             text: Cover letter
@@ -284,9 +284,9 @@ sections:
         right_bullets:
           - icon: IconUserPlus
             text: Direct referrals to hiring partners
-          - icon: IconTargetArrow
+          - icon: target
             text: Curated job matches based on your profile
-          - icon: IconMessageChatbot
+          - icon: bot-message-square
             text: Networking and recruiter conversation coaching
         right_logos:
           - image_id: logo_google
@@ -308,11 +308,11 @@ sections:
           Visibility gets attention. Proof closes the gap.
           Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
         left_bullets:
-          - icon: IconBriefcase
+          - icon: briefcase-business
             text: Industry-aligned, real-world projects
           - icon: IconPresentation
             text: A showcase-ready capstone project
-          - icon: IconBrandGithub
+          - icon: github
             text: GitHub optimization and professional code review
         right_image_id: geekforce_valentina_ancieta
         right_image_object_fit: cover

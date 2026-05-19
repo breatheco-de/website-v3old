@@ -461,7 +461,7 @@ sections:
           - text: Preparación para entrevistas técnicas y negociación salarial
           - text: Apoyo de carrera de por vida, no solo hasta que te gradúas
         video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
-      - icon: Robot
+      - icon: bot
         title: Aprende más rápido con un tutor de IA que sabe dónde te has atascado
         show_rigobot_logo: true
         bullets:

@@ -406,7 +406,7 @@ sections:
           - text: Mock technical and behavioral interviews with real feedback
           - text: Lifelong career support, not just until graduation
         video_url: https://youtu.be/-2ZvlgDnltc
-      - icon: Robot
+      - icon: bot
         title: Learn faster with an AI tutor that knows where you're stuck
         description: ""
         show_rigobot_logo: true

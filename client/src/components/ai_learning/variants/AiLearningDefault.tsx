@@ -1,15 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createElement } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import * as LucideIcons from "lucide-react";
 import { Check, ChevronDown } from "lucide-react";
 import type { 
   AiLearningSection as AILearningSectionType,
   AiLearningFeatureTabsSection,
   AiLearningHighlightSection,
 } from "@shared/schema";
-import type { ComponentType } from "react";
 import { cn } from "@/lib/utils";
+import { getIcon } from "@/lib/icons";
 import UniversalImage from "@/components/UniversalImage";
 import { UniversalVideo } from "@/components/UniversalVideo";
 import { useInternalNav } from "@/hooks/useInternalNav";
@@ -58,10 +57,10 @@ interface HoverFeatureCardProps {
   onHover: () => void;
   onLeave: () => void;
   showRigobotLogo: boolean;
-  getIcon: (iconName: string, isRigobot?: boolean) => JSX.Element | null;
+  renderIcon: (iconName: string, isRigobot?: boolean) => JSX.Element | null;
 }
 
-function HoverFeatureCard({ feature, index, isSelected, isHovering, onHover, onLeave, showRigobotLogo, getIcon }: HoverFeatureCardProps) {
+function HoverFeatureCard({ feature, index, isSelected, isHovering, onHover, onLeave, showRigobotLogo, renderIcon }: HoverFeatureCardProps) {
   const isActive = isSelected || isHovering;
   
   return (
@@ -83,7 +82,7 @@ function HoverFeatureCard({ feature, index, isSelected, isHovering, onHover, onL
             "w-8 h-8 md:w-10 md:h-10 rounded-md flex items-center justify-center flex-shrink-0 transition-colors",
             isActive ? "bg-primary/20" : "bg-primary/10"
           )}>
-            {getIcon(feature.icon, false)}
+            {renderIcon(feature.icon, false)}
           </div>
           <h3 className="font-semibold text-foreground flex-1 text-sm md:text-base">
             {feature.title}
@@ -105,7 +104,7 @@ function extractYouTubeId(url: string): string | null {
   return null;
 }
 
-function getIcon(iconName: string, isRigobot: boolean = false, isLarge: boolean = false) {
+function renderSectionIcon(iconName: string, isRigobot: boolean = false, isLarge: boolean = false) {
   if (isRigobot) {
     return (
       <UniversalImage
@@ -116,9 +115,12 @@ function getIcon(iconName: string, isRigobot: boolean = false, isLarge: boolean 
       />
     );
   }
-  const icons = LucideIcons as unknown as Record<string, ComponentType<{ size?: number; className?: string }>>;
-  const IconComponent = icons[(iconName).charAt(0).toUpperCase() + (iconName).slice(1) as keyof typeof LucideIcons];
-  return IconComponent ? <IconComponent size={isLarge ? 32 : 24} className="text-primary" /> : null;
+  const IconComponent = getIcon(iconName);
+  if (!IconComponent) return null;
+  return createElement(IconComponent, {
+    size: isLarge ? 32 : 24,
+    className: "text-primary",
+  });
 }
 
 // Type guard for feature-tabs variant
@@ -192,7 +194,7 @@ function AILearningFeatureTabs({ data }: { data: AiLearningFeatureTabsSection })
                   setHoverIndex(null);
                 }}
                 showRigobotLogo={showRigobotLogo}
-                getIcon={getIcon}
+                renderIcon={renderSectionIcon}
               />
             );
           })}
@@ -250,7 +252,7 @@ function AILearningFeatureTabs({ data }: { data: AiLearningFeatureTabsSection })
                   {/* Title and icon - hidden on mobile */}
                   <div className="hidden md:flex items-start gap-4 mb-6">
                     <div className="flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
-                      {getIcon(displayedFeature.icon, displayedFeature.show_rigobot_logo ?? displayedFeature.title?.toLowerCase().includes('rigobot'), true)}
+                      {renderSectionIcon(displayedFeature.icon, displayedFeature.show_rigobot_logo ?? displayedFeature.title?.toLowerCase().includes('rigobot'), true)}
                     </div>
                     <h3 className="text-h2 text-foreground">
                       {displayedFeature.title}
@@ -272,7 +274,7 @@ function AILearningFeatureTabs({ data }: { data: AiLearningFeatureTabsSection })
                           .map((bullet: FeatureBullet, idx: number) => (
                           <li key={idx} className="flex items-start gap-3">
                             <span className="text-primary flex-shrink-0 mt-0.5">
-                              {bullet.icon ? getIcon(bullet.icon) : <Check size={20} />}
+                              {bullet.icon ? renderSectionIcon(bullet.icon) : <Check size={20} />}
                             </span>
                             <span className="text-muted-foreground">{bullet.text}</span>
                           </li>
@@ -356,7 +358,7 @@ function AILearningHighlight({ data }: { data: AiLearningHighlightSection }) {
                   <div key={idx} className="flex items-center gap-3 ">
                     <div className="flex items-center gap-2">
                       <span className="text-primary flex-shrink-0">
-                        {bullet.icon ? getIcon(bullet.icon) : <Check size={20} />}
+                        {bullet.icon ? renderSectionIcon(bullet.icon) : <Check size={20} />}
                       </span>
                       <span className="text-muted-foreground">{bullet.text}</span>
                     </div>

@@ -156,7 +156,7 @@ sections:
         title: 2. Completa el programa y crea tu portfolio
       - icon: ChecklistVerify
         title: 3. Aplica nuestra metodología de inserción laboral
-      - icon: Briefcase
+      - icon: briefcase-business
         title: 4. Consigue un empleo en 9 meses o te devolvemos el 100 % de la matrícula
     background: hsl(210 100% 50% / 0.05)
     section_id: features_quad-yuo5mj
@@ -294,13 +294,13 @@ sections:
     heading: Quiénes califican?
     description: Podrás optar a la garantía de empleo si
     cards:
-      - icon: IconBriefcaseFilled
+      - icon: briefcase-business
         title: Completas todos los cursos y proyectos
-      - icon: IconCircleDashedCheck
+      - icon: badge-check
         title: Complete all coursework and projects
       - icon: IconBrain
         title: Apruebas nuestra prueba de lógica.
-      - icon: IconArrowGuideFilled
+      - icon: trending-up
         title: Sigues nuestro proceso de desarrollo profesional.
     background: hsl(var(--muted))
     section_id: features_quad-loz8eb
@@ -336,11 +336,11 @@ sections:
     image_alt: 4Geeks Academy community support
     background: bg-primary/5
     cards:
-      - icon: BriefcaseFilled
+      - icon: briefcase-business
         text: Resultados de contratación consistentes en toda nuestra comunidad de graduados.
-      - icon: BrandStackshare
+      - icon: share-2
         text: Fuerte demanda de profesionales tecnológicos cualificados.
-      - icon: ChalkboardTeacher
+      - icon: school
         text: Formación intensiva combinada con apoyo profesional práctico y continuo.
     section_id: features_grid-aay8s3
     paddingY:
@@ -353,7 +353,7 @@ sections:
     title: Resultados reales para nuestros graduados
     subtitle: Nuestros egresados en Estados Unidos, Latinoamérica y otros países inician sus carreras profesionales en ingeniería de IA, desarrollo de software, datos y ciberseguridad, consiguiendo puestos de trabajo y aumentando su potencial de ingresos.
     items:
-      - icon: Briefcase
+      - icon: briefcase-business
         value: {{ global.global_job_placement_rate | 84 }}%
         title: Tasa de inserción laboral
       - icon: Graduation

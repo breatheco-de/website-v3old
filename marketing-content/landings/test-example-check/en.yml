@@ -20,7 +20,7 @@ sections:
     title: Why Learn with 4Geeks? test test
     description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
     features:
-      - icon: Robot
+      - icon: bot
         title: Learn with AI
         description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
       - icon: Headset

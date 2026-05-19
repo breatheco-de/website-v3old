@@ -232,11 +232,11 @@ sections:
           Prepárate para procesos de contratación reales usando una combinación de herramientas de IA y coaching 1:1.
           RigoBot revisa tu currículum y LinkedIn en tiempo real. Los mentores de carrera te ayudan a perfeccionar tu historia, portafolio y desempeño en entrevistas para un impacto óptimo.
         col1_boxes:
-          - icon: IconBrandLinkedin
+          - icon: linkedin
             text: LinkedIn
           - icon: IconFileText
             text: Currículum
-          - icon: IconBriefcase
+          - icon: briefcase-business
             text: Portafolio
           - icon: IconMail
             text: Carta de presentación
@@ -264,9 +264,9 @@ sections:
         right_bullets:
           - icon: IconUserPlus
             text: Referidos directos a socios de contratación
-          - icon: IconTargetArrow
+          - icon: target
             text: Ofertas laborales curadas según tu perfil
-          - icon: IconMessageChatbot
+          - icon: bot-message-square
             text: Coaching en networking y conversaciones con reclutadores
         right_logos:
           - image_id: logo_google
@@ -288,11 +288,11 @@ sections:
           La visibilidad atrae atención. Tu portafolio cierra la brecha.
           Gradúate con un portafolio que muestre lo que realmente puedes construir. Desde proyectos prácticos hasta un proyecto final que resuelve problemas reales de negocio, tu trabajo se convierte en evidencia clara de tu capacidad.
         left_bullets:
-          - icon: IconBriefcase
+          - icon: briefcase-business
             text: Proyectos alineados con la industria y el mundo real
           - icon: IconPresentation
             text: Un proyecto final listo para mostrar
-          - icon: IconBrandGithub
+          - icon: github
             text: Optimización de GitHub y revisión profesional de código
         right_image_id: geekforce_valentina_ancieta
         right_image_object_fit: cover

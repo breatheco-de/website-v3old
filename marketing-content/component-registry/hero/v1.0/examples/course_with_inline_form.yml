@@ -46,7 +46,7 @@ yaml: |
           text: 12-week accelerated morning track
         - icon: code
           text: Interactive coding exercises
-        - icon: robot
+        - icon: bot
           text: AI-powered feedback
         - icon: calendar
           text: 1:7 teacher student ratio

@@ -355,11 +355,11 @@ sections:
           We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
         col1_tagline: We'll help you create tailored job search materials
         col1_boxes:
-          - icon: IconBrandLinkedin
+          - icon: linkedin
             text: LinkedIn
           - icon: IconFileText
             text: Resume
-          - icon: IconBriefcase
+          - icon: briefcase-business
             text: Portfolio
           - icon: IconMail
             text: Cover letter
@@ -387,9 +387,9 @@ sections:
         right_bullets:
           - icon: IconUserPlus
             text: Direct referrals to hiring partners
-          - icon: IconTargetArrow
+          - icon: target
             text: Curated job matches based on your profile
-          - icon: IconMessageChatbot
+          - icon: bot-message-square
             text: Networking and recruiter conversation coaching
         right_logos:
           - image_id: logo_google
@@ -411,11 +411,11 @@ sections:
           Visibility gets attention. Proof closes the gap.
           Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
         left_bullets:
-          - icon: IconBriefcase
+          - icon: briefcase-business
             text: Industry-aligned, real-world projects
           - icon: IconPresentation
             text: A showcase-ready capstone project
-          - icon: IconBrandGithub
+          - icon: github
             text: GitHub optimization and professional code review
         right_image_id: geekforce_valentina_ancieta
         right_image_object_fit: cover
@@ -736,7 +736,7 @@ sections:
           text: 12-week accelerated morning track
         - icon: code
           text: Interactive coding exercises
-        - icon: robot
+        - icon: bot
           text: AI-powered feedback
         - icon: calendar
           text: 1:7 teacher student ratio
@@ -796,7 +796,7 @@ sections:
         - icon: IconHome
           text: Interactive Projects
           count: "8"
-        - icon: robot
+        - icon: bot
           text: Real Time AI Feedback
         - icon: calendar
           text: Workshops every week
@@ -1244,11 +1244,11 @@ sections:
 
           RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal impact.
         col1_boxes:
-          - icon: IconBrandLinkedin
+          - icon: linkedin
             text: LinkedIn
           - icon: IconFileText
             text: Resume
-          - icon: IconBriefcase
+          - icon: briefcase-business
             text: Portfolio
           - icon: IconMail
             text: Cover letter
@@ -1690,7 +1690,7 @@ sections:
     title: Why Learn with 4Geeks?
     description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process. Test
     features:
-      - icon: Robot
+      - icon: bot
         title: Learn with AI
         description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
       - icon: Headset
@@ -1762,7 +1762,7 @@ sections:
     description: We've developed tools to keep you motivated, prevent you from getting stuck, and accelerate your learning process.
     video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
     features:
-      - icon: Robot
+      - icon: bot
         title: Learn with AI
         description: Our AI reviews your code to give you instant feedback, helps with the exercises, and more!
       - icon: Headset
