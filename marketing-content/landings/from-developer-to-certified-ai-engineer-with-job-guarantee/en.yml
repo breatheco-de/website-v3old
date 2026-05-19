@@ -126,7 +126,7 @@ sections:
       success:
         message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
     paddingY:
-      desktop: none sm
+      desktop: none
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thiriving in tech.
