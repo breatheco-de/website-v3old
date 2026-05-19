@@ -154,26 +154,21 @@ export async function validateBreathecodeToken(
   token: string,
 ): Promise<BreathecodeValidationResult> {
   try {
+    // Step 1 — confirm the token exists and hasn't expired
     const tokenRes = await fetch(`${BREATHECODE_HOST}/v1/auth/token/${token}`);
     if (!tokenRes.ok) {
       return { valid: false, error: `Token check failed (HTTP ${tokenRes.status})` };
     }
-    const tokenData = (await tokenRes.json()) as {
-      token?: string;
-      token_type?: string;
-      expires_at?: string;
-      user_id?: number;
-      capabilities?: string[];
-      [key: string]: unknown;
-    };
 
-    const capabilities: string[] = Array.isArray(tokenData.capabilities)
-      ? tokenData.capabilities
-      : [];
-    if (!capabilities.includes("webmaster")) {
+    // Step 2 — verify the user holds the webmaster capability
+    const capRes = await fetch(`${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`, {
+      headers: { Authorization: `Token ${token}` },
+    });
+    if (!capRes.ok) {
       return { valid: false, error: "Token does not have webmaster capability" };
     }
 
+    // Step 3 — fetch user profile to store on the registered client
     const meRes = await fetch(`${BREATHECODE_HOST}/v1/auth/user/me`, {
       headers: { Authorization: `Token ${token}` },
     });
