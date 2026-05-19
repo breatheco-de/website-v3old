@@ -94,6 +94,7 @@ sections:
         - id: premios-tecnologia
           alt: Premios Tecnologí
     section_id: hero-nzpyph
+    awards_marquee_at_left_column: true
   - type: sticky_cta
     section_id: sticky_cta-k7207r
     version: "1.0"
@@ -485,11 +486,11 @@ sections:
           RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal impact.
         col1_tagline: We'll help you create tailored job search materials
         col1_boxes:
-          - icon: linkedin
+          - icon: IconBrandLinkedin
             text: LinkedIn
           - icon: IconFileText
             text: Resume
-          - icon: briefcase-business
+          - icon: IconBriefcase
             text: Portfolio
           - icon: IconMail
             text: Cover letter
@@ -517,9 +518,9 @@ sections:
         right_bullets:
           - icon: IconUserPlus
             text: Direct referrals to hiring partners
-          - icon: target
+          - icon: IconTargetArrow
             text: Curated job matches based on your profile
-          - icon: bot-message-square
+          - icon: IconMessageChatbot
             text: Networking and recruiter conversation coaching
         right_logos:
           - image_id: logo_google
@@ -541,11 +542,11 @@ sections:
           Visibility gets attention. Proof closes the gap.
           Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
         left_bullets:
-          - icon: briefcase-business
+          - icon: IconBriefcase
             text: Industry-aligned, real-world projects
           - icon: IconPresentation
             text: A showcase-ready capstone project
-          - icon: github
+          - icon: IconBrandGithub
             text: GitHub optimization and professional code review
         right_image_id: geekforce_valentina_ancieta
         right_image_object_fit: cover
@@ -780,13 +781,13 @@ sections:
     heading: How the Job Guarantee Works
     description: Add the Job Guarantee at enrollment and meet these four requirements. If you're not hired within 9 months of graduation, you get 100% of your tuition back."
     cards:
-      - icon: briefcase-business
+      - icon: IconBriefcaseFilled
         title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
-      - icon: badge-check
+      - icon: IconCircleDashedCheck
         title: Complete All Program Requirements
       - icon: IconBrain
         title: Pass the Admissions Logic Test
-      - icon: trending-up
+      - icon: IconArrowGuideFilled
         title: Follow the Full Career Development Process
     section_id: features_quad-ms7uox
     marginY:
