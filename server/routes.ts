@@ -107,6 +107,7 @@ import {
   getLayout,
   resolveLayout,
   listAvailableMenus,
+  getDirectory,
 } from "./content-types";
 import { resolveFieldValue, applyTransformIfNeeded } from "./transform";
 import { resolveSingleVars } from "./single-resolver";
@@ -2859,55 +2860,118 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/content-types/:type/seo-entries", async (req, res) => {
     try {
       const { type } = req.params;
+      const localeFilter = req.query.locale as string | undefined;
       const config = getContentTypeConfig(type);
-      if (!config?.database?.slug) {
-        res.status(400).json({ error: `Content type "${type}" has no database configured` });
+      if (!config) {
+        res.status(404).json({ error: `Content type "${type}" not found` });
         return;
       }
-      const dbName = config.database.slug;
-      if (!databaseManager.exists(dbName)) {
-        res.status(404).json({ error: `Database "${dbName}" not found` });
-        return;
-      }
-
-      const items = await databaseManager.fetchMappedItems(type);
-      const localeKey = getLocaleKey(type) || "lang";
-      const cacheInfo = databaseManager.getCacheInfo(dbName);
-      const cacheAgeHours = cacheInfo?.fetched_at
-        ? Math.round((Date.now() - new Date(cacheInfo.fetched_at).getTime()) / (60 * 60 * 1000) * 10) / 10
-        : null;
-
-      const uniqueLocales = [...new Set(items.map(item => String(item[localeKey] || "en")))];
-      const templates: Record<string, Record<string, unknown> | null> = {};
-      for (const locale of uniqueLocales) {
-        templates[locale] = mergeSingleTemplate(type, locale);
-      }
-
       const urlPattern = config.url_pattern as Record<string, string> | undefined;
 
-      const entries = items.map(item => {
-        const locale = String(item[localeKey] || "en");
-        const template = templates[locale];
-        const resolvedMeta = resolveSingleVars(template?.meta ?? {}, item) as Record<string, unknown>;
+      // ── DB-backed ────────────────────────────────────────────────────────────
+      if (config.database?.slug) {
+        const dbName = config.database.slug;
+        if (!databaseManager.exists(dbName)) {
+          res.status(404).json({ error: `Database "${dbName}" not found` });
+          return;
+        }
+        const items = await databaseManager.fetchMappedItems(type);
+        const localeKey = getLocaleKey(type) || "lang";
+        const cacheInfo = databaseManager.getCacheInfo(dbName);
+        const cacheAgeHours = cacheInfo?.fetched_at
+          ? Math.round((Date.now() - new Date(cacheInfo.fetched_at).getTime()) / (60 * 60 * 1000) * 10) / 10
+          : null;
 
-        let url: string | null = null;
-        if (urlPattern && typeof item.slug === "string") {
-          const tpl = urlPattern[locale] || urlPattern["default"] || null;
-          if (tpl) url = tpl.replace(":slug", item.slug as string);
+        const uniqueLocales = [...new Set(items.map(item => String(item[localeKey] || "en")))];
+        const templates: Record<string, Record<string, unknown> | null> = {};
+        for (const locale of uniqueLocales) {
+          templates[locale] = mergeSingleTemplate(type, locale);
         }
 
-        return {
-          slug: item.slug ?? null,
-          contentType: type,
-          locale,
-          url,
-          title: item.title ?? null,
-          meta: resolvedMeta,
-          schema: template?.schema ?? null,
-        };
-      });
+        const entries = items
+          .filter(item => !localeFilter || String(item[localeKey] || "en") === localeFilter)
+          .map(item => {
+            const locale = String(item[localeKey] || "en");
+            const template = templates[locale];
+            const resolvedMeta = resolveSingleVars(template?.meta ?? {}, item) as Record<string, unknown>;
+            let url: string | null = null;
+            if (urlPattern && typeof item.slug === "string") {
+              const tpl = urlPattern[locale] || urlPattern["default"] || null;
+              if (tpl) url = tpl.replace(":slug", item.slug as string);
+            }
+            return {
+              slug: item.slug ?? null,
+              contentType: type,
+              locale,
+              url,
+              title: item.title ?? null,
+              meta: resolvedMeta,
+              schema: template?.schema ?? null,
+            };
+          });
 
-      res.json({ contentType: type, cache_age_hours: cacheAgeHours, count: entries.length, entries });
+        res.json({ contentType: type, source: "db", cache_age_hours: cacheAgeHours, count: entries.length, entries });
+        return;
+      }
+
+      // ── YAML-backed ──────────────────────────────────────────────────────────
+      const dir = getDirectory(type);
+      const contentDir = path.join(process.cwd(), "marketing-content", dir);
+      if (!fs.existsSync(contentDir)) {
+        res.status(404).json({ error: `Content directory not found: marketing-content/${dir}` });
+        return;
+      }
+
+      const entries: unknown[] = [];
+      const slugDirs = fs.readdirSync(contentDir, { withFileTypes: true }).filter(d => d.isDirectory());
+
+      for (const slugDir of slugDirs) {
+        const slug = slugDir.name;
+        const slugPath = path.join(contentDir, slug);
+        const files = fs.readdirSync(slugPath).filter(f => f.endsWith(".yml") || f.endsWith(".yaml"));
+
+        const localeFiles = files
+          .map(f => f.replace(/\.(yml|yaml)$/, ""))
+          .filter(n => /^[a-z]{2}(-[a-z]{2})?$/.test(n));
+
+        if (localeFiles.length === 0) continue;
+
+        let commonData: Record<string, unknown> = {};
+        const commonPath = path.join(slugPath, "_common.yml");
+        if (fs.existsSync(commonPath)) {
+          commonData = contentIndex.safeYamlLoad(fs.readFileSync(commonPath, "utf-8")) || {};
+        }
+
+        for (const locale of localeFiles) {
+          if (localeFilter && locale !== localeFilter) continue;
+          const localePath = path.join(slugPath, `${locale}.yml`);
+          if (!fs.existsSync(localePath)) continue;
+
+          const localeData = contentIndex.safeYamlLoad(fs.readFileSync(localePath, "utf-8")) || {};
+          const merged = deepMerge(commonData, localeData) as Record<string, unknown>;
+
+          const rawMeta = (merged.meta as Record<string, unknown>) ?? {};
+          const { data: resolvedMeta } = variableManager.resolveDeep(rawMeta, { locale });
+
+          let url: string | null = null;
+          if (urlPattern) {
+            const tpl = urlPattern[locale] || urlPattern["default"] || null;
+            if (tpl) url = tpl.replace(":slug", slug);
+          }
+
+          entries.push({
+            slug,
+            contentType: type,
+            locale,
+            url,
+            title: typeof merged.title === "string" ? merged.title : null,
+            meta: resolvedMeta,
+            schema: (merged.schema as Record<string, unknown>) ?? null,
+          });
+        }
+      }
+
+      res.json({ contentType: type, source: "yaml", cache_age_hours: null, count: entries.length, entries });
     } catch (err) {
       res.status(500).json({ error: String(err) });
     }

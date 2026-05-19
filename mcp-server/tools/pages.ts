@@ -513,43 +513,25 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
         const configs = loadContentTypes();
         const results: unknown[] = [];
 
-        // ── YAML-driven types ──────────────────────────────────────────────────
-        const yamlPages = scanPages();
-        for (const page of yamlPages) {
-          if (contentType && page.contentType !== contentType) continue;
-          if (slugs && !slugs.includes(page.slug)) continue;
+        // Route all content types through the main server's seo-entries endpoint,
+        // which handles both YAML (global variable resolution) and DB-backed
+        // (single.* template resolution + overrides) in one place.
+        const typesToQuery = contentType
+          ? (configs[contentType] ? [contentType] : [])
+          : Object.keys(configs);
 
-          const localesToScan = locale ? [locale] : page.locales;
-          for (const loc of localesToScan) {
-            const loaded = loadPage(page.contentType, page.slug, loc);
-            if (!loaded) continue;
-            const { data } = loaded;
-            results.push({
-              slug: page.slug,
-              contentType: page.contentType,
-              locale: loc,
-              url: page.urls?.[loc] ?? null,
-              title: typeof data.title === "string" ? data.title : (page.title ?? null),
-              meta: (data.meta as Record<string, unknown>) ?? {},
-              schema: (data.schema as Record<string, unknown>) ?? null,
-            });
-          }
-        }
-
-        // ── DB-backed types ────────────────────────────────────────────────────
-        for (const [ct, config] of Object.entries(configs)) {
-          if (!isDbBacked(config)) continue;
-          if (contentType && ct !== contentType) continue;
-
-          let url: string;
+        await Promise.all(typesToQuery.map(async (ct) => {
           try {
-            url = `http://localhost:${MAIN_SERVER_PORT}/api/content-types/${encodeURIComponent(ct)}/seo-entries`;
+            const params = new URLSearchParams();
+            if (locale) params.set("locale", locale);
+            const url = `http://localhost:${MAIN_SERVER_PORT}/api/content-types/${encodeURIComponent(ct)}/seo-entries?${params}`;
             const res = await fetch(url);
             if (!res.ok) {
               results.push({ contentType: ct, error: `seo-entries returned ${res.status}` });
-              continue;
+              return;
             }
             const body = await res.json() as {
+              source: string;
               cache_age_hours: number | null;
               entries: Array<{
                 slug: unknown; contentType: string; locale: string;
@@ -558,14 +540,16 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
               }>;
             };
             for (const entry of body.entries) {
-              if (locale && entry.locale !== locale) continue;
               if (slugs && !slugs.includes(String(entry.slug))) continue;
-              results.push({ ...entry, cache_age_hours: body.cache_age_hours });
+              results.push({
+                ...entry,
+                ...(body.source === "db" ? { cache_age_hours: body.cache_age_hours } : {}),
+              });
             }
           } catch (err) {
             results.push({ contentType: ct, error: `Failed to reach seo-entries: ${err}` });
           }
-        }
+        }));
 
         // Sort: contentType → slug → locale
         (results as Array<Record<string, unknown>>).sort((a, b) => {
