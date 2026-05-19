@@ -611,11 +611,12 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Ready to Become a Data Scientist?
-    subtitle: Limited spots available. Start your transformation today.
+    subtitle: Data Science is one of the fastest-growing careers in tech. This is your window. Join the next cohort.
+    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply now
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
@@ -635,7 +636,7 @@ sections:
           required: true
           default: datascience-ml
       success:
-        message: Thank you! We'll be in touch soon.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       consent:
         email: true
         marketing: true
@@ -649,7 +650,6 @@ sections:
       desktop: md
     marginY:
       desktop: lg none
-    background: hsl(var(--primary))
     section_id: cta_banner-6rzz4s
   - type: sticky_cta
     version: "1.0"
