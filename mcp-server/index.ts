@@ -56,7 +56,7 @@ function isAllowedRedirectUri(clientId: string, redirectUri: string): boolean {
 function getBase(): string {
   const replitDomain = process.env.REPLIT_DEV_DOMAIN;
   return (
-    process.env.PUBLIC_URL ||
+    process.env.SITE_URL ||
     (replitDomain ? `https://${replitDomain}` : `http://localhost:${PORT}`)
   );
 }
