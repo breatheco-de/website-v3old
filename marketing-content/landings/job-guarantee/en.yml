@@ -173,6 +173,7 @@ sections:
       desktop: md
     marginY:
       desktop: none lg
+    background: hsl(var(--secondary))
   - type: course_selector
     version: "1.0"
     variant: spotlight
