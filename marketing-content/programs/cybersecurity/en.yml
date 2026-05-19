@@ -282,7 +282,7 @@ sections:
     version: "1.0"
     variant: stats-charts
     title: Why Cybersecurity Now
-    subtitle: The need to secure digital systems is growing. The talent gap keeps widening.
+    subtitle: The need to secure digital systems keeps growing.
     description: Cyberattacks are more frequent, more sophisticated, and more costly than ever. Organizations across every industry are hiring urgently for professionals to defend their systems. There is not enough trained talent to meet the demand. That gap is your opportunity.
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
