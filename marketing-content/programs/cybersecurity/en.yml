@@ -6,7 +6,7 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Cybersecurity Career Program | 4Geeks
-  description: "4.8 million unfilled cybersecurity roles worldwide. Become a Cybersecurity Specialist in 16 weeks. 84% hiring rate, $75K–$130K salaries. Lifelong mentorship and career support. 4Geeks Academy."
+  description: 4.8 million unfilled cybersecurity roles worldwide. Become a Cybersecurity Specialist in 16 weeks. 84% hiring rate, $75K–$130K salaries. Lifelong mentorship and career support. 4Geeks Academy.
   redirects:
     - /bootcamp/cybersecurity
     - /programs/cybersecurity-specialist
@@ -289,7 +289,7 @@ sections:
     card_gauge_accent: hsl(var(--destructive) / 0.5)
     card_trend_accent: hsl(var(--accent))
     card_bars:
-      title: A Talent Gap That Keeps Growing
+      title: The Talent Gap Keeps Growing
       description: ISC2 Workforce Study · 2024 global data
       stat_value: 4.8M
       stat_label: cybersecurity roles unfilled globally
@@ -304,7 +304,7 @@ sections:
       bar1_label: Current workforce
       bar2_label: Market demand
     card_trend:
-      title: Hiring Is Accelerating Now
+      title: Hiring Is Accelerating
       description: CyberSeek/NIST · active US job postings
       stat_value: 514K
       stat_label: active cybersecurity job openings in the US right now
