@@ -175,18 +175,9 @@ export async function validateBreathecodeToken(
       [key: string]: unknown;
     };
 
-    // Step 3 — check webmaster capability. The endpoint requires an Academy header
-    // (capabilities are per-academy), so we try each of the user's academies in turn
-    // and accept as soon as any one returns 200.
-    const academyIds = (meData.roles ?? [])
-      .map(r => r.academy?.id)
-      .filter((id): id is number => typeof id === "number");
-
-    // Optional override: check a specific academy first (or exclusively) via env var
-    const configuredId = process.env.BREATHECODE_ACADEMY_ID
-      ? parseInt(process.env.BREATHECODE_ACADEMY_ID, 10)
-      : null;
-    const idsToCheck = configuredId ? [configuredId] : academyIds.slice(0, 20);
+    // Step 3 — check webmaster capability. The endpoint requires an Academy header.
+    // Only check against the known 4Geeks academies that use this platform.
+    const idsToCheck = [47, 4, 6, 7];
 
     let hasWebmaster = false;
     for (const academyId of idsToCheck) {
