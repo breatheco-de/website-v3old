@@ -247,6 +247,8 @@ sections:
     marginY:
       desktop: none md
     section_id: course_selector-jsuu5u
+    paddingY:
+      desktop: md none
   - type: programs_showcase
     version: v1.0
     layout: spotlight_with_list
