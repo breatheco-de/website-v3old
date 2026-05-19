@@ -18,7 +18,9 @@ const STATIC_CLIENT_ID = process.env.OAUTH_CLIENT_ID || "";
 const STATIC_CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET || "";
 
 if (!API_KEY) {
-  console.error("[MCP] FATAL: MCP_API_KEY environment variable is not set. Set it before starting the server.");
+  console.error(
+    "[MCP] FATAL: MCP_API_KEY environment variable is not set. Set it before starting the server.",
+  );
   process.exit(1);
 }
 
@@ -62,10 +64,15 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-function authMiddleware(req: express.Request, res: express.Response, next: express.NextFunction): void {
+function authMiddleware(
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction,
+): void {
   const apiKeyHeader = req.headers["x-api-key"] as string | undefined;
   const authHeader = req.headers["authorization"] || "";
-  const bearerToken = typeof authHeader === "string" ? authHeader.replace(/^Bearer\s+/i, "") : "";
+  const bearerToken =
+    typeof authHeader === "string" ? authHeader.replace(/^Bearer\s+/i, "") : "";
 
   if (bearerToken && validateToken(bearerToken)) {
     next();
@@ -78,7 +85,12 @@ function authMiddleware(req: express.Request, res: express.Response, next: expre
     return;
   }
 
-  res.status(401).json({ error: "Unauthorized. Provide MCP_API_KEY via X-Api-Key header or Bearer token." });
+  res
+    .status(401)
+    .json({
+      error:
+        "Unauthorized. Provide MCP_API_KEY via X-Api-Key header or Bearer token.",
+    });
 }
 
 // ─── Health ───────────────────────────────────────────────────────────────────
@@ -90,7 +102,9 @@ app.get("/health", (_req, res) => {
 // ─── OAuth 2.0 endpoints ──────────────────────────────────────────────────────
 
 app.get("/.well-known/oauth-authorization-server", (_req, res) => {
-  const base = process.env.PUBLIC_URL || `http://localhost:${PORT}`;
+  const base =
+    process.env.PUBLIC_URL ||
+    `https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev:${PORT}`;
   res.json({
     issuer: base,
     authorization_endpoint: `${base}/oauth/authorize`,
@@ -109,20 +123,37 @@ app.post("/oauth/register", (req, res) => {
     [key: string]: unknown;
   };
 
-  const redirectUris: string[] = Array.isArray(body.redirect_uris) ? body.redirect_uris : [];
+  const redirectUris: string[] = Array.isArray(body.redirect_uris)
+    ? body.redirect_uris
+    : [];
   if (redirectUris.length === 0) {
-    res.status(400).json({ error: "invalid_client_metadata", error_description: "redirect_uris is required" });
+    res
+      .status(400)
+      .json({
+        error: "invalid_client_metadata",
+        error_description: "redirect_uris is required",
+      });
     return;
   }
 
   for (const uri of redirectUris) {
-    try { new URL(uri); } catch {
-      res.status(400).json({ error: "invalid_client_metadata", error_description: `Invalid redirect_uri: ${uri}` });
+    try {
+      new URL(uri);
+    } catch {
+      res
+        .status(400)
+        .json({
+          error: "invalid_client_metadata",
+          error_description: `Invalid redirect_uri: ${uri}`,
+        });
       return;
     }
   }
 
-  const { clientId, clientSecret } = registerClient(body.client_name || "Claude.ai", redirectUris);
+  const { clientId, clientSecret } = registerClient(
+    body.client_name || "Claude.ai",
+    redirectUris,
+  );
 
   const base = process.env.PUBLIC_URL || `http://localhost:${PORT}`;
   res.status(201).json({
@@ -138,7 +169,10 @@ app.post("/oauth/register", (req, res) => {
 });
 
 app.get("/oauth/authorize", (req, res) => {
-  const { client_id, redirect_uri, response_type, state } = req.query as Record<string, string>;
+  const { client_id, redirect_uri, response_type, state } = req.query as Record<
+    string,
+    string
+  >;
 
   if (response_type !== "code") {
     res.status(400).json({ error: "unsupported_response_type" });
@@ -149,11 +183,21 @@ app.get("/oauth/authorize", (req, res) => {
     return;
   }
   if (!redirect_uri) {
-    res.status(400).json({ error: "invalid_request", error_description: "redirect_uri is required" });
+    res
+      .status(400)
+      .json({
+        error: "invalid_request",
+        error_description: "redirect_uri is required",
+      });
     return;
   }
   if (!isAllowedRedirectUri(client_id, redirect_uri)) {
-    res.status(400).json({ error: "invalid_request", error_description: "redirect_uri not registered for this client" });
+    res
+      .status(400)
+      .json({
+        error: "invalid_request",
+        error_description: "redirect_uri not registered for this client",
+      });
     return;
   }
 
@@ -203,11 +247,21 @@ app.post("/oauth/authorize", (req, res) => {
     return;
   }
   if (!redirect_uri) {
-    res.status(400).json({ error: "invalid_request", error_description: "redirect_uri is required" });
+    res
+      .status(400)
+      .json({
+        error: "invalid_request",
+        error_description: "redirect_uri is required",
+      });
     return;
   }
   if (!isAllowedRedirectUri(client_id, redirect_uri)) {
-    res.status(400).json({ error: "invalid_request", error_description: "redirect_uri not registered for this client" });
+    res
+      .status(400)
+      .json({
+        error: "invalid_request",
+        error_description: "redirect_uri not registered for this client",
+      });
     return;
   }
 
@@ -215,7 +269,12 @@ app.post("/oauth/authorize", (req, res) => {
   try {
     redirectUrl = new URL(redirect_uri);
   } catch {
-    res.status(400).json({ error: "invalid_request", error_description: "redirect_uri is not a valid URL" });
+    res
+      .status(400)
+      .json({
+        error: "invalid_request",
+        error_description: "redirect_uri is not a valid URL",
+      });
     return;
   }
 
@@ -227,7 +286,8 @@ app.post("/oauth/authorize", (req, res) => {
 });
 
 app.post("/oauth/token", (req, res) => {
-  const { grant_type, client_id, client_secret, code, redirect_uri } = req.body as Record<string, string>;
+  const { grant_type, client_id, client_secret, code, redirect_uri } =
+    req.body as Record<string, string>;
 
   if (grant_type !== "authorization_code") {
     res.status(400).json({ error: "unsupported_grant_type" });
@@ -238,7 +298,14 @@ app.post("/oauth/token", (req, res) => {
     return;
   }
 
-  const token = exchangeCode(code, client_id, client_secret, redirect_uri, STATIC_CLIENT_ID, STATIC_CLIENT_SECRET);
+  const token = exchangeCode(
+    code,
+    client_id,
+    client_secret,
+    redirect_uri,
+    STATIC_CLIENT_ID,
+    STATIC_CLIENT_SECRET,
+  );
   if (!token) {
     res.status(400).json({ error: "invalid_grant" });
     return;
@@ -250,7 +317,9 @@ app.post("/oauth/token", (req, res) => {
 // ─── MCP endpoint ─────────────────────────────────────────────────────────────
 
 app.all("/mcp", authMiddleware, async (req, res) => {
-  const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
+  const transport = new StreamableHTTPServerTransport({
+    sessionIdGenerator: undefined,
+  });
   const mcp = createMcpServer();
   try {
     await mcp.connect(transport);
@@ -269,8 +338,12 @@ app.all("/mcp", authMiddleware, async (req, res) => {
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`[MCP] Content-pages MCP server running on port ${PORT}`);
   console.log(`[MCP] Endpoint: http://0.0.0.0:${PORT}/mcp`);
-  console.log(`[MCP] Auth: API key required (X-Api-Key header) or OAuth 2.0 Bearer token`);
+  console.log(
+    `[MCP] Auth: API key required (X-Api-Key header) or OAuth 2.0 Bearer token`,
+  );
   console.log(`[MCP] OAuth: http://0.0.0.0:${PORT}/oauth/authorize`);
-  console.log(`[MCP] OAuth registration: http://0.0.0.0:${PORT}/oauth/register`);
+  console.log(
+    `[MCP] OAuth registration: http://0.0.0.0:${PORT}/oauth/register`,
+  );
   console.log(`[MCP] Health: http://0.0.0.0:${PORT}/health`);
 });
