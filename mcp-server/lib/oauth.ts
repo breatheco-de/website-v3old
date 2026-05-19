@@ -44,6 +44,19 @@ function persistClients(): void {
   }
 }
 
+function ensureDataDir(): void {
+  try {
+    const dir = path.dirname(CLIENTS_FILE);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    if (!fs.existsSync(CLIENTS_FILE)) {
+      fs.writeFileSync(CLIENTS_FILE, "{}\n", "utf-8");
+    }
+  } catch (err) {
+    console.warn("[MCP] OAuth: could not create oauth-clients.json —", (err as Error).message);
+  }
+}
+
+ensureDataDir();
 loadClients();
 
 export function registerClient(

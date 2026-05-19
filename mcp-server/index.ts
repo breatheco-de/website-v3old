@@ -38,6 +38,14 @@ function isValidClient(clientId: string): boolean {
   return !!(STATIC_CLIENT_ID && clientId === STATIC_CLIENT_ID);
 }
 
+function isAllowedRedirectUri(clientId: string, redirectUri: string): boolean {
+  const registered = lookupClient(clientId);
+  if (registered) {
+    return registered.redirectUris.includes(redirectUri);
+  }
+  return true;
+}
+
 // ─── MCP server factory ───────────────────────────────────────────────────────
 
 function createMcpServer(): McpServer {
@@ -144,6 +152,10 @@ app.get("/oauth/authorize", (req, res) => {
     res.status(400).json({ error: "invalid_request", error_description: "redirect_uri is required" });
     return;
   }
+  if (!isAllowedRedirectUri(client_id, redirect_uri)) {
+    res.status(400).json({ error: "invalid_request", error_description: "redirect_uri not registered for this client" });
+    return;
+  }
 
   const stateField = state
     ? `<input type="hidden" name="state" value="${escapeHtml(state)}">`
@@ -192,6 +204,10 @@ app.post("/oauth/authorize", (req, res) => {
   }
   if (!redirect_uri) {
     res.status(400).json({ error: "invalid_request", error_description: "redirect_uri is required" });
+    return;
+  }
+  if (!isAllowedRedirectUri(client_id, redirect_uri)) {
+    res.status(400).json({ error: "invalid_request", error_description: "redirect_uri not registered for this client" });
     return;
   }
 
