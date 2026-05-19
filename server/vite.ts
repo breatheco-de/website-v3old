@@ -77,6 +77,14 @@ export async function setupVite(app: Express, server: Server) {
     allowedHosts: true as const,
   };
 
+  // The project root is always one level above this server/ file.
+  // We derive it from import.meta.dirname here (in the *server* file) rather than
+  // relying on the aliases baked into vite.config.ts, because in the deployed
+  // environment vite.config may be compiled to dist/vite.config.js whose
+  // import.meta.dirname is dist/ — causing every @ alias to resolve to
+  // dist/client/src instead of <root>/client/src.
+  const projectRoot = path.resolve(import.meta.dirname, "..");
+
   // vite.config.ts exports an async factory (defineConfig with isSsrBuild flag).
   // We must call it to get the resolved config object before spreading.
   const resolvedViteConfig = typeof viteConfig === "function"
@@ -86,6 +94,17 @@ export async function setupVite(app: Express, server: Server) {
   const vite = await createViteServer({
     ...resolvedViteConfig,
     configFile: false,
+    // Always override root and resolve.alias with project-root-relative paths so
+    // they are correct regardless of where vite.config was loaded from.
+    root: path.resolve(projectRoot, "client"),
+    resolve: {
+      ...(resolvedViteConfig?.resolve ?? {}),
+      alias: {
+        "@": path.resolve(projectRoot, "client", "src"),
+        "@shared": path.resolve(projectRoot, "shared"),
+        "@assets": path.resolve(projectRoot, "attached_assets"),
+      },
+    },
     customLogger: {
       ...viteLogger,
       error: (msg, options) => {
