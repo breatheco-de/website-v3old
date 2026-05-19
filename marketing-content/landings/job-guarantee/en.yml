@@ -260,13 +260,13 @@ sections:
         title: 1. Add the Job Guarantee When You Enroll
         description: Top-ranked bootcamp
       - icon: Wallet
-        title: Affordable Tuition
+        title: 2. Complete the Program and Graduate
         description: Flexible payments
       - icon: Clock
-        title: Flexible Schedule
+        title: 3. Follow the Career Development Process
         description: Part-time available
       - icon: Users
-        title: Career Support
+        title: 4. Get Hired Within 9 Months, or Get 100% of Your Tuition Back
         description: Unlimited mentorship
     background: bg-muted/30
     section_id: features_quad-bnzlw6
