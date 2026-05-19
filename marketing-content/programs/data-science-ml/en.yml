@@ -25,18 +25,18 @@ sections:
     variant: course
     title: Data Science and Machine Learning
     title_highlight: Data Science
-    subtitle: Master the skills powering the AI revolution. Learn to analyze data and build models that drive real-world decisions.
+    subtitle: Data Science and ML are among the fastest-growing careers through 2030. Our intensive program is built to get you hired, backed by an AI-first methodology, unlimited 1:1 mentorship, and lifelong career support.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
         - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
-      count: +500 students enrolled
+      count: +6000 graduates
     bullet_points:
-      - Transform raw data into clear insights and predictive models, step by step.
-      - Master Python, SQL, and AI tools to analyze information and automate decisions.
-      - Integrate Machine Learning into business systems to drive real results.
+      - Build and deploy ML models end to end, from raw data to live application.
+      - Work with AI tools and coding agents to analyze, model, and automate faster.
+      - Graduate with a production-ready DS and ML portfolio that gets you hired.
     tutors:
       - name: Charly Chacón
         role: Main Instructor
@@ -45,7 +45,7 @@ sections:
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
-    description: Get job-ready for in-demand data science and machine learning roles through hands-on projects, unlimited mentorship, and career support that's built to get you hired.
+    description: Named Forbes Advisor's Best Online Data Science Program with a Job Guarantee, 2025. Graduates land roles paying $80K–$150K+.
     video:
       url: https://youtu.be/snI-n8Ruvxg
     media:
@@ -55,9 +55,9 @@ sections:
       alt: Data Science program introduction
     signup_card:
       title: Get the Full Program Overview
-      description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
+      description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, financing options and more. It takes 2 minutes."
       cta_button:
-        text: Send me the details
+        text: Send Me the Details
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -66,16 +66,14 @@ sections:
       features:
         - icon: calendar
           text: {{ global.data_science_week_duration | 18 }}-week intensive program
-        - icon: IconBriefcase
-          text: Employment-first curriculum
-        - icon: IconRobot
-          text: AI-Powered learning & feedback
+        - icon: IconShield
+          text: Optional Job Guarantee (available as add-on)
         - icon: IconUsers
           text: {{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
-          text: Unlimited 1:1 mentorship
-        - icon: book
-          text: Real-world DS & ML portfolio
+          text: Unlimited 1:1 Mentorship
+        - icon: IconRobot
+          text: AI-Powered Learning & Feedback
     paddingY:
       desktop: md
     marginY:
