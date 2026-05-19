@@ -4,20 +4,38 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { registerPageTools } from "./tools/pages.js";
 import { registerComponentTools } from "./tools/components.js";
-import { generateCode, exchangeCode, validateToken } from "./lib/oauth.js";
+import {
+  registerClient,
+  lookupClient,
+  generateCode,
+  exchangeCode,
+  validateToken,
+} from "./lib/oauth.js";
 
 const PORT = parseInt(process.env.MCP_PORT || "3001", 10);
 const API_KEY = process.env.MCP_API_KEY || "";
-const OAUTH_CLIENT_ID = process.env.OAUTH_CLIENT_ID || "";
-const OAUTH_CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET || "";
+const STATIC_CLIENT_ID = process.env.OAUTH_CLIENT_ID || "";
+const STATIC_CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET || "";
 
 if (!API_KEY) {
   console.error("[MCP] FATAL: MCP_API_KEY environment variable is not set. Set it before starting the server.");
   process.exit(1);
 }
 
-if (!OAUTH_CLIENT_ID || !OAUTH_CLIENT_SECRET) {
-  console.warn("[MCP] WARNING: OAUTH_CLIENT_ID or OAUTH_CLIENT_SECRET is not set. OAuth 2.0 connector flow will not work.");
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;");
+}
+
+function isValidClient(clientId: string): boolean {
+  if (lookupClient(clientId)) return true;
+  return !!(STATIC_CLIENT_ID && clientId === STATIC_CLIENT_ID);
 }
 
 // ─── MCP server factory ───────────────────────────────────────────────────────
@@ -69,9 +87,45 @@ app.get("/.well-known/oauth-authorization-server", (_req, res) => {
     issuer: base,
     authorization_endpoint: `${base}/oauth/authorize`,
     token_endpoint: `${base}/oauth/token`,
+    registration_endpoint: `${base}/oauth/register`,
     response_types_supported: ["code"],
     grant_types_supported: ["authorization_code"],
     token_endpoint_auth_methods_supported: ["client_secret_post"],
+  });
+});
+
+app.post("/oauth/register", (req, res) => {
+  const body = req.body as {
+    client_name?: string;
+    redirect_uris?: string[];
+    [key: string]: unknown;
+  };
+
+  const redirectUris: string[] = Array.isArray(body.redirect_uris) ? body.redirect_uris : [];
+  if (redirectUris.length === 0) {
+    res.status(400).json({ error: "invalid_client_metadata", error_description: "redirect_uris is required" });
+    return;
+  }
+
+  for (const uri of redirectUris) {
+    try { new URL(uri); } catch {
+      res.status(400).json({ error: "invalid_client_metadata", error_description: `Invalid redirect_uri: ${uri}` });
+      return;
+    }
+  }
+
+  const { clientId, clientSecret } = registerClient(body.client_name || "Claude.ai", redirectUris);
+
+  const base = process.env.PUBLIC_URL || `http://localhost:${PORT}`;
+  res.status(201).json({
+    client_id: clientId,
+    client_secret: clientSecret,
+    client_name: body.client_name || "Claude.ai",
+    redirect_uris: redirectUris,
+    grant_types: ["authorization_code"],
+    response_types: ["code"],
+    token_endpoint_auth_method: "client_secret_post",
+    registration_client_uri: `${base}/oauth/register/${clientId}`,
   });
 });
 
@@ -82,7 +136,7 @@ app.get("/oauth/authorize", (req, res) => {
     res.status(400).json({ error: "unsupported_response_type" });
     return;
   }
-  if (!client_id || client_id !== OAUTH_CLIENT_ID) {
+  if (!client_id || !isValidClient(client_id)) {
     res.status(400).json({ error: "invalid_client" });
     return;
   }
@@ -132,7 +186,7 @@ app.get("/oauth/authorize", (req, res) => {
 app.post("/oauth/authorize", (req, res) => {
   const { client_id, redirect_uri, state } = req.body as Record<string, string>;
 
-  if (!client_id || client_id !== OAUTH_CLIENT_ID) {
+  if (!client_id || !isValidClient(client_id)) {
     res.status(400).json({ error: "invalid_client" });
     return;
   }
@@ -168,7 +222,7 @@ app.post("/oauth/token", (req, res) => {
     return;
   }
 
-  const token = exchangeCode(code, client_id, client_secret, redirect_uri, OAUTH_CLIENT_ID, OAUTH_CLIENT_SECRET);
+  const token = exchangeCode(code, client_id, client_secret, redirect_uri, STATIC_CLIENT_ID, STATIC_CLIENT_SECRET);
   if (!token) {
     res.status(400).json({ error: "invalid_grant" });
     return;
@@ -201,16 +255,6 @@ app.listen(PORT, "0.0.0.0", () => {
   console.log(`[MCP] Endpoint: http://0.0.0.0:${PORT}/mcp`);
   console.log(`[MCP] Auth: API key required (X-Api-Key header) or OAuth 2.0 Bearer token`);
   console.log(`[MCP] OAuth: http://0.0.0.0:${PORT}/oauth/authorize`);
+  console.log(`[MCP] OAuth registration: http://0.0.0.0:${PORT}/oauth/register`);
   console.log(`[MCP] Health: http://0.0.0.0:${PORT}/health`);
 });
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#x27;");
-}

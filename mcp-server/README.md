@@ -34,9 +34,9 @@ The MCP server starts automatically alongside the main app via the **MCP Server*
 |---|---|---|
 | `MCP_API_KEY` | _(none)_ | API key for auth. Required — server exits without it. |
 | `MCP_PORT` | `3001` | Port the MCP server listens on. |
-| `OAUTH_CLIENT_ID` | _(none)_ | OAuth 2.0 Client ID for the Claude.ai connector flow. |
-| `OAUTH_CLIENT_SECRET` | _(none)_ | OAuth 2.0 Client Secret for the Claude.ai connector flow. |
 | `PUBLIC_URL` | `http://localhost:<port>` | Public base URL used in OAuth metadata. Set this to the deployed URL (e.g. `https://your-project.replit.app`). |
+| `OAUTH_CLIENT_ID` | _(none)_ | Optional static Client ID for the legacy pre-configured OAuth flow. Not needed when using dynamic registration (Claude.ai default). |
+| `OAUTH_CLIENT_SECRET` | _(none)_ | Optional static Client Secret for the legacy pre-configured OAuth flow. |
 
 Set all secrets in the Replit **Secrets** tab (or `.env` locally).
 
@@ -76,18 +76,17 @@ Restart Claude Desktop after saving.
 
 ## Connect via Claude.ai (OAuth 2.0)
 
-Claude.ai's custom connector UI only accepts OAuth 2.0 credentials — it has no field for a raw API key header. Follow these steps to connect:
+Claude.ai uses **dynamic client registration** (RFC 7591) — it registers itself automatically when you add the connector URL. No secrets need to be pre-configured.
 
-### 1. Set OAuth secrets
+### 1. Set the public URL secret
 
-In the Replit **Secrets** tab, add two new secrets:
+In the Replit **Secrets** tab, add:
 
 | Secret | Value |
 |---|---|
-| `OAUTH_CLIENT_ID` | Any string you invent, e.g. `claude-connector` |
-| `OAUTH_CLIENT_SECRET` | A strong random secret, e.g. from `openssl rand -hex 32` |
+| `PUBLIC_URL` | Your deployed URL, e.g. `https://your-project.replit.app` |
 
-The MCP server will print a warning at startup if these are not set, but it will still serve `X-Api-Key` requests normally.
+This tells the OAuth metadata endpoint what base URL to advertise to Claude.ai.
 
 ### 2. Deploy the project
 
@@ -97,16 +96,14 @@ Anthropic's cloud must be able to reach your server from the internet. Deploy th
 
 1. Go to **Claude.ai → Settings → Connectors** and click **+**.
 2. Enter the **Connector URL**: `https://your-project.replit.app/mcp`
-3. When prompted for OAuth credentials enter:
-   - **Client ID**: the value you set for `OAUTH_CLIENT_ID`
-   - **Client Secret**: the value you set for `OAUTH_CLIENT_SECRET`
-4. Claude.ai will redirect your browser to the MCP server's consent page.
-5. Click **Allow** on the consent page.
+3. Claude.ai will automatically register itself with the server (no credentials to enter).
+4. Your browser is redirected to the MCP server's consent page.
+5. Click **Allow**.
 6. You are redirected back to Claude.ai and the connector is now active.
 
 The connector is now available in conversations via the **+** button.
 
-> **Note**: Access tokens are long-lived and stored in memory. Restarting the MCP server will invalidate all existing tokens — repeat the OAuth flow to reconnect.
+> **Restart behaviour**: Registered clients are persisted to `mcp-server/data/oauth-clients.json` and survive server restarts. However, access tokens are in-memory only — after a restart, Claude.ai will automatically re-exchange its token on the next request. If that fails, disconnect and re-add the connector to repeat the OAuth flow.
 
 ## Connect via claude.com (API key header — legacy)
 
