@@ -8011,6 +8011,20 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
   });
 
+  app.post("/api/content/mark-modified", (req, res) => {
+    try {
+      const { path: filePath } = req.body as { path?: string };
+      if (!filePath || typeof filePath !== "string") {
+        res.status(400).json({ error: "path is required" });
+        return;
+      }
+      markFileAsModified(filePath);
+      res.json({ ok: true });
+    } catch (err) {
+      res.status(500).json({ error: err instanceof Error ? err.message : "Unknown error" });
+    }
+  });
+
   app.post("/api/content/edit-common", async (req, res) => {
     try {
       const isDevelopment = process.env.NODE_ENV !== "production";

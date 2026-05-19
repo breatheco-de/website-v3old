@@ -388,6 +388,12 @@ export function detectPendingChanges(): PendingChange[] {
       
       const { contentType, slug } = parseContentPath(filePath);
       
+      // Safety net: if the current content already matches the stored remoteSha,
+      // the file is in sync with the remote — skip it regardless of stale local state.
+      if (storedInfo?.remoteSha && storedInfo.remoteSha === currentSha) {
+        continue;
+      }
+
       if (!storedInfo || !storedInfo.remoteSha) {
         changesMap.set(filePath, {
           file: filePath,

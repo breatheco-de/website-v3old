@@ -19,6 +19,23 @@ import { assertSafeSegment, assertSafeLocale, assertWithinBase } from "../lib/sa
 const MAIN_SERVER_PORT = process.env.PORT || "5000";
 
 /**
+ * Notify the main server that a file has been modified so it is enqueued
+ * in the auto-commit debounce queue (same path as UI edits).
+ */
+async function notifyMarkModified(relativePath: string): Promise<void> {
+  try {
+    const url = `http://localhost:${MAIN_SERVER_PORT}/api/content/mark-modified`;
+    await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ path: relativePath }),
+    });
+  } catch {
+    // Non-fatal: auto-commit won't pick it up, but the file is still written.
+  }
+}
+
+/**
  * Check whether a file has a remote conflict before writing it.
  * Returns conflict info (including remote content) if a conflict is detected,
  * or null if it's safe to proceed.
@@ -182,6 +199,7 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
       }
 
       fs.writeFileSync(filePath, intendedContent, "utf-8");
+      await notifyMarkModified(relativePath);
       return { content: [{ type: "text", text: `Updated '${fieldPath}' in ${resolved.contentType}/${slug}/${fileName}` }] };
     }
   );
@@ -237,6 +255,7 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
       }
 
       fs.writeFileSync(filePath, intendedContent, "utf-8");
+      await notifyMarkModified(relativePath);
       const count = Object.keys(fields).length;
       return { content: [{ type: "text", text: `Updated ${count} field${count !== 1 ? "s" : ""} in ${resolved.contentType}/${slug}/${fileName}` }] };
     }
@@ -287,9 +306,13 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
       if (meta) localeData.meta = meta;
       const localeFilePath = path.join(pageDir, `${locale}.yml`);
       fs.writeFileSync(localeFilePath, safeDump(localeData), "utf-8");
+      const localeRelPath = `marketing-content/${getDirectory(contentType, config)}/${slug}/${locale}.yml`;
+      await notifyMarkModified(localeRelPath);
 
       const commonData: Record<string, unknown> = { slug, ...(common || {}) };
       fs.writeFileSync(path.join(pageDir, "_common.yml"), safeDump(commonData), "utf-8");
+      const commonRelPath = `marketing-content/${getDirectory(contentType, config)}/${slug}/_common.yml`;
+      await notifyMarkModified(commonRelPath);
 
       const urlPattern = config.url_pattern;
       let urls: Record<string, string> | undefined;
@@ -367,6 +390,7 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
       }
 
       fs.writeFileSync(localePath, intendedContent, "utf-8");
+      await notifyMarkModified(relativePath);
       return { content: [{ type: "text", text: `Section of type '${section.type}' added at index ${insertAt} in ${resolved.contentType}/${slug}/${locale}.yml` }] };
     }
   );
@@ -426,6 +450,7 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
       }
 
       fs.writeFileSync(localePath, intendedContent, "utf-8");
+      await notifyMarkModified(relativePath);
       return { content: [{ type: "text", text: `Removed section at index ${index} (type: ${removed?.type ?? "unknown"}) from ${resolved.contentType}/${slug}/${locale}.yml` }] };
     }
   );
@@ -492,6 +517,7 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
       }
 
       fs.writeFileSync(localePath, intendedContent, "utf-8");
+      await notifyMarkModified(relativePath);
       return { content: [{ type: "text", text: `Sections reordered in ${resolved.contentType}/${slug}/${locale}.yml` }] };
     }
   );
