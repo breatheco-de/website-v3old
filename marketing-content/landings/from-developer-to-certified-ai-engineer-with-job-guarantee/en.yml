@@ -812,7 +812,7 @@ sections:
       desktop: none lg
     paddingY:
       desktop: none
-    background: hsl(var(--card))
+    background: hsl(var(--muted))
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work
