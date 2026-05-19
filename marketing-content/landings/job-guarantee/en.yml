@@ -420,7 +420,7 @@ sections:
     marginY:
       desktop: none xl
     paddingY:
-      desktop: md none
+      desktop: lg none
   - type: human_and_ai_duo
     section_id: human_and_ai_duo-zg16oa
     version: "1.0"
