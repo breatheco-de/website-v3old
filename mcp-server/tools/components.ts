@@ -82,12 +82,15 @@ export function registerComponentTools(mcp: McpServer): void {
         return { content: [{ type: "text", text: `Failed to reach main server at ${url}: ${(err as Error).message}` }], isError: true };
       }
 
-      if (responseBody!.success) {
-        const hashNote = responseBody!.commitHash ? ` (${responseBody!.commitHash.slice(0, 7)})` : "";
+      if (!responseBody) {
+        return { content: [{ type: "text", text: "Commit failed: empty response from server." }], isError: true };
+      }
+      if (responseBody.success) {
+        const hashNote = responseBody.commitHash ? ` (${responseBody.commitHash.slice(0, 7)})` : "";
         return { content: [{ type: "text", text: `Changes committed to GitHub successfully${hashNote}.` }] };
       }
 
-      return { content: [{ type: "text", text: `Commit failed: ${responseBody!.error ?? "Unknown error"}` }], isError: true };
+      return { content: [{ type: "text", text: `Commit failed: ${responseBody.error ?? "Unknown error"}` }], isError: true };
     }
   );
 }

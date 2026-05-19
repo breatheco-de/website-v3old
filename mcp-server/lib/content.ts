@@ -192,6 +192,9 @@ export function setValueAtPath(obj: Record<string, unknown>, pathStr: string, va
 }
 
 // ─── Component registry helpers ───────────────────────────────────────────────
+// Kept in lib/content.ts alongside page helpers because both operate on the
+// same marketing-content/ tree and share safeLoad/safeDump. Tools that need
+// them import from here rather than from tools/components.ts to avoid cycles.
 
 export interface ComponentInfo {
   type: string;
