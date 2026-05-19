@@ -67,7 +67,7 @@ sections:
         - icon: calendar
           text: {{ global.data_science_week_duration | 18 }}-week intensive program
         - icon: IconShield
-          text: Optional Job Guarantee (available as add-on)
+          text: Optional Job Guarantee
         - icon: IconUsers
           text: {{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
