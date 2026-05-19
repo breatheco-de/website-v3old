@@ -93,6 +93,23 @@ function getDirectory(contentType: string, config: ContentTypeConfig): string {
   return config.directory || contentType;
 }
 
+function resolveContentType(slug: string, hintContentType?: string): { contentType: string; config: ContentTypeConfig } | null {
+  const configs = loadContentTypes();
+  if (hintContentType) {
+    const config = configs[hintContentType];
+    if (!config || isDbBacked(config)) return null;
+    const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(hintContentType, config), slug);
+    if (fs.existsSync(dir)) return { contentType: hintContentType, config };
+    return null;
+  }
+  for (const [ct, config] of Object.entries(configs)) {
+    if (isDbBacked(config)) continue;
+    const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(ct, config), slug);
+    if (fs.existsSync(dir)) return { contentType: ct, config };
+  }
+  return null;
+}
+
 // ─── Page helpers ─────────────────────────────────────────────────────────────
 
 interface PageEntry {
@@ -306,64 +323,67 @@ function createMcpServer(): McpServer {
   // get_page
   mcp.tool(
     "get_page",
-    "Get the full merged content of a page (sections, meta, title). Merges _common.yml with the locale file.",
+    "Get the full merged content of a page (sections, meta, title). Merges _common.yml with the locale file. contentType is optional — omit it and the server will auto-detect it from the slug.",
     {
-      contentType: z.string().describe("Content type (e.g. 'page', 'program', 'landing')"),
-      slug: z.string().describe("Page slug (folder name)"),
+      slug: z.string().describe("Page slug (folder name), e.g. 'home' or 'full-stack-developer'"),
       locale: z.string().default("en").describe("Locale code, e.g. 'en' or 'es'"),
+      contentType: z.string().optional().describe("Content type hint (e.g. 'page', 'program'). Omit to auto-detect from slug."),
     },
-    async ({ contentType, slug, locale }) => {
+    async ({ slug, locale, contentType }) => {
       try {
-        assertSafeSegment(contentType, "contentType");
         assertSafeSegment(slug, "slug");
         assertSafeLocale(locale);
+        if (contentType) assertSafeSegment(contentType, "contentType");
       } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
-      const result = loadPage(contentType, slug, locale);
-      if (!result) {
-        return { content: [{ type: "text", text: `Page not found: ${contentType}/${slug}/${locale}` }], isError: true };
+      const resolved = resolveContentType(slug, contentType);
+      if (!resolved) {
+        return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
       }
-      return { content: [{ type: "text", text: JSON.stringify(result.data, null, 2) }] };
+      const result = loadPage(resolved.contentType, slug, locale);
+      if (!result) {
+        return { content: [{ type: "text", text: `Locale '${locale}' not found for page '${slug}' (contentType: ${resolved.contentType})` }], isError: true };
+      }
+      return { content: [{ type: "text", text: JSON.stringify({ contentType: resolved.contentType, slug, locale, ...result.data }, null, 2) }] };
     }
   );
 
   // update_field
   mcp.tool(
     "update_field",
-    "Update a single field in a page's locale YAML file using dot-notation path. E.g. field_path='meta.page_title', value='New Title'",
+    "Update a single field in a page's locale YAML file using dot-notation field_path. E.g. field_path='meta.page_title', value='New Title'. contentType is optional — omit it and the server will auto-detect from slug.",
     {
-      contentType: z.string().describe("Content type"),
       slug: z.string().describe("Page slug"),
       locale: z.string().default("en").describe("Locale code"),
       field_path: z.string().describe("Dot-notation field path, e.g. 'meta.page_title' or 'sections.0.title'"),
       value: z.unknown().describe("New value for the field"),
+      contentType: z.string().optional().describe("Content type hint. Omit to auto-detect from slug."),
     },
-    async ({ contentType, slug, locale, field_path: fieldPath, value }) => {
+    async ({ slug, locale, field_path: fieldPath, value, contentType }) => {
       try {
-        assertSafeSegment(contentType, "contentType");
         assertSafeSegment(slug, "slug");
         assertSafeLocale(locale);
+        if (contentType) assertSafeSegment(contentType, "contentType");
       } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
-      const configs = loadContentTypes();
-      const config = configs[contentType];
-      if (!config || isDbBacked(config)) {
-        return { content: [{ type: "text", text: `Content type '${contentType}' not found or is database-backed.` }], isError: true };
+      const resolved = resolveContentType(slug, contentType);
+      if (!resolved) {
+        return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
       }
-      const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(contentType, config), slug);
+      const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
       const localePath = path.join(dir, `${locale}.yml`);
       try { assertWithinBase(localePath, MARKETING_CONTENT_PATH); } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
       if (!fs.existsSync(localePath)) {
-        return { content: [{ type: "text", text: `Locale file not found: ${contentType}/${slug}/${locale}.yml` }], isError: true };
+        return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${locale}.yml` }], isError: true };
       }
       const localeData = safeLoad(fs.readFileSync(localePath, "utf-8")) || {};
       setValueAtPath(localeData, fieldPath, value);
       fs.writeFileSync(localePath, safeDump(localeData), "utf-8");
-      return { content: [{ type: "text", text: `Updated '${fieldPath}' in ${contentType}/${slug}/${locale}.yml` }] };
+      return { content: [{ type: "text", text: `Updated '${fieldPath}' in ${resolved.contentType}/${slug}/${locale}.yml` }] };
     }
   );
 
@@ -525,16 +545,20 @@ function createMcpServer(): McpServer {
       componentType: z.string().describe("Component type name, e.g. 'faq', 'hero', 'two_column'"),
     },
     async ({ componentType }) => {
+      try {
+        assertSafeSegment(componentType, "componentType");
+      } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
+      const componentPath = path.join(COMPONENT_REGISTRY_PATH, componentType);
+      try { assertWithinBase(componentPath, COMPONENT_REGISTRY_PATH); } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
       const { schema, examples } = getComponentSchema(componentType);
       if (!schema) {
         return { content: [{ type: "text", text: `Component '${componentType}' not found in registry.` }], isError: true };
       }
-      const result = {
-        componentType,
-        schema,
-        examples,
-      };
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify({ componentType, schema, examples }, null, 2) }] };
     }
   );
 

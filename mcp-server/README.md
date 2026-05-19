@@ -17,11 +17,11 @@ An MCP (Model Context Protocol) server that gives Claude read and write access t
 
 ## Auth
 
-All endpoints are protected by an API key when `MCP_API_KEY` is set. Pass it via:
+All `/mcp` requests require an API key. **`MCP_API_KEY` must be set** — the server will refuse to start without it. Pass the key via:
 - `X-Api-Key: <key>` header, or
 - `Authorization: Bearer <key>` header
 
-If `MCP_API_KEY` is not set the server runs without auth (development only).
+The `/health` endpoint is open without auth.
 
 ## Running locally
 
