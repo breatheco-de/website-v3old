@@ -63,7 +63,7 @@ sections:
           text: 6-Week Professional AI Program
         - icon: IconRobot
           text: Practical AI Skills for Real Work
-        - icon: IconBriefcase
+        - icon: briefcase-business
           text: Career-Relevant, Productivity-Focused Training
         - icon: IconUsers
           text: Hyper-Personalized Learning Experience
@@ -245,7 +245,7 @@ sections:
     title: How You’ll Learn at 4Geeks
     description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.
     features:
-      - icon: Robot
+      - icon: bot
         title: Progress faster with AI-powered tools
         description: ""
         show_rigobot_logo: true

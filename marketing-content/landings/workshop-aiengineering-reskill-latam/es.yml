@@ -44,7 +44,7 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: ¡Reservar mi lugar!
-      tags: website-lead
+      tags: ai-engineering-event-iberoamerica
       automations: webinar
       fields:
         email:

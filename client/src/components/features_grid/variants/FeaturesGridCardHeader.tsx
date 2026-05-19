@@ -1,10 +1,8 @@
-
-import { useState } from "react";
+import { useState, createElement } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import * as LucideIcons from "lucide-react";
-import { Check, LucideIcon } from "lucide-react";
-import { getCustomIcon } from "@/components/custom-icons";
+import { Check } from "lucide-react";
+import { getIcon, isCustomIcon } from "@/lib/icons";
 import type { FeaturesGridCardHeaderSection } from "@shared/schema";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { UniversalImage } from "@/components/UniversalImage";
@@ -94,10 +92,9 @@ export default function FeaturesGridCardHeader({ data }: FeaturesGridCardHeaderP
 
         <div className="grid md:grid-cols-3 gap-4">
           {data.cards.map((card, index) => {
-            const CustomIcon = card.icon ? getCustomIcon(card.icon) : null;
-            const iconName = card.icon ? `Icon${card.icon}` : "Check";
-            const LucideIcon = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[iconName] || Check;
-            
+            const IconComponent = card.icon ? (getIcon(card.icon) ?? Check) : Check;
+            const isCustom = card.icon ? isCustomIcon(card.icon) : false;
+
             return (
               <Card 
                 key={index} 
@@ -105,11 +102,15 @@ export default function FeaturesGridCardHeader({ data }: FeaturesGridCardHeaderP
                 data-testid={`card-feature-${index}`}
               >
                 <CardContent className="p-5 flex flex-col items-start gap-3">
-                  {CustomIcon ? (
-                    <CustomIcon width="32" height="32" className="w-8 h-8" />
-                  ) : (
-                    <LucideIcon className="w-8 h-8 text-primary" />
-                  )}
+                  {isCustom
+                    ? createElement(IconComponent, {
+                        width: "32",
+                        height: "32",
+                        className: "w-8 h-8",
+                      })
+                    : createElement(IconComponent, {
+                        className: "w-8 h-8 text-primary",
+                      })}
                   <p className="text-foreground text-sm md:text-base">
                     {card.text}
                   </p>

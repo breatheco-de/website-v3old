@@ -112,7 +112,7 @@ sections:
     title: Real Outcomes for Our Graduates
     subtitle: "These numbers come from real graduates with real jobs. Our Job Guarantee is built around one outcome: getting you hired."
     items:
-      - icon: IconBriefcase
+      - icon: briefcase-business
         value: {{ global.global_job_placement_rate | 84 }}%
         title: Job placement rate
       - icon: IconCalendarTime
@@ -210,7 +210,7 @@ sections:
         title: 2. Complete the Program and Graduate
       - icon: IconChecklist
         title: 3. Follow the Career Development Process
-      - icon: IconBriefcase
+      - icon: briefcase-business
         title: 4. Get Hired Within 9 Months, or Get 100% of Your Tuition Back
     background: hsl(var(--card))
     paddingY:
@@ -229,10 +229,10 @@ sections:
       - icon: School
         heading: Build a Recruiter-Ready Profile
         text: Optimize your LinkedIn, GitHub, and portfolio. Graduate with an ATS-ready resume and a profile that gets responses.
-      - icon: Briefcase
+      - icon: briefcase-business
         heading: Prepare for the Real Interview Process
         text: Master technical and behavioral interviews, practice coding exercises, and walk into every conversation with a clear strategy.
-      - icon: Cash
+      - icon: banknote
         heading: Connect With Companies That Are Hiring
         text: Follow a targeted job search plan and get direct access to 400+ hiring partners actively recruiting 4Geeks graduates.
     background: hsl(210 100% 50% / 0.05)
@@ -248,10 +248,10 @@ sections:
       - icon: School
         heading: Build a Recruiter-Ready Profile
         text: Optimize your LinkedIn, GitHub, and portfolio. Graduate with an ATS-ready resume and a profile that gets responses.
-      - icon: Briefcase
+      - icon: briefcase-business
         heading: Prepare for the Real Interview Process
         text: Master technical and behavioral interviews, practice coding exercises, and walk into every conversation with a clear strategy.
-      - icon: Cash
+      - icon: banknote
         heading: Connect With Companies That Are Hiring
         text: Follow a targeted job search plan and get direct access to 400+ hiring partners actively recruiting 4Geeks graduates.
     section_id: numbered_steps-646rz5
@@ -309,13 +309,13 @@ sections:
     heading: Who Can Add the Job Guarantee?
     description: "The Job Guarantee is available to students who meet these four requirements:"
     cards:
-      - icon: IconBriefcaseFilled
+      - icon: briefcase-business
         title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
-      - icon: IconCircleDashedCheck
+      - icon: badge-check
         title: Complete All Program Requirements
       - icon: IconBrain
         title: Pass the Admissions Logic Test
-      - icon: IconArrowGuideFilled
+      - icon: trending-up
         title: Follow the Full Career Development Process
     section_id: features_quad-ms7uox
     marginY:

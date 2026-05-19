@@ -3,7 +3,7 @@ heading: Learn with AI-Powered Support
 description: Our unique combination of human mentors and AI assistance ensures you never get stuck. Get instant help from Rigobot AI while having access to real mentors when you need deeper guidance.
 video: "https://youtu.be/4n-ZAUPIxJI"
 bullet_groups:
-  - icon: Robot
+  - icon: bot
     title: AI-Powered Learning
     description: Get instant answers and code feedback 24/7 with Rigobot.
     bullets:

@@ -25,18 +25,18 @@ sections:
     variant: course
     title: Data Science and Machine Learning
     title_highlight: Data Science
-    subtitle: Master the skills powering the AI revolution. Learn to analyze data and build models that drive real-world decisions.
+    subtitle: Data Science and ML are among the fastest-growing careers through 2030. Our intensive program is built to get you hired, backed by an AI-first methodology, unlimited 1:1 mentorship, and lifelong career support.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
         - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
-      count: +500 students enrolled
+      count: +6000 graduates
     bullet_points:
-      - Transform raw data into clear insights and predictive models, step by step.
-      - Master Python, SQL, and AI tools to analyze information and automate decisions.
-      - Integrate Machine Learning into business systems to drive real results.
+      - Build and deploy ML models end to end, from raw data to live application.
+      - Work with AI tools and coding agents to analyze, model, and automate faster.
+      - Graduate with a production-ready DS and ML portfolio that gets you hired.
     tutors:
       - name: Charly Chacón
         role: Main Instructor
@@ -45,7 +45,7 @@ sections:
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
-    description: Get job-ready for in-demand data science and machine learning roles through hands-on projects, unlimited mentorship, and career support that's built to get you hired.
+    description: Named Forbes Advisor's Best Online Data Science Program with a Job Guarantee, 2025. Graduates land roles paying $80K–$150K+.
     video:
       url: https://youtu.be/snI-n8Ruvxg
     media:
@@ -55,9 +55,9 @@ sections:
       alt: Data Science program introduction
     signup_card:
       title: Get the Full Program Overview
-      description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
+      description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, financing options and more. It takes 2 minutes."
       cta_button:
-        text: Send me the details
+        text: Send Me the Details
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -66,20 +66,85 @@ sections:
       features:
         - icon: calendar
           text: {{ global.data_science_week_duration | 18 }}-week intensive program
-        - icon: IconBriefcase
-          text: Employment-first curriculum
-        - icon: IconRobot
-          text: AI-Powered learning & feedback
+        - icon: IconShield
+          text: Optional Job Guarantee
         - icon: IconUsers
           text: {{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
-          text: Unlimited 1:1 mentorship
-        - icon: book
-          text: Real-world DS & ML portfolio
+          text: Unlimited 1:1 Mentorship
+        - icon: IconRobot
+          text: AI-Powered Learning & Feedback
     paddingY:
       desktop: md
     marginY:
       desktop: none
+  - type: modal
+    version: "1.0"
+    heading: Request Program Details
+    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
+    show_close: true
+    size: md
+    form:
+      variant: stacked
+      submit_label: Get the Full Overview
+      tags: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          required: true
+          default: datascience-ml
+      success:
+        message: Thank you. A program advisor will reach out with the details within 24 hours.
+    section_id: apply-modal
+  - type: awards_marquee
+    version: v1.0
+    speed: 40
+    gradient: true
+    gradientWidth: 100
+    items:
+      - id: switchup-2025
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        alt: SwitchUp - Best Coding Bootcamps 2025
+        logoHeight: 56px
+      - id: course-report-2024
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+        alt: Course Report - Best Coding Bootcamp 2024
+        logoHeight: 56px
+      - id: tech-hub
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
+        alt: South Florida Tech Hub
+        logoHeight: 56px
+      - id: ebootcamp
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
+        alt: eBootcamp Top
+        logoHeight: 56px
+      - id: premios-tecnologia
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
+        alt: Premios Tecnologia Siglo XXI
+        logoHeight: 56px
+      - id: newsweek
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
+        alt: Newsweek
+        logoHeight: 56px
+      - id: reviews-coursereport
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+        alt: 4.9 on Course Report Reviews
+        logoHeight: 56px
+      - id: excelencia-educativa
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
+        alt: Excelencia Educativa - Institutional Quality
+        logoHeight: 56px
+    section_id: awards_marquee-eh027z
   - type: graduates_stats
     heading: Real Outcomes. Real Numbers.
     subheading: 6,000+ graduates. Strong outcomes across the board.
@@ -127,77 +192,6 @@ sections:
       desktop: 6xl
     paddingY:
       desktop: md none
-  - type: modal
-    version: "1.0"
-    heading: Request Program Details
-    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
-    show_close: true
-    size: md
-    form:
-      variant: stacked
-      submit_label: Get the Full Overview
-      tags: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        phone:
-          visible: true
-          required: true
-        program:
-          visible: false
-          required: true
-          default: datascience-ml
-      success:
-        message: Thank you. A program advisor will reach out with the details within 24 hours.
-    section_id: apply-modal
-  - type: awards_marquee
-    section_id: awards_marquee-izbzaa
-    version: v1.0
-    speed: 40
-    gradient: true
-    gradientWidth: 400
-    items:
-      - id: switchup-2025
-        alt: SwitchUp - Best Coding Bootcamps 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        logoHeight: 64px
-      - id: course-report-2024
-        alt: Course Report - Best Coding Bootcamp 2024
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
-        logoHeight: 64px
-      - id: tech-hub
-        alt: South Florida Tech Hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70.webp
-        logoHeight: 64px
-      - id: ebootcamp
-        alt: eBootcamp Top
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp_top-601x488-q70.webp
-        logoHeight: 64px
-      - id: premios-tecnologia
-        alt: Premios Tecnologia Siglo XXI
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-        logoHeight: 64px
-      - id: newsweek
-        alt: Newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
-        logoHeight: 64px
-      - id: reviews-coursereport
-        alt: 4.9 on Course Report Reviews
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-        logoHeight: 64px
-      - id: excelencia-educativa
-        alt: Excelencia Educativa - Institutional Quality
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
-        logoHeight: 64px
-    marginY:
-      desktop: md lg
-    paddingY:
-      desktop: none
   - type: features_grid
     version: "1.0"
     variant: stats-charts
@@ -234,13 +228,90 @@ sections:
       desktop: md lg
     paddingY:
       desktop: none lg
+  - type: syllabus
+    section_id: syllabus-skzl68
+    variant: program-modules
+    program_title: Data Science and Machine Learning Program Overview
+    program_description: Master the industry-standard toolkit used by modern data teams. Go beyond simple analysis to build production-ready systems—from engineering raw data to deploying the predictive models that companies use to drive innovation and scale.
+    tech_logos:
+      - name: Python
+        icon: python
+      - name: TensorFlow
+        icon: tensorflow
+      - name: Pandas
+        icon: pandas
+      - name: NumPy
+        icon: numpy
+      - name: SQL
+        icon: sql
+      - name: Git
+        icon: git
+    module_cards:
+      - title: Python Basics & Notebooks
+        duration: Weeks 1-3
+        objectives:
+          - Master Python fundamentals including conditionals, functions, and data structures
+          - Work with Jupyter notebooks for interactive data exploration
+          - Build a strong programming foundation for machine learning
+        projects: Complete Python exercises and create your first data analysis notebook
+        orientation: vertical
+        icon: IconBrandPython
+      - title: Data Analysis & Visualization
+        duration: Weeks 4-6
+        objectives:
+          - Analyze and manipulate data with Pandas
+          - Clean, normalize, and transform datasets
+          - Create impactful visualizations with Matplotlib and Seaborn
+        projects: Build interactive data dashboards and exploratory analysis reports
+        orientation: vertical
+        icon: IconChartBar
+      - title: Data Collection with SQL, Scraping & APIs
+        duration: Weeks 7-8
+        objectives:
+          - Write SQL queries to extract data from databases
+          - Scrape websites with BeautifulSoup
+          - Work with REST APIs to gather real-world data
+        projects: Build a data pipeline that collects and processes data from multiple sources
+        orientation: vertical
+        icon: IconDatabase
+      - title: Math & Probability Foundations
+        duration: Weeks 9-10
+        objectives:
+          - Master probability and statistics concepts
+          - Understand linear algebra fundamentals
+          - Learn matrix operations that power ML algorithms
+        projects: Apply statistical analysis to real-world datasets
+        orientation: vertical
+        icon: IconMath
+      - title: Applied Machine Learning
+        duration: Weeks 11-14
+        objectives:
+          - Build regression and classification models
+          - Implement decision trees, random forests, and boosting
+          - Master clustering and time series forecasting
+        projects: Train, evaluate, and optimize ML models for real-world problems
+        orientation: vertical
+        icon: IconBrain
+      - title: Deep Learning, NLP & Model Deployment
+        duration: Weeks 15-16
+        objectives:
+          - Build neural networks with TensorFlow and Keras
+          - Implement natural language processing techniques
+          - Deploy models to production environments
+        projects: Create and deploy a complete ML web application
+        orientation: vertical
+        icon: IconRocket
+    marginY:
+      desktop: md none
+    paddingY:
+      desktop: md lg
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
-    title: The Most Personalized Path to a Data Science Career
-    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support — every part of the experience is built around you, not a classroom of thirty.
+    title: The Most Personalized Path to Career in Data Science
+    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support, every part of the experience is built around you, not a classroom of thirty.
     features:
-      - icon: Robot
+      - icon: bot
         title: AI-powered feedback that never sleeps
         description: ""
         show_rigobot_logo: true
@@ -275,95 +346,49 @@ sections:
       desktop: md none
     paddingY:
       desktop: md
-  - type: certificate
-    section_id: certificate-nsji8x
-    title: Career Outcomes
-    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Access high-paying roles:"
-    benefits:
-      - text: "Data Scientist: {{ global.salary_data_scientist | {{ average_salary_ai_engineer | {{ average_salary_ai_engineer | {{ average_salary_ai_engineer | $80K–$130K }} }} }} }}"
-      - text: "Machine Learning Engineer: {{ global.average_salary_machine_learning_engineer }}"
-      - text: "Data Analyst: {{ global.average_salary_data_analyst | $60K–$95K }}"
-      - text: "AI Engineer: {{ global.average_salary_ai_engineer | $100K–$160K }}"
-    card:
-      title: Data Scientist
-      subtitle: 4Geeks Academy Certificate
-      program_name: Data Science & Machine Learning
-    stats:
-      - value: {{ global.global_job_placement_rate | 84 }}%
-        label: Hiring rate
-        description: Graduate with the skills, credentials, and professional profile employers are actively hiring for.
-        benefits:
-          - text: Certificate recognized by the Florida Department of Education
-          - text: Real-world data projects focused on analysis, insights, and decision-making
-          - text: Hands-on experience building and evaluating predictive machine learning models
-          - text: Optimized professional profile and job-search strategy
-      - value: 3-6 months
-        label: Time to get hired
-        description: Land your first role within 3–6 months of graduation. With our structured 3-step career development process, your skills turn into job offers fast.
-        benefits:
-          - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
-          - text: Practice for technical and behavioral interviews
-          - text: Execute a personalized job-search strategy with access to relevant hiring networks
-      - value: {{ global.global_salary_increase | 55 }}%
-        label: Average salary increase
-        description: Graduate ready to step into high-paying data science and machine learning positions, offering immediate growth and long-term stability.
-        benefits:
-          - text: "Data Scientist: {{ global.salary_data_scientist | $80K–$130K }}"
-          - text: "Machine Learning Engineer: {{ global.average_salary_machine_learning_engineer | $90K–$150K }}"
-          - text: "Data Analyst: {{ global.average_salary_data_analyst | $60K–$95K }}"
-          - text: "AI Engineer: {{ global.average_salary_ai_engineer | $100K–$160K }}"
-      - value: 400+
-        label: Hiring Partners
-        description: Access our network of 400+ hiring partners actively seeking data science talent. Get exclusive job opportunities and priority referrals.
-        benefits:
-          - text: Exclusive job board access
-          - text: Priority referrals to partner companies
-          - text: Networking events with hiring managers
-          - text: Companies include Google, Meta, Amazon, startups
-    certificate_position: right
-    useSolidCard: true
+  - type: trust_cards
+    version: v1.0
+    title: Top rated across all major platforms.
+    items:
+      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+        rating: 4.9
+        review_count: 4.9 on Course Report
+      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        rating: 4.8
+        review_count: 4.8 on Google
+      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        rating: 4.9
+        review_count: 4.9 on Career Karma
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 4.9 on SwitchUp
+    name: Default Trust Cards
+    description: Four review platform cards with ratings
+    section_id: trust_cards-eslgbu
     paddingY:
-      mobile: lg
-      desktop: none lg
-  - type: numbered_steps
-    version: "1.0"
-    title: Get Hired. Or Your Money Back.
-    description: Enroll with our optional Job Guarantee. Get hired within 9 months, or we refund your full tuition. That's how confident we are in what we built.
-    description_link:
-      text: "*Not available in all regions. Terms and conditions apply."
-      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
-    background: bg-muted/30
-    steps:
-      - icon: School
-        text: Add the Job Guarantee to your payment plan.
-      - icon: Briefcase
-        text: Complete the program and follow the GeekForce career process.
-      - icon: Cash
-        text: Get hired within 9 months, or receive a full tuition refund.
-    section_id: numbered_steps-pegmvh
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-    paddingY:
-      desktop: none md
+      desktop: md lg
     marginY:
-      desktop: none md
+      desktop: md lg
+    background: hsl(var(--secondary))
+    maxWidth:
+      desktop: 6xl
+  - type: features_grid
+    version: "1.0"
+    variant: stats-cards
+    title: The Roles You Can Land. And the Salaries That Follow.
+    subtitle: High demand. High salaries.
+    description: Data science and ML roles are among the fastest-growing and highest-paying in tech. Companies across every industry are hiring urgently for professionals who can turn data into intelligence. These are some of the roles our graduates are landing, with entry-level salary ranges based on current US market data.
+    card_color: bg-background
+    items:
+      - value: $90K–$150K
+        title: ML Engineer
+      - value: $80K–$130K
+        title: Data Scientist
+      - value: $80K–$120K
+        title: Data Analyst
+    section_id: features_grid-ds-roles
+    marginY:
+      desktop: none lg
   - type: pricing
     section_id: pricing-sb335o
     version: "1.0"
@@ -472,11 +497,64 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
+  - type: numbered_steps
+    version: "1.0"
+    title: Get Hired. Or Your Money Back.
+    description: Enroll with our optional Job Guarantee. Get hired within 9 months, or we refund your full tuition. That's how confident we are in what we built.
+    description_link:
+      text: "*Not available in all regions. Terms and conditions apply."
+      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
+    background: bg-muted/30
+    steps:
+      - icon: School
+        text: Add the Job Guarantee to your payment plan.
+      - icon: briefcase-business
+        text: Complete the program and follow the GeekForce career process.
+      - icon: banknote
+        text: Get hired within 9 months, or receive a full tuition refund.
+    section_id: numbered_steps-pegmvh
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+    paddingY:
+      desktop: none md
+    marginY:
+      desktop: none md
+  - type: testimonials
+    section_id: testimonials-50frx2
+    title: Your New Career Starts Here
+    subtitle: Our programs deliver life-changing results. More than {{ global.global_review_count | 700 }} verified reviews prove it
+    related_features:
+      - data-science
+      - content-and-syllabus
+    rating_summary:
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 700+ }}
+    marginY:
+      desktop: md
+    paddingY:
+      desktop: md none
   - type: whos_hiring
-    section_id: whos_hiring-hl63dc
+    section_id: whos_hiring-6ml5ey
     variant: carousel
-    title: Top Companies Hiring our Graduates
-    subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
+    title: Where Our Graduates Work
+    subtitle: From startups to global tech leaders, our graduates work at some of the most recognized companies worldwide
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
@@ -504,20 +582,6 @@ sections:
         alt: Jooble
     paddingY:
       desktop: none
-  - type: testimonials
-    section_id: testimonials-50frx2
-    title: Your New Career Starts Here
-    subtitle: Our programs deliver life-changing results. More than {{ global.global_review_count | 700 }} verified reviews prove it
-    related_features:
-      - data-science
-      - content-and-syllabus
-    rating_summary:
-      average: {{ global.global_review_rating | 4.9 }}
-      count: {{ global.global_review_count | 700+ }}
-    marginY:
-      desktop: md
-    paddingY:
-      desktop: md none
   - type: faq
     section_id: faq-qv66bg
     title: Frequently Asked Questions
@@ -545,11 +609,12 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Ready to Become a Data Scientist?
-    subtitle: Limited spots available. Start your transformation today.
+    subtitle: Data Science is one of the fastest-growing careers in tech. This is your window. Join the next cohort.
+    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply now
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
@@ -569,7 +634,7 @@ sections:
           required: true
           default: datascience-ml
       success:
-        message: Thank you! We'll be in touch soon.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       consent:
         email: true
         marketing: true
@@ -583,7 +648,6 @@ sections:
       desktop: md
     marginY:
       desktop: lg none
-    background: hsl(var(--primary))
     section_id: cta_banner-6rzz4s
   - type: sticky_cta
     version: "1.0"

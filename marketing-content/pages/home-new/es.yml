@@ -140,7 +140,7 @@ sections:
       Los graduados de 4Geeks en EE.UU., LATAM y el mundo inician carreras en ingeniería de IA, desarrollo de software,
       datos y ciberseguridad, consiguiendo empleos y aumentando su potencial de ingresos.
     items:
-      - icon: Briefcase
+      - icon: briefcase-business
         value: {{ global.global_job_placement_rate | 84 }}%
         title: Tasa de colocación laboral
       - icon: Graduation
@@ -173,11 +173,11 @@ sections:
           historia, portafolio y desempeño en entrevistas.
         col1_tagline: Te ayudaremos a crear materiales de búsqueda de empleo
         col1_boxes:
-          - icon: IconBrandLinkedin
+          - icon: linkedin
             text: LinkedIn
           - icon: IconFileText
             text: Currículum
-          - icon: IconBriefcase
+          - icon: briefcase-business
             text: Portafolio
           - icon: IconMail
             text: Carta de presentación
@@ -208,9 +208,9 @@ sections:
         right_bullets:
           - icon: IconUserPlus
             text: Referidos directos a socios de contratación
-          - icon: IconTargetArrow
+          - icon: target
             text: Ofertas laborales curadas según tu perfil
-          - icon: IconMessageChatbot
+          - icon: bot-message-square
             text: Coaching en networking y conversaciones con reclutadores
         right_logos:
           - image_id: logo_google
@@ -235,11 +235,11 @@ sections:
           proyecto final que resuelve problemas reales de negocio, tu trabajo se convierte en evidencia clara de tu
           capacidad.
         left_bullets:
-          - icon: IconBriefcase
+          - icon: briefcase-business
             text: Proyectos alineados con la industria y el mundo real
           - icon: IconPresentation
             text: Un proyecto final listo para mostrar
-          - icon: IconBrandGithub
+          - icon: github
             text: Optimización de GitHub y revisión profesional de código
         right_image_id: geekforce_valentina_ancieta
         right_image_object_fit: cover

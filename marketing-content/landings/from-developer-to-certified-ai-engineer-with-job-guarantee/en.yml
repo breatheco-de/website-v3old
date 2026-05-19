@@ -94,6 +94,8 @@ sections:
         - id: premios-tecnologia
           alt: Premios Tecnologí
     section_id: hero-nzpyph
+    awards_marquee_at_left_column: true
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: sticky_cta
     section_id: sticky_cta-k7207r
     version: "1.0"
@@ -125,36 +127,54 @@ sections:
       success:
         message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
     paddingY:
-      desktop: none sm
+      desktop: none
   - type: graduates_stats
-    maxWidth:
-      desktop: 6xl
-    heading: Real Career Outcomes
-    subheading: Over 6,000 graduates have made the switch to tech. Here's what happened after they completed the program.
+    heading: Our Graduates Get Hired. Fast.
+    subheading: 6,000+ graduates worldwide. Now thiriving in tech.
     stats:
       - value: 84%
-        label: Hiring rate, graduates placed within 90 days
+        label: Average hiring rate
       - value: 55%
-        label: Average salary increase after graduation
+        label: Average salary increase at new position
       - value: 3-6 months
-        label: Average time to get hired in 2025
-      - value: 6,000+
-        label: Graduates worldwide
+        label: Average time to get hired
     collage_images:
-      - image_id: graduates_team_1
+      - image_id: group-7085-1
         col_span: 5
         row_span: 2
-      - image_id: graduates_team_2-288x210-q87
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
+        id: gemini-generated-image-uwpyyruwpyyruwpy
+        object_scale: 1.1
+        object_position: 50% 30%
+      - image_id: group-7086-1
         col_span: 7
         row_span: 2
-      - image_id: graduates_coding
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
+        id: gemini-generated-image-pd2u4upd2u4upd2u
+        object_scale: 1
+        transform_origin: 50% 50%
+        object_position: 50% 60%
+      - image_id: group-7084-1
         col_span: 6
         row_span: 2
-      - image_id: graduates_friends-288x210-q87
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
+        id: gemini-generated-image-dhko5mdhko5mdhko-1
+        object_scale: 1.05
+      - image_id: group-7087-1
         col_span: 6
         row_span: 2
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
+        id: gemini-generated-image-wpk4yvwpk4yvwpk4
+        object_scale: 1.05
+        transform_origin: 50% 50%
+        object_position: 50% 45%
     section_id: graduates_stats-cnxqbb
-    value_size: text-3xl
+    marginY:
+      desktop: none
+    maxWidth:
+      desktop: 6xl
+    paddingY:
+      desktop: none
   - type: trust_cards
     maxWidth:
       desktop: 6xl
@@ -177,9 +197,9 @@ sections:
     description: Four review platform cards with ratings
     section_id: trust_cards-eslgbu
     paddingY:
-      desktop: md
-    marginY:
       desktop: none xl
+    marginY:
+      desktop: none
   - type: features_grid
     version: "1.0"
     variant: stats-text-card
@@ -187,7 +207,7 @@ sections:
     subtitle: The talent gap is real. This is your opportunity.
     description: AI Engineers build intelligent systems, automate workflows, and deliver the AI-powered systems companies urgently need. Demand is exploding, but only 3% of the workforce has the skills to fill these roles. That's not a problem. That's your door to roles paying $95K–$150K.
     card_color: bg-background
-    background: hsl(var(--card))
+    background: hsl(var(--secondary))
     items:
       - value: 42x
         title: Growth in Forward-Deployed Engineering since 2023
@@ -200,7 +220,7 @@ sections:
     section_id: features_grid-o2kd1x
     marginY:
       mobile: md none
-      desktop: md none
+      desktop: none
     paddingY:
       mobile: none md
       desktop: none md
@@ -463,7 +483,7 @@ sections:
         border_radius: 0.5rem
     image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
     image_alt: Woman working on laptop in cafe
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--secondary))
     paddingY:
       mobile: sm none
       desktop: md
@@ -590,7 +610,7 @@ sections:
             achievement: She achieved a 100% salary increase.
     section_id: career_support_explain-xpc3k2
     marginY:
-      desktop: none xl
+      desktop: none
     paddingY:
       desktop: md none
   - type: testimonials_slide
@@ -774,7 +794,7 @@ sections:
       mobile: lg none
       desktop: lg none
     marginY:
-      desktop: none lg
+      desktop: none xl
   - type: features_quad
     version: "1.0"
     heading: How the Job Guarantee Works
@@ -790,10 +810,10 @@ sections:
         title: Follow the Full Career Development Process
     section_id: features_quad-ms7uox
     marginY:
-      desktop: none xl
+      desktop: none lg
     paddingY:
       desktop: none
-    background: hsl(var(--secondary))
+    background: hsl(var(--muted))
   - type: whos_hiring
     variant: carousel
     title: Where Our Graduates Work
@@ -908,12 +928,3 @@ sections:
       desktop: lg
     marginY:
       desktop: none sm
-  - type: footer
-    section_id: footer-eisseg
-    version: "1.0"
-    copyright_text: 2024 4Geeks. All rights reserved.
-    paddingY:
-      mobile: none
-      desktop: sm none
-    marginY:
-      desktop: sm none

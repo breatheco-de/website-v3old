@@ -129,7 +129,7 @@ sections:
       features:
         - icon: calendar
           text: 24-week program
-        - icon: IconBriefcase
+        - icon: briefcase-business
           text: Employment-first curriculum
         - icon: IconRobot
           text: AI-Powered learning & feedback
@@ -509,7 +509,7 @@ sections:
     title: The Most Personalized Path to an AI Career
     description: Progress faster than ever before, with a support system built around your pace, your goals, your career.
     features:
-      - icon: Robot
+      - icon: bot
         title: AI-powered feedback 24/7
         description: ""
         show_rigobot_logo: true
@@ -676,9 +676,9 @@ sections:
     steps:
       - icon: School
         text: Add the Job Guarantee to your payment plan.
-      - icon: Briefcase
+      - icon: briefcase-business
         text: Complete the program and follow the GeekForce career process.
-      - icon: Cash
+      - icon: banknote
         text: Get hired within 9 months, or receive a full tuition refund.
     section_id: numbered_steps-pegmvh
     showOnLocations:

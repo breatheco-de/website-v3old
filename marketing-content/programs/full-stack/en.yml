@@ -73,7 +73,7 @@ sections:
           text: 12-week accelerated morning track
         - icon: code
           text: Interactive coding exercises
-        - icon: robot
+        - icon: bot
           text: AI-powered deedback
         - icon: calendar
           text: {{ global.global_teacher_student_ratio | 1:7 }} teacher student ratio
@@ -306,7 +306,7 @@ sections:
     title: How You’ll Learn at 4Geeks
     description: Move faster and stay motivated with our AI-driven tools and hyperpersonalized teaching method.
     features:
-      - icon: Robot
+      - icon: bot
         title: Progress faster with AI-powered tools
         description: ""
         show_rigobot_logo: true

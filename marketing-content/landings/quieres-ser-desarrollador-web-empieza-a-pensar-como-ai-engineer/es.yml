@@ -397,7 +397,7 @@ sections:
           text: Empieza a aprender ahora
           url: "#hero-form"
           variant: primary
-      - icon: Robot
+      - icon: bot
         title: Avanza más rápido con herramientas potenciadas por IA
         description: ""
         show_rigobot_logo: true

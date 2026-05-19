@@ -5,8 +5,8 @@ meta:
   og_image: /images/programs/cybersecurity-og.jpg
   priority: 0.9
   change_frequency: weekly
-  page_title: Cybersecurity Bootcamp | 4Geeks
-  description: "4.8 million unfilled cybersecurity roles worldwide. Become a Cybersecurity Specialist in 16 weeks. 84% hiring rate, $75K–$165K salaries. 4Geeks Academy."
+  page_title: Cybersecurity Career Program | 4Geeks
+  description: 4.8 million unfilled cybersecurity roles worldwide. Become a Cybersecurity Specialist in 16 weeks. 84% hiring rate, $75K–$130K salaries. Lifelong mentorship and career support. 4Geeks Academy.
   redirects:
     - /bootcamp/cybersecurity
     - /programs/cybersecurity-specialist
@@ -19,24 +19,22 @@ schema:
     - courses:cybersecurity
 sections:
   - type: hero
-    section_id: hero-2gmtq7
     version: "1.0"
     variant: course
-    title: Become a Cybersecurity Specialist
-    title_highlight: Cybersecurity Specialist
-    subtitle: Defend systems, respond to threats, and launch a high-paying cybersecurity career in {{ global.cybersecurity_week_duration | 16 }} weeks.
+    title: Cybersecurity
+    title_highlight: Cybersecurity
+    subtitle: 4.8 million cybersecurity roles go unfilled globally. Every industry needs defenders, and demand keeps outpacing supply. Our intensive 16-week program is built to get you into those roles, with hands-on labs, unlimited 1:1 mentorship, and lifelong career support.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
         - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
-      count: +2,500 students enrolled
+      count: +6000 graduates
     bullet_points:
-      - Work with real-world cyber threats and security defenses
-      - Master network security fundamentals and threat detection
-      - Learn penetration testing with industry-standard tools
-      - Prepare for EJPT and CEH certifications
+      - Build real defensive and offensive skills hands-on, with a portfolio to prove it.
+      - "Work with the tools employers use: Nmap, Metasploit, Wireshark, and more."
+      - Leave prepared for CompTIA Security+ and EJPT certification.
     tutors:
       - name: Daniela Maisi
         role: Main Instructor
@@ -45,12 +43,12 @@ sections:
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
-    description: Our intensive part-time program combines hands-on labs and personalized mentorship to prepare you for high-impact cybersecurity roles in any industry.
+    description: Graduate job-ready for one of tech's most in-demand fields, with the skills and support to land positions paying $75K–$130K+.
     signup_card:
       title: Get the Full Program Overview
-      description: Receive the complete syllabus, program structure, schedule options, tuition details, and career support framework.
+      description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, financing options and more. It takes 2 minutes."
       cta_button:
-        text: Send me the details
+        text: Send Me the Details
         url: "#apply-modal"
         variant: primary
       login_link:
@@ -58,9 +56,73 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: {{ global.cybersecurity_week_duration | 16 }}-week intensive program
-        - icon: IconBriefcase
-          text: Employment-first curriculum
+          text: 16-Week Intensive Program
+        - icon: IconShield
+          text: Optional Job Guarantee (available as add-on)
+        - icon: IconUsers
+          text: {{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
+        - icon: IconUserCheck
+          text: Unlimited 1:1 Mentorship
+        - icon: IconRobot
+          text: AI-Powered Learning & Feedback
+    section_id: hero-2gmtq7
+    paddingY:
+      desktop: md
+    marginY:
+      desktop: none
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+  - type: hero
+    version: "1.0"
+    variant: course
+    title: Cybersecurity
+    title_highlight: Cybersecurity
+    subtitle: 4.8 million cybersecurity roles go unfilled globally. Every industry needs defenders, and demand keeps outpacing supply. Our intensive 16-week program is built to get you into those roles, with hands-on labs, unlimited 1:1 mentorship, and lifelong career support.
+    students_enrolled:
+      avatars:
+        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
+        - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
+        - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
+      count: +6000 graduates
+    bullet_points:
+      - Build real defensive and offensive skills hands-on, with a portfolio to prove it.
+      - "Work with the tools employers use: Nmap, Metasploit, Wireshark, and more."
+      - Leave prepared for CompTIA Security+ and EJPT certification.
+    tutors:
+      - name: Daniela Maisi
+        role: Main Instructor
+        image: https://storage.googleapis.com/4geeks-academy-website/media/daniela-maisi.jpg
+      - name: Rigo
+        role: AI Tutor
+        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
+    tutors_label: "Your tutors:"
+    description: Graduate job-ready for one of tech's most in-demand fields, with the skills and support to land positions paying $75K–$130K+.
+    signup_card:
+      title: Get the Full Program Overview
+      description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, financing options and more. It takes 2 minutes."
+      cta_button:
+        text: Send Me the Details
+        url: "#apply-modal"
+        variant: primary
+      login_link:
+        text: Already a student? Login here.
+        url: https://4geeks.com/login
+      features:
+        - icon: calendar
+          text: 16-week program
+        - icon: IconShield
+          text: Optional Job Guarantee (available as add-on)
         - icon: IconRobot
           text: AI-Powered learning & feedback
         - icon: IconUsers
@@ -68,11 +130,35 @@ sections:
         - icon: IconUserCheck
           text: Unlimited 1:1 mentorship
         - icon: book
-          text: Real-world cybersecurity portfolio
+          text: Hands-on labs and real-world projects
+    section_id: hero-1h88n1
     paddingY:
       desktop: md
     marginY:
       desktop: none
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
+      - bogota-colombia
+      - buenosaires-argentina
+      - costa-rica
+      - caracas-venezuela
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - santiago-chile
+      - quito-ecuador
   - type: modal
     version: "1.0"
     heading: Request Program Details
@@ -143,32 +229,95 @@ sections:
     paddingY:
       desktop: none
     marginY:
-      desktop: none lg
+      desktop: md
+  - type: graduates_stats
+    heading: Real Outcomes. Real Numbers.
+    subheading: 6,000+ graduates. Strong outcomes across the board.
+    stats:
+      - value: 84%
+        label: Average hiring rate
+      - value: 55%
+        label: Average salary increase at new position
+      - value: 3-6 months
+        label: Average time to get hired
+    collage_images:
+      - image_id: group-7085-1
+        col_span: 5
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
+        id: gemini-generated-image-uwpyyruwpyyruwpy
+        object_scale: 1.1
+        object_position: 50% 30%
+      - image_id: group-7086-1
+        col_span: 7
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
+        id: gemini-generated-image-pd2u4upd2u4upd2u
+        object_scale: 1
+        transform_origin: 50% 50%
+        object_position: 50% 60%
+      - image_id: group-7084-1
+        col_span: 6
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
+        id: gemini-generated-image-dhko5mdhko5mdhko-1
+        object_scale: 1.05
+      - image_id: group-7087-1
+        col_span: 6
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
+        id: gemini-generated-image-wpk4yvwpk4yvwpk4
+        object_scale: 1.05
+        transform_origin: 50% 50%
+        object_position: 50% 45%
+    section_id: graduates_stats-cnxqbb
+    marginY:
+      desktop: none md
+    maxWidth:
+      desktop: 6xl
+    paddingY:
+      desktop: md none
   - type: features_grid
     section_id: features_grid-dxwtvz
     version: "1.0"
-    variant: stats-text
-    maxWidth:
-      desktop: 6xl
-    title: Cybersecurity Talent Is in High Demand
-    subtitle: Enter a mission-critical field with long-term growth and strong earning potential.
-    description: A growing global talent gap and record-breaking investment in digital security have created unprecedented demand for skilled professionals. Our program equips you with the technical expertise and hands-on experience to move directly into high-impact, high-paying roles.
-    background: bg-muted/30
-    items:
-      - id: "1"
-        value: 4.8M
-        title: Unfilled cybersecurity roles worldwide
-      - id: "2"
-        value: 41%
-        title: Projected job growth, outpacing most sectors
-      - id: "3"
-        value: {{ global.global_spending_cybersecurity | $520B }}
-        title: Global spending on cybersecurity this year
+    variant: stats-charts
+    title: Why Cybersecurity Now
+    subtitle: The need to secure digital systems is growing.
+    description: Cyberattacks are more frequent, more sophisticated, and more costly than ever. Organizations across every industry are hiring urgently for professionals to defend their systems. There is not enough trained talent to meet the demand. That gap is your opportunity.
+    background: bg-slate-950
+    card_bars_accent: hsl(var(--primary))
+    card_gauge_accent: hsl(var(--destructive) / 0.5)
+    card_trend_accent: hsl(var(--accent))
+    card_bars:
+      title: The talent gap keeps widening
+      description: ISC2 Workforce Study · 2024 global data
+      stat_value: 4.8M
+      stat_label: cybersecurity roles unfilled globally
+      displaced_label: Available talent
+      created_label: Unfilled roles
+    card_gauge:
+      title: Demand far outpaces supply
+      description: BLS Occupational Outlook · 2024-2034
+      gauge_percentage: 29
+      gauge_label: projected growth
+      stat_label: projected growth in cybersecurity jobs over the next decade, far above the national average
+      bar1_label: Current workforce
+      bar2_label: Market demand
+    card_trend:
+      title: Hiring is accelerating
+      description: CyberSeek/NIST · active US job postings
+      stat_value: 514K
+      stat_label: active cybersecurity job openings in the US right now
+      end_label: +12% YoY
+    marginY:
+      desktop: md lg
+    paddingY:
+      desktop: none lg
   - type: syllabus
     section_id: syllabus-925r5b
     variant: program-modules
     program_title: Cybersecurity Program Overview
-    program_description: Master the complete cybersecurity stack from network security to penetration testing. Build real-world defensive and offensive skills using the industry-standard tools employers are looking for.
+    program_description: Six modules. Sixteen weeks. From network fundamentals and Linux administration to penetration testing, threat intelligence, and incident response. Every module builds on the last, and every project is built around the tools, methods, and scenarios employers are looking for.
     tech_logos:
       - name: Linux
         icon: linux
@@ -242,7 +391,7 @@ sections:
   - type: projects
     section_id: projects-jwvly8
     title: Learn by Defending Real Systems
-    subtitle: Gain hands-on experience with practical exercises that simulate real-world cybersecurity scenarios. Build a portfolio of security projects that demonstrate your defensive and offensive capabilities.
+    subtitle: Every module ends with a hands-on project — real attack and defense scenarios that go straight into your portfolio.
     items:
       - title: Network Vulnerability Assessment
         description: Use Nessus and Nmap to scan networks, identify vulnerabilities, and create comprehensive security reports. Learn to prioritize risks and recommend remediation strategies for enterprise environments.
@@ -273,13 +422,39 @@ sections:
         date: 15/02/2025
     paddingY:
       desktop: md
+  - type: trust_cards
+    version: v1.0
+    title: Top rated across all major platforms.
+    items:
+      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+        rating: 4.9
+        review_count: 4.9 on Course Report
+      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        rating: 4.8
+        review_count: 4.8 on Google
+      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        rating: 4.9
+        review_count: 4.9 on Career Karma
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 4.9 on SwitchUp
+    name: Default Trust Cards
+    description: Four review platform cards with ratings
+    section_id: trust_cards-eslgbu
+    paddingY:
+      desktop: md lg
+    marginY:
+      desktop: md lg
+    background: hsl(var(--secondary))
+    maxWidth:
+      desktop: 6xl
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
     title: The Most Personalized Path to a Cybersecurity Career
-    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support — every part of the experience is built around you, not a classroom of thirty.
+    description: Progress faster than ever before, with a support system built around your pace, your goals, your career.
     features:
-      - icon: Robot
+      - icon: bot
         title: AI-powered feedback that never sleeps
         description: ""
         show_rigobot_logo: true
@@ -292,7 +467,7 @@ sections:
       - icon: Headset
         title: Unlimited 1:1 mentorship, for life
         description: ""
-        show_rigobot_logo: true
+        show_rigobot_logo: false
         bullets:
           - text: Lifelong access to 1:1 technical mentorship
           - text: {{ global.global_teacher_student_ratio | 7:1 }} student-to-instructor ratio
@@ -302,7 +477,7 @@ sections:
       - icon: TrendingUp
         title: Career support built for the AI job market
         description: ""
-        show_rigobot_logo: true
+        show_rigobot_logo: false
         bullets:
           - text: Personalized 1:1 career coaching
           - text: Resume and portfolio built to pass AI-based screening
@@ -314,91 +489,26 @@ sections:
       desktop: md none
     paddingY:
       desktop: md
-  - type: certificate
-    section_id: certificate-10xpo6
-    title: Industry Certifications and Career Outcomes
-    description: "Earn an industry-recognized certificate from a Florida Department of Education accredited institution. Our program prepares you for:"
-    benefits:
-      - text: EJPT (eLearnSecurity Junior Penetration Tester)
-      - text: CEH (Certified Ethical Hacker) pathway
-      - text: CompTIA Security+ foundations
-      - text: Lifetime career support access
-    card:
-      title: Cybersecurity Specialist
-      subtitle: 4Geeks Academy Certificate
-      program_name: Cybersecurity Specialist
-    stats:
-      - value: {{ global.global_job_placement_rate | 84 }}%
-        label: Hiring Rate
-        description: Graduate with the skills and global certifications that top-tier companies are actively seeking in 2026.
-        benefits:
-          - text: CompTIA Security+ Exam Readiness
-          - text: eJPT (Junior Penetration Tester) Prep
-          - text: CEH (Certified Ethical Hacker) Pathway
-          - text: Real-world labs with Nmap & Metasploit
-      - value: 3-6 months
-        label: Time to get hired
-        description: Land your first role within 3–6 months of graduation. With our structured 3-step career development process, your skills turn into job offers fast.
-        benefits:
-          - text: Optimize your resume, portfolio, and online profiles to attract recruiters and pass AI-based screening
-          - text: Practice for technical and behavioral interviews
-          - text: Execute a personalized job-search strategy with access to relevant hiring networks
-      - value: {{ global.average_salary_cybersecurity_short | $85 }}
-        label: Average starting salary
-        description: A career in cybersecurity isn't just a new job—it’s a new life trajectory. With an average salary jump of {{ global.global_salary_increase | 55 }}%, our graduates unlock a level of stability and growth that few other industries can offer.
-        benefits:
-          - text: "Cybersecurity Analyst: {{ global.global_salary_cybersecurity_analist | $75K–$120K }}"
-          - text: "Penetration Tester: {{ global.global_salary_penetration_tester | $90K–$150K }}"
-          - text: "Security Engineer: {{ global.global_salary_security_engineer | $100K–$165K }}"
-          - text: "Incident Responder: {{ global.global_salary_incident_responder | $85K–$140K }}"
-      - value: 400+
-        label: Hiring Partners
-        description: Our extensive network includes Fortune 500 companies, government agencies, and innovative startups actively seeking cybersecurity talent.
-        benefits:
-          - text: Direct referrals to partner companies
-          - text: Exclusive job board access
-          - text: Networking events with recruiters
-          - text: Alumni referral program
-    certificate_position: right
-    useSolidCard: true
-    paddingY:
-      desktop: none md
   - type: features_grid
-    variant: highlight
-    title: Get Hired. Or Your Money Back.
-    subtitle: "Add our optional Job Guarantee* to your payment plan and graduate with total confidence. Complete the program, follow the GeekFORCE career process, and if you're not hired within 9 months — we refund you.&nbsp;<div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span></div>"
+    version: "1.0"
+    variant: stats-cards
+    title: The Roles You Can Land. And the Salaries That Follow.
+    subtitle: High demand. High salaries.
+    description: Cybersecurity roles are among the most in-demand and consistently well-paying in tech. Organizations across every industry are hiring urgently for professionals who can defend their systems. These are some of the roles our graduates are landing, with entry-level salary ranges based on current US market data.
+    card_color: bg-background
     items:
-      - icon: Star
-        title: Add the Job Guarantee* to your payment plan
-      - icon: Users
-        title: Complete the program and follow the GeekFORCE career process
-      - icon: Award
-        title: Get hired within 9 months — or we refund you
-    columns: 3
-    icon_color: "#0097CD"
-    background: hsl(var(--secondary))
-    section_id: features_grid-k6g3d6
+      - value: $75K–$110K
+        title: Cybersecurity Analyst
+      - value: $85K–$120K
+        title: Penetration Tester
+      - value: $95K–$130K
+        title: Security Engineer
+    section_id: features_grid-ds-roles
+    marginY:
+      desktop: none lg
     paddingY:
-      desktop: lg none
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
+      desktop: md none
+    background: hsl(var(--card))
   - type: pricing
     version: "1.0"
     variant: product
@@ -422,9 +532,9 @@ sections:
       - icon: IconCheck
         text: Standard tuition is {{ global.price_full_cybersecurity | $9,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
-        text: Enroll with a job guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
+        text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
       - icon: IconCheck
-        text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
+        text: 2-3 merit-based scholarships available per cohort for highly qualified applicants.
         use_rigobot_icon: true
       - icon: IconCheck
         text: Finance your tuition through Climb, Fortify, or Lumion with 24, 36, 48, or 60-month plans.
@@ -483,7 +593,7 @@ sections:
       - icon: IconCheck
         text: Pay upfront to get a better price with an additional discount, or split your payments into 6 to 24 installments through our partners.
       - icon: IconCheck
-        text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
+        text: 2-3 merit-based scholarships available per cohort for highly qualified applicants.
       - icon: IconCheck
         text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
     cta:
@@ -507,11 +617,63 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
+  - type: numbered_steps
+    version: "1.0"
+    title: Get Hired. Or Your Money Back.
+    description: Enroll with our optional Job Guarantee. Get hired within 9 months, or we refund your full tuition. That's how confident we are in what we built.
+    description_link:
+      text: "*Not available in all regions. Terms and conditions apply."
+      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
+    background: bg-muted/30
+    steps:
+      - icon: School
+        text: Add the Job Guarantee to your payment plan.
+      - icon: Briefcase
+        text: Complete the program and follow the GeekForce career process.
+      - icon: Cash
+        text: Get hired within 9 months, or receive a full tuition refund.
+    section_id: numbered_steps-pegmvh
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+    paddingY:
+      desktop: none md
+    marginY:
+      desktop: none md
+  - type: testimonials
+    section_id: testimonials-6umllb
+    title: The People Behind the Numbers.
+    subtitle: "Different backgrounds. One outcome: a career in tech."
+    related_features:
+      - content-and-syllabus
+    rating_summary:
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 700 }}
+    paddingY:
+      desktop: md lg
+    marginY:
+      desktop: none md
   - type: whos_hiring
     section_id: whos_hiring-4bo24l
     variant: carousel
-    title: Top Companies Hiring Our Graduates
-    subtitle: Our graduates work at global tech companies and high-growth startups worldwide.
+    title: Where Our Graduates Work
+    subtitle: From startups to global tech leaders, our graduates work at some of the most recognized companies worldwide.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
         alt: Microsoft
@@ -537,19 +699,10 @@ sections:
         alt: Neo9
       - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
         alt: Jooble
+    marginY:
+      desktop: md xl
     paddingY:
       desktop: none
-  - type: testimonials
-    section_id: testimonials-6umllb
-    title: Real Students. Real Careers.
-    subtitle: {{ global.global_total_alumni | 6,500 }}+ graduates and {{ global.global_verified_reviews_count | 700 }} verified reviews prove our programs deliver life-changing results.
-    related_features:
-      - content-and-syllabus
-    rating_summary:
-      average: {{ global.global_review_rating | 4.9 }}
-      count: {{ global.global_review_count | 700 }}
-    paddingY:
-      desktop: md
   - type: faq
     section_id: faq-am87zr
     title: Frequently Asked Questions
@@ -557,15 +710,18 @@ sections:
       - cybersecurity
     paddingY:
       desktop: md
-    background: muted
+    background: hsl(var(--muted))
+    marginY:
+      desktop: none
   - type: cta_banner
     version: "1.0"
     title: Ready to Become a Cybersecurity Specialist?
-    subtitle: Limited spots available. Start your transformation today.
+    subtitle: 4.8 million cybersecurity roles go unfilled globally. This is your window. Join the next cohort.
+    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Apply now
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
@@ -585,7 +741,7 @@ sections:
           required: true
           default: cybersecurity
       success:
-        message: Thank you! We'll be in touch soon.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       consent:
         email: true
         marketing: true
@@ -595,21 +751,21 @@ sections:
       terms_className: text-white/80
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
-    paddingY:
-      desktop: md
     marginY:
       desktop: lg none
-    background: hsl(var(--primary))
+    paddingY:
+      desktop: md
     section_id: cta_banner-5edlct
   - type: sticky_cta
+    section_id: sticky_cta-dl9ciq
     version: "1.0"
-    heading: Ready to start your tech career?
+    heading: Ready to start your cybersecurity career?
     button_label: Apply Now
     show_dismiss: false
     form:
       variant: inline
       conversion_name: student_application
-      submit_label: Submit Application
+      submit_label: Start Your Application
       tags: website-lead
       automations: strong
       fields:
@@ -631,5 +787,4 @@ sections:
           default: cybersecurity
       success:
         message: Thanks! We'll be in touch within 24 hours.
-    section_id: sticky_cta-dl9ciq
     load: eager

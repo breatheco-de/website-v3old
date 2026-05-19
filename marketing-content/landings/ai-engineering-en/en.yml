@@ -134,7 +134,7 @@ sections:
       success:
         message: Thanks! We'll be in touch within 24 hours.
     paddingY:
-      desktop: none sm
+      desktop: none
     load: eager
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
@@ -182,7 +182,7 @@ sections:
     maxWidth:
       desktop: 6xl
     paddingY:
-      desktop: sm none
+      desktop: none
   - type: features_grid
     version: "1.0"
     variant: stats-text-card

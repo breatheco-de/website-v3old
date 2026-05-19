@@ -1,9 +1,7 @@
-
-import { useState } from "react";
-import { Check, ChevronDown, Circle } from "lucide-react";
-import * as LucideIcons from "lucide-react";
-import type { ComponentType } from "react";
+import { useState, createElement } from "react";
+import { ChevronDown, Circle } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { getIcon } from "@/lib/icons";
 
 export interface NumberedStepsStep {
   icon: string;
@@ -35,16 +33,21 @@ interface NumberedStepsProps {
   data: NumberedStepsData;
 }
 
-const getIcon = (iconName: string, className?: string) => {
-  const icons = LucideIcons as unknown as Record<string, ComponentType<{ size?: number; className?: string }>>;
-  const IconComponent = icons[iconName.charAt(0).toUpperCase() + iconName.slice(1) as keyof typeof LucideIcons];
-  return IconComponent ? <IconComponent size={24} className={className || "text-primary"} /> : null;
+const renderStepIcon = (iconName: string, className?: string) => {
+  const IconComponent = getIcon(iconName);
+  if (!IconComponent) return null;
+  return createElement(IconComponent, {
+    size: 24,
+    className: className || "text-primary",
+  });
 };
 
-const getBulletIcon = (iconName: string, colorClass: string) => {
-  const icons = LucideIcons as unknown as Record<string, ComponentType<{ className?: string }>>;
-  const IconComponent = icons[iconName.charAt(0).toUpperCase() + iconName.slice(1) as keyof typeof LucideIcons];
-  return IconComponent ? <IconComponent className={`w-4 h-4 ${colorClass} flex-shrink-0 mt-0.5`} /> : null;
+const renderBulletIcon = (iconName: string, colorClass: string) => {
+  const IconComponent = getIcon(iconName);
+  if (!IconComponent) return null;
+  return createElement(IconComponent, {
+    className: `w-4 h-4 ${colorClass} flex-shrink-0 mt-0.5`,
+  });
 };
 
 interface StepNumberProps {
@@ -158,7 +161,7 @@ export default function NumberedSteps({ data }: NumberedStepsProps) {
                     <CollapsibleTrigger className="w-full">
                       <div className="flex items-center gap-2 pt-2 cursor-pointer">
                         <div className="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0">
-                          {getIcon(step.icon)}
+                          {renderStepIcon(step.icon)}
                         </div>
                         <h3 className="text-base font-semibold text-foreground flex-1 text-left">
                           {step.title}
@@ -185,7 +188,7 @@ export default function NumberedSteps({ data }: NumberedStepsProps) {
                                 <span className={`${bulletIconColor} flex-shrink-0 mt-0.5`}>
                                   {bulletChar 
                                     ? bulletChar 
-                                    : getBulletIcon(bulletIcon, bulletIconColor)
+                                    : renderBulletIcon(bulletIcon, bulletIconColor)
                                   }
                                 </span>
                                 <span>{bullet}</span>
@@ -200,7 +203,7 @@ export default function NumberedSteps({ data }: NumberedStepsProps) {
                   <>
                     <div className="flex items-start gap-2 mb-2 pt-2">
                       <div className="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        {getIcon(step.icon)}
+                        {renderStepIcon(step.icon)}
                       </div>
                       {step.title && (
                         <h3 className="text-base font-semibold text-foreground">
@@ -224,7 +227,7 @@ export default function NumberedSteps({ data }: NumberedStepsProps) {
                             <span className={`${bulletIconColor} flex-shrink-0 mt-0.5`}>
                               {bulletChar 
                                 ? bulletChar 
-                                : getBulletIcon(bulletIcon, bulletIconColor)
+                                : renderBulletIcon(bulletIcon, bulletIconColor)
                               }
                             </span>
                             <span>{bullet}</span>
@@ -265,7 +268,7 @@ export default function NumberedSteps({ data }: NumberedStepsProps) {
                 
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    {getIcon(step.icon)}
+                    {renderStepIcon(step.icon)}
                   </div>
                   {step.title && (
                     <h3 className="text-lg font-semibold text-foreground">
@@ -289,7 +292,7 @@ export default function NumberedSteps({ data }: NumberedStepsProps) {
                         <span className={`${bulletIconColor} flex-shrink-0 mt-0.5`}>
                           {bulletChar 
                             ? bulletChar 
-                            : getBulletIcon(bulletIcon, bulletIconColor)
+                            : renderBulletIcon(bulletIcon, bulletIconColor)
                           }
                         </span>
                         <span>{bullet}</span>

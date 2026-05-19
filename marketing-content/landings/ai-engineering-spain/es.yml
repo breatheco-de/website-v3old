@@ -17,18 +17,20 @@ schema:
 sections:
   - type: hero
     version: "1.0"
-    variant: ApplyFormProductShowcase
+    variant: productShowcase
     title: ""
     brand_mark:
-      prefix: La IA está cambiando todos los trabajos. Conviértete en
-      highlight: Ingeniero de IA
-      suffix: antes de que sea demasiado tarde
+      prefix: "<!--StartFragment--><h1 class=\"font-heading text-4xl md:text-h1 tracking-tight\" style=\"--tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-family: Lato, &quot;Noto Color Emoji&quot;, sans-serif;\"><span class=\"text-foreground\" style=\"--tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"><span style=\"--tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\">La IA está cambiando todos los trabajos. Conviértete en&nbsp;</span></span></h1><!--EndFragment-->"
+      highlight: "<span style=\"color: hsl(var(--primary));\"><i style=\"\">Ingeniero de IA</i></span>"
       color: primary
-    description: En 24 semanas pasas de donde estás hoy a desarrollar, integrar y desplegar sistemas de IA reales. Los que las empresas en España llevan meses intentando contratar.
+    description: La IA está cambiando todos los trabajos. En 24 semanas pasas de donde estás hoy a desarrollar e integrar sistemas de IA reales que las empresas en España llevan meses intentando contratar.
+    bullets:
+      - text: Mentoría ilimitada de por vida con ingenieros senior, incluso después de graduarte
+      - text: Paga en 10, 12 o 18 cuotas mensuales sin dejar tu trabajo actual
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Comprueba si cumples los requisitos. Es gratis
+      submit_label: Iniciar mi aplicación
       tags: website-lead
       fields:
         email:
@@ -58,27 +60,41 @@ sections:
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
-    cta_button:
-      text: Descargar programa
-      url: /programa/ai-engineering
-      variant: outline
-      icon: Download
-    video:
-      url: https://youtube.com/shorts/AMqLRJbNZ9I?si=LdQnvspydHMd9ckN
-      ratio: "9:16"
-      muted: true
-    section_id: hero-lt4ge6
-    bullets:
-      - text: Aprende las habilidades en ingeniería de IA que las empresas tecnológicas contratan ahora mismo
-      - text: La única academia que no termina cuando te gradúas, mentoría ilimitada de por vida incluida
-      - text: Grupos reducidos con acompañamiento real antes, durante y después de graduarte
+    form_card_title: Obtén la guía completa del programa
+    form_card_subtitle: Te enviamos el programa completo con plan de estudios, opciones de financiación y más. Solo toma 2 minutos.
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+    show_awards_marquee: true
+    awards_marquee:
+      items:
+        - id: switchup-2025
+          alt: SwitchUp Best Bootcamps 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
+          logoHeight: 64px
+        - id: excelencia-educativa
+          alt: Excelencia Educativa - Calidad Institucional en Educación Online
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
+          logoHeight: 64px
+        - id: course-report-badge
+          alt: Course Report Badge 2025
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+          logoHeight: 64px
+        - id: newsweek
+          alt: Newsweek
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
+          logoHeight: 64px
+        - id: reviews-coursereport
+          alt: 4.9 en reseñas de Course Report
+          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
+          logoHeight: 64px
+    awards_marquee_at_left_column: true
+    section_id: hero-byj387
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
     paddingY:
       mobile: md none
-      desktop: lg none
+      desktop: none
     marginY:
       mobile: none
       desktop: none
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)
   - type: sticky_cta
     section_id: sticky_cta-wgj7pu
     version: "1.0"
@@ -117,103 +133,76 @@ sections:
         marketing: true
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
+  - type: two_column
+    version: v1.0
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    gap: "8"
+    left:
+      video: https://youtube.com/shorts/AMqLRJbNZ9I?si=LdQnvspydHMd9ckN
+      justify: center
+    right:
+      heading: Por qué Ingeniería de IA es la carrera más importante de esta década
+      sub_heading: Y por qué el mercado necesita ingenieros ahora mismo
+      description: El 87% de las empresas no encuentra los ingenieros de IA que necesita. La demanda crece un 30% cada año y los salarios de entrada superan los $20K USD. Este programa existe para que seas tú quien cubra esa demanda.
+      button:
+        text: Iniciar mi aplicación
+        url: "#hero-byj387"
+        variant: primary
+        icon: Rocket
+    section_id: two_column-r882vr
+    marginY:
+      desktop: none sm
+    paddingY:
+      desktop: lg
+    background: hsl(var(--secondary))
   - type: graduates_stats
-    maxWidth:
-      desktop: 6xl
-    heading: Resultados profesionales reales
-    subheading: Más de 6.000 graduados han dado el salto a la tecnología. Estos son sus resultados.
+    heading: Nuestros Graduados Consiguen Empleo. Rápido.
+    subheading: Más de 6,000 graduados en todo el mundo. Ahora prosperando en tecnología.
     stats:
-      - value: 75%
-        label: Tasa de inserción laboral
-      - value: 30%
-        label: Aumento salarial medio tras graduarse
+      - value: {{ global.global_job_placement_rate | 84% }}%
+        label: Tasa de contratación promedio
+      - value: {{ global.global_salary_increase | 55% }}%
+        label: Aumento salarial promedio en el nuevo puesto
       - value: 3-6 meses
-        label: Tiempo medio para conseguir empleo en 2025
-      - value: 6.000+
-        label: Graduados en todo el mundo
+        label: Tiempo promedio para conseguir empleo
     collage_images:
-      - image_id: graduates_team_1
+      - image_id: group-7085-1
         col_span: 5
         row_span: 2
-      - image_id: graduates_team_2-288x210-q87
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
+        id: gemini-generated-image-uwpyyruwpyyruwpy
+        object_scale: 1.1
+        object_position: 50% 30%
+      - image_id: group-7086-1
         col_span: 7
         row_span: 2
-      - image_id: graduates_coding
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
+        id: gemini-generated-image-pd2u4upd2u4upd2u
+        object_scale: 1
+        transform_origin: 50% 50%
+        object_position: 50% 60%
+      - image_id: group-7084-1
         col_span: 6
         row_span: 2
-      - image_id: graduates_friends-288x210-q87
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
+        id: gemini-generated-image-dhko5mdhko5mdhko-1
+        object_scale: 1.05
+      - image_id: group-7087-1
         col_span: 6
         row_span: 2
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
+        id: gemini-generated-image-wpk4yvwpk4yvwpk4
+        object_scale: 1.05
+        transform_origin: 50% 50%
+        object_position: 50% 45%
     section_id: graduates_stats-cnxqbb
-  - type: awards_marquee
-    section_id: awards_marquee-dgm174
-    version: "1.0"
-    speed: 40
-    gradient: true
-    gradientWidth: 500
-    items:
-      - id: logo-switchup-best-bootcamps-2025
-        alt: SwitchUp Best Bootcamps 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
-        logoHeight: 64px
-      - id: excelencia-educativa
-        alt: Excelencia Educativa - Calidad Institucional en Educación Online
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
-        logoHeight: 64px
-      - id: course-report-badge
-        alt: Course Report Badge 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-        logoHeight: 64px
-      - id: tech-hub
-        alt: South Florida Tech Hub
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/south_florida_tech_hub-512x288-q70.webp
-        logoHeight: 64px
-      - id: logo-ebootcamp-top-2025
-        alt: ebootcamp Top Bootcamp Programación 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1_1770392737758.png
-        logoHeight: 64px
-      - id: premios-tecnologia
-        alt: Premios Tecnologia Siglo XXI
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-        logoHeight: 80px
-      - id: newsweek
-        alt: Newsweek
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
-        logoHeight: 64px
-      - id: reviews-coursereport
-        alt: 4.9 en reseñas de Course Report
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-        logoHeight: 64px
-      - id: forbes-1
-        alt: Forbes - Top Coding Bootcamp
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/forbes-logo-award_1764709625651.webp
-        logoHeight: 64px
-      - id: fortune-1
-        alt: Fortune - Mejor Empresa de Educación
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/fortune-logo_1764709618095.webp
-        logoHeight: 64px
-      - id: logo-coursereport-best-bootcamp-2025
-        alt: CourseReport Best European Bootcamp 2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/CourseReport-best-bootcamp_-2025_1770392145137.png
-        logoHeight: 56px
-      - id: logo-european-excellence-education
-        alt: European Excellence Education
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/european-excellence-education-ealde_1_1770392145138.png
-        logoHeight: 56px
-      - id: logo-forbes-advisor-2025
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/Forbes-Advisor_1770392260031.png
-        alt: Forbes Advisor Best of 2025 - Best for lifetime career support
-        logoHeight: 56px
-      - id: logo-premios-excelencia-educativa
-        logo: https://storage.googleapis.com/4geeks-academy-website/media/premios-excelencia-educativa-17_1770392145139.png
-        alt: 17 Premios Excelencia Educativa
-        logoHeight: 56px
     marginY:
-      mobile: md none
-      desktop: sm md
-    paddingY:
-      mobile: none lg
-      desktop: none lg
+      desktop: none
+    maxWidth:
+      desktop: 6xl
   - type: features_grid
     section_id: features_grid-0cm8zn
     version: "1.0"
@@ -232,7 +221,7 @@ sections:
         title: Salario inicial promedio para ingenieros de IA en España
     marginY:
       mobile: md none
-      desktop: lg
+      desktop: md lg
     paddingY:
       mobile: none md
       desktop: none md
@@ -408,7 +397,7 @@ sections:
       desktop: lg md
     marginY:
       mobile: none
-      desktop: none xl
+      desktop: none lg
     section_id: syllabus-tyek1h
   - type: two_column
     proportions:
@@ -456,7 +445,8 @@ sections:
     paddingY:
       desktop: md
     marginY:
-      desktop: none xl
+      desktop: none md
+    background: hsl(var(--secondary))
   - type: ai_learning
     section_id: ai_learning-qmjitd
     badge: ¿Por qué 4Geeks?
@@ -477,7 +467,7 @@ sections:
           text: Comprueba si cumples los requisitos
           url: "#hero-lt4ge6"
           variant: primary
-      - icon: Robot
+      - icon: bot
         title: Aprende más rápido con un tutor de IA que sabe dónde te has atascado
         description: ""
         show_rigobot_logo: true
@@ -486,7 +476,7 @@ sections:
           - text: Adapta las explicaciones a tu nivel exacto y ritmo de aprendizaje
           - text: Desbloquéate a las 2 de la madrugada sin perder el hilo
           - text: Cientos de ejercicios interactivos en Learnpack, nuestra plataforma de aprendizaje
-        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
+        video_url: https://youtu.be/NRuShbSLtg0
         cta:
           text: Comprueba si cumples los requisitos
           url: "#hero-lt4ge6"
@@ -503,10 +493,10 @@ sections:
         video_url: https://youtu.be/Zoxxw5jP7xA
     paddingY:
       mobile: lg none
-      desktop: lg md
-    background: hsl(210 100% 50% / 0.05)
+      desktop: lg none
+    background: hsl(var(--card))
     marginY:
-      desktop: none xl
+      desktop: none
   - type: certificate
     section_id: certificate-e3th63
     title: Tu certificado. Tu ventaja salarial.
@@ -671,7 +661,7 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--card))
   - type: numbered_steps
     section_id: numbered_steps-y83ffn
     version: "1.0"
@@ -747,12 +737,3 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg
-  - type: footer
-    section_id: footer-mrlzkw
-    version: "1.0"
-    copyright_text: 2024 4Geeks. Todos los derechos reservados.
-    paddingY:
-      mobile: none
-      desktop: none
-    marginY:
-      desktop: sm none

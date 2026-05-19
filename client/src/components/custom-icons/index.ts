@@ -19,7 +19,7 @@ import RigobotIconTiny from "./RigobotIconTiny";
 import Rocket from "./Rocket";
 import Security from "./Security";
 import StairsWithFlag from "./StairsWithFlag";
-import Target from "./Target";
+import CustomTarget from "./CustomTarget";
 
 const customIcons: Record<string, React.ComponentType<{
   width?: string;
@@ -49,7 +49,7 @@ const customIcons: Record<string, React.ComponentType<{
   Rocket,
   Security,
   StairsWithFlag,
-  Target,
+  CustomTarget,
 };
 
 export function getCustomIcon(name: string) {
@@ -78,5 +78,5 @@ export {
   Rocket,
   Security,
   StairsWithFlag,
-  Target,
+  CustomTarget,
 };

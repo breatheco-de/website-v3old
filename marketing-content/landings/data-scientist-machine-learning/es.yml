@@ -280,7 +280,7 @@ sections:
           text: Comprueba si cumples los requisitos
           url: "#hero-dai68j"
           variant: primary
-      - icon: Robot
+      - icon: bot
         title: Aprende más rápido con un tutor de IA que sabe dónde te has atascado
         description: ""
         show_rigobot_logo: true

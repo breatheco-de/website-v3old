@@ -242,7 +242,7 @@ sections:
     title: Todo lo que necesitas para lanzar tu carrera en tecnología
     description: Avanza más rápido y mantente motivado con nuestras herramientas de IA y método de enseñanza hiperpersonalizado.
     features:
-      - icon: Robot
+      - icon: bot
         title: Progresa más rápido con herramientas de IA
         description: ""
         show_rigobot_logo: true

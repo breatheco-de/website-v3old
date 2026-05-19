@@ -1,5 +1,5 @@
-import { memo } from "react";
-import { Bot, Check, Code, Code2, Figma, Github, LucideIcon, Sparkles } from "lucide-react";
+import { memo, createElement } from "react";
+import { Check } from "lucide-react";
 import type {
   SplitCardsSection,
   SplitCardsBenefit,
@@ -7,7 +7,7 @@ import type {
 } from "@shared/schema";
 import { UniversalImage } from "@/components/UniversalImage";
 import { RichTextContent } from "@/components/ui/rich-text-content";
-import * as LucideIcons from "lucide-react";
+import { getIcon, isCustomIcon } from "@/lib/icons";
 
 interface SplitCardsProps {
   data: SplitCardsSection;
@@ -25,26 +25,28 @@ const iconSizeMap: Record<string, number> = {
   lg: 40,
 };
 
-const toolIconMap: Record<string, LucideIcon> = {
-  BrandOpenai: Sparkles,
-  BrandFigma: Figma,
-  BrandGithub: Github,
-  BrandVscode: Code2,
-  Code: Code,
-  Robot: Bot,
-  Sparkles: Sparkles,
+/** Legacy short names used in tool_icons YAML before unified icon system. */
+const TOOL_ICON_ALIASES: Record<string, string> = {
+  BrandOpenai: "Sparkles",
+  BrandFigma: "Figma",
+  BrandGithub: "Github",
+  BrandVscode: "Code2",
+  Code: "Code",
+  Robot: "bot",
+  Sparkles: "Sparkles",
 };
 
-function getToolIcon(iconName?: string): LucideIcon | null {
+function resolveToolIcon(iconName?: string) {
   if (!iconName) return null;
-  return toolIconMap[iconName] || null;
+  return getIcon(iconName) ?? (TOOL_ICON_ALIASES[iconName] ? getIcon(TOOL_ICON_ALIASES[iconName]) : null);
 }
 
 function ToolIconBadge({ tool, index }: { tool: ToolIcon; index: number }) {
   const size = tool.size || "md";
   const sizeClass = sizeClasses[size];
   const iconSize = iconSizeMap[size];
-  const IconComponent = getToolIcon(tool.icon);
+  const IconComponent = resolveToolIcon(tool.icon);
+  const isCustom = tool.icon ? isCustomIcon(tool.icon) : false;
 
   const positionStyle: React.CSSProperties = {};
   if (tool.position) {
@@ -73,7 +75,16 @@ function ToolIconBadge({ tool, index }: { tool: ToolIcon; index: number }) {
           alt=""
         />
       ) : IconComponent ? (
-        <IconComponent size={iconSize} className="text-foreground" />
+        isCustom
+          ? createElement(IconComponent, {
+              width: String(iconSize),
+              height: String(iconSize),
+              className: "text-foreground",
+            })
+          : createElement(IconComponent, {
+              size: iconSize,
+              className: "text-foreground",
+            })
       ) : null}
     </div>
   );
@@ -89,11 +100,8 @@ function BenefitRow({
   defaultIcon?: string;
 }) {
   const iconName = benefit.icon || defaultIcon;
-  const lucideName = iconName ? (iconName.startsWith("Icon") ? iconName.slice(4) : iconName) : null;
-  const lucideKey = lucideName ? lucideName.charAt(0).toUpperCase() + lucideName.slice(1) : null;
-  const IconComponent = lucideKey
-    ? (LucideIcons as unknown as Record<string, LucideIcon>)[lucideKey] || Check
-    : Check;
+  const IconComponent = iconName ? (getIcon(iconName) ?? Check) : Check;
+  const isCustom = iconName ? isCustomIcon(iconName) : false;
 
   return (
     <div
@@ -101,7 +109,11 @@ function BenefitRow({
       data-testid={`benefit-item-${index}`}
     >
       <div className="flex-shrink-0 mt-0.5">
-        <IconComponent className="text-primary" size={20} stroke={2.5} />
+        {isCustom ? (
+          <IconComponent className="text-primary" width="20" height="20" />
+        ) : (
+          <IconComponent className="text-primary" size={20} strokeWidth={2.5} />
+        )}
       </div>
       <p className="text-foreground font-medium leading-relaxed text-base">
         {benefit.text}

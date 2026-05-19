@@ -60,7 +60,7 @@ sections:
       features:
         - icon: IconCalendar
           text: Programa intensivo de {{ global.data_science_week_duration | 18 }} Semanas
-        - icon: IconBriefcase
+        - icon: briefcase-business
           text: Plan de estudios orientado al empleo
         - icon: IconRobot
           text: Aprendizaje y retroalimentación con IA
@@ -247,7 +247,7 @@ sections:
     title: El Modelo de aprendizaje 4Geeks
     description: Combina herramientas de IA, mentoría estructurada y acompañamiento profesional para avanzar con mayor claridad y resultados medibles.
     features:
-      - icon: Robot
+      - icon: bot
         title: Aprende más rápido con herramientas de IA
         description: ""
         show_rigobot_logo: true

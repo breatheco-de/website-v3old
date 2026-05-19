@@ -243,7 +243,7 @@ sections:
       - icon: Globe
         title: Comunidad Global
         description: Conéctate con más de 6,000 profesionales en todo el mundo, creando redes valiosas y oportunidades de colaboración.
-      - icon: IconBriefcase
+      - icon: briefcase-business
         title: Preparación Laboral
         description: Capacitación enfocada en habilidades altamente demandadas en el mercado laboral, garantizando tu empleabilidad en sectores en crecimiento.
       - icon: Award

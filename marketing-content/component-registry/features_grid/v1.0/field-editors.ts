@@ -11,6 +11,7 @@ export type EditorType = string;
 
 export const fieldEditors: Record<string, EditorType> = {
   "items[].icon": "icon-picker",
+  "cards[].icon": "icon-picker",
   "stats-text:description": "rich-text-editor",
   "stats-cards:description": "rich-text-editor",
   "highlight:subtitle": "rich-text-editor",

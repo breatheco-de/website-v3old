@@ -6,7 +6,7 @@ sections:
     title: The Most Personalized Path to an AI Career
     description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support, every part of the experience is built around you.
     features:
-      - icon: Robot
+      - icon: bot
         title: AI-powered feedback, available 24/7
         description: ""
         show_rigobot_logo: true
@@ -227,11 +227,11 @@ sections:
           RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal impact.
         col1_tagline: We'll help you create tailored job search materials
         col1_boxes:
-          - icon: IconBrandLinkedin
+          - icon: linkedin
             text: LinkedIn
           - icon: IconFileText
             text: Resume
-          - icon: IconBriefcase
+          - icon: briefcase-business
             text: Portfolio
           - icon: IconMail
             text: Cover letter
@@ -259,9 +259,9 @@ sections:
         right_bullets:
           - icon: IconUserPlus
             text: Direct referrals to hiring partners
-          - icon: IconTargetArrow
+          - icon: target
             text: Curated job matches based on your profile
-          - icon: IconMessageChatbot
+          - icon: bot-message-square
             text: Networking and recruiter conversation coaching
         right_logos:
           - image_id: logo_google
@@ -283,11 +283,11 @@ sections:
           Visibility gets attention. Proof closes the gap.
           Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
         left_bullets:
-          - icon: IconBriefcase
+          - icon: briefcase-business
             text: Industry-aligned, real-world projects
           - icon: IconPresentation
             text: A showcase-ready capstone project
-          - icon: IconBrandGithub
+          - icon: github
             text: GitHub optimization and professional code review
         right_image_id: geekforce_valentina_ancieta
         right_image_object_fit: cover
@@ -1330,7 +1330,7 @@ sections:
           text: 6-Week Professional AI Program
         - icon: IconRobot
           text: Practical AI Skills for Real Work
-        - icon: IconBriefcase
+        - icon: briefcase-business
           text: Career-Relevant, Productivity-Focused Training
         - icon: IconUsers
           text: Hyper-Personalized Learning Experience
@@ -1484,7 +1484,7 @@ sections:
           text: 12-week accelerated morning track
         - icon: code
           text: Interactive coding exercises
-        - icon: robot
+        - icon: bot
           text: AI-powered feedback
         - icon: calendar
           text: 1:7 teacher student ratio
@@ -1587,7 +1587,7 @@ sections:
           text: 12-week accelerated morning track
         - icon: code
           text: Interactive coding exercises
-        - icon: robot
+        - icon: bot
           text: AI-powered feedback
         - icon: calendar
           text: 1:7 teacher student ratio
@@ -1635,7 +1635,7 @@ sections:
     description: Our unique combination of human mentors and AI assistance ensures you never get stuck. Get instant help from Rigobot AI while having access to real mentors when you need deeper guidance.
     video: https://youtu.be/4n-ZAUPIxJI
     bullet_groups:
-      - icon: Robot
+      - icon: bot
         title: AI-Powered Learning
         description: Get instant answers and code feedback 24/7 with Rigobot.
         bullets:
@@ -1778,9 +1778,9 @@ sections:
     steps:
       - icon: School
         text: Complete our intensive coding bootcamp and graduate within 180 days of your program start date.
-      - icon: Briefcase
+      - icon: briefcase-business
         text: Actively apply for jobs using our career services, attend all coaching sessions, and follow our job search methodology.
-      - icon: Cash
+      - icon: banknote
         text: If you haven't received a qualifying job offer within 180 days of graduation, request your full tuition refund.
     section_id: numbered_steps-pegmvh
   - type: numbered_steps
@@ -1805,7 +1805,7 @@ sections:
           - Completed all coursework and projects
           - Attended all career sessions
           - Applied to minimum required jobs
-      - icon: CashBanknote
+      - icon: banknote
         title: Receive Your Refund
         text: Once verified, we process your 100% tuition refund within 30 days.
     section_id: numbered_steps-odmxtc
@@ -2485,13 +2485,13 @@ sections:
     title: Making Tech Careers Accessible
     subtitle: "Tech careers change lives, and we believe finances should never hold anyone back. That's why we've built some of the most flexible, student-friendly options in the industry:"
     benefit_items:
-      - icon: CurrencyDollar
+      - icon: dollar-sign
         title: Affordable Tuition
         description: Among the most affordable tuition of any top-ranked bootcamp (recognized by Forbes).
       - icon: CreditCard
         title: Flexible Financing
         description: Financing options start at $150/month with 0% interest available for qualified applicants.
-      - icon: Briefcase
+      - icon: briefcase-business
         title: Pay After You Get Hired
         description: Our Income Share Agreement lets you pay only after landing a job making $40k+/year.
       - icon: Gift
@@ -2620,7 +2620,7 @@ sections:
         title: VA Approved for GI Bill
         description: Veterans can use their GI Bill benefits for our programs
         source: U.S. Department of Veterans Affairs
-      - icon: Briefcase
+      - icon: briefcase-business
         title: WIOA Eligible Provider
         description: Approved for workforce development funding assistance
         source: Department of Labor

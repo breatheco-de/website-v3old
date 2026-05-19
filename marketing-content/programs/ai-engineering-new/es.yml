@@ -60,7 +60,7 @@ sections:
       features:
         - icon: calendar
           text: Programa de {{ global.ai_engineering_week_duration | 24 }} semanas o versión acelerada de 12 semanas
-        - icon: IconBriefcase
+        - icon: briefcase-business
           text: Contenido orientado a la práctica
         - icon: IconRobot
           text: Aprendizaje y feedback con IA
@@ -124,7 +124,7 @@ sections:
       features:
         - icon: calendar
           text: Programa de {{ global.ai_engineering_week_duration | 24 }} semanas
-        - icon: IconBriefcase
+        - icon: briefcase-business
           text: Contenido orientado a la práctica
         - icon: IconRobot
           text: Aprendizaje y feedback con IA
@@ -542,7 +542,7 @@ sections:
     title: El camino más personalizado hacia una carrera en IA
     description: Avanza más rápido que nunca, con un sistema de apoyo construido alrededor de tu ritmo, tus objetivos y tu carrera.
     features:
-      - icon: Robot
+      - icon: bot
         title: Feedback con IA disponible 24/7
         description: ""
         show_rigobot_logo: true
@@ -709,9 +709,9 @@ sections:
     steps:
       - icon: School
         text: Añade la Garantía de Empleo a tu plan de pago.
-      - icon: Briefcase
+      - icon: briefcase-business
         text: Completa el programa y sigue el proceso de carrera GeekForce.
-      - icon: Cash
+      - icon: banknote
         text: Consigue empleo en 9 meses o recibe el reembolso íntegro de la matrícula.
     section_id: numbered_steps-pegmvh
     showOnLocations:

@@ -21,7 +21,7 @@ sections:
       - text: See Payment Options
         url: /en/apply
         variant: primary
-        icon: CurrencyDollar
+        icon: dollar-sign
       - text: Calculate Your ROI
         url: /roi-calculator
         variant: outline
@@ -121,7 +121,7 @@ sections:
       - icon: TrendingUp
         title: 150% Average Salary Increase
         description: Our graduates go from earning $30K to $75K on average - that's a life-changing salary jump.
-      - icon: CurrencyDollar
+      - icon: dollar-sign
         title: Flexible Payment Options
         description: Pay nothing upfront with Income Share Agreements, or choose from payment plans starting at $150/month.
       - icon: Refresh

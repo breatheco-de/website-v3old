@@ -6,7 +6,7 @@ meta:
   og_image: /images/programs/job-guarantee-og.jpg
   priority: 0.9
   change_frequency: weekly
-  page_title: "Job Guarantee Program | 4Geeks"
+  page_title: Job Guarantee Program | 4Geeks
   description: Get hired with our job guarantee program, combining skills, mentorship, and career support at 4Geeks Academy.
   redirects: []
 schema:
@@ -170,68 +170,106 @@ sections:
     description: Four review platform cards with ratings
     section_id: trust_cards-eslgbu
     paddingY:
-      desktop: md
+      desktop: sm md
     marginY:
-      desktop: none lg
-  - type: programs_showcase
-    version: v1.0
-    layout: spotlight_with_list
+      desktop: none
+    background: hsl(var(--secondary))
+  - type: course_selector
+    version: "1.0"
+    variant: spotlight
     heading: Every Program Comes With the Job Guarantee Option
     subheading: Four programs. One promise. Get hired within 9 months, or get your tuition back.
-    featured_label: Featured Program
-    programs:
+    courses:
       - name: AI Engineering
-        icon: IconBrain
-        description: Build the AI systems companies are hiring for right now. Master LLMs, AI agents and automation while transforming a real business case into a fully AI-native system, layer by layer.
-        duration: 24 weeks
-        avg_salary: $95,000 – $150,000
-        cta_text: Get More Info
-        cta_url: "#hero-nzpyph"
-      - name: Full Stack Development with AI
-        icon: IconCode
-        description: Build modern, production-ready web applications from frontend to backend using the most in-demand AI tools on the market.
-        duration: 20 weeks
-        avg_salary: $65,000 – $105,000
-        cta_text: Get More Info
-        cta_url: "#hero-nzpyph"
+        icon: Bolt
+        duration: 24 weeks, or 15-week accelerated track
+        label: Updated in 2026
+        title: AI Engineering
+        badges:
+          - icon: Bolt
+            text: RAG & Vector Search
+          - icon: Bolt
+            text: AI Agents
+          - icon: Bolt
+            text: Python
+        description: Transform a real business case into a fully AI-native system, layer by layer. Master the agents, RAG systems, and automation pipelines that companies are hiring for right now.
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/ai-engineering
+        course_background: accent
       - name: Data Science and Machine Learning
         icon: IconChartBar
-        description: Analyze complex data, build intelligent models and deploy AI solutions for real business problems.
-        duration: 16 weeks
-        avg_salary: $70,000 – $130,000
-        cta_text: Get More Info
-        cta_url: "#hero-nzpyph"
+        duration: 18 weeks
+        label: Updated in 2026
+        title: Data Science and Machine Learning
+        badges:
+          - icon: ChartBar
+            text: Python & Pandas
+          - icon: ChartBar
+            text: TensorFlow
+          - icon: ChartBar
+            text: Data Visualization
+        description: Master the skills behind AI-driven decisions. Build models, analyze data at scale, and deploy solutions that companies in every industry are actively hiring for.
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/data-science-ml
+        course_background: hsl(var(--muted-foreground))
       - name: Cybersecurity
         icon: IconShield
-        description: Protect the systems AI depends on. Cybersecurity specialists are critical now that companies are scaling their AI infrastructure.
         duration: 16 weeks
-        avg_salary: $65,000 – $120,000
-        cta_text: Get More Info
-        cta_url: "#hero-nzpyph"
-    section_id: programs_showcase-5wibqd
-    background: hsl(var(--secondary))
-    paddingY:
-      desktop: md lg
+        label: Updated in 2026
+        title: Cybersecurity
+        badges:
+          - icon: Shield
+            text: Ethical Hacking & Pentesting
+          - icon: Shield
+            text: NIST Framework
+        description: Detect threats, protect systems, and secure the data every organization depends on. One of the fastest-growing careers in tech, with a global shortage of skilled professionals that shows no signs of slowing.
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/cybersecurity
+        course_background: destructive
+      - name: Full Stack Development with AI
+        icon: IconCode
+        duration: 20 weeks
+        label: Updated in 2026
+        title: Full Stack Development with AI
+        badges:
+          - icon: Code
+            text: React & Next.js
+          - icon: Code
+            text: Python & APIs
+          - icon: Code
+            text: AI Integration
+        description: Build modern, production-ready web applications from frontend to backend, with AI integrated into your development process from day one.
+        cta_text: Get Program Details
+        cta_url: /en/career-programs/full-stack
+        course_background: primary
+    maxWidth:
+      desktop: 6xl
     marginY:
-      desktop: sm lg
+      desktop: none
+    section_id: course_selector-jsuu5u
+    paddingY:
+      desktop: md none
   - type: features_quad
-    section_id: features_quad-ge4f63
     version: "1.0"
     variant: default
     compact: true
     heading: How Our Job Guarantee Works
+    description: Know everything step by step.
     cards:
-      - icon: IconRubberStamp
+      - icon: Trophy
         title: 1. Add the Job Guarantee When You Enroll
-      - icon: IconCalendarCog
+        description: Top-ranked bootcamp
+      - icon: Wallet
         title: 2. Complete the Program and Graduate
-      - icon: IconChecklist
+        description: Flexible payments
+      - icon: Clock
         title: 3. Follow the Career Development Process
-      - icon: IconBriefcase
+        description: Part-time available
+      - icon: Users
         title: 4. Get Hired Within 9 Months, or Get 100% of Your Tuition Back
-    background: hsl(var(--card))
-    paddingY:
-      desktop: none
+        description: Unlimited mentorship
+    background: hsl(var(--muted))
+    section_id: features_quad-bnzlw6
     marginY:
       desktop: none lg
   - type: two_column
@@ -254,11 +292,11 @@ sections:
         icon: Rocket
     gap: "8"
     marginY:
-      desktop: none lg
+      desktop: none
     section_id: two_column-joshua
-    background: hsl(var(--secondary))
+    background: hsl(var(--card))
     paddingY:
-      desktop: md
+      desktop: md none
   - type: career_support_explain
     maxWidth:
       desktop: 6xl
@@ -275,11 +313,11 @@ sections:
           RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal impact.
         col1_tagline: We'll help you create tailored job search materials
         col1_boxes:
-          - icon: IconBrandLinkedin
+          - icon: linkedin
             text: LinkedIn
           - icon: IconFileText
             text: Resume
-          - icon: IconBriefcase
+          - icon: briefcase-business
             text: Portfolio
           - icon: IconMail
             text: Cover letter
@@ -307,9 +345,9 @@ sections:
         right_bullets:
           - icon: IconUserPlus
             text: Direct referrals to hiring partners
-          - icon: IconTargetArrow
+          - icon: target
             text: Curated job matches based on your profile
-          - icon: IconMessageChatbot
+          - icon: bot-message-square
             text: Networking and recruiter conversation coaching
         right_logos:
           - image_id: logo_google
@@ -331,11 +369,11 @@ sections:
           Visibility gets attention. Proof closes the gap.
           Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
         left_bullets:
-          - icon: IconBriefcase
+          - icon: briefcase-business
             text: Industry-aligned, real-world projects
           - icon: IconPresentation
             text: A showcase-ready capstone project
-          - icon: IconBrandGithub
+          - icon: github
             text: GitHub optimization and professional code review
         right_image_id: geekforce_valentina_ancieta
         right_image_object_fit: cover
@@ -380,9 +418,9 @@ sections:
             achievement: She achieved a 100% salary increase.
     section_id: career_support_explain-xpc3k2
     marginY:
-      desktop: none xl
+      desktop: none lg
     paddingY:
-      desktop: md none
+      desktop: lg none
   - type: human_and_ai_duo
     section_id: human_and_ai_duo-zg16oa
     version: "1.0"
@@ -551,6 +589,26 @@ sections:
         description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
+  - type: numbered_steps
+    version: "1.0"
+    variant: bubbleText
+    title: No Job Within 9 Months? Get Your Tuition Back.
+    description: Complete the program, meet the Job Guarantee requirements, and if you don't land a tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.
+    description_link:
+      text: Terms and conditions apply.
+      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
+    steps:
+      - icon: Optimization
+        title: Notify Us
+        text: Let us know you haven't landed a qualifying role within 9 months of graduation. That's all it takes to start the process.
+      - icon: Interview
+        title: We Review the Requirements
+        text: Our team confirms that all Job Guarantee requirements were completed during the program and job search period.
+      - icon: JobSearch
+        title: Full Refund, Within 30 Days
+        text: Verified and approved, your full tuition is refunded within 30 days.
+    background: hsl(var(--card))
+    section_id: numbered_steps-sgeuhk
   - type: whos_hiring
     section_id: whos_hiring-6ml5ey
     variant: carousel
@@ -582,29 +640,9 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
         alt: Jooble
     marginY:
-      desktop: none xl
+      desktop: none sm
     paddingY:
       desktop: none
-  - type: numbered_steps
-    version: "1.0"
-    variant: bubbleText
-    title: No Job Within 9 Months? Get Your Tuition Back.
-    description: Complete the program, meet the Job Guarantee requirements, and if you don't land a tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.
-    description_link:
-      text: Terms and conditions apply.
-      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
-    steps:
-      - icon: Optimization
-        title: Notify Us
-        text: Let us know you haven't landed a qualifying role within 9 months of graduation. That's all it takes to start the process.
-      - icon: Interview
-        title: We Review the Requirements
-        text: Our team confirms that all Job Guarantee requirements were completed during the program and job search period.
-      - icon: JobSearch
-        title: Full Refund, Within 30 Days
-        text: Verified and approved, your full tuition is refunded within 30 days.
-    background: hsl(var(--card))
-    section_id: numbered_steps-sgeuhk
   - type: cards_deck
     version: "1.0"
     heading: From Enrollment to Hired. In Their Own Words
@@ -636,7 +674,7 @@ sections:
         alt: Geekpal
     section_id: cards_deck-cnay6o
     marginY:
-      desktop: none sm
+      desktop: none md
     background: hsl(210 100% 50% / 0.05)
     paddingY:
       desktop: md lg
@@ -645,17 +683,27 @@ sections:
     heading: Who Can Add the Job Guarantee?
     description: "The Job Guarantee is available to students who meet these four requirements:"
     cards:
-      - icon: IconBriefcaseFilled
+<<<<<<< HEAD
+      - icon: briefcase-business
         title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
-      - icon: IconCircleDashedCheck
+      - icon: badge-check
+=======
+      - icon: Trophy
+        title: {{ global.who_is_eligible_work_authorization | Have U.S. work authorization }}
+      - icon: Trophy
+>>>>>>> 04b0baf86e7125f850e8c7e43961d43e77e91b5a
         title: Complete All Program Requirements
-      - icon: IconBrain
+      - icon: Trophy
         title: Pass the Admissions Logic Test
-      - icon: IconArrowGuideFilled
+<<<<<<< HEAD
+      - icon: trending-up
+=======
+      - icon: Trophy
+>>>>>>> 04b0baf86e7125f850e8c7e43961d43e77e91b5a
         title: Follow the Full Career Development Process
     section_id: features_quad-ms7uox
     marginY:
-      desktop: none xl
+      desktop: none md
     paddingY:
       desktop: none
     background: hsl(var(--background))

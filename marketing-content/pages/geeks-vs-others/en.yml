@@ -157,13 +157,13 @@ sections:
     heading: Making Tech Careers Accessible
     description: Tech careers can transform lives and finances should never stand in the way. That’s why we offer some of the most flexible, student-friendly payment and scholarship options in the industry.
     cards:
-      - icon: CurrencyDollar
+      - icon: dollar-sign
         title: Affordable tuition
         description: Among the most affordable tuition of any top-ranked program (recognized by Forbes).
       - icon: CreditCard
         title: Flexible financing
         description: Financing options start from {{ global.lowest_monthly_financing_option | $299 }}/month, so you can learn without financial stress.
-      - icon: Coin
+      - icon: coins
         title: Income-based payment
         description: Start learning now and only pay once you’re earning in tech.
       - icon: School

@@ -64,7 +64,7 @@ sections:
           text: Programa Profesional de IA de 6 Semanas
         - icon: IconRobot
           text: Habilidades Prácticas de IA para el Trabajo Real
-        - icon: IconBriefcase
+        - icon: briefcase-business
           text: Formación Relevante para la Carrera, Enfocada en Productividad
         - icon: IconUsers
           text: Experiencia de Aprendizaje Hiperpersonalizada
@@ -246,7 +246,7 @@ sections:
     title: Cómo Aprenderás en 4Geeks
     description: Avanza más rápido y mantente motivado con nuestras herramientas impulsadas por IA y nuestro método de enseñanza hiperpersonalizado.
     features:
-      - icon: Robot
+      - icon: bot
         title: Avanza más rápido con herramientas impulsadas por IA
         description: ""
         show_rigobot_logo: true

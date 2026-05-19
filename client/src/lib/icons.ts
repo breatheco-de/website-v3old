@@ -7,7 +7,6 @@
  * 
  * Usage:
  *   import { getIcon, getAllIconNames } from "@/lib/icons";
-import { Briefcase } from "lucide-react";
  *   const IconComponent = getIcon("Rigobot"); // Custom icon
  *   const IconComponent = getIcon("Rocket");  // Lucide icon
  */
@@ -197,42 +196,50 @@ const TABLER_TO_LUCIDE: Record<string, string> = {
   "IconBrandMedium": "FileText",
 };
 
-// Curated list of Lucide icon names for the picker
-export const TABLER_ICON_NAMES = [
-  // General UI icons
-  "Rocket", "Users", "Briefcase", "Shield", "Check",
-  "X", "Plus", "Minus", "Star", "Heart",
-  "Home", "Settings", "Search", "Mail", "Phone",
-  "Calendar", "Clock", "Map", "MapPin", "Globe",
-  "Send", "Download", "Upload", "Share2",
-  "Link", "ExternalLink", "Eye", "EyeOff", "Lock",
-  "LockOpen", "Key", "User", "UserPlus", "UserCheck",
-  "CreditCard", "Wallet", "Banknote", "Coins", "DollarSign",
-  "Euro", "Receipt", "Calculator",
-  "BarChart2", "LineChart", "PieChart", "TrendingUp", "TrendingDown",
-  "Target", "Trophy", "Medal", "Award",
-  "Badge", "Flag", "Bookmark", "Tag", "Tags",
-  "Folder", "File", "FileText", "Clipboard", "NotebookPen",
-  "Pencil", "Trash2", "Archive", "RefreshCw",
-  "RotateCw", "Repeat", "ArrowUp", "ArrowDown", "ArrowLeft",
-  "ArrowRight", "ChevronUp", "ChevronDown", "ChevronLeft", "ChevronRight",
-  "Menu", "MoreVertical", "MoreHorizontal", "Filter", "ArrowUpDown",
-  "ZoomIn", "ZoomOut", "Maximize2", "Minimize2", "Maximize",
-  "Code", "Terminal",
-  "MessageSquare", "MessageCircle", "MessagesSquare", "Bell", "BellRing",
-  "AlertCircle", "AlertTriangle", "Info", "HelpCircle",
-  "Lightbulb", "Flame", "Zap",
-  "Cloud", "CloudDownload", "CloudUpload", "Database", "Server",
-  "Cpu", "Laptop", "Monitor", "Smartphone", "Tablet",
-  "Headphones", "Mic", "Volume2", "VolumeX",
-  "Wifi", "Sun", "Moon",
-  "School", "Book", "BookOpen", "Notebook", "Backpack",
-  "GraduationCap", "Bot", "Brain", "Activity",
-  "Webhook", "Sparkles", "Wand2",
-  // Brand-like icons from Lucide
-  "Github", "Linkedin", "Twitter", "Youtube", "Facebook",
-  "Instagram", "Figma", "GitBranch", "Package",
-];
+/** Curated Lucide slugs (kebab-case) shown in the icon picker. */
+export const CURATED_LUCIDE_ICONS = [
+  "circle-dollar-sign",
+  "briefcase-business",
+  "bot",
+  "brain",
+  "book-open",
+  "check",
+  "code-xml",
+  "dumbbell",
+  "globe",
+  "mail",
+  "lock-open",
+  "lock",
+  "trending-up",
+  "user",
+  "share",
+  "puzzle",
+  "link",
+  "key-round",
+  "clock",
+  "chart-no-axes-combined",
+  "notebook-pen",
+] as const;
+
+/** @deprecated Use CURATED_LUCIDE_ICONS — kept for any external imports. */
+export const TABLER_ICON_NAMES = CURATED_LUCIDE_ICONS;
+
+/** Convert lucide.dev slug to React export name (e.g. circle-dollar-sign → CircleDollarSign). */
+export function kebabToPascal(kebab: string): string {
+  return kebab
+    .split("-")
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+    .join("");
+}
+
+/** Convert React export name to lucide.dev slug (e.g. CircleDollarSign → circle-dollar-sign). */
+export function pascalToKebab(pascal: string): string {
+  return pascal
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+    .replace(/([A-Z])([A-Z][a-z])/g, "$1-$2")
+    .toLowerCase();
+}
 
 // Type for icon components
 type IconComponent = React.ComponentType<{
@@ -246,29 +253,35 @@ type IconComponent = React.ComponentType<{
 
 /**
  * Normalize icon name to handle various formats:
- * - "rocket" -> "Rocket" (Lucide PascalCase)
- * - "Rocket" -> "Rocket" (already correct for Lucide)
+ * - "circle-dollar-sign" -> "CircleDollarSign" (Lucide kebab slug)
+ * - "Rocket" / "rocket" -> "Rocket" (Lucide PascalCase)
  * - "IconRocket" -> looks up in TABLER_TO_LUCIDE map -> "Rocket"
  * - "Rigobot" -> "Rigobot" (custom icon)
  */
 function normalizeIconName(name: string): { normalized: string; isCustom: boolean } {
   if (!name) return { normalized: "", isCustom: false };
-  
-  // Check if it's a known custom icon first
-  const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+
+  const trimmed = name.trim();
+
+  // Check if it's a known custom icon first (PascalCase registry)
+  const capitalizedName = trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
   if (CUSTOM_ICON_NAMES.includes(capitalizedName)) {
     return { normalized: capitalizedName, isCustom: true };
   }
-  
+
   // Handle old Tabler-style "Icon" prefixed names
-  if (name.startsWith("Icon")) {
-    const lucideName = TABLER_TO_LUCIDE[name];
+  if (trimmed.startsWith("Icon")) {
+    const lucideName = TABLER_TO_LUCIDE[trimmed];
     if (lucideName) return { normalized: lucideName, isCustom: false };
-    // Try stripping the "Icon" prefix directly
-    return { normalized: name.slice(4), isCustom: false };
+    return { normalized: trimmed.slice(4), isCustom: false };
   }
-  
-  // Capitalize for Lucide (PascalCase)
+
+  // Kebab-case lucide slug (picker + menus)
+  if (trimmed.includes("-")) {
+    return { normalized: kebabToPascal(trimmed), isCustom: false };
+  }
+
+  // Simple PascalCase / lowercase (TrendingUp, bot, mail)
   return { normalized: capitalizedName, isCustom: false };
 }
 
@@ -300,31 +313,70 @@ export function getIcon(name: string): IconComponent | null {
   return null;
 }
 
+const LUCIDE_EXPORT_SKIP = new Set(["Icon", "icons", "createLucideIcon"]);
+
+function isLucideIconExport(value: unknown): boolean {
+  return (
+    typeof value === "function" ||
+    (typeof value === "object" && value !== null && "$$typeof" in value)
+  );
+}
+
+let cachedLucideIconSlugs: string[] | null = null;
+
 /**
- * Get all Lucide icon names dynamically from the library.
+ * All Lucide icon slugs for the picker (kebab-case), excluding alias exports (*Icon, Lucide*).
  */
 export function getAllTablerIconNames(): string[] {
-  return Object.keys(LucideIcons).filter(
-    (key) => typeof (LucideIcons as Record<string, unknown>)[key] === "function" && /^[A-Z]/.test(key)
-  );
+  if (cachedLucideIconSlugs) return cachedLucideIconSlugs;
+
+  cachedLucideIconSlugs = Object.keys(LucideIcons)
+    .filter((key) => {
+      if (!/^[A-Z]/.test(key)) return false;
+      if (key.endsWith("Icon")) return false;
+      if (key.startsWith("Lucide")) return false;
+      if (LUCIDE_EXPORT_SKIP.has(key)) return false;
+      return isLucideIconExport((LucideIcons as Record<string, unknown>)[key]);
+    })
+    .map((key) => pascalToKebab(key))
+    .sort();
+
+  return cachedLucideIconSlugs;
 }
 
 /**
  * Get all available icon names for the picker.
- * Returns custom icons first, then Lucide icons.
+ * Returns custom icons first (PascalCase), then all Lucide slugs (kebab-case).
  */
 export function getAllIconNames(): string[] {
   return [...CUSTOM_ICON_NAMES, ...getAllTablerIconNames()];
 }
 
 /**
- * Get display name for an icon
+ * Get display name for an icon (human-readable slug or legacy Tabler label).
  */
 export function getIconDisplayName(name: string): string {
   if (name.startsWith("Icon")) {
     return name.slice(4);
   }
-  return name;
+  if (name.includes("-")) {
+    return name;
+  }
+  return pascalToKebab(name);
+}
+
+/**
+ * Whether a picker/search term matches an icon entry (kebab slug or Pascal custom).
+ */
+export function iconMatchesSearch(iconName: string, searchLower: string): boolean {
+  if (!searchLower) return true;
+  const slug = iconName.includes("-") ? iconName : pascalToKebab(iconName);
+  const pascal = iconName.includes("-") ? kebabToPascal(iconName) : iconName;
+  return (
+    iconName.toLowerCase().includes(searchLower) ||
+    slug.includes(searchLower) ||
+    pascal.toLowerCase().includes(searchLower)
+  );
 }
 
 /**
@@ -333,4 +385,11 @@ export function getIconDisplayName(name: string): string {
 export function isCustomIcon(name: string): boolean {
   const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
   return CUSTOM_ICON_NAMES.includes(capitalizedName);
+}
+
+/**
+ * True when the name refers to a curated Lucide slug (not a custom icon).
+ */
+export function isCuratedLucideIcon(name: string): boolean {
+  return (CURATED_LUCIDE_ICONS as readonly string[]).includes(name);
 }
