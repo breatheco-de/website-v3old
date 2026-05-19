@@ -134,7 +134,7 @@ sections:
       success:
         message: Thanks! We'll be in touch within 24 hours.
     paddingY:
-      desktop: none sm
+      desktop: none
     load: eager
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
@@ -182,7 +182,7 @@ sections:
     maxWidth:
       desktop: 6xl
     paddingY:
-      desktop: sm none
+      desktop: none
   - type: features_grid
     version: "1.0"
     variant: stats-text-card
@@ -385,7 +385,7 @@ sections:
     title: The Most Personalized Path to an AI Career
     description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support, every part of the experience is built around you.
     features:
-      - icon: bot
+      - icon: Robot
         title: AI-powered feedback, available 24/7
         description: ""
         show_rigobot_logo: true
@@ -603,7 +603,7 @@ sections:
       - icon: Clock
         title: You're ready to commit
         description: 20-24 hours/week for 24 weeks. Live classes, real projects, real intensity. You bring the commitment, we deliver the results.
-      - icon: briefcase-business
+      - icon: IconBriefcase
         title: You want a career, not a certificate
         description: You're here to build with AI, land a high-paying role, and make a real career change. That's exactly what this program is built for.
       - icon: Users
