@@ -270,6 +270,8 @@ sections:
         description: Unlimited mentorship
     background: hsl(var(--muted))
     section_id: features_quad-bnzlw6
+    marginY:
+      desktop: none md
   - type: two_column
     proportions:
       - 6
