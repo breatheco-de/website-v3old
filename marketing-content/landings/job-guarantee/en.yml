@@ -245,7 +245,7 @@ sections:
     maxWidth:
       desktop: 6xl
     marginY:
-      desktop: none sm
+      desktop: none
     section_id: course_selector-jsuu5u
     paddingY:
       desktop: md none
