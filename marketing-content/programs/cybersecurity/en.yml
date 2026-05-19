@@ -289,14 +289,14 @@ sections:
     card_gauge_accent: hsl(var(--destructive) / 0.5)
     card_trend_accent: hsl(var(--accent))
     card_bars:
-      title: The Talent Gap Keeps Growing
+      title: The talent gap keeps widening
       description: ISC2 Workforce Study · 2024 global data
       stat_value: 4.8M
       stat_label: cybersecurity roles unfilled globally
       displaced_label: Available talent
       created_label: Unfilled roles
     card_gauge:
-      title: Demand Far Outpaces Supply
+      title: Demand far outpaces supply
       description: BLS Occupational Outlook · 2024-2034
       gauge_percentage: 29
       gauge_label: projected growth
@@ -304,7 +304,7 @@ sections:
       bar1_label: Current workforce
       bar2_label: Market demand
     card_trend:
-      title: Hiring Is Accelerating
+      title: Hiring is accelerating
       description: CyberSeek/NIST · active US job postings
       stat_value: 514K
       stat_label: active cybersecurity job openings in the US right now
