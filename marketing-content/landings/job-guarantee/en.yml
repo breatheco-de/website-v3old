@@ -292,11 +292,11 @@ sections:
         icon: Rocket
     gap: "8"
     marginY:
-      desktop: none lg
+      desktop: none
     section_id: two_column-joshua
     background: hsl(var(--card))
     paddingY:
-      desktop: md
+      desktop: md none
   - type: career_support_explain
     maxWidth:
       desktop: 6xl
