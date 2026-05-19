@@ -94,6 +94,7 @@ export interface PageEntry {
   directory: string;
   locales: string[];
   title?: string;
+  urls?: Record<string, string>;
 }
 
 export function scanPages(): PageEntry[] {
@@ -127,12 +128,30 @@ export function scanPages(): PageEntry[] {
         }
       }
 
+      let urls: Record<string, string> | undefined;
+      if (config.url_pattern) {
+        const pattern = config.url_pattern;
+        const resolved: Record<string, string> = {};
+        if (pattern["default"]) {
+          // Shorthand: same path for all locales
+          const path_ = pattern["default"].replace(":slug", entry.name);
+          for (const locale of locales) resolved[locale] = path_;
+        } else {
+          // Per-locale paths — only include locales that have a pattern defined
+          for (const locale of locales) {
+            if (pattern[locale]) resolved[locale] = pattern[locale].replace(":slug", entry.name);
+          }
+        }
+        if (Object.keys(resolved).length > 0) urls = resolved;
+      }
+
       pages.push({
         slug: entry.name,
         contentType,
         directory: `marketing-content/${getDirectory(contentType, config)}/${entry.name}`,
         locales,
         title,
+        ...(urls ? { urls } : {}),
       });
     }
   }

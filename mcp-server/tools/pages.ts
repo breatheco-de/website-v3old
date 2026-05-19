@@ -18,7 +18,7 @@ export function registerPageTools(mcp: McpServer): void {
   // list_pages
   mcp.tool(
     "list_pages",
-    "List all YAML-driven content pages. Returns slug, contentType, locales, and title for each page.",
+    "List all YAML-driven content pages. Returns slug, contentType, locales, title, and urls (a per-locale map of resolved paths, e.g. { en: '/en/career-programs/ai-engineering' }) for each page.",
     {},
     async () => {
       const pages = scanPages();
