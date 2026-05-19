@@ -268,7 +268,7 @@ sections:
       - icon: Users
         title: 4. Get Hired Within 9 Months, or Get 100% of Your Tuition Back
         description: Unlimited mentorship
-    background: bg-muted/30
+    background: hsl(var(--muted))
     section_id: features_quad-bnzlw6
   - type: two_column
     proportions:
