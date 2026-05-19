@@ -170,7 +170,7 @@ sections:
     description: Four review platform cards with ratings
     section_id: trust_cards-eslgbu
     paddingY:
-      desktop: none md
+      desktop: sm md
     marginY:
       desktop: none lg
     background: hsl(var(--secondary))
