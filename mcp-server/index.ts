@@ -562,6 +562,52 @@ function createMcpServer(): McpServer {
     }
   );
 
+  // commit_changes
+  mcp.tool(
+    "commit_changes",
+    "Commit all pending local content changes to GitHub. Call this after making edits with update_field, add_section, remove_section, or reorder_sections to persist them to the repository. Requires GitHub to be configured on the main server (GITHUB_TOKEN, GITHUB_REPO, and GITHUB_BRANCH environment variables).",
+    {
+      message: z.string().optional().describe("Commit message. Defaults to 'Content update via MCP' if omitted."),
+      author: z.string().optional().describe("Author name to prepend to the commit message, e.g. 'Claude'. Omit to use the default committer."),
+    },
+    async ({ message, author }) => {
+      const commitMessage = (message && message.trim()) ? message.trim() : "Content update via MCP";
+      const mainServerPort = process.env.PORT || "5000";
+      const url = `http://localhost:${mainServerPort}/api/github/commit`;
+
+      let responseBody: { success?: boolean; commitHash?: string; error?: string };
+      try {
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: commitMessage,
+            ...(author && typeof author === "string" && author.trim() ? { author: author.trim() } : {}),
+          }),
+        });
+        const rawText = await res.text();
+        try {
+          responseBody = JSON.parse(rawText) as typeof responseBody;
+        } catch {
+          return { content: [{ type: "text", text: `Commit failed: server returned non-JSON response (HTTP ${res.status}): ${rawText.slice(0, 200)}` }], isError: true };
+        }
+        if (!res.ok) {
+          const errMsg = responseBody?.error || `HTTP ${res.status}`;
+          return { content: [{ type: "text", text: `Commit failed: ${errMsg}` }], isError: true };
+        }
+      } catch (err) {
+        return { content: [{ type: "text", text: `Failed to reach main server at ${url}: ${(err as Error).message}` }], isError: true };
+      }
+
+      if (responseBody?.success) {
+        const hashNote = responseBody.commitHash ? ` (${responseBody.commitHash.slice(0, 7)})` : "";
+        return { content: [{ type: "text", text: `Changes committed to GitHub successfully${hashNote}.` }] };
+      }
+
+      return { content: [{ type: "text", text: `Commit failed: ${responseBody?.error ?? "Unknown error"}` }], isError: true };
+    }
+  );
+
   return mcp;
 }
 

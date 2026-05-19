@@ -14,6 +14,7 @@ An MCP (Model Context Protocol) server that gives Claude read and write access t
 | `reorder_sections` | Reorder sections by supplying a new index order |
 | `list_components` | List all available section component types with versions and variants |
 | `get_component_schema` | Get the field schema and worked YAML examples for a component |
+| `commit_changes` | Commit all pending content edits to GitHub with an optional message |
 
 ## Auth
 
@@ -35,6 +36,20 @@ The MCP server starts automatically alongside the main app via the **MCP Server*
 | `MCP_PORT` | `3001` | Port the MCP server listens on. |
 
 Set `MCP_API_KEY` in the Replit Secrets tab (or `.env` locally).
+
+## GitHub setup (for `commit_changes`)
+
+The `commit_changes` tool delegates to the main application server at `/api/github/commit`. For it to succeed, the main server must be configured with a GitHub Personal Access Token (classic or fine-grained) that has **Contents: read & write** permission on the target repository.
+
+Set these environment variables (in the Replit Secrets tab or `.env`):
+
+| Variable | Description |
+|---|---|
+| `GITHUB_TOKEN` | Personal Access Token with repo write access |
+| `GITHUB_REPO` | Repository in `owner/repo` format, e.g. `acme/marketing-site` |
+| `GITHUB_BRANCH` | Branch to commit to, e.g. `main` |
+
+If these variables are not set, `commit_changes` will return an error but all other tools will continue to work normally — edits are still saved to local YAML files.
 
 ## Connect via Claude Desktop
 
@@ -91,6 +106,12 @@ A typical editing session looks like this:
    Call reorder_sections to move the new section earlier.
    ```
 
+4. **Push to GitHub**
+   ```
+   Call commit_changes with message="Add FAQ section to home page" to commit and push all edits.
+   Optionally pass author="Claude" to attribute the change in the commit message.
+   ```
+
 ## Transport
 
 The server uses the **MCP Streamable HTTP transport** on a single `/mcp` endpoint. This satisfies the "HTTP + SSE" intent from the original design: the client sends a JSON-RPC POST and the server responds either as plain JSON or as a Server-Sent Events stream depending on what the client's `Accept` header requests. Both modes work through the same URL — no separate SSE endpoint is needed.
@@ -131,6 +152,13 @@ curl -X POST http://localhost:3001/mcp \
   -H "Accept: application/json, text/event-stream" \
   -H "X-Api-Key: $KEY" \
   -d '{"jsonrpc":"2.0","method":"tools/call","id":4,"params":{"name":"update_field","arguments":{"slug":"home","locale":"en","field_path":"meta.page_title","value":"My New Title"}}}'
+
+# Commit all pending changes to GitHub
+curl -X POST http://localhost:3001/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -H "X-Api-Key: $KEY" \
+  -d '{"jsonrpc":"2.0","method":"tools/call","id":5,"params":{"name":"commit_changes","arguments":{"message":"Update home page title","author":"Claude"}}}'
 ```
 
 ## Health check
