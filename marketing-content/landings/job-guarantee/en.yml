@@ -693,7 +693,7 @@ sections:
         title: Follow the Full Career Development Process
     section_id: features_quad-ms7uox
     marginY:
-      desktop: none xl
+      desktop: none md
     paddingY:
       desktop: none
     background: hsl(var(--background))
