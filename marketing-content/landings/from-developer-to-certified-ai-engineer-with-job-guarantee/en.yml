@@ -927,12 +927,3 @@ sections:
       desktop: lg
     marginY:
       desktop: none sm
-  - type: footer
-    section_id: footer-eisseg
-    version: "1.0"
-    copyright_text: 2024 4Geeks. All rights reserved.
-    paddingY:
-      mobile: none
-      desktop: sm none
-    marginY:
-      desktop: sm none
