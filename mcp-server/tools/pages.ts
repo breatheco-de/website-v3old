@@ -90,10 +90,38 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
   // list_pages
   mcp.tool(
     "list_pages",
-    "List all YAML-driven content pages. Returns slug, contentType, locales, title, and urls (a per-locale map of resolved paths, e.g. { en: '/en/career-programs/ai-engineering' }) for each page.",
-    {},
-    async () => {
-      const pages = scanPages();
+    "List YAML-driven content pages. Returns slug, contentType, locales, title, and urls (a per-locale map of resolved paths, e.g. { en: '/en/career-programs/ai-engineering' }) for each page. " +
+    "Optional filters (all combinable, AND logic): " +
+    "contentType — restrict to one type (e.g. 'program', 'landing', 'page'); " +
+    "locale — only pages that have this locale available (e.g. 'en'); " +
+    "slugs — restrict to a specific list of slugs; " +
+    "search — case-insensitive substring match against slug and title. " +
+    "With no filters the full list is returned.",
+    {
+      contentType: z.string().optional().describe("Restrict to one content type, e.g. 'program' or 'landing'"),
+      locale: z.string().optional().describe("Only return pages that have this locale available, e.g. 'en' or 'es'"),
+      slugs: z.array(z.string()).optional().describe("Restrict to a specific list of slugs"),
+      search: z.string().optional().describe("Case-insensitive substring match against slug and title"),
+    },
+    async ({ contentType, locale, slugs, search }) => {
+      let pages = scanPages();
+      if (contentType) {
+        pages = pages.filter(p => p.contentType === contentType);
+      }
+      if (locale) {
+        pages = pages.filter(p => p.locales.includes(locale));
+      }
+      if (slugs && slugs.length > 0) {
+        const slugSet = new Set(slugs);
+        pages = pages.filter(p => slugSet.has(p.slug));
+      }
+      if (search) {
+        const q = search.toLowerCase();
+        pages = pages.filter(p =>
+          p.slug.toLowerCase().includes(q) ||
+          (p.title ?? "").toLowerCase().includes(q)
+        );
+      }
       return { content: [{ type: "text", text: JSON.stringify(pages, null, 2) }] };
     }
   );
