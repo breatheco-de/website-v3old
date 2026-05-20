@@ -319,7 +319,7 @@ sections:
         difficulty: hard
         date: 01/03/2023
     marginY:
-      desktop: lg
+      desktop: lg xl
   - type: trust_cards
     version: v1.0
     title: Top rated across all major platforms.
@@ -340,9 +340,9 @@ sections:
     description: Four review platform cards with ratings
     section_id: trust_cards-eslgbu
     paddingY:
-      desktop: md lg
-    marginY:
       desktop: lg
+    marginY:
+      desktop: xl lg
     background: hsl(var(--secondary))
     maxWidth:
       desktop: 6xl
