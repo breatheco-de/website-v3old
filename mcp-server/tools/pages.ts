@@ -264,16 +264,19 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
   // create_page
   mcp.tool(
     "create_page",
-    "Create a new YAML-driven page. Creates the page directory, writes the initial locale file, and seeds _common.yml. Returns the new page entry with slug, contentType, locales, and urls.",
+    "Create a new YAML-driven page. IMPORTANT: Before calling this tool, ask the user for the page title, SEO meta title (page_title), meta description, and robots value. Do not call this tool without those values. Creates the page directory, writes the initial locale file, and seeds _common.yml. Returns the new page entry with slug, contentType, locales, and urls.",
     {
       slug: z.string().describe("URL-safe slug for the new page, e.g. 'machine-learning-bootcamp'"),
       contentType: z.string().describe("Content type, e.g. 'program', 'page', 'landing', 'location'. Must match a non-DB-backed entry in content-types.yml."),
       locale: z.string().default("en").describe("Initial locale to create, e.g. 'en'"),
-      title: z.string().describe("Page title"),
-      meta: z.record(z.unknown()).optional().describe("Optional meta fields, e.g. { page_title: '...', description: '...' }"),
+      title: z.string().describe("Page title (visible heading, used as the H1)"),
+      page_title: z.string().describe("SEO meta title shown in browser tab and search results, e.g. 'Machine Learning Bootcamp | 4Geeks'"),
+      meta_description: z.string().describe("SEO meta description (150-160 characters) summarising the page for search engines"),
+      robots: z.string().describe("Robots directive, e.g. 'index, follow' or 'noindex, nofollow'. Must be supplied explicitly; typical value is 'index, follow'."),
+      meta: z.record(z.unknown()).optional().describe("Optional extra meta fields, e.g. { priority: 0.8, change_frequency: 'weekly', og_image: '...' }. The page_title, meta_description, and robots top-level parameters take precedence over any matching keys here."),
       common: z.record(z.unknown()).optional().describe("Optional extra fields for _common.yml (locale-independent data, e.g. bc_slug, job_role)"),
     },
-    async ({ slug, contentType, locale, title, meta, common }) => {
+    async ({ slug, contentType, locale, title, page_title, meta_description, robots, meta, common }) => {
       try {
         assertSafeSegment(slug, "slug");
         assertSafeSegment(contentType, "contentType");
@@ -302,8 +305,13 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
 
       fs.mkdirSync(pageDir, { recursive: true });
 
-      const localeData: Record<string, unknown> = { slug, title };
-      if (meta) localeData.meta = meta;
+      const mergedMeta: Record<string, unknown> = {
+        ...(meta || {}),
+        page_title,
+        description: meta_description,
+        robots,
+      };
+      const localeData: Record<string, unknown> = { slug, title, meta: mergedMeta };
       const localeFilePath = path.join(pageDir, `${locale}.yml`);
       fs.writeFileSync(localeFilePath, safeDump(localeData), "utf-8");
       const localeRelPath = `marketing-content/${getDirectory(contentType, config)}/${slug}/${locale}.yml`;
