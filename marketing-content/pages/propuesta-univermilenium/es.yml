@@ -114,3 +114,12 @@ sections:
     title: Todo lo que necesita cada estudiante para crecer
     type: numbered_steps
     version: "1.0"
+  - cta_button:
+      icon: BrandWhatsapp
+      text: Hablar con Víctor por WhatsApp
+      url: https://wa.me/34684332581
+      variant: primary
+    subtitle: Llevamos tiempo construyendo algo que realmente encaja con lo que UniverMilenium necesita para sus estudiantes.
+    title: ¿Seguimos la conversación?
+    type: cta_banner
+    version: "1.0"
