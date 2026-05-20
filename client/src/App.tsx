@@ -16,15 +16,30 @@ import { usePageTracking } from "@/hooks/usePageTracking";
 import type { ContentTypeApiItem } from "@/hooks/useContentTypes";
 import "./i18n";
 
-const ContentTypeDetail = lazy(() => import("@/pages/ContentTypeDetail"));
-const TemplatePage = lazy(() => import("@/pages/page"));
-const DatabaseSinglePage = lazy(() => import("@/pages/DatabaseSinglePage"));
+function lazyWithRetry<T extends React.ComponentType<any>>(
+  factory: () => Promise<{ default: T }>,
+  retries = 5,
+  delay = 1500,
+): React.LazyExoticComponent<T> {
+  return lazy(() => {
+    const attempt = (n: number): Promise<{ default: T }> =>
+      factory().catch((err) => {
+        if (n <= 0) throw err;
+        return new Promise<void>((resolve) => setTimeout(resolve, delay)).then(() => attempt(n - 1));
+      });
+    return attempt(retries);
+  });
+}
 
-const PreviewFrame = lazy(() => import("@/pages/PreviewFrame"));
-const PrivateRouter = lazy(() => import("@/pages/PrivateRouter"));
-const ApplyPage = lazy(() => import("@/pages/ApplyPage"));
-const TermsPage = lazy(() => import("@/pages/TermsPage"));
-const PrivacyPage = lazy(() => import("@/pages/PrivacyPage"));
+const ContentTypeDetail = lazyWithRetry(() => import("@/pages/ContentTypeDetail"));
+const TemplatePage = lazyWithRetry(() => import("@/pages/page"));
+const DatabaseSinglePage = lazyWithRetry(() => import("@/pages/DatabaseSinglePage"));
+
+const PreviewFrame = lazyWithRetry(() => import("@/pages/PreviewFrame"));
+const PrivateRouter = lazyWithRetry(() => import("@/pages/PrivateRouter"));
+const ApplyPage = lazyWithRetry(() => import("@/pages/ApplyPage"));
+const TermsPage = lazyWithRetry(() => import("@/pages/TermsPage"));
+const PrivacyPage = lazyWithRetry(() => import("@/pages/PrivacyPage"));
 
 function LoadingFallback() {
   return (
