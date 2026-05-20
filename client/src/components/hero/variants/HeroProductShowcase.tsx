@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { ArrowRight, Check, Star } from "lucide-react";
 import Marquee from "@/lib/marquee";
 import type {
@@ -10,11 +10,21 @@ import { UniversalVideo } from "@/components/UniversalVideo";
 import { UniversalImage } from "@/components/UniversalImage";
 import { Button } from "@/components/ui/button";
 import { resolveTemplateFallback } from "@/lib/variable-manager";
-import LeadForm, { type LeadFormData } from "@/components/lead_form/variants/LeadFormDefault";
+import type { LeadFormData } from "@shared/schema";
 import { AwardsMarquee } from "@/components/awards_marquee/variants/AwardsMarqueeDefault";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { Card } from "@/components/ui/card";
 import { RichTextContent } from "@/components/ui/rich-text-content";
+
+const LeadForm = lazy(() => import("@/components/lead_form/variants/LeadFormDefault"));
+
+function LeadFormFallback() {
+  return (
+    <div className="min-h-24 flex items-center justify-center text-muted-foreground text-sm">
+      Loading...
+    </div>
+  );
+}
 
 function parseLogoHeight(value?: string): number | undefined {
   if (!value) return undefined;
@@ -335,20 +345,25 @@ export default function HeroProductShowcase({
               )}
 
               {data.form && hasMedia && (
-                <div className="hidden md:flex mt-2 mb-8 justify-center md:justify-start">
-                  <LeadForm
-                    data={
-                      {
-                        ...data.form,
-                        variant: data.form.variant || "inline",
-                        consent: data.form.consent,
-                        show_terms: data.form.show_terms ?? false,
-                        className: "w-full max-w-md",
-                      } as LeadFormData
-                    }
-                    landingLocations={landingLocations}
-                    termsStyle={data.form_terms_color ? { color: data.form_terms_color } : undefined}
-                  />
+                <div
+                  data-hero-inline-form
+                  className="hidden md:flex mt-2 mb-8 justify-center md:justify-start"
+                >
+                  <Suspense fallback={<LeadFormFallback />}>
+                    <LeadForm
+                      data={
+                        {
+                          ...data.form,
+                          variant: data.form.variant || "inline",
+                          consent: data.form.consent,
+                          show_terms: data.form.show_terms ?? false,
+                          className: "w-full max-w-md",
+                        } as LeadFormData
+                      }
+                      landingLocations={landingLocations}
+                      termsStyle={data.form_terms_color ? { color: data.form_terms_color } : undefined}
+                    />
+                  </Suspense>
                 </div>
               )}
 
@@ -576,19 +591,21 @@ export default function HeroProductShowcase({
                         )}
                       </div>
                     )}
-                    <LeadForm
-                      data={
-                        {
-                          ...data.form,
-                          variant: data.form.variant || "stacked",
-                          consent: data.form.consent,
-                          show_terms: data.form.show_terms ?? false,
-                          className: "w-full",
-                        } as LeadFormData
-                      }
-                      landingLocations={landingLocations}
-                      termsStyle={data.form_terms_color ? { color: data.form_terms_color } : undefined}
-                    />
+                    <Suspense fallback={<LeadFormFallback />}>
+                      <LeadForm
+                        data={
+                          {
+                            ...data.form,
+                            variant: data.form.variant || "stacked",
+                            consent: data.form.consent,
+                            show_terms: data.form.show_terms ?? false,
+                            className: "w-full",
+                          } as LeadFormData
+                        }
+                        landingLocations={landingLocations}
+                        termsStyle={data.form_terms_color ? { color: data.form_terms_color } : undefined}
+                      />
+                    </Suspense>
                   </div>
                 </Card>
                 {showAwardsMarquee && !awardsMarqueeAtLeft &&
@@ -649,19 +666,21 @@ export default function HeroProductShowcase({
                     )}
                   </div>
                 )}
-                <LeadForm
-                  data={
-                    {
-                      ...data.form,
-                      variant: data.form.variant || "stacked",
-                      consent: data.form.consent,
-                      show_terms: data.form.show_terms ?? false,
-                      className: "w-full",
-                    } as LeadFormData
-                  }
-                  landingLocations={landingLocations}
-                  termsStyle={data.form_terms_color ? { color: data.form_terms_color } : undefined}
-                />
+                <Suspense fallback={<LeadFormFallback />}>
+                  <LeadForm
+                    data={
+                      {
+                        ...data.form,
+                        variant: data.form.variant || "stacked",
+                        consent: data.form.consent,
+                        show_terms: data.form.show_terms ?? false,
+                        className: "w-full",
+                      } as LeadFormData
+                    }
+                    landingLocations={landingLocations}
+                    termsStyle={data.form_terms_color ? { color: data.form_terms_color } : undefined}
+                  />
+                </Suspense>
               </Card>
             </div>
           )}
