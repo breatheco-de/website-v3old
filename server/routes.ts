@@ -2893,11 +2893,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
           .map(item => {
             const locale = String(item[localeKey] || "en");
             const template = templates[locale];
-            const resolvedMeta = resolveSingleVars(template?.meta ?? {}, item) as Record<string, unknown>;
+            const rawMeta = resolveSingleVars(template?.meta ?? {}, item) as Record<string, unknown>;
+            const resolvedMeta: Record<string, unknown> = {};
+            for (const [k, v] of Object.entries(rawMeta)) {
+              resolvedMeta[k] = (typeof v === "string" && /\{\{.*?\}\}/.test(v)) ? null : v;
+            }
             let url: string | null = null;
             if (urlPattern && typeof item.slug === "string") {
               const tpl = urlPattern[locale] || urlPattern["default"] || null;
-              if (tpl) url = tpl.replace(":slug", item.slug as string);
+              if (tpl) {
+                url = tpl.replace(/:([a-zA-Z_][a-zA-Z0-9_]*)/g, (_match, key: string) => {
+                  if (key === "slug") return item.slug as string;
+                  const val = item[key];
+                  if (val === undefined || val === null || val === "") return "";
+                  if (typeof val === "object" && "slug" in (val as Record<string, unknown>)) {
+                    return String((val as Record<string, unknown>).slug) || "";
+                  }
+                  return String(val);
+                });
+              }
             }
             return {
               slug: item.slug ?? null,
@@ -2928,46 +2942,56 @@ export async function registerRoutes(app: Express): Promise<Server> {
       for (const slugDir of slugDirs) {
         const slug = slugDir.name;
         const slugPath = path.join(contentDir, slug);
-        const files = fs.readdirSync(slugPath).filter(f => f.endsWith(".yml") || f.endsWith(".yaml"));
+        try {
+          const files = fs.readdirSync(slugPath).filter(f => f.endsWith(".yml") || f.endsWith(".yaml"));
 
-        const localeFiles = files
-          .map(f => f.replace(/\.(yml|yaml)$/, ""))
-          .filter(n => /^[a-z]{2}(-[a-z]{2})?$/.test(n));
+          const localeFiles = files
+            .map(f => f.replace(/\.(yml|yaml)$/, ""))
+            .filter(n => /^[a-z]{2}(-[a-z]{2})?$/.test(n));
 
-        if (localeFiles.length === 0) continue;
+          if (localeFiles.length === 0) continue;
 
-        let commonData: Record<string, unknown> = {};
-        const commonPath = path.join(slugPath, "_common.yml");
-        if (fs.existsSync(commonPath)) {
-          commonData = contentIndex.safeYamlLoad(fs.readFileSync(commonPath, "utf-8")) || {};
-        }
-
-        for (const locale of localeFiles) {
-          if (localeFilter && locale !== localeFilter) continue;
-          const localePath = path.join(slugPath, `${locale}.yml`);
-          if (!fs.existsSync(localePath)) continue;
-
-          const localeData = contentIndex.safeYamlLoad(fs.readFileSync(localePath, "utf-8")) || {};
-          const merged = deepMerge(commonData, localeData) as Record<string, unknown>;
-
-          const rawMeta = (merged.meta as Record<string, unknown>) ?? {};
-          const { data: resolvedMeta } = variableManager.resolveDeep(rawMeta, { locale });
-
-          let url: string | null = null;
-          if (urlPattern) {
-            const tpl = urlPattern[locale] || urlPattern["default"] || null;
-            if (tpl) url = tpl.replace(":slug", slug);
+          let commonData: Record<string, unknown> = {};
+          const commonPath = path.join(slugPath, "_common.yml");
+          if (fs.existsSync(commonPath)) {
+            try {
+              commonData = contentIndex.safeYamlLoad(fs.readFileSync(commonPath, "utf-8")) || {};
+            } catch { /* ignore broken _common.yml */ }
           }
 
-          entries.push({
-            slug,
-            contentType: type,
-            locale,
-            url,
-            title: typeof merged.title === "string" ? merged.title : null,
-            meta: resolvedMeta,
-            schema: (merged.schema as Record<string, unknown>) ?? null,
-          });
+          for (const locale of localeFiles) {
+            if (localeFilter && locale !== localeFilter) continue;
+            const localePath = path.join(slugPath, `${locale}.yml`);
+            if (!fs.existsSync(localePath)) continue;
+
+            try {
+              const localeData = contentIndex.safeYamlLoad(fs.readFileSync(localePath, "utf-8")) || {};
+              const merged = deepMerge(commonData, localeData) as Record<string, unknown>;
+
+              const rawMeta = (merged.meta as Record<string, unknown>) ?? {};
+              const { data: resolvedMeta } = variableManager.resolveDeep(rawMeta, { locale });
+
+              let url: string | null = null;
+              if (urlPattern) {
+                const tpl = urlPattern[locale] || urlPattern["default"] || null;
+                if (tpl) url = tpl.replace(":slug", slug);
+              }
+
+              entries.push({
+                slug,
+                contentType: type,
+                locale,
+                url,
+                title: typeof merged.title === "string" ? merged.title : null,
+                meta: resolvedMeta,
+                schema: (merged.schema as Record<string, unknown>) ?? null,
+              });
+            } catch (fileErr) {
+              entries.push({ slug, contentType: type, locale, url: null, title: null, meta: {}, schema: null, parse_error: String(fileErr) });
+            }
+          }
+        } catch (slugErr) {
+          entries.push({ slug, contentType: type, locale: null, url: null, title: null, meta: {}, schema: null, parse_error: String(slugErr) });
         }
       }
 
