@@ -319,7 +319,7 @@ sections:
         difficulty: hard
         date: 01/03/2023
     marginY:
-      desktop: lg none
+      desktop: lg
   - type: trust_cards
     version: v1.0
     title: Top rated across all major platforms.
