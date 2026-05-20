@@ -4,3 +4,15 @@ meta:
   page_title: 4Geeks × UniverMilenium — Propuesta de colaboración 2026
   description: Propuesta de colaboración entre 4Geeks y Universidad UniverMilenium para ofrecer formación tech flexible y asequible a sus estudiantes.
   robots: noindex, nofollow
+sections:
+  - type: hero
+    version: "1.0"
+    variant: singleColumn
+    badge: 4Geeks × UniverMilenium · Propuesta de colaboración 2026
+    title: Tecnología real. A su propio ritmo.
+    subtitle: Una plataforma diseñada para que los estudiantes de Universidad UniverMilenium adquieran habilidades tech con un modelo de acceso que encaja en su agenda y en su bolsillo.
+    cta_buttons:
+      - text: Hablar con Víctor por WhatsApp
+        url: https://wa.me/34684332581
+        variant: primary
+        icon: BrandWhatsapp
