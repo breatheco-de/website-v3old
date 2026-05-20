@@ -8,13 +8,263 @@ An MCP (Model Context Protocol) server that gives Claude read and write access t
 |---|---|
 | `list_pages` | List all YAML-driven pages with slug, content type, locales, and title |
 | `get_page` | Get the full merged content of a page (sections, meta, title) |
-| `update_field` | Patch a single field using dot-notation path |
+| `update_section_field` | Patch a single section field (or safe top-level field) using dot-notation path |
+| `update_section_fields` | Patch multiple section fields in one write |
+| `update_meta_field` | Patch a single SEO/meta field, auto-routed to the correct file |
+| `update_meta_fields` | Patch multiple SEO/meta fields in one call, auto-routed per field |
 | `add_section` | Insert a new section at a given index (or append) |
 | `remove_section` | Remove a section by index |
 | `reorder_sections` | Reorder sections by supplying a new index order |
 | `list_components` | List all available section component types with versions and variants |
 | `get_component_schema` | Get the field schema and worked YAML examples for a component |
 | `commit_changes` | Commit all pending content edits to GitHub with an optional message |
+
+---
+
+## Tool Reference
+
+### `list_pages`
+
+Lists all YAML-driven content pages.
+
+**Returns:** slug, contentType, locales, title, and `urls` (a per-locale map of resolved paths, e.g. `{ en: '/en/career-programs/ai-engineering' }`) for each page.
+
+**Parameters:** none
+
+---
+
+### `get_page`
+
+Gets the full merged content of a page. Merges `_common.yml` with the locale file.
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `slug` | string | yes | Page slug (folder name), e.g. `home` or `full-stack-developer` |
+| `locale` | string | no | Locale code (default: `en`), e.g. `en` or `es` |
+| `contentType` | string | no | Content type hint (e.g. `page`, `program`). Omit to auto-detect from slug. |
+
+---
+
+### `update_section_field`
+
+Updates a **single** section field (or safe top-level page field) in a page's locale YAML file.
+
+Use this for all **content and section edits**. Do **not** use it for SEO/meta fields — use `update_meta_field` instead.
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `slug` | string | yes | Page slug |
+| `locale` | string | no | Locale code (default: `en`) |
+| `field_path` | string | yes | Dot-notation path. Must start with `sections.` (e.g. `sections.0.title`) or be a safe top-level field: `title` or `slug`. Paths starting with `meta.` are rejected. |
+| `value` | any | yes | New value for the field |
+| `contentType` | string | no | Content type hint. Omit to auto-detect from slug. |
+
+**Example:**
+
+```json
+{
+  "name": "update_section_field",
+  "arguments": {
+    "slug": "home",
+    "locale": "en",
+    "field_path": "sections.0.title",
+    "value": "Learn AI From Day One"
+  }
+}
+```
+
+---
+
+### `update_section_fields`
+
+Updates **multiple** section fields (or safe top-level page fields) in a single write to a page's locale YAML file.
+
+Use this for all **content and section edits** when changing more than one field at once. Do **not** use it for SEO/meta fields — use `update_meta_fields` instead.
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `slug` | string | yes | Page slug |
+| `locale` | string | no | Locale code (default: `en`) |
+| `fields` | object | yes | Map of dot-notation field paths to new values. Every key must start with `sections.` or be `title`/`slug`. |
+| `contentType` | string | no | Content type hint. Omit to auto-detect from slug. |
+
+**Example:**
+
+```json
+{
+  "name": "update_section_fields",
+  "arguments": {
+    "slug": "home",
+    "locale": "en",
+    "fields": {
+      "sections.0.title": "Learn AI From Day One",
+      "sections.0.subtitle": "Join thousands of students worldwide",
+      "title": "Home"
+    }
+  }
+}
+```
+
+---
+
+### `update_meta_field`
+
+Updates a **single** SEO/meta field on a page. Known fields are **auto-routed** to the correct YAML file — see the routing table below.
+
+For non-standard meta fields not in the known list, use `custom_fields` + `target`.
+
+Do **not** use this for section/content edits — use `update_section_field` instead.
+
+#### Meta field auto-routing
+
+| Field | Written to |
+|---|---|
+| `page_title` | `{locale}.yml` |
+| `description` | `{locale}.yml` |
+| `og_image` | `{locale}.yml` |
+| `og_type` | `{locale}.yml` |
+| `og_url` | `{locale}.yml` |
+| `og_locale` | `{locale}.yml` |
+| `canonical_url` | `{locale}.yml` |
+| `robots` | `_common.yml` |
+| `priority` | `_common.yml` |
+| `change_frequency` | `_common.yml` |
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `slug` | string | yes | Page slug |
+| `locale` | string | no | Locale code (default: `en`) used when writing to a locale file |
+| `field` | enum | no* | Known meta field name (see routing table above). Auto-routed to the correct file. Required when not using `custom_fields`. |
+| `value` | any | no* | New value for the known `field`. Required when `field` is provided. |
+| `custom_fields` | object | no* | Map of non-standard meta field names to values. Cannot contain known field names. Requires `target`. |
+| `target` | `"locale"` \| `"common"` | no* | Required when `custom_fields` is provided. `locale` → `{locale}.yml`, `common` → `_common.yml`. |
+| `contentType` | string | no | Content type hint. Omit to auto-detect from slug. |
+
+\* Either `field` + `value`, or `custom_fields` + `target`, must be provided.
+
+**Examples:**
+
+Update a known locale field:
+```json
+{
+  "name": "update_meta_field",
+  "arguments": {
+    "slug": "home",
+    "locale": "en",
+    "field": "page_title",
+    "value": "Learn AI | 4Geeks Academy"
+  }
+}
+```
+
+Update a known common field:
+```json
+{
+  "name": "update_meta_field",
+  "arguments": {
+    "slug": "home",
+    "field": "robots",
+    "value": "index, follow"
+  }
+}
+```
+
+Update a non-standard meta field:
+```json
+{
+  "name": "update_meta_field",
+  "arguments": {
+    "slug": "home",
+    "locale": "en",
+    "custom_fields": { "twitter_card": "summary_large_image" },
+    "target": "locale"
+  }
+}
+```
+
+---
+
+### `update_meta_fields`
+
+Updates **multiple** SEO/meta fields on a page in a single call. Auto-routes each known field to the correct file. May write to both `_common.yml` and a locale file in one call if the fields span both.
+
+For non-standard meta fields not in the known list, use `custom_fields` + `target`.
+
+Do **not** use this for section/content edits — use `update_section_fields` instead.
+
+#### Meta field auto-routing
+
+| Field | Written to |
+|---|---|
+| `page_title` | `{locale}.yml` |
+| `description` | `{locale}.yml` |
+| `og_image` | `{locale}.yml` |
+| `og_type` | `{locale}.yml` |
+| `og_url` | `{locale}.yml` |
+| `og_locale` | `{locale}.yml` |
+| `canonical_url` | `{locale}.yml` |
+| `robots` | `_common.yml` |
+| `priority` | `_common.yml` |
+| `change_frequency` | `_common.yml` |
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `slug` | string | yes | Page slug |
+| `locale` | string | no | Locale code (default: `en`) used when writing to a locale file |
+| `fields` | object | no* | Map of **known** meta field names to values. Auto-routed per field. May write to both files in one call. |
+| `custom_fields` | object | no* | Map of non-standard meta field names to values. Cannot contain known field names. Requires `target`. |
+| `target` | `"locale"` \| `"common"` | no* | Required when `custom_fields` is provided. `locale` → `{locale}.yml`, `common` → `_common.yml`. |
+| `contentType` | string | no | Content type hint. Omit to auto-detect from slug. |
+
+\* At least one of `fields` or `custom_fields` must be provided.
+
+**Examples:**
+
+Update multiple known fields (may write to both files automatically):
+```json
+{
+  "name": "update_meta_fields",
+  "arguments": {
+    "slug": "home",
+    "locale": "en",
+    "fields": {
+      "page_title": "Learn AI | 4Geeks Academy",
+      "description": "Join our AI bootcamp and start your tech career.",
+      "robots": "index, follow",
+      "priority": 0.9
+    }
+  }
+}
+```
+
+Known fields + custom fields in one call:
+```json
+{
+  "name": "update_meta_fields",
+  "arguments": {
+    "slug": "home",
+    "locale": "en",
+    "fields": {
+      "page_title": "Learn AI | 4Geeks Academy",
+      "description": "Join our AI bootcamp."
+    },
+    "custom_fields": { "twitter_card": "summary_large_image" },
+    "target": "locale"
+  }
+}
+```
+
+---
 
 ## Auth
 
@@ -130,13 +380,18 @@ A typical editing session looks like this:
 2. **Find the right page**
    ```
    Call list_pages to find all available pages.
-   Call get_page with contentType="page", slug="home", locale="en" to read its content.
+   Call get_page with slug="home", locale="en" to read its content.
    ```
 
 3. **Make edits**
    ```
    Call add_section to insert a new FAQ section.
-   Call update_field to change the page title.
+   Call update_section_field to change a section heading:
+     { slug: "home", locale: "en", field_path: "sections.2.title", value: "FAQ" }
+   Call update_meta_field to update the SEO title:
+     { slug: "home", locale: "en", field: "page_title", value: "Home | 4Geeks Academy" }
+   Call update_meta_fields to set multiple SEO fields at once:
+     { slug: "home", locale: "en", fields: { description: "...", robots: "index, follow" } }
    Call reorder_sections to move the new section earlier.
    ```
 
@@ -145,6 +400,16 @@ A typical editing session looks like this:
    Call commit_changes with message="Add FAQ section to home page" to commit and push all edits.
    Optionally pass author="Claude" to attribute the change in the commit message.
    ```
+
+### Choosing the right update tool
+
+| What you want to edit | Tool to use |
+|---|---|
+| A section field (e.g. `sections.0.title`) | `update_section_field` |
+| Multiple section fields at once | `update_section_fields` |
+| Page `title` or `slug` top-level field | `update_section_field` |
+| A single SEO/meta field | `update_meta_field` |
+| Multiple SEO/meta fields at once | `update_meta_fields` |
 
 ## Transport
 
@@ -180,19 +445,33 @@ curl -X POST http://localhost:3001/mcp \
   -H "X-Api-Key: $KEY" \
   -d '{"jsonrpc":"2.0","method":"tools/call","id":3,"params":{"name":"get_page","arguments":{"slug":"home","locale":"en"}}}'
 
-# Update a field (write tool)
+# Update a section field (write tool)
 curl -X POST http://localhost:3001/mcp \
   -H "Content-Type: application/json" \
   -H "Accept: application/json, text/event-stream" \
   -H "X-Api-Key: $KEY" \
-  -d '{"jsonrpc":"2.0","method":"tools/call","id":4,"params":{"name":"update_field","arguments":{"slug":"home","locale":"en","field_path":"meta.page_title","value":"My New Title"}}}'
+  -d '{"jsonrpc":"2.0","method":"tools/call","id":4,"params":{"name":"update_section_field","arguments":{"slug":"home","locale":"en","field_path":"sections.0.title","value":"Learn AI From Day One"}}}'
+
+# Update a meta field (write tool)
+curl -X POST http://localhost:3001/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -H "X-Api-Key: $KEY" \
+  -d '{"jsonrpc":"2.0","method":"tools/call","id":5,"params":{"name":"update_meta_field","arguments":{"slug":"home","locale":"en","field":"page_title","value":"Home | 4Geeks Academy"}}}'
+
+# Update multiple meta fields at once
+curl -X POST http://localhost:3001/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -H "X-Api-Key: $KEY" \
+  -d '{"jsonrpc":"2.0","method":"tools/call","id":6,"params":{"name":"update_meta_fields","arguments":{"slug":"home","locale":"en","fields":{"page_title":"Home | 4Geeks Academy","description":"Join our AI bootcamp.","robots":"index, follow"}}}}'
 
 # Commit all pending changes to GitHub
 curl -X POST http://localhost:3001/mcp \
   -H "Content-Type: application/json" \
   -H "Accept: application/json, text/event-stream" \
   -H "X-Api-Key: $KEY" \
-  -d '{"jsonrpc":"2.0","method":"tools/call","id":5,"params":{"name":"commit_changes","arguments":{"message":"Update home page title","author":"Claude"}}}'
+  -d '{"jsonrpc":"2.0","method":"tools/call","id":7,"params":{"name":"commit_changes","arguments":{"message":"Update home page title","author":"Claude"}}}'
 ```
 
 ## Health check
