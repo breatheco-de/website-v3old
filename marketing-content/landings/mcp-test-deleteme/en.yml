@@ -307,3 +307,32 @@ sections:
     title: Miami Residents Who Changed Their Careers
     type: testimonials_slide
     version: "1.0"
+  - collage_images:
+      - col_span: 5
+        image_id: group-7085-1-700x380-600x326-q80
+        row_span: 2
+      - col_span: 7
+        image_id: group-7086-1-800x440
+        row_span: 2
+      - col_span: 6
+        image_id: group-7084-1-695x382
+        row_span: 2
+      - col_span: 6
+        image_id: group-7087-1-680x392
+        row_span: 2
+    heading: Our Graduates Get Hired. Fast.
+    stats:
+      - label: Average hiring rate
+        unit: "%"
+        value: "86"
+      - label: Average salary increase
+        unit: "%"
+        value: "55"
+      - label: Average time to get hired
+        value: ~3 months
+      - label: Graduates employed worldwide
+        value: 5,000+
+    subheading: Real outcomes from 5,000+ graduates across the U.S., LATAM, and Europe.
+    type: graduates_stats
+    variant: fullBleed
+    version: "1.0"
