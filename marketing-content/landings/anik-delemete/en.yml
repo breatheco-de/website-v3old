@@ -92,3 +92,79 @@ sections:
     type: features_grid
     variant: stats-cards
     version: "1.0"
+  - marginY:
+      desktop: md none
+    module_cards:
+      - duration: Months 1–2
+        icon: IconCode
+        objectives:
+          - Learn Python from scratch with hands-on exercises
+          - Build your first web APIs with FastAPI
+          - Work with Git, terminal, and modern dev tools
+        projects: Build and deploy a working API from scratch — no prior coding experience needed.
+        orientation: vertical
+        title: "Foundations: Python & Backend Development"
+      - duration: Months 3–4
+        icon: IconRobot
+        objectives:
+          - Configure and extend an AI agent as a personal assistant
+          - Develop custom skills and integrate external apps
+          - Implement contextual memory (episodic, semantic, procedural)
+        projects: Deploy a self-hosted AI assistant that handles real tasks autonomously.
+        orientation: vertical
+        title: AI Agents with OpenClaw
+      - duration: Months 5–6
+        icon: IconDatabase
+        objectives:
+          - Understand how LLMs work under the hood
+          - Implement RAG on proprietary knowledge bases
+          - Work with vector databases (Qdrant) and embedding models
+        projects: Build a RAG system so your agent answers with real, proprietary knowledge.
+        orientation: vertical
+        title: LLMs, Embeddings & RAG
+      - duration: Months 7–8
+        icon: IconBolt
+        objectives:
+          - Build agents with tool calling and real function execution
+          - Implement guardrails for safety and control
+          - Extend agent capabilities with MCP and persistent memory
+        projects: Build agents that call tools, access external systems, and operate with persistent memory.
+        orientation: vertical
+        title: Agentic Engineering
+      - duration: Months 9–10
+        icon: IconLayoutKanban
+        objectives:
+          - Design multi-agent systems with routing and arbitration
+          - Implement shared memory across agents
+          - Build agentic workflows with LangGraph
+        projects: Design systems where multiple agents collaborate, distribute tasks, and run autonomously.
+        orientation: vertical
+        title: Agentic Workflows & Multi-Agent Systems
+      - duration: Months 11–12
+        icon: IconRocket
+        objectives:
+          - AI-generated frontend
+          - API with full authentication
+          - RAG knowledge layer + agents with tool calling
+          - Telemetry, real-time communication, automated workflows
+        projects: Integrate everything into a working, deployed system — a full AI-transformed company.
+        orientation: horizontal
+        title: "Capstone: AI-Transformed Company"
+    paddingY:
+      desktop: md
+    program_description: Go from zero coding experience to building production-grade agentic AI systems in 12 months. Two tracks — Foundations and Agentic AI — converge in a capstone that proves you can ship.
+    program_title: Agentic AI Engineering — 12-Month Curriculum
+    section_id: syllabus-anik
+    tech_logos:
+      - icon: python
+        name: Python
+      - icon: openai
+        name: OpenAI
+      - icon: n8n
+        name: n8n
+      - icon: docker
+        name: Docker
+      - icon: react
+        name: React
+    type: syllabus
+    variant: program-modules
