@@ -104,6 +104,8 @@ sections:
         rating: 4.9
         review_count: 1,200 reviews
         trusted_text: Top Bootcamp 2025
+    paddingY:
+      desktop: lg
   - background: bg-muted/30
     columns: 4
     icon_color: "#0097CD"
@@ -129,6 +131,8 @@ sections:
     type: features_grid
     variant: highlight
     version: "1.0"
+    paddingY:
+      desktop: lg
   - consent:
       sms: true
     fields:
@@ -165,6 +169,8 @@ sections:
     type: lead_form
     variant: stacked
     version: "1.0"
+    paddingY:
+      desktop: lg
   - module_cards:
       - duration: Phase 1 — Weeks 1–4
         icon: IconBrandPython
@@ -224,6 +230,8 @@ sections:
     type: syllabus
     variant: program-modules
     version: "1.0"
+    paddingY:
+      desktop: lg
   - logos:
       - alt: Microsoft
         src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
@@ -254,6 +262,8 @@ sections:
     type: whos_hiring
     variant: carousel
     version: "1.0"
+    paddingY:
+      desktop: lg
   - description: 86% of our graduates land a tech job within 3 months. Here are some of their stories.
     testimonials:
       - achievement: She got a 45% increase in her salary
@@ -307,6 +317,8 @@ sections:
     title: Miami Residents Who Changed Their Careers
     type: testimonials_slide
     version: "1.0"
+    paddingY:
+      desktop: lg
   - collage_images:
       - col_span: 5
         image_id: group-7085-1-700x380-600x326-q80
@@ -336,6 +348,8 @@ sections:
     type: graduates_stats
     variant: fullBleed
     version: "1.0"
+    paddingY:
+      desktop: lg
   - cta:
       button:
         label: Talk to an Admissions Advisor
@@ -348,6 +362,8 @@ sections:
     title: Common Questions About the Miami AI Engineering Scholarship
     type: faq
     version: "1.0"
+    paddingY:
+      desktop: lg
   - background: bg-primary
     buttons:
       - icon: ChevronRight
@@ -361,5 +377,7 @@ sections:
     title: Your AI Engineering Career Starts Here.
     type: cta_banner
     version: "1.0"
+    paddingY:
+      desktop: lg
   - type: footer
     version: "1.0"
