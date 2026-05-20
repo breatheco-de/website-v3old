@@ -155,42 +155,26 @@ sections:
       desktop: none md
     marginY:
       desktop: none md
-  - type: why_learn_ai
-    section_id: why_learn_ai-mc14hf
-    variant: laptop-edge
-    laptop_image:
-      image_id: laptop
-    title: Enroll with a Job Guarantee* for Extra Confidence
-    subtitle: Back your career outcome with a stronger commitment
-    description: Our optional job guarantee reflects our confidence in your career outcome. If you don’t secure a qualifying role within 9 months of graduation, you’ll receive a full tuition refund.&nbsp;<div>*Not available in all regions. <a href="/en/job-guarantee">Terms and conditions apply.</a></div>
-    cta:
-      text: Get more info
-      url: /en/job-guarantee
-      variant: primary
-    marginY:
-      desktop: md
-    paddingY:
-      desktop: none sm
-    background: hsl(var(--secondary))
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
+  - type: features_grid
+    section_id: features_grid-dxwtvz
+    version: "1.0"
+    variant: stats-text
+    maxWidth:
+      desktop: 6xl
+    title: Why Full Stack with AI Now
+    subtitle: Web development isn't slowing down. It's evolving.
+    description: "Every company building a digital product needs developers who can work across the full stack. In 2026, the ones getting hired are those who combine that foundation with AI fluency: using intelligent tools to build faster, ship better, and deliver more value from day one."
+    background: bg-muted/30
+    items:
+      - id: "1"
+        value: 16%
+        title: Projected growth in web developer jobs through 2034 (BLS)
+      - id: "2"
+        value: 90%
+        title: Of new web projects now require some form of AI integration
+      - id: "3"
+        value: {{ global.global_spending_digital | $3.9T }}
+        title: Global spending on digital transformation in 2026
   - type: syllabus
     section_id: syllabus-l0x9pc
     variant: program-modules
