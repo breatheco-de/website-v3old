@@ -126,54 +126,103 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
     }
   );
 
-  // get_page
+  // ── Shared resolution helper used by get_page_content and get_page_seo ──────
+
+  type PagePayload = {
+    contentType: string;
+    slug: string;
+    locale: string;
+    locales: string[];
+    urls?: Record<string, string>;
+    data: Record<string, unknown>;
+  };
+
+  type PagePayloadError = { content: [{ type: "text"; text: string }]; isError: true };
+
+  function resolvePagePayload(slug: string, locale: string, contentType: string | undefined): PagePayload | PagePayloadError {
+    try {
+      assertSafeSegment(slug, "slug");
+      assertSafeLocale(locale);
+      if (contentType) assertSafeSegment(contentType, "contentType");
+    } catch (e) {
+      return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+    }
+    const resolved = resolveContentType(slug, contentType);
+    if (!resolved) {
+      return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
+    }
+    const result = loadPage(resolved.contentType, slug, locale);
+    if (!result) {
+      return { content: [{ type: "text", text: `Locale '${locale}' not found for page '${slug}' (contentType: ${resolved.contentType})` }], isError: true };
+    }
+
+    const pageDir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
+    const dirFiles = fs.existsSync(pageDir) ? fs.readdirSync(pageDir) : [];
+    const locales = dirFiles
+      .map((f: string) => f.replace(/\.(yml|yaml)$/, ""))
+      .filter((n: string) => /^[a-z]{2}(-[a-z]{2})?$/.test(n));
+
+    const urlPattern = resolved.config.url_pattern;
+    let urls: Record<string, string> | undefined;
+    if (urlPattern) {
+      const resolvedUrls: Record<string, string> = {};
+      if (urlPattern["default"]) {
+        const p = urlPattern["default"].replace(":slug", slug);
+        for (const l of locales) resolvedUrls[l] = p;
+      } else {
+        for (const l of locales) {
+          if (urlPattern[l]) resolvedUrls[l] = urlPattern[l].replace(":slug", slug);
+        }
+      }
+      if (Object.keys(resolvedUrls).length > 0) urls = resolvedUrls;
+    }
+
+    return { contentType: resolved.contentType, slug, locale, locales, ...(urls ? { urls } : {}), data: result.data as Record<string, unknown> };
+  }
+
+  // get_page_content
   mcp.tool(
-    "get_page",
-    "Get the full merged content of a page (sections, meta, title). Also returns locales (all available locale codes for this page) and urls (per-locale resolved paths). Merges _common.yml with the locale file. contentType is optional — omit it and the server will auto-detect it from the slug.",
+    "get_page_content",
+    "Get the merged content of a page (sections, title, and all other top-level YAML keys) without the meta/SEO block. Also returns locales (all available locale codes for this page) and urls (per-locale resolved paths). Merges _common.yml with the locale file. contentType is optional — omit it and the server will auto-detect it from the slug. Use get_page_seo to fetch only the SEO/meta fields.",
     {
       slug: z.string().describe("Page slug (folder name), e.g. 'home' or 'full-stack-developer'"),
       locale: z.string().default("en").describe("Locale code, e.g. 'en' or 'es'"),
       contentType: z.string().optional().describe("Content type hint (e.g. 'page', 'program'). Omit to auto-detect from slug."),
     },
     async ({ slug, locale, contentType }) => {
-      try {
-        assertSafeSegment(slug, "slug");
-        assertSafeLocale(locale);
-        if (contentType) assertSafeSegment(contentType, "contentType");
-      } catch (e) {
-        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
-      }
-      const resolved = resolveContentType(slug, contentType);
-      if (!resolved) {
-        return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
-      }
-      const result = loadPage(resolved.contentType, slug, locale);
-      if (!result) {
-        return { content: [{ type: "text", text: `Locale '${locale}' not found for page '${slug}' (contentType: ${resolved.contentType})` }], isError: true };
-      }
+      const payload = resolvePagePayload(slug, locale, contentType);
+      if ("isError" in payload) return payload;
 
-      const pageDir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
-      const dirFiles = fs.existsSync(pageDir) ? fs.readdirSync(pageDir) : [];
-      const locales = dirFiles
-        .map((f: string) => f.replace(/\.(yml|yaml)$/, ""))
-        .filter((n: string) => /^[a-z]{2}(-[a-z]{2})?$/.test(n));
+      const { meta: _meta, ...dataWithoutMeta } = payload.data;
+      const envelope = { contentType: payload.contentType, slug: payload.slug, locale: payload.locale, locales: payload.locales, ...(payload.urls ? { urls: payload.urls } : {}) };
 
-      const urlPattern = resolved.config.url_pattern;
-      let urls: Record<string, string> | undefined;
-      if (urlPattern) {
-        const resolvedUrls: Record<string, string> = {};
-        if (urlPattern["default"]) {
-          const p = urlPattern["default"].replace(":slug", slug);
-          for (const l of locales) resolvedUrls[l] = p;
-        } else {
-          for (const l of locales) {
-            if (urlPattern[l]) resolvedUrls[l] = urlPattern[l].replace(":slug", slug);
-          }
-        }
-        if (Object.keys(resolvedUrls).length > 0) urls = resolvedUrls;
-      }
+      return { content: [{ type: "text", text: JSON.stringify({ ...envelope, ...dataWithoutMeta }, null, 2) }] };
+    }
+  );
 
-      return { content: [{ type: "text", text: JSON.stringify({ contentType: resolved.contentType, slug, locale, locales, ...(urls ? { urls } : {}), ...result.data }, null, 2) }] };
+  // get_page_seo
+  mcp.tool(
+    "get_page_seo",
+    "Get only the SEO/meta block of a page plus the identifying envelope (contentType, slug, locale, locales, urls). Use this instead of get_page_content when you only need meta tags, Open Graph data, or other SEO fields.",
+    {
+      slug: z.string().describe("Page slug (folder name), e.g. 'home' or 'full-stack-developer'"),
+      locale: z.string().default("en").describe("Locale code, e.g. 'en' or 'es'"),
+      contentType: z.string().optional().describe("Content type hint (e.g. 'page', 'program'). Omit to auto-detect from slug."),
+    },
+    async ({ slug, locale, contentType }) => {
+      const payload = resolvePagePayload(slug, locale, contentType);
+      if ("isError" in payload) return payload;
+
+      const seoPayload = {
+        contentType: payload.contentType,
+        slug: payload.slug,
+        locale: payload.locale,
+        locales: payload.locales,
+        ...(payload.urls ? { urls: payload.urls } : {}),
+        meta: payload.data.meta,
+      };
+
+      return { content: [{ type: "text", text: JSON.stringify(seoPayload, null, 2) }] };
     }
   );
 

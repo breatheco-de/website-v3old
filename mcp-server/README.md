@@ -7,7 +7,8 @@ An MCP (Model Context Protocol) server that gives Claude read and write access t
 | Tool | Description |
 |---|---|
 | `list_pages` | List all YAML-driven pages with slug, content type, locales, and title |
-| `get_page` | Get the full merged content of a page (sections, meta, title) |
+| `get_page_content` | Get the merged content of a page (sections, title, all top-level keys) without the meta/SEO block |
+| `get_page_seo` | Get only the SEO/meta block of a page plus the identifying envelope |
 | `update_section_field` | Patch a single section field (or safe top-level field) using dot-notation path |
 | `update_section_fields` | Patch multiple section fields in one write |
 | `update_meta_field` | Patch a single SEO/meta field, auto-routed to the correct file |
@@ -32,9 +33,23 @@ Lists all YAML-driven content pages.
 
 ---
 
-### `get_page`
+### `get_page_content`
 
-Gets the full merged content of a page. Merges `_common.yml` with the locale file.
+Gets the merged content of a page (sections, title, and all other top-level YAML keys) without the `meta`/SEO block. Merges `_common.yml` with the locale file. Use `get_page_seo` when you only need SEO/meta fields.
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `slug` | string | yes | Page slug (folder name), e.g. `home` or `full-stack-developer` |
+| `locale` | string | no | Locale code (default: `en`), e.g. `en` or `es` |
+| `contentType` | string | no | Content type hint (e.g. `page`, `program`). Omit to auto-detect from slug. |
+
+---
+
+### `get_page_seo`
+
+Gets only the SEO/meta block of a page plus the identifying envelope (`contentType`, `slug`, `locale`, `locales`, `urls`). Use this instead of `get_page_content` when you only need meta tags, Open Graph data, or other SEO fields.
 
 **Parameters:**
 
@@ -365,7 +380,8 @@ A typical editing session looks like this:
 2. **Find the right page**
    ```
    Call list_pages to find all available pages.
-   Call get_page with slug="home", locale="en" to read its content.
+   Call get_page_content with slug="home", locale="en" to read its sections and content.
+   Call get_page_seo with slug="home", locale="en" to read only the meta/SEO fields.
    ```
 
 3. **Make edits**
@@ -417,12 +433,19 @@ curl -X POST http://localhost:3001/mcp \
   -H "X-Api-Key: $KEY" \
   -d '{"jsonrpc":"2.0","method":"tools/call","id":2,"params":{"name":"list_pages","arguments":{}}}'
 
-# Get a specific page by slug only (contentType auto-detected)
+# Get page content (sections, no meta) by slug only (contentType auto-detected)
 curl -X POST http://localhost:3001/mcp \
   -H "Content-Type: application/json" \
   -H "Accept: application/json, text/event-stream" \
   -H "X-Api-Key: $KEY" \
-  -d '{"jsonrpc":"2.0","method":"tools/call","id":3,"params":{"name":"get_page","arguments":{"slug":"home","locale":"en"}}}'
+  -d '{"jsonrpc":"2.0","method":"tools/call","id":3,"params":{"name":"get_page_content","arguments":{"slug":"home","locale":"en"}}}'
+
+# Get page SEO/meta only by slug
+curl -X POST http://localhost:3001/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -H "X-Api-Key: $KEY" \
+  -d '{"jsonrpc":"2.0","method":"tools/call","id":3,"params":{"name":"get_page_seo","arguments":{"slug":"home","locale":"en"}}}'
 
 # Update a section field (write tool)
 curl -X POST http://localhost:3001/mcp \
