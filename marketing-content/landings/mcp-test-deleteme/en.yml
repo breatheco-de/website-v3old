@@ -348,3 +348,18 @@ sections:
     title: Common Questions About the Miami AI Engineering Scholarship
     type: faq
     version: "1.0"
+  - background: bg-primary
+    buttons:
+      - icon: ChevronRight
+        text: Apply for the Miami Scholarship — It's Free
+        url: "#apply"
+        variant: secondary
+      - text: Talk to an Advisor
+        url: /en/contact-us
+        variant: outline
+    subtitle: Limited scholarship seats available for Miami residents. No prior experience required. Free to apply.
+    title: Your AI Engineering Career Starts Here.
+    type: cta_banner
+    version: "1.0"
+  - type: footer
+    version: "1.0"
