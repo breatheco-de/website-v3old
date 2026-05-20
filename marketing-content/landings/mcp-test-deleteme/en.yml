@@ -336,3 +336,15 @@ sections:
     type: graduates_stats
     variant: fullBleed
     version: "1.0"
+  - cta:
+      button:
+        label: Talk to an Admissions Advisor
+        url: /en/contact-us
+      text: Still have questions about the scholarship or the program?
+    related_features:
+      - scholarships
+      - ai-engineering
+      - outcomes
+    title: Common Questions About the Miami AI Engineering Scholarship
+    type: faq
+    version: "1.0"
