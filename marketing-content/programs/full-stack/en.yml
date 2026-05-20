@@ -198,7 +198,7 @@ sections:
     maxWidth:
       desktop: 6xl
     title: Why Full Stack with AI Now
-    subtitle: Web development remains one of the most in-demand skills in tech. AI fluency is now what gets you hired.
+    subtitle: Web development remains one of the most in-demand skills in tech. AI fluency is what gets you hired now.
     description: AI-fluent full stack developers are in demand across every industry building digital products. In 2026, the ones getting hired combine core full stack skills with AI tool proficiency — using intelligent tools to build faster, ship better code, and deliver more value from day one.
     background: bg-muted/30
     items:
