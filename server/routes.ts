@@ -2875,6 +2875,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
           res.status(404).json({ error: `Database "${dbName}" not found` });
           return;
         }
+        // Return cache_missing rather than erroring when no cache file exists
+        const cacheFilePath = path.join(process.cwd(), ".cache", `db-${dbName}.json`);
+        if (!fs.existsSync(cacheFilePath)) {
+          res.json({ contentType: type, source: "db", cache_missing: true, count: 0, entries: [] });
+          return;
+        }
         const items = await databaseManager.fetchMappedItems(type);
         const localeKey = getLocaleKey(type) || "lang";
         const cacheInfo = databaseManager.getCacheInfo(dbName);

@@ -558,6 +558,7 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
             }
             const body = await res.json() as {
               source: string;
+              cache_missing?: boolean;
               cache_age_hours: number | null;
               entries: Array<{
                 slug: unknown; contentType: string; locale: string;
@@ -565,6 +566,10 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
                 meta: Record<string, unknown>; schema: unknown;
               }>;
             };
+            if (body.cache_missing) {
+              results.push({ contentType: ct, cache_missing: true });
+              return;
+            }
             for (const entry of body.entries) {
               if (slugs && !slugs.includes(String(entry.slug))) continue;
               results.push({
