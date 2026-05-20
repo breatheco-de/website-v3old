@@ -105,21 +105,33 @@ sections:
     version: "1.0"
   - background: bg-muted/30
     items:
-      - title: $500
-        description: por estudiante · acceso anual completo a todos los programas
-      - title: 40% UniverMilenium · $200
-        description: Por captación y gestión comercial
-      - title: 60% 4Geeks · $300
-        description: Plataforma, IA, soporte y contenido
-      - title: $20.000
-        description: Ingreso estimado UniverMilenium con 100 estudiantes/año
+      - value: $500
+        title: por estudiante · acceso anual completo a todos los programas
+      - value: 40% UniverMilenium · $200
+        title: Por captación y gestión comercial
+      - value: 60% 4Geeks · $300
+        title: Plataforma, IA, soporte y contenido
+      - value: $20.000
+        title: Ingreso estimado UniverMilenium con 100 estudiantes/año
     subtitle: Precio accesible para los estudiantes de UniverMilenium. Revenue share directo. Sin intermediarios ni letra pequeña.
     title: Un acuerdo claro para ambas partes
     type: features_grid
     variant: stats-cards
     version: "1.0"
   - background: bg-muted/30
-    steps: "[{\"icon\": \"CircleCheck\", \"text\": \"Acceso a todos los programas y cursos durante 1 año completo\"}, {\"icon\": \"Robot\", \"text\": \"Rigobot — tutor IA disponible 24/7 con feedback instantáneo\"}, {\"icon\": \"Briefcase\", \"text\": \"Proyectos reales para construir un portafolio profesional\"}, {\"icon\": \"Users\", \"text\": \"Comunidad global de más de 8.500 miembros activos\"}, {\"icon\": \"Star\", \"text\": \"Catálogo actualizado constantemente con las tecnologías más demandadas\"}, {\"icon\": \"Globe\", \"text\": \"100% online, en español, sin horarios fijos ni compromisos rígidos\"}]"
+    steps:
+      - icon: CircleCheck
+        text: Acceso a todos los programas y cursos durante 1 año completo
+      - icon: Robot
+        text: "Rigobot — tutor IA disponible 24/7 con feedback instantáneo"
+      - icon: Briefcase
+        text: Proyectos reales para construir un portafolio profesional
+      - icon: Users
+        text: Comunidad global de más de 8.500 miembros activos
+      - icon: Star
+        text: Catálogo actualizado constantemente con las tecnologías más demandadas
+      - icon: Globe
+        text: "100% online, en español, sin horarios fijos ni compromisos rígidos"
     title: Todo lo que necesita cada estudiante para crecer
     type: numbered_steps
     version: "1.0"
