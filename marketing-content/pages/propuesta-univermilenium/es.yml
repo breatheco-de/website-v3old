@@ -82,3 +82,18 @@ sections:
     type: features_grid
     variant: detailed
     version: "1.0"
+  - background: bg-muted/30
+    items:
+      - title: $500
+        description: por estudiante · acceso anual completo a todos los programas
+      - title: 40% UniverMilenium · $200
+        description: Por captación y gestión comercial
+      - title: 60% 4Geeks · $300
+        description: Plataforma, IA, soporte y contenido
+      - title: $20.000
+        description: Ingreso estimado UniverMilenium con 100 estudiantes/año
+    subtitle: Precio accesible para los estudiantes de UniverMilenium. Revenue share directo. Sin intermediarios ni letra pequeña.
+    title: Un acuerdo claro para ambas partes
+    type: features_grid
+    variant: stats-cards
+    version: "1.0"
