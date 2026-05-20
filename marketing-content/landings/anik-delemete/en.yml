@@ -72,3 +72,23 @@ sections:
     size: md
     type: modal
     version: "1.0"
+  - background: hsl(var(--secondary))
+    card_color: bg-background
+    description: This isn't a bootcamp. It's a 12-month deep dive into the engineering discipline that's reshaping every industry.
+    items:
+      - title: Program Duration
+        value: 12 Months
+      - title: Tuition
+        value: $5,000
+      - title: Ages
+        value: 17–22
+    marginY:
+      desktop: md
+    paddingY:
+      desktop: md
+    section_id: stats-anik
+    subtitle: Built for the next generation of AI engineers.
+    title: Program at a Glance
+    type: features_grid
+    variant: stats-cards
+    version: "1.0"
