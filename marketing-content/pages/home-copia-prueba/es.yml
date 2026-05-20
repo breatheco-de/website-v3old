@@ -177,7 +177,7 @@ sections:
     section_id: section-17y1az
     marginY:
       desktop: md
-  - ttype: features_grid
+  - type: features_grid
     version: '1.0'
     variant: stats-text
     maxWidth:

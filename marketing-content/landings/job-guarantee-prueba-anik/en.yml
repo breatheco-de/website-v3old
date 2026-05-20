@@ -242,7 +242,8 @@ sections:
       desktop: lg md
     marginY:
       desktop: none md
-  - ttitle: Get Hired Faster With GeekFORCE
+  - type: numbered_steps
+    title: Get Hired Faster With GeekFORCE
     description: GeekFORCE is 4Geeks' career support system, built into every program. Three focused steps from graduation to signed offer.
     steps:
       - icon: School
@@ -287,19 +288,6 @@ sections:
         title: Full Refund, Within 30 Days
         text: Verified and approved, your full tuition is refunded within 30 days.
     background: hsl(210 100% 50% / 0.05)
-    section_id: numbered_steps-sgeuhk
-  - title: No Job Within 9 Months? Get Your Tuition Back.
-    description: Complete the program, meet the Job Guarantee requirements, and if you don't land a tech role within 9 months of graduation, 4Geeks refunds 100% of your tuition. No runaround.
-    steps:
-      - icon: Optimization
-        title: Notify Us
-        text: Let us know you haven't landed a qualifying role within 9 months of graduation. That's all it takes to start the process.
-      - icon: Interview
-        title: We Review the Requirements
-        text: Our team confirms that all Job Guarantee requirements were completed during the program and job search period.
-      - icon: JobSearch
-        title: Full Refund, Within 30 Days
-        text: Verified and approved, your full tuition is refunded within 30 days.
     section_id: numbered_steps-sgeuhk
   - type: features_quad
     version: "1.0"

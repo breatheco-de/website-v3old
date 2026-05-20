@@ -155,51 +155,51 @@ sections:
     paddingY:
       desktop: lg
     background: hsl(var(--secondary))
-  - - type: hero
-      version: "1.0"
-      variant: productShowcase
-      title: ""
-      brand_mark:
-        prefix: Conviértete en
-        highlight: Ingeniero de IA
-        color: primary
-      description: La IA está cambiando todos los trabajos. En 24 semanas pasas de donde estás hoy a desarrollar e integrar sistemas de IA reales que las empresas en Chile llevan meses intentando contratar.
-      bullets:
-        - text: Mentoría ilimitada de por vida, no solo mientras estudias
-        - text: Opciones de financiación flexibles a 10, 12 y 18 meses
-      form:
-        variant: stacked
-        conversion_name: student_application
-        submit_label: Iniciar mi aplicación
-        tags: website-lead
-        fields:
-          email:
-            visible: true
-            required: true
-            placeholder: Correo electrónico
-          first_name:
-            visible: true
-            required: true
-            placeholder: Nombre
-          last_name:
-            visible: true
-            required: true
-            placeholder: Apellido
-          phone:
-            visible: true
-            required: true
-            default_country: CL
-          program:
-            visible: false
-            default: ai-engineering
-        success:
-          message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
-        terms_url: /terminos-condiciones
-        privacy_url: /politica-privacidad
-        consent:
-          marketing: true
-          marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        show_terms: true
+  - type: hero
+    version: "1.0"
+    variant: productShowcase
+    title: ""
+    brand_mark:
+      prefix: Conviértete en
+      highlight: Ingeniero de IA
+      color: primary
+    description: La IA está cambiando todos los trabajos. En 24 semanas pasas de donde estás hoy a desarrollar e integrar sistemas de IA reales que las empresas en Chile llevan meses intentando contratar.
+    bullets:
+      - text: Mentoría ilimitada de por vida, no solo mientras estudias
+      - text: Opciones de financiación flexibles a 10, 12 y 18 meses
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Iniciar mi aplicación
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        last_name:
+          visible: true
+          required: true
+          placeholder: Apellido
+        phone:
+          visible: true
+          required: true
+          default_country: CL
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
+      terms_url: /terminos-condiciones
+      privacy_url: /politica-privacidad
+      consent:
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
       form_card_title: Obtén la guía completa del programa
       form_card_subtitle: Te enviamos el programa completo con plan de estudios, opciones de financiación y más. Solo toma 2 minutos.
       show_awards_marquee: true
@@ -273,51 +273,51 @@ sections:
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
     load: eager
-  - - type: hero
-      version: "1.0"
-      variant: productShowcase
-      title: ""
-      brand_mark:
-        prefix: Conviértete en
-        highlight: Ingeniero de IA
-        color: primary
-      description: La IA está cambiando todos los trabajos. En 24 semanas pasas de donde estás hoy a desarrollar e integrar sistemas de IA reales que las empresas en Chile llevan meses intentando contratar.
-      bullets:
-        - text: Mentoría ilimitada de por vida, no solo mientras estudias
-        - text: Opciones de financiación flexibles a 10, 12 y 18 meses
-      form:
-        variant: stacked
-        conversion_name: student_application
-        submit_label: Iniciar mi aplicación
-        tags: website-lead
-        fields:
-          email:
-            visible: true
-            required: true
-            placeholder: Correo electrónico
-          first_name:
-            visible: true
-            required: true
-            placeholder: Nombre
-          last_name:
-            visible: true
-            required: true
-            placeholder: Apellido
-          phone:
-            visible: true
-            required: true
-            default_country: CL
-          program:
-            visible: false
-            default: ai-engineering
-        success:
-          message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
-        terms_url: /terminos-condiciones
-        privacy_url: /politica-privacidad
-        consent:
-          marketing: true
-          marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        show_terms: true
+  - type: hero
+    version: "1.0"
+    variant: productShowcase
+    title: ""
+    brand_mark:
+      prefix: Conviértete en
+      highlight: Ingeniero de IA
+      color: primary
+    description: La IA está cambiando todos los trabajos. En 24 semanas pasas de donde estás hoy a desarrollar e integrar sistemas de IA reales que las empresas en Chile llevan meses intentando contratar.
+    bullets:
+      - text: Mentoría ilimitada de por vida, no solo mientras estudias
+      - text: Opciones de financiación flexibles a 10, 12 y 18 meses
+    form:
+      variant: stacked
+      conversion_name: student_application
+      submit_label: Iniciar mi aplicación
+      tags: website-lead
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Correo electrónico
+        first_name:
+          visible: true
+          required: true
+          placeholder: Nombre
+        last_name:
+          visible: true
+          required: true
+          placeholder: Apellido
+        phone:
+          visible: true
+          required: true
+          default_country: CL
+        program:
+          visible: false
+          default: ai-engineering
+      success:
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
+      terms_url: /terminos-condiciones
+      privacy_url: /politica-privacidad
+      consent:
+        marketing: true
+        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
+      show_terms: true
       form_card_title: Obtén la guía completa del programa
       form_card_subtitle: Te enviamos el programa completo con plan de estudios, opciones de financiación y más. Solo toma 2 minutos.
       show_awards_marquee: true

@@ -182,7 +182,7 @@ sections:
       desktop: none
     maxWidth:
       desktop: 6xl
-  - ttype: features_grid
+  - type: features_grid
     version: "1.0"
     variant: stats-text
     maxWidth:
