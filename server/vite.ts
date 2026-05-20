@@ -116,7 +116,12 @@ export async function setupVite(app: Express, server: Server) {
         }
       },
     },
-    server: serverOptions,
+    // Merge vite.config server options (fs, warmup, etc.) with the runtime
+    // middleware-mode overrides so neither set silently drops the other.
+    server: {
+      ...(resolvedViteConfig?.server ?? {}),
+      ...serverOptions,
+    },
     appType: "custom",
   });
 

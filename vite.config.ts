@@ -113,5 +113,16 @@ export default defineConfig(async ({ isSsrBuild }) => ({
       strict: true,
       deny: ["**/.*"],
     },
+    warmup: {
+      clientFiles: [
+        "./src/App.tsx",
+        "./src/pages/page.tsx",
+        "./src/components/SectionRenderer.tsx",
+        "./src/components/Header.tsx",
+      ],
+      ssrFiles: [
+        "./src/entry-server.tsx",
+      ],
+    },
   },
 }));

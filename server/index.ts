@@ -197,29 +197,5 @@ app.use((req, res, next) => {
     databaseManager.warmup().catch((err) => {
       console.error("[DatabaseManager] Warmup error:", err);
     });
-
-    // In development, kick off a self-request immediately after the server is
-    // ready so Vite pre-compiles the SSR bundle and critical client modules.
-    // This means the first real browser visit finds everything already compiled
-    // instead of waiting 1-2 minutes for on-demand compilation.
-    if (app.get("env") === "development") {
-      const warmupUrls = [
-        `http://localhost:${port}/`,
-        `http://localhost:${port}/en/`,
-        `http://localhost:${port}/es/`,
-      ];
-      const runWarmup = async () => {
-        for (const url of warmupUrls) {
-          try {
-            await fetch(url, { headers: { "x-vite-warmup": "1" } });
-            log(`[Vite warmup] pre-compiled: ${url}`);
-          } catch {
-            // silently ignore — server may not be fully ready yet
-          }
-        }
-      };
-      // Small delay so the Vite middleware finishes attaching before we hit it
-      setTimeout(runWarmup, 200);
-    }
   });
 })();
