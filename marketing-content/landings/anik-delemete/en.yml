@@ -199,6 +199,41 @@ sections:
         name: React
     type: syllabus
     variant: program-modules
+  - background: hsl(var(--secondary))
+    cta:
+      text: Get More Info
+      url: "#modal-lead"
+      variant: primary
+    discount_text: "Full Payment Discount: Save 10% when you pay upfront ($4,500)."
+    features:
+      - icon: IconCheck
+        text: Pay upfront and save 10%, or split into 6 interest-free monthly installments.
+      - icon: IconCheck
+        text: Finance over 12 months with our lending partners — starting at $450/month.
+      - icon: IconCheck
+        text: Merit-based partial scholarships available for qualifying applicants.
+    features_title: Choose the option that fits you best.
+    financing_amount: $450
+    financing_text: Monthly financing starting at
+    marginY:
+      desktop: md
+    paddingY:
+      desktop: md
+    section_id: pricing-anik
+    subtitle: A $5,000 investment in a career that pays $95K–$135K. Multiple ways to make it work.
+    tech_icons:
+      - python
+      - openai
+      - n8n
+      - docker
+      - react
+      - api
+      - robot
+      - settings
+    title: Tuition & Financing Options
+    type: pricing
+    variant: product
+    version: "1.0"
   - background: hsl(var(--muted))
     cta:
       button:
