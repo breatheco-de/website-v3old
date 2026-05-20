@@ -234,6 +234,23 @@ sections:
     type: pricing
     variant: product
     version: "1.0"
+  - background: bg-muted/30
+    description: No complicated admissions process. No prerequisites. Just three steps between you and your AI career.
+    section_id: steps-anik
+    steps:
+      - icon: School
+        text: Fill out the application form — it takes 2 minutes.
+      - icon: Headset
+        text: Chat with an advisor to choose your schedule and financing option.
+      - icon: Rocket
+        text: Start building AI agents from day one.
+    title: How to Get Started
+    type: numbered_steps
+    version: "1.0"
+    paddingY:
+      desktop: md
+    marginY:
+      desktop: none md
   - background: hsl(var(--muted))
     cta:
       button:
