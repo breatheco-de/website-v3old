@@ -129,3 +129,39 @@ sections:
     type: features_grid
     variant: highlight
     version: "1.0"
+  - consent:
+      sms: true
+    fields:
+      email:
+        placeholder: Email address
+        required: true
+        visible: true
+      first_name:
+        placeholder: First name
+        required: true
+        visible: true
+      last_name:
+        placeholder: Last name
+        required: false
+        visible: true
+      location:
+        default: miami-usa
+        required: false
+        visible: false
+      phone:
+        required: true
+        visible: true
+      program:
+        default: ai-engineering
+        required: true
+        visible: false
+    show_terms: true
+    submit_label: Check My Scholarship Eligibility →
+    subtitle: Takes less than 2 minutes. No commitment required.
+    success:
+      message: You're in! An admissions advisor will reach out within 24 hours to confirm your scholarship eligibility.
+    tags: website-lead,miami-scholarship-ppc
+    title: Apply for the Miami AI Engineering Scholarship
+    type: lead_form
+    variant: stacked
+    version: "1.0"
