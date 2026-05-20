@@ -104,3 +104,28 @@ sections:
         rating: 4.9
         review_count: 1,200 reviews
         trusted_text: Top Bootcamp 2025
+  - background: bg-muted/30
+    columns: 4
+    icon_color: "#0097CD"
+    items:
+      - description: of our graduates land a job in tech within 3 months of completing the program.
+        icon: Briefcase
+        title: 86% Hiring Rate
+        value: 86%
+      - description: average salary increase reported by our graduates after completing the program.
+        icon: TrendingUp
+        title: Avg. Salary Increase
+        value: 55%
+      - description: is the average time from graduation to first job offer for our graduates.
+        icon: Clock
+        title: Time to Hire
+        value: ~3 mo
+      - description: graduates have been placed in tech jobs across the U.S., LATAM, and Europe.
+        icon: Users
+        title: Graduates Employed
+        value: 5,000+
+    subtitle: Real outcomes from real graduates — not projections.
+    title: Results That Speak for Themselves
+    type: features_grid
+    variant: highlight
+    version: "1.0"
