@@ -7,18 +7,29 @@ interface SingleQuery {
   data: unknown;
 }
 
-type InitialDataPayload =
+export type InitialDataPayload =
   | { queries: SingleQuery[]; queryKey?: never; data?: never }
   | { queryKey: unknown[]; data: unknown; queries?: never };
 
 export let isSSRHydration = false;
 
-export function hydrateInitialData() {
+export function readInitialDataPayload(): InitialDataPayload | null {
   const script = document.getElementById("__INITIAL_DATA__");
-  if (!script) return;
+  if (!script) return null;
 
   try {
-    const payload: InitialDataPayload = JSON.parse(script.textContent || "");
+    return JSON.parse(script.textContent || "") as InitialDataPayload;
+  } catch {
+    return null;
+  }
+}
+
+export function hydrateInitialData() {
+  const script = document.getElementById("__INITIAL_DATA__");
+  const payload = readInitialDataPayload();
+  if (!payload || !script) return;
+
+  try {
 
     if (payload.queries && Array.isArray(payload.queries)) {
       for (const { queryKey, data } of payload.queries) {
