@@ -140,7 +140,7 @@ function renderAuthorizePage(opts: {
 function createMcpServer(mcpAuthor?: string): McpServer {
   const mcp = new McpServer({ name: "content-pages", version: "1.0.0" });
   registerPageTools(mcp, mcpAuthor);
-  registerComponentTools(mcp, mcpAuthor);
+  registerComponentTools(mcp);
   return mcp;
 }
 
