@@ -318,6 +318,8 @@ sections:
         duration: 40 HOURS
         difficulty: hard
         date: 01/03/2023
+    marginY:
+      desktop: lg none
   - type: trust_cards
     version: v1.0
     title: Top rated across all major platforms.
