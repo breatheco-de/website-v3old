@@ -45,3 +45,30 @@ sections:
       desktop: md
     marginY:
       desktop: none
+  - description: Enter your details to receive the complete syllabus, program structure, schedule options, and tuition information.
+    form:
+      automations: soft
+      fields:
+        email:
+          required: true
+          visible: true
+        first_name:
+          required: true
+          visible: true
+        phone:
+          required: true
+          visible: true
+        program:
+          default: ai-engineering
+          visible: false
+      submit_label: Get the Full Overview
+      tags: request_more_info,anik-delemete
+      variant: stacked
+      success:
+        message: Thank you! A program advisor will reach out within 24 hours.
+    heading: Request Program Details
+    section_id: modal-lead
+    show_close: true
+    size: md
+    type: modal
+    version: "1.0"
