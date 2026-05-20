@@ -267,7 +267,7 @@ global.minimun_isa_salary:
         region: "europe"
       value: "17.000 €"
 global.average_salary_fullstack:
-  default: "$95K–$135K"
+  default: "$75K–$110K"
   conditions:
     - query:
         region: "europe"
