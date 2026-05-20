@@ -1,5 +1,5 @@
 import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "./routes";
+import { registerRoutes, startBackgroundSync } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { fallbackRedirectMiddleware } from "./redirects";
 import { initialDataMiddleware } from "./initial-data-middleware";
@@ -9,6 +9,7 @@ import path from "path";
 import { setAutoCommitCallback } from "./sync-state";
 import { queueFileChange } from "./auto-commit";
 import { databaseManager } from "./database";
+import { contentIndex } from "./content-index";
 import http from "http";
 // Note: gcs.initFromEnv() is called by media.initFromEnv() in routes.ts,
 // which happens before sync-state needs it.
@@ -183,6 +184,11 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
+  // Run the fast content-index scan synchronously before the server begins
+  // listening so the first request is never blocked by the initial scan.
+  // The slow phase (image/variable/redirect/SEO indexing) runs in the background.
+  contentIndex.scanFast();
+
   // ALWAYS serve the app on the port specified in the environment variable PORT
   // Other ports are firewalled. Default to 5000 if not specified.
   // this serves both the API and the client.
@@ -194,8 +200,13 @@ app.use((req, res, next) => {
     reusePort: true,
   }, () => {
     log(`serving on port ${port}`);
+    // All deferred background tasks fire here — server is already ready to handle requests.
+    contentIndex.startSlowScanAsync();
     databaseManager.warmup().catch((err) => {
       console.error("[DatabaseManager] Warmup error:", err);
+    });
+    startBackgroundSync().catch((err) => {
+      console.error("[SyncState] Failed to start background sync:", err);
     });
   });
 })();

@@ -16,16 +16,59 @@ import { usePageTracking } from "@/hooks/usePageTracking";
 import type { ContentTypeApiItem } from "@/hooks/useContentTypes";
 import "./i18n";
 
+// Track whether the Vite HMR WebSocket is currently connected.
+// When disconnected, lazy-import retries are paused until the connection
+// is restored (or a full-reload is imminent) rather than failing immediately.
+let _hmrConnected = true;
+
+function _waitForHmrReconnect(timeoutMs = 30_000): Promise<void> {
+  return new Promise((resolve) => {
+    if (_hmrConnected) { resolve(); return; }
+    let timer: ReturnType<typeof setTimeout>;
+    const onConnect = () => {
+      clearTimeout(timer);
+      window.removeEventListener("vite:ws:connect" as keyof WindowEventMap, onConnect);
+      resolve();
+    };
+    window.addEventListener("vite:ws:connect" as keyof WindowEventMap, onConnect);
+    // Timeout safety valve — resolve anyway so retries can proceed/fail naturally
+    timer = setTimeout(() => {
+      window.removeEventListener("vite:ws:connect" as keyof WindowEventMap, onConnect);
+      resolve();
+    }, timeoutMs);
+  });
+}
+
+if (typeof window !== "undefined") {
+  // Vite 5+ dispatches these events on the window when the HMR socket changes state
+  window.addEventListener("vite:ws:connect" as keyof WindowEventMap, () => {
+    _hmrConnected = true;
+  });
+  window.addEventListener("vite:ws:disconnect" as keyof WindowEventMap, () => {
+    _hmrConnected = false;
+  });
+  // A full-reload means the page is about to reload — no point retrying imports
+  window.addEventListener("vite:beforeFullReload" as keyof WindowEventMap, () => {
+    _hmrConnected = false;
+  });
+}
+
 function lazyWithRetry<T extends React.ComponentType<any>>(
   factory: () => Promise<{ default: T }>,
-  retries = 5,
-  delay = 1500,
+  retries = 2,
+  delay = 500,
 ): React.LazyExoticComponent<T> {
   return lazy(() => {
     const attempt = (n: number): Promise<{ default: T }> =>
-      factory().catch((err) => {
+      factory().catch(async (err) => {
         if (n <= 0) throw err;
-        return new Promise<void>((resolve) => setTimeout(resolve, delay)).then(() => attempt(n - 1));
+        // If the HMR socket is disconnected, pause until it reconnects
+        // (avoids burning all retries while the server is restarting)
+        if (!_hmrConnected) {
+          await _waitForHmrReconnect();
+        }
+        await new Promise<void>((resolve) => setTimeout(resolve, delay));
+        return attempt(n - 1);
       });
     return attempt(retries);
   });

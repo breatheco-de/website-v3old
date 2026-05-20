@@ -600,75 +600,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   );
   refreshGithubCommit();
 
-  loadSyncStateFromBucket()
-    .then(async () => {
-      const {
-        reconcileSyncStateOnStartup,
-        autoPullNonConflicting,
-        ensureWebhook,
-      } = await import("./github");
-      await reconcileSyncStateOnStartup();
-      const isAutoPullEnabled =
-        process.env.GITHUB_SYNC_ENABLED === "true" &&
-        process.env.GITHUB_AUTO_PULL_ENABLED === "true";
-      if (isAutoPullEnabled) {
-        const result = await autoPullNonConflicting();
-        if (result.pulled.length > 0) {
-          logSync(
-            "AUTO-PULL",
-            `Startup: pulled ${result.pulled.length} incoming files: ${result.pulled.map((f) => f.replace("marketing-content/", "")).join(", ")}`,
-          );
-        }
-        if (result.conflicted.length > 0) {
-          logSync(
-            "CONFLICT",
-            `Startup: ${result.conflicted.length} files have local conflicts, awaiting manual resolution`,
-          );
-        }
-        if (result.errors.length > 0) {
-          logSync(
-            "ERROR",
-            `Startup: ${result.errors.length} file(s) failed to pull — retrying in 10s: ${result.errors.join("; ")}`,
-          );
-          setTimeout(async () => {
-            try {
-              const retry = await autoPullNonConflicting();
-              if (retry.pulled.length > 0) {
-                logSync(
-                  "AUTO-PULL",
-                  `Retry: pulled ${retry.pulled.length} file(s): ${retry.pulled.map((f) => f.replace("marketing-content/", "")).join(", ")}`,
-                );
-              }
-              if (retry.errors.length > 0) {
-                logSync(
-                  "ERROR",
-                  `Retry: ${retry.errors.length} file(s) still failed: ${retry.errors.join("; ")}`,
-                );
-              }
-            } catch (e) {
-              logSync(
-                "ERROR",
-                `Retry failed: ${e instanceof Error ? e.message : String(e)}`,
-              );
-            }
-          }, 10000);
-        }
-      } else {
-        logSync(
-          "AUTO-PULL",
-          "Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'",
-        );
-      }
-      await ensureWebhook();
-    })
-    .catch((err) => {
-      logSync(
-        "ERROR",
-        `Failed to load/reconcile on startup: ${err instanceof Error ? err.message : String(err)}`,
-      );
-      console.error("[SyncState] Failed to load/reconcile on startup:", err);
-    });
-
   app.get("/api/geo", async (req, res) => {
     try {
       const forwarded = req.headers["x-forwarded-for"];
@@ -12320,4 +12251,85 @@ sections: []
   });
 
   return httpServer;
+}
+
+/**
+ * Fire-and-forget GitHub sync reconciliation intended to be called from the
+ * server.listen() callback — AFTER the server is ready to accept requests.
+ * Keeping this out of registerRoutes() ensures startup latency is not affected
+ * by GitHub API calls that compare file hashes across 128+ files.
+ */
+export async function startBackgroundSync(): Promise<void> {
+  const { logSync } = await import("./sync-log");
+  const { loadSyncStateFromBucket } = await import("./sync-state");
+
+  console.log("[GitHub] Reconciling sync state in background (non-blocking)...");
+  loadSyncStateFromBucket()
+    .then(async () => {
+      const {
+        reconcileSyncStateOnStartup,
+        autoPullNonConflicting,
+        ensureWebhook,
+      } = await import("./github");
+      await reconcileSyncStateOnStartup();
+      const isAutoPullEnabled =
+        process.env.GITHUB_SYNC_ENABLED === "true" &&
+        process.env.GITHUB_AUTO_PULL_ENABLED === "true";
+      if (isAutoPullEnabled) {
+        const result = await autoPullNonConflicting();
+        if (result.pulled.length > 0) {
+          logSync(
+            "AUTO-PULL",
+            `Startup: pulled ${result.pulled.length} incoming files: ${result.pulled.map((f) => f.replace("marketing-content/", "")).join(", ")}`,
+          );
+        }
+        if (result.conflicted.length > 0) {
+          logSync(
+            "CONFLICT",
+            `Startup: ${result.conflicted.length} files have local conflicts, awaiting manual resolution`,
+          );
+        }
+        if (result.errors.length > 0) {
+          logSync(
+            "ERROR",
+            `Startup: ${result.errors.length} file(s) failed to pull — retrying in 10s: ${result.errors.join("; ")}`,
+          );
+          setTimeout(async () => {
+            try {
+              const retry = await autoPullNonConflicting();
+              if (retry.pulled.length > 0) {
+                logSync(
+                  "AUTO-PULL",
+                  `Retry: pulled ${retry.pulled.length} file(s): ${retry.pulled.map((f) => f.replace("marketing-content/", "")).join(", ")}`,
+                );
+              }
+              if (retry.errors.length > 0) {
+                logSync(
+                  "ERROR",
+                  `Retry: ${retry.errors.length} file(s) still failed: ${retry.errors.join("; ")}`,
+                );
+              }
+            } catch (e) {
+              logSync(
+                "ERROR",
+                `Retry failed: ${e instanceof Error ? e.message : String(e)}`,
+              );
+            }
+          }, 10000);
+        }
+      } else {
+        logSync(
+          "AUTO-PULL",
+          "Skipped startup pull — GITHUB_AUTO_PULL_ENABLED not set to 'true'",
+        );
+      }
+      await ensureWebhook();
+    })
+    .catch((err) => {
+      logSync(
+        "ERROR",
+        `Failed to load/reconcile on startup: ${err instanceof Error ? err.message : String(err)}`,
+      );
+      console.error("[SyncState] Failed to load/reconcile on startup:", err);
+    });
 }

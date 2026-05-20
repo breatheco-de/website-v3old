@@ -107,6 +107,7 @@ class ContentIndex {
   private byUrl: Map<string, { contentType: string; slug: string; entry: ContentEntry; params: Record<string, string>; patternLocale: string }> = new Map();
   private dbIndexedTypes: Set<string> = new Set();
   private initialized = false;
+  private slowPhaseReady = false;
 
   private static instance: ContentIndex;
 
@@ -190,7 +191,12 @@ class ContentIndex {
     return type;
   }
 
-  scan(): void {
+  /**
+   * Phase 1 — fast scan: builds the URL/slug index needed to serve page requests.
+   * Avoids full YAML parsing; uses lightweight regex for slug/title extraction.
+   * Completes before the server begins listening so the first request is never delayed.
+   */
+  scanFast(): void {
     const baseDir = path.join(process.cwd(), "marketing-content");
     this.contentTypeConfigs = this.loadContentTypes();
     const contentTypes = Object.keys(this.contentTypeConfigs);
@@ -208,6 +214,7 @@ class ContentIndex {
     this.clusterIndex = new Map();
     this.byUrl = new Map();
     this.dbIndexedTypes = new Set();
+    this.slowPhaseReady = false;
 
     for (const contentType of contentTypes) {
       const diskFolder = this.contentTypeConfigs[contentType]?.directory || contentType;
@@ -228,7 +235,35 @@ class ContentIndex {
 
         const slug = this.extractSlug(folderPath, folderName, files);
         const locales = this.extractLocales(files, contentType);
-        const title = this.extractTitle(folderPath, files, contentType);
+
+        // Lightweight title extraction via regex — avoids full YAML parse at startup
+        let title: string | undefined;
+        for (const candidate of ["_common.yml", "_common.yaml", "en.yml", "en.yaml"]) {
+          if (files.includes(candidate)) {
+            try {
+              const raw = fs.readFileSync(path.join(folderPath, candidate), "utf-8");
+              const m = raw.match(/^(?:title|name):\s+["']?([^"'\n#]+)["']?/m);
+              if (m) title = m[1].trim();
+            } catch {}
+            break;
+          }
+        }
+
+        // Lightweight localeSlugMap update via regex — avoids full YAML parse per locale file
+        for (const file of files) {
+          const locale = file.replace(/\.(yml|yaml)$/, "");
+          if (locale.startsWith("_") || !/^[a-z]{2}(-[a-z]{2})?$/.test(locale)) continue;
+          try {
+            const raw = fs.readFileSync(path.join(folderPath, file), "utf-8");
+            const m = raw.match(/^slug:\s+["']?([^\s"'\n#]+)["']?/m);
+            if (m) {
+              const localeSlug = m[1].trim();
+              if (localeSlug !== slug) {
+                this.localeSlugMap.set(`${localeSlug}:${contentType}`, slug);
+              }
+            }
+          } catch {}
+        }
 
         const entry: ContentEntry = {
           slug,
@@ -240,42 +275,13 @@ class ContentIndex {
         };
 
         this.entries.push(entry);
-
         const existing = this.bySlug.get(slug) || [];
         existing.push(entry);
         this.bySlug.set(slug, existing);
-
         this.byPath.set(relFolder, entry);
-
-        for (const file of files) {
-          const filePath = path.join(folderPath, file);
-          const relFilePath = `${relFolder}/${file}`;
-          try {
-            const raw = fs.readFileSync(filePath, "utf-8");
-            this.extractVariableReferences(raw, relFilePath);
-            const parsed = this.safeYamlLoad(raw);
-            this.extractImageReferences(parsed, relFilePath);
-            this.extractMenuReferences(parsed, contentType, folderName, file);
-            const locale = file.replace(/\.(yml|yaml)$/, "");
-            if (locale !== "_common" && !locale.startsWith("_")) {
-              this.extractSeoData(parsed, slug, contentType, relFilePath);
-            }
-            if (parsed && this.contentTypeHasRedirects(contentType)) {
-              const localeSlugForRedirect = (parsed.slug && typeof parsed.slug === "string") ? parsed.slug : slug;
-              this.extractRedirects(parsed, slug, locale, contentType, relFilePath, localeSlugForRedirect);
-            }
-            if (parsed?.slug && typeof parsed.slug === "string") {
-              const localeSlug = parsed.slug;
-              if (localeSlug !== slug) {
-                this.localeSlugMap.set(`${localeSlug}:${contentType}`, slug);
-              }
-            }
-          } catch {}
-        }
       }
     }
 
-    this.scanCustomRedirects(baseDir);
     this.autoCreateSingleTemplates(baseDir);
 
     // Build URL index for DB-backed content types from their mapped cache
@@ -297,28 +303,95 @@ class ContentIndex {
           locales: [],
         };
         for (const item of items) {
-          const slug = String(item.slug || "");
-          if (!slug) continue;
+          const itemSlug = String(item.slug || "");
+          if (!itemSlug) continue;
           for (const [localeKey, pattern] of Object.entries(config.url_pattern)) {
             const locale = localeKey === "default" ? "en" : localeKey;
             const url = resolveUrlPatternWithMapping(pattern, item, locale, fieldMapping);
             if (!url) continue;
             const params = this.extractUrlParams(pattern, url) || {};
-            this.byUrl.set(url, { contentType, slug, entry: templateEntry, params, patternLocale: localeKey });
+            this.byUrl.set(url, { contentType, slug: itemSlug, entry: templateEntry, params, patternLocale: localeKey });
           }
         }
         this.dbIndexedTypes.add(contentType);
       } catch {}
     }
 
+    this.initialized = true;
+    console.log(`[ContentIndex] Fast scan: ${this.entries.length} entries indexed (image/variable/redirect/SEO deferred to background)`);
+  }
+
+  /**
+   * Phase 2 — slow scan: indexes image refs, variable refs, redirects, SEO, and menus.
+   * Runs asynchronously after the server starts listening.
+   * Routes that depend on this data handle the not-yet-ready state gracefully.
+   */
+  scanSlow(): void {
+    const baseDir = path.join(process.cwd(), "marketing-content");
+
+    for (const entry of this.entries) {
+      const folderPath = path.join(process.cwd(), entry.directory);
+      const folderName = path.basename(entry.directory);
+      for (const file of entry.files) {
+        const filePath = path.join(folderPath, file);
+        const relFilePath = `${entry.directory}/${file}`;
+        try {
+          const raw = fs.readFileSync(filePath, "utf-8");
+          this.extractVariableReferences(raw, relFilePath);
+          const parsed = this.safeYamlLoad(raw);
+          this.extractImageReferences(parsed, relFilePath);
+          this.extractMenuReferences(parsed, entry.contentType, folderName, file);
+          const locale = file.replace(/\.(yml|yaml)$/, "");
+          if (locale !== "_common" && !locale.startsWith("_")) {
+            this.extractSeoData(parsed, entry.slug, entry.contentType, relFilePath);
+          }
+          if (parsed && this.contentTypeHasRedirects(entry.contentType)) {
+            const localeSlugForRedirect = (parsed.slug && typeof parsed.slug === "string") ? parsed.slug : entry.slug;
+            this.extractRedirects(parsed, entry.slug, locale, entry.contentType, relFilePath, localeSlugForRedirect);
+          }
+          // Refine localeSlugMap with accurate YAML-parsed values
+          if (parsed?.slug && typeof parsed.slug === "string") {
+            const localeSlug = parsed.slug;
+            if (localeSlug !== entry.slug) {
+              this.localeSlugMap.set(`${localeSlug}:${entry.contentType}`, entry.slug);
+            }
+          }
+        } catch {}
+      }
+    }
+
+    this.scanCustomRedirects(baseDir);
     this.warnMissingSlugMappings();
 
-    this.initialized = true;
-    const imageRefCount = this.imageUsage.size;
-    const variableRefCount = this.variableUsage.size;
-    const menuRefCount = this.menuUsage.size;
-    const seoEntryCount = this.seoIndex.size;
-    console.log(`[ContentIndex] Scanned ${this.entries.length} content entries, ${imageRefCount} image references tracked, ${variableRefCount} variable references tracked, ${menuRefCount} menu references tracked, ${this.redirectEntries.length} redirects, ${seoEntryCount} seo entries tracked`);
+    this.slowPhaseReady = true;
+    console.log(`[ContentIndex] Slow scan complete: ${this.imageUsage.size} image refs, ${this.variableUsage.size} variable refs, ${this.menuUsage.size} menu refs, ${this.redirectEntries.length} redirects, ${this.seoIndex.size} SEO entries`);
+  }
+
+  /** Start the slow scan asynchronously in the next event-loop tick. */
+  startSlowScanAsync(): void {
+    setImmediate(() => {
+      try {
+        this.scanSlow();
+      } catch (err) {
+        console.error("[ContentIndex] Error during background slow scan:", err);
+      }
+    });
+  }
+
+  /** Returns true once the slow phase (image/variable/redirect/SEO indexing) has completed. */
+  isSlowPhaseReady(): boolean {
+    return this.slowPhaseReady;
+  }
+
+  /**
+   * Full synchronous scan (fast + slow phases in sequence).
+   * Used for explicit re-scans triggered by content edits.
+   */
+  scan(): void {
+    this.scanFast();
+    this.scanSlow();
+    // Re-emit a unified log for callers that expect the original combined message
+    console.log(`[ContentIndex] Scanned ${this.entries.length} content entries, ${this.imageUsage.size} image references tracked, ${this.variableUsage.size} variable references tracked, ${this.menuUsage.size} menu references tracked, ${this.redirectEntries.length} redirects, ${this.seoIndex.size} seo entries tracked`);
   }
 
   safeYamlLoad(raw: string): Record<string, unknown> | null {
@@ -676,7 +749,8 @@ class ContentIndex {
 
   private ensureInitialized(): void {
     if (!this.initialized) {
-      this.scan();
+      this.scanFast();
+      this.startSlowScanAsync();
     }
   }
 
@@ -833,6 +907,9 @@ class ContentIndex {
 
   getRedirects(): RedirectEntry[] {
     this.ensureInitialized();
+    // Return empty during slow-phase startup — the fallback redirect middleware
+    // will simply pass through and the redirects will be available shortly.
+    if (!this.slowPhaseReady) return [];
     return [...this.redirectEntries];
   }
 
