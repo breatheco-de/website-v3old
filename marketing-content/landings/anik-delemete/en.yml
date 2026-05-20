@@ -251,6 +251,20 @@ sections:
       desktop: md
     marginY:
       desktop: none md
+  - marginY:
+      desktop: md
+    paddingY:
+      desktop: md
+    rating_summary:
+      average: "4.9"
+      count: "700"
+    related_features:
+      - content-and-syllabus
+      - career-support
+    section_id: testimonials-anik
+    subtitle: "Different backgrounds. One outcome: a career in tech."
+    title: What Our Graduates Say
+    type: testimonials
   - background: hsl(var(--muted))
     cta:
       button:
