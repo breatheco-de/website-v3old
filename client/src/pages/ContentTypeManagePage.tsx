@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { AlertTriangle, ArrowLeft, ArrowRight, Check, Clock, Code, Database, ExternalLink, Eye, EyeOff, FileText, Folder, Globe, LayoutList, Link as LinkIcon, Loader2, MoreVertical, Plus, RefreshCw, Search, Shuffle, Trash2, Wand2, X } from "lucide-react";
+import { AlertTriangle, ArrowLeft, ArrowRight, Check, Clipboard, Clock, Code, Copy, Database, Download, ExternalLink, Eye, EyeOff, FileText, Folder, Globe, History, LayoutList, Link as LinkIcon, Loader2, MoreVertical, Plus, RefreshCw, Search, Shuffle, Trash2, Wand2, X } from "lucide-react";
 import { queryClient } from "@/lib/queryClient";
-import { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback, lazy, Suspense } from "react";
 import { Link, useRoute } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -35,6 +35,10 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { DeletePageModal } from "@/components/DebugBubble/components/DeletePageModal";
+import { CreateContentModal } from "@/components/DebugBubble/components/CreateContentModal";
+import type { SitemapUrl } from "@/components/DebugBubble/types";
+
+const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditorPanel"));
 
 interface ItemsResponse {
   count: number;
@@ -2300,6 +2304,23 @@ export default function ContentTypeManagePage() {
   const [deleteConfirmInput, setDeleteConfirmInput] = useState("");
   const [isDeletingEntry, setIsDeletingEntry] = useState(false);
 
+  const [showYamlEditor, setShowYamlEditor] = useState(false);
+  const [yamlEditorInfo, setYamlEditorInfo] = useState<{ contentType: string; slug: string; locale: string } | null>(null);
+
+  const [createModalOpen, setCreateModalOpen] = useState(false);
+  const [duplicatingPage, setDuplicatingPage] = useState<{ loc: string; label: string; contentType: string; locale?: string } | null>(null);
+  const [createContentType, setCreateContentType] = useState<string>(contentType);
+  const [createContentTitle, setCreateContentTitle] = useState("");
+  const [createContentSlugEn, setCreateContentSlugEn] = useState("");
+  const [createContentSlugEs, setCreateContentSlugEs] = useState("");
+  const [createContentSlugEnStatus, setCreateContentSlugEnStatus] = useState<'idle' | 'checking' | 'available' | 'taken'>('idle');
+  const [createContentSlugEsStatus, setCreateContentSlugEsStatus] = useState<'idle' | 'checking' | 'available' | 'taken'>('idle');
+  const [slugEnConflictReason, setSlugEnConflictReason] = useState<string | null>(null);
+  const [slugEsConflictReason, setSlugEsConflictReason] = useState<string | null>(null);
+  const [editingSlugEn, setEditingSlugEn] = useState(false);
+  const [editingSlugEs, setEditingSlugEs] = useState(false);
+  const [isCreatingContent, setIsCreatingContent] = useState(false);
+
   const { data: allItemsData, isLoading: allLoading } = useQuery<ItemsResponse>({
     queryKey: ["/api/content-types", contentType, "items"],
     queryFn: () => fetch(`/api/content-types/${contentType}/items`).then(r => r.json()),
@@ -2460,6 +2481,110 @@ export default function ContentTypeManagePage() {
       toast({ title: "Failed to clear cache", variant: "destructive" });
     } finally {
       setClearing(false);
+    }
+  };
+
+  const copyUrl = async (url: string) => {
+    await navigator.clipboard.writeText(url);
+    toast({ title: "Copied", description: url, duration: 2000 });
+  };
+
+  const handleDownloadYml = async (slug: string) => {
+    const token = getDebugToken();
+    const headers: Record<string, string> = {};
+    if (token) headers["Authorization"] = `Token ${token}`;
+    try {
+      const resolveRes = await fetch(`/api/content/resolve-folder?slug=${encodeURIComponent(slug)}`, { headers });
+      if (!resolveRes.ok) {
+        toast({ title: "No YAML found", description: "This entry has no YAML content files" });
+        return;
+      }
+      const resolveData = await resolveRes.json();
+      const entries: { directory: string; files: string[]; title?: string; contentType: string }[] = resolveData.multiple
+        ? resolveData.matches
+        : [resolveData];
+      let downloadedCount = 0;
+      for (const entry of entries) {
+        for (const filename of entry.files) {
+          try {
+            const res = await fetch(`/api/content/file?path=${encodeURIComponent(`${entry.directory}/${filename}`)}`, { headers });
+            if (!res.ok) continue;
+            const text = await res.text();
+            const blob = new Blob([text], { type: 'text/yaml' });
+            const blobUrl = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = entries.length > 1 ? `${entry.contentType}-${slug}-${filename}` : `${slug}-${filename}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(blobUrl);
+            downloadedCount++;
+          } catch {}
+        }
+      }
+      if (downloadedCount > 0) {
+        toast({ title: "Download complete", description: `Downloaded ${downloadedCount} YAML file(s) for "${slug}"` });
+      } else {
+        toast({ title: "No files found", description: `No YAML files could be downloaded for "${slug}"`, variant: "destructive" });
+      }
+    } catch {
+      toast({ title: "Download failed", description: "An error occurred while downloading", variant: "destructive" });
+    }
+  };
+
+  const handleEditYaml = async (entry: StaticEntry) => {
+    const locale = entry.locales[0] || "en";
+    const token = getDebugToken();
+    const headers: Record<string, string> = {};
+    if (token) headers["Authorization"] = `Token ${token}`;
+    try {
+      const res = await fetch(`/api/content/raw-file?contentType=${encodeURIComponent(contentType)}&slug=${encodeURIComponent(entry.slug)}&locale=${encodeURIComponent(locale)}`, { headers });
+      if (!res.ok) {
+        toast({ title: "No YAML found", description: "This entry has no YAML content files", variant: "destructive" });
+        return;
+      }
+      const data = await res.json();
+      if (!data.exists) {
+        toast({ title: "No YAML found", description: "This entry has no YAML content files", variant: "destructive" });
+        return;
+      }
+      setYamlEditorInfo({ contentType, slug: entry.slug, locale });
+      setShowYamlEditor(true);
+    } catch {
+      toast({ title: "Error", description: "Failed to check YAML files", variant: "destructive" });
+    }
+  };
+
+  const handleDuplicate = async (entry: StaticEntry) => {
+    const firstLocale = entry.locales[0] || "en";
+    const firstUrl = entry.urls[firstLocale] || Object.values(entry.urls)[0] || `/${firstLocale}/${entry.slug}`;
+    const suggestedSlug = `${entry.slug}-copy`;
+    setDuplicatingPage({ loc: firstUrl, label: entry.title, contentType, locale: firstLocale });
+    setCreateContentType(contentType);
+    setCreateContentTitle(`${entry.title} (Copy)`);
+    setCreateContentSlugEn(suggestedSlug);
+    setCreateContentSlugEs(suggestedSlug);
+    setCreateContentSlugEnStatus('checking');
+    setCreateContentSlugEsStatus('checking');
+    setSlugEnConflictReason(null);
+    setSlugEsConflictReason(null);
+    setEditingSlugEn(true);
+    setEditingSlugEs(true);
+    setCreateModalOpen(true);
+    try {
+      const [enRes, esRes] = await Promise.all([
+        fetch(`/api/content/check-slug?type=${encodeURIComponent(contentType)}&slug=${encodeURIComponent(suggestedSlug)}&locale=en`),
+        fetch(`/api/content/check-slug?type=${encodeURIComponent(contentType)}&slug=${encodeURIComponent(suggestedSlug)}&locale=es`),
+      ]);
+      const [enData, esData] = await Promise.all([enRes.json(), esRes.json()]);
+      setCreateContentSlugEnStatus(enData.available ? 'available' : 'taken');
+      setSlugEnConflictReason(enData.available ? null : (enData.reason === 'redirect_conflict' ? `Conflicts with redirect: ${enData.conflictUrl} → ${enData.redirectTo}` : null));
+      setCreateContentSlugEsStatus(esData.available ? 'available' : 'taken');
+      setSlugEsConflictReason(esData.available ? null : (esData.reason === 'redirect_conflict' ? `Conflicts with redirect: ${esData.conflictUrl} → ${esData.redirectTo}` : null));
+    } catch {
+      setCreateContentSlugEnStatus('idle');
+      setCreateContentSlugEsStatus('idle');
     }
   };
 
@@ -2754,6 +2879,47 @@ export default function ContentTypeManagePage() {
                                     </Button>
                                   </DropdownMenuTrigger>
                                   <DropdownMenuContent align="end">
+                                    <DropdownMenuItem
+                                      onClick={() => copyUrl(firstUrl)}
+                                      className="text-[13px]"
+                                      data-testid={`menu-copy-url-${entry.slug}`}
+                                    >
+                                      <Clipboard className="h-4 w-4 mr-2" />
+                                      Copy URL
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem
+                                      onClick={() => handleDuplicate(entry)}
+                                      className="text-[13px]"
+                                      data-testid={`menu-duplicate-${entry.slug}`}
+                                    >
+                                      <Copy className="h-4 w-4 mr-2" />
+                                      Duplicate
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem
+                                      onClick={() => handleDownloadYml(entry.slug)}
+                                      className="text-[13px]"
+                                      data-testid={`menu-download-${entry.slug}`}
+                                    >
+                                      <Download className="h-4 w-4 mr-2" />
+                                      Download YAML
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem
+                                      onClick={() => handleEditYaml(entry)}
+                                      className="text-[13px]"
+                                      data-testid={`menu-edit-yaml-${entry.slug}`}
+                                    >
+                                      <Code className="h-4 w-4 mr-2" />
+                                      Edit YAML
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem
+                                      onClick={() => { window.location.href = `/private/sync-log?search=${encodeURIComponent(entry.slug)}`; }}
+                                      className="text-[13px]"
+                                      data-testid={`menu-changelog-${entry.slug}`}
+                                    >
+                                      <History className="h-4 w-4 mr-2" />
+                                      View Change Log
+                                    </DropdownMenuItem>
+                                    <DropdownMenuSeparator />
                                     {Object.entries(entry.urls).flatMap(([loc, url]) => [
                                       <DropdownMenuItem key={`${loc}-new`} asChild>
                                         <a href={url} target="_blank" rel="noopener noreferrer" data-testid={`link-new-tab-${entry.slug}-${loc}`}>
@@ -2786,14 +2952,14 @@ export default function ContentTypeManagePage() {
                                         Migrate to standard format
                                       </DropdownMenuItem>
                                     )}
-                                    {(Object.keys(entry.urls).length > 0 || entry.locales.length === 0) && <DropdownMenuSeparator />}
+                                    <DropdownMenuSeparator />
                                     <DropdownMenuItem
                                       onClick={() => {
                                         setDeletingEntry(entry);
                                         setDeleteConfirmInput("");
                                         setDeleteModalOpen(true);
                                       }}
-                                      className="text-destructive focus:text-destructive"
+                                      className="text-destructive focus:text-destructive text-[13px]"
                                       data-testid={`button-delete-${entry.slug}`}
                                     >
                                       <Trash2 className="h-4 w-4 mr-2" />
@@ -3009,6 +3175,53 @@ export default function ContentTypeManagePage() {
         onConfirm={handleDeleteEntry}
         availableLocales={deletingEntry?.locales}
       />
+      <CreateContentModal
+        open={createModalOpen}
+        onOpenChange={(open) => {
+          setCreateModalOpen(open);
+          if (!open) setDuplicatingPage(null);
+        }}
+        duplicatingPage={duplicatingPage}
+        createContentType={createContentType}
+        setCreateContentType={setCreateContentType}
+        createContentTitle={createContentTitle}
+        setCreateContentTitle={setCreateContentTitle}
+        createContentSlugEn={createContentSlugEn}
+        setCreateContentSlugEn={setCreateContentSlugEn}
+        createContentSlugEs={createContentSlugEs}
+        setCreateContentSlugEs={setCreateContentSlugEs}
+        createContentSlugEnStatus={createContentSlugEnStatus}
+        setCreateContentSlugEnStatus={setCreateContentSlugEnStatus}
+        createContentSlugEsStatus={createContentSlugEsStatus}
+        setCreateContentSlugEsStatus={setCreateContentSlugEsStatus}
+        slugEnConflictReason={slugEnConflictReason}
+        setSlugEnConflictReason={setSlugEnConflictReason}
+        slugEsConflictReason={slugEsConflictReason}
+        setSlugEsConflictReason={setSlugEsConflictReason}
+        editingSlugEn={editingSlugEn}
+        setEditingSlugEn={setEditingSlugEn}
+        editingSlugEs={editingSlugEs}
+        setEditingSlugEs={setEditingSlugEs}
+        isCreatingContent={isCreatingContent}
+        setIsCreatingContent={setIsCreatingContent}
+        setSitemapUrls={(_urls: SitemapUrl[]) => {
+          queryClient.invalidateQueries({ queryKey: ["/api/content-types", contentType, "static-entries"] });
+        }}
+        setSitemapLoading={(_v: boolean) => {}}
+        setDuplicatingPage={setDuplicatingPage}
+        toast={toast}
+      />
+      {showYamlEditor && yamlEditorInfo && (
+        <Suspense fallback={null}>
+          <RawFileEditorPanel
+            contentType={yamlEditorInfo.contentType}
+            slug={yamlEditorInfo.slug}
+            locale={yamlEditorInfo.locale}
+            onClose={() => setShowYamlEditor(false)}
+            onSaved={() => window.location.reload()}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }
