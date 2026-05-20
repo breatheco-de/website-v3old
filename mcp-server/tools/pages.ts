@@ -669,37 +669,36 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
       if (!resolved) {
         return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
       }
-      const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
-      const localePath = path.join(dir, `${locale}.yml`);
-      try { assertWithinBase(localePath, MARKETING_CONTENT_PATH); } catch (e) {
-        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
-      }
-      if (!fs.existsSync(localePath)) {
-        return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${locale}.yml` }], isError: true };
+
+      const operation: Record<string, unknown> = {
+        action: "add_item",
+        path: "sections",
+        item: section,
+      };
+      if (index !== undefined) {
+        operation.index = index;
       }
 
-      // Build intended content before the conflict check.
-      const localeData = safeLoad(fs.readFileSync(localePath, "utf-8")) || {};
-      if (!Array.isArray(localeData.sections)) localeData.sections = [];
-      const sections = localeData.sections as Record<string, unknown>[];
-      const insertAt = (index !== undefined && index >= 0 && index <= sections.length) ? index : sections.length;
-      sections.splice(insertAt, 0, section as Record<string, unknown>);
-      const intendedContent = safeDump(localeData);
-
-      const relativePath = `marketing-content/${getDirectory(resolved.contentType, resolved.config)}/${slug}/${locale}.yml`;
-      const conflictCheck = await checkRemoteConflict(relativePath);
-      if (conflictCheck.conflict) {
-        return conflictError({
-          relativePath,
-          remoteContent: conflictCheck.remoteContent,
-          intendedContent,
-          intendedChange: { action: "add_section", index: insertAt, section },
+      try {
+        const url = `http://localhost:${MAIN_SERVER_PORT}/api/content/edit-sections`;
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contentType: resolved.contentType,
+            slug,
+            locale,
+            operations: [operation],
+          }),
         });
+        const data = await res.json() as Record<string, unknown>;
+        if (!res.ok) {
+          return { content: [{ type: "text", text: (data.error as string) || `Server error: ${res.status}` }], isError: true };
+        }
+        return { content: [{ type: "text", text: `Section of type '${section.type as string}' added to ${resolved.contentType}/${slug}/${locale}.yml` }] };
+      } catch (e) {
+        return { content: [{ type: "text", text: `Failed to call edit-sections API: ${(e as Error).message}` }], isError: true };
       }
-
-      fs.writeFileSync(localePath, intendedContent, "utf-8");
-      await notifyMarkModified(relativePath);
-      return { content: [{ type: "text", text: `Section of type '${section.type}' added at index ${insertAt} in ${resolved.contentType}/${slug}/${locale}.yml` }] };
     }
   );
 

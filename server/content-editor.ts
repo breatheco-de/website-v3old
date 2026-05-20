@@ -90,8 +90,13 @@ function applyOperation(content: Record<string, unknown>, operation: EditOperati
       }
       if (operation.path === "sections") {
         const inserted = arr[insertedIndex] as Record<string, unknown>;
-        if (inserted && typeof inserted === "object" && !inserted.section_id) {
-          inserted.section_id = generateSectionId((inserted.type as string) || "section");
+        if (inserted && typeof inserted === "object") {
+          if (!inserted.section_id) {
+            inserted.section_id = generateSectionId((inserted.type as string) || "section");
+          }
+          if (!inserted.paddingY) {
+            inserted.paddingY = { desktop: "sm" };
+          }
         }
       }
       break;
