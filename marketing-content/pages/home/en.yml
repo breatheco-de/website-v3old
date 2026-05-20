@@ -572,7 +572,7 @@ sections:
     section_id: cta_banner-y7nw0f
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
-    subtitle: Get pricing, program details, and personalized guidance.
+    subtitle: Get program details, pricing and personalized guidance.
     background: hsl(var(--primary))
     variant: form
     form:
