@@ -240,12 +240,19 @@ export function setValueAtPath(obj: Record<string, unknown>, pathStr: string, va
 // same marketing-content/ tree and share safeLoad/safeDump. Tools that need
 // them import from here rather than from tools/components.ts to avoid cycles.
 
+export interface ComponentVariantInfo {
+  name: string;
+  description?: string;
+  best_for?: string;
+}
+
 export interface ComponentInfo {
   type: string;
   version: string;
   name?: string;
   description?: string;
-  variants?: string[];
+  when_to_use?: string;
+  variants?: ComponentVariantInfo[];
 }
 
 export function listComponents(): ComponentInfo[] {
@@ -266,22 +273,33 @@ export function listComponents(): ComponentInfo[] {
       const schemaYml = path.join(componentPath, vDir.name, "schema.yml");
       let name: string | undefined;
       let description: string | undefined;
-      let variants: string[] | undefined;
+      let when_to_use: string | undefined;
+      let variants: ComponentVariantInfo[] | undefined;
 
       if (fs.existsSync(schemaYml)) {
         const parsed = safeLoad(fs.readFileSync(schemaYml, "utf-8"));
         if (parsed) {
           name = typeof parsed.name === "string" ? parsed.name : undefined;
           description = typeof parsed.description === "string" ? parsed.description : undefined;
+          when_to_use = typeof parsed.when_to_use === "string" ? parsed.when_to_use.trim() : undefined;
           if (parsed.variants && typeof parsed.variants === "object" && !Array.isArray(parsed.variants)) {
-            variants = Object.keys(parsed.variants as Record<string, unknown>);
+            const variantsMap = parsed.variants as Record<string, unknown>;
+            variants = Object.entries(variantsMap).map(([variantName, variantVal]) => {
+              const info: ComponentVariantInfo = { name: variantName };
+              if (variantVal && typeof variantVal === "object" && !Array.isArray(variantVal)) {
+                const v = variantVal as Record<string, unknown>;
+                if (typeof v.description === "string") info.description = v.description;
+                if (typeof v.best_for === "string") info.best_for = v.best_for;
+              }
+              return info;
+            });
           } else if (Array.isArray(parsed.variants)) {
-            variants = (parsed.variants as unknown[]).map(String);
+            variants = (parsed.variants as unknown[]).map(v => ({ name: String(v) }));
           }
         }
       }
 
-      components.push({ type: entry.name, version: vDir.name, name, description, variants });
+      components.push({ type: entry.name, version: vDir.name, name, description, when_to_use, variants });
     }
   }
 
