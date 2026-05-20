@@ -75,6 +75,7 @@ export async function setupVite(app: Express, server: Server) {
     middlewareMode: true,
     hmr: { server },
     allowedHosts: true as const,
+    ws: { perMessageDeflate: false },
   };
 
   // The project root is always one level above this server/ file.

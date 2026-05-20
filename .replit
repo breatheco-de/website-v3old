@@ -112,6 +112,7 @@ SITE_URL = "https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.r
 
 [userenv.production]
 SITE_URL = "https://4geeksacademy.com"
+NODE_ENV = "production"
 
 [postMerge]
 path = "scripts/post-merge.sh"
