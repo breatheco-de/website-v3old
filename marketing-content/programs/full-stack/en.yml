@@ -499,7 +499,7 @@ sections:
       url: /es/apply
       variant: primary
     marginY:
-      desktop: none md
+      desktop: none lg
     paddingY:
       desktop: lg md
     showOnLocations:
@@ -552,7 +552,7 @@ sections:
     paddingY:
       desktop: none md
     marginY:
-      desktop: none md
+      desktop: md
   - type: testimonials
     section_id: testimonials-6j5dka
     title: The People Behind the Numbers.
