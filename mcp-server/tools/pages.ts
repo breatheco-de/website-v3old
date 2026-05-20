@@ -149,115 +149,387 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
     }
   );
 
-  // update_field
+  // ── Shared helpers for the new split tools ──────────────────────────────────
+
+  const SAFE_TOP_LEVEL_FIELDS = new Set(["title", "slug"]);
+
+  const META_COMMON_FIELDS = new Set(["robots", "priority", "change_frequency"]);
+  const META_LOCALE_FIELDS = new Set([
+    "page_title", "description", "og_image", "og_type",
+    "og_url", "og_locale", "canonical_url",
+  ]);
+  const ALL_KNOWN_META_FIELDS = new Set([...META_COMMON_FIELDS, ...META_LOCALE_FIELDS]);
+
+  /**
+   * Write `fields` (already prefixed with `meta.`) into a single YAML file,
+   * performing conflict check, write, and mark-modified.
+   */
+  async function writeFieldsToFile(
+    filePath: string,
+    relativePath: string,
+    fieldEntries: Array<[string, unknown]>,
+    intendedChangeLabel: Record<string, unknown>
+  ): Promise<{ content: Array<{ type: "text"; text: string }>; isError?: boolean }> {
+    const currentData = (fs.existsSync(filePath) ? safeLoad(fs.readFileSync(filePath, "utf-8")) : null) || {};
+    for (const [fp, val] of fieldEntries) {
+      setValueAtPath(currentData, fp, val);
+    }
+    const intendedContent = safeDump(currentData);
+
+    const conflictCheck = await checkRemoteConflict(relativePath);
+    if (conflictCheck.conflict) {
+      return conflictError({
+        relativePath,
+        remoteContent: conflictCheck.remoteContent,
+        intendedContent,
+        intendedChange: intendedChangeLabel,
+      });
+    }
+
+    fs.writeFileSync(filePath, intendedContent, "utf-8");
+    await notifyMarkModified(relativePath);
+    return { content: [{ type: "text", text: `ok:${relativePath}` }] };
+  }
+
+  // update_section_field
   mcp.tool(
-    "update_field",
-    "Update a single field in a page's YAML file using dot-notation field_path. E.g. field_path='meta.page_title', value='New Title'. Use locale='_common' to write to _common.yml (locale-independent fields). contentType is optional — omit it and the server will auto-detect from slug.",
+    "update_section_field",
+    "Update a single section field (or safe top-level page field) in a page's locale YAML file. " +
+    "Use this for all content/section edits — field_path must start with 'sections.' or be one of the safe " +
+    "top-level fields ('title', 'slug'). " +
+    "Do NOT use this for SEO/meta fields — use update_meta_field instead. " +
+    "contentType is optional — omit it and the server will auto-detect from slug.",
     {
       slug: z.string().describe("Page slug"),
-      locale: z.string().default("en").describe("Locale code (e.g. 'en', 'es'), or '_common' to target _common.yml"),
-      field_path: z.string().describe("Dot-notation field path, e.g. 'meta.page_title' or 'sections.0.title'"),
+      locale: z.string().default("en").describe("Locale code, e.g. 'en' or 'es'"),
+      field_path: z.string().describe(
+        "Dot-notation path targeting section content. Must start with 'sections.' (e.g. 'sections.0.title') " +
+        "or be a safe top-level field: 'title' or 'slug'. " +
+        "Paths starting with 'meta.' are rejected — use update_meta_field instead."
+      ),
       value: z.unknown().describe("New value for the field"),
       contentType: z.string().optional().describe("Content type hint. Omit to auto-detect from slug."),
     },
     async ({ slug, locale, field_path: fieldPath, value, contentType }) => {
       try {
         assertSafeSegment(slug, "slug");
-        if (locale !== "_common") assertSafeLocale(locale);
+        assertSafeLocale(locale);
         if (contentType) assertSafeSegment(contentType, "contentType");
       } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
+
+      if (fieldPath.startsWith("meta.")) {
+        return {
+          content: [{ type: "text", text: `field_path '${fieldPath}' targets a meta field. Use update_meta_field instead.` }],
+          isError: true,
+        };
+      }
+      if (!fieldPath.startsWith("sections.") && !SAFE_TOP_LEVEL_FIELDS.has(fieldPath)) {
+        return {
+          content: [{ type: "text", text: `field_path '${fieldPath}' is not allowed. Must start with 'sections.' or be one of: ${[...SAFE_TOP_LEVEL_FIELDS].join(", ")}.` }],
+          isError: true,
+        };
+      }
+
       const resolved = resolveContentType(slug, contentType);
       if (!resolved) {
         return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
       }
       const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
-      const fileName = locale === "_common" ? "_common.yml" : `${locale}.yml`;
+      const fileName = `${locale}.yml`;
       const filePath = path.join(dir, fileName);
       try { assertWithinBase(filePath, MARKETING_CONTENT_PATH); } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
-      if (locale !== "_common" && !fs.existsSync(filePath)) {
+      if (!fs.existsSync(filePath)) {
         return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${fileName}` }], isError: true };
       }
 
-      // Build intended content before the conflict check so we can include it in the error.
-      const currentData = (fs.existsSync(filePath) ? safeLoad(fs.readFileSync(filePath, "utf-8")) : null) || {};
-      setValueAtPath(currentData, fieldPath, value);
-      const intendedContent = safeDump(currentData);
-
       const relativePath = `marketing-content/${getDirectory(resolved.contentType, resolved.config)}/${slug}/${fileName}`;
-      const conflictCheck = await checkRemoteConflict(relativePath);
-      if (conflictCheck.conflict) {
-        return conflictError({
-          relativePath,
-          remoteContent: conflictCheck.remoteContent,
-          intendedContent,
-          intendedChange: { fieldPath, value },
-        });
-      }
-
-      fs.writeFileSync(filePath, intendedContent, "utf-8");
-      await notifyMarkModified(relativePath);
+      const result = await writeFieldsToFile(filePath, relativePath, [[fieldPath, value]], { fieldPath, value });
+      if (result.isError) return result;
       return { content: [{ type: "text", text: `Updated '${fieldPath}' in ${resolved.contentType}/${slug}/${fileName}` }] };
     }
   );
 
-  // update_fields
+  // update_section_fields (bulk)
   mcp.tool(
-    "update_fields",
-    "Update multiple fields in a page's YAML file in a single write. Accepts a 'fields' map of dot-notation paths to values. Use locale='_common' to target _common.yml. contentType is optional.",
+    "update_section_fields",
+    "Update multiple section fields (or safe top-level page fields) in a single write to a page's locale YAML file. " +
+    "Use this for all content/section edits — every key in 'fields' must start with 'sections.' or be one of " +
+    "the safe top-level fields ('title', 'slug'). " +
+    "Do NOT use this for SEO/meta fields — use update_meta_fields instead. " +
+    "contentType is optional — omit it and the server will auto-detect from slug.",
     {
       slug: z.string().describe("Page slug"),
-      locale: z.string().default("en").describe("Locale code (e.g. 'en', 'es'), or '_common' to target _common.yml"),
-      fields: z.record(z.unknown()).describe("Map of dot-notation field paths to new values, e.g. { 'meta.page_title': 'New Title', 'meta.description': '...' }"),
+      locale: z.string().default("en").describe("Locale code, e.g. 'en' or 'es'"),
+      fields: z.record(z.unknown()).describe(
+        "Map of dot-notation field paths to new values. Keys must start with 'sections.' or be 'title'/'slug'. " +
+        "E.g. { 'sections.0.title': 'New Title', 'sections.0.subtitle': 'Sub' }"
+      ),
       contentType: z.string().optional().describe("Content type hint. Omit to auto-detect from slug."),
     },
     async ({ slug, locale, fields, contentType }) => {
       try {
         assertSafeSegment(slug, "slug");
-        if (locale !== "_common") assertSafeLocale(locale);
+        assertSafeLocale(locale);
         if (contentType) assertSafeSegment(contentType, "contentType");
       } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
+
+      const metaPaths = Object.keys(fields).filter(fp => fp.startsWith("meta."));
+      if (metaPaths.length > 0) {
+        return {
+          content: [{ type: "text", text: `field_path(s) target meta fields: ${metaPaths.join(", ")}. Use update_meta_fields instead.` }],
+          isError: true,
+        };
+      }
+      const badPaths = Object.keys(fields).filter(fp => !fp.startsWith("sections.") && !SAFE_TOP_LEVEL_FIELDS.has(fp));
+      if (badPaths.length > 0) {
+        return {
+          content: [{ type: "text", text: `Disallowed field_path(s): ${badPaths.join(", ")}. Must start with 'sections.' or be one of: ${[...SAFE_TOP_LEVEL_FIELDS].join(", ")}.` }],
+          isError: true,
+        };
+      }
+
       const resolved = resolveContentType(slug, contentType);
       if (!resolved) {
         return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
       }
       const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
-      const fileName = locale === "_common" ? "_common.yml" : `${locale}.yml`;
+      const fileName = `${locale}.yml`;
       const filePath = path.join(dir, fileName);
       try { assertWithinBase(filePath, MARKETING_CONTENT_PATH); } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
-      if (locale !== "_common" && !fs.existsSync(filePath)) {
+      if (!fs.existsSync(filePath)) {
         return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${fileName}` }], isError: true };
       }
 
-      // Build intended content before the conflict check.
-      const currentData = (fs.existsSync(filePath) ? safeLoad(fs.readFileSync(filePath, "utf-8")) : null) || {};
-      for (const [fp, val] of Object.entries(fields)) {
-        setValueAtPath(currentData, fp, val);
-      }
-      const intendedContent = safeDump(currentData);
-
       const relativePath = `marketing-content/${getDirectory(resolved.contentType, resolved.config)}/${slug}/${fileName}`;
-      const conflictCheck = await checkRemoteConflict(relativePath);
-      if (conflictCheck.conflict) {
-        return conflictError({
-          relativePath,
-          remoteContent: conflictCheck.remoteContent,
-          intendedContent,
-          intendedChange: { fields },
-        });
-      }
-
-      fs.writeFileSync(filePath, intendedContent, "utf-8");
-      await notifyMarkModified(relativePath);
+      const result = await writeFieldsToFile(filePath, relativePath, Object.entries(fields), { fields });
+      if (result.isError) return result;
       const count = Object.keys(fields).length;
       return { content: [{ type: "text", text: `Updated ${count} field${count !== 1 ? "s" : ""} in ${resolved.contentType}/${slug}/${fileName}` }] };
+    }
+  );
+
+  // update_meta_field
+  mcp.tool(
+    "update_meta_field",
+    "Update a single SEO/meta field on a page. Always writes nested under meta.<field> in the correct file. " +
+    "Known fields are auto-routed: robots/priority/change_frequency → _common.yml; " +
+    "page_title/description/og_image/og_type/og_url/og_locale/canonical_url → {locale}.yml. " +
+    "Use 'custom_fields' + 'target' for non-standard meta fields not in the known list — target must be explicit ('locale' or 'common'). " +
+    "Do NOT use this for section/content edits — use update_section_field instead.",
+    {
+      slug: z.string().describe("Page slug"),
+      contentType: z.string().optional().describe("Content type hint. Omit to auto-detect from slug."),
+      field: z.enum([
+        "page_title", "description", "og_image", "og_type", "og_url", "og_locale", "canonical_url",
+        "robots", "priority", "change_frequency",
+      ]).optional().describe(
+        "Known meta field to update. Auto-routed to the correct file. " +
+        "Locale fields (page_title, description, og_image, og_type, og_url, og_locale, canonical_url) → {locale}.yml. " +
+        "Common fields (robots, priority, change_frequency) → _common.yml."
+      ),
+      value: z.unknown().optional().describe("New value for the known 'field'. Required when 'field' is provided."),
+      locale: z.string().default("en").describe("Locale code used when writing to a locale file, e.g. 'en' or 'es'"),
+      custom_fields: z.record(z.unknown()).optional().describe(
+        "Map of non-standard meta field names to values. Cannot contain known field names (use 'field' for those). " +
+        "Requires 'target' to be explicitly set."
+      ),
+      target: z.enum(["locale", "common"]).optional().describe(
+        "Required when 'custom_fields' is provided. 'locale' writes to {locale}.yml, 'common' writes to _common.yml."
+      ),
+    },
+    async ({ slug, contentType, field, value, locale, custom_fields, target }) => {
+      try {
+        assertSafeSegment(slug, "slug");
+        assertSafeLocale(locale);
+        if (contentType) assertSafeSegment(contentType, "contentType");
+      } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
+
+      if (!field && !custom_fields) {
+        return { content: [{ type: "text", text: "Provide either 'field' + 'value' for a known meta field, or 'custom_fields' + 'target' for non-standard fields." }], isError: true };
+      }
+      if (custom_fields && !target) {
+        return { content: [{ type: "text", text: "'target' is required when providing 'custom_fields'. Set target to 'locale' or 'common'." }], isError: true };
+      }
+      if (custom_fields) {
+        const knownInCustom = Object.keys(custom_fields).filter(k => ALL_KNOWN_META_FIELDS.has(k));
+        if (knownInCustom.length > 0) {
+          return { content: [{ type: "text", text: `'custom_fields' contains known meta field(s): ${knownInCustom.join(", ")}. Use 'field' parameter instead for auto-routing.` }], isError: true };
+        }
+      }
+
+      const resolved = resolveContentType(slug, contentType);
+      if (!resolved) {
+        return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
+      }
+      const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
+      const ctDir = getDirectory(resolved.contentType, resolved.config);
+      const results: string[] = [];
+
+      if (field) {
+        if (value === undefined) {
+          return { content: [{ type: "text", text: "'value' is required when 'field' is provided." }], isError: true };
+        }
+        const isCommon = META_COMMON_FIELDS.has(field);
+        const fileName = isCommon ? "_common.yml" : `${locale}.yml`;
+        const filePath = path.join(dir, fileName);
+        try { assertWithinBase(filePath, MARKETING_CONTENT_PATH); } catch (e) {
+          return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+        }
+        if (!isCommon && !fs.existsSync(filePath)) {
+          return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${fileName}` }], isError: true };
+        }
+        const relativePath = `marketing-content/${ctDir}/${slug}/${fileName}`;
+        const r = await writeFieldsToFile(filePath, relativePath, [[`meta.${field}`, value]], { field, value });
+        if (r.isError) return r;
+        results.push(`meta.${field} → ${fileName}`);
+      }
+
+      if (custom_fields && target) {
+        const fileName = target === "common" ? "_common.yml" : `${locale}.yml`;
+        const filePath = path.join(dir, fileName);
+        try { assertWithinBase(filePath, MARKETING_CONTENT_PATH); } catch (e) {
+          return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+        }
+        if (target === "locale" && !fs.existsSync(filePath)) {
+          return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${fileName}` }], isError: true };
+        }
+        const entries: Array<[string, unknown]> = Object.entries(custom_fields).map(([k, v]) => [`meta.${k}`, v]);
+        const relativePath = `marketing-content/${ctDir}/${slug}/${fileName}`;
+        const r = await writeFieldsToFile(filePath, relativePath, entries, { custom_fields, target });
+        if (r.isError) return r;
+        results.push(`${Object.keys(custom_fields).map(k => `meta.${k}`).join(", ")} → ${fileName}`);
+      }
+
+      return { content: [{ type: "text", text: `Updated ${results.join("; ")} in ${resolved.contentType}/${slug}` }] };
+    }
+  );
+
+  // update_meta_fields (bulk)
+  mcp.tool(
+    "update_meta_fields",
+    "Update multiple SEO/meta fields on a page in a single call. Auto-routes each known field to the correct file " +
+    "(may write to both _common.yml and a locale file in one call if the fields span both). " +
+    "Known fields: robots/priority/change_frequency → _common.yml; " +
+    "page_title/description/og_image/og_type/og_url/og_locale/canonical_url → {locale}.yml. " +
+    "Use 'custom_fields' + 'target' for non-standard meta fields. " +
+    "Do NOT use this for section/content edits — use update_section_fields instead.",
+    {
+      slug: z.string().describe("Page slug"),
+      contentType: z.string().optional().describe("Content type hint. Omit to auto-detect from slug."),
+      fields: z.record(z.unknown()).optional().describe(
+        "Map of known meta field names to values. Auto-routed per field. " +
+        "E.g. { page_title: 'New Title', robots: 'index, follow' }"
+      ),
+      locale: z.string().default("en").describe("Locale code used when writing to a locale file, e.g. 'en' or 'es'"),
+      custom_fields: z.record(z.unknown()).optional().describe(
+        "Map of non-standard meta field names to values. Cannot contain known field names. Requires 'target'."
+      ),
+      target: z.enum(["locale", "common"]).optional().describe(
+        "Required when 'custom_fields' is provided. 'locale' writes to {locale}.yml, 'common' writes to _common.yml."
+      ),
+    },
+    async ({ slug, contentType, fields, locale, custom_fields, target }) => {
+      try {
+        assertSafeSegment(slug, "slug");
+        assertSafeLocale(locale);
+        if (contentType) assertSafeSegment(contentType, "contentType");
+      } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
+
+      if (!fields && !custom_fields) {
+        return { content: [{ type: "text", text: "Provide 'fields' for known meta fields, or 'custom_fields' + 'target' for non-standard fields, or both." }], isError: true };
+      }
+      if (custom_fields && !target) {
+        return { content: [{ type: "text", text: "'target' is required when providing 'custom_fields'. Set target to 'locale' or 'common'." }], isError: true };
+      }
+      if (fields) {
+        const unknownFields = Object.keys(fields).filter(k => !ALL_KNOWN_META_FIELDS.has(k));
+        if (unknownFields.length > 0) {
+          return { content: [{ type: "text", text: `Unknown meta field(s) in 'fields': ${unknownFields.join(", ")}. Use 'custom_fields' + 'target' for non-standard fields.` }], isError: true };
+        }
+      }
+      if (custom_fields) {
+        const knownInCustom = Object.keys(custom_fields).filter(k => ALL_KNOWN_META_FIELDS.has(k));
+        if (knownInCustom.length > 0) {
+          return { content: [{ type: "text", text: `'custom_fields' contains known meta field(s): ${knownInCustom.join(", ")}. Use 'fields' instead for auto-routing.` }], isError: true };
+        }
+      }
+
+      const resolved = resolveContentType(slug, contentType);
+      if (!resolved) {
+        return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
+      }
+      const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
+      const ctDir = getDirectory(resolved.contentType, resolved.config);
+      const results: string[] = [];
+
+      if (fields && Object.keys(fields).length > 0) {
+        const commonEntries: Array<[string, unknown]> = [];
+        const localeEntries: Array<[string, unknown]> = [];
+
+        for (const [k, v] of Object.entries(fields)) {
+          if (META_COMMON_FIELDS.has(k)) {
+            commonEntries.push([`meta.${k}`, v]);
+          } else {
+            localeEntries.push([`meta.${k}`, v]);
+          }
+        }
+
+        if (commonEntries.length > 0) {
+          const filePath = path.join(dir, "_common.yml");
+          try { assertWithinBase(filePath, MARKETING_CONTENT_PATH); } catch (e) {
+            return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+          }
+          const relativePath = `marketing-content/${ctDir}/${slug}/_common.yml`;
+          const r = await writeFieldsToFile(filePath, relativePath, commonEntries, { fields: Object.fromEntries(commonEntries) });
+          if (r.isError) return r;
+          results.push(`${commonEntries.map(([k]) => k).join(", ")} → _common.yml`);
+        }
+
+        if (localeEntries.length > 0) {
+          const fileName = `${locale}.yml`;
+          const filePath = path.join(dir, fileName);
+          try { assertWithinBase(filePath, MARKETING_CONTENT_PATH); } catch (e) {
+            return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+          }
+          if (!fs.existsSync(filePath)) {
+            return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${fileName}` }], isError: true };
+          }
+          const relativePath = `marketing-content/${ctDir}/${slug}/${fileName}`;
+          const r = await writeFieldsToFile(filePath, relativePath, localeEntries, { fields: Object.fromEntries(localeEntries) });
+          if (r.isError) return r;
+          results.push(`${localeEntries.map(([k]) => k).join(", ")} → ${fileName}`);
+        }
+      }
+
+      if (custom_fields && target) {
+        const fileName = target === "common" ? "_common.yml" : `${locale}.yml`;
+        const filePath = path.join(dir, fileName);
+        try { assertWithinBase(filePath, MARKETING_CONTENT_PATH); } catch (e) {
+          return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+        }
+        if (target === "locale" && !fs.existsSync(filePath)) {
+          return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${fileName}` }], isError: true };
+        }
+        const entries: Array<[string, unknown]> = Object.entries(custom_fields).map(([k, v]) => [`meta.${k}`, v]);
+        const relativePath = `marketing-content/${ctDir}/${slug}/${fileName}`;
+        const r = await writeFieldsToFile(filePath, relativePath, entries, { custom_fields, target });
+        if (r.isError) return r;
+        results.push(`${Object.keys(custom_fields).map(k => `meta.${k}`).join(", ")} → ${fileName}`);
+      }
+
+      return { content: [{ type: "text", text: `Updated ${results.join("; ")} in ${resolved.contentType}/${slug}` }] };
     }
   );
 
