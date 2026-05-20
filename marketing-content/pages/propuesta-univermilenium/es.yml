@@ -16,6 +16,36 @@ sections:
         url: https://wa.me/34684332581
         variant: primary
         icon: BrandWhatsapp
+  - type: comparison_table
+    version: "1.0"
+    title: Una conversación nueva sobre un producto diferente
+    subtitle: "4Geeks.com no es el bootcamp intensivo que conocías. Es una plataforma self-paced pensada para estudiantes universitarios: asequible, flexible y con metodología activa."
+    columns:
+      - name: Dimensión
+      - name: Antes (Bootcamp)
+      - name: Ahora (Plataforma)
+        highlight: true
+    rows:
+      - feature: Formato
+        values:
+          - Intensivo, horario fijo
+          - Self-paced, flexible
+      - feature: Dedicación
+        values:
+          - Alta (tiempo completo)
+          - Se adapta a la agenda del estudiante
+      - feature: Precio
+        values:
+          - Ticket elevado
+          - Accesible para universitarios
+      - feature: Perfil objetivo
+        values:
+          - Reconversión profesional
+          - Estudiantes que suman habilidades tech
+      - feature: Metodología
+        values:
+          - Clases presenciales/online
+          - Aprendizaje activo con IA, proyectos y mentores
   - background: bg-muted/30
     steps:
       - icon: Book
