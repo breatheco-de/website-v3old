@@ -409,7 +409,7 @@ sections:
           - icon: Bolt
             text: Python
         description: Transform a real business case into a fully AI-native system, layer by layer. Master the agents, RAG systems, and automation pipelines that companies are hiring for right now.
-        cta_text: See Program Details
+        cta_text: See program details
         cta_url: /en/career-programs/ai-engineering
         course_background: accent
       - name: Data Science and Machine Learning
@@ -425,7 +425,7 @@ sections:
           - icon: ChartBar
             text: Data Visualization
         description: Master the skills behind AI-driven decisions. Build models, analyze data at scale, and deploy solutions that companies in every industry are actively hiring for.
-        cta_text: See Program Details
+        cta_text: See program details
         cta_url: /en/career-programs/data-science-ml
         course_background: hsl(var(--muted-foreground))
       - name: Cybersecurity
@@ -439,7 +439,7 @@ sections:
           - icon: Shield
             text: NIST Framework
         description: Detect threats, protect systems, and secure the data every organization depends on. One of the fastest-growing careers in tech, with a global shortage of skilled professionals that shows no signs of slowing.
-        cta_text: See Program Details
+        cta_text: See program details
         cta_url: /en/career-programs/cybersecurity
         course_background: destructive
       - name: Full Stack Development with AI
@@ -455,7 +455,7 @@ sections:
           - icon: Code
             text: AI Integration
         description: Build modern, production-ready web applications from frontend to backend, with AI integrated into your development process from day one.
-        cta_text: See Program Details
+        cta_text: See program details
         cta_url: /en/career-programs/full-stack
         course_background: primary
     section_id: course_selector-4m5sh4
