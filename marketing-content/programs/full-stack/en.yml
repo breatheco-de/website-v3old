@@ -552,7 +552,7 @@ sections:
     paddingY:
       desktop: none md
     marginY:
-      desktop: md
+      desktop: lg md
   - type: testimonials
     section_id: testimonials-6j5dka
     title: The People Behind the Numbers.
