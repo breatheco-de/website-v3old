@@ -168,3 +168,31 @@ sections:
         name: React
     type: syllabus
     variant: program-modules
+  - background: hsl(var(--muted))
+    cta:
+      button:
+        label: Talk to an Advisor
+        url: "#modal-lead"
+      text: Still have questions?
+    items:
+      - answer: No. This program starts from zero. You'll learn Python and backend fundamentals in the first two months before moving into AI and agentic systems. All you need is curiosity and commitment.
+        question: Do I need prior coding or AI experience?
+      - answer: The program runs 12 months. It's designed to be intensive but manageable, with a mix of live sessions, hands-on projects, and 1:1 mentorship throughout.
+        question: How long is the program?
+      - answer: This program is designed for people aged 17 to 22 who want to build a career in AI engineering. Whether you're in high school, college, or taking a gap year, this is for you.
+        question: Who is this program for?
+      - answer: Tuition is $5,000. We offer flexible financing options including monthly installments and payment plans up to 12 months. Financial aid may be available depending on your location.
+        question: How much does it cost?
+      - answer: You'll build AI agents, RAG systems, multi-agent workflows, and a full capstone project — an AI-transformed company. Everything you build goes into a production-grade portfolio employers can see.
+        question: What will I build during the program?
+      - answer: Agentic engineering is the discipline of building AI systems that can reason, use tools, collaborate with other agents, and operate autonomously. It's the fastest-growing specialization in AI right now.
+        question: What is agentic engineering?
+      - answer: You get unlimited 1:1 mentorship for life — not just during the program. Plus AI-powered feedback from Rigobot 24/7, weekly check-ins, and a dedicated Slack community.
+        question: What kind of support do I get?
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: md
+    section_id: faq-anik
+    title: Frequently Asked Questions
+    type: faq
