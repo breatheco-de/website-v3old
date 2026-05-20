@@ -1277,18 +1277,55 @@ export async function ensureWebhook(): Promise<void> {
     }
 
     const secret = crypto.randomBytes(32).toString('hex');
-    const webhookId = await createWebhook(config, webhookUrl, secret);
+
+    const existingHook = await findExistingWebhookOnGitHub(config, webhookUrl);
+    let webhookId: number | null = null;
+
+    if (existingHook) {
+      webhookId = await adoptWebhook(config, existingHook.id, secret);
+      if (webhookId) {
+        setWebhookInfo({
+          webhookId,
+          webhookSecret: secret,
+          webhookUrl,
+          createdAt: new Date().toISOString(),
+        });
+        logSync('WEBHOOK', `Adopted existing webhook #${webhookId} at ${webhookUrl}`);
+      } else {
+        logSync('ERROR', `Failed to adopt existing webhook #${existingHook.id}, falling back to create`);
+        webhookId = await createWebhook(config, webhookUrl, secret);
+        if (webhookId) {
+          setWebhookInfo({
+            webhookId,
+            webhookSecret: secret,
+            webhookUrl,
+            createdAt: new Date().toISOString(),
+          });
+          logSync('WEBHOOK', `Created webhook #${webhookId} at ${webhookUrl}`);
+        } else {
+          logSync('ERROR', `Failed to create webhook at ${webhookUrl} (check token permissions: needs admin:repo_hook scope)`);
+        }
+      }
+    } else {
+      webhookId = await createWebhook(config, webhookUrl, secret);
+      if (webhookId) {
+        setWebhookInfo({
+          webhookId,
+          webhookSecret: secret,
+          webhookUrl,
+          createdAt: new Date().toISOString(),
+        });
+        logSync('WEBHOOK', `Created webhook #${webhookId} at ${webhookUrl}`);
+      } else {
+        logSync('ERROR', `Failed to create webhook at ${webhookUrl} (check token permissions: needs admin:repo_hook scope)`);
+      }
+    }
 
     if (webhookId) {
-      setWebhookInfo({
-        webhookId,
-        webhookSecret: secret,
-        webhookUrl,
-        createdAt: new Date().toISOString(),
-      });
-      logSync('WEBHOOK', `Created webhook #${webhookId} at ${webhookUrl}`);
-    } else {
-      logSync('ERROR', `Failed to create webhook at ${webhookUrl} (check token permissions: needs admin:repo_hook scope)`);
+      const deleted = await cleanupDuplicateWebhooks(config, webhookId, webhookUrl);
+      if (deleted.length > 0) {
+        logSync('WEBHOOK', `Cleaned up ${deleted.length} duplicate webhook(s): #${deleted.join(', #')}`);
+      }
     }
   } catch (error) {
     logSync('ERROR', `Webhook setup error: ${error instanceof Error ? error.message : String(error)}`);
@@ -1311,6 +1348,59 @@ async function verifyWebhookExists(config: GitHubConfig, webhookId: number): Pro
     return response.ok;
   } catch {
     return false;
+  }
+}
+
+async function findExistingWebhookOnGitHub(config: GitHubConfig, url: string): Promise<{ id: number; config: { url: string } } | null> {
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${config.owner}/${config.repo}/hooks?per_page=100`,
+      {
+        headers: {
+          'Authorization': `Bearer ${config.token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'X-GitHub-Api-Version': '2022-11-28',
+        },
+      }
+    );
+    if (!response.ok) return null;
+    const hooks: Array<{ id: number; config: { url: string } }> = await response.json();
+    return hooks.find(h => h.config.url === url) ?? null;
+  } catch {
+    return null;
+  }
+}
+
+async function adoptWebhook(config: GitHubConfig, hookId: number, newSecret: string): Promise<number | null> {
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${config.owner}/${config.repo}/hooks/${hookId}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${config.token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json',
+          'X-GitHub-Api-Version': '2022-11-28',
+        },
+        body: JSON.stringify({
+          active: true,
+          config: {
+            secret: newSecret,
+          },
+        }),
+      }
+    );
+    if (!response.ok) {
+      const text = await response.text();
+      console.error(`[Webhook] GitHub API error adopting webhook: ${response.status}`, text);
+      return null;
+    }
+    const data = await response.json();
+    return data.id;
+  } catch (error) {
+    console.error('[Webhook] Error adopting webhook:', error);
+    return null;
   }
 }
 
