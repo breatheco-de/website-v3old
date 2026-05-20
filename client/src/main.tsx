@@ -1,7 +1,13 @@
 import { hydrateRoot, createRoot } from "react-dom/client";
 import App from "./App";
-import { hydrateInitialData, clearSSRHydration } from "./lib/initialData";
+import {
+  hydrateInitialData,
+  clearSSRHydration,
+  readInitialDataPayload,
+} from "./lib/initialData";
+import { preloadSectionsFromInitialData } from "@/components/sectionRegistry";
 
+const initialDataPayload = readInitialDataPayload();
 hydrateInitialData();
 
 const rootEl = document.getElementById("root")!;
@@ -52,10 +58,12 @@ const rootEl = document.getElementById("root")!;
       ];
     }
 
+    const sectionPreload = preloadSectionsFromInitialData(initialDataPayload);
+
     // Gracefully handle preload failure — hydration still proceeds but may briefly
     // flash for that route. Better than blocking hydration globally.
     try {
-      await Promise.all(chunkLoads);
+      await Promise.all([...chunkLoads, sectionPreload]);
     } catch {
       // Chunk failed to load; proceed with hydrateRoot anyway.
     }
