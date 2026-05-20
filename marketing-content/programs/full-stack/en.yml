@@ -6,7 +6,7 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Full Stack Developer with AI Career Program | 4Geeks
-  description: "AI-fluent web development is in high demand. Become a Full Stack Developer with AI in 20 weeks. 84% hiring rate, unlimited 1:1 mentorship, and lifelong career support. 4Geeks Academy."
+  description: AI-fluent web development is in high demand. Become a Full Stack Developer with AI in 20 weeks. 84% hiring rate, unlimited 1:1 mentorship, and lifelong career support. 4Geeks Academy.
   redirects:
     - /bootcamp/full-stack
     - /programs/fullstack-developer
@@ -25,7 +25,7 @@ sections:
     variant: course
     title: Full Stack Development with AI Program
     title_highlight: Full Stack Development with AI Program
-    subtitle: "Developers with AI skills command a 56% wage premium over those without. Our intensive 20-week program trains you to build complete web applications with AI fluency, backed by unlimited 1:1 mentorship and lifelong career support."
+    subtitle: Developers with AI skills eran 56% more than those without. Our intensive 20-week program trains you to build complete web applications with AI fluency, backed by unlimited 1:1 mentorship and lifelong career support.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
@@ -45,7 +45,7 @@ sections:
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
-    description: "Graduate job-ready for one of tech's most accessible and durable career paths, with the skills and support to land positions paying {{ global.average_salary_fullstack | $75K-$110K }}+."
+    description: Graduate job-ready for one of tech's most accessible and durable career paths, with the skills and support to land positions paying {{ global.average_salary_fullstack | $75K-$110K }}+.
     signup_card:
       title: Get the Full Program Overview
       description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, financing options and more. It takes 2 minutes."
@@ -72,7 +72,7 @@ sections:
         - icon: IconShield
           text: Optional Job Guarantee (available as add-on)
         - icon: IconUsers
-          text: "{{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio"
+          text: {{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
           text: Unlimited 1:1 Mentorship
         - icon: IconRobot
@@ -198,8 +198,8 @@ sections:
     maxWidth:
       desktop: 6xl
     title: Why Full Stack with AI Now
-    subtitle: "Web development remains one of the most in-demand skills in tech. AI fluency is now what gets you hired."
-    description: "AI-fluent full stack developers are in demand across every industry building digital products. In 2026, the ones getting hired combine core full stack skills with AI tool proficiency — using intelligent tools to build faster, ship better code, and deliver more value from day one."
+    subtitle: Web development remains one of the most in-demand skills in tech. AI fluency is now what gets you hired.
+    description: AI-fluent full stack developers are in demand across every industry building digital products. In 2026, the ones getting hired combine core full stack skills with AI tool proficiency — using intelligent tools to build faster, ship better code, and deliver more value from day one.
     background: bg-muted/30
     items:
       - id: "1"
@@ -216,7 +216,7 @@ sections:
     section_id: syllabus-l0x9pc
     variant: program-modules
     program_title: Full Stack with AI Program Overview
-    program_description: "Build production-ready web applications with AI from the ground up — frontend, backend, APIs, databases, and AI-powered features. Six modules that take you from your first webpage to a complete, deployable full stack application."
+    program_description: Build production-ready web applications with AI from the ground up — frontend, backend, APIs, databases, and AI-powered features. Six modules that take you from your first webpage to a complete, deployable full stack application.
     tech_logos:
       - name: HTML5
         icon: html
@@ -282,13 +282,13 @@ sections:
           - Scrum, Kanban, and agile frameworks
           - Sprint planning and daily standups
           - Effective collaboration in dev teams
-        projects: "Learn how real development teams work — practicing Scrum, Kanban, and agile workflows firsthand on group projects."
+        projects: Learn how real development teams work — practicing Scrum, Kanban, and agile workflows firsthand on group projects.
         orientation: vertical
         icon: IconUsers
   - type: projects
     section_id: projects-t6l1tn
     title: Learn by Building Real Projects
-    subtitle: "Every module ends with a hands-on project — real applications that go straight into your portfolio."
+    subtitle: Every module ends with a hands-on project — real applications that go straight into your portfolio.
     items:
       - title: Build a StarWars REST API
         description: Build a fully functional REST API from scratch using Flask and SQLAlchemy — data models, endpoints, and responses handled the way real backend systems do. Your first taste of production-grade API development.
@@ -308,7 +308,7 @@ sections:
         difficulty: medium
         date: 20/01/2023
       - title: Full-Stack Final Project
-        description: "Your capstone. Design and build a full-stack application from scratch using React, Flask, SQLAlchemy, and third-party APIs — and leave with a portfolio piece that shows employers the full picture."
+        description: Your capstone. Design and build a full-stack application from scratch using React, Flask, SQLAlchemy, and third-party APIs — and leave with a portfolio piece that shows employers the full picture.
         image: final-project-applied-ai-1767880920613
         tags:
           - Full-Stack
@@ -365,7 +365,7 @@ sections:
         show_rigobot_logo: false
         bullets:
           - text: Lifelong access to 1:1 technical mentorship
-          - text: "{{ global.global_teacher_student_ratio | 7:1 }} student-to-instructor ratio"
+          - text: {{ global.global_teacher_student_ratio | 7:1 }} student-to-instructor ratio
           - text: Weekly check-ins and peer collaboration via Slack
           - text: Dedicated channels for coding support, job boards, and career advice
         image_id: community-support-cropped-800x476-q70
@@ -391,11 +391,11 @@ sections:
     description: Full stack development roles are in demand across every industry building digital products. These are some of the roles our graduates are landing, with entry-level salary ranges based on current US market data.
     card_color: bg-background
     items:
-      - value: "{{ global.average_salary_fullstack | $75K-$110K }}"
+      - value: {{ global.average_salary_fullstack | $75K-$110K }}
         title: Full Stack Developer (AI-Fluent)
-      - value: "{{ global.average_salary_ai_fluent_software_developer | $80K-$115K }}"
+      - value: {{ global.average_salary_ai_fluent_software_developer | $80K-$115K }}
         title: AI-Fluent Software Developer
-      - value: "{{ global.average_salary_backend_services_developer | $75K-$110K }}"
+      - value: {{ global.average_salary_backend_services_developer | $75K-$110K }}
         title: Backend Developer
     section_id: features_grid-fs-roles
     marginY:
@@ -407,11 +407,11 @@ sections:
     section_id: pricing-u39opr
     version: "1.0"
     variant: product
-    title: "Tuition & Financing Options"
+    title: Tuition & Financing Options
     subtitle: Investing in your career matters. We make it easier with multiple ways to fund your enrollment.
     discount_text: "Full payment discount: Save 10% with upfront payment."
     financing_text: "Credit-based financing: starting below"
-    financing_amount: "{{ global.price_fullstack | $299 }}"
+    financing_amount: {{ global.price_fullstack | $299 }}
     tech_icons:
       - openai
       - python
@@ -424,9 +424,9 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: "Standard tuition is {{ global.price_full_fullstack | $10,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months."
+        text: Standard tuition is {{ global.price_full_fullstack | $10,999 }}. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
-        text: "Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply</a>.</div>"
+        text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
       - icon: IconCheck
         text: 2-3 merit-based scholarships available per cohort for highly qualified applicants.
         use_rigobot_icon: true
@@ -471,7 +471,7 @@ sections:
     subtitle: Investing in your career matters. We make it easier with multiple ways to finance your enrollment.
     discount_text: "Full payment discount: Save 10% with early payment."
     financing_text: Installment financing starting from
-    financing_amount: "{{ global.price_fullstack | $299 }}"
+    financing_amount: {{ global.price_fullstack | $299 }}
     tech_icons:
       - openai
       - python
@@ -557,8 +557,8 @@ sections:
       - full-stack
       - content-and-syllabus
     rating_summary:
-      average: "{{ global.global_review_rating | 4.9 }}"
-      count: "{{ global.global_review_count | 700 }}"
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 700 }}
     paddingY:
       desktop: md lg
     marginY:
@@ -608,7 +608,7 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Ready to Become an AI-Fluent Full Stack Developer?
-    subtitle: "Developers with AI skills command a 56% wage premium over those without. This is your opportunity. Join the next cohort."
+    subtitle: Developers with AI skills command a 56% wage premium over those without. This is your opportunity. Join the next cohort.
     background: hsl(var(--primary))
     variant: form
     form:
