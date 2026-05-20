@@ -6,6 +6,27 @@ i18n:
     - code: es
       label: Spanish
 
+# page_intents: canonical list of intent values for the component insights system.
+# Used to cluster pages by purpose when computing component ordering recommendations.
+# Each content type declares its default intent in content-types.yml via insights_intent.
+# Individual pages can override by setting insights_intent in their own YAML file.
+# Always use an id from this list — unknown values are flagged as warnings during rebuild.
+page_intents:
+  - id: content_seo
+    what_for: "Educational, long-form content designed to rank on Google. Examples: guides, how-to articles, pillar pages."
+  - id: product_service
+    what_for: "Showcases what you sell or offer. Examples: product pages, feature pages, pricing pages."
+  - id: lead_generation
+    what_for: "Tries to capture email or contact info. Examples: landing pages, webinars, free downloads."
+  - id: sales_conversion
+    what_for: "Pushes for purchase or sign-up. Examples: checkout pages, sales pages, order forms."
+  - id: brand_corporate
+    what_for: "About the company and trust building. Examples: about us, homepage, press, careers."
+  - id: outcome
+    what_for: "Demonstrates results and impact. Examples: outcome reports, case studies, success stories."
+  - id: research_awareness
+    what_for: "Introduces a brand or problem to attract new cold traffic. Examples: viral content, infographics, awareness blogs."
+
 feature_tags:
   - enrollment
   - pricing

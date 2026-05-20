@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AlertTriangle, ArrowLeft, ArrowRight, Blocks, Book, Brain, Check, ChevronRight, CloudDownload, Cookie, Database, FlaskConical, Github, Image, Languages, Map, MapPin, Menu, MessageCircle, Monitor, Moon, Palette, Pencil, Plus, RefreshCw, Route, Settings, Smartphone, Stethoscope, Sun, X } from "lucide-react";
+import { AlertTriangle, ArrowLeft, ArrowRight, BarChart2, Blocks, Book, Brain, Check, ChevronRight, CloudDownload, Cookie, Database, FlaskConical, Github, Image, Languages, Map, MapPin, Menu, MessageCircle, Monitor, Moon, Palette, Pencil, Plus, RefreshCw, Route, Settings, Smartphone, Stethoscope, Sun, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -535,6 +535,13 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                 onClick={() => props.setMenuView("menus")}
                 indicator="chevron"
                 testId="button-menus-menu"
+              />
+              <MenuItem
+                icon={BarChart2}
+                label="Component Insights"
+                href="/private/component-insights"
+                indicator="arrow"
+                testId="link-component-insights"
               />
             </ExpandableMenuItem>
 

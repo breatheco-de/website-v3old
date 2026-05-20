@@ -81,6 +81,7 @@ import { media } from "./media";
 import multer from "multer";
 import { contentIndex, type ContentType } from "./content-index";
 import { regenerateSectionIds } from "./utils/regenerateSectionIds";
+import { runScan as runComponentInsightsScan, readInsightsFile, suggestNext as suggestNextComponent } from "./component-insights";
 import { validateFieldSource, validateFieldMapping, extractByDotPath } from "../scripts/validation/shared/fieldMappingValidator";
 import {
   getFolder,
@@ -12155,6 +12156,46 @@ sections: []
     } catch (err) {
       console.error("[AI Preview] Error:", err);
       res.status(500).json({ error: "Failed to generate preview" });
+    }
+  });
+
+  // ============================================================
+  // Component Co-occurrence & Ordering Insights
+  // ============================================================
+  app.post("/api/private/component-insights/rebuild", (_req, res) => {
+    try {
+      const data = runComponentInsightsScan();
+      res.json(data);
+    } catch (err) {
+      console.error("[ComponentInsights] Rebuild failed:", err);
+      res.status(500).json({ error: "Rebuild failed", details: err instanceof Error ? err.message : String(err) });
+    }
+  });
+
+  app.get("/api/private/component-insights", (_req, res) => {
+    try {
+      const data = readInsightsFile();
+      if (!data) {
+        return res.status(404).json({ error: "Insights not yet generated. POST /api/private/component-insights/rebuild to generate." });
+      }
+      res.json(data);
+    } catch (err) {
+      res.status(500).json({ error: "Failed to read insights", details: err instanceof Error ? err.message : String(err) });
+    }
+  });
+
+  app.get("/api/private/component-insights/suggest", (req, res) => {
+    try {
+      const after = typeof req.query.after === "string" ? req.query.after : "";
+      const intent = typeof req.query.intent === "string" && req.query.intent !== "__global__" ? req.query.intent : undefined;
+      const rankBy = req.query.rankBy === "pmi" ? "pmi" : "frequency";
+      if (!after) {
+        return res.status(400).json({ error: "after query param required" });
+      }
+      const suggestions = suggestNextComponent(after, intent, rankBy);
+      res.json(suggestions);
+    } catch (err) {
+      res.status(500).json({ error: "Failed to get suggestions", details: err instanceof Error ? err.message : String(err) });
     }
   });
 

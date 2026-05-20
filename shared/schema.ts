@@ -1404,3 +1404,47 @@ export const insertAiKnowledgeSchema = createInsertSchema(aiKnowledge).omit({
 
 export type InsertAiKnowledge = z.infer<typeof insertAiKnowledgeSchema>;
 export type AiKnowledge = typeof aiKnowledge.$inferSelect;
+
+// ============================================
+// Component Co-occurrence & Ordering Insights
+// ============================================
+
+export interface PageIntent {
+  id: string;
+  what_for: string;
+}
+
+export interface ComponentPairing {
+  from: string;
+  to: string;
+  count: number;
+  frequency: number;
+  pmi: number;
+  distance: number;
+}
+
+export interface ComponentSequence {
+  sequence: string[];
+  count: number;
+}
+
+export interface IntentCluster {
+  pairings: ComponentPairing[];
+  topSequences: ComponentSequence[];
+  pageCount: number;
+}
+
+export interface ComponentInsightsMeta {
+  totalPagesScanned: number;
+  totalWeight: number;
+  weightedPagesCount: number;
+  intents: string[];
+  pageIntents: PageIntent[];
+}
+
+export interface ComponentInsightsData {
+  generatedAt: string;
+  meta: ComponentInsightsMeta;
+  global: IntentCluster;
+  byIntent: Record<string, IntentCluster>;
+}

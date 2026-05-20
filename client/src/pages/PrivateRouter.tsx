@@ -21,6 +21,7 @@ const AIKnowledge = lazy(() => import("@/pages/AIKnowledge"));
 const AIConversations = lazy(() => import("@/pages/AIConversations"));
 const AIKnowledgeBlocks = lazy(() => import("@/pages/AIKnowledgeBlocks"));
 const ThemeEditor = lazy(() => import("@/pages/ThemeEditor"));
+const ComponentInsightsPage = lazy(() => import("@/pages/ComponentInsightsPage"));
 
 function LoadingFallback() {
   return (
@@ -64,6 +65,7 @@ export default function PrivateRouter() {
         <Route path="/private/settings" component={SettingsPage} />
         <Route path="/private/sync-log" component={SyncLogPage} />
         <Route path="/private/theme-editor" component={ThemeEditor} />
+        <Route path="/private/component-insights" component={ComponentInsightsPage} />
         <Route path="/private/:contentType/:contentSlug/experiment/:experimentSlug" component={ExperimentEditor} />
       </Switch>
     </Suspense>
