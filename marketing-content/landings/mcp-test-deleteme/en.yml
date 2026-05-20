@@ -254,3 +254,56 @@ sections:
     type: whos_hiring
     variant: carousel
     version: "1.0"
+  - description: 86% of our graduates land a tech job within 3 months. Here are some of their stories.
+    testimonials:
+      - achievement: She got a 45% increase in her salary
+        country:
+          iso: us
+          name: United States of America
+        description: Loretta joined in 2022 and graduated in 2023. She already found a job within the next few months and has fulfilled the whole circle of skills+job that we all want to complete!
+        img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
+        name: Loretta Thompson
+        status: Graduated
+      - achievement: He got a 30% increase in his salary
+        country:
+          iso: us
+          name: United States of America
+        description: Richard transitioned from a different background and is now working as a web dev in the tech field.
+        img: https://storage.googleapis.com/4geeks-academy-website/media/Akers_1764725327796.jpeg
+        name: Rich Akers
+        status: Graduated
+      - achievement: She has launched her startup and now coordinates a dev team!
+        country:
+          iso: us
+          name: United States of America
+        description: An entrepreneur with a passion for technology is now focusing on the dev side of their endeavour.
+        img: https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh_1764725334980.png
+        name: MaiLinh Tran
+        status: Graduated
+      - achievement: He got a 100% increase in his salary
+        country:
+          iso: us
+          name: United States of America
+        description: Jean is transitioning from the music industry and is already performing as a developer and a Mentor.
+        img: https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        name: Jean St. Cloud
+        status: Graduated
+      - achievement: He got a 50% increase in his salary
+        country:
+          iso: cr
+          name: Costa Rica
+        description: Gabriel was already a support specialist at Microsoft. After completing the program he moved into a Software Engineer role within Microsoft.
+        img: https://storage.googleapis.com/4geeks-academy-website/media/GabrielSalazar_1764725392872.jpeg
+        name: Gabriel Salazar
+        status: Graduated
+      - achievement: She got a 100% increase in her salary
+        country:
+          iso: cr
+          name: Costa Rica
+        description: Alexandra came from a totally different background. She is now a successful and talented software developer.
+        img: https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+        name: Alexandra Espinoza
+        status: Graduated
+    title: Miami Residents Who Changed Their Careers
+    type: testimonials_slide
+    version: "1.0"
