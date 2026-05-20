@@ -6,3 +6,42 @@ meta:
   page_title: AI Course for Kids | 4Geeks Academy
   description: Introduce your child to AI and coding. A fun, hands-on program designed for kids to learn how artificial intelligence works by building real projects. 4Geeks Academy.
   robots: noindex, nofollow
+sections:
+  - type: hero
+    version: "1.0"
+    variant: course
+    title: Become an Agentic AI Engineer
+    title_highlight: Agentic AI Engineer
+    subtitle: A 12-month intensive program for ages 17–22. Learn to build AI agents, agentic workflows, and production-ready systems — and launch your tech career before most people even start.
+    bullet_points:
+      - Build AI agents that reason, use tools, and operate autonomously.
+      - Design and deploy multi-agent systems and agentic workflows from scratch.
+      - Graduate with a production-grade portfolio that gets you hired.
+    description: No prior experience required. Just the drive to build the future.
+    media:
+      type: image
+      src: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
+      alt: AI Engineering program for young builders
+    signup_card:
+      title: Get the Full Program Details
+      description: Enter your info and we'll send you the syllabus, schedule, tuition options, and everything you need to apply.
+      cta_button:
+        text: Send Me the Details
+        url: "#modal-lead"
+        variant: primary
+      features:
+        - icon: calendar
+          text: 12-Month Program
+        - icon: IconUsers
+          text: Ages 17–22
+        - icon: IconRobot
+          text: Focused on Agentic Engineering
+        - icon: IconUserCheck
+          text: Unlimited 1:1 Mentorship
+        - icon: IconBolt
+          text: $5,000 Tuition — Financing Available
+    section_id: hero-anik
+    paddingY:
+      desktop: md
+    marginY:
+      desktop: none
