@@ -224,3 +224,33 @@ sections:
     type: syllabus
     variant: program-modules
     version: "1.0"
+  - logos:
+      - alt: Microsoft
+        src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
+      - alt: Google Developers
+        src: https://storage.googleapis.com/4geeks-academy-website/media/google-developers_1764719904190.png
+      - alt: Meta
+        src: https://storage.googleapis.com/4geeks-academy-website/media/meta-logo_1764719959855.png
+      - alt: eBay
+        src: https://storage.googleapis.com/4geeks-academy-website/media/ebay_1764719967118.png
+      - alt: Twilio
+        src: https://storage.googleapis.com/4geeks-academy-website/media/twilio_1764719992371.png
+      - alt: Uber
+        src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
+      - alt: KPMG
+        src: https://storage.googleapis.com/4geeks-academy-website/media/kpmg-logo1_1764720019827.png
+      - alt: Blackstone
+        src: https://storage.googleapis.com/4geeks-academy-website/media/blackstone_1764720124773.png
+      - alt: MDC
+        src: https://storage.googleapis.com/4geeks-academy-website/media/mdc_ce_1764720089793.png
+      - alt: Boats Group
+        src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
+      - alt: Telefonica
+        src: https://storage.googleapis.com/4geeks-academy-website/media/telefonica_1764719987250.png
+      - alt: Beacon Council
+        src: https://storage.googleapis.com/4geeks-academy-website/media/beacon_council_1764720100166.jpg
+    subtitle: 4Geeks graduates are working at top companies across Miami, the U.S., and globally.
+    title: Companies Hiring Our Graduates
+    type: whos_hiring
+    variant: carousel
+    version: "1.0"
