@@ -10,8 +10,10 @@ when_to_use: |
 variants:
   - name: grid
     description: Paginated grid layout with navigation dots
+    best_for: Pages where users will actively browse employer names; 8–16 logos
   - name: carousel
     description: Supabase-style auto-scrolling masonry carousel with grayscale logos
+    best_for: Landing pages that need continuous motion and can show 12+ logos
 props:
   variant:
     type: string

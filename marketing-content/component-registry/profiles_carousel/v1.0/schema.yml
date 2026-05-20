@@ -3,11 +3,10 @@ version: "1.0"
 component: ProfilesCarousel
 file: client/src/components/profiles_carousel/variants/ProfilesCarouselDefault.tsx
 description: A paginated carousel displaying people profiles (staff, mentors, partners, etc.) with photos, names, roles, and optional LinkedIn links.
-when_to_use:
-  - Showcase team members, instructors, or mentors
-  - Display partner or alumni profiles
-  - Present staff or faculty with photos and bios
-  - Show a large set of people in a compact paginated layout
+when_to_use: |
+  Use when you need to present a large set of people (mentors, staff, alumni, partners) in a
+  space-efficient paginated layout. Better than a flat grid when there are more than 6–8 profiles.
+  Each card shows a photo, name, role, and optional LinkedIn link.
 
 image_sizes:
   default.profiles[].image_id: "(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"

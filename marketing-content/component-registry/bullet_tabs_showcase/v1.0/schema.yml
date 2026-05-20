@@ -7,6 +7,15 @@ when_to_use: |
   Use for showcasing features, benefits, or concepts with clickable bullet items
   that reveal corresponding images. Great for product tours, feature explanations,
   or step-by-step visual guides where users can explore at their own pace.
+
+variants:
+  withBigBorder:
+    description: Image displayed on a primary-color background panel with larger text
+    best_for: High-emphasis feature showcases, platform introductions
+  withoutBorder:
+    description: Centered image without background, with smaller supporting text
+    best_for: Subtle feature walkthroughs, lighter content sections
+
 props:
   variant:
     type: string

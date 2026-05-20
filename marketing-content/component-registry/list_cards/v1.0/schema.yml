@@ -1,9 +1,15 @@
 name: list_cards
 description: A generic card grid for listing content entries with optional search, user-driven filtering, and pagination. Supports dynamic entries from content types or databases.
+when_to_use: |
+  Use on listing pages for blog posts, projects, events, or any content type that needs
+  a searchable, filterable, paginated card grid. Entries can come from static YAML or a
+  database-backed content type via dynamic_entries. Prefer this over hand-crafting card
+  loops when the content is managed by editors or pulled dynamically.
 
 variants:
   - name: default
     description: Standard card grid with image, title, description, badge, metadata, and CTA link
+    best_for: Blog listings, project galleries, event listings, any paginated content type
 
 dynamic_item_fields:
   - name: image

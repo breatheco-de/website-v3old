@@ -6,10 +6,10 @@ description: A centered banner layout with optional avatars on top border, title
 image_sizes:
   default.avatars: "36px"
   
-when_to_use:
-  - Highlight a key call-to-action with social proof avatars
-  - Create urgency around enrollment or sign-up deadlines
-  - Showcase trust signals with a gradient or branded background
+when_to_use: |
+  Use as a mid-page or end-of-page call-to-action that needs visual emphasis beyond a plain
+  cta_banner. The optional avatar cluster adds social proof ("join these people"). The gradient
+  background option makes it stand out between neutral content sections.
 
 
 props:

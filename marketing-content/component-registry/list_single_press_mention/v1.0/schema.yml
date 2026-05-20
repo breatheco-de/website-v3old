@@ -1,5 +1,10 @@
 title: Single Press Mention (Featured)
 description: Displays one highlighted press mention in a two-column layout — image on the left, content on the right.
+when_to_use: |
+  Use to spotlight one particularly impactful press mention or media feature — such as a
+  major publication quote or award. Better than the list_press_mentions cards variant when
+  you want to give a single mention strong editorial weight. Often used above or below the
+  multi-mention list_press_mentions component.
 props:
   background:
     type: string

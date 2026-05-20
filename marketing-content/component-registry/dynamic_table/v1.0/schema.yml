@@ -15,6 +15,20 @@ when_to_use: >
   using AI-generated JavaScript functions, and limiting visible rows.
   Best for displaying lists of students, courses, events, or any structured API data.
 
+variants:
+  default:
+    description: Classic bordered table with standard rows and column headers
+    best_for: General data tables, admin-facing lists
+  striped:
+    description: Alternating row colors with a colored header row for easier scanning
+    best_for: Large datasets, comparison-heavy tables
+  cards:
+    description: Responsive card layout on mobile, refined table on desktop
+    best_for: User-facing data tables that need to look great on all screen sizes
+  comparison:
+    description: Comparison-optimized table layout with highlighted columns
+    best_for: Feature comparisons, plan/tier comparison tables
+
 props:
   variant:
     type: string

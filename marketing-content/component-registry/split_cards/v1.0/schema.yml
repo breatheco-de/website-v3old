@@ -1,12 +1,19 @@
 name: Split Cards
 version: "1.0"
 description: "Two-card split layout with responsive sizing. Primary card (3/4 desktop, 50% tablet) has dark background with heading, description, and optional floating icons. Secondary card (1/4 desktop, 50% tablet) displays a benefits list with checkmarks."
+when_to_use: |
+  Use for sections that pair a bold headline message with a concise benefits list — such as
+  a program value proposition alongside key feature checkmarks. The dark primary card creates
+  high contrast while the smaller secondary card reinforces the message with scannable bullets.
+  Great for mid-page conversion sections or feature introductions.
 
 variants:
   - name: primary-left
     description: "Primary card on the left, secondary on the right (default)"
+    best_for: "Standard feature or value proposition sections"
   - name: primary-right
     description: "Primary card on the right, secondary on the left"
+    best_for: "Alternating layouts when placed next to another left-dominant section"
 
 image_sizes:
   primary-left.secondary.image_id: "(min-width: 768px) 300px, 200px"

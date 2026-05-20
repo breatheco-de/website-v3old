@@ -34,7 +34,9 @@ variants:
   course:
     description: Two column layout with content on left (title, bullet points, tutors) and media + signup card on right
     best_for: Course landing pages, self-paced program pages
-  twoColumn: {}
+  twoColumn:
+    description: Two-column hero with image or media on one side and text/CTAs on the other (legacy variant)
+    best_for: General landing pages, legacy pages using the older two-column hero layout
   credibility:
     description: Two column hero with large rich-text title on the left and a vertical stack of credibility pills on the right, plus an optional muted watermark marquee at the bottom
     best_for: Homepage hero sections, trust-building landing pages, program overview pages

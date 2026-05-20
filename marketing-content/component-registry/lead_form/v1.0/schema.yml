@@ -11,6 +11,15 @@ when_to_use: |
   - Landing pages with contact forms
   - Request information sections
   - Newsletter signups with extended data collection
+
+variants:
+  stacked:
+    description: Labeled fields stacked vertically with full-width inputs
+    best_for: Standalone form sections, multi-field forms requiring clear labels
+  inline:
+    description: Compact email + submit button on one line
+    best_for: Hero sections, banners, or any placement where vertical space is limited
+
 props:
   variant:
     type: string

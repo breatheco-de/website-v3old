@@ -11,6 +11,7 @@ when_to_use: |
 variants:
   - name: expandable
     description: "Two columns that expand/collapse on hover with a peek animation on load (default)"
+    best_for: "Conversion sections with two distinct paths — e.g. consult vs. apply, online vs. in-person"
 
 props:
   variant:

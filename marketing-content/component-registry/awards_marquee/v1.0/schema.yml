@@ -3,11 +3,10 @@ version: "1.0"
 component: AwardsMarquee
 file: client/src/components/AwardsMarquee.tsx
 description: Displays a continuously scrolling horizontal band of award logos using react-fast-marquee. Ideal for showcasing multiple awards and certifications.
-when_to_use:
-  - Display many award logos in a compact scrolling band
-  - Create visual movement and engagement on landing pages
-  - Show certifications or accreditations from multiple sources
-  - Build trust through animated third-party validation
+when_to_use: |
+  Use when you have many award logos (5+) that would clutter a static grid. The continuous
+  scroll creates visual movement and fits a large number of badges in a small vertical footprint.
+  Best placed below the hero section or credibility strip as a secondary trust layer.
 image_sizes:
   default.items[].logo: "(min-width: 768px) 220px, 80px"
 props:

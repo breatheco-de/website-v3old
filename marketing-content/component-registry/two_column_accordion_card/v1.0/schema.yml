@@ -1,9 +1,22 @@
 name: Two Column Accordion Card
 description: A card-based section with two columns - one side has a title, description, and expandable accordion items, the other side displays an image. Great for detailed feature explanations or FAQ-style content.
+when_to_use: |
+  Use when you need to pair visual media (image or video) with an expandable list of features,
+  FAQs, or step-by-step details. The accordion keeps the section compact while letting users
+  drill into specifics. Better than a plain two_column when the text content is long enough to
+  benefit from progressive disclosure. Use the image_background variant for a warmer, branded feel.
 version: "1.0"
 
 image_sizes:
   image_background.image: "(min-width: 768px) 500px, 100vw"
+
+variants:
+  default:
+    description: Image displayed in a plain container beside the accordion content
+    best_for: Feature explanations, FAQ sections, step-by-step guides
+  image_background:
+    description: Smaller image displayed on a colored background beside the accordion content
+    best_for: Sections needing a warmer branded feel, product feature callouts
 
 schema:
   type: object
