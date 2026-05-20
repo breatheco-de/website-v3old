@@ -196,3 +196,43 @@ sections:
     section_id: faq-anik
     title: Frequently Asked Questions
     type: faq
+  - background: hsl(var(--primary))
+    form:
+      consent:
+        email: true
+        marketing: true
+        marketing_text: I agree to receive information about courses and promotions
+      fields:
+        email:
+          placeholder: Your email address
+          required: true
+          visible: true
+        first_name:
+          placeholder: First name
+          required: true
+          visible: true
+        phone:
+          placeholder: Phone number
+          required: true
+          visible: true
+        program:
+          default: ai-engineering
+          required: true
+          visible: false
+      show_terms: true
+      submit_label: Start Your Application
+      success:
+        message: Check your inbox. Our admissions team will be in touch shortly.
+      tags: website-lead,anik-delemete
+      variant: stacked
+    form_background: hsl(var(--card))
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: md
+    section_id: cta-anik
+    subtitle: 12 months. $5,000. A career in AI. This is your window.
+    title: Ready to Start Building the Future?
+    type: cta_banner
+    variant: form
+    version: "1.0"
