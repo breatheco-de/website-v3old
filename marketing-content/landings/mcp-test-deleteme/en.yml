@@ -9,3 +9,27 @@ og_type: website
 twitter_title: 4Geeks Academy – MCP Test Page
 twitter_description: Learn coding, AI, and data science with expert mentorship and AI-powered tools at 4Geeks Academy.
 twitter_card: summary_large_image
+sections:
+  - type: sticky_cta
+    version: "1.0"
+    heading: Apply for the AI Engineering Miami Scholarship — Free to Apply
+    button_label: Check If You Qualify
+    form:
+      variant: inline
+      submit_label: Apply for Scholarship
+      fields:
+        first_name:
+          visible: true
+          required: true
+        email:
+          visible: true
+          required: true
+        phone:
+          visible: true
+          required: false
+        program:
+          visible: true
+          required: true
+          default: ai-engineering
+      success:
+        message: You're in! A 4Geeks advisor will reach out within 24 hours.
