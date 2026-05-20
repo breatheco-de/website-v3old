@@ -212,6 +212,8 @@ sections:
         value: 80%
         title: Of companies deploying AI-enabled applications by 2026
     section_id: features_grid-dxwtvz
+    marginY:
+      desktop: none lg
   - type: syllabus
     section_id: syllabus-l0x9pc
     variant: program-modules
