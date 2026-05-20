@@ -25,3 +25,29 @@ sections:
     title: Una conversación nueva sobre un producto diferente
     type: comparison_table
     version: "1.0"
+  - background: bg-muted/30
+    steps:
+      - icon: Book
+        title: Lecturas + ejercicios prácticos
+        bullets:
+          - Cada concepto va acompañado de ejercicios que lo anclan. El estudiante aprende haciendo, no solo leyendo.
+      - icon: Robot
+        title: Rigobot — IA tutora disponible 24/7
+        bullets:
+          - Cuando el estudiante se atasca, Rigobot le guía en el momento. Sin esperas, sin bloqueos, sin perder el ritmo.
+      - icon: Briefcase
+        title: Proyectos reales para el portafolio
+        bullets:
+          - Cada programa incluye proyectos concretos que el estudiante puede mostrar a empleadores. Resultados tangibles, no solo certificados.
+      - icon: Users
+        title: Talleres en vivo con expertos
+        bullets:
+          - Clases magistrales, sesiones de preguntas y eventos de networking con profesionales activos de la industria.
+      - icon: UserCheck
+        title: Acompañamiento humano disponible
+        bullets:
+          - "Opciones disponibles para quienes quieren ir más lejos: hay acompañamiento humano personalizado y grupal."
+    title: Aprendizaje activo, no consumo pasivo
+    description: La mayoría de plataformas online ofrece contenido sin garantizar que se aprende. 4Geeks.com combina formatos complementarios para que el conocimiento se consolide de verdad.
+    type: numbered_steps
+    version: "1.0"
