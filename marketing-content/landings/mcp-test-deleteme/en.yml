@@ -165,3 +165,62 @@ sections:
     type: lead_form
     variant: stacked
     version: "1.0"
+  - module_cards:
+      - duration: Phase 1 — Weeks 1–4
+        icon: IconBrandPython
+        objectives:
+          - Python programming fundamentals
+          - Command line, Git, and developer tools
+          - Build your first AI-powered scripts
+        orientation: vertical
+        title: Foundations & Python
+      - duration: Phase 2 — Weeks 5–10
+        icon: IconRobot
+        objectives:
+          - Prompt engineering and LLM APIs
+          - Build AI agents with tool calling
+          - RAG, vector databases, and memory layers
+        orientation: vertical
+        title: AI Engineering Core
+      - duration: Phase 3 — Weeks 11–16
+        icon: IconServer
+        objectives:
+          - Backend APIs with FastAPI
+          - Agentic workflows and n8n automations
+          - Real-time communication and async processing
+        orientation: vertical
+        title: Infrastructure for AI
+      - duration: Phase 4 — Weeks 17–20
+        icon: IconReact
+        objectives:
+          - Frontend with React and AI-generated UI
+          - Full-stack deployment on cloud infrastructure
+          - Cybersecurity best practices for AI apps
+        orientation: vertical
+        title: Full Stack & Deployment
+      - duration: Phase 5 — Weeks 21–24
+        icon: IconBriefcase
+        objectives:
+          - Build a complete AI-transformed company project
+          - Portfolio polish and technical interviews
+          - Career support and job placement activation
+        orientation: horizontal
+        title: Capstone & Career Launch
+    program_description: A 24-week hands-on program that takes you from zero to AI Engineer — ready to build, deploy, and maintain real AI-powered systems. Designed for Miami residents who want to break into the fastest-growing field in tech.
+    program_title: AI Engineering — 24-Week Program
+    subtitle: Structured for real-world outcomes, not just theory.
+    tech_logos:
+      - icon: python
+        name: Python
+      - icon: openai
+        name: OpenAI
+      - icon: react
+        name: React
+      - icon: docker
+        name: Docker
+      - icon: git
+        name: Git
+    title: What You'll Learn
+    type: syllabus
+    variant: program-modules
+    version: "1.0"
