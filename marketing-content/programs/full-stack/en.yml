@@ -566,7 +566,7 @@ sections:
     paddingY:
       desktop: md lg
     marginY:
-      desktop: none md
+      desktop: lg md
   - type: whos_hiring
     section_id: whos_hiring-uwrrq5
     variant: carousel
