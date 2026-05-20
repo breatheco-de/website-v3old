@@ -614,7 +614,7 @@ sections:
   - type: cta_banner
     version: "1.0"
     title: Ready to Become an AI-Fluent Full Stack Developer?
-    subtitle: Developers with AI skills command a 56% wage premium over those without. This is your opportunity. Join the next cohort.
+    subtitle: Developers with AI skills earn 56% more than those without. This is your opportunity. Join the next cohort.
     background: hsl(var(--primary))
     variant: form
     form:
