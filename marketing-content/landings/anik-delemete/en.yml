@@ -6,6 +6,7 @@ meta:
   page_title: Agentic AI Engineering Program for Ages 17–22 | 4Geeks Academy
   description: 12-month intensive program in agentic AI engineering for ages 17–22. Build AI agents, multi-agent systems, and production-ready workflows. $5,000 tuition with financing. 4Geeks Academy.
   robots: noindex, nofollow
+  og_image: /images/programs/ai-engineering-og.jpg
 sections:
   - type: hero
     version: "1.0"
