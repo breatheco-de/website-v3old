@@ -17,7 +17,8 @@ An MCP (Model Context Protocol) server that gives Claude read and write access t
 | `remove_section` | Remove a section by index |
 | `reorder_sections` | Reorder sections by supplying a new index order |
 | `list_components` | List all available section component types with versions and variants |
-| `get_component_schema` | Get the field schema and worked YAML examples for a component |
+| `get_component_schema` | Get the top-level schema info for a component: name, description, when_to_use, and variant list |
+| `get_component_variant` | Get the field definitions and worked YAML example for a specific component variant |
 
 ---
 
@@ -278,6 +279,66 @@ Known fields + custom fields in one call:
 }
 ```
 
+### `list_components`
+
+Lists all available section component types from the component registry.
+
+**Returns:** type, version, name, description, and variants (name only) for each registered component.
+
+**Parameters:** none
+
+---
+
+### `get_component_schema`
+
+Gets the top-level schema info for a component: its name, description, when_to_use guidance, and the full list of variants (each with name, description, and best_for). Use this first to understand which variant fits your use case. Then call `get_component_variant` to get field definitions and a worked YAML example for your chosen variant.
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `componentType` | string | yes | Component type name, e.g. `faq`, `hero`, `two_column` |
+
+**Example:**
+
+```json
+{
+  "name": "get_component_schema",
+  "arguments": {
+    "componentType": "hero"
+  }
+}
+```
+
+**Returns:** `{ componentType, name, description, when_to_use, variants: [{ name, description, best_for }, ...] }`
+
+---
+
+### `get_component_variant`
+
+Gets the field definitions (`variant_props`) and a worked YAML example for a specific component variant. Call `get_component_schema` first to see the available variants, then call this tool with your chosen variant to get everything you need to write the YAML.
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `componentType` | string | yes | Component type name, e.g. `hero`, `faq`, `two_column` |
+| `variant` | string | yes | Variant name as listed by `get_component_schema`, e.g. `singleColumn`, `showcase` |
+
+**Example:**
+
+```json
+{
+  "name": "get_component_variant",
+  "arguments": {
+    "componentType": "hero",
+    "variant": "singleColumn"
+  }
+}
+```
+
+**Returns:** `{ componentType, variant, variant_props: { <field definitions> }, example: "<worked YAML string>" }`
+
 ---
 
 ## Auth
@@ -374,7 +435,9 @@ A typical editing session looks like this:
 1. **Discover available components**
    ```
    Call list_components to see what section types exist.
-   Call get_component_schema with componentType="faq" to see field requirements and examples.
+   Call get_component_schema with componentType="hero" to read the variant list (name, description, best_for) and choose the right variant.
+   Call get_component_variant with componentType="hero", variant="singleColumn" to get the full field definitions and a worked YAML example for that variant.
+   For single-variant components (e.g. "faq"), get_component_schema returns a synthetic "default" variant — call get_component_variant with variant="default" to get the field definitions.
    ```
 
 2. **Find the right page**

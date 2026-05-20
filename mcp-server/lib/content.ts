@@ -293,43 +293,197 @@ export function listComponents(): ComponentInfo[] {
   return components.sort((a, b) => a.type.localeCompare(b.type));
 }
 
-export function getComponentSchema(
-  componentType: string,
-): { schema: Record<string, unknown> | null; examples: Record<string, string> } {
+export interface ComponentVariantSummary {
+  name: string;
+  description?: string;
+  best_for?: string;
+}
+
+export interface ComponentSchemaSlim {
+  name: string | null;
+  description: string | null;
+  when_to_use: string | null;
+  variants: ComponentVariantSummary[];
+}
+
+export function getComponentSchema(componentType: string): ComponentSchemaSlim | null {
   const componentPath = path.join(COMPONENT_REGISTRY_PATH, componentType);
-  if (!fs.existsSync(componentPath)) return { schema: null, examples: {} };
+  if (!fs.existsSync(componentPath)) return null;
 
   const versionDirs = fs
     .readdirSync(componentPath, { withFileTypes: true })
     .filter(d => d.isDirectory() && /^v\d/.test(d.name))
     .sort((a, b) => b.name.localeCompare(a.name));
 
-  if (versionDirs.length === 0) return { schema: null, examples: {} };
+  if (versionDirs.length === 0) return null;
 
   const latestVersion = versionDirs[0].name;
   const versionPath = path.join(componentPath, latestVersion);
 
-  let schema: Record<string, unknown> | null = null;
   const schemaYml = path.join(versionPath, "schema.yml");
-  if (fs.existsSync(schemaYml)) {
-    schema = safeLoad(fs.readFileSync(schemaYml, "utf-8"));
+  if (!fs.existsSync(schemaYml)) return null;
+
+  const parsed = safeLoad(fs.readFileSync(schemaYml, "utf-8"));
+  if (!parsed) return null;
+
+  const name = typeof parsed.name === "string" ? parsed.name : null;
+  const description = typeof parsed.description === "string" ? parsed.description : null;
+  const when_to_use = typeof parsed.when_to_use === "string" ? parsed.when_to_use : null;
+
+  const variants: ComponentVariantSummary[] = [];
+  if (parsed.variants && typeof parsed.variants === "object" && !Array.isArray(parsed.variants)) {
+    for (const [variantName, variantDef] of Object.entries(parsed.variants as Record<string, unknown>)) {
+      const def = variantDef as Record<string, unknown> | null;
+      const entry: ComponentVariantSummary = { name: variantName };
+      if (def && typeof def.description === "string") entry.description = def.description;
+      if (def && typeof def.best_for === "string") entry.best_for = def.best_for;
+      variants.push(entry);
+    }
+  } else if (Array.isArray(parsed.variants)) {
+    for (const v of parsed.variants) {
+      if (typeof v === "string") {
+        variants.push({ name: v });
+      } else if (v && typeof v === "object") {
+        const def = v as Record<string, unknown>;
+        if (typeof def.name !== "string") continue;
+        const entry: ComponentVariantSummary = { name: def.name };
+        if (typeof def.description === "string") entry.description = def.description;
+        if (typeof def.best_for === "string") entry.best_for = def.best_for;
+        variants.push(entry);
+      }
+    }
   }
 
-  const examples: Record<string, string> = {};
+  // If no variants are declared the component is single-variant; expose a synthetic "default"
+  // so the two-step workflow (get_component_schema → get_component_variant) always works.
+  if (variants.length === 0) {
+    variants.push({ name: "default", description: "Default (single-variant) component" });
+  }
+
+  return { name, description, when_to_use, variants };
+}
+
+export interface ComponentVariantDetail {
+  componentType: string;
+  variant: string;
+  variant_props: Record<string, unknown> | null;
+  example: string | null;
+}
+
+export function getComponentVariant(
+  componentType: string,
+  variant: string,
+): ComponentVariantDetail | null {
+  const componentPath = path.join(COMPONENT_REGISTRY_PATH, componentType);
+  if (!fs.existsSync(componentPath)) return null;
+
+  const versionDirs = fs
+    .readdirSync(componentPath, { withFileTypes: true })
+    .filter(d => d.isDirectory() && /^v\d/.test(d.name))
+    .sort((a, b) => b.name.localeCompare(a.name));
+
+  if (versionDirs.length === 0) return null;
+
+  const latestVersion = versionDirs[0].name;
+  const versionPath = path.join(componentPath, latestVersion);
+
+  const schemaYml = path.join(versionPath, "schema.yml");
+  if (!fs.existsSync(schemaYml)) return null;
+
+  const parsed = safeLoad(fs.readFileSync(schemaYml, "utf-8"));
+  if (!parsed) return null;
+
+  // Check the variant actually exists — handle three schema shapes:
+  // (a) object-map variants: { variantName: { description, best_for } }
+  // (b) array variants: [{ name, description, best_for }] or ["name", ...]
+  // (c) no variants key: single-variant component — accept any requested name
+  //     (get_component_schema emits a synthetic "default" for these; honour it and
+  //     any other name so callers are never stuck).
+  const variantsDef = parsed.variants;
+  let variantExists = false;
+  if (!variantsDef) {
+    // No variants declared → single-variant component; always accept
+    variantExists = true;
+  } else if (typeof variantsDef === "object" && !Array.isArray(variantsDef)) {
+    variantExists = variant in (variantsDef as Record<string, unknown>);
+  } else if (Array.isArray(variantsDef)) {
+    variantExists = variantsDef.some((v: unknown) => {
+      if (typeof v === "string") return v === variant;
+      if (v && typeof v === "object") return (v as Record<string, unknown>).name === variant;
+      return false;
+    });
+  }
+  if (!variantExists) return null;
+
+  // Extract variant_props for this specific variant.
+  // Object-map schemas define a `variant_props` block keyed by variant name.
+  // Array-style schemas use a flat `props` or `properties` block shared across variants.
+  let variant_props: Record<string, unknown> | null = null;
+  if (
+    parsed.variant_props &&
+    typeof parsed.variant_props === "object" &&
+    !Array.isArray(parsed.variant_props)
+  ) {
+    const propsMap = parsed.variant_props as Record<string, unknown>;
+    if (variant in propsMap && propsMap[variant] && typeof propsMap[variant] === "object") {
+      variant_props = propsMap[variant] as Record<string, unknown>;
+    }
+  }
+  // Fallback: use top-level `props` or `properties` (common in array-style schemas)
+  if (
+    variant_props === null &&
+    parsed.props &&
+    typeof parsed.props === "object" &&
+    !Array.isArray(parsed.props)
+  ) {
+    variant_props = parsed.props as Record<string, unknown>;
+  }
+  if (
+    variant_props === null &&
+    parsed.properties &&
+    typeof parsed.properties === "object" &&
+    !Array.isArray(parsed.properties)
+  ) {
+    variant_props = parsed.properties as Record<string, unknown>;
+  }
+
+  // Find an example that uses this variant.
+  // Strategy:
+  // 1. Regex-match `variant: <name>` (unquoted or quoted) across example files.
+  // 2. If no match found, fall back to the first available example file.
+  //    This ensures single-variant components (no `variants` key in schema, synthetic
+  //    "default" variant) always return an example even though their example files
+  //    do not contain a `variant:` field at all.
+  const variantPattern = new RegExp(`variant:\\s*["']?${variant}["']?(?:\\s|$)`);
+  let example: string | null = null;
   const examplesPath = path.join(versionPath, "examples");
   if (fs.existsSync(examplesPath)) {
     const exampleFiles = fs
       .readdirSync(examplesPath)
       .filter(f => f.endsWith(".yml") || f.endsWith(".yaml"));
-    for (const exFile of exampleFiles) {
+
+    const extractYaml = (exFile: string): string | null => {
       try {
         const raw = fs.readFileSync(path.join(examplesPath, exFile), "utf-8");
-        const parsed = safeLoad(raw);
-        const exampleName = exFile.replace(/\.(yml|yaml)$/, "");
-        examples[exampleName] = parsed?.yaml && typeof parsed.yaml === "string" ? parsed.yaml : raw;
-      } catch {}
+        const exParsed = safeLoad(raw);
+        return exParsed?.yaml && typeof exParsed.yaml === "string" ? exParsed.yaml : raw;
+      } catch { return null; }
+    };
+
+    // Pass 1: prefer an example that explicitly references this variant
+    for (const exFile of exampleFiles) {
+      const yamlContent = extractYaml(exFile);
+      if (yamlContent && variantPattern.test(yamlContent)) {
+        example = yamlContent;
+        break;
+      }
+    }
+
+    // Pass 2: fallback — return the first readable example when no tagged match found
+    if (example === null && exampleFiles.length > 0) {
+      example = extractYaml(exampleFiles[0]);
     }
   }
 
-  return { schema, examples };
+  return { componentType, variant, variant_props, example };
 }
