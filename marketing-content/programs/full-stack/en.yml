@@ -599,13 +599,15 @@ sections:
         alt: Jooble
     paddingY:
       desktop: none
+    marginY:
+      desktop: none lg
   - type: faq
     section_id: faq-wtxzwj
     title: Frequently Asked Questions
     related_features:
       - full-stack
     marginY:
-      desktop: none
+      desktop: lg none
     paddingY:
       desktop: md
     background: hsl(var(--muted))
