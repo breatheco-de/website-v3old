@@ -33,3 +33,54 @@ sections:
           default: ai-engineering
       success:
         message: You're in! A 4Geeks advisor will reach out within 24 hours.
+  - type: hero
+    version: "1.0"
+    variant: productShowcase
+    brand_mark:
+      prefix: AI Engineering
+      highlight: Scholarship
+      suffix: for Miami Residents
+      color: primary
+    title: Become an AI Engineer in 24 Weeks
+    subtitle: Limited scholarship seats available for Miami residents. Learn AI Engineering with job support, unlimited mentorship, and a proven 86% hiring rate.
+    bullets:
+      - text: No prior experience required — we start from zero
+      - text: Unlimited 1:1 mentorship for life, even after you graduate
+      - text: 86% of graduates get hired within 3 months
+      - text: Flexible financing options available
+    form:
+      variant: stacked
+      submit_label: Check My Scholarship Eligibility →
+      tags: website-lead,miami-scholarship-ppc
+      fields:
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        email:
+          visible: true
+          required: true
+          placeholder: Email address
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          required: true
+          default: ai-engineering
+        location:
+          visible: false
+          required: false
+          default: miami-usa
+      success:
+        message: You're in! An admissions advisor will reach out within 24 hours to confirm your scholarship eligibility.
+      consent:
+        sms: true
+      show_terms: true
+    form_card_title: See If You Qualify. It's Free.
+    form_card_subtitle: Apply for the Miami AI Engineering Scholarship — no commitment required.
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: md none
