@@ -94,7 +94,6 @@ sections:
       desktop: md none
     marginY:
       desktop: none xl
-
   - type: sticky_cta
     section_id: sticky_cta-jtdfr0
     version: "1.0"
@@ -133,7 +132,6 @@ sections:
         marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
       show_terms: true
     load: eager
-
   - type: graduates_stats
     heading: Resultados reales. Datos reales.
     subheading: Más de 5,000 graduados. Resultados sólidos en todo el mundo.
@@ -177,7 +175,6 @@ sections:
       desktop: 6xl
     paddingY:
       desktop: md none
-
   - type: features_grid
     version: "1.0"
     variant: stats-text
@@ -200,7 +197,6 @@ sections:
     section_id: features_grid-dxwtvz
     marginY:
       desktop: none lg
-
   - type: trust_cards
     maxWidth:
       desktop: 6xl
@@ -225,7 +221,6 @@ sections:
     marginY:
       desktop: none lg
     background: hsl(var(--secondary))
-
   - type: syllabus
     section_id: syllabus-vr2u4r
     variant: program-modules
@@ -303,7 +298,6 @@ sections:
       desktop: md none
     marginY:
       desktop: none md
-
   - type: projects
     section_id: projects-t6l1tn
     title: Aprende construyendo proyectos reales
@@ -337,46 +331,46 @@ sections:
         date: 01/03/2023
     marginY:
       desktop: lg xl
-
   - type: ai_learning
-    section_id: ai_learning-g0ac0c
-    variant: feature-tabs
+    section_id: ai_learning-qmjitd
     badge: ¿Por qué 4Geeks?
-    title: El camino más personalizado hacia una carrera Full Stack con IA
-    description: Avanza más rápido que nunca, con un sistema de apoyo construido alrededor de tu ritmo, tus objetivos y tu carrera.
+    title: La academia que no te abandona cuando te gradúas
+    description: La mayoría de academias te dan un curso y te desean suerte. 4Geeks se queda contigo desde tu primera línea de código hasta tu primera oferta de trabajo y más allá.
     features:
-      - icon: Robot
-        title: Feedback con IA que nunca duerme
+      - icon: TrendingUp
+        title: Apoyo de carrera construido para el mercado tech en Chile
         show_rigobot_logo: true
         bullets:
-          - text: Feedback instantáneo de Rigobot, nuestro tutor de IA personalizado
-          - text: Consejos adaptados a tu nivel y progreso
-          - text: Ayuda 24/7 con depuración y resolución de problemas
-          - text: Cientos de ejercicios interactivos de código y tests
-        video_url: https://storage.googleapis.com/breathecode/videos/landing-pages/learnpack-demo.mp4
-      - icon: Headset
-        title: Mentoría 1:1 ilimitada de por vida
-        show_rigobot_logo: false
-        bullets:
-          - text: Acceso de por vida a mentoría técnica 1:1
-          - text: "{{ global.global_teacher_student_ratio | 7:1 }} ratio estudiante-instructor"
-          - text: Check-ins semanales y colaboración entre pares en Slack
-          - text: Canales dedicados a soporte de código, ofertas de empleo y consejos de carrera
-        image_id: community-support-cropped-800x476-q70
-      - icon: TrendingUp
-        title: Apoyo de carrera construido para el mercado tech
-        show_rigobot_logo: false
-        bullets:
-          - text: Coaching de carrera 1:1 de por vida
-          - text: CV y portfolio construidos para pasar los filtros automáticos de los recruiters
+          - text: Coaching 1:1 enfocado en conseguir roles de Ingeniería de IA específicamente
+            icon: key-round
+          - text: CV y portfolio optimizados para pasar los filtros automáticos de los recruiters
           - text: Preparación para entrevistas técnicas y negociación salarial
-          - text: Acceso a nuestra red de empresas colaboradoras
-        video_url: https://youtu.be/-2ZvlgDnltc
-    marginY:
-      desktop: md none
+          - text: Apoyo de carrera de por vida, no solo hasta que te gradúas
+        video_url: https://www.youtube.com/shorts/8ELYdTsuA1A?autoplay=1&mute=1&playsinline=1
+      - icon: bot
+        title: Aprende más rápido con un tutor de IA que sabe dónde te has atascado
+        show_rigobot_logo: true
+        bullets:
+          - text: Rigobot te da feedback instantáneo sobre tu código sin esperar a que haya un humano disponible
+          - text: Adapta las explicaciones a tu nivel exacto y ritmo de aprendizaje
+          - text: Desbloquéate a las 2 de la madrugada sin perder el hilo
+          - text: Cientos de ejercicios interactivos en Learnpack, nuestra plataforma de aprendizaje
+        video_url: https://youtu.be/NRuShbSLtg0
+      - icon: Headset
+        title: Mentoría 1:1 ilimitada de por vida, no solo mientras estudias
+        show_rigobot_logo: true
+        bullets:
+          - text: Reserva sesiones 1:1 ilimitadas con ingenieros senior incluso después de graduarte
+          - text: Ratio 7:1 estudiante por mentor para que tu mentor sepa quién eres
+          - text: Check-ins semanales para que te mantengas enfocado y termines el programa
+          - text: Comunidad activa en Slack con canales de empleo, soporte técnico y consejos de carrera
+        video_url: https://youtu.be/Zoxxw5jP7xA
     paddingY:
-      desktop: md none
-
+      mobile: lg none
+      desktop: lg md
+    background: hsl(var(--muted))
+    marginY:
+      desktop: none lg
   - type: features_grid
     version: "1.0"
     variant: stats-cards
@@ -397,7 +391,6 @@ sections:
     paddingY:
       desktop: md none
     background: hsl(var(--card))
-
   - type: pricing
     section_id: pricing-s08m5p
     version: "1.0"
@@ -406,7 +399,7 @@ sections:
     subtitle: Invertir en tu carrera es importante. Lo hacemos más fácil con múltiples formas de financiar tu inscripción.
     discount_text: "Descuento por pago completo: ahorra un 10% pagando por adelantado."
     financing_text: Financiación en cuotas desde
-    financing_amount: "{{ global.price_fullstack | $299 }}"
+    financing_amount: {{ global.price_fullstack | $299 }}
     tech_icons:
       - openai
       - python
@@ -445,7 +438,6 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
-
   - type: testimonials
     section_id: testimonials-6j5dka
     title: Las personas detrás de los números.
@@ -454,13 +446,12 @@ sections:
       - full-stack
       - content-and-syllabus
     rating_summary:
-      average: "{{ global.global_review_rating | 4.9 }}"
-      count: "{{ global.global_review_count | 700 }}"
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 700 }}
     paddingY:
       desktop: md lg
     marginY:
       desktop: lg md
-
   - type: whos_hiring
     section_id: whos_hiring-buw0mf
     variant: carousel
@@ -493,7 +484,6 @@ sections:
       desktop: none
     marginY:
       desktop: none lg
-
   - type: faq
     section_id: faq-wtxzwj
     title: Preguntas frecuentes
@@ -504,7 +494,6 @@ sections:
     paddingY:
       desktop: md
     background: hsl(var(--muted))
-
   - type: cta_banner
     version: "1.0"
     title: Tu carrera como Desarrollador Full Stack no va a empezar sola.
