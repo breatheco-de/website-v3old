@@ -36,7 +36,7 @@ export function VersioningView({
   const locales = versioningData?.versioning ? Object.keys(versioningData.versioning) : [];
   const dialogLocales = locales.length > 0 ? locales : (versioningData?.availableLocales ?? ["en"]);
 
-  const activeVariant = new URLSearchParams(window.location.search).get("force_variant") ?? null;
+  const activeVariant = new URLSearchParams(window.location.search).get("variant") ?? null;
 
   const [editingLocale, setEditingLocale] = useState<string | null>(null);
   const [tempAllocations, setTempAllocations] = useState<Record<string, number>>({});
