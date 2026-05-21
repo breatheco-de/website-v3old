@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import {
   IconArrowLeft,
   IconCheck,
+  IconChevronDown,
   IconCode,
   IconInfoCircle,
   IconLanguage,
@@ -100,6 +101,102 @@ interface RoleFormState {
   capabilities: Record<string, CapabilityFormState>;
 }
 
+interface ContentTypeEntry {
+  name: string;
+  label: string;
+}
+
+function ContentTypeSelector({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  const { data: contentTypesData } = useQuery<ContentTypeEntry[]>({
+    queryKey: ["/api/content-types"],
+  });
+
+  const contentTypes = contentTypesData ?? [];
+  const selected = value.trim()
+    ? value.split(",").map((s) => s.trim()).filter(Boolean)
+    : [];
+  const isAll = selected.length === 0;
+
+  function toggleAll() {
+    onChange("");
+  }
+
+  function toggleType(name: string) {
+    if (isAll) {
+      onChange(name);
+    } else if (selected.includes(name)) {
+      const next = selected.filter((t) => t !== name);
+      onChange(next.join(", "));
+    } else {
+      onChange([...selected, name].join(", "));
+    }
+  }
+
+  const displayLabel = isAll
+    ? "All content types"
+    : selected.length === 1
+    ? (contentTypes.find((ct) => ct.name === selected[0])?.label ?? selected[0])
+    : `${selected.length} content types`;
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          size="sm"
+          className="text-xs h-7 justify-between w-full font-normal"
+          data-testid="button-ct-selector"
+        >
+          <span className="truncate">{displayLabel}</span>
+          <IconChevronDown className="h-3 w-3 ml-1 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="p-2 w-64" align="start">
+        <div className="space-y-0.5">
+          <div className="flex items-center gap-2 px-1 py-1 rounded-sm hover-elevate cursor-pointer">
+            <Checkbox
+              checked={isAll}
+              onCheckedChange={toggleAll}
+              id="ct-all"
+              data-testid="checkbox-ct-all"
+            />
+            <label htmlFor="ct-all" className="text-xs cursor-pointer font-medium flex-1">
+              All content types
+            </label>
+          </div>
+          {contentTypes.length > 0 && <div className="border-t my-1" />}
+          {contentTypes.map((ct) => (
+            <div
+              key={ct.name}
+              className="flex items-center gap-2 px-1 py-1 rounded-sm hover-elevate cursor-pointer"
+            >
+              <Checkbox
+                checked={!isAll && selected.includes(ct.name)}
+                onCheckedChange={() => toggleType(ct.name)}
+                id={`ct-${ct.name}`}
+                data-testid={`checkbox-ct-${ct.name}`}
+              />
+              <label htmlFor={`ct-${ct.name}`} className="text-xs cursor-pointer flex-1 min-w-0">
+                <span className="block truncate">{ct.label}</span>
+                <span className="block text-muted-foreground font-mono">{ct.name}</span>
+              </label>
+            </div>
+          ))}
+          {contentTypes.length === 0 && (
+            <p className="text-xs text-muted-foreground px-1 py-1">Loading content types…</p>
+          )}
+        </div>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
 function capGrantsFromFormState(map: Record<string, CapabilityFormState>): CapabilityGrant[] {
   return Object.entries(map)
     .filter(([, v]) => v.enabled)
@@ -153,14 +250,11 @@ function CapabilityFields({
             </div>
             {cap.scoped && state.enabled && (
               <div className="ml-6">
-                <Input
-                  placeholder="Content types, comma-separated (blank = all)"
+                <ContentTypeSelector
                   value={state.contentTypes}
-                  onChange={(e) =>
-                    onChange({ ...caps, [cap.name]: { ...state, contentTypes: e.target.value } })
+                  onChange={(v) =>
+                    onChange({ ...caps, [cap.name]: { ...state, contentTypes: v } })
                   }
-                  className="text-xs h-7"
-                  data-testid={`input-cap-scope-${cap.name}`}
                 />
               </div>
             )}

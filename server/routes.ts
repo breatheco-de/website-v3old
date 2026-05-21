@@ -182,6 +182,16 @@ async function requireCapability(
   capName: CapabilityName,
   contentType?: string
 ): Promise<{ authorized: boolean; token: string | null; username: string | null; author: string | null }> {
+  // Resolve effective content type: prefer the explicit arg, then fall back to
+  // common request locations so scoped routes that omit the arg are still enforced.
+  const resolvedContentType: string | undefined =
+    contentType ||
+    (req.params as Record<string, string>).contentType ||
+    (req.params as Record<string, string>).type ||
+    req.body?.contentType ||
+    req.body?.type ||
+    undefined;
+
   const isDevelopment = process.env.NODE_ENV !== "production";
   const token = extractToken(req);
 
@@ -211,7 +221,7 @@ async function requireCapability(
     return { authorized: false, token, username: null, author: null };
   }
 
-  if (!userStore.hasCapability(profile.username, capName, contentType)) {
+  if (!userStore.hasCapability(profile.username, capName, resolvedContentType)) {
     res.status(403).json({ error: `Insufficient permissions: ${capName} required` });
     return { authorized: false, token, username: profile.username, author: null };
   }
@@ -4766,9 +4776,11 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
   });
 
-  app.put("/api/content-types/:type/layout", (req, res) => {
+  app.put("/api/content-types/:type/layout", async (req, res) => {
     try {
       const { type } = req.params;
+      const auth = await requireCapability(req, res, "content_types_manage");
+      if (!auth.authorized) return;
       const config = getContentTypeConfig(type);
       if (!config) {
         res.status(404).json({ error: `Content type "${type}" not found` });
@@ -6806,13 +6818,16 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   );
 
   // Create a new content variant (copies locale file + registers in versioning.yml at 0% allocation)
-  app.post("/api/versioning/:contentType/:contentSlug", (req, res) => {
+  app.post("/api/versioning/:contentType/:contentSlug", async (req, res) => {
     const { contentType, contentSlug } = req.params;
 
     if (!isValidType(contentType)) {
       res.status(400).json({ error: "Invalid content type", validTypes: getAllFolders() });
       return;
     }
+
+    const auth = await requireCapability(req, res, "content_create_variant", contentType);
+    if (!auth.authorized) return;
 
     const { variantSlug, locale } = req.body as { variantSlug?: string; locale?: string };
 
@@ -6874,13 +6889,16 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   });
 
   // Promote a variant: overwrite the default locale file, remove from versioning.yml, delete variant file
-  app.post("/api/versioning/:contentType/:contentSlug/:locale/promote/:variantSlug", (req, res) => {
+  app.post("/api/versioning/:contentType/:contentSlug/:locale/promote/:variantSlug", async (req, res) => {
     const { contentType, contentSlug, locale, variantSlug } = req.params;
 
     if (!isValidType(contentType)) {
       res.status(400).json({ error: "Invalid content type", validTypes: getAllFolders() });
       return;
     }
+
+    const auth = await requireCapability(req, res, "content_edit_variant", contentType);
+    if (!auth.authorized) return;
 
     if (!/^[a-z0-9-]+$/.test(variantSlug)) {
       res.status(400).json({ error: "variantSlug must be lowercase letters, numbers, and hyphens only" });
