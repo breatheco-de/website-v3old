@@ -1,7 +1,20 @@
+/**
+ * Lazy-load registry for section components under components/{type}/variants/.
+ *
+ * Used before hydration/SSR render so Suspense fallbacks do not blank the page:
+ * - main.tsx and entry-server.tsx call preloadSectionsFromInitialData()
+ * - SectionRenderer uses getCachedSectionComponent() / loadSectionComponent() at runtime
+ *
+ * Variant resolution: YAML type + variant map to files like HeroCourse.tsx → hero/course.
+ * The glob also picks up lead_form/variants/LeadFormDefault.tsx (type lead_form, variant default).
+ * That chunk is preloaded separately when priority sections contain a form config (see below),
+ * because nested React.lazy() inside heroes does not load with section preload alone.
+ */
 import type { ComponentType } from "react";
 
 type SectionLoader = () => Promise<{ default: ComponentType<unknown> }>;
 
+/** All components/{type}/variants/{Component}.tsx modules (code-split, not eager). */
 const sectionLoaders = import.meta.glob("./*/variants/*.tsx") as Record<string, SectionLoader>;
 
 function snakeToPascal(str: string): string {
@@ -15,6 +28,7 @@ function deriveVariant(type: string, filenameBase: string): string {
   return remainder.charAt(0).toLowerCase() + remainder.slice(1);
 }
 
+/** Normalizes YAML variant strings for lookup (e.g. product-showcase → productshowcase). */
 export function normalizeSectionVariant(v: string): string {
   return v.replace(/[-_]/g, "").replace(/[A-Z]/g, (c) => c.toLowerCase());
 }
@@ -45,6 +59,7 @@ function resolveModulePath(type: string, variant: string): string | undefined {
   return registry[normalized] ?? registry.default;
 }
 
+/** Returns a component already loaded via loadSectionComponent, or null. */
 export function getCachedSectionComponent(
   type: string,
   variant: string,
@@ -53,6 +68,10 @@ export function getCachedSectionComponent(
   return (cached as ComponentType<{ data: unknown }> | undefined) ?? null;
 }
 
+/**
+ * Dynamically imports a section variant and caches the default export.
+ * Falls back to the default variant when the requested variant is missing.
+ */
 export async function loadSectionComponent(
   type: string,
   variant: string,
@@ -74,6 +93,7 @@ export async function loadSectionComponent(
   return mod.default as ComponentType<{ data: unknown }>;
 }
 
+/** Minimal section identity from page YAML (type + optional variant). */
 export interface SectionRef {
   type: string;
   variant?: string;
@@ -93,10 +113,12 @@ export function collectSectionsFromData(data: unknown, out: SectionRef[]): void 
   }
 }
 
+/** Shape of window.__INITIAL_DATA__ / SSR dehydrated React Query state. */
 export type InitialDataPayload =
   | { queries: Array<{ queryKey: unknown[]; data: unknown }>; queryKey?: never; data?: never }
   | { queryKey: unknown[]; data: unknown; queries?: never };
 
+/** Collects all section refs from every page object embedded in the initial payload. */
 export function extractSectionsFromInitialData(
   payload: InitialDataPayload | null,
 ): SectionRef[] {
@@ -114,6 +136,7 @@ export function extractSectionsFromInitialData(
   return sections;
 }
 
+/** Preloads unique section chunks for the given refs (deduped by type + variant). */
 export async function preloadSections(sections: SectionRef[]): Promise<void> {
   const seen = new Set<string>();
   const loads: Promise<ComponentType<{ data: unknown }> | null>[] = [];
@@ -128,12 +151,92 @@ export async function preloadSections(sections: SectionRef[]): Promise<void> {
   await Promise.all(loads);
 }
 
+/** Matches SectionRenderer default when settings.loading.eager_count is unset. */
+const DEFAULT_EAGER_COUNT = 3;
+
+function isLeadFormConfig(value: unknown): boolean {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+/** True if the object tree contains a `form` key with lead-form config (e.g. signup_card.form). */
+function objectHasFormKey(obj: unknown, maxDepth = 4, depth = 0): boolean {
+  if (!obj || typeof obj !== "object" || depth > maxDepth) return false;
+  if (Array.isArray(obj)) {
+    return obj.some((item) => objectHasFormKey(item, maxDepth, depth + 1));
+  }
+  const record = obj as Record<string, unknown>;
+  for (const [key, value] of Object.entries(record)) {
+    if (key === "form" && isLeadFormConfig(value)) return true;
+    if (typeof value === "object" && value !== null && objectHasFormKey(value, maxDepth, depth + 1)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function getEagerCountFromPageData(data: unknown): number {
+  if (!data || typeof data !== "object") return DEFAULT_EAGER_COUNT;
+  const settings = (data as Record<string, unknown>).settings as
+    | Record<string, unknown>
+    | undefined;
+  const loading = settings?.loading as Record<string, unknown> | undefined;
+  const count = loading?.eager_count;
+  return typeof count === "number" && count >= 0 ? count : DEFAULT_EAGER_COUNT;
+}
+
+function pageDataListFromPayload(payload: InitialDataPayload | null): unknown[] {
+  const pages: unknown[] = [];
+  if (!payload) return pages;
+  if (payload.queries?.length) {
+    for (const { data } of payload.queries) {
+      if (data !== undefined) pages.push(data);
+    }
+  } else if (payload.data !== undefined) {
+    pages.push(payload.data);
+  }
+  return pages;
+}
+
+/**
+ * Whether to preload lead_form/default before first paint.
+ * Scans only the first settings.loading.eager_count sections (default 3) and looks for
+ * any form key in the section object tree (e.g. hero signup_card.form, cta_banner.form).
+ * YAML form.variant (stacked/inline) is layout config, not a separate React variant.
+ */
+export function shouldPreloadLeadFormFromInitialData(
+  payload: InitialDataPayload | null,
+): boolean {
+  for (const pageData of pageDataListFromPayload(payload)) {
+    if (!pageData || typeof pageData !== "object") continue;
+    const sections = (pageData as Record<string, unknown>).sections;
+    if (!Array.isArray(sections)) continue;
+    const eagerCount = getEagerCountFromPageData(pageData);
+    if (sections.slice(0, eagerCount).some((s) => objectHasFormKey(s))) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Entry point for bootstrap: preloads all page sections from SSR initial data, plus
+ * LeadFormDefault when shouldPreloadLeadFormFromInitialData is true.
+ */
 export async function preloadSectionsFromInitialData(
   payload: InitialDataPayload | null,
 ): Promise<void> {
-  await preloadSections(extractSectionsFromInitialData(payload));
+  const loads: Promise<unknown>[] = [
+    preloadSections(extractSectionsFromInitialData(payload)),
+  ];
+
+  if (shouldPreloadLeadFormFromInitialData(payload) && hasSectionType("lead_form")) {
+    loads.push(loadSectionComponent("lead_form", "default"));
+  }
+
+  await Promise.all(loads);
 }
 
+/** True if the glob indexed at least one variant for this component type folder. */
 export function hasSectionType(type: string): boolean {
   return !!pathIndex[type];
 }

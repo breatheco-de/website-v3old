@@ -1,5 +1,16 @@
+import { lazy, Suspense } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import LeadForm, { type LeadFormData } from "@/components/lead_form/variants/LeadFormDefault";
+import type { LeadFormData } from "@shared/schema";
+
+const LeadForm = lazy(() => import("@/components/lead_form/variants/LeadFormDefault"));
+
+function LeadFormFallback() {
+  return (
+    <div className="min-h-24 flex items-center justify-center text-muted-foreground text-sm">
+      Loading...
+    </div>
+  );
+}
 
 interface ApplyFormSectionData {
   type: "apply_form";
@@ -33,7 +44,9 @@ export function ApplyFormSection({ data, landingLocations }: ApplyFormSectionPro
           <div>
             <Card className="border shadow-sm" data-testid="card-apply-form">
               <CardContent className="p-6">
-                <LeadForm data={data.form} />
+                <Suspense fallback={<LeadFormFallback />}>
+                  <LeadForm data={data.form} />
+                </Suspense>
               </CardContent>
             </Card>
           </div>

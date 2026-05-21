@@ -1,9 +1,19 @@
+import { lazy, Suspense } from "react";
 import type { CTABannerSection as CTABannerSectionType, CtaBannerDefault, CtaBannerForm, CtaButton } from "@shared/schema";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { useSession } from "@/contexts/SessionContext";
-import LeadForm from "@/components/lead_form/variants/LeadFormDefault";
+
+const LeadForm = lazy(() => import("@/components/lead_form/variants/LeadFormDefault"));
+
+function LeadFormFallback() {
+  return (
+    <div className="min-h-24 flex items-center justify-center text-primary-foreground/70 text-sm">
+      Loading...
+    </div>
+  );
+}
 
 interface CTABannerSectionProps {
   data: CTABannerSectionType;
@@ -58,10 +68,12 @@ export function CTABannerSection({ data }: CTABannerSectionProps) {
               data-testid="cta-banner-form"
             >
               {data.form ? (
-                <LeadForm 
-                  data={data.form}
-                  termsStyle={data.terms_color ? { color: data.terms_color } : undefined}
-                />
+                <Suspense fallback={<LeadFormFallback />}>
+                  <LeadForm
+                    data={data.form}
+                    termsStyle={data.terms_color ? { color: data.terms_color } : undefined}
+                  />
+                </Suspense>
               ) : (
                 <div className="bg-card/10 backdrop-blur-sm rounded-lg p-6 text-center">
                   <p className="text-primary-foreground/70 text-sm">

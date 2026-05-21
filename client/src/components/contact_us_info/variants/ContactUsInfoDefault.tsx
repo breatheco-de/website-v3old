@@ -1,8 +1,17 @@
-
+import { lazy, Suspense } from "react";
 import type { ContactUsInfoSection, ContactLocation } from "@shared/schema";
 import { Mail, MapPin, Phone } from "lucide-react";
-import LeadForm from "@/components/lead_form/variants/LeadFormDefault";
 import { Badge } from "@/components/ui/badge";
+
+const LeadForm = lazy(() => import("@/components/lead_form/variants/LeadFormDefault"));
+
+function LeadFormFallback() {
+  return (
+    <div className="min-h-24 flex items-center justify-center text-muted-foreground text-sm">
+      Loading...
+    </div>
+  );
+}
 
 interface ContactUsInfoProps {
   data: ContactUsInfoSection;
@@ -93,7 +102,9 @@ export default function ContactUsInfo({ data }: ContactUsInfoProps) {
                 {data.description}
               </p>
             )}
-            <LeadForm data={data.form} />
+            <Suspense fallback={<LeadFormFallback />}>
+              <LeadForm data={data.form} />
+            </Suspense>
           </div>
 
           <div className="flex flex-col items-center lg:items-end lg:justify-end px-4 rounded-lg p-3">
