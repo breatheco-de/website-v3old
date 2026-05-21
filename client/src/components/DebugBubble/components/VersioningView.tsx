@@ -319,22 +319,20 @@ export function VersioningView({
           </div>
           {!showRestorePanel && (
             <div className="flex items-center gap-1.5 flex-shrink-0">
-              {versioningData?.hasVersioningFile && (
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="h-7 gap-1 text-xs"
-                  onClick={() => {
-                    setCreateVersionLocale(locales[0] ?? "en");
-                    setCreateVersionSlug("");
-                    setCreateVersionOpen(true);
-                  }}
-                  data-testid="button-new-version"
-                >
-                  <IconPlus className="h-3 w-3" />
-                  New
-                </Button>
-              )}
+              <Button
+                size="sm"
+                variant="outline"
+                className="h-7 gap-1 text-xs"
+                onClick={() => {
+                  setCreateVersionLocale(locales[0] ?? "en");
+                  setCreateVersionSlug("");
+                  setCreateVersionOpen(true);
+                }}
+                data-testid="button-new-version"
+              >
+                <IconPlus className="h-3 w-3" />
+                New
+              </Button>
               <Button
                 size="sm"
                 variant="ghost"
