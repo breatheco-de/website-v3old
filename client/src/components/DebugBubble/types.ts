@@ -2,6 +2,7 @@
 export type MenuView = "main" | "components" | "sitemap" | "versioning" | "menus" | "databases" | "content-types";
 
 export const STORAGE_KEY = "debug-bubble-menu-view";
+export const OPEN_STORAGE_KEY = "debug-bubble-open";
 
 export interface SitemapUrl {
   loc: string;

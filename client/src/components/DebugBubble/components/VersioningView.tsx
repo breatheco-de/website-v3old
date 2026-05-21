@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { getDebugToken } from "@/hooks/useDebugAuth";
 import type { MenuView, ContentInfo, VersioningResponse } from "../types";
+import { STORAGE_KEY, OPEN_STORAGE_KEY } from "../types";
 
 interface VersioningViewProps {
   setMenuView: (v: MenuView) => void;
@@ -38,7 +39,15 @@ export function VersioningView({
 
   const isPreview = pathname.startsWith("/private/preview/");
 
+  const persistOpenStateForNavigation = () => {
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem(OPEN_STORAGE_KEY, "true");
+      sessionStorage.setItem(STORAGE_KEY, "versioning");
+    }
+  };
+
   const handleSwitchVariant = (locale: string, variantSlug: string) => {
+    persistOpenStateForNavigation();
     if (isPreview && contentInfo.type && contentInfo.slug) {
       navigate(
         `/private/preview/${contentInfo.type}/${contentInfo.slug}?force_variant=${encodeURIComponent(variantSlug)}&locale=${locale}`

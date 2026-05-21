@@ -30,6 +30,7 @@ import { DebugPanelContent } from "./components/DebugPanelContent";
 import { useQuery } from "@tanstack/react-query";
 import {
   STORAGE_KEY,
+  OPEN_STORAGE_KEY,
   type MenuView,
   type SitemapUrl,
   type RedirectItem,
@@ -114,7 +115,16 @@ export function DebugBubble() {
   const { toast } = useToast();
   const [pathname, navigate] = useLocation();
   const isMobile = useIsMobile();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(() => {
+    if (typeof window !== "undefined") {
+      const persisted = sessionStorage.getItem(OPEN_STORAGE_KEY);
+      if (persisted === "true") {
+        sessionStorage.removeItem(OPEN_STORAGE_KEY);
+        return true;
+      }
+    }
+    return false;
+  });
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     if (typeof window !== "undefined") {
       return document.documentElement.classList.contains("dark") ? "dark" : "light";
