@@ -646,9 +646,9 @@ export function VersioningView({
       }}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>Create New Version</DialogTitle>
+            <DialogTitle>Create new version for {contentInfo.slug}</DialogTitle>
             <DialogDescription>
-              A version is a copy of this page's content that can be A/B tested against the original.
+              A new version of <strong>{contentInfo.label || contentInfo.slug}</strong> will be created but your users will not see it unless traffic is assigned to it later.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-1">
