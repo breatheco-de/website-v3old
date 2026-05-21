@@ -381,14 +381,6 @@ export function VersioningView({
                                   {defaultAllocation}%
                                 </span>
                               )}
-                              <button
-                                onClick={() => handleSwitchToDefault(locale)}
-                                title="Switch to default version"
-                                className="p-0.5 rounded hover-elevate text-muted-foreground"
-                                data-testid={`button-switch-variant-${locale}-default`}
-                              >
-                                <IconPlayerPlay className="h-3.5 w-3.5" />
-                              </button>
                             </div>
                           </div>
                         </div>
@@ -424,15 +416,13 @@ export function VersioningView({
                               </span>
                             )}
                             {!isEditing && (
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                className="h-6 px-2 text-[11px]"
+                              <button
                                 onClick={() => setPromoteTarget({ locale, slug: variant.slug })}
+                                className="text-[10px] text-muted-foreground hover:text-foreground hover:underline px-1"
                                 data-testid={`button-promote-variant-${locale}-${variant.slug}`}
                               >
                                 Promote
-                              </Button>
+                              </button>
                             )}
                           </div>
                         </div>
