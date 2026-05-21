@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSearch } from "wouter";
 import { deslugify } from "../utils/debugHelpers";
 import { IconArrowLeft, IconGitBranch, IconRefresh, IconPencil, IconCheck, IconX, IconPlayerPlay, IconPlus, IconHistory, IconExternalLink, IconArrowBackUp } from "@tabler/icons-react";
 import { Slider } from "@/components/ui/slider";
@@ -36,7 +37,8 @@ export function VersioningView({
   const locales = versioningData?.versioning ? Object.keys(versioningData.versioning) : [];
   const dialogLocales = locales.length > 0 ? locales : (versioningData?.availableLocales ?? ["en"]);
 
-  const activeVariant = new URLSearchParams(window.location.search).get("variant") ?? null;
+  const searchString = useSearch();
+  const activeVariant = new URLSearchParams(searchString).get("variant") ?? null;
 
   const [editingLocale, setEditingLocale] = useState<string | null>(null);
   const [tempAllocations, setTempAllocations] = useState<Record<string, number>>({});
