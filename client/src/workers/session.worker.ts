@@ -293,7 +293,7 @@ function parseDeviceInfo(deviceJson: string): DeviceData | undefined {
 }
 
 async function initSession(message: WorkerMessage['payload']): Promise<Session> {
-  const { cachedSession, path, search, navigator, device, existingVisitorId } = message;
+  const { cachedSession, path, search, navigator, device, existingUserId } = message;
   
   const browserLang = getBrowserLanguage(navigator);
   const newUtm = parseUTMParams(search);
@@ -337,12 +337,12 @@ async function initSession(message: WorkerMessage['payload']): Promise<Session> 
   const deviceData = parseDeviceInfo(device);
   
   // Stable identity precedence: cached session → existing cookie → new UUID
-  const visitorId = cachedSession?.visitorId || existingVisitorId || crypto.randomUUID();
+  const userId = cachedSession?.userId || existingUserId || crypto.randomUUID();
 
   const session: Session = {
     version: SESSION_VERSION,
     initialized: true,
-    visitorId,
+    userId,
     location,
     language,
     browserLang,

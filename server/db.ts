@@ -28,9 +28,25 @@ sqlite.exec(`
     content_slug TEXT,
     locale TEXT DEFAULT 'en',
     feature_tags TEXT DEFAULT '[]',
-    visitor_id TEXT,
+    user_id TEXT,
     started_at INTEGER
   );
+`);
+
+// Migrate existing databases: rename visitor_id column to user_id if it exists
+try {
+  const cols = sqlite.prepare("PRAGMA table_info(conversations)").all() as Array<{ name: string }>;
+  const hasVisitorId = cols.some(c => c.name === "visitor_id");
+  const hasUserId = cols.some(c => c.name === "user_id");
+  if (hasVisitorId && !hasUserId) {
+    sqlite.exec("ALTER TABLE conversations RENAME COLUMN visitor_id TO user_id");
+    console.log("[DB] Migrated conversations.visitor_id → user_id");
+  }
+} catch (err) {
+  console.warn("[DB] Column migration check failed (non-fatal):", err);
+}
+
+sqlite.exec(`
 
   CREATE TABLE IF NOT EXISTS conversation_messages (
     id TEXT PRIMARY KEY,

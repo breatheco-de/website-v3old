@@ -6,8 +6,8 @@ import {
   saveSession, 
   getNavigatorInfo,
   getDeviceInfo,
-  setVisitorIdCookie,
-  getVisitorIdFromCookie,
+  setUserIdCookie,
+  getUserIdFromCookie,
 } from '../lib/sessionBootstrap';
 import { locations, getLocationBySlug } from '../lib/locations';
 import { setSessionHeaders } from '../lib/sessionHeaders';
@@ -69,11 +69,11 @@ export function SessionProvider({ children }: SessionProviderProps) {
             const newSession = event.data.payload;
             setSession(newSession);
             saveSession(newSession);
-            if (newSession.visitorId) {
-              setVisitorIdCookie(newSession.visitorId);
+            if (newSession.userId) {
+              setUserIdCookie(newSession.userId);
             }
             setVisitorContext({
-              visitor_id: newSession.visitorId,
+              user_id: newSession.userId,
               location_city: newSession.location?.name,
               location_country: newSession.location?.country,
               location_slug: newSession.location?.slug,
@@ -99,7 +99,7 @@ export function SessionProvider({ children }: SessionProviderProps) {
             search: window.location.search,
             navigator: getNavigatorInfo(),
             device: getDeviceInfo(),
-            existingVisitorId: getVisitorIdFromCookie() ?? undefined,
+            existingUserId: getUserIdFromCookie() ?? undefined,
           },
         };
 
@@ -181,9 +181,9 @@ export function SessionProvider({ children }: SessionProviderProps) {
       session.location?.slug,
       session.location?.region,
       session.language,
-      session.visitorId
+      session.userId
     );
-  }, [session.location?.slug, session.location?.region, session.language, session.visitorId]);
+  }, [session.location?.slug, session.location?.region, session.language, session.userId]);
 
   const value: SessionContextValue = {
     session,

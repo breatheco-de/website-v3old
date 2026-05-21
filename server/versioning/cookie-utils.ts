@@ -2,9 +2,10 @@ import type { Request, Response } from "express";
 import crypto from "crypto";
 
 const VERSIONING_COOKIE_NAME = "4g_versioning";
-const VISITOR_COOKIE_NAME = "4g_visitor_id";
+const USER_COOKIE_NAME = "4g_user_id";
+const LEGACY_USER_COOKIE_NAME = "4g_visitor_id";
 const COOKIE_MAX_AGE = 30 * 24 * 60 * 60 * 1000;
-const VISITOR_MAX_AGE = 180 * 24 * 60 * 60 * 1000;
+const USER_MAX_AGE = 180 * 24 * 60 * 60 * 1000;
 
 export interface VersioningAssignment {
   contentType: string;
@@ -15,35 +16,36 @@ export interface VersioningAssignment {
 }
 
 export interface VersioningCookie {
-  visitorId: string;
+  userId: string;
   assignments: VersioningAssignment[];
 }
 
-function generateVisitorId(): string {
+function generateUserId(): string {
   return crypto.randomUUID();
 }
 
-export function hashVisitorId(visitorId: string): string {
-  return crypto.createHash("sha256").update(visitorId).digest("hex").substring(0, 16);
+export function hashUserId(userId: string): string {
+  return crypto.createHash("sha256").update(userId).digest("hex").substring(0, 16);
 }
 
-export function readVisitorId(req: Request, res: Response): string {
-  const existing = req.cookies?.[VISITOR_COOKIE_NAME];
+export function readUserId(req: Request, res: Response): string {
+  // Read new cookie first, fall back to legacy cookie for backward compatibility
+  const existing = req.cookies?.[USER_COOKIE_NAME] || req.cookies?.[LEGACY_USER_COOKIE_NAME];
 
-  const visitorId = existing || generateVisitorId();
+  const userId = existing || generateUserId();
 
   // Always rewrite the cookie with httpOnly: false so that client-side JS
   // can read and own the identity. This also migrates legacy HttpOnly cookies
   // (created by the old server-only flow) to client-readable ones without
-  // changing the visitor's identity, and refreshes the max-age window.
-  res.cookie(VISITOR_COOKIE_NAME, visitorId, {
-    maxAge: VISITOR_MAX_AGE,
+  // changing the user's identity, and refreshes the max-age window.
+  res.cookie(USER_COOKIE_NAME, userId, {
+    maxAge: USER_MAX_AGE,
     httpOnly: false,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
   });
 
-  return visitorId;
+  return userId;
 }
 
 export function getVersioningCookie(req: Request): VersioningCookie | null {
@@ -52,10 +54,10 @@ export function getVersioningCookie(req: Request): VersioningCookie | null {
     if (!cookieValue) return null;
     const decoded = Buffer.from(cookieValue, "base64").toString("utf-8");
     const parsed = JSON.parse(decoded);
-    if (!parsed.visitorId && !parsed.sessionId) return null;
-    // Support legacy sessionId field for backwards compatibility
-    const visitorId = parsed.visitorId || parsed.sessionId;
-    return { visitorId, assignments: Array.isArray(parsed.assignments) ? parsed.assignments : [] } as VersioningCookie;
+    if (!parsed.userId && !parsed.visitorId && !parsed.sessionId) return null;
+    // Support legacy visitorId and sessionId fields for backwards compatibility
+    const userId = parsed.userId || parsed.visitorId || parsed.sessionId;
+    return { userId, assignments: Array.isArray(parsed.assignments) ? parsed.assignments : [] } as VersioningCookie;
   } catch {
     return null;
   }
@@ -63,10 +65,10 @@ export function getVersioningCookie(req: Request): VersioningCookie | null {
 
 export function setVersioningCookie(
   res: Response,
-  visitorId: string,
+  userId: string,
   assignments: VersioningAssignment[]
 ): void {
-  const cookie: VersioningCookie = { visitorId, assignments };
+  const cookie: VersioningCookie = { userId, assignments };
   const encoded = Buffer.from(JSON.stringify(cookie)).toString("base64");
   res.cookie(VERSIONING_COOKIE_NAME, encoded, {
     maxAge: COOKIE_MAX_AGE,
@@ -75,10 +77,10 @@ export function setVersioningCookie(
   });
 }
 
-export function buildVisitorContext(req: Request, visitorId: string): {
+export function buildUserContext(req: Request, userId: string): {
   session_id: string;
   language: string;
 } {
   const language = (req.query.locale as string) || (req.query.lang as string) || "en";
-  return { session_id: visitorId, language };
+  return { session_id: userId, language };
 }

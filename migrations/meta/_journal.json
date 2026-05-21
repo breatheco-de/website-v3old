@@ -8,6 +8,13 @@
       "when": 1773370482636,
       "tag": "0000_massive_william_stryker",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1748829600000,
+      "tag": "0001_rename_visitor_id_to_user_id",
+      "breakpoints": true
     }
   ]
 }

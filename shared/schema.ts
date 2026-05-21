@@ -1361,7 +1361,7 @@ export const conversations = sqliteTable("conversations", {
   content_slug: text("content_slug"),
   locale: text("locale").default("en"),
   feature_tags: text("feature_tags", { mode: "json" }).$type<string[]>().default([]),
-  visitor_id: text("visitor_id"),
+  user_id: text("user_id"),
   started_at: integer("started_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
 });
 

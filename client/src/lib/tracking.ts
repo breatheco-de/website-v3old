@@ -3,7 +3,7 @@
  * Abstracts GTM/dataLayer and provides type-safe event tracking.
  */
 
-import { getVisitorIdFromCookie } from "./sessionBootstrap";
+import { getUserIdFromCookie } from "./sessionBootstrap";
 
 // Pre-defined conversion event names - keep in sync with marketing-content/component-registry/_common/schema.ts
 export const CONVERSION_NAMES = [
@@ -48,9 +48,9 @@ export interface TrackingPayload {
   [key: string]: string | number | boolean | undefined | object;
 }
 
-// Visitor context for session-level data
+// User context for session-level data
 export interface VisitorContext {
-  visitor_id?: string;
+  user_id?: string;
   location_city?: string;
   location_country?: string;
   location_slug?: string;
@@ -136,7 +136,7 @@ export function trackConversion(
 
   pushToDataLayer({
     event: eventName,
-    visitor_id: getVisitorIdFromCookie() ?? undefined,
+    user_id: getUserIdFromCookie() ?? undefined,
     ...payload,
   });
 
@@ -156,7 +156,7 @@ export function track(
 
   pushToDataLayer({
     event: eventName,
-    visitor_id: getVisitorIdFromCookie() ?? undefined,
+    user_id: getUserIdFromCookie() ?? undefined,
     ...payload,
   });
 
@@ -164,11 +164,11 @@ export function track(
 }
 
 /**
- * Set visitor context data in dataLayer (called once after session bootstrap)
+ * Set user context data in dataLayer (called once after session bootstrap)
  */
 export function setVisitorContext(context: VisitorContext): void {
   pushToDataLayer({
-    visitor_id: context.visitor_id,
+    user_id: context.user_id,
     visitor_location_city: context.location_city,
     visitor_location_country: context.location_country,
     visitor_location_slug: context.location_slug,
@@ -178,7 +178,7 @@ export function setVisitorContext(context: VisitorContext): void {
     ...context.utm,
   });
 
-  console.log("[Tracking] Visitor context set:", context);
+  console.log("[Tracking] User context set:", context);
 }
 
 /**

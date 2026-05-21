@@ -169,8 +169,8 @@ export function SessionModal(props: SessionModalProps) {
             <h4 className="text-sm font-semibold text-foreground">Session Info</h4>
             <div className="space-y-1.5 text-sm">
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Visitor ID:</span>
-                <code className="bg-muted px-1.5 py-0.5 rounded text-xs max-w-[180px] truncate" title={session.visitorId} data-testid="text-visitor-id">{session.visitorId || 'N/A'}</code>
+                <span className="text-muted-foreground">User ID:</span>
+                <code className="bg-muted px-1.5 py-0.5 rounded text-xs max-w-[180px] truncate" title={session.userId} data-testid="text-user-id">{session.userId || 'N/A'}</code>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Language:</span>

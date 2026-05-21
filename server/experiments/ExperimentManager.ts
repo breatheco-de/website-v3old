@@ -11,7 +11,7 @@ import type {
   CareerProgram,
 } from "@shared/schema";
 import { experimentsFileSchema, experimentConfigSchema, type ExperimentUpdate } from "@shared/schema";
-import { hashVisitorId } from "./cookie-utils";
+import { hashUserId } from "./cookie-utils";
 import { deepMerge } from "../utils/deepMerge";
 import { getFolder } from "../content-types";
 import { gcs } from "../gcs";
@@ -334,8 +334,8 @@ class ExperimentManager {
   /**
    * Check if a visitor has already been counted for an experiment
    */
-  private isVisitorCounted(experimentSlug: string, visitorId: string): boolean {
-    const hashedId = hashVisitorId(visitorId);
+  private isVisitorCounted(experimentSlug: string, userId: string): boolean {
+    const hashedId = hashUserId(userId);
     return this.state.visitors[experimentSlug]?.includes(hashedId) || false;
   }
 
@@ -347,12 +347,12 @@ class ExperimentManager {
   private recordExposure(
     experimentSlug: string,
     variantSlug: string,
-    visitorId: string,
+    userId: string,
     contentType: string,
     contentSlug: string,
     maxVisitors?: number
   ): boolean {
-    const hashedId = hashVisitorId(visitorId);
+    const hashedId = hashUserId(userId);
     
     // Get or create the in-memory Set for this experiment
     if (!visitorSets.has(experimentSlug)) {

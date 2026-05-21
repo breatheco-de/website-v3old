@@ -57,7 +57,7 @@ export interface DeviceData {
 export interface Session {
   version: number;
   initialized: boolean;
-  visitorId?: string;
+  userId?: string;
   location: Location | null;
   language: 'en' | 'es';
   browserLang: string | null;
@@ -76,7 +76,7 @@ export const SESSION_VERSION = 3;
 export const defaultSession: Session = {
   version: SESSION_VERSION,
   initialized: false,
-  visitorId: undefined,
+  userId: undefined,
   location: null,
   language: 'en',
   browserLang: null,
@@ -96,7 +96,7 @@ export interface WorkerMessage {
     search: string;
     navigator: string;
     device: string; // JSON stringified device info from main thread
-    existingVisitorId?: string; // 4g_visitor_id cookie value read by main thread
+    existingUserId?: string; // 4g_user_id cookie value read by main thread
   };
 }
 

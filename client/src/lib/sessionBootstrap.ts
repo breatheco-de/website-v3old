@@ -72,16 +72,21 @@ export function createDefaultSession(): Session {
   return { ...defaultSession };
 }
 
-const VISITOR_COOKIE_NAME = '4g_visitor_id';
-const VISITOR_COOKIE_MAX_AGE = 180 * 24 * 60 * 60; // 180 days in seconds
+const USER_COOKIE_NAME = '4g_user_id';
+const LEGACY_USER_COOKIE_NAME = '4g_visitor_id';
+const USER_COOKIE_MAX_AGE = 180 * 24 * 60 * 60; // 180 days in seconds
 
-export function setVisitorIdCookie(visitorId: string): void {
+export function setUserIdCookie(userId: string): void {
   if (typeof document === 'undefined') return;
-  document.cookie = `${VISITOR_COOKIE_NAME}=${visitorId}; max-age=${VISITOR_COOKIE_MAX_AGE}; path=/; samesite=lax`;
+  document.cookie = `${USER_COOKIE_NAME}=${userId}; max-age=${USER_COOKIE_MAX_AGE}; path=/; samesite=lax`;
 }
 
-export function getVisitorIdFromCookie(): string | null {
+export function getUserIdFromCookie(): string | null {
   if (typeof document === 'undefined') return null;
-  const match = document.cookie.split('; ').find(row => row.startsWith(`${VISITOR_COOKIE_NAME}=`));
-  return match ? match.split('=')[1] : null;
+  const cookies = document.cookie.split('; ');
+  // Try new cookie name first, fall back to legacy for backward compatibility
+  const newCookie = cookies.find(row => row.startsWith(`${USER_COOKIE_NAME}=`));
+  if (newCookie) return newCookie.split('=')[1];
+  const legacyCookie = cookies.find(row => row.startsWith(`${LEGACY_USER_COOKIE_NAME}=`));
+  return legacyCookie ? legacyCookie.split('=')[1] : null;
 }

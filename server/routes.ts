@@ -71,10 +71,10 @@ import {
 } from "@shared/templateVars";
 import {
   getVersioningManager,
-  readVisitorId,
+  readUserId,
   getVersioningCookie,
   setVersioningCookie,
-  buildVisitorContext,
+  buildUserContext,
 } from "./versioning";
 import { mediaGallery } from "./media-gallery";
 import { media } from "./media";
@@ -601,16 +601,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   );
   refreshGithubCommit();
 
-  // Attach visitor ID from the X-Visitor-Id header (sent by the client on
+  // Attach user ID from the X-User-Id header (sent by the client on
   // every request) to req so that all downstream routes can access it without
   // individually reading the cookie. Registered before any route handlers so
   // every route has access. The cookie-based path in cookie-utils.ts remains
   // as the authoritative fallback for versioning routes.
   app.use((req, _res, next) => {
-    const headerValue = req.headers["x-visitor-id"];
+    const headerValue = req.headers["x-user-id"];
     const raw = Array.isArray(headerValue) ? headerValue[0] : headerValue;
     if (raw && raw.trim()) {
-      (req as Request & { visitorId?: string }).visitorId = raw.trim();
+      (req as Request & { userId?: string }).userId = raw.trim();
     }
     next();
   });
@@ -1305,7 +1305,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     // Normal versioning flow if not forcing a variant
     if (!program) {
-      const visitorId = readVisitorId(req, res);
+      const userId = readUserId(req, res);
       const versioningCookie = getVersioningCookie(req);
       const existingAssignments = versioningCookie?.assignments || [];
       const existing = existingAssignments.find(
@@ -1317,7 +1317,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "program",
         slug,
         locale,
-        visitorId,
+        userId,
         existing?.variantSlug,
       );
 
@@ -1333,7 +1333,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             ),
             { contentType: "program", slug, locale, variantSlug: assignedVariant, assignedAt: Date.now() },
           ];
-          setVersioningCookie(res, visitorId, updatedAssignments);
+          setVersioningCookie(res, userId, updatedAssignments);
         }
       }
     }
@@ -1413,7 +1413,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     // Normal versioning flow if not forcing a variant
     if (!landing) {
-      const visitorId = readVisitorId(req, res);
+      const userId = readUserId(req, res);
       const versioningCookie = getVersioningCookie(req);
       const existingAssignments = versioningCookie?.assignments || [];
       const existing = existingAssignments.find(
@@ -1425,7 +1425,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "landing",
         baseSlug,
         locale,
-        visitorId,
+        userId,
         existing?.variantSlug,
       );
 
@@ -1441,7 +1441,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             ),
             { contentType: "landing", slug: baseSlug, locale, variantSlug: assignedVariant, assignedAt: Date.now() },
           ];
-          setVersioningCookie(res, visitorId, updatedAssignments);
+          setVersioningCookie(res, userId, updatedAssignments);
         }
       }
     }
@@ -11736,7 +11736,7 @@ sections: []
   app.post("/api/chat/start", async (req, res) => {
     try {
       const { conversationStore } = await import("./ai/ConversationStore");
-      const { page_url, content_type, content_slug, locale, visitor_id } = req.body || {};
+      const { page_url, content_type, content_slug, locale, user_id } = req.body || {};
 
       const allFeatureTags = loadFeatureTags();
       const derivedTags = deriveFeatureTags(content_type || null, page_url || null, allFeatureTags);
@@ -11747,7 +11747,7 @@ sections: []
         content_slug: content_slug || null,
         locale: locale || "en",
         feature_tags: derivedTags,
-        visitor_id: visitor_id || null,
+        user_id: user_id || null,
       });
 
       res.json({ conversation_id: conv.id });

@@ -5,7 +5,7 @@ import { escapeTemplateVars, unescapeObjectVars } from "../../shared/templateVar
 import { deepMerge } from "../utils/deepMerge";
 import { getFolder } from "../content-types";
 import { gcs } from "../gcs";
-import { hashVisitorId } from "./cookie-utils";
+import { hashUserId } from "./cookie-utils";
 
 const CONTENT_DIR = path.join(process.cwd(), "marketing-content");
 const STATE_FILE = path.join(CONTENT_DIR, ".versioning-state.json");
@@ -272,10 +272,10 @@ export class VersioningManager {
     slug: string,
     locale: string,
     variantSlug: string,
-    visitorId: string
+    userId: string
   ): void {
     const stateKey = `${contentType}/${slug}/${locale}/${variantSlug}`;
-    const hashedId = hashVisitorId(visitorId);
+    const hashedId = hashUserId(userId);
 
     if (!visitorSets.has(stateKey)) {
       visitorSets.set(stateKey, new Set());

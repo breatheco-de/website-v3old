@@ -1,9 +1,9 @@
 export { VersioningManager, getVersioningManager } from "./VersioningManager";
 export {
-  readVisitorId,
+  readUserId,
   getVersioningCookie,
   setVersioningCookie,
-  buildVisitorContext,
-  hashVisitorId,
+  buildUserContext,
+  hashUserId,
 } from "./cookie-utils";
 export type { VersioningAssignment, VersioningCookie } from "./cookie-utils";
