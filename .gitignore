@@ -6,6 +6,9 @@ artifacts
 # MCP server — generated OAuth client registry (contains secrets)
 mcp-server/data/
 
+# SQLite database file (local only — back up manually for production)
+data/
+
 # Conversation screenshots (not marketing content)
 attached_assets/Screenshot_*
 attached_assets/Captura_*
