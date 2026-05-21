@@ -378,6 +378,7 @@ interface SectionRendererProps {
   contentType?: string;
   slug?: string;
   locale?: string;
+  variant?: string;
   programSlug?: string;
   landingLocations?: string[];
   isSharedTemplate?: boolean;
@@ -603,7 +604,7 @@ function patchVariableFieldHighlights(
   return patched;
 }
 
-export function SectionRenderer({ sections, settings, contentType, slug, locale, programSlug, landingLocations, isSharedTemplate, singleEntry }: SectionRendererProps) {
+export function SectionRenderer({ sections, settings, contentType, slug, locale, variant, programSlug, landingLocations, isSharedTemplate, singleEntry }: SectionRendererProps) {
   const { toast } = useToast();
   const editMode = useEditModeOptional();
   const isEditMode = editMode?.isEditMode ?? false;
@@ -1029,6 +1030,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
                 contentType={contentType}
                 slug={slug}
                 locale={locale}
+                variant={variant}
                 totalSections={sections.length}
                 allSections={sections}
                 onMoveUp={handleMoveUp}

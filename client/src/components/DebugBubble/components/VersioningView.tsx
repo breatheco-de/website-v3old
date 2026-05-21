@@ -89,7 +89,7 @@ export function VersioningView({
     if (!type || !slug) return;
     persistOpenStateForNavigation();
     navigate(
-      `/private/preview/${type}/${slug}?force_variant=${encodeURIComponent(variantSlug)}&locale=${locale}`
+      `/private/preview/${type}/${slug}?variant=${encodeURIComponent(variantSlug)}&locale=${locale}`
     );
   };
 

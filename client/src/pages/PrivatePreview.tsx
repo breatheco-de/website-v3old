@@ -237,6 +237,7 @@ export default function PrivatePreview() {
           contentType={normalizedType}
           slug={slug}
           locale={locale}
+          variant={variant ?? undefined}
           singleEntry={(content as any).singleEntry}
         />
       </MenuVisualContextProvider>
