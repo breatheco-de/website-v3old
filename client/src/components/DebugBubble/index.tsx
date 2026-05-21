@@ -1663,7 +1663,7 @@ export function DebugBubble() {
         <div className="relative">
           <Button
             size="icon"
-            variant="outline"
+            variant="default"
             className="h-10 w-10 rounded-full shadow-lg"
             title="Variant versions"
             data-testid="button-fork-bubble"
