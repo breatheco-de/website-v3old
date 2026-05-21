@@ -3,6 +3,8 @@
  * Abstracts GTM/dataLayer and provides type-safe event tracking.
  */
 
+import { getVisitorIdFromCookie } from "./sessionBootstrap";
+
 // Pre-defined conversion event names - keep in sync with marketing-content/component-registry/_common/schema.ts
 export const CONVERSION_NAMES = [
   "student_application",
@@ -134,6 +136,7 @@ export function trackConversion(
 
   pushToDataLayer({
     event: eventName,
+    visitor_id: getVisitorIdFromCookie() ?? undefined,
     ...payload,
   });
 
@@ -153,6 +156,7 @@ export function track(
 
   pushToDataLayer({
     event: eventName,
+    visitor_id: getVisitorIdFromCookie() ?? undefined,
     ...payload,
   });
 
