@@ -601,6 +601,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
   );
   refreshGithubCommit();
 
+  // Attach visitor ID from the X-Visitor-Id header (sent by the client on
+  // every request) to req so that all downstream routes can access it without
+  // individually reading the cookie. Registered before any route handlers so
+  // every route has access. The cookie-based path in cookie-utils.ts remains
+  // as the authoritative fallback for versioning routes.
+  app.use((req, _res, next) => {
+    const headerValue = req.headers["x-visitor-id"];
+    const raw = Array.isArray(headerValue) ? headerValue[0] : headerValue;
+    if (raw && raw.trim()) {
+      (req as Request & { visitorId?: string }).visitorId = raw.trim();
+    }
+    next();
+  });
+
   app.get("/api/geo", async (req, res) => {
     try {
       const forwarded = req.headers["x-forwarded-for"];

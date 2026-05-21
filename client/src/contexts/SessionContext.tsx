@@ -169,9 +169,10 @@ export function SessionProvider({ children }: SessionProviderProps) {
     setSessionHeaders(
       session.location?.slug,
       session.location?.region,
-      session.language
+      session.language,
+      session.visitorId
     );
-  }, [session.location?.slug, session.location?.region, session.language]);
+  }, [session.location?.slug, session.location?.region, session.language, session.visitorId]);
 
   const value: SessionContextValue = {
     session,
