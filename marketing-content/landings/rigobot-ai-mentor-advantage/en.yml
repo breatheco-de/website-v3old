@@ -53,3 +53,19 @@ sections:
       desktop: md none
     marginY:
       desktop: none
+  - type: features_grid
+    version: "1.0"
+    variant: stats-text-card
+    title: Results That Speak for Themselves
+    subtitle: Over 5,000 graduates. One AI mentor from day one.
+    description: Rigobot isn't a feature bolted on — it's core to how 4Geeks teaches. It watches your code, reads your unit tests, and gives you feedback that's specific to you, not generic answers. While other bootcamps hand you a ChatGPT subscription and call it AI-powered learning, Rigobot knows your curriculum, your pace, and your weaknesses. That's why 4Geeks graduates get hired.
+    card_color: bg-muted/40
+    items:
+      - value: 86%
+        title: Graduates hired in tech within 6 months
+      - value: 55%
+        title: Average salary increase after graduating
+      - value: ~3 months
+        title: Average time from graduation to first job offer
+      - value: 5,000+
+        title: Graduates employed worldwide
