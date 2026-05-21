@@ -24,6 +24,7 @@ import { heroImageTagsValidator } from "./hero-image-tags";
 import { imageTagsValidator } from "./image-tags";
 import { lighthouseValidator } from "./lighthouse";
 import { fieldMappingsValidator } from "./field-mappings";
+import { orphanedFilesValidator } from "./orphaned-files";
 
 export const validators: Validator[] = [
   redirectValidator,
@@ -44,6 +45,7 @@ export const validators: Validator[] = [
   heroImageTagsValidator,
   imageTagsValidator,
   fieldMappingsValidator,
+  orphanedFilesValidator,
 ];
 
 export const slowValidators: Validator[] = [lighthouseValidator];
@@ -92,4 +94,5 @@ export {
   imageTagsValidator,
   lighthouseValidator,
   fieldMappingsValidator,
+  orphanedFilesValidator,
 };

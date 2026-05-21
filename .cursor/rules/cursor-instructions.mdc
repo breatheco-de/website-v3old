@@ -2,7 +2,7 @@
 
 ## Architecture Overview
 
-This is a full-stack marketing website with **content-driven pages** and **A/B experimentation**. The codebase uses Vite + React (client), Express (server), and PostgreSQL via Drizzle ORM. Content lives in YAML/JSON under `marketing-content/`, not in the database.
+This is a full-stack marketing website with **content-driven pages**. The codebase uses Vite + React (client), Express (server), and PostgreSQL via Drizzle ORM. Content lives in YAML/JSON under `marketing-content/`, not in the database.
 
 ### Key Structure
 - **Client** (`client/src/`): React pages, components, hooks, contexts
@@ -14,7 +14,6 @@ This is a full-stack marketing website with **content-driven pages** and **A/B e
 Content files follow a **slug-based hierarchical structure** in `marketing-content/{contentType}/{slug}/`:
 - `index.yml` or variant files (e.g., `promoted.yml`, `variant-a.yml`)
 - `_common.yml` for metadata (locale, programs, locations)
-- `_experiments.yml` for A/B tests (in any content folder)
 
 Localized content uses suffixes: `index.en.yml`, `index.es.yml` (resolved via `normalizeLocale()` in [shared/locale.ts](shared/locale.ts))
 
@@ -57,19 +56,6 @@ app.get("/api/:type/:slug", (req, res) => {
 4. **Template Pages** (`pages/`): Reusable page templates (apply form, terms, privacy)
 
 Each has a **component-based section model**: pages contain arrays of `{ type: "hero", variant: "...", data: {...} }` sections rendered dynamically by components.
-
-## Experimentation System
-
-### How A/B Testing Works
-- **Experiments file**: `{contentType}/{slug}/_experiments.yml` defines variants and allocation
-- **Manager**: [server/experiments/ExperimentManager.ts](server/experiments/ExperimentManager.ts) handles assignment logic (visitor hashing, targeting rules)
-- **Cookie-based**: Session ID + assignments stored in `experiments` cookie
-- **Variant loading**: [server/experiments/ExperimentManager.ts](server/experiments/ExperimentManager.ts) `getVariantContent()` loads `variant-{name}.yml` with merged sections
-
-**Key routes**:
-- GET `/api/career-programs/:slug?force_variant=&force_version=` — loads variant with experiment tracking
-- PATCH `/api/experiments/:contentType/:slug/:experimentSlug` — updates active experiments
-- POST `/api/experiments/:contentType/:slug/create` — creates new experiment
 
 ## AI Content Adaptation
 
@@ -153,7 +139,7 @@ Error: `{ error: "message" }` with appropriate HTTP status
 
 ## Debugging Tips
 
-- **Cache issues**: POST `/api/debug/clear-sitemap-cache`, `/api/debug/clear-schema-cache`, `/api/debug/clear-experiment-cache`
+- **Cache issues**: POST `/api/debug/clear-sitemap-cache`, `/api/debug/clear-schema-cache`
 - **Token validation**: POST `/api/debug/validate-token` checks Breathecode API integration
 - **Session check**: POST `/api/debug/check-session` verifies token expiration
 - **Content loading**: Check `server/routes.ts` route definitions; trace through `loadContent()` to verify YAML parsing
@@ -163,6 +149,5 @@ Error: `{ error: "message" }` with appropriate HTTP status
 
 1. **No database for content**: YAML files are source of truth; database only stores users/sessions
 2. **Locale fallback**: Missing locale defaults to "en" via `normalizeLocale()`
-3. **Experiments are ephemeral**: In-memory in ExperimentManager; survives page reloads but not server restart
-4. **GitHub token required for edits**: Without `GITHUB_TOKEN`, POST `/api/content/edit` fails in production
-5. **Theme customization**: Landing pages respect `marketing-content/theme.json` for Tailwind color overrides
+3. **GitHub token required for edits**: Without `GITHUB_TOKEN`, POST `/api/content/edit` fails in production
+4. **Theme customization**: Landing pages respect `marketing-content/theme.json` for Tailwind color overrides
