@@ -85,6 +85,7 @@ export interface DebugPanelContentProps {
 
   versioningLoading: boolean;
   versioningData: unknown;
+  onVersioningDataUpdate?: (data: unknown) => void;
   handleLinkClick: (href: string) => void;
 
   sitemapUrls: SitemapUrl[];
@@ -783,7 +784,9 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
           contentInfo={props.contentInfo}
           versioningLoading={props.versioningLoading}
           versioningData={props.versioningData as any}
-          handleLinkClick={props.handleLinkClick}
+          navigate={props.navigate}
+          pathname={props.pathname}
+          onVersioningDataUpdate={props.onVersioningDataUpdate as any}
         />
       ) : props.menuView === "menus" ? (
         <>

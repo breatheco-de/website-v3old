@@ -1,5 +1,6 @@
 import { useState, useEffect, lazy, Suspense, useMemo, useCallback, useRef } from "react";
 import { AlertTriangle, ArrowRight, ArrowUp, Award, BarChart2, Blocks, Book, Brain, Bug, Building2, Columns2, CreditCard, File, Folder, FolderCode, HelpCircle, Image, MessageSquare, PanelBottom, Rocket, Sparkles, Table, Users, X } from "lucide-react";
+import { IconGitFork } from "@tabler/icons-react";
 import { subscribeToContentUpdates } from "@/lib/contentEvents";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "wouter";
@@ -338,12 +339,6 @@ export function DebugBubble() {
     }
   };
 
-  // Auto-open versioning menu when URL contains "versions"
-  useEffect(() => {
-    if (pathname.includes("versions") && contentInfo.type && contentInfo.slug) {
-      setMenuViewState("versioning");
-    }
-  }, [pathname, contentInfo.type, contentInfo.slug]);
 
   // Auto-fetch page diagnostics when debug mode is active (on every page, including preview routes)
   useEffect(() => {
@@ -485,9 +480,9 @@ export function DebugBubble() {
     };
   }, []);
 
-  // Fetch versioning data when entering versioning view
+  // Fetch versioning data whenever we're on a content page
   useEffect(() => {
-    if (menuView === "versioning" && contentInfo.type && contentInfo.slug) {
+    if (contentInfo.type && contentInfo.slug) {
       setVersioningLoading(true);
       fetch(`/api/versioning/${contentInfo.type}/${contentInfo.slug}`)
         .then((res) => res.json())
@@ -500,7 +495,7 @@ export function DebugBubble() {
           setVersioningData(null);
         });
     }
-  }, [menuView, contentInfo.type, contentInfo.slug]);
+  }, [contentInfo.type, contentInfo.slug]);
 
   // Reset versioning data and menu view when leaving a content page
   useEffect(() => {
@@ -1601,6 +1596,7 @@ export function DebugBubble() {
     componentIconMap,
     versioningLoading,
     versioningData,
+    onVersioningDataUpdate: setVersioningData,
     handleLinkClick,
     sitemapUrls,
     sitemapLoading,
@@ -1637,8 +1633,45 @@ export function DebugBubble() {
     return null;
   }
 
+  // Show fork bubble only on /private/preview routes when versioning.yml has ≥ 1 variant.
+  // versioning.yml only lists alternate/test variants — the default is implicit — so even
+  // a single entry means there are effectively 2 variants to switch between.
+  const forkVariantCount = useMemo(() => {
+    if (!versioningData?.versioning) return 0;
+    return Math.max(...Object.values(versioningData.versioning).map((ld) => ld.variants.length));
+  }, [versioningData]);
+
+  const showForkBubble = !shouldHide && isDebugMode &&
+    pathname.startsWith("/private/preview/") &&
+    versioningData?.hasVersioningFile &&
+    versioningData?.versioning != null &&
+    forkVariantCount >= 1;
+
   return (
-    <div className="fixed bottom-4 left-4 z-50" data-testid="debug-bubble">
+    <div className="fixed bottom-4 left-4 z-50 flex flex-col gap-2 items-start" data-testid="debug-bubble">
+      {showForkBubble && (
+        <div className="relative">
+          <Button
+            size="icon"
+            variant="outline"
+            className="h-10 w-10 rounded-full shadow-lg"
+            title="Variant versions"
+            data-testid="button-fork-bubble"
+            onClick={() => {
+              setOpen(true);
+              setMenuView("versioning");
+            }}
+          >
+            <IconGitFork className="h-4 w-4" />
+          </Button>
+          <span
+            className="absolute -top-1 -right-1 flex items-center justify-center h-4 w-4 rounded-full bg-primary text-primary-foreground text-[10px] font-bold leading-none pointer-events-none"
+            data-testid="badge-fork-variant-count"
+          >
+            {forkVariantCount}
+          </span>
+        </div>
+      )}
       <Popover open={open} onOpenChange={handleOpenChange}>
         <PopoverTrigger asChild>
           <div className="relative">

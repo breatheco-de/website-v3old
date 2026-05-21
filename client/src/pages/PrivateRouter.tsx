@@ -3,7 +3,6 @@ import { lazy, Suspense } from "react";
 
 const ComponentShowcase = lazy(() => import("@/pages/ComponentShowcase"));
 const ComponentPreview = lazy(() => import("@/pages/ComponentPreview"));
-const VersionEditor = lazy(() => import("@/pages/VersionEditor"));
 const MediaGallery = lazy(() => import("@/pages/MediaGallery"));
 const MenuEditor = lazy(() => import("@/pages/MenuEditor"));
 const MoleculesShowcase = lazy(() => import("@/pages/MoleculesShowcase"));
@@ -66,7 +65,6 @@ export default function PrivateRouter() {
         <Route path="/private/sync-log" component={SyncLogPage} />
         <Route path="/private/theme-editor" component={ThemeEditor} />
         <Route path="/private/component-insights" component={ComponentInsightsPage} />
-        <Route path="/private/:contentType/:contentSlug/versions" component={VersionEditor} />
       </Switch>
     </Suspense>
   );
