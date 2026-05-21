@@ -1722,7 +1722,7 @@ export function DebugBubble() {
           </span>
           {activeVariantLabel && (
             <span
-              className="ml-2 px-2 py-0.5 rounded-full text-xs font-medium bg-primary text-primary-foreground shadow whitespace-nowrap pointer-events-none"
+              className="-ml-2 px-2 py-0.5 rounded-full text-xs font-medium bg-background text-foreground border border-primary shadow whitespace-nowrap pointer-events-none"
               data-testid="badge-active-variant"
             >
               {activeVariantLabel}
