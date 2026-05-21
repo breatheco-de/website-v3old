@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import Database from "better-sqlite3";
 
-const CACHE_DIR = path.join(process.cwd(), ".cache");
+export const CACHE_DIR = path.join(process.cwd(), ".cache");
 
 export interface CacheEntry {
   fetched_at: string;
@@ -127,5 +127,69 @@ export class SqliteCache implements IDatabaseCache {
 
   has(dbName: string, ttlHours: number): boolean {
     return this.read(dbName, ttlHours) !== null;
+  }
+
+  /**
+   * One-time migration: for each dbName, if the SQLite store has no row for
+   * that name, look for a legacy `.cache/db-<name>.json` (and `-raw` variant)
+   * and import it.  Successfully migrated files are deleted to avoid confusion.
+   * Returns the list of database names that were migrated.
+   */
+  migrateFromJson(dbNames: string[], cacheDir = CACHE_DIR): string[] {
+    const migrated: string[] = [];
+
+    for (const dbName of dbNames) {
+      const variants: Array<{ suffix: string; variant: string }> = [
+        { suffix: "",     variant: ""    },
+        { suffix: "-raw", variant: "raw" },
+      ];
+
+      let anyMigrated = false;
+
+      for (const { suffix, variant } of variants) {
+        const existing = this.db
+          .prepare("SELECT 1 FROM cache_entries WHERE db_name = ? AND variant = ?")
+          .get(dbName, variant);
+
+        if (existing) continue;
+
+        const jsonPath = path.join(cacheDir, `db-${dbName}${suffix}.json`);
+        if (!fs.existsSync(jsonPath)) continue;
+
+        try {
+          const content = fs.readFileSync(jsonPath, "utf-8");
+          const entry = JSON.parse(content) as CacheEntry;
+
+          if (
+            typeof entry.fetched_at !== "string" ||
+            !Array.isArray(entry.items) ||
+            typeof entry.raw_count !== "number"
+          ) {
+            console.warn(`[SqliteCache] Skipping malformed JSON cache: ${jsonPath}`);
+            continue;
+          }
+
+          this.db
+            .prepare(
+              `INSERT INTO cache_entries (db_name, variant, fetched_at, raw_count, payload)
+               VALUES (?, ?, ?, ?, ?)
+               ON CONFLICT(db_name, variant) DO NOTHING`
+            )
+            .run(dbName, variant, entry.fetched_at, entry.raw_count, JSON.stringify(entry.items));
+
+          fs.unlinkSync(jsonPath);
+          anyMigrated = true;
+          console.log(
+            `[SqliteCache] Migrated ${jsonPath} → SQLite (db=${dbName}, variant=${variant || "mapped"})`
+          );
+        } catch (err) {
+          console.warn(`[SqliteCache] Failed to migrate ${jsonPath}:`, err);
+        }
+      }
+
+      if (anyMigrated) migrated.push(dbName);
+    }
+
+    return migrated;
   }
 }

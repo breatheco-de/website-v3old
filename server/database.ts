@@ -5,7 +5,7 @@ import { getContentTypeConfig, getLocaleKey, getFieldMapping } from "./content-t
 import { getValueByPath, resolveFieldValue } from "./transform";
 import { ExternalImageCacher } from "./external-image-cacher";
 import { resolveBySourceUrl } from "./image-registry";
-import { IDatabaseCache, CacheEntry, SqliteCache } from "./db-cache";
+import { IDatabaseCache, CacheEntry, SqliteCache, CACHE_DIR } from "./db-cache";
 
 const DB_DIR = path.join(process.cwd(), "marketing-content", "db");
 
@@ -384,6 +384,22 @@ export class DatabaseManager {
 
   constructor() {
     this.reload();
+    this.migrateJsonCaches();
+  }
+
+  private migrateJsonCaches(): void {
+    if (!(this.cache instanceof SqliteCache)) return;
+    const dbNames = Array.from(this.configs.keys());
+    if (dbNames.length === 0) return;
+
+    const migrated = this.cache.migrateFromJson(dbNames, CACHE_DIR);
+    if (migrated.length > 0) {
+      console.log(
+        `[DatabaseManager] Migrated ${migrated.length} database(s) from JSON cache to SQLite: ${migrated.join(", ")}`
+      );
+    } else {
+      console.log(`[DatabaseManager] No legacy JSON cache files to migrate`);
+    }
   }
 
   reload(): void {
