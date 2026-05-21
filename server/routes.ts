@@ -71,7 +71,7 @@ import {
 } from "@shared/templateVars";
 import {
   getVersioningManager,
-  getOrCreateSessionId,
+  getOrCreateVisitorId,
   getVersioningCookie,
   setVersioningCookie,
   buildVisitorContext,
@@ -1291,7 +1291,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     // Normal versioning flow if not forcing a variant
     if (!program) {
-      const sessionId = getOrCreateSessionId(req, res);
+      const sessionId = getOrCreateVisitorId(req, res);
       const versioningCookie = getVersioningCookie(req);
       const existingAssignments = versioningCookie?.assignments || [];
       const existing = existingAssignments.find(
@@ -1399,7 +1399,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     // Normal versioning flow if not forcing a variant
     if (!landing) {
-      const sessionId = getOrCreateSessionId(req, res);
+      const sessionId = getOrCreateVisitorId(req, res);
       const versioningCookie = getVersioningCookie(req);
       const existingAssignments = versioningCookie?.assignments || [];
       const existing = existingAssignments.find(

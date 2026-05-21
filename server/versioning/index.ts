@@ -1,6 +1,6 @@
 export { VersioningManager, getVersioningManager } from "./VersioningManager";
 export {
-  getOrCreateSessionId,
+  getOrCreateVisitorId,
   getVersioningCookie,
   setVersioningCookie,
   buildVisitorContext,

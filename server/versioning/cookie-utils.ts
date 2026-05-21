@@ -50,10 +50,6 @@ export function getOrCreateVisitorId(req: Request, res: Response): string {
   return visitorId;
 }
 
-export function getOrCreateSessionId(req: Request, res: Response): string {
-  return getOrCreateVisitorId(req, res);
-}
-
 export function getVersioningCookie(req: Request): VersioningCookie | null {
   try {
     const cookieValue = req.cookies?.[VERSIONING_COOKIE_NAME];
