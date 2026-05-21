@@ -73,6 +73,29 @@ export function VersioningView({
     );
   };
 
+  const handleSwitchToDefault = (locale: string) => {
+    persistOpenStateForNavigation();
+    if (isPreview && contentInfo.type && contentInfo.slug) {
+      navigate(`/private/preview/${contentInfo.type}/${contentInfo.slug}?locale=${locale}`);
+    } else {
+      const { type, slug } = contentInfo;
+      if (!type || !slug) return;
+      let basePath = "";
+      if (type === "program") basePath = `/${locale}/career-programs/${slug}`;
+      else if (type === "location") basePath = `/${locale}/location/${slug}`;
+      else if (type === "landing") basePath = `/landing/${slug}`;
+      else basePath = `/${locale}/${slug}`;
+      window.location.href = basePath;
+    }
+  };
+
+  const handleEditDefault = (locale: string) => {
+    const { type, slug } = contentInfo;
+    if (!type || !slug) return;
+    persistOpenStateForNavigation();
+    navigate(`/private/preview/${type}/${slug}?locale=${locale}`);
+  };
+
   const openEditAllocations = (locale: string) => {
     const localeData = versioningData?.versioning?.[locale];
     if (!localeData) return;
@@ -231,6 +254,51 @@ export function VersioningView({
                   </div>
 
                   <div className="space-y-2">
+                    {/* Synthetic default row */}
+                    {(() => {
+                      const variantTotal = localeData.variants.reduce((sum, v) => sum + v.allocation, 0);
+                      const defaultAllocation = Math.max(0, 100 - variantTotal);
+                      const isDefaultActive = activeVariant === null;
+                      return (
+                        <div key="__default__" className={isDefaultActive ? "rounded-md bg-primary/10 px-2 py-1 -mx-2" : ""}>
+                          <div className="flex items-center justify-between text-sm gap-2">
+                            <div className="flex items-center gap-1.5 min-w-0">
+                              {isDefaultActive && (
+                                <span className="h-2 w-2 rounded-full bg-primary flex-shrink-0" data-testid={`dot-active-variant-${locale}-default`} />
+                              )}
+                              <button
+                                onClick={() => handleEditDefault(locale)}
+                                title="Edit default version"
+                                className={`truncate text-left hover:underline ${isDefaultActive ? "font-semibold text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                                data-testid={`button-edit-variant-${locale}-default`}
+                              >
+                                Default
+                              </button>
+                              {isDefaultActive && (
+                                <Badge variant="default" className="text-[10px] px-1.5 py-0 leading-4 flex-shrink-0" data-testid={`badge-active-variant-${locale}`}>
+                                  active
+                                </Badge>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-1.5 flex-shrink-0">
+                              {!isEditing && (
+                                <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-medium">
+                                  {defaultAllocation}%
+                                </span>
+                              )}
+                              <button
+                                onClick={() => handleSwitchToDefault(locale)}
+                                title="Switch to default version"
+                                className="p-0.5 rounded hover-elevate text-muted-foreground"
+                                data-testid={`button-switch-variant-${locale}-default`}
+                              >
+                                <IconPlayerPlay className="h-3.5 w-3.5" />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })()}
                     {localeData.variants.map((variant) => {
                       const isActive = activeVariant === variant.slug;
                       return (
