@@ -3,7 +3,7 @@ import { AlertTriangle, ArrowRight, ArrowUp, Award, BarChart2, Blocks, Book, Bra
 import { IconGitFork } from "@tabler/icons-react";
 import { subscribeToContentUpdates } from "@/lib/contentEvents";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "wouter";
+import { useLocation, useSearch } from "wouter";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { useSession } from "@/contexts/SessionContext";
 import { normalizeLocale, buildContentUrlFromPattern } from "@/lib/locale";
@@ -1668,14 +1668,21 @@ export function DebugBubble() {
     versioningData?.versioning != null &&
     forkVariantCount >= 1;
 
+  const search = useSearch();
+  const activeVariant = useMemo(() => new URLSearchParams(search).get("variant"), [search]);
+  const activeVariantLabel = useMemo(
+    () => activeVariant ? activeVariant.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : null,
+    [activeVariant]
+  );
+
   return (
     <div className="fixed bottom-4 left-4 z-50 flex flex-col gap-2 items-start" data-testid="debug-bubble">
       {showForkBubble && (
-        <div className="relative">
+        <div className="relative flex items-center">
           <Button
             size="icon"
             variant="default"
-            className="h-10 w-10 rounded-full shadow-lg"
+            className="h-10 w-10 rounded-full shadow-lg flex-shrink-0"
             title="Variant versions"
             data-testid="button-fork-bubble"
             onClick={() => {
@@ -1691,6 +1698,14 @@ export function DebugBubble() {
           >
             {forkVariantCount}
           </span>
+          {activeVariantLabel && (
+            <span
+              className="ml-2 px-2 py-0.5 rounded-full text-xs font-medium bg-primary text-primary-foreground shadow whitespace-nowrap pointer-events-none"
+              data-testid="badge-active-variant"
+            >
+              {activeVariantLabel}
+            </span>
+          )}
         </div>
       )}
       <Popover open={open} onOpenChange={handleOpenChange}>
