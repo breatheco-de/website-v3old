@@ -2,26 +2,24 @@
 import { useState, useEffect, useRef, useCallback, type KeyboardEvent } from "react";
 import type { FeaturesGridSpotlightSection, FeaturesGridHighlightItem } from "@shared/schema";
 import { Card } from "@/components/ui/card";
-import * as LucideIcons from "lucide-react";
 import { Box } from "lucide-react";
-import { getCustomIcon } from "@/components/custom-icons";
+import { getIcon } from "@/lib/icons";
 import { DotsIndicator } from "@/components/DotsIndicator";
-import type { ComponentType } from "react";
 
-function getIcon(iconName: string, className?: string, color?: string) {
-  const CustomIcon = getCustomIcon(iconName);
-  if (CustomIcon) {
-    return <CustomIcon width="100%" height="100%" color={color} className={className} />;
-  }
-  
-  // Handle both "IconRocket" and "Rocket" formats
-  const tablerName = iconName.startsWith("Icon") ? iconName.slice(4) : iconName; const lucideName = tablerName.charAt(0).toUpperCase() + tablerName.slice(1);
-  const IconComponent = LucideIcons[lucideName as keyof typeof LucideIcons] as ComponentType<{ className?: string; style?: React.CSSProperties }>;
-  if (IconComponent) {
-    const style = color ? { color } : undefined;
-    return <IconComponent className={className || "w-full h-full text-primary"} style={style} />;
-  }
+function renderIcon(iconName: string, className?: string, color?: string) {
+  const IconComponent = getIcon(iconName);
   const style = color ? { color } : undefined;
+  if (IconComponent) {
+    return (
+      <IconComponent
+        className={className || "w-full h-full text-primary"}
+        style={style}
+        width="100%"
+        height="100%"
+        color={color}
+      />
+    );
+  }
   return <Box className={className || "w-full h-full text-primary"} style={style} />;
 }
 
@@ -62,7 +60,7 @@ function SpotlightCard({
     >
       <div className="flex items-center gap-4">
         <div className="w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
-          {getIcon(item.icon, "w-full h-full", iconColor)}
+          {renderIcon(item.icon, "w-full h-full", iconColor)}
         </div>
         
         <div className="flex-1 min-w-0">

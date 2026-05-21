@@ -7,13 +7,9 @@ import { Button } from "@/components/ui/button";
 import { DotsIndicator } from "@/components/DotsIndicator";
 import { SyllabusModuleCard } from "@/components/syllabus/SyllabusModuleCard";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
-import * as LucideIcons from "lucide-react";
 import type { ComponentType } from "react";
-import { SiGit, SiPython, SiReact, SiNodedotjs, SiOpenai, SiFlask, SiBootstrap, SiJavascript, SiHtml5, SiCss3, SiGithub, SiTailwindcss, SiPandas, SiNumpy, SiScikitlearn, SiPytorch, SiPostman, SiN8N, SiTensorflow, SiLinux, SiDocker, SiMongodb, SiPostgresql, SiTypescript, SiAmazonwebservices, SiDjango, SiKeras, SiJupyter, SiGooglecolab, SiSelenium, SiWireshark } from "react-icons/si";
-import { TiHtml5 } from "react-icons/ti";
-import { RiNextjsFill, RiSupabaseFill, RiClaudeFill } from "react-icons/ri";
-import { FaGitAlt, FaAws } from "react-icons/fa";
-import { IoLogoVercel } from "react-icons/io5";
+import { getIcon as getLucideIcon } from "@/lib/icons";
+import { getTechBrandIcon } from "@/lib/tech-brand-icons";
 import { Matplotlib } from "@/components/custom-icons";
 import { RichTextContent } from "@/components/ui/rich-text-content";
 import { useInternalNav } from "@/hooks/useInternalNav";
@@ -32,12 +28,13 @@ interface ModuleAccordionProps {
   collapseLabel?: string;
 }
 
-function getIcon(iconName: string, className?: string) {
-  const IconComponent = LucideIcons[iconName as keyof typeof LucideIcons] as ComponentType<{ className?: string }>;
+function renderSectionIcon(iconName: string, className?: string) {
+  const cls = className || "w-5 h-5 text-primary";
+  const IconComponent = getLucideIcon(iconName);
   if (IconComponent) {
-    return <IconComponent className={className || "w-5 h-5 text-primary"} />;
+    return <IconComponent className={cls} />;
   }
-  return <Box className={className || "w-5 h-5 text-primary"} />;
+  return <Box className={cls} />;
 }
 
 function ModuleAccordion({ title, description, isOpen, onToggle, testId, expandLabel, collapseLabel }: ModuleAccordionProps) {
@@ -102,7 +99,7 @@ function FocusAreaCard({ title, icon, testId }: FocusAreaCardProps) {
           "flex-shrink-0 transition-colors duration-brand ease-brand",
           "text-muted-foreground group-hover:text-primary"
         )}>
-          {getIcon(icon || "Sparkles", "w-6 h-6")}
+          {renderSectionIcon(icon || "Sparkles", "w-6 h-6")}
         </div>
         <span className="transition-colors duration-brand ease-brand text-muted-foreground font-medium group-hover:text-foreground text-body">
           {title}
@@ -230,60 +227,18 @@ function SyllabusLandingVariant({ data }: { data: SyllabusLanding }) {
   );
 }
 
-const techIconMap: Record<string, ComponentType<{ className?: string }>> = {
-  git: SiGit,
-  python: SiPython,
-  react: SiReact,
-  nodejs: SiNodedotjs,
-  openai: SiOpenai,
-  flask: SiFlask,
-  bootstrap: SiBootstrap,
-  javascript: SiJavascript,
-  html5: SiHtml5,
-  html: SiHtml5,
-  tihtml5: TiHtml5,
-  css3: SiCss3,
-  css: SiCss3,
-  github: SiGithub,
-  tailwindcss: SiTailwindcss,
-  nextjs: RiNextjsFill,
-  pandas: SiPandas,
-  numpy: SiNumpy,
-  scikitlearn: SiScikitlearn,
-  pytorch: SiPytorch,
-  gitalt: FaGitAlt,
-  postman: SiPostman,
-  vercel: IoLogoVercel,
-  supabase: RiSupabaseFill,
-  n8n: SiN8N,
-  claude: RiClaudeFill,
-  tensorflow: SiTensorflow,
-  linux: SiLinux,
-  docker: SiDocker,
-  mongodb: SiMongodb,
-  postgresql: SiPostgresql,
-  postgres: SiPostgresql,
-  typescript: SiTypescript,
-  aws: SiAmazonwebservices,
-  amazon: FaAws,
-  django: SiDjango,
-  keras: SiKeras,
-  jupyter: SiJupyter,
-  colab: SiGooglecolab,
-  selenium: SiSelenium,
-  wireshark: SiWireshark,
-};
-
 function getTechIcon(iconName: string, className?: string) {
   const lowerName = iconName.toLowerCase();
-  
+  const cls = className || "w-6 h-6";
+
   if (lowerName === "matplotlib") {
-    return <Matplotlib className={className || "w-6 h-6"} />;
+    return <Matplotlib className={cls} />;
   }
-  
-  const IconComponent = techIconMap[lowerName];
-  if (IconComponent) {
-    return <IconComponent className={className || "w-6 h-6"} />;
+
+  const IconComponent = getTechBrandIcon(iconName);
+  if (IconComponent && IconComponent !== Matplotlib) {
+    const Comp = IconComponent as ComponentType<{ className?: string }>;
+    return <Comp className={cls} />;
   }
   return null;
 }
@@ -686,7 +641,7 @@ export function SyllabusSection({ data }: SyllabusSectionProps) {
                   data-testid="button-syllabus-pm-cta"
                 >
                   <a href={pmData.cta_button.url} onClick={handleLinkClick} className="flex items-center gap-2">
-                    {pmData.cta_button.icon && getIcon(pmData.cta_button.icon, "w-5 h-5")}
+                    {pmData.cta_button.icon && renderSectionIcon(pmData.cta_button.icon, "w-5 h-5")}
                     {pmData.cta_button.text}
                   </a>
                 </Button>

@@ -1,26 +1,24 @@
 
 import type { FeaturesGridHighlightSection, FeaturesGridHighlightItem } from "@shared/schema";
 import { Card } from "@/components/ui/card";
-import * as LucideIcons from "lucide-react";
 import { Box } from "lucide-react";
-import { getCustomIcon } from "@/components/custom-icons";
-import type { ComponentType } from "react";
+import { getIcon } from "@/lib/icons";
 import { RichTextContent } from "@/components/ui/rich-text-content";
 
-function getIcon(iconName: string, className?: string, color?: string) {
-  const CustomIcon = getCustomIcon(iconName);
-  if (CustomIcon) {
-    return <CustomIcon width="100%" height="100%" color={color} className={className} />;
-  }
-  
-  // Handle both "IconRocket" and "Rocket" formats
-  const tablerName = iconName.startsWith("Icon") ? iconName.slice(4) : iconName; const lucideName = tablerName.charAt(0).toUpperCase() + tablerName.slice(1);
-  const IconComponent = LucideIcons[lucideName as keyof typeof LucideIcons] as ComponentType<{ className?: string; style?: React.CSSProperties }>;
-  if (IconComponent) {
-    const style = color ? { color } : undefined;
-    return <IconComponent className={className || "w-full h-full text-primary"} style={style} />;
-  }
+function renderIcon(iconName: string, className?: string, color?: string) {
+  const IconComponent = getIcon(iconName);
   const style = color ? { color } : undefined;
+  if (IconComponent) {
+    return (
+      <IconComponent
+        className={className || "w-full h-full text-primary"}
+        style={style}
+        width="100%"
+        height="100%"
+        color={color}
+      />
+    );
+  }
   return <Box className={className || "w-full h-full text-primary"} style={style} />;
 }
 
@@ -39,7 +37,7 @@ function HighlightCard({ item, iconColor }: { item: FeaturesGridHighlightItem; i
       >
         <div className="flex items-start gap-4 md:hidden">
           <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-            {getIcon(item.icon, "w-6 h-6", iconColor || "hsl(var(--primary))")}
+            {renderIcon(item.icon, "w-6 h-6", iconColor || "hsl(var(--primary))")}
           </div>
           <div>
             <div className="font-semibold text-foreground text-sm">
@@ -52,7 +50,7 @@ function HighlightCard({ item, iconColor }: { item: FeaturesGridHighlightItem; i
         </div>
         <div className="hidden md:block">
           <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-            {getIcon(item.icon, "w-6 h-6", iconColor || "hsl(var(--primary))")}
+            {renderIcon(item.icon, "w-6 h-6", iconColor || "hsl(var(--primary))")}
           </div>
           <div className="font-semibold text-foreground text-lg">
             {item.title}
@@ -71,7 +69,7 @@ function HighlightCard({ item, iconColor }: { item: FeaturesGridHighlightItem; i
       data-testid={`card-feature-${itemId}`}
     >
       <div className="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-lg bg-primary/10 flex items-center justify-center">
-        {getIcon(item.icon, "w-6 h-6 md:w-8 md:h-8", iconColor || "hsl(var(--primary))")}
+        {renderIcon(item.icon, "w-6 h-6 md:w-8 md:h-8", iconColor || "hsl(var(--primary))")}
       </div>
       <div>
         {item.value && (

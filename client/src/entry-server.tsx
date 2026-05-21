@@ -3,6 +3,7 @@ import { QueryClient } from "@tanstack/react-query";
 import { Router } from "wouter";
 import { PassThrough } from "node:stream";
 import App from "./App";
+import { preloadSectionsFromInitialData } from "./components/sectionRegistry";
 
 interface SingleQuery {
   queryKey: unknown[];
@@ -70,6 +71,8 @@ export async function render(
   const restore = suppressLayoutEffectWarnings();
 
   try {
+    await preloadSectionsFromInitialData(initialDataPayload);
+
     const html = await new Promise<string>((resolve, reject) => {
       let chunks = "";
       const passthrough = new PassThrough();

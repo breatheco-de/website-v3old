@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
-import * as LucideIcons from "lucide-react";
 import { Check } from "lucide-react";
+import { getIcon as resolveIcon } from "@/lib/icons";
 import type { ComponentType, CSSProperties } from "react";
 import { getCustomIcon } from "@/components/custom-icons";
 import UniversalImage from "@/components/UniversalImage";
@@ -78,15 +78,19 @@ interface HumanAndAIDuoProps {
   data: HumanAndAIDuoData;
 }
 
-const getIcon = (iconName: string, className?: string, size?: number, color?: string) => {
-  const CustomIcon = getCustomIcon(iconName);
-  if (CustomIcon) {
-    const sizeStr = size ? `${size}px` : "20px";
-    return <CustomIcon width={sizeStr} height={sizeStr} className={className} color={color} />;
-  }
-  const icons = LucideIcons as unknown as Record<string, ComponentType<{ className?: string; size?: number; color?: string }>>;
-  const IconComponent = icons[`Icon${iconName}`];
-  return IconComponent ? <IconComponent className={className} size={size || 20} color={color} /> : null;
+const renderIcon = (iconName: string, className?: string, size?: number, color?: string) => {
+  const IconComponent = resolveIcon(iconName.startsWith("Icon") ? iconName : `Icon${iconName}`);
+  if (!IconComponent) return null;
+  const sizeStr = size ? `${size}px` : "20px";
+  return (
+    <IconComponent
+      className={className}
+      size={size || 20}
+      color={color}
+      width={sizeStr}
+      height={sizeStr}
+    />
+  );
 };
 
 // Normalize video config - handles both legacy string format and new object format
@@ -175,7 +179,7 @@ export function HumanAndAIDuo({ data }: HumanAndAIDuoProps) {
                 <div key={groupIndex} className="p-5">
                   <div className="flex items-center gap-3 mb-4">
                     {group.icon ? (
-                      <span className="text-primary flex-shrink-0">{getIcon(group.icon, "w-6 h-6")}</span>
+                      <span className="text-primary flex-shrink-0">{renderIcon(group.icon, "w-6 h-6")}</span>
                     ) : (
                       <div className="flex-shrink-0 w-6 h-6 rounded-full overflow-hidden">
                         <UniversalImage id={group.image || "rigo-avatar-1763181725290"} alt="Support icon" className="w-full h-full" style={{ objectFit: "cover" }} />
@@ -225,7 +229,7 @@ export function HumanAndAIDuo({ data }: HumanAndAIDuoProps) {
                 <div key={groupIndex} className="p-6">
                   <div className="flex items-center gap-3 mb-4">
                     {group.icon ? (
-                      <span className="text-primary flex-shrink-0">{getIcon(group.icon, "w-7 h-7")}</span>
+                      <span className="text-primary flex-shrink-0">{renderIcon(group.icon, "w-7 h-7")}</span>
                     ) : (
                       <div className="flex-shrink-0 w-7 h-7 rounded-full overflow-hidden">
                         <UniversalImage id={group.image || "rigo-avatar-1763181725290"} alt="Support icon" className="w-full h-full" style={{ objectFit: "cover" }} />
@@ -275,7 +279,7 @@ export function HumanAndAIDuo({ data }: HumanAndAIDuoProps) {
                 <div key={groupIndex} className="p-8">
                   <div className="flex items-center gap-3 mb-5">
                     {group.icon ? (
-                      <span className="text-primary flex-shrink-0">{getIcon(group.icon, "w-8 h-8")}</span>
+                      <span className="text-primary flex-shrink-0">{renderIcon(group.icon, "w-8 h-8")}</span>
                     ) : (
                       <div className="flex-shrink-0 w-8 h-8 rounded-full overflow-hidden">
                         <UniversalImage id={group.image || "rigo-avatar-1763181725290"} alt="Support icon" className="w-full h-full" style={{ objectFit: "cover" }} />

@@ -1,4 +1,4 @@
-import type { CSSProperties, ComponentType } from "react";
+import type { CSSProperties } from "react";
 import { AlertTriangle, Link, Loader2, Trash2 } from "lucide-react";
 import { useState, useCallback, useMemo, useRef, useEffect } from "react";
 import type { Section, EditOperation, SectionLayout, ResponsiveSpacing, ShowOn, PageSettings } from "@shared/schema";
@@ -8,7 +8,12 @@ import { VariableHighlightProvider } from "@/components/editing/VariableHighligh
 import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
 import { resolveDeep, resolveTemplateString, type VariableContext } from "@/lib/variable-manager";
 import { SectionContextProvider } from "@/contexts/SectionContext";
-import { isSSRHydration } from "@/lib/initialData";
+import {
+  getCachedSectionComponent,
+  hasSectionType,
+  loadSectionComponent,
+  normalizeSectionVariant,
+} from "@/components/sectionRegistry";
 
 
 // Spacing presets in pixels (top, bottom)
@@ -464,60 +469,55 @@ async function sendEditOperation(
   return response.json();
 }
 
-// === SECTION REGISTRY (auto-discovered via import.meta.glob) ===
-const _sectionModules = import.meta.glob('./*/variants/*.tsx', { eager: true }) as Record<
-  string,
-  { default: ComponentType<any> }
->;
+/** Loads a section chunk on demand when it was not preloaded (CSR, editor previews). */
+function LazySection({ section, index }: { section: Section; index: number }) {
+  const sectionType = (section as { type: string }).type;
+  const sectionVariant = normalizeSectionVariant(
+    (section as { variant?: string }).variant ?? "default",
+  );
 
-function _snakeToPascal(str: string): string {
-  return str.split('_').map((s) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).join('');
-}
+  const [Component, setComponent] = useState(() =>
+    getCachedSectionComponent(sectionType, sectionVariant),
+  );
 
-function _deriveVariant(type: string, filenameBase: string): string {
-  const prefix = _snakeToPascal(type);
-  const remainder = filenameBase.slice(prefix.length);
-  if (!remainder) return 'default';
-  return remainder.charAt(0).toLowerCase() + remainder.slice(1);
-}
+  useEffect(() => {
+    if (Component) return;
+    let cancelled = false;
+    loadSectionComponent(sectionType, sectionVariant).then((loaded) => {
+      if (!cancelled && loaded) setComponent(() => loaded);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [Component, sectionType, sectionVariant]);
 
-function _normalizeVariant(v: string): string {
-  return v.replace(/[-_]/g, '').replace(/[A-Z]/g, c => c.toLowerCase());
-}
+  if (!Component) return null;
 
-const _sectionRegistry: Record<string, Record<string, ComponentType<any>>> = {};
-
-for (const [filePath, mod] of Object.entries(_sectionModules)) {
-  const match = filePath.match(/^\.\/([^/]+)\/variants\/([^/]+)\.tsx$/);
-  if (!match || !mod.default) continue;
-  const type = match[1];
-  const filenameBase = match[2];
-  const variantName = _normalizeVariant(_deriveVariant(type, filenameBase));
-  if (!_sectionRegistry[type]) _sectionRegistry[type] = {};
-  _sectionRegistry[type][variantName] = mod.default;
+  return <Component key={index} data={section} />;
 }
 
 export function renderSection(section: Section, index: number): React.ReactNode {
   const sectionType = (section as { type: string }).type;
-  const sectionVariant = _normalizeVariant((section as { variant?: string }).variant ?? 'default');
+  const sectionVariant = normalizeSectionVariant(
+    (section as { variant?: string }).variant ?? "default",
+  );
 
-  const typeRegistry = _sectionRegistry[sectionType];
-  if (!typeRegistry) {
-    if (process.env.NODE_ENV === 'development') {
+  if (!hasSectionType(sectionType)) {
+    if (process.env.NODE_ENV === "development") {
       console.warn(`[SectionRenderer] Unknown section type: "${sectionType}"`);
     }
     return null;
   }
 
-  const Component = typeRegistry[sectionVariant] ?? typeRegistry['default'];;
-  if (!Component) {
-    if (process.env.NODE_ENV === 'development') {
-      console.warn(`[SectionRenderer] No component for type="${sectionType}" variant="${sectionVariant}"`);
-    }
-    return null;
+  const Component =
+    getCachedSectionComponent(sectionType, sectionVariant) ??
+    getCachedSectionComponent(sectionType, "default");
+
+  if (Component) {
+    return <Component key={index} data={section} />;
   }
 
-  return <Component key={index} data={section as any} />;
+  return <LazySection key={index} section={section} index={index} />;
 }
 
 

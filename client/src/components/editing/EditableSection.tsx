@@ -1,6 +1,5 @@
 import { useState, useCallback, useEffect, useRef, lazy, Suspense, useMemo } from "react";
-import { AlertTriangle, ArrowDown, ArrowLeftRight, ArrowUp, Check, ChevronLeft, ChevronRight, Clock3, Code, Copy, Eye, History, Link, Loader2, Monitor, MoreVertical, Pencil, Smartphone, Sparkles, Trash2, Unlink, X } from "lucide-react";
-import { MdSpaceBar } from "react-icons/md";
+import { AlertTriangle, ArrowDown, ArrowLeftRight, ArrowUp, Check, ChevronLeft, ChevronRight, Clock3, Code, Copy, Eye, History, Link, Loader2, Monitor, MoreVertical, Pencil, Smartphone, Space, Sparkles, Trash2, Unlink, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import type { Section, SectionLayout, ShowOn, ResponsiveSpacing } from "@shared/schema";
 import { Label } from "@/components/ui/label";
@@ -1011,7 +1010,7 @@ export function EditableSection({ children, section, index, sectionType, content
               title="Horizontal spacing"
               data-testid={`button-x-spacing-section-${index}`}
             >
-              <MdSpaceBar className="h-4 w-4" />
+              <Space className="h-4 w-4" />
             </button>
           </PopoverTrigger>
           <PopoverContent className="w-auto min-w-[340px] p-3" onClick={(e) => e.stopPropagation()}>
@@ -1150,7 +1149,7 @@ export function EditableSection({ children, section, index, sectionType, content
                 className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground rounded-md hover-elevate"
                 data-testid={`button-x-spacing-section-mobile-${index}`}
               >
-                <MdSpaceBar className="h-4 w-4" />
+                <Space className="h-4 w-4" />
                 Horizontal spacing
               </button>
               {contentType && slug && locale && (
