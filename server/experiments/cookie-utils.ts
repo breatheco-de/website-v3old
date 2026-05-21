@@ -1,11 +1,8 @@
 import type { Request, Response } from "express";
 import crypto from "crypto";
-import type { ExperimentAssignment, ExperimentCookie, VisitorContext } from "@shared/schema";
-import { experimentCookieSchema } from "@shared/schema";
+import type { VisitorContext } from "@shared/schema";
 
-const COOKIE_NAME = "4g_experiments";
 const VISITOR_COOKIE_NAME = "4g_visitor_id";
-const COOKIE_MAX_AGE = 30 * 24 * 60 * 60 * 1000; // 30 days for experiments
 const VISITOR_MAX_AGE = 180 * 24 * 60 * 60 * 1000; // 180 days for visitor ID (industry standard)
 
 /**
@@ -59,44 +56,6 @@ export function getOrCreateVisitorId(req: Request, res: Response): string {
 export function getOrCreateSessionId(req: Request, res: Response): string {
   // Now delegates to the proper visitor ID system
   return getOrCreateVisitorId(req, res);
-}
-
-/**
- * Parse experiment cookie from request
- */
-export function getExperimentCookie(req: Request): ExperimentCookie | null {
-  try {
-    const cookieValue = req.cookies?.[COOKIE_NAME];
-    if (!cookieValue) return null;
-
-    const decoded = Buffer.from(cookieValue, "base64").toString("utf-8");
-    const parsed = JSON.parse(decoded);
-    return experimentCookieSchema.parse(parsed);
-  } catch {
-    return null;
-  }
-}
-
-/**
- * Set experiment cookie on response
- */
-export function setExperimentCookie(
-  res: Response,
-  sessionId: string,
-  assignments: ExperimentAssignment[]
-): void {
-  const cookie: ExperimentCookie = {
-    session_id: sessionId,
-    assignments,
-  };
-
-  const encoded = Buffer.from(JSON.stringify(cookie)).toString("base64");
-
-  res.cookie(COOKIE_NAME, encoded, {
-    maxAge: COOKIE_MAX_AGE,
-    httpOnly: true,
-    sameSite: "lax",
-  });
 }
 
 /**
