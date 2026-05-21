@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { AlertTriangle, ArrowLeft, ArrowRight, BarChart2, Blocks, Book, Brain, Check, ChevronRight, CloudDownload, Cookie, Database, Github, Image, Languages, Map, MapPin, Menu, MessageCircle, Monitor, Moon, Palette, Pencil, Plus, RefreshCw, Route, Settings, Smartphone, Stethoscope, Sun, X } from "lucide-react";
-import { IconGitBranch } from "@tabler/icons-react";
+import { AlertTriangle, ArrowLeft, ArrowRight, BarChart2, Blocks, Book, Brain, Check, ChevronRight, CloudDownload, Cookie, Database, Github, GitBranch, Image, Languages, Map, MapPin, Menu, MessageCircle, Monitor, Moon, Palette, Pencil, Plus, RefreshCw, Route, Settings, Smartphone, Stethoscope, Sun, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -513,7 +512,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               />
               {props.contentInfo.type && props.contentInfo.slug && (
                 <MenuItem
-                  icon={IconGitBranch as any}
+                  icon={GitBranch}
                   label="Versions"
                   onClick={() => props.setMenuView("versioning")}
                   indicator="chevron"
