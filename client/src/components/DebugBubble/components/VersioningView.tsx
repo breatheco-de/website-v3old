@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSearch } from "wouter";
 import { deslugify } from "../utils/debugHelpers";
-import { IconArrowLeft, IconGitBranch, IconRefresh, IconPencil, IconCheck, IconX, IconPlayerPlay, IconPlus, IconHistory, IconExternalLink, IconArrowBackUp } from "@tabler/icons-react";
+import { IconArrowLeft, IconGitBranch, IconRefresh, IconPencil, IconCheck, IconX, IconPlayerPlay, IconPlus, IconHistory, IconExternalLink, IconArrowBackUp, IconCrown } from "@tabler/icons-react";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -592,13 +592,14 @@ export function VersioningView({
                             )}
                             {!isEditing && (
                               <Button
-                                size="sm"
-                                variant="outline"
-                                className="h-5 px-1.5 py-0 text-[10px] leading-none"
+                                size="icon"
+                                variant="ghost"
+                                className="h-5 w-5 shrink-0"
                                 onClick={() => setPromoteTarget({ locale, slug: variant.slug })}
                                 data-testid={`button-promote-variant-${locale}-${variant.slug}`}
+                                title="Promote this variant to default"
                               >
-                                Promote
+                                <IconCrown className="h-3 w-3" />
                               </Button>
                             )}
                           </div>
