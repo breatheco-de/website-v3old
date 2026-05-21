@@ -1,3 +1,7 @@
+# NOTE: This static file is overridden by a dynamic Express route at /robots.txt
+# which reads SITE_URL at request time. Changes to the Sitemap URL must be made
+# in server/routes.ts, not here.
+
 # Allow all crawlers
 User-agent: *
 Allow: /
@@ -21,5 +25,5 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-# Sitemap location
-Sitemap: https://ai-reskilling-platform.replit.app/sitemap.xml
+# Sitemap location (overridden dynamically by server — see server/routes.ts)
+# Sitemap: https://example.com/sitemap.xml

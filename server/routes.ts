@@ -1839,6 +1839,47 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ ...genericRest, layout: genericLayout });
   });
 
+  // Dynamic robots.txt — uses SITE_URL at request time so staging and production
+  // always point to the correct sitemap domain. Registered before static-file
+  // middleware so this route takes precedence over public/robots.txt.
+  app.get("/robots.txt", (req, res) => {
+    function getRobotsBaseUrl(): string {
+      if (process.env.SITE_URL) return process.env.SITE_URL.replace(/\/$/, "");
+      if (process.env.REPLIT_DEV_DOMAIN) return `https://${process.env.REPLIT_DEV_DOMAIN}`;
+      return "http://localhost:5000";
+    }
+    const baseUrl = getRobotsBaseUrl();
+    const content = `# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Allow AI/LLM crawlers explicitly
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Sitemap location
+Sitemap: ${baseUrl}/sitemap.xml
+`;
+    res.set("Content-Type", "text/plain");
+    res.set("Cache-Control", "public, max-age=3600");
+    res.send(content);
+  });
+
   // Dynamic sitemap with caching
   app.get("/sitemap.xml", (req, res) => {
     const xml = getSitemap();
