@@ -449,9 +449,12 @@ export function VersioningView({
               return (
                 <div key={locale} className="px-2 py-2">
                   <div className="flex items-center justify-between mb-2">
-                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                      {locale.toUpperCase()}
-                    </p>
+                    <div className="flex items-center gap-1.5">
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                        {locale.toUpperCase()}
+                      </p>
+                      <span className="text-xs text-muted-foreground">Traffic allocation</span>
+                    </div>
                     {!isEditing ? (
                       <button
                         onClick={() => openEditAllocations(locale)}

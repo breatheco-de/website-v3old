@@ -63,7 +63,7 @@ sections:
     section_id: hero-zojvst
     version: "1.0"
     variant: singleColumn
-    title: Future in Tech Starts Here
+    title: The Future in Tech Starts Here
     subtitle: You’re one step closer to your new career in tech, congratulations! Fill out the form below, and our admissions team will walk you through the next steps.
     marginY:
       desktop: md none
