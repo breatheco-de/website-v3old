@@ -190,6 +190,8 @@ export function VersioningView({
     localeData.variants.forEach((v) => {
       allocations[v.slug] = v.allocation;
     });
+    const variantSum = localeData.variants.reduce((s, v) => s + v.allocation, 0);
+    allocations["__default__"] = Math.max(0, 100 - variantSum);
     setTempAllocations(allocations);
     setEditingLocale(locale);
   };
@@ -213,7 +215,7 @@ export function VersioningView({
       const variants = localeData.variants.map((v) => ({
         slug: v.slug,
         allocation: tempAllocations[v.slug] ?? v.allocation,
-      }));
+      })).filter((v) => v.slug !== "__default__");
 
       const res = await fetch(
         `/api/versioning/${contentInfo.type}/${contentInfo.slug}/${editingLocale}`,
@@ -497,6 +499,9 @@ export function VersioningView({
                       const variantTotal = localeData.variants.reduce((sum, v) => sum + v.allocation, 0);
                       const defaultAllocation = Math.max(0, 100 - variantTotal);
                       const isDefaultActive = activeVariant === null;
+                      const defaultTempValue = tempAllocations["__default__"] ?? defaultAllocation;
+                      const variantTempTotal = localeData.variants.reduce((sum, v) => sum + (tempAllocations[v.slug] ?? v.allocation), 0);
+                      const defaultMaxAllowed = Math.max(0, 100 - variantTempTotal);
                       return (
                         <div key="__default__" className={isDefaultActive ? "rounded-md bg-primary/10 px-2 py-1 -mx-2" : ""}>
                           <div className="flex items-center justify-between text-sm gap-2">
@@ -526,6 +531,27 @@ export function VersioningView({
                               )}
                             </div>
                           </div>
+                          {isEditing && (
+                            <div className="mt-1.5 flex items-center gap-2">
+                              <Slider
+                                value={[defaultTempValue]}
+                                min={0}
+                                max={100}
+                                step={1}
+                                onValueChange={([value]) =>
+                                  setTempAllocations((prev) => ({
+                                    ...prev,
+                                    __default__: Math.min(value, defaultMaxAllowed),
+                                  }))
+                                }
+                                className="flex-1"
+                                data-testid={`slider-allocation-${locale}-default`}
+                              />
+                              <span className="text-xs font-medium tabular-nums w-8 text-right">
+                                {defaultTempValue}%
+                              </span>
+                            </div>
+                          )}
                         </div>
                       );
                     })()}
@@ -576,7 +602,7 @@ export function VersioningView({
                           const othersTotal = localeData.variants.reduce((sum, v) => {
                             if (v.slug === variant.slug) return sum;
                             return sum + (tempAllocations[v.slug] ?? v.allocation);
-                          }, 0);
+                          }, 0) + (tempAllocations["__default__"] ?? 0);
                           const maxAllowed = Math.max(0, 100 - othersTotal);
                           return (
                             <div className="mt-1.5 flex items-center gap-2">
