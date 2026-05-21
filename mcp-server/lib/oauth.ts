@@ -5,7 +5,6 @@ import path from "path";
 const CODE_TTL_MS = 5 * 60 * 1000;
 const PENDING_TTL_MS = 10 * 60 * 1000;
 const CLIENTS_FILE = path.join(process.cwd(), "mcp-server/data/oauth-clients.json");
-const BREATHECODE_HOST = process.env.BREATHECODE_HOST || "https://breathecode.herokuapp.com";
 
 // ─── Registered clients (persisted to JSON) ───────────────────────────────────
 
@@ -213,53 +212,6 @@ export async function validateBreathecodeToken(
     // Do not fall back to direct Breathecode capability checks; instead deny access.
     console.warn("[MCP] Main app unreachable for token validation, denying MCP access —", (err as Error).message);
     return { valid: false, error: "Authorization service unavailable; cannot verify credentials" };
-  }
-}
-
-async function validateBreathecodeTokenDirect(token: string): Promise<BreathecodeValidationResult> {
-  try {
-    const tokenRes = await fetch(`${BREATHECODE_HOST}/v1/auth/token/${token}`);
-    if (!tokenRes.ok) {
-      return { valid: false, error: `Token check failed (HTTP ${tokenRes.status})` };
-    }
-
-    const meRes = await fetch(`${BREATHECODE_HOST}/v1/auth/user/me`, {
-      headers: { Authorization: `Token ${token}` },
-    });
-    if (!meRes.ok) {
-      return { valid: false, error: `User profile fetch failed (HTTP ${meRes.status})` };
-    }
-    const meData = (await meRes.json()) as {
-      id?: number;
-      first_name?: string;
-      last_name?: string;
-      username?: string;
-      [key: string]: unknown;
-    };
-
-    const idsToCheck = [47, 4, 6, 7];
-    let hasWebmaster = false;
-    for (const academyId of idsToCheck) {
-      const capRes = await fetch(`${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`, {
-        headers: { Authorization: `Token ${token}`, Academy: String(academyId) },
-      });
-      if (capRes.ok) { hasWebmaster = true; break; }
-    }
-
-    if (!hasWebmaster) {
-      return { valid: false, error: "Token does not have webmaster capability" };
-    }
-
-    const username = meData.username || `${meData.first_name || ""}.${meData.last_name || ""}`.toLowerCase().replace(/\s+/g, "");
-    return {
-      valid: true,
-      userId: meData.id,
-      firstName: meData.first_name ?? "",
-      lastName: meData.last_name ?? "",
-      username,
-    };
-  } catch (err) {
-    return { valid: false, error: (err as Error).message };
   }
 }
 
