@@ -19,6 +19,29 @@ const app = express();
 
 app.use(cookieParser());
 
+// Trailing slash 301 redirect — must run before route handlers so search engines
+// never see duplicate content at both /path/ and /path.
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const p = req.path;
+  if (
+    p.length > 1 &&
+    p.endsWith('/') &&
+    !p.startsWith('/api/') &&
+    !p.startsWith('/attached_assets/') &&
+    !p.startsWith('/marketing-content/') &&
+    !p.startsWith('/@') &&
+    !p.startsWith('/mcp') &&
+    !p.startsWith('/oauth') &&
+    !p.startsWith('/.well-known')
+  ) {
+    const url = req.originalUrl;
+    const qIndex = url.indexOf('?');
+    const qs = qIndex >= 0 ? url.slice(qIndex) : '';
+    return res.redirect(301, p.slice(0, -1) + qs);
+  }
+  next();
+});
+
 app.use('/attached_assets', express.static(path.join(process.cwd(), 'attached_assets')));
 app.use('/marketing-content/images', express.static(path.join(process.cwd(), 'marketing-content', 'images')));
 
