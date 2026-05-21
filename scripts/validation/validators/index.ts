@@ -23,6 +23,7 @@ import { imageOptimizationValidator } from "./image-optimization";
 import { heroImageTagsValidator } from "./hero-image-tags";
 import { imageTagsValidator } from "./image-tags";
 import { lighthouseValidator } from "./lighthouse";
+import { fieldMappingsValidator } from "./field-mappings";
 
 export const validators: Validator[] = [
   redirectValidator,
@@ -42,6 +43,7 @@ export const validators: Validator[] = [
   imageOptimizationValidator,
   heroImageTagsValidator,
   imageTagsValidator,
+  fieldMappingsValidator,
 ];
 
 export const slowValidators: Validator[] = [lighthouseValidator];
@@ -89,4 +91,5 @@ export {
   heroImageTagsValidator,
   imageTagsValidator,
   lighthouseValidator,
+  fieldMappingsValidator,
 };
