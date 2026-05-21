@@ -11,6 +11,7 @@ import {
 } from '../lib/sessionBootstrap';
 import { locations, getLocationBySlug } from '../lib/locations';
 import { setSessionHeaders } from '../lib/sessionHeaders';
+import { setVisitorContext } from '../lib/tracking';
 
 function haversineDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
   if (lat1 === lat2 && lon1 === lon2) return 0;
@@ -71,6 +72,16 @@ export function SessionProvider({ children }: SessionProviderProps) {
             if (newSession.visitorId) {
               setVisitorIdCookie(newSession.visitorId);
             }
+            setVisitorContext({
+              visitor_id: newSession.visitorId,
+              location_city: newSession.location?.name,
+              location_country: newSession.location?.country,
+              location_slug: newSession.location?.slug,
+              language: newSession.language,
+              latitude: newSession.geo?.latitude,
+              longitude: newSession.geo?.longitude,
+              utm: newSession.utm,
+            });
             setIsLoading(false);
           }
         };

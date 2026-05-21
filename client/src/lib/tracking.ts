@@ -48,6 +48,7 @@ export interface TrackingPayload {
 
 // Visitor context for session-level data
 export interface VisitorContext {
+  visitor_id?: string;
   location_city?: string;
   location_country?: string;
   location_slug?: string;
@@ -163,6 +164,7 @@ export function track(
  */
 export function setVisitorContext(context: VisitorContext): void {
   pushToDataLayer({
+    visitor_id: context.visitor_id,
     visitor_location_city: context.location_city,
     visitor_location_country: context.location_country,
     visitor_location_slug: context.location_slug,
