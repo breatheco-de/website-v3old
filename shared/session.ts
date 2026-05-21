@@ -42,12 +42,6 @@ export interface GeoData {
   longitude?: number;
 }
 
-export interface ExperimentData {
-  experiment_slug?: string;
-  variant_slug?: string;
-  variant_version?: number;
-}
-
 export interface DeviceData {
   deviceCategory: 'mobile' | 'tablet' | 'desktop';
   osFamily: string;
@@ -68,7 +62,6 @@ export interface Session {
   browserLang: string | null;
   geo: GeoData | null;
   utm: UTMParams;
-  experiment?: ExperimentData;
   device?: DeviceData;
   consent: {
     geolocation: boolean | null;

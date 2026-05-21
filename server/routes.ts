@@ -9272,10 +9272,6 @@ sections: []
         tags: leadData.tags || "website-lead",
         automations: leadData.automations || "strong",
         action: "submit",
-        // Experiment tracking
-        experiment_slug: leadData.experiment_slug || null,
-        experiment_variant: leadData.experiment_variant || null,
-        experiment_version: leadData.experiment_version || null,
         // Turnstile token for bot protection
         token: leadData.token || null,
       };

@@ -166,24 +166,6 @@ export function SessionModal(props: SessionModalProps) {
           </div>
           
           <div className="border-t pt-3 space-y-3">
-            <h4 className="text-sm font-semibold text-foreground">Experiment</h4>
-            <div className="space-y-1.5 text-sm">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Experiment:</span>
-                <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.experiment?.experiment_slug || '—'}</code>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Variant:</span>
-                <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.experiment?.variant_slug || '—'}</code>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Version:</span>
-                <code className="bg-muted px-1.5 py-0.5 rounded text-xs">{session.experiment?.variant_version ?? '—'}</code>
-              </div>
-            </div>
-          </div>
-          
-          <div className="border-t pt-3 space-y-3">
             <h4 className="text-sm font-semibold text-foreground">Session Info</h4>
             <div className="space-y-1.5 text-sm">
               <div className="flex justify-between">

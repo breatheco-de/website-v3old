@@ -483,9 +483,6 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
         referral: utm.referral || utm.ref,
         tags: data.tags || "website-lead",
         automations: data.automations || "strong",
-        experiment_slug: session.experiment?.experiment_slug,
-        variant_slug: session.experiment?.variant_slug,
-        variant_version: session.experiment?.variant_version,
         token: turnstileToken,
       };
 
@@ -502,18 +499,13 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
         );
       }
       if (data.conversion_name) {
-        const experimentAssignment = session.experiment?.experiment_slug && session.experiment?.variant_slug
-          ? { slug: session.experiment.experiment_slug, variant: session.experiment.variant_slug }
-          : undefined;
-        
         await trackFormSubmission(
           data.conversion_name,
           {
             email: variables.email,
             program: variables.program || programContext,
             location: variables.location || sessionLocation?.slug,
-          },
-          experimentAssignment
+          }
         );
       }
 

@@ -39,11 +39,7 @@ export interface ConversionPayload {
   referral_key?: string;
   program?: string;
   location?: string;
-  experiment?: {
-    slug: string;
-    variant: string;
-  };
-  [key: string]: string | number | undefined | { slug: string; variant: string };
+  [key: string]: string | number | undefined;
 }
 
 export interface TrackingPayload {
@@ -180,7 +176,7 @@ export function setVisitorContext(context: VisitorContext): void {
 }
 
 /**
- * Helper to track form submission with experiment data
+ * Helper to track form submission
  */
 export async function trackFormSubmission(
   conversionName: ConversionName,
@@ -191,8 +187,7 @@ export async function trackFormSubmission(
     formentry_id?: string | number;
     attribution_id?: string;
     referral_key?: string;
-  },
-  experimentAssignment?: { slug: string; variant: string }
+  }
 ): Promise<void> {
   const payload: ConversionPayload = {
     program: formData.program,
@@ -205,11 +200,6 @@ export async function trackFormSubmission(
   // Hash email for privacy
   if (formData.email) {
     payload.email_hash = await hashEmail(formData.email);
-  }
-
-  // Attach experiment data if available
-  if (experimentAssignment) {
-    payload.experiment = experimentAssignment;
   }
 
   trackConversion(conversionName, payload);
