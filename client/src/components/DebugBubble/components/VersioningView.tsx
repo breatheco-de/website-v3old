@@ -325,9 +325,9 @@ export function VersioningView({
                         </Badge>
                         <button
                           onClick={handleSaveAllocations}
-                          disabled={isSaving}
-                          className="p-1 rounded-md hover-elevate text-muted-foreground"
-                          title="Save allocations"
+                          disabled={isSaving || totalTemp !== 100}
+                          className="p-1 rounded-md hover-elevate text-muted-foreground disabled:opacity-40 disabled:cursor-not-allowed"
+                          title={totalTemp !== 100 ? `Total must equal 100% (currently ${totalTemp}%)` : "Save allocations"}
                           data-testid={`button-save-allocations-${locale}`}
                         >
                           {isSaving ? (
@@ -434,18 +434,18 @@ export function VersioningView({
                             if (v.slug === variant.slug) return sum;
                             return sum + (tempAllocations[v.slug] ?? v.allocation);
                           }, 0);
-                          const maxAllowed = Math.min(100, 100 - othersTotal);
+                          const maxAllowed = Math.max(0, 100 - othersTotal);
                           return (
                             <div className="mt-1.5 flex items-center gap-2">
                               <Slider
                                 value={[thisValue]}
                                 min={0}
-                                max={maxAllowed}
+                                max={100}
                                 step={1}
                                 onValueChange={([value]) =>
                                   setTempAllocations((prev) => ({
                                     ...prev,
-                                    [variant.slug]: value,
+                                    [variant.slug]: Math.min(value, maxAllowed),
                                   }))
                                 }
                                 className="flex-1"
