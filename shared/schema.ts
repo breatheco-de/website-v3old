@@ -1333,11 +1333,6 @@ export const experimentAssignmentSchema = z.object({
   assigned_at: z.number(),
 });
 
-export const experimentCookieSchema = z.object({
-  assignments: z.array(experimentAssignmentSchema),
-  session_id: z.string(),
-});
-
 export const experimentUpdateSchema = z.object({
   description: z.string().optional(),
   status: z.enum(["planned", "active", "paused", "winner", "archived"]).optional(),
@@ -1356,7 +1351,6 @@ export type ExperimentConfig = z.infer<typeof experimentConfigSchema>;
 export type ExperimentsFile = z.infer<typeof experimentsFileSchema>;
 export type VisitorContext = z.infer<typeof visitorContextSchema>;
 export type ExperimentAssignment = z.infer<typeof experimentAssignmentSchema>;
-export type ExperimentCookie = z.infer<typeof experimentCookieSchema>;
 export type ExperimentUpdate = z.infer<typeof experimentUpdateSchema>;
 
 // ============================================
