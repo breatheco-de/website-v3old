@@ -95,9 +95,16 @@ export interface UserRecord {
   roles: string[];
 }
 
+export interface PendingUserRecord {
+  email: string;
+  role: string;
+  createdAt: string;
+}
+
 interface UsersState {
   roles: Record<string, RoleDefinition>;
   users: Record<string, UserRecord>;
+  pendingUsers?: Record<string, PendingUserRecord>;
 }
 
 // ─── Built-in webmaster role ───────────────────────────────────────────────────
@@ -245,6 +252,7 @@ function ensureLoaded(): void {
     if (!state.roles) state.roles = {};
     if (!state.roles.webmaster) state.roles.webmaster = BUILT_IN_WEBMASTER_ROLE;
     if (!state.users) state.users = {};
+    if (!state.pendingUsers) state.pendingUsers = {};
     loaded = true;
   }
 }
@@ -392,6 +400,76 @@ export function deleteUser(username: string): { ok: boolean; error?: string } {
     return { ok: false, error: "User not found" };
   }
   delete state.users[username];
+  save();
+  return { ok: true };
+}
+
+// ─── Pending Users API ─────────────────────────────────────────────────────────
+
+export function addPendingUser(email: string, role: string): { ok: boolean; error?: string } {
+  ensureLoaded();
+  if (!state.pendingUsers) state.pendingUsers = {};
+  const normalizedEmail = email.toLowerCase().trim();
+  if (!normalizedEmail) return { ok: false, error: "Email is required" };
+  if (!state.roles[role]) return { ok: false, error: `Role "${role}" does not exist` };
+  state.pendingUsers[normalizedEmail] = {
+    email: normalizedEmail,
+    role,
+    createdAt: new Date().toISOString(),
+  };
+  save();
+  return { ok: true };
+}
+
+export function removePendingUser(email: string): { ok: boolean; error?: string } {
+  ensureLoaded();
+  if (!state.pendingUsers) state.pendingUsers = {};
+  const normalizedEmail = email.toLowerCase().trim();
+  if (!state.pendingUsers[normalizedEmail]) {
+    return { ok: false, error: "Pending user not found" };
+  }
+  delete state.pendingUsers[normalizedEmail];
+  save();
+  return { ok: true };
+}
+
+export function getPendingUsers(): PendingUserRecord[] {
+  ensureLoaded();
+  if (!state.pendingUsers) return [];
+  return Object.values(state.pendingUsers);
+}
+
+/**
+ * If the given email has a pending pre-registration, returns the pre-assigned
+ * role and removes the pending entry (one-time claim). Returns null if no match.
+ */
+export function claimPendingUser(email: string): string | null {
+  ensureLoaded();
+  if (!state.pendingUsers) return null;
+  const normalizedEmail = email.toLowerCase().trim();
+  const pending = state.pendingUsers[normalizedEmail];
+  if (!pending) return null;
+  delete state.pendingUsers[normalizedEmail];
+  save();
+  return pending.role;
+}
+
+/**
+ * Manually assign a pending pre-registration to a specific existing user,
+ * bypassing email-matching. Grants the role and removes the pending entry.
+ */
+export function assignPendingToUser(email: string, username: string): { ok: boolean; error?: string } {
+  ensureLoaded();
+  if (!state.pendingUsers) state.pendingUsers = {};
+  const normalizedEmail = email.toLowerCase().trim();
+  const pending = state.pendingUsers[normalizedEmail];
+  if (!pending) return { ok: false, error: "Pending user not found" };
+  if (!state.users[username]) return { ok: false, error: "User not found" };
+  const currentRoles = state.users[username].roles ?? [];
+  if (!currentRoles.includes(pending.role)) {
+    state.users[username].roles = [...currentRoles, pending.role];
+  }
+  delete state.pendingUsers[normalizedEmail];
   save();
   return { ok: true };
 }

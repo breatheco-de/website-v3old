@@ -819,6 +819,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.log(`[UserStore] First user "${profile.username}" auto-assigned webmaster role`);
       }
 
+      // Claim any pending pre-registration that matches this user's email
+      if (profile.email) {
+        const pendingRole = userStore.claimPendingUser(profile.email);
+        if (pendingRole) {
+          const existingUser = userStore.getUser(profile.username);
+          const currentRoles = existingUser?.roles ?? [];
+          if (!currentRoles.includes(pendingRole)) {
+            userStore.assignRoles(profile.username, [...currentRoles, pendingRole]);
+          }
+          console.log(`[UserStore] Claimed pending role "${pendingRole}" for user "${profile.username}" via email match`);
+        }
+      }
+
       const capabilities = userStore.getEffectiveCapabilities(profile.username);
       const userName = profile.username;
 
@@ -11970,6 +11983,57 @@ sections: []
     const result = userStore.deleteUser(req.params.username);
     if (!result.ok) {
       res.status(404).json({ error: result.error });
+      return;
+    }
+    res.json({ ok: true });
+  });
+
+  app.get("/api/admin/pending-users", async (req, res) => {
+    const auth = await requireCapability(req, res, "users_manage");
+    if (!auth.authorized) return;
+    res.json(userStore.getPendingUsers());
+  });
+
+  app.post("/api/admin/pending-users", async (req, res) => {
+    const auth = await requireCapability(req, res, "users_manage");
+    if (!auth.authorized) return;
+    const { email, role } = req.body;
+    if (!email || !role) {
+      res.status(400).json({ error: "email and role are required" });
+      return;
+    }
+    const result = userStore.addPendingUser(email, role);
+    if (!result.ok) {
+      res.status(400).json({ error: result.error });
+      return;
+    }
+    res.json({ ok: true });
+  });
+
+  app.delete("/api/admin/pending-users/:email", async (req, res) => {
+    const auth = await requireCapability(req, res, "users_manage");
+    if (!auth.authorized) return;
+    const email = decodeURIComponent(req.params.email);
+    const result = userStore.removePendingUser(email);
+    if (!result.ok) {
+      res.status(404).json({ error: result.error });
+      return;
+    }
+    res.json({ ok: true });
+  });
+
+  app.post("/api/admin/pending-users/:email/assign", async (req, res) => {
+    const auth = await requireCapability(req, res, "users_manage");
+    if (!auth.authorized) return;
+    const email = decodeURIComponent(req.params.email);
+    const { username } = req.body;
+    if (!username) {
+      res.status(400).json({ error: "username is required" });
+      return;
+    }
+    const result = userStore.assignPendingToUser(email, username);
+    if (!result.ok) {
+      res.status(400).json({ error: result.error });
       return;
     }
     res.json({ ok: true });

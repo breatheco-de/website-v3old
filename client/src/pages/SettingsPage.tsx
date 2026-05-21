@@ -17,6 +17,8 @@ import {
   IconUsers,
   IconPencil,
   IconX,
+  IconUserPlus,
+  IconUserCheck,
 } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
@@ -70,6 +72,12 @@ interface UserRecord {
   email?: string;
   lastLoginAt?: string;
   roles: string[];
+}
+
+interface PendingUserRecord {
+  email: string;
+  role: string;
+  createdAt: string;
 }
 
 const ALL_CAPABILITIES = [
@@ -584,6 +592,9 @@ function UsersTab() {
   const { data: users, isLoading: usersLoading } = useQuery<UserRecord[]>({
     queryKey: ["/api/admin/users"],
   });
+  const { data: pendingUsers, isLoading: pendingLoading } = useQuery<PendingUserRecord[]>({
+    queryKey: ["/api/admin/pending-users"],
+  });
   const { data: rolesData } = useQuery<Record<string, RoleDefinition>>({
     queryKey: ["/api/admin/roles"],
   });
@@ -592,7 +603,18 @@ function UsersTab() {
   const [userRoles, setUserRoles] = useState<string[]>([]);
   const [saving, setSaving] = useState(false);
 
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newEmail, setNewEmail] = useState("");
+  const [newRole, setNewRole] = useState("");
+  const [addingSaving, setAddingSaving] = useState(false);
+
+  const [deletingPendingEmail, setDeletingPendingEmail] = useState<string | null>(null);
+  const [assigningEmail, setAssigningEmail] = useState<string | null>(null);
+  const [assignTargetUsername, setAssignTargetUsername] = useState("");
+  const [assignSaving, setAssignSaving] = useState(false);
+
   const allRoles = rolesData ? Object.entries(rolesData) : [];
+  const allUsers = users ?? [];
 
   function startEditRoles(user: UserRecord) {
     setEditingUser(user.username);
@@ -617,7 +639,68 @@ function UsersTab() {
     }
   }
 
-  if (usersLoading) {
+  async function handleAddPendingUser() {
+    if (!newEmail.trim() || !newRole) {
+      toast({ title: "Email and role are required", variant: "destructive" });
+      return;
+    }
+    setAddingSaving(true);
+    try {
+      const res = await apiRequest("POST", "/api/admin/pending-users", { email: newEmail.trim(), role: newRole });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to add user");
+      }
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/pending-users"] });
+      setShowAddForm(false);
+      setNewEmail("");
+      setNewRole("");
+      toast({ title: "User pre-registered", description: `${newEmail.trim()} will receive the role on next login.` });
+    } catch (err: any) {
+      toast({ title: "Failed to add user", description: err.message, variant: "destructive" });
+    } finally {
+      setAddingSaving(false);
+    }
+  }
+
+  async function handleDeletePending(email: string) {
+    try {
+      const res = await apiRequest("DELETE", `/api/admin/pending-users/${encodeURIComponent(email)}`, undefined);
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to remove pending user");
+      }
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/pending-users"] });
+      setDeletingPendingEmail(null);
+      toast({ title: "Pending user removed" });
+    } catch (err: any) {
+      setDeletingPendingEmail(null);
+      toast({ title: "Failed to remove", description: err.message, variant: "destructive" });
+    }
+  }
+
+  async function handleAssignPending() {
+    if (!assigningEmail || !assignTargetUsername) return;
+    setAssignSaving(true);
+    try {
+      const res = await apiRequest("POST", `/api/admin/pending-users/${encodeURIComponent(assigningEmail)}/assign`, { username: assignTargetUsername });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to assign");
+      }
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/pending-users"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/users"] });
+      setAssigningEmail(null);
+      setAssignTargetUsername("");
+      toast({ title: "Role assigned", description: `User "${assignTargetUsername}" has been granted the role.` });
+    } catch (err: any) {
+      toast({ title: "Failed to assign", description: err.message, variant: "destructive" });
+    } finally {
+      setAssignSaving(false);
+    }
+  }
+
+  if (usersLoading || pendingLoading) {
     return (
       <div className="flex items-center justify-center py-12">
         <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
@@ -625,18 +708,154 @@ function UsersTab() {
     );
   }
 
+  const pending = pendingUsers ?? [];
+
   return (
     <div className="space-y-4">
-      <p className="text-sm text-muted-foreground">Users who have logged in at least once. Assign roles to control their access.</p>
+      <div className="flex items-center justify-between gap-2">
+        <p className="text-sm text-muted-foreground">Manage users and pre-register people by email before they log in.</p>
+        <Button variant="outline" size="sm" onClick={() => { setShowAddForm(true); setAssigningEmail(null); setDeletingPendingEmail(null); }} data-testid="button-add-user">
+          <IconUserPlus className="h-4 w-4 mr-1.5" />
+          Add User
+        </Button>
+      </div>
 
-      {!users || users.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-12 gap-2 text-muted-foreground">
-          <IconAlertCircle className="h-8 w-8" />
-          <p className="text-sm">No users registered yet. Users appear here after their first login.</p>
-        </div>
-      ) : (
+      {showAddForm && (
+        <Card data-testid="card-add-pending-user">
+          <CardHeader className="flex flex-row items-center justify-between gap-2 pb-3">
+            <CardTitle className="text-sm font-medium">Pre-register user</CardTitle>
+            <Button variant="ghost" size="icon" onClick={() => setShowAddForm(false)}>
+              <IconX className="h-4 w-4" />
+            </Button>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="rounded-md border bg-muted/50 px-3 py-2.5 text-xs text-muted-foreground space-y-1">
+              <p><span className="font-medium text-foreground">No email will be sent.</span> The user receives no notification of this entry.</p>
+              <p>Access is granted automatically when they log in via Breathecode and their account email matches the one entered here.</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-muted-foreground">Email address</label>
+              <Input
+                type="email"
+                placeholder="user@example.com"
+                value={newEmail}
+                onChange={(e) => setNewEmail(e.target.value)}
+                onKeyDown={(e) => { if (e.key === "Enter") handleAddPendingUser(); }}
+                data-testid="input-pending-email"
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-muted-foreground">Role</label>
+              <select
+                className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+                value={newRole}
+                onChange={(e) => setNewRole(e.target.value)}
+                data-testid="select-pending-role"
+              >
+                <option value="">Select a role…</option>
+                {allRoles.map(([roleId, role]) => (
+                  <option key={roleId} value={roleId}>{role.label}</option>
+                ))}
+              </select>
+            </div>
+            <div className="flex justify-end pt-1">
+              <Button size="sm" onClick={handleAddPendingUser} disabled={addingSaving} data-testid="button-save-pending-user">
+                {addingSaving ? <IconLoader2 className="h-4 w-4 mr-1.5 animate-spin" /> : <IconDeviceFloppy className="h-4 w-4 mr-1.5" />}
+                Save
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {pending.length > 0 && (
         <div className="space-y-2">
-          {users.map((user) => (
+          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Pending</p>
+          {pending.map((p) => {
+            const isDeleting = deletingPendingEmail === p.email;
+            const isAssigning = assigningEmail === p.email;
+            return (
+              <Card key={p.email} data-testid={`card-pending-${p.email}`}>
+                <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2">
+                  <div className="space-y-0.5 flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-sm font-medium truncate">{p.email}</span>
+                      <Badge variant="outline" className="text-xs shrink-0">Pending</Badge>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-xs text-muted-foreground">Role:</span>
+                      <Badge variant="secondary" className="text-xs">{rolesData?.[p.role]?.label || p.role}</Badge>
+                    </div>
+                  </div>
+                  {!isDeleting && !isAssigning && (
+                    <div className="flex items-center gap-1 shrink-0">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        title="Assign to existing user"
+                        onClick={() => { setAssigningEmail(p.email); setAssignTargetUsername(""); setDeletingPendingEmail(null); }}
+                        data-testid={`button-assign-pending-${p.email}`}
+                      >
+                        <IconUserCheck className="h-4 w-4 text-muted-foreground" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => { setDeletingPendingEmail(p.email); setAssigningEmail(null); }}
+                        data-testid={`button-delete-pending-${p.email}`}
+                      >
+                        <IconTrash className="h-4 w-4 text-muted-foreground" />
+                      </Button>
+                    </div>
+                  )}
+                </CardHeader>
+                {(isDeleting || isAssigning) && (
+                  <CardContent className="pt-0">
+                    {isDeleting && (
+                      <div className="flex items-center gap-2 py-1">
+                        <span className="text-sm text-muted-foreground flex-1">Remove this pending entry?</span>
+                        <Button size="sm" variant="destructive" onClick={() => handleDeletePending(p.email)} data-testid={`button-confirm-delete-pending-${p.email}`}>Remove</Button>
+                        <Button size="sm" variant="ghost" onClick={() => setDeletingPendingEmail(null)} data-testid={`button-cancel-delete-pending-${p.email}`}>Cancel</Button>
+                      </div>
+                    )}
+                    {isAssigning && (
+                      <div className="space-y-2 py-1">
+                        <p className="text-xs text-muted-foreground">Assign this pre-registration to an existing user, bypassing the email match.</p>
+                        <div className="flex items-center gap-2">
+                          <select
+                            className="flex-1 rounded-md border bg-background px-3 py-2 text-sm"
+                            value={assignTargetUsername}
+                            onChange={(e) => setAssignTargetUsername(e.target.value)}
+                            data-testid={`select-assign-user-${p.email}`}
+                          >
+                            <option value="">Select a user…</option>
+                            {allUsers.map((u) => (
+                              <option key={u.username} value={u.username}>
+                                {[u.firstName, u.lastName].filter(Boolean).join(" ") || u.username} ({u.username})
+                              </option>
+                            ))}
+                          </select>
+                          <Button size="sm" onClick={handleAssignPending} disabled={!assignTargetUsername || assignSaving} data-testid={`button-confirm-assign-${p.email}`}>
+                            {assignSaving ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconCheck className="h-4 w-4" />}
+                          </Button>
+                          <Button size="sm" variant="ghost" onClick={() => setAssigningEmail(null)} data-testid={`button-cancel-assign-${p.email}`}>
+                            <IconX className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </CardContent>
+                )}
+              </Card>
+            );
+          })}
+        </div>
+      )}
+
+      {allUsers.length > 0 && (
+        <div className="space-y-2">
+          {pending.length > 0 && <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Active</p>}
+          {allUsers.map((user) => (
             <Card key={user.username} data-testid={`card-user-${user.username}`}>
               <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2">
                 <div className="space-y-0.5">
@@ -722,6 +941,13 @@ function UsersTab() {
               </CardContent>
             </Card>
           ))}
+        </div>
+      )}
+
+      {allUsers.length === 0 && pending.length === 0 && (
+        <div className="flex flex-col items-center justify-center py-12 gap-2 text-muted-foreground">
+          <IconAlertCircle className="h-8 w-8" />
+          <p className="text-sm">No users yet. Pre-register users above, or wait for someone to log in.</p>
         </div>
       )}
     </div>
