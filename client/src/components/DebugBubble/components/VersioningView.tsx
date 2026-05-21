@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { deslugify } from "../utils/debugHelpers";
-import { IconArrowLeft, IconGitBranch, IconRefresh, IconPencil, IconCheck, IconX, IconPlayerPlay, IconPlus } from "@tabler/icons-react";
+import { IconArrowLeft, IconGitBranch, IconRefresh, IconPencil, IconCheck, IconX, IconPlayerPlay, IconPlus, IconHistory, IconExternalLink, IconArrowBackUp } from "@tabler/icons-react";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -48,6 +48,13 @@ export function VersioningView({
 
   const [promoteTarget, setPromoteTarget] = useState<{ locale: string; slug: string } | null>(null);
   const [isPromoting, setIsPromoting] = useState(false);
+
+  const [showRestorePanel, setShowRestorePanel] = useState(false);
+  const [restoreHistory, setRestoreHistory] = useState<Array<{ sha: string; date: string; author: string; subject: string }>>([]);
+  const [restoreHistoryLoading, setRestoreHistoryLoading] = useState(false);
+  const [repoUrl, setRepoUrl] = useState<string | null>(null);
+  const [restoreTarget, setRestoreTarget] = useState<string | null>(null);
+  const [isRestoring, setIsRestoring] = useState(false);
 
   const isPreview = pathname.startsWith("/private/preview/");
 
@@ -238,6 +245,59 @@ export function VersioningView({
     }
   };
 
+  const handleOpenRestorePanel = async () => {
+    setShowRestorePanel(true);
+    if (restoreHistory.length > 0) return;
+    setRestoreHistoryLoading(true);
+    const { type, slug } = contentInfo;
+    if (!type || !slug) { setRestoreHistoryLoading(false); return; }
+    const folder = `marketing-content/${type}/${slug}`;
+    try {
+      const data = await fetch(`/api/git/folder-history?folder=${encodeURIComponent(folder)}&limit=30`).then(r => r.json());
+      setRestoreHistory(data.entries || []);
+      setRepoUrl(data.repoUrl || null);
+    } catch {
+      setRestoreHistory([]);
+    } finally {
+      setRestoreHistoryLoading(false);
+    }
+  };
+
+  const handleRestore = async () => {
+    if (!restoreTarget || !contentInfo.type || !contentInfo.slug) return;
+    setIsRestoring(true);
+    const folder = `marketing-content/${contentInfo.type}/${contentInfo.slug}`;
+    try {
+      const token = getDebugToken();
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Token ${token}`;
+      const res = await fetch("/api/git/restore-folder", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ folder, sha: restoreTarget }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        toast({ title: data.error || "Restore failed", variant: "destructive" });
+        return;
+      }
+      toast({ title: "Folder restored", description: `Content restored to commit ${restoreTarget.slice(0, 7)}` });
+      setRestoreTarget(null);
+      setShowRestorePanel(false);
+      setRestoreHistory([]);
+      if (onVersioningDataUpdate && contentInfo.type && contentInfo.slug) {
+        fetch(`/api/versioning/${contentInfo.type}/${contentInfo.slug}`)
+          .then(r => r.json())
+          .then(onVersioningDataUpdate)
+          .catch(() => {});
+      }
+    } catch {
+      toast({ title: "Restore failed", variant: "destructive" });
+    } finally {
+      setIsRestoring(false);
+    }
+  };
+
   const totalTemp = Object.values(tempAllocations).reduce((s, v) => s + v, 0);
 
   return (
@@ -245,37 +305,121 @@ export function VersioningView({
       <div className="px-3 py-2 border-b">
         <div className="flex items-center gap-3">
           <button
-            onClick={() => setMenuView("main")}
+            onClick={() => showRestorePanel ? setShowRestorePanel(false) : setMenuView("main")}
             className="p-1 rounded-md hover-elevate"
             data-testid="button-back-to-main-versioning"
           >
             <IconArrowLeft className="h-4 w-4" />
           </button>
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-sm">Versions</h3>
+            <h3 className="font-semibold text-sm">{showRestorePanel ? "Restore History" : "Versions"}</h3>
             <p className="text-xs text-muted-foreground truncate">
               {contentInfo.label}: {contentInfo.slug}
             </p>
           </div>
-          {versioningData?.hasVersioningFile && (
-            <Button
-              size="sm"
-              variant="outline"
-              className="flex-shrink-0 h-7 gap-1 text-xs"
-              onClick={() => {
-                setCreateVersionLocale(locales[0] ?? "en");
-                setCreateVersionSlug("");
-                setCreateVersionOpen(true);
-              }}
-              data-testid="button-new-version"
-            >
-              <IconPlus className="h-3 w-3" />
-              New
-            </Button>
+          {!showRestorePanel && (
+            <div className="flex items-center gap-1.5 flex-shrink-0">
+              {versioningData?.hasVersioningFile && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="h-7 gap-1 text-xs"
+                  onClick={() => {
+                    setCreateVersionLocale(locales[0] ?? "en");
+                    setCreateVersionSlug("");
+                    setCreateVersionOpen(true);
+                  }}
+                  data-testid="button-new-version"
+                >
+                  <IconPlus className="h-3 w-3" />
+                  New
+                </Button>
+              )}
+              <Button
+                size="sm"
+                variant="ghost"
+                className="h-7 gap-1 text-xs"
+                onClick={handleOpenRestorePanel}
+                data-testid="button-open-restore-panel"
+              >
+                <IconHistory className="h-3 w-3" />
+                Restore
+              </Button>
+            </div>
           )}
         </div>
       </div>
 
+      {showRestorePanel && (
+        <div className="overflow-y-auto overflow-x-hidden max-h-[380px]">
+          <div className="p-2 space-y-1">
+            {restoreHistoryLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <IconRefresh className="h-5 w-5 animate-spin text-muted-foreground" />
+              </div>
+            ) : restoreHistory.length === 0 ? (
+              <div className="text-center py-8 px-4">
+                <IconHistory className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+                <p className="text-sm text-muted-foreground">No git history found for this content folder</p>
+              </div>
+            ) : (
+              <div className="space-y-1">
+                <p className="text-xs text-muted-foreground px-2 pb-1">
+                  Select a commit to restore the entire content folder to that snapshot.
+                </p>
+                {restoreHistory.map((entry) => {
+                  const relDate = (() => {
+                    const diff = Date.now() - new Date(entry.date).getTime();
+                    const mins = Math.floor(diff / 60000);
+                    if (mins < 60) return `${mins}m ago`;
+                    const hrs = Math.floor(mins / 60);
+                    if (hrs < 24) return `${hrs}h ago`;
+                    return `${Math.floor(hrs / 24)}d ago`;
+                  })();
+                  const githubUrl = repoUrl
+                    ? `${repoUrl}/tree/${entry.sha}/marketing-content/${contentInfo.type}/${contentInfo.slug}`
+                    : null;
+                  return (
+                    <div key={entry.sha} className="flex items-start justify-between gap-2 px-2 py-1.5 rounded-md hover-elevate">
+                      <div className="min-w-0 flex-1">
+                        <p className="text-xs truncate text-foreground">{entry.subject}</p>
+                        <p className="text-[10px] text-muted-foreground mt-0.5">
+                          {entry.author} · {relDate} · <span className="font-mono">{entry.sha.slice(0, 7)}</span>
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-1 flex-shrink-0">
+                        {githubUrl && (
+                          <a
+                            href={githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="View on GitHub"
+                            className="p-1 rounded hover-elevate text-muted-foreground"
+                            data-testid={`button-github-link-${entry.sha}`}
+                          >
+                            <IconExternalLink className="h-3.5 w-3.5" />
+                          </a>
+                        )}
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="h-5 px-1.5 py-0 text-[10px] leading-none"
+                          onClick={() => setRestoreTarget(entry.sha)}
+                          data-testid={`button-restore-commit-${entry.sha}`}
+                        >
+                          Restore
+                        </Button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {!showRestorePanel && (
       <div className="overflow-y-auto overflow-x-hidden max-h-[380px]">
         <div className="p-2 space-y-1">
           {versioningLoading ? (
@@ -467,6 +611,7 @@ export function VersioningView({
           )}
         </div>
       </div>
+      )}
 
       <Dialog open={createVersionOpen} onOpenChange={(open) => {
         setCreateVersionOpen(open);
@@ -558,6 +703,46 @@ export function VersioningView({
             >
               {isPromoting && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
               Yes, remove and replace original
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={restoreTarget !== null} onOpenChange={(open) => { if (!open) setRestoreTarget(null); }}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Restore content folder?</DialogTitle>
+            <DialogDescription>
+              This will overwrite every file in{" "}
+              <code className="text-xs bg-muted px-1 py-0.5 rounded">
+                marketing-content/{contentInfo.type}/{contentInfo.slug}/
+              </code>{" "}
+              with the versions from commit{" "}
+              <code className="text-xs bg-muted px-1 py-0.5 rounded">{restoreTarget?.slice(0, 7)}</code>.
+              The restore itself will be saved as a new commit so it can be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setRestoreTarget(null)}
+              disabled={isRestoring}
+              data-testid="button-cancel-restore"
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleRestore}
+              disabled={isRestoring}
+              data-testid="button-confirm-restore"
+            >
+              {isRestoring ? (
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              ) : (
+                <IconArrowBackUp className="h-4 w-4 mr-2" />
+              )}
+              Yes, restore this snapshot
             </Button>
           </DialogFooter>
         </DialogContent>

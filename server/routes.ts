@@ -6113,6 +6113,141 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
   });
 
+  app.get("/api/git/folder-history", (req, res) => {
+    try {
+      const exec = _execSync;
+      const folder = req.query.folder as string;
+      const limit = Math.min(parseInt(String(req.query.limit || "30"), 10) || 30, 50);
+      if (!folder || typeof folder !== "string") {
+        res.status(400).json({ error: "folder query param required" });
+        return;
+      }
+      if (/[;&|`$<>]/.test(folder)) {
+        res.status(400).json({ error: "Invalid folder path" });
+        return;
+      }
+      let raw: string;
+      try {
+        raw = exec(
+          `git log --pretty=format:"%H|%aI|%an|%s" -n ${limit} -- "${folder}"`,
+          { encoding: "utf-8", cwd: process.cwd() }
+        ) as string;
+      } catch {
+        res.json({ entries: [], repoUrl: null });
+        return;
+      }
+      const entries = raw
+        .split("\n")
+        .filter(l => l.trim())
+        .map(line => {
+          const idx1 = line.indexOf("|");
+          const idx2 = line.indexOf("|", idx1 + 1);
+          const idx3 = line.indexOf("|", idx2 + 1);
+          return {
+            sha: line.slice(0, idx1),
+            date: line.slice(idx1 + 1, idx2),
+            author: line.slice(idx2 + 1, idx3),
+            subject: line.slice(idx3 + 1),
+          };
+        });
+      const repoUrl = (process.env.GITHUB_REPO_URL || "").replace(/\.git$/, "") || null;
+      res.json({ entries, repoUrl });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.post("/api/git/restore-folder", async (req, res) => {
+    try {
+      const exec = _execSync;
+      const { folder, sha } = req.body;
+      if (!folder || !sha) {
+        res.status(400).json({ error: "folder and sha are required" });
+        return;
+      }
+      if (!/^[a-f0-9]{7,40}$/.test(sha)) {
+        res.status(400).json({ error: "Invalid SHA format" });
+        return;
+      }
+      if (/[;&|`$<>]/.test(folder)) {
+        res.status(400).json({ error: "Invalid folder path" });
+        return;
+      }
+      const fs = await import("fs");
+      const path = await import("path");
+
+      // List files that existed in the folder at the given SHA
+      let lsOutput: string;
+      try {
+        lsOutput = exec(
+          `git ls-tree -r --name-only "${sha}" -- "${folder}"`,
+          { encoding: "utf-8", cwd: process.cwd() }
+        ) as string;
+      } catch {
+        res.status(400).json({ error: "Could not list files at that commit" });
+        return;
+      }
+      const filesAtSha = lsOutput.split("\n").filter(l => l.trim());
+      if (filesAtSha.length === 0) {
+        res.status(400).json({ error: "No files found in folder at that commit" });
+        return;
+      }
+
+      // Collect current files in the folder
+      const getAllFiles = (dir: string, base: string): string[] => {
+        const items: string[] = [];
+        if (!fs.default.existsSync(dir)) return items;
+        for (const entry of fs.default.readdirSync(dir)) {
+          const full = path.default.join(dir, entry);
+          const rel = path.default.join(base, entry).replace(/\\/g, "/");
+          if (fs.default.statSync(full).isDirectory()) {
+            items.push(...getAllFiles(full, rel));
+          } else {
+            items.push(rel);
+          }
+        }
+        return items;
+      };
+      const currentFiles = getAllFiles(
+        path.default.join(process.cwd(), folder),
+        folder
+      );
+
+      // Write each file from the historical SHA
+      for (const filePath of filesAtSha) {
+        const content = exec(
+          `git show "${sha}:${filePath}"`,
+          { encoding: "buffer", cwd: process.cwd() }
+        ) as Buffer;
+        const absPath = path.default.join(process.cwd(), filePath);
+        fs.default.mkdirSync(path.default.dirname(absPath), { recursive: true });
+        fs.default.writeFileSync(absPath, content);
+      }
+
+      // Remove files that exist locally but were not present at that SHA
+      const filesAtShaSet = new Set(filesAtSha);
+      for (const currentFile of currentFiles) {
+        if (!filesAtShaSet.has(currentFile)) {
+          try { fs.default.unlinkSync(path.default.join(process.cwd(), currentFile)); } catch {}
+        }
+      }
+
+      // Commit the restore
+      const { commitAndPush } = await import("./github");
+      const result = await commitAndPush(
+        `Restore: ${folder} to ${sha.slice(0, 7)}`,
+        { force: false }
+      );
+      if (!result.success) {
+        res.status(500).json({ error: result.error || "Commit failed" });
+        return;
+      }
+      res.json({ success: true, commitHash: result.commitHash });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
   // Get structured sync info (webhook status, instance, recent log entries)
   app.get("/api/github/sync-info", async (_req, res) => {
     try {
