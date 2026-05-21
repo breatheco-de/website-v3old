@@ -2972,7 +2972,7 @@ export default function ContentTypeManagePage() {
                                           localeData.variants.map((variant) => (
                                             <DropdownMenuItem key={`${loc}-${variant.slug}`} asChild>
                                               <a
-                                                href={entry.urls[loc] ? `${entry.urls[loc]}?force_variant=${variant.slug}` : "#"}
+                                                href={entry.urls[loc] ? `${entry.urls[loc]}${entry.urls[loc].includes("?") ? "&" : "?"}force_variant=${variant.slug}` : "#"}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 data-testid={`link-variant-${entry.slug}-${loc}-${variant.slug}`}
