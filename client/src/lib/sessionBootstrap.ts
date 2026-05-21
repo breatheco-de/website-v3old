@@ -71,3 +71,17 @@ export function getDeviceInfo(): string {
 export function createDefaultSession(): Session {
   return { ...defaultSession };
 }
+
+const VISITOR_COOKIE_NAME = '4g_visitor_id';
+const VISITOR_COOKIE_MAX_AGE = 180 * 24 * 60 * 60; // 180 days in seconds
+
+export function setVisitorIdCookie(visitorId: string): void {
+  if (typeof document === 'undefined') return;
+  document.cookie = `${VISITOR_COOKIE_NAME}=${visitorId}; max-age=${VISITOR_COOKIE_MAX_AGE}; path=/; samesite=lax`;
+}
+
+export function getVisitorIdFromCookie(): string | null {
+  if (typeof document === 'undefined') return null;
+  const match = document.cookie.split('; ').find(row => row.startsWith(`${VISITOR_COOKIE_NAME}=`));
+  return match ? match.split('=')[1] : null;
+}

@@ -5,7 +5,9 @@ import {
   getCachedSession, 
   saveSession, 
   getNavigatorInfo,
-  getDeviceInfo
+  getDeviceInfo,
+  setVisitorIdCookie,
+  getVisitorIdFromCookie,
 } from '../lib/sessionBootstrap';
 import { locations, getLocationBySlug } from '../lib/locations';
 import { setSessionHeaders } from '../lib/sessionHeaders';
@@ -66,6 +68,9 @@ export function SessionProvider({ children }: SessionProviderProps) {
             const newSession = event.data.payload;
             setSession(newSession);
             saveSession(newSession);
+            if (newSession.visitorId) {
+              setVisitorIdCookie(newSession.visitorId);
+            }
             setIsLoading(false);
           }
         };
@@ -83,6 +88,7 @@ export function SessionProvider({ children }: SessionProviderProps) {
             search: window.location.search,
             navigator: getNavigatorInfo(),
             device: getDeviceInfo(),
+            existingVisitorId: getVisitorIdFromCookie() ?? undefined,
           },
         };
 

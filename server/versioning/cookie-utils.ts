@@ -15,7 +15,7 @@ export interface VersioningAssignment {
 }
 
 export interface VersioningCookie {
-  sessionId: string;
+  visitorId: string;
   assignments: VersioningAssignment[];
 }
 
@@ -27,26 +27,22 @@ export function hashVisitorId(visitorId: string): string {
   return crypto.createHash("sha256").update(visitorId).digest("hex").substring(0, 16);
 }
 
-export function getOrCreateVisitorId(req: Request, res: Response): string {
+export function readVisitorId(req: Request, res: Response): string {
   const existing = req.cookies?.[VISITOR_COOKIE_NAME];
 
-  if (existing) {
-    res.cookie(VISITOR_COOKIE_NAME, existing, {
-      maxAge: VISITOR_MAX_AGE,
-      httpOnly: true,
-      sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
-    });
-    return existing;
-  }
+  const visitorId = existing || generateVisitorId();
 
-  const visitorId = generateVisitorId();
+  // Always rewrite the cookie with httpOnly: false so that client-side JS
+  // can read and own the identity. This also migrates legacy HttpOnly cookies
+  // (created by the old server-only flow) to client-readable ones without
+  // changing the visitor's identity, and refreshes the max-age window.
   res.cookie(VISITOR_COOKIE_NAME, visitorId, {
     maxAge: VISITOR_MAX_AGE,
-    httpOnly: true,
+    httpOnly: false,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
   });
+
   return visitorId;
 }
 
@@ -56,8 +52,10 @@ export function getVersioningCookie(req: Request): VersioningCookie | null {
     if (!cookieValue) return null;
     const decoded = Buffer.from(cookieValue, "base64").toString("utf-8");
     const parsed = JSON.parse(decoded);
-    if (!parsed.sessionId || !Array.isArray(parsed.assignments)) return null;
-    return parsed as VersioningCookie;
+    if (!parsed.visitorId && !parsed.sessionId) return null;
+    // Support legacy sessionId field for backwards compatibility
+    const visitorId = parsed.visitorId || parsed.sessionId;
+    return { visitorId, assignments: Array.isArray(parsed.assignments) ? parsed.assignments : [] } as VersioningCookie;
   } catch {
     return null;
   }
@@ -65,10 +63,10 @@ export function getVersioningCookie(req: Request): VersioningCookie | null {
 
 export function setVersioningCookie(
   res: Response,
-  sessionId: string,
+  visitorId: string,
   assignments: VersioningAssignment[]
 ): void {
-  const cookie: VersioningCookie = { sessionId, assignments };
+  const cookie: VersioningCookie = { visitorId, assignments };
   const encoded = Buffer.from(JSON.stringify(cookie)).toString("base64");
   res.cookie(VERSIONING_COOKIE_NAME, encoded, {
     maxAge: COOKIE_MAX_AGE,
@@ -77,10 +75,10 @@ export function setVersioningCookie(
   });
 }
 
-export function buildVisitorContext(req: Request, sessionId: string): {
+export function buildVisitorContext(req: Request, visitorId: string): {
   session_id: string;
   language: string;
 } {
   const language = (req.query.locale as string) || (req.query.lang as string) || "en";
-  return { session_id: sessionId, language };
+  return { session_id: visitorId, language };
 }

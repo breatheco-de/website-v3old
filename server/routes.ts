@@ -71,7 +71,7 @@ import {
 } from "@shared/templateVars";
 import {
   getVersioningManager,
-  getOrCreateVisitorId,
+  readVisitorId,
   getVersioningCookie,
   setVersioningCookie,
   buildVisitorContext,
@@ -1291,7 +1291,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     // Normal versioning flow if not forcing a variant
     if (!program) {
-      const sessionId = getOrCreateVisitorId(req, res);
+      const visitorId = readVisitorId(req, res);
       const versioningCookie = getVersioningCookie(req);
       const existingAssignments = versioningCookie?.assignments || [];
       const existing = existingAssignments.find(
@@ -1303,7 +1303,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "program",
         slug,
         locale,
-        sessionId,
+        visitorId,
         existing?.variantSlug,
       );
 
@@ -1319,7 +1319,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             ),
             { contentType: "program", slug, locale, variantSlug: assignedVariant, assignedAt: Date.now() },
           ];
-          setVersioningCookie(res, sessionId, updatedAssignments);
+          setVersioningCookie(res, visitorId, updatedAssignments);
         }
       }
     }
@@ -1399,7 +1399,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     // Normal versioning flow if not forcing a variant
     if (!landing) {
-      const sessionId = getOrCreateVisitorId(req, res);
+      const visitorId = readVisitorId(req, res);
       const versioningCookie = getVersioningCookie(req);
       const existingAssignments = versioningCookie?.assignments || [];
       const existing = existingAssignments.find(
@@ -1411,7 +1411,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "landing",
         baseSlug,
         locale,
-        sessionId,
+        visitorId,
         existing?.variantSlug,
       );
 
@@ -1427,7 +1427,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             ),
             { contentType: "landing", slug: baseSlug, locale, variantSlug: assignedVariant, assignedAt: Date.now() },
           ];
-          setVersioningCookie(res, sessionId, updatedAssignments);
+          setVersioningCookie(res, visitorId, updatedAssignments);
         }
       }
     }
