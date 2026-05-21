@@ -10,7 +10,7 @@ import { Dropdown, type DropdownProps } from "./Dropdown";
 import { TypewriterAnnouncement } from "./TypewriterAnnouncement";
 import UniversalImage from "@/components/UniversalImage";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { useInternalNav } from "@/hooks/useInternalNav";
+import { InternalLink } from "@/components/InternalLink";
 import { useTranslation } from "react-i18next";
 import { useMenuVisualContext } from "@/contexts/MenuVisualContext";
 
@@ -73,15 +73,13 @@ export function resolveComponent(componentName: string): React.ComponentType<any
 }
 
 function LogoItem({ imageId, imageAlt, href, constrained_margin }: { imageId?: string; imageAlt?: string; href: string; constrained_margin?: boolean }) {
-  const handleLinkClick = useInternalNav();
   const { t } = useTranslation();
   const { isCompact } = useMenuVisualContext();
   const logoId = imageId || "4geeks-devs-logo-1763162063433";
 
   return (
-    <a
+    <InternalLink
       href={href}
-      onClick={handleLinkClick}
       className={`flex items-center hover-elevate rounded-md${constrained_margin ? "" : " px-3 md:px-0 md:ps-1  lg:ps-0 lg:px-3 py-2"}`}
       data-testid="link-home"
     >
@@ -92,7 +90,7 @@ function LogoItem({ imageId, imageAlt, href, constrained_margin }: { imageId?: s
         loading="eager"
         style={{ objectFit: "contain", width: "auto", height: "100%" }}
       />
-    </a>
+    </InternalLink>
   );
 }
 

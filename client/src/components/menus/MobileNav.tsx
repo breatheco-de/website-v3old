@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ChevronDown, ChevronRight, Menu } from "lucide-react";
-import { useInternalNav } from "@/hooks/useInternalNav";
+import { InternalLink } from "@/components/InternalLink";
 import {
   Sheet,
   SheetContent,
@@ -28,7 +28,6 @@ interface MobileNavItemProps {
 }
 
 function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProps) {
-  const handleNav = useInternalNav(onNavigate);
   const [openSubIndex, setOpenSubIndex] = useState<number | null>(null);
 
   const handleSubToggle = (index: number) => {
@@ -50,10 +49,10 @@ function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProp
           {dropdown.type === "cards" && dropdown.items && (
             <div className="space-y-1">
               {dropdown.items.map((card, index) => (
-                <a
+                <InternalLink
                   key={index}
                   href={card.href}
-                  onClick={handleNav}
+                  onNavigate={onNavigate}
                   className="flex items-center justify-between py-2 px-2 text-sm text-muted-foreground hover-elevate rounded-md"
                   data-testid={`mobile-nav-card-${(card.title || "item").toLowerCase().replace(/\s+/g, "-")}`}
                 >
@@ -62,7 +61,7 @@ function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProp
                     <div className="text-xs text-muted-foreground line-clamp-1">{card.description}</div>
                   </div>
                   <ChevronRight className="h-3 w-3 shrink-0 ml-2" />
-                </a>
+                </InternalLink>
               ))}
             </div>
           )}
@@ -80,16 +79,16 @@ function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProp
                   <CollapsibleContent className="pl-2">
                     <div className="space-y-1">
                       {column.items.map((link, linkIndex) => (
-                        <a
+                        <InternalLink
                           key={linkIndex}
                           href={link.href}
-                          onClick={handleNav}
+                          onNavigate={onNavigate}
                           className="flex items-center justify-between py-2 px-2 text-sm text-muted-foreground hover-elevate rounded-md"
                           data-testid={`mobile-nav-column-item-${(link.label || "item").toLowerCase().replace(/\s+/g, "-")}`}
                         >
                           <span>{link.label}</span>
                           <ChevronRight className="h-3 w-3 shrink-0 ml-2" />
-                        </a>
+                        </InternalLink>
                       ))}
                     </div>
                   </CollapsibleContent>
@@ -101,16 +100,16 @@ function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProp
           {dropdown.type === "simple-list" && dropdown.items && (
             <div className="space-y-1">
               {dropdown.items.map((link, index) => (
-                <a
+                <InternalLink
                   key={index}
                   href={link.href}
-                  onClick={handleNav}
+                  onNavigate={onNavigate}
                   className="flex items-center justify-between py-2 px-2 text-sm text-muted-foreground hover-elevate rounded-md"
                   data-testid={`mobile-nav-list-item-${(link.label || "item").toLowerCase().replace(/\s+/g, "-")}`}
                 >
                   <span>{link.label}</span>
                   <ChevronRight className="h-3 w-3 shrink-0 ml-2" />
-                </a>
+                </InternalLink>
               ))}
             </div>
           )}
@@ -128,16 +127,16 @@ function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProp
                   <CollapsibleContent className="pl-2">
                     <div className="space-y-1">
                       {group.items.map((link, linkIndex) => (
-                        <a
+                        <InternalLink
                           key={linkIndex}
                           href={link.href}
-                          onClick={handleNav}
+                          onNavigate={onNavigate}
                           className="flex items-center justify-between py-2 px-2 text-sm text-muted-foreground hover-elevate rounded-md"
                           data-testid={`mobile-nav-group-item-${(link.label || "item").toLowerCase().replace(/\s+/g, "-")}`}
                         >
                           <span>{link.label}</span>
                           <ChevronRight className="h-3 w-3 shrink-0 ml-2" />
-                        </a>
+                        </InternalLink>
                       ))}
                     </div>
                   </CollapsibleContent>
@@ -151,14 +150,14 @@ function MobileNavItem({ item, onNavigate, isOpen, onToggle }: MobileNavItemProp
   }
 
   return (
-    <a
+    <InternalLink
       href={item.href}
-      onClick={handleNav}
+      onNavigate={onNavigate}
       className="flex items-center py-3 px-2 text-base font-medium text-foreground hover-elevate rounded-md"
       data-testid={`mobile-nav-link-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
     >
       {item.label}
-    </a>
+    </InternalLink>
   );
 }
 

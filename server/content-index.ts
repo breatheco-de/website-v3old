@@ -314,6 +314,7 @@ class ContentIndex {
     this.warnMissingSlugMappings();
 
     this.initialized = true;
+
     const imageRefCount = this.imageUsage.size;
     const variableRefCount = this.variableUsage.size;
     const menuRefCount = this.menuUsage.size;

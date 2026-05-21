@@ -1,6 +1,6 @@
 import { useState, useRef, useLayoutEffect as _useLayoutEffect, useCallback, useEffect } from "react";
 import { ChevronDown, ChevronRight, Code, BarChart3, Shield, Brain, Medal, GraduationCap, Building } from "lucide-react";
-import { useInternalNav } from "@/hooks/useInternalNav";
+import { InternalLink } from "@/components/InternalLink";
 
 // Falls back to useEffect during SSR to suppress the useLayoutEffect server warning
 const useLayoutEffect = typeof window !== "undefined" ? _useLayoutEffect : useEffect;
@@ -87,7 +87,7 @@ export interface DropdownProps {
   dropdown: DropdownData;
 }
 
-function CardsDropdown({ dropdown, onLinkClick }: { dropdown: CardsDropdownData; onLinkClick: React.MouseEventHandler<HTMLAnchorElement> }) {
+function CardsDropdown({ dropdown, onNavigate }: { dropdown: CardsDropdownData; onNavigate?: () => void }) {
   return (
     <div className="p-6 bg-white dark:bg-zinc-900">
       {(dropdown.title || dropdown.description) && (
@@ -105,11 +105,11 @@ function CardsDropdown({ dropdown, onLinkClick }: { dropdown: CardsDropdownData;
         {dropdown.items.map((item, index) => {
           const IconComponent = item.icon ? iconMap[item.icon] : null;
           return (
-            <a
+            <InternalLink
               key={index}
               href={item.href}
+              onNavigate={onNavigate}
               className="block hover-elevate rounded-lg p-2 -m-2"
-              onClick={onLinkClick}
               data-testid={`dropdown-card-${(item.title || "card").toLowerCase().replace(/\s+/g, "-")}`}
             >
               {IconComponent && (
@@ -126,7 +126,7 @@ function CardsDropdown({ dropdown, onLinkClick }: { dropdown: CardsDropdownData;
               <span className="inline-flex items-center text-sm font-medium border border-border rounded-md px-4 py-2 hover-elevate">
                 {item.cta}
               </span>
-            </a>
+            </InternalLink>
           );
         })}
       </div>
@@ -134,9 +134,13 @@ function CardsDropdown({ dropdown, onLinkClick }: { dropdown: CardsDropdownData;
       {dropdown.footer && (
         <div className="mt-6 pt-4 border-t text-center text-sm text-muted-foreground">
           {dropdown.footer.text}{" "}
-          <a href={dropdown.footer.href} className="text-primary hover:underline" onClick={onLinkClick}>
+          <InternalLink
+            href={dropdown.footer.href}
+            onNavigate={onNavigate}
+            className="text-primary hover:underline"
+          >
             {dropdown.footer.linkText || "here"}
-          </a>
+          </InternalLink>
           .
         </div>
       )}
@@ -144,7 +148,7 @@ function CardsDropdown({ dropdown, onLinkClick }: { dropdown: CardsDropdownData;
   );
 }
 
-function ColumnsDropdown({ dropdown, onLinkClick }: { dropdown: ColumnsDropdownData; onLinkClick: React.MouseEventHandler<HTMLAnchorElement> }) {
+function ColumnsDropdown({ dropdown, onNavigate }: { dropdown: ColumnsDropdownData; onNavigate?: () => void }) {
   const IconComponent = dropdown.icon ? iconMap[dropdown.icon] : null;
   
   return (
@@ -177,15 +181,15 @@ function ColumnsDropdown({ dropdown, onLinkClick }: { dropdown: ColumnsDropdownD
             <ul className="space-y-2">
               {column.items.map((item, itemIndex) => (
                 <li key={itemIndex}>
-                  <a
+                  <InternalLink
                     href={item.href}
+                    onNavigate={onNavigate}
                     className="flex items-center gap-1 text-sm text-muted-foreground hover-elevate rounded-md px-1 -mx-1"
-                    onClick={onLinkClick}
                     data-testid={`dropdown-column-item-${(item.label || "item").toLowerCase().replace(/\s+/g, "-")}`}
                   >
                     {item.label}
                     <ChevronRight className="w-3 h-3" />
-                  </a>
+                  </InternalLink>
                 </li>
               ))}
             </ul>
@@ -196,7 +200,7 @@ function ColumnsDropdown({ dropdown, onLinkClick }: { dropdown: ColumnsDropdownD
   );
 }
 
-function SimpleListDropdown({ dropdown, onLinkClick }: { dropdown: SimpleListDropdownData; onLinkClick: React.MouseEventHandler<HTMLAnchorElement> }) {
+function SimpleListDropdown({ dropdown, onNavigate }: { dropdown: SimpleListDropdownData; onNavigate?: () => void }) {
   const IconComponent = dropdown.icon ? iconMap[dropdown.icon] : null;
   
   return (
@@ -222,15 +226,15 @@ function SimpleListDropdown({ dropdown, onLinkClick }: { dropdown: SimpleListDro
       <ul className="space-y-1">
         {dropdown.items.map((item, index) => (
           <li key={index}>
-            <a
+            <InternalLink
               href={item.href}
+              onNavigate={onNavigate}
               className="flex items-center justify-between px-2 py-2 rounded-md text-sm text-foreground hover-elevate"
-              onClick={onLinkClick}
               data-testid={`dropdown-list-item-${(item.label || "item").toLowerCase().replace(/\s+/g, "-")}`}
             >
               {item.label}
               <ChevronRight className="w-4 h-4 text-muted-foreground" />
-            </a>
+            </InternalLink>
           </li>
         ))}
       </ul>
@@ -238,7 +242,7 @@ function SimpleListDropdown({ dropdown, onLinkClick }: { dropdown: SimpleListDro
   );
 }
 
-function GroupedListDropdown({ dropdown, onLinkClick }: { dropdown: GroupedListDropdownData; onLinkClick: React.MouseEventHandler<HTMLAnchorElement> }) {
+function GroupedListDropdown({ dropdown, onNavigate }: { dropdown: GroupedListDropdownData; onNavigate?: () => void }) {
   const [activeGroup, setActiveGroup] = useState(0);
   const IconComponent = dropdown.icon ? iconMap[dropdown.icon] : null;
   
@@ -283,16 +287,16 @@ function GroupedListDropdown({ dropdown, onLinkClick }: { dropdown: GroupedListD
         <div className="flex-1">
           <div className="grid grid-cols-2 gap-x-4 gap-y-2">
             {dropdown.groups[activeGroup]?.items.map((item, index) => (
-              <a
+              <InternalLink
                 key={index}
                 href={item.href}
+                onNavigate={onNavigate}
                 className="flex items-center gap-1 py-1.5 text-sm text-muted-foreground hover-elevate rounded-md px-1 -mx-1"
-                onClick={onLinkClick}
                 data-testid={`dropdown-group-item-${(item.label || "item").toLowerCase().replace(/\s+/g, "-")}`}
               >
                 {item.label}
                 <ChevronRight className="w-3 h-3" />
-              </a>
+              </InternalLink>
             ))}
           </div>
         </div>
@@ -393,20 +397,20 @@ export function Dropdown({ label, href, dropdown, controlledOpen, onOpenChange }
     return () => window.removeEventListener("resize", positionPanel);
   }, [isOpen, positionPanel]);
   
-  const handleLinkClick = useInternalNav(useCallback(() => {
+  const closeOnNavigate = useCallback(() => {
     setIsOpen(false);
-  }, []));
+  }, [setIsOpen]);
 
   const renderDropdownContent = () => {
     switch (dropdown.type) {
       case "cards":
-        return <CardsDropdown dropdown={dropdown} onLinkClick={handleLinkClick} />;
+        return <CardsDropdown dropdown={dropdown} onNavigate={closeOnNavigate} />;
       case "columns":
-        return <ColumnsDropdown dropdown={dropdown} onLinkClick={handleLinkClick} />;
+        return <ColumnsDropdown dropdown={dropdown} onNavigate={closeOnNavigate} />;
       case "simple-list":
-        return <SimpleListDropdown dropdown={dropdown} onLinkClick={handleLinkClick} />;
+        return <SimpleListDropdown dropdown={dropdown} onNavigate={closeOnNavigate} />;
       case "grouped-list":
-        return <GroupedListDropdown dropdown={dropdown} onLinkClick={handleLinkClick} />;
+        return <GroupedListDropdown dropdown={dropdown} onNavigate={closeOnNavigate} />;
       default:
         return null;
     }
