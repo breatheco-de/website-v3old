@@ -6,7 +6,8 @@ import { contentIndex } from "./content-index";
 import { deepMerge } from "./utils/deepMerge";
 import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
 import { getFolder, getContentTypeConfig, resolveUrlPatternWithMapping } from "./content-types";
-import { getBaseUrl, generateHreflangTags, generateListingHreflangTags } from "./hreflang";
+import { getBaseUrl, generateHreflangTags, generateListingHreflangTags, generateHomepageHreflangTags } from "./hreflang";
+import { getHomePage, getSupportedLocales, getDefaultLocale } from "./settings";
 
 const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
 
@@ -67,8 +68,19 @@ export function clearSsrSchemaCache(): void {
 function parseRoute(url: string): ParsedRoute | null {
   const cleanUrl = url.split("?")[0].split("#")[0];
 
-  if (cleanUrl === "/" || cleanUrl === "/en" || cleanUrl === "/en/" || cleanUrl === "/es" || cleanUrl === "/es/") {
-    return null;
+  const supportedLocales = getSupportedLocales();
+  const defaultLocale = getDefaultLocale();
+  const localeSegmentMatch = cleanUrl.match(/^\/([a-z]{2,3})\/?$/);
+  const isHomepage =
+    cleanUrl === "/" ||
+    (localeSegmentMatch !== null && supportedLocales.includes(localeSegmentMatch[1]));
+  if (isHomepage) {
+    const homePage = getHomePage();
+    if (!homePage?.type || !homePage?.slug) return null;
+    const locale = localeSegmentMatch && supportedLocales.includes(localeSegmentMatch[1])
+      ? localeSegmentMatch[1]
+      : defaultLocale;
+    return { contentType: homePage.type, slug: homePage.slug, locale };
   }
 
   const resolved = contentIndex.resolveUrl(cleanUrl);
@@ -323,7 +335,11 @@ export function generateSsrSchemaHtml(url: string): string {
       }
     }
 
-    const hreflangTags = generateHreflangTags(route.contentType, route.slug, route.locale);
+    const homePage = getHomePage();
+    const isHomepageRoute = homePage?.type === route.contentType && homePage?.slug === route.slug;
+    const hreflangTags = isHomepageRoute
+      ? generateHomepageHreflangTags()
+      : generateHreflangTags(route.contentType, route.slug, route.locale);
     return [...hreflangTags, ...scripts].join("\n");
   } catch (err) {
     console.error("[SSR-Schema] Error generating schema for", url, err);

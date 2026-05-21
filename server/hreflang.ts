@@ -1,5 +1,6 @@
 import { contentIndex } from "./content-index";
 import { getContentTypeConfig, resolveUrlPatternWithMapping } from "./content-types";
+import { getSupportedLocales, getDefaultLocale } from "./settings";
 
 function toBcp47(locale: string): string {
   const parts = locale.split("-");
@@ -106,6 +107,23 @@ export function generateListingHreflangTags(
       tags.push(`<link rel="alternate" hreflang="x-default" href="${baseUrl}${defaultUrl}" />`);
     }
 
+    return tags;
+  } catch {
+    return [];
+  }
+}
+
+export function generateHomepageHreflangTags(): string[] {
+  try {
+    const baseUrl = getBaseUrl();
+    const supportedLocales = getSupportedLocales();
+    const defaultLocale = getDefaultLocale();
+
+    const tags: string[] = [];
+    for (const locale of supportedLocales) {
+      tags.push(`<link rel="alternate" hreflang="${toBcp47(locale)}" href="${baseUrl}/${locale}" />`);
+    }
+    tags.push(`<link rel="alternate" hreflang="x-default" href="${baseUrl}/${defaultLocale}" />`);
     return tags;
   } catch {
     return [];
