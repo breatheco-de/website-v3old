@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback, createContext, useContext, createElement, type ReactNode } from "react";
-import type { Capabilities } from "@shared/schema";
 
 const DEBUG_SESSION_KEY = "debug_validated";
 const DEBUG_SESSION_EXPIRY_KEY = "debug_validated_expiry";
@@ -8,14 +7,12 @@ const DEBUG_MODE_KEY = "debug_mode";
 const DEBUG_CAPABILITIES_KEY = "debug_capabilities";
 const DEBUG_USERNAME_KEY = "debug_username";
 
-const DEFAULT_CAPABILITIES: Capabilities = {
-  webmaster: false,
-  content_read: false,
-  content_edit_text: false,
-  content_edit_structure: false,
-  content_edit_media: false,
-  content_publish: false,
-};
+export interface CapabilityGrant {
+  name: string;
+  contentTypes?: string[] | "*";
+}
+
+const DEFAULT_CAPABILITIES: CapabilityGrant[] = [];
 
 export function isDebugModeActive(): boolean {
   if (typeof window === 'undefined') return false;
@@ -67,12 +64,18 @@ export function getDebugToken(): string | null {
   return urlToken || envToken || null;
 }
 
-export function getCachedCapabilities(): Capabilities {
+export function getCachedCapabilities(): CapabilityGrant[] {
   if (typeof window === 'undefined') return DEFAULT_CAPABILITIES;
   try {
     const cached = localStorage.getItem(DEBUG_CAPABILITIES_KEY);
     if (cached) {
-      return JSON.parse(cached);
+      const parsed = JSON.parse(cached);
+      if (Array.isArray(parsed)) return parsed as CapabilityGrant[];
+      if (typeof parsed === 'object' && parsed !== null) {
+        return Object.entries(parsed)
+          .filter(([, v]) => v === true)
+          .map(([k]) => ({ name: k } as CapabilityGrant));
+      }
     }
   } catch {
   }
@@ -113,8 +116,8 @@ interface DebugAuthValue {
   isLoading: boolean;
   isDevelopment: boolean;
   isDebugMode: boolean;
-  capabilities: Capabilities;
-  hasCapability: (capability: keyof Capabilities) => boolean;
+  capabilities: CapabilityGrant[];
+  hasCapability: (capability: string, contentType?: string) => boolean;
   canEdit: boolean;
   retryValidation: () => Promise<void>;
   validateManualToken: (manualToken: string) => Promise<void>;
@@ -124,11 +127,36 @@ interface DebugAuthValue {
 
 const DebugAuthContext = createContext<DebugAuthValue | null>(null);
 
+function capabilityGrantsFromResponse(raw: unknown): CapabilityGrant[] {
+  if (Array.isArray(raw)) {
+    return raw as CapabilityGrant[];
+  }
+  if (raw && typeof raw === 'object') {
+    return Object.entries(raw as Record<string, boolean>)
+      .filter(([, v]) => v === true)
+      .map(([k]) => ({ name: k } as CapabilityGrant));
+  }
+  return [];
+}
+
+function grantHasCapability(
+  capabilities: CapabilityGrant[],
+  capabilityName: string,
+  contentType?: string
+): boolean {
+  const grant = capabilities.find((g) => g.name === capabilityName);
+  if (!grant) return false;
+  if (!contentType || grant.contentTypes === undefined) return true;
+  if (grant.contentTypes === "*") return true;
+  if (Array.isArray(grant.contentTypes)) return grant.contentTypes.includes(contentType);
+  return false;
+}
+
 export function DebugAuthProvider({ children }: { children: ReactNode }) {
   const [isValidated, setIsValidated] = useState<boolean | null>(null);
   const [hasToken, setHasToken] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [capabilities, setCapabilities] = useState<Capabilities>(DEFAULT_CAPABILITIES);
+  const [capabilities, setCapabilities] = useState<CapabilityGrant[]>(DEFAULT_CAPABILITIES);
   
   const isDevelopment = import.meta.env.DEV;
   const isDebugMode = isDebugModeActive();
@@ -156,7 +184,7 @@ export function DebugAuthProvider({ children }: { children: ReactNode }) {
             setIsValidated(true);
             if (cachedCaps) {
               try {
-                setCapabilities(JSON.parse(cachedCaps));
+                setCapabilities(capabilityGrantsFromResponse(JSON.parse(cachedCaps)));
               } catch {
               }
             }
@@ -213,8 +241,9 @@ export function DebugAuthProvider({ children }: { children: ReactNode }) {
         localStorage.setItem(DEBUG_SESSION_EXPIRY_KEY, String(expiryTime));
         localStorage.setItem(DEBUG_TOKEN_KEY, token);
         if (data.capabilities) {
-          localStorage.setItem(DEBUG_CAPABILITIES_KEY, JSON.stringify(data.capabilities));
-          setCapabilities(data.capabilities);
+          const grants = capabilityGrantsFromResponse(data.capabilities);
+          localStorage.setItem(DEBUG_CAPABILITIES_KEY, JSON.stringify(grants));
+          setCapabilities(grants);
         }
         if (data.userName) {
           localStorage.setItem(DEBUG_USERNAME_KEY, data.userName);
@@ -226,7 +255,7 @@ export function DebugAuthProvider({ children }: { children: ReactNode }) {
         localStorage.removeItem(DEBUG_TOKEN_KEY);
         localStorage.removeItem(DEBUG_CAPABILITIES_KEY);
         localStorage.removeItem(DEBUG_USERNAME_KEY);
-        setCapabilities(data.capabilities || DEFAULT_CAPABILITIES);
+        setCapabilities(data.capabilities ? capabilityGrantsFromResponse(data.capabilities) : DEFAULT_CAPABILITIES);
         setIsValidated(false);
       }
     } catch (error) {
@@ -277,15 +306,16 @@ export function DebugAuthProvider({ children }: { children: ReactNode }) {
         localStorage.setItem(DEBUG_SESSION_EXPIRY_KEY, String(expiryTime));
         localStorage.setItem(DEBUG_TOKEN_KEY, manualToken);
         if (data.capabilities) {
-          localStorage.setItem(DEBUG_CAPABILITIES_KEY, JSON.stringify(data.capabilities));
-          setCapabilities(data.capabilities);
+          const grants = capabilityGrantsFromResponse(data.capabilities);
+          localStorage.setItem(DEBUG_CAPABILITIES_KEY, JSON.stringify(grants));
+          setCapabilities(grants);
         }
         if (data.userName) {
           localStorage.setItem(DEBUG_USERNAME_KEY, data.userName);
         }
         setIsValidated(true);
       } else {
-        setCapabilities(data.capabilities || DEFAULT_CAPABILITIES);
+        setCapabilities(data.capabilities ? capabilityGrantsFromResponse(data.capabilities) : DEFAULT_CAPABILITIES);
         setIsValidated(false);
       }
     } catch (error) {
@@ -352,13 +382,13 @@ export function DebugAuthProvider({ children }: { children: ReactNode }) {
     setCapabilities(DEFAULT_CAPABILITIES);
   }, []);
 
-  const hasCapability = useCallback((capability: keyof Capabilities): boolean => {
-    return capabilities[capability] === true;
+  const hasCapability = useCallback((capability: string, contentType?: string): boolean => {
+    return grantHasCapability(capabilities, capability, contentType);
   }, [capabilities]);
 
-  const canEdit = capabilities.content_edit_text || 
-                  capabilities.content_edit_structure || 
-                  capabilities.content_edit_media;
+  const canEdit = grantHasCapability(capabilities, "content_edit_text") ||
+                  grantHasCapability(capabilities, "content_edit_structure") ||
+                  grantHasCapability(capabilities, "content_edit_media");
 
   const value: DebugAuthValue = {
     isValidated,

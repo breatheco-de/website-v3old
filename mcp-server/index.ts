@@ -321,14 +321,13 @@ app.post("/oauth/authorize", async (req, res) => {
     return;
   }
 
-  if (validation.userId !== undefined) {
-    updateClientBreathecodeUser(
-      pending.clientId,
-      validation.userId,
-      validation.firstName ?? "",
-      validation.lastName ?? "",
-    );
-  }
+  updateClientBreathecodeUser(
+    pending.clientId,
+    validation.userId ?? 0,
+    validation.firstName ?? "",
+    validation.lastName ?? "",
+    validation.username,
+  );
 
   let redirectUrl: URL;
   try {
@@ -381,14 +380,13 @@ app.get("/oauth/callback", async (req, res) => {
     return;
   }
 
-  if (validation.userId !== undefined) {
-    updateClientBreathecodeUser(
-      pending.clientId,
-      validation.userId,
-      validation.firstName ?? "",
-      validation.lastName ?? "",
-    );
-  }
+  updateClientBreathecodeUser(
+    pending.clientId,
+    validation.userId ?? 0,
+    validation.firstName ?? "",
+    validation.lastName ?? "",
+    validation.username,
+  );
 
   const code = generateCode(pending.clientId, pending.redirectUri);
   redirectUrl.searchParams.set("code", code);

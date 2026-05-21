@@ -17,6 +17,7 @@ export interface RegisteredClient {
   breathecodeUserId?: number;
   breathecodeFirstName?: string;
   breathecodeLastName?: string;
+  breathecodeUsername?: string;
 }
 
 const clients = new Map<string, RegisteredClient>();
@@ -89,12 +90,14 @@ export function updateClientBreathecodeUser(
   userId: number,
   firstName: string,
   lastName: string,
+  username?: string,
 ): void {
   const client = clients.get(clientId);
   if (!client) return;
   client.breathecodeUserId = userId;
   client.breathecodeFirstName = firstName;
   client.breathecodeLastName = lastName;
+  if (username) client.breathecodeUsername = username;
   persistClients();
 }
 
@@ -140,27 +143,86 @@ export function consumePendingAuth(nonce: string): PendingAuth | null {
   return entry;
 }
 
-// ─── Breathecode token validation ─────────────────────────────────────────────
+// ─── Breathecode token validation (via main app's centralized UserManager) ─────
 
 export interface BreathecodeValidationResult {
   valid: boolean;
   userId?: number;
   firstName?: string;
   lastName?: string;
+  username?: string;
   error?: string;
 }
 
+/**
+ * Validate a Breathecode token by calling the main CMS app's validate-token endpoint.
+ * This ensures MCP OAuth uses the same UserManager/UserStore as the CMS,
+ * including first-user-webmaster bootstrap and role assignment.
+ */
 export async function validateBreathecodeToken(
   token: string,
 ): Promise<BreathecodeValidationResult> {
+  const mainAppPort = process.env.PORT || "5000";
+  const mainAppUrl = `http://localhost:${mainAppPort}/api/debug/validate-token`;
+
   try {
-    // Step 1 — confirm the token exists and hasn't expired
+    const res = await fetch(mainAppUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token }),
+    });
+
+    if (!res.ok) {
+      return { valid: false, error: `Main app validation error (HTTP ${res.status})` };
+    }
+
+    const data = (await res.json()) as {
+      valid: boolean;
+      userName?: string;
+      username?: string;
+      expiresAt?: string;
+      capabilities?: unknown[];
+      error?: string;
+    };
+
+    if (!data.valid) {
+      return { valid: false, error: data.error || "Token is not valid or lacks required permissions" };
+    }
+
+    // Enforce that the user has at least one internal platform capability.
+    // A valid Breathecode identity alone is not sufficient — the user must be
+    // assigned a role in the CMS before MCP OAuth grants them an access token.
+    if (!Array.isArray(data.capabilities) || data.capabilities.length === 0) {
+      return {
+        valid: false,
+        error: "Your account does not have platform write access. Contact an administrator to be assigned a role.",
+      };
+    }
+
+    // The main app returns userName (display) and username (breathecode slug)
+    const username = data.username || data.userName || "";
+    return {
+      valid: true,
+      username,
+      // Attempt to split userName for backward-compat fields (firstName.lastName format)
+      firstName: username.split(".")[0] || "",
+      lastName: username.split(".").slice(1).join(".") || "",
+    };
+  } catch (err) {
+    // Main app is unreachable — fail closed to keep authorization internal-only.
+    // Do not fall back to direct Breathecode capability checks; instead deny access.
+    console.warn("[MCP] Main app unreachable for token validation, denying MCP access —", (err as Error).message);
+    return { valid: false, error: "Authorization service unavailable; cannot verify credentials" };
+  }
+}
+
+async function validateBreathecodeTokenDirect(token: string): Promise<BreathecodeValidationResult> {
+  try {
     const tokenRes = await fetch(`${BREATHECODE_HOST}/v1/auth/token/${token}`);
     if (!tokenRes.ok) {
       return { valid: false, error: `Token check failed (HTTP ${tokenRes.status})` };
     }
 
-    // Step 2 — fetch user profile; also provides the academy memberships we need for Step 3
     const meRes = await fetch(`${BREATHECODE_HOST}/v1/auth/user/me`, {
       headers: { Authorization: `Token ${token}` },
     });
@@ -171,34 +233,30 @@ export async function validateBreathecodeToken(
       id?: number;
       first_name?: string;
       last_name?: string;
-      roles?: Array<{ academy?: { id?: number } }>;
+      username?: string;
       [key: string]: unknown;
     };
 
-    // Step 3 — check webmaster capability. The endpoint requires an Academy header.
-    // Only check against the known 4Geeks academies that use this platform.
     const idsToCheck = [47, 4, 6, 7];
-
     let hasWebmaster = false;
     for (const academyId of idsToCheck) {
       const capRes = await fetch(`${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`, {
         headers: { Authorization: `Token ${token}`, Academy: String(academyId) },
       });
-      if (capRes.ok) {
-        hasWebmaster = true;
-        break;
-      }
+      if (capRes.ok) { hasWebmaster = true; break; }
     }
 
     if (!hasWebmaster) {
       return { valid: false, error: "Token does not have webmaster capability" };
     }
 
+    const username = meData.username || `${meData.first_name || ""}.${meData.last_name || ""}`.toLowerCase().replace(/\s+/g, "");
     return {
       valid: true,
       userId: meData.id,
       firstName: meData.first_name ?? "",
       lastName: meData.last_name ?? "",
+      username,
     };
   } catch (err) {
     return { valid: false, error: (err as Error).message };
@@ -268,14 +326,16 @@ export function validateToken(token: string): boolean {
 
 /**
  * Look up which client issued the given access token.
- * Returns the client's Breathecode username as "firstname.lastname" (lowercase),
- * or null if the token is unknown or the client has no Breathecode user attached.
+ * Returns the client's Breathecode username (slug), falling back to
+ * "firstname.lastname" if the slug is not stored.
+ * Returns null if the token is unknown or no user is attached.
  */
 export function getTokenUsername(token: string): string | null {
   const clientId = accessTokens.get(token);
   if (!clientId) return null;
   const client = clients.get(clientId);
   if (!client) return null;
+  if (client.breathecodeUsername) return client.breathecodeUsername;
   const first = client.breathecodeFirstName?.trim() || "";
   const last = client.breathecodeLastName?.trim() || "";
   if (!first && !last) return null;

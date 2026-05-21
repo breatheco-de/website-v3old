@@ -10,6 +10,7 @@ import { setAutoCommitCallback } from "./sync-state";
 import { queueFileChange } from "./auto-commit";
 import { databaseManager } from "./database";
 import { contentIndex } from "./content-index";
+import { loadUsersStateFromBucket } from "./user-store";
 import http from "http";
 // Note: gcs.initFromEnv() is called by media.initFromEnv() in routes.ts,
 // which happens before sync-state needs it.
@@ -207,6 +208,9 @@ app.use((req, res, next) => {
     });
     startBackgroundSync().catch((err) => {
       console.error("[SyncState] Failed to start background sync:", err);
+    });
+    loadUsersStateFromBucket().catch((err) => {
+      console.error("[UserStore] Failed to load users state:", err);
     });
   });
 })();

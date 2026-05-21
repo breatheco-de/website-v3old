@@ -1,14 +1,34 @@
 import { useState, useEffect } from "react";
-import { ArrowLeft, CircleCheck, CircleX, FileCode, Info, Languages, Loader2, Play, Plus, Save, Star, Trash2 } from "lucide-react";
+import {
+  IconArrowLeft,
+  IconCheck,
+  IconCode,
+  IconInfoCircle,
+  IconLanguage,
+  IconLoader2,
+  IconPlus,
+  IconStar,
+  IconTrash,
+  IconDeviceFloppy,
+  IconPlayerPlay,
+  IconAlertCircle,
+  IconShield,
+  IconUsers,
+  IconPencil,
+  IconX,
+} from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useDebugAuth } from "@/hooks/useDebugAuth";
 
 interface LocaleEntry {
   code: string;
@@ -31,8 +51,592 @@ interface MigrationRowState {
   result: { success: boolean; output: string } | null;
 }
 
+interface CapabilityGrant {
+  name: string;
+  contentTypes?: string[] | "*";
+}
+
+interface RoleDefinition {
+  label: string;
+  description?: string;
+  capabilities: CapabilityGrant[];
+}
+
+interface UserRecord {
+  username: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  lastLoginAt?: string;
+  roles: string[];
+}
+
+const ALL_CAPABILITIES = [
+  { name: "content_create_entry", label: "Create entries", scoped: true },
+  { name: "content_delete_entry", label: "Delete entries", scoped: true },
+  { name: "content_edit_structure", label: "Edit structure", scoped: true },
+  { name: "content_edit_default", label: "Edit default content", scoped: true },
+  { name: "content_create_variant", label: "Create variants", scoped: true },
+  { name: "content_edit_variant", label: "Edit variants", scoped: true },
+  { name: "content_edit_text", label: "Edit text", scoped: true },
+  { name: "content_edit_media", label: "Edit media", scoped: true },
+  { name: "content_publish", label: "Publish content", scoped: false },
+  { name: "media_upload", label: "Upload media", scoped: false },
+  { name: "media_delete", label: "Delete media", scoped: false },
+  { name: "seo_edit", label: "Edit SEO", scoped: false },
+  { name: "content_types_manage", label: "Manage content types", scoped: false },
+  { name: "databases_manage", label: "Manage databases", scoped: false },
+  { name: "components_manage", label: "Manage components", scoped: false },
+  { name: "theme_edit", label: "Edit theme", scoped: false },
+  { name: "migrations_run", label: "Run migrations", scoped: false },
+  { name: "users_manage", label: "Manage users & roles", scoped: false },
+];
+
+interface CapabilityFormState { enabled: boolean; contentTypes: string; }
+interface RoleFormState {
+  id: string;
+  label: string;
+  description: string;
+  capabilities: Record<string, CapabilityFormState>;
+}
+
+function capGrantsFromFormState(map: Record<string, CapabilityFormState>): CapabilityGrant[] {
+  return Object.entries(map)
+    .filter(([, v]) => v.enabled)
+    .map(([name, v]) => ({
+      name,
+      contentTypes: v.contentTypes.trim()
+        ? (v.contentTypes.split(",").map((s) => s.trim()).filter(Boolean) as string[])
+        : ("*" as "*"),
+    }));
+}
+
+function capMapFromGrants(grants: CapabilityGrant[]): Record<string, CapabilityFormState> {
+  const map: Record<string, CapabilityFormState> = {};
+  for (const cap of grants) {
+    map[cap.name] = {
+      enabled: true,
+      contentTypes: Array.isArray(cap.contentTypes) ? cap.contentTypes.join(", ") : "",
+    };
+  }
+  return map;
+}
+
+function CapabilityFields({
+  caps,
+  onChange,
+}: {
+  caps: Record<string, CapabilityFormState>;
+  onChange: (updated: Record<string, CapabilityFormState>) => void;
+}) {
+  return (
+    <div className="space-y-2 pt-1">
+      {ALL_CAPABILITIES.map((cap) => {
+        const state = caps[cap.name] ?? { enabled: false, contentTypes: "" };
+        return (
+          <div key={cap.name} className="space-y-1">
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id={`cap-${cap.name}`}
+                checked={state.enabled}
+                onCheckedChange={(checked) =>
+                  onChange({ ...caps, [cap.name]: { ...state, enabled: !!checked } })
+                }
+                data-testid={`checkbox-cap-${cap.name}`}
+              />
+              <label htmlFor={`cap-${cap.name}`} className="text-xs cursor-pointer flex-1">
+                {cap.label}
+              </label>
+              {cap.scoped && (
+                <span className="text-xs text-muted-foreground">scopeable</span>
+              )}
+            </div>
+            {cap.scoped && state.enabled && (
+              <div className="ml-6">
+                <Input
+                  placeholder="Content types, comma-separated (blank = all)"
+                  value={state.contentTypes}
+                  onChange={(e) =>
+                    onChange({ ...caps, [cap.name]: { ...state, contentTypes: e.target.value } })
+                  }
+                  className="text-xs h-7"
+                  data-testid={`input-cap-scope-${cap.name}`}
+                />
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function RolesTab() {
+  const { toast } = useToast();
+  const { data: rolesData, isLoading } = useQuery<Record<string, RoleDefinition>>({
+    queryKey: ["/api/admin/roles"],
+  });
+
+  const [newRoleForm, setNewRoleForm] = useState<RoleFormState | null>(null);
+  const [editingRoleId, setEditingRoleId] = useState<string | null>(null);
+  const [editRoleForm, setEditRoleForm] = useState<Omit<RoleFormState, "id"> | null>(null);
+  const [deletingRoleId, setDeletingRoleId] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  const roles = rolesData ? Object.entries(rolesData) : [];
+
+  function startNewRole() {
+    setNewRoleForm({ id: "", label: "", description: "", capabilities: {} });
+    setEditingRoleId(null);
+    setEditRoleForm(null);
+  }
+
+  function startEditRole(roleId: string, role: RoleDefinition) {
+    setEditingRoleId(roleId);
+    setEditRoleForm({
+      label: role.label,
+      description: role.description || "",
+      capabilities: capMapFromGrants(role.capabilities),
+    });
+    setNewRoleForm(null);
+  }
+
+  async function saveNewRole() {
+    if (!newRoleForm) return;
+    if (!newRoleForm.id || !newRoleForm.label) {
+      toast({ title: "Required fields missing", description: "Role ID and label are required", variant: "destructive" });
+      return;
+    }
+    setSaving(true);
+    try {
+      const res = await apiRequest("POST", "/api/admin/roles", {
+        id: newRoleForm.id,
+        label: newRoleForm.label,
+        description: newRoleForm.description || undefined,
+        capabilities: capGrantsFromFormState(newRoleForm.capabilities),
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to save role");
+      }
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/roles"] });
+      setNewRoleForm(null);
+      toast({ title: "Role created" });
+    } catch (err: any) {
+      toast({ title: "Failed to save role", description: err.message, variant: "destructive" });
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function saveEditRole() {
+    if (!editingRoleId || !editRoleForm) return;
+    if (!editRoleForm.label) {
+      toast({ title: "Label is required", variant: "destructive" });
+      return;
+    }
+    setSaving(true);
+    try {
+      const res = await apiRequest("PUT", `/api/admin/roles/${editingRoleId}`, {
+        label: editRoleForm.label,
+        description: editRoleForm.description || undefined,
+        capabilities: capGrantsFromFormState(editRoleForm.capabilities),
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to update role");
+      }
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/roles"] });
+      setEditingRoleId(null);
+      setEditRoleForm(null);
+      toast({ title: "Role updated" });
+    } catch (err: any) {
+      toast({ title: "Failed to update role", description: err.message, variant: "destructive" });
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function confirmDeleteRole(roleId: string) {
+    try {
+      const res = await apiRequest("DELETE", `/api/admin/roles/${roleId}`, undefined);
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to delete role");
+      }
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/roles"] });
+      setDeletingRoleId(null);
+      toast({ title: "Role deleted" });
+    } catch (err: any) {
+      setDeletingRoleId(null);
+      toast({ title: "Failed to delete role", description: err.message, variant: "destructive" });
+    }
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-muted-foreground">Define roles and assign capabilities to them.</p>
+        <Button variant="outline" size="sm" onClick={startNewRole} data-testid="button-new-role">
+          <IconPlus className="h-4 w-4 mr-1.5" />
+          New role
+        </Button>
+      </div>
+
+      {newRoleForm && (
+        <Card data-testid="card-new-role">
+          <CardHeader className="flex flex-row items-center justify-between gap-2 pb-3">
+            <CardTitle className="text-sm font-medium">New role</CardTitle>
+            <Button variant="ghost" size="icon" onClick={() => setNewRoleForm(null)}>
+              <IconX className="h-4 w-4" />
+            </Button>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="grid grid-cols-2 gap-2">
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-muted-foreground">ID</label>
+                <Input
+                  placeholder="editor"
+                  value={newRoleForm.id}
+                  onChange={(e) => setNewRoleForm({ ...newRoleForm, id: e.target.value.toLowerCase().replace(/[^a-z0-9_-]/g, "") })}
+                  data-testid="input-new-role-id"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-muted-foreground">Label</label>
+                <Input
+                  placeholder="Content Editor"
+                  value={newRoleForm.label}
+                  onChange={(e) => setNewRoleForm({ ...newRoleForm, label: e.target.value })}
+                  data-testid="input-new-role-label"
+                />
+              </div>
+            </div>
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-muted-foreground">Description (optional)</label>
+              <Input
+                placeholder="Can edit text content"
+                value={newRoleForm.description}
+                onChange={(e) => setNewRoleForm({ ...newRoleForm, description: e.target.value })}
+                data-testid="input-new-role-description"
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-muted-foreground">Capabilities</label>
+              <CapabilityFields
+                caps={newRoleForm.capabilities}
+                onChange={(updated) => setNewRoleForm({ ...newRoleForm, capabilities: updated })}
+              />
+            </div>
+            <div className="flex justify-end pt-1">
+              <Button size="sm" onClick={saveNewRole} disabled={saving} data-testid="button-save-new-role">
+                {saving ? <IconLoader2 className="h-4 w-4 mr-1.5 animate-spin" /> : <IconDeviceFloppy className="h-4 w-4 mr-1.5" />}
+                Save role
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      <div className="space-y-2">
+        {roles.length === 0 && !newRoleForm && (
+          <p className="text-sm text-muted-foreground text-center py-8">No roles defined yet.</p>
+        )}
+        {roles.map(([roleId, role]) => {
+          const isBuiltIn = roleId === "webmaster";
+          const isEditing = editingRoleId === roleId;
+          const isDeleting = deletingRoleId === roleId;
+          return (
+            <Card key={roleId} data-testid={`card-role-${roleId}`}>
+              <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2">
+                <div className="flex items-center gap-2 flex-1 min-w-0">
+                  <code className="text-xs font-mono text-muted-foreground shrink-0">{roleId}</code>
+                  {isEditing && editRoleForm ? (
+                    <Input
+                      value={editRoleForm.label}
+                      onChange={(e) => setEditRoleForm({ ...editRoleForm, label: e.target.value })}
+                      className="text-sm font-medium h-7"
+                      data-testid={`input-edit-role-label-${roleId}`}
+                    />
+                  ) : (
+                    <span className="text-sm font-medium truncate">{role.label}</span>
+                  )}
+                  {isBuiltIn && <Badge variant="secondary" className="text-xs shrink-0">built-in</Badge>}
+                </div>
+                <div className="flex items-center gap-1 shrink-0">
+                  {!isBuiltIn && !isEditing && !isDeleting && (
+                    <>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => startEditRole(roleId, role)}
+                        data-testid={`button-edit-role-${roleId}`}
+                      >
+                        <IconPencil className="h-4 w-4 text-muted-foreground" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setDeletingRoleId(roleId)}
+                        data-testid={`button-delete-role-${roleId}`}
+                      >
+                        <IconTrash className="h-4 w-4 text-muted-foreground" />
+                      </Button>
+                    </>
+                  )}
+                  {isEditing && (
+                    <>
+                      <Button
+                        size="sm"
+                        onClick={saveEditRole}
+                        disabled={saving}
+                        data-testid={`button-save-edit-role-${roleId}`}
+                      >
+                        {saving ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconCheck className="h-4 w-4" />}
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => { setEditingRoleId(null); setEditRoleForm(null); }}
+                        data-testid={`button-cancel-edit-role-${roleId}`}
+                      >
+                        <IconX className="h-4 w-4" />
+                      </Button>
+                    </>
+                  )}
+                </div>
+              </CardHeader>
+              <CardContent className="pt-0">
+                {isDeleting ? (
+                  <div className="flex items-center gap-2 py-1">
+                    <span className="text-sm text-muted-foreground flex-1">
+                      Delete "{role.label}"? This cannot be undone.
+                    </span>
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      onClick={() => confirmDeleteRole(roleId)}
+                      data-testid={`button-confirm-delete-role-${roleId}`}
+                    >
+                      Delete
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => setDeletingRoleId(null)}
+                      data-testid={`button-cancel-delete-role-${roleId}`}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                ) : isEditing && editRoleForm ? (
+                  <div className="space-y-3">
+                    <div className="space-y-1">
+                      <label className="text-xs font-medium text-muted-foreground">Description (optional)</label>
+                      <Input
+                        placeholder="Role description"
+                        value={editRoleForm.description}
+                        onChange={(e) => setEditRoleForm({ ...editRoleForm, description: e.target.value })}
+                        data-testid={`input-edit-role-desc-${roleId}`}
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs font-medium text-muted-foreground">Capabilities</label>
+                      <CapabilityFields
+                        caps={editRoleForm.capabilities}
+                        onChange={(updated) => setEditRoleForm({ ...editRoleForm, capabilities: updated })}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    {role.description && (
+                      <p className="text-xs text-muted-foreground mb-2">{role.description}</p>
+                    )}
+                    <div className="flex flex-wrap gap-1">
+                      {role.capabilities.map((cap) => (
+                        <Badge key={cap.name} variant="outline" className="text-xs font-mono">
+                          {cap.name}
+                          {Array.isArray(cap.contentTypes) && cap.contentTypes.length > 0 && (
+                            <span className="text-muted-foreground ml-1">({cap.contentTypes.join(",")})</span>
+                          )}
+                        </Badge>
+                      ))}
+                      {role.capabilities.length === 0 && (
+                        <span className="text-xs text-muted-foreground">No capabilities assigned</span>
+                      )}
+                    </div>
+                  </>
+                )}
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function UsersTab() {
+  const { toast } = useToast();
+  const { data: users, isLoading: usersLoading } = useQuery<UserRecord[]>({
+    queryKey: ["/api/admin/users"],
+  });
+  const { data: rolesData } = useQuery<Record<string, RoleDefinition>>({
+    queryKey: ["/api/admin/roles"],
+  });
+
+  const [editingUser, setEditingUser] = useState<string | null>(null);
+  const [userRoles, setUserRoles] = useState<string[]>([]);
+  const [saving, setSaving] = useState(false);
+
+  const allRoles = rolesData ? Object.entries(rolesData) : [];
+
+  function startEditRoles(user: UserRecord) {
+    setEditingUser(user.username);
+    setUserRoles([...user.roles]);
+  }
+
+  async function saveUserRoles(username: string) {
+    setSaving(true);
+    try {
+      const res = await apiRequest("PUT", `/api/admin/users/${username}/roles`, { roles: userRoles });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to update roles");
+      }
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/users"] });
+      setEditingUser(null);
+      toast({ title: "Roles updated" });
+    } catch (err: any) {
+      toast({ title: "Failed to update roles", description: err.message, variant: "destructive" });
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  if (usersLoading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      <p className="text-sm text-muted-foreground">Users who have logged in at least once. Assign roles to control their access.</p>
+
+      {!users || users.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-12 gap-2 text-muted-foreground">
+          <IconAlertCircle className="h-8 w-8" />
+          <p className="text-sm">No users registered yet. Users appear here after their first login.</p>
+        </div>
+      ) : (
+        <div className="space-y-2">
+          {users.map((user) => (
+            <Card key={user.username} data-testid={`card-user-${user.username}`}>
+              <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2">
+                <div className="space-y-0.5">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">
+                      {[user.firstName, user.lastName].filter(Boolean).join(" ") || user.username}
+                    </span>
+                    <code className="text-xs font-mono text-muted-foreground">{user.username}</code>
+                  </div>
+                  {user.email && (
+                    <p className="text-xs text-muted-foreground">{user.email}</p>
+                  )}
+                </div>
+                {editingUser === user.username ? (
+                  <div className="flex items-center gap-1">
+                    <Button
+                      size="sm"
+                      onClick={() => saveUserRoles(user.username)}
+                      disabled={saving}
+                      data-testid={`button-save-user-roles-${user.username}`}
+                    >
+                      {saving ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconCheck className="h-4 w-4" />}
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => setEditingUser(null)}
+                      data-testid={`button-cancel-user-${user.username}`}
+                    >
+                      <IconX className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ) : (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => startEditRoles(user)}
+                    data-testid={`button-edit-user-${user.username}`}
+                  >
+                    <IconPencil className="h-4 w-4 text-muted-foreground" />
+                  </Button>
+                )}
+              </CardHeader>
+              <CardContent className="pt-0">
+                {editingUser === user.username ? (
+                  <div className="grid grid-cols-2 gap-1.5">
+                    {allRoles.map(([roleId, role]) => (
+                      <div key={roleId} className="flex items-center gap-2">
+                        <Checkbox
+                          id={`user-role-${user.username}-${roleId}`}
+                          checked={userRoles.includes(roleId)}
+                          onCheckedChange={(checked) =>
+                            setUserRoles(checked
+                              ? [...userRoles, roleId]
+                              : userRoles.filter((r) => r !== roleId))
+                          }
+                          data-testid={`checkbox-user-role-${user.username}-${roleId}`}
+                        />
+                        <label htmlFor={`user-role-${user.username}-${roleId}`} className="text-xs cursor-pointer">
+                          {role.label}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="flex flex-wrap gap-1">
+                    {user.roles.length === 0 ? (
+                      <span className="text-xs text-muted-foreground">No roles assigned</span>
+                    ) : (
+                      user.roles.map((roleId) => (
+                        <Badge key={roleId} variant="secondary" className="text-xs">
+                          {rolesData?.[roleId]?.label || roleId}
+                        </Badge>
+                      ))
+                    )}
+                    {user.lastLoginAt && (
+                      <span className="text-xs text-muted-foreground ml-auto">
+                        Last login: {new Date(user.lastLoginAt).toLocaleDateString()}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function SettingsPage() {
   const { toast } = useToast();
+  const { hasCapability } = useDebugAuth();
   const { data, isLoading } = useQuery<LocaleSettings>({
     queryKey: ["/api/settings/locales"],
   });
@@ -48,6 +652,8 @@ export default function SettingsPage() {
   const [saving, setSaving] = useState(false);
   const [dirty, setDirty] = useState(false);
   const [migrationStates, setMigrationStates] = useState<Record<string, MigrationRowState>>({});
+
+  const canManageUsers = hasCapability("users_manage");
 
   useEffect(() => {
     if (data) {
@@ -135,7 +741,7 @@ export default function SettingsPage() {
         <div className="flex items-center gap-3 mb-6">
           <Link href="/private/diagnostics">
             <Button variant="ghost" size="icon" data-testid="button-back-settings">
-              <ArrowLeft className="h-4 w-4" />
+              <IconArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
           <div>
@@ -144,199 +750,240 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between gap-2 pb-4">
-            <div className="flex items-center gap-2">
-              <Languages className="h-5 w-5 text-muted-foreground" />
-              <CardTitle className="text-base">Internationalization</CardTitle>
-            </div>
-            <Button
-              size="sm"
-              onClick={handleSave}
-              disabled={!dirty || saving}
-              data-testid="button-save-locales"
-            >
-              {saving ? (
-                <Loader2 className="h-4 w-4 mr-1.5 animate-spin" />
-              ) : (
-                <Save className="h-4 w-4 mr-1.5" />
-              )}
-              Save
-            </Button>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {isLoading ? (
-              <div className="flex items-center justify-center py-8">
-                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
-              </div>
-            ) : (
-              <>
-                <div className="space-y-1">
-                  <p className="text-sm font-medium">Supported Locales</p>
-                  <p className="text-xs text-muted-foreground">
-                    Locales available for content and URL patterns. The default locale is used as fallback.
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  {locales.map((locale) => (
-                    <div
-                      key={locale.code}
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-md border"
-                      data-testid={`row-locale-${locale.code}`}
-                    >
-                      <code className="text-sm font-mono font-medium w-8">{locale.code}</code>
-                      <span className="text-sm flex-1">{locale.label}</span>
-                      {locale.code === defaultLocale ? (
-                        <Badge variant="secondary" className="gap-1" data-testid={`badge-default-${locale.code}`}>
-                          <Star className="fill-current h-3 w-3" />
-                          Default
-                        </Badge>
-                      ) : (
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => setAsDefault(locale.code)}
-                          title="Set as default"
-                          data-testid={`button-set-default-${locale.code}`}
-                        >
-                          <Star className="h-4 w-4 text-muted-foreground" />
-                        </Button>
-                      )}
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => removeLocale(locale.code)}
-                        disabled={locales.length <= 1 || locale.code === defaultLocale}
-                        title="Remove locale"
-                        data-testid={`button-remove-locale-${locale.code}`}
-                      >
-                        <Trash2 className="h-4 w-4 text-muted-foreground" />
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex items-end gap-2 pt-2 border-t">
-                  <div className="space-y-1">
-                    <label className="text-xs font-medium text-muted-foreground">Code</label>
-                    <Input
-                      placeholder="pt"
-                      value={newCode}
-                      onChange={(e) => setNewCode(e.target.value.toLowerCase().replace(/[^a-z]/g, "").slice(0, 3))}
-                      className="w-20"
-                      onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addLocale(); } }}
-                      data-testid="input-new-locale-code"
-                    />
-                  </div>
-                  <div className="flex-1 space-y-1">
-                    <label className="text-xs font-medium text-muted-foreground">Label</label>
-                    <Input
-                      placeholder="Portuguese"
-                      value={newLabel}
-                      onChange={(e) => setNewLabel(e.target.value)}
-                      onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addLocale(); } }}
-                      data-testid="input-new-locale-label"
-                    />
-                  </div>
-                  <Button
-                    variant="outline"
-                    onClick={addLocale}
-                    disabled={!newCode.trim() || !newLabel.trim()}
-                    data-testid="button-add-locale"
-                  >
-                    <Plus className="h-4 w-4 mr-1.5" />
-                    Add
-                  </Button>
-                </div>
-              </>
+        <Tabs defaultValue="locales">
+          <TabsList className={`grid w-full ${canManageUsers ? "grid-cols-4" : "grid-cols-2"}`}>
+            <TabsTrigger value="locales" data-testid="tab-locales">
+              <IconLanguage className="h-4 w-4 mr-1.5" />
+              Locales
+            </TabsTrigger>
+            <TabsTrigger value="migrations" data-testid="tab-migrations">
+              <IconCode className="h-4 w-4 mr-1.5" />
+              Migrations
+            </TabsTrigger>
+            {canManageUsers && (
+              <TabsTrigger value="roles" data-testid="tab-roles">
+                <IconShield className="h-4 w-4 mr-1.5" />
+                Roles
+              </TabsTrigger>
             )}
-          </CardContent>
-        </Card>
+            {canManageUsers && (
+              <TabsTrigger value="users" data-testid="tab-users">
+                <IconUsers className="h-4 w-4 mr-1.5" />
+                Users
+              </TabsTrigger>
+            )}
+          </TabsList>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center gap-2 pb-4">
-            <FileCode className="h-5 w-5 text-muted-foreground" />
-            <CardTitle className="text-base">Migrations</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {migrationsLoading ? (
-              <div className="flex items-center justify-center py-8">
-                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
-              </div>
-            ) : !migrations || migrations.length === 0 ? (
-              <p className="text-sm text-muted-foreground py-4 text-center">No migration scripts found.</p>
-            ) : (
-              <div className="space-y-3">
-                <p className="text-xs text-muted-foreground">
-                  One-time data scripts. Each migration is idempotent — safe to re-run.
-                </p>
-                <div className="space-y-2">
-                  {migrations.map((migration) => {
-                    const state = migrationStates[migration.filename];
-                    const running = state?.running ?? false;
-                    const result = state?.result ?? null;
-                    return (
-                      <div key={migration.filename} className="space-y-2" data-testid={`row-migration-${migration.filename}`}>
-                        <div className="flex items-center gap-2 px-3 py-2.5 rounded-md border">
-                          <code className="text-xs font-mono text-muted-foreground flex-1 truncate" data-testid={`text-migration-name-${migration.filename}`}>
-                            {migration.filename}
-                          </code>
-                          {result && (
-                            result.success
-                              ? <CircleCheck className="h-4 w-4 text-green-500 shrink-0" />
-                              : <CircleX className="h-4 w-4 text-destructive shrink-0" />
+          <TabsContent value="locales" className="mt-4">
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between gap-2 pb-4">
+                <div className="flex items-center gap-2">
+                  <IconLanguage className="h-5 w-5 text-muted-foreground" />
+                  <CardTitle className="text-base">Internationalization</CardTitle>
+                </div>
+                <Button
+                  size="sm"
+                  onClick={handleSave}
+                  disabled={!dirty || saving}
+                  data-testid="button-save-locales"
+                >
+                  {saving ? (
+                    <IconLoader2 className="h-4 w-4 mr-1.5 animate-spin" />
+                  ) : (
+                    <IconDeviceFloppy className="h-4 w-4 mr-1.5" />
+                  )}
+                  Save
+                </Button>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {isLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                  </div>
+                ) : (
+                  <>
+                    <div className="space-y-1">
+                      <p className="text-sm font-medium">Supported Locales</p>
+                      <p className="text-xs text-muted-foreground">
+                        Locales available for content and URL patterns. The default locale is used as fallback.
+                      </p>
+                    </div>
+
+                    <div className="space-y-2">
+                      {locales.map((locale) => (
+                        <div
+                          key={locale.code}
+                          className="flex items-center gap-3 px-3 py-2.5 rounded-md border"
+                          data-testid={`row-locale-${locale.code}`}
+                        >
+                          <code className="text-sm font-mono font-medium w-8">{locale.code}</code>
+                          <span className="text-sm flex-1">{locale.label}</span>
+                          {locale.code === defaultLocale ? (
+                            <Badge variant="secondary" className="gap-1" data-testid={`badge-default-${locale.code}`}>
+                              <IconStar className="fill-current h-3 w-3" />
+                              Default
+                            </Badge>
+                          ) : (
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => setAsDefault(locale.code)}
+                              title="Set as default"
+                              data-testid={`button-set-default-${locale.code}`}
+                            >
+                              <IconStar className="h-4 w-4 text-muted-foreground" />
+                            </Button>
                           )}
-                          <Popover>
-                            <PopoverTrigger asChild>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                title="About this migration"
-                                data-testid={`button-info-migration-${migration.filename}`}
-                              >
-                                <Info className="h-4 w-4 text-muted-foreground" />
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-72 text-sm" side="left" align="start">
-                              <p className="font-medium mb-1">{migration.name}</p>
-                              <p className="text-muted-foreground text-xs leading-relaxed">{migration.description}</p>
-                            </PopoverContent>
-                          </Popover>
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() => runMigration(migration.filename)}
-                            disabled={running}
-                            title="Run migration"
-                            data-testid={`button-run-migration-${migration.filename}`}
+                            onClick={() => removeLocale(locale.code)}
+                            disabled={locales.length <= 1 || locale.code === defaultLocale}
+                            title="Remove locale"
+                            data-testid={`button-remove-locale-${locale.code}`}
                           >
-                            {running
-                              ? <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
-                              : <Play className="h-4 w-4 text-muted-foreground" />
-                            }
+                            <IconTrash className="h-4 w-4 text-muted-foreground" />
                           </Button>
                         </div>
-                        {result && (
-                          <pre
-                            className={`text-xs font-mono rounded-md border px-3 py-2 overflow-auto max-h-48 whitespace-pre-wrap ${
-                              result.success
-                                ? "border-green-500/30 bg-green-500/5 text-foreground"
-                                : "border-destructive/30 bg-destructive/5 text-destructive"
-                            }`}
-                            data-testid={`text-migration-output-${migration.filename}`}
-                          >
-                            {result.output || (result.success ? "Done." : "Failed with no output.")}
-                          </pre>
-                        )}
+                      ))}
+                    </div>
+
+                    <div className="flex items-end gap-2 pt-2 border-t">
+                      <div className="space-y-1">
+                        <label className="text-xs font-medium text-muted-foreground">Code</label>
+                        <Input
+                          placeholder="pt"
+                          value={newCode}
+                          onChange={(e) => setNewCode(e.target.value.toLowerCase().replace(/[^a-z]/g, "").slice(0, 3))}
+                          className="w-20"
+                          onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addLocale(); } }}
+                          data-testid="input-new-locale-code"
+                        />
                       </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+                      <div className="flex-1 space-y-1">
+                        <label className="text-xs font-medium text-muted-foreground">Label</label>
+                        <Input
+                          placeholder="Portuguese"
+                          value={newLabel}
+                          onChange={(e) => setNewLabel(e.target.value)}
+                          onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addLocale(); } }}
+                          data-testid="input-new-locale-label"
+                        />
+                      </div>
+                      <Button
+                        variant="outline"
+                        onClick={addLocale}
+                        disabled={!newCode.trim() || !newLabel.trim()}
+                        data-testid="button-add-locale"
+                      >
+                        <IconPlus className="h-4 w-4 mr-1.5" />
+                        Add
+                      </Button>
+                    </div>
+                  </>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="migrations" className="mt-4">
+            <Card>
+              <CardHeader className="flex flex-row items-center gap-2 pb-4">
+                <IconCode className="h-5 w-5 text-muted-foreground" />
+                <CardTitle className="text-base">Migrations</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {migrationsLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                  </div>
+                ) : !migrations || migrations.length === 0 ? (
+                  <p className="text-sm text-muted-foreground py-4 text-center">No migration scripts found.</p>
+                ) : (
+                  <div className="space-y-3">
+                    <p className="text-xs text-muted-foreground">
+                      One-time data scripts. Each migration is idempotent — safe to re-run.
+                    </p>
+                    <div className="space-y-2">
+                      {migrations.map((migration) => {
+                        const state = migrationStates[migration.filename];
+                        const running = state?.running ?? false;
+                        const result = state?.result ?? null;
+                        return (
+                          <div key={migration.filename} className="space-y-2" data-testid={`row-migration-${migration.filename}`}>
+                            <div className="flex items-center gap-2 px-3 py-2.5 rounded-md border">
+                              <code className="text-xs font-mono text-muted-foreground flex-1 truncate" data-testid={`text-migration-name-${migration.filename}`}>
+                                {migration.filename}
+                              </code>
+                              {result && (
+                                result.success
+                                  ? <IconCheck className="h-4 w-4 text-green-500 shrink-0" />
+                                  : <IconAlertCircle className="h-4 w-4 text-destructive shrink-0" />
+                              )}
+                              <Popover>
+                                <PopoverTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    title="About this migration"
+                                    data-testid={`button-info-migration-${migration.filename}`}
+                                  >
+                                    <IconInfoCircle className="h-4 w-4 text-muted-foreground" />
+                                  </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-72 text-sm" side="left" align="start">
+                                  <p className="font-medium mb-1">{migration.name}</p>
+                                  <p className="text-muted-foreground text-xs leading-relaxed">{migration.description}</p>
+                                </PopoverContent>
+                              </Popover>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => runMigration(migration.filename)}
+                                disabled={running}
+                                title="Run migration"
+                                data-testid={`button-run-migration-${migration.filename}`}
+                              >
+                                {running
+                                  ? <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                                  : <IconPlayerPlay className="h-4 w-4 text-muted-foreground" />
+                                }
+                              </Button>
+                            </div>
+                            {result && (
+                              <pre
+                                className={`text-xs font-mono rounded-md border px-3 py-2 overflow-auto max-h-48 whitespace-pre-wrap ${
+                                  result.success
+                                    ? "border-green-500/30 bg-green-500/5 text-foreground"
+                                    : "border-destructive/30 bg-destructive/5 text-destructive"
+                                }`}
+                                data-testid={`text-migration-output-${migration.filename}`}
+                              >
+                                {result.output || (result.success ? "Done." : "Failed with no output.")}
+                              </pre>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {canManageUsers && (
+            <TabsContent value="roles" className="mt-4">
+              <RolesTab />
+            </TabsContent>
+          )}
+
+          {canManageUsers && (
+            <TabsContent value="users" className="mt-4">
+              <UsersTab />
+            </TabsContent>
+          )}
+        </Tabs>
       </div>
     </div>
   );

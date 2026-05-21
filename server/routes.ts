@@ -149,9 +149,77 @@ import {
 import { resolveDynamicEntries } from "./dynamic-entries";
 import { loadDatabaseSinglePage, mergeSingleTemplate } from "./database-single-loader";
 import { getBaseUrl } from "./hreflang";
+import * as userManager from "./user-manager";
+import * as userStore from "./user-store";
+import type { CapabilityName } from "./user-store";
 
 const BREATHECODE_HOST =
   process.env.VITE_BREATHECODE_HOST || "https://breathecode.herokuapp.com";
+
+/**
+ * Extract a Breathecode token from the request.
+ * Checks Authorization header ("Token <token>") and X-Debug-Token header.
+ */
+function extractToken(req: Request): string | null {
+  const authHeader = req.headers.authorization;
+  const debugToken = req.headers["x-debug-token"] as string | undefined;
+  if (authHeader?.startsWith("Token ")) return authHeader.slice(6);
+  if (debugToken) return debugToken;
+  return null;
+}
+
+/**
+ * Verify that the requesting user has a specific capability.
+ * In development mode, always grants access (returns authorized: true).
+ * In production, validates the token via userManager and checks capability via userStore.
+ *
+ * Returns { authorized, token, username }.
+ * If not authorized, writes the appropriate error response before returning.
+ */
+async function requireCapability(
+  req: Request,
+  res: Response,
+  capName: CapabilityName,
+  contentType?: string
+): Promise<{ authorized: boolean; token: string | null; username: string | null; author: string | null }> {
+  const isDevelopment = process.env.NODE_ENV !== "production";
+  const token = extractToken(req);
+
+  if (isDevelopment) {
+    // In dev mode, resolve username from token if present, but always allow
+    if (token) {
+      try {
+        const profile = await userManager.validateToken(token);
+        if (profile.valid && profile.username) {
+          return { authorized: true, token, username: profile.username, author: profile.username };
+        }
+      } catch {
+        // Ignore errors in dev
+      }
+    }
+    return { authorized: true, token, username: null, author: null };
+  }
+
+  if (!token) {
+    res.status(401).json({ error: "Authorization required" });
+    return { authorized: false, token: null, username: null, author: null };
+  }
+
+  const profile = await userManager.validateToken(token);
+  if (!profile.valid || !profile.username) {
+    res.status(401).json({ error: "Your session has expired. Please log in again." });
+    return { authorized: false, token, username: null, author: null };
+  }
+
+  if (!userStore.hasCapability(profile.username, capName, contentType)) {
+    res.status(403).json({ error: `Insufficient permissions: ${capName} required` });
+    return { authorized: false, token, username: profile.username, author: null };
+  }
+
+  // author = resolved Breathecode username (the single commit-author resolution path)
+  const author = await userManager.resolveCommitAuthor(token);
+  return { authorized: true, token, username: profile.username, author };
+}
 
 function safeYamlLoad(yamlStr: string): unknown {
   const { escaped, map } = escapeTemplateVars(yamlStr);
@@ -673,81 +741,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
 
-      // Get token info including expiration from Breathecode
-      let expiresAt: string | null = null;
-      try {
-        const tokenInfoResponse = await fetch(
-          `${BREATHECODE_HOST}/v1/auth/token/${token}`,
-          { method: "GET" },
-        );
-        if (tokenInfoResponse.ok) {
-          const tokenInfo = (await tokenInfoResponse.json()) as {
-            expires_at?: string;
-          };
-          expiresAt = tokenInfo.expires_at || null;
-        }
-      } catch {
-        // Token info fetch failed - token may be invalid
+      const profile = await userManager.validateToken(token);
+
+      if (!profile.valid || !profile.username) {
+        res.json({ valid: false, capabilities: [], userName: "", expiresAt: profile.expiresAt ?? null, error: profile.error });
+        return;
       }
 
-      // Check webmaster capability
-      const webmasterResponse = await fetch(
-        `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Token ${token}`,
-            Academy: "4",
-          },
-        },
-      );
-
-      const hasWebmaster = webmasterResponse.status === 200;
-
-      // Fetch user info for author name
-      let userName = "";
-      try {
-        const userResponse = await fetch(
-          `${BREATHECODE_HOST}/v1/auth/user/me`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-          },
-        );
-        if (userResponse.ok) {
-          const userData = (await userResponse.json()) as {
-            first_name?: string;
-            last_name?: string;
-          };
-          const firstName = userData.first_name || "";
-          const lastName = userData.last_name || "";
-          userName = `${firstName} ${lastName}`.trim();
-        }
-      } catch {
-        // Ignore user fetch errors - just use empty name
+      // Auto-register user; if this is the very first user, grant webmaster role
+      const wasFirstUser = userStore.isFirstUser();
+      userStore.upsertUser({
+        username: profile.username,
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        email: profile.email,
+      });
+      if (wasFirstUser) {
+        userStore.assignRoles(profile.username, ["webmaster"]);
+        console.log(`[UserStore] First user "${profile.username}" auto-assigned webmaster role`);
       }
 
-      // If has webmaster, they get all capabilities
-      // In future, we could check for more granular capabilities from the API
-      const capabilities = {
-        webmaster: hasWebmaster,
-        content_read: hasWebmaster,
-        content_edit_text: hasWebmaster,
-        content_edit_structure: hasWebmaster,
-        content_edit_media: hasWebmaster,
-        content_publish: hasWebmaster,
-      };
+      const capabilities = userStore.getEffectiveCapabilities(profile.username);
+      const userName = profile.username;
 
-      if (hasWebmaster) {
-        res.json({ valid: true, capabilities, userName, expiresAt });
-      } else {
-        res.json({ valid: false, capabilities, userName, expiresAt });
-      }
+      res.json({ valid: true, capabilities, userName, username: profile.username, expiresAt: profile.expiresAt ?? null });
     } catch (error) {
       console.error("Token validation error:", error);
-      res.json({ valid: false, capabilities: {} });
+      res.json({ valid: false, capabilities: [] });
     }
   });
 
@@ -977,31 +997,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.put("/api/theme/palettes", async (req, res) => {
     try {
-      const authHeader = req.headers.authorization;
-      const token = authHeader?.replace("Token ", "");
-      const isDevelopment = process.env.NODE_ENV !== "production";
-
-      if (!isDevelopment && !token) {
-        res.status(401).json({ error: "Authorization required" });
-        return;
-      }
-
-      if (!isDevelopment && token) {
-        const authResponse = await fetch(
-          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Token ${token}`,
-              Academy: "4",
-            },
-          },
-        );
-        if (authResponse.status !== 200) {
-          res.status(403).json({ error: "Invalid or unauthorized token" });
-          return;
-        }
-      }
+      const auth = await requireCapability(req, res, "theme_edit");
+      if (!auth.authorized) return;
 
       const paletteEntrySchema = z.object({
         id: z.string(),
@@ -3884,35 +3881,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   // Clear sitemap cache (requires token validation)
   app.post("/api/debug/clear-sitemap-cache", async (req, res) => {
     try {
-      const authHeader = req.headers.authorization;
-      const token = authHeader?.replace("Token ", "");
-
-      // In development mode, allow without token
-      const isDevelopment = process.env.NODE_ENV !== "production";
-
-      if (!isDevelopment && !token) {
-        res.status(401).json({ error: "Authorization required" });
-        return;
-      }
-
-      // Validate token in production
-      if (!isDevelopment && token) {
-        const response = await fetch(
-          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Token ${token}`,
-              Academy: "4",
-            },
-          },
-        );
-
-        if (response.status !== 200) {
-          res.status(403).json({ error: "Invalid or unauthorized token" });
-          return;
-        }
-      }
+      const auth = await requireCapability(req, res, "content_publish");
+      if (!auth.authorized) return;
 
       const result = clearSitemapCache();
       res.json(result);
@@ -5804,42 +5774,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
   app.post("/api/content/update-locations", async (req, res) => {
     try {
-      const isDevelopment = process.env.NODE_ENV !== "production";
-      const debugToken = req.headers["x-debug-token"] as string | undefined;
-      const authHeader = req.headers.authorization;
-
-      let token: string | null = null;
-      if (authHeader?.startsWith("Token ")) {
-        token = authHeader.slice(6);
-      } else if (debugToken) {
-        token = debugToken;
-      }
-
-      if (!isDevelopment) {
-        if (!token) {
-          res.status(401).json({ error: "Authorization required" });
-          return;
-        }
-        const capResponse = await fetch(
-          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
-          {
-            method: "GET",
-            headers: { Authorization: `Token ${token}`, Academy: "4" },
-          },
-        );
-        if (capResponse.status === 401) {
-          res
-            .status(401)
-            .json({ error: "Your session has expired. Please log in again." });
-          return;
-        }
-        if (capResponse.status !== 200) {
-          res
-            .status(403)
-            .json({ error: "You need webmaster capability to edit content" });
-          return;
-        }
-      }
+      const auth = await requireCapability(req, res, "content_edit_structure", req.body.contentType || req.body.type || undefined);
+      if (!auth.authorized) return;
 
       const { contentType, slug, locations, author } = req.body;
       if (!contentType || !slug || !Array.isArray(locations)) {
@@ -7509,40 +7445,32 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
   app.put("/api/content/raw-file", async (req, res) => {
     try {
-      const isDevelopment = process.env.NODE_ENV !== "production";
-      const authHeader = req.headers.authorization;
-      const debugToken = req.headers["x-debug-token"] as string | undefined;
-      let token: string | null = null;
-      if (authHeader?.startsWith("Token ")) {
-        token = authHeader.slice(6);
-      } else if (debugToken) {
-        token = debugToken;
+      const rawFilePath: string = req.body.filePath || "";
+
+      // Reject writes to internal data files that could be used for privilege escalation
+      const PROTECTED_RAW_PATTERNS = [
+        /\.users-state\.json$/,
+        /\.users-state\.ya?ml$/,
+        /image-registry\.json$/,
+      ];
+      if (PROTECTED_RAW_PATTERNS.some((p) => p.test(rawFilePath))) {
+        res.status(403).json({ error: "Writing to this path is not permitted via raw-file" });
+        return;
       }
-      if (!isDevelopment) {
-        if (!token) {
-          res.status(401).json({ error: "Authorization required" });
-          return;
-        }
-        const capResponse = await fetch(
-          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
-          {
-            method: "GET",
-            headers: { Authorization: `Token ${token}`, Academy: "4" },
-          },
-        );
-        if (capResponse.status === 401) {
-          res
-            .status(401)
-            .json({ error: "Your session has expired. Please log in again." });
-          return;
-        }
-        if (capResponse.status !== 200) {
-          res
-            .status(403)
-            .json({ error: "You need webmaster capability to edit content" });
-          return;
-        }
+
+      // Derive contentType from filePath (e.g. marketing-content/courses/... → "courses").
+      // Reject when content type cannot be determined — unscoped writes are not allowed.
+      const derivedContentType: string | undefined = (() => {
+        const m = rawFilePath.match(/marketing-content\/([^/]+)\//);
+        return m ? m[1] : undefined;
+      })();
+      if (!derivedContentType) {
+        res.status(400).json({ error: "Cannot determine content type from filePath; path must be under marketing-content/<contentType>/" });
+        return;
       }
+
+      const auth = await requireCapability(req, res, "content_edit_default", derivedContentType);
+      if (!auth.authorized) return;
 
       const {
         filePath,
@@ -7553,10 +7481,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         content: string;
         author?: string;
       };
-      const authorName =
-        requestAuthor && typeof requestAuthor === "string"
-          ? requestAuthor
-          : undefined;
+      // Prefer server-resolved author (from Breathecode identity) over client-provided value
+      const authorName = auth.author || (requestAuthor && typeof requestAuthor === "string" ? requestAuthor : undefined);
 
       if (!filePath || typeof content !== "string") {
         res.status(400).json({ error: "filePath and content are required" });
@@ -8048,53 +7974,6 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   // Content editing API (sections only — writes to locale files)
   app.post("/api/content/edit-sections", async (req, res) => {
     try {
-      // In development mode, allow without token (using X-Debug-Token or no auth)
-      const isDevelopment = process.env.NODE_ENV !== "production";
-      const authHeader = req.headers.authorization;
-      const debugToken = req.headers["x-debug-token"] as string | undefined;
-
-      // Get token from Authorization header or X-Debug-Token
-      let token: string | null = null;
-      if (authHeader?.startsWith("Token ")) {
-        token = authHeader.slice(6);
-      } else if (debugToken) {
-        token = debugToken;
-      }
-
-      // In production, require valid token
-      if (!isDevelopment) {
-        if (!token) {
-          res.status(401).json({ error: "Authorization required" });
-          return;
-        }
-
-        // Verify token has edit capabilities
-        const capResponse = await fetch(
-          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Token ${token}`,
-              Academy: "4",
-            },
-          },
-        );
-
-        if (capResponse.status === 401) {
-          res
-            .status(401)
-            .json({ error: "Your session has expired. Please log in again." });
-          return;
-        }
-
-        if (capResponse.status !== 200) {
-          res
-            .status(403)
-            .json({ error: "You need webmaster capability to edit content" });
-          return;
-        }
-      }
-
       // Support both formats:
       // 1. Original: { contentType, slug, locale, operations: [...] }
       // 2. Simplified: { contentType, slug, locale, operation, sectionIndex, sectionData, variant, version }
@@ -8111,11 +7990,40 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         author: requestAuthor,
       } = req.body;
 
-      // Use author from request body (sent by client from session context)
-      const authorName =
-        requestAuthor && typeof requestAuthor === "string"
-          ? requestAuthor
-          : undefined;
+      // Resolve effective variant before capability selection
+      const effectiveVariant =
+        variant && variant !== "default" ? variant : undefined;
+
+      // Determine required capability from the operation(s) in the payload.
+      // Structural ops (add/remove/reorder/duplicate) require content_edit_structure.
+      // update_section targeting a named variant requires content_edit_variant.
+      // update_section targeting default content requires content_edit_default.
+      const STRUCTURAL_ACTIONS = new Set([
+        "add_section", "remove_section", "reorder_sections", "duplicate_section",
+      ]);
+      let requiredCap: CapabilityName;
+      if (Array.isArray(operations) && operations.length > 0) {
+        const hasStructural = operations.some((op: { action: string }) => STRUCTURAL_ACTIONS.has(op.action));
+        const hasUpdate = operations.some((op: { action: string }) => op.action === "update_section");
+        if (hasStructural) {
+          requiredCap = "content_edit_structure";
+        } else if (hasUpdate && effectiveVariant) {
+          requiredCap = "content_edit_variant";
+        } else {
+          requiredCap = "content_edit_default";
+        }
+      } else if (operation === "update_section") {
+        requiredCap = effectiveVariant ? "content_edit_variant" : "content_edit_default";
+      } else {
+        // add/remove/reorder or other structural single-ops
+        requiredCap = "content_edit_structure";
+      }
+
+      const auth = await requireCapability(req, res, requiredCap, contentType || undefined);
+      if (!auth.authorized) return;
+
+      // Use server-resolved author from identity; fall back to client-provided value
+      const authorName = auth.author || (requestAuthor && typeof requestAuthor === "string" ? requestAuthor : undefined);
 
       if (!contentType || !slug || !locale) {
         res.status(400).json({
@@ -8155,9 +8063,6 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         return;
       }
 
-      // Only pass variant/version if both are meaningful (not "default" or undefined)
-      const effectiveVariant =
-        variant && variant !== "default" ? variant : undefined;
       const effectiveVersion =
         effectiveVariant && version !== undefined ? version : undefined;
 
@@ -8266,42 +8171,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
   app.post("/api/content/edit-common", async (req, res) => {
     try {
-      const isDevelopment = process.env.NODE_ENV !== "production";
-      const debugToken = req.headers["x-debug-token"] as string | undefined;
-      const authHeader = req.headers.authorization;
-
-      let token: string | null = null;
-      if (authHeader?.startsWith("Token ")) {
-        token = authHeader.slice(6);
-      } else if (debugToken) {
-        token = debugToken;
-      }
-
-      if (!isDevelopment) {
-        if (!token) {
-          res.status(401).json({ error: "Authorization required" });
-          return;
-        }
-        const capResponse = await fetch(
-          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
-          {
-            method: "GET",
-            headers: { Authorization: `Token ${token}`, Academy: "4" },
-          },
-        );
-        if (capResponse.status === 401) {
-          res
-            .status(401)
-            .json({ error: "Your session has expired. Please log in again." });
-          return;
-        }
-        if (capResponse.status !== 200) {
-          res
-            .status(403)
-            .json({ error: "You need webmaster capability to edit content" });
-          return;
-        }
-      }
+      const auth = await requireCapability(req, res, "content_edit_text", req.body.contentType || undefined);
+      if (!auth.authorized) return;
 
       const { contentType, slug, operations, author: requestAuthor } = req.body;
 
@@ -8320,10 +8191,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         return;
       }
 
-      const authorName =
-        requestAuthor && typeof requestAuthor === "string"
-          ? requestAuthor
-          : undefined;
+      // Prefer server-resolved author (from Breathecode identity) over client-provided value
+      const authorName = auth.author || (requestAuthor && typeof requestAuthor === "string" ? requestAuthor : undefined);
 
       const result = editCommonContent({
         contentType,
@@ -8349,40 +8218,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
   app.post("/api/content/rename-slug", async (req, res) => {
     try {
-      const isDevelopment = process.env.NODE_ENV !== "production";
-      const authHeader = req.headers.authorization;
-      const debugToken = req.headers["x-debug-token"] as string | undefined;
-      let token: string | null = null;
-      if (authHeader?.startsWith("Token ")) {
-        token = authHeader.slice(6);
-      } else if (debugToken) {
-        token = debugToken;
-      }
-      if (!isDevelopment) {
-        if (!token) {
-          res.status(401).json({ error: "Authorization required" });
-          return;
-        }
-        const capResponse = await fetch(
-          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
-          {
-            method: "GET",
-            headers: { Authorization: `Token ${token}`, Academy: "4" },
-          },
-        );
-        if (capResponse.status === 401) {
-          res
-            .status(401)
-            .json({ error: "Your session has expired. Please log in again." });
-          return;
-        }
-        if (capResponse.status !== 200) {
-          res
-            .status(403)
-            .json({ error: "You need webmaster capability to rename content" });
-          return;
-        }
-      }
+      const auth = await requireCapability(req, res, "content_edit_structure", req.body.contentType || undefined);
+      if (!auth.authorized) return;
 
       const {
         contentType,
@@ -8392,10 +8229,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         createRedirect,
         author: renameAuthor,
       } = req.body;
-      const renameAuthorName =
-        renameAuthor && typeof renameAuthor === "string"
-          ? renameAuthor
-          : undefined;
+      // Prefer server-resolved author (from Breathecode identity) over client-provided value
+      const renameAuthorName = auth.author || (renameAuthor && typeof renameAuthor === "string" ? renameAuthor : undefined);
 
       if (!contentType || !folderSlug || !locale || !newSlug) {
         res.status(400).json({
@@ -8679,49 +8514,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   // Create new content (location/page/program)
   app.post("/api/content/create", async (req, res) => {
     try {
-      // Same auth check as content edit
-      const isDevelopment = process.env.NODE_ENV !== "production";
-      const authHeader = req.headers.authorization;
-      const debugToken = req.headers["x-debug-token"] as string | undefined;
-
-      let token: string | null = null;
-      if (authHeader?.startsWith("Token ")) {
-        token = authHeader.slice(6);
-      } else if (debugToken) {
-        token = debugToken;
-      }
-
-      if (!isDevelopment) {
-        if (!token) {
-          res.status(401).json({ error: "Authorization required" });
-          return;
-        }
-
-        const capResponse = await fetch(
-          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Token ${token}`,
-              Academy: "4",
-            },
-          },
-        );
-
-        if (capResponse.status === 401) {
-          res
-            .status(401)
-            .json({ error: "Your session has expired. Please log in again." });
-          return;
-        }
-
-        if (capResponse.status !== 200) {
-          res
-            .status(403)
-            .json({ error: "You need webmaster capability to create content" });
-          return;
-        }
-      }
+      const auth = await requireCapability(req, res, "content_create_entry", req.body.type || undefined);
+      if (!auth.authorized) return;
 
       const {
         type,
@@ -8735,10 +8529,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         uniqueFieldValues: rawUniqueFieldValues,
         localeTitles: rawLocaleTitles,
       } = req.body;
-      const createAuthorName =
-        createAuthor && typeof createAuthor === "string"
-          ? createAuthor
-          : undefined;
+      // Prefer server-resolved author (from Breathecode identity) over client-provided value
+      const createAuthorName = auth.author || (createAuthor && typeof createAuthor === "string" ? createAuthor : undefined);
       const skipLocales: string[] = Array.isArray(rawSkipLocales)
         ? rawSkipLocales.filter((l: unknown) => typeof l === "string")
         : [];
@@ -9132,48 +8924,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
   app.post("/api/content/delete", async (req, res) => {
     try {
-      const isDevelopment = process.env.NODE_ENV !== "production";
-      const authHeader = req.headers.authorization;
-      const debugToken = req.headers["x-debug-token"] as string | undefined;
-
-      let token: string | null = null;
-      if (authHeader?.startsWith("Token ")) {
-        token = authHeader.slice(6);
-      } else if (debugToken) {
-        token = debugToken;
-      }
-
-      if (!isDevelopment) {
-        if (!token) {
-          res.status(401).json({ error: "Authorization required" });
-          return;
-        }
-
-        const capResponse = await fetch(
-          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Token ${token}`,
-              Academy: "4",
-            },
-          },
-        );
-
-        if (capResponse.status === 401) {
-          res
-            .status(401)
-            .json({ error: "Your session has expired. Please log in again." });
-          return;
-        }
-
-        if (capResponse.status !== 200) {
-          res
-            .status(403)
-            .json({ error: "You need webmaster capability to delete content" });
-          return;
-        }
-      }
+      const auth = await requireCapability(req, res, "content_delete_entry", req.body.type || undefined);
+      if (!auth.authorized) return;
 
       const {
         type,
@@ -9182,7 +8934,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         author: rawAuthor,
         localesToDelete: rawLocalesToDelete,
       } = req.body;
-      const author = typeof rawAuthor === "string" ? rawAuthor : undefined;
+      // Prefer server-resolved author (from Breathecode identity) over client-provided value
+      const author = auth.author || (typeof rawAuthor === "string" ? rawAuthor : undefined);
       const localesToDelete: string[] = Array.isArray(rawLocalesToDelete)
         ? rawLocalesToDelete.filter((l: unknown) => typeof l === "string")
         : [];
@@ -9312,49 +9065,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   // Create new landing page
   app.post("/api/content/create-landing", async (req, res) => {
     try {
-      // Same auth check as content edit
-      const isDevelopment = process.env.NODE_ENV !== "production";
-      const authHeader = req.headers.authorization;
-      const debugToken = req.headers["x-debug-token"] as string | undefined;
-
-      let token: string | null = null;
-      if (authHeader?.startsWith("Token ")) {
-        token = authHeader.slice(6);
-      } else if (debugToken) {
-        token = debugToken;
-      }
-
-      if (!isDevelopment) {
-        if (!token) {
-          res.status(401).json({ error: "Authorization required" });
-          return;
-        }
-
-        const capResponse = await fetch(
-          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Token ${token}`,
-              Academy: "4",
-            },
-          },
-        );
-
-        if (capResponse.status === 401) {
-          res
-            .status(401)
-            .json({ error: "Your session has expired. Please log in again." });
-          return;
-        }
-
-        if (capResponse.status !== 200) {
-          res
-            .status(403)
-            .json({ error: "You need webmaster capability to create content" });
-          return;
-        }
-      }
+      const auth = await requireCapability(req, res, "content_create_entry", "landing");
+      if (!auth.authorized) return;
 
       const {
         slug,
@@ -11872,49 +11584,8 @@ sections: []
       const { locale } = req.params;
       const normalizedLocale = normalizeLocale(locale);
 
-      // Auth check (same as content edit)
-      const isDevelopment = process.env.NODE_ENV !== "production";
-      const authHeader = req.headers.authorization;
-      const debugToken = req.headers["x-debug-token"] as string | undefined;
-
-      let token: string | null = null;
-      if (authHeader?.startsWith("Token ")) {
-        token = authHeader.slice(6);
-      } else if (debugToken) {
-        token = debugToken;
-      }
-
-      if (!isDevelopment) {
-        if (!token) {
-          res.status(401).json({ error: "Authorization required" });
-          return;
-        }
-
-        const capResponse = await fetch(
-          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Token ${token}`,
-              Academy: "4",
-            },
-          },
-        );
-
-        if (capResponse.status === 401) {
-          res
-            .status(401)
-            .json({ error: "Your session has expired. Please log in again." });
-          return;
-        }
-
-        if (capResponse.status !== 200) {
-          res
-            .status(403)
-            .json({ error: "You need webmaster capability to edit FAQs" });
-          return;
-        }
-      }
+      const auth = await requireCapability(req, res, "content_edit_text", "faq");
+      if (!auth.authorized) return;
 
       const { faqs } = req.body;
 
@@ -12034,31 +11705,137 @@ sections: []
     req: Request,
     res: Response
   ): Promise<{ authorized: boolean; token?: string }> {
-    const authHeader = req.headers.authorization;
-    const token = typeof authHeader === "string" ? authHeader.replace("Token ", "") : undefined;
-
-    if (!token) {
-      res.status(401).json({ error: "Authorization required" });
-      return { authorized: false };
-    }
-
-    try {
-      const capResponse = await fetch(
-        `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
-        { method: "GET", headers: { Authorization: `Token ${token}`, Academy: "4" } }
-      );
-      if (capResponse.status !== 200) {
-        res.status(403).json({ error: "Webmaster capability required" });
-        return { authorized: false };
-      }
-    } catch (err) {
-      console.error("[AdminAuth] Capability check failed:", err);
-      res.status(500).json({ error: "Authentication service unavailable" });
-      return { authorized: false };
-    }
-
-    return { authorized: true, token };
+    const result = await requireCapability(req, res, "users_manage");
+    return { authorized: result.authorized, token: result.token ?? undefined };
   }
+
+  // ─── Admin: Roles API ────────────────────────────────────────────────────────
+
+  app.get("/api/admin/roles", async (req, res) => {
+    const auth = await requireCapability(req, res, "users_manage");
+    if (!auth.authorized) return;
+    res.json(userStore.getAllRoles());
+  });
+
+  function validateRoleCapabilities(capabilities: unknown): { ok: boolean; error?: string; valid?: import("./user-store").CapabilityGrant[] } {
+    if (!Array.isArray(capabilities)) {
+      return { ok: false, error: "capabilities must be an array" };
+    }
+    const knownContentTypes = contentIndex.getContentTypes();
+    const valid: import("./user-store").CapabilityGrant[] = [];
+    for (const cap of capabilities) {
+      if (!cap || typeof cap.name !== "string") {
+        return { ok: false, error: "Each capability must have a 'name' string field" };
+      }
+      if (!userStore.ALL_CAPABILITIES.includes(cap.name as import("./user-store").CapabilityName)) {
+        return { ok: false, error: `Unknown capability: ${cap.name}` };
+      }
+      // Validate contentTypes if provided (must be "*", undefined, or an array of known content type IDs)
+      const ct = cap.contentTypes;
+      if (ct !== undefined && ct !== "*") {
+        if (!Array.isArray(ct)) {
+          return { ok: false, error: `contentTypes for '${cap.name}' must be "*" or an array of content type IDs` };
+        }
+        if (knownContentTypes.length > 0) {
+          const unknownTypes = ct.filter((t: unknown) => typeof t === "string" && !knownContentTypes.includes(t));
+          if (unknownTypes.length > 0) {
+            return { ok: false, error: `Unknown content type(s) in '${cap.name}': ${unknownTypes.join(", ")}` };
+          }
+        }
+      }
+      valid.push({ name: cap.name as import("./user-store").CapabilityName, contentTypes: ct ?? undefined });
+    }
+    return { ok: true, valid };
+  }
+
+  app.post("/api/admin/roles", async (req, res) => {
+    const auth = await requireCapability(req, res, "users_manage");
+    if (!auth.authorized) return;
+    const { id, label, description, capabilities } = req.body;
+    if (!id || !label || !Array.isArray(capabilities)) {
+      res.status(400).json({ error: "Missing required fields: id, label, capabilities" });
+      return;
+    }
+    if (!/^[a-z][a-z0-9_-]*$/.test(id)) {
+      res.status(400).json({ error: "Role id must be lowercase letters, numbers, hyphens, or underscores" });
+      return;
+    }
+    const capCheck = validateRoleCapabilities(capabilities);
+    if (!capCheck.ok) {
+      res.status(400).json({ error: capCheck.error });
+      return;
+    }
+    userStore.setRole(id, { label, description: description || undefined, capabilities: capCheck.valid! });
+    res.json({ ok: true });
+  });
+
+  app.put("/api/admin/roles/:roleId", async (req, res) => {
+    const auth = await requireCapability(req, res, "users_manage");
+    if (!auth.authorized) return;
+    const { roleId } = req.params;
+    const { label, description, capabilities } = req.body;
+    if (!label || !Array.isArray(capabilities)) {
+      res.status(400).json({ error: "Missing required fields: label, capabilities" });
+      return;
+    }
+    const capCheck = validateRoleCapabilities(capabilities);
+    if (!capCheck.ok) {
+      res.status(400).json({ error: capCheck.error });
+      return;
+    }
+    // create-or-update semantics: PUT creates if not exists, updates if exists
+    userStore.setRole(roleId, { label, description: description || undefined, capabilities: capCheck.valid! });
+    res.json({ ok: true });
+  });
+
+  app.delete("/api/admin/roles/:roleId", async (req, res) => {
+    const auth = await requireCapability(req, res, "users_manage");
+    if (!auth.authorized) return;
+    const result = userStore.deleteRole(req.params.roleId);
+    if (!result.ok) {
+      res.status(400).json({ error: result.error });
+      return;
+    }
+    res.json({ ok: true });
+  });
+
+  // ─── Admin: Users API ────────────────────────────────────────────────────────
+
+  app.get("/api/admin/users", async (req, res) => {
+    const auth = await requireCapability(req, res, "users_manage");
+    if (!auth.authorized) return;
+    res.json(userStore.getAllUsers());
+  });
+
+  app.put("/api/admin/users/:username/roles", async (req, res) => {
+    const auth = await requireCapability(req, res, "users_manage");
+    if (!auth.authorized) return;
+    const { username } = req.params;
+    const { roles } = req.body;
+    if (!Array.isArray(roles)) {
+      res.status(400).json({ error: "roles must be an array of role ids" });
+      return;
+    }
+    const allRoles = userStore.getAllRoles();
+    const invalid = roles.filter((r: string) => !allRoles[r]);
+    if (invalid.length > 0) {
+      res.status(400).json({ error: `Unknown role(s): ${invalid.join(", ")}` });
+      return;
+    }
+    userStore.assignRoles(username, roles);
+    res.json({ ok: true });
+  });
+
+  app.delete("/api/admin/users/:username", async (req, res) => {
+    const auth = await requireCapability(req, res, "users_manage");
+    if (!auth.authorized) return;
+    const result = userStore.deleteUser(req.params.username);
+    if (!result.ok) {
+      res.status(404).json({ error: result.error });
+      return;
+    }
+    res.json({ ok: true });
+  });
 
   app.get("/api/chat/config", (_req, res) => {
     try {
