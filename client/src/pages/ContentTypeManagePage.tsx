@@ -2964,7 +2964,9 @@ export default function ContentTypeManagePage() {
                                           Loading...
                                         </div>
                                       ) : !versionsData[entry.slug] || Object.keys(versionsData[entry.slug]!).length === 0 ? (
-                                        <div className="px-2 py-1.5 text-xs text-muted-foreground">No versions yet</div>
+                                        <div className="px-2 py-1.5 text-xs text-muted-foreground">
+                                          No alternate versions for {Object.values(entry.urls)[0] ? new URL(Object.values(entry.urls)[0], window.location.origin).pathname : `/${entry.slug}`}, you can propose new versions here
+                                        </div>
                                       ) : (
                                         Object.entries(versionsData[entry.slug]!).flatMap(([loc, localeData]) =>
                                           localeData.variants.map((variant) => (
