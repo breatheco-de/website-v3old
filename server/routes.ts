@@ -6678,6 +6678,70 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
   });
 
+  // Promote a variant: overwrite the default locale file, remove from versioning.yml, delete variant file
+  app.post("/api/versioning/:contentType/:contentSlug/:locale/promote/:variantSlug", (req, res) => {
+    const { contentType, contentSlug, locale, variantSlug } = req.params;
+
+    if (!isValidType(contentType)) {
+      res.status(400).json({ error: "Invalid content type", validTypes: getAllFolders() });
+      return;
+    }
+
+    if (!/^[a-z0-9-]+$/.test(variantSlug)) {
+      res.status(400).json({ error: "variantSlug must be lowercase letters, numbers, and hyphens only" });
+      return;
+    }
+
+    if (!/^[a-z]{2}(-[A-Z]{2})?$/.test(locale)) {
+      res.status(400).json({ error: "locale must be a valid language code (e.g. en, es, pt-BR)" });
+      return;
+    }
+
+    const folder = getFolder(contentType as ContentType);
+    const contentDir = path.resolve(process.cwd(), "marketing-content", folder, contentSlug);
+
+    if (!fs.existsSync(contentDir)) {
+      res.status(404).json({ error: "Content folder not found" });
+      return;
+    }
+
+    const variantFilePath = path.resolve(contentDir, `${variantSlug}.${locale}.yml`);
+    const defaultFilePath = path.resolve(contentDir, `${locale}.yml`);
+
+    // Path containment: both resolved paths must stay within contentDir
+    if (!variantFilePath.startsWith(contentDir + path.sep) || !defaultFilePath.startsWith(contentDir + path.sep)) {
+      res.status(400).json({ error: "Invalid file path" });
+      return;
+    }
+
+    if (!fs.existsSync(variantFilePath)) {
+      res.status(404).json({ error: `Variant file ${variantSlug}.${locale}.yml not found` });
+      return;
+    }
+
+    try {
+      const variantContent = fs.readFileSync(variantFilePath, "utf-8");
+      fs.writeFileSync(defaultFilePath, variantContent, "utf-8");
+
+      const versioningManager = getVersioningManager();
+      const existing = versioningManager.getVersioningForContent(contentType, contentSlug) || {};
+      const localeData = existing[locale];
+      if (localeData) {
+        const updatedVariants = (localeData.variants || []).filter((v) => v.slug !== variantSlug);
+        versioningManager.updateVersioning(contentType, contentSlug, {
+          ...existing,
+          [locale]: { variants: updatedVariants },
+        });
+      }
+
+      fs.unlinkSync(variantFilePath);
+
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: String(error) });
+    }
+  });
+
   // Molecules Showcase API endpoint
   app.get("/api/molecules", (_req, res) => {
     const moleculesPath = path.join(

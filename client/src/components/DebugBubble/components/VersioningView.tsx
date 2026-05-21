@@ -46,6 +46,9 @@ export function VersioningView({
   const [createVersionLocale, setCreateVersionLocale] = useState(locales[0] ?? "en");
   const [isCreatingVersion, setIsCreatingVersion] = useState(false);
 
+  const [promoteTarget, setPromoteTarget] = useState<{ locale: string; slug: string } | null>(null);
+  const [isPromoting, setIsPromoting] = useState(false);
+
   const isPreview = pathname.startsWith("/private/preview/");
 
   const persistOpenStateForNavigation = () => {
@@ -127,7 +130,6 @@ export function VersioningView({
       setCreateVersionOpen(false);
       setCreateVersionSlug("");
       if (onVersioningDataUpdate) {
-        // Re-fetch so the new variant appears
         fetch(`/api/versioning/${type}/${slug}`)
           .then((r) => r.json())
           .then(onVersioningDataUpdate)
@@ -139,6 +141,37 @@ export function VersioningView({
       toast({ title: "Failed to create version", variant: "destructive" });
     } finally {
       setIsCreatingVersion(false);
+    }
+  };
+
+  const handlePromote = async () => {
+    if (!promoteTarget || !contentInfo.type || !contentInfo.slug) return;
+    setIsPromoting(true);
+    try {
+      const token = getDebugToken();
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Token ${token}`;
+      const res = await fetch(
+        `/api/versioning/${contentInfo.type}/${contentInfo.slug}/${promoteTarget.locale}/promote/${promoteTarget.slug}`,
+        { method: "POST", headers }
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        toast({ title: data.error || "Failed to promote variant", variant: "destructive" });
+        return;
+      }
+      toast({ title: `Variant "${promoteTarget.slug}" promoted to default` });
+      setPromoteTarget(null);
+      if (onVersioningDataUpdate) {
+        fetch(`/api/versioning/${contentInfo.type}/${contentInfo.slug}`)
+          .then((r) => r.json())
+          .then(onVersioningDataUpdate)
+          .catch(() => {});
+      }
+    } catch {
+      toast({ title: "Failed to promote variant", variant: "destructive" });
+    } finally {
+      setIsPromoting(false);
     }
   };
 
@@ -390,14 +423,17 @@ export function VersioningView({
                                 {variant.allocation}%
                               </span>
                             )}
-                            <button
-                              onClick={() => handleSwitchVariant(locale, variant.slug)}
-                              title={`Switch to: ${variant.slug}`}
-                              className="p-0.5 rounded hover-elevate text-muted-foreground"
-                              data-testid={`button-switch-variant-${locale}-${variant.slug}`}
-                            >
-                              <IconPlayerPlay className="h-3.5 w-3.5" />
-                            </button>
+                            {!isEditing && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="h-6 px-2 text-[11px]"
+                                onClick={() => setPromoteTarget({ locale, slug: variant.slug })}
+                                data-testid={`button-promote-variant-${locale}-${variant.slug}`}
+                              >
+                                Promote
+                              </Button>
+                            )}
                           </div>
                         </div>
                         {isEditing && (() => {
@@ -498,6 +534,38 @@ export function VersioningView({
             >
               {isCreatingVersion && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
               Create version
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={promoteTarget !== null} onOpenChange={(open) => { if (!open) setPromoteTarget(null); }}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Are you sure you want to promote this variant?</DialogTitle>
+            <DialogDescription>
+              This action will remove the default current page and replace it with this{" "}
+              <code className="text-xs bg-muted px-1 py-0.5 rounded">{promoteTarget?.slug}</code>{" "}
+              variant and 100% of the traffic will now be directed to this by default.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setPromoteTarget(null)}
+              disabled={isPromoting}
+              data-testid="button-cancel-promote"
+            >
+              No, keep it as a secondary variant
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handlePromote}
+              disabled={isPromoting}
+              data-testid="button-confirm-promote"
+            >
+              {isPromoting && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+              Yes, remove and replace original
             </Button>
           </DialogFooter>
         </DialogContent>
