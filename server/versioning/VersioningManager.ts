@@ -396,6 +396,16 @@ export class VersioningManager {
   }
 
   /**
+   * Invalidate the content cache for a specific variant after an external write.
+   * Call this whenever a variant file is saved to disk outside VersioningManager.
+   */
+  public invalidateVariantCache(contentType: string, slug: string, variantSlug: string, locale: string): void {
+    const cacheKey = `${contentType}:${slug}:${variantSlug}.${locale}`;
+    this.contentCache.delete(cacheKey);
+    console.log(`[Versioning] Cache invalidated for ${cacheKey}`);
+  }
+
+  /**
    * Clear caches (for hot reload in dev).
    */
   public clearCache(): void {

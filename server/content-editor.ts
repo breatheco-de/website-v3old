@@ -12,6 +12,7 @@ import type { EditOperation } from "@shared/schema";
 import { normalizeLocale } from "./settings";
 import { markFileAsModified } from "./sync-state";
 import { contentIndex } from "./content-index";
+import { getVersioningManager } from "./versioning/index";
 import { deepMerge } from "./utils/deepMerge";
 import { mergeSingleTemplate, extractVariableFields, TEMPLATE_EXPR_RE } from "./database-single-loader";
 import { getDatabaseName, getLookupKey, getFieldMapping } from "./content-types";
@@ -190,7 +191,13 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
     });
     
     fs.writeFileSync(filePath, updatedYaml, "utf-8");
-    
+
+    // If this was a variant save, invalidate the VersioningManager content cache
+    // so the next read picks up the freshly-written file instead of stale data.
+    if (hasVariant) {
+      getVersioningManager().invalidateVariantCache(contentType, slug, variant!, locale);
+    }
+
     // Track who modified this file for sync purposes
     markFileAsModified(filePath, request.author);
     
