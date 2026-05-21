@@ -416,13 +416,15 @@ export function VersioningView({
                               </span>
                             )}
                             {!isEditing && (
-                              <button
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="h-5 px-1.5 text-[10px] leading-none"
                                 onClick={() => setPromoteTarget({ locale, slug: variant.slug })}
-                                className="text-[10px] text-muted-foreground hover:text-foreground hover:underline px-1"
                                 data-testid={`button-promote-variant-${locale}-${variant.slug}`}
                               >
                                 Promote
-                              </button>
+                              </Button>
                             )}
                           </div>
                         </div>
