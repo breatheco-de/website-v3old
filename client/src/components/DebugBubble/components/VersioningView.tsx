@@ -72,7 +72,7 @@ export function VersioningView({
     persistOpenStateForNavigation();
     if (isPreview && contentInfo.type && contentInfo.slug) {
       navigate(
-        `/private/preview/${contentInfo.type}/${contentInfo.slug}?force_variant=${encodeURIComponent(variantSlug)}&locale=${locale}`
+        `/private/preview/${contentInfo.type}/${contentInfo.slug}?variant=${encodeURIComponent(variantSlug)}&locale=${locale}`
       );
     } else {
       const { type, slug } = contentInfo;

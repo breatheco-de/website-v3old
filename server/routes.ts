@@ -1502,8 +1502,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/locations/:slug", async (req, res) => {
     const { slug } = req.params;
     const locale = normalizeLocale(req.query.locale as string);
+    const forceVariant = req.query.force_variant as string | undefined;
 
-    const location = loadLocationPage(slug, locale);
+    let location = null;
+
+    if (forceVariant) {
+      const versioningManager = getVersioningManager();
+      const forcedContent = versioningManager.getVariantContent("location", slug, forceVariant, locale);
+      if (forcedContent) {
+        location = forcedContent as ReturnType<typeof loadLocationPage>;
+      }
+    }
+
+    if (!location) {
+      location = loadLocationPage(slug, locale);
+    }
 
     if (!location) {
       res.status(404).json({ error: "Location not found" });
@@ -1557,8 +1570,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Special handler for apply page (includes programs and locations from _common.yml)
   app.get("/api/pages/apply", (req, res) => {
     const locale = normalizeLocale(req.query.locale as string);
+    const forceVariant = req.query.force_variant as string | undefined;
 
-    const page = loadTemplatePage("apply", locale);
+    let page = null;
+
+    if (forceVariant) {
+      const versioningManager = getVersioningManager();
+      const forcedContent = versioningManager.getVariantContent("page", "apply", forceVariant, locale);
+      if (forcedContent) {
+        page = forcedContent as ReturnType<typeof loadTemplatePage>;
+      }
+    }
+
+    if (!page) {
+      page = loadTemplatePage("apply", locale);
+    }
 
     if (!page) {
       res.status(404).json({ error: "Apply page not found" });
@@ -1638,8 +1664,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/pages/:slug", async (req, res) => {
     const { slug } = req.params;
     const locale = normalizeLocale(req.query.locale as string);
+    const forceVariant = req.query.force_variant as string | undefined;
 
-    const page = loadTemplatePage(slug, locale);
+    let page = null;
+
+    if (forceVariant) {
+      const versioningManager = getVersioningManager();
+      const forcedContent = versioningManager.getVariantContent("page", slug, forceVariant, locale);
+      if (forcedContent) {
+        page = forcedContent as ReturnType<typeof loadTemplatePage>;
+      }
+    }
+
+    if (!page) {
+      page = loadTemplatePage(slug, locale);
+    }
 
     if (!page) {
       res.status(404).json({ error: "Template page not found" });
