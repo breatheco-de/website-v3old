@@ -64,6 +64,15 @@ export function VersioningView({
     }
   };
 
+  const handleEditVariant = (locale: string, variantSlug: string) => {
+    const { type, slug } = contentInfo;
+    if (!type || !slug) return;
+    persistOpenStateForNavigation();
+    navigate(
+      `/private/preview/${type}/${slug}?force_variant=${encodeURIComponent(variantSlug)}&locale=${locale}`
+    );
+  };
+
   const openEditAllocations = (locale: string) => {
     const localeData = versioningData?.versioning?.[locale];
     if (!localeData) return;
@@ -231,9 +240,14 @@ export function VersioningView({
                             {isActive && (
                               <span className="h-2 w-2 rounded-full bg-primary flex-shrink-0" data-testid={`dot-active-variant-${locale}-${variant.slug}`} />
                             )}
-                            <span className={`truncate ${isActive ? "font-semibold text-foreground" : ""}`}>
+                            <button
+                              onClick={() => handleEditVariant(locale, variant.slug)}
+                              title={`Edit variant: ${variant.slug}`}
+                              className={`truncate text-left hover:underline ${isActive ? "font-semibold text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                              data-testid={`button-edit-variant-${locale}-${variant.slug}`}
+                            >
                               {deslugify(variant.slug)}
-                            </span>
+                            </button>
                             {isActive && (
                               <Badge variant="default" className="text-[10px] px-1.5 py-0 leading-4 flex-shrink-0" data-testid={`badge-active-variant-${locale}`}>
                                 active
