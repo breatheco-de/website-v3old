@@ -27,6 +27,7 @@ export type ScopedCapability =
   | "content_edit_default"
   | "content_create_variant"
   | "content_edit_variant"
+  | "content_delete_variant"
   | "content_edit_text"
   | "content_edit_media";
 
@@ -51,6 +52,7 @@ export const SCOPED_CAPABILITIES: ScopedCapability[] = [
   "content_edit_default",
   "content_create_variant",
   "content_edit_variant",
+  "content_delete_variant",
   "content_edit_text",
   "content_edit_media",
 ];
@@ -120,6 +122,7 @@ const BUILT_IN_WEBMASTER_ROLE: RoleDefinition = {
     { name: "content_edit_default", contentTypes: "*" },
     { name: "content_create_variant", contentTypes: "*" },
     { name: "content_edit_variant", contentTypes: "*" },
+    { name: "content_delete_variant", contentTypes: "*" },
     { name: "content_edit_text", contentTypes: "*" },
     { name: "content_edit_media", contentTypes: "*" },
   ],

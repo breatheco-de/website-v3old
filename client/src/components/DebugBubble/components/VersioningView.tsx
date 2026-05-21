@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSearch } from "wouter";
 import { deslugify } from "../utils/debugHelpers";
-import { IconArrowLeft, IconGitBranch, IconRefresh, IconPencil, IconCheck, IconX, IconPlayerPlay, IconPlus, IconHistory, IconExternalLink, IconArrowBackUp, IconCrown } from "@tabler/icons-react";
+import { IconArrowLeft, IconGitBranch, IconRefresh, IconPencil, IconCheck, IconX, IconPlayerPlay, IconPlus, IconHistory, IconExternalLink, IconArrowBackUp, IconCrown, IconTrash } from "@tabler/icons-react";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -52,6 +52,9 @@ export function VersioningView({
 
   const [promoteTarget, setPromoteTarget] = useState<{ locale: string; slug: string } | null>(null);
   const [isPromoting, setIsPromoting] = useState(false);
+
+  const [deleteTarget, setDeleteTarget] = useState<{ locale: string; slug: string; allocation: number } | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const [showRestorePanel, setShowRestorePanel] = useState(false);
   const [restoreHistory, setRestoreHistory] = useState<Array<{ sha: string; date: string; author: string; subject: string }>>([]);
@@ -183,6 +186,34 @@ export function VersioningView({
       toast({ title: "Failed to promote variant", variant: "destructive" });
     } finally {
       setIsPromoting(false);
+    }
+  };
+
+  const handleDeleteVariant = async () => {
+    if (!deleteTarget || !contentInfo.type || !contentInfo.slug) return;
+    setIsDeleting(true);
+    try {
+      const token = getDebugToken();
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Token ${token}`;
+      const res = await fetch(
+        `/api/versioning/${contentInfo.type}/${contentInfo.slug}/${deleteTarget.locale}/${deleteTarget.slug}`,
+        { method: "DELETE", headers }
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        toast({ title: data.error || "Failed to delete variant", variant: "destructive" });
+        return;
+      }
+      toast({ title: `Variant "${deleteTarget.slug}" deleted` });
+      setDeleteTarget(null);
+      if (onVersioningDataUpdate) {
+        onVersioningDataUpdate(data);
+      }
+    } catch {
+      toast({ title: "Failed to delete variant", variant: "destructive" });
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -611,6 +642,26 @@ export function VersioningView({
                                 </Tooltip>
                               </TooltipProvider>
                             )}
+                            {!isEditing && (
+                              <TooltipProvider delayDuration={300}>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      size="icon"
+                                      variant="ghost"
+                                      className="h-5 w-5 shrink-0 transition-colors hover:bg-destructive/10 hover:text-destructive"
+                                      onClick={() => setDeleteTarget({ locale, slug: variant.slug, allocation: variant.allocation })}
+                                      data-testid={`button-delete-variant-${locale}-${variant.slug}`}
+                                    >
+                                      <IconTrash className="h-3 w-3" />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent side="top">
+                                    <p>Delete this variant</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
+                            )}
                           </div>
                         </div>
                         {isEditing && (() => {
@@ -753,6 +804,66 @@ export function VersioningView({
               No, keep it as a secondary variant
             </Button>
           </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={deleteTarget !== null} onOpenChange={(open) => { if (!open && !isDeleting) setDeleteTarget(null); }}>
+        <DialogContent className="max-w-md">
+          {deleteTarget?.allocation && deleteTarget.allocation > 0 ? (
+            <>
+              <DialogHeader>
+                <DialogTitle>Cannot delete this variant</DialogTitle>
+                <DialogDescription>
+                  Variant{" "}
+                  <code className="text-xs bg-muted px-1 py-0.5 rounded">{deleteTarget?.slug}</code>{" "}
+                  currently has <strong>{deleteTarget?.allocation}% traffic allocation</strong>. You must set its traffic to 0% before deleting it.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <Button
+                  variant="outline"
+                  onClick={() => setDeleteTarget(null)}
+                  data-testid="button-close-delete-blocked"
+                >
+                  Close
+                </Button>
+              </DialogFooter>
+            </>
+          ) : (
+            <>
+              <DialogHeader>
+                <DialogTitle>Delete this variant?</DialogTitle>
+                <DialogDescription>
+                  This will permanently remove the variant file for{" "}
+                  <code className="text-xs bg-muted px-1 py-0.5 rounded">{deleteTarget?.slug}</code>{" "}
+                  ({deleteTarget?.locale}) and remove it from the versioning list. This action cannot be undone.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <Button
+                  variant="outline"
+                  onClick={() => setDeleteTarget(null)}
+                  disabled={isDeleting}
+                  data-testid="button-cancel-delete-variant"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="destructive"
+                  onClick={handleDeleteVariant}
+                  disabled={isDeleting}
+                  data-testid="button-confirm-delete-variant"
+                >
+                  {isDeleting ? (
+                    <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                  ) : (
+                    <IconTrash className="h-4 w-4 mr-2" />
+                  )}
+                  Delete variant
+                </Button>
+              </DialogFooter>
+            </>
+          )}
         </DialogContent>
       </Dialog>
 
