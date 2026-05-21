@@ -237,6 +237,54 @@ function safeYamlLoad(yamlStr: string): unknown {
   return unescapeObjectVars(parsed, map);
 }
 
+/**
+ * Attempt to assign a visitor to a variant using traffic allocation rules.
+ * Returns the assigned variant content, or null if no variant applies.
+ *
+ * Authenticated requests (carrying an auth token) are exempt — editors always
+ * see the default unless they explicitly use force_variant.
+ */
+function resolveVariantAssignment(
+  req: Request,
+  res: Response,
+  contentType: string,
+  slug: string,
+  locale: string
+): unknown | null {
+  if (extractToken(req)) return null;
+
+  const userId = readUserId(req, res);
+  const versioningCookie = getVersioningCookie(req);
+  const existingAssignments = versioningCookie?.assignments || [];
+  const existing = existingAssignments.find(
+    (a) => a.contentType === contentType && a.slug === slug && a.locale === locale
+  );
+
+  const versioningManager = getVersioningManager();
+  const assignedVariant = versioningManager.getAssignment(
+    contentType,
+    slug,
+    locale,
+    userId,
+    existing?.variantSlug,
+  );
+
+  if (!assignedVariant) return null;
+
+  const variantContent = versioningManager.getVariantContent(contentType, slug, assignedVariant, locale);
+  if (!variantContent) return null;
+
+  const updatedAssignments = [
+    ...existingAssignments.filter(
+      (a) => !(a.contentType === contentType && a.slug === slug && a.locale === locale)
+    ),
+    { contentType, slug, locale, variantSlug: assignedVariant, assignedAt: Date.now() },
+  ];
+  setVersioningCookie(res, userId, updatedAssignments);
+
+  return variantContent;
+}
+
 function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
   const { escaped, map } = escapeObjectVars(obj);
   const dumped = yaml.dump(escaped, opts);
@@ -1304,9 +1352,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       : undefined;
 
     let program: CareerProgram | null = null;
-    let versioningInfo: {
-      variant: string;
-    } | null = null;
 
     // If force_variant is provided, load that variant directly (for preview)
     if (forceVariant) {
@@ -1314,42 +1359,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const forcedContent = versioningManager.getVariantContent("program", slug, forceVariant, locale);
       if (forcedContent) {
         program = forcedContent as unknown as CareerProgram;
-        versioningInfo = { variant: forceVariant };
       }
     }
 
     // Normal versioning flow if not forcing a variant
     if (!program) {
-      const userId = readUserId(req, res);
-      const versioningCookie = getVersioningCookie(req);
-      const existingAssignments = versioningCookie?.assignments || [];
-      const existing = existingAssignments.find(
-        (a) => a.contentType === "program" && a.slug === slug && a.locale === locale
-      );
-
-      const versioningManager = getVersioningManager();
-      const assignedVariant = versioningManager.getAssignment(
-        "program",
-        slug,
-        locale,
-        userId,
-        existing?.variantSlug,
-      );
-
-      if (assignedVariant) {
-        const variantContent = versioningManager.getVariantContent("program", slug, assignedVariant, locale);
-        if (variantContent) {
-          program = variantContent as unknown as CareerProgram;
-          versioningInfo = { variant: assignedVariant };
-
-          const updatedAssignments = [
-            ...existingAssignments.filter(
-              (a) => !(a.contentType === "program" && a.slug === slug && a.locale === locale)
-            ),
-            { contentType: "program", slug, locale, variantSlug: assignedVariant, assignedAt: Date.now() },
-          ];
-          setVersioningCookie(res, userId, updatedAssignments);
-        }
+      const assigned = resolveVariantAssignment(req, res, "program", slug, locale);
+      if (assigned) {
+        program = assigned as unknown as CareerProgram;
       }
     }
 
@@ -1413,7 +1430,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
 
     let landing: LandingPage | null = null;
-    let landingVersioningInfo: { variant: string } | null = null;
 
     // If force_variant is provided, load that variant directly (for preview)
     if (forceVariant) {
@@ -1421,42 +1437,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const forcedContent = versioningManager.getVariantContent("landing", baseSlug, forceVariant, locale);
       if (forcedContent) {
         landing = forcedContent as LandingPage;
-        landingVersioningInfo = { variant: forceVariant };
       }
     }
 
     // Normal versioning flow if not forcing a variant
     if (!landing) {
-      const userId = readUserId(req, res);
-      const versioningCookie = getVersioningCookie(req);
-      const existingAssignments = versioningCookie?.assignments || [];
-      const existing = existingAssignments.find(
-        (a) => a.contentType === "landing" && a.slug === baseSlug && a.locale === locale
-      );
-
-      const versioningManager = getVersioningManager();
-      const assignedVariant = versioningManager.getAssignment(
-        "landing",
-        baseSlug,
-        locale,
-        userId,
-        existing?.variantSlug,
-      );
-
-      if (assignedVariant) {
-        const variantContent = versioningManager.getVariantContent("landing", baseSlug, assignedVariant, locale);
-        if (variantContent) {
-          landing = variantContent as LandingPage;
-          landingVersioningInfo = { variant: assignedVariant };
-
-          const updatedAssignments = [
-            ...existingAssignments.filter(
-              (a) => !(a.contentType === "landing" && a.slug === baseSlug && a.locale === locale)
-            ),
-            { contentType: "landing", slug: baseSlug, locale, variantSlug: assignedVariant, assignedAt: Date.now() },
-          ];
-          setVersioningCookie(res, userId, updatedAssignments);
-        }
+      const assigned = resolveVariantAssignment(req, res, "landing", baseSlug, locale);
+      if (assigned) {
+        landing = assigned as LandingPage;
       }
     }
 
@@ -1518,6 +1506,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const forcedContent = versioningManager.getVariantContent("location", slug, forceVariant, locale);
       if (forcedContent) {
         location = forcedContent as ReturnType<typeof loadLocationPage>;
+      }
+    }
+
+    if (!location) {
+      const assigned = resolveVariantAssignment(req, res, "location", slug, locale);
+      if (assigned) {
+        location = assigned as ReturnType<typeof loadLocationPage>;
       }
     }
 
@@ -1586,6 +1581,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const forcedContent = versioningManager.getVariantContent("page", "apply", forceVariant, locale);
       if (forcedContent) {
         page = forcedContent as ReturnType<typeof loadTemplatePage>;
+      }
+    }
+
+    if (!page) {
+      const assigned = resolveVariantAssignment(req, res, "page", "apply", locale);
+      if (assigned) {
+        page = assigned as ReturnType<typeof loadTemplatePage>;
       }
     }
 
@@ -1684,6 +1686,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
 
     if (!page) {
+      const assigned = resolveVariantAssignment(req, res, "page", slug, locale);
+      if (assigned) {
+        page = assigned as ReturnType<typeof loadTemplatePage>;
+      }
+    }
+
+    if (!page) {
       page = loadTemplatePage(slug, locale);
     }
 
@@ -1716,6 +1725,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/content-pages/:contentType/:slug", async (req, res) => {
     const { contentType, slug } = req.params;
     const locale = normalizeLocale(req.query.locale as string);
+    const forceVariant = req.query.force_variant as string | undefined;
 
     if (!isValidType(contentType)) {
       res.status(404).json({ error: `Unknown content type: ${contentType}` });
@@ -1743,6 +1753,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
       injectCanonicalIfMissing(dbPageData, contentType, locale);
       const { layout: _dbStripLayout, ...dbRest } = dbPageData;
       res.json({ ...dbRest, layout: dbLayout });
+      return;
+    }
+
+    // Variant resolution for YAML-backed content types
+    let variantPage: Record<string, unknown> | null = null;
+
+    if (forceVariant) {
+      const versioningManager = getVersioningManager();
+      const forcedContent = versioningManager.getVariantContent(contentType, slug, forceVariant, locale);
+      if (forcedContent) {
+        variantPage = forcedContent as Record<string, unknown>;
+      }
+    }
+
+    if (!variantPage) {
+      const assigned = resolveVariantAssignment(req, res, contentType, slug, locale);
+      if (assigned) {
+        variantPage = assigned as Record<string, unknown>;
+      }
+    }
+
+    if (variantPage) {
+      const variantSections = variantPage.sections;
+      if (variantSections && Array.isArray(variantSections)) {
+        (variantPage as any).sections = (await resolveDynamicEntries(variantSections, locale)) as any;
+        applyComponentImageSizes((variantPage as any).sections as unknown[]);
+      }
+      const variantRaw = contentIndex.loadMergedContent(contentType, slug, locale);
+      const variantLayout = resolveLayout(contentType, variantRaw.data || {});
+      const variantSingleEntry = buildSingleEntryFromContent(contentType, variantPage);
+      if (variantSingleEntry) {
+        variantPage.singleEntry = variantSingleEntry;
+        const resolved = resolveSingleVars(variantPage, variantSingleEntry) as Record<string, unknown>;
+        Object.assign(variantPage, resolved);
+      }
+      injectCanonicalIfMissing(variantPage, contentType, locale);
+      const { layout: _variantStripLayout, ...variantRest } = variantPage;
+      res.json({ ...variantRest, layout: variantLayout });
       return;
     }
 
