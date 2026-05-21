@@ -1,6 +1,7 @@
 /**
- * Regenerates marketing-content/navigation-eager-manifest.json from content + menus.
- * Called on server startup and after contentIndex rescan (content edits).
+ * Generates marketing-content/navigation-eager-manifest.json from content + menus.
+ * Run at build time: npm run build (prebuild) or npm run generate:navigation-manifest.
+ * Server only reads the file (readNavigationEagerManifest) for SSR initial data.
  */
 
 import * as fs from "fs";
@@ -183,8 +184,6 @@ function buildManifestPayload(
   };
 }
 
-let regenInflight: Promise<void> | null = null;
-
 /** Writes navigation-eager-manifest.json for client hover prefetch. */
 export async function regenerateNavigationEagerManifest(): Promise<void> {
   const candidates = collectAllInternalPaths();
@@ -231,14 +230,3 @@ export function readNavigationEagerManifest(): NavigationEagerManifestPayload | 
   }
 }
 
-/** Deduped async regen (e.g. after contentIndex.scan on content save). */
-export function scheduleNavigationEagerManifestRegen(): void {
-  if (regenInflight) return;
-  regenInflight = regenerateNavigationEagerManifest()
-    .catch((err) => {
-      console.error("[NavigationManifest] regen failed:", err);
-    })
-    .finally(() => {
-      regenInflight = null;
-    });
-}

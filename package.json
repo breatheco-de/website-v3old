@@ -5,6 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development tsx server/index.ts",
+    "generate:navigation-manifest": "tsx scripts/validation/generate-navigation-eager-manifest.ts",
+    "prebuild": "npm run generate:navigation-manifest",
     "build": "vite build && vite build --ssr src/entry-server.tsx && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
     "start": "NODE_ENV=production node dist/index.js",
     "check": "tsc",
