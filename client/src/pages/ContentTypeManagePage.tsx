@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { AlertTriangle, ArrowLeft, ArrowRight, Check, Clipboard, Clock, Code, Copy, Database, Download, ExternalLink, Eye, EyeOff, FileText, Folder, Globe, History, LayoutList, Link as LinkIcon, Loader2, MoreVertical, Plus, RefreshCw, Search, Shuffle, Trash2, Wand2, X } from "lucide-react";
+import { AlertTriangle, ArrowLeft, ArrowRight, Check, Clipboard, Clock, Code, Copy, Database, Download, ExternalLink, Eye, EyeOff, FileText, Folder, GitBranch, Globe, History, LayoutList, Link as LinkIcon, Loader2, MoreVertical, Plus, RefreshCw, Search, Shuffle, Trash2, Wand2, X } from "lucide-react";
 import { queryClient } from "@/lib/queryClient";
 import { useState, useMemo, useEffect, useRef, useCallback, lazy, Suspense } from "react";
 import { Link, useRoute } from "wouter";
@@ -19,6 +19,7 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogFooter,
@@ -2322,6 +2323,14 @@ export default function ContentTypeManagePage() {
   const [editingSlugEs, setEditingSlugEs] = useState(false);
   const [isCreatingContent, setIsCreatingContent] = useState(false);
 
+  const [createVersionOpen, setCreateVersionOpen] = useState(false);
+  const [createVersionEntry, setCreateVersionEntry] = useState<StaticEntry | null>(null);
+  const [createVersionSlug, setCreateVersionSlug] = useState("");
+  const [createVersionLocale, setCreateVersionLocale] = useState("en");
+  const [isCreatingVersion, setIsCreatingVersion] = useState(false);
+  const [versionsData, setVersionsData] = useState<Record<string, Record<string, { variants: { slug: string; allocation: number }[] }> | null>>({});
+  const [versionsLoading, setVersionsLoading] = useState<Set<string>>(new Set());
+
   const { data: allItemsData, isLoading: allLoading } = useQuery<ItemsResponse>({
     queryKey: ["/api/content-types", contentType, "items"],
     queryFn: () => fetch(`/api/content-types/${contentType}/items`).then(r => r.json()),
@@ -2484,6 +2493,44 @@ export default function ContentTypeManagePage() {
       setClearing(false);
     }
   };
+
+  const fetchVersionsForEntry = useCallback(async (slug: string) => {
+    if (slug in versionsData || versionsLoading.has(slug)) return;
+    setVersionsLoading(prev => new Set([...prev, slug]));
+    try {
+      const res = await fetch(`/api/versioning/${contentType}/${slug}`);
+      const data = await res.json();
+      setVersionsData(prev => ({ ...prev, [slug]: data.versioning || null }));
+    } finally {
+      setVersionsLoading(prev => { const next = new Set(prev); next.delete(slug); return next; });
+    }
+  }, [contentType, versionsData, versionsLoading]);
+
+  const handleCreateVersion = useCallback(async () => {
+    if (!createVersionEntry || !createVersionSlug) return;
+    setIsCreatingVersion(true);
+    try {
+      const res = await apiRequest("POST", `/api/versioning/${contentType}/${createVersionEntry.slug}`, {
+        variantSlug: createVersionSlug,
+        locale: createVersionLocale,
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        toast({ title: data.error || "Failed to create version", variant: "destructive" });
+        return;
+      }
+      toast({ title: `Version "${createVersionSlug}" created`, description: data.filePath });
+      setCreateVersionOpen(false);
+      setCreateVersionEntry(null);
+      setCreateVersionSlug("");
+      setVersionsData(prev => { const next = { ...prev }; delete next[createVersionEntry.slug]; return next; });
+      queryClient.invalidateQueries({ queryKey: ["/api/content-types", contentType, "static-entries"] });
+    } catch {
+      toast({ title: "Failed to create version", variant: "destructive" });
+    } finally {
+      setIsCreatingVersion(false);
+    }
+  }, [createVersionEntry, createVersionSlug, createVersionLocale, contentType, toast]);
 
   const copyUrl = async (url: string) => {
     await navigator.clipboard.writeText(url);
@@ -2902,6 +2949,56 @@ export default function ContentTypeManagePage() {
                                     </DropdownMenuContent>
                                   </DropdownMenu>
                                 )}
+                                {entry.locales.length > 0 && (
+                                  <DropdownMenu onOpenChange={(open) => { if (open) fetchVersionsForEntry(entry.slug); }}>
+                                    <DropdownMenuTrigger asChild>
+                                      <Button variant="ghost" size="sm" className="text-xs gap-1.5" data-testid={`button-versions-${entry.slug}`}>
+                                        <GitBranch className="h-3.5 w-3.5" />
+                                        Versions{entry.versionCounts && Object.keys(entry.versionCounts).length > 0 ? ` (${Object.values(entry.versionCounts).reduce((a, b) => a + b, 0)})` : ""}
+                                      </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end" className="min-w-[220px]">
+                                      {versionsLoading.has(entry.slug) ? (
+                                        <div className="flex items-center gap-2 px-2 py-1.5 text-xs text-muted-foreground">
+                                          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                                          Loading...
+                                        </div>
+                                      ) : !versionsData[entry.slug] || Object.keys(versionsData[entry.slug]!).length === 0 ? (
+                                        <div className="px-2 py-1.5 text-xs text-muted-foreground">No versions yet</div>
+                                      ) : (
+                                        Object.entries(versionsData[entry.slug]!).flatMap(([loc, localeData]) =>
+                                          localeData.variants.map((variant) => (
+                                            <DropdownMenuItem key={`${loc}-${variant.slug}`} asChild>
+                                              <a
+                                                href={entry.urls[loc] ? `${entry.urls[loc]}?force_variant=${variant.slug}` : "#"}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                data-testid={`link-variant-${entry.slug}-${loc}-${variant.slug}`}
+                                              >
+                                                <GitBranch className="h-4 w-4 mr-2 flex-shrink-0" />
+                                                <span className="flex-1">{variant.slug}</span>
+                                                <span className="ml-2 text-xs text-muted-foreground">{loc.toUpperCase()} · {variant.allocation}%</span>
+                                              </a>
+                                            </DropdownMenuItem>
+                                          ))
+                                        )
+                                      )}
+                                      <DropdownMenuSeparator />
+                                      <DropdownMenuItem
+                                        onClick={() => {
+                                          setCreateVersionEntry(entry);
+                                          setCreateVersionLocale(entry.locales[0] || "en");
+                                          setCreateVersionSlug("");
+                                          setCreateVersionOpen(true);
+                                        }}
+                                        data-testid={`button-new-version-${entry.slug}`}
+                                      >
+                                        <Plus className="h-4 w-4 mr-2" />
+                                        New version...
+                                      </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                  </DropdownMenu>
+                                )}
                               {(Object.keys(entry.urls).length > 0 || entry.locales.length === 0) && (
                                 <DropdownMenu>
                                   <DropdownMenuTrigger asChild>
@@ -3239,6 +3336,69 @@ export default function ContentTypeManagePage() {
           />
         </Suspense>
       )}
+
+      <Dialog open={createVersionOpen} onOpenChange={(open) => {
+        setCreateVersionOpen(open);
+        if (!open) { setCreateVersionEntry(null); setCreateVersionSlug(""); }
+      }}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Create New Version</DialogTitle>
+            <DialogDescription>
+              A version is a copy of a page's content that can be A/B tested against the original.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-1">
+            <div className="space-y-1.5">
+              <label className="text-sm font-medium">Locale</label>
+              <Select value={createVersionLocale} onValueChange={setCreateVersionLocale}>
+                <SelectTrigger data-testid="select-version-locale">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {createVersionEntry?.locales.map((loc) => (
+                    <SelectItem key={loc} value={loc}>{loc.toUpperCase()}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-sm font-medium">Version name</label>
+              <Input
+                placeholder="e.g. colorful, dark-hero, new-cta"
+                value={createVersionSlug}
+                onChange={(e) => setCreateVersionSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ""))}
+                data-testid="input-version-slug"
+              />
+              <p className="text-xs text-muted-foreground">Lowercase letters, numbers, and hyphens only.</p>
+            </div>
+            {createVersionEntry && createVersionSlug && (
+              <div className="rounded-md bg-muted px-3 py-2 space-y-0.5">
+                <p className="text-xs font-medium">File that will be created:</p>
+                <p className="text-xs font-mono text-muted-foreground break-all">
+                  {createVersionEntry.slug}/{createVersionSlug}.{createVersionLocale}.yml
+                </p>
+              </div>
+            )}
+            <div className="rounded-md bg-muted px-3 py-2">
+              <p className="text-xs text-muted-foreground">
+                This version starts with <strong>0% traffic allocation</strong> — no real visitors will see it until you allocate traffic in the Versions editor. You can preview it anytime using the <code className="text-xs">?force_variant=</code> URL parameter.
+              </p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setCreateVersionOpen(false)}>Cancel</Button>
+            <Button
+              onClick={handleCreateVersion}
+              disabled={!createVersionSlug || isCreatingVersion}
+              data-testid="button-confirm-create-version"
+            >
+              {isCreatingVersion && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+              Create version
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

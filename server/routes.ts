@@ -6592,6 +6592,74 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     },
   );
 
+  // Create a new content variant (copies locale file + registers in versioning.yml at 0% allocation)
+  app.post("/api/versioning/:contentType/:contentSlug", (req, res) => {
+    const { contentType, contentSlug } = req.params;
+
+    if (!isValidType(contentType)) {
+      res.status(400).json({ error: "Invalid content type", validTypes: getAllFolders() });
+      return;
+    }
+
+    const { variantSlug, locale } = req.body as { variantSlug?: string; locale?: string };
+
+    if (!variantSlug || !locale) {
+      res.status(400).json({ error: "variantSlug and locale are required" });
+      return;
+    }
+
+    if (!/^[a-z0-9-]+$/.test(variantSlug)) {
+      res.status(400).json({ error: "variantSlug must be lowercase letters, numbers, and hyphens only" });
+      return;
+    }
+
+    const folder = getFolder(contentType as ContentType);
+    const contentDir = path.join(process.cwd(), "marketing-content", folder, contentSlug);
+
+    if (!fs.existsSync(contentDir)) {
+      res.status(404).json({ error: "Content folder not found" });
+      return;
+    }
+
+    const variantFilePath = path.join(contentDir, `${variantSlug}.${locale}.yml`);
+    if (fs.existsSync(variantFilePath)) {
+      res.status(409).json({ error: `Variant ${variantSlug}.${locale}.yml already exists` });
+      return;
+    }
+
+    const sourceFilePath = path.join(contentDir, `${locale}.yml`);
+    if (!fs.existsSync(sourceFilePath)) {
+      res.status(404).json({ error: `Source file ${locale}.yml not found for this entry` });
+      return;
+    }
+
+    try {
+      const sourceContent = fs.readFileSync(sourceFilePath, "utf-8");
+      fs.writeFileSync(variantFilePath, sourceContent, "utf-8");
+
+      const versioningManager = getVersioningManager();
+      const existing = versioningManager.getVersioningForContent(contentType, contentSlug) || {};
+      const localeData = existing[locale]
+        ? { variants: [...(existing[locale].variants || [])] }
+        : { variants: [] };
+
+      if (!localeData.variants.some((v) => v.slug === variantSlug)) {
+        localeData.variants.push({ slug: variantSlug, allocation: 0 });
+      }
+
+      versioningManager.updateVersioning(contentType, contentSlug, { ...existing, [locale]: localeData });
+
+      res.json({
+        success: true,
+        variantSlug,
+        locale,
+        filePath: `marketing-content/${folder}/${contentSlug}/${variantSlug}.${locale}.yml`,
+      });
+    } catch (error) {
+      res.status(500).json({ error: String(error) });
+    }
+  });
+
   // Molecules Showcase API endpoint
   app.get("/api/molecules", (_req, res) => {
     const moleculesPath = path.join(
