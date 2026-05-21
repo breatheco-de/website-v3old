@@ -4,3 +4,52 @@ meta:
   page_title: Rigobot AI Mentor | Learn Faster with 4Geeks
   description: Rigobot is 4Geeks' AI coding mentor — not a generic chatbot. It tracks your progress, gives real-time feedback, and helps you code like a pro from day one.
   robots: index, follow
+sections:
+  - type: hero
+    version: "1.0"
+    variant: productShowcase
+    brand_mark:
+      prefix: Meet
+      highlight: Rigobot
+      suffix: —
+      color: primary
+    title: The AI Mentor That Knows You
+    subtitle: The Only Bootcamp Where Your AI Mentor Follows Every Line You Write
+    description: Rigobot isn't ChatGPT. It tracks your progress, reads your code against real tests, and gives you feedback that's specific to you — 24/7, inside every 4Geeks course.
+    image:
+      src: https://breathecode.herokuapp.com/v1/media/file/rigo-png
+      alt: Rigobot AI coding mentor by 4Geeks
+    form:
+      variant: stacked
+      submit_label: See If You Qualify. It's Free.
+      tags: website-lead,rigobot-landing
+      automations: strong
+      fields:
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        email:
+          visible: true
+          required: true
+          placeholder: Email address
+        phone:
+          visible: true
+          required: true
+          placeholder: Phone number
+        program:
+          visible: true
+          required: true
+      success:
+        message: Thanks! Our admissions team will reach out within 24 hours.
+      consent:
+        email: true
+        sms: true
+        sms_text: I agree to receive SMS about courses and events. Reply STOP to unsubscribe.
+        sms_usa_only: true
+      show_terms: true
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    paddingY:
+      desktop: md none
+    marginY:
+      desktop: none
