@@ -257,6 +257,16 @@ export function setAutoCommitCallback(cb: (filePath: string, author?: string, al
   autoCommitCallback = cb;
 }
 
+const fileModifiedListeners: Set<(filePath: string) => void> = new Set();
+
+/**
+ * Register a listener that fires whenever any content file is marked modified.
+ * Listeners receive the relative file path (e.g. "marketing-content/landings/my-page/test.en.yml").
+ */
+export function addFileModifiedListener(cb: (filePath: string) => void): void {
+  fileModifiedListeners.add(cb);
+}
+
 
 /**
  * Mark a file as modified (dirty) after an edit.
@@ -304,6 +314,7 @@ export function markFileAsModified(filePath: string, author?: string, allowedExc
     if (autoCommitCallback) {
       autoCommitCallback(relativePath, author, allowedExceptions);
     }
+    fileModifiedListeners.forEach(cb => cb(relativePath));
   } else if (state.files[relativePath]) {
     state.files[relativePath] = {
       ...state.files[relativePath],
@@ -316,10 +327,12 @@ export function markFileAsModified(filePath: string, author?: string, allowedExc
     if (autoCommitCallback) {
       autoCommitCallback(relativePath, author, allowedExceptions);
     }
+    fileModifiedListeners.forEach(cb => cb(relativePath));
   } else if (allowedExceptions instanceof Set && allowedExceptions.has(relativePath)) {
     if (autoCommitCallback) {
       autoCommitCallback(relativePath, author, allowedExceptions);
     }
+    fileModifiedListeners.forEach(cb => cb(relativePath));
   }
 }
 

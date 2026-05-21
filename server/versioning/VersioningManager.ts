@@ -3,7 +3,8 @@ import path from "path";
 import * as yaml from "js-yaml";
 import { escapeTemplateVars, unescapeObjectVars } from "../../shared/templateVars";
 import { deepMerge } from "../utils/deepMerge";
-import { getFolder } from "../content-types";
+import { getFolder, getType } from "../content-types";
+import { addFileModifiedListener } from "../sync-state";
 import { gcs } from "../gcs";
 import { hashUserId } from "./cookie-utils";
 
@@ -44,6 +45,52 @@ export class VersioningManager {
     this.loadState();
     this.loadStateFromBucket();
     this.startFlushTimer();
+    this.registerFileModifiedListener();
+  }
+
+  /**
+   * Parse a relative file path and return variant coordinates if it is a
+   * variant content file (e.g. "marketing-content/landings/my-page/test.en.yml").
+   * Returns null for regular locale files, shared templates, or internal files.
+   */
+  private parseVariantFilePath(relativePath: string): {
+    contentType: string;
+    slug: string;
+    variantSlug: string;
+    locale: string;
+  } | null {
+    const parts = relativePath.replace(/\\/g, "/").split("/");
+    // Expected structure: marketing-content / {folder} / {slug} / {file}.yml
+    if (parts.length !== 4 || parts[0] !== "marketing-content") return null;
+    if (!parts[3].endsWith(".yml")) return null;
+
+    const base = parts[3].slice(0, -4); // strip .yml
+    const lastDot = base.lastIndexOf(".");
+    if (lastDot === -1) return null; // "en.yml" — plain locale file, no variant
+
+    const variantSlug = base.slice(0, lastDot);
+    const locale = base.slice(lastDot + 1);
+
+    // Exclude shared templates ("single.en.yml") and internal files ("_common.yml")
+    if (!variantSlug || variantSlug === "single" || variantSlug.startsWith("_")) return null;
+    // Locale codes are short alpha-only strings
+    if (!/^[a-z]{2,5}$/.test(locale)) return null;
+
+    const folder = parts[1];
+    const slug = parts[2];
+    const contentType = getType(folder);
+
+    return { contentType, slug, variantSlug, locale };
+  }
+
+  private registerFileModifiedListener(): void {
+    addFileModifiedListener((filePath: string) => {
+      const parsed = this.parseVariantFilePath(filePath);
+      if (parsed) {
+        const { contentType, slug, variantSlug, locale } = parsed;
+        this.invalidateVariantCache(contentType, slug, variantSlug, locale);
+      }
+    });
   }
 
   private loadState(): void {
