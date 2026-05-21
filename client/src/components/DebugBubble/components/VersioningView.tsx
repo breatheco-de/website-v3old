@@ -419,7 +419,7 @@ export function VersioningView({
                               <Button
                                 size="sm"
                                 variant="outline"
-                                className="h-5 px-1.5 text-[10px] leading-none"
+                                className="h-5 px-1.5 py-0 text-[10px] leading-none"
                                 onClick={() => setPromoteTarget({ locale, slug: variant.slug })}
                                 data-testid={`button-promote-variant-${locale}-${variant.slug}`}
                               >
