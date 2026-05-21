@@ -30,6 +30,8 @@ export function VersioningView({
   const { toast } = useToast();
   const locales = versioningData?.versioning ? Object.keys(versioningData.versioning) : [];
 
+  const activeVariant = new URLSearchParams(window.location.search).get("force_variant") ?? null;
+
   const [editingLocale, setEditingLocale] = useState<string | null>(null);
   const [tempAllocations, setTempAllocations] = useState<Record<string, number>>({});
   const [isSaving, setIsSaving] = useState(false);
@@ -211,10 +213,24 @@ export function VersioningView({
                   </div>
 
                   <div className="space-y-2">
-                    {localeData.variants.map((variant) => (
-                      <div key={variant.slug}>
+                    {localeData.variants.map((variant) => {
+                      const isActive = activeVariant === variant.slug;
+                      return (
+                      <div key={variant.slug} className={isActive ? "rounded-md bg-primary/10 px-2 py-1 -mx-2" : ""}>
                         <div className="flex items-center justify-between text-sm gap-2">
-                          <span className="truncate">{deslugify(variant.slug)}</span>
+                          <div className="flex items-center gap-1.5 min-w-0">
+                            {isActive && (
+                              <span className="h-2 w-2 rounded-full bg-primary flex-shrink-0" data-testid={`dot-active-variant-${locale}-${variant.slug}`} />
+                            )}
+                            <span className={`truncate ${isActive ? "font-semibold text-foreground" : ""}`}>
+                              {deslugify(variant.slug)}
+                            </span>
+                            {isActive && (
+                              <Badge variant="default" className="text-[10px] px-1.5 py-0 leading-4 flex-shrink-0" data-testid={`badge-active-variant-${locale}`}>
+                                active
+                              </Badge>
+                            )}
+                          </div>
                           <div className="flex items-center gap-1.5 flex-shrink-0">
                             {!isEditing && (
                               <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-medium">
@@ -253,7 +269,8 @@ export function VersioningView({
                           </div>
                         )}
                       </div>
-                    ))}
+                    );
+                    })}
                   </div>
                 </div>
               );
