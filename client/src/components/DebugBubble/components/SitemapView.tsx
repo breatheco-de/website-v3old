@@ -28,6 +28,7 @@ interface SitemapViewProps {
   handleDeletePage: (url: SitemapUrl) => void;
   handleDownloadYml: (url: SitemapUrl) => void;
   handleEditYaml: (url: SitemapUrl) => void;
+  handleRefreshCache: (url: SitemapUrl) => void;
 }
 
 export function SitemapView({
@@ -48,6 +49,7 @@ export function SitemapView({
   handleDeletePage,
   handleDownloadYml,
   handleEditYaml,
+  handleRefreshCache,
 }: SitemapViewProps) {
   const { toast } = useToast();
 
@@ -208,10 +210,16 @@ export function SitemapView({
                                   Copy URL
                                 </DropdownMenuItem>
                                 {isBlogUrl(url.loc) ? (
-                                  <DropdownMenuItem onClick={() => { window.location.href = '/private/type/blog'; }} className="text-[13px]" data-testid={`menu-blog-manager-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                                    <ExternalLink className="h-3.5 w-3.5 mr-2" />
-                                    Open Blog Manager
-                                  </DropdownMenuItem>
+                                  <>
+                                    <DropdownMenuItem onClick={() => { window.location.href = '/private/type/blog'; }} className="text-[13px]" data-testid={`menu-blog-manager-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                                      <ExternalLink className="h-3.5 w-3.5 mr-2" />
+                                      Open Blog Manager
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => handleRefreshCache(url)} className="text-[13px]" data-testid={`menu-refresh-cache-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                                      <RefreshCw className="h-3.5 w-3.5 mr-2" />
+                                      Refresh Cache
+                                    </DropdownMenuItem>
+                                  </>
                                 ) : (
                                   <>
                                     <DropdownMenuItem onClick={() => handleDuplicatePage(url)} className="text-[13px]" data-testid={`menu-duplicate-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
@@ -233,6 +241,10 @@ export function SitemapView({
                                     >
                                       <History className="h-3.5 w-3.5 mr-2" />
                                       View Change Log
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => handleRefreshCache(url)} className="text-[13px]" data-testid={`menu-refresh-cache-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                                      <RefreshCw className="h-3.5 w-3.5 mr-2" />
+                                      Refresh Cache
                                     </DropdownMenuItem>
                                     <DropdownMenuItem onClick={() => handleDeletePage(url)} className="text-[13px] text-destructive" data-testid={`menu-delete-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
                                       <Trash2 className="h-3.5 w-3.5 mr-2" />
@@ -279,10 +291,16 @@ export function SitemapView({
                           Copy URL
                         </DropdownMenuItem>
                         {isBlogUrl(url.loc) ? (
-                          <DropdownMenuItem onClick={() => { window.location.href = '/private/type/blog'; }} className="text-[13px]" data-testid={`menu-blog-manager-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                            <ExternalLink className="h-3.5 w-3.5 mr-2" />
-                            Open Blog Manager
-                          </DropdownMenuItem>
+                          <>
+                            <DropdownMenuItem onClick={() => { window.location.href = '/private/type/blog'; }} className="text-[13px]" data-testid={`menu-blog-manager-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                              <ExternalLink className="h-3.5 w-3.5 mr-2" />
+                              Open Blog Manager
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleRefreshCache(url)} className="text-[13px]" data-testid={`menu-refresh-cache-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                              <RefreshCw className="h-3.5 w-3.5 mr-2" />
+                              Refresh Cache
+                            </DropdownMenuItem>
+                          </>
                         ) : (
                           <>
                             <DropdownMenuItem onClick={() => handleDuplicatePage(url)} className="text-[13px]" data-testid={`menu-duplicate-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
@@ -304,6 +322,10 @@ export function SitemapView({
                             >
                               <History className="h-3.5 w-3.5 mr-2" />
                               View Change Log
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleRefreshCache(url)} className="text-[13px]" data-testid={`menu-refresh-cache-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                              <RefreshCw className="h-3.5 w-3.5 mr-2" />
+                              Refresh Cache
                             </DropdownMenuItem>
                             <DropdownMenuItem onClick={() => handleDeletePage(url)} className="text-[13px] text-destructive" data-testid={`menu-delete-root-${url.label.toLowerCase().replace(/\s+/g, '-')}`}>
                               <Trash2 className="h-3.5 w-3.5 mr-2" />

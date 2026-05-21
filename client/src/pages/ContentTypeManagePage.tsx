@@ -3067,6 +3067,21 @@ export default function ContentTypeManagePage() {
                                         Migrate to standard format
                                       </DropdownMenuItem>
                                     )}
+                                    <DropdownMenuItem
+                                      onClick={async () => {
+                                        try {
+                                          await apiRequest("DELETE", `/api/content-types/${contentType}/cache/${entry.slug}`);
+                                          toast({ title: `Cache refreshed for "${entry.slug}"` });
+                                        } catch {
+                                          toast({ title: "Failed to refresh cache", variant: "destructive" });
+                                        }
+                                      }}
+                                      className="text-[13px]"
+                                      data-testid={`menu-refresh-cache-${entry.slug}`}
+                                    >
+                                      <RefreshCw className="h-4 w-4 mr-2" />
+                                      Refresh Cache
+                                    </DropdownMenuItem>
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem
                                       onClick={() => {
@@ -3231,15 +3246,15 @@ export default function ContentTypeManagePage() {
                                     onClick={async () => {
                                       try {
                                         await apiRequest("DELETE", `/api/content-types/${contentType}/cache/${item.slug}`);
-                                        toast({ title: `Cache cleared for "${item.title || item.slug}"` });
+                                        toast({ title: `Cache refreshed for "${item.title || item.slug}"` });
                                       } catch {
-                                        toast({ title: "Failed to clear cache", variant: "destructive" });
+                                        toast({ title: "Failed to refresh cache", variant: "destructive" });
                                       }
                                     }}
                                     data-testid={`button-clear-cache-${item.id || item.slug}`}
                                   >
-                                    <Trash2 className="h-4 w-4 mr-2" />
-                                    Clear cache
+                                    <RefreshCw className="h-4 w-4 mr-2" />
+                                    Refresh Cache
                                   </DropdownMenuItem>
                                 </DropdownMenuContent>
                               </DropdownMenu>

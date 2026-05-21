@@ -104,6 +104,7 @@ export interface DebugPanelContentProps {
   handleDeletePage: (url: string) => void;
   handleDownloadYml: (url: string) => void;
   handleEditYaml: (url: string) => void;
+  handleRefreshCache: (url: SitemapUrl) => void;
   contentLocale: string | null;
 
   session: { location?: { slug?: string; name?: string } };
@@ -847,6 +848,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
           handleDeletePage={props.handleDeletePage}
           handleDownloadYml={props.handleDownloadYml}
           handleEditYaml={props.handleEditYaml}
+          handleRefreshCache={props.handleRefreshCache}
         />
       )}
     </>

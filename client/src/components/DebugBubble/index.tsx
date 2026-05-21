@@ -1441,6 +1441,27 @@ export function DebugBubble() {
     }
   };
 
+  const handleRefreshCache = async (url: SitemapUrl) => {
+    try {
+      const token = getDebugToken();
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Token ${token}`;
+      const res = await fetch("/api/debug/clear-page-cache", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ url: url.loc }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        toast({ title: "Cache refreshed", description: data.message || url.loc, duration: 3000 });
+      } else {
+        toast({ title: "Failed to refresh cache", description: data.error || "Unknown error", variant: "destructive" });
+      }
+    } catch {
+      toast({ title: "Failed to refresh cache", description: "Network error", variant: "destructive" });
+    }
+  };
+
   const handleEditYaml = async (url: SitemapUrl) => {
     const urlPath = new URL(url.loc).pathname;
     const info = detectContentInfo(urlPath, contentTypesMap);
@@ -1636,6 +1657,7 @@ export function DebugBubble() {
     handleDeletePage,
     handleDownloadYml,
     handleEditYaml,
+    handleRefreshCache,
     contentLocale: pageDiagnostics?.locale || null,
     session,
     currentLocationOverride,

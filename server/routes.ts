@@ -3922,6 +3922,77 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
   });
 
+  // Clear page-level cache for a specific URL
+  app.post("/api/debug/clear-page-cache", async (req, res) => {
+    try {
+      const authHeader = req.headers.authorization;
+      const token = authHeader?.replace("Token ", "");
+      const isDevelopment = process.env.NODE_ENV !== "production";
+
+      if (!isDevelopment && !token) {
+        res.status(401).json({ error: "Authorization required" });
+        return;
+      }
+
+      if (!isDevelopment && token) {
+        const response = await fetch(
+          `${BREATHECODE_HOST}/v1/auth/user/me/capability/webmaster`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Token ${token}`,
+              Academy: "4",
+            },
+          },
+        );
+        if (response.status !== 200) {
+          res.status(403).json({ error: "Invalid or unauthorized token" });
+          return;
+        }
+      }
+
+      const { url } = req.body as { url?: string };
+      if (!url) {
+        res.status(400).json({ error: "Missing 'url' in request body" });
+        return;
+      }
+
+      let urlPath: string;
+      try {
+        urlPath = new URL(url).pathname;
+      } catch {
+        urlPath = url;
+      }
+
+      // Use content index URL parsing for reliable type+slug resolution
+      let resolved = contentIndex.parseContentUrl(urlPath);
+
+      // Fall back to home page for root/locale-only paths like /, /en, /es
+      if (!resolved) {
+        const LOCALE_ONLY = new Set(["/", "/en", "/es", "/en/", "/es/"]);
+        const isLocaleOnly = LOCALE_ONLY.has(urlPath) || /^\/[a-z]{2}\/?$/.test(urlPath);
+        if (isLocaleOnly) {
+          const homePage = getHomePage();
+          if (homePage?.type && homePage?.slug) {
+            resolved = { contentType: homePage.type, slug: homePage.slug, locale: "en" };
+          }
+        }
+      }
+
+      if (resolved) {
+        invalidateContentCaches(resolved.contentType);
+        if (resolved.slug) {
+          clearMarkdownCache(resolved.slug);
+        }
+      }
+
+      res.json({ success: true, message: `Cache refreshed for ${urlPath}` });
+    } catch (error) {
+      console.error("Error clearing page cache:", error);
+      res.status(500).json({ error: "Failed to clear page cache" });
+    }
+  });
+
   // Get active redirects (for debug tools)
   app.get("/api/debug/redirects", (req, res) => {
     const redirects = getRedirects();
