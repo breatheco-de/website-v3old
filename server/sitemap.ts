@@ -1,9 +1,10 @@
 import * as fs from "fs";
 import * as path from "path";
 import { contentIndex, MARKETING_CONTENT_PATH as BASE_CONTENT_PATH } from "./content-index";
-import { getContentTypeConfig, getLocaleKey, getLocaleSource, getFieldMapping, getFullFieldMapping, resolveUrlPatternWithMapping, getAllConfigs } from "./content-types";
+import { getContentTypeConfig, getLocaleKey, getLocaleSource, getFieldMapping, getFullFieldMapping, resolveUrlPatternWithMapping, getAllConfigs, getDirectory } from "./content-types";
 import { getSupportedLocales } from "./settings";
 import { applyTransformIfNeeded } from "./transform";
+import { getFileLastmod } from "./sync-state";
 
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -26,14 +27,6 @@ function getBaseUrl(): string {
 // CANONICAL SITEMAP ENTRY - Single Source of Truth
 // ============================================================================
 
-type ChangeFreq =
-  | "always"
-  | "hourly"
-  | "daily"
-  | "weekly"
-  | "monthly"
-  | "yearly"
-  | "never";
 type EntryType =
   | "static"
   | "program"
@@ -45,8 +38,6 @@ type EntryType =
 interface CanonicalSitemapEntry {
   loc: string;
   lastmod: string;
-  changefreq: ChangeFreq;
-  priority: number;
   label: string;
   type: EntryType;
   locale?: string;
@@ -67,8 +58,6 @@ let sitemapCache: SitemapCache | null = null;
 interface ContentMeta {
   page_title?: string;
   robots?: string;
-  priority?: number;
-  change_frequency?: ChangeFreq;
   redirects?: string[];
 }
 
@@ -224,6 +213,17 @@ function formatLocaleLabel(locale: string): string {
   return locale === "es" ? "ES" : "EN";
 }
 
+/**
+ * Get the best lastmod date for a YML-based content entry.
+ * Resolves the content file path and delegates to getFileLastmod from sync-state.
+ * Falls back to today's date when no sync data exists.
+ */
+function getYmlFileLastmod(contentType: string, dirSlug: string, locale: string): string {
+  const directory = getDirectory(contentType);
+  const filePath = `marketing-content/${directory}/${dirSlug}/${locale}.yml`;
+  return getFileLastmod(filePath);
+}
+
 // ============================================================================
 // CANONICAL BUILDER - Single Source of Truth
 // ============================================================================
@@ -232,20 +232,15 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
   const today = getCurrentDate();
   const entries: CanonicalSitemapEntry[] = [];
 
-  // Static pages
-  const staticPages: Array<{
-    path: string;
-    label: string;
-    changefreq: ChangeFreq;
-    priority: number;
-  }> = [{ path: "/", label: "Home", changefreq: "weekly", priority: 1.0 }];
+  // Static pages (no YML file — use today as fallback)
+  const staticPages: Array<{ path: string; label: string }> = [
+    { path: "/", label: "Home" },
+  ];
 
   for (const page of staticPages) {
     entries.push({
       loc: `${getBaseUrl()}${page.path}`,
       lastmod: today,
-      changefreq: page.changefreq,
-      priority: page.priority,
       label: page.label,
       type: "static",
     });
@@ -265,9 +260,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
 
     entries.push({
       loc: url,
-      lastmod: today,
-      changefreq: program.meta.change_frequency || "weekly",
-      priority: program.meta.priority || 0.8,
+      lastmod: getYmlFileLastmod("program", program.dirSlug, program.locale),
       label: `${program.title} (${formatLocaleLabel(program.locale)})`,
       type: "program",
       locale: program.locale,
@@ -289,9 +282,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
 
     entries.push({
       loc: url,
-      lastmod: today,
-      changefreq: location.meta.change_frequency || "monthly",
-      priority: location.meta.priority || 0.8,
+      lastmod: getYmlFileLastmod("location", location.dirSlug, location.locale),
       label: `Location: ${location.name} (${formatLocaleLabel(location.locale)})`,
       type: "location",
       locale: location.locale,
@@ -311,9 +302,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
 
     entries.push({
       loc: `${getBaseUrl()}${contentIndex.buildUrl("page", page.locale, page.slug)}`,
-      lastmod: today,
-      changefreq: page.meta.change_frequency || "weekly",
-      priority: page.meta.priority || 0.8,
+      lastmod: getYmlFileLastmod("page", page.dirSlug, page.locale),
       label: `Page: ${page.title} (${formatLocaleLabel(page.locale)})`,
       type: "template_page",
       locale: page.locale,
@@ -349,8 +338,6 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
           entries.push({
             loc: postUrl,
             lastmod: updatedAt ? updatedAt.split("T")[0] : today,
-            changefreq: "monthly",
-            priority: 0.6,
             label: `Blog: ${title} (${formatLocaleLabel(locale)})`,
             type: "static",
             locale,
@@ -391,9 +378,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
 
           entries.push({
             loc: url,
-            lastmod: today,
-            changefreq: meta.change_frequency || "weekly",
-            priority: meta.priority || 0.7,
+            lastmod: getYmlFileLastmod(typeName, slug, locale),
             label: `${typeLabel}: ${title} (${formatLocaleLabel(locale)})`,
             type: typeName,
             locale,
@@ -455,9 +440,7 @@ function entriesToXml(entries: CanonicalSitemapEntry[]): string {
       }
       return `  <url>
     <loc>${entry.loc}</loc>
-    <lastmod>${entry.lastmod}</lastmod>
-    <changefreq>${entry.changefreq}</changefreq>
-    <priority>${entry.priority}</priority>${alternateLines}
+    <lastmod>${entry.lastmod}</lastmod>${alternateLines}
   </url>`;
     })
     .join("\n");

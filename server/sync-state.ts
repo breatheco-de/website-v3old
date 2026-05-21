@@ -121,6 +121,7 @@ export interface FileSyncInfo {
   pulledFromCommit?: string;
   author?: string;
   modifiedAt?: string;
+  committedAt?: string;
 }
 
 export interface SyncConfig {
@@ -476,6 +477,8 @@ export function updateSyncStateAfterCommit(
   
   state.lastSyncedCommit = commitSha;
   state.lastSyncedAt = new Date().toISOString();
+
+  const committedAt = new Date().toISOString();
   
   for (const filePath of committedFiles) {
     if (!shouldTrackFile(filePath)) {
@@ -492,6 +495,7 @@ export function updateSyncStateAfterCommit(
         sha,
         lastModified: stats.mtimeMs,
         remoteSha: sha,
+        committedAt,
       };
     } else {
       delete state.files[filePath];
@@ -567,6 +571,10 @@ export function rebuildSyncStateFromLocal(commitSha: string): void {
         remoteSha: hadLocalChanges ? existing.remoteSha : sha,
         ...(hadLocalChanges && existing.author ? { author: existing.author } : {}),
         ...(hadLocalChanges && existing.modifiedAt ? { modifiedAt: existing.modifiedAt } : {}),
+        // Always preserve committedAt and pulledFromCommit — these represent real GitHub
+        // timestamps and must survive reconcile/rebuild cycles so sitemap lastmod stays accurate.
+        ...(existing?.committedAt ? { committedAt: existing.committedAt } : {}),
+        ...(existing?.pulledFromCommit ? { pulledFromCommit: existing.pulledFromCommit } : {}),
       };
     } catch (error) {
       console.error(`Error reading file ${filePath}:`, error);
@@ -579,6 +587,29 @@ export function rebuildSyncStateFromLocal(commitSha: string): void {
 export function getLastSyncedCommit(): string | null {
   const state = loadSyncState();
   return state.lastSyncedCommit;
+}
+
+/**
+ * Get the best available lastmod date for a file, for use in sitemaps.
+ * Priority: committedAt > modifiedAt > today's date.
+ */
+export function getFileLastmod(filePath: string): string {
+  const relativePath = filePath.startsWith('marketing-content/')
+    ? filePath
+    : `marketing-content/${filePath}`;
+
+  const state = loadSyncState();
+  const info = state.files[relativePath];
+
+  if (info?.committedAt) {
+    return info.committedAt.split('T')[0];
+  }
+
+  if (info?.modifiedAt) {
+    return info.modifiedAt.split('T')[0];
+  }
+
+  return new Date().toISOString().split('T')[0];
 }
 
 export function getFileStatus(filePath: string): {
@@ -622,7 +653,7 @@ export function getFileStatus(filePath: string): {
   return { exists: true, localSha, remoteSha, hasConflict: false, status: 'modified' };
 }
 
-export function updateFileAfterPull(filePath: string, pulledFromCommit?: string): void {
+export function updateFileAfterPull(filePath: string, pulledFromCommit?: string, committedAt?: string): void {
   const relativePath = filePath.startsWith('marketing-content/') 
     ? filePath 
     : `marketing-content/${filePath}`;
@@ -644,6 +675,7 @@ export function updateFileAfterPull(filePath: string, pulledFromCommit?: string)
       lastModified: stats.mtimeMs,
       remoteSha: sha,
       pulledFromCommit,
+      ...(committedAt ? { committedAt } : {}),
     };
     
     saveSyncState(state);
@@ -689,6 +721,7 @@ export function updateFileAfterCommit(filePath: string, commitSha: string): void
       sha,
       lastModified: stats.mtimeMs,
       remoteSha: sha,
+      committedAt: new Date().toISOString(),
     };
   } else {
     delete state.files[relativePath];

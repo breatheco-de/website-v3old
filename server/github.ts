@@ -471,6 +471,32 @@ async function updateBranchRef(
 }
 
 /**
+ * Get the date of the most recent commit that touched a specific file.
+ * Uses the GitHub Commits API filtered by path — returns the file-specific
+ * last-change date, not the branch HEAD date.
+ * Returns ISO string or null on failure.
+ */
+async function getFileCommitDate(config: GitHubConfig, filePath: string): Promise<string | null> {
+  try {
+    const url = `https://api.github.com/repos/${config.owner}/${config.repo}/commits?path=${encodeURIComponent(filePath)}&sha=${encodeURIComponent(config.branch)}&per_page=1`;
+    const response = await fetch(url, {
+      headers: {
+        'Authorization': `Bearer ${config.token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    });
+    if (!response.ok) return null;
+    const data = await response.json();
+    if (!Array.isArray(data) || data.length === 0) return null;
+    const commit = data[0].commit;
+    return commit?.committer?.date || commit?.author?.date || null;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Get the current branch HEAD SHA
  */
 async function getBranchHeadSha(config: GitHubConfig): Promise<string | null> {
@@ -1112,7 +1138,8 @@ export async function reconcileSyncStateOnStartup(): Promise<void> {
       const localBlobSha = computeGitBlobSha(localContent);
 
       if (localBlobSha === remoteBlobSha) {
-        updateFileAfterPull(filePath, remoteCommit);
+        const fileCommitDate = await getFileCommitDate(config, filePath);
+        updateFileAfterPull(filePath, remoteCommit, fileCommitDate || undefined);
         reconciledCount++;
       } else {
         allReconciled = false;
@@ -1615,9 +1642,18 @@ export async function pullSingleFile(filePath: string): Promise<{
     
     fs.writeFileSync(fullPath, remoteResult.content, 'utf-8');
     
+    // Fetch file-specific commit date from GitHub API for accurate lastmod in sitemap.
+    // We use the commits-by-path API so that unrelated newer commits on the branch
+    // do not inflate the lastmod date for this file.
+    let committedAt: string | undefined;
+    if (config) {
+      const date = await getFileCommitDate(config, filePath);
+      if (date) committedAt = date;
+    }
+
     // Update sync state with the commit we pulled from
     const { updateFileAfterPull } = await import("./sync-state");
-    updateFileAfterPull(filePath, remoteCommit || undefined);
+    updateFileAfterPull(filePath, remoteCommit || undefined, committedAt);
     
     return { success: true };
   } catch (error) {
