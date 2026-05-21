@@ -1352,7 +1352,7 @@ class ContentIndex {
       return files
         .filter(f => {
           if (!f.endsWith(".yml") || f.startsWith("_")) return false;
-          if (f === "experiments.yml" || f === "versioning.yml") return false;
+          if (f === "versioning.yml") return false;
           const stem = f.slice(0, -4);
           return !stem.includes(".");
         })

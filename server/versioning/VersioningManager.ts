@@ -439,7 +439,6 @@ export class VersioningManager {
           (file) =>
             file.endsWith(".yml") &&
             file !== "versioning.yml" &&
-            file !== "experiments.yml" &&
             !file.startsWith("_")
         )
         .map((file) => {

@@ -1366,7 +1366,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       ...rest,
       ...(singleEntry ? { singleEntry } : {}),
       layout,
-      _experiment: versioningInfo ? { experiment: "versioning", variant: versioningInfo.variant, version: 1 } : null,
     });
   });
 
@@ -1484,7 +1483,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       locale,
       landing_locations: landingLocations,
       layout,
-      _experiment: landingVersioningInfo ? { experiment: "versioning", variant: landingVersioningInfo.variant, version: 1 } : null,
     });
   });
 
@@ -9147,8 +9145,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           .filter(
             (f) =>
               f.endsWith(".yml") &&
-              !f.startsWith("_") &&
-              f !== "experiments.yml",
+              !f.startsWith("_")
           );
 
         if (remainingFiles.length === 0) {

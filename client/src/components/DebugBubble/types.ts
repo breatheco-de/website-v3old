@@ -32,29 +32,6 @@ export interface VersioningResponse {
   availableLocales?: string[];
 }
 
-// Legacy experiment types kept for backward compat
-export interface ExperimentVariant {
-  slug: string;
-  version: number;
-  allocation: number;
-}
-
-export interface ExperimentConfig {
-  slug: string;
-  status: "planned" | "active" | "paused" | "winner" | "archived";
-  description?: string;
-  variants: ExperimentVariant[];
-  targeting?: Record<string, unknown>;
-  max_visitors?: number;
-  stats?: Record<string, number>;
-}
-
-export interface ExperimentsResponse {
-  experiments: ExperimentConfig[];
-  hasExperimentsFile: boolean;
-  filePath: string;
-}
-
 export interface ContentInfo {
   type: string | null;
   slug: string | null;
