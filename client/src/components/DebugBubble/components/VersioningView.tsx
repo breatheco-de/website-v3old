@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { getDebugToken } from "@/hooks/useDebugAuth";
@@ -591,16 +592,24 @@ export function VersioningView({
                               </span>
                             )}
                             {!isEditing && (
-                              <Button
-                                size="icon"
-                                variant="ghost"
-                                className="h-5 w-5 shrink-0"
-                                onClick={() => setPromoteTarget({ locale, slug: variant.slug })}
-                                data-testid={`button-promote-variant-${locale}-${variant.slug}`}
-                                title="Promote this variant to default"
-                              >
-                                <IconCrown className="h-3 w-3" />
-                              </Button>
+                              <TooltipProvider delayDuration={300}>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      size="icon"
+                                      variant="ghost"
+                                      className="h-5 w-5 shrink-0 transition-colors hover:bg-yellow-100 hover:text-yellow-700 dark:hover:bg-yellow-900/40 dark:hover:text-yellow-400"
+                                      onClick={() => setPromoteTarget({ locale, slug: variant.slug })}
+                                      data-testid={`button-promote-variant-${locale}-${variant.slug}`}
+                                    >
+                                      <IconCrown className="h-3 w-3" />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent side="top">
+                                    <p>Promote this version</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
                             )}
                           </div>
                         </div>
