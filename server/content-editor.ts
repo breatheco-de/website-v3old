@@ -156,11 +156,11 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
   // Normalize locale to prevent es-ES, en-US etc from causing file lookup failures
   const locale = normalizeLocale(rawLocale);
   
-  // Validate variant/version are used together and version is valid
+  // Validate that version is not provided without a variant
   const hasVariant = variant !== undefined && variant !== null && variant !== "";
   const hasValidVersion = version !== undefined && version !== null && Number.isFinite(version);
-  if (hasVariant !== hasValidVersion) {
-    return { success: false, error: "Both variant and version must be provided together" };
+  if (hasValidVersion && !hasVariant) {
+    return { success: false, error: "version cannot be provided without variant" };
   }
   
   try {
@@ -375,8 +375,8 @@ export function getContentForEdit(
   
   const hasVariant = variant !== undefined && variant !== null && variant !== "";
   const hasValidVersion = version !== undefined && version !== null && Number.isFinite(version);
-  if (hasVariant !== hasValidVersion) {
-    return { content: null, error: "Both variant and version must be provided together" };
+  if (hasValidVersion && !hasVariant) {
+    return { content: null, error: "version cannot be provided without variant" };
   }
   
   try {
