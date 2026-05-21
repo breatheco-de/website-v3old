@@ -3397,6 +3397,7 @@ Important: Only include mappings where you are confident the field exists. Use d
   app.get("/api/databases", (_req, res) => {
     try {
       const databases = databaseManager.list();
+      const cacheStats = databaseManager.getCacheStats();
       res.json(
         databases.map((db) => ({
           name: db.name,
@@ -3404,6 +3405,9 @@ Important: Only include mappings where you are confident the field exists. Use d
           description: db.config.description || null,
           source_type: db.config.source.type,
           field_count: databaseManager.getFieldCount(db.name),
+          cache_item_count: cacheStats.perDb[db.name]?.item_count ?? null,
+          cache_fetched_at: cacheStats.perDb[db.name]?.fetched_at ?? null,
+          cache_file_size_bytes: cacheStats.totalFileSizeBytes,
         })),
       );
     } catch (err) {

@@ -1,8 +1,9 @@
 {pkgs}: {
-  deps = [
-    pkgs.binutils
-    pkgs.gcc
-    pkgs.gnumake
-    pkgs.python3
-  ];
-}
+    deps = [
+      pkgs.binutils
+      pkgs.gcc
+      pkgs.gnumake
+      pkgs.python3
+    ];
+  }
+  

@@ -14,16 +14,39 @@ interface DatabaseSummary {
   description: string | null;
   source_type: string;
   field_count: number;
+  cache_item_count: number | null;
+  cache_fetched_at: string | null;
+  cache_file_size_bytes: number;
 }
 
 interface DatabasesViewProps {
   setMenuView: (v: MenuView) => void;
 }
 
+function formatRelativeTime(isoString: string): string {
+  const diffMs = Date.now() - new Date(isoString).getTime();
+  const diffSec = Math.floor(diffMs / 1000);
+  if (diffSec < 60) return "just now";
+  const diffMin = Math.floor(diffSec / 60);
+  if (diffMin < 60) return `${diffMin}m ago`;
+  const diffHr = Math.floor(diffMin / 60);
+  if (diffHr < 24) return `${diffHr}h ago`;
+  const diffDay = Math.floor(diffHr / 24);
+  return `${diffDay}d ago`;
+}
+
+function formatFileSize(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
 export function DatabasesView({ setMenuView }: DatabasesViewProps) {
   const { data, isLoading } = useQuery<DatabaseSummary[]>({
     queryKey: ["/api/databases"],
   });
+
+  const totalFileSize = data && data.length > 0 ? data[0].cache_file_size_bytes : null;
 
   return (
     <>
@@ -40,7 +63,9 @@ export function DatabasesView({ setMenuView }: DatabasesViewProps) {
             <div>
               <h3 className="font-semibold text-sm">Databases</h3>
               <p className="text-xs text-muted-foreground">
-                {data ? `${data.length} database${data.length !== 1 ? "s" : ""}` : "Loading..."}
+                {data
+                  ? `${data.length} database${data.length !== 1 ? "s" : ""}${totalFileSize ? ` · ${formatFileSize(totalFileSize)} cache` : ""}`
+                  : "Loading..."}
               </p>
             </div>
           </div>
@@ -91,7 +116,15 @@ export function DatabasesView({ setMenuView }: DatabasesViewProps) {
                   <div className="flex-1 min-w-0">
                     <div className="font-medium truncate">{db.label}</div>
                     <div className="text-xs text-muted-foreground truncate">
-                      {db.description || `${db.source_type} · ${db.field_count} fields`}
+                      {db.cache_item_count !== null && db.cache_fetched_at ? (
+                        <span data-testid={`text-cache-info-${db.name}`}>
+                          {db.cache_item_count} items · {formatRelativeTime(db.cache_fetched_at)}
+                        </span>
+                      ) : db.description ? (
+                        db.description
+                      ) : (
+                        `${db.source_type} · ${db.field_count} fields`
+                      )}
                     </div>
                   </div>
                 </a>

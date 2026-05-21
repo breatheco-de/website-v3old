@@ -10,11 +10,22 @@ export interface CacheEntry {
   raw_count: number;
 }
 
+export interface CacheDbStats {
+  item_count: number;
+  fetched_at: string | null;
+}
+
+export interface CacheStats {
+  totalFileSizeBytes: number;
+  perDb: Record<string, CacheDbStats>;
+}
+
 export interface IDatabaseCache {
   read(dbName: string, ttlHours: number, raw?: boolean): CacheEntry | null;
   write(dbName: string, entry: CacheEntry, raw?: boolean): void;
   clear(dbName: string): void;
   has(dbName: string, ttlHours: number): boolean;
+  getCacheStats(): CacheStats;
 }
 
 export class JsonFileCache implements IDatabaseCache {
@@ -63,12 +74,56 @@ export class JsonFileCache implements IDatabaseCache {
   has(dbName: string, ttlHours: number): boolean {
     return this.read(dbName, ttlHours) !== null;
   }
+
+  getCacheStats(): CacheStats {
+    const perDb: Record<string, CacheDbStats> = {};
+    let totalFileSizeBytes = 0;
+
+    if (!fs.existsSync(this.cacheDir)) {
+      return { totalFileSizeBytes, perDb };
+    }
+
+    let files: string[];
+    try {
+      files = fs.readdirSync(this.cacheDir);
+    } catch {
+      return { totalFileSizeBytes, perDb };
+    }
+
+    for (const file of files) {
+      const filePath = path.join(this.cacheDir, file);
+      try {
+        const stat = fs.statSync(filePath);
+        totalFileSizeBytes += stat.size;
+      } catch {
+        // skip
+      }
+
+      if (file.startsWith("db-") && file.endsWith(".json") && !file.endsWith("-raw.json")) {
+        const dbName = file.slice(3, -5);
+        try {
+          const content = fs.readFileSync(filePath, "utf-8");
+          const entry = JSON.parse(content) as CacheEntry;
+          perDb[dbName] = {
+            item_count: Array.isArray(entry.items) ? entry.items.length : 0,
+            fetched_at: entry.fetched_at ?? null,
+          };
+        } catch {
+          perDb[dbName] = { item_count: 0, fetched_at: null };
+        }
+      }
+    }
+
+    return { totalFileSizeBytes, perDb };
+  }
 }
 
 export class SqliteCache implements IDatabaseCache {
   private db: Database.Database;
+  private dbPath: string;
 
   constructor(dbPath = path.join(CACHE_DIR, "db-cache.sqlite")) {
+    this.dbPath = dbPath;
     const dir = path.dirname(dbPath);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     this.db = new Database(dbPath);
@@ -191,5 +246,32 @@ export class SqliteCache implements IDatabaseCache {
     }
 
     return migrated;
+  }
+
+  getCacheStats(): CacheStats {
+    const rows = this.db
+      .prepare(
+        "SELECT db_name, json_array_length(payload) AS item_count, fetched_at FROM cache_entries WHERE variant = ''"
+      )
+      .all() as { db_name: string; item_count: number; fetched_at: string }[];
+
+    const perDb: Record<string, CacheDbStats> = {};
+    for (const row of rows) {
+      perDb[row.db_name] = {
+        item_count: row.item_count,
+        fetched_at: row.fetched_at,
+      };
+    }
+
+    let totalFileSizeBytes = 0;
+    try {
+      if (fs.existsSync(this.dbPath)) {
+        totalFileSizeBytes = fs.statSync(this.dbPath).size;
+      }
+    } catch {
+      // ignore
+    }
+
+    return { totalFileSizeBytes, perDb };
   }
 }

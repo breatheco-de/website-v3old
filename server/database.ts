@@ -749,6 +749,10 @@ export class DatabaseManager {
     return null;
   }
 
+  getCacheStats(): import("./db-cache").CacheStats {
+    return this.cache.getCacheStats();
+  }
+
   getRawItems(name: string): Record<string, unknown>[] | null {
     const config = this.configs.get(name);
     if (!config) return null;
