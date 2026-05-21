@@ -709,7 +709,12 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
 
           <div className="border-t p-2 space-y-1">
               <div className="flex items-center justify-between px-3 py-1.5">
-                <div className="flex items-center gap-2">
+                <div
+                  className="flex items-center gap-2 cursor-pointer hover-elevate rounded px-1 -mx-1"
+                  onClick={() => props.setSessionModalOpen(true)}
+                  data-testid="button-session-header"
+                  title="View session data"
+                >
                   <Cookie className="h-3.5 w-3.5 text-muted-foreground" />
                   <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Session</span>
                   {!props.hasToken && (
@@ -757,14 +762,6 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                     title="Check session validity"
                   >
                     <RefreshCw className={`h-3.5 w-3.5 text-muted-foreground ${props.isCheckingSession ? 'animate-spin' : ''}`} />
-                  </button>
-                  <button
-                    onClick={() => props.setSessionModalOpen(true)}
-                    className="p-1 rounded hover-elevate"
-                    data-testid="button-session-view"
-                    title="View session data"
-                  >
-                    <Pencil className="h-3.5 w-3.5 text-muted-foreground" />
                   </button>
                 </div>
               </div>
