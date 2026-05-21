@@ -34,6 +34,7 @@ export function VersioningView({
 }: VersioningViewProps) {
   const { toast } = useToast();
   const locales = versioningData?.versioning ? Object.keys(versioningData.versioning) : [];
+  const dialogLocales = locales.length > 0 ? locales : (versioningData?.availableLocales ?? ["en"]);
 
   const activeVariant = new URLSearchParams(window.location.search).get("force_variant") ?? null;
 
@@ -43,7 +44,7 @@ export function VersioningView({
 
   const [createVersionOpen, setCreateVersionOpen] = useState(false);
   const [createVersionSlug, setCreateVersionSlug] = useState("");
-  const [createVersionLocale, setCreateVersionLocale] = useState(locales[0] ?? "en");
+  const [createVersionLocale, setCreateVersionLocale] = useState("en");
   const [isCreatingVersion, setIsCreatingVersion] = useState(false);
 
   const [promoteTarget, setPromoteTarget] = useState<{ locale: string; slug: string } | null>(null);
@@ -324,7 +325,7 @@ export function VersioningView({
                 variant="outline"
                 className="h-7 gap-1 text-xs"
                 onClick={() => {
-                  setCreateVersionLocale(locales[0] ?? "en");
+                  setCreateVersionLocale(dialogLocales[0] ?? "en");
                   setCreateVersionSlug("");
                   setCreateVersionOpen(true);
                 }}
@@ -630,7 +631,7 @@ export function VersioningView({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {locales.map((loc) => (
+                  {dialogLocales.map((loc) => (
                     <SelectItem key={loc} value={loc}>{loc.toUpperCase()}</SelectItem>
                   ))}
                 </SelectContent>

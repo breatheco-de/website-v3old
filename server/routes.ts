@@ -6687,11 +6687,14 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       "versioning.yml",
     );
 
+    const availableLocales = getLocaleEntries().map((l: { code: string }) => l.code);
+
     if (!versioning) {
       res.json({
         versioning: null,
         hasVersioningFile: false,
         filePath,
+        availableLocales,
       });
       return;
     }
@@ -6700,6 +6703,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       versioning,
       hasVersioningFile: true,
       filePath,
+      availableLocales,
     });
   });
 

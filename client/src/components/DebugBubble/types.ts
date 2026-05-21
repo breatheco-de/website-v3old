@@ -29,6 +29,7 @@ export interface VersioningResponse {
   versioning: Record<string, VersioningLocale> | null;
   hasVersioningFile: boolean;
   filePath: string;
+  availableLocales?: string[];
 }
 
 // Legacy experiment types kept for backward compat
