@@ -1,5 +1,6 @@
 import { useCallback, useState, useEffect, useMemo, useRef } from "react";
 import { AlertTriangle, Check, ChevronDown, CloudUpload, Code, Database, ExternalLink, HelpCircle, Image, Info, Laptop, Link, Unlink, Loader2, MapPin, Monitor, Pencil, Plus, Redo2, RefreshCw, Save, Search, Settings, Smartphone, Trash2, Undo2, Upload, Video, X } from "lucide-react";
+import { IconGitBranch } from "@tabler/icons-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { BindingConfirmDialog } from "./BindingConfirmDialog";
 import { getIcon } from "@/lib/icons";
@@ -6045,7 +6046,17 @@ export function SectionEditorPanel({
           {saveError ? (
             <span className="text-destructive">{saveError}</span>
           ) : hasChanges ? (
-            <span className="text-muted-foreground">Unsaved changes</span>
+            <span className="text-muted-foreground flex items-center gap-1.5 flex-wrap">
+              Unsaved changes{variant && (
+                <>
+                  {" for version "}
+                  <Badge variant="secondary" className="text-[11px] px-1.5 py-0 leading-4 gap-1 font-normal">
+                    <IconGitBranch className="h-3 w-3" />
+                    {variant.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}
+                  </Badge>
+                </>
+              )}
+            </span>
           ) : (
             <span className="text-muted-foreground">No changes</span>
           )}
