@@ -16,6 +16,7 @@ import { loadAllContent } from "./shared/contentLoader";
 import { buildValidUrlSet } from "./shared/canonicalUrls";
 import { getAvailableSchemaKeys } from "./shared/schemaRegistry";
 import { validators, allValidators, getValidator, listValidators } from "./validators";
+import { getSitemap } from "../../server/sitemap";
 
 export class ValidationService {
   private context: ValidationContext | null = null;
@@ -24,8 +25,15 @@ export class ValidationService {
     const contentFiles = loadAllContent();
     const validUrls = buildValidUrlSet(contentFiles);
     const availableSchemas = getAvailableSchemaKeys();
-    
+
     const sitemapEntries: SitemapEntry[] = [];
+
+    let sitemapXml: string | undefined;
+    try {
+      sitemapXml = getSitemap();
+    } catch {
+      sitemapXml = undefined;
+    }
 
     this.context = {
       contentFiles,
@@ -33,6 +41,7 @@ export class ValidationService {
       validUrls,
       availableSchemas,
       sitemapEntries,
+      sitemapXml,
     };
 
     return this.context;

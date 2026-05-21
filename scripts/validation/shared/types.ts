@@ -100,6 +100,7 @@ export interface ValidationContext {
   validUrls: Set<string>;
   availableSchemas: Set<string>;
   sitemapEntries: SitemapEntry[];
+  sitemapXml?: string;
 }
 
 export interface ValidationRunOptions {

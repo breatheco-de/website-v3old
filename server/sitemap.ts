@@ -50,6 +50,7 @@ interface CanonicalSitemapEntry {
   label: string;
   type: EntryType;
   locale?: string;
+  contentKey?: string;
 }
 
 interface SitemapCache {
@@ -73,6 +74,7 @@ interface ContentMeta {
 
 interface AvailableProgram {
   slug: string;
+  dirSlug: string;
   locale: string;
   title: string;
   meta: ContentMeta;
@@ -80,6 +82,7 @@ interface AvailableProgram {
 
 interface AvailableLocation {
   slug: string;
+  dirSlug: string;
   locale: string;
   name: string;
   visibility: string;
@@ -88,6 +91,7 @@ interface AvailableLocation {
 
 interface AvailableTemplatePage {
   slug: string;
+  dirSlug: string;
   locale: string;
   title: string;
   meta: ContentMeta;
@@ -121,6 +125,7 @@ function getAvailablePrograms(): AvailableProgram[] {
         const meta = (merged.meta as ContentMeta) || {};
         programs.push({
           slug: (merged.slug as string) || slug,
+          dirSlug: slug,
           locale,
           title: meta.page_title || (merged.title as string) || slug,
           meta,
@@ -153,6 +158,7 @@ function getAvailableLocations(): AvailableLocation[] {
         const meta = (merged.meta as ContentMeta) || {};
         locations.push({
           slug: (merged.slug as string) || slug,
+          dirSlug: slug,
           locale,
           name: meta.page_title || (merged.name as string) || slug,
           visibility,
@@ -186,6 +192,7 @@ function getAvailableTemplatePages(): AvailableTemplatePage[] {
         const meta = (merged.meta as ContentMeta) || {};
         pages.push({
           slug: (merged.slug as string) || dirSlug,
+          dirSlug,
           locale,
           title: meta.page_title || (merged.title as string) || dirSlug,
           meta,
@@ -264,6 +271,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
       label: `${program.title} (${formatLocaleLabel(program.locale)})`,
       type: "program",
       locale: program.locale,
+      contentKey: `program:${program.dirSlug}`,
     });
   }
 
@@ -287,6 +295,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
       label: `Location: ${location.name} (${formatLocaleLabel(location.locale)})`,
       type: "location",
       locale: location.locale,
+      contentKey: `location:${location.dirSlug}`,
     });
   }
 
@@ -308,6 +317,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
       label: `Page: ${page.title} (${formatLocaleLabel(page.locale)})`,
       type: "template_page",
       locale: page.locale,
+      contentKey: `page:${page.dirSlug}`,
     });
   }
 
@@ -335,6 +345,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
           const postUrl = `${getBaseUrl()}${resolveUrlPatternWithMapping(urlPattern, post, locale, blogFieldMapping)}`;
           const title = String(post.title || post.slug || "");
           const updatedAt = String(post.updated_at || "");
+          const postSlug = String(post.slug || post.id || "");
           entries.push({
             loc: postUrl,
             lastmod: updatedAt ? updatedAt.split("T")[0] : today,
@@ -343,6 +354,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
             label: `Blog: ${title} (${formatLocaleLabel(locale)})`,
             type: "static",
             locale,
+            contentKey: postSlug ? `blog:${postSlug}` : undefined,
           });
         }
       }
@@ -385,6 +397,7 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
             label: `${typeLabel}: ${title} (${formatLocaleLabel(locale)})`,
             type: typeName,
             locale,
+            contentKey: `${typeName}:${(merged.slug as string) || slug}`,
           });
         }
       }
@@ -400,22 +413,60 @@ function buildCanonicalSitemapEntries(): CanonicalSitemapEntry[] {
 // Output Transformers - Derive from Canonical Source
 // ============================================================================
 
+function buildAlternatesMap(entries: CanonicalSitemapEntry[]): Map<string, Map<string, string>> {
+  const groups = new Map<string, Map<string, string>>();
+
+  for (const entry of entries) {
+    if (!entry.contentKey || !entry.locale) continue;
+    if (!groups.has(entry.contentKey)) {
+      groups.set(entry.contentKey, new Map());
+    }
+    groups.get(entry.contentKey)!.set(entry.locale, entry.loc);
+  }
+
+  const alternatesMap = new Map<string, Map<string, string>>();
+  for (const [, localeMap] of groups) {
+    if (localeMap.size < 2) continue;
+    for (const [, loc] of localeMap) {
+      alternatesMap.set(loc, localeMap);
+    }
+  }
+
+  return alternatesMap;
+}
+
 function entriesToXml(entries: CanonicalSitemapEntry[]): string {
+  const alternatesMap = buildAlternatesMap(entries);
+
   const urlEntries = entries
-    .map(
-      (entry) => `  <url>
-          <loc>${entry.loc}</loc>
-          <lastmod>${entry.lastmod}</lastmod>
-          <changefreq>${entry.changefreq}</changefreq>
-          <priority>${entry.priority}</priority>
-        </url>`,
-    )
+    .map((entry) => {
+      const localeMap = alternatesMap.get(entry.loc);
+      let alternateLines = "";
+      if (localeMap) {
+        const lines: string[] = [];
+        for (const [locale, href] of localeMap) {
+          lines.push(`    <xhtml:link rel="alternate" hreflang="${locale}" href="${href}" />`);
+        }
+        const defaultHref = localeMap.get("en") || localeMap.values().next().value;
+        if (defaultHref) {
+          lines.push(`    <xhtml:link rel="alternate" hreflang="x-default" href="${defaultHref}" />`);
+        }
+        alternateLines = "\n" + lines.join("\n");
+      }
+      return `  <url>
+    <loc>${entry.loc}</loc>
+    <lastmod>${entry.lastmod}</lastmod>
+    <changefreq>${entry.changefreq}</changefreq>
+    <priority>${entry.priority}</priority>${alternateLines}
+  </url>`;
+    })
     .join("\n");
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      ${urlEntries}
-      </urlset>`;
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${urlEntries}
+</urlset>`;
 }
 
 function entriesToHumanReadable(
