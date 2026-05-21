@@ -243,9 +243,11 @@ export function generateDatabaseSsrHtml(
   }
   scripts.push(`<script type="application/ld+json" data-ssr="true">${JSON.stringify(schema)}</script>`);
 
+  const robots = typeof record.robots === "string" ? record.robots : "index, follow";
   const ogType = contentType === "blog" ? "article" : "website";
   const metaTags = [
     `<title>${title} | 4Geeks Academy</title>`,
+    `<meta name="robots" content="${robots}" />`,
     `<meta name="description" content="${description}" />`,
     `<meta property="og:type" content="${ogType}" />`,
     `<meta property="og:title" content="${title}" />`,
@@ -283,6 +285,7 @@ export function generateListingSsrHtml(contentType: string, locale: string): str
 
   const metaTags = [
     `<title>${title}</title>`,
+    `<meta name="robots" content="index, follow" />`,
     `<meta name="description" content="${description}" />`,
     `<meta property="og:type" content="website" />`,
     `<meta property="og:title" content="${title}" />`,
@@ -296,6 +299,19 @@ export function generateListingSsrHtml(contentType: string, locale: string): str
 
   const hreflangTags = generateListingHreflangTags(contentType, locale);
   return [...hreflangTags, ...metaTags].join("\n");
+}
+
+export function resolvePageRobots(url: string): string {
+  try {
+    const route = parseRoute(url);
+    if (!route) return "index, follow";
+    const pageData = loadRawYaml(route.contentType, route.slug, route.locale);
+    if (!pageData) return "index, follow";
+    const meta = pageData.meta as Record<string, unknown> | undefined;
+    return typeof meta?.robots === "string" ? meta.robots : "index, follow";
+  } catch {
+    return "index, follow";
+  }
 }
 
 export function generateSsrSchemaHtml(url: string): string {
@@ -335,12 +351,16 @@ export function generateSsrSchemaHtml(url: string): string {
       }
     }
 
+    const meta = pageData.meta as Record<string, unknown> | undefined;
+    const robots = typeof meta?.robots === "string" ? meta.robots : "index, follow";
+    const robotsTag = `<meta name="robots" content="${robots}" />`;
+
     const homePage = getHomePage();
     const isHomepageRoute = homePage?.type === route.contentType && homePage?.slug === route.slug;
     const hreflangTags = isHomepageRoute
       ? generateHomepageHreflangTags()
       : generateHreflangTags(route.contentType, route.slug, route.locale);
-    return [...hreflangTags, ...scripts].join("\n");
+    return [...hreflangTags, robotsTag, ...scripts].join("\n");
   } catch (err) {
     console.error("[SSR-Schema] Error generating schema for", url, err);
     return "";

@@ -139,6 +139,7 @@ import {
   loadRawYaml,
   resolveFaqItems,
   buildFaqPageSchema,
+  resolvePageRobots,
   type FaqSection,
 } from "./ssr-schema";
 import {
@@ -12526,6 +12527,8 @@ sections: []
       : null;
     const isListingRoute = !!listingResolved;
 
+    let robotsDirective = "index, follow";
+
     if (isDatabaseRoute && resolved) {
       try {
         const posts = await databaseManager.fetchMappedItems(
@@ -12546,6 +12549,9 @@ sections: []
             post,
             locale,
           );
+          if (typeof (post as any).robots === "string") {
+            robotsDirective = (post as any).robots;
+          }
         }
       } catch (err) {
         console.error("[SSR-DB] Error generating schema for", url, err);
@@ -12557,7 +12563,10 @@ sections: []
       );
     } else {
       schemaHtml = generateSsrSchemaHtml(url);
+      robotsDirective = resolvePageRobots(url);
     }
+
+    res.setHeader("X-Robots-Tag", robotsDirective);
 
     const isBlogRoute = isDatabaseRoute || isListingRoute;
     if (!schemaHtml && !isBlogRoute) {

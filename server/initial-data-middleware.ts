@@ -492,6 +492,13 @@ export function injectSsrMetaTags(html: string, payload: InitialDataPayload | nu
     }
   }
 
+  const robotsValue = typeof meta.robots === "string" ? meta.robots : "index, follow";
+  if (html.includes('name="robots"')) {
+    html = replaceMetaContent(html, "name", "robots", robotsValue);
+  } else {
+    html = html.replace("</head>", `<meta name="robots" content="${escapeAttr(robotsValue)}" />\n</head>`);
+  }
+
   return html;
 }
 
