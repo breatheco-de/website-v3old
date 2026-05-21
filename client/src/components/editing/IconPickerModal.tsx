@@ -8,7 +8,8 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { getIcon, getAllIconNames, getIconDisplayName, isCustomIcon } from "@/lib/icons";
+import { getIcon, isCustomIcon } from "@/lib/icons";
+import { getAllIconNames, getIconDisplayName, iconMatchesSearch } from "@/lib/icons-picker";
 
 interface IconPickerModalProps {
   open: boolean;
@@ -40,9 +41,7 @@ export function IconPickerModal({
       return allIconNames;
     }
     const searchLower = search.toLowerCase();
-    return allIconNames.filter((name) =>
-      name.toLowerCase().includes(searchLower)
-    );
+    return allIconNames.filter((name) => iconMatchesSearch(name, searchLower));
   }, [search]);
 
   const visibleIcons = useMemo(() => {

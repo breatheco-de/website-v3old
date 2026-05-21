@@ -5,14 +5,11 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { UniversalImage } from "@/components/UniversalImage";
 import type { DoubleCTASection, DoubleCTABox } from "@shared/schema";
-import * as LucideIcons from "lucide-react";
 import { CircleCheck } from "lucide-react";
+import { getIcon } from "@/lib/icons";
 
 function getTablerIcon(name: string) {
-  const icons = LucideIcons as Record<string, any>;
-  const normalized = name.startsWith("Icon") ? name.slice(4) : name;
-  const lucideName = normalized.charAt(0).toUpperCase() + normalized.slice(1);
-  return icons[name] || icons[lucideName] || CircleCheck;
+  return getIcon(name) || CircleCheck;
 }
 
 type ActiveSide = "left" | "right";

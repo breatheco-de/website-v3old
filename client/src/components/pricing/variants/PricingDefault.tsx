@@ -1,81 +1,25 @@
-import { useState, type ComponentType } from "react";
+import { useState } from "react";
 import { Award, Flame, School } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { RichTextContent } from "@/components/ui/rich-text-content";
-import {
-  SiGit,
-  SiPython,
-  SiReact,
-  SiNodedotjs,
-  SiOpenai,
-  SiFlask,
-  SiBootstrap,
-  SiJavascript,
-  SiHtml5,
-  SiCss3,
-  SiGithub,
-  SiAnthropic,
-  SiPandas,
-  SiNumpy,
-  SiScikitlearn,
-  SiPytorch,
-  SiNextdotjs,
-  SiTailwindcss,
-  SiVercel,
-  SiSupabase,
-  SiPostman,
-  SiN8N,
-  SiTensorflow,
-  SiJupyter,
-  SiApachespark,
-  SiKeras,
-  SiPolars,
-} from "react-icons/si";
 import type { PricingSection as PricingSectionType } from "@shared/schema";
-import Matplotlib from "@/components/custom-icons/Matplotlib";
+import { Matplotlib } from "@/components/custom-icons";
 import Marquee from "@/lib/marquee";
 import { getIcon } from "@/lib/icons";
+import { getTechBrandIcon } from "@/lib/tech-brand-icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
 
 interface PricingSectionProps {
   data: PricingSectionType;
 }
 
-const techIconMap: Record<string, ComponentType<{ className?: string }>> = {
-  git: SiGit,
-  python: SiPython,
-  react: SiReact,
-  nodejs: SiNodedotjs,
-  openai: SiOpenai,
-  flask: SiFlask,
-  bootstrap: SiBootstrap,
-  javascript: SiJavascript,
-  html5: SiHtml5,
-  html: SiHtml5,
-  css3: SiCss3,
-  css: SiCss3,
-  github: SiGithub,
-  claude: SiAnthropic,
-  pandas: SiPandas,
-  numpy: SiNumpy,
-  scikitlearn: SiScikitlearn,
-  pytorch: SiPytorch,
-  matplotlib: Matplotlib,
-  nextjs: SiNextdotjs,
-  tailwindcss: SiTailwindcss,
-  vercel: SiVercel,
-  supabase: SiSupabase,
-  postman: SiPostman,
-  n8n: SiN8N,
-  tensorflow: SiTensorflow,
-  jupyter: SiJupyter,
-  spark: SiApachespark,
-  keras: SiKeras,
-  polars: SiPolars,
-};
-
+function resolveTechIcon(iconName: string) {
+  const lower = iconName.toLowerCase();
+  if (lower === "matplotlib") return Matplotlib;
+  return getTechBrandIcon(iconName);
+}
 
 export function PricingSection({ data }: PricingSectionProps) {
   const handleLinkClick = useInternalNav();
@@ -205,7 +149,7 @@ export function PricingSection({ data }: PricingSectionProps) {
                   {data.static_icons ? (
                     <div className="flex flex-wrap gap-2">
                       {data.tech_icons.map((iconName, index) => {
-                        const IconComponent = techIconMap[iconName.toLowerCase()];
+                        const IconComponent = resolveTechIcon(iconName);
                         return IconComponent ? (
                           <div
                             key={index}
@@ -226,7 +170,7 @@ export function PricingSection({ data }: PricingSectionProps) {
                       gradientColor="hsl(var(--background))"
                     >
                       {data.tech_icons.map((iconName, index) => {
-                        const IconComponent = techIconMap[iconName.toLowerCase()];
+                        const IconComponent = resolveTechIcon(iconName);
                         return IconComponent ? (
                           <div
                             key={index}
@@ -420,7 +364,7 @@ export function PricingSection({ data }: PricingSectionProps) {
                 {data.static_icons ? (
                   <div className="flex flex-wrap gap-2">
                     {data.tech_icons.map((iconName, index) => {
-                      const IconComponent = techIconMap[iconName.toLowerCase()];
+                      const IconComponent = resolveTechIcon(iconName);
                       return IconComponent ? (
                         <div
                           key={index}
@@ -440,7 +384,7 @@ export function PricingSection({ data }: PricingSectionProps) {
                     pauseOnHover={true}
                   >
                     {data.tech_icons.map((iconName, index) => {
-                      const IconComponent = techIconMap[iconName.toLowerCase()];
+                      const IconComponent = resolveTechIcon(iconName);
                       return IconComponent ? (
                         <div
                           key={index}

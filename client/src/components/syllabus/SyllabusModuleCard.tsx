@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import * as LucideIcons from "lucide-react";
 import { Check, ChevronDown, ChevronUp, Flag } from "lucide-react";
+import { getIcon } from "@/lib/icons";
 
 export interface SyllabusModuleCardProps {
   duration: string;
@@ -31,7 +31,7 @@ export function SyllabusModuleCard({
 }: SyllabusModuleCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const isVertical = orientation === "vertical";
-  const IconComponent = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[icon] || Flag;
+  const IconComponent = getIcon(icon) || Flag;
   
   const hasMoreObjectives = objectives.length > 4;
   const displayedObjectives = isVertical && hasMoreObjectives && !isExpanded 

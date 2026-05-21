@@ -1,16 +1,14 @@
 import { Card, CardContent } from "@/components/ui/card";
-import * as LucideIcons from "lucide-react";
 import type { MentorshipSection as MentorshipSectionType } from "@shared/schema";
-import type { ComponentType } from "react";
+import { getIcon } from "@/lib/icons";
 
 interface MentorshipSectionProps {
   data: MentorshipSectionType;
 }
 
 export default function MentorshipDefault({ data }: MentorshipSectionProps) {
-  const getIcon = (iconName: string) => {
-    const icons = LucideIcons as unknown as Record<string, ComponentType<{ size?: number; className?: string }>>;
-    const IconComponent = icons[(iconName).charAt(0).toUpperCase() + (iconName).slice(1) as keyof typeof LucideIcons];
+  const renderIcon = (iconName: string) => {
+    const IconComponent = getIcon(iconName);
     return IconComponent ? <IconComponent size={32} className="text-primary" /> : null;
   };
 
@@ -46,7 +44,7 @@ export default function MentorshipDefault({ data }: MentorshipSectionProps) {
             >
               <CardContent className="pt-6">
                 <div className="flex justify-center mb-4">
-                  {getIcon(card.icon)}
+                  {renderIcon(card.icon)}
                 </div>
                 <h3 
                   className="text-xl font-semibold mb-2 text-foreground"

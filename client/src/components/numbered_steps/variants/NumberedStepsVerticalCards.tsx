@@ -1,7 +1,6 @@
 
-import * as LucideIcons from "lucide-react";
 import { Check } from "lucide-react";
-import type { ComponentType } from "react";
+import { getIcon } from "@/lib/icons";
 import { Card, CardContent } from "@/components/ui/card";
 import type { NumberedStepsVerticalCardsSection, NumberedStepsStep } from "@shared/schema";
 
@@ -9,16 +8,18 @@ interface NumberedStepsVerticalCardsProps {
   data: NumberedStepsVerticalCardsSection;
 }
 
-const getIcon = (iconName: string, className?: string) => {
-  const icons = LucideIcons as unknown as Record<string, ComponentType<{ size?: number; className?: string }>>;
-  const IconComponent = icons[iconName.charAt(0).toUpperCase() + iconName.slice(1) as keyof typeof LucideIcons];
-  return IconComponent ? <IconComponent size={24} className={className || "text-primary"} /> : null;
+const renderStepIcon = (iconName: string, className?: string) => {
+  const IconComponent = getIcon(iconName);
+  return IconComponent ? (
+    <IconComponent size={24} className={className || "text-primary"} />
+  ) : null;
 };
 
-const getBulletIcon = (iconName: string, colorClass: string) => {
-  const icons = LucideIcons as unknown as Record<string, ComponentType<{ className?: string }>>;
-  const IconComponent = icons[iconName.charAt(0).toUpperCase() + iconName.slice(1) as keyof typeof LucideIcons];
-  return IconComponent ? <IconComponent className={`w-4 h-4 ${colorClass} flex-shrink-0 mt-0.5`} /> : null;
+const renderBulletIcon = (iconName: string, colorClass: string) => {
+  const IconComponent = getIcon(iconName);
+  return IconComponent ? (
+    <IconComponent className={`w-4 h-4 ${colorClass} flex-shrink-0 mt-0.5`} />
+  ) : null;
 };
 
 export default function NumberedStepsVerticalCards({ data }: NumberedStepsVerticalCardsProps) {
@@ -85,7 +86,7 @@ export default function NumberedStepsVerticalCards({ data }: NumberedStepsVertic
                   <CardContent className="p-5 md:p-6">
                     <div className="flex items-start gap-3 mb-3">
                       <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        {getIcon(step.icon)}
+                        {renderStepIcon(step.icon)}
                       </div>
                       <div className="flex-1">
                         {step.title && (
@@ -111,7 +112,7 @@ export default function NumberedStepsVerticalCards({ data }: NumberedStepsVertic
                             <span className={`${bulletIconColor} flex-shrink-0 mt-0.5`}>
                               {bulletChar
                                 ? bulletChar
-                                : getBulletIcon(bulletIcon, bulletIconColor)}
+                                : renderBulletIcon(bulletIcon, bulletIconColor)}
                             </span>
                             <span>{bullet}</span>
                           </li>
