@@ -183,6 +183,13 @@ function coerceStringValue(value: string): unknown {
   return value;
 }
 
+function invalidateContentCaches(contentType?: string): void {
+  if (contentType) {
+    contentIndex.invalidateCommonFields(contentType);
+  }
+  clearSsrSchemaCache();
+}
+
 type FixerItemStatus = "ok" | "skipped" | "failed";
 
 interface ValidationFixRunLogEntry {
@@ -1258,6 +1265,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       variableManager.renameVariable(oldName, sanitized);
 
       contentIndex.refresh();
+      invalidateContentCaches();
 
       res.json({
         success: true,
@@ -2610,6 +2618,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       fs.writeFileSync(filePath, yamlStr, "utf-8");
       const author = (req.body as Record<string, unknown>).author as string | undefined;
       markFileAsModified(filePath, author || "api");
+      invalidateContentCaches(name);
       res.json({ success: true, defaults: merged });
     } catch (err) {
       res.status(500).json({ error: String(err) });
@@ -3139,6 +3148,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       fs.renameSync(promotedPath, destPath);
       contentIndex.refresh();
       clearSitemapCache();
+      invalidateContentCaches(type);
       res.json({ success: true, locale, newFile: `${locale}.yml` });
     } catch (err) {
       res.status(500).json({ error: String(err) });
@@ -4740,6 +4750,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       }
 
       contentIndex.refresh();
+      invalidateContentCaches(type);
       res.json({ success: true });
     } catch (err) {
       res.status(500).json({ error: String(err) });
@@ -5797,6 +5808,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       }
 
       contentIndex.refresh();
+      invalidateContentCaches(contentType);
 
       res.json({
         success: true,
@@ -7466,6 +7478,12 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       clearRedirectCache();
       contentIndex.refresh();
 
+      // Derive content type from path (marketing-content/<folder>/...) for targeted invalidation
+      const pathParts = normalizedPath.replace(/\\/g, "/").split("/");
+      const folderSegment = pathParts[1]; // segment after "marketing-content"
+      const resolvedType = folderSegment ? getType(folderSegment) : undefined;
+      invalidateContentCaches(resolvedType);
+
       res.json({ success: true });
     } catch (error) {
       console.error("Error saving raw content file:", error);
@@ -8049,6 +8067,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         clearSitemapCache();
         clearRedirectCache();
         contentIndex.refresh();
+        invalidateContentCaches(contentType);
 
         // Propagate to bound sections if this was a section update
         let bindingWarnings: string[] = [];
@@ -8209,6 +8228,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         clearSitemapCache();
         clearRedirectCache();
         contentIndex.refresh();
+        invalidateContentCaches(contentType);
         res.json({ success: true });
       } else {
         res.status(400).json({ error: result.error });
@@ -8375,6 +8395,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       contentIndex.refresh();
       clearSitemapCache();
       clearRedirectCache();
+      invalidateContentCaches(contentType);
 
       res.json({
         success: true,
@@ -8739,6 +8760,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
               clearSitemapCache();
               contentIndex.refresh();
+              invalidateContentCaches(type);
 
               const localesToValidate1 = getSupportedLocales().filter(l => !skipLocales.includes(l) && fs.existsSync(path.join(folderPath, `${l}.yml`)));
               for (const locale of localesToValidate1) {
@@ -8878,6 +8900,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
             clearSitemapCache();
             contentIndex.refresh();
+            invalidateContentCaches(type);
 
             const localesToValidate2 = getSupportedLocales().filter(l => !skipLocales.includes(l) && fs.existsSync(path.join(folderPath, `${l}.yml`)));
             for (const locale of localesToValidate2) {
@@ -8971,6 +8994,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       clearSitemapCache();
 
       contentIndex.refresh();
+      invalidateContentCaches(type);
 
       const localesToValidate3 = getSupportedLocales().filter(l => !skipLocales.includes(l));
       for (const locale of localesToValidate3) {
@@ -9144,6 +9168,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
         clearSitemapCache();
         contentIndex.refresh();
+        invalidateContentCaches(type);
 
         res.json({
           success: true,
@@ -9164,6 +9189,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         console.log(`[Content] Deleted ${type}/${slug}`);
         clearSitemapCache();
         contentIndex.refresh();
+        invalidateContentCaches(type);
 
         res.json({
           success: true,
@@ -9339,6 +9365,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
             clearSitemapCache();
             contentIndex.refresh();
+            invalidateContentCaches("landing");
 
             res.json({
               success: true,
@@ -9392,6 +9419,7 @@ sections: []
 
       clearSitemapCache();
       contentIndex.refresh();
+      invalidateContentCaches("landing");
 
       res.json({
         success: true,
@@ -11817,6 +11845,7 @@ sections: []
 
       // Clear relevant caches
       clearSitemapCache();
+      invalidateContentCaches();
 
       res.json({ success: true });
     } catch (error) {
