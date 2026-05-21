@@ -1,20 +1,24 @@
 /**
- * Unified Icon System
- * 
- * This utility provides a centralized way to render icons from:
- * 1. Custom icons (Rigobot, etc.) - checked first
- * 2. Lucide icons - fallback
- * 
+ * Unified Icon System (public runtime)
+ *
+ * Resolves icons for section YAML and shared UI:
+ * 1. Custom icons (@/components/custom-icons) — checked first
+ * 2. Lucide — per-icon dynamic import via lucide-react/dynamicIconImports (no import *)
+ *
  * Usage:
- *   import { getIcon, getAllIconNames } from "@/lib/icons";
- *   const IconComponent = getIcon("Rigobot"); // Custom icon
- *   const IconComponent = getIcon("Rocket");  // Lucide icon
+ *   import { getIcon } from "@/lib/icons";
+ *   const Icon = getIcon("Rigobot");       // custom
+ *   const Icon = getIcon("brain");         // Lucide kebab slug
+ *   const Icon = getIcon("IconRocket");    // legacy Tabler-prefixed YAML
+ *
+ * Full picker catalog (all Lucide slugs): @/lib/icons-picker — editor only.
+ * Tech stack logos (Python, React, …): @/lib/tech-brand-icons — not getIcon().
  */
-
-import * as LucideIcons from "lucide-react";
+import { createElement, useEffect, useState, type ComponentType } from "react";
+import dynamicIconImports from "lucide-react/dynamicIconImports";
 import { getCustomIcon } from "@/components/custom-icons";
 
-// Custom icon names available (from custom-icons/index.ts)
+/** PascalCase names backed by @/components/custom-icons (also in picker list). */
 export const CUSTOM_ICON_NAMES = [
   "Rigobot",
   "RigobotIconTiny",
@@ -40,8 +44,7 @@ export const CUSTOM_ICON_NAMES = [
   "Target",
 ];
 
-// Mapping from old Tabler-style names (Icon-prefixed) to Lucide names
-// Used for backward compatibility when YAML data contains Tabler-style icon names
+// Legacy Tabler-style names (Icon-prefixed) in YAML → Lucide export names.
 const TABLER_TO_LUCIDE: Record<string, string> = {
   "IconRocket": "Rocket",
   "IconUsers": "Users",
@@ -196,7 +199,7 @@ const TABLER_TO_LUCIDE: Record<string, string> = {
   "IconBrandMedium": "FileText",
 };
 
-/** Curated Lucide slugs (kebab-case) shown in the icon picker. */
+/** Small allowlist of Lucide slugs (kebab-case) for CMS validation / docs — not the full picker list. */
 export const CURATED_LUCIDE_ICONS = [
   "circle-dollar-sign",
   "briefcase-business",
@@ -221,10 +224,10 @@ export const CURATED_LUCIDE_ICONS = [
   "notebook-pen",
 ] as const;
 
-/** @deprecated Use CURATED_LUCIDE_ICONS — kept for any external imports. */
+/** @deprecated Use CURATED_LUCIDE_ICONS */
 export const TABLER_ICON_NAMES = CURATED_LUCIDE_ICONS;
 
-/** Convert lucide.dev slug to React export name (e.g. circle-dollar-sign → CircleDollarSign). */
+/** Lucide slug → React export (e.g. circle-dollar-sign → CircleDollarSign). */
 export function kebabToPascal(kebab: string): string {
   return kebab
     .split("-")
@@ -233,7 +236,7 @@ export function kebabToPascal(kebab: string): string {
     .join("");
 }
 
-/** Convert React export name to lucide.dev slug (e.g. CircleDollarSign → circle-dollar-sign). */
+/** React export → lucide.dev slug (e.g. CircleDollarSign → circle-dollar-sign). Used by dynamicIconImports keys. */
 export function pascalToKebab(pascal: string): string {
   return pascal
     .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
@@ -241,8 +244,7 @@ export function pascalToKebab(pascal: string): string {
     .toLowerCase();
 }
 
-// Type for icon components
-type IconComponent = React.ComponentType<{
+export type IconComponent = ComponentType<{
   className?: string;
   size?: number | string;
   width?: string;
@@ -251,145 +253,131 @@ type IconComponent = React.ComponentType<{
   style?: React.CSSProperties;
 }>;
 
+const lucideComponentCache = new Map<string, IconComponent>();
+const lucideWrapperCache = new Map<string, IconComponent>();
+
+type DynamicIconLoader = () => Promise<{ default: IconComponent }>;
+
+const dynamicImports = dynamicIconImports as Record<string, DynamicIconLoader>;
+
 /**
- * Normalize icon name to handle various formats:
- * - "circle-dollar-sign" -> "CircleDollarSign" (Lucide kebab slug)
- * - "Rocket" / "rocket" -> "Rocket" (Lucide PascalCase)
- * - "IconRocket" -> looks up in TABLER_TO_LUCIDE map -> "Rocket"
- * - "Rigobot" -> "Rigobot" (custom icon)
+ * Normalize YAML/picker icon strings for loading.
+ * - "circle-dollar-sign" → CircleDollarSign (Lucide)
+ * - "Rocket" / "rocket" → Rocket (Lucide or custom if listed)
+ * - "IconRocket" → TABLER_TO_LUCIDE lookup, else strip "Icon" prefix
+ * - "Rigobot" → custom (isCustom: true)
  */
-function normalizeIconName(name: string): { normalized: string; isCustom: boolean } {
+export function normalizeIconNameForLoad(
+  name: string,
+): { normalized: string; isCustom: boolean } {
   if (!name) return { normalized: "", isCustom: false };
 
   const trimmed = name.trim();
-
-  // Check if it's a known custom icon first (PascalCase registry)
   const capitalizedName = trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
+
   if (CUSTOM_ICON_NAMES.includes(capitalizedName)) {
     return { normalized: capitalizedName, isCustom: true };
   }
 
-  // Handle old Tabler-style "Icon" prefixed names
   if (trimmed.startsWith("Icon")) {
     const lucideName = TABLER_TO_LUCIDE[trimmed];
     if (lucideName) return { normalized: lucideName, isCustom: false };
     return { normalized: trimmed.slice(4), isCustom: false };
   }
 
-  // Kebab-case lucide slug (picker + menus)
   if (trimmed.includes("-")) {
     return { normalized: kebabToPascal(trimmed), isCustom: false };
   }
 
-  // Simple PascalCase / lowercase (TrendingUp, bot, mail)
   return { normalized: capitalizedName, isCustom: false };
 }
 
+/** Load one Lucide icon by PascalCase export name; results are cached. */
+export async function loadLucideIcon(pascalName: string): Promise<IconComponent | null> {
+  if (!pascalName) return null;
+
+  const cached = lucideComponentCache.get(pascalName);
+  if (cached) return cached;
+
+  const slug = pascalToKebab(pascalName);
+  const loader = dynamicImports[slug];
+  if (!loader) return null;
+
+  const mod = await loader();
+  if (!mod.default) return null;
+
+  lucideComponentCache.set(pascalName, mod.default);
+  return mod.default;
+}
+
+/** Placeholder component that async-loads Lucide when not yet in cache. */
+function createLucideIconWrapper(pascalName: string): IconComponent {
+  const Wrapped: IconComponent = (props) => {
+    const [Icon, setIcon] = useState<IconComponent | null>(
+      () => lucideComponentCache.get(pascalName) ?? null,
+    );
+
+    useEffect(() => {
+      if (Icon) return;
+      let cancelled = false;
+      void loadLucideIcon(pascalName).then((loaded) => {
+        if (!cancelled && loaded) setIcon(() => loaded);
+      });
+      return () => {
+        cancelled = true;
+      };
+    }, [Icon, pascalName]);
+
+    if (!Icon) return null;
+    return createElement(Icon, props);
+  };
+  Wrapped.displayName = `LucideIcon(${pascalName})`;
+  return Wrapped;
+}
+
+function getLucideIconComponent(pascalName: string): IconComponent | null {
+  const cached = lucideComponentCache.get(pascalName);
+  if (cached) return cached;
+
+  let wrapper = lucideWrapperCache.get(pascalName);
+  if (!wrapper) {
+    wrapper = createLucideIconWrapper(pascalName);
+    lucideWrapperCache.set(pascalName, wrapper);
+  }
+  return wrapper;
+}
+
 /**
- * Get an icon component by name.
- * Checks custom icons first, then falls back to Lucide.
- * 
- * @param name Icon name (e.g., "Rigobot", "rocket", "Rocket", "IconRocket")
- * @returns Icon component or null if not found
+ * Get an icon component by name. Custom icons first, then Lucide (cached or wrapper).
+ *
+ * @param name Icon name from YAML (e.g. Rigobot, brain, Rocket, IconRocket)
  */
 export function getIcon(name: string): IconComponent | null {
   if (!name) return null;
-  
-  const { normalized, isCustom } = normalizeIconName(name);
-  
+
+  const { normalized, isCustom } = normalizeIconNameForLoad(name);
+
   if (isCustom) {
     const customIcon = getCustomIcon(normalized);
     if (customIcon) return customIcon as IconComponent;
   }
-  
-  // Try Lucide icon
-  const lucideIcon = (LucideIcons as unknown as Record<string, IconComponent>)[normalized];
+
+  const lucideIcon = getLucideIconComponent(normalized);
   if (lucideIcon) return lucideIcon;
-  
-  // Last resort: try custom icon even for unknown names
+
   const fallbackCustom = getCustomIcon(name);
   if (fallbackCustom) return fallbackCustom as IconComponent;
-  
+
   return null;
 }
 
-const LUCIDE_EXPORT_SKIP = new Set(["Icon", "icons", "createLucideIcon"]);
-
-function isLucideIconExport(value: unknown): boolean {
-  return (
-    typeof value === "function" ||
-    (typeof value === "object" && value !== null && "$$typeof" in value)
-  );
-}
-
-let cachedLucideIconSlugs: string[] | null = null;
-
-/**
- * All Lucide icon slugs for the picker (kebab-case), excluding alias exports (*Icon, Lucide*).
- */
-export function getAllTablerIconNames(): string[] {
-  if (cachedLucideIconSlugs) return cachedLucideIconSlugs;
-
-  cachedLucideIconSlugs = Object.keys(LucideIcons)
-    .filter((key) => {
-      if (!/^[A-Z]/.test(key)) return false;
-      if (key.endsWith("Icon")) return false;
-      if (key.startsWith("Lucide")) return false;
-      if (LUCIDE_EXPORT_SKIP.has(key)) return false;
-      return isLucideIconExport((LucideIcons as Record<string, unknown>)[key]);
-    })
-    .map((key) => pascalToKebab(key))
-    .sort();
-
-  return cachedLucideIconSlugs;
-}
-
-/**
- * Get all available icon names for the picker.
- * Returns custom icons first (PascalCase), then all Lucide slugs (kebab-case).
- */
-export function getAllIconNames(): string[] {
-  return [...CUSTOM_ICON_NAMES, ...getAllTablerIconNames()];
-}
-
-/**
- * Get display name for an icon (human-readable slug or legacy Tabler label).
- */
-export function getIconDisplayName(name: string): string {
-  if (name.startsWith("Icon")) {
-    return name.slice(4);
-  }
-  if (name.includes("-")) {
-    return name;
-  }
-  return pascalToKebab(name);
-}
-
-/**
- * Whether a picker/search term matches an icon entry (kebab slug or Pascal custom).
- */
-export function iconMatchesSearch(iconName: string, searchLower: string): boolean {
-  if (!searchLower) return true;
-  const slug = iconName.includes("-") ? iconName : pascalToKebab(iconName);
-  const pascal = iconName.includes("-") ? kebabToPascal(iconName) : iconName;
-  return (
-    iconName.toLowerCase().includes(searchLower) ||
-    slug.includes(searchLower) ||
-    pascal.toLowerCase().includes(searchLower)
-  );
-}
-
-/**
- * Check if an icon name is a custom icon
- */
+/** Whether the name refers to a curated custom icon (PascalCase registry). */
 export function isCustomIcon(name: string): boolean {
   const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
   return CUSTOM_ICON_NAMES.includes(capitalizedName);
 }
 
-/**
- * True when the name refers to a curated Lucide slug (not a custom icon).
- */
+/** True when the name is a curated Lucide slug (kebab-case), not a custom icon. */
 export function isCuratedLucideIcon(name: string): boolean {
   return (CURATED_LUCIDE_ICONS as readonly string[]).includes(name);
 }

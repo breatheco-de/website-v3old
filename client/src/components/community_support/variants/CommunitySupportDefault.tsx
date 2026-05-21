@@ -1,8 +1,6 @@
 import { useState } from "react";
-import * as LucideIcons from "lucide-react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import type { ComponentType } from "react";
-import { getCustomIcon } from "@/components/custom-icons";
+import { getIcon as resolveIcon } from "@/lib/icons";
 import { UniversalImage } from "@/components/UniversalImage";
 
 interface BulletItem {
@@ -41,15 +39,21 @@ interface CommunitySupportProps {
   data: CommunitySupportData;
 }
 
-const getIcon = (iconName: string, className?: string, size?: number, color?: string) => {
-  const CustomIcon = getCustomIcon(iconName);
-  if (CustomIcon) {
-    const sizeStr = size ? `${size}px` : "20px";
-    return <CustomIcon width={sizeStr} height={sizeStr} className={className} color={color} />;
-  }
-  const icons = LucideIcons as unknown as Record<string, ComponentType<{ className?: string; size?: number; color?: string }>>;
-  const IconComponent = icons[`Icon${iconName}`];
-  return IconComponent ? <IconComponent className={className} size={size || 20} color={color} /> : null;
+const renderIcon = (iconName: string, className?: string, size?: number, color?: string) => {
+  const IconComponent =
+    resolveIcon(iconName) ??
+    resolveIcon(iconName.startsWith("Icon") ? iconName : `Icon${iconName}`);
+  if (!IconComponent) return null;
+  const sizeStr = size ? `${size}px` : "20px";
+  return (
+    <IconComponent
+      className={className}
+      size={size || 20}
+      color={color}
+      width={sizeStr}
+      height={sizeStr}
+    />
+  );
 };
 
 export function CommunitySupport({ data }: CommunitySupportProps) {
@@ -104,7 +108,7 @@ export function CommunitySupport({ data }: CommunitySupportProps) {
                     <div className="flex items-center gap-3">
                       {group.icon ? (
                         <span className="flex-shrink-0" style={{ color: accentColor }}>
-                          {getIcon(group.icon, "", 32, accentColor)}
+                          {renderIcon(group.icon, "", 32, accentColor)}
                         </span>
                       ) : group.image ? (
                         <div className="flex-shrink-0 w-10 h-10 rounded-full overflow-hidden">
@@ -140,7 +144,7 @@ export function CommunitySupport({ data }: CommunitySupportProps) {
                             data-testid={`button-toggle-description-${groupIndex}`}
                           >
                             <span className="flex-shrink-0">
-                              {getIcon(isDescExpanded ? "ChevronUp" : "ChevronDown", "", 16)}
+                              {renderIcon(isDescExpanded ? "ChevronUp" : "ChevronDown", "", 16)}
                             </span>
                             <span className="text-sm">{isDescExpanded ? "Hide details" : "Show details"}</span>
                           </button>
@@ -162,7 +166,7 @@ export function CommunitySupport({ data }: CommunitySupportProps) {
                           <li key={bulletIndex} className="flex items-start gap-3">
                             {bullet.icon ? (
                               <span className="text-primary mt-0.5 flex-shrink-0">
-                                {getIcon(bullet.icon)}
+                                {renderIcon(bullet.icon)}
                               </span>
                             ) : (
                               <span className="text-foreground mt-1 flex-shrink-0">•</span>
@@ -180,7 +184,7 @@ export function CommunitySupport({ data }: CommunitySupportProps) {
                           data-testid={`link-community-group-${groupIndex}`}
                         >
                           {group.button.text}
-                          {getIcon("ArrowRight", "", 16)}
+                          {renderIcon("ArrowRight", "", 16)}
                         </a>
                       </div>
                     )}

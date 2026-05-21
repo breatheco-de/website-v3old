@@ -1,6 +1,5 @@
-import * as LucideIcons from "lucide-react";
 import { Check } from "lucide-react";
-import type { ComponentType } from "react";
+import { getIcon } from "@/lib/icons";
 
 export interface VerticalTimelineStep {
   icon: string;
@@ -30,16 +29,18 @@ interface VerticalTimelineProps {
   data: VerticalTimelineData;
 }
 
-const getIcon = (iconName: string, className?: string) => {
-  const icons = LucideIcons as unknown as Record<string, ComponentType<{ size?: number; className?: string }>>;
-  const IconComponent = icons[(iconName).charAt(0).toUpperCase() + (iconName).slice(1) as keyof typeof LucideIcons];
-  return IconComponent ? <IconComponent size={20} className={className || "text-primary"} /> : null;
+const renderStepIcon = (iconName: string, className?: string) => {
+  const IconComponent = getIcon(iconName);
+  return IconComponent ? (
+    <IconComponent size={20} className={className || "text-primary"} />
+  ) : null;
 };
 
-const getBulletIcon = (iconName: string, colorClass: string) => {
-  const icons = LucideIcons as unknown as Record<string, ComponentType<{ className?: string }>>;
-  const IconComponent = icons[(iconName).charAt(0).toUpperCase() + (iconName).slice(1) as keyof typeof LucideIcons];
-  return IconComponent ? <IconComponent className={`w-4 h-4 ${colorClass} flex-shrink-0 mt-0.5`} /> : null;
+const renderBulletIcon = (iconName: string, colorClass: string) => {
+  const IconComponent = getIcon(iconName);
+  return IconComponent ? (
+    <IconComponent className={`w-4 h-4 ${colorClass} flex-shrink-0 mt-0.5`} />
+  ) : null;
 };
 
 export default function VerticalTimeline({ data }: VerticalTimelineProps) {
@@ -103,7 +104,7 @@ export default function VerticalTimeline({ data }: VerticalTimelineProps) {
                   <div className="flex items-start gap-3">
                     {step.icon && (
                       <div className="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        {getIcon(step.icon)}
+                        {renderStepIcon(step.icon)}
                       </div>
                     )}
                     <div className="flex-1">
@@ -136,7 +137,7 @@ export default function VerticalTimeline({ data }: VerticalTimelineProps) {
                             <span className={`${bulletIconColor} flex-shrink-0 mt-0.5`}>
                               {bulletChar 
                                 ? bulletChar 
-                                : getBulletIcon(bulletIcon, bulletIconColor)
+                                : renderBulletIcon(bulletIcon, bulletIconColor)
                               }
                             </span>
                             <span>{bullet}</span>

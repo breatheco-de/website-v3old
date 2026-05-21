@@ -1,8 +1,8 @@
 import type { z } from "zod";
 import type { featuresGridSectionSchema } from "@shared/schema";
 import { Card, CardContent } from "@/components/ui/card";
-import * as LucideIcons from "lucide-react";
 import { Star } from "lucide-react";
+import { getIcon } from "@/lib/icons";
 
 type FeaturesGridSectionData = z.infer<typeof featuresGridSectionSchema>;
 
@@ -10,9 +10,8 @@ interface FeaturesGridSectionProps {
   data: FeaturesGridSectionData;
 }
 
-function getIcon(iconName: string) {
-  const IconComponent = (LucideIcons as Record<string, unknown>)[(iconName).charAt(0).toUpperCase() + (iconName).slice(1)] as React.ComponentType<{ className?: string }>;
-  return IconComponent || Star;
+function resolveIcon(iconName: string) {
+  return getIcon(iconName) || Star;
 }
 
 export function FeaturesGridSection({ data }: FeaturesGridSectionProps) {
@@ -41,7 +40,7 @@ export function FeaturesGridSection({ data }: FeaturesGridSectionProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {data.items.map((item, index) => {
-            const IconComponent = getIcon(item.icon || "Star");
+            const IconComponent = resolveIcon(item.icon || "Star");
             return (
               <Card 
                 key={index}

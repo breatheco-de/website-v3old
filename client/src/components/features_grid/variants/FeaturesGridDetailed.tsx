@@ -2,28 +2,26 @@
 import { useState } from "react";
 import type { FeaturesGridDetailedSection, FeaturesGridDetailedItem } from "@shared/schema";
 import { Card } from "@/components/ui/card";
-import * as LucideIcons from "lucide-react";
 import { Box, ChevronDown } from "lucide-react";
-import { getCustomIcon } from "@/components/custom-icons";
-import type { ComponentType } from "react";
+import { getIcon } from "@/lib/icons";
 import { AIWorkflowDiagram } from "@/components/AIWorkflowDiagram";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { UniversalImage } from "@/components/UniversalImage";
 
-function getIcon(iconName: string, className?: string, color?: string) {
-  const CustomIcon = getCustomIcon(iconName);
-  if (CustomIcon) {
-    return <CustomIcon width="100%" height="100%" color={color} className={className} />;
-  }
-  
-  // Handle both "IconRocket" and "Rocket" formats
-  const tablerName = iconName.startsWith("Icon") ? iconName.slice(4) : iconName; const lucideName = tablerName.charAt(0).toUpperCase() + tablerName.slice(1);
-  const IconComponent = LucideIcons[lucideName as keyof typeof LucideIcons] as ComponentType<{ className?: string; style?: React.CSSProperties }>;
-  if (IconComponent) {
-    const style = color ? { color } : undefined;
-    return <IconComponent className={className || "w-full h-full text-primary"} style={style} />;
-  }
+function renderIcon(iconName: string, className?: string, color?: string) {
+  const IconComponent = getIcon(iconName);
   const style = color ? { color } : undefined;
+  if (IconComponent) {
+    return (
+      <IconComponent
+        className={className || "w-full h-full text-primary"}
+        style={style}
+        width="100%"
+        height="100%"
+        color={color}
+      />
+    );
+  }
   return <Box className={className || "w-full h-full text-primary"} style={style} />;
 }
 
@@ -69,7 +67,7 @@ function DetailedCard({
               </span>
               {!hasImage && item.icon && (
                 <span className="w-4 h-4 md:w-5 md:h-6 flex-shrink-0 text-primary">
-                  {getIcon(item.icon, "w-full h-full", "hsl(var(--primary))")}
+                  {renderIcon(item.icon, "w-full h-full", "hsl(var(--primary))")}
                 </span>
               )}
             </div>

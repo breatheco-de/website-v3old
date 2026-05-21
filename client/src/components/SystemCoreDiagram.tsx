@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from "react";
-import { SiOpenai, SiPython, SiReact, SiNodedotjs, SiGit, SiGithub } from "react-icons/si";
+import { getTechBrandIcon } from "@/lib/tech-brand-icons";
 
 interface SystemCoreDiagramProps {
   className?: string;
@@ -15,20 +15,20 @@ interface Particle {
 }
 
 interface TechBox {
-  icon: typeof SiOpenai;
+  iconKey: string;
   label: string;
 }
 
 const leftTechs: TechBox[] = [
-  { icon: SiOpenai, label: "OpenAI" },
-  { icon: SiPython, label: "Python" },
-  { icon: SiReact, label: "React" },
-  { icon: SiNodedotjs, label: "Node.js" },
+  { iconKey: "openai", label: "OpenAI" },
+  { iconKey: "python", label: "Python" },
+  { iconKey: "react", label: "React" },
+  { iconKey: "nodejs", label: "Node.js" },
 ];
 
 const rightTechs: TechBox[] = [
-  { icon: SiGit, label: "Git" },
-  { icon: SiGithub, label: "GitHub" },
+  { iconKey: "git", label: "Git" },
+  { iconKey: "github", label: "GitHub" },
 ];
 
 export function SystemCoreDiagram({ className = "" }: SystemCoreDiagramProps) {
@@ -155,16 +155,21 @@ export function SystemCoreDiagram({ className = "" }: SystemCoreDiagramProps) {
       <div className="relative flex items-center justify-center gap-3">
         {/* Left tech boxes */}
         <div className="flex flex-col gap-2 z-10">
-          {leftTechs.map((tech, i) => (
+          {leftTechs.map((tech) => {
+            const Icon = getTechBrandIcon(tech.iconKey);
+            return (
             <div
               key={tech.label}
               className="flex items-center gap-2 px-3 py-2 rounded-md bg-card border border-border/50 shadow-sm cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-md hover:border-primary/30"
               data-testid={`tech-box-${tech.label.toLowerCase().replace(/\./g, '')}`}
             >
-              <tech.icon className="w-4 h-4 text-muted-foreground transition-colors duration-300 group-hover:text-primary" />
+              {Icon ? (
+                <Icon className="w-4 h-4 text-muted-foreground transition-colors duration-300 group-hover:text-primary" />
+              ) : null}
               <span className="text-xs font-medium text-foreground whitespace-nowrap">{tech.label}</span>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Center hexagon diagram with connector lines */}
@@ -328,16 +333,21 @@ export function SystemCoreDiagram({ className = "" }: SystemCoreDiagramProps) {
 
         {/* Right tech boxes */}
         <div className="flex flex-col gap-2 z-10">
-          {rightTechs.map((tech, i) => (
+          {rightTechs.map((tech) => {
+            const Icon = getTechBrandIcon(tech.iconKey);
+            return (
             <div
               key={tech.label}
               className="flex items-center gap-2 px-3 py-2 rounded-md bg-card border border-border/50 shadow-sm cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-md hover:border-primary/30"
               data-testid={`tech-box-${tech.label.toLowerCase()}`}
             >
-              <tech.icon className="w-4 h-4 text-muted-foreground transition-colors duration-300" />
+              {Icon ? (
+                <Icon className="w-4 h-4 text-muted-foreground transition-colors duration-300" />
+              ) : null}
               <span className="text-xs font-medium text-foreground whitespace-nowrap">{tech.label}</span>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 

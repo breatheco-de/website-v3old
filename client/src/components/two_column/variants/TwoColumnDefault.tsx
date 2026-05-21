@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import * as LucideIcons from "lucide-react";
 import { Check, ChevronDown, ChevronUp } from "lucide-react";
 import type { TwoColumnSection as TwoColumnSectionType, TwoColumnColumn, BenefitItem } from "@shared/schema";
-import type { ComponentType, CSSProperties } from "react";
+import type { CSSProperties } from "react";
+import { getIcon } from "@/lib/icons";
 import { UniversalVideo } from "@/components/UniversalVideo";
 import { UniversalImage } from "@/components/UniversalImage";
 import { useInternalNav } from "@/hooks/useInternalNav";
@@ -14,9 +14,8 @@ interface TwoColumnProps {
   data: TwoColumnSectionType;
 }
 
-const getIcon = (iconName: string, className?: string) => {
-  const icons = LucideIcons as unknown as Record<string, ComponentType<{ className?: string; size?: number }>>;
-  const IconComponent = icons[(iconName).charAt(0).toUpperCase() + (iconName).slice(1) as keyof typeof LucideIcons];
+const renderIcon = (iconName: string, className?: string) => {
+  const IconComponent = getIcon(iconName);
   return IconComponent ? <IconComponent className={className} size={20} /> : null;
 };
 
@@ -168,7 +167,7 @@ function BulletGroups({
                 <h4 className="font-bold text-foreground uppercase tracking-wide text-sm">
                   {group.title}
                 </h4>
-                {getIcon(isExpanded ? "ChevronUp" : "ChevronDown", "w-4 h-4 text-muted-foreground")}
+                {renderIcon(isExpanded ? "ChevronUp" : "ChevronDown", "w-4 h-4 text-muted-foreground")}
               </button>
             ) : null}
             <h4 className={`font-bold text-foreground uppercase tracking-wide text-sm ${collapsible && hasContent ? "hidden lg:block" : ""}`}>
@@ -279,7 +278,7 @@ function ColumnContent({ column, defaultBulletIcon, hideHeadingOnTablet, columnK
                         <span className={`${bulletIconColor} mt-1 flex-shrink-0`}>
                           {column.bullet_char 
                             ? column.bullet_char 
-                            : getIcon(bullet.icon || bulletIcon, "w-5 h-5")
+                            : renderIcon(bullet.icon || bulletIcon, "w-5 h-5")
                           }
                         </span>
                         <div className="flex flex-col flex-1">
@@ -291,7 +290,7 @@ function ColumnContent({ column, defaultBulletIcon, hideHeadingOnTablet, columnK
                                 data-testid={`button-toggle-bullet-${index}`}
                               >
                                 <span className={`font-semibold text-foreground ${textFontSize}`}>{bullet.heading}</span>
-                                {getIcon(isExpanded ? "ChevronUp" : "ChevronDown", "w-4 h-4 text-muted-foreground flex-shrink-0 mt-1")}
+                                {renderIcon(isExpanded ? "ChevronUp" : "ChevronDown", "w-4 h-4 text-muted-foreground flex-shrink-0 mt-1")}
                               </button>
                               <span className={`font-semibold text-foreground ${textFontSize} hidden lg:block`}>{bullet.heading}</span>
                               <span className={`text-foreground ${textFontSize} ${isExpanded ? "" : "hidden lg:block"}`}>{bullet.text}</span>
@@ -317,12 +316,12 @@ function ColumnContent({ column, defaultBulletIcon, hideHeadingOnTablet, columnK
                   >
                     {bulletsExpanded ? (
                       <>
-                        {getIcon("ChevronUp", "w-4 h-4")}
+                        {renderIcon("ChevronUp", "w-4 h-4")}
                         Show less
                       </>
                     ) : (
                       <>
-                        {getIcon("ChevronDown", "w-4 h-4")}
+                        {renderIcon("ChevronDown", "w-4 h-4")}
                         Show {hiddenCount} more
                       </>
                     )}
@@ -359,7 +358,7 @@ function ColumnContent({ column, defaultBulletIcon, hideHeadingOnTablet, columnK
                 data-testid="button-two-column-cta"
               >
                 <a href={column.button.url} onClick={handleLinkClick} className="flex items-center gap-2">
-                  {column.button.icon && getIcon(column.button.icon)}
+                  {column.button.icon && renderIcon(column.button.icon)}
                   {column.button.text}
                 </a>
               </Button>
@@ -466,7 +465,7 @@ function BenefitCardsVariant({ data }: TwoColumnProps) {
             {data.benefit_items && data.benefit_items.length > 0 && (
               <div className="flex flex-col gap-6 mb-8">
                 {data.benefit_items.map((item, index) => {
-                  const IconComponent = (LucideIcons as unknown as Record<string, ComponentType<{ className?: string; size?: number }>>)[`Icon${item.icon}`];
+                  const IconComponent = item.icon ? getIcon(`Icon${item.icon}`) : null;
                   return (
                     <div 
                       key={index}
