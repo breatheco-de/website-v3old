@@ -450,10 +450,11 @@ export function VersioningView({
                 <div key={locale} className="px-2 py-2">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-1.5">
-                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                      <span className="text-xs text-muted-foreground">Traffic allocation for</span>
+                      <Badge variant="secondary" className="text-[10px] px-1.5 py-0 leading-4">
                         {locale.toUpperCase()}
-                      </p>
-                      <span className="text-xs text-muted-foreground">Traffic allocation</span>
+                      </Badge>
+                      <span className="text-xs text-muted-foreground">locale</span>
                     </div>
                     {!isEditing ? (
                       <button
