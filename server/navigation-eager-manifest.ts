@@ -1,6 +1,6 @@
 /**
  * Generates marketing-content/navigation-eager-manifest.json from content + menus.
- * Run at build time: npm run build (prebuild) or npm run generate:navigation-manifest.
+ * Regenerated during `vite build` (client pass) via vite.config.ts plugin.
  * Server only reads the file (readNavigationEagerManifest) for SSR initial data.
  */
 
