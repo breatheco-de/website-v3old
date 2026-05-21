@@ -6736,6 +6736,11 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
       fs.unlinkSync(variantFilePath);
 
+      contentIndex.invalidateCommonFields(contentType);
+      clearSsrSchemaCache();
+      const folder = getFolder(contentType as ContentType);
+      markFileAsModified(`marketing-content/${folder}/${contentSlug}/${locale}.yml`, "api");
+
       res.json({ success: true });
     } catch (error) {
       res.status(500).json({ error: String(error) });
