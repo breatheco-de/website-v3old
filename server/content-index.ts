@@ -191,6 +191,7 @@ class ContentIndex {
   }
 
   scan(): void {
+    const wasInitialized = this.initialized;
     const baseDir = path.join(process.cwd(), "marketing-content");
     this.contentTypeConfigs = this.loadContentTypes();
     const contentTypes = Object.keys(this.contentTypeConfigs);
@@ -314,6 +315,12 @@ class ContentIndex {
     this.warnMissingSlugMappings();
 
     this.initialized = true;
+
+    if (wasInitialized) {
+      void import("./navigation-eager-manifest").then((m) =>
+        m.scheduleNavigationEagerManifestRegen(),
+      );
+    }
     const imageRefCount = this.imageUsage.size;
     const variableRefCount = this.variableUsage.size;
     const menuRefCount = this.menuUsage.size;
