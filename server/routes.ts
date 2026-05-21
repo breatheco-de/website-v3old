@@ -1852,6 +1852,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const content = `# Allow all crawlers
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /private/
+Disallow: /preview-frame
+Disallow: /health
 
 # Allow AI/LLM crawlers explicitly
 User-agent: GPTBot
