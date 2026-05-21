@@ -5,9 +5,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { lazy, Suspense, useMemo, useState, useEffect } from "react";
 import NotFound from "@/pages/not-found";
-import { DebugBubble } from "@/components/DebugBubble";
-import { ChatWidget } from "@/components/ChatWidget";
-import { VariableModalHost } from "@/components/editing/VariableHighlight";
 import { SessionProvider } from "@/contexts/SessionContext";
 import { EditModeWrapper } from "@/components/editing/EditModeWrapper";
 import { DebugAuthProvider } from "@/hooks/useDebugAuth";
@@ -83,6 +80,19 @@ const PrivateRouter = lazyWithRetry(() => import("@/pages/PrivateRouter"));
 const ApplyPage = lazyWithRetry(() => import("@/pages/ApplyPage"));
 const TermsPage = lazyWithRetry(() => import("@/pages/TermsPage"));
 const PrivacyPage = lazyWithRetry(() => import("@/pages/PrivacyPage"));
+
+// Admin/editor-only UI — deferred into separate chunks so regular visitors
+// never download them as part of the initial bundle. They are already
+// client-only (inside <ClientOnly>) so no SSR preload is needed.
+const DebugBubble = lazyWithRetry(() =>
+  import("@/components/DebugBubble").then((m) => ({ default: m.DebugBubble })),
+);
+const ChatWidget = lazyWithRetry(() =>
+  import("@/components/ChatWidget").then((m) => ({ default: m.ChatWidget })),
+);
+const VariableModalHost = lazyWithRetry(() =>
+  import("@/components/editing/VariableHighlight").then((m) => ({ default: m.VariableModalHost })),
+);
 
 function LoadingFallback() {
   return (
@@ -297,9 +307,9 @@ function App({ ssrQueryClient }: AppProps = {}) {
             <Router />
             <ClientOnly>
               <Toaster />
-              <ChatWidget />
-              <DebugBubble />
-              <VariableModalHost />
+              <Suspense fallback={null}><ChatWidget /></Suspense>
+              <Suspense fallback={null}><DebugBubble /></Suspense>
+              <Suspense fallback={null}><VariableModalHost /></Suspense>
             </ClientOnly>
             </ImagePickerProvider>
           </EditModeWrapper>

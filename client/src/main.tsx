@@ -23,6 +23,12 @@ const rootEl = document.getElementById("root")!;
 
     // MAINTENANCE NOTE: When adding a new lazy() route in App.tsx, add a corresponding
     // preload branch here so the Suspense fallback doesn't blank the page on that route.
+    //
+    // NOTE: DebugBubble, ChatWidget, and VariableModalHost are intentionally excluded
+    // from preloading. They are client-only (rendered inside <ClientOnly> which mounts
+    // only after hydration) and therefore never participate in SSR or hydration. There
+    // is no risk of a Suspense white-flash for these components — they simply appear
+    // after the browser fetches their chunks post-hydration.
     let chunkLoads: Promise<unknown>[];
 
     if (path === "/private" || path.startsWith("/private/")) {
