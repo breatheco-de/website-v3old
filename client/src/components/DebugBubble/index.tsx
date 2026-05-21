@@ -490,9 +490,12 @@ export function DebugBubble() {
     };
   }, []);
 
-  // Fetch versioning data whenever we're on a content page
+  // Fetch versioning data lazily after the browser is idle so it never
+  // blocks critical rendering or affects Core Web Vitals.
   useEffect(() => {
-    if (contentInfo.type && contentInfo.slug) {
+    if (!contentInfo.type || !contentInfo.slug) return;
+
+    const doFetch = () => {
       setVersioningLoading(true);
       fetch(`/api/versioning/${contentInfo.type}/${contentInfo.slug}`)
         .then((res) => res.json())
@@ -504,6 +507,15 @@ export function DebugBubble() {
           setVersioningLoading(false);
           setVersioningData(null);
         });
+    };
+
+    if (typeof requestIdleCallback !== "undefined") {
+      const id = requestIdleCallback(doFetch, { timeout: 3000 });
+      return () => cancelIdleCallback(id);
+    } else {
+      // Safari fallback
+      const id = setTimeout(doFetch, 1000);
+      return () => clearTimeout(id);
     }
   }, [contentInfo.type, contentInfo.slug]);
 
