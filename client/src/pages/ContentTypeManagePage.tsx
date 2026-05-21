@@ -56,6 +56,7 @@ interface StaticEntry {
   title: string;
   locales: string[];
   urls: Record<string, string>;
+  versionCounts?: Record<string, number>;
 }
 
 interface FieldMapping {
@@ -2862,11 +2863,14 @@ export default function ContentTypeManagePage() {
                                     Legacy
                                   </span>
                                 ) : (
-                                  entry.locales.map((loc) => (
-                                    <Badge key={loc} variant="outline" className="text-xs">
-                                      {loc.toUpperCase()}
-                                    </Badge>
-                                  ))
+                                  entry.locales.map((loc) => {
+                                    const count = entry.versionCounts?.[loc];
+                                    return (
+                                      <Badge key={loc} variant="outline" className="text-xs">
+                                        {loc.toUpperCase()}{count && count > 1 ? ` · ${count}` : ""}
+                                      </Badge>
+                                    );
+                                  })
                                 )}
                               </div>
                             </td>

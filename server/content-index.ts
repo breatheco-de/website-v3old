@@ -1154,8 +1154,8 @@ class ContentIndex {
   ): string {
     const folder = this.getContentFolderPath(contentType, slug);
 
-    if (variant && variant !== "default" && version !== undefined) {
-      return path.join(folder, `${variant}.v${version}.${locale}.yml`);
+    if (variant && variant !== "default") {
+      return path.join(folder, `${variant}.${locale}.yml`);
     }
 
 
@@ -1350,12 +1350,12 @@ class ContentIndex {
     try {
       const files = fs.readdirSync(contentDir);
       return files
-        .filter(f =>
-          f.endsWith(".yml") &&
-          !f.startsWith("_") &&
-          f !== "experiments.yml" &&
-          !f.includes(".v")
-        )
+        .filter(f => {
+          if (!f.endsWith(".yml") || f.startsWith("_")) return false;
+          if (f === "experiments.yml" || f === "versioning.yml") return false;
+          const stem = f.slice(0, -4);
+          return !stem.includes(".");
+        })
         .map(f => f.replace(".yml", ""));
     } catch (error) {
       console.error(`Error getting locales for ${contentType}/${slug}:`, error);

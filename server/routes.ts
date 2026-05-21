@@ -11,7 +11,7 @@ import * as path from "path";
 import * as yaml from "js-yaml";
 import { execSync as _execSync, execFile } from "child_process";
 import {
-  experimentUpdateSchema,
+  versioningUpdateSchema,
   type CareerProgram,
   type LandingPage,
   type LocationPage,
@@ -70,12 +70,12 @@ import {
   unescapeYamlDump,
 } from "@shared/templateVars";
 import {
-  getExperimentManager,
+  getVersioningManager,
   getOrCreateSessionId,
-  getExperimentCookie,
-  setExperimentCookie,
+  getVersioningCookie,
+  setVersioningCookie,
   buildVisitorContext,
-} from "./experiments";
+} from "./versioning";
 import { mediaGallery } from "./media-gallery";
 import { media } from "./media";
 import multer from "multer";
@@ -1275,74 +1275,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
       : undefined;
 
     let program: CareerProgram | null = null;
-    let experimentInfo: {
-      experiment: string;
+    let versioningInfo: {
       variant: string;
-      version: number;
     } | null = null;
 
     // If force_variant is provided, load that variant directly (for preview)
-    if (forceVariant && forceVersion !== undefined) {
-      const experimentManager = getExperimentManager();
-      const forcedContent = experimentManager.getVariantContent(
-        slug,
-        {
-          experiment_slug: "preview",
-          variant_slug: forceVariant,
-          variant_version: forceVersion,
-          assigned_at: Date.now(),
-        },
-        locale,
-      );
+    if (forceVariant) {
+      const versioningManager = getVersioningManager();
+      const forcedContent = versioningManager.getVariantContent("program", slug, forceVariant, locale);
       if (forcedContent) {
         program = forcedContent as unknown as CareerProgram;
-        experimentInfo = {
-          experiment: "preview",
-          variant: forceVariant,
-          version: forceVersion,
-        };
+        versioningInfo = { variant: forceVariant };
       }
     }
 
-    // Normal experiment flow if not forcing a variant
+    // Normal versioning flow if not forcing a variant
     if (!program) {
-      // Get or create session for experiment tracking
       const sessionId = getOrCreateSessionId(req, res);
-      const experimentCookie = getExperimentCookie(req);
-      const existingAssignments = experimentCookie?.assignments || [];
-
-      // Check for active experiments
-      const experimentManager = getExperimentManager();
-      const visitorContext = buildVisitorContext(req, sessionId);
-      const assignment = experimentManager.getAssignment(
-        slug,
-        visitorContext,
-        existingAssignments,
+      const versioningCookie = getVersioningCookie(req);
+      const existingAssignments = versioningCookie?.assignments || [];
+      const existing = existingAssignments.find(
+        (a) => a.contentType === "program" && a.slug === slug && a.locale === locale
       );
 
-      if (assignment) {
-        // Try to load variant content
-        const variantContent = experimentManager.getVariantContent(
-          slug,
-          assignment,
-          locale,
-        );
+      const versioningManager = getVersioningManager();
+      const assignedVariant = versioningManager.getAssignment(
+        "program",
+        slug,
+        locale,
+        sessionId,
+        existing?.variantSlug,
+      );
+
+      if (assignedVariant) {
+        const variantContent = versioningManager.getVariantContent("program", slug, assignedVariant, locale);
         if (variantContent) {
           program = variantContent as unknown as CareerProgram;
-          experimentInfo = {
-            experiment: assignment.experiment_slug,
-            variant: assignment.variant_slug,
-            version: assignment.variant_version,
-          };
+          versioningInfo = { variant: assignedVariant };
 
-          // Update cookie with new assignment
           const updatedAssignments = [
             ...existingAssignments.filter(
-              (a) => a.experiment_slug !== assignment.experiment_slug,
+              (a) => !(a.contentType === "program" && a.slug === slug && a.locale === locale)
             ),
-            assignment,
+            { contentType: "program", slug, locale, variantSlug: assignedVariant, assignedAt: Date.now() },
           ];
-          setExperimentCookie(res, sessionId, updatedAssignments);
+          setVersioningCookie(res, sessionId, updatedAssignments);
         }
       }
     }
@@ -1367,7 +1344,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       ...rest,
       ...(singleEntry ? { singleEntry } : {}),
       layout,
-      _experiment: experimentInfo,
+      _experiment: versioningInfo ? { experiment: "versioning", variant: versioningInfo.variant, version: 1 } : null,
     });
   });
 
@@ -1408,33 +1385,50 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
 
     let landing: LandingPage | null = null;
-    let experimentInfo: {
-      experiment: string;
-      variant: string;
-      version: number;
-    } | null = null;
+    let landingVersioningInfo: { variant: string } | null = null;
 
     // If force_variant is provided, load that variant directly (for preview)
-    if (forceVariant && forceVersion !== undefined) {
-      const experimentManager = getExperimentManager();
-      const forcedContent = experimentManager.getVariantContent(
-        slug,
-        {
-          experiment_slug: "preview",
-          variant_slug: forceVariant,
-          variant_version: forceVersion,
-          assigned_at: Date.now(),
-        },
-        locale,
-        "landing",
-      );
+    if (forceVariant) {
+      const versioningManager = getVersioningManager();
+      const forcedContent = versioningManager.getVariantContent("landing", baseSlug, forceVariant, locale);
       if (forcedContent) {
         landing = forcedContent as LandingPage;
-        experimentInfo = {
-          experiment: "preview",
-          variant: forceVariant,
-          version: forceVersion,
-        };
+        landingVersioningInfo = { variant: forceVariant };
+      }
+    }
+
+    // Normal versioning flow if not forcing a variant
+    if (!landing) {
+      const sessionId = getOrCreateSessionId(req, res);
+      const versioningCookie = getVersioningCookie(req);
+      const existingAssignments = versioningCookie?.assignments || [];
+      const existing = existingAssignments.find(
+        (a) => a.contentType === "landing" && a.slug === baseSlug && a.locale === locale
+      );
+
+      const versioningManager = getVersioningManager();
+      const assignedVariant = versioningManager.getAssignment(
+        "landing",
+        baseSlug,
+        locale,
+        sessionId,
+        existing?.variantSlug,
+      );
+
+      if (assignedVariant) {
+        const variantContent = versioningManager.getVariantContent("landing", baseSlug, assignedVariant, locale);
+        if (variantContent) {
+          landing = variantContent as LandingPage;
+          landingVersioningInfo = { variant: assignedVariant };
+
+          const updatedAssignments = [
+            ...existingAssignments.filter(
+              (a) => !(a.contentType === "landing" && a.slug === baseSlug && a.locale === locale)
+            ),
+            { contentType: "landing", slug: baseSlug, locale, variantSlug: assignedVariant, assignedAt: Date.now() },
+          ];
+          setVersioningCookie(res, sessionId, updatedAssignments);
+        }
       }
     }
 
@@ -1468,7 +1462,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       locale,
       landing_locations: landingLocations,
       layout,
-      _experiment: experimentInfo,
+      _experiment: landingVersioningInfo ? { experiment: "versioning", variant: landingVersioningInfo.variant, version: 1 } : null,
     });
   });
 
@@ -2737,8 +2731,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { type } = req.params;
       const entries = contentIndex.findByType(type);
+      const versioningManager = getVersioningManager();
       const results = entries.map((entry) => {
         const urls = contentIndex.getLocaleUrls(entry.slug, type);
+        const versionCounts = versioningManager.getVersionCounts(type, entry.slug);
         return {
           slug: entry.slug,
           title: entry.title || entry.slug,
@@ -2746,6 +2742,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             (l) => !l.startsWith("_") && !l.includes("."),
           ),
           urls,
+          versionCounts,
         };
       });
       res.json({ count: results.length, results });
@@ -5794,20 +5791,20 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
   });
 
-  // Experiments API endpoints
-  app.get("/api/debug/experiments", (req, res) => {
-    const experimentManager = getExperimentManager();
-    const extendedStats = experimentManager.getExtendedStats();
+  // Versioning debug endpoints
+  app.get("/api/debug/versioning", (req, res) => {
+    const versioningManager = getVersioningManager();
+    const stats = versioningManager.getStats();
     res.json({
-      stats: extendedStats.experiments,
-      totalExperiments: Object.keys(extendedStats.experiments).length,
+      stats,
+      totalVariants: Object.keys(stats).length,
     });
   });
 
-  app.post("/api/debug/clear-experiment-cache", (req, res) => {
-    const experimentManager = getExperimentManager();
-    experimentManager.clearCache();
-    res.json({ success: true, message: "Experiment cache cleared" });
+  app.post("/api/debug/clear-versioning-cache", (req, res) => {
+    const versioningManager = getVersioningManager();
+    versioningManager.clearCache();
+    res.json({ success: true, message: "Versioning cache cleared" });
   });
 
   // GitHub sync status endpoint
@@ -6493,7 +6490,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
   });
 
-  // Get available variants for a content type and slug
+  // Get available variants for a content type and slug (reads versioning.yml)
   app.get("/api/variants/:contentType/:slug", (req, res) => {
     const { contentType, slug } = req.params;
 
@@ -6504,11 +6501,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       return;
     }
 
-    const experimentManager = getExperimentManager();
-    const result = experimentManager.getAvailableVariants(
-      contentType as ContentType,
-      slug,
-    );
+    const versioningManager = getVersioningManager();
+    const result = versioningManager.getAvailableVariants(contentType, slug);
 
     if (!result) {
       res.status(404).json({ error: "Content folder not found" });
@@ -6518,9 +6512,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     res.json(result);
   });
 
-  // Get experiments for a specific content type and slug
-  app.get("/api/experiments/:contentType/:slug", (req, res) => {
-    const { contentType, slug } = req.params;
+  // Get versioning data for a specific content type and slug
+  app.get("/api/versioning/:contentType/:contentSlug", (req, res) => {
+    const { contentType, contentSlug } = req.params;
 
     if (!isValidType(contentType)) {
       res.status(400).json({
@@ -6530,100 +6524,37 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       return;
     }
 
-    const experimentManager = getExperimentManager();
-    const experiments = experimentManager.getExperimentsForContent(
-      contentType as ContentType,
-      slug,
+    const versioningManager = getVersioningManager();
+    const versioning = versioningManager.getVersioningForContent(contentType, contentSlug);
+    const filePath = path.join(
+      process.cwd(),
+      "marketing-content",
+      getFolder(contentType as ContentType) || contentType,
+      contentSlug,
+      "versioning.yml",
     );
 
-    if (!experiments) {
+    if (!versioning) {
       res.json({
-        experiments: [],
-        hasExperimentsFile: false,
-        filePath: experimentManager.getExperimentsFilePath(
-          contentType as ContentType,
-          slug,
-        ),
+        versioning: null,
+        hasVersioningFile: false,
+        filePath,
       });
       return;
     }
 
-    // Get stats for each experiment (including unique visitors)
-    const extendedStats = experimentManager.getExtendedStats();
-    const experimentsWithStats = experiments.experiments.map((exp) => ({
-      ...exp,
-      stats: extendedStats.experiments[exp.slug]?.variant_counts || {},
-      unique_visitors:
-        extendedStats.experiments[exp.slug]?.unique_visitors || 0,
-    }));
-
     res.json({
-      experiments: experimentsWithStats,
-      hasExperimentsFile: true,
-      filePath: experimentManager.getExperimentsFilePath(
-        contentType as ContentType,
-        slug,
-      ),
+      versioning,
+      hasVersioningFile: true,
+      filePath,
     });
   });
 
-  // Get single experiment details
-  app.get(
-    "/api/experiments/:contentType/:contentSlug/:experimentSlug",
-    (req, res) => {
-      const { contentType, contentSlug, experimentSlug } = req.params;
-
-      if (!isValidType(contentType)) {
-        res
-          .status(400)
-          .json({ error: "Invalid content type", validTypes: getAllFolders() });
-        return;
-      }
-
-      const experimentManager = getExperimentManager();
-      const experiments = experimentManager.getExperimentsForContent(
-        contentType as ContentType,
-        contentSlug,
-      );
-
-      if (!experiments) {
-        res.status(404).json({ error: "Experiments file not found" });
-        return;
-      }
-
-      const experiment = experiments.experiments.find(
-        (exp) => exp.slug === experimentSlug,
-      );
-      if (!experiment) {
-        res.status(404).json({ error: "Experiment not found" });
-        return;
-      }
-
-      const extendedStats = experimentManager.getExtendedStats();
-      const expStats = extendedStats.experiments[experimentSlug];
-      const experimentWithStats = {
-        ...experiment,
-        stats: expStats?.variant_counts || {},
-        unique_visitors: expStats?.unique_visitors || 0,
-      };
-
-      res.json({
-        experiment: experimentWithStats,
-        contentType,
-        contentSlug,
-        filePath: experimentManager.getExperimentsFilePath(
-          contentType as ContentType,
-          contentSlug,
-        ),
-      });
-    },
-  );
-
-  // Update experiment settings
+  // Update versioning allocations for a locale
   app.patch(
-    "/api/experiments/:contentType/:contentSlug/:experimentSlug",
+    "/api/versioning/:contentType/:contentSlug/:locale",
     (req, res) => {
-      const { contentType, contentSlug, experimentSlug } = req.params;
+      const { contentType, contentSlug, locale } = req.params;
 
       if (!isValidType(contentType)) {
         res
@@ -6632,8 +6563,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         return;
       }
 
-      // Validate request body against schema
-      const parseResult = experimentUpdateSchema.safeParse(req.body);
+      const parseResult = versioningUpdateSchema.safeParse(req.body);
       if (!parseResult.success) {
         res.status(400).json({
           error: "Invalid update data",
@@ -6645,96 +6575,22 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         return;
       }
 
-      const validatedUpdates = parseResult.data;
-
-      const experimentManager = getExperimentManager();
+      const versioningManager = getVersioningManager();
       try {
-        const result = experimentManager.updateExperiment(
-          contentType as ContentType,
-          contentSlug,
-          experimentSlug,
-          validatedUpdates,
-        );
-        res.json(result);
+        const existing = versioningManager.getVersioningForContent(contentType, contentSlug) || {};
+        const updated = { ...existing, [locale]: { variants: parseResult.data.variants } };
+        versioningManager.updateVersioning(contentType, contentSlug, updated);
+        res.json({ success: true, contentType, contentSlug, locale });
       } catch (error) {
         res.status(400).json({
           error:
             error instanceof Error
               ? error.message
-              : "Failed to update experiment",
+              : "Failed to update versioning",
         });
       }
     },
   );
-
-  // Create new experiment
-  app.post("/api/experiments/:contentType/:slug/create", (req, res) => {
-    const { contentType, slug } = req.params;
-
-    if (!isValidType(contentType)) {
-      res
-        .status(400)
-        .json({ error: "Invalid content type", validTypes: getAllFolders() });
-      return;
-    }
-
-    const {
-      experimentName,
-      experimentSlug,
-      variantA,
-      variantB,
-      newVariant,
-      allocationA,
-      maxVisitors,
-      targeting,
-    } = req.body;
-
-    // Basic validation
-    if (!experimentName || !experimentSlug || !variantA) {
-      res.status(400).json({
-        error:
-          "Missing required fields: experimentName, experimentSlug, variantA",
-      });
-      return;
-    }
-
-    if (!variantB && !newVariant) {
-      res.status(400).json({
-        error: "Either variantB or newVariant must be provided",
-      });
-      return;
-    }
-
-    const experimentManager = getExperimentManager();
-    try {
-      const result = experimentManager.createExperiment(
-        contentType as ContentType,
-        slug,
-        {
-          experimentName,
-          experimentSlug,
-          variantA,
-          variantB: variantB || null,
-          newVariant: newVariant || null,
-          allocationA: allocationA ?? 50,
-          maxVisitors: maxVisitors ?? 1000,
-          targeting: targeting || {},
-        },
-      );
-
-      res.json({
-        ...result,
-        redirectPath: `/private/${contentType}/${slug}/experiment/${experimentSlug}`,
-      });
-    } catch (error) {
-      res.status(400).json({
-        error:
-          error instanceof Error
-            ? error.message
-            : "Failed to create experiment",
-      });
-    }
-  });
 
   // Molecules Showcase API endpoint
   app.get("/api/molecules", (_req, res) => {

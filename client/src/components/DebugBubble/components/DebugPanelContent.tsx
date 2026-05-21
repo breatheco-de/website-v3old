@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { AlertTriangle, ArrowLeft, ArrowRight, BarChart2, Blocks, Book, Brain, Check, ChevronRight, CloudDownload, Cookie, Database, FlaskConical, Github, Image, Languages, Map, MapPin, Menu, MessageCircle, Monitor, Moon, Palette, Pencil, Plus, RefreshCw, Route, Settings, Smartphone, Stethoscope, Sun, X } from "lucide-react";
+import { AlertTriangle, ArrowLeft, ArrowRight, BarChart2, Blocks, Book, Brain, Check, ChevronRight, CloudDownload, Cookie, Database, Github, Image, Languages, Map, MapPin, Menu, MessageCircle, Monitor, Moon, Palette, Pencil, Plus, RefreshCw, Route, Settings, Smartphone, Stethoscope, Sun, X } from "lucide-react";
+import { IconGitBranch } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -8,7 +9,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { normalizeLocale } from "@/lib/locale";
 import { SyncStatusPopover } from "./SyncStatusPopover";
 import { ComponentsView } from "./ComponentsView";
-import { ExperimentsView } from "./ExperimentsView";
+import { VersioningView } from "./VersioningView";
 import { MenusView } from "./MenusView";
 import { CreateMenuModal } from "./CreateMenuModal";
 import { DatabasesView } from "./DatabasesView";
@@ -83,8 +84,8 @@ export interface DebugPanelContentProps {
   componentRegistryData: unknown;
   componentIconMap: Record<string, unknown>;
 
-  experimentsLoading: boolean;
-  experimentsData: unknown;
+  versioningLoading: boolean;
+  versioningData: unknown;
   handleLinkClick: (href: string) => void;
 
   sitemapUrls: SitemapUrl[];
@@ -510,6 +511,16 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                 indicator="chevron"
                 testId="button-content-types-menu"
               />
+              {props.contentInfo.type && props.contentInfo.slug && (
+                <MenuItem
+                  icon={IconGitBranch as any}
+                  label="Versions"
+                  onClick={() => props.setMenuView("versioning")}
+                  indicator="chevron"
+                  testId="button-versioning-menu"
+                  rightContent={<span className="text-xs text-muted-foreground">{props.contentInfo.label}</span>}
+                />
+              )}
             </ExpandableMenuItem>
 
             <ExpandableMenuItem
@@ -609,17 +620,6 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               indicator="arrow"
               testId="link-settings"
             />
-
-            {props.contentInfo.type && props.contentInfo.slug && (
-              <MenuItem
-                icon={FlaskConical}
-                label="Experiments"
-                onClick={() => props.setMenuView("experiments")}
-                indicator="chevron"
-                testId="button-experiments-menu"
-                rightContent={<span className="text-xs text-muted-foreground">{props.contentInfo.label}</span>}
-              />
-            )}
 
             <div className="flex items-center justify-between w-full px-3 py-2 rounded-md text-sm">
               <div className="flex items-center gap-3">
@@ -778,12 +778,12 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
           componentRegistryData={props.componentRegistryData}
           componentIconMap={props.componentIconMap}
         />
-      ) : props.menuView === "experiments" ? (
-        <ExperimentsView
+      ) : props.menuView === "versioning" ? (
+        <VersioningView
           setMenuView={props.setMenuView}
           contentInfo={props.contentInfo}
-          experimentsLoading={props.experimentsLoading}
-          experimentsData={props.experimentsData}
+          versioningLoading={props.versioningLoading}
+          versioningData={props.versioningData as any}
           handleLinkClick={props.handleLinkClick}
         />
       ) : props.menuView === "menus" ? (

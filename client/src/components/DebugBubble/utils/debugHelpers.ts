@@ -45,19 +45,19 @@ export function detectContentInfo(
     return { type, slug: previewMatch[2], label: capitalize(type) };
   }
 
-  const experimentMatch = pathname.match(/^\/private\/([^/]+)\/([^/]+)\/experiment\/[^/]+\/?$/);
-  if (experimentMatch) {
-    let type = experimentMatch[1];
+  const versionsMatch = pathname.match(/^\/private\/([^/]+)\/([^/]+)\/versions\/?$/);
+  if (versionsMatch) {
+    let type = versionsMatch[1];
     type = PLURAL_TO_SINGULAR[type] || type;
     if (contentTypes) {
       for (const [name, ct] of Object.entries(contentTypes)) {
-        if (ct.directory === experimentMatch[1] || name === type) {
+        if (ct.directory === versionsMatch[1] || name === type) {
           type = name;
           break;
         }
       }
     }
-    return { type, slug: experimentMatch[2], label: capitalize(type) };
+    return { type, slug: versionsMatch[2], label: capitalize(type) };
   }
 
   if (contentTypes) {
@@ -95,11 +95,11 @@ export function detectContentInfo(
   return { type: null, slug: null, label: "" };
 }
 
-export function getContentFilePath(type: string | null, slug: string | null, locale?: string | null, variant?: string | null, version?: number | null): string {
+export function getContentFilePath(type: string | null, slug: string | null, locale?: string | null, variant?: string | null): string {
   if (!type || !slug) return "";
   
-  if (variant && version !== null && version !== undefined && locale) {
-    return `${type}/${slug}/${variant}.v${version}.${locale}.yml`;
+  if (variant && locale) {
+    return `${type}/${slug}/${variant}.${locale}.yml`;
   }
   
   if (locale) {
@@ -112,7 +112,7 @@ export function getContentFilePath(type: string | null, slug: string | null, loc
 export const getPersistedMenuView = (): MenuView => {
   if (typeof window !== "undefined") {
     const stored = sessionStorage.getItem(STORAGE_KEY);
-    if (stored === "main" || stored === "components" || stored === "sitemap" || stored === "experiments" || stored === "menus") {
+    if (stored === "main" || stored === "components" || stored === "sitemap" || stored === "versioning" || stored === "menus") {
       return stored;
     }
   }

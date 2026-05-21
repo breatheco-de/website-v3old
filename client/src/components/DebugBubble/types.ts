@@ -1,5 +1,5 @@
 
-export type MenuView = "main" | "components" | "sitemap" | "experiments" | "menus" | "databases" | "content-types";
+export type MenuView = "main" | "components" | "sitemap" | "versioning" | "menus" | "databases" | "content-types";
 
 export const STORAGE_KEY = "debug-bubble-menu-view";
 
@@ -15,6 +15,22 @@ export interface RedirectItem {
   type: string;
 }
 
+export interface VersioningVariant {
+  slug: string;
+  allocation: number;
+}
+
+export interface VersioningLocale {
+  variants: VersioningVariant[];
+}
+
+export interface VersioningResponse {
+  versioning: Record<string, VersioningLocale> | null;
+  hasVersioningFile: boolean;
+  filePath: string;
+}
+
+// Legacy experiment types kept for backward compat
 export interface ExperimentVariant {
   slug: string;
   version: number;

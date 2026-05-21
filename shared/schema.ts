@@ -1251,7 +1251,31 @@ export interface TemplatePage {
 }
 
 // ============================================
-// A/B Testing / Experiments System
+// Versioning System
+// ============================================
+export const versioningVariantSchema = z.object({
+  slug: z.string(),
+  allocation: z.number().min(0).max(100),
+});
+
+export const versioningLocaleSchema = z.object({
+  variants: z.array(versioningVariantSchema),
+});
+
+export const versioningFileSchema = z.record(z.string(), versioningLocaleSchema);
+
+export type VersioningVariant = z.infer<typeof versioningVariantSchema>;
+export type VersioningLocale = z.infer<typeof versioningLocaleSchema>;
+export type VersioningFile = z.infer<typeof versioningFileSchema>;
+
+export const versioningUpdateSchema = z.object({
+  variants: z.array(versioningVariantSchema).min(1),
+}).strict();
+
+export type VersioningUpdate = z.infer<typeof versioningUpdateSchema>;
+
+// ============================================
+// A/B Testing / Experiments System (legacy — kept for backward compat)
 // ============================================
 export const experimentTargetingSchema = z.object({
   regions: z.array(z.string()).optional(),

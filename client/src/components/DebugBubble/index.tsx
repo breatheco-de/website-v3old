@@ -32,9 +32,7 @@ import {
   type MenuView,
   type SitemapUrl,
   type RedirectItem,
-  type ExperimentVariant,
-  type ExperimentConfig,
-  type ExperimentsResponse,
+  type VersioningResponse,
   type GitHubSyncStatus,
   type PendingChange,
   type ContentInfo,
@@ -164,9 +162,9 @@ export function DebugBubble() {
   const [sessionModalOpen, setSessionModalOpen] = useState(false);
   const [tokenCopied, setTokenCopied] = useState(false);
   
-  // Experiments state
-  const [experimentsData, setExperimentsData] = useState<ExperimentsResponse | null>(null);
-  const [experimentsLoading, setExperimentsLoading] = useState(false);
+  // Versioning state
+  const [versioningData, setVersioningData] = useState<VersioningResponse | null>(null);
+  const [versioningLoading, setVersioningLoading] = useState(false);
   
   // GitHub sync status state
   const [githubSyncStatus, setGithubSyncStatus] = useState<GitHubSyncStatus | null>(null);
@@ -340,10 +338,10 @@ export function DebugBubble() {
     }
   };
 
-  // Auto-open experiments menu when URL contains "experiment"
+  // Auto-open versioning menu when URL contains "versions"
   useEffect(() => {
-    if (pathname.includes("experiment") && contentInfo.type && contentInfo.slug) {
-      setMenuViewState("experiments");
+    if (pathname.includes("versions") && contentInfo.type && contentInfo.slug) {
+      setMenuViewState("versioning");
     }
   }, [pathname, contentInfo.type, contentInfo.slug]);
 
@@ -487,29 +485,29 @@ export function DebugBubble() {
     };
   }, []);
 
-  // Fetch experiments when entering experiments view
+  // Fetch versioning data when entering versioning view
   useEffect(() => {
-    if (menuView === "experiments" && contentInfo.type && contentInfo.slug) {
-      setExperimentsLoading(true);
-      fetch(`/api/experiments/${contentInfo.type}/${contentInfo.slug}`)
+    if (menuView === "versioning" && contentInfo.type && contentInfo.slug) {
+      setVersioningLoading(true);
+      fetch(`/api/versioning/${contentInfo.type}/${contentInfo.slug}`)
         .then((res) => res.json())
-        .then((data: ExperimentsResponse) => {
-          setExperimentsData(data);
-          setExperimentsLoading(false);
+        .then((data: VersioningResponse) => {
+          setVersioningData(data);
+          setVersioningLoading(false);
         })
         .catch(() => {
-          setExperimentsLoading(false);
-          setExperimentsData(null);
+          setVersioningLoading(false);
+          setVersioningData(null);
         });
     }
   }, [menuView, contentInfo.type, contentInfo.slug]);
 
-  // Reset experiments data and menu view when leaving a content page
+  // Reset versioning data and menu view when leaving a content page
   useEffect(() => {
     if (!contentInfo.type) {
-      setExperimentsData(null);
-      // Reset menu view to main if currently on experiments view
-      if (menuView === "experiments") {
+      setVersioningData(null);
+      // Reset menu view to main if currently on versioning view
+      if (menuView === "versioning") {
         setMenuView("main");
       }
     }
@@ -1601,8 +1599,8 @@ export function DebugBubble() {
     filteredComponents,
     componentRegistryData,
     componentIconMap,
-    experimentsLoading,
-    experimentsData,
+    versioningLoading,
+    versioningData,
     handleLinkClick,
     sitemapUrls,
     sitemapLoading,
