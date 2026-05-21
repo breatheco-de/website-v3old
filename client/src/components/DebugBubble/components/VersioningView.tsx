@@ -727,23 +727,30 @@ export function VersioningView({
               variant and 100% of the traffic will now be directed to this by default.
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setPromoteTarget(null)}
-              disabled={isPromoting}
-              data-testid="button-cancel-promote"
-            >
-              No, keep it as a secondary variant
-            </Button>
+          <DialogFooter className="flex-col gap-2 sm:flex-col">
             <Button
               variant="destructive"
               onClick={handlePromote}
               disabled={isPromoting}
+              className="w-full"
               data-testid="button-confirm-promote"
             >
-              {isPromoting && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
-              Yes, remove and replace original
+              {isPromoting ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <IconCrown className="h-4 w-4" />
+              )}
+              Yes, promote and replace original
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => setPromoteTarget(null)}
+              disabled={isPromoting}
+              className="w-full"
+              data-testid="button-cancel-promote"
+            >
+              <IconX className="h-4 w-4" />
+              No, keep it as a secondary variant
             </Button>
           </DialogFooter>
         </DialogContent>
