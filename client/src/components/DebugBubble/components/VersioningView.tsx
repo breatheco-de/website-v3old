@@ -400,27 +400,35 @@ export function VersioningView({
                             </button>
                           </div>
                         </div>
-                        {isEditing && (
-                          <div className="mt-1.5 flex items-center gap-2">
-                            <Slider
-                              value={[tempAllocations[variant.slug] ?? variant.allocation]}
-                              min={0}
-                              max={100}
-                              step={1}
-                              onValueChange={([value]) =>
-                                setTempAllocations((prev) => ({
-                                  ...prev,
-                                  [variant.slug]: value,
-                                }))
-                              }
-                              className="flex-1"
-                              data-testid={`slider-allocation-${locale}-${variant.slug}`}
-                            />
-                            <span className="text-xs font-medium tabular-nums w-8 text-right">
-                              {tempAllocations[variant.slug] ?? variant.allocation}%
-                            </span>
-                          </div>
-                        )}
+                        {isEditing && (() => {
+                          const thisValue = tempAllocations[variant.slug] ?? variant.allocation;
+                          const othersTotal = localeData.variants.reduce((sum, v) => {
+                            if (v.slug === variant.slug) return sum;
+                            return sum + (tempAllocations[v.slug] ?? v.allocation);
+                          }, 0);
+                          const maxAllowed = Math.min(100, 100 - othersTotal);
+                          return (
+                            <div className="mt-1.5 flex items-center gap-2">
+                              <Slider
+                                value={[thisValue]}
+                                min={0}
+                                max={maxAllowed}
+                                step={1}
+                                onValueChange={([value]) =>
+                                  setTempAllocations((prev) => ({
+                                    ...prev,
+                                    [variant.slug]: value,
+                                  }))
+                                }
+                                className="flex-1"
+                                data-testid={`slider-allocation-${locale}-${variant.slug}`}
+                              />
+                              <span className="text-xs font-medium tabular-nums w-8 text-right">
+                                {thisValue}%
+                              </span>
+                            </div>
+                          );
+                        })()}
                       </div>
                     );
                     })}

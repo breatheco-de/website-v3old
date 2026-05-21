@@ -1,4 +1,6 @@
 en:
   variants:
     - slug: test-version
-      allocation: 0
+      allocation: 37
+    - slug: third-variant
+      allocation: 100
