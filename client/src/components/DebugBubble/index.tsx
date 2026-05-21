@@ -1651,8 +1651,7 @@ export function DebugBubble() {
     return Math.max(...Object.values(versioningData.versioning).map((ld) => ld.variants.length));
   }, [versioningData]);
 
-  const showForkBubble = !shouldHide && isDebugMode &&
-    pathname.startsWith("/private/preview/") &&
+  const showForkBubble = !shouldHide &&
     versioningData?.hasVersioningFile &&
     versioningData?.versioning != null &&
     forkVariantCount >= 1;
