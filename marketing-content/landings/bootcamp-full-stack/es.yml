@@ -93,7 +93,7 @@ sections:
     paddingY:
       desktop: md none
     marginY:
-      desktop: none xl
+      desktop: none
   - type: sticky_cta
     section_id: sticky_cta-jtdfr0
     version: "1.0"
