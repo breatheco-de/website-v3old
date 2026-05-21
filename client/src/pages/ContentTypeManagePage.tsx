@@ -2874,7 +2874,34 @@ export default function ContentTypeManagePage() {
                                 )}
                               </div>
                             </td>
-                            <td className="px-4 py-3 text-right">
+                            <td className="px-4 py-3">
+                              <div className="flex items-center justify-end gap-1">
+                                {Object.keys(entry.urls).length > 0 && (
+                                  <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                      <Button variant="ghost" size="sm" className="text-xs gap-1.5" data-testid={`button-open-${entry.slug}`}>
+                                        <ExternalLink className="h-3.5 w-3.5" />
+                                        Open
+                                      </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                      {Object.entries(entry.urls).flatMap(([loc, url]) => [
+                                        <DropdownMenuItem key={`${loc}-new`} asChild>
+                                          <a href={url} target="_blank" rel="noopener noreferrer" data-testid={`link-new-tab-${entry.slug}-${loc}`}>
+                                            <ExternalLink className="h-4 w-4 mr-2" />
+                                            Open in new tab ({loc.toUpperCase()})
+                                          </a>
+                                        </DropdownMenuItem>,
+                                        <DropdownMenuItem key={`${loc}-same`} asChild>
+                                          <a href={url} data-testid={`link-same-tab-${entry.slug}-${loc}`}>
+                                            <ArrowLeft className="h-4 w-4 mr-2 rotate-180" />
+                                            Open ({loc.toUpperCase()})
+                                          </a>
+                                        </DropdownMenuItem>,
+                                      ])}
+                                    </DropdownMenuContent>
+                                  </DropdownMenu>
+                                )}
                               {(Object.keys(entry.urls).length > 0 || entry.locales.length === 0) && (
                                 <DropdownMenu>
                                   <DropdownMenuTrigger asChild>
@@ -2923,21 +2950,6 @@ export default function ContentTypeManagePage() {
                                       <History className="h-4 w-4 mr-2" />
                                       View Change Log
                                     </DropdownMenuItem>
-                                    <DropdownMenuSeparator />
-                                    {Object.entries(entry.urls).flatMap(([loc, url]) => [
-                                      <DropdownMenuItem key={`${loc}-new`} asChild>
-                                        <a href={url} target="_blank" rel="noopener noreferrer" data-testid={`link-new-tab-${entry.slug}-${loc}`}>
-                                          <ExternalLink className="h-4 w-4 mr-2" />
-                                          Open in new tab ({loc.toUpperCase()})
-                                        </a>
-                                      </DropdownMenuItem>,
-                                      <DropdownMenuItem key={`${loc}-same`} asChild>
-                                        <a href={url} data-testid={`link-same-tab-${entry.slug}-${loc}`}>
-                                          <ArrowLeft className="h-4 w-4 mr-2 rotate-180" />
-                                          Open ({loc.toUpperCase()})
-                                        </a>
-                                      </DropdownMenuItem>,
-                                    ])}
                                     {entry.locales.length === 0 && (
                                       <DropdownMenuItem
                                         onClick={async () => {
@@ -2972,6 +2984,7 @@ export default function ContentTypeManagePage() {
                                   </DropdownMenuContent>
                                 </DropdownMenu>
                               )}
+                              </div>
                             </td>
                           </tr>
                         );
