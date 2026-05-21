@@ -37,7 +37,7 @@ interface VariantContent {
   content: unknown;
 }
 
-export class ExperimentManager {
+class ExperimentManager {
   private configCache: Map<string, ExperimentsFile> = new Map();
   private contentCache: Map<string, VariantContent> = new Map();
   private state: ExperimentState = { counts: {}, visitors: {}, lastFlushed: Date.now() };
@@ -1003,7 +1003,7 @@ export class ExperimentManager {
 // Singleton instance
 let instance: ExperimentManager | null = null;
 
-export function getExperimentManager(): ExperimentManager {
+function getExperimentManager(): ExperimentManager {
   if (!instance) {
     instance = new ExperimentManager();
   }

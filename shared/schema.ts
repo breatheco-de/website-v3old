@@ -1277,7 +1277,7 @@ export type VersioningUpdate = z.infer<typeof versioningUpdateSchema>;
 // ============================================
 // A/B Testing / Experiments System (legacy — kept for backward compat)
 // ============================================
-export const experimentTargetingSchema = z.object({
+const experimentTargetingSchema = z.object({
   regions: z.array(z.string()).optional(),
   countries: z.array(z.string()).optional(),
   languages: z.array(z.string()).optional(),
@@ -1290,7 +1290,7 @@ export const experimentTargetingSchema = z.object({
   days_of_week: z.array(z.number().min(0).max(6)).optional(),
 });
 
-export const experimentVariantSchema = z.object({
+const experimentVariantSchema = z.object({
   slug: z.string(),
   version: z.number().default(1),
   allocation: z.number().min(0).max(100),
@@ -1313,7 +1313,7 @@ export const experimentsFileSchema = z.object({
   experiments: z.array(experimentConfigSchema),
 });
 
-export const visitorContextSchema = z.object({
+const visitorContextSchema = z.object({
   session_id: z.string(),
   language: z.string().optional(),
   region: z.string().optional(),
@@ -1326,14 +1326,14 @@ export const visitorContextSchema = z.object({
   day_of_week: z.number().optional(),
 });
 
-export const experimentAssignmentSchema = z.object({
+const experimentAssignmentSchema = z.object({
   experiment_slug: z.string(),
   variant_slug: z.string(),
   variant_version: z.number(),
   assigned_at: z.number(),
 });
 
-export const experimentUpdateSchema = z.object({
+const experimentUpdateSchema = z.object({
   description: z.string().optional(),
   status: z.enum(["planned", "active", "paused", "winner", "archived"]).optional(),
   variants: z.array(experimentVariantSchema).min(1).optional(),
@@ -1345,7 +1345,6 @@ export const experimentUpdateSchema = z.object({
   auto_stopped: z.boolean().optional(),
 }).strict();
 
-export type ExperimentTargeting = z.infer<typeof experimentTargetingSchema>;
 export type ExperimentVariant = z.infer<typeof experimentVariantSchema>;
 export type ExperimentConfig = z.infer<typeof experimentConfigSchema>;
 export type ExperimentsFile = z.infer<typeof experimentsFileSchema>;
