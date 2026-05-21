@@ -5,9 +5,9 @@ import { getContentTypeConfig, getLocaleKey, getFieldMapping } from "./content-t
 import { getValueByPath, resolveFieldValue } from "./transform";
 import { ExternalImageCacher } from "./external-image-cacher";
 import { resolveBySourceUrl } from "./image-registry";
+import { IDatabaseCache, CacheEntry, SqliteCache } from "./db-cache";
 
 const DB_DIR = path.join(process.cwd(), "marketing-content", "db");
-const CACHE_DIR = path.join(process.cwd(), ".cache");
 
 export interface DatabaseConfig {
   name: string;
@@ -38,12 +38,6 @@ export interface DatabaseConfig {
   };
   field_mapping?: Record<string, string>;
   editor?: Record<string, { type?: string; options?: string[]; populate_options?: boolean; cache_images?: boolean }>;
-}
-
-interface CacheEntry {
-  fetched_at: string;
-  items: Record<string, unknown>[];
-  raw_count: number;
 }
 
 const VALID_DB_NAME = /^[a-z0-9_-]+$/;
@@ -117,7 +111,6 @@ function parseFileContent(content: string, ext: string, resultsPath?: string): u
     return items;
   }
   if (Array.isArray(data)) return data;
-  // Auto-detect: if the root is an object, find top-level keys whose value is an array
   if (data && typeof data === "object") {
     const arrayKeys = Object.keys(data as Record<string, unknown>).filter(
       (k) => Array.isArray((data as Record<string, unknown>)[k])
@@ -183,13 +176,6 @@ async function fetchFromRemote(
 async function fetchFromApi(
   apiConfig: NonNullable<DatabaseConfig["source"]["api"]>
 ): Promise<unknown[]> {
-  const url = new URL(apiConfig.endpoint);
-  if (apiConfig.params) {
-    for (const [key, value] of Object.entries(apiConfig.params)) {
-      url.searchParams.set(key, String(value));
-    }
-  }
-
   const headers: Record<string, string> = {
     Accept: "application/json",
     ...(apiConfig.headers || {}),
@@ -203,42 +189,98 @@ async function fetchFromApi(
     }
   }
 
-  const response = await fetch(url.toString(), { headers });
-  if (!response.ok) {
-    throw new Error(
-      `API returned ${response.status}: ${await response.text().catch(() => "")}`
-    );
+  const baseParams: Record<string, unknown> = { ...(apiConfig.params || {}) };
+  const hasResultsPath = !!apiConfig.results_path;
+  const rawLimit = baseParams.limit;
+  const pageSize = rawLimit !== undefined ? parseInt(String(rawLimit), 10) : NaN;
+
+  if (!hasResultsPath || isNaN(pageSize) || pageSize <= 0) {
+    const url = new URL(apiConfig.endpoint);
+    for (const [key, value] of Object.entries(baseParams)) {
+      url.searchParams.set(key, String(value));
+    }
+
+    const response = await fetch(url.toString(), { headers });
+    if (!response.ok) {
+      throw new Error(
+        `API returned ${response.status}: ${await response.text().catch(() => "")}`
+      );
+    }
+
+    const data = await response.json();
+
+    if (hasResultsPath) {
+      const items = getValueByPath(data, apiConfig.results_path!);
+      if (!Array.isArray(items)) {
+        throw new Error(
+          `results_path "${apiConfig.results_path}" did not resolve to an array`
+        );
+      }
+      return items;
+    }
+
+    if (Array.isArray(data)) return data;
+    if (data && typeof data === "object") {
+      const arrayKeys = Object.keys(data as Record<string, unknown>).filter(
+        (k) => Array.isArray((data as Record<string, unknown>)[k])
+      );
+      if (arrayKeys.length === 1) {
+        return (data as Record<string, unknown>)[arrayKeys[0]] as unknown[];
+      }
+      if (arrayKeys.length > 1) {
+        throw new Error(
+          `Response contains multiple array keys: ${arrayKeys.map((k) => `"${k}"`).join(", ")}. ` +
+          `Set the Results Path field to one of these.`
+        );
+      }
+    }
+    throw new Error("API response is not an array and no results_path configured");
   }
 
-  const data = await response.json();
+  const allItems: unknown[] = [];
+  let offset = parseInt(String(baseParams.offset ?? 0), 10);
+  if (isNaN(offset)) offset = 0;
+  let page = 0;
 
-  if (apiConfig.results_path) {
-    const items = getValueByPath(data, apiConfig.results_path);
+  while (true) {
+    const url = new URL(apiConfig.endpoint);
+    for (const [key, value] of Object.entries(baseParams)) {
+      url.searchParams.set(key, String(value));
+    }
+    url.searchParams.set("limit", String(pageSize));
+    url.searchParams.set("offset", String(offset));
+
+    console.log(
+      `[fetchFromApi] Fetching page ${page + 1} (offset=${offset}, limit=${pageSize}) from ${apiConfig.endpoint}`
+    );
+
+    const response = await fetch(url.toString(), { headers });
+    if (!response.ok) {
+      throw new Error(
+        `API returned ${response.status}: ${await response.text().catch(() => "")}`
+      );
+    }
+
+    const data = await response.json();
+    const items = getValueByPath(data, apiConfig.results_path!) as unknown[];
     if (!Array.isArray(items)) {
       throw new Error(
         `results_path "${apiConfig.results_path}" did not resolve to an array`
       );
     }
-    return items;
+
+    allItems.push(...items);
+
+    if (items.length < pageSize) {
+      break;
+    }
+
+    offset += pageSize;
+    page++;
   }
 
-  if (Array.isArray(data)) return data;
-  // Auto-detect: if the root is an object, find top-level keys whose value is an array
-  if (data && typeof data === "object") {
-    const arrayKeys = Object.keys(data as Record<string, unknown>).filter(
-      (k) => Array.isArray((data as Record<string, unknown>)[k])
-    );
-    if (arrayKeys.length === 1) {
-      return (data as Record<string, unknown>)[arrayKeys[0]] as unknown[];
-    }
-    if (arrayKeys.length > 1) {
-      throw new Error(
-        `Response contains multiple array keys: ${arrayKeys.map((k) => `"${k}"`).join(", ")}. ` +
-        `Set the Results Path field to one of these.`
-      );
-    }
-  }
-  throw new Error("API response is not an array and no results_path configured");
+  console.log(`[fetchFromApi] Fetched ${allItems.length} total items from ${apiConfig.endpoint}`);
+  return allItems;
 }
 
 function slugify(text: string): string {
@@ -282,7 +324,6 @@ function applyContentTypeMapping(
       }
     }
 
-
     if (!mapped.id) mapped.id = idx;
 
     return mapped;
@@ -297,6 +338,7 @@ interface OverridesFile {
 export class DatabaseManager {
   private configs = new Map<string, DatabaseConfig>();
   private memoryCache = new Map<string, { data: CacheEntry; expires: number }>();
+  private cache: IDatabaseCache = new SqliteCache();
 
   private overridesPath(dbName: string): string {
     return path.join(DB_DIR, dbName, "overrides.json");
@@ -421,14 +463,7 @@ export class DatabaseManager {
     }
     this.configs.delete(name);
     this.memoryCache.delete(name);
-    const cachePath = path.join(CACHE_DIR, `db-${name}.json`);
-    if (fs.existsSync(cachePath)) {
-      fs.unlinkSync(cachePath);
-    }
-    const rawCachePath = path.join(CACHE_DIR, `db-${name}-raw.json`);
-    if (fs.existsSync(rawCachePath)) {
-      fs.unlinkSync(rawCachePath);
-    }
+    this.cache.clear(name);
   }
 
   async fetchItems(
@@ -450,14 +485,14 @@ export class DatabaseManager {
         return { ...memEntry.data, from_cache: true };
       }
 
-      const fileEntry = this.loadFileCache(name, ttl);
-      if (fileEntry) {
+      const cached = this.cache.read(name, ttl);
+      if (cached) {
         this.memoryCache.set(name, {
-          data: fileEntry,
+          data: cached,
           expires: Date.now() + ttl * 60 * 60 * 1000,
         });
-        ExternalImageCacher.scheduleItems(name, config, fileEntry.items);
-        return { ...fileEntry, from_cache: true };
+        ExternalImageCacher.scheduleItems(name, config, cached.items);
+        return { ...cached, from_cache: true };
       }
     }
 
@@ -483,7 +518,7 @@ export class DatabaseManager {
       items: rawItems as Record<string, unknown>[],
       raw_count: rawItems.length,
     };
-    this.saveFileCache(name, rawEntry, true);
+    this.cache.write(name, rawEntry, true);
 
     let items = config.field_mapping
       ? rawItems.map((item) =>
@@ -506,7 +541,7 @@ export class DatabaseManager {
       raw_count: rawItems.length,
     };
 
-    this.saveFileCache(name, entry);
+    this.cache.write(name, entry);
     this.memoryCache.set(name, {
       data: entry,
       expires: Date.now() + ttl * 60 * 60 * 1000,
@@ -524,7 +559,7 @@ export class DatabaseManager {
     const toWarm = names.filter((name) => {
       const config = this.configs.get(name)!;
       const ttl = config.cache?.ttl_hours ?? 24;
-      return !this.loadFileCache(name, ttl);
+      return !this.cache.has(name, ttl);
     });
 
     if (toWarm.length === 0) {
@@ -610,10 +645,10 @@ export class DatabaseManager {
     }
 
     const ttl = config.cache?.ttl_hours ?? 24;
-    const fileEntry = this.loadFileCache(name, ttl);
-    if (fileEntry && fileEntry.items.length > 0) {
+    const cached = this.cache.read(name, ttl);
+    if (cached && cached.items.length > 0) {
       const keys = new Set<string>();
-      for (const item of fileEntry.items) {
+      for (const item of cached.items) {
         for (const k of Object.keys(item)) keys.add(k);
       }
       return keys.size;
@@ -688,11 +723,11 @@ export class DatabaseManager {
     const config = this.configs.get(name);
     if (!config) return null;
     const ttl = config.cache?.ttl_hours ?? 24;
-    const fileEntry = this.loadFileCache(name, ttl);
-    if (fileEntry) {
+    const cached = this.cache.read(name, ttl);
+    if (cached) {
       return {
-        fetched_at: fileEntry.fetched_at,
-        item_count: fileEntry.items.length,
+        fetched_at: cached.fetched_at,
+        item_count: cached.items.length,
       };
     }
     return null;
@@ -702,9 +737,9 @@ export class DatabaseManager {
     const config = this.configs.get(name);
     if (!config) return null;
     const ttl = config.cache?.ttl_hours ?? 24;
-    const rawEntry = this.loadFileCache(name, ttl, true);
+    const rawEntry = this.cache.read(name, ttl, true);
     if (rawEntry) return rawEntry.items;
-    const mappedEntry = this.loadFileCache(name, ttl);
+    const mappedEntry = this.cache.read(name, ttl);
     if (mappedEntry) return mappedEntry.items;
     return null;
   }
@@ -738,31 +773,7 @@ export class DatabaseManager {
 
   clearCache(name: string): void {
     this.memoryCache.delete(name);
-    const cachePath = path.join(CACHE_DIR, `db-${name}.json`);
-    if (fs.existsSync(cachePath)) fs.unlinkSync(cachePath);
-    const rawCachePath = path.join(CACHE_DIR, `db-${name}-raw.json`);
-    if (fs.existsSync(rawCachePath)) fs.unlinkSync(rawCachePath);
-  }
-
-  private loadFileCache(
-    dbName: string,
-    ttlHours: number,
-    raw = false
-  ): CacheEntry | null {
-    const suffix = raw ? "-raw" : "";
-    const cachePath = path.join(CACHE_DIR, `db-${dbName}${suffix}.json`);
-    if (!fs.existsSync(cachePath)) return null;
-
-    try {
-      const content = fs.readFileSync(cachePath, "utf-8");
-      const entry = JSON.parse(content) as CacheEntry;
-      const age =
-        (Date.now() - new Date(entry.fetched_at).getTime()) / (1000 * 60 * 60);
-      if (age > ttlHours) return null;
-      return entry;
-    } catch {
-      return null;
-    }
+    this.cache.clear(name);
   }
 
   patchDbEntry(
@@ -773,17 +784,6 @@ export class DatabaseManager {
     fieldMapping: Record<string, string> | null = null
   ): boolean {
     try {
-      const readCache = (raw: boolean): CacheEntry | null => {
-        const suffix = raw ? "-raw" : "";
-        const cachePath = path.join(CACHE_DIR, `db-${dbName}${suffix}.json`);
-        if (!fs.existsSync(cachePath)) return null;
-        try {
-          return JSON.parse(fs.readFileSync(cachePath, "utf-8")) as CacheEntry;
-        } catch {
-          return null;
-        }
-      };
-
       const dbKeyedOverrides: Record<string, unknown> = {};
       for (const [templateKey, newValue] of Object.entries(mappedUpdates)) {
         const mappedPath = fieldMapping ? fieldMapping[templateKey] : undefined;
@@ -796,7 +796,7 @@ export class DatabaseManager {
 
       let patchedIdx = -1;
 
-      const mappedEntry = readCache(false);
+      const mappedEntry = this.cache.read(dbName, Infinity);
       if (mappedEntry) {
         const idx = mappedEntry.items.findIndex(
           (i) => String(i[lookupKey]) === String(slugValue)
@@ -804,12 +804,12 @@ export class DatabaseManager {
         if (idx !== -1) {
           patchedIdx = idx;
           Object.assign(mappedEntry.items[idx], dbKeyedOverrides);
-          this.saveFileCache(dbName, mappedEntry, false);
+          this.cache.write(dbName, mappedEntry, false);
         }
       }
 
       if (fieldMapping && patchedIdx !== -1) {
-        const rawEntry = readCache(true);
+        const rawEntry = this.cache.read(dbName, Infinity, true);
         if (rawEntry && rawEntry.items[patchedIdx]) {
           for (const [templateKey, newValue] of Object.entries(mappedUpdates)) {
             const rawPath = fieldMapping[templateKey];
@@ -821,7 +821,7 @@ export class DatabaseManager {
               );
             }
           }
-          this.saveFileCache(dbName, rawEntry, true);
+          this.cache.write(dbName, rawEntry, true);
         }
       }
 
@@ -889,24 +889,12 @@ export class DatabaseManager {
       this.saveOverridesFile(dbName, overridesFile);
 
       this.memoryCache.delete(dbName);
-      const mappedCachePath = path.join(CACHE_DIR, `db-${dbName}.json`);
-      if (fs.existsSync(mappedCachePath)) fs.unlinkSync(mappedCachePath);
+      this.cache.clear(dbName);
 
       return true;
     } catch {
       return false;
     }
-  }
-
-  private saveFileCache(dbName: string, entry: CacheEntry, raw = false): void {
-    if (!fs.existsSync(CACHE_DIR)) {
-      fs.mkdirSync(CACHE_DIR, { recursive: true });
-    }
-    const suffix = raw ? "-raw" : "";
-    fs.writeFileSync(
-      path.join(CACHE_DIR, `db-${dbName}${suffix}.json`),
-      JSON.stringify(entry, null, 2)
-    );
   }
 }
 
