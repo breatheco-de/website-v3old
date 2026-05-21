@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.9
   change_frequency: weekly
-  page_title: GeekPAL Support | 4Geeks Academy
-  description: At 4Geeks, you never learn alone. Unlimited 1:1 mentorship, 24/7 AI tutoring from Rigobot, and a global dev community. Lifelong access. 4Geeks Academy.
+  page_title: "GeekPAL Support | 4Geeks Academy"
+  description: "At 4Geeks, you never learn alone. Unlimited 1:1 mentorship, 24/7 AI tutoring from Rigobot, and a global dev community. Lifelong access. 4Geeks Academy."
   redirects:
     - /geekpal-support
     - /us/geekpal-support
@@ -53,7 +53,7 @@ sections:
   - type: human_and_ai_duo
     section_id: human_and_ai_duo-zg16oa
     version: "1.0"
-    heading: "AI: The Perfect Support Duo"
+    heading: "Human + AI: The Perfect Support Duo"
     description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll progress faster and smarter through unlimited 1:1 mentorship and AI-powered support from Rigobot.
     bullet_groups:
       - title: "Our team of expert mentors:"
