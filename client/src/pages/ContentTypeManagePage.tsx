@@ -2972,7 +2972,7 @@ export default function ContentTypeManagePage() {
                                           localeData.variants.map((variant) => (
                                             <DropdownMenuItem key={`${loc}-${variant.slug}`} asChild>
                                               <a
-                                                href={entry.urls[loc] ? (() => { try { const u = new URL(entry.urls[loc], window.location.origin); u.searchParams.set("force_variant", variant.slug); return u.pathname + u.search; } catch { return "#"; } })() : "#"}
+                                                href={entry.urls[loc] ? `${entry.urls[loc].split("?")[0]}?force_variant=${variant.slug}` : "#"}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 data-testid={`link-variant-${entry.slug}-${loc}-${variant.slug}`}
