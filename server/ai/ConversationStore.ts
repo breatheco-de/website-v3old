@@ -87,7 +87,9 @@ export class ConversationStore {
       conditions.push(like(conversations.page_url, `%${filters.pageUrl}%`));
     }
     if (filters.featureTag) {
-      conditions.push(sql`${filters.featureTag} = ANY(${conversations.feature_tags})`);
+      conditions.push(
+        sql`EXISTS (SELECT 1 FROM json_each(${conversations.feature_tags}) WHERE value = ${filters.featureTag})`
+      );
     }
     if (filters.questionTag) {
       conditions.push(
@@ -112,11 +114,11 @@ export class ConversationStore {
     } catch (err) {
       console.warn("[ConversationStore] Failed to read empty_conversation_grace_minutes from llm.yml, using default:", err);
     }
-    const cutoff = new Date(Date.now() - graceMinutes * 60 * 1000);
+    const cutoffEpochSec = Math.floor((Date.now() - graceMinutes * 60 * 1000) / 1000);
     conditions.push(
       sql`NOT (
         (SELECT count(*) FROM ${conversationMessages} WHERE ${conversationMessages.conversation_id} = ${conversations.id}) = 0
-        AND ${conversations.started_at} < ${cutoff}
+        AND ${conversations.started_at} < ${cutoffEpochSec}
       )`
     );
 

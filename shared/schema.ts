@@ -1,13 +1,12 @@
-import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, integer, timestamp, jsonb } from "drizzle-orm/pg-core";
+import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
 // ============================================
 // Database Schemas
 // ============================================
-export const users = pgTable("users", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+export const users = sqliteTable("users", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
 });
@@ -1355,15 +1354,15 @@ export type ExperimentUpdate = z.infer<typeof experimentUpdateSchema>;
 // ============================================
 // AI Chat Conversations
 // ============================================
-export const conversations = pgTable("conversations", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+export const conversations = sqliteTable("conversations", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
   page_url: text("page_url"),
   content_type: text("content_type"),
   content_slug: text("content_slug"),
   locale: text("locale").default("en"),
-  feature_tags: text("feature_tags").array().default(sql`'{}'::text[]`),
+  feature_tags: text("feature_tags", { mode: "json" }).$type<string[]>().default([]),
   visitor_id: text("visitor_id"),
-  started_at: timestamp("started_at").defaultNow(),
+  started_at: integer("started_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
 });
 
 export const insertConversationSchema = createInsertSchema(conversations).omit({
@@ -1374,19 +1373,19 @@ export const insertConversationSchema = createInsertSchema(conversations).omit({
 export type InsertConversation = z.infer<typeof insertConversationSchema>;
 export type Conversation = typeof conversations.$inferSelect;
 
-export const conversationMessages = pgTable("conversation_messages", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  conversation_id: varchar("conversation_id").notNull(),
+export const conversationMessages = sqliteTable("conversation_messages", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  conversation_id: text("conversation_id").notNull(),
   role: text("role").notNull(),
   content: text("content").notNull(),
   question_tag: text("question_tag"),
   rating: text("rating"),
   rated_by: text("rated_by"),
-  rated_at: timestamp("rated_at"),
+  rated_at: integer("rated_at", { mode: "timestamp" }),
   override_content: text("override_content"),
   override_by: text("override_by"),
-  override_at: timestamp("override_at"),
-  created_at: timestamp("created_at").defaultNow(),
+  override_at: integer("override_at", { mode: "timestamp" }),
+  created_at: integer("created_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
 });
 
 export const insertConversationMessageSchema = createInsertSchema(conversationMessages).omit({
@@ -1406,11 +1405,11 @@ export type ConversationMessage = typeof conversationMessages.$inferSelect;
 // ============================================
 // AI Knowledge (admin-managed)
 // ============================================
-export const aiKnowledge = pgTable("ai_knowledge", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+export const aiKnowledge = sqliteTable("ai_knowledge", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
   key: text("key").notNull().unique(),
-  value: jsonb("value").notNull(),
-  updated_at: timestamp("updated_at").defaultNow(),
+  value: text("value", { mode: "json" }).$type<unknown>().notNull(),
+  updated_at: integer("updated_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
   updated_by: text("updated_by"),
 });
 

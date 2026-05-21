@@ -1,12 +1,61 @@
-import { Pool, neonConfig } from "@neondatabase/serverless";
-import { drizzle } from "drizzle-orm/neon-serverless";
-import ws from "ws";
+import Database from "better-sqlite3";
+import { drizzle } from "drizzle-orm/better-sqlite3";
+import * as fs from "fs";
+import * as path from "path";
 
-neonConfig.webSocketConstructor = ws;
-
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL must be set");
+const dataDir = path.resolve("data");
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir, { recursive: true });
 }
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-export const db = drizzle(pool);
+const dbPath = path.join(dataDir, "app.db");
+const sqlite = new Database(dbPath);
+
+sqlite.pragma("journal_mode = WAL");
+sqlite.pragma("foreign_keys = ON");
+
+sqlite.exec(`
+  CREATE TABLE IF NOT EXISTS users (
+    id TEXT PRIMARY KEY,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL
+  );
+
+  CREATE TABLE IF NOT EXISTS conversations (
+    id TEXT PRIMARY KEY,
+    page_url TEXT,
+    content_type TEXT,
+    content_slug TEXT,
+    locale TEXT DEFAULT 'en',
+    feature_tags TEXT DEFAULT '[]',
+    visitor_id TEXT,
+    started_at INTEGER
+  );
+
+  CREATE TABLE IF NOT EXISTS conversation_messages (
+    id TEXT PRIMARY KEY,
+    conversation_id TEXT NOT NULL,
+    role TEXT NOT NULL,
+    content TEXT NOT NULL,
+    question_tag TEXT,
+    rating TEXT,
+    rated_by TEXT,
+    rated_at INTEGER,
+    override_content TEXT,
+    override_by TEXT,
+    override_at INTEGER,
+    created_at INTEGER
+  );
+
+  CREATE TABLE IF NOT EXISTS ai_knowledge (
+    id TEXT PRIMARY KEY,
+    key TEXT NOT NULL UNIQUE,
+    value TEXT NOT NULL,
+    updated_at INTEGER,
+    updated_by TEXT
+  );
+`);
+
+console.log(`[DB] SQLite database: ${dbPath}`);
+
+export const db = drizzle(sqlite);
