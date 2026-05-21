@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AlertTriangle, ArrowLeft, ArrowRight, Check, Clipboard, Clock, Code, Copy, Database, Download, ExternalLink, Eye, EyeOff, FileText, Folder, GitBranch, Globe, History, LayoutList, Link as LinkIcon, Loader2, MoreVertical, Plus, RefreshCw, Search, Shuffle, Trash2, Wand2, X } from "lucide-react";
 import { queryClient } from "@/lib/queryClient";
 import { useState, useMemo, useEffect, useRef, useCallback, lazy, Suspense } from "react";
-import { Link, useRoute } from "wouter";
+import { Link, useRoute, useLocation } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -2291,6 +2291,7 @@ function SeoSettingsDialog({
 export default function ContentTypeManagePage() {
   const { toast } = useToast();
   const [, params] = useRoute("/private/type/:contentType");
+  const [, navigate] = useLocation();
   const contentType = params?.contentType || "blog";
   const label = contentType.charAt(0).toUpperCase() + contentType.slice(1);
 
@@ -2521,10 +2522,9 @@ export default function ContentTypeManagePage() {
       }
       toast({ title: `Version "${createVersionSlug}" created`, description: data.filePath });
       setCreateVersionOpen(false);
-      setCreateVersionEntry(null);
-      setCreateVersionSlug("");
       setVersionsData(prev => { const next = { ...prev }; delete next[createVersionEntry.slug]; return next; });
       queryClient.invalidateQueries({ queryKey: ["/api/content-types", contentType, "static-entries"] });
+      navigate(`/private/${contentType}/${createVersionEntry.slug}/versions`);
     } catch {
       toast({ title: "Failed to create version", variant: "destructive" });
     } finally {
