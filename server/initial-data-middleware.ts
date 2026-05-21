@@ -41,6 +41,7 @@ interface SingleQuery {
 
 export interface InitialDataPayload {
   queries: SingleQuery[];
+  locale?: string;
 }
 
 async function fetchBlogListingPage(locale: string, page: number, category: string): Promise<Record<string, unknown> | null> {
@@ -437,6 +438,9 @@ function replaceMetaContent(html: string, attr: string, attrValue: string, repla
 export function injectSsrMetaTags(html: string, payload: InitialDataPayload | null): string {
   if (!payload) return html;
 
+  const lang = payload.locale || "en";
+  html = html.replace(/(<html\s[^>]*lang=")[^"]*(")/i, `$1${lang}$2`);
+
   const knownPageApiPaths = new Set(
     Object.keys(getAllConfigs()).map((type) => getApiPath(type)),
   );
@@ -556,15 +560,26 @@ export async function resolveInitialData(
     if (blogConfigQuery) queries.push(blogConfigQuery);
   }
 
+  let resolvedLocale: string | undefined;
+
   if (pageQuery) {
     const pageData = pageQuery.data as Record<string, unknown>;
     const layout = pageData?.layout as
       | { menu?: { top?: string | null; bottom?: string | null } }
       | undefined;
+    // queryKey shape differs by route:
+    //   database-single → ["/api/database-single", contentType, slug, locale]  (locale at index 3)
+    //   all others      → [apiPath, slug, locale]                               (locale at index 2)
+    const isDatabaseSingle = pageQuery.queryKey[0] === "/api/database-single";
+    const localeFromKey = isDatabaseSingle
+      ? (pageQuery.queryKey[3] as string | undefined)
+      : (pageQuery.queryKey[2] as string | undefined);
     const locale =
-      (pageData?.locale as string) ||
-      (pageQuery.queryKey[2] as string) ||
-      getDefaultLocale();
+      (typeof pageData?.locale === "string" && pageData.locale ? pageData.locale : undefined) ||
+      (typeof localeFromKey === "string" && localeFromKey ? localeFromKey : undefined) ||
+      defaultLocale;
+
+    resolvedLocale = locale;
 
     if (layout?.menu?.top) {
       const mq = resolveMenuQuery(layout.menu.top, locale);
@@ -590,7 +605,7 @@ export async function resolveInitialData(
     });
   }
 
-  return { queries };
+  return { queries, locale: resolvedLocale };
 }
 
 function buildContentTypesPayload(): Record<string, unknown>[] {
