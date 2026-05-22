@@ -30,6 +30,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
@@ -460,7 +461,19 @@ function RolesTab() {
                   ) : (
                     <span className="text-sm font-medium truncate">{role.label}</span>
                   )}
-                  {isBuiltIn && <Badge variant="secondary" className="text-xs shrink-0">built-in</Badge>}
+                  {isBuiltIn && (
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Badge variant="secondary" className="text-xs shrink-0 cursor-default gap-1" data-testid="badge-role-managed-by-code">
+                          <IconCode className="h-3 w-3" />
+                          managed by code
+                        </Badge>
+                      </TooltipTrigger>
+                      <TooltipContent side="top" className="max-w-xs text-center">
+                        This role is defined in source code and synced on every server start. Any manual edits will be overwritten automatically.
+                      </TooltipContent>
+                    </Tooltip>
+                  )}
                 </div>
                 <div className="flex items-center gap-1 shrink-0">
                   {!isBuiltIn && !isEditing && !isDeleting && (
