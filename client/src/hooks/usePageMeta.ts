@@ -43,6 +43,7 @@ export function usePageMeta(meta: PageMeta | undefined) {
     if (meta.description) {
       setMeta("description", meta.description);
       setMeta("og:description", meta.description, true);
+      setMeta("twitter:description", meta.description);
     }
 
     if (meta.robots) {
@@ -51,24 +52,33 @@ export function usePageMeta(meta: PageMeta | undefined) {
 
     if (meta.og_image) {
       setMeta("og:image", meta.og_image, true);
+      setMeta("twitter:image", meta.og_image);
     }
 
     if (meta.page_title && !meta.page_title.includes("{{")) {
       setMeta("og:title", meta.page_title, true);
+      setMeta("twitter:title", meta.page_title);
     }
 
     let originalCanonical: string | null = null;
     let addedCanonical = false;
+    let canonicalWasClientCreated = false;
 
     if (meta.canonical_url) {
-      let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+      let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
       if (!link) {
         link = document.createElement("link");
         link.rel = "canonical";
+        link.setAttribute("data-pagemeta", "true");
         document.head.appendChild(link);
         addedCanonical = true;
+        canonicalWasClientCreated = true;
       } else {
+        canonicalWasClientCreated = link.hasAttribute("data-pagemeta");
         originalCanonical = link.href;
+        if (!canonicalWasClientCreated) {
+          link.setAttribute("data-pagemeta", "updating");
+        }
       }
       link.href = meta.canonical_url;
     }
@@ -123,12 +133,14 @@ export function usePageMeta(meta: PageMeta | undefined) {
         }
       });
 
+      const canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
       if (addedCanonical) {
-        const canonicalLink = document.querySelector('link[rel="canonical"]');
         if (canonicalLink) canonicalLink.remove();
-      } else if (originalCanonical !== null) {
-        const canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
-        if (canonicalLink) canonicalLink.href = originalCanonical;
+      } else if (originalCanonical !== null && canonicalLink) {
+        canonicalLink.href = originalCanonical;
+        if (!canonicalWasClientCreated) {
+          canonicalLink.removeAttribute("data-pagemeta");
+        }
       }
     };
   }, [meta]);
