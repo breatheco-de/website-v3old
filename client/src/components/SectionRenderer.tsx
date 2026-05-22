@@ -465,7 +465,8 @@ async function sendEditOperation(
   contentType: string,
   slug: string,
   locale: string,
-  operations: EditOperation[]
+  operations: EditOperation[],
+  opts?: { variant?: string; version?: number }
 ): Promise<{ success: boolean; error?: string }> {
   const token = getDebugToken();
   const author = await resolveAuthorName();
@@ -475,7 +476,15 @@ async function sendEditOperation(
       "Content-Type": "application/json",
       ...(token ? { Authorization: `Token ${token}` } : {}),
     },
-    body: JSON.stringify({ contentType, slug, locale, operations, author }),
+    body: JSON.stringify({
+      contentType,
+      slug,
+      locale,
+      operations,
+      author,
+      ...(opts?.variant ? { variant: opts.variant } : {}),
+      ...(opts?.version !== undefined ? { version: opts.version } : {}),
+    }),
   });
   return response.json();
 }
@@ -742,14 +751,14 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     if (!contentType || !slug || !locale) return;
     const result = await sendEditOperation(contentType, slug, locale, [
       { action: "reorder_sections", from, to }
-    ]);
+    ], { variant, version });
     if (result.success) {
       toast({ title: from < to ? "Section moved down" : "Section moved up" });
       emitContentUpdated({ contentType, slug, locale });
     } else {
       toast({ title: "Failed to move section", description: result.error, variant: "destructive" });
     }
-  }, [contentType, slug, locale, toast]);
+  }, [contentType, slug, locale, variant, version, toast]);
 
   const handleMoveUp = useCallback(async (index: number) => {
     if (!contentType || !slug || !locale || index <= 0) return;
@@ -881,7 +890,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
 
     const result = await sendEditOperation(contentType, slug, locale, [
       { action: "remove_item", path: "sections", index }
-    ]);
+    ], { variant, version });
 
     if (result.success) {
       toast({ title: "Section deleted" });
@@ -890,7 +899,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
       toast({ title: "Failed to delete section", description: result.error, variant: "destructive" });
     }
     setSimpleDeleteDialog({ open: false, index: -1, isDeleting: false });
-  }, [contentType, slug, locale, simpleDeleteDialog, toast]);
+  }, [contentType, slug, locale, variant, version, simpleDeleteDialog, toast]);
 
   const handleDbTemplateDeleteConfirm = useCallback(async () => {
     if (!contentType || !slug || !locale) return;
@@ -924,7 +933,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
 
       const result = await sendEditOperation(contentType, slug, locale, [
         { action: "remove_item", path: "sections", index: deleteDialog.index }
-      ]);
+      ], { variant, version });
 
       if (result.success) {
         toast({ title: "Section deleted and unbound" });
@@ -937,7 +946,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     } finally {
       setDeleteDialog({ open: false, index: -1, bindingGroup: null, isDeleting: false });
     }
-  }, [contentType, slug, locale, deleteDialog, toast]);
+  }, [contentType, slug, locale, variant, version, deleteDialog, toast]);
 
   const handleDeleteAllBound = useCallback(async () => {
     if (!contentType || !slug || !locale || !deleteDialog.bindingGroup) return;
@@ -978,7 +987,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
 
       const result = await sendEditOperation(contentType, slug, locale, [
         { action: "remove_item", path: "sections", index: deleteDialog.index }
-      ]);
+      ], { variant, version });
 
       if (result.success) {
         emitContentUpdated({ contentType, slug, locale });
@@ -995,7 +1004,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     } finally {
       setDeleteDialog({ open: false, index: -1, bindingGroup: null, isDeleting: false });
     }
-  }, [contentType, slug, locale, deleteDialog, toast]);
+  }, [contentType, slug, locale, variant, version, deleteDialog, toast]);
 
   // Directly deletes a per-entry section (no scope dialog needed for _perEntrySource sections)
   const deletePerEntryDirect = useCallback(async (index: number) => {
@@ -1124,7 +1133,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
 
     const result = await sendEditOperation(contentType, slug, locale, [
       { action: "add_item", path: "sections", index: index + 1, item: sectionToDuplicate }
-    ]);
+    ], { variant, version });
 
     if (result.success) {
       toast({ title: "Section duplicated" });
@@ -1133,7 +1142,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
       toast({ title: "Failed to duplicate section", description: result.error, variant: "destructive" });
     }
     setDuplicateDialog({ open: false, index: -1, isDuplicating: false });
-  }, [contentType, slug, locale, sections, toast]);
+  }, [contentType, slug, locale, variant, version, sections, toast]);
 
   const isMobilePreview = isEditMode && previewBreakpoint === 'mobile';
 
