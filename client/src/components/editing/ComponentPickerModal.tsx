@@ -47,6 +47,9 @@ interface ComponentPickerModalProps {
   version?: number;
   isSharedTemplate?: boolean;
   singleEntry?: Record<string, unknown>;
+  /** Pre-selected scope from the upfront scope dialog in AddSectionButton.
+   *  "entry" → per-entry add; "template" → shared template add. */
+  addScope?: "entry" | "template";
 }
 
 interface ComponentInfo {
@@ -172,8 +175,9 @@ export default function ComponentPickerModal({
   version,
   isSharedTemplate,
   singleEntry,
+  addScope,
 }: ComponentPickerModalProps) {
-  const [step, setStep] = useState<"select" | "configure" | "wizard" | "scope">("select");
+  const [step, setStep] = useState<"select" | "configure" | "wizard">("select");
   const [selectedComponent, setSelectedComponent] = useState<ComponentInfo | null>(null);
   const [versions, setVersions] = useState<string[]>([]);
   const [selectedVersion, setSelectedVersion] = useState<string>("");
@@ -186,13 +190,8 @@ export default function ComponentPickerModal({
   const [selectedRelatedFeatures, setSelectedRelatedFeatures] = useState<string[]>([]);
   const [componentSearch, setComponentSearch] = useState("");
   const [addWarnOpen, setAddWarnOpen] = useState(false);
-  /** "All entries" path for the scope step (shared-template add or wizard shared add). */
+  /** Used by the DbTemplateWarningDialog confirm callback (template-only path, no singleEntry). */
   const pendingAddFn = useRef<(() => Promise<void>) | null>(null);
-  /** "This entry only" path for the scope step — separate from pendingAddFn because
-   *  wizard and example-based flows use different per-entry functions. */
-  const pendingPerEntryFn = useRef<(() => Promise<void>) | null>(null);
-  /** Which step to return to if the user cancels from the scope step. */
-  const scopeOrigin = useRef<"configure" | "wizard">("configure");
   const { toast } = useToast();
   const contentTypesMap = useContentTypes();
   const { data: rawContentTypes } = useContentTypesRaw();
@@ -422,21 +421,21 @@ export default function ComponentPickerModal({
   }, [contentType, slug, locale, insertIndex, onClose, toast]);
 
   const handleWizardComplete = useCallback(async (config: DynamicTableConfig) => {
-    if (isSharedTemplate && singleEntry) {
-      pendingAddFn.current = () => executeWizardComplete(config);
-      pendingPerEntryFn.current = () => executePerEntryWizardComplete(config);
-      scopeOrigin.current = "wizard";
-      setStep("scope");
+    if (addScope === "entry") {
+      await executePerEntryWizardComplete(config);
+      return;
+    }
+    if (addScope === "template") {
+      await executeWizardComplete(config);
       return;
     }
     if (isSharedTemplate) {
       pendingAddFn.current = () => executeWizardComplete(config);
-      pendingPerEntryFn.current = null;
       setAddWarnOpen(true);
       return;
     }
     await executeWizardComplete(config);
-  }, [isSharedTemplate, singleEntry, executeWizardComplete, executePerEntryWizardComplete]);
+  }, [addScope, isSharedTemplate, executeWizardComplete, executePerEntryWizardComplete]);
 
   const executeAddSection = useCallback(async () => {
     if (!selectedExampleData || !selectedComponent || !contentType || !slug || !locale) {
@@ -600,21 +599,21 @@ export default function ComponentPickerModal({
   }, [selectedExampleData, selectedComponent, selectedVersion, contentType, slug, locale, selectedRelatedFeatures, onClose, toast]);
 
   const handleAddSection = useCallback(async () => {
-    if (isSharedTemplate && singleEntry) {
-      pendingAddFn.current = executeAddSection;
-      pendingPerEntryFn.current = executePerEntryAddSection;
-      scopeOrigin.current = "configure";
-      setStep("scope");
+    if (addScope === "entry") {
+      await executePerEntryAddSection();
+      return;
+    }
+    if (addScope === "template") {
+      await executeAddSection();
       return;
     }
     if (isSharedTemplate) {
       pendingAddFn.current = executeAddSection;
-      pendingPerEntryFn.current = null;
       setAddWarnOpen(true);
       return;
     }
     await executeAddSection();
-  }, [isSharedTemplate, singleEntry, executeAddSection, executePerEntryAddSection]);
+  }, [addScope, isSharedTemplate, executeAddSection, executePerEntryAddSection]);
 
   const previewUrl = useMemo(() => {
     if (!selectedComponent || !selectedVersion || !selectedExample) {
@@ -681,19 +680,29 @@ export default function ComponentPickerModal({
       <DialogContent className="max-w-4xl h-[80vh] flex flex-col p-0">
         <DialogHeader className="p-4 border-b flex-shrink-0">
           <DialogTitle>
-            {step === "select" ? "Choose a Component" : step === "wizard" ? "Dynamic Table Builder" : step === "scope" ? "Where should this section appear?" : `Configure ${selectedComponent?.label}`}
+            {step === "select" ? "Choose a Component" : step === "wizard" ? "Dynamic Table Builder" : `Configure ${selectedComponent?.label}`}
           </DialogTitle>
           <DialogDescription className="sr-only">
             {step === "select" ? "Select a component type to add to the page" : step === "wizard" ? "Build a dynamic table step by step" : "Configure the component version and example"}
           </DialogDescription>
         </DialogHeader>
         
-        {isSharedTemplate && (
+        {isSharedTemplate && addScope !== "entry" && (
           <div className="mx-4 mt-3 flex items-start gap-2.5 rounded-md border bg-muted p-3" data-testid="text-shared-template-notice">
             <AlertTriangle className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
             <p className="text-sm text-foreground leading-snug">
-              <strong>Shared template:</strong> the section you add will appear on{" "}
-              <strong>every {contentType} page</strong>, not just this one.
+              {addScope === "template" ? (
+                <><strong>Shared template:</strong> the section you add will appear on{" "}<strong>every {contentType} page</strong>.</>
+              ) : (
+                <><strong>Shared template:</strong> the section you add will appear on{" "}<strong>every {contentType} page</strong>, not just this one.</>
+              )}
+            </p>
+          </div>
+        )}
+        {isSharedTemplate && addScope === "entry" && (
+          <div className="mx-4 mt-3 flex items-start gap-2.5 rounded-md border bg-muted p-3" data-testid="text-entry-scope-notice">
+            <p className="text-sm text-foreground leading-snug">
+              Adding to <strong>this entry only</strong> — the shared template will not be affected.
             </p>
           </div>
         )}
@@ -884,61 +893,6 @@ export default function ComponentPickerModal({
       contentType={contentType || "page"}
       isLoading={isAdding}
     />
-    {/* Scope choice dialog — only when adding to a DB entry page */}
-    <Dialog open={addScopeOpen} onOpenChange={(open) => { if (!open && !isAdding) { setAddScopeOpen(false); pendingAddFn.current = null; pendingPerEntryFn.current = null; } }}>
-      <DialogContent className="sm:max-w-sm">
-        <DialogHeader>
-          <DialogTitle>Where should this section appear?</DialogTitle>
-          <DialogDescription>
-            Choose whether to add this section to this {singularLabel} only, or to the shared template for all {singularLabel}s.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="flex flex-col gap-2 pt-1">
-          <Button
-            variant="outline"
-            disabled={isAdding}
-            className="w-full justify-start gap-2"
-            data-testid="button-scope-this-entry"
-            onClick={async () => {
-              if (pendingPerEntryFn.current) {
-                await pendingPerEntryFn.current();
-              }
-              setAddScopeOpen(false);
-              pendingAddFn.current = null;
-              pendingPerEntryFn.current = null;
-            }}
-          >
-            <X className="h-4 w-4 shrink-0" />
-            This {singularLabel} only
-          </Button>
-          <Button
-            variant="outline"
-            disabled={isAdding}
-            className="w-full justify-start gap-2"
-            data-testid="button-scope-all-entries"
-            onClick={async () => {
-              if (pendingAddFn.current) {
-                await pendingAddFn.current();
-                pendingAddFn.current = null;
-              }
-              setAddScopeOpen(false);
-              pendingPerEntryFn.current = null;
-            }}
-          >
-            <AlertTriangle className="h-4 w-4 shrink-0" />
-            All {singularLabel}s (shared template)
-          </Button>
-          <Button
-            variant="ghost"
-            disabled={isAdding}
-            className="w-full"
-            onClick={() => { setAddScopeOpen(false); pendingAddFn.current = null; pendingPerEntryFn.current = null; }}
-          >
-            Cancel
-          </Button>
-        </div>
-      </DialogContent>
-    </Dialog>
     </>
   );
 }
