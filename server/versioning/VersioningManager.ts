@@ -12,7 +12,6 @@ const CONTENT_DIR = path.join(process.cwd(), "marketing-content");
 const STATE_FILE = path.join(CONTENT_DIR, ".versioning-state.json");
 const GCS_STATE_KEY = "sync/versioning-state.json";
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
-const FLUSH_INTERVAL = 30000;
 
 export interface VersioningVariant {
   slug: string;
@@ -39,12 +38,10 @@ export class VersioningManager {
   private configCache: Map<string, VersioningFile> = new Map();
   private contentCache: Map<string, unknown> = new Map();
   private state: VersioningState = { counts: {}, visitors: {}, lastFlushed: Date.now() };
-  private flushTimer: NodeJS.Timeout | null = null;
 
   constructor() {
     this.loadState();
     this.loadStateFromBucket();
-    this.startFlushTimer();
     this.registerFileModifiedListener();
   }
 
@@ -156,35 +153,28 @@ export class VersioningManager {
     }
   }
 
-  private async saveStateToBucket(): Promise<void> {
+  private saveStateToBucket(): void {
     if (!IS_PRODUCTION || !gcs.available) return;
 
-    try {
-      const content = JSON.stringify(this.state, null, 2);
-      await gcs.upload(GCS_STATE_KEY, Buffer.from(content, "utf-8"), "application/json");
-    } catch (error) {
-      console.error("[Versioning] Error saving to bucket:", error);
-    }
+    const content = JSON.stringify(this.state, null, 2);
+    gcs.debouncedUpload(GCS_STATE_KEY, Buffer.from(content, "utf-8"), "application/json", 30_000);
   }
 
   private saveState(): void {
     this.saveStateLocal();
-    this.saveStateToBucket().catch((err) => {
-      console.error("[Versioning] Background bucket save failed:", err);
-    });
+    this.saveStateToBucket();
   }
 
-  private startFlushTimer(): void {
-    this.flushTimer = setInterval(() => {
-      this.saveState();
-    }, FLUSH_INTERVAL);
-  }
-
-  public shutdown(): void {
-    if (this.flushTimer) {
-      clearInterval(this.flushTimer);
+  public async shutdown(): Promise<void> {
+    this.saveStateLocal();
+    if (IS_PRODUCTION && gcs.available) {
+      try {
+        const content = JSON.stringify(this.state, null, 2);
+        await gcs.upload(GCS_STATE_KEY, Buffer.from(content, "utf-8"), "application/json");
+      } catch (error) {
+        console.error("[Versioning] Error saving to bucket on shutdown:", error);
+      }
     }
-    this.saveState();
   }
 
   private loadVersioningConfig(contentType: string, slug: string): VersioningFile | null {
@@ -342,6 +332,7 @@ export class VersioningManager {
 
     this.state.visitors[stateKey].push(hashedId);
     this.state.counts[stateKey]++;
+    this.saveState();
   }
 
   /**
