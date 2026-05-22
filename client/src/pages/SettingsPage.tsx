@@ -980,6 +980,34 @@ export default function SettingsPage() {
   const [twitterSaving, setTwitterSaving] = useState(false);
   const [socialLinks, setSocialLinks] = useState({ linkedin: "", facebook: "", youtube: "", instagram: "", github: "" });
   const [socialSaving, setSocialSaving] = useState<string | null>(null);
+  const [socialErrors, setSocialErrors] = useState<Record<string, string | null>>({});
+
+  const SOCIAL_DOMAINS: Record<string, string> = {
+    linkedin: "linkedin.com",
+    facebook: "facebook.com",
+    youtube: "youtube.com",
+    instagram: "instagram.com",
+    github: "github.com",
+  };
+
+  function validateSocialUrl(key: string, value: string): string | null {
+    const trimmed = value.trim();
+    if (!trimmed) return null;
+    let parsed: URL;
+    try {
+      parsed = new URL(trimmed);
+    } catch {
+      return "Not a valid URL — make sure it starts with https://";
+    }
+    if (parsed.protocol !== "https:" && parsed.protocol !== "http:") {
+      return "URL must start with https://";
+    }
+    const expectedDomain = SOCIAL_DOMAINS[key];
+    if (expectedDomain && !parsed.hostname.endsWith(expectedDomain)) {
+      return `This doesn't look like a ${key.charAt(0).toUpperCase() + key.slice(1)} URL (expected ${expectedDomain})`;
+    }
+    return null;
+  }
 
   const canManageUsers = hasCapability("users_manage");
   const canEditSeo = hasCapability("seo_edit");
@@ -1490,34 +1518,52 @@ export default function SettingsPage() {
                           { key: "instagram", label: "Instagram", placeholder: "https://www.instagram.com/yourorg/" },
                           { key: "github", label: "GitHub", placeholder: "https://github.com/YourOrg" },
                         ] as { key: keyof typeof socialLinks; label: string; placeholder: string }[]
-                      ).map(({ key, label, placeholder }) => (
-                        <div key={key} className="space-y-1">
-                          <label className="text-xs font-medium text-muted-foreground">{label}</label>
-                          <div className="flex items-center gap-2">
-                            <Input
-                              value={socialLinks[key]}
-                              onChange={(e) => setSocialLinks((prev) => ({ ...prev, [key]: e.target.value }))}
-                              placeholder={placeholder}
-                              disabled={socialSaving === key || !canEditSeo}
-                              data-testid={`input-brand-${key}`}
-                              className="font-mono text-xs"
-                            />
-                            <Button
-                              size="sm"
-                              onClick={() => handleSocialLinkSave(key)}
-                              disabled={socialSaving === key || !canEditSeo}
-                              title={!canEditSeo ? "You don't have permission to edit brand settings" : undefined}
-                              data-testid={`button-brand-save-${key}`}
-                            >
-                              {socialSaving === key ? (
-                                <IconLoader2 className="h-4 w-4 animate-spin" />
-                              ) : (
-                                <IconDeviceFloppy className="h-4 w-4" />
-                              )}
-                            </Button>
+                      ).map(({ key, label, placeholder }) => {
+                        const fieldError = socialErrors[key] ?? null;
+                        return (
+                          <div key={key} className="space-y-1">
+                            <label className="text-xs font-medium text-muted-foreground">{label}</label>
+                            <div className="flex items-center gap-2">
+                              <Input
+                                value={socialLinks[key]}
+                                onChange={(e) => {
+                                  const val = e.target.value;
+                                  setSocialLinks((prev) => ({ ...prev, [key]: val }));
+                                  setSocialErrors((prev) => ({ ...prev, [key]: validateSocialUrl(key, val) }));
+                                }}
+                                placeholder={placeholder}
+                                disabled={socialSaving === key || !canEditSeo}
+                                data-testid={`input-brand-${key}`}
+                                className={`font-mono text-xs${fieldError ? " border-destructive focus-visible:ring-destructive" : ""}`}
+                              />
+                              <Button
+                                size="sm"
+                                onClick={() => handleSocialLinkSave(key)}
+                                disabled={socialSaving === key || !canEditSeo || !!fieldError}
+                                title={
+                                  !canEditSeo
+                                    ? "You don't have permission to edit brand settings"
+                                    : fieldError
+                                    ? fieldError
+                                    : undefined
+                                }
+                                data-testid={`button-brand-save-${key}`}
+                              >
+                                {socialSaving === key ? (
+                                  <IconLoader2 className="h-4 w-4 animate-spin" />
+                                ) : (
+                                  <IconDeviceFloppy className="h-4 w-4" />
+                                )}
+                              </Button>
+                            </div>
+                            {fieldError && (
+                              <p className="text-xs text-destructive" data-testid={`error-brand-${key}`}>
+                                {fieldError}
+                              </p>
+                            )}
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
 
                       {brandData?.unknown_same_as && brandData.unknown_same_as.length > 0 && (
                         <div className="pt-2 space-y-1">

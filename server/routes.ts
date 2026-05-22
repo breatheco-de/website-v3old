@@ -5684,6 +5684,14 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         updateOrganizationTwitterHandle(twitter_handle.trim());
       }
 
+      const SOCIAL_DOMAINS: Record<string, string> = {
+        linkedin: "linkedin.com",
+        facebook: "facebook.com",
+        youtube: "youtube.com",
+        instagram: "instagram.com",
+        github: "github.com",
+      };
+
       for (const [platform, value] of [
         ["linkedin", linkedin],
         ["facebook", facebook],
@@ -5696,7 +5704,26 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
             res.status(400).json({ error: `${platform} must be a string` });
             return;
           }
-          updateOrganizationSameAsUrl(platform, value.trim());
+          const trimmed = value.trim();
+          if (trimmed) {
+            let parsed: URL;
+            try {
+              parsed = new URL(trimmed);
+            } catch {
+              res.status(400).json({ error: `${platform}: not a valid URL` });
+              return;
+            }
+            if (parsed.protocol !== "https:" && parsed.protocol !== "http:") {
+              res.status(400).json({ error: `${platform}: URL must start with https://` });
+              return;
+            }
+            const expectedDomain = SOCIAL_DOMAINS[platform];
+            if (expectedDomain && !parsed.hostname.endsWith(expectedDomain)) {
+              res.status(400).json({ error: `${platform}: URL does not appear to belong to ${expectedDomain}` });
+              return;
+            }
+          }
+          updateOrganizationSameAsUrl(platform, trimmed);
         }
       }
 
