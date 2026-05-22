@@ -32,6 +32,8 @@ sections:
       - label: AI Engineering
     maxWidth:
       desktop: xl
+    paddingY:
+      desktop: lg none
   - type: hero
     version: "1.0"
     variant: course
