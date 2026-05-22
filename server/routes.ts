@@ -4079,7 +4079,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   // Clear sitemap cache (requires token validation)
   app.post("/api/debug/clear-sitemap-cache", async (req, res) => {
     try {
-      const auth = await requireCapability(req, res, "content_publish");
+      const auth = await requireCapability(req, res, "seo_edit");
       if (!auth.authorized) return;
 
       const result = clearSitemapCache();
@@ -6191,7 +6191,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     });
   });
 
-  app.post("/api/debug/clear-versioning-cache", (req, res) => {
+  app.post("/api/debug/clear-versioning-cache", async (req, res) => {
+    const auth = await requireCapability(req, res, "content_allocate_traffic");
+    if (!auth.authorized) return;
     const versioningManager = getVersioningManager();
     versioningManager.clearCache();
     res.json({ success: true, message: "Versioning cache cleared" });
@@ -7082,7 +7084,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
   // Update versioning allocations for a locale
   app.patch(
     "/api/versioning/:contentType/:contentSlug/:locale",
-    (req, res) => {
+    async (req, res) => {
       const { contentType, contentSlug, locale } = req.params;
 
       if (!isValidType(contentType)) {
@@ -7091,6 +7093,9 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           .json({ error: "Invalid content type", validTypes: getAllFolders() });
         return;
       }
+
+      const auth = await requireCapability(req, res, "content_allocate_traffic", contentType);
+      if (!auth.authorized) return;
 
       const parseResult = versioningUpdateSchema.safeParse(req.body);
       if (!parseResult.success) {
@@ -7201,7 +7206,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       return;
     }
 
-    const auth = await requireCapability(req, res, "content_edit_variant", contentType);
+    const auth = await requireCapability(req, res, "content_promote_variant", contentType);
     if (!auth.authorized) return;
 
     if (!/^[a-z0-9-]+$/.test(variantSlug)) {

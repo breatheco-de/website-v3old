@@ -54,10 +54,16 @@ const REGISTRY = [
     description: "Replace or update images and videos embedded in content entries.",
   },
   {
-    name: "content_publish",
-    label: "Publish content",
-    scoped: false,
-    description: "Push changes live by committing and syncing content to production.",
+    name: "content_allocate_traffic",
+    label: "Allocate traffic to variants",
+    scoped: true,
+    description: "Edit traffic allocation weights between variants for A/B testing.",
+  },
+  {
+    name: "content_promote_variant",
+    label: "Promote a variant to default",
+    scoped: true,
+    description: "Promote a variant to become the canonical default for an entry.",
   },
   {
     name: "media_upload",

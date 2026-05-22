@@ -70,7 +70,6 @@ const BUILT_IN_WEBMASTER_ROLE: RoleDefinition = {
   capabilities: [
     { name: "users_manage" },
     { name: "theme_edit" },
-    { name: "content_publish" },
     { name: "media_upload" },
     { name: "media_delete" },
     { name: "seo_edit" },
@@ -87,6 +86,8 @@ const BUILT_IN_WEBMASTER_ROLE: RoleDefinition = {
     { name: "content_delete_variant", contentTypes: "*" },
     { name: "content_edit_text", contentTypes: "*" },
     { name: "content_edit_media", contentTypes: "*" },
+    { name: "content_allocate_traffic", contentTypes: "*" },
+    { name: "content_promote_variant", contentTypes: "*" },
   ],
 };
 
