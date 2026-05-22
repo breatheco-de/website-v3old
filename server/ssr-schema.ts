@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
-import { getMergedSchemas } from "./schema-org";
+import { getMergedSchemas, getOrganizationTwitterHandle, getWebsiteDefaultSocialImage } from "./schema-org";
 import { contentIndex } from "./content-index";
 import { deepMerge } from "./utils/deepMerge";
 import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
@@ -10,6 +10,30 @@ import { getBaseUrl, generateHreflangTags, generateListingHreflangTags, generate
 import { getHomePage, getSupportedLocales, getDefaultLocale } from "./settings";
 
 const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
+
+const DEFAULT_IMAGE_DIMENSIONS = { width: 1200, height: 630 };
+let imageRegistryCache: Record<string, { src?: string; width?: number; height?: number }> | null = null;
+
+function getImageRegistryImages(): Record<string, { src?: string; width?: number; height?: number }> {
+  if (imageRegistryCache) return imageRegistryCache;
+  try {
+    const regPath = path.join(MARKETING_CONTENT_PATH, "image-registry.json");
+    if (!fs.existsSync(regPath)) return {};
+    const parsed = JSON.parse(fs.readFileSync(regPath, "utf-8")) as { images?: Record<string, { src?: string; width?: number; height?: number }> };
+    imageRegistryCache = parsed.images || {};
+    return imageRegistryCache;
+  } catch {
+    return {};
+  }
+}
+
+function getImageDimensions(imageUrl: string): { width: number; height: number } {
+  if (!imageUrl) return DEFAULT_IMAGE_DIMENSIONS;
+  const images = getImageRegistryImages();
+  const entry = Object.values(images).find((img) => img.src === imageUrl);
+  if (entry?.width && entry?.height) return { width: entry.width, height: entry.height };
+  return DEFAULT_IMAGE_DIMENSIONS;
+}
 
 function safeYamlLoad(yamlStr: string): unknown {
   const { escaped, map } = escapeTemplateVars(yamlStr);
@@ -73,6 +97,7 @@ function loadCentralizedFaqs(locale: string): FaqItem[] {
 
 export function clearSsrSchemaCache(): void {
   faqCache = {};
+  imageRegistryCache = null;
 }
 
 function parseRoute(url: string): ParsedRoute | null {
@@ -299,6 +324,8 @@ export function generateDatabaseSsrHtml(
 
   const robots = typeof record.robots === "string" ? record.robots : "index, follow";
   const ogType = contentType === "blog" ? "article" : "website";
+  const twitterHandle = getOrganizationTwitterHandle();
+  const imageDimensions = image ? getImageDimensions(image) : null;
   const metaTags = [
     `<title>${title} | 4Geeks Academy</title>`,
     `<meta name="robots" content="${robots}" />`,
@@ -308,7 +335,11 @@ export function generateDatabaseSsrHtml(
     `<meta property="og:description" content="${description}" />`,
     `<meta property="og:url" content="${recordUrl}" />`,
     image ? `<meta property="og:image" content="${image}" />` : "",
+    imageDimensions ? `<meta property="og:image:width" content="${imageDimensions.width}" />` : "",
+    imageDimensions ? `<meta property="og:image:height" content="${imageDimensions.height}" />` : "",
     `<meta name="twitter:card" content="${image ? "summary_large_image" : "summary"}" />`,
+    twitterHandle ? `<meta name="twitter:site" content="${twitterHandle}" />` : "",
+    twitterHandle ? `<meta name="twitter:creator" content="${twitterHandle}" />` : "",
     `<meta name="twitter:title" content="${title}" />`,
     `<meta name="twitter:description" content="${description}" />`,
     image ? `<meta name="twitter:image" content="${image}" />` : "",
@@ -337,6 +368,9 @@ export function generateListingSsrHtml(contentType: string, locale: string): str
     ? `Explora nuestro contenido de ${label.toLowerCase()} en 4Geeks Academy.`
     : `Explore our ${label.toLowerCase()} content at 4Geeks Academy.`;
 
+  const twitterHandle = getOrganizationTwitterHandle();
+  const defaultSocialImage = getWebsiteDefaultSocialImage();
+  const defaultImageDimensions = defaultSocialImage ? getImageDimensions(defaultSocialImage) : null;
   const metaTags = [
     `<title>${title}</title>`,
     `<meta name="robots" content="index, follow" />`,
@@ -345,11 +379,17 @@ export function generateListingSsrHtml(contentType: string, locale: string): str
     `<meta property="og:title" content="${title}" />`,
     `<meta property="og:description" content="${description}" />`,
     `<meta property="og:url" content="${listingUrl}" />`,
-    `<meta name="twitter:card" content="summary" />`,
+    defaultSocialImage ? `<meta property="og:image" content="${defaultSocialImage}" />` : "",
+    defaultImageDimensions ? `<meta property="og:image:width" content="${defaultImageDimensions.width}" />` : "",
+    defaultImageDimensions ? `<meta property="og:image:height" content="${defaultImageDimensions.height}" />` : "",
+    `<meta name="twitter:card" content="${defaultSocialImage ? "summary_large_image" : "summary"}" />`,
+    twitterHandle ? `<meta name="twitter:site" content="${twitterHandle}" />` : "",
+    twitterHandle ? `<meta name="twitter:creator" content="${twitterHandle}" />` : "",
     `<meta name="twitter:title" content="${title}" />`,
     `<meta name="twitter:description" content="${description}" />`,
+    defaultSocialImage ? `<meta name="twitter:image" content="${defaultSocialImage}" />` : "",
     `<link rel="canonical" href="${listingUrl}" />`,
-  ];
+  ].filter(Boolean);
 
   const hreflangTags = generateListingHreflangTags(contentType, locale);
   return [...hreflangTags, ...metaTags].join("\n");
@@ -420,12 +460,24 @@ export function generateSsrSchemaHtml(url: string): string {
     const robots = typeof meta?.robots === "string" ? meta.robots : "index, follow";
     const robotsTag = `<meta name="robots" content="${robots}" />`;
 
+    const ogImage = typeof meta?.og_image === "string" ? meta.og_image : null;
+    const twitterHandle = getOrganizationTwitterHandle();
+    const socialImageUrl = ogImage || getWebsiteDefaultSocialImage();
+    const socialImageDimensions = socialImageUrl ? getImageDimensions(socialImageUrl) : null;
+    const socialTags = [
+      twitterHandle ? `<meta name="twitter:site" content="${twitterHandle}" />` : "",
+      twitterHandle ? `<meta name="twitter:creator" content="${twitterHandle}" />` : "",
+      socialImageUrl && !ogImage ? `<meta property="og:image" content="${socialImageUrl}" />` : "",
+      socialImageDimensions ? `<meta property="og:image:width" content="${socialImageDimensions.width}" />` : "",
+      socialImageDimensions ? `<meta property="og:image:height" content="${socialImageDimensions.height}" />` : "",
+    ].filter(Boolean);
+
     const homePage = getHomePage();
     const isHomepageRoute = homePage?.type === route.contentType && homePage?.slug === route.slug;
     const hreflangTags = isHomepageRoute
       ? generateHomepageHreflangTags()
       : generateHreflangTags(route.contentType, route.slug, route.locale);
-    return [...hreflangTags, robotsTag, ...scripts].join("\n");
+    return [...hreflangTags, robotsTag, ...socialTags, ...scripts].join("\n");
   } catch (err) {
     console.error("[SSR-Schema] Error generating schema for", url, err);
     return "";

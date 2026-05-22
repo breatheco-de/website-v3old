@@ -151,6 +151,7 @@ website:
   name: "4Geeks Academy"
   url: "https://4geeks.com"
   description: "Learn to code with AI-powered tools, unlimited mentorship, and career support. Join thousands of graduates who have transformed their careers."
+  default_social_image: "https://4geeks.com/wp-content/uploads/2024/01/4geeks-logo.png"
   search_action:
     target: "https://4geeks.com/search?q={search_term_string}"
     query_input: "required name=search_term_string"

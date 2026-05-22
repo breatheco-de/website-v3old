@@ -38,6 +38,9 @@ import {
   getMergedSchemas,
   getAvailableSchemaKeys,
   clearSchemaCache,
+  getOrganizationTwitterHandle,
+  getWebsiteDefaultSocialImage,
+  updateWebsiteDefaultSocialImage,
 } from "./schema-org";
 import {
   getRegistryOverview,
@@ -5619,6 +5622,39 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     clearSchemaCache();
     clearSsrSchemaCache();
     res.json({ success: true, message: "Schema cache cleared" });
+  });
+
+  app.get("/api/admin/brand-settings", async (req, res) => {
+    const auth = await requireCapability(req, res, "seo_edit");
+    if (!auth.authorized) return;
+    try {
+      res.json({
+        default_social_image: getWebsiteDefaultSocialImage() ?? "",
+        twitter_handle: getOrganizationTwitterHandle() ?? "",
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message || String(err) });
+    }
+  });
+
+  app.put("/api/admin/brand-settings", async (req, res) => {
+    const auth = await requireCapability(req, res, "seo_edit");
+    if (!auth.authorized) return;
+    try {
+      const { default_social_image } = req.body;
+      if (typeof default_social_image !== "string") {
+        res.status(400).json({ error: "default_social_image must be a string" });
+        return;
+      }
+      updateWebsiteDefaultSocialImage(default_social_image.trim());
+      clearSsrSchemaCache();
+      res.json({
+        success: true,
+        default_social_image: getWebsiteDefaultSocialImage() ?? "",
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message || String(err) });
+    }
   });
 
   app.get("/api/brand-context", (req, res) => {

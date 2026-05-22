@@ -19,8 +19,10 @@ import {
   IconX,
   IconUserPlus,
   IconUserCheck,
+  IconPhoto,
 } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
+import { ImagePickerDialog } from "@/components/editing/ImagePickerDialog";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -939,6 +941,11 @@ function UsersTab() {
   );
 }
 
+interface BrandSettings {
+  default_social_image: string;
+  twitter_handle: string;
+}
+
 export default function SettingsPage() {
   const { toast } = useToast();
   const { hasCapability } = useDebugAuth();
@@ -950,6 +957,10 @@ export default function SettingsPage() {
     queryKey: ["/api/migrations"],
   });
 
+  const { data: brandData, isLoading: brandLoading } = useQuery<BrandSettings>({
+    queryKey: ["/api/admin/brand-settings"],
+  });
+
   const [locales, setLocales] = useState<LocaleEntry[]>([]);
   const [defaultLocale, setDefaultLocale] = useState("");
   const [newCode, setNewCode] = useState("");
@@ -957,8 +968,11 @@ export default function SettingsPage() {
   const [saving, setSaving] = useState(false);
   const [dirty, setDirty] = useState(false);
   const [migrationStates, setMigrationStates] = useState<Record<string, MigrationRowState>>({});
+  const [brandImagePickerOpen, setBrandImagePickerOpen] = useState(false);
+  const [brandSaving, setBrandSaving] = useState(false);
 
   const canManageUsers = hasCapability("users_manage");
+  const canEditSeo = hasCapability("seo_edit");
 
   useEffect(() => {
     if (data) {
@@ -1020,6 +1034,23 @@ export default function SettingsPage() {
     }
   }
 
+  async function handleBrandSave(imageUrl: string) {
+    setBrandSaving(true);
+    try {
+      const res = await apiRequest("PUT", "/api/admin/brand-settings", {
+        default_social_image: imageUrl,
+      });
+      const result = await res.json();
+      if (result.error) throw new Error(result.error);
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/brand-settings"] });
+      toast({ title: "Brand settings saved", description: "Default social image updated." });
+    } catch (err: any) {
+      toast({ title: "Failed to save", description: err.message || String(err), variant: "destructive" });
+    } finally {
+      setBrandSaving(false);
+    }
+  }
+
   async function runMigration(filename: string) {
     setMigrationStates((prev) => ({
       ...prev,
@@ -1056,7 +1087,7 @@ export default function SettingsPage() {
         </div>
 
         <Tabs defaultValue="locales">
-          <TabsList className={`grid w-full ${canManageUsers ? "grid-cols-4" : "grid-cols-2"}`}>
+          <TabsList className={`grid w-full ${canManageUsers ? "grid-cols-5" : "grid-cols-3"}`}>
             <TabsTrigger value="locales" data-testid="tab-locales">
               <IconLanguage className="h-4 w-4 mr-1.5" />
               Locales
@@ -1064,6 +1095,10 @@ export default function SettingsPage() {
             <TabsTrigger value="migrations" data-testid="tab-migrations">
               <IconCode className="h-4 w-4 mr-1.5" />
               Migrations
+            </TabsTrigger>
+            <TabsTrigger value="brand" data-testid="tab-brand">
+              <IconPhoto className="h-4 w-4 mr-1.5" />
+              Brand
             </TabsTrigger>
             {canManageUsers && (
               <TabsTrigger value="roles" data-testid="tab-roles">
@@ -1275,6 +1310,104 @@ export default function SettingsPage() {
                 )}
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="brand" className="mt-4">
+            <Card>
+              <CardHeader className="flex flex-row items-center gap-2 pb-4">
+                <IconPhoto className="h-5 w-5 text-muted-foreground" />
+                <CardTitle className="text-base">Brand Settings</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {brandLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                  </div>
+                ) : (
+                  <>
+                    <div className="space-y-1">
+                      <p className="text-sm font-medium">Default Social Image</p>
+                      <p className="text-xs text-muted-foreground">
+                        Used as the fallback <code className="font-mono">og:image</code> on pages that don't have a specific social image. Recommended size: 1200×630 px.
+                      </p>
+                    </div>
+
+                    <div className="space-y-3">
+                      {brandData?.default_social_image ? (
+                        <div
+                          className="rounded-md border bg-muted overflow-hidden"
+                          style={{ aspectRatio: "1200/630", maxHeight: "160px" }}
+                          data-testid="img-brand-social-preview-container"
+                        >
+                          <img
+                            src={brandData.default_social_image}
+                            alt="Default social image preview"
+                            className="object-cover w-full h-full"
+                            data-testid="img-brand-social-preview"
+                          />
+                        </div>
+                      ) : (
+                        <div
+                          className="rounded-md border bg-muted flex items-center justify-center text-muted-foreground"
+                          style={{ aspectRatio: "1200/630", maxHeight: "160px" }}
+                          data-testid="div-brand-social-placeholder"
+                        >
+                          <div className="text-center space-y-1">
+                            <IconPhoto className="h-8 w-8 mx-auto opacity-40" />
+                            <p className="text-xs">No image selected</p>
+                          </div>
+                        </div>
+                      )}
+
+                      {brandData?.default_social_image && (
+                        <p className="text-xs text-muted-foreground font-mono truncate" data-testid="text-brand-social-url">
+                          {brandData.default_social_image}
+                        </p>
+                      )}
+
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setBrandImagePickerOpen(true)}
+                        disabled={brandSaving || !canEditSeo}
+                        title={!canEditSeo ? "You don't have permission to edit brand settings" : undefined}
+                        data-testid="button-brand-choose-image"
+                      >
+                        {brandSaving ? (
+                          <IconLoader2 className="h-4 w-4 mr-1.5 animate-spin" />
+                        ) : (
+                          <IconPhoto className="h-4 w-4 mr-1.5" />
+                        )}
+                        Choose from gallery
+                      </Button>
+                    </div>
+
+                    {brandData?.twitter_handle && (
+                      <div className="pt-2 border-t space-y-1">
+                        <p className="text-sm font-medium">Twitter / X Handle</p>
+                        <p className="text-xs text-muted-foreground">
+                          Auto-extracted from <code className="font-mono">schema-org.yml</code>. Edit the YAML directly to change it.
+                        </p>
+                        <code className="text-sm font-mono text-foreground" data-testid="text-brand-twitter-handle">
+                          {brandData.twitter_handle}
+                        </code>
+                      </div>
+                    )}
+                  </>
+                )}
+              </CardContent>
+            </Card>
+
+            <ImagePickerDialog
+              open={brandImagePickerOpen}
+              onOpenChange={setBrandImagePickerOpen}
+              title="Select Default Social Image"
+              initialSrc={brandData?.default_social_image ?? ""}
+              initialAlt="Default social image"
+              onSave={async (src) => {
+                await handleBrandSave(src);
+              }}
+            />
           </TabsContent>
 
           {canManageUsers && (

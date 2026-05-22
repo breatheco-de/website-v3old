@@ -284,6 +284,44 @@ export function getMergedSchemas(
   return result;
 }
 
+export function getOrganizationTwitterHandle(): string | null {
+  const config = loadSchemaConfig();
+  const sameAs = config.organization?.same_as;
+  if (!Array.isArray(sameAs)) return null;
+  for (const url of sameAs) {
+    if (typeof url === "string" && (url.includes("twitter.com/") || url.includes("x.com/"))) {
+      const segments = url.replace(/\/$/, "").split("/").filter(Boolean);
+      const handle = segments[segments.length - 1];
+      if (handle) return `@${handle}`;
+    }
+  }
+  return null;
+}
+
+export function getWebsiteDefaultSocialImage(): string | null {
+  const config = loadSchemaConfig();
+  const img = (config.website as Record<string, unknown> | undefined)?.default_social_image;
+  return typeof img === "string" && img.trim() !== "" ? img.trim() : null;
+}
+
+export function updateWebsiteDefaultSocialImage(imageUrl: string): void {
+  const schemaPath = path.join(process.cwd(), "marketing-content", "schema-org.yml");
+  let existing: Record<string, unknown> = {};
+  if (fs.existsSync(schemaPath)) {
+    try {
+      const raw = fs.readFileSync(schemaPath, "utf-8");
+      existing = (yaml.load(raw) as Record<string, unknown>) || {};
+    } catch {}
+  }
+  if (!existing.website || typeof existing.website !== "object") {
+    existing.website = {};
+  }
+  (existing.website as Record<string, unknown>).default_social_image = imageUrl;
+  const output = yaml.dump(existing, { lineWidth: 120, noRefs: true });
+  fs.writeFileSync(schemaPath, output, "utf-8");
+  clearSchemaCache();
+}
+
 export function getAvailableSchemaKeys(): string[] {
   const config = loadSchemaConfig();
   const keys: string[] = [];
