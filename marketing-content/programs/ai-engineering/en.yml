@@ -34,6 +34,7 @@ sections:
       desktop: xl
     paddingY:
       desktop: md none
+    showOn: desktop
   - type: hero
     version: "1.0"
     variant: course
