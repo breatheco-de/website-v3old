@@ -944,6 +944,12 @@ function UsersTab() {
 interface BrandSettings {
   default_social_image: string;
   twitter_handle: string;
+  linkedin: string;
+  facebook: string;
+  youtube: string;
+  instagram: string;
+  github: string;
+  unknown_same_as: string[];
 }
 
 export default function SettingsPage() {
@@ -972,6 +978,8 @@ export default function SettingsPage() {
   const [brandSaving, setBrandSaving] = useState(false);
   const [twitterHandle, setTwitterHandle] = useState("");
   const [twitterSaving, setTwitterSaving] = useState(false);
+  const [socialLinks, setSocialLinks] = useState({ linkedin: "", facebook: "", youtube: "", instagram: "", github: "" });
+  const [socialSaving, setSocialSaving] = useState<string | null>(null);
 
   const canManageUsers = hasCapability("users_manage");
   const canEditSeo = hasCapability("seo_edit");
@@ -987,6 +995,13 @@ export default function SettingsPage() {
   useEffect(() => {
     if (brandData) {
       setTwitterHandle(brandData.twitter_handle ?? "");
+      setSocialLinks({
+        linkedin: brandData.linkedin ?? "",
+        facebook: brandData.facebook ?? "",
+        youtube: brandData.youtube ?? "",
+        instagram: brandData.instagram ?? "",
+        github: brandData.github ?? "",
+      });
     }
   }, [brandData]);
 
@@ -1073,6 +1088,23 @@ export default function SettingsPage() {
       toast({ title: "Failed to save", description: err.message || String(err), variant: "destructive" });
     } finally {
       setTwitterSaving(false);
+    }
+  }
+
+  async function handleSocialLinkSave(platform: keyof typeof socialLinks) {
+    setSocialSaving(platform);
+    try {
+      const res = await apiRequest("PUT", "/api/admin/brand-settings", {
+        [platform]: socialLinks[platform].trim(),
+      });
+      const result = await res.json();
+      if (result.error) throw new Error(result.error);
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/brand-settings"] });
+      toast({ title: `${platform.charAt(0).toUpperCase() + platform.slice(1)} URL saved` });
+    } catch (err: any) {
+      toast({ title: "Failed to save", description: err.message || String(err), variant: "destructive" });
+    } finally {
+      setSocialSaving(null);
     }
   }
 
@@ -1441,6 +1473,65 @@ export default function SettingsPage() {
                           Save
                         </Button>
                       </div>
+                    </div>
+
+                    <div className="pt-2 border-t space-y-3">
+                      <div className="space-y-1">
+                        <p className="text-sm font-medium">Social Links</p>
+                        <p className="text-xs text-muted-foreground">
+                          Stored in <code className="font-mono">organization.same_as</code> in <code className="font-mono">schema-org.yml</code>.
+                        </p>
+                      </div>
+                      {(
+                        [
+                          { key: "linkedin", label: "LinkedIn", placeholder: "https://www.linkedin.com/school/yourorg/" },
+                          { key: "facebook", label: "Facebook", placeholder: "https://www.facebook.com/yourorg" },
+                          { key: "youtube", label: "YouTube", placeholder: "https://www.youtube.com/c/YourOrg" },
+                          { key: "instagram", label: "Instagram", placeholder: "https://www.instagram.com/yourorg/" },
+                          { key: "github", label: "GitHub", placeholder: "https://github.com/YourOrg" },
+                        ] as { key: keyof typeof socialLinks; label: string; placeholder: string }[]
+                      ).map(({ key, label, placeholder }) => (
+                        <div key={key} className="space-y-1">
+                          <label className="text-xs font-medium text-muted-foreground">{label}</label>
+                          <div className="flex items-center gap-2">
+                            <Input
+                              value={socialLinks[key]}
+                              onChange={(e) => setSocialLinks((prev) => ({ ...prev, [key]: e.target.value }))}
+                              placeholder={placeholder}
+                              disabled={socialSaving === key || !canEditSeo}
+                              data-testid={`input-brand-${key}`}
+                              className="font-mono text-xs"
+                            />
+                            <Button
+                              size="sm"
+                              onClick={() => handleSocialLinkSave(key)}
+                              disabled={socialSaving === key || !canEditSeo}
+                              title={!canEditSeo ? "You don't have permission to edit brand settings" : undefined}
+                              data-testid={`button-brand-save-${key}`}
+                            >
+                              {socialSaving === key ? (
+                                <IconLoader2 className="h-4 w-4 animate-spin" />
+                              ) : (
+                                <IconDeviceFloppy className="h-4 w-4" />
+                              )}
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+
+                      {brandData?.unknown_same_as && brandData.unknown_same_as.length > 0 && (
+                        <div className="pt-2 space-y-1">
+                          <p className="text-xs font-medium text-muted-foreground">Other links (read-only)</p>
+                          <p className="text-xs text-muted-foreground">These URLs are in <code className="font-mono">same_as</code> but don't match a known platform. Edit them directly in the YAML file.</p>
+                          <div className="space-y-1">
+                            {brandData.unknown_same_as.map((url) => (
+                              <p key={url} className="text-xs font-mono text-muted-foreground bg-muted rounded px-2 py-1 truncate" data-testid="text-brand-unknown-sameas">
+                                {url}
+                              </p>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </>
                 )}

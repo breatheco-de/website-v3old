@@ -284,18 +284,84 @@ export function getMergedSchemas(
   return result;
 }
 
+const SOCIAL_PLATFORM_DOMAINS: Record<string, string[]> = {
+  twitter: ["twitter.com/", "x.com/"],
+  linkedin: ["linkedin.com/"],
+  facebook: ["facebook.com/"],
+  youtube: ["youtube.com/"],
+  instagram: ["instagram.com/"],
+  github: ["github.com/"],
+};
+
+function matchesPlatform(url: string, platform: string): boolean {
+  const domains = SOCIAL_PLATFORM_DOMAINS[platform];
+  if (!domains) return false;
+  return domains.some((d) => url.includes(d));
+}
+
 export function getOrganizationTwitterHandle(): string | null {
   const config = loadSchemaConfig();
   const sameAs = config.organization?.same_as;
   if (!Array.isArray(sameAs)) return null;
   for (const url of sameAs) {
-    if (typeof url === "string" && (url.includes("twitter.com/") || url.includes("x.com/"))) {
+    if (typeof url === "string" && matchesPlatform(url, "twitter")) {
       const segments = url.replace(/\/$/, "").split("/").filter(Boolean);
       const handle = segments[segments.length - 1];
       if (handle) return `@${handle}`;
     }
   }
   return null;
+}
+
+export function getOrganizationSameAsUrl(platform: string): string | null {
+  const config = loadSchemaConfig();
+  const sameAs = config.organization?.same_as;
+  if (!Array.isArray(sameAs)) return null;
+  for (const url of sameAs) {
+    if (typeof url === "string" && matchesPlatform(url, platform)) {
+      return url;
+    }
+  }
+  return null;
+}
+
+export function updateOrganizationSameAsUrl(platform: string, url: string): void {
+  const schemaPath = path.join(process.cwd(), "marketing-content", "schema-org.yml");
+  let existing: Record<string, unknown> = {};
+  if (fs.existsSync(schemaPath)) {
+    try {
+      const raw = fs.readFileSync(schemaPath, "utf-8");
+      existing = (yaml.load(raw) as Record<string, unknown>) || {};
+    } catch {}
+  }
+
+  if (!existing.organization || typeof existing.organization !== "object") {
+    existing.organization = {};
+  }
+  const org = existing.organization as Record<string, unknown>;
+
+  const newUrl = url.trim() || null;
+  let sameAs: string[] = Array.isArray(org.same_as) ? [...(org.same_as as string[])] : [];
+
+  const matchIndex = sameAs.findIndex(
+    (entry) => typeof entry === "string" && matchesPlatform(entry, platform)
+  );
+
+  if (newUrl) {
+    if (matchIndex >= 0) {
+      sameAs[matchIndex] = newUrl;
+    } else {
+      sameAs.push(newUrl);
+    }
+  } else if (matchIndex >= 0) {
+    sameAs.splice(matchIndex, 1);
+  }
+
+  org.same_as = sameAs;
+
+  const output = yaml.dump(existing, { lineWidth: 120, noRefs: true });
+  fs.writeFileSync(schemaPath, output, "utf-8");
+  clearSchemaCache();
 }
 
 export function getWebsiteDefaultSocialImage(): string | null {

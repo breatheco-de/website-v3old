@@ -39,9 +39,11 @@ import {
   getAvailableSchemaKeys,
   clearSchemaCache,
   getOrganizationTwitterHandle,
+  getOrganizationSameAsUrl,
   getWebsiteDefaultSocialImage,
   updateWebsiteDefaultSocialImage,
   updateOrganizationTwitterHandle,
+  updateOrganizationSameAsUrl,
 } from "./schema-org";
 import {
   getRegistryOverview,
@@ -5629,9 +5631,31 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     const auth = await requireCapability(req, res, "seo_edit");
     if (!auth.authorized) return;
     try {
+      const schemaPath = path.join(process.cwd(), "marketing-content", "schema-org.yml");
+      let sameAs: string[] = [];
+      if (fs.existsSync(schemaPath)) {
+        try {
+          const raw = fs.readFileSync(schemaPath, "utf-8");
+          const parsed = yaml.load(raw) as Record<string, unknown>;
+          const org = parsed?.organization as Record<string, unknown> | undefined;
+          if (Array.isArray(org?.same_as)) sameAs = org.same_as as string[];
+        } catch {}
+      }
+
+      const knownDomains = ["twitter.com/", "x.com/", "linkedin.com/", "facebook.com/", "youtube.com/", "instagram.com/", "github.com/"];
+      const unknownSameAs = sameAs.filter(
+        (u) => typeof u === "string" && !knownDomains.some((d) => u.includes(d))
+      );
+
       res.json({
         default_social_image: getWebsiteDefaultSocialImage() ?? "",
         twitter_handle: getOrganizationTwitterHandle() ?? "",
+        linkedin: getOrganizationSameAsUrl("linkedin") ?? "",
+        facebook: getOrganizationSameAsUrl("facebook") ?? "",
+        youtube: getOrganizationSameAsUrl("youtube") ?? "",
+        instagram: getOrganizationSameAsUrl("instagram") ?? "",
+        github: getOrganizationSameAsUrl("github") ?? "",
+        unknown_same_as: unknownSameAs,
       });
     } catch (err: any) {
       res.status(500).json({ error: err.message || String(err) });
@@ -5642,7 +5666,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     const auth = await requireCapability(req, res, "seo_edit");
     if (!auth.authorized) return;
     try {
-      const { default_social_image, twitter_handle } = req.body;
+      const { default_social_image, twitter_handle, linkedin, facebook, youtube, instagram, github } = req.body;
 
       if (default_social_image !== undefined) {
         if (typeof default_social_image !== "string") {
@@ -5660,11 +5684,32 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         updateOrganizationTwitterHandle(twitter_handle.trim());
       }
 
+      for (const [platform, value] of [
+        ["linkedin", linkedin],
+        ["facebook", facebook],
+        ["youtube", youtube],
+        ["instagram", instagram],
+        ["github", github],
+      ] as [string, unknown][]) {
+        if (value !== undefined) {
+          if (typeof value !== "string") {
+            res.status(400).json({ error: `${platform} must be a string` });
+            return;
+          }
+          updateOrganizationSameAsUrl(platform, value.trim());
+        }
+      }
+
       clearSsrSchemaCache();
       res.json({
         success: true,
         default_social_image: getWebsiteDefaultSocialImage() ?? "",
         twitter_handle: getOrganizationTwitterHandle() ?? "",
+        linkedin: getOrganizationSameAsUrl("linkedin") ?? "",
+        facebook: getOrganizationSameAsUrl("facebook") ?? "",
+        youtube: getOrganizationSameAsUrl("youtube") ?? "",
+        instagram: getOrganizationSameAsUrl("instagram") ?? "",
+        github: getOrganizationSameAsUrl("github") ?? "",
       });
     } catch (err: any) {
       res.status(500).json({ error: err.message || String(err) });
