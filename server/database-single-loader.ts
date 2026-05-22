@@ -14,6 +14,7 @@ import {
 import { resolveFieldValue, applyTransformIfNeeded } from "./transform";
 import { fetchMarkdownContent } from "./markdown";
 import { applyComponentSectionDefaults, applyComponentImageSizes } from "./component-registry";
+import { readSectionAnchors, resolveAnchorAlias, writeSectionAnchors } from "./utils/sectionAnchors";
 import type { TemplatePage } from "@shared/schema";
 
 export const TEMPLATE_EXPR_RE = /\{\{[\s\S]*?\}\}/;
@@ -67,6 +68,7 @@ function applyPerEntryLayer(
   base: Record<string, unknown>,
   layer: Record<string, unknown>,
   accum?: PerEntryAccum,
+  aliases?: Record<string, string | null>,
 ): Record<string, unknown> {
   const layerSections = Array.isArray(layer.sections)
     ? (layer.sections as Record<string, unknown>[])
@@ -147,6 +149,26 @@ function applyPerEntryLayer(
     const { _insertAfterSectionId: _pos, ...rest } = s as Record<string, unknown>;
     return { ...rest, _perEntrySource: true, _insertAfterSectionId: _pos };
   });
+
+  // Resolve dangling _insertAfterSectionId values via the alias map.
+  // Build a set of current base section IDs for fast lookup.
+  if (aliases && Object.keys(aliases).length > 0) {
+    const baseSectionIds = new Set<string>(
+      filteredAndPatched
+        .map((s) => (typeof s.id === "string" ? s.id : null))
+        .filter(Boolean) as string[],
+    );
+    for (const s of taggedNew) {
+      const anchorId = s._insertAfterSectionId;
+      if (typeof anchorId === "string") {
+        const resolved = resolveAnchorAlias(anchorId, baseSectionIds, aliases);
+        if (resolved !== undefined) {
+          // resolved is string | null — update the positioning hint
+          s._insertAfterSectionId = resolved;
+        }
+      }
+    }
+  }
 
   // Place per-entry sections at their intended position using _insertAfterSectionId.
   // - _insertAfterSectionId === undefined  → no metadata (legacy/compat): append at end
@@ -273,17 +295,44 @@ export function mergeSingleTemplate(
   // Each layer is applied sequentially so section directives from layer 4
   // (_common.yml) are not lost when layer 5 ({locale}.yml) also has sections.
   if (slug) {
+    // Load alias map once (silently skipped if file doesn't exist)
+    let aliases: Record<string, string | null> | undefined;
+    try {
+      const anchors = readSectionAnchors(contentType);
+      if (Object.keys(anchors.aliases).length > 0) {
+        // Step 5: clear stale aliases whose original section ID is now back in the template.
+        // This handles the case where a section was deleted and then re-created with the same ID.
+        const baseSectionIds = new Set<string>(
+          Array.isArray(merged.sections)
+            ? (merged.sections as Record<string, unknown>[])
+                .map((s) => (typeof s.id === "string" ? s.id : null))
+                .filter(Boolean) as string[]
+            : [],
+        );
+        const staleKeys = Object.keys(anchors.aliases).filter((k) => baseSectionIds.has(k));
+        if (staleKeys.length > 0) {
+          for (const k of staleKeys) delete anchors.aliases[k];
+          try {
+            writeSectionAnchors(contentType, anchors);
+          } catch { /* non-fatal */ }
+        }
+        if (Object.keys(anchors.aliases).length > 0) {
+          aliases = anchors.aliases;
+        }
+      }
+    } catch { /* non-fatal — alias resolution is best-effort */ }
+
     const entryDir = path.join(templateDir, slug);
     if (fs.existsSync(entryDir) && fs.statSync(entryDir).isDirectory()) {
       const entryCommonPath = path.join(entryDir, "_common.yml");
       if (fs.existsSync(entryCommonPath)) {
         const parsed = contentIndex.safeYamlLoad(fs.readFileSync(entryCommonPath, "utf-8"));
-        if (parsed) merged = applyPerEntryLayer(merged, parsed, accum);
+        if (parsed) merged = applyPerEntryLayer(merged, parsed, accum, aliases);
       }
       const entryLocalePath = path.join(entryDir, `${locale}.yml`);
       if (fs.existsSync(entryLocalePath)) {
         const parsed = contentIndex.safeYamlLoad(fs.readFileSync(entryLocalePath, "utf-8"));
-        if (parsed) merged = applyPerEntryLayer(merged, parsed, accum);
+        if (parsed) merged = applyPerEntryLayer(merged, parsed, accum, aliases);
       }
     }
   }

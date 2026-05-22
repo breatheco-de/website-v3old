@@ -2395,9 +2395,21 @@ Sitemap: ${baseUrl}/sitemap.xml
         // Remove the section from the per-entry file's sections array by id
         const sectionId = typeof targetSection.id === "string" ? targetSection.id : null;
         if (sectionId) {
+          // Find the per-entry section in the entry file to get its anchor before removing it
+          const perEntryRecord = entrySections.find(
+            (s) => typeof s.id === "string" && s.id === sectionId,
+          );
+          const anchorId = perEntryRecord?._insertAfterSectionId;
+
           entryData.sections = entrySections.filter(
             (s) => !(typeof s.id === "string" && s.id === sectionId),
           );
+
+          // Remove from dependants index if it was anchored to a template section
+          if (typeof anchorId === "string") {
+            const { removeDependant } = await import("./utils/sectionAnchors");
+            removeDependant(contentType, anchorId, slug);
+          }
         } else {
           res.status(400).json({ error: "Per-entry section has no id" });
           return;
@@ -2607,18 +2619,29 @@ Sitemap: ${baseUrl}/sitemap.xml
           // This handles id-less sections gracefully: we anchor after the closest preceding
           // named section so the new section lands at (or near) the intended position.
           let insertAfterSectionId: string | null | undefined = undefined; // undefined = append
+          let anchorIsTemplateSectionId = false;
           for (let i = insertIndex - 1; i >= 0; i--) {
             const candidate = mergedSections[i];
             if (typeof candidate?.id === "string") {
               insertAfterSectionId = candidate.id;
+              // Only template-sourced sections should be indexed in dependants;
+              // per-entry sections have _perEntrySource: true
+              anchorIsTemplateSectionId = !candidate._perEntrySource;
               break;
             }
           }
           // If no preceding section has an id we leave undefined (append-at-end fallback)
           // rather than null (insert-before-all) which would be visually wrong.
           newSection._insertAfterSectionId = insertAfterSectionId;
+          newSection._anchorIsTemplateSection = anchorIsTemplateSectionId;
         }
       }
+
+      // Capture indexing metadata before stripping the internal flag from the section
+      const anchorId = newSection._insertAfterSectionId;
+      const anchorIsTemplateSection = newSection._anchorIsTemplateSection as boolean | undefined;
+      // Remove internal flag — it must not be persisted to YML
+      delete newSection._anchorIsTemplateSection;
 
       const entrySections = Array.isArray(entryData.sections)
         ? (entryData.sections as Record<string, unknown>[])
@@ -2630,6 +2653,12 @@ Sitemap: ${baseUrl}/sitemap.xml
       const dumped = yaml.dump(escaped, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
       fs.writeFileSync(entryFilePath, unescapeYamlDump(dumped, map), "utf-8");
       markFileAsModified(entryFilePath);
+
+      // Update dependants index: only record anchors to template section IDs (not per-entry IDs)
+      if (typeof anchorId === "string" && anchorIsTemplateSection) {
+        const { addDependant } = await import("./utils/sectionAnchors");
+        addDependant(contentType, anchorId, slug);
+      }
 
       // Return updated merged section list so the client can update without a full page reload
       const updatedPage = await loadDatabaseSinglePage(contentType, slug, locale);
@@ -2733,6 +2762,17 @@ Sitemap: ${baseUrl}/sitemap.xml
         ? templateSections.findIndex((s) => typeof s.id === "string" && s.id === sectionId)
         : -1;
 
+      const effectiveIndex = fileIndex !== -1 ? fileIndex : templateIndex;
+
+      // Capture the deleted section's actual ID and its predecessor ID before splicing
+      const deletedSection = templateSections[effectiveIndex];
+      const actualDeletedId: string | null =
+        sectionId ||
+        (typeof deletedSection?.id === "string" ? deletedSection.id : null);
+      const predecessorSection = effectiveIndex > 0 ? templateSections[effectiveIndex - 1] : null;
+      const predecessorId: string | null =
+        typeof predecessorSection?.id === "string" ? predecessorSection.id : null;
+
       if (fileIndex !== -1) {
         templateSections.splice(fileIndex, 1);
       } else {
@@ -2746,6 +2786,12 @@ Sitemap: ${baseUrl}/sitemap.xml
       const dumped = yaml.dump(escaped, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
       fs.writeFileSync(templateFile, unescapeYamlDump(dumped, map), "utf-8");
       markFileAsModified(templateFile);
+
+      // Record alias: deletedId → predecessorId (null means it was the first section)
+      if (actualDeletedId) {
+        const { recordSectionDeleted } = await import("./utils/sectionAnchors");
+        recordSectionDeleted(contentType, actualDeletedId, predecessorId);
+      }
 
       res.json({ success: true });
     } catch (error) {
@@ -9997,6 +10043,11 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           console.log(
             `[Content] Deleted ${type}/${slug} (all locales removed, folder cleaned up)`,
           );
+          // Clean up dependants index — remove deleted slug from all lists
+          try {
+            const { removeSlugFromAllDependants } = await import("./utils/sectionAnchors");
+            removeSlugFromAllDependants(type, resolvedSlug);
+          } catch { /* non-fatal */ }
         } else {
           console.log(
             `[Content] Deleted ${deletedFiles.join(", ")} from ${type}/${slug} (${remainingFiles.length} locale(s) remaining)`,
@@ -10035,6 +10086,12 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         contentIndex.refresh();
         invalidateContentCaches(type);
 
+        // Clean up dependants index — remove deleted slug from all lists
+        try {
+          const { removeSlugFromAllDependants } = await import("./utils/sectionAnchors");
+          removeSlugFromAllDependants(type, resolvedSlug);
+        } catch { /* non-fatal */ }
+
         res.json({
           success: true,
           message: `Successfully deleted ${type}/${slug}`,
@@ -10043,6 +10100,31 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     } catch (error) {
       console.error("Content delete error:", error);
       res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  /**
+   * GET /api/section-dependants?contentType=&sectionId=
+   * Returns the list of entry slugs that have a per-entry section anchored to the given
+   * template section ID. Used by the move-warning UI to show affected entries cheaply.
+   */
+  app.get("/api/section-dependants", async (req, res) => {
+    try {
+      const contentType = req.query.contentType as string | undefined;
+      const sectionId = req.query.sectionId as string | undefined;
+
+      if (!contentType || !sectionId) {
+        res.status(400).json({ error: "Missing required query params: contentType, sectionId" });
+        return;
+      }
+
+      const { readSectionAnchors } = await import("./utils/sectionAnchors");
+      const anchors = readSectionAnchors(contentType);
+      const dependants = anchors.dependants[sectionId] ?? [];
+      res.json({ dependants });
+    } catch (error) {
+      console.error("[section-dependants] Error:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
     }
   });
 
