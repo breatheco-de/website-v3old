@@ -381,6 +381,7 @@ interface SectionRendererProps {
   slug?: string;
   locale?: string;
   variant?: string;
+  version?: number;
   programSlug?: string;
   landingLocations?: string[];
   isSharedTemplate?: boolean;
@@ -393,12 +394,16 @@ function EmptyPageState({
   locale, 
   contentType, 
   slug,
+  variant,
+  version,
   isSharedTemplate,
 }: { 
   isEditMode: boolean; 
   locale?: string; 
   contentType?: string;
   slug?: string;
+  variant?: string;
+  version?: number;
   isSharedTemplate?: boolean;
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -439,6 +444,8 @@ function EmptyPageState({
               contentType={contentType}
               slug={slug}
               locale={locale}
+              variant={variant}
+              version={version}
               isSharedTemplate={isSharedTemplate}
             />
           )}
@@ -619,7 +626,7 @@ function toSingularLabel(ct: string | undefined, rawTypes: { name: string; label
   return lower;
 }
 
-export function SectionRenderer({ sections, settings, contentType, slug, locale, variant, programSlug, landingLocations, isSharedTemplate, singleEntry, perEntryRemovedSections }: SectionRendererProps) {
+export function SectionRenderer({ sections, settings, contentType, slug, locale, variant, version, programSlug, landingLocations, isSharedTemplate, singleEntry, perEntryRemovedSections }: SectionRendererProps) {
   const { toast } = useToast();
   const editMode = useEditModeOptional();
   const isEditMode = editMode?.isEditMode ?? false;
@@ -1157,6 +1164,8 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
         contentType={contentType}
         slug={slug}
         locale={locale}
+        variant={variant}
+        version={version}
         isSharedTemplate={isSharedTemplate}
         singleEntry={singleEntry}
       />
@@ -1166,6 +1175,8 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           locale={locale} 
           contentType={contentType}
           slug={slug}
+          variant={variant}
+          version={version}
           isSharedTemplate={isSharedTemplate}
         />
       )}
@@ -1234,6 +1245,8 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
                   contentType={contentType}
                   slug={slug}
                   locale={locale}
+                  variant={variant}
+                  version={version}
                   isSharedTemplate={isSharedTemplate}
                   singleEntry={singleEntry}
                 />
@@ -1330,6 +1343,8 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
                   contentType={contentType}
                   slug={slug}
                   locale={locale}
+                  variant={variant}
+                  version={version}
                   isSharedTemplate={isSharedTemplate}
                   singleEntry={singleEntry}
                 />

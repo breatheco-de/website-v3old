@@ -19,6 +19,8 @@ interface AddSectionButtonProps {
   contentType?: string;
   slug?: string;
   locale?: string;
+  variant?: string;
+  version?: number;
   isSharedTemplate?: boolean;
   singleEntry?: Record<string, unknown>;
 }
@@ -29,6 +31,8 @@ export function AddSectionButton({
   contentType,
   slug,
   locale,
+  variant,
+  version,
   isSharedTemplate,
   singleEntry,
 }: AddSectionButtonProps) {
@@ -145,6 +149,8 @@ export function AddSectionButton({
           contentType={contentType}
           slug={slug}
           locale={locale}
+          variant={variant}
+          version={version}
           isSharedTemplate={isSharedTemplate}
           singleEntry={singleEntry}
           addScope={addScope}

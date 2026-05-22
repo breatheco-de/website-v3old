@@ -238,6 +238,7 @@ export default function PrivatePreview() {
           slug={slug}
           locale={locale}
           variant={variant ?? undefined}
+          version={version ? Number(version) : undefined}
           isSharedTemplate={!!typeInfo?.has_database}
           singleEntry={(content as any).singleEntry}
         />
