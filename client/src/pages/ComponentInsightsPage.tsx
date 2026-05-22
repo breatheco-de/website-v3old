@@ -7,8 +7,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { RefreshCw, BarChart2, ArrowUp, ArrowDown, ArrowUpDown } from "lucide-react";
+import { RefreshCw, BarChart2, ArrowUp, ArrowDown, ArrowUpDown, X } from "lucide-react";
 import type { ComponentInsightsData, ComponentPairing, ComponentSequence } from "@shared/schema";
+import ComponentGraph from "@/components/ComponentGraph";
 
 type SortKey = "from" | "to" | "count" | "frequency" | "pmi" | "distance";
 type SortDir = "asc" | "desc";
@@ -50,12 +51,23 @@ function ColInfoPopover({ label, text }: { label: string; text: string }) {
   );
 }
 
-function PairingsTable({ pairings }: { pairings: ComponentPairing[] }) {
+function PairingsTable({
+  pairings,
+  filterNode,
+}: {
+  pairings: ComponentPairing[];
+  filterNode?: string | null;
+}) {
   const [sortKey, setSortKey] = useState<SortKey>("count");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
 
+  const filtered = useMemo(() => {
+    if (!filterNode) return pairings;
+    return pairings.filter((p) => p.from === filterNode || p.to === filterNode);
+  }, [pairings, filterNode]);
+
   const sorted = useMemo(() => {
-    const arr = [...pairings];
+    const arr = [...filtered];
     arr.sort((a, b) => {
       const av = a[sortKey] as string | number;
       const bv = b[sortKey] as string | number;
@@ -65,7 +77,7 @@ function PairingsTable({ pairings }: { pairings: ComponentPairing[] }) {
       return sortDir === "asc" ? (av as number) - (bv as number) : (bv as number) - (av as number);
     });
     return arr;
-  }, [pairings, sortKey, sortDir]);
+  }, [filtered, sortKey, sortDir]);
 
   function toggle(col: SortKey) {
     if (col === sortKey) {
@@ -87,6 +99,14 @@ function PairingsTable({ pairings }: { pairings: ComponentPairing[] }) {
 
   if (pairings.length === 0) {
     return <p className="text-sm text-muted-foreground py-4">No pairings found.</p>;
+  }
+
+  if (sorted.length === 0 && filterNode) {
+    return (
+      <p className="text-sm text-muted-foreground py-4">
+        No pairings found for <span className="font-mono">{filterNode}</span>.
+      </p>
+    );
   }
 
   return (
@@ -113,7 +133,10 @@ function PairingsTable({ pairings }: { pairings: ComponentPairing[] }) {
         </thead>
         <tbody>
           {sorted.map((p, i) => (
-            <tr key={`${p.from}-${p.to}-${i}`} className="border-b last:border-0 hover:bg-muted/30 transition-colors">
+            <tr
+              key={`${p.from}-${p.to}-${i}`}
+              className="border-b last:border-0 hover:bg-muted/30 transition-colors"
+            >
               <td className="px-3 py-2 font-mono text-xs">{p.from}</td>
               <td className="px-3 py-2 font-mono text-xs">{p.to}</td>
               <td className="px-3 py-2 tabular-nums">{p.count}</td>
@@ -257,6 +280,24 @@ function SuggestPanel({ data }: { data: ComponentInsightsData }) {
   );
 }
 
+function GraphLegend() {
+  return (
+    <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground">
+      <span className="flex items-center gap-1.5">
+        <span className="inline-block rounded-full bg-primary w-2.5 h-2.5 opacity-40" />
+        <span className="inline-block rounded-full bg-primary w-4 h-4 opacity-90 -ml-2" />
+        Node size = degree
+      </span>
+      <span className="flex items-center gap-1.5">
+        <span className="inline-block h-px w-4 bg-muted-foreground opacity-60" />
+        <span className="inline-block h-0.5 w-6 bg-muted-foreground opacity-80" />
+        Edge thickness = frequency
+      </span>
+      <span className="text-muted-foreground/60">Edges sorted by PMI — strongest pairs shown first. Click a node to filter the table below.</span>
+    </div>
+  );
+}
+
 export default function ComponentInsightsPage() {
   const queryClient = useQueryClient();
 
@@ -274,6 +315,16 @@ export default function ComponentInsightsPage() {
 
   const allIntents = data ? ["__global__", ...data.meta.intents] : ["__global__"];
   const [activeTab, setActiveTab] = useState("__global__");
+  const [selectedNode, setSelectedNode] = useState<string | null>(null);
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    setSelectedNode(null);
+  };
+
+  const handleNodeClick = (componentName: string | null) => {
+    setSelectedNode(componentName);
+  };
 
   const getCluster = (tab: string) => {
     if (!data) return null;
@@ -374,7 +425,7 @@ export default function ComponentInsightsPage() {
         </Card>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
+      <Tabs value={activeTab} onValueChange={handleTabChange}>
         <TabsList className="flex-wrap h-auto gap-1">
           <Popover>
             <PopoverTrigger asChild>
@@ -419,28 +470,67 @@ export default function ComponentInsightsPage() {
           })}
         </TabsList>
 
-        {allIntents.map((tab) => (
-          <TabsContent key={tab} value={tab} className="space-y-8 mt-6">
-            {cluster && (
-              <>
-                <section>
-                  <h2 className="text-lg font-semibold mb-3">
-                    {tab === "__global__" ? "Component Pairings" : `Component Pairings for ${tab}`}
-                  </h2>
-                  <PairingsTable pairings={cluster.pairings} />
-                </section>
+        {allIntents.map((tab) => {
+          const tabCluster = getCluster(tab);
+          return (
+            <TabsContent key={tab} value={tab} className="space-y-8 mt-6">
+              {tabCluster && (
+                <>
+                  <section>
+                    <h2 className="text-lg font-semibold mb-3">Relationship Graph</h2>
+                    <Card>
+                      <CardContent className="pt-4 pb-2 px-3">
+                        <ComponentGraph
+                          pairings={tabCluster.pairings}
+                          onNodeClick={handleNodeClick}
+                          selectedNode={tab === activeTab ? selectedNode : null}
+                        />
+                        <div className="mt-3 mb-1">
+                          <GraphLegend />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </section>
 
-                <section>
-                  <h2 className="text-lg font-semibold mb-3">Top Page Sequences</h2>
-                  <SequencesList sequences={cluster.topSequences} />
-                </section>
-              </>
-            )}
-            {!cluster && (
-              <p className="text-muted-foreground text-sm">No data for this intent cluster.</p>
-            )}
-          </TabsContent>
-        ))}
+                  <section>
+                    <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+                      <h2 className="text-lg font-semibold">Component Pairings</h2>
+                      {selectedNode && (
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm text-muted-foreground">
+                            Filtered by: <span className="font-mono font-medium text-foreground">{selectedNode}</span>
+                          </span>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => setSelectedNode(null)}
+                            data-testid="button-clear-filter"
+                            className="h-7 px-2 gap-1"
+                          >
+                            <X size={12} />
+                            Clear
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                    <PairingsTable
+                      pairings={tabCluster.pairings}
+                      filterNode={tab === activeTab ? selectedNode : null}
+                    />
+                  </section>
+
+                  <section>
+                    <h2 className="text-lg font-semibold mb-3">Top Page Sequences</h2>
+                    <SequencesList sequences={tabCluster.topSequences} />
+                  </section>
+                </>
+              )}
+              {!tabCluster && (
+                <p className="text-muted-foreground text-sm">No data for this intent cluster.</p>
+              )}
+            </TabsContent>
+          );
+        })}
       </Tabs>
 
       <Card>
