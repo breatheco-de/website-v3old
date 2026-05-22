@@ -101,27 +101,33 @@ export default function LanguageSwitcher() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {visibleLocales.map((entry) => (
-          <DropdownMenuItem
-            key={entry.code}
-            onClick={() => changeLanguage(entry.code)}
-            data-testid={`menu-item-language-${entry.code}`}
-            className="cursor-pointer"
-          >
-            <div className="w-full flex items-center gap-x-3">
-              <span
-                className="shrink-0 whitespace-nowrap text-center font-medium me-1"
-                style={{ width: `${maxCodeChars}ch` }}
-              >
-                {entry.code.toUpperCase()}
-              </span>
-              <span className="min-w-0">{entry.label}</span>
-              {currentLocaleCode === entry.code && (
-                <span className="ml-auto text-primary font-bold">✓</span>
-              )}
-            </div>
-          </DropdownMenuItem>
-        ))}
+        {localeUrls !== null && localeUrls !== undefined && visibleLocales.length === 0 ? (
+          <div className="px-3 py-2 text-sm text-muted-foreground" data-testid="text-no-translations">
+            No translations available
+          </div>
+        ) : (
+          visibleLocales.map((entry) => (
+            <DropdownMenuItem
+              key={entry.code}
+              onClick={() => changeLanguage(entry.code)}
+              data-testid={`menu-item-language-${entry.code}`}
+              className="cursor-pointer"
+            >
+              <div className="w-full flex items-center gap-x-3">
+                <span
+                  className="shrink-0 whitespace-nowrap text-center font-medium me-1"
+                  style={{ width: `${maxCodeChars}ch` }}
+                >
+                  {entry.code.toUpperCase()}
+                </span>
+                <span className="min-w-0">{entry.label}</span>
+                {currentLocaleCode === entry.code && (
+                  <span className="ml-auto text-primary font-bold">✓</span>
+                )}
+              </div>
+            </DropdownMenuItem>
+          ))
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
