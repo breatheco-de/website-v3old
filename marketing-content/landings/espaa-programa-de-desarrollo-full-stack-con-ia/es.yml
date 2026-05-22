@@ -59,6 +59,8 @@ sections:
         program:
           visible: false
           default: full-stack
+        location:
+          default: madrid-spain
       success:
         message: Ya estás dentro. Alguien de nuestro equipo de admisiones se pondrá en contacto contigo en unos minutos por email. Revisa tu bandeja de entrada.
       terms_url: /terms-and-conditions

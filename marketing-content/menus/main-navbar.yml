@@ -186,7 +186,7 @@ navbar:
               - label: Rest Of America
                 href: /en/location/remote
     - label: UPCOMING DATES
-      href: /upcoming-dates
+      href: /en/upcoming-dates
       component: SimpleLink
     - label: LanguageSwitcher
       href: '#'

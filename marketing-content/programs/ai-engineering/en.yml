@@ -22,14 +22,6 @@ schema:
     - website
     - courses:ai-engineering
 sections:
-  - type: breadcrumb
-    section_id: breadcrumb-ai-engineering
-    items:
-      - label: Home
-        url: /
-      - label: Career Programs
-        url: /en/career-programs
-      - label: AI Engineering
   - type: hero
     version: "1.0"
     variant: course
@@ -84,7 +76,7 @@ sections:
           text: AI-Powered Learning & Feedback
     section_id: hero-tznhhe
     paddingY:
-      desktop: md
+      desktop: none md
     marginY:
       desktop: none
     showOnLocations:
