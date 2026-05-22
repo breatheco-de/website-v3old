@@ -79,18 +79,6 @@ sections:
       desktop: none md
     marginY:
       desktop: none
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
   - type: modal
     version: "1.0"
     section_id: modal-ubwgcj
