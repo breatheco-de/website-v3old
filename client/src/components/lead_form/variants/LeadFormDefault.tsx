@@ -1011,11 +1011,16 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
                               return (
                                 <SelectGroup key={region.slug}>
                                   <SelectLabel>{region.label}</SelectLabel>
-                                  {regionLocations.map((loc) => (
-                                    <SelectItem key={loc.slug} value={loc.slug}>
-                                      {loc.name} - {loc.country}
-                                    </SelectItem>
-                                  ))}
+                                  {regionLocations.map((loc) => {
+                                    const countryLabel = loc.country && loc.country !== "Unknown"
+                                      ? loc.country
+                                      : region.label;
+                                    return (
+                                      <SelectItem key={loc.slug} value={loc.slug}>
+                                        {loc.name} - {countryLabel}
+                                      </SelectItem>
+                                    );
+                                  })}
                                 </SelectGroup>
                               );
                             })}
