@@ -4,7 +4,7 @@ import * as yaml from "js-yaml";
 import { escapeTemplateVars, unescapeObjectVars } from "../../shared/templateVars";
 import { deepMerge } from "../utils/deepMerge";
 import { getFolder, getType } from "../content-types";
-import { addFileModifiedListener } from "../sync-state";
+import { addFileModifiedListener, markFileAsModified } from "../sync-state";
 import { gcs } from "../gcs";
 import { hashUserId } from "./cookie-utils";
 
@@ -431,6 +431,7 @@ export class VersioningManager {
     const cacheKey = `${contentType}:${slug}`;
     this.configCache.delete(cacheKey);
     this.contentCache.clear();
+    markFileAsModified(configPath, "system");
     console.log(`[Versioning] Updated versioning.yml for ${contentType}/${slug}`);
   }
 

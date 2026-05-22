@@ -7734,6 +7734,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     try {
       const sourceContent = fs.readFileSync(sourceFilePath, "utf-8");
       fs.writeFileSync(variantFilePath, sourceContent, "utf-8");
+      markFileAsModified(`marketing-content/${folder}/${contentSlug}/${variantSlug}.${locale}.yml`, "api");
 
       const versioningManager = getVersioningManager();
       const existing = versioningManager.getVersioningForContent(contentType, contentSlug) || {};
@@ -7823,6 +7824,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       clearSsrSchemaCache();
       const folder = getFolder(contentType as ContentType);
       markFileAsModified(`marketing-content/${folder}/${contentSlug}/${locale}.yml`, "api");
+      markFileAsModified(`marketing-content/${folder}/${contentSlug}/${variantSlug}.${locale}.yml`, "api");
 
       res.json({ success: true });
     } catch (error) {
@@ -7875,6 +7877,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
     try {
       fs.unlinkSync(variantFilePath);
+      markFileAsModified(`marketing-content/${folder}/${contentSlug}/${variantSlug}.${locale}.yml`, "api");
 
       const versioningManager = getVersioningManager();
       const existing = versioningManager.getVersioningForContent(contentType, contentSlug) || {};
