@@ -343,11 +343,15 @@ Gets the field definitions (`variant_props`) and a worked YAML example for a spe
 
 ## Auth
 
-All `/mcp` requests require an API key. **`MCP_API_KEY` must be set** — the server will refuse to start without it. Pass the key via:
-- `X-Api-Key: <key>` header, or
-- `Authorization: Bearer <key>` header
+All `/mcp` requests require authentication. The server will refuse to start if the internal loopback credential is not set — see [Environment variables](#environment-variables) below.
+
+Inbound callers (Claude Desktop, Claude.ai, curl) authenticate via:
+- An **OAuth 2.0 Bearer token** issued by this server's `/oauth/token` endpoint, or
+- A **Breathecode API token** passed via `Authorization: Bearer <token>` or `X-Api-Key: <token>`.
 
 The `/health` endpoint is open without auth.
+
+> **Note:** `MCP_SERVER_SECRET` is an *internal* server-to-server credential used only for the MCP server's own loopback requests to the main app's `/api/auth/check-capability` endpoint. It is **not** accepted as an inbound caller credential — callers must use OAuth or a Breathecode token.
 
 ## Running locally
 
@@ -357,13 +361,14 @@ The MCP server starts automatically alongside the main app via the **MCP Server*
 
 | Variable | Default | Description |
 |---|---|---|
-| `MCP_API_KEY` | _(none)_ | API key for auth. Required — server exits without it. |
+| `MCP_SERVER_SECRET` | _(none)_ | **Required.** Internal loopback credential used by the MCP server to authenticate its own requests to the main app. Server exits with a FATAL error if neither this nor the legacy `MCP_API_KEY` is set. |
+| `MCP_API_KEY` | _(none)_ | **Legacy alias for `MCP_SERVER_SECRET`.** Supported for backward compatibility — a deprecation warning is emitted at startup. Rename to `MCP_SERVER_SECRET` for new deployments. |
 | `MCP_PORT` | `3001` | Port the MCP server listens on. |
-| `PUBLIC_URL` | auto (`REPLIT_DEV_DOMAIN`) | Public base URL used in OAuth metadata. Automatically resolved from `REPLIT_DEV_DOMAIN` in Replit — only set this manually if deploying outside Replit. |
+| `SITE_URL` | auto (`REPLIT_DEV_DOMAIN`) | Public base URL used in OAuth metadata. Automatically resolved from `REPLIT_DEV_DOMAIN` in Replit — only set this manually if deploying outside Replit. |
 | `OAUTH_CLIENT_ID` | _(none)_ | Optional static Client ID for the legacy pre-configured OAuth flow. Not needed when using dynamic registration (Claude.ai default). |
 | `OAUTH_CLIENT_SECRET` | _(none)_ | Optional static Client Secret for the legacy pre-configured OAuth flow. |
 
-Set all secrets in the Replit **Secrets** tab (or `.env` locally).
+Set all secrets in the Replit **Secrets** tab (or `.env` locally). See `.env.example` in the repo root for a complete template.
 
 ## Connect via Claude Desktop
 
@@ -376,7 +381,7 @@ Add this to your `claude_desktop_config.json` (usually at `~/Library/Application
       "type": "http",
       "url": "http://localhost:3001/mcp",
       "headers": {
-        "X-Api-Key": "YOUR_MCP_API_KEY"
+        "X-Api-Key": "YOUR_BREATHECODE_TOKEN"
       }
     }
   }
@@ -416,14 +421,14 @@ The connector is now available in conversations via the **+** button.
 
 > **Restart behaviour**: Registered clients are persisted to `mcp-server/data/oauth-clients.json` and survive server restarts. However, access tokens are in-memory only — after a restart, Claude.ai will automatically re-exchange its token on the next request. If that fails, disconnect and re-add the connector to repeat the OAuth flow.
 
-## Connect via claude.com (API key header — legacy)
+## Connect via claude.com (Breathecode token header — legacy)
 
 1. Deploy the Replit project so it gets a public URL (e.g. `https://your-project.replit.app`).
 2. In Claude → **Settings → Connectors**, click **+** and enter:
    - **Name**: Content Pages
    - **URL**: `https://your-project.replit.app/mcp`
 3. Click **Advanced settings** and add a custom header:
-   - `X-Api-Key: YOUR_MCP_API_KEY`
+   - `X-Api-Key: YOUR_BREATHECODE_TOKEN`
 4. Click **Add**. The connector is now available in conversations via the **+** button.
 
 > **Note**: Anthropic's cloud connects to your server from the internet, so the Replit project must be deployed (not just running in dev mode).
@@ -477,7 +482,7 @@ Clients must include both `application/json` and `text/event-stream` in their `A
 
 ## Smoke test (curl)
 
-Use these commands to verify auth and basic read/write behaviour. Replace `$KEY` with your `MCP_API_KEY` value.
+Use these commands to verify auth and basic read/write behaviour. Replace `$TOKEN` with your Breathecode API token.
 
 ```bash
 # Health (no auth required)
@@ -493,42 +498,42 @@ curl -X POST http://localhost:3001/mcp \
 curl -X POST http://localhost:3001/mcp \
   -H "Content-Type: application/json" \
   -H "Accept: application/json, text/event-stream" \
-  -H "X-Api-Key: $KEY" \
+  -H "X-Api-Key: $TOKEN" \
   -d '{"jsonrpc":"2.0","method":"tools/call","id":2,"params":{"name":"list_pages","arguments":{}}}'
 
 # Get page content (sections, no meta) by slug only (contentType auto-detected)
 curl -X POST http://localhost:3001/mcp \
   -H "Content-Type: application/json" \
   -H "Accept: application/json, text/event-stream" \
-  -H "X-Api-Key: $KEY" \
+  -H "X-Api-Key: $TOKEN" \
   -d '{"jsonrpc":"2.0","method":"tools/call","id":3,"params":{"name":"get_page_content","arguments":{"slug":"home","locale":"en"}}}'
 
 # Get page SEO/meta only by slug
 curl -X POST http://localhost:3001/mcp \
   -H "Content-Type: application/json" \
   -H "Accept: application/json, text/event-stream" \
-  -H "X-Api-Key: $KEY" \
+  -H "X-Api-Key: $TOKEN" \
   -d '{"jsonrpc":"2.0","method":"tools/call","id":3,"params":{"name":"get_page_seo","arguments":{"slug":"home","locale":"en"}}}'
 
 # Update a section field (write tool)
 curl -X POST http://localhost:3001/mcp \
   -H "Content-Type: application/json" \
   -H "Accept: application/json, text/event-stream" \
-  -H "X-Api-Key: $KEY" \
+  -H "X-Api-Key: $TOKEN" \
   -d '{"jsonrpc":"2.0","method":"tools/call","id":4,"params":{"name":"update_section_field","arguments":{"slug":"home","locale":"en","field_path":"sections.0.title","value":"Learn AI From Day One"}}}'
 
 # Update a meta field (write tool)
 curl -X POST http://localhost:3001/mcp \
   -H "Content-Type: application/json" \
   -H "Accept: application/json, text/event-stream" \
-  -H "X-Api-Key: $KEY" \
+  -H "X-Api-Key: $TOKEN" \
   -d '{"jsonrpc":"2.0","method":"tools/call","id":5,"params":{"name":"update_meta_field","arguments":{"slug":"home","locale":"en","field":"page_title","value":"Home | 4Geeks Academy"}}}'
 
 # Update multiple meta fields at once
 curl -X POST http://localhost:3001/mcp \
   -H "Content-Type: application/json" \
   -H "Accept: application/json, text/event-stream" \
-  -H "X-Api-Key: $KEY" \
+  -H "X-Api-Key: $TOKEN" \
   -d '{"jsonrpc":"2.0","method":"tools/call","id":6,"params":{"name":"update_meta_fields","arguments":{"slug":"home","locale":"en","fields":{"page_title":"Home | 4Geeks Academy","description":"Join our AI bootcamp.","robots":"index, follow"}}}}'
 
 ```

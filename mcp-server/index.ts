@@ -29,9 +29,15 @@ const STATIC_CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET || "";
 
 if (!SERVER_SECRET) {
   console.error(
-    "[MCP] FATAL: MCP_SERVER_SECRET environment variable is not set. Set it before starting the server.",
+    "[MCP] FATAL: MCP_SERVER_SECRET is not set. Set MCP_SERVER_SECRET in your environment (Secrets tab on Replit, or .env locally) before starting the server.",
   );
   process.exit(1);
+}
+
+if (!process.env.MCP_SERVER_SECRET && process.env.MCP_API_KEY) {
+  console.warn(
+    "[MCP] DEPRECATION WARNING: MCP_API_KEY is a legacy alias. Rename it to MCP_SERVER_SECRET — MCP_API_KEY support will be removed in a future release.",
+  );
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
