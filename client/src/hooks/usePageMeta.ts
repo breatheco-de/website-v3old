@@ -6,6 +6,8 @@ export interface PageMeta {
   robots?: string;
   og_image?: string;
   canonical_url?: string;
+  pagination_prev?: string;
+  pagination_next?: string;
   priority?: number;
   change_frequency?: string;
   redirects?: string[];
@@ -85,11 +87,33 @@ export function usePageMeta(meta: PageMeta | undefined) {
       }
     }
 
+    const addedPaginationLinks: HTMLLinkElement[] = [];
+    document.querySelectorAll('link[data-pagemeta-pagination]').forEach(el => el.remove());
+
+    if (meta.pagination_prev) {
+      const link = document.createElement("link");
+      link.rel = "prev";
+      link.href = meta.pagination_prev;
+      link.setAttribute("data-pagemeta-pagination", "true");
+      document.head.appendChild(link);
+      addedPaginationLinks.push(link);
+    }
+
+    if (meta.pagination_next) {
+      const link = document.createElement("link");
+      link.rel = "next";
+      link.href = meta.pagination_next;
+      link.setAttribute("data-pagemeta-pagination", "true");
+      document.head.appendChild(link);
+      addedPaginationLinks.push(link);
+    }
+
     return () => {
       document.title = originalTitle;
 
       addedElements.forEach((el) => el.remove());
       addedHreflangLinks.forEach((el) => el.remove());
+      addedPaginationLinks.forEach((el) => el.remove());
 
       modifiedElements.forEach((originalValue, element) => {
         if (originalValue) {

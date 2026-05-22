@@ -92,15 +92,6 @@ export default function BlogListingPage() {
   });
   const siteName = org?.name || "";
 
-  usePageMeta({
-    page_title: locale === "es"
-      ? `Blog${currentPage > 1 ? ` - Página ${currentPage}` : ""}${siteName ? ` | ${siteName}` : ""}`
-      : `Blog${currentPage > 1 ? ` - Page ${currentPage}` : ""}${siteName ? ` | ${siteName}` : ""}`,
-    description: locale === "es"
-      ? "Lee las últimas noticias, tutoriales y artículos sobre programación, tecnología y educación en 4Geeks Academy."
-      : "Read the latest news, tutorials and articles about coding, technology and education at 4Geeks Academy.",
-  });
-
   const apiParams = new URLSearchParams();
   apiParams.set("locale", locale);
   apiParams.set("page", String(currentPage));
@@ -114,6 +105,24 @@ export default function BlogListingPage() {
       if (!response.ok) throw new Error("Failed to load blog posts");
       return response.json();
     },
+  });
+
+  const baseUrl = `/${locale}/blog`;
+  const canonicalUrl = currentPage > 1 ? `${baseUrl}?page=${currentPage}` : baseUrl;
+  const prevUrl = currentPage > 1 ? (currentPage === 2 ? baseUrl : `${baseUrl}?page=${currentPage - 1}`) : undefined;
+  const nextUrl = data?.hasNext ? `${baseUrl}?page=${currentPage + 1}` : undefined;
+
+  usePageMeta({
+    page_title: locale === "es"
+      ? `Blog${currentPage > 1 ? ` - Página ${currentPage}` : ""}${siteName ? ` | ${siteName}` : ""}`
+      : `Blog${currentPage > 1 ? ` - Page ${currentPage}` : ""}${siteName ? ` | ${siteName}` : ""}`,
+    description: locale === "es"
+      ? "Lee las últimas noticias, tutoriales y artículos sobre programación, tecnología y educación en 4Geeks Academy."
+      : "Read the latest news, tutorials and articles about coding, technology and education at 4Geeks Academy.",
+    canonical_url: canonicalUrl,
+    pagination_prev: prevUrl,
+    pagination_next: nextUrl,
+    robots: currentPage > 5 ? "noindex, follow" : undefined,
   });
 
   const { data: blogConfig } = useQuery<BlogConfig>({

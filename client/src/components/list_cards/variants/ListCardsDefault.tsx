@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { ArrowRight, Calendar, ChevronLeft, ChevronRight, Search, User } from "lucide-react";
 import { useLocation, useSearch } from "wouter";
 import { Card } from "@/components/ui/card";
@@ -206,6 +206,48 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
     setLocation(buildPageUrl(page));
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  useEffect(() => {
+    if (perPage <= 0 || totalPages <= 1) return;
+
+    const basePath = location.split("?")[0];
+    const canonicalHref = currentPage > 1 ? `${basePath}?page=${currentPage}` : basePath;
+    const prevHref = currentPage > 1 ? (currentPage === 2 ? basePath : `${basePath}?page=${currentPage - 1}`) : null;
+    const nextHref = currentPage < totalPages ? `${basePath}?page=${currentPage + 1}` : null;
+
+    document.querySelectorAll('link[data-listcards-pagination]').forEach(el => el.remove());
+
+    const added: HTMLLinkElement[] = [];
+
+    const canonical = document.createElement("link");
+    canonical.rel = "canonical";
+    canonical.href = canonicalHref;
+    canonical.setAttribute("data-listcards-pagination", "true");
+    document.head.appendChild(canonical);
+    added.push(canonical);
+
+    if (prevHref) {
+      const prev = document.createElement("link");
+      prev.rel = "prev";
+      prev.href = prevHref;
+      prev.setAttribute("data-listcards-pagination", "true");
+      document.head.appendChild(prev);
+      added.push(prev);
+    }
+
+    if (nextHref) {
+      const next = document.createElement("link");
+      next.rel = "next";
+      next.href = nextHref;
+      next.setAttribute("data-listcards-pagination", "true");
+      document.head.appendChild(next);
+      added.push(next);
+    }
+
+    return () => {
+      added.forEach(el => el.remove());
+    };
+  }, [perPage, totalPages, currentPage, location]);
 
   const setUserFilter = (slug: string, value: string) => {
     setUserFilterValues(prev => ({ ...prev, [slug]: value }));
