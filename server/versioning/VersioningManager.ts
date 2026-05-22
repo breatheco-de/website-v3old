@@ -168,6 +168,7 @@ export class VersioningManager {
   public async shutdown(): Promise<void> {
     this.saveStateLocal();
     if (IS_PRODUCTION && gcs.available) {
+      await gcs.flushPending();
       try {
         const content = JSON.stringify(this.state, null, 2);
         await gcs.upload(GCS_STATE_KEY, Buffer.from(content, "utf-8"), "application/json");

@@ -150,6 +150,26 @@ class GCSClient {
     this._pendingUploads.set(key, { timer, data, contentType: contentType || "application/octet-stream", options });
   }
 
+  async flushPending(): Promise<void> {
+    if (this._pendingUploads.size === 0) return;
+
+    console.log(`[GCS] Flushing ${this._pendingUploads.size} pending upload(s) before shutdown…`);
+    const entries = Array.from(this._pendingUploads.entries());
+    this._pendingUploads.clear();
+
+    await Promise.allSettled(
+      entries.map(async ([key, pending]) => {
+        clearTimeout(pending.timer);
+        try {
+          await this.upload(key, pending.data, pending.contentType, pending.options);
+          console.log(`[GCS] Flushed pending upload: "${key}"`);
+        } catch (err) {
+          console.error(`[GCS] Failed to flush pending upload for "${key}":`, err);
+        }
+      })
+    );
+  }
+
   async list(prefix: string): Promise<string[]> {
     if (!this.storage) return [];
     try {

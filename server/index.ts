@@ -11,6 +11,8 @@ import { queueFileChange } from "./auto-commit";
 import { databaseManager } from "./database";
 import { contentIndex } from "./content-index";
 import { loadUsersStateFromBucket } from "./user-store";
+import { gcs } from "./gcs";
+import { getVersioningManager } from "./versioning/VersioningManager";
 import http from "http";
 // Note: gcs.initFromEnv() is called by media.initFromEnv() in routes.ts,
 // which happens before sync-state needs it.
@@ -236,4 +238,26 @@ app.use((req, res, next) => {
       console.error("[UserStore] Failed to load users state:", err);
     });
   });
+
+  async function gracefulShutdown(signal: string): Promise<void> {
+    log(`[Shutdown] Received ${signal}, flushing pending GCS uploads…`);
+    try {
+      await getVersioningManager().shutdown();
+      await gcs.flushPending();
+    } catch (err) {
+      console.error("[Shutdown] Error during graceful shutdown:", err);
+    }
+    server.close(() => {
+      log("[Shutdown] HTTP server closed.");
+      process.exit(0);
+    });
+    // Force exit after 10 s if server.close() hangs
+    setTimeout(() => {
+      console.error("[Shutdown] Forced exit after timeout.");
+      process.exit(1);
+    }, 10_000).unref();
+  }
+
+  process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
+  process.on("SIGINT", () => gracefulShutdown("SIGINT"));
 })();
