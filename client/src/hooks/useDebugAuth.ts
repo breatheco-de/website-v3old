@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, createContext, useContext, createElement, type ReactNode } from "react";
+import { setAuthToken } from "@/lib/sessionHeaders";
 
 const DEBUG_SESSION_KEY = "debug_validated";
 const DEBUG_SESSION_EXPIRY_KEY = "debug_validated_expiry";
@@ -180,6 +181,7 @@ export function DebugAuthProvider({ children }: { children: ReactNode }) {
         const expiryTime = parseInt(cachedExpiry, 10);
         if (Date.now() < expiryTime) {
           if (cachedUsername) {
+            setAuthToken(cachedToken);
             setHasToken(true);
             setIsValidated(true);
             if (cachedCaps) {
@@ -240,6 +242,7 @@ export function DebugAuthProvider({ children }: { children: ReactNode }) {
           : Date.now() + (24 * 60 * 60 * 1000);
         localStorage.setItem(DEBUG_SESSION_EXPIRY_KEY, String(expiryTime));
         localStorage.setItem(DEBUG_TOKEN_KEY, token);
+        setAuthToken(token);
         if (data.capabilities) {
           const grants = capabilityGrantsFromResponse(data.capabilities);
           localStorage.setItem(DEBUG_CAPABILITIES_KEY, JSON.stringify(grants));
@@ -255,6 +258,7 @@ export function DebugAuthProvider({ children }: { children: ReactNode }) {
         localStorage.removeItem(DEBUG_TOKEN_KEY);
         localStorage.removeItem(DEBUG_CAPABILITIES_KEY);
         localStorage.removeItem(DEBUG_USERNAME_KEY);
+        setAuthToken(undefined);
         setCapabilities(data.capabilities ? capabilityGrantsFromResponse(data.capabilities) : DEFAULT_CAPABILITIES);
         setIsValidated(false);
       }
@@ -305,6 +309,7 @@ export function DebugAuthProvider({ children }: { children: ReactNode }) {
           : Date.now() + (24 * 60 * 60 * 1000);
         localStorage.setItem(DEBUG_SESSION_EXPIRY_KEY, String(expiryTime));
         localStorage.setItem(DEBUG_TOKEN_KEY, manualToken);
+        setAuthToken(manualToken);
         if (data.capabilities) {
           const grants = capabilityGrantsFromResponse(data.capabilities);
           localStorage.setItem(DEBUG_CAPABILITIES_KEY, JSON.stringify(grants));
@@ -315,6 +320,7 @@ export function DebugAuthProvider({ children }: { children: ReactNode }) {
         }
         setIsValidated(true);
       } else {
+        setAuthToken(undefined);
         setCapabilities(data.capabilities ? capabilityGrantsFromResponse(data.capabilities) : DEFAULT_CAPABILITIES);
         setIsValidated(false);
       }
@@ -377,6 +383,7 @@ export function DebugAuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem(DEBUG_TOKEN_KEY);
     localStorage.removeItem(DEBUG_CAPABILITIES_KEY);
     localStorage.removeItem(DEBUG_USERNAME_KEY);
+    setAuthToken(undefined);
     setHasToken(false);
     setIsValidated(false);
     setCapabilities(DEFAULT_CAPABILITIES);

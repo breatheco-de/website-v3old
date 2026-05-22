@@ -813,17 +813,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
 
-      // Auto-register user; if this is the very first user, grant webmaster role
-      const wasFirstUser = userStore.isFirstUser();
+      // Auto-register user; grant webmaster if no one currently holds the role
+      const noWebmasterExists = userStore.isFirstUser();
       userStore.upsertUser({
         username: profile.username,
         firstName: profile.firstName,
         lastName: profile.lastName,
         email: profile.email,
       });
-      if (wasFirstUser) {
+      if (noWebmasterExists) {
         userStore.assignRoles(profile.username, ["webmaster"]);
-        console.log(`[UserStore] First user "${profile.username}" auto-assigned webmaster role`);
+        console.log(`[UserStore] Bootstrap: no webmaster existed — "${profile.username}" auto-assigned webmaster role`);
       }
 
       // Claim any pending pre-registration that matches this user's email

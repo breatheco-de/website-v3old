@@ -215,11 +215,13 @@ function ensureLoaded(): void {
 // ─── Public API ────────────────────────────────────────────────────────────────
 
 /**
- * Returns true if no users have been registered yet (first deployment).
+ * Returns true if no user currently holds the webmaster role.
+ * This ensures the bootstrap grant fires even when stale user records
+ * exist from prior deployments that never completed first-login.
  */
 export function isFirstUser(): boolean {
   ensureLoaded();
-  return Object.keys(state.users).length === 0;
+  return !Object.values(state.users).some((u) => u.roles.includes("webmaster"));
 }
 
 /**
