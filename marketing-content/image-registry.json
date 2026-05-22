@@ -18986,14 +18986,29 @@
       ]
     },
     "blog_posts-blog_posts-4geeks-at-america-business-fo-e88b504d": {
-      "src": "",
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-4geeks-at-america-business-forum-png-7ebaecf6-736x491-640w.webp",
       "alt": "Image from blog_posts",
       "tags": [
         "blog_posts"
       ],
       "source_url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-4geeks-at-america-business-forum-png-7ebaecf6-736x491.webp",
       "usage_count": 0,
-      "source_item": "global-innovators-at-the-america-business-forum-miami"
+      "source_item": "global-innovators-at-the-america-business-forum-miami",
+      "width": 736,
+      "height": 491,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-4geeks-at-america-business-forum-png-7ebaecf6-736x491-640w.webp"
+        }
+      ]
     }
   }
 }
