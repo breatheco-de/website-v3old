@@ -173,7 +173,7 @@ export default function ComponentPickerModal({
   isSharedTemplate,
   singleEntry,
 }: ComponentPickerModalProps) {
-  const [step, setStep] = useState<"select" | "configure" | "wizard">("select");
+  const [step, setStep] = useState<"select" | "configure" | "wizard" | "scope">("select");
   const [selectedComponent, setSelectedComponent] = useState<ComponentInfo | null>(null);
   const [versions, setVersions] = useState<string[]>([]);
   const [selectedVersion, setSelectedVersion] = useState<string>("");
@@ -186,12 +186,13 @@ export default function ComponentPickerModal({
   const [selectedRelatedFeatures, setSelectedRelatedFeatures] = useState<string[]>([]);
   const [componentSearch, setComponentSearch] = useState("");
   const [addWarnOpen, setAddWarnOpen] = useState(false);
-  const [addScopeOpen, setAddScopeOpen] = useState(false);
-  /** "All entries" path for the scope dialog (shared-template add or wizard shared add). */
+  /** "All entries" path for the scope step (shared-template add or wizard shared add). */
   const pendingAddFn = useRef<(() => Promise<void>) | null>(null);
-  /** "This entry only" path for the scope dialog — separate from pendingAddFn because
+  /** "This entry only" path for the scope step — separate from pendingAddFn because
    *  wizard and example-based flows use different per-entry functions. */
   const pendingPerEntryFn = useRef<(() => Promise<void>) | null>(null);
+  /** Which step to return to if the user cancels from the scope step. */
+  const scopeOrigin = useRef<"configure" | "wizard">("configure");
   const { toast } = useToast();
   const contentTypesMap = useContentTypes();
   const { data: rawContentTypes } = useContentTypesRaw();
@@ -424,7 +425,8 @@ export default function ComponentPickerModal({
     if (isSharedTemplate && singleEntry) {
       pendingAddFn.current = () => executeWizardComplete(config);
       pendingPerEntryFn.current = () => executePerEntryWizardComplete(config);
-      setAddScopeOpen(true);
+      scopeOrigin.current = "wizard";
+      setStep("scope");
       return;
     }
     if (isSharedTemplate) {
@@ -601,7 +603,8 @@ export default function ComponentPickerModal({
     if (isSharedTemplate && singleEntry) {
       pendingAddFn.current = executeAddSection;
       pendingPerEntryFn.current = executePerEntryAddSection;
-      setAddScopeOpen(true);
+      scopeOrigin.current = "configure";
+      setStep("scope");
       return;
     }
     if (isSharedTemplate) {
@@ -678,7 +681,7 @@ export default function ComponentPickerModal({
       <DialogContent className="max-w-4xl h-[80vh] flex flex-col p-0">
         <DialogHeader className="p-4 border-b flex-shrink-0">
           <DialogTitle>
-            {step === "select" ? "Choose a Component" : step === "wizard" ? "Dynamic Table Builder" : `Configure ${selectedComponent?.label}`}
+            {step === "select" ? "Choose a Component" : step === "wizard" ? "Dynamic Table Builder" : step === "scope" ? "Where should this section appear?" : `Configure ${selectedComponent?.label}`}
           </DialogTitle>
           <DialogDescription className="sr-only">
             {step === "select" ? "Select a component type to add to the page" : step === "wizard" ? "Build a dynamic table step by step" : "Configure the component version and example"}
