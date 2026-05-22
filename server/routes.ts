@@ -23,6 +23,10 @@ import {
   clearSitemapCache,
   getSitemapCacheStatus,
   getSitemapUrls,
+  invalidateSitemapEntry,
+  invalidateSitemapEntriesByContentKey,
+  refreshSitemapEntry,
+  refreshSitemapEntriesForContentKey,
 } from "./sitemap";
 import { markFileAsModified } from "./sync-state";
 import { deepMerge } from "./utils/deepMerge";
@@ -7908,7 +7912,6 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
       fs.writeFileSync(fullPath, content, "utf-8");
       markFileAsModified(normalizedPath, authorName);
-      clearSitemapCache();
       clearRedirectCache();
       contentIndex.refresh();
 
@@ -7916,6 +7919,19 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const pathParts = normalizedPath.replace(/\\/g, "/").split("/");
       const folderSegment = pathParts[1]; // segment after "marketing-content"
       const resolvedType = folderSegment ? getType(folderSegment) : undefined;
+
+      // Targeted sitemap cache invalidation based on file path
+      const rawDirSlug = pathParts[2];
+      const rawFilename = pathParts[3];
+      const rawLocale = rawFilename ? rawFilename.replace(/\.ya?ml$/, "") : "";
+      if (resolvedType && rawDirSlug && getSupportedLocales().includes(rawLocale)) {
+        refreshSitemapEntry(resolvedType, rawDirSlug, rawLocale);
+      } else if (resolvedType && rawDirSlug && rawFilename === "_common.yml") {
+        refreshSitemapEntriesForContentKey(resolvedType, rawDirSlug, getSupportedLocales());
+      } else {
+        clearSitemapCache();
+      }
+
       invalidateContentCaches(resolvedType);
 
       res.json({ success: true });
@@ -8477,7 +8493,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       });
 
       if (result.success) {
-        clearSitemapCache();
+        refreshSitemapEntry(contentType, slug, locale);
         clearRedirectCache();
         contentIndex.refresh();
         invalidateContentCaches(contentType);
@@ -8602,7 +8618,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       });
 
       if (result.success) {
-        clearSitemapCache();
+        refreshSitemapEntriesForContentKey(contentType, slug, getSupportedLocales());
         clearRedirectCache();
         contentIndex.refresh();
         invalidateContentCaches(contentType);
@@ -8736,7 +8752,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       );
 
       contentIndex.refresh();
-      clearSitemapCache();
+      refreshSitemapEntry(contentType, resolvedFolderSlug, effectiveLocale);
       clearRedirectCache();
       invalidateContentCaches(contentType);
 
@@ -9058,7 +9074,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
                 );
               }
 
-              clearSitemapCache();
+              refreshSitemapEntriesForContentKey(type, folderSlug!, getSupportedLocales().filter(l => !skipLocales.includes(l)));
               contentIndex.refresh();
               invalidateContentCaches(type);
 
@@ -9198,7 +9214,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
             }
 
 
-            clearSitemapCache();
+            refreshSitemapEntriesForContentKey(type, folderSlug!, getSupportedLocales().filter(l => !skipLocales.includes(l)));
             contentIndex.refresh();
             invalidateContentCaches(type);
 
@@ -9290,8 +9306,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         markFileAsModified(`${relFolder}/es.yml`, createAuthorName);
       }
 
-      // Clear sitemap cache so the new content appears
-      clearSitemapCache();
+      // Add new content entries to sitemap cache
+      refreshSitemapEntriesForContentKey(type, folderSlug!, getSupportedLocales().filter(l => !skipLocales.includes(l)));
 
       contentIndex.refresh();
       invalidateContentCaches(type);
@@ -9426,7 +9442,14 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           );
         }
 
-        clearSitemapCache();
+        if (remainingFiles.length === 0) {
+          invalidateSitemapEntriesByContentKey(`${type}:${resolvedSlug}`);
+        } else {
+          for (const deletedFile of deletedFiles) {
+            const deletedLocale = deletedFile.replace(/\.ya?ml$/, "");
+            invalidateSitemapEntry(`${type}:${resolvedSlug}:${deletedLocale}`);
+          }
+        }
         contentIndex.refresh();
         invalidateContentCaches(type);
 
@@ -9447,7 +9470,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
         fs.rmSync(folderPath, { recursive: true, force: true });
 
         console.log(`[Content] Deleted ${type}/${slug}`);
-        clearSitemapCache();
+        invalidateSitemapEntriesByContentKey(`${type}:${resolvedSlug}`);
         contentIndex.refresh();
         invalidateContentCaches(type);
 
@@ -9582,7 +9605,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               );
             }
 
-            clearSitemapCache();
+            refreshSitemapEntry("landing", slug, landingLocale);
             contentIndex.refresh();
             invalidateContentCaches("landing");
 
@@ -9636,7 +9659,7 @@ sections: []
         landingAuthorName,
       );
 
-      clearSitemapCache();
+      refreshSitemapEntry("landing", slug, landingLocale);
       contentIndex.refresh();
       invalidateContentCaches("landing");
 
@@ -12021,8 +12044,7 @@ sections: []
 
       fs.writeFileSync(faqsPath, yamlContent, "utf8");
 
-      // Clear relevant caches
-      clearSitemapCache();
+      // Clear relevant caches (FAQs have no sitemap entries — skip clearSitemapCache)
       invalidateContentCaches();
 
       res.json({ success: true });
