@@ -29,7 +29,7 @@ sections:
         url: /
       - label: Career Programs
         url: /en/career-programs
-      - label: "AI Engineering"
+      - label: AI Engineering
   - type: hero
     version: "1.0"
     variant: course
@@ -77,7 +77,7 @@ sections:
         - icon: IconShield
           text: Optional Job Guarantee (available as add-on)
         - icon: IconUsers
-          text: "{{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio"
+          text: {{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
           text: Unlimited 1:1 Mentorship
         - icon: IconRobot
@@ -148,7 +148,7 @@ sections:
         - icon: IconRobot
           text: AI-Powered learning & feedback
         - icon: IconUsers
-          text: "{{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio"
+          text: {{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
           text: Unlimited 1:1 mentorship
         - icon: book
@@ -554,7 +554,7 @@ sections:
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 technical mentorship
-          - text: "{{ global.global_teacher_student_ratio | 7:1 }} student-to-instructor ratio"
+          - text: {{ global.global_teacher_student_ratio | 7:1 }} student-to-instructor ratio
           - text: Weekly check-ins and peer collaboration via Slack
           - text: Dedicated channels for coding support, job boards, and career advice
         video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
@@ -601,7 +601,7 @@ sections:
     subtitle: Investing in a new career matters. We make it easier with multiple ways to fund your enrollment.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting at"
-    financing_amount: "{{ global.price_ai_engineering | $399 }}"
+    financing_amount: {{ global.price_ai_engineering | $399 }}
     tech_icons:
       - openai
       - python
@@ -747,8 +747,8 @@ sections:
       - content-and-syllabus
       - career-support
     rating_summary:
-      average: "{{ global.global_review_rating | 4.9 }}"
-      count: "{{ global.global_review_count | 700 }}"
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 700 }}
     paddingY:
       desktop: md lg
     marginY:
