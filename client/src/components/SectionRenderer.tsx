@@ -730,35 +730,70 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     return result;
   }, [sections, isEditMode, varDefinitions, varContext, singleEntry]);
 
-  const handleMoveUp = useCallback(async (index: number) => {
-    if (!contentType || !slug || !locale || index <= 0) return;
+  // Dialog shown when a template section being moved has per-entry dependants
+  const [moveDependantsDialog, setMoveDependantsDialog] = useState<{
+    open: boolean;
+    index: number;
+    direction: "up" | "down";
+    dependants: string[];
+  }>({ open: false, index: -1, direction: "up", dependants: [] });
 
+  const performMove = useCallback(async (from: number, to: number) => {
+    if (!contentType || !slug || !locale) return;
     const result = await sendEditOperation(contentType, slug, locale, [
-      { action: "reorder_sections", from: index, to: index - 1 }
+      { action: "reorder_sections", from, to }
     ]);
-
     if (result.success) {
-      toast({ title: "Section moved up" });
+      toast({ title: from < to ? "Section moved down" : "Section moved up" });
       emitContentUpdated({ contentType, slug, locale });
     } else {
       toast({ title: "Failed to move section", description: result.error, variant: "destructive" });
     }
   }, [contentType, slug, locale, toast]);
 
+  const handleMoveUp = useCallback(async (index: number) => {
+    if (!contentType || !slug || !locale || index <= 0) return;
+
+    if (isSharedTemplate) {
+      const rawSection = sections[index] as Record<string, unknown>;
+      const sectionId = typeof rawSection?.id === "string" ? rawSection.id : null;
+      if (sectionId) {
+        try {
+          const res = await fetch(`/api/section-dependants?contentType=${encodeURIComponent(contentType)}&sectionId=${encodeURIComponent(sectionId)}`);
+          const data = await res.json();
+          const dependants: string[] = data.dependants ?? [];
+          if (dependants.length > 0) {
+            setMoveDependantsDialog({ open: true, index, direction: "up", dependants });
+            return;
+          }
+        } catch {}
+      }
+    }
+
+    await performMove(index, index - 1);
+  }, [contentType, slug, locale, isSharedTemplate, sections, performMove]);
+
   const handleMoveDown = useCallback(async (index: number) => {
     if (!contentType || !slug || !locale || index >= sections.length - 1) return;
 
-    const result = await sendEditOperation(contentType, slug, locale, [
-      { action: "reorder_sections", from: index, to: index + 1 }
-    ]);
-
-    if (result.success) {
-      toast({ title: "Section moved down" });
-      emitContentUpdated({ contentType, slug, locale });
-    } else {
-      toast({ title: "Failed to move section", description: result.error, variant: "destructive" });
+    if (isSharedTemplate) {
+      const rawSection = sections[index] as Record<string, unknown>;
+      const sectionId = typeof rawSection?.id === "string" ? rawSection.id : null;
+      if (sectionId) {
+        try {
+          const res = await fetch(`/api/section-dependants?contentType=${encodeURIComponent(contentType)}&sectionId=${encodeURIComponent(sectionId)}`);
+          const data = await res.json();
+          const dependants: string[] = data.dependants ?? [];
+          if (dependants.length > 0) {
+            setMoveDependantsDialog({ open: true, index, direction: "down", dependants });
+            return;
+          }
+        } catch {}
+      }
     }
-  }, [contentType, slug, locale, sections.length, toast]);
+
+    await performMove(index, index + 1);
+  }, [contentType, slug, locale, isSharedTemplate, sections, performMove]);
 
   const [deleteDialog, setDeleteDialog] = useState<{
     open: boolean;
@@ -1582,6 +1617,56 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
             >
               {duplicateDialog.isDuplicating ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
               Duplicate
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Move warning dialog — shown when a template section has per-entry dependants */}
+      <Dialog
+        open={moveDependantsDialog.open}
+        onOpenChange={(open) => { if (!open) setMoveDependantsDialog(prev => ({ ...prev, open: false })); }}
+      >
+        <DialogContent className="sm:max-w-sm" data-testid="dialog-move-dependants">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-muted-foreground" />
+              Move section
+            </DialogTitle>
+            <DialogDescription>
+              {moveDependantsDialog.dependants.length === 1
+                ? "1 entry has a custom section anchored here"
+                : `${moveDependantsDialog.dependants.length} entries have custom sections anchored here`}
+              {" — "}they will follow this section to its new position.
+            </DialogDescription>
+          </DialogHeader>
+          {moveDependantsDialog.dependants.length > 0 && (
+            <div className="space-y-1 max-h-[180px] overflow-auto">
+              <p className="text-xs font-medium text-muted-foreground">Affected entries:</p>
+              {moveDependantsDialog.dependants.map((slug) => (
+                <div key={slug} className="text-sm text-foreground truncate" data-testid={`move-dependant-slug-${slug}`}>
+                  {slug}
+                </div>
+              ))}
+            </div>
+          )}
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              variant="ghost"
+              onClick={() => setMoveDependantsDialog(prev => ({ ...prev, open: false }))}
+              data-testid="button-move-dependants-cancel"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={async () => {
+                const { index, direction } = moveDependantsDialog;
+                setMoveDependantsDialog(prev => ({ ...prev, open: false }));
+                await performMove(index, direction === "up" ? index - 1 : index + 1);
+              }}
+              data-testid="button-move-dependants-confirm"
+            >
+              Move anyway
             </Button>
           </DialogFooter>
         </DialogContent>
