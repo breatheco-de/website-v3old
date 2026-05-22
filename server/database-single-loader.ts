@@ -38,9 +38,67 @@ export function extractVariableFields(
   return result;
 }
 
+/**
+ * Applies a single per-entry layer (either _common.yml or {locale}.yml) on top
+ * of the accumulated merged template. Non-sections fields are deep-merged normally.
+ * If the layer declares a `sections` array, it is applied as an id-based patch:
+ *   - Entries with `_remove: true` remove the matching base section by id.
+ *   - Other entries deep-merge their properties into the matching base section by id.
+ * Sections without an id in either layer or base are left unchanged.
+ */
+function applyPerEntryLayer(
+  base: Record<string, unknown>,
+  layer: Record<string, unknown>,
+): Record<string, unknown> {
+  const layerSections = Array.isArray(layer.sections)
+    ? (layer.sections as Record<string, unknown>[])
+    : null;
+
+  if (layerSections === null) {
+    // No sections in this layer — plain deep merge
+    return deepMerge(base, layer);
+  }
+
+  // Merge all non-sections fields normally
+  const { sections: _ignored, ...layerRest } = layer;
+  let result = Object.keys(layerRest).length > 0 ? deepMerge(base, layerRest) : { ...base };
+
+  // Apply id-based section patches
+  const baseSections = Array.isArray(result.sections)
+    ? (result.sections as Record<string, unknown>[])
+    : [];
+
+  const removeIds = new Set<string>();
+  const patchById = new Map<string, Record<string, unknown>>();
+  for (const s of layerSections) {
+    const id = typeof s.id === "string" ? s.id : undefined;
+    if (!id) continue;
+    if (s._remove) {
+      removeIds.add(id);
+    } else {
+      patchById.set(id, s);
+    }
+  }
+
+  result.sections = baseSections
+    .filter((s) => {
+      const id = typeof s.id === "string" ? s.id : undefined;
+      return !id || !removeIds.has(id);
+    })
+    .map((s) => {
+      const id = typeof s.id === "string" ? s.id : undefined;
+      if (!id) return s;
+      const patch = patchById.get(id);
+      return patch ? deepMerge(s, patch) : s;
+    });
+
+  return result;
+}
+
 export function mergeSingleTemplate(
   contentType: string,
   locale: string,
+  slug?: string,
 ): Record<string, unknown> | null {
   const folder = getFolder(contentType);
   const templateDir = path.join(process.cwd(), "marketing-content", folder);
@@ -63,7 +121,30 @@ export function mergeSingleTemplate(
   }
   const localeData = contentIndex.safeYamlLoad(fs.readFileSync(localePath, "utf-8"));
   if (!localeData) return null;
-  return Object.keys(baseData).length > 0 ? deepMerge(baseData, localeData) : { ...localeData };
+  let merged: Record<string, unknown> = Object.keys(baseData).length > 0
+    ? deepMerge(baseData, localeData)
+    : { ...localeData };
+
+  // Layer 4 & 5: per-entry YML overrides (only when slug is provided).
+  // Each layer is applied sequentially so section directives from layer 4
+  // (_common.yml) are not lost when layer 5 ({locale}.yml) also has sections.
+  if (slug) {
+    const entryDir = path.join(templateDir, slug);
+    if (fs.existsSync(entryDir) && fs.statSync(entryDir).isDirectory()) {
+      const entryCommonPath = path.join(entryDir, "_common.yml");
+      if (fs.existsSync(entryCommonPath)) {
+        const parsed = contentIndex.safeYamlLoad(fs.readFileSync(entryCommonPath, "utf-8"));
+        if (parsed) merged = applyPerEntryLayer(merged, parsed);
+      }
+      const entryLocalePath = path.join(entryDir, `${locale}.yml`);
+      if (fs.existsSync(entryLocalePath)) {
+        const parsed = contentIndex.safeYamlLoad(fs.readFileSync(entryLocalePath, "utf-8"));
+        if (parsed) merged = applyPerEntryLayer(merged, parsed);
+      }
+    }
+  }
+
+  return merged;
 }
 
 export async function loadDatabaseSinglePage(
@@ -74,7 +155,7 @@ export async function loadDatabaseSinglePage(
   const dbName = getDatabaseName(contentType);
   if (!dbName) return null;
 
-  const merged = mergeSingleTemplate(contentType, locale);
+  const merged = mergeSingleTemplate(contentType, locale, slug);
 
   if (!merged) {
     console.error(

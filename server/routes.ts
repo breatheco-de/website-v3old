@@ -1834,26 +1834,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     if (hasDatabaseSingle(contentType)) {
       const page = await loadDatabaseSinglePage(contentType, slug, locale);
-      if (!page) {
-        res.status(404).json({ error: `${contentType} entry not found` });
+      if (page) {
+        if (page.sections && Array.isArray(page.sections)) {
+          page.sections = (await resolveDynamicEntries(page.sections, locale)) as any;
+          applyComponentImageSizes(page.sections as unknown[]);
+        }
+        const dbPageData = page as unknown as Record<string, unknown>;
+        const dbSingleEntry = (dbPageData.singleEntry as Record<string, unknown>) || {};
+        if (Object.keys(dbSingleEntry).length > 0) {
+          const dbResolved = resolveSingleVars(dbPageData, dbSingleEntry) as Record<string, unknown>;
+          Object.assign(dbPageData, dbResolved);
+        }
+        const dbRaw = contentIndex.loadMergedContent(contentType, slug, locale);
+        const dbLayout = resolveLayout(contentType, dbRaw.data || {});
+        injectCanonicalIfMissing(dbPageData, contentType, locale);
+        const { layout: _dbStripLayout, ...dbRest } = dbPageData;
+        res.json({ ...dbRest, layout: dbLayout });
         return;
       }
-      if (page.sections && Array.isArray(page.sections)) {
-        page.sections = (await resolveDynamicEntries(page.sections, locale)) as any;
-        applyComponentImageSizes(page.sections as unknown[]);
-      }
-      const dbPageData = page as unknown as Record<string, unknown>;
-      const dbSingleEntry = (dbPageData.singleEntry as Record<string, unknown>) || {};
-      if (Object.keys(dbSingleEntry).length > 0) {
-        const dbResolved = resolveSingleVars(dbPageData, dbSingleEntry) as Record<string, unknown>;
-        Object.assign(dbPageData, dbResolved);
-      }
-      const dbRaw = contentIndex.loadMergedContent(contentType, slug, locale);
-      const dbLayout = resolveLayout(contentType, dbRaw.data || {});
-      injectCanonicalIfMissing(dbPageData, contentType, locale);
-      const { layout: _dbStripLayout, ...dbRest } = dbPageData;
-      res.json({ ...dbRest, layout: dbLayout });
-      return;
+      // Slug not found in DB — fall through to static content loading below
     }
 
     // Variant resolution for YAML-backed content types
