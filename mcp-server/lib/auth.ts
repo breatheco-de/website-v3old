@@ -1,7 +1,10 @@
 import { getTokenUsername } from "./oauth.js";
 
 const MAIN_SERVER_PORT = process.env.PORT || "5000";
-const MCP_API_KEY = process.env.MCP_API_KEY || "";
+// MCP_SERVER_SECRET is the internal credential used only for the MCP server's own
+// loopback requests to the main app. It is NOT accepted as an inbound caller credential.
+// MCP_API_KEY is supported as a backward-compatible alias.
+const MCP_SERVER_SECRET = process.env.MCP_SERVER_SECRET || process.env.MCP_API_KEY || "";
 
 /**
  * Check whether the user associated with the given MCP bearer token holds the
@@ -26,7 +29,7 @@ export async function checkCap(
     if (contentType) params.set("contentType", contentType);
     const url = `http://localhost:${MAIN_SERVER_PORT}/api/auth/check-capability?${params}`;
     const res = await fetch(url, {
-      headers: { Authorization: `Bearer ${MCP_API_KEY}` },
+      headers: { Authorization: `Bearer ${MCP_SERVER_SECRET}` },
     });
     if (!res.ok) return false;
     const data = (await res.json()) as { allowed?: boolean };

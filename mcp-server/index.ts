@@ -15,16 +15,21 @@ import {
   consumePendingAuth,
   validateBreathecodeToken,
   updateClientBreathecodeUser,
+  registerBreathecodeToken,
 } from "./lib/oauth.js";
 
 const PORT = parseInt(process.env.MCP_PORT || "3001", 10);
-const API_KEY = process.env.MCP_API_KEY || "";
+// MCP_SERVER_SECRET (formerly MCP_API_KEY) is used exclusively as an internal
+// server-to-server credential for the MCP server's own loopback requests to the
+// main app's /api/auth/check-capability endpoint. It is never accepted as an
+// inbound caller credential — callers must use OAuth or a Breathecode token.
+const SERVER_SECRET = process.env.MCP_SERVER_SECRET || process.env.MCP_API_KEY || "";
 const STATIC_CLIENT_ID = process.env.OAUTH_CLIENT_ID || "";
 const STATIC_CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET || "";
 
-if (!API_KEY) {
+if (!SERVER_SECRET) {
   console.error(
-    "[MCP] FATAL: MCP_API_KEY environment variable is not set. Set it before starting the server.",
+    "[MCP] FATAL: MCP_SERVER_SECRET environment variable is not set. Set it before starting the server.",
   );
   process.exit(1);
 }
@@ -151,30 +156,44 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-function authMiddleware(
+async function authMiddleware(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction,
-): void {
+): Promise<void> {
   const apiKeyHeader = req.headers["x-api-key"] as string | undefined;
   const authHeader = req.headers["authorization"] || "";
   const bearerToken =
-    typeof authHeader === "string" ? authHeader.replace(/^Bearer\s+/i, "") : "";
+    typeof authHeader === "string" ? authHeader.replace(/^Bearer\s+/i, "").trim() : "";
 
+  // Path 1: valid OAuth access token (issued by this server's /oauth/token endpoint)
   if (bearerToken && validateToken(bearerToken)) {
     next();
     return;
   }
 
-  const candidate = apiKeyHeader || bearerToken;
-  if (candidate && candidate === API_KEY) {
-    next();
+  // Path 2: Breathecode token presented via Authorization: Bearer or X-Api-Key.
+  // Validate it against the main app's /api/debug/validate-token endpoint (which
+  // proxies Breathecode and enforces that the user has at least one CMS capability).
+  // The static SERVER_SECRET is intentionally NOT accepted here — it is an internal
+  // credential for outbound loopback calls only, never for inbound callers.
+  const candidate = bearerToken || apiKeyHeader || "";
+  if (candidate) {
+    const validation = await validateBreathecodeToken(candidate);
+    if (validation.valid && validation.username) {
+      // Register this token in the in-memory lookup so getTokenUsername() works
+      // in checkCap() and the /mcp handler without any signature changes.
+      registerBreathecodeToken(candidate, validation.username);
+      next();
+      return;
+    }
+    const errMsg = validation.error || "Breathecode token validation failed.";
+    res.status(401).json({ error: `Unauthorized. ${errMsg}` });
     return;
   }
 
   res.status(401).json({
-    error:
-      "Unauthorized. Provide MCP_API_KEY via X-Api-Key header or Bearer token.",
+    error: "Unauthorized. Provide a valid OAuth Bearer token or a Breathecode API token via Authorization header or X-Api-Key.",
   });
 }
 
@@ -430,12 +449,17 @@ app.all("/mcp", authMiddleware, async (req, res) => {
   const transport = new StreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
   });
-  // Derive the authenticated Breathecode username from the bearer token.
+  // Derive the authenticated Breathecode username from the bearer token or x-api-key.
+  // authMiddleware has already validated the credential and registered Breathecode
+  // direct tokens via registerBreathecodeToken(), so getTokenUsername() works for both
+  // OAuth access tokens and Breathecode tokens regardless of which header was used.
   // Falls back to undefined (tools will label commits as "mcp-agent [MCP]").
   const authHeader = (req.headers["authorization"] as string | undefined) || "";
   const bearerToken = authHeader.replace(/^Bearer\s+/i, "").trim();
-  const resolvedUsername = bearerToken ? getTokenUsername(bearerToken) ?? undefined : undefined;
-  const mcp = createMcpServer(resolvedUsername, bearerToken || undefined);
+  const apiKeyToken = (req.headers["x-api-key"] as string | undefined) || "";
+  const credentialToken = bearerToken || apiKeyToken;
+  const resolvedUsername = credentialToken ? getTokenUsername(credentialToken) ?? undefined : undefined;
+  const mcp = createMcpServer(resolvedUsername, credentialToken || undefined);
   try {
     await mcp.connect(transport);
     await transport.handleRequest(req, res, req.body);
@@ -454,7 +478,7 @@ app.listen(PORT, "0.0.0.0", () => {
   console.log(`[MCP] Content-pages MCP server running on port ${PORT}`);
   console.log(`[MCP] Endpoint: http://0.0.0.0:${PORT}/mcp`);
   console.log(
-    `[MCP] Auth: API key required (X-Api-Key header) or OAuth 2.0 Bearer token`,
+    `[MCP] Auth: OAuth 2.0 Bearer token or Breathecode token (Authorization header / X-Api-Key)`,
   );
   console.log(`[MCP] OAuth: http://0.0.0.0:${PORT}/oauth/authorize`);
   console.log(

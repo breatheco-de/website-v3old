@@ -835,7 +835,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     let resolvedUsername: string | null = username || null;
 
-    const mcpApiKey = process.env.MCP_API_KEY;
+    // Support both MCP_SERVER_SECRET (new name) and MCP_API_KEY (legacy alias)
+    const mcpApiKey = process.env.MCP_SERVER_SECRET || process.env.MCP_API_KEY;
     if (mcpApiKey && bearerToken === mcpApiKey) {
       // Trusted internal call from the MCP server — username must be supplied explicitly
       if (!resolvedUsername) {

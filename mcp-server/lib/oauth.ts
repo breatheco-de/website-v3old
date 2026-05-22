@@ -215,6 +215,17 @@ export async function validateBreathecodeToken(
   }
 }
 
+// ─── Breathecode direct-token registry ───────────────────────────────────────
+// Maps a raw Breathecode token (passed as Bearer / x-api-key) → resolved username.
+// Populated by authMiddleware after a successful validateBreathecodeToken call so
+// that getTokenUsername() works transparently for both OAuth and direct callers.
+
+const breathecodeTokenUsernames = new Map<string, string>();
+
+export function registerBreathecodeToken(token: string, username: string): void {
+  breathecodeTokenUsernames.set(token, username);
+}
+
 // ─── Auth codes (in-memory only) ─────────────────────────────────────────────
 
 interface AuthCode {
@@ -283,13 +294,17 @@ export function validateToken(token: string): boolean {
  * Returns null if the token is unknown or no user is attached.
  */
 export function getTokenUsername(token: string): string | null {
+  // Check OAuth access-token registry first
   const clientId = accessTokens.get(token);
-  if (!clientId) return null;
-  const client = clients.get(clientId);
-  if (!client) return null;
-  if (client.breathecodeUsername) return client.breathecodeUsername;
-  const first = client.breathecodeFirstName?.trim() || "";
-  const last = client.breathecodeLastName?.trim() || "";
-  if (!first && !last) return null;
-  return [first, last].filter(Boolean).join(".").toLowerCase();
+  if (clientId) {
+    const client = clients.get(clientId);
+    if (client) {
+      if (client.breathecodeUsername) return client.breathecodeUsername;
+      const first = client.breathecodeFirstName?.trim() || "";
+      const last = client.breathecodeLastName?.trim() || "";
+      if (first || last) return [first, last].filter(Boolean).join(".").toLowerCase();
+    }
+  }
+  // Fall back to Breathecode direct-token registry
+  return breathecodeTokenUsernames.get(token) ?? null;
 }
