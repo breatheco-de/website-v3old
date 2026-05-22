@@ -130,3 +130,14 @@ sections:
         - title: Decide with confidence
           description: You'll have all the info you need to choose the path that's right for you. And we are here to help.
       closing: Now you're ready to make the best decision for your career!
+  - type: breadcrumb
+    version: v1.0
+    items:
+      - label: Home
+        url: /
+      - label: Career Programs
+        url: /en/career-programs
+      - label: Full Stack Developer
+    section_id: breadcrumb-bxpazi
+    paddingY:
+      desktop: sm
