@@ -9,6 +9,18 @@
 import * as fs from "fs";
 import * as path from "path";
 import { gcs } from "./gcs";
+import {
+  CAPABILITY_REGISTRY,
+  SCOPED_CAPABILITIES,
+  GLOBAL_CAPABILITIES,
+  ALL_CAPABILITIES,
+  type ScopedCapability,
+  type GlobalCapability,
+  type CapabilityName,
+} from "../shared/capabilities";
+
+export type { ScopedCapability, GlobalCapability, CapabilityName };
+export { SCOPED_CAPABILITIES, GLOBAL_CAPABILITIES, ALL_CAPABILITIES, CAPABILITY_REGISTRY };
 
 const LOCAL_PATH = path.join(
   process.cwd(),
@@ -17,63 +29,6 @@ const LOCAL_PATH = path.join(
 );
 const GCS_KEY = "sync/users-state.json";
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
-
-// ─── Type definitions ──────────────────────────────────────────────────────────
-
-export type ScopedCapability =
-  | "content_create_entry"
-  | "content_delete_entry"
-  | "content_edit_structure"
-  | "content_edit_default"
-  | "content_create_variant"
-  | "content_edit_variant"
-  | "content_delete_variant"
-  | "content_edit_text"
-  | "content_edit_media";
-
-export type GlobalCapability =
-  | "content_publish"
-  | "media_upload"
-  | "media_delete"
-  | "seo_edit"
-  | "content_types_manage"
-  | "databases_manage"
-  | "components_manage"
-  | "theme_edit"
-  | "migrations_run"
-  | "users_manage";
-
-export type CapabilityName = ScopedCapability | GlobalCapability;
-
-export const SCOPED_CAPABILITIES: ScopedCapability[] = [
-  "content_create_entry",
-  "content_delete_entry",
-  "content_edit_structure",
-  "content_edit_default",
-  "content_create_variant",
-  "content_edit_variant",
-  "content_delete_variant",
-  "content_edit_text",
-  "content_edit_media",
-];
-
-export const GLOBAL_CAPABILITIES: GlobalCapability[] = [
-  "content_publish",
-  "media_upload",
-  "media_delete",
-  "seo_edit",
-  "content_types_manage",
-  "databases_manage",
-  "components_manage",
-  "theme_edit",
-  "migrations_run",
-  "users_manage",
-];
-
-export const ALL_CAPABILITIES: CapabilityName[] = [
-  ...SCOPED_CAPABILITIES,
-  ...GLOBAL_CAPABILITIES,
-];
 
 export interface CapabilityGrant {
   name: CapabilityName;

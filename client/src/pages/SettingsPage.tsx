@@ -32,6 +32,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useDebugAuth } from "@/hooks/useDebugAuth";
+import { CAPABILITY_REGISTRY } from "@shared/capabilities";
 
 interface LocaleEntry {
   code: string;
@@ -79,27 +80,6 @@ interface PendingUserRecord {
   role: string;
   createdAt: string;
 }
-
-const ALL_CAPABILITIES = [
-  { name: "content_create_entry", label: "Create entries", scoped: true },
-  { name: "content_delete_entry", label: "Delete entries", scoped: true },
-  { name: "content_edit_structure", label: "Edit structure", scoped: true },
-  { name: "content_edit_default", label: "Edit default content", scoped: true },
-  { name: "content_create_variant", label: "Create variants", scoped: true },
-  { name: "content_edit_variant", label: "Edit variants", scoped: true },
-  { name: "content_edit_text", label: "Edit text", scoped: true },
-  { name: "content_edit_media", label: "Edit media", scoped: true },
-  { name: "content_publish", label: "Publish content", scoped: false },
-  { name: "media_upload", label: "Upload media", scoped: false },
-  { name: "media_delete", label: "Delete media", scoped: false },
-  { name: "seo_edit", label: "Edit SEO", scoped: false },
-  { name: "content_types_manage", label: "Manage content types", scoped: false },
-  { name: "databases_manage", label: "Manage databases", scoped: false },
-  { name: "components_manage", label: "Manage components", scoped: false },
-  { name: "theme_edit", label: "Edit theme", scoped: false },
-  { name: "migrations_run", label: "Run migrations", scoped: false },
-  { name: "users_manage", label: "Manage users & roles", scoped: false },
-];
 
 interface CapabilityFormState { enabled: boolean; contentTypes: string; }
 interface RoleFormState {
@@ -236,7 +216,7 @@ function CapabilityFields({
 }) {
   return (
     <div className="space-y-2 pt-1">
-      {ALL_CAPABILITIES.map((cap) => {
+      {CAPABILITY_REGISTRY.map((cap) => {
         const state = caps[cap.name] ?? { enabled: false, contentTypes: "" };
         return (
           <div key={cap.name} className="space-y-1">
@@ -249,11 +229,16 @@ function CapabilityFields({
                 }
                 data-testid={`checkbox-cap-${cap.name}`}
               />
-              <label htmlFor={`cap-${cap.name}`} className="text-xs cursor-pointer flex-1">
-                {cap.label}
-              </label>
+              <div className="flex-1 min-w-0">
+                <label htmlFor={`cap-${cap.name}`} className="text-xs cursor-pointer">
+                  {cap.label}
+                </label>
+                <p className="text-xs text-muted-foreground leading-tight mt-0.5">
+                  {cap.description}
+                </p>
+              </div>
               {cap.scoped && (
-                <span className="text-xs text-muted-foreground">scopeable</span>
+                <span className="text-xs text-muted-foreground shrink-0">scopeable</span>
               )}
             </div>
             {cap.scoped && state.enabled && (
