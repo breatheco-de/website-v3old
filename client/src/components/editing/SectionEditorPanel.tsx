@@ -266,7 +266,19 @@ function ShowOnLocationsPicker({
           <MapPin className="h-3.5 w-3.5" />
           Show on locations
         </Label>
-        <Popover open={open} onOpenChange={setOpen}>
+        <div className="flex items-center gap-1.5">
+          {hasLocations && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-destructive"
+              data-testid="button-clear-locations-inline"
+              onClick={() => onChange([])}
+            >
+              Clear
+            </Button>
+          )}
+          <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button
               variant="outline"
@@ -359,6 +371,7 @@ function ShowOnLocationsPicker({
           </PopoverContent>
         </Popover>
       </div>
+    </div>
       {hasLocations && (
         <div className="flex flex-wrap gap-1.5">
           {value.map((slug) => {
