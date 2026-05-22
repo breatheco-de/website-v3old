@@ -909,7 +909,7 @@ export function EditableSection({ children, section, index, sectionType, content
   
   return (
     <div 
-      className="relative group"
+      className="relative group min-h-10"
       data-edit-section-index={index}
       data-edit-section-type={sectionType}
     >
