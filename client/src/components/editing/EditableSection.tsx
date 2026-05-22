@@ -11,6 +11,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { DbTemplateWarningDialog } from "@/components/editing/DbTemplateWarningDialog";
 import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { useContentTypes, getFolderFromType } from "@/hooks/useContentTypes";
 import { useToast } from "@/hooks/use-toast";
@@ -278,6 +279,7 @@ interface EditableSectionProps {
   version?: number;
   totalSections?: number;
   allSections?: Section[];
+  isSharedTemplate?: boolean;
   onMoveUp?: (index: number) => void;
   onMoveDown?: (index: number) => void;
   onDelete?: (index: number) => void;
@@ -289,7 +291,7 @@ function parseAutoSyncAuthor(subject: string): string | null {
   return m ? m[1] : null;
 }
 
-export function EditableSection({ children, section, index, sectionType, contentType, slug, locale, variant, version, totalSections = 0, allSections, onMoveUp, onMoveDown, onDelete, onDuplicate }: EditableSectionProps) {
+export function EditableSection({ children, section, index, sectionType, contentType, slug, locale, variant, version, totalSections = 0, allSections, isSharedTemplate, onMoveUp, onMoveDown, onDelete, onDuplicate }: EditableSectionProps) {
   const editMode = useEditModeOptional();
   const pageHistory = usePageHistoryOptional();
   const { toast } = useToast();
@@ -341,6 +343,10 @@ export function EditableSection({ children, section, index, sectionType, content
     const m = parseXSpacing((section as SectionLayout).marginX);
     return m.desktop.left === m.desktop.right;
   });
+
+  // DB template structural warning dialog state
+  const [swapWarnOpen, setSwapWarnOpen] = useState(false);
+  const pendingSwapFn = useRef<(() => Promise<void>) | null>(null);
 
   // X-spacing default confirmation dialog state
   const [xDefaultConfirmOpen, setXDefaultConfirmOpen] = useState(false);
@@ -631,31 +637,31 @@ export function EditableSection({ children, section, index, sectionType, content
     }
   }, [currentExample, contentType, slug, sectionType, selectedVersion, toast]);
 
-  const handleConfirmSwap = useCallback(async () => {
-    // Use adapted section if available, otherwise use preview section
-    const sectionToSave = hasAdapted && adaptedSection ? adaptedSection : previewSection;
-    if (!sectionToSave || !contentType || !slug) return;
-    
+  const executeSwap = useCallback(async (sectionToSave: Section) => {
+    if (!contentType || !slug) return;
     setIsConfirming(true);
     try {
       const token = getDebugToken();
       const author = await resolveAuthorName();
       const res = await fetch('/api/content/edit-sections', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           ...(token ? { 'X-Debug-Token': token } : {})
         },
         body: JSON.stringify({
-          operation: 'update_section',
           contentType,
           slug,
           locale: locale || 'en',
           variant: variant || 'default',
           version: version || 1,
-          sectionIndex: index,
-          sectionData: sectionToSave,
           author,
+          operations: [{
+            action: 'update_section',
+            index,
+            section: sectionToSave,
+            structural: isSharedTemplate ? true : undefined,
+          }],
         })
       });
       if (!res.ok) throw new Error('Failed to swap section');
@@ -663,7 +669,6 @@ export function EditableSection({ children, section, index, sectionType, content
       setSwapPopoverOpen(false);
       setAdaptedSection(null);
       setHasAdapted(false);
-      // Emit event to trigger page refresh
       emitContentUpdated({ contentType: contentType!, slug: slug!, locale: locale || 'en' });
       toast({ title: "Section swapped", description: "The section variant has been updated." });
     } catch (err) {
@@ -671,7 +676,20 @@ export function EditableSection({ children, section, index, sectionType, content
     } finally {
       setIsConfirming(false);
     }
-  }, [previewSection, adaptedSection, hasAdapted, contentType, slug, locale, variant, version, index, toast]);
+  }, [contentType, slug, locale, index, isSharedTemplate, toast]);
+
+  const handleConfirmSwap = useCallback(async () => {
+    const sectionToSave = hasAdapted && adaptedSection ? adaptedSection : previewSection;
+    if (!sectionToSave || !contentType || !slug) return;
+
+    if (isSharedTemplate) {
+      pendingSwapFn.current = () => executeSwap(sectionToSave);
+      setSwapWarnOpen(true);
+      return;
+    }
+
+    await executeSwap(sectionToSave);
+  }, [previewSection, adaptedSection, hasAdapted, contentType, slug, isSharedTemplate, executeSwap]);
   
   // Open review code modal with adapted section YAML
   const handleOpenReviewCode = useCallback(() => {
@@ -716,15 +734,18 @@ export function EditableSection({ children, section, index, sectionType, content
           ...(token ? { 'X-Debug-Token': token } : {})
         },
         body: JSON.stringify({
-          operation: 'update_section',
           contentType,
           slug,
           locale: locale || 'en',
           variant: variant || 'default',
           version: version || 1,
-          sectionIndex: index,
-          sectionData: sectionToSave,
           author,
+          operations: [{
+            action: 'update_section',
+            index,
+            section: sectionToSave,
+            structural: isSharedTemplate ? true : undefined,
+          }],
         })
       });
 
@@ -748,18 +769,29 @@ export function EditableSection({ children, section, index, sectionType, content
     } finally {
       setIsConfirming(false);
     }
-  }, [reviewCodeYaml, sectionType, contentType, slug, locale, variant, version, index, toast, pageHistory]);
+  }, [reviewCodeYaml, sectionType, contentType, slug, locale, index, isSharedTemplate, toast, pageHistory]);
 
-  // Apply changes from the review code modal — gates through binding confirm if section is bound
+  // Apply changes from the review code modal — gates through DB template warning (if shared), then binding confirm if bound
   const handleApplyReviewedCode = useCallback(async () => {
     if (!contentType || !slug) return;
-    if (isBound && boundSiblings.length > 0) {
-      pendingAIApply.current = executeAIApply;
-      setBindingConfirmForAI(true);
+
+    const doApply = async () => {
+      if (isBound && boundSiblings.length > 0) {
+        pendingAIApply.current = executeAIApply;
+        setBindingConfirmForAI(true);
+      } else {
+        await executeAIApply();
+      }
+    };
+
+    if (isSharedTemplate) {
+      pendingSwapFn.current = doApply;
+      setSwapWarnOpen(true);
       return;
     }
-    await executeAIApply();
-  }, [contentType, slug, isBound, boundSiblings.length, executeAIApply]);
+
+    await doApply();
+  }, [contentType, slug, isSharedTemplate, isBound, boundSiblings.length, executeAIApply]);
   
   const handleXSpacingOpen = useCallback((open: boolean) => {
     setXSpacingOpen(open);
@@ -1411,19 +1443,33 @@ export function EditableSection({ children, section, index, sectionType, content
                     <X className="h-4 w-4" />
                   </Button>
                   {hasAdapted ? (
-                    <Button size="sm" className="h-7 px-3" onClick={handleOpenReviewCode} disabled={!adaptedSection} data-testid={`button-review-code-${index}`}>
-                      <Code className="h-3 w-3 mr-1" />
-                      Review Code
-                    </Button>
+                    <>
+                      <Button size="sm" variant="outline" className="h-7 px-3" onClick={handleConfirmSwap} disabled={!adaptedSection || isConfirming} data-testid={`button-use-this-${index}`}>
+                        {isConfirming ? <Loader2 className="h-3 w-3 animate-spin mr-1" /> : <Check className="h-3 w-3 mr-1" />}
+                        Use This
+                      </Button>
+                      <Button size="sm" className="h-7 px-3" onClick={handleOpenReviewCode} disabled={!adaptedSection} data-testid={`button-review-code-${index}`}>
+                        <Code className="h-3 w-3 mr-1" />
+                        Review Code
+                      </Button>
+                    </>
                   ) : (
-                    <Button size="sm" className="h-7 px-3" onClick={handleAdaptWithAI} disabled={!previewSection || isAdapting} data-testid={`button-adapt-ai-${index}`}>
-                      {isAdapting ? (
-                        <Loader2 className="h-3 w-3 animate-spin mr-1" />
-                      ) : (
-                        <Sparkles className="h-3 w-3 mr-1" />
+                    <>
+                      {previewSection && (
+                        <Button size="sm" variant="outline" className="h-7 px-3" onClick={handleConfirmSwap} disabled={isConfirming} data-testid={`button-use-this-${index}`}>
+                          {isConfirming ? <Loader2 className="h-3 w-3 animate-spin mr-1" /> : <Check className="h-3 w-3 mr-1" />}
+                          Use This
+                        </Button>
                       )}
-                      {isAdapting ? 'Adapting...' : 'Adapt'}
-                    </Button>
+                      <Button size="sm" className="h-7 px-3" onClick={handleAdaptWithAI} disabled={!previewSection || isAdapting} data-testid={`button-adapt-ai-${index}`}>
+                        {isAdapting ? (
+                          <Loader2 className="h-3 w-3 animate-spin mr-1" />
+                        ) : (
+                          <Sparkles className="h-3 w-3 mr-1" />
+                        )}
+                        {isAdapting ? 'Adapting...' : 'Adapt'}
+                      </Button>
+                    </>
                   )}
                 </div>
               </div>
@@ -1792,6 +1838,25 @@ export function EditableSection({ children, section, index, sectionType, content
           />
         </Suspense>
       )}
+
+      {/* DB template structural warning dialog */}
+      <DbTemplateWarningDialog
+        open={swapWarnOpen}
+        onClose={() => {
+          setSwapWarnOpen(false);
+          pendingSwapFn.current = null;
+        }}
+        onConfirm={async () => {
+          if (pendingSwapFn.current) {
+            await pendingSwapFn.current();
+            pendingSwapFn.current = null;
+          }
+          setSwapWarnOpen(false);
+        }}
+        operation="update"
+        contentType={contentType || "page"}
+        isLoading={isConfirming}
+      />
     </div>
   );
 }

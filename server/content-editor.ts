@@ -173,7 +173,7 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
     // We must NOT write variable-field changes back to that shared file — instead
     // we patch only the specific entry in the database file cache.
     if (isSharedTemplate) {
-      return handleSharedTemplateEdit({ contentType, slug, locale, operations, localeData });
+      return handleSharedTemplateEdit({ contentType, slug, locale, operations, localeData, filePath, author: request.author });
     }
 
     // Apply all operations to the locale data (this is what gets saved)
@@ -212,11 +212,97 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
 }
 
 /**
+ * Returns true for operations that structurally change the sections array
+ * on the shared template file (add, remove, or full section swap).
+ */
+function isStructuralOp(op: EditOperation): boolean {
+  if (op.action === "add_item" && op.path === "sections") return true;
+  if (op.action === "remove_item" && op.path === "sections") return true;
+  if (op.action === "update_section" && (op as { structural?: boolean }).structural === true) return true;
+  return false;
+}
+
+/**
+ * Restores `{{ single.* }}` and `{{ global.* }}` placeholder expressions from
+ * the original template section back into the new section data, preventing any
+ * resolved values (e.g. from the AI adapt flow) from leaking into the template.
+ */
+function restoreTemplatePlaceholders(
+  newSection: Record<string, unknown>,
+  originalTemplateSection: Record<string, unknown>
+): Record<string, unknown> {
+  const varFields = extractVariableFields(originalTemplateSection);
+  if (Object.keys(varFields).length === 0) return newSection;
+
+  const result = JSON.parse(JSON.stringify(newSection)) as Record<string, unknown>;
+  for (const [dotPath, templateExpr] of Object.entries(varFields)) {
+    setValueAtPath(result, dotPath, templateExpr);
+  }
+  return result;
+}
+
+/**
+ * Writes structural section changes (add/remove/swap) directly to the shared
+ * `single.{locale}.yml` template file, preserving all `{{ }}` placeholder
+ * expressions. Uses safe YAML load/dump to avoid template variable corruption.
+ */
+function writeStructuralChangesToTemplate(opts: {
+  operations: EditOperation[];
+  filePath: string;
+  localeData: Record<string, unknown>;
+  author?: string;
+}): { success: boolean; error?: string; updatedSections?: unknown[] } {
+  const { operations, filePath, localeData, author } = opts;
+
+  try {
+    const raw = fs.readFileSync(filePath, "utf-8");
+    const templateData = (contentIndex.safeYamlLoad(raw) as Record<string, unknown>) || {};
+
+    for (const op of operations) {
+      if (op.action === "update_section" && (op as { structural?: boolean }).structural) {
+        const templateSections = Array.isArray(templateData.sections)
+          ? (templateData.sections as Record<string, unknown>[])
+          : [];
+        const originalTemplateSection = templateSections[op.index] as Record<string, unknown> | undefined;
+        let newSectionData = op.section as Record<string, unknown>;
+        if (originalTemplateSection) {
+          newSectionData = restoreTemplatePlaceholders(newSectionData, originalTemplateSection);
+        }
+        applyOperation(templateData, { ...op, section: newSectionData } as EditOperation);
+      } else {
+        applyOperation(templateData, op);
+      }
+    }
+
+    const updatedYaml = safeYamlDump(templateData, {
+      lineWidth: -1,
+      noRefs: true,
+      quotingType: '"',
+      forceQuotes: false,
+    });
+    fs.writeFileSync(filePath, updatedYaml, "utf-8");
+    markFileAsModified(filePath, author);
+
+    // Apply to localeData in-memory for immediate client-side update
+    for (const op of operations) {
+      try { applyOperation(localeData, op); } catch {}
+    }
+
+    const updatedSections = (localeData.sections as unknown[]) || [];
+    return { success: true, updatedSections };
+  } catch (err) {
+    console.error("[editContent] Structural template write error:", err);
+    return { success: false, error: err instanceof Error ? err.message : "Unknown error" };
+  }
+}
+
+/**
  * Handles section/field saves for DB-backed single-page templates (e.g. blog posts,
  * programs). Instead of writing to the shared `single.en.yml` template, we identify
  * which changed fields are template variable expressions (`{{ single.X | ... }}`),
  * extract the target DB field name `X`, and patch only that entry's row in the
- * database file cache. The shared template YAML is never touched.
+ * database file cache. The shared template YAML is never touched unless a structural
+ * operation (add/remove section, swap variant) is explicitly requested.
  */
 function handleSharedTemplateEdit(opts: {
   contentType: string;
@@ -224,8 +310,17 @@ function handleSharedTemplateEdit(opts: {
   locale: string;
   operations: EditOperation[];
   localeData: Record<string, unknown>;
+  filePath: string;
+  author?: string;
 }): { success: boolean; error?: string; warning?: string; updatedSections?: unknown[] } {
-  const { contentType, slug, locale, operations, localeData } = opts;
+  const { contentType, slug, locale, operations, localeData, filePath, author } = opts;
+
+  // Structural operations (add/remove section, full section swap) write directly
+  // to the shared template file rather than patching the DB entry.
+  const structuralOps = operations.filter(isStructuralOp);
+  if (structuralOps.length > 0) {
+    return writeStructuralChangesToTemplate({ operations: structuralOps, filePath, localeData, author });
+  }
 
   const dbName = getDatabaseName(contentType);
   const lookupKey = getLookupKey(contentType) || "slug";

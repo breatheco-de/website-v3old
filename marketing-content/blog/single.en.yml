@@ -3,27 +3,30 @@ meta:
   description: {{ single.description }}
   og_image: {{ single.image }}
 sections:
-  - type: breadcrumb
-    section_id: breadcrumb-blog-en
-    items:
-      - label: Home
-        url: /
-      - label: Blog
-        url: /en/blog
-      - label: '{{ single.title | Blog }}'
   - type: hero
     section_id: hero-cweekr
-    version: '1.0'
+    version: "1.0"
     variant: singleColumn
     badge: software-engineer-salary
     title: {{ single.title | blog title }}
     subtitle: {{ single.description | blog subtitle }}
     image_full_width: false
     image:
-      src: '{{ single.image | https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-learnpack-logo-jpg-d58de33d-736x414.webp }}'
+      src: {{ single.image | https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-learnpack-logo-jpg-d58de33d-736x414.webp }}
   - type: article
     section_id: article-2i1h11
     show_toc: true
     toc_position: side
     max_width: xl
     content: {{ single.content | blog content }}
+  - type: breadcrumb
+    version: v1.0
+    items:
+      - label: Home
+        url: /
+      - label: Career Programs
+        url: /en/career-programs
+      - label: Full Stack Developer
+    section_id: breadcrumb-tztbb7
+    paddingY:
+      desktop: sm

@@ -268,6 +268,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useEditModeOptional, type PreviewBreakpoint } from "@/contexts/EditModeContext";
+import { DbTemplateWarningDialog } from "@/components/editing/DbTemplateWarningDialog";
 
 // Check if a section should be visible based on showOn and current preview breakpoint
 // In edit mode: always show all sections (visibility alert is shown instead of hiding)
@@ -743,6 +744,24 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     isDeleting: boolean;
   }>({ open: false, index: -1, bindingGroup: null, isDeleting: false });
 
+  const [dbTemplateDeleteDialog, setDbTemplateDeleteDialog] = useState<{
+    open: boolean;
+    index: number;
+    isDeleting: boolean;
+  }>({ open: false, index: -1, isDeleting: false });
+
+  const [simpleDeleteDialog, setSimpleDeleteDialog] = useState<{
+    open: boolean;
+    index: number;
+    isDeleting: boolean;
+  }>({ open: false, index: -1, isDeleting: false });
+
+  const [duplicateDialog, setDuplicateDialog] = useState<{
+    open: boolean;
+    index: number;
+    isDuplicating: boolean;
+  }>({ open: false, index: -1, isDuplicating: false });
+
   const handleDelete = useCallback(async (index: number) => {
     if (!contentType || !slug || !locale) return;
 
@@ -755,9 +774,18 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
       }
     } catch {}
 
-    if (!window.confirm("Are you sure you want to delete this section? This cannot be undone.")) {
+    if (isSharedTemplate) {
+      setDbTemplateDeleteDialog({ open: true, index, isDeleting: false });
       return;
     }
+
+    setSimpleDeleteDialog({ open: true, index, isDeleting: false });
+  }, [contentType, slug, locale, isSharedTemplate, toast]);
+
+  const handleSimpleDeleteConfirm = useCallback(async () => {
+    if (!contentType || !slug || !locale) return;
+    const { index } = simpleDeleteDialog;
+    setSimpleDeleteDialog(prev => ({ ...prev, isDeleting: true }));
 
     const result = await sendEditOperation(contentType, slug, locale, [
       { action: "remove_item", path: "sections", index }
@@ -769,7 +797,26 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     } else {
       toast({ title: "Failed to delete section", description: result.error, variant: "destructive" });
     }
-  }, [contentType, slug, locale, toast]);
+    setSimpleDeleteDialog({ open: false, index: -1, isDeleting: false });
+  }, [contentType, slug, locale, simpleDeleteDialog, toast]);
+
+  const handleDbTemplateDeleteConfirm = useCallback(async () => {
+    if (!contentType || !slug || !locale) return;
+    const { index } = dbTemplateDeleteDialog;
+    setDbTemplateDeleteDialog(prev => ({ ...prev, isDeleting: true }));
+
+    const result = await sendEditOperation(contentType, slug, locale, [
+      { action: "remove_item", path: "sections", index }
+    ]);
+
+    if (result.success) {
+      toast({ title: "Section deleted", description: "Removed from shared template." });
+      emitContentUpdated({ contentType, slug, locale });
+    } else {
+      toast({ title: "Failed to delete section", description: result.error, variant: "destructive" });
+    }
+    setDbTemplateDeleteDialog({ open: false, index: -1, isDeleting: false });
+  }, [contentType, slug, locale, dbTemplateDeleteDialog, toast]);
 
   const handleDeleteThisOnly = useCallback(async () => {
     if (!contentType || !slug || !locale || !deleteDialog.bindingGroup) return;
@@ -864,9 +911,15 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     const sectionToDuplicate = sections[index];
     if (!sectionToDuplicate) return;
 
-    if (!window.confirm("Duplicate this section?")) {
-      return;
-    }
+    setDuplicateDialog({ open: true, index, isDuplicating: false });
+  }, [contentType, slug, locale, sections]);
+
+  const handleDuplicateConfirm = useCallback(async () => {
+    if (!contentType || !slug || !locale) return;
+    const { index } = duplicateDialog;
+    const sectionToDuplicate = sections[index];
+    if (!sectionToDuplicate) return;
+    setDuplicateDialog(prev => ({ ...prev, isDuplicating: true }));
 
     const result = await sendEditOperation(contentType, slug, locale, [
       { action: "add_item", path: "sections", index: index + 1, item: sectionToDuplicate }
@@ -878,6 +931,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     } else {
       toast({ title: "Failed to duplicate section", description: result.error, variant: "destructive" });
     }
+    setDuplicateDialog({ open: false, index: -1, isDuplicating: false });
   }, [contentType, slug, locale, sections, toast]);
 
   const isMobilePreview = isEditMode && previewBreakpoint === 'mobile';
@@ -1033,6 +1087,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
                 variant={variant}
                 totalSections={sections.length}
                 allSections={sections}
+                isSharedTemplate={isSharedTemplate}
                 onMoveUp={handleMoveUp}
                 onMoveDown={handleMoveDown}
                 onDelete={handleDelete}
@@ -1071,6 +1126,14 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
   return (
     <>
       {content}
+      <DbTemplateWarningDialog
+        open={dbTemplateDeleteDialog.open}
+        onClose={() => setDbTemplateDeleteDialog({ open: false, index: -1, isDeleting: false })}
+        onConfirm={handleDbTemplateDeleteConfirm}
+        operation="delete"
+        contentType={contentType || "page"}
+        isLoading={dbTemplateDeleteDialog.isDeleting}
+      />
       <Dialog open={deleteDialog.open} onOpenChange={(open) => { if (!open && !deleteDialog.isDeleting) setDeleteDialog({ open: false, index: -1, bindingGroup: null, isDeleting: false }); }}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
@@ -1122,6 +1185,70 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
               data-testid="button-delete-cancel"
             >
               Cancel
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Simple delete confirmation dialog */}
+      <Dialog open={simpleDeleteDialog.open} onOpenChange={(open) => { if (!open && !simpleDeleteDialog.isDeleting) setSimpleDeleteDialog({ open: false, index: -1, isDeleting: false }); }}>
+        <DialogContent className="sm:max-w-sm">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-destructive" />
+              Delete section
+            </DialogTitle>
+            <DialogDescription>
+              This section will be permanently removed. This cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              variant="ghost"
+              onClick={() => setSimpleDeleteDialog({ open: false, index: -1, isDeleting: false })}
+              disabled={simpleDeleteDialog.isDeleting}
+              data-testid="button-delete-cancel-simple"
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleSimpleDeleteConfirm}
+              disabled={simpleDeleteDialog.isDeleting}
+              data-testid="button-delete-confirm-simple"
+            >
+              {simpleDeleteDialog.isDeleting ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Trash2 className="h-4 w-4 mr-2" />}
+              Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Duplicate confirmation dialog */}
+      <Dialog open={duplicateDialog.open} onOpenChange={(open) => { if (!open && !duplicateDialog.isDuplicating) setDuplicateDialog({ open: false, index: -1, isDuplicating: false }); }}>
+        <DialogContent className="sm:max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Duplicate section</DialogTitle>
+            <DialogDescription>
+              A copy of this section will be inserted directly below the original.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              variant="ghost"
+              onClick={() => setDuplicateDialog({ open: false, index: -1, isDuplicating: false })}
+              disabled={duplicateDialog.isDuplicating}
+              data-testid="button-duplicate-cancel"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleDuplicateConfirm}
+              disabled={duplicateDialog.isDuplicating}
+              data-testid="button-duplicate-confirm"
+            >
+              {duplicateDialog.isDuplicating ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+              Duplicate
             </Button>
           </DialogFooter>
         </DialogContent>

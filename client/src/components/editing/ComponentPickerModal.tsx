@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
-import { ArrowRight, Award, BarChart2, Blocks, Book, Brain, Building2, Check, ClipboardList, Columns, Columns2, CreditCard, FolderCode, HelpCircle, Image, List, ListFilter, MessageSquare, MousePointerClick, PanelBottom, RefreshCw, Rocket, ScatterChart, Search, Sparkles, Star, Table, Trophy, Users, Wand2, X } from "lucide-react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import { AlertTriangle, ArrowRight, Award, BarChart2, Blocks, Book, Brain, Building2, Check, ClipboardList, Columns, Columns2, CreditCard, FolderCode, HelpCircle, Image, List, ListFilter, MessageSquare, MousePointerClick, PanelBottom, RefreshCw, Rocket, ScatterChart, Search, Sparkles, Star, Table, Trophy, Users, Wand2, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import jsYaml from "js-yaml";
 import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
@@ -32,6 +32,7 @@ import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { useToast } from "@/hooks/use-toast";
 import { useContentTypes, getFolderFromType } from "@/hooks/useContentTypes";
 import { emitContentUpdated } from "@/lib/contentEvents";
+import { DbTemplateWarningDialog } from "@/components/editing/DbTemplateWarningDialog";
 import { RelatedFeaturesPicker } from "./RelatedFeaturesPicker";
 import { TableBuilderWizard, type DynamicTableConfig } from "@/components/TableBuilderWizard";
 
@@ -182,6 +183,8 @@ export default function ComponentPickerModal({
   const [isAdapting, setIsAdapting] = useState(false);
   const [selectedRelatedFeatures, setSelectedRelatedFeatures] = useState<string[]>([]);
   const [componentSearch, setComponentSearch] = useState("");
+  const [addWarnOpen, setAddWarnOpen] = useState(false);
+  const pendingAddFn = useRef<(() => Promise<void>) | null>(null);
   const { toast } = useToast();
   const contentTypesMap = useContentTypes();
 
@@ -297,7 +300,7 @@ export default function ComponentPickerModal({
     setComponentSearch("");
   }, []);
 
-  const handleWizardComplete = useCallback(async (config: DynamicTableConfig) => {
+  const executeWizardComplete = useCallback(async (config: DynamicTableConfig) => {
     if (!contentType || !slug || !locale) return;
 
     setIsAdding(true);
@@ -364,7 +367,16 @@ export default function ComponentPickerModal({
     }
   }, [contentType, slug, locale, variant, version, insertIndex, onClose, toast]);
 
-  const handleAddSection = useCallback(async () => {
+  const handleWizardComplete = useCallback(async (config: DynamicTableConfig) => {
+    if (isSharedTemplate) {
+      pendingAddFn.current = () => executeWizardComplete(config);
+      setAddWarnOpen(true);
+      return;
+    }
+    await executeWizardComplete(config);
+  }, [isSharedTemplate, executeWizardComplete]);
+
+  const executeAddSection = useCallback(async () => {
     if (!selectedExampleData || !selectedComponent || !contentType || !slug || !locale) {
       return;
     }
@@ -471,8 +483,11 @@ export default function ComponentPickerModal({
 
       if (response.ok) {
         onClose();
-        // Emit event to trigger page refresh
         emitContentUpdated({ contentType: contentType!, slug: slug!, locale: locale! });
+        toast({
+          title: "Section added",
+          description: `${selectedComponent?.label || "Section"} added to the page.`,
+        });
       } else {
         const errorData = await response.json().catch(() => ({ error: "Unknown error" }));
         console.error("Failed to add section:", errorData);
@@ -488,6 +503,15 @@ export default function ComponentPickerModal({
       setIsAdding(false);
     }
   }, [selectedExampleData, selectedComponent, selectedVersion, contentType, slug, locale, variant, version, insertIndex, onClose, useAiAdaptation, selectedRelatedFeatures, toast]);
+
+  const handleAddSection = useCallback(async () => {
+    if (isSharedTemplate) {
+      pendingAddFn.current = executeAddSection;
+      setAddWarnOpen(true);
+      return;
+    }
+    await executeAddSection();
+  }, [isSharedTemplate, executeAddSection]);
 
   const previewUrl = useMemo(() => {
     if (!selectedComponent || !selectedVersion || !selectedExample) {
@@ -549,6 +573,7 @@ export default function ComponentPickerModal({
   }, [groupedExamples]);
 
   return (
+    <>
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-4xl h-[80vh] flex flex-col p-0">
         <DialogHeader className="p-4 border-b flex-shrink-0">
@@ -561,12 +586,11 @@ export default function ComponentPickerModal({
         </DialogHeader>
         
         {isSharedTemplate && (
-          <div className="mx-4 mt-2 flex items-start gap-2 rounded-md border border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950/50 p-2.5">
-            <svg className="h-4 w-4 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <p className="text-xs text-blue-800 dark:text-blue-300" data-testid="text-shared-template-notice">
-              This {contentType} uses a shared template. Changes to sections will apply to <strong>all {contentType} entries</strong>, not just this one.
+          <div className="mx-4 mt-3 flex items-start gap-2.5 rounded-md border bg-muted p-3" data-testid="text-shared-template-notice">
+            <AlertTriangle className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-foreground leading-snug">
+              <strong>Shared template:</strong> the section you add will appear on{" "}
+              <strong>every {contentType} page</strong>, not just this one.
             </p>
           </div>
         )}
@@ -743,5 +767,20 @@ export default function ComponentPickerModal({
         )}
       </DialogContent>
     </Dialog>
+    <DbTemplateWarningDialog
+      open={addWarnOpen}
+      onClose={() => { setAddWarnOpen(false); pendingAddFn.current = null; }}
+      onConfirm={async () => {
+        if (pendingAddFn.current) {
+          await pendingAddFn.current();
+          pendingAddFn.current = null;
+        }
+        setAddWarnOpen(false);
+      }}
+      operation="add"
+      contentType={contentType || "page"}
+      isLoading={isAdding}
+    />
+    </>
   );
 }

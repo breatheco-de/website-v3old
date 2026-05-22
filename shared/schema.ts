@@ -1196,6 +1196,7 @@ export const editOperationSchema = z.discriminatedUnion("action", [
     action: z.literal("update_section"),
     index: z.number(),
     section: z.record(z.unknown()),
+    structural: z.boolean().optional(),
   }),
   z.object({
     action: z.literal("replace_all_sections"),
