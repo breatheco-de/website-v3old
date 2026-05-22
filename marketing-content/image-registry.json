@@ -18913,6 +18913,29 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/final-project-applied-ai_1767880920613-640w.webp"
         }
       ]
+    },
+    "blog_posts-geekforce-human-ai-png-71b45072-736x479": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-geekforce-human-ai-png-71b45072-736x479.webp",
+      "alt": "Image from blog_posts",
+      "focal_point": "center",
+      "tags": [],
+      "usage_count": 0,
+      "width": 736,
+      "height": 479,
+      "format": "webp",
+      "parentId": "blog_posts-geekforce-human-ai-png-71b45072",
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640
+      ],
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-geekforce-human-ai-png-71b45072-736x479-640w.webp"
+        }
+      ]
     }
   }
 }
