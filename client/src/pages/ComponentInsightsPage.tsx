@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RefreshCw, BarChart2, ArrowUp, ArrowDown, ArrowUpDown } from "lucide-react";
 import type { ComponentInsightsData, ComponentPairing, ComponentSequence } from "@shared/schema";
@@ -21,6 +22,33 @@ function SortIcon({ col, sortKey, sortDir }: { col: SortKey; sortKey: SortKey; s
   return sortDir === "asc"
     ? <ArrowUp className="inline ml-1" size={12} />
     : <ArrowDown className="inline ml-1" size={12} />;
+}
+
+function ColInfoPopover({ label, text }: { label: string; text: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <span
+          className="border-b border-dashed border-muted-foreground/50 cursor-help"
+          onMouseEnter={() => setOpen(true)}
+          onMouseLeave={() => setOpen(false)}
+        >
+          {label}
+        </span>
+      </PopoverTrigger>
+      <PopoverContent
+        side="top"
+        sideOffset={6}
+        className="max-w-xs text-xs leading-relaxed p-3"
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+        onPointerDownOutside={(e) => e.preventDefault()}
+      >
+        {text}
+      </PopoverContent>
+    </Popover>
+  );
 }
 
 function PairingsTable({ pairings }: { pairings: ComponentPairing[] }) {
@@ -75,14 +103,7 @@ function PairingsTable({ pairings }: { pairings: ComponentPairing[] }) {
                 data-testid={`th-${col.key}`}
               >
                 {col.tooltip ? (
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <span className="border-b border-dashed border-muted-foreground/50">
-                        {col.label}
-                      </span>
-                    </TooltipTrigger>
-                    <TooltipContent side="top" className="max-w-sm text-xs">{col.tooltip}</TooltipContent>
-                  </Tooltip>
+                  <ColInfoPopover label={col.label} text={col.tooltip} />
                 ) : (
                   col.label
                 )}
