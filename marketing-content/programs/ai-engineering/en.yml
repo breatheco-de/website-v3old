@@ -22,6 +22,14 @@ schema:
     - website
     - courses:ai-engineering
 sections:
+  - type: breadcrumb
+    section_id: breadcrumb-ai-engineering
+    items:
+      - label: Home
+        url: /
+      - label: Career Programs
+        url: /en/career-programs
+      - label: "AI Engineering"
   - type: hero
     version: "1.0"
     variant: course

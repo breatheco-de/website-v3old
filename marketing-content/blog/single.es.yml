@@ -3,6 +3,14 @@ meta:
   description: {{ single.description }}
   og_image: {{ single.image }}
 sections:
+  - type: breadcrumb
+    section_id: breadcrumb-blog-es
+    items:
+      - label: Inicio
+        url: /
+      - label: Blog
+        url: /es/blog
+      - label: '{{ single.title | Blog }}'
   - type: hero
     version: "1.0"
     variant: singleColumn

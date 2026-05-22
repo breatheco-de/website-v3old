@@ -17,6 +17,14 @@ schema:
     - website
     - courses:ai-engineering
 sections:
+  - type: breadcrumb
+    section_id: breadcrumb-curso-inteligencia-artificial-es
+    items:
+      - label: Inicio
+        url: /
+      - label: Programas de Carrera
+        url: /es/programas-de-carrera
+      - label: "Inteligencia Artificial Aplicada"
   - type: hero
     version: "1.0"
     variant: course

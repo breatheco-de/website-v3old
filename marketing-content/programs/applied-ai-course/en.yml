@@ -16,6 +16,14 @@ schema:
     - website
     - courses:ai-engineering
 sections:
+  - type: breadcrumb
+    section_id: breadcrumb-applied-ai-course
+    items:
+      - label: Home
+        url: /
+      - label: Career Programs
+        url: /en/career-programs
+      - label: "Applied AI"
   - type: hero
     version: "1.0"
     variant: course

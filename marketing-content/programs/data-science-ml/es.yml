@@ -18,6 +18,14 @@ schema:
     - website
     - courses:data-science
 sections:
+  - type: breadcrumb
+    section_id: breadcrumb-ciencia-de-datos-ml-es
+    items:
+      - label: Inicio
+        url: /
+      - label: Programas de Carrera
+        url: /es/programas-de-carrera
+      - label: "Ciencia de Datos y Machine Learning"
   - type: hero
     version: "1.0"
     variant: course

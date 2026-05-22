@@ -21,6 +21,14 @@ schema:
     - website
     - courses:ai-engineering
 sections:
+  - type: breadcrumb
+    section_id: breadcrumb-ingenieria-ia-es
+    items:
+      - label: Inicio
+        url: /
+      - label: Programas de Carrera
+        url: /es/programas-de-carrera
+      - label: "Ingeniería de Inteligencia Artificial"
   - type: hero
     section_id: hero-gckpm4
     version: "1.3"

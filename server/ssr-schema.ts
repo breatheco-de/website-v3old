@@ -32,6 +32,16 @@ export interface FaqSection {
   related_features?: string[];
 }
 
+export interface BreadcrumbSectionItem {
+  label: string;
+  url?: string;
+}
+
+export interface BreadcrumbSection {
+  type: "breadcrumb";
+  items: BreadcrumbSectionItem[];
+}
+
 interface SchemaReference {
   include?: string[];
   overrides?: Record<string, Record<string, unknown>>;
@@ -138,6 +148,24 @@ export function buildFaqPageSchema(faqItems: Array<{ question: string; answer: s
   };
 }
 
+export function buildBreadcrumbListSchema(items: BreadcrumbSectionItem[], baseUrl: string): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => {
+      const element: Record<string, unknown> = {
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.label,
+      };
+      if (item.url) {
+        element.item = item.url.startsWith("http") ? item.url : `${baseUrl}${item.url}`;
+      }
+      return element;
+    }),
+  };
+}
+
 export function resolveFaqItems(section: FaqSection, locale: string, locationSlug?: string, programSlug?: string): Array<{ question: string; answer: string }> {
   if (section.items && section.items.length > 0) {
     return section.items.map(({ question, answer }) => ({ question, answer }));
@@ -208,7 +236,20 @@ export function generateDatabaseSsrHtml(
   const urlPattern = config.url_pattern[locale] || config.url_pattern["en"];
   if (!urlPattern) return "";
 
-  const recordUrl = `${baseUrl}${resolveUrlPatternWithMapping(urlPattern, record, locale, null)}`;
+  // Normalize any object-type fields used in URL patterns (e.g. blog `category` is {slug:...})
+  const recordForUrl: Record<string, unknown> = { ...record };
+  for (const key of Object.keys(recordForUrl)) {
+    const val = recordForUrl[key];
+    if (val !== null && typeof val === "object" && !Array.isArray(val)) {
+      const obj = val as Record<string, unknown>;
+      if (typeof obj.slug === "string") {
+        recordForUrl[key] = obj.slug;
+      } else if (typeof obj.name === "string") {
+        recordForUrl[key] = obj.name;
+      }
+    }
+  }
+  const recordUrl = `${baseUrl}${resolveUrlPatternWithMapping(urlPattern, recordForUrl, locale, null)}`;
   const scripts: string[] = [];
 
   const title = ((record.title as string) || "").replace(/"/g, "&quot;");
@@ -242,6 +283,19 @@ export function generateDatabaseSsrHtml(
     schema.keywords = record.tags.join(", ");
   }
   scripts.push(`<script type="application/ld+json" data-ssr="true">${JSON.stringify(schema)}</script>`);
+
+  if (contentType === "blog") {
+    const blogLabel = "Blog";
+    const homeLabel = locale === "es" ? "Inicio" : "Home";
+    const breadcrumbItems: BreadcrumbSectionItem[] = [
+      { label: homeLabel, url: "/" },
+      { label: blogLabel, url: locale === "es" ? "/es/blog" : "/en/blog" },
+      { label: (record.title as string) || "" },
+    ];
+    scripts.push(
+      `<script type="application/ld+json" data-ssr="true">${JSON.stringify(buildBreadcrumbListSchema(breadcrumbItems, baseUrl))}</script>`
+    );
+  }
 
   const robots = typeof record.robots === "string" ? record.robots : "index, follow";
   const ogType = contentType === "blog" ? "article" : "website";
@@ -338,13 +392,24 @@ export function generateSsrSchemaHtml(url: string): string {
     if (sections) {
       const locationSlug = route.contentType === "location" ? route.slug : undefined;
       const programSlug = route.contentType === "program" ? route.slug : undefined;
-      
+      const baseUrl = getBaseUrl();
+
       for (const section of sections) {
         if (section.type === "faq") {
           const faqItems = resolveFaqItems(section as unknown as FaqSection, route.locale, locationSlug, programSlug);
           if (faqItems.length > 0) {
             scripts.push(
               `<script type="application/ld+json" data-ssr="true">${JSON.stringify(buildFaqPageSchema(faqItems))}</script>`
+            );
+          }
+        }
+
+        if (section.type === "breadcrumb") {
+          const bc = section as unknown as BreadcrumbSection;
+          const resolvedItems = (bc.items || []).filter((item) => item.label);
+          if (resolvedItems.length > 0) {
+            scripts.push(
+              `<script type="application/ld+json" data-ssr="true">${JSON.stringify(buildBreadcrumbListSchema(resolvedItems, baseUrl))}</script>`
             );
           }
         }

@@ -19,6 +19,14 @@ schema:
     - website
     - courses:cybersecurity
 sections:
+  - type: breadcrumb
+    section_id: breadcrumb-ciberseguridad-es
+    items:
+      - label: Inicio
+        url: /
+      - label: Programas de Carrera
+        url: /es/programas-de-carrera
+      - label: "Ciberseguridad"
   - type: hero
     version: "1.0"
     variant: course

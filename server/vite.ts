@@ -170,6 +170,11 @@ export async function setupVite(app: Express, server: Server) {
       html = injectPreloadTags(html, preloadTags);
       html = injectSsrMetaTags(html, initialDataPayload);
 
+      const ssrSchemaHtml = (req as any).ssrSchemaHtml as string | undefined;
+      if (ssrSchemaHtml && html.includes("</head>")) {
+        html = html.replace("</head>", `${ssrSchemaHtml}\n</head>`);
+      }
+
       if (initialDataPayload) {
         const scriptTag = `<script id="__INITIAL_DATA__" type="application/json">${JSON.stringify(initialDataPayload).replace(/</g, "\\u003c")}</script>`;
         html = html.replace("</body>", scriptTag + "</body>");

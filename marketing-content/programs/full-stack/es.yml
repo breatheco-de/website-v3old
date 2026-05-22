@@ -28,6 +28,14 @@ schema:
     - website
     - courses:full-stack
 sections:
+  - type: breadcrumb
+    section_id: breadcrumb-desarrollo-full-stack-es
+    items:
+      - label: Inicio
+        url: /
+      - label: Programas de Carrera
+        url: /es/programas-de-carrera
+      - label: "Desarrollador Full Stack"
   - type: hero
     section_id: hero-r24n48
     version: "1.0"

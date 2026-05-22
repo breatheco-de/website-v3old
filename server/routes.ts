@@ -12529,6 +12529,11 @@ sections: []
 
     let robotsDirective = "index, follow";
 
+    // Detect blog post URLs even when content-index can't resolve them (e.g. object-type category field)
+    const blogUrlMatch = !isDatabaseRoute
+      ? cleanUrl.match(/^\/(en|es)\/blog\/[^/]+\/([^/?#]+)$/)
+      : null;
+
     if (isDatabaseRoute && resolved) {
       try {
         const posts = await databaseManager.fetchMappedItems(
@@ -12561,6 +12566,24 @@ sections: []
         listingResolved.contentType,
         listingResolved.locale,
       );
+    } else if (blogUrlMatch) {
+      try {
+        const locale = blogUrlMatch[1];
+        const slug = blogUrlMatch[2];
+        const posts = await databaseManager.fetchMappedItems("blog");
+        const localeKey = getLocaleKey("blog") || "lang";
+        const post =
+          posts.find((p) => p.slug === slug && (p as any)[localeKey] === locale) ||
+          posts.find((p) => p.slug === slug);
+        if (post) {
+          schemaHtml = generateDatabaseSsrHtml("blog", post, locale);
+          if (typeof (post as any).robots === "string") {
+            robotsDirective = (post as any).robots;
+          }
+        }
+      } catch (err) {
+        console.error("[SSR-Blog] Error generating schema for", url, err);
+      }
     } else {
       schemaHtml = generateSsrSchemaHtml(url);
       robotsDirective = resolvePageRobots(url);
@@ -12568,7 +12591,7 @@ sections: []
 
     res.setHeader("X-Robots-Tag", robotsDirective);
 
-    const isBlogRoute = isDatabaseRoute || isListingRoute;
+    const isBlogRoute = isDatabaseRoute || isListingRoute || !!blogUrlMatch;
     if (!schemaHtml && !isBlogRoute) {
       return next();
     }
