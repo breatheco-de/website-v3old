@@ -14,6 +14,8 @@ import { loadUsersStateFromBucket } from "./user-store";
 import { gcs } from "./gcs";
 import { getVersioningManager } from "./versioning/VersioningManager";
 import http from "http";
+import { registerSgtmProxy } from "./sgtm-proxy";
+import { getOptimizationSettings } from "./settings";
 // Note: gcs.initFromEnv() is called by media.initFromEnv() in routes.ts,
 // which happens before sync-state needs it.
 
@@ -36,6 +38,12 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     !p.startsWith('/oauth') &&
     !p.startsWith('/.well-known')
   ) {
+    // Exempt the sGTM proxy path from trailing-slash redirect so the proxy
+    // middleware receives the request with the trailing slash intact.
+    const { sgtm_proxy_path } = getOptimizationSettings();
+    if (sgtm_proxy_path && p.startsWith(sgtm_proxy_path)) {
+      return next();
+    }
     const url = req.originalUrl;
     const qIndex = url.indexOf('?');
     const qs = qIndex >= 0 ? url.slice(qIndex) : '';
@@ -184,6 +192,9 @@ app.use((req, res, next) => {
   app.all("/oauth/*", pipeToMcp as any);
   app.all("/.well-known/oauth-authorization-server", pipeToMcp as any);
   // ─────────────────────────────────────────────────────────────────────────────
+
+  // sGTM proxy — registered early so it fires before static file handlers
+  registerSgtmProxy(app);
 
   const server = await registerRoutes(app);
 

@@ -19,9 +19,20 @@ interface HomePageSettings {
   slug: string;
 }
 
+export interface TagManagerSettings {
+  sgtm_enabled: boolean;
+  sgtm_server_url: string;
+  sgtm_proxy_path: string;
+}
+
+export interface OptimizationSettings {
+  tagmanager: TagManagerSettings;
+}
+
 interface SiteSettings {
   i18n: I18nSettings;
   home_page: HomePageSettings;
+  optimization: OptimizationSettings;
 }
 
 let cached: SiteSettings | null = null;
@@ -40,6 +51,13 @@ function loadSettings(): SiteSettings {
     home_page: {
       type: "page",
       slug: "home",
+    },
+    optimization: {
+      tagmanager: {
+        sgtm_enabled: false,
+        sgtm_server_url: "",
+        sgtm_proxy_path: "/sgtm/",
+      },
     },
   };
 
@@ -73,7 +91,18 @@ function loadSettings(): SiteSettings {
       slug: (homePageRaw?.slug as string) || defaults.home_page.slug,
     };
 
-    cached = { ...defaults, i18n, home_page };
+    const optRaw = parsed.optimization as Record<string, unknown> | undefined;
+    const tmRaw = optRaw?.tagmanager as Record<string, unknown> | undefined;
+    const defTm = defaults.optimization.tagmanager;
+    const optimization: OptimizationSettings = {
+      tagmanager: {
+        sgtm_enabled: typeof tmRaw?.sgtm_enabled === "boolean" ? tmRaw.sgtm_enabled : defTm.sgtm_enabled,
+        sgtm_server_url: (tmRaw?.sgtm_server_url as string) || defTm.sgtm_server_url,
+        sgtm_proxy_path: (tmRaw?.sgtm_proxy_path as string) || defTm.sgtm_proxy_path,
+      },
+    };
+
+    cached = { ...defaults, i18n, home_page, optimization };
     console.log(
       `[Settings] Loaded: ${i18n.supported_locales.length} locale(s), default="${i18n.default_locale}", home_page="${home_page.slug}"`
     );
@@ -185,4 +214,54 @@ export function updateLocaleSettings(input: {
 
 export function resetSettings(): void {
   cached = null;
+}
+
+export function getOptimizationSettings(): OptimizationSettings {
+  return loadSettings().optimization;
+}
+
+export function updateOptimizationSettings(input: { tagmanager: Partial<TagManagerSettings> }): void {
+  let existing: Record<string, unknown> = {};
+  if (fs.existsSync(SETTINGS_PATH)) {
+    try {
+      const raw = fs.readFileSync(SETTINGS_PATH, "utf-8");
+      existing = (yaml.load(raw) as Record<string, unknown>) || {};
+    } catch {}
+  }
+
+  const current = loadSettings().optimization.tagmanager;
+  const tm = input.tagmanager ?? {};
+  const updated: TagManagerSettings = {
+    sgtm_enabled: typeof tm.sgtm_enabled === "boolean" ? tm.sgtm_enabled : current.sgtm_enabled,
+    sgtm_server_url: typeof tm.sgtm_server_url === "string" ? tm.sgtm_server_url : current.sgtm_server_url,
+    sgtm_proxy_path: typeof tm.sgtm_proxy_path === "string" ? tm.sgtm_proxy_path : current.sgtm_proxy_path,
+  };
+
+  // Validate proxy path — must start with /, be more than just /, and contain a meaningful segment
+  const pPath = updated.sgtm_proxy_path;
+  if (!pPath.startsWith("/")) {
+    throw new Error("Proxy path must start with /");
+  }
+  // Reject bare root path which would claim all routes
+  const normalizedForValidation = pPath.replace(/\/$/, "") || "/";
+  if (normalizedForValidation === "/" || normalizedForValidation === "") {
+    throw new Error("Proxy path must not be / — use a specific path like /sgtm/");
+  }
+  // Ensure no path traversal or unsafe characters
+  if (/[?#\s]/.test(pPath)) {
+    throw new Error("Proxy path must not contain ?, #, or whitespace");
+  }
+
+  existing.optimization = {
+    tagmanager: {
+      sgtm_enabled: updated.sgtm_enabled,
+      sgtm_server_url: updated.sgtm_server_url,
+      sgtm_proxy_path: updated.sgtm_proxy_path,
+    },
+  };
+
+  const output = yaml.dump(existing, { lineWidth: 120, noRefs: true });
+  fs.writeFileSync(SETTINGS_PATH, output, "utf-8");
+  resetSettings();
+  console.log(`[Settings] Updated optimization.tagmanager: enabled=${updated.sgtm_enabled}, url="${updated.sgtm_server_url}", path="${updated.sgtm_proxy_path}"`);
 }

@@ -130,6 +130,8 @@ import {
   getLocaleEntries,
   updateLocaleSettings,
   getHomePage,
+  getOptimizationSettings,
+  updateOptimizationSettings,
 } from "./settings";
 import { variableManager } from "./variable-manager";
 import { getValidationService } from "../scripts/validation/service";
@@ -3042,6 +3044,23 @@ Sitemap: ${baseUrl}/sitemap.xml
         default_locale: getDefaultLocale(),
         supported_locales: getLocaleEntries(),
       });
+    } catch (err: any) {
+      res.status(400).json({ error: err.message || String(err) });
+    }
+  });
+
+  app.get("/api/settings/optimization", (_req, res) => {
+    res.json(getOptimizationSettings());
+  });
+
+  app.put("/api/settings/optimization", async (req, res) => {
+    try {
+      const { tagmanager } = req.body;
+      if (!tagmanager || typeof tagmanager !== "object") {
+        return res.status(400).json({ error: "Request body must contain a tagmanager object" });
+      }
+      updateOptimizationSettings({ tagmanager });
+      res.json({ success: true, ...getOptimizationSettings() });
     } catch (err: any) {
       res.status(400).json({ error: err.message || String(err) });
     }
