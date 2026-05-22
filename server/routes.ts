@@ -1,6 +1,7 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { geoGet, geoSet } from "./geo-cache";
 import { getQueueStats, enqueueOptimization, getPendingOptimizations, getFailedEntries, retryFailedImages, resetOptimizeSession, getOptimizeSession, enqueueExternalImage } from "./image-registry";
 import { getAllQueueState } from "./image-queue-state";
 
@@ -763,8 +764,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
           ? forwarded.split(",")[0].trim()
           : req.socket.remoteAddress || "";
 
+      const isLocal =
+        !clientIp || clientIp === "127.0.0.1" || clientIp === "::1" || clientIp === "::ffff:127.0.0.1";
+
+      if (!isLocal) {
+        const cached = geoGet(clientIp);
+        if (cached) {
+          res.json(cached);
+          return;
+        }
+      }
+
       const url =
-        clientIp && clientIp !== "127.0.0.1" && clientIp !== "::1"
+        clientIp && !isLocal
           ? `http://ip-api.com/json/${clientIp}?fields=status,city,country,countryCode,regionName,timezone,lat,lon`
           : `http://ip-api.com/json/?fields=status,city,country,countryCode,regionName,timezone,lat,lon`;
 
@@ -778,6 +790,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
       const data = await response.json();
+      if (!isLocal) geoSet(clientIp, data);
       res.json(data);
     } catch {
       res.status(502).json({ status: "fail" });
@@ -931,6 +944,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         rawIp === "127.0.0.1" ||
         rawIp === "::1" ||
         rawIp === "::ffff:127.0.0.1";
+
+      if (!isLocal) {
+        const cached = geoGet(rawIp);
+        if (cached) {
+          res.json(cached);
+          return;
+        }
+      }
+
       const ipSegment = isLocal ? "" : `/${rawIp}`;
       const fields =
         "status,city,country,countryCode,regionName,timezone,lat,lon";
@@ -948,6 +970,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
       const data = await response.json();
+      if (!isLocal) geoSet(rawIp, data);
       res.json(data);
     } catch {
       res.status(502).json({ status: "fail" });
