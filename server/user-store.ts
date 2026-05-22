@@ -154,12 +154,10 @@ export async function loadUsersStateFromBucket(): Promise<void> {
   if (!IS_PRODUCTION) {
     console.log("[UserStore] Development mode — using local file only");
     state = loadLocal();
-    // Ensure built-in webmaster role always exists
+    // Always sync built-in webmaster role from code
     if (!state.roles) state.roles = {};
-    if (!state.roles.webmaster) {
-      state.roles.webmaster = BUILT_IN_WEBMASTER_ROLE;
-      saveLocal();
-    }
+    state.roles.webmaster = BUILT_IN_WEBMASTER_ROLE;
+    saveLocal();
     loaded = true;
     return;
   }
@@ -167,6 +165,10 @@ export async function loadUsersStateFromBucket(): Promise<void> {
   if (!gcs.available) {
     console.log("[UserStore] GCS unavailable — loading from local file");
     state = loadLocal();
+    // Always sync built-in webmaster role from code
+    if (!state.roles) state.roles = {};
+    state.roles.webmaster = BUILT_IN_WEBMASTER_ROLE;
+    saveLocal();
     loaded = true;
     return;
   }
@@ -191,12 +193,10 @@ export async function loadUsersStateFromBucket(): Promise<void> {
     state = loadLocal();
   }
 
-  // Ensure built-in webmaster role always exists
+  // Always sync built-in webmaster role from code
   if (!state.roles) state.roles = {};
-  if (!state.roles.webmaster) {
-    state.roles.webmaster = BUILT_IN_WEBMASTER_ROLE;
-    save();
-  }
+  state.roles.webmaster = BUILT_IN_WEBMASTER_ROLE;
+  save();
   if (!state.users) state.users = {};
 
   loaded = true;
@@ -206,7 +206,7 @@ function ensureLoaded(): void {
   if (!loaded) {
     state = loadLocal();
     if (!state.roles) state.roles = {};
-    if (!state.roles.webmaster) state.roles.webmaster = BUILT_IN_WEBMASTER_ROLE;
+    state.roles.webmaster = BUILT_IN_WEBMASTER_ROLE;
     if (!state.users) state.users = {};
     if (!state.pendingUsers) state.pendingUsers = {};
     loaded = true;
