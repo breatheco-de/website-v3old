@@ -2754,6 +2754,138 @@ Sitemap: ${baseUrl}/sitemap.xml
     }
   });
 
+  /**
+   * Update a section for a specific DB entry only (per-entry override).
+   * Writes the section data as a patch in `marketing-content/{folder}/{slug}/{locale}.yml`.
+   * If the section has no id, auto-generates one and patches the shared template first.
+   * The loader's applyPerEntryLayer deep-merges the patch on render.
+   */
+  app.post("/api/per-entry-section-update", async (req, res) => {
+    try {
+      const { authorized } = await requireCapability(req, res, "edit_content");
+      if (!authorized) return;
+
+      const { contentType, slug, locale: rawLocale, sectionIndex, sectionData } = req.body as {
+        contentType: string;
+        slug: string;
+        locale: string;
+        sectionIndex: number;
+        sectionData: Record<string, unknown>;
+      };
+
+      if (!contentType || !slug || !rawLocale || sectionIndex === undefined || !sectionData) {
+        res.status(400).json({ error: "Missing required fields" });
+        return;
+      }
+
+      const locale = normalizeLocale(rawLocale);
+      const folder = getFolder(contentType);
+      const templateDir = path.join(process.cwd(), "marketing-content", folder);
+      const entryDir = path.join(templateDir, slug);
+      const entryFilePath = path.join(entryDir, `${locale}.yml`);
+
+      // Load the current merged page to get the section and its id
+      const mergedPage = await loadDatabaseSinglePage(contentType, slug, locale);
+      if (!mergedPage) {
+        res.status(404).json({ error: "Entry not found" });
+        return;
+      }
+
+      const sections = mergedPage.sections as Record<string, unknown>[];
+      const targetSection = sections[sectionIndex];
+      if (!targetSection) {
+        res.status(400).json({ error: "Section index out of range" });
+        return;
+      }
+
+      let sectionId = typeof targetSection.id === "string" ? targetSection.id : null;
+
+      if (!sectionId) {
+        // Auto-generate an id and patch the shared template so applyPerEntryLayer can match it
+        const { generateSectionId } = await import("./utils/generateSectionId");
+        sectionId = generateSectionId((targetSection.type as string) || "section");
+
+        const localePath = path.join(templateDir, `single.${locale}.yml`);
+        const fallbackPath = path.join(templateDir, "single.en.yml");
+        const templateFile = fs.existsSync(localePath) ? localePath : fallbackPath;
+
+        if (fs.existsSync(templateFile)) {
+          const rawTemplate = fs.readFileSync(templateFile, "utf-8");
+          const templateData = (contentIndex.safeYamlLoad(rawTemplate) as Record<string, unknown>) || {};
+          const templateSections = Array.isArray(templateData.sections)
+            ? (templateData.sections as Record<string, unknown>[])
+            : [];
+
+          // Map merged index → template index
+          const mergedSections = mergedPage.sections as Record<string, unknown>[];
+          const removedOriginalIndices = new Set<number>(
+            ((mergedPage.perEntryRemovedSections as Array<{ originalIndex: number }>) || [])
+              .map((r) => r.originalIndex),
+          );
+
+          let baseCountBefore = 0;
+          for (let i = 0; i < sectionIndex; i++) {
+            if (!mergedSections[i]?._perEntrySource) baseCountBefore++;
+          }
+
+          let tplIdx = -1;
+          let visible = 0;
+          for (let i = 0; i < templateSections.length; i++) {
+            if (removedOriginalIndices.has(i)) continue;
+            if (visible === baseCountBefore) { tplIdx = i; break; }
+            visible++;
+          }
+
+          const patchIdx = tplIdx !== -1 ? tplIdx : sectionIndex;
+          if (templateSections[patchIdx]) {
+            templateSections[patchIdx] = { ...templateSections[patchIdx], id: sectionId };
+            templateData.sections = templateSections;
+            const { escapeObjectVars, unescapeYamlDump } = await import("@shared/templateVars");
+            const { escaped, map } = escapeObjectVars(templateData);
+            const dumped = yaml.dump(escaped, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
+            fs.writeFileSync(templateFile, unescapeYamlDump(dumped, map), "utf-8");
+            markFileAsModified(templateFile);
+          }
+        }
+      }
+
+      // Ensure entry directory exists
+      if (!fs.existsSync(entryDir)) {
+        fs.mkdirSync(entryDir, { recursive: true });
+      }
+
+      // Load existing per-entry file or start fresh
+      let entryData: Record<string, unknown> = {};
+      if (fs.existsSync(entryFilePath)) {
+        const raw = fs.readFileSync(entryFilePath, "utf-8");
+        const parsed = contentIndex.safeYamlLoad(raw);
+        if (parsed && typeof parsed === "object") entryData = parsed as Record<string, unknown>;
+      }
+
+      const entrySections = Array.isArray(entryData.sections)
+        ? (entryData.sections as Record<string, unknown>[])
+        : [];
+
+      // Remove any existing entry for this section id (patch or _remove) then add the new patch
+      const filtered = entrySections.filter(
+        (s) => !(typeof s.id === "string" && s.id === sectionId),
+      );
+      filtered.push({ id: sectionId, ...sectionData });
+      entryData.sections = filtered;
+
+      const { escapeObjectVars, unescapeYamlDump } = await import("@shared/templateVars");
+      const { escaped, map } = escapeObjectVars(entryData);
+      const dumped = yaml.dump(escaped, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
+      fs.writeFileSync(entryFilePath, unescapeYamlDump(dumped, map), "utf-8");
+      markFileAsModified(entryFilePath);
+
+      res.json({ success: true });
+    } catch (error) {
+      console.error("[per-entry-section-update] Error:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
+    }
+  });
+
   // ── Generic Content Type API Routes ──
 
   app.get("/api/content-types", (_req, res) => {

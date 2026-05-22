@@ -1314,6 +1314,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
                   totalSections={sections.length}
                   allSections={sections}
                   isSharedTemplate={isSharedTemplate}
+                  singleEntry={singleEntry}
                   onMoveUp={handleMoveUp}
                   onMoveDown={handleMoveDown}
                   onDelete={handleDelete}

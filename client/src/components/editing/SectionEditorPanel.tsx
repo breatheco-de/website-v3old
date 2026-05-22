@@ -34,6 +34,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { editContent } from "@/lib/contentApi";
 import { emitContentUpdated, registerEditorDirtyCheck } from "@/lib/contentEvents";
+import { getDebugToken } from "@/hooks/useDebugAuth";
 import {
   parseEditorType,
   type ColorPickerVariant,
@@ -151,6 +152,8 @@ interface SectionEditorPanelProps {
   onClose: () => void;
   onPreviewChange?: (previewSection: Section | null) => void;
   allSections?: Section[];
+  isSharedTemplate?: boolean;
+  singleEntry?: Record<string, unknown>;
 }
 
 interface ShowOnPickerProps {
@@ -551,6 +554,8 @@ export function SectionEditorPanel({
   onClose,
   onPreviewChange,
   allSections,
+  isSharedTemplate,
+  singleEntry,
 }: SectionEditorPanelProps) {
   const { toast } = useToast();
   const [yamlContent, setYamlContent] = useState("");
@@ -559,6 +564,7 @@ export function SectionEditorPanel({
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("code");
+  const [scopeDialogOpen, setScopeDialogOpen] = useState(false);
 
   const hasChangesRef = useRef(hasChanges);
   hasChangesRef.current = hasChanges;
@@ -1859,13 +1865,74 @@ export function SectionEditorPanel({
     }
   }, [saveToServer, toast]);
 
+  // Save section only for this specific DB entry (per-entry override)
+  const savePerEntryOnly = useCallback(async () => {
+    if (!contentType || !slug || !locale) return;
+    setScopeDialogOpen(false);
+    let parsed: Section;
+    try {
+      parsed = safeYamlLoad(yamlContent) as Section;
+      if (!parsed || typeof parsed !== "object") {
+        setSaveError("Invalid section structure");
+        return;
+      }
+    } catch (error) {
+      if (error instanceof Error) setSaveError(error.message);
+      return;
+    }
+    setIsSaving(true);
+    setSaveError(null);
+    if (pageHistory && allSections) {
+      pageHistory.pushSnapshot(allSections, `Antes de editar sección ${sectionIndex + 1}`);
+    }
+    try {
+      const token = getDebugToken();
+      const resp = await fetch("/api/per-entry-section-update", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Token ${token}` } : {}),
+        },
+        body: JSON.stringify({
+          contentType,
+          slug,
+          locale,
+          sectionIndex,
+          sectionData: parsed as Record<string, unknown>,
+        }),
+      });
+      const data = await resp.json();
+      if (data.success) {
+        onUpdate(parsed);
+        setHasChanges(false);
+        initialYamlRef.current = yamlContent;
+        emitContentUpdated({ contentType, slug, locale });
+        toast({ title: "Changes saved", description: "Section updated for this entry only." });
+      } else {
+        setSaveError(data.error || "Failed to save per-entry section");
+      }
+    } catch (error) {
+      setSaveError(error instanceof Error ? error.message : "Network error");
+    } finally {
+      setIsSaving(false);
+    }
+  }, [contentType, slug, locale, sectionIndex, yamlContent, onUpdate, pageHistory, allSections, toast]);
+
   const handleSave = useCallback(async () => {
+    const isPerEntrySection = !!(section as Record<string, unknown>)._perEntrySource;
+    if (isSharedTemplate && singleEntry && !isPerEntrySection) {
+      // On a DB entry page with a shared-template section: ask scope first.
+      // Binding confirmation (if needed) is handled inside the scope dialog's
+      // "Update shared template" branch.
+      setScopeDialogOpen(true);
+      return;
+    }
     if (boundSiblings.length > 0) {
       setBindingConfirmOpen(true);
       return;
     }
     await executeSave();
-  }, [boundSiblings.length, executeSave]);
+  }, [boundSiblings.length, executeSave, isSharedTemplate, singleEntry, section]);
 
   // Handle close with unsaved changes warning
   const handleClose = useCallback(() => {
@@ -7075,6 +7142,58 @@ export function SectionEditorPanel({
         confirmLabel="Save to all"
         confirmIcon={<Save className="h-4 w-4 mr-2" />}
       />
+
+      <Dialog open={scopeDialogOpen} onOpenChange={(o) => { if (!o && !isSaving) setScopeDialogOpen(false); }}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-amber-500" />
+              Save section — choose scope
+            </DialogTitle>
+            <DialogDescription>
+              This section comes from the shared template. How should the change be saved?
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex flex-col gap-3 py-2">
+            <Button
+              variant="outline"
+              className="w-full justify-start gap-3 h-auto py-3 px-4"
+              onClick={savePerEntryOnly}
+              disabled={isSaving}
+              data-testid="button-save-scope-entry-only"
+            >
+              <div className="flex flex-col items-start gap-0.5 text-left">
+                <span className="font-medium">Save for this entry only</span>
+                <span className="text-xs text-muted-foreground">Overrides this section just for the current entry. Other entries remain unchanged.</span>
+              </div>
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full justify-start gap-3 h-auto py-3 px-4"
+              onClick={async () => {
+                setScopeDialogOpen(false);
+                if (boundSiblings.length > 0) {
+                  setBindingConfirmOpen(true);
+                } else {
+                  await executeSave();
+                }
+              }}
+              disabled={isSaving}
+              data-testid="button-save-scope-shared-template"
+            >
+              <div className="flex flex-col items-start gap-0.5 text-left">
+                <span className="font-medium">Update shared template</span>
+                <span className="text-xs text-muted-foreground">Applies the change to the shared template — affects all entries of this content type.</span>
+              </div>
+            </Button>
+          </div>
+          <DialogFooter>
+            <Button variant="ghost" onClick={() => setScopeDialogOpen(false)} disabled={isSaving} data-testid="button-save-scope-cancel">
+              Cancel
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
