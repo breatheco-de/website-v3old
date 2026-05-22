@@ -18936,6 +18936,31 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-geekforce-human-ai-png-71b45072-736x479-640w.webp"
         }
       ]
+    },
+    "blog_posts-blog_posts-geekforce-human-ai-png-71b450-7aa838b0": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-geekforce-human-ai-png-71b45072-736x479-640w.webp",
+      "alt": "Image from blog_posts",
+      "tags": [
+        "blog_posts"
+      ],
+      "source_url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-geekforce-human-ai-png-71b45072-736x479.webp",
+      "usage_count": 0,
+      "source_item": "how-geekforce-prepares-you-in-the-age-of-ai",
+      "width": 736,
+      "height": 479,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-geekforce-human-ai-png-71b45072-736x479-640w.webp"
+        }
+      ]
     }
   }
 }
