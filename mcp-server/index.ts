@@ -137,10 +137,10 @@ function renderAuthorizePage(opts: {
 
 // ─── MCP server factory ───────────────────────────────────────────────────────
 
-function createMcpServer(mcpAuthor?: string): McpServer {
+function createMcpServer(mcpAuthor?: string, mcpToken?: string): McpServer {
   const mcp = new McpServer({ name: "content-pages", version: "1.0.0" });
-  registerPageTools(mcp, mcpAuthor);
-  registerComponentTools(mcp);
+  registerPageTools(mcp, mcpAuthor, mcpToken);
+  registerComponentTools(mcp, mcpToken);
   return mcp;
 }
 
@@ -435,7 +435,7 @@ app.all("/mcp", authMiddleware, async (req, res) => {
   const authHeader = (req.headers["authorization"] as string | undefined) || "";
   const bearerToken = authHeader.replace(/^Bearer\s+/i, "").trim();
   const resolvedUsername = bearerToken ? getTokenUsername(bearerToken) ?? undefined : undefined;
-  const mcp = createMcpServer(resolvedUsername);
+  const mcp = createMcpServer(resolvedUsername, bearerToken || undefined);
   try {
     await mcp.connect(transport);
     await transport.handleRequest(req, res, req.body);

@@ -15,6 +15,7 @@ import {
   setValueAtPath,
 } from "../lib/content.js";
 import { assertSafeSegment, assertSafeLocale, assertWithinBase } from "../lib/sanitize.js";
+import { checkCap, denyResponse } from "../lib/auth.js";
 
 const MAIN_SERVER_PORT = process.env.PORT || "5000";
 
@@ -86,7 +87,7 @@ function conflictError(opts: {
   };
 }
 
-export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
+export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?: string): void {
   // list_pages
   mcp.tool(
     "list_pages",
@@ -313,6 +314,13 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
       if (!resolved) {
         return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
       }
+
+      if (mcpToken) {
+        if (!await checkCap(mcpToken, "content_edit_text", resolved.contentType)) {
+          return denyResponse("content_edit_text", resolved.contentType);
+        }
+      }
+
       const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
       const fileName = `${locale}.yml`;
       const filePath = path.join(dir, fileName);
@@ -375,6 +383,13 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
       if (!resolved) {
         return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
       }
+
+      if (mcpToken) {
+        if (!await checkCap(mcpToken, "content_edit_text", resolved.contentType)) {
+          return denyResponse("content_edit_text", resolved.contentType);
+        }
+      }
+
       const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
       const fileName = `${locale}.yml`;
       const filePath = path.join(dir, fileName);
@@ -448,6 +463,13 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
       if (!resolved) {
         return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
       }
+
+      if (mcpToken) {
+        if (!await checkCap(mcpToken, "seo_edit")) {
+          return denyResponse("seo_edit");
+        }
+      }
+
       const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
       const ctDir = getDirectory(resolved.contentType, resolved.config);
       const results: string[] = [];
@@ -547,6 +569,13 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
       if (!resolved) {
         return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
       }
+
+      if (mcpToken) {
+        if (!await checkCap(mcpToken, "seo_edit")) {
+          return denyResponse("seo_edit");
+        }
+      }
+
       const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
       const ctDir = getDirectory(resolved.contentType, resolved.config);
       const results: string[] = [];
@@ -644,6 +673,12 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
         return { content: [{ type: "text", text: `Content type '${contentType}' is database-backed and cannot be created via this tool.` }], isError: true };
       }
 
+      if (mcpToken) {
+        if (!await checkCap(mcpToken, "content_create_entry", contentType)) {
+          return denyResponse("content_create_entry", contentType);
+        }
+      }
+
       const pageDir = path.join(MARKETING_CONTENT_PATH, getDirectory(contentType, config), slug);
       try { assertWithinBase(pageDir, MARKETING_CONTENT_PATH); } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
@@ -719,6 +754,12 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
         return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
       }
 
+      if (mcpToken) {
+        if (!await checkCap(mcpToken, "content_edit_structure", resolved.contentType)) {
+          return denyResponse("content_edit_structure", resolved.contentType);
+        }
+      }
+
       const operation: Record<string, unknown> = {
         action: "add_item",
         path: "sections",
@@ -773,6 +814,13 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
       if (!resolved) {
         return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
       }
+
+      if (mcpToken) {
+        if (!await checkCap(mcpToken, "content_edit_structure", resolved.contentType)) {
+          return denyResponse("content_edit_structure", resolved.contentType);
+        }
+      }
+
       const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
       const localePath = path.join(dir, `${locale}.yml`);
       try { assertWithinBase(localePath, MARKETING_CONTENT_PATH); } catch (e) {
@@ -833,6 +881,13 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string): void {
       if (!resolved) {
         return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
       }
+
+      if (mcpToken) {
+        if (!await checkCap(mcpToken, "content_edit_structure", resolved.contentType)) {
+          return denyResponse("content_edit_structure", resolved.contentType);
+        }
+      }
+
       const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
       const localePath = path.join(dir, `${locale}.yml`);
       try { assertWithinBase(localePath, MARKETING_CONTENT_PATH); } catch (e) {

@@ -9,7 +9,7 @@ import {
 } from "../lib/content.js";
 import { assertSafeSegment, assertWithinBase } from "../lib/sanitize.js";
 
-export function registerComponentTools(mcp: McpServer): void {
+export function registerComponentTools(mcp: McpServer, _mcpToken?: string): void {
   // list_components
   mcp.tool(
     "list_components",

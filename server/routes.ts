@@ -810,6 +810,58 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Apply redirect middleware for 301 redirects from YAML content
   app.use(redirectMiddleware);
 
+  // ── Internal capability check — used by MCP server ──────────────────────────
+  app.get("/api/auth/check-capability", async (req, res) => {
+    const { cap, contentType, username } = req.query as Record<string, string>;
+
+    if (!cap) {
+      res.status(400).json({ error: "cap query parameter is required" });
+      return;
+    }
+
+    const isDevelopment = process.env.NODE_ENV !== "production";
+    if (isDevelopment) {
+      res.json({ allowed: true });
+      return;
+    }
+
+    const authHeader = req.headers.authorization || "";
+    const bearerToken = authHeader.replace(/^Bearer\s+/i, "").trim();
+
+    if (!bearerToken) {
+      res.status(401).json({ error: "Authorization required" });
+      return;
+    }
+
+    let resolvedUsername: string | null = username || null;
+
+    const mcpApiKey = process.env.MCP_API_KEY;
+    if (mcpApiKey && bearerToken === mcpApiKey) {
+      // Trusted internal call from the MCP server — username must be supplied explicitly
+      if (!resolvedUsername) {
+        res.status(400).json({ error: "username query parameter required when authenticating with the API key" });
+        return;
+      }
+    } else {
+      // Treat bearer as a Breathecode token and validate it
+      const profile = await userManager.validateToken(bearerToken);
+      if (!profile.valid || !profile.username) {
+        res.status(401).json({ error: "Invalid or expired token" });
+        return;
+      }
+      resolvedUsername = profile.username;
+    }
+
+    const allowed = userStore.hasCapability(resolvedUsername, cap as CapabilityName, contentType || undefined);
+    if (!allowed) {
+      const scopeMsg = contentType ? ` for content type '${contentType}'` : "";
+      res.status(403).json({ error: `Forbidden: capability '${cap}' required${scopeMsg}`, allowed: false });
+      return;
+    }
+
+    res.json({ allowed: true });
+  });
+
   app.post("/api/debug/validate-token", async (req, res) => {
     try {
       const { token } = req.body;
