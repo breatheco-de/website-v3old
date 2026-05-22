@@ -361,6 +361,20 @@ export function deleteUser(username: string): { ok: boolean; error?: string } {
   return { ok: true };
 }
 
+export function renameUser(oldUsername: string, newUsername: string): { ok: boolean; error?: string } {
+  ensureLoaded();
+  if (!state.users[oldUsername]) {
+    return { ok: false, error: "User not found" };
+  }
+  if (state.users[newUsername]) {
+    return { ok: false, error: `Username "${newUsername}" is already taken` };
+  }
+  state.users[newUsername] = { ...state.users[oldUsername], username: newUsername };
+  delete state.users[oldUsername];
+  save();
+  return { ok: true };
+}
+
 // ─── Pending Users API ─────────────────────────────────────────────────────────
 
 export function addPendingUser(email: string, role: string): { ok: boolean; error?: string } {

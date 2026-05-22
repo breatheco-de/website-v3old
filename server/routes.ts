@@ -12168,6 +12168,32 @@ sections: []
     res.json({ ok: true });
   });
 
+  app.patch("/api/admin/users/:username", async (req, res) => {
+    const auth = await requireCapability(req, res, "users_manage");
+    if (!auth.authorized) return;
+    const { username } = req.params;
+    const { username: newUsername } = req.body;
+    if (!newUsername || typeof newUsername !== "string" || !newUsername.trim()) {
+      res.status(400).json({ error: "username is required" });
+      return;
+    }
+    const trimmed = newUsername.trim();
+    if (trimmed === username) {
+      res.status(400).json({ error: "New username is the same as the current username" });
+      return;
+    }
+    if (auth.username && auth.username === username) {
+      res.status(403).json({ error: "You cannot rename your own account" });
+      return;
+    }
+    const result = userStore.renameUser(username, trimmed);
+    if (!result.ok) {
+      res.status(409).json({ error: result.error });
+      return;
+    }
+    res.json({ ok: true });
+  });
+
   app.delete("/api/admin/users/:username", async (req, res) => {
     const auth = await requireCapability(req, res, "users_manage");
     if (!auth.authorized) return;

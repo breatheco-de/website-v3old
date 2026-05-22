@@ -33,7 +33,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
-import { useDebugAuth } from "@/hooks/useDebugAuth";
+import { useDebugAuth, getDebugUserName } from "@/hooks/useDebugAuth";
 import { CAPABILITY_REGISTRY } from "@shared/capabilities";
 
 interface LocaleEntry {
@@ -593,6 +593,7 @@ function UsersTab() {
   });
 
   const [editingUser, setEditingUser] = useState<string | null>(null);
+  const [editingUsername, setEditingUsername] = useState<string>("");
   const [userRoles, setUserRoles] = useState<string[]>([]);
   const [saving, setSaving] = useState(false);
 
@@ -611,22 +612,37 @@ function UsersTab() {
 
   function startEditRoles(user: UserRecord) {
     setEditingUser(user.username);
+    setEditingUsername(user.username);
     setUserRoles([...user.roles]);
   }
 
-  async function saveUserRoles(username: string) {
+  async function saveUserRoles(originalUsername: string) {
+    const trimmedUsername = editingUsername.trim();
+    if (!trimmedUsername) {
+      toast({ title: "Username cannot be empty", variant: "destructive" });
+      return;
+    }
     setSaving(true);
     try {
-      const res = await apiRequest("PUT", `/api/admin/users/${username}/roles`, { roles: userRoles });
-      if (!res.ok) {
-        const err = await res.json();
+      let activeUsername = originalUsername;
+      if (trimmedUsername !== originalUsername) {
+        const renameRes = await apiRequest("PATCH", `/api/admin/users/${originalUsername}`, { username: trimmedUsername });
+        if (!renameRes.ok) {
+          const err = await renameRes.json();
+          throw new Error(err.error || "Failed to rename user");
+        }
+        activeUsername = trimmedUsername;
+      }
+      const rolesRes = await apiRequest("PUT", `/api/admin/users/${activeUsername}/roles`, { roles: userRoles });
+      if (!rolesRes.ok) {
+        const err = await rolesRes.json();
         throw new Error(err.error || "Failed to update roles");
       }
       queryClient.invalidateQueries({ queryKey: ["/api/admin/users"] });
       setEditingUser(null);
-      toast({ title: "Roles updated" });
+      toast({ title: "User updated" });
     } catch (err: any) {
-      toast({ title: "Failed to update roles", description: err.message, variant: "destructive" });
+      toast({ title: "Failed to update user", description: err.message, variant: "destructive" });
     } finally {
       setSaving(false);
     }
@@ -894,7 +910,25 @@ function UsersTab() {
               </CardHeader>
               <CardContent className="pt-0">
                 {editingUser === user.username ? (
-                  <div className="grid grid-cols-2 gap-1.5">
+                  <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-1">
+                      <label className="text-xs font-medium text-muted-foreground" htmlFor={`username-input-${user.username}`}>
+                        Username
+                      </label>
+                      <Input
+                        id={`username-input-${user.username}`}
+                        value={editingUsername}
+                        onChange={(e) => setEditingUsername(e.target.value)}
+                        disabled={user.username === getDebugUserName()}
+                        placeholder="Username"
+                        required
+                        data-testid={`input-username-${user.username}`}
+                      />
+                      {user.username === getDebugUserName() && (
+                        <p className="text-xs text-muted-foreground">Cannot rename your own account</p>
+                      )}
+                    </div>
+                    <div className="grid grid-cols-2 gap-1.5">
                     {allRoles.map(([roleId, role]) => (
                       <div key={roleId} className="flex items-center gap-2">
                         <Checkbox
@@ -912,6 +946,7 @@ function UsersTab() {
                         </label>
                       </div>
                     ))}
+                    </div>
                   </div>
                 ) : (
                   <div className="flex flex-wrap gap-1">
