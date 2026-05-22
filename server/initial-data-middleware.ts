@@ -12,6 +12,7 @@ import {
 } from "./component-registry";
 import { variableManager } from "./variable-manager";
 import { loadImageRegistry } from "./image-registry";
+import { readNavigationEagerManifest } from "./navigation-eager-manifest";
 import { getDefaultLocale, normalizeLocale } from "./settings";
 import { getApiPath } from "../shared/api-paths";
 import { loadDatabaseSinglePage } from "./database-single-loader";
@@ -98,7 +99,7 @@ function resolveBlogConfigQuery(): SingleQuery | null {
   }
 }
 
-async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
+export async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
   const cleanUrl = url.split("?")[0].split("#")[0];
 
   if (
@@ -609,6 +610,14 @@ export async function resolveInitialData(
     queries.push({
       queryKey: ["/api/image-registry"],
       data: registry,
+    });
+  }
+
+  const navigationManifest = readNavigationEagerManifest();
+  if (navigationManifest) {
+    queries.push({
+      queryKey: ["navigation-eager-manifest"],
+      data: navigationManifest,
     });
   }
 
