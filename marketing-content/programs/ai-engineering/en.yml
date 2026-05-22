@@ -33,7 +33,7 @@ sections:
     maxWidth:
       desktop: xl
     paddingY:
-      desktop: lg none
+      desktop: md none
   - type: hero
     version: "1.0"
     variant: course
