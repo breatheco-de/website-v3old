@@ -20,14 +20,6 @@ schema:
     - website
     - courses:full-stack
 sections:
-  - type: breadcrumb
-    section_id: breadcrumb-full-stack
-    items:
-      - label: Home
-        url: /
-      - label: Career Programs
-        url: /en/career-programs
-      - label: "Full Stack Developer"
   - type: hero
     version: "1.0"
     variant: course
