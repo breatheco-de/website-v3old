@@ -1,6 +1,4 @@
 en:
   variants:
-    - slug: test-version
-      allocation: 0
-    - slug: third-variant
+    - slug: incluyendo-becas
       allocation: 0
