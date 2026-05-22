@@ -56,6 +56,9 @@ sections:
         program:
           visible: false
           default: ai-engineering
+        location:
+          visible: false
+          default: downtown-miami
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       terms_url: /terms-and-conditions
