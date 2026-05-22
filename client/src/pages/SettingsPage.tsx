@@ -1073,7 +1073,7 @@ export default function SettingsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-2xl mx-auto px-4 py-8 space-y-4">
+      <div className="max-w-7xl mx-auto px-4 py-8 space-y-4">
         <div className="flex items-center gap-3 mb-6">
           <Link href="/private/diagnostics">
             <Button variant="ghost" size="icon" data-testid="button-back-settings">
@@ -1087,7 +1087,7 @@ export default function SettingsPage() {
         </div>
 
         <Tabs defaultValue="locales">
-          <TabsList className={`grid w-full ${canManageUsers ? "grid-cols-5" : "grid-cols-3"}`}>
+          <TabsList className="flex w-full">
             <TabsTrigger value="locales" data-testid="tab-locales">
               <IconLanguage className="h-4 w-4 mr-1.5" />
               Locales
