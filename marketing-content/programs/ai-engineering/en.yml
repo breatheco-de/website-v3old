@@ -30,6 +30,8 @@ sections:
       - label: Career Programs
         url: /en/program-comparison
       - label: AI Engineering
+    maxWidth:
+      desktop: xl
   - type: hero
     version: "1.0"
     variant: course
