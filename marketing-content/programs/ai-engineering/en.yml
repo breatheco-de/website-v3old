@@ -22,19 +22,6 @@ schema:
     - website
     - courses:ai-engineering
 sections:
-  - type: breadcrumb
-    section_id: breadcrumb-ai-engineering
-    items:
-      - label: Home
-        url: /
-      - label: Career Programs
-        url: /en/program-comparison
-      - label: AI Engineering
-    maxWidth:
-      desktop: xl
-    paddingY:
-      desktop: md none
-    showOn: desktop
   - type: hero
     version: "1.0"
     variant: course
