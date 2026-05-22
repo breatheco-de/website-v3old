@@ -81,29 +81,6 @@ sections:
       desktop: md
     marginY:
       desktop: none
-    showOnLocations:
-      - barcelona-spain
-      - berlin-germany
-      - dublin-ireland
-      - hamburg-germany
-      - lisbon-portugal
-      - madrid-spain
-      - malaga-spain
-      - milan-italy
-      - munich-germany
-      - rome-italy
-      - valencia-spain
-      - bogota-colombia
-      - buenosaires-argentina
-      - costa-rica
-      - caracas-venezuela
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - santiago-chile
-      - quito-ecuador
   - type: modal
     version: "1.0"
     section_id: modal-ubwgcj
