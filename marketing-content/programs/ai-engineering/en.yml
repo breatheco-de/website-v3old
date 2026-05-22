@@ -31,7 +31,7 @@ sections:
         url: /en/program-comparison
       - label: AI Engineering
     maxWidth:
-      desktop: lg
+      desktop: xl
   - type: hero
     version: "1.0"
     variant: course
