@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RefreshCw, BarChart2, ArrowUp, ArrowDown, ArrowUpDown } from "lucide-react";
@@ -377,25 +376,45 @@ export default function ComponentInsightsPage() {
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="flex-wrap h-auto gap-1">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <TabsTrigger value="__global__" data-testid="tab-global">Global</TabsTrigger>
-            </TooltipTrigger>
-            <TooltipContent className="max-w-xs text-xs">All pages combined, regardless of intent.</TooltipContent>
-          </Tooltip>
+          <Popover>
+            <PopoverTrigger asChild>
+              <TabsTrigger value="__global__" data-testid="tab-global" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-none">
+                Global
+                <Badge
+                  variant="secondary"
+                  className={`ml-1.5 text-xs px-1.5 py-0 ${activeTab === "__global__" ? "bg-primary-foreground text-primary" : ""}`}
+                >
+                  {data.global.pageCount}
+                </Badge>
+              </TabsTrigger>
+            </PopoverTrigger>
+            <PopoverContent side="bottom" sideOffset={6} className="max-w-xs text-xs leading-relaxed p-3">
+              All pages combined, regardless of intent.
+            </PopoverContent>
+          </Popover>
           {data.meta.intents.map((intentId) => {
             const intentDef = data.meta.pageIntents?.find((pi) => pi.id === intentId);
+            const pageCount = data.byIntent[intentId]?.pageCount ?? 0;
+            const isActive = activeTab === intentId;
             return (
-              <Tooltip key={intentId}>
-                <TooltipTrigger asChild>
-                  <TabsTrigger value={intentId} data-testid={`tab-${intentId}`}>
+              <Popover key={intentId}>
+                <PopoverTrigger asChild>
+                  <TabsTrigger value={intentId} data-testid={`tab-${intentId}`} className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-none">
                     {intentId}
+                    <Badge
+                      variant="secondary"
+                      className={`ml-1.5 text-xs px-1.5 py-0 ${isActive ? "bg-primary-foreground text-primary" : ""}`}
+                    >
+                      {pageCount}
+                    </Badge>
                   </TabsTrigger>
-                </TooltipTrigger>
+                </PopoverTrigger>
                 {intentDef && (
-                  <TooltipContent className="max-w-xs text-xs">{intentDef.what_for}</TooltipContent>
+                  <PopoverContent side="bottom" sideOffset={6} className="max-w-xs text-xs leading-relaxed p-3">
+                    {intentDef.what_for}
+                  </PopoverContent>
                 )}
-              </Tooltip>
+              </Popover>
             );
           })}
         </TabsList>
@@ -405,7 +424,9 @@ export default function ComponentInsightsPage() {
             {cluster && (
               <>
                 <section>
-                  <h2 className="text-lg font-semibold mb-3">Component Pairings</h2>
+                  <h2 className="text-lg font-semibold mb-3">
+                    {tab === "__global__" ? "Component Pairings" : `Component Pairings for ${tab}`}
+                  </h2>
                   <PairingsTable pairings={cluster.pairings} />
                 </section>
 

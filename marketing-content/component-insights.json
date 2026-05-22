@@ -1,13 +1,17 @@
 {
-  "generatedAt": "2026-05-20T21:49:08.297Z",
+  "generatedAt": "2026-05-22T03:38:23.936Z",
   "meta": {
     "totalPagesScanned": 129,
     "totalWeight": 129,
     "weightedPagesCount": 0,
     "intents": [
+      "content_seo",
       "product_service",
+      "lead_generation",
+      "sales_conversion",
       "brand_corporate",
-      "lead_generation"
+      "outcome",
+      "research_awareness"
     ],
     "pageIntents": [
       {
@@ -47,15 +51,15 @@
         "to": "sticky_cta",
         "count": 68,
         "frequency": 0.731,
-        "pmi": 2.371,
-        "distance": 0.422
+        "pmi": 2.376,
+        "distance": 0.421
       },
       {
         "from": "faq",
         "to": "cta_banner",
         "count": 64,
         "frequency": 0.941,
-        "pmi": 2.51,
+        "pmi": 2.515,
         "distance": 0.398
       },
       {
@@ -63,31 +67,31 @@
         "to": "awards_marquee",
         "count": 40,
         "frequency": 0.288,
-        "pmi": 1.854,
-        "distance": 0.539
+        "pmi": 1.859,
+        "distance": 0.538
       },
       {
         "from": "testimonials",
         "to": "faq",
-        "count": 39,
-        "frequency": 0.722,
-        "pmi": 2.744,
-        "distance": 0.364
+        "count": 38,
+        "frequency": 0.704,
+        "pmi": 2.723,
+        "distance": 0.367
       },
       {
         "from": "why_learn_ai",
         "to": "mentorship",
         "count": 37,
         "frequency": 0.712,
-        "pmi": 2.618,
-        "distance": 0.382
+        "pmi": 2.623,
+        "distance": 0.381
       },
       {
         "from": "awards_marquee",
         "to": "banner",
         "count": 36,
         "frequency": 0.545,
-        "pmi": 3.019,
+        "pmi": 3.025,
         "distance": 0.331
       },
       {
@@ -95,15 +99,15 @@
         "to": "course_selector",
         "count": 36,
         "frequency": 0.493,
-        "pmi": 2.522,
-        "distance": 0.397
+        "pmi": 2.527,
+        "distance": 0.396
       },
       {
         "from": "banner",
         "to": "two_column",
         "count": 35,
         "frequency": 0.897,
-        "pmi": 2.904,
+        "pmi": 2.909,
         "distance": 0.344
       },
       {
@@ -111,7 +115,7 @@
         "to": "two_column_accordion_card",
         "count": 35,
         "frequency": 0.603,
-        "pmi": 3,
+        "pmi": 3.005,
         "distance": 0.333
       },
       {
@@ -119,23 +123,23 @@
         "to": "testimonials_slide",
         "count": 35,
         "frequency": 0.795,
-        "pmi": 2.756,
-        "distance": 0.363
+        "pmi": 2.761,
+        "distance": 0.362
       },
       {
         "from": "testimonials_slide",
         "to": "split_cards",
         "count": 35,
         "frequency": 0.473,
-        "pmi": 2.851,
-        "distance": 0.351
+        "pmi": 2.857,
+        "distance": 0.35
       },
       {
         "from": "split_cards",
         "to": "why_learn_ai",
         "count": 35,
         "frequency": 0.875,
-        "pmi": 3.204,
+        "pmi": 3.21,
         "distance": 0.312
       },
       {
@@ -143,31 +147,31 @@
         "to": "testimonials",
         "count": 35,
         "frequency": 0.467,
-        "pmi": 2.538,
-        "distance": 0.394
+        "pmi": 2.543,
+        "distance": 0.393
       },
       {
         "from": "features_grid",
         "to": "syllabus",
         "count": 34,
-        "frequency": 0.5,
-        "pmi": 2.789,
-        "distance": 0.359
+        "frequency": 0.493,
+        "pmi": 2.78,
+        "distance": 0.36
       },
       {
         "from": "mentorship",
         "to": "mentorship",
         "count": 33,
         "frequency": 0.44,
-        "pmi": 2.137,
-        "distance": 0.468
+        "pmi": 2.143,
+        "distance": 0.467
       },
       {
         "from": "ai_learning",
         "to": "certificate",
-        "count": 28,
-        "frequency": 0.718,
-        "pmi": 3.524,
+        "count": 27,
+        "frequency": 0.692,
+        "pmi": 3.525,
         "distance": 0.284
       },
       {
@@ -175,351 +179,359 @@
         "to": "sticky_cta",
         "count": 25,
         "frequency": 0.18,
-        "pmi": 0.968,
-        "distance": 1.033
+        "pmi": 0.974,
+        "distance": 1.027
       },
       {
         "from": "cta_banner",
         "to": "footer",
         "count": 24,
         "frequency": 0.258,
-        "pmi": 2.602,
-        "distance": 0.384
+        "pmi": 2.608,
+        "distance": 0.383
+      },
+      {
+        "from": "graduates_stats",
+        "to": "features_grid",
+        "count": 16,
+        "frequency": 0.381,
+        "pmi": 2.095,
+        "distance": 0.477
       },
       {
         "from": "whos_hiring",
         "to": "cta_banner",
         "count": 16,
         "frequency": 0.381,
-        "pmi": 1.605,
-        "distance": 0.623
+        "pmi": 1.611,
+        "distance": 0.621
       },
       {
         "from": "certificate",
         "to": "testimonials_slide",
         "count": 16,
-        "frequency": 0.516,
-        "pmi": 2.323,
-        "distance": 0.43
-      },
-      {
-        "from": "graduates_stats",
-        "to": "features_grid",
-        "count": 15,
-        "frequency": 0.366,
-        "pmi": 2.064,
-        "distance": 0.485
+        "frequency": 0.533,
+        "pmi": 2.362,
+        "distance": 0.423
       },
       {
         "from": "graduates_stats",
         "to": "trust_cards",
         "count": 14,
-        "frequency": 0.341,
-        "pmi": 2.659,
-        "distance": 0.376
+        "frequency": 0.333,
+        "pmi": 2.612,
+        "distance": 0.383
       },
       {
         "from": "sticky_cta",
         "to": "graduates_stats",
         "count": 14,
         "frequency": 0.519,
-        "pmi": 2.919,
-        "distance": 0.343
+        "pmi": 2.9,
+        "distance": 0.345
       },
       {
         "from": "numbered_steps",
         "to": "cta_banner",
         "count": 13,
-        "frequency": 0.433,
-        "pmi": 1.734,
-        "distance": 0.577
+        "frequency": 0.419,
+        "pmi": 1.707,
+        "distance": 0.586
       },
       {
         "from": "hero",
         "to": "hero",
         "count": 12,
         "frequency": 0.086,
-        "pmi": 1.748,
-        "distance": 0.572
+        "pmi": 1.549,
+        "distance": 0.646
       },
       {
         "from": "syllabus",
         "to": "ai_learning",
         "count": 12,
         "frequency": 0.267,
-        "pmi": 2.304,
-        "distance": 0.434
+        "pmi": 2.309,
+        "distance": 0.433
       },
       {
         "from": "hero",
         "to": "modal",
         "count": 10,
         "frequency": 0.072,
-        "pmi": 2.259,
-        "distance": 0.443
-      },
-      {
-        "from": "awards_marquee",
-        "to": "features_grid",
-        "count": 10,
-        "frequency": 0.152,
-        "pmi": 1.182,
-        "distance": 0.846
+        "pmi": 2.265,
+        "distance": 0.442
       },
       {
         "from": "trust_cards",
         "to": "ai_learning",
+        "count": 10,
+        "frequency": 0.278,
+        "pmi": 2.35,
+        "distance": 0.426
+      },
+      {
+        "from": "awards_marquee",
+        "to": "features_grid",
         "count": 9,
-        "frequency": 0.257,
-        "pmi": 2.267,
-        "distance": 0.441
+        "frequency": 0.136,
+        "pmi": 1.068,
+        "distance": 0.936
       },
       {
         "from": "hero",
         "to": "graduates_stats",
         "count": 9,
         "frequency": 0.065,
-        "pmi": 0.838,
-        "distance": 1.193
+        "pmi": 0.819,
+        "distance": 1.22
       },
       {
         "from": "syllabus",
         "to": "two_column",
         "count": 9,
         "frequency": 0.2,
-        "pmi": 1.403,
-        "distance": 0.713
+        "pmi": 1.408,
+        "distance": 0.71
       },
       {
         "from": "testimonials_slide",
         "to": "numbered_steps",
         "count": 9,
         "frequency": 0.122,
-        "pmi": 1.781,
-        "distance": 0.562
+        "pmi": 1.754,
+        "distance": 0.57
+      },
+      {
+        "from": "awards_marquee",
+        "to": "graduates_stats",
+        "count": 8,
+        "frequency": 0.121,
+        "pmi": 1.446,
+        "distance": 0.691
+      },
+      {
+        "from": "whos_hiring",
+        "to": "faq",
+        "count": 8,
+        "frequency": 0.19,
+        "pmi": 1.417,
+        "distance": 0.706
       },
       {
         "from": "syllabus",
         "to": "projects",
         "count": 8,
         "frequency": 0.178,
-        "pmi": 3.259,
-        "distance": 0.307
-      },
-      {
-        "from": "whos_hiring",
-        "to": "testimonials",
-        "count": 8,
-        "frequency": 0.19,
-        "pmi": 1.642,
-        "distance": 0.609
+        "pmi": 3.265,
+        "distance": 0.306
       },
       {
         "from": "two_column",
         "to": "trust_cards",
         "count": 8,
         "frequency": 0.11,
-        "pmi": 1.523,
-        "distance": 0.657
+        "pmi": 1.5,
+        "distance": 0.667
       },
       {
         "from": "sticky_cta",
         "to": "awards_marquee",
         "count": 8,
         "frequency": 0.296,
-        "pmi": 1.883,
-        "distance": 0.531
+        "pmi": 1.888,
+        "distance": 0.53
       },
       {
         "from": "features_grid",
         "to": "features_grid",
         "count": 8,
-        "frequency": 0.118,
-        "pmi": 0.929,
-        "distance": 1.076
-      },
-      {
-        "from": "awards_marquee",
-        "to": "graduates_stats",
-        "count": 7,
-        "frequency": 0.106,
-        "pmi": 1.332,
-        "distance": 0.751
-      },
-      {
-        "from": "whos_hiring",
-        "to": "faq",
-        "count": 7,
-        "frequency": 0.167,
-        "pmi": 1.278,
-        "distance": 0.783
+        "frequency": 0.116,
+        "pmi": 0.906,
+        "distance": 1.104
       },
       {
         "from": "trust_cards",
         "to": "features_grid",
         "count": 7,
-        "frequency": 0.2,
-        "pmi": 1.46,
-        "distance": 0.685
+        "frequency": 0.194,
+        "pmi": 1.423,
+        "distance": 0.703
       },
       {
-        "from": "pricing",
-        "to": "whos_hiring",
+        "from": "whos_hiring",
+        "to": "testimonials",
         "count": 7,
-        "frequency": 0.304,
-        "pmi": 2.362,
-        "distance": 0.423
-      },
-      {
-        "from": "projects",
-        "to": "ai_learning",
-        "count": 7,
-        "frequency": 0.7,
-        "pmi": 3.269,
-        "distance": 0.306
+        "frequency": 0.167,
+        "pmi": 1.514,
+        "distance": 0.661
       },
       {
         "from": "trust_cards",
         "to": "two_column",
         "count": 7,
-        "frequency": 0.2,
-        "pmi": 1.403,
-        "distance": 0.713
+        "frequency": 0.194,
+        "pmi": 1.38,
+        "distance": 0.725
       },
       {
         "from": "modal",
         "to": "awards_marquee",
         "count": 6,
         "frequency": 0.545,
-        "pmi": 2.493,
-        "distance": 0.401
+        "pmi": 2.499,
+        "distance": 0.4
+      },
+      {
+        "from": "pricing",
+        "to": "numbered_steps",
+        "count": 6,
+        "frequency": 0.261,
+        "pmi": 2.517,
+        "distance": 0.397
+      },
+      {
+        "from": "pricing",
+        "to": "whos_hiring",
+        "count": 6,
+        "frequency": 0.261,
+        "pmi": 2.213,
+        "distance": 0.452
       },
       {
         "from": "cards_deck",
         "to": "whos_hiring",
         "count": 6,
         "frequency": 0.333,
-        "pmi": 2.453,
-        "distance": 0.408
+        "pmi": 2.458,
+        "distance": 0.407
       },
       {
         "from": "hero",
         "to": "features_grid",
         "count": 6,
         "frequency": 0.043,
-        "pmi": -0.073,
+        "pmi": -0.082,
         "distance": 100
+      },
+      {
+        "from": "projects",
+        "to": "ai_learning",
+        "count": 6,
+        "frequency": 0.6,
+        "pmi": 3.12,
+        "distance": 0.321
       },
       {
         "from": "course_selector",
         "to": "course_selector",
         "count": 6,
         "frequency": 0.103,
-        "pmi": 0.96,
-        "distance": 1.042
+        "pmi": 0.965,
+        "distance": 1.036
+      },
+      {
+        "from": "breadcrumb",
+        "to": "hero",
+        "count": 5,
+        "frequency": 1,
+        "pmi": 3.999,
+        "distance": 0.25
       },
       {
         "from": "pricing",
         "to": "pricing",
         "count": 5,
         "frequency": 0.217,
-        "pmi": 2.627,
-        "distance": 0.381
+        "pmi": 2.633,
+        "distance": 0.38
       },
       {
-        "from": "pricing",
-        "to": "numbered_steps",
+        "from": "numbered_steps",
+        "to": "testimonials",
         "count": 5,
-        "frequency": 0.217,
-        "pmi": 2.362,
-        "distance": 0.423
+        "frequency": 0.161,
+        "pmi": 1.481,
+        "distance": 0.675
+      },
+      {
+        "from": "testimonials",
+        "to": "whos_hiring",
+        "count": 5,
+        "frequency": 0.093,
+        "pmi": 1.177,
+        "distance": 0.85
       },
       {
         "from": "list_press_mentions",
         "to": "why_learn_ai",
         "count": 5,
         "frequency": 0.5,
-        "pmi": 2.645,
-        "distance": 0.378
+        "pmi": 2.65,
+        "distance": 0.377
       },
       {
         "from": "why_learn_ai",
         "to": "testimonials_slide",
         "count": 5,
         "frequency": 0.096,
-        "pmi": 0.643,
-        "distance": 1.555
+        "pmi": 0.649,
+        "distance": 1.542
       },
       {
         "from": "testimonials_slide",
         "to": "faq",
         "count": 5,
         "frequency": 0.068,
-        "pmi": 0.375,
-        "distance": 2.668
+        "pmi": 0.38,
+        "distance": 2.63
       },
       {
         "from": "testimonials_slide",
         "to": "whos_hiring",
         "count": 5,
         "frequency": 0.068,
-        "pmi": 0.857,
-        "distance": 1.167
+        "pmi": 0.862,
+        "distance": 1.16
       },
       {
         "from": "testimonials",
         "to": "cta_banner",
         "count": 5,
         "frequency": 0.093,
-        "pmi": 0.191,
-        "distance": 5.239
+        "pmi": 0.196,
+        "distance": 5.093
       },
       {
         "from": "image_row",
         "to": "features_grid",
         "count": 5,
         "frequency": 0.5,
-        "pmi": 2.376,
-        "distance": 0.421
+        "pmi": 2.367,
+        "distance": 0.422
       },
       {
         "from": "features_grid",
         "to": "career_support_explain",
         "count": 5,
-        "frequency": 0.074,
-        "pmi": 1.846,
-        "distance": 0.542
+        "frequency": 0.072,
+        "pmi": 1.836,
+        "distance": 0.545
       },
       {
-        "from": "numbered_steps",
-        "to": "testimonials",
-        "count": 4,
-        "frequency": 0.133,
-        "pmi": 1.285,
-        "distance": 0.778
-      },
-      {
-        "from": "testimonials",
-        "to": "whos_hiring",
-        "count": 4,
-        "frequency": 0.074,
-        "pmi": 0.949,
-        "distance": 1.054
-      },
-      {
-        "from": "certificate",
+        "from": "features_grid",
         "to": "pricing",
         "count": 4,
-        "frequency": 0.129,
-        "pmi": 2.106,
-        "distance": 0.475
+        "frequency": 0.058,
+        "pmi": 1.311,
+        "distance": 0.763
       },
       {
         "from": "career_support_explain",
         "to": "human_and_ai_duo",
         "count": 4,
         "frequency": 0.235,
-        "pmi": 3.277,
+        "pmi": 3.283,
         "distance": 0.305
       },
       {
@@ -527,15 +539,15 @@
         "to": "pricing",
         "count": 4,
         "frequency": 0.053,
-        "pmi": 1.222,
-        "distance": 0.818
+        "pmi": 1.228,
+        "distance": 0.815
       },
       {
         "from": "hero",
         "to": "two_column",
         "count": 4,
         "frequency": 0.029,
-        "pmi": -0.536,
+        "pmi": -0.53,
         "distance": 100
       },
       {
@@ -543,7 +555,7 @@
         "to": "award_badges",
         "count": 4,
         "frequency": 0.089,
-        "pmi": 2.923,
+        "pmi": 2.928,
         "distance": 0.342
       },
       {
@@ -551,23 +563,23 @@
         "to": "ai_learning",
         "count": 4,
         "frequency": 0.571,
-        "pmi": 3.066,
+        "pmi": 3.071,
         "distance": 0.326
       },
       {
         "from": "certificate",
         "to": "bullet_tabs_showcase",
         "count": 4,
-        "frequency": 0.129,
-        "pmi": 3.295,
-        "distance": 0.303
+        "frequency": 0.133,
+        "pmi": 3.334,
+        "distance": 0.3
       },
       {
         "from": "bullet_tabs_showcase",
         "to": "whos_hiring",
         "count": 4,
         "frequency": 0.571,
-        "pmi": 2.992,
+        "pmi": 2.997,
         "distance": 0.334
       },
       {
@@ -575,79 +587,87 @@
         "to": "numbered_steps",
         "count": 4,
         "frequency": 0.074,
-        "pmi": 1.285,
-        "distance": 0.778
+        "pmi": 1.258,
+        "distance": 0.795
       },
       {
         "from": "hero",
         "to": "trust_cards",
         "count": 4,
         "frequency": 0.029,
-        "pmi": 0.185,
-        "distance": 5.394
+        "pmi": 0.163,
+        "distance": 6.147
       },
       {
         "from": "whos_hiring",
         "to": "cards_deck",
         "count": 4,
         "frequency": 0.095,
-        "pmi": 2.047,
-        "distance": 0.488
+        "pmi": 2.053,
+        "distance": 0.487
       },
       {
         "from": "two_column",
         "to": "features_grid",
         "count": 4,
         "frequency": 0.055,
-        "pmi": 0.165,
-        "distance": 6.051
+        "pmi": 0.156,
+        "distance": 6.406
       },
       {
         "from": "hero",
         "to": "article",
         "count": 4,
         "frequency": 0.029,
-        "pmi": 2.354,
-        "distance": 0.425
+        "pmi": 2.36,
+        "distance": 0.424
       },
       {
         "from": "two_column",
         "to": "two_column",
         "count": 4,
         "frequency": 0.055,
-        "pmi": 0.108,
-        "distance": 9.251
+        "pmi": 0.114,
+        "distance": 8.807
       },
       {
         "from": "why_learn_ai",
         "to": "faq",
         "count": 4,
         "frequency": 0.077,
-        "pmi": 0.504,
-        "distance": 1.982
+        "pmi": 0.51,
+        "distance": 1.961
       },
       {
-        "from": "features_grid",
-        "to": "pricing",
+        "from": "ai_learning",
+        "to": "features_grid",
         "count": 3,
-        "frequency": 0.044,
-        "pmi": 1.033,
-        "distance": 0.968
+        "frequency": 0.077,
+        "pmi": 0.495,
+        "distance": 2.019
       },
       {
         "from": "numbered_steps",
         "to": "whos_hiring",
         "count": 3,
+        "frequency": 0.097,
+        "pmi": 1.221,
+        "distance": 0.819
+      },
+      {
+        "from": "certificate",
+        "to": "pricing",
+        "count": 3,
         "frequency": 0.1,
-        "pmi": 1.249,
-        "distance": 0.801
+        "pmi": 1.856,
+        "distance": 0.539
       },
       {
         "from": "features_grid",
         "to": "testimonials_slide",
         "count": 3,
-        "frequency": 0.044,
-        "pmi": -0.136,
+        "frequency": 0.043,
+        "pmi": -0.145,
         "distance": 100
       },
       {
@@ -655,15 +675,15 @@
         "to": "why_learn_ai",
         "count": 3,
         "frequency": 0.13,
-        "pmi": 1.301,
-        "distance": 0.769
+        "pmi": 1.306,
+        "distance": 0.766
       },
       {
         "from": "testimonials_slide",
         "to": "cta_banner",
         "count": 3,
         "frequency": 0.041,
-        "pmi": -0.635,
+        "pmi": -0.63,
         "distance": 100
       },
       {
@@ -671,95 +691,95 @@
         "to": "two_column",
         "count": 3,
         "frequency": 0.111,
-        "pmi": 0.815,
-        "distance": 1.227
+        "pmi": 0.82,
+        "distance": 1.219
       },
       {
         "from": "two_column",
         "to": "graduates_stats",
         "count": 3,
         "frequency": 0.041,
-        "pmi": 0.384,
-        "distance": 2.608
+        "pmi": 0.365,
+        "distance": 2.741
       },
       {
         "from": "numbered_steps",
         "to": "testimonials_slide",
         "count": 3,
-        "frequency": 0.1,
-        "pmi": 0.682,
-        "distance": 1.466
+        "frequency": 0.097,
+        "pmi": 0.655,
+        "distance": 1.527
       },
       {
         "from": "testimonials_slide",
         "to": "pricing",
         "count": 3,
         "frequency": 0.041,
-        "pmi": 0.948,
-        "distance": 1.055
+        "pmi": 0.953,
+        "distance": 1.049
       },
       {
         "from": "graduates_stats",
         "to": "awards_marquee",
         "count": 3,
-        "frequency": 0.073,
-        "pmi": 0.484,
-        "distance": 2.065
+        "frequency": 0.071,
+        "pmi": 0.466,
+        "distance": 2.147
       },
       {
         "from": "hero",
         "to": "award_badges",
         "count": 3,
         "frequency": 0.022,
-        "pmi": 1.507,
-        "distance": 0.664
+        "pmi": 1.513,
+        "distance": 0.661
       },
       {
         "from": "two_column",
         "to": "ai_learning",
         "count": 3,
         "frequency": 0.041,
-        "pmi": 0.434,
-        "distance": 2.307
+        "pmi": 0.439,
+        "distance": 2.278
       },
       {
         "from": "cards_deck",
         "to": "cta_banner",
         "count": 3,
         "frequency": 0.167,
-        "pmi": 0.779,
-        "distance": 1.284
+        "pmi": 0.784,
+        "distance": 1.275
       },
       {
         "from": "profiles_carousel",
         "to": "profiles_carousel",
         "count": 3,
         "frequency": 0.273,
-        "pmi": 3.505,
+        "pmi": 3.51,
         "distance": 0.285
       },
       {
         "from": "features_grid",
         "to": "image_row",
         "count": 3,
-        "frequency": 0.044,
-        "pmi": 1.865,
-        "distance": 0.536
+        "frequency": 0.043,
+        "pmi": 1.856,
+        "distance": 0.539
       },
       {
         "from": "features_quad",
         "to": "numbered_steps",
         "count": 3,
         "frequency": 0.158,
-        "pmi": 2.042,
-        "distance": 0.49
+        "pmi": 2.015,
+        "distance": 0.496
       },
       {
         "from": "comparison_table",
         "to": "comparison_table",
         "count": 3,
         "frequency": 0.3,
-        "pmi": 3.888,
+        "pmi": 3.893,
         "distance": 0.257
       },
       {
@@ -767,71 +787,71 @@
         "to": "syllabus",
         "count": 3,
         "frequency": 0.067,
-        "pmi": 0.774,
-        "distance": 1.292
+        "pmi": 0.78,
+        "distance": 1.283
       },
       {
         "from": "article",
         "to": "sticky_cta",
         "count": 3,
         "frequency": 0.5,
-        "pmi": 1.991,
-        "distance": 0.502
+        "pmi": 1.996,
+        "distance": 0.501
       },
       {
         "from": "hero",
         "to": "comparison_table",
         "count": 3,
         "frequency": 0.022,
-        "pmi": 1.256,
-        "distance": 0.796
+        "pmi": 1.261,
+        "distance": 0.793
       },
       {
         "from": "career_support_explain",
         "to": "trust_cards",
         "count": 3,
         "frequency": 0.176,
-        "pmi": 1.999,
-        "distance": 0.5
+        "pmi": 1.976,
+        "distance": 0.506
       },
       {
         "from": "trust_cards",
         "to": "testimonials_slide",
         "count": 3,
-        "frequency": 0.086,
-        "pmi": 0.528,
-        "distance": 1.893
+        "frequency": 0.083,
+        "pmi": 0.505,
+        "distance": 1.979
       },
       {
         "from": "testimonials_slide",
         "to": "course_selector",
         "count": 3,
         "frequency": 0.041,
-        "pmi": 0.023,
-        "distance": 43.418
+        "pmi": 0.028,
+        "distance": 35.111
       },
       {
         "from": "course_selector",
         "to": "list_press_mentions",
         "count": 3,
         "frequency": 0.052,
-        "pmi": 2.13,
-        "distance": 0.47
+        "pmi": 2.135,
+        "distance": 0.468
       },
       {
         "from": "article",
         "to": "faq",
         "count": 3,
         "frequency": 0.5,
-        "pmi": 2.376,
-        "distance": 0.421
+        "pmi": 2.382,
+        "distance": 0.42
       },
       {
         "from": "two_column",
         "to": "awards_marquee",
         "count": 3,
         "frequency": 0.041,
-        "pmi": -0.093,
+        "pmi": -0.087,
         "distance": 100
       },
       {
@@ -839,55 +859,55 @@
         "to": "trust_cards",
         "count": 2,
         "frequency": 0.044,
-        "pmi": 0.62,
-        "distance": 1.613
+        "pmi": 0.597,
+        "distance": 1.674
       },
       {
-        "from": "ai_learning",
-        "to": "features_grid",
+        "from": "projects",
+        "to": "trust_cards",
         "count": 2,
-        "frequency": 0.051,
-        "pmi": 0.099,
-        "distance": 10.1
+        "frequency": 0.2,
+        "pmi": 2.101,
+        "distance": 0.476
       },
       {
         "from": "trust_cards",
         "to": "geeks_vs_others_comparison",
         "count": 2,
-        "frequency": 0.057,
-        "pmi": 3.04,
-        "distance": 0.329
+        "frequency": 0.056,
+        "pmi": 3.018,
+        "distance": 0.331
       },
       {
         "from": "geeks_vs_others_comparison",
         "to": "career_support_explain",
         "count": 2,
         "frequency": 0.5,
-        "pmi": 3.763,
-        "distance": 0.266
+        "pmi": 3.768,
+        "distance": 0.265
       },
       {
         "from": "human_and_ai_duo",
         "to": "course_selector",
         "count": 2,
         "frequency": 0.154,
-        "pmi": 1.357,
-        "distance": 0.737
+        "pmi": 1.362,
+        "distance": 0.734
       },
       {
         "from": "course_selector",
         "to": "cards_deck",
         "count": 2,
         "frequency": 0.034,
-        "pmi": 1.031,
-        "distance": 0.97
+        "pmi": 1.037,
+        "distance": 0.965
       },
       {
         "from": "cards_deck",
         "to": "list_press_mentions",
         "count": 2,
         "frequency": 0.111,
-        "pmi": 2.894,
+        "pmi": 2.9,
         "distance": 0.345
       },
       {
@@ -895,15 +915,15 @@
         "to": "testimonials_slide",
         "count": 2,
         "frequency": 0.154,
-        "pmi": 1.113,
-        "distance": 0.898
+        "pmi": 1.119,
+        "distance": 0.894
       },
       {
         "from": "testimonials_slide",
         "to": "mentorship",
         "count": 2,
         "frequency": 0.027,
-        "pmi": -0.653,
+        "pmi": -0.647,
         "distance": 100
       },
       {
@@ -911,119 +931,119 @@
         "to": "cards_deck",
         "count": 2,
         "frequency": 0.038,
-        "pmi": 1.14,
-        "distance": 0.877
+        "pmi": 1.146,
+        "distance": 0.873
       },
       {
         "from": "testimonials_slide",
         "to": "features_quad",
         "count": 2,
         "frequency": 0.027,
-        "pmi": 0.734,
-        "distance": 1.363
+        "pmi": 0.739,
+        "distance": 1.353
       },
       {
         "from": "features_quad",
         "to": "mentorship",
         "count": 2,
         "frequency": 0.105,
-        "pmi": 0.707,
-        "distance": 1.415
+        "pmi": 0.712,
+        "distance": 1.404
       },
       {
         "from": "syllabus",
         "to": "cards_deck",
         "count": 2,
         "frequency": 0.044,
-        "pmi": 1.285,
-        "distance": 0.778
+        "pmi": 1.29,
+        "distance": 0.775
       },
       {
         "from": "human_and_ai_duo",
         "to": "career_support_explain",
         "count": 2,
         "frequency": 0.154,
-        "pmi": 2.584,
-        "distance": 0.387
+        "pmi": 2.589,
+        "distance": 0.386
       },
       {
         "from": "career_support_explain",
         "to": "testimonials_slide",
         "count": 2,
         "frequency": 0.118,
-        "pmi": 0.845,
-        "distance": 1.184
+        "pmi": 0.85,
+        "distance": 1.176
       },
       {
         "from": "award_badges",
         "to": "syllabus",
         "count": 2,
         "frequency": 0.286,
-        "pmi": 2.23,
-        "distance": 0.449
+        "pmi": 2.235,
+        "distance": 0.447
       },
       {
         "from": "testimonials_slide",
         "to": "cards_deck",
         "count": 2,
         "frequency": 0.027,
-        "pmi": 0.788,
-        "distance": 1.27
+        "pmi": 0.793,
+        "distance": 1.261
       },
       {
         "from": "awards_marquee",
         "to": "two_column_accordion_card",
         "count": 2,
         "frequency": 0.03,
-        "pmi": 0.008,
-        "distance": 100
+        "pmi": 0.014,
+        "distance": 73.099
       },
       {
         "from": "trust_cards",
         "to": "syllabus",
         "count": 2,
-        "frequency": 0.057,
-        "pmi": 0.62,
-        "distance": 1.613
+        "frequency": 0.056,
+        "pmi": 0.597,
+        "distance": 1.674
       },
       {
         "from": "certificate",
         "to": "whos_hiring",
         "count": 2,
-        "frequency": 0.065,
-        "pmi": 0.81,
-        "distance": 1.234
+        "frequency": 0.067,
+        "pmi": 0.849,
+        "distance": 1.178
       },
       {
         "from": "trust_cards",
         "to": "course_selector",
         "count": 2,
-        "frequency": 0.057,
-        "pmi": 0.366,
-        "distance": 2.73
+        "frequency": 0.056,
+        "pmi": 0.344,
+        "distance": 2.911
       },
       {
         "from": "course_selector",
         "to": "graduates_stats",
         "count": 2,
         "frequency": 0.034,
-        "pmi": 0.208,
-        "distance": 4.806
+        "pmi": 0.189,
+        "distance": 5.28
       },
       {
         "from": "ai_learning",
         "to": "testimonials_slide",
         "count": 2,
         "frequency": 0.051,
-        "pmi": 0.014,
-        "distance": 69.213
+        "pmi": 0.02,
+        "distance": 50.257
       },
       {
         "from": "hero",
         "to": "course_selector",
         "count": 2,
         "frequency": 0.014,
-        "pmi": -1.013,
+        "pmi": -1.007,
         "distance": 100
       },
       {
@@ -1031,15 +1051,15 @@
         "to": "cards_deck",
         "count": 2,
         "frequency": 0.111,
-        "pmi": 2.201,
-        "distance": 0.454
+        "pmi": 2.207,
+        "distance": 0.453
       },
       {
         "from": "double_cta",
         "to": "profiles_carousel",
         "count": 2,
         "frequency": 0.5,
-        "pmi": 4.111,
+        "pmi": 4.116,
         "distance": 0.243
       },
       {
@@ -1047,23 +1067,23 @@
         "to": "features_quad",
         "count": 2,
         "frequency": 0.029,
-        "pmi": 0.818,
-        "distance": 1.222
+        "pmi": 0.809,
+        "distance": 1.236
       },
       {
         "from": "two_column_accordion_card",
         "to": "value_proof_panel",
         "count": 2,
         "frequency": 0.045,
-        "pmi": 2.406,
-        "distance": 0.416
+        "pmi": 2.412,
+        "distance": 0.415
       },
       {
         "from": "features_grid",
         "to": "two_column_accordion_card",
         "count": 2,
         "frequency": 0.029,
-        "pmi": -0.022,
+        "pmi": -0.031,
         "distance": 100
       },
       {
@@ -1071,79 +1091,79 @@
         "to": "stats",
         "count": 2,
         "frequency": 0.029,
-        "pmi": 2.376,
-        "distance": 0.421
+        "pmi": 2.367,
+        "distance": 0.422
       },
       {
         "from": "features_quad",
         "to": "whos_hiring",
         "count": 2,
         "frequency": 0.105,
-        "pmi": 1.3,
-        "distance": 0.769
+        "pmi": 1.305,
+        "distance": 0.766
       },
       {
         "from": "course_selector",
         "to": "features_quad",
         "count": 2,
         "frequency": 0.034,
-        "pmi": 0.977,
-        "distance": 1.023
+        "pmi": 0.983,
+        "distance": 1.018
       },
       {
         "from": "numbered_steps",
         "to": "numbered_steps",
         "count": 2,
-        "frequency": 0.067,
-        "pmi": 1.18,
-        "distance": 0.848
+        "frequency": 0.065,
+        "pmi": 1.12,
+        "distance": 0.893
       },
       {
         "from": "numbered_steps",
         "to": "features_grid",
         "count": 2,
-        "frequency": 0.067,
-        "pmi": 0.361,
-        "distance": 2.767
+        "frequency": 0.065,
+        "pmi": 0.319,
+        "distance": 3.131
       },
       {
         "from": "hero",
         "to": "human_and_ai_duo",
         "count": 2,
         "frequency": 0.014,
-        "pmi": 0.483,
-        "distance": 2.072
+        "pmi": 0.488,
+        "distance": 2.049
       },
       {
         "from": "human_and_ai_duo",
         "to": "awards_marquee",
         "count": 2,
         "frequency": 0.154,
-        "pmi": 1.227,
-        "distance": 0.815
+        "pmi": 1.233,
+        "distance": 0.811
       },
       {
         "from": "awards_marquee",
         "to": "profiles_carousel",
         "count": 2,
         "frequency": 0.03,
-        "pmi": 1.308,
-        "distance": 0.765
+        "pmi": 1.313,
+        "distance": 0.762
       },
       {
         "from": "profiles_carousel",
         "to": "banner",
         "count": 2,
         "frequency": 0.182,
-        "pmi": 1.921,
-        "distance": 0.521
+        "pmi": 1.926,
+        "distance": 0.519
       },
       {
         "from": "banner",
         "to": "mentorship",
         "count": 2,
         "frequency": 0.051,
-        "pmi": -0.012,
+        "pmi": -0.007,
         "distance": 100
       },
       {
@@ -1151,7 +1171,7 @@
         "to": "faq",
         "count": 2,
         "frequency": 0.027,
-        "pmi": -0.555,
+        "pmi": -0.549,
         "distance": 100
       },
       {
@@ -1159,31 +1179,31 @@
         "to": "whos_hiring",
         "count": 2,
         "frequency": 0.029,
-        "pmi": 0.025,
-        "distance": 40.165
+        "pmi": 0.03,
+        "distance": 32.952
       },
       {
         "from": "whos_hiring",
         "to": "footer",
         "count": 2,
         "frequency": 0.048,
-        "pmi": 0.912,
-        "distance": 1.096
+        "pmi": 0.918,
+        "distance": 1.09
       },
       {
         "from": "hero",
         "to": "list_press_mentions",
         "count": 2,
         "frequency": 0.014,
-        "pmi": 0.85,
-        "distance": 1.176
+        "pmi": 0.856,
+        "distance": 1.168
       },
       {
         "from": "hero",
         "to": "split_cards",
         "count": 2,
         "frequency": 0.014,
-        "pmi": -0.641,
+        "pmi": -0.636,
         "distance": 100
       },
       {
@@ -1191,31 +1211,31 @@
         "to": "features_quad",
         "count": 2,
         "frequency": 0.105,
-        "pmi": 2.093,
-        "distance": 0.478
+        "pmi": 2.099,
+        "distance": 0.476
       },
       {
         "from": "whos_hiring",
         "to": "why_learn_ai",
         "count": 2,
         "frequency": 0.048,
-        "pmi": 0.293,
-        "distance": 3.411
+        "pmi": 0.299,
+        "distance": 3.349
       },
       {
         "from": "comparison_table",
         "to": "course_selector",
         "count": 2,
         "frequency": 0.2,
-        "pmi": 1.619,
-        "distance": 0.618
+        "pmi": 1.624,
+        "distance": 0.616
       },
       {
         "from": "course_selector",
         "to": "why_learn_ai",
         "count": 2,
         "frequency": 0.034,
-        "pmi": -0.03,
+        "pmi": -0.024,
         "distance": 100
       },
       {
@@ -1223,55 +1243,55 @@
         "to": "features_grid",
         "count": 2,
         "frequency": 0.045,
-        "pmi": -0.022,
+        "pmi": -0.031,
         "distance": 100
       },
       {
         "from": "graduates_stats",
         "to": "image_row",
         "count": 2,
-        "frequency": 0.049,
-        "pmi": 1.966,
-        "distance": 0.509
+        "frequency": 0.048,
+        "pmi": 1.947,
+        "distance": 0.514
       },
       {
         "from": "features_grid",
         "to": "graduates_stats",
         "count": 2,
         "frequency": 0.029,
-        "pmi": 0.049,
-        "distance": 20.41
+        "pmi": 0.016,
+        "distance": 63.499
       },
       {
         "from": "value_proof_panel",
         "to": "awards_marquee",
         "count": 2,
         "frequency": 0.333,
-        "pmi": 2.001,
-        "distance": 0.5
+        "pmi": 2.006,
+        "distance": 0.498
       },
       {
         "from": "features_grid",
         "to": "partnership_carousel",
         "count": 2,
         "frequency": 0.029,
-        "pmi": 1.683,
-        "distance": 0.594
+        "pmi": 1.674,
+        "distance": 0.597
       },
       {
         "from": "partnership_carousel",
         "to": "partnership_carousel",
         "count": 2,
         "frequency": 0.25,
-        "pmi": 3.823,
-        "distance": 0.262
+        "pmi": 3.829,
+        "distance": 0.261
       },
       {
         "from": "awards_marquee",
         "to": "two_column",
         "count": 2,
         "frequency": 0.03,
-        "pmi": -0.484,
+        "pmi": -0.479,
         "distance": 100
       },
       {
@@ -1279,15 +1299,15 @@
         "to": "whos_hiring",
         "count": 2,
         "frequency": 0.027,
-        "pmi": -0.046,
+        "pmi": -0.041,
         "distance": 100
       },
       {
         "from": "features_grid",
         "to": "ai_learning",
         "count": 1,
-        "frequency": 0.015,
-        "pmi": -0.594,
+        "frequency": 0.014,
+        "pmi": -0.603,
         "distance": 100
       },
       {
@@ -1295,7 +1315,7 @@
         "to": "testimonials",
         "count": 1,
         "frequency": 0.026,
-        "pmi": -0.364,
+        "pmi": -0.358,
         "distance": 100
       },
       {
@@ -1303,39 +1323,31 @@
         "to": "pricing",
         "count": 1,
         "frequency": 0.019,
-        "pmi": 0.164,
-        "distance": 6.081
-      },
-      {
-        "from": "projects",
-        "to": "trust_cards",
-        "count": 1,
-        "frequency": 0.1,
-        "pmi": 1.431,
-        "distance": 0.699
+        "pmi": 0.17,
+        "distance": 5.886
       },
       {
         "from": "ai_learning",
         "to": "trust_cards",
         "count": 1,
         "frequency": 0.026,
-        "pmi": 0.07,
-        "distance": 14.282
+        "pmi": 0.047,
+        "distance": 21.143
       },
       {
         "from": "syllabus",
         "to": "career_support_explain",
         "count": 1,
         "frequency": 0.022,
-        "pmi": 0.649,
-        "distance": 1.541
+        "pmi": 0.655,
+        "distance": 1.528
       },
       {
         "from": "testimonials_slide",
         "to": "why_learn_ai",
         "count": 1,
         "frequency": 0.014,
-        "pmi": -0.966,
+        "pmi": -0.961,
         "distance": 100
       },
       {
@@ -1343,55 +1355,55 @@
         "to": "cards_deck",
         "count": 1,
         "frequency": 0.013,
-        "pmi": 0.081,
-        "distance": 12.335
+        "pmi": 0.087,
+        "distance": 11.558
       },
       {
         "from": "graduates_stats",
         "to": "list_press_mentions",
         "count": 1,
         "frequency": 0.024,
-        "pmi": 1.378,
-        "distance": 0.726
+        "pmi": 1.359,
+        "distance": 0.736
       },
       {
         "from": "list_press_mentions",
         "to": "features_quad",
         "count": 1,
         "frequency": 0.1,
-        "pmi": 2.042,
-        "distance": 0.49
+        "pmi": 2.047,
+        "distance": 0.488
       },
       {
         "from": "features_quad",
         "to": "syllabus",
         "count": 1,
         "frequency": 0.053,
-        "pmi": 0.538,
-        "distance": 1.859
+        "pmi": 0.543,
+        "distance": 1.841
       },
       {
         "from": "ai_learning",
         "to": "career_support_explain",
         "count": 1,
         "frequency": 0.026,
-        "pmi": 0.792,
-        "distance": 1.262
+        "pmi": 0.798,
+        "distance": 1.254
       },
       {
         "from": "career_support_explain",
         "to": "features_grid",
         "count": 1,
         "frequency": 0.059,
-        "pmi": 0.236,
-        "distance": 4.234
+        "pmi": 0.227,
+        "distance": 4.404
       },
       {
         "from": "two_column",
         "to": "hero",
         "count": 1,
         "frequency": 0.014,
-        "pmi": -0.093,
+        "pmi": -0.292,
         "distance": 100
       },
       {
@@ -1399,55 +1411,55 @@
         "to": "hero",
         "count": 1,
         "frequency": 0.037,
-        "pmi": 0.902,
-        "distance": 1.109
+        "pmi": 0.703,
+        "distance": 1.423
       },
       {
         "from": "ai_learning",
         "to": "human_and_ai_duo",
         "count": 1,
         "frequency": 0.026,
-        "pmi": 1.06,
-        "distance": 0.943
+        "pmi": 1.066,
+        "distance": 0.938
       },
       {
         "from": "human_and_ai_duo",
         "to": "certificate",
         "count": 1,
         "frequency": 0.077,
-        "pmi": 1.29,
-        "distance": 0.775
+        "pmi": 1.328,
+        "distance": 0.753
       },
       {
         "from": "certificate",
         "to": "why_learn_ai",
         "count": 1,
-        "frequency": 0.032,
-        "pmi": -0.096,
+        "frequency": 0.033,
+        "pmi": -0.058,
         "distance": 100
       },
       {
         "from": "certificate",
         "to": "numbered_steps",
         "count": 1,
-        "frequency": 0.032,
-        "pmi": 0.454,
-        "distance": 2.204
+        "frequency": 0.033,
+        "pmi": 0.459,
+        "distance": 2.178
       },
       {
         "from": "cards_deck",
         "to": "human_and_ai_duo",
         "count": 1,
         "frequency": 0.056,
-        "pmi": 1.834,
-        "distance": 0.545
+        "pmi": 1.839,
+        "distance": 0.544
       },
       {
         "from": "why_learn_ai",
         "to": "whos_hiring",
         "count": 1,
         "frequency": 0.019,
-        "pmi": -0.4,
+        "pmi": -0.395,
         "distance": 100
       },
       {
@@ -1455,7 +1467,7 @@
         "to": "hero",
         "count": 1,
         "frequency": 0.015,
-        "pmi": 0.008,
+        "pmi": -0.191,
         "distance": 100
       },
       {
@@ -1463,47 +1475,47 @@
         "to": "bento_cards",
         "count": 1,
         "frequency": 0.024,
-        "pmi": 2.858,
-        "distance": 0.35
+        "pmi": 2.864,
+        "distance": 0.349
       },
       {
         "from": "bento_cards",
         "to": "testimonials",
         "count": 1,
         "frequency": 0.5,
-        "pmi": 2.607,
-        "distance": 0.384
+        "pmi": 2.612,
+        "distance": 0.383
       },
       {
         "from": "awards_marquee",
         "to": "modal",
         "count": 1,
         "frequency": 0.015,
-        "pmi": 0.701,
-        "distance": 1.426
+        "pmi": 0.707,
+        "distance": 1.415
       },
       {
         "from": "modal",
         "to": "features_grid",
         "count": 1,
         "frequency": 0.091,
-        "pmi": 0.672,
-        "distance": 1.489
+        "pmi": 0.662,
+        "distance": 1.51
       },
       {
         "from": "syllabus",
         "to": "pricing",
         "count": 1,
         "frequency": 0.022,
-        "pmi": 0.347,
-        "distance": 2.884
+        "pmi": 0.352,
+        "distance": 2.839
       },
       {
         "from": "trust_cards",
         "to": "why_learn_ai",
         "count": 1,
-        "frequency": 0.029,
-        "pmi": -0.218,
+        "frequency": 0.028,
+        "pmi": -0.24,
         "distance": 100
       },
       {
@@ -1511,7 +1523,7 @@
         "to": "syllabus",
         "count": 1,
         "frequency": 0.019,
-        "pmi": -0.469,
+        "pmi": -0.464,
         "distance": 100
       },
       {
@@ -1519,31 +1531,31 @@
         "to": "sticky_cta",
         "count": 1,
         "frequency": 0.091,
-        "pmi": 0.286,
-        "distance": 3.498
+        "pmi": 0.291,
+        "distance": 3.433
       },
       {
         "from": "trust_cards",
         "to": "programs_showcase",
         "count": 1,
-        "frequency": 0.029,
-        "pmi": 2.124,
-        "distance": 0.471
+        "frequency": 0.028,
+        "pmi": 2.101,
+        "distance": 0.476
       },
       {
         "from": "programs_showcase",
         "to": "two_column",
         "count": 1,
         "frequency": 0.2,
-        "pmi": 1.403,
-        "distance": 0.713
+        "pmi": 1.408,
+        "distance": 0.71
       },
       {
         "from": "two_column_accordion_card",
         "to": "syllabus",
         "count": 1,
         "frequency": 0.023,
-        "pmi": -0.302,
+        "pmi": -0.296,
         "distance": 100
       },
       {
@@ -1551,55 +1563,55 @@
         "to": "features_quad",
         "count": 1,
         "frequency": 0.022,
-        "pmi": 0.538,
-        "distance": 1.859
+        "pmi": 0.543,
+        "distance": 1.841
       },
       {
         "from": "features_quad",
         "to": "trust_cards",
         "count": 1,
         "frequency": 0.053,
-        "pmi": 0.789,
-        "distance": 1.267
+        "pmi": 0.766,
+        "distance": 1.305
       },
       {
         "from": "two_column",
         "to": "geeks_vs_others_comparison",
         "count": 1,
         "frequency": 0.014,
-        "pmi": 1.612,
-        "distance": 0.62
+        "pmi": 1.618,
+        "distance": 0.618
       },
       {
         "from": "geeks_vs_others_comparison",
         "to": "cards_deck",
         "count": 1,
         "frequency": 0.25,
-        "pmi": 3.012,
-        "distance": 0.332
+        "pmi": 3.018,
+        "distance": 0.331
       },
       {
         "from": "cards_deck",
         "to": "testimonials",
         "count": 1,
         "frequency": 0.056,
-        "pmi": 0.41,
-        "distance": 2.442
+        "pmi": 0.415,
+        "distance": 2.41
       },
       {
         "from": "modal",
         "to": "graduates_stats",
         "count": 1,
         "frequency": 0.091,
-        "pmi": 1.177,
-        "distance": 0.849
+        "pmi": 1.159,
+        "distance": 0.863
       },
       {
         "from": "graduates_stats",
         "to": "two_column",
         "count": 1,
         "frequency": 0.024,
-        "pmi": -0.701,
+        "pmi": -0.72,
         "distance": 100
       },
       {
@@ -1607,47 +1619,47 @@
         "to": "course_selector",
         "count": 1,
         "frequency": 0.1,
-        "pmi": 0.926,
-        "distance": 1.08
+        "pmi": 0.931,
+        "distance": 1.074
       },
       {
         "from": "course_selector",
         "to": "hero",
         "count": 1,
         "frequency": 0.017,
-        "pmi": 0.137,
-        "distance": 7.276
+        "pmi": -0.062,
+        "distance": 100
       },
       {
         "from": "course_selector",
         "to": "programs_showcase",
         "count": 1,
         "frequency": 0.017,
-        "pmi": 1.619,
-        "distance": 0.618
+        "pmi": 1.624,
+        "distance": 0.616
       },
       {
         "from": "programs_showcase",
         "to": "credibility_strip",
         "count": 1,
         "frequency": 0.2,
-        "pmi": 4.986,
-        "distance": 0.201
+        "pmi": 4.992,
+        "distance": 0.2
       },
       {
         "from": "credibility_strip",
         "to": "list_single_press_mention",
         "count": 1,
         "frequency": 0.5,
-        "pmi": 6.596,
-        "distance": 0.152
+        "pmi": 6.601,
+        "distance": 0.151
       },
       {
         "from": "list_single_press_mention",
         "to": "list_press_mentions",
         "count": 1,
         "frequency": 1,
-        "pmi": 5.092,
+        "pmi": 5.097,
         "distance": 0.196
       },
       {
@@ -1655,7 +1667,7 @@
         "to": "programs_showcase",
         "count": 1,
         "frequency": 0.1,
-        "pmi": 3.377,
+        "pmi": 3.382,
         "distance": 0.296
       },
       {
@@ -1663,7 +1675,7 @@
         "to": "career_support_explain",
         "count": 1,
         "frequency": 0.2,
-        "pmi": 2.846,
+        "pmi": 2.852,
         "distance": 0.351
       },
       {
@@ -1671,23 +1683,23 @@
         "to": "hero",
         "count": 1,
         "frequency": 0.059,
-        "pmi": 1.365,
-        "distance": 0.733
+        "pmi": 1.165,
+        "distance": 0.858
       },
       {
         "from": "hero",
         "to": "image_row",
         "count": 1,
         "frequency": 0.007,
-        "pmi": 0.052,
-        "distance": 19.279
+        "pmi": 0.057,
+        "distance": 17.446
       },
       {
         "from": "image_row",
         "to": "testimonials_grid",
         "count": 1,
         "frequency": 0.1,
-        "pmi": 4.293,
+        "pmi": 4.299,
         "distance": 0.233
       },
       {
@@ -1695,15 +1707,15 @@
         "to": "hero",
         "count": 1,
         "frequency": 0.5,
-        "pmi": 3.505,
-        "distance": 0.285
+        "pmi": 3.305,
+        "distance": 0.303
       },
       {
         "from": "hero",
         "to": "cards_deck",
         "count": 1,
         "frequency": 0.007,
-        "pmi": -0.536,
+        "pmi": -0.53,
         "distance": 100
       },
       {
@@ -1711,15 +1723,15 @@
         "to": "hero",
         "count": 1,
         "frequency": 0.056,
-        "pmi": 1.308,
-        "distance": 0.765
+        "pmi": 1.108,
+        "distance": 0.902
       },
       {
         "from": "hero",
         "to": "cta_banner",
         "count": 1,
         "frequency": 0.007,
-        "pmi": -2.364,
+        "pmi": -2.359,
         "distance": 100
       },
       {
@@ -1727,15 +1739,15 @@
         "to": "double_cta",
         "count": 1,
         "frequency": 0.011,
-        "pmi": 1.37,
-        "distance": 0.73
+        "pmi": 1.375,
+        "distance": 0.727
       },
       {
         "from": "double_cta",
         "to": "double_cta",
         "count": 1,
         "frequency": 0.25,
-        "pmi": 4.516,
+        "pmi": 4.522,
         "distance": 0.221
       },
       {
@@ -1743,31 +1755,31 @@
         "to": "hero",
         "count": 1,
         "frequency": 0.091,
-        "pmi": 1.8,
-        "distance": 0.556
+        "pmi": 1.601,
+        "distance": 0.625
       },
       {
         "from": "course_selector",
         "to": "partnership_carousel",
         "count": 1,
         "frequency": 0.017,
-        "pmi": 1.149,
-        "distance": 0.87
+        "pmi": 1.154,
+        "distance": 0.866
       },
       {
         "from": "partnership_carousel",
         "to": "projects",
         "count": 1,
         "frequency": 0.125,
-        "pmi": 2.907,
-        "distance": 0.344
+        "pmi": 2.912,
+        "distance": 0.343
       },
       {
         "from": "projects",
         "to": "project_showcase",
         "count": 1,
         "frequency": 0.1,
-        "pmi": 3.888,
+        "pmi": 3.893,
         "distance": 0.257
       },
       {
@@ -1775,79 +1787,79 @@
         "to": "career_support_explain",
         "count": 1,
         "frequency": 0.333,
-        "pmi": 3.357,
-        "distance": 0.298
+        "pmi": 3.363,
+        "distance": 0.297
       },
       {
         "from": "career_support_explain",
         "to": "profiles_carousel",
         "count": 1,
         "frequency": 0.059,
-        "pmi": 1.971,
-        "distance": 0.507
+        "pmi": 1.976,
+        "distance": 0.506
       },
       {
         "from": "profiles_carousel",
         "to": "partnership_carousel",
         "count": 1,
         "frequency": 0.091,
-        "pmi": 2.812,
-        "distance": 0.356
+        "pmi": 2.817,
+        "distance": 0.355
       },
       {
         "from": "partnership_carousel",
         "to": "profiles_carousel",
         "count": 1,
         "frequency": 0.125,
-        "pmi": 2.725,
-        "distance": 0.367
+        "pmi": 2.73,
+        "distance": 0.366
       },
       {
         "from": "profiles_carousel",
         "to": "human_and_ai_duo",
         "count": 1,
         "frequency": 0.091,
-        "pmi": 2.326,
-        "distance": 0.43
+        "pmi": 2.332,
+        "distance": 0.429
       },
       {
         "from": "human_and_ai_duo",
         "to": "bullet_tabs_showcase",
         "count": 1,
         "frequency": 0.077,
-        "pmi": 2.778,
-        "distance": 0.36
+        "pmi": 2.784,
+        "distance": 0.359
       },
       {
         "from": "bullet_tabs_showcase",
         "to": "features_grid",
         "count": 1,
         "frequency": 0.143,
-        "pmi": 1.124,
-        "distance": 0.89
+        "pmi": 1.114,
+        "distance": 0.897
       },
       {
         "from": "features_quad",
         "to": "two_column_accordion_card",
         "count": 1,
         "frequency": 0.053,
-        "pmi": 0.56,
-        "distance": 1.785
+        "pmi": 0.566,
+        "distance": 1.768
       },
       {
         "from": "value_proof_panel",
         "to": "ai_learning",
         "count": 1,
         "frequency": 0.167,
-        "pmi": 1.834,
-        "distance": 0.545
+        "pmi": 1.839,
+        "distance": 0.544
       },
       {
         "from": "ai_learning",
         "to": "two_column",
         "count": 1,
         "frequency": 0.026,
-        "pmi": -0.651,
+        "pmi": -0.646,
         "distance": 100
       },
       {
@@ -1855,23 +1867,23 @@
         "to": "community_support",
         "count": 1,
         "frequency": 0.014,
-        "pmi": 1.9,
-        "distance": 0.526
+        "pmi": 1.905,
+        "distance": 0.525
       },
       {
         "from": "community_support",
         "to": "ai_learning",
         "count": 1,
         "frequency": 0.333,
-        "pmi": 2.527,
-        "distance": 0.396
+        "pmi": 2.532,
+        "distance": 0.395
       },
       {
         "from": "certificate",
         "to": "awards_marquee",
         "count": 1,
-        "frequency": 0.032,
-        "pmi": -0.335,
+        "frequency": 0.033,
+        "pmi": -0.296,
         "distance": 100
       },
       {
@@ -1879,23 +1891,23 @@
         "to": "comparison_table",
         "count": 1,
         "frequency": 0.015,
-        "pmi": 0.902,
-        "distance": 1.109
+        "pmi": 0.907,
+        "distance": 1.102
       },
       {
         "from": "comparison_table",
         "to": "faq",
         "count": 1,
         "frequency": 0.1,
-        "pmi": 0.767,
-        "distance": 1.304
+        "pmi": 0.772,
+        "distance": 1.295
       },
       {
         "from": "faq",
         "to": "sticky_cta",
         "count": 1,
         "frequency": 0.015,
-        "pmi": -1.536,
+        "pmi": -1.53,
         "distance": 100
       },
       {
@@ -1903,7 +1915,7 @@
         "to": "features_grid",
         "count": 1,
         "frequency": 0.037,
-        "pmi": -0.226,
+        "pmi": -0.236,
         "distance": 100
       },
       {
@@ -1911,15 +1923,15 @@
         "to": "pricing",
         "count": 1,
         "frequency": 0.023,
-        "pmi": 0.369,
-        "distance": 2.708
+        "pmi": 0.375,
+        "distance": 2.669
       },
       {
         "from": "pricing",
         "to": "features_grid",
         "count": 1,
         "frequency": 0.043,
-        "pmi": -0.066,
+        "pmi": -0.075,
         "distance": 100
       },
       {
@@ -1927,79 +1939,79 @@
         "to": "cta_banner",
         "count": 1,
         "frequency": 0.25,
-        "pmi": 1.184,
-        "distance": 0.844
+        "pmi": 1.19,
+        "distance": 0.841
       },
       {
         "from": "whos_hiring",
         "to": "bullet_tabs_showcase",
         "count": 1,
         "frequency": 0.024,
-        "pmi": 1.605,
-        "distance": 0.623
+        "pmi": 1.611,
+        "distance": 0.621
       },
       {
         "from": "bullet_tabs_showcase",
         "to": "testimonials",
         "count": 1,
         "frequency": 0.143,
-        "pmi": 1.354,
-        "distance": 0.739
+        "pmi": 1.359,
+        "distance": 0.736
       },
       {
         "from": "two_column",
         "to": "human_and_ai_duo",
         "count": 1,
         "frequency": 0.014,
-        "pmi": 0.434,
-        "distance": 2.307
+        "pmi": 0.439,
+        "distance": 2.278
       },
       {
         "from": "pricing",
         "to": "features_quad",
         "count": 1,
         "frequency": 0.043,
-        "pmi": 1.209,
-        "distance": 0.827
+        "pmi": 1.214,
+        "distance": 0.823
       },
       {
         "from": "stats",
         "to": "faq",
         "count": 1,
         "frequency": 0.25,
-        "pmi": 1.683,
-        "distance": 0.594
+        "pmi": 1.689,
+        "distance": 0.592
       },
       {
         "from": "features_quad",
         "to": "two_column",
         "count": 1,
         "frequency": 0.053,
-        "pmi": 0.068,
-        "distance": 14.744
+        "pmi": 0.073,
+        "distance": 13.648
       },
       {
         "from": "two_column",
         "to": "career_support_explain",
         "count": 1,
         "frequency": 0.014,
-        "pmi": 0.165,
-        "distance": 6.051
+        "pmi": 0.171,
+        "distance": 5.858
       },
       {
         "from": "cards_deck",
         "to": "features_quad",
         "count": 1,
         "frequency": 0.056,
-        "pmi": 1.454,
-        "distance": 0.688
+        "pmi": 1.46,
+        "distance": 0.685
       },
       {
         "from": "features_quad",
         "to": "cta_banner",
         "count": 1,
         "frequency": 0.053,
-        "pmi": -0.374,
+        "pmi": -0.369,
         "distance": 100
       },
       {
@@ -2007,55 +2019,55 @@
         "to": "programs_showcase",
         "count": 1,
         "frequency": 0.023,
-        "pmi": 1.895,
-        "distance": 0.528
+        "pmi": 1.901,
+        "distance": 0.526
       },
       {
         "from": "programs_showcase",
         "to": "features_quad",
         "count": 1,
         "frequency": 0.2,
-        "pmi": 2.735,
-        "distance": 0.366
+        "pmi": 2.741,
+        "distance": 0.365
       },
       {
         "from": "numbered_steps",
         "to": "features_quad",
         "count": 1,
-        "frequency": 0.033,
-        "pmi": 0.943,
-        "distance": 1.06
+        "frequency": 0.032,
+        "pmi": 0.916,
+        "distance": 1.092
       },
       {
         "from": "two_column",
         "to": "numbered_steps",
         "count": 1,
         "frequency": 0.014,
-        "pmi": -0.403,
+        "pmi": -0.43,
         "distance": 100
       },
       {
         "from": "numbered_steps",
         "to": "two_column",
         "count": 1,
-        "frequency": 0.033,
-        "pmi": -0.389,
+        "frequency": 0.032,
+        "pmi": -0.416,
         "distance": 100
       },
       {
         "from": "trust_cards",
         "to": "footer",
         "count": 1,
-        "frequency": 0.029,
-        "pmi": 0.401,
-        "distance": 2.491
+        "frequency": 0.028,
+        "pmi": 0.379,
+        "distance": 2.641
       },
       {
         "from": "course_selector",
         "to": "ai_learning",
         "count": 1,
         "frequency": 0.017,
-        "pmi": -0.435,
+        "pmi": -0.43,
         "distance": 100
       },
       {
@@ -2063,55 +2075,55 @@
         "to": "dynamic_table",
         "count": 1,
         "frequency": 0.026,
-        "pmi": 3.625,
-        "distance": 0.276
+        "pmi": 3.631,
+        "distance": 0.275
       },
       {
         "from": "awards_marquee",
         "to": "features_quad",
         "count": 1,
         "frequency": 0.015,
-        "pmi": 0.155,
-        "distance": 6.459
+        "pmi": 0.16,
+        "distance": 6.239
       },
       {
         "from": "features_quad",
         "to": "course_selector",
         "count": 1,
         "frequency": 0.053,
-        "pmi": 0.284,
-        "distance": 3.521
+        "pmi": 0.289,
+        "distance": 3.454
       },
       {
         "from": "graduates_stats",
         "to": "features_quad",
         "count": 1,
         "frequency": 0.024,
-        "pmi": 0.631,
-        "distance": 1.585
+        "pmi": 0.612,
+        "distance": 1.633
       },
       {
         "from": "hero",
         "to": "apply_form",
         "count": 1,
         "frequency": 0.007,
-        "pmi": 1.661,
-        "distance": 0.602
+        "pmi": 1.667,
+        "distance": 0.6
       },
       {
         "from": "list_press_mentions",
         "to": "cta_banner",
         "count": 1,
         "frequency": 0.1,
-        "pmi": 0.268,
-        "distance": 3.734
+        "pmi": 0.273,
+        "distance": 3.659
       },
       {
         "from": "split_cards",
         "to": "split_cards",
         "count": 1,
         "frequency": 0.025,
-        "pmi": -0.089,
+        "pmi": -0.083,
         "distance": 100
       },
       {
@@ -2119,55 +2131,55 @@
         "to": "partnership_carousel",
         "count": 1,
         "frequency": 0.025,
-        "pmi": 1.521,
-        "distance": 0.658
+        "pmi": 1.526,
+        "distance": 0.655
       },
       {
         "from": "partnership_carousel",
         "to": "career_support_explain",
         "count": 1,
         "frequency": 0.125,
-        "pmi": 2.376,
-        "distance": 0.421
+        "pmi": 2.382,
+        "distance": 0.42
       },
       {
         "from": "career_support_explain",
         "to": "double_cta",
         "count": 1,
         "frequency": 0.059,
-        "pmi": 3.069,
-        "distance": 0.326
+        "pmi": 3.075,
+        "distance": 0.325
       },
       {
         "from": "ai_learning",
         "to": "apply_form",
         "count": 1,
         "frequency": 0.026,
-        "pmi": 2.932,
-        "distance": 0.341
+        "pmi": 2.938,
+        "distance": 0.34
       },
       {
         "from": "apply_form",
         "to": "awards_marquee",
         "count": 1,
         "frequency": 1,
-        "pmi": 3.099,
-        "distance": 0.323
+        "pmi": 3.105,
+        "distance": 0.322
       },
       {
         "from": "banner",
         "to": "bento_cards",
         "count": 1,
         "frequency": 0.026,
-        "pmi": 2.932,
-        "distance": 0.341
+        "pmi": 2.938,
+        "distance": 0.34
       },
       {
         "from": "bento_cards",
         "to": "bullet_tabs_showcase",
         "count": 1,
         "frequency": 0.5,
-        "pmi": 4.65,
+        "pmi": 4.655,
         "distance": 0.215
       },
       {
@@ -2175,39 +2187,39 @@
         "to": "cards_deck",
         "count": 1,
         "frequency": 0.143,
-        "pmi": 2.453,
-        "distance": 0.408
+        "pmi": 2.458,
+        "distance": 0.407
       },
       {
         "from": "cards_deck",
         "to": "career_support_explain",
         "count": 1,
         "frequency": 0.056,
-        "pmi": 1.565,
-        "distance": 0.639
+        "pmi": 1.571,
+        "distance": 0.637
       },
       {
         "from": "career_support_explain",
         "to": "certificate",
         "count": 1,
         "frequency": 0.059,
-        "pmi": 1.022,
-        "distance": 0.979
+        "pmi": 1.06,
+        "distance": 0.943
       },
       {
         "from": "certificate",
         "to": "community_support",
         "count": 1,
-        "frequency": 0.032,
-        "pmi": 2.756,
-        "distance": 0.363
+        "frequency": 0.033,
+        "pmi": 2.795,
+        "distance": 0.358
       },
       {
         "from": "community_support",
         "to": "comparison_table",
         "count": 1,
         "frequency": 0.333,
-        "pmi": 3.993,
+        "pmi": 3.999,
         "distance": 0.25
       },
       {
@@ -2215,7 +2227,7 @@
         "to": "contact_us_info",
         "count": 1,
         "frequency": 0.1,
-        "pmi": 4.293,
+        "pmi": 4.299,
         "distance": 0.233
       },
       {
@@ -2223,7 +2235,7 @@
         "to": "course_selector",
         "count": 1,
         "frequency": 0.5,
-        "pmi": 2.535,
+        "pmi": 2.541,
         "distance": 0.394
       },
       {
@@ -2231,7 +2243,7 @@
         "to": "credibility_strip",
         "count": 1,
         "frequency": 0.017,
-        "pmi": 2.535,
+        "pmi": 2.541,
         "distance": 0.394
       },
       {
@@ -2239,7 +2251,7 @@
         "to": "double_cta",
         "count": 1,
         "frequency": 0.5,
-        "pmi": 5.209,
+        "pmi": 5.215,
         "distance": 0.192
       },
       {
@@ -2247,31 +2259,31 @@
         "to": "features_grid",
         "count": 1,
         "frequency": 0.25,
-        "pmi": 1.683,
-        "distance": 0.594
+        "pmi": 1.674,
+        "distance": 0.597
       },
       {
         "from": "features_quad",
         "to": "geeks_vs_others_comparison",
         "count": 1,
         "frequency": 0.053,
-        "pmi": 2.958,
-        "distance": 0.338
+        "pmi": 2.964,
+        "distance": 0.337
       },
       {
         "from": "geeks_vs_others_comparison",
         "to": "graduates_stats",
         "count": 1,
         "frequency": 0.25,
-        "pmi": 2.189,
-        "distance": 0.457
+        "pmi": 2.17,
+        "distance": 0.461
       },
       {
         "from": "graduates_stats",
         "to": "graduates_stats",
         "count": 1,
         "frequency": 0.024,
-        "pmi": -0.138,
+        "pmi": -0.181,
         "distance": 100
       },
       {
@@ -2279,23 +2291,23 @@
         "to": "hero",
         "count": 1,
         "frequency": 0.024,
-        "pmi": 0.484,
-        "distance": 2.065
+        "pmi": 0.261,
+        "distance": 3.833
       },
       {
         "from": "hero",
         "to": "horizontal_bars",
         "count": 1,
         "frequency": 0.007,
-        "pmi": 1.256,
-        "distance": 0.796
+        "pmi": 1.261,
+        "distance": 0.793
       },
       {
         "from": "horizontal_bars",
         "to": "horizontal_bars",
         "count": 1,
         "frequency": 0.333,
-        "pmi": 5.092,
+        "pmi": 5.097,
         "distance": 0.196
       },
       {
@@ -2303,87 +2315,87 @@
         "to": "human_and_ai_duo",
         "count": 1,
         "frequency": 0.333,
-        "pmi": 3.625,
-        "distance": 0.276
+        "pmi": 3.631,
+        "distance": 0.275
       },
       {
         "from": "human_and_ai_duo",
         "to": "human_and_ai_duo",
         "count": 1,
         "frequency": 0.077,
-        "pmi": 2.159,
-        "distance": 0.463
+        "pmi": 2.164,
+        "distance": 0.462
       },
       {
         "from": "human_and_ai_duo",
         "to": "image_row",
         "count": 1,
         "frequency": 0.077,
-        "pmi": 2.421,
-        "distance": 0.413
+        "pmi": 2.427,
+        "distance": 0.412
       },
       {
         "from": "image_row",
         "to": "image_row",
         "count": 1,
         "frequency": 0.1,
-        "pmi": 2.684,
-        "distance": 0.373
+        "pmi": 2.689,
+        "distance": 0.372
       },
       {
         "from": "image_row",
         "to": "lead_form",
         "count": 1,
         "frequency": 0.1,
-        "pmi": 4.986,
-        "distance": 0.201
+        "pmi": 4.992,
+        "distance": 0.2
       },
       {
         "from": "lead_form",
         "to": "numbered_steps",
         "count": 1,
         "frequency": 1,
-        "pmi": 3.888,
-        "distance": 0.257
+        "pmi": 3.86,
+        "distance": 0.259
       },
       {
         "from": "numbered_steps",
         "to": "partnership_carousel",
         "count": 1,
-        "frequency": 0.033,
-        "pmi": 1.808,
-        "distance": 0.553
+        "frequency": 0.032,
+        "pmi": 1.781,
+        "distance": 0.561
       },
       {
         "from": "partnership_carousel",
         "to": "pricing",
         "count": 1,
         "frequency": 0.125,
-        "pmi": 2.074,
-        "distance": 0.482
+        "pmi": 2.079,
+        "distance": 0.481
       },
       {
         "from": "pricing",
         "to": "profiles_carousel",
         "count": 1,
         "frequency": 0.043,
-        "pmi": 1.669,
-        "distance": 0.599
+        "pmi": 1.674,
+        "distance": 0.597
       },
       {
         "from": "profiles_carousel",
         "to": "project_showcase",
         "count": 1,
         "frequency": 0.091,
-        "pmi": 3.792,
-        "distance": 0.264
+        "pmi": 3.798,
+        "distance": 0.263
       },
       {
         "from": "project_showcase",
         "to": "projects",
         "count": 1,
         "frequency": 0.333,
-        "pmi": 3.888,
+        "pmi": 3.893,
         "distance": 0.257
       },
       {
@@ -2391,15 +2403,15 @@
         "to": "split_cards",
         "count": 1,
         "frequency": 0.1,
-        "pmi": 1.297,
-        "distance": 0.771
+        "pmi": 1.303,
+        "distance": 0.768
       },
       {
         "from": "split_cards",
         "to": "syllabus",
         "count": 1,
         "frequency": 0.025,
-        "pmi": -0.207,
+        "pmi": -0.201,
         "distance": 100
       },
       {
@@ -2407,7 +2419,7 @@
         "to": "testimonials",
         "count": 1,
         "frequency": 0.022,
-        "pmi": -0.507,
+        "pmi": -0.501,
         "distance": 100
       },
       {
@@ -2415,7 +2427,7 @@
         "to": "testimonials_slide",
         "count": 1,
         "frequency": 0.019,
-        "pmi": -1.004,
+        "pmi": -0.999,
         "distance": 100
       },
       {
@@ -2423,7 +2435,7 @@
         "to": "trust_cards",
         "count": 1,
         "frequency": 0.014,
-        "pmi": -0.57,
+        "pmi": -0.593,
         "distance": 100
       },
       {
@@ -2431,7 +2443,7 @@
         "to": "two_column_accordion_card",
         "count": 1,
         "frequency": 0.014,
-        "pmi": -0.786,
+        "pmi": -0.78,
         "distance": 100
       },
       {
@@ -2439,7 +2451,7 @@
         "to": "two_column_accordion_card",
         "count": 1,
         "frequency": 0.023,
-        "pmi": -0.279,
+        "pmi": -0.274,
         "distance": 100
       },
       {
@@ -2447,15 +2459,15 @@
         "to": "value_proof_panel",
         "count": 1,
         "frequency": 0.167,
-        "pmi": 3.705,
-        "distance": 0.27
+        "pmi": 3.711,
+        "distance": 0.269
       },
       {
         "from": "value_proof_panel",
         "to": "vertical_bars_cards",
         "count": 1,
         "frequency": 0.167,
-        "pmi": 4.399,
+        "pmi": 4.404,
         "distance": 0.227
       },
       {
@@ -2463,47 +2475,47 @@
         "to": "whos_hiring",
         "count": 1,
         "frequency": 0.333,
-        "pmi": 2.453,
-        "distance": 0.408
+        "pmi": 2.458,
+        "distance": 0.407
       },
       {
         "from": "hero",
         "to": "contact_us_info",
         "count": 1,
         "frequency": 0.007,
-        "pmi": 1.661,
-        "distance": 0.602
+        "pmi": 1.667,
+        "distance": 0.6
       },
       {
         "from": "contact_us_info",
         "to": "sticky_cta",
         "count": 1,
         "frequency": 0.5,
-        "pmi": 1.991,
-        "distance": 0.502
+        "pmi": 1.996,
+        "distance": 0.501
       },
       {
         "from": "faq_editor",
         "to": "sticky_cta",
         "count": 1,
         "frequency": 1,
-        "pmi": 2.684,
-        "distance": 0.373
+        "pmi": 2.689,
+        "distance": 0.372
       },
       {
         "from": "syllabus",
         "to": "comparison_table",
         "count": 1,
         "frequency": 0.022,
-        "pmi": 1.285,
-        "distance": 0.778
+        "pmi": 1.29,
+        "distance": 0.775
       },
       {
         "from": "why_learn_ai",
         "to": "testimonials",
         "count": 1,
         "frequency": 0.019,
-        "pmi": -0.651,
+        "pmi": -0.646,
         "distance": 100
       },
       {
@@ -2511,7 +2523,7 @@
         "to": "career_support_explain",
         "count": 1,
         "frequency": 0.007,
-        "pmi": -0.479,
+        "pmi": -0.473,
         "distance": 100
       },
       {
@@ -2519,23 +2531,23 @@
         "to": "graduates_stats",
         "count": 1,
         "frequency": 0.059,
-        "pmi": 0.742,
-        "distance": 1.347
+        "pmi": 0.723,
+        "distance": 1.382
       },
       {
         "from": "graduates_stats",
         "to": "numbered_steps",
         "count": 1,
         "frequency": 0.024,
-        "pmi": 0.174,
-        "distance": 5.742
+        "pmi": 0.123,
+        "distance": 8.149
       },
       {
         "from": "hero",
         "to": "banner",
         "count": 1,
         "frequency": 0.007,
-        "pmi": -1.309,
+        "pmi": -1.304,
         "distance": 100
       },
       {
@@ -2543,31 +2555,31 @@
         "to": "human_and_ai_duo",
         "count": 1,
         "frequency": 0.026,
-        "pmi": 1.06,
-        "distance": 0.943
+        "pmi": 1.066,
+        "distance": 0.938
       },
       {
         "from": "human_and_ai_duo",
         "to": "community_support",
         "count": 1,
         "frequency": 0.077,
-        "pmi": 3.625,
-        "distance": 0.276
+        "pmi": 3.631,
+        "distance": 0.275
       },
       {
         "from": "community_support",
         "to": "two_column",
         "count": 1,
         "frequency": 0.333,
-        "pmi": 1.914,
-        "distance": 0.523
+        "pmi": 1.919,
+        "distance": 0.521
       },
       {
         "from": "two_column",
         "to": "testimonials_slide",
         "count": 1,
         "frequency": 0.014,
-        "pmi": -1.306,
+        "pmi": -1.3,
         "distance": 100
       },
       {
@@ -2575,39 +2587,39 @@
         "to": "two_column_accordion_card",
         "count": 1,
         "frequency": 0.1,
-        "pmi": 1.202,
-        "distance": 0.832
+        "pmi": 1.208,
+        "distance": 0.828
       },
       {
         "from": "testimonials_slide",
         "to": "value_proof_panel",
         "count": 1,
         "frequency": 0.014,
-        "pmi": 1.193,
-        "distance": 0.838
+        "pmi": 1.199,
+        "distance": 0.834
       },
       {
         "from": "value_proof_panel",
         "to": "features_quad",
         "count": 1,
         "frequency": 0.167,
-        "pmi": 2.553,
-        "distance": 0.392
+        "pmi": 2.558,
+        "distance": 0.391
       },
       {
         "from": "features_quad",
         "to": "split_cards",
         "count": 1,
         "frequency": 0.053,
-        "pmi": 0.656,
-        "distance": 1.525
+        "pmi": 0.661,
+        "distance": 1.513
       },
       {
         "from": "split_cards",
         "to": "whos_hiring",
         "count": 1,
         "frequency": 0.025,
-        "pmi": -0.138,
+        "pmi": -0.132,
         "distance": 100
       },
       {
@@ -2615,31 +2627,31 @@
         "to": "project_showcase",
         "count": 1,
         "frequency": 0.091,
-        "pmi": 3.792,
-        "distance": 0.264
+        "pmi": 3.798,
+        "distance": 0.263
       },
       {
         "from": "project_showcase",
         "to": "about",
         "count": 1,
         "frequency": 0.333,
-        "pmi": 6.19,
-        "distance": 0.162
+        "pmi": 6.196,
+        "distance": 0.161
       },
       {
         "from": "about",
         "to": "faq",
         "count": 1,
         "frequency": 1,
-        "pmi": 3.069,
-        "distance": 0.326
+        "pmi": 3.075,
+        "distance": 0.325
       },
       {
         "from": "why_learn_ai",
         "to": "why_learn_ai",
         "count": 1,
         "frequency": 0.019,
-        "pmi": -0.614,
+        "pmi": -0.608,
         "distance": 100
       },
       {
@@ -2647,55 +2659,55 @@
         "to": "numbered_steps",
         "count": 1,
         "frequency": 0.059,
-        "pmi": 1.055,
-        "distance": 0.948
+        "pmi": 1.027,
+        "distance": 0.974
       },
       {
         "from": "testimonials_slide",
         "to": "programs_showcase",
         "count": 1,
         "frequency": 0.014,
-        "pmi": 1.375,
-        "distance": 0.727
+        "pmi": 1.381,
+        "distance": 0.724
       },
       {
         "from": "programs_showcase",
         "to": "why_learn_ai",
         "count": 1,
         "frequency": 0.2,
-        "pmi": 1.728,
-        "distance": 0.579
+        "pmi": 1.734,
+        "distance": 0.577
       },
       {
         "from": "award_badges",
         "to": "image_row",
         "count": 1,
         "frequency": 0.143,
-        "pmi": 3.04,
-        "distance": 0.329
+        "pmi": 3.046,
+        "distance": 0.328
       },
       {
         "from": "image_row",
         "to": "two_column_accordion_card",
         "count": 1,
         "frequency": 0.1,
-        "pmi": 1.202,
-        "distance": 0.832
+        "pmi": 1.208,
+        "distance": 0.828
       },
       {
         "from": "career_support_explain",
         "to": "course_selector",
         "count": 1,
         "frequency": 0.059,
-        "pmi": 0.395,
-        "distance": 2.53
+        "pmi": 0.401,
+        "distance": 2.496
       },
       {
         "from": "graduates_stats",
         "to": "course_selector",
         "count": 1,
         "frequency": 0.024,
-        "pmi": -0.485,
+        "pmi": -0.504,
         "distance": 100
       },
       {
@@ -2703,15 +2715,15 @@
         "to": "vertical_bars_cards",
         "count": 1,
         "frequency": 0.007,
-        "pmi": 1.256,
-        "distance": 0.796
+        "pmi": 1.261,
+        "distance": 0.793
       },
       {
         "from": "vertical_bars_cards",
         "to": "vertical_bars_cards",
         "count": 1,
         "frequency": 0.333,
-        "pmi": 5.092,
+        "pmi": 5.097,
         "distance": 0.196
       },
       {
@@ -2719,7 +2731,7 @@
         "to": "stats",
         "count": 1,
         "frequency": 0.333,
-        "pmi": 4.804,
+        "pmi": 4.809,
         "distance": 0.208
       },
       {
@@ -2727,7 +2739,7 @@
         "to": "pie_charts",
         "count": 1,
         "frequency": 0.25,
-        "pmi": 5.903,
+        "pmi": 5.908,
         "distance": 0.169
       },
       {
@@ -2735,7 +2747,7 @@
         "to": "value_proof_panel",
         "count": 1,
         "frequency": 1,
-        "pmi": 5.497,
+        "pmi": 5.503,
         "distance": 0.182
       },
       {
@@ -2743,7 +2755,7 @@
         "to": "testimonials",
         "count": 1,
         "frequency": 0.023,
-        "pmi": -0.484,
+        "pmi": -0.479,
         "distance": 100
       },
       {
@@ -2751,55 +2763,55 @@
         "to": "features_quad",
         "count": 1,
         "frequency": 0.091,
-        "pmi": 1.947,
-        "distance": 0.514
+        "pmi": 1.952,
+        "distance": 0.512
       },
       {
         "from": "features_quad",
         "to": "features_grid",
         "count": 1,
         "frequency": 0.053,
-        "pmi": 0.125,
-        "distance": 8.001
+        "pmi": 0.116,
+        "distance": 8.633
       },
       {
         "from": "partnership_carousel",
         "to": "two_column",
         "count": 1,
         "frequency": 0.125,
-        "pmi": 0.933,
-        "distance": 1.072
+        "pmi": 0.938,
+        "distance": 1.066
       },
       {
         "from": "two_column",
         "to": "profiles_carousel",
         "count": 1,
         "frequency": 0.014,
-        "pmi": 0.514,
-        "distance": 1.947
+        "pmi": 0.519,
+        "distance": 1.927
       },
       {
         "from": "profiles_carousel",
         "to": "faq",
         "count": 1,
         "frequency": 0.091,
-        "pmi": 0.672,
-        "distance": 1.489
+        "pmi": 0.677,
+        "distance": 1.477
       },
       {
         "from": "list_press_mentions",
         "to": "value_proof_panel",
         "count": 1,
         "frequency": 0.1,
-        "pmi": 3.195,
-        "distance": 0.313
+        "pmi": 3.2,
+        "distance": 0.312
       },
       {
         "from": "awards_marquee",
         "to": "faq",
         "count": 1,
         "frequency": 0.015,
-        "pmi": -1.12,
+        "pmi": -1.115,
         "distance": 100
       },
       {
@@ -2807,15 +2819,15 @@
         "to": "hero",
         "count": 1,
         "frequency": 0.1,
-        "pmi": 1.895,
-        "distance": 0.528
+        "pmi": 1.696,
+        "distance": 0.59
       },
       {
         "from": "course_selector",
         "to": "cta_banner",
         "count": 1,
         "frequency": 0.017,
-        "pmi": -1.49,
+        "pmi": -1.485,
         "distance": 100
       },
       {
@@ -2823,15 +2835,15 @@
         "to": "numbered_steps",
         "count": 1,
         "frequency": 0.1,
-        "pmi": 1.585,
-        "distance": 0.631
+        "pmi": 1.558,
+        "distance": 0.642
       },
       {
         "from": "features_grid",
         "to": "numbered_steps",
         "count": 1,
-        "frequency": 0.015,
-        "pmi": -0.332,
+        "frequency": 0.014,
+        "pmi": -0.374,
         "distance": 100
       },
       {
@@ -2839,55 +2851,55 @@
         "to": "certificate",
         "count": 1,
         "frequency": 0.007,
-        "pmi": -1.08,
+        "pmi": -1.041,
         "distance": 100
       },
       {
         "from": "certificate",
         "to": "image_row",
         "count": 1,
-        "frequency": 0.032,
-        "pmi": 1.552,
-        "distance": 0.644
+        "frequency": 0.033,
+        "pmi": 1.591,
+        "distance": 0.629
       },
       {
         "from": "image_row",
         "to": "footer",
         "count": 1,
         "frequency": 0.1,
-        "pmi": 1.654,
-        "distance": 0.605
+        "pmi": 1.66,
+        "distance": 0.603
       },
       {
         "from": "partnership_carousel",
         "to": "testimonials_slide",
         "count": 1,
         "frequency": 0.125,
-        "pmi": 0.905,
-        "distance": 1.104
+        "pmi": 0.911,
+        "distance": 1.098
       },
       {
         "from": "testimonials_slide",
         "to": "horizontal_bars",
         "count": 1,
         "frequency": 0.014,
-        "pmi": 1.886,
-        "distance": 0.53
+        "pmi": 1.892,
+        "distance": 0.529
       },
       {
         "from": "horizontal_bars",
         "to": "whos_hiring",
         "count": 1,
         "frequency": 0.333,
-        "pmi": 2.453,
-        "distance": 0.408
+        "pmi": 2.458,
+        "distance": 0.407
       },
       {
         "from": "faq",
         "to": "faq",
         "count": 1,
         "frequency": 0.015,
-        "pmi": -1.15,
+        "pmi": -1.145,
         "distance": 100
       },
       {
@@ -2895,47 +2907,47 @@
         "to": "testimonials_grid",
         "count": 1,
         "frequency": 0.015,
-        "pmi": 2.406,
-        "distance": 0.416
+        "pmi": 2.412,
+        "distance": 0.415
       },
       {
         "from": "testimonials_grid",
         "to": "faq",
         "count": 1,
         "frequency": 0.5,
-        "pmi": 2.376,
-        "distance": 0.421
+        "pmi": 2.382,
+        "distance": 0.42
       },
       {
         "from": "split_cards",
         "to": "features_quad",
         "count": 1,
         "frequency": 0.025,
-        "pmi": 0.656,
-        "distance": 1.525
+        "pmi": 0.661,
+        "distance": 1.513
       },
       {
         "from": "features_quad",
         "to": "stats",
         "count": 1,
         "frequency": 0.053,
-        "pmi": 2.958,
-        "distance": 0.338
+        "pmi": 2.964,
+        "distance": 0.337
       },
       {
         "from": "stats",
         "to": "two_column",
         "count": 1,
         "frequency": 0.25,
-        "pmi": 1.626,
-        "distance": 0.615
+        "pmi": 1.631,
+        "distance": 0.613
       },
       {
         "from": "awards_marquee",
         "to": "whos_hiring",
         "count": 1,
         "frequency": 0.015,
-        "pmi": -0.638,
+        "pmi": -0.633,
         "distance": 100
       },
       {
@@ -2943,31 +2955,31 @@
         "to": "profiles_carousel",
         "count": 1,
         "frequency": 0.024,
-        "pmi": 1.066,
-        "distance": 0.938
+        "pmi": 1.072,
+        "distance": 0.933
       },
       {
         "from": "profiles_carousel",
         "to": "cta_banner",
         "count": 1,
         "frequency": 0.091,
-        "pmi": 0.173,
-        "distance": 5.796
+        "pmi": 0.178,
+        "distance": 5.619
       },
       {
         "from": "dynamic_table",
         "to": "cta_banner",
         "count": 1,
         "frequency": 1,
-        "pmi": 2.57,
-        "distance": 0.389
+        "pmi": 2.576,
+        "distance": 0.388
       },
       {
         "from": "two_column",
         "to": "faq",
         "count": 1,
         "frequency": 0.014,
-        "pmi": -1.221,
+        "pmi": -1.216,
         "distance": 100
       },
       {
@@ -2975,16 +2987,16 @@
         "to": "press_mentions",
         "count": 1,
         "frequency": 0.007,
-        "pmi": 2.354,
-        "distance": 0.425
+        "pmi": 2.36,
+        "distance": 0.424
       },
       {
         "from": "press_mentions",
         "to": "cta_banner",
         "count": 1,
         "frequency": 1,
-        "pmi": 2.57,
-        "distance": 0.389
+        "pmi": 2.576,
+        "distance": 0.388
       }
     ],
     "topSequences": [
@@ -3171,6 +3183,7 @@
       },
       {
         "sequence": [
+          "breadcrumb",
           "hero",
           "hero",
           "modal",
@@ -3217,6 +3230,7 @@
       },
       {
         "sequence": [
+          "breadcrumb",
           "hero",
           "modal",
           "awards_marquee",
@@ -3234,6 +3248,7 @@
       },
       {
         "sequence": [
+          "breadcrumb",
           "hero",
           "hero",
           "modal",
@@ -3258,6 +3273,7 @@
       },
       {
         "sequence": [
+          "breadcrumb",
           "hero",
           "modal",
           "awards_marquee",
@@ -3280,18 +3296,22 @@
       },
       {
         "sequence": [
+          "breadcrumb",
           "hero",
           "modal",
           "awards_marquee",
+          "graduates_stats",
           "features_grid",
           "syllabus",
           "projects",
+          "trust_cards",
           "ai_learning",
-          "certificate",
+          "features_grid",
           "pricing",
           "pricing",
-          "whos_hiring",
+          "numbered_steps",
           "testimonials",
+          "whos_hiring",
           "faq",
           "cta_banner",
           "sticky_cta"
@@ -3350,269 +3370,254 @@
           "to": "modal",
           "count": 6,
           "frequency": 0.667,
-          "pmi": 2.335,
-          "distance": 0.428
+          "pmi": 2.418,
+          "distance": 0.414
         },
         {
           "from": "modal",
           "to": "awards_marquee",
           "count": 6,
           "frequency": 1,
-          "pmi": 2.741,
-          "distance": 0.365
+          "pmi": 2.823,
+          "distance": 0.354
         },
         {
           "from": "features_grid",
           "to": "syllabus",
           "count": 6,
-          "frequency": 0.6,
-          "pmi": 2.23,
-          "distance": 0.448
+          "frequency": 0.545,
+          "pmi": 2.217,
+          "distance": 0.451
+        },
+        {
+          "from": "whos_hiring",
+          "to": "faq",
+          "count": 6,
+          "frequency": 1,
+          "pmi": 2.823,
+          "distance": 0.354
         },
         {
           "from": "faq",
           "to": "cta_banner",
           "count": 6,
           "frequency": 1,
-          "pmi": 2.741,
-          "distance": 0.365
+          "pmi": 2.823,
+          "distance": 0.354
         },
         {
           "from": "cta_banner",
           "to": "sticky_cta",
           "count": 6,
           "frequency": 1,
-          "pmi": 2.741,
-          "distance": 0.365
+          "pmi": 2.823,
+          "distance": 0.354
+        },
+        {
+          "from": "breadcrumb",
+          "to": "hero",
+          "count": 5,
+          "frequency": 1,
+          "pmi": 2.536,
+          "distance": 0.394
+        },
+        {
+          "from": "awards_marquee",
+          "to": "graduates_stats",
+          "count": 5,
+          "frequency": 0.833,
+          "pmi": 2.823,
+          "distance": 0.354
+        },
+        {
+          "from": "graduates_stats",
+          "to": "features_grid",
+          "count": 5,
+          "frequency": 1,
+          "pmi": 2.217,
+          "distance": 0.451
         },
         {
           "from": "pricing",
           "to": "pricing",
           "count": 5,
           "frequency": 0.455,
-          "pmi": 1.346,
-          "distance": 0.743
-        },
-        {
-          "from": "whos_hiring",
-          "to": "faq",
-          "count": 5,
-          "frequency": 0.833,
-          "pmi": 2.559,
-          "distance": 0.391
-        },
-        {
-          "from": "awards_marquee",
-          "to": "graduates_stats",
-          "count": 4,
-          "frequency": 0.667,
-          "pmi": 2.741,
-          "distance": 0.365
-        },
-        {
-          "from": "graduates_stats",
-          "to": "features_grid",
-          "count": 4,
-          "frequency": 1,
-          "pmi": 2.23,
-          "distance": 0.448
+          "pmi": 1.429,
+          "distance": 0.7
         },
         {
           "from": "pricing",
           "to": "numbered_steps",
+          "count": 5,
+          "frequency": 0.455,
+          "pmi": 2.217,
+          "distance": 0.451
+        },
+        {
+          "from": "features_grid",
+          "to": "pricing",
           "count": 4,
           "frequency": 0.364,
-          "pmi": 2.135,
-          "distance": 0.468
+          "pmi": 1.206,
+          "distance": 0.829
+        },
+        {
+          "from": "numbered_steps",
+          "to": "testimonials",
+          "count": 4,
+          "frequency": 0.8,
+          "pmi": 2.783,
+          "distance": 0.359
+        },
+        {
+          "from": "testimonials",
+          "to": "whos_hiring",
+          "count": 4,
+          "frequency": 0.8,
+          "pmi": 2.6,
+          "distance": 0.385
         },
         {
           "from": "hero",
           "to": "hero",
           "count": 3,
           "frequency": 0.333,
-          "pmi": 2.335,
-          "distance": 0.428
+          "pmi": 1.437,
+          "distance": 0.696
         },
         {
-          "from": "features_grid",
-          "to": "pricing",
-          "count": 3,
-          "frequency": 0.3,
-          "pmi": 0.931,
-          "distance": 1.074
-        },
-        {
-          "from": "numbered_steps",
-          "to": "testimonials",
-          "count": 3,
-          "frequency": 0.75,
-          "pmi": 2.635,
-          "distance": 0.379
-        },
-        {
-          "from": "testimonials",
-          "to": "whos_hiring",
+          "from": "trust_cards",
+          "to": "ai_learning",
           "count": 3,
           "frequency": 0.6,
-          "pmi": 2.23,
-          "distance": 0.448
+          "pmi": 2.313,
+          "distance": 0.432
+        },
+        {
+          "from": "ai_learning",
+          "to": "features_grid",
+          "count": 3,
+          "frequency": 0.5,
+          "pmi": 1.524,
+          "distance": 0.656
         },
         {
           "from": "syllabus",
           "to": "trust_cards",
           "count": 2,
           "frequency": 0.333,
-          "pmi": 2.048,
-          "distance": 0.488
-        },
-        {
-          "from": "trust_cards",
-          "to": "ai_learning",
-          "count": 2,
-          "frequency": 0.5,
-          "pmi": 2.048,
-          "distance": 0.488
-        },
-        {
-          "from": "ai_learning",
-          "to": "features_grid",
-          "count": 2,
-          "frequency": 0.333,
-          "pmi": 1.131,
-          "distance": 0.884
+          "pmi": 1.907,
+          "distance": 0.524
         },
         {
           "from": "trust_cards",
           "to": "features_grid",
           "count": 2,
-          "frequency": 0.5,
-          "pmi": 1.537,
-          "distance": 0.651
-        },
-        {
-          "from": "awards_marquee",
-          "to": "features_grid",
-          "count": 2,
-          "frequency": 0.333,
-          "pmi": 1.131,
-          "distance": 0.884
+          "frequency": 0.4,
+          "pmi": 1.301,
+          "distance": 0.769
         },
         {
           "from": "syllabus",
           "to": "ai_learning",
           "count": 2,
           "frequency": 0.333,
-          "pmi": 1.642,
-          "distance": 0.609
-        },
-        {
-          "from": "ai_learning",
-          "to": "certificate",
-          "count": 2,
-          "frequency": 0.333,
-          "pmi": 2.741,
-          "distance": 0.365
-        },
-        {
-          "from": "certificate",
-          "to": "pricing",
-          "count": 2,
-          "frequency": 1,
-          "pmi": 2.135,
-          "distance": 0.468
-        },
-        {
-          "from": "pricing",
-          "to": "whos_hiring",
-          "count": 2,
-          "frequency": 0.182,
-          "pmi": 1.036,
-          "distance": 0.965
+          "pmi": 1.725,
+          "distance": 0.58
         },
         {
           "from": "syllabus",
           "to": "projects",
           "count": 2,
           "frequency": 0.333,
-          "pmi": 2.741,
-          "distance": 0.365
+          "pmi": 2.823,
+          "distance": 0.354
+        },
+        {
+          "from": "projects",
+          "to": "trust_cards",
+          "count": 2,
+          "frequency": 1,
+          "pmi": 3.006,
+          "distance": 0.333
         },
         {
           "from": "features_grid",
           "to": "ai_learning",
           "count": 1,
-          "frequency": 0.1,
-          "pmi": 0.438,
-          "distance": 2.282
+          "frequency": 0.091,
+          "pmi": 0.425,
+          "distance": 2.35
         },
         {
           "from": "ai_learning",
           "to": "testimonials",
           "count": 1,
           "frequency": 0.167,
-          "pmi": 1.131,
-          "distance": 0.884
+          "pmi": 1.214,
+          "distance": 0.824
         },
         {
           "from": "testimonials",
           "to": "pricing",
           "count": 1,
           "frequency": 0.2,
-          "pmi": 0.525,
-          "distance": 1.904
+          "pmi": 0.608,
+          "distance": 1.645
         },
         {
           "from": "numbered_steps",
           "to": "whos_hiring",
           "count": 1,
-          "frequency": 0.25,
-          "pmi": 1.355,
-          "distance": 0.738
+          "frequency": 0.2,
+          "pmi": 1.214,
+          "distance": 0.824
         },
         {
-          "from": "projects",
-          "to": "trust_cards",
+          "from": "awards_marquee",
+          "to": "features_grid",
           "count": 1,
-          "frequency": 0.5,
-          "pmi": 2.453,
-          "distance": 0.408
+          "frequency": 0.167,
+          "pmi": 0.425,
+          "distance": 2.35
+        },
+        {
+          "from": "ai_learning",
+          "to": "certificate",
+          "count": 1,
+          "frequency": 0.167,
+          "pmi": 2.823,
+          "distance": 0.354
+        },
+        {
+          "from": "certificate",
+          "to": "pricing",
+          "count": 1,
+          "frequency": 1,
+          "pmi": 2.217,
+          "distance": 0.451
+        },
+        {
+          "from": "pricing",
+          "to": "whos_hiring",
+          "count": 1,
+          "frequency": 0.091,
+          "pmi": 0.425,
+          "distance": 2.35
         },
         {
           "from": "ai_learning",
           "to": "trust_cards",
           "count": 1,
           "frequency": 0.167,
-          "pmi": 1.355,
-          "distance": 0.738
-        },
-        {
-          "from": "projects",
-          "to": "ai_learning",
-          "count": 1,
-          "frequency": 0.5,
-          "pmi": 2.048,
-          "distance": 0.488
-        },
-        {
-          "from": "whos_hiring",
-          "to": "testimonials",
-          "count": 1,
-          "frequency": 0.167,
-          "pmi": 1.131,
-          "distance": 0.884
-        },
-        {
-          "from": "testimonials",
-          "to": "faq",
-          "count": 1,
-          "frequency": 0.2,
-          "pmi": 1.131,
-          "distance": 0.884
+          "pmi": 1.214,
+          "distance": 0.824
         }
       ],
       "topSequences": [
         {
           "sequence": [
+            "breadcrumb",
             "hero",
             "hero",
             "modal",
@@ -3659,6 +3664,7 @@
         },
         {
           "sequence": [
+            "breadcrumb",
             "hero",
             "modal",
             "awards_marquee",
@@ -3676,6 +3682,7 @@
         },
         {
           "sequence": [
+            "breadcrumb",
             "hero",
             "hero",
             "modal",
@@ -3700,6 +3707,7 @@
         },
         {
           "sequence": [
+            "breadcrumb",
             "hero",
             "modal",
             "awards_marquee",
@@ -3722,18 +3730,22 @@
         },
         {
           "sequence": [
+            "breadcrumb",
             "hero",
             "modal",
             "awards_marquee",
+            "graduates_stats",
             "features_grid",
             "syllabus",
             "projects",
+            "trust_cards",
             "ai_learning",
-            "certificate",
+            "features_grid",
             "pricing",
             "pricing",
-            "whos_hiring",
+            "numbered_steps",
             "testimonials",
+            "whos_hiring",
             "faq",
             "cta_banner",
             "sticky_cta"

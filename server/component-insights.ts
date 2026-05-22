@@ -296,7 +296,7 @@ export function runScan(): ComponentInsightsData {
       totalPagesScanned: pages.length,
       totalWeight,
       weightedPagesCount,
-      intents: Array.from(byIntentPages.keys()),
+      intents: intents.map((i) => i.id),
       pageIntents: intents,
     },
     global: buildCluster(pages),
